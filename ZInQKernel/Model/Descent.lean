@@ -4,6 +4,11 @@ import ZInQKernel.Model.Descent.FirstImage
 import ZInQKernel.Model.Descent.SecondImage
 import ZInQKernel.Model.Descent.Index
 import ZInQKernel.Model.Descent.MordellWeil
+import ZInQKernel.Model.Descent.PointCounts
+import ZInQKernel.Model.Descent.OddTorsion
+import ZInQKernel.Model.Descent.Torsion
+import ZInQKernel.Model.Descent.RankOne
+import ZInQKernel.Model.Descent.OddIndex
 
 /-!
 # Descent, torsion and rank of `E(K₀)`
@@ -18,4 +23,9 @@ certificate for `R`, which are in `ZInQKernel/Model/Field/CurveC.lean`).
 * `Descent/FirstImage.lean`, `Descent/SecondImage.lean`: the two descent images.
 * `Descent/Index.lean`: `[E(K₀) : 2E(K₀)] = 8`.
 * `Descent/MordellWeil.lean`: `E(K₀)` is finitely generated (`mordellWeilE : MordellWeilE`).
+* `Descent/PointCounts.lean`: `#Ẽ(𝔽₁₇) = 20`, `#Ẽ(𝔽₂₃) = 24`.
+* `Descent/OddTorsion.lean`: no odd torsion (reduction modulo `(17, s - 6)` and `(23, s - 5)`).
+* `Descent/Torsion.lean`: the torsion of `E(K₀)` and `C(K₀)` is the two-torsion.
+* `Descent/RankOne.lean`: `C(K₀) = ℤ S ⊕ C(K₀)[2]`.
+* `Descent/OddIndex.lean`: `R = [m] S + T` forces `m` odd.
 -/
