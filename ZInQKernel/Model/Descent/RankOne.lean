@@ -87,6 +87,20 @@ theorem card_two_torsion_C : Nat.card {T : curveC.toAffine.Point // 2 • T = 0}
   rw [Nat.card_coe_set_eq, Set.ncard_insert_of_notMem h1, Set.ncard_insert_of_notMem h2,
     Set.ncard_pair h3]
 
+/-- The torsion subgroup of `C(K₀)` has order four. -/
+theorem card_torsion_C : Nat.card (AddCommGroup.torsion curveC.toAffine.Point) = 4 := by
+  rw [← card_two_torsion_C]
+  exact Nat.card_congr (Equiv.subtypeEquivRight fun T =>
+    ⟨two_nsmul_eq_zero_of_isOfFinAddOrder_C, fun h => isOfFinAddOrder_iff_nsmul_eq_zero.mpr
+      ⟨2, by norm_num, h⟩⟩)
+
+/-- The torsion subgroup of `E(K₀)` has order four. -/
+theorem card_torsion_E : Nat.card (AddCommGroup.torsion genCurve.toAffine.Point) = 4 := by
+  rw [← card_two_torsion_C]
+  refine Nat.card_congr ((Equiv.subtypeEquivRight fun T =>
+    isOfFinAddOrder_iff_two_nsmul_eq_zero T).trans ?_)
+  exact theta.toEquiv.subtypeEquiv fun P => (two_nsmul_theta_eq_zero_iff P).symm
+
 /-- **`C(K₀)` has rank one** (under the Mordell–Weil hypothesis): there is a point `S` of
 infinite order such that every `P ∈ C(K₀)` is uniquely `[m] S + T` with `T ∈ C(K₀)[2]`. -/
 theorem exists_generator_C (hMW : MordellWeilE) :

@@ -91,6 +91,11 @@ theorem kummer_range_eq_descentGroup :
   rw [kummer_range_E]
   rfl
 
+/-- The descent index for `E = genCurve`. -/
+theorem index_two_genCurve :
+    (nsmulAddMonoidHom (α := genCurve.toAffine.Point) 2).range.index = 8 :=
+  index_two_E
+
 instance finiteIndex_two_E :
     (nsmulAddMonoidHom (α := (shortCurve (-genD ^ 2)).toAffine.Point) 2).range.FiniteIndex :=
   ⟨by rw [index_two_E]; norm_num⟩

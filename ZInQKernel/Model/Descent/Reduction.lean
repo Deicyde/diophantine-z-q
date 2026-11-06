@@ -490,4 +490,32 @@ theorem addOrderOf_red {T : (shortCurve A).toAffine.Point} (hT : IsOfFinAddOrder
     · intro h; rw [h, red_zero]
   exact addOrderOf_eq_addOrderOf_iff.mpr key
 
+include hπ hA hρ hAb in
+/-- Reduction is injective on every finite subgroup of order prime to `p`. -/
+theorem red_injOn_of_coprime (H : AddSubgroup (shortCurve A).toAffine.Point) [Finite H]
+    (hH : ¬p ∣ Nat.card H) : Set.InjOn (red hπ ρ hρ hA hAb) H := by
+  intro P hP Q hQ hPQ
+  have hsub : P - Q ∈ H := H.sub_mem hP hQ
+  have hcard : Nat.card H • (P - Q) = 0 := by
+    have := card_nsmul_eq_zero' (G := H) (x := ⟨P - Q, hsub⟩)
+    exact congrArg Subtype.val this
+  have hred : red hπ ρ hρ hA hAb (P - Q) = 0 := by
+    rw [← redHom_apply, map_sub, redHom_apply, redHom_apply, hPQ, sub_self]
+  exact sub_eq_zero.mp (eq_zero_of_red_eq_zero hπ ρ hρ hA hAb
+    (by rwa [dvd_natCast_iff ρ hρ]) hcard hred)
+
+include hπ hA hρ hAb in
+/-- The order of a finite subgroup of order prime to `p` divides `#W̃(𝔽_p)`. -/
+theorem card_dvd_of_coprime (H : AddSubgroup (shortCurve A).toAffine.Point) [Finite H]
+    (hH : ¬p ∣ Nat.card H) [Finite (shortCurve Ab).toAffine.Point] :
+    Nat.card H ∣ Nat.card (shortCurve Ab).toAffine.Point := by
+  have hinj := red_injOn_of_coprime hπ ρ hρ hA hAb H hH
+  have : Nat.card (H.map (redHom hπ ρ hρ hA hAb)) = Nat.card H := by
+    change Nat.card ((H.map (redHom hπ ρ hρ hA hAb) : Set (shortCurve Ab).toAffine.Point)) =
+      Nat.card ((H : Set (shortCurve A).toAffine.Point))
+    rw [AddSubgroup.coe_map]
+    exact Nat.card_image_of_injOn (f := redHom hπ ρ hρ hA hAb) hinj
+  rw [← this]
+  exact AddSubgroup.card_addSubgroup_dvd_card _
+
 end ZInQ
