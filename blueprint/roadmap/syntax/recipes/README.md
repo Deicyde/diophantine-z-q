@@ -12,11 +12,12 @@ Five composition recipes assemble the value relation and the root.
 
 - [The outer composition recipes](outer-recipes.md)
 
-The witness counts follow from the template counts, the shape of the natural circuit and
-explicit arithmetic; the root has one input and $292{,}890{,}231{,}904$ witnesses.
+The witness counts follow from the template counts, the shape of the natural circuit
+(proved in the compiler chapter:
+[shape of the natural precision circuit](../../compiler/natural/universal/circuit-node-counts.md))
+and explicit arithmetic; the root has one input and $292{,}890{,}231{,}904$ witnesses.
 
 - [Parameter and witness counts of the templates](template-witness-counts.md)
-- [Shape of the natural precision circuit](natural-circuit-statistics.md)
 - [The witness-count arithmetic](witness-count-identity.md)
 - [Witness accounting of the specified polynomial](witness-accounting.md)
 

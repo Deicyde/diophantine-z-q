@@ -49,7 +49,7 @@ recipes come from the translation and the shape of the natural circuit.
 - [Template heights](template-heights.md)
 - [Closure rules for the height majorant](majorant-rules.md)
 - [Translation of a natural circuit into a model-evaluation recipe](../../syntax/recipes/model-evaluation-translation.md)
-- [Shape of the natural precision circuit](../../syntax/recipes/natural-circuit-statistics.md)
+- [Shape of the natural precision circuit](../../compiler/natural/universal/circuit-node-counts.md)
 
 ## Sources
 

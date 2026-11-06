@@ -43,7 +43,8 @@ companion proof, is included here.
 - [Size of $N_s$ and $\ell$](../constants/catalogue-size.md)
 - [Size of the formal multiple constant](../constants/formal-multiple-size.md)
 - [The template library](../../syntax/templates/template-library.md)
-- [Shape of the natural precision circuit](../../syntax/recipes/natural-circuit-statistics.md)
+- [Shape of the natural precision circuit](../../compiler/natural/universal/circuit-node-counts.md)
+- [Node statistics of the halting circuit and the power template](../../compiler/natural/universal/halting-node-check.md)
 
 ## Sources
 
