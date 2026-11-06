@@ -2,6 +2,9 @@
 article_id: af_d39cd2ab708fcb0972372183
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.templateLibrary_params, ZInQ.Syntax.templateLibrary_witnesses
 ---
 
 # Parameter and witness counts of the templates

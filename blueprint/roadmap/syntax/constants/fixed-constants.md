@@ -34,8 +34,10 @@ The saved specification stores $P_s$ and $W$ as decimal literals; here they are 
 the displayed products, and their decimal values are a separate finite check. The five
 further constants $\mathrm{integer\_constant}_0,\dots,\mathrm{integer\_constant}_4$ are the
 nontrivial integer constants of the natural precision polynomial, bound by the
-model-evaluation translation (they are $4$, $2$, $3$, a program literal $c_3$ of
-$3{,}181{,}317$ decimal digits, and $1399$).
+model-evaluation translation (they are $4$, $2$, $3$, the program literal $c_3$, and $1399$).
+Here $c_3$ is the code of the wrapper program written for this construction, with
+$1399<c_3<2^{2^{24}}$ ([size of the program literal](../../compiler/natural/universal/wrapper-code-size.md));
+it is not the saved literal of the manuscript.
 
 $A_{\rm ht}$ is $H_6(S;R)$ of the six-contact estimate at this $R$, and $T$ is the cutoff of
 the finite guard. No constant in the table except $G_0$ is evaluated in the proof; the

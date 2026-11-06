@@ -15,6 +15,11 @@ For every $q\in\mathbb Q$ the following are equivalent:
    $[\![\mathtt{value}]\!]$ vanish at $(N,q)$, that is, $\mathrm{Rel}_{\mathtt{value}}(N,q)$ for
    some $N\in\mathbb Q^5$.
 
+Moreover $P_*$, read as a polynomial $Q$ in the variables indexed by $\{0,\dots,292890231904\}$
+(that is, $Q$ with $\mathrm{rename}(\iota)\,Q=[\![\mathtt{integers}]\!]$ for the inclusion
+$\iota$ of the indices into $\mathbb N$), has total degree at most that of $P_*$ and the same
+coefficients: $\mathrm{coeff}_d(Q)=\mathrm{coeff}_{\iota_*d}(P_*)$ for every exponent vector $d$.
+
 So the rational zero projection of $P_*$ to its first variable is
 $\{q:\exists N,\ \mathrm{Rel}_{\mathtt{value}}(N,q)\}$, which the assembly chapter identifies with
 $\mathbb Z$.

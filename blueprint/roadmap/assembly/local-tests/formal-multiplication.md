@@ -62,6 +62,10 @@ particular $z([m]Q)\ne0$, so $[m]Q\ne O$.
 - [The primes of $\mathbb Z[\sqrt2]$ above an odd prime](../../multiplication/local/primes-above-p.md)
 - [The primes $(s)$ and $(d)$ of $\mathbb Z[\sqrt2]$](../../model/field/special-primes.md)
 
+## Proof depends on
+
+- [The chord estimate in a formal neighbourhood](../../multiplication/local/chord-estimate.md)
+
 ## Sources
 
 - [Section 6 formal conventions](../../../sources/assembly-locators.md#section-6-formal-conventions)
