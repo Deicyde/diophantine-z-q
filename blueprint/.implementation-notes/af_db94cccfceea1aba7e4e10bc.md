@@ -21,3 +21,7 @@ quadruple `(hH : SixContactEstimate) (hPC : PoleCompleteness) (hMW : MordellWeil
 (h22 : FixedPrimePattern)` is written `hyps`. The constants `A0`, `Bnk n κ`, `heightD` and
 every power `4 ^ Bnk n κ` must stay symbolic: mark them `@[irreducible]`/`noncomputable` and
 never use `decide`, `norm_num` evaluation or `#eval` on them.
+- Status: `ZInQ.Assembly.exists_multiple_large` (`ZInQKernel/Assembly/Real/Accumulation.lean`) proves the
+  article with `¬ IsOfFinAddOrder genP0` as an explicit hypothesis; `exists_nsmul_near_zero` is the
+  hypothesis-free half. Once `ZInQ.genP0_not_isOfFinAddOrder` is on main, record the unconditional
+  corollary here as the Lean name.

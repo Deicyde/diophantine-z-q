@@ -2,6 +2,9 @@
 article_id: af_6124f10edd6bc9e10b0e74d1
 declaration: lemma
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.realCurve, ZInQ.Assembly.RealCurve.TendstoPt, ZInQ.Assembly.RealCurve.exists_subseq_tendstoPt, ZInQ.Assembly.RealCurve.tendstoPt_sub_zero
 ---
 
 # Compactness and continuity of subtraction on a real curve

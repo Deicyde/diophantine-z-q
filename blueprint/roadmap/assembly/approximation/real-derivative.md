@@ -2,6 +2,9 @@
 article_id: af_535faba1774d5ef403d98fe6
 declaration: lemma
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.zCoord, ZInQ.Assembly.z_ratio_tendsto
 ---
 
 # The derivative of multiplication at a real place
