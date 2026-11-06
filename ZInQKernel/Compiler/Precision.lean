@@ -1,0 +1,13 @@
+import ZInQKernel.Compiler.Precision.Encoding
+import ZInQKernel.Compiler.Precision.ZCoordinate
+import ZInQKernel.Compiler.Precision.HeightConstant
+import ZInQKernel.Compiler.Precision.Threshold
+import ZInQKernel.Compiler.Precision.Saturation
+import ZInQKernel.Compiler.Precision.CappedTest
+import ZInQKernel.Compiler.Precision.NormZero
+
+/-!
+# The exact precision computation
+
+Blueprint chapter `compiler/natural/`, section `precision/`.
+-/
