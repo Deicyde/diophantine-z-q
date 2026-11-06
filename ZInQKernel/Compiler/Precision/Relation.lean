@@ -1,6 +1,7 @@
 import ZInQKernel.Compiler.Precision.Encoding
 import ZInQKernel.Compiler.Precision.ZCoordinate
 import ZInQKernel.Compiler.Precision.HeightConstant
+import ZInQKernel.Model.Generator.InfiniteOrder
 
 /-!
 # The precision relation
@@ -11,7 +12,7 @@ Blueprint: `compiler/natural/precision/precision-relation.md` and
 `accepts c` decodes `c ∈ ℕ⁵` to `(n, κ, a, l, j)` and requires the early tests, admissibility of
 `l, a, j`, the closeness test `|r(a, j) - n| < ε_l` and the precision test
 `4 ε_l · 4^𝓑(n, κ) < 1`. Given that `P₀` has infinite order, admissibility follows from the early
-tests (`accepts_iff_tests`).
+tests (`accepts_iff_tests`); this uses `genP0_not_isOfFinAddOrder` (`Model/Generator`).
 -/
 
 namespace ZInQ.Compiler.Precision
@@ -59,7 +60,7 @@ theorem precisionTestInt_iff (n κ l : ℤ) :
 /-! ### Admissibility of nonzero indices -/
 
 /-- If `P₀` has infinite order, every nonzero index is admissible. -/
-theorem admissible_of_ne_zero (hP : ¬ IsOfFinAddOrder genP0) {k : ℤ} (hk : k ≠ 0) :
+theorem admissible_of_ne_zero_of (hP : ¬ IsOfFinAddOrder genP0) {k : ℤ} (hk : k ≠ 0) :
     Admissible k := by
   have hne : ∀ m : ℤ, m ≠ 0 → m • genP0 ≠ 0 := fun m hm h =>
     hP (isOfFinAddOrder_iff_zsmul_eq_zero.mpr ⟨m, hm, h⟩)
@@ -75,15 +76,27 @@ theorem admissible_of_ne_zero (hP : ¬ IsOfFinAddOrder genP0) {k : ℤ} (hk : k 
 
 /-- If `P₀` has infinite order, an input passing the early tests is accepted exactly when the
 closeness and precision tests hold. -/
-theorem accepts_iff_tests (hP : ¬ IsOfFinAddOrder genP0) (c : Fin 5 → ℕ) (hc : EarlyTests c) :
+theorem accepts_iff_tests_of (hP : ¬ IsOfFinAddOrder genP0) (c : Fin 5 → ℕ) (hc : EarlyTests c) :
     accepts c ↔
       CloseTestInt (dec (c 0)) (dec (c 2)) (dec (c 3)) (dec (c 4)) ∧
         PrecisionTestInt (dec (c 0)) (dec (c 1)) (dec (c 3)) := by
   obtain ⟨hn, hκ, ha, hl, hj⟩ := hc
   have hn0 : dec (c 0) ≠ 0 := fun h => hn (by rw [h]; decide)
   refine ⟨fun h => h.2.2, fun h => ⟨⟨hn, hκ, ha, hl, hj⟩, ⟨?_, ?_, ?_⟩, h⟩⟩
-  · exact admissible_of_ne_zero hP (by omega)
-  · exact admissible_of_ne_zero hP (by omega)
-  · exact admissible_of_ne_zero hP (by rw [hj]; exact mul_ne_zero hn0 (by omega))
+  · exact admissible_of_ne_zero_of hP (by omega)
+  · exact admissible_of_ne_zero_of hP (by omega)
+  · exact admissible_of_ne_zero_of hP (by rw [hj]; exact mul_ne_zero hn0 (by omega))
+
+/-- **Admissibility of nonzero indices**: every `k ≠ 0` is admissible. -/
+theorem admissible_of_ne_zero {k : ℤ} (hk : k ≠ 0) : Admissible k :=
+  admissible_of_ne_zero_of genP0_not_isOfFinAddOrder hk
+
+/-- An input passing the early tests is accepted exactly when the closeness and precision
+tests hold. -/
+theorem accepts_iff_tests (c : Fin 5 → ℕ) (hc : EarlyTests c) :
+    accepts c ↔
+      CloseTestInt (dec (c 0)) (dec (c 2)) (dec (c 3)) (dec (c 4)) ∧
+        PrecisionTestInt (dec (c 0)) (dec (c 1)) (dec (c 3)) :=
+  accepts_iff_tests_of genP0_not_isOfFinAddOrder c hc
 
 end ZInQ.Compiler.Precision
