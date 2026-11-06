@@ -2,6 +2,9 @@
 article_id: af_b89f2bc94e8c196fd92d41d1
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Packed.nonzero_indicator
 ---
 
 # The packed nonzero indicator

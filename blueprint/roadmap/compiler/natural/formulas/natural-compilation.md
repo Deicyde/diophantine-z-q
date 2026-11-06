@@ -2,6 +2,9 @@
 article_id: af_2dae60f90267c0e9abf015fd
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Natural.compile_zv_eq_zero_iff, ZInQ.Compiler.Natural.exists_agree_congr, ZInQ.Compiler.Natural.callPower_spec
 ---
 
 # Compilation and private witnesses over the naturals

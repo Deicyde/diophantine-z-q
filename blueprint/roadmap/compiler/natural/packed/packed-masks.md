@@ -2,6 +2,9 @@
 article_id: af_a5a84518db63b1f5d63fe70b
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Packed.packed_masks
 ---
 
 # Digits of masked histories

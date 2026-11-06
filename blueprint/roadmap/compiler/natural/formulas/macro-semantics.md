@@ -2,6 +2,9 @@
 article_id: af_99984859aa545bcbfbe6205f
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Natural.lt_spec, ZInQ.Compiler.Natural.divides_spec, ZInQ.Compiler.Natural.alpha_spec, ZInQ.Compiler.Natural.powerSpec_hierarchical, ZInQ.Compiler.Natural.binomial_spec, ZInQ.Compiler.Natural.orthogonal_spec, ZInQ.Compiler.Natural.mask_spec, ZInQ.Compiler.Natural.bitAnd_spec
 ---
 
 # Semantics of the natural macros

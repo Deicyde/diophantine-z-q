@@ -2,6 +2,8 @@
 article_id: af_5d08c2cbdf6ccdd63700fce2
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.Natural.NForm, ZInQ.Compiler.Natural.NM, ZInQ.Compiler.Natural.alpha, ZInQ.Compiler.Natural.power, ZInQ.Compiler.Natural.binomial, ZInQ.Compiler.Natural.orthogonal, ZInQ.Compiler.Natural.mask, ZInQ.Compiler.Natural.bitAnd
 ---
 
 # Natural constructions and their macros

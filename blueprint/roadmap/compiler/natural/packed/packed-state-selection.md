@@ -2,6 +2,9 @@
 article_id: af_69ae2c37eee8a8d5e2ccdf10
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Packed.one_active_state
 ---
 
 # One active state per time slot

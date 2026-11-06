@@ -2,6 +2,9 @@
 article_id: af_414a58cc5df869ecd9b96c07
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Packed.packed_sound, ZInQ.Compiler.Packed.packed_sound_accepts
 ---
 
 # Soundness of the packed-history construction

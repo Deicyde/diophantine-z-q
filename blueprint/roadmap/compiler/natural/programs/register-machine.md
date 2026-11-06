@@ -2,6 +2,8 @@
 article_id: af_609f251e689e14dc1f06d275
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.RM.Instr, ZInQ.Compiler.RM.Machine, ZInQ.Compiler.RM.Config, ZInQ.Compiler.RM.step, ZInQ.Compiler.RM.Halts, ZInQ.Compiler.RM.Program, ZInQ.Compiler.RM.Program.Valid, ZInQ.Compiler.RM.Program.Accepts
 ---
 
 # Register machines

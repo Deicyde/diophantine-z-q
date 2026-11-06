@@ -2,6 +2,9 @@
 article_id: af_473fbb0e3cc36b56aea8f251
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Natural.powerTemplate_natRel, ZInQ.Compiler.Natural.powerSpec_hierarchical_powerTemplate
 ---
 
 # Semantics of the power template

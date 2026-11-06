@@ -2,6 +2,8 @@
 article_id: af_e888918459f9445b7ee53d90
 declaration: def
 origin: bridged
+statement: formalized
+lean: ZInQ.Compiler.Natural.NatCircuit, ZInQ.Compiler.Natural.NatCircuit.poly, ZInQ.Compiler.Natural.NatCircuit.NatRel, ZInQ.Compiler.Natural.NatCircuit.WellScoped
 ---
 
 # Natural semantics of a natural circuit

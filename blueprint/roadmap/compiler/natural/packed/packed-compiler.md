@@ -2,6 +2,8 @@
 article_id: af_738de6afc9fccd49f79ecbf9
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.Packed.construction, ZInQ.Compiler.Packed.compiled
 ---
 
 # The packed-history construction

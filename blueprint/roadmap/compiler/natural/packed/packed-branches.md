@@ -2,6 +2,9 @@
 article_id: af_231603786793f419307aa3d5
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Packed.branch_split, ZInQ.Compiler.Packed.indicator_digits
 ---
 
 # Branch histories and indicator digits

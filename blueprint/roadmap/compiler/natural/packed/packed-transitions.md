@@ -2,6 +2,9 @@
 article_id: af_9bd131a247c2073fbc6ed0ea
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Packed.packed_register_iff, ZInQ.Compiler.Packed.packed_state_iff
 ---
 
 # Decoding the transition equations

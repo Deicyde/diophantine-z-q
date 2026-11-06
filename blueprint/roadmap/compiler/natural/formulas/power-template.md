@@ -2,6 +2,8 @@
 article_id: af_973a5ed8479f4418c6aba667
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.Natural.powerTemplate, ZInQ.Compiler.Natural.powerTemplate_poly, ZInQ.Compiler.Natural.powerTemplateCircuit_stats
 ---
 
 # The power template

@@ -2,6 +2,9 @@
 article_id: af_5d3ffebecf5afff8345ff7cb
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Packed.compiled_natRel_iff
 ---
 
 # The compiled circuit of a register machine

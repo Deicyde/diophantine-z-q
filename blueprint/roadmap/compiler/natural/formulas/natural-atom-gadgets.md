@@ -2,6 +2,9 @@
 article_id: af_57d71df8bedf7007961f009c
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Natural.lt_gadget_iff, ZInQ.Compiler.Natural.dvd_gadget_iff, ZInQ.Compiler.Natural.congr_gadget_iff, ZInQ.Compiler.Natural.odd_gadget_iff
 ---
 
 # The equational gadgets over the naturals

@@ -2,6 +2,9 @@
 article_id: af_fed5f50978e36b1cd93a1d06
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Packed.packed_complete
 ---
 
 # Completeness of the packed-history construction

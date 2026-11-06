@@ -2,6 +2,9 @@
 article_id: af_87fb050a762911fe35006d01
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Packed.packed_counts
 ---
 
 # Variable and gadget counts of the packed construction
