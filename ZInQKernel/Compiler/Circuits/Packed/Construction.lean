@@ -1,0 +1,148 @@
+import ZInQKernel.Compiler.Circuits.Circuit
+import ZInQKernel.Compiler.Circuits.Packed.Branches
+
+/-!
+# The packed-history construction
+
+For a primitive program `p = (p_0, …, p_{m-1})` valid for `r` registers and `1 ≤ k ≤ r`, the
+packed-history construction is the natural construction in hierarchical mode with `k` inputs
+`a_0, …, a_{k-1}` which takes the fresh variables `q, c, K, B, T, F, D`, `R_0, …, R_{r-1}`,
+`N_0, …, N_{r-1}`, `S_0, …, S_{m-1}` in this order and returns the conjunction of
+
+1. `lt(0, c)`, `power(K, 2, c)`, `B ≐ 4K`, `lt(m, B)`, `power(T, B, q)`, `lt(a_i, K)` (`i < k`);
+2. `B F + 1 ≐ F + B T`, `D + F ≐ K F`, `S_0 + ⋯ + S_{m-1} ≐ F`, `S_{m-1} ≐ T`;
+3. `mask(S_i, F)` for `i < m`;
+4. for each `j < r`: `mask(R_j, D)`, `lt(R_j, T)`, `bitAnd(K N_j, R_j + D, K F)`;
+5. for each sub instruction `p_i = dec(j, x, y)`, in increasing `i`: fresh `V_i, W_i`, then
+   `bitAnd(V_i, S_i, N_j)` and `S_i ≐ V_i + W_i`;
+6. for each `j < r`: `R_j + B C_j ≐ ι_j + B R_j + B A_j` (`ι_j = a_j` for `j < k`, else `0`;
+   `A_j` the sum of the `S_i` with `p_i = inc(j, ·)`, `C_j` that of the `V_i` with
+   `p_i = dec(j, ·, ·)`);
+7. for each `i < m`: `S_i ≐ [i = 0] + B I_i` (`I_i` the sum, in program order, of `S_{i'}` for
+   `p_{i'} = inc(·, i)`, `V_{i'}` for `p_{i'} = dec(·, i, ·)` and `W_{i'}` for
+   `p_{i'} = dec(·, ·, i)`).
+
+This is a transcription of `compileRegisterMachine` of
+`construction/integer-diophantine-compiler.js`. The compiled circuit `𝒞_{p,k}` is its natural
+circuit. Validity of `p` is a hypothesis of the semantic theorems, not of the definition.
+
+(Blueprint: `compiler/natural/packed/packed-compiler.md`.)
+-/
+
+noncomputable section
+
+namespace ZInQ.Compiler.Packed
+
+open Natural RM Syntax MvPolynomial
+
+/-- A default expression for missing list entries. -/
+def exZero : Ex := ⟨0, 0⟩
+
+/-- `n` fresh variables, in order. -/
+def freshN : ℕ → NM (List Ex)
+  | 0 => pure []
+  | n + 1 => do
+    let h ← fresh
+    let hs ← freshN n
+    pure (h :: hs)
+
+/-- Concatenate the formula lists of constructions run in order. -/
+def seqConcat : List (NM (List NForm)) → NM (List NForm)
+  | [] => pure []
+  | m :: ms => do
+    let a ← m
+    let b ← seqConcat ms
+    pure (a ++ b)
+
+/-- Item 4 for one register: `mask(R_j, D)`, `lt(R_j, T)`, `bitAnd(K N_j, R_j + D, K F)`. -/
+def registerMasks (K D T F Rj Nj : Ex) : NM (List NForm) := do
+  let f1 ← mask .hierarchical Rj D
+  let f2 ← lt Rj T
+  let f3 ← bitAnd .hierarchical (← mulL [K, Nj]) (← addL [Rj, D]) (← mulL [K, F])
+  pure [f1, f2, f3]
+
+/-- Item 5: the sub instructions of `p_i, p_{i+1}, …`, in increasing order. Returns the
+formulas and the branch histories `(i, V_i, W_i)`. -/
+def subBranches (S N : List Ex) : ℕ → List Instr → NM (List NForm × List (ℕ × Ex × Ex))
+  | _, [] => pure ([], [])
+  | i, .dec j _ _ :: rest => do
+    let V ← fresh
+    let W ← fresh
+    let f1 ← bitAnd .hierarchical V (S.getD i exZero) (N.getD j exZero)
+    let e ← addL [V, W]
+    let rest' ← subBranches S N (i + 1) rest
+    pure (f1 :: .eq (S.getD i exZero) e :: rest'.1, (i, V, W) :: rest'.2)
+  | i, _ :: rest => subBranches S N (i + 1) rest
+
+/-- The branch histories `(V_i, W_i)` of instruction `i`. -/
+def lookupVW (vw : List (ℕ × Ex × Ex)) (i : ℕ) : Ex × Ex :=
+  ((vw.find? fun e => e.1 == i).map (·.2)).getD (exZero, exZero)
+
+/-- The summands of `A_j`: the `S_i` with `p_i = inc(j, ·)`, in program order. -/
+def incHandles (p : Program) (S : List Ex) (j : ℕ) : List Ex :=
+  ((List.range p.length).filter fun i => decide (incOn p j i)).map fun i => S.getD i exZero
+
+/-- The summands of `C_j`: the `V_i` with `p_i = dec(j, ·, ·)`, in program order. -/
+def decHandles (p : Program) (vw : List (ℕ × Ex × Ex)) (j : ℕ) : List Ex :=
+  ((List.range p.length).filter fun i => decide (decOn p j i)).map fun i => (lookupVW vw i).1
+
+/-- The summands of `I_i`, in program order: `S_{i'}` for `p_{i'} = inc(·, i)`, `V_{i'}` for
+`p_{i'} = dec(·, i, ·)` and `W_{i'}` for `p_{i'} = dec(·, ·, i)`. -/
+def inHandles (p : Program) (S : List Ex) (vw : List (ℕ × Ex × Ex)) (i : ℕ) : List Ex :=
+  (List.range p.length).flatMap fun i' =>
+    (if incTo p i' i then [S.getD i' exZero] else []) ++
+      (if nzTo p i' i then [(lookupVW vw i').1] else []) ++
+      (if zTo p i' i then [(lookupVW vw i').2] else [])
+
+/-- Item 6 for one register: `R_j + B C_j ≐ ι_j + B R_j + B A_j`. -/
+def registerEq (B Rj ιj : Ex) (decs incs : List Ex) : NM NForm := do
+  let l ← addL [Rj, ← mulL [B, ← addL decs]]
+  let r ← addL [ιj, ← mulL [B, Rj], ← mulL [B, ← addL incs]]
+  pure (.eq l r)
+
+/-- Item 7 for one state: `S_i ≐ e + B I_i`. -/
+def stateEq (B Si e : Ex) (ins : List Ex) : NM NForm := do
+  let r ← addL [e, ← mulL [B, ← addL ins]]
+  pure (.eq Si r)
+
+/-- **The packed-history construction** of `p` with `r` registers and `k` inputs. -/
+def construction (p : Program) (r k : ℕ) : NM NForm := do
+  let a := inputs k
+  let zero ← constant 0
+  let one ← constant 1
+  let q ← fresh
+  let c ← fresh
+  let K ← fresh
+  let B ← fresh
+  let T ← fresh
+  let F ← fresh
+  let D ← fresh
+  let R ← freshN r
+  let N ← freshN r
+  let S ← freshN p.length
+  let fs1 ← seqM ([
+    lt zero c,
+    do power .hierarchical K (← constant 2) c,
+    do pure (.eq B (← scale 4 K)),
+    do lt (← constant p.length) B,
+    power .hierarchical T B q] ++ a.map fun ai => lt ai K)
+  let fs2 ← seqM [
+    do pure (.eq (← addL [← mulL [B, F], one]) (← addL [F, ← mulL [B, T]])),
+    do pure (.eq (← addL [D, F]) (← mulL [K, F])),
+    do pure (.eq (← addL S) F),
+    pure (.eq (S.getLastD exZero) T)]
+  let fs3 ← seqM (S.map fun x => mask .hierarchical x F)
+  let fs4 ← seqConcat ((List.range r).map fun j =>
+    registerMasks K D T F (R.getD j exZero) (N.getD j exZero))
+  let sb ← subBranches S N 0 p
+  let fs6 ← seqM ((List.range r).map fun j =>
+    registerEq B (R.getD j exZero) (a.getD j zero) (decHandles p sb.2 j) (incHandles p S j))
+  let fs7 ← seqM ((List.range p.length).map fun i =>
+    stateEq B (S.getD i exZero) (if i = 0 then one else zero) (inHandles p S sb.2 i))
+  pure (.and (fs1 ++ fs2 ++ fs3 ++ fs4 ++ sb.1 ++ fs6 ++ fs7))
+
+/-- **The compiled circuit** `𝒞_{p,k}`: the natural circuit of the packed-history
+construction. -/
+def compiled (p : Program) (r k : ℕ) : NatCircuit := (construction p r k).toCircuit k
+
+end ZInQ.Compiler.Packed

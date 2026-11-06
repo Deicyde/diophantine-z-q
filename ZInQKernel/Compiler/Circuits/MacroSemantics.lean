@@ -66,6 +66,20 @@ theorem Spec.fresh_bind {f : Ex → NM NForm} {U : Set ℕ} {s : State} {R : (�
   rw [fresh_apply_next] at h
   exact Spec.fresh h
 
+@[simp] theorem note_apply_next (k : MacroKind) (s : State) : (note k s).2.next = s.next := rfl
+
+/-- Logging a macro does not change its specification, state form. -/
+theorem Spec.note_bind {k : MacroKind} {f : Unit → NM NForm} {U : Set ℕ} {s : State}
+    {R : (ℕ → ℕ) → Prop}
+    (h : Spec ((f () (note k s).2).1.toFormula τ) U (note k s).2.next (f () (note k s).2).2.next R) :
+    Spec (((note k >>= f) s).1.toFormula τ) U s.next ((note k >>= f) s).2.next R := h
+
+theorem note_lt {U : Set ℕ} {s : State} {k : MacroKind} (hs : ∀ i ∈ U, i < s.next) :
+    ∀ i ∈ U, i < (note k s).2.next := hs
+
+theorem MSpec.note_bind {k : MacroKind} {f : Unit → NM NForm} {U : Set ℕ} {R : (ℕ → ℕ) → Prop}
+    (h : MSpec τ (f ()) U R) : MSpec τ (note k >>= f) U R := fun s hs => h (note k s).2 hs
+
 @[simp] theorem constant_apply_poly (c : ℤ) (s : State) : (constant c s).1.poly = C c := rfl
 
 @[simp] theorem constant_apply_next (c : ℤ) (s : State) : (constant c s).2.next = s.next :=
@@ -123,7 +137,7 @@ set_option hygiene false in
 /-- Closes variable-range side goals. -/
 macro "vars_tac" : tactic =>
   `(tactic| ((try (simp only [fresh_apply_next, fresh_apply_poly, constant_apply_next,
-      constant_apply_poly] at *)); repeat (first
+      constant_apply_poly, note_apply_next] at *)); repeat (first
       | with_reducible exact VarsIn.ofNat _ _
       | with_reducible exact VarsIn.C _ _
       | with_reducible exact VarsIn.zero _
@@ -153,16 +167,17 @@ theorem lt_spec {U : Set ℕ} {A B : Poly} (hA : VarsIn A (· ∈ U)) (hB : Vars
     (hAn : IsNat A) (hBn : IsNat B) {a b : Ex} (ha : a.poly = A) (hb : b.poly = B) :
     MSpec τ (lt a b) U fun x => nv x A < nv x B := by
   intro s hs
-  refine (Spec.fresh_bind (R := ?R) ?h1).congr ?h2
+  refine (Spec.note_bind (Spec.fresh_bind (R := ?R) ?h1)).congr ?h2
   case h1 =>
     refine MSpec.expr_bind (U := insert s.next U) (IsExpr.constant 1) (fun one hone => ?_) _
-      (fresh_next_lt hs)
+      (fresh_next_lt (note_lt hs))
     refine MSpec.expr_bind (IsExpr.addL _) (fun e he => ?_)
     poly_simp he
     exact MSpec.eq' (U := insert s.next U) hb he (VarsIn.mem_insert hB) (by
       apply VarsIn.add; exact VarsIn.mem_insert hA; apply VarsIn.add; exact VarsIn.C _ _; apply VarsIn.X; simp)
   case h2 =>
     intro x
+    simp only [note_apply_next]
     have hc := notMem_of_lt hs
     simp only [zv_update hA hc, zv_update hB hc, zv_add, zv_C, zv_X, Function.update_self,
       hAn.zv_eq, hBn.zv_eq]
@@ -173,14 +188,15 @@ theorem divides_spec {U : Set ℕ} {A B : Poly} (hA : VarsIn A (· ∈ U)) (hB :
     (hAn : IsNat A) (hBn : IsNat B) {a b : Ex} (ha : a.poly = A) (hb : b.poly = B) :
     MSpec τ (divides a b) U fun x => nv x A ∣ nv x B := by
   intro s hs
-  refine (Spec.fresh_bind (R := ?R) ?h1).congr ?h2
+  refine (Spec.note_bind (Spec.fresh_bind (R := ?R) ?h1)).congr ?h2
   case h1 =>
     refine MSpec.expr_bind (U := insert s.next U) (IsExpr.mulL _) (fun e he => ?_) _
-      (fresh_next_lt hs)
+      (fresh_next_lt (note_lt hs))
     poly_simp he
     exact MSpec.eq' (U := insert s.next U) hb he (by vars_tac) (by vars_tac)
   case h2 =>
     intro x
+    simp only [note_apply_next]
     have hc := notMem_of_lt hs
     simp only [zv_update hA hc, zv_update hB hc, zv_mul, zv_X, Function.update_self,
       hAn.zv_eq, hBn.zv_eq]
@@ -191,24 +207,25 @@ theorem congruent_spec {U : Set ℕ} {A M B : Poly} (hA : VarsIn A (· ∈ U))
     (hBn : IsNat B) {a m b : Ex} (ha : a.poly = A) (hm : m.poly = M) (hb : b.poly = B) :
     MSpec τ (congruent a m b) U fun x => nv x A ≡ nv x B [MOD nv x M] := by
   intro s hs
-  refine (Spec.fresh_bind (R := ?R) ?h1).congr ?h2
+  refine (Spec.note_bind (Spec.fresh_bind (R := ?R) ?h1)).congr ?h2
   case h1 =>
     refine Spec.fresh_bind (R := ?R2) ?h3
     case h3 =>
-    refine MSpec.expr_bind (U := insert (fresh s).2.next (insert s.next U)) (IsExpr.mulL _)
-      (fun e1 he1 => ?_) _ (fresh_next_lt (fresh_next_lt hs))
+    refine MSpec.expr_bind (U := insert (fresh (note .congruent s).2).2.next (insert s.next U)) (IsExpr.mulL _)
+      (fun e1 he1 => ?_) _ (fresh_next_lt (fresh_next_lt (note_lt hs)))
     refine MSpec.expr_bind (IsExpr.addL _) (fun l hl => ?_)
     refine MSpec.expr_bind (IsExpr.mulL _) (fun e2 he2 => ?_)
     refine MSpec.expr_bind (IsExpr.addL _) (fun r hr => ?_)
     poly_simp hl
     poly_simp hr
-    exact MSpec.eq' (U := insert (fresh s).2.next (insert s.next U)) hl hr (by vars_tac)
+    exact MSpec.eq' (U := insert (fresh (note .congruent s).2).2.next (insert s.next U)) hl hr (by vars_tac)
       (by vars_tac)
   case h2 =>
     intro x
+    simp only [note_apply_next]
     have hc := notMem_of_lt hs
     have hc1 : s.next + 1 ∉ insert s.next U := notMem_of_lt (insert_lt hs)
-    simp only [fresh_apply_next]
+    simp only [fresh_apply_next, note_apply_next]
     simp only [zv_update (VarsIn.mem_insert hA) hc1, zv_update (VarsIn.mem_insert hB) hc1,
       zv_update (VarsIn.mem_insert hM) hc1, zv_update hA hc, zv_update hB hc, zv_update hM hc,
       zv_add, zv_mul, zv_X, Function.update_self, hAn.zv_eq, hBn.zv_eq, hMn.zv_eq]
@@ -219,16 +236,17 @@ theorem congruent_spec {U : Set ℕ} {A M B : Poly} (hA : VarsIn A (· ∈ U))
 theorem odd_spec {U : Set ℕ} {A : Poly} (hA : VarsIn A (· ∈ U)) (hAn : IsNat A) {a : Ex}
     (ha : a.poly = A) : MSpec τ (odd a) U fun x => Odd (nv x A) := by
   intro s hs
-  refine (Spec.fresh_bind (R := ?R) ?h1).congr ?h2
+  refine (Spec.note_bind (Spec.fresh_bind (R := ?R) ?h1)).congr ?h2
   case h1 =>
     refine MSpec.expr_bind (U := insert s.next U) (IsExpr.scale 2 _) (fun e1 he1 => ?_) _
-      (fresh_next_lt hs)
+      (fresh_next_lt (note_lt hs))
     refine MSpec.expr_bind (IsExpr.constant 1) (fun one hone => ?_)
     refine MSpec.expr_bind (IsExpr.addL _) (fun e he => ?_)
     poly_simp he
     exact MSpec.eq' (U := insert s.next U) ha he (by vars_tac) (by vars_tac)
   case h2 =>
     intro x
+    simp only [note_apply_next]
     have hc := notMem_of_lt hs
     simp only [zv_update hA hc, zv_add, zv_mul, zv_C, zv_X, Function.update_self, hAn.zv_eq]
     rw [← odd_gadget_iff]
@@ -259,7 +277,8 @@ theorem alpha_spec {U : Set ℕ} {XP BP NP : Poly} (hX : VarsIn XP (· ∈ U)) (
     MSpec τ (alpha X b N) U fun x => AlphaFormula (nv x XP) (nv x BP) (nv x NP) := by
   intro s hs
   apply Spec.congr
-  · apply Spec.fresh_bind; apply Spec.fresh_bind; apply Spec.fresh_bind; apply Spec.fresh_bind
+  · apply Spec.note_bind
+    apply Spec.fresh_bind; apply Spec.fresh_bind; apply Spec.fresh_bind; apply Spec.fresh_bind
     apply Spec.fresh_bind; apply Spec.fresh_bind; apply Spec.fresh_bind; apply Spec.fresh_bind
     apply MSpec.expr_bind (IsExpr.constant 1)
     · intro one hone
@@ -332,10 +351,10 @@ theorem alpha_spec {U : Set ℕ} {XP BP NP : Poly} (hX : VarsIn XP (· ∈ U)) (
           (by isnat_tac) (by isnat_tac) rfl rfl hNe
       exact List.Forall₂.nil
     · exact fresh_next_lt (fresh_next_lt (fresh_next_lt (fresh_next_lt (fresh_next_lt
-        (fresh_next_lt (fresh_next_lt (fresh_next_lt hs)))))))
+        (fresh_next_lt (fresh_next_lt (fresh_next_lt (note_lt hs))))))))
   · intro x
     simp (disch := omega) only [List.mem_cons, List.not_mem_nil, or_false, forall_eq_or_imp,
-      forall_eq, fresh_apply_next, fresh_apply_poly, zv_update_ge hB hs, zv_update_ge hX hs,
+      forall_eq, fresh_apply_next, fresh_apply_poly, note_apply_next, zv_update_ge hB hs, zv_update_ge hX hs,
       zv_update_ge hN hs, nv_update_ge hB hs, nv_update_ge hX hs, nv_update_ge hN hs, zv_add,
       zv_mul, zv_X, zv_C, nv_two_mul hXn, nv_two_mul hNn, nv_X', nv_X_mul_X, nv_C_two, nv_C_three]
     simp only [Function.update_apply, Nat.add_assoc, Nat.reduceAdd, Nat.add_left_cancel_iff,
@@ -493,7 +512,7 @@ def PowerSpec (τ : ExPoly) (mode : PowerMode) : Prop :=
 theorem powerSpec_flat (h : ∀ P Q R : ℕ, PowerFormula P Q R ↔ P = Q ^ R) :
     PowerSpec τ .flat := by
   intro U PP QP RP hP hQ hR hPn hQn hRn P Q R hPe hQe hRe
-  exact (powerFlat_spec hP hQ hR hPn hQn hRn hPe hQe hRe).congr fun x => h _ _ _
+  exact MSpec.note_bind ((powerFlat_spec hP hQ hR hPn hQn hRn hPe hQe hRe).congr fun x => h _ _ _)
 
 /-- Natural parameter values `(a, b, c)` of a call. -/
 def natArgs (a b c : ℕ) (p : ℕ) : Fin p → ℤ := fun i => (([a, b, c].getD i 0 : ℕ) : ℤ)
@@ -519,6 +538,7 @@ private block means `P = Q ^ R`. -/
 theorem powerSpec_hierarchical (hτ : τ.WF) (hw : τ.witnesses = powerWitnesses)
     (hsem : PowerTemplateSem τ) : PowerSpec τ .hierarchical := by
   intro U PP QP RP hP hQ hR hPn hQn hRn P Q R hPe hQe hRe
+  refine MSpec.note_bind ?_
   have := callPower_spec hτ hw (P := P) (Q := Q) (R := R) (U := U) (hPe ▸ hP) (hQe ▸ hQ)
     (hRe ▸ hR)
   refine this.congr fun x => ?_
@@ -533,7 +553,8 @@ theorem binomial_spec {mode : PowerMode} (hpow : PowerSpec τ mode) {U : Set ℕ
     MSpec τ (binomial mode C N K) U fun x => nv x CP = (nv x NP).choose (nv x KP) := by
   intro s hs
   apply Spec.congr
-  · apply Spec.fresh_bind; apply Spec.fresh_bind; apply Spec.fresh_bind; apply Spec.fresh_bind
+  · apply Spec.note_bind
+    apply Spec.fresh_bind; apply Spec.fresh_bind; apply Spec.fresh_bind; apply Spec.fresh_bind
     apply Spec.fresh_bind
     apply MSpec.andM
     · apply List.Forall₂.cons
@@ -564,9 +585,9 @@ theorem binomial_spec {mode : PowerMode} (hpow : PowerSpec τ mode) {U : Set ℕ
         poly_simp he4
         exact MSpec.eq' rfl he4 (by vars_tac) (by vars_tac)
       exact List.Forall₂.nil
-    · exact fresh_next_lt (fresh_next_lt (fresh_next_lt (fresh_next_lt (fresh_next_lt hs))))
+    · exact fresh_next_lt (fresh_next_lt (fresh_next_lt (fresh_next_lt (fresh_next_lt (note_lt hs)))))
   · intro x
-    simp only [fresh_apply_next, fresh_apply_poly]
+    simp only [fresh_apply_next, fresh_apply_poly, note_apply_next]
     simp (disch := first | omega | (isnat_tac; done)) only [List.mem_cons, List.not_mem_nil,
       or_false, forall_eq_or_imp, forall_eq, nv_add, nv_mul, zv_update_ge hC hs,
       zv_update_ge hN hs, zv_update_ge hK hs, nv_update_ge hC hs, nv_update_ge hN hs,
@@ -593,7 +614,8 @@ theorem orthogonal_spec {mode : PowerMode} (hpow : PowerSpec τ mode) {U : Set �
     MSpec τ (orthogonal mode a b) U fun x => Nat.land (nv x AP) (nv x BP) = 0 := by
   intro s hs
   apply Spec.congr
-  · apply Spec.fresh_bind
+  · apply Spec.note_bind
+    apply Spec.fresh_bind
     apply MSpec.andM
     · apply List.Forall₂.cons
       · apply MSpec.expr_bind (IsExpr.addL _); intro e1 he1
@@ -603,9 +625,9 @@ theorem orthogonal_spec {mode : PowerMode} (hpow : PowerSpec τ mode) {U : Set �
       apply List.Forall₂.cons
       · exact odd_spec (by vars_tac) (by isnat_tac) rfl
       exact List.Forall₂.nil
-    · exact fresh_next_lt hs
+    · exact fresh_next_lt (note_lt hs)
   · intro x
-    simp only [fresh_apply_next, fresh_apply_poly]
+    simp only [fresh_apply_next, fresh_apply_poly, note_apply_next]
     simp (disch := first | omega | (isnat_tac; done)) only [List.mem_cons, List.not_mem_nil,
       or_false, forall_eq_or_imp, forall_eq, nv_add, nv_update_ge hA hs, nv_update_ge hB hs,
       nv_X', Function.update_self]
@@ -618,7 +640,8 @@ theorem mask_spec {mode : PowerMode} (hpow : PowerSpec τ mode) {U : Set ℕ} {A
     MSpec τ (mask mode a b) U fun x => Nat.land (nv x AP) (nv x BP) = nv x AP := by
   intro s hs
   apply Spec.congr
-  · apply Spec.fresh_bind
+  · apply Spec.note_bind
+    apply Spec.fresh_bind
     apply MSpec.andM
     · apply List.Forall₂.cons
       · exact binomial_spec hpow (by vars_tac) (by vars_tac) (by vars_tac) (by isnat_tac)
@@ -626,9 +649,9 @@ theorem mask_spec {mode : PowerMode} (hpow : PowerSpec τ mode) {U : Set ℕ} {A
       apply List.Forall₂.cons
       · exact odd_spec (by vars_tac) (by isnat_tac) rfl
       exact List.Forall₂.nil
-    · exact fresh_next_lt hs
+    · exact fresh_next_lt (note_lt hs)
   · intro x
-    simp only [fresh_apply_next, fresh_apply_poly]
+    simp only [fresh_apply_next, fresh_apply_poly, note_apply_next]
     simp (disch := first | omega | (isnat_tac; done)) only [List.mem_cons, List.not_mem_nil,
       or_false, forall_eq_or_imp, forall_eq, nv_update_ge hA hs, nv_update_ge hB hs,
       nv_X', Function.update_self]
@@ -642,7 +665,8 @@ theorem bitAnd_spec {mode : PowerMode} (hpow : PowerSpec τ mode) {U : Set ℕ} 
     MSpec τ (bitAnd mode z x y) U fun v => nv v ZP = Nat.land (nv v XP) (nv v YP) := by
   intro s hs
   apply Spec.congr
-  · apply Spec.fresh_bind; apply Spec.fresh_bind
+  · apply Spec.note_bind
+    apply Spec.fresh_bind; apply Spec.fresh_bind
     apply MSpec.andM
     · apply List.Forall₂.cons
       · apply MSpec.expr_bind (IsExpr.addL _); intro e1 he1
@@ -659,9 +683,9 @@ theorem bitAnd_spec {mode : PowerMode} (hpow : PowerSpec τ mode) {U : Set ℕ} 
       apply List.Forall₂.cons
       · exact orthogonal_spec hpow (by vars_tac) (by vars_tac) (by isnat_tac) (by isnat_tac) rfl rfl
       exact List.Forall₂.nil
-    · exact fresh_next_lt (fresh_next_lt hs)
+    · exact fresh_next_lt (fresh_next_lt (note_lt hs))
   · intro v
-    simp only [fresh_apply_next, fresh_apply_poly]
+    simp only [fresh_apply_next, fresh_apply_poly, note_apply_next]
     simp (disch := first | omega | (isnat_tac; done)) only [List.mem_cons, List.not_mem_nil,
       or_false, forall_eq_or_imp, forall_eq, zv_update_ge hZ hs, zv_update_ge hX hs,
       zv_update_ge hY hs, nv_update_ge hZ hs, nv_update_ge hX hs, nv_update_ge hY hs, zv_add,

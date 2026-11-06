@@ -95,4 +95,23 @@ structure WellScoped (C : NatCircuit) : Prop where
 
 end NatCircuit
 
+/-- The initial state of a construction with `k` inputs `X_0, …, X_{k-1}`: their variable nodes
+come first. -/
+def State.init (k : ℕ) : State :=
+  ⟨k, (List.range k).map fun i => (i, .input), (List.range k).map .var, [], []⟩
+
+/-- The input expressions `X_0, …, X_{k-1}` (node `i` is the variable node of `X_i`). -/
+def inputs (k : ℕ) : List Ex := (List.range k).map fun i => ⟨i, X i⟩
+
+/-- The natural circuit of a construction with `k` inputs: its explicit variables, its node list
+(with the node encoding of the final formula appended) and its root, and the final counter. -/
+def NM.toCircuit (k : ℕ) (m : NM NForm) : NatCircuit :=
+  let r := m (State.init k)
+  let e := r.1.encode ExPoly.empty r.2
+  ⟨k, e.2.vars, e.2.nodes, e.1.node, e.2.next⟩
+
+/-- The formula of a construction with `k` inputs, read with call template `τ`. -/
+def NM.formula (τ : ExPoly) (k : ℕ) (m : NM NForm) : Formula :=
+  (m (State.init k)).1.toFormula τ
+
 end ZInQ.Compiler.Natural

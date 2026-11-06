@@ -14,7 +14,8 @@ program in the state monad `Natural.NM`, a transcription of the `Builder` class 
   the constant `1`, `n·x` is the product node of the constant `n` and `x`, `x²` is `x·x`);
 * `fresh` takes a fresh variable `X_c` (recorded as an explicit witness), `c ↦ c + 1`;
 * `callPower P Q R` (hierarchical mode) takes the block `X_c, …, X_{c+78}`, `c ↦ c + 79`, and
-  returns the atom `⟨𝒫[P, Q, R; c]⟩`.
+  returns the atom `⟨𝒫[P, Q, R; c]⟩`;
+* `note k` records the gadget or macro `k` in the log (the builder's `macroCounts`).
 
 An expression is handled through `Ex`: its node index together with the polynomial it
 stands for. Formulas `NForm` have atoms `a ≐ b`, `⟨f⟩` and call atoms, and n-ary
@@ -85,6 +86,21 @@ def NForm.toFormula (τ : ExPoly) : NForm → Formula
   | .and fs => .and (fs.map (toFormula τ))
   | .or fs => .or (fs.map (toFormula τ))
 
+/-- The kinds of gadgets and macros, recorded in the construction log (as the JavaScript
+builder's `macroCounts`). -/
+inductive MacroKind
+  | lt
+  | divides
+  | congruent
+  | odd
+  | alpha
+  | power
+  | binomial
+  | orthogonal
+  | mask
+  | bitAnd
+  deriving DecidableEq, Repr
+
 /-- The state of a natural construction. -/
 structure State where
   /-- The variable counter. -/
@@ -95,6 +111,8 @@ structure State where
   nodes : List NatNode
   /-- The block starts of the power calls, in allocation order. -/
   blocks : List ℕ
+  /-- The gadgets and macros run so far, in order. -/
+  log : List MacroKind := []
 
 /-- Natural constructions. -/
 def NM (α : Type) : Type := State → α × State
@@ -122,6 +140,9 @@ def node (n : NatNode) : NM ℕ := fun s =>
   match s.nodes.idxOf? n with
   | some j => (j, s)
   | none => (s.nodes.length, { s with nodes := s.nodes ++ [n] })
+
+/-- Record a gadget or macro in the log. -/
+def note (k : MacroKind) : NM Unit := fun s => ((), { s with log := s.log ++ [k] })
 
 /-- The constant `c`. -/
 def constant (c : ℤ) : NM Ex := do
@@ -195,18 +216,21 @@ def orM (ms : List (NM NForm)) : NM NForm := do
 
 /-- `lt(a, b)`: fresh `d`; the atom `b ≐ a + 1 + d`. -/
 def lt (a b : Ex) : NM NForm := do
+  note .lt
   let d ← fresh
   let e ← addL [a, ← constant 1, d]
   pure (.eq b e)
 
 /-- `divides(a, b)`: fresh `d`; the atom `b ≐ a·d`. -/
 def divides (a b : Ex) : NM NForm := do
+  note .divides
   let d ← fresh
   let e ← mulL [a, d]
   pure (.eq b e)
 
 /-- `congruent(a, M, b)`: fresh `u, v`; the atom `a + M u ≐ b + M v`. -/
 def congruent (a M b : Ex) : NM NForm := do
+  note .congruent
   let u ← fresh
   let v ← fresh
   let l ← addL [a, ← mulL [M, u]]
@@ -215,12 +239,14 @@ def congruent (a M b : Ex) : NM NForm := do
 
 /-- `odd(x)`: fresh `h`; the atom `x ≐ 2h + 1`. -/
 def odd (x : Ex) : NM NForm := do
+  note .odd
   let h ← fresh
   let e ← addL [← scale 2 h, ← constant 1]
   pure (.eq x e)
 
 /-- `alpha(X, b, N)`: fresh `r, s, t, u, v, w, x, y`; the fifteen conditions (C.2). -/
 def alpha (X b N : Ex) : NM NForm := do
+  note .alpha
   let r ← fresh
   let s ← fresh
   let t ← fresh
@@ -280,13 +306,16 @@ inductive PowerMode
   deriving DecidableEq, Repr
 
 /-- `power(P, Q, R)` in the given mode. -/
-def power : PowerMode → Ex → Ex → Ex → NM NForm
-  | .flat => powerFlat
-  | .hierarchical => callPower
+def power (mode : PowerMode) (P Q R : Ex) : NM NForm := do
+  note .power
+  match mode with
+  | .flat => powerFlat P Q R
+  | .hierarchical => callPower P Q R
 
 /-- `binomial(C, N, K)`: fresh `β, τ, π, q, r`; three powers, two strict inequalities and the
 digit equation. -/
 def binomial (mode : PowerMode) (C N K : Ex) : NM NForm := do
+  note .binomial
   let base ← fresh
   let total ← fresh
   let place ← fresh
@@ -302,16 +331,19 @@ def binomial (mode : PowerMode) (C N K : Ex) : NM NForm := do
 
 /-- `orthogonal(a, b)`: fresh `c`; `binomial(c, a + b, a)` and `odd(c)`. -/
 def orthogonal (mode : PowerMode) (a b : Ex) : NM NForm := do
+  note .orthogonal
   let c ← fresh
   andM [do binomial mode c (← addL [a, b]) a, odd c]
 
 /-- `mask(a, b)`: fresh `c`; `binomial(c, b, a)` and `odd(c)`. -/
 def mask (mode : PowerMode) (a b : Ex) : NM NForm := do
+  note .mask
   let c ← fresh
   andM [binomial mode c b a, odd c]
 
 /-- `bitAnd(z, x, y)`: fresh `a, b`; `x ≐ z + a`, `y ≐ z + b` and three orthogonalities. -/
 def bitAnd (mode : PowerMode) (z x y : Ex) : NM NForm := do
+  note .bitAnd
   let a ← fresh
   let b ← fresh
   andM [
