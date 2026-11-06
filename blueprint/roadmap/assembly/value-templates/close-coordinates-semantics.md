@@ -15,13 +15,13 @@ $$A=\iota(a),\quad L=\iota(l),\quad J=\iota(j),\quad a\ne0,\quad l\ne0,\quad |t-
 $\mathtt{value.abs}$ three times) have disjoint blocks occurring in no parameter, so by the
 private-witness lemma the relation holds exactly when there are pairs
 $\zeta_A,\zeta_L,\zeta_J,q$ and rationals $v,a_0,a_1,\delta,u_\epsilon,z_1,\dots,z_4$ and inverse
-witnesses making the following true: $A,L,J$ are accepted by membership, $A_0=L_0=0$, the
+witnesses making the following true: $A,L,J$ are accepted by membership, $A[0]=L[0]=0$ (first code coordinates), the
 gadgets $Z(A,\zeta_A)$, $Z(L,\zeta_L)$, $Z(J,\zeta_J)$, $\operatorname N(\zeta_A)v=1$ and
 $\zeta_A\cdot q=\zeta_J$, $a_0=|(\zeta_L)_0|$, $a_1=|(\zeta_L)_1|$, $(a_0+a_1)u_\epsilon=1$,
 $\delta=|t-q_0|$ and $(a_0+a_1-\delta)(z_1^2+z_2^2+z_3^2+z_4^2)=1$.
 
 By the accepted-indices statement, membership means $A=\iota(a)$, $L=\iota(l)$, $J=\iota(j)$. The
-conditions $A_0=L_0=0$ say $a\ne0$ and $l\ne0$ (first code coordinate). By the
+conditions $A[0]=L[0]=0$ say $a\ne0$ and $l\ne0$ (first code coordinate). By the
 nonzero-multiples lemma, every nonzero multiple of $P_0$ has nonzero abscissa and ordinate,
 so by pair arithmetic the gadget $Z(\iota(m),\zeta)$ is satisfiable and forces $[\zeta]=z_m$
 (also for $m=0$, where $z_0=0$). Then $\operatorname N(\zeta_A)\ne0$ holds because $z_a\ne0$, and

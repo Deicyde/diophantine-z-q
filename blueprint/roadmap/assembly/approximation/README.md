@@ -7,6 +7,13 @@ rationals and integers.
 
 - [The precision quantities and the precision predicate](precision-predicate.md)
 
+The compiler chapter states its acceptance relation with an explicit admissibility clause
+for $l,a,j$ and with the height constant formed at $R=D$. Under the early tests, nonzero
+multiples of $P_0$ make admissibility automatic, and $D\ge10^{12}$ makes the two height
+constants equal, so acceptance is exactly the predicate above.
+
+- [Acceptance by the precision polynomial is the precision predicate](precision-acceptance.md)
+
 Close chooses codes $A,L,J$, links the five signed codes to the precision inputs in the order
 $(n,\kappa,a,l,j)$ and imposes $|t-r(a,j)|<\epsilon_l$ on the same coordinates.
 

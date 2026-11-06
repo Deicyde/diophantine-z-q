@@ -19,9 +19,9 @@ order.
 
 1. Membership of $N,K,C_1,H,U,V_0,V_1$ gives $N=\iota(n)$, $K=\iota(\kappa)$, $H=\iota(h)$,
    $U=\iota(s_0)$ and $C_1,V_0,V_1$ canonical.
-2. $K_0=0$ gives $\kappa\ne0$. Statement M gives $C_1=\iota(\kappa n)$. Since
+2. The first coordinate of $K$ is $0$ (written $K[0]=0$; not to be confused with the field $K_0$), so $\kappa\ne0$. Statement M gives $C_1=\iota(\kappa n)$. Since
    $\operatorname{neg}(\iota(m))=\iota(-m)$, raw addition gives $V_0=\iota(h-\kappa)$ and
-   $V_1=\iota(s_0-\kappa n)$. $H_0=0$ and $(V_0)_0=0$ give $h\ne0$ and $h\ne\kappa$.
+   $V_1=\iota(s_0-\kappa n)$. $H[0]=0$ and $V_0[0]=0$ give $h\ne0$ and $h\ne\kappa$.
 3. For each of $H,U,V_0,V_1$ the gadgets $I\!X$ and $Z$ are satisfiable and force the pairs
    $w_i$, $\zeta_i$ to be $w$ and $z$ of the point (nonzero multiples have $x,y\ne0$; the
    identity gives $0$).

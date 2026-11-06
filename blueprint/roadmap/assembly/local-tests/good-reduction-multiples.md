@@ -7,7 +7,7 @@ origin: background
 # Multiples enter the formal neighbourhood at a good prime
 
 Let $\pi$ be a prime element of $\mathbb Z[s]$ associate to neither $s$ nor $d$, and let
-$q=|\mathbb Z[s]/(\pi)|$. For every $P\in E(K_0)$ there is an integer $m$ with $1\le m\le q^2$ and
+$q=|\mathbb Z[s]/(\pi)|$. For every $P\in E(K_0)$ there is an integer $m$ with $1\le m\le q^2+1$ and
 $[m]P\in E_1(\pi)$.
 
 **Proof sketch.** Write $v=v_\pi$, $f(x)=x^3+Ax$ with $A=-d^2$, and bars for reduction modulo
@@ -24,10 +24,10 @@ $v(y_P-y_Q)\ge1$. Either way $v(\lambda)\le-1$ and the abscissa has negative val
 $x_P=x_Q$ and $P\ne Q$, then $Q=-P$, $2\bar y_P=0$, so $\bar x_P$ is a simple root, and $P-Q=[2]P$
 has abscissa $(f'(x_P)/(2y_P))^2-2x_P$ with $v(f'(x_P))=0$, $v(2y_P)\ge1$.
 
-*Pigeonhole.* If some $[i]P$ with $1\le i\le q^2$ lies in $E_1(\pi)$ we are done. Otherwise the
-$q^2+1$ points $[1]P,\dots,[q^2+1]P$ are $O$-free with $\pi$-integral coordinates; their
-reductions lie in a set of $q^2$ elements, so two of them, $[a]P$ and $[b]P$ with $a<b$,
-reduce to the same pair, and $[b-a]P\in E_1(\pi)$ with $1\le b-a\le q^2$.
+*Pigeonhole.* If some $[i]P$ with $1\le i\le q^2+1$ lies in $E_1(\pi)$, take $m=i$. Otherwise the
+$q^2+1$ points $[1]P,\dots,[q^2+1]P$ are different from $O$ and have $\pi$-integral coordinates. Their
+reductions lie in a set of $q^2$ elements, so two of them, $[a]P$ and $[b]P$ with $a<b$, reduce
+to the same pair. Then $[b-a]P\in E_1(\pi)$ with $1\le b-a\le q^2$.
 
 This replaces the reduction homomorphism (Silverman VII.2.1) by the one property used.
 

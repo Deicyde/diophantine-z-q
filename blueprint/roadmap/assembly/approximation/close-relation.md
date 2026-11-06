@@ -16,9 +16,19 @@ impose $|t-r(a,j)|<\epsilon_l$ on the same coordinates.
 
 **Proof sketch.** By the relations of the outer recipes, $\mathrm{Rel}_{\mathtt{close}}(N,K,t)$
 holds exactly when there are $A,L,J,E_0,\dots,E_4$ with five signed-encoding relations, the
-precision relation and the coordinate window. Input C, that is, the semantics of the rational
-translation applied to the precision recipe together with the semantics of the natural
-precision polynomial, is used in the form: for all $E_0,\dots,E_4\in\mathbb Q^5$,
+precision relation and the coordinate window. Input C is used as a chain of three
+equivalences. Let $C$ be the natural precision polynomial. For all $E_0,\dots,E_4\in\mathbb Q^5$:
+
+- by the semantics of the rational translation (item 1, which uses the multiplication
+  statement M and so the four hypotheses), $\mathrm{Rel}_{\mathtt{precision}}(E_0,\dots,E_4)$ holds
+  exactly when there is $c\in\mathbb N^5$ with $E_i=\iota(c_i)$ for $0\le i\le4$ and
+  $C(c,\mathbf z)=0$ for some $\mathbf z\in\mathbb N^{1305806}$;
+- by the semantics of the natural precision polynomial, the existence of such $\mathbf z$ is
+  $\operatorname{accepts}(c)$;
+- by the acceptance bridge, $\operatorname{accepts}(c)$ is
+  $\operatorname{Prec}(\operatorname{dec}c_0,\dots,\operatorname{dec}c_4)$.
+
+Hence
 $$\mathrm{Rel}_{\mathtt{precision}}(E_0,\dots,E_4)\iff\exists\,c\in\mathbb N^5:\ E_i=\iota(c_i)\ (0\le i\le4)\ \text{and}\
 \operatorname{Prec}(\operatorname{dec}c_0,\dots,\operatorname{dec}c_4).$$
 
@@ -49,6 +59,7 @@ is the identity, and the coordinate window holds because $a,l\ge1$ are nonzero.
 - [Semantics of the coordinate window](../value-templates/close-coordinates-semantics.md)
 - [Semantics of the rational translation](../../compiler/translation/rational-translation.md)
 - [Semantics of the natural precision polynomial](../../compiler/natural/natural-polynomial-semantics.md)
+- [Acceptance by the precision polynomial is the precision predicate](precision-acceptance.md)
 - [Nonzero multiples of the generator](../value-templates/nonzero-multiples.md)
 
 ## Sources
