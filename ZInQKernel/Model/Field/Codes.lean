@@ -105,4 +105,14 @@ theorem iota_add (a b : ℤ) : pointCode (a • genP0 + b • genP0) = iota (a +
 
 theorem iota_isCanonicalCode (n : ℤ) : IsCanonicalCode (iota n) := ⟨_, rfl⟩
 
+/-- If `P₀` has infinite order (Proposition 3.1), distinct indices have distinct codes. -/
+theorem iota_injective_of_addOrderOf_eq_zero (h : addOrderOf genP0 = 0) :
+    Function.Injective iota := by
+  intro a b hab
+  have h1 : a • genP0 = b • genP0 := pointCode_injective hab
+  have h2 : (a - b) • genP0 = 0 := by simp [sub_zsmul, h1]
+  have h3 := addOrderOf_dvd_iff_zsmul_eq_zero.mpr h2
+  rw [h, Nat.cast_zero, zero_dvd_iff, sub_eq_zero] at h3
+  exact h3
+
 end ZInQ
