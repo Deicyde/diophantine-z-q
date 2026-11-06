@@ -2,15 +2,15 @@
 
 | Area | Coverage | Evidence |
 | --- | --- | --- |
-| Section 1: main theorem and assembly | `MAPPED` | The target and the conditional main theorem are stated in the first chapter; Lemma 1.2 still needs its own decomposition. |
+| Section 1: main theorem and assembly | `DECOMPOSED` | The [first chapter](../roadmap/main/README.md) states the target and the conditional main theorem; the [assembly chapter](../roadmap/assembly/README.md) decomposes Lemma 1.2. |
 | Section 2 and Appendix C: literal finite specification | `DECOMPOSED` | The [specification chapter](../roadmap/syntax/README.md) defines the expression language, every template, constant, constructor and recipe, and the polynomial; correctness of each template is assigned to the chapter that uses it. |
 | Section 3: elliptic model, generator and addition | `DECOMPOSED` | The [elliptic model chapter](../roadmap/model/README.md) covers the field, the descent, the heights and the finite search, membership and raw addition. |
 | Section 4: proof of the six-contact estimate | `OUT` | Uses Shimura curves, integral models and modularity, which are not formalizable here; its conclusion is the hypothesis H in the first chapter. |
-| Section 5: pole predicate | `MAPPED` | Lemma 5.1 is elementary and awaits decomposition; Theorem 5.2 is the hypothesis PC in the first chapter. |
+| Section 5: pole predicate | `DECOMPOSED` | Lemma 5.1 is the [pole obstruction](../roadmap/multiplication/pole-obstruction.md) of the multiplication chapter; Theorem 5.2 is the hypothesis PC in the first chapter. |
 | Section 5.1 and Sections 7–9, Appendices E–G: restricted converse | `OUT` | Uses Kato, Waldspurger, Bump–Friedberg–Hoffstein, Nekovář and Gross–Zagier–Kolyvagin; replaced by the hypothesis PC. |
-| Section 6: multiplication and the false-triple guard | `MAPPED` | Awaiting decomposition; Proposition 6.2 is the hypothesis 22P in the first chapter. |
+| Section 6: multiplication and the false-triple guard | `DECOMPOSED` | The [multiplication chapter](../roadmap/multiplication/README.md) covers the template, soundness through the height estimate and the guard, and completeness; Proposition 6.2 is the hypothesis 22P in the first chapter. |
 | Section 10: precision computation and compilation | `MAPPED` | The [translation chapter](../roadmap/compiler/translation/README.md) decomposes the interpreter, lowering and rational translation (Sections 10.3 and 10.4); the natural polynomial and the alpha and power formulas await decomposition. |
-| Section 11: variable-shift relation | `MAPPED` | Awaiting decomposition. |
+| Section 11: variable-shift relation | `DECOMPOSED` | The [assembly chapter](../roadmap/assembly/README.md) covers Close, the six local tests, Lemmas 11.1 and 11.2 and the ordinary-value relation. |
 | Section 12: cutoff and polynomial size | `DECOMPOSED` | The [size chapter](../roadmap/size/README.md) bounds the fixed constants, identifies the cutoff and bounds the degree and coefficients of the polynomial; the progression estimate enters as the hypothesis CAT in the first chapter. |
 | Section 13: consequences | `DEFERRED` | The three corollaries follow the main theorem and are scheduled after it. |
 | Appendix H: de Rham comparison in the height argument | `OUT` | Part of the proof of the six-contact estimate, replaced by the hypothesis H. |
