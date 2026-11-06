@@ -393,7 +393,7 @@ theorem valueTestTemplate_rel_iff (I : Constructors E) (cstar ell T : ℤ) (a : 
   rw [← valueTestBuild_formula]
   exact (valueTest_facts I cstar ell T).rel_iff_nil a
 
-theorem twoThousandSevenHundredThirty_pow_six : (2730 : ℤ) ^ 6 = 413976684737889000000 := by
+theorem pow_six_2730 : (2730 : ℤ) ^ 6 = 413976684737889000000 := by
   norm_num
 
 /-! ### `value.exceptions` -/
