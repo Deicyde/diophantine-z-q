@@ -55,11 +55,11 @@ def seqConcat : List (NM (List NForm)) → NM (List NForm)
     pure (a ++ b)
 
 /-- Item 4 for one register: `mask(R_j, D)`, `lt(R_j, T)`, `bitAnd(K N_j, R_j + D, K F)`. -/
-def registerMasks (K D T F Rj Nj : Ex) : NM (List NForm) := do
-  let f1 ← mask .hierarchical Rj D
-  let f2 ← lt Rj T
-  let f3 ← bitAnd .hierarchical (← mulL [K, Nj]) (← addL [Rj, D]) (← mulL [K, F])
-  pure [f1, f2, f3]
+def registerMasks (K D T F Rj Nj : Ex) : NM (List NForm) :=
+  seqM [
+    mask .hierarchical Rj D,
+    lt Rj T,
+    do bitAnd .hierarchical (← mulL [K, Nj]) (← addL [Rj, D]) (← mulL [K, F])]
 
 /-- Item 5: the sub instructions of `p_i, p_{i+1}, …`, in increasing order. Returns the
 formulas and the branch histories `(i, V_i, W_i)`. -/
@@ -68,10 +68,11 @@ def subBranches (S N : List Ex) : ℕ → List Instr → NM (List NForm × List 
   | i, .dec j _ _ :: rest => do
     let V ← fresh
     let W ← fresh
-    let f1 ← bitAnd .hierarchical V (S.getD i exZero) (N.getD j exZero)
-    let e ← addL [V, W]
+    let fs ← seqM [
+      bitAnd .hierarchical V (S.getD i exZero) (N.getD j exZero),
+      do pure (.eq (S.getD i exZero) (← addL [V, W]))]
     let rest' ← subBranches S N (i + 1) rest
-    pure (f1 :: .eq (S.getD i exZero) e :: rest'.1, (i, V, W) :: rest'.2)
+    pure (fs ++ rest'.1, (i, V, W) :: rest'.2)
   | i, _ :: rest => subBranches S N (i + 1) rest
 
 /-- The branch histories `(V_i, W_i)` of instruction `i`. -/

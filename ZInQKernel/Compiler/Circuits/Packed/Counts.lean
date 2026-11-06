@@ -77,10 +77,14 @@ theorem counts_subBranches (S N : List Ex) (i : ℕ) (p : Program) :
   | cons ins rest ih =>
     cases ins with
     | dec j x y =>
+      have hfs : ∀ V W : Ex, Counts (seqM [bitAnd .hierarchical V (S.getD i exZero) (N.getD j exZero),
+          do pure (.eq (S.getD i exZero) (← addL [V, W]))]) 29 9 bitAndLog := fun V W =>
+        (Counts.seqM_cons (Counts.bitAnd V _ _) (Counts.seqM_cons ((Counts.addL [V, W]).bind
+          fun e => Counts.pure (NForm.eq (S.getD i exZero) e)) Counts.seqM_nil)).congr rfl rfl
+          (by simp)
       have h := Counts.fresh.bind fun V => Counts.fresh.bind fun W =>
-        (Counts.bitAnd V (S.getD i exZero) (N.getD j exZero)).bind fun f1 =>
-          (Counts.addL [V, W]).bind fun e => (ih (i + 1)).bind fun rest' =>
-            Counts.pure (f1 :: .eq (S.getD i exZero) e :: rest'.1, (i, V, W) :: rest'.2)
+        (hfs V W).bind fun fs => (ih (i + 1)).bind fun rest' =>
+            Counts.pure (fs ++ rest'.1, (i, V, W) :: rest'.2)
       refine h.congr ?_ ?_ ?_
       · simp [Program.subCount, List.countP_cons, Instr.isDec]; ring
       · simp [Program.subCount, List.countP_cons, Instr.isDec]; ring

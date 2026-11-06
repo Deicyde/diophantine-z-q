@@ -37,6 +37,10 @@ variable {φs φs₁ φs₂ : List Formula} {U : Set ℕ} {c₀ c₁ c₂ : ℕ}
 theorem congr (h : SpecE φs U c₀ c₁ E R) {R' : (ℕ → ℕ) → Prop} (hR : ∀ x, R x ↔ R' x) :
     SpecE φs U c₀ c₁ E R' := ⟨h.le, h.exp, h.loc, fun x => (h.sem x).trans (hR x)⟩
 
+theorem of_eq (h : SpecE φs U c₀ c₁ E R) {φs' : List Formula} {E' : Set ℕ} (hφ : φs = φs')
+    (hE : E = E') : SpecE φs' U c₀ c₁ E' R := by
+  subst hφ hE; exact h
+
 theorem mono (h : SpecE φs U c₀ c₁ E R) {U' : Set ℕ} (hU : U ⊆ U') : SpecE φs U' c₀ c₁ E R :=
   ⟨h.le, h.exp, fun φ hφ => (h.loc φ hφ).mono fun i hi => hi.imp_left fun h => hU h, h.sem⟩
 
