@@ -2,6 +2,8 @@
 article_id: af_f401bef0ba7e28873cf85a34
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.normDiv, ZInQ.Syntax.divPsi, ZInQ.Syntax.psiComponent
 ---
 
 # Normalized division polynomials and their components

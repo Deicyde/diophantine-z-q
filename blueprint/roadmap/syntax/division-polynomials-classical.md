@@ -2,6 +2,9 @@
 article_id: af_d277cf2c0669f6ff3b4e08f3
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.normDiv_eq_preΨ', ZInQ.Syntax.divPsi_eq_Ψ, ZInQ.Syntax.mk_divPsi, ZInQ.Syntax.psiEval_eq_evalEval_ψ
 ---
 
 # Agreement with the classical division polynomials

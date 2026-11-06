@@ -2,6 +2,9 @@
 article_id: af_374b9276355457843f422392
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.mulByN_formulas
 ---
 
 # Division polynomials compute multiples

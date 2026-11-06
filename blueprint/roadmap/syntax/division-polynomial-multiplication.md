@@ -2,6 +2,8 @@
 article_id: af_f8094d38409076c12ef5e49c
 declaration: def
 origin: background
+statement: formalized
+lean: ZInQ.DivisionPolynomialMultiplication
 ---
 
 # The multiplication-by-n formulas
