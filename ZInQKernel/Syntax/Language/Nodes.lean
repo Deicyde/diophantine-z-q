@@ -244,21 +244,39 @@ noncomputable def CallTarget.resolve (templates recipes : List ExPoly) : CallTar
   | .template i => getEx templates i
   | .recipe i => getEx recipes i
 
+/-- The call atom `τ[l_0, …, l_{p-1}; w]` with the parameter polynomials given as a list. -/
+noncomputable def callListFormula (τ : ExPoly) (l : List Poly) (w : ℕ) : Formula :=
+  .call τ (fun i => getPoly l i) w
+
+@[simp] theorem compile_callListFormula (τ : ExPoly) (l : List Poly) (w : ℕ) :
+    (callListFormula τ l w).compile = τ.callList l w := by
+  simp [callListFormula, ExPoly.callList]
+
+/-- The call atom `κ[X_{j_0}, …, X_{j_{p-1}}; w]` of a composition call. -/
+noncomputable def RecipeCall.formula (templates recipes : List ExPoly) (c : RecipeCall) :
+    Formula :=
+  callListFormula (c.target.resolve templates recipes) (c.args.map X) c.start
+
 /-- The constraint `κ[X_{j_0}, …, X_{j_{p-1}}; w]` of a composition call. -/
 noncomputable def RecipeCall.constraint (templates recipes : List ExPoly) (c : RecipeCall) :
     Poly :=
-  (c.target.resolve templates recipes).callList (c.args.map X) c.start
+  (c.formula templates recipes).compile
+
+theorem RecipeCall.constraint_eq (templates recipes : List ExPoly) (c : RecipeCall) :
+    c.constraint templates recipes =
+      (c.target.resolve templates recipes).callList (c.args.map X) c.start := by
+  simp [RecipeCall.constraint, RecipeCall.formula]
 
 /-- The constraints of a composition recipe. -/
 noncomputable def CompositionRecipe.constraints (templates recipes : List ExPoly)
     (r : CompositionRecipe) : List Poly :=
   r.calls.map (RecipeCall.constraint templates recipes)
 
-/-- The constraints of a model-evaluation recipe, in the specification's order: the three
-generator constraints, the natural constraints of the source rows with a start, the constant
+/-- The conjuncts of a model-evaluation recipe, in the specification's order: the three
+generator constraints, the natural calls of the source rows with a start, the constant
 definitions, the operations, and the five differences of the root equality. -/
-noncomputable def ModelRecipe.constraints (templates recipes : List ExPoly) (r : ModelRecipe) :
-    List Poly :=
+noncomputable def ModelRecipe.conjuncts (templates recipes : List ExPoly) (r : ModelRecipe) :
+    List Formula :=
   let ref := pointRefList r.generator
   let ν := getEx templates r.natural
   let α := getEx templates r.addition
@@ -266,15 +284,22 @@ noncomputable def ModelRecipe.constraints (templates recipes : List ExPoly) (r :
   let π := match r.power with
     | some i => getEx recipes i
     | none => ExPoly.empty
-  generatorConstraints r.generator ++
-    r.sources.filterMap (fun row => row.2.map fun s => ν.callList (ref row.1) s) ++
-    r.constants.map (fun d => (getEx templates d.1).callList (ref (-2) ++ ref d.2.1) d.2.2) ++
+  (generatorConstraints r.generator).map .atom ++
+    r.sources.filterMap (fun row => row.2.map fun s => callListFormula ν (ref row.1) s) ++
+    r.constants.map (fun d =>
+      callListFormula (getEx templates d.1) (ref (-2) ++ ref d.2.1) d.2.2) ++
     r.operations.map (fun
-      | .add a b o s => α.callList (ref a ++ ref b ++ ref o) s
-      | .mul a b o s => μ.callList (ref a ++ ref b ++ ref o) s
-      | .power a b c o s => π.callList (ref a ++ ref b ++ ref c ++ ref o) s) ++
-    List.ofFn (fun i : Fin 5 => pointRef r.generator r.rootEq.1 i -
-      pointRef r.generator r.rootEq.2 i)
+      | .add a b o s => callListFormula α (ref a ++ ref b ++ ref o) s
+      | .mul a b o s => callListFormula μ (ref a ++ ref b ++ ref o) s
+      | .power a b c o s => callListFormula π (ref a ++ ref b ++ ref c ++ ref o) s) ++
+    (List.ofFn fun i : Fin 5 =>
+      pointRef r.generator r.rootEq.1 i - pointRef r.generator r.rootEq.2 i).map .atom
+
+/-- The constraints of a model-evaluation recipe: the compiled conjuncts (the generator
+polynomials, the call polynomials and the root differences). -/
+noncomputable def ModelRecipe.constraints (templates recipes : List ExPoly) (r : ModelRecipe) :
+    List Poly :=
+  (r.conjuncts templates recipes).map Formula.compile
 
 /-- The parameter count of a recipe. -/
 def Recipe.parameterCount : Recipe → ℕ
@@ -305,6 +330,49 @@ theorem getEx_denoteRecipes (templates : List ExPoly) (rs : List Recipe) {i : �
     (h : i < rs.length) :
     getEx (denoteRecipes templates rs) i = rs[i].denote templates (denoteRecipes templates (rs.take i)) :=
   getD_foldl_snoc _ rs h _
+
+/-! ### Recipes as formulas -/
+
+/-- The formula of a composition recipe: the conjunction or disjunction of its call atoms. -/
+noncomputable def CompositionRecipe.formula (templates recipes : List ExPoly)
+    (r : CompositionRecipe) : Formula :=
+  match r.connective with
+  | .sumSq => .and (r.calls.map (RecipeCall.formula templates recipes))
+  | .prod => .or (r.calls.map (RecipeCall.formula templates recipes))
+
+/-- The polynomial of a composition recipe is the compilation of its formula. -/
+theorem CompositionRecipe.apply_constraints_eq (templates recipes : List ExPoly)
+    (r : CompositionRecipe) :
+    r.connective.apply (r.constraints templates recipes) = (r.formula templates recipes).compile := by
+  have h : RecipeCall.constraint templates recipes =
+      fun c => (RecipeCall.formula templates recipes c).compile := rfl
+  unfold CompositionRecipe.formula CompositionRecipe.constraints
+  cases r.connective <;>
+    simp [Connective.apply, Formula.compile_and, Formula.compile_or, List.map_map,
+      Function.comp_def, h]
+
+/-- The formula of a model-evaluation recipe: the conjunction of its conjuncts. -/
+noncomputable def ModelRecipe.formula (templates recipes : List ExPoly) (r : ModelRecipe) :
+    Formula :=
+  .and (r.conjuncts templates recipes)
+
+/-- The polynomial of a model-evaluation recipe is the compilation of its formula. -/
+theorem ModelRecipe.apply_constraints_eq (templates recipes : List ExPoly) (r : ModelRecipe) :
+    Connective.sumSq.apply (r.constraints templates recipes) =
+      (r.formula templates recipes).compile := by
+  simp [Connective.apply, ModelRecipe.constraints, ModelRecipe.formula, Formula.compile_and,
+    List.map_map, Function.comp_def]
+
+/-- The polynomial of a recipe is the compilation of its formula. -/
+noncomputable def Recipe.formula (templates recipes : List ExPoly) : Recipe → Formula
+  | .composition r => r.formula templates recipes
+  | .model r => r.formula templates recipes
+
+theorem Recipe.poly_eq_compile (templates recipes : List ExPoly) (ρ : Recipe) :
+    ρ.poly templates recipes = (ρ.formula templates recipes).compile := by
+  cases ρ with
+  | composition r => exact r.apply_constraints_eq templates recipes
+  | model r => exact r.apply_constraints_eq templates recipes
 
 /-! ### Semantics of the connectives -/
 

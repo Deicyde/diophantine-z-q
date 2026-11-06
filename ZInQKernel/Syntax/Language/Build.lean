@@ -163,6 +163,28 @@ theorem ExPoly.rel_iff_exists_assignment {τ : ExPoly} (hτ : τ.WF) (a : Fin τ
       rw [Nat.add_sub_cancel' (by omega)]
     · unfold ExPoly.varCount at this; omega
 
+/-- **Relations through private blocks.** If the polynomial of `τ` is the compilation of a
+scoped formula `φ` whose blocks lie above the parameters, then `Rel_τ(a)` holds exactly when
+`φ^*` holds at some assignment extending `a` (the block variables are irrelevant there, by
+`Formula.lift_congr`). -/
+theorem ExPoly.rel_iff_exists_lift {τ : ExPoly} (hτ : τ.WF) {φ : Formula}
+    (hpoly : τ.poly = φ.compile) (hφ : φ.Scoped) (hblocks : ∀ b ∈ φ.blocks, τ.params ≤ b.1)
+    (a : Fin τ.params → ℚ) :
+    τ.Rel a ↔ ∃ y : ℕ → ℚ, (∀ i : Fin τ.params, y i = a i) ∧ φ.Lift y := by
+  rw [ExPoly.rel_iff_exists_assignment hτ, hpoly]
+  simp only [Formula.ev_compile_eq_zero_iff]
+  constructor
+  · rintro ⟨y, hya, hy⟩
+    exact ⟨y, hya, (Formula.exists_holds_iff φ hφ y).1 ⟨y, fun _ _ => rfl, hy⟩⟩
+  · rintro ⟨y, hya, hy⟩
+    obtain ⟨y', hy', h⟩ := (Formula.exists_holds_iff φ hφ y).2 hy
+    refine ⟨y', fun i => ?_, h⟩
+    rw [hy' i, hya i]
+    rintro ⟨b, hb, hib, -⟩
+    have := hblocks b hb
+    have := i.isLt
+    omega
+
 /-- The relation of a constructed template: some values of the witnesses satisfy the global
 equations and the final formula. -/
 theorem Build.template_rel_iff (p : ℕ) (b : Build Formula)
