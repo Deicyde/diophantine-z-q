@@ -6,3 +6,4 @@ import ZInQKernel.Hypotheses.PrimePattern
 import ZInQKernel.Main
 import ZInQKernel.Model.Field
 import ZInQKernel.Syntax.Language
+import ZInQKernel.Syntax.Constants
