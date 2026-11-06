@@ -2,13 +2,50 @@
 article_id: af_82d475d89100a55547a93a2b
 declaration: theorem
 origin: cited
-not_ready: true
 ---
 
 # The literal cutoff
 
-This statement is being written; see the chapter introduction.
+Assume the catalogue bound. Then the fixed constants of the specification satisfy
+
+1. $R=\max(D,H_{\max},c_*,10^{12})=D$;
+2. $T=(48A_{\rm ht})^{13}=(96\cdot10^{13})^{13}\,D^{2210G_0^2D^3}$, where
+   $A_{\rm ht}=2\cdot10^{13}\max(1,C_{\rm cm},Q^{17})=2\cdot10^{13}Q^{17}$ and $Q=R^{RE_0}=D^{10G_0^2D^3}$;
+3. $T<2^{2^{2^{9013}}}$.
+
+Moreover, independently of the catalogue bound, the least formal multiple search succeeds:
+$1\le M_0\le N_s^{10}$, and the normalized representation $\xi([M_0]P_0)=(a+bs)/c$ satisfies
+$N_s^4\mid a$, $N_s^4\mid b$ and $\gcd(c,N_s)=1$.
+
+Here $F_0=324!$, $D=F_0\,3^{256F_0^4}$, $G_0=116064000000$, $E_0=10(DG_0)^2$,
+$B_{\rm cm}=D^2\,3^{21000D^2}+1$ and $C_{\rm cm}=2B_{\rm cm}+4096(1028+5D+84000D^2)$. This is a statement
+about the prescribed integers, independent of the role of $T$ in excluding false
+multiplication triples; none of these integers is evaluated.
+
+**Proof sketch.** The catalogue bound puts the catalogue below $X=2^{W^3}$, so
+$H_{\max}<X$ and $\log_2N_s<2^{2054}$. The successful formal multiple gives $M_0\le N_s^{10}$
+and hence $c_*<2^{2^{2059}}$, while $2^{2^{8008}}<D<2^{2^{9010}}$; so $R=D$. Then
+$C_{\rm cm}<2^{50000D^2}<Q^{17}$ identifies the maximum and gives the closed form of $T$, and the
+closed form is below $2^{D^8}<2^{2^{2^{9013}}}$.
 
 ## Depends on
 
-None.
+- [The prescribed fixed constants](../syntax/constants/fixed-constants.md)
+- [The least formal multiple](../syntax/constants/least-formal-multiple.md)
+- [The catalogue bound](../main/catalogue-bound.md)
+
+## Proof depends on
+
+- [The parameter $R$ equals $D$](constants/r-equals-d.md)
+- [The closed form of $T$](constants/t-identity.md)
+- [The cutoff is below a triple tower](constants/t-bound.md)
+- [A successful formal multiple](formal-multiple/formal-multiple-existence.md)
+
+## Sources
+
+- [Proposition 12.1](../../sources/size-locators.md#proposition-121)
+- [Section 12 opening](../../sources/size-locators.md#section-12-opening)
+- [Proof of Proposition 12.1, catalogue](../../sources/size-locators.md#proof-of-proposition-121-catalogue)
+- [Proof of Proposition 12.1, formal multiple](../../sources/size-locators.md#proof-of-proposition-121-formal-multiple)
+- [Proof of Proposition 12.1, cutoff](../../sources/size-locators.md#proof-of-proposition-121-cutoff)
+- [Proposition 12.1 in the manuscript map](../../sources/manuscript.md#proposition-121)
