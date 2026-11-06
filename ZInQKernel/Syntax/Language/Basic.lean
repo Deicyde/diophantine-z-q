@@ -35,6 +35,9 @@ theorem ev_apply (x : ℕ → ℚ) (f : Poly) : ev x f = eval₂ (Int.castRingHo
 
 @[simp] theorem ev_C (x : ℕ → ℚ) (c : ℤ) : ev x (C c) = c := eval₂_C _ _ _
 
+@[simp] theorem ev_ofNat (x : ℕ → ℚ) (n : ℕ) [n.AtLeastTwo] :
+    ev x (no_index (OfNat.ofNat n : Poly)) = OfNat.ofNat n := map_ofNat _ n
+
 /-- The value of a polynomial depends only on the values of its variables. -/
 theorem ev_congr {x y : ℕ → ℚ} {f : Poly} (h : ∀ i ∈ f.vars, x i = y i) : ev x f = ev y f := by
   simp only [ev_apply]
