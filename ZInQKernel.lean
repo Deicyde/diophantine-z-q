@@ -14,4 +14,5 @@ import ZInQKernel.Compiler.Precision
 import ZInQKernel.Model.Generator
 import ZInQKernel.Syntax.Templates
 import ZInQKernel.Syntax.Constants
+import ZInQKernel.Compiler.Circuits
 import ZInQKernel.Compiler.Exponential
