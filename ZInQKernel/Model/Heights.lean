@@ -12,6 +12,7 @@ import ZInQKernel.Model.Heights.SearchCheck
 import ZInQKernel.Model.Heights.SearchKernel
 import ZInQKernel.Model.Heights.SearchSound
 import ZInQKernel.Model.Heights.Search
+import ZInQKernel.Model.Heights.SearchBox
 
 /-!
 # Heights on `C(K₀)` and the finite search for small points
