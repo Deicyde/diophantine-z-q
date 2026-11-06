@@ -190,4 +190,8 @@ theorem leastFormalMultiple_pos_iff {N : ℕ} :
   rw [leastFormalMultiple_eq_zero hn] at h
   exact lt_irrefl _ h
 
+/- The least formal multiple is never evaluated: from here on the elaborator may not unfold
+it. -/
+attribute [irreducible] leastFormalMultiple
+
 end ZInQ.Syntax

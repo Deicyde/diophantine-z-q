@@ -231,4 +231,7 @@ theorem catalogueMax_lt_of_catalogueBound (hCAT : CatalogueBound) :
   obtain ⟨hr, hcop⟩ := mem_unitResidues_catalogueModulus.1 hr
   exact cataloguePrime_lt_of_catalogueBound hCAT hr hcop hj
 
+/- The catalogue is never evaluated: from here on the elaborator may not unfold it. -/
+attribute [irreducible] cataloguePrime catalogueProduct catalogueMax
+
 end ZInQ.Syntax

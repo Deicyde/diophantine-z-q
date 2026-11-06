@@ -134,6 +134,75 @@ theorem le_val_max (a : FixedExpr R) (as : List (FixedExpr R)) :
     val env a ≤ val env (max a as) ∧ ∀ e ∈ as, val env e ≤ val env (max a as) :=
   (val_max_le_iff env a as _).1 le_rfl
 
+/-! ### Natural-number values
+
+Transfer lemmas: an expression whose subexpressions have the values `(m : ℤ)`, `(n : ℤ)` of
+natural numbers has the value of the corresponding natural-number formula. They let the
+values of the named constants be identified with their defining formulas by rewriting alone,
+without unfolding any constant. -/
+
+section NatCast
+
+variable {env : R → ℤ} {a b c : FixedExpr R} {m n k : ℕ}
+
+theorem foldl_max_natCast (m : ℕ) (ns : List ℕ) :
+    (ns.map (Nat.cast : ℕ → ℤ)).foldl Max.max (m : ℤ) = ((ns.foldl Max.max m : ℕ) : ℤ) := by
+  induction ns generalizing m with
+  | nil => rfl
+  | cons n ns ih => rw [List.map_cons, List.foldl_cons, List.foldl_cons, ← Nat.cast_max, ih]
+
+theorem val_literal_eq {z : ℤ} (h : z = n) : val env (literal z) = n := by rw [val_literal, h]
+
+theorem val_ref_eq {r : R} (h : env r = m) : val env (ref r) = m := by rw [val_ref, h]
+
+theorem val_add_eq (ha : val env a = m) (hb : val env b = n) :
+    val env (add a b) = ((m + n : ℕ) : ℤ) := by rw [val_add, ha, hb, Nat.cast_add]
+
+theorem val_mul_eq (ha : val env a = m) (hb : val env b = n) :
+    val env (mul a b) = ((m * n : ℕ) : ℤ) := by rw [val_mul, ha, hb, Nat.cast_mul]
+
+theorem val_pow_eq (ha : val env a = m) (hb : val env b = n) :
+    val env (pow a b) = ((m ^ n : ℕ) : ℤ) := by
+  rw [val_pow, ha, hb, Int.toNat_natCast, Nat.cast_pow]
+
+theorem val_factorial_eq (ha : val env a = m) :
+    val env (factorial a) = ((m.factorial : ℕ) : ℤ) := by
+  rw [val_factorial, ha, Int.toNat_natCast]
+
+theorem val_catalogueProduct_eq (ha : val env a = m) (hb : val env b = n)
+    (hc : val env c = k) :
+    val env (catalogueProduct a b c) = ((_root_.ZInQ.Syntax.catalogueProduct m n k : ℕ) : ℤ) := by
+  rw [val_catalogueProduct, ha, hb, hc, Int.toNat_natCast, Int.toNat_natCast, Int.toNat_natCast]
+
+theorem val_catalogueMax_eq (ha : val env a = m) (hb : val env b = n) (hc : val env c = k) :
+    val env (catalogueMax a b c) = ((_root_.ZInQ.Syntax.catalogueMax m n k : ℕ) : ℤ) := by
+  rw [val_catalogueMax, ha, hb, hc, Int.toNat_natCast, Int.toNat_natCast, Int.toNat_natCast]
+
+theorem val_leastFormalMultiple_eq (ha : val env a = m) :
+    val env (leastFormalMultiple a) = ((_root_.ZInQ.Syntax.leastFormalMultiple m : ℕ) : ℤ) := by
+  rw [val_leastFormalMultiple, ha, Int.toNat_natCast]
+
+theorem val_max_eq {as : List (FixedExpr R)} {ns : List ℕ} (ha : val env a = m)
+    (hs : as.map (val env) = ns.map Nat.cast) :
+    val env (max a as) = ((ns.foldl Max.max m : ℕ) : ℤ) := by
+  rw [val_max, hs, ha, foldl_max_natCast]
+
+theorem val_max_two_eq {a₁ a₂ : FixedExpr R} {n₁ n₂ : ℕ} (ha : val env a = m)
+    (h₁ : val env a₁ = n₁) (h₂ : val env a₂ = n₂) :
+    val env (max a [a₁, a₂]) = ((Max.max (Max.max m n₁) n₂ : ℕ) : ℤ) := by
+  rw [val_max_eq (ns := [n₁, n₂]) ha
+    (by rw [List.map_cons, List.map_cons, List.map_nil, h₁, h₂]; rfl)]
+  rfl
+
+theorem val_max_three_eq {a₁ a₂ a₃ : FixedExpr R} {n₁ n₂ n₃ : ℕ} (ha : val env a = m)
+    (h₁ : val env a₁ = n₁) (h₂ : val env a₂ = n₂) (h₃ : val env a₃ = n₃) :
+    val env (max a [a₁, a₂, a₃]) = ((Max.max (Max.max (Max.max m n₁) n₂) n₃ : ℕ) : ℤ) := by
+  rw [val_max_eq (ns := [n₁, n₂, n₃]) ha
+    (by rw [List.map_cons, List.map_cons, List.map_cons, List.map_nil, h₁, h₂, h₃]; rfl)]
+  rfl
+
+end NatCast
+
 /-! ### References -/
 
 mutual
@@ -213,5 +282,10 @@ theorem valMax_congr : ∀ (acc : ℤ) (es : List (FixedExpr R)),
 end
 
 end FixedExpr
+
+/- Values of fixed expressions are only ever computed through the equations above: from here
+on the elaborator may not unfold `val` (a failed unification would otherwise start evaluating
+astronomical constants). -/
+attribute [irreducible] FixedExpr.val FixedExpr.valMax
 
 end ZInQ.Syntax
