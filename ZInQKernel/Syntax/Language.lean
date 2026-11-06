@@ -4,6 +4,8 @@ import ZInQKernel.Syntax.Language.Lifting
 import ZInQKernel.Syntax.Language.PointRef
 import ZInQKernel.Syntax.Language.Nodes
 import ZInQKernel.Syntax.Language.Gadgets
+import ZInQKernel.Syntax.Language.Build
+import ZInQKernel.Syntax.Language.Pairs
 
 /-!
 # The expression language of the specification

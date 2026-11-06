@@ -46,76 +46,122 @@ theorem ev_congr {x y : ℕ → ℚ} {f : Poly} (h : ∀ i ∈ f.vars, x i = y i
 
 /-! ### Variable ranges -/
 
-/-- Every variable of `f` has index below `n`. -/
-def VarsLT (f : Poly) (n : ℕ) : Prop := ∀ i ∈ f.vars, i < n
+/-- Every variable of `f` satisfies `P`. -/
+def VarsIn (f : Poly) (P : ℕ → Prop) : Prop := ∀ i ∈ f.vars, P i
 
-namespace VarsLT
+namespace VarsIn
 
-theorem mono {f : Poly} {n n' : ℕ} (h : VarsLT f n) (hn : n ≤ n') : VarsLT f n' :=
-  fun i hi => lt_of_lt_of_le (h i hi) hn
+variable {P Q : ℕ → Prop}
 
-theorem of_subset {f g : Poly} {n : ℕ} (h : VarsLT g n) (hfg : f.vars ⊆ g.vars) : VarsLT f n :=
+theorem mono {f : Poly} (h : VarsIn f P) (hPQ : ∀ i, P i → Q i) : VarsIn f Q :=
+  fun i hi => hPQ i (h i hi)
+
+theorem of_subset {f g : Poly} (h : VarsIn g P) (hfg : f.vars ⊆ g.vars) : VarsIn f P :=
   fun i hi => h i (hfg hi)
 
-theorem X {i n : ℕ} (h : i < n) : VarsLT (MvPolynomial.X i) n := by
+theorem X {i : ℕ} (h : P i) : VarsIn (MvPolynomial.X i) P := by
   intro j hj
   rw [vars_X, Finset.mem_singleton] at hj
   exact hj ▸ h
 
-theorem C (c : ℤ) (n : ℕ) : VarsLT (MvPolynomial.C c) n := by
+theorem C (c : ℤ) (P : ℕ → Prop) : VarsIn (MvPolynomial.C c) P := by
   intro j hj
   rw [vars_C] at hj
   simp at hj
 
-theorem intCast (c : ℤ) (n : ℕ) : VarsLT (c : Poly) n := by
+theorem intCast (c : ℤ) (P : ℕ → Prop) : VarsIn (c : Poly) P := by
   rw [← eq_intCast (MvPolynomial.C : ℤ →+* Poly) c]
-  exact C c n
+  exact C c P
 
-theorem zero (n : ℕ) : VarsLT 0 n := by simpa using C 0 n
+theorem zero (P : ℕ → Prop) : VarsIn 0 P := by simpa using C 0 P
 
-theorem one (n : ℕ) : VarsLT 1 n := by simpa using C 1 n
+theorem one (P : ℕ → Prop) : VarsIn 1 P := by simpa using C 1 P
 
-theorem ofNat (k n : ℕ) [k.AtLeastTwo] : VarsLT (OfNat.ofNat k : Poly) n := by
+theorem ofNat (k : ℕ) [k.AtLeastTwo] (P : ℕ → Prop) : VarsIn (OfNat.ofNat k : Poly) P := by
   rw [← map_ofNat (MvPolynomial.C : ℤ →+* Poly) k]
-  exact C _ n
+  exact C _ P
 
-theorem add {f g : Poly} {n : ℕ} (hf : VarsLT f n) (hg : VarsLT g n) : VarsLT (f + g) n := by
+theorem add {f g : Poly} (hf : VarsIn f P) (hg : VarsIn g P) : VarsIn (f + g) P := by
   classical
   intro i hi
   rcases Finset.mem_union.1 (vars_add_subset f g hi) with h | h
   exacts [hf i h, hg i h]
 
-theorem mul {f g : Poly} {n : ℕ} (hf : VarsLT f n) (hg : VarsLT g n) : VarsLT (f * g) n := by
+theorem mul {f g : Poly} (hf : VarsIn f P) (hg : VarsIn g P) : VarsIn (f * g) P := by
   classical
   intro i hi
   rcases Finset.mem_union.1 (vars_mul f g hi) with h | h
   exacts [hf i h, hg i h]
 
-theorem neg {f : Poly} {n : ℕ} (hf : VarsLT f n) : VarsLT (-f) n := by
+theorem neg {f : Poly} (hf : VarsIn f P) : VarsIn (-f) P := by
   intro i hi
   rw [vars_neg] at hi
   exact hf i hi
 
-theorem sub {f g : Poly} {n : ℕ} (hf : VarsLT f n) (hg : VarsLT g n) : VarsLT (f - g) n := by
+theorem sub {f g : Poly} (hf : VarsIn f P) (hg : VarsIn g P) : VarsIn (f - g) P := by
   rw [sub_eq_add_neg]
   exact hf.add hg.neg
 
-theorem pow {f : Poly} {n : ℕ} (hf : VarsLT f n) (k : ℕ) : VarsLT (f ^ k) n :=
+theorem pow {f : Poly} (hf : VarsIn f P) (k : ℕ) : VarsIn (f ^ k) P :=
   fun i hi => hf i (vars_pow f k hi)
 
-theorem list_sum {l : List Poly} {n : ℕ} (h : ∀ f ∈ l, VarsLT f n) : VarsLT l.sum n := by
+theorem list_sum {l : List Poly} (h : ∀ f ∈ l, VarsIn f P) : VarsIn l.sum P := by
   induction l with
-  | nil => exact zero n
+  | nil => exact zero P
   | cons f l ih =>
     rw [List.sum_cons]
     exact (h f List.mem_cons_self).add (ih fun g hg => h g (List.mem_cons_of_mem _ hg))
 
-theorem list_prod {l : List Poly} {n : ℕ} (h : ∀ f ∈ l, VarsLT f n) : VarsLT l.prod n := by
+theorem list_prod {l : List Poly} (h : ∀ f ∈ l, VarsIn f P) : VarsIn l.prod P := by
   induction l with
-  | nil => exact one n
+  | nil => exact one P
   | cons f l ih =>
     rw [List.prod_cons]
     exact (h f List.mem_cons_self).mul (ih fun g hg => h g (List.mem_cons_of_mem _ hg))
+
+end VarsIn
+
+/-- Every variable of `f` has index below `n`. -/
+def VarsLT (f : Poly) (n : ℕ) : Prop := VarsIn f (· < n)
+
+namespace VarsLT
+
+theorem mono {f : Poly} {n n' : ℕ} (h : VarsLT f n) (hn : n ≤ n') : VarsLT f n' :=
+  VarsIn.mono h fun _ hi => lt_of_lt_of_le hi hn
+
+theorem of_subset {f g : Poly} {n : ℕ} (h : VarsLT g n) (hfg : f.vars ⊆ g.vars) : VarsLT f n :=
+  VarsIn.of_subset h hfg
+
+theorem X {i n : ℕ} (h : i < n) : VarsLT (MvPolynomial.X i) n := VarsIn.X h
+
+theorem C (c : ℤ) (n : ℕ) : VarsLT (MvPolynomial.C c) n := VarsIn.C c _
+
+theorem intCast (c : ℤ) (n : ℕ) : VarsLT (c : Poly) n := VarsIn.intCast c _
+
+theorem zero (n : ℕ) : VarsLT 0 n := VarsIn.zero _
+
+theorem one (n : ℕ) : VarsLT 1 n := VarsIn.one _
+
+theorem ofNat (k n : ℕ) [k.AtLeastTwo] : VarsLT (OfNat.ofNat k : Poly) n := VarsIn.ofNat k _
+
+theorem add {f g : Poly} {n : ℕ} (hf : VarsLT f n) (hg : VarsLT g n) : VarsLT (f + g) n :=
+  VarsIn.add hf hg
+
+theorem mul {f g : Poly} {n : ℕ} (hf : VarsLT f n) (hg : VarsLT g n) : VarsLT (f * g) n :=
+  VarsIn.mul hf hg
+
+theorem neg {f : Poly} {n : ℕ} (hf : VarsLT f n) : VarsLT (-f) n := VarsIn.neg hf
+
+theorem sub {f g : Poly} {n : ℕ} (hf : VarsLT f n) (hg : VarsLT g n) : VarsLT (f - g) n :=
+  VarsIn.sub hf hg
+
+theorem pow {f : Poly} {n : ℕ} (hf : VarsLT f n) (k : ℕ) : VarsLT (f ^ k) n := VarsIn.pow hf k
+
+theorem list_sum {l : List Poly} {n : ℕ} (h : ∀ f ∈ l, VarsLT f n) : VarsLT l.sum n :=
+  VarsIn.list_sum h
+
+theorem list_prod {l : List Poly} {n : ℕ} (h : ∀ f ∈ l, VarsLT f n) : VarsLT l.prod n :=
+  VarsIn.list_prod h
 
 end VarsLT
 
