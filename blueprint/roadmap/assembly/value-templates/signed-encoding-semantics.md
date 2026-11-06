@@ -20,16 +20,17 @@ $\mathrm{Rel}_{\mathtt{member}}(N)$, $\mathrm{Rel}_{\mathtt{member}}(C)$, $\math
 $\mathrm{Rel}_{\mathtt{raw\_add}}(Q,Q,Q_2)$ and one of the branches (i) $N=Q$, $C=Q_2$, or (ii)
 $\mathrm{Rel}_{\mathtt{raw\_add}}(Q,G,Q_+)$, $N=\operatorname{neg}(Q_+)$, $\mathrm{Rel}_{\mathtt{raw\_add}}(Q_2,G,C)$.
 
-($\Rightarrow$) Natural codes give $Q=\iota(q)$ with $q\in\mathbb N$, and raw addition on canonical
-codes gives $Q_2=\iota(2q)$. In branch (i), $N=\iota(q)$ and $C=\iota(2q)=\iota(\operatorname{enc}q)$. In
-branch (ii), $Q_+=\iota(q+1)$, $N=\operatorname{neg}(\iota(q+1))=\iota(-(q+1))$ and $C=\iota(2q+1)$; since
+($\Rightarrow$) The natural-code predicate, with M from the multiplication template, gives
+$Q=\iota(q)$ with $q\in\mathbb N$, and raw addition on canonical codes gives $Q_2=\iota(2q)$.
+In branch (i), $N=\iota(q)$ and $C=\iota(2q)=\iota(\operatorname{enc}q)$. In branch (ii), $Q_+=\iota(q+1)$, $N=\operatorname{neg}(\iota(q+1))=\iota(-(q+1))$ and $C=\iota(2q+1)$; since
 $-(q+1)<0$, $\operatorname{enc}(-(q+1))=2q+1$.
 
 ($\Leftarrow$) For $m\ge0$ take $Q=\iota(m)$, $Q_2=\iota(2m)$ and branch (i). For $m<0$ take
 $Q=\iota(-m-1)$, $Q_2=\iota(-2m-2)$, $Q_+=\iota(-m)$ and branch (ii); then
 $\operatorname{neg}(Q_+)=\iota(m)$ and the last raw addition gives $\iota(-2m-1)=\iota(\operatorname{enc}m)$. The
 membership, natural and raw-addition relations hold by the accepted-indices statement,
-natural codes and raw addition; an inactive branch takes arbitrary witnesses.
+the natural-code predicate (with M from the multiplication template) and raw addition; an
+inactive branch takes arbitrary witnesses.
 
 ## Depends on
 
@@ -43,7 +44,8 @@ natural codes and raw addition; an inactive branch takes arbitrary witnesses.
 
 ## Proof depends on
 
-- [Natural codes](natural-codes.md)
+- [The natural-code predicate](../../compiler/translation/natural-code-semantics.md)
+- [Correctness of the multiplication template](../../multiplication/multiplication-template.md)
 - [Accepted inputs have unique indices](../../model/membership-indices.md)
 - [Raw addition](../../model/raw-addition.md)
 - [Elementary properties of codes](../../model/field/point-code-properties.md)

@@ -17,11 +17,12 @@ well-defined.
 ## Natural and signed codes
 
 The natural-code template types four untyped tuples by multiplication before adding their
-squares, so it accepts exactly $\iota(\mathbb N)$ by Lagrange's theorem. The signed encoding links
+squares, so it accepts exactly $\iota(\mathbb N)$ by Lagrange's theorem; this is
+[the natural-code predicate](../../compiler/translation/natural-code-semantics.md) of the
+compiler chapter, with M supplied by the multiplication template. The signed encoding links
 a signed code $\iota(m)$ to the natural code $\iota(\operatorname{enc}m)$, in which form the integer
 enters the precision relation.
 
-- [Natural codes](natural-codes.md)
 - [Semantics of the signed encoding](signed-encoding-semantics.md)
 
 ## The coordinate window
