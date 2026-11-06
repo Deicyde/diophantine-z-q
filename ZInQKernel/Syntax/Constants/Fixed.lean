@@ -211,6 +211,12 @@ theorem value_eq_val (c : FixedConst) : c.value = c.expr.val value := by
   rw [value_eq]
   exact FixedExpr.val_congr _ fun d hd => ite_eq_left (expr_refs_lt c d hd)
 
+/-- The value map of the specification's fixed integer expressions (the `val` of the
+constructor symbols): expressions are evaluated with the values of the named constants. -/
+noncomputable def fixedVal (e : FixedExpr FixedConst) : ℤ := e.val value
+
+theorem fixedVal_ref (c : FixedConst) : fixedVal (.ref c) = c.value := FixedExpr.val_ref _ c
+
 /-! ### The values of the named constants -/
 
 open FixedExpr
