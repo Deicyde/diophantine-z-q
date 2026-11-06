@@ -8,3 +8,4 @@ import ZInQKernel.Model.DivisionPolynomials.Generic
 import ZInQKernel.Model.DivisionPolynomials.Multiples
 import ZInQKernel.Model.DivisionPolynomials.MulByN
 import ZInQKernel.Model.DivisionPolynomials.FixedPointCodes
+import ZInQKernel.Model.DivisionPolynomials.Components
