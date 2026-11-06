@@ -2,13 +2,66 @@
 article_id: af_44a9fcf4a44e0b96baf4f9bc
 declaration: theorem
 origin: cited
-not_ready: true
 ---
 
 # The assembly lemma
 
-This statement is being written; see the chapter introduction.
+Assume the six-contact estimate, pole completeness, the Mordell–Weil hypothesis for $E/K_0$,
+the twenty-two-prime pattern and the catalogue bound. Then the specified polynomial
+$P_*\in\mathbb Z[X_0,\dots,X_{292890231904}]$ satisfies:
+
+1. $\deg P_*<2\uparrow\uparrow7$;
+2. every coefficient of $P_*$ has absolute value less than $2\uparrow\uparrow8$;
+3. for every $q\in\mathbb Q$,
+   $$\bigl(\exists\,w\in\mathbb Q^{292890231904}:\ P_*(q,w)=0\bigr)\iff q\in\mathbb Z .$$
+
+In particular $P_*$ witnesses the target statement, from which the main theorem follows
+at once.
+
+This is the manuscript's Lemma 1.2 in the form used here. Its inputs are: G, that
+canonical codes form $2E(K_0)=\mathbb ZP_0$ with exact membership and raw addition (from the
+Mordell–Weil hypothesis); M, multiplication (from the six-contact estimate, pole
+completeness, the Mordell–Weil hypothesis and the prime pattern); C, the semantics of the
+natural precision polynomial and its rational translation; B, the literal specification of
+$P_*$ with its witness accounting and size bounds (the size bounds use the catalogue
+bound); and the hypotheses H and PC themselves.
+
+**Proof sketch.** Part 3: by the rational zero projection of the specified polynomial, the
+left side holds exactly when $\mathrm{Rel}_{\mathtt{value}}(N,q)$ for some $N\in\mathbb Q^5$, and by the
+exact ordinary-value relation this holds exactly when $q\in\mathbb Z$. Parts 1 and 2 are the
+variable, degree and coefficient bounds for the same $P_*$; the constants $D$, $T$,
+$H_{\rm cat}$ and the tower values are handled symbolically there and never evaluated. The
+witness accounting shows that $P_*$ involves only $X_0,\dots,X_{292890231904}$, with input $X_0$
+and $292890231904$ witnesses, so $P_*$, read in these variables, is a polynomial of the
+shape required by the target statement.
 
 ## Depends on
 
-None.
+- [The target statement](../main/frozen-target.md)
+- [The specified polynomial](../syntax/literal-polynomial.md)
+- [The six-contact height estimate](../main/six-contact-estimate.md)
+- [Pole completeness](../main/pole-completeness.md)
+- [Mordell–Weil for the generator curve](../main/mordell-weil.md)
+- [The twenty-two-prime pattern](../main/prime-pattern.md)
+- [The catalogue bound](../main/catalogue-bound.md)
+
+## Proof depends on
+
+- [The rational zero projection of the specified polynomial](../syntax/recipes/fin-variable-form.md)
+- [The exact ordinary-value relation](ordinary-value-relation.md)
+- [Variable, degree and coefficient bounds](../size/syntax-bounds.md)
+- [Witness accounting of the specified polynomial](../syntax/recipes/witness-accounting.md)
+
+## Informally uses
+
+- [The generator certificate](../model/generator.md)
+- [Polynomial membership in the doubled group](../model/membership.md)
+- [Raw addition](../model/raw-addition.md)
+- [Correctness of the multiplication template](../multiplication/multiplication-template.md)
+- [Semantics of the rational translation](../compiler/translation/rational-translation.md)
+
+## Sources
+
+- [Lemma 1.2](../../sources/assembly-locators.md#lemma-12)
+- [Theorem 1.1 proof](../../sources/assembly-locators.md#theorem-11-proof)
+- [Section 12 size](../../sources/assembly-locators.md#section-12-size)
