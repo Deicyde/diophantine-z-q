@@ -612,4 +612,133 @@ theorem conditions_packedRel {p : Program} {r k : ℕ} (hp : p.Valid r) {a : Fin
     rw [he]
     exact_mod_cast h.stateEq i hi'
 
+/-- The run of the construction through abstract handles at known positions. -/
+theorem construction_decomp (p : Program) (r k : ℕ) :
+    ∃ (zero one q c K B T F D : Ex) (R N S : List Ex) (s1 : State),
+      zero.poly = C 0 ∧ one.poly = C 1 ∧ q.poly = X k ∧ c.poly = X (k + 1) ∧
+      K.poly = X (k + 2) ∧ B.poly = X (k + 3) ∧ T.poly = X (k + 4) ∧ F.poly = X (k + 5) ∧
+      D.poly = X (k + 6) ∧
+      R.map Ex.poly = (List.range r).map (fun j => X (k + 7 + j)) ∧
+      N.map Ex.poly = (List.range r).map (fun j => X (k + 7 + r + j)) ∧
+      S.map Ex.poly = (List.range p.length).map (fun i => X (k + 7 + 2 * r + i)) ∧
+      s1.next = k + 7 + 2 * r + p.length ∧
+      construction p r k (State.init k) =
+        (NForm.and (packedFormulas p r (inputs k) zero one q c K B T F D R N S s1).1,
+          (packedFormulas p r (inputs k) zero one q c K B T F D R N S s1).2) := by
+  have h0 : (State.init k).next = k := rfl
+  let r0 := constant 0 (State.init k)
+  let r1 := constant 1 r0.2
+  let rq := fresh r1.2
+  let rc := fresh rq.2
+  let rK := fresh rc.2
+  let rB := fresh rK.2
+  let rT := fresh rB.2
+  let rF := fresh rT.2
+  let rD := fresh rF.2
+  let rR := freshN r rD.2
+  let rN := freshN r rR.2
+  let rS := freshN p.length rN.2
+  have e1 : r1.2.next = k := by
+    show (constant 1 (constant 0 (State.init k)).2).2.next = k
+    rw [constant_apply_next, constant_apply_next]; rfl
+  have eq : rq.2.next = k + 1 := by show (fresh r1.2).2.next = _; rw [fresh_apply_next, e1]
+  have ec : rc.2.next = k + 2 := by show (fresh rq.2).2.next = _; rw [fresh_apply_next, eq]
+  have eK : rK.2.next = k + 3 := by show (fresh rc.2).2.next = _; rw [fresh_apply_next, ec]
+  have eB : rB.2.next = k + 4 := by show (fresh rK.2).2.next = _; rw [fresh_apply_next, eK]
+  have eT : rT.2.next = k + 5 := by show (fresh rB.2).2.next = _; rw [fresh_apply_next, eB]
+  have eF : rF.2.next = k + 6 := by show (fresh rT.2).2.next = _; rw [fresh_apply_next, eT]
+  have eD : rD.2.next = k + 7 := by show (fresh rF.2).2.next = _; rw [fresh_apply_next, eF]
+  obtain ⟨hR1, hR2⟩ := freshN_spec r rD.2
+  obtain ⟨hN1, hN2⟩ := freshN_spec r rR.2
+  obtain ⟨hS1, hS2⟩ := freshN_spec p.length rN.2
+  refine ⟨r0.1, r1.1, rq.1, rc.1, rK.1, rB.1, rT.1, rF.1, rD.1, rR.1, rN.1, rS.1, rS.2, rfl, rfl,
+    ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, construction_run p r k⟩
+  · show (fresh r1.2).1.poly = _; rw [fresh_apply_poly, e1]
+  · show (fresh rq.2).1.poly = _; rw [fresh_apply_poly, eq]
+  · show (fresh rc.2).1.poly = _; rw [fresh_apply_poly, ec]
+  · show (fresh rK.2).1.poly = _; rw [fresh_apply_poly, eK]
+  · show (fresh rB.2).1.poly = _; rw [fresh_apply_poly, eB]
+  · show (fresh rT.2).1.poly = _; rw [fresh_apply_poly, eT]
+  · show (fresh rF.2).1.poly = _; rw [fresh_apply_poly, eF]
+  · rw [hR1, eD]
+  · rw [hN1, hR2, eD]
+  · rw [hS1, hN2, hR2, eD]
+    exact List.map_congr_left fun i _ => by rw [show k + 7 + r + r + i = k + 7 + 2 * r + i by omega]
+  · rw [hS2, hN2, hR2, eD]; omega
+
+theorem stateAfter4_next (p : Program) (r : ℕ) (a : List Ex) (zero one q c K B T F D : Ex)
+    (R N S : List Ex) (s : State) :
+    s.next ≤ (stateAfter4 p r a zero one q c K B T F D R N S s).next := by
+  unfold stateAfter4
+  have h1 := (counts_items1 p a zero q c K B T s).1
+  have h2 := (counts_items2 zero one K B T F D S (items1 p a zero q c K B T s).2).1
+  have h3 := (counts_items3 F S (items2 zero one K B T F D S
+    (items1 p a zero q c K B T s).2).2).1
+  have h4 := (counts_items4 r zero K D T F R N (items3 F S (items2 zero one K B T F D S
+    (items1 p a zero q c K B T s).2).2).2).1
+  omega
+
+/-- **The compiled circuit of a register machine.** For a primitive program `p` valid for `r`
+registers, `1 ≤ k ≤ r` and every `a ∈ ℕ^k`, the compiled circuit `𝒞_{p,k}` has a natural zero
+with inputs `a` exactly when `p` accepts `a`. -/
+theorem compiled_natRel_iff (p : Program) (r k : ℕ) (hp : p.Valid r) (hk1 : 1 ≤ k)
+    (hkr : k ≤ r) (a : Fin k → ℕ) :
+    (compiled p r k).NatRel powerTemplate a ↔ p.Accepts a := by
+  have hV : (compiled p r k).varCount = (construction p r k (State.init k)).2.next := by
+    rw [compiled, NM.toCircuit_varCount]
+    have := (counts_encode ExPoly.empty (construction p r k (State.init k)).1
+      (construction p r k (State.init k)).2).1
+    rw [this]; rfl
+  have hVk : k ≤ (construction p r k (State.init k)).2.next := by
+    have := (counts_construction p r k (State.init k)).1
+    rw [this]; simp [State.init]; omega
+  refine (natRel_iff_agree (compiled p r k) powerTemplate (by rw [hV]; exact hVk) a).trans ?_
+  generalize hx : NatCircuit.natPoint (compiled p r k).inputCount
+    ((compiled p r k).varCount - (compiled p r k).inputCount) a (fun _ => 0) = x
+  have hk : (compiled p r k).inputCount = k := rfl
+  have hxa : ∀ i : Fin k, x i = a i := fun i => by
+    rw [← hx]; simp only [NatCircuit.natPoint, hk]; simp [i.isLt]; rfl
+  rw [hk, hV, compiled_poly]
+  simp only [compile_zv_eq_zero_iff, NM.formula]
+  obtain ⟨zero, one, q, c, K, B, T, F, D, R, N, S, s1, hz, ho, hq, hc, hK, hB, hT, hF, hD,
+    hR, hN, hS, hs1, hrun⟩ := construction_decomp p r k
+  rw [hrun]
+  have hspec := packed_spec p r k zero one q c K B T F D R N S s1 hz ho hq hc hK hB hT hF hD
+    hR hN hS hs1
+  rw [show ∀ fs : List NForm, NForm.toFormula powerTemplate (NForm.and fs) =
+      Formula.and (fs.map (NForm.toFormula powerTemplate)) from fun fs => by
+    simp [NForm.toFormula]]
+  rw [hspec.sem x]
+  set vw := packedVW p r (inputs k) zero one q c K B T F D R N S s1
+  obtain ⟨hsh1, hsh2, hsh3⟩ := subBranches_shape zero S N p 0
+    (stateAfter4 p r (inputs k) zero one q c K B T F D R N S s1)
+  have hs4 := stateAfter4_next p r (inputs k) zero one q c K B T F D R N S s1
+  have hvw' : ∀ e ∈ vw, ∃ c, e.2.1.poly = X c ∧ e.2.2.poly = X (c + 1) ∧
+      k + (7 + 2 * r + p.length) ≤ c := fun e he => by
+    obtain ⟨c', h1, h2, h3, -⟩ := hsh1 e he
+    exact ⟨c', h1, h2, by omega⟩
+  have hE : ∀ i < k, ¬ (i ∈ {i | k ≤ i ∧ i < k + (7 + 2 * r + p.length)} ∪ vwSet vw) := by
+    intro i hi hmem
+    rcases hmem with hmem | ⟨e, he, h'⟩
+    · exact absurd hmem.1 (by omega)
+    · obtain ⟨c', h1, h2, h3⟩ := hvw' e he
+      rcases h' with h' | h'
+      · rw [h1] at h'; have := X_injective h'; omega
+      · rw [h2] at h'; have := X_injective h'; omega
+  constructor
+  · rintro ⟨z, hz', -, hrel⟩
+    have hza : ∀ i : Fin k, z i = a i := fun i => by rw [hz' i (hE i i.isLt), hxa]
+    exact packed_sound_accepts hp hk1 hkr (packedRel_conditions hp hz ho hB hR hN hS hsh2
+      (fun e he => by obtain ⟨c', h1, h2, -⟩ := hvw' e he; exact ⟨c', h1, h2⟩) hza hrel)
+  · intro hacc
+    obtain ⟨q', c', K', B', T', F', D', R', N', S', V', W', hcond⟩ :=
+      packed_complete hp hk1 hkr hacc
+    refine ⟨packedAssign k r p.length vw q' c' K' B' T' F' D' R' N' S' V' W' x, fun i hi => ?_,
+      trivial, conditions_packedRel hp hz ho hB hR hN hS hsh2 hvw' hsh3 hxa hcond⟩
+    simp only [Set.mem_union, Set.mem_setOf_eq, vwSet, not_or, not_exists, not_and] at hi
+    simp only [packedAssign]
+    rw [if_neg (fun h => hi.1 h.1 h.2), dif_neg, dif_neg]
+    · rintro ⟨e, he, h'⟩; exact (hi.2 e he).2 h'
+    · rintro ⟨e, he, h'⟩; exact (hi.2 e he).1 h'
+
 end ZInQ.Compiler.Packed

@@ -22,6 +22,7 @@ import ZInQKernel.Compiler.Circuits.Packed.Sound
 import ZInQKernel.Compiler.Circuits.Packed.Complete
 import ZInQKernel.Compiler.Circuits.Packed.Valid
 import ZInQKernel.Compiler.Circuits.Packed.Semantics
+import ZInQKernel.Compiler.Circuits.Packed.Polynomial
 
 /-!
 # Natural circuits and the packed-history compiler
