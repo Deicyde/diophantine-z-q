@@ -3,6 +3,7 @@ import ZInQKernel.Compiler.Circuits.Construction
 import ZInQKernel.Compiler.Circuits.Gadgets
 import ZInQKernel.Compiler.Circuits.Compilation
 import ZInQKernel.Compiler.Circuits.MacroSemantics
+import ZInQKernel.Compiler.Circuits.Exposed
 import ZInQKernel.Compiler.Circuits.Circuit
 import ZInQKernel.Compiler.Circuits.Builder
 import ZInQKernel.Compiler.Circuits.PowerTemplate
