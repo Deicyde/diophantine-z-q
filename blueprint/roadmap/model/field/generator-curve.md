@@ -24,6 +24,10 @@ $x_3=\lambda^2-x_1-x_2$ and $y_3=\lambda(x_1-x_3)-y_1$; and $(x,y)+(x,-y)=O$.
 
 - [The field $K_0=\mathbb Q(\sqrt2)$](quadratic-field.md)
 
+## Proof depends on
+
+- [Explicit identities in $K_0$](explicit-identities.md)
+
 ## Sources
 
 - [Model setup](../../../sources/model-locators.md#model-setup)

@@ -33,6 +33,7 @@ their minimum. (3) is the identity $(75-53s)(17+12s)=3-s$, and $75^2=5625>5618=2
 
 - [Residue computations modulo seven](residue-checks.md)
 - [Units of $\mathbb Z[\sqrt2]$](units.md)
+- [Explicit identities in $K_0$](explicit-identities.md)
 
 ## Sources
 

@@ -19,8 +19,8 @@ These are the fixed point codes of the specification: for any fixed $n$ they are
 elements of $\mathbb Q^5$, but $n$ may be astronomically large, and the statement is used
 only symbolically.
 
-**Proof sketch.** By Proposition 3.1, $P_0$ has infinite order, so $[n]P_0\ne O$ for
-$n\ge1$; by part 1 of the division-polynomial theorem $\psi_n(P_0)\ne0$, and part 2 gives
+**Proof sketch.** $P_0$ has infinite order (by the torsion theorem; the Mordell-Weil
+hypothesis is not needed), so $[n]P_0\ne O$ for $n\ge1$; by part 1 of the division-polynomial theorem $\psi_n(P_0)\ne0$, and part 2 gives
 the coordinates of $[n]P_0$. The negative indices follow from
 $[-n]P_0=-[n]P_0$ and the code of a negative.
 
@@ -31,7 +31,7 @@ $[-n]P_0=-[n]P_0$ and the code of a negative.
 
 ## Proof depends on
 
-- [The generator certificate](../generator.md)
+- [The torsion of $E(K_0)$ is the full two-torsion](../descent/torsion.md)
 - [Division polynomials compute multiples](division-polynomial-multiples.md)
 - [Elementary properties of codes](point-code-properties.md)
 

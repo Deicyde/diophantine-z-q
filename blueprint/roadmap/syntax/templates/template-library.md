@@ -20,9 +20,16 @@ The constants $\mathrm{integer\_constant}_k$ are the distinct integer constants 
 $0,1,-1$ met by the model-evaluation translation, numbered in the order in which they are
 first met: first in the power template, then in the precision circuit. They are
 $4,2,3,c_3,1399$, where $c_3$ is the program literal of the natural precision polynomial.
+Equivalently, the list $(4,2,3,c_3,1399)$ is fixed in advance and the translation looks up
+each constant's index in it; the shape of the natural precision circuit shows that these five
+values are exactly the constants met, in order of first occurrence.
 
 Every call in a template refers to a template of smaller index, so the library is denoted
-in this order. The parameter and witness counts are:
+in this order. The parameter and witness counts are as follows. The manuscript's table also
+lists the root node index of each template's node list ($149,308,68,54,229,106,515,2681,260,136,22,83,79,138,23,271,775,487$
+and $136$ for each scalar-constant template); these are properties of the node encoding,
+checked by the external comparison with the saved specification, and play no role in the
+proof.
 
 | Index | Template | Parameters | Witnesses |
 | --- | --- | ---: | ---: |
@@ -69,6 +76,10 @@ This is a definition.
 - [The value-test template](template-value-test.md)
 - [The exceptional-values template](template-exceptions.md)
 - [Translation of a natural circuit into a model-evaluation recipe](../recipes/model-evaluation-translation.md)
+
+## Informally uses
+
+- [Shape of the natural precision circuit](../recipes/natural-circuit-statistics.md)
 
 ## Sources
 

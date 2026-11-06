@@ -9,8 +9,8 @@ origin: cited
 The following inequalities between natural numbers hold:
 $$41^3\cdot676\cdot392^{36}<9^{108},\qquad 392<41^3 .$$
 Equivalently $\frac{\log(41^3\cdot676)}{108}+\frac{\log392}{3}<\log9$ and
-$\log41>\frac{\log392}{3}$. This is a finite computation: both sides of the first
-inequality have about $104$ decimal digits.
+$\log41>\frac{\log392}{3}$. This is a finite computation: the two sides of the first
+inequality have $102$ and $104$ decimal digits.
 
 **Proof sketch.** Evaluate both sides; $41^3=68921$. The logarithmic forms follow by
 monotonicity of $\log$ after multiplying the first by $108$ and the second by $3$.

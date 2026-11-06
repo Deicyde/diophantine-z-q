@@ -6,8 +6,10 @@ $\mathbb Q(\sqrt2)$, and this chapter proves that the representation is faithful
 canonical codes form exactly the infinite cyclic group $2E(K_0)=\mathbb ZP_0$ (input
 $\mathsf G$ of the assembly lemma), the membership polynomial recognizes exactly those codes
 among arbitrary rational inputs, and raw addition computes the group law on canonical codes.
-The only unproved input is the Mordell-Weil hypothesis, and even that follows from the
-descent; every finite check is isolated as its own statement.
+Beyond the classical background (two-isogeny descent, reduction modulo primes, heights and
+division polynomials), the only unproved input is the Mordell-Weil hypothesis, and even that
+follows from the descent index with Mathlib's height theory; every finite check is isolated as
+its own statement.
 
 ## Point codes
 

@@ -27,6 +27,10 @@ distinct. (3) A totally positive unit has sign vector $(+,+)$, so lies in the cl
 
 - [The field $K_0=\mathbb Q(\sqrt2)$](quadratic-field.md)
 
+## Proof depends on
+
+- [Explicit identities in $K_0$](explicit-identities.md)
+
 ## Sources
 
 - [Class number and units](../../../sources/model-locators.md#class-number-and-units)

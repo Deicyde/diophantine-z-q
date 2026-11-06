@@ -24,9 +24,9 @@ This is classical (Sutherland §§5.5-5.6, Lemmas 5.20 and 5.24 and Theorem 5.21
 Silverman, Exercise 3.7; Washington, Theorem 9.33) for every elliptic curve in short
 Weierstrass form over a field of characteristic $0$. It enters the proof only through the
 fixed-scalar templates. This article fixes the statement as a proposition; the
-elliptic-model chapter proves it as a background theorem. Its formal proof is a
-substantial project independent of this manuscript; until it is done, the proposition is
-an explicit input of the fixed-scalar semantics.
+elliptic-model chapter proves it as a background theorem, and the fixed-scalar semantics
+uses that theorem. Its formal proof is a substantial project independent of this
+manuscript.
 
 ## Depends on
 

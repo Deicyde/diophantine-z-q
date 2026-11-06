@@ -18,6 +18,7 @@ $\iota(n)$; uniqueness of $n$ is injectivity of $\iota$.
 
 ## Depends on
 
+- [Mordell–Weil for the generator curve](../main/mordell-weil.md)
 - [The membership template](../syntax/template-member.md)
 - [Point codes](point-codes.md)
 
@@ -25,7 +26,6 @@ $\iota(n)$; uniqueness of $n$ is injectivity of $\iota$.
 
 - [Polynomial membership in the doubled group](membership.md)
 - [The generator certificate](generator.md)
-- [Mordell–Weil for the generator curve](../main/mordell-weil.md)
 
 ## Sources
 

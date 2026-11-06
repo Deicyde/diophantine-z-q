@@ -19,7 +19,12 @@ $|G|\le4|a||b|(a^2+\Delta^2b^2)\le104M^4$. The constant $676=26^2$.
 
 ## Depends on
 
-None.
+- [The field $K_0=\mathbb Q(\sqrt2)$](../field/quadratic-field.md)
+- [The duplication forms on $C$](duplication-forms.md)
+
+## Proof depends on
+
+- [Explicit identities in $K_0$](../field/explicit-identities.md)
 
 ## Sources
 

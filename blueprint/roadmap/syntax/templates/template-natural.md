@@ -18,9 +18,8 @@ $$\bigwedge\Bigl(\langle\mathtt{multiply}[\sigma_i,\sigma_i,\Sigma_i]\rangle_{i=
 \langle\mathtt{raw\_add}[\pi_2,\Sigma_3,A]\rangle\Bigr),$$
 and the polynomial is $\kappa$ of it, squared.
 
-It says that $A$ is the sum of four squares of indices: by multiplication completeness and
-Lagrange's theorem, $\mathrm{Rel}_{\mathtt{natural}}(A)$ holds exactly for $A\in\iota(\mathbb N)$
-(Section 3.1).
+It says that $A$ is the sum of four squares of indices; that, given the multiplication
+statement M, its relation holds exactly on $\iota(\mathbb N)$ is the natural-code semantics.
 
 This is a definition (template index $12$).
 

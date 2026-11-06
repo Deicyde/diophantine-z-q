@@ -12,7 +12,8 @@ Consequently $n\mapsto[n]P_0$ is an isomorphism $\mathbb Z\to2E(K_0)=D$, the car
 torsion-free, and $n\mapsto\iota(n)$ is injective.
 
 This is Proposition 3.1. The Mordell-Weil hypothesis is used only to pass from the descent
-index and the torsion bound to rank one.
+index and the torsion bound to rank one; that $P_0$ has infinite order already follows from the
+torsion theorem without it.
 
 **Proof sketch.** Work on $C$ through the isomorphism $\theta$. By the rank-one theorem,
 $C(K_0)=\mathbb ZS\oplus C(K_0)[2]$ with $S$ of infinite order; write $R=[m]S+T$ with
@@ -30,12 +31,12 @@ order. Injectivity of $\iota$ follows from injectivity of codes.
 
 ## Depends on
 
+- [Mordell–Weil for the generator curve](../main/mordell-weil.md)
 - [The point $P_0$](field/generator-point.md)
 - [Point codes](point-codes.md)
 
 ## Proof depends on
 
-- [Mordell–Weil for the generator curve](../main/mordell-weil.md)
 - [$E(K_0)$ has rank one](descent/rank-one.md)
 - [The free index of $R$ is odd](descent/odd-free-index.md)
 - [A multiple of a small point](heights/small-height-bound.md)
