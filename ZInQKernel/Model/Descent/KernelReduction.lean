@@ -291,6 +291,154 @@ theorem kernel_third_point {m : ℤ} (hm : 1 ≤ m) {x₁ y₁ x₂ y₂ ℓ lam
   rw [this]
   exact ((hlam.mul hπ ht₃).mono (by omega)).sub hπ hν
 
+/-- **The addition estimate** in the kernel of reduction. If `v(x/y) ≥ m ≥ 1` and
+`v(1/y) ≥ 3m` for two points whose sum is not `O`, then the sum has the same bounds and
+`v(t(P₁ + P₂) - t(P₁) - t(P₂)) ≥ m + 1`. -/
+theorem kernel_add {m : ℤ} (hm : 1 ≤ m) {x₁ y₁ x₂ y₂ : K0}
+    (h₁ : (shortCurve A).toAffine.Nonsingular x₁ y₁)
+    (h₂ : (shortCurve A).toAffine.Nonsingular x₂ y₂) (hy₁ : y₁ ≠ 0) (hy₂ : y₂ ≠ 0)
+    (ht₁ : VGe π m (x₁ / y₁)) (ht₂ : VGe π m (x₂ / y₂))
+    (hw₁ : VGe π (3 * m) (1 / y₁)) (hw₂ : VGe π (3 * m) (1 / y₂))
+    (hne : Point.some x₁ y₁ h₁ + Point.some x₂ y₂ h₂ ≠ 0) :
+    ∃ x₃ y₃ h₃, Point.some x₁ y₁ h₁ + Point.some x₂ y₂ h₂ = Point.some x₃ y₃ h₃ ∧ y₃ ≠ 0 ∧
+      VGe π m (x₃ / y₃) ∧ VGe π (3 * m) (1 / y₃) ∧
+      VGe π (m + 1) (x₃ / y₃ - x₁ / y₁ - x₂ / y₂) := by
+  have e₁ := (shortCurve_equation_iff A x₁ y₁).mp h₁.1
+  have e₂ := (shortCurve_equation_iff A x₂ y₂).mp h₂.1
+  have hxy : ¬(x₁ = x₂ ∧ y₁ = (shortCurve A).toAffine.negY x₂ y₂) :=
+    fun h => hne (Point.add_of_Y_eq h.1 h.2)
+  rw [Point.add_some hxy]
+  obtain ⟨lam, ν, hlam, hν, hν0, hℓν, hc₁, hc₂⟩ : ∃ lam ν : K0, VGe π (2 * m) lam ∧
+      VGe π (3 * m) ν ∧ ν ≠ 0 ∧ (shortCurve A).toAffine.slope x₁ x₂ y₁ y₂ = -lam / ν ∧
+      y₁ = (shortCurve A).toAffine.slope x₁ x₂ y₁ y₂ * x₁ + 1 / ν ∧
+      y₂ = (shortCurve A).toAffine.slope x₁ x₂ y₁ y₂ * x₂ + 1 / ν := by
+    by_cases hx : x₁ = x₂
+    · have hyy : y₁ = y₂ := by
+        rcases Y_eq_of_X_eq h₁.1 h₂.1 hx with h | h
+        · exact h
+        · exact absurd ⟨hx, h⟩ hxy
+      subst hx hyy
+      have hy' : y₁ ≠ (shortCurve A).toAffine.negY x₁ y₁ := fun h => hxy ⟨rfl, h⟩
+      have hslope : (shortCurve A).toAffine.slope x₁ x₁ y₁ y₁ = (3 * x₁ ^ 2 + A) / (y₁ - -y₁) := by
+        rw [Affine.slope_of_Y_ne rfl hy']; simp [shortCurve_negY]
+      obtain ⟨lam, ν, h1, h2, h3, h4, h5⟩ := kernel_tangent_line hπ hA hm hy₁ e₁ ht₁ hw₁
+      exact ⟨lam, ν, h1, h2, h3, by rw [hslope, h4], by rw [hslope]; exact h5,
+        by rw [hslope]; exact h5⟩
+    · have hslope : (shortCurve A).toAffine.slope x₁ x₂ y₁ y₂ = (y₁ - y₂) / (x₁ - x₂) :=
+        Affine.slope_of_X_ne hx
+      obtain ⟨lam, ν, h1, h2, h3, h4, h5, h6⟩ :=
+        kernel_chord_line hπ hA hm hy₁ hy₂ e₁ e₂ ht₁ ht₂ hw₁ hw₂ hx
+      exact ⟨lam, ν, h1, h2, h3, by rw [hslope, h4], by rw [hslope]; exact h5,
+        by rw [hslope]; exact h6⟩
+  have h₃ := nonsingular_add h₁ h₂ hxy
+  refine ⟨_, _, h₃, rfl, ?_⟩
+  have eX : (shortCurve A).toAffine.addX x₁ x₂ ((shortCurve A).toAffine.slope x₁ x₂ y₁ y₂) =
+      (shortCurve A).toAffine.slope x₁ x₂ y₁ y₂ ^ 2 - x₁ - x₂ := by
+    rw [Affine.addX, shortCurve_a₁, shortCurve_a₂]; ring
+  have eY : (shortCurve A).toAffine.addY x₁ x₂ y₁ ((shortCurve A).toAffine.slope x₁ x₂ y₁ y₂) =
+      -((shortCurve A).toAffine.slope x₁ x₂ y₁ y₂ *
+        ((shortCurve A).toAffine.slope x₁ x₂ y₁ y₂ ^ 2 - x₁ - x₂) + 1 / ν) := by
+    rw [Affine.addY, Affine.negAddY, eX, shortCurve_negY]
+    linear_combination -hc₁
+  have e₃ := (shortCurve_equation_iff A _ _).mp h₃.1
+  rw [eX, eY] at e₃ ⊢
+  generalize hℓ : (shortCurve A).toAffine.slope x₁ x₂ y₁ y₂ = ℓ at hℓν hc₁ hc₂ e₃ ⊢
+  exact kernel_third_point hπ hA hm h₁.1 h₂.1 hxy hℓ hy₁ hy₂ ht₁ ht₂ hlam hν hν0 hℓν hc₁ hc₂ e₃
+
+omit [(shortCurve A).IsElliptic] in
+/-- A point with `v(x) < 0` has `v(x) = -2n`, `v(y) = -3n` for some `n ≥ 1`. -/
+theorem level_of_not_vge {x y : K0} (e : y ^ 2 = x ^ 3 + A * x) (hx : ¬VGe π 0 x) :
+    ∃ n : ℤ, 1 ≤ n ∧ x ≠ 0 ∧ y ≠ 0 ∧ vp π x = -2 * n ∧ vp π y = -3 * n := by
+  have hx0 : x ≠ 0 := fun h => hx (Or.inl h)
+  have hvx : vp π x < 0 := by rw [vge_iff hx0] at hx; omega
+  have hAx : VGe π (vp π x) (A * x) := by
+    have := hA.mul hπ (VGe.of_vp_eq (π := π) hx0 rfl); simpa using this
+  have hx3 : vp π (x ^ 3) = 3 * vp π x := by rw [vp_pow hπ]; norm_num
+  have hsum : vp π (x ^ 3 + A * x) = 3 * vp π x := by
+    rw [← hx3]; exact vp_add_eq_of_vge hπ (pow_ne_zero 3 hx0) (hAx.mono (by omega))
+  have hsum0 : x ^ 3 + A * x ≠ 0 :=
+    add_ne_zero_of_vge hπ (pow_ne_zero 3 hx0) (hAx.mono (by omega))
+  have hy0 : y ≠ 0 := by rintro rfl; apply hsum0; rw [← e]; ring
+  have hy2 : 2 * vp π y = 3 * vp π x := by
+    rw [← hsum, ← e, vp_pow hπ]; norm_num
+  refine ⟨-vp π x / 2, ?_, hx0, hy0, ?_, ?_⟩ <;> omega
+
+omit hπ hA [(shortCurve A).IsElliptic] in
+/-- The parameter `t = x / y` of a point (`0` for `O`). -/
+noncomputable def tCoord (A : K0) : (shortCurve A).toAffine.Point → K0
+  | 0 => 0
+  | .some x y _ => x / y
+
+/-- **The kernel of reduction has no torsion prime to `p`**: if `v(x) < 0` and `π ∤ q`, then
+`q (x, y) ≠ O`. -/
+theorem nsmul_ne_zero_of_not_vge {x y : K0} (h : (shortCurve A).toAffine.Nonsingular x y)
+    (hx : ¬VGe π 0 x) {q : ℕ} (hq : ¬π ∣ (q : Zs)) : q • Point.some x y h ≠ 0 := by
+  have e := (shortCurve_equation_iff A x y).mp h.1
+  obtain ⟨n, hn, hx0, hy0, hvx, hvy⟩ := level_of_not_vge hπ hA e hx
+  have hq0 : q ≠ 0 := by rintro rfl; exact hq (by simp)
+  have hqv : vp π (q : K0) = 0 := by
+    rw [← toK0_natCast]
+    exact (vp_eq_zero_iff hπ (by exact_mod_cast hq0)).mpr hq
+  set P := Point.some x y h with hP
+  set t := x / y with htdef
+  have ht : vp π t = n := by rw [htdef, vp_div hπ hx0 hy0, hvx, hvy]; ring
+  have hw : vp π (1 / y) = 3 * n := by rw [one_div, vp_inv hπ, hvy]; ring
+  have ht0 : t ≠ 0 := div_ne_zero hx0 hy0
+  have htn : VGe π n t := VGe.of_vp_eq ht0 ht
+  have hwn : VGe π (3 * n) (1 / y) := VGe.of_vp_eq (one_div_ne_zero hy0) hw
+  have key : ∀ k : ℕ, 1 ≤ k → (k • P = 0 ∨ ∃ x' y' h', k • P = Point.some x' y' h' ∧ y' ≠ 0 ∧
+      VGe π n (x' / y') ∧ VGe π (3 * n) (1 / y')) ∧
+      VGe π (n + 1) (tCoord A (k • P) - k * t) := by
+    intro k hk
+    induction k, hk using Nat.le_induction with
+    | base =>
+      rw [one_nsmul]
+      refine ⟨Or.inr ⟨x, y, h, rfl, hy0, htn, hwn⟩, ?_⟩
+      rw [hP, tCoord, Nat.cast_one, one_mul, sub_self]
+      exact VGe.zero _ _
+    | succ k hk ih =>
+      obtain ⟨hcase, hcong⟩ := ih
+      rw [succ_nsmul]
+      rcases hcase with h0 | ⟨x', y', h', hk', hy', ht', hw'⟩
+      · rw [h0, zero_add]
+        refine ⟨Or.inr ⟨x, y, h, rfl, hy0, htn, hwn⟩, ?_⟩
+        rw [h0] at hcong
+        have : tCoord A P - ((k + 1 : ℕ) : K0) * t = tCoord A 0 - k * t := by
+          rw [hP]; simp only [tCoord]; rw [htdef]; push_cast; ring
+        rw [this]; exact hcong
+      · rw [hk']
+        by_cases hs : Point.some x' y' h' + P = 0
+        · rw [hs]
+          refine ⟨Or.inl rfl, ?_⟩
+          have hxy : x' = x ∧ y' = (shortCurve A).toAffine.negY x y := by
+            by_contra hxy
+            rw [hP, Point.add_some hxy] at hs
+            exact Point.some_ne_zero _ hs
+          rw [hk'] at hcong
+          obtain ⟨rfl, hyy⟩ := hxy
+          rw [shortCurve_negY] at hyy
+          subst hyy
+          have : tCoord A 0 - ((k + 1 : ℕ) : K0) * t = tCoord A (Point.some x' (-y) h') - k * t := by
+            simp only [tCoord]; rw [htdef, div_neg]; push_cast; ring
+          rw [this]; exact hcong
+        · obtain ⟨x₃, y₃, h₃, hsum, hy₃, ht₃, hw₃, hE⟩ :=
+            kernel_add hπ hA hn h' h hy' hy0 ht' htn hw' hwn hs
+          rw [hsum]
+          refine ⟨Or.inr ⟨x₃, y₃, h₃, rfl, hy₃, ht₃, hw₃⟩, ?_⟩
+          rw [hk'] at hcong
+          have : tCoord A (Point.some x₃ y₃ h₃) - ((k + 1 : ℕ) : K0) * t =
+              (x₃ / y₃ - x' / y' - x / y) + (tCoord A (Point.some x' y' h') - k * t) := by
+            simp only [tCoord]; rw [htdef]; push_cast; ring
+          rw [this]; exact hE.add hπ hcong
+  intro hqP
+  have := (key q (Nat.one_le_iff_ne_zero.mpr hq0)).2
+  rw [hqP] at this
+  simp only [tCoord, zero_sub] at this
+  have hqt : (q : K0) * t ≠ 0 := mul_ne_zero (by exact_mod_cast hq0) ht0
+  rw [vge_iff (neg_ne_zero.mpr hqt), vp_neg hπ, vp_mul hπ (by exact_mod_cast hq0) ht0, hqv,
+    ht] at this
+  omega
+
 end Valuation
 
 end ZInQ

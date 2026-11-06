@@ -124,8 +124,10 @@ theorem vp_one_add (hz : VGe π 1 x) : vp π (1 + x) = 0 := by
 theorem one_add_ne_zero (hz : VGe π 1 x) : 1 + x ≠ 0 :=
   add_ne_zero_of_vge hπ one_ne_zero (by rw [vp_one hπ]; exact hz)
 
+omit hπ in
 theorem VGe.of_vp_eq (hx : x ≠ 0) (h : vp π x = k) : VGe π k x := Or.inr h.ge
 
+omit hπ in
 theorem vp_eq_of_vge (hx : x ≠ 0) (h : VGe π k x) (h' : ¬VGe π (k + 1) x) : vp π x = k := by
   rw [vge_iff hx] at h h'; omega
 
