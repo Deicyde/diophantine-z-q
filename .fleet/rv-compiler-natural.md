@@ -293,3 +293,10 @@ its consumer, finite checks bundled into derived statements and definitions, an
 underspecified capped-constant evaluation and an ambiguous lowering-block order. All are
 fixed. The biggest remaining risks are engineering, not mathematics: exact reproduction of
 the universal interpreter, and a kernel route for the 293,568-node statistics.
+
+## Push status
+
+The commits `a101494` (review fixes) and the commit adding this report are local on
+`wip/bp-compiler-natural` in `~/dzq-wt/bp-compiler-natural`. Three push attempts and
+`git ls-remote` all failed with "Recv failure: Connection reset by peer". Run
+`git push origin HEAD:wip/bp-compiler-natural` from that worktree once GitHub is reachable.
