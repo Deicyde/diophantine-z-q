@@ -9,8 +9,8 @@
 | Section 5: pole predicate | `MAPPED` | Lemma 5.1 is elementary and awaits decomposition; Theorem 5.2 is the hypothesis PC in the first chapter. |
 | Section 5.1 and Sections 7–9, Appendices E–G: restricted converse | `OUT` | Uses Kato, Waldspurger, Bump–Friedberg–Hoffstein, Nekovář and Gross–Zagier–Kolyvagin; replaced by the hypothesis PC. |
 | Section 6: multiplication and the false-triple guard | `MAPPED` | Awaiting decomposition; Proposition 6.2 is the hypothesis 22P in the first chapter. |
-| Section 10: precision computation and compilation | `MAPPED` | Awaiting decomposition of the natural polynomial, the alpha and power formulas and the rational translation. |
+| Section 10: precision computation and compilation | `MAPPED` | The [translation chapter](../roadmap/compiler/translation/README.md) decomposes the interpreter, lowering and rational translation (Sections 10.3 and 10.4); the natural polynomial and the alpha and power formulas await decomposition. |
 | Section 11: variable-shift relation | `MAPPED` | Awaiting decomposition. |
-| Section 12: cutoff and polynomial size | `MAPPED` | Awaiting decomposition; the progression estimate enters as the hypothesis CAT in the first chapter. |
+| Section 12: cutoff and polynomial size | `DECOMPOSED` | The [size chapter](../roadmap/size/README.md) bounds the fixed constants, identifies the cutoff and bounds the degree and coefficients of the polynomial; the progression estimate enters as the hypothesis CAT in the first chapter. |
 | Section 13: consequences | `DEFERRED` | The three corollaries follow the main theorem and are scheduled after it. |
 | Appendix H: de Rham comparison in the height argument | `OUT` | Part of the proof of the six-contact estimate, replaced by the hypothesis H. |
