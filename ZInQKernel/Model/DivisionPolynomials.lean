@@ -1,2 +1,5 @@
 import ZInQKernel.Model.DivisionPolynomials.Defs
 import ZInQKernel.Model.DivisionPolynomials.Classical
+import ZInQKernel.Model.DivisionPolynomials.Geometry
+import ZInQKernel.Model.DivisionPolynomials.Algebra
+import ZInQKernel.Model.DivisionPolynomials.NonTorsion
