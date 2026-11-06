@@ -66,6 +66,9 @@ theorem div_val' {e : ℤ} (hx : Vge v m x) (hy : v y = e) : Vge v (m - e) (x / 
   have := WithTop.coe_le_coe.mp (hn ▸ hx : ((m : ℤ) : WithTop ℤ) ≤ (n : WithTop ℤ))
   exact WithTop.coe_le_coe.mpr (by omega)
 
+theorem sum_of_le {ι : Type*} {s : Finset ι} {f : ι → K} (h : ∀ i ∈ s, Vge v m (f i)) :
+    Vge v m (∑ i ∈ s, f i) := v.map_le_sum h
+
 end Vge
 
 theorem vge_natCast (n : ℕ) : Vge v 0 (n : K) := by
