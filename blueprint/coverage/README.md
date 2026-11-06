@@ -3,8 +3,8 @@
 | Area | Coverage | Evidence |
 | --- | --- | --- |
 | Section 1: main theorem and assembly | `MAPPED` | The target and the conditional main theorem are stated in the first chapter; Lemma 1.2 still needs its own decomposition. |
-| Section 2 and Appendix C: literal finite specification | `MAPPED` | Awaiting decomposition of the expression format, templates and recipes. |
-| Section 3: elliptic model, generator and addition | `MAPPED` | Awaiting decomposition; the Mordell–Weil input is the hypothesis in the first chapter. |
+| Section 2 and Appendix C: literal finite specification | `DECOMPOSED` | The [specification chapter](../roadmap/syntax/README.md) defines the expression language, every template, constant, constructor and recipe, and the polynomial; correctness of each template is assigned to the chapter that uses it. |
+| Section 3: elliptic model, generator and addition | `DECOMPOSED` | The [elliptic model chapter](../roadmap/model/README.md) covers the field, the descent, the heights and the finite search, membership and raw addition. |
 | Section 4: proof of the six-contact estimate | `OUT` | Uses Shimura curves, integral models and modularity, which are not formalizable here; its conclusion is the hypothesis H in the first chapter. |
 | Section 5: pole predicate | `MAPPED` | Lemma 5.1 is elementary and awaits decomposition; Theorem 5.2 is the hypothesis PC in the first chapter. |
 | Section 5.1 and Sections 7–9, Appendices E–G: restricted converse | `OUT` | Uses Kato, Waldspurger, Bump–Friedberg–Hoffstein, Nekovář and Gross–Zagier–Kolyvagin; replaced by the hypothesis PC. |
