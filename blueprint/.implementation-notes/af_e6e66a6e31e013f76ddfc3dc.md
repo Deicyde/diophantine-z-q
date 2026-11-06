@@ -27,3 +27,11 @@ for heights and the cross-check), `Prog.formula` (readable `Formula` term, used 
 semantics) and `Prog.count` (allocation counter only, cheap to evaluate in the kernel).
 Fixed integer expressions stay symbolic (`FixedExpr` syntax, noncomputable `val`); no proof
 ever evaluates `c_*`, `ell`, `T`, `D`, `Q` or the program literal `c_3`.
+- Status: `ZInQKernel/Syntax/Constants/Fixed.lean` defines the eighteen named constants (`FixedConst`,
+  `FixedConst.expr`, `FixedConst.value`, `ZInQ.Syntax.fixedVal`, the ℕ constants `Ps` … `T` with
+  `value_P0` … `value_T`), and `Relations.lean` proves their relations. Not done: `integer_constant_0..4`
+  (in particular `c_3`, whose Lean value is the compiler's program literal, bounded in
+  compiler/natural/universal/wrapper-code-size.md, not the saved 3,181,317-digit literal). Record the
+  article when the integer constants are defined. Downstream code must reason through `Ps_eq` … `T_eq`
+  and the `value_*` lemmas: the constants are `irreducible`, because the kernel otherwise tries to
+  evaluate them.

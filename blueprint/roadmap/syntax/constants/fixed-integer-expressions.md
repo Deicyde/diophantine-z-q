@@ -2,6 +2,8 @@
 article_id: af_b9719f8201f695d81422c28b
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.FixedExpr, ZInQ.Syntax.FixedExpr.val
 ---
 
 # Fixed integer expressions

@@ -2,6 +2,9 @@
 article_id: af_e439aad5665fe7a483ab4ef0
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.primorial_324_eq, ZInQ.Syntax.four_mul_primorial_324_eq
 ---
 
 # Decimal values of the primorial constants

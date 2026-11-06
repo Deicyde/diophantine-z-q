@@ -2,6 +2,8 @@
 article_id: af_ac3ae5e25cc122552bf8ad42
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.cataloguePrime, ZInQ.Syntax.catalogueProduct, ZInQ.Syntax.catalogueMax
 ---
 
 # The prime catalogue

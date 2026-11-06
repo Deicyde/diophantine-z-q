@@ -2,6 +2,8 @@
 article_id: af_583092dc0956b4a2983cff03
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.guardPoly, ZInQ.Syntax.guardPoly_eval_eq_zero_iff
 ---
 
 # The finite false-triple product

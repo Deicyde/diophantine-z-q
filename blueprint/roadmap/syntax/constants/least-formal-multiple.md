@@ -2,6 +2,8 @@
 article_id: af_c26aaf8501755e9781b1c2c3
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.normalizedRep, ZInQ.Syntax.xi, ZInQ.Syntax.FormalCondition, ZInQ.Syntax.leastFormalMultiple
 ---
 
 # The least formal multiple
