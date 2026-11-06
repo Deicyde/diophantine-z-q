@@ -9,6 +9,8 @@ import ZInQKernel.Compiler.Precision.Relation
 import ZInQKernel.Compiler.Precision.Jacobian
 import ZInQKernel.Compiler.Precision.JacobianGenerator
 import ZInQKernel.Compiler.Precision.ScalarMul
+import ZInQKernel.Compiler.Precision.Decision
+import ZInQKernel.Compiler.Precision.DecisionCorrect
 
 /-!
 # The exact precision computation
