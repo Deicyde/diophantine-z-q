@@ -5,3 +5,4 @@ import ZInQKernel.Hypotheses.MordellWeil
 import ZInQKernel.Hypotheses.PrimePattern
 import ZInQKernel.Main
 import ZInQKernel.Model.Field
+import ZInQKernel.Model.Descent
