@@ -4,7 +4,7 @@ declaration: theorem
 origin: cited
 statement: formalized
 proof: formalized
-lean: ZInQ.mem_torsion_E_iff, ZInQ.card_torsion_E
+lean: ZInQ.mem_torsion_E_iff, ZInQ.card_torsion_E, ZInQ.genP0_not_isOfFinAddOrder, ZInQ.mem_torsion_C_iff, ZInQ.card_torsion_C
 ---
 
 # The torsion of $E(K_0)$ is the full two-torsion

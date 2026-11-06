@@ -4,7 +4,7 @@ declaration: theorem
 origin: cited
 statement: formalized
 proof: formalized
-lean: ZInQ.Syntax.eq_abs_iff_four_squares
+lean: ZInQ.Syntax.eq_abs_iff_four_squares, ZInQ.Syntax.absTemplate_rel_iff
 ---
 
 # Absolute value by four squares
