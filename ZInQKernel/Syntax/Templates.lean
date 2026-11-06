@@ -1,6 +1,7 @@
 import ZInQKernel.Syntax.Templates.Scope
 import ZInQKernel.Syntax.Templates.Member
 import ZInQKernel.Syntax.Templates.Core
+import ZInQKernel.Syntax.Templates.Certificate
 
 /-!
 # The template library of the specification

@@ -303,47 +303,53 @@ theorem wp_freshPoint {G : ℕ → Prop} {K : Code → BuildState → Prop} (h0 
 theorem wp_call {G : ℕ → Prop} {N m : ℕ} {τ : ExPoly} {g : Fin τ.params → Poly}
     {K : Formula → BuildState → Prop} (hτ : τ.WF) (hm : τ.witnesses = m)
     (hg : ArgsIn g G) (hN : s.next + m ≤ N)
-    (h : ∀ φ, FOk G N φ → K φ { s with next := s.next + m }) : WP (call τ g) s K := by
+    (h : ∀ φ, FOk G N φ → φ.blocks = [(s.next, m)] → K φ { s with next := s.next + m }) :
+    WP (call τ g) s K := by
   unfold WP
   rw [call_apply]
   subst hm
-  exact h _ (FOk.call hτ hg hN)
+  exact h _ (FOk.call hτ hg hN) (by simp [Formula.blocks])
 
 theorem wp_nz {G : ℕ → Prop} {N : ℕ} {a : Poly} {K : Formula → BuildState → Prop}
-    (hs : G s.next) (ha : VarsIn a G) (h : ∀ φ, FOk G N φ → K φ { s with next := s.next + 1 }) :
+    (hs : G s.next) (ha : VarsIn a G)
+    (h : ∀ φ, FOk G N φ → φ.blocks = [] → K φ { s with next := s.next + 1 }) :
     WP (nz a) s K := by
   unfold WP
   rw [nz_apply]
-  exact h _ (FOk.nzFormula ha hs)
+  exact h _ (FOk.nzFormula ha hs) (by simp [nzFormula, Formula.blocks])
 
 theorem wp_fnz {G : ℕ → Prop} {N : ℕ} {u : Pair} {K : Formula → BuildState → Prop}
     (hs : G s.next) (hu : PairIn u G)
-    (h : ∀ φ, FOk G N φ → K φ { s with next := s.next + 1 }) : WP (fnz u) s K :=
+    (h : ∀ φ, FOk G N φ → φ.blocks = [] → K φ { s with next := s.next + 1 }) :
+    WP (fnz u) s K :=
   wp_nz hs hu.norm h
 
 theorem wp_pos {G : ℕ → Prop} {N : ℕ} {a : Poly} {K : Formula → BuildState → Prop}
     (h0 : G s.next) (h1 : G (s.next + 1)) (h2 : G (s.next + 2)) (h3 : G (s.next + 3))
-    (ha : VarsIn a G) (h : ∀ φ, FOk G N φ → K φ { s with next := s.next + 4 }) :
+    (ha : VarsIn a G) (h : ∀ φ, FOk G N φ → φ.blocks = [] → K φ { s with next := s.next + 4 }) :
     WP (pos a) s K := by
   unfold WP
   rw [pos_apply]
-  exact h _ (FOk.posFormula ha h0 h1 h2 h3)
+  exact h _ (FOk.posFormula ha h0 h1 h2 h3) (by simp [posFormula, Formula.blocks])
 
 theorem wp_fdiv {G : ℕ → Prop} {N : ℕ} {n d : Pair} {K : Pair × Formula → BuildState → Prop}
     (h0 : G s.next) (h1 : G (s.next + 1)) (h2 : G (s.next + 2)) (hn : PairIn n G)
     (hd : PairIn d G)
-    (h : ∀ q φ, PairIn q G → FOk G N φ → K (q, φ) { s with next := s.next + 3 }) :
+    (h : ∀ q φ, PairIn q G → FOk G N φ → φ.blocks = [] → K (q, φ) { s with next := s.next + 3 }) :
     WP (fdiv n d) s K := by
   unfold WP
   rw [fdiv_apply]
   exact h _ _ ⟨VarsIn.X h0, VarsIn.X h1⟩ (FOk.divFormula hn hd ⟨VarsIn.X h0, VarsIn.X h1⟩ h2)
+    (by simp [divFormula, nzFormula, feq, Formula.blocks])
 
 theorem wp_zGadget {G : ℕ → Prop} {N : ℕ} {p : Code} {ζ : Pair}
     {K : Formula → BuildState → Prop} (hs : G s.next) (hp : CodeIn p G) (hζ : PairIn ζ G)
-    (h : ∀ φ, FOk G N φ → K φ { s with next := s.next + 1 }) : WP (zGadget p ζ) s K := by
+    (h : ∀ φ, FOk G N φ → φ.blocks = [] → K φ { s with next := s.next + 1 }) :
+    WP (zGadget p ζ) s K := by
   unfold WP
   rw [zGadget_apply]
   exact h _ (FOk.zFormula hp hζ hs)
+    (by simp [zFormula, isO, peq, fin, nzFormula, feq, Formula.blocks])
 
 /-- The value of a rational-constant request is a constant or a variable that is new or
 already recorded. -/
@@ -479,6 +485,69 @@ theorem wp_freshPair {G : ℕ → Prop} {K : Pair → BuildState → Prop} (h0 :
 
 end Build
 
+/-! ### Blocks of fresh points and pairs -/
+
+/-- `n` fresh points: the `5n` next variables, point by point. -/
+noncomputable def Build.freshPoints (n : ℕ) : Build (Fin n → Code) := fun s =>
+  (fun i j => X (s.next + 5 * i + j), { s with next := s.next + 5 * n })
+
+/-- `n` fresh pairs: the `2n` next variables, pair by pair. -/
+noncomputable def Build.freshPairs (n : ℕ) : Build (Fin n → Pair) := fun s =>
+  (fun i => (X (s.next + 2 * i), X (s.next + 2 * i + 1)), { s with next := s.next + 2 * n })
+
+/-- The parameter list `(X_k, …, X_{k+n-1})`. -/
+noncomputable def varArgs (k n : ℕ) : Fin n → Poly := fun i => X (k + i)
+
+/-- The coordinates of `n` points as one parameter list. -/
+noncomputable def codesArgs {n : ℕ} (C : Fin n → Code) : Fin (n * 5) → Poly := fun k =>
+  C ⟨k / 5, Nat.div_lt_of_lt_mul (by have := k.isLt; linarith)⟩ ⟨k % 5, Nat.mod_lt _ (by omega)⟩
+
+/-- The components of `n` pairs as one parameter list. -/
+noncomputable def pairsArgs {n : ℕ} (D : Fin n → Pair) : Fin (n * 2) → Poly := fun k =>
+  if k.val % 2 = 0 then
+    (D ⟨k / 2, Nat.div_lt_of_lt_mul (by have := k.isLt; linarith)⟩).1
+  else (D ⟨k / 2, Nat.div_lt_of_lt_mul (by have := k.isLt; linarith)⟩).2
+
+namespace ArgsIn
+
+variable {G : ℕ → Prop}
+
+theorem varArgs {k n : ℕ} (h : ∀ i : Fin n, G (k + i)) : ArgsIn (ZInQ.Syntax.varArgs k n) G :=
+  fun i => VarsIn.X (h i)
+
+theorem codes {n : ℕ} {C : Fin n → Code} (h : ∀ i, CodeIn (C i) G) : ArgsIn (codesArgs C) G :=
+  fun _ => h _ _
+
+theorem pairs {n : ℕ} {D : Fin n → Pair} (h : ∀ i, PairIn (D i) G) : ArgsIn (pairsArgs D) G := by
+  intro k
+  unfold pairsArgs
+  split_ifs
+  exacts [(h _).1, (h _).2]
+
+end ArgsIn
+
+namespace Build
+
+variable {s : BuildState}
+
+theorem wp_freshPoints {G : ℕ → Prop} {n : ℕ} {K : (Fin n → Code) → BuildState → Prop}
+    (hs : ∀ i < 5 * n, G (s.next + i))
+    (h : ∀ ps, (∀ i, CodeIn (ps i) G) → K ps { s with next := s.next + 5 * n }) :
+    WP (freshPoints n) s K := by
+  refine h _ fun i j => VarsIn.X ?_
+  rw [add_assoc]
+  exact hs _ (by have := i.isLt; have := j.isLt; omega)
+
+theorem wp_freshPairs {G : ℕ → Prop} {n : ℕ} {K : (Fin n → Pair) → BuildState → Prop}
+    (hs : ∀ i < 2 * n, G (s.next + i))
+    (h : ∀ us, (∀ i, PairIn (us i) G) → K us { s with next := s.next + 2 * n }) :
+    WP (freshPairs n) s K := by
+  refine h _ fun i => ⟨VarsIn.X (hs _ (by have := i.isLt; omega)), VarsIn.X ?_⟩
+  rw [add_assoc]
+  exact hs _ (by have := i.isLt; omega)
+
+end Build
+
 /-! ### Constructed templates -/
 
 /-- **Well-formedness from the scope facts.** If the final formula of a construction has the
@@ -559,6 +628,48 @@ theorem pairwise_blockDisjoint_of_sep {B : List (ℕ × ℕ)} (h : blocksSep B) 
     unfold InBlock at hi hi'
     omega
 
+
+/-- The facts established for a constructed template with `p` parameters: the final counter
+`N`, the list `B` of its call blocks (separated and above the parameters), the constant
+variables, and the scope facts of the final formula for the indices `Avail N B`. -/
+structure Build.Facts (p : ℕ) (b : Build Formula) (N : ℕ) (B : List (ℕ × ℕ)) : Prop where
+  next : (b ⟨p, []⟩).2.next = N
+  blocks : (b ⟨p, []⟩).1.blocks = B
+  sep : blocksSep B
+  above : ∀ bl ∈ B, p ≤ bl.1
+  le : p ≤ N
+  globals : ∀ e ∈ (b ⟨p, []⟩).2.globals, Avail N B e.1 ∧ e.2.2 ≠ 0
+  fok : FOk (Avail N B) N (b ⟨p, []⟩).1
+
+namespace Build.Facts
+
+variable {p : ℕ} {b : Build Formula} {N : ℕ} {B : List (ℕ × ℕ)}
+
+/-- The facts from one weakest-precondition run. -/
+theorem of_wp (h : Build.WP b ⟨p, []⟩ fun φ s => FOk (Avail N B) N φ ∧ φ.blocks = B ∧
+      s.next = N ∧ ∀ e ∈ s.globals, Avail N B e.1 ∧ e.2.2 ≠ 0)
+    (sep : blocksSep B) (above : ∀ bl ∈ B, p ≤ bl.1) (le : p ≤ N) : Build.Facts p b N B :=
+  ⟨h.2.2.1, h.2.1, sep, above, le, h.2.2.2, h.1⟩
+
+theorem witnesses (h : Build.Facts p b N B) : (Build.template p b).witnesses = N - p := by
+  show (b ⟨p, []⟩).2.next - p = N - p
+  rw [h.next]
+
+theorem wf (h : Build.Facts p b N B) : (Build.template p b).WF :=
+  Build.template_wf_of_fok p b (G := Avail N B) (by rw [h.next]; exact fun i hi => hi.1)
+    (by rw [h.next]; exact h.le) (fun e he => by rw [h.next]; exact (h.globals e he).1.1)
+    (by rw [h.next]; exact h.fok)
+
+/-- The relation of a template with the facts, through its private blocks. -/
+theorem rel_iff (h : Build.Facts p b N B) (a : Fin p → ℚ) :
+    (Build.template p b).Rel a ↔
+      ∃ y : ℕ → ℚ, (∀ i : Fin p, y i = a i) ∧
+        (∀ e ∈ (b ⟨p, []⟩).2.globals, y e.1 = e.2.1 / e.2.2) ∧ (b ⟨p, []⟩).1.Lift y :=
+  Build.template_rel_iff_lift p b h.next h.blocks (pairwise_blockDisjoint_of_sep h.sep) h.above
+    h.globals h.fok h.le a
+
+end Build.Facts
+
 end ZInQ.Syntax
 
 /-! ### Tactics -/
@@ -638,6 +749,9 @@ def scopeLemma (tgt : Expr) : MetaM (Option Name) := do
     | some ``Pair.args => pure ``ArgsIn.pair
     | some ``Matrix.vecCons => pure ``ArgsIn.cons
     | some ``Matrix.vecEmpty => pure ``ArgsIn.nil
+    | some ``varArgs => pure ``ArgsIn.varArgs
+    | some ``codesArgs => pure ``ArgsIn.codes
+    | some ``pairsArgs => pure ``ArgsIn.pairs
     | _ => pure ``ArgsIn.code
   | some ``VarsIn =>
     let f ← sub 0
@@ -667,6 +781,28 @@ the structural lemmas, the hypotheses, unfolding of definitions and `decide`. -/
 partial def scopeGoal (g : MVarId) : TacticM Unit := g.withContext do
   let tgt := (← instantiateMVars (← g.getType)).cleanupAnnotations.headBeta
   if (← observing? (withReducible g.assumption)).isSome then return
+  -- a universally quantified hypothesis `∀ i, P (f i)`
+  for d in ← getLCtx do
+    if d.isImplementationDetail then continue
+    let ty := (← instantiateMVars d.type).cleanupAnnotations
+    if ty.isForall then
+      if !(← isProp ty.bindingDomain!) then
+        let saved ← saveState
+        try
+          let gs ← withReducible (g.apply d.toExpr)
+          for g' in gs do
+            unless ← g'.isAssigned do scopeGoal g'
+          return
+        catch _ => saved.restore
+  -- a goal `∀ i : Fin n, P i`
+  if tgt.isForall && (tgt.bindingDomain!.isAppOf ``Fin) then
+    let saved ← getGoals
+    setGoals [g]
+    evalTactic (← `(tactic| (intro i; fin_cases i)))
+    let gs ← getGoals
+    setGoals saved
+    for g' in gs do scopeGoal g'
+    return
   match ← scopeLemma tgt with
   | some n =>
     let gs ← g.apply (← mkConstWithFreshMVarLevels n)
@@ -741,19 +877,24 @@ elab "wp_step " G:term:max N:term:max : tactic => do
     | some ``Build.freshPoint =>
       `(tactic| refine Build.wp_freshPoint (G := $G) (by decide) (by decide) (by decide) (by decide)
         (by decide) fun _ _ => ?_)
+    | some ``Build.freshPoints =>
+      `(tactic| refine Build.wp_freshPoints (G := $G) (by decide) fun _ _ => ?_)
+    | some ``Build.freshPairs =>
+      `(tactic| refine Build.wp_freshPairs (G := $G) (by decide) fun _ _ => ?_)
     | some ``Build.call =>
       `(tactic| refine Build.wp_call (G := $G) (N := $N) (by assumption) (by assumption) (by scope) (by decide)
-        fun _ _ => ?_)
-    | some ``Build.nz => `(tactic| refine Build.wp_nz (G := $G) (N := $N) (by decide) (by scope) fun _ _ => ?_)
-    | some ``Build.fnz => `(tactic| refine Build.wp_fnz (G := $G) (N := $N) (by decide) (by scope) fun _ _ => ?_)
+        fun _ _ _ => ?_)
+    | some ``Build.nz => `(tactic| refine Build.wp_nz (G := $G) (N := $N) (by decide) (by scope) fun _ _ _ => ?_)
+    | some ``Build.fnz => `(tactic| refine Build.wp_fnz (G := $G) (N := $N) (by decide) (by scope) fun _ _ _ => ?_)
     | some ``Build.pos =>
       `(tactic| refine Build.wp_pos (G := $G) (N := $N) (by decide) (by decide) (by decide) (by decide) (by scope)
-        fun _ _ => ?_)
+        fun _ _ _ => ?_)
     | some ``Build.fdiv =>
       `(tactic| refine Build.wp_fdiv (G := $G) (N := $N) (by decide) (by decide) (by decide) (by scope) (by scope)
-        fun _ _ _ _ => ?_)
+        fun _ _ _ _ _ => ?_)
     | some ``Build.zGadget =>
-      `(tactic| refine Build.wp_zGadget (G := $G) (N := $N) (by decide) (by scope) (by scope) fun _ _ => ?_)
+      `(tactic| refine Build.wp_zGadget (G := $G) (N := $N) (by decide) (by scope) (by scope)
+        fun _ _ _ => ?_)
     | some ``Build.gen => `(tactic| refine Build.wp_gen ?_)
     | some ``Build.rational =>
       `(tactic| refine Build.wp_rational (G := $G) (by decide) (by decide) fun _ _ => ?_)
@@ -766,3 +907,16 @@ end ZInQ.Syntax.Build
 
 /-- Run `wp_step` until the program is consumed. -/
 macro "wp_run " G:term:max N:term:max : tactic => `(tactic| repeat wp_step $G $N)
+
+/-- Close the final goal of a weakest-precondition run for `Build.Facts.of_wp`. -/
+macro "facts_close" : tactic => `(tactic| (
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · scope
+  · simp only [ZInQ.Syntax.Formula.blocks_and, ZInQ.Syntax.Formula.blocks_or,
+      List.flatMap_append, List.flatMap_cons, List.flatMap_nil, List.append_nil, List.nil_append,
+      List.cons_append, List.singleton_append, ZInQ.Syntax.feq, ZInQ.Syntax.fin, ZInQ.Syntax.peq,
+      ZInQ.Syntax.isO, ZInQ.Syntax.nzFormula, ZInQ.Syntax.posFormula, ZInQ.Syntax.Formula.blocks,
+      *]
+    decide
+  · decide
+  · decide))
