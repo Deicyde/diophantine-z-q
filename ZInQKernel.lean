@@ -13,3 +13,4 @@ import ZInQKernel.Assembly.Real
 import ZInQKernel.Model.Generator
 import ZInQKernel.Syntax.Templates
 import ZInQKernel.Syntax.Constants
+import ZInQKernel.Compiler.Exponential
