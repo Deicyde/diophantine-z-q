@@ -2,6 +2,9 @@
 article_id: af_386c166797b3bc6c814dbce0
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.uSeries_eq, ZInQ.Mult.invDiffSeries_ode, ZInQ.Mult.coeff_formalLog_genE
 ---
 
 # The formal logarithm of $E$ is a binomial series

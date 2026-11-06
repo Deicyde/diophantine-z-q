@@ -2,6 +2,8 @@
 article_id: af_65f979c554aa55af4bc44249
 declaration: theorem
 origin: background
+statement: formalized
+lean: ZInQ.Mult.omegaSeries_hasSum, ZInQ.Mult.formalAdd, ZInQ.Mult.formalGroupLaw_exists
 ---
 
 # The formal group law of $y^2=x^3+Ax$

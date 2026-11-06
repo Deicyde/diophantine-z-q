@@ -2,6 +2,9 @@
 article_id: af_377edb707386c7c29ff0c184
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.log25_truncation_error
 ---
 
 # The truncation error at a large prime

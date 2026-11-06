@@ -2,6 +2,8 @@
 article_id: af_e49ffcac35f49630c3c40135
 declaration: lemma
 origin: background
+statement: formalized
+lean: ZInQ.Mult.evalLog_isometry, ZInQ.Mult.ellLog_injOn, ZInQ.Mult.val_z_zsmul_eq
 ---
 
 # The isometry range of the formal logarithm

@@ -2,6 +2,9 @@
 article_id: af_392544edd99811aacdc5c7f2
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.genP0_dyadic_numerals
 ---
 
 # The $2$-adic valuations of the coordinates of $P_0$

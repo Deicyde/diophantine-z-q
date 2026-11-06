@@ -2,6 +2,9 @@
 article_id: af_6118f908eb3b95de3c300ea7
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.primeR_split, ZInQ.Mult.primeP_inert, ZInQ.Mult.vp_ratCast, ZInQ.Mult.vp_star, ZInQ.Mult.vp_trace_ge
 ---
 
 # The primes of $\mathbb Z[\sqrt2]$ above an odd prime

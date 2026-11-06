@@ -2,6 +2,9 @@
 article_id: af_7b3f1cbb78ee994d9a2ce823
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.truncLog_eq_mul_unit, ZInQ.Mult.log25_eq_mul_unit, ZInQ.Mult.log25_ne_zero
 ---
 
 # The truncated logarithm is $16575z$ times a unit

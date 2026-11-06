@@ -2,6 +2,9 @@
 article_id: af_1fde17c0f717ebc5031205d6
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.log25_z_ne_zero
 ---
 
 # The truncated logarithm does not vanish on nonzero multiples of $P_0$

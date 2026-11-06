@@ -2,6 +2,9 @@
 article_id: af_9ebce2e62ba042030172121d
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.log25_coefficients, ZInQ.Mult.truncLog_eq
 ---
 
 # The coefficients of the truncated logarithm

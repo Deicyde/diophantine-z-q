@@ -2,6 +2,9 @@
 article_id: af_939d2c81953715260cde59e4
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.formal_val_x_y, ZInQ.Mult.formalFilt, ZInQ.Mult.mem_formalNbhd_iff, ZInQ.Mult.zCoord_injOn, ZInQ.Mult.zsmul_mem_formalFilt
 ---
 
 # The formal neighbourhood of $y^2=x^3+Ax$ and its filtration

@@ -2,6 +2,9 @@
 article_id: af_fd209209c92cd80b7dcf1b3c
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.genP0_val_s, ZInQ.Mult.genP0_mem_formalFilt_three
 ---
 
 # The generator lies in the dyadic formal group
