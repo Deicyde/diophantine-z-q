@@ -1,0 +1,54 @@
+# Builds work-in-progress branches (wip/**) so that agents without a local Lean
+# toolchain can compile their changes. It checks nothing beyond `lake build`.
+
+name: lean wip
+
+on:
+  push:
+    branches: ['wip/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lean-wip-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out project
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install elan
+        run: |
+          set -euo pipefail
+          curl -sSfL \
+            https://github.com/leanprover/elan/releases/download/v4.2.3/elan-x86_64-unknown-linux-gnu.tar.gz \
+            -o elan.tar.gz
+          echo "df0b2b3a439961ffcbb3985214365ffe40f49bc871df04dff268c7d8e21ca8b2  elan.tar.gz" \
+            | sha256sum --check --strict
+          tar xzf elan.tar.gz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Fetch the Mathlib build cache
+        run: lake exe cache get
+
+      - name: Build
+        run: |
+          set -o pipefail
+          lake build 2>&1 | tee build.log
+
+      - name: Report sorries and axioms of the main theorem
+        if: success()
+        run: |
+          cat > Report.lean <<'LEAN'
+          import ZInQKernel
+          #print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of
+          LEAN
+          lake env lean Report.lean
