@@ -16,3 +16,4 @@ import ZInQKernel.Syntax.Templates
 import ZInQKernel.Syntax.Constants
 import ZInQKernel.Compiler.Circuits
 import ZInQKernel.Compiler.Exponential
+import ZInQKernel.Multiplication.Local
