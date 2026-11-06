@@ -34,7 +34,7 @@ group of the cusp over $\mathbb F_7$; the trivial count suffices for $m_0\le N^6
 
 ## Proof depends on
 
-- [Primes above an odd prime](odd-primes.md)
+- [The primes of $\mathbb Z[\sqrt2]$ above an odd prime](../../multiplication/local/primes-above-p.md)
 - [The trivial point count](trivial-point-count.md)
 - [Reduction of $P_0$ at the bad place](bad-place-reduction.md)
 

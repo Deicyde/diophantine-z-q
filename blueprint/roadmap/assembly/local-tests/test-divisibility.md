@@ -56,8 +56,8 @@ $p\mid\kappa(n-c)$, and $n-c$ divides $F(n)$, so $p\mid\kappa F(n)$.
 ## Proof depends on
 
 - [The one-sided pole obstruction](../../multiplication/pole-obstruction.md)
-- [Valuations of the quadratic field](k0-valuations.md)
-- [Formal neighbourhoods of the identity](formal-group.md)
+- [The primes of $\mathbb Z[\sqrt2]$ above an odd prime](../../multiplication/local/primes-above-p.md)
+- [The formal neighbourhood of $y^2=x^3+Ax$ and its filtration](../../multiplication/local/formal-group.md)
 - [Multiplication in a formal neighbourhood](formal-multiplication.md)
 - [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 

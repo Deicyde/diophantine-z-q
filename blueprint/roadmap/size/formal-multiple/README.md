@@ -10,12 +10,12 @@ bound.
 ## Places of $K_0$
 
 Above an odd prime $p$ there are one or two primes of $\mathbb Z[\sqrt2]$, each unramified
-with residue field of at most $p^2$ elements. Conjugation permutes them, which lets one read
-off $p$-adic valuations of the two rational coordinates of an element from its valuations at
-these primes. At the prime $(s)$ above $2$ the model chapter's formula
-$v_s(c_0+c_1s)=\min(2v_2(c_0),2v_2(c_1)+1)$ does the same.
+with residue field of at most $p^2$ elements, and conjugation permutes them
+([the primes above an odd prime](../../multiplication/local/primes-above-p.md), in the
+multiplication chapter). This lets one read off $p$-adic valuations of the two rational
+coordinates of an element from its valuations at these primes. At the prime $(s)$ above $2$
+the model chapter's formula $v_s(c_0+c_1s)=\min(2v_2(c_0),2v_2(c_1)+1)$ does the same.
 
-- [Primes above an odd prime](odd-primes.md)
 - [Rational coordinates at odd primes](odd-coefficient-extraction.md)
 
 ## Reduction and the filtration
@@ -28,22 +28,23 @@ at most $2|k|+1$ points, which replaces Hasse's bound used in the manuscript.
 - [Reduction on the nonsingular part](reduction-homomorphism.md)
 - [The trivial point count](trivial-point-count.md)
 
-The points with $v(x)\le-2r$ form subgroups $W_r$, and multiplication by $n$ moves $W_r$
-into $W_{r+v(n)}$ as long as the residue characteristic has valuation at most four. This
-replaces the manuscript's formal group and logarithm isometry by an elementary statement
+The points with $v(x)\le-2r$ form subgroups $W_r$
+([the formal neighbourhood and its filtration](../../multiplication/local/formal-group.md)), and
+multiplication by $n$ moves $W_r$ into $W_{r+v(n)}$ as long as the residue characteristic has
+valuation at most four
+([multiplication in a formal neighbourhood](../../assembly/local-tests/formal-multiplication.md)).
+This replaces the manuscript's formal group and logarithm isometry by elementary statements
 about valuations on $K_0$ itself.
-
-- [The filtration by abscissa valuation](filtration.md)
 
 ## The point $P_0$ at the special places
 
 At the prime $(d)$ above $7$ the curve has a cusp, and $P_0$ reduces to the nonsingular
 point $(2,6)$ of $y^2=x^3$; at every other prime not above $2$ the reduction is good. At the
-prime $(s)$, $v_s(x(P_0))=-6$ and $v_s(y(P_0))=-9$, so $P_0$ lies in $W_3$.
+prime $(s)$, $v_s(x(P_0))=-6$ and $v_s(y(P_0))=-9$, so $P_0$ lies in $W_3$
+([the generator in the dyadic formal group](../../multiplication/local/dyadic-generator.md)).
 
 - [Congruences for $P_0$ modulo seven](bad-place-congruences.md)
 - [Reduction of $P_0$ at the bad place](bad-place-reduction.md)
-- [$P_0$ at the dyadic place](dyadic-start.md)
 
 ## The successful index
 

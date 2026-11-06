@@ -28,7 +28,7 @@ $N_s^4\mathbb Z_{(N_s)}$") without spelling it out.
 
 ## Proof depends on
 
-- [Primes above an odd prime](odd-primes.md)
+- [The primes of $\mathbb Z[\sqrt2]$ above an odd prime](../../multiplication/local/primes-above-p.md)
 
 ## Sources
 
