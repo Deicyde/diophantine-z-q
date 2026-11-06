@@ -2,6 +2,9 @@
 article_id: af_f29d6a710dbd8b2ce25878e4
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.Formula.ev_compile_eq_zero_iff, ZInQ.Syntax.ev_sum_sq_eq_zero_iff, ZInQ.Syntax.ev_prod_eq_zero_iff
 ---
 
 # Sums of squares and products over the rationals

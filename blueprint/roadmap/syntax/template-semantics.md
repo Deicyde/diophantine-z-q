@@ -2,6 +2,8 @@
 article_id: af_dc5fe0d33182c9e924e487d9
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.Template.denote, ZInQ.Syntax.Recipe.denote, ZInQ.Syntax.ExPoly.Rel
 ---
 
 # Semantics of templates and recipes

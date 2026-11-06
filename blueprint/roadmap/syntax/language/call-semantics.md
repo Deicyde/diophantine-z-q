@@ -2,6 +2,9 @@
 article_id: af_88b2d6278b5909f1494d674d
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.ev_callPoly, ZInQ.Syntax.ExPoly.exists_blockUpdate_call_iff
 ---
 
 # Evaluation of a template call

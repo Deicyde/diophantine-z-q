@@ -2,6 +2,9 @@
 article_id: af_453946222099634f806d1483
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.pos_iff_four_squares, ZInQ.Syntax.exists_blockUpdate_posFormula_iff
 ---
 
 # Strict positivity by four squares

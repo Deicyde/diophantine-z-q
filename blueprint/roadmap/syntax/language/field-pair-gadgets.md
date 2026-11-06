@@ -2,6 +2,8 @@
 article_id: af_aa1527fc60fde10afbc8ab0f
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.Pair, ZInQ.Syntax.Build.fdiv, ZInQ.Syntax.Build.zGadget
 ---
 
 # Quadratic-field pairs and point-code formulas

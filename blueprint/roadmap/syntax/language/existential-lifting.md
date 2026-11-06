@@ -2,6 +2,9 @@
 article_id: af_2124904da9c211bdaff0b2b9
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.Formula.exists_blocks_iff
 ---
 
 # Private witness blocks

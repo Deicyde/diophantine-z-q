@@ -2,6 +2,9 @@
 article_id: af_aa6fe39f20d62ada0f3e3403
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.eq_abs_iff_four_squares
 ---
 
 # Absolute value by four squares
