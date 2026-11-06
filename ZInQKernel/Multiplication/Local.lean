@@ -11,6 +11,7 @@ import ZInQKernel.Multiplication.Local.FormalGroupLaw
 import ZInQKernel.Multiplication.Local.PointMap
 import ZInQKernel.Multiplication.Local.FormalLogarithm
 import ZInQKernel.Multiplication.Local.Ratio
+import ZInQKernel.Multiplication.Local.LogSeries
 
 /-!
 # Local theory at finite places for the multiplication chapter
