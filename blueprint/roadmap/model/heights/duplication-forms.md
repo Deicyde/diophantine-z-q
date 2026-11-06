@@ -2,6 +2,9 @@
 article_id: af_ce8bd6c6b4c823fa6d914a1a
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.F2, ZInQ.G2, ZInQ.x_two_smul_C
 ---
 
 # The duplication forms on $C$

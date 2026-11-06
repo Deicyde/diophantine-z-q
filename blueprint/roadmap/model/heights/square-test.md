@@ -2,6 +2,9 @@
 article_id: af_d84360a4d58732e4ebd5b5e4
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.SqTest, ZInQ.isSquare_iff_sqTest
 ---
 
 # An exact square test in $K_0$

@@ -2,6 +2,9 @@
 article_id: af_6e5ed9f2cb0e8b8174b6d44f
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.smallHeight_search
 ---
 
 # The finite search for small points on $C$

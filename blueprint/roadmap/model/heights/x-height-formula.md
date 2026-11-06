@@ -2,6 +2,9 @@
 article_id: af_4f21abe36db357529726c285
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.hK0_div, ZInQ.hK0_div_of_isCoprime, ZInQ.hK0_ratCast
 ---
 
 # The height of a fraction in $\mathbb Z[\sqrt2]$

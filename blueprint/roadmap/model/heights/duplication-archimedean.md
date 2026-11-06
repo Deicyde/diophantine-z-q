@@ -2,6 +2,9 @@
 article_id: af_1e120dbdaee11316bbac7642
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.duplication_archimedean
 ---
 
 # Archimedean bounds for the duplication forms

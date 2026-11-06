@@ -2,6 +2,9 @@
 article_id: af_f021dde0131533284aa1445c
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.canonHeight_R_pos, ZInQ.hx_lt_log_nine_of_multiple
 ---
 
 # A multiple of a small point

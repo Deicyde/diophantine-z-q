@@ -2,6 +2,9 @@
 article_id: af_4e6dae43a04efa9a961a8460
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.duplication_common_divisor
 ---
 
 # The common divisor of the duplication forms

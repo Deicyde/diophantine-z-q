@@ -2,6 +2,9 @@
 article_id: af_f8579c4422080739c7aa7651
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.search_box
 ---
 
 # The search box for small heights

@@ -2,6 +2,9 @@
 article_id: af_b3cd8e30bf3a4afbb6988ca8
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.height_comparisons
 ---
 
 # Two explicit integer comparisons

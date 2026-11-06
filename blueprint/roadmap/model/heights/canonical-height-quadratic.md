@@ -2,6 +2,9 @@
 article_id: af_ff8211d1f91b2e16577a7a1f
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.canonHeight_parallelogram, ZInQ.canonHeight_zsmul
 ---
 
 # The canonical height is quadratic

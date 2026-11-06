@@ -2,6 +2,8 @@
 article_id: af_2d2281466e57d370cab30691
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.canonHeight
 ---
 
 # The canonical height on $C(K_0)$

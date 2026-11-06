@@ -2,6 +2,8 @@
 article_id: af_059168e8d9ee374cfb46e263
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.hK0, ZInQ.hx
 ---
 
 # The $x$-height on $C(K_0)$

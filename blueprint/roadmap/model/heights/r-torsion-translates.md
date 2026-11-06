@@ -2,6 +2,9 @@
 article_id: af_8c6ac9f9d840c5a9366105e5
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.x_pointR_add_cT0, ZInQ.x_pointR_add_cTdelta, ZInQ.x_pointR_add_cTnegdelta
 ---
 
 # The translates of $R$ by two-torsion

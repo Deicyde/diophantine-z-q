@@ -2,6 +2,9 @@
 article_id: af_46e2e02d9175f335f680763a
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.hx_two_smul_bounds
 ---
 
 # Height bounds for doubling on $C$

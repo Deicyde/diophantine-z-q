@@ -2,6 +2,9 @@
 article_id: af_50d450496f55534d7141e180
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.hx_two_R
 ---
 
 # The height of $2R$

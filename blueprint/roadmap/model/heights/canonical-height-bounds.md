@@ -2,6 +2,9 @@
 article_id: af_95b3c0311d86c4ef2f72318f
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.canonHeight_tendsto, ZInQ.two_canonHeight_le, ZInQ.hx_le_two_canonHeight, ZInQ.canonHeight_two_smul, ZInQ.canonHeight_add_twoTorsion
 ---
 
 # Basic properties of the canonical height
