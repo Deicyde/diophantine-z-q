@@ -96,6 +96,53 @@ theorem testGroup_facts :
   wp_run (Avail 206 testGroupBlocks) 206
   facts_close
 
+/-- The calls `member[F]` (block at `w`) and `raw_add[F, neg(C), V]` (block at `w + 7`). -/
+noncomputable def testGroupRootFormula (F C V : Code) (w : ℕ) : List Formula :=
+  [.call memberTemplate F w, .call rawAddTemplate (Fin.append (Fin.append F C.neg) V) (w + 7)]
+
+/-- The local test at the point `P` with pairs `ζ = (X_b, X_{b+1})`, `λ = (X_{b+2}, X_{b+3})`,
+`ρ = (X_{b+4}, X_{b+5})`: the calls `raw_z[P, ζ]` (block at `b + 6`), `log25[ζ, λ]` and
+`raw_inverse_x[P, ρ]` (empty blocks at `b + 7`). -/
+noncomputable def testGroupLocalFormula (P : Code) (b : ℕ) : List Formula :=
+  [.call rawZTemplate (Fin.append P (varPair b).args) (b + 6),
+    .call log25Template (Fin.append (varPair b).args (varPair (b + 2)).args) (b + 7),
+    .call rawInverseXTemplate (Fin.append P (varPair (b + 4)).args) (b + 7)]
+
+/-- The formula of `test_group` with the variables of the article: `F_i` at `X_{44+5i}`, `V_i`
+at `X_{64+5i}`, the root blocks at `84 + 13i`, the local tests at bases `136 + 7i`, the inverse
+witnesses `X₁₉₂`, `X₁₉₃` and the ratio pairs `q_{σ,i}` at `X₁₉₄, …, X₂₀₅`. -/
+noncomputable def testGroupFormula : Formula :=
+  let C := testGroupC
+  let D := testGroupD
+  let lam : ℕ → Pair := fun i => varPair (138 + 7 * i)
+  let ρ : ℕ → Pair := fun i => varPair (140 + 7 * i)
+  let q : ℕ → Pair := fun k => varPair (194 + 2 * k)
+  .and (testGroupRootFormula (varPoint 44) (C 0) (varPoint 64) 84 ++
+    testGroupRootFormula (varPoint 49) (C 1) (varPoint 69) 97 ++
+    testGroupRootFormula (varPoint 54) (C 2) (varPoint 74) 110 ++
+    testGroupRootFormula (varPoint 59) (C 3) (varPoint 79) 123 ++
+    [fin (varPoint 44), fin (varPoint 64)] ++
+    testGroupLocalFormula (varPoint 44) 136 ++ testGroupLocalFormula (varPoint 49) 143 ++
+    testGroupLocalFormula (varPoint 54) 150 ++ testGroupLocalFormula (varPoint 59) 157 ++
+    testGroupLocalFormula (varPoint 64) 164 ++ testGroupLocalFormula (varPoint 69) 171 ++
+    testGroupLocalFormula (varPoint 74) 178 ++ testGroupLocalFormula (varPoint 79) 185 ++
+    [nzFormula (lam 0).norm 192, nzFormula (lam 4).norm 193] ++
+    [feq ((lam 0).mul (q 0)) (lam 1), feq ((lam 0).mul (q 1)) (lam 2), feq ((lam 0).mul (q 2)) (lam 3),
+      feq ((lam 4).mul (q 3)) (lam 5), feq ((lam 4).mul (q 4)) (lam 6), feq ((lam 4).mul (q 5)) (lam 7)] ++
+    [feq (D 0) (ρ 0), feq (D 1) (ρ 1), feq (D 2) (ρ 2), feq (D 3) (ρ 3),
+      feq (D 4) (ρ 4).conj, feq (D 5) (ρ 5).conj, feq (D 6) (ρ 6).conj, feq (D 7) (ρ 7).conj,
+      feq (D 8) ((q 0).sub (q 3).conj), feq (D 9) ((q 1).sub (q 4).conj),
+      feq (D 10) ((q 2).sub (q 5).conj), feq (D 11) (((q 0).mul (q 1)).sub (q 2))])
+
+theorem testGroupBuild_formula :
+    (testGroupBuild testGroupC testGroupD ⟨44, []⟩).1 = testGroupFormula := by
+  dsimp only [testGroupBuild, testGroupRoot, testGroupLocal, Build.bind_apply, Build.pure_apply,
+    Build.call, Build.freshPoints, Build.freshPairs, Build.freshPair, Build.fresh, Build.fnz,
+    Build.nz]
+  simp only [memberTemplate_witnesses, rawAddTemplate_witnesses, rawZTemplate_witnesses,
+    log25Template_witnesses, rawInverseXTemplate_witnesses]
+  rfl
+
 theorem testGroupTemplate_params : testGroupTemplate.params = 44 := rfl
 
 theorem testGroupTemplate_witnesses : testGroupTemplate.witnesses = 162 :=
@@ -107,8 +154,9 @@ theorem testGroupTemplate_wf : testGroupTemplate.WF := testGroup_facts.wf
 parameters satisfies the conjunction with every call replaced by the callee relation. -/
 theorem testGroupTemplate_rel_iff (a : Fin 44 → ℚ) :
     testGroupTemplate.Rel a ↔ ∃ y : ℕ → ℚ, (∀ i : Fin 44, y i = a i) ∧
-      (testGroupBuild testGroupC testGroupD ⟨44, []⟩).1.Lift y := by
+      testGroupFormula.Lift y := by
   unfold testGroupTemplate
+  rw [← testGroupBuild_formula]
   exact testGroup_facts.rel_iff_nil a
 
 /-! ### `slope` -/
@@ -188,6 +236,50 @@ theorem slope_facts : Build.Facts 22 (slopeBuild (X 0) (X 1) (varArgs 2 20)) 132
   wp_run (Avail 1320 slopeBlocks) 1320
   facts_close
 
+/-- The formulas of slope group `g` with base `β = 29 + 213g`: the call
+`test_group[C, D_g]` (block at `β + 24`, `D_{g,j} = (X_{β+2j}, X_{β+2j+1})`), the pair
+equations `den_j C'_{g,j} ≐ D_{g,j}` (`C'_{g,j} = (X_{β+186+2j}, X_{β+187+2j})`) and
+`Div(1, W_g)` with `ω_g = (X_{β+210}, X_{β+211})` and inverse witness `X_{β+212}`. -/
+noncomputable def slopeGroupFormula (C : Fin 20 → Poly) (den1 den2 R : Poly) (β : ℕ) :
+    List Formula :=
+  let D : Fin 12 → Pair := fun j => varPair (β + 2 * j)
+  let N : Fin 12 → Pair := fun j => varPair (β + 186 + 2 * j)
+  [.call testGroupTemplate (Fin.append C (pairsArgs D)) (β + 24),
+    feq (Pair.smul den1 (N 0)) (D 0), feq (Pair.smul den1 (N 1)) (D 1),
+    feq (Pair.smul den1 (N 2)) (D 2), feq (Pair.smul den1 (N 3)) (D 3),
+    feq (Pair.smul den1 (N 4)) (D 4), feq (Pair.smul den1 (N 5)) (D 5),
+    feq (Pair.smul den1 (N 6)) (D 6), feq (Pair.smul den1 (N 7)) (D 7),
+    feq (Pair.smul den2 (N 8)) (D 8), feq (Pair.smul den2 (N 9)) (D 9),
+    feq (Pair.smul den2 (N 10)) (D 10), feq (Pair.smul den2 (N 11)) (D 11),
+    divFormula Pair.one (slopeW R (List.ofFn N)) (varPair (β + 210)) (β + 212)]
+
+/-- The formula of `slope` with the variables of the article: `η = X₂₂`, `q = X₂₃`,
+`R₀ = X₂₄`, inverse witnesses `X₂₅, …, X₂₈`, the six groups at bases `29 + 213g`, `B = X₁₃₀₇`,
+`u_θ = X₁₃₀₈` and the pole block at `1309`. -/
+noncomputable def slopeFormula : Formula :=
+  let t := X 0
+  let ell := X 1
+  let eta := X 22
+  let R0 := X 24
+  let a := 1 - R0 * X 23 ^ 2
+  let R := ell ^ 2 * a ^ 2 * R0
+  let den1 := R0 * (t - 1) ^ 2
+  let den2 := R0 ^ 25 * (t - 1) ^ 26
+  let C := varArgs 2 20
+  let θ := 2 * (X 239 + X 452 + X 665 + X 878 + X 1091 + X 1304)
+  .and ([.eq (eta ^ 2) 1, nzFormula (t - 1) 25, nzFormula (slopeContact t) 26, nzFormula ell 27,
+      .eq (R0 * (t - 1) ^ 8) (eta * slopeContact t), nzFormula a 28] ++
+    slopeGroupFormula C den1 den2 R 29 ++ slopeGroupFormula C den1 den2 R 242 ++
+    slopeGroupFormula C den1 den2 R 455 ++ slopeGroupFormula C den1 den2 R 668 ++
+    slopeGroupFormula C den1 den2 R 881 ++ slopeGroupFormula C den1 den2 R 1094 ++
+    [nzFormula θ 1308, .eq (X 1307 * θ ^ 2) R, .call poleTemplate ![X 1307] 1309])
+
+theorem slopeBuild_formula : (slopeBuild (X 0) (X 1) (varArgs 2 20) ⟨22, []⟩).1 = slopeFormula := by
+  dsimp only [slopeBuild, slopeGroup, Build.bind_apply, Build.pure_apply, Build.call,
+    Build.freshPairs, Build.fresh, Build.nz, Build.fdiv, Build.fnz]
+  simp only [testGroupTemplate_witnesses]
+  rfl
+
 theorem slopeTemplate_params : slopeTemplate.params = 22 := rfl
 
 theorem slopeTemplate_witnesses : slopeTemplate.witnesses = 1298 := slope_facts.witnesses
@@ -196,9 +288,9 @@ theorem slopeTemplate_wf : slopeTemplate.WF := slope_facts.wf
 
 /-- The relation of `slope` through its private blocks. -/
 theorem slopeTemplate_rel_iff (a : Fin 22 → ℚ) :
-    slopeTemplate.Rel a ↔ ∃ y : ℕ → ℚ, (∀ i : Fin 22, y i = a i) ∧
-      (slopeBuild (X 0) (X 1) (varArgs 2 20) ⟨22, []⟩).1.Lift y := by
+    slopeTemplate.Rel a ↔ ∃ y : ℕ → ℚ, (∀ i : Fin 22, y i = a i) ∧ slopeFormula.Lift y := by
   unfold slopeTemplate
+  rw [← slopeBuild_formula]
   exact slope_facts.rel_iff_nil a
 
 /-! ### `height_certificate` -/
@@ -267,6 +359,40 @@ theorem height_facts : Build.Facts 36
   wp_run (Avail 35142 heightBlocks) 35142
   facts_close
 
+/-- The formulas of root `i` of the height certificate at base `b = 36 + 11i`: the call
+`member[P]` (block at `b`), `NZ(b_i)` with inverse witness `X_{b+10}`, `b_i P₁ ≐ a_{i0}` and
+`b_i P₂ ≐ a_{i1}`, where `a_{i0} = X_{b+7}`, `a_{i1} = X_{b+8}`, `b_i = X_{b+9}`. -/
+noncomputable def heightRootFormula (P : Code) (b : ℕ) : List Formula :=
+  [.call memberTemplate P b, nzFormula (X (b + 9)) (b + 10), .eq (X (b + 9) * P 1) (X (b + 7)),
+    .eq (X (b + 9) * P 2) (X (b + 8))]
+
+/-- The formulas of quantity `k` of the height certificate at base `c = 69 + 3897k`:
+`s₀ + s₁ + s₂ ≐ Q` with `s_l = X_{c+l}` and the calls `slope[s_l, ℓ, C]` (blocks at
+`c + 3 + 1298l`). -/
+noncomputable def heightQuantityFormula (Q : Poly) (c : ℕ) : List Formula :=
+  [.eq (X c + X (c + 1) + X (c + 2)) Q,
+    .call slopeTemplate (Fin.append ![X c, X 15] (varArgs 16 20)) (c + 3),
+    .call slopeTemplate (Fin.append ![X (c + 1), X 15] (varArgs 16 20)) (c + 1301),
+    .call slopeTemplate (Fin.append ![X (c + 2), X 15] (varArgs 16 20)) (c + 2599)]
+
+/-- The formula of `height_certificate` with the variables of the article. -/
+noncomputable def heightFormula : Formula :=
+  .and (heightRootFormula (varPoint 0) 36 ++ heightRootFormula (varPoint 5) 47 ++
+    heightRootFormula (varPoint 10) 58 ++
+    heightQuantityFormula (X 43) 69 ++ heightQuantityFormula (X 44) 3966 ++
+    heightQuantityFormula (X 45) 7863 ++ heightQuantityFormula (X 54) 11760 ++
+    heightQuantityFormula (X 55) 15657 ++ heightQuantityFormula (X 56) 19554 ++
+    heightQuantityFormula (X 65) 23451 ++ heightQuantityFormula (X 66) 27348 ++
+    heightQuantityFormula (X 67) 31245)
+
+theorem heightBuild_formula :
+    (heightBuild (varPoint 0) (varPoint 5) (varPoint 10) (X 15) (varArgs 16 20) ⟨36, []⟩).1 =
+      heightFormula := by
+  dsimp only [heightBuild, heightRoot, heightQuantity, Build.bind_apply, Build.pure_apply,
+    Build.call, Build.fresh, Build.nz]
+  simp only [memberTemplate_witnesses, slopeTemplate_witnesses]
+  rfl
+
 theorem heightTemplate_params : heightTemplate.params = 36 := rfl
 
 theorem heightTemplate_witnesses : heightTemplate.witnesses = 35106 := height_facts.witnesses
@@ -275,10 +401,9 @@ theorem heightTemplate_wf : heightTemplate.WF := height_facts.wf
 
 /-- The relation of `height_certificate` through its private blocks. -/
 theorem heightTemplate_rel_iff (a : Fin 36 → ℚ) :
-    heightTemplate.Rel a ↔ ∃ y : ℕ → ℚ, (∀ i : Fin 36, y i = a i) ∧
-      (heightBuild (varPoint 0) (varPoint 5) (varPoint 10) (X 15) (varArgs 16 20)
-        ⟨36, []⟩).1.Lift y := by
+    heightTemplate.Rel a ↔ ∃ y : ℕ → ℚ, (∀ i : Fin 36, y i = a i) ∧ heightFormula.Lift y := by
   unfold heightTemplate
+  rw [← heightBuild_formula]
   exact height_facts.rel_iff_nil a
 
 end ZInQ.Syntax

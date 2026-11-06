@@ -191,13 +191,13 @@ theorem eval₂_distanceProduct_eq_zero_iff {n : ℕ} (L : List (ℤ × (Fin n �
 noncomputable def multiplyBuild (I : Constructors E) (cstar ell T : ℤ) (P0 P1 P2 : Code) :
     Build Formula := do
   let G ← Build.gen
-  let S0 ← Build.freshPoint
+  let S0 ← Build.point
   let c0 ← Build.call (scalarTemplate I cstar) (Fin.append G S0)
-  let S1 ← Build.freshPoint
+  let S1 ← Build.point
   let c1 ← Build.call (scalarTemplate I cstar) (Fin.append P0 S1)
-  let S2 ← Build.freshPoint
+  let S2 ← Build.point
   let c2 ← Build.call (scalarTemplate I cstar) (Fin.append P1 S2)
-  let S3 ← Build.freshPoint
+  let S3 ← Build.point
   let c3 ← Build.call (scalarTemplate I cstar) (Fin.append P2 S3)
   let h ← Build.call heightTemplate (Fin.append (Fin.append (Fin.append (Fin.append
     (Fin.append P0 P1) P2) ![C ell]) (Fin.append (Fin.append S0 S1) S2)) S3)
@@ -230,6 +230,31 @@ theorem multiply_facts (I : Constructors E) (cstar ell T : ℤ) :
   wp_run (Avail 35149 multiplyBlocks) 35149
   facts_close
 
+/-- The generator point `(0, X_c, -145, X_{c+1}, X_{c+2})` with constant variables at `c`. -/
+noncomputable def genPoint (c : ℕ) : Code := ![0, X c, -145, X (c + 1), X (c + 2)]
+
+/-- The formula `φ_mul` of `multiply` with the variables of the article: the roots `P_i` at
+`X_{5i}`, the generator point at `X₁₅, X₁₆, X₁₇`, the shift points `S_i` at `X_{18+6i}` with
+scalar blocks at `23 + 6i`, the height block at `42` and the guard block at `35148`. -/
+noncomputable def multiplyFormula (I : Constructors E) (cstar ell T : ℤ) : Formula :=
+  .and [.call (scalarTemplate I cstar) (Fin.append (genPoint 15) (varPoint 18)) 23,
+    .call (scalarTemplate I cstar) (Fin.append (varPoint 0) (varPoint 24)) 29,
+    .call (scalarTemplate I cstar) (Fin.append (varPoint 5) (varPoint 30)) 35,
+    .call (scalarTemplate I cstar) (Fin.append (varPoint 10) (varPoint 36)) 41,
+    .call heightTemplate (Fin.append (Fin.append (Fin.append (Fin.append
+      (Fin.append (varPoint 0) (varPoint 5)) (varPoint 10)) ![C ell])
+      (Fin.append (Fin.append (varPoint 18) (varPoint 24)) (varPoint 30))) (varPoint 36)) 42,
+    .call (guardTemplate I T) (Fin.append (Fin.append (varPoint 0) (varPoint 5)) (varPoint 10))
+      35148]
+
+theorem multiplyBuild_formula (I : Constructors E) (cstar ell T : ℤ) :
+    (multiplyBuild I cstar ell T (varPoint 0) (varPoint 5) (varPoint 10) ⟨15, []⟩).1 =
+      multiplyFormula I cstar ell T := by
+  dsimp only [multiplyBuild, Build.bind_apply, Build.pure_apply, Build.call, Build.point, Build.gen,
+    Build.rational, Build.normalize]
+  simp only [scalarTemplate_witnesses, heightTemplate_witnesses]
+  rfl
+
 theorem multiplyTemplate_params (I : Constructors E) (cstar ell T : ℤ) :
     (multiplyTemplate I cstar ell T).params = 15 := rfl
 
@@ -245,9 +270,9 @@ relation. -/
 theorem multiplyTemplate_rel_iff (I : Constructors E) (cstar ell T : ℤ) (a : Fin 15 → ℚ) :
     (multiplyTemplate I cstar ell T).Rel a ↔ ∃ y : ℕ → ℚ, (∀ i : Fin 15, y i = a i) ∧
       (y 15 = 1641 / 8 ∧ y 16 = -15465 / 4 ∧ y 17 = 87483 / 32) ∧
-      (multiplyBuild I cstar ell T (varPoint 0) (varPoint 5) (varPoint 10) ⟨15, []⟩).1.Lift y := by
+      (multiplyFormula I cstar ell T).Lift y := by
   unfold multiplyTemplate
-  rw [(multiply_facts I cstar ell T).rel_iff]
+  rw [(multiply_facts I cstar ell T).rel_iff, multiplyBuild_formula]
   simp [multiplyGlobals]
 
 /-! ### The natural-code template -/
@@ -263,9 +288,9 @@ noncomputable def naturalBuild (I : Constructors E) (cstar ell T : ℤ) (A : Cod
   let m1 ← Build.call (multiplyTemplate I cstar ell T) (Fin.append (Fin.append (σ 1) (σ 1)) (Sq 1))
   let m2 ← Build.call (multiplyTemplate I cstar ell T) (Fin.append (Fin.append (σ 2) (σ 2)) (Sq 2))
   let m3 ← Build.call (multiplyTemplate I cstar ell T) (Fin.append (Fin.append (σ 3) (σ 3)) (Sq 3))
-  let π1 ← Build.freshPoint
+  let π1 ← Build.point
   let a1 ← Build.call rawAddTemplate (Fin.append (Fin.append (Sq 0) (Sq 1)) π1)
-  let π2 ← Build.freshPoint
+  let π2 ← Build.point
   let a2 ← Build.call rawAddTemplate (Fin.append (Fin.append π1 (Sq 2)) π2)
   let a3 ← Build.call rawAddTemplate (Fin.append (Fin.append π2 (Sq 3)) A)
   pure (.and [m0, m1, m2, m3, a1, a2, a3])
@@ -290,6 +315,32 @@ theorem natural_facts (I : Constructors E) (cstar ell T : ℤ) :
   wp_run (Avail 140609 naturalBlocks) 140609
   facts_close
 
+/-- The formula of `natural` with the variables of the article: `σ_i` at `X_{5+5i}`, `Σ_i` at
+`X_{25+5i}`, the multiplication blocks at `45 + 35134 i`, `π₁` at `X_{140581}`, `π₂` at
+`X_{140592}` and the raw addition blocks at `140586`, `140597`, `140603`. -/
+noncomputable def naturalFormula (I : Constructors E) (cstar ell T : ℤ) : Formula :=
+  .and [.call (multiplyTemplate I cstar ell T)
+      (Fin.append (Fin.append (varPoint 5) (varPoint 5)) (varPoint 25)) 45,
+    .call (multiplyTemplate I cstar ell T)
+      (Fin.append (Fin.append (varPoint 10) (varPoint 10)) (varPoint 30)) 35179,
+    .call (multiplyTemplate I cstar ell T)
+      (Fin.append (Fin.append (varPoint 15) (varPoint 15)) (varPoint 35)) 70313,
+    .call (multiplyTemplate I cstar ell T)
+      (Fin.append (Fin.append (varPoint 20) (varPoint 20)) (varPoint 40)) 105447,
+    .call rawAddTemplate (Fin.append (Fin.append (varPoint 25) (varPoint 30)) (varPoint 140581))
+      140586,
+    .call rawAddTemplate (Fin.append (Fin.append (varPoint 140581) (varPoint 35))
+      (varPoint 140592)) 140597,
+    .call rawAddTemplate (Fin.append (Fin.append (varPoint 140592) (varPoint 40)) (varPoint 0))
+      140603]
+
+theorem naturalBuild_formula (I : Constructors E) (cstar ell T : ℤ) :
+    (naturalBuild I cstar ell T (varPoint 0) ⟨5, []⟩).1 = naturalFormula I cstar ell T := by
+  dsimp only [naturalBuild, Build.bind_apply, Build.pure_apply, Build.call, Build.point,
+    Build.freshPoints]
+  simp only [multiplyTemplate_witnesses, rawAddTemplate_witnesses]
+  rfl
+
 theorem naturalTemplate_params (I : Constructors E) (cstar ell T : ℤ) :
     (naturalTemplate I cstar ell T).params = 5 := rfl
 
@@ -302,8 +353,9 @@ theorem naturalTemplate_wf (I : Constructors E) (cstar ell T : ℤ) :
 /-- The relation of `natural` through its private blocks. -/
 theorem naturalTemplate_rel_iff (I : Constructors E) (cstar ell T : ℤ) (a : Fin 5 → ℚ) :
     (naturalTemplate I cstar ell T).Rel a ↔ ∃ y : ℕ → ℚ, (∀ i : Fin 5, y i = a i) ∧
-      (naturalBuild I cstar ell T (varPoint 0) ⟨5, []⟩).1.Lift y := by
+      (naturalFormula I cstar ell T).Lift y := by
   unfold naturalTemplate
+  rw [← naturalBuild_formula]
   exact (natural_facts I cstar ell T).rel_iff_nil a
 
 end ZInQ.Syntax

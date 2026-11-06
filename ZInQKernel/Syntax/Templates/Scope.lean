@@ -537,6 +537,10 @@ end Build
 
 /-! ### Blocks of fresh points and pairs -/
 
+/-- A fresh point: the five next variables `(X_c, …, X_{c+4})` (the allocation of
+`Build.freshPoint`, returned as `varPoint c`). -/
+noncomputable def Build.point : Build Code := fun s => (varPoint s.next, { s with next := s.next + 5 })
+
 /-- `n` fresh points: the `5n` next variables, point by point. -/
 noncomputable def Build.freshPoints (n : ℕ) : Build (Fin n → Code) := fun s =>
   (fun i j => X (s.next + 5 * i + j), { s with next := s.next + 5 * n })
@@ -582,6 +586,11 @@ end ArgsIn
 namespace Build
 
 variable {s : BuildState}
+
+theorem wp_point {G : ℕ → Prop} {K : Code → BuildState → Prop}
+    (hs : ∀ i < 5, G (s.next + i))
+    (h : ∀ p, CodeIn p G → K p { s with next := s.next + 5 }) : WP point s K :=
+  h _ fun i => VarsIn.X (hs _ i.isLt)
 
 theorem wp_freshPoints {G : ℕ → Prop} {n : ℕ} {K : (Fin n → Code) → BuildState → Prop}
     (hs : ∀ i < 5 * n, G (s.next + i))
@@ -951,6 +960,8 @@ elab "wp_step " G:term:max N:term:max : tactic => do
     | some ``Build.freshPoint =>
       `(tactic| refine Build.wp_freshPoint (G := $G) (by decide) (by decide) (by decide) (by decide)
         (by decide) fun _ _ => ?_)
+    | some ``Build.point =>
+      `(tactic| refine Build.wp_point (G := $G) (by decide) fun _ _ => ?_)
     | some ``Build.freshPoints =>
       `(tactic| refine Build.wp_freshPoints (G := $G) (by decide) fun _ _ => ?_)
     | some ``Build.freshPairs =>

@@ -72,9 +72,9 @@ disjunction of `⋀(eq(N, Q), eq(C, Q₂))` and
 requested (its three constants allocated) just before the first call of the second branch. -/
 noncomputable def signedEncodeBuild (I : Constructors E) (cstar ell T : ℤ) (N C : Code) :
     Build Formula := do
-  let Q ← Build.freshPoint
-  let Q2 ← Build.freshPoint
-  let Qp ← Build.freshPoint
+  let Q ← Build.point
+  let Q2 ← Build.point
+  let Qp ← Build.point
   let m1 ← Build.call memberTemplate N
   let m2 ← Build.call memberTemplate C
   let n ← Build.call (naturalTemplate I cstar ell T) Q
@@ -112,6 +112,29 @@ theorem signedEncode_facts (I : Constructors E) (cstar ell T : ℤ) :
   wp_run (Avail 140664 signedEncodeBlocks) 140664
   facts_close
 
+/-- The formula of `value.signed_encode` with the variables of the article: `Q`, `Q₂`, `Q₊` at
+`X₁₀`, `X₁₅`, `X₂₀`, the generator point at `X₁₄₀₆₄₉, X₁₄₀₆₅₀, X₁₄₀₆₅₁`. -/
+noncomputable def signedEncodeFormula (I : Constructors E) (cstar ell T : ℤ) : Formula :=
+  let N := varPoint 0
+  let C := varPoint 5
+  let Q := varPoint 10
+  let Q2 := varPoint 15
+  let Qp := varPoint 20
+  .and [.call memberTemplate N 25, .call memberTemplate C 32,
+    .call (naturalTemplate I cstar ell T) Q 39,
+    .call rawAddTemplate (Fin.append (Fin.append Q Q) Q2) 140643,
+    .or [.and [peq N Q, peq C Q2],
+      .and [.call rawAddTemplate (Fin.append (Fin.append Q (genPoint 140649)) Qp) 140652,
+        peq N Qp.neg, .call rawAddTemplate (Fin.append (Fin.append Q2 (genPoint 140649)) C) 140658]]]
+
+theorem signedEncodeBuild_formula (I : Constructors E) (cstar ell T : ℤ) :
+    (signedEncodeBuild I cstar ell T (varPoint 0) (varPoint 5) ⟨10, []⟩).1 =
+      signedEncodeFormula I cstar ell T := by
+  dsimp only [signedEncodeBuild, Build.bind_apply, Build.pure_apply, Build.call, Build.point,
+    Build.gen, Build.rational, Build.normalize]
+  simp only [memberTemplate_witnesses, naturalTemplate_witnesses, rawAddTemplate_witnesses]
+  rfl
+
 theorem signedEncodeTemplate_params (I : Constructors E) (cstar ell T : ℤ) :
     (signedEncodeTemplate I cstar ell T).params = 10 := rfl
 
@@ -127,9 +150,9 @@ are outside the internal disjunction. -/
 theorem signedEncodeTemplate_rel_iff (I : Constructors E) (cstar ell T : ℤ) (a : Fin 10 → ℚ) :
     (signedEncodeTemplate I cstar ell T).Rel a ↔ ∃ y : ℕ → ℚ, (∀ i : Fin 10, y i = a i) ∧
       (y 140649 = 1641 / 8 ∧ y 140650 = -15465 / 4 ∧ y 140651 = 87483 / 32) ∧
-      (signedEncodeBuild I cstar ell T (varPoint 0) (varPoint 5) ⟨10, []⟩).1.Lift y := by
+      (signedEncodeFormula I cstar ell T).Lift y := by
   unfold signedEncodeTemplate
-  rw [(signedEncode_facts I cstar ell T).rel_iff]
+  rw [(signedEncode_facts I cstar ell T).rel_iff, signedEncodeBuild_formula]
   simp [signedEncodeGlobals]
 
 /-! ### `value.close_coordinates` -/
@@ -178,6 +201,27 @@ theorem close_facts :
   wp_run (Avail 69 closeBlocks) 69
   facts_close
 
+/-- The formula of `value.close_coordinates` with the variables of the article. -/
+noncomputable def closeFormula : Formula :=
+  let A := varPoint 0
+  let L := varPoint 5
+  let J := varPoint 10
+  let zA := varPair 16
+  let zL := varPair 18
+  let zJ := varPair 20
+  .and [.call memberTemplate A 32, .call memberTemplate L 39, .call memberTemplate J 46, fin A,
+    fin L, zFormula A zA 53, zFormula L zL 54, zFormula J zJ 55, divFormula zJ zA (varPair 22) 24,
+    .call absTemplate ![zL.1, X 25] 56, .call absTemplate ![zL.2, X 26] 60,
+    nzFormula (X 25 + X 26) 64, .call absTemplate ![X 15 - X 22, X 27] 65,
+    posFormula (X 25 + X 26 - X 27) 28]
+
+theorem closeBuild_formula :
+    (closeBuild (varPoint 0) (varPoint 5) (varPoint 10) (X 15) ⟨16, []⟩).1 = closeFormula := by
+  dsimp only [closeBuild, Build.bind_apply, Build.pure_apply, Build.call, Build.freshPair,
+    Build.fresh, Build.fdiv, Build.fnz, Build.nz, Build.pos, Build.zGadget]
+  simp only [memberTemplate_witnesses, absTemplate_witnesses]
+  rfl
+
 theorem closeTemplate_params : closeTemplate.params = 16 := rfl
 
 theorem closeTemplate_witnesses : closeTemplate.witnesses = 53 := close_facts.witnesses
@@ -186,9 +230,9 @@ theorem closeTemplate_wf : closeTemplate.WF := close_facts.wf
 
 /-- The relation of `value.close_coordinates` through its private blocks. -/
 theorem closeTemplate_rel_iff (a : Fin 16 → ℚ) :
-    closeTemplate.Rel a ↔ ∃ y : ℕ → ℚ, (∀ i : Fin 16, y i = a i) ∧
-      (closeBuild (varPoint 0) (varPoint 5) (varPoint 10) (X 15) ⟨16, []⟩).1.Lift y := by
+    closeTemplate.Rel a ↔ ∃ y : ℕ → ℚ, (∀ i : Fin 16, y i = a i) ∧ closeFormula.Lift y := by
   unfold closeTemplate
+  rw [← closeBuild_formula]
   exact close_facts.rel_iff_nil a
 
 /-! ### `value.test` -/
@@ -210,11 +254,11 @@ noncomputable def valueLocal (P : Code) : Build (Pair × Pair × List Formula) :
 `addVariableShiftTemplates` (`value.test`). -/
 noncomputable def valueTestBuild (I : Constructors E) (cstar ell T : ℤ) (N K : Code) (t : Poly) :
     Build Formula := do
-  let C1 ← Build.freshPoint
-  let H ← Build.freshPoint
-  let U ← Build.freshPoint
-  let V0 ← Build.freshPoint
-  let V1 ← Build.freshPoint
+  let C1 ← Build.point
+  let H ← Build.point
+  let U ← Build.point
+  let V0 ← Build.point
+  let V1 ← Build.point
   let m0 ← Build.call memberTemplate N
   let m1 ← Build.call memberTemplate K
   let m2 ← Build.call memberTemplate C1
@@ -281,6 +325,56 @@ theorem valueTest_facts (I : Constructors E) (cstar ell T : ℤ) :
   wp_run (Avail 35293 valueTestBlocks) 35293
   facts_close
 
+/-- The local test of `value.test` at the point `P` with base `b`: `IX(P, w)` and `Z(P, ζ)` with
+`w = (X_b, X_{b+1})`, `ζ = (X_{b+2}, X_{b+3})` and inverse witness `X_{b+4}`. -/
+noncomputable def valueLocalFormula (P : Code) (b : ℕ) : List Formula :=
+  [ixFormula P (varPair b), zFormula P (varPair (b + 2)) (b + 4)]
+
+/-- The formula of `value.test` with the variables of the article. -/
+noncomputable def valueTestFormula (I : Constructors E) (cstar ell T : ℤ) : Formula :=
+  let N := varPoint 0
+  let K := varPoint 5
+  let t := X 10
+  let C1 := varPoint 11
+  let H := varPoint 16
+  let U := varPoint 21
+  let V0 := varPoint 26
+  let V1 := varPoint 31
+  let F := valueContact t
+  let eta := X 35257
+  let R0 := X 35259
+  let a0 := X 35260
+  let R := X 35261
+  let Cn : Fin 6 → Pair := fun j => varPair (35264 + 2 * j)
+  .and ([.call memberTemplate N 36, .call memberTemplate K 43, .call memberTemplate C1 50,
+      .call memberTemplate H 57, .call memberTemplate U 64, .call memberTemplate V0 71,
+      .call memberTemplate V1 78, fin K,
+      .call (multiplyTemplate I cstar ell T) (Fin.append (Fin.append K N) C1) 85,
+      .call rawAddTemplate (Fin.append (Fin.append H K.neg) V0) 35219,
+      .call rawAddTemplate (Fin.append (Fin.append U C1.neg) V1) 35225, fin H, fin V0] ++
+    valueLocalFormula H 35231 ++ valueLocalFormula U 35236 ++ valueLocalFormula V0 35241 ++
+    valueLocalFormula V1 35246 ++
+    [divFormula (varPair 35238) (varPair 35233) (varPair 35251) 35253,
+      divFormula (varPair 35248) (varPair 35243) (varPair 35254) 35256] ++
+    [nzFormula F 35262, .eq (eta ^ 2) 1, .eq R0 (eta * C (2730 ^ 6) * F),
+      .eq a0 (1 - R0 * X 35258 ^ 2), nzFormula a0 35263, .eq R (R0 * a0 ^ 2)] ++
+    [feq (Pair.smul F (Cn 0)) (varPair 35231), feq (Pair.smul F (Cn 1)) (varPair 35236),
+      feq (Pair.smul F (Cn 2)) (varPair 35241).conj, feq (Pair.smul F (Cn 3)) (varPair 35246).conj,
+      feq (Pair.smul F (Cn 4)) ((varPair 35251).sub (t, 0)),
+      feq (Pair.smul F (Cn 5)) ((varPair 35254).conj.sub (t, 0))] ++
+    [divFormula Pair.one (slopeW R (List.ofFn Cn)) (varPair 35276) 35278,
+      .eq (X 35279) (2 * X 35276), nzFormula (X 35279) 35281, .eq (X 35280 * X 35279 ^ 2) R,
+      .call poleTemplate ![X 35280] 35282])
+
+theorem valueTestBuild_formula (I : Constructors E) (cstar ell T : ℤ) :
+    (valueTestBuild I cstar ell T (varPoint 0) (varPoint 5) (X 10) ⟨11, []⟩).1 =
+      valueTestFormula I cstar ell T := by
+  dsimp only [valueTestBuild, valueLocal, Build.bind_apply, Build.pure_apply, Build.call,
+    Build.point, Build.freshPair, Build.freshPairs, Build.fresh, Build.fdiv, Build.fnz, Build.nz,
+    Build.zGadget]
+  simp only [memberTemplate_witnesses, multiplyTemplate_witnesses, rawAddTemplate_witnesses]
+  rfl
+
 theorem valueTestTemplate_params (I : Constructors E) (cstar ell T : ℤ) :
     (valueTestTemplate I cstar ell T).params = 11 := rfl
 
@@ -294,8 +388,9 @@ theorem valueTestTemplate_wf (I : Constructors E) (cstar ell T : ℤ) :
 /-- The relation of `value.test` through its private blocks. -/
 theorem valueTestTemplate_rel_iff (I : Constructors E) (cstar ell T : ℤ) (a : Fin 11 → ℚ) :
     (valueTestTemplate I cstar ell T).Rel a ↔ ∃ y : ℕ → ℚ, (∀ i : Fin 11, y i = a i) ∧
-      (valueTestBuild I cstar ell T (varPoint 0) (varPoint 5) (X 10) ⟨11, []⟩).1.Lift y := by
+      (valueTestFormula I cstar ell T).Lift y := by
   unfold valueTestTemplate
+  rw [← valueTestBuild_formula]
   exact (valueTest_facts I cstar ell T).rel_iff_nil a
 
 theorem twoThousandSevenHundredThirty_pow_six : (2730 : ℤ) ^ 6 = 413976684737889000000 := by
@@ -320,14 +415,14 @@ noncomputable def chainBuild (out base : Code) : List Bool → Build (Code × Li
   | d :: ds => do
     let ⟨out', fs⟩ ← (match d with
       | true => do
-        let σ ← Build.freshPoint
+        let σ ← Build.point
         let f ← Build.call rawAddTemplate (Fin.append (Fin.append out base) σ)
         pure (σ, [f])
       | false => pure (out, []) : Build (Code × List Formula))
     match ds with
     | [] => pure (out', fs)
     | d' :: ds' => do
-      let δ ← Build.freshPoint
+      let δ ← Build.point
       let f ← Build.call rawAddTemplate (Fin.append (Fin.append base base) δ)
       let ⟨v, gs⟩ ← chainBuild out' δ (d' :: ds')
       pure (v, fs ++ [f] ++ gs)
