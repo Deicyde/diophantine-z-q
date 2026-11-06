@@ -10,3 +10,4 @@ import ZInQKernel.Syntax.Language
 import ZInQKernel.Model.Descent
 import ZInQKernel.Model.Heights
 import ZInQKernel.Model.Generator
+import ZInQKernel.Syntax.Templates
