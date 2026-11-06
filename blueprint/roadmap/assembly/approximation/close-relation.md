@@ -23,7 +23,7 @@ holds exactly when there are $A,L,J,E_0,\dots,E_4$ with five signed-encoding rel
 precision relation and the coordinate window. Input C is used as a chain of three
 equivalences. Let $C$ be the natural precision polynomial. For all $E_0,\dots,E_4\in\mathbb Q^5$:
 
-- by the semantics of the rational translation (item 1, which uses the multiplication
+- by the semantics of the rational translation (which uses the multiplication
   statement M and so the three hypotheses of M), $\mathrm{Rel}_{\mathtt{precision}}(E_0,\dots,E_4)$ holds
   exactly when there is $c\in\mathbb N^5$ with $E_i=\iota(c_i)$ for $0\le i\le4$ and
   $C(c,\mathbf z)=0$ for some $\mathbf z\in\mathbb N^{1305806}$;
