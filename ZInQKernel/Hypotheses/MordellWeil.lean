@@ -1,13 +1,13 @@
 import Mathlib
 
 /-!
-# Hypothesis MW: Mordell–Weil for the generator curve
+# Mordell–Weil for the generator curve
 
 Proposition 3.1 (`prop:generator`) combines a two-isogeny descent, a torsion bound by
-reduction and a finite height search with the Mordell–Weil theorem. Mathlib has the
-group law on `E(K₀)` but not the Mordell–Weil theorem, so finite generation of `E(K₀)`
-enters the main theorem as an explicit hypothesis. It is a classical theorem and a
-candidate for later formalization.
+reduction and a finite height search with the Mordell–Weil theorem. This file defines the
+field `K₀`, the curve `E` and the statement `MordellWeilE` that `E(K₀)` is finitely
+generated. It was a hypothesis of the main theorem until the descent proved it:
+`ZInQ.mordellWeilE` in `ZInQKernel/Model/Descent/MordellWeil.lean`.
 -/
 
 namespace ZInQ

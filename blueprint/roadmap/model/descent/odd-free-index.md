@@ -2,6 +2,9 @@
 article_id: af_82d6f6580fc55182e936b008
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.odd_free_index
 ---
 
 # The free index of $R$ is odd

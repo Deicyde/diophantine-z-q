@@ -2,6 +2,9 @@
 article_id: af_8840c820a588a8783b887fbf
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.mordellWeilE
 ---
 
 # Mordell-Weil for $E/K_0$ from the descent

@@ -2,6 +2,9 @@
 article_id: af_39ef01931d4fb7c8636a4d4a
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Descent.rescale_phi_phi, ZInQ.phiHatE_phiE
 ---
 
 # The composite of the two-isogenies is doubling

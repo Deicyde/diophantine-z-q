@@ -2,6 +2,9 @@
 article_id: af_1c8151abc986bb3b1aedaf76
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.kummer_E'_trivial
 ---
 
 # The second descent image is trivial

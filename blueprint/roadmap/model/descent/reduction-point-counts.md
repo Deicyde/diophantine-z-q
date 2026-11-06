@@ -2,6 +2,9 @@
 article_id: af_c136be2068cbf05c7b361b76
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.pointCounts_17_23
 ---
 
 # Point counts at $(17,s-6)$ and $(23,s-5)$

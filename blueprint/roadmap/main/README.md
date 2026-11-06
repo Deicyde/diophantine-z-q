@@ -23,7 +23,8 @@ suitably prepared inputs.
 
 - [Pole completeness](pole-completeness.md)
 
-The generator argument uses the Mordell–Weil theorem for $E$ over $K_0$.
+The generator argument uses the Mordell–Weil theorem for $E$ over $K_0$. It was a
+hypothesis until the two-isogeny descent of the model chapter proved it.
 
 - [Mordell–Weil for the generator curve](mordell-weil.md)
 
@@ -34,6 +35,6 @@ catalogue modulus to contain twenty-two primes below an explicit cutoff.
 - [The twenty-two-prime pattern](prime-pattern.md)
 - [The catalogue bound](catalogue-bound.md)
 
-Under these five hypotheses the target holds.
+Under the four remaining hypotheses the target holds.
 
 - [The main theorem](main-theorem.md)

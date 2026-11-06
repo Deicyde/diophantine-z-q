@@ -2,6 +2,9 @@
 article_id: af_2a9680fb51b92293939eac5a
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.index_two_E, ZInQ.index_two_genCurve, ZInQ.kummer_range_eq_descentGroup, ZInQ.two_smul_range_eq_ker
 ---
 
 # The index $[E(K_0):2E(K_0)]=8$

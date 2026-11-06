@@ -2,6 +2,9 @@
 article_id: af_c0a94b1459f7c9e2ebfd9c2f
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.curveC, ZInQ.theta, ZInQ.theta_some, ZInQ.curveC_two_torsion, ZInQ.two_nsmul_theta_eq_zero_iff, ZInQ.kummer_theta
 ---
 
 # The change of variables to $C$

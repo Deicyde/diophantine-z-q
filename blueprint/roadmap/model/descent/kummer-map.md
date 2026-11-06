@@ -2,6 +2,8 @@
 article_id: af_14c30b3d5c79807870ed9bb5
 declaration: def
 origin: background
+statement: formalized
+lean: ZInQ.Descent.SqClass, ZInQ.Descent.sqc, ZInQ.Descent.kummer, ZInQ.Descent.phi, ZInQ.Descent.rescale
 ---
 
 # Two-isogenies and the Kummer map

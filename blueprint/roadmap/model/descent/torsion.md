@@ -2,6 +2,9 @@
 article_id: af_17be38e8a9f33d942a4ac5d9
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.mem_torsion_E_iff, ZInQ.card_torsion_E
 ---
 
 # The torsion of $E(K_0)$ is the full two-torsion

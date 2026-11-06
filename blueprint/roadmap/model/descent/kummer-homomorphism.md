@@ -2,6 +2,9 @@
 article_id: af_d914acd37b9b0a8050650a67
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Descent.kummer_add, ZInQ.Descent.kummerHom
 ---
 
 # The Kummer map is a homomorphism

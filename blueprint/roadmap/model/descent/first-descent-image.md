@@ -2,6 +2,9 @@
 article_id: af_1e255bfd28089a965472922c
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.kummer_range_E, ZInQ.card_kummer_range_E, ZInQ.descentGroup_eq
 ---
 
 # The first descent image has order eight

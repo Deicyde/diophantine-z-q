@@ -10,10 +10,10 @@ an integer polynomial in 292,890,231,905 variables, of degree below $2\uparrow\u
 and with coefficients below $2\uparrow\uparrow 8$, whose rational zero projection to the
 first variable is exactly $\mathbb Z$.
 
-The theorem is proved from five explicitly stated arithmetic hypotheses whose proofs lie
+The theorem is proved from four explicitly stated arithmetic hypotheses whose proofs lie
 far outside current formal libraries: the six-contact height estimate, pole completeness,
-the Mordell–Weil theorem for the generator curve, a twenty-two-prime pattern and a bound
-for the prime catalogue. Everything else is to be proved, with every finite computation
+a twenty-two-prime pattern and a bound for the prime catalogue. The Mordell–Weil theorem
+for the generator curve, first stated as a fifth hypothesis, is proved. Everything else is to be proved, with every finite computation
 checked by the Lean kernel.
 
 ## Chapters

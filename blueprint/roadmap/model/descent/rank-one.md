@@ -2,6 +2,9 @@
 article_id: af_d5ceda39108993ca5f43dce3
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.exists_generator_E, ZInQ.exists_generator_C
 ---
 
 # $E(K_0)$ has rank one

@@ -2,6 +2,9 @@
 article_id: af_96861fc3f38369c439db79a4
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Descent.kummer_eq_one_iff
 ---
 
 # The image of a two-isogeny is the kernel of the Kummer map

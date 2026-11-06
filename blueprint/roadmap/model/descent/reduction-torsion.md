@@ -2,6 +2,9 @@
 article_id: af_b99001b3797d8c162877e025
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.red_add, ZInQ.eq_zero_of_red_eq_zero
 ---
 
 # Reduction is injective on prime-to-$p$ torsion
