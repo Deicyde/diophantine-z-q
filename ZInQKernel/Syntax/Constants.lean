@@ -1,5 +1,6 @@
 import ZInQKernel.Syntax.Constants.PrimorialLiteral
 import ZInQKernel.Syntax.Constants.Catalogue
+import ZInQKernel.Syntax.Constants.FormalMultiple
 
 /-!
 # Fixed constants and the guard product
