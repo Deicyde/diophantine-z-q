@@ -310,4 +310,16 @@ theorem mem_search_of_hK0_lt (x : K0) (hx : hK0 x < Real.log 9) :
       simp only [qRoot, hs, neg_one_mul]
       exact h.symm
 
+/-- Combining the search box with the finite search: an affine point `S = (x, y)` of `C(K₀)` with
+`h_x(S) < log 9` has `x ∈ {0, δ, -δ, 1 + s, 23 - 17s, 2 + 4s, (5 - 4s)/2}`. -/
+theorem small_point_abscissa {x y : K0} (h : curveC.toAffine.Nonsingular x y)
+    (hS : hx (.some x y h) < Real.log 9) : x ∈ smallSurvivors := by
+  rw [hx_some] at hS
+  have hmem := mem_search_of_hK0_lt x hS
+  have hsq : IsSquare (fC x) := isSquare_fC_of_point h
+  rcases Finset.mem_union.mp hmem with h1 | h2
+  · obtain ⟨r, hr, rfl⟩ := Finset.mem_image.mp h1
+    exact (isSquare_fC_iff_of_mem_searchX1 hr).mp hsq
+  · exact (isSquare_fC_iff_of_mem_searchX2 h2).mp hsq
+
 end ZInQ
