@@ -65,6 +65,9 @@ theorem bind₁ {σ : Type*} {f : σ → Poly} {P : MvPolynomial σ ℤ} (h : �
   obtain ⟨j, -, hj⟩ := Finset.mem_biUnion.1 (vars_bind₁ f P hi)
   exact h j i hj
 
+theorem bind₁_fin {n : ℕ} {f : Fin n → Poly} {P : MvPolynomial (Fin n) ℤ}
+    (h : ∀ i, VarsIn (f i) G) : VarsIn (MvPolynomial.bind₁ f P) G := bind₁ h
+
 theorem neg_one_mul {f : Poly} (h : VarsIn f G) : VarsIn ((-1 : Poly) * f) G :=
   (VarsIn.neg (VarsIn.one G)).mul h
 
@@ -270,6 +273,45 @@ theorem varsLT_compile_of_fok {G : ℕ → Prop} {N : ℕ} {φ : Formula} (h : F
   · exact hG i (h.2.1 f hf i hif)
   · have := h.2.2 b hb
     exact lt_of_lt_of_le hib.2 this
+
+/-! ### Blocks of the gadget formulas -/
+
+namespace Formula
+
+theorem blocks_eq_nil_of_forall {fs : List Formula} (h : ∀ φ ∈ fs, φ.blocks = []) :
+    (Formula.and fs).blocks = [] := by
+  rw [blocks_and, List.flatMap_eq_nil_iff]; exact h
+
+end Formula
+
+@[simp] theorem blocks_feq (u v : Pair) : (feq u v).blocks = [] := by
+  simp [feq, Formula.blocks]
+
+@[simp] theorem blocks_peq (p q : Code) : (peq p q).blocks = [] := by
+  refine Formula.blocks_eq_nil_of_forall fun φ hφ => ?_
+  obtain ⟨i, rfl⟩ := List.mem_ofFn.1 hφ
+  simp [Formula.blocks]
+
+@[simp] theorem blocks_isO (p : Code) : (isO p).blocks = [] := blocks_peq _ _
+
+@[simp] theorem blocks_fin (p : Code) : (fin p).blocks = [] := by simp [fin, Formula.blocks]
+
+@[simp] theorem blocks_curve (X Y : Pair) : (curve X Y).blocks = [] := blocks_feq _ _
+
+@[simp] theorem blocks_nzFormula (a : Poly) (c : ℕ) : (nzFormula a c).blocks = [] := by
+  simp [nzFormula, Formula.blocks]
+
+@[simp] theorem blocks_posFormula (a : Poly) (c : ℕ) : (posFormula a c).blocks = [] := by
+  simp [posFormula, Formula.blocks]
+
+@[simp] theorem blocks_zFormula (p : Code) (ζ : Pair) (k : ℕ) : (zFormula p ζ k).blocks = [] := by
+  simp [zFormula]
+
+@[simp] theorem blocks_ixFormula (p : Code) (v : Pair) : (ixFormula p v).blocks = [] := by
+  simp [ixFormula]
+
+@[simp] theorem blocks_divFormula (n d q : Pair) (k : ℕ) : (divFormula n d q k).blocks = [] := by
+  simp [divFormula]
 
 /-! ### Weakest preconditions of constructions -/
 
@@ -511,6 +553,9 @@ noncomputable def pairsArgs {n : ℕ} (D : Fin n → Pair) : Fin (n * 2) → Pol
 namespace ArgsIn
 
 variable {G : ℕ → Prop}
+
+theorem bind₁ {n : ℕ} {f : Fin n → Poly} {P : MvPolynomial (Fin n) ℤ} (h : ArgsIn f G) :
+    VarsIn (MvPolynomial.bind₁ f P) G := VarsIn.bind₁ h
 
 theorem varArgs {k n : ℕ} (h : ∀ i : Fin n, G (k + i)) : ArgsIn (ZInQ.Syntax.varArgs k n) G :=
   fun i => VarsIn.X (h i)
@@ -765,7 +810,13 @@ def scopeLemma (tgt : Expr) : MetaM (Option Name) := do
     | some ``MvPolynomial.C => pure ``VarsIn.C
     | some ``Int.cast => pure ``VarsIn.intCast
     | some ``Pair.norm => pure ``PairIn.norm
-    | some ``MvPolynomial.bind₁ => pure ``VarsIn.bind₁
+    | some ``MvPolynomial.bind₁ => pure ``ArgsIn.bind₁
+    | some ``DFunLike.coe =>
+      if f.getAppNumArgs == 6 && (f.getArg! 4).isAppOf ``MvPolynomial.bind₁ then
+        pure ``ArgsIn.bind₁
+      else if f.getAppNumArgs == 6 && (f.getArg! 4).isAppOf ``MvPolynomial.C then
+        pure ``VarsIn.C
+      else pure none
     | some ``OfNat.ofNat =>
       match f.getAppArgs[1]!.rawNatLit? with
       | some 0 => pure ``VarsIn.zero
@@ -912,11 +963,14 @@ macro "wp_run " G:term:max N:term:max : tactic => `(tactic| repeat wp_step $G $N
 macro "facts_close" : tactic => `(tactic| (
   refine ⟨?_, ?_, ?_, ?_⟩
   · scope
-  · simp only [ZInQ.Syntax.Formula.blocks_and, ZInQ.Syntax.Formula.blocks_or,
-      List.flatMap_append, List.flatMap_cons, List.flatMap_nil, List.append_nil, List.nil_append,
-      List.cons_append, List.singleton_append, ZInQ.Syntax.feq, ZInQ.Syntax.fin, ZInQ.Syntax.peq,
-      ZInQ.Syntax.isO, ZInQ.Syntax.nzFormula, ZInQ.Syntax.posFormula, ZInQ.Syntax.Formula.blocks,
-      *]
-    decide
+  · first
+    | (simp only [ZInQ.Syntax.Formula.blocks_and, ZInQ.Syntax.Formula.blocks_or,
+        List.flatMap_append, List.flatMap_cons, List.flatMap_nil, List.append_nil, List.nil_append,
+        List.cons_append, List.singleton_append, ZInQ.Syntax.blocks_feq, ZInQ.Syntax.blocks_fin,
+        ZInQ.Syntax.blocks_peq, ZInQ.Syntax.blocks_isO, ZInQ.Syntax.blocks_nzFormula,
+        ZInQ.Syntax.blocks_posFormula, ZInQ.Syntax.blocks_curve, ZInQ.Syntax.blocks_zFormula,
+        ZInQ.Syntax.blocks_ixFormula, ZInQ.Syntax.blocks_divFormula, ZInQ.Syntax.Formula.blocks,
+        *] <;> decide)
+    | decide
   · decide
   · decide))

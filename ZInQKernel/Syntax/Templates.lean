@@ -2,6 +2,7 @@ import ZInQKernel.Syntax.Templates.Scope
 import ZInQKernel.Syntax.Templates.Member
 import ZInQKernel.Syntax.Templates.Core
 import ZInQKernel.Syntax.Templates.Certificate
+import ZInQKernel.Syntax.Templates.Multiply
 
 /-!
 # The template library of the specification
