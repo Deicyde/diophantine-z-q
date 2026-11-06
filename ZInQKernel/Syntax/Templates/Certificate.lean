@@ -81,8 +81,8 @@ def testGroupBlocks : List (ℕ × ℕ) :=
     (185, 0), (185, 0), (191, 1), (192, 0), (192, 0)]
 
 theorem testGroup_facts :
-    Build.Facts 44 (testGroupBuild testGroupC testGroupD) 206 testGroupBlocks := by
-  refine Build.Facts.of_wp ?_ (by decide) (by decide) (by decide)
+    Build.Facts 44 (testGroupBuild testGroupC testGroupD) 206 testGroupBlocks [] := by
+  refine Build.Facts.of_wp ?_ (by decide) (by decide) (by decide) (by decide)
   have := memberTemplate_wf
   have := memberTemplate_witnesses
   have := rawAddTemplate_wf
@@ -109,9 +109,7 @@ theorem testGroupTemplate_rel_iff (a : Fin 44 → ℚ) :
     testGroupTemplate.Rel a ↔ ∃ y : ℕ → ℚ, (∀ i : Fin 44, y i = a i) ∧
       (testGroupBuild testGroupC testGroupD ⟨44, []⟩).1.Lift y := by
   unfold testGroupTemplate
-  rw [testGroup_facts.rel_iff]
-  simp only [show (testGroupBuild testGroupC testGroupD ⟨44, []⟩).2.globals = [] from rfl,
-    List.not_mem_nil, false_imp_iff, imp_true_iff, true_and]
+  exact testGroup_facts.rel_iff_nil a
 
 /-! ### `slope` -/
 
@@ -180,8 +178,8 @@ noncomputable def slopeTemplate : ExPoly := Build.template 22 (slopeBuild (X 0) 
 def slopeBlocks : List (ℕ × ℕ) :=
   [(53, 162), (266, 162), (479, 162), (692, 162), (905, 162), (1118, 162), (1309, 11)]
 
-theorem slope_facts : Build.Facts 22 (slopeBuild (X 0) (X 1) (varArgs 2 20)) 1320 slopeBlocks := by
-  refine Build.Facts.of_wp ?_ (by decide) (by decide) (by decide)
+theorem slope_facts : Build.Facts 22 (slopeBuild (X 0) (X 1) (varArgs 2 20)) 1320 slopeBlocks [] := by
+  refine Build.Facts.of_wp ?_ (by decide) (by decide) (by decide) (by decide)
   have := testGroupTemplate_wf
   have := testGroupTemplate_witnesses
   have := poleTemplate_wf
@@ -201,9 +199,7 @@ theorem slopeTemplate_rel_iff (a : Fin 22 → ℚ) :
     slopeTemplate.Rel a ↔ ∃ y : ℕ → ℚ, (∀ i : Fin 22, y i = a i) ∧
       (slopeBuild (X 0) (X 1) (varArgs 2 20) ⟨22, []⟩).1.Lift y := by
   unfold slopeTemplate
-  rw [slope_facts.rel_iff]
-  simp only [show (slopeBuild (X 0) (X 1) (varArgs 2 20) ⟨22, []⟩).2.globals = [] from rfl,
-    List.not_mem_nil, false_imp_iff, imp_true_iff, true_and]
+  exact slope_facts.rel_iff_nil a
 
 /-! ### `height_certificate` -/
 
@@ -262,8 +258,8 @@ def heightBlocks : List (ℕ × ℕ) :=
 set_option maxRecDepth 20000 in
 theorem height_facts : Build.Facts 36
     (heightBuild (varPoint 0) (varPoint 5) (varPoint 10) (X 15) (varArgs 16 20)) 35142
-    heightBlocks := by
-  refine Build.Facts.of_wp ?_ (by decide) (by decide) (by decide)
+    heightBlocks [] := by
+  refine Build.Facts.of_wp ?_ (by decide) (by decide) (by decide) (by decide)
   have := memberTemplate_wf
   have := memberTemplate_witnesses
   have := slopeTemplate_wf
@@ -283,8 +279,6 @@ theorem heightTemplate_rel_iff (a : Fin 36 → ℚ) :
       (heightBuild (varPoint 0) (varPoint 5) (varPoint 10) (X 15) (varArgs 16 20)
         ⟨36, []⟩).1.Lift y := by
   unfold heightTemplate
-  rw [height_facts.rel_iff]
-  simp only [show (heightBuild (varPoint 0) (varPoint 5) (varPoint 10) (X 15) (varArgs 16 20)
-      ⟨36, []⟩).2.globals = [] from rfl, List.not_mem_nil, false_imp_iff, imp_true_iff, true_and]
+  exact height_facts.rel_iff_nil a
 
 end ZInQ.Syntax

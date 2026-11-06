@@ -407,16 +407,24 @@ theorem rational_value (u q : ℤ) (s : BuildState) :
       exact Or.inr ⟨e.1, rfl, Or.inr ⟨e, List.mem_of_find?_eq_some he, rfl⟩⟩
     · exact Or.inr ⟨s.next, rfl, Or.inl rfl⟩
 
-theorem wp_rational {G : ℕ → Prop} {u q : ℤ} {K : Poly → BuildState → Prop} (hs : G s.next)
+theorem wp_rational {G : ℕ → Prop} {u q : ℤ} {K : Poly → BuildState → Prop}
+    (hs : (normalize u q).2 = 1 ∨
+      (s.globals.find? fun e => e.2 == normalize u q).isSome = true ∨ G s.next)
     (hgl : ∀ e ∈ s.globals, G e.1)
     (h : ∀ v, VarsIn v G → K v (rational u q s).2) : WP (rational u q) s K := by
   refine h _ ?_
-  rcases rational_value u q s with ⟨c, hc⟩ | ⟨i, hi, hi'⟩
-  · rw [hc]; exact VarsIn.C c G
-  · rw [hi]
-    rcases hi' with rfl | ⟨e, he, rfl⟩
-    · exact VarsIn.X hs
-    · exact VarsIn.X (hgl e he)
+  unfold rational
+  dsimp only
+  split_ifs with h1
+  · exact VarsIn.C _ G
+  · split
+    · rename_i e he
+      exact VarsIn.X (hgl e (List.mem_of_find?_eq_some he))
+    · rename_i hn
+      rcases hs with hs | hs | hs
+      · exact absurd hs h1
+      · rw [hn] at hs; exact absurd hs (by simp)
+      · exact VarsIn.X hs
 
 theorem wp_gen {K : Code → BuildState → Prop}
     (h : WP (rational 1641 8) s fun c1 s1 => WP (rational (-15465) 4) s1 fun c2 s2 =>
@@ -675,43 +683,58 @@ theorem pairwise_blockDisjoint_of_sep {B : List (ℕ × ℕ)} (h : blocksSep B) 
 
 
 /-- The facts established for a constructed template with `p` parameters: the final counter
-`N`, the list `B` of its call blocks (separated and above the parameters), the constant
-variables, and the scope facts of the final formula for the indices `Avail N B`. -/
-structure Build.Facts (p : ℕ) (b : Build Formula) (N : ℕ) (B : List (ℕ × ℕ)) : Prop where
+`N`, the list `B` of its call blocks (separated and above the parameters), the list `GE` of the
+global equations of its rational constants, and the scope facts of the final formula for the
+indices `Avail N B`. -/
+structure Build.Facts (p : ℕ) (b : Build Formula) (N : ℕ) (B : List (ℕ × ℕ))
+    (GE : List (ℕ × ℤ × ℤ)) : Prop where
   next : (b ⟨p, []⟩).2.next = N
   blocks : (b ⟨p, []⟩).1.blocks = B
+  globalsEq : (b ⟨p, []⟩).2.globals = GE
   sep : blocksSep B
   above : ∀ bl ∈ B, p ≤ bl.1
   le : p ≤ N
-  globals : ∀ e ∈ (b ⟨p, []⟩).2.globals, Avail N B e.1 ∧ e.2.2 ≠ 0
+  globals : ∀ e ∈ GE, Avail N B e.1 ∧ e.2.2 ≠ 0
   fok : FOk (Avail N B) N (b ⟨p, []⟩).1
 
 namespace Build.Facts
 
-variable {p : ℕ} {b : Build Formula} {N : ℕ} {B : List (ℕ × ℕ)}
+variable {p : ℕ} {b : Build Formula} {N : ℕ} {B : List (ℕ × ℕ)} {GE : List (ℕ × ℤ × ℤ)}
 
 /-- The facts from one weakest-precondition run. -/
 theorem of_wp (h : Build.WP b ⟨p, []⟩ fun φ s => FOk (Avail N B) N φ ∧ φ.blocks = B ∧
-      s.next = N ∧ ∀ e ∈ s.globals, Avail N B e.1 ∧ e.2.2 ≠ 0)
-    (sep : blocksSep B) (above : ∀ bl ∈ B, p ≤ bl.1) (le : p ≤ N) : Build.Facts p b N B :=
-  ⟨h.2.2.1, h.2.1, sep, above, le, h.2.2.2, h.1⟩
+      s.next = N ∧ s.globals = GE)
+    (sep : blocksSep B) (above : ∀ bl ∈ B, p ≤ bl.1) (le : p ≤ N)
+    (globals : ∀ e ∈ GE, Avail N B e.1 ∧ e.2.2 ≠ 0) : Build.Facts p b N B GE :=
+  ⟨h.2.2.1, h.2.1, h.2.2.2, sep, above, le, globals, h.1⟩
 
-theorem witnesses (h : Build.Facts p b N B) : (Build.template p b).witnesses = N - p := by
+theorem witnesses (h : Build.Facts p b N B GE) : (Build.template p b).witnesses = N - p := by
   show (b ⟨p, []⟩).2.next - p = N - p
   rw [h.next]
 
-theorem wf (h : Build.Facts p b N B) : (Build.template p b).WF :=
+theorem wf (h : Build.Facts p b N B GE) : (Build.template p b).WF :=
   Build.template_wf_of_fok p b (G := Avail N B) (by rw [h.next]; exact fun i hi => hi.1)
-    (by rw [h.next]; exact h.le) (fun e he => by rw [h.next]; exact (h.globals e he).1.1)
+    (by rw [h.next]; exact h.le)
+    (fun e he => by rw [h.next]; rw [h.globalsEq] at he; exact (h.globals e he).1.1)
     (by rw [h.next]; exact h.fok)
 
-/-- The relation of a template with the facts, through its private blocks. -/
-theorem rel_iff (h : Build.Facts p b N B) (a : Fin p → ℚ) :
+/-- The relation of a template with the facts, through its private blocks: some assignment
+extending the parameters gives every constant variable its value and satisfies the final
+formula with every call replaced by the callee relation. -/
+theorem rel_iff (h : Build.Facts p b N B GE) (a : Fin p → ℚ) :
     (Build.template p b).Rel a ↔
       ∃ y : ℕ → ℚ, (∀ i : Fin p, y i = a i) ∧
-        (∀ e ∈ (b ⟨p, []⟩).2.globals, y e.1 = e.2.1 / e.2.2) ∧ (b ⟨p, []⟩).1.Lift y :=
-  Build.template_rel_iff_lift p b h.next h.blocks (pairwise_blockDisjoint_of_sep h.sep) h.above
-    h.globals h.fok h.le a
+        (∀ e ∈ GE, y e.1 = e.2.1 / e.2.2) ∧ (b ⟨p, []⟩).1.Lift y := by
+  rw [← h.globalsEq]
+  exact Build.template_rel_iff_lift p b h.next h.blocks (pairwise_blockDisjoint_of_sep h.sep)
+    h.above (h.globalsEq ▸ h.globals) h.fok h.le a
+
+/-- The relation of a template with the facts and without rational constants. -/
+theorem rel_iff_nil (h : Build.Facts p b N B []) (a : Fin p → ℚ) :
+    (Build.template p b).Rel a ↔
+      ∃ y : ℕ → ℚ, (∀ i : Fin p, y i = a i) ∧ (b ⟨p, []⟩).1.Lift y := by
+  rw [h.rel_iff]
+  simp only [List.not_mem_nil, false_imp_iff, imp_true_iff, true_and]
 
 end Build.Facts
 
@@ -963,7 +986,8 @@ macro "wp_run " G:term:max N:term:max : tactic => `(tactic| repeat wp_step $G $N
 macro "facts_close" : tactic => `(tactic| (
   refine ⟨?_, ?_, ?_, ?_⟩
   · scope
-  · first
+  · try dsimp only
+    first
     | (simp only [ZInQ.Syntax.Formula.blocks_and, ZInQ.Syntax.Formula.blocks_or,
         List.flatMap_append, List.flatMap_cons, List.flatMap_nil, List.append_nil, List.nil_append,
         List.cons_append, List.singleton_append, ZInQ.Syntax.blocks_feq, ZInQ.Syntax.blocks_fin,

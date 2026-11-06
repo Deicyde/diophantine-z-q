@@ -3,6 +3,8 @@ import ZInQKernel.Syntax.Templates.Member
 import ZInQKernel.Syntax.Templates.Core
 import ZInQKernel.Syntax.Templates.Certificate
 import ZInQKernel.Syntax.Templates.Multiply
+import ZInQKernel.Syntax.Templates.Value
+import ZInQKernel.Syntax.Templates.Library
 
 /-!
 # The template library of the specification

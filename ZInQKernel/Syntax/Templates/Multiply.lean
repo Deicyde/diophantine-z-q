@@ -64,8 +64,8 @@ theorem scalarTemplate_witnesses (I : Constructors E) (n : ℤ) :
     (scalarTemplate I n).witnesses = 1 := rfl
 
 theorem scalar_facts (I : Constructors E) (n : ℤ) :
-    Build.Facts 10 (scalarBuild I n (varPoint 0) (varPoint 5)) 11 [] := by
-  refine Build.Facts.of_wp ?_ (by decide) (by decide) (by decide)
+    Build.Facts 10 (scalarBuild I n (varPoint 0) (varPoint 5)) 11 [] [] := by
+  refine Build.Facts.of_wp ?_ (by decide) (by decide) (by decide) (by decide)
   wp_run (Avail 11 []) 11
   unfold scalarFormula
   facts_close
@@ -108,8 +108,8 @@ theorem guardTemplate_witnesses (I : Constructors E) (T : ℤ) :
     (guardTemplate I T).witnesses = 1 := rfl
 
 theorem guard_facts (I : Constructors E) (T : ℤ) :
-    Build.Facts 15 (guardBuild I T (varArgs 0 15)) 16 [] := by
-  refine Build.Facts.of_wp ?_ (by decide) (by decide) (by decide)
+    Build.Facts 15 (guardBuild I T (varArgs 0 15)) 16 [] [] := by
+  refine Build.Facts.of_wp ?_ (by decide) (by decide) (by decide) (by decide)
   wp_run (Avail 16 []) 16
   facts_close
 
@@ -219,8 +219,8 @@ def multiplyGlobals : List (ℕ × ℤ × ℤ) := [(15, 1641, 8), (16, -15465, 4
 set_option maxRecDepth 20000 in
 theorem multiply_facts (I : Constructors E) (cstar ell T : ℤ) :
     Build.Facts 15 (multiplyBuild I cstar ell T (varPoint 0) (varPoint 5) (varPoint 10)) 35149
-      multiplyBlocks := by
-  refine Build.Facts.of_wp ?_ (by decide) (by decide) (by decide)
+      multiplyBlocks multiplyGlobals := by
+  refine Build.Facts.of_wp ?_ (by decide) (by decide) (by decide) (by decide)
   have := scalarTemplate_wf I cstar
   have := scalarTemplate_witnesses I cstar
   have := heightTemplate_wf
@@ -229,10 +229,6 @@ theorem multiply_facts (I : Constructors E) (cstar ell T : ℤ) :
   have := guardTemplate_witnesses I T
   wp_run (Avail 35149 multiplyBlocks) 35149
   facts_close
-
-theorem multiply_globals (I : Constructors E) (cstar ell T : ℤ) :
-    (multiplyBuild I cstar ell T (varPoint 0) (varPoint 5) (varPoint 10) ⟨15, []⟩).2.globals =
-      multiplyGlobals := rfl
 
 theorem multiplyTemplate_params (I : Constructors E) (cstar ell T : ℤ) :
     (multiplyTemplate I cstar ell T).params = 15 := rfl
@@ -251,7 +247,7 @@ theorem multiplyTemplate_rel_iff (I : Constructors E) (cstar ell T : ℤ) (a : F
       (y 15 = 1641 / 8 ∧ y 16 = -15465 / 4 ∧ y 17 = 87483 / 32) ∧
       (multiplyBuild I cstar ell T (varPoint 0) (varPoint 5) (varPoint 10) ⟨15, []⟩).1.Lift y := by
   unfold multiplyTemplate
-  rw [(multiply_facts I cstar ell T).rel_iff, multiply_globals]
+  rw [(multiply_facts I cstar ell T).rel_iff]
   simp [multiplyGlobals]
 
 /-! ### The natural-code template -/
@@ -285,8 +281,8 @@ def naturalBlocks : List (ℕ × ℕ) :=
 
 set_option maxRecDepth 20000 in
 theorem natural_facts (I : Constructors E) (cstar ell T : ℤ) :
-    Build.Facts 5 (naturalBuild I cstar ell T (varPoint 0)) 140609 naturalBlocks := by
-  refine Build.Facts.of_wp ?_ (by decide) (by decide) (by decide)
+    Build.Facts 5 (naturalBuild I cstar ell T (varPoint 0)) 140609 naturalBlocks [] := by
+  refine Build.Facts.of_wp ?_ (by decide) (by decide) (by decide) (by decide)
   have := multiplyTemplate_wf I cstar ell T
   have := multiplyTemplate_witnesses I cstar ell T
   have := rawAddTemplate_wf
@@ -308,8 +304,6 @@ theorem naturalTemplate_rel_iff (I : Constructors E) (cstar ell T : ℤ) (a : Fi
     (naturalTemplate I cstar ell T).Rel a ↔ ∃ y : ℕ → ℚ, (∀ i : Fin 5, y i = a i) ∧
       (naturalBuild I cstar ell T (varPoint 0) ⟨5, []⟩).1.Lift y := by
   unfold naturalTemplate
-  rw [(natural_facts I cstar ell T).rel_iff]
-  simp only [show (naturalBuild I cstar ell T (varPoint 0) ⟨5, []⟩).2.globals = [] from rfl,
-    List.not_mem_nil, false_imp_iff, imp_true_iff, true_and]
+  exact (natural_facts I cstar ell T).rel_iff_nil a
 
 end ZInQ.Syntax
