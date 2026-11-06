@@ -10,6 +10,7 @@ import ZInQKernel.Syntax.Language
 import ZInQKernel.Model.Descent
 import ZInQKernel.Model.Heights
 import ZInQKernel.Assembly.Real
+import ZInQKernel.Compiler.Precision
 import ZInQKernel.Model.Generator
 import ZInQKernel.Syntax.Templates
 import ZInQKernel.Syntax.Constants
