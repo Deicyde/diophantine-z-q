@@ -390,4 +390,226 @@ theorem packedRel_conditions {p : Program} {r k : ℕ} (hp : p.Valid r) {a : Fin
     rw [he] at this
     exact_mod_cast this
 
+theorem pairwise_mem_cases {α : Type*} {R : α → α → Prop} {l : List α} (h : l.Pairwise R) {a b : α}
+    (ha : a ∈ l) (hb : b ∈ l) : a = b ∨ R a b ∨ R b a := by
+  induction l with
+  | nil => simp at ha
+  | cons x xs ih =>
+    rw [List.pairwise_cons] at h
+    rcases List.mem_cons.1 ha with h1 | h1 <;> rcases List.mem_cons.1 hb with h2 | h2
+    · exact Or.inl (h1.trans h2.symm)
+    · subst h1; exact Or.inr (Or.inl (h.1 b h2))
+    · subst h2; exact Or.inr (Or.inr (h.1 a h1))
+    · exact ih h.2 h1 h2
+
+/-- The value of the fresh block variable at offset `j` from the inputs. -/
+def blockVal (r : ℕ) (q c K B T F D : ℕ) (R N S : ℕ → ℕ) (j : ℕ) : ℕ :=
+  if j < 7 then [q, c, K, B, T, F, D].getD j 0
+  else if j < 7 + r then R (j - 7)
+  else if j < 7 + 2 * r then N (j - 7 - r)
+  else S (j - 7 - 2 * r)
+
+/-- The assignment built from values of the fresh variables. -/
+def packedAssign (k r m : ℕ) (vw : List (ℕ × Ex × Ex)) (q c K B T F D : ℕ)
+    (R N S V W : ℕ → ℕ) (x : ℕ → ℕ) (i : ℕ) : ℕ :=
+  open Classical in
+  if k ≤ i ∧ i < k + (7 + 2 * r + m) then blockVal r q c K B T F D R N S (i - k)
+  else if h : ∃ e ∈ vw, e.2.1.poly = X i then V h.choose.1
+  else if h : ∃ e ∈ vw, e.2.2.poly = X i then W h.choose.1
+  else x i
+
+/-- **From the packed conditions to the relation.** -/
+theorem conditions_packedRel {p : Program} {r k : ℕ} (hp : p.Valid r) {a : Fin k → ℕ}
+    {zero one B' : Ex} {R' N' S' : List Ex} {vw : List (ℕ × Ex × Ex)} (hz : zero.poly = C 0)
+    (ho : one.poly = C 1) (hB : B'.poly = X (k + 3))
+    (hR : R'.map Ex.poly = (List.range r).map fun j => X (k + 7 + j))
+    (hN : N'.map Ex.poly = (List.range r).map fun j => X (k + 7 + r + j))
+    (hS : S'.map Ex.poly = (List.range p.length).map fun i => X (k + 7 + 2 * r + i))
+    (hvw : vw.map (·.1) = decIdx p 0)
+    (hvw' : ∀ e ∈ vw, ∃ c, e.2.1.poly = X c ∧ e.2.2.poly = X (c + 1) ∧
+      k + (7 + 2 * r + p.length) ≤ c)
+    (hpw : vw.Pairwise fun e e' => ∀ c c', e.2.1.poly = X c → e'.2.1.poly = X c' → c + 2 ≤ c')
+    {x : ℕ → ℕ} (hxa : ∀ i : Fin k, x i = a i) {q c K B T F D : ℕ} {R N S V W : ℕ → ℕ}
+    (h : PackedConditions p r k a q c K B T F D R N S V W) :
+    PackedRel p r k zero one B' R' N' S' vw (packedAssign k r p.length vw q c K B T F D R N S V W x) := by
+  set z := packedAssign k r p.length vw q c K B T F D R N S V W x with hzdef
+  have hblock : ∀ j, j < 7 + 2 * r + p.length → z (k + j) = blockVal r q c K B T F D R N S j := by
+    intro j hj
+    simp only [hzdef, packedAssign]
+    rw [if_pos ⟨by omega, by omega⟩]; congr 1; omega
+  have hz0 : z k = q := by simpa [blockVal] using hblock 0 (by omega)
+  have hz1 : z (k + 1) = c := by simpa [blockVal] using hblock 1 (by omega)
+  have hz2 : z (k + 2) = K := by simpa [blockVal] using hblock 2 (by omega)
+  have hz3 : z (k + 3) = B := by simpa [blockVal] using hblock 3 (by omega)
+  have hz4 : z (k + 4) = T := by simpa [blockVal] using hblock 4 (by omega)
+  have hz5 : z (k + 5) = F := by simpa [blockVal] using hblock 5 (by omega)
+  have hz6 : z (k + 6) = D := by simpa [blockVal] using hblock 6 (by omega)
+  have hzR : ∀ j < r, z (k + 7 + j) = R j := fun j hj => by
+    rw [show k + 7 + j = k + (7 + j) by omega, hblock _ (by omega)]
+    unfold blockVal
+    rw [if_neg (by omega), if_pos (by omega)]
+    congr 1; omega
+  have hzN : ∀ j < r, z (k + 7 + r + j) = N j := fun j hj => by
+    rw [show k + 7 + r + j = k + (7 + r + j) by omega, hblock _ (by omega)]
+    unfold blockVal
+    rw [if_neg (by omega), if_neg (by omega), if_pos (by omega)]
+    congr 1; omega
+  have hzS : ∀ i < p.length, z (k + 7 + 2 * r + i) = S i := fun i hi => by
+    rw [show k + 7 + 2 * r + i = k + (7 + 2 * r + i) by omega, hblock _ (by omega)]
+    unfold blockVal
+    rw [if_neg (by omega), if_neg (by omega), if_neg (by omega)]
+    congr 1; omega
+  have hzin : ∀ i < k, z i = x i := fun i hi => by
+    simp only [hzdef, packedAssign]
+    rw [if_neg (by omega), dif_neg, dif_neg]
+    · rintro ⟨e, he, h'⟩
+      obtain ⟨c', hc1, hc2, hc3⟩ := hvw' e he
+      rw [hc2] at h'; have := X_injective h'; omega
+    · rintro ⟨e, he, h'⟩
+      obtain ⟨c', hc1, hc2, hc3⟩ := hvw' e he
+      rw [hc1] at h'; have := X_injective h'; omega
+  have hzV : ∀ e ∈ vw, ∀ c', e.2.1.poly = X c' → z c' = V e.1 ∧ z (c' + 1) = W e.1 := by
+    intro e he c' hc'
+    obtain ⟨c₀, hc1, hc2, hc3⟩ := hvw' e he
+    rw [hc1] at hc'
+    have hcc := X_injective hc'
+    subst hcc
+    have huniqV : ∀ e' ∈ vw, ∀ d, e'.2.1.poly = X d → d = c₀ → e' = e := by
+      intro e' he' d hd hdc
+      rcases pairwise_mem_cases hpw he he' with h' | h' | h'
+      · exact h'.symm
+      · have := h' c₀ d hc1 hd; omega
+      · have := h' d c₀ hd hc1; omega
+    constructor
+    · simp only [hzdef, packedAssign]
+      rw [if_neg (by omega)]
+      have hex : ∃ e' ∈ vw, e'.2.1.poly = X c₀ := ⟨e, he, hc1⟩
+      rw [dif_pos hex]
+      congr 2
+      exact huniqV _ hex.choose_spec.1 c₀ hex.choose_spec.2 rfl
+    · simp only [hzdef, packedAssign]
+      rw [if_neg (by omega)]
+      have hnex : ¬ ∃ e' ∈ vw, e'.2.1.poly = X (c₀ + 1) := by
+        rintro ⟨e', he', h'⟩
+        rcases pairwise_mem_cases hpw he he' with h'' | h'' | h''
+        · subst h''; rw [hc1] at h'; have := X_injective h'; omega
+        · have := h'' c₀ (c₀ + 1) hc1 h'; omega
+        · have := h'' (c₀ + 1) c₀ h' hc1; omega
+      rw [dif_neg hnex]
+      have hex : ∃ e' ∈ vw, e'.2.2.poly = X (c₀ + 1) := ⟨e, he, hc2⟩
+      rw [dif_pos hex]
+      congr 2
+      obtain ⟨d, hd1, hd2, -⟩ := hvw' _ hex.choose_spec.1
+      rw [hex.choose_spec.2] at hd2
+      have := X_injective hd2
+      exact huniqV _ hex.choose_spec.1 d hd1 (by omega)
+  have hSget : ∀ i < p.length, (S'.getD i zero).poly = X (k + 7 + 2 * r + i) :=
+    fun i hi => getD_of_map_eq hS hi zero
+  have hSlen : S'.length = p.length := by simpa using congrArg List.length hS
+  have hlookD : ∀ i j, decOn p j i →
+      zv z (lookupVW zero vw i).1.poly = V i ∧ zv z (lookupVW zero vw i).2.poly = W i := by
+    intro i j hj
+    obtain ⟨e, he, he1, hle⟩ := lookupVW_of_decOn hvw hj
+    obtain ⟨c₀, hc1, hc2, -⟩ := hvw' e he
+    obtain ⟨hV, hW⟩ := hzV e he c₀ hc1
+    rw [hle, hc1, hc2, zv_X, zv_X, hV, hW, he1]
+    exact ⟨rfl, rfl⟩
+  have hm0 := hp.pos
+  refine ⟨⟨⟨?_, ?_, ?_, ?_, ?_⟩, ?_⟩, ⟨?_, ?_, ?_, ?_⟩, ?_, ?_, ?_, ?_, ?_⟩
+  · rw [hz1]; exact h.c_pos
+  · rw [hz2, hz1]; exact h.hK
+  · rw [hz3, hz2]; exact h.hB
+  · rw [hz3]; exact h.m_lt
+  · rw [hz4, hz3, hz0]; exact h.hT
+  · intro e he
+    simp only [inputs, List.mem_map, List.mem_range] at he
+    obtain ⟨i, hi, rfl⟩ := he
+    rw [nv_X, hzin i hi, hz2, hxa ⟨i, hi⟩]
+    exact h.inputs_lt _
+  · rw [hz3, hz5, hz4]; exact_mod_cast h.hF
+  · rw [hz6, hz5, hz2]; exact_mod_cast h.hD
+  · rw [sum_map_range_X _ z S' _ hS, list_sum_range, hz5, ← h.sumS]
+    push_cast
+    exact Finset.sum_congr rfl fun i hi => by rw [hzS i (Finset.mem_range.1 hi)]
+  · rw [getLastD_eq_getD, hSlen, hSget _ (by omega), zv_X, hz4, hzS _ (by omega), h.lastS]
+  · intro e he
+    obtain ⟨i, hi, he'⟩ := mem_of_map_eq hS e he
+    rw [he', nv_X, hzS i hi, hz5]
+    exact h.maskS i hi
+  · intro j hj
+    rw [hzR j hj, hzN j hj, hz6, hz4, hz2, hz5]
+    exact ⟨h.maskR j hj, h.ltR j hj, h.nonzero j hj⟩
+  · intro e he
+    have hmem : e.1 ∈ decIdx p 0 := hvw ▸ List.mem_map_of_mem he
+    obtain ⟨-, j, x', y', hxy⟩ := (mem_decIdx p 0 e.1).1 hmem
+    simp only [Nat.sub_zero] at hxy
+    have hdec : decOn p j e.1 := ⟨x', y', hxy⟩
+    have hi : e.1 < p.length := by
+      by_contra hge; rw [List.getElem?_eq_none (by omega)] at hxy; cases hxy
+    have hjr := decOn_lt hp hi hdec
+    obtain ⟨c₀, hc1, hc2, -⟩ := hvw' e he
+    obtain ⟨hV, hW⟩ := hzV e he c₀ hc1
+    obtain ⟨hb1, hb2⟩ := h.branch e.1 hi j hdec
+    rw [decReg_of_decOn hdec, getD_of_map_eq hN hjr zero, hSget _ hi, hc1, hc2, nv_X, nv_X,
+      nv_X, zv_X, zv_X, zv_X, hV, hW, hzS _ hi, hzN _ hjr]
+    exact ⟨hb1, by exact_mod_cast hb2⟩
+  · intro j hj
+    have hj' := List.mem_range.1 hj
+    rw [getD_of_map_eq hR hj' zero, hB, zv_X, zv_X, hzR j hj', hz3]
+    have hdec : ((decHandles p zero vw j).map fun e => zv z e.poly).sum =
+        ((decSum p V j : ℕ) : ℤ) := by
+      unfold decHandles decSum
+      rw [List.map_map, sum_map_filter_range]
+      push_cast
+      refine Finset.sum_congr rfl fun i _ => ?_
+      split_ifs with hd
+      · exact (hlookD i j hd).1
+      · rfl
+    have hinc : ((incHandles p zero S' j).map fun e => zv z e.poly).sum =
+        ((incSum p S j : ℕ) : ℤ) := by
+      unfold incHandles incSum
+      rw [List.map_map, sum_map_filter_range]
+      push_cast
+      refine Finset.sum_congr rfl fun i hi => ?_
+      split_ifs
+      · show zv z (S'.getD i zero).poly = _
+        rw [hSget i (Finset.mem_range.1 hi), zv_X, hzS i (Finset.mem_range.1 hi)]
+      · rfl
+    have hι : zv z ((inputs k).getD j zero).poly = (initFile a j : ℤ) := by
+      by_cases hjk : j < k
+      · rw [getD_of_map_eq (n := k) (f := fun i => X i) (by simp [inputs, List.map_map]) hjk,
+          zv_X, initFile_of_lt a hjk, hzin j hjk, hxa ⟨j, hjk⟩]
+      · rw [List.getD_eq_default _ _ (by simpa [inputs] using hjk), hz, zv_C,
+          initFile_of_le a (by omega)]; simp
+    rw [hdec, hinc, hι]
+    exact_mod_cast h.regEq j hj'
+  · intro i hi
+    have hi' := List.mem_range.1 hi
+    rw [hSget i hi', hB, zv_X, zv_X, hzS i hi', hz3, sum_map_inHandles]
+    have hin : (∑ i' ∈ Finset.range p.length,
+        ((if incTo p i' i then zv z (S'.getD i' zero).poly else 0) +
+          (if nzTo p i' i then zv z (lookupVW zero vw i').1.poly else 0) +
+          (if zTo p i' i then zv z (lookupVW zero vw i').2.poly else 0))) =
+        ((inSum p S V W i : ℕ) : ℤ) := by
+      unfold inSum
+      push_cast
+      refine Finset.sum_congr rfl fun i' hi'' => ?_
+      have hi''' := Finset.mem_range.1 hi''
+      congr 1
+      · congr 1
+        · split_ifs
+          · rw [hSget i' hi''', zv_X, hzS i' hi''']
+          · rfl
+        · split_ifs with hn
+          · exact (hlookD i' _ (decOn_decReg_of_nzTo hn)).1
+          · rfl
+      · split_ifs with hn
+        · exact (hlookD i' _ (decOn_decReg_of_zTo hn)).2
+        · rfl
+    rw [hin]
+    have he : zv z (if i = 0 then one else zero).poly = ((if i = 0 then 1 else 0 : ℕ) : ℤ) := by
+      split_ifs <;> simp [ho, hz]
+    rw [he]
+    exact_mod_cast h.stateEq i hi'
+
 end ZInQ.Compiler.Packed
