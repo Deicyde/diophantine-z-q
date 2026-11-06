@@ -157,11 +157,6 @@ The kernel checks the point counts by `decide` on `Finset.filter` over `ZMod p Ã
 ## Problems
 
 - None in the statements.
-- **The commits are not pushed.** Every `git push origin HEAD:wip/hypothesis-audit` failed with
-  "Recv failure: Connection reset by peer" (direct) or "CONNECT tunnel failed, response 403"
-  (through `fwdproxy:8080`). The commits exist only on the local branch `wip/hypothesis-audit` in
-  `~/dzq-wt/hypothesis-audit`, three commits ahead of `origin/main`. Someone with GitHub access
-  must push them.
 
 ## Suggestions for the next agent
 
