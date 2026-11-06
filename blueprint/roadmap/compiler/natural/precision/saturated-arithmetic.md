@@ -2,6 +2,9 @@
 article_id: af_2f869f448416e81630918759
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Precision.saturatedArithmetic
 ---
 
 # Saturated arithmetic

@@ -2,6 +2,9 @@
 article_id: af_9167b2d205b1fb00057ec7ea
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Precision.cappedArithmetic
 ---
 
 # Capped multiplication and binary exponentiation

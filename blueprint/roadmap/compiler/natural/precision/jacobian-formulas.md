@@ -2,6 +2,9 @@
 article_id: af_3dbd02eca870ca9498f2a5ee
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Precision.JTriple.curveE_jdbl, ZInQ.Compiler.Precision.JTriple.curveE_jadd, ZInQ.Compiler.Precision.JTriple.jdbl_affine, ZInQ.Compiler.Precision.JTriple.jadd_affine, ZInQ.Compiler.Precision.JTriple.jH_eq_zero_iff, ZInQ.Compiler.Precision.JTriple.jΛ_eq_zero_iff, ZInQ.Compiler.Precision.JTriple.rep_jdblB, ZInQ.Compiler.Precision.JTriple.rep_jaddB
 ---
 
 # Jacobian formulas on the weighted model

@@ -2,6 +2,9 @@
 article_id: af_e11d54d67b0cabb84bc83eca
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Precision.A0_eq_heightH6, ZInQ.Compiler.Precision.max_heightD_heightPrimes, ZInQ.Compiler.Precision.bound_eq_heightH6
 ---
 
 # The precision constant is the six-contact constant

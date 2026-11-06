@@ -2,6 +2,8 @@
 article_id: af_e4f9b68fbf3164e279d44472
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.Precision.decide5
 ---
 
 # The exact decision program

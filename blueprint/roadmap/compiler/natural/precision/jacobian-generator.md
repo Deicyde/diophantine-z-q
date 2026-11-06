@@ -2,6 +2,9 @@
 article_id: af_6a9944f2ba55f0469d6562f5
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Precision.curveE_P0J, ZInQ.Compiler.Precision.P0J_affine, ZInQ.Compiler.Precision.rep_P0J
 ---
 
 # The fixed Jacobian point

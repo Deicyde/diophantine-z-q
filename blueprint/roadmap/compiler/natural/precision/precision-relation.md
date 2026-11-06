@@ -2,6 +2,8 @@
 article_id: af_c2a8f50aff5fefa4d14a7983
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.Precision.accepts, ZInQ.Compiler.Precision.acceptsInt, ZInQ.Compiler.Precision.accepts_iff
 ---
 
 # The precision relation

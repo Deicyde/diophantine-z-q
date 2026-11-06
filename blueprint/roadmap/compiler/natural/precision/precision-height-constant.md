@@ -2,6 +2,8 @@
 article_id: af_8b13d10a8bdd4e11fad94566
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.Precision.Q0, ZInQ.Compiler.Precision.A0, ZInQ.Compiler.Precision.sixF, ZInQ.Compiler.Precision.bound, ZInQ.Compiler.Precision.contacts
 ---
 
 # The precision height constant

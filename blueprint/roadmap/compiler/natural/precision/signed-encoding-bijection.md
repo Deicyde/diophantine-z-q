@@ -2,6 +2,9 @@
 article_id: af_1961627191bb71869253bfda
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Precision.dec_enc, ZInQ.Compiler.Precision.enc_dec, ZInQ.Compiler.Precision.encEquiv
 ---
 
 # The signed encoding is a bijection

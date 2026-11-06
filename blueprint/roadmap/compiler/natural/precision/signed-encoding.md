@@ -2,6 +2,8 @@
 article_id: af_c1cd30b92807dac845926c6f
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.Precision.enc, ZInQ.Compiler.Precision.dec, ZInQ.Compiler.Precision.decode5
 ---
 
 # The signed encoding of integers

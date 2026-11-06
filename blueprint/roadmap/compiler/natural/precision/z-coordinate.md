@@ -2,6 +2,8 @@
 article_id: af_eff2db8faa62e4f285499545
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.Precision.zPt, ZInQ.Compiler.Precision.zPt_ne_zero, ZInQ.Compiler.Precision.Admissible, ZInQ.Compiler.Precision.zIdx, ZInQ.Compiler.Precision.epsIdx, ZInQ.Compiler.Precision.rRatio, ZInQ.Compiler.Precision.rRatio_eq_half_trace
 ---
 
 # The local parameter z on multiples of the generator

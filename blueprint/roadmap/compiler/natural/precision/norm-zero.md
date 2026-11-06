@@ -2,6 +2,9 @@
 article_id: af_4ca91aea1e2ffc6180633888
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Precision.rat_eq_zero_of_sq_sub_two_sq, ZInQ.Compiler.Precision.intNorm_ne_zero
 ---
 
 # Elements of norm zero

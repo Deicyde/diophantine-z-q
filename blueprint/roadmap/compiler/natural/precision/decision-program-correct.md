@@ -2,6 +2,9 @@
 article_id: af_7af9f97e362247eb9960ab20
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Precision.decide5_iff, ZInQ.Compiler.Precision.decideInt_iff
 ---
 
 # Correctness of the decision program

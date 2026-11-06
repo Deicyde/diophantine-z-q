@@ -2,6 +2,9 @@
 article_id: af_07918e9967c49a605a97d420
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Precision.rep_jmul, ZInQ.Compiler.Precision.jmul_eq_some, ZInQ.Compiler.Precision.admissible_iff_jmul
 ---
 
 # Scalar multiplication by halving

@@ -2,6 +2,9 @@
 article_id: af_9b7e4028733f6fe75bad7238
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Precision.NExpr.capped_eq, ZInQ.Compiler.Precision.cappedBound_eq, ZInQ.Compiler.Precision.precision_test_iff
 ---
 
 # The capped precision test

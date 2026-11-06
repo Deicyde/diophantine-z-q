@@ -2,6 +2,9 @@
 article_id: af_f3a2eeb09bb6a83445db18b6
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Precision.admissible_of_ne_zero, ZInQ.Compiler.Precision.accepts_iff_tests
 ---
 
 # Admissibility of nonzero indices
