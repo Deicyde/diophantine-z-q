@@ -6,6 +6,7 @@ import ZInQKernel.Model.Field.CurveC
 import ZInQKernel.Model.Field.Residues
 import ZInQKernel.Model.Field.Euclidean
 import ZInQKernel.Model.Field.Valuation
+import ZInQKernel.Model.Field.Units
 
 /-!
 # The basic objects of the elliptic model
