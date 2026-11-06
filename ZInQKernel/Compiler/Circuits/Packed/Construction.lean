@@ -63,37 +63,40 @@ def registerMasks (K D T F Rj Nj : Ex) : NM (List NForm) :=
 
 /-- Item 5: the sub instructions of `p_i, p_{i+1}, …`, in increasing order. Returns the
 formulas and the branch histories `(i, V_i, W_i)`. -/
-def subBranches (S N : List Ex) : ℕ → List Instr → NM (List NForm × List (ℕ × Ex × Ex))
+def subBranches (zero : Ex) (S N : List Ex) :
+    ℕ → List Instr → NM (List NForm × List (ℕ × Ex × Ex))
   | _, [] => pure ([], [])
   | i, .dec j _ _ :: rest => do
     let V ← fresh
     let W ← fresh
     let fs ← seqM [
-      bitAnd .hierarchical V (S.getD i exZero) (N.getD j exZero),
-      do pure (.eq (S.getD i exZero) (← addL [V, W]))]
-    let rest' ← subBranches S N (i + 1) rest
+      bitAnd .hierarchical V (S.getD i zero) (N.getD j zero),
+      do pure (.eq (S.getD i zero) (← addL [V, W]))]
+    let rest' ← subBranches zero S N (i + 1) rest
     pure (fs ++ rest'.1, (i, V, W) :: rest'.2)
-  | i, _ :: rest => subBranches S N (i + 1) rest
+  | i, _ :: rest => subBranches zero S N (i + 1) rest
 
 /-- The branch histories `(V_i, W_i)` of instruction `i`. -/
-def lookupVW (vw : List (ℕ × Ex × Ex)) (i : ℕ) : Ex × Ex :=
-  ((vw.find? fun e => e.1 == i).map (·.2)).getD (exZero, exZero)
+def lookupVW (zero : Ex) (vw : List (ℕ × Ex × Ex)) (i : ℕ) : Ex × Ex :=
+  ((vw.find? fun e => e.1 == i).map (·.2)).getD (zero, zero)
 
 /-- The summands of `A_j`: the `S_i` with `p_i = inc(j, ·)`, in program order. -/
-def incHandles (p : Program) (S : List Ex) (j : ℕ) : List Ex :=
-  ((List.range p.length).filter fun i => decide (incOn p j i)).map fun i => S.getD i exZero
+def incHandles (p : Program) (zero : Ex) (S : List Ex) (j : ℕ) : List Ex :=
+  ((List.range p.length).filter fun i => decide (incOn p j i)).map fun i => S.getD i zero
 
 /-- The summands of `C_j`: the `V_i` with `p_i = dec(j, ·, ·)`, in program order. -/
-def decHandles (p : Program) (vw : List (ℕ × Ex × Ex)) (j : ℕ) : List Ex :=
-  ((List.range p.length).filter fun i => decide (decOn p j i)).map fun i => (lookupVW vw i).1
+def decHandles (p : Program) (zero : Ex) (vw : List (ℕ × Ex × Ex)) (j : ℕ) : List Ex :=
+  ((List.range p.length).filter fun i => decide (decOn p j i)).map fun i =>
+    (lookupVW zero vw i).1
 
 /-- The summands of `I_i`, in program order: `S_{i'}` for `p_{i'} = inc(·, i)`, `V_{i'}` for
 `p_{i'} = dec(·, i, ·)` and `W_{i'}` for `p_{i'} = dec(·, ·, i)`. -/
-def inHandles (p : Program) (S : List Ex) (vw : List (ℕ × Ex × Ex)) (i : ℕ) : List Ex :=
+def inHandles (p : Program) (zero : Ex) (S : List Ex) (vw : List (ℕ × Ex × Ex)) (i : ℕ) :
+    List Ex :=
   (List.range p.length).flatMap fun i' =>
-    (if incTo p i' i then [S.getD i' exZero] else []) ++
-      (if nzTo p i' i then [(lookupVW vw i').1] else []) ++
-      (if zTo p i' i then [(lookupVW vw i').2] else [])
+    (if incTo p i' i then [S.getD i' zero] else []) ++
+      (if nzTo p i' i then [(lookupVW zero vw i').1] else []) ++
+      (if zTo p i' i then [(lookupVW zero vw i').2] else [])
 
 /-- Item 6 for one register: `R_j + B C_j ≐ ι_j + B R_j + B A_j`. -/
 def registerEq (B Rj ιj : Ex) (decs incs : List Ex) : NM NForm := do
@@ -122,41 +125,42 @@ def items1 (p : Program) (a : List Ex) (zero q c K B T : Ex) : NM (List NForm) :
     power .hierarchical T B q] ++ a.map fun ai => lt ai K)
 
 /-- Item 2. -/
-def items2 (one K B T F D : Ex) (S : List Ex) : NM (List NForm) :=
+def items2 (zero one K B T F D : Ex) (S : List Ex) : NM (List NForm) :=
   seqM [
     do pure (.eq (← addL [← mulL [B, F], one]) (← addL [F, ← mulL [B, T]])),
     do pure (.eq (← addL [D, F]) (← mulL [K, F])),
     do pure (.eq (← addL S) F),
-    pure (.eq (S.getLastD exZero) T)]
+    pure (.eq (S.getLastD zero) T)]
 
 /-- Item 3. -/
 def items3 (F : Ex) (S : List Ex) : NM (List NForm) := seqM (S.map fun x => mask .hierarchical x F)
 
 /-- Item 4. -/
-def items4 (r : ℕ) (K D T F : Ex) (R N : List Ex) : NM (List NForm) :=
+def items4 (r : ℕ) (zero K D T F : Ex) (R N : List Ex) : NM (List NForm) :=
   seqConcat ((List.range r).map fun j =>
-    registerMasks K D T F (R.getD j exZero) (N.getD j exZero))
+    registerMasks K D T F (R.getD j zero) (N.getD j zero))
 
 /-- Item 6. -/
 def items6 (p : Program) (r : ℕ) (a : List Ex) (zero B : Ex) (R S : List Ex)
     (vw : List (ℕ × Ex × Ex)) : NM (List NForm) :=
   seqM ((List.range r).map fun j =>
-    registerEq B (R.getD j exZero) (a.getD j zero) (decHandles p vw j) (incHandles p S j))
+    registerEq B (R.getD j zero) (a.getD j zero) (decHandles p zero vw j)
+      (incHandles p zero S j))
 
 /-- Item 7. -/
 def items7 (p : Program) (zero one B : Ex) (S : List Ex) (vw : List (ℕ × Ex × Ex)) :
     NM (List NForm) :=
   seqM ((List.range p.length).map fun i =>
-    stateEq B (S.getD i exZero) (if i = 0 then one else zero) (inHandles p S vw i))
+    stateEq B (S.getD i zero) (if i = 0 then one else zero) (inHandles p zero S vw i))
 
 /-- Items 1–7, in order, after the fresh variables `q, …, D, R, N, S`. -/
 def packedFormulas (p : Program) (r : ℕ) (a : List Ex) (zero one q c K B T F D : Ex)
     (R N S : List Ex) : NM (List NForm) :=
   appendM (items1 p a zero q c K B T) <|
-  appendM (items2 one K B T F D S) <|
+  appendM (items2 zero one K B T F D S) <|
   appendM (items3 F S) <|
-  appendM (items4 r K D T F R N) do
-    let sb ← subBranches S N 0 p
+  appendM (items4 r zero K D T F R N) do
+    let sb ← subBranches zero S N 0 p
     appendM (pure sb.1) <|
     appendM (items6 p r a zero B R S sb.2) (items7 p zero one B S sb.2)
 

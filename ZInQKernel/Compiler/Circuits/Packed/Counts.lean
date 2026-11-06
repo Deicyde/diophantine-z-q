@@ -69,18 +69,18 @@ theorem counts_registerEq (B Rj ιj : Ex) (decs incs : List Ex) :
 theorem counts_stateEq (B Si e : Ex) (ins : List Ex) : Counts (stateEq B Si e ins) 0 0 [] := by
   counts_of stateEq
 
-theorem counts_subBranches (S N : List Ex) (i : ℕ) (p : Program) :
-    Counts (subBranches S N i p) (31 * p.subCount) (9 * p.subCount)
+theorem counts_subBranches (zero : Ex) (S N : List Ex) (i : ℕ) (p : Program) :
+    Counts (subBranches zero S N i p) (31 * p.subCount) (9 * p.subCount)
       (List.replicate p.subCount bitAndLog).flatten := by
   induction p generalizing i with
   | nil => exact Counts.pure _
   | cons ins rest ih =>
     cases ins with
     | dec j x y =>
-      have hfs : ∀ V W : Ex, Counts (seqM [bitAnd .hierarchical V (S.getD i exZero) (N.getD j exZero),
-          do pure (.eq (S.getD i exZero) (← addL [V, W]))]) 29 9 bitAndLog := fun V W =>
+      have hfs : ∀ V W : Ex, Counts (seqM [bitAnd .hierarchical V (S.getD i zero) (N.getD j zero),
+          do pure (.eq (S.getD i zero) (← addL [V, W]))]) 29 9 bitAndLog := fun V W =>
         (Counts.seqM_cons (Counts.bitAnd V _ _) (Counts.seqM_cons ((Counts.addL [V, W]).bind
-          fun e => Counts.pure (NForm.eq (S.getD i exZero) e)) Counts.seqM_nil)).congr rfl rfl
+          fun e => Counts.pure (NForm.eq (S.getD i zero) e)) Counts.seqM_nil)).congr rfl rfl
           (by simp)
       have h := Counts.fresh.bind fun V => Counts.fresh.bind fun W =>
         (hfs V W).bind fun fs => (ih (i + 1)).bind fun rest' =>
@@ -130,19 +130,19 @@ theorem counts_items1 (p : Program) (a : List Ex) (zero q c K B T : Ex) :
   exact (counts_seqM_append _ _ h1 (Counts.seqM_map a (fun ai => lt ai K) fun ai =>
     Counts.lt ai K)).congr (by ring) rfl rfl
 
-theorem counts_items2 (one K B T F D : Ex) (S : List Ex) :
-    Counts (items2 one K B T F D S) 0 0 [] := by
+theorem counts_items2 (zero one K B T F D : Ex) (S : List Ex) :
+    Counts (items2 zero one K B T F D S) 0 0 [] := by
   counts_of items2
 
 theorem counts_items3 (F : Ex) (S : List Ex) :
     Counts (items3 F S) (S.length * 9) (S.length * 3) (List.replicate S.length maskLog).flatten :=
   Counts.seqM_map S _ fun x => Counts.mask x F
 
-theorem counts_items4 (r : ℕ) (K D T F : Ex) (R N : List Ex) :
-    Counts (items4 r K D T F R N) (r * 39) (r * 12)
+theorem counts_items4 (r : ℕ) (zero K D T F : Ex) (R N : List Ex) :
+    Counts (items4 r zero K D T F R N) (r * 39) (r * 12)
       (List.replicate r (maskLog ++ [.lt] ++ bitAndLog)).flatten := by
   have := counts_seqConcat_map (List.range r) _ fun j =>
-    counts_registerMasks K D T F (R.getD j exZero) (N.getD j exZero)
+    counts_registerMasks K D T F (R.getD j zero) (N.getD j zero)
   rw [List.length_range] at this
   exact this
 
@@ -168,10 +168,10 @@ theorem counts_packedFormulas (p : Program) (r : ℕ) (a : List Ex) (zero one q 
       (items6 p r a zero B R S sb.2) (items7 p zero one B S sb.2))) 0 0 [] := fun sb =>
     (counts_appendM (Counts.pure sb.1) (counts_appendM (counts_items6 _ _ _ _ _ _ _ _)
       (counts_items7 _ _ _ _ _ _))).congr rfl rfl rfl
-  have h5 := (counts_subBranches S N 0 p).bind hsb
+  have h5 := (counts_subBranches zero S N 0 p).bind hsb
   have := counts_appendM (counts_items1 p a zero q c K B T) (counts_appendM
-    (counts_items2 one K B T F D S) (counts_appendM (counts_items3 F S)
-      (counts_appendM (counts_items4 r K D T F R N) h5)))
+    (counts_items2 zero one K B T F D S) (counts_appendM (counts_items3 F S)
+      (counts_appendM (counts_items4 r zero K D T F R N) h5)))
   rw [hS] at this
   refine this.congr (by ring) (by ring) (by simp)
 
