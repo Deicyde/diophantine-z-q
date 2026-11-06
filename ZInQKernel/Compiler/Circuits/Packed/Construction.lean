@@ -35,9 +35,6 @@ namespace ZInQ.Compiler.Packed
 
 open Natural RM Syntax MvPolynomial
 
-/-- A default expression for missing list entries. -/
-def exZero : Ex := ⟨0, 0⟩
-
 /-- `n` fresh variables, in order. -/
 def freshN : ℕ → NM (List Ex)
   | 0 => pure []
