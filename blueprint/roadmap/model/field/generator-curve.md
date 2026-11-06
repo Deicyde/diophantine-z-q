@@ -2,6 +2,8 @@
 article_id: af_86ee84f1f3a5c8277b1c5ff7
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.genCurve, ZInQ.genCurve_two_torsion
 ---
 
 # The generator curve $E$
@@ -23,6 +25,10 @@ $x_3=\lambda^2-x_1-x_2$ and $y_3=\lambda(x_1-x_3)-y_1$; and $(x,y)+(x,-y)=O$.
 ## Depends on
 
 - [The field $K_0=\mathbb Q(\sqrt2)$](quadratic-field.md)
+
+## Proof depends on
+
+- [Explicit identities in $K_0$](explicit-identities.md)
 
 ## Sources
 

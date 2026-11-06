@@ -32,6 +32,7 @@ inequalities.
 - [Archimedean bounds for the duplication forms](duplication-archimedean.md)
 - [The common divisor of the duplication forms](duplication-common-divisor.md)
 - [The height of a fraction in $\mathbb Z[\sqrt2]$](x-height-formula.md)
+- [Explicit identities in $K_0$](../field/explicit-identities.md)
 
 ## Sources
 

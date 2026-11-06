@@ -2,6 +2,9 @@
 article_id: af_9eceba7b573f0f61e2a43c75
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.exists_mul_eq_one_iff, ZInQ.Syntax.exists_mul_pairNorm_eq_one_iff
 ---
 
 # Inverse witnesses

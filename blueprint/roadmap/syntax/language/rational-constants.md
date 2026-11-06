@@ -2,6 +2,9 @@
 article_id: af_6be0e41450e8ab551da48152
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.ev_globals_eq_zero_iff, ZInQ.Syntax.generator_values
 ---
 
 # Rational constants by global equations

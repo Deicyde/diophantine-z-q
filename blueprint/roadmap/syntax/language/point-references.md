@@ -2,6 +2,8 @@
 article_id: af_98571fa7c1951b6d39aa53da
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.pointRef, ZInQ.Syntax.generatorConstraints
 ---
 
 # Point references

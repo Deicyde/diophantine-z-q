@@ -2,6 +2,8 @@
 article_id: af_5b8f9b0bc47edf814405a99e
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.pointCode, ZInQ.iota
 ---
 
 # Point codes

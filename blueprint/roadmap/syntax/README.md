@@ -84,16 +84,16 @@ $P_*$ is the polynomial of the root recipe `integers`.
 | raw_z | 7 | 1 | multiplication chapter (Section 6) |
 | raw_inverse_x | 7 | 0 | multiplication chapter (Section 6) |
 | log25 | 4 | 0 | multiplication chapter (Section 6) |
-| pole | 1 | 11 | this chapter (equals $Q_{\rm pole}^2$); pole obstruction and pole completeness |
+| pole | 1 | 11 | this chapter (pole-template semantics: the relation is $\Phi$); used with pole completeness |
 | test_group | 44 | 162 | multiplication chapter (Section 6) |
 | slope | 22 | 1,298 | multiplication chapter (Section 6) |
 | height_certificate | 36 | 35,106 | multiplication chapter (Section 6) |
 | multiply.scalar | 10 | 1 | this chapter (fixed-scalar semantics) |
 | multiply.guard | 15 | 1 | this chapter (guard semantics) |
 | multiply | 15 | 35,134 | multiplication chapter, input M |
-| natural | 5 | 140,604 | Section 3.1, from M and raw addition |
+| natural | 5 | 140,604 | this chapter (natural-code semantics, Section 3.1), from M and raw addition |
 | value.signed_encode | 10 | 140,654 | assembly chapter (Sections 10-11) |
-| value.abs | 2 | 4 | this chapter (absolute value by four squares) |
+| value.abs | 2 | 4 | this chapter (absolute value by four squares, template corollary) |
 | value.close_coordinates | 16 | 53 | assembly chapter (Section 11) |
 | value.test | 11 | 35,282 | assembly chapter (Section 11) |
 | value.exceptions | 6 | 406 | assembly chapter (Section 11) |

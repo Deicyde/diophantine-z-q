@@ -9,6 +9,12 @@ arithmetic and the inverse witnesses are set up in the specification chapter
 
 - [The field $K_0=\mathbb Q(\sqrt2)$](quadratic-field.md)
 
+The handful of explicit identities and sign facts used throughout (the square of $d$, powers of
+$\epsilon=1+s$, $\delta=\epsilon^4d$, norms, total positivity of $d$ and $\delta$) are collected in one
+closed statement.
+
+- [Explicit identities in $K_0$](explicit-identities.md)
+
 The curve is $E:y^2=x^3-d^2x$ with $d=75-53s$, and the base point is $P_0$; that its
 coordinates satisfy the curve equation is a closed identity in $K_0$.
 
@@ -31,8 +37,13 @@ their classical multiplication formulas as a proposition
 derives from it the semantics of the fixed-scalar templates
 ([fixed-scalar semantics](../../syntax/fixed-scalar-semantics.md)). Here the proposition is
 proved as a background theorem, and it gives the fixed point codes $\iota(n)$. The recursion is
-only ever used symbolically.
+only ever used symbolically. The proof goes through Jacobian coordinates: the division
+polynomials satisfy the elliptic-sequence law, which yields exact doubling and adding identities
+for the triples $(\phi_n,\omega_n,\psi_n)$, and an induction on $n$ shows that these triples
+represent the multiples $[n]P$.
 
+- [Division polynomials form an elliptic sequence](division-polynomial-elliptic-sequence.md)
+- [Doubling and adding division-polynomial triples](division-polynomial-jacobian.md)
 - [Division polynomials compute multiples](division-polynomial-multiples.md)
 - [Fixed point codes by division polynomials](fixed-point-codes.md)
 

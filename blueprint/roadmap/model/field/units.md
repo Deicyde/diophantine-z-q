@@ -2,6 +2,9 @@
 article_id: af_edfe8c6e5dd37a3a609f8e6f
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Zs_unit_sqClass, ZInQ.isSquare_of_totallyPositive_unit
 ---
 
 # Units of $\mathbb Z[\sqrt2]$
@@ -26,6 +29,10 @@ distinct. (3) A totally positive unit has sign vector $(+,+)$, so lies in the cl
 ## Depends on
 
 - [The field $K_0=\mathbb Q(\sqrt2)$](quadratic-field.md)
+
+## Proof depends on
+
+- [Explicit identities in $K_0$](explicit-identities.md)
 
 ## Sources
 

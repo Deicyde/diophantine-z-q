@@ -2,6 +2,9 @@
 article_id: af_ce847f5a046049a9c3c7a217
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.pointRef_eval_generator, ZInQ.Syntax.generatorConstraints_eq_zero_iff
 ---
 
 # Values of the point references

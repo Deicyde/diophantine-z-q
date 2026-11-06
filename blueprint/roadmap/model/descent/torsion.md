@@ -11,6 +11,9 @@ torsion subgroup of $E(K_0)$ is $E(K_0)[2]$, of order $4$ and isomorphic to
 $(\mathbb Z/2\mathbb Z)^2$. The same holds for $C(K_0)$, whose torsion subgroup is
 $C(K_0)[2]=\{O,(0,0),(\delta,0),(-\delta,0)\}$.
 
+In particular $P_0$ has infinite order, since its ordinate is nonzero, so $P_0\notin E(K_0)[2]$.
+This part of Proposition 3.1 does not use the Mordell-Weil hypothesis.
+
 **Proof sketch.** Apply reduction with $(p,r,A)=(17,6,-d^2)$ and $(23,5,-d^2)$; by the point
 counts both reductions are good, with $20$ and $24$ points. Let $T$ have finite order $n$.
 If $17\mid n$, then $[n/17]T$ has order $17$, prime to $23$, so it injects into a group of
@@ -20,16 +23,19 @@ subgroup $\langle T\rangle+E(K_0)[2]$ has order $8$ (it contains the four two-to
 and $T\notin E(K_0)[2]$, while $[2]T\in E(K_0)[2]$); its order $8$ is prime to $17$, so it
 injects into a group of order $20$, which is impossible since $8\nmid20$. Hence
 $n\mid2$ and $T\in E(K_0)[2]$. The statement for $C$ follows through the isomorphism $\theta$.
+Finally $y(P_0)\ne0$, while every point of $E(K_0)[2]$ is $O$ or has ordinate $0$.
 
 ## Depends on
 
 - [The generator curve $E$](../field/generator-curve.md)
 - [The change of variables to $C$](coordinate-change.md)
+- [The point $P_0$](../field/generator-point.md)
 
 ## Proof depends on
 
 - [Reduction is injective on prime-to-$p$ torsion](reduction-torsion.md)
 - [Point counts at $(17,s-6)$ and $(23,s-5)$](reduction-point-counts.md)
+- [The coordinates of $P_0$ satisfy the curve equation](../field/generator-point-equation.md)
 
 ## Sources
 

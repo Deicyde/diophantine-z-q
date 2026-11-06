@@ -27,8 +27,9 @@ counter starting at $p$:
    unless it is an input and inputs are unconstrained, a natural block of $140604$ variables
    is taken; the row records the reference and the natural start (or none);
 3. each node $j$ in order gets a point reference $\mathrm{pt}(j)$: $\mathrm{var}\ i$ the reference of $i$;
-   $\mathrm{const}\ 0$, $1$, $-1$ the references $-1$, $-2$, $-3$; any other constant $c$, at
-   its first occurrence in this circuit, a fresh point followed by a block of $1$, recording
+   $\mathrm{const}\ 0$, $1$, $-1$ the references $-1$, $-2$, $-3$; any other constant $c$ (the
+   translation is defined only when every such constant is an integer $c\ge2$, which holds
+   for both circuits translated here), at its first occurrence in this circuit, a fresh point followed by a block of $1$, recording
    the constant definition $(S_{\mathrm{integer\_constant}_h},\text{point},\text{start})$ where
    $\mathrm{integer\_constant}_h=c$ (a new index $h$ is created when $c$ has not occurred in
    any earlier translation), and later occurrences reuse that point; $\mathrm{add}\ j_1\ j_2$ and

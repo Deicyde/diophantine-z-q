@@ -1,7 +1,9 @@
 ---
 article_id: af_65f8beac284f0f8c7cd045d4
-declaration: theorem
+declaration: instance
 origin: cited
+statement: formalized
+lean: ZInQ.Zs.isPrincipalIdealRing, ZInQ.Zs.uniqueFactorizationMonoid
 ---
 
 # $\mathbb Z[\sqrt2]$ is a principal ideal domain

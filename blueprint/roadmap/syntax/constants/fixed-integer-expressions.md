@@ -19,7 +19,8 @@ A fixed integer expression is built from
 Its value $\mathrm{val}(e)\in\mathbb Z$ is defined recursively: literals are themselves, a
 reference is the value of the named constant, $\mathrm{add}$ and $\mathrm{mul}$ are $+$ and
 $\times$, $\mathrm{pow}(e_1,e_2)=\mathrm{val}(e_1)^{\mathrm{val}(e_2)}$ (the specification uses only
-nonnegative exponents; a negative exponent is read as $0$), $\max$ is the maximum,
+nonnegative exponents; to make the definition total a negative exponent is replaced by
+$0$, so the power is then $1$), $\max$ is the maximum,
 $\mathrm{factorial}(e)=\mathrm{val}(e)!$ (with $n!=1$ for $n\le0$), the catalogue operators
 are the catalogue product and maximum of the prime catalogue with modulus
 $\mathrm{val}(e_W)$, count $\mathrm{val}(e_k)$ and floor $\mathrm{val}(e_B)$, and

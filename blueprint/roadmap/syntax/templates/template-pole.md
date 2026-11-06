@@ -14,8 +14,9 @@ $$T_1=A(A-e)(A+3e),\qquad T_2=A(Az^2-eH)(Az^2+3eH),$$
 $$S=\sum_{i=0}^5(b_i^2-b_i)^2+(eHzw-1)^2+(r_1^2-T_1)^2+(r_2^2-T_2)^2,$$
 its formula is the atom $B\,S\doteq0$ and its polynomial is
 $$[\![\mathtt{pole}]\!]=(B\,S)^2=Q_{\rm pole}^2 ,$$
-where $Q_{\rm pole}=BS$ is the pole polynomial of the pole completeness statement. Hence
-$\mathrm{Rel}_{\mathtt{pole}}(B)$ is exactly $\Phi(B)$.
+where $Q_{\rm pole}=BS$ is the pole polynomial of the pole completeness statement, with the
+witnesses in the same order. Its relation is therefore $\Phi(B)$, as stated in the pole-template
+semantics.
 
 This is a definition (template index $5$).
 

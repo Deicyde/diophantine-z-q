@@ -31,6 +31,7 @@ $|\operatorname N(s)|=2$, $|\operatorname N(\delta)|=7$ and $2^6\cdot7^4=153664=
 
 - [The primes $(s)$ and $(d)$ of $\mathbb Z[\sqrt2]$](../field/special-primes.md)
 - [A dyadic valuation computation](../field/dyadic-valuation.md)
+- [Explicit identities in $K_0$](../field/explicit-identities.md)
 
 ## Sources
 

@@ -26,6 +26,7 @@ $m$ is odd.
 
 - [The Kummer map is a homomorphism](kummer-homomorphism.md)
 - [The primes $(s)$ and $(d)$ of $\mathbb Z[\sqrt2]$](../field/special-primes.md)
+- [Explicit identities in $K_0$](../field/explicit-identities.md)
 
 ## Sources
 

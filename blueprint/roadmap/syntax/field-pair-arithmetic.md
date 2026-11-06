@@ -2,6 +2,9 @@
 article_id: af_abec611ca4524381111e7b1a
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.Pair.val, ZInQ.Syntax.holds_feq, ZInQ.Syntax.holds_curve
 ---
 
 # Pair arithmetic represents the quadratic field

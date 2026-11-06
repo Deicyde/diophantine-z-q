@@ -14,8 +14,8 @@ $$\varphi_{\rm member}=\bigvee\Bigl(\mathrm{isO}(p),\ \bigwedge\bigl(\mathrm{fin
 N(Y)\,u\doteq1,\ (2Y)\cdot H\doteq3X^2+A,\ x(p)\doteq x_P,\ y(p)\doteq y_P\bigr)\Bigr),$$
 and, having no rational constants, its polynomial is $[\![\mathtt{member}]\!]=\kappa(\varphi_{\rm member})^2$.
 
-Since $A=-d^2$, the branch says: $(X,Y)\in E(K_0)$ with $Y\ne0$, $H$ is the tangent slope
-at $(X,Y)$, and $p$ is the code of $2(X,Y)$. That $\mathrm{Rel}_{\mathtt{member}}(p)$ holds
+The second branch says: $(X,Y)\in E(K_0)$ with $Y\ne0$, $H$ is the tangent slope at $(X,Y)$,
+and $p$ is the code of the affine point $2(X,Y)$. That $\mathrm{Rel}_{\mathtt{member}}(p)$ holds
 exactly for the codes of points of $2E(K_0)$ is the membership statement of the model
 chapter.
 

@@ -18,11 +18,15 @@ template. Then:
    nodes, each calling $\mathcal P$ on three earlier nodes with a private block of $79$
    variables, these blocks being pairwise disjoint and disjoint from the explicit variables;
 3. the constants of $\mathcal N$ other than $0,1,-1$ are, in order of first occurrence,
-   $c_3,2,4,1399$, where $c_3$ has $3181317$ decimal digits; in particular these four values
-   are distinct.
+   $c_3,2,4,1399$, where $c_3$ is the program literal of the compiler chapter; in particular these four values
+   are distinct, and $c_3\notin\{2,3,4\}$, so the distinct nontrivial constants of $\mathcal P$ and
+   then $\mathcal N$, in order of first occurrence, are $4,2,3,c_3,1399$ (it suffices that
+   $c_3>1399$).
 
 Each item is a closed decidable statement about the explicit circuit: count the nodes of
-each kind, list the constants in node order, and compare them.
+each kind, list the constants in node order, and compare them. For orientation, $c_3$ has
+$3{,}181{,}317$ decimal digits; that count is not part of the statement, and no part of the
+statement requires expanding $c_3$ beyond comparing it with small integers.
 
 ## Depends on
 

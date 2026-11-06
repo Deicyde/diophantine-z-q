@@ -29,6 +29,10 @@ on $E$ and $-\delta^2$ on $C$, both equal to $-1$ modulo squares.
 - [The generator curve $E$](../field/generator-curve.md)
 - [Two-isogenies and the Kummer map](kummer-map.md)
 
+## Proof depends on
+
+- [Explicit identities in $K_0$](../field/explicit-identities.md)
+
 ## Sources
 
 - [First descent image](../../../sources/model-locators.md#first-descent-image)

@@ -2,6 +2,9 @@
 article_id: af_960e0383740cd6108b391665
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.vS_sq_add_one, ZInQ.val_s_sq_add_delta_sq
 ---
 
 # A dyadic valuation computation

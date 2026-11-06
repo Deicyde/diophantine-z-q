@@ -28,6 +28,41 @@ noncomputable def contactSupport (S : Finset ℕ) (u : ℚ) : ℕ :=
       p ∉ S ∧ ∃ c ∈ contactSet, 0 < padicValRat p (u - c) ∧ Odd (padicValRat p (u - c)),
     p
 
+/-- A positive `p`-adic valuation of a rational number comes from its numerator. -/
+theorem dvd_num_natAbs_of_padicValRat_pos {p : ℕ} {q : ℚ} (h : 0 < padicValRat p q) :
+    p ∣ q.num.natAbs := by
+  rw [padicValRat_def] at h
+  have h1 : padicValInt p q.num ≠ 0 := by omega
+  exact padicValNat.dvd_of_ne_zero h1
+
+/-- `contactSupport S u` is the manuscript's `M_S(u)`: a product of distinct primes, and a
+prime divides it exactly when it lies outside `S` and has positive odd valuation in some
+`u - c`. -/
+theorem prime_dvd_contactSupport_iff {S : Finset ℕ} {u : ℚ} (hu : u ∉ contactSet) {p : ℕ}
+    (hp : p.Prime) :
+    p ∣ contactSupport S u ↔
+      p ∉ S ∧ ∃ c ∈ contactSet, 0 < padicValRat p (u - c) ∧ Odd (padicValRat p (u - c)) := by
+  classical
+  have hn : (∏ c ∈ contactSet, (u - c).num.natAbs) ≠ 0 := by
+    rw [Finset.prod_ne_zero_iff]
+    intro c hc
+    rw [Int.natAbs_ne_zero, Rat.num_ne_zero, sub_ne_zero]
+    rintro rfl
+    exact hu hc
+  unfold contactSupport
+  rw [Prime.dvd_finsetProd_iff hp.prime]
+  constructor
+  · rintro ⟨a, ha, hpa⟩
+    rw [Finset.mem_filter] at ha
+    rw [Nat.prime_dvd_prime_iff_eq hp (Nat.prime_of_mem_primeFactors ha.1)] at hpa
+    subst hpa
+    convert ha.2 using 0
+  · rintro ⟨hS, c, hc, hpos, hodd⟩
+    refine ⟨p, ?_, dvd_rfl⟩
+    rw [Finset.mem_filter, Nat.mem_primeFactors]
+    exact ⟨⟨hp, (dvd_num_natAbs_of_padicValRat_pos hpos).trans (Finset.dvd_prod_of_mem _ hc), hn⟩,
+      hS, c, hc, hpos, hodd⟩
+
 /-- `F₀ = 324!`. -/
 noncomputable def heightF0 : ℕ := Nat.factorial 324
 
