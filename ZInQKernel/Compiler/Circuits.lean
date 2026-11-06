@@ -5,6 +5,8 @@ import ZInQKernel.Compiler.Circuits.Compilation
 import ZInQKernel.Compiler.Circuits.MacroSemantics
 import ZInQKernel.Compiler.Circuits.Circuit
 import ZInQKernel.Compiler.Circuits.Builder
+import ZInQKernel.Compiler.Circuits.PowerTemplate
+import ZInQKernel.Compiler.Circuits.PowerTemplateNodes
 import ZInQKernel.Compiler.Circuits.Packed.Digits
 import ZInQKernel.Compiler.Circuits.Packed.Masks
 import ZInQKernel.Compiler.Circuits.Packed.StateSelection

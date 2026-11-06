@@ -90,26 +90,6 @@ theorem counts_subBranches (S N : List Ex) (i : ℕ) (p : Program) :
     | halt =>
       simpa [subBranches, Program.subCount, List.countP_cons, Instr.isDec] using ih (i + 1)
 
-mutual
-
-theorem counts_encode (τ : Syntax.ExPoly) : ∀ φ : NForm, Counts (φ.encode τ) 0 0 []
-  | .eq a b => (Counts.scale (-1) b).bind fun c => Counts.addL [a, c]
-  | .atom f => Counts.pure f
-  | .call P Q R w j => Counts.pure _
-  | .and fs => by
-    have hsq : ∀ es : List Ex, Counts (seqM (es.map Natural.square) >>= Natural.addL) 0 0 [] :=
-      fun es => ((Counts.seqM_map es Natural.square fun x => Counts.square x).bind fun sq =>
-        Counts.addL sq).congr (by simp) (by simp) (by simp)
-    exact (counts_encodeList τ fs).bind hsq
-  | .or fs => (counts_encodeList τ fs).bind fun es => Counts.mulL es
-
-theorem counts_encodeList (τ : Syntax.ExPoly) : ∀ fs : List NForm,
-    Counts (NForm.encodeList τ fs) 0 0 []
-  | [] => Counts.pure _
-  | f :: fs => (counts_encode τ f).bind fun e =>
-      (counts_encodeList τ fs).bind fun es => Counts.pure (e :: es)
-
-end
 
 theorem Counts.bind'_eq {α β : Type} {m : NM α} {f : α → NM β} {v₁ b₁ v₂ b₂ v b : ℕ}
     {L₁ L₂ L : List MacroKind} {P : α → Prop} (hf : ∀ a, P a → Counts (f a) v₂ b₂ L₂)
