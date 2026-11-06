@@ -32,7 +32,9 @@ given the multiplication statement, its relation holds exactly on the codes of n
 
 - [The multiplication template](template-multiply.md)
 - [The natural-code template](template-natural.md)
-- [Semantics of the natural-code template](natural-semantics.md)
+
+Its semantics, the natural-code predicate, is proved in the translation chapter:
+[the natural-code predicate](../../compiler/translation/natural-code-semantics.md).
 
 The value templates encode signed indices, absolute values, the coordinate window, the six
 raw tests with the pole predicate, and the six exceptional values.

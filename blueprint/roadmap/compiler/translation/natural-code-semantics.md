@@ -27,7 +27,8 @@ $$\mathrm{Rel}_{\mathtt{multiply}}(\sigma_i,\sigma_i,\Sigma_i)\ (i=0,\dots,3),\q
 
 ($\Rightarrow$) By M, $\sigma_i=\iota(a_i)=\iota(b_i)$ and $\Sigma_i=\iota(a_ib_i)$ for integers
 $a_i,b_i$. Since $\iota$ is injective (generator certificate), $a_i=b_i$ and
-$\Sigma_i=\iota(a_i^2)$. The three raw additions now have canonical inputs, so by the
+$\Sigma_i=\iota(a_i^2)$. (Injectivity can be avoided: codes are injective on points, so
+$[a_i]P_0=[b_i]P_0$ and $[a_ib_i]P_0=[a_i]([b_i]P_0)=[a_i]([a_i]P_0)=[a_i^2]P_0$.) The three raw additions now have canonical inputs, so by the
 raw-addition contract $\pi_1=\iota(a_0^2+a_1^2)$, $\pi_2=\iota(a_0^2+a_1^2+a_2^2)$ and
 $A=\iota(a_0^2+a_1^2+a_2^2+a_3^2)$, and $n=\sum_ia_i^2\in\mathbb N$.
 
