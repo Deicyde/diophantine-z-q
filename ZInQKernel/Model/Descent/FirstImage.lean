@@ -213,6 +213,12 @@ theorem kummer_theta_symm_pointR : kummer (-genD ^ 2) (theta.symm pointR) = sqc 
   refine (congrArg (kummer (-genD ^ 2)) e).trans ((kummer_some_of_ne (-genD ^ 2) _ hx0).trans ?_)
   rw [hx, sqc_mul_sq _ (pow_ne_zero _ (inv_ne_zero epsilon_ne_zero))]
 
+/-- The Kummer clause of `model/descent/coordinate-change.md`:
+`α_{-δ²}(θ(P)) = α_{-d²}(P)`. -/
+theorem kummer_theta (P : genCurve.toAffine.Point) :
+    kummer (-delta ^ 2) (theta P) = kummer (-genD ^ 2) P :=
+  kummer_scaleEquiv (A := -genD ^ 2) (B := -delta ^ 2) epsilon_sq_ne_zero neg_delta_sq_eq P
+
 /-- Even valuations of abscissas on `E` away from `d`. -/
 theorem even_vp_x_E {x y : K0} (hx : x ≠ 0) (h : y ^ 2 = x ^ 3 + -genD ^ 2 * x) {π : Zs}
     (hπ : Prime π) (hπd : ¬Associated π genDZ) : Even (vp π x) := by

@@ -582,6 +582,28 @@ theorem rescale_phi_phi (hb' : b' = -4 * b) (hb'' : b'' = -4 * b')
 
 end Rescale
 
+/-! ### Kummer maps and scalings -/
+
+section Scale
+
+variable [DecidableEq K] {A B u : K} [(shortCurve A).IsElliptic] [(shortCurve B).IsElliptic]
+
+/-- The scaling `(x, y) ↦ (u² x, u³ y)`, `B = u⁴ A`, preserves the Kummer map: abscissas are
+multiplied by a square and `B ≡ A` modulo squares. -/
+theorem kummer_scaleEquiv (hu : u ≠ 0) (hB : B = u ^ 4 * A) (P : (shortCurve A).toAffine.Point) :
+    kummer B (scaleEquiv hu hB P) = kummer A P := by
+  rcases P with _ | ⟨x, y, h⟩
+  · rfl
+  rw [scaleEquiv_some]
+  by_cases hx : x = 0
+  · subst hx
+    simp only [kummer_some, mul_zero, ↓reduceIte]
+    rw [hB, show u ^ 4 * A = A * (u ^ 2) ^ 2 by ring, sqc_mul_sq _ (pow_ne_zero 2 hu)]
+  · have : u ^ 2 * x ≠ 0 := mul_ne_zero (pow_ne_zero 2 hu) hx
+    rw [kummer_some_of_ne _ _ this, kummer_some_of_ne _ _ hx, mul_comm, sqc_mul_sq _ hu]
+
+end Scale
+
 end Descent
 
 end ZInQ
