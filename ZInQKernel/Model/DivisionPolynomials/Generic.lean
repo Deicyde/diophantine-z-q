@@ -97,16 +97,19 @@ lemma eq_of_map_eq {R S : Type*} [CommRing R] [CommRing S] {f : R →+* S}
     (hf : Function.Injective f) {P Q : Fin 3 → R} (h : f ∘ P = f ∘ Q) : P = Q :=
   funext fun i => hf (congrFun h i)
 
+omit [CharZero K] in
 lemma evalEval_gx {x y : K} (h : (WA A).toAffine.Equation x y) :
     AdjoinRoot.evalEval h (gx A) = x := by
   have := AdjoinRoot.evalEval_mk h (C X)
   rw [evalEval_C, eval_X] at this
   exact this
 
+omit [CharZero K] in
 lemma evalEval_gy {x y : K} (h : (WA A).toAffine.Equation x y) :
     AdjoinRoot.evalEval h (gy A) = y := by
   exact (AdjoinRoot.evalEval_mk h Y).trans (by simp)
 
+omit [CharZero K] in
 lemma evalEval_gA {x y : K} (h : (WA A).toAffine.Equation x y) :
     AdjoinRoot.evalEval h (gA A) = A := by
   exact (AdjoinRoot.evalEval_mk h (C (C A))).trans (by simp)
