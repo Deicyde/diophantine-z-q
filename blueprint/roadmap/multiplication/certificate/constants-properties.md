@@ -20,8 +20,8 @@ origin: bridged
 
 No constant is evaluated: every item follows from the defining expressions.
 
-**Proof sketch.** (1) The search defining $M_0$ succeeds (Proposition 12.1, whose proof
-exhibits the successful index $N_s^4m_0$), so $M_0\ge1$. (2) Primes of $S_{\rm ht}$ are at
+**Proof sketch.** (1) The search defining $M_0$ succeeds at an index at most $N_s^{10}$ (the
+successful formal multiple of the size chapter, with $N_s\ge1$), so $M_0\ge1$. (2) Primes of $S_{\rm ht}$ are at
 most $324\le10^{12}\le R$; catalogue primes are at most $H_{\max}\le R$ by the definition of the
 catalogue maximum; a prime dividing $c_*\ge1$ is at most $c_*\le R$. $S_{\rm mul}$ is finite
 because the catalogue is finite and $c_*\ne0$. The six-contact constant at $R$ is
@@ -39,7 +39,7 @@ and all prime divisors of $c_*$ and of $\ell_0$.
 
 ## Proof depends on
 
-- [The literal cutoff](../../size/cutoff.md)
+- [A successful formal multiple](../../size/formal-multiple/formal-multiple-existence.md)
 - [The clearing inequalities](clearing-arithmetic.md)
 - [The least formal multiple](../../syntax/constants/least-formal-multiple.md)
 

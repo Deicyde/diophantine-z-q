@@ -22,7 +22,7 @@ If $[m]P_0=O$ or $x([m]P_0)=0$, then $\xi=0=(0+0s)/1$ and the conditions hold. O
 write $u=\xi([m]P_0)=u_0+u_1s$ with $u_0,u_1\in\mathbb Q$.
 
 *Odd $p\mid N$.* At every prime $\mathfrak p\ni p$, $[m_0]P_0\in E_1(\mathfrak p)=W_1$ and
-$v_{\mathfrak p}(N^4)=4v_p(N)$, so the filtration gives $[m]P_0\in W_{1+4v_p(N)}$, that is
+$v_{\mathfrak p}(N^4)=4v_p(N)$, so multiplication in the formal neighbourhood (item 3) gives $[m]P_0\in W_{1+4v_p(N)}$, that is
 $v_{\mathfrak p}(u)=-v_{\mathfrak p}(x)\ge2+8v_p(N)$. By the extraction at odd primes,
 $v_p(u_0),v_p(u_1)\ge2+8v_p(N)\ge4v_p(N)$.
 
@@ -50,10 +50,11 @@ $(s)$ avoids this.
 ## Proof depends on
 
 - [Reduction orders of $P_0$](reduction-orders.md)
-- [The filtration by abscissa valuation](filtration.md)
-- [$P_0$ at the dyadic place](dyadic-start.md)
+- [The formal neighbourhood of $y^2=x^3+Ax$ and its filtration](../../multiplication/local/formal-group.md)
+- [Multiplication in a formal neighbourhood](../../assembly/local-tests/formal-multiplication.md)
+- [The generator lies in the dyadic formal group](../../multiplication/local/dyadic-generator.md)
 - [Rational coordinates at odd primes](odd-coefficient-extraction.md)
-- [Primes above an odd prime](odd-primes.md)
+- [The primes of $\mathbb Z[\sqrt2]$ above an odd prime](../../multiplication/local/primes-above-p.md)
 - [The primes $(s)$ and $(d)$ of $\mathbb Z[\sqrt2]$](../../model/field/special-primes.md)
 
 ## Sources

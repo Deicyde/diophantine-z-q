@@ -7,9 +7,9 @@ canonical codes form exactly the infinite cyclic group $2E(K_0)=\mathbb ZP_0$ (i
 $\mathsf G$ of the assembly lemma), the membership polynomial recognizes exactly those codes
 among arbitrary rational inputs, and raw addition computes the group law on canonical codes.
 Beyond the classical background (two-isogeny descent, reduction modulo primes, heights and
-division polynomials), the only unproved input is the Mordell-Weil hypothesis, and even that
-follows from the descent index with Mathlib's height theory; every finite check is isolated as
-its own statement.
+division polynomials), the one input beyond the manuscript's elementary arguments is the
+Mordell-Weil theorem for $E/K_0$, which is proved from the descent index with Mathlib's height
+theory, so it is not a hypothesis; every finite check is isolated as its own statement.
 
 ## Point codes
 

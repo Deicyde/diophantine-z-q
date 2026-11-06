@@ -68,6 +68,6 @@ code gives ordinary $\mathbb Z$ in $\mathbb Q$.
 The root recipe squares one call of the value relation with a fresh code, so the rational
 zero projection of $P_*$ is the projection of the value relation; with the witness
 accounting and the size bounds of the specification and size chapters this proves the
-target statement for $P_*$ under the five hypotheses. The main theorem follows directly.
+target statement for $P_*$ under the four hypotheses. The main theorem follows directly.
 
 - [The assembly lemma](assembly-lemma.md)

@@ -6,7 +6,7 @@ origin: bridged
 
 # Soundness of the multiplication template
 
-Assume the six-contact height estimate and the Mordell-Weil hypothesis for $E/K_0$. For all
+Assume the six-contact height estimate. For all
 $Y_1,Y_2,Y_3\in\mathbb Q^5$, if $\mathrm{Rel}_{\mathtt{multiply}}(Y_1,Y_2,Y_3)$, then there are
 $a,b\in\mathbb Z$ with $(Y_1,Y_2,Y_3)=(\iota(a),\iota(b),\iota(ab))$.
 
@@ -25,7 +25,6 @@ fails, a contradiction. Hence $n_3=n_1n_2$; take $a=n_1$, $b=n_2$.
 - [Point codes](../../model/point-codes.md)
 - [Semantics of templates and recipes](../../syntax/template-semantics.md)
 - [The six-contact height estimate](../../main/six-contact-estimate.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 

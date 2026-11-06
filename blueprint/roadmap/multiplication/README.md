@@ -13,8 +13,8 @@ every slope outside $S_{\rm mul}$, the certificate forces $n_1n_2\equiv n_3$ mod
 H bounds a false triple to the box $[-T,T]^3$ with $T=(48A_{\rm ht})^{13}$, where the guard
 excludes it. *Completeness* (true triples are accepted) uses the twenty-two-prime pattern
 22P to choose slopes with controlled contact primes and pole completeness PC to supply the
-pole witnesses. Both directions use the Mordell-Weil hypothesis, through the generator
-certificate $2E(K_0)=\mathbb ZP_0$. The astronomically large constants $c_*$, $\ell_0$,
+pole witnesses. Both directions use the generator certificate $2E(K_0)=\mathbb ZP_0$, whose
+Mordell-Weil input is proved by the two-isogeny descent. The astronomically large constants $c_*$, $\ell_0$,
 $A_{\rm ht}$ and $T$ appear only symbolically; the finite computations of the chapter are a
 few small closed identities and inequalities.
 

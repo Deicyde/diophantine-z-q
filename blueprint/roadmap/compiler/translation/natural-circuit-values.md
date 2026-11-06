@@ -24,11 +24,11 @@ $\mathrm{call}\ (a,b,c)\ w$,
 $$\mathrm{val}_\theta(\mathrm{call}\ (a,b,c)\ w)=T_{\mathcal P}\bigl(\mathrm{val}_\theta(a),\mathrm{val}_\theta(b),\mathrm{val}_\theta(c),\theta_w,\theta_{w+1},\dots,\theta_{w+V_{\mathcal P}-4}\bigr).$$
 The value of the circuit is $\mathcal N(\theta)=\mathrm{val}_\theta(\mathrm{root})$.
 
-**Polynomial.** The same recursion with polynomial operations, $\mathrm{var}\ i\mapsto X_i$ and
-a call node $\mapsto$ the image of the polynomial of $\mathcal P$ under $X_0,X_1,X_2\mapsto$ the
-argument polynomials and $X_{3+i}\mapsto X_{w+i}$, defines the polynomial
-$[\![\mathcal N]\!]\in\mathbb Z[X_i:i\in\mathbb N]$, and $\mathcal N(\theta)=[\![\mathcal N]\!](\theta)$ for every
-$\theta$ (evaluation commutes with substitution). For the natural precision circuit,
+**Polynomial.** $[\![\mathcal N]\!]$ is the polynomial of the natural circuit defined in the natural
+chapter: the same recursion with polynomial operations, a call node denoting the substitution
+of the argument polynomials and the block variables $X_{w+i}$ into the polynomial of $\mathcal P$.
+Since evaluation commutes with substitution, $\mathcal N(\theta)=[\![\mathcal N]\!](\theta)$ for every
+$\theta$. For the natural precision circuit,
 $[\![\mathcal N]\!]$ is the natural precision polynomial $C$ of equation (C.4); its variables are
 $X_0,\dots,X_{1305810}$ and $X_0,\dots,X_4$ are the inputs.
 
@@ -42,6 +42,7 @@ it does not assert that this value vanishes. This is a definition.
 ## Depends on
 
 - [Translation of a natural circuit into a model-evaluation recipe](../../syntax/recipes/model-evaluation-translation.md)
+- [Natural semantics of a natural circuit](../natural/formulas/natural-circuit-semantics.md)
 
 ## Sources
 

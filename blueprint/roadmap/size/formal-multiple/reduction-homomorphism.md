@@ -47,7 +47,7 @@ primes of good reduction is the special case of (1) with residue degree one.
 
 ## Proof depends on
 
-- [Primes above an odd prime](odd-primes.md)
+- [The primes of $\mathbb Z[\sqrt2]$ above an odd prime](../../multiplication/local/primes-above-p.md)
 
 ## Informally uses
 

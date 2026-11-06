@@ -6,8 +6,8 @@ origin: cited
 
 # Correctness of the multiplication template
 
-Assume the six-contact height estimate, pole completeness, the Mordell-Weil hypothesis for
-$E/K_0$ and the twenty-two-prime pattern. For all $Y_1,Y_2,Y_3\in\mathbb Q^5$,
+Assume the six-contact height estimate, pole completeness and the twenty-two-prime pattern.
+For all $Y_1,Y_2,Y_3\in\mathbb Q^5$,
 $$\mathrm{Rel}_{\mathtt{multiply}}(Y_1,Y_2,Y_3)\iff\exists\,a,b\in\mathbb Z:\quad
 (Y_1,Y_2,Y_3)=\bigl(\iota(a),\iota(b),\iota(ab)\bigr),$$
 where $\mathrm{Rel}_{\mathtt{multiply}}(Y_1,Y_2,Y_3)$ means that the polynomial of the
@@ -18,13 +18,14 @@ $5$-tuples, not assumed to be codes; when the relation holds, $a$ and $b$ are un
 This is input M of the assembly lemma. The two directions use different hypotheses:
 
 - **soundness** ($\Rightarrow$) uses the six-contact estimate H (through the finite-box
-  deduction) and Mordell-Weil (through the generator certificate), but not pole completeness
+  deduction) and the generator certificate, but not pole completeness
   and not the prime pattern;
 - **completeness** ($\Leftarrow$) uses pole completeness PC and the prime pattern 22P (to
-  build the slope certificates of a true triple) and Mordell-Weil (through the fixed-scalar
-  and guard semantics), but not the six-contact estimate.
+  build the slope certificates of a true triple) and the generator certificate (through the
+  fixed-scalar and guard semantics), but not the six-contact estimate.
 
-Neither direction uses the catalogue bound. No constant of the template ($c_*$, $\ell_0$,
+Neither direction uses the catalogue bound. The Mordell–Weil input of the generator
+certificate is proved by the two-isogeny descent, so it is not a hypothesis. No constant of the template ($c_*$, $\ell_0$,
 $T$) is evaluated. The template's three parameter points, written $P_0,P_1,P_2$ in the
 specification, are written $Y_1,Y_2,Y_3$ in this chapter, since $P_0$ denotes the generator.
 
@@ -39,7 +40,6 @@ certificate).
 - [Semantics of templates and recipes](../syntax/template-semantics.md)
 - [The six-contact height estimate](../main/six-contact-estimate.md)
 - [Pole completeness](../main/pole-completeness.md)
-- [Mordell–Weil for the generator curve](../main/mordell-weil.md)
 - [The twenty-two-prime pattern](../main/prime-pattern.md)
 
 ## Proof depends on
@@ -47,6 +47,7 @@ certificate).
 - [Soundness of the multiplication template](soundness/soundness.md)
 - [Completeness of the multiplication template](completeness/completeness.md)
 - [The generator certificate](../model/generator.md)
+- [Mordell-Weil for $E/K_0$ from the descent](../model/descent/mordell-weil-from-descent.md)
 
 ## Sources
 

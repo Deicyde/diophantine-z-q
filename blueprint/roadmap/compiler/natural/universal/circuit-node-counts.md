@@ -19,9 +19,9 @@ The five-input natural precision circuit $\mathcal N$ has:
 4. constants other than $0,1,-1$ which are, in order of first occurrence, $c_3,2,4,1399$,
    and these four values are distinct.
 
-The syntax chapter's [statement on the shape of the natural precision circuit](../../../syntax/recipes/natural-circuit-statistics.md)
-records items 2 to 4 for the recipe translation; this statement is their proof from the
-finite checks on $\mathcal H$, the power template and the wrapper. The constant $c_3$ is
+The specification chapter's [witness accounting](../../../syntax/recipes/witness-accounting.md)
+uses items 2 to 4 for the recipe translation; this statement proves them from the finite
+checks on $\mathcal H$, the power template and the wrapper. The constant $c_3$ is
 never evaluated.
 
 **Proof sketch.** From the definition of $\mathcal N$ and the counts of $\mathcal H$: the

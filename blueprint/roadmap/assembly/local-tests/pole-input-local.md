@@ -39,13 +39,14 @@ even power.
 ## Depends on
 
 - [The six local tests](../value-templates/six-local-tests.md)
-- [Formal neighbourhoods of the identity](formal-group.md)
+- [The formal neighbourhood of $y^2=x^3+Ax$ and its filtration](../../multiplication/local/formal-group.md)
+- [Multiplication in a formal neighbourhood](formal-multiplication.md)
 
 ## Proof depends on
 
-- [Multiplication in a formal neighbourhood](formal-multiplication.md)
-- [Valuations of the quadratic field](k0-valuations.md)
-- [Nonzero multiples of the generator](../value-templates/nonzero-multiples.md)
+- [The primes of $\mathbb Z[\sqrt2]$ above an odd prime](../../multiplication/local/primes-above-p.md)
+- [Valuation and trace at the prime $(s)$](dyadic-trace.md)
+- [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 
 ## Sources
 

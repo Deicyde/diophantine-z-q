@@ -6,7 +6,7 @@ origin: cited
 
 # Every node point is the code of the node's value
 
-Assume the Mordell-Weil hypothesis and the multiplication statement M in its all-input form.
+Assume the multiplication statement M in its all-input form.
 Let $\mathcal N$ be a natural circuit with $k$ inputs that is well-formed with some bound, with
 power template $\mathcal P$ if it has call nodes, and let $\rho$ be its translation in some mode,
 with or without natural constraints on the inputs, with power recipe $\pi$ if $\mathcal N$ has call
@@ -65,7 +65,6 @@ intermediate sums or products, whose values may be negative.
 - [Well-formed natural circuits](natural-circuit-well-formed.md)
 - [Relational form of a model-evaluation recipe](model-recipe-relation.md)
 - [Correctness of the multiplication template](../../multiplication/multiplication-template.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 
@@ -74,6 +73,7 @@ intermediate sums or products, whose values may be negative.
 - [Raw addition](../../model/raw-addition.md)
 - [The generator certificate](../../model/generator.md)
 - [Values of the point references](../../syntax/language/generator-references.md)
+- [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources
 

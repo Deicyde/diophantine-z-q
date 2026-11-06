@@ -6,8 +6,8 @@ origin: cited
 
 # The assembly lemma
 
-Assume the six-contact estimate, pole completeness, the Mordell–Weil hypothesis for $E/K_0$,
-the twenty-two-prime pattern and the catalogue bound. Then the specified polynomial
+Assume the six-contact estimate, pole completeness, the twenty-two-prime pattern and the
+catalogue bound. Then the specified polynomial
 $P_*\in\mathbb Z[X_0,\dots,X_{292890231904}]$ satisfies:
 
 1. $\deg P_*<2\uparrow\uparrow7$;
@@ -18,10 +18,11 @@ $P_*\in\mathbb Z[X_0,\dots,X_{292890231904}]$ satisfies:
 In particular $P_*$ witnesses the target statement, from which the main theorem follows
 at once.
 
-This is the manuscript's Lemma 1.2 in the form used here. Its inputs are: G, that
-canonical codes form $2E(K_0)=\mathbb ZP_0$ with exact membership and raw addition (from the
-Mordell–Weil hypothesis); M, multiplication (from the six-contact estimate, pole
-completeness, the Mordell–Weil hypothesis and the prime pattern); C, the semantics of the
+This is the manuscript's Lemma 1.2 in the form used here, over the four hypotheses H, PC, 22P
+and CAT. Its inputs are: G, that canonical codes form $2E(K_0)=\mathbb ZP_0$ with exact
+membership and raw addition (from the generator certificate, whose Mordell–Weil input is
+proved by the two-isogeny descent); M, multiplication (from the six-contact estimate, pole
+completeness and the prime pattern); C, the semantics of the
 natural precision polynomial and its rational translation; B, the literal specification of
 $P_*$ with its witness accounting and size bounds (the size bounds use the catalogue
 bound); and the hypotheses H and PC themselves.
@@ -41,7 +42,6 @@ shape required by the target statement.
 - [The specified polynomial](../syntax/literal-polynomial.md)
 - [The six-contact height estimate](../main/six-contact-estimate.md)
 - [Pole completeness](../main/pole-completeness.md)
-- [Mordell–Weil for the generator curve](../main/mordell-weil.md)
 - [The twenty-two-prime pattern](../main/prime-pattern.md)
 - [The catalogue bound](../main/catalogue-bound.md)
 
@@ -51,6 +51,7 @@ shape required by the target statement.
 - [The exact ordinary-value relation](ordinary-value-relation.md)
 - [Variable, degree and coefficient bounds](../size/syntax-bounds.md)
 - [Witness accounting of the specified polynomial](../syntax/recipes/witness-accounting.md)
+- [Mordell-Weil for $E/K_0$ from the descent](../model/descent/mordell-weil-from-descent.md)
 
 ## Informally uses
 

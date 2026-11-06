@@ -10,11 +10,12 @@ Let $T\ge0$ be an integer and $K=2^{30}(T+1)^3$. For every integer $n$ with $|n|
 each of the five coordinates of $\iota(n)$ is a rational number whose reduced numerator has
 absolute value at most $2^K$ and whose positive reduced denominator is at most $2^K$.
 
-**Proof sketch.** For $n=0$, $\iota(0)=(1,0,0,0,0)$. Let $1\le|n|\le T$. The point $P_0$ has
-infinite order (the torsion of $E(K_0)$ is $E(K_0)[2]$ and $y(P_0)\ne0$), so $[n]P_0\ne O$ and,
-by the multiplication-by-$n$ formulas, $\psi_n(P_0)\ne0$ and
+**Proof sketch.** For $n=0$, $\iota(0)=(1,0,0,0,0)$. Let $1\le|n|\le T$. By the fixed point codes
+(which use that $P_0$ has infinite order and the multiplication-by-$n$ formulas), for $n\ge1$,
+$\psi_n(P_0)\ne0$ and
 $$x([n]P_0)=x(P_0)-\frac{\psi_{n+1}(P_0)\psi_{n-1}(P_0)}{\psi_n(P_0)^2},\qquad
-y([n]P_0)=\frac{\psi_{2n}(P_0)}{2\psi_n(P_0)^4}.$$
+y([n]P_0)=\frac{\psi_{2n}(P_0)}{2\psi_n(P_0)^4},$$
+and $\iota(-n)$ differs from $\iota(n)$ only in the signs of the ordinate coordinates.
 
 *Values of $\psi_m(P_0)$.* The coordinates of $P_0$ over the denominator $32$ are
 $x_0=6564/32$, $x_1=-4640/32$, $y_0=-123720/32$, $y_1=87483/32$, with numerators below
@@ -40,8 +41,7 @@ numerators and denominators at most $2^K$; the first code coordinate is $0$.
 ## Proof depends on
 
 - [Closed numerical comparisons](../constants/closed-comparisons.md)
-- [Division polynomials compute multiples](../../model/field/division-polynomial-multiples.md)
-- [The torsion of $E(K_0)$ is the full two-torsion](../../model/descent/torsion.md)
+- [Fixed point codes by division polynomials](../../model/field/fixed-point-codes.md)
 - [The point $P_0$](../../model/field/generator-point.md)
 - [Size of the division polynomials](division-polynomial-size.md)
 - [Sizes under quadratic-field operations](quadratic-heights.md)

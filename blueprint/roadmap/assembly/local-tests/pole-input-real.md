@@ -29,7 +29,7 @@ therefore never needed.)
 
 ## Depends on
 
-- [The precision quantities and the precision predicate](../approximation/precision-predicate.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../model/field/quadratic-field.md)
 
 ## Sources
 

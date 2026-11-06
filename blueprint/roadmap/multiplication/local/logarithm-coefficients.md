@@ -27,6 +27,10 @@ comparing coefficients, the template writing $d^{2j}$ as $\delta^j$ with $\delta
 - [The truncated logarithm template](../../syntax/templates/template-log25.md)
 - [The formal logarithm of $E$ is a binomial series](logarithm-series.md)
 
+## Proof depends on
+
+- [The coefficients of the truncated logarithm](../../syntax/templates/log25-coefficients.md)
+
 ## Sources
 
 - [Logarithm series](../../../sources/multiplication-locators.md#logarithm-series)

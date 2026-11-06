@@ -12,7 +12,7 @@ $w([m]P_0)=1/x$ are nonzero elements of $K_0$. The map $m\mapsto\iota(m)$ is inj
 first coordinate of $\iota(m)$ is $0$ exactly when $m\ne0$.
 
 No hypothesis is needed: this uses only the torsion subgroup of $E(K_0)$, not the
-Mordell–Weil hypothesis.
+Mordell–Weil theorem.
 
 **Proof sketch.** The torsion subgroup of $E(K_0)$ is $E(K_0)[2]$, whose affine points have
 ordinate $0$. The ordinate of $P_0$ is $(-123720+87483s)/32\ne0$, so $P_0$ is not torsion,
@@ -23,14 +23,13 @@ the first code coordinate is $0$ exactly for affine points.
 
 ## Depends on
 
-- [Point codes](../../model/point-codes.md)
-- [The precision quantities and the precision predicate](../approximation/precision-predicate.md)
+- [Point codes](../point-codes.md)
 
 ## Proof depends on
 
-- [The torsion of $E(K_0)$ is the full two-torsion](../../model/descent/torsion.md)
-- [The point $P_0$](../../model/field/generator-point.md)
-- [Elementary properties of codes](../../model/field/point-code-properties.md)
+- [The torsion of $E(K_0)$ is the full two-torsion](torsion.md)
+- [The point $P_0$](../field/generator-point.md)
+- [Elementary properties of codes](../field/point-code-properties.md)
 
 ## Sources
 

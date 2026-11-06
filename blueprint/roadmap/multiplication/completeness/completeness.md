@@ -6,8 +6,7 @@ origin: bridged
 
 # Completeness of the multiplication template
 
-Assume pole completeness, the twenty-two-prime pattern and the Mordell-Weil hypothesis for
-$E/K_0$. For all $a,b\in\mathbb Z$,
+Assume pole completeness and the twenty-two-prime pattern. For all $a,b\in\mathbb Z$,
 $$\mathrm{Rel}_{\mathtt{multiply}}\bigl(\iota(a),\iota(b),\iota(ab)\bigr).$$
 
 This direction does not use the six-contact estimate. Negative indices, zero indices and
@@ -30,7 +29,6 @@ gives the relation.
 - [Semantics of templates and recipes](../../syntax/template-semantics.md)
 - [Pole completeness](../../main/pole-completeness.md)
 - [The twenty-two-prime pattern](../../main/prime-pattern.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 

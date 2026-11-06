@@ -6,7 +6,7 @@ origin: bridged
 
 # Semantics of the test-group template
 
-Assume the Mordell-Weil hypothesis for $E/K_0$. For all $c_0,c_1,c_2,c_3\in\mathbb Z$ and all
+For all $c_0,c_1,c_2,c_3\in\mathbb Z$ and all
 rational pairs $D_1,\dots,D_{12}$,
 $$\mathrm{Rel}_{\mathtt{test\_group}}\bigl(\iota(c_0),\iota(c_1),\iota(c_2),\iota(c_3),D_1,\dots,D_{12}\bigr)
 \iff\exists\,h,z_1,z_2,z_3\in\mathbb Z:\ h\ne0,\ h\ne c_0,\ [D_j]=\tau_j(h,z;c)\ (1\le j\le12).$$
@@ -33,7 +33,6 @@ $1/N(\lambda_0)$ and $1/N(\lambda_4)$, which exist by the nonvanishing lemma, an
 - [The test-group template](../../syntax/templates/template-test-group.md)
 - [The twelve local tests](twelve-tests.md)
 - [Point codes](../../model/point-codes.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 
@@ -47,6 +46,7 @@ $1/N(\lambda_0)$ and $1/N(\lambda_4)$, which exist by the nonvanishing lemma, an
 - [Private witness blocks](../../syntax/language/existential-lifting.md)
 - [Elementary properties of codes](../../model/field/point-code-properties.md)
 - [The generator certificate](../../model/generator.md)
+- [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources
 

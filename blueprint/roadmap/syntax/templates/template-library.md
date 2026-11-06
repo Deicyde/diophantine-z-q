@@ -79,7 +79,8 @@ This is a definition.
 
 ## Informally uses
 
-- [Shape of the natural precision circuit](../recipes/natural-circuit-statistics.md)
+- [Shape of the natural precision circuit](../../compiler/natural/universal/circuit-node-counts.md)
+- [Node statistics of the halting circuit and the power template](../../compiler/natural/universal/halting-node-check.md)
 
 ## Sources
 

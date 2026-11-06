@@ -6,10 +6,13 @@ origin: cited
 
 # Semantics of the coordinate window
 
-Assume the Mordell–Weil hypothesis. Then for all $A,L,J\in\mathbb Q^5$ and $t\in\mathbb Q$,
+For all $A,L,J\in\mathbb Q^5$ and $t\in\mathbb Q$,
 $\mathrm{Rel}_{\mathtt{value.close\_coordinates}}(A,L,J,t)$ holds exactly when there are
 $a,l,j\in\mathbb Z$ with
-$$A=\iota(a),\quad L=\iota(l),\quad J=\iota(j),\quad a\ne0,\quad l\ne0,\quad |t-r(a,j)|<\epsilon_l .$$
+$$A=\iota(a),\quad L=\iota(l),\quad J=\iota(j),\quad a\ne0,\quad l\ne0,\quad |t-r(a,j)|<\epsilon_l ,$$
+with $r(a,j)=\frac12\operatorname{Tr}(z_j/z_a)$ and $\epsilon_l$ formed from the local parameter $z$ on
+multiples of the generator, extended by $z_0=0$ (so $r(a,0)=0$); $a,l$ and every nonzero $j$ are
+admissible by the nonzero-multiples lemma.
 
 **Proof sketch.** The template is $\kappa(\varphi)^2$; its calls ($\mathtt{member}$ three times,
 $\mathtt{value.abs}$ three times) have disjoint blocks occurring in no parameter, so by the
@@ -33,14 +36,13 @@ Conversely, for $a,l\ne0$ and the strict window, all these witnesses exist.
 ## Depends on
 
 - [The coordinate-window template](../../syntax/templates/template-close-coordinates.md)
-- [The precision quantities and the precision predicate](../approximation/precision-predicate.md)
+- [The local parameter z on multiples of the generator](../../compiler/natural/precision/z-coordinate.md)
 - [Point codes](../../model/point-codes.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 
 - [Accepted inputs have unique indices](../../model/membership-indices.md)
-- [Nonzero multiples of the generator](nonzero-multiples.md)
+- [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 - [Pair arithmetic represents the quadratic field](../../syntax/field-pair-arithmetic.md)
 - [The absolute-value template](../../syntax/templates/template-abs.md)
 - [Absolute value by four squares](../../syntax/language/absolute-value-gadget.md)
@@ -49,6 +51,7 @@ Conversely, for $a,l\ne0$ and the strict window, all these witnesses exist.
 - [Private witness blocks](../../syntax/language/existential-lifting.md)
 - [Template construction from formulas](../../syntax/language/builder-soundness.md)
 - [Witness scope of constructed templates and recipes](../../syntax/language/builder-well-formed.md)
+- [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources
 

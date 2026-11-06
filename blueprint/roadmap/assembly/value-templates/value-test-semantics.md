@@ -6,8 +6,8 @@ origin: cited
 
 # Semantics of the value-test template
 
-Assume the six-contact estimate, pole completeness, the Mordell–Weil hypothesis and the
-twenty-two-prime pattern. Then for all $N,K\in\mathbb Q^5$ and $t\in\mathbb Q$,
+Assume the six-contact estimate, pole completeness and the twenty-two-prime
+pattern. Then for all $N,K\in\mathbb Q^5$ and $t\in\mathbb Q$,
 $$\mathrm{Rel}_{\mathtt{value.test}}(N,K,t)\iff\exists\,n,\kappa\in\mathbb Z:\ N=\iota(n),\ K=\iota(\kappa),\ \operatorname{Test}(n,\kappa,t).$$
 
 **Proof sketch.** The template is $\kappa(\varphi)^2$ for the conjunction $\varphi$ listed in its
@@ -19,7 +19,8 @@ order.
 
 1. Membership of $N,K,C_1,H,U,V_0,V_1$ gives $N=\iota(n)$, $K=\iota(\kappa)$, $H=\iota(h)$,
    $U=\iota(s_0)$ and $C_1,V_0,V_1$ canonical.
-2. The first coordinate of $K$ is $0$ (written $K[0]=0$; not to be confused with the field $K_0$), so $\kappa\ne0$. Statement M gives $C_1=\iota(\kappa n)$. Since
+2.  The first coordinate of $K$ is $0$ (written $K[0]=0$; not to be confused with the field
+   $K_0$), so $\kappa\ne0$. Statement M gives $C_1=\iota(\kappa n)$. Since
    $\operatorname{neg}(\iota(m))=\iota(-m)$, raw addition gives $V_0=\iota(h-\kappa)$ and
    $V_1=\iota(s_0-\kappa n)$. $H[0]=0$ and $V_0[0]=0$ give $h\ne0$ and $h\ne\kappa$.
 3. For each of $H,U,V_0,V_1$ the gadgets $I\!X$ and $Z$ are satisfiable and force the pairs
@@ -47,7 +48,6 @@ relations.
 - [Point codes](../../model/point-codes.md)
 - [The six-contact height estimate](../../main/six-contact-estimate.md)
 - [Pole completeness](../../main/pole-completeness.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 - [The twenty-two-prime pattern](../../main/prime-pattern.md)
 
 ## Proof depends on
@@ -55,7 +55,7 @@ relations.
 - [Accepted inputs have unique indices](../../model/membership-indices.md)
 - [Correctness of the multiplication template](../../multiplication/multiplication-template.md)
 - [Raw addition](../../model/raw-addition.md)
-- [Nonzero multiples of the generator](nonzero-multiples.md)
+- [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 - [Elementary properties of codes](../../model/field/point-code-properties.md)
 - [Pair arithmetic represents the quadratic field](../../syntax/field-pair-arithmetic.md)
 - [Inverse witnesses](../../syntax/nonzero-gadgets.md)
@@ -63,6 +63,7 @@ relations.
 - [Private witness blocks](../../syntax/language/existential-lifting.md)
 - [Template construction from formulas](../../syntax/language/builder-soundness.md)
 - [Witness scope of constructed templates and recipes](../../syntax/language/builder-well-formed.md)
+- [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources
 

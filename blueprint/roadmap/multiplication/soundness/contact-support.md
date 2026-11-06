@@ -6,7 +6,7 @@ origin: bridged
 
 # The height of an accepted slope
 
-Assume the six-contact height estimate and the Mordell-Weil hypothesis for $E/K_0$. Let
+Assume the six-contact height estimate. Let
 $n_1,n_2,n_3\in\mathbb Z$ with $f=n_1n_2-n_3\ne0$, put $c=(c_*,c_*n_1,c_*n_2,c_*n_3)$, and let
 $t\in\mathbb Q$ satisfy $\mathrm{Slope}(t,\ell_0;c)$. Then
 $$M_{S_{\rm mul}}(t)^{25}\mid f\qquad\text{and}\qquad h(t)\le A_{\rm ht}\,|f|^{24/25}.$$
@@ -27,7 +27,6 @@ $h(t)\le A_{\rm ht}M_{S_{\rm mul}}(t)^{24}\le A_{\rm ht}|f|^{24/25}$.
 - [The slope predicate](../certificate/slope-predicate.md)
 - [Prime sets and clearing exponents of the multiplication certificate](../certificate/constants.md)
 - [The six-contact height estimate](../../main/six-contact-estimate.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 

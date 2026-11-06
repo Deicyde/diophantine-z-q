@@ -17,18 +17,17 @@ The following inequalities between explicit natural numbers hold:
 6. $11243+2\cdot7950=27143$, $3\cdot3^4+6\cdot27143\cdot3^2+27143^2<2^{30}$,
    $2\,(3^6+5\cdot27143\cdot3^4+5\cdot27143^2\cdot3^2+27143^3)<2^{46}$ and
    $16\,(3^3+27143\cdot3)^2<2^{38}$;
-7. $\max(6564,4640,123720,87483)<2^{17}$ and $65536\cdot1281<2^{27}$;
-8. $4\cdot3181317<2^{24}$.
+7. $\max(6564,4640,123720,87483)<2^{17}$ and $65536\cdot1281<2^{27}$.
 
 This is a finite computation. Every number involved has at most $9011$ binary digits; none of
 the constants $D$, $T$, $H_{\rm cat}$, $N_s$, $M_0$, $c_*$, $\ell$ or $c_3$ occurs. These are the
 closed comparisons used by the symbolic estimates of this chapter: (1) for $N_s$ and $\ell$,
 (2) for $c_*$, (3) for $R=D$ and the upper bound on $D$, (4) for $C_{\rm cm}$, (5) for the
-bound on $T$, (6) for the base cases of the division polynomials, (7) for the code heights,
-and (8) for the program literal ($10^{3181317}<16^{3181317}=2^{4\cdot3181317}<2^{2^{24}}$).
+bound on $T$, (6) for the base cases of the division polynomials and (7) for the code heights.
+The program literal is bounded in the compiler chapter, not here.
 
 **Proof sketch.** Direct evaluation. For instance $4096\cdot85033=348295168<536870912=2^{29}$,
-$65536\cdot1281=83951616<134217728=2^{27}$, $4\cdot3181317=12725268<16777216=2^{24}$, and
+$65536\cdot1281=83951616<134217728=2^{27}$, and
 $22\cdot2^{2048}+433<32\cdot2^{2048}=2^{2053}$ because $433<10\cdot2^{2048}$.
 
 ## Depends on

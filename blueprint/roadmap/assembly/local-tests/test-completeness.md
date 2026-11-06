@@ -39,7 +39,7 @@ of $P_0$ are affine with nonzero coordinates.
 - [Deep multiples of the generator](deep-multiples.md)
 - [Local conditions on the pole input](pole-input-local.md)
 - [Real conditions on the pole input](pole-input-real.md)
-- [Nonzero multiples of the generator](../value-templates/nonzero-multiples.md)
+- [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 
 ## Sources
 

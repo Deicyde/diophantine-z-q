@@ -28,12 +28,12 @@ neighbourhoods and subtract two close multiples) is the same pigeonhole principl
 ## Depends on
 
 - [The point $P_0$](../../model/field/generator-point.md)
-- [The precision quantities and the precision predicate](precision-predicate.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../model/field/quadratic-field.md)
 
 ## Proof depends on
 
 - [Compactness and continuity of subtraction on a real curve](real-subtraction.md)
-- [Nonzero multiples of the generator](../value-templates/nonzero-multiples.md)
+- [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 
 ## Sources
 

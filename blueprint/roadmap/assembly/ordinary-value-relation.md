@@ -6,16 +6,16 @@ origin: cited
 
 # The exact ordinary-value relation
 
-Assume the six-contact estimate, pole completeness, the Mordell–Weil hypothesis and the
-twenty-two-prime pattern. Then for every $N\in\mathbb Q^5$ and every $t\in\mathbb Q$,
+Assume the six-contact estimate, pole completeness and the twenty-two-prime
+pattern. Then for every $N\in\mathbb Q^5$ and every $t\in\mathbb Q$,
 $$\mathrm{Rel}_{\mathtt{value}}(N,t)\iff\exists\,n\in\mathbb Z:\ N=\iota(n)\ \text{and}\ t=n .$$
 Consequently, for every $t\in\mathbb Q$,
 $$\bigl(\exists\,N\in\mathbb Q^5:\ \mathrm{Rel}_{\mathtt{value}}(N,t)\bigr)\iff t\in\mathbb Z .$$
 
 In the manuscript's notation, $\operatorname{Val}(N,t)$ is membership of $N$ together with
 $\bigvee_{c\in\mathcal C}(N=\iota(c)\wedge t=c)\ \vee\ \exists\mathcal K\,(\operatorname{Close}(N,\mathcal K,t)\wedge\operatorname{Test}(N,\mathcal K,t))$,
-with the same five coordinates $\mathcal K$ in both calls, and $\operatorname{Val}(\iota(n),t)$ is
-exactly the graph $t=n$.
+with the same five coordinates $\mathcal K$ in both calls, and $\operatorname{Val}(\iota(n),t)$
+is exactly the graph $t=n$.
 
 **Proof sketch.** By the relations of the outer recipes, $\mathrm{Rel}_{\mathtt{value}}(N,t)$ holds
 exactly when $N$ is accepted by membership and either the exceptional relation holds or
@@ -44,7 +44,6 @@ exceptional integers are given exactly by their displayed branches.
 - [Point codes](../model/point-codes.md)
 - [The six-contact height estimate](../main/six-contact-estimate.md)
 - [Pole completeness](../main/pole-completeness.md)
-- [Mordell–Weil for the generator curve](../main/mordell-weil.md)
 - [The twenty-two-prime pattern](../main/prime-pattern.md)
 
 ## Proof depends on
@@ -56,6 +55,7 @@ exceptional integers are given exactly by their displayed branches.
 - [An accepting main branch forces the exact value](main-branch-exactness.md)
 - [One suitable shift](local-tests/test-completeness.md)
 - [Completeness of Close for every fixed shift](approximation/close-completeness.md)
+- [Mordell-Weil for $E/K_0$ from the descent](../model/descent/mordell-weil-from-descent.md)
 
 ## Sources
 

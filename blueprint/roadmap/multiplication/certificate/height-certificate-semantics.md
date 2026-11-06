@@ -6,7 +6,7 @@ origin: bridged
 
 # Semantics of the height certificate template
 
-Assume the Mordell-Weil hypothesis for $E/K_0$. For all $Y_1,Y_2,Y_3\in\mathbb Q^5$,
+For all $Y_1,Y_2,Y_3\in\mathbb Q^5$,
 $\ell\in\mathbb Q$ and $c\in\mathbb Z^4$, the relation
 $\mathrm{Rel}_{\mathtt{height\_certificate}}(Y_1,Y_2,Y_3,\ell,\iota(c_0),\iota(c_1),\iota(c_2),\iota(c_3))$
 holds if and only if:
@@ -36,7 +36,6 @@ shift points being the canonical codes $\iota(c_k)$. The converse chooses the sa
 - [The height certificate template](../../syntax/templates/template-height-certificate.md)
 - [The slope predicate](slope-predicate.md)
 - [Point codes](../../model/point-codes.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 
@@ -46,6 +45,7 @@ shift points being the canonical codes $\iota(c_k)$. The converse chooses the sa
 - [Sums of squares and products over the rationals](../../syntax/sum-of-squares-semantics.md)
 - [Evaluation of a template call](../../syntax/language/call-semantics.md)
 - [Private witness blocks](../../syntax/language/existential-lifting.md)
+- [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources
 

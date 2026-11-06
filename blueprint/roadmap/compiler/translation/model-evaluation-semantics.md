@@ -6,7 +6,7 @@ origin: cited
 
 # Semantics of the model-evaluation translation
 
-Assume the Mordell-Weil hypothesis and the multiplication statement M in its all-input form.
+Assume the multiplication statement M in its all-input form.
 Let $\mathcal N$ be a natural circuit with $k$ inputs that is well-formed with some bound, with
 power template $\mathcal P$ and a power recipe $\pi$ satisfying (PV) if it has call nodes, and let
 $\rho$ be its translation.
@@ -34,7 +34,6 @@ $r=\iota(\mathcal N(\theta))$. ($\Leftarrow$) The completeness statement gives $
 - [Every node point is the code of the node's value](translation-soundness.md)
 - [Translation of a natural circuit into a model-evaluation recipe](../../syntax/recipes/model-evaluation-translation.md)
 - [Correctness of the multiplication template](../../multiplication/multiplication-template.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 

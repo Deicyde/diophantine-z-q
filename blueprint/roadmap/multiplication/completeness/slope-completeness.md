@@ -6,7 +6,7 @@ origin: bridged
 
 # Completeness of the slope certificate for a true triple
 
-Assume pole completeness and the Mordell-Weil hypothesis for $E/K_0$. Let
+Assume pole completeness. Let
 $n_1,n_2\in\mathbb Z$, $n_3=n_1n_2$ and $c=(c_*,c_*n_1,c_*n_2,c_*n_3)$. If $t\in\mathbb Q$
 satisfies conditions 1-4 of the slopes from the prime pattern (for some $B_0$), then
 $$\mathrm{Slope}(t,\ell_0;c).$$
@@ -34,7 +34,6 @@ $\Phi(B)$, which completes the slope predicate.
 - [Slopes of an integer from the prime pattern](pattern-slopes.md)
 - [Prime sets and clearing exponents of the multiplication certificate](../certificate/constants.md)
 - [Pole completeness](../../main/pole-completeness.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 

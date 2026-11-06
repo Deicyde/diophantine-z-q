@@ -8,20 +8,19 @@ template polynomial is the square of a compiled formula whose calls have disjoin
 blocks, so the private-witness lemma replaces each call by its relation, and the model
 statements identify the relations on codes.
 
-Nonzero multiples of $P_0$ are affine with nonzero coordinates; this follows from the
-torsion subgroup alone and makes every local parameter and inverse abscissa below
-well-defined.
-
-- [Nonzero multiples of the generator](nonzero-multiples.md)
+Nonzero multiples of $P_0$ are affine with nonzero coordinates
+([nonzero multiples of the generator](../../model/descent/nonzero-multiples.md), in the model
+chapter); this makes every local parameter and inverse abscissa below well-defined.
 
 ## Natural and signed codes
 
 The natural-code template types four untyped tuples by multiplication before adding their
-squares, so it accepts exactly $\iota(\mathbb N)$ by Lagrange's theorem. The signed encoding links
+squares, so it accepts exactly $\iota(\mathbb N)$ by Lagrange's theorem; this is
+[the natural-code predicate](../../compiler/translation/natural-code-semantics.md) of the
+compiler chapter, with M supplied by the multiplication template. The signed encoding links
 a signed code $\iota(m)$ to the natural code $\iota(\operatorname{enc}m)$, in which form the integer
 enters the precision relation.
 
-- [Natural codes](natural-codes.md)
 - [Semantics of the signed encoding](signed-encoding-semantics.md)
 
 ## The coordinate window

@@ -1,18 +1,18 @@
 # Approximation for every fixed shift
 
 The precision computation of the compiler chapter decides, for five integers
-$(n,\kappa,a,l,j)$, whether $n\notin\mathcal C$, $\kappa\ne0$, $a,l\ge1$, $j=na$ and the two strict
-tests $|r(a,j)-n|<\epsilon_l$ and $4\epsilon_l<4^{-B(n,\kappa)}$ hold. All quantities are exact
-rationals and integers.
-
-- [The precision quantities and the precision predicate](precision-predicate.md)
-
-The compiler chapter states its acceptance relation with an explicit admissibility clause
-for $l,a,j$ and with the height constant formed at $R=D$. Under the early tests, nonzero
-multiples of $P_0$ make admissibility automatic, and $D\ge10^{12}$ makes the two height
-constants equal, so acceptance is exactly the predicate above.
-
-- [Acceptance by the precision polynomial is the precision predicate](precision-acceptance.md)
+$(n,\kappa,a,l,j)$ given by their signed encodings, whether $n\notin\mathcal C$, $\kappa\ne0$, $a,l\ge1$,
+$j=na$ and the two strict tests $|r(a,j)-n|<\epsilon_l$ and $4\epsilon_l<4^{-B(n,\kappa)}$ hold. All
+quantities are exact rationals and integers. The compiler chapter defines the
+[precision relation](../../compiler/natural/precision/precision-relation.md), the
+[local parameter and the window quantities](../../compiler/natural/precision/z-coordinate.md),
+the [signed encoding](../../compiler/natural/precision/signed-encoding.md) and the
+[precision height constant](../../compiler/natural/precision/precision-height-constant.md), and
+proves that this constant is the six-contact constant $H_6(S_{\rm ht})$, so that its bound is the
+$B(n,\kappa)$ of the ordinary-value relation
+([identification](../../compiler/natural/precision/precision-height-constant-value.md)).
+Its admissibility clause is automatic for nonzero indices, by the
+[nonzero-multiples lemma](../../model/descent/nonzero-multiples.md).
 
 Close chooses codes $A,L,J$, links the five signed codes to the precision inputs in the order
 $(n,\kappa,a,l,j)$ and imposes $|t-r(a,j)|<\epsilon_l$ on the same coordinates.

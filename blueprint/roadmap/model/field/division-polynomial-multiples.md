@@ -31,8 +31,14 @@ every $Q$, and the Jacobian addition formula sends representatives of two *disti
 $Q_1\ne Q_2$ to a representative of $Q_1+Q_2$ (including the cases where one of them is $O$
 or $Q_1=-Q_2$).
 
-Fix an affine $P=(x,y)$ and write $J_n(P)=(\phi_n(P),\omega_n(P),\psi_n(P))$ for the values of the
-triples of the doubling-and-adding identities. Claim: for every $n\ge1$, $J_n(P)$ is a
+Fix an affine $P=(x,y)$, put $\phi_n=x\psi_n^2-\psi_{n+1}\psi_{n-1}$ and $\omega_n=\psi_{2n}/(2\psi_n)$
+(a polynomial in $x,y$), and write $J_n(P)=(\phi_n(P),\omega_n(P),\psi_n(P))$. The doubling and
+adding identities $\mathrm{dbl}(J_k)=J_{2k}$ and $\mathrm{add}(J_{k+1},J_k)=(-1)\cdot J_{2k+1}$ ($k\ge1$)
+hold at every point of the curve: at the generic point of $y^2=x^3+Ax$, in the function field,
+no $\psi_n$ with $n\ne0$ vanishes, so there the abscissas of the multiples can be computed by
+strong induction from the recurrences of $\psi$ (the duplication formula for $n=2m$, the chord
+through $[m+1]P$ and $[m]P$ for $n=2m+1$), which gives the identities in the coordinate ring;
+evaluating at $P$ gives them at $P$. Claim: for every $n\ge1$, $J_n(P)$ is a
 representative of $[n]P$ (in particular a nonzero triple). Strong induction on $n$:
 
 - $n=1$: $\phi_1=x$, $\omega_1=y$, $\psi_1=1$.
@@ -53,10 +59,6 @@ $\psi_{-2n}=-\psi_{2n}$) and $[-n]P=-[n]P=(x([n]P),-y([n]P))$.
 - [The multiplication-by-n formulas](../../syntax/division-polynomial-multiplication.md)
 - [Normalized division polynomials and their components](../../syntax/division-polynomials.md)
 - [The generator curve $E$](generator-curve.md)
-
-## Proof depends on
-
-- [Doubling and adding division-polynomial triples](division-polynomial-jacobian.md)
 
 ## Sources
 

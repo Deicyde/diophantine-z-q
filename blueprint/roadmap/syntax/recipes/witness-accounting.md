@@ -44,7 +44,7 @@ order.
 ## Proof depends on
 
 - [Parameter and witness counts of the templates](template-witness-counts.md)
-- [Shape of the natural precision circuit](natural-circuit-statistics.md)
+- [Shape of the natural precision circuit](../../compiler/natural/universal/circuit-node-counts.md)
 - [The witness-count arithmetic](witness-count-identity.md)
 - [Witness scope of constructed templates and recipes](../language/builder-well-formed.md)
 - [The precision recipe](recipe-precision.md)

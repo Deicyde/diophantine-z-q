@@ -6,7 +6,7 @@ origin: cited
 
 # Natural solutions give rational witnesses
 
-Assume the Mordell-Weil hypothesis and the multiplication statement M in its all-input form.
+Assume the multiplication statement M in its all-input form.
 Let $\mathcal N$, $\mathcal P$, $\rho$ and $\pi$ be as in the soundness statement, with (PV) for $\pi$ if
 $\mathcal N$ has call nodes. Let $\theta$ be admissible for $\mathcal N$, with $\theta_i\in\mathbb N$ for
 every input $i<k$ if the inputs carry natural constraints. Then the assignment $x$ defined by
@@ -44,7 +44,6 @@ choice of the output point in value mode. The relational form then gives $\mathr
 - [Values and polynomial of a natural circuit](natural-circuit-values.md)
 - [Relational form of a model-evaluation recipe](model-recipe-relation.md)
 - [Correctness of the multiplication template](../../multiplication/multiplication-template.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 

@@ -6,7 +6,7 @@ origin: cited
 
 # Semantics of the power-value recipe
 
-Assume the Mordell-Weil hypothesis and the multiplication statement M in its all-input form.
+Assume the multiplication statement M in its all-input form.
 Let $T=T_{\mathcal P}$ be the polynomial function of the power template, of the $82$ variables
 $y_0,\dots,y_{81}$ ($y_0,y_1,y_2$ its inputs). For all $a,b,c\in\mathbb Z$ and every $r\in\mathbb Q^5$,
 $$\mathrm{Rel}_{\mathtt{power\_value}}(\iota(a),\iota(b),\iota(c),r)\iff
@@ -30,7 +30,6 @@ value of $\theta$.
 - [Values and polynomial of a natural circuit](natural-circuit-values.md)
 - [Point codes](../../model/point-codes.md)
 - [Correctness of the multiplication template](../../multiplication/multiplication-template.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 
