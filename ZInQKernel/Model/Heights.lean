@@ -5,6 +5,7 @@ import ZInQKernel.Model.Heights.DuplicationForms
 import ZInQKernel.Model.Heights.Formula
 import ZInQKernel.Model.Heights.CommonDivisor
 import ZInQKernel.Model.Heights.DuplicationBounds
+import ZInQKernel.Model.Heights.Canonical
 
 /-!
 # Heights on `C(K₀)` and the finite search for small points
