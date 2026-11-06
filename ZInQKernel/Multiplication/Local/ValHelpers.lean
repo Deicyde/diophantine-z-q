@@ -58,6 +58,14 @@ theorem pow (hx : Vge v m x) (k : ℕ) : Vge v (k * m) (x ^ k) := by
 theorem div_unit (hx : Vge v m x) {u : K} (hu : v u = 0) : Vge v m (x / u) := by
   rw [Vge, v.map_div, hu, sub_zero]; exact hx
 
+theorem div_val' {e : ℤ} (hx : Vge v m x) (hy : v y = e) : Vge v (m - e) (x / y) := by
+  by_cases h : x = 0
+  · subst h; rw [zero_div]; exact Vge.zero _
+  obtain ⟨n, hn⟩ := val_eq_coe h
+  rw [Vge, v.map_div, hn, hy]
+  have := WithTop.coe_le_coe.mp (hn ▸ hx : ((m : ℤ) : WithTop ℤ) ≤ (n : WithTop ℤ))
+  exact WithTop.coe_le_coe.mpr (by omega)
+
 end Vge
 
 theorem vge_natCast (n : ℕ) : Vge v 0 (n : K) := by
@@ -107,6 +115,12 @@ theorem val_mul_coe {x y : K} {m n : ℤ} (hx : v x = m) (hy : v y = n) : v (x *
 theorem val_pow_coe {x : K} {m : ℤ} (hx : v x = m) (k : ℕ) : v (x ^ k) = (k * m : ℤ) := by
   rw [v.map_pow, hx]
   rw [← WithTop.coe_nsmul, nsmul_eq_mul]
+
+theorem val_zpow_coe {x : K} {m : ℤ} (hx : v x = m) (k : ℤ) : v (x ^ k) = (k * m : ℤ) := by
+  rcases Int.eq_nat_or_neg k with ⟨n, rfl | rfl⟩
+  · rw [zpow_natCast]; exact val_pow_coe hx n
+  · rw [zpow_neg, zpow_natCast, v.map_inv, val_pow_coe hx n]
+    rw [show (-(n : ℤ) * m : ℤ) = -((n : ℤ) * m) by ring]; rfl
 
 theorem val_inv_coe {x : K} {m : ℤ} (hx : v x = m) : v x⁻¹ = (-m : ℤ) := by
   rw [v.map_inv, hx]; rfl
