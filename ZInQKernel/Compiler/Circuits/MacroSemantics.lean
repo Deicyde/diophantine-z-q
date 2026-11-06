@@ -2,6 +2,7 @@ import ZInQKernel.Compiler.Circuits.Compilation
 import ZInQKernel.Compiler.Circuits.Gadgets
 import ZInQ.BinomialDigit
 import ZInQ.BitwiseMacros
+import ZInQKernel.Compiler.Exponential.PowerEquations
 
 /-!
 # Semantics of the natural macros
@@ -254,12 +255,9 @@ theorem odd_spec {U : Set ℕ} {A : Poly} (hA : VarsIn A (· ∈ U)) (hAn : IsNa
 
 /-! ### The alpha macro -/
 
-/-- The alpha formula (C.2) with natural witnesses `r, s, t, u, v, w, x, y`. -/
-def AlphaFormula (X b N : ℕ) : Prop :=
-  ∃ r s t u v w x y : ℕ, 3 < b ∧ u ^ 2 + t ^ 2 = 1 + b * u * t ∧ s ^ 2 + r ^ 2 = 1 + b * s * r ∧
-    r < s ∧ u ^ 2 ∣ s ∧ v + 2 * r = b * s ∧ w % v = b % v ∧ w % u = 2 % u ∧ 2 < w ∧
-    x ^ 2 + y ^ 2 = 1 + w * x * y ∧ 2 * X < u ∧ 2 * X < v ∧ x % v = X % v ∧ 2 * N < u ∧
-    x % u = N % u
+/-- The alpha formula (C.2) of the exponential section, with natural witnesses
+`r, s, t, u, v, w, x, y`. -/
+abbrev AlphaFormula (X b N : ℕ) : Prop := AlphaPower.AlphaEqns X b N
 
 theorem zv_update_ge {f : Poly} {U : Set ℕ} {n : ℕ} (hf : VarsIn f (· ∈ U))
     (hU : ∀ i ∈ U, i < n) {x : ℕ → ℕ} {c z : ℕ} (hc : n ≤ c) :
@@ -386,12 +384,8 @@ theorem alpha_spec {U : Set ℕ} {XP BP NP : Poly} (hX : VarsIn XP (· ∈ U)) (
 
 /-! ### The flat power macro -/
 
-/-- The power formula (C.3), the alpha formulas read as `AlphaFormula`. -/
-def PowerFormula (P Q R : ℕ) : Prop :=
-  (Q = 0 ∧ R = 0 ∧ P = 1) ∨ (Q = 0 ∧ 0 < R ∧ P = 0) ∨
-    (0 < Q ∧ ∃ b m a0 a1 a2 : ℕ, AlphaFormula a0 (Q + 4) (R + 1) ∧ b = a0 + Q ^ 2 + 2 ∧
-      m + Q ^ 2 + 1 = b * Q ∧ P < m ∧ AlphaFormula a1 b R ∧ AlphaFormula a2 b (R + 1) ∧
-      (P + b * a1) % m = (Q * a1 + a2) % m)
+/-- The power formula (C.3) of the exponential section. -/
+abbrev PowerFormula (P Q R : ℕ) : Prop := AlphaPower.PowEqns P Q R
 
 theorem powerFlat_spec {U : Set ℕ} {PP QP RP : Poly} (hP : VarsIn PP (· ∈ U))
     (hQ : VarsIn QP (· ∈ U)) (hR : VarsIn RP (· ∈ U)) (hPn : IsNat PP) (hQn : IsNat QP)
@@ -477,7 +471,7 @@ theorem powerFlat_spec {U : Set ℕ} {PP QP RP : Poly} (hP : VarsIn PP (· ∈ U
     simp only [Function.update_apply, Nat.add_assoc, Nat.reduceAdd, Nat.add_left_cancel_iff,
       Nat.left_eq_add, Nat.add_eq_left, OfNat.ofNat_ne_zero, reduceCtorEq, ite_true, ite_false,
       Nat.reduceEqDiff, hPn.zv_eq, hQn.zv_eq, hRn.zv_eq]
-    unfold PowerFormula
+    unfold PowerFormula AlphaPower.PowEqns
     constructor
     · rintro ⟨b, m, a0, a1, a2, ⟨h1, h2, h3⟩ | ⟨h1, h2, h3⟩ | ⟨hQ, h1, h2, h3, h4, h5, h6, h7⟩⟩
       · exact Or.inl ⟨by exact_mod_cast h1, by exact_mod_cast h2, by exact_mod_cast h3⟩
@@ -700,5 +694,19 @@ theorem bitAnd_spec {mode : PowerMode} (hpow : PowerSpec τ mode) {U : Set ℕ} 
       exact ⟨a, b, by exact_mod_cast h1, by exact_mod_cast h2, h3, h4, h5⟩
     · rintro ⟨a, b, h1, h2, h3, h4, h5⟩
       exact ⟨a, b, by exact_mod_cast h1, by exact_mod_cast h2, h3, h4, h5⟩
+
+/-! ### Final forms through the exponential section -/
+
+/-- **Semantics of `alpha`.** `alpha(X, b, N)` means `b > 3` and `X = α_b(N)`. -/
+theorem alpha_sem {U : Set ℕ} {XP BP NP : Poly} (hX : VarsIn XP (· ∈ U)) (hB : VarsIn BP (· ∈ U))
+    (hN : VarsIn NP (· ∈ U)) (hXn : IsNat XP) (hBn : IsNat BP) (hNn : IsNat NP) {X b N : Ex}
+    (hXe : X.poly = XP) (hbe : b.poly = BP) (hNe : N.poly = NP) :
+    MSpec τ (alpha X b N) U fun x =>
+      3 < nv x BP ∧ (nv x XP : ℤ) = AlphaPower.alphaZ (nv x BP) (nv x NP) :=
+  (alpha_spec hX hB hN hXn hBn hNn hXe hbe hNe).congr fun _ => AlphaPower.alphaEqns_iff _ _ _
+
+/-- **Semantics of the flat power macro.** `power(P, Q, R)` means `P = Q ^ R`. -/
+theorem powerSpec_flat' : PowerSpec τ .flat :=
+  powerSpec_flat fun P Q R => AlphaPower.powEqns_iff P Q R
 
 end ZInQ.Compiler.Natural
