@@ -3,6 +3,7 @@ import ZInQKernel.Syntax.Constants.Catalogue
 import ZInQKernel.Syntax.Constants.FormalMultiple
 import ZInQKernel.Syntax.Constants.Expr
 import ZInQKernel.Syntax.Constants.Fixed
+import ZInQKernel.Syntax.Constants.Relations
 
 /-!
 # Fixed constants and the guard product
