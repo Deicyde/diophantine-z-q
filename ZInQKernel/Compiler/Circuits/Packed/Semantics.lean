@@ -338,4 +338,131 @@ theorem subBranches_specE (hpow : PowerSpec τ .hierarchical) (P : Program) (S N
     have hrest : rest = P.drop (i + 1) := by rw [← List.tail_drop, ← hP]; rfl
     exact subBranches_specE hpow P S N rest (i + 1) U s hS hN hrest hs
 
+/-! ### Items 6 and 7 -/
+
+theorem registerEq_spec (B Rj ιj : Ex) (decs incs : List Ex) {U : Set ℕ}
+    (hB : VarsIn B.poly (· ∈ U)) (hR : VarsIn Rj.poly (· ∈ U)) (hι : VarsIn ιj.poly (· ∈ U))
+    (hd : ∀ e ∈ decs, VarsIn e.poly (· ∈ U)) (hi : ∀ e ∈ incs, VarsIn e.poly (· ∈ U)) :
+    MSpec τ (registerEq B Rj ιj decs incs) U fun x =>
+      zv x Rj.poly + zv x B.poly * (decs.map fun e => zv x e.poly).sum =
+        zv x ιj.poly + zv x B.poly * zv x Rj.poly + zv x B.poly * (incs.map fun e => zv x e.poly).sum := by
+  unfold registerEq
+  refine MSpec.expr_bind (IsExpr.addL _) fun e1 he1 => ?_
+  refine MSpec.expr_bind (IsExpr.mulL _) fun e2 he2 => ?_
+  refine MSpec.expr_bind (IsExpr.addL _) fun e3 he3 => ?_
+  refine MSpec.expr_bind (IsExpr.mulL _) fun e4 he4 => ?_
+  refine MSpec.expr_bind (IsExpr.addL _) fun e5 he5 => ?_
+  refine MSpec.expr_bind (IsExpr.mulL _) fun e6 he6 => ?_
+  refine MSpec.expr_bind (IsExpr.addL _) fun e7 he7 => ?_
+  have hds : VarsIn (decs.map Ex.poly).sum (· ∈ U) := VarsIn.list_sum fun f hf => by
+    obtain ⟨e, he, rfl⟩ := List.mem_map.1 hf; exact hd e he
+  have his : VarsIn (incs.map Ex.poly).sum (· ∈ U) := VarsIn.list_sum fun f hf => by
+    obtain ⟨e, he, rfl⟩ := List.mem_map.1 hf; exact hi e he
+  simp only [List.map_cons, List.map_nil, List.prod_cons, List.prod_nil, List.sum_cons,
+    List.sum_nil, mul_one, add_zero, he1, he2, he4, he5, he6] at he3 he7
+  refine (MSpec.eq' (U := U) he3 he7 (hR.add (hB.mul hds))
+    (hι.add ((hB.mul hR).add (hB.mul his)))).congr fun x => ?_
+  simp only [zv_add, zv_mul, zv_list_sum, List.map_map, Function.comp_def]
+  constructor <;> intro h <;> linear_combination h
+
+theorem stateEq_spec (B Si e : Ex) (ins : List Ex) {U : Set ℕ}
+    (hB : VarsIn B.poly (· ∈ U)) (hS : VarsIn Si.poly (· ∈ U)) (he : VarsIn e.poly (· ∈ U))
+    (hi : ∀ f ∈ ins, VarsIn f.poly (· ∈ U)) :
+    MSpec τ (stateEq B Si e ins) U fun x =>
+      zv x Si.poly = zv x e.poly + zv x B.poly * (ins.map fun f => zv x f.poly).sum := by
+  unfold stateEq
+  refine MSpec.expr_bind (IsExpr.addL _) fun e1 he1 => ?_
+  refine MSpec.expr_bind (IsExpr.mulL _) fun e2 he2 => ?_
+  refine MSpec.expr_bind (IsExpr.addL _) fun e3 he3 => ?_
+  have his : VarsIn (ins.map Ex.poly).sum (· ∈ U) := VarsIn.list_sum fun f hf => by
+    obtain ⟨g, hg, rfl⟩ := List.mem_map.1 hf; exact hi g hg
+  simp only [List.map_cons, List.map_nil, List.prod_cons, List.prod_nil, List.sum_cons,
+    List.sum_nil, mul_one, add_zero, he1, he2] at he3
+  refine (MSpec.eq' (U := U) rfl he3 hS (he.add (hB.mul his))).congr fun x => ?_
+  simp only [zv_add, zv_mul, zv_list_sum, List.map_map, Function.comp_def]
+
+theorem items6_spec (p : Program) (r : ℕ) (a : List Ex) (zero B : Ex) (R S : List Ex)
+    (vw : List (ℕ × Ex × Ex)) {U : Set ℕ} (hall : ∀ e : Ex, (e = zero ∨ e = B ∨ e ∈ a ∨ e ∈ R ∨
+      e ∈ S ∨ e = exZero ∨ ∃ v ∈ vw, e = v.2.1 ∨ e = v.2.2) → VarsIn e.poly (· ∈ U)) :
+    MSpecL τ (items6 p r a zero B R S vw) U fun x => ∀ j ∈ List.range r,
+      zv x (R.getD j exZero).poly + zv x B.poly *
+          ((decHandles p vw j).map fun e => zv x e.poly).sum =
+        zv x (a.getD j zero).poly + zv x B.poly * zv x (R.getD j exZero).poly +
+          zv x B.poly * ((incHandles p S j).map fun e => zv x e.poly).sum := by
+  have hget : ∀ (L : List Ex) (d : Ex) (j : ℕ), L.getD j d ∈ L ∨ L.getD j d = d := fun L d j => by
+    by_cases hj : j < L.length
+    · left; rw [List.getD_eq_getElem _ _ hj]; exact List.getElem_mem hj
+    · right; rw [List.getD_eq_default _ _ (by omega)]
+  have hlook : ∀ i, VarsIn (lookupVW vw i).1.poly (· ∈ U) ∧ VarsIn (lookupVW vw i).2.poly (· ∈ U) := by
+    intro i
+    unfold lookupVW
+    cases h : vw.find? (fun e => e.1 == i) with
+    | none => exact ⟨hall _ (by simp [exZero]), hall _ (by simp [exZero])⟩
+    | some v =>
+      have hv := List.mem_of_find?_eq_some h
+      exact ⟨hall _ (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr ⟨v, hv, Or.inl rfl⟩)))))),
+        hall _ (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr ⟨v, hv, Or.inr rfl⟩))))))⟩
+  unfold items6
+  refine MSpecL.seqM_map _ _ _ fun j _ => registerEq_spec _ _ _ _ _ (hall _ (by simp))
+    ?_ ?_ ?_ ?_
+  · rcases hget R exZero j with h | h
+    · exact hall _ (Or.inr (Or.inr (Or.inr (Or.inl h))))
+    · rw [h]; exact hall _ (by simp)
+  · rcases hget a zero j with h | h
+    · exact hall _ (Or.inr (Or.inr (Or.inl h)))
+    · rw [h]; exact hall _ (by simp)
+  · intro e he
+    simp only [decHandles, List.mem_map] at he
+    obtain ⟨i, -, rfl⟩ := he
+    exact (hlook i).1
+  · intro e he
+    simp only [incHandles, List.mem_map] at he
+    obtain ⟨i, -, rfl⟩ := he
+    rcases hget S exZero i with h | h
+    · exact hall _ (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl h)))))
+    · rw [h]; exact hall _ (by simp)
+
+theorem items7_spec (p : Program) (zero one B : Ex) (S : List Ex) (vw : List (ℕ × Ex × Ex))
+    {U : Set ℕ} (hall : ∀ e : Ex, (e = zero ∨ e = one ∨ e = B ∨ e ∈ S ∨ e = exZero ∨
+      ∃ v ∈ vw, e = v.2.1 ∨ e = v.2.2) → VarsIn e.poly (· ∈ U)) :
+    MSpecL τ (items7 p zero one B S vw) U fun x => ∀ i ∈ List.range p.length,
+      zv x (S.getD i exZero).poly = zv x (if i = 0 then one else zero).poly +
+        zv x B.poly * ((inHandles p S vw i).map fun e => zv x e.poly).sum := by
+  have hget : ∀ (L : List Ex) (d : Ex) (j : ℕ), L.getD j d ∈ L ∨ L.getD j d = d := fun L d j => by
+    by_cases hj : j < L.length
+    · left; rw [List.getD_eq_getElem _ _ hj]; exact List.getElem_mem hj
+    · right; rw [List.getD_eq_default _ _ (by omega)]
+  have hlook : ∀ i, VarsIn (lookupVW vw i).1.poly (· ∈ U) ∧ VarsIn (lookupVW vw i).2.poly (· ∈ U) := by
+    intro i
+    unfold lookupVW
+    cases h : vw.find? (fun e => e.1 == i) with
+    | none => exact ⟨hall _ (by simp [exZero]), hall _ (by simp [exZero])⟩
+    | some v =>
+      have hv := List.mem_of_find?_eq_some h
+      exact ⟨hall _ (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr ⟨v, hv, Or.inl rfl⟩))))),
+        hall _ (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr ⟨v, hv, Or.inr rfl⟩)))))⟩
+  have hS : ∀ i, VarsIn (S.getD i exZero).poly (· ∈ U) := fun i => by
+    rcases hget S exZero i with h | h
+    · exact hall _ (Or.inr (Or.inr (Or.inr (Or.inl h))))
+    · rw [h]; exact hall _ (by simp)
+  unfold items7
+  refine MSpecL.seqM_map _ _ _ fun i _ => stateEq_spec _ _ _ _ (hall _ (by simp)) (hS i)
+    ?_ ?_
+  · split_ifs
+    · exact hall _ (by simp)
+    · exact hall _ (by simp)
+  · intro e he
+    simp only [inHandles, List.mem_flatMap, List.mem_append] at he
+    obtain ⟨i', -, he⟩ := he
+    rcases he with (he | he) | he
+    · split_ifs at he
+      · simp at he; rw [he]; exact hS i'
+      · simp at he
+    · split_ifs at he
+      · simp at he; rw [he]; exact (hlook i').1
+      · simp at he
+    · split_ifs at he
+      · simp at he; rw [he]; exact (hlook i').2
+      · simp at he
+
 end ZInQ.Compiler.Packed
