@@ -8,6 +8,8 @@ import ZInQKernel.Model.Heights.DuplicationBounds
 import ZInQKernel.Model.Heights.Canonical
 import ZInQKernel.Model.Heights.SmallPoints
 import ZInQKernel.Model.Heights.SquareTest
+import ZInQKernel.Model.Heights.SearchCheck
+import ZInQKernel.Model.Heights.SearchKernel
 
 /-!
 # Heights on `C(K₀)` and the finite search for small points
