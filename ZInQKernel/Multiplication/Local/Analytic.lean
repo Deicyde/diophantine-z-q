@@ -100,7 +100,7 @@ theorem le_vK_tsum {f : ℕ → K} (hf : Summable f) {c : K} (h : ∀ n, vK K c 
 theorem isClosed_vK_gt (c : K) : IsClosed {x : K | vK K c < vK K x} := by
   have : {x : K | vK K c < vK K x} = {x : K | (Valued.v).restrict x < (Valued.v).restrict c} := by
     ext x
-    simp only [Set.mem_ofPred_eq, Valuation.restrict_lt_iff, lt_iff_not_ge, vK_le_vK_iff,
+    simp only [Set.mem_ofPred_eq, lt_iff_not_ge, vK_le_vK_iff,
       Valuation.restrict_le_iff]
   rw [this]
   exact Valued.isClosed_ball K _

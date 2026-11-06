@@ -23,14 +23,13 @@ The branch merges `origin/wip/model-descent`. It reuses that branch's chord alge
 | local/logarithm-coefficients.md | `log25_coefficients`, `log25Coeff_list`, `sixteen575_factor`, `genD_sq_eq`, `truncLog`, `truncLog_eq`, `truncLog_eq_trunc` (LogCoefficients.lean); `truncLog_eq_partialLog` (TruncationError.lean) | proved |
 | local/truncation-unit.md | `truncLog_eq_mul_unit`, `truncLog_ne_zero` (generic); `log25_eq_mul_unit`, `log25_ne_zero` (at every prime of `ℤ[s]`); `log25_eq_mul_unit_completion`; `vp_16575_le_two` (TruncationUnit.lean) | proved |
 | local/truncation-error.md | `log25_truncation_error`, `log25_truncation_zero`; generic `partialLog_truncation_error` (TruncationError.lean) | proved |
-| local/formal-group-law.md | part 1: `omegaSeries`, `omegaSeries_eq`, `omegaSeries_unique`, `omegaSeries_lowCoeffs`, `omegaSeries_integral` (proved), `omegaSeries_hasSum` (`-1/y = ω(z)`: **sorry**); part 2: `formalAdd` (definition), `formalGroupLaw_exists` (**sorry**) (FormalGroupLaw.lean) | statement only (part 1 mostly proved) |
+| local/formal-group-law.md | part 1: `omegaSeries`, `omegaSeries_eq`, `omegaSeries_unique`, `omegaSeries_lowCoeffs`, `omegaSeries_integral`, `omegaSeries_hasSum` (`-1/y = ω(-x/y)`, convergent) (proved); part 2: `formalAdd` (definition), `formalGroupLaw_exists` (**sorry**) (FormalGroupLaw.lean) | part 1 proved; part 2 statement only |
 | local/formal-logarithm.md | `formalLog`, `logCoeffA`, `invDiffCoeff`, `invDiffSeries` (definitions, FormalLog.lean); `invDiffCoeff_spec`, `derivative_formalLog` (proved); `formalLog_formalAdd` (**sorry**); `summable_log` (convergence, proved); `evalLog`, `ellLog` (definitions); `ellLog_add` (**sorry**); `ellLog_zsmul`, `ellLog_neg`, `ellLog_zero` (proved, `ellLog_zsmul` from `ellLog_add`) (FormalLogarithm.lean) | statement only (convergence and derivative proved) |
 | local/logarithm-isometry.md | `evalLog_isometry` (part 1, proved without sorry); `ellLog_val_eq` (proved without sorry); `ellLog_injOn`, `val_z_zsmul_eq`, `ellLog_unramified` (part 2 and the odd unramified case; their own proofs have no sorry but use `ellLog_add`) (FormalLog.lean, FormalLogarithm.lean) | part 1 proved; part 2 proved from `ellLog_add` |
 | local/logarithm-ratio.md | `ellLog_ratio` (Ratio.lean); its own proof has no sorry but uses `ellLog_add` | proved from `ellLog_add` |
 | local/logarithm-nonvanishing.md | `log25_z_ne_zero`; `genP0_not_isOfFinAddOrder`, `zsmul_genP0_ne_zero` (Nonvanishing.lean) | proved |
 
-The four `sorry`s are `omegaSeries_hasSum`, `formalGroupLaw_exists`, `formalLog_formalAdd`
-and `ellLog_add`. Only `ellLog_add` is used downstream, by `ellLog_zsmul`, `ellLog_injOn`,
+The three `sorry`s are `formalGroupLaw_exists`, `formalLog_formalAdd` and `ellLog_add`. Only `ellLog_add` is used downstream, by `ellLog_zsmul`, `ellLog_injOn`,
 `val_z_zsmul_eq`, `ellLog_unramified` and `ellLog_ratio`.
 
 ## Conventions and statement corrections
@@ -115,8 +114,9 @@ and `ellLog_add`. Only `ellLog_add` is used downstream, by `ellLog_zsmul`, `ellL
 - `Valuations.lean`: `ordOf`, `le_ordOf_iff`, `vP`, `vP_apply`, `le_vP_iff`, `vP_toK0_nonneg`.
 - `Analytic.lean`, generic analysis in complete `ℤᵐ⁰`-valued fields:
   - `nonarchimedean_valued`: Mathlib has no `NonarchimedeanAddGroup` instance for `Valued`.
-  - `exists_vge_subset`, `tendsto_zero_of_vK`, `summable_of_vK`, `isClosed_vK_ge`,
-    `isClosed_vK_gt`, `le_vK_tsum`, `lt_vK_tsum`, `le_vK_tsum_of_int`.
+  - `exists_vge_subset`, `tendsto_zero_of_vK`, `tendsto_zero_of_vK'`, `summable_of_vK`,
+    `summable_of_vK_cofinite`, `isClosed_vK_ge`, `isClosed_vK_gt`, `le_vK_tsum`, `lt_vK_tsum`,
+    `le_vK_tsum_of_int`.
 - `FormalLog.lean`: `ResidueChar.val_natCast`, `padicValNat_bernoulli` (`(p-1) v_p(r) ≤ r-1`),
   `two_mul_padicValNat_le`, `vge_logTerm`, `evalLog_sub_self`.
 - `PointMap.lean`: `mapPt`, `mapPt_add`, `mapPtHom`, `zCoord_mapPt` (points of `y² = x³ + Ax`
@@ -140,13 +140,11 @@ and `ellLog_add`. Only `ellLog_add` is used downstream, by `ellLog_zsmul`, `ellL
   real gap: Mathlib has the bare `FormalGroup` structure, but nothing on formal groups of
   elliptic curves, invariant differentials, or evaluation of two-variable series in a complete
   valued field.
-- `omegaSeries_hasSum` (`-1/y = ω(-x/y)`) is not proved. Plan: the series converges
-  (`summable_of_vK`, since `v(ω_n z^n) ≥ n`), and its sum `S` has `v(S) ≥ 3` (`le_vK_tsum` with
-  `c = z³`). `S = z³ + A z S²` follows from the Cauchy product
-  (`Summable.tsum_mul_tsum_eq_tsum_sum_antidiagonal`, with summability over `ℕ × ℕ` from a
-  cofinite version of `tendsto_zero_of_vK`) and `omegaSeries_eq`. `-1/y` satisfies the same
-  equation (`tw_equation` with signs flipped), and `w_eq_of_t_eq` (Chord.lean, `m = 1`) gives
-  `S = -1/y`.
+- `omegaSeries_hasSum` is proved with the article's contraction argument. The series
+  converges, and its sum `S` satisfies `S = z³ + A z S²` by a Cauchy product
+  (`Summable.tsum_mul_tsum_eq_tsum_sum_antidiagonal`) and has `v(S) ≥ 3`; `w_eq_of_t_eq` then
+  gives `S = -1/y`. This is the template for the evaluation part of `formalGroupLaw_exists`
+  (step 2 of the plan below).
 - Mathlib v4.35's `Valued` topology works through `v.restrict` and `ValueGroup₀`. The bridge
   lemmas in `Analytic.lean` hide this; reuse them rather than the raw API.
 - `genCurve.toAffine.Point` and `(shortCurve (-genD^2)).toAffine.Point` are defeq but carry
