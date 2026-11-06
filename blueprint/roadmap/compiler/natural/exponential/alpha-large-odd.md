@@ -2,6 +2,9 @@
 article_id: af_2cba4169bc3dc7a1dde3a9ae
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.AlphaPower.alphaZ_large_odd
 ---
 
 # Odd alpha values are unbounded

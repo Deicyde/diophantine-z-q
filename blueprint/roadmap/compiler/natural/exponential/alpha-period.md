@@ -2,6 +2,9 @@
 article_id: af_cad19badf98631e4fe9ed6b6
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.AlphaPower.alphaZ_period, ZInQ.AlphaPower.alphaZ_reflection, ZInQ.AlphaPower.alphaZ_folded_residue, ZInQ.AlphaPower.two_mul_alphaZ_lt_companion'
 ---
 
 # Period and reflection modulo the companion

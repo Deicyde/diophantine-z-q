@@ -2,6 +2,9 @@
 article_id: af_881ebcffd7a72ab296a11212
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.AlphaPower.alphaEqns_complete, ZInQ.AlphaPower.alphaEqns_iff
 ---
 
 # Completeness of the alpha formula

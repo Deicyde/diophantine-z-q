@@ -2,6 +2,9 @@
 article_id: af_3071bf0a1b9b49eb0b464de2
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.AlphaPower.alphaZ_modEq_of_modEq, ZInQ.AlphaPower.alphaZ_modEq_index
 ---
 
 # Parameter congruence of the alpha sequence

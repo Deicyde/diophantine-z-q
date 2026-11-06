@@ -2,6 +2,9 @@
 article_id: af_89688e04748daefa0f2a5b97
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.AlphaPower.alphaZ_growth, ZInQ.AlphaPower.alphaZ_exponential_bounds
 ---
 
 # Growth of the alpha sequence

@@ -2,6 +2,9 @@
 article_id: af_41accc1f091097e574203c6c
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.AlphaPower.alphaZ_pell_unordered, ZInQ.AlphaPower.alphaZ_pell_ordered, ZInQ.AlphaPower.alphaZ_pell_converse
 ---
 
 # Natural solutions of the alpha Pell equation

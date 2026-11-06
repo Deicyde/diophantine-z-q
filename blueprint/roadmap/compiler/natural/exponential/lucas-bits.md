@@ -2,6 +2,9 @@
 article_id: af_2c8d43338ba58957a167ee14
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.lucas_choose_odd_iff_masked, ZInQ.lucas_choose_add_odd_iff_disjoint
 ---
 
 # Lucas's criterion for bit inclusion and disjointness

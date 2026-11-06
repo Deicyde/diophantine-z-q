@@ -2,6 +2,8 @@
 article_id: af_91330468ecd40d4439cb24f2
 declaration: def
 origin: background
+statement: formalized
+lean: ZInQ.AlphaPower.alphaZ, ZInQ.AlphaPower.alphaInt, ZInQ.AlphaPower.alphaInt_neg, ZInQ.AlphaPower.alphaInt_add_two
 ---
 
 # The alpha sequence

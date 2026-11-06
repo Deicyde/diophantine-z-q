@@ -2,6 +2,9 @@
 article_id: af_59e30837b7f41c26e293c453
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.AlphaPower.powEqns_iff
 ---
 
 # The power formula expresses exponentiation

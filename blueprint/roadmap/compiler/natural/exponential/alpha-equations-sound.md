@@ -2,6 +2,9 @@
 article_id: af_0ea487f5ad964c14627b7c25
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.AlphaPower.alphaEqns_sound
 ---
 
 # Soundness of the alpha formula

@@ -2,6 +2,9 @@
 article_id: af_39722d80ee6d4f42379f793e
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.binomial_digit_iff_choose
 ---
 
 # Binomial coefficients as base-B digits

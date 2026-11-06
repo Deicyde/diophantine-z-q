@@ -2,6 +2,8 @@
 article_id: af_94ef7a6085b4f93bd757c8e6
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.AlphaPower.PowEqns
 ---
 
 # The power formula

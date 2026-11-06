@@ -2,6 +2,9 @@
 article_id: af_e2b1c9dbd7c7d0a40a9428a5
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.AlphaPower.alphaZ_dvd_alphaZ_iff, ZInQ.AlphaPower.alphaZ_sq_dvd_alphaZ_iff
 ---
 
 # Divisibility of alpha values

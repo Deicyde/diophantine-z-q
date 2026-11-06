@@ -2,6 +2,9 @@
 article_id: af_9cb49d02fce99e2aefcb9729
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.AlphaPower.alphaMat_pow, ZInQ.AlphaPower.alphaZ_quadratic, ZInQ.AlphaPower.alphaZ_addition
 ---
 
 # Matrix powers and the quadratic identity

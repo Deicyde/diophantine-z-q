@@ -2,6 +2,9 @@
 article_id: af_c2ec65ae8073ac7962f263e9
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.bitAnd_gadget_iff, ZInQ.bitAnd_macro_iff
 ---
 
 # The bitwise AND gadget
