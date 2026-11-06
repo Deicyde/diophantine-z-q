@@ -6,3 +6,4 @@ import ZInQKernel.Model.DivisionPolynomials.NonTorsion
 import ZInQKernel.Model.DivisionPolynomials.Jacobian
 import ZInQKernel.Model.DivisionPolynomials.Generic
 import ZInQKernel.Model.DivisionPolynomials.Multiples
+import ZInQKernel.Model.DivisionPolynomials.MulByN
