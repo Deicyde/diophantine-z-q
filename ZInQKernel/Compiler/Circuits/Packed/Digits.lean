@@ -111,6 +111,12 @@ theorem eq_pack_digit {B : ℕ} (hB : 0 < B) {q R : ℕ} (hR : R < B ^ (q + 1)) 
     simp only [digit, pow_zero, Nat.div_one]
     exact (Nat.mod_add_div R B).symm
 
+theorem digit_pack {B : ℕ} {f : ℕ → ℕ} {q : ℕ} (hf : ∀ t ≤ q, f t < B) {t : ℕ} (ht : t ≤ q) :
+    digit B (pack B f q) t = f t := by
+  have hB : 0 < B := lt_of_le_of_lt (Nat.zero_le _) (hf 0 (Nat.zero_le _))
+  have h := eq_pack_digit hB (pack_lt hf)
+  exact (pack_inj hf (fun t _ => digit_lt hB _ t) h t ht).symm
+
 /-! ### Bitwise conjunction of packed numbers in base `2^b` -/
 
 theorem land_split {b a a' m m' : ℕ} (ha : a < 2 ^ b) (ha' : a' < 2 ^ b) :

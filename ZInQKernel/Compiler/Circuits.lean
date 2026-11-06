@@ -13,6 +13,8 @@ import ZInQKernel.Compiler.Circuits.Packed.Transitions
 import ZInQKernel.Compiler.Circuits.Packed.Construction
 import ZInQKernel.Compiler.Circuits.Counts
 import ZInQKernel.Compiler.Circuits.Packed.Counts
+import ZInQKernel.Compiler.Circuits.Packed.Step
+import ZInQKernel.Compiler.Circuits.Packed.Sound
 
 /-!
 # Natural circuits and the packed-history compiler
