@@ -37,7 +37,7 @@ inactive branch takes arbitrary witnesses.
 
 - [The signed-encoding template](../../syntax/templates/template-signed-encode.md)
 - [Point codes](../../model/point-codes.md)
-- [The precision quantities and the precision predicate](../approximation/precision-predicate.md)
+- [The signed encoding of integers](../../compiler/natural/precision/signed-encoding.md)
 - [The six-contact height estimate](../../main/six-contact-estimate.md)
 - [Pole completeness](../../main/pole-completeness.md)
 - [Mordell–Weil for the generator curve](../../main/mordell-weil.md)

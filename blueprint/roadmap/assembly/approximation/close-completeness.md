@@ -30,13 +30,17 @@ embeddings, obtaining $M_2$, and choose $a\ge1$ by accumulation with
 $\sigma_\pm(x([a]P_0))>M_2$. With $Q=[a]P_0$ and $[n]Q=[na]P_0$,
 $$|r(a,na)-n|=\Bigl|\tfrac12\sum_\pm\bigl(\sigma_\pm(z_{na}/z_a)-n\bigr)\Bigr|<\epsilon_l .$$
 
-With $j=na$ all conditions of $\operatorname{Prec}(n,\kappa,a,l,j)$ hold ($n\notin\mathcal C$, $\kappa\ne0$,
-$a,l\ge1$), and the window $|t-r(a,j)|<\epsilon_l$ holds for $t=n$. The order of choices
-matters: $l$ is fixed first, then $a$ depending on $\epsilon_l$.
+With $j=na$ all conditions of $\operatorname{Prec}(n,\kappa,a,l,j)$ hold ($n\notin\mathcal C$,
+$\kappa\ne0$, $a,l\ge1$, and $l,a,j$ are admissible because they are nonzero), and the window
+$|t-r(a,j)|<\epsilon_l$ holds for $t=n$. The order of choices matters: $l$ is fixed first, then
+$a$ depending on $\epsilon_l$.
 
 ## Depends on
 
-- [The precision quantities and the precision predicate](precision-predicate.md)
+- [The precision relation](../../compiler/natural/precision/precision-relation.md)
+- [The local parameter z on multiples of the generator](../../compiler/natural/precision/z-coordinate.md)
+- [The precision constant is the six-contact constant](../../compiler/natural/precision/precision-height-constant-value.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../model/field/quadratic-field.md)
 - [The outer composition recipes](../../syntax/recipes/outer-recipes.md)
 - [Point codes](../../model/point-codes.md)
 - [The six-contact height estimate](../../main/six-contact-estimate.md)

@@ -9,7 +9,10 @@ origin: cited
 Assume the Mordell–Weil hypothesis. Then for all $A,L,J\in\mathbb Q^5$ and $t\in\mathbb Q$,
 $\mathrm{Rel}_{\mathtt{value.close\_coordinates}}(A,L,J,t)$ holds exactly when there are
 $a,l,j\in\mathbb Z$ with
-$$A=\iota(a),\quad L=\iota(l),\quad J=\iota(j),\quad a\ne0,\quad l\ne0,\quad |t-r(a,j)|<\epsilon_l .$$
+$$A=\iota(a),\quad L=\iota(l),\quad J=\iota(j),\quad a\ne0,\quad l\ne0,\quad |t-r(a,j)|<\epsilon_l ,$$
+with $r(a,j)=\frac12\operatorname{Tr}(z_j/z_a)$ and $\epsilon_l$ formed from the local parameter $z$ on
+multiples of the generator, extended by $z_0=0$ (so $r(a,0)=0$); $a,l$ and every nonzero $j$ are
+admissible by the nonzero-multiples lemma.
 
 **Proof sketch.** The template is $\kappa(\varphi)^2$; its calls ($\mathtt{member}$ three times,
 $\mathtt{value.abs}$ three times) have disjoint blocks occurring in no parameter, so by the
@@ -33,7 +36,7 @@ Conversely, for $a,l\ne0$ and the strict window, all these witnesses exist.
 ## Depends on
 
 - [The coordinate-window template](../../syntax/templates/template-close-coordinates.md)
-- [The precision quantities and the precision predicate](../approximation/precision-predicate.md)
+- [The local parameter z on multiples of the generator](../../compiler/natural/precision/z-coordinate.md)
 - [Point codes](../../model/point-codes.md)
 - [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 

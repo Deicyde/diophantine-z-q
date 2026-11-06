@@ -41,7 +41,8 @@ $v(x)=-2v(z)\le-2k$. This is the formal group law of the integral Weierstrass eq
 ## Depends on
 
 - [The generator curve $E$](../../model/field/generator-curve.md)
-- [The precision quantities and the precision predicate](../approximation/precision-predicate.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../model/field/quadratic-field.md)
+- [The formal neighbourhood of $y^2=x^3+Ax$ and its filtration](../../multiplication/local/formal-group.md)
 
 ## Proof depends on
 

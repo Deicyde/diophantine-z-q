@@ -24,7 +24,6 @@ the first code coordinate is $0$ exactly for affine points.
 ## Depends on
 
 - [Point codes](../../model/point-codes.md)
-- [The precision quantities and the precision predicate](../approximation/precision-predicate.md)
 
 ## Proof depends on
 

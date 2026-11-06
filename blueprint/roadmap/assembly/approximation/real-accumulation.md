@@ -28,7 +28,7 @@ neighbourhoods and subtract two close multiples) is the same pigeonhole principl
 ## Depends on
 
 - [The point $P_0$](../../model/field/generator-point.md)
-- [The precision quantities and the precision predicate](precision-predicate.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../model/field/quadratic-field.md)
 
 ## Proof depends on
 

@@ -36,7 +36,8 @@ The polynomials depend only on $n$ and $A$, so $M$ depends only on $n$, $\tau$ a
 
 ## Depends on
 
-- [The precision quantities and the precision predicate](precision-predicate.md)
+- [The field $K_0=\mathbb Q(\sqrt2)$](../../model/field/quadratic-field.md)
+- [The local parameter z on multiples of the generator](../../compiler/natural/precision/z-coordinate.md)
 - [The generator curve $E$](../../model/field/generator-curve.md)
 
 ## Proof depends on

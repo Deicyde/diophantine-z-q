@@ -86,10 +86,9 @@ only the final root is equated to the identity. This is input C on the rational 
 
 - [Semantics of the rational translation](rational-translation.md)
 
-With equation (C.4) the precision recipe decides the precision predicate on codes of signed
-encodings, which is how the assembly chapter uses it.
-
-- [The precision recipe decides the precision predicate](precision-decision.md)
+With equation (C.4), the precision recipe therefore holds at codes $\iota(c_0),\dots,\iota(c_4)$
+exactly when the [precision relation](../natural/precision/precision-relation.md) accepts $c$;
+the assembly chapter's relation Close uses it in this form.
 
 At each primitive formula, equality is a difference, conjunction a sum of squares and
 disjunction a product; the specification chapter proves that these compilations, including the

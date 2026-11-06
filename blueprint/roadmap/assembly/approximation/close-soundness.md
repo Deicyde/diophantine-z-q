@@ -14,7 +14,7 @@ $$|t-n|<e^{-B(n,\kappa)} .$$
 
 **Proof sketch.** The Close relation gives $n',\kappa',a,l$ with $\iota(n')=\iota(n)$,
 $\iota(\kappa')=\iota(\kappa)$, $\operatorname{Prec}(n',\kappa',a,l,n'a)$ and $|t-r(a,n'a)|<\epsilon_l$;
-injectivity of $\iota$ gives $n'=n$, $\kappa'=\kappa$. The precision predicate contains
+injectivity of $\iota$ gives $n'=n$, $\kappa'=\kappa$. The precision relation contains
 $n\notin\mathcal C$, $\kappa\ne0$, $|r(a,na)-n|<\epsilon_l$ and $4\epsilon_l\cdot4^{B}<1$ with $B=B(n,\kappa)\ge0$.
 By the triangle inequality,
 $$|t-n|<2\epsilon_l<\tfrac12\,4^{-B}<e^{-B},$$
@@ -22,7 +22,8 @@ the last step because $(e/4)^B\le1<2$. No height input is used here.
 
 ## Depends on
 
-- [The precision quantities and the precision predicate](precision-predicate.md)
+- [The precision relation](../../compiler/natural/precision/precision-relation.md)
+- [The precision constant is the six-contact constant](../../compiler/natural/precision/precision-height-constant-value.md)
 - [The outer composition recipes](../../syntax/recipes/outer-recipes.md)
 - [Point codes](../../model/point-codes.md)
 - [The six-contact height estimate](../../main/six-contact-estimate.md)
