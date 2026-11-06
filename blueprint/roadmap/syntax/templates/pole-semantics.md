@@ -2,6 +2,9 @@
 article_id: af_f61d3432262486c8d9d44cac
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.poleTemplate_rel_iff
 ---
 
 # Semantics of the pole template

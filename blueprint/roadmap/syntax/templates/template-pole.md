@@ -2,6 +2,8 @@
 article_id: af_807a9c14cc628cad3c69ae7a
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.poleTemplate, ZInQ.Syntax.poleTemplate_poly
 ---
 
 # The pole template

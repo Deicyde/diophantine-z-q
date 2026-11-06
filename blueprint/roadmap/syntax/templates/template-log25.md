@@ -2,6 +2,8 @@
 article_id: af_5fa814dc228537e8ad7deccb
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.log25Template, ZInQ.Syntax.log25Template_rel_iff
 ---
 
 # The truncated logarithm template

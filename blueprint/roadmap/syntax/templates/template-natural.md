@@ -2,6 +2,8 @@
 article_id: af_89a3eb758eb92ae19ae4cf29
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.naturalTemplate, ZInQ.Syntax.naturalBuild_formula
 ---
 
 # The natural-code template

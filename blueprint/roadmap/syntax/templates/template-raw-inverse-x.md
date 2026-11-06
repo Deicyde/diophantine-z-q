@@ -2,6 +2,8 @@
 article_id: af_0cf9066cfeedfeb11ad119c7
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.rawInverseXTemplate, ZInQ.Syntax.rawInverseXTemplate_rel_iff
 ---
 
 # The inverse abscissa template

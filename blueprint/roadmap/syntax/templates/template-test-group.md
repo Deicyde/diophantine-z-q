@@ -2,6 +2,8 @@
 article_id: af_ab56121ec985cb71290b9a86
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.testGroupTemplate, ZInQ.Syntax.testGroupBuild_formula
 ---
 
 # The test-group template

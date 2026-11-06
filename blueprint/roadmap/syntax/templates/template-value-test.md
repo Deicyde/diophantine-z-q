@@ -2,6 +2,8 @@
 article_id: af_ee7c744135cbe476176a5e17
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.valueTestTemplate, ZInQ.Syntax.valueTest_facts
 ---
 
 # The value-test template

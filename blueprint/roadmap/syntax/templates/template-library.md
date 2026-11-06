@@ -2,6 +2,8 @@
 article_id: af_992a403e0ad362f5f8ed0ae8
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.templateLibrary, ZInQ.Syntax.templateLibrary_witnesses, ZInQ.Syntax.templateLibrary_wf
 ---
 
 # The template library

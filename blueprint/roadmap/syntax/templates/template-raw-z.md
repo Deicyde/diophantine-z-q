@@ -2,6 +2,8 @@
 article_id: af_635b4bfae544de66fca32b91
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.rawZTemplate, ZInQ.Syntax.rawZTemplate_rel_iff
 ---
 
 # The local parameter template

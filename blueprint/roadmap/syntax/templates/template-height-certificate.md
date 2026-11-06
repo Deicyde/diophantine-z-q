@@ -2,6 +2,8 @@
 article_id: af_8091b9cd8013f74357a38a5c
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.heightTemplate, ZInQ.Syntax.heightBuild_formula
 ---
 
 # The height certificate template

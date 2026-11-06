@@ -2,6 +2,8 @@
 article_id: af_7f12dafb91e4f2dffbdb3f07
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.exceptionsTemplate, ZInQ.Syntax.exceptions_facts
 ---
 
 # The exceptional-values template

@@ -2,6 +2,8 @@
 article_id: af_2113b9179f1833ad7874e383
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.multiplyTemplate, ZInQ.Syntax.multiplyBuild_formula
 ---
 
 # The multiplication template

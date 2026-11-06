@@ -2,6 +2,9 @@
 article_id: af_d4f033ec0307c6e0fd3757f3
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.log25Coeffs_spec
 ---
 
 # The coefficients of the truncated logarithm

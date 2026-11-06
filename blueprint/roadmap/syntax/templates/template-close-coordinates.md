@@ -2,6 +2,8 @@
 article_id: af_5b9f4ecf1b194e5d21b268ee
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.closeTemplate, ZInQ.Syntax.close_facts
 ---
 
 # The coordinate-window template

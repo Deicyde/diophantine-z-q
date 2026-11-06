@@ -2,6 +2,8 @@
 article_id: af_1db83f57595f0c0fba18bc86
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.memberTemplate, ZInQ.Syntax.memberTemplate_rel_iff
 ---
 
 # The membership template

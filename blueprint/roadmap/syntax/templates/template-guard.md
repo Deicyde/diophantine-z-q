@@ -2,6 +2,8 @@
 article_id: af_b975b7894233ef9b70af3eb1
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.guardTemplate, ZInQ.Syntax.guardTemplate_rel_iff
 ---
 
 # The guard template

@@ -2,6 +2,8 @@
 article_id: af_67ee9f551814beef54b38198
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.rawAddTemplate, ZInQ.Syntax.rawAddTemplate_rel_iff
 ---
 
 # The raw addition template

@@ -2,6 +2,8 @@
 article_id: af_f499552b4c6f6751e21aea6f
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.slopeTemplate, ZInQ.Syntax.slopeBuild_formula
 ---
 
 # The slope template

@@ -2,6 +2,8 @@
 article_id: af_080ff1ab53de42c87d8ec37e
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.absTemplate, ZInQ.Syntax.absTemplate_rel_iff
 ---
 
 # The absolute-value template

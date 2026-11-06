@@ -2,6 +2,8 @@
 article_id: af_ff781ce8896f17a138da50fb
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.scalarTemplate, ZInQ.Syntax.scalarTemplate_rel_iff
 ---
 
 # The fixed-scalar templates

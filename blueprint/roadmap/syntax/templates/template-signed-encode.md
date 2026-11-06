@@ -2,6 +2,8 @@
 article_id: af_23632f8c3d5486f9e9e9d40e
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.signedEncodeTemplate, ZInQ.Syntax.signedEncode_facts
 ---
 
 # The signed-encoding template
