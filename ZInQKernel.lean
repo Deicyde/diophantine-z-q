@@ -7,3 +7,4 @@ import ZInQKernel.Main
 import ZInQKernel.Model.DivisionPolynomials
 import ZInQKernel.Model.Field
 import ZInQKernel.Syntax.Language
+import ZInQKernel.Assembly.Real
