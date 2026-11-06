@@ -27,15 +27,18 @@ In particular no variable node of the parent reads a private coordinate of a pow
 
 Apart from $c_3\ge2$, each item is a closed decidable statement about the two explicit
 circuits: scan the explicit variables, the nodes and the call blocks. The inequality
-$c_3\ge2$ follows from the definition of the program literal as a program code
-($c_3+1=2^w(2D+1)$ with $w\ge1$ and $D\ge1$), without computing its digits.
+$c_3\ge2$ follows from the bound $c_3>1399$ on the program literal, without computing its
+digits.
 
 ## Depends on
 
 - [Well-formed natural circuits](natural-circuit-well-formed.md)
 - [Semantics of the natural precision polynomial](../natural/natural-polynomial-semantics.md)
-- [The five-input specialization](machine/five-input-specialization.md)
-- [The wrapper and the program literal](machine/wrapper.md)
+- [The five-input natural precision circuit](../natural/universal/precision-circuit.md)
+
+## Proof depends on
+
+- [Size of the program literal](../natural/universal/wrapper-code-size.md)
 
 ## Sources
 

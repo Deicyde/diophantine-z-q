@@ -20,7 +20,6 @@ precision predicate accepts $\mathbf c$.
 Second, the natural polynomial is translated into the rational point-code model: each natural
 variable becomes a code typed by the natural-code predicate and each arithmetic node a template
 call, so that the precision recipe has rational witnesses exactly at the codes of the natural
-zeros. The interpreter, its lowering, the wrapper and the five-input specialization, which
-supply the machine half of (C.4), form a subchapter of this section.
+zeros.
 
 - [Translation to rational point codes](translation/README.md)

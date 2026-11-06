@@ -16,3 +16,11 @@
 - Upstream reuse: none (the hypothesis file's `contactSet` is a `Finset ℚ`; use
   `(n : ℚ) ∉ contactSet` if the assembly chapter prefers).
 - FINITE COMPUTATION: no. Difficulty: trivial.
+
+## From the deleted duplicate `compiler/translation/machine/precision-predicate.md`
+
+- The duplicate stated admissibility as "affine with `x ≠ 0` and `y ≠ 0`"; this is equivalent to
+  admissibility here, since `x = 0` forces `y = 0` on `E`.
+- Prove `(A0 : ℝ) = heightH6 heightD` once (`ZInQKernel/Hypotheses/Height.lean`), for the
+  assembly chapter's use of the six-contact hypothesis at `R = D`. For `x + y s` in `K0`,
+  `½ Tr = re`.

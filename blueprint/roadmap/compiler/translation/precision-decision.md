@@ -24,14 +24,14 @@ form uses $\operatorname{enc}^{-1}(\operatorname{enc}(m))=m$ and the nondegenera
 ## Depends on
 
 - [Semantics of the rational translation](rational-translation.md)
-- [The precision predicate](machine/precision-predicate.md)
+- [The precision relation](../natural/precision/precision-relation.md)
 - [Correctness of the multiplication template](../../multiplication/multiplication-template.md)
 - [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 
 - [Semantics of the natural precision polynomial](../natural/natural-polynomial-semantics.md)
-- [Nonzero multiples of the generator are nondegenerate](machine/nondegenerate-multiples.md)
+- [Nonzero multiples of the generator](../../assembly/value-templates/nonzero-multiples.md)
 
 ## Sources
 
