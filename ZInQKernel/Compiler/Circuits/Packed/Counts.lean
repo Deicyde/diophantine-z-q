@@ -109,6 +109,68 @@ def packedLog (p : Program) (r k : ℕ) : List MacroKind :=
     (List.replicate r (maskLog ++ [.lt] ++ bitAndLog)).flatten ++
     (List.replicate p.subCount bitAndLog).flatten
 
+theorem counts_appendM {m₁ m₂ : NM (List NForm)} {v₁ b₁ v₂ b₂ : ℕ} {L₁ L₂ : List MacroKind}
+    (h₁ : Counts m₁ v₁ b₁ L₁) (h₂ : Counts m₂ v₂ b₂ L₂) :
+    Counts (appendM m₁ m₂) (v₁ + v₂) (b₁ + b₂) (L₁ ++ L₂) :=
+  (h₁.bind fun _ => h₂.bind fun _ => Counts.pure _).congr rfl rfl (by simp)
+
+theorem counts_items1 (p : Program) (a : List Ex) (zero q c K B T : Ex) :
+    Counts (items1 p a zero q c K B T) (2 + a.length) 2
+      ([.lt, .power, .lt, .power] ++ (List.replicate a.length [.lt]).flatten) := by
+  unfold items1
+  have h1 : Counts (seqM [lt zero c, do power .hierarchical K (← constant 2) c,
+      do pure (.eq B (← scale 4 K)), do lt (← constant p.length) B, power .hierarchical T B q])
+      2 2 [.lt, .power, .lt, .power] := by
+    counts_tac
+    all_goals first | rfl | simp
+  exact (counts_seqM_append _ _ h1 (Counts.seqM_map a (fun ai => lt ai K) fun ai =>
+    Counts.lt ai K)).congr (by ring) rfl rfl
+
+theorem counts_items2 (one K B T F D : Ex) (S : List Ex) :
+    Counts (items2 one K B T F D S) 0 0 [] := by
+  counts_of items2
+
+theorem counts_items3 (F : Ex) (S : List Ex) :
+    Counts (items3 F S) (S.length * 9) (S.length * 3) (List.replicate S.length maskLog).flatten :=
+  Counts.seqM_map S _ fun x => Counts.mask x F
+
+theorem counts_items4 (r : ℕ) (K D T F : Ex) (R N : List Ex) :
+    Counts (items4 r K D T F R N) (r * 39) (r * 12)
+      (List.replicate r (maskLog ++ [.lt] ++ bitAndLog)).flatten := by
+  have := counts_seqConcat_map (List.range r) _ fun j =>
+    counts_registerMasks K D T F (R.getD j exZero) (N.getD j exZero)
+  rw [List.length_range] at this
+  exact this
+
+theorem counts_items6 (p : Program) (r : ℕ) (a : List Ex) (zero B : Ex) (R S : List Ex)
+    (vw : List (ℕ × Ex × Ex)) : Counts (items6 p r a zero B R S vw) 0 0 [] :=
+  (Counts.seqM_map _ _ fun j => counts_registerEq _ _ _ _ _).congr (by simp) (by simp) (by simp)
+
+theorem counts_items7 (p : Program) (zero one B : Ex) (S : List Ex) (vw : List (ℕ × Ex × Ex)) :
+    Counts (items7 p zero one B S vw) 0 0 [] :=
+  (Counts.seqM_map _ _ fun i => counts_stateEq _ _ _ _).congr (by simp) (by simp) (by simp)
+
+theorem counts_packedFormulas (p : Program) (r : ℕ) (a : List Ex) (zero one q c K B T F D : Ex)
+    (R N S : List Ex) (hS : S.length = p.length) :
+    Counts (packedFormulas p r a zero one q c K B T F D R N S)
+      (2 + a.length + 9 * p.length + 39 * r + 31 * p.subCount)
+      (2 + 3 * p.length + 12 * r + 9 * p.subCount)
+      ([.lt, .power, .lt, .power] ++ (List.replicate a.length [.lt]).flatten ++
+        (List.replicate p.length maskLog).flatten ++
+        (List.replicate r (maskLog ++ [.lt] ++ bitAndLog)).flatten ++
+        (List.replicate p.subCount bitAndLog).flatten) := by
+  unfold packedFormulas
+  have hsb : ∀ sb : List NForm × List (ℕ × Ex × Ex), Counts (appendM (pure sb.1) (appendM
+      (items6 p r a zero B R S sb.2) (items7 p zero one B S sb.2))) 0 0 [] := fun sb =>
+    (counts_appendM (Counts.pure sb.1) (counts_appendM (counts_items6 _ _ _ _ _ _ _ _)
+      (counts_items7 _ _ _ _ _ _))).congr rfl rfl rfl
+  have h5 := (counts_subBranches S N 0 p).bind hsb
+  have := counts_appendM (counts_items1 p a zero q c K B T) (counts_appendM
+    (counts_items2 one K B T F D S) (counts_appendM (counts_items3 F S)
+      (counts_appendM (counts_items4 r K D T F R N) h5)))
+  rw [hS] at this
+  refine this.congr (by ring) (by ring) (by simp)
+
 theorem counts_construction (p : Program) (r k : ℕ) :
     Counts (construction p r k) (9 + k + 41 * r + 10 * p.length + 31 * p.subCount)
       (2 + 3 * p.length + 12 * r + 9 * p.subCount) (packedLog p r k) := by
@@ -127,27 +189,13 @@ theorem counts_construction (p : Program) (r k : ℕ) :
   apply Counts.bind'_eq (P := fun S => S.length = p.length) (hm := counts_freshN p.length)
     (hP := fun s => length_freshN _ s)
   intro S hS
-  apply Counts.bind_eq (hm := counts_seqM_append _ _ (by counts_tac; all_goals first | rfl | simp)
-    (Counts.seqM_map_len _ _ (n := k) (by simp [inputs]) fun ai => Counts.lt ai K))
-  intro fs1
-  apply Counts.bind_eq (hm := by counts_tac; all_goals first | rfl | simp)
-  intro fs2
-  apply Counts.bind_eq (hm := Counts.seqM_map_len _ _ hS fun x => Counts.mask x F)
-  intro fs3
-  apply Counts.bind_eq (hm := counts_seqConcat_map _ _ fun j =>
-    counts_registerMasks K D T F (R.getD j exZero) (N.getD j exZero))
-  intro fs4
-  apply Counts.bind_eq (hm := counts_subBranches S N 0 p)
-  intro sb
-  apply Counts.bind_eq (hm := Counts.seqM_map _ _ fun j => counts_registerEq _ _ _ _ _)
-  intro fs6
-  apply Counts.bind_eq (hm := Counts.seqM_map _ _ fun i => counts_stateEq _ _ _ _)
-  intro fs7
+  apply Counts.bind_eq (hm := counts_packedFormulas p r (inputs k) zero one q c K B T F D R N S hS)
+  intro φs
   · exact Counts.pure _
   all_goals try (with_reducible rfl)
-  · simp only [List.length_range]; ring
-  · simp only [List.length_range]; ring
-  · simp [packedLog]
+  · simp only [inputs, List.length_map, List.length_range]; ring
+  · ring
+  · simp [packedLog, inputs]
 
 theorem blocks_length (C : NatCircuit) : C.blocks.length = C.nodes.countP NatNode.isCall := by
   unfold NatCircuit.blocks

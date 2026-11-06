@@ -105,6 +105,60 @@ def stateEq (B Si e : Ex) (ins : List Ex) : NM NForm := do
   let r ← addL [e, ← mulL [B, ← addL ins]]
   pure (.eq Si r)
 
+/-- Run two formula-list constructions in order and concatenate their formulas. -/
+def appendM (m₁ m₂ : NM (List NForm)) : NM (List NForm) := do
+  let l₁ ← m₁
+  let l₂ ← m₂
+  pure (l₁ ++ l₂)
+
+/-- Item 1. -/
+def items1 (p : Program) (a : List Ex) (zero q c K B T : Ex) : NM (List NForm) :=
+  seqM ([
+    lt zero c,
+    do power .hierarchical K (← constant 2) c,
+    do pure (.eq B (← scale 4 K)),
+    do lt (← constant p.length) B,
+    power .hierarchical T B q] ++ a.map fun ai => lt ai K)
+
+/-- Item 2. -/
+def items2 (one K B T F D : Ex) (S : List Ex) : NM (List NForm) :=
+  seqM [
+    do pure (.eq (← addL [← mulL [B, F], one]) (← addL [F, ← mulL [B, T]])),
+    do pure (.eq (← addL [D, F]) (← mulL [K, F])),
+    do pure (.eq (← addL S) F),
+    pure (.eq (S.getLastD exZero) T)]
+
+/-- Item 3. -/
+def items3 (F : Ex) (S : List Ex) : NM (List NForm) := seqM (S.map fun x => mask .hierarchical x F)
+
+/-- Item 4. -/
+def items4 (r : ℕ) (K D T F : Ex) (R N : List Ex) : NM (List NForm) :=
+  seqConcat ((List.range r).map fun j =>
+    registerMasks K D T F (R.getD j exZero) (N.getD j exZero))
+
+/-- Item 6. -/
+def items6 (p : Program) (r : ℕ) (a : List Ex) (zero B : Ex) (R S : List Ex)
+    (vw : List (ℕ × Ex × Ex)) : NM (List NForm) :=
+  seqM ((List.range r).map fun j =>
+    registerEq B (R.getD j exZero) (a.getD j zero) (decHandles p vw j) (incHandles p S j))
+
+/-- Item 7. -/
+def items7 (p : Program) (zero one B : Ex) (S : List Ex) (vw : List (ℕ × Ex × Ex)) :
+    NM (List NForm) :=
+  seqM ((List.range p.length).map fun i =>
+    stateEq B (S.getD i exZero) (if i = 0 then one else zero) (inHandles p S vw i))
+
+/-- Items 1–7, in order, after the fresh variables `q, …, D, R, N, S`. -/
+def packedFormulas (p : Program) (r : ℕ) (a : List Ex) (zero one q c K B T F D : Ex)
+    (R N S : List Ex) : NM (List NForm) :=
+  appendM (items1 p a zero q c K B T) <|
+  appendM (items2 one K B T F D S) <|
+  appendM (items3 F S) <|
+  appendM (items4 r K D T F R N) do
+    let sb ← subBranches S N 0 p
+    appendM (pure sb.1) <|
+    appendM (items6 p r a zero B R S sb.2) (items7 p zero one B S sb.2)
+
 /-- **The packed-history construction** of `p` with `r` registers and `k` inputs. -/
 def construction (p : Program) (r k : ℕ) : NM NForm := do
   let a := inputs k
@@ -120,26 +174,8 @@ def construction (p : Program) (r k : ℕ) : NM NForm := do
   let R ← freshN r
   let N ← freshN r
   let S ← freshN p.length
-  let fs1 ← seqM ([
-    lt zero c,
-    do power .hierarchical K (← constant 2) c,
-    do pure (.eq B (← scale 4 K)),
-    do lt (← constant p.length) B,
-    power .hierarchical T B q] ++ a.map fun ai => lt ai K)
-  let fs2 ← seqM [
-    do pure (.eq (← addL [← mulL [B, F], one]) (← addL [F, ← mulL [B, T]])),
-    do pure (.eq (← addL [D, F]) (← mulL [K, F])),
-    do pure (.eq (← addL S) F),
-    pure (.eq (S.getLastD exZero) T)]
-  let fs3 ← seqM (S.map fun x => mask .hierarchical x F)
-  let fs4 ← seqConcat ((List.range r).map fun j =>
-    registerMasks K D T F (R.getD j exZero) (N.getD j exZero))
-  let sb ← subBranches S N 0 p
-  let fs6 ← seqM ((List.range r).map fun j =>
-    registerEq B (R.getD j exZero) (a.getD j zero) (decHandles p sb.2 j) (incHandles p S j))
-  let fs7 ← seqM ((List.range p.length).map fun i =>
-    stateEq B (S.getD i exZero) (if i = 0 then one else zero) (inHandles p S sb.2 i))
-  pure (.and (fs1 ++ fs2 ++ fs3 ++ fs4 ++ sb.1 ++ fs6 ++ fs7))
+  let φs ← packedFormulas p r a zero one q c K B T F D R N S
+  pure (.and φs)
 
 /-- **The compiled circuit** `𝒞_{p,k}`: the natural circuit of the packed-history
 construction. -/
