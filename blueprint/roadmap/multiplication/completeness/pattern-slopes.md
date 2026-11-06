@@ -12,9 +12,10 @@ $t_1,t_2,t_3\in\mathbb Q$ with $t_1+t_2+t_3=A$ such that each $t=t_j$ satisfies:
 1. $t\notin\mathcal C\cup\{1\}$;
 2. for every $p\in S_b$: $|v_p(t-1)|\le B_p$ and $|v_p(F(t)/(t-1)^8)|\le8B_p$, in particular
    both are at most $C_p=14B_p$;
-3. every odd contact prime $p\notin S_b$ of $t$ satisfies $p>B_0$, is a good pattern prime
-   (it splits in $K_0$, both reductions of $E$ above it are good, and their orders $d_1,d_2$
-   satisfy $\gcd(d_1,d_2)=4$), and has $v_p(t-c)=1$ for the unique $c\in\mathcal C$ with
+3. every odd contact prime $p\notin S_b$ of $t$ satisfies $p>B_0$, is a good prime in the
+   sense of the [pattern hypothesis](../../main/prime-pattern.md) (it splits in $K_0$, both
+   reductions of $E$ above it are good, and their orders $d_1,d_2$ satisfy $\gcd(d_1,d_2)=4$
+   and $p\nmid d_1d_2$), and has $v_p(t-c)=1$ for the unique $c\in\mathcal C$ with
    $v_p(t-c)>0$;
 4. $t$ has at most six odd contact primes outside $S_b$.
 

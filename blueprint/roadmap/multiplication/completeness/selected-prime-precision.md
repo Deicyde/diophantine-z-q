@@ -6,8 +6,8 @@ origin: bridged
 
 # Precision of the tests at a selected prime
 
-Let $p>324$ be a good pattern prime: $p$ is
-odd, $r\in\mathbb Z$ satisfies $r^2\equiv2\pmod p$, $75\mp53r\not\equiv0\pmod p$, and
+Let $p>324$ be a prime with good reduction at a split pair of places: $p$ is odd,
+$r\in\mathbb Z$ satisfies $r^2\equiv2\pmod p$, $75\mp53r\not\equiv0\pmod p$, and
 $$d_1=\#\widetilde E_r(\mathbb F_p),\qquad d_2=\#\widetilde E_{-r}(\mathbb F_p),\qquad
 \widetilde E_{\pm r}:y^2=x^3-(75\mp53r)^2x,$$
 counting the point at infinity. Let $\mathfrak p_1=(p,s-r)$ and $\mathfrak p_2=(p,s+r)=\sigma\mathfrak p_1$.
