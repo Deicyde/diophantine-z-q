@@ -23,6 +23,10 @@ projection to its first variable exactly $\mathbb Z$.
 - [The twenty-two-prime pattern](prime-pattern.md)
 - [The catalogue bound](catalogue-bound.md)
 
+## Proof depends on
+
+- [The assembly lemma](../assembly/assembly-lemma.md)
+
 ## Sources
 
 - [Theorem 1.1 and Lemma 1.2](../../sources/manuscript.md#theorem-11)

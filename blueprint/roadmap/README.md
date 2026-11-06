@@ -19,3 +19,9 @@ checked by the Lean kernel.
 ## Chapters
 
 - [The main theorem and its hypotheses](main/README.md)
+- [The finite specification of the polynomial](syntax/README.md)
+- [The elliptic model of integer indices](model/README.md)
+- [Multiplication and the finite false-triple guard](multiplication/README.md)
+- [Exact precision computation and polynomial compilation](compiler/README.md)
+- [Assembly and the ordinary-value relation](assembly/README.md)
+- [The cutoff and polynomial size](size/README.md)
