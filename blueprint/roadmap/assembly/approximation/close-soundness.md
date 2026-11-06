@@ -34,7 +34,7 @@ the last step because $(e/4)^B\le1<2$. No height input is used here.
 ## Proof depends on
 
 - [The relation Close](close-relation.md)
-- [Nonzero multiples of the generator](../value-templates/nonzero-multiples.md)
+- [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 
 ## Sources
 

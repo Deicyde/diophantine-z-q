@@ -25,12 +25,14 @@ Together these give the weak Mordell-Weil index.
 ## Torsion and rank
 
 Reduction at the primes $(17,s-6)$ and $(23,s-5)$, with $20$ and $24$ points, shows that the
-torsion is exactly the full two-torsion. The Mordell-Weil hypothesis then gives rank one, and
+torsion is exactly the full two-torsion; in particular $P_0$ has infinite order, so its nonzero
+multiples are affine with nonzero coordinates. The Mordell-Weil theorem then gives rank one, and
 real signs of squareclasses show that $R$ is an odd multiple of a generator modulo torsion.
 
 - [Reduction is injective on prime-to-$p$ torsion](reduction-torsion.md)
 - [Point counts at $(17,s-6)$ and $(23,s-5)$](reduction-point-counts.md)
 - [The torsion of $E(K_0)$ is the full two-torsion](torsion.md)
+- [Nonzero multiples of the generator](nonzero-multiples.md)
 - [$E(K_0)$ has rank one](rank-one.md)
 - [The free index of $R$ is odd](odd-free-index.md)
 

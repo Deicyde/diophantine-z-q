@@ -23,13 +23,13 @@ the first code coordinate is $0$ exactly for affine points.
 
 ## Depends on
 
-- [Point codes](../../model/point-codes.md)
+- [Point codes](../point-codes.md)
 
 ## Proof depends on
 
-- [The torsion of $E(K_0)$ is the full two-torsion](../../model/descent/torsion.md)
-- [The point $P_0$](../../model/field/generator-point.md)
-- [Elementary properties of codes](../../model/field/point-code-properties.md)
+- [The torsion of $E(K_0)$ is the full two-torsion](torsion.md)
+- [The point $P_0$](../field/generator-point.md)
+- [Elementary properties of codes](../field/point-code-properties.md)
 
 ## Sources
 

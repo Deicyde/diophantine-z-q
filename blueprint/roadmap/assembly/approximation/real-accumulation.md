@@ -33,7 +33,7 @@ neighbourhoods and subtract two close multiples) is the same pigeonhole principl
 ## Proof depends on
 
 - [Compactness and continuity of subtraction on a real curve](real-subtraction.md)
-- [Nonzero multiples of the generator](../value-templates/nonzero-multiples.md)
+- [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 
 ## Sources
 

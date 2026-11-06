@@ -12,7 +12,7 @@ proves that this constant is the six-contact constant $H_6(S_{\rm ht})$, so that
 $B(n,\kappa)$ of the ordinary-value relation
 ([identification](../../compiler/natural/precision/precision-height-constant-value.md)).
 Its admissibility clause is automatic for nonzero indices, by the
-[nonzero-multiples lemma](../value-templates/nonzero-multiples.md).
+[nonzero-multiples lemma](../../model/descent/nonzero-multiples.md).
 
 Close chooses codes $A,L,J$, links the five signed codes to the precision inputs in the order
 $(n,\kappa,a,l,j)$ and imposes $|t-r(a,j)|<\epsilon_l$ on the same coordinates.

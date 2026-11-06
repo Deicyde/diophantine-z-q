@@ -45,7 +45,7 @@ even power.
 
 - [Multiplication in a formal neighbourhood](formal-multiplication.md)
 - [Valuations of the quadratic field](k0-valuations.md)
-- [Nonzero multiples of the generator](../value-templates/nonzero-multiples.md)
+- [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 
 ## Sources
 

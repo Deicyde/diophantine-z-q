@@ -35,7 +35,7 @@ This is a definition.
 ## Depends on
 
 - [The field $K_0=\mathbb Q(\sqrt2)$](../../model/field/quadratic-field.md)
-- [Nonzero multiples of the generator](nonzero-multiples.md)
+- [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 - [Pole completeness](../../main/pole-completeness.md)
 - [Point codes](../../model/point-codes.md)
 

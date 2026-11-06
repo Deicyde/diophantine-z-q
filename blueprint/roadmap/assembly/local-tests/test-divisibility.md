@@ -59,7 +59,7 @@ $p\mid\kappa(n-c)$, and $n-c$ divides $F(n)$, so $p\mid\kappa F(n)$.
 - [Valuations of the quadratic field](k0-valuations.md)
 - [Formal neighbourhoods of the identity](formal-group.md)
 - [Multiplication in a formal neighbourhood](formal-multiplication.md)
-- [Nonzero multiples of the generator](../value-templates/nonzero-multiples.md)
+- [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 
 ## Sources
 

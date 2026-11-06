@@ -55,7 +55,7 @@ relations.
 - [Accepted inputs have unique indices](../../model/membership-indices.md)
 - [Correctness of the multiplication template](../../multiplication/multiplication-template.md)
 - [Raw addition](../../model/raw-addition.md)
-- [Nonzero multiples of the generator](nonzero-multiples.md)
+- [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 - [Elementary properties of codes](../../model/field/point-code-properties.md)
 - [Pair arithmetic represents the quadratic field](../../syntax/field-pair-arithmetic.md)
 - [Inverse witnesses](../../syntax/nonzero-gadgets.md)

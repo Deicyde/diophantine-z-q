@@ -43,7 +43,7 @@ Conversely, for $a,l\ne0$ and the strict window, all these witnesses exist.
 ## Proof depends on
 
 - [Accepted inputs have unique indices](../../model/membership-indices.md)
-- [Nonzero multiples of the generator](nonzero-multiples.md)
+- [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 - [Pair arithmetic represents the quadratic field](../../syntax/field-pair-arithmetic.md)
 - [The absolute-value template](../../syntax/templates/template-abs.md)
 - [Absolute value by four squares](../../syntax/language/absolute-value-gadget.md)

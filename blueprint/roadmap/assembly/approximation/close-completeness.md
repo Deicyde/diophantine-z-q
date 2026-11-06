@@ -53,7 +53,7 @@ $a$ depending on $\epsilon_l$.
 - [The relation Close](close-relation.md)
 - [Multiples of the generator approach the identity at both real places](real-accumulation.md)
 - [The derivative of multiplication at a real place](real-derivative.md)
-- [Nonzero multiples of the generator](../value-templates/nonzero-multiples.md)
+- [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 
 ## Sources
 

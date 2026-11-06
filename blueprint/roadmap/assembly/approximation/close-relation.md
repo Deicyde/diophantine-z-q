@@ -66,7 +66,7 @@ is the identity, and the coordinate window holds because $a,l\ge1$ are nonzero.
 - [Semantics of the rational translation](../../compiler/translation/rational-translation.md)
 - [Semantics of the natural precision polynomial](../../compiler/natural/natural-polynomial-semantics.md)
 - [The signed encoding is a bijection](../../compiler/natural/precision/signed-encoding-bijection.md)
-- [Nonzero multiples of the generator](../value-templates/nonzero-multiples.md)
+- [Nonzero multiples of the generator](../../model/descent/nonzero-multiples.md)
 
 ## Sources
 

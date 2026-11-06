@@ -19,7 +19,8 @@ an explicit natural-number expression; it is never evaluated.
 - [The precision constant is the six-contact constant](precision-height-constant-value.md)
 
 The relation itself consists of the early tests, admissibility, and two strict tests. Given
-the generator theorem, admissibility follows from the early tests.
+that $P_0$ has infinite order, admissibility follows from the early tests; the model chapter
+proves this unconditionally ([nonzero multiples of the generator](../../../model/descent/nonzero-multiples.md)).
 
 - [The precision relation](precision-relation.md)
 - [Admissibility of nonzero indices](precision-guards.md)
