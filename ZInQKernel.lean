@@ -8,3 +8,4 @@ import ZInQKernel.Model.DivisionPolynomials
 import ZInQKernel.Model.Field
 import ZInQKernel.Syntax.Language
 import ZInQKernel.Model.Descent
+import ZInQKernel.Multiplication.Local
