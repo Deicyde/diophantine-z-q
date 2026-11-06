@@ -1,19 +1,19 @@
 # Implementation note: Size of the program literal
 
-- Lean names: `ZInQ.Compiler.Universal.c3 := code wrapper` (`@[irreducible]`),
-  `c3_lt : c3 < 2^20000000`, `c3_gt : 1399 < c3`, `wrapper_small`.
-- FINITE COMPUTATION. Decidable form:
+- Lean names: `ZInQ.Compiler.Universal.c3 := code wrapper` (mark `@[irreducible]`; never
+  evaluate it), `c3_lt : c3 < 2^(2^24)`, `c3_gt : 1399 < c3`.
+- Draft:
   ```lean
-  theorem wrapper_small : 3 ≤ wrapper.length ∧ wrapper.length < 2^18 ∧
-      ∀ ins ∈ wrapper, ins.maxField < 2^18 := ...
+  theorem c3_lt : c3 < 2^14400019 := by
+    have hw : width wrapper ≤ 18 := width_le_of_fields wrapper_small.2.2
+    calc c3 < 2^(width wrapper * (4 * wrapper.length + 1) + 1) := code_lt wrapper
+      _ ≤ 2^(18 * (4 * 200000 + 1) + 1) := Nat.pow_le_pow_right (by norm_num) (by nlinarith [wrapper_small.2.1])
+  theorem c3_lt' : c3 < 2^(2^24) := c3_lt.trans (Nat.pow_lt_pow_right (by norm_num) (by norm_num))
+  theorem c3_gt : 1399 < c3 := ...   -- from code_ge, 3 ≤ wrapper.length, 2 ≤ width
   ```
-  `wrapper.length` is about $1.5\times10^5$ if the Lean precision program is as large as the
-  manuscript's; evaluating the lowering in the kernel is then too slow for `decide`. Prove
-  instead structural size bounds: `(IR.code s start aux).1.length = IR.size s` with
-  `IR.size` a small recursive function on the IR syntax, evaluated by `decide` on the IR
-  term (hundreds of statements), and similarly `IR.maxReg s`. Then `code_lt` gives
-  `c3 < 2^(18*(4*len+1)+1) < 2^20000000` by `Nat.pow_lt_pow_right` and `omega`; `code_ge`
-  gives `c3 > 1399`.
+- Consumers: the size chapter (`|c_3| < 2^(2^24)`, used in its literal-constant bounds; it
+  currently quotes the saved literal's 3,181,317 decimal digits, which do not apply to the
+  Lean literal) and the shape of the natural precision circuit.
 - Mathlib: `Nat.pow_lt_pow_right`, `Nat.pow_le_pow_right`.
 - Upstream reuse: none.
-- Difficulty: medium (the structural size function).
+- FINITE COMPUTATION: no (the finite part is `wrapper_small`). Difficulty: easy.

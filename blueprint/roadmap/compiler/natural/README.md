@@ -28,8 +28,9 @@ The manuscript does not compile the precision machine directly. It compiles a fi
 universal interpreter ($1{,}399$ instructions, $204$ registers) once, and specializes the
 resulting universal halting polynomial at the code of the wrapper. This is forced by the
 variable budget: the interpreter costs $15{,}845$ power calls, whereas compiling the wrapper
-itself ($146{,}780$ instructions, $23{,}633$ registers in the manuscript's version) would cost
-about $1.7$ million. The precision program enters the polynomial only through one integer
+itself ($146{,}780$ instructions, $23{,}633$ registers in the manuscript's version) would cost,
+by the count $2+3(m+4r+3s)$ of the packed construction, at least
+$2+3(146{,}780+4\cdot23{,}633)=723{,}938$ power calls even with no decrement instruction. The precision program enters the polynomial only through one integer
 coefficient, the program literal $c_3$, which is never evaluated; neither are the
 astronomically large constants $D$, $Q_0$ or $A^{(0)}_{\rm ht}$ of the precision computation,
 which the program evaluates with caps.

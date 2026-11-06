@@ -36,12 +36,13 @@ $L+1$ computes the comparison exactly without evaluating $\mathcal B$.
 - [The capped precision test](capped-height-test.md)
 
 Field divisions are guarded by the norm, which vanishes only at zero. Points are handled in
-Jacobian coordinates over $\mathbb Z[s]$, with explicit identities for doubling and addition,
-their exceptional branches, and the fixed projective point; scalar multiplication halves
+Jacobian coordinates over $\mathbb Z[s]$, with explicit identities for doubling and addition
+and their exceptional branches, and a finite check that the fixed projective point is $P_0$; scalar multiplication halves
 its counter.
 
 - [Elements of norm zero](norm-zero.md)
 - [Jacobian formulas on the weighted model](jacobian-formulas.md)
+- [The fixed Jacobian point](jacobian-generator.md)
 - [Scalar multiplication by halving](jacobian-scalar-multiplication.md)
 
 The decision program assembles these steps, and it computes the relation on every input.

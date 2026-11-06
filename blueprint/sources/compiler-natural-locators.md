@@ -176,6 +176,12 @@ Section 10.4, lines 6078-6086: the precision parent has $54056$ explicit variabl
 $15845$ disjoint private blocks of $79$ variables; no parent variable node accesses a
 private coordinate.
 
+## Section 12 literal constants
+
+Section 12 (`sec:size`), subsection "Quantitative syntax bounds" (from line 6362), lines 6373-6376: the checked facts about the saved expression include that
+the absolute values of all literal fixed constants are at most $T$; the program literal
+$c_3$ is one of these constants.
+
 ## Appendix B sources
 
 Appendix B (`app:sources`), lines 6636-6639: S21 `variable-shift-precision.py.txt` (exact

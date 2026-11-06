@@ -17,7 +17,9 @@ initial virtual configuration. ($\Leftarrow$) If the virtual run halts after $t$
 applications of the step statement reach a configuration coherent with a halting virtual
 state, from which cleanup is reached; cleanup clears every register and halts.
 ($\Rightarrow$) The final halt is reachable only through cleanup, which is entered only from
-the decoding step with $w=0$ or from a simulated halt; by the step statement, if the
+the decoding step with $w=0$ or from a simulated halt (items 3 and 4 of the shape check:
+the cleanup stage is a straight run of clearing loops ending at the final halt, entered only
+at its first state, and only from the three exit states); by the step statement, if the
 virtual run never halts the interpreter returns to the main loop forever and never
 enters cleanup. Hence acceptance implies virtual halting.
 
@@ -32,6 +34,7 @@ enters cleanup. Hence acceptance implies virtual halting.
 - [One interpreter loop simulates one instruction](interpreter-step.md)
 - [Arithmetic blocks of the interpreter](interpreter-primitives.md)
 - [List blocks of the interpreter](interpreter-list-primitives.md)
+- [Shape of the universal interpreter](interpreter-shape.md)
 
 ## Sources
 

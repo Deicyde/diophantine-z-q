@@ -31,20 +31,18 @@ $X_3$ being the first coordinate. Then the following polynomial identities hold:
    $\Lambda=0\iff y_1=y_2$; the sum is the doubling if $\Lambda=0$ and the identity $O$
    otherwise (opposite points);
 8. (zero ordinate) if $Y=0$ and $Z\ne0$ the point has order two and its double is $O$;
-9. (fixed point) in $\mathbb Z[s]$ with $A=-11243+7950s$, the triple
-   $(X_0,Y_0,Z_0)=(3282-2320s,\ -247440+174966s,\ 4)$ satisfies $\mathcal E(X_0,Y_0,Z_0)=0$,
-   $X_0/Z_0^2=x(P_0)$ and $Y_0/Z_0^3=y(P_0)$; negation is $(X,Y,Z)\mapsto(X,-Y,Z)$.
+   negation is $(X,Y,Z)\mapsto(X,-Y,Z)$.
 
 Together these say that the Jacobian formulas, with the branches 7 and 8 and $Z=0$ for $O$,
-compute the chord-and-tangent law of $E$ on representatives, and that the fixed projective
-point is the affine $P_0$. They are polynomial identities, independent of the generator
-theorem.
+compute the chord-and-tangent law of $E$ on representatives. They are polynomial
+identities, independent of the generator theorem. That the fixed projective point is the
+affine $P_0$ is the separate finite check on the fixed Jacobian point.
 
 The manuscript reports nine polynomial identities for the nonexceptional projective
 formulas and the preservation of $Y^2=X^3+AXZ^4$ without listing them; the list above is
 the set this chapter uses.
 
-**Proof sketch.** Items 1-6 and 9 are identities in polynomial rings over $\mathbb Z$,
+**Proof sketch.** Items 1-6 are identities in polynomial rings over $\mathbb Z$,
 checked by ring normalization (items 1 and 2 with explicit cofactors, found by polynomial
 division by $\mathcal E$). Item 7: $U_1=U_2$ iff $x_1=x_2$ after dividing by $Z_1^2Z_2^2$, and
 likewise for $S_i$; on the curve, equal abscissas give $y_2=\pm y_1$. Item 8 is
@@ -53,7 +51,6 @@ $-(x,0)=(x,0)$.
 ## Depends on
 
 - [The generator curve $E$](../../../model/field/generator-curve.md)
-- [The point $P_0$](../../../model/field/generator-point.md)
 
 ## Sources
 

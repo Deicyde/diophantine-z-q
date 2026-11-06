@@ -18,9 +18,9 @@ variables $r,s,t,u,v,w,x,y$ followed by the fifteen gadget witnesses: one each f
 $3<b$, $r<s$, $u^2\mid s$, two for each of the four congruences, one each for $2<w$,
 $2X<u$, $2X<v$, $2N<u$, in formula order); the witness of $P<m$; the $23$ witnesses of
 $\mathrm{alpha}(a_1,b,R)$; the $23$ of $\mathrm{alpha}(a_2,b,R+1)$; the two of the final
-congruence. Its hash-consed node list has $474$ nodes: $82$ variables, $6$ constants ($0$,
-$1$, $4$, $2$, $3$, $-1$ in order of first occurrence), $196$ additions and $190$
-multiplications, and no calls.
+congruence. Its node list is the hash-consed node encoding of the construction; its node
+statistics ($474$ nodes, constants $0,1,4,2,3,-1$ in order of first occurrence, no calls) are
+a finite check of the universal-circuit section.
 
 This is a definition. A *power call* $\mathcal P[g_P,g_Q,g_R;w]$ substitutes the three
 parameter polynomials and moves the $79$ witnesses to the block $X_w,\dots,X_{w+78}$, as in

@@ -17,8 +17,8 @@ $\mapsto O$.
 For $k\in\mathbb N$ define $\mathrm{mul}(k)$ by the loop with state $(\Pi,\Theta,e)$ starting at
 $(O,P^{\rm J}_0,k)$, where $P^{\rm J}_0=(3282-2320s,-247440+174966s,4)$ and $O=(1,1,0)$: while
 $e>0$, if $e$ is odd replace $\Pi$ by $\Pi\oplus\Theta$; replace $\Theta$ by $\mathrm{dbl}^\ast(\Theta)$
-and $e$ by $\lfloor e/2\rfloor$; return $\Pi$. For $k\in\mathbb Z$ put
-$\mathrm{mul}(k)=\mathrm{mul}(k)$ if $k\ge0$ and the negation of $\mathrm{mul}(-k)$ otherwise.
+and $e$ by $\lfloor e/2\rfloor$; return $\Pi$. For a negative integer $k$ let $\mathrm{mul}(k)$ be
+the negation $(X,-Y,Z)$ of $\mathrm{mul}(-k)$.
 
 Then for every $k\in\mathbb Z$ the loop terminates and $\mathrm{mul}(k)$ is a Jacobian
 representative of $[k]P_0$ satisfying $\mathcal E=0$; in particular $[k]P_0=O$ if and only if
@@ -26,8 +26,8 @@ the third coordinate is $0$, and otherwise its ordinate is zero if and only if t
 coordinate is $0$.
 
 **Proof sketch.** Termination: $e$ halves. Invariant: $\Pi$ and $\Theta$ represent points
-$\pi,\theta$ on $E$ with $\pi+[e]\theta=[k]P_0$; it holds initially by the fixed-point
-identities and is preserved because $\oplus$ and $\mathrm{dbl}^\ast$ represent the group law
+$\pi,\theta$ on $E$ with $\pi+[e]\theta=[k]P_0$; it holds initially because $O=(1,1,0)$
+represents $O$ and $P^{\rm J}_0$ represents $P_0$ (the fixed Jacobian point) and is preserved because $\oplus$ and $\mathrm{dbl}^\ast$ represent the group law
 (Jacobian formulas, items 1-8): if $e$ is odd, $\pi+[e]\theta=(\pi+\theta)+[e-1]\theta$, and
 $[2\lfloor e/2\rfloor]\theta=[\lfloor e/2\rfloor](2\theta)$. At $e=0$, $\pi=[k]P_0$. Negation
 represents $-P$. The last claim: for $Z\ne0$, $y=Y/Z^3$.
@@ -36,6 +36,10 @@ represents $-P$. The last claim: for $Z\ne0$, $y=Y/Z^3$.
 
 - [Jacobian formulas on the weighted model](jacobian-formulas.md)
 - [The point $P_0$](../../../model/field/generator-point.md)
+
+## Proof depends on
+
+- [The fixed Jacobian point](jacobian-generator.md)
 
 ## Sources
 

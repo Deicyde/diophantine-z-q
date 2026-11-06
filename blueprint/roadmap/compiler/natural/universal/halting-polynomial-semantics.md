@@ -13,8 +13,8 @@ numbered $e$ halts on $n$. Replacing $\mathbb N$ by $\mathbb Q$ here is not just
 
 **Proof sketch.** The compiled-circuit statement for the valid program $\mathcal U$ gives
 $Z_{\mathcal H}(e,n)\iff\mathcal U$ accepts $(e,n)$, and the interpreter's correctness gives
-$\iff\operatorname{halts}(e,n)$. Validity and the count $1{,}305{,}802=1{,}305{,}804-2$ come from
-the interpreter-shape statement.
+$\iff\operatorname{halts}(e,n)$. Validity comes from the interpreter-shape check and the count
+$1{,}305{,}802=1{,}305{,}804-2$ from the counting statement.
 
 ## Depends on
 
@@ -27,6 +27,7 @@ the interpreter-shape statement.
 - [The compiled circuit of a register machine](../packed/register-machine-polynomial.md)
 - [Correctness of the universal interpreter](interpreter-correct.md)
 - [Shape of the universal interpreter](interpreter-shape.md)
+- [Counts of the universal halting circuit](halting-circuit-counts.md)
 
 ## Sources
 

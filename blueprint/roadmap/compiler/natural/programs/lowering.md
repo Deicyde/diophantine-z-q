@@ -13,15 +13,22 @@ For a program $S$ of the ideal register language with register bound $\rho_S$, t
    reserved jump register (always $0$ at block boundaries, so $\mathrm{dec}(J,x,x)$ is an
    unconditional jump to $x$); registers above $J$ are fresh auxiliary registers, each
    primitive block using its own registers (or registers it clears before use).
-2. *Primitive blocks.* $x\leftarrow k$: clear $x$ (a loop of decrements) and increment it $k$
-   times. $x\leftarrow y$ and $x\leftarrow y+z$: snapshot the sources into fresh registers
-   by moving them into two auxiliary registers and restoring them (so aliasing of $x$ with
-   $y$ or $z$ is safe), then add by repeated increment. $x\leftarrow y\mathbin{\dot-}z$: copy $y$,
-   then decrement it once per unit of a copy of $z$ (saturating decrement).
-   $x\leftarrow y\cdot z$: repeated addition. $x\leftarrow\lfloor y/z\rfloor$,
-   $x\leftarrow y\bmod z$: test $z=0$ first; otherwise subtract copies of $z$ from a copy of
-   $y$ while the remainder is at least $z$, maintaining $y=qz+r$. Every block ends with its
-   auxiliary registers zero and every register below $\rho_S$ other than $x$ unchanged.
+2. *Primitive blocks.* Every block for an assignment to $x$ first *snapshots* each source
+   $y$: it moves $y$ into two fresh auxiliary registers $a,a'$ (decrement $y$, increment $a$
+   and $a'$, until $y=0$) and moves $a$ back into $y$, so that $y$ is restored and $a'$
+   holds its value. Only after all sources are snapshot is $x$ cleared (a loop of
+   decrements) and written; hence aliasing of $x$ with $y$ or $z$, and $y=z$, are safe.
+   Then: $x\leftarrow k$ increments $x$ $k$ times; $x\leftarrow y$ and $x\leftarrow y+z$
+   move the snapshots into $x$; $x\leftarrow y\mathbin{\dot-}z$ moves the snapshot of $y$ into
+   $x$ and then, once per unit of the snapshot of $z$, decrements $x$ if it is positive
+   (saturating decrement); $x\leftarrow y\cdot z$ adds the snapshot of $y$ into $x$ (restoring
+   it through a further auxiliary register) once per unit of the snapshot of $z$, then clears
+   the snapshot of $y$; $x\leftarrow\lfloor y/z\rfloor$ and $x\leftarrow y\bmod z$ test the
+   snapshot of $z$ for zero (giving $0$, respectively the snapshot of $y$) and otherwise keep a
+   remainder $r$ and a quotient $q$, starting from $r=y$, $q=0$, and subtract $z$ from $r$ and
+   increment $q$ while $r\ge z$ (tested on copies), maintaining $y=qz+r$; at exit $r<z$, and
+   $q$ or $r$ is moved into $x$. Every block ends with its auxiliary registers zero and
+   every register below $\rho_S$ other than $x$ unchanged.
 3. *Control.* Sequencing concatenates blocks; a test $y<z$ or $y=z$ is a block computing
    the comparison into an auxiliary register followed by a decrement branch on it; a loop
    jumps back to its test.

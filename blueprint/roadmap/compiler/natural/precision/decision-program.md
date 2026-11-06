@@ -21,7 +21,7 @@ of $\mathbb Z[s]$ (a pair of integers) or a natural number, and every test is ex
    component of $\nu_j\bar\nu_aN_a\in\mathbb Z[s]$, so that $r(a,j)=\theta/\delta$. Return false
    unless $|\theta-n\delta|\cdot V<U\cdot|\delta|$.
 5. Put $L=\lfloor(V-1)/(4U)\rfloor$. Return false if $L=0$. Otherwise, with
-   $M=|\kappa F(n)|$, compute $\beta=\sigma_L(\langle A\rangle_L\cdot\mathrm{cpow}_L(\sigma_L(M),24))$
+   $M=|\kappa F(n)|$, compute $\beta=\mathrm{cmul}_L(\langle e_A\rangle_L,\mathrm{cpow}_L(\sigma_L(M),24))$
    and run the division-by-four loop from $L$ for $\beta$ steps; return true if and only if
    the final value is at least $1$.
 

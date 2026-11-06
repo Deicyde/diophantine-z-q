@@ -19,12 +19,16 @@ This is equation (C.4), the natural half of input $\mathsf C$. Its proof has no 
 restricted-converse or rational-model premise: the height constant enters only as a fixed
 integer expression computed with caps, and admissibility replaces the generator theorem.
 The witnesses are natural numbers; the rational translation is a separate statement.
+Admissibility is part of the relation so that the theorem needs no input about $P_0$; under
+the generator theorem it follows from the early tests ([admissibility of nonzero
+indices](precision/precision-guards.md)).
 
 **Proof sketch.** By the specialization statement,
 $Z_{\mathcal N}(c)\iff Z_{\mathcal H}(c_3,\operatorname{enc}_5(c))$ with $c_3=\operatorname{code}(\mathcal W)$. By the
 semantics of the universal halting circuit this is $\operatorname{halts}(c_3,\operatorname{enc}_5(c))$,
 which by the codes of primitive programs is "the wrapper halts on $\operatorname{enc}_5(c)$", which
-by the correctness of the wrapper is $\operatorname{accepts}(c)$.
+by the correctness of the wrapper is $\operatorname{accepts}(c)$. The number $1{,}305{,}806$ of
+witness coordinates is the variable count $1{,}305{,}811$ of $\mathcal N$ minus its five inputs.
 
 ## Depends on
 
@@ -38,6 +42,7 @@ by the correctness of the wrapper is $\operatorname{accepts}(c)$.
 - [Semantics of the universal halting circuit](universal/halting-polynomial-semantics.md)
 - [Codes of primitive programs](universal/program-numbering-encode.md)
 - [Correctness of the wrapper](programs/wrapper-correct.md)
+- [Shape of the natural precision circuit](universal/circuit-node-counts.md)
 
 ## Sources
 

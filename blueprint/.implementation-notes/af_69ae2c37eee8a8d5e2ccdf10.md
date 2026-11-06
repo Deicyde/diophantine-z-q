@@ -9,6 +9,7 @@
       ∀ t ≤ q, (∃! i, σ i t = 1) ∧ (σ ⟨m-1,_⟩ t = 1 ↔ t = q)
   ```
 - Mathlib: `Finset.sum_comm`, `Nat.ofDigits_inj_of_len_eq` (or the local base-`B` uniqueness).
-- Upstream reuse: base-`B` uniqueness from `PackedRegister` (make `digits_eq_of_sum_eq`
-  public in a project copy, or reprove).
+- Upstream reuse: none directly. `PackedRegister.digits_eq_of_sum_eq` is `private` and
+  `lean/` is kept unchanged, so reprove the base-`B` uniqueness lemma once in
+  `ZInQKernel` and share it with the masked-digit and transition articles.
 - FINITE COMPUTATION: no. Difficulty: easy-medium.

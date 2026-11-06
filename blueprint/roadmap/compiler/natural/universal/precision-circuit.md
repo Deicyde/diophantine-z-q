@@ -12,8 +12,8 @@ circuit with $5$ inputs obtained from the universal halting circuit $\mathcal H$
 1. *Variables.* Inputs $X_0,\dots,X_4$ (the codes $c_0,\dots,c_4$); pairing variables
    $X_5,\dots,X_8$ ($t_0,\dots,t_3$); every variable $X_i$ of $\mathcal H$ with $i\ge2$ becomes
    $X_{i+7}$, and every block start $w$ of $\mathcal H$ becomes $w+7$. The explicit variables
-   are listed as $0,\dots,8$ followed by the shifted explicit witnesses of $\mathcal H$; the
-   variable count is $1{,}305{,}804-2+9=1{,}305{,}811$.
+   are listed as $0,\dots,8$ followed by the shifted explicit witnesses of $\mathcal H$, and
+   the variable count is that of $\mathcal H$ plus $7$.
 2. *Nodes.* The node list of $\mathcal H$, in order, with the variable node of $X_0$ ($e$)
    replaced by the constant node $c_3$, the variable node of $X_1$ ($n$) replaced by the
    variable node of $X_5$, every other variable node and every call block start shifted by
@@ -24,9 +24,10 @@ circuit with $5$ inputs obtained from the universal halting circuit $\mathcal H$
    $\rho^2+\pi_0^2+\pi_1^2+\pi_2^2+\pi_3^2$, where $\rho$ is the root of $\mathcal H$, as root.
 3. *Power template.* The calls refer to the power template $\mathcal P$.
 
-So $\mathcal N$ has $54{,}056$ explicit variables, $15{,}845$ private blocks of $79$
-variables and $293{,}620$ nodes. This is the pinned five-input natural polynomial of input
-$\mathsf C$, defined by construction; the saved file is a cross-check of its shape.
+This is the pinned five-input natural polynomial of input $\mathsf C$, defined by
+construction; the saved file is a cross-check of its shape. Its counts ($54{,}056$ explicit
+variables, $15{,}845$ private blocks, variable count $1{,}305{,}811$, $293{,}620$ nodes) are
+proved in the shape statement.
 
 This is a definition.
 

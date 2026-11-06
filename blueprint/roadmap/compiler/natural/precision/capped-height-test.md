@@ -6,30 +6,51 @@ origin: bridged
 
 # The capped precision test
 
-Let $L\ge1$ and $M\in\mathbb N$. Define the *capped constant* $\langle A\rangle_L$ by evaluating
-the defining expressions of the precision height constant with every operation saturated:
-$$\begin{aligned}
-\langle F_0\rangle&=\sigma_L(324!)\ \text{(iterated saturated products)},&
-\langle D\rangle&=\sigma_L\bigl(\langle F_0\rangle\cdot\mathrm{cpow}_L(3,\sigma_L(256\cdot\mathrm{cpow}_L(\langle F_0\rangle,4)))\bigr),
-\end{aligned}$$
-and likewise $\langle E_0\rangle$, $\langle Q_0\rangle=\mathrm{cpow}_L(\langle D\rangle,\sigma_L(\langle D\rangle\langle E_0\rangle))$,
-$\langle B_{\rm cm}\rangle$, $\langle C_{\rm cm}\rangle$ and
-$\langle A\rangle_L=\sigma_L\bigl(\sigma_L(2\cdot10^{13})\cdot\max(1,\langle C_{\rm cm}\rangle,\mathrm{cpow}_L(\langle Q_0\rangle,17))\bigr)$,
-where each sum, product and maximum is followed by $\sigma_L$. Put
-$\beta=\sigma_L\bigl(\langle A\rangle_L\cdot\mathrm{cpow}_L(\sigma_L(M),24)\bigr)$ and run the
-*division-by-four loop*: $x_0=L$, $x_{i+1}=\lfloor x_i/4\rfloor$, stopping after $\beta$ steps.
-Then
-$$\langle A\rangle_L=\sigma_L(A^{(0)}_{\rm ht}),\qquad\beta=\sigma_L(A^{(0)}_{\rm ht}M^{24}),\qquad
-x_\beta\ge1\iff4^{A^{(0)}_{\rm ht}M^{24}}\le L .$$
-The loop takes at most $L+1$ steps; nothing astronomically large is computed.
+*Expressions.* Natural-number expressions are built from natural literals with $+$, $\cdot$,
+$\max$, powers $e_1^{e_2}$ and factorials $e!$; $[\![e]\!]\in\mathbb N$ is the value. For
+$L\in\mathbb N$ the *capped value* $\langle e\rangle_L$ is defined by recursion on $e$:
+$\langle c\rangle_L=\sigma_L(c)$ for a literal $c$;
+$\langle e_1+e_2\rangle_L=\sigma_L(\langle e_1\rangle_L+\langle e_2\rangle_L)$;
+$\langle e_1\cdot e_2\rangle_L=\mathrm{cmul}_L(\langle e_1\rangle_L,\langle e_2\rangle_L)$;
+$\langle\max(e_1,e_2)\rangle_L=\sigma_L(\max(\langle e_1\rangle_L,\langle e_2\rangle_L))$;
+$\langle e_1^{e_2}\rangle_L=\mathrm{cpow}_L(\langle e_1\rangle_L,\langle e_2\rangle_L)$; and
+$\langle e!\rangle_L=f_L(\langle e\rangle_L)$, where $f_L(0)=1$ and
+$f_L(n+1)=\mathrm{cmul}_L(f_L(n),\sigma_L(n+1))$ (a loop of $n$ capped multiplications).
 
-**Proof sketch.** Each capped expression equals $\sigma_L$ of the exact one by the
-saturation identities (sums, products, maxima, powers with capped base and exponent, which
-needs $L\ge1$, and factorials), applied inductively along the expression; capped
-exponentiation is exact by the binary-exponentiation statement. For the loop,
-$x_i=\lfloor L/4^i\rfloor$, so $x_\beta\ge1\iff4^\beta\le L$. If
-$B:=A^{(0)}_{\rm ht}M^{24}\le L$ then $\beta=B$. Otherwise $\beta=L+1$, and both
-$4^{L+1}\le L$ and $4^B\le L$ are false.
+*The precision expressions.* Let $e_A$ be the expression of the precision height constant
+written with the literals displayed there:
+$e_{F_0}=324!$, $e_D=e_{F_0}\cdot3^{256\cdot e_{F_0}^4}$, $e_{G_0}=116064000000$,
+$e_{E_0}=10\cdot(e_D\cdot e_{G_0})^2$, $e_{Q_0}=e_D^{\,e_D\cdot e_{E_0}}$,
+$e_{B}=e_D^2\cdot3^{21000\cdot e_D^2}+1$, $e_{C}=2\cdot e_B+4096\cdot(1028+5\cdot e_D+84000\cdot e_D^2)$ and
+$e_A=2\cdot10^{13}\cdot\max(1,\max(e_C,e_{Q_0}^{17}))$ (here $10^{13}$ is the literal
+$10000000000000$). So $[\![e_A]\!]=A^{(0)}_{\rm ht}$.
+
+Let $L\ge1$ and $M\in\mathbb N$. Put
+$$\beta=\mathrm{cmul}_L\bigl(\langle e_A\rangle_L,\ \mathrm{cpow}_L(\sigma_L(M),24)\bigr)$$
+and run the *division-by-four loop*: $x_0=L$, $x_{i+1}=\lfloor x_i/4\rfloor$, stopping after
+$\beta$ steps. Then:
+
+1. $\langle e\rangle_L=\sigma_L([\![e]\!])$ for every expression $e$; in particular
+   $\langle e_A\rangle_L=\sigma_L(A^{(0)}_{\rm ht})$;
+2. $\beta=\sigma_L(A^{(0)}_{\rm ht}M^{24})$;
+3. $x_\beta=\lfloor L/4^\beta\rfloor$, and $x_\beta\ge1\iff4^{A^{(0)}_{\rm ht}M^{24}}\le L$.
+
+The loop takes at most $L+1$ steps, and every intermediate value of the capped evaluation
+is at most $L+1$: nothing astronomically large is computed.
+
+**Proof sketch.** (1) Induction on $e$. Literals by definition. For $+$, $\max$: the
+saturation identities $\sigma_L(\sigma_L(x)+\sigma_L(y))=\sigma_L(x+y)$ and the same for
+$\max$. For $\cdot$: $\mathrm{cmul}_L(a,b)=\sigma_L(ab)$, then
+$\sigma_L(\sigma_L(x)\sigma_L(y))=\sigma_L(xy)$. For powers:
+$\mathrm{cpow}_L(a,b)=\sigma_L(a^b)$ and $\sigma_L(\sigma_L(x)^{\sigma_L(n)})=\sigma_L(x^n)$, which
+needs $L\ge1$. For factorials: by induction on $n$, $f_L(n)=\sigma_L(n!)$ (item 5 of the
+saturation statement), and $f_L(\sigma_L(n))=\sigma_L(n!)$ because for $n\ge L+1$ both
+$n!$ and $(L+1)!$ are at least $L+1$. (2) By (1), the capped power and the capped product,
+$\beta=\sigma_L(\sigma_L(A^{(0)}_{\rm ht})\cdot\sigma_L(M^{24}))=\sigma_L(A^{(0)}_{\rm ht}M^{24})$.
+(3) $\lfloor\lfloor x/4\rfloor/4^i\rfloor=\lfloor x/4^{i+1}\rfloor$ gives
+$x_i=\lfloor L/4^i\rfloor$, and $\lfloor L/4^\beta\rfloor\ge1\iff4^\beta\le L$. Put
+$B=A^{(0)}_{\rm ht}M^{24}$. If $B\le L$ then $\beta=B$. Otherwise $\beta=L+1$, and both
+$4^{L+1}\le L$ and $4^B\le L$ are false, since $4^x>x$ for every $x$ and $B>L$.
 
 ## Depends on
 

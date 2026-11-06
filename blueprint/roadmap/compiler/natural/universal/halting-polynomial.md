@@ -8,12 +8,14 @@ origin: cited
 
 The *universal halting circuit* $\mathcal H$ is the compiled circuit
 $\mathcal C_{\mathcal U,2}$ of the packed-history construction of the universal interpreter
-with $r=204$ registers and $k=2$ inputs $e=X_0$, $n=X_1$. It is a natural circuit with
-explicit variables $X_0,X_1$ (inputs) and $54{,}047$ witnesses, $15{,}845$ calls of the power
-template with private blocks of $79$ variables, variable count $1{,}305{,}804$, and root the
-encoding of the conjunction of the construction. Its node list begins with the variable
-nodes of $e$ and $n$; the program literal of the interpreter does not occur in it (the
-interpreter is compiled, the interpreted program is an input).
+with $r=204$ registers and $k=2$ inputs $e=X_0$, $n=X_1$: a natural circuit whose explicit
+variables are the inputs $X_0,X_1$ followed by the fresh variables of the construction,
+whose call nodes are the power calls of the construction with their private blocks of $79$
+variables, and whose root is the encoding of the conjunction of the construction. Its node
+list begins with the variable nodes of $e$ and $n$; the program literal of the interpreter
+does not occur in it (the interpreter is compiled, the interpreted program is an input).
+Its numbers of variables, calls and nodes are recorded in the counting statement and the
+node-statistics check.
 
 This is a definition.
 

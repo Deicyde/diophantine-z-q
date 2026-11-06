@@ -10,7 +10,7 @@
 - Proof: invariant of the hash-consing interpreter (each node id denotes its expression),
   as in the syntax chapter's `builder-soundness`; then `exists_call_iff` and
   `powerTemplate_natRel`.
-- Mathlib: `List.getElem_append`, `MvPolynomial.eval_bind₁`.
+- Mathlib: `List.getElem_append`, `MvPolynomial.aeval_bind₁` (or `eval₂Hom_bind₁`).
 - Upstream reuse: none.
 - FINITE COMPUTATION: no. Difficulty: medium-hard (hash-consing invariant ≈250 lines; can
   be shared with the syntax chapter's construction theorem if both use one `Prog`).

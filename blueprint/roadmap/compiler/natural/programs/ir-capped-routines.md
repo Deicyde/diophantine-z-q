@@ -10,7 +10,7 @@ Fix a register holding a cap $L\ge1$. There are statements of the ideal register
 computing, on natural operands, the saturated sum $\sigma_L(x+y)$, the capped product
 $\mathrm{cmul}_L$, the saturated maximum, the capped power $\mathrm{cpow}_L$ (binary
 exponentiation loop), the saturated factorial $\sigma_L(n!)$ (a loop of $n$ capped
-multiplications), the capped constant $\langle A\rangle_L$, the capped bound $\beta$ of the
+multiplications), the capped value $\langle e_A\rangle_L$ of the precision height constant, the capped bound $\beta$ of the
 capped precision test, and the division-by-four loop with its final test. Each terminates
 normally with the value prescribed by the corresponding mathematical definition and leaves
 every other register unchanged.
