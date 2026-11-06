@@ -61,6 +61,19 @@ theorem tendsto_zero_of_vK {f : ℕ → K} (h : ∀ M : ℤ, ∀ᶠ n in atTop, 
   obtain ⟨M, hM⟩ := exists_vge_subset hU
   exact (h M).mono fun n hn => hM hn
 
+theorem tendsto_zero_of_vK' {ι : Type*} {l : Filter ι} {f : ι → K}
+    (h : ∀ M : ℤ, ∀ᶠ i in l, (M : WithTop ℤ) ≤ vK K (f i)) : Tendsto f l (𝓝 0) := by
+  intro U hU
+  obtain ⟨M, hM⟩ := exists_vge_subset hU
+  exact (h M).mono fun n hn => hM hn
+
+/-- In a complete field, a family whose valuations tend to infinity along the cofinite filter is
+summable. -/
+theorem summable_of_vK_cofinite [CompleteSpace K] {ι : Type*} {f : ι → K}
+    (h : ∀ M : ℤ, ∀ᶠ i in cofinite, (M : WithTop ℤ) ≤ vK K (f i)) : Summable f := by
+  have := nonarchimedean_valued (K := K)
+  exact NonarchimedeanAddGroup.summable_of_tendsto_cofinite_zero (tendsto_zero_of_vK' h)
+
 /-- In a complete field, a sequence whose valuations tend to infinity is summable. -/
 theorem summable_of_vK [CompleteSpace K] {f : ℕ → K}
     (h : ∀ M : ℤ, ∀ᶠ n in atTop, (M : WithTop ℤ) ≤ vK K (f n)) : Summable f := by
