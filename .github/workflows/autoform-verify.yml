@@ -1,0 +1,170 @@
+# Builds the Lean project and validates its Autoform blueprint on neutral
+# hardware. Actions and the Autoform source are pinned immutably.
+
+name: autoform verify
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  AUTOFORM_SOURCE: "https://github.com/facebookresearch/autoform-bot.git"
+  AUTOFORM_REF: "861cea009cd1524b4a4de908385139be7d2c49c2"
+
+concurrency:
+  group: autoform-verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out project
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          version: "0.12.1"
+
+      - name: Validate the theorem DAG
+        run: >-
+          uvx --from "git+${AUTOFORM_SOURCE}@${AUTOFORM_REF}"
+          autoform check blueprint
+
+      - name: Install elan
+        run: |
+          set -euo pipefail
+          curl -sSfL \
+            https://github.com/leanprover/elan/releases/download/v4.2.3/elan-x86_64-unknown-linux-gnu.tar.gz \
+            -o elan.tar.gz
+          echo "df0b2b3a439961ffcbb3985214365ffe40f49bc871df04dff268c7d8e21ca8b2  elan.tar.gz" \
+            | sha256sum --check --strict
+          tar xzf elan.tar.gz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Reject kernel-check bypass options
+        run: |
+          set -euo pipefail
+          # Scan all tracked text, including Lake configuration. Keep the
+          # forbidden token split so this checker does not match itself.
+          forbidden="skip""KernelTC"
+          if matches="$(git grep -n -I "$forbidden" -- .)"; then
+            printf 'Kernel-check bypass option found:\n%s\n' "$matches" >&2
+            exit 1
+          else
+            grep_status=$?
+            if [ "$grep_status" -ne 1 ]; then
+              echo "failed to scan tracked files" >&2
+              exit "$grep_status"
+            fi
+          fi
+          echo "no kernel-check bypass option found"
+
+      - name: Fetch the Mathlib build cache
+        run: lake exe cache get || echo "no cache available — building from source"
+
+      # Evaluate either Lake manifest language, then clean only the root package.
+      # Bare `lake clean` would also delete dependency build caches.
+      - name: Build Lean
+        run: |
+          set -euo pipefail
+          evaluated_config="$(mktemp "${RUNNER_TEMP:-/tmp}/autoform-lake-config.XXXXXX.toml")"
+          trap 'rm -f "$evaluated_config"' EXIT
+          rm -f "$evaluated_config"
+          lake translate-config toml "$evaluated_config"
+          root_package="$(python3 .github/autoform_audit.py --root-package "$evaluated_config")"
+          echo "AUTOFORM_ROOT_PACKAGE=$root_package" >> "$GITHUB_ENV"
+          lake check-build
+          lake clean "$root_package"
+          lake build
+
+      - name: Audit every root-package declaration
+        run: |
+          set -euo pipefail
+          archive="$(mktemp "${RUNNER_TEMP:-/tmp}/autoform-root-build.XXXXXX.tgz")"
+          probe="$(mktemp "${RUNNER_TEMP:-/tmp}/autoform-axiom-probe.XXXXXX.lean")"
+          contract="$(mktemp "${RUNNER_TEMP:-/tmp}/autoform-assumptions.XXXXXX.json")"
+          errors="$(mktemp "${RUNNER_TEMP:-/tmp}/autoform-assumptions.XXXXXX.err")"
+          output="$(mktemp "${RUNNER_TEMP:-/tmp}/autoform-axiom-probe.XXXXXX.out")"
+          trap 'rm -f "$archive" "$probe" "$contract" "$errors" "$output"' EXIT
+          # Lake resolves both manifest languages and package/custom buildDir.
+          # `lake pack` archives only the root package's actual build directory,
+          # leaving dependency package artifacts outside the audit boundary.
+          lake pack "$archive"
+          # roadmap/README.md may opt in to open statements (theorems whose proof
+          # is still sorry). Only then does the audit accept sorry, and only in
+          # the statements the Markdown declares open. Under either policy every
+          # article's lean: name must be a declaration the build compiled.
+          policy="$(python3 .github/autoform_audit.py --policy blueprint)"
+          autoform="git+${AUTOFORM_SOURCE}@${AUTOFORM_REF}"
+          old_ref=""
+          if uvx --from "$autoform" autoform work assumptions --help > /dev/null 2> "$errors"; then
+            uvx --from "$autoform" autoform work assumptions blueprint --json > "$contract"
+          elif [ "$policy" != "allowed" ] && grep -Fq "invalid choice: 'assumptions'" "$errors"; then
+            # This AUTOFORM_REF predates `work assumptions`, so it cannot write
+            # the contract. Any other failure, such as a failed fetch, stops here.
+            echo "::warning::AUTOFORM_REF predates autoform work assumptions, so this audit cannot check that every lean: name was compiled. Move AUTOFORM_REF to a newer commit."
+            old_ref=1
+          else
+            cat "$errors" >&2
+            exit 1
+          fi
+          if [ "$policy" = "allowed" ]; then
+            python3 .github/autoform_audit.py --open-statements "$contract" \
+              "$AUTOFORM_ROOT_PACKAGE" "$archive" "$probe"
+          elif [ -z "$old_ref" ]; then
+            python3 .github/autoform_audit.py --targets "$contract" \
+              "$AUTOFORM_ROOT_PACKAGE" "$archive" "$probe"
+          else
+            python3 .github/autoform_audit.py "$AUTOFORM_ROOT_PACKAGE" "$archive" "$probe"
+          fi
+          # Plain lean, so the probe's own imports are the toolchain's. The probe
+          # loads the build itself, from the search path Lake reports.
+          lean_path="$(lake env printenv LEAN_PATH)"
+          # A panic in the probe aborts it instead of continuing with a default value.
+          AUTOFORM_AUDIT_LEAN_PATH="$lean_path" LEAN_ABORT_ON_PANIC=1 lean "$probe" | tee "$output"
+          # Exit status 0 alone does not show that every check ran.
+          if ! tail -n 1 "$output" | grep -Eq '^kernel trust clean( except declared open statements)? \('; then
+            echo "the audit probe did not end with its success line" >&2
+            exit 1
+          fi
+
+      # The explicit policy marker keeps deleting every card from disabling the
+      # review check. Removing the policy itself remains a visible policy edit.
+      - name: Detect statement review
+        run: |
+          set -euo pipefail
+          marker="blueprint/.autoform-review"
+          has_review_artifacts=false
+          if [[ -d blueprint/readbacks ]] || \
+            git grep -q '^[[:space:]]*review_approved[[:space:]]*:' -- blueprint/roadmap; then
+            has_review_artifacts=true
+          fi
+          if [[ -e "$marker" || -L "$marker" ]]; then
+            if [[ ! -f "$marker" || -L "$marker" ]] || \
+              ! echo "ad00ec55a215821b56f924782e25d7a77fff6696ee23cc465af20476b545b620  $marker" \
+                | sha256sum --check --strict; then
+              echo "invalid Autoform review policy marker: $marker" >&2
+              exit 1
+            fi
+            echo "AUTOFORM_REVIEW_ENABLED=true" >> "$GITHUB_ENV"
+          elif [[ "$has_review_artifacts" == true ]]; then
+            echo "review cards or approvals exist without $marker" >&2
+            exit 1
+          fi
+
+      # The check derives its evidence from its own extraction, so no committed
+      # stale report can certify a changed blueprint or Lean tree.
+      - name: Verify statement reviews
+        if: env.AUTOFORM_REVIEW_ENABLED == 'true'
+        run: >-
+          uvx --from "git+${AUTOFORM_SOURCE}@${AUTOFORM_REF}"
+          autoform review check blueprint --lean-root .

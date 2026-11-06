@@ -9,3 +9,8 @@
 *.out
 *.toc
 *.synctex.gz
+.lake/
+site/
+site-src/
+.autoform-publication-*/
+.claude/worktrees/
