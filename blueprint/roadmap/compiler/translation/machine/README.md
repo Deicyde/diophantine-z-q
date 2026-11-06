@@ -77,6 +77,7 @@ decided at the precision actually available.
 
 - [Norm zero implies zero](quadratic-norm-zero.md)
 - [Jacobian formulas for the group law](jacobian-formulas.md)
+- [The fixed Jacobian triple of the generator](projective-generator.md)
 - [Capped arithmetic](capped-arithmetic.md)
 - [The precision program](precision-ir.md)
 - [The precision program computes the precision predicate](ir-correctness.md)

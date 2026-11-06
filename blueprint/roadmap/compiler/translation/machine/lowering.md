@@ -16,13 +16,17 @@ registers, which are zero on entry and on exit.
 - $r:=0$ is the loop $\mathrm{decb}(r,\cdot,\cdot)$ back to itself until $r$ is zero;
   $r:=r+1$ is $\mathrm{inc}(r,\cdot)$; $r:=r\mathbin{\dot-}1$ is $\mathrm{decb}(r,\cdot,\cdot)$ with both
   targets the next block.
-- $r:=r'$ empties $r'$ into two auxiliary registers, then moves one back into $r'$ and the other
-  into $r$ (after clearing $r$), so a copy restores its source; $r:=r'+r''$ first copies both
-  operands into auxiliary registers (a snapshot, so aliasing is harmless), clears $r$ and
-  moves both copies into $r$.
-- $r:=r'\mathbin{\dot-}r''$ copies the operands and decrements both copies together until the
-  copy of $r''$ is zero, using saturating decrement; $r:=r'\cdot r''$ is repeated addition of
-  a copy of $r'$, counted down from a copy of $r''$.
+- $r:=r'$ empties $r'$ into two auxiliary registers $a_1,a_2$, moves $a_1$ back into $r'$, then
+  clears $r$ and moves $a_2$ into $r$; so a copy restores its source, and for $r=r'$ the block
+  leaves $r$ unchanged (clearing $r$ before restoring $r'$ would double it). $r:=r'+r''$ first
+  copies both operands into auxiliary registers (a snapshot, so aliasing is harmless), clears
+  $r$ and moves both copies into $r$.
+- $r:=r'\mathbin{\dot-}r''$ copies the operands, decrements both copies together until the copy
+  of $r''$ is zero, using saturating decrement, then clears $r$ and moves the remaining copy of
+  $r'$ into $r$; $r:=r'\cdot r''$ adds a copy of $r'$ (restored after each addition) to a fresh
+  accumulator, counted down from a copy of $r''$, then clears $r$ and moves the accumulator into
+  $r$. In every primitive block the destination is written only after all sources have been
+  copied, which realizes the old-registers semantics even when a destination is a source.
 - $(q,m):=\operatorname{divmod}(r',r'')$ jumps to the rejection loop if $r''$ is zero; otherwise it
   keeps $x=q\,y+\text{rem}$ for copies $x$ of $r'$ and $y$ of $r''$, subtracting $y$ from the
   remainder and incrementing $q$ only while $\text{rem}\ge y$.

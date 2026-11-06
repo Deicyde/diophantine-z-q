@@ -21,7 +21,9 @@ exceptional branches. *Guards and values.* A triple with $Z\ne0$, $X\ne0$, $Y\ne
 nondegenerate point and conversely, and $z=-x/y=-XZ/Y$; so steps 4-6 compute condition 2 and the
 first test exactly. *Second test.* By capped arithmetic, $\beta=\sigma_L(B)$ with
 $B=A^{(0)}_{\rm ht}|\kappa F(n)|^{24}$, the precision loop accepts iff $4^\beta\le L$, which is
-$\sigma_L(4^{\sigma_LB})\le L$, i.e. $4\epsilon_l<4^{-B}$. Termination: every loop decreases a
+$\sigma_L(4^{\sigma_LB})\le L$, i.e. $4\epsilon_l<4^{-B}$. The case $L=0$ (when $V-1<4U$) is
+included: the remainder starts at $0$, the program rejects, and $4\epsilon_l<4^{-B}$ fails
+since it would need $4^B\le0$. Termination: every loop decreases a
 natural counter, and all other steps are straight-line. Steps 1-2 implement condition 1.
 
 ## Depends on
@@ -33,6 +35,7 @@ natural counter, and all other steps are straight-line. Steps 1-2 implement cond
 
 - [Norm zero implies zero](quadratic-norm-zero.md)
 - [Jacobian formulas for the group law](jacobian-formulas.md)
+- [The fixed Jacobian triple of the generator](projective-generator.md)
 - [Capped arithmetic](capped-arithmetic.md)
 
 ## Sources

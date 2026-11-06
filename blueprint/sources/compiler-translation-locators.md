@@ -142,6 +142,15 @@ Section 11 (`sec:bridge`), lines 6103-6114 and 6236-6252: $\mathrm{Close}$ links
 signed codes to the precision inputs in the order $(n,\kappa,a,l,j)$; the precision
 contract is used with $B(n,\kappa)=H_6(S_{\rm ht})|\kappa F(n)|^{24}$.
 
+## Section 12 literal constants
+
+Section 12 (`sec:size`), lines 6372-6381: for the saved expression, the absolute values of all
+literal fixed constants and all occurring division-polynomial indices are at most $T$; the
+check covers the 173 scalar constant nodes. Appendix C (`app:literal`), lines 6778-6781: the
+five scalar-constant templates use the values in `library.fixedConstants`, and large program
+literals (the constant $c_3$) are retained byte for byte. The manuscript gives no explicit
+bound on $c_3$; the bound $c_3<2^{2^{27}}$ is introduced in this chapter.
+
 ## Appendix C.2 model recipes
 
 Appendix C.2, lines 6722-6730: a model-evaluation recipe sums the squares of the generator

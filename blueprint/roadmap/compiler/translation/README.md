@@ -73,6 +73,12 @@ two.
 
 - [Scope conditions of the natural precision circuit](precision-circuit-scope.md)
 
+The program literal $c_3$ is a constant of the precision recipe. Its digits are never
+computed, but the size chapter needs it to be at most $T$; a count of the instructions of the
+wrapper bounds it.
+
+- [Size of the program literal](program-literal-size.md)
+
 The power-value recipe has three signed code inputs, seventy-nine private natural witnesses and
 an output code for the value of the power-template polynomial.
 

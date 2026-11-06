@@ -47,6 +47,7 @@ literal. This is a definition.
 - [Structured register programs](structured-programs.md)
 - [The precision predicate](precision-predicate.md)
 - [Jacobian formulas for the group law](jacobian-formulas.md)
+- [The fixed Jacobian triple of the generator](projective-generator.md)
 
 ## Sources
 
