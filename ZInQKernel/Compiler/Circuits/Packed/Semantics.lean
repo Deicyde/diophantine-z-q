@@ -468,4 +468,164 @@ theorem items7_spec (p : Program) (zero one B : Ex) (S : List Ex) (vw : List (�
       · simp at he; rw [he]; exact (hlook i').2
       · simp at he
 
+/-! ### The shape of the branch histories -/
+
+/-- The indices of the sub instructions of `p_i, p_{i+1}, …`. -/
+def decIdx : List Instr → ℕ → List ℕ
+  | [], _ => []
+  | .dec _ _ _ :: rest, i => i :: decIdx rest (i + 1)
+  | _ :: rest, i => decIdx rest (i + 1)
+
+theorem subBranches_shape (zero : Ex) (S N : List Ex) :
+    ∀ (rest : List Instr) (i : ℕ) (s : State),
+      (∀ e ∈ (subBranches zero S N i rest s).1.2, ∃ c, e.2.1.poly = X c ∧
+        e.2.2.poly = X (c + 1) ∧ s.next ≤ c ∧ c + 2 ≤ (subBranches zero S N i rest s).2.next) ∧
+      (subBranches zero S N i rest s).1.2.map (·.1) = decIdx rest i ∧
+      (subBranches zero S N i rest s).1.2.Pairwise fun e e' =>
+        ∀ c c', e.2.1.poly = X c → e'.2.1.poly = X c' → c + 2 ≤ c'
+  | [], i, s => by simp [subBranches, decIdx]
+  | .dec j x y :: rest, i, s => by
+    obtain ⟨h1, h2, h3⟩ := subBranches_shape zero S N rest (i + 1)
+      (seqM [bitAnd .hierarchical (fresh s).1 (S.getD i zero) (N.getD j zero),
+        do pure (.eq (S.getD i zero) (← addL [(fresh s).1, (fresh (fresh s).2).1]))]
+        (fresh (fresh s).2).2).2
+    have hle : (fresh (fresh s).2).2.next ≤ (seqM [bitAnd .hierarchical (fresh s).1
+        (S.getD i zero) (N.getD j zero), do pure (.eq (S.getD i zero)
+        (← addL [(fresh s).1, (fresh (fresh s).2).1]))] (fresh (fresh s).2).2).2.next := by
+      have := (Counts.seqM_cons (Counts.bitAnd (fresh s).1 (S.getD i zero) (N.getD j zero))
+        (Counts.seqM_cons ((Counts.addL [(fresh s).1, (fresh (fresh s).2).1]).bind fun e =>
+          Counts.pure (NForm.eq (S.getD i zero) e)) Counts.seqM_nil) (fresh (fresh s).2).2).1
+      omega
+    have hn : (fresh (fresh s).2).2.next = s.next + 2 := by simp [fresh_apply_next]
+    simp only [subBranches, NM.bind_apply, NM.pure_apply, List.mem_cons, forall_eq_or_imp,
+      List.map_cons, decIdx, List.pairwise_cons]
+    refine ⟨⟨⟨s.next, by simp [fresh_apply_poly], by simp [fresh_apply_poly, fresh_apply_next],
+      le_rfl, ?_⟩, fun e he => ?_⟩, by rw [h2], ?_, h3⟩
+    · have hm := (counts_subBranches zero S N (i + 1) rest (seqM [bitAnd .hierarchical (fresh s).1
+        (S.getD i zero) (N.getD j zero), do pure (.eq (S.getD i zero)
+        (← addL [(fresh s).1, (fresh (fresh s).2).1]))] (fresh (fresh s).2).2).2).1
+      omega
+    · obtain ⟨c, hc1, hc2, hc3, hc4⟩ := h1 e he
+      exact ⟨c, hc1, hc2, by omega, hc4⟩
+    · intro e he c c' hc hc'
+      obtain ⟨c'', hc1, -, hc3, -⟩ := h1 e he
+      simp only [fresh_apply_poly] at hc
+      rw [hc1] at hc'
+      have e1 := X_injective hc
+      have e2 := X_injective hc'
+      omega
+  | .inc j x :: rest, i, s => subBranches_shape zero S N rest (i + 1) s
+  | .halt :: rest, i, s => subBranches_shape zero S N rest (i + 1) s
+
+/-! ### All items -/
+
+/-- The state after items 1–4. -/
+def stateAfter4 (p : Program) (r : ℕ) (a : List Ex) (zero one q c K B T F D : Ex)
+    (R N S : List Ex) (s : State) : State :=
+  (items4 r zero K D T F R N ((items3 F S ((items2 zero one K B T F D S
+    ((items1 p a zero q c K B T s).2)).2)).2)).2
+
+/-- The branch histories produced by the packed construction. -/
+def packedVW (p : Program) (r : ℕ) (a : List Ex) (zero one q c K B T F D : Ex)
+    (R N S : List Ex) (s : State) : List (ℕ × Ex × Ex) :=
+  (subBranches zero S N 0 p (stateAfter4 p r a zero one q c K B T F D R N S s)).1.2
+
+theorem SpecE.appendM_L {m₁ m₂ : NM (List NForm)} {s : State} {U E : Set ℕ}
+    {R₁ R₂ : (ℕ → ℕ) → Prop}
+    (h₁ : SpecL ((m₁ s).1.map (NForm.toFormula τ)) U s.next (m₁ s).2.next R₁)
+    (h₂ : SpecE ((m₂ (m₁ s).2).1.map (NForm.toFormula τ)) U (m₁ s).2.next
+      (m₂ (m₁ s).2).2.next E R₂) (hU : ∀ i ∈ U, i < s.next) :
+    SpecE ((Packed.appendM m₁ m₂ s).1.map (NForm.toFormula τ)) U s.next
+      (Packed.appendM m₁ m₂ s).2.next E fun x => R₁ x ∧ R₂ x := by
+  have := (SpecE.ofSpecL h₁).append (by simpa using h₂) hU
+  exact (this.of_eq (by simp [Packed.appendM]) (by simp)).of_eq rfl rfl
+
+theorem packedFormulas_specE (hpow : PowerSpec τ .hierarchical) (p : Program) (r : ℕ)
+    (a : List Ex) (zero one q c K B T F D : Ex) (R N S : List Ex) (s : State) {U : Set ℕ}
+    {pq pc pK pB pT pF pD pR pN : ℕ} (hz : zero.poly = C 0) (ho : one.poly = C 1)
+    (hq : q.poly = X pq) (hc : c.poly = X pc) (hK : K.poly = X pK) (hB : B.poly = X pB)
+    (hT : T.poly = X pT) (hF : F.poly = X pF) (hD : D.poly = X pD)
+    (hR : ∀ j < r, (R.getD j zero).poly = X (pR + j))
+    (hN : ∀ j < r, (N.getD j zero).poly = X (pN + j))
+    (hRm : ∀ e ∈ R, ∃ i ∈ U, e.poly = X i) (hNm : ∀ e ∈ N, ∃ i ∈ U, e.poly = X i)
+    (hSm : ∀ e ∈ S, ∃ i ∈ U, e.poly = X i) (ha : ∀ e ∈ a, ∃ i ∈ U, e.poly = X i)
+    (hpos : pq ∈ U ∧ pc ∈ U ∧ pK ∈ U ∧ pB ∈ U ∧ pT ∈ U ∧ pF ∈ U ∧ pD ∈ U)
+    (hRU : ∀ j < r, pR + j ∈ U) (hNU : ∀ j < r, pN + j ∈ U) (hs : ∀ i ∈ U, i < s.next) :
+    SpecE ((packedFormulas p r a zero one q c K B T F D R N S s).1.map (NForm.toFormula τ)) U
+      s.next (packedFormulas p r a zero one q c K B T F D R N S s).2.next
+      (vwSet (packedVW p r a zero one q c K B T F D R N S s)) fun x =>
+        ((0 < x pc ∧ x pK = 2 ^ x pc ∧ x pB = 4 * x pK ∧ p.length < x pB ∧ x pT = x pB ^ x pq) ∧
+          ∀ e ∈ a, nv x e.poly < x pK) ∧
+        (((x pB : ℤ) * x pF + 1 = x pF + x pB * x pT) ∧ ((x pD : ℤ) + x pF = x pK * x pF) ∧
+          (S.map fun e => zv x e.poly).sum = x pF ∧ zv x (S.getLastD zero).poly = x pT) ∧
+        (∀ e ∈ S, Nat.land (nv x e.poly) (x pF) = nv x e.poly) ∧
+        (∀ j < r, Nat.land (x (pR + j)) (x pD) = x (pR + j) ∧ x (pR + j) < x pT ∧
+          x pK * x (pN + j) = Nat.land (x (pR + j) + x pD) (x pK * x pF)) ∧
+        subRel p zero S N (packedVW p r a zero one q c K B T F D R N S s) x ∧
+        (∀ j ∈ List.range r,
+          zv x (R.getD j zero).poly + zv x B.poly *
+              ((decHandles p zero (packedVW p r a zero one q c K B T F D R N S s) j).map
+                fun e => zv x e.poly).sum =
+            zv x (a.getD j zero).poly + zv x B.poly * zv x (R.getD j zero).poly +
+              zv x B.poly * ((incHandles p zero S j).map fun e => zv x e.poly).sum) ∧
+        (∀ i ∈ List.range p.length,
+          zv x (S.getD i zero).poly = zv x (if i = 0 then one else zero).poly +
+            zv x B.poly * ((inHandles p zero S
+              (packedVW p r a zero one q c K B T F D R N S s) i).map fun e => zv x e.poly).sum) := by
+  obtain ⟨hq', hc', hK', hB', hT', hF', hD'⟩ := hpos
+  have h1 := items1_spec (τ := τ) hpow p a zero q c K B T hz hq hc hK hB hT
+    ⟨hq', hc', hK', hB', hT'⟩ ha s hs
+  set s1 := (items1 p a zero q c K B T s).2
+  have hs1 : ∀ i ∈ U, i < s1.next := fun i hi => lt_of_lt_of_le (hs i hi) h1.le
+  have h2 := items2_spec (τ := τ) zero one K B T F D S hz ho hK hB hT hF hD
+    ⟨hK', hB', hT', hF', hD'⟩ hSm s1 hs1
+  set s2 := (items2 zero one K B T F D S s1).2
+  have hs2 : ∀ i ∈ U, i < s2.next := fun i hi => lt_of_lt_of_le (hs1 i hi) h2.le
+  have h3 := items3_spec (τ := τ) hpow F S hF hF' hSm s2 hs2
+  set s3 := (items3 F S s2).2
+  have hs3 : ∀ i ∈ U, i < s3.next := fun i hi => lt_of_lt_of_le (hs2 i hi) h3.le
+  have h4 := items4_spec (τ := τ) hpow r zero K D T F R N hK hD hT hF hR hN
+    ⟨hK', hD', hT', hF'⟩ hRU hNU s3 hs3
+  set s4 := (items4 r zero K D T F R N s3).2
+  have hs4 : ∀ i ∈ U, i < s4.next := fun i hi => lt_of_lt_of_le (hs3 i hi) h4.le
+  have h5 := subBranches_specE (τ := τ) hpow p zero hz S N p 0 U s4 hSm hNm (by simp) hs4
+  set sb := subBranches zero S N 0 p s4
+  have hvw : packedVW p r a zero one q c K B T F D R N S s = sb.1.2 := rfl
+  have hs5 : ∀ i ∈ U ∪ vwSet sb.1.2, i < sb.2.next := by
+    intro i hi
+    rcases hi with hi | hi
+    · exact lt_of_lt_of_le (hs4 i hi) h5.le
+    · exact (h5.exp i hi).2
+  have hall6 : ∀ e : Ex, (e = zero ∨ e = B ∨ e ∈ a ∨ e ∈ R ∨ e ∈ S ∨
+      ∃ v ∈ sb.1.2, e = v.2.1 ∨ e = v.2.2) → VarsIn e.poly (· ∈ U ∪ vwSet sb.1.2) := by
+    intro e he
+    rcases he with rfl | rfl | he | he | he | ⟨v, hv, he⟩
+    · rw [hz]; exact VarsIn.C _ _
+    · rw [hB]; exact VarsIn.X (Or.inl hB')
+    · obtain ⟨i, hi, h⟩ := ha e he; rw [h]; exact VarsIn.X (Or.inl hi)
+    · obtain ⟨i, hi, h⟩ := hRm e he; rw [h]; exact VarsIn.X (Or.inl hi)
+    · obtain ⟨i, hi, h⟩ := hSm e he; rw [h]; exact VarsIn.X (Or.inl hi)
+    · obtain ⟨c, hc1, hc2, -, -⟩ := (subBranches_shape zero S N p 0 s4).1 v hv
+      rcases he with rfl | rfl
+      · rw [hc1]; exact VarsIn.X (Or.inr ⟨v, hv, Or.inl hc1⟩)
+      · rw [hc2]; exact VarsIn.X (Or.inr ⟨v, hv, Or.inr hc2⟩)
+  have hall7 : ∀ e : Ex, (e = zero ∨ e = one ∨ e = B ∨ e ∈ S ∨
+      ∃ v ∈ sb.1.2, e = v.2.1 ∨ e = v.2.2) → VarsIn e.poly (· ∈ U ∪ vwSet sb.1.2) := by
+    intro e he
+    rcases he with rfl | rfl | he | he | he
+    · exact hall6 _ (Or.inl rfl)
+    · rw [ho]; exact VarsIn.C _ _
+    · exact hall6 _ (Or.inr (Or.inl he))
+    · exact hall6 _ (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl he)))))
+    · exact hall6 _ (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr he)))))
+  have h67 := (MSpecL.appendM (items6_spec (τ := τ) p r a zero B R S sb.1.2 hall6)
+    (items7_spec (τ := τ) p zero one B S sb.1.2 hall7)) sb.2 hs5
+  have htail := h5.append (SpecE.ofSpecL h67) hs4
+  rw [hvw]
+  refine SpecE.appendM_L h1 (SpecE.appendM_L h2 (SpecE.appendM_L h3 (SpecE.appendM_L h4 ?_ hs3)
+    hs2) hs1) hs
+  refine (htail.of_eq ?_ ?_).congr fun x => Iff.rfl
+  · simp only [Packed.appendM, NM.bind_apply, NM.pure_apply, List.map_append]; rfl
+  · simp
+
 end ZInQ.Compiler.Packed
