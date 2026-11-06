@@ -6,7 +6,7 @@ origin: cited
 
 # Integrality of the tests at the old primes
 
-Assume the Mordell-Weil hypothesis for $E/K_0$. Let $n_1,n_2,n_3\in\mathbb Z$ and $h\in\mathbb Z$
+Let $n_1,n_2,n_3\in\mathbb Z$ and $h\in\mathbb Z$
 with $M_0\mid h$, $h\ne0$ and $h\ne c_*$, and let
 $\tau=\tau\bigl(h,(n_1h,n_2h,n_3h);\,c_*,c_*n_1,c_*n_2,c_*n_3\bigr)$. Then
 $$v_{\mathfrak p}(\tau_j)\ge0\qquad(1\le j\le12)$$
@@ -34,7 +34,6 @@ prime, so $\sigma B_i$ is integral at $\mathfrak p$. Hence $\tau_9,\dots,\tau_{1
 - [The twelve local tests](../certificate/twelve-tests.md)
 - [Prime sets and clearing exponents of the multiplication certificate](../certificate/constants.md)
 - [The primes of $\mathbb Z[\sqrt2]$ above an odd prime](../local/primes-above-p.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 
@@ -44,6 +43,7 @@ prime, so $\sigma B_i$ is integral at $\mathfrak p$. Hence $\tau_9,\dots,\tau_{1
 - [The truncated logarithm is $16575z$ times a unit](../local/truncation-unit.md)
 - [The primes $(s)$ and $(d)$ of $\mathbb Z[\sqrt2]$](../../model/field/special-primes.md)
 - [The generator certificate](../../model/generator.md)
+- [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources
 

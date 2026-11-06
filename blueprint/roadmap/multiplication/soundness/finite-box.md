@@ -6,7 +6,7 @@ origin: cited
 
 # The finite-box deduction
 
-Assume the six-contact height estimate and the Mordell-Weil hypothesis for $E/K_0$. Let
+Assume the six-contact height estimate. Let
 $n_1,n_2,n_3\in\mathbb Z$ with $n_1n_2\ne n_3$, and suppose the unguarded certificate accepts
 $(\iota(n_1),\iota(n_2),\iota(n_3))$:
 $$\mathrm{Rel}_{\mathtt{height\_certificate}}\bigl(\iota(n_1),\iota(n_2),\iota(n_3),\ell_0,\iota(c_*),\iota(c_*n_1),\iota(c_*n_2),\iota(c_*n_3)\bigr).$$
@@ -36,7 +36,6 @@ inequality gives $N<(48A_{\rm ht})^{13}=T$.
 - [Prime sets and clearing exponents of the multiplication certificate](../certificate/constants.md)
 - [Point codes](../../model/point-codes.md)
 - [The six-contact height estimate](../../main/six-contact-estimate.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 

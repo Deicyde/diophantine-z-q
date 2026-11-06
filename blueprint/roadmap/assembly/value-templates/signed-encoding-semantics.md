@@ -6,8 +6,8 @@ origin: cited
 
 # Semantics of the signed encoding
 
-Assume the six-contact estimate, pole completeness, the Mordell–Weil hypothesis and the
-twenty-two-prime pattern. Then for all $N,C\in\mathbb Q^5$,
+Assume the six-contact estimate, pole completeness and the twenty-two-prime
+pattern. Then for all $N,C\in\mathbb Q^5$,
 $$\mathrm{Rel}_{\mathtt{value.signed\_encode}}(N,C)\iff\exists\,m\in\mathbb Z:\ N=\iota(m)\ \text{and}\ C=\iota(\operatorname{enc}(m)),$$
 equivalently, $C=\iota(c)$ for some $c\in\mathbb N$ and $N=\iota(\operatorname{dec}(c))$.
 
@@ -40,7 +40,6 @@ inactive branch takes arbitrary witnesses.
 - [The signed encoding of integers](../../compiler/natural/precision/signed-encoding.md)
 - [The six-contact height estimate](../../main/six-contact-estimate.md)
 - [Pole completeness](../../main/pole-completeness.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 - [The twenty-two-prime pattern](../../main/prime-pattern.md)
 
 ## Proof depends on
@@ -54,6 +53,7 @@ inactive branch takes arbitrary witnesses.
 - [Private witness blocks](../../syntax/language/existential-lifting.md)
 - [Template construction from formulas](../../syntax/language/builder-soundness.md)
 - [Witness scope of constructed templates and recipes](../../syntax/language/builder-well-formed.md)
+- [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources
 

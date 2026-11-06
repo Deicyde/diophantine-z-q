@@ -6,8 +6,8 @@ origin: cited
 
 # Completeness of Close for every fixed shift
 
-Assume the six-contact estimate, pole completeness, the Mordell–Weil hypothesis and the
-twenty-two-prime pattern. For every $n\in\mathbb Z\setminus\mathcal C$ and every nonzero
+Assume the six-contact estimate, pole completeness and the twenty-two-prime
+pattern. For every $n\in\mathbb Z\setminus\mathcal C$ and every nonzero
 $\kappa\in\mathbb Z$,
 $$\mathrm{Rel}_{\mathtt{close}}\bigl(\iota(n),\iota(\kappa),n\bigr).$$
 The shift $\kappa$ is arbitrary: this holds for every already fixed nonzero $\kappa$, whatever its
@@ -45,7 +45,6 @@ $a$ depending on $\epsilon_l$.
 - [Point codes](../../model/point-codes.md)
 - [The six-contact height estimate](../../main/six-contact-estimate.md)
 - [Pole completeness](../../main/pole-completeness.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 - [The twenty-two-prime pattern](../../main/prime-pattern.md)
 
 ## Proof depends on

@@ -12,7 +12,7 @@ $w([m]P_0)=1/x$ are nonzero elements of $K_0$. The map $m\mapsto\iota(m)$ is inj
 first coordinate of $\iota(m)$ is $0$ exactly when $m\ne0$.
 
 No hypothesis is needed: this uses only the torsion subgroup of $E(K_0)$, not the
-Mordell–Weil hypothesis.
+Mordell–Weil theorem.
 
 **Proof sketch.** The torsion subgroup of $E(K_0)$ is $E(K_0)[2]$, whose affine points have
 ordinate $0$. The ordinate of $P_0$ is $(-123720+87483s)/32\ne0$, so $P_0$ is not torsion,

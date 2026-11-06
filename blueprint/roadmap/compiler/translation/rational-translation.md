@@ -6,7 +6,7 @@ origin: cited
 
 # Semantics of the rational translation
 
-Assume the Mordell-Weil hypothesis for $E/K_0$ and the multiplication statement M in its
+Assume the multiplication statement M in its
 all-input form: $\mathrm{Rel}_{\mathtt{multiply}}(p,q,r)\iff\exists a,b\in\mathbb Z,\ p=\iota(a),\ q=\iota(b),\
 r=\iota(ab)$ for all $p,q,r\in\mathbb Q^5$. Let $C\in\mathbb Z[X_0,\dots,X_{1305810}]$ be the natural
 precision polynomial, with inputs $X_0,\dots,X_4$ in the order $(n,\kappa,a,l,j)$.
@@ -23,8 +23,8 @@ precision polynomial, with inputs $X_0,\dots,X_4$ in the order $(n,\kappa,a,l,j)
 Thus the precision recipe has rational witnesses exactly at the codes
 $\iota(c_0),\dots,\iota(c_4)$ of natural numbers $c_0,\dots,c_4$ at which the natural
 polynomial has a natural zero. Together with equation (C.4) this is input C of the assembly
-lemma. The multiplication statement holds under the five hypotheses of the main theorem by
-the multiplication chapter.
+lemma. The multiplication statement holds under the six-contact estimate, pole completeness
+and the twenty-two-prime pattern by the multiplication chapter.
 
 **Proof sketch.** Item 2 is the semantics of the power-value recipe; it is the (PV) property
 of the power recipe used by $\mathtt{precision}$. The precision recipe is the translation of the
@@ -48,7 +48,6 @@ the final root is equated to the identity.
 - [Values and polynomial of a natural circuit](natural-circuit-values.md)
 - [Point codes](../../model/point-codes.md)
 - [Correctness of the multiplication template](../../multiplication/multiplication-template.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 

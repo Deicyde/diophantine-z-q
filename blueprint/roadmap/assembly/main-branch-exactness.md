@@ -6,8 +6,8 @@ origin: bridged
 
 # An accepting main branch forces the exact value
 
-Assume the six-contact estimate, pole completeness, the Mordell–Weil hypothesis and the
-twenty-two-prime pattern. Let $n,\kappa\in\mathbb Z$ and $t\in\mathbb Q$. If
+Assume the six-contact estimate, pole completeness and the twenty-two-prime
+pattern. Let $n,\kappa\in\mathbb Z$ and $t\in\mathbb Q$. If
 $\mathrm{Rel}_{\mathtt{close}}(\iota(n),\iota(\kappa),t)$ and $\operatorname{Test}(n,\kappa,t)$, then $t=n$.
 
 **Proof sketch.** Soundness of Close gives $n\notin\mathcal C$, $\kappa\ne0$ and
@@ -30,7 +30,6 @@ contradicting soundness of Close. Hence $t=n$. No numerical value of $A^{(0)}_{\
 - [Point codes](../model/point-codes.md)
 - [The six-contact height estimate](../main/six-contact-estimate.md)
 - [Pole completeness](../main/pole-completeness.md)
-- [Mordell–Weil for the generator curve](../main/mordell-weil.md)
 - [The twenty-two-prime pattern](../main/prime-pattern.md)
 
 ## Proof depends on

@@ -6,8 +6,8 @@ origin: cited
 
 # Soundness of Close
 
-Assume the six-contact estimate, pole completeness, the Mordell–Weil hypothesis and the
-twenty-two-prime pattern. Let $n,\kappa\in\mathbb Z$ and $t\in\mathbb Q$. If
+Assume the six-contact estimate, pole completeness and the twenty-two-prime
+pattern. Let $n,\kappa\in\mathbb Z$ and $t\in\mathbb Q$. If
 $\mathrm{Rel}_{\mathtt{close}}(\iota(n),\iota(\kappa),t)$, then $n\notin\mathcal C$, $\kappa\ne0$ and, in
 $\mathbb R$,
 $$|t-n|<e^{-B(n,\kappa)} .$$
@@ -28,7 +28,6 @@ the last step because $(e/4)^B\le1<2$. No height input is used here.
 - [Point codes](../../model/point-codes.md)
 - [The six-contact height estimate](../../main/six-contact-estimate.md)
 - [Pole completeness](../../main/pole-completeness.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 - [The twenty-two-prime pattern](../../main/prime-pattern.md)
 
 ## Proof depends on

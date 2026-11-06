@@ -6,7 +6,7 @@ origin: cited
 
 # The congruence at an odd contact prime
 
-Assume the Mordell-Weil hypothesis for $E/K_0$. Let $n_1,n_2,n_3\in\mathbb Z$, put
+Let $n_1,n_2,n_3\in\mathbb Z$, put
 $c=(c_*,c_*n_1,c_*n_2,c_*n_3)$, and let $t\in\mathbb Q$ satisfy $\mathrm{Slope}(t,\ell_0;c)$. If
 $p\notin S_{\rm mul}$ is a prime such that $v_p(t-c')$ is positive and odd for some
 $c'\in\mathcal C$, then
@@ -25,7 +25,6 @@ to the congruence gives $p^{25}\mid n_1n_2-n_3$.
 
 - [The slope predicate](../certificate/slope-predicate.md)
 - [Prime sets and clearing exponents of the multiplication certificate](../certificate/constants.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 

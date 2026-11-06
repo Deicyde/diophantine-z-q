@@ -36,7 +36,7 @@ real signs of squareclasses show that $R$ is an odd multiple of a generator modu
 - [$E(K_0)$ has rank one](rank-one.md)
 - [The free index of $R$ is odd](odd-free-index.md)
 
-The Mordell-Weil hypothesis is in fact a consequence of the descent index and the classical
-descent theorem with heights.
+The Mordell-Weil theorem for $E/K_0$, first a hypothesis of the main theorem, is a consequence
+of the descent index and the classical descent theorem with heights.
 
 - [Mordell-Weil for $E/K_0$ from the descent](mordell-weil-from-descent.md)

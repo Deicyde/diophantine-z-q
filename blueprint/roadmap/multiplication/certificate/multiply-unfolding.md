@@ -6,7 +6,7 @@ origin: bridged
 
 # Unfolding the multiplication template
 
-Assume the Mordell-Weil hypothesis for $E/K_0$. For all $Y_1,Y_2,Y_3\in\mathbb Q^5$,
+For all $Y_1,Y_2,Y_3\in\mathbb Q^5$,
 $\mathrm{Rel}_{\mathtt{multiply}}(Y_1,Y_2,Y_3)$ holds if and only if there are
 $n_1,n_2,n_3\in\mathbb Z$ with $Y_i=\iota(n_i)$ such that
 $$\mathrm{Rel}_{\mathtt{height\_certificate}}\bigl(Y_1,Y_2,Y_3,\ell_0,\iota(c_*),\iota(c_*n_1),\iota(c_*n_2),\iota(c_*n_3)\bigr)
@@ -33,7 +33,6 @@ certificate and guard relations, in disjoint private blocks.
 - [The guard template](../../syntax/templates/template-guard.md)
 - [Prime sets and clearing exponents of the multiplication certificate](constants.md)
 - [Point codes](../../model/point-codes.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 
@@ -46,6 +45,7 @@ certificate and guard relations, in disjoint private blocks.
 - [Evaluation of a template call](../../syntax/language/call-semantics.md)
 - [Private witness blocks](../../syntax/language/existential-lifting.md)
 - [Sums of squares and products over the rationals](../../syntax/sum-of-squares-semantics.md)
+- [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources
 

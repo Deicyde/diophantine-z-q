@@ -6,7 +6,7 @@ origin: bridged
 
 # Precision of the tests at a selected prime
 
-Assume the Mordell-Weil hypothesis for $E/K_0$. Let $p>324$ be a good pattern prime: $p$ is
+Let $p>324$ be a good pattern prime: $p$ is
 odd, $r\in\mathbb Z$ satisfies $r^2\equiv2\pmod p$, $75\mp53r\not\equiv0\pmod p$, and
 $$d_1=\#\widetilde E_r(\mathbb F_p),\qquad d_2=\#\widetilde E_{-r}(\mathbb F_p),\qquad
 \widetilde E_{\pm r}:y^2=x^3-(75\mp53r)^2x,$$
@@ -35,7 +35,6 @@ $\tau_{12}=A_1A_2-A_3\equiv n_1n_2-n_3=0$ have valuation at least $28$.
 - [The twelve local tests](../certificate/twelve-tests.md)
 - [The primes of $\mathbb Z[\sqrt2]$ above an odd prime](../local/primes-above-p.md)
 - [The twenty-two-prime pattern](../../main/prime-pattern.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 
@@ -44,6 +43,7 @@ $\tau_{12}=A_1A_2-A_3\equiv n_1n_2-n_3=0$ have valuation at least $28$.
 - [The formal logarithm](../local/formal-logarithm.md)
 - [The truncation error at a large prime](../local/truncation-error.md)
 - [The generator certificate](../../model/generator.md)
+- [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources
 

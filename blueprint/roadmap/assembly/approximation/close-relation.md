@@ -6,8 +6,8 @@ origin: cited
 
 # The relation Close
 
-Assume the six-contact estimate, pole completeness, the Mordell–Weil hypothesis and the
-twenty-two-prime pattern. Then for all $N,K\in\mathbb Q^5$ and $t\in\mathbb Q$,
+Assume the six-contact estimate, pole completeness and the twenty-two-prime
+pattern. Then for all $N,K\in\mathbb Q^5$ and $t\in\mathbb Q$,
 $\mathrm{Rel}_{\mathtt{close}}(N,K,t)$ holds exactly when there are $n,\kappa,a,l\in\mathbb Z$ with
 $$N=\iota(n),\quad K=\iota(\kappa),\quad\operatorname{Prec}(n,\kappa,a,l,na),\quad |t-r(a,na)|<\epsilon_l ,$$
 where, for integers $n,\kappa,a,l,j$, $\operatorname{Prec}(n,\kappa,a,l,j)$ abbreviates the precision
@@ -24,7 +24,7 @@ precision relation and the coordinate window. Input C is used as a chain of thre
 equivalences. Let $C$ be the natural precision polynomial. For all $E_0,\dots,E_4\in\mathbb Q^5$:
 
 - by the semantics of the rational translation (item 1, which uses the multiplication
-  statement M and so the four hypotheses), $\mathrm{Rel}_{\mathtt{precision}}(E_0,\dots,E_4)$ holds
+  statement M and so the three hypotheses of M), $\mathrm{Rel}_{\mathtt{precision}}(E_0,\dots,E_4)$ holds
   exactly when there is $c\in\mathbb N^5$ with $E_i=\iota(c_i)$ for $0\le i\le4$ and
   $C(c,\mathbf z)=0$ for some $\mathbf z\in\mathbb N^{1305806}$;
 - by the semantics of the natural precision polynomial, the existence of such $\mathbf z$ is
@@ -55,7 +55,6 @@ is the identity, and the coordinate window holds because $a,l\ge1$ are nonzero.
 - [Point codes](../../model/point-codes.md)
 - [The six-contact height estimate](../../main/six-contact-estimate.md)
 - [Pole completeness](../../main/pole-completeness.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 - [The twenty-two-prime pattern](../../main/prime-pattern.md)
 
 ## Proof depends on

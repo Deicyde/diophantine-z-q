@@ -6,7 +6,7 @@ origin: cited
 
 # The natural-code predicate
 
-Assume the Mordell-Weil hypothesis for $E/K_0$ and the multiplication statement M in its
+Assume the multiplication statement M in its
 all-input form: for all $p,q,r\in\mathbb Q^5$,
 $$\mathrm{Rel}_{\mathtt{multiply}}(p,q,r)\iff\exists\,a,b\in\mathbb Z:\ p=\iota(a),\ q=\iota(b),\ r=\iota(ab).$$
 Then for every $A\in\mathbb Q^5$ (an arbitrary rational $5$-tuple, not assumed to be a code)
@@ -45,7 +45,6 @@ this predicate.
 - [The natural-code template](../../syntax/templates/template-natural.md)
 - [Point codes](../../model/point-codes.md)
 - [Correctness of the multiplication template](../../multiplication/multiplication-template.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 
@@ -54,6 +53,7 @@ this predicate.
 - [Raw addition](../../model/raw-addition.md)
 - [The generator certificate](../../model/generator.md)
 - [Lagrange's four-square theorem](lagrange-four-squares.md)
+- [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources
 

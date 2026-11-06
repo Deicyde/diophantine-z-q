@@ -6,7 +6,7 @@ origin: bridged
 
 # From the local tests to the congruence
 
-Assume the Mordell-Weil hypothesis for $E/K_0$. Let $p>324$ be a prime, $\mathfrak p$ a prime of
+Let $p>324$ be a prime, $\mathfrak p$ a prime of
 $\mathbb Z[s]$ above $p$, and $c\in\mathbb Z$ with $p\nmid c$. Let $n_1,n_2,n_3\in\mathbb Z$ and
 $h,z_1,z_2,z_3\in\mathbb Z$ with $h\ne0$, $h\ne c$, and let
 $\tau=\tau(h,z;\,c,cn_1,cn_2,cn_3)$ be the twelve test values. If
@@ -51,7 +51,6 @@ $V_i=[z_i-cn_i]P_0$:
 
 - [The twelve local tests](../certificate/twelve-tests.md)
 - [The primes of $\mathbb Z[\sqrt2]$ above an odd prime](../local/primes-above-p.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 
@@ -59,6 +58,7 @@ $V_i=[z_i-cn_i]P_0$:
 - [Full-logarithm ratios of multiples of $P_0$](../local/logarithm-ratio.md)
 - [The truncation error at a large prime](../local/truncation-error.md)
 - [The generator certificate](../../model/generator.md)
+- [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources
 

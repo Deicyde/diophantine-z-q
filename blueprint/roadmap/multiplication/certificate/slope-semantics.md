@@ -6,7 +6,7 @@ origin: bridged
 
 # Semantics of the slope template
 
-Assume the Mordell-Weil hypothesis for $E/K_0$. For all $t,\ell\in\mathbb Q$ and
+For all $t,\ell\in\mathbb Q$ and
 $c=(c_0,c_1,c_2,c_3)\in\mathbb Z^4$,
 $$\mathrm{Rel}_{\mathtt{slope}}\bigl(t,\ell,\iota(c_0),\iota(c_1),\iota(c_2),\iota(c_3)\bigr)\iff\mathrm{Slope}(t,\ell;c).$$
 
@@ -28,7 +28,6 @@ these values.
 - [The slope template](../../syntax/templates/template-slope.md)
 - [The slope predicate](slope-predicate.md)
 - [Point codes](../../model/point-codes.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 

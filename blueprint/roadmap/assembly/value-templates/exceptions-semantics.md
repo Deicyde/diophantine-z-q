@@ -6,7 +6,7 @@ origin: cited
 
 # Semantics of the exceptional values
 
-Assume the Mordell–Weil hypothesis. Then for all $N\in\mathbb Q^5$ and $t\in\mathbb Q$,
+For all $N\in\mathbb Q^5$ and $t\in\mathbb Q$,
 $$\mathrm{Rel}_{\mathtt{value.exceptions}}(N,t)\iff\exists\,c\in\mathcal C:\ N=\iota(c)\ \text{and}\ t=c,$$
 where $\mathcal C=\{0,-15,-20,-24,-30,-60\}$.
 
@@ -26,7 +26,6 @@ by the accepted-indices statement; the witnesses of the inactive branches are ar
 
 - [The exceptional-values template](../../syntax/templates/template-exceptions.md)
 - [Point codes](../../model/point-codes.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 
@@ -37,6 +36,7 @@ by the accepted-indices statement; the witnesses of the inactive branches are ar
 - [Private witness blocks](../../syntax/language/existential-lifting.md)
 - [Template construction from formulas](../../syntax/language/builder-soundness.md)
 - [Witness scope of constructed templates and recipes](../../syntax/language/builder-well-formed.md)
+- [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources
 

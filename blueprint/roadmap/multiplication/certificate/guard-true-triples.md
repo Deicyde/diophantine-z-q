@@ -6,8 +6,6 @@ origin: cited
 
 # The guard passes true triples and rejects false triples in the box
 
-Assume the Mordell-Weil hypothesis for $E/K_0$.
-
 1. For all $a,b\in\mathbb Z$, $\mathrm{Rel}_{\mathtt{multiply.guard}}(\iota(a),\iota(b),\iota(ab))$.
 2. For all $n_1,n_2,n_3\in\mathbb Z$ with $|n_i|\le T$ and $n_1n_2\ne n_3$,
    $\mathrm{Rel}_{\mathtt{multiply.guard}}(\iota(n_1),\iota(n_2),\iota(n_3))$ fails.
@@ -27,12 +25,12 @@ such a false triple.
 - [The guard template](../../syntax/templates/template-guard.md)
 - [Point codes](../../model/point-codes.md)
 - [Prime sets and clearing exponents of the multiplication certificate](constants.md)
-- [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 
 - [Semantics of the guard template](../../syntax/templates/guard-semantics.md)
 - [The generator certificate](../../model/generator.md)
+- [Mordell-Weil for $E/K_0$ from the descent](../../model/descent/mordell-weil-from-descent.md)
 
 ## Sources
 

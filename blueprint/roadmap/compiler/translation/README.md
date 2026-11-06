@@ -13,8 +13,10 @@ here.
 Throughout, $\iota(n)$ is the code of $[n]P_0$, $\mathrm{Rel}_\tau$ is the rational relation of a
 template or recipe, and the multiplication statement M is used in its all-input form:
 $\mathrm{Rel}_{\mathtt{multiply}}(p,q,r)$ holds exactly when $p=\iota(a)$, $q=\iota(b)$ and $r=\iota(ab)$ for
-some integers $a,b$. The multiplication chapter proves M from the five hypotheses of the main
-theorem; the statements below assume M and the Mordell-Weil hypothesis explicitly.
+some integers $a,b$. The multiplication chapter proves M from the six-contact estimate, pole
+completeness and the twenty-two-prime pattern; the statements below assume M explicitly. The
+Mordell–Weil theorem, used through the generator certificate, is proved by the two-isogeny
+descent and is not a hypothesis.
 
 ## The typing order and the natural predicate
 
