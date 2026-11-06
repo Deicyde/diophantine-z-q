@@ -33,7 +33,7 @@ of the invariant differential normalized by $\log(T)=T+\cdots$.
 ## Depends on
 
 - [The generator curve $E$](../../model/field/generator-curve.md)
-- [The formal logarithm and its isometry range](formal-logarithm.md)
+- [The formal logarithm](formal-logarithm.md)
 
 ## Sources
 

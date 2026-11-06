@@ -55,7 +55,7 @@ $V_i=[z_i-cn_i]P_0$:
 
 ## Proof depends on
 
-- [The formal group of $y^2=x^3+Ax$](../local/formal-group.md)
+- [The formal neighbourhood of $y^2=x^3+Ax$ and its filtration](../local/formal-group.md)
 - [Full-logarithm ratios of multiples of $P_0$](../local/logarithm-ratio.md)
 - [The truncation error at a large prime](../local/truncation-error.md)
 - [The generator certificate](../../model/generator.md)

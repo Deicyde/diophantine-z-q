@@ -27,8 +27,8 @@ $L(t)/16575=\log(t)(1+\epsilon)$ with $\epsilon=-t\delta/\log(t)$ and $v(\epsilo
 
 ## Depends on
 
-- [The formal group of $y^2=x^3+Ax$](formal-group.md)
-- [The formal logarithm and its isometry range](formal-logarithm.md)
+- [The formal neighbourhood of $y^2=x^3+Ax$ and its filtration](formal-group.md)
+- [The formal logarithm](formal-logarithm.md)
 - [The truncated logarithm template](../../syntax/templates/template-log25.md)
 - [The primes of $\mathbb Z[\sqrt2]$ above an odd prime](primes-above-p.md)
 

@@ -7,7 +7,8 @@ origin: cited
 # The one-sided pole obstruction
 
 Let $S_0=\{2,3,5,7,13\}$ and let $\Phi(B)$ be the rational solubility of the pole polynomial
-$Q_{\rm pole}$ with input $B$, as in pole completeness. If $B\in\mathbb Q$, $B\ne0$ and
+$Q_{\rm pole}$ with input $B$, as in pole completeness (that article is linked for the
+definition of $\Phi$ only; the hypothesis PC is not assumed). If $B\in\mathbb Q$, $B\ne0$ and
 $\Phi(B)$, then for every prime $p\notin S_0$ it is not the case that $v_p(B)$ is negative
 and odd.
 
@@ -23,11 +24,13 @@ $2730=2\cdot3\cdot5\cdot7\cdot13$ and $v_p(m)=0$ for $p\notin S_0$.
 
 Suppose $k=v_p(B)<0$ is odd. Then $v_p(A)=v_p(mB)=k$; since $2k<k$,
 $v_p(A-B^2)=2k$, so $v_p(H)=3k$. The equations say that $(A,r_1)$ lies on
-$E_e:y^2=x(x-e)(x+3e)$ and, multiplying $r_2^2=T_2$ by $z^6$, that $(Az^2,zr_2)$ lies on
-$E_{eH}$. The valuations of $e$ and $eH$ differ by the odd number $3k$, so exactly one of
-them is even. If $v_p(e)$ is even, the parity lemma applied to $(A,r_1)$ makes $v_p(A)=k$
-even; if $v_p(eH)$ is even, it makes $v_p(Az^2)=k+2v_p(z)$ even. Both contradict $k$ odd.
-Here $p\ne3$ because $p\notin S_0$.
+$E_e:y^2=x(x-e)(x+3e)$ and, multiplying $r_2^2=T_2$ by $z^2$, that $(Az^2,zr_2)$ lies on
+$E_{eH}$: $(zr_2)^2=z^2T_2=Az^2(Az^2-eH)(Az^2+3eH)$. Both abscissas are nonzero ($m\ne0$
+because $1-2b_0=\pm1$ and the other factors are positive, and $z\ne0$), and both parameters
+$e,eH$ are nonzero. The valuations of $e$ and $eH$ differ by the odd number $3k$, so exactly
+one of them is even. If $v_p(e)$ is even, the parity lemma ($p\ne3$ because $p\notin S_0$)
+applied to $(A,r_1)$ makes $v_p(A)=k$ even; if $v_p(eH)$ is even, it makes
+$v_p(Az^2)=k+2v_p(z)$ even. Both contradict $k$ odd.
 
 ## Depends on
 

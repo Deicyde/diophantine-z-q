@@ -47,6 +47,7 @@ $B_0<10$ and $2\widehat h(P_0)>1$.
 
 - [Sum and quotient bounds for rational heights](rational-height-bounds.md)
 - [Height bounds in $K_0$](field-height-bounds.md)
+- [The integer inequalities behind the height constants](height-constant-integers.md)
 - [Explicit height constants](height-constants.md)
 - [The canonical height of multiples of $P_0$](generator-height.md)
 - [The final inequality of the finite-box deduction](box-inequality.md)

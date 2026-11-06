@@ -40,7 +40,7 @@ prime, so $\sigma B_i$ is integral at $\mathfrak p$. Hence $\tau_9,\dots,\tau_{1
 
 - [The least formal multiple](../../syntax/constants/least-formal-multiple.md)
 - [Properties of the multiplication constants](../certificate/constants-properties.md)
-- [The formal group of $y^2=x^3+Ax$](../local/formal-group.md)
+- [The formal neighbourhood of $y^2=x^3+Ax$ and its filtration](../local/formal-group.md)
 - [The truncated logarithm is $16575z$ times a unit](../local/truncation-unit.md)
 - [The primes $(s)$ and $(d)$ of $\mathbb Z[\sqrt2]$](../../model/field/special-primes.md)
 - [The generator certificate](../../model/generator.md)

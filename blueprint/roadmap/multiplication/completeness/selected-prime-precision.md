@@ -40,8 +40,8 @@ $\tau_{12}=A_1A_2-A_3\equiv n_1n_2-n_3=0$ have valuation at least $28$.
 ## Proof depends on
 
 - [Reduction is injective on prime-to-$p$ torsion](../../model/descent/reduction-torsion.md)
-- [The formal group of $y^2=x^3+Ax$](../local/formal-group.md)
-- [The formal logarithm and its isometry range](../local/formal-logarithm.md)
+- [The formal neighbourhood of $y^2=x^3+Ax$ and its filtration](../local/formal-group.md)
+- [The formal logarithm](../local/formal-logarithm.md)
 - [The truncation error at a large prime](../local/truncation-error.md)
 - [The generator certificate](../../model/generator.md)
 

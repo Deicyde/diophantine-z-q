@@ -71,7 +71,7 @@ kernel of a minimal model (Silverman VII.2.1-2.2).
 
 ## Logarithm series
 
-Lines 1150-1160: the invariant differential $dx/(2y)=dz/\sqrt{1+4d^2z^4}$, the series
+Lines 1150-1161: the invariant differential $dx/(2y)=dz/\sqrt{1+4d^2z^4}$, the series
 $\log(z)=\sum_j(-1)^j\binom{2j}{j}d^{2j}z^{4j+1}/(4j+1)$, and the estimate: at a contact
 prime $p>324$ with $v(z)\ge1$, $v(p)=1$, every omitted term relative to $z$ has valuation
 at least $r-1-v_p(r)\ge28$ for $r\ge29$, so $L(z)/16575=\log(z)(1+\epsilon_z)$ with
@@ -79,14 +79,14 @@ $v(\epsilon_z)\ge28$.
 
 ## Twelve tests
 
-Lines 1162-1177: $H=[h]P_0$, $U_i=[z_i]P_0$, $V_0=H-[c_*]P_0$, $V_i=U_i-[c_*n_i]P_0$,
+Lines 1162-1176: $H=[h]P_0$, $U_i=[z_i]P_0$, $V_0=H-[c_*]P_0$, $V_i=U_i-[c_*n_i]P_0$,
 $c_*=4M_0$; the truncated logarithm $L$; the twelve tests (four inverse abscissas, four
 conjugate counterparts, three differences of $L$-ratios, one product test); identity
 inverse abscissas are zero and all denominators are guarded.
 
 ## Slope predicate
 
-Lines 1178-1192: for a slope $t\notin\mathcal C\cup\{1\}$, $R_0=\eta F(t)/(t-1)^8$,
+Lines 1177-1192: for a slope $t\notin\mathcal C\cup\{1\}$, $R_0=\eta F(t)/(t-1)^8$,
 $\eta^2=1$, $a=1-R_0q^2\ne0$, $R=\ell_0^2a^2R_0$; the normalized values
 $C_{gj}=D_{gj}/(R_0^{k_j}(t-1)^{k_j+1})$ with $k_j=1$ ($j\le8$) and $25$ ($j\ge9$); six
 groups, $W_g=\prod_j(1+RC_{gj}^2)$, $\Theta=\operatorname{Tr}\sum_gW_g^{-1}$, both nonzero,

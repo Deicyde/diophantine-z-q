@@ -16,22 +16,23 @@ These are the manuscript's full-log ratios: the ratio of two full logarithms of 
 $P_0$ in the formal group is a rational number, the ratio of the indices.
 
 **Proof sketch.** Put $H=[h]P_0$ and $U=[u]P_0$. Since $P_0$ has infinite order, $H\ne O$. As
-$p$ is odd and unramified, $E_1(K_{\mathfrak p})$ is torsion-free and $\lambda$ is injective on
-it, so $\lambda(H)\ne0$. Both $[u]H$ and $[h]U$ equal $[uh]P_0$ and lie in the subgroup
+$p$ is odd and unramified, the isometry range of the logarithm is all of $E_1(K_{\mathfrak p})$,
+so $\lambda$ is injective on it and $\lambda(H)\ne0$. Both $[u]H$ and $[h]U$ equal $[uh]P_0$ and lie in the subgroup
 $E_1(K_{\mathfrak p})$, and $\lambda$ is a homomorphism, so
 $u\lambda(H)=\lambda([u]H)=\lambda([h]U)=h\lambda(U)$.
 
 ## Depends on
 
 - [The point $P_0$](../../model/field/generator-point.md)
-- [The formal logarithm and its isometry range](formal-logarithm.md)
+- [The formal logarithm](formal-logarithm.md)
 - [The primes of $\mathbb Z[\sqrt2]$ above an odd prime](primes-above-p.md)
 - [Mordell–Weil for the generator curve](../../main/mordell-weil.md)
 
 ## Proof depends on
 
 - [The generator certificate](../../model/generator.md)
-- [The formal group of $y^2=x^3+Ax$](formal-group.md)
+- [The formal neighbourhood of $y^2=x^3+Ax$ and its filtration](formal-group.md)
+- [The isometry range of the formal logarithm](logarithm-isometry.md)
 
 ## Sources
 

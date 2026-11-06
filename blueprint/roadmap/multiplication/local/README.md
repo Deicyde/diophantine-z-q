@@ -20,17 +20,21 @@ place above $p$.
 
 ## The formal group and its logarithm
 
-For an integral Weierstrass equation over a complete discretely valued field, the points
-with $v(x)<0$ form a subgroup parametrized by $z$, with $v(w)=2v(z)$, and multiplication by
-an integer never lowers $v(z)$. The formal logarithm converges on $v(z)>0$, is a
-homomorphism, and is an isometry where $v(z)>e/(p-1)$; at an odd unramified prime this is the
-whole formal group. These are classical (Silverman IV and VII.2); here they are background
-statements. The manuscript's remark that identifying the formal neighbourhood with the
+For the integral equation $y^2=x^3+Ax$ over a discretely valued field, the points with
+$v(x)<0$ form a subgroup on which $z$ is injective, with $v(w)=2v(z)$, filtered by the
+subgroups $v(z)\ge k$, so multiplication by an integer never lowers $v(z)$; this part has an
+elementary chord-and-tangent proof. Over a complete field, $z$ turns the group law into a
+formal group law, whose formal logarithm converges on $v(z)>0$, is a homomorphism, and is an
+isometry where $v(z)>e/(p-1)$; at an odd unramified prime this is the whole formal group.
+These are classical (Silverman IV and VII.2); here they are background statements, the
+formal group law and the logarithm being the deepest inputs of the chapter. The manuscript's remark that identifying the formal neighbourhood with the
 reduction kernel of a minimal model needs Silverman VII.2.1-2.2 is not used: every argument
 below works with the integral equation of $E$ itself.
 
-- [The formal group of $y^2=x^3+Ax$](formal-group.md)
-- [The formal logarithm and its isometry range](formal-logarithm.md)
+- [The formal neighbourhood of $y^2=x^3+Ax$ and its filtration](formal-group.md)
+- [The formal group law of $y^2=x^3+Ax$](formal-group-law.md)
+- [The formal logarithm](formal-logarithm.md)
+- [The isometry range of the formal logarithm](logarithm-isometry.md)
 
 For $E$ the invariant differential is $dz/\sqrt{1+4d^2z^4}$, so the logarithm is an explicit
 binomial series, and the polynomial $L$ of the truncated logarithm template is $16575$ times
@@ -56,6 +60,7 @@ nonzero multiple $Q$ of $P_0$: the two inverse guards of a test group never fail
 nonidentity base point. At an odd prime, the full logarithms of two multiples of $P_0$ in
 the formal group have the rational ratio of their indices.
 
+- [The $2$-adic valuations of the coordinates of $P_0$](generator-dyadic-numerals.md)
 - [The generator lies in the dyadic formal group](dyadic-generator.md)
 - [The truncated logarithm does not vanish on nonzero multiples of $P_0$](logarithm-nonvanishing.md)
 - [Full-logarithm ratios of multiples of $P_0$](logarithm-ratio.md)
