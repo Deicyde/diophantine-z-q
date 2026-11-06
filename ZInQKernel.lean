@@ -9,3 +9,4 @@ import ZInQKernel.Model.Field
 import ZInQKernel.Syntax.Language
 import ZInQKernel.Model.Descent
 import ZInQKernel.Model.Heights
+import ZInQKernel.Assembly.Real
