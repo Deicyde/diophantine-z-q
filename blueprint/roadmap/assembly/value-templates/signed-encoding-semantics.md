@@ -22,7 +22,8 @@ $\mathrm{Rel}_{\mathtt{raw\_add}}(Q,G,Q_+)$, $N=\operatorname{neg}(Q_+)$, $\math
 
 ($\Rightarrow$) The natural-code predicate, with M from the multiplication template, gives
 $Q=\iota(q)$ with $q\in\mathbb N$, and raw addition on canonical codes gives $Q_2=\iota(2q)$.
-In branch (i), $N=\iota(q)$ and $C=\iota(2q)=\iota(\operatorname{enc}q)$. In branch (ii), $Q_+=\iota(q+1)$, $N=\operatorname{neg}(\iota(q+1))=\iota(-(q+1))$ and $C=\iota(2q+1)$; since
+In branch (i), $N=\iota(q)$ and $C=\iota(2q)=\iota(\operatorname{enc}q)$. In branch (ii),
+$Q_+=\iota(q+1)$, $N=\operatorname{neg}(\iota(q+1))=\iota(-(q+1))$ and $C=\iota(2q+1)$; since
 $-(q+1)<0$, $\operatorname{enc}(-(q+1))=2q+1$.
 
 ($\Leftarrow$) For $m\ge0$ take $Q=\iota(m)$, $Q_2=\iota(2m)$ and branch (i). For $m<0$ take
