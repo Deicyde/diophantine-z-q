@@ -2,6 +2,9 @@
 article_id: af_987059c28c264863daa0a483
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.rel_member_iff
 ---
 
 # Polynomial membership in the doubled group

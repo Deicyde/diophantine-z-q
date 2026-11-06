@@ -2,18 +2,22 @@
 article_id: af_7121d7e331db6c27d70c3ca0
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.generator_certificate, ZInQ.carrierD_eq_zmultiples, ZInQ.indexEquivCarrier, ZInQ.iota_injective
 ---
 
 # The generator certificate
 
-Assume the Mordell-Weil hypothesis for $E/K_0$. Then the point $P_0$ has infinite order and
+The point $P_0$ has infinite order and
 $$2E(K_0)=\mathbb ZP_0 .$$
 Consequently $n\mapsto[n]P_0$ is an isomorphism $\mathbb Z\to2E(K_0)=D$, the carrier $D$ is
 torsion-free, and $n\mapsto\iota(n)$ is injective.
 
-This is Proposition 3.1. The Mordell-Weil hypothesis is used only to pass from the descent
-index and the torsion bound to rank one; that $P_0$ has infinite order already follows from the
-torsion theorem without it.
+This is Proposition 3.1. The manuscript assumes the Mordell–Weil theorem to pass from the
+descent index and the torsion bound to rank one; here Mordell–Weil is itself proved from the
+descent, so the statement has no hypothesis. That $P_0$ has infinite order already follows from
+the torsion theorem.
 
 **Proof sketch.** Work on $C$ through the isomorphism $\theta$. By the rank-one theorem,
 $C(K_0)=\mathbb ZS\oplus C(K_0)[2]$ with $S$ of infinite order; write $R=[m]S+T$ with
@@ -31,12 +35,12 @@ order. Injectivity of $\iota$ follows from injectivity of codes.
 
 ## Depends on
 
-- [Mordell–Weil for the generator curve](../main/mordell-weil.md)
 - [The point $P_0$](field/generator-point.md)
 - [Point codes](point-codes.md)
 
 ## Proof depends on
 
+- [Mordell-Weil for $E/K_0$ from the descent](descent/mordell-weil-from-descent.md)
 - [$E(K_0)$ has rank one](descent/rank-one.md)
 - [The free index of $R$ is odd](descent/odd-free-index.md)
 - [A multiple of a small point](heights/small-height-bound.md)

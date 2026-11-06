@@ -2,6 +2,9 @@
 article_id: af_2f182a80de22918b605b23b5
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.rel_rawAdd_iota
 ---
 
 # Raw addition

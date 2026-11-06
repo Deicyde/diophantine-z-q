@@ -2,11 +2,14 @@
 article_id: af_1fbe0479e46d3b2016d732ae
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.rel_member_iff_iota, ZInQ.rel_member_iff_existsUnique_iota
 ---
 
 # Accepted inputs have unique indices
 
-Assume the Mordell-Weil hypothesis for $E/K_0$. For every $p\in\mathbb Q^5$,
+For every $p\in\mathbb Q^5$,
 $$\mathrm{Rel}_{\mathtt{member}}(p)\iff\exists n\in\mathbb Z:\ p=\iota(n),$$
 and the integer $n$ is then unique. In words, the canonical point codes form exactly the
 infinite cyclic group $2E(K_0)=\mathbb ZP_0$, and the membership polynomial types arbitrary
@@ -18,7 +21,6 @@ $\iota(n)$; uniqueness of $n$ is injectivity of $\iota$.
 
 ## Depends on
 
-- [Mordell–Weil for the generator curve](../main/mordell-weil.md)
 - [The membership template](../syntax/template-member.md)
 - [Point codes](point-codes.md)
 

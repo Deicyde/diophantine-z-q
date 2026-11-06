@@ -2,6 +2,9 @@
 article_id: af_51908b404b3c3c366bfec93a
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.rel_rawAdd_iff
 ---
 
 # Raw addition on canonical codes
