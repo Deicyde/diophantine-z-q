@@ -20,24 +20,18 @@ namespace ZInQ.DivisionPolynomials
 open WeierstrassCurve WeierstrassCurve.Affine Polynomial
 open ZInQ.Syntax (WA divF3 divF4)
 
-variable {F : Type*} [Field F]
+section CommRing
+
+variable {R : Type*} [CommRing R]
 
 /-- The values `ψ_n(x, y)`, as Mathlib's normalized elliptic divisibility sequence with
 `ψ₂ = 2y`, `ψ₃ = f₃(x)`, `ψ₄ = f₄(x) · 2y`. -/
-noncomputable def w (A x y : F) (n : ℤ) : F :=
+noncomputable def w (A x y : R) (n : ℤ) : R :=
   normEDS (2 * y) ((divF3 A).eval x) ((divF4 A).eval x) n
-
-/-- The candidate abscissa `x - ψ_{n+1}ψ_{n-1}/ψ_n²` of `[n]P`. -/
-noncomputable def xmul (A x y : F) (n : ℤ) : F :=
-  x - w A x y (n + 1) * w A x y (n - 1) / w A x y n ^ 2
-
-/-- The candidate ordinate `ψ_{2n}/(2ψ_n⁴)` of `[n]P`. -/
-noncomputable def ymul (A x y : F) (n : ℤ) : F :=
-  w A x y (2 * n) / (2 * w A x y n ^ 4)
 
 section w
 
-variable (A x y : F)
+variable (A x y : R)
 
 @[simp] lemma w_zero : w A x y 0 = 0 := normEDS_zero ..
 @[simp] lemma w_one : w A x y 1 = 1 := normEDS_one ..
@@ -54,6 +48,19 @@ lemma w_odd (m : ℤ) : w A x y (2 * m + 1) =
     w A x y (m + 2) * w A x y m ^ 3 - w A x y (m - 1) * w A x y (m + 1) ^ 3 := normEDS_odd ..
 
 end w
+
+end CommRing
+
+variable {F : Type*} [Field F]
+
+/-- The candidate abscissa `x - ψ_{n+1}ψ_{n-1}/ψ_n²` of `[n]P`. -/
+noncomputable def xmul (A x y : F) (n : ℤ) : F :=
+  x - w A x y (n + 1) * w A x y (n - 1) / w A x y n ^ 2
+
+/-- The candidate ordinate `ψ_{2n}/(2ψ_n⁴)` of `[n]P`. -/
+noncomputable def ymul (A x y : F) (n : ℤ) : F :=
+  w A x y (2 * n) / (2 * w A x y n ^ 4)
+
 
 section rel
 

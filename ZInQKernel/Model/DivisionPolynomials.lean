@@ -3,3 +3,6 @@ import ZInQKernel.Model.DivisionPolynomials.Classical
 import ZInQKernel.Model.DivisionPolynomials.Geometry
 import ZInQKernel.Model.DivisionPolynomials.Algebra
 import ZInQKernel.Model.DivisionPolynomials.NonTorsion
+import ZInQKernel.Model.DivisionPolynomials.Jacobian
+import ZInQKernel.Model.DivisionPolynomials.Generic
+import ZInQKernel.Model.DivisionPolynomials.Multiples
