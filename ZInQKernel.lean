@@ -4,5 +4,6 @@ import ZInQKernel.Hypotheses.Pole
 import ZInQKernel.Hypotheses.MordellWeil
 import ZInQKernel.Hypotheses.PrimePattern
 import ZInQKernel.Main
+import ZInQKernel.Model.DivisionPolynomials
 import ZInQKernel.Model.Field
 import ZInQKernel.Syntax.Language
