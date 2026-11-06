@@ -1,5 +1,6 @@
 import ZInQKernel.Assembly.Real.Subtraction
 import ZInQKernel.Assembly.Real.Accumulation
+import ZInQKernel.Assembly.Real.Derivative
 
 /-!
 # Real-place analysis of the assembly chapter
