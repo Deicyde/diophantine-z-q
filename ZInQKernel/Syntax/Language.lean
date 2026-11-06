@@ -6,6 +6,7 @@ import ZInQKernel.Syntax.Language.Nodes
 import ZInQKernel.Syntax.Language.Gadgets
 import ZInQKernel.Syntax.Language.Build
 import ZInQKernel.Syntax.Language.Pairs
+import ZInQKernel.Syntax.Language.Size
 
 /-!
 # The expression language of the specification

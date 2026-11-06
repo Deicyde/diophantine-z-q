@@ -120,6 +120,41 @@ theorem length_denoteNodes (I : Constructors E) (lib : List ExPoly) (nodes : Lis
   | nil => rfl
   | append_singleton nodes n ih => simp [denoteNodes_append, ih]
 
+/-- One pass in stored order: entry `i` is computed from the entries before it. -/
+theorem getD_foldl_snoc {α β : Type*} (f : List β → α → β) (l : List α) {i : ℕ}
+    (h : i < l.length) (d : β) :
+    (l.foldl (fun acc a => acc ++ [f acc a]) []).getD i d =
+      f ((l.take i).foldl (fun acc a => acc ++ [f acc a]) []) l[i] := by
+  induction l using List.reverseRecOn with
+  | nil => simp at h
+  | append_singleton l a ih =>
+    have hlen : (l.foldl (fun acc a => acc ++ [f acc a]) []).length = l.length := by
+      clear ih h
+      induction l using List.reverseRecOn with
+      | nil => rfl
+      | append_singleton l b ih => simp [List.foldl_append, ih]
+    rw [List.foldl_append, List.foldl_cons, List.foldl_nil]
+    rcases Nat.lt_or_ge i l.length with hi | hi
+    · rw [List.getD_append _ _ _ _ (by rw [hlen]; exact hi), ih hi, List.take_append_of_le_length hi.le,
+        List.getElem_append_left hi]
+    · have hi' : i = l.length := by simp at h; omega
+      subst hi'
+      rw [List.getD_append_right _ _ _ _ (by rw [hlen]), hlen, Nat.sub_self, List.getD_cons_zero,
+        List.take_left' rfl, List.getElem_append_right (by rfl)]
+      simp
+
+/-- The polynomial of node `j` is computed from the polynomials of the earlier nodes. -/
+theorem getPoly_denoteNodes (I : Constructors E) (lib : List ExPoly) (nodes : List (Node E))
+    {j : ℕ} (h : j < nodes.length) :
+    getPoly (denoteNodes I lib nodes) j = nodes[j].denote I lib (denoteNodes I lib (nodes.take j)) :=
+  getD_foldl_snoc _ nodes h 0
+
+/-- Template `i` of the library is denoted over the templates before it. -/
+theorem getEx_denoteLibrary (I : Constructors E) (ts : List (Template E)) {i : ℕ}
+    (h : i < ts.length) :
+    getEx (denoteLibrary I ts) i = ts[i].denote I (denoteLibrary I (ts.take i)) :=
+  getD_foldl_snoc _ ts h _
+
 /-! ### Recipes -/
 
 /-- The connective of a composition recipe. -/
@@ -264,6 +299,12 @@ noncomputable def Recipe.denote (templates recipes : List ExPoly) (ρ : Recipe) 
 /-- The recipes are denoted in their stored order; a recipe calls only earlier recipes. -/
 noncomputable def denoteRecipes (templates : List ExPoly) (rs : List Recipe) : List ExPoly :=
   rs.foldl (fun recipes ρ => recipes ++ [ρ.denote templates recipes]) []
+
+/-- Recipe `i` is denoted over the recipes before it. -/
+theorem getEx_denoteRecipes (templates : List ExPoly) (rs : List Recipe) {i : ℕ}
+    (h : i < rs.length) :
+    getEx (denoteRecipes templates rs) i = rs[i].denote templates (denoteRecipes templates (rs.take i)) :=
+  getD_foldl_snoc _ rs h _
 
 /-! ### Semantics of the connectives -/
 
