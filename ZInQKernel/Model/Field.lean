@@ -8,6 +8,7 @@ import ZInQKernel.Model.Field.Euclidean
 import ZInQKernel.Model.Field.Valuation
 import ZInQKernel.Model.Field.Units
 import ZInQKernel.Model.Field.SpecialPrimes
+import ZInQKernel.Model.Field.Dyadic
 
 /-!
 # The basic objects of the elliptic model
