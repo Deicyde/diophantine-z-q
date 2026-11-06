@@ -279,7 +279,9 @@ theorem fC_mul_pow (a U V : ℤ) (ha : a ≠ 0) :
     ext <;> simp [pow_succ]
   rw [fC_mk, h4, K0.mk_mul_mk']
   simp only [alpha]
-  ext <;> simp only [mul_zero, add_zero] <;> push_cast <;> field_simp <;> ring
+  ext
+  · simp only [mul_zero, add_zero]; push_cast; field_simp
+  · simp only [mul_zero]; push_cast; field_simp; ring
 
 theorem not_isSquare_fC (a U V : ℤ) (ha : a ≠ 0)
     (h : possSq (alpha a U V).1 (alpha a U V).2 = false) :
@@ -323,7 +325,9 @@ theorem qRoot_eq {a b c η : ℤ} (ht : (a, b, c) ∈ searchQ) :
     have : (1 : ℤ) ≤ t.1 := by exact_mod_cast ha1
     exact_mod_cast (show (t.1 : ℤ) ≠ 0 by omega)
   simp only [qRoot, hs]
-  ext <;> push_cast <;> field_simp <;> ring
+  ext
+  · push_cast; field_simp; ring
+  · push_cast; field_simp
 
 theorem survivor_roots {a i K : ℕ} {e : Bool} (h : (a, i, K, e) ∈ survivorTuples) :
     (⟨((81 - (i : ℤ) : ℤ) : ℚ) / (a : ℤ), (((bif e then 1 else -1) * K : ℤ) : ℚ) / (a : ℤ)⟩ : K0) ∈
@@ -387,7 +391,9 @@ theorem isSquare_fC_iff_of_mem_searchX1 {r : ℚ} (hr : r ∈ searchX1) :
   have hq0 : q ≠ 0 := by omega
   have hqq : (q : ℚ) ≠ 0 := by exact_mod_cast hq0
   have hrK : (((p : ℚ) / q : ℚ) : K0) = ⟨((p : ℤ) : ℚ) / (q : ℤ), ((0 : ℤ) : ℚ) / (q : ℤ)⟩ := by
-    ext <;> simp <;> field_simp
+    ext
+    · simp; field_simp
+    · simp
   rcases hok with (h | h) | h
   · exfalso
     rw [← Bool.not_eq_true, Nat.beq_eq] at h
