@@ -38,6 +38,18 @@ theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of
 for token. Removing a hypothesis means formalizing its source theorem; MW is the only
 one within reach of current Mathlib.
 
+## The polynomial is constructed in Lean
+
+`FrozenTarget` asserts that a suitable polynomial *exists*. The development therefore
+defines the polynomial by construction in Lean, mirroring upstream's generators: each
+template and recipe is a Lean term, and the natural precision polynomial is the output of a
+Lean compiler applied to a Lean description of the precision program. Witness-block
+disjointness and the variable count are proved by construction, and the degree and
+coefficient bounds compositionally. The saved files `construction/ordinary-integer-definition.json`
+and `construction/precision-natural-polynomial.json` are cross-checks for an external
+script, not inputs to the proof. The finite computations left in the proof are mathematical
+certificates (the generator descent and height search, point counts, explicit comparisons).
+
 ## Milestones
 
 1. **Reduction to finite computations.** Prove the main theorem from the five hypotheses
