@@ -12,7 +12,10 @@ that the normalized representation $\xi([m]P_0)=(a+bs)/c$ ($a,b,c\in\mathbb Z$, 
 $\gcd(a,b,c)=1$) satisfies
 $$N^4\mid a,\qquad N^4\mid b,\qquad \gcd(c,N)=1 .$$
 Consequently $1\le\mathrm{LFM}(N)\le N^{10}$ and $\mathrm{LFM}(N)$ itself satisfies these three
-conditions. In particular $1\le M_0\le N_s^{10}$, and $M_0$ is a successful index.
+conditions. In particular, whenever $N_s\ge1$ (which holds under the catalogue bound, and also by
+Dirichlet's theorem, since every catalogue entry is then a prime), $1\le M_0\le N_s^{10}$ and $M_0$
+is a successful index. The positivity of $N_s$ is needed: for $N=0$ the conditions force
+$a=b=0$ and $c=1$, that is $\xi([m]P_0)=0$.
 
 **Proof sketch.** Take $m_0$ from the reduction orders and $m=N^4m_0$, so $1\le m\le N^{10}$.
 If $[m]P_0=O$ or $x([m]P_0)=0$, then $\xi=0=(0+0s)/1$ and the conditions hold. Otherwise
@@ -32,7 +35,7 @@ $v_2(u_1)\ge3+8v_2(N)$, both at least $4v_2(N)$.
 $a=u_0c$, $b=u_1c$. For $p\mid N$, $v_p(u_i)\ge0$, so $p\nmid c$; thus $\gcd(c,N)=1$ and
 $v_p(a)=v_p(u_0)\ge4v_p(N)$, $v_p(b)=v_p(u_1)\ge4v_p(N)$ for every $p\mid N$, i.e.
 $N^4\mid a$ and $N^4\mid b$. The set of successful indices is therefore nonempty, so its least
-element $\mathrm{LFM}(N)$ is successful and at most $m$. Apply this to $N=N_s\ge1$.
+element $\mathrm{LFM}(N)$ is successful and at most $m$.
 
 No property of $P_0$ beyond those cited is needed; in particular the argument does not use
 that $P_0$ has infinite order (the conventions for $\xi$ cover the identity). The manuscript

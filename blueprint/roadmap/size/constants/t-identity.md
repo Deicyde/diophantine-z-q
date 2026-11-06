@@ -15,7 +15,7 @@ $$T=(48A_{\rm ht})^{13}=(96\cdot10^{13})^{13}\,D^{2210G_0^2D^3}.$$
 
 **Proof sketch.** By $R=D$ and $E_0=10D^2G_0^2$, $RE_0=10G_0^2D^3$, which is (1). For (2):
 $D^2<2^{D^2}$ and $3^{21000D^2}<4^{21000D^2}=2^{42000D^2}$ give $B_{\rm cm}\le2^{42001D^2}$, and
-$4096(1028+5D+84000D^2)\le4096\cdot84006\,D^2<2^{29}D^2<2^{42001D^2}$, so
+$4096(1028+5D+84000D^2)\le4096\cdot85033\,D^2<2^{29}D^2<2^{42001D^2}$ (using $1\le D\le D^2$), so
 $C_{\rm cm}<3\cdot2^{42001D^2}<2^{50000D^2}$. On the other side $D\ge2$ gives
 $Q^{17}=D^{170G_0^2D^3}\ge2^{170G_0^2D^3}$, and $170G_0^2D^3>50000D^2$ because $170G_0^2D>50000$
 (already $D>300$). Also $Q^{17}\ge1$. For (3), $A_{\rm ht}=2\cdot10^{13}Q^{17}$, so
@@ -32,6 +32,7 @@ uses only $\log_2D\ge1$.
 
 ## Proof depends on
 
+- [Closed numerical comparisons](closed-comparisons.md)
 - [The parameter $R$ equals $D$](r-equals-d.md)
 - [Bounds for $D$](d-bounds.md)
 

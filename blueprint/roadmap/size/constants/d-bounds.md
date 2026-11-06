@@ -21,6 +21,7 @@ of $k\mapsto2^k$, $k\mapsto k^4$ and $k\mapsto3^k$ is used; $D$ is not evaluated
 
 ## Proof depends on
 
+- [Closed numerical comparisons](closed-comparisons.md)
 - [Small explicit bounds](small-constant-bounds.md)
 
 ## Sources

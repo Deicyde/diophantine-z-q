@@ -30,6 +30,7 @@ estimate $\ell<T$, made explicit, and is used for the size of the fixed construc
 
 ## Proof depends on
 
+- [Closed numerical comparisons](closed-comparisons.md)
 - [Small explicit bounds](small-constant-bounds.md)
 - [The catalogue below the progression cutoff](catalogue-bounds.md)
 

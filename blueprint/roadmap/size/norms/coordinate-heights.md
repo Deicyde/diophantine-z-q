@@ -39,6 +39,7 @@ numerators and denominators at most $2^K$; the first code coordinate is $0$.
 
 ## Proof depends on
 
+- [Closed numerical comparisons](../constants/closed-comparisons.md)
 - [Division polynomials compute multiples](../../model/field/division-polynomial-multiples.md)
 - [The torsion of $E(K_0)$ is the full two-torsion](../../model/descent/torsion.md)
 - [The point $P_0$](../../model/field/generator-point.md)

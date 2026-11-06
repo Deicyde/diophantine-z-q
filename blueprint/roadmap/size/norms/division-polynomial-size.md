@@ -50,6 +50,7 @@ strong induction on $n$ from the recurrences.
 
 ## Proof depends on
 
+- [Closed numerical comparisons](../constants/closed-comparisons.md)
 - [The weighted pair norm](pair-norm.md)
 
 ## Sources

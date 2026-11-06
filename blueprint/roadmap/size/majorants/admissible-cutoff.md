@@ -36,6 +36,7 @@ companion proof, is included here.
 
 ## Proof depends on
 
+- [Closed numerical comparisons](../constants/closed-comparisons.md)
 - [Template heights](template-heights.md)
 - [The closed form of $T$](../constants/t-identity.md)
 - [Bounds for $D$](../constants/d-bounds.md)

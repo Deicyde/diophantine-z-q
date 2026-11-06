@@ -26,6 +26,7 @@ same $\log_2T<D^8$.
 
 ## Proof depends on
 
+- [Closed numerical comparisons](closed-comparisons.md)
 - [Small explicit bounds](small-constant-bounds.md)
 - [Bounds for $D$](d-bounds.md)
 

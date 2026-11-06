@@ -5,6 +5,11 @@ within its binary length, and $G_0<2^{37}$.
 
 - [Small explicit bounds](small-constant-bounds.md)
 
+The symbolic estimates of the whole chapter also use a handful of closed comparisons between
+explicit numbers of at most a few thousand binary digits; they are collected in one place.
+
+- [Closed numerical comparisons](closed-comparisons.md)
+
 The catalogue-bound hypothesis puts every catalogue prime below $X=2^{W^3}$. This bounds
 the catalogue maximum and product, hence $N_s$ and the pole clearing constant $\ell$.
 

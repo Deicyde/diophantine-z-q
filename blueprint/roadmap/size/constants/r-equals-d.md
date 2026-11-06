@@ -20,6 +20,7 @@ $10^{12}<2^{40}<D$. A maximum whose first entry dominates the others equals that
 
 ## Proof depends on
 
+- [Closed numerical comparisons](closed-comparisons.md)
 - [Small explicit bounds](small-constant-bounds.md)
 - [The catalogue below the progression cutoff](catalogue-bounds.md)
 - [Size of the formal multiple constant](formal-multiple-size.md)

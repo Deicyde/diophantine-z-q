@@ -41,6 +41,7 @@ At the prime $(d)$ above $7$ the curve has a cusp, and $P_0$ reduces to the nons
 point $(2,6)$ of $y^2=x^3$; at every other prime not above $2$ the reduction is good. At the
 prime $(s)$, $v_s(x(P_0))=-6$ and $v_s(y(P_0))=-9$, so $P_0$ lies in $W_3$.
 
+- [Congruences for $P_0$ modulo seven](bad-place-congruences.md)
 - [Reduction of $P_0$ at the bad place](bad-place-reduction.md)
 - [$P_0$ at the dyadic place](dyadic-start.md)
 

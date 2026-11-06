@@ -20,6 +20,7 @@ $c_*\le4N_s^{10}<2^{2+10\cdot2^{2054}}$, and $2+10\cdot2^{2054}<16\cdot2^{2054}=
 
 ## Proof depends on
 
+- [Closed numerical comparisons](closed-comparisons.md)
 - [A successful formal multiple](../formal-multiple/formal-multiple-existence.md)
 - [Size of $N_s$ and $\ell$](catalogue-size.md)
 

@@ -17,8 +17,10 @@
   `Σ e f = 2`, hence at most two primes and `f ≤ 2`; unramifiedness for `p ∤ 8` via
   `NumberField.discr` is heavier than the direct route. Direct route (recommended):
   `Zs ⧸ (p) ≃ ZMod p[X] ⧸ (X^2 - 2)` and `ZMod.isSquare` / quadratic reciprocity is not needed —
-  just case on `∃ r : ZMod p, r^2 = 2`; `Polynomial.X_sq_sub_C` irreducibility over `ZMod p` when
-  no root (degree 2). Kummer–Dedekind is available as `primesOverSpanEquivMonicFactorsMod`
+  just case on `∃ r : ZMod p, r^2 = 2`; irreducibility of `X^2 - C 2` over `ZMod p` when there is
+  no root, by `X_pow_sub_C_irreducible_of_prime` (Mathlib/FieldTheory/KummerPolynomial.lean:99,
+  with the prime exponent `2`) or `Polynomial.irreducible_of_degree_le_three_of_not_isRoot`
+  (Mathlib/Algebra/Polynomial/SpecificDegree.lean:57). Kummer–Dedekind is available as `primesOverSpanEquivMonicFactorsMod`
   (Mathlib/NumberTheory/NumberField/Ideal/KummerDedekind.lean:169) but requires the `RingOfIntegers`
   setup; the model chapter's `Zs` is a `QuadraticAlgebra`, so the direct route is simpler.
 - Finite computation: no.
