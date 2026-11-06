@@ -110,6 +110,20 @@ def NM.toCircuit (k : ℕ) (m : NM NForm) : NatCircuit :=
   let e := r.1.encode ExPoly.empty r.2
   ⟨k, e.2.vars, e.2.nodes, e.1.node, e.2.next⟩
 
+theorem NM.toCircuit_explicitVars (k : ℕ) (m : NM NForm) : (m.toCircuit k).explicitVars =
+    ((m (State.init k)).1.encode ExPoly.empty (m (State.init k)).2).2.vars := rfl
+
+theorem NM.toCircuit_nodes (k : ℕ) (m : NM NForm) : (m.toCircuit k).nodes =
+    ((m (State.init k)).1.encode ExPoly.empty (m (State.init k)).2).2.nodes := rfl
+
+theorem NM.toCircuit_varCount (k : ℕ) (m : NM NForm) : (m.toCircuit k).varCount =
+    ((m (State.init k)).1.encode ExPoly.empty (m (State.init k)).2).2.next := rfl
+
+theorem NM.toCircuit_root (k : ℕ) (m : NM NForm) : (m.toCircuit k).root =
+    ((m (State.init k)).1.encode ExPoly.empty (m (State.init k)).2).1.node := rfl
+
+theorem NM.toCircuit_inputCount (k : ℕ) (m : NM NForm) : (m.toCircuit k).inputCount = k := rfl
+
 /-- The formula of a construction with `k` inputs, read with call template `τ`. -/
 def NM.formula (τ : ExPoly) (k : ℕ) (m : NM NForm) : Formula :=
   (m (State.init k)).1.toFormula τ

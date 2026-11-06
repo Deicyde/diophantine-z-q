@@ -11,6 +11,8 @@ import ZInQKernel.Compiler.Circuits.Packed.NonzeroIndicator
 import ZInQKernel.Compiler.Circuits.Packed.Branches
 import ZInQKernel.Compiler.Circuits.Packed.Transitions
 import ZInQKernel.Compiler.Circuits.Packed.Construction
+import ZInQKernel.Compiler.Circuits.Counts
+import ZInQKernel.Compiler.Circuits.Packed.Counts
 
 /-!
 # Natural circuits and the packed-history compiler
