@@ -2,6 +2,9 @@
 article_id: af_edfe8c6e5dd37a3a609f8e6f
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Zs_unit_sqClass, ZInQ.isSquare_of_totallyPositive_unit
 ---
 
 # Units of $\mathbb Z[\sqrt2]$

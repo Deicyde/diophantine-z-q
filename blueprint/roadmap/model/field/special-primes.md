@@ -2,6 +2,9 @@
 article_id: af_cc78b20baec329eb2f10f686
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.prime_sqrt2Z, ZInQ.prime_genDZ, ZInQ.vS_formula_withTop
 ---
 
 # The primes $(s)$ and $(d)$ of $\mathbb Z[\sqrt2]$

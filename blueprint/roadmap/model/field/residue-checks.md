@@ -2,6 +2,9 @@
 article_id: af_18be5f40662121123f869885
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.residues_mod_seven, ZInQ.not_isSquare_neg_one_zmod_seven
 ---
 
 # Residue computations modulo seven

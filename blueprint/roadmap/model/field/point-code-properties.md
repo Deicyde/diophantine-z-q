@@ -2,6 +2,9 @@
 article_id: af_a619b79cc067a2bfa738d415
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.pointCode_injective, ZInQ.iota_add
 ---
 
 # Elementary properties of codes

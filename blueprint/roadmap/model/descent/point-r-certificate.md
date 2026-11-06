@@ -2,6 +2,9 @@
 article_id: af_a57ed2a7c0584ec5d3e159b0
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.pointR, ZInQ.theta_symm_two_smul_pointR
 ---
 
 # The certificate for the point $R$

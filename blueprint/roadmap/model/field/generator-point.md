@@ -2,6 +2,8 @@
 article_id: af_69c0c5f2d067dc9a494df60d
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.genP0
 ---
 
 # The point $P_0$

@@ -2,6 +2,8 @@
 article_id: af_86ee84f1f3a5c8277b1c5ff7
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.genCurve, ZInQ.genCurve_two_torsion
 ---
 
 # The generator curve $E$

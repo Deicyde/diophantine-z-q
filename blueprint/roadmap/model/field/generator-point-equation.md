@@ -2,6 +2,9 @@
 article_id: af_08fe96c4dcb911a6ada39272
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.genP0_equation
 ---
 
 # The coordinates of $P_0$ satisfy the curve equation

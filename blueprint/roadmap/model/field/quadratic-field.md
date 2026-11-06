@@ -2,6 +2,8 @@
 article_id: af_700260cec8870badbab91b60
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.K0, ZInQ.sqrt2, ZInQ.epsilon, ZInQ.delta, ZInQ.Zs
 ---
 
 # The field $K_0=\mathbb Q(\sqrt2)$
