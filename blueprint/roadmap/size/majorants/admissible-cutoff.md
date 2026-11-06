@@ -19,8 +19,9 @@ so $B\ge2^{20}$ and $2^{69}<T$, which gives (1) by the template-height check. Fo
 $\ell<2^{2^{2063}}<D\le T$. For (3), by the template-height check every index is $\varepsilon$,
 $\varepsilon\pm1$ or $2\varepsilon$ with $\varepsilon\in\{c_*,4,2,3,c_3,1399\}$ (the values of
 $\mathrm{integer\_constant}_0,\dots,\mathrm{integer\_constant}_4$ are $4,2,3,c_3,1399$), so
-$|n|\le2\max(c_*,|c_3|,1399)+1$. Here $c_*<2^{2^{2059}}$, and $c_3$ has $3181317$ decimal digits,
-so $|c_3|<10^{3181317}<2^{2^{24}}$; both are far below $D/4$. (4) is immediate. Nothing is
+$|n|\le2\max(c_*,|c_3|,1399)+1$. Here $c_*<2^{2^{2059}}$, and $0<c_3<2^{2^{24}}$ by the size of
+the program literal of the compiler chapter (the Lean literal is built afresh, so the digit
+count of the saved literal is not used); both are far below $D/4$. (4) is immediate. Nothing is
 evaluated: each comparison is between symbolic bounds.
 
 The manuscript lists "the absolute values of all literal fixed constants and all occurring
@@ -45,6 +46,7 @@ companion proof, is included here.
 - [The template library](../../syntax/templates/template-library.md)
 - [Shape of the natural precision circuit](../../compiler/natural/universal/circuit-node-counts.md)
 - [Node statistics of the halting circuit and the power template](../../compiler/natural/universal/halting-node-check.md)
+- [Size of the program literal](../../compiler/natural/universal/wrapper-code-size.md)
 
 ## Sources
 
