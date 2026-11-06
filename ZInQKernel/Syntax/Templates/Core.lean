@@ -90,6 +90,79 @@ theorem rawInverseXTemplate_rel_iff (a : Fin 7 → ℚ) :
   rw [Build.template_rel_iff 7 _ (by rw [rawInverseXBuild_run]; simp)]
   simp only [rawInverseXBuild_run, List.not_mem_nil, false_imp_iff, imp_true_iff, true_and]
 
+/-- The values of the parameter point and pair of `raw_z` and `raw_inverse_x` at
+`assign 7 m a y`. -/
+theorem evCode_assign_varPoint_zero {m : ℕ} (a : Fin 7 → ℚ) (y : Fin m → ℚ) :
+    evCode (assign 7 m a y) (varPoint 0) = fun i => a (Fin.castLE (by omega) i) := by
+  funext i
+  simp only [evCode, ev_varPoint, zero_add]
+  exact assign_of_lt a y (by omega)
+
+theorem val_assign_varPair_five {m : ℕ} (a : Fin 7 → ℚ) (y : Fin m → ℚ) :
+    Pair.val (assign 7 m a y) (varPair 5) = ⟨a 5, a 6⟩ := by
+  ext
+  · simp only [Pair.re_val, ev_varPair_fst]; exact assign_of_lt (i := 5) a y (by omega)
+  · simp only [Pair.im_val, ev_varPair_snd]; exact assign_of_lt (i := 6) a y (by omega)
+
+theorem val_assign_varPoint_x {m : ℕ} (a : Fin 7 → ℚ) (y : Fin m → ℚ) :
+    Pair.val (assign 7 m a y) (varPoint 0).x = ⟨a 1, a 2⟩ := by
+  ext
+  · simp only [Pair.re_val, Code.x, varPoint, ev_X]; exact assign_of_lt (i := 1) a y (by omega)
+  · simp only [Pair.im_val, Code.x, varPoint, ev_X]; exact assign_of_lt (i := 2) a y (by omega)
+
+theorem val_assign_varPoint_y {m : ℕ} (a : Fin 7 → ℚ) (y : Fin m → ℚ) :
+    Pair.val (assign 7 m a y) (varPoint 0).y = ⟨a 3, a 4⟩ := by
+  ext
+  · simp only [Pair.re_val, Code.y, varPoint, ev_X]; exact assign_of_lt (i := 3) a y (by omega)
+  · simp only [Pair.im_val, Code.y, varPoint, ev_X]; exact assign_of_lt (i := 4) a y (by omega)
+
+/-- **The inverse abscissa template in field terms.** `Rel(p, v)` holds exactly when either
+`p = O` and `v = 0`, or `p₀ = 0` and `x(p) · v = 1` in `K₀`. -/
+theorem rawInverseXTemplate_rel_iff_field (a : Fin 7 → ℚ) :
+    rawInverseXTemplate.Rel a ↔
+      ((fun i : Fin 5 => a (Fin.castLE (by omega) i)) = ![1, 0, 0, 0, 0] ∧
+          (⟨a 5, a 6⟩ : K0) = 0) ∨
+        (a 0 = 0 ∧ (⟨a 1, a 2⟩ : K0) * ⟨a 5, a 6⟩ = 1) := by
+  rw [rawInverseXTemplate_rel_iff]
+  have h0 : ∀ y : Fin 0 → ℚ, ev (assign 7 0 a y) (varPoint 0 0) = a 0 := fun y => by
+    simpa using assign_of_lt a y (show 0 < 7 by omega)
+  simp only [holds_ixFormula, evCode_assign_varPoint_zero, val_assign_varPair_five,
+    val_assign_varPoint_x, h0]
+  exact ⟨fun ⟨_, h⟩ => h, fun h => ⟨Fin.elim0, h⟩⟩
+
+/-- **The local parameter template in field terms.** `Rel(p, ζ)` holds exactly when either
+`p = O` and `ζ = 0`, or `p₀ = 0`, `y(p) ≠ 0` and `ζ = -x(p)/y(p)` in `K₀`. -/
+theorem rawZTemplate_rel_iff_field (a : Fin 7 → ℚ) :
+    rawZTemplate.Rel a ↔
+      ((fun i : Fin 5 => a (Fin.castLE (by omega) i)) = ![1, 0, 0, 0, 0] ∧
+          (⟨a 5, a 6⟩ : K0) = 0) ∨
+        (a 0 = 0 ∧ (⟨a 3, a 4⟩ : K0) ≠ 0 ∧
+          (⟨a 5, a 6⟩ : K0) = -(⟨a 1, a 2⟩ : K0) / ⟨a 3, a 4⟩) := by
+  rw [rawZTemplate_rel_iff]
+  have h0 : ∀ y : Fin 1 → ℚ, ev (assign 7 1 a y) (varPoint 0 0) = a 0 := fun y => by
+    simpa using assign_of_lt a y (show 0 < 7 by omega)
+  have h7 : ∀ y : Fin 1 → ℚ, assign 7 1 a y 7 = y 0 := fun y => assign_add 7 1 a y 0
+  have hnorm : ∀ y : Fin 1 → ℚ, ev (assign 7 1 a y) (varPoint 0).y.norm = a 3 ^ 2 - 2 * a 4 ^ 2 :=
+    fun y => by
+      rw [Pair.ev_norm]
+      have := val_assign_varPoint_y a y
+      rw [QuadraticAlgebra.ext_iff] at this
+      exact congrArg₂ (fun u v => u ^ 2 - 2 * v ^ 2) this.1 this.2
+  simp only [holds_zFormula, holds_nzFormula, holds_isO, evCode_assign_varPoint_zero,
+    val_assign_varPair_five, val_assign_varPoint_x, val_assign_varPoint_y, h0, h7, hnorm]
+  constructor
+  · rintro ⟨y, h | ⟨ha, hw, hζ⟩⟩
+    · exact Or.inl h
+    · have hy : (⟨a 3, a 4⟩ : K0) ≠ 0 :=
+        (exists_mul_pairNorm_eq_one_iff (a 3) (a 4)).1 ⟨y 0, hw⟩
+      refine Or.inr ⟨ha, hy, ?_⟩
+      rw [eq_div_iff hy, mul_comm, hζ]
+  · rintro (h | ⟨ha, hy, hζ⟩)
+    · exact ⟨fun _ => 0, Or.inl h⟩
+    · obtain ⟨w, hw⟩ := (exists_mul_pairNorm_eq_one_iff (a 3) (a 4)).2 hy
+      refine ⟨fun _ => w, Or.inr ⟨ha, hw, ?_⟩⟩
+      rw [hζ, mul_div_cancel₀ _ hy]
+
 /-! ### `log25` -/
 
 /-- The seven coefficients `c_j = 16575 (-1)^j binom(2j, j)/(4j + 1)` of the truncated

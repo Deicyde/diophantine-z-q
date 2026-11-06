@@ -610,6 +610,26 @@ theorem wp_freshPairs {G : ℕ → Prop} {n : ℕ} {K : (Fin n → Pair) → Bui
 
 end Build
 
+/-! ### Values of call arguments -/
+
+@[simp] theorem ev_varPoint (y : ℕ → ℚ) (k : ℕ) (i : Fin 5) : ev y (varPoint k i) = y (k + i) :=
+  ev_X _ _
+
+@[simp] theorem ev_varPair_fst (y : ℕ → ℚ) (k : ℕ) : ev y (varPair k).1 = y k := ev_X _ _
+
+@[simp] theorem ev_varPair_snd (y : ℕ → ℚ) (k : ℕ) : ev y (varPair k).2 = y (k + 1) := ev_X _ _
+
+@[simp] theorem ev_varArgs (y : ℕ → ℚ) (k n : ℕ) (i : Fin n) : ev y (varArgs k n i) = y (k + i) :=
+  ev_X _ _
+
+/-- The values of concatenated parameter lists are the concatenated values. -/
+theorem ev_comp_append (y : ℕ → ℚ) {m n : ℕ} (f : Fin m → Poly) (g : Fin n → Poly) :
+    (fun k => ev y (Fin.append f g k)) = Fin.append (fun k => ev y (f k)) (fun k => ev y (g k)) := by
+  funext k
+  refine Fin.addCases (fun i => ?_) (fun i => ?_) k
+  · simp only [Fin.append_left]
+  · simp only [Fin.append_right]
+
 /-! ### Constructed templates -/
 
 /-- **Well-formedness from the scope facts.** If the final formula of a construction has the
