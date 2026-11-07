@@ -10,14 +10,18 @@ lean: ZInQ.Compiler.IR.jdblCode, ZInQ.Compiler.IR.jdblBCode, ZInQ.Compiler.IR.ja
 # Point routines
 
 A Jacobian triple $(X,Y,Z)\in\mathbb Z[s]^3$ is represented by three field representations
-(twelve registers). There are statements of the ideal register language computing:
-the constant triple $P^{\rm J}_0$ and $O=(1,1,0)$; negation; the branching addition $\oplus$
-and the doubling $\mathrm{dbl}^\ast$ of the scalar-multiplication statement, including the
-cases $Z=0$, equal abscissas ($H=0$) with equal or opposite ordinates, and zero ordinate;
-and the halving loop computing $\mathrm{mul}(k)$ for a signed integer $k$. Each, started
-with operands represented and temporaries distinct, terminates normally with the exact
-triple of the Jacobian formulas represented and every other register unchanged; the
-halving loop terminates because its counter halves.
+in six consecutive integer variables (twelve registers). There are statements over integer
+variables (compiled into the ideal register language by the signed integer routines),
+using temporaries from a base $T$ on, computing: the constant triples $P^{\rm J}_0$ and
+$O=(1,1,0)$; the plain Jacobian doubling; the branching addition $\oplus$ and the doubling
+$\mathrm{dbl}^\ast$ of the scalar-multiplication statement, including the cases $Z=0$, equal
+abscissas ($H=0$) with equal or opposite ordinates, and zero ordinate; and the halving loop
+computing $\mathrm{mul}(k)$ for an integer variable $k$ (negating $Y$ at the end when $k<0$).
+Each, started with its operand and result triples (and $k$) below $T$, and, for the
+addition, the result triple equal to or disjoint from each operand triple, terminates
+normally with the exact triple of the Jacobian formulas in the result triple and every
+variable below $T$ outside the result triple unchanged; the halving loop terminates
+because its counter halves.
 
 **Proof sketch.** Straight-line compositions of the field routines implementing the
 displayed formulas, with branches on the zero tests of $Z_1$, $Z_2$, $H$, $\Lambda$, $Y$; the

@@ -15,10 +15,10 @@ into signed pairs; perform the early tests and execute $\mathbf{reject}$ when on
 compute the three Jacobian representatives with the point routines and reject on a zero
 third or second coordinate; form $\nu_k$, $N_k$, $U$, $V$, $\theta$, $\delta$ with the field
 and signed routines and reject unless the closeness inequality holds; compute
-$L=\lfloor(V-1)/(4U)\rfloor$, reject if $L=0$, compute $M=|\kappa F(n)|$ and $\beta$ with the
+$L=\lfloor(V-1)/(4U)\rfloor$, reject if $L=0$, compute $M=|\kappa F(n)|$, then $\beta$ with the
 capped routines, run the division-by-four loop, and execute $\mathbf{accept}$ if its final
 value is at least $1$ and $\mathbf{reject}$ otherwise. All other registers start at $0$;
-each routine uses its own temporaries.
+the routines take their temporaries from a common region above all named quantities.
 
 This is a definition. The manuscript's IR S22 is not available in this repository; this
 program is specified from the description of S21 and S22 in Section 10, and its exact

@@ -12,11 +12,13 @@ lean: ZInQ.Compiler.IR.precisionMachine, ZInQ.Compiler.IR.precRegs, ZInQ.Compile
 Let $M_{\rm prec}=\mathrm{low}(S_{\rm prec})$, a primitive program valid for its register count
 $r_{\rm prec}$, with $5$ inputs. For every $c\in\mathbb N^5$:
 $$M_{\rm prec}\text{ halts on }c\iff M_{\rm prec}\text{ accepts }c\iff\operatorname{accepts}(c).$$
-When $\operatorname{accepts}(c)$ fails, the run of $M_{\rm prec}$ enters a permanent self-loop,
-although the ideal program is total.
+When $\operatorname{accepts}(c)$ fails, the run of $M_{\rm prec}$ never halts, although the
+ideal program is total.
 
 **Proof sketch.** Correctness of the lowering applied to the total program $S_{\rm prec}$,
-followed by the correctness of the precision program.
+followed by the correctness of the precision program. When $\operatorname{accepts}(c)$ fails,
+the outcome of $S_{\rm prec}$ on $c$ is $\mathbf{reject}$ and the run of $M_{\rm prec}$ reaches the
+permanent self-loop of the lowering.
 
 ## Depends on
 

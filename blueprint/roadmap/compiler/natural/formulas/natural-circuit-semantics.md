@@ -15,13 +15,14 @@ the power template on three earlier nodes with block start $w$, a root node, and
 count $V$ (the number of explicit variables plus $79$ times the number of calls, when the
 blocks and explicit variables tile $[0,V)$).
 
-1. The *polynomial* $[\![\mathcal C]\!]\in\mathbb Z[X_0,\dots,X_{V-1}]$ is the denotation of
+1. The *polynomial* $[\![\mathcal C]\!]\in\mathbb Z[X_i:i\in\mathbb N]$ is the denotation of
    the root under the template semantics of the specification chapter, a call node
    denoting the power call $\mathcal P\bigl[[\![a]\!],[\![b]\!],[\![c]\!];w\bigr]$ (literal
    substitution).
 2. The *natural relation* of $\mathcal C$ is the predicate on $\mathbb N^k$
    $$Z_{\mathcal C}(c_0,\dots,c_{k-1})\iff\exists z\in\mathbb N^{V-k},\ \
-   [\![\mathcal C]\!](c_0,\dots,c_{k-1},z)=0 .$$
+   [\![\mathcal C]\!](c_0,\dots,c_{k-1},z)=0 ,$$
+   the variables of index at least $V$, if any occur, being set to $0$.
 3. $\mathcal C$ is *well scoped* if every block $[w,w+79)$ lies in $[k,V)$, the blocks are
    pairwise disjoint and disjoint from the explicit variables, the explicit variables and
    blocks together cover $[0,V)$, and every variable node refers to an explicit variable.

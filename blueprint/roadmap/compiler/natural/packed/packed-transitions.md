@@ -16,9 +16,9 @@ Let $K<B$ be natural numbers and $q\in\mathbb N$.
    $$R+BC=\iota+BR+BA$$
    holds if and only if $\rho_0=\iota$, $\rho_{t+1}+\gamma_t=\rho_t+\alpha_t$ for all $t<q$, and
    $\gamma_q=\rho_q+\alpha_q$.
-2. (States) Let $\sigma_t\le1$ and $\eta_t\le1$ for $t\le q$, $S=\sum_{t\le q}\sigma_tB^t$,
-   $I=\sum_{t\le q}\eta_tB^t$ and $e\in\{0,1\}$. Then $S=e+BI$ holds if and only if
-   $\sigma_0=e$, $\sigma_{t+1}=\eta_t$ for $t<q$, and $\eta_q=0$.
+2. (States) Suppose $B\ge2$. Let $\sigma_t\le1$ and $\eta_t\le1$ for $t\le q$,
+   $S=\sum_{t\le q}\sigma_tB^t$, $I=\sum_{t\le q}\eta_tB^t$ and $e\in\{0,1\}$. Then $S=e+BI$
+   holds if and only if $\sigma_0=e$, $\sigma_{t+1}=\eta_t$ for $t<q$, and $\eta_q=0$.
 
 **Proof sketch.** Compare base-$B$ digits. In item 1 the slot-$0$ digits are $\rho_0$ and
 $\iota$, the slot-$(t+1)$ digits are $\rho_{t+1}+\gamma_t\le K$ and $\rho_t+\alpha_t\le K$ for

@@ -11,7 +11,7 @@ lean: ZInQ.Compiler.RM.Instr, ZInQ.Compiler.RM.Machine, ZInQ.Compiler.RM.Config,
 **Instructions.** An instruction is $\mathrm{inc}(j,x)$ (increment register $j$, go to state
 $x$), $\mathrm{dec}(j,x,y)$ (if register $j$ is positive, decrement it and go to $x$;
 otherwise go to $y$) or $\mathrm{halt}$. Registers are indexed by $\mathbb N$ and hold natural
-numbers; a register file is a finitely supported map $\rho:\mathbb N\to\mathbb N$.
+numbers; a register file is a map $\rho:\mathbb N\to\mathbb N$.
 
 **Machines and virtual halting.** A *machine* is a map $\mu:\mathbb N\to$ instructions. A
 configuration is a pair $(i,\rho)$ of a state and a register file; the step relation

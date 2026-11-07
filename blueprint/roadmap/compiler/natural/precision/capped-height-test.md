@@ -38,8 +38,8 @@ $\beta$ steps. Then:
 2. $\beta=\sigma_L(A^{(0)}_{\rm ht}M^{24})$;
 3. $x_\beta=\lfloor L/4^\beta\rfloor$, and $x_\beta\ge1\iff4^{A^{(0)}_{\rm ht}M^{24}}\le L$.
 
-The loop takes at most $L+1$ steps, and every intermediate value of the capped evaluation
-is at most $L+1$: nothing astronomically large is computed.
+Moreover $\beta\le L+1$, so the loop takes at most $L+1$ steps, and every capped value
+$\langle e\rangle_L$ is at most $L+1$: nothing astronomically large is computed.
 
 **Proof sketch.** (1) Induction on $e$. Literals by definition. For $+$, $\max$: the
 saturation identities $\sigma_L(\sigma_L(x)+\sigma_L(y))=\sigma_L(x+y)$ and the same for

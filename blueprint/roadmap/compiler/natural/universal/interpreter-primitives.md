@@ -30,7 +30,8 @@ registers may be left nonzero:
 6. *divmod* with divisor $z\ge1$: $q\leftarrow\lfloor y/z\rfloor$, $r\leftarrow y\bmod z$, by
    repeated subtraction from a private remainder maintaining $y=qz+r$, subtracting only when
    $r\ge z$ (the interpreter's divisors are at least $2$);
-7. *divmod2*: halving with parity, consuming pairs.
+7. *divmod2* of $y$ into $(q,r)$: $q\leftarrow q+\lfloor y/2\rfloor$, $r\leftarrow y\bmod2$ and
+   $y\leftarrow0$ (halving with parity, consuming $y$ in pairs; callers clear $q$ first).
 
 **Proof sketch.** Each block is a fixed short program; its correctness is a loop invariant
 (the sum of the moved register and the counter is constant for copies and additions; $y=qz+r$

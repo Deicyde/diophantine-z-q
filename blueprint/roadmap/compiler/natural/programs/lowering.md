@@ -26,10 +26,12 @@ For a program $S$ of the ideal register language with register bound $\rho_S$, t
    (saturating decrement); $x\leftarrow y\cdot z$ adds the snapshot of $y$ into $x$ (restoring
    it through a further auxiliary register) once per unit of the snapshot of $z$, then clears
    the snapshot of $y$; $x\leftarrow\lfloor y/z\rfloor$ and $x\leftarrow y\bmod z$ test the
-   snapshot of $z$ for zero (giving $0$, respectively the snapshot of $y$) and otherwise keep a
-   remainder $r$ and a quotient $q$, starting from $r=y$, $q=0$, and subtract $z$ from $r$ and
-   increment $q$ while $r\ge z$ (tested on copies), maintaining $y=qz+r$; at exit $r<z$, and
-   $q$ or $r$ is moved into $x$. Every block ends with its auxiliary registers zero and
+   snapshot of $z$ for zero (giving $0$, respectively the snapshot of $y$) and otherwise move
+   the snapshot $r$ of $y$ one unit at a time into a counter $m$, keeping a quotient $q$ and a
+   register $c=z-m\ge1$: each unit decrements $c$, and when $c$ reaches $0$ the counter $m$ is
+   cleared, $q$ is incremented and $c$ is refilled with $z$. This maintains $y=r+qz+m$ with
+   $0\le m<z$, so at exit ($r=0$) $q=\lfloor y/z\rfloor$ and $m=y\bmod z$, and $q$ or $m$ is
+   moved into $x$. Every block ends with its auxiliary registers zero and
    every register below $\rho_S$ other than $x$ unchanged.
 3. *Control.* Sequencing concatenates blocks; a test $y<z$ or $y=z$ is a comparison loop
    on snapshots of $y$ and $z$ that branches directly to the two targets; a loop jumps back
