@@ -18,3 +18,5 @@ import ZInQKernel.Compiler.Circuits
 import ZInQKernel.Compiler.Exponential
 import ZInQKernel.Multiplication.Local
 import ZInQKernel.Syntax.Recipes
+import ZInQKernel.Compiler.Interpreter
+import ZInQKernel.Compiler.Universal
