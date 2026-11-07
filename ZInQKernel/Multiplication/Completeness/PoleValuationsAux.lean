@@ -165,6 +165,25 @@ theorem padicValRat_contactQuot_eq_one {B₀ : ℝ} {t : ℚ} (ht : GoodSlope B�
       (fun h => absurd hc₀ h), h1]
   norm_num
 
+/-- The contact value of condition 3 is unique: at a prime `p ∉ S_b` at most one `t - c`
+(`c ∈ 𝒞`) has positive valuation. -/
+theorem contact_unique {t : ℚ} (ht : t ∉ contactSet) {p : ℕ} (hp : p.Prime) (hpS : p ∉ S_b)
+    {c c' : ℚ} (hc : c ∈ contactSet) (hc' : c' ∈ contactSet) (h1 : 0 < padicValRat p (t - c))
+    (h2 : 0 < padicValRat p (t - c')) : c = c' := by
+  have : Fact p.Prime := ⟨hp⟩
+  have hp61 : 61 < p := by have := le_of_not_mem_S_b hp hpS; omega
+  by_contra hne
+  have hd := padicValRat_contact_diff hp61 (Finset.mem_insert_of_mem hc)
+    (Finset.mem_insert_of_mem hc') hne
+  have hd0 : c - c' ≠ 0 := sub_ne_zero.mpr hne
+  have ht0 : t - c ≠ 0 := fun h => ht (by rw [sub_eq_zero.mp h]; exact hc)
+  have hsum : (c - c') + (t - c) ≠ 0 := fun h => ht (by
+    have : t = c' := by linarith
+    rw [this]; exact hc')
+  have e : t - c' = (c - c') + (t - c) := by ring
+  rw [e, padicValRat.add_eq_of_lt hsum hd0 ht0 (by rw [hd]; exact h1), hd] at h2
+  exact lt_irrefl 0 h2
+
 /-- `v_p(1 - x) = 0` when `v_p(x) > 0` or `x = 0`. -/
 theorem padicValRat_one_sub {p : ℕ} [Fact p.Prime] {x : ℚ} (hx : x = 0 ∨ 0 < padicValRat p x) :
     padicValRat p (1 - x) = 0 := by
