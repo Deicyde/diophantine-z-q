@@ -21,20 +21,8 @@ variable {σ τ : Type*}
 
 /-- `deg P(Q) ≤ d · deg P` when `deg Q_i ≤ d` for every variable `X_i` of `P`. -/
 theorem totalDegree_bind₁_le (Q : σ → MvPolynomial τ ℤ) (P : MvPolynomial σ ℤ) {d : ℕ}
-    (hQ : ∀ i ∈ P.vars, (Q i).totalDegree ≤ d) : (bind₁ Q P).totalDegree ≤ d * P.totalDegree := by
-  conv_lhs => rw [P.as_sum]
-  rw [map_sum]
-  refine totalDegree_finsetSum_le fun α hα => ?_
-  rw [bind₁_monomial]
-  refine (totalDegree_mul _ _).trans ?_
-  rw [totalDegree_C, zero_add]
-  refine (totalDegree_finsetProd _ _).trans ?_
-  calc ∑ i ∈ α.support, (Q i ^ α i).totalDegree ≤ ∑ i ∈ α.support, d * α i := by
-        refine Finset.sum_le_sum fun i hi => (totalDegree_pow _ _).trans ?_
-        rw [mul_comm]
-        exact Nat.mul_le_mul_right _ (hQ i ((mem_vars_iff_mem_support i).2 ⟨α, hα, hi⟩))
-    _ = d * ∑ i ∈ α.support, α i := (Finset.mul_sum _ _ _).symm
-    _ ≤ d * P.totalDegree := Nat.mul_le_mul_left _ (le_totalDegree hα)
+    (hQ : ∀ i ∈ P.vars, (Q i).totalDegree ≤ d) : (bind₁ Q P).totalDegree ≤ d * P.totalDegree :=
+  (Syntax.totalDegree_bind₁_le Q P d hQ).trans_eq (mul_comm _ _)
 
 /-- **Substitution bounds.** If `d ≥ 1`, `M ≥ 1`, and `deg Q_i ≤ d`, `‖Q_i‖₁ ≤ M` for every
 variable `X_i` of `P`, then `deg P(Q) ≤ d · deg P` and `‖P(Q)‖₁ ≤ ‖P‖₁ M^{deg P}`. -/

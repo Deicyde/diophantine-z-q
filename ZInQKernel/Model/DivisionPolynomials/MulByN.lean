@@ -52,7 +52,4 @@ theorem mulByN_formulas_of_charZero {K : Type*} [Field K] [CharZero K] [Decidabl
 theorem mulByN_formulas : DivisionPolynomialMultiplication := fun _ _ h n _ =>
   mulByN_formulas_of_charZero genA h n
 
-/-- The proposition of `syntax/division-polynomial-multiplication.md` holds. -/
-theorem divisionPolynomialMultiplication : DivisionPolynomialMultiplication := mulByN_formulas
-
 end ZInQ
