@@ -46,7 +46,13 @@ theorem haltingCircuit_nodes_eq : ∃ rest, haltingCircuit.nodes = .var 0 :: .va
 
 /-- The nodes of `ℋ` other than call nodes are pairwise distinct (hash-consing). -/
 theorem haltingCircuit_nonCall_nodup : (nonCall haltingCircuit.nodes).Nodup :=
-  (compiled_prefix interpreter 204 2).2.2
+  (compiled_prefix interpreter 204 2).2.2.1
+
+/-- The constants of `ℋ` are among `0, 1, 2, 4, -1, 1399`. -/
+theorem haltingCircuit_consts {c : ℤ} (h : NatNode.const c ∈ haltingCircuit.nodes) :
+    c ∈ ({0, 1, 2, 4, -1, 1399} : Set ℤ) := by
+  have := (compiled_prefix interpreter 204 2).2.2.2 c h
+  rwa [interpreter_length] at this
 
 /-- **Counts of the universal halting circuit**: `54,049` explicit variables, `15,845` calls
 (blocks), variable count `1,305,804`, and well-scopedness. -/

@@ -5,8 +5,8 @@ import Mathlib
 
 Finite lists of naturals are coded by `nil = 0` and `cons h t = 2 ^ h * (2 * t + 1)`.
 `cons` is a bijection from `ℕ × ℕ` onto the positive naturals, every natural codes exactly one
-list, and `listGet`/`listSet` on codes satisfy the read-after-write equations. A register file `ρ` is
-represented by a code `L` when `ρ i = listGet L i` for every `i`.
+list, and `listGet`/`listSet` on codes satisfy the read-after-write equations. A register file
+`ρ` is represented by a code `L` when `ρ i = listGet L i` for every `i`.
 
 (Blueprint: `compiler/natural/universal/tape-lists.md`.)
 -/
@@ -131,9 +131,11 @@ theorem listGet_zero_left (i : ℕ) : listGet 0 i = 0 := by
 
 @[simp] theorem listGet_cons_zero (h t : ℕ) : listGet (cons h t) 0 = h := by simp [listGet]
 
-@[simp] theorem listGet_cons_succ (h t i : ℕ) : listGet (cons h t) (i + 1) = listGet t i := by simp [listGet]
+@[simp] theorem listGet_cons_succ (h t i : ℕ) : listGet (cons h t) (i + 1) = listGet t i := by
+  simp [listGet]
 
-@[simp] theorem listSet_cons_zero (h t v : ℕ) : listSet (cons h t) 0 v = cons v t := by simp [listSet]
+@[simp] theorem listSet_cons_zero (h t v : ℕ) : listSet (cons h t) 0 v = cons v t := by
+  simp [listSet]
 
 @[simp] theorem listSet_cons_succ (h t i v : ℕ) :
     listSet (cons h t) (i + 1) v = cons h (listSet t i v) := by simp [listSet]
@@ -143,7 +145,8 @@ theorem listGet_listSet_self (L i v : ℕ) : listGet (listSet L i v) i = v := by
   | zero => simp [listSet]
   | succ i ih => simp [listSet, ih]
 
-theorem listGet_listSet_of_ne (L i i' v : ℕ) (h : i' ≠ i) : listGet (listSet L i v) i' = listGet L i' := by
+theorem listGet_listSet_of_ne (L i i' v : ℕ) (h : i' ≠ i) :
+    listGet (listSet L i v) i' = listGet L i' := by
   induction i generalizing L i' with
   | zero =>
     obtain ⟨i', rfl⟩ := Nat.exists_eq_succ_of_ne_zero h
@@ -165,7 +168,8 @@ def listSetPad (l : List ℕ) (i v : ℕ) : List ℕ :=
   (l ++ List.replicate (i + 1 - l.length) 0).set i v
 
 /-- `listSet` on list codes is `listSetPad`. -/
-theorem listSet_listCode (l : List ℕ) (i v : ℕ) : listSet (listCode l) i v = listCode (listSetPad l i v) := by
+theorem listSet_listCode (l : List ℕ) (i v : ℕ) :
+    listSet (listCode l) i v = listCode (listSetPad l i v) := by
   induction l generalizing i with
   | nil =>
     induction i with
@@ -190,5 +194,35 @@ theorem Represents.update {ρ : ℕ → ℕ} {L : ℕ} (h : Represents ρ L) (i 
   by_cases hi : i' = i
   · subst hi; rw [Function.update_self, listGet_listSet_self]
   · rw [Function.update_of_ne hi, listGet_listSet_of_ne _ _ _ _ hi, h]
+
+/-! ### Saving and restoring a prefix -/
+
+/-- Push the entries of the saved reversed prefix `s` back onto `r`. -/
+def restore (s r : ℕ) : ℕ :=
+  if _hs : s = 0 then r else restore (uncons s).2 (cons (uncons s).1 r)
+termination_by s
+decreasing_by exact uncons_snd_lt (Nat.pos_of_ne_zero ‹s ≠ 0›)
+
+theorem restore_zero (r : ℕ) : restore 0 r = r := by rw [restore]; simp
+
+theorem restore_cons (h s r : ℕ) : restore (cons h s) r = restore s (cons h r) := by
+  rw [restore]; simp [cons_ne_zero]
+
+theorem restore_of_ne_zero {s : ℕ} (hs : s ≠ 0) (r : ℕ) :
+    restore s r = restore (uncons s).2 (cons (uncons s).1 r) := by
+  rw [restore]; simp [hs]
+
+/-- One step of the save loop: move the head of the list onto the saved prefix. -/
+def saveStep (p : ℕ × ℕ) : ℕ × ℕ := ((uncons p.1).2, cons (uncons p.1).1 p.2)
+
+/-- After `k` save steps, replacing the head and restoring the prefix sets entry `k`. -/
+theorem restore_saveStep (v : ℕ) : ∀ (k L s : ℕ),
+    restore (saveStep^[k] (L, s)).2 (listSet (saveStep^[k] (L, s)).1 0 v) =
+      restore s (listSet L k v)
+  | 0, L, s => rfl
+  | k + 1, L, s => by
+    rw [Function.iterate_succ_apply, saveStep]
+    rw [restore_saveStep v k, restore_cons]
+    rfl
 
 end ZInQ.Compiler.Universal

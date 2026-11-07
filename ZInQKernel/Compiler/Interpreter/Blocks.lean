@@ -225,9 +225,12 @@ theorem runs_subLoop {c x : ℕ} (hcx : c ≠ x) : ∀ ρ : Regs,
     simp only [ρ₂, ρ₁]
     regs_ext
 
+/-- `omega`, knowing that the jump register is `2`. -/
+macro "omegaJ" : tactic => `(tactic| (have : J = 2 := rfl; omega))
+
 /-- Evaluate `Function.update` chains at registers whose disequalities follow by `omega`. -/
 macro "upd" : tactic =>
-  `(tactic| simp (disch := omega) only [Function.update_self, Function.update_of_ne])
+  `(tactic| simp (disch := omegaJ) only [Function.update_self, Function.update_of_ne])
 
 /-- The scratch registers `b, …, b + n - 1`. -/
 def Scratch (b n k : ℕ) : Prop := b ≤ k ∧ k < b + n
@@ -237,7 +240,7 @@ theorem Frame.upd {S : ℕ → Prop} {ρ ρ' : Regs} {x : ℕ} (hx : S x) (v : �
 
 /-- Close a frame goal through a chain of updates of scratch registers. -/
 macro "frame_scratch" : tactic =>
-  `(tactic| ((repeat (refine Frame.upd ⟨by omega, by omega⟩ _ ?_)) <;>
+  `(tactic| ((repeat (refine Frame.upd ⟨by omegaJ, by omegaJ⟩ _ ?_)) <;>
     first | assumption | exact Frame.refl _ _))
 
 /-- The remainder loop of `divModBlock`: from a file with `y = q z + r` in the registers
@@ -280,7 +283,8 @@ theorem runs_divModLoop {y z b : ℕ} (hzb : z < b ∨ b + 11 ≤ z)
           σ₂ (.brk σ₃) :=
         Exec.ifLt_lt (by omega) (by rw [ha, hb']; exact hlt)
           (Exec.seqs_abnormal (Exec.brk _) trivial)
-      refine ⟨σ₃, Exec.loop_brk (Exec.seqs_cons h1 (Exec.seqs_cons h2 (Exec.seqs_abnormal hif trivial))),
+      refine ⟨σ₃, Exec.loop_brk (Exec.seqs_cons h1 (Exec.seqs_cons h2
+        (Exec.seqs_abnormal hif trivial))),
         ?_, ?_, ?_⟩
       · rw [hσ₃]; frame_scratch
       · have e1 : σ₃ (b + 1) = σ (b + 1) := by rw [hσ₃, hσ₂, hσ₁]; upd
@@ -316,7 +320,8 @@ theorem runs_divModLoop {y z b : ℕ} (hzb : z < b ∨ b + 11 ≤ z)
       obtain ⟨σ', hrun, hfr, hinv', hlt'⟩ := ih (σ₆ b) (by rw [e6b]; omega) σ₆ rfl hfr₆ (by
         rw [e6b, e6q, add_mul, one_mul]
         omega)
-      exact ⟨σ', Exec.loop_cont (Exec.seqs_cons h1 (Exec.seqs_cons h2 (Exec.seqs_abnormal hif trivial)))
+      exact ⟨σ', Exec.loop_cont (Exec.seqs_cons h1 (Exec.seqs_cons h2
+          (Exec.seqs_abnormal hif trivial)))
         hrun,
         hfr, hinv', hlt'⟩
 
