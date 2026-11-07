@@ -45,6 +45,21 @@ theorem toLs_ofLs : ∀ fs : List LForm, toLs (ofLs fs) = fs
 
 end
 
+mutual
+
+theorem ofL_toL : ∀ f : FForm, ofL (toL f) = f
+  | .eq _ _ => rfl
+  | .atom _ => rfl
+  | .call _ => rfl
+  | .and fs => by simp only [toL, ofL, ofLs_toLs fs]
+  | .or fs => by simp only [toL, ofL, ofLs_toLs fs]
+
+theorem ofLs_toLs : ∀ fs : List FForm, ofLs (toLs fs) = fs
+  | [] => rfl
+  | f :: fs => by simp only [toLs, ofLs, ofL_toL f, ofLs_toLs fs]
+
+end
+
 theorem toL_surj : Function.Surjective toL := fun f => ⟨ofL f, toL_ofL f⟩
 
 theorem map_surj {α β : Type} {f : α → β} (hf : Function.Surjective f) :

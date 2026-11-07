@@ -1,5 +1,5 @@
 import ZInQKernel.Compiler.NodeSkeleton.Core
-import ZInQKernel.Compiler.NodeSkeleton.Sim.Packed
+import ZInQKernel.Compiler.NodeSkeleton.Sim.Assembly
 
 /-!
 # Kernel proof of the addition and multiplication counts of the halting circuit
