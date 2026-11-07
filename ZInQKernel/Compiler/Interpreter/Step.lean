@@ -193,14 +193,17 @@ theorem codeAt_cleanupStmt :
 
 /-- **One interpreter loop simulates one instruction.** From a configuration coherent with
 `(i, ρ)`: if `μ_e(i) = halt` the run reaches the cleanup entry, with the jump register and every
-register from `204` on zero; otherwise it returns, after at least one step, to a configuration
-coherent with the successor of `(i, ρ)`. -/
+register from `204` on zero; otherwise it returns, after at least one step and without passing
+through cleanup (every configuration before the return is at a state of the main loop), to a
+configuration coherent with the successor of `(i, ρ)`. -/
 theorem interpreter_step {e : ℕ} {vc σ : Config} (h : Coherent e vc σ) :
     (decodeMachine e vc.state = .halt →
       ∃ ρ', Reaches interpreter.toMachine σ ⟨cleanupEntry, ρ'⟩ ∧ ρ' J = 0 ∧
         ∀ k, 204 ≤ k → ρ' k = 0) ∧
     (∀ vc', step (decodeMachine e) vc = some vc' →
-      ∃ t σ', stepN interpreter.toMachine (t + 1) σ = some σ' ∧ Coherent e vc' σ') := by
+      ∃ t σ', stepN interpreter.toMachine (t + 1) σ = some σ' ∧ Coherent e vc' σ' ∧
+        ∀ t' ≤ t, ∃ d, stepN interpreter.toMachine t' σ = some d ∧
+          loopStart ≤ d.state ∧ d.state < cleanupEntry) := by
   obtain ⟨hs, hc⟩ := h
   obtain ⟨hhalt, hnext⟩ := exec_stepStmt hc
   obtain ⟨σs, σρ⟩ := σ
@@ -214,10 +217,17 @@ theorem interpreter_step {e : ℕ} {vc σ : Config} (h : Coherent e vc σ) :
     rw [show (Outcome.exit ρ').regs = ρ' from rfl] at this
     rw [this, hc.high k hk]
   · obtain ⟨ρ', hrun, hc'⟩ := hnext vc' hstep
-    obtain ⟨t, ht⟩ := hrun.reaches codeAt_stepStmt hc.J
-    rw [stepStmt_size] at ht
-    refine ⟨t, ⟨loopStart, ρ'⟩, ?_, rfl, hc'⟩
-    rw [stepN_succ', ht]
-    simp [step, interpreter_toMachine_cont, hc'.J]
+    obtain ⟨t, ht, hin⟩ := compile_correct_in hrun codeAt_stepStmt hc.J
+    simp only [Outcome.target, Outcome.regs, stepStmt_size] at ht
+    refine ⟨t, ⟨loopStart, ρ'⟩, ?_, ⟨rfl, hc'⟩, fun t' ht' => ?_⟩
+    · rw [stepN_succ', ht]
+      simp [step, interpreter_toMachine_cont, hc'.J]
+    · rcases Nat.lt_or_eq_of_le ht' with ht' | rfl
+      · obtain ⟨d, hd, hS⟩ := hin t' ht'
+        simp only [Stmt.Range, stepStmt_size] at hS
+        have e1 : loopStart = 165 := rfl
+        have e2 : cleanupEntry = 1194 := rfl
+        exact ⟨d, hd, hS.1, by omega⟩
+      · exact ⟨_, ht, by simp, by simp⟩
 
 end ZInQ.Compiler.Universal

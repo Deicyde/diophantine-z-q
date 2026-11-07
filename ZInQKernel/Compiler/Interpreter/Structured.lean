@@ -308,6 +308,38 @@ theorem Reaches.trans {μ : Machine} {c₁ c₂ c₃ : Config} (h₁ : Reaches �
 theorem Reaches.of_step {μ : Machine} {c c' : Config} (h : step μ c = some c') :
     Reaches μ c c' := ⟨1, by rw [stepN_succ, h]; rfl⟩
 
+/-- `c'` is reachable from `c`, every configuration of the run strictly before `c'` being at a
+state satisfying `S`. -/
+def ReachesIn (μ : Machine) (S : ℕ → Prop) (c c' : Config) : Prop :=
+  ∃ t, stepN μ t c = some c' ∧ ∀ t' < t, ∃ d, stepN μ t' c = some d ∧ S d.state
+
+theorem ReachesIn.reaches {μ : Machine} {S : ℕ → Prop} {c c' : Config}
+    (h : ReachesIn μ S c c') : Reaches μ c c' := ⟨h.choose, h.choose_spec.1⟩
+
+theorem ReachesIn.refl (μ : Machine) (S : ℕ → Prop) (c : Config) : ReachesIn μ S c c :=
+  ⟨0, rfl, fun _ h => absurd h (Nat.not_lt_zero _)⟩
+
+theorem ReachesIn.trans {μ : Machine} {S : ℕ → Prop} {c₁ c₂ c₃ : Config}
+    (h₁ : ReachesIn μ S c₁ c₂) (h₂ : ReachesIn μ S c₂ c₃) : ReachesIn μ S c₁ c₃ := by
+  obtain ⟨t₁, h₁, i₁⟩ := h₁
+  obtain ⟨t₂, h₂, i₂⟩ := h₂
+  refine ⟨t₁ + t₂, by rw [stepN_add, h₁]; exact h₂, fun t' ht' => ?_⟩
+  by_cases h : t' < t₁
+  · exact i₁ t' h
+  · obtain ⟨d, hd, hS⟩ := i₂ (t' - t₁) (by omega)
+    refine ⟨d, ?_, hS⟩
+    rw [show t' = t₁ + (t' - t₁) by omega, stepN_add, h₁]
+    exact hd
+
+theorem ReachesIn.mono {μ : Machine} {S T : ℕ → Prop} {c c' : Config} (h : ReachesIn μ S c c')
+    (hST : ∀ k, S k → T k) : ReachesIn μ T c c' := by
+  obtain ⟨t, h, i⟩ := h
+  exact ⟨t, h, fun t' ht' => (i t' ht').imp fun d hd => ⟨hd.1, hST _ hd.2⟩⟩
+
+theorem ReachesIn.of_step {μ : Machine} {S : ℕ → Prop} {c c' : Config}
+    (h : step μ c = some c') (hS : S c.state) : ReachesIn μ S c c' :=
+  ⟨1, by rw [stepN_succ, h]; rfl, fun t' ht' => ⟨c, by rw [show t' = 0 by omega]; rfl, hS⟩⟩
+
 /-- The code `cd` sits at state `L` of the machine `μ`. -/
 def CodeAt (μ : Machine) (L : ℕ) (cd : List Instr) : Prop :=
   ∀ k (h : k < cd.length), μ (L + k) = cd[k]
@@ -333,75 +365,78 @@ theorem CodeAt.cons_tail {μ : Machine} {L : ℕ} {i : Instr} {cd : List Instr}
 theorem CodeAt.get {μ : Machine} {L : ℕ} {cd : List Instr} (h : CodeAt μ L cd) (k : ℕ)
     (hk : k < cd.length) : μ (L + k) = cd[k] := h k hk
 
-theorem reaches_inc {μ : Machine} {L j x : ℕ} {ρ : Regs} (h : μ L = .inc j x) :
-    Reaches μ ⟨L, ρ⟩ ⟨x, Function.update ρ j (ρ j + 1)⟩ :=
-  Reaches.of_step (by simp [step, h])
+theorem reaches_inc {μ : Machine} {S : ℕ → Prop} {L j x : ℕ} {ρ : Regs} (h : μ L = .inc j x)
+    (hS : S L) : ReachesIn μ S ⟨L, ρ⟩ ⟨x, Function.update ρ j (ρ j + 1)⟩ :=
+  ReachesIn.of_step (by simp [step, h]) hS
 
-theorem reaches_dec_pos {μ : Machine} {L j x y : ℕ} {ρ : Regs} (h : μ L = .dec j x y)
-    (hj : ρ j ≠ 0) : Reaches μ ⟨L, ρ⟩ ⟨x, Function.update ρ j (ρ j - 1)⟩ :=
-  Reaches.of_step (by simp [step, h, hj])
+theorem reaches_dec_pos {μ : Machine} {S : ℕ → Prop} {L j x y : ℕ} {ρ : Regs}
+    (h : μ L = .dec j x y) (hj : ρ j ≠ 0) (hS : S L) :
+    ReachesIn μ S ⟨L, ρ⟩ ⟨x, Function.update ρ j (ρ j - 1)⟩ :=
+  ReachesIn.of_step (by simp [step, h, hj]) hS
 
-theorem reaches_dec_zero {μ : Machine} {L j x y : ℕ} {ρ : Regs} (h : μ L = .dec j x y)
-    (hj : ρ j = 0) : Reaches μ ⟨L, ρ⟩ ⟨y, ρ⟩ :=
-  Reaches.of_step (by simp [step, h, hj])
+theorem reaches_dec_zero {μ : Machine} {S : ℕ → Prop} {L j x y : ℕ} {ρ : Regs}
+    (h : μ L = .dec j x y) (hj : ρ j = 0) (hS : S L) : ReachesIn μ S ⟨L, ρ⟩ ⟨y, ρ⟩ :=
+  ReachesIn.of_step (by simp [step, h, hj]) hS
 
-theorem reaches_jump {μ : Machine} {L x : ℕ} {ρ : Regs} (h : μ L = .dec J x x) (hJ : ρ J = 0) :
-    Reaches μ ⟨L, ρ⟩ ⟨x, ρ⟩ := reaches_dec_zero h hJ
+theorem reaches_jump {μ : Machine} {S : ℕ → Prop} {L x : ℕ} {ρ : Regs} (h : μ L = .dec J x x)
+    (hJ : ρ J = 0) (hS : S L) : ReachesIn μ S ⟨L, ρ⟩ ⟨x, ρ⟩ := reaches_dec_zero h hJ hS
 
 /-- A self-loop `dec x L (L + 1)` clears `x`. -/
-theorem reaches_clear {μ : Machine} {L x : ℕ} (h : μ L = .dec x L (L + 1)) :
-    ∀ ρ : Regs, Reaches μ ⟨L, ρ⟩ ⟨L + 1, Function.update ρ x 0⟩ := by
-  suffices ∀ n (ρ : Regs), ρ x = n → Reaches μ ⟨L, ρ⟩ ⟨L + 1, Function.update ρ x 0⟩ from
+theorem reaches_clear {μ : Machine} {S : ℕ → Prop} {L x : ℕ} (h : μ L = .dec x L (L + 1))
+    (hS : S L) : ∀ ρ : Regs, ReachesIn μ S ⟨L, ρ⟩ ⟨L + 1, Function.update ρ x 0⟩ := by
+  suffices ∀ n (ρ : Regs), ρ x = n →
+      ReachesIn μ S ⟨L, ρ⟩ ⟨L + 1, Function.update ρ x 0⟩ from
     fun ρ => this _ ρ rfl
   intro n
   induction n with
   | zero =>
     intro ρ hρ
     rw [Function.update_eq_self_iff.mpr hρ.symm]
-    exact reaches_dec_zero h hρ
+    exact reaches_dec_zero h hρ hS
   | succ n ih =>
     intro ρ hρ
-    refine (reaches_dec_pos h (by omega)).trans ?_
+    refine (reaches_dec_pos h (by omega) hS).trans ?_
     have := ih (Function.update ρ x (ρ x - 1)) (by simp; omega)
     simpa using this
 
 /-- The comparison loop `dec b (L+1) E; dec a L (L+2)`. -/
-theorem reaches_ifLt {μ : Machine} {L a b E : ℕ} (hab : a ≠ b) (h0 : μ L = .dec b (L + 1) E)
-    (h1 : μ (L + 1) = .dec a L (L + 2)) :
+theorem reaches_ifLt {μ : Machine} {S : ℕ → Prop} {L a b E : ℕ} (hab : a ≠ b)
+    (h0 : μ L = .dec b (L + 1) E) (h1 : μ (L + 1) = .dec a L (L + 2)) (hS0 : S L)
+    (hS1 : S (L + 1)) :
     ∀ ρ : Regs,
-      (ρ a < ρ b →
-        Reaches μ ⟨L, ρ⟩ ⟨L + 2, Function.update (Function.update ρ a 0) b (ρ b - ρ a - 1)⟩) ∧
-      (ρ b ≤ ρ a →
-        Reaches μ ⟨L, ρ⟩ ⟨E, Function.update (Function.update ρ a (ρ a - ρ b)) b 0⟩) := by
+      (ρ a < ρ b → ReachesIn μ S ⟨L, ρ⟩
+        ⟨L + 2, Function.update (Function.update ρ a 0) b (ρ b - ρ a - 1)⟩) ∧
+      (ρ b ≤ ρ a → ReachesIn μ S ⟨L, ρ⟩
+        ⟨E, Function.update (Function.update ρ a (ρ a - ρ b)) b 0⟩) := by
   suffices ∀ n (ρ : Regs), ρ a = n →
-      (ρ a < ρ b →
-        Reaches μ ⟨L, ρ⟩ ⟨L + 2, Function.update (Function.update ρ a 0) b (ρ b - ρ a - 1)⟩) ∧
-      (ρ b ≤ ρ a →
-        Reaches μ ⟨L, ρ⟩ ⟨E, Function.update (Function.update ρ a (ρ a - ρ b)) b 0⟩) from
+      (ρ a < ρ b → ReachesIn μ S ⟨L, ρ⟩
+        ⟨L + 2, Function.update (Function.update ρ a 0) b (ρ b - ρ a - 1)⟩) ∧
+      (ρ b ≤ ρ a → ReachesIn μ S ⟨L, ρ⟩
+        ⟨E, Function.update (Function.update ρ a (ρ a - ρ b)) b 0⟩) from
     fun ρ => this _ ρ rfl
   intro n
   induction n with
   | zero =>
     intro ρ hρ
     refine ⟨fun hlt => ?_, fun hle => ?_⟩
-    · refine (reaches_dec_pos h0 (by omega)).trans ?_
+    · refine (reaches_dec_pos h0 (by omega) hS0).trans ?_
       have := reaches_dec_zero (ρ := Function.update ρ b (ρ b - 1)) h1
-        (by rw [Function.update_of_ne hab]; exact hρ)
+        (by rw [Function.update_of_ne hab]; exact hρ) hS1
       convert this using 2
       funext k
       simp only [Function.update_apply]
       split_ifs <;> simp_all
     · have : ρ b = 0 := by omega
-      convert reaches_dec_zero h0 this using 2
+      convert reaches_dec_zero h0 this hS0 using 2
       funext k
       simp only [Function.update_apply]
       split_ifs <;> simp_all
   | succ n ih =>
     intro ρ hρ
     refine ⟨fun hlt => ?_, fun hle => ?_⟩
-    · have step1 := reaches_dec_pos (ρ := ρ) h0 (by omega)
+    · have step1 := reaches_dec_pos (ρ := ρ) h0 (by omega) hS0
       have step2 := reaches_dec_pos (ρ := Function.update ρ b (ρ b - 1)) h1
-        (by rw [Function.update_of_ne hab]; omega)
+        (by rw [Function.update_of_ne hab]; omega) hS1
       set ρ' := Function.update (Function.update ρ b (ρ b - 1)) a
         (Function.update ρ b (ρ b - 1) a - 1) with hρ'
       have ha' : ρ' a = n := by simp [hρ', Function.update_of_ne hab]; omega
@@ -414,13 +449,13 @@ theorem reaches_ifLt {μ : Machine} {L a b E : ℕ} (hab : a ≠ b) (h0 : μ L =
       split_ifs <;> simp_all
       omega
     · by_cases hb : ρ b = 0
-      · convert reaches_dec_zero h0 hb using 2
+      · convert reaches_dec_zero h0 hb hS0 using 2
         funext k
         simp only [Function.update_apply]
         split_ifs <;> simp_all
-      have step1 := reaches_dec_pos (ρ := ρ) h0 hb
+      have step1 := reaches_dec_pos (ρ := ρ) h0 hb hS0
       have step2 := reaches_dec_pos (ρ := Function.update ρ b (ρ b - 1)) h1
-        (by rw [Function.update_of_ne hab]; omega)
+        (by rw [Function.update_of_ne hab]; omega) hS1
       set ρ' := Function.update (Function.update ρ b (ρ b - 1)) a
         (Function.update ρ b (ρ b - 1) a - 1) with hρ'
       have ha' : ρ' a = n := by simp [hρ', Function.update_of_ne hab]; omega
@@ -437,8 +472,9 @@ theorem reaches_ifLt {μ : Machine} {L a b E : ℕ} (hab : a ≠ b) (h0 : μ L =
 theorem reaches_divmod2 {μ : Machine} {L y q r : ℕ} (hyq : y ≠ q) (hqJ : q ≠ J) (hrJ : r ≠ J)
     (hcode : CodeAt μ L ((Stmt.divmod2 y q r).compile L 0 0 0)) :
     ∀ ρ : Regs, ρ J = 0 →
-      Reaches μ ⟨L, ρ⟩ ⟨L + 8, Function.update (Function.update (Function.update ρ y 0) q
-        (ρ q + ρ y / 2)) r (ρ y % 2)⟩ := by
+      ReachesIn μ (fun k => L ≤ k ∧ k < L + 8) ⟨L, ρ⟩
+        ⟨L + 8, Function.update (Function.update (Function.update ρ y 0) q
+          (ρ q + ρ y / 2)) r (ρ y % 2)⟩ := by
   have h0 : μ L = .dec y (L + 1) (L + 4) := hcode.get 0 (by simp [Stmt.compile])
   have h1 : μ (L + 1) = .dec y (L + 2) (L + 6) := hcode.get 1 (by simp [Stmt.compile])
   have h2 : μ (L + 2) = .inc q (L + 3) := hcode.get 2 (by simp [Stmt.compile])
@@ -447,37 +483,41 @@ theorem reaches_divmod2 {μ : Machine} {L y q r : ℕ} (hyq : y ≠ q) (hqJ : q 
   have h5 : μ (L + 5) = .dec J (L + 8) (L + 8) := hcode.get 5 (by simp [Stmt.compile])
   have h6 : μ (L + 6) = .dec r (L + 6) (L + 6 + 1) := hcode.get 6 (by simp [Stmt.compile])
   have h7 : μ (L + 7) = .inc r (L + 8) := hcode.get 7 (by simp [Stmt.compile])
+  have hS : ∀ i, i < 8 → (fun k => L ≤ k ∧ k < L + 8) (L + i) := fun i hi => by
+    simp only; omega
   suffices ∀ n (ρ : Regs), ρ y = n → ρ J = 0 →
-      Reaches μ ⟨L, ρ⟩ ⟨L + 8, Function.update (Function.update (Function.update ρ y 0) q
-        (ρ q + ρ y / 2)) r (ρ y % 2)⟩ from fun ρ => this _ ρ rfl
+      ReachesIn μ (fun k => L ≤ k ∧ k < L + 8) ⟨L, ρ⟩
+        ⟨L + 8, Function.update (Function.update (Function.update ρ y 0) q
+          (ρ q + ρ y / 2)) r (ρ y % 2)⟩ from fun ρ => this _ ρ rfl
   intro n
   induction n using Nat.strong_induction_on with
   | _ n ih =>
     intro ρ hy hJ
     rcases n with _ | _ | n
-    · refine (reaches_dec_zero h0 hy).trans ((reaches_clear h4 ρ).trans ?_)
-      have := reaches_jump (ρ := Function.update ρ r 0) h5 (by
-        rw [Function.update_apply]; split_ifs <;> simp_all)
+    · refine (reaches_dec_zero h0 hy (hS 0 (by omega))).trans
+        ((reaches_clear h4 (hS 4 (by omega)) ρ).trans ?_)
+      have := reaches_jump (ρ := Function.update ρ r 0) (S := fun k => L ≤ k ∧ k < L + 8) h5 (by
+        rw [Function.update_apply]; split_ifs <;> simp_all) (hS 5 (by omega))
       convert this using 2
       funext k
       simp only [Function.update_apply]
       split_ifs <;> simp_all
-    · refine (reaches_dec_pos h0 (by omega)).trans ?_
-      refine (reaches_dec_zero h1 (by simp [hy])).trans ?_
-      refine (reaches_clear h6 _).trans ?_
-      refine (reaches_inc h7).trans ?_
-      convert Reaches.refl μ _ using 2
+    · refine (reaches_dec_pos h0 (by omega) (hS 0 (by omega))).trans ?_
+      refine (reaches_dec_zero h1 (by simp [hy]) (hS 1 (by omega))).trans ?_
+      refine (reaches_clear h6 (hS 6 (by omega)) _).trans ?_
+      refine (reaches_inc h7 (hS 7 (by omega))).trans ?_
+      convert ReachesIn.refl μ _ _ using 2
       funext k
       simp only [Function.update_apply]
       split_ifs <;> simp_all
-    · refine (reaches_dec_pos h0 (by omega)).trans ?_
-      refine (reaches_dec_pos h1 (by simp [hy])).trans ?_
-      refine (reaches_inc h2).trans ?_
+    · refine (reaches_dec_pos h0 (by omega) (hS 0 (by omega))).trans ?_
+      refine (reaches_dec_pos h1 (by simp [hy]) (hS 1 (by omega))).trans ?_
+      refine (reaches_inc h2 (hS 2 (by omega))).trans ?_
       refine (reaches_jump h3 (by
-        simp only [Function.update_apply]; split_ifs <;> simp_all)).trans ?_
+        simp only [Function.update_apply]; split_ifs <;> simp_all) (hS 3 (by omega))).trans ?_
       refine (ih n (by omega) _ (by simp [Function.update_apply, hyq, hy]) (by
         simp only [Function.update_apply]; split_ifs <;> simp_all)).trans ?_
-      convert Reaches.refl μ _ using 2
+      convert ReachesIn.refl μ _ _ using 2
       funext k
       have : (n + 2) / 2 = n / 2 + 1 := by omega
       have h2' : (n + 2) % 2 = n % 2 := by omega
@@ -533,42 +573,52 @@ theorem CodeAt.ifLt {μ : Machine} {L ls le ex a b : ℕ} {s t : Stmt}
   have := h3.cons_tail
   rwa [show L + 1 + 1 + s.size + 1 = L + s.size + 3 by omega] at this
 
+/-- The states of the compiled code of `s` at `L`. -/
+def Stmt.Range (s : Stmt) (L : ℕ) (k : ℕ) : Prop := L ≤ k ∧ k < L + s.size
+
 /-- **Correctness of the compilation.** The compiled code of `s`, placed at state `L` of any
-machine, runs from `L` to the target of the outcome with the outcome's register file. -/
-theorem compile_correct {μ : Machine} {s : Stmt} {ρ : Regs} {o : Outcome} (hexec : Exec s ρ o) :
+machine, runs from `L` to the target of the outcome with the outcome's register file, every
+configuration before the target being at a state of the code. -/
+theorem compile_correct_in {μ : Machine} {s : Stmt} {ρ : Regs} {o : Outcome}
+    (hexec : Exec s ρ o) :
     ∀ {L ls le ex : ℕ}, CodeAt μ L (s.compile L ls le ex) → ρ J = 0 →
-      Reaches μ ⟨L, ρ⟩ ⟨o.target (L + s.size) ls le ex, o.regs⟩ := by
+      ReachesIn μ (s.Range L) ⟨L, ρ⟩ ⟨o.target (L + s.size) ls le ex, o.regs⟩ := by
   induction hexec with
-  | skip ρ => intro L ls le ex _ _; exact Reaches.refl _ _
+  | skip ρ => intro L ls le ex _ _; exact ReachesIn.refl _ _ _
   | clear x ρ =>
     intro L ls le ex h _
-    exact reaches_clear (h.get 0 (by simp [Stmt.compile])) ρ
+    exact reaches_clear (h.get 0 (by simp [Stmt.compile]))
+      (by simp [Stmt.Range, Stmt.size]) ρ
   | inc x ρ _ =>
     intro L ls le ex h _
-    exact reaches_inc (h.get 0 (by simp [Stmt.compile]))
+    exact reaches_inc (h.get 0 (by simp [Stmt.compile])) (by simp [Stmt.Range, Stmt.size])
   | pred x ρ =>
     intro L ls le ex h _
     have h0 : μ L = .dec x (L + 1) (L + 1) := h.get 0 (by simp [Stmt.compile])
+    have hS : (Stmt.pred x).Range L L := by simp [Stmt.Range, Stmt.size]
     by_cases hx : ρ x = 0
-    · have := reaches_dec_zero (ρ := ρ) h0 hx
+    · have := reaches_dec_zero (ρ := ρ) h0 hx hS
       simp only [Outcome.target, Outcome.regs, Stmt.size]
       rwa [show ρ x - 1 = ρ x by omega, Function.update_eq_self]
-    · exact reaches_dec_pos h0 hx
+    · exact reaches_dec_pos h0 hx hS
   | seq_normal h1 h2 ih1 ih2 =>
     intro L ls le ex h hJ
     obtain ⟨hs, ht⟩ := h.seq
     have := ih2 ht (h1.regs_J hJ)
     rw [Stmt.size, ← Nat.add_assoc]
-    exact (ih1 hs hJ).trans this
+    refine ((ih1 hs hJ).mono ?_).trans (this.mono ?_) <;>
+      · intro k hk; simp only [Stmt.Range, Stmt.size] at hk ⊢; omega
   | @seq_abnormal s t ρ o h1 hab ih =>
     intro L ls le ex h hJ
     obtain ⟨hs, -⟩ := h.seq
-    have := ih hs hJ
+    have := (ih hs hJ).mono (T := (Stmt.seq s t).Range L)
+      (fun k hk => by simp only [Stmt.Range, Stmt.size] at hk ⊢; omega)
     cases o <;> simp_all [Outcome.target, Outcome.IsAbnormal]
   | @while_zero x b ρ hx =>
     intro L ls le ex h hJ
     obtain ⟨h0, -, -⟩ := h.whileDec
-    have := reaches_dec_zero (ρ := ρ) h0 hx
+    have := reaches_dec_zero (ρ := ρ) (S := (Stmt.whileDec x b).Range L) h0 hx
+      (by simp only [Stmt.Range, Stmt.size]; omega)
     simpa [Outcome.target, Outcome.regs, Stmt.size, Nat.add_assoc] using this
   | @while_normal x b ρ ρ' o hx hb hw ihb ihw =>
     intro L ls le ex h hJ
@@ -576,59 +626,71 @@ theorem compile_correct {μ : Machine} {s : Stmt} {ρ : Regs} {o : Outcome} (hex
     have hJ1 : Function.update ρ x (ρ x - 1) J = 0 := by
       simp only [Function.update_apply]; split_ifs <;> simp_all
     have hJ' := hb.regs_J hJ1
-    refine (reaches_dec_pos h0 hx).trans ((ihb hbody hJ1).trans ?_)
-    exact (reaches_jump hjump hJ').trans (ihw h hJ')
+    refine (reaches_dec_pos h0 hx (by simp only [Stmt.Range, Stmt.size]; omega)).trans
+      (((ihb hbody hJ1).mono ?_).trans ?_)
+    · intro k hk; simp only [Stmt.Range, Stmt.size] at hk ⊢; omega
+    · exact (reaches_jump hjump hJ' (by simp only [Stmt.Range, Stmt.size]; omega)).trans
+        (ihw h hJ')
   | @while_abnormal x b ρ o hx hb hab ihb =>
     intro L ls le ex h hJ
     obtain ⟨h0, hbody, -⟩ := h.whileDec
     have hJ1 : Function.update ρ x (ρ x - 1) J = 0 := by
       simp only [Function.update_apply]; split_ifs <;> simp_all
-    refine (reaches_dec_pos h0 hx).trans ?_
-    have := ihb hbody hJ1
+    refine (reaches_dec_pos h0 hx (by simp only [Stmt.Range, Stmt.size]; omega)).trans ?_
+    have := (ihb hbody hJ1).mono (T := (Stmt.whileDec x b).Range L)
+      (fun k hk => by simp only [Stmt.Range, Stmt.size] at hk ⊢; omega)
     cases o <;> simp_all [Outcome.target, Outcome.IsAbnormal]
   | @ifNZ_pos x s t ρ o hx hs ih =>
     intro L ls le ex h hJ
     obtain ⟨h0, h1, hcs, hj, -⟩ := h.ifNZ
-    refine (reaches_dec_pos h0 hx).trans ?_
-    refine (reaches_inc h1).trans ?_
+    refine (reaches_dec_pos h0 hx (by simp only [Stmt.Range, Stmt.size]; omega)).trans ?_
+    refine (reaches_inc h1 (by simp only [Stmt.Range, Stmt.size]; omega)).trans ?_
     have e : Function.update (Function.update ρ x (ρ x - 1)) x
         (Function.update ρ x (ρ x - 1) x + 1) = ρ := by
       funext k; simp only [Function.update_apply]; split_ifs <;> simp_all; omega
     rw [e]
-    refine (ih hcs hJ).trans ?_
+    refine ((ih hcs hJ).mono ?_).trans ?_
+    · intro k hk; simp only [Stmt.Range, Stmt.size] at hk ⊢; omega
     cases o with
     | normal ρ' =>
-      have := reaches_jump (ρ := ρ') hj (hs.regs_J hJ)
+      have := reaches_jump (ρ := ρ') (S := (Stmt.ifNZ x s t).Range L) hj (hs.regs_J hJ)
+        (by simp only [Stmt.Range, Stmt.size]; omega)
       simpa [Outcome.target, Outcome.regs, Stmt.size, Nat.add_assoc, Nat.add_comm,
         Nat.add_left_comm] using this
-    | _ => exact Reaches.refl _ _
+    | _ => exact ReachesIn.refl _ _ _
   | @ifNZ_zero x s t ρ o hx ht ih =>
     intro L ls le ex h hJ
     obtain ⟨h0, -, -, -, hct⟩ := h.ifNZ
-    refine (reaches_dec_zero h0 hx).trans ?_
-    have := ih hct hJ
+    refine (reaches_dec_zero h0 hx (by simp only [Stmt.Range, Stmt.size]; omega)).trans ?_
+    have := (ih hct hJ).mono (T := (Stmt.ifNZ x s t).Range L)
+      (fun k hk => by simp only [Stmt.Range, Stmt.size] at hk ⊢; omega)
     cases o <;> simpa [Outcome.target, Stmt.size, Nat.add_assoc, Nat.add_comm,
         Nat.add_left_comm] using this
   | @ifLt_lt a b s t ρ o hab hlt hs ih =>
     intro L ls le ex h hJ
     obtain ⟨h0, h1, hcs, hj, -⟩ := h.ifLt
-    refine ((reaches_ifLt hab h0 h1 ρ).1 hlt).trans ?_
+    refine ((reaches_ifLt hab h0 h1 (by simp only [Stmt.Range, Stmt.size]; omega)
+      (by simp only [Stmt.Range, Stmt.size]; omega) ρ).1 hlt).trans ?_
     have hJ1 : Function.update (Function.update ρ a 0) b (ρ b - ρ a - 1) J = 0 := by
       simp only [Function.update_apply]; split_ifs <;> simp_all
-    refine (ih hcs hJ1).trans ?_
+    refine ((ih hcs hJ1).mono ?_).trans ?_
+    · intro k hk; simp only [Stmt.Range, Stmt.size] at hk ⊢; omega
     cases o with
     | normal ρ' =>
-      have := reaches_jump (ρ := ρ') hj (hs.regs_J hJ1)
+      have := reaches_jump (ρ := ρ') (S := (Stmt.ifLt a b s t).Range L) hj (hs.regs_J hJ1)
+        (by simp only [Stmt.Range, Stmt.size]; omega)
       simpa [Outcome.target, Outcome.regs, Stmt.size, Nat.add_assoc, Nat.add_comm,
         Nat.add_left_comm] using this
-    | _ => exact Reaches.refl _ _
+    | _ => exact ReachesIn.refl _ _ _
   | @ifLt_ge a b s t ρ o hab hge ht ih =>
     intro L ls le ex h hJ
     obtain ⟨h0, h1, -, -, hct⟩ := h.ifLt
-    refine ((reaches_ifLt hab h0 h1 ρ).2 hge).trans ?_
+    refine ((reaches_ifLt hab h0 h1 (by simp only [Stmt.Range, Stmt.size]; omega)
+      (by simp only [Stmt.Range, Stmt.size]; omega) ρ).2 hge).trans ?_
     have hJ1 : Function.update (Function.update ρ a (ρ a - ρ b)) b 0 J = 0 := by
       simp only [Function.update_apply]; split_ifs <;> simp_all
-    have := ih hct hJ1
+    have := (ih hct hJ1).mono (T := (Stmt.ifLt a b s t).Range L)
+      (fun k hk => by simp only [Stmt.Range, Stmt.size] at hk ⊢; omega)
     cases o <;> simpa [Outcome.target, Stmt.size, Nat.add_assoc, Nat.add_comm,
         Nat.add_left_comm] using this
   | @divmod2 y q r ρ hyq _ _ hqJ hrJ =>
@@ -649,12 +711,18 @@ theorem compile_correct {μ : Machine} {s : Stmt} {ρ : Regs} {o : Outcome} (hex
     exact ih (ls := L) (le := L + b.size) h hJ
   | brk ρ =>
     intro L ls le ex h hJ
-    exact reaches_jump (h.get 0 (by simp [Stmt.compile])) hJ
+    exact reaches_jump (h.get 0 (by simp [Stmt.compile])) hJ (by simp [Stmt.Range, Stmt.size])
   | cont ρ =>
     intro L ls le ex h hJ
-    exact reaches_jump (h.get 0 (by simp [Stmt.compile])) hJ
+    exact reaches_jump (h.get 0 (by simp [Stmt.compile])) hJ (by simp [Stmt.Range, Stmt.size])
   | exit ρ =>
     intro L ls le ex h hJ
-    exact reaches_jump (h.get 0 (by simp [Stmt.compile])) hJ
+    exact reaches_jump (h.get 0 (by simp [Stmt.compile])) hJ (by simp [Stmt.Range, Stmt.size])
+
+/-- **Correctness of the compilation**, without the trace. -/
+theorem compile_correct {μ : Machine} {s : Stmt} {ρ : Regs} {o : Outcome} (hexec : Exec s ρ o)
+    {L ls le ex : ℕ} (hcode : CodeAt μ L (s.compile L ls le ex)) (hJ : ρ J = 0) :
+    Reaches μ ⟨L, ρ⟩ ⟨o.target (L + s.size) ls le ex, o.regs⟩ :=
+  (compile_correct_in hexec hcode hJ).reaches
 
 end ZInQ.Compiler.Universal

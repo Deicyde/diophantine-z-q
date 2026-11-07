@@ -203,7 +203,7 @@ theorem interpreter_accepts_iff (e n : ℕ) : interpreter.Accepts ![e, n] ↔ ha
           cases hs : step (decodeMachine e) vc with
           | none => exact absurd ((step_eq_none_iff _ _).mp hs) hnh
           | some vc' => exact ⟨vc', rfl⟩
-        obtain ⟨t', σ', ht', hcoh'⟩ := (interpreter_step hcoh).2 vc' hvc'
+        obtain ⟨t', σ', ht', hcoh', -⟩ := (interpreter_step hcoh).2 vc' hvc'
         refine ⟨t + (t' + 1), vc', σ', by omega, by rw [stepN_add, ht]; exact ht', hcoh',
           tv + 1, by rw [stepN_succ', hv]; exact hvc'⟩
     obtain ⟨T, c, hT, hc, -⟩ := hacc
@@ -237,7 +237,7 @@ theorem interpreter_accepts_iff (e n : ℕ) : interpreter.Accepts ![e, n] ↔ ha
       | none => rw [hs] at hvc; cases hvc
       | some vc' =>
         rw [hs] at hvc
-        obtain ⟨t', σ', ht', hcoh'⟩ := (interpreter_step hcoh).2 vc' hs
+        obtain ⟨t', σ', ht', hcoh', -⟩ := (interpreter_step hcoh).2 vc' hs
         obtain ⟨ρ', hr, hJ, hhigh⟩ := ih vc' σ' hcoh' hvc
         exact ⟨ρ', Reaches.trans ⟨t' + 1, ht'⟩ hr, hJ, hhigh⟩
 
