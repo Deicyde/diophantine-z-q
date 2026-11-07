@@ -2,10 +2,9 @@
 
 Modules: `ZInQKernel/Size/Constants/*.lean`, root `ZInQKernel/Size/Constants.lean`
 (imported from `ZInQKernel.lean`). Namespace `ZInQ.Size`. `lake build ZInQKernel` succeeds.
-No `axiom`, `native_decide` or kernel-skipping options. The one `sorry` is the formal-multiple
-existence input (see below). `#print axioms` gives `propext, Classical.choice, Quot.sound` for the
-proved leaves (`closed_comparisons`: `propext` only), plus `sorryAx` for the leaves downstream of
-the formal multiple.
+No `axiom`, `native_decide`, kernel-skipping options or `sorry`. Branch `wip/size-formal`
+(the formal-multiple existence) is merged. `#print axioms` gives `propext, Classical.choice,
+Quot.sound` for every leaf (`closed_comparisons`: `propext` only).
 
 ## Leaves
 
@@ -16,31 +15,22 @@ the formal multiple.
 | size/constants/catalogue-bounds.md | `ZInQ.Size.catalogue_bounds` (parts `cataloguePrime_bounds`, `Hmax_lt`, `Hcat_bounds`) | proved |
 | size/constants/catalogue-size.md | `ZInQ.Size.catalogue_size` (parts `Ns_bounds`, `ell_lt`) | proved |
 | size/constants/d-bounds.md | `ZInQ.Size.D_bounds` | proved |
-| size/constants/formal-multiple-size.md | `ZInQ.Size.formal_multiple_size` (parts `M0_bounds`, `cstar_lt`) | proved from the formal-multiple existence, which is still `sorry` here |
-| size/constants/r-equals-d.md | `ZInQ.Size.r_equals_d`, `ZInQ.Size.R_eq_D` | proved; depends on `cstar_lt`, so on the existence `sorry` |
-| size/constants/t-identity.md | `ZInQ.Size.t_identity` (parts `Q_eq_closed`, `Ccm_lt_Q17`, `max_Aht_eq`, `Aht_eq_closed`, `T_eq_closed`) | proved; depends on `R_eq_D`, so on the existence `sorry` |
+| size/constants/formal-multiple-size.md | `ZInQ.Size.formal_multiple_size` (parts `M0_bounds`, `cstar_lt`) | proved (uses size-formal's `M0_bounds`) |
+| size/constants/r-equals-d.md | `ZInQ.Size.r_equals_d`, `ZInQ.Size.R_eq_D` | proved |
+| size/constants/t-identity.md | `ZInQ.Size.t_identity` (parts `Q_eq_closed`, `Ccm_lt_Q17`, `max_Aht_eq`, `Aht_eq_closed`, `T_eq_closed`) | proved |
 | size/constants/t-bound.md | `ZInQ.Size.closedT_lt` | proved (no hypothesis, no `sorry`) |
-| size/cutoff.md | `ZInQ.Size.literal_cutoff`, `ZInQ.Size.formal_multiple_succeeds` | proved from the formal-multiple existence, which is still `sorry` here |
+| size/cutoff.md | `ZInQ.Size.literal_cutoff`, `ZInQ.Size.formal_multiple_succeeds` | proved (uses size-formal's `M0_bounds`) |
 
-The only `sorry` is `ZInQ.Size.exists_formalCondition_le_pow_ten` in
-`ZInQKernel/Size/Constants/FormalMultiple.lean`:
-```lean
-theorem exists_formalCondition_le_pow_ten {N : ℕ} (hN : 1 ≤ N) :
-    ∃ m, 1 ≤ m ∧ m ≤ N ^ 10 ∧ Syntax.FormalCondition N m
-```
-This is the first sentence of size/formal-multiple/formal-multiple-existence.md, which task
-size-formal owns (its plan names the theorem `ZInQ.Size.exists_formal_multiple`). When that branch
-lands, the proof is `exists_formal_multiple N hN`, or whatever its statement needs (the predicate on
-main is `Syntax.FormalCondition`; the note calls it `IsFormalMultiple`). I named my own lemmas so
-they do not clash with the names in size-formal's plan (`leastFormalMultiple_le_pow_ten`, not
-`leastFormalMultiple_bounds`).
+The formal-multiple input is size-formal's `ZInQ.Size.M0_bounds (h : 1 ≤ Ns)` (from
+`exists_formal_multiple`), applied with `Syntax.Ns_pos`. While size-formal was still running, a
+`sorry` placeholder stood in for it; the placeholder is removed now that the branch is merged.
 
 ## Statement corrections and precisions
 
 - catalogue-bounds: Lean counts catalogue primes from 0, as `Syntax.cataloguePrime` does:
   `cataloguePrime W 324 r j` for `j < 22` is the blueprint's `p_{r,j+1}`.
-- formal-multiple-size: `1 ≤ M₀ ≤ N_s^10` (`M0_bounds`) needs no catalogue bound: `N_s ≥ 1` is
-  `Syntax.Ns_pos`, which follows from Dirichlet's theorem. Only `c_* < 2^(2^2059)` uses CAT.
+- formal-multiple-size: `1 ≤ M₀ ≤ N_s^10` (`M0_bounds Ns_pos`) needs no catalogue bound:
+  `N_s ≥ 1` is `Syntax.Ns_pos`, which follows from Dirichlet's theorem. Only `c_* < 2^(2^2059)` uses CAT.
   `formal_multiple_size` still takes `hCAT`, as the article does.
 - cutoff: the formal-multiple part is stated separately as `formal_multiple_succeeds`, with no
   hypothesis, as the article's last paragraph says. `literal_cutoff hCAT` includes it as well.
@@ -65,7 +55,7 @@ they do not clash with the names in size-formal's plan (`leastFormalMultiple_le_
   `two_pow_pow_three_pow_eq`.
 - Facts about the constants: `D_gt`, `D_lt`, `two_pow_two_pow_lt_D` (`2^(2^k) < D` for `k ≤ 8008`),
   `lt_D_of_lt`, `three_hundred_le_D`, `W_pow_three_lt`, `Hmax_lt_D`, `cstar_lt_D`,
-  `ten_pow_twelve_lt_D`, `leastFormalMultiple_le_pow_ten`, `T_lt` (`T < 2^(2^(2^9013))`),
+  `ten_pow_twelve_lt_D`, `T_lt` (`T < 2^(2^(2^9013))`),
   `triplePower_eq` and `T_lt_triplePower` (`T < NumericalTowerBounds.triplePower 9013`, the form
   used by upstream's tower comparisons).
 
@@ -89,9 +79,6 @@ they do not clash with the names in size-formal's plan (`leastFormalMultiple_le_
 
 ## Suggestions for the next agent
 
-- When size-formal's existence theorem lands, merge `origin/wip/size-formal` and replace the
-  `sorry` in `exists_formalCondition_le_pow_ten` with it (or delete the placeholder and use their
-  lemma in `leastFormalMultiple_le_pow_ten`). Nothing else changes.
 - Consumers that need `T < triplePower 9013` should use `T_lt_triplePower`. Do not `show` or
   `unfold` `triplePower 9013`: upstream states it with another power instance.
 - Other size tasks that work with the big constants can import `ZInQKernel.Size.Constants.Pow` and
