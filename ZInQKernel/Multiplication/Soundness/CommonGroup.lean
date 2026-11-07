@@ -20,26 +20,6 @@ The quantities are the certificate's `slopeR0`, `slopeA`, `slopeR`, `normTests`,
 
 namespace ZInQ.Mult
 
-
-
-/-- Every rational prime has a prime of `ℤ[s]` above it. -/
-theorem exists_prime_dvd_natCast (p : ℕ) [hp : Fact p.Prime] :
-    ∃ π : Zs, Prime π ∧ π ∣ (p : Zs) := by
-  have h0 : (p : Zs) ≠ 0 := by
-    intro h; have := congrArg QuadraticAlgebra.re h; simp at this; exact hp.out.ne_zero this
-  have hu : ¬ IsUnit (p : Zs) := by
-    intro hu
-    have := hu.map QuadraticAlgebra.norm
-    rw [norm_natCast_Zs, Int.isUnit_iff] at this
-    have h1 := hp.out.one_lt
-    rcases this with h | h
-    · have : ((p : ℤ)) ^ 2 = 1 ^ 2 := by rw [h]; ring
-      have := (sq_eq_sq₀ (by positivity) (by norm_num)).mp this
-      omega
-    · nlinarith
-  obtain ⟨π, hirr, hdvd⟩ := WfDvdMonoid.exists_irreducible_factor hu h0
-  exact ⟨π, UniqueFactorizationMonoid.irreducible_iff_prime.mp hirr, hdvd⟩
-
 theorem star_dvd_natCast {π : Zs} {p : ℕ} (h : π ∣ (p : Zs)) : star π ∣ (p : Zs) := by
   obtain ⟨c, hc⟩ := h
   exact ⟨star c, by rw [← star_mul', ← hc]; simp⟩

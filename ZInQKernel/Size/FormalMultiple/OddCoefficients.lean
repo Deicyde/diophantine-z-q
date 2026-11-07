@@ -20,20 +20,6 @@ open QuadraticAlgebra
 
 variable {p : ℕ} [hp : Fact p.Prime]
 
-/-- There is a prime of `ℤ[s]` above `p`. -/
-theorem exists_prime_dvd_natCast : ∃ π : Zs, Prime π ∧ π ∣ (p : Zs) := by
-  have hp0 : (p : Zs) ≠ 0 := by
-    intro h; have := congrArg QuadraticAlgebra.re h; simp at this; exact hp.out.ne_zero this
-  have hpu : ¬IsUnit (p : Zs) := by
-    rw [Zs.isUnit_iff_natAbs_norm, Mult.norm_natCast_Zs]
-    have := hp.out.two_le
-    intro h
-    have h' : ((p : ℤ) ^ 2).natAbs = p ^ 2 := by simp
-    rw [h'] at h
-    nlinarith
-  obtain ⟨π, hirr, hπ⟩ := WfDvdMonoid.exists_irreducible_factor hpu hp0
-  exact ⟨π, hirr.prime, hπ⟩
-
 theorem not_dvd_sqrt2Z_of_dvd_odd (hp2 : p ≠ 2) {π : Zs} (hπ : Prime π) (hπp : π ∣ (p : Zs)) :
     ¬π ∣ sqrt2Z := fun h =>
   not_dvd_two_of_dvd_odd hp2 hπ hπp (h.trans ⟨sqrt2Z, by rw [two_eq_sqrt2Z_sq, sq]⟩)
@@ -63,7 +49,7 @@ of `u = u₀ + u₁ s`. -/
 theorem padicValRat_coords_ge (hp2 : p ≠ 2) (k : ℤ) (u : K0)
     (hu : ∀ π : Zs, ∀ hπ : Prime π, π ∣ (p : Zs) → (k : WithTop ℤ) ≤ Mult.vP π hπ u) :
     (u.re ≠ 0 → k ≤ padicValRat p u.re) ∧ (u.im ≠ 0 → k ≤ padicValRat p u.im) := by
-  obtain ⟨π, hπ, hπp⟩ := exists_prime_dvd_natCast (p := p)
+  obtain ⟨π, hπ, hπp⟩ := Mult.exists_prime_dvd_natCast p
   have hσ : Prime (star π) := Mult.prime_star hπ
   have hσp : star π ∣ (p : Zs) := by
     have := (Mult.star_pow_dvd_iff (π := π) (a := (p : Zs)) 1).mpr (by simpa using hπp)

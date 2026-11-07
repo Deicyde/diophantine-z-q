@@ -235,6 +235,21 @@ theorem norm_dvd_of_dvd {x y : Zs} (h : x ∣ y) : QuadraticAlgebra.norm x ∣ Q
 theorem norm_natCast_Zs (n : ℕ) : QuadraticAlgebra.norm (n : Zs) = (n : ℤ) ^ 2 := by
   rw [Zs.norm_eq]; simp
 
+variable (p) in
+/-- Every rational prime has a prime of `ℤ[s]` above it. -/
+theorem exists_prime_dvd_natCast : ∃ π : Zs, Prime π ∧ π ∣ (p : Zs) := by
+  have h0 : (p : Zs) ≠ 0 := by
+    intro h; have := congrArg QuadraticAlgebra.re h; simp at this; exact hp.out.ne_zero this
+  have hu : ¬ IsUnit (p : Zs) := by
+    rw [Zs.isUnit_iff_natAbs_norm, norm_natCast_Zs]
+    have := hp.out.one_lt
+    rw [Int.natAbs_pow, Int.natAbs_natCast]
+    intro h1
+    have : 1 < p ^ 2 := Nat.one_lt_pow (by norm_num) this
+    omega
+  obtain ⟨i, hi, hdvd⟩ := WfDvdMonoid.exists_irreducible_factor hu h0
+  exact ⟨i, irreducible_iff_prime.mp hi, hdvd⟩
+
 /-- A prime above `p` has norm `± p` or `± p²`; if `π² ∣ p` it has norm `± p`. -/
 theorem natAbs_norm_eq_of_sq_dvd {π : Zs} (hπ : Prime π) (h : π ^ 2 ∣ (p : Zs)) :
     (QuadraticAlgebra.norm π).natAbs = p := by
