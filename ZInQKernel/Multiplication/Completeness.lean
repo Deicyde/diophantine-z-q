@@ -8,6 +8,8 @@ import ZInQKernel.Multiplication.Completeness.PatternSlopes
 import ZInQKernel.Multiplication.Completeness.PoleValuations
 import ZInQKernel.Multiplication.Completeness.TestsLocal
 import ZInQKernel.Multiplication.Completeness.SbIntegrality
+import ZInQKernel.Multiplication.Completeness.SelectedReduction
+import ZInQKernel.Multiplication.Completeness.SelectedPrecision
 
 /-!
 # Completeness of the multiplication template
