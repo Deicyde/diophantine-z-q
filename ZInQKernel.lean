@@ -35,3 +35,4 @@ import ZInQKernel.Multiplication.Soundness
 import ZInQKernel.Multiplication.Completeness
 import ZInQKernel.Multiplication.Certificate
 import ZInQKernel.Multiplication.FormalLog
+import ZInQKernel.Compiler.NodeCheck

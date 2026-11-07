@@ -15,3 +15,7 @@ path = "lean"
 
 [[lean_lib]]
 name = "ZInQKernel"
+
+# Finite checks proved by native evaluation (milestone 1); never imported by `ZInQKernel`.
+[[lean_lib]]
+name = "ZInQFinite"
