@@ -1,6 +1,7 @@
 import ZInQKernel.Multiplication.Completeness.SelectedReduction
 import ZInQKernel.Multiplication.Local.Ratio
 import ZInQKernel.Multiplication.Local.TruncationError
+import ZInQKernel.Multiplication.Soundness.TestsToCongruence
 
 /-!
 # Precision of the tests at a selected prime
@@ -19,10 +20,6 @@ namespace ZInQ.Mult
 
 open WeierstrassCurve WeierstrassCurve.Affine
 
-theorem map_truncLog {R S : Type*} [CommRing R] [CommRing S] (f : R →+* S) (δ z : R) :
-    f (truncLog δ z) = truncLog (f δ) (f z) := by
-  simp [truncLog, map_sum, map_mul, map_pow, map_intCast]
-
 section Completion
 
 variable {π : Zs} (hπ : Prime π)
@@ -35,17 +32,12 @@ theorem zCoord_mapE (Q : genCurve.toAffine.Point) :
   · show -(algebraMap K0 _ x) / (algebraMap K0 _ y) = algebraMap K0 _ (-x / y)
     simp [map_div₀]
 
-theorem mapE_mem_W1 {Q : genCurve.toAffine.Point} (hQ : Q ∈ W1 (vP π hπ) (-genD ^ 2)) :
+theorem mapE_mem_W1_of_mem {Q : genCurve.toAffine.Point} (hQ : Q ∈ W1 (vP π hπ) (-genD ^ 2)) :
     mapE π hπ Q ∈ W1 (vComp π hπ) (-genDAt π hπ ^ 2) := by
   rcases Q with _ | ⟨x, y, h⟩
   · exact trivial
   · show vComp π hπ (algebraMap K0 _ x) < 0
     rw [vComp_algebraMap]; exact hQ
-
-theorem mapE_ne_zero {Q : genCurve.toAffine.Point} (hQ : Q ≠ 0) : mapE π hπ Q ≠ 0 := by
-  rcases Q with _ | ⟨x, y, h⟩
-  · exact absurd rfl hQ
-  · exact Point.some_ne_zero _
 
 theorem map_Lam (Q : genCurve.toAffine.Point) :
     algebraMap K0 ((primeSpec π hπ).adicCompletion K0) (Lam Q) =
@@ -65,8 +57,8 @@ theorem vge_Lam_ratio_sub {p : ℕ} [Fact p.Prime] (hp324 : 324 < p) {π : Zs} (
   have hU : (n * h) • genP0 ∈ W1 (vP π hπ) (-genD ^ 2) := by
     rw [← smul_smul]
     exact (zsmul_mem_W1 (vP_neg_genD_sq_nonneg hπ) hH n).1
-  have hH' := mapE_mem_W1 hπ hH
-  have hU' := mapE_mem_W1 hπ hU
+  have hH' := mapE_mem_W1_of_mem hπ hH
+  have hU' := mapE_mem_W1_of_mem hπ hU
   have hH0 := mapE_ne_zero hπ (zsmul_genP0_ne_zero h0)
   have hU0 := mapE_ne_zero hπ (zsmul_genP0_ne_zero (mul_ne_zero hn h0))
   obtain ⟨-, -, εH, hεH, hLH⟩ := log25_truncation_error hp324 hπ hπp _ hH' hH0

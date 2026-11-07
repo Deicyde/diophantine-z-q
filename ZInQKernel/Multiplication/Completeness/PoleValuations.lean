@@ -149,7 +149,7 @@ theorem pole_input_valuations {B₀ : ℝ} {t : ℚ} (ht : GoodSlope B₀ t) {η
     have hvR' : padicValRat p R = 2 * Ep p + padicValRat p R0 := by
       rw [hvR p hp, hvl, hva]; ring
     -- valuations above `p`
-    obtain ⟨π, hπ, hπp⟩ := exists_prime_dvd_natCast hp
+    obtain ⟨π, hπ, hπp⟩ := exists_prime_dvd_natCast_of_prime hp
     obtain ⟨e, he1, hev⟩ := exists_vP_ratCast hp hπ hπp
     have hev' : ∀ r : ℚ, r ≠ 0 →
         vP (star π) (prime_star hπ) (r : K0) = ((e * padicValRat p r : ℤ) : WithTop ℤ) := by

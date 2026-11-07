@@ -4,6 +4,8 @@ import ZInQKernel.Multiplication.Completeness.SquareDen
 import ZInQKernel.Multiplication.Local.Valuations
 import ZInQKernel.Multiplication.Local.PrimesAbove
 import ZInQKernel.Multiplication.Certificate.SlopePredicate
+import ZInQKernel.Multiplication.Soundness.CommonGroup
+import ZInQKernel.Multiplication.Soundness.TestsToCongruence
 
 /-!
 # Auxiliary valuations for the pole input
@@ -208,18 +210,6 @@ theorem vP_ratCast_odd {p : ℕ} [Fact p.Prime] (hp2 : p ≠ 2) {π : Zs} (hπ :
     vP π hπ (r : K0) = ((padicValRat p r : ℤ) : WithTop ℤ) := by
   rw [vP_apply hπ (by exact_mod_cast hr), vp_ratCast hp2 hπ hπp]
 
-theorem star_dvd_natCast {π : Zs} {p : ℕ} (h : π ∣ (p : Zs)) : star π ∣ (p : Zs) := by
-  obtain ⟨c, hc⟩ := h
-  refine ⟨star c, ?_⟩
-  have := congrArg star hc
-  simpa [star_mul, mul_comm] using this
-
-theorem vP_star {π : Zs} (hπ : Prime π) (y : K0) :
-    vP (star π) (prime_star hπ) y = vP π hπ (star y) := by
-  by_cases hy : y = 0
-  · subst hy; simp
-  rw [vP_apply _ hy, vP_apply hπ (by rwa [ne_eq, star_eq_zero]), vp_star hπ]
-
 theorem star_ratCast (r : ℚ) : star (r : K0) = (r : K0) := by
   ext <;> simp
 
@@ -242,7 +232,7 @@ theorem exists_vP_ratCast {p : ℕ} (hp : p.Prime) {π : Zs} (hπ : Prime π) (h
   · exact ⟨1, le_rfl, fun r hr => by rw [vP_ratCast_odd hp2 hπ hπp hr, one_mul]⟩
 
 /-- Every prime `p` has a prime of `ℤ[s]` above it. -/
-theorem exists_prime_dvd_natCast {p : ℕ} (hp : p.Prime) : ∃ π : Zs, Prime π ∧ π ∣ (p : Zs) := by
+theorem exists_prime_dvd_natCast_of_prime {p : ℕ} (hp : p.Prime) : ∃ π : Zs, Prime π ∧ π ∣ (p : Zs) := by
   have hp0 : (p : Zs) ≠ 0 := by
     intro h; have := congrArg QuadraticAlgebra.re h; simp at this; exact hp.ne_zero this
   have hpu : ¬ IsUnit (p : Zs) := by
