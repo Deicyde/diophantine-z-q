@@ -129,7 +129,7 @@ The proof waits for one input of another task, the correctness of the wrapper
 with the correctness of the interpreter (`interpreter_accepts_iff`). -/
 theorem natural_polynomial_semantics (c : Fin 5 → ℕ) :
     precisionCircuit.NatRel powerTemplate c ↔ Precision.accepts c :=
-  natural_polynomial_semantics_of interpreter_accepts_iff (fun _ => sorry) c
+  natural_polynomial_semantics_of interpreter_accepts_iff IR.wrapper_halts_encode c
 
 theorem natRel_iff_witnessCount (C : NatCircuit) (T : Syntax.ExPoly) {m : ℕ}
     (hm : C.varCount - C.inputCount = m) (c : Fin C.inputCount → ℕ) :
