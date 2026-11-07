@@ -1,5 +1,8 @@
 import ZInQKernel.Compiler.NodeBound.Defs
 import ZInQKernel.Compiler.NodeBound.OfCheck
+import ZInQKernel.Compiler.NodeBound.Up
+import ZInQKernel.Compiler.NodeBound.Macros
+import ZInQKernel.Compiler.NodeBound.Items
 
 /-!
 # The addition and multiplication bound of the universal halting circuit
