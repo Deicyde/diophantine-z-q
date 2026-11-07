@@ -239,9 +239,9 @@ theorem Exec.regs_of_not_mem_writes {s : Stmt} {ρ : Regs} {o : Outcome} (h : Ex
     ∀ k, k ∉ s.writes → o.regs k = ρ k := by
   induction h with
   | skip => intro k _; rfl
-  | clear x ρ => intro k hk; simp_all [Stmt.writes, Outcome.regs, Function.update_apply]
-  | inc x ρ _ => intro k hk; simp_all [Stmt.writes, Outcome.regs, Function.update_apply]
-  | pred x ρ => intro k hk; simp_all [Stmt.writes, Outcome.regs, Function.update_apply]
+  | clear x ρ => intro k hk; simp_all [Stmt.writes, Outcome.regs]
+  | inc x ρ _ => intro k hk; simp_all [Stmt.writes, Outcome.regs]
+  | pred x ρ => intro k hk; simp_all [Stmt.writes, Outcome.regs]
   | seq_normal _ _ ih1 ih2 =>
     intro k hk
     simp only [Stmt.writes, List.mem_append, not_or] at hk
@@ -411,7 +411,8 @@ theorem reaches_ifLt {μ : Machine} {L a b E : ℕ} (hab : a ≠ b) (h0 : μ L =
       convert this using 2
       funext k
       simp only [hρ', Function.update_apply]
-      split_ifs <;> simp_all <;> omega
+      split_ifs <;> simp_all
+      omega
     · by_cases hb : ρ b = 0
       · convert reaches_dec_zero h0 hb using 2
         funext k
@@ -429,11 +430,11 @@ theorem reaches_ifLt {μ : Machine} {L a b E : ℕ} (hab : a ≠ b) (h0 : μ L =
       convert this using 2
       funext k
       simp only [hρ', Function.update_apply]
-      split_ifs <;> simp_all <;> omega
+      split_ifs <;> simp_all
+      omega
 
 /-- The halving loop of `divmod2`. -/
-theorem reaches_divmod2 {μ : Machine} {L y q r : ℕ} (hyq : y ≠ q) (hyr : y ≠ r) (hqr : q ≠ r)
-    (hqJ : q ≠ J) (hrJ : r ≠ J)
+theorem reaches_divmod2 {μ : Machine} {L y q r : ℕ} (hyq : y ≠ q) (hqJ : q ≠ J) (hrJ : r ≠ J)
     (hcode : CodeAt μ L ((Stmt.divmod2 y q r).compile L 0 0 0)) :
     ∀ ρ : Regs, ρ J = 0 →
       Reaches μ ⟨L, ρ⟩ ⟨L + 8, Function.update (Function.update (Function.update ρ y 0) q
@@ -487,7 +488,8 @@ theorem reaches_divmod2 {μ : Machine} {L y q r : ℕ} (hyq : y ≠ q) (hyr : y 
 
 theorem CodeAt.seq {μ : Machine} {L ls le ex : ℕ} {s t : Stmt}
     (h : CodeAt μ L ((Stmt.seq s t).compile L ls le ex)) :
-    CodeAt μ L (s.compile L ls le ex) ∧ CodeAt μ (L + s.size) (t.compile (L + s.size) ls le ex) := by
+    CodeAt μ L (s.compile L ls le ex) ∧
+      CodeAt μ (L + s.size) (t.compile (L + s.size) ls le ex) := by
   simp only [Stmt.compile] at h
   refine ⟨h.append_left, ?_⟩
   have := h.append_right
@@ -629,10 +631,10 @@ theorem compile_correct {μ : Machine} {s : Stmt} {ρ : Regs} {o : Outcome} (hex
     have := ih hct hJ1
     cases o <;> simpa [Outcome.target, Stmt.size, Nat.add_assoc, Nat.add_comm,
         Nat.add_left_comm] using this
-  | @divmod2 y q r ρ hyq hyr hqr hqJ hrJ =>
+  | @divmod2 y q r ρ hyq _ _ hqJ hrJ =>
     intro L ls le ex h hJ
     have hcode : CodeAt μ L ((Stmt.divmod2 y q r).compile L 0 0 0) := h
-    exact reaches_divmod2 hyq hyr hqr hqJ hrJ hcode ρ hJ
+    exact reaches_divmod2 hyq hqJ hrJ hcode ρ hJ
   | @loop_normal b ρ ρ' hb ih =>
     intro L ls le ex h hJ
     exact ih (ls := L) (le := L + b.size) h hJ

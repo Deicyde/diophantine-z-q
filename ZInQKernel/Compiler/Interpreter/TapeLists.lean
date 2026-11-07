@@ -5,8 +5,8 @@ import Mathlib
 
 Finite lists of naturals are coded by `nil = 0` and `cons h t = 2 ^ h * (2 * t + 1)`.
 `cons` is a bijection from `ℕ × ℕ` onto the positive naturals, every natural codes exactly one
-list, and `listGet`/`listSet` on codes satisfy the read-after-write equations. A register file `ρ` is
-represented by a code `L` when `ρ i = listGet L i` for every `i`.
+list, and `listGet`/`listSet` on codes satisfy the read-after-write equations. A register file
+`ρ` is represented by a code `L` when `ρ i = listGet L i` for every `i`.
 
 (Blueprint: `compiler/natural/universal/tape-lists.md`.)
 -/
@@ -131,9 +131,11 @@ theorem listGet_zero_left (i : ℕ) : listGet 0 i = 0 := by
 
 @[simp] theorem listGet_cons_zero (h t : ℕ) : listGet (cons h t) 0 = h := by simp [listGet]
 
-@[simp] theorem listGet_cons_succ (h t i : ℕ) : listGet (cons h t) (i + 1) = listGet t i := by simp [listGet]
+@[simp] theorem listGet_cons_succ (h t i : ℕ) : listGet (cons h t) (i + 1) = listGet t i := by
+  simp [listGet]
 
-@[simp] theorem listSet_cons_zero (h t v : ℕ) : listSet (cons h t) 0 v = cons v t := by simp [listSet]
+@[simp] theorem listSet_cons_zero (h t v : ℕ) : listSet (cons h t) 0 v = cons v t := by
+  simp [listSet]
 
 @[simp] theorem listSet_cons_succ (h t i v : ℕ) :
     listSet (cons h t) (i + 1) v = cons h (listSet t i v) := by simp [listSet]
@@ -143,7 +145,8 @@ theorem listGet_listSet_self (L i v : ℕ) : listGet (listSet L i v) i = v := by
   | zero => simp [listSet]
   | succ i ih => simp [listSet, ih]
 
-theorem listGet_listSet_of_ne (L i i' v : ℕ) (h : i' ≠ i) : listGet (listSet L i v) i' = listGet L i' := by
+theorem listGet_listSet_of_ne (L i i' v : ℕ) (h : i' ≠ i) :
+    listGet (listSet L i v) i' = listGet L i' := by
   induction i generalizing L i' with
   | zero =>
     obtain ⟨i', rfl⟩ := Nat.exists_eq_succ_of_ne_zero h
@@ -165,7 +168,8 @@ def listSetPad (l : List ℕ) (i v : ℕ) : List ℕ :=
   (l ++ List.replicate (i + 1 - l.length) 0).set i v
 
 /-- `listSet` on list codes is `listSetPad`. -/
-theorem listSet_listCode (l : List ℕ) (i v : ℕ) : listSet (listCode l) i v = listCode (listSetPad l i v) := by
+theorem listSet_listCode (l : List ℕ) (i v : ℕ) :
+    listSet (listCode l) i v = listCode (listSetPad l i v) := by
   induction l generalizing i with
   | nil =>
     induction i with

@@ -183,7 +183,8 @@ theorem interpreter_toMachine_cont :
   exact h.get 0 (by simp [Stmt.compile])
 
 theorem codeAt_cleanupStmt :
-    CodeAt interpreter.toMachine cleanupEntry (cleanupStmt.compile cleanupEntry 0 0 cleanupEntry) := by
+    CodeAt interpreter.toMachine cleanupEntry
+      (cleanupStmt.compile cleanupEntry 0 0 cleanupEntry) := by
   have h := codeAt_interpreter.seq.2
   rw [Nat.zero_add, mainStmt_size] at h
   exact h
