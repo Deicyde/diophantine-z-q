@@ -18,26 +18,42 @@ namespace ZInQ.Compiler.Universal
 
 open Syntax Natural
 
-/-- The construction `m` only appends explicit variables and nodes. -/
+/-- The nodes other than call nodes. -/
+def nonCall (l : List NatNode) : List NatNode := l.filter fun n => !n.isCall
+
+/-- The construction `m` only appends explicit variables and nodes, and keeps the nodes other
+than call nodes pairwise distinct (hash-consing). -/
 def Grows {α : Type} (m : NM α) : Prop :=
-  ∀ s, s.vars <+: (m s).2.vars ∧ s.nodes <+: (m s).2.nodes
+  ∀ s, s.vars <+: (m s).2.vars ∧ s.nodes <+: (m s).2.nodes ∧
+    ((nonCall s.nodes).Nodup → (nonCall (m s).2.nodes).Nodup)
 
 namespace Grows
 
 variable {α β : Type}
 
 theorem pure (a : α) : Grows (Pure.pure a : NM α) := fun _ =>
-  ⟨List.prefix_refl _, List.prefix_refl _⟩
+  ⟨List.prefix_refl _, List.prefix_refl _, id⟩
 
 theorem bind {m : NM α} {f : α → NM β} (hm : Grows m) (hf : ∀ a, Grows (f a)) :
     Grows (m >>= f) := fun s =>
-  ⟨(hm s).1.trans (hf _ _).1, (hm s).2.trans (hf _ _).2⟩
+  ⟨(hm s).1.trans (hf _ _).1, (hm s).2.1.trans (hf _ _).2.1, fun h => (hf _ _).2.2 ((hm s).2.2 h)⟩
 
 theorem bind' {m : NM α} {f : α → NM β} (hf : ∀ a, Grows (f a)) (hm : Grows m) :
     Grows (m >>= f) := bind hm hf
 
-theorem node (n : NatNode) : Grows (Natural.node n) := fun s =>
-  ⟨by rw [(node_spec n s).2.1], (node_spec n s).2.2.2⟩
+theorem node (n : NatNode) : Grows (Natural.node n) := fun s => by
+  refine ⟨by rw [(node_spec n s).2.1], (node_spec n s).2.2.2, fun h => ?_⟩
+  unfold Natural.node
+  split
+  · exact h
+  · rename_i hn
+    rw [List.idxOf?_eq_none_iff] at hn
+    simp only [nonCall, List.filter_append] at h ⊢
+    refine List.nodup_append.2 ⟨h, (List.nodup_singleton n).filter _, fun a ha b hb => ?_⟩
+    rintro rfl
+    have h1 := (List.mem_filter.1 ha).1
+    have h2 := List.mem_singleton.1 (List.mem_filter.1 hb).1
+    exact hn (h2 ▸ h1)
 
 theorem constant (c : ℤ) : Grows (Natural.constant c) :=
   (node _).bind fun _ => pure _
@@ -67,14 +83,15 @@ theorem square (x : Ex) : Grows (Natural.square x) := mulL _
 theorem scale (n : ℤ) (x : Ex) : Grows (Natural.scale n x) := (constant _).bind fun _ => mulL _
 
 theorem note (k : MacroKind) : Grows (Natural.note k) := fun _ =>
-  ⟨List.prefix_refl _, List.prefix_refl _⟩
+  ⟨List.prefix_refl _, List.prefix_refl _, id⟩
 
 theorem fresh : Grows Natural.fresh := fun s => by
   have h := node (.var s.next) { s with next := s.next + 1, vars := s.vars ++ [(s.next, .witness)] }
-  exact ⟨(List.prefix_append _ _).trans h.1, h.2⟩
+  exact ⟨(List.prefix_append _ _).trans h.1, h.2.1, h.2.2⟩
 
 theorem callPower (P Q R : Ex) : Grows (Natural.callPower P Q R) := fun _ =>
-  ⟨List.prefix_refl _, List.prefix_append _ _⟩
+  ⟨List.prefix_refl _, List.prefix_append _ _, fun h => by
+    simpa [Natural.callPower, nonCall, List.filter_append, NatNode.isCall] using h⟩
 
 theorem seqM_cons {m : NM α} {ms : List (NM α)} (hm : Grows m) (hms : Grows (seqM ms)) :
     Grows (seqM (m :: ms)) :=
@@ -160,14 +177,17 @@ theorem encode (τ : ExPoly) (φ : NForm) : Grows (φ.encode τ) := by
 
 end Grows
 
-/-- The circuit of a growing construction lists its inputs first, and its node list begins with
-their variable nodes. -/
+/-- The circuit of a growing construction lists its inputs first, its node list begins with
+their variable nodes, and its nodes other than call nodes are pairwise distinct. -/
 theorem toCircuit_prefix {k : ℕ} {m : NM NForm} (hm : Grows m) :
     (State.init k).vars <+: (m.toCircuit k).explicitVars ∧
-      (State.init k).nodes <+: (m.toCircuit k).nodes := by
+      (State.init k).nodes <+: (m.toCircuit k).nodes ∧ (nonCall (m.toCircuit k).nodes).Nodup := by
   have h1 := hm (State.init k)
   have h2 := Grows.encode ExPoly.empty (m (State.init k)).1 (m (State.init k)).2
-  exact ⟨h1.1.trans h2.1, h1.2.trans h2.2⟩
+  have h0 : (nonCall (State.init k).nodes).Nodup := by
+    simp only [State.init, nonCall]
+    refine (List.Nodup.map (fun i j h => by simpa using h) List.nodup_range).filter _
+  exact ⟨h1.1.trans h2.1, h1.2.1.trans h2.2.1, h2.2.2 (h1.2.2 h0)⟩
 
 open Packed RM
 
@@ -259,7 +279,7 @@ theorem grows_construction (p : Program) (r k : ℕ) : Grows (construction p r k
 nodes. -/
 theorem compiled_prefix (p : Program) (r k : ℕ) :
     (State.init k).vars <+: (compiled p r k).explicitVars ∧
-      (State.init k).nodes <+: (compiled p r k).nodes :=
+      (State.init k).nodes <+: (compiled p r k).nodes ∧ (nonCall (compiled p r k).nodes).Nodup :=
   toCircuit_prefix (grows_construction p r k)
 
 end ZInQ.Compiler.Universal

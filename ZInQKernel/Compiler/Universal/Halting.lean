@@ -41,8 +41,12 @@ theorem haltingCircuit_explicitVars_eq :
 
 /-- The node list of `ℋ` begins with the variable nodes of `X_0` and `X_1`. -/
 theorem haltingCircuit_nodes_eq : ∃ rest, haltingCircuit.nodes = .var 0 :: .var 1 :: rest := by
-  obtain ⟨rest, h⟩ := (compiled_prefix interpreter 204 2).2
+  obtain ⟨rest, h⟩ := (compiled_prefix interpreter 204 2).2.1
   exact ⟨rest, h.symm⟩
+
+/-- The nodes of `ℋ` other than call nodes are pairwise distinct (hash-consing). -/
+theorem haltingCircuit_nonCall_nodup : (nonCall haltingCircuit.nodes).Nodup :=
+  (compiled_prefix interpreter 204 2).2.2
 
 /-- **Counts of the universal halting circuit**: `54,049` explicit variables, `15,845` calls
 (blocks), variable count `1,305,804`, and well-scopedness. -/

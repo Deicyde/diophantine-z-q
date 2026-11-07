@@ -2,6 +2,10 @@ import ZInQKernel.Compiler.Universal.Interpreter
 import ZInQKernel.Compiler.Universal.Shape
 import ZInQKernel.Compiler.Universal.Grows
 import ZInQKernel.Compiler.Universal.Halting
+import ZInQKernel.Compiler.Universal.NodeCheck
+import ZInQKernel.Compiler.Universal.Specialize
+import ZInQKernel.Compiler.Universal.SpecializeShape
+import ZInQKernel.Compiler.Universal.PrecisionCircuit
 
 /-!
 # The universal interpreter and the five-input circuit
