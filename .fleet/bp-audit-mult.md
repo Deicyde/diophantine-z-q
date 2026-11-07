@@ -1,9 +1,9 @@
 # Report: bp-audit-mult
 
 This task is an audit: it adds no Lean declarations and edits no Lean files. The full findings are
-in `docs/kernel-audits/blueprint-audit-2026-11-07-mult.md`. In the status column below, "proved" means
-the article's Lean (`statement: formalized`) says what the article says after the edits, and it
-records the `proof:` state from the frontmatter.
+in `docs/kernel-audits/blueprint-audit-2026-11-07-mult.md`. All 80 audited articles have
+`statement: formalized`; the "Verdict" column of the tables below is the audit status of each one
+against its Lean (after the edits listed under "Statement corrections").
 
 ## Summary
 
