@@ -21,3 +21,6 @@ import ZInQKernel.Compiler.Translation
 import ZInQKernel.Assembly.Values
 import ZInQKernel.Assembly.Local
 import ZInQKernel.Size.FormalMultiple
+import ZInQKernel.Syntax.Recipes
+import ZInQKernel.Compiler.Interpreter
+import ZInQKernel.Compiler.Universal
