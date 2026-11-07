@@ -11,8 +11,8 @@ Blueprint: `multiplication/certificate/slope-predicate.md`.
 rational `q` and six test groups `(h_g, z_g)` such that, with `R₀ = ηF(t)/(t - 1)⁸`,
 `a = 1 - R₀q²`, `R = ℓ²a²R₀`, the normalized tests
 `C_{gj} = τ_j(h_g, z_g; c) / (R₀^{k_j} (t - 1)^{k_j + 1})`, `W_g = ∏_j (1 + R C_{gj}²)` and
-`Θ = Tr Σ_g W_g⁻¹ = 2 Re Σ_g W_g⁻¹` (`QuadraticAlgebra.trace`), one has `a ≠ 0`, `h_g ≠ 0`, `h_g ≠ c₀`, `W_g ≠ 0`, `Θ ≠ 0`
-and `Φ(R/Θ²)`.
+`Θ = Tr Σ_g W_g⁻¹ = 2 Re Σ_g W_g⁻¹` (`QuadraticAlgebra.trace`), one has `a ≠ 0`,
+`h_g ≠ 0`, `h_g ≠ c₀`, `W_g ≠ 0`, `Θ ≠ 0` and `Φ(R/Θ²)`.
 
 The intermediate quantities are named functions (`slopeR0`, `slopeA`, `slopeR`, `normTests`,
 `groupW`, `traceTheta`) so that the predicate can be unfolded step by step. In the certificate
