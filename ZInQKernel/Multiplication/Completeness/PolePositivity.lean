@@ -1,4 +1,4 @@
-import ZInQKernel.Model.Field
+import ZInQKernel.Multiplication.Certificate.SlopePredicate
 
 /-!
 # Positivity and smallness of the pole input
@@ -18,21 +18,18 @@ theorem trace_cast_eq_emb (z : K0) :
     ((QuadraticAlgebra.trace z : ℚ) : ℝ) = embPlus z + embMinus z := by
   rw [K0.trace_eq, embPlus_apply, embMinus_apply]; push_cast; ring
 
-/-- The product `W = ∏_j (1 + R C_j²)` of the slope predicate. -/
-noncomputable def poleW (R : ℚ) (C : Fin 12 → K0) : K0 := ∏ j, (1 + (R : K0) * C j ^ 2)
-
-/-- The trace `Θ = Tr ∑_g W_g⁻¹` of the slope predicate. -/
-noncomputable def poleTheta (R : ℚ) (C : Fin 6 → Fin 12 → K0) : ℚ :=
-  QuadraticAlgebra.trace (∑ g, (poleW R (C g))⁻¹)
+/-- The trace `Θ = Tr ∑_g W_g⁻¹` of the slope predicate as a function of `R` and the `C_{gj}`. -/
+noncomputable abbrev poleTheta (R : ℚ) (C : Fin 6 → Fin 12 → K0) : ℚ :=
+  traceTheta fun g => groupW R (C g)
 
 /-- Bounds on a real embedding of `W`: `1 ≤ σ(W) ≤ (1 + R K)^12` when `σ(C_j)² ≤ K`. -/
-theorem emb_poleW_bounds (σ : K0 →+* ℝ) {R : ℚ} (hR : 0 ≤ R) (C : Fin 12 → K0) {K : ℝ}
+theorem emb_groupW_bounds (σ : K0 →+* ℝ) {R : ℚ} (hR : 0 ≤ R) (C : Fin 12 → K0) {K : ℝ}
     (hK : ∀ j, σ (C j) ^ 2 ≤ K) :
-    1 ≤ σ (poleW R C) ∧ σ (poleW R C) ≤ (1 + R * K) ^ 12 := by
+    1 ≤ σ (groupW R C) ∧ σ (groupW R C) ≤ (1 + R * K) ^ 12 := by
   have hRr : (0 : ℝ) ≤ R := by exact_mod_cast hR
   have hfac : ∀ j, σ (1 + (R : K0) * C j ^ 2) = 1 + R * σ (C j) ^ 2 := by
     intro j; simp [map_ratCast]
-  unfold poleW
+  unfold groupW
   rw [map_prod]
   simp only [hfac]
   constructor
@@ -47,46 +44,46 @@ theorem emb_poleW_bounds (σ : K0 →+* ℝ) {R : ℚ} (hR : 0 ≤ R) (C : Fin 1
     simpa using this
 
 /-- The two real embeddings of `W_g` are at least `1`; in particular `W_g ≠ 0`. -/
-theorem one_le_emb_poleW {R : ℚ} (hR : 0 ≤ R) (C : Fin 12 → K0) :
-    1 ≤ embPlus (poleW R C) ∧ 1 ≤ embMinus (poleW R C) :=
-  ⟨(emb_poleW_bounds embPlus hR C (K := ∑ j, embPlus (C j) ^ 2)
+theorem one_le_emb_groupW {R : ℚ} (hR : 0 ≤ R) (C : Fin 12 → K0) :
+    1 ≤ embPlus (groupW R C) ∧ 1 ≤ embMinus (groupW R C) :=
+  ⟨(emb_groupW_bounds embPlus hR C (K := ∑ j, embPlus (C j) ^ 2)
       fun j => Finset.single_le_sum (f := fun j => embPlus (C j) ^ 2)
         (fun _ _ => sq_nonneg _) (Finset.mem_univ j)).1,
-   (emb_poleW_bounds embMinus hR C (K := ∑ j, embMinus (C j) ^ 2)
+   (emb_groupW_bounds embMinus hR C (K := ∑ j, embMinus (C j) ^ 2)
       fun j => Finset.single_le_sum (f := fun j => embMinus (C j) ^ 2)
         (fun _ _ => sq_nonneg _) (Finset.mem_univ j)).1⟩
 
-theorem poleW_ne_zero {R : ℚ} (hR : 0 ≤ R) (C : Fin 12 → K0) : poleW R C ≠ 0 := by
+theorem groupW_ne_zero {R : ℚ} (hR : 0 ≤ R) (C : Fin 12 → K0) : groupW R C ≠ 0 := by
   intro h
-  have := (one_le_emb_poleW hR C).1
+  have := (one_le_emb_groupW hR C).1
   rw [h, map_zero] at this
   linarith
 
 /-- `Θ` as a sum of the twelve reals `σ(W_g)⁻¹`. -/
 theorem poleTheta_cast (R : ℚ) (C : Fin 6 → Fin 12 → K0) :
     ((poleTheta R C : ℚ) : ℝ) =
-      ∑ g, (embPlus (poleW R (C g)))⁻¹ + ∑ g, (embMinus (poleW R (C g)))⁻¹ := by
-  rw [poleTheta, trace_cast_eq_emb, map_sum, map_sum]
+      ∑ g, (embPlus (groupW R (C g)))⁻¹ + ∑ g, (embMinus (groupW R (C g)))⁻¹ := by
+  rw [poleTheta, traceTheta, trace_cast_eq_emb, map_sum, map_sum]
   simp only [map_inv₀]
 
 /-- `0 < Θ ≤ 12` for `R ≥ 0`. -/
 theorem poleTheta_pos_le {R : ℚ} (hR : 0 ≤ R) (C : Fin 6 → Fin 12 → K0) :
     0 < poleTheta R C ∧ poleTheta R C ≤ 12 := by
   have h := poleTheta_cast R C
-  have hp : ∀ g, 0 < (embPlus (poleW R (C g)))⁻¹ ∧ (embPlus (poleW R (C g)))⁻¹ ≤ 1 := fun g =>
-    ⟨inv_pos.mpr (by linarith [(one_le_emb_poleW hR (C g)).1]),
-      inv_le_one_of_one_le₀ (one_le_emb_poleW hR (C g)).1⟩
-  have hm : ∀ g, 0 < (embMinus (poleW R (C g)))⁻¹ ∧ (embMinus (poleW R (C g)))⁻¹ ≤ 1 := fun g =>
-    ⟨inv_pos.mpr (by linarith [(one_le_emb_poleW hR (C g)).2]),
-      inv_le_one_of_one_le₀ (one_le_emb_poleW hR (C g)).2⟩
-  have s1 : 0 < ∑ g, (embPlus (poleW R (C g)))⁻¹ :=
+  have hp : ∀ g, 0 < (embPlus (groupW R (C g)))⁻¹ ∧ (embPlus (groupW R (C g)))⁻¹ ≤ 1 := fun g =>
+    ⟨inv_pos.mpr (by linarith [(one_le_emb_groupW hR (C g)).1]),
+      inv_le_one_of_one_le₀ (one_le_emb_groupW hR (C g)).1⟩
+  have hm : ∀ g, 0 < (embMinus (groupW R (C g)))⁻¹ ∧ (embMinus (groupW R (C g)))⁻¹ ≤ 1 := fun g =>
+    ⟨inv_pos.mpr (by linarith [(one_le_emb_groupW hR (C g)).2]),
+      inv_le_one_of_one_le₀ (one_le_emb_groupW hR (C g)).2⟩
+  have s1 : 0 < ∑ g, (embPlus (groupW R (C g)))⁻¹ :=
     Finset.sum_pos (fun g _ => (hp g).1) Finset.univ_nonempty
-  have s2 : 0 < ∑ g, (embMinus (poleW R (C g)))⁻¹ :=
+  have s2 : 0 < ∑ g, (embMinus (groupW R (C g)))⁻¹ :=
     Finset.sum_pos (fun g _ => (hm g).1) Finset.univ_nonempty
-  have s3 : ∑ g, (embPlus (poleW R (C g)))⁻¹ ≤ 6 := by
+  have s3 : ∑ g, (embPlus (groupW R (C g)))⁻¹ ≤ 6 := by
     simpa using Finset.sum_le_sum (s := Finset.univ) (g := fun _ : Fin 6 => (1 : ℝ))
       (fun g _ => (hp g).2)
-  have s4 : ∑ g, (embMinus (poleW R (C g)))⁻¹ ≤ 6 := by
+  have s4 : ∑ g, (embMinus (groupW R (C g)))⁻¹ ≤ 6 := by
     simpa using Finset.sum_le_sum (s := Finset.univ) (g := fun _ : Fin 6 => (1 : ℝ))
       (fun g _ => (hm g).2)
   constructor
@@ -140,12 +137,12 @@ theorem pole_input_small_R (C : Fin 6 → Fin 12 → K0) :
     linarith
   have hθlow : (3 / 1024 : ℝ) ≤ poleTheta R C := by
     rw [poleTheta_cast]
-    have hp : ∀ g, (1 / 4096 : ℝ) ≤ (embPlus (poleW R (C g)))⁻¹ := fun g => by
-      have hb := emb_poleW_bounds embPlus hR.le (C g) (hKp g)
+    have hp : ∀ g, (1 / 4096 : ℝ) ≤ (embPlus (groupW R (C g)))⁻¹ := fun g => by
+      have hb := emb_groupW_bounds embPlus hR.le (C g) (hKp g)
       rw [one_div]
       exact inv_anti₀ (by linarith) (hb.2.trans hpow)
-    have hm : ∀ g, (1 / 4096 : ℝ) ≤ (embMinus (poleW R (C g)))⁻¹ := fun g => by
-      have hb := emb_poleW_bounds embMinus hR.le (C g) (hKm g)
+    have hm : ∀ g, (1 / 4096 : ℝ) ≤ (embMinus (groupW R (C g)))⁻¹ := fun g => by
+      have hb := emb_groupW_bounds embMinus hR.le (C g) (hKm g)
       rw [one_div]
       exact inv_anti₀ (by linarith) (hb.2.trans hpow)
     have s1 := Finset.sum_le_sum (s := Finset.univ) (f := fun _ : Fin 6 => (1 / 4096 : ℝ))
@@ -171,9 +168,9 @@ embeddings of every `W_g` are at least `1` (so `W_g ≠ 0`), `0 < Θ ≤ 12`, an
 `0 < R / Θ² < 1/2`. -/
 theorem pole_input_small (R0 ℓ : ℚ) (hR0 : 0 < R0) (hℓ : ℓ ≠ 0) (C : Fin 6 → Fin 12 → K0) :
     ∃ ε : ℝ, 0 < ε ∧ ∀ a : ℚ, a ≠ 0 → |(a : ℝ)| < ε →
-      (∀ g, 1 ≤ embPlus (poleW (ℓ ^ 2 * a ^ 2 * R0) (C g)) ∧
-          1 ≤ embMinus (poleW (ℓ ^ 2 * a ^ 2 * R0) (C g))) ∧
-      (∀ g, poleW (ℓ ^ 2 * a ^ 2 * R0) (C g) ≠ 0) ∧
+      (∀ g, 1 ≤ embPlus (groupW (ℓ ^ 2 * a ^ 2 * R0) (C g)) ∧
+          1 ≤ embMinus (groupW (ℓ ^ 2 * a ^ 2 * R0) (C g))) ∧
+      (∀ g, groupW (ℓ ^ 2 * a ^ 2 * R0) (C g) ≠ 0) ∧
       0 < poleTheta (ℓ ^ 2 * a ^ 2 * R0) C ∧ poleTheta (ℓ ^ 2 * a ^ 2 * R0) C ≤ 12 ∧
       0 < ℓ ^ 2 * a ^ 2 * R0 / poleTheta (ℓ ^ 2 * a ^ 2 * R0) C ^ 2 ∧
       ℓ ^ 2 * a ^ 2 * R0 / poleTheta (ℓ ^ 2 * a ^ 2 * R0) C ^ 2 < 1 / 2 := by
@@ -195,7 +192,7 @@ theorem pole_input_small (R0 ℓ : ℚ) (hR0 : 0 < R0) (hℓ : ℓ ≠ 0) (C : F
     push_cast
     nlinarith
   obtain ⟨h1, h2⟩ := hsmall _ hRpos hRρ
-  exact ⟨fun g => one_le_emb_poleW hR0' (C g), fun g => poleW_ne_zero hR0' (C g),
+  exact ⟨fun g => one_le_emb_groupW hR0' (C g), fun g => groupW_ne_zero hR0' (C g),
     (poleTheta_pos_le hR0' C).1, (poleTheta_pos_le hR0' C).2, h1, h2⟩
 
 end ZInQ.Mult

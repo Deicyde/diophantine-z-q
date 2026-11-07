@@ -1,4 +1,4 @@
-import ZInQKernel.Syntax.Constants
+import ZInQKernel.Multiplication.Certificate.Constants
 
 /-!
 # Valuations of the pattern values
@@ -13,21 +13,14 @@ namespace ZInQ.Mult
 
 open scoped BigOperators
 
+attribute [local irreducible] catalogue
+
 theorem catalogueSet_prime {q : ℕ} (hq : q ∈ catalogueSet) : q.Prime ∧ 324 < q := by
   obtain ⟨r, i, hr, hcop, -, rfl⟩ := hq
   exact ⟨(cataloguePrime_spec hr hcop i).1, (cataloguePrime_spec hr hcop i).2.1⟩
 
-theorem catalogueSet_finite : catalogueSet.Finite := by
-  rw [Syntax.catalogueSet_eq]; exact Finset.finite_toSet _
-
-/-- The catalogue as a `Finset`. -/
-noncomputable def catalogueFin : Finset ℕ := catalogueSet_finite.toFinset
-
-theorem mem_catalogueFin {q : ℕ} : q ∈ catalogueFin ↔ q ∈ catalogueSet :=
-  Set.Finite.mem_toFinset _
-
-theorem le_catalogueFin_sup {q : ℕ} (hq : q ∈ catalogueSet) : q ≤ catalogueFin.sup id :=
-  Finset.le_sup (f := id) (mem_catalogueFin.mpr hq)
+theorem le_catalogue_sup {q : ℕ} (hq : q ∈ catalogueSet) : q ≤ catalogue.sup id :=
+  Finset.le_sup (f := id) (mem_catalogue.mpr hq)
 
 theorem padicValNat_le_of_dvd' {q a b : ℕ} [Fact q.Prime] (hb : b ≠ 0) (hab : a ∣ b) :
     padicValNat q a ≤ padicValNat q b := by
