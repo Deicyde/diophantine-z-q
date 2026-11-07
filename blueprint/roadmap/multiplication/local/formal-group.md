@@ -60,7 +60,7 @@ If $z_3=0$ then $\omega_3=\nu$ and $(*)$ gives $\nu=0$, so $Q=O$ and $P_1+P_2=O\
 Otherwise $\omega_3=\lambda z_3+\nu$ satisfies $v(\omega_3)\ge3k\ge1$, hence
 $v(\omega_3)=3v(z_3)$ and $\omega_3\ne0$, so $Q=(z_3/\omega_3,-1/\omega_3)$ is affine with
 $v(x(Q))=-2v(z_3)\le-2k$, and $P_1+P_2=-Q\in W_k(K)$ with $z(P_1+P_2)=-z_3$. Sums involving $O$
-are trivial. (For a Lean proof it may be simpler to verify $z(P_1+P_2)=-z_3$ directly from the
+are trivial. (Alternatively, $z(P_1+P_2)=-z_3$ can be verified directly from the
 Weierstrass addition formulas: the $(x,y)$-line $y=\ell x+m$ is $\omega=\lambda z+\nu$ with
 $\lambda=-\ell/m$, $\nu=-1/m$ when $m\ne0$, and the case $m=0$ is the line through $O$.)
 

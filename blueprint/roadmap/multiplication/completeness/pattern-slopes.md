@@ -18,8 +18,9 @@ $t_1,t_2,t_3\in\mathbb Q$ with $t_1+t_2+t_3=A$ such that each $t=t_j$ satisfies:
 3. every odd contact prime $p\notin S_b$ of $t$ satisfies $p>B_0$, is a good prime in the
    sense of the [pattern hypothesis](../../main/prime-pattern.md) (it splits in $K_0$, both
    reductions of $E$ above it are good, and their orders $d_1,d_2$ satisfy $\gcd(d_1,d_2)=4$
-   and $p\nmid d_1d_2$), and has $v_p(t-c)=1$ for the unique $c\in\mathcal C$ with
-   $v_p(t-c)>0$;
+   and $p\nmid d_1d_2$), and has $v_p(t-c)=1$ for every $c\in\mathcal C$ with
+   $v_p(t-c)>0$ (there is only one such $c$, because $p>324$ divides no difference of two
+   elements of $\mathcal C$);
 4. $t$ has at most six odd contact primes outside $S_b$.
 
 This is the application of Proposition 6.2 to one of the nine integral homogeneous
