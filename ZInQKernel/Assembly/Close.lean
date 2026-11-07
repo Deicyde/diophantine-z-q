@@ -1,5 +1,6 @@
 import ZInQKernel.Assembly.Close.Relation
 import ZInQKernel.Assembly.Close.Soundness
+import ZInQKernel.Assembly.Close.Completeness
 
 /-!
 # The relation Close
