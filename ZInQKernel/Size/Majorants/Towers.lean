@@ -25,16 +25,16 @@ theorem tower_four : hyperoperation 4 2 4 = 65536 := NumericalTowerBounds.tower_
 
 /-- The triple power with the power instance of this file (proved with a variable exponent,
 so that nothing is evaluated). -/
-theorem triplePower_eq (a : ℕ) : triplePower a = 2 ^ 2 ^ 2 ^ a := rfl
+theorem triplePower_eq_pow (a : ℕ) : triplePower a = 2 ^ 2 ^ 2 ^ a := rfl
 
-theorem quadruplePower_eq (a : ℕ) : quadruplePower a = 2 ^ 2 ^ 2 ^ 2 ^ a := rfl
+theorem quadruplePower_eq_pow (a : ℕ) : quadruplePower a = 2 ^ 2 ^ 2 ^ 2 ^ a := rfl
 
 /-- **Comparison with the towers.** For `T < 2^2^2^9013`:
 `(T+1)^2048 < 2^2^2^9014 < 2↑↑7` and `2^((T+1)^2048) < 2↑↑8`. -/
 theorem tower_bounds (T : ℕ) (hT : T < 2 ^ 2 ^ 2 ^ 9013) :
     (T + 1) ^ 2048 < 2 ^ 2 ^ 2 ^ 9014 ∧ 2 ^ 2 ^ 2 ^ 9014 < hyperoperation 4 2 7 ∧
       2 ^ (T + 1) ^ 2048 < hyperoperation 4 2 8 := by
-  rw [← triplePower_eq] at hT ⊢
+  rw [← triplePower_eq_pow] at hT ⊢
   have h1 := degree_bound_of_cutoff_bound T hT
   have h3 := coefficient_bound_of_cutoff_bound T hT
   have hpow : ∀ a b : ℕ, (2 : ℕ) ^ (a + 1) ^ b = 2 ^ (a + 1) ^ b := fun _ _ => rfl

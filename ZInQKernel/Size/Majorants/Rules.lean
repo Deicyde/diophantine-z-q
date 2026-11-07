@@ -18,7 +18,7 @@ For `B ≥ 2^20`:
 5. sums of at most `B` squares at height `h + 2` (`Maj.sum_sq`);
 6. products of at most `B` factors at height `h + 1` (`Maj.prod`).
 
-The proofs go through the finer scale `Sz` of `ZInQKernel.Size.Majorants.Basic`, except for
+The proofs go through the finer scale `Scale` of `ZInQKernel.Size.Majorants.Basic`, except for
 the constructor rule, whose norm and degree bounds are not of the same size.
 -/
 
@@ -39,7 +39,7 @@ theorem mono {h h' : ℕ} {P : MvPolynomial σ ℤ} (hP : Maj B h P) (hh : h ≤
   rcases Nat.eq_zero_or_pos h' with rfl | hh'
   · obtain rfl : h = 0 := by omega
     exact hP
-  · exact Sz.maj ((Maj.sz hP).mono hB (by omega) le_rfl) hh'.ne'
+  · exact Scale.maj ((Maj.sz hP).mono hB (by omega) le_rfl) hh'.ne'
 
 theorem X (i : σ) : Maj B 0 (X i : MvPolynomial σ ℤ) := by
   rw [maj_zero_iff, totalDegree_X, l1_X]
@@ -91,7 +91,7 @@ theorem constructor {k : ℕ} {C : MvPolynomial σ ℤ} {Q : σ → MvPolynomial
   rcases Nat.eq_zero_or_pos k with rfl | hk
   · have hQ' : ∀ i ∈ C.vars, (Q i).totalDegree ≤ 1 ∧ l1 (Q i) ≤ 1 := fun i hi =>
       maj_zero_iff.1 (hQ i hi)
-    refine ⟨(totalDegree_bind₁_le Q C 1 fun i hi => (hQ' i hi).1).trans ?_, ?_⟩
+    refine ⟨(Syntax.totalDegree_bind₁_le Q C 1 fun i hi => (hQ' i hi).1).trans ?_, ?_⟩
     · rw [mul_one]
       exact hdeg.trans (Nat.pow_le_pow_right hB1 (by norm_num))
     · refine (l1_bind₁_le Q C le_rfl fun i hi => (hQ' i hi).2).trans ?_
@@ -103,7 +103,7 @@ theorem constructor {k : ℕ} {C : MvPolynomial σ ℤ} {Q : σ → MvPolynomial
       rw [← pow_add]; congr 1; ring
     have hpow' : B ^ (8 * k + 4) = B ^ 4 * B ^ (8 * k) := by rw [← pow_add]; congr 1; ring
     have h8 : B ^ 8 ≤ B ^ (8 * k + 4) := Nat.pow_le_pow_right hB1 (by omega)
-    refine ⟨(totalDegree_bind₁_le Q C _ fun i hi => (hQ' i hi).1).trans ?_, ?_⟩
+    refine ⟨(Syntax.totalDegree_bind₁_le Q C _ fun i hi => (hQ' i hi).1).trans ?_, ?_⟩
     · rw [hpow, hpow']
       calc C.totalDegree * B ^ (8 * k) ≤ B ^ 4 * B ^ (8 * k) := Nat.mul_le_mul_right _ hdeg
         _ ≤ B ^ 4 * (B ^ 4 * B ^ (8 * k)) := Nat.le_mul_of_pos_left _ (by positivity)
@@ -134,7 +134,7 @@ theorem bind₁_of_maj_zero {h : ℕ} {P : MvPolynomial σ ℤ} {Q : σ → MvPo
   have hQ' : ∀ i ∈ P.vars, (Q i).totalDegree ≤ 1 ∧ l1 (Q i) ≤ 1 := fun i hi =>
     maj_zero_iff.1 (hQ i hi)
   have hd : (MvPolynomial.bind₁ Q P).totalDegree ≤ P.totalDegree := by
-    simpa using totalDegree_bind₁_le Q P 1 fun i hi => (hQ' i hi).1
+    simpa using Syntax.totalDegree_bind₁_le Q P 1 fun i hi => (hQ' i hi).1
   have hn : l1 (MvPolynomial.bind₁ Q P) ≤ l1 P := by
     simpa using l1_bind₁_le Q P le_rfl fun i hi => (hQ' i hi).2
   unfold Maj at hP ⊢
@@ -147,7 +147,7 @@ theorem bind₁_of_maj_zero {h : ℕ} {P : MvPolynomial σ ℤ} {Q : σ → MvPo
 theorem sum_sq {h : ℕ} (hB : 2 ^ 20 ≤ B) (cs : List (MvPolynomial σ ℤ)) (hlen : cs.length ≤ B)
     (hc : ∀ c ∈ cs, Maj B h c) : Maj B (h + 2) (cs.map (· ^ 2)).sum := by
   have hB1 := one_le_of_two_pow_twenty_le hB
-  have hsq : ∀ f ∈ cs.map (· ^ 2), Sz B (8 * (h + 1)) 0 f := by
+  have hsq : ∀ f ∈ cs.map (· ^ 2), Scale B (8 * (h + 1)) 0 f := by
     intro f hf
     obtain ⟨c, hc', rfl⟩ := List.mem_map.1 hf
     have := ((Maj.sz (hc c hc')).pow (n := 2) (k := 1) (by norm_num)).lift
@@ -157,13 +157,13 @@ theorem sum_sq {h : ℕ} (hB : 2 ^ 20 ≤ B) (cs : List (MvPolynomial σ ℤ)) (
     rw [List.length_map, pow_zero, one_mul]
     refine hlen.trans ((Nat.lt_two_pow_self).le.trans (Nat.pow_le_pow_right (by norm_num) ?_))
     exact Nat.le_self_pow (by omega) B
-  exact (Sz.list_sum hsq hlen' hB1).maj_succ (two_pow_le_pow_eight hB (by norm_num))
+  exact (Scale.list_sum hsq hlen' hB1).maj_succ (two_pow_le_pow_eight hB (by norm_num))
 
 theorem prod {h : ℕ} (hB : 2 ^ 20 ≤ B) (cs : List (MvPolynomial σ ℤ)) (hlen : cs.length ≤ B)
     (hc : ∀ c ∈ cs, Maj B h c) : Maj B (h + 1) cs.prod := by
   have hB1 := one_le_of_two_pow_twenty_le hB
-  have := Sz.list_prod_of_le_pow (fun c hc' => Maj.sz (hc c hc')) (d := 1) (by simpa using hlen)
-  refine Sz.maj (this.mono hB1 (by omega) le_rfl) (Nat.succ_ne_zero h)
+  have := Scale.list_prod_of_le_pow (fun c hc' => Maj.sz (hc c hc')) (d := 1) (by simpa using hlen)
+  refine Scale.maj (this.mono hB1 (by omega) le_rfl) (Nat.succ_ne_zero h)
 
 end Maj
 

@@ -27,33 +27,33 @@ open MvPolynomial ZInQ.Syntax
 
 variable {B : ℕ}
 
-theorem Sz.maj_one {σ : Type*} {s : ℕ} {P : MvPolynomial σ ℤ} (hP : Sz B 0 s P)
+theorem Scale.maj_one {σ : Type*} {s : ℕ} {P : MvPolynomial σ ℤ} (hP : Scale B 0 s P)
     (hs : 2 ^ s ≤ B ^ 8) : Maj B 1 P :=
-  Sz.maj_succ (h := 0) (by simpa using hP) hs
+  Scale.maj_succ (h := 0) (by simpa using hP) hs
 
 /-- Every entry of a point reference has degree at most `1` and norm at most `145`. -/
 theorem sz_pointRef (hB : 1 ≤ B) (g : Fin 3 → ℕ) (r : ℤ) (i : Fin 5) :
-    Sz B 0 3 (pointRef g r i) := by
-  have h145 : Sz B 0 3 (-145 : Poly) := (Sz.ofNat hB 145 (by norm_num)).neg
+    Scale B 0 3 (pointRef g r i) := by
+  have h145 : Scale B 0 3 (-145 : Poly) := (Scale.ofNat hB 145 (by norm_num)).neg
   rcases r with r | n
-  · exact Sz.X hB _
+  · exact Scale.X hB _
   · rcases n with _ | _ | _ | n
     · fin_cases i
-      · exact Sz.one hB
-      all_goals exact Sz.zero hB
+      · exact Scale.one hB
+      all_goals exact Scale.zero hB
     · fin_cases i
-      · exact Sz.zero hB
-      · exact Sz.X hB _
+      · exact Scale.zero hB
+      · exact Scale.X hB _
       · exact h145
-      · exact Sz.X hB _
-      · exact Sz.X hB _
+      · exact Scale.X hB _
+      · exact Scale.X hB _
     · fin_cases i
-      · exact Sz.zero hB
-      · exact Sz.X hB _
+      · exact Scale.zero hB
+      · exact Scale.X hB _
       · exact h145
-      · exact (Sz.X hB _).neg
-      · exact (Sz.X hB _).neg
-    · exact Sz.zero hB
+      · exact (Scale.X hB _).neg
+      · exact (Scale.X hB _).neg
+    · exact Scale.zero hB
 
 theorem maj_pointRef (hB : 2 ^ 20 ≤ B) (g : Fin 3 → ℕ) (r : ℤ) (i : Fin 5) :
     Maj B 1 (pointRef g r i) :=
@@ -133,14 +133,14 @@ theorem model_majorant (hB : 2 ^ 20 ≤ B) (templates recipes : List ExPoly) (tH
       refine Maj.mono ?_ (by omega : 1 ≤ H) hB1
       simp only [generatorConstraints, List.mem_cons, List.not_mem_nil, or_false] at hf
       rcases hf with rfl | rfl | rfl
-      · exact (((Sz.ofNat hB1 8 (by norm_num)).mul (Sz.X hB1 _)).sub
-          (Sz.ofNat hB1 1641 (by norm_num)) hB1 (s := 6)).maj_one
+      · exact (((Scale.ofNat hB1 8 (by norm_num)).mul (Scale.X hB1 _)).sub
+          (Scale.ofNat hB1 1641 (by norm_num)) hB1 (s := 6)).maj_one
           (two_pow_le_pow_eight hB (by norm_num))
-      · exact (((Sz.ofNat hB1 4 (by norm_num)).mul (Sz.X hB1 _)).add
-          (Sz.ofNat hB1 15465 (by norm_num)) hB1 (s := 6)).maj_one
+      · exact (((Scale.ofNat hB1 4 (by norm_num)).mul (Scale.X hB1 _)).add
+          (Scale.ofNat hB1 15465 (by norm_num)) hB1 (s := 6)).maj_one
           (two_pow_le_pow_eight hB (by norm_num))
-      · exact (((Sz.ofNat hB1 32 (by norm_num)).mul (Sz.X hB1 _)).sub
-          (Sz.ofNat hB1 87483 (by norm_num)) hB1 (s := 6)).maj_one
+      · exact (((Scale.ofNat hB1 32 (by norm_num)).mul (Scale.X hB1 _)).sub
+          (Scale.ofNat hB1 87483 (by norm_num)) hB1 (s := 6)).maj_one
           (two_pow_le_pow_eight hB (by norm_num))
     · -- natural calls of the source rows
       obtain ⟨s, hs, rfl⟩ := Option.map_eq_some_iff.1 hφ

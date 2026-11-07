@@ -111,13 +111,13 @@ end
 
 /-- A constructor with `deg C ≤ B^4` and `‖C‖₁ ≤ 2^(B^8)` is at level `(8, 0)`. -/
 theorem sz_of_constructor_bound {σ : Type*} {C : MvPolynomial σ ℤ} (hB : 1 ≤ B)
-    (h : C.totalDegree ≤ B ^ 4 ∧ l1 C ≤ 2 ^ B ^ 8) : Sz B 8 0 C := by
+    (h : C.totalDegree ≤ B ^ 4 ∧ l1 C ≤ 2 ^ B ^ 8) : Scale B 8 0 C := by
   refine ⟨?_, ?_⟩
   · rw [pow_zero, one_mul]; exact h.1.trans (Nat.pow_le_pow_right hB (by norm_num))
   · rw [pow_zero, one_mul]; exact h.2
 
 /-- A fixed constant with `|c| ≤ 2^(B^8)` is at level `(8, 0)`. -/
-theorem sz_C_of_le {c : ℤ} (hc : c.natAbs ≤ 2 ^ B ^ 8) : Sz B 8 0 (C c : Poly) := by
+theorem sz_C_of_le {c : ℤ} (hc : c.natAbs ≤ 2 ^ B ^ 8) : Scale B 8 0 (C c : Poly) := by
   refine ⟨?_, ?_⟩
   · rw [totalDegree_C]; exact Nat.zero_le _
   · rw [l1_C, pow_zero, one_mul]; exact hc
@@ -130,18 +130,18 @@ include hB
 /-- The fixed-scalar template `S_n`, given level bounds for `Ψ_n`, `Ψ_{n+1}`, `Ψ_{n-1}` and
 `Ψ_{2n}`. -/
 theorem scalarTemplate_maj (n : ℤ)
-    (hψ : ∀ m ∈ [n, n + 1, n + -1, 2 * n], ∀ c, Sz B 8 0 (I.psi m c)) :
+    (hψ : ∀ m ∈ [n, n + 1, n + -1, 2 * n], ∀ c, Scale B 8 0 (I.psi m c)) :
     Maj B 2 (scalarTemplate I n).poly := by
   have hB1 : 1 ≤ B := one_le_of_two_pow_twenty_le hB
-  have h0 : ∀ c, Sz B 8 0 (I.psi n c) := hψ n (by simp)
-  have h1 : ∀ c, Sz B 8 0 (I.psi (n + 1) c) := hψ (n + 1) (by simp)
-  have h2 : ∀ c, Sz B 8 0 (I.psi (n + -1) c) := hψ (n + -1) (by simp)
-  have h3 : ∀ c, Sz B 8 0 (I.psi (2 * n) c) := hψ (2 * n) (by simp)
+  have h0 : ∀ c, Scale B 8 0 (I.psi n c) := hψ n (by simp)
+  have h1 : ∀ c, Scale B 8 0 (I.psi (n + 1) c) := hψ (n + 1) (by simp)
+  have h2 : ∀ c, Scale B 8 0 (I.psi (n + -1) c) := hψ (n + -1) (by simp)
+  have h3 : ∀ c, Scale B 8 0 (I.psi (2 * n) c) := hψ (2 * n) (by simp)
   rw [scalarTemplate_poly]
   size_maj
 
 /-- The guard template, given a level bound for `G_T`. -/
-theorem guardTemplate_maj (T : ℤ) (hG : Sz B 8 0 (I.guard T)) :
+theorem guardTemplate_maj (T : ℤ) (hG : Scale B 8 0 (I.guard T)) :
     Maj B 2 (guardTemplate I T).poly := by
   have hB1 : 1 ≤ B := one_le_of_two_pow_twenty_le hB
   rw [guardTemplate_poly]
@@ -150,7 +150,7 @@ theorem guardTemplate_maj (T : ℤ) (hG : Sz B 8 0 (I.guard T)) :
 variable {I} {cstar ell T : ℤ}
 
 theorem multiplyTemplate_maj (hS : Maj B 2 (scalarTemplate I cstar).poly)
-    (hG : Maj B 2 (guardTemplate I T).poly) (hℓ : Sz B 8 0 (C ell : Poly)) :
+    (hG : Maj B 2 (guardTemplate I T).poly) (hℓ : Scale B 8 0 (C ell : Poly)) :
     Maj B 6 (multiplyTemplate I cstar ell T).poly := by
   have hB1 : 1 ≤ B := one_le_of_two_pow_twenty_le hB
   have h0 := hS.sz
@@ -209,20 +209,20 @@ variable {B : ℕ}
 
 /-- A rational constant of a construction is a variable or the constant `u`. -/
 theorem sz_rational (hB : 1 ≤ B) (k : ℕ) {u q : ℤ} (hu : u.natAbs ≤ 2 ^ 2 ^ k)
-    (s : BuildState) : Sz B 0 k (Build.rational u q s).1 := by
+    (s : BuildState) : Scale B 0 k (Build.rational u q s).1 := by
   unfold Build.rational
   dsimp only
   split_ifs
-  · refine Sz.C hB ?_
+  · refine Scale.C hB ?_
     unfold Build.normalize
     split_ifs <;> simpa using hu
   · split
-    · exact (Sz.X hB _).mono hB le_rfl (Nat.zero_le _)
-    · exact (Sz.X hB _).mono hB le_rfl (Nat.zero_le _)
+    · exact (Scale.X hB _).mono hB le_rfl (Nat.zero_le _)
+    · exact (Scale.X hB _).mono hB le_rfl (Nat.zero_le _)
 
-theorem asz_gen (hB : 1 ≤ B) (s : BuildState) : ASz B 0 5 (Build.gen s).1 := by
+theorem asz_gen (hB : 1 ≤ B) (s : BuildState) : AScale B 0 5 (Build.gen s).1 := by
   have hrat : ∀ (u q : ℤ) (s : BuildState), u.natAbs ≤ 2 ^ 2 ^ 5 →
-      Sz B 0 5 (Build.rational u q s).1 := fun u q s hu => sz_rational hB 5 hu s
+      Scale B 0 5 (Build.rational u q s).1 := fun u q s hu => sz_rational hB 5 hu s
   simp only [Build.gen, Build.bind_apply, Build.pure_apply]
   intro k
   size_le
@@ -239,23 +239,23 @@ theorem length_binDigits (k : ℕ) : (binDigits k).length ≤ k := length_binDig
 
 /-- The double-and-add chain: its value stays at the level of its inputs, its formulas are
 raw-addition calls one level higher, and there are at most two per digit. -/
-theorem chainBuild_sz (hB : 1 ≤ B) {a : ℕ} (hR : Sz B 8 0 rawAddTemplate.poly) :
-    ∀ (ds : List Bool) (out base : Code) (s : BuildState), ASz B 0 a out → ASz B 0 a base →
-      ASz B 0 a (chainBuild out base ds s).1.1 ∧ FAll B 8 (a + 1) (chainBuild out base ds s).1.2 ∧
+theorem chainBuild_sz (hB : 1 ≤ B) {a : ℕ} (hR : Scale B 8 0 rawAddTemplate.poly) :
+    ∀ (ds : List Bool) (out base : Code) (s : BuildState), AScale B 0 a out → AScale B 0 a base →
+      AScale B 0 a (chainBuild out base ds s).1.1 ∧ FAll B 8 (a + 1) (chainBuild out base ds s).1.2 ∧
         (chainBuild out base ds s).1.2.length ≤ 2 * ds.length := by
-  have hcall : ∀ (p q r : Code) (w : ℕ), ASz B 0 a p → ASz B 0 a q → ASz B 0 a r →
+  have hcall : ∀ (p q r : Code) (w : ℕ), AScale B 0 a p → AScale B 0 a q → AScale B 0 a r →
       FAll B 8 (a + 1) [Formula.call rawAddTemplate (Fin.append (Fin.append p q) r) w] := by
     intro p q r w hp hq hr φ hφ
     rw [List.mem_singleton] at hφ
     subst hφ
-    have := Sz.compile_call' (w := w) hB hR ((hp.append' hB hq).append' hB hr)
+    have := Scale.compile_call' (w := w) hB hR ((hp.append' hB hq).append' hB hr)
     exact this.mono hB (by simp) (by simp)
   have happ : ∀ {l₁ l₂ : List Formula}, FAll B 8 (a + 1) l₁ → FAll B 8 (a + 1) l₂ →
       FAll B 8 (a + 1) (l₁ ++ l₂) := fun h₁ h₂ φ hφ => by
     rcases List.mem_append.1 hφ with hφ | hφ
     exacts [h₁ φ hφ, h₂ φ hφ]
-  have hpt : ∀ k, ASz B 0 a (varPoint k) := fun k =>
-    (ASz.varPoint hB k).mono hB le_rfl (Nat.zero_le _)
+  have hpt : ∀ k, AScale B 0 a (varPoint k) := fun k =>
+    (AScale.varPoint hB k).mono hB le_rfl (Nat.zero_le _)
   intro ds
   induction ds with
   | nil =>
@@ -291,17 +291,17 @@ theorem chainBuild_sz (hB : 1 ≤ B) {a : ℕ} (hR : Sz B 8 0 rawAddTemplate.pol
         omega
 
 /-- A branch `β_c` of `value.exceptions` for `|c| ≤ 60`. -/
-theorem exceptionBranch_sz (hB : 1 ≤ B) (hR : Sz B 8 0 rawAddTemplate.poly) {N : Code}
-    (hN : ASz B 0 0 N) {t : Poly} (ht : Sz B 0 0 t) (c : ℤ) (hc : c.natAbs ≤ 60)
-    (s : BuildState) : Sz B 8 17 (exceptionBranch N t c s).1.compile := by
+theorem exceptionBranch_sz (hB : 1 ≤ B) (hR : Scale B 8 0 rawAddTemplate.poly) {N : Code}
+    (hN : AScale B 0 0 N) {t : Poly} (ht : Scale B 0 0 t) (c : ℤ) (hc : c.natAbs ≤ 60)
+    (s : BuildState) : Scale B 8 17 (exceptionBranch N t c s).1.compile := by
   have hG := asz_gen hB s
-  have hbase : ASz B 0 5 (if c < 0 then (Build.gen s).1.neg else (Build.gen s).1) := by
+  have hbase : AScale B 0 5 (if c < 0 then (Build.gen s).1.neg else (Build.gen s).1) := by
     split_ifs
     · exact hG.neg
     · exact hG
   obtain ⟨hv, hfs, hlen⟩ := chainBuild_sz (a := 5) hB hR (binDigits c.natAbs) Code.O
     (if c < 0 then (Build.gen s).1.neg else (Build.gen s).1) (Build.gen s).2
-    ((ASz.O hB).mono hB le_rfl (Nat.zero_le 5)) hbase
+    ((AScale.O hB).mono hB le_rfl (Nat.zero_le 5)) hbase
   have hlen' : (chainBuild Code.O (if c < 0 then (Build.gen s).1.neg else (Build.gen s).1)
       (binDigits c.natAbs) (Build.gen s).2).1.2.length ≤ 2 ^ 7 :=
     hlen.trans (by have := length_binDigits c.natAbs; omega)
@@ -316,10 +316,10 @@ theorem exceptionBranch_sz (hB : 1 ≤ B) (hR : Sz B 8 0 rawAddTemplate.poly) {N
 theorem exceptionsTemplate_maj (hB : 2 ^ 20 ≤ B) : Maj B 2 exceptionsTemplate.poly := by
   have hB1 : 1 ≤ B := one_le_of_two_pow_twenty_le hB
   have hm := (memberTemplate_maj hB).sz
-  have hR : Sz B 8 0 rawAddTemplate.poly := (rawAddTemplate_maj hB).sz
+  have hR : Scale B 8 0 rawAddTemplate.poly := (rawAddTemplate_maj hB).sz
   have hb : ∀ (c : ℤ) (s : BuildState), c.natAbs ≤ 60 →
-      Sz B 8 17 (exceptionBranch (varPoint 0) (X 5) c s).1.compile := fun c s hc =>
-    exceptionBranch_sz hB1 hR (ASz.varPoint hB1 0) (Sz.X hB1 5) c hc s
+      Scale B 8 17 (exceptionBranch (varPoint 0) (X 5) c s).1.compile := fun c s hc =>
+    exceptionBranch_sz hB1 hR (AScale.varPoint hB1 0) (Scale.X hB1 5) c hc s
   rw [exceptionsTemplate, Build.template_poly, Build.fullFormula, exceptions_facts.globalsEq]
   simp only [exceptionsGlobals, List.map_cons, List.map_nil, List.cons_append, List.nil_append,
     exceptionsBuild, Build.bind_apply, Build.pure_apply]
