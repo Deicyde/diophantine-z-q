@@ -65,10 +65,10 @@ theorem slope_height_le_of (hH : SixContactEstimate) {S : Finset ℕ} (hSp : ∀
     _ ≤ heightH6 R * |((n 0 * n 1 - n 2 : ℤ) : ℝ)| ^ ((24 : ℝ) / 25) :=
         mul_le_mul_of_nonneg_left (pow_24_le_rpow hf hdvd) hH6
 
-/-- **The height of an accepted slope.** Assume the six-contact estimate and `M₀ ≥ 1`. For
+/-- **The height of an accepted slope.** Assume the six-contact estimate. For
 `f = n₁n₂ - n₃ ≠ 0` and `t` with `Slope(t, ℓ₀; c_*, c_*n₁, c_*n₂, c_*n₃)`:
 `M_{S_mul}(t)²⁵ ∣ f` and `h(t) ≤ A_ht |f|^{24/25}`. -/
-theorem slope_height_le (hH : SixContactEstimate) (hM0 : 1 ≤ Syntax.M0) (n : Fin 3 → ℤ)
+theorem slope_height_le (hH : SixContactEstimate) (n : Fin 3 → ℤ)
     (hf : n 0 * n 1 - n 2 ≠ 0) {t : ℚ} (hs : SlopePred t (Syntax.ell : ℚ) (certShifts n)) :
     ((contactSupport S_mul t : ℕ) : ℤ) ^ 25 ∣ n 0 * n 1 - n 2 ∧
       ratHeight t ≤ (Syntax.Aht : ℝ) * |((n 0 * n 1 - n 2 : ℤ) : ℝ)| ^ ((24 : ℝ) / 25) := by
@@ -76,7 +76,7 @@ theorem slope_height_le (hH : SixContactEstimate) (hM0 : 1 ≤ Syntax.M0) (n : F
   rw [Aht_eq_heightH6]
   refine slope_height_le_of hH h1 h2 h3 h4 h5 (fun p hp hpS => ?_) n hf hs
   have : Fact p.Prime := ⟨hp⟩
-  obtain ⟨h324, hc, -, -⟩ := not_mem_S_mul hM0 hp hpS
+  obtain ⟨h324, hc, -, -⟩ := not_mem_S_mul hp hpS
   exact ⟨h324, by exact_mod_cast hc,
     padicValRat_ell_of_not_mem fun hb => hpS (S_b_subset_S_mul hb)⟩
 

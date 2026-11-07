@@ -29,14 +29,14 @@ theorem local_congruence_of (hp324 : 324 < p) {t ℓ : ℚ} {c₀ : ℤ} (n : Fi
     (fun g => testValues (h g) (z g) ![c₀, c₀ * n 0, c₀ * n 1, c₀ * n 2]) hW hΘ hΦ hc hk hodd
   exact tests_to_congruence hp324 hπ hπp hc₀ n (z g) (hhc g).1 (hhc g).2 hv
 
-/-- **The congruence at an odd contact prime.** Given `M₀ ≥ 1` (so that `c_* ≠ 0`), if `t`
+/-- **The congruence at an odd contact prime.** If `t`
 satisfies `Slope(t, ℓ₀; c_*, c_*n₁, c_*n₂, c_*n₃)` and `p ∉ S_mul` is an odd contact prime of
 `t`, then `n₁n₂ ≡ n₃ (mod p²⁵)`. -/
-theorem local_congruence (hM0 : 1 ≤ Syntax.M0) (n : Fin 3 → ℤ) {t : ℚ}
+theorem local_congruence (n : Fin 3 → ℤ) {t : ℚ}
     (hs : SlopePred t (Syntax.ell : ℚ) (certShifts n)) (p : ℕ) (hp : p.Prime) (hpS : p ∉ S_mul)
     (hcontact : IsOddContactPrime t p) : (p : ℤ) ^ 25 ∣ n 0 * n 1 - n 2 := by
   have : Fact p.Prime := ⟨hp⟩
-  obtain ⟨h324, hc, -, -⟩ := not_mem_S_mul hM0 hp hpS
+  obtain ⟨h324, hc, -, -⟩ := not_mem_S_mul hp hpS
   obtain ⟨-, c, hcC, hk, hodd⟩ := hcontact
   exact local_congruence_of h324 n (by exact_mod_cast hc)
     (padicValRat_ell_of_not_mem fun hb => hpS (S_b_subset_S_mul hb)) hs hcC hk hodd

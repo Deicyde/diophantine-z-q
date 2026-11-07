@@ -13,12 +13,12 @@ height certificate.
 namespace ZInQ.Mult
 
 /-- Every integer is a sum of three slopes satisfying `Slope(·, ℓ₀; c_*, c_* n₁, c_* n₂, c_* n₁n₂)`. -/
-theorem slopes_of_int (hPC : PoleCompleteness) (h22 : FixedPrimePattern) (hM0 : 1 ≤ Syntax.M0)
+theorem slopes_of_int (hPC : PoleCompleteness) (h22 : FixedPrimePattern)
     (n₁ n₂ A : ℤ) :
     ∃ t : Fin 3 → ℚ, ∑ l, t l = A ∧
       ∀ l, SlopePred (t l) Syntax.ell (certShifts ![n₁, n₂, n₁ * n₂]) := by
   obtain ⟨t, hsum, hgood⟩ := pattern_slopes h22 A 0
-  exact ⟨t, hsum, fun l => slope_complete hPC hM0 n₁ n₂ (hgood l)⟩
+  exact ⟨t, hsum, fun l => slope_complete hPC n₁ n₂ (hgood l)⟩
 
 /-- Two rationals have a common denominator `b ≥ 1`. -/
 theorem exists_common_den (x y : ℚ) :
@@ -34,7 +34,7 @@ are integers `b_i ≥ 1` and `a_{ij}` with `b_i x_{ij} = a_{ij}`, where `x_{i0},
 coordinates `1, 2` of the code `ι(n_i)`, and each of the nine integers `a_{ij}, b_i` is a sum of
 three slopes satisfying the slope predicate. -/
 theorem completeness_core (hPC : PoleCompleteness) (h22 : FixedPrimePattern)
-    (hM0 : 1 ≤ Syntax.M0) (a b : ℤ) :
+    (a b : ℤ) :
     ∃ (B : Fin 3 → ℕ) (A : Fin 3 → Fin 2 → ℤ),
       (∀ i, 0 < B i) ∧
       (∀ i, (B i : ℚ) * iota (![a, b, a * b] i) 1 = A i 0 ∧
@@ -46,9 +46,9 @@ theorem completeness_core (hPC : PoleCompleteness) (h22 : FixedPrimePattern)
   choose B hB A₀ A₁ hA₀ hA₁ using fun i : Fin 3 =>
     exists_common_den (iota (![a, b, a * b] i) 1) (iota (![a, b, a * b] i) 2)
   refine ⟨B, fun i => ![A₀ i, A₁ i], hB, fun i => ⟨hA₀ i, hA₁ i⟩, fun i k => ?_, fun i => ?_⟩
-  · obtain ⟨t, ht, hs⟩ := slopes_of_int hPC h22 hM0 a b (![A₀ i, A₁ i] k)
+  · obtain ⟨t, ht, hs⟩ := slopes_of_int hPC h22 a b (![A₀ i, A₁ i] k)
     exact ⟨t, ht, hs⟩
-  · obtain ⟨t, ht, hs⟩ := slopes_of_int hPC h22 hM0 a b (B i)
+  · obtain ⟨t, ht, hs⟩ := slopes_of_int hPC h22 a b (B i)
     exact ⟨t, by rw [ht]; simp, hs⟩
 
 end ZInQ.Mult

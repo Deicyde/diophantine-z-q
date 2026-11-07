@@ -1,6 +1,5 @@
 import ZInQKernel.Multiplication.Completeness.Core
-import ZInQKernel.Multiplication.Certificate.Guard
-import ZInQKernel.Multiplication.Certificate.Multiply
+import ZInQKernel.Multiplication.Certificate.Spec
 
 /-!
 # Completeness of the multiplication template
@@ -12,9 +11,9 @@ the template it suffices to give the height certificate at `(ι(n₁), ι(n₂),
 points `ι(c_*), ι(c_* n_i)`, and the guard; the guard passes true triples, and the witnesses of the
 height certificate are those of `completeness_core`.
 
-Besides pole completeness and the prime pattern, the statement takes as hypotheses the facts
-about the constructors `I` that the specification chapter proves: the fixed-scalar semantics of
-`S_{c_*}` (`hS`) and the guard polynomial (`hI`), and `M₀ ≥ 1` (size chapter).
+The template is `multiplyTemplate specConstructors c_* ℓ₀ T` with the values of the named
+constants; they are rewritten to `Syntax.cstar`, `Syntax.ell`, `Syntax.T`
+(`FixedConst.value_cstar`, …) and never evaluated.
 -/
 
 namespace ZInQ.Mult
@@ -22,15 +21,13 @@ namespace ZInQ.Mult
 open Syntax
 
 /-- **Completeness of the multiplication template.** -/
-theorem multiply_complete (hPC : PoleCompleteness) (h22 : FixedPrimePattern)
-    (hM0 : 1 ≤ Syntax.M0) {E : Type} (I : Constructors E) (T : ℤ)
-    (hS : ∀ (m : ℤ) (r : Fin 5 → ℚ),
-      (scalarTemplate I Syntax.cstar).Rel (Fin.append (iota m) r) ↔ r = iota (Syntax.cstar * m))
-    (hI : I.guard T = guardPoly T) (a b : ℤ) :
-    (multiplyTemplate I Syntax.cstar Syntax.ell T).Rel (codes3 (iota a) (iota b) (iota (a * b))) := by
-  rw [multiply_rel_iff I _ _ T hS]
-  refine ⟨![a, b, a * b], rfl, rfl, rfl, ?_, guard_true_triple I T hI a b⟩
-  obtain ⟨B, A, hB, hBA, hA, hBs⟩ := completeness_core hPC h22 hM0 a b
+theorem multiply_complete (hPC : PoleCompleteness) (h22 : FixedPrimePattern) (a b : ℤ) :
+    (multiplyTemplate specConstructors FixedConst.cstar.value FixedConst.ell.value
+      FixedConst.T.value).Rel (codes3 (iota a) (iota b) (iota (a * b))) := by
+  rw [FixedConst.value_cstar, FixedConst.value_ell, FixedConst.value_T]
+  rw [multiply_rel_iff specConstructors _ _ _ spec_scalar_cstar_rel_iff]
+  refine ⟨![a, b, a * b], rfl, rfl, rfl, ?_, guard_true_triple specConstructors _ rfl a b⟩
+  obtain ⟨B, A, hB, hBA, hA, hBs⟩ := completeness_core hPC h22 a b
   have hc : (![(Syntax.cstar : ℤ), Syntax.cstar * (![a, b, a * b] : Fin 3 → ℤ) 0,
       Syntax.cstar * (![a, b, a * b] : Fin 3 → ℤ) 1, Syntax.cstar * (![a, b, a * b] : Fin 3 → ℤ) 2]
       : Fin 4 → ℤ) = certShifts ![a, b, a * b] := rfl

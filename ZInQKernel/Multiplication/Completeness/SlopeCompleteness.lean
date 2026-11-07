@@ -17,7 +17,7 @@ integral above `S_b` and precise at one place above each selected prime. With th
 tests fixed, the positivity lemma gives `ε`, weak approximation gives `q` with `0 < |a| < ε`, and
 the valuation lemma shows that `B = R/Θ²` satisfies the hypotheses of pole completeness.
 
-Besides pole completeness the proof uses `M₀ ≥ 1` (hypothesis `hM0`), which the size chapter
+Besides pole completeness the proof uses `M₀ ≥ 1` (`one_le_M0_spec`), which the size chapter
 proves (a successful formal multiple exists).
 -/
 
@@ -46,13 +46,14 @@ theorem one_le_pointCount (p : ℕ) (a : ZMod p) : 1 ≤ pointCount p a := by
 
 /-- For every prime `p` there is an admissible shift `h` (`h ≠ 0`, `h ≠ c_*`, `M₀ ∣ h`), adapted to
 the two reduced group orders at `p` when `p` is a good pattern prime. -/
-theorem exists_shift (hM0 : 1 ≤ Syntax.M0) (p : ℕ) :
+theorem exists_shift (p : ℕ) :
     ∃ h : ℤ, h ≠ 0 ∧ h ≠ Syntax.cstar ∧ (Syntax.M0 : ℤ) ∣ h ∧
       (GoodPatternPrime p → ∃ (r : ZMod p) (_ : r ^ 2 = 2),
         (75 - 53 * r : ZMod p) ≠ 0 ∧ (75 + 53 * r : ZMod p) ≠ 0 ∧
         (pointCount p (-(75 - 53 * r) ^ 2) : ℤ) ∣ h ∧
         (pointCount p (-(75 + 53 * r) ^ 2) : ℤ) ∣ h - Syntax.cstar) := by
   have hcs : (Syntax.cstar : ℤ) = 4 * Syntax.M0 := by rw [Syntax.cstar_eq]; push_cast; ring
+  have hM0 := one_le_M0_spec
   by_cases hgood : GoodPatternPrime p
   · obtain ⟨-, -, r, hr, h1, h2, hgcd, -⟩ := hgood
     obtain ⟨h, h0, hc, hM, hd1, hd2⟩ := shift_choice' Syntax.M0 _ _ hM0 (one_le_pointCount _ _)
@@ -69,10 +70,9 @@ theorem padicValRat_ell {p : ℕ} (hp : p.Prime) :
   rw [padicValRat.of_nat, padicValNat_ell hp]
   split_ifs <;> simp
 
-/-- **Completeness of the slope certificate for a true triple.** Assume pole completeness (and
-`M₀ ≥ 1`). For `n₁, n₂ ∈ ℤ` and a slope `t` satisfying conditions 1-4 of the slopes from the prime
+/-- **Completeness of the slope certificate for a true triple.** Assume pole completeness. For `n₁, n₂ ∈ ℤ` and a slope `t` satisfying conditions 1-4 of the slopes from the prime
 pattern, `Slope(t, ℓ₀; c_*, c_* n₁, c_* n₂, c_* n₁ n₂)` holds. -/
-theorem slope_complete (hPC : PoleCompleteness) (hM0 : 1 ≤ Syntax.M0) (n₁ n₂ : ℤ) {t : ℚ}
+theorem slope_complete (hPC : PoleCompleteness) (n₁ n₂ : ℤ) {t : ℚ}
     {B₀ : ℝ} (ht : GoodSlope B₀ t) :
     SlopePred t Syntax.ell (certShifts ![n₁, n₂, n₁ * n₂]) := by
   classical
@@ -95,7 +95,7 @@ theorem slope_complete (hPC : PoleCompleteness) (hM0 : 1 ≤ Syntax.M0) (n₁ n�
   set R0 := slopeR0 η t with hR0def
   -- the selected primes and the shifts
   obtain ⟨P, hPcard, hPmem⟩ := ht.few
-  choose hfun hfun0 hfunc hfunM hfungood using exists_shift hM0
+  choose hfun hfun0 hfunc hfunM hfungood using exists_shift
   let sel : Fin 6 → ℕ := fun g => (P.toList[g.val]?).getD 0
   let h : Fin 6 → ℤ := fun g => hfun (sel g)
   let z : Fin 6 → Fin 3 → ℤ := fun g => ![n₁ * h g, n₂ * h g, n₁ * n₂ * h g]

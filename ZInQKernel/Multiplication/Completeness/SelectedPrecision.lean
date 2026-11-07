@@ -32,13 +32,6 @@ theorem zCoord_mapE (Q : genCurve.toAffine.Point) :
   · show -(algebraMap K0 _ x) / (algebraMap K0 _ y) = algebraMap K0 _ (-x / y)
     simp [map_div₀]
 
-theorem mapE_mem_W1_of_mem {Q : genCurve.toAffine.Point} (hQ : Q ∈ W1 (vP π hπ) (-genD ^ 2)) :
-    mapE π hπ Q ∈ W1 (vComp π hπ) (-genDAt π hπ ^ 2) := by
-  rcases Q with _ | ⟨x, y, h⟩
-  · exact trivial
-  · show vComp π hπ (algebraMap K0 _ x) < 0
-    rw [vComp_algebraMap]; exact hQ
-
 theorem map_Lam (Q : genCurve.toAffine.Point) :
     algebraMap K0 ((primeSpec π hπ).adicCompletion K0) (Lam Q) =
       truncLog (genDAt π hπ ^ 2) (zCoord (mapE π hπ Q)) := by

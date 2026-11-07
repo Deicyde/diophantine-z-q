@@ -231,18 +231,4 @@ theorem exists_vP_ratCast {p : ℕ} (hp : p.Prime) {π : Zs} (hπ : Prime π) (h
     rw [vP_apply hπ (by exact_mod_cast hr), vp_eq_of_associated hass, vS_rat hr]
   · exact ⟨1, le_rfl, fun r hr => by rw [vP_ratCast_odd hp2 hπ hπp hr, one_mul]⟩
 
-/-- Every prime `p` has a prime of `ℤ[s]` above it. -/
-theorem exists_prime_dvd_natCast_of_prime {p : ℕ} (hp : p.Prime) : ∃ π : Zs, Prime π ∧ π ∣ (p : Zs) := by
-  have hp0 : (p : Zs) ≠ 0 := by
-    intro h; have := congrArg QuadraticAlgebra.re h; simp at this; exact hp.ne_zero this
-  have hpu : ¬ IsUnit (p : Zs) := by
-    intro hu
-    have := Zs.isUnit_iff_natAbs_norm.mp hu
-    rw [norm_natCast_Zs] at this
-    have h1 := hp.one_lt
-    have : (p ^ 2 : ℕ) = 1 := by simpa [Int.natAbs_pow] using this
-    nlinarith
-  obtain ⟨π, hπ, hdvd⟩ := WfDvdMonoid.exists_irreducible_factor hpu hp0
-  exact ⟨π, hπ.prime, hdvd⟩
-
 end ZInQ.Mult
