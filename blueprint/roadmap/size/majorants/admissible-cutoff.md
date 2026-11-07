@@ -9,28 +9,33 @@ lean: ZInQ.Size.admissible_cutoff, ZInQ.Size.D_le_T
 
 # The cutoff is an admissible bound
 
-Assume the catalogue bound. Then $B=T+1$ satisfies $B\ge2^{20}$ and the four hypotheses of
-the template majorant for the constructed library:
+Assume the catalogue bound, and let the program literal satisfy $|c_3|<2^{2^{24}}$ (as it
+does, by the size of the program literal). Then $B=T+1$ satisfies the hypotheses of the
+template heights for the constructed library with the constructors of the specification:
 
-1. every node $\mathrm{const}\ c$ has $|c|\le T$;
-2. the fixed node has value $\ell$ with $1\le\ell\le T$;
-3. every psi node has index $n$ with $|n|+1\le T+1$;
-4. the guard node has cutoff $T$, and $0\le T\le B-1$.
+1. $B\ge2^{20}$, and the division-polynomial and guard constructors satisfy the uniform
+   bounds at $B$;
+2. the fixed constant $\ell$ satisfies $1\le\ell\le T$, so $|\ell|+1\le B$;
+3. every index $n$ of a division-polynomial constructor of the library has $|n|+1\le T+1$;
+4. the guard constructor has cutoff $T$, and $0\le T\le B-1$.
 
-**Proof sketch.** By the closed form of $T$, $T=(96\cdot10^{13})^{13}D^{2210G_0^2D^3}\ge D>2^{2^{8008}}$,
-so $B\ge2^{20}$ and $2^{69}<T$, which gives (1) by the template-height check. For (2),
-$\ell<2^{2^{2063}}<D\le T$. For (3), by the template-height check every index is $\varepsilon$,
+Moreover $D\le T$. The literal constants of the templates need no hypothesis.
+
+**Proof sketch.** By the definitions, $D\le R\le Q\le Q^{17}\le A_{\rm ht}\le T$, and
+$D>2^{2^{8008}}$, so $B\ge2^{20}$. (1) The uniform constructor bounds hold at every
+$B\ge2^{20}$. For (2), $\ell\ge1$ since $P_s,H_{\rm cat}\ge1$, and
+$\ell<2^{2^{2063}}<D\le T$. For (3), by construction every index is $\varepsilon$,
 $\varepsilon\pm1$ or $2\varepsilon$ with $\varepsilon\in\{c_*,4,2,3,c_3,1399\}$ (the values of
 $\mathrm{integer\_constant}_0,\dots,\mathrm{integer\_constant}_4$ are $4,2,3,c_3,1399$), so
-$|n|\le2\max(c_*,|c_3|,1399)+1$. Here $c_*<2^{2^{2059}}$, and $0<c_3<2^{2^{24}}$ by the size of
-the program literal of the compiler chapter (the Lean literal is built afresh, so the digit
-count of the saved literal is not used); both are far below $D/4$. (4) is immediate. Nothing is
-evaluated: each comparison is between symbolic bounds.
+$|n|+1\le2|\varepsilon|+2$. Here $c_*<2^{2^{2059}}$ and $|c_3|<2^{2^{24}}$, so
+$|n|+1\le2\cdot2^{2^{2059}}\le2^{2^{2060}}<D\le T$. (4) is immediate. Nothing is evaluated:
+each comparison is between symbolic bounds.
 
 The manuscript lists "the absolute values of all literal fixed constants and all occurring
-division-polynomial indices are at most $T$" among the checked facts; it is a symbolic
-consequence of the cutoff estimates, and the bound on the fixed value $\ell$, used by the
-companion proof, is included here.
+division-polynomial indices are at most $T$" among the checked facts. The indices and the
+fixed value $\ell$ (used by the companion proof) are bounded symbolically here. The literal
+constants of the templates need no bound, since the majorant rules absorb them at every
+$B\ge2^{20}$; for comparison with the manuscript's constant nodes, $2^{69}<T$.
 
 ## Depends on
 

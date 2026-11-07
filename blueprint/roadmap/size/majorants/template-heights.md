@@ -31,7 +31,7 @@ The division-polynomial constructors of the library occur only in the fixed-scal
 templates $S_\varepsilon$, with indices $\varepsilon$, $\varepsilon+1$, $\varepsilon-1$ and
 $2\varepsilon$ for $\varepsilon\in\{c_*,4,2,3,c_3,1399\}$; the guard constructor occurs at
 $T$, and the fixed constant $\ell$ only in multiply. Every other constant of the library is
-an integer of absolute value below $2^{128}$.
+an explicit integer literal and needs no hypothesis.
 
 The manuscript states the table for the intrinsic heights of the node lists of the saved
 specification, with $173$ constant nodes below $2^{69}$ and $50$ constructor nodes. The
@@ -39,8 +39,9 @@ templates here are explicit constructions without node lists, so the statement i
 their polynomials.
 
 **Proof sketch.** Apply the majorant rules to each template in library order, along its
-construction, with the bounds of the templates it calls and the constructor bounds. The
-literal constants are compared with $2^{128}$ by evaluation. The construction gives much
+construction, with the bounds of the templates it calls and the constructor bounds. Each
+literal constant $c$ is bounded as $|c|\le2^{2^k}$ for a small explicit $k$, and $B\ge2^{20}$
+absorbs these bounds; no fixed value is computed. The construction gives much
 smaller heights, at most $8$ ($1$ for the templates without calls, $6$ for multiply); the
 tabulated heights follow by monotonicity.
 
