@@ -1,4 +1,5 @@
 import ZInQKernel.Multiplication.Certificate.SlopePredicate
+import ZInQKernel.Multiplication.Certificate.ConstantsProperties
 
 /-!
 # Valuations of the normalization at an odd contact prime
@@ -11,13 +12,14 @@ gives `p > 324` and `v_p(ℓ₀) = 0`), if `k = v_p(t - c)` is positive and odd 
 `v_p(t - c') = 0` for the other contact values and `v_p(t - 1) = 0`, so `v_p(R₀) = v_p(F(t)) = k`,
 and `r = v_p(R)` is odd with `r ≤ k`.
 
-The statement here takes the two properties of `p` used by the proof (`61 < p`, `v_p(ℓ) = 0`)
-as hypotheses; the certificate's `p ∉ S_b` supplies them.
+`contact_valuations_of` takes the two properties of `p` used by the proof (`61 < p`,
+`v_p(ℓ) = 0`) as hypotheses; `contact_valuations` is the article's statement, with `ℓ = ℓ₀` and
+`p ∉ S_b`.
 -/
 
-namespace ZInQ
+namespace ZInQ.Mult
 
-open Mult
+
 
 /-- Every contact value is an integer in `[-60, 0]`. -/
 theorem exists_int_of_mem_contactSet {c : ℚ} (hc : c ∈ contactSet) :
@@ -70,7 +72,7 @@ theorem padicValRat_prod_eq_zero {ι : Type*} (s : Finset ι) (f : ι → ℚ)
     exact ⟨mul_ne_zero h3 h1, by rw [padicValRat.mul h3 h1, h2, h4, add_zero]⟩
 
 /-- **Valuations of the normalization at an odd contact prime.** -/
-theorem contact_valuations (hp61 : 61 < p) {t η q ℓ c : ℚ} (ht : t ∉ contactSet) (ht1 : t ≠ 1)
+theorem contact_valuations_of (hp61 : 61 < p) {t η q ℓ c : ℚ} (ht : t ∉ contactSet) (ht1 : t ≠ 1)
     (hη : η = 1 ∨ η = -1) (hℓ0 : ℓ ≠ 0) (hℓ : padicValRat p ℓ = 0)
     (ha : slopeA (slopeR0 η t) q ≠ 0)
     (hc : c ∈ contactSet) (hk : 0 < padicValRat p (t - c)) (hodd : Odd (padicValRat p (t - c))) :
@@ -149,6 +151,30 @@ theorem contact_valuations (hp61 : 61 < p) {t η q ℓ c : ℚ} (ht : t ∉ cont
   · rw [hRv]; exact Even.add_odd (even_two_mul _) hodd
   · rw [hRv]; omega
 
+/-- A prime outside `S_b` exceeds `324`. -/
+theorem lt_of_not_mem_S_b {q : ℕ} (hq : q.Prime) (h : q ∉ S_b) : 324 < q := by
+  by_contra hle
+  exact h (mem_S_b.2 (Or.inl (mem_S_ht.2 ⟨hq, by omega⟩)))
+
+/-- `v_p(ℓ₀) = 0` for a prime `p ∉ S_b`. -/
+theorem padicValRat_ell_of_not_mem (h : p ∉ S_b) : padicValRat p (Syntax.ell : ℚ) = 0 := by
+  rw [padicValRat.of_nat, padicValNat_ell_of_not_mem hp.out h, Nat.cast_zero]
+
+theorem ell_cast_ne_zero : (Syntax.ell : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr Syntax.ell_pos.ne'
+
+/-- **Valuations of the normalization at an odd contact prime**, with `ℓ = ℓ₀` and `p ∉ S_b`. -/
+theorem contact_valuations (hpS : p ∉ S_b) {t η q c : ℚ} (ht : t ∉ contactSet) (ht1 : t ≠ 1)
+    (hη : η = 1 ∨ η = -1) (ha : slopeA (slopeR0 η t) q ≠ 0)
+    (hc : c ∈ contactSet) (hk : 0 < padicValRat p (t - c)) (hodd : Odd (padicValRat p (t - c))) :
+    (∀ c' ∈ contactSet, c' ≠ c → padicValRat p (t - c') = 0) ∧ padicValRat p (t - 1) = 0 ∧
+      padicValRat p (slopeR0 η t) = padicValRat p (t - c) ∧
+      padicValRat p (contactPoly t) = padicValRat p (t - c) ∧
+      Odd (padicValRat p (slopeR (Syntax.ell : ℚ) (slopeA (slopeR0 η t) q) (slopeR0 η t))) ∧
+      padicValRat p (slopeR (Syntax.ell : ℚ) (slopeA (slopeR0 η t) q) (slopeR0 η t)) ≤
+        padicValRat p (t - c) :=
+  contact_valuations_of (by have := lt_of_not_mem_S_b hp.out hpS; omega) ht ht1 hη
+    ell_cast_ne_zero (padicValRat_ell_of_not_mem hpS) ha hc hk hodd
+
 end
 
-end ZInQ
+end ZInQ.Mult

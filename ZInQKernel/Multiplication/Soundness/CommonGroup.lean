@@ -18,9 +18,9 @@ The quantities are the certificate's `slopeR0`, `slopeA`, `slopeR`, `normTests`,
 `traceTheta`; `prec j = k_j`.
 -/
 
-namespace ZInQ
+namespace ZInQ.Mult
 
-open Mult
+
 
 /-- Every rational prime has a prime of `ℤ[s]` above it. -/
 theorem exists_prime_dvd_natCast (p : ℕ) [hp : Fact p.Prime] :
@@ -72,7 +72,7 @@ theorem vp_one_add_mul_sq {π : Zs} (hπ : Prime π) {R C : K0} (hR : R ≠ 0) (
     rw [vp_one' hπ, hv]; obtain ⟨j, hj⟩ := hodd; omega), vp_one' hπ, hv]
 
 /-- **The trace forces one common group and place.** -/
-theorem common_group (hp324 : 324 < p) {t η q ℓ c : ℚ} (ht : t ∉ contactSet) (ht1 : t ≠ 1)
+theorem common_group_of (hp324 : 324 < p) {t η q ℓ c : ℚ} (ht : t ∉ contactSet) (ht1 : t ≠ 1)
     (hη : η = 1 ∨ η = -1) (hℓ0 : ℓ ≠ 0) (hℓ : padicValRat p ℓ = 0)
     (ha : slopeA (slopeR0 η t) q ≠ 0) (D : Fin 6 → Fin 12 → K0)
     (hW : ∀ g, groupW (slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t))
@@ -87,7 +87,7 @@ theorem common_group (hp324 : 324 < p) {t η q ℓ c : ℚ} (ht : t ∉ contactS
       ∀ j, ((prec j : ℤ) : WithTop ℤ) ≤ vP π hπ (D g j) := by
   have hp2 : p ≠ 2 := by omega
   obtain ⟨-, hone, hR₀v, -, hrodd, hrk⟩ :=
-    contact_valuations (p := p) (by omega) ht ht1 hη hℓ0 hℓ ha hc hk hodd
+    contact_valuations_of (p := p) (by omega) ht ht1 hη hℓ0 hℓ ha hc hk hodd
   set k := padicValRat p (t - c) with hkdef
   set R₀ := slopeR0 η t with hR₀def
   set R := slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t) with hRdef
@@ -195,6 +195,22 @@ theorem common_group (hp324 : 324 < p) {t η q ℓ c : ℚ} (ht : t ∉ contactS
   unfold prec
   split_ifs <;> push_cast <;> omega
 
+/-- **The trace forces one common group and place**, with `ℓ = ℓ₀` and `p ∉ S_b`. -/
+theorem common_group (hpS : p ∉ S_b) {t η q c : ℚ} (ht : t ∉ contactSet) (ht1 : t ≠ 1)
+    (hη : η = 1 ∨ η = -1) (ha : slopeA (slopeR0 η t) q ≠ 0) (D : Fin 6 → Fin 12 → K0)
+    (hW : ∀ g, groupW (slopeR (Syntax.ell : ℚ) (slopeA (slopeR0 η t) q) (slopeR0 η t))
+      (normTests (slopeR0 η t) t (D g)) ≠ 0)
+    (hΘ : traceTheta (fun g => groupW (slopeR (Syntax.ell : ℚ) (slopeA (slopeR0 η t) q)
+      (slopeR0 η t)) (normTests (slopeR0 η t) t (D g))) ≠ 0)
+    (hΦ : PoleSoluble (slopeR (Syntax.ell : ℚ) (slopeA (slopeR0 η t) q) (slopeR0 η t) /
+      traceTheta (fun g => groupW (slopeR (Syntax.ell : ℚ) (slopeA (slopeR0 η t) q)
+        (slopeR0 η t)) (normTests (slopeR0 η t) t (D g))) ^ 2))
+    (hc : c ∈ contactSet) (hk : 0 < padicValRat p (t - c)) (hodd : Odd (padicValRat p (t - c))) :
+    ∃ g : Fin 6, ∃ π : Zs, ∃ hπ : Prime π, π ∣ (p : Zs) ∧
+      ∀ j, ((prec j : ℤ) : WithTop ℤ) ≤ vP π hπ (D g j) :=
+  common_group_of (lt_of_not_mem_S_b hp.out hpS) ht ht1 hη ell_cast_ne_zero
+    (padicValRat_ell_of_not_mem hpS) ha D hW hΘ hΦ hc hk hodd
+
 end
 
-end ZInQ
+end ZInQ.Mult

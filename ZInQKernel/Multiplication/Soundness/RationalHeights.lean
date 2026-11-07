@@ -11,7 +11,7 @@ place has multiplicity one. The bounds are then Mathlib's `logHeight₁_sum_le`,
 `logHeight₁_mul_le` and `logHeight₁_inv`.
 -/
 
-namespace ZInQ
+namespace ZInQ.Mult
 
 open Height
 
@@ -32,7 +32,7 @@ theorem totalWeight_rat : totalWeight ℚ = 1 := by
   rw [NumberField.totalWeight_eq_finrank, Module.finrank_self]
 
 /-- `h(x₁ + x₂ + x₃) ≤ h(x₁) + h(x₂) + h(x₃) + log 3`. -/
-theorem ratHeight_add_add_le (x₁ x₂ x₃ : ℚ) :
+theorem ratHeight_add3_le (x₁ x₂ x₃ : ℚ) :
     ratHeight (x₁ + x₂ + x₃) ≤ ratHeight x₁ + ratHeight x₂ + ratHeight x₃ + Real.log 3 := by
   have h := logHeight₁_sum_le (Finset.univ : Finset (Fin 3)) ![x₁, x₂, x₃]
   simp only [Fin.sum_univ_three, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two,
@@ -56,7 +56,7 @@ theorem rational_height_bounds :
     (∀ x y : ℚ, y ≠ 0 → ratHeight (x / y) ≤ ratHeight x + ratHeight y) ∧
     (∀ x : ℚ, ratHeight (-x) = ratHeight x ∧ 0 ≤ ratHeight x) ∧
     (∀ y : ℚ, y ≠ 0 → ratHeight y⁻¹ = ratHeight y) :=
-  ⟨ratHeight_add_add_le, fun x y _ => ratHeight_div_le x y,
+  ⟨ratHeight_add3_le, fun x y _ => ratHeight_div_le x y,
     fun x => ⟨ratHeight_neg x, ratHeight_nonneg x⟩, fun y _ => ratHeight_inv y⟩
 
-end ZInQ
+end ZInQ.Mult

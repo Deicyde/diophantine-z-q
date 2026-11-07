@@ -6,7 +6,7 @@ import Mathlib
 Blueprint: `multiplication/soundness/box-inequality.md`.
 -/
 
-namespace ZInQ
+namespace ZInQ.Mult
 
 /-- **The final inequality.** If `A ≥ 1` and `N² < 24 A N^(48/25) + 10` for an integer `N ≥ 0`,
 then `N < (48 A)¹³`. -/
@@ -43,4 +43,4 @@ theorem box_inequality {A : ℝ} (hA : 1 ≤ A) (N : ℕ)
       _ ≤ (48 * A) ^ (13 * 2) := pow_le_pow_right₀ h48 (by norm_num)
   exact lt_of_pow_lt_pow_left₀ 2 (by positivity) h2
 
-end ZInQ
+end ZInQ.Mult

@@ -11,7 +11,7 @@ multiplicity `[K₀ : ℚ] = 2`; Mathlib's `logHeight₁_mul_le` and `logHeight�
 heights of `s` and `ε` come from the formula for the height of a fraction in `ℤ[s]`.
 -/
 
-namespace ZInQ
+namespace ZInQ.Mult
 
 open Height
 
@@ -86,4 +86,4 @@ theorem field_height_bounds :
   ⟨fun x y => ⟨hK0_mul_le x y, hK0_add_le x y⟩,
     ⟨hK0_sqrt2, hK0_epsilon, hK0_epsilon_pow_four_mul_le⟩, hK0_ratCast_add_mul_sqrt2_le⟩
 
-end ZInQ
+end ZInQ.Mult

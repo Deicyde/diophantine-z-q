@@ -8,14 +8,14 @@ Blueprint: `multiplication/soundness/contact-support.md`.
 Assume the six-contact estimate. For `f = n₁n₂ - n₃ ≠ 0` and a slope `t` with
 `Slope(t, ℓ; c₀, c₀n₁, c₀n₂, c₀n₃)`, every odd contact prime of `t` outside `S` divides `f` to
 the power `25` (the local congruence), so `M_S(t)²⁵ ∣ f`, and the estimate gives
-`h(t) ≤ H₆(S; R) |f|^{24/25}`. The general form `contact_support_of` takes the admissibility of
+`h(t) ≤ H₆(S; R) |f|^{24/25}`. The general form `slope_height_le_of` takes the admissibility of
 `S, R` and the properties of the primes outside `S` (`p > 324`, `p ∤ c₀`, `v_p(ℓ) = 0`) as
 hypotheses; in the certificate `S = S_mul`, `R` is the fixed constant, `H₆(S_mul; R) = A_ht`.
 -/
 
-namespace ZInQ
+namespace ZInQ.Mult
 
-open Mult
+
 
 /-- `M_S(t)²⁵ ∣ f` when every odd contact prime outside `S` has `p²⁵ ∣ f`. -/
 theorem contactSupport_pow_dvd {S : Finset ℕ} {t : ℚ} {f : ℤ}
@@ -45,7 +45,7 @@ theorem pow_24_le_rpow {M : ℕ} {f : ℤ} (hf : f ≠ 0) (h : ((M : ℤ)) ^ 25 
     _ ≤ |(f : ℝ)| ^ ((24 : ℝ) / 25) := Real.rpow_le_rpow (by positivity) hle' (by norm_num)
 
 /-- **The height of an accepted slope** (general form). -/
-theorem contact_support_of (hH : SixContactEstimate) {S : Finset ℕ} (hSp : ∀ p ∈ S, p.Prime)
+theorem slope_height_le_of (hH : SixContactEstimate) {S : Finset ℕ} (hSp : ∀ p ∈ S, p.Prime)
     (hS : ∀ p : ℕ, p.Prime → p ≤ 324 → p ∈ S) {R : ℝ} (hRD : (heightD : ℝ) ≤ R)
     (hRS : ∀ p ∈ S, (p : ℝ) ≤ R) (hR12 : (10 : ℝ) ^ 12 ≤ R) {t ℓ : ℚ} {c₀ : ℤ}
     (hout : ∀ p : ℕ, p.Prime → p ∉ S → 324 < p ∧ ¬ (p : ℤ) ∣ c₀ ∧ padicValRat p ℓ = 0)
@@ -65,4 +65,19 @@ theorem contact_support_of (hH : SixContactEstimate) {S : Finset ℕ} (hSp : ∀
     _ ≤ heightH6 R * |((n 0 * n 1 - n 2 : ℤ) : ℝ)| ^ ((24 : ℝ) / 25) :=
         mul_le_mul_of_nonneg_left (pow_24_le_rpow hf hdvd) hH6
 
-end ZInQ
+/-- **The height of an accepted slope.** Assume the six-contact estimate and `M₀ ≥ 1`. For
+`f = n₁n₂ - n₃ ≠ 0` and `t` with `Slope(t, ℓ₀; c_*, c_*n₁, c_*n₂, c_*n₃)`:
+`M_{S_mul}(t)²⁵ ∣ f` and `h(t) ≤ A_ht |f|^{24/25}`. -/
+theorem slope_height_le (hH : SixContactEstimate) (hM0 : 1 ≤ Syntax.M0) (n : Fin 3 → ℤ)
+    (hf : n 0 * n 1 - n 2 ≠ 0) {t : ℚ} (hs : SlopePred t (Syntax.ell : ℚ) (certShifts n)) :
+    ((contactSupport S_mul t : ℕ) : ℤ) ^ 25 ∣ n 0 * n 1 - n 2 ∧
+      ratHeight t ≤ (Syntax.Aht : ℝ) * |((n 0 * n 1 - n 2 : ℤ) : ℝ)| ^ ((24 : ℝ) / 25) := by
+  obtain ⟨h1, h2, h3, h4, h5⟩ := S_mul_admissible
+  rw [Aht_eq_heightH6]
+  refine slope_height_le_of hH h1 h2 h3 h4 h5 (fun p hp hpS => ?_) n hf hs
+  have : Fact p.Prime := ⟨hp⟩
+  obtain ⟨h324, hc, -, -⟩ := not_mem_S_mul hM0 hp hpS
+  exact ⟨h324, by exact_mod_cast hc,
+    padicValRat_ell_of_not_mem fun hb => hpS (S_b_subset_S_mul hb)⟩
+
+end ZInQ.Mult

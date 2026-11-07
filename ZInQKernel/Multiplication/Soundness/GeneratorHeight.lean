@@ -10,7 +10,7 @@ The canonical height on `E(K₀)` is transported from `C(K₀)` by the change of
 `θ : E(K₀) ≃+ C(K₀)`, `(x, y) ↦ (ε⁴ x, ε⁶ y)`, which maps `P₀` to `[2]R`.
 -/
 
-namespace ZInQ
+namespace ZInQ.Mult
 
 open WeierstrassCurve WeierstrassCurve.Affine
 
@@ -34,11 +34,11 @@ theorem log_41_sub_le_two_canonHeightE_genP0 :
   linarith
 
 /-- `2 ĥ(P₀) > 1`. -/
-theorem one_lt_two_canonHeightE_genP0 : 1 < 2 * canonHeightE genP0 :=
+theorem two_canonHeight_genP0_gt_one : 1 < 2 * canonHeightE genP0 :=
   lt_of_lt_of_le one_lt_log_41_sub log_41_sub_le_two_canonHeightE_genP0
 
 /-- `2 ĥ(Q) ≤ h(ε⁴ x(Q)) + ⅓ log 676` for `Q = (x, y) ∈ E(K₀) \ {O}`. -/
-theorem two_canonHeightE_some_le {x y : K0} (h : genCurve.toAffine.Nonsingular x y) :
+theorem two_canonHeightE_le {x y : K0} (h : genCurve.toAffine.Nonsingular x y) :
     2 * canonHeightE (.some x y h) ≤ hK0 (epsilon ^ 4 * x) + Real.log 676 / 3 := by
   have := two_canonHeight_le (theta (.some x y h))
   rw [theta_some, hx_some] at this
@@ -54,6 +54,6 @@ theorem generator_height :
       2 * canonHeightE (.some x y h) ≤ hK0 (epsilon ^ 4 * x) + Real.log 676 / 3) ∧
       canonHeightE 0 = 0) :=
   ⟨canonHeightE_zsmul_genP0, ⟨log_41_sub_le_two_canonHeightE_genP0, one_lt_log_41_sub⟩,
-    ⟨fun _ _ h => two_canonHeightE_some_le h, canonHeightE_zero⟩⟩
+    ⟨fun _ _ h => two_canonHeightE_le h, canonHeightE_zero⟩⟩
 
-end ZInQ
+end ZInQ.Mult

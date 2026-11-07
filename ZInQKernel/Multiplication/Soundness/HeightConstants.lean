@@ -12,10 +12,10 @@ checked by the kernel; the passage to the real statements uses `(1 + √2)¹² =
 and `2.718 < e < 2.7183`.
 -/
 
-namespace ZInQ
+namespace ZInQ.Mult
 
 /-- **The integer inequalities behind the height constants.** -/
-theorem height_constant_integers :
+theorem height_constants_int :
     3 ^ 24 * 2 ^ 9 * 39202 * 676 ^ 2 * 1000 ^ 60 < 2718 ^ 60 ∧
       392 * 27183 ^ 3 < 41 ^ 3 * 10 ^ 12 ∧ 2 * 13860 ^ 2 < 19601 ^ 2 := by
   refine ⟨?_, ?_, ?_⟩ <;> decide
@@ -38,7 +38,7 @@ theorem one_add_sqrt_two_pow_twelve :
 theorem one_add_sqrt_two_pow_twelve_lt : (1 + Real.sqrt 2) ^ 12 < 39202 := by
   rw [one_add_sqrt_two_pow_twelve]
   have h : Real.sqrt 2 ^ 2 = 2 := Real.sq_sqrt (by norm_num)
-  have hi : (2 : ℝ) * 13860 ^ 2 < 19601 ^ 2 := by exact_mod_cast height_constant_integers.2.2
+  have hi : (2 : ℝ) * 13860 ^ 2 < 19601 ^ 2 := by exact_mod_cast height_constants_int.2.2
   have : 13860 * Real.sqrt 2 < 19601 := by
     apply lt_of_pow_lt_pow_left₀ 2 (by norm_num)
     rw [mul_pow, h]; linarith
@@ -55,7 +55,7 @@ theorem heightB0_lt_ten : heightB0 < 10 := by
       Real.log_pow, heightB0]
     push_cast; ring
   have hi : (3 : ℝ) ^ 24 * 2 ^ 9 * 39202 * 676 ^ 2 * 1000 ^ 60 < 2718 ^ 60 := by
-    exact_mod_cast height_constant_integers.1
+    exact_mod_cast height_constants_int.1
   have he : (2.718 : ℝ) < Real.exp 1 := lt_trans (by norm_num) Real.exp_one_gt_d9
   have hY : (3 : ℝ) ^ 24 * 2 ^ 9 * (1 + Real.sqrt 2) ^ 12 * 676 ^ 2 < Real.exp 60 := by
     calc (3 : ℝ) ^ 24 * 2 ^ 9 * (1 + Real.sqrt 2) ^ 12 * 676 ^ 2
@@ -74,7 +74,7 @@ theorem heightB0_lt_ten : heightB0 < 10 := by
 /-- **Explicit height constants (2).** `log 41 - ⅓ log 392 > 1`. -/
 theorem one_lt_log_41_sub : 1 < Real.log 41 - Real.log 392 / 3 := by
   have hi : (392 : ℝ) * 27183 ^ 3 < 41 ^ 3 * 10 ^ 12 := by
-    exact_mod_cast height_constant_integers.2.1
+    exact_mod_cast height_constants_int.2.1
   have he : Real.exp 1 < (2.7183 : ℝ) := lt_trans Real.exp_one_lt_d9 (by norm_num)
   have hY : 392 * Real.exp 3 < (41 : ℝ) ^ 3 := by
     have h3 : Real.exp 3 = Real.exp 1 ^ 3 := by rw [← Real.exp_nat_mul]; norm_num
@@ -86,4 +86,4 @@ theorem one_lt_log_41_sub : 1 < Real.log 41 - Real.log 392 / 3 := by
   push_cast at hl
   linarith
 
-end ZInQ
+end ZInQ.Mult

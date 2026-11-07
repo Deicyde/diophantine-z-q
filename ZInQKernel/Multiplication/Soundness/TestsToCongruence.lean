@@ -15,9 +15,9 @@ where `ρ = invX`, `Aᵢ = Λ([zᵢ]P₀)/Λ([h]P₀)` and `Bᵢ = Λ([zᵢ - c 
 is `tests_to_congruence_aux`, on the individual quantities (indices `i ∈ Fin 3`).
 -/
 
-namespace ZInQ
+namespace ZInQ.Mult
 
-open Mult WeierstrassCurve WeierstrassCurve.Affine
+open WeierstrassCurve WeierstrassCurve.Affine
 
 /-- `Λ([m]P₀) = L(z([m]P₀))`. -/
 noncomputable def logAt (m : ℤ) : K0 := Lam (m • genP0)
@@ -263,4 +263,4 @@ theorem tests_to_congruence (hp324 : 324 < p) {π : Zs} (hπ : Prime π) (hπp :
 
 end
 
-end ZInQ
+end ZInQ.Mult

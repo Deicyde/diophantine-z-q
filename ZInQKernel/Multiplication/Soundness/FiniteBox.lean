@@ -17,7 +17,7 @@ bounds in `K₀`, the canonical height of multiples of `P₀`, the two explicit 
 `B₀ < 10`, `2ĥ(P₀) > 1` and the final inequality enter here.
 -/
 
-namespace ZInQ
+namespace ZInQ.Mult
 
 open WeierstrassCurve WeierstrassCurve.Affine
 
@@ -47,7 +47,7 @@ theorem two_sq_canonHeightE_le (n : ℤ) :
   · exact absurd rfl hQ
   have c1 : iota n 1 = x.re := by rw [iota_def, hP]; rfl
   have c2 : iota n 2 = x.im := by rw [iota_def, hP]; rfl
-  have hb := two_canonHeightE_some_le h
+  have hb := two_canonHeightE_le h
   have hε := hK0_epsilon_pow_four_mul_le x
   have hx := hK0_ratCast_add_mul_sqrt2_le x.re x.im
   rw [← K0.eq_re_add_im_mul_sqrt2] at hx
@@ -69,7 +69,7 @@ theorem finite_box_of_heights {A : ℝ} (hA : 1 ≤ A) (n : Fin 3 → ℤ) (hf :
   have hsum : ∀ Q : ℚ, (∃ t₁ t₂ t₃ : ℚ, t₁ + t₂ + t₃ = Q ∧
       ∀ t ∈ ({t₁, t₂, t₃} : Set ℚ), ratHeight t ≤ A * F) → ratHeight Q ≤ 3 * A * F + Real.log 3 := by
     rintro Q ⟨t₁, t₂, t₃, rfl, ht⟩
-    have := ratHeight_add_add_le t₁ t₂ t₃
+    have := ratHeight_add3_le t₁ t₂ t₃
     have h1 := ht t₁ (by simp)
     have h2 := ht t₂ (by simp)
     have h3 := ht t₃ (by simp)
@@ -88,7 +88,7 @@ theorem finite_box_of_heights {A : ℝ} (hA : 1 ≤ A) (n : Fin 3 → ℤ) (hf :
     rw [← hx₀] at d₀
     rw [← hx₁] at d₁
     have hc := two_sq_canonHeightE_le (n i)
-    have hP := one_lt_two_canonHeightE_genP0
+    have hP := two_canonHeight_genP0_gt_one
     have hB := heightB0_lt_ten
     have hsq : (n i : ℝ) ^ 2 ≤ 2 * (n i : ℝ) ^ 2 * canonHeightE genP0 := by
       nlinarith [sq_nonneg (n i : ℝ)]
@@ -150,4 +150,28 @@ theorem finite_box_of_heights {A : ℝ} (hA : 1 ≤ A) (n : Fin 3 → ℤ) (hf :
   intro i
   exact lt_of_le_of_lt (habs i) hbox
 
-end ZInQ
+/-- **The finite-box deduction**, from the data supplied by the height certificate: if
+`n₁n₂ ≠ n₃` and for each `i` the coordinates of `x([nᵢ]P₀)` are `a_{ij}/bᵢ` with `bᵢ ≠ 0`, each of
+the nine quantities `a_{ij}, bᵢ` being a sum of three slopes `t` with
+`Slope(t, ℓ₀; c_*, c_*n₁, c_*n₂, c_*n₃)`, then `|nᵢ| < T` (given H and `M₀ ≥ 1`). -/
+theorem finite_box_of_slopes (hH : SixContactEstimate) (hM0 : 1 ≤ Syntax.M0) (n : Fin 3 → ℤ)
+    (hf : n 0 * n 1 ≠ n 2)
+    (hcert : ∀ i, ∃ a₀ a₁ b : ℚ, b ≠ 0 ∧ b * iota (n i) 1 = a₀ ∧ b * iota (n i) 2 = a₁ ∧
+      ∀ Q ∈ ({a₀, a₁, b} : Set ℚ), ∃ t₁ t₂ t₃ : ℚ, t₁ + t₂ + t₃ = Q ∧
+        ∀ t ∈ ({t₁, t₂, t₃} : Set ℚ), SlopePred t (Syntax.ell : ℚ) (certShifts n)) :
+    ∀ i, |n i| < (Syntax.T : ℤ) := by
+  have hf' : n 0 * n 1 - n 2 ≠ 0 := sub_ne_zero.mpr hf
+  have hA : (1 : ℝ) ≤ Syntax.Aht := by exact_mod_cast Syntax.Aht_pos
+  have hb := finite_box_of_heights hA n hf' fun i => by
+    obtain ⟨a₀, a₁, b, hb, e₀, e₁, hQ⟩ := hcert i
+    refine ⟨a₀, a₁, b, hb, e₀, e₁, fun Q hQm => ?_⟩
+    obtain ⟨t₁, t₂, t₃, hsum, hts⟩ := hQ Q hQm
+    exact ⟨t₁, t₂, t₃, hsum, fun t ht => (slope_height_le hH hM0 n hf' (hts t ht)).2⟩
+  intro i
+  have := hb i
+  have hT : ((Syntax.T : ℕ) : ℝ) = (48 * (Syntax.Aht : ℝ)) ^ 13 := by
+    rw [Syntax.T_eq]; push_cast; ring
+  rw [← hT] at this
+  exact_mod_cast this
+
+end ZInQ.Mult
