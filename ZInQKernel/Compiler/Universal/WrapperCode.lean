@@ -124,9 +124,8 @@ theorem natural_polynomial_semantics_of
 natural precision circuit has a natural zero with inputs `c` (some natural values of its other
 `1,305,806` variables) iff `c` is accepted by the precision relation.
 
-The proof waits for one input of another task, the correctness of the wrapper
-(`wrapper-correct.md`, task nat-programs); everything else is `natural_polynomial_semantics_of`
-with the correctness of the interpreter (`interpreter_accepts_iff`). -/
+It is `natural_polynomial_semantics_of` applied to the correctness of the interpreter
+(`interpreter_accepts_iff`) and of the wrapper (`IR.wrapper_halts_encode`). -/
 theorem natural_polynomial_semantics (c : Fin 5 → ℕ) :
     precisionCircuit.NatRel powerTemplate c ↔ Precision.accepts c :=
   natural_polynomial_semantics_of interpreter_accepts_iff IR.wrapper_halts_encode c
