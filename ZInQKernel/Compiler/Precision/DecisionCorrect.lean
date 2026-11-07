@@ -19,8 +19,6 @@ namespace ZInQ.Compiler.Precision
 
 open JTriple
 
-theorem toK0_star (z : Zs) : Zs.toK0 (star z) = star (Zs.toK0 z) := by ext <;> simp
-
 theorem K0.intCast_re (m : ℤ) : (m : K0).re = m := by
   rw [← map_intCast Zs.toK0, Zs.toK0_re]; simp
 

@@ -167,6 +167,12 @@ noncomputable abbrev Zs.toK0 : Zs →+* K0 := algebraMap Zs K0
 theorem Zs.toK0_injective : Function.Injective Zs.toK0 :=
   IsFractionRing.injective Zs K0
 
+theorem toK0_ne_zero {a : Zs} (ha : a ≠ 0) : Zs.toK0 a ≠ 0 :=
+  (map_ne_zero_iff _ Zs.toK0_injective).mpr ha
+
+theorem toK0_star (z : Zs) : Zs.toK0 (star z) = star (Zs.toK0 z) := by
+  ext <;> simp
+
 /-- `s` in `ℤ[s]`. -/
 def sqrt2Z : Zs := ⟨0, 1⟩
 /-- `d = 75 - 53 s` in `ℤ[s]`. -/

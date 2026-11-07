@@ -28,10 +28,6 @@ theorem cataloguePrime_bounds (hCAT : CatalogueBound) {r j : ℕ} (hr1 : 1 ≤ r
   rw [← Syntax.cataloguePrime_catalogueModulus]
   exact cataloguePrime_lt_of_catalogueBound hCAT hr hcop hj
 
-/-- `H_max < X`. -/
-theorem Hmax_lt (hCAT : CatalogueBound) : Hmax < 2 ^ W ^ 3 :=
-  Hmax_lt_of_catalogueBound hCAT
-
 /-- `1 ≤ H_cat ≤ X^(22W)`. -/
 theorem Hcat_bounds (hCAT : CatalogueBound) : 1 ≤ Hcat ∧ Hcat ≤ (2 ^ W ^ 3) ^ (22 * W) := by
   refine ⟨Hcat_pos, ?_⟩
@@ -55,7 +51,7 @@ theorem catalogue_bounds (hCAT : CatalogueBound) :
     (∀ r j : ℕ, 1 ≤ r → r < W → r.Coprime W → j < 22 →
       324 < Syntax.cataloguePrime W 324 r j ∧ Syntax.cataloguePrime W 324 r j < 2 ^ W ^ 3) ∧
     Hmax < 2 ^ W ^ 3 ∧ 1 ≤ Hcat ∧ Hcat ≤ (2 ^ W ^ 3) ^ (22 * W) :=
-  ⟨fun _ _ hr1 hr hcop hj => cataloguePrime_bounds hCAT hr1 hr hcop hj, Hmax_lt hCAT,
+  ⟨fun _ _ hr1 hr hcop hj => cataloguePrime_bounds hCAT hr1 hr hcop hj, Hmax_lt_of_catalogueBound hCAT,
     Hcat_bounds hCAT⟩
 
 /-! ### Size of `N_s` and `ℓ` -/

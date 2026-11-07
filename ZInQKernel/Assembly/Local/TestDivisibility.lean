@@ -281,9 +281,6 @@ section Formal
 
 variable {p : ℕ} [Fact p.Prime] {π : Zs}
 
-theorem zsmul_genP0_ne_zero {m : ℤ} (hm : m ≠ 0) : m • genP0 ≠ 0 := fun h =>
-  ZInQ.genP0_not_isOfFinAddOrder (isOfFinAddOrder_iff_zsmul_eq_zero.mpr ⟨m, hm, h⟩)
-
 /-- A multiple of `P₀` with `v_π(w) ≥ 1` lies in `E₁(π)`. -/
 theorem mem_Ek_one_of_wCoord (hπ : Prime π) {m : ℤ}
     (hw : Vge (vP π hπ) 1 (wCoord (A := -genD ^ 2) (m • genP0))) : m • genP0 ∈ Ek π hπ 1 := by

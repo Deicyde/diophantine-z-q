@@ -1,4 +1,4 @@
-import ZInQKernel.Model.Field.Basic
+import ZInQKernel.Model.Field.Euclidean
 
 /-!
 # Elements of norm zero
@@ -28,21 +28,10 @@ theorem intNorm_ne_zero {g h : ℤ} (hne : (g, h) ≠ (0, 0)) : g ^ 2 - 2 * h ^ 
 theorem K0.eq_zero_of_norm_eq_zero {z : K0} (h : QuadraticAlgebra.norm z = 0) : z = 0 :=
   K0.norm_eq_zero_iff.mp h
 
-/-- The norm of an element of `ℤ[s]` is `re² - 2 im²`. -/
-theorem Zs.norm_eq (z : Zs) : QuadraticAlgebra.norm z = z.re ^ 2 - 2 * z.im ^ 2 := by
-  rw [QuadraticAlgebra.norm_def]; ring
-
 /-- `Y Ȳ` is the integer `N(Y)`. -/
 theorem Zs.mul_star_eq_norm (z : Zs) : z * star z = ((QuadraticAlgebra.norm z : ℤ) : Zs) := by
   rw [← QuadraticAlgebra.algebraMap_norm_eq_mul_star, algebraMap_int_eq, eq_intCast]
 
-/-- A nonzero `Y ∈ ℤ[s]` has nonzero norm `N(Y) = Y Ȳ ∈ ℤ`. -/
-theorem Zs.norm_ne_zero {z : Zs} (hz : z ≠ 0) : QuadraticAlgebra.norm z ≠ 0 := by
-  intro h
-  rw [Zs.norm_eq] at h
-  have h' : ((z.re : ℚ)) ^ 2 - 2 * (z.im : ℚ) ^ 2 = 0 := by exact_mod_cast h
-  obtain ⟨h1, h2⟩ := rat_eq_zero_of_sq_sub_two_sq h'
-  exact hz (QuadraticAlgebra.ext (by exact_mod_cast h1) (by exact_mod_cast h2))
 
 /-- The integer test `N(Y) ≠ 0` decides `Y ≠ 0`. -/
 theorem Zs.norm_ne_zero_iff {z : Zs} : QuadraticAlgebra.norm z ≠ 0 ↔ z ≠ 0 :=

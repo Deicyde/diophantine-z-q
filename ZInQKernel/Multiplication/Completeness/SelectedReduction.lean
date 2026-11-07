@@ -17,8 +17,6 @@ open WeierstrassCurve WeierstrassCurve.Affine
 
 variable {p : ℕ} [Fact p.Prime]
 
-theorem neg_genD_sq_eq_toK0 : -genD ^ 2 = Zs.toK0 (-genDZ ^ 2) := by simp
-
 /-- The residue of `A = -d²` at the prime `(p, s - r)` is `-(75 - 53 r)²`. -/
 theorem res_neg_genD_sq {r : ZMod p} (hr : r ^ 2 = 2) {π : Zs} (hπ : Prime π)
     (hπr : ∀ a, residueAt r hr a = 0 ↔ π ∣ a) :
@@ -28,9 +26,6 @@ theorem res_neg_genD_sq {r : ZMod p} (hr : r ^ 2 = 2) {π : Zs} (hπ : Prime π)
   rw [this]
   push_cast
   linear_combination (2809 : ZMod p) * hr
-
-theorem vge_neg_genD_sq {π : Zs} (hπ : Prime π) : VGe π 0 (-genD ^ 2) := by
-  rw [neg_genD_sq_eq_toK0]; exact Or.inr (vp_nonneg hπ _)
 
 /-- **Multiples of `P₀` by multiples of the group order are formal.** -/
 theorem zsmul_mem_W1_of_pointCount_dvd (hp2 : p ≠ 2) {r : ZMod p} (hr : r ^ 2 = 2)
@@ -42,7 +37,7 @@ theorem zsmul_mem_W1_of_pointCount_dvd (hp2 : p ≠ 2) {r : ZMod p} (hr : r ^ 2 
   have : (shortCurve (-(75 - 53 * r) ^ 2 : ZMod p)).IsElliptic :=
     shortCurve_isElliptic (neg_ne_zero.mpr (pow_ne_zero _ h75))
   set ρ := residueAt r hr
-  have hA := vge_neg_genD_sq hπ
+  have hA := vge_neg_genD_sq _ hπ
   have hAb := res_neg_genD_sq hr hπ hπr
   obtain ⟨k, rfl⟩ := hd
   let P0' : (shortCurve (-genD ^ 2)).toAffine.Point := genP0

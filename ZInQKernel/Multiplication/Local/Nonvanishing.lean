@@ -1,6 +1,6 @@
 import ZInQKernel.Multiplication.Local.Dyadic
 import ZInQKernel.Multiplication.Local.TruncationUnit
-import ZInQKernel.Model.Descent.Torsion
+import ZInQKernel.Model.Generator.InfiniteOrder
 
 /-!
 # The truncated logarithm does not vanish on nonzero multiples of `P₀`
@@ -19,12 +19,6 @@ unconditionally from the torsion theorem of `Model/Descent` (`E(K₀)_tors = E(K
 namespace ZInQ.Mult
 
 open WeierstrassCurve WeierstrassCurve.Affine
-
-/-- `P₀` has infinite order. -/
-theorem genP0_not_isOfFinAddOrder : ¬ IsOfFinAddOrder genP0 := by
-  intro h
-  have h2 := two_nsmul_eq_zero_of_isOfFinAddOrder h
-  exact genY0_ne_zero ((shortCurve_two_nsmul_some_eq_zero_iff (A := -genD ^ 2) _).mp h2)
 
 theorem zsmul_genP0_ne_zero {n : ℤ} (hn : n ≠ 0) : n • genP0 ≠ 0 := by
   intro h

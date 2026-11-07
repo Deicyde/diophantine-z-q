@@ -44,12 +44,6 @@ theorem omegaCoord_neg [DecidableEq K] {A : K} (P : (shortCurve A).toAffine.Poin
   · rw [Point.neg_some, omegaCoord_some, omegaCoord_some, shortCurve_negY]; ring
 
 omit [Valued K ℤᵐ⁰] [CompleteSpace K] in
-theorem zCoord_neg' [DecidableEq K] {A : K} (P : (shortCurve A).toAffine.Point) : zCoord (-P) = -zCoord P := by
-  rcases P with _ | ⟨x, y, h⟩
-  · rw [point_zero_eq, neg_zero, zCoord_zero, neg_zero]
-  · rw [Point.neg_some, zCoord_some, zCoord_some, shortCurve_negY]; ring
-
-omit [Valued K ℤᵐ⁰] [CompleteSpace K] in
 theorem omegaCoord_zero' {A : K} : omegaCoord (0 : (shortCurve A).toAffine.Point) = 0 := rfl
 
 omit [CompleteSpace K] in
@@ -77,8 +71,8 @@ theorem zCoord_add_eq_of_line [CharZero K] [DecidableEq K] {A : K} (hA : 0 ≤ v
   by_cases hs : Point.some x₁ y₁ h₁ + Point.some x₂ y₂ h₂ = 0
   · have hQ' : Point.some x₂ y₂ h₂ = -Point.some x₁ y₁ h₁ := (neg_eq_of_add_eq_zero_right hs).symm
     rw [hs, zCoord_zero]
-    rw [hQ', zCoord_neg', omegaCoord_neg] at hchord
-    rw [hQ', zCoord_neg']
+    rw [hQ', zCoord_neg, omegaCoord_neg] at hchord
+    rw [hQ', zCoord_neg]
     have hN : omegaCoord (Point.some x₁ y₁ h₁) - Λ * zCoord (Point.some x₁ y₁ h₁) = 0 := by
       have : 2 * (omegaCoord (Point.some x₁ y₁ h₁) - Λ * zCoord (Point.some x₁ y₁ h₁)) = 0 := by
         linear_combination hchord

@@ -81,9 +81,6 @@ theorem norm_mul_M_lt {α β : Zs} (hab : IsCoprime α β) (hN : 0 < QuadraticAl
   rw [hn]
   linarith
 
-theorem toK0_star (z : Zs) : Zs.toK0 (star z) = star (Zs.toK0 z) := by
-  ext <;> simp
-
 theorem K0_ratCast_mul (q : ℚ) (x : K0) : (q : K0) * x = ⟨q * x.re, q * x.im⟩ := by
   ext <;> simp
 

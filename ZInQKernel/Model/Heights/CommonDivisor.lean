@@ -63,9 +63,6 @@ theorem prime_dvd_F2_G2 {a b : Zs} (hab : IsCoprime a b) {π : Zs} (hπ : Prime 
 
 /-! ### The local bounds at `s` and `δ` -/
 
-theorem toK0_ne_zero {z : Zs} (hz : z ≠ 0) : Zs.toK0 z ≠ 0 := by
-  rw [Ne, ← map_zero Zs.toK0]; exact fun h => hz (Zs.toK0_injective h)
-
 /-- `s⁷ ∤ F₂(a, b)` for coprime `a, b`. -/
 theorem not_sqrt2Z_pow_seven_dvd_F2 {a b : Zs} (hab : IsCoprime a b) :
     ¬ sqrt2Z ^ 7 ∣ F2 a b := by

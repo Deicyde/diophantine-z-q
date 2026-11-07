@@ -61,9 +61,6 @@ theorem getEx_library_scalar {consts : List ℤ} (hc : consts <+: integerConstan
   simp only [List.get_eq_getElem]
   rw [← hc.getElem hlt, List.getElem_idxOf hlt]
 
-theorem templateLibrary_wf' : ∀ τ ∈ templateLibrary I cstar ell T c3, τ.WF :=
-  templateLibrary_wf I cstar ell T c3
-
 /-- **The callee semantics of the library**, under M and with the division-polynomial psi
 constructor. -/
 theorem calleeSemantics_library (hI : I.psi = psiComponent)
