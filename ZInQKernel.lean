@@ -38,3 +38,4 @@ import ZInQKernel.Multiplication.Certificate
 import ZInQKernel.Multiplication.FormalLog
 import ZInQKernel.Assembly.Top
 import ZInQKernel.Multiplication.Top
+import ZInQKernel.Syntax.Builder
