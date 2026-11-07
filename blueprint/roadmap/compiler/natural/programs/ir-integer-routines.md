@@ -12,16 +12,30 @@ lean: ZInQ.Compiler.IR.SInt, ZInQ.Compiler.IR.ReprInt, ZInQ.Compiler.IR.sConst, 
 An integer $z$ is *represented* by a pair of registers $(\sigma,\mu)$ when $\mu=|z|$ and
 $\sigma=[z<0]$; the representation is *normalized*: zero has $\sigma=0$, so each integer has
 exactly one representation. There are statements of the ideal register language,
-parameterized by the registers of their operands, results and temporaries, for:
-decoding a natural $c$ into the representation of $\operatorname{dec}(c)$ ($\sigma=c\bmod2$,
-$\mu=\lfloor(c+\sigma)/2\rfloor$); negation; absolute value; addition; subtraction;
-multiplication; multiplication by a constant; the tests $z_1<z_2$, $z_1=z_2$ and $z=0$
-(as branches); and multiplication of two naturals into a signed result. For each of them:
-started from any file in which the operand pairs represent integers $z_1,z_2$ and the
-temporaries are distinct from operands and results, the statement terminates normally,
-the result pair represents the corresponding integer ($-z_1$, $|z_1|$, $z_1+z_2$, $z_1-z_2$,
-$z_1z_2$, ...), the branch taken is the true one, and every register other than results and
-temporaries is unchanged. Results may alias operands.
+parameterized by the registers of their operands and results and by a temporary base $t$
+(they use the registers $t,t+1,\dots$ as temporaries), for: decoding a natural $c$ into the
+representation of $\operatorname{dec}(c)$ ($\sigma=c\bmod2$, $\mu=\lfloor(c+\sigma)/2\rfloor$); an
+integer constant; copying; negation; absolute value; addition; subtraction;
+multiplication; the natural quotient $\lfloor|z_1|/|z_2|\rfloor$ and remainder
+$|z_1|\bmod|z_2|$; an assignment with natural value (such as $|z_1|\cdot|z_2|$) written into
+a signed result; and the flags $[z_1<z_2]$ and $[z_1=z_2]$. For each routine with a signed
+result: if the operand and result registers lie below $t$, the two result registers are
+distinct, and in the starting file the operand pairs represent integers $z_1,z_2$, the
+statement terminates normally, the result pair represents the corresponding integer
+($\operatorname{dec}(c)$, $z_1$, $-z_1$, $|z_1|$, $z_1+z_2$, $z_1-z_2$, $z_1z_2$, ...), and every
+register below $t$ other than the two result registers is unchanged. Results may alias
+operands. For the flags: if the flag register differs from the operand registers, the
+statement terminates normally with the flag equal to $1$ if the relation holds and $0$
+otherwise, and every other register unchanged.
+
+These routines compile statements over integer variables (assignments of the operations
+above, conditionals on $z_1<z_2$ or $z_1=z_2$, which compute the flag into a temporary and
+branch on it, conditionals on $|z_1|<|z_2|$ or $|z_1|=|z_2|$, which branch on the magnitude
+registers, loops while $|z_1|<|z_2|$, $\mathbf{accept}$ and $\mathbf{reject}$), integer variable
+$k$ being held in the pair $(o+2k,o+2k+1)$ for an offset $o$: if every variable occurring
+is below $K$ and $o+2K\le t$, and the pairs of the variables below $K$ represent an integer
+environment, the compiled statement has the outcome of the integer statement, and on
+normal termination the pairs represent the final environment.
 
 **Proof sketch.** Each routine is a case split on the signs with natural arithmetic on the
 magnitudes: for addition, equal signs add magnitudes, opposite signs subtract the smaller

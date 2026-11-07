@@ -19,8 +19,9 @@ assembled from the arithmetic and list blocks. It performs:
 3. *Main loop.* Extract the base-$\beta$ digits $o,j,x,y$ of $D$ at positions
    $4\mathrm{pc},\dots,4\mathrm{pc}+3$ by repeated division. If $o=1$: replace entry $j$ of the
    tape by its successor and set $\mathrm{pc}=x$. If $o=2$: read $v=\operatorname{get}(\text{tape},j)$;
-   if $v>0$ write $v-1$ and set $\mathrm{pc}=x$, else set $\mathrm{pc}=y$. Otherwise leave the loop
-   (a simulated halt). Return to the start of the loop.
+   if $v>0$ write $v-1$ and set $\mathrm{pc}=x$, else write $v=0$ back and set $\mathrm{pc}=y$
+   (the entry is always written with setList, which may pad the tape with zeros). Otherwise
+   leave the loop (a simulated halt). Return to the start of the loop.
 4. *Cleanup.* Clear all $204$ registers and reach the final halt.
 
 Its shape, recorded in the interpreter-shape statement, is $1{,}399$ instructions

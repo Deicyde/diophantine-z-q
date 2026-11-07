@@ -12,8 +12,9 @@ lean: ZInQ.Compiler.Natural.powerTemplate_natRel, ZInQ.Compiler.Natural.powerSpe
 For all natural numbers $P,Q,R$:
 $$\bigl(\exists w\in\mathbb N^{79},\ \mathcal P(P,Q,R,w)=0\bigr)\iff P=Q^R,$$
 with $0^0=1$. Consequently, in any natural construction in hierarchical mode, a power call
-whose block is private (pairwise disjoint from the other blocks and occurring in no other
-atom or argument) may be replaced by the relation $g_P=g_Q^{\,g_R}$ of its argument values.
+whose argument polynomials take natural values at every natural point and whose block is
+private (pairwise disjoint from the other blocks and occurring in no other atom or argument)
+may be replaced by the relation $g_P=g_Q^{\,g_R}$ of its argument values.
 
 **Proof sketch.** By the compilation statement, $\mathcal P(P,Q,R,w)=0$ iff the flat power
 formula holds naturally at $(P,Q,R,w)$; by item 2 of that statement the existential over

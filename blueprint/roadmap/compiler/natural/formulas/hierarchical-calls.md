@@ -18,9 +18,14 @@ before the macro. Then:
 
 1. $\mathcal C$ is well scoped, its variable count is $V$, and
    $[\![\mathcal C]\!]=\kappa(\varphi)$;
-2. for every $c\in\mathbb N^k$, $Z_{\mathcal C}(c)$ holds if and only if there are natural values
-   of the fresh variables for which $\varphi^\natural$ holds, where $\varphi^\natural$ is $\varphi$
-   with every power call atom replaced by the relation $g_P=g_Q^{\,g_R}$ of its arguments;
+2. if moreover $k\le V$, the variables of $\kappa(\varphi)$ are below $V$, and the call blocks
+   of $\varphi$ are private (they lie in $[k,\infty)$, are pairwise disjoint, and contain no
+   variable of an atom or of a call argument of $\varphi$), then for every $c\in\mathbb N^k$,
+   $Z_{\mathcal C}(c)$ holds if and only if there are natural values of the variables, equal
+   to $c$ on the inputs, for which $\varphi^\natural$ holds, where $\varphi^\natural$ is
+   $\varphi$ with every power call atom replaced by the statement that some natural values of
+   the $79$ witnesses make $\mathcal P$ vanish at the values of its arguments; when these
+   values are natural, this is the relation $g_P=g_Q^{\,g_R}$ of its arguments;
 3. consequently, if the construction has a macro specification $R$ over its inputs (built
    from the macro semantics by the composition rules: conjunction, disjunction, and an
    existential over each fresh variable), then $Z_{\mathcal C}(c)\iff R(c)$; that is,
@@ -35,9 +40,9 @@ chapter's construction theorem: every node handed out denotes the polynomial of 
 expression it was created for (hash-consing returns only structurally equal nodes), the
 counter only grows, blocks are taken from it consecutively, and a block index is passed only
 as a call's witness start, so no variable node refers to a block and the explicit variables
-and blocks tile $[0,V)$. (2) By the compilation statement (items 1 and 3) together with the
-power-template semantics, applied to the private blocks. (3) is (2) with the macro
-semantics. The flat/hierarchical remark follows because both readings of a power call have
+and blocks tile $[0,V)$. (2) By the compilation statement (items 1 and 3), applied to the
+private blocks, together with the power-template semantics for natural argument values. (3)
+is (2) with the macro semantics. The flat/hierarchical remark follows because both readings of a power call have
 relation $P=Q^R$.
 
 ## Depends on

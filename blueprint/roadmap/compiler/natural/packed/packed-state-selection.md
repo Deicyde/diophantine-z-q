@@ -9,7 +9,7 @@ lean: ZInQ.Compiler.Packed.one_active_state
 
 # One active state per time slot
 
-Let $B,q,T=B^q,F_q$ be as in the masked-digit statement, let $m<B$, and let
+Let $B,q,T=B^q,F_q$ be as in the masked-digit statement, let $1\le m<B$, and let
 $S_0,\dots,S_{m-1}$ be masked by $F_q$, with digits $\sigma_i(t)\in\{0,1\}$ ($t\le q$). If
 $$S_0+\dots+S_{m-1}=F_q\qquad\text{and}\qquad S_{m-1}=T,$$
 then for every $t\le q$ there is exactly one $i<m$ with $\sigma_i(t)=1$, and

@@ -25,7 +25,7 @@ statement, a register file and an outcome $o\in\{\mathrm{normal}(\rho'),\mathrm{
 with the usual rules (assignments update one register with the exact value; a terminal
 outcome of $S_1$ skips $S_2$; a loop iterates while its test holds). A derivation exists
 only for terminating executions. A program is a statement $S$ with a register bound
-$\rho_S$ (all registers occurring in $S$ are below $\rho_S$) and $k$ input registers; it
+$\rho_S$ (all registers occurring in $S$ are below $\rho_S$) and $k\le\rho_S$ input registers; it
 *accepts* $a\in\mathbb N^k$ if $\langle S,\rho_0(a)\rangle\Downarrow\mathrm{accept}$ for the initial
 file $\rho_0(a)$ (inputs in registers $0,\dots,k-1$, all others $0$), and it is *total* if
 for every $a$ some outcome is derivable. The language is deterministic: each statement

@@ -10,7 +10,8 @@ lean: ZInQ.Compiler.Natural.lt_spec, ZInQ.Compiler.Natural.divides_spec, ZInQ.Co
 # Semantics of the natural macros
 
 Let a gadget or macro of the natural constructions be run from counter $c_0$ to $c_1$ on
-argument polynomials in variables below $c_0$, producing $\varphi$. For every
+argument polynomials in variables below $c_0$ that take natural values at every natural
+point, producing $\varphi$. For every
 $x:\mathbb N\to\mathbb N$, writing $a,b,\dots$ for the values of the arguments at $x$,
 $$\exists y:[c_0,c_1)\to\mathbb N,\ \ \varphi\text{ holds naturally at }x[y]$$
 is equivalent to the following relation (in hierarchical mode, the template is the power
@@ -29,8 +30,8 @@ template and its calls are read as in item 3 of the compilation statement):
 | $\mathrm{mask}(a,b)$ | $a\mathbin{\mathrm{AND}}b=a$ |
 | $\mathrm{bitAnd}(z,x,y)$ | $z=x\mathbin{\mathrm{AND}}y$ |
 
-The argument values are integers that are natural whenever the argument polynomials have
-nonnegative coefficients, as all arguments in this chapter do ($Q+4$, $R+1$, $2X$, $a+b$,
+The hypothesis on the arguments holds whenever the argument polynomials have nonnegative
+coefficients, as all arguments in this chapter do ($Q+4$, $R+1$, $2X$, $a+b$,
 $K\cdot N_j$, $R_j+D$ and so on).
 
 **Proof sketch.** By the compilation statement each conjunction splits along the
