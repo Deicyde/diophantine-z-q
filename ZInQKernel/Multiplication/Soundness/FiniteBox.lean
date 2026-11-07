@@ -182,21 +182,15 @@ theorem nineQ_surj (A : Fin 3 → Fin 2 → ℚ) (b : Fin 3 → ℚ) (i : Fin 3)
   · exact ⟨⟨3, rfl⟩, ⟨4, rfl⟩, ⟨5, rfl⟩⟩
   · exact ⟨⟨6, rfl⟩, ⟨7, rfl⟩, ⟨8, rfl⟩⟩
 
-/-- **The finite-box deduction** (Proposition 6.1). Assume the six-contact estimate and
-`M₀ ≥ 1`. If `n₁n₂ ≠ n₃` and the unguarded certificate accepts
-`(ι(n₁), ι(n₂), ι(n₃), ℓ₀, ι(c_*), ι(c_*n₁), ι(c_*n₂), ι(c_*n₃))`, then `|nᵢ| < T`. The
-parameter vector `a ∈ ℚ³⁶` of the height-certificate template is described coordinatewise. -/
-theorem finite_box (hH : SixContactEstimate) (hM0 : 1 ≤ Syntax.M0) (n : Fin 3 → ℤ)
-    (hf : n 0 * n 1 ≠ n 2) (a : Fin 36 → ℚ)
-    (hY : ∀ (i : Fin 3) (k : Fin 5), a ⟨5 * i + k, by omega⟩ = iota (n i) k)
-    (hℓ : a 15 = (Syntax.ell : ℚ))
-    (hc : ∀ (i : Fin 4) (k : Fin 5), a ⟨16 + (5 * i + k), by omega⟩ = iota (certShifts n i) k)
-    (hacc : Syntax.heightTemplate.Rel a) :
+/-- The finite-box deduction from the height-certificate predicate `HeightCert` at the codes
+`ι(nᵢ)` with `ℓ = ℓ₀` and the shifts `(c_*, c_*n₁, c_*n₂, c_*n₃)`. -/
+theorem finite_box_of_heightCert (hH : SixContactEstimate) (hM0 : 1 ≤ Syntax.M0) (n : Fin 3 → ℤ)
+    (hf : n 0 * n 1 ≠ n 2)
+    (hcert : HeightCert (fun i => iota (n i)) (Syntax.ell : ℚ) (certShifts n)) :
     ∀ i, |n i| < (Syntax.T : ℤ) := by
-  obtain ⟨-, A, b, hb, hQ⟩ := (heightCertificate_rel_iff _ _ a hℓ hc).mp hacc
+  obtain ⟨A, b, hb, hQ⟩ := hcert
   refine finite_box_of_slopes hH hM0 n hf fun i => ?_
   obtain ⟨hb0, e₀, e₁⟩ := hb i
-  simp only [hY] at e₀ e₁
   refine ⟨A i 0, A i 1, b i, hb0, e₀, e₁, fun Q hQm => ?_⟩
   obtain ⟨⟨k₀, h₀⟩, ⟨k₁, h₁⟩, ⟨k₂, h₂⟩⟩ := nineQ_surj A b i
   have key : ∀ k, ∃ t₁ t₂ t₃ : ℚ, t₁ + t₂ + t₃ = nineQ A b k ∧
@@ -210,5 +204,22 @@ theorem finite_box (hH : SixContactEstimate) (hM0 : 1 ≤ Syntax.M0) (n : Fin 3 
   · rw [← h₀]; exact key k₀
   · rw [← h₁]; exact key k₁
   · rw [← h₂]; exact key k₂
+
+/-- **The finite-box deduction** (Proposition 6.1). Assume the six-contact estimate and
+`M₀ ≥ 1`. If `n₁n₂ ≠ n₃` and the unguarded certificate accepts
+`(ι(n₁), ι(n₂), ι(n₃), ℓ₀, ι(c_*), ι(c_*n₁), ι(c_*n₂), ι(c_*n₃))`, then `|nᵢ| < T`. The
+parameter vector `a ∈ ℚ³⁶` of the height-certificate template is described coordinatewise. -/
+theorem finite_box (hH : SixContactEstimate) (hM0 : 1 ≤ Syntax.M0) (n : Fin 3 → ℤ)
+    (hf : n 0 * n 1 ≠ n 2) (a : Fin 36 → ℚ)
+    (hY : ∀ (i : Fin 3) (k : Fin 5), a ⟨5 * i + k, by omega⟩ = iota (n i) k)
+    (hℓ : a 15 = (Syntax.ell : ℚ))
+    (hc : ∀ (i : Fin 4) (k : Fin 5), a ⟨16 + (5 * i + k), by omega⟩ = iota (certShifts n i) k)
+    (hacc : Syntax.heightTemplate.Rel a) :
+    ∀ i, |n i| < (Syntax.T : ℤ) := by
+  obtain ⟨-, hcert⟩ := (heightCertificate_rel_iff _ _ a hℓ hc).mp hacc
+  have e : (fun (i : Fin 3) (k : Fin 5) => a ⟨5 * i + k, by omega⟩) = fun i => iota (n i) :=
+    funext fun i => funext fun k => hY i k
+  rw [e] at hcert
+  exact finite_box_of_heightCert hH hM0 n hf hcert
 
 end ZInQ.Mult

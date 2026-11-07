@@ -9,6 +9,7 @@ import ZInQKernel.Multiplication.Soundness.TestsToCongruence
 import ZInQKernel.Multiplication.Soundness.LocalCongruence
 import ZInQKernel.Multiplication.Soundness.ContactSupport
 import ZInQKernel.Multiplication.Soundness.FiniteBox
+import ZInQKernel.Multiplication.Soundness.MultiplySound
 
 /-!
 # Soundness of the multiplication template
