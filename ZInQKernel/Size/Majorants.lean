@@ -7,6 +7,7 @@ import ZInQKernel.Size.Majorants.Towers
 import ZInQKernel.Size.Majorants.Calculus
 import ZInQKernel.Size.Majorants.Tactic
 import ZInQKernel.Size.Majorants.Templates
+import ZInQKernel.Size.Majorants.TemplateHeights
 
 /-!
 # Syntax heights, the height majorant and the final size bounds

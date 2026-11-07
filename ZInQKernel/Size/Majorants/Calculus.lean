@@ -322,6 +322,8 @@ variable {e₁ e₂ s₁ s₂ e s : ℕ}
 
 theorem nil : FAll B 0 0 [] := fun _ h => absurd h List.not_mem_nil
 
+theorem nil_mono' (e s : ℕ) : FAll B e s [] := fun _ h => absurd h List.not_mem_nil
+
 theorem cons' (hB : 1 ≤ B) {φ : Formula} {fs : List Formula} (hφ : Sz B e₁ s₁ φ.compile)
     (hfs : FAll B e₂ s₂ fs) : FAll B (max e₁ e₂) (max s₁ s₂) (φ :: fs) := by
   intro ψ hψ

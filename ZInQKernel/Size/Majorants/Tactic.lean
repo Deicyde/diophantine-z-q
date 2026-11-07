@@ -64,16 +64,26 @@ theorem pairs {B e s n : ℕ} {D : Fin n → Pair} (h : ∀ i, PSz B e s (D i)) 
 
 open Lean Elab Tactic Meta
 
-/-- Close a side condition: by assumption (`1 ≤ B`) or by `decide`. -/
+/-- Close a side condition: by assumption (`1 ≤ B`), by evaluation of `Nat.ble`, by
+`decide` or by `simp`. -/
 def sideGoal (g : MVarId) : TacticM Unit := g.withContext do
   if (← observing? (withReducible g.assumption)).isSome then return
   let saved ← getGoals
-  setGoals [g]
-  try
-    withoutRecover <| evalTactic (← `(tactic|
-      first | exact Nat.le_of_ble_eq_true rfl | decide | (simp; done)))
-  finally
-    setGoals saved
+  let attempts : List (TSyntax `tactic) :=
+    [← `(tactic| exact Nat.le_of_ble_eq_true rfl), ← `(tactic| decide), ← `(tactic| simp)]
+  for tac in attempts do
+    let s ← saveState
+    try
+      setGoals [g]
+      withoutRecover (evalTactic tac)
+      let pf ← instantiateMVars (mkMVar g)
+      if (← getGoals).isEmpty && !pf.hasSyntheticSorry && !pf.hasExprMVar then
+        setGoals saved
+        return
+      s.restore
+    catch _ => s.restore
+  setGoals saved
+  throwError "size: cannot prove the side condition{indentExpr (← g.getType)}"
 
 /-- The smallest `k` with `n ≤ 2^k`. -/
 def ceilLog2 (n : ℕ) : ℕ := Id.run do
@@ -269,12 +279,12 @@ namespace ZInQ.Size.Tac
 
 open Lean Elab Tactic Meta
 
-/-- Prove `Maj B (h + 1) P` (with `2^20 ≤ B` and `1 ≤ B` in the context): find the levels of
-`P` by `size`, then check `e ≤ 8h` and `s ≤ 160` by `decide`. -/
-elab "size_maj" : tactic => do
+/-- Apply `lem`, prove its structural premises by `size` and its numeric premises by
+`decide`. -/
+def sizeVia (lem : Name) : TacticM Unit := do
   let g ← getMainGoal
   setGoals []
-  let gs ← g.apply (← mkConstWithFreshMVarLevels ``maj_of_sz)
+  let gs ← g.apply (← mkConstWithFreshMVarLevels lem)
   let mut rest := #[]
   for g' in gs do
     let ty ← instantiateMVars (← g'.getType)
@@ -286,5 +296,15 @@ elab "size_maj" : tactic => do
     unless ← g'.isAssigned do
       if (← isProp (← g'.getType)) then
         sideGoal g'
+
+theorem mono_to {σ : Type*} {B e s e' s' : ℕ} {P : MvPolynomial σ ℤ} (hB : 1 ≤ B)
+    (h : Sz B e s P) (he : e ≤ e') (hs : s ≤ s') : Sz B e' s' P := h.mono hB he hs
+
+/-- Prove `Maj B (h + 1) P` (with `2^20 ≤ B` and `1 ≤ B` in the context): find the levels of
+`P` by `size`, then check `e ≤ 8h` and `s ≤ 160` by `decide`. -/
+elab "size_maj" : tactic => sizeVia ``maj_of_sz
+
+/-- Prove `Sz B e s P` for given numerals `e`, `s` (with `1 ≤ B` in the context). -/
+elab "size_le" : tactic => sizeVia ``mono_to
 
 end ZInQ.Size.Tac
