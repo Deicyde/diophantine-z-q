@@ -11,6 +11,7 @@ import ZInQKernel.Compiler.Programs.ZLSim
 import ZInQKernel.Compiler.Programs.Field
 import ZInQKernel.Compiler.Programs.FieldSpec
 import ZInQKernel.Compiler.Programs.Point
+import ZInQKernel.Compiler.Programs.PointSpec
 import ZInQKernel.Compiler.Programs.Capped
 import ZInQKernel.Compiler.Programs.PrecisionIR
 import ZInQKernel.Compiler.Programs.Wrapper
