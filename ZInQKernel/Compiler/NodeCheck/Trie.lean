@@ -28,34 +28,78 @@ namespace NTrie
 
 variable {α : Type}
 
-/-- The value stored at key `k`. -/
-def find : NTrie α → ℕ → Option α
+/-- The value stored at key `k` (structural recursion; the compiled implementation of
+`find`). -/
+def findS : NTrie α → ℕ → Option α
   | leaf, _ => none
-  | node v l r, k => bif k.beq 0 then v else bif (k % 2).beq 0 then find l (k / 2) else find r (k / 2)
+  | node v l r, k =>
+    cond (Nat.beq k 0) v
+      (cond (Nat.beq (Nat.mod k 2) 0) (findS l (Nat.div k 2)) (findS r (Nat.div k 2)))
+
+/-- The value stored at key `k`. It is written with the recursor and `Nat` primitives, which
+the kernel reduces about twice as fast as the structural definition `findS`. -/
+noncomputable def find (t : NTrie α) : ℕ → Option α :=
+  NTrie.rec (motive := fun _ => ℕ → Option α) (fun _ => none)
+    (fun v _ _ fl fr k =>
+      cond (Nat.beq k 0) v (cond (Nat.beq (Nat.mod k 2) 0) (fl (Nat.div k 2)) (fr (Nat.div k 2))))
+    t
+
+@[csimp] theorem find_eq_findS : @find = @findS := by
+  funext α t
+  induction t with
+  | leaf => rfl
+  | node v l r ihl ihr =>
+    funext k
+    simp only [find, findS] at *
+    rw [← ihl, ← ihr]
 
 /-- The root value and the two subtrees (a leaf has no value and two leaf subtrees). -/
 def view : NTrie α → Option α × NTrie α × NTrie α
   | leaf => (none, leaf, leaf)
   | node v l r => (v, l, r)
 
-/-- Store `a` at key `k`, with fuel `f` (any `f > k` suffices). -/
-def ins : ℕ → NTrie α → ℕ → α → NTrie α
+/-- One step of insertion: store `a` at key `k` in `t`, inserting into a subtree with `g`. -/
+def insStep (g : NTrie α → ℕ → α → NTrie α) (t : NTrie α) (k : ℕ) (a : α) : NTrie α :=
+  NTrie.casesOn (motive := fun _ => NTrie α) t
+    (cond (Nat.beq k 0) (node (some a) leaf leaf)
+      (cond (Nat.beq (Nat.mod k 2) 0) (node none (g leaf (Nat.div k 2) a) leaf)
+        (node none leaf (g leaf (Nat.div k 2) a))))
+    (fun v l r => cond (Nat.beq k 0) (node (some a) l r)
+      (cond (Nat.beq (Nat.mod k 2) 0) (node v (g l (Nat.div k 2) a) r)
+        (node v l (g r (Nat.div k 2) a))))
+
+/-- Store `a` at key `k`, with fuel `f` (structural recursion; the compiled implementation
+of `ins`). -/
+def insS : ℕ → NTrie α → ℕ → α → NTrie α
   | 0, t, _, _ => t
-  | f + 1, t, k, a =>
-    match t.view with
-    | (v, l, r) =>
-      bif k.beq 0 then node (some a) l r
-      else bif (k % 2).beq 0 then node v (ins f l (k / 2) a) r else node v l (ins f r (k / 2) a)
+  | f + 1, t, k, a => insStep (insS f) t k a
+
+/-- Store `a` at key `k`, with fuel `f` (any `f > k` suffices), written with the recursor. -/
+noncomputable def ins (f : ℕ) : NTrie α → ℕ → α → NTrie α :=
+  Nat.rec (motive := fun _ => NTrie α → ℕ → α → NTrie α) (fun t _ _ => t)
+    (fun _ g t k a => insStep g t k a) f
+
+@[csimp] theorem ins_eq_insS : @ins = @insS := by
+  funext α f
+  induction f with
+  | zero => rfl
+  | succ f ih =>
+    funext t k a
+    simp only [ins, insS] at *
+    rw [← ih]
 
 theorem find_node (v : Option α) (l r : NTrie α) (k : ℕ) :
     (node v l r).find k = if k = 0 then v else if k % 2 = 0 then l.find (k / 2)
       else r.find (k / 2) := by
-  simp only [find, cond_eq_ite, Nat.beq_eq]
+  show cond (Nat.beq k 0) v (cond (Nat.beq (Nat.mod k 2) 0) (l.find (Nat.div k 2))
+    (r.find (Nat.div k 2))) = _
+  simp only [cond_eq_ite, Nat.beq_eq]
+  rfl
 
 theorem find_view (t : NTrie α) (k : ℕ) :
     t.find k = (node t.view.1 t.view.2.1 t.view.2.2).find k := by
   cases t with
-  | leaf => rw [find_node]; simp [view, find]
+  | leaf => rw [find_node]; simp only [view, ite_self]; split <;> rfl
   | node v l r => rfl
 
 theorem ins_succ (f : ℕ) (t : NTrie α) (k : ℕ) (a : α) :
@@ -63,7 +107,7 @@ theorem ins_succ (f : ℕ) (t : NTrie α) (k : ℕ) (a : α) :
       if k = 0 then node (some a) t.view.2.1 t.view.2.2
       else if k % 2 = 0 then node t.view.1 (t.view.2.1.ins f (k / 2) a) t.view.2.2
       else node t.view.1 t.view.2.1 (t.view.2.2.ins f (k / 2) a) := by
-  cases t <;> simp only [ins, cond_eq_ite, Nat.beq_eq, view]
+  cases t <;> simp only [ins, insStep, cond_eq_ite, Nat.beq_eq, view] <;> rfl
 
 theorem find_ins (f : ℕ) (t : NTrie α) (k : ℕ) (a : α) (hk : k < f) (k' : ℕ) :
     (t.ins f k a).find k' = if k' = k then some a else t.find k' := by

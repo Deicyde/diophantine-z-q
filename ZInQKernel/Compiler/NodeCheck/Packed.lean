@@ -367,7 +367,7 @@ theorem construction_sim (p : Program) (r k : ℕ) :
 def FState.init (k : ℕ) : FState := ⟨k, Table.empty, k, ((List.range k).map .var).reverse⟩
 
 theorem rel_init (k : ℕ) : Rel (State.init k) (FState.init k) := by
-  refine ⟨rfl, by simp [State.init, FState.init], by simp [FState.init], ?_, ?_⟩
+  refine ⟨rfl, by simp [State.init, FState.init], by simp [FState.init], ?_, ?_, ?_⟩
   · intro n hn
     show Table.empty.find n = _
     rw [Table.find_empty, eq_comm, List.idxOf?_eq_none_iff]
@@ -377,6 +377,7 @@ theorem rel_init (k : ℕ) : Rel (State.init k) (FState.init k) := by
     simp [tabled] at hn
   · intro i hi
     simpa [State.init] using hi
+  · simp [State.init, List.countP_map, Function.comp_def, isVarNode]
 
 /-- The reversed node list of the fast run of the packed-history construction, with the
 encoding of its formula. -/
@@ -392,5 +393,14 @@ theorem compiled_nodes (p : Program) (r k : ℕ) :
     (Packed.construction p r k (State.init k)).1).run _ _ h1.2
   rw [h1.1] at h2
   rw [Packed.compiled, NM.toCircuit_nodes, h2.2.nodes, fastNodesRev]
+
+/-- The variable nodes of the compiled circuit are as many as its explicit variables. -/
+theorem compiled_varNodes (p : Program) (r k : ℕ) :
+    (Packed.compiled p r k).nodes.countP isVarNode = (Packed.compiled p r k).explicitVars.length := by
+  have h1 := (construction_sim p r k).run _ _ (rel_init k)
+  have h2 := (encode_sim Syntax.ExPoly.empty
+    (Packed.construction p r k (State.init k)).1).run _ _ h1.2
+  rw [Packed.compiled, NM.toCircuit_nodes, NM.toCircuit_explicitVars]
+  exact h2.2.vars
 
 end ZInQ.Compiler.NodeCheck

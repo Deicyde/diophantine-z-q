@@ -2,6 +2,7 @@ import ZInQKernel.Compiler.NodeCheck.Trie
 import ZInQKernel.Compiler.NodeCheck.Builder
 import ZInQKernel.Compiler.NodeCheck.Packed
 import ZInQKernel.Compiler.NodeCheck.Check
+import ZInQKernel.Compiler.NodeCheck.Fast
 
 /-!
 # The node check of the universal halting circuit
