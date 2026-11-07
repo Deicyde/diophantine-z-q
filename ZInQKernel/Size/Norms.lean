@@ -3,3 +3,4 @@ import ZInQKernel.Size.Norms.Estimates
 import ZInQKernel.Size.Norms.Substitution
 import ZInQKernel.Size.Norms.Pair
 import ZInQKernel.Size.Norms.Quadratic
+import ZInQKernel.Size.Norms.DivisionPolynomials
