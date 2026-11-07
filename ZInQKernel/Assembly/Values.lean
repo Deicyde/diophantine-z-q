@@ -4,6 +4,7 @@ import ZInQKernel.Assembly.Values.Tests
 import ZInQKernel.Assembly.Values.Gadgets
 import ZInQKernel.Assembly.Values.SignedEncode
 import ZInQKernel.Assembly.Values.Close
+import ZInQKernel.Assembly.Values.Exceptions
 
 /-!
 # The value templates and their relations
