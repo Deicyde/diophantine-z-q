@@ -3,6 +3,8 @@ import ZInQKernel.Size.FormalMultiple.PointCount
 import ZInQKernel.Size.FormalMultiple.Residue
 import ZInQKernel.Size.FormalMultiple.Reduction
 import ZInQKernel.Size.FormalMultiple.BadPlace
+import ZInQKernel.Size.FormalMultiple.FormalMul
+import ZInQKernel.Size.FormalMultiple.ReductionOrders
 
 /-!
 # The least formal multiple succeeds

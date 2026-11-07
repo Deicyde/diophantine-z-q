@@ -74,6 +74,14 @@ theorem addOrderOf_le_two_card_add_one (a : k) (P : (shortCurve a).toAffine.Poin
     addOrderOf P ≤ 2 * Fintype.card k + 1 :=
   (addOrderOf_le_card (x := P)).trans (card_points_le a)
 
+omit [Fintype k] in
+/-- The same bound with `Nat.card`, for a finite field without a chosen `Fintype` structure. -/
+theorem addOrderOf_le_two_natCard_add_one [Finite k] (a : k)
+    (P : (shortCurve a).toAffine.Point) : addOrderOf P ≤ 2 * Nat.card k + 1 := by
+  have := Fintype.ofFinite k
+  rw [Nat.card_eq_fintype_card]
+  exact addOrderOf_le_two_card_add_one a P
+
 /-- `2 p² + 1 ≤ p⁶` and `(2 p + 1)² ≤ p⁶` for `p ≥ 3`. -/
 theorem odd_prime_count_bounds {p : ℕ} (hp : 3 ≤ p) :
     2 * p ^ 2 + 1 ≤ p ^ 6 ∧ (2 * p + 1) ^ 2 ≤ p ^ 6 := by
