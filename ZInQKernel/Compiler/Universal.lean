@@ -6,6 +6,9 @@ import ZInQKernel.Compiler.Universal.NodeCheck
 import ZInQKernel.Compiler.Universal.Specialize
 import ZInQKernel.Compiler.Universal.SpecializeShape
 import ZInQKernel.Compiler.Universal.PrecisionCircuit
+import ZInQKernel.Compiler.Universal.CodeSize
+import ZInQKernel.Compiler.Universal.WrapperSize
+import ZInQKernel.Compiler.Universal.WrapperCode
 
 /-!
 # The universal interpreter and the five-input circuit

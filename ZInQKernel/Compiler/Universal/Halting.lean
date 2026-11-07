@@ -33,11 +33,17 @@ def haltingCircuit : NatCircuit := compiled interpreter 204 2
 
 theorem haltingCircuit_inputCount : haltingCircuit.inputCount = 2 := rfl
 
-/-- The explicit variables of `ℋ` begin with the inputs `X_0, X_1`. -/
+/-- The explicit variables of `ℋ` are the inputs `X_0, X_1` followed by witnesses. -/
+theorem haltingCircuit_explicitVars_eq' :
+    ∃ rest, haltingCircuit.explicitVars = (0, .input) :: (1, .input) :: rest ∧
+      ∀ v ∈ rest, v.2 = .witness := by
+  obtain ⟨rest, h, hw⟩ := (compiled_prefix interpreter 204 2).1
+  exact ⟨rest, h, hw⟩
+
 theorem haltingCircuit_explicitVars_eq :
     ∃ rest, haltingCircuit.explicitVars = (0, .input) :: (1, .input) :: rest := by
-  obtain ⟨rest, h⟩ := (compiled_prefix interpreter 204 2).1
-  exact ⟨rest, h.symm⟩
+  obtain ⟨rest, h, -⟩ := haltingCircuit_explicitVars_eq'
+  exact ⟨rest, h⟩
 
 /-- The node list of `ℋ` begins with the variable nodes of `X_0` and `X_1`. -/
 theorem haltingCircuit_nodes_eq : ∃ rest, haltingCircuit.nodes = .var 0 :: .var 1 :: rest := by
@@ -46,7 +52,13 @@ theorem haltingCircuit_nodes_eq : ∃ rest, haltingCircuit.nodes = .var 0 :: .va
 
 /-- The nodes of `ℋ` other than call nodes are pairwise distinct (hash-consing). -/
 theorem haltingCircuit_nonCall_nodup : (nonCall haltingCircuit.nodes).Nodup :=
-  (compiled_prefix interpreter 204 2).2.2
+  (compiled_prefix interpreter 204 2).2.2.1
+
+/-- The constants of `ℋ` are among `0, 1, 2, 4, -1, 1399`. -/
+theorem haltingCircuit_consts {c : ℤ} (h : NatNode.const c ∈ haltingCircuit.nodes) :
+    c ∈ ({0, 1, 2, 4, -1, 1399} : Set ℤ) := by
+  have := (compiled_prefix interpreter 204 2).2.2.2 c h
+  rwa [interpreter_length] at this
 
 /-- **Counts of the universal halting circuit**: `54,049` explicit variables, `15,845` calls
 (blocks), variable count `1,305,804`, and well-scopedness. -/

@@ -21,3 +21,4 @@ import ZInQKernel.Compiler.Translation
 import ZInQKernel.Syntax.Recipes
 import ZInQKernel.Compiler.Interpreter
 import ZInQKernel.Compiler.Universal
+import ZInQKernel.Compiler.Programs

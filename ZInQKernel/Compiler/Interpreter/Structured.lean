@@ -107,6 +107,22 @@ theorem length_compile : ∀ (s : Stmt) (L ls le ex : ℕ), (s.compile L ls le e
   | cont, _, _, _, _ => rfl
   | exit, _, _, _, _ => rfl
 
+/-- The registers a statement may change. -/
+def writes : Stmt → List ℕ
+  | skip => []
+  | clear x => [x]
+  | inc x => [x]
+  | pred x => [x]
+  | seq s t => s.writes ++ t.writes
+  | whileDec x b => x :: b.writes
+  | ifNZ _ s t => s.writes ++ t.writes
+  | ifLt a b s t => a :: b :: (s.writes ++ t.writes)
+  | divmod2 y q r => [y, q, r]
+  | loop b => b.writes
+  | brk => []
+  | cont => []
+  | exit => []
+
 /-- Right-nested sequencing of a list of statements. -/
 def seqs : List Stmt → Stmt
   | [] => skip
@@ -217,6 +233,64 @@ theorem Exec.regs_J {s : Stmt} {ρ : Regs} {o : Outcome} (h : Exec s ρ o) (hJ :
   | brk => exact hJ
   | cont => exact hJ
   | exit => exact hJ
+
+/-- A statement leaves every register outside `s.writes` unchanged. -/
+theorem Exec.regs_of_not_mem_writes {s : Stmt} {ρ : Regs} {o : Outcome} (h : Exec s ρ o) :
+    ∀ k, k ∉ s.writes → o.regs k = ρ k := by
+  induction h with
+  | skip => intro k _; rfl
+  | clear x ρ => intro k hk; simp_all [Stmt.writes, Outcome.regs]
+  | inc x ρ _ => intro k hk; simp_all [Stmt.writes, Outcome.regs]
+  | pred x ρ => intro k hk; simp_all [Stmt.writes, Outcome.regs]
+  | seq_normal _ _ ih1 ih2 =>
+    intro k hk
+    simp only [Stmt.writes, List.mem_append, not_or] at hk
+    rw [ih2 k hk.2]; exact ih1 k hk.1
+  | seq_abnormal _ _ ih =>
+    intro k hk
+    simp only [Stmt.writes, List.mem_append, not_or] at hk
+    exact ih k hk.1
+  | while_zero _ => intro k _; rfl
+  | while_normal _ _ _ ih1 ih2 =>
+    intro k hk
+    have hk' := hk
+    simp only [Stmt.writes, List.mem_cons, not_or] at hk'
+    rw [ih2 k hk]
+    have := ih1 k hk'.2
+    simp only [Outcome.regs] at this
+    rw [this, Function.update_of_ne hk'.1]
+  | while_abnormal _ _ _ ih =>
+    intro k hk
+    simp only [Stmt.writes, List.mem_cons, not_or] at hk
+    rw [ih k hk.2, Function.update_of_ne hk.1]
+  | ifNZ_pos _ _ ih =>
+    intro k hk
+    simp only [Stmt.writes, List.mem_append, not_or] at hk
+    exact ih k hk.1
+  | ifNZ_zero _ _ ih =>
+    intro k hk
+    simp only [Stmt.writes, List.mem_append, not_or] at hk
+    exact ih k hk.2
+  | ifLt_lt _ _ _ ih =>
+    intro k hk
+    simp only [Stmt.writes, List.mem_cons, List.mem_append, not_or] at hk
+    rw [ih k hk.2.2.1, Function.update_of_ne hk.2.1, Function.update_of_ne hk.1]
+  | ifLt_ge _ _ _ ih =>
+    intro k hk
+    simp only [Stmt.writes, List.mem_cons, List.mem_append, not_or] at hk
+    rw [ih k hk.2.2.2, Function.update_of_ne hk.2.1, Function.update_of_ne hk.1]
+  | divmod2 =>
+    intro k hk
+    simp only [Stmt.writes, List.mem_cons, List.not_mem_nil, or_false, not_or] at hk
+    simp [Outcome.regs, Function.update_of_ne hk.1, Function.update_of_ne hk.2.1,
+      Function.update_of_ne hk.2.2]
+  | loop_normal _ ih => exact ih
+  | loop_brk _ ih => exact ih
+  | loop_cont _ _ ih1 ih2 => intro k hk; rw [ih2 k hk]; exact ih1 k hk
+  | loop_exit _ ih => exact ih
+  | brk => intro k _; rfl
+  | cont => intro k _; rfl
+  | exit => intro k _; rfl
 
 /-! ### Runs of machines -/
 
@@ -337,7 +411,8 @@ theorem reaches_ifLt {μ : Machine} {L a b E : ℕ} (hab : a ≠ b) (h0 : μ L =
       convert this using 2
       funext k
       simp only [hρ', Function.update_apply]
-      split_ifs <;> simp_all <;> omega
+      split_ifs <;> simp_all
+      omega
     · by_cases hb : ρ b = 0
       · convert reaches_dec_zero h0 hb using 2
         funext k
@@ -355,11 +430,11 @@ theorem reaches_ifLt {μ : Machine} {L a b E : ℕ} (hab : a ≠ b) (h0 : μ L =
       convert this using 2
       funext k
       simp only [hρ', Function.update_apply]
-      split_ifs <;> simp_all <;> omega
+      split_ifs <;> simp_all
+      omega
 
 /-- The halving loop of `divmod2`. -/
-theorem reaches_divmod2 {μ : Machine} {L y q r : ℕ} (hyq : y ≠ q) (hyr : y ≠ r) (hqr : q ≠ r)
-    (hqJ : q ≠ J) (hrJ : r ≠ J)
+theorem reaches_divmod2 {μ : Machine} {L y q r : ℕ} (hyq : y ≠ q) (hqJ : q ≠ J) (hrJ : r ≠ J)
     (hcode : CodeAt μ L ((Stmt.divmod2 y q r).compile L 0 0 0)) :
     ∀ ρ : Regs, ρ J = 0 →
       Reaches μ ⟨L, ρ⟩ ⟨L + 8, Function.update (Function.update (Function.update ρ y 0) q
@@ -413,7 +488,8 @@ theorem reaches_divmod2 {μ : Machine} {L y q r : ℕ} (hyq : y ≠ q) (hyr : y 
 
 theorem CodeAt.seq {μ : Machine} {L ls le ex : ℕ} {s t : Stmt}
     (h : CodeAt μ L ((Stmt.seq s t).compile L ls le ex)) :
-    CodeAt μ L (s.compile L ls le ex) ∧ CodeAt μ (L + s.size) (t.compile (L + s.size) ls le ex) := by
+    CodeAt μ L (s.compile L ls le ex) ∧
+      CodeAt μ (L + s.size) (t.compile (L + s.size) ls le ex) := by
   simp only [Stmt.compile] at h
   refine ⟨h.append_left, ?_⟩
   have := h.append_right
@@ -555,10 +631,10 @@ theorem compile_correct {μ : Machine} {s : Stmt} {ρ : Regs} {o : Outcome} (hex
     have := ih hct hJ1
     cases o <;> simpa [Outcome.target, Stmt.size, Nat.add_assoc, Nat.add_comm,
         Nat.add_left_comm] using this
-  | @divmod2 y q r ρ hyq hyr hqr hqJ hrJ =>
+  | @divmod2 y q r ρ hyq _ _ hqJ hrJ =>
     intro L ls le ex h hJ
     have hcode : CodeAt μ L ((Stmt.divmod2 y q r).compile L 0 0 0) := h
-    exact reaches_divmod2 hyq hyr hqr hqJ hrJ hcode ρ hJ
+    exact reaches_divmod2 hyq hqJ hrJ hcode ρ hJ
   | @loop_normal b ρ ρ' hb ih =>
     intro L ls le ex h hJ
     exact ih (ls := L) (le := L + b.size) h hJ

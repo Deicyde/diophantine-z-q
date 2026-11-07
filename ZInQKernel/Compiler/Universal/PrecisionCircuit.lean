@@ -115,14 +115,15 @@ theorem precisionCircuitOf_counts (code : ℤ) :
   · rw [precisionCircuitOf, specialize_varCount, hn]; rfl
 
 /-- The explicit variables of the precision circuit: `0, …, 8` (the first five inputs), then the
-explicit witnesses of `ℋ` shifted by `7`. -/
+explicit witnesses of `ℋ` shifted by `7` (so `5` inputs and `54,051` witnesses). -/
 theorem precisionCircuitOf_explicitVars (code : ℤ) :
     ∃ rest, haltingCircuit.explicitVars = (0, .input) :: (1, .input) :: rest ∧
+      (∀ v ∈ rest, v.2 = .witness) ∧
       (precisionCircuitOf code).explicitVars =
         [(0, .input), (1, .input), (2, .input), (3, .input), (4, .input), (5, .witness),
           (6, .witness), (7, .witness), (8, .witness)] ++ rest.map fun v => (v.1 + 7, v.2) := by
-  obtain ⟨rest, hr⟩ := haltingCircuit_explicitVars_eq
-  refine ⟨rest, hr, ?_⟩
+  obtain ⟨rest, hr, hw⟩ := haltingCircuit_explicitVars_eq'
+  refine ⟨rest, hr, hw, ?_⟩
   simp [precisionCircuitOf, specialize, hr, List.range_succ]
 
 /-- **Shape of the natural precision circuit**, node statistics: from the node check of `ℋ`,
@@ -148,6 +149,34 @@ theorem precisionCircuitOf_nodeStats (hN : HaltingNodeCheck) (code : ℤ) :
   · rw [precisionCircuitOf, k4, h4]
   · rw [precisionCircuitOf, k5, h5]
   · rw [precisionCircuitOf, k6, h6]; rfl
+
+/-- The constants of the precision circuit are among `code, 0, 1, 2, 4, 1399, -1`; this needs no
+node check. -/
+theorem precisionCircuitOf_consts (code : ℤ) {c : ℤ}
+    (h : NatNode.const c ∈ (precisionCircuitOf code).nodes) :
+    c ∈ ({code, 0, 1, 2, 4, 1399, -1} : Set ℤ) := by
+  simp only [precisionCircuitOf, specialize, List.mem_append, List.mem_map] at h
+  rcases h with ⟨n, hn, hnc⟩ | h
+  · cases n with
+    | const c' =>
+      simp only [renameNode, NatNode.const.injEq] at hnc
+      subst hnc
+      have := haltingCircuit_consts hn
+      simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at this ⊢
+      omega
+    | var i =>
+      rcases i with _ | _ | i
+      · simp only [renameNode, NatNode.const.injEq] at hnc
+        subst hnc; simp
+      · simp [renameNode] at hnc
+      · simp [renameNode] at hnc
+    | add _ _ => simp [renameNode] at hnc
+    | mul _ _ => simp [renameNode] at hnc
+    | call _ _ _ _ => simp [renameNode] at hnc
+  · simp only [appendedNodes, pairingBlock, List.cons_append, List.nil_append, List.mem_cons,
+      NatNode.const.injEq, reduceCtorEq, List.not_mem_nil, or_false, false_or] at h
+    simp only [Set.mem_insert_iff, Set.mem_singleton_iff]
+    omega
 
 /-- The constants of the precision circuit other than `0, 1, -1` are, in order of first
 occurrence, `code, 2, 4, 1399`; for `1399 < code` these four values are distinct. -/

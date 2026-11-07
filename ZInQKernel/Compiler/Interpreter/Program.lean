@@ -63,7 +63,8 @@ def unconsBlock (x h t b : ℕ) : Stmt :=
 /-- `out ← cons h t = 2 ^ h (2t + 1)`, copying both inputs first. Scratch `b, …, b + 10`. -/
 def consBlock (h t out b : ℕ) : Stmt :=
   seqs [copyBlock b t (b + 2), doubleBlock b (b + 3) (b + 4) (b + 5), inc b,
-    copyBlock (b + 1) h (b + 6), whileDec (b + 1) (doubleBlock b (b + 7) (b + 8) (b + 9)), copyBlock out b (b + 10)]
+    copyBlock (b + 1) h (b + 6), whileDec (b + 1) (doubleBlock b (b + 7) (b + 8) (b + 9)),
+    copyBlock out b (b + 10)]
 
 end Stmt
 
@@ -117,8 +118,11 @@ def setStmt : Stmt :=
       copyBlock 138 140 202]),
     copyBlock 7 141 203]
 
+/-- The work of one loop iteration. -/
+def stepStmt : Stmt := seqs [fetchStmt, opcodeStmt, getStmt, execStmt, setStmt]
+
 /-- One loop iteration. -/
-def bodyStmt : Stmt := seqs [fetchStmt, opcodeStmt, getStmt, execStmt, setStmt, cont]
+def bodyStmt : Stmt := seq stepStmt cont
 
 /-- Clear all `204` registers. -/
 def cleanupStmt : Stmt := seqs ((List.range 204).map clear)
@@ -136,5 +140,13 @@ def interpreterCode : Program :=
 /-- **The block structure of the literal interpreter**: it is the compilation of the
 structured program (a kernel comparison of two lists of `1,399` instructions). -/
 theorem interpreter_eq_compile : interpreter = interpreterCode := by decide +kernel
+
+theorem initStmt_size : initStmt.size = 165 := by decide +kernel
+
+theorem stepStmt_size : stepStmt.size = 1028 := by decide +kernel
+
+theorem mainStmt_size : mainStmt.size = 1194 := by decide +kernel
+
+theorem cleanupStmt_size : cleanupStmt.size = 204 := by decide +kernel
 
 end ZInQ.Compiler.Universal

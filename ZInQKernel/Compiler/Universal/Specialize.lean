@@ -262,7 +262,7 @@ theorem zv_pairPoly (y : ℕ → ℕ) (i : ℕ) (hi : i < 4) :
         ((y i : ℤ) + (if i + 1 = 4 then y 4 else y (5 + (i + 1)) : ℕ) + 1) -
       2 * ((if i + 1 = 4 then y 4 else y (5 + (i + 1)) : ℕ) : ℤ) := by
   have h4 : i ≠ 4 := by omega
-  simp only [pairPoly, tVar, if_neg h4]
+  simp only [pairPoly, tVar, ite_eq_right h4]
   split_ifs <;> simp
 
 /-- **The natural relation of the specialization.** For natural `c₃`, the specialization has a
@@ -310,15 +310,15 @@ theorem specialize_natRel_iff (H : NatCircuit) (code : ℕ) (T : ExPoly)
       · exact hy0.symm
       · rfl
       · simp only [thetaPoint, y]
-        rw [dif_neg (by omega), if_neg (by omega), if_neg (by omega), if_neg (by omega),
-          if_neg (by omega)]
+        rw [dite_eq_right (by omega), ite_eq_right (by omega), ite_eq_right (by omega), ite_eq_right (by omega),
+          ite_eq_right (by omega)]
         congr 1
-    refine ⟨y, fun i hi => by simp only [y]; rw [dif_pos (show i < 5 from hi)]; rfl,
+    refine ⟨y, fun i hi => by simp only [y]; rw [dite_eq_left (show i < 5 from hi)]; rfl,
       fun i hi => ?_, ?_⟩
     · simp only [specialize] at hi
       simp only [y]
-      rw [dif_neg (by omega), if_neg (by omega), if_neg (by omega), if_neg (by omega),
-        if_neg (by omega)]
+      rw [dite_eq_right (by omega), ite_eq_right (by omega), ite_eq_right (by omega), ite_eq_right (by omega),
+        ite_eq_right (by omega)]
       exact hzero _ (by omega)
     · rw [hθ, h, ← add_assoc, ← add_assoc, ← add_assoc, sum_sq_eq_zero_iff]
       refine ⟨rfl, ?_, ?_, ?_, ?_⟩
