@@ -4,6 +4,7 @@ import ZInQKernel.Hypotheses.Pole
 import ZInQKernel.Model.Descent.MordellWeil
 import ZInQKernel.Hypotheses.PrimePattern
 import ZInQKernel.Assembly.Top
+import ZInQKernel.Compiler.NodeBound
 
 /-!
 # The main theorem
@@ -43,7 +44,8 @@ polynomial in `292890231905` variables, of degree below `2↑↑7` and with coef
 `2↑↑8`, whose rational zero projection to the first variable is exactly `ℤ`. -/
 theorem exists_bounded_integer_polynomial_defining_integers_of
     (hH : SixContactEstimate) (hPC : PoleCompleteness)
-    (h22 : FixedPrimePattern) (hCAT : CatalogueBound) : FrozenTarget := by
-  sorry
+    (h22 : FixedPrimePattern) (hCAT : CatalogueBound) : FrozenTarget :=
+  exists_bounded_integer_polynomial_defining_integers_of_addMulBound
+    Compiler.NodeCheck.haltingAddMulBound hH hPC h22 hCAT
 
 end ZInQ
