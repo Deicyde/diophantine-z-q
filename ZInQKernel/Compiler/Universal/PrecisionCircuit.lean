@@ -115,14 +115,15 @@ theorem precisionCircuitOf_counts (code : ℤ) :
   · rw [precisionCircuitOf, specialize_varCount, hn]; rfl
 
 /-- The explicit variables of the precision circuit: `0, …, 8` (the first five inputs), then the
-explicit witnesses of `ℋ` shifted by `7`. -/
+explicit witnesses of `ℋ` shifted by `7` (so `5` inputs and `54,051` witnesses). -/
 theorem precisionCircuitOf_explicitVars (code : ℤ) :
     ∃ rest, haltingCircuit.explicitVars = (0, .input) :: (1, .input) :: rest ∧
+      (∀ v ∈ rest, v.2 = .witness) ∧
       (precisionCircuitOf code).explicitVars =
         [(0, .input), (1, .input), (2, .input), (3, .input), (4, .input), (5, .witness),
           (6, .witness), (7, .witness), (8, .witness)] ++ rest.map fun v => (v.1 + 7, v.2) := by
-  obtain ⟨rest, hr⟩ := haltingCircuit_explicitVars_eq
-  refine ⟨rest, hr, ?_⟩
+  obtain ⟨rest, hr, hw⟩ := haltingCircuit_explicitVars_eq'
+  refine ⟨rest, hr, hw, ?_⟩
   simp [precisionCircuitOf, specialize, hr, List.range_succ]
 
 /-- **Shape of the natural precision circuit**, node statistics: from the node check of `ℋ`,

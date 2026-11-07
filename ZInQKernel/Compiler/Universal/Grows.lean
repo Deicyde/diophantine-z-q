@@ -31,11 +31,25 @@ def ConstSet (μ : ℤ) : Set ℤ := {0, 1, 2, 4, -1, μ}
 /-- Every constant node of `l` has its value in `ConstSet μ`. -/
 def ConstsIn (μ : ℤ) (l : List NatNode) : Prop := ∀ c, NatNode.const c ∈ l → c ∈ ConstSet μ
 
-/-- The construction `m` only appends explicit variables and nodes, keeps the nodes other than
+/-- `b` is `a` followed by witness variables. -/
+def VarsExt (a b : List (ℕ × VarKind)) : Prop := ∃ l, b = a ++ l ∧ ∀ v ∈ l, v.2 = .witness
+
+theorem VarsExt.refl (a : List (ℕ × VarKind)) : VarsExt a a := ⟨[], by simp, by simp⟩
+
+theorem VarsExt.trans {a b c : List (ℕ × VarKind)} (h : VarsExt a b) (h' : VarsExt b c) :
+    VarsExt a c := by
+  obtain ⟨l, rfl, hl⟩ := h
+  obtain ⟨l', rfl, hl'⟩ := h'
+  refine ⟨l ++ l', by simp, fun v hv => ?_⟩
+  rcases List.mem_append.1 hv with h | h
+  · exact hl v h
+  · exact hl' v h
+
+/-- The construction `m` only appends witness variables and nodes, keeps the nodes other than
 call nodes pairwise distinct (hash-consing), and creates constant nodes only with values in
 `ConstSet μ`. -/
 def Grows (μ : ℤ) {α : Type} (m : NM α) : Prop :=
-  ∀ s, s.vars <+: (m s).2.vars ∧ s.nodes <+: (m s).2.nodes ∧
+  ∀ s, VarsExt s.vars (m s).2.vars ∧ s.nodes <+: (m s).2.nodes ∧
     ((nonCall s.nodes).Nodup → (nonCall (m s).2.nodes).Nodup) ∧
     (ConstsIn μ s.nodes → ConstsIn μ (m s).2.nodes)
 
@@ -46,11 +60,11 @@ namespace Grows
 variable {α β : Type}
 
 theorem pure (a : α) : Grows μ (Pure.pure a : NM α) := fun _ =>
-  ⟨List.prefix_refl _, List.prefix_refl _, id, id⟩
+  ⟨VarsExt.refl _, List.prefix_refl _, id, id⟩
 
 theorem bind {m : NM α} {f : α → NM β} (hm : Grows μ m) (hf : ∀ a, Grows μ (f a)) :
     Grows μ (m >>= f) := fun s =>
-  ⟨(hm s).1.trans (hf _ _).1, (hm s).2.1.trans (hf _ _).2.1,
+  ⟨VarsExt.trans (hm s).1 (hf _ _).1, (hm s).2.1.trans (hf _ _).2.1,
     fun h => (hf _ _).2.2.1 ((hm s).2.2.1 h), fun h => (hf _ _).2.2.2 ((hm s).2.2.2 h)⟩
 
 theorem bind' {m : NM α} {f : α → NM β} (hf : ∀ a, Grows μ (f a)) (hm : Grows μ m) :
@@ -58,7 +72,8 @@ theorem bind' {m : NM α} {f : α → NM β} (hf : ∀ a, Grows μ (f a)) (hm : 
 
 theorem node (n : NatNode) (hn : ∀ c, n = .const c → c ∈ ConstSet μ) :
     Grows μ (Natural.node n) := fun s => by
-  refine ⟨by rw [(node_spec n s).2.1], (node_spec n s).2.2.2, fun h => ?_, fun h => ?_⟩
+  refine ⟨by rw [(node_spec n s).2.1]; exact VarsExt.refl _, (node_spec n s).2.2.2, fun h => ?_,
+    fun h => ?_⟩
   swap
   · unfold Natural.node
     split
@@ -111,15 +126,15 @@ theorem scale {n : ℤ} (hn : n ∈ ConstSet μ) (x : Ex) : Grows μ (Natural.sc
   (constant hn).bind fun _ => mulL _
 
 theorem note (k : MacroKind) : Grows μ (Natural.note k) := fun _ =>
-  ⟨List.prefix_refl _, List.prefix_refl _, id, id⟩
+  ⟨VarsExt.refl _, List.prefix_refl _, id, id⟩
 
 theorem fresh : Grows μ Natural.fresh := fun s => by
   have h := node_noConst (μ := μ) (n := .var s.next) (fun _ => nofun)
     { s with next := s.next + 1, vars := s.vars ++ [(s.next, .witness)] }
-  exact ⟨(List.prefix_append _ _).trans h.1, h.2.1, h.2.2.1, h.2.2.2⟩
+  exact ⟨VarsExt.trans ⟨[(s.next, .witness)], rfl, by simp⟩ h.1, h.2.1, h.2.2.1, h.2.2.2⟩
 
 theorem callPower (P Q R : Ex) : Grows μ (Natural.callPower P Q R) := fun _ =>
-  ⟨List.prefix_refl _, List.prefix_append _ _, fun h => by
+  ⟨VarsExt.refl _, List.prefix_append _ _, fun h => by
     simpa [Natural.callPower, nonCall, List.filter_append, NatNode.isCall] using h,
     fun h c hc => h c (by simpa [Natural.callPower] using hc)⟩
 
@@ -207,11 +222,12 @@ theorem encode (τ : ExPoly) (φ : NForm) : Grows μ (φ.encode τ) := by
 
 end Grows
 
-/-- The circuit of a growing construction lists its inputs first, its node list begins with
+/-- The circuit of a growing construction lists its inputs first and then only witnesses, its
+node list begins with
 their variable nodes, its nodes other than call nodes are pairwise distinct, and its constants
 lie in `ConstSet μ`. -/
 theorem toCircuit_prefix {k : ℕ} {m : NM NForm} (hm : Grows μ m) :
-    (State.init k).vars <+: (m.toCircuit k).explicitVars ∧
+    VarsExt (State.init k).vars (m.toCircuit k).explicitVars ∧
       (State.init k).nodes <+: (m.toCircuit k).nodes ∧ (nonCall (m.toCircuit k).nodes).Nodup ∧
       ConstsIn μ (m.toCircuit k).nodes := by
   have h1 := hm (State.init k)
@@ -220,7 +236,7 @@ theorem toCircuit_prefix {k : ℕ} {m : NM NForm} (hm : Grows μ m) :
     simp only [State.init, nonCall]
     refine (List.Nodup.map (fun i j h => by simpa using h) List.nodup_range).filter _
   have hc0 : ConstsIn μ (State.init k).nodes := fun c hc => by simp [State.init] at hc
-  exact ⟨h1.1.trans h2.1, h1.2.1.trans h2.2.1, h2.2.2.1 (h1.2.2.1 h0), h2.2.2.2 (h1.2.2.2 hc0)⟩
+  exact ⟨VarsExt.trans h1.1 h2.1, h1.2.1.trans h2.2.1, h2.2.2.1 (h1.2.2.1 h0), h2.2.2.2 (h1.2.2.2 hc0)⟩
 
 open Packed RM
 
@@ -310,11 +326,12 @@ theorem grows_construction (p : Program) (r k : ℕ) :
       exact (Grows.addL _).bind fun _ => (Grows.mulL _).bind fun _ => (Grows.addL _).bind
         fun _ => Grows.pure _
 
-/-- The compiled circuit lists its inputs first, its node list begins with their variable
+/-- The compiled circuit lists its inputs first and then only witnesses, its node list begins
+with their variable
 nodes, its nodes other than call nodes are pairwise distinct, and its constants are among
 `0, 1, 2, 4, -1, m`. -/
 theorem compiled_prefix (p : Program) (r k : ℕ) :
-    (State.init k).vars <+: (compiled p r k).explicitVars ∧
+    VarsExt (State.init k).vars (compiled p r k).explicitVars ∧
       (State.init k).nodes <+: (compiled p r k).nodes ∧ (nonCall (compiled p r k).nodes).Nodup ∧
       ConstsIn p.length (compiled p r k).nodes :=
   toCircuit_prefix (grows_construction p r k)

@@ -33,11 +33,17 @@ def haltingCircuit : NatCircuit := compiled interpreter 204 2
 
 theorem haltingCircuit_inputCount : haltingCircuit.inputCount = 2 := rfl
 
-/-- The explicit variables of `ℋ` begin with the inputs `X_0, X_1`. -/
+/-- The explicit variables of `ℋ` are the inputs `X_0, X_1` followed by witnesses. -/
+theorem haltingCircuit_explicitVars_eq' :
+    ∃ rest, haltingCircuit.explicitVars = (0, .input) :: (1, .input) :: rest ∧
+      ∀ v ∈ rest, v.2 = .witness := by
+  obtain ⟨rest, h, hw⟩ := (compiled_prefix interpreter 204 2).1
+  exact ⟨rest, h, hw⟩
+
 theorem haltingCircuit_explicitVars_eq :
     ∃ rest, haltingCircuit.explicitVars = (0, .input) :: (1, .input) :: rest := by
-  obtain ⟨rest, h⟩ := (compiled_prefix interpreter 204 2).1
-  exact ⟨rest, h.symm⟩
+  obtain ⟨rest, h, -⟩ := haltingCircuit_explicitVars_eq'
+  exact ⟨rest, h⟩
 
 /-- The node list of `ℋ` begins with the variable nodes of `X_0` and `X_1`. -/
 theorem haltingCircuit_nodes_eq : ∃ rest, haltingCircuit.nodes = .var 0 :: .var 1 :: rest := by
