@@ -6,6 +6,7 @@ import ZInQKernel.Assembly.Values.SignedEncode
 import ZInQKernel.Assembly.Values.Close
 import ZInQKernel.Assembly.Values.Exceptions
 import ZInQKernel.Assembly.Values.ValueTest
+import ZInQKernel.Assembly.Values.Outer
 
 /-!
 # The value templates and their relations
