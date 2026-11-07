@@ -19,3 +19,4 @@ import ZInQKernel.Compiler.Exponential
 import ZInQKernel.Multiplication.Local
 import ZInQKernel.Compiler.Interpreter
 import ZInQKernel.Compiler.Universal
+import ZInQKernel.Compiler.Programs
