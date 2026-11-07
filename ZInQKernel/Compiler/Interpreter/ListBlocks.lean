@@ -26,7 +26,8 @@ theorem runs_doubleLoop {c x s t₁ t₂ : ℕ} (hcx : c ≠ x) (hcs : c ≠ s) 
     ∀ σ : Regs, σ J = 0 → ∃ σ', Runs (whileDec c (doubleBlock x s t₁ t₂)) σ σ' ∧
       σ' x = 2 ^ σ c * σ x ∧ σ' c = 0 ∧
       Frame (fun k => k = c ∨ k = x ∨ k = s ∨ k = t₁ ∨ k = t₂) σ σ' := by
-  suffices ∀ n (σ : Regs), σ c = n → σ J = 0 → ∃ σ', Runs (whileDec c (doubleBlock x s t₁ t₂)) σ σ' ∧
+  suffices ∀ n (σ : Regs), σ c = n → σ J = 0 →
+      ∃ σ', Runs (whileDec c (doubleBlock x s t₁ t₂)) σ σ' ∧
       σ' x = 2 ^ σ c * σ x ∧ σ' c = 0 ∧
       Frame (fun k => k = c ∨ k = x ∨ k = s ∨ k = t₁ ∨ k = t₂) σ σ' from
     fun σ => this _ σ rfl

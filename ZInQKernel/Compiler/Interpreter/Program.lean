@@ -63,7 +63,8 @@ def unconsBlock (x h t b : ℕ) : Stmt :=
 /-- `out ← cons h t = 2 ^ h (2t + 1)`, copying both inputs first. Scratch `b, …, b + 10`. -/
 def consBlock (h t out b : ℕ) : Stmt :=
   seqs [copyBlock b t (b + 2), doubleBlock b (b + 3) (b + 4) (b + 5), inc b,
-    copyBlock (b + 1) h (b + 6), whileDec (b + 1) (doubleBlock b (b + 7) (b + 8) (b + 9)), copyBlock out b (b + 10)]
+    copyBlock (b + 1) h (b + 6), whileDec (b + 1) (doubleBlock b (b + 7) (b + 8) (b + 9)),
+    copyBlock out b (b + 10)]
 
 end Stmt
 

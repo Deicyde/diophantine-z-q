@@ -51,7 +51,8 @@ theorem runs_shiftLoop : ∀ n (σ : Regs), σ 10 = n → σ J = 0 → 0 < σ 5 
     have hσ₁J : σ₁ J = 0 := by rw [hσ₁]; upd; exact hJ
     obtain ⟨σ₂, h2, e2q, -, hfr₂⟩ := runs_divModBlock (y := 9) (z := 5) (q := 15) (r := 16)
       (b := 48) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ)
-      (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) σ₁ hσ₁J (by rw [hσ₁]; upd; exact hβ)
+      (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) σ₁ hσ₁J
+      (by rw [hσ₁]; upd; exact hβ)
     have hσ₂J : σ₂ J = 0 := by rw [hfr₂ J (by unfold Scratch; omegaJ), hσ₁J]
     have h3 := runs_copyBlock (x := 9) (y := 15) (t := 59) (by omegaJ) (by omegaJ) (by omegaJ)
       (by omegaJ) (by omegaJ) σ₂ hσ₂J
