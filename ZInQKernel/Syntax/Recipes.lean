@@ -1,6 +1,11 @@
 import ZInQKernel.Syntax.Recipes.FixedScalar
 import ZInQKernel.Syntax.Recipes.Translate
 import ZInQKernel.Syntax.Recipes.PowerValue
+import ZInQKernel.Syntax.Recipes.Outer
+import ZInQKernel.Syntax.Recipes.Arith
+import ZInQKernel.Syntax.Recipes.Precision
+import ZInQKernel.Syntax.Recipes.Scope
+import ZInQKernel.Syntax.Recipes.Accounting
 
 /-!
 # Recipes and the specified polynomial
