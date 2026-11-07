@@ -1,5 +1,7 @@
 import ZInQKernel.Compiler.Universal.Interpreter
 import ZInQKernel.Compiler.Universal.Shape
+import ZInQKernel.Compiler.Universal.Grows
+import ZInQKernel.Compiler.Universal.Halting
 
 /-!
 # The universal interpreter and the five-input circuit
