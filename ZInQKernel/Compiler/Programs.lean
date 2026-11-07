@@ -13,6 +13,7 @@ import ZInQKernel.Compiler.Programs.FieldSpec
 import ZInQKernel.Compiler.Programs.Point
 import ZInQKernel.Compiler.Programs.PointSpec
 import ZInQKernel.Compiler.Programs.Capped
+import ZInQKernel.Compiler.Programs.CappedSpec
 import ZInQKernel.Compiler.Programs.PrecisionIR
 import ZInQKernel.Compiler.Programs.Wrapper
 

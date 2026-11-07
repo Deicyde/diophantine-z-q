@@ -15,10 +15,11 @@ subexpressions, the capped bound `β`, and the division-by-four loop.
 
 namespace ZInQ.Compiler.IR
 
-/-- `d ← σ_L(x) = min(x, L + 1)`, temporaries `T`, `T + 1`. -/
+/-- `d ← σ_L(x) = min(x, L + 1)`, temporaries `T`, `T + 1` (the value of `x` is read through its
+absolute value, `x · 1`). -/
 def satCode (Lv d x T : ℕ) : ZStmt :=
   .assign (T + 1) (.const 1) ;;; .assign T (.nadd Lv (T + 1)) ;;;
-    .ite (.nlt T x) (.assign d (.copy T)) (.assign d (.copy x))
+    .ite (.nlt T x) (.assign d (.copy T)) (.assign d (.nmul x (T + 1)))
 
 /-- `d ← cmul_L(a, b)`: `0` if `a = 0` or `b = 0`, `L + 1` if `a > ⌊L / b⌋`, else `a b`;
 temporaries `T, T + 1, T + 2`. -/
@@ -95,7 +96,7 @@ def cA0Code (Lv d V : ℕ) : ZStmt :=
 
 /-- `d ← β = cmul_L(⟨e_A⟩_L, cpow_L(σ_L(M), 24))`; slots from `V`. -/
 def cBoundCode (Lv d M V : ℕ) : ZStmt :=
-  cA0Code Lv V (V + 4) ;;; satCode Lv (V + 1) M (V + 4) ;;; satLit Lv (V + 2) 24 (V + 4) ;;;
+  cA0Code Lv V (V + 4) ;;; satCode Lv (V + 1) M (V + 4) ;;; natConst (V + 2) 24 (V + 4) ;;;
     cpowCode Lv (V + 3) (V + 1) (V + 2) (V + 4) ;;; cmulCode Lv d V (V + 3) (V + 4)
 
 /-- The division-by-four loop: `x ← ⌊x / 4^β⌋` by `β` divisions; slots `T` (counter), `T + 1`

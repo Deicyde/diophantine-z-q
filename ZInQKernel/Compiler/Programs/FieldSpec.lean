@@ -26,11 +26,33 @@ def ZStmt.Plain : ZStmt → Prop
   | .seq s t | .ite _ s t => s.Plain ∧ t.Plain
   | _ => False
 
+/-- A Boolean comparison of integers (no instance arguments, so `simp` can rewrite inside). -/
+def zblt (x y : ℤ) : Bool := Nat.blt 0 (y - x).toNat
+
+theorem zblt_iff (x y : ℤ) : zblt x y = true ↔ x < y := by
+  simp only [zblt, Nat.blt_eq]; omega
+
+/-- A Boolean equality of integers. -/
+def zbeq (x y : ℤ) : Bool := Nat.beq (x - y).natAbs 0
+
+theorem zbeq_iff (x y : ℤ) : zbeq x y = true ↔ x = y := by
+  simp only [zbeq, Nat.beq_eq]; omega
+
+/-- The Boolean value of a test. -/
+def ZCond.btest (E : ℕ → ℤ) : ZCond → Bool
+  | .lt a b => zblt (E a) (E b)
+  | .eq a b => zbeq (E a) (E b)
+  | .nlt a b => Nat.blt (E a).natAbs (E b).natAbs
+  | .neq a b => Nat.beq (E a).natAbs (E b).natAbs
+
+theorem ZCond.btest_iff (E : ℕ → ℤ) (c : ZCond) : c.btest E = true ↔ c.Holds E := by
+  cases c <;> simp [ZCond.btest, ZCond.Holds, zblt_iff, zbeq_iff, Nat.blt_eq, Nat.beq_eq]
+
 /-- The environment computed by a plain integer statement. -/
 def ZStmt.execZ : ZStmt → (ℕ → ℤ) → (ℕ → ℤ)
   | .assign k o, E => Function.update E k (o.eval E)
   | .seq s t, E => t.execZ (s.execZ E)
-  | .ite c s t, E => if c.Holds E then s.execZ E else t.execZ E
+  | .ite c s t, E => cond (c.btest E) (s.execZ E) (t.execZ E)
   | _, E => E
 
 theorem zbigStep_execZ : ∀ {S : ZStmt}, S.Plain → ∀ E, ZBigStep S E (.normal (S.execZ E))
@@ -39,12 +61,24 @@ theorem zbigStep_execZ : ∀ {S : ZStmt}, S.Plain → ∀ E, ZBigStep S E (.norm
   | .seq s t, h, E => ZBigStep.seqNormal (zbigStep_execZ h.1 E) (zbigStep_execZ h.2 _)
   | .ite c s t, h, E => by
     by_cases hc : c.Holds E
-    · simp only [ZStmt.execZ, hc, ite_true]; exact ZBigStep.iteTrue hc (zbigStep_execZ h.1 E)
-    · simp only [ZStmt.execZ, hc, ite_false]; exact ZBigStep.iteFalse hc (zbigStep_execZ h.2 E)
+    · have hb := (c.btest_iff E).mpr hc
+      simp only [ZStmt.execZ, hb, cond_true]; exact ZBigStep.iteTrue hc (zbigStep_execZ h.1 E)
+    · have hb : c.btest E = false := by
+        cases h' : c.btest E
+        · rfl
+        · exact absurd ((c.btest_iff E).mp h') hc
+      simp only [ZStmt.execZ, hb, cond_false]; exact ZBigStep.iteFalse hc (zbigStep_execZ h.2 E)
+
+theorem zcond_apply {α β : Type*} (b : Bool) (f g : α → β) (a : α) :
+    (cond b f g) a = cond b (f a) (g a) := by cases b <;> rfl
 
 /-- The simp set evaluating plain integer statements on symbolic variables. -/
 macro "zexec_simp" : tactic => `(tactic| simp (disch := omega) only [ZStmt.execZ, ZOp.eval,
-    ZCond.Holds, Function.update_self, Function.update_of_ne, ite_apply])
+    ZCond.btest, Function.update_self, Function.update_of_ne, ite_apply, zcond_apply])
+
+/-- Turn the Boolean tests into propositions after the evaluation. -/
+macro "zcond_simp" : tactic => `(tactic| simp only [Bool.cond_eq_ite, Nat.blt_eq, Nat.beq_eq,
+    zblt_iff, zbeq_iff] at *)
 
 /-! ### Constants -/
 
