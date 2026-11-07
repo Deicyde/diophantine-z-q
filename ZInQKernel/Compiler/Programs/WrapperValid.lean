@@ -64,3 +64,24 @@ theorem wrapper_valid : wrapper.Valid (precRegs + 10) := by
   exact Instr.Valid.mono hc (by simp only [unpairProgram]; omega) le_rfl
 
 end ZInQ.Compiler.IR
+
+namespace ZInQ.Compiler.IR
+
+open RM
+
+theorem wrapperPrefix_length_eq : wrapperPrefix.length = unpairProgram.body.len := by
+  rw [wrapperPrefix, code_length]
+
+/-- The length of the wrapper, as a structural count. -/
+theorem wrapper_length_eq : wrapper.length =
+    unpairProgram.body.len + (precisionProgram.body.len + precisionProgram.regCount + 2) := by
+  rw [wrapper_length, wrapperPrefix_length_eq, precisionMachine, lower_length]
+
+/-- **Size of the wrapper**: at most `200000` instructions, register indices below `2^18`, and
+targets below the length (so below `2^18` as well). The counts are evaluated structurally by
+the kernel on the syntax of the programs (`Stmt.len`), never on the instruction list. -/
+theorem wrapper_size : 3 ≤ wrapper.length ∧ wrapper.length ≤ 200000 ∧ precRegs + 10 ≤ 2 ^ 18 := by
+  rw [wrapper_length_eq]
+  refine ⟨?_, ?_, ?_⟩ <;> decide +kernel
+
+end ZInQ.Compiler.IR
