@@ -5,7 +5,7 @@ import ZInQKernel.Multiplication.Local.FormalLogarithm
 
 Blueprint: `multiplication/local/formal-group-law.md`, part 2.
 
-`formalAdd A` is a commutative formal group law with inverse `-T` (`formalGroupLaw_exists'`).
+`formalAdd A` is a commutative formal group law with inverse `-T` (`formalGroupLaw_exists`).
 Over a field `F` of characteristic `0` the identities follow from
 `log(F(T₁, T₂)) = log(T₁) + log(T₂)` (`formalLog_formalAdd_aux`): `log` has a compositional
 inverse (Mathlib's `PowerSeries.substInvOfIsUnit`, as its linear coefficient is `1`), so
@@ -220,8 +220,11 @@ theorem vK_integer_nonneg (A : Valued.integer K) : 0 ≤ vK K (A : K) := by
   exact (le_ordOf_iff (Valued.v : Valuation K ℤᵐ⁰) (A : K) 0).mpr (by
     rw [neg_zero, exp_zero]; exact A.2)
 
-/-- **The formal group law** (the statement of `formalGroupLaw_exists`). -/
-theorem formalGroupLaw_exists' [CompleteSpace K] [CharZero K] (A : Valued.integer K) :
+/-- **The formal group law.** For `A` in the valuation ring `𝒪` of a complete `ℤᵐ⁰`-valued field
+`K` of characteristic `0`, the chord series `formalAdd A ∈ 𝒪⟦T₁, T₂⟧` is a commutative formal
+group law `F(T₁, T₂) = T₁ + T₂ + ⋯` with formal inverse `i(T) = -T` (`F(T, -T) = 0`), and
+`z(P + Q) = F(z(P), z(Q))` for `P, Q ∈ W₁(K)`, the double series converging. -/
+theorem formalGroupLaw_exists [CompleteSpace K] [CharZero K] (A : Valued.integer K) :
     ∃ F : FormalGroup (Valued.integer K), F.toPowerSeries = formalAdd A ∧ F.IsComm ∧
       MvPowerSeries.subst ![(PowerSeries.X : PowerSeries (Valued.integer K)), -PowerSeries.X]
         F.toPowerSeries = 0 ∧

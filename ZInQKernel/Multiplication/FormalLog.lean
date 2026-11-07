@@ -16,5 +16,5 @@ Root module of task `mult-formal-log`: the power-series identity
 `log(F(T₁, T₂)) = log(T₁) + log(T₂)` (`Identity.lean`), the evaluation of power series in two
 variables (`Eval.lean`), `z(P + Q) = F(z(P), z(Q))` (`ChordEval.lean`), the homomorphism
 property of the elliptic logarithm on `W₁(K)` (`LogAdd.lean`, used for `ellLog_add`), and the
-formal group law axioms (`GroupLaw.lean`, `formalGroupLaw_exists'`).
+formal group law axioms (`GroupLaw.lean`, `formalGroupLaw_exists`).
 -/

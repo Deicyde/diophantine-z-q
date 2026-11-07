@@ -13,8 +13,9 @@ Blueprint: `multiplication/local/formal-group-law.md`.
    `-1/y = ω(-x/y)` (`omegaSeries_hasSum`).
 2. `formalAdd A = T₁ + T₂ + 2Aλν/(1 + Aλ²)` with `λ(T₁, T₂) = Σ ω_{i+j+1} T₁ⁱ T₂ʲ` (the
    difference quotient of `ω`) and `ν = ω(T₁) - λ T₁` is the chord construction with power
-   series in place of elements. `formalGroupLaw_exists`: it is a commutative formal group law over
-   `𝒪` with inverse `-T`, and `z(P + Q) = F(z(P), z(Q))` on `W₁(K)`.
+   series in place of elements. It is a commutative formal group law over `𝒪` with inverse
+   `-T`, and `z(P + Q) = F(z(P), z(Q))` on `W₁(K)` (`formalGroupLaw_exists`, in
+   `Multiplication/FormalLog/GroupLaw.lean`).
 -/
 
 namespace ZInQ.Mult
@@ -268,22 +269,5 @@ theorem omegaSeries_hasSum [CompleteSpace K] [DecidableEq K] {A : K} (hA : 0 ≤
   have := w_eq_of_t_eq hA' (le_refl 1) hSeq e₂ hz1 (by simpa using hS3) (by simpa using hw3)
   rw [← this]
   exact hsum.hasSum
-
-variable [DecidableEq K]
-
-/-- **Part 2: the formal group law.** For `A` in the valuation ring `𝒪` of a complete
-`ℤᵐ⁰`-valued field `K` of characteristic `0`, the chord series `formalAdd A ∈ 𝒪⟦T₁, T₂⟧` is a
-commutative formal group law `F(T₁, T₂) = T₁ + T₂ + ⋯` with formal inverse `i(T) = -T`
-(`F(T, -T) = 0`), and `z(P + Q) = F(z(P), z(Q))` for `P, Q ∈ W₁(K)`, the double series
-converging. -/
-theorem formalGroupLaw_exists [CompleteSpace K] [CharZero K] (A : Valued.integer K) :
-    ∃ F : FormalGroup (Valued.integer K), F.toPowerSeries = formalAdd A ∧ F.IsComm ∧
-      MvPowerSeries.subst ![(PowerSeries.X : PowerSeries (Valued.integer K)), -PowerSeries.X]
-        F.toPowerSeries = 0 ∧
-      ∀ P ∈ W1 (vK K) (A : K), ∀ Q ∈ W1 (vK K) (A : K),
-        HasSum (fun n : Fin 2 →₀ ℕ =>
-          ((MvPowerSeries.coeff n F.toPowerSeries : Valued.integer K) : K) *
-            zCoord P ^ n 0 * zCoord Q ^ n 1) (zCoord (P + Q)) := by
-  sorry
 
 end ZInQ.Mult
