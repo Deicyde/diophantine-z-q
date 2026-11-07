@@ -100,6 +100,9 @@ macro "up_run" t:tacticSeq : tactic => `(tactic| repeat' (first
   | up_prim
   | up_fin))
 
+/-- A bound proof without extra steps. -/
+macro "up_run0" : tactic => `(tactic| up_run fail)
+
 /-- Encoding costs from the accumulated facts. -/
 macro "up_costs" : tactic => `(tactic| first
   | (exact ⟨by simp only [encA, encAL, List.length_cons, List.length_nil, *],
@@ -115,7 +118,7 @@ theorem lt_up (hP : Mono P) (a b : Ex) : Up P (Natural.lt a b) 2 0 (fun φ _ => 
   case h =>
     unfold Natural.lt
     up_norm
-    up_run fail
+    up_run0
     all_goals exact ⟨rfl, rfl⟩
   all_goals rfl
 
@@ -124,7 +127,7 @@ theorem odd_up (hP : Mono P) (x : Ex) : Up P (Natural.odd x) 1 1 (fun φ _ => Co
   case h =>
     unfold Natural.odd
     up_norm
-    up_run fail
+    up_run0
     all_goals exact ⟨rfl, rfl⟩
   all_goals rfl
 
@@ -134,7 +137,7 @@ theorem power_up (hP : Mono P) (A B C : Ex) :
   case h =>
     unfold Natural.power
     up_norm
-    up_run fail
+    up_run0
   all_goals rfl
 
 /-- One step through a sub-macro. -/

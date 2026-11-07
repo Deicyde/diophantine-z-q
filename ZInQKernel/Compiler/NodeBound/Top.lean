@@ -116,10 +116,9 @@ theorem packedFormulas_up (hP : Mono P) (p : Program) (r : ℕ) (a : List Ex)
       Up.bind ?_ (items6_up (r := r + 1) (a := a) (B := B) (R := R) hvw ?_) fun l6 =>
       Up.bind ?_ (items7_up (r := r + 1) (one := one) hvw ?_ ?_) fun l7 =>
       Up.pure fun l hl => ?_
-    all_goals first
+    all_goals try first
       | mono_tac; done
       | up_present
-      | skip
     · intro l h
       casesm* _ ∧ _
       exact ⟨by assumption, by assumption⟩
@@ -157,9 +156,8 @@ theorem construction_encode_up (p : Program) (r k : ℕ) (hm : 1 ≤ p.length) :
     Up.bind ?_ (freshN_up ?_ (r + 1)) fun N => Up.bind ?_ (freshN_up ?_ p.length) fun S =>
     Up.of_pre_fact (a := addBound p r k) (b := mulBound p r k) (p := S.length = p.length)
       (fun _ h => h.2) fun hS => ?_) (by simp) (by simp)
-  all_goals first
-    | (repeat' (first | exact hT | apply Mono.and | apply Mono.const | apply Mono.idxOf?)); done
-    | skip
+  all_goals try ((repeat' (first | exact hT | apply Mono.and | apply Mono.const |
+    apply Mono.idxOf?)); done)
   obtain ⟨x, xs, rfl⟩ : ∃ x xs, S = x :: xs := by
     cases S with
     | nil => simp at hS; omega

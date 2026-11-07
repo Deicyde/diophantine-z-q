@@ -38,7 +38,7 @@ theorem encode_up (τ : Syntax.ExPoly) : ∀ (φ : NForm) {P : List NatNode → 
     case h =>
       simp only [NForm.encode]
       up_norm
-      up_run fail
+      up_run0
       all_goals trivial
     all_goals rfl
   | .atom f, P, hP => Up.pure fun _ _ => trivial

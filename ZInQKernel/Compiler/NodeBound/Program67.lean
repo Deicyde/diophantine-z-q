@@ -360,7 +360,7 @@ theorem items7_go (hvw : vw.map Prod.fst = decPos 0 p) (L : List ℕ) :
         rcases h7 with h0 | ⟨v', z', u', hz', hu', hv', hcount⟩
         · refine ⟨v, z, u, hz, hu, hv, ?_⟩
           rw [h0]
-          simp [List.countP_cons, hφ]
+          simp [hφ]
         · rw [hz, Option.some.injEq] at hz'
           subst hz'
           rw [hu, Option.some.injEq] at hu'

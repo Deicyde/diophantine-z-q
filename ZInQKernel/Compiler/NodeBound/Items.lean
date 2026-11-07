@@ -125,7 +125,7 @@ theorem items1_up (hP : Mono P) (p : Program) (a : List Ex) (zero q c K B T : Ex
       | with_reducible refine seqM_lt_up ?_ _ _
     all_goals exact ⟨by simp only [encAL, encA, *]; omega, by simp only [encML, encM, *]; omega,
       by simp only [List.length_cons, *]; omega⟩
-  all_goals first | omega | (simp only [Nat.mul_zero, Nat.add_zero, Nat.zero_add]; omega)
+  all_goals omega
 
 theorem items2_up (hP : Mono P) (zero one K B T F D : Ex) (S : List Ex) :
     Up P (items2 zero one K B T F D S) (3 + (S.length - 1)) 3
@@ -136,7 +136,7 @@ theorem items2_up (hP : Mono P) (zero one K B T F D : Ex) (S : List Ex) :
     up_norm
     up_run with_reducible refine addL_up ?_ _
     all_goals exact ⟨⟨rfl, rfl, rfl⟩, mem_of_idxOf? (by assumption)⟩
-  all_goals first | omega | (simp only [Nat.mul_zero, Nat.add_zero, Nat.zero_add]; omega)
+  all_goals omega
 
 /-- One step through `mask`. -/
 macro "up_mask" : tactic => `(tactic| first
@@ -158,7 +158,7 @@ theorem items3_up (hP : Mono P) (F x : Ex) (xs : List Ex) :
     (Mono.and hP (Mono.and (Mono.const _) (Mono.hasSucc _)))
     (h.pre fun l hl => ⟨hl.1, hl.2.2⟩) fun φs => Up.pure fun l hl => ?_).cost_of (by omega) (by omega)
   obtain ⟨⟨-, ⟨h1, h2⟩, -⟩, h3, h4, h5⟩ := hl
-  exact ⟨by simp only [encAL, h1, h3] <;> omega, by simp only [encML, h2, h4] <;> omega,
+  exact ⟨by simp only [encAL, h1, h3], by simp only [encML, h2, h4],
     by simp only [List.length_cons, h5]; omega⟩
 
 theorem registerMasks_up (hP : Mono P) (K D T F Rj Nj : Ex)

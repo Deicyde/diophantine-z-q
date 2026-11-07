@@ -6,7 +6,8 @@ import ZInQKernel.Compiler.Universal.NodeCheck
 The downstream witness accounting (`Syntax.PrecisionShape`) needs only upper bounds on the
 numbers of addition and multiplication nodes of the universal halting circuit, not their exact
 values. `HaltingAddMulBound` states these two bounds, in the conventions of
-`NodeCheck.HaltingAddMulCheck` (which states the exact counts).
+`NodeCheck.HaltingAddMulCheck` (which states the exact counts). It is proved in the kernel as
+`NodeCheck.haltingAddMulBound` (`NodeBound/Check.lean`).
 -/
 
 namespace ZInQ.Compiler.NodeCheck

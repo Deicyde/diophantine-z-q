@@ -99,7 +99,7 @@ theorem stateEq_up_b (hP : Mono P) (B Si e x : Ex) (h : ∀ l, P l → .mul B.no
   case h =>
     unfold Packed.stateEq
     up_norm
-    up_run fail
+    up_run0
     all_goals exact ⟨rfl, rfl⟩
   all_goals rfl
 
