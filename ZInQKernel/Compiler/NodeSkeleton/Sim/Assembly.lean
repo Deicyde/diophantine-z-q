@@ -43,8 +43,6 @@ theorem items3_split {γ : Type} (F : ℕ) (A B : List ℕ) (k : List FForm → 
   unfold NodeCheck.items3
   rw [List.map_append, seqM_append]; rfl
 
-theorem FM.bind_pure' {α : Type} (m : FM α) : (m >>= fun a => pure a) = m := rfl
-
 theorem seqConcat_append (l₁ l₂ : List (FM (List FForm))) :
     NodeCheck.seqConcat (l₁ ++ l₂) =
       (NodeCheck.seqConcat l₁ >>= fun a => NodeCheck.seqConcat l₂ >>= fun b => pure (a ++ b)) := by
@@ -364,10 +362,6 @@ theorem subBranchesK_split' {γ : Type} (zero : ℕ) (N : List ℕ) (p p₁ p₂
       (NodeCheck.subBranchesK zero N i S p₁ >>= fun r₁ =>
         NodeCheck.subBranchesK zero N j S' p₂ >>= fun r₂ => k (r₁.1 ++ r₂.1, r₁.2 ++ r₂.2)) := by
   subst hp; exact subBranchesK_split zero N p₁ p₂ i j S S' hj hS k
-
-theorem encode_and' (fs : List FForm) :
-    (FForm.and fs).encode = (FForm.encodeList fs >>= fun es =>
-      NodeCheck.seqM (es.map NodeCheck.square) >>= fun sq => NodeCheck.addL sq) := rfl
 
 theorem squares_split {γ : Type} (A B : List ℕ) (k : List ℕ → FM γ) :
     (NodeCheck.seqM ((A ++ B).map NodeCheck.square) >>= k) =

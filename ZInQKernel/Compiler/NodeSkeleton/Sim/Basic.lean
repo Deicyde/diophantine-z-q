@@ -90,12 +90,6 @@ def recsOf (Hall : List ℕ) : List NatNode → List ℕ
   | [] => []
   | n :: rev => (2 * nodeKey n + cond (flagOf Hall rev.length) 1 0) :: recsOf Hall rev
 
-theorem length_recsOf (Hall : List ℕ) (rev : List NatNode) :
-    (recsOf Hall rev).length = rev.length := by
-  induction rev with
-  | nil => rfl
-  | cons n rev ih => simp [recsOf, ih]
-
 theorem getElem?_recsOf (Hall : List ℕ) (rev : List NatNode) (i : ℕ) :
     (recsOf Hall rev)[i]? =
       rev[i]?.map fun n => 2 * nodeKey n + cond (flagOf Hall (rev.length - 1 - i)) 1 0 := by
