@@ -21,6 +21,7 @@ import ZInQKernel.Cleanup
 import ZInQKernel.Compiler.Translation
 import ZInQKernel.Assembly.Values
 import ZInQKernel.Assembly.Local
+import ZInQKernel.Assembly.Close
 import ZInQKernel.Size.Majorants
 import ZInQKernel.Size.Norms
 import ZInQKernel.Size.Constants
