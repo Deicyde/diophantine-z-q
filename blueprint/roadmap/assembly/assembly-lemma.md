@@ -28,7 +28,9 @@ proved by the two-isogeny descent); M, multiplication (from the six-contact esti
 completeness and the prime pattern); C, the semantics of the
 natural precision polynomial and its rational translation; B, the literal specification of
 $P_*$ with its witness accounting and size bounds (the size bounds use the catalogue
-bound); and the hypotheses H and PC themselves.
+bound); and the hypotheses H and PC themselves. Besides the four hypotheses, the proof uses
+one finite computation: the node statistics of the universal halting circuit, on which the
+witness accounting and the size bounds of B depend.
 
 **Proof sketch.** Part 3: by the rational zero projection of the specified polynomial, the
 left side holds exactly when $\mathrm{Rel}_{\mathtt{value}}(N,q)$ for some $N\in\mathbb Q^5$, and by the

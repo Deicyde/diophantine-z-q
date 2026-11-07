@@ -12,8 +12,10 @@ lean: ZInQ.Mult.genP0_val_s, ZInQ.Mult.genP0_mem_formalFilt_three
 Let $v_s$ be the valuation of $K_0$ at the prime $(s)$, normalized by $v_s(s)=1$ (so
 $v_s(2)=2$). Then
 $$v_s\bigl(x(P_0)\bigr)=-6,\qquad v_s\bigl(y(P_0)\bigr)=-9,\qquad v_s\bigl(z(P_0)\bigr)=3 .$$
-Hence, in the completion $K_{(s)}$, $P_0\in E_3(K_{(s)})\subset E_1(K_{(s)})$, and every
-multiple $[n]P_0$ ($n\in\mathbb Z$) lies in $E_1(K_{(s)})$ with $v_s(z([n]P_0))\ge3$.
+Hence, for the formal neighbourhood of $E$ over $K_0$ at the valuation $v_s$,
+$P_0\in E_3\subset E_1$, and every multiple $[n]P_0$ ($n\in\mathbb Z$) lies in $E_1$ with
+$v_s(z([n]P_0))\ge3$. The filtration depends only on the valuations of the coordinates, so
+the same holds in the completion $K_{(s)}$.
 
 The numerical input is the separate finite check of the $2$-adic valuations of the
 coordinate numerators.
