@@ -191,4 +191,34 @@ theorem Represents.update {ρ : ℕ → ℕ} {L : ℕ} (h : Represents ρ L) (i 
   · subst hi; rw [Function.update_self, listGet_listSet_self]
   · rw [Function.update_of_ne hi, listGet_listSet_of_ne _ _ _ _ hi, h]
 
+/-! ### Saving and restoring a prefix -/
+
+/-- Push the entries of the saved reversed prefix `s` back onto `r`. -/
+def restore (s r : ℕ) : ℕ :=
+  if _hs : s = 0 then r else restore (uncons s).2 (cons (uncons s).1 r)
+termination_by s
+decreasing_by exact uncons_snd_lt (Nat.pos_of_ne_zero ‹s ≠ 0›)
+
+theorem restore_zero (r : ℕ) : restore 0 r = r := by rw [restore]; simp
+
+theorem restore_cons (h s r : ℕ) : restore (cons h s) r = restore s (cons h r) := by
+  rw [restore]; simp [cons_ne_zero]
+
+theorem restore_of_ne_zero {s : ℕ} (hs : s ≠ 0) (r : ℕ) :
+    restore s r = restore (uncons s).2 (cons (uncons s).1 r) := by
+  rw [restore]; simp [hs]
+
+/-- One step of the save loop: move the head of the list onto the saved prefix. -/
+def saveStep (p : ℕ × ℕ) : ℕ × ℕ := ((uncons p.1).2, cons (uncons p.1).1 p.2)
+
+/-- After `k` save steps, replacing the head and restoring the prefix sets entry `k`. -/
+theorem restore_saveStep (v : ℕ) : ∀ (k L s : ℕ),
+    restore (saveStep^[k] (L, s)).2 (listSet (saveStep^[k] (L, s)).1 0 v) =
+      restore s (listSet L k v)
+  | 0, L, s => rfl
+  | k + 1, L, s => by
+    rw [Function.iterate_succ_apply, saveStep]
+    rw [restore_saveStep v k, restore_cons]
+    rfl
+
 end ZInQ.Compiler.Universal

@@ -328,4 +328,142 @@ theorem runs_execStmt (σ : Regs) (hJ : σ J = 0) (ho : σ 11 = 1 ∨ σ 11 = 2)
         exact Frame.upd (Or.inr (Or.inr (Or.inr ⟨by omega, by omega⟩))) _ (Frame.upd (Or.inl rfl)
           _ (Frame.upd (Or.inr (Or.inl rfl)) _ hfr₂))
 
+/-! ### Set -/
+
+/-- The save loop of `setStmt`: `n` heads of the list in register `136` move onto the saved
+reversed prefix in register `138`. -/
+theorem runs_saveLoop : ∀ n (σ : Regs), σ 137 = n → σ J = 0 →
+    ∃ σ', Runs (whileDec 137 (seqs [unconsBlock 136 139 140 144, consBlock 139 138 138 152,
+        copyBlock 136 140 163])) σ σ' ∧
+      (σ' 136, σ' 138) = saveStep^[n] (σ 136, σ 138) ∧
+      Frame (fun k => 136 ≤ k ∧ k ≤ 163) σ σ' := by
+  intro n
+  induction n with
+  | zero => intro σ hσ _; exact ⟨σ, Exec.while_zero hσ, rfl, Frame.refl _ _⟩
+  | succ n ih =>
+    intro σ hσ hJ
+    set σ₁ := Function.update σ 137 (σ 137 - 1) with hσ₁
+    have hσ₁J : σ₁ J = 0 := by rw [hσ₁]; upd; exact hJ
+    obtain ⟨σ₂, h2, e2h, e2t, hfr₂⟩ := runs_unconsBlock (x := 136) (h := 139) (t := 140)
+      (b := 144) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ)
+      (by omegaJ) (by omegaJ) (by omegaJ) σ₁ hσ₁J
+    have hσ₂J : σ₂ J = 0 := by rw [hfr₂ J (by unfold Scratch; omegaJ), hσ₁J]
+    obtain ⟨σ₃, h3, e3, hfr₃⟩ := runs_consBlock (h := 139) (t := 138) (out := 138) (b := 152)
+      (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) σ₂ hσ₂J
+    have hσ₃J : σ₃ J = 0 := by rw [hfr₃ J (by unfold Scratch; omegaJ), hσ₂J]
+    have h4 := runs_copyBlock (x := 136) (y := 140) (t := 163) (by omegaJ) (by omegaJ)
+      (by omegaJ) (by omegaJ) (by omegaJ) σ₃ hσ₃J
+    set σ₄ := Function.update (Function.update σ₃ 136 (σ₃ 140)) 163 0 with hσ₄
+    have e136 : σ₄ 136 = (uncons (σ 136)).2 := by
+      rw [hσ₄]; upd; rw [hfr₃ 140 (by unfold Scratch; omegaJ), e2t, hσ₁]; upd
+    have e138 : σ₄ 138 = cons (uncons (σ 136)).1 (σ 138) := by
+      rw [hσ₄]; upd; rw [e3, e2h, hfr₂ 138 (by unfold Scratch; omegaJ), hσ₁]; upd
+    have e137 : σ₄ 137 = n := by
+      rw [hσ₄]; upd; rw [hfr₃ 137 (by unfold Scratch; omegaJ),
+        hfr₂ 137 (by unfold Scratch; omegaJ), hσ₁]; upd; omega
+    have hσ₄J : σ₄ J = 0 := by rw [hσ₄]; upd; exact hσ₃J
+    obtain ⟨σ', h', e', hfr'⟩ := ih σ₄ e137 hσ₄J
+    refine ⟨σ', Exec.while_normal (by omega) (h2.seqs_cons (h3.seqs_cons h4.seqs_one)) h', ?_, ?_⟩
+    · rw [e', e136, e138, Function.iterate_succ_apply]; rfl
+    · intro k hk
+      simp only [not_and_or, not_le] at hk
+      rw [hfr' k (by omega), hσ₄]; upd
+      rw [hfr₃ k (by unfold Scratch; omegaJ), hfr₂ k (by unfold Scratch; omegaJ), hσ₁]; upd
+
+/-- The restore loop of `setStmt`: the saved prefix in register `138` is pushed back onto the
+list in register `141`; each step strictly decreases the saved prefix. -/
+theorem runs_restoreLoop : ∀ (σ : Regs), σ J = 0 →
+    ∃ σ', Runs (whileDec 138 (seqs [inc 138, unconsBlock 138 139 140 183,
+        consBlock 139 141 141 191, copyBlock 138 140 202])) σ σ' ∧
+      σ' 141 = restore (σ 138) (σ 141) ∧ Frame (fun k => 138 ≤ k ∧ k ≤ 202) σ σ' := by
+  suffices ∀ n (σ : Regs), σ 138 = n → σ J = 0 →
+      ∃ σ', Runs (whileDec 138 (seqs [inc 138, unconsBlock 138 139 140 183,
+        consBlock 139 141 141 191, copyBlock 138 140 202])) σ σ' ∧
+      σ' 141 = restore (σ 138) (σ 141) ∧ Frame (fun k => 138 ≤ k ∧ k ≤ 202) σ σ' from
+    fun σ => this _ σ rfl
+  intro n
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+    intro σ hσ hJ
+    by_cases h0 : σ 138 = 0
+    · exact ⟨σ, Exec.while_zero h0, by rw [h0, restore_zero], Frame.refl _ _⟩
+    set σ₁ := Function.update σ 138 (σ 138 - 1) with hσ₁
+    have h1 := runs_inc (x := 138) (by omegaJ) σ₁
+    set σ₂ := Function.update σ₁ 138 (σ₁ 138 + 1) with hσ₂
+    have hσ₂J : σ₂ J = 0 := by rw [hσ₂, hσ₁]; upd; exact hJ
+    have e2 : σ₂ = σ := by rw [hσ₂, hσ₁]; regs_ext
+    obtain ⟨σ₃, h3, e3h, e3t, hfr₃⟩ := runs_unconsBlock (x := 138) (h := 139) (t := 140)
+      (b := 183) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ)
+      (by omegaJ) (by omegaJ) (by omegaJ) σ₂ hσ₂J
+    have hσ₃J : σ₃ J = 0 := by rw [hfr₃ J (by unfold Scratch; omegaJ), hσ₂J]
+    obtain ⟨σ₄, h4, e4, hfr₄⟩ := runs_consBlock (h := 139) (t := 141) (out := 141) (b := 191)
+      (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) σ₃ hσ₃J
+    have hσ₄J : σ₄ J = 0 := by rw [hfr₄ J (by unfold Scratch; omegaJ), hσ₃J]
+    have h5 := runs_copyBlock (x := 138) (y := 140) (t := 202) (by omegaJ) (by omegaJ)
+      (by omegaJ) (by omegaJ) (by omegaJ) σ₄ hσ₄J
+    set σ₅ := Function.update (Function.update σ₄ 138 (σ₄ 140)) 202 0 with hσ₅
+    have e138 : σ₅ 138 = (uncons (σ 138)).2 := by
+      rw [hσ₅]; upd; rw [hfr₄ 140 (by unfold Scratch; omegaJ), e3t, e2]
+    have e141 : σ₅ 141 = cons (uncons (σ 138)).1 (σ 141) := by
+      rw [hσ₅]; upd; rw [e4, e3h, hfr₃ 141 (by unfold Scratch; omegaJ), e2]
+    have hσ₅J : σ₅ J = 0 := by rw [hσ₅]; upd; exact hσ₄J
+    obtain ⟨σ', h', e', hfr'⟩ := ih (σ₅ 138)
+      (by rw [e138, ← hσ]; exact uncons_snd_lt (Nat.pos_of_ne_zero h0)) σ₅ rfl hσ₅J
+    refine ⟨σ', Exec.while_normal h0
+      (h1.seqs_cons (h3.seqs_cons (h4.seqs_cons h5.seqs_one))) h', ?_, ?_⟩
+    · rw [e', e138, e141, ← restore_of_ne_zero h0]
+    · intro k hk
+      simp only [not_and_or, not_le] at hk
+      rw [hfr' k (by omega), hσ₅]; upd
+      rw [hfr₄ k (by unfold Scratch; omegaJ), hfr₃ k (by unfold Scratch; omegaJ), e2]
+
+/-- **setList**: register `7` receives `set(tape, j, v)`, with the tape in register `7`, `j`
+in register `12` and `v` in register `8`. -/
+theorem runs_setStmt (σ : Regs) (hJ : σ J = 0) :
+    ∃ σ', Runs setStmt σ σ' ∧ σ' 7 = listSet (σ 7) (σ 12) (σ 8) ∧
+      Frame (fun k => k = 7 ∨ (136 ≤ k ∧ k ≤ 203)) σ σ' := by
+  have h1 := runs_copyBlock (x := 136) (y := 7) (t := 142) (by omegaJ) (by omegaJ) (by omegaJ)
+    (by omegaJ) (by omegaJ) σ hJ
+  set τ₁ := Function.update (Function.update σ 136 (σ 7)) 142 0 with hτ₁
+  have hτ₁J : τ₁ J = 0 := by rw [hτ₁]; upd; exact hJ
+  have h2 := runs_copyBlock (x := 137) (y := 12) (t := 143) (by omegaJ) (by omegaJ) (by omegaJ)
+    (by omegaJ) (by omegaJ) τ₁ hτ₁J
+  set τ₂ := Function.update (Function.update τ₁ 137 (τ₁ 12)) 143 0 with hτ₂
+  have h3 := runs_clear 138 τ₂
+  set τ₃ := Function.update τ₂ 138 0 with hτ₃
+  have hτ₃J : τ₃ J = 0 := by rw [hτ₃, hτ₂, hτ₁]; upd; exact hJ
+  obtain ⟨τ₄, h4, e4, hfr₄⟩ := runs_saveLoop _ τ₃ rfl hτ₃J
+  have hτ₄J : τ₄ J = 0 := by rw [hfr₄ J (by omegaJ), hτ₃J]
+  obtain ⟨τ₅, h5, -, e5t, hfr₅⟩ := runs_unconsBlock (x := 136) (h := 139) (t := 140) (b := 164)
+    (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ)
+    (by omegaJ) (by omegaJ) τ₄ hτ₄J
+  have hτ₅J : τ₅ J = 0 := by rw [hfr₅ J (by unfold Scratch; omegaJ), hτ₄J]
+  obtain ⟨τ₆, h6, e6, hfr₆⟩ := runs_consBlock (h := 8) (t := 140) (out := 141) (b := 172)
+    (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) (by omegaJ) τ₅ hτ₅J
+  have hτ₆J : τ₆ J = 0 := by rw [hfr₆ J (by unfold Scratch; omegaJ), hτ₅J]
+  obtain ⟨τ₇, h7, e7, hfr₇⟩ := runs_restoreLoop τ₆ hτ₆J
+  have hτ₇J : τ₇ J = 0 := by rw [hfr₇ J (by omegaJ), hτ₆J]
+  have h8 := runs_copyBlock (x := 7) (y := 141) (t := 203) (by omegaJ) (by omegaJ) (by omegaJ)
+    (by omegaJ) (by omegaJ) τ₇ hτ₇J
+  refine ⟨_, h1.seqs_cons (h2.seqs_cons (h3.seqs_cons (h4.seqs_cons (h5.seqs_cons
+    (h6.seqs_cons (h7.seqs_cons h8.seqs_one)))))), ?_, ?_⟩
+  · upd
+    have e6_138 : τ₆ 138 = τ₄ 138 := by
+      rw [hfr₆ 138 (by unfold Scratch; omegaJ), hfr₅ 138 (by unfold Scratch; omegaJ)]
+    have e5_8 : τ₅ 8 = σ 8 := by
+      rw [hfr₅ 8 (by unfold Scratch; omegaJ), hfr₄ 8 (by omegaJ), hτ₃, hτ₂, hτ₁]; upd
+    have e3 : (τ₃ 136, τ₃ 138) = (σ 7, 0) := by rw [hτ₃, hτ₂, hτ₁]; upd
+    have e3c : τ₃ 137 = σ 12 := by rw [hτ₃, hτ₂, hτ₁]; upd
+    rw [e7, e6, e6_138, e5t, e5_8]
+    have := restore_saveStep (σ 8) (σ 12) (σ 7) 0
+    rw [restore_zero, ← e3, ← e3c, ← e4] at this
+    rw [← e3c, ← this]
+    rfl
+  · intro k hk
+    simp only [not_or, not_and_or, not_le] at hk
+    upd
+    rw [hfr₇ k (by omegaJ), hfr₆ k (by unfold Scratch; omegaJ), hfr₅ k (by unfold Scratch; omegaJ),
+      hfr₄ k (by omegaJ), hτ₃, hτ₂, hτ₁]
+    upd
+
 end ZInQ.Compiler.Universal
