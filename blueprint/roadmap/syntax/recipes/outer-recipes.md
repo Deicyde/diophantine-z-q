@@ -40,9 +40,10 @@ and similarly for $\mathtt{main}$ and $\mathtt{close}$. The same coordinates of 
 $\mathtt{close}$ and $\mathtt{value.test}$; the exceptional branch and the main branch have
 disjoint private blocks.
 
-The starts and witness counts from the precision call on are those for the
-$292{,}889{,}492{,}836$ witnesses of precision; in general each of them shifts with the
-witness count of the recipe called.
+The starts and witness counts from the precision call on are those for a precision recipe
+with $292{,}889{,}492{,}836$ witnesses, the bound of the precision recipe; in general each of
+them shifts with the witness count of the recipe called (for instance $\mathtt{close}$ has
+$703310+w+53$ witnesses when precision has $w$), so the displayed values are upper bounds.
 
 This is a definition.
 
