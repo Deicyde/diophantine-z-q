@@ -2,6 +2,9 @@
 article_id: af_7dce7659b4e994199f2eaf21
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.IR.wrapper_halts_iff_machine, ZInQ.Compiler.IR.wrapper_halts_iff, ZInQ.Compiler.IR.wrapper_halts_encode
 ---
 
 # Correctness of the wrapper

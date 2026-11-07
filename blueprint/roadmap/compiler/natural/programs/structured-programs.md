@@ -2,6 +2,8 @@
 article_id: af_686e52cfd74872a5f7752985
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.IR.Op, ZInQ.Compiler.IR.Stmt, ZInQ.Compiler.IR.Outcome, ZInQ.Compiler.IR.BigStep, ZInQ.Compiler.IR.BigStep.deterministic, ZInQ.Compiler.IR.Program, ZInQ.Compiler.IR.Program.WF, ZInQ.Compiler.IR.Program.Accepts, ZInQ.Compiler.IR.Program.Total
 ---
 
 # The ideal register language

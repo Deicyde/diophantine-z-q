@@ -2,6 +2,9 @@
 article_id: af_23bb5ec991f934818f3efb30
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.IR.SInt, ZInQ.Compiler.IR.ReprInt, ZInQ.Compiler.IR.sConst, ZInQ.Compiler.IR.sCopy, ZInQ.Compiler.IR.sNeg, ZInQ.Compiler.IR.sAbs, ZInQ.Compiler.IR.sAdd, ZInQ.Compiler.IR.sSub, ZInQ.Compiler.IR.sMul, ZInQ.Compiler.IR.sDiv, ZInQ.Compiler.IR.sMod, ZInQ.Compiler.IR.sLtFlag, ZInQ.Compiler.IR.sEqFlag, ZInQ.Compiler.IR.SContract
 ---
 
 # Signed integer routines

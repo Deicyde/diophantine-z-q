@@ -2,6 +2,8 @@
 article_id: af_d8ae106ff8c664b959067cc1
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.IR.precisionZ, ZInQ.Compiler.IR.precisionProgram, ZInQ.Compiler.IR.precisionProgram_wf
 ---
 
 # The precision program

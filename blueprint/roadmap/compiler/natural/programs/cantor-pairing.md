@@ -2,6 +2,8 @@
 article_id: af_53bf154f5363a82dd08c2bfb
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.CantorDecoder.pair, ZInQ.CantorDecoder.decode, ZInQ.CantorDecoder.encode5, ZInQ.CantorDecoder.decode5, ZInQ.Compiler.IR.dec5
 ---
 
 # Cantor pairing and its decoder

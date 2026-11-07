@@ -2,6 +2,9 @@
 article_id: af_fa11536811297dfd472cef73
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.IR.code_forward, ZInQ.Compiler.IR.code_backward, ZInQ.Compiler.IR.lower_accepts_of_accepts, ZInQ.Compiler.IR.accepts_of_lower_halts, ZInQ.Compiler.IR.lower_halts_iff, ZInQ.Compiler.IR.lower_accepts_iff, ZInQ.Compiler.IR.lowering_correct
 ---
 
 # Correctness of the lowering

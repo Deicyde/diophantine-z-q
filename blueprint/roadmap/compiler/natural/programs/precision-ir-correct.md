@@ -2,6 +2,9 @@
 article_id: af_b260f69898a4964edbb06a6f
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.IR.precisionZ_spec, ZInQ.Compiler.IR.precisionProgram_bigStep, ZInQ.Compiler.IR.precisionProgram_total, ZInQ.Compiler.IR.precisionProgram_correct, ZInQ.Compiler.IR.precisionProgram_accepts_iff
 ---
 
 # Correctness of the precision program

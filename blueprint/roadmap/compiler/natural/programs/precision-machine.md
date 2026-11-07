@@ -2,6 +2,9 @@
 article_id: af_c84839dd9c19313878382efe
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.IR.precisionMachine, ZInQ.Compiler.IR.precRegs, ZInQ.Compiler.IR.precisionMachine_halts_iff, ZInQ.Compiler.IR.precisionMachine_accepts_iff, ZInQ.Compiler.IR.precisionMachine_correct, ZInQ.Compiler.IR.precisionMachine_valid
 ---
 
 # The precision machine halts exactly on acceptance

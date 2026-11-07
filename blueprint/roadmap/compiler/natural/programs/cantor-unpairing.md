@@ -2,6 +2,9 @@
 article_id: af_0c38b320bd18901e180fd198
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.IR.cantor_pair_props, ZInQ.Compiler.IR.cantor_unpair_props, ZInQ.Compiler.IR.cantor_pairing_equation, ZInQ.Compiler.IR.pairing_system_iff, ZInQ.Compiler.IR.pairing_system_encode
 ---
 
 # Unique Cantor unpairing

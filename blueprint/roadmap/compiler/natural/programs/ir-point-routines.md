@@ -2,6 +2,9 @@
 article_id: af_a953b1858d9587fbbbcb9abb
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.IR.jdblCode, ZInQ.Compiler.IR.jdblBCode, ZInQ.Compiler.IR.jaddBCode, ZInQ.Compiler.IR.jmulCode, ZInQ.Compiler.IR.jdblCode_spec, ZInQ.Compiler.IR.jdblBCode_spec, ZInQ.Compiler.IR.jaddBCode_spec, ZInQ.Compiler.IR.jmulCode_spec
 ---
 
 # Point routines

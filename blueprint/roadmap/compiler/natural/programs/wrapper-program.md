@@ -2,6 +2,8 @@
 article_id: af_2ed2f2b22110fd6e4bca631a
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.IR.unpairProgram, ZInQ.Compiler.IR.wrapperPrefix, ZInQ.Compiler.IR.relocate, ZInQ.Compiler.IR.wrapper, ZInQ.Compiler.IR.wrapper_valid, ZInQ.Compiler.IR.wrapper_size
 ---
 
 # The wrapper program

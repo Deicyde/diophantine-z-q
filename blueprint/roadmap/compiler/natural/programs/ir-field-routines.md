@@ -2,6 +2,9 @@
 article_id: af_ea552c7c4f84feb0d25907e0
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.IR.FExpr, ZInQ.Compiler.IR.FExpr.code, ZInQ.Compiler.IR.fMul, ZInQ.Compiler.IR.IExpr, ZInQ.Compiler.IR.zeroFlag, ZInQ.Compiler.IR.guardNonzero, ZInQ.Compiler.IR.intConst, ZInQ.Compiler.IR.fMul_spec, ZInQ.Compiler.IR.FExpr.code_spec, ZInQ.Compiler.IR.IExpr.code_spec, ZInQ.Compiler.IR.zeroFlag_spec, ZInQ.Compiler.IR.guardNonzero_spec, ZInQ.Compiler.IR.intConst_spec
 ---
 
 # Quadratic-field routines

@@ -2,6 +2,9 @@
 article_id: af_2b2e723387ed825e28336723
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.IR.satCode, ZInQ.Compiler.IR.cmulCode, ZInQ.Compiler.IR.cpowCode, ZInQ.Compiler.IR.cfactCode, ZInQ.Compiler.IR.caddCode, ZInQ.Compiler.IR.cmaxCode, ZInQ.Compiler.IR.cA0Code, ZInQ.Compiler.IR.cBoundCode, ZInQ.Compiler.IR.divFourCode, ZInQ.Compiler.IR.cA0Code_spec, ZInQ.Compiler.IR.cBoundCode_spec
 ---
 
 # Capped arithmetic routines
