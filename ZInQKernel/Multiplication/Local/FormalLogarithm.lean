@@ -1,6 +1,7 @@
 import ZInQKernel.Multiplication.Local.FormalGroupLaw
 import ZInQKernel.Multiplication.Local.TruncationError
 import ZInQKernel.Multiplication.Local.PointMap
+import ZInQKernel.Multiplication.FormalLog.Identity
 
 /-!
 # The formal logarithm of `y² = x³ + A x` and its isometry range
@@ -46,8 +47,8 @@ log(T₁) + log(T₂)` in `K⟦T₁, T₂⟧`. -/
 theorem formalLog_formalAdd {F : Type*} [Field F] [CharZero F] (A : F) :
     PowerSeries.subst (formalAdd A) (formalLog A) =
       PowerSeries.subst (MvPowerSeries.X (0 : Fin 2)) (formalLog A) +
-        PowerSeries.subst (MvPowerSeries.X (1 : Fin 2)) (formalLog A) := by
-  sorry
+        PowerSeries.subst (MvPowerSeries.X (1 : Fin 2)) (formalLog A) :=
+  formalLog_formalAdd_aux A
 
 /-! ### Part 2 -/
 
