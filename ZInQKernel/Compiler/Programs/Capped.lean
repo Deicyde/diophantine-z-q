@@ -15,10 +15,11 @@ subexpressions, the capped bound `β`, and the division-by-four loop.
 
 namespace ZInQ.Compiler.IR
 
-/-- `d ← σ_L(x) = min(x, L + 1)`, temporaries `T`, `T + 1`. -/
+/-- `d ← σ_L(x) = min(x, L + 1)`, temporaries `T`, `T + 1` (the value of `x` is read through its
+absolute value, `x · 1`). -/
 def satCode (Lv d x T : ℕ) : ZStmt :=
   .assign (T + 1) (.const 1) ;;; .assign T (.nadd Lv (T + 1)) ;;;
-    .ite (.nlt T x) (.assign d (.copy T)) (.assign d (.copy x))
+    .ite (.nlt T x) (.assign d (.copy T)) (.assign d (.nmul x (T + 1)))
 
 /-- `d ← cmul_L(a, b)`: `0` if `a = 0` or `b = 0`, `L + 1` if `a > ⌊L / b⌋`, else `a b`;
 temporaries `T, T + 1, T + 2`. -/
@@ -34,14 +35,14 @@ def cmulCode (Lv d a b T : ℕ) : ZStmt :=
 `T + 2` (the constant `1`), temporaries from `T + 3`. -/
 def cpowCode (Lv d x e T : ℕ) : ZStmt :=
   .assign T (.const 1) ;;; .assign (T + 1) (.const 0) ;;; .assign (T + 2) (.const 1) ;;;
-    .loop (.nlt (T + 1) e) (cmulCode Lv T T x (T + 3) ;;; .assign (T + 1) (.nadd (T + 1) (T + 2))) ;;;
+    .loop (T + 1) e (cmulCode Lv T T x (T + 3) ;;; .assign (T + 1) (.nadd (T + 1) (T + 2))) ;;;
     .assign d (.copy T)
 
 /-- `d ← f_L(n)`, the capped factorial: `n` steps `f ← cmul_L(f, σ_L(i))`; slots `T` (result),
 `T + 1` (counter), `T + 2` (the constant `1`), `T + 3` (`σ_L(i)`), temporaries from `T + 4`. -/
 def cfactCode (Lv d n T : ℕ) : ZStmt :=
   .assign T (.const 1) ;;; .assign (T + 1) (.const 0) ;;; .assign (T + 2) (.const 1) ;;;
-    .loop (.nlt (T + 1) n)
+    .loop (T + 1) n
       (.assign (T + 1) (.nadd (T + 1) (T + 2)) ;;; satCode Lv (T + 3) (T + 1) (T + 4) ;;;
         cmulCode Lv T T (T + 3) (T + 4)) ;;;
     .assign d (.copy T)
@@ -95,13 +96,13 @@ def cA0Code (Lv d V : ℕ) : ZStmt :=
 
 /-- `d ← β = cmul_L(⟨e_A⟩_L, cpow_L(σ_L(M), 24))`; slots from `V`. -/
 def cBoundCode (Lv d M V : ℕ) : ZStmt :=
-  cA0Code Lv V (V + 4) ;;; satCode Lv (V + 1) M (V + 4) ;;; satLit Lv (V + 2) 24 (V + 4) ;;;
+  cA0Code Lv V (V + 4) ;;; satCode Lv (V + 1) M (V + 4) ;;; natConst (V + 2) 24 (V + 4) ;;;
     cpowCode Lv (V + 3) (V + 1) (V + 2) (V + 4) ;;; cmulCode Lv d V (V + 3) (V + 4)
 
 /-- The division-by-four loop: `x ← ⌊x / 4^β⌋` by `β` divisions; slots `T` (counter), `T + 1`
 (`1`), `T + 2` (`4`). -/
 def divFourCode (x β T : ℕ) : ZStmt :=
   .assign T (.const 0) ;;; .assign (T + 1) (.const 1) ;;; .assign (T + 2) (.const 4) ;;;
-    .loop (.nlt T β) (.assign x (.div x (T + 2)) ;;; .assign T (.nadd T (T + 1)))
+    .loop T β (.assign x (.div x (T + 2)) ;;; .assign T (.nadd T (T + 1)))
 
 end ZInQ.Compiler.IR

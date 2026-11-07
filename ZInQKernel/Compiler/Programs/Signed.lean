@@ -93,19 +93,16 @@ def sMod (o x y : SInt) (t : ℕ) : Stmt :=
 def nOp (o : SInt) (o' : Op) (t : ℕ) : Stmt :=
   asg t o' ;; asg o.sign (.const 0) ;; asg o.mag (.copy t)
 
-/-- The flag `f ← [x < y]`. -/
+/-- The flag `f ← [x < y]`: different signs decide; for equal signs `σ`, `x < y` iff
+`μx < μy` (for `σ = 0`) or `μy < μx` (for `σ = 1`). -/
 def sLtFlag (f : ℕ) (x y : SInt) : Stmt :=
-  asg f (.const 0) ;;
-    .ifLt y.sign x.sign (asg f (.const 1))
-      (.ifLt x.sign y.sign (asg f (.const 0))
-        (.ifEq x.sign f
-          (.ifLt x.mag y.mag (asg f (.const 1)) (asg f (.const 0)))
-          (.ifLt y.mag x.mag (asg f (.const 1)) (asg f (.const 0)))))
+  .ifLt y.sign x.sign (asg f (.const 1))
+    (.ifLt x.sign y.sign (asg f (.const 0))
+      (.ifLt x.mag y.mag (asg f (.const 1) ;; asg f (.sub f x.sign))
+        (.ifLt y.mag x.mag (asg f (.copy x.sign)) (asg f (.const 0)))))
 
 /-- The flag `f ← [x = y]`. -/
 def sEqFlag (f : ℕ) (x y : SInt) : Stmt :=
-  asg f (.const 0) ;;
-    .ifEq x.sign y.sign (.ifEq x.mag y.mag (asg f (.const 1)) (asg f (.const 0)))
-      (asg f (.const 0))
+  .ifEq x.sign y.sign (.ifEq x.mag y.mag (asg f (.const 1)) (asg f (.const 0))) (asg f (.const 0))
 
 end ZInQ.Compiler.IR
