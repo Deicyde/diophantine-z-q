@@ -31,7 +31,7 @@ theorem writePoints_of_not_mem (x : ℕ → ℚ) (l : List (ℕ × (Fin 5 → �
   | cons e l ih =>
     obtain ⟨r, P⟩ := e
     simp only [writePoints]
-    rw [dif_neg (h _ List.mem_cons_self)]
+    rw [dite_eq_right (h _ List.mem_cons_self)]
     exact ih fun e he => h e (List.mem_cons_of_mem _ he)
 
 /-- **Reading back a written point.** -/
@@ -47,12 +47,12 @@ theorem writePoints_point (x : ℕ → ℚ) {l : List (ℕ × (Fin 5 → ℚ))}
     simp only [pointAt, writePoints]
     rcases List.mem_cons.1 h with h' | h'
     · obtain ⟨rfl, rfl⟩ := Prod.mk.inj h'
-      rw [dif_pos ⟨by omega, by omega⟩]
+      rw [dite_eq_left ⟨by omega, by omega⟩]
       congr 1
       ext
       simp
     · have hsep := hl.1 r ⟨(r, P), h', rfl⟩
-      rw [dif_neg (by unfold Separated at hsep; omega)]
+      rw [dite_eq_right (by unfold Separated at hsep; omega)]
       exact ih hl.2 h'
 
 end ZInQ.Translation

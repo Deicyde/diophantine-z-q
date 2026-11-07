@@ -57,6 +57,25 @@ theorem MultiplicationExact.rel_iota_iff {I : Constructors E} {cstar ell T : ℤ
   · intro hr
     exact ⟨a, b, rfl, rfl, hr⟩
 
+theorem lift_multiply_call (I : Constructors E) (cstar ell T : ℤ) (y : ℕ → ℚ) (A B D : Code)
+    (w : ℕ) :
+    (Formula.call (multiplyTemplate I cstar ell T) (Fin.append (Fin.append A B) D) w).Lift y ↔
+      (multiplyTemplate I cstar ell T).Rel (Fin.append (Fin.append (fun i => ev y (A i))
+        (fun i => ev y (B i))) (fun i => ev y (D i))) := by
+  refine (Formula.lift_call _ _ _ _).trans ?_
+  show (multiplyTemplate I cstar ell T).Rel
+    (fun k : Fin (5 + 5 + 5) => ev y (Fin.append (Fin.append A B) D k)) ↔ _
+  rw [ev_comp_append, ev_comp_append]
+
+theorem lift_rawAdd_call (y : ℕ → ℚ) (A B D : Code) (w : ℕ) :
+    (Formula.call rawAddTemplate (Fin.append (Fin.append A B) D) w).Lift y ↔
+      rawAddTemplate.Rel (Fin.append (Fin.append (fun i => ev y (A i))
+        (fun i => ev y (B i))) (fun i => ev y (D i))) := by
+  refine (Formula.lift_call _ _ _ _).trans ?_
+  show rawAddTemplate.Rel
+    (fun k : Fin (5 + 5 + 5) => ev y (Fin.append (Fin.append A B) D k)) ↔ _
+  rw [ev_comp_append, ev_comp_append]
+
 /-- **The natural-code predicate.** Under M, for every `A ∈ ℚ⁵` (not assumed to be a code),
 `Rel_natural(A) ⟺ A = ι(n)` for some `n ∈ ℕ`. -/
 theorem natural_rel_iff {I : Constructors E} {cstar ell T : ℤ}
@@ -64,7 +83,7 @@ theorem natural_rel_iff {I : Constructors E} {cstar ell T : ℤ}
     (naturalTemplate I cstar ell T).Rel A ↔ ∃ n : ℕ, A = iota n := by
   rw [naturalTemplate_rel_iff]
   simp only [naturalFormula, Formula.lift_and, List.mem_cons, List.not_mem_nil, or_false,
-    forall_eq_or_imp, forall_eq, Formula.lift_call, ev_comp_append, ev_varPoint]
+    forall_eq_or_imp, forall_eq, lift_multiply_call, lift_rawAdd_call, ev_varPoint]
   change (∃ y : ℕ → ℚ, (∀ i : Fin 5, y i = A i) ∧ _) ↔ _
   constructor
   · rintro ⟨y, hyA, h0, h1, h2, h3, h4, h5, h6⟩
@@ -78,7 +97,8 @@ theorem natural_rel_iff {I : Constructors E} {cstar ell T : ℤ}
     have hA : A = iota (a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3) := by
       rw [← h6]; funext i; simp [hyA]
     refine ⟨(a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3).toNat, ?_⟩
-    rw [hA, Int.toNat_of_nonneg (by positivity)]
+    rw [hA, Int.toNat_of_nonneg (add_nonneg (add_nonneg (add_nonneg (mul_self_nonneg _)
+      (mul_self_nonneg _)) (mul_self_nonneg _)) (mul_self_nonneg _))]
   · rintro ⟨n, rfl⟩
     obtain ⟨a0, a1, a2, a3, hn⟩ := four_squares n
     let s1 : ℤ := (a0 : ℤ) * a0 + (a1 : ℤ) * a1
@@ -87,26 +107,27 @@ theorem natural_rel_iff {I : Constructors E} {cstar ell T : ℤ}
       (20, iota a3), (25, iota ((a0 : ℤ) * a0)), (30, iota ((a1 : ℤ) * a1)),
       (35, iota ((a2 : ℤ) * a2)), (40, iota ((a3 : ℤ) * a3)), (140581, iota s1),
       (140592, iota s2)]
-    have hL : (L.map Prod.fst).Pairwise Separated := by decide
+    have hL : (L.map Prod.fst).Pairwise Separated := by
+      simp only [L, List.map_cons, List.map_nil]; decide
     let y := writePoints (fun _ => 0) L
     have hp : ∀ r P, (r, P) ∈ L → (fun i : Fin 5 => y (r + i)) = P := fun r P h =>
       writePoints_point _ hL h
     refine ⟨y, fun i => ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
     · have := congrFun (hp 0 (iota n) (by simp [L])) i
       simpa using this
-    · rw [hp 5 _ (by simp [L]), hp 25 _ (by simp [L])]
+    · rw [hp 5 (iota a0) (by simp [L]), hp 25 (iota ((a0 : ℤ) * a0)) (by simp [L])]
       exact (hM.rel_sq_iff _ _).2 ⟨_, rfl, rfl⟩
-    · rw [hp 10 _ (by simp [L]), hp 30 _ (by simp [L])]
+    · rw [hp 10 (iota a1) (by simp [L]), hp 30 (iota ((a1 : ℤ) * a1)) (by simp [L])]
       exact (hM.rel_sq_iff _ _).2 ⟨_, rfl, rfl⟩
-    · rw [hp 15 _ (by simp [L]), hp 35 _ (by simp [L])]
+    · rw [hp 15 (iota a2) (by simp [L]), hp 35 (iota ((a2 : ℤ) * a2)) (by simp [L])]
       exact (hM.rel_sq_iff _ _).2 ⟨_, rfl, rfl⟩
-    · rw [hp 20 _ (by simp [L]), hp 40 _ (by simp [L])]
+    · rw [hp 20 (iota a3) (by simp [L]), hp 40 (iota ((a3 : ℤ) * a3)) (by simp [L])]
       exact (hM.rel_sq_iff _ _).2 ⟨_, rfl, rfl⟩
-    · rw [hp 25 _ (by simp [L]), hp 30 _ (by simp [L]), hp 140581 _ (by simp [L]),
+    · rw [hp 25 (iota ((a0 : ℤ) * a0)) (by simp [L]), hp 30 (iota ((a1 : ℤ) * a1)) (by simp [L]), hp 140581 (iota s1) (by simp [L]),
         rel_rawAdd_iota]
-    · rw [hp 140581 _ (by simp [L]), hp 35 _ (by simp [L]), hp 140592 _ (by simp [L]),
+    · rw [hp 140581 (iota s1) (by simp [L]), hp 35 (iota ((a2 : ℤ) * a2)) (by simp [L]), hp 140592 (iota s2) (by simp [L]),
         rel_rawAdd_iota]
-    · rw [hp 140592 _ (by simp [L]), hp 40 _ (by simp [L]), hp 0 _ (by simp [L]),
+    · rw [hp 140592 (iota s2) (by simp [L]), hp 40 (iota ((a3 : ℤ) * a3)) (by simp [L]), hp 0 (iota n) (by simp [L]),
         rel_rawAdd_iota, hn]
       congr 1
       simp only [s1, s2]

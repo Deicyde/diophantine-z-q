@@ -50,7 +50,7 @@ theorem ev_getPoly (x : ℕ → ℚ) (l : List Poly) (k : ℕ) :
 
 theorem map_ev_pointRefList (g : Fin 3 → ℕ) (x : ℕ → ℚ) (r : ℤ) :
     (pointRefList g r).map (ev x) = List.ofFn (refVal g x r) := by
-  simp [pointRefList, List.map_ofFn, refVal, evCode, Function.comp_def]
+  simp [pointRefList, refVal, evCode]
 
 theorem lift_callListFormula_one (τ : ExPoly) (g : Fin 3 → ℕ) (x : ℕ → ℚ) (a : ℤ) (s : ℕ) :
     (callListFormula τ (pointRefList g a) s).Lift x ↔ CodeRel τ [refVal g x a] := by
@@ -81,7 +81,7 @@ theorem lift_callListFormula_four (τ : ExPoly) (g : Fin 3 → ℕ) (x : ℕ →
 /-! ### The five conditions -/
 
 /-- The power callee of a model-evaluation recipe (the empty polynomial if there is none). -/
-noncomputable def ModelRecipe.powerCallee (recipes : List ExPoly) (r : ModelRecipe) : ExPoly :=
+noncomputable def powerCallee (recipes : List ExPoly) (r : ModelRecipe) : ExPoly :=
   match r.power with
   | some i => getEx recipes i
   | none => ExPoly.empty
@@ -106,7 +106,7 @@ structure ModelHoldsExceptRoot (templates recipes : List ExPoly) (r : ModelRecip
     CodeRel (getEx templates d.1) [refVal r.generator x (-2), refVal r.generator x d.2.1]
   /-- The operations. -/
   operations : ∀ op ∈ r.operations, OpHolds (getEx templates r.addition)
-    (getEx templates r.multiplication) (r.powerCallee recipes) r.generator x op
+    (getEx templates r.multiplication) (powerCallee recipes r) r.generator x op
 
 /-- Conditions 1–5 of the relational form. -/
 structure ModelHolds (templates recipes : List ExPoly) (r : ModelRecipe) (x : ℕ → ℚ) : Prop
@@ -156,7 +156,7 @@ well formed, call blocks pairwise disjoint, above the parameters and avoided by 
 polynomials, and every variable below `v`. -/
 structure ScopedIn (φ : Formula) (p v : ℕ) : Prop where
   /-- Callees well formed, blocks disjoint, free polynomials avoid the blocks. -/
-  scoped : φ.Scoped
+  scope : φ.Scoped
   /-- The blocks lie above the parameters. -/
   above : ∀ b ∈ φ.blocks, p ≤ b.1
   /-- Every variable is below the variable count. -/
@@ -169,7 +169,7 @@ compiled formula holds at `a` exactly when some assignment extending `a` satisfi
 theorem rel_iff_lift {φ : Formula} {p v : ℕ} (h : ScopedIn φ p v) (a : Fin p → ℚ) :
     (⟨p, v - p, φ.compile⟩ : ExPoly).Rel a ↔
       ∃ x : ℕ → ℚ, (∀ i (hi : i < p), x i = a ⟨i, hi⟩) ∧ φ.Lift x := by
-  have hb := Formula.exists_blocks_iff φ h.scoped.wf h.scoped.disjoint h.scoped.free
+  have hb := Formula.exists_blocks_iff φ h.scope.wf h.scope.disjoint h.scope.free
   constructor
   · rintro ⟨y, hy⟩
     exact ⟨assign p (v - p) a y, fun i hi => assign_of_lt a y hi,
@@ -177,6 +177,7 @@ theorem rel_iff_lift {φ : Formula} {p v : ℕ} (h : ScopedIn φ p v) (a : Fin p
   · rintro ⟨x, hxa, hl⟩
     obtain ⟨x', hx', hz⟩ := (hb x).2 hl
     refine ⟨fun j => x' (p + j), ?_⟩
+    show ev (assign p (v - p) a _) φ.compile = 0
     rw [← hz]
     refine ev_congr fun i hi => ?_
     have hiv := h.varsLT i hi
@@ -199,12 +200,11 @@ theorem modelRecipe_rel_iff (templates recipes : List ExPoly) (r : ModelRecipe)
     ((Recipe.model r).denote templates recipes).Rel a ↔
       ∃ x : ℕ → ℚ, (∀ i (hi : i < r.parameterCount), x i = a ⟨i, hi⟩) ∧
         ModelHolds templates recipes r x := by
-  have : (Recipe.model r).denote templates recipes =
-      ⟨r.parameterCount, r.variableCount - r.parameterCount,
-        (r.formula templates recipes).compile⟩ := by
-    simp only [Recipe.denote, Recipe.parameterCount, Recipe.variableCount,
-      Recipe.poly_eq_compile, Recipe.formula]
-  rw [this, rel_iff_lift hsc]
+  have e : Recipe.poly templates recipes (.model r) = (r.formula templates recipes).compile :=
+    Recipe.poly_eq_compile templates recipes (.model r)
+  show (⟨r.parameterCount, r.variableCount - r.parameterCount,
+    Recipe.poly templates recipes (.model r)⟩ : ExPoly).Rel a ↔ _
+  rw [e, rel_iff_lift hsc]
   simp only [lift_formula_iff]
 
 /-- Under the generator equations the references `-1, -2, -3` are `ι(0)`-shaped codes of `O`,
