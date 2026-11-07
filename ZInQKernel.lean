@@ -18,3 +18,4 @@ import ZInQKernel.Compiler.Circuits
 import ZInQKernel.Compiler.Exponential
 import ZInQKernel.Multiplication.Local
 import ZInQKernel.Size.Majorants
+import ZInQKernel.Size.Norms
