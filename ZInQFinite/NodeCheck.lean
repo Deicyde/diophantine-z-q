@@ -18,4 +18,9 @@ builder. -/
 theorem haltingNodeCheck_native : HaltingNodeCheck :=
   NodeCheck.haltingNodeCheck_of_checkB (by native_decide)
 
+/-- **The addition and multiplication counts of the universal halting circuit**, by native
+evaluation of the fast builder: the part of `HaltingNodeCheck` not proved in the kernel. -/
+theorem haltingAddMulCheck_native : NodeCheck.HaltingAddMulCheck :=
+  NodeCheck.haltingAddMulCheck_of_checkB (by native_decide)
+
 end ZInQ.Compiler.Universal

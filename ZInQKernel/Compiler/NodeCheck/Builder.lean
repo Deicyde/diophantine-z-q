@@ -81,17 +81,24 @@ theorem eraseFs_eq (fs : List NForm) : eraseFs fs = fs.map eraseF := by
   | nil => rfl
   | cons f fs ih => simp [eraseFs, ih]
 
-/-- Related states. -/
+/-- Variable nodes. -/
+def isVarNode : NatNode → Bool
+  | .var _ => true
+  | _ => false
+
+/-- Related states. Besides the simulation proper, the variable nodes of the construction
+are as many as its explicit variables (`vars`). -/
 structure Rel (s : State) (t : FState) : Prop where
   next : s.next = t.next
   nodes : s.nodes = t.rev.reverse
   len : t.len = t.rev.length
   find : ∀ n, tabled n = true → t.table.find n = s.nodes.idxOf? n
   var : ∀ i, NatNode.var i ∈ s.nodes → i < s.next
+  vars : s.nodes.countP isVarNode = s.vars.length
 
 theorem Rel.of_eq {s s' : State} {t : FState} (h : Rel s t) (h1 : s'.next = s.next)
-    (h2 : s'.nodes = s.nodes) : Rel s' t :=
-  ⟨h1 ▸ h.next, h2 ▸ h.nodes, h.len, h2 ▸ h.find, h1 ▸ h2 ▸ h.var⟩
+    (h2 : s'.nodes = s.nodes) (h3 : s'.vars = s.vars) : Rel s' t :=
+  ⟨h1 ▸ h.next, h2 ▸ h.nodes, h.len, h2 ▸ h.find, h1 ▸ h2 ▸ h.var, h2 ▸ h3 ▸ h.vars⟩
 
 /-- `m'` simulates `m`, with results related by `er`. -/
 structure Sim {α β : Type} (er : α → β) (m : NM α) (m' : FM β) : Prop where
@@ -113,7 +120,7 @@ theorem bind {er : α → β} {er' : γ → δ} {m : NM α} {m' : FM β} {f : α
   exact ⟨k1, k2⟩⟩
 
 theorem note_bind {er : α → β} {k : MacroKind} {m : NM α} {m' : FM β} (h : Sim er m m') :
-    Sim er (Natural.note k >>= fun _ => m) m' := ⟨fun s t hr => h.run _ t (hr.of_eq rfl rfl)⟩
+    Sim er (Natural.note k >>= fun _ => m) m' := ⟨fun _ t hr => h.run _ t (hr.of_eq rfl rfl rfl)⟩
 
 theorem congr_er {er er' : α → β} {m : NM α} {m' : FM β} (h : Sim er m m') (he : er = er') :
     Sim er' m m' := he ▸ h
@@ -152,7 +159,8 @@ theorem node_sim {n : NatNode} (hn : tabled n = true) : Sim id (Natural.node n) 
     | some j => exact ⟨rfl, hr⟩
     | none =>
       have hnot : n ∉ s.nodes := List.idxOf?_eq_none_iff.mp h
-      refine ⟨by simp [hr.nodes, hr.len], ⟨hr.next, by simp [hr.nodes], by simp [hr.len], ?_, ?_⟩⟩
+      refine ⟨by simp [hr.nodes, hr.len],
+        ⟨hr.next, by simp [hr.nodes], by simp [hr.len], ?_, ?_, ?_⟩⟩
       · intro m hm
         rw [Table.find_insert _ hn _ hm, idxOf?_append_singleton, hr.find m hm]
         by_cases hmn : m = n
@@ -165,7 +173,9 @@ theorem node_sim {n : NatNode} (hn : tabled n = true) : Sim id (Natural.node n) 
       · intro i hi
         rcases List.mem_append.mp hi with hi | hi
         · exact hr.var i hi
-        · cases n <;> simp_all [tabled]⟩
+        · cases n <;> simp_all [tabled]
+      · have : isVarNode n = false := by cases n <;> simp_all [tabled, isVarNode]
+        simp [List.countP_append, this, hr.vars]⟩
 
 /-- A fresh variable `X_c`: its variable node is appended. -/
 def fresh : FM ℕ := fun t => (t.len, ⟨t.next + 1, t.table, t.len + 1, .var t.next :: t.rev⟩)
@@ -175,7 +185,7 @@ theorem fresh_sim : Sim Ex.node Natural.fresh fresh := ⟨fun s t hr => by
   have h : s.nodes.idxOf? (.var s.next) = none := List.idxOf?_eq_none_iff.mpr hnot
   simp only [Natural.fresh, Natural.node, h, fresh]
   refine ⟨by simp [hr.nodes, hr.len], ⟨by simp [hr.next], by simp [hr.nodes, hr.next],
-    by simp [hr.len], ?_, ?_⟩⟩
+    by simp [hr.len], ?_, ?_, ?_⟩⟩
   · intro m hm
     have hmv : m ≠ .var s.next := by rintro rfl; simp [tabled] at hm
     rw [hr.find m hm, idxOf?_append_singleton]
@@ -185,7 +195,8 @@ theorem fresh_sim : Sim Ex.node Natural.fresh fresh := ⟨fun s t hr => by
   · intro i hi
     rcases List.mem_append.mp hi with hi | hi
     · have := hr.var i hi; show i < s.next + 1; omega
-    · simp only [List.mem_singleton, NatNode.var.injEq] at hi; subst hi; show _ < s.next + 1; omega⟩
+    · simp only [List.mem_singleton, NatNode.var.injEq] at hi; subst hi; show _ < s.next + 1; omega
+  · simp [List.countP_append, isVarNode, hr.vars]⟩
 
 /-- The constant `c`. -/
 def constant (c : ℤ) : FM ℕ := node (.const c)
@@ -267,8 +278,8 @@ theorem callPower_sim {P Q R : Ex} {P' Q' R' : ℕ} (hP : P.node = P') (hQ : Q.n
   ⟨fun s t hr => by
     subst hP hQ hR
     simp only [Natural.callPower, callPower, eraseF]
-    refine ⟨by simp [hr.nodes, hr.len], ⟨by simp [hr.next, powerWitnesses], by simp [hr.nodes, hr.next],
-      by simp [hr.len], ?_, ?_⟩⟩
+    refine ⟨by simp [hr.nodes, hr.len], ⟨by simp [hr.next, powerWitnesses],
+      by simp [hr.nodes, hr.next], by simp [hr.len], ?_, ?_, ?_⟩⟩
     · intro m hm
       have hmv : m ≠ .call P.node Q.node R.node s.next := by rintro rfl; simp [tabled] at hm
       rw [hr.find m hm, idxOf?_append_singleton]
@@ -278,7 +289,8 @@ theorem callPower_sim {P Q R : Ex} {P' Q' R' : ℕ} (hP : P.node = P') (hQ : Q.n
     · intro i hi
       rcases List.mem_append.mp hi with hi | hi
       · have := hr.var i hi; simp only [powerWitnesses]; omega
-      · simp at hi⟩
+      · simp at hi
+    · simp [List.countP_append, isVarNode, hr.vars]⟩
 
 /-- Run a list of constructions in order. -/
 def seqM {α : Type} : List (FM α) → FM (List α)
@@ -293,7 +305,7 @@ theorem seqM_sim {α β : Type} {er : α → β} :
       Sim (List.map er) (Natural.seqM ms) (seqM ms')
   | [], [], .nil => Sim.pure rfl
   | _ :: _, _ :: _, .cons h hs =>
-    Sim.bind h fun a => Sim.bind (seqM_sim hs) fun as => Sim.pure rfl
+    Sim.bind h fun _ => Sim.bind (seqM_sim hs) fun _ => Sim.pure rfl
 
 /-- The conjunction of the formulas of a list of constructions. -/
 def andM (ms : List (FM FForm)) : FM FForm := do
@@ -461,18 +473,18 @@ mutual
 
 theorem encode_sim (τ : Syntax.ExPoly) : ∀ φ : NForm,
     Sim Ex.node (φ.encode τ) (eraseF φ).encode
-  | .eq a b => Sim.bind (scale_sim (-1) rfl) fun c => addL_sim rfl
-  | .atom f => Sim.pure rfl
-  | .call P Q R w j => Sim.pure rfl
+  | .eq _ _ => Sim.bind (scale_sim (-1) rfl) fun _ => addL_sim rfl
+  | .atom _ => Sim.pure rfl
+  | .call _ _ _ _ _ => Sim.pure rfl
   | .and fs => Sim.bind (encodeList_sim τ fs) fun es =>
-      Sim.bind (seqM_sim (forall₂_map_square es)) fun sq => addL_sim rfl
-  | .or fs => Sim.bind (encodeList_sim τ fs) fun es => mulL_sim rfl
+      Sim.bind (seqM_sim (forall₂_map_square es)) fun _ => addL_sim rfl
+  | .or fs => Sim.bind (encodeList_sim τ fs) fun _ => mulL_sim rfl
 
 theorem encodeList_sim (τ : Syntax.ExPoly) : ∀ fs : List NForm,
     Sim (List.map Ex.node) (NForm.encodeList τ fs) (FForm.encodeList (eraseFs fs))
   | [] => Sim.pure rfl
-  | f :: fs => Sim.bind (encode_sim τ f) fun e =>
-      Sim.bind (encodeList_sim τ fs) fun es => Sim.pure rfl
+  | f :: fs => Sim.bind (encode_sim τ f) fun _ =>
+      Sim.bind (encodeList_sim τ fs) fun _ => Sim.pure rfl
 
 end
 

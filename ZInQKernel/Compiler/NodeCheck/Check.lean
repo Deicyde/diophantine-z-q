@@ -73,4 +73,17 @@ theorem statsCheck_sound {l L : List NatNode} (hL : L = l.reverse) (h : statsChe
 theorem haltingNodeCheck_of_checkB (h : haltingNodeCheckB = true) : HaltingNodeCheck :=
   statsCheck_sound (L := haltingCircuit.nodes) (compiled_nodes interpreter 204 2) h
 
+theorem countKind_var_eq (l : List NatNode) : countKind .var l = l.countP isVarNode := by
+  unfold countKind
+  congr 1
+  funext n
+  cases n <;> rfl
+
+/-- **The variable-node count of the halting circuit**, `54,049` (the first item of
+`HaltingNodeCheck`), proved without evaluating the construction: the variable nodes are as
+many as the explicit variables. -/
+theorem haltingCircuit_varNodes : countKind .var haltingCircuit.nodes = 54049 := by
+  rw [countKind_var_eq]
+  exact (compiled_varNodes interpreter 204 2).trans haltingCircuit_counts.2.1
+
 end ZInQ.Compiler.NodeCheck
