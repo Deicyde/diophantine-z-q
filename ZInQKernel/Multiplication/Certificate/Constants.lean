@@ -41,6 +41,8 @@ noncomputable def S_mul : Finset ℕ := S_ht ∪ catalogue ∪ Syntax.cstar.prim
 
 theorem mem_S_ht {p : ℕ} : p ∈ S_ht ↔ p.Prime ∧ p ≤ 324 := Compiler.Precision.mem_heightPrimes
 
+theorem catalogue_eq : catalogue = Syntax.catalogueFinset catalogueModulus 22 324 := rfl
+
 theorem coe_catalogue : (catalogue : Set ℕ) = catalogueSet := Syntax.catalogueSet_eq.symm
 
 theorem mem_catalogue {p : ℕ} : p ∈ catalogue ↔ p ∈ catalogueSet := by
@@ -53,6 +55,11 @@ theorem mem_S_mul {p : ℕ} :
   simp only [S_mul, Finset.mem_union, Nat.mem_primeFactors, or_assoc]
 
 theorem S_b_subset_S_mul : S_b ⊆ S_mul := Finset.subset_union_left
+
+/- The catalogue is never evaluated: elaborating a membership `p ∈ catalogue` as a term would
+otherwise unfold it down to `range (4 · 324#)`. From here on the sets are used through
+`mem_catalogue`, `coe_catalogue`, `mem_S_b` and `mem_S_mul` only. -/
+attribute [irreducible] catalogue S_b S_mul
 
 /-! ### Clearing exponents -/
 
