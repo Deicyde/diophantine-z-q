@@ -88,6 +88,7 @@ theorem valueTest_rel_iff {I : Constructors E} {cstar ell T : ℤ}
     (hM : MultiplicationExact I cstar ell T) (N K : Fin 5 → ℚ) (t : ℚ) :
     (valueTestTemplate I cstar ell T).Rel (Fin.append (Fin.append N K) ![t]) ↔
       ∃ n κ : ℤ, N = iota n ∧ K = iota κ ∧ Test n κ t := by
+  simp only [test_iff]
   rw [valueTestTemplate_rel_iff]
   simp only [params_iff₂, valueTestFormula, valueLocalFormula, List.cons_append, List.nil_append,
     Formula.lift_and, List.mem_cons, List.not_mem_nil, or_false, forall_eq_or_imp, forall_eq,
@@ -127,17 +128,17 @@ theorem valueTest_rel_iff {I : Constructors E} {cstar ell T : ℤ}
       intro h0; rw [h0, zero_mul] at hnF; exact zero_ne_one hnF
     have hF' := algebraMap_ne_zero hF
     have heta' : y 35257 ^ 2 = 1 := by simpa using heta
-    have e0 : y 35259 = testR0 t (y 35257) := by
-      unfold testR0; rw [pow_six_2730_rat]; simpa [ev_valueContact, ht] using hR0
-    have ea : y 35260 = testA0 t (y 35257) (y 35258) := by
-      unfold testA0; rw [← e0]; simpa using ha0
-    have ha : testA0 t (y 35257) (y 35258) ≠ 0 := by
+    have e0 : y 35259 = vtR0 t (y 35257) := by
+      unfold vtR0; rw [pow_six_2730_rat]; simpa [ev_valueContact, ht] using hR0
+    have ea : y 35260 = vtA0 t (y 35257) (y 35258) := by
+      unfold vtA0; rw [← e0]; simpa using ha0
+    have ha : vtA0 t (y 35257) (y 35258) ≠ 0 := by
       rw [← ea]; intro h0; simp [h0] at hna
-    have eR : y 35261 = testR t (y 35257) (y 35258) := by
-      unfold testR; rw [← e0, ← ea]; simpa using hR
+    have eR : y 35261 = vtR t (y 35257) (y 35258) := by
+      unfold vtR; rw [← e0, ← ea]; simpa using hR
     rw [val_smul', ev_valueContact, ht] at hf0 hf1 hf2 hf3 hf4 hf5
     have hC : ∀ j : Fin 6, Pair.val y (varPair (35264 + 2 * ↑j)) =
-        testD n κ t h s₀ j / algebraMap ℚ K0 (contactPoly t) := by
+        vtD n κ t h s₀ j / algebraMap ℚ K0 (contactPoly t) := by
       intro j
       rw [eq_div_iff hF', mul_comm]
       fin_cases j
@@ -158,28 +159,28 @@ theorem valueTest_rel_iff {I : Constructors E} {cstar ell T : ℤ}
         varPair (35264 + 2 * ↑j))) ≠ 0 := by
       rw [← ev_norm_ne_zero_iff]; intro h0; rw [h0, zero_mul] at hWn; exact zero_ne_one hWn
     have hWv : Pair.val y (slopeW (X 35261) (List.ofFn fun j : Fin 6 =>
-        varPair (35264 + 2 * ↑j))) = testW n κ t h s₀ (y 35257) (y 35258) := by
-      rw [val_slopeW, testW, ev_X, eR]
+        varPair (35264 + 2 * ↑j))) = vtW n κ t h s₀ (y 35257) (y 35258) := by
+      rw [val_slopeW, vtW, ev_X, eR]
       exact Finset.prod_congr rfl fun j _ => by rw [hC j]
     rw [hWv, Pair.val_one, one_div] at hω
     rw [hWv] at hWne
-    have eΘ : y 35279 = testTheta n κ t h s₀ (y 35257) (y 35258) := by
-      rw [testTheta, K0.trace_eq, ← hω]; simpa using hΘ
-    have hΘ0 : testTheta n κ t h s₀ (y 35257) (y 35258) ≠ 0 := by
+    have eΘ : y 35279 = vtTheta n κ t h s₀ (y 35257) (y 35258) := by
+      rw [vtTheta, K0.trace_eq, ← hω]; simpa using hΘ
+    have hΘ0 : vtTheta n κ t h s₀ (y 35257) (y 35258) ≠ 0 := by
       rw [← eΘ]; intro h0; simp [h0] at hnΘ
-    have eB : y 35280 = testR t (y 35257) (y 35258) /
-        testTheta n κ t h s₀ (y 35257) (y 35258) ^ 2 := by
+    have eB : y 35280 = vtR t (y 35257) (y 35258) /
+        vtTheta n κ t h s₀ (y 35257) (y 35258) ^ 2 := by
       rw [eq_div_iff (pow_ne_zero 2 hΘ0), ← eR, ← eΘ]; simpa using hB
-    refine ⟨n, κ, by rw [← hN, en], by rw [← hK, ek], hκ, (contactPoly_ne_zero_iff t).1 hF, h, s₀,
+    refine ⟨n, κ, by rw [← hN, en], by rw [← hK, ek], hκ, contactPoly_ne_zero_iff.1 hF, h, s₀,
       y 35257, y 35258, hh, sub_ne_zero.1 hhk, heta', ha, hWne, hΘ0, ?_⟩
     rw [← eB]; simpa using hpole
   · rintro ⟨n, κ, rfl, rfl, hκ, htC, h, s₀, η, q, hh, hhk, heta, ha, hW, hΘ, hpole⟩
-    have hF : contactPoly t ≠ 0 := (contactPoly_ne_zero_iff t).2 htC
+    have hF : contactPoly t ≠ 0 := contactPoly_ne_zero_iff.2 htC
     have hF' := algebraMap_ne_zero hF
     have hhk' : h - κ ≠ 0 := sub_ne_zero.2 hhk
-    set W := testW n κ t h s₀ η q with hWdef
-    set Θ := testTheta n κ t h s₀ η q with hΘdef
-    set Cv : Fin 6 → K0 := fun j => testD n κ t h s₀ j / algebraMap ℚ K0 (contactPoly t) with hCv
+    set W := vtW n κ t h s₀ η q with hWdef
+    set Θ := vtTheta n κ t h s₀ η q with hΘdef
+    set Cv : Fin 6 → K0 := fun j => vtD n κ t h s₀ j / algebraMap ℚ K0 (contactPoly t) with hCv
     have hzh : zIdx h ≠ 0 := zIdx_ne_zero (admissible_of_ne_zero hh)
     have hzv : zIdx (h - κ) ≠ 0 := zIdx_ne_zero (admissible_of_ne_zero hhk')
     let pts : List (ℕ × (Fin 5 → ℚ)) := [(0, iota n), (5, iota κ), (11, iota (κ * n)), (16, iota h),
@@ -213,11 +214,11 @@ theorem valueTest_rel_iff {I : Constructors E} {cstar ell T : ℤ}
         (35256, ((zIdx (h - κ)).re ^ 2 - 2 * (zIdx (h - κ)).im ^ 2)⁻¹),
         (35257, η),
         (35258, q),
-        (35259, testR0 t η),
-        (35260, testA0 t η q),
-        (35261, testR t η q),
+        (35259, vtR0 t η),
+        (35260, vtA0 t η q),
+        (35261, vtR t η q),
         (35262, (contactPoly t)⁻¹),
-        (35263, (testA0 t η q)⁻¹),
+        (35263, (vtA0 t η q)⁻¹),
         (35264, (Cv 0).re),
         (35265, (Cv 0).im),
         (35266, (Cv 1).re),
@@ -234,7 +235,7 @@ theorem valueTest_rel_iff {I : Constructors E} {cstar ell T : ℤ}
         (35277, (W⁻¹).im),
         (35278, (W.re ^ 2 - 2 * W.im ^ 2)⁻¹),
         (35279, Θ),
-        (35280, testR t η q / Θ ^ 2),
+        (35280, vtR t η q / Θ ^ 2),
         (35281, Θ⁻¹)]
     have hnd : (vals.map Prod.fst).Nodup := by
       rw [show vals.map Prod.fst = [10, 35231, 35232, 35233, 35234, 35235, 35236, 35237, 35238, 35239, 35240, 35241, 35242, 35243, 35244, 35245, 35246, 35247, 35248, 35249, 35250, 35251, 35252, 35253, 35254, 35255, 35256, 35257, 35258, 35259, 35260, 35261, 35262, 35263, 35264, 35265, 35266, 35267, 35268, 35269, 35270, 35271, 35272, 35273, 35274, 35275, 35276, 35277, 35278, 35279, 35280, 35281] from rfl]
@@ -272,14 +273,14 @@ theorem valueTest_rel_iff {I : Constructors E} {cstar ell T : ℤ}
     have v10 : y 10 = t := hv _ _ (by simp [vals])
     have v57 : y 35257 = η := hv _ _ (by simp [vals])
     have v58 : y 35258 = q := hv _ _ (by simp [vals])
-    have v59 : y 35259 = testR0 t η := hv _ _ (by simp [vals])
-    have v60 : y 35260 = testA0 t η q := hv _ _ (by simp [vals])
-    have v61 : y 35261 = testR t η q := hv _ _ (by simp [vals])
+    have v59 : y 35259 = vtR0 t η := hv _ _ (by simp [vals])
+    have v60 : y 35260 = vtA0 t η q := hv _ _ (by simp [vals])
+    have v61 : y 35261 = vtR t η q := hv _ _ (by simp [vals])
     have v62 : y 35262 = (contactPoly t)⁻¹ := hv _ _ (by simp [vals])
-    have v63 : y 35263 = (testA0 t η q)⁻¹ := hv _ _ (by simp [vals])
+    have v63 : y 35263 = (vtA0 t η q)⁻¹ := hv _ _ (by simp [vals])
     have v78 : y 35278 = (W.re ^ 2 - 2 * W.im ^ 2)⁻¹ := hv _ _ (by simp [vals])
     have v79 : y 35279 = Θ := hv _ _ (by simp [vals])
-    have v80 : y 35280 = testR t η q / Θ ^ 2 := hv _ _ (by simp [vals])
+    have v80 : y 35280 = vtR t η q / Θ ^ 2 := hv _ _ (by simp [vals])
     have v81 : y 35281 = Θ⁻¹ := hv _ _ (by simp [vals])
     have zH : Pair.val y (varPair 35233) = zIdx h := vz _ _ (by simp [vals]) (by simp [vals])
     have zU : Pair.val y (varPair 35238) = zIdx s₀ := vz _ _ (by simp [vals]) (by simp [vals])
@@ -304,10 +305,10 @@ theorem valueTest_rel_iff {I : Constructors E} {cstar ell T : ℤ}
       all_goals exact vz _ _ (by simp [vals]) (by simp [vals])
     have hWv : Pair.val y (slopeW (X 35261) (List.ofFn fun j : Fin 6 =>
         varPair (35264 + 2 * ↑j))) = W := by
-      rw [val_slopeW, hWdef, testW, ev_X, v61]
+      rw [val_slopeW, hWdef, vtW, ev_X, v61]
       exact Finset.prod_congr rfl fun j _ => by rw [hC j]
     have hfeq : ∀ j : Fin 6, Pair.val y (Pair.smul (valueContact (X 10)) (varPair (35264 + 2 * ↑j))) =
-        testD n κ t h s₀ j := fun j => by
+        vtD n κ t h s₀ j := fun j => by
       rw [val_smul', ev_valueContact, v10, hC j, hCv, mul_div_cancel₀ _ hF']
     refine ⟨y, ⟨pN, pK, v10⟩, ?_, ?_, ?_, ?_, ?_, ?_, ?_, fin0 5 κ pK hκ, ?_, ?_, ?_,
       fin0 16 h pH hh, fin0 26 _ pV0 hhk', (holds_ixFormula_iota pH).2 wH,
@@ -337,11 +338,11 @@ theorem valueTest_rel_iff {I : Constructors E} {cstar ell T : ℤ}
       exact mul_inv_cancel₀ (pairNorm_ne_zero_of_ne_zero hzv)
     · rw [ev_valueContact, v10, v62, mul_inv_cancel₀ hF]
     · simp [v57, heta]
-    · simp only [map_mul, ev_X, ev_C, ev_valueContact, v59, v57, v10, testR0]
+    · simp only [map_mul, ev_X, ev_C, ev_valueContact, v59, v57, v10, vtR0]
       push_cast; ring
-    · simp only [map_sub, map_mul, map_pow, map_one, ev_X, v60, v59, v58, testA0]
+    · simp only [map_sub, map_mul, map_pow, map_one, ev_X, v60, v59, v58, vtA0]
     · simp only [ev_X, v60, v63]; exact mul_inv_cancel₀ ha
-    · simp only [map_mul, map_pow, ev_X, v61, v59, v60, testR]
+    · simp only [map_mul, map_pow, ev_X, v61, v59, v60, vtR]
     · exact (hfeq 0).trans (by rw [wH]; rfl)
     · exact (hfeq 1).trans (by rw [wU]; rfl)
     · exact (hfeq 2).trans (by rw [Pair.val_conj, wV0]; rfl)
@@ -352,7 +353,7 @@ theorem valueTest_rel_iff {I : Constructors E} {cstar ell T : ℤ}
       rw [ev_norm_eq, hWv, v78]
       exact mul_inv_cancel₀ (pairNorm_ne_zero_of_ne_zero hW)
     · have : y 35276 = (W⁻¹).re := by simpa [val_varPair] using congrArg QuadraticAlgebra.re ω
-      simp only [map_mul, ev_X, map_ofNat, v79, this, hΘdef, testTheta, K0.trace_eq]
+      simp only [map_mul, ev_X, map_ofNat, v79, this, hΘdef, vtTheta, K0.trace_eq]
       rfl
     · simp only [ev_X, v79, v81]; exact mul_inv_cancel₀ hΘ
     · simp only [map_mul, map_pow, ev_X, v80, v79, v61]
