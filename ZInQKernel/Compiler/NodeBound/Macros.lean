@@ -48,6 +48,7 @@ macro "up_mono" : tactic => `(tactic| first
   | (with_reducible apply Mono.mem)
   | (with_reducible apply Mono.hasSucc)
   | (with_reducible apply Mono.const)
+  | (with_reducible apply Mono.imp)
   | (show Mono _; assumption))
 
 /-- Presence side goals: a node present by a hypothesis. -/
