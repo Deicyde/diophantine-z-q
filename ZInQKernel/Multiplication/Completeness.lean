@@ -10,6 +10,7 @@ import ZInQKernel.Multiplication.Completeness.TestsLocal
 import ZInQKernel.Multiplication.Completeness.SbIntegrality
 import ZInQKernel.Multiplication.Completeness.SelectedReduction
 import ZInQKernel.Multiplication.Completeness.SelectedPrecision
+import ZInQKernel.Multiplication.Completeness.SlopeCompleteness
 
 /-!
 # Completeness of the multiplication template
