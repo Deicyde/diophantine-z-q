@@ -39,8 +39,8 @@ def transfer2 (J y d e s : ℕ) : List Instr :=
 /-- Snapshot `y` into `a`, using `b` as scratch (7 instructions): `y` is restored. -/
 def snap (J y a b s : ℕ) : List Instr := transfer2 J y a b s ++ transfer1 J b y (s + 4)
 
-/-- `k` increments of `x` from `s`. -/
-def incs (x k s : ℕ) : List Instr := (List.range k).map fun i => .inc x (s + i + 1)
+/-- `k` increments of `x`, placed from `s + 1`. -/
+def incs (x k s : ℕ) : List Instr := (List.range k).map fun i => .inc x (s + i + 2)
 
 /-- Snapshots of `y` into `A₀` and of `z` into `A₂` (14 instructions). -/
 def snap2 (J y z s : ℕ) : List Instr := snap J y (aux J 0) (aux J 1) s ++ snap J z (aux J 2) (aux J 1) (s + 7)
