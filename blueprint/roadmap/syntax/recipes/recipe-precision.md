@@ -18,8 +18,11 @@ equality equates the point of the root node with $\mathrm{ref}(-1)$, the code of
 nontrivial constants, in order of first occurrence, are $c_3$, $2$, $4$, $1399$; $c_3$ and
 $1399$ become $\mathrm{integer\_constant}_3$ and $\mathrm{integer\_constant}_4$.
 
-This is a definition. With the natural circuit statistics it has $292{,}889{,}492{,}836$
-witnesses and $292{,}889{,}492{,}861$ variables.
+This is a definition. If the natural circuit has $5$ inputs, listed first among at most
+$54056$ explicit variables, at most $125327$ addition, $98382$ multiplication and $15845$ call
+nodes, and nontrivial constants among $c_3,2,4,1399$ (the shape given by the natural circuit
+statistics), then $\mathtt{precision}$ has at most $292{,}889{,}492{,}836$ witnesses and at most
+$292{,}889{,}492{,}861$ variables.
 
 ## Depends on
 

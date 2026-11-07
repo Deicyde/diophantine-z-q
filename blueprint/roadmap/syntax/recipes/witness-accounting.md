@@ -28,9 +28,9 @@ has witnesses.
 
 Every variable occurring in the polynomial of a template or recipe has index below its
 variable count. In particular every variable of $[\![\mathtt{integers}]\!]$ is among
-$X_0,\dots,X_{292890231904}$, so $P_*=[\![\mathtt{integers}]\!]$ has input $X_0$ and its
-witness variables among $X_1,\dots,X_{292890231904}$, the variables allowed by the target
-statement, which need not all occur.
+$X_0,\dots,X_{292890231904}$, so $P_*$, which is $[\![\mathtt{integers}]\!]$ read in these
+variables, has input $X_0$ and its witness variables among $X_1,\dots,X_{292890231904}$, the
+variables allowed by the target statement, which need not all occur.
 
 The manuscript states the table as exact counts, and the private blocks of every template
 and recipe as pairwise disjoint and disjoint from the variables used outside them. The exact

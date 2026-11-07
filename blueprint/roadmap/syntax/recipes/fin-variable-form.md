@@ -18,10 +18,13 @@ For every $q\in\mathbb Q$ the following are equivalent:
    $[\![\mathtt{value}]\!]$ vanish at $(N,q)$, that is, $\mathrm{Rel}_{\mathtt{value}}(N,q)$ for
    some $N\in\mathbb Q^5$.
 
-Moreover $P_*$, read as a polynomial $Q$ in the variables indexed by $\{0,\dots,292890231904\}$
-(that is, $Q$ with $\mathrm{rename}(\iota)\,Q=[\![\mathtt{integers}]\!]$ for the inclusion
-$\iota$ of the indices into $\mathbb N$), has total degree at most that of $P_*$ and the same
-coefficients: $\mathrm{coeff}_d(Q)=\mathrm{coeff}_{\iota_*d}(P_*)$ for every exponent vector $d$.
+Moreover $P_*$ is $[\![\mathtt{integers}]\!]$ read in the variables indexed by
+$\{0,\dots,292890231904\}$: $\mathrm{rename}(\iota)\,P_*=[\![\mathtt{integers}]\!]$ for the
+inclusion $\iota$ of the indices into $\mathbb N$. Hence $P_*$ has total degree at most that of
+$[\![\mathtt{integers}]\!]$ and the same coefficients,
+$\mathrm{coeff}_d(P_*)=\mathrm{coeff}_{\iota_*d}([\![\mathtt{integers}]\!])$ for every exponent
+vector $d$, and $P_*(v)=[\![\mathtt{integers}]\!](\bar v)$ for every
+$v\in\mathbb Q^{292890231905}$, where $\bar v$ extends $v$ by zeros.
 
 So the rational zero projection of $P_*$ to its first variable is
 $\{q:\exists N,\ \mathrm{Rel}_{\mathtt{value}}(N,q)\}$, which the assembly chapter identifies with

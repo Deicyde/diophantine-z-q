@@ -22,7 +22,7 @@ every input $i<k$ if the inputs carry natural constraints. Then the assignment $
 - $\mathrm{ref}(\mathrm{pt}(j))(x)=\iota(\mathrm{val}_\theta(j))$ for every node $j$ whose point is fresh
   (a constant node at the first occurrence of its value, an addition, multiplication or call
   node);
-- arbitrary values elsewhere,
+- $0$ elsewhere,
 
 is well defined and satisfies conditions 1-4 of the relational form of $\rho$, and also the
 root equality in value mode, and in zero mode whenever $\mathcal N(\theta)=0$. Consequently, in

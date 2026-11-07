@@ -16,8 +16,8 @@ has a rational zero with input $B$: there are $b_0,\dots,b_5,e,z,r_1,r_2,w\in\ma
 $Q_{\rm pole}(B;b,e,z,r_1,r_2,w)=0$.
 
 **Proof sketch.** The template polynomial is $(B\,S)^2$, where $B\,S$ is $Q_{\rm pole}$ written
-with $B=X_0$, $b_i=X_{1+i}$, $e=X_7$, $z=X_8$, $r_1=X_9$, $r_2=X_{10}$, $w=X_{11}$; the node
-encoding $B\,S+(-1)\cdot0$ of the atom $B\,S\doteq0$ denotes the same polynomial. Evaluating at
+with $B=X_0$, $b_i=X_{1+i}$, $e=X_7$, $z=X_8$, $r_1=X_9$, $r_2=X_{10}$, $w=X_{11}$; the compilation
+$B\,S-0$ of the atom $B\,S\doteq0$ is the same polynomial. Evaluating at
 $(B,y_0,\dots,y_{10})$ gives $Q_{\rm pole}(B;y)^2$, which vanishes exactly when
 $Q_{\rm pole}(B;y)=0$. The eleven witnesses of the template are exactly the eleven witnesses of
 $\Phi$, in the same order.
