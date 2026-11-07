@@ -21,3 +21,6 @@ import ZInQKernel.Size.Majorants
 import ZInQKernel.Size.Norms
 import ZInQKernel.Size.Constants
 import ZInQKernel.Size.FormalMultiple
+import ZInQKernel.Syntax.Recipes
+import ZInQKernel.Compiler.Interpreter
+import ZInQKernel.Compiler.Universal
