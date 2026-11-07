@@ -1,4 +1,5 @@
 import ZInQKernel.Compiler.Universal.SpecializeShape
+import ZInQKernel.Compiler.NodeBound.Defs
 
 /-!
 # The five-input natural precision circuit
@@ -14,7 +15,9 @@ program literal `c₃` (`specialize`). This module states its properties for an 
 3. Shape: `5` inputs, `54,056` explicit variables, `15,845` calls, variable count `1,305,811`;
    given the node check of `ℋ`, `293,620` nodes (`54,056` variable, `10` constant, `125,327`
    addition, `98,382` multiplication, `15,845` call nodes) with constants
-   `code, 0, 1, 2, 4, 1399, -1, 1, 2, -1` in node order.
+   `code, 0, 1, 2, 4, 1399, -1, 1, 2, -1` in node order. Given only the addition and
+   multiplication bound of `ℋ` (`NodeCheck.HaltingAddMulBound`), at most `125,327` addition and
+   `98,382` multiplication nodes (`precisionCircuitOf_addMulBound`).
 
 (Blueprint: `compiler/natural/universal/precision-circuit.md`,
 `precision-circuit-specialization.md`, `circuit-node-counts.md`.)
@@ -149,6 +152,25 @@ theorem precisionCircuitOf_nodeStats (hN : HaltingNodeCheck) (code : ℤ) :
   · rw [precisionCircuitOf, k4, h4]
   · rw [precisionCircuitOf, k5, h5]
   · rw [precisionCircuitOf, k6, h6]; rfl
+
+/-- **Shape of the natural precision circuit**, addition and multiplication bounds: from the
+bound of `ℋ`, at most `125,327` additions and `98,382` multiplications. -/
+theorem precisionCircuitOf_addMulBound (hB : NodeCheck.HaltingAddMulBound) (code : ℤ) :
+    countKind .add (precisionCircuitOf code).nodes ≤ 125327 ∧
+    countKind .mul (precisionCircuitOf code).nodes ≤ 98382 := by
+  obtain ⟨h3, h4⟩ := hB
+  obtain ⟨rest, hr, h0⟩ := haltingCircuit_nodes_eq'
+  obtain ⟨-, -, k3, k4, -, -⟩ := specialize_nodeStats haltingCircuit code hr h0
+  refine ⟨?_, ?_⟩
+  · rw [precisionCircuitOf, k3]; omega
+  · rw [precisionCircuitOf, k4]; omega
+
+/-- The number of call nodes of the precision circuit; this needs no node check. -/
+theorem precisionCircuitOf_countKind_call (code : ℤ) :
+    countKind .call (precisionCircuitOf code).nodes = 15845 := by
+  obtain ⟨rest, hr, h0⟩ := haltingCircuit_nodes_eq'
+  obtain ⟨-, -, -, -, k5, -⟩ := specialize_nodeStats haltingCircuit code hr h0
+  rw [precisionCircuitOf, k5, haltingCircuit_countKind_call]
 
 /-- The constants of the precision circuit are among `code, 0, 1, 2, 4, 1399, -1`; this needs no
 node check. -/

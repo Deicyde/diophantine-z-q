@@ -4,6 +4,7 @@ import ZInQKernel.Hypotheses.Pole
 import ZInQKernel.Model.Descent.MordellWeil
 import ZInQKernel.Hypotheses.PrimePattern
 import ZInQKernel.Assembly.Top
+import ZInQKernel.Compiler.NodeBound
 
 /-!
 # The main theorem
@@ -17,23 +18,34 @@ generator curve, a hypothesis in earlier versions, is the theorem `mordellWeilE`
 
 namespace ZInQ
 
-/-- **Main theorem, given the node statistics of the universal halting circuit.** Under
-hypotheses H, PC, 22P and CAT, and the named finite check `HaltingNodeCheck` (a finite-computation
-input of milestone 1), the specified polynomial `P_*` witnesses the target statement: it lies in
-`ℤ[X_0, …, X_{292890231904}]`, has degree below `2↑↑7` and coefficients below `2↑↑8`, and its
-rational zero projection to the first variable is exactly `ℤ` (the assembly lemma). -/
+/-- **Main theorem, given the addition and multiplication bound of the universal halting
+circuit.** Under hypotheses H, PC, 22P and CAT, and the bound `HaltingAddMulBound` on the
+addition and multiplication counts of the universal halting circuit, the specified polynomial
+`P_*` witnesses the target statement: it lies in `ℤ[X_0, …, X_{292890231904}]`, has degree
+below `2↑↑7` and coefficients below `2↑↑8`, and its rational zero projection to the first
+variable is exactly `ℤ` (the assembly lemma). -/
+theorem exists_bounded_integer_polynomial_defining_integers_of_addMulBound
+    (hB : Compiler.NodeCheck.HaltingAddMulBound) (hH : SixContactEstimate)
+    (hPC : PoleCompleteness) (h22 : FixedPrimePattern) (hCAT : CatalogueBound) :
+    FrozenTarget :=
+  Assembly.assembly hB hH hPC h22 hCAT
+
+/-- **Main theorem, given the node statistics of the universal halting circuit** (the named
+finite check `HaltingNodeCheck`, a finite-computation input of milestone 1). -/
 theorem exists_bounded_integer_polynomial_defining_integers_of_nodeCheck
     (hN : Compiler.Universal.HaltingNodeCheck) (hH : SixContactEstimate)
     (hPC : PoleCompleteness) (h22 : FixedPrimePattern) (hCAT : CatalogueBound) :
     FrozenTarget :=
-  Assembly.assembly hN hH hPC h22 hCAT
+  exists_bounded_integer_polynomial_defining_integers_of_addMulBound ⟨hN.2.2.1.le, hN.2.2.2.1.le⟩
+    hH hPC h22 hCAT
 
 /-- **Main theorem.** Under hypotheses H, PC, 22P and CAT, there is an integer
 polynomial in `292890231905` variables, of degree below `2↑↑7` and with coefficients below
 `2↑↑8`, whose rational zero projection to the first variable is exactly `ℤ`. -/
 theorem exists_bounded_integer_polynomial_defining_integers_of
     (hH : SixContactEstimate) (hPC : PoleCompleteness)
-    (h22 : FixedPrimePattern) (hCAT : CatalogueBound) : FrozenTarget := by
-  sorry
+    (h22 : FixedPrimePattern) (hCAT : CatalogueBound) : FrozenTarget :=
+  exists_bounded_integer_polynomial_defining_integers_of_addMulBound
+    Compiler.NodeCheck.haltingAddMulBound hH hPC h22 hCAT
 
 end ZInQ

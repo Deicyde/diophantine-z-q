@@ -77,6 +77,13 @@ theorem precisionCircuit_nodeStats (hN : HaltingNodeCheck) :
     constList precisionCircuit.nodes = [(c3 : ℤ), 0, 1, 2, 4, 1399, -1, 1, 2, -1] := by
   rw [precisionCircuit_eq]; exact precisionCircuitOf_nodeStats hN c3
 
+/-- **Shape of the natural precision circuit**, item 3, the addition and multiplication bounds,
+from the bound of `ℋ`. -/
+theorem precisionCircuit_addMulBound (hB : NodeCheck.HaltingAddMulBound) :
+    countKind .add precisionCircuit.nodes ≤ 125327 ∧
+    countKind .mul precisionCircuit.nodes ≤ 98382 := by
+  rw [precisionCircuit_eq]; exact precisionCircuitOf_addMulBound hB c3
+
 /-- **Shape of the natural precision circuit**, item 4 (without the node check): every constant
 is among `0, 1, -1, c₃, 2, 4, 1399`, and `c₃, 2, 4, 1399` are distinct. -/
 theorem precisionCircuit_consts :
