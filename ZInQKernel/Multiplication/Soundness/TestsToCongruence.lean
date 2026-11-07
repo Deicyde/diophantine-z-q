@@ -1,4 +1,5 @@
 import ZInQKernel.Multiplication.Local
+import ZInQKernel.Multiplication.Certificate
 import ZInQKernel.Multiplication.Soundness.CommonGroup
 
 /-!
@@ -6,15 +7,12 @@ import ZInQKernel.Multiplication.Soundness.CommonGroup
 
 Blueprint: `multiplication/soundness/tests-to-congruence.md`.
 
-For `Q ∈ ℤP₀`, `ρ(Q) = 1/x(Q)` (`ρ(O) = 0`) is `wCoord Q` and `Λ(Q) = L(z(Q))` is
-`truncLog (d²) (zCoord Q)`. For `h, z₁, z₂, z₃, c, n₁, n₂, n₃ ∈ ℤ` with `h ≠ 0, c`, the
-test quantities are `ρ([h]P₀)`, `ρ([zᵢ]P₀)`, `σρ([h - c]P₀)`, `σρ([zᵢ - c nᵢ]P₀)`,
-`Aᵢ - σBᵢ` and `A₁A₂ - A₃`, where `Aᵢ = Λ([zᵢ]P₀)/Λ([h]P₀)` and
-`Bᵢ = Λ([zᵢ - c nᵢ]P₀)/Λ([h - c]P₀)`. If at a prime `π ∣ p`, `p > 324`, `p ∤ c`, the first eight
-have valuation at least `1` and the last four at least `25`, then `p²⁵ ∣ n₁n₂ - n₃`.
-
-The statement is phrased on these quantities (indices `i ∈ Fin 3`); the certificate's twelve
-tests are these values.
+The twelve test values `τ(h, z; c, cn₁, cn₂, cn₃)` (the certificate's `testValues`) are
+`ρ([h]P₀)`, `ρ([zᵢ]P₀)`, `σρ([h - c]P₀)`, `σρ([zᵢ - c nᵢ]P₀)`, `Aᵢ - σBᵢ` and `A₁A₂ - A₃`,
+where `ρ = invX`, `Aᵢ = Λ([zᵢ]P₀)/Λ([h]P₀)` and `Bᵢ = Λ([zᵢ - c nᵢ]P₀)/Λ([h - c]P₀)`
+(`Λ = Lam`). If at a prime `π ∣ p`, `p > 324`, `p ∤ c`, the first eight have valuation at least
+`1` and the last four at least `25`, then `p²⁵ ∣ n₁n₂ - n₃` (`tests_to_congruence`). The proof
+is `tests_to_congruence_aux`, on the individual quantities (indices `i ∈ Fin 3`).
 -/
 
 namespace ZInQ
@@ -22,21 +20,20 @@ namespace ZInQ
 open Mult WeierstrassCurve WeierstrassCurve.Affine
 
 /-- `Λ([m]P₀) = L(z([m]P₀))`. -/
-noncomputable def logAt (m : ℤ) : K0 := truncLog (genD ^ 2) (zCoord (m • genP0))
+noncomputable def logAt (m : ℤ) : K0 := Lam (m • genP0)
 
 /-- The ratio `Λ([u]P₀) / Λ([h]P₀)`. -/
 noncomputable def ratioAt (u h : ℤ) : K0 := logAt u / logAt h
 
 /-- `ρ([m]P₀) = 1/x([m]P₀)` (`0` at `O`). -/
-noncomputable def rhoAt (m : ℤ) : K0 := wCoord (m • genP0)
+noncomputable def rhoAt (m : ℤ) : K0 := invX (m • genP0)
 
 theorem map_truncLog {R S : Type*} [CommRing R] [CommRing S] (f : R →+* S) (δ z : R) :
     f (truncLog δ z) = truncLog (f δ) (f z) := by
   simp [truncLog, map_sum, map_mul, map_pow, map_intCast]
 
 @[simp] theorem logAt_zero : logAt 0 = 0 := by
-  rw [logAt, zero_zsmul]
-  exact (by simp [truncLog] : truncLog (genD ^ 2) (0 : K0) = 0)
+  rw [logAt, zero_zsmul]; exact Lam_zero
 
 /-- `v_{σπ}(y) = v_π(σ y)` for the additive valuations. -/
 theorem vP_star {π : Zs} (hπ : Prime π) (y : K0) :
@@ -67,8 +64,7 @@ theorem mapE_mem_W1 {π : Zs} (hπ : Prime π) {m : ℤ} (hρ : Vge (vP π hπ) 
   rw [hQ]
   show vComp π hπ (algebraMap K0 _ x) < 0
   rw [vComp_algebraMap]
-  have h1 : Vge (vP π hπ) 1 x⁻¹ := by
-    change Vge (vP π hπ) 1 (1 / x) at hρ; rwa [one_div] at hρ
+  have h1 : Vge (vP π hπ) 1 x⁻¹ := hρ
   obtain ⟨n, hn⟩ := val_eq_coe hx0
   have := (vge_iff_of_eq (val_inv_coe hn)).mp h1
   rw [hn]; exact_mod_cast (by omega : n < 0)
@@ -76,7 +72,7 @@ theorem mapE_mem_W1 {π : Zs} (hπ : Prime π) {m : ℤ} (hρ : Vge (vP π hπ) 
 theorem algebraMap_logAt {π : Zs} (hπ : Prime π) (m : ℤ) :
     algebraMap K0 ((primeSpec π hπ).adicCompletion K0) (logAt m) =
       truncLog (genDAt π hπ ^ 2) (zCoord (mapE π hπ (m • genP0))) := by
-  unfold logAt
+  unfold logAt Lam
   generalize m • genP0 = Q
   rcases Q with _ | ⟨x, y, h⟩
   · exact (by simp [truncLog] : algebraMap K0 ((primeSpec π hπ).adicCompletion K0)
@@ -146,8 +142,8 @@ theorem vP_intCast_eq_zero (hp2 : p ≠ 2) {π : Zs} (hπ : Prime π) (hπp : π
     padicValInt.eq_zero_of_not_dvd hn]
   rfl
 
-/-- **From the local tests to the congruence.** -/
-theorem tests_to_congruence (hp324 : 324 < p) {π : Zs} (hπ : Prime π) (hπp : π ∣ (p : Zs))
+/-- From the individual test quantities to the congruence. -/
+theorem tests_to_congruence_aux (hp324 : 324 < p) {π : Zs} (hπ : Prime π) (hπp : π ∣ (p : Zs))
     {c : ℤ} (hc : ¬ (p : ℤ) ∣ c) (n z : Fin 3 → ℤ) {h : ℤ} (hh : h ≠ 0) (hhc : h ≠ c)
     (t₁ : Vge (vP π hπ) 1 (rhoAt h)) (t₂ : ∀ i, Vge (vP π hπ) 1 (rhoAt (z i)))
     (t₅ : Vge (vP π hπ) 1 (star (rhoAt (h - c))))
@@ -248,6 +244,22 @@ theorem tests_to_congruence (hp324 : 324 < p) {π : Zs} (hπ : Prime π) (hπp :
   unfold Vge at hf
   rw [hv, vP_apply hπ (Int.cast_ne_zero.mpr h0), vp_intCast hp2 hπ hπp h0] at hf
   exact_mod_cast WithTop.coe_le_coe.mp hf
+
+/-- **From the local tests to the congruence.** Let `p > 324` be prime, `π ∣ p` a prime of
+`ℤ[s]`, `c ∈ ℤ` with `p ∤ c`, `n, z : Fin 3 → ℤ` and `h ≠ 0, c`. If the test values
+`τ(h, z; c, cn₁, cn₂, cn₃)` satisfy `v_π(τ_j) ≥ k_j`, then `p²⁵ ∣ n₁n₂ - n₃`. -/
+theorem tests_to_congruence (hp324 : 324 < p) {π : Zs} (hπ : Prime π) (hπp : π ∣ (p : Zs))
+    {c : ℤ} (hc : ¬ (p : ℤ) ∣ c) (n z : Fin 3 → ℤ) {h : ℤ} (hh : h ≠ 0) (hhc : h ≠ c)
+    (hτ : ∀ j : Fin 12, Vge (vP π hπ) (prec j) (testValues h z ![c, c * n 0, c * n 1, c * n 2] j)) :
+    (p : ℤ) ^ 25 ∣ n 0 * n 1 - n 2 := by
+  refine tests_to_congruence_aux hp324 hπ hπp hc n z hh hhc (hτ 0) (fun i => ?_) (hτ 4)
+    (fun i => ?_) (fun i => ?_) (hτ 11)
+  · fin_cases i
+    exacts [hτ 1, hτ 2, hτ 3]
+  · fin_cases i
+    exacts [hτ 5, hτ 6, hτ 7]
+  · fin_cases i
+    exacts [hτ 8, hτ 9, hτ 10]
 
 end
 

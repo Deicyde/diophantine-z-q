@@ -1,5 +1,5 @@
 import ZInQKernel.Multiplication.Soundness.ContactValuations
-import ZInQKernel.Multiplication.Soundness.PoleObstruction
+import ZInQKernel.Multiplication.Certificate
 import ZInQKernel.Multiplication.Local.PrimesAbove
 import ZInQKernel.Multiplication.Local.Valuations
 
@@ -14,37 +14,13 @@ Let `t, η, q, R₀, a, R` be as in the slope predicate (`t ∉ 𝒞 ∪ {1}`, `
 odd contact prime `p` of `t` with `p > 324` and `v_p(ℓ) = 0` (the article's `p ∉ S_b`), some
 group `g` and some prime `π ∣ p` of `ℤ[s]` have `v_π(D_{gj}) ≥ k_j` for every `j`.
 
-The quantities of the slope predicate are spelled out here (`slopeR₀`, `slopeA`, `slopeR`,
-`slopeC`, `slopeW`, `slopeTheta`); `testPrec j = k_j`.
+The quantities are the certificate's `slopeR0`, `slopeA`, `slopeR`, `normTests`, `groupW` and
+`traceTheta`; `prec j = k_j`.
 -/
 
 namespace ZInQ
 
 open Mult
-
-/-- The test precisions `k_j = 1` for `j < 8` and `k_j = 25` for `8 ≤ j < 12` (indices from `0`). -/
-def testPrec (j : Fin 12) : ℕ := if (j : ℕ) < 8 then 1 else 25
-
-/-- `R₀ = η F(t) / (t - 1)⁸`. -/
-def slopeR₀ (η t : ℚ) : ℚ := η * contactPoly t / (t - 1) ^ 8
-
-/-- `a = 1 - R₀ q²`. -/
-def slopeA (η t q : ℚ) : ℚ := 1 - slopeR₀ η t * q ^ 2
-
-/-- `R = ℓ² a² R₀`. -/
-def slopeR (ℓ η t q : ℚ) : ℚ := ℓ ^ 2 * slopeA η t q ^ 2 * slopeR₀ η t
-
-/-- `C = D / (R₀^{k_j} (t - 1)^{k_j + 1})`. -/
-noncomputable def slopeC (η t : ℚ) (D : K0) (j : Fin 12) : K0 :=
-  D / ((slopeR₀ η t : K0) ^ testPrec j * ((t - 1 : ℚ) : K0) ^ (testPrec j + 1))
-
-/-- `W_g = ∏_j (1 + R C_{gj}²)`. -/
-noncomputable def slopeW (ℓ η t q : ℚ) (D : Fin 12 → K0) : K0 :=
-  ∏ j, (1 + (slopeR ℓ η t q : K0) * slopeC η t (D j) j ^ 2)
-
-/-- `Θ = Tr Σ_g W_g⁻¹`. -/
-noncomputable def slopeTheta (ℓ η t q : ℚ) (D : Fin 6 → Fin 12 → K0) : ℚ :=
-  QuadraticAlgebra.trace (∑ g, (slopeW ℓ η t q (D g))⁻¹)
 
 /-- Every rational prime has a prime of `ℤ[s]` above it. -/
 theorem exists_prime_dvd_natCast (p : ℕ) [hp : Fact p.Prime] :
@@ -97,22 +73,24 @@ theorem vp_one_add_mul_sq {π : Zs} (hπ : Prime π) {R C : K0} (hR : R ≠ 0) (
 
 /-- **The trace forces one common group and place.** -/
 theorem common_group (hp324 : 324 < p) {t η q ℓ c : ℚ} (ht : t ∉ contactSet) (ht1 : t ≠ 1)
-    (hη : η = 1 ∨ η = -1) (hℓ0 : ℓ ≠ 0) (hℓ : padicValRat p ℓ = 0) (ha : slopeA η t q ≠ 0)
-    (D : Fin 6 → Fin 12 → K0) (hW : ∀ g, slopeW ℓ η t q (D g) ≠ 0)
-    (hΘ : slopeTheta ℓ η t q D ≠ 0)
-    (hΦ : PoleSoluble (slopeR ℓ η t q / slopeTheta ℓ η t q D ^ 2))
+    (hη : η = 1 ∨ η = -1) (hℓ0 : ℓ ≠ 0) (hℓ : padicValRat p ℓ = 0)
+    (ha : slopeA (slopeR0 η t) q ≠ 0) (D : Fin 6 → Fin 12 → K0)
+    (hW : ∀ g, groupW (slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t))
+      (normTests (slopeR0 η t) t (D g)) ≠ 0)
+    (hΘ : traceTheta (fun g => groupW (slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t))
+      (normTests (slopeR0 η t) t (D g))) ≠ 0)
+    (hΦ : PoleSoluble (slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t) /
+      traceTheta (fun g => groupW (slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t))
+        (normTests (slopeR0 η t) t (D g))) ^ 2))
     (hc : c ∈ contactSet) (hk : 0 < padicValRat p (t - c)) (hodd : Odd (padicValRat p (t - c))) :
     ∃ g : Fin 6, ∃ π : Zs, ∃ hπ : Prime π, π ∣ (p : Zs) ∧
-      ∀ j, ((testPrec j : ℤ) : WithTop ℤ) ≤ vP π hπ (D g j) := by
+      ∀ j, ((prec j : ℤ) : WithTop ℤ) ≤ vP π hπ (D g j) := by
   have hp2 : p ≠ 2 := by omega
   obtain ⟨-, hone, hR₀v, -, hrodd, hrk⟩ :=
     contact_valuations (p := p) (by omega) ht ht1 hη hℓ0 hℓ ha hc hk hodd
-  replace hR₀v : padicValRat p (slopeR₀ η t) = padicValRat p (t - c) := hR₀v
-  replace hrodd : Odd (padicValRat p (slopeR ℓ η t q)) := hrodd
-  replace hrk : padicValRat p (slopeR ℓ η t q) ≤ padicValRat p (t - c) := hrk
   set k := padicValRat p (t - c) with hkdef
-  set R₀ := slopeR₀ η t with hR₀def
-  set R := slopeR ℓ η t q with hRdef
+  set R₀ := slopeR0 η t with hR₀def
+  set R := slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t) with hRdef
   have hR₀0 : R₀ ≠ 0 := by
     intro h; rw [h, padicValRat.zero] at hR₀v; omega
   have hR0 : R ≠ 0 := by
@@ -126,11 +104,12 @@ theorem common_group (hp324 : 324 < p) {t η q ℓ c : ℚ} (ht : t ∉ contactS
   have hvq : ∀ {π : Zs} (hπ : Prime π), π ∣ (p : Zs) → ∀ x : ℚ, vp π (x : K0) = padicValRat p x :=
     fun hπ hπp x => vp_ratCast hp2 hπ hπp x
   -- the factors and their valuations
-  set C : Fin 6 → Fin 12 → K0 := fun g j => slopeC η t (D g j) j with hCdef
+  set C : Fin 6 → Fin 12 → K0 := fun g j => normTests R₀ t (D g) j with hCdef
   set f : Fin 6 → Fin 12 → K0 := fun g j => 1 + (R : K0) * C g j ^ 2 with hfdef
   have hf0 : ∀ g j, f g j ≠ 0 := fun g j =>
     Finset.prod_ne_zero_iff.mp (hW g) j (Finset.mem_univ j)
-  have hWf : ∀ g, slopeW ℓ η t q (D g) = ∏ j, f g j := fun g => rfl
+  set W : Fin 6 → K0 := fun g => groupW R (normTests R₀ t (D g)) with hWdef
+  have hWf : ∀ g, W g = ∏ j, f g j := fun g => rfl
   have hfle : ∀ {π : Zs} (hπ : Prime π), π ∣ (p : Zs) → ∀ g j, vp π (f g j) ≤ 0 := by
     intro π hπ hπp g j
     by_cases hC : C g j = 0
@@ -140,7 +119,7 @@ theorem common_group (hp324 : 324 < p) {t η q ℓ c : ℚ} (ht : t ∉ contactS
       exact min_le_left _ _
   -- `s(g, π) = v_π(W_g⁻¹) = -Σ_j v_π(f_{gj}) ≥ 0`
   have hWinv : ∀ {π : Zs} (hπ : Prime π), ∀ g,
-      vp π (slopeW ℓ η t q (D g))⁻¹ = -∑ j, vp π (f g j) := by
+      vp π (W g)⁻¹ = -∑ j, vp π (f g j) := by
     intro π hπ g
     rw [vp_inv hπ, hWf, vp_prod hπ _ _ fun j _ => hf0 g j]
   -- some group and place have `2 s < r`
@@ -148,40 +127,40 @@ theorem common_group (hp324 : 324 < p) {t η q ℓ c : ℚ} (ht : t ∉ contactS
   have hσ : Prime (star π₀) := prime_star hπ₀
   have hσp : star π₀ ∣ (p : Zs) := star_dvd_natCast hπ₀p
   have hex : ∃ g, ∃ π : Zs, ∃ hπ : Prime π, π ∣ (p : Zs) ∧
-      2 * vp π (slopeW ℓ η t q (D g))⁻¹ < r := by
+      2 * vp π (W g)⁻¹ < r := by
     by_contra hcon
     simp only [not_exists, not_and, not_lt] at hcon
     obtain ⟨i, hi⟩ := hrodd'
     have hge : ∀ {π : Zs} (hπ : Prime π), π ∣ (p : Zs) →
-        Vge (vP π hπ) (i + 1) (∑ g, (slopeW ℓ η t q (D g))⁻¹) := by
+        Vge (vP π hπ) (i + 1) (∑ g, (W g)⁻¹) := by
       intro π hπ hπp
       apply Vge.sum_of_le
       intro g _
       have := hcon g π hπ hπp
       exact (le_vP_iff hπ _ _).mpr (Or.inr (by omega))
-    set y := ∑ g, (slopeW ℓ η t q (D g))⁻¹ with hy
+    set y := ∑ g, (W g)⁻¹ with hy
     have hy0 : y ≠ 0 := by
-      intro h0; apply hΘ; rw [slopeTheta, ← hy, h0, map_zero]
+      intro h0; apply hΘ; rw [traceTheta]; rw [← hy, h0, map_zero]
     have h1 := ((le_vP_iff hπ₀ y _).mp (hge hπ₀ hπ₀p)).resolve_left hy0
     have h2 := ((le_vP_iff hσ y _).mp (hge hσ hσp)).resolve_left hy0
     have htr := (vp_trace_ge hp2 hπ₀ hπ₀p h1 h2).resolve_left (by rw [hy]; exact hΘ)
     -- the pole input has negative odd valuation
-    have hB0 : R / slopeTheta ℓ η t q D ^ 2 ≠ 0 := div_ne_zero hR0 (pow_ne_zero _ hΘ)
-    apply pole_obstruction (p := p) hB0 hΦ (by
+    have hB0 : R / traceTheta W ^ 2 ≠ 0 := div_ne_zero hR0 (pow_ne_zero _ hΘ)
+    apply Mult.pole_obstruction _ hB0 hΦ p hp.out (by
       simp only [poleS0, Finset.mem_insert, Finset.mem_singleton]; omega)
     rw [padicValRat.div hR0 (pow_ne_zero _ hΘ), padicValRat.pow]
-    change i + 1 ≤ padicValRat p (slopeTheta ℓ η t q D) at htr
-    refine ⟨by push_cast; omega, ⟨i - padicValRat p (slopeTheta ℓ η t q D), by push_cast; omega⟩⟩
+    change i + 1 ≤ padicValRat p (traceTheta W) at htr
+    refine ⟨by push_cast; omega, ⟨i - padicValRat p (traceTheta W), by push_cast; omega⟩⟩
   obtain ⟨g, π, hπ, hπp, hs⟩ := hex
   refine ⟨g, π, hπ, hπp, fun j => ?_⟩
-  set s := vp π (slopeW ℓ η t q (D g))⁻¹ with hsdef
+  set s := vp π (W g)⁻¹ with hsdef
   have hs0 : 0 ≤ s := by
     rw [hsdef, hWinv hπ]
     have := Finset.sum_nonpos (s := Finset.univ) fun j _ => hfle hπ hπp g j
     linarith
   by_cases hD : D g j = 0
   · rw [hD, (vP π hπ).map_zero]; exact le_top
-  have hden : (R₀ : K0) ^ testPrec j * ((t - 1 : ℚ) : K0) ^ (testPrec j + 1) ≠ 0 :=
+  have hden : (R₀ : K0) ^ prec j * ((t - 1 : ℚ) : K0) ^ (prec j + 1) ≠ 0 :=
     mul_ne_zero (pow_ne_zero _ (Rat.cast_ne_zero.mpr hR₀0)) (pow_ne_zero _ (Rat.cast_ne_zero.mpr ht10))
   have hC0 : C g j ≠ 0 := div_ne_zero hD hden
   set e := vp π (C g j) with he
@@ -203,17 +182,17 @@ theorem common_group (hp324 : 324 < p) {t η q ℓ c : ℚ} (ht : t ∉ contactS
       have : s = -∑ j', vp π (f g j') := by rw [hsdef, hWinv hπ]
       omega
   -- `v_π(D) = e + k_j k`
-  have hDeq : D g j = C g j * ((R₀ : K0) ^ testPrec j * ((t - 1 : ℚ) : K0) ^ (testPrec j + 1)) := by
-    simp only [hCdef, slopeC, ← hR₀def]
+  have hDeq : D g j = C g j * ((R₀ : K0) ^ prec j * ((t - 1 : ℚ) : K0) ^ (prec j + 1)) := by
+    simp only [hCdef, normTests]
     rw [div_mul_cancel₀ _ hden]
-  have hDv : vp π (D g j) = e + testPrec j * k := by
+  have hDv : vp π (D g j) = e + prec j * k := by
     rw [hDeq, vp_mul hπ hC0 hden,
       vp_mul hπ (pow_ne_zero _ (Rat.cast_ne_zero.mpr hR₀0)) (pow_ne_zero _ (Rat.cast_ne_zero.mpr ht10)),
       vp_pow hπ, vp_pow hπ, hvq hπ hπp, hvq hπ hπp, hR₀v, hone, ← he]
     ring
   rw [vP_apply hπ hD, hDv, WithTop.coe_le_coe]
   have hk1 : 1 ≤ k := hk
-  unfold testPrec
+  unfold prec
   split_ifs <;> push_cast <;> omega
 
 end
