@@ -1,5 +1,9 @@
 import ZInQKernel.Assembly.Values.Lift
 import ZInQKernel.Assembly.Values.Chains
+import ZInQKernel.Assembly.Values.Tests
+import ZInQKernel.Assembly.Values.Gadgets
+import ZInQKernel.Assembly.Values.SignedEncode
+import ZInQKernel.Assembly.Values.Close
 
 /-!
 # The value templates and their relations
