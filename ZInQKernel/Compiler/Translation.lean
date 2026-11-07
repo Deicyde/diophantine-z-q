@@ -11,6 +11,8 @@ import ZInQKernel.Compiler.Translation.ModelSemantics
 import ZInQKernel.Compiler.Translation.TranslateShape
 import ZInQKernel.Compiler.Translation.RecipeScope
 import ZInQKernel.Compiler.Translation.TranslateScope
+import ZInQKernel.Compiler.Translation.Library
+import ZInQKernel.Compiler.Translation.TranslateSemantics
 
 /-!
 # Translation to rational point codes

@@ -7,11 +7,11 @@ Under M (through the callee semantics) and (PV) for the power recipe, the transl
 well-formed natural circuit `𝒩` with `k` inputs means:
 
 1. *zero mode, natural inputs*: `Rel_ρ(E₀, …, E_{k-1})` holds exactly when `E_i = ι(θ_i)` and
-   `𝒩(θ) = 0` for some admissible `θ` natural at the inputs (`translate_rel_iff_zero`); the input
+   `𝒩(θ) = 0` for some admissible `θ` natural at the inputs (`TranslationShape.rel_iff_zero`); the input
    points need not be assumed to be codes;
 2. *value mode, unconstrained inputs*: for integers `c_i`,
    `Rel_ρ(ι(c₀), …, ι(c_{k-1}), r)` holds exactly when `r = ι(𝒩(θ))` for some admissible `θ`
-   with `θ_i = c_i` (`translate_rel_iff_value`); nothing is claimed for non-canonical inputs.
+   with `θ_i = c_i` (`TranslationShape.rel_iff_value`); nothing is claimed for non-canonical inputs.
 
 The parameters `a` of `ρ` are read as the codes `paramCode a i = (a_{5i}, …, a_{5i+4})`.
 
@@ -55,7 +55,7 @@ variable {templates recipes : List ExPoly} {scalarOf : ℤ → ExPoly} {r : Mode
   {P N : NatCircuit} {V : ℕ}
 
 /-- **Semantics of the model-evaluation translation, zero mode with natural inputs.** -/
-theorem translate_rel_iff_zero (S : TranslationShape templates recipes scalarOf r P N false true)
+theorem TranslationShape.rel_iff_zero (S : TranslationShape templates recipes scalarOf r P N false true)
     (hwf : WellFormed P N V) (hsem : CalleeSemantics (getEx templates r.natural)
       (getEx templates r.addition) (getEx templates r.multiplication) scalarOf)
     (hπ : HasCall N → PowerValueSpec (powerCallee recipes r) P)
@@ -86,7 +86,7 @@ theorem translate_rel_iff_zero (S : TranslationShape templates recipes scalarOf 
     exact_mod_cast hinput i hi
 
 /-- **Semantics of the model-evaluation translation, value mode with unconstrained inputs.** -/
-theorem translate_rel_iff_value (S : TranslationShape templates recipes scalarOf r P N true false)
+theorem TranslationShape.rel_iff_value (S : TranslationShape templates recipes scalarOf r P N true false)
     (hwf : WellFormed P N V) (hsem : CalleeSemantics (getEx templates r.natural)
       (getEx templates r.addition) (getEx templates r.multiplication) scalarOf)
     (hπ : HasCall N → PowerValueSpec (powerCallee recipes r) P)
