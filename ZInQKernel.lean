@@ -29,4 +29,6 @@ import ZInQKernel.Compiler.Universal
 import ZInQKernel.Compiler.Programs
 import ZInQKernel.Size.Norms
 import ZInQKernel.Multiplication.FormalLog
+import ZInQKernel.Multiplication.Soundness
 import ZInQKernel.Multiplication.Certificate
+import ZInQKernel.Multiplication.FormalLog
