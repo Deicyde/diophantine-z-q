@@ -13,8 +13,9 @@ Blueprint: `syntax/language/builder-well-formed.md` (recipes).
   call blocks `[w, w + m)` (`m` the witness count of the callee) are pairwise disjoint, the recipe
   is in scope. For the five composition recipes of the specification the blocks are allocated
   one after the other by the counter of `CompM`, above the parameters and the fresh ranges; their
-  disjointness is `closeRecipe_callBlocks_disjoint`, …, `integersRecipe_callBlocks_disjoint`, and
-  their witness scope `closeRecipe_witnessScope`, …, `integersRecipe_witnessScope`, for every
+  disjointness is `closeRecipe_callBlocks_disjoint`, …, `integersRecipe_callBlocks_disjoint`
+  (`ZInQKernel/Syntax/Recipes/Outer.lean`, where the relations of `Assembly/Values/Outer.lean`
+  also use them), and their witness scope `closeRecipe_witnessScope`, …, `integersRecipe_witnessScope`, for every
   template library and list of earlier recipes with the right witness counts.
 * Model-evaluation recipes (`translate_witnessScope`): the translation of a well-formed natural
   circuit is in scope (`ZInQ.Translation.translate_scopedIn`, with the upper end of the blocks
@@ -31,11 +32,6 @@ open MvPolynomial
 open ZInQ.Compiler.Natural (NatCircuit NatNode)
 
 /-! ### Composition recipes -/
-
-/-- The call blocks `(w, m)` of a composition recipe, `m` the witness count of the callee. -/
-noncomputable def CompositionRecipe.callBlocks (T R : List ExPoly) (r : CompositionRecipe) :
-    List (ℕ × ℕ) :=
-  r.calls.map fun c => (c.start, (c.target.resolve T R).witnesses)
 
 /-- **Witness scope of a composition recipe.** If the arguments of the calls lie below `B`, the
 calls start at or above `B ≥ p`, and the call blocks are pairwise disjoint, then the formula of
@@ -94,58 +90,6 @@ theorem CompositionRecipe.witnessScope_of {T R : List ExPoly} {r : CompositionRe
 section Compositions
 
 variable (T R : List ExPoly)
-
-/-- The call blocks of `close` (one per call: five of `value.signed_encode`, `precision`,
-`value.close_coordinates`) are pairwise disjoint. -/
-theorem closeRecipe_callBlocks_disjoint (w : ℕ) (h13w : (getEx T 13).witnesses = 140654)
-    (h15w : (getEx T 15).witnesses = 53) (h1w : (getEx R 1).witnesses = w) :
-    ((closeRecipe w).callBlocks T R).Pairwise BlockDisjoint := by
-  unfold CompositionRecipe.callBlocks
-  rw [closeRecipe_calls]
-  refine pairwise_blockDisjoint_of_sep ?_
-  simp only [List.map_cons, List.map_nil, CallTarget.resolve, h13w, h15w, h1w, blocksSep,
-    List.pairwise_cons, List.mem_cons, List.not_mem_nil, or_false, forall_eq_or_imp,
-    forall_eq, List.Pairwise.nil, and_true, false_imp_iff, implies_true]
-  omega
-
-theorem mainRecipe_callBlocks_disjoint (w : ℕ) (h16w : (getEx T 16).witnesses = 35282)
-    (h2w : (getEx R 2).witnesses = w) :
-    ((mainRecipe w).callBlocks T R).Pairwise BlockDisjoint := by
-  unfold CompositionRecipe.callBlocks
-  rw [mainRecipe_calls]
-  refine pairwise_blockDisjoint_of_sep ?_
-  simp only [List.map_cons, List.map_nil, CallTarget.resolve, h16w, h2w, blocksSep,
-    List.pairwise_cons, List.mem_cons, List.not_mem_nil, or_false,
-    forall_eq, List.Pairwise.nil, and_true, false_imp_iff, implies_true]
-  omega
-
-theorem valueUnionRecipe_callBlocks_disjoint (w : ℕ) (h17w : (getEx T 17).witnesses = 406)
-    (h3w : (getEx R 3).witnesses = w) :
-    ((valueUnionRecipe w).callBlocks T R).Pairwise BlockDisjoint := by
-  unfold CompositionRecipe.callBlocks
-  rw [valueUnionRecipe_calls]
-  refine pairwise_blockDisjoint_of_sep ?_
-  simp only [List.map_cons, List.map_nil, CallTarget.resolve, h17w, h3w, blocksSep,
-    List.pairwise_cons, List.mem_cons, List.not_mem_nil, or_false,
-    forall_eq, List.Pairwise.nil, and_true, false_imp_iff, implies_true]
-  omega
-
-theorem valueRecipe_callBlocks_disjoint (w : ℕ) (h0w : (getEx T 0).witnesses = 7)
-    (h4w : (getEx R 4).witnesses = w) :
-    ((valueRecipe w).callBlocks T R).Pairwise BlockDisjoint := by
-  unfold CompositionRecipe.callBlocks
-  rw [valueRecipe_calls]
-  refine pairwise_blockDisjoint_of_sep ?_
-  simp only [List.map_cons, List.map_nil, CallTarget.resolve, h0w, h4w, blocksSep,
-    List.pairwise_cons, List.mem_cons, List.not_mem_nil, or_false,
-    forall_eq, List.Pairwise.nil, and_true, false_imp_iff, implies_true]
-  omega
-
-theorem integersRecipe_callBlocks_disjoint (w : ℕ) :
-    ((integersRecipe w).callBlocks T R).Pairwise BlockDisjoint := by
-  unfold CompositionRecipe.callBlocks
-  rw [integersRecipe_calls]
-  exact List.pairwise_singleton _ _
 
 /-- **Witness scope of `close`.** -/
 theorem closeRecipe_witnessScope (w : ℕ) (h13 : (getEx T 13).WF)
