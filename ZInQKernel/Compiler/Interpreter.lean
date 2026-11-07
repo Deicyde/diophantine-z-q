@@ -6,6 +6,7 @@ import ZInQKernel.Compiler.Interpreter.Program
 import ZInQKernel.Compiler.Interpreter.Blocks
 import ZInQKernel.Compiler.Interpreter.ListBlocks
 import ZInQKernel.Compiler.Interpreter.Phases
+import ZInQKernel.Compiler.Interpreter.Step
 
 /-!
 # The universal interpreter: numbering, tape lists, blocks and correctness
