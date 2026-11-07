@@ -210,9 +210,6 @@ theorem vP_ratCast_odd {p : ℕ} [Fact p.Prime] (hp2 : p ≠ 2) {π : Zs} (hπ :
     vP π hπ (r : K0) = ((padicValRat p r : ℤ) : WithTop ℤ) := by
   rw [vP_apply hπ (by exact_mod_cast hr), vp_ratCast hp2 hπ hπp]
 
-theorem star_ratCast (r : ℚ) : star (r : K0) = (r : K0) := by
-  ext <;> simp
-
 theorem trace_cast_K0 (y : K0) :
     ((QuadraticAlgebra.trace y : ℚ) : K0) = y + star y := by
   rw [K0.trace_eq]; ext <;> simp [K0.star_eq']; ring

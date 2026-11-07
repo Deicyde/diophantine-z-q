@@ -125,7 +125,7 @@ theorem X_mul_derivative_uSeries (A : F) :
 
 theorem invDiffCoeff_genE (j : ℕ) :
     invDiffCoeff (-genD ^ 2) (4 * j) = (-1) ^ j * (Nat.centralBinom j : K0) * genD ^ (2 * j) := by
-  simp only [invDiffCoeff, if_pos (show 4 * j % 4 = 0 by omega), show 4 * j / 4 = j by omega]
+  simp only [invDiffCoeff, ite_eq_left (show 4 * j % 4 = 0 by omega), show 4 * j / 4 = j by omega]
   rw [neg_pow, pow_mul]; ring
 
 /-- **Part 3.** The formal logarithm of `E` is the binomial series
@@ -142,7 +142,7 @@ theorem coeff_formalLog_genE (n : ℕ) :
       invDiffCoeff_genE, logCoeff]
     push_cast; ring
   · simp only [invDiffCoeff]
-    rw [if_neg (by omega), zero_div]
+    rw [ite_eq_right (by omega), zero_div]
 
 /-- **Part 1, for `E`.** `u = z²` times a unit of `ℤ[s]⟦z⟧`. -/
 theorem uSeries_genE_unit :

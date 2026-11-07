@@ -74,7 +74,7 @@ theorem exists_call_iff {τ : ExPoly} (hτ : τ.WF) (g : Fin τ.params → Poly)
     let y : ℕ → ℕ := fun i =>
       if h : w ≤ i ∧ i - w < τ.witnesses then v ⟨i - w, h.2⟩ else x i
     have hy : ∀ i, ¬ (w ≤ i ∧ i < w + τ.witnesses) → y i = x i := fun i hi => by
-      simp only [y]; rw [dif_neg]; rintro ⟨h1, h2⟩; exact hi ⟨h1, by omega⟩
+      simp only [y]; rw [dite_eq_right]; rintro ⟨h1, h2⟩; exact hi ⟨h1, by omega⟩
     refine ⟨y, hy, ?_⟩
     rw [← Int.cast_eq_zero (α := ℚ), ← ev_qa, ExPoly.ev_call hτ, ← hv]
     refine congrArg (fun a => ev a τ.poly) (funext fun i => ?_)
@@ -83,7 +83,7 @@ theorem exists_call_iff {τ : ExPoly} (hτ : τ.WF) (g : Fin τ.params → Poly)
     · show ev (qa y) (g ⟨i, h1⟩) = _
       rw [ev_qa, hgy y hy]
     · simp only [qa, y]
-      rw [dif_pos ⟨by omega, by omega⟩]
+      rw [dite_eq_left ⟨by omega, by omega⟩]
       simp
     · rfl
 

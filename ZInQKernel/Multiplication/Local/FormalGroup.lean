@@ -51,6 +51,11 @@ def omegaCoord {A : K} : (shortCurve A).toAffine.Point → K
 
 theorem point_zero_eq {A : K} : (Point.zero : (shortCurve A).toAffine.Point) = 0 := rfl
 
+theorem zCoord_neg {A : K} (P : (shortCurve A).toAffine.Point) : zCoord (-P) = -zCoord P := by
+  rcases P with _ | ⟨x, y, h⟩
+  · show (0 : K) = -0; rw [neg_zero]
+  · rw [Point.neg_some, zCoord_some, zCoord_some, shortCurve_negY]; ring
+
 variable (v : AddValuation K (WithTop ℤ))
 
 /-- Membership in `W₁(K)`: `P = O`, or `P = (x, y)` with `v(x) < 0`. -/

@@ -92,9 +92,9 @@ theorem RunData.stepN {p : Program} {r k : ℕ} (hp : p.Valid r) (hk : k ≤ r) 
     refine (step_iff_digits hp hat (fun j hj => by simp; omega) (fun j hj => by simp; omega)
       (h.act_lt (t + 1) ht)).2 ⟨fun i hi => ?_, fun j hj => ?_⟩
     · have hd := decReg_lt hp hr hat
-      simp only [if_pos hd]
+      simp only [ite_eq_left hd]
       exact h.state_step t (by omega) i hi
-    · simp only [if_pos hj]
+    · simp only [ite_eq_left hj]
       exact h.reg_step t (by omega) j hj
 
 theorem RunData.accepts {p : Program} {r k : ℕ} (hp : p.Valid r) (hk : k ≤ r) (hr : 0 < r)
@@ -159,7 +159,7 @@ theorem decode {p : Program} {r k : ℕ} (hp : p.Valid r) {a : Fin k → ℕ}
     obtain ⟨i₀, hi₀, huniq⟩ := hsel.1 t ht
     have hex : ∃ i, i < p.length ∧ σ i t = 1 := ⟨i₀, hi₀⟩
     have hspec := Nat.find_spec hex
-    have hact_eq : act t = Nat.find hex := dif_pos hex
+    have hact_eq : act t = Nat.find hex := dite_eq_left hex
     refine ⟨hact_eq ▸ hspec.1, fun i hi => ?_⟩
     rw [hact_eq]
     split_ifs with heq

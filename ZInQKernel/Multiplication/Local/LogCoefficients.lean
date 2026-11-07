@@ -55,9 +55,6 @@ theorem log25Coeff_list :
 /-- `16575 = 3 · 5² · 13 · 17`. -/
 theorem sixteen575_factor : (16575 : ℕ) = 3 * 5 ^ 2 * 13 * 17 := by norm_num
 
-/-- `d² = 11243 - 7950 s`. -/
-theorem genD_sq_eq : genD ^ 2 = ⟨11243, -7950⟩ := genD_sq
-
 /-- The truncated logarithm `L(z) = Σ_{j ≤ 6} c_j δ^j z^{4j+1}`, with `δ` standing for `d²`. -/
 def truncLog {R : Type*} [CommRing R] (δ z : R) : R :=
   ∑ j ∈ range 7, (log25Coeff j : R) * δ ^ j * z ^ (4 * j + 1)

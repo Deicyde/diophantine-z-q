@@ -1,5 +1,6 @@
 import ZInQKernel.Multiplication.Local.ValHelpers
 import ZInQKernel.Model.Field
+import ZInQKernel.Multiplication.Local.PrimesAbove
 
 /-!
 # Additive valuations from `ℤᵐ⁰`-valued valuations
@@ -85,5 +86,13 @@ theorem le_vP_iff {π : Zs} (hπ : Prime π) (x : K0) (m : ℤ) :
 /-- Elements of `ℤ[s]` are integral at every prime. -/
 theorem vP_toK0_nonneg {π : Zs} (hπ : Prime π) (a : Zs) : 0 ≤ vP π hπ (Zs.toK0 a) :=
   (le_vP_iff hπ _ 0).mpr (Or.inr (vp_nonneg hπ a))
+
+/-- `v_{σπ}(y) = v_π(σ y)` for the additive valuations. -/
+theorem vP_star {π : Zs} (hπ : Prime π) (y : K0) :
+    vP (star π) (prime_star hπ) y = vP π hπ (star y) := by
+  by_cases hy : y = 0
+  · subst hy; simp
+  have hsy : star y ≠ 0 := by rwa [ne_eq, star_eq_zero]
+  rw [vP_apply _ hy, vP_apply _ hsy, vp_star hπ]
 
 end ZInQ.Mult

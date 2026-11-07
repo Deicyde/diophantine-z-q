@@ -46,23 +46,6 @@ theorem dvd_of_vge_intCast (hp2 : p ≠ 2) (hπ : Prime π) (hπp : π ∣ (p : 
     have := (padicValInt_dvd_iff 1 m).mpr (Or.inr (by exact_mod_cast h1))
     simpa using this
 
-theorem star_ratCast (x : ℚ) : star (x : K0) = x := by
-  rw [K0.star_eq']; ext <;> simp
-
-omit [Fact p.Prime] in
-theorem prime_star_dvd (hπp : π ∣ (p : Zs)) : star π ∣ (p : Zs) := by
-  obtain ⟨c, hc⟩ := hπp
-  refine ⟨star c, ?_⟩
-  have := congrArg star hc
-  rw [star_natCast, star_mul] at this
-  rw [this, mul_comm]
-
-/-- `v_{σπ}(y) = v_π(σ y)`. -/
-theorem vP_star (hπ : Prime π) (y : K0) : vP (star π) (prime_star hπ) y = vP π hπ (star y) := by
-  by_cases hy : y = 0
-  · rw [hy, star_zero, AddValuation.map_zero, AddValuation.map_zero]
-  rw [vP_apply _ hy, vP_apply hπ (by rwa [ne_eq, star_eq_zero]), Mult.vp_star hπ]
-
 theorem vge_star_iff (hπ : Prime π) (k : ℤ) (y : K0) :
     Vge (vP (star π) (prime_star hπ)) k y ↔ Vge (vP π hπ) k (star y) := by
   rw [Vge, Vge, vP_star]
@@ -70,31 +53,6 @@ theorem vge_star_iff (hπ : Prime π) (k : ℤ) (y : K0) :
 theorem vge_star_ratCast_iff (hπ : Prime π) (k : ℤ) (x : ℚ) :
     Vge (vP (star π) (prime_star hπ)) k (x : K0) ↔ Vge (vP π hπ) k (x : K0) := by
   rw [vge_star_iff, star_ratCast]
-
-/-- Every rational prime has a prime of `ℤ[s]` above it. -/
-theorem exists_prime_dvd_natCast (p : ℕ) [hp : Fact p.Prime] : ∃ π : Zs, Prime π ∧ π ∣ (p : Zs) := by
-  have h0 : (p : Zs) ≠ 0 := by
-    intro h; have := congrArg QuadraticAlgebra.re h; simp at this; exact hp.out.ne_zero this
-  have hu : ¬ IsUnit (p : Zs) := by
-    rw [Zs.isUnit_iff_natAbs_norm, Mult.norm_natCast_Zs]
-    have := hp.out.one_lt
-    rw [Int.natAbs_pow, Int.natAbs_natCast]
-    intro h1
-    have : 1 < p ^ 2 := Nat.one_lt_pow (by norm_num) this
-    omega
-  obtain ⟨i, hi, hdvd⟩ := WfDvdMonoid.exists_irreducible_factor hu h0
-  exact ⟨i, irreducible_iff_prime.mp hi, hdvd⟩
-
-theorem vp_prod (hπ : Prime π) {ι : Type*} (s : Finset ι) (f : ι → K0) (hf : ∀ j ∈ s, f j ≠ 0) :
-    vp π (∏ j ∈ s, f j) = ∑ j ∈ s, vp π (f j) := by
-  classical
-  induction s using Finset.induction_on with
-  | empty => simp [vp_one hπ]
-  | insert a s ha ih =>
-    rw [Finset.prod_insert ha, Finset.sum_insert ha,
-      vp_mul hπ (hf a (Finset.mem_insert_self a s))
-        (Finset.prod_ne_zero_iff.mpr fun j hj => hf j (Finset.mem_insert_of_mem hj)),
-      ih fun j hj => hf j (Finset.mem_insert_of_mem hj)]
 
 end Primes
 
@@ -116,16 +74,6 @@ theorem contactSet_int {c : ℚ} (hc : c ∈ contactSet) :
       ⟨n * (n + 15) * (n + 20) * (n + 24) * (n + 60), by simp only [sixF]; ring⟩⟩
   · exact ⟨-60, by norm_num, by norm_num, by norm_num, fun n =>
       ⟨n * (n + 15) * (n + 20) * (n + 24) * (n + 30), by simp only [sixF]; ring⟩⟩
-
-theorem padicValRat_intCast_eq_zero {p : ℕ} [Fact p.Prime] {m : ℤ} (hm0 : m ≠ 0)
-    (hm : m.natAbs < p) : padicValRat p m = 0 := by
-  rw [padicValRat.of_int, padicValInt.eq_zero_of_not_dvd]
-  · rfl
-  intro hd
-  have h1 := Int.natAbs_dvd_natAbs.mpr hd
-  rw [Int.natAbs_natCast] at h1
-  have := Nat.le_of_dvd (Int.natAbs_pos.mpr hm0) h1
-  omega
 
 /-- If `δ = v_p(t - c) > 0` for a contact value `c` and `p > 60`, then `v_p(F(t)) = δ`. -/
 theorem contact_val {p : ℕ} [Fact p.Prime] (hp : 60 < p) {t c : ℚ} (hc : c ∈ contactSet)
@@ -295,9 +243,6 @@ section Formal
 
 variable {p : ℕ} [Fact p.Prime] {π : Zs}
 
-theorem zsmul_genP0_ne_zero {m : ℤ} (hm : m ≠ 0) : m • genP0 ≠ 0 := fun h =>
-  ZInQ.genP0_not_isOfFinAddOrder (isOfFinAddOrder_iff_zsmul_eq_zero.mpr ⟨m, hm, h⟩)
-
 /-- A multiple of `P₀` with `v_π(w) ≥ 1` lies in `E₁(π)`. -/
 theorem mem_Ek_one_of_wCoord (hπ : Prime π) {m : ℤ}
     (hw : Vge (vP π hπ) 1 (wCoord (A := -genD ^ 2) (m • genP0))) : m • genP0 ∈ Ek π hπ 1 := by
@@ -380,7 +325,7 @@ theorem prime_dvd_of_test {n κ : ℤ} {t : ℚ} (hT : Test n κ t) {p : ℕ} [F
   have key : ∀ (π₀ : Zs) (hπ₀ : Prime π₀), π₀ ∣ (p : Zs) → vp (star π₀) W ≤ vp π₀ W →
       (p : ℤ) ∣ κ * sixF n := by
     intro π₀ hπ₀ hπ₀p hmax
-    have hπ₁p := prime_star_dvd hπ₀p
+    have hπ₁p := star_dvd_natCast hπ₀p
     have htr := trace_val hp2 hπ₀ hπ₀p hmax hΘ
     have hlam : -padicValRat p (testR η q t) < 2 * vp π₀ W := by
       change 2 * padicValRat p (QuadraticAlgebra.trace W⁻¹) < _ at hB; omega
@@ -429,7 +374,7 @@ theorem prime_dvd_of_test {n κ : ℤ} {t : ℚ} (hT : Test n κ t) {p : ℕ} [F
   obtain ⟨π, hπ, hπp⟩ := exists_prime_dvd_natCast p
   rcases le_total (vp (star π) W) (vp π W) with hle | hle
   · exact key π hπ hπp hle
-  · exact key (star π) (prime_star hπ) (prime_star_dvd hπp) (by rwa [star_star])
+  · exact key (star π) (prime_star hπ) (star_dvd_natCast hπp) (by rwa [star_star])
 
 /-- **Divisibility from the six local tests** (Lemma 11.1). If `Test(n, κ, t)` holds, then
 `M_{S_ht}(t) ∣ κ F(n)`. -/

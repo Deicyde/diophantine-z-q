@@ -1,5 +1,6 @@
 import ZInQKernel.Syntax.Templates.Multiply
 import ZInQKernel.Syntax.Constants.Guard
+import ZInQKernel.Cleanup.GuardSemantics
 import ZInQKernel.Model.Generator.InfiniteOrder
 
 /-!
@@ -27,22 +28,19 @@ open MvPolynomial Syntax
 variable {E : Type}
 
 /-- The coordinates of three codes `ι(a), ι(b), ι(c)` in point-major order are `tripleCode`. -/
-theorem codes3_iota (a b c : ℤ) : codes3 (iota a) (iota b) (iota c) = tripleCode (a, b, c) := by
-  rw [tripleCode_eq_iff]
-  intro i k
-  fin_cases i <;> fin_cases k <;> rfl
+theorem codes3_iota (a b c : ℤ) : codes3 (iota a) (iota b) (iota c) = tripleCode (a, b, c) :=
+  (tripleCode_eq_codes3 a b c).symm
 
 /-- **The zero set of `G_T`** in the form of the guard semantics: it is the set of codes of
 false triples in the box. -/
 theorem guardPoly_zero_set (T : ℤ) (P : Fin 15 → ℚ) :
-    eval₂ (Int.castRingHom ℚ) P (guardPoly T) = 0 ↔ FalseTripleCodes T P := by
-  rw [guardPoly_eval_eq_zero_iff]
-  simp only [FalseTripleCodes, codes3_iota]
+    eval₂ (Int.castRingHom ℚ) P (guardPoly T) = 0 ↔ FalseTripleCodes T P :=
+  guardPoly_eval_eq_zero_iff_falseTripleCodes T P
 
 /-- **Semantics of the guard template**, unconditionally for the false-triple product. -/
 theorem guard_rel_iff (I : Constructors E) (T : ℤ) (hI : I.guard T = guardPoly T)
     (a : Fin 15 → ℚ) : (guardTemplate I T).Rel a ↔ ¬ FalseTripleCodes T a :=
-  guardTemplate_rel_iff_not_falseTriple I T (fun P => hI ▸ guardPoly_zero_set T P) a
+  guardTemplate_rel_iff_not_falseTriple_guardPoly I T hI a
 
 /-- **The guard passes true triples.** -/
 theorem guard_true_triple (I : Constructors E) (T : ℤ) (hI : I.guard T = guardPoly T)

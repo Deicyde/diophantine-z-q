@@ -29,7 +29,7 @@ theorem W_pow_three_lt : W ^ 3 < 2 ^ 1536 :=
 
 /-- `H_max < 2^(W³) < 2^(2^1536) < D`. -/
 theorem Hmax_lt_D (hCAT : CatalogueBound) : Hmax < D :=
-  calc Hmax < 2 ^ W ^ 3 := Hmax_lt hCAT
+  calc Hmax < 2 ^ W ^ 3 := Hmax_lt_of_catalogueBound hCAT
     _ < 2 ^ 2 ^ 1536 := natPow_lt_natPow_right (by decide) W_pow_three_lt
     _ < D := two_pow_two_pow_lt_D (by decide)
 

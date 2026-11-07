@@ -317,7 +317,7 @@ theorem subBranches_specE (hpow : PowerSpec τ .hierarchical) (P : Program) (zer
     refine (this.of_eq ?_ ?_).congr fun x => ?_
     · simp [subBranches, s₃, s₂, s₁, V, W]
     · ext c
-      simp only [Set.mem_union, Set.mem_setOf_eq, Set.empty_union, vwSet, subBranches,
+      simp only [Set.mem_union, Set.mem_ofPred_eq, Set.empty_union, vwSet, subBranches,
         NM.bind_apply, NM.pure_apply, List.mem_cons, exists_eq_or_imp, fresh_apply_poly,
         fresh_apply_next]
       constructor

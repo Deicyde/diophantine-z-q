@@ -13,7 +13,9 @@ induces a group homomorphism on points (`mapShortPt`); for `σ = σ±` the targe
 give `k ≥ 1` with both `σ₊([k]P₀)` and `σ₋([k]P₀)` near `O`.
 
 That `P₀` has infinite order (the torsion part of the generator certificate) is taken as the
-explicit hypothesis `¬ IsOfFinAddOrder genP0`, as in `ZInQ.iota_eq_psi`.
+explicit hypothesis `¬ IsOfFinAddOrder genP0`, as in `ZInQ.iota_eq_psi`; it is proved
+(`ZInQ.genP0_not_isOfFinAddOrder`), and the unconditional form is
+`exists_multiple_large_unconditional` (`Cleanup/FixedPointCodes.lean`).
 -/
 
 namespace ZInQ.Assembly

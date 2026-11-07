@@ -19,7 +19,9 @@ the recipe order `power_value, precision, close, main, value_union, value, integ
 The witness count of the callee recipe is a parameter of each recipe (`wPrec`, `wClose`,
 `wMain`, `wUnion`, `wValue`), so that no count is ever evaluated; the recipe list instantiates
 them with the witness counts of the preceding recipes. With the counts of the witness
-accounting the call starts are those of the blueprint (`closeRecipe_calls`, …).
+accounting the call starts are those of the blueprint (`closeRecipe_calls`, …), and the call
+blocks `[w, w + m)` of each recipe are pairwise disjoint (`closeRecipe_callBlocks_disjoint`, …,
+`integersRecipe_callBlocks_disjoint`; blueprint `syntax/language/builder-well-formed.md`).
 -/
 
 namespace ZInQ.Syntax
@@ -170,5 +172,70 @@ theorem integersRecipe_calls (w : ℕ) : (integersRecipe w).calls =
     [⟨.recipe 5, point 1 ++ [0], 6⟩] := rfl
 
 theorem integersRecipe_fresh (w : ℕ) : (integersRecipe w).fresh = [(1, 5)] := rfl
+
+/-! ### Call blocks -/
+
+/-- The call blocks `(w, m)` of a composition recipe, `m` the witness count of the callee. -/
+noncomputable def CompositionRecipe.callBlocks (T R : List ExPoly) (r : CompositionRecipe) :
+    List (ℕ × ℕ) :=
+  r.calls.map fun c => (c.start, (c.target.resolve T R).witnesses)
+
+section CallBlocks
+
+variable (T R : List ExPoly)
+
+/-- The call blocks of `close` (one per call: five of `value.signed_encode`, `precision`,
+`value.close_coordinates`) are pairwise disjoint. -/
+theorem closeRecipe_callBlocks_disjoint (w : ℕ) (h13w : (getEx T 13).witnesses = 140654)
+    (h15w : (getEx T 15).witnesses = 53) (h1w : (getEx R 1).witnesses = w) :
+    ((closeRecipe w).callBlocks T R).Pairwise BlockDisjoint := by
+  unfold CompositionRecipe.callBlocks
+  rw [closeRecipe_calls]
+  refine pairwise_blockDisjoint_of_sep ?_
+  simp only [List.map_cons, List.map_nil, CallTarget.resolve, h13w, h15w, h1w, blocksSep,
+    List.pairwise_cons, List.mem_cons, List.not_mem_nil, or_false, forall_eq_or_imp,
+    forall_eq, List.Pairwise.nil, and_true, false_imp_iff, implies_true]
+  omega
+
+theorem mainRecipe_callBlocks_disjoint (w : ℕ) (h16w : (getEx T 16).witnesses = 35282)
+    (h2w : (getEx R 2).witnesses = w) :
+    ((mainRecipe w).callBlocks T R).Pairwise BlockDisjoint := by
+  unfold CompositionRecipe.callBlocks
+  rw [mainRecipe_calls]
+  refine pairwise_blockDisjoint_of_sep ?_
+  simp only [List.map_cons, List.map_nil, CallTarget.resolve, h16w, h2w, blocksSep,
+    List.pairwise_cons, List.mem_cons, List.not_mem_nil, or_false,
+    forall_eq, List.Pairwise.nil, and_true, false_imp_iff, implies_true]
+  omega
+
+theorem valueUnionRecipe_callBlocks_disjoint (w : ℕ) (h17w : (getEx T 17).witnesses = 406)
+    (h3w : (getEx R 3).witnesses = w) :
+    ((valueUnionRecipe w).callBlocks T R).Pairwise BlockDisjoint := by
+  unfold CompositionRecipe.callBlocks
+  rw [valueUnionRecipe_calls]
+  refine pairwise_blockDisjoint_of_sep ?_
+  simp only [List.map_cons, List.map_nil, CallTarget.resolve, h17w, h3w, blocksSep,
+    List.pairwise_cons, List.mem_cons, List.not_mem_nil, or_false,
+    forall_eq, List.Pairwise.nil, and_true, false_imp_iff, implies_true]
+  omega
+
+theorem valueRecipe_callBlocks_disjoint (w : ℕ) (h0w : (getEx T 0).witnesses = 7)
+    (h4w : (getEx R 4).witnesses = w) :
+    ((valueRecipe w).callBlocks T R).Pairwise BlockDisjoint := by
+  unfold CompositionRecipe.callBlocks
+  rw [valueRecipe_calls]
+  refine pairwise_blockDisjoint_of_sep ?_
+  simp only [List.map_cons, List.map_nil, CallTarget.resolve, h0w, h4w, blocksSep,
+    List.pairwise_cons, List.mem_cons, List.not_mem_nil, or_false,
+    forall_eq, List.Pairwise.nil, and_true, false_imp_iff, implies_true]
+  omega
+
+theorem integersRecipe_callBlocks_disjoint (w : ℕ) :
+    ((integersRecipe w).callBlocks T R).Pairwise BlockDisjoint := by
+  unfold CompositionRecipe.callBlocks
+  rw [integersRecipe_calls]
+  exact List.pairwise_singleton _ _
+
+end CallBlocks
 
 end ZInQ.Syntax

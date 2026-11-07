@@ -60,25 +60,25 @@ theorem natCard_quot_genDZ : Nat.card (Zs ⧸ Ideal.span {genDZ}) = 7 := by
 theorem exists_order_at_prime {π : Zs} (hπ : Prime π) (h2 : ¬π ∣ 2)
     (hfin : Nat.card (Zs ⧸ Ideal.span {π}) ≠ 0) :
     ∃ n : ℕ, 1 ≤ n ∧ n ≤ 2 * Nat.card (Zs ⧸ Ideal.span {π}) + 1 ∧
-      ∀ m : ℤ, (m * n : ℤ) • genP0 ∈ E1sub hπ (vge_genA hπ) := by
+      ∀ m : ℤ, (m * n : ℤ) • genP0 ∈ E1sub hπ (vge_neg_genD_sq _ hπ) := by
   by_cases hd : Associated π genDZ
   · -- the bad place: reduce with `residueSeven` at `d` and transfer
     obtain ⟨n, hn1, hn, hm⟩ := exists_order_of_mem_E0 prime_genDZ residueSeven residueSeven_ker
-      (vge_genA prime_genDZ) resK_genA_d not_genDZ_dvd_two genP0_mem_E0_d
+      (vge_neg_genD_sq _ prime_genDZ) resK_genA_d not_genDZ_dvd_two genP0_mem_E0_d
     have hspan : Ideal.span {π} = Ideal.span {genDZ} :=
       Ideal.span_singleton_eq_span_singleton.mpr hd
     refine ⟨n, hn1, ?_, fun m => ?_⟩
     · rw [hspan, natCard_quot_genDZ]; rwa [Nat.card_zmod] at hn
-    · exact (mem_E1sub_congr hπ prime_genDZ hd (vge_genA hπ) (vge_genA prime_genDZ) _).mpr (hm m)
+    · exact (mem_E1sub_congr hπ prime_genDZ hd (vge_neg_genD_sq _ hπ) (vge_neg_genD_sq _ prime_genDZ) _).mpr (hm m)
   · -- good reduction: the residue field `ℤ[s]/(π)`
     have := span_isMaximal hπ
     let _ : Field (Zs ⧸ Ideal.span {π}) := Ideal.Quotient.field _
     have : Finite (Zs ⧸ Ideal.span {π}) := Nat.finite_of_card_ne_zero hfin
     classical
     have hρ := quotient_mk_eq_zero_iff π
-    have hQ : genP0 ∈ E0sub hπ (Ideal.Quotient.mk (Ideal.span {π})) hρ (vge_genA hπ) rfl h2 := by
+    have hQ : genP0 ∈ E0sub hπ (Ideal.Quotient.mk (Ideal.span {π})) hρ (vge_neg_genD_sq _ hπ) rfl h2 := by
       rw [E0_eq_top_of_ne_d hπ _ hρ h2 hd]; exact AddSubgroup.mem_top _
-    exact exists_order_of_mem_E0 hπ _ hρ (vge_genA hπ) rfl h2 hQ
+    exact exists_order_of_mem_E0 hπ _ hρ (vge_neg_genD_sq _ hπ) rfl h2 hQ
 
 /-- A prime above an odd prime does not divide `2`. -/
 theorem not_dvd_two_of_dvd_odd {p : ℕ} [hp : Fact p.Prime] (hp2 : p ≠ 2) {π : Zs}
@@ -113,7 +113,7 @@ theorem exists_generator {P : Ideal Zs} (hP : P.IsPrime) {p : ℕ} [hp : Fact p.
 `[m n] P₀ ∈ E₁(π)` for all `m` and every prime `π ∣ p`. -/
 theorem exists_order_at_odd_prime {p : ℕ} [hp : Fact p.Prime] (hp2 : p ≠ 2) :
     ∃ n : ℕ, 1 ≤ n ∧ n ≤ p ^ 6 ∧ ∀ π : Zs, ∀ hπ : Prime π, π ∣ (p : Zs) →
-      ∀ m : ℤ, (m * n : ℤ) • genP0 ∈ E1sub hπ (vge_genA hπ) := by
+      ∀ m : ℤ, (m * n : ℤ) • genP0 ∈ E1sub hπ (vge_neg_genD_sq _ hπ) := by
   have h3 : 3 ≤ p := by
     have := hp.out.two_le
     rcases (show p = 2 ∨ 3 ≤ p by omega) with h | h
@@ -150,12 +150,12 @@ theorem exists_order_at_odd_prime {p : ℕ} [hp : Fact p.Prime] (hp2 : p ≠ 2) 
       rcases hall _ hP (Ideal.mem_span_singleton.mpr hπp) with h | h
       · have hassoc : Associated π π₁ :=
           Ideal.span_singleton_eq_span_singleton.mp (h.trans hs₁.symm)
-        refine (mem_E1sub_congr hπ hπ₁ hassoc (vge_genA hπ) (vge_genA hπ₁) _).mpr ?_
+        refine (mem_E1sub_congr hπ hπ₁ hassoc (vge_neg_genD_sq _ hπ) (vge_neg_genD_sq _ hπ₁) _).mpr ?_
         have e : (m * ((n₁ * n₂ : ℕ) : ℤ)) = m * n₂ * n₁ := by push_cast; ring
         rw [e]; exact hm₁ (m * n₂)
       · have hassoc : Associated π π₂ :=
           Ideal.span_singleton_eq_span_singleton.mp (h.trans hs₂.symm)
-        refine (mem_E1sub_congr hπ hπ₂ hassoc (vge_genA hπ) (vge_genA hπ₂) _).mpr ?_
+        refine (mem_E1sub_congr hπ hπ₂ hassoc (vge_neg_genD_sq _ hπ) (vge_neg_genD_sq _ hπ₂) _).mpr ?_
         have e : (m * ((n₁ * n₂ : ℕ) : ℤ)) = m * n₁ * n₂ := by push_cast; ring
         rw [e]; exact hm₂ (m * n₁)
   · -- inert: one prime with `p²` residues
@@ -166,7 +166,7 @@ theorem exists_order_at_odd_prime {p : ℕ} [hp : Fact p.Prime] (hp2 : p ≠ 2) 
     rw [hcard] at hle₁
     refine ⟨n₁, hn₁, hle₁.trans hb1, fun π hπ hπp m => ?_⟩
     have hassoc : Associated π (p : Zs) := hπ.associated_of_dvd hπ₁ hπp
-    exact (mem_E1sub_congr hπ hπ₁ hassoc (vge_genA hπ) (vge_genA hπ₁) _).mpr (hm₁ m)
+    exact (mem_E1sub_congr hπ hπ₁ hassoc (vge_neg_genD_sq _ hπ) (vge_neg_genD_sq _ hπ₁) _).mpr (hm₁ m)
 
 open Classical in
 /-- The order chosen above an odd prime `p` (`1` for other `p`). -/
@@ -178,7 +178,7 @@ noncomputable def orderAbove (p : ℕ) : ℕ :=
 
 theorem orderAbove_spec {p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) :
     1 ≤ orderAbove p ∧ orderAbove p ≤ p ^ 6 ∧ ∀ π : Zs, ∀ hπ : Prime π, π ∣ (p : Zs) →
-      ∀ m : ℤ, (m * orderAbove p : ℤ) • genP0 ∈ E1sub hπ (vge_genA hπ) := by
+      ∀ m : ℤ, (m * orderAbove p : ℤ) • genP0 ∈ E1sub hπ (vge_neg_genD_sq _ hπ) := by
   have := Fact.mk hp
   unfold orderAbove
   split_ifs with h
@@ -201,7 +201,7 @@ that for every odd prime `p ∣ N` and every prime `π` of `ℤ[s]` with `π ∣
 theorem exists_reduction_multiple (N : ℕ) (hN : 1 ≤ N) :
     ∃ m₀ : ℕ, 1 ≤ m₀ ∧ m₀ ≤ N ^ 6 ∧
       ∀ p ∈ N.primeFactors, p ≠ 2 → ∀ π : Zs, ∀ hπ : Prime π, π ∣ (p : Zs) →
-        (m₀ : ℤ) • genP0 ∈ E1sub hπ (vge_genA hπ) := by
+        (m₀ : ℤ) • genP0 ∈ E1sub hπ (vge_neg_genD_sq _ hπ) := by
   refine ⟨∏ p ∈ N.primeFactors, orderAbove p, ?_, ?_, ?_⟩
   · exact Finset.one_le_prod fun p _ => orderAbove_pos p
   · calc ∏ p ∈ N.primeFactors, orderAbove p ≤ ∏ p ∈ N.primeFactors, p ^ 6 :=

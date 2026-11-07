@@ -1,5 +1,6 @@
 import ZInQKernel.Size.FormalMultiple.Reduction
 import ZInQKernel.Size.FormalMultiple.Congruences
+import ZInQKernel.Model.Descent.OddTorsion
 
 /-!
 # Reduction of `P₀` at the bad place
@@ -22,12 +23,6 @@ namespace ZInQ.Size
 open WeierstrassCurve WeierstrassCurve.Affine
 
 instance fact_prime_seven : Fact (Nat.Prime 7) := ⟨by norm_num⟩
-
-theorem neg_genD_sq_eq_toK0 : -genD ^ 2 = Zs.toK0 (-genDZ ^ 2) := by simp
-
-/-- `A = -d²` is integral at every prime. -/
-theorem vge_genA {π : Zs} (hπ : Prime π) : VGe π 0 (-genD ^ 2) := by
-  rw [neg_genD_sq_eq_toK0]; exact vge_toK0 hπ _
 
 theorem residueSeven_ker (a : Zs) : residueSeven a = 0 ↔ genDZ ∣ a := (genDZ_dvd_iff a).symm
 
@@ -90,7 +85,7 @@ theorem nonsingular_two_six : (shortCurve (0 : ZMod 7)).toAffine.Nonsingular 2 6
 /-- **Part 1.** `P₀ ∈ E₀((d))`: its reduction at `(d)` is the nonsingular point `(2, 6)` of
 `y² = x³` over `𝔽₇`. -/
 theorem genP0_mem_E0_d :
-    genP0 ∈ E0sub prime_genDZ residueSeven residueSeven_ker (vge_genA prime_genDZ) resK_genA_d
+    genP0 ∈ E0sub prime_genDZ residueSeven residueSeven_ker (vge_neg_genD_sq _ prime_genDZ) resK_genA_d
       not_genDZ_dvd_two := by
   change ¬VGe genDZ 0 genX0 ∨ (VGe genDZ 0 genX0 ∧ (shortCurve (0 : ZMod 7)).toAffine.Nonsingular
     (resK genDZ residueSeven genX0) (resK genDZ residueSeven genY0))
@@ -120,7 +115,7 @@ theorem resK_genA_ne_zero {k : Type*} [Field k] {π : Zs} (hπ : Prime π) (ρ :
 `E₀(π) = E(K₀)`. -/
 theorem E0_eq_top_of_ne_d {k : Type*} [Field k] [DecidableEq k] {π : Zs} (hπ : Prime π)
     (ρ : Zs →+* k) (hρ : ∀ a, ρ a = 0 ↔ π ∣ a) (h2 : ¬π ∣ 2) (hd : ¬Associated π genDZ) :
-    E0sub hπ ρ hρ (vge_genA hπ) rfl h2 = ⊤ :=
-  E0_eq_top_of_good hπ ρ hρ (vge_genA hπ) rfl h2 (resK_genA_ne_zero hπ ρ hρ hd)
+    E0sub hπ ρ hρ (vge_neg_genD_sq _ hπ) rfl h2 = ⊤ :=
+  E0_eq_top_of_good hπ ρ hρ (vge_neg_genD_sq _ hπ) rfl h2 (resK_genA_ne_zero hπ ρ hρ hd)
 
 end ZInQ.Size

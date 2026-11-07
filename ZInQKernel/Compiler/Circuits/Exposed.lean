@@ -127,8 +127,8 @@ theorem append (h₁ : SpecE φs₁ U c₀ c₁ E₁ R₁) (h₂ : SpecE φs₂ 
     · rcases List.mem_append.1 hφ with hφ | hφ
       · refine (nholds_congr fun i hi => ?_).2 (hφ₁ φ hφ)
         rcases h₁.loc φ hφ i hi with hU' | hI
-        · rw [if_pos (by have := hU i hU'; omega)]
-        · rw [if_pos hI.2]
+        · rw [ite_eq_left (by have := hU i hU'; omega)]
+        · rw [ite_eq_left hI.2]
       · refine (nholds_congr fun i hi => ?_).2 (hφ₂ φ hφ)
         split_ifs with hc
         · rcases h₂.loc φ hφ i hi with (hU' | hE) | hI
@@ -149,7 +149,7 @@ theorem close (h : SpecE φs U c₀ c₁ E R) :
       fun i hi => ?_, hφ⟩⟩
     by_cases hE : i ∈ E
     · simp [hE]
-    · simp only [hE, if_false]
+    · simp only [hE, ite_false]
       exact hy i fun hc => hi ⟨hc.1, hc.2, hE⟩
   · rintro ⟨z, hz, hR⟩
     obtain ⟨y, hy, hφ⟩ := (h.sem z).2 hR

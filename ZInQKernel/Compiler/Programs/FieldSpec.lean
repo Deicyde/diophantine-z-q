@@ -62,12 +62,12 @@ theorem zbigStep_execZ : ∀ {S : ZStmt}, S.Plain → ∀ E, ZBigStep S E (.norm
   | .ite c s t, h, E => by
     by_cases hc : c.Holds E
     · have hb := (c.btest_iff E).mpr hc
-      simp only [ZStmt.execZ, hb, cond_true]; exact ZBigStep.iteTrue hc (zbigStep_execZ h.1 E)
+      simp only [ZStmt.execZ, hb, Bool.cond_true]; exact ZBigStep.iteTrue hc (zbigStep_execZ h.1 E)
     · have hb : c.btest E = false := by
         cases h' : c.btest E
         · rfl
         · exact absurd ((c.btest_iff E).mp h') hc
-      simp only [ZStmt.execZ, hb, cond_false]; exact ZBigStep.iteFalse hc (zbigStep_execZ h.2 E)
+      simp only [ZStmt.execZ, hb, Bool.cond_false]; exact ZBigStep.iteFalse hc (zbigStep_execZ h.2 E)
 
 theorem zcond_apply {α β : Type*} (b : Bool) (f g : α → β) (a : α) :
     (cond b f g) a = cond b (f a) (g a) := by cases b <;> rfl

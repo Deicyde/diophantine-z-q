@@ -37,13 +37,6 @@ section General
 variable {K : Type*} [Field K] [DecidableEq K] {v : AddValuation K (WithTop ℤ)} {A : K}
 
 omit [DecidableEq K] in
-theorem zCoord_neg (P : (shortCurve A).toAffine.Point) : Mult.zCoord (-P) = -Mult.zCoord P := by
-  rcases P with _ | ⟨x, y, h⟩
-  · show (0 : K) = -0; rw [neg_zero]
-  · rw [Point.neg_some, zCoord_some, zCoord_some, shortCurve_negY, neg_div_neg_eq, neg_div,
-      neg_neg]
-
-omit [DecidableEq K] in
 theorem ne_zero_of_val_zCoord {P : (shortCurve A).toAffine.Point} {k : ℤ}
     (hk : v (Mult.zCoord P) = k) : P ≠ 0 := by
   rintro rfl

@@ -69,12 +69,6 @@ theorem logCoeffA_eq_zero_of_even {A : K} {r : ℕ} (hr : Even r) : logCoeffA A 
   · exfalso; obtain ⟨k, rfl⟩ := hr; omega
   · rw [zero_div]
 
-omit [Valued K ℤᵐ⁰] [CompleteSpace K] [Fact p.Prime] in
-theorem zCoord_neg {A : K} (P : (shortCurve A).toAffine.Point) : zCoord (-P) = -zCoord P := by
-  rcases P with _ | ⟨x, y, h⟩
-  · rw [point_zero_eq, neg_zero, zCoord_zero, neg_zero]
-  · rw [Point.neg_some, zCoord_some, zCoord_some, shortCurve_negY]; ring
-
 omit [CompleteSpace K] [DecidableEq K] [Fact p.Prime] in
 /-- `log` is odd. -/
 theorem evalLog_neg (A t : K) : evalLog A (-t) = -evalLog A t := by

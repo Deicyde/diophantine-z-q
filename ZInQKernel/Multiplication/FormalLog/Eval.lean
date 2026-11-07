@@ -136,25 +136,25 @@ theorem ev2_one : ev2 t₁ t₂ (1 : MvPowerSeries (Fin 2) K) = 1 := by
   classical
   rw [ev2, tsum_eq_single 0]
   · simp [monoVal]
-  · intro n hn; rw [coeff_one, if_neg hn, zero_mul]
+  · intro n hn; rw [coeff_one, ite_eq_right hn, zero_mul]
 
 theorem ev2_C (a : K) : ev2 t₁ t₂ (MvPowerSeries.C a : MvPowerSeries (Fin 2) K) = a := by
   classical
   rw [ev2, tsum_eq_single 0]
   · simp [monoVal]
-  · intro n hn; rw [coeff_C, if_neg hn, zero_mul]
+  · intro n hn; rw [coeff_C, ite_eq_right hn, zero_mul]
 
 theorem ev2_X_zero : ev2 t₁ t₂ (MvPowerSeries.X 0 : MvPowerSeries (Fin 2) K) = t₁ := by
   classical
   rw [ev2, tsum_eq_single (Finsupp.single 0 1)]
   · simp [monoVal]
-  · intro n hn; rw [coeff_X, if_neg hn, zero_mul]
+  · intro n hn; rw [coeff_X, ite_eq_right hn, zero_mul]
 
 theorem ev2_X_one : ev2 t₁ t₂ (MvPowerSeries.X 1 : MvPowerSeries (Fin 2) K) = t₂ := by
   classical
   rw [ev2, tsum_eq_single (Finsupp.single 1 1)]
   · simp [monoVal]
-  · intro n hn; rw [coeff_X, if_neg hn, zero_mul]
+  · intro n hn; rw [coeff_X, ite_eq_right hn, zero_mul]
 
 section Hom
 
@@ -225,7 +225,7 @@ theorem hasSum_ev2_subst_X_zero {g : PowerSeries K} {t₁ t₂ s : K}
     funext k
     simp [PowerSeries.coeff_subst_single, monoVal]
   · intro n hn
-    rw [PowerSeries.coeff_subst_single, if_neg, zero_mul]
+    rw [PowerSeries.coeff_subst_single, ite_eq_right, zero_mul]
     exact fun h => hn ⟨n 0, h.symm⟩
 
 /-- A series `g(T₂)` evaluates to `g(t₂)`. -/
@@ -239,7 +239,7 @@ theorem hasSum_ev2_subst_X_one {g : PowerSeries K} {t₁ t₂ s : K}
     funext k
     simp [PowerSeries.coeff_subst_single, monoVal]
   · intro n hn
-    rw [PowerSeries.coeff_subst_single, if_neg, zero_mul]
+    rw [PowerSeries.coeff_subst_single, ite_eq_right, zero_mul]
     exact fun h => hn ⟨n 1, h.symm⟩
 
 /-! ### The pieces of the formal group law are integral -/

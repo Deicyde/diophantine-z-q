@@ -212,13 +212,7 @@ theorem close_rel_iff (w : ℕ) (h13 : (getEx T 13).WF) (h13w : (getEx T 13).wit
       intro c hc
       simp only [List.mem_cons, List.not_mem_nil, or_false] at hc
       rcases hc with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> simp only <;> omega)
-    (by
-      rw [closeRecipe_calls]
-      refine pairwise_blockDisjoint_of_sep ?_
-      simp only [List.map_cons, List.map_nil, CallTarget.resolve, h13w, h15w, h1w, blocksSep,
-        List.pairwise_cons, List.mem_cons, List.not_mem_nil, or_false, forall_eq_or_imp,
-        forall_eq, List.Pairwise.nil, and_true, false_imp_iff, implies_true]
-      omega) _).trans ?_
+    (closeRecipe_callBlocks_disjoint T R w h13w h15w h1w) _).trans ?_
   simp only [CompositionRecipe.formula, closeRecipe_connective, closeRecipe_calls, List.map_cons,
     List.map_nil, Formula.lift_and, List.mem_cons, List.not_mem_nil, or_false, forall_eq_or_imp,
     forall_eq, lift_recipeCall, CallTarget.resolve, List.map_append, map_point]
@@ -271,13 +265,7 @@ theorem main_rel_iff (w : ℕ) (h16 : (getEx T 16).WF) (h16w : (getEx T 16).witn
       intro c hc
       simp only [List.mem_cons, List.not_mem_nil, or_false] at hc
       rcases hc with rfl | rfl <;> simp only <;> omega)
-    (by
-      rw [mainRecipe_calls]
-      refine pairwise_blockDisjoint_of_sep ?_
-      simp only [List.map_cons, List.map_nil, CallTarget.resolve, h16w, h2w, blocksSep,
-        List.pairwise_cons, List.mem_cons, List.not_mem_nil, or_false, forall_eq_or_imp,
-        forall_eq, List.Pairwise.nil, and_true, false_imp_iff, implies_true]
-      omega) _).trans ?_
+    (mainRecipe_callBlocks_disjoint T R w h16w h2w) _).trans ?_
   simp only [CompositionRecipe.formula, mainRecipe_connective, mainRecipe_calls, List.map_cons,
     List.map_nil, Formula.lift_and, List.mem_cons, List.not_mem_nil, or_false, forall_eq_or_imp,
     forall_eq, lift_recipeCall, CallTarget.resolve, List.map_append, map_point]
@@ -324,13 +312,7 @@ theorem valueUnion_rel_iff (w : ℕ) (h17 : (getEx T 17).WF) (h17w : (getEx T 17
       intro c hc
       simp only [List.mem_cons, List.not_mem_nil, or_false] at hc
       rcases hc with rfl | rfl <;> simp only <;> omega)
-    (by
-      rw [valueUnionRecipe_calls]
-      refine pairwise_blockDisjoint_of_sep ?_
-      simp only [List.map_cons, List.map_nil, CallTarget.resolve, h17w, h3w, blocksSep,
-        List.pairwise_cons, List.mem_cons, List.not_mem_nil, or_false, forall_eq_or_imp,
-        forall_eq, List.Pairwise.nil, and_true, false_imp_iff, implies_true]
-      omega) _).trans ?_
+    (valueUnionRecipe_callBlocks_disjoint T R w h17w h3w) _).trans ?_
   simp only [CompositionRecipe.formula, valueUnionRecipe_connective, valueUnionRecipe_calls,
     List.map_cons, List.map_nil, Formula.lift_or, List.mem_cons, List.not_mem_nil, or_false,
     exists_eq_or_imp, exists_eq_left, lift_recipeCall, CallTarget.resolve, List.map_append,
@@ -367,13 +349,7 @@ theorem value_rel_iff (w : ℕ) (h0 : (getEx T 0).WF) (h0w : (getEx T 0).witness
       intro c hc
       simp only [List.mem_cons, List.not_mem_nil, or_false] at hc
       rcases hc with rfl | rfl <;> simp only <;> omega)
-    (by
-      rw [valueRecipe_calls]
-      refine pairwise_blockDisjoint_of_sep ?_
-      simp only [List.map_cons, List.map_nil, CallTarget.resolve, h0w, h4w, blocksSep,
-        List.pairwise_cons, List.mem_cons, List.not_mem_nil, or_false, forall_eq_or_imp,
-        forall_eq, List.Pairwise.nil, and_true, false_imp_iff, implies_true]
-      omega) _).trans ?_
+    (valueRecipe_callBlocks_disjoint T R w h0w h4w) _).trans ?_
   simp only [CompositionRecipe.formula, valueRecipe_connective, valueRecipe_calls, List.map_cons,
     List.map_nil, Formula.lift_and, List.mem_cons, List.not_mem_nil, or_false, forall_eq_or_imp,
     forall_eq, lift_recipeCall, CallTarget.resolve, List.map_append, map_point]

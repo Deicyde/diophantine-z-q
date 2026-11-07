@@ -20,7 +20,8 @@ Input C is used as a chain of three equivalences: the rational translation
 the natural precision polynomial (`Compiler.natural_polynomial_semantics'`) and `dec ∘ enc = id`
 (`spec_precision_iff`).
 
-The multiplication statement M is the explicit hypothesis `hM` throughout.
+The multiplication statement M is the explicit hypothesis `hM` throughout; it is proved from
+hypotheses H, PC and 22P in `Multiplication/Top/Exact.lean` (`Mult.multiplication_exact`).
 -/
 
 namespace ZInQ.Assembly

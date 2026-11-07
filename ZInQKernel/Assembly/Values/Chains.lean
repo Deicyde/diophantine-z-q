@@ -32,7 +32,7 @@ theorem binVal_binDigitsAux (fuel k : ℕ) (h : k ≤ fuel) : binVal (binDigitsA
   | succ f ih =>
     by_cases hk : k = 0
     · subst hk; rfl
-    · simp only [binDigitsAux, hk, if_false, binVal]
+    · simp only [binDigitsAux, hk, ite_false, binVal]
       rw [ih (k / 2) (by omega)]
       by_cases h2 : k % 2 = 1 <;> simp [h2] <;> omega
 

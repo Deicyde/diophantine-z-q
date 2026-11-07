@@ -275,16 +275,13 @@ theorem Rep.eq_zero_iff {A : F} {T : JTriple F} {P} (h : Rep A T P) : P = 0 ↔ 
   · exact ⟨fun _ => hZ, fun _ => hP⟩
   · exact ⟨fun h' => absurd (hP ▸ h') (Point.some_ne_zero _), fun h' => absurd h' hZ⟩
 
-theorem shortCurve_negY' (A x y : F) : (shortCurve A).toAffine.negY x y = -y := by
-  simp [Affine.negY]
-
 /-- Item 8 (negation): `(X, -Y, Z)` represents `-P`. -/
 theorem rep_jneg {A : F} {T : JTriple F} {P} (h : Rep A T P) : Rep A (jneg T) (-P) := by
   rcases h with ⟨hZ, rfl⟩ | ⟨hZ, h, rfl⟩
   · exact Or.inl ⟨hZ, by simp⟩
   · refine Or.inr ⟨hZ, ?_⟩
     rw [Point.neg_some]
-    exact some_eq_some_of _ rfl (by rw [shortCurve_negY', jneg, neg_div])
+    exact some_eq_some_of _ rfl (by rw [shortCurve_negY, jneg, neg_div])
 
 variable [DecidableEq F]
 
@@ -302,12 +299,12 @@ theorem rep_jdblB [NeZero (2 : F)] {A : F} {T : JTriple F} {P} (h : Rep A T P) :
   · by_cases hY : T.Y = 0
     · rw [jdblB, ite_eq_left (Or.inr hY)]
       have : T.Y / T.Z ^ 3 = (shortCurve A).toAffine.negY (T.X / T.Z ^ 2) (T.Y / T.Z ^ 3) := by
-        rw [shortCurve_negY', hY]; simp
+        rw [shortCurve_negY, hY]; simp
       rw [Point.add_self_of_Y_eq this]
       exact rep_jO A
     · rw [jdblB, ite_eq_right (not_or.mpr ⟨hZ, hY⟩)]
       have hy : T.Y / T.Z ^ 3 ≠ (shortCurve A).toAffine.negY (T.X / T.Z ^ 2) (T.Y / T.Z ^ 3) := by
-        rw [shortCurve_negY']
+        rw [shortCurve_negY]
         intro h'
         have : 2 * (T.Y / T.Z ^ 3) = 0 := by linear_combination h'
         exact div_ne_zero hY (pow_ne_zero 3 hZ) ((mul_eq_zero.mp this).resolve_left h2)
@@ -316,10 +313,10 @@ theorem rep_jdblB [NeZero (2 : F)] {A : F} {T : JTriple F} {P} (h : Rep A T P) :
       rw [Point.add_self_of_Y_ne hy]
       have hs : (shortCurve A).toAffine.slope (T.X / T.Z ^ 2) (T.X / T.Z ^ 2) (T.Y / T.Z ^ 3)
           (T.Y / T.Z ^ 3) = (3 * (T.X / T.Z ^ 2) ^ 2 + A) / (2 * (T.Y / T.Z ^ 3)) := by
-        rw [slope_of_Y_ne rfl hy, shortCurve_negY']; simp; ring
+        rw [slope_of_Y_ne rfl hy, shortCurve_negY]; simp; ring
       apply some_eq_some_of
       · rw [hX3, addX, hs]; simp; ring
-      · rw [hY3, addY, negAddY, addX, hs, shortCurve_negY', hX3]; simp; ring
+      · rw [hY3, addY, negAddY, addX, hs, shortCurve_negY, hX3]; simp; ring
 
 /-- `jaddB` computes addition on representatives. -/
 theorem rep_jaddB [NeZero (2 : F)] {A : F} {T T' : JTriple F} {P Q} (h : Rep A T P)
@@ -340,7 +337,7 @@ theorem rep_jaddB [NeZero (2 : F)] {A : F} {T T' : JTriple F} {P Q} (h : Rep A T
       ring
     apply some_eq_some_of
     · rw [hX3, addX, hs]; simp
-    · rw [hY3, addY, negAddY, addX, hs, shortCurve_negY', hX3]; simp; ring
+    · rw [hY3, addY, negAddY, addX, hs, shortCurve_negY, hX3]; simp; ring
   · rw [ite_eq_right hH]
     push Not at hH
     have hx := (jH_eq_zero_iff T T' hZ hZ').mp hH

@@ -125,11 +125,11 @@ theorem formalCondition_of_padicValRat {N : ℕ} (hN : 1 ≤ N) (u : K0)
 
 /-- In `E_r(π)`, `v_π(ξ) = v_π(1/x) = 2 v_π(z) ≥ 2r`. -/
 theorem vP_xi_ge {π : Zs} (hπ : Prime π) {r : ℤ} {Q : genCurve.toAffine.Point}
-    (hQ : Q ∈ Mult.formalFilt (-genD ^ 2) (vP_A_nonneg hπ (vge_genA hπ)) r) :
+    (hQ : Q ∈ Mult.formalFilt (-genD ^ 2) (vP_A_nonneg hπ (vge_neg_genD_sq _ hπ)) r) :
     ((2 * r : ℤ) : WithTop ℤ) ≤ Mult.vP π hπ (xi Q) := by
   rcases Q with _ | ⟨x, y, h⟩
   · rw [show xi Point.zero = 0 from rfl, (Mult.vP π hπ).map_zero]; exact le_top
-  obtain ⟨N, -, hx, -, -, hz, -⟩ := Mult.formal_val_x_y (vP_A_nonneg hπ (vge_genA hπ)) h hQ.1
+  obtain ⟨N, -, hx, -, -, hz, -⟩ := Mult.formal_val_x_y (vP_A_nonneg hπ (vge_neg_genD_sq _ hπ)) h hQ.1
   have hrN : r ≤ N := by have := hQ.2.trans (le_of_eq hz); exact_mod_cast this
   rw [xi_some, Mult.val_inv_coe hx]
   exact_mod_cast (show 2 * r ≤ -(-2 * N) by omega)

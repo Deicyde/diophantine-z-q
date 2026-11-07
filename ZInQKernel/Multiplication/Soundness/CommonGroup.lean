@@ -20,41 +20,6 @@ The quantities are the certificate's `slopeR0`, `slopeA`, `slopeR`, `normTests`,
 
 namespace ZInQ.Mult
 
-
-
-/-- Every rational prime has a prime of `ℤ[s]` above it. -/
-theorem exists_prime_dvd_natCast (p : ℕ) [hp : Fact p.Prime] :
-    ∃ π : Zs, Prime π ∧ π ∣ (p : Zs) := by
-  have h0 : (p : Zs) ≠ 0 := by
-    intro h; have := congrArg QuadraticAlgebra.re h; simp at this; exact hp.out.ne_zero this
-  have hu : ¬ IsUnit (p : Zs) := by
-    intro hu
-    have := hu.map QuadraticAlgebra.norm
-    rw [norm_natCast_Zs, Int.isUnit_iff] at this
-    have h1 := hp.out.one_lt
-    rcases this with h | h
-    · have : ((p : ℤ)) ^ 2 = 1 ^ 2 := by rw [h]; ring
-      have := (sq_eq_sq₀ (by positivity) (by norm_num)).mp this
-      omega
-    · nlinarith
-  obtain ⟨π, hirr, hdvd⟩ := WfDvdMonoid.exists_irreducible_factor hu h0
-  exact ⟨π, UniqueFactorizationMonoid.irreducible_iff_prime.mp hirr, hdvd⟩
-
-theorem star_dvd_natCast {π : Zs} {p : ℕ} (h : π ∣ (p : Zs)) : star π ∣ (p : Zs) := by
-  obtain ⟨c, hc⟩ := h
-  exact ⟨star c, by rw [← star_mul', ← hc]; simp⟩
-
-theorem vp_prod {π : Zs} (hπ : Prime π) {ι : Type*} (s : Finset ι) (f : ι → K0)
-    (h : ∀ i ∈ s, f i ≠ 0) : vp π (∏ i ∈ s, f i) = ∑ i ∈ s, vp π (f i) := by
-  classical
-  induction s using Finset.induction_on with
-  | empty => simpa using vp_isUnit hπ isUnit_one
-  | insert a s ha ih =>
-    rw [Finset.prod_insert ha, Finset.sum_insert ha,
-      vp_mul hπ (h a (Finset.mem_insert_self a s))
-        (Finset.prod_ne_zero_iff.mpr fun i hi => h i (Finset.mem_insert_of_mem hi)),
-      ih fun i hi => h i (Finset.mem_insert_of_mem hi)]
-
 theorem vp_one' {π : Zs} (hπ : Prime π) : vp π (1 : K0) = 0 := by
   simpa using vp_isUnit hπ isUnit_one
 

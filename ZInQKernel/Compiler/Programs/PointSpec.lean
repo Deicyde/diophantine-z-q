@@ -232,13 +232,13 @@ theorem jdblBCode_spec {p q T : ℕ} (hp : p + 5 < T) (hq : q + 5 < T) (E : ℕ 
       by_cases h1 : zsOf E (p + 4) = 0 <;> by_cases h2 : zsOf E (p + 2) = 0 <;> simp_all
     obtain ⟨E₅, h₅, v₅, f₅⟩ := setO_spec q E₄
     refine ⟨E₅, pre (ZBigStep.iteFalse hc' h₅), ?_, fun v hv hvq => ?_⟩
-    · rw [v₅, jdblB, if_pos hc]
+    · rw [v₅, jdblB, ite_eq_left hc]
     · rw [f₅ v hvq, fr v hv]
   · have hc' : (E₄ T).natAbs = (E₄ (T + 1)).natAbs := by
       rw [e4T, e41]; simp only [ptOf, not_or] at hc; simp [hc.1, hc.2]
     obtain ⟨E₅, h₅, v₅, f₅⟩ := jdblCode_spec (p := p) (q := q) (T := T + 2) (by omega) (by omega) E₄
     refine ⟨E₅, pre (ZBigStep.iteTrue hc' h₅), ?_, fun v hv hvq => ?_⟩
-    · rw [v₅, hP, jdblB, if_neg hc]
+    · rw [v₅, hP, jdblB, ite_eq_right hc]
     · rw [f₅ v (by omega) hvq, fr v hv]
 
 
@@ -354,8 +354,8 @@ theorem jaddBCode_spec {p q r T : ℕ} (hp : p + 5 < T) (hq : q + 5 < T) (hr : r
   have g₁ : ∀ v < T, E₁ v = E v := fun v hv => f₁ v (by omega) (by omega)
   by_cases hPZ : zsOf E (p + 4) = 0
   · obtain ⟨E₂, h₂, v₂, f₂⟩ := copyPt_spec (q := r) (p := q) hrq E₁
-    refine ⟨E₂, run₁ _ (by rw [if_pos hPZ]; exact h₂), ?_, fun v hv hvr => ?_⟩
-    · rw [v₂, ptOf_congr (fun i hi => g₁ _ (by omega)), jaddB, if_pos (show (ptOf E p).Z = 0 from hPZ)]
+    refine ⟨E₂, run₁ _ (by rw [ite_eq_left hPZ]; exact h₂), ?_, fun v hv hvr => ?_⟩
+    · rw [v₂, ptOf_congr (fun i hi => g₁ _ (by omega)), jaddB, ite_eq_left (show (ptOf E p).Z = 0 from hPZ)]
     · rw [f₂ v hvr, g₁ v hv]
   obtain ⟨E₂, f₂, -, run₂⟩ := zeroIte_spec (f := T + 2) (w := q + 4) (t := T + 1) (by omega)
     ⟨by omega, by omega⟩ ⟨by omega, by omega⟩ _ (copyPt r p) E₁
@@ -364,10 +364,10 @@ theorem jaddBCode_spec {p q r T : ℕ} (hp : p + 5 < T) (hq : q + 5 < T) (hr : r
   have hPZ' : ¬ (ptOf E p).Z = 0 := hPZ
   by_cases hQZ : zsOf E (q + 4) = 0
   · obtain ⟨E₃, h₃, v₃, f₃⟩ := copyPt_spec (q := r) (p := p) hrp E₂
-    refine ⟨E₃, run₁ _ (by rw [if_neg hPZ]; exact run₂ _ (by rw [hQ1, if_pos hQZ]; exact h₃)), ?_,
+    refine ⟨E₃, run₁ _ (by rw [ite_eq_right hPZ]; exact run₂ _ (by rw [hQ1, ite_eq_left hQZ]; exact h₃)), ?_,
       fun v hv hvr => ?_⟩
-    · rw [v₃, ptOf_congr (fun i hi => g₂ _ (by omega)), jaddB, if_neg hPZ',
-        if_pos (show (ptOf E q).Z = 0 from hQZ)]
+    · rw [v₃, ptOf_congr (fun i hi => g₂ _ (by omega)), jaddB, ite_eq_right hPZ',
+        ite_eq_left (show (ptOf E q).Z = 0 from hQZ)]
     · rw [f₃ v hvr, g₂ v hv]
   have hQZ' : ¬ (ptOf E q).Z = 0 := hQZ
   -- the generic case
@@ -405,7 +405,7 @@ theorem jaddBCode_spec {p q r T : ℕ} (hp : p + 5 < T) (hq : q + 5 < T) (hr : r
         .ite (.neq (T + 3 + 18) (T + 3 + 17)) (setO r) (jdblBCode p r (T + 3 + 19))) E₄ o
       else ZBigStep (FProg.code (T + 3 + 29) (jaddList2 p q (T + 3)) (copyPt r (T + 3 + 23))) E₄ o) →
       ZBigStep _ E o := fun h =>
-    run₁ _ (by rw [if_neg hPZ]; exact run₂ _ (by rw [hQ1, if_neg hQZ]; exact c₃ _ _ (run₄ _ h)))
+    run₁ _ (by rw [ite_eq_right hPZ]; exact run₂ _ (by rw [hQ1, ite_eq_right hQZ]; exact c₃ _ _ (run₄ _ h)))
   by_cases hHz : jH (ptOf E p) (ptOf E q) = 0
   · -- `H = 0`
     obtain ⟨E₅, f₅, run₅⟩ := zeroIte_spec' (f := T + 3 + 18) (w := T + 3 + 14) (t := T + 3 + 19)
@@ -416,15 +416,15 @@ theorem jaddBCode_spec {p q r T : ℕ} (hp : p + 5 < T) (hq : q + 5 < T) (hr : r
     by_cases hLz : jΛ (ptOf E p) (ptOf E q) = 0
     · obtain ⟨E₆, h₆, v₆, f₆⟩ := jdblBCode_spec (p := p) (q := r) (T := T + 3 + 19) (by omega)
         (by omega) E₅
-      refine ⟨E₆, pre (by rw [hH, if_pos hHz]; exact run₅ _ (by rw [hL4, if_pos hLz]; exact h₆)),
+      refine ⟨E₆, pre (by rw [hH, ite_eq_left hHz]; exact run₅ _ (by rw [hL4, ite_eq_left hLz]; exact h₆)),
         ?_, fun v hv hvr => ?_⟩
-      · rw [v₆, ptOf_congr (fun i hi => g₅ _ (by omega)), jaddB, if_neg hPZ', if_neg hQZ',
-          if_neg (by simpa using hHz), if_pos hLz]
+      · rw [v₆, ptOf_congr (fun i hi => g₅ _ (by omega)), jaddB, ite_eq_right hPZ', ite_eq_right hQZ',
+          ite_eq_right (by simpa using hHz), ite_eq_left hLz]
       · rw [f₆ v (by omega) hvr, g₅ v hv]
     · obtain ⟨E₆, h₆, v₆, f₆⟩ := setO_spec r E₅
-      refine ⟨E₆, pre (by rw [hH, if_pos hHz]; exact run₅ _ (by rw [hL4, if_neg hLz]; exact h₆)),
+      refine ⟨E₆, pre (by rw [hH, ite_eq_left hHz]; exact run₅ _ (by rw [hL4, ite_eq_right hLz]; exact h₆)),
         ?_, fun v hv hvr => ?_⟩
-      · rw [v₆, jaddB, if_neg hPZ', if_neg hQZ', if_neg (by simpa using hHz), if_neg hLz]
+      · rw [v₆, jaddB, ite_eq_right hPZ', ite_eq_right hQZ', ite_eq_right (by simpa using hHz), ite_eq_right hLz]
       · rw [f₆ v hvr, g₅ v hv]
   · -- `H ≠ 0`
     obtain ⟨E₅, a₅, c₅⟩ := FProg.code_spec (T + 3 + 29) (jaddList2 p q (T + 3))
@@ -433,8 +433,8 @@ theorem jaddBCode_spec {p q r T : ℕ} (hp : p + 5 < T) (hq : q + 5 < T) (hr : r
     have hE5 : ∀ w, w + 1 < T + 3 + 29 →
         zsOf E₅ w = zsOf (FProg.sem (jaddList2 p q (T + 3)) E₄) w :=
       fun w hw => zsOf_congr (a₅ w (by omega)) (a₅ (w + 1) hw)
-    refine ⟨E₆, pre (by rw [hH, if_neg hHz]; exact c₅ _ _ h₆), ?_, fun v hv hvr => ?_⟩
-    · rw [v₆, jaddB, if_neg hPZ', if_neg hQZ', if_pos (by simpa using hHz)]
+    refine ⟨E₆, pre (by rw [hH, ite_eq_right hHz]; exact c₅ _ _ h₆), ?_, fun v hv hvr => ?_⟩
+    · rw [v₆, jaddB, ite_eq_right hPZ', ite_eq_right hQZ', ite_eq_left (by simpa using hHz)]
       simp only [ptOf]
       rw [hE5 _ (by omega), hE5 _ (by omega), hE5 _ (by omega)]
       simp (disch := omega) only [jaddList2, jaddList1, FProg.sem, FExpr.eval, zsOf_fstep_self,
@@ -489,11 +489,11 @@ theorem jmulLoop_spec {T : ℕ} (E₀ : ℕ → ℤ) : ∀ (n : ℕ) (E : ℕ �
       · obtain ⟨E₂, h₂, v₂, f₂⟩ := jaddBCode_spec (p := T) (q := T + 6) (r := T) (T := T + 17)
           (by omega) (by omega) (by omega) (Or.inl rfl) (Or.inr (Or.inl (by omega))) E₁
         refine ⟨E₂, ZBigStep.iteTrue (by simp [ZCond.Holds, e13, hodd, g₁ (T + 15) (by omega),
-          h15]) h₂, by rw [v₂, if_pos hodd, hA₁, hB₁], ?_, fun v hv hv' => f₂ v hv' hv⟩
+          h15]) h₂, by rw [v₂, ite_eq_left hodd, hA₁, hB₁], ?_, fun v hv hv' => f₂ v hv' hv⟩
         rw [ptOf_congr (fun i hi => f₂ _ (by omega) (by omega)), hB₁]
       · have hc : ¬ (ZCond.neq (T + 13) (T + 15)).Holds E₁ := by
           simp [ZCond.Holds, e13, g₁ (T + 15) (by omega), h15]; omega
-        exact ⟨E₁, ZBigStep.iteFalse hc (ZBigStep.skip _), by rw [if_neg hodd, hA₁], hB₁,
+        exact ⟨E₁, ZBigStep.iteFalse hc (ZBigStep.skip _), by rw [ite_eq_right hodd, hA₁], hB₁,
           fun _ _ _ => rfl⟩
     -- the doubling
     obtain ⟨E₃, h₃, v₃, f₃⟩ := jdblBCode_spec (p := T + 6) (q := T + 6) (T := T + 17)
@@ -577,7 +577,7 @@ theorem jmulCode_spec {k out T : ℕ} (hk : k < T) (hout : out + 5 < T) (E : ℕ
         refine ⟨?_, ?_, ?_⟩ <;> ext <;>
           simp (disch := omega) only [Function.update_of_ne, Function.update_self, ZOp.eval,
             QuadraticAlgebra.re_neg, QuadraticAlgebra.im_neg] <;> simp [show T + 2 + 1 = T + 3 by omega]
-      rw [this, v₇, jmul, if_neg (by omega)]
+      rw [this, v₇, jmul, ite_eq_right (by omega)]
       congr 1
       rw [jmulNat, show (-E k).toNat = (E k).natAbs by omega]
     · rw [f₉ v hvo, hE₈, Function.update_of_ne (by omega), Function.update_of_ne (by omega),
@@ -585,7 +585,7 @@ theorem jmulCode_spec {k out T : ℕ} (hk : k < T) (hout : out + 5 < T) (E : ℕ
   · obtain ⟨E₉, h₉, v₉, f₉⟩ := copyPt_spec (q := out) (p := T) (by omega) E₇
     refine ⟨E₉, pre (ZBigStep.iteFalse (by simp [ZCond.Holds, hk7, z₇, hneg]) (ZBigStep.skip _)) h₉,
       ?_, fun v hv hvo => ?_⟩
-    · rw [v₉, v₇, jmul, if_pos (by omega), jmulNat, show (E k).toNat = (E k).natAbs by omega]
+    · rw [v₉, v₇, jmul, ite_eq_left (by omega), jmulNat, show (E k).toNat = (E k).natAbs by omega]
     · rw [f₉ v hvo, f₇ v hv]
 
 end ZInQ.Compiler.IR

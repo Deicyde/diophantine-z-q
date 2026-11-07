@@ -27,7 +27,7 @@ theorem lift_abs_call (y : ℕ → ℚ) (x a : Poly) (w : ℕ) :
 theorem pos_of_mul_four_squares {s a b c d : ℚ} (h : s * (a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2) = 1) :
     0 < s := by
   by_contra hs
-  push_neg at hs
+  push Not at hs
   have : s * (a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2) ≤ 0 :=
     mul_nonpos_of_nonpos_of_nonneg hs (by positivity)
   linarith

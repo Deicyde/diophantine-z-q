@@ -41,7 +41,7 @@ theorem step_iff_digits {p : Program} {r : ℕ} (hp : p.Valid r) {a : ℕ}
       simp [inDigit, incTo, nzTo, zTo, hget]
     have hin' : ∀ i n, inDigit p a i n = if x = i then 1 else 0 := fun i n => by
       simp [inDigit, incTo, nzTo, zTo, hget]
-    simp only [Option.some.injEq, Config.mk.injEq, hin', hdec, if_false, add_zero]
+    simp only [Option.some.injEq, Config.mk.injEq, hin', hdec, ite_false, add_zero]
     constructor
     · rintro ⟨rfl, rfl⟩
       refine ⟨fun i _ => rfl, fun j' hj' => ?_⟩
@@ -67,9 +67,9 @@ theorem step_iff_digits {p : Program} {r : ℕ} (hp : p.Valid r) {a : ℕ}
     have hin : ∀ i n, inDigit p a i n =
         (if x = i then n else 0) + (if y = i then 1 - n else 0) := fun i n => by
       simp [inDigit, incTo, nzTo, zTo, hget]
-    simp only [hin, hreg, hinc, if_false, add_zero]
+    simp only [hin, hreg, hinc, ite_false, add_zero]
     by_cases hz : ρ j = 0
-    · simp only [hz, if_true, Option.some.injEq, Config.mk.injEq, nzDigit, lt_irrefl, if_false,
+    · simp only [hz, ite_true, Option.some.injEq, Config.mk.injEq, nzDigit, lt_irrefl, ite_false,
         tsub_zero]
       constructor
       · rintro ⟨rfl, rfl⟩
@@ -89,7 +89,7 @@ theorem step_iff_digits {p : Program} {r : ℕ} (hp : p.Valid r) {a : ℕ}
           · simp [(hdec j').not.2 h] at this; omega
         · rw [hρ' j' (by omega), hρ j' (by omega)]
     · have hpos : 0 < ρ j := Nat.pos_of_ne_zero hz
-      simp only [hz, if_false, Option.some.injEq, Config.mk.injEq, nzDigit, hpos, if_true,
+      simp only [hz, ite_false, Option.some.injEq, Config.mk.injEq, nzDigit, hpos, ite_true,
         Nat.sub_self]
       constructor
       · rintro ⟨rfl, rfl⟩

@@ -56,7 +56,7 @@ theorem pderiv_subst (i : σ) {a : MvPowerSeries σ R} (ha : constantCoeff a = 0
       coeff (n + Finsupp.single i 1)
         (PowerSeries.subst a ((PowerSeries.trunc N f : Polynomial R) : PowerSeries R)) := by
     refine coeff_subst_congr ha _ fun d hd => ?_
-    rw [Polynomial.coeff_coe, PowerSeries.coeff_trunc, if_pos]
+    rw [Polynomial.coeff_coe, PowerSeries.coeff_trunc, ite_eq_left]
     rw [map_add, Finsupp.degree_single] at hd
     omega
   rw [coeff_pderiv, h1, ← coeff_pderiv, pderiv_subst_coe i ha, coeff_mul, coeff_mul]
@@ -66,6 +66,6 @@ theorem pderiv_subst (i : σ) {a : MvPowerSeries σ R} (ha : constantCoeff a = 0
   have hle : pq.1.degree ≤ n.degree := by
     rw [← (Finset.HasAntidiagonal.mem_antidiagonal.mp hpq), map_add]; omega
   rw [PowerSeries.coeff_derivative, PowerSeries.coeff_derivative, Polynomial.coeff_coe,
-    PowerSeries.coeff_trunc, if_pos (by omega)]
+    PowerSeries.coeff_trunc, ite_eq_left (by omega)]
 
 end ZInQ.Mult

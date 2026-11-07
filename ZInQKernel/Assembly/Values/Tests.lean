@@ -42,7 +42,7 @@ noncomputable def vtD (n κ : ℤ) (t : ℚ) (h s₀ : ℤ) : Fin 6 → K0 :=
     star (zPt ((s₀ - κ * n) • genP0) / zPt ((h - κ) • genP0)) - algebraMap ℚ K0 t]
 
 /-- `R₀ = η · 2730⁶ · F(t)`. -/
-def vtR0 (t η : ℚ) : ℚ := η * 2730 ^ 6 * contactPoly t
+def vtR0 (t η : ℚ) : ℚ := η * 2730 ^ 6 * Mult.contactPoly t
 
 /-- `a₀ = 1 - R₀ q²`. -/
 def vtA0 (t η q : ℚ) : ℚ := 1 - vtR0 t η * q ^ 2
@@ -53,7 +53,7 @@ def vtR (t η q : ℚ) : ℚ := vtR0 t η * vtA0 t η q ^ 2
 /-- `W = ∏ⱼ (1 + R Cⱼ²)` with `Cⱼ = Dⱼ / F(t)`. -/
 noncomputable def vtW (n κ : ℤ) (t : ℚ) (h s₀ : ℤ) (η q : ℚ) : K0 :=
   ∏ j : Fin 6, (1 + algebraMap ℚ K0 (vtR t η q) *
-    (vtD n κ t h s₀ j / algebraMap ℚ K0 (contactPoly t)) ^ 2)
+    (vtD n κ t h s₀ j / algebraMap ℚ K0 (Mult.contactPoly t)) ^ 2)
 
 /-- `Θ = Tr(W⁻¹)`. -/
 noncomputable def vtTheta (n κ : ℤ) (t : ℚ) (h s₀ : ℤ) (η q : ℚ) : ℚ :=

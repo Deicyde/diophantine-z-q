@@ -12,8 +12,10 @@ and `y_n = ψ_{2n}(P₀)/(2ψ_n(P₀)⁴)`; `ι(-n)` is `ι(n)` with its last tw
 `ι(0) = (1, 0, 0, 0, 0)`.
 
 The proof needs that `P₀` has infinite order (Proposition 3.1, the torsion part of the generator
-certificate), which is not yet formalized; it enters as the hypothesis `¬ IsOfFinAddOrder genP0`
-(`iota_eq_psi`). The version `iota_eq_psi_of_ne_zero` needs only `[n]P₀ ≠ O`.
+certificate); here it enters as the hypothesis `¬ IsOfFinAddOrder genP0` (`iota_eq_psi`). It is
+proved in `Model/Generator/InfiniteOrder.lean` (`genP0_not_isOfFinAddOrder`), and the
+unconditional form is `iota_eq_psi_unconditional` (`Cleanup/FixedPointCodes.lean`). The version
+`iota_eq_psi_of_ne_zero` needs only `[n]P₀ ≠ O`.
 -/
 
 namespace ZInQ

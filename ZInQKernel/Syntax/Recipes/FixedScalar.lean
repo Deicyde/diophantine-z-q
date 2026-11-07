@@ -80,14 +80,8 @@ theorem val_of_evCode {x : ℕ → ℚ} {p : Code} {c : Fin 5 → ℚ} (h : evCo
 /-- A code is the code of the affine point `(X, Y)` exactly when its first coordinate is `0`
 and its pairs are `X` and `Y`. -/
 theorem eq_pointCode_some_iff (r : Fin 5 → ℚ) {X Y : K0} (h : genCurve.toAffine.Nonsingular X Y) :
-    r = pointCode (.some X Y h) ↔ r 0 = 0 ∧ (⟨r 1, r 2⟩ : K0) = X ∧ (⟨r 3, r 4⟩ : K0) = Y := by
-  rw [pointCode_some]
-  constructor
-  · rintro rfl
-    exact ⟨rfl, rfl, rfl⟩
-  · rintro ⟨h0, rfl, rfl⟩
-    funext i
-    fin_cases i <;> simp [h0]
+    r = pointCode (.some X Y h) ↔ r 0 = 0 ∧ (⟨r 1, r 2⟩ : K0) = X ∧ (⟨r 3, r 4⟩ : K0) = Y :=
+  ZInQ.eq_pointCode_some_iff h
 
 /-- `[n]P ≠ O` for `n ≠ 0` and `O ≠ P ∈ 2E(K₀)`, since `2E(K₀) = ℤP₀` is torsion free. -/
 theorem zsmul_ne_zero_of_mem_carrierD {n : ℤ} (hn : n ≠ 0) {P : genCurve.toAffine.Point}

@@ -65,13 +65,13 @@ theorem psiEval_phi (m : ℕ) {x y : R} (hc : y ^ 2 = x ^ 3 + A * x) :
   rcases Nat.even_or_odd m with hm | hm
   · have h1 : ¬Even (m + 1) := by simp [Nat.even_add_one, hm]
     have h2 : Even (m + 2) := by simpa [Nat.even_add] using hm
-    simp only [h1, h2, hm, if_true, if_false]
+    simp only [h1, h2, hm, ite_true, ite_false]
     simp only [eval_mul, eval_sub, eval_pow, eval_add, eval_X, eval_C, eval_ofNat, eval_one]
     linear_combination (-4 * (normDiv A (m + 2)).eval x * (normDiv A m).eval x) * hc
   · have hm' : ¬Even m := Nat.not_even_iff_odd.mpr hm
     have h1 : Even (m + 1) := by simp [Nat.even_add_one, hm']
     have h2 : ¬Even (m + 2) := by simpa [Nat.even_add] using hm'
-    simp only [h1, h2, hm', if_true, if_false]
+    simp only [h1, h2, hm', ite_true, ite_false]
     simp only [eval_mul, eval_sub, eval_pow, eval_add, eval_X, eval_C, eval_ofNat, eval_one]
     linear_combination (4 * x * (normDiv A (m + 1)).eval x ^ 2) * hc
 
@@ -79,7 +79,7 @@ theorem psiEval_phi (m : ℕ) {x y : R} (hc : y ^ 2 = x ^ 3 + A * x) :
 theorem psiEval_double (m : ℕ) (x y : R) :
     psiEval A (2 * ((m : ℤ) + 1)) x y = 2 * y * ((WA A).preΨ' (2 * (m + 1))).eval x := by
   rw [show (2 * ((m : ℤ) + 1)) = ((2 * (m + 1) : ℕ) : ℤ) by push_cast; ring, psiEval_natCast,
-    normDiv_eq_preΨ', if_pos (even_two_mul _)]
+    normDiv_eq_preΨ', ite_eq_left (even_two_mul _)]
   ring
 
 end Formulas
@@ -118,7 +118,7 @@ theorem natDegree_zNum : (zNum A m).natDegree = 2 * (m + 1) ^ 2 - 1 := by
 
 theorem natDegree_zDen : (zDen A m).natDegree = 2 * (m + 1) ^ 2 - 1 := by
   rw [zDen, natDegree_mul X_ne_zero ((WA A).preΨ'_ne_zero (cast_two_ne_zero m)), natDegree_X,
-    natDegree_preΨ' _ (cast_two_ne_zero m), if_pos (even_two_mul _)]
+    natDegree_preΨ' _ (cast_two_ne_zero m), ite_eq_left (even_two_mul _)]
   have h4 : (2 * (m + 1)) ^ 2 = 4 * (m + 1) ^ 2 := by ring
   have : 1 ≤ (m + 1) ^ 2 := Nat.one_le_pow _ _ (Nat.succ_pos m)
   rw [h4]
@@ -134,7 +134,7 @@ theorem leadingCoeff_zNum : (zNum A m).leadingCoeff = ((m : F) + 1) ^ 2 := by
 
 theorem leadingCoeff_zDen : (zDen A m).leadingCoeff = (m : F) + 1 := by
   rw [zDen, leadingCoeff_mul, leadingCoeff_X, leadingCoeff_preΨ' _ (cast_two_ne_zero m),
-    if_pos (even_two_mul _), Nat.mul_div_cancel_left _ two_pos]
+    ite_eq_left (even_two_mul _), Nat.mul_div_cancel_left _ two_pos]
   push_cast; ring
 
 end Degrees

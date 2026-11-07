@@ -21,9 +21,6 @@ namespace ZInQ
 
 open QuadraticAlgebra K0 Descent
 
-theorem toK0_ne_zero {a : Zs} (ha : a ≠ 0) : Zs.toK0 a ≠ 0 :=
-  (map_ne_zero_iff _ Zs.toK0_injective).mpr ha
-
 theorem Zs.natAbs_norm_lt_of_not_isUnit {π c : Zs} (hπ0 : π ≠ 0) (hπ : ¬IsUnit π) (hc : c ≠ 0) :
     (QuadraticAlgebra.norm c).natAbs < (QuadraticAlgebra.norm (π * c)).natAbs := by
   rw [map_mul, Int.natAbs_mul]

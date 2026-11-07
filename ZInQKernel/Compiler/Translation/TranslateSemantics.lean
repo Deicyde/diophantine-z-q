@@ -66,7 +66,7 @@ theorem translate_scopedIn_library (hwf : WellFormed P N V) (hcons : consts <+: 
       recipes) (translate consts N mode natIn power).parameterCount
       (translate consts N mode natIn power).variableCount := by
   obtain ⟨h1, h2, h3⟩ := library_witnesses I cstar ell T c3
-  refine translate_scopedIn hwf (templateLibrary_wf' I cstar ell T c3) hpow.wf h1 h2 h3
+  refine translate_scopedIn hwf (Syntax.templateLibrary_wf I cstar ell T c3) hpow.wf h1 h2 h3
     (fun c hc hn => ?_) hpow.witnesses
   rw [getEx_library_scalar I cstar ell T c3 hcons (hcmem c hc hn), scalarTemplate_witnesses]
 

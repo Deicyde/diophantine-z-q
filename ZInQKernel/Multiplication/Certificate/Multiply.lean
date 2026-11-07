@@ -14,8 +14,9 @@ with `P = ι(n₁)`, `Q = ι(n₂)`, `R = ι(n₃)`, the height certificate hold
 The templates take the constructor meaning `I` and the integer values `c_* = val(cstar)`,
 `ℓ = val(ell)`, `T = val(T)` as parameters. The semantics of the fixed-scalar template
 `S_{c_*}` (blueprint `syntax/fixed-scalar-semantics.md`: on codes of `2E(K₀)`,
-`Rel_{S_e}(ι(m), r) ⟺ r = ι(val(e) m)` for `val(e) ≥ 1`) is not yet formalized; it enters as the
-hypothesis `hS` on `I` and `c_*`.
+`Rel_{S_e}(ι(m), r) ⟺ r = ι(val(e) m)` for `val(e) ≥ 1`) enters as the hypothesis `hS` on `I` and
+`c_*`; for the constructors of the specification it is `spec_scalar_cstar_rel_iff`
+(`Certificate/Spec.lean`, from `Syntax.scalarTemplate_rel_iff_iota`).
 
 The generator constants force `G = (0, 1641/8, -145, -15465/4, 87483/32) = ι(1)`; the membership
 calls inside the height certificate force `P, Q, R` to be codes `ι(n_i)`

@@ -277,6 +277,10 @@ theorem holds_nzFormula (x : ℕ → ℚ) (a : Poly) (c : ℕ) :
     (nzFormula a c).Holds x ↔ ev x a * x c = 1 := by
   simp [nzFormula]
 
+theorem lift_nzFormula (y : ℕ → ℚ) (a : Poly) (c : ℕ) :
+    (nzFormula a c).Lift y ↔ ev y a * y c = 1 := by
+  simp [nzFormula]
+
 /-- **Inverse witnesses.** `NZ(a)` is satisfiable by a choice of its fresh variable exactly
 when `a ≠ 0`, and the fresh variable is then `1/a`. -/
 theorem exists_update_nzFormula_iff (x : ℕ → ℚ) (a : Poly) {c : ℕ} (hc : c ∉ a.vars) :

@@ -117,7 +117,7 @@ theorem IsNat.C_of_nonneg {c : ℤ} (hc : 0 ≤ c) : IsNat (C c) := fun x => by 
 
 @[simp] theorem nv_C_zero (x : ℕ → ℕ) : nv x (C 0) = 0 := by simp [nv]
 
-@[simp] theorem nv_X' (x : ℕ → ℕ) (i : ℕ) : nv x (X i) = x i := nv_X x i
+attribute [simp] nv_X
 
 theorem nv_two_mul {f : Poly} (hf : IsNat f) (x : ℕ → ℕ) : nv x (C 2 * f) = 2 * nv x f := by
   rw [nv_mul (IsNat.C_of_nonneg (by norm_num)) hf, nv_C_two]
@@ -354,7 +354,7 @@ theorem alpha_spec {U : Set ℕ} {XP BP NP : Poly} (hX : VarsIn XP (· ∈ U)) (
     simp (disch := omega) only [List.mem_cons, List.not_mem_nil, or_false, forall_eq_or_imp,
       forall_eq, fresh_apply_next, fresh_apply_poly, note_apply_next, zv_update_ge hB hs, zv_update_ge hX hs,
       zv_update_ge hN hs, nv_update_ge hB hs, nv_update_ge hX hs, nv_update_ge hN hs, zv_add,
-      zv_mul, zv_X, zv_C, nv_two_mul hXn, nv_two_mul hNn, nv_X', nv_X_mul_X, nv_C_two, nv_C_three]
+      zv_mul, zv_X, zv_C, nv_two_mul hXn, nv_two_mul hNn, nv_X, nv_X_mul_X, nv_C_two, nv_C_three]
     simp only [Function.update_apply, Nat.add_assoc, Nat.reduceAdd, Nat.add_left_cancel_iff,
       Nat.left_eq_add, Nat.add_eq_left, OfNat.ofNat_ne_zero, reduceCtorEq, ite_true, ite_false,
       Nat.reduceEqDiff, hXn.zv_eq, hBn.zv_eq, hNn.zv_eq]
@@ -467,7 +467,7 @@ theorem powerFlat_spec {U : Set ℕ} {PP QP RP : Poly} (hP : VarsIn PP (· ∈ U
       or_false, forall_eq_or_imp, forall_eq, exists_eq_or_imp, exists_eq_left,
       nv_add, nv_mul, zv_update_ge hP hs, zv_update_ge hQ hs, zv_update_ge hR hs,
       nv_update_ge hP hs, nv_update_ge hQ hs, nv_update_ge hR hs, zv_add, zv_mul, zv_X, zv_C,
-      nv_X', nv_X_mul_X, nv_C_two, nv_C_three, nv_C_four, nv_C_zero, nv_C_one]
+      nv_X, nv_X_mul_X, nv_C_two, nv_C_three, nv_C_four, nv_C_zero, nv_C_one]
     simp only [Function.update_apply, Nat.add_assoc, Nat.reduceAdd, Nat.add_left_cancel_iff,
       Nat.left_eq_add, Nat.add_eq_left, OfNat.ofNat_ne_zero, reduceCtorEq, ite_true, ite_false,
       Nat.reduceEqDiff, hPn.zv_eq, hQn.zv_eq, hRn.zv_eq]
@@ -585,7 +585,7 @@ theorem binomial_spec {mode : PowerMode} (hpow : PowerSpec τ mode) {U : Set ℕ
     simp (disch := first | omega | (isnat_tac; done)) only [List.mem_cons, List.not_mem_nil,
       or_false, forall_eq_or_imp, forall_eq, nv_add, nv_mul, zv_update_ge hC hs,
       zv_update_ge hN hs, zv_update_ge hK hs, nv_update_ge hC hs, nv_update_ge hN hs,
-      nv_update_ge hK hs, zv_add, zv_mul, zv_X, zv_C, nv_X', nv_C_two, nv_C_one]
+      nv_update_ge hK hs, zv_add, zv_mul, zv_X, zv_C, nv_X, nv_C_two, nv_C_one]
     simp only [Function.update_apply, Nat.add_assoc, Nat.reduceAdd, Nat.add_left_cancel_iff,
       Nat.left_eq_add, Nat.add_eq_left, OfNat.ofNat_ne_zero, reduceCtorEq, ite_true, ite_false,
       Nat.reduceEqDiff, hCn.zv_eq, hNn.zv_eq, hKn.zv_eq]
@@ -624,7 +624,7 @@ theorem orthogonal_spec {mode : PowerMode} (hpow : PowerSpec τ mode) {U : Set �
     simp only [fresh_apply_next, fresh_apply_poly, note_apply_next]
     simp (disch := first | omega | (isnat_tac; done)) only [List.mem_cons, List.not_mem_nil,
       or_false, forall_eq_or_imp, forall_eq, nv_add, nv_update_ge hA hs, nv_update_ge hB hs,
-      nv_X', Function.update_self]
+      nv_X, Function.update_self]
     rw [← NaturalBitwiseMacros.orthogonal_iff_land_eq_zero]
     simp [NaturalBitwiseMacros.orthogonal, NaturalBitwiseMacros.odd_witness_iff_odd]
 
@@ -648,7 +648,7 @@ theorem mask_spec {mode : PowerMode} (hpow : PowerSpec τ mode) {U : Set ℕ} {A
     simp only [fresh_apply_next, fresh_apply_poly, note_apply_next]
     simp (disch := first | omega | (isnat_tac; done)) only [List.mem_cons, List.not_mem_nil,
       or_false, forall_eq_or_imp, forall_eq, nv_update_ge hA hs, nv_update_ge hB hs,
-      nv_X', Function.update_self]
+      nv_X, Function.update_self]
     rw [← NaturalBitwiseMacros.mask_iff_land_eq]
     simp [NaturalBitwiseMacros.mask, NaturalBitwiseMacros.odd_witness_iff_odd]
 
@@ -683,7 +683,7 @@ theorem bitAnd_spec {mode : PowerMode} (hpow : PowerSpec τ mode) {U : Set ℕ} 
     simp (disch := first | omega | (isnat_tac; done)) only [List.mem_cons, List.not_mem_nil,
       or_false, forall_eq_or_imp, forall_eq, zv_update_ge hZ hs, zv_update_ge hX hs,
       zv_update_ge hY hs, nv_update_ge hZ hs, nv_update_ge hX hs, nv_update_ge hY hs, zv_add,
-      zv_X, nv_X']
+      zv_X, nv_X]
     simp only [Function.update_apply, Nat.add_assoc, Nat.reduceAdd, Nat.add_left_cancel_iff,
       Nat.left_eq_add, Nat.add_eq_left, OfNat.ofNat_ne_zero, reduceCtorEq, ite_true, ite_false,
       Nat.reduceEqDiff, hZn.zv_eq, hXn.zv_eq, hYn.zv_eq]

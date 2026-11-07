@@ -68,8 +68,8 @@ theorem nonzero_indicator {c q K B F D : ℕ} (_hc : 0 < c) (hK : K = 2 ^ c) (hB
       have := land_two_pow_eq hlt; rwa [← hK] at this
     rw [hl]
     by_cases h : 0 < ρ t
-    · rw [if_pos (by omega), if_pos h, mul_one]
-    · rw [if_neg (by omega), if_neg h, mul_zero]
+    · rw [ite_eq_left (by omega), ite_eq_left h, mul_one]
+    · rw [ite_eq_right (by omega), ite_eq_right h, mul_zero]
   refine ⟨main, fun N => ?_⟩
   rw [main]
   exact ⟨fun h => Nat.eq_of_mul_eq_mul_left hKpos h, fun h => by rw [h]⟩

@@ -275,8 +275,8 @@ theorem SpecL.cons {φ : Formula} {φs : List Formula} {U : Set ℕ} {c₀ c₁ 
         simp only [y]
         rcases h.loc i hi with hi | hi
         · have := hU i hi
-          rw [if_pos (show i < c₁ by omega)]
-        · rw [if_pos hi.2]
+          rw [ite_eq_left (show i < c₁ by omega)]
+        · rw [ite_eq_left hi.2]
       · refine (nholds_congr fun i hi => ?_).2 (hφs ψ hψ)
         simp only [y]
         split_ifs with hc
@@ -595,7 +595,7 @@ theorem callPower_spec {τ : ExPoly} (hτ : τ.WF) (hw : τ.witnesses = powerWit
         if h : s.next ≤ i ∧ i - s.next < τ.witnesses then w ⟨i - s.next, h.2⟩ else x i
       refine ⟨y, fun i hi => ?_, ?_⟩
       · simp only [y]
-        rw [dif_neg]
+        rw [dite_eq_right]
         rintro ⟨h1, h2⟩
         exact hi ⟨h1, by rw [hw] at h2; unfold powerWitnesses at h2 ⊢; omega⟩
       · rw [← Int.cast_eq_zero (α := ℚ), ← ev_qa, ExPoly.ev_call hτ, ← hw']
@@ -605,9 +605,9 @@ theorem callPower_spec {τ : ExPoly} (hτ : τ.WF) (hw : τ.witnesses = powerWit
         · simp only [callVals, ← ev_qa]
           exact ev_congr fun l hl => by
             simp only [qa, y]
-            rw [dif_neg (by have := hgU _ l hl; omega)]
+            rw [dite_eq_right (by have := hgU _ l hl; omega)]
         · simp only [qa, y]
-          rw [dif_pos ⟨by omega, by omega⟩]
+          rw [dite_eq_left ⟨by omega, by omega⟩]
           simp
         · rfl
 

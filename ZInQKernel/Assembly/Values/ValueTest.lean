@@ -16,8 +16,8 @@ open Syntax MvPolynomial Translation Compiler.Precision WeierstrassCurve Weierst
 
 variable {E : Type}
 
-theorem ev_valueContact (y : ℕ → ℚ) : ev y (valueContact (X 10)) = contactPoly (y 10) := by
-  simp [valueContact, contactPoly]
+theorem ev_valueContact (y : ℕ → ℚ) : ev y (valueContact (X 10)) = Mult.contactPoly (y 10) := by
+  simp [valueContact, Mult.contactPoly]
 
 theorem val_pair_zero (y : ℕ → ℚ) (p : Poly) :
     Pair.val y (p, 0) = algebraMap ℚ K0 (ev y p) := by
@@ -124,7 +124,7 @@ theorem valueTest_rel_iff {I : Constructors E} {cstar ell T : ℤ}
     rw [zU, zH] at ρ0
     rw [zV1, zV0] at ρ1
     rw [ev_valueContact, ht] at hnF
-    have hF : contactPoly t ≠ 0 := by
+    have hF : Mult.contactPoly t ≠ 0 := by
       intro h0; rw [h0, zero_mul] at hnF; exact zero_ne_one hnF
     have hF' := algebraMap_ne_zero hF
     have heta' : y 35257 ^ 2 = 1 := by simpa using heta
@@ -138,7 +138,7 @@ theorem valueTest_rel_iff {I : Constructors E} {cstar ell T : ℤ}
       unfold vtR; rw [← e0, ← ea]; simpa using hR
     rw [val_smul', ev_valueContact, ht] at hf0 hf1 hf2 hf3 hf4 hf5
     have hC : ∀ j : Fin 6, Pair.val y (varPair (35264 + 2 * ↑j)) =
-        vtD n κ t h s₀ j / algebraMap ℚ K0 (contactPoly t) := by
+        vtD n κ t h s₀ j / algebraMap ℚ K0 (Mult.contactPoly t) := by
       intro j
       rw [eq_div_iff hF', mul_comm]
       fin_cases j
@@ -175,12 +175,12 @@ theorem valueTest_rel_iff {I : Constructors E} {cstar ell T : ℤ}
       y 35257, y 35258, hh, sub_ne_zero.1 hhk, heta', ha, hWne, hΘ0, ?_⟩
     rw [← eB]; simpa using hpole
   · rintro ⟨n, κ, rfl, rfl, hκ, htC, h, s₀, η, q, hh, hhk, heta, ha, hW, hΘ, hpole⟩
-    have hF : contactPoly t ≠ 0 := contactPoly_ne_zero_iff.2 htC
+    have hF : Mult.contactPoly t ≠ 0 := contactPoly_ne_zero_iff.2 htC
     have hF' := algebraMap_ne_zero hF
     have hhk' : h - κ ≠ 0 := sub_ne_zero.2 hhk
     set W := vtW n κ t h s₀ η q with hWdef
     set Θ := vtTheta n κ t h s₀ η q with hΘdef
-    set Cv : Fin 6 → K0 := fun j => vtD n κ t h s₀ j / algebraMap ℚ K0 (contactPoly t) with hCv
+    set Cv : Fin 6 → K0 := fun j => vtD n κ t h s₀ j / algebraMap ℚ K0 (Mult.contactPoly t) with hCv
     have hzh : zIdx h ≠ 0 := zIdx_ne_zero (admissible_of_ne_zero hh)
     have hzv : zIdx (h - κ) ≠ 0 := zIdx_ne_zero (admissible_of_ne_zero hhk')
     let pts : List (ℕ × (Fin 5 → ℚ)) := [(0, iota n), (5, iota κ), (11, iota (κ * n)), (16, iota h),
@@ -217,7 +217,7 @@ theorem valueTest_rel_iff {I : Constructors E} {cstar ell T : ℤ}
         (35259, vtR0 t η),
         (35260, vtA0 t η q),
         (35261, vtR t η q),
-        (35262, (contactPoly t)⁻¹),
+        (35262, (Mult.contactPoly t)⁻¹),
         (35263, (vtA0 t η q)⁻¹),
         (35264, (Cv 0).re),
         (35265, (Cv 0).im),
@@ -276,7 +276,7 @@ theorem valueTest_rel_iff {I : Constructors E} {cstar ell T : ℤ}
     have v59 : y 35259 = vtR0 t η := hv _ _ (by simp [vals])
     have v60 : y 35260 = vtA0 t η q := hv _ _ (by simp [vals])
     have v61 : y 35261 = vtR t η q := hv _ _ (by simp [vals])
-    have v62 : y 35262 = (contactPoly t)⁻¹ := hv _ _ (by simp [vals])
+    have v62 : y 35262 = (Mult.contactPoly t)⁻¹ := hv _ _ (by simp [vals])
     have v63 : y 35263 = (vtA0 t η q)⁻¹ := hv _ _ (by simp [vals])
     have v78 : y 35278 = (W.re ^ 2 - 2 * W.im ^ 2)⁻¹ := hv _ _ (by simp [vals])
     have v79 : y 35279 = Θ := hv _ _ (by simp [vals])
