@@ -18,19 +18,19 @@ compares two different terms containing `D`, so it never tries to evaluate it.
 
 namespace ZInQ.Size
 
-open Syntax
+open Syntax AmbientPow
 
 /-! ### `R = D` -/
 
 set_option exponentiation.threshold 2100 in
 theorem W_pow_three_lt : W ^ 3 < 2 ^ 1536 :=
-  calc W ^ 3 < (2 ^ 512) ^ 3 := npow_lt_npow_left W_lt_two_pow_512 (by decide)
-    _ = 2 ^ (512 * 3) := (npow_mul _ _ _).symm
+  calc W ^ 3 < (2 ^ 512) ^ 3 := natPow_lt_natPow_left W_lt_two_pow_512 (by decide)
+    _ = 2 ^ (512 * 3) := (natPow_mul _ _ _).symm
 
 /-- `H_max < 2^(W³) < 2^(2^1536) < D`. -/
 theorem Hmax_lt_D (hCAT : CatalogueBound) : Hmax < D :=
   calc Hmax < 2 ^ W ^ 3 := Hmax_lt hCAT
-    _ < 2 ^ 2 ^ 1536 := npow_lt_npow_right (by decide) W_pow_three_lt
+    _ < 2 ^ 2 ^ 1536 := natPow_lt_natPow_right (by decide) W_pow_three_lt
     _ < D := two_pow_two_pow_lt_D (by decide)
 
 /-- `c_* < 2^(2^2059) < D`. -/
@@ -40,7 +40,7 @@ theorem cstar_lt_D (hCAT : CatalogueBound) : cstar < D :=
 set_option exponentiation.threshold 8100 in
 /-- `10^12 < 2^40 < D`. -/
 theorem ten_pow_twelve_lt_D : 10 ^ 12 < D :=
-  lt_D_of_lt (closed_comparisons_3.1.trans (npow_lt_npow_right (by decide) (by decide)))
+  lt_D_of_lt (closed_comparisons_3.1.trans (natPow_lt_natPow_right (by decide) (by decide)))
 
 theorem max_three_eq_of {d h c t : ℕ} (hh : h ≤ d) (hc : c ≤ d) (ht : t ≤ d) :
     max (max (max d h) c) t = d := by
@@ -69,41 +69,41 @@ theorem Q_eq_closed (hCAT : CatalogueBound) : Q = D ^ (10 * G0 ^ 2 * D ^ 3) := b
 theorem Ccm_lt_of {d : ℕ} (hd : 1 ≤ d) :
     2 * (d ^ 2 * 3 ^ (21000 * d ^ 2) + 1) + 4096 * ((1028 + 5 * d) + 84000 * d ^ 2) <
       2 ^ (50000 * d ^ 2) := by
-  have hs : 1 ≤ d ^ 2 := one_le_npow hd 2
-  have hds : d ≤ d ^ 2 := le_self_npow (by decide)
+  have hs : 1 ≤ d ^ 2 := one_le_natPow hd 2
+  have hds : d ≤ d ^ 2 := le_self_natPow (by decide)
   generalize d ^ 2 = s at hs hds ⊢
   have h3 : 3 ^ (21000 * s) ≤ 2 ^ (42000 * s) :=
-    calc 3 ^ (21000 * s) ≤ (2 ^ 2) ^ (21000 * s) := npow_le_npow_left (by decide) _
-      _ = 2 ^ (42000 * s) := by rw [← npow_mul]; congr 1; ring
+    calc 3 ^ (21000 * s) ≤ (2 ^ 2) ^ (21000 * s) := natPow_le_natPow_left (by decide) _
+      _ = 2 ^ (42000 * s) := by rw [← natPow_mul]; congr 1; ring
   have hB : s * 3 ^ (21000 * s) + 1 ≤ 2 ^ (42001 * s) :=
     calc s * 3 ^ (21000 * s) + 1 ≤ 2 ^ s * 2 ^ (42000 * s) :=
-          Nat.mul_lt_mul_of_lt_of_le (lt_two_npow s) h3 (npow_pos (by decide) _)
-      _ = 2 ^ (42001 * s) := by rw [← npow_add]; congr 1; ring
+          Nat.mul_lt_mul_of_lt_of_le (lt_two_natPow s) h3 (natPow_pos (by decide) _)
+      _ = 2 ^ (42001 * s) := by rw [← natPow_add]; congr 1; ring
   have hL : 4096 * ((1028 + 5 * d) + 84000 * s) < 2 ^ (42001 * s) :=
     calc 4096 * ((1028 + 5 * d) + 84000 * s) ≤ 4096 * 85033 * s := by nlinarith
       _ < 2 ^ 29 * 2 ^ s :=
-          Nat.mul_lt_mul_of_lt_of_lt closed_comparisons_4 (lt_two_npow s)
-      _ = 2 ^ (29 + s) := (npow_add _ _ _).symm
-      _ ≤ 2 ^ (42001 * s) := npow_le_npow_right (by decide) (by omega)
+          Nat.mul_lt_mul_of_lt_of_lt closed_comparisons_4 (lt_two_natPow s)
+      _ = 2 ^ (29 + s) := (natPow_add _ _ _).symm
+      _ ≤ 2 ^ (42001 * s) := natPow_le_natPow_right (by decide) (by omega)
   have hX : 4 * 2 ^ (42001 * s) ≤ 2 ^ (50000 * s) :=
-    calc 4 * 2 ^ (42001 * s) = 2 ^ (2 + 42001 * s) := by rw [npow_add]; rfl
-      _ ≤ 2 ^ (50000 * s) := npow_le_npow_right (by decide) (by omega)
+    calc 4 * 2 ^ (42001 * s) = 2 ^ (2 + 42001 * s) := by rw [natPow_add]; rfl
+      _ ≤ 2 ^ (50000 * s) := natPow_le_natPow_right (by decide) (by omega)
   omega
 
 /-- The estimate `2^(50000 D²) < Q^17`, for variables `d ≥ 300` and `g ≥ 1`. -/
 theorem two_pow_lt_Q17_of {d g : ℕ} (hd : 300 ≤ d) (hg : 1 ≤ g) :
     2 ^ (50000 * d ^ 2) < (d ^ (10 * g ^ 2 * d ^ 3)) ^ 17 := by
-  have hg2 : 1 ≤ g ^ 2 := one_le_npow hg 2
+  have hg2 : 1 ≤ g ^ 2 := one_le_natPow hg 2
   have he : 50000 * d ^ 2 < 10 * g ^ 2 * d ^ 3 * 17 := by
-    have hd2 : 0 < d ^ 2 := npow_pos (by omega) 2
+    have hd2 : 0 < d ^ 2 := natPow_pos (by omega) 2
     calc 50000 * d ^ 2 < 170 * 300 * d ^ 2 := Nat.mul_lt_mul_of_pos_right (by decide) hd2
       _ ≤ 170 * d * d ^ 2 := Nat.mul_le_mul_right _ (Nat.mul_le_mul_left _ hd)
       _ ≤ 170 * (g ^ 2 * d) * d ^ 2 :=
           Nat.mul_le_mul_right _ (Nat.mul_le_mul_left _ (Nat.le_mul_of_pos_left d hg2))
       _ = 10 * g ^ 2 * d ^ 3 * 17 := by ring
-  calc 2 ^ (50000 * d ^ 2) < 2 ^ (10 * g ^ 2 * d ^ 3 * 17) := npow_lt_npow_right (by decide) he
-    _ ≤ d ^ (10 * g ^ 2 * d ^ 3 * 17) := npow_le_npow_left (by omega) _
-    _ = (d ^ (10 * g ^ 2 * d ^ 3)) ^ 17 := npow_mul _ _ _
+  calc 2 ^ (50000 * d ^ 2) < 2 ^ (10 * g ^ 2 * d ^ 3 * 17) := natPow_lt_natPow_right (by decide) he
+    _ ≤ d ^ (10 * g ^ 2 * d ^ 3 * 17) := natPow_le_natPow_left (by omega) _
+    _ = (d ^ (10 * g ^ 2 * d ^ 3)) ^ 17 := natPow_mul _ _ _
 
 set_option exponentiation.threshold 8100 in
 theorem three_hundred_le_D : 300 ≤ D :=
@@ -121,11 +121,11 @@ theorem max_one_eq_of {c q : ℕ} (hc : c ≤ q) (hq : 1 ≤ q) : max (max 1 c) 
 
 /-- `max(1, C_cm, Q^17) = Q^17`. -/
 theorem max_Aht_eq (hCAT : CatalogueBound) : max (max 1 Ccm) (Q ^ 17) = Q ^ 17 :=
-  max_one_eq_of ((Ccm_lt_Q17 hCAT).1.trans (Ccm_lt_Q17 hCAT).2).le (one_le_npow Q_pos 17)
+  max_one_eq_of ((Ccm_lt_Q17 hCAT).1.trans (Ccm_lt_Q17 hCAT).2).le (one_le_natPow Q_pos 17)
 
 theorem Aht_closed_of (d g : ℕ) :
     2 * 10 ^ 13 * (d ^ (10 * g ^ 2 * d ^ 3)) ^ 17 = 2 * 10 ^ 13 * d ^ (170 * g ^ 2 * d ^ 3) := by
-  rw [← npow_mul]; congr 2; ring
+  rw [← natPow_mul]; congr 2; ring
 
 /-- `A_ht = 2·10^13 · Q^17 = 2·10^13 · D^(170 G₀² D³)`. -/
 theorem Aht_eq_closed (hCAT : CatalogueBound) :
@@ -139,7 +139,7 @@ theorem T_closed_of (d g : ℕ) :
     (48 * (2 * 10 ^ 13 * (d ^ (10 * g ^ 2 * d ^ 3)) ^ 17)) ^ 13 =
       (96 * 10 ^ 13) ^ 13 * d ^ (2210 * g ^ 2 * d ^ 3) := by
   have h : ∀ x : ℕ, 48 * (2 * 10 ^ 13 * x) = 96 * 10 ^ 13 * x := fun x => by ring
-  rw [h, mul_npow, ← npow_mul, ← npow_mul]
+  rw [h, mul_natPow, ← natPow_mul, ← natPow_mul]
   congr 2
   ring
 
@@ -169,12 +169,12 @@ theorem closedT_lt_of {d g : ℕ} (hd : 2 ^ 2 ^ 8008 < d) (hd' : d < 2 ^ 2 ^ 901
     (96 * 10 ^ 13) ^ 13 * d ^ (2210 * g ^ 2 * d ^ 3) < 2 ^ d ^ 8 ∧
       2 ^ d ^ 8 < 2 ^ 2 ^ 2 ^ 9013 := by
   have hbig : ∀ {k : ℕ}, k < 8008 → 2 ^ k < d := fun hk =>
-    (npow_lt_npow_right (by decide) ((lt_two_npow _).trans (npow_lt_npow_right (by decide) hk))).trans hd
+    (natPow_lt_natPow_right (by decide) ((lt_two_natPow _).trans (natPow_lt_natPow_right (by decide) hk))).trans hd
   have hd650 : 650 < d := (by decide : 650 < 2 ^ 10).trans (hbig (by decide))
   have hd0 : 0 < d := (by decide : 0 < 650).trans hd650
   have hC : 2210 * g ^ 2 < d := hg.trans (hbig (by decide))
   have hE : 2210 * g ^ 2 * d ^ 3 < d ^ 4 :=
-    calc 2210 * g ^ 2 * d ^ 3 < d * d ^ 3 := Nat.mul_lt_mul_of_pos_right hC (npow_pos hd0 3)
+    calc 2210 * g ^ 2 * d ^ 3 < d * d ^ 3 := Nat.mul_lt_mul_of_pos_right hC (natPow_pos hd0 3)
       _ = d ^ 4 := by ring
   have hEpos : 2210 * g ^ 2 * d ^ 3 ≠ 0 := by positivity
   have hDE : d * (2210 * g ^ 2 * d ^ 3) < d ^ 5 :=
@@ -182,25 +182,25 @@ theorem closedT_lt_of {d g : ℕ} (hd : 2 ^ 2 ^ 8008 < d) (hd' : d < 2 ^ 2 ^ 901
       _ = d ^ 5 := by ring
   have hDP : d ^ (2210 * g ^ 2 * d ^ 3) < 2 ^ d ^ 5 :=
     calc d ^ (2210 * g ^ 2 * d ^ 3) < (2 ^ d) ^ (2210 * g ^ 2 * d ^ 3) :=
-          npow_lt_npow_left (lt_two_npow d) hEpos
-      _ = 2 ^ (d * (2210 * g ^ 2 * d ^ 3)) := (npow_mul _ _ _).symm
-      _ < 2 ^ d ^ 5 := npow_lt_npow_right (by decide) hDE
+          natPow_lt_natPow_left (lt_two_natPow d) hEpos
+      _ = 2 ^ (d * (2210 * g ^ 2 * d ^ 3)) := (natPow_mul _ _ _).symm
+      _ < 2 ^ d ^ 5 := natPow_lt_natPow_right (by decide) hDE
   have hSmall : 650 + d ^ 5 < d ^ 8 := by
-    have h5 : 0 < d ^ 5 := npow_pos hd0 5
+    have h5 : 0 < d ^ 5 := natPow_pos hd0 5
     have h8 : d ^ 8 = d ^ 3 * d ^ 5 := by ring
-    have h3 : d ≤ d ^ 3 := le_self_npow (by decide)
+    have h3 : d ≤ d ^ 3 := le_self_natPow (by decide)
     rw [h8]
     nlinarith
   refine ⟨?_, ?_⟩
   · calc (96 * 10 ^ 13) ^ 13 * d ^ (2210 * g ^ 2 * d ^ 3) < 2 ^ 650 * 2 ^ d ^ 5 :=
           Nat.mul_lt_mul_of_lt_of_lt closed_comparisons_5.1 hDP
-      _ = 2 ^ (650 + d ^ 5) := (npow_add _ _ _).symm
-      _ < 2 ^ d ^ 8 := npow_lt_npow_right (by decide) hSmall
+      _ = 2 ^ (650 + d ^ 5) := (natPow_add _ _ _).symm
+      _ < 2 ^ d ^ 8 := natPow_lt_natPow_right (by decide) hSmall
   · have h8 : d ^ 8 < 2 ^ 2 ^ 9013 :=
-      calc d ^ 8 < (2 ^ 2 ^ 9010) ^ 8 := npow_lt_npow_left hd' (by decide)
-        _ = 2 ^ (2 ^ 9010 * 8) := (npow_mul _ _ _).symm
+      calc d ^ 8 < (2 ^ 2 ^ 9010) ^ 8 := natPow_lt_natPow_left hd' (by decide)
+        _ = 2 ^ (2 ^ 9010 * 8) := (natPow_mul _ _ _).symm
         _ = 2 ^ 2 ^ 9013 := congrArg (2 ^ ·) (by norm_num)
-    exact npow_lt_npow_right (by decide) h8
+    exact natPow_lt_natPow_right (by decide) h8
 
 /-- `(96·10^13)^13 · D^(2210 G₀² D³) < 2^(D^8) < 2^(2^(2^9013))` (the blueprint statement). -/
 theorem closedT_lt :
@@ -211,5 +211,13 @@ theorem closedT_lt :
 /-- `T < 2^(2^(2^9013))`. -/
 theorem T_lt (hCAT : CatalogueBound) : T < 2 ^ 2 ^ 2 ^ 9013 := by
   rw [T_eq_closed hCAT]; exact closedT_lt.1.trans closedT_lt.2
+
+/-- Upstream's `triplePower a = 2^(2^(2^a))`, as an equation for a variable: upstream states
+it with another power instance, so this bridge must not be checked on a closed `a`. -/
+theorem triplePower_eq (a : ℕ) : NumericalTowerBounds.triplePower a = 2 ^ 2 ^ 2 ^ a := rfl
+
+/-- `T < triplePower 9013`, in the form of upstream's `NumericalTowerBounds`. -/
+theorem T_lt_triplePower (hCAT : CatalogueBound) : T < NumericalTowerBounds.triplePower 9013 := by
+  rw [triplePower_eq]; exact T_lt hCAT
 
 end ZInQ.Size

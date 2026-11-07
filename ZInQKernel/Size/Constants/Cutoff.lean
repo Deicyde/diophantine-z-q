@@ -15,7 +15,7 @@ Under the catalogue bound: `R = D`; `T = (48 A_ht)^13 = (96·10^13)^13 · D^(221
 
 namespace ZInQ.Size
 
-open Syntax
+open Syntax AmbientPow
 
 /-- The least formal multiple search succeeds for `N_s`. -/
 theorem formal_multiple_succeeds :

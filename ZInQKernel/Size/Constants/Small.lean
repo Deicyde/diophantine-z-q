@@ -14,7 +14,7 @@ multiplications), and the comparisons are decided with the kernel's GMP `Nat` op
 
 namespace ZInQ.Size
 
-open Syntax
+open Syntax AmbientPow
 
 set_option exponentiation.threshold 512 in
 theorem Ps_lt : Ps < 2 ^ 433 := by
@@ -29,7 +29,7 @@ theorem W_lt : W < 2 ^ 435 := by
 
 set_option exponentiation.threshold 512 in
 theorem W_lt_two_pow_512 : W < 2 ^ 512 :=
-  W_lt.trans (npow_lt_npow_right (by decide) (by decide))
+  W_lt.trans (natPow_lt_natPow_right (by decide) (by decide))
 
 set_option maxRecDepth 20000 in
 set_option exponentiation.threshold 2250 in
@@ -44,7 +44,7 @@ set_option exponentiation.threshold 512 in
 theorem small_constant_bounds :
     Ps < 2 ^ 433 ∧ 10 ^ 5 < W ∧ W < 2 ^ 435 ∧ (2 : ℕ) ^ 435 < 2 ^ 512 ∧
       2 ^ 2000 < F ∧ F < 2 ^ 2250 ∧ G0 < 2 ^ 37 :=
-  ⟨Ps_lt, W_gt, W_lt, npow_lt_npow_right (by decide) (by decide), F_bounds.1, F_bounds.2,
+  ⟨Ps_lt, W_gt, W_lt, natPow_lt_natPow_right (by decide) (by decide), F_bounds.1, F_bounds.2,
     G0_lt⟩
 
 end ZInQ.Size
