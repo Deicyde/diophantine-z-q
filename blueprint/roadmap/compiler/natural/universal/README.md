@@ -31,6 +31,7 @@ are a finite check on the two explicit constructions.
 - [The universal halting circuit](halting-polynomial.md)
 - [Counts of the universal halting circuit](halting-circuit-counts.md)
 - [Node statistics of the halting circuit and the power template](halting-node-check.md)
+- [Exact node statistics of the halting circuit](halting-node-exact.md)
 - [Semantics of the universal halting circuit](halting-polynomial-semantics.md)
 
 The five-input circuit fixes the program input to the wrapper's code, moves the packed input

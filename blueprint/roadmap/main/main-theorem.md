@@ -3,7 +3,8 @@ article_id: af_0be94ccf3fca69a8d9322f8c
 declaration: theorem
 origin: cited
 statement: formalized
-lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_nodeCheck
+proof: formalized
+lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_addMulBound
 ---
 
 # The main theorem

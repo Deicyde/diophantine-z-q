@@ -4,7 +4,7 @@ declaration: theorem
 origin: cited
 statement: formalized
 proof: formalized
-lean: ZInQ.Compiler.Universal.precisionCircuit_counts, ZInQ.Compiler.Universal.precisionCircuitOf_explicitVars, ZInQ.Compiler.Universal.precisionCircuit_nodeStats, ZInQ.Compiler.Universal.precisionCircuit_consts
+lean: ZInQ.Compiler.Universal.precisionCircuit_counts, ZInQ.Compiler.Universal.precisionCircuitOf_explicitVars, ZInQ.Compiler.Universal.precisionCircuit_addMulBound, ZInQ.Compiler.Universal.precisionCircuitOf_countKind_call, ZInQ.Compiler.Universal.precisionCircuit_consts
 ---
 
 # Shape of the natural precision circuit
@@ -16,27 +16,23 @@ The five-input natural precision circuit $\mathcal N$ has:
 2. $15{,}845$ calls of the power template, with private blocks of $79$ variables, and
    variable count $54{,}056+79\cdot15{,}845=1{,}305{,}811$, so a natural zero with inputs
    $c\in\mathbb N^5$ has $1{,}305{,}806$ witness coordinates;
-3. $293{,}620$ nodes: $54{,}056$ variable nodes, $10$ constant nodes with values
-   $c_3,0,1,2,4,1399,-1,1,2,-1$ in node order, $125{,}327$ additions, $98{,}382$
-   multiplications and $15{,}845$ calls;
-4. constants among $0,1,-1,c_3,2,4,1399$, where $c_3,2,4,1399$ are distinct (by item 3
-   they first occur in this order).
+3. at most $125{,}327$ additions and at most $98{,}382$ multiplications, and $15{,}845$ calls;
+4. constants among $0,1,-1,c_3,2,4,1399$, where $c_3,2,4,1399$ are distinct.
 
 The specification chapter's [witness accounting](../../../syntax/recipes/witness-accounting.md)
-uses items 2 to 4 for the recipe translation; this statement proves them from the finite
-checks on $\mathcal H$, the power template and the wrapper. The constant $c_3$ is
-never evaluated.
+uses items 2 to 4 for the recipe translation; this statement proves them from the node
+statistics of $\mathcal H$ and the size of the program literal. The constant $c_3$ is never
+evaluated.
 
 **Proof sketch.** From the definition of $\mathcal N$ and the counts of $\mathcal H$: the
 explicit variables are the $9$ new ones and the $54{,}047$ shifted witnesses of $\mathcal H$;
-the calls are those of $\mathcal H$ with shifted blocks. For the nodes: the modified copy of
-the node list of $\mathcal H$ has the same length and kinds except that the variable node of
-$X_0$ becomes the constant node $c_3$ (so $54{,}048$ variable and $7$ constant nodes, values
-$c_3,0,1,2,4,1399,-1$, by the node-statistics check); the appended part has $8$ variable nodes,
-$3$ constants $1,2,-1$, four pairing polynomials of $8$ nodes each ($4$ additions and $4$
-multiplications) and the sum of five squares ($5$ multiplications and $4$ additions), that
-is $20$ additions and $21$ multiplications. Item 4 needs only $c_3>1399$, from the size of
-the program literal.
+the calls are those of $\mathcal H$ with shifted blocks. The modified copy of the node list of
+$\mathcal H$ has the same additions and multiplications; the appended part has four pairing
+polynomials ($4$ additions and $4$ multiplications each) and the sum of five squares ($5$
+multiplications and $4$ additions), that is $20$ additions and $21$ multiplications, so the
+bounds of $\mathcal H$ give item 3. The constants of $\mathcal H$ are among $0,1,2,4,-1,1399$;
+the copy replaces the variable node of $X_0$ by the constant node $c_3$, and the appended part
+adds $1,2,-1$. Item 4 needs only $c_3>1399$, from the size of the program literal.
 
 ## Depends on
 

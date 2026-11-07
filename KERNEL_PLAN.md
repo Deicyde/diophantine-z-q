@@ -70,25 +70,29 @@ certificates (the generator descent and height search, point counts, explicit co
 
 Status (2026-11-07):
 
-- Milestone 1 is done. `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_nodeCheck`
-  (`ZInQKernel/Main.lean`) proves `FrozenTarget` from the four hypotheses and the named finite
-  check `HaltingNodeCheck`, with axioms `propext`, `Classical.choice` and `Quot.sound` only.
-  `ZInQ.exists_bounded_integer_polynomial_defining_integers_native` (`ZInQFinite/Main.lean`)
-  discharges the check by `native_decide` and states Theorem 1.1 from the four hypotheses.
-- Milestone 2 has one item left: a kernel proof of `HaltingNodeCheck`. The check is already
-  reduced to a Boolean computation over a verified fast builder
-  (`ZInQ.Compiler.NodeCheck.haltingNodeCheck_of_checkB`); once the kernel evaluates it, the
-  four-hypothesis theorem in `ZInQKernel/Main.lean` loses its `sorry`.
+- Milestones 1 and 2 are done. `ZInQ.exists_bounded_integer_polynomial_defining_integers_of`
+  (`ZInQKernel/Main.lean`) proves `FrozenTarget` from the four hypotheses with no `sorry` and
+  no `native_decide`; `#print axioms` lists only `propext`, `Classical.choice` and
+  `Quot.sound`.
+- The last finite computation was the node statistics of the universal halting circuit. The
+  proof needs only upper bounds on its addition and multiplication nodes
+  (`ZInQ.Compiler.NodeCheck.haltingAddMulBound`), and these are proved by an upper-bound
+  judgment over the construction monad that counts requested nodes and subtracts requests
+  whose node is already present (`ZInQKernel/Compiler/NodeBound/`); the program-dependent part
+  is four small `decide +kernel` computations (about 25 s).
+- The exact node counts, which no theorem uses, are checked by `native_decide` in the separate
+  library `ZInQFinite`, outside the audited root.
 
 ## Finite computations
 
 Every finite computation the proof needs (audit of 2026-11-06, updated as the formalization
-landed). The audited library `ZInQKernel` uses no `native_decide`.
+landed). All of them are checked by the kernel; the audited library `ZInQKernel` uses no
+`native_decide`.
 
 | Status | Computations |
 | --- | --- |
 | Checked by the kernel | the small-height search (`ZInQ.Search.searchCheck_eq_true`: `Nat.rec` loops over Boolean tests built from the kernel's GMP `Nat` operations, closed by `decide +kernel` in about 60 s); the 324-primorial literal (a Boolean trial-division checker with a soundness lemma); the point counts modulo 17 and 23; the node statistics of the power template (about 35 s) and its translation statistics (about 1 min); the template parameter and witness tables; the shape of the 1,399-instruction universal interpreter and its equality with the compiled structured interpreter (a few seconds each); the size and validity of the wrapper program; the witness-count arithmetic; the closed comparisons and small constant bounds of the size chapter; the integer inequalities behind the height constants; the clearing arithmetic; the congruences of P₀ modulo 7; the height comparisons and the small residue and sign tables |
-| Named finite check | `ZInQ.Compiler.Universal.HaltingNodeCheck`: the node statistics of the universal halting circuit (293,568 hash-consed nodes). The witness accounting has no slack: bounds obtained by counting the builder's calls overshoot the variable budget by about 12.9 million witnesses, so the exact addition and multiplication counts are needed. Theorems that use it take it as a hypothesis. Milestone 1 checks it by `native_decide` in the separate library `ZInQFinite`; milestone 2 replaces that by a kernel proof (both in progress) |
+| Node statistics of the halting circuit | the bounds the proof uses (at most 125,307 additions and 98,361 multiplications among the 293,568 hash-consed nodes of the universal halting circuit) are kernel proofs, by the presence-only upper-bound judgment of `ZInQKernel/Compiler/NodeBound/`; the variable count, the constants and the call count are proved symbolically. The exact counts, used by no theorem, are checked by `native_decide` in `ZInQFinite` |
 | Replaced by symbolic proofs | the other counts of the halting and precision circuits (from the counting lemmas of the packed compiler and the construction), the scope of the precision circuit, every statement about the astronomically large constants, the guard product over the false triples |
 | Not computable | the catalogue bound CAT, a closed statement about roughly 3.8·10¹²⁹ residue classes; it stays a hypothesis |
 
