@@ -4,6 +4,8 @@ import ZInQKernel.Compiler.Translation.WellFormed
 import ZInQKernel.Compiler.Translation.Points
 import ZInQKernel.Compiler.Translation.NaturalCode
 import ZInQKernel.Compiler.Translation.RecipeRelation
+import ZInQKernel.Compiler.Translation.Spec
+import ZInQKernel.Compiler.Translation.Soundness
 
 /-!
 # Translation to rational point codes
