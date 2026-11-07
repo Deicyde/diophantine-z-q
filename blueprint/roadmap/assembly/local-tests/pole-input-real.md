@@ -2,6 +2,9 @@
 article_id: af_64a731d3120f967fc7bc668b
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.poleInput_real
 ---
 
 # Real conditions on the pole input

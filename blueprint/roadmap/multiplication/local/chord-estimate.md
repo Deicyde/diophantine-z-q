@@ -2,6 +2,9 @@
 article_id: af_29bde1829fd762ca6ea54475
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.chord_add_five, ZInQ.Mult.formal_third_point_five
 ---
 
 # The chord estimate in a formal neighbourhood

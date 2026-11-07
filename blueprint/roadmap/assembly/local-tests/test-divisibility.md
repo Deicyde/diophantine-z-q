@@ -2,6 +2,9 @@
 article_id: af_d44ff761404b44e08d384f68
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.test_dvd
 ---
 
 # Divisibility from the six local tests

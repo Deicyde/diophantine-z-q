@@ -2,6 +2,9 @@
 article_id: af_6084e6770febd47d6a3e6c37
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.poleSoluble_no_negative_odd
 ---
 
 # The one-sided pole obstruction

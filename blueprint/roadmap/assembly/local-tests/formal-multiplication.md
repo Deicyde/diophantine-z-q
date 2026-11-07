@@ -2,6 +2,9 @@
 article_id: af_fdd11da248e86a22d5f24b93
 declaration: lemma
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.val_zCoord_add_sub, ZInQ.Assembly.val_zCoord_zsmul_sub, ZInQ.Assembly.zsmul_mem_formalFilt_succ, ZInQ.Assembly.zsmul_mem_formalFilt_add_val, ZInQ.Assembly.zCoord_zsmul_eq_mul_unit
 ---
 
 # Multiplication in a formal neighbourhood

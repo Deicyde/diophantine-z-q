@@ -2,6 +2,9 @@
 article_id: af_c0d526f1f4209b800feaa168
 declaration: lemma
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.vS_star, ZInQ.Assembly.vS_trace_ge
 ---
 
 # Valuation and trace at the prime $(s)$

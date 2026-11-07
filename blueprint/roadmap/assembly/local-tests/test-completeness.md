@@ -2,6 +2,9 @@
 article_id: af_3cc8c949ef82de16f68343e5
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.test_complete
 ---
 
 # One suitable shift

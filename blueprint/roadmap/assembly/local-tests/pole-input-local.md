@@ -2,6 +2,9 @@
 article_id: af_796856202c2f11ddd07876f4
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.poleInput_local
 ---
 
 # Local conditions on the pole input

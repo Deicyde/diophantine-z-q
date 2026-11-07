@@ -2,6 +2,9 @@
 article_id: af_8006ef1eb58f359dbee81ccc
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.exists_smul_mem_Ek, ZInQ.Assembly.exists_common_smul_mem_Ek
 ---
 
 # Deep multiples of the generator

@@ -2,6 +2,8 @@
 article_id: af_b0daad8c7392a63e44c272db
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Assembly.Test
 ---
 
 # The six local tests
