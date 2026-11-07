@@ -2,6 +2,9 @@
 article_id: af_851f7522e171d8ed1b5ad5a0
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.close_sound
 ---
 
 # Soundness of Close

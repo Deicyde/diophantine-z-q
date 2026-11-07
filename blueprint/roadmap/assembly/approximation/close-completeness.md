@@ -2,6 +2,9 @@
 article_id: af_658a048485d8c44de30ea1dd
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.close_complete
 ---
 
 # Completeness of Close for every fixed shift

@@ -2,6 +2,9 @@
 article_id: af_a3af10ea27c967ba0a032879
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.multiplication_exact, ZInQ.Mult.multiplication_exact_unique, ZInQ.Mult.multiplication_existsUnique
 ---
 
 # Correctness of the multiplication template

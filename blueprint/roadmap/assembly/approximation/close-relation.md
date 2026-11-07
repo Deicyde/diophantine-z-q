@@ -2,6 +2,9 @@
 article_id: af_517787cb87d502cb82d7e15b
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.close_relation_iff
 ---
 
 # The relation Close

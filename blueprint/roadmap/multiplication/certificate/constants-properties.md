@@ -4,7 +4,7 @@ declaration: lemma
 origin: bridged
 statement: formalized
 proof: formalized
-lean: ZInQ.Mult.one_le_M0, ZInQ.Mult.four_le_cstar, ZInQ.Mult.one_le_ell, ZInQ.Mult.S_mul_admissible, ZInQ.Mult.Aht_eq_heightH6, ZInQ.Mult.sixContact_at_Smul, ZInQ.Mult.four_lt_T, ZInQ.Mult.prime_of_mem_catalogue, ZInQ.Mult.catalogue_injective, ZInQ.Mult.Hcat_squarefree, ZInQ.Mult.padicValNat_ell, ZInQ.Mult.not_mem_S_mul
+lean: ZInQ.Mult.one_le_M0, ZInQ.Mult.one_le_M0_spec, ZInQ.Mult.four_le_cstar, ZInQ.Mult.one_le_ell, ZInQ.Mult.S_mul_admissible, ZInQ.Mult.Aht_eq_heightH6, ZInQ.Mult.sixContact_at_Smul, ZInQ.Mult.four_lt_T, ZInQ.Mult.prime_of_mem_catalogue, ZInQ.Mult.catalogue_injective, ZInQ.Mult.Hcat_squarefree, ZInQ.Mult.padicValNat_ell, ZInQ.Mult.not_mem_S_mul
 ---
 
 # Properties of the multiplication constants
