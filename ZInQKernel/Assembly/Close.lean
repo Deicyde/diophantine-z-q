@@ -1,4 +1,5 @@
 import ZInQKernel.Assembly.Close.Relation
+import ZInQKernel.Assembly.Close.Soundness
 
 /-!
 # The relation Close
