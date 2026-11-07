@@ -16,6 +16,8 @@ import ZInQKernel.Compiler.Programs.Capped
 import ZInQKernel.Compiler.Programs.CappedSpec
 import ZInQKernel.Compiler.Programs.PrecisionIR
 import ZInQKernel.Compiler.Programs.Wrapper
+import ZInQKernel.Compiler.Programs.PrecisionCorrect
+import ZInQKernel.Compiler.Programs.PrecisionMachine
 
 /-!
 # Programs of the natural compiler
