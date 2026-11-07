@@ -9,6 +9,8 @@ import ZInQKernel.Compiler.Translation.Soundness
 import ZInQKernel.Compiler.Translation.Completeness
 import ZInQKernel.Compiler.Translation.ModelSemantics
 import ZInQKernel.Compiler.Translation.TranslateShape
+import ZInQKernel.Compiler.Translation.RecipeScope
+import ZInQKernel.Compiler.Translation.TranslateScope
 
 /-!
 # Translation to rational point codes

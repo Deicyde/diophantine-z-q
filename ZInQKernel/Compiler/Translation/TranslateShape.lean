@@ -107,6 +107,9 @@ def allocVar (k : ℕ) (natIn : Bool) (s : TrState) (al : Alloc) (v : ℕ × Var
     al.blocks ++ (if natFlag k natIn v then
       [(if IsInputVar k v then s.next else s.next + 5, 140604)] else [])⟩
 
+/-- The natural block of a source row. -/
+def natBlk (row : ℤ × Option ℕ) : Option (ℕ × ℕ) := row.2.map fun st => (st, 140604)
+
 /-- The invariant of the variable stage after the explicit variables `l`. -/
 structure VarInv (k : ℕ) (natIn : Bool) (p : ℕ) (l : List (ℕ × VarKind)) (s : TrState)
     (al : Alloc) : Prop where
@@ -122,6 +125,7 @@ structure VarInv (k : ℕ) (natIn : Bool) (p : ℕ) (l : List (ℕ × VarKind)) 
     (natFlag k natIn v = true → ∃ st, (r, some st) ∈ s.sources ∧ (st, 140604) ∈ al.blocks)
   row : ∀ row ∈ s.sources, ∃ v ∈ l, (v.1, row.1) ∈ s.varRefs ∧
     (∀ st, row.2 = some st → natFlag k natIn v = true ∧ (st, 140604) ∈ al.blocks)
+  natBlocks : s.sources.filterMap natBlk = al.blocks
 
 theorem trVar_input {k : ℕ} {natIn : Bool} {s : TrState} {v : ℕ × VarKind}
     (hI : IsInputVar k v) :
@@ -158,7 +162,8 @@ theorem varInv_step {k : ℕ} {natIn : Bool} {p : ℕ} {l : List (ℕ × VarKind
   by_cases hI : IsInputVar k v
   · have hnf : natFlag k natIn v = natIn := by simp [natFlag, hI]
     rw [trVar_input hI, allocVar_input hI]
-    refine ⟨?_, ?_, h.nodePts, h.constRefs, h.constants, h.operations, by simp [h.keys], ?_, ?_⟩
+    refine ⟨?_, ?_, h.nodePts, h.constRefs, h.constants, h.operations, by simp [h.keys], ?_, ?_,
+      ?_⟩
     · have := h.next_ge; dsimp only; split_ifs <;> omega
     · cases natIn
       · simpa using hal
@@ -188,10 +193,12 @@ theorem varInv_step {k : ℕ} {natIn : Bool} {p : ℕ} {l : List (ℕ × VarKind
         · simp only [ite_true, Option.some.injEq] at hs
           subst hs
           exact ⟨hnf, by simp⟩
+    · rw [List.filterMap_append, h.natBlocks]
+      cases natIn <;> simp [natBlk]
   · have hnf : natFlag k natIn v = true := by simp [natFlag, hI]
     rw [trVar_witness hI, allocVar_witness hI]
-    refine ⟨by have := h.next_ge; show p + 3 ≤ s.next + 5 + 140604; omega, ?_, h.nodePts, h.constRefs, h.constants,
-      h.operations, by simp [h.keys], ?_, ?_⟩
+    refine ⟨by have := h.next_ge; show p + 3 ≤ s.next + 5 + 140604; omega, ?_, h.nodePts,
+      h.constRefs, h.constants, h.operations, by simp [h.keys], ?_, ?_, ?_⟩
     · have h1 := hal.addSlot h.next_ge (Slot.var v.1)
       have h2 := h1.addBlock (by have := h.next_ge; omega) 140604
       exact h2
@@ -217,6 +224,8 @@ theorem varInv_step {k : ℕ} {natIn : Bool} {p : ℕ} {l : List (ℕ × VarKind
         simp only [Option.some.injEq] at hs
         subst hs
         exact ⟨hnf, by simp⟩
+    · rw [List.filterMap_append, h.natBlocks]
+      simp [natBlk]
 
 /-- The initial state of the variable stage: the counter after the parameters and the
 generator variables. -/
@@ -230,7 +239,7 @@ theorem varInv_foldl (k : ℕ) (natIn : Bool) (p : ℕ) (l : List (ℕ × VarKin
         (trInit p, ⟨[], []⟩)).2 := by
   induction l using List.reverseRecOn with
   | nil =>
-    exact ⟨le_rfl, AllocInv.nil _ _, rfl, rfl, rfl, rfl, rfl, by simp, by simp [trInit]⟩
+    exact ⟨le_rfl, AllocInv.nil _ _, rfl, rfl, rfl, rfl, rfl, by simp, by simp [trInit], rfl⟩
   | append_singleton l v ih =>
     rw [foldl_pair_append]
     exact varInv_step ih v
@@ -269,6 +278,23 @@ def allocNode (powerW : ℕ) (s : TrState) (al : Alloc) : NatNode → Alloc
       ⟨al.slots ++ [(s.next, Slot.const c)], al.blocks ++ [(s.next + 5, 1)]⟩ else al
   | n => ⟨al.slots ++ [(s.next, Slot.node s.nodePts.length)], al.blocks ++ [(s.next + 5, opLen powerW n)]⟩
 
+/-- The block of a constant definition. -/
+def constBlk (d : ℕ × ℤ × ℕ) : ℕ × ℕ := (d.2.2, 1)
+
+/-- The block of an operation. -/
+def opBlk (powerW : ℕ) : Operation → ℕ × ℕ
+  | .add _ _ _ s => (s, 6)
+  | .mul _ _ _ s => (s, 35134)
+  | .power _ _ _ _ s => (s, powerW)
+
+/-- The call blocks of the recipe, in the order of its conjuncts. -/
+def formulaBlocks (powerW : ℕ) (s : TrState) : List (ℕ × ℕ) :=
+  s.sources.filterMap natBlk ++ s.constants.map constBlk ++ s.operations.map (opBlk powerW)
+
+theorem opBlk_opFor (powerW : ℕ) (pts : List ℤ) (q : ℕ) {n : NatNode} (hn : IsOpNode n) :
+    opBlk powerW (opFor pts q n) = (q + 5, opLen powerW n) := by
+  cases n <;> simp only [IsOpNode] at hn <;> rfl
+
 /-- The point of node `j` and what it records. -/
 def NodePt (consts : List ℤ) (s : TrState) (al : Alloc) (j : ℕ) (pj : ℤ) : NatNode → Prop
   | .var i => pj = (assocLookup s.varRefs i).getD (-4)
@@ -295,6 +321,7 @@ structure NodeInv (consts : List ℤ) (powerW p : ℕ) (sV : TrState) (alV : All
     d = (18 + consts.idxOf e.1, (q : ℤ), q + 5)) ∧ (d.2.2, 1) ∈ al.blocks
   ops : ∀ op ∈ s.operations, ∃ (j : ℕ) (n : NatNode), ∃ q : ℕ, l[j]? = some n ∧ s.nodePts[j]? = some (q : ℤ) ∧
     IsOpNode n ∧ op = opFor s.nodePts q n ∧ (q + 5, opLen powerW n) ∈ al.blocks
+  perm : (formulaBlocks powerW s).Perm al.blocks
 
 theorem NodePt.mono {consts : List ℤ} {s s' : TrState} {al al' : Alloc} {j : ℕ} {pj : ℤ}
     {n : NatNode} (h : NodePt consts s al j pj n) (hv : s'.varRefs = s.varRefs)
@@ -370,7 +397,8 @@ theorem nodeInv_step_of {consts : List ℤ} {powerW p : ℕ} {sV : TrState} {alV
       d = (18 + consts.idxOf e.1, (q : ℤ), q + 5)) ∧ (d.2.2, 1) ∈ al'.blocks))
     (hcr_sub : ∀ e ∈ s.constRefs, e ∈ s'.constRefs)
     (hod : ∀ op ∈ s'.operations, op ∈ s.operations ∨ ∃ q : ℕ, x = q ∧ IsOpNode n ∧
-      op = opFor s'.nodePts q n ∧ (q + 5, opLen powerW n) ∈ al'.blocks) :
+      op = opFor s'.nodePts q n ∧ (q + 5, opLen powerW n) ∈ al'.blocks)
+    (hperm : (formulaBlocks powerW s').Perm al'.blocks) :
     NodeInv consts powerW p sV alV (l ++ [n]) s' al' := by
   have hlen := h.len
   have oldOp : ∀ (q : ℕ) (n' : NatNode) (j : ℕ), l[j]? = some n' →
@@ -382,7 +410,7 @@ theorem nodeInv_step_of {consts : List ℤ} {powerW p : ℕ} {sV : TrState} {alV
     have := lt_of_getElem? hj
     omega
   refine ⟨hnext, hal, hv.trans h.varRefs, hsrc.trans h.sources, fun e he => hsl _ (h.slots_sub e he),
-    fun b hb => hbl _ (h.blocks_sub b hb), by simp [hpts, hlen], ?_, ?_, ?_, ?_⟩
+    fun b hb => hbl _ (h.blocks_sub b hb), by simp [hpts, hlen], ?_, ?_, ?_, ?_, hperm⟩
   · intro j n' pj hj hp
     rw [hpts] at hp
     rcases getElem?_append_new hj with hj' | ⟨rfl, rfl⟩
@@ -458,7 +486,7 @@ theorem nodeInv_step {consts : List ℤ} {powerW p : ℕ} {sV : TrState} {alV : 
       ((h.alloc.addSlot hge _).addBlock (by omega) (opLen powerW n)) rfl rfl rfl
       (fun e he => by simp [he]) (fun b hb => by simp [hb]) (fun d hd => hd)
       (fun op hop => by simp [hop]) ?_ (fun e he => Or.inl he) (fun d hd => Or.inl hd)
-      (fun e he => he) ?_
+      (fun e he => he) ?_ ?_
     · have hsl : (s.next, Slot.node l.length) ∈
           al.slots ++ [(s.next, Slot.node s.nodePts.length)] := by simp [hlen]
       cases n <;> simp only [IsOpNode] at hop <;> simp only [NodePt] <;>
@@ -468,12 +496,14 @@ theorem nodeInv_step {consts : List ℤ} {powerW p : ℕ} {sV : TrState} {alV : 
       rcases hop' with hop' | rfl
       · exact Or.inl hop'
       · exact Or.inr ⟨s.next, rfl, hop, hopf.symm, by simp⟩
+    · have := h.perm.append_right [(s.next + 5, opLen powerW n)]
+      simpa [formulaBlocks, opBlk_opFor powerW _ _ hop] using this
   · cases n with
     | var i =>
       refine nodeInv_step_of h hwfl _ _ _ ((assocLookup s.varRefs i).getD (-4)) hge h.alloc
         rfl rfl rfl (fun e he => he) (fun b hb => hb) (fun d hd => hd) (fun op hop => hop)
         rfl (fun e he => Or.inl he) (fun d hd => Or.inl hd) (fun e he => he)
-        (fun op hop => Or.inl hop)
+        (fun op hop => Or.inl hop) h.perm
     | const c =>
       by_cases hc : IsNontrivial c
       · cases hl : assocLookup s.constRefs c with
@@ -486,7 +516,7 @@ theorem nodeInv_step {consts : List ℤ} {powerW p : ℕ} {sV : TrState} {alV : 
           refine nodeInv_step_of h hwfl _ _ _ r hge h.alloc
             rfl rfl rfl (fun e he => he) (fun b hb => hb) (fun d hd => hd) (fun op hop => hop)
             ⟨fun _ => ⟨q, hq, h1, h2⟩, fun h' => absurd hc h'⟩ (fun e he => Or.inl he)
-            (fun d hd => Or.inl hd) (fun e he => he) (fun op hop => Or.inl hop)
+            (fun d hd => Or.inl hd) (fun e he => he) (fun op hop => Or.inl hop) h.perm
         | none =>
           rw [trNode_const_new consts powerW s hc hl]
           have hal : allocNode powerW s al (.const c) =
@@ -497,7 +527,7 @@ theorem nodeInv_step {consts : List ℤ} {powerW p : ℕ} {sV : TrState} {alV : 
             ((h.alloc.addSlot hge _).addBlock (by omega) 1) rfl rfl rfl
             (fun e he => by simp [he]) (fun b hb => by simp [hb]) (fun d hd => by simp [hd])
             (fun op hop => hop) ⟨fun _ => ⟨s.next, rfl, by simp, by simp⟩, fun h' => absurd hc h'⟩
-            ?_ ?_ (fun e he => by simp [he]) (fun op hop => Or.inl hop)
+            ?_ ?_ (fun e he => by simp [he]) (fun op hop => Or.inl hop) ?_
           · intro e he
             simp only [List.mem_append, List.mem_singleton] at he
             rcases he with he | rfl
@@ -508,13 +538,17 @@ theorem nodeInv_step {consts : List ℤ} {powerW p : ℕ} {sV : TrState} {alV : 
             rcases hd with hd | rfl
             · exact Or.inl hd
             · exact Or.inr ⟨⟨(c, (s.next : ℤ)), by simp, s.next, rfl, rfl⟩, by simp⟩
+          · refine List.Perm.trans ?_ (h.perm.append_right [(s.next + 5, 1)])
+            simp only [formulaBlocks, List.map_append, List.map_cons, List.map_nil, constBlk,
+              List.append_assoc]
+            exact List.Perm.append_left _ (List.Perm.append_left _ List.perm_append_comm)
       · rw [trNode_const_triv consts powerW s hc]
         have hal : allocNode powerW s al (.const c) = al := by simp [allocNode, hc]
         rw [hal]
         refine nodeInv_step_of h hwfl _ _ _ (trivialRef c) hge h.alloc
           rfl rfl rfl (fun e he => he) (fun b hb => hb) (fun d hd => hd) (fun op hop => hop)
           ⟨fun h' => absurd h' hc, fun _ => rfl⟩ (fun e he => Or.inl he)
-          (fun d hd => Or.inl hd) (fun e he => he) (fun op hop => Or.inl hop)
+          (fun d hd => Or.inl hd) (fun e he => he) (fun op hop => Or.inl hop) h.perm
     | _ => exact absurd trivial hop
 
 theorem nodeInv_foldl (consts : List ℤ) (powerW p : ℕ) {k : ℕ} {natIn : Bool}
@@ -529,10 +563,11 @@ theorem nodeInv_foldl (consts : List ℤ) (powerW p : ℕ) {k : ℕ} {natIn : Bo
   induction l using List.reverseRecOn with
   | nil =>
     refine ⟨hV.next_ge, hV.alloc, rfl, rfl, fun e he => he, fun b hb => hb,
-      by simp [hV.nodePts], fun j n pj hj => by simp at hj, ?_, ?_, ?_⟩
+      by simp [hV.nodePts], fun j n pj hj => by simp at hj, ?_, ?_, ?_, ?_⟩
     · intro e he; simp [hV.constRefs] at he
     · intro d hd; simp [hV.constants] at hd
     · intro op hop; simp [hV.operations] at hop
+    · simp [formulaBlocks, hV.constants, hV.operations, hV.natBlocks]
   | append_singleton l n ih =>
     have hl : ∀ (j : ℕ) (n' : NatNode), l[j]? = some n' → ∀ a ∈ n'.children, a < j :=
       fun j n' hj => hwfl j n' (getElem?_append_old hj)
