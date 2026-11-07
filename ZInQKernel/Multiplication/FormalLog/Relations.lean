@@ -176,4 +176,24 @@ theorem pderiv_subst_X (i j : Fin 2) (f : PowerSeries R) :
   · subst h; rw [pderiv_X_self, mul_one]
   · rw [pderiv_X_of_ne h, mul_zero]
 
+/-- The derivative of the chord relation: `∂₁λ (T₂ - T₁) = λ - ω'(T₁)`. -/
+theorem pderiv_zero_chordSlope_mul (A : R) :
+    pderiv 0 (chordSlope A) * (MvPowerSeries.X 1 - MvPowerSeries.X 0) = chordSlope A -
+      PowerSeries.subst (MvPowerSeries.X 0 : MvPowerSeries (Fin 2) R)
+        (PowerSeries.derivative (R := R) (omegaSeries A)) := by
+  have := congrArg (pderiv 0) (chordSlope_mul_sub A)
+  rw [Derivation.leibniz, map_sub, map_sub, pderiv_X_self, pderiv_X_of_ne one_ne_zero,
+    omegaFst_eq_subst, omegaSnd, pderiv_subst_X, pderiv_subst_X, if_pos rfl, if_neg one_ne_zero,
+    smul_eq_mul, smul_eq_mul] at this
+  linear_combination this
+
+/-- `ω'(T₁) (1 - 2A T₁ ω(T₁)) = 3T₁² + A ω(T₁)²`. -/
+theorem subst_derivative_omega_mul_fst (A : R) :
+    PowerSeries.subst (MvPowerSeries.X 0 : MvPowerSeries (Fin 2) R)
+        (PowerSeries.derivative (R := R) (omegaSeries A)) *
+      (1 - 2 * MvPowerSeries.C A * MvPowerSeries.X 0 * omegaFst A) =
+      3 * MvPowerSeries.X 0 ^ 2 + MvPowerSeries.C A * omegaFst A ^ 2 := by
+  rw [omegaFst_eq_subst]
+  exact subst_derivative_omegaSeries_mul (constantCoeff_X 0) A
+
 end ZInQ.Mult

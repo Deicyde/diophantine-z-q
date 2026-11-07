@@ -1,7 +1,7 @@
 import ZInQKernel.Multiplication.Local.FormalGroupLaw
 import ZInQKernel.Multiplication.Local.TruncationError
 import ZInQKernel.Multiplication.Local.PointMap
-import ZInQKernel.Multiplication.FormalLog.Identity
+import ZInQKernel.Multiplication.FormalLog.LogAdd
 
 /-!
 # The formal logarithm of `y² = x³ + A x` and its isometry range
@@ -58,8 +58,8 @@ variable {p e : ℕ} [Fact p.Prime]
 /-- **The formal logarithm is a homomorphism** `W₁(K) → (K, +)`. -/
 theorem ellLog_add (h : ResidueChar K p e) {A : K} (hA : 0 ≤ vK K A)
     {P Q : (shortCurve A).toAffine.Point} (hP : P ∈ W1 (vK K) A) (hQ : Q ∈ W1 (vK K) A) :
-    ellLog (P + Q) = ellLog P + ellLog Q := by
-  sorry
+    ellLog (P + Q) = ellLog P + ellLog Q :=
+  evalLog_zCoord_add h hA hP hQ
 
 omit [Valued K ℤᵐ⁰] [CompleteSpace K] [DecidableEq K] [Fact p.Prime] in
 theorem logCoeffA_eq_zero_of_even {A : K} {r : ℕ} (hr : Even r) : logCoeffA A r = 0 := by

@@ -3,6 +3,10 @@ import ZInQKernel.Multiplication.FormalLog.ChainRule
 import ZInQKernel.Multiplication.FormalLog.InvDiff
 import ZInQKernel.Multiplication.FormalLog.Relations
 import ZInQKernel.Multiplication.FormalLog.Identity
+import ZInQKernel.Multiplication.FormalLog.Eval
+import ZInQKernel.Multiplication.FormalLog.ChordAlgebra
+import ZInQKernel.Multiplication.FormalLog.ChordEval
+import ZInQKernel.Multiplication.FormalLog.LogAdd
 
 /-!
 # The formal logarithm of `y² = x³ + A x` is a homomorphism
