@@ -10,6 +10,7 @@ import ZInQKernel.Multiplication.Certificate.LiftLemmas
 import ZInQKernel.Multiplication.Certificate.TestGroup
 import ZInQKernel.Multiplication.Certificate.Slope
 import ZInQKernel.Multiplication.Certificate.HeightCertificate
+import ZInQKernel.Multiplication.Certificate.Multiply
 
 /-!
 # The multiplication certificate and its semantics

@@ -257,4 +257,19 @@ theorem heightCertificate_rel_iff (ℓ : ℚ) (c : Fin 4 → ℤ) (a : Fin 36 �
       by rw [hsv 8 1 31246 rfl]; exact (hs 8).2 1,
       by rw [hsv 8 2 31247 rfl]; exact (hs 8).2 2⟩
 
+/-- The membership conjuncts of the certificate alone: accepted inputs are codes `ι(n_i)`,
+whatever the shift points. -/
+theorem heightTemplate_rel_members (a : Fin 36 → ℚ) (h : heightTemplate.Rel a) :
+    ∃ n : Fin 3 → ℤ, ∀ (i : Fin 3) (k : Fin 5), a ⟨5 * i + k, by omega⟩ = iota (n i) k := by
+  rw [heightTemplate_rel_iff] at h
+  obtain ⟨y, hya, hL⟩ := h
+  simp only [heightFormula, heightRootFormula, lift_and_append, lift_and_cons, lift_and_nil,
+    and_true, height_member_call,
+    and_assoc] at hL
+  obtain ⟨⟨n0, hn0⟩, -, -, -, ⟨n1, hn1⟩, -, -, -, ⟨n2, hn2⟩, -⟩ := hL
+  refine ⟨![n0, n1, n2], fun i k => ?_⟩
+  rw [← hya ⟨5 * i + k, by omega⟩]
+  fin_cases i
+  exacts [congrFun hn0 k, congrFun hn1 k, congrFun hn2 k]
+
 end ZInQ.Mult
