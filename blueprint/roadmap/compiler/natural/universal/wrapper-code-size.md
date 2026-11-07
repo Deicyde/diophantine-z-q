@@ -2,6 +2,9 @@
 article_id: af_1c0f94c4bebb496ad2fb94e8
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Universal.c3, ZInQ.Compiler.Universal.c3_lt, ZInQ.Compiler.Universal.c3_gt
 ---
 
 # Size of the program literal

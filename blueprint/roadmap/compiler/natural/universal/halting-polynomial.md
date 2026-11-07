@@ -2,6 +2,8 @@
 article_id: af_dc8b790c97298ce333d4c3be
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.Universal.haltingCircuit
 ---
 
 # The universal halting circuit

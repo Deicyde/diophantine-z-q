@@ -2,6 +2,8 @@
 article_id: af_f910740a6871663ab4eb1c3c
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.powerValueRecipe, ZInQ.Syntax.powerValueRecipe_variableCount
 ---
 
 # The power-value recipe

@@ -2,6 +2,9 @@
 article_id: af_87d292690d64885d4a6b6e34
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Universal.precisionCircuit_poly, ZInQ.Compiler.Universal.precisionCircuit_natRel_iff, ZInQ.Compiler.Universal.precisionCircuit_wellScoped
 ---
 
 # The precision circuit is a specialization

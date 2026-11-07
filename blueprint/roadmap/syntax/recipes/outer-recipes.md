@@ -2,6 +2,8 @@
 article_id: af_1d325a779752858862833df4
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.closeRecipe, ZInQ.Syntax.mainRecipe, ZInQ.Syntax.valueUnionRecipe, ZInQ.Syntax.valueRecipe, ZInQ.Syntax.integersRecipe
 ---
 
 # The outer composition recipes
@@ -37,6 +39,10 @@ $$[\![\mathtt{value\_union}]\!]=\mathtt{value.exceptions}[\mathbf X_0,X_5;6]\cdo
 and similarly for $\mathtt{main}$ and $\mathtt{close}$. The same coordinates of $K$ occur in
 $\mathtt{close}$ and $\mathtt{value.test}$; the exceptional branch and the main branch have
 disjoint private blocks.
+
+The starts and witness counts from the precision call on are those for the
+$292{,}889{,}492{,}836$ witnesses of precision; in general each of them shifts with the
+witness count of the recipe called.
 
 This is a definition.
 

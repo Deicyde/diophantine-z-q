@@ -2,6 +2,8 @@
 article_id: af_19f9aa24fb035e3a1cf20bc8
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.Universal.specialize, ZInQ.Compiler.Universal.precisionCircuitOf, ZInQ.Compiler.Universal.precisionCircuit
 ---
 
 # The five-input natural precision circuit

@@ -2,6 +2,9 @@
 article_id: af_a2cb0a59a5bbc0318db98e86
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Universal.interpreter_accepts_iff
 ---
 
 # Correctness of the universal interpreter
@@ -16,12 +19,10 @@ at once). Let $w\ge1$. After decoding and initialization, the run is coherent wi
 initial virtual configuration. ($\Leftarrow$) If the virtual run halts after $t$ steps, $t$
 applications of the step statement reach a configuration coherent with a halting virtual
 state, from which cleanup is reached; cleanup clears every register and halts.
-($\Rightarrow$) The final halt is reachable only through cleanup, which is entered only from
-the decoding step with $w=0$ or from a simulated halt (items 3 and 4 of the shape check:
-the cleanup stage is a straight run of clearing loops ending at the final halt, entered only
-at its first state, and only from the three exit states); by the step statement, if the
-virtual run never halts the interpreter returns to the main loop forever and never
-enters cleanup. Hence acceptance implies virtual halting.
+($\Rightarrow$) The machine is deterministic. If the virtual run never halts, the step
+statement gives configurations coherent with it at arbitrarily late times, each loop
+iteration taking at least one step, so the interpreter never stops. Hence acceptance
+implies virtual halting.
 
 ## Depends on
 

@@ -2,6 +2,9 @@
 article_id: af_858623715689082574247d1b
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Universal.precisionCircuit_counts, ZInQ.Compiler.Universal.precisionCircuitOf_explicitVars, ZInQ.Compiler.Universal.precisionCircuit_nodeStats, ZInQ.Compiler.Universal.precisionCircuit_consts
 ---
 
 # Shape of the natural precision circuit
@@ -16,8 +19,8 @@ The five-input natural precision circuit $\mathcal N$ has:
 3. $293{,}620$ nodes: $54{,}056$ variable nodes, $10$ constant nodes with values
    $c_3,0,1,2,4,1399,-1,1,2,-1$ in node order, $125{,}327$ additions, $98{,}382$
    multiplications and $15{,}845$ calls;
-4. constants other than $0,1,-1$ which are, in order of first occurrence, $c_3,2,4,1399$,
-   and these four values are distinct.
+4. constants among $0,1,-1,c_3,2,4,1399$, where $c_3,2,4,1399$ are distinct (by item 3
+   they first occur in this order).
 
 The specification chapter's [witness accounting](../../../syntax/recipes/witness-accounting.md)
 uses items 2 to 4 for the recipe translation; this statement proves them from the finite

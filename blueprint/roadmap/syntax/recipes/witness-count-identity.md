@@ -2,6 +2,9 @@
 article_id: af_0c6502150a154a737c5aa686
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.witness_count_arith, ZInQ.Syntax.variable_count_arith
 ---
 
 # The witness-count arithmetic

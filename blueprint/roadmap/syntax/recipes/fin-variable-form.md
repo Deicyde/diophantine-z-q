@@ -2,6 +2,9 @@
 article_id: af_1a2cc86d291d4eae733f9e52
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.PstarOf_spec, ZInQ.Syntax.PstarOf_zero_projection, ZInQ.Syntax.specPstar_spec, ZInQ.Syntax.specPstar_zero_projection
 ---
 
 # The rational zero projection of the specified polynomial

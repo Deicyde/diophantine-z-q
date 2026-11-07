@@ -2,6 +2,9 @@
 article_id: af_80899a526cd564b32f084333
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.scalarTemplate_rel_iff_pointCode, ZInQ.Syntax.scalarTemplate_rel_iff_iota
 ---
 
 # Semantics of the fixed-scalar templates

@@ -2,6 +2,9 @@
 article_id: af_7f1f830e5947b36868d22522
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Universal.runs_unconsBlock, ZInQ.Compiler.Universal.runs_consBlock, ZInQ.Compiler.Universal.runs_getStmt, ZInQ.Compiler.Universal.runs_setStmt
 ---
 
 # List blocks of the interpreter

@@ -2,6 +2,9 @@
 article_id: af_0f26d486b8b236d2c8078e84
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Universal.haltingCircuit_natRel_iff, ZInQ.Compiler.Universal.haltingCircuit_natRel_iff_accepts
 ---
 
 # Semantics of the universal halting circuit

@@ -2,6 +2,8 @@
 article_id: af_384081d5fc94326347f96838
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.Universal.interpreter
 ---
 
 # The universal interpreter

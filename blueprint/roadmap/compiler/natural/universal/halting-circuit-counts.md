@@ -2,6 +2,9 @@
 article_id: af_2a7f593d2afbac60c9bf7394
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Universal.haltingCircuit_counts, ZInQ.Compiler.Universal.haltingCircuit_witnessCount, ZInQ.Compiler.Universal.haltingCircuit_macroCounts
 ---
 
 # Counts of the universal halting circuit

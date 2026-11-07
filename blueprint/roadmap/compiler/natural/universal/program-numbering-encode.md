@@ -2,6 +2,9 @@
 article_id: af_053ece06eb96df2e342e81a5
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Universal.decodeMachine_code, ZInQ.Compiler.Universal.halts_code_iff, ZInQ.Compiler.Universal.code_lt, ZInQ.Compiler.Universal.code_ge
 ---
 
 # Codes of primitive programs

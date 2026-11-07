@@ -2,6 +2,9 @@
 article_id: af_672888b0c762326f9d996138
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Universal.cons, ZInQ.Compiler.Universal.uncons, ZInQ.Compiler.Universal.listCode, ZInQ.Compiler.Universal.listCode_bijective, ZInQ.Compiler.Universal.listGet_listSet_self, ZInQ.Compiler.Universal.listSet_listCode, ZInQ.Compiler.Universal.Represents
 ---
 
 # Tape lists

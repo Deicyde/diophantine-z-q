@@ -2,6 +2,9 @@
 article_id: af_a945a7f11fab24d207628760
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Universal.interpreter_shape
 ---
 
 # Shape of the universal interpreter

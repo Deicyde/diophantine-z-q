@@ -2,6 +2,8 @@
 article_id: af_327d4215dca6105bac90fe1d
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.PstarNatOf, ZInQ.Syntax.PstarOf, ZInQ.Syntax.Pstar, ZInQ.Syntax.specPstar
 ---
 
 # The specified polynomial

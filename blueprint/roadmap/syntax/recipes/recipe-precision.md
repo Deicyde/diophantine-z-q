@@ -2,6 +2,8 @@
 article_id: af_417c255e7157b4106c77aa47
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.precisionRecipe, ZInQ.Syntax.precisionRecipe_variableCount_le
 ---
 
 # The precision recipe

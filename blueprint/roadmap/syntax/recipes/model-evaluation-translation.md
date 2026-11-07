@@ -2,6 +2,8 @@
 article_id: af_b8d81f819529166f35f5a6cb
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.translate, ZInQ.Syntax.translate_variableCount
 ---
 
 # Translation of a natural circuit into a model-evaluation recipe
@@ -46,6 +48,11 @@ The polynomial of the result is given by the semantics of model-evaluation recip
 three generator constraints, the natural calls, the constant definitions (each a
 fixed-scalar template on $(\mathrm{ref}(-2),\text{point})$), the operation calls and the five
 root differences, squared and summed.
+
+Equivalently, the translation takes the table of nontrivial constants as an argument, listed
+in order of first occurrence across the translations: $(4,2,3)$ for power_value and
+$(4,2,3,c_3,1399)$ for precision, a constant $c$ using the fixed-scalar template of its
+position in the table.
 
 This is a definition. The arithmetic meaning (every node point is the code of the node's
 signed integer value) is the compiler chapter's rational translation statement.

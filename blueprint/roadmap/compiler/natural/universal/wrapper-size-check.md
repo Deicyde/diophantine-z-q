@@ -2,6 +2,9 @@
 article_id: af_bb11037f6ed733007fc51490
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Universal.wrapper_small, ZInQ.Compiler.Universal.wrapper_valid, ZInQ.Compiler.Universal.wrapper_length
 ---
 
 # Size of the wrapper

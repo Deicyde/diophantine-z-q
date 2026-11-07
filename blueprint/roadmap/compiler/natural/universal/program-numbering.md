@@ -2,6 +2,8 @@
 article_id: af_28bd6f1629a42460f407e8c5
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.Universal.split2, ZInQ.Compiler.Universal.decodeInstr, ZInQ.Compiler.Universal.decodeMachine, ZInQ.Compiler.Universal.halts, ZInQ.Compiler.Universal.width, ZInQ.Compiler.Universal.code
 ---
 
 # The universal program numbering

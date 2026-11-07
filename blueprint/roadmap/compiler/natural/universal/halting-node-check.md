@@ -2,6 +2,8 @@
 article_id: af_106a3a57d021fd5dd896df13
 declaration: theorem
 origin: cited
+statement: formalized
+lean: ZInQ.Compiler.Universal.HaltingNodeCheck, ZInQ.Compiler.Universal.haltingCircuit_nodeStats, ZInQ.Compiler.Universal.powerTemplate_nodeStats, ZInQ.Compiler.Universal.powerTemplate_nodes_length
 ---
 
 # Node statistics of the halting circuit and the power template
