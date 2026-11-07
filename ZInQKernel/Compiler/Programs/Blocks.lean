@@ -492,4 +492,156 @@ theorem assignB_divMod {μ : Machine} {s J x y z : ℕ} (isDiv : Bool) (hx : x <
       (Reaches.refl _ _))))) |>.state_eq (by omega)
     split_ifs <;> omega
 
+
+/-! ### Tests -/
+
+theorem Embedded.snap2 {μ : Machine} {s J y z : ℕ} (he : Embedded μ s (snap2 J y z s))
+    (hy : y < J) (hz : z < J) (σ : ℕ → ℕ) (h0 : ∀ i, J ≤ i → σ i = 0) :
+    Reaches μ ⟨s, σ⟩ ⟨s + 14, fun i => if i = aux J 2 then σ z else
+      if i = aux J 0 then σ y else σ i⟩ := by
+  obtain ⟨he1, he2⟩ := he.split
+  have hJ := h0 J le_rfl
+  have hA0 := h0 (aux J 0) (by aomega)
+  have hA1 := h0 (aux J 1) (by aomega)
+  have hA2 := h0 (aux J 2) (by aomega)
+  refine Reaches.regs_eq (Reaches.state_eq ((he1.snap (by aomega) (by aomega) (by aomega)
+    (by aomega) (by aomega) (by aomega) σ hJ hA0 hA1).trans'
+      ((he2.shift (by simp)).snap (by aomega) (by aomega) (by aomega) (by aomega) (by aomega)
+        (by aomega) _ ?_ ?_ ?_) (by omega)) (by omega)) ?_
+  · simp only [aux] at *; split_ifs <;> omega
+  · simp only [aux] at *; split_ifs <;> omega
+  · simp only [aux] at *; split_ifs <;> omega
+  · funext i; simp only [aux] at *
+    split_ifs <;> subst_vars <;> omega
+
+/-- The comparison loop of the test `y < z` on the copies `a`, `b`. -/
+theorem reaches_ltLoop {μ : Machine} {u J a b th el : ℕ} (h0 : μ u = .dec b (u + 1) (u + 4))
+    (h1 : μ (u + 1) = .dec a u (u + 2)) (h2 : μ (u + 2) = .dec b (u + 2) (u + 2 + 1))
+    (h3 : μ (u + 3) = jmp J th) (h4 : μ (u + 4) = .dec a (u + 4) (u + 4 + 1))
+    (h5 : μ (u + 5) = jmp J el) (hab : a ≠ b) (hJa : J ≠ a) (hJb : J ≠ b) (σ : ℕ → ℕ)
+    (hJ : σ J = 0) :
+    Reaches μ ⟨u, σ⟩ ⟨if σ a < σ b then th else el, fun i => if i = a then 0 else
+      if i = b then 0 else σ i⟩ := by
+  induction hn : σ b generalizing σ with
+  | zero =>
+    rw [if_neg (by omega)]
+    refine Reaches.of_step (step_dec_zero h0 hn) ((reaches_clear h4 σ).trans
+      (Reaches.of_step (step_jmp h5 ?_) (Reaches.refl _ _))) |>.regs_eq ?_
+    · simp [Function.update_apply, hJa, hJ]
+    · funext i; simp [Function.update_apply]; split_ifs <;> subst_vars <;> omega
+  | succ n ih =>
+    have e1 := step_dec_pos h0 (σ := σ) (by omega)
+    by_cases ha : σ a = 0
+    · rw [if_pos (by omega)]
+      refine Reaches.of_step e1 (Reaches.of_step (step_dec_zero h1 (by simp [Function.update_apply, hab, ha]))
+        ((reaches_clear h2 _).trans (Reaches.of_step (step_jmp (by simpa using h3) ?_)
+          (Reaches.refl _ _)))) |>.regs_eq ?_
+      · simp [Function.update_apply, hJa, hJb, hJ]
+      · funext i; simp [Function.update_apply]; split_ifs <;> subst_vars <;> omega
+    · have e2 := step_dec_pos h1 (σ := Function.update σ b (σ b - 1))
+        (by simp [Function.update_apply, hab, ha])
+      have := ih (Function.update (Function.update σ b (σ b - 1)) a
+        (Function.update σ b (σ b - 1) a - 1)) (by simp [Function.update_apply, hJa, hJb, hJ])
+        (by simp [Function.update_apply, hab.symm]; omega)
+      have hc : (Function.update (Function.update σ b (σ b - 1)) a
+          (Function.update σ b (σ b - 1) a - 1) a < n) = (σ a < n + 1) := by
+        simp [Function.update_apply, hab, hab.symm]; omega
+      simp only [hc] at this
+      refine Reaches.of_step e1 (Reaches.of_step e2 this) |>.regs_eq ?_
+      funext i; simp [Function.update_apply]; split_ifs <;> subst_vars <;> omega
+
+/-- The comparison loop of the test `y = z` on the copies `a`, `b`. -/
+theorem reaches_eqLoop {μ : Machine} {u J a b th el : ℕ} (h0 : μ u = .dec b (u + 1) (u + 2))
+    (h1 : μ (u + 1) = .dec a u (u + 3)) (h2 : μ (u + 2) = .dec a (u + 5) (u + 7))
+    (h3 : μ (u + 3) = .dec b (u + 3) (u + 3 + 1)) (h4 : μ (u + 4) = jmp J el)
+    (h5 : μ (u + 5) = .dec a (u + 5) (u + 5 + 1)) (h6 : μ (u + 6) = jmp J el)
+    (h7 : μ (u + 7) = jmp J th) (hab : a ≠ b) (hJa : J ≠ a) (hJb : J ≠ b) (σ : ℕ → ℕ)
+    (hJ : σ J = 0) :
+    Reaches μ ⟨u, σ⟩ ⟨if σ a = σ b then th else el, fun i => if i = a then 0 else
+      if i = b then 0 else σ i⟩ := by
+  induction hn : σ b generalizing σ with
+  | zero =>
+    by_cases ha : σ a = 0
+    · rw [if_pos (by omega)]
+      refine Reaches.of_step (step_dec_zero h0 hn) (Reaches.of_step (step_dec_zero h2 ha)
+        (Reaches.of_step (step_jmp h7 hJ) (Reaches.refl _ _))) |>.regs_eq ?_
+      funext i; split_ifs <;> subst_vars <;> omega
+    · rw [if_neg (by omega)]
+      refine Reaches.of_step (step_dec_zero h0 hn) (Reaches.of_step (step_dec_pos h2 ha)
+        ((reaches_clear h5 _).trans (Reaches.of_step (step_jmp h6 ?_) (Reaches.refl _ _)))) |>.regs_eq ?_
+      · simp [Function.update_apply, hJa, hJ]
+      · funext i; simp [Function.update_apply]; split_ifs <;> subst_vars <;> omega
+  | succ n ih =>
+    have e1 := step_dec_pos h0 (σ := σ) (by omega)
+    by_cases ha : σ a = 0
+    · rw [if_neg (by omega)]
+      refine Reaches.of_step e1 (Reaches.of_step (step_dec_zero h1 (by simp [Function.update_apply, hab, ha]))
+        ((reaches_clear h3 _).trans (Reaches.of_step (step_jmp h4 ?_)
+          (Reaches.refl _ _)))) |>.regs_eq ?_
+      · simp [Function.update_apply, hJa, hJb, hJ]
+      · funext i; simp [Function.update_apply]; split_ifs <;> subst_vars <;> omega
+    · have e2 := step_dec_pos h1 (σ := Function.update σ b (σ b - 1))
+        (by simp [Function.update_apply, hab, ha])
+      have := ih (Function.update (Function.update σ b (σ b - 1)) a
+        (Function.update σ b (σ b - 1) a - 1)) (by simp [Function.update_apply, hJa, hJb, hJ])
+        (by simp [Function.update_apply, hab.symm]; omega)
+      have hc : (Function.update (Function.update σ b (σ b - 1)) a
+          (Function.update σ b (σ b - 1) a - 1) a = n) = (σ a = n + 1) := by
+        simp [Function.update_apply, hab, hab.symm]; omega
+      simp only [hc] at this
+      refine Reaches.of_step e1 (Reaches.of_step e2 this) |>.regs_eq ?_
+      funext i; simp [Function.update_apply]; split_ifs <;> subst_vars <;> omega
+
+
+theorem ltTest_reaches {μ : Machine} {s J y z th el : ℕ} (hy : y < J) (hz : z < J)
+    (he : Embedded μ s (ltTest J y z s th el)) (σ : ℕ → ℕ) (h0 : ∀ i, J ≤ i → σ i = 0) :
+    Reaches μ ⟨s, σ⟩ ⟨if σ y < σ z then th else el, σ⟩ := by
+  obtain ⟨he1, he2⟩ := he.split
+  have g : ∀ k (hk : k < 6), μ (s + 14 + k) = _ := fun k hk => he2 k (by simp; omega)
+  have g0 := g 0 (by omega); have g1 := g 1 (by omega); have g2 := g 2 (by omega)
+  have g3 := g 3 (by omega); have g4 := g 4 (by omega); have g5 := g 5 (by omega)
+  simp only [List.getElem_cons_zero, List.getElem_cons_succ, snap2_length, Nat.add_zero] at g0 g1 g2 g3 g4 g5
+  have hJ := h0 J le_rfl
+  have hA0 := h0 (aux J 0) (by aomega)
+  have hA2 := h0 (aux J 2) (by aomega)
+  have r := (he1.snap2 hy hz σ h0).trans (reaches_ltLoop (u := s + 14) (by simpa using g0)
+    (by simpa using g1) (by simpa using g2) (by simpa using g3) (by simpa using g4)
+    (by simpa using g5) (by aomega) (by aomega) (by aomega) _ (by simp only [aux] at *; split_ifs <;> omega))
+  refine (r.state_eq (if_congr ?_ rfl rfl)).regs_eq ?_
+  · simp only [aux] at *; split_ifs <;> omega
+  · funext i; simp only [aux, Nat.add_zero] at *; split_ifs <;> subst_vars <;> omega
+
+theorem eqTest_reaches {μ : Machine} {s J y z th el : ℕ} (hy : y < J) (hz : z < J)
+    (he : Embedded μ s (eqTest J y z s th el)) (σ : ℕ → ℕ) (h0 : ∀ i, J ≤ i → σ i = 0) :
+    Reaches μ ⟨s, σ⟩ ⟨if σ y = σ z then th else el, σ⟩ := by
+  obtain ⟨he1, he2⟩ := he.split
+  have g : ∀ k (hk : k < 8), μ (s + 14 + k) = _ := fun k hk => he2 k (by simp; omega)
+  have g0 := g 0 (by omega); have g1 := g 1 (by omega); have g2 := g 2 (by omega)
+  have g3 := g 3 (by omega); have g4 := g 4 (by omega); have g5 := g 5 (by omega)
+  have g6 := g 6 (by omega); have g7 := g 7 (by omega)
+  simp only [List.getElem_cons_zero, List.getElem_cons_succ, snap2_length, Nat.add_zero] at g0 g1 g2 g3 g4 g5 g6 g7
+  have hJ := h0 J le_rfl
+  have hA0 := h0 (aux J 0) (by aomega)
+  have hA2 := h0 (aux J 2) (by aomega)
+  have r := (he1.snap2 hy hz σ h0).trans (reaches_eqLoop (u := s + 14) (by simpa using g0)
+    (by simpa using g1) (by simpa using g2) (by simpa using g3) (by simpa using g4)
+    (by simpa using g5) (by simpa using g6) (by simpa using g7) (by aomega) (by aomega) (by aomega)
+    _ (by simp only [aux] at *; split_ifs <;> omega))
+  refine (r.state_eq (if_congr ?_ rfl rfl)).regs_eq ?_
+  · simp only [aux] at *; split_ifs <;> omega
+  · funext i; simp only [aux, Nat.add_zero] at *; split_ifs <;> subst_vars <;> omega
+
+/-- **Block correctness**: every assignment block reaches its exit with `x` updated. -/
+theorem assignB_reaches {μ : Machine} {s J x : ℕ} {o : Op} (hx : x < J) (ho : o.RegsBelow J)
+    (he : Embedded μ s (assignB J x o s)) (σ : ℕ → ℕ) (h0 : ∀ i, J ≤ i → σ i = 0) :
+    Reaches μ ⟨s, σ⟩ ⟨s + o.len, fun i => if i = x then o.eval σ else σ i⟩ := by
+  cases o with
+  | const k => exact assignB_const he σ
+  | copy y => exact assignB_copy hx ho he σ h0
+  | add y z => exact assignB_add hx ho.1 ho.2 he σ h0
+  | sub y z => exact assignB_sub hx ho.1 ho.2 he σ h0
+  | mul y z => exact assignB_mul hx ho.1 ho.2 he σ h0
+  | div y z => exact (assignB_divMod true hx ho.1 ho.2 he σ h0).state_eq (by simp [Op.len])
+  | mod y z => exact (assignB_divMod false hx ho.1 ho.2 he σ h0).state_eq (by simp [Op.len])
+
 end ZInQ.Compiler.IR

@@ -7,7 +7,7 @@ The routines of the precision program are written in a small language over integ
 variables (`ZStmt`), compiled into the ideal register language by `ZStmt.compile`: integer
 variable `k` lives in the signed register pair `(off + 2k, off + 2k + 1)`, every primitive is
 one of the signed integer routines of `Signed.lean`, and a test computes a flag into a
-temporary register and branches on it. Its big-step semantics `ZBigStep` acts on
+temporary register and branches on it. Loops run while `|a| < |b|`. Its big-step semantics `ZBigStep` acts on
 environments `ℕ → ℤ`; `ZLSim.lean` proves that the compiled statement simulates it, so the
 field, point, capped and precision routines are verified at the level of integers.
 -/
@@ -69,7 +69,7 @@ inductive ZStmt
   | skip
   | seq (s t : ZStmt)
   | ite (c : ZCond) (s t : ZStmt)
-  | loop (c : ZCond) (s : ZStmt)
+  | loop (a b : ℕ) (s : ZStmt)
   | accept
   | reject
   deriving DecidableEq, Repr
@@ -93,15 +93,15 @@ inductive ZBigStep : ZStmt → (ℕ → ℤ) → ZOutcome → Prop
       c.Holds E → ZBigStep s E o → ZBigStep (.ite c s t) E o
   | iteFalse {c : ZCond} {s t : ZStmt} {E : ℕ → ℤ} {o : ZOutcome} :
       ¬ c.Holds E → ZBigStep t E o → ZBigStep (.ite c s t) E o
-  | loopFalse {c : ZCond} {s : ZStmt} {E : ℕ → ℤ} :
-      ¬ c.Holds E → ZBigStep (.loop c s) E (.normal E)
-  | loopNormal {c : ZCond} {s : ZStmt} {E E₁ : ℕ → ℤ} {o : ZOutcome} :
-      c.Holds E → ZBigStep s E (.normal E₁) → ZBigStep (.loop c s) E₁ o →
-        ZBigStep (.loop c s) E o
-  | loopAccept {c : ZCond} {s : ZStmt} {E : ℕ → ℤ} :
-      c.Holds E → ZBigStep s E .accept → ZBigStep (.loop c s) E .accept
-  | loopReject {c : ZCond} {s : ZStmt} {E : ℕ → ℤ} :
-      c.Holds E → ZBigStep s E .reject → ZBigStep (.loop c s) E .reject
+  | loopFalse {a b : ℕ} {s : ZStmt} {E : ℕ → ℤ} :
+      ¬ (E a).natAbs < (E b).natAbs → ZBigStep (.loop a b s) E (.normal E)
+  | loopNormal {a b : ℕ} {s : ZStmt} {E E₁ : ℕ → ℤ} {o : ZOutcome} :
+      (E a).natAbs < (E b).natAbs → ZBigStep s E (.normal E₁) → ZBigStep (.loop a b s) E₁ o →
+        ZBigStep (.loop a b s) E o
+  | loopAccept {a b : ℕ} {s : ZStmt} {E : ℕ → ℤ} :
+      (E a).natAbs < (E b).natAbs → ZBigStep s E .accept → ZBigStep (.loop a b s) E .accept
+  | loopReject {a b : ℕ} {s : ZStmt} {E : ℕ → ℤ} :
+      (E a).natAbs < (E b).natAbs → ZBigStep s E .reject → ZBigStep (.loop a b s) E .reject
   | accept (E : ℕ → ℤ) : ZBigStep .accept E .accept
   | reject (E : ℕ → ℤ) : ZBigStep .reject E .reject
 
@@ -137,12 +137,6 @@ def flagCode (off : ℕ) (signedEq : Bool) (a b f : ℕ) : Stmt :=
 def signedIte (off : ℕ) (signedEq : Bool) (a b t : ℕ) (s u : Stmt) : Stmt :=
   flagCode off signedEq a b t ;; asg (t + 1) (.const 0) ;; .ifLt (t + 1) t s u
 
-/-- A signed loop: the flag into `t`, zero into `t + 1`, then `while 0 < flag`, recomputing
-the flag after the body. -/
-def signedLoop (off : ℕ) (signedEq : Bool) (a b t : ℕ) (s : Stmt) : Stmt :=
-  flagCode off signedEq a b t ;; asg (t + 1) (.const 0) ;;
-    .whileLt (t + 1) t (s ;; flagCode off signedEq a b t)
-
 /-- Compilation into the ideal register language, temporaries from `t`. A test on absolute
 values branches directly on the magnitude registers. A signed test computes its flag into
 `t`, sets `t + 1` to zero and branches on `0 < flag`; the nested statements then use
@@ -157,15 +151,7 @@ def ZStmt.compile (off : ℕ) : ZStmt → ℕ → Stmt
     .ifEq (zvar off a).mag (zvar off b).mag (s.compile off t) (u.compile off t)
   | .ite (.lt a b) s u, t => signedIte off false a b t (s.compile off (t + 2)) (u.compile off (t + 2))
   | .ite (.eq a b) s u, t => signedIte off true a b t (s.compile off (t + 2)) (u.compile off (t + 2))
-  | .loop (.nlt a b) s, t => .whileLt (zvar off a).mag (zvar off b).mag (s.compile off t)
-  | .loop (.neq a b) s, t =>
-    -- a loop on equality: run while the magnitudes are equal (not used by the routines)
-    .ifEq (zvar off a).mag (zvar off b).mag (asg t (.const 1)) (asg t (.const 0)) ;;
-      asg (t + 1) (.const 0) ;;
-      .whileLt (t + 1) t (s.compile off (t + 2) ;;
-        .ifEq (zvar off a).mag (zvar off b).mag (asg t (.const 1)) (asg t (.const 0)))
-  | .loop (.lt a b) s, t => signedLoop off false a b t (s.compile off (t + 2))
-  | .loop (.eq a b) s, t => signedLoop off true a b t (s.compile off (t + 2))
+  | .loop a b s, t => .whileLt (zvar off a).mag (zvar off b).mag (s.compile off t)
   | .accept, _ => .accept
   | .reject, _ => .reject
 
@@ -174,8 +160,7 @@ def ZStmt.temps : ZStmt → ℕ
   | .seq s u => max s.temps u.temps
   | .ite (.nlt _ _) s u | .ite (.neq _ _) s u => max s.temps u.temps
   | .ite _ s u => max s.temps u.temps + 2
-  | .loop (.nlt _ _) s => s.temps
-  | .loop _ s => s.temps + 2
+  | .loop _ _ s => s.temps
   | _ => 6
 
 /-- All variables occurring in the statement are below `K`. -/
@@ -194,7 +179,7 @@ def ZStmt.VarsBelow (K : ℕ) : ZStmt → Prop
   | .assign k o => k < K ∧ o.VarsBelow K
   | .seq s u => s.VarsBelow K ∧ u.VarsBelow K
   | .ite c s u => c.VarsBelow K ∧ s.VarsBelow K ∧ u.VarsBelow K
-  | .loop c s => c.VarsBelow K ∧ s.VarsBelow K
+  | .loop a b s => a < K ∧ b < K ∧ s.VarsBelow K
   | .skip | .accept | .reject => True
 
 instance (K : ℕ) (o : ZOp) : Decidable (o.VarsBelow K) := by

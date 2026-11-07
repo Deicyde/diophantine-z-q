@@ -116,7 +116,7 @@ def jmulCode (k out T : ℕ) : ZStmt :=
   let e := T + 12
   .assign e (.abs k) ;;; setO acc ;;; setP0 base (T + 17) ;;;
     .assign (T + 14) (.const 2) ;;; .assign (T + 15) (.const 1) ;;; .assign (T + 16) (.const 0) ;;;
-    .loop (.nlt (T + 16) e)
+    .loop (T + 16) e
       (.assign (T + 13) (.mod e (T + 14)) ;;;
         .ite (.neq (T + 13) (T + 15)) (jaddBCode acc base acc (T + 17)) .skip ;;;
         jdblBCode base base (T + 17) ;;;
