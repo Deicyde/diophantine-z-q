@@ -233,6 +233,9 @@ end ZInQ.Compiler.NodeSkeleton
 
 namespace ZInQ.Compiler.NodeSkeleton
 
+/-- The pinned start state of the first chunk. -/
+def stInit (lim : Nat) : HState := ⟨2, 2, 0, 0, [], [14, 4], [], [], [], [], lim, true⟩
+
 /-- A pinned state with its oracle data. -/
 def HState.withOracle (sc : HState) (codes hubs : List Nat) (lanes : List (List Nat)) : HState :=
   { sc with codes := codes, hubs := hubs, lanes := lanes }
@@ -248,5 +251,26 @@ def unpack (b k n : Nat) (ws : List Nat) : List Nat :=
 /-- Unpack a list of lanes. -/
 def unpackLanes (b k : Nat) (ls : List (Nat × List Nat)) : List (List Nat) :=
   ls.map fun l => unpack b k l.1 l.2
+
+end ZInQ.Compiler.NodeSkeleton
+
+namespace ZInQ.Compiler.NodeSkeleton
+
+/-- Equality of the results of item 5. -/
+def sbBeq (a b : List LForm × List (Nat × Nat × Nat)) : Bool :=
+  LForm.beqList a.1 b.1 && tripleListBeq a.2 b.2
+
+theorem sbBeq_sound (a b : List LForm × List (Nat × Nat × Nat)) (h : sbBeq a b = true) :
+    a = b := by
+  simp only [sbBeq, Bool.and_eq_true] at h
+  exact Prod.ext (LForm.beqList_sound h.1) (tripleListBeq_sound h.2)
+
+theorem natListBeq_sound' (a b : List Nat) (h : natListBeq a b = true) : a = b :=
+  natListBeq_sound h
+
+theorem formsBeq_sound (a b : List LForm) (h : LForm.beqList a b = true) : a = b :=
+  LForm.beqList_sound h
+
+theorem natBeq_sound (a b : Nat) (h : Nat.beq a b = true) : a = b := Nat.eq_of_beq_eq_true h
 
 end ZInQ.Compiler.NodeSkeleton

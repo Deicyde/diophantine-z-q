@@ -195,4 +195,75 @@ theorem laneLabel_of {hubsData : List (List Nat)} {lanesData : List (List (List 
   intro e he
   exact ⟨h.1.1, labelsB_sound ℓ h.2 e ((msortNat_perm _).mem_iff.mpr he)⟩
 
+/-! ### Hub bounds -/
+
+/-- The hub bound of every chunk: the hubs of the later chunks lie at or beyond its `lim`
+(checked on the first later hub, the list being sorted). -/
+def hubsLimB : List Nat → List (List Nat) → Bool
+  | lim :: lims, _ :: hs =>
+    (match hs.flatten with
+      | [] => true
+      | x :: _ => Nat.ble lim (x / 8)) && hubsLimB lims hs
+  | _, _ => true
+
+theorem pairwise_head_le {x : Nat} {l : List Nat} (h : (x :: l).Pairwise fun a b => a / 8 < b / 8) :
+    ∀ e ∈ x :: l, x / 8 ≤ e / 8 := by
+  intro e he
+  rcases List.mem_cons.mp he with rfl | he
+  · exact Nat.le_refl _
+  · exact Nat.le_of_lt (List.rel_of_pairwise_cons h he)
+
+theorem hubsLimB_sound : ∀ {lims : List Nat} {hs : List (List Nat)},
+    hs.flatten.Pairwise (fun a b => a / 8 < b / 8) → hubsLimB lims hs = true →
+      ∀ c, c < lims.length → ∀ e ∈ (hs.drop (c + 1)).flatten, lims.getD c 0 ≤ e / 8
+  | [], _, _, _, c, hc, _, _ => by simp at hc
+  | _ :: _, [], _, _, c, _, e, he => by simp at he
+  | lim :: lims, h0 :: hs, hp, hb, c, hc, e, he => by
+    simp only [hubsLimB, Bool.and_eq_true] at hb
+    have hp' : hs.flatten.Pairwise (fun a b => a / 8 < b / 8) := by
+      rw [List.flatten_cons] at hp; exact (List.pairwise_append.mp hp).2.1
+    cases c with
+    | zero =>
+      simp only [List.drop_succ_cons, List.drop_zero] at he
+      simp only [List.getD_cons_zero]
+      cases hfl : hs.flatten with
+      | nil => rw [hfl] at he; simp at he
+      | cons x l =>
+        rw [hfl] at he hp' hb
+        simp only [Nat.ble_eq] at hb
+        exact Nat.le_trans hb.1 (pairwise_head_le hp' e he)
+    | succ c =>
+      simp only [List.getD_cons_succ]
+      exact hubsLimB_sound hp' hb.2 c (by simp at hc; omega) e (by simpa using he)
+
+/-- The index of the first hub. -/
+def firstHubGe (n : Nat) (hs : List (List Nat)) : Bool :=
+  match hs.flatten with
+  | [] => true
+  | x :: _ => Nat.ble n (x / 8)
+
+theorem firstHubGe_sound {n : Nat} {hs : List (List Nat)}
+    (hp : hs.flatten.Pairwise (fun a b => a / 8 < b / 8)) (h : firstHubGe n hs = true) :
+    ∀ e ∈ hs.flatten, n ≤ e / 8 := by
+  unfold firstHubGe at h
+  intro e he
+  cases hfl : hs.flatten with
+  | nil => rw [hfl] at he; simp at he
+  | cons x l =>
+    rw [hfl] at he hp h
+    simp only [Nat.ble_eq] at h
+    exact Nat.le_trans h (pairwise_head_le hp e he)
+
+/-- Every chunk has at most `n` lanes. -/
+def lanesLenB (n : Nat) (ls : List (List (List Nat))) : Bool := ls.all fun l => Nat.ble l.length n
+
+theorem laneAll_nil {n : Nat} {ls : List (List (List Nat))} (h : lanesLenB n ls = true) {ℓ : Nat}
+    (hℓ : n ≤ ℓ) : laneAll ls ℓ = [] := by
+  unfold laneAll
+  simp only [List.flatten_eq_nil_iff, List.mem_map]
+  rintro _ ⟨l, hl, rfl⟩
+  simp only [lanesLenB, List.all_eq_true, Nat.ble_eq] at h
+  have := h l hl
+  simp [List.getD_eq_getElem?_getD, List.getElem?_eq_none (by omega : l.length ≤ ℓ)]
+
 end ZInQ.Compiler.NodeSkeleton
