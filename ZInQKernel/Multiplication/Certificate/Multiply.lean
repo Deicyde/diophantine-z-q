@@ -250,3 +250,25 @@ theorem multiply_rel_iff (I : Constructors E) (cs ℓ T : ℤ)
     · exact congrFun hR k
 
 end ZInQ.Mult
+
+namespace ZInQ.Mult
+
+open Syntax
+
+variable {E : Type}
+
+/-- The unfolding at the constants of the certificate: `c_* = val(cstar)`, `ℓ₀ = val(ell)`, with
+shift indices `certShifts n = (c_*, c_* n₁, c_* n₂, c_* n₃)`. -/
+theorem multiply_rel_iff_cert (I : Constructors E) (T : ℤ)
+    (hS : ∀ (m : ℤ) (r : Fin 5 → ℚ),
+      (scalarTemplate I (Syntax.cstar : ℤ)).Rel (Fin.append (iota m) r) ↔
+        r = iota ((Syntax.cstar : ℤ) * m))
+    (P Q R : Fin 5 → ℚ) :
+    (multiplyTemplate I (Syntax.cstar : ℤ) (Syntax.ell : ℤ) T).Rel (codes3 P Q R) ↔
+      ∃ n : Fin 3 → ℤ, P = iota (n 0) ∧ Q = iota (n 1) ∧ R = iota (n 2) ∧
+        HeightCert ![P, Q, R] (Syntax.ell : ℚ) (certShifts n) ∧
+        (guardTemplate I T).Rel (codes3 P Q R) := by
+  rw [multiply_rel_iff I _ _ T hS, Int.cast_natCast]
+  rfl
+
+end ZInQ.Mult

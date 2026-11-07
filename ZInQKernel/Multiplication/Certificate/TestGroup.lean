@@ -414,3 +414,47 @@ theorem testGroup_rel_iff (c : Fin 4 → ℤ) (a : Fin 44 → ℚ)
       exact mul_div_cancel₀ _ (Lam_ne_zero hhc)
 
 end ZInQ.Mult
+
+namespace ZInQ.Mult
+
+open Syntax
+
+/-- The parameter vector `(ι(c₀), ι(c₁), ι(c₂), ι(c₃), D₁, …, D₁₂)` of a test group. -/
+noncomputable def testGroupVec (c : Fin 4 → ℤ) (D : Fin 12 → Fin 2 → ℚ) : Fin 44 → ℚ := fun k =>
+  if h : k.val < 20 then iota (c ⟨k / 5, by omega⟩) ⟨k % 5, by omega⟩
+  else D ⟨(k - 20) / 2, by omega⟩ ⟨(k - 20) % 2, by omega⟩
+
+/-- **Semantics of the test-group template**, in the form of the article: for all
+`c₀, …, c₃ ∈ ℤ` and rational pairs `D₁, …, D₁₂`,
+`Rel(ι(c₀), …, ι(c₃), D₁, …, D₁₂) ⟺ ∃ h, z, h ≠ 0, h ≠ c₀, [D_j] = τ_j(h, z; c)`. -/
+theorem testGroup_rel_iff_codes (c : Fin 4 → ℤ) (D : Fin 12 → Fin 2 → ℚ) :
+    testGroupTemplate.Rel (testGroupVec c D) ↔
+      ∃ (h : ℤ) (z : Fin 3 → ℤ), h ≠ 0 ∧ h ≠ c 0 ∧
+        ∀ j : Fin 12, pairK (D j) = testValues h z c j := by
+  refine (testGroup_rel_iff c _ fun i k => ?_).trans ?_
+  · have hi := i.isLt
+    have hk := k.isLt
+    simp only [testGroupVec]
+    rw [dite_eq_left (by omega)]
+    have e1 : (⟨(5 * (i : ℕ) + k) / 5, by omega⟩ : Fin 4) = i := Fin.ext (by simp only; omega)
+    have e2 : (⟨(5 * (i : ℕ) + k) % 5, by omega⟩ : Fin 5) = k := Fin.ext (by simp only; omega)
+    simp only [e1, e2]
+  · refine exists_congr fun h => exists_congr fun z => and_congr Iff.rfl (and_congr Iff.rfl ?_)
+    refine forall_congr' fun j => ?_
+    have hj := j.isLt
+    have e : (⟨testGroupVec c D ⟨20 + 2 * j, by omega⟩, testGroupVec c D ⟨21 + 2 * j, by omega⟩⟩ :
+        K0) = pairK (D j) := by
+      simp only [testGroupVec, pairK]
+      rw [dite_eq_right (by omega), dite_eq_right (by omega)]
+      have e1 : (⟨(20 + 2 * (j : ℕ) - 20) / 2, by omega⟩ : Fin 12) = j :=
+        Fin.ext (by simp only; omega)
+      have e2 : (⟨(21 + 2 * (j : ℕ) - 20) / 2, by omega⟩ : Fin 12) = j :=
+        Fin.ext (by simp only; omega)
+      have e3 : (⟨(20 + 2 * (j : ℕ) - 20) % 2, by omega⟩ : Fin 2) = 0 :=
+        Fin.ext (by simp only [Fin.val_zero]; omega)
+      have e4 : (⟨(21 + 2 * (j : ℕ) - 20) % 2, by omega⟩ : Fin 2) = 1 :=
+        Fin.ext (by simp only [Fin.val_one]; omega)
+      simp only [e1, e2, e3, e4]
+    rw [e]
+
+end ZInQ.Mult
