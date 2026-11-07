@@ -533,3 +533,54 @@ theorem zsmul_addOrderOf_mem_E1 {Q : (shortCurve A).toAffine.Point}
   exact (E1sub hπ hA).zsmul_mem this m
 
 end ZInQ.Size
+
+/-! ### The article's residue field and the model chapter's special case -/
+
+namespace ZInQ.Size
+
+open WeierstrassCurve WeierstrassCurve.Affine
+
+/-- The quotient map `ℤ[s] → ℤ[s]/(π)` has kernel `(π)`: the article's residue field is an
+instance of the pair `(k, ρ)`. -/
+theorem quotient_mk_eq_zero_iff (π : Zs) (a : Zs) :
+    Ideal.Quotient.mk (Ideal.span {π}) a = 0 ↔ π ∣ a := by
+  rw [Ideal.Quotient.eq_zero_iff_mem, Ideal.mem_span_singleton]
+
+/-- Membership in `W₁(π)` spelled out: `Q = O`, or `Q = (x, y)` with `x ≠ 0` and
+`v_π(x) < 0`. -/
+theorem mem_E1sub_iff_vp {π : Zs} (hπ : Prime π) {A : K0} (hA : VGe π 0 A)
+    (Q : (shortCurve A).toAffine.Point) :
+    Q ∈ E1sub hπ hA ↔ Q = 0 ∨ ∃ x y h, Q = Point.some x y h ∧ x ≠ 0 ∧ vp π x < 0 := by
+  rcases Q with _ | ⟨x, y, h⟩
+  · exact ⟨fun _ => Or.inl rfl, fun _ => trivial⟩
+  rw [mem_E1sub_iff, inE1_some_iff, VGe]
+  constructor
+  · intro hx
+    push Not at hx
+    exact Or.inr ⟨x, y, h, rfl, hx.1, hx.2⟩
+  · rintro (h0 | ⟨x', y', h', he, hx0, hx⟩)
+    · exact absurd h0 (Point.some_ne_zero _)
+    · rw [Point.some.injEq] at he
+      obtain ⟨rfl, rfl⟩ := he
+      push Not
+      exact ⟨hx0, hx⟩
+
+theorem res_eq_resK {p : ℕ} [Fact p.Prime] (π : Zs) (ρ : Zs →+* ZMod p) (x : K0) :
+    ZInQ.res π ρ x = resK π ρ x := rfl
+
+/-- The model chapter's reduction map `ZInQ.red` (residue degree one, good reduction) is the
+special case `k = 𝔽_p` of `redK`. -/
+theorem red_eq_redK {p : ℕ} [Fact p.Prime] {π : Zs} (hπ : Prime π) (ρ : Zs →+* ZMod p)
+    (hρ : ∀ a, ρ a = 0 ↔ π ∣ a) {A : K0} (hA : VGe π 0 A) {Ab : ZMod p}
+    (hAb : ZInQ.res π ρ A = Ab) [(shortCurve Ab).IsElliptic]
+    (P : (shortCurve A).toAffine.Point) : ZInQ.red hπ ρ hρ hA hAb P = redK π ρ A Ab P := by
+  rcases P with _ | ⟨x, y, h⟩
+  · rfl
+  by_cases hx : VGe π 0 x
+  · have hns : (shortCurve Ab).toAffine.Nonsingular (resK π ρ x) (resK π ρ y) :=
+      equation_iff_nonsingular.mp (ZInQ.red_equation hπ ρ hρ hA hAb h.1 hx)
+    rw [ZInQ.red_some_of_vge hπ ρ hρ hA hAb h hx, redK_some_of_ns h hx hns]
+    rfl
+  · rw [ZInQ.red_some_of_not_vge hπ ρ hρ hA hAb h hx, redK_some_of_not_vge h hx]
+
+end ZInQ.Size
