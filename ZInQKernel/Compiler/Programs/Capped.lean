@@ -34,14 +34,14 @@ def cmulCode (Lv d a b T : ℕ) : ZStmt :=
 `T + 2` (the constant `1`), temporaries from `T + 3`. -/
 def cpowCode (Lv d x e T : ℕ) : ZStmt :=
   .assign T (.const 1) ;;; .assign (T + 1) (.const 0) ;;; .assign (T + 2) (.const 1) ;;;
-    .loop (.nlt (T + 1) e) (cmulCode Lv T T x (T + 3) ;;; .assign (T + 1) (.nadd (T + 1) (T + 2))) ;;;
+    .loop (T + 1) e (cmulCode Lv T T x (T + 3) ;;; .assign (T + 1) (.nadd (T + 1) (T + 2))) ;;;
     .assign d (.copy T)
 
 /-- `d ← f_L(n)`, the capped factorial: `n` steps `f ← cmul_L(f, σ_L(i))`; slots `T` (result),
 `T + 1` (counter), `T + 2` (the constant `1`), `T + 3` (`σ_L(i)`), temporaries from `T + 4`. -/
 def cfactCode (Lv d n T : ℕ) : ZStmt :=
   .assign T (.const 1) ;;; .assign (T + 1) (.const 0) ;;; .assign (T + 2) (.const 1) ;;;
-    .loop (.nlt (T + 1) n)
+    .loop (T + 1) n
       (.assign (T + 1) (.nadd (T + 1) (T + 2)) ;;; satCode Lv (T + 3) (T + 1) (T + 4) ;;;
         cmulCode Lv T T (T + 3) (T + 4)) ;;;
     .assign d (.copy T)
@@ -102,6 +102,6 @@ def cBoundCode (Lv d M V : ℕ) : ZStmt :=
 (`1`), `T + 2` (`4`). -/
 def divFourCode (x β T : ℕ) : ZStmt :=
   .assign T (.const 0) ;;; .assign (T + 1) (.const 1) ;;; .assign (T + 2) (.const 4) ;;;
-    .loop (.nlt T β) (.assign x (.div x (T + 2)) ;;; .assign T (.nadd T (T + 1)))
+    .loop T β (.assign x (.div x (T + 2)) ;;; .assign T (.nadd T (T + 1)))
 
 end ZInQ.Compiler.IR

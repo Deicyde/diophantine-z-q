@@ -33,7 +33,7 @@ def precT : ℕ := 64
 /-- The three scalar multiplications: `mul(l)`, `mul(a)`, `mul(j)` into `10`, `16`, `22`. -/
 def jmul3Code : ZStmt :=
   .assign 34 (.const 0) ;;;
-    .loop (.nlt 34 7)
+    .loop 34 7
       (.ite (.neq 34 5) (.assign 35 (.copy 3)) (.ite (.neq 34 6) (.assign 35 (.copy 2))
           (.assign 35 (.copy 4))) ;;;
         jmulCode 35 28 precT ;;;

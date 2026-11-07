@@ -6,6 +6,8 @@ import ZInQKernel.Compiler.Programs.LoweringCorrect
 import ZInQKernel.Compiler.Programs.Cantor
 import ZInQKernel.Compiler.Programs.Signed
 import ZInQKernel.Compiler.Programs.ZL
+import ZInQKernel.Compiler.Programs.SignedSpec
+import ZInQKernel.Compiler.Programs.ZLSim
 import ZInQKernel.Compiler.Programs.Field
 import ZInQKernel.Compiler.Programs.Point
 import ZInQKernel.Compiler.Programs.Capped
