@@ -15,6 +15,8 @@ import ZInQKernel.Compiler.Translation.Library
 import ZInQKernel.Compiler.Translation.TranslateSemantics
 import ZInQKernel.Compiler.Translation.PowerScope
 import ZInQKernel.Compiler.Translation.PowerValue
+import ZInQKernel.Compiler.Translation.PrecisionScope
+import ZInQKernel.Compiler.Translation.Rational
 
 /-!
 # Translation to rational point codes
