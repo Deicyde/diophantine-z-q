@@ -6,6 +6,7 @@ import ZInQKernel.Compiler.Translation.NaturalCode
 import ZInQKernel.Compiler.Translation.RecipeRelation
 import ZInQKernel.Compiler.Translation.Spec
 import ZInQKernel.Compiler.Translation.Soundness
+import ZInQKernel.Compiler.Translation.Completeness
 
 /-!
 # Translation to rational point codes

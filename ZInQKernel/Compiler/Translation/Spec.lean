@@ -122,6 +122,9 @@ structure TranslationShape (templates recipes : List ExPoly) (scalarOf : ℤ →
   root : r.rootEq = (pt N.root, if value then 5 * (N.inputCount : ℤ) else -1)
   /-- A power recipe is present when there are call nodes. -/
   power : HasCall N → r.power.isSome
+  /-- The three generator variables are distinct. -/
+  gen_distinct : r.generator 0 ≠ r.generator 1 ∧ r.generator 0 ≠ r.generator 2 ∧
+    r.generator 1 ≠ r.generator 2
   /-- The fresh points with their identities. -/
   slots : List (ℕ × Slot)
   /-- Distinct fresh points are disjoint blocks of five variables. -/

@@ -55,4 +55,31 @@ theorem writePoints_point (x : ℕ → ℚ) {l : List (ℕ × (Fin 5 → ℚ))}
       rw [dite_eq_right (by unfold Separated at hsep; omega)]
       exact ih hl.2 h'
 
+/-- **Reading back a written point**, for a list whose distinct entries have separated
+starts. -/
+theorem writePoints_point_of_consistent (x : ℕ → ℚ) {l : List (ℕ × (Fin 5 → ℚ))}
+    (hl : l.Pairwise fun e e' => e = e' ∨ Separated e.1 e'.1) {r : ℕ} {P : Fin 5 → ℚ}
+    (h : (r, P) ∈ l) : pointAt (writePoints x l) r = P := by
+  funext i
+  induction l with
+  | nil => simp at h
+  | cons e l ih =>
+    obtain ⟨r', P'⟩ := e
+    rw [List.pairwise_cons] at hl
+    simp only [pointAt, writePoints]
+    by_cases he : (r', P') = (r, P)
+    · obtain ⟨rfl, rfl⟩ := Prod.mk.inj he
+      rw [dite_eq_left ⟨by omega, by omega⟩]
+      congr 1
+      ext
+      simp
+    · have h' : (r, P) ∈ l := by
+        rcases List.mem_cons.1 h with h' | h'
+        · exact absurd h'.symm he
+        · exact h'
+      rcases hl.1 _ h' with h'' | hsep
+      · exact absurd h'' he
+      · rw [dite_eq_right (by unfold Separated at hsep; simp only at hsep; omega)]
+        exact ih hl.2 h'
+
 end ZInQ.Translation
