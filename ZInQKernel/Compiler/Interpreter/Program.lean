@@ -29,41 +29,41 @@ namespace Stmt
 /-! ### Arithmetic blocks -/
 
 /-- `x ← y` through the scratch counter `t`. -/
-def copy (x y t : ℕ) : Stmt :=
+def copyBlock (x y t : ℕ) : Stmt :=
   seqs [clear x, clear t, whileDec y (seqs [inc x, inc t]), whileDec t (inc y)]
 
 /-- `x ← x + y` through the scratch counter `t` (`x ≠ y`). -/
-def addInto (x y t : ℕ) : Stmt :=
+def addBlock (x y t : ℕ) : Stmt :=
   seqs [clear t, whileDec y (seqs [inc x, inc t]), whileDec t (inc y)]
 
 /-- `x ← x + x`: the operand is snapshot into `s` (through `t₁`) before `x` is overwritten. -/
-def double (x s t₁ t₂ : ℕ) : Stmt := seqs [copy s x t₁, addInto x s t₂]
+def doubleBlock (x s t₁ t₂ : ℕ) : Stmt := seqs [copyBlock s x t₁, addBlock x s t₂]
 
 /-- `q ← ⌊y / z⌋`, `r ← y mod z` by repeated subtraction from the private remainder `b`,
 subtracting only when `b ≥ z`; scratch registers `b, …, b + 10`. -/
-def divmod (y z q r b : ℕ) : Stmt :=
-  seqs [copy b y (b + 3), clear (b + 1),
-    loop (seqs [copy (b + 4) b (b + 6), copy (b + 5) z (b + 7),
+def divModBlock (y z q r b : ℕ) : Stmt :=
+  seqs [copyBlock b y (b + 3), clear (b + 1),
+    loop (seqs [copyBlock (b + 4) b (b + 6), copyBlock (b + 5) z (b + 7),
       ifLt (b + 4) (b + 5) (seqs [brk])
-        (seqs [copy (b + 2) z (b + 8), whileDec (b + 2) (pred b), inc (b + 1), cont])]),
-    copy q (b + 1) (b + 9), copy r b (b + 10)]
+        (seqs [copyBlock (b + 2) z (b + 8), whileDec (b + 2) (pred b), inc (b + 1), cont])]),
+    copyBlock q (b + 1) (b + 9), copyBlock r b (b + 10)]
 
 /-! ### List blocks -/
 
 /-- `(h, t) ← uncons x`: copy `x` into `b`, then halve while even, counting in `h`; on an
 odd value `2t + 1` the halving quotient is `t`. Scratch registers `b, …, b + 7`. -/
-def uncons (x h t b : ℕ) : Stmt :=
-  seqs [copy b x (b + 3), clear h,
+def unconsBlock (x h t b : ℕ) : Stmt :=
+  seqs [copyBlock b x (b + 3), clear h,
     ifNZ b
-      (loop (seqs [copy (b + 4) b (b + 5), clear (b + 1), divmod2 (b + 4) (b + 1) (b + 2),
-        ifNZ (b + 2) (seqs [copy t (b + 1) (b + 6), brk])
-          (seqs [inc h, copy b (b + 1) (b + 7), cont])]))
+      (loop (seqs [copyBlock (b + 4) b (b + 5), clear (b + 1), divmod2 (b + 4) (b + 1) (b + 2),
+        ifNZ (b + 2) (seqs [copyBlock t (b + 1) (b + 6), brk])
+          (seqs [inc h, copyBlock b (b + 1) (b + 7), cont])]))
       (clear t)]
 
 /-- `out ← cons h t = 2 ^ h (2t + 1)`, copying both inputs first. Scratch `b, …, b + 10`. -/
-def cons (h t out b : ℕ) : Stmt :=
-  seqs [copy b t (b + 2), double b (b + 3) (b + 4) (b + 5), inc b, copy (b + 1) h (b + 6),
-    whileDec (b + 1) (double b (b + 7) (b + 8) (b + 9)), copy out b (b + 10)]
+def consBlock (h t out b : ℕ) : Stmt :=
+  seqs [copyBlock b t (b + 2), doubleBlock b (b + 3) (b + 4) (b + 5), inc b,
+    copyBlock (b + 1) h (b + 6), whileDec (b + 1) (doubleBlock b (b + 7) (b + 8) (b + 9)), copyBlock out b (b + 10)]
 
 end Stmt
 
@@ -74,46 +74,48 @@ open Stmt
 /-- Decoding `e + 1 = 2 ^ w (2D + 1)` into `w` (register `3`) and `D` (register `4`), exit to
 cleanup on `w = 0`, `β = 2 ^ w` (register `5`), `pc = 0` and the tape `cons(n, nil)`. -/
 def initStmt : Stmt :=
-  seqs [copy 17 0 19, inc 17, uncons 17 3 4 20, ifNZ 3 skip exit,
-    clear 5, inc 5, copy 10 3 28, whileDec 10 (double 5 29 30 31),
-    clear 6, cons 1 J 7 32]
+  seqs [copyBlock 17 0 19, inc 17, unconsBlock 17 3 4 20, ifNZ 3 skip exit,
+    clear 5, inc 5, copyBlock 10 3 28, whileDec 10 (doubleBlock 5 29 30 31),
+    clear 6, consBlock 1 J 7 32]
 
 /-- Digit extraction: shift `D` by `4 pc` base-`β` digits, then read `o, j, x, y` into
 registers `11, 12, 13, 14`. -/
 def fetchStmt : Stmt :=
-  seqs [copy 9 4 43, copy 10 6 44, addInto 10 6 45, addInto 10 6 46, addInto 10 6 47,
-    whileDec 10 (seqs [divmod 9 5 15 16 48, copy 9 15 59]),
-    divmod 9 5 15 11 60, copy 9 15 71,
-    divmod 9 5 15 12 72, copy 9 15 83,
-    divmod 9 5 15 13 84, copy 9 15 95,
-    divmod 9 5 15 14 96, copy 9 15 107]
+  seqs [copyBlock 9 4 43,
+    copyBlock 10 6 44, addBlock 10 6 45, addBlock 10 6 46, addBlock 10 6 47,
+    whileDec 10 (seqs [divModBlock 9 5 15 16 48, copyBlock 9 15 59]),
+    divModBlock 9 5 15 11 60, copyBlock 9 15 71,
+    divModBlock 9 5 15 12 72, copyBlock 9 15 83,
+    divModBlock 9 5 15 13 84, copyBlock 9 15 95,
+    divModBlock 9 5 15 14 96, copyBlock 9 15 107]
 
 /-- The opcode test: exit to cleanup unless `o ∈ {1, 2}`. -/
 def opcodeStmt : Stmt :=
-  seqs [copy 18 11 108, ifNZ 18 (pred 18) exit,
+  seqs [copyBlock 18 11 108, ifNZ 18 (pred 18) exit,
     ifNZ 18 (seqs [pred 18, ifNZ 18 exit skip]) skip]
 
 /-- getList: walk `j` links of the tape, then read the head into register `8`. -/
 def getStmt : Stmt :=
-  seqs [copy 109 7 113, copy 110 12 114,
-    whileDec 110 (seqs [uncons 109 111 112 115, copy 109 112 123]),
-    uncons 109 8 112 124]
+  seqs [copyBlock 109 7 113, copyBlock 110 12 114,
+    whileDec 110 (seqs [unconsBlock 109 111 112 115, copyBlock 109 112 123]),
+    unconsBlock 109 8 112 124]
 
 /-- Execute the instruction on the value `v` (register `8`) and set the new `pc`. -/
 def execStmt : Stmt :=
-  seqs [copy 18 11 132, pred 18,
-    ifNZ 18 (ifNZ 8 (seqs [pred 8, copy 6 13 133]) (copy 6 14 134))
-      (seqs [inc 8, copy 6 13 135])]
+  seqs [copyBlock 18 11 132, pred 18,
+    ifNZ 18 (ifNZ 8 (seqs [pred 8, copyBlock 6 13 133]) (copyBlock 6 14 134))
+      (seqs [inc 8, copyBlock 6 13 135])]
 
 /-- setList: save the traversed prefix in reverse (register `138`), replace the entry by the
 value of register `8`, restore the prefix, and store the new tape. -/
 def setStmt : Stmt :=
-  seqs [copy 136 7 142, copy 137 12 143, clear 138,
-    whileDec 137 (seqs [uncons 136 139 140 144, cons 139 138 138 152, copy 136 140 163]),
-    uncons 136 139 140 164, cons 8 140 141 172,
-    whileDec 138 (seqs [inc 138, uncons 138 139 140 183, cons 139 141 141 191,
-      copy 138 140 202]),
-    copy 7 141 203]
+  seqs [copyBlock 136 7 142, copyBlock 137 12 143, clear 138,
+    whileDec 137 (seqs [unconsBlock 136 139 140 144, consBlock 139 138 138 152,
+      copyBlock 136 140 163]),
+    unconsBlock 136 139 140 164, consBlock 8 140 141 172,
+    whileDec 138 (seqs [inc 138, unconsBlock 138 139 140 183, consBlock 139 141 141 191,
+      copyBlock 138 140 202]),
+    copyBlock 7 141 203]
 
 /-- One loop iteration. -/
 def bodyStmt : Stmt := seqs [fetchStmt, opcodeStmt, getStmt, execStmt, setStmt, cont]
