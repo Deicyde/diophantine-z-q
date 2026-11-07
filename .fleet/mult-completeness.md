@@ -6,16 +6,15 @@ code is in `ZInQKernel/Multiplication/Completeness/` (namespace `ZInQ.Mult`), ro
 `lake build ZInQKernel` succeeds. No `axiom`, `native_decide`, `implemented_by`, `extern` or
 kernel-skipping option was added.
 
-Eight of the nine leaves are proved. `#print axioms` shows only `propext`, `Classical.choice` and
-`Quot.sound` for `pattern_slopes`, `pole_input_valuations`, `tests_integral_old`,
-`tests_precision_selected`, `slope_complete` and `completeness_core`. These are sorry-free only after
-merging `origin/wip/mult-formal-log`, which proves `ellLog_add`. The final leaf
-`multiply_complete` has its final statement and a `sorry` proof: it needs the multiply unfolding
-and the height-certificate semantics of task mult-certificate, which are not yet committed (see
-Problems).
+All nine leaves are proved, and there is no `sorry` in this task's files. `#print axioms` shows
+only `propext`, `Classical.choice` and `Quot.sound` for `multiply_complete`, `slope_complete`,
+`pattern_slopes`, `pole_input_valuations`, `tests_integral_old`, `tests_precision_selected` and
+`completeness_core`. This holds only with `origin/wip/mult-formal-log` merged, because that branch
+proves `ellLog_add`, which `tests_precision_selected` uses through `ellLog_ratio`.
 
-Merged into this branch: `wip/mult-certificate` (through `e59e0b9`: constants, slope predicate,
-tests, constants properties, local templates, guard) and `origin/wip/mult-formal-log`.
+Merged into this branch: `wip/mult-certificate` (through `b987daa`: constants, slope predicate,
+tests, constants properties, the template semantics including `multiply_rel_iff` and the guard)
+and `origin/wip/mult-formal-log`.
 
 ## Leaves
 
@@ -29,7 +28,7 @@ tests, constants properties, local templates, guard) and `origin/wip/mult-formal
 | multiplication/completeness/pole-input-valuations.md | `ZInQ.Mult.pole_input_valuations` (with `ZInQ.Mult.poleInput`), PoleValuations.lean | proved |
 | multiplication/completeness/selected-prime-precision.md | `ZInQ.Mult.tests_precision_selected`, SelectedPrecision.lean | proved |
 | multiplication/completeness/slope-completeness.md | `ZInQ.Mult.slope_complete`, SlopeCompleteness.lean | proved |
-| multiplication/completeness/completeness.md | `ZInQ.Mult.multiply_complete`, Template.lean | statement only (sorry); mathematical content proved as `ZInQ.Mult.completeness_core` |
+| multiplication/completeness/completeness.md | `ZInQ.Mult.multiply_complete`, Template.lean (through `ZInQ.Mult.completeness_core` and mult-certificate's `multiply_rel_iff`, `guard_true_triple`) | proved |
 
 ## Statement corrections and deviations
 
@@ -91,12 +90,6 @@ tests, constants properties, local templates, guard) and `origin/wip/mult-formal
 
 ## Problems
 
-- `multiply_complete` is not proved yet. Its proof is short once mult-certificate commits
-  `HeightCert`/`heightCertificate_rel_iff` and `multiply_rel_iff` (announced shapes:
-  `multiply_rel_iff I cs ℓ T hS P Q R : (multiplyTemplate I cs ℓ T).Rel (codes3 P Q R) ↔ ∃ n, P = ι(n 0) ∧ Q = ι(n 1) ∧ R = ι(n 2) ∧ HeightCert ![P, Q, R] ℓ ![cs, cs n₀, cs n₁, cs n₂] ∧ guard`).
-  It is `rw [multiply_rel_iff]`, then `n = ![a, b, ab]`, the guard from `guard_true_triple`, and
-  `HeightCert` from `completeness_core` (cast the integers `A i k`, `B i` to `ℚ`; the nine sums by
-  `fin_cases`).
 - Pitfall, reported to mult-certificate and fixed there: a hypothesis `hq : q ∈ S_b` or
   `q ∈ catalogue` used as a term made elaboration evaluate
   `catalogueFinset (4 * primorial 324) 22 324` ("maximum recursion depth"). `catalogue`, `S_b` and
@@ -106,7 +99,6 @@ tests, constants properties, local templates, guard) and `origin/wip/mult-formal
 
 ## Suggestions for the next agent
 
-- Finish `multiply_complete` as above once `multiply_rel_iff` lands on `wip/mult-certificate`.
 - The hypotheses `hM0`, `hS` and `hI` of `multiply_complete` are to be discharged by the size
   chapter (formal multiple), the fixed-scalar semantics (syntax chapter) and the constructor
   instance of the specification.
