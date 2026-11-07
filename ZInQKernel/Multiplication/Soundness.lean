@@ -5,6 +5,7 @@ import ZInQKernel.Multiplication.Soundness.GeneratorHeight
 import ZInQKernel.Multiplication.Soundness.BoxInequality
 import ZInQKernel.Multiplication.Soundness.ContactValuations
 import ZInQKernel.Multiplication.Soundness.PoleObstruction
+import ZInQKernel.Multiplication.Soundness.CommonGroup
 
 /-!
 # Soundness of the multiplication template
