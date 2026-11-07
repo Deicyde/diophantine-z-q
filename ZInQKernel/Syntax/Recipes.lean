@@ -7,6 +7,7 @@ import ZInQKernel.Syntax.Recipes.Precision
 import ZInQKernel.Syntax.Recipes.Scope
 import ZInQKernel.Syntax.Recipes.Accounting
 import ZInQKernel.Syntax.Recipes.Polynomial
+import ZInQKernel.Syntax.Recipes.Literal
 
 /-!
 # Recipes and the specified polynomial
