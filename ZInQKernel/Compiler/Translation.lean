@@ -13,6 +13,8 @@ import ZInQKernel.Compiler.Translation.RecipeScope
 import ZInQKernel.Compiler.Translation.TranslateScope
 import ZInQKernel.Compiler.Translation.Library
 import ZInQKernel.Compiler.Translation.TranslateSemantics
+import ZInQKernel.Compiler.Translation.PowerScope
+import ZInQKernel.Compiler.Translation.PowerValue
 
 /-!
 # Translation to rational point codes

@@ -195,9 +195,18 @@ theorem blocks_translate (hwf : WellFormed P N V) {templates recipes : List ExPo
       · rfl
       · simp [hpw i w rfl]
 
+theorem powerCallee_translate_wf {recipes : List ExPoly}
+    (hr : ∀ i w, power = some (i, w) → (getEx recipes i).WF) :
+    (powerCallee recipes (translate consts N mode natIn power)).WF := by
+  unfold powerCallee
+  simp only [Syntax.translate]
+  rcases power with _ | ⟨i, w⟩
+  · exact ExPoly.empty_wf
+  · exact hr i w rfl
+
 /-- **Witness scope of the translation.** -/
 theorem translate_scopedIn (hwf : WellFormed P N V) {templates recipes : List ExPoly}
-    (ht : ∀ τ ∈ templates, τ.WF) (hr : ∀ τ ∈ recipes, τ.WF)
+    (ht : ∀ τ ∈ templates, τ.WF) (hr : ∀ i w, power = some (i, w) → (getEx recipes i).WF)
     (hνw : (getEx templates 12).witnesses = 140604) (hαw : (getEx templates 1).witnesses = 6)
     (hμw : (getEx templates 11).witnesses = 35134)
     (hcw : ∀ c, NatNode.const c ∈ N.nodes → Nontrivial c →
@@ -213,7 +222,8 @@ theorem translate_scopedIn (hwf : WellFormed P N V) {templates recipes : List Ex
   have hmem : ∀ b ∈ ((translate consts N mode natIn power).formula templates recipes).blocks,
       b ∈ (trRun consts N mode natIn power).2.blocks := fun b hb => by
     rw [hbl] at hb; exact hN.perm.subset hb
-  have hwfc := callees_wf_formula ht hr (translate consts N mode natIn power)
+  have hwfc := callees_wf_formula' ht (translate consts N mode natIn power)
+    (powerCallee_translate_wf hr)
   -- A used coordinate is not in a block and lies below the variable count.
   have hfree : ∀ f ∈ ((translate consts N mode natIn power).formula templates recipes).freePolys,
       ∀ i ∈ f.vars, (∀ b ∈ (trRun consts N mode natIn power).2.blocks, ¬ InBlock b i) ∧

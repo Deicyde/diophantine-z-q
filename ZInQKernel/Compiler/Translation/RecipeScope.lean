@@ -294,4 +294,12 @@ theorem callees_wf_formula {templates recipes : List ExPoly} (ht : ∀ τ ∈ te
     · exact getEx_wf hr _
     · exact ExPoly.empty_wf
 
+theorem callees_wf_formula' {templates recipes : List ExPoly} (ht : ∀ τ ∈ templates, τ.WF)
+    (r : ModelRecipe) (hπ : (powerCallee recipes r).WF) :
+    ∀ τ ∈ (r.formula templates recipes).callees, τ.WF := by
+  intro τ hτ
+  rcases mem_callees_formula templates recipes r hτ with ⟨i, rfl⟩ | rfl
+  · exact getEx_wf ht i
+  · exact hπ
+
 end ZInQ.Translation

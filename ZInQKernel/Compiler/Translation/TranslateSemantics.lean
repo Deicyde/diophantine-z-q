@@ -28,20 +28,21 @@ open Compiler.Natural Syntax
 
 variable {E : Type}
 
-/-- The hypotheses on the power recipe of a translation: the recipes are well formed, the
+/-- The hypotheses on the power recipe of a translation: the power recipe is well formed, the
 recorded witness count is the recipe's, a power recipe is present when the circuit has call
 nodes, and it satisfies (PV). -/
 structure PowerSetup (recipes : List ExPoly) (power : Option (ℕ × ℕ)) (P N : NatCircuit) :
     Prop where
-  wf : ∀ τ ∈ recipes, τ.WF
+  wf : ∀ i w, power = some (i, w) → (getEx recipes i).WF
   witnesses : ∀ i w, power = some (i, w) → (getEx recipes i).witnesses = w
   present : HasCall N → power.isSome
   spec : ∀ i w, power = some (i, w) → HasCall N → PowerValueSpec (getEx recipes i) P
 
 /-- No power recipe, for a circuit without call nodes. -/
-theorem PowerSetup.none {recipes : List ExPoly} {P N : NatCircuit} (hr : ∀ τ ∈ recipes, τ.WF)
-    (hN : ¬ HasCall N) : PowerSetup recipes none P N :=
-  ⟨hr, fun _ _ h => (by cases h), fun h => absurd h hN, fun _ _ h => (by cases h)⟩
+theorem PowerSetup.none {recipes : List ExPoly} {P N : NatCircuit} (hN : ¬ HasCall N) :
+    PowerSetup recipes none P N :=
+  ⟨fun _ _ h => (by cases h), fun _ _ h => (by cases h), fun h => absurd h hN,
+    fun _ _ h => (by cases h)⟩
 
 section
 
