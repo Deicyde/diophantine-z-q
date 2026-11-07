@@ -9,6 +9,8 @@ import ZInQKernel.Size.Majorants.Tactic
 import ZInQKernel.Size.Majorants.Templates
 import ZInQKernel.Size.Majorants.TemplateHeights
 import ZInQKernel.Size.Majorants.RecipeHeights
+import ZInQKernel.Size.Majorants.Cutoff
+import ZInQKernel.Size.Majorants.Bound
 
 /-!
 # Syntax heights, the height majorant and the final size bounds
