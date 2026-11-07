@@ -54,16 +54,25 @@ theorem mapE_ne_zero {π : Zs} (hπ : Prime π) {Q : genCurve.toAffine.Point} (h
   · exact absurd rfl hQ
   · exact Point.some_ne_zero _
 
-/-- If `v_π(ρ([m]P₀)) ≥ 1` then `[m]P₀` lies in the formal group `E₁(K_π)`. -/
-theorem mapE_mem_W1 {π : Zs} (hπ : Prime π) {m : ℤ} (hρ : Vge (vP π hπ) 1 (rhoAt m)) :
-    mapE π hπ (m • genP0) ∈ W1 (vComp π hπ) (-genDAt π hπ ^ 2) := by
+/-- The image in `E(K_π)` of a point of the formal group `E₁` of `E(K₀)` at `π` lies in the
+formal group `E₁(K_π)`. -/
+theorem mapE_mem_W1_of_mem {π : Zs} (hπ : Prime π) {Q : genCurve.toAffine.Point}
+    (hQ : Q ∈ W1 (vP π hπ) (-genD ^ 2)) :
+    mapE π hπ Q ∈ W1 (vComp π hπ) (-genDAt π hπ ^ 2) := by
+  rcases Q with _ | ⟨x, y, h⟩
+  · exact trivial
+  · show vComp π hπ (algebraMap K0 _ x) < 0
+    rw [vComp_algebraMap]; exact hQ
+
+/-- If `v_π(ρ([m]P₀)) ≥ 1` then `[m]P₀` lies in the formal group `E₁` at `π`. -/
+theorem zsmul_genP0_mem_W1_of_rhoAt {π : Zs} (hπ : Prime π) {m : ℤ}
+    (hρ : Vge (vP π hπ) 1 (rhoAt m)) : m • genP0 ∈ W1 (vP π hπ) (-genD ^ 2) := by
   rcases eq_or_ne m 0 with rfl | hm
   · rw [zero_zsmul]; exact zero_mem_W1 _
   obtain ⟨x, y, h, hQ, hx0, -, -⟩ := log25_z_ne_zero hm
   rw [rhoAt, hQ] at hρ
   rw [hQ]
-  show vComp π hπ (algebraMap K0 _ x) < 0
-  rw [vComp_algebraMap]
+  show vP π hπ x < 0
   have h1 : Vge (vP π hπ) 1 x⁻¹ := hρ
   obtain ⟨n, hn⟩ := val_eq_coe hx0
   have := (vge_iff_of_eq (val_inv_coe hn)).mp h1
@@ -88,8 +97,8 @@ theorem ratioAt_eq (hp324 : 324 < p) {π : Zs} (hπ : Prime π) (hπp : π ∣ (
     ∃ δ : K0, Vge (vP π hπ) 28 δ ∧ ratioAt u h = (u : K0) / (h : K0) * (1 + δ) := by
   rcases eq_or_ne u 0 with rfl | hu
   · exact ⟨0, Vge.zero _, by simp [ratioAt]⟩
-  have hH1 := mapE_mem_W1 hπ hH
-  have hU1 := mapE_mem_W1 hπ hU
+  have hH1 := mapE_mem_W1_of_mem hπ (zsmul_genP0_mem_W1_of_rhoAt hπ hH)
+  have hU1 := mapE_mem_W1_of_mem hπ (zsmul_genP0_mem_W1_of_rhoAt hπ hU)
   have hH0 := mapE_ne_zero hπ (zsmul_genP0_ne_zero hh)
   have hU0 := mapE_ne_zero hπ (zsmul_genP0_ne_zero hu)
   obtain ⟨-, -, εH, hεH, eH⟩ := log25_truncation_error hp324 hπ hπp _ hH1 hH0

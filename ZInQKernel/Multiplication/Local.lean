@@ -6,6 +6,7 @@ import ZInQKernel.Multiplication.Local.PrimesAbove
 import ZInQKernel.Multiplication.Local.TruncationUnit
 import ZInQKernel.Multiplication.Local.Nonvanishing
 import ZInQKernel.Multiplication.Local.FormalLog
+import ZInQKernel.Multiplication.Local.InvDiffSeries
 import ZInQKernel.Multiplication.Local.TruncationError
 import ZInQKernel.Multiplication.Local.FormalGroupLaw
 import ZInQKernel.Multiplication.Local.PointMap
