@@ -3,6 +3,7 @@ import ZInQKernel.Multiplication.Soundness.FieldHeights
 import ZInQKernel.Multiplication.Soundness.GeneratorHeight
 import ZInQKernel.Multiplication.Soundness.BoxInequality
 import ZInQKernel.Multiplication.Soundness.ContactSupport
+import ZInQKernel.Multiplication.Certificate.HeightCertificate
 
 /-!
 # The finite-box deduction
@@ -173,5 +174,41 @@ theorem finite_box_of_slopes (hH : SixContactEstimate) (hM0 : 1 ≤ Syntax.M0) (
     rw [Syntax.T_eq]; push_cast; ring
   rw [← hT] at this
   exact_mod_cast this
+
+theorem nineQ_surj (A : Fin 3 → Fin 2 → ℚ) (b : Fin 3 → ℚ) (i : Fin 3) :
+    (∃ k, nineQ A b k = A i 0) ∧ (∃ k, nineQ A b k = A i 1) ∧ ∃ k, nineQ A b k = b i := by
+  fin_cases i
+  · exact ⟨⟨0, rfl⟩, ⟨1, rfl⟩, ⟨2, rfl⟩⟩
+  · exact ⟨⟨3, rfl⟩, ⟨4, rfl⟩, ⟨5, rfl⟩⟩
+  · exact ⟨⟨6, rfl⟩, ⟨7, rfl⟩, ⟨8, rfl⟩⟩
+
+/-- **The finite-box deduction** (Proposition 6.1). Assume the six-contact estimate and
+`M₀ ≥ 1`. If `n₁n₂ ≠ n₃` and the unguarded certificate accepts
+`(ι(n₁), ι(n₂), ι(n₃), ℓ₀, ι(c_*), ι(c_*n₁), ι(c_*n₂), ι(c_*n₃))`, then `|nᵢ| < T`. The
+parameter vector `a ∈ ℚ³⁶` of the height-certificate template is described coordinatewise. -/
+theorem finite_box (hH : SixContactEstimate) (hM0 : 1 ≤ Syntax.M0) (n : Fin 3 → ℤ)
+    (hf : n 0 * n 1 ≠ n 2) (a : Fin 36 → ℚ)
+    (hY : ∀ (i : Fin 3) (k : Fin 5), a ⟨5 * i + k, by omega⟩ = iota (n i) k)
+    (hℓ : a 15 = (Syntax.ell : ℚ))
+    (hc : ∀ (i : Fin 4) (k : Fin 5), a ⟨16 + (5 * i + k), by omega⟩ = iota (certShifts n i) k)
+    (hacc : Syntax.heightTemplate.Rel a) :
+    ∀ i, |n i| < (Syntax.T : ℤ) := by
+  obtain ⟨-, A, b, hb, hQ⟩ := (heightCertificate_rel_iff _ _ a hℓ hc).mp hacc
+  refine finite_box_of_slopes hH hM0 n hf fun i => ?_
+  obtain ⟨hb0, e₀, e₁⟩ := hb i
+  simp only [hY] at e₀ e₁
+  refine ⟨A i 0, A i 1, b i, hb0, e₀, e₁, fun Q hQm => ?_⟩
+  obtain ⟨⟨k₀, h₀⟩, ⟨k₁, h₁⟩, ⟨k₂, h₂⟩⟩ := nineQ_surj A b i
+  have key : ∀ k, ∃ t₁ t₂ t₃ : ℚ, t₁ + t₂ + t₃ = nineQ A b k ∧
+      ∀ t ∈ ({t₁, t₂, t₃} : Set ℚ), SlopePred t (Syntax.ell : ℚ) (certShifts n) := by
+    intro k
+    obtain ⟨u, hu, hs⟩ := hQ k
+    refine ⟨u 0, u 1, u 2, hu, fun t ht => ?_⟩
+    rcases ht with rfl | rfl | rfl
+    exacts [hs 0, hs 1, hs 2]
+  rcases hQm with rfl | rfl | rfl
+  · rw [← h₀]; exact key k₀
+  · rw [← h₁]; exact key k₁
+  · rw [← h₂]; exact key k₂
 
 end ZInQ.Mult
