@@ -68,6 +68,18 @@ certificates (the generator descent and height search, point counts, explicit co
 3. **Classical inputs.** Formalize any classical input that milestone 1 states as a
    hypothesis. The Mordell–Weil theorem for `E/K₀` is done.
 
+Status (2026-11-07):
+
+- Milestone 1 is done. `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_nodeCheck`
+  (`ZInQKernel/Main.lean`) proves `FrozenTarget` from the four hypotheses and the named finite
+  check `HaltingNodeCheck`, with axioms `propext`, `Classical.choice` and `Quot.sound` only.
+  `ZInQ.exists_bounded_integer_polynomial_defining_integers_native` (`ZInQFinite/Main.lean`)
+  discharges the check by `native_decide` and states Theorem 1.1 from the four hypotheses.
+- Milestone 2 has one item left: a kernel proof of `HaltingNodeCheck`. The check is already
+  reduced to a Boolean computation over a verified fast builder
+  (`ZInQ.Compiler.NodeCheck.haltingNodeCheck_of_checkB`); once the kernel evaluates it, the
+  four-hypothesis theorem in `ZInQKernel/Main.lean` loses its `sorry`.
+
 ## Finite computations
 
 Every finite computation the proof needs (audit of 2026-11-06, updated as the formalization

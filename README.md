@@ -1,10 +1,13 @@
 # Z is Diophantine in Q
 
-> **This fork** works toward a Lean proof of the 11/5 manuscript's Theorem 1.1 in which
-> every finite computation is checked by the kernel. The deep arithmetic inputs (the
-> six-contact height estimate, pole completeness, the twenty-two-prime pattern and the
-> catalogue bound) are explicit hypotheses of the main theorem, not axioms; Mordell–Weil
-> for the generator curve, first a fifth hypothesis, is proved. See [KERNEL_PLAN.md](KERNEL_PLAN.md) and the Autoform
+> **This fork** proves the 11/5 manuscript's Theorem 1.1 in Lean from four explicit
+> hypotheses, the six-contact height estimate, pole completeness, the twenty-two-prime pattern
+> and the catalogue bound. They enter the main theorem as `Prop`s, not axioms; Mordell–Weil
+> for the generator curve, first a fifth hypothesis, is proved. Everything else is proved in
+> Lean, with one exception: a finite computation, the node statistics of a 293,568-node
+> circuit, is checked by native evaluation in the separate library `ZInQFinite`. Its kernel
+> certificate is in progress. See [KERNEL_PLAN.md](KERNEL_PLAN.md), the
+> [final audit](docs/kernel-audits/final-audit-2026-11-07.md) and the Autoform
 > [blueprint](blueprint/README.md). The rest of this README is upstream's.
 
 This repository contains the November 5, 2026 manuscript **Z is Diophantine in Q**, the October 11, 2026 manuscript **A conditional Diophantine definition of Z in Q from four arithmetic inputs**, and comparison notes. A research archive preserves the constructions, computations, proof drafts, reviews, and partial Lean formalization developed for the 11/5 manuscript.
