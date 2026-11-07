@@ -3,6 +3,9 @@ import ZInQKernel.Size.Constants.Small
 import ZInQKernel.Size.Constants.Closed
 import ZInQKernel.Size.Constants.Catalogue
 import ZInQKernel.Size.Constants.D
+import ZInQKernel.Size.Constants.FormalMultiple
+import ZInQKernel.Size.Constants.T
+import ZInQKernel.Size.Constants.Cutoff
 
 /-!
 # Bounds for the fixed constants and the literal cutoff
