@@ -9,6 +9,7 @@ import ZInQKernel.Compiler.Programs.ZL
 import ZInQKernel.Compiler.Programs.SignedSpec
 import ZInQKernel.Compiler.Programs.ZLSim
 import ZInQKernel.Compiler.Programs.Field
+import ZInQKernel.Compiler.Programs.FieldSpec
 import ZInQKernel.Compiler.Programs.Point
 import ZInQKernel.Compiler.Programs.Capped
 import ZInQKernel.Compiler.Programs.PrecisionIR
