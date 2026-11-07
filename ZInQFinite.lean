@@ -1,4 +1,5 @@
 import ZInQFinite.NodeCheck
+import ZInQFinite.Main
 
 /-!
 # Finite checks by native evaluation
