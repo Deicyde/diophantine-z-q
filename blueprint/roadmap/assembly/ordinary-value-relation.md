@@ -2,6 +2,9 @@
 article_id: af_bf7be178fc60cecba49ca513
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.value_relation_iff, ZInQ.Assembly.exists_value_relation_iff
 ---
 
 # The exact ordinary-value relation

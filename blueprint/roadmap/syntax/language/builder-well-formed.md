@@ -2,36 +2,43 @@
 article_id: af_8ec1e84ea39a69fedee17d32
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.Formula.InScope, ZInQ.Syntax.ExPoly.WitnessScope, ZInQ.Syntax.ExPoly.WitnessScope.rel_iff, ZInQ.Syntax.ExPoly.WitnessScope.wf, ZInQ.Syntax.Build.Facts.witnessScope, ZInQ.Syntax.templateLibrary_witnessScope, ZInQ.Syntax.CompositionRecipe.witnessScope_of, ZInQ.Syntax.closeRecipe_callBlocks_disjoint, ZInQ.Syntax.mainRecipe_callBlocks_disjoint, ZInQ.Syntax.valueUnionRecipe_callBlocks_disjoint, ZInQ.Syntax.valueRecipe_callBlocks_disjoint, ZInQ.Syntax.integersRecipe_callBlocks_disjoint, ZInQ.Syntax.translate_witnessScope, ZInQ.Syntax.specLib_witnessScope, ZInQ.Syntax.specLib_precisionCircuit_witnessScope
 ---
 
 # Witness scope of constructed templates and recipes
 
-Let $\tau$ be a template obtained from a template construction, or a recipe obtained by the
-model-evaluation translation or as a composition recipe, with parameter count $p$ and
-variable count $v$, and suppose every template and recipe it calls has the properties
-below. Then:
+Call an existential polynomial $\tau$ with $p$ parameters and $v$ variables *in scope* if
+$[\![\tau]\!]=\kappa(\varphi)$ for a formula $\varphi$ such that
 
-1. every call of $\tau$ with callee witness count $m$ and witness start $w$ satisfies
-   $p\le w$ and $w+m\le v$, and the blocks $[w,w+m)$ of distinct calls are disjoint;
-2. the blocks, the fresh variables (including rational-constant variables, generator
-   variables, allocated points and the fresh ranges of a composition) are pairwise disjoint
-   and together cover $[p,v)$ exactly;
-3. no variable of a call's block occurs in a parameter polynomial of any call of $\tau$, in a
-   point reference of $\tau$, or in any atom or constraint of $\tau$ other than through that
-   call;
-4. every variable occurring in $[\![\tau]\!]$ has index below $v$.
+1. every call atom of $\varphi$ with callee witness count $m$ and witness start $w$ satisfies
+   $p\le w$ and $w+m\le v$, and its callee has all its variables below its variable count;
+2. the blocks $[w,w+m)$ of the call atoms are pairwise disjoint;
+3. no variable of a block occurs in a parameter polynomial of any call atom or in any atom
+   $a\doteq b$ or $\langle f\rangle$ of $\varphi$;
+4. every variable occurring in $\kappa(\varphi)$ has index below $v$.
 
-**Proof sketch.** All three kinds of construction allocate variables from one counter that
-starts at $p$: a fresh variable or point takes the next one or five indices, a call takes
-the next $m$ indices for its block, and nothing else changes the counter. Hence the
-allocated intervals are consecutive, disjoint and cover $[p,v)$, giving 1 and 2. A caller
-never creates a variable node, a point reference or a parameter expression for an index
-inside a block: block indices are only passed to the callee as its witness start. This
-gives 3. For 4, a variable node of $\tau$ has index below the counter (by the construction
-theorem for templates, and by inspection of the reference and composition rules for
-recipes), and a call contributes the variables of its parameter polynomials together with
-the shifted callee variables $X_{w+i-p'}$ for callee variables $i<v'$, which lie in the
-block $[w,w+m)$ by the induction hypothesis on the callee.
+Then $\mathrm{Rel}_\tau(a)$ holds exactly when $\varphi^\ast$ holds at some assignment
+extending $a$, and every variable of $[\![\tau]\!]$ has index below $v$.
+
+Every template of the library is in scope (with $\varphi=\bigwedge(E_1,\dots,E_r,\varphi_0)$
+for its construction). A composition recipe is in scope when its call arguments lie below a
+bound $B\ge p$, its calls start at or above $B$, and its call blocks are pairwise disjoint;
+the five composition recipes of the specification satisfy this with
+$B=51$ (close), $11$ (main), $6$ (value_union, value, integers): their blocks are
+allocated one after another above the parameters and fresh ranges. The model-evaluation
+translation of a well-formed natural circuit is in scope. Hence every recipe of the
+specification is in scope.
+
+**Proof sketch.** For a template, the list of call blocks of its construction is computed
+from the counter and checked to be separated and above $p$; the parameter polynomials and
+atoms are checked to use only variables below $v$ outside the blocks; constant variables
+are allocated by the counter. A construction may use a call atom twice, so this check is
+made per template. For a composition recipe the arguments are parameters or fresh-range
+variables below $B$ and the blocks lie at or above $B$. For the translation every
+reference, generator variable and block is allocated by its counter. The relational form
+is the private-witness lemma.
 
 ## Depends on
 

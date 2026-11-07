@@ -2,6 +2,9 @@
 article_id: af_c2eabc7d6216274a29a6698f
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.main_branch_eq
 ---
 
 # An accepting main branch forces the exact value

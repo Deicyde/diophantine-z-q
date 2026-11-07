@@ -3,6 +3,7 @@ article_id: af_952178d744c7ff270932f6cb
 declaration: theorem
 origin: cited
 statement: formalized
+proof: formalized
 lean: ZInQ.Compiler.natural_polynomial_semantics, ZInQ.Compiler.natural_polynomial_semantics'
 ---
 

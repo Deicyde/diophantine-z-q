@@ -2,6 +2,9 @@
 article_id: af_44a9fcf4a44e0b96baf4f9bc
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.Pstar_spec, ZInQ.Assembly.assembly
 ---
 
 # The assembly lemma
