@@ -6,6 +6,7 @@ import ZInQKernel.Syntax.Recipes.Arith
 import ZInQKernel.Syntax.Recipes.Precision
 import ZInQKernel.Syntax.Recipes.Scope
 import ZInQKernel.Syntax.Recipes.Accounting
+import ZInQKernel.Syntax.Recipes.Polynomial
 
 /-!
 # Recipes and the specified polynomial
