@@ -48,7 +48,7 @@ theorem foldl_trVar_counts (k : ℕ) (nat : Bool) (l : List (ℕ × VarKind)) (s
     rw [List.foldl_cons, h1, h2, h3]
     refine ⟨?_, rfl, rfl⟩
     simp only [trVar, List.countP_append, List.countP_cons, List.countP_nil]
-    by_cases h : !decide (IsInputVar k v) || nat <;> simp [h] <;> omega
+    by_cases h : !decide (IsInputVar k v) || nat <;> simp [h]; omega
 
 /-- The number of operations of a node: one for an addition, multiplication or call. -/
 def opCount : NatNode → ℕ

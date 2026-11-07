@@ -27,7 +27,7 @@ open MvPolynomial ZInQ.Syntax ZInQ.Compiler.Universal
 /-- The majorant at height `256`: degree at most `B^2048` and norm at most `2^(B^2048)`. -/
 theorem maj_two_fifty_six {σ : Type*} {B : ℕ} {P : MvPolynomial σ ℤ} (h : Maj B 256 P) :
     P.totalDegree ≤ B ^ 2048 ∧ l1 P ≤ 2 ^ B ^ 2048 := by
-  rw [maj_iff_of_ne_zero (by norm_num)] at h
+  rw [maj_iff_of_ne_zero (by norm_num), show 8 * 256 = 2048 from rfl] at h
   exact h
 
 /-- `[[integers]]` satisfies the majorant at height `256` for `B = T + 1`. -/
