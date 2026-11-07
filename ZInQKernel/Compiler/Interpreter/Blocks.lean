@@ -225,9 +225,12 @@ theorem runs_subLoop {c x : ℕ} (hcx : c ≠ x) : ∀ ρ : Regs,
     simp only [ρ₂, ρ₁]
     regs_ext
 
+/-- `omega`, knowing that the jump register is `2`. -/
+macro "omegaJ" : tactic => `(tactic| (have : J = 2 := rfl; omega))
+
 /-- Evaluate `Function.update` chains at registers whose disequalities follow by `omega`. -/
 macro "upd" : tactic =>
-  `(tactic| simp (disch := omega) only [Function.update_self, Function.update_of_ne])
+  `(tactic| simp (disch := omegaJ) only [Function.update_self, Function.update_of_ne])
 
 /-- The scratch registers `b, …, b + n - 1`. -/
 def Scratch (b n k : ℕ) : Prop := b ≤ k ∧ k < b + n
@@ -237,7 +240,7 @@ theorem Frame.upd {S : ℕ → Prop} {ρ ρ' : Regs} {x : ℕ} (hx : S x) (v : �
 
 /-- Close a frame goal through a chain of updates of scratch registers. -/
 macro "frame_scratch" : tactic =>
-  `(tactic| ((repeat (refine Frame.upd ⟨by omega, by omega⟩ _ ?_)) <;>
+  `(tactic| ((repeat (refine Frame.upd ⟨by omegaJ, by omegaJ⟩ _ ?_)) <;>
     first | assumption | exact Frame.refl _ _))
 
 /-- The remainder loop of `divModBlock`: from a file with `y = q z + r` in the registers

@@ -107,6 +107,22 @@ theorem length_compile : ∀ (s : Stmt) (L ls le ex : ℕ), (s.compile L ls le e
   | cont, _, _, _, _ => rfl
   | exit, _, _, _, _ => rfl
 
+/-- The registers a statement may change. -/
+def writes : Stmt → List ℕ
+  | skip => []
+  | clear x => [x]
+  | inc x => [x]
+  | pred x => [x]
+  | seq s t => s.writes ++ t.writes
+  | whileDec x b => x :: b.writes
+  | ifNZ _ s t => s.writes ++ t.writes
+  | ifLt a b s t => a :: b :: (s.writes ++ t.writes)
+  | divmod2 y q r => [y, q, r]
+  | loop b => b.writes
+  | brk => []
+  | cont => []
+  | exit => []
+
 /-- Right-nested sequencing of a list of statements. -/
 def seqs : List Stmt → Stmt
   | [] => skip
@@ -217,6 +233,64 @@ theorem Exec.regs_J {s : Stmt} {ρ : Regs} {o : Outcome} (h : Exec s ρ o) (hJ :
   | brk => exact hJ
   | cont => exact hJ
   | exit => exact hJ
+
+/-- A statement leaves every register outside `s.writes` unchanged. -/
+theorem Exec.regs_of_not_mem_writes {s : Stmt} {ρ : Regs} {o : Outcome} (h : Exec s ρ o) :
+    ∀ k, k ∉ s.writes → o.regs k = ρ k := by
+  induction h with
+  | skip => intro k _; rfl
+  | clear x ρ => intro k hk; simp_all [Stmt.writes, Outcome.regs, Function.update_apply]
+  | inc x ρ _ => intro k hk; simp_all [Stmt.writes, Outcome.regs, Function.update_apply]
+  | pred x ρ => intro k hk; simp_all [Stmt.writes, Outcome.regs, Function.update_apply]
+  | seq_normal _ _ ih1 ih2 =>
+    intro k hk
+    simp only [Stmt.writes, List.mem_append, not_or] at hk
+    rw [ih2 k hk.2]; exact ih1 k hk.1
+  | seq_abnormal _ _ ih =>
+    intro k hk
+    simp only [Stmt.writes, List.mem_append, not_or] at hk
+    exact ih k hk.1
+  | while_zero _ => intro k _; rfl
+  | while_normal _ _ _ ih1 ih2 =>
+    intro k hk
+    have hk' := hk
+    simp only [Stmt.writes, List.mem_cons, not_or] at hk'
+    rw [ih2 k hk]
+    have := ih1 k hk'.2
+    simp only [Outcome.regs] at this
+    rw [this, Function.update_of_ne hk'.1]
+  | while_abnormal _ _ _ ih =>
+    intro k hk
+    simp only [Stmt.writes, List.mem_cons, not_or] at hk
+    rw [ih k hk.2, Function.update_of_ne hk.1]
+  | ifNZ_pos _ _ ih =>
+    intro k hk
+    simp only [Stmt.writes, List.mem_append, not_or] at hk
+    exact ih k hk.1
+  | ifNZ_zero _ _ ih =>
+    intro k hk
+    simp only [Stmt.writes, List.mem_append, not_or] at hk
+    exact ih k hk.2
+  | ifLt_lt _ _ _ ih =>
+    intro k hk
+    simp only [Stmt.writes, List.mem_cons, List.mem_append, not_or] at hk
+    rw [ih k hk.2.2.1, Function.update_of_ne hk.2.1, Function.update_of_ne hk.1]
+  | ifLt_ge _ _ _ ih =>
+    intro k hk
+    simp only [Stmt.writes, List.mem_cons, List.mem_append, not_or] at hk
+    rw [ih k hk.2.2.2, Function.update_of_ne hk.2.1, Function.update_of_ne hk.1]
+  | divmod2 =>
+    intro k hk
+    simp only [Stmt.writes, List.mem_cons, List.not_mem_nil, or_false, not_or] at hk
+    simp [Outcome.regs, Function.update_of_ne hk.1, Function.update_of_ne hk.2.1,
+      Function.update_of_ne hk.2.2]
+  | loop_normal _ ih => exact ih
+  | loop_brk _ ih => exact ih
+  | loop_cont _ _ ih1 ih2 => intro k hk; rw [ih2 k hk]; exact ih1 k hk
+  | loop_exit _ ih => exact ih
+  | brk => intro k _; rfl
+  | cont => intro k _; rfl
+  | exit => intro k _; rfl
 
 /-! ### Runs of machines -/
 
