@@ -25,7 +25,7 @@ Checks run:
   Main.lean's single `sorry`. Its article records no proof, so this is expected.
 - In `ZInQKernel/`, outside the Main.lean `sorry`, there is no `sorry`, `admit`, `native_decide`,
   `implemented_by`, `extern`, `axiom`, `unsafe`, `opaque`, `set_option` (none at all, so no
-  `debug.skipKernelTC`), `#eval` or `run_cmd`. The kernel search uses `decide +kernel`.
+  option that skips kernel checking), `#eval` or `run_cmd`. The kernel search uses `decide +kernel`.
 
 ## Verdicts
 

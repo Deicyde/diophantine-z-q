@@ -2,6 +2,8 @@
 article_id: af_e6e66a6e31e013f76ddfc3dc
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.Ps, ZInQ.Syntax.W, ZInQ.Syntax.Hcat, ZInQ.Syntax.Hmax, ZInQ.Syntax.Ns, ZInQ.Syntax.M0, ZInQ.Syntax.cstar, ZInQ.Syntax.ell, ZInQ.Syntax.F, ZInQ.Syntax.D, ZInQ.Syntax.G0, ZInQ.Syntax.E0, ZInQ.Syntax.R, ZInQ.Syntax.Q, ZInQ.Syntax.Bcm, ZInQ.Syntax.Ccm, ZInQ.Syntax.Aht, ZInQ.Syntax.T, ZInQ.Syntax.integerConstants, ZInQ.Compiler.Universal.c3
 ---
 
 # The prescribed fixed constants
