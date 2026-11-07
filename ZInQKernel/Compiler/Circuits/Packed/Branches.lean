@@ -186,17 +186,17 @@ theorem indicator_digits {B q : ℕ} (p : Program) (act : ℕ → ℕ) (ν : ℕ
         pack B (fun t => if act t = i then (if incOn p j i then 1 else 0) else 0) q by
       rw [hS i (Finset.mem_range.1 hi)]
       by_cases h : incOn p j i
-      · rw [if_pos h]; exact pack_congr fun t _ => by simp [h]
-      · rw [if_neg h]; exact (pack_const_zero B q).symm.trans (pack_congr fun t _ => by simp [h]),
+      · rw [ite_eq_left h]; exact pack_congr fun t _ => by simp [h]
+      · rw [ite_eq_right h]; exact (pack_const_zero B q).symm.trans (pack_congr fun t _ => by simp [h]),
       pack_sum]
     exact pack_congr fun t ht => by rw [sum_select (hact t ht) (fun i => if incOn p j i then 1 else 0)]
   · unfold decSum
     rw [Finset.sum_congr rfl fun i hi => show (if decOn p j i then V i else 0) =
         pack B (fun t => if act t = i then (if decOn p j i then ν j t else 0) else 0) q by
       by_cases h : decOn p j i
-      · rw [if_pos h, hV i (Finset.mem_range.1 hi) j h]
+      · rw [ite_eq_left h, hV i (Finset.mem_range.1 hi) j h]
         exact pack_congr fun t _ => by by_cases hat : act t = i <;> simp [h, hat]
-      · rw [if_neg h]; exact (pack_const_zero B q).symm.trans (pack_congr fun t _ => by simp [h]),
+      · rw [ite_eq_right h]; exact (pack_const_zero B q).symm.trans (pack_congr fun t _ => by simp [h]),
       pack_sum]
     exact pack_congr fun t ht => by
       rw [sum_select (hact t ht) (fun i => if decOn p j i then ν j t else 0)]
@@ -209,18 +209,18 @@ theorem indicator_digits {B q : ℕ} (p : Program) (act : ℕ → ℕ) (ν : ℕ
       have e1 : (if incTo p i' i then S i' else 0) =
           pack B (fun t => if incTo p i' i then (if act t = i' then 1 else 0) else 0) q := by
         by_cases h : incTo p i' i
-        · rw [if_pos h]; exact (hS i' hi'').trans (pack_congr fun t _ => by simp [h])
-        · rw [if_neg h]; exact (pack_const_zero B q).symm.trans (pack_congr fun t _ => by simp [h])
+        · rw [ite_eq_left h]; exact (hS i' hi'').trans (pack_congr fun t _ => by simp [h])
+        · rw [ite_eq_right h]; exact (pack_const_zero B q).symm.trans (pack_congr fun t _ => by simp [h])
       have e2 : (if nzTo p i' i then V i' else 0) = pack B (fun t => if nzTo p i' i then
           (if act t = i' then 1 else 0) * ν (decReg p i') t else 0) q := by
         by_cases h : nzTo p i' i
-        · rw [if_pos h]; exact (hV i' hi'' _ (decOn_decReg_of_nzTo h)).trans (pack_congr fun t _ => by simp [h])
-        · rw [if_neg h]; exact (pack_const_zero B q).symm.trans (pack_congr fun t _ => by simp [h])
+        · rw [ite_eq_left h]; exact (hV i' hi'' _ (decOn_decReg_of_nzTo h)).trans (pack_congr fun t _ => by simp [h])
+        · rw [ite_eq_right h]; exact (pack_const_zero B q).symm.trans (pack_congr fun t _ => by simp [h])
       have e3 : (if zTo p i' i then W i' else 0) = pack B (fun t => if zTo p i' i then
           (if act t = i' then 1 else 0) * (1 - ν (decReg p i') t) else 0) q := by
         by_cases h : zTo p i' i
-        · rw [if_pos h]; exact (hW i' hi'' _ (decOn_decReg_of_zTo h)).trans (pack_congr fun t _ => by simp [h])
-        · rw [if_neg h]; exact (pack_const_zero B q).symm.trans (pack_congr fun t _ => by simp [h])
+        · rw [ite_eq_left h]; exact (hW i' hi'' _ (decOn_decReg_of_zTo h)).trans (pack_congr fun t _ => by simp [h])
+        · rw [ite_eq_right h]; exact (pack_const_zero B q).symm.trans (pack_congr fun t _ => by simp [h])
       rw [e1, e2, e3, pack_add, pack_add]
       refine pack_congr fun t _ => ?_
       by_cases hat : act t = i' <;> simp [hat, inDigit],

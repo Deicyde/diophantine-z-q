@@ -108,7 +108,7 @@ theorem unpairBody_spec {B : ℕ} (hB : 5 ≤ B) (x : ℕ) :
     by_cases h4 : v = 4
     · subst h4; simp [hv0, hv1, hv2, show (4 : ℕ) ≠ B by omega, r₅]
       rw [initFile_of_lt _ (by omega)]; rfl
-    simp only [hv2, hv1, hv0, h4, if_false]
+    simp only [hv2, hv1, hv0, h4, ite_false]
     by_cases h3 : v = 3
     · subst h3; rw [a₅, initFile_of_lt _ (by omega)]; rfl
     rw [f₅ v h3 hv0 hv1 hv2]

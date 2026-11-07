@@ -24,7 +24,7 @@ theorem invDiffCoeff_succ_rec (A : F) (j : ℕ) :
   have hc' : ((j + 1 : ℕ) : F) * (Nat.centralBinom (j + 1) : F) =
       2 * (2 * j + 1) * (Nat.centralBinom j : F) := by exact_mod_cast hc
   simp only [invDiffCoeff]
-  rw [if_pos (by omega), if_pos (by omega),
+  rw [ite_eq_left (by omega), ite_eq_left (by omega),
     show (4 * j + 4) / 4 = j + 1 by omega, show 4 * j / 4 = j by omega]
   push_cast at hc' ⊢
   rw [pow_succ]
@@ -44,37 +44,37 @@ theorem invDiffSeries_ode (A : F) :
     (Nat.div_add_mod n 4).symm⟩
   interval_cases r
   · -- `n = 4j`
-    have h1 : invDiffCoeff A (4 * j + 0 + 1) = 0 := by simp only [invDiffCoeff]; rw [if_neg (by omega)]
+    have h1 : invDiffCoeff A (4 * j + 0 + 1) = 0 := by simp only [invDiffCoeff]; rw [ite_eq_right (by omega)]
     rw [h1, zero_mul]
     split_ifs with ha hb
     · rw [coeff_derivative, coeff_mk]
-      have h2 : invDiffCoeff A (4 * j + 0 - 4 + 1) = 0 := by simp only [invDiffCoeff]; rw [if_neg (by omega)]
-      have h3 : invDiffCoeff A (4 * j + 0 - 3) = 0 := by simp only [invDiffCoeff]; rw [if_neg (by omega)]
+      have h2 : invDiffCoeff A (4 * j + 0 - 4 + 1) = 0 := by simp only [invDiffCoeff]; rw [ite_eq_right (by omega)]
+      have h3 : invDiffCoeff A (4 * j + 0 - 3) = 0 := by simp only [invDiffCoeff]; rw [ite_eq_right (by omega)]
       rw [h2, h3]; ring
     · omega
-    · have h3 : invDiffCoeff A (4 * j + 0 - 3) = 0 := by simp only [invDiffCoeff]; rw [if_neg (by omega)]
+    · have h3 : invDiffCoeff A (4 * j + 0 - 3) = 0 := by simp only [invDiffCoeff]; rw [ite_eq_right (by omega)]
       rw [h3]; ring
     · ring
-  · have h1 : invDiffCoeff A (4 * j + 1 + 1) = 0 := by simp only [invDiffCoeff]; rw [if_neg (by omega)]
+  · have h1 : invDiffCoeff A (4 * j + 1 + 1) = 0 := by simp only [invDiffCoeff]; rw [ite_eq_right (by omega)]
     rw [h1, zero_mul]
     split_ifs with ha hb
     · rw [coeff_derivative, coeff_mk]
-      have h2 : invDiffCoeff A (4 * j + 1 - 4 + 1) = 0 := by simp only [invDiffCoeff]; rw [if_neg (by omega)]
-      have h3 : invDiffCoeff A (4 * j + 1 - 3) = 0 := by simp only [invDiffCoeff]; rw [if_neg (by omega)]
+      have h2 : invDiffCoeff A (4 * j + 1 - 4 + 1) = 0 := by simp only [invDiffCoeff]; rw [ite_eq_right (by omega)]
+      have h3 : invDiffCoeff A (4 * j + 1 - 3) = 0 := by simp only [invDiffCoeff]; rw [ite_eq_right (by omega)]
       rw [h2, h3]; ring
     · omega
-    · have h3 : invDiffCoeff A (4 * j + 1 - 3) = 0 := by simp only [invDiffCoeff]; rw [if_neg (by omega)]
+    · have h3 : invDiffCoeff A (4 * j + 1 - 3) = 0 := by simp only [invDiffCoeff]; rw [ite_eq_right (by omega)]
       rw [h3]; ring
     · ring
-  · have h1 : invDiffCoeff A (4 * j + 2 + 1) = 0 := by simp only [invDiffCoeff]; rw [if_neg (by omega)]
+  · have h1 : invDiffCoeff A (4 * j + 2 + 1) = 0 := by simp only [invDiffCoeff]; rw [ite_eq_right (by omega)]
     rw [h1, zero_mul]
     split_ifs with ha hb
     · rw [coeff_derivative, coeff_mk]
-      have h2 : invDiffCoeff A (4 * j + 2 - 4 + 1) = 0 := by simp only [invDiffCoeff]; rw [if_neg (by omega)]
-      have h3 : invDiffCoeff A (4 * j + 2 - 3) = 0 := by simp only [invDiffCoeff]; rw [if_neg (by omega)]
+      have h2 : invDiffCoeff A (4 * j + 2 - 4 + 1) = 0 := by simp only [invDiffCoeff]; rw [ite_eq_right (by omega)]
+      have h3 : invDiffCoeff A (4 * j + 2 - 3) = 0 := by simp only [invDiffCoeff]; rw [ite_eq_right (by omega)]
       rw [h2, h3]; ring
     · omega
-    · have h3 : invDiffCoeff A (4 * j + 2 - 3) = 0 := by simp only [invDiffCoeff]; rw [if_neg (by omega)]
+    · have h3 : invDiffCoeff A (4 * j + 2 - 3) = 0 := by simp only [invDiffCoeff]; rw [ite_eq_right (by omega)]
       rw [h3]; ring
     · ring
   · -- `n = 4j + 3`
@@ -113,7 +113,7 @@ theorem invDiffSeries_sq (A : F) : invDiffSeries A ^ 2 * (1 - C (4 * A) * X ^ 4)
   · have := congrArg (coeff n) hD
     rw [coeff_derivative, map_zero] at this
     have hn : ((n : F) + 1) ≠ 0 := by exact_mod_cast Nat.succ_ne_zero n
-    rw [coeff_one, if_neg (Nat.succ_ne_zero n)]
+    rw [coeff_one, ite_eq_right (Nat.succ_ne_zero n)]
     exact (mul_eq_zero.mp this).resolve_right hn
 
 end ZInQ.Mult

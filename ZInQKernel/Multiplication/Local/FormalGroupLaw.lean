@@ -229,7 +229,7 @@ theorem omegaSeries_hasSum [CompleteSpace K] [DecidableEq K] {A : K} (hA : 0 ≤
       rcases n with _ | n
       · simp
       · rw [coeff_succ_X_mul]
-        simp only [Nat.add_sub_cancel, add_eq_zero, one_ne_zero, and_false, if_false]
+        simp only [Nat.add_sub_cancel, add_eq_zero, one_ne_zero, and_false, ite_false]
         split_ifs <;> ring
     have h1 : HasSum (fun n : ℕ => if n = 3 then z ^ n else 0) (z ^ 3) := by
       have := hasSum_ite_eq 3 (z ^ 3)

@@ -100,9 +100,9 @@ theorem pderiv_zero_formalAdd_mul (A : F) :
     (by rw [h1]; exact omegaFst_eq A) (by rw [h2]; exact omegaSnd_eq A)
   have hdω₁ : pderiv 0 (omegaFst A) =
       PowerSeries.subst T₀ (PowerSeries.derivative (R := F) (omegaSeries A)) := by
-    rw [omegaFst_eq_subst, pderiv_subst_X, if_pos rfl]
+    rw [omegaFst_eq_subst, pderiv_subst_X, ite_eq_left rfl]
   have hdω₂ : pderiv 0 (omegaSnd A) = 0 := by
-    rw [omegaSnd, pderiv_subst_X, if_neg one_ne_zero]
+    rw [omegaSnd, pderiv_subst_X, ite_eq_right one_ne_zero]
   have hd : pderiv 0 (chordSlope A) * (T₁ - T₀) = chordSlope A -
       PowerSeries.subst T₀ (PowerSeries.derivative (R := F) (omegaSeries A)) := by
     have := congrArg (pderiv 0) r3
@@ -139,10 +139,10 @@ theorem pderiv_one_formalAdd_mul (A : F) :
   have hQ := chordQ_of_roots (A := C A) X_one_sub_X_zero_ne_zero
     (by rw [h2]; exact omegaSnd_eq A) (by rw [h1]; exact omegaFst_eq A)
   have hdω₁ : pderiv 1 (omegaFst A) = 0 := by
-    rw [omegaFst_eq_subst, pderiv_subst_X, if_neg zero_ne_one]
+    rw [omegaFst_eq_subst, pderiv_subst_X, ite_eq_right zero_ne_one]
   have hdω₂ : pderiv 1 (omegaSnd A) =
       PowerSeries.subst T₁ (PowerSeries.derivative (R := F) (omegaSeries A)) := by
-    rw [omegaSnd, pderiv_subst_X, if_pos rfl]
+    rw [omegaSnd, pderiv_subst_X, ite_eq_left rfl]
   have hd : pderiv 1 (chordSlope A) * (T₀ - T₁) = chordSlope A -
       PowerSeries.subst T₁ (PowerSeries.derivative (R := F) (omegaSeries A)) := by
     have := congrArg (pderiv 1) r3
@@ -182,7 +182,7 @@ theorem formalLog_formalAdd_aux (A : F) :
   refine pderiv.ext (fun i => ?_) ?_
   · fin_cases i
     · simp only [Fin.zero_eta, map_sub, map_add, map_zero]
-      rw [pderiv_subst 0 hF, pderiv_subst_X, pderiv_subst_X, if_pos rfl, if_neg one_ne_zero,
+      rw [pderiv_subst 0 hF, pderiv_subst_X, pderiv_subst_X, ite_eq_left rfl, ite_eq_right one_ne_zero,
         derivative_formalLog_aux]
       have := pderiv_zero_formalAdd_mul A
       linear_combination (-(PowerSeries.subst (formalAdd A) (invDiffSeries A) *
@@ -190,7 +190,7 @@ theorem formalLog_formalAdd_aux (A : F) :
         (PowerSeries.subst (formalAdd A) (invDiffSeries A) * PowerSeries.subst T₀ (invDiffSeries A)) *
           this + PowerSeries.subst T₀ (invDiffSeries A) * hSF
     · simp only [Fin.mk_one, map_sub, map_add, map_zero]
-      rw [pderiv_subst 1 hF, pderiv_subst_X, pderiv_subst_X, if_neg zero_ne_one, if_pos rfl,
+      rw [pderiv_subst 1 hF, pderiv_subst_X, pderiv_subst_X, ite_eq_right zero_ne_one, ite_eq_left rfl,
         derivative_formalLog_aux]
       have := pderiv_one_formalAdd_mul A
       linear_combination (-(PowerSeries.subst (formalAdd A) (invDiffSeries A) *

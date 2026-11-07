@@ -121,8 +121,8 @@ theorem packed_spec (p : Program) (r k : ℕ) (zero one q c K B T F D : Ex) (R N
   set U : Set ℕ := {i | i < k} ∪ {i | k ≤ i ∧ i < k + (7 + 2 * r + p.length)}
   have hU : ∀ i ∈ U, i < s1.next := by
     intro i hi; rcases hi with hi | hi
-    · simp only [Set.mem_setOf_eq] at hi; omega
-    · simp only [Set.mem_setOf_eq] at hi; omega
+    · simp only [Set.mem_ofPred_eq] at hi; omega
+    · simp only [Set.mem_ofPred_eq] at hi; omega
   have hmem : ∀ i, i < k + 7 + 2 * r + p.length → i ∈ U := by
     intro i hi
     by_cases h : i < k
@@ -147,7 +147,7 @@ theorem packed_spec (p : Program) (r k : ℕ) (zero one q c K B T F D : Ex) (R N
   have hE := SpecE.expose {i | i < k} k (7 + 2 * r + p.length)
   rw [show k + (7 + 2 * r + p.length) = s1.next by omega] at hE
   have := (hE.append (hP.mono fun i hi => by
-    rcases hi with hi | hi <;> simp only [Set.mem_union, Set.mem_setOf_eq] at hi ⊢ <;> omega)
+    rcases hi with hi | hi <;> simp only [Set.mem_union, Set.mem_ofPred_eq] at hi ⊢ <;> omega)
     (fun i hi => hi)).close
   have hS' : k + (7 + 2 * r + p.length) = s1.next := by omega
   simp only [List.nil_append] at this
@@ -436,7 +436,7 @@ theorem conditions_packedRel {p : Program} {r k : ℕ} (hp : p.Valid r) {a : Fin
   have hblock : ∀ j, j < 7 + 2 * r + p.length → z (k + j) = blockVal r q c K B T F D R N S j := by
     intro j hj
     simp only [hzdef, packedAssign]
-    rw [if_pos ⟨by omega, by omega⟩]; congr 1; omega
+    rw [ite_eq_left ⟨by omega, by omega⟩]; congr 1; omega
   have hz0 : z k = q := by simpa [blockVal] using hblock 0 (by omega)
   have hz1 : z (k + 1) = c := by simpa [blockVal] using hblock 1 (by omega)
   have hz2 : z (k + 2) = K := by simpa [blockVal] using hblock 2 (by omega)
@@ -447,21 +447,21 @@ theorem conditions_packedRel {p : Program} {r k : ℕ} (hp : p.Valid r) {a : Fin
   have hzR : ∀ j < r, z (k + 7 + j) = R j := fun j hj => by
     rw [show k + 7 + j = k + (7 + j) by omega, hblock _ (by omega)]
     unfold blockVal
-    rw [if_neg (by omega), if_pos (by omega)]
+    rw [ite_eq_right (by omega), ite_eq_left (by omega)]
     congr 1; omega
   have hzN : ∀ j < r, z (k + 7 + r + j) = N j := fun j hj => by
     rw [show k + 7 + r + j = k + (7 + r + j) by omega, hblock _ (by omega)]
     unfold blockVal
-    rw [if_neg (by omega), if_neg (by omega), if_pos (by omega)]
+    rw [ite_eq_right (by omega), ite_eq_right (by omega), ite_eq_left (by omega)]
     congr 1; omega
   have hzS : ∀ i < p.length, z (k + 7 + 2 * r + i) = S i := fun i hi => by
     rw [show k + 7 + 2 * r + i = k + (7 + 2 * r + i) by omega, hblock _ (by omega)]
     unfold blockVal
-    rw [if_neg (by omega), if_neg (by omega), if_neg (by omega)]
+    rw [ite_eq_right (by omega), ite_eq_right (by omega), ite_eq_right (by omega)]
     congr 1; omega
   have hzin : ∀ i < k, z i = x i := fun i hi => by
     simp only [hzdef, packedAssign]
-    rw [if_neg (by omega), dif_neg, dif_neg]
+    rw [ite_eq_right (by omega), dite_eq_right, dite_eq_right]
     · rintro ⟨e, he, h'⟩
       obtain ⟨c', hc1, hc2, hc3⟩ := hvw' e he
       rw [hc2] at h'; have := X_injective h'; omega
@@ -482,22 +482,22 @@ theorem conditions_packedRel {p : Program} {r k : ℕ} (hp : p.Valid r) {a : Fin
       · have := h' d c₀ hd hc1; omega
     constructor
     · simp only [hzdef, packedAssign]
-      rw [if_neg (by omega)]
+      rw [ite_eq_right (by omega)]
       have hex : ∃ e' ∈ vw, e'.2.1.poly = X c₀ := ⟨e, he, hc1⟩
-      rw [dif_pos hex]
+      rw [dite_eq_left hex]
       congr 2
       exact huniqV _ hex.choose_spec.1 c₀ hex.choose_spec.2 rfl
     · simp only [hzdef, packedAssign]
-      rw [if_neg (by omega)]
+      rw [ite_eq_right (by omega)]
       have hnex : ¬ ∃ e' ∈ vw, e'.2.1.poly = X (c₀ + 1) := by
         rintro ⟨e', he', h'⟩
         rcases pairwise_mem_cases hpw he he' with h'' | h'' | h''
         · subst h''; rw [hc1] at h'; have := X_injective h'; omega
         · have := h'' c₀ (c₀ + 1) hc1 h'; omega
         · have := h'' (c₀ + 1) c₀ h' hc1; omega
-      rw [dif_neg hnex]
+      rw [dite_eq_right hnex]
       have hex : ∃ e' ∈ vw, e'.2.2.poly = X (c₀ + 1) := ⟨e, he, hc2⟩
-      rw [dif_pos hex]
+      rw [dite_eq_left hex]
       congr 2
       obtain ⟨d, hd1, hd2, -⟩ := hvw' _ hex.choose_spec.1
       rw [hex.choose_spec.2] at hd2
@@ -735,9 +735,9 @@ theorem compiled_natRel_iff (p : Program) (r k : ℕ) (hp : p.Valid r) (hk1 : 1 
       packed_complete hp hk1 hkr hacc
     refine ⟨packedAssign k r p.length vw q' c' K' B' T' F' D' R' N' S' V' W' x, fun i hi => ?_,
       trivial, conditions_packedRel hp hz ho hB hR hN hS hsh2 hvw' hsh3 hxa hcond⟩
-    simp only [Set.mem_union, Set.mem_setOf_eq, vwSet, not_or, not_exists, not_and] at hi
+    simp only [Set.mem_union, Set.mem_ofPred_eq, vwSet, not_or, not_exists, not_and] at hi
     simp only [packedAssign]
-    rw [if_neg (fun h => hi.1 h.1 h.2), dif_neg, dif_neg]
+    rw [ite_eq_right (fun h => hi.1 h.1 h.2), dite_eq_right, dite_eq_right]
     · rintro ⟨e, he, h'⟩; exact (hi.2 e he).2 h'
     · rintro ⟨e, he, h'⟩; exact (hi.2 e he).1 h'
 

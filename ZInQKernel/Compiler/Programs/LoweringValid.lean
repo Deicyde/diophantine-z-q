@@ -124,7 +124,7 @@ theorem lower_valid (P : Program) (hP : P.WF) : (lower P).Valid P.regCount := by
             (P.body.len + 1 + (i - (P.body.len + 1)) + 1) := by
           simp only [lower, List.append_assoc, List.getElem_append, code_length, cleanup,
             List.length_cons, List.length_nil, List.length_map, List.length_range]
-          simp only [h1, if_false]
+          simp only [h1, ite_false]
           have e : i - P.body.len = (i - (P.body.len + 1)) + 1 := by omega
           simp only [e, List.getElem_cons_succ, List.getElem_singleton]
           have h3 : ¬ (i - (P.body.len + 1) + 1 < 0 + 1) := by omega

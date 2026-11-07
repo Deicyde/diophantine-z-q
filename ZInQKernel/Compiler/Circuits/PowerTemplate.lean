@@ -101,7 +101,7 @@ theorem powerTemplate_wf : powerTemplate.WF := by
   intro i hi
   rw [powerTemplate_poly] at hi
   rcases powerTemplate_spec.loc i hi with h | h
-  · simp only [Set.mem_setOf_eq] at h; rw [powerTemplate_varCount]; omega
+  · simp only [Set.mem_ofPred_eq] at h; rw [powerTemplate_varCount]; omega
   · rw [powerTemplate_varCount]; omega
 
 /-- **Semantics of the power template.** For all natural `P, Q, R`, some natural witnesses

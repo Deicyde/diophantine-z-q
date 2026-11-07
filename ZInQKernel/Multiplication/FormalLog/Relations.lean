@@ -183,7 +183,7 @@ theorem pderiv_zero_chordSlope_mul (A : R) :
         (PowerSeries.derivative (R := R) (omegaSeries A)) := by
   have := congrArg (pderiv 0) (chordSlope_mul_sub A)
   rw [Derivation.leibniz, map_sub, map_sub, pderiv_X_self, pderiv_X_of_ne one_ne_zero,
-    omegaFst_eq_subst, omegaSnd, pderiv_subst_X, pderiv_subst_X, if_pos rfl, if_neg one_ne_zero,
+    omegaFst_eq_subst, omegaSnd, pderiv_subst_X, pderiv_subst_X, ite_eq_left rfl, ite_eq_right one_ne_zero,
     smul_eq_mul, smul_eq_mul] at this
   linear_combination this
 

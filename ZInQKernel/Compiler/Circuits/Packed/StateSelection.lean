@@ -17,8 +17,8 @@ open Finset
 theorem pack_indicator_top (B q : ℕ) : pack B (fun t => if t = q then 1 else 0) q = B ^ q := by
   rcases q with _ | q
   · simp
-  · rw [pack_succ_top, if_pos rfl, one_mul,
-      pack_congr (g := fun _ => 0) fun t ht => if_neg (by omega), pack_const_zero, zero_add]
+  · rw [pack_succ_top, ite_eq_left rfl, one_mul,
+      pack_congr (g := fun _ => 0) fun t ht => ite_eq_right (by omega), pack_const_zero, zero_add]
 
 /-- A sum of zero-one values is `1` iff exactly one of them is `1`. -/
 theorem sum_range_eq_one_iff {m : ℕ} {f : ℕ → ℕ} (hf : ∀ i < m, f i ≤ 1) :
@@ -27,7 +27,7 @@ theorem sum_range_eq_one_iff {m : ℕ} {f : ℕ → ℕ} (hf : ∀ i < m, f i �
   · intro h
     have hex : ∃ i ∈ range m, f i ≠ 0 := by
       by_contra hne
-      push_neg at hne
+      push Not at hne
       rw [Finset.sum_eq_zero hne] at h
       exact zero_ne_one h
     obtain ⟨i, hi, hfi⟩ := hex

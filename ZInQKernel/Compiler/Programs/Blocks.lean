@@ -524,7 +524,7 @@ theorem reaches_ltLoop {μ : Machine} {u J a b th el : ℕ} (h0 : μ u = .dec b 
       if i = b then 0 else σ i⟩ := by
   induction hn : σ b generalizing σ with
   | zero =>
-    rw [if_neg (by omega)]
+    rw [ite_eq_right (by omega)]
     refine Reaches.of_step (step_dec_zero h0 hn) ((reaches_clear h4 σ).trans
       (Reaches.of_step (step_jmp h5 ?_) (Reaches.refl _ _))) |>.regs_eq ?_
     · simp [Function.update_apply, hJa, hJ]
@@ -532,7 +532,7 @@ theorem reaches_ltLoop {μ : Machine} {u J a b th el : ℕ} (h0 : μ u = .dec b 
   | succ n ih =>
     have e1 := step_dec_pos h0 (σ := σ) (by omega)
     by_cases ha : σ a = 0
-    · rw [if_pos (by omega)]
+    · rw [ite_eq_left (by omega)]
       refine Reaches.of_step e1 (Reaches.of_step (step_dec_zero h1 (by simp [Function.update_apply, hab, ha]))
         ((reaches_clear h2 _).trans (Reaches.of_step (step_jmp (by simpa using h3) ?_)
           (Reaches.refl _ _)))) |>.regs_eq ?_
@@ -562,11 +562,11 @@ theorem reaches_eqLoop {μ : Machine} {u J a b th el : ℕ} (h0 : μ u = .dec b 
   induction hn : σ b generalizing σ with
   | zero =>
     by_cases ha : σ a = 0
-    · rw [if_pos (by omega)]
+    · rw [ite_eq_left (by omega)]
       refine Reaches.of_step (step_dec_zero h0 hn) (Reaches.of_step (step_dec_zero h2 ha)
         (Reaches.of_step (step_jmp h7 hJ) (Reaches.refl _ _))) |>.regs_eq ?_
       funext i; split_ifs <;> subst_vars <;> omega
-    · rw [if_neg (by omega)]
+    · rw [ite_eq_right (by omega)]
       refine Reaches.of_step (step_dec_zero h0 hn) (Reaches.of_step (step_dec_pos h2 ha)
         ((reaches_clear h5 _).trans (Reaches.of_step (step_jmp h6 ?_) (Reaches.refl _ _)))) |>.regs_eq ?_
       · simp [Function.update_apply, hJa, hJ]
@@ -574,7 +574,7 @@ theorem reaches_eqLoop {μ : Machine} {u J a b th el : ℕ} (h0 : μ u = .dec b 
   | succ n ih =>
     have e1 := step_dec_pos h0 (σ := σ) (by omega)
     by_cases ha : σ a = 0
-    · rw [if_neg (by omega)]
+    · rw [ite_eq_right (by omega)]
       refine Reaches.of_step e1 (Reaches.of_step (step_dec_zero h1 (by simp [Function.update_apply, hab, ha]))
         ((reaches_clear h3 _).trans (Reaches.of_step (step_jmp h4 ?_)
           (Reaches.refl _ _)))) |>.regs_eq ?_

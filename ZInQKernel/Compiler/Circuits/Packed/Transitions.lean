@@ -27,8 +27,8 @@ theorem mul_base_pack (B : ℕ) (f : ℕ → ℕ) (q : ℕ) :
 /-- A packing of length `q + 1` is one of length `q + 2` with a zero top digit. -/
 theorem pack_extend (B : ℕ) (f : ℕ → ℕ) (q : ℕ) :
     pack B f q = pack B (fun t => if t ≤ q then f t else 0) (q + 1) := by
-  rw [pack_succ_top, if_neg (by omega), zero_mul, add_zero]
-  exact pack_congr fun t ht => (if_pos ht).symm
+  rw [pack_succ_top, ite_eq_right (by omega), zero_mul, add_zero]
+  exact pack_congr fun t ht => (ite_eq_left ht).symm
 
 /-- **Item 1: the register equations.** -/
 theorem packed_register_iff {B K q ι : ℕ} (hKB : K < B) (ρ α γ : ℕ → ℕ)
@@ -44,7 +44,7 @@ theorem packed_register_iff {B K q ι : ℕ} (hKB : K < B) (ρ α γ : ℕ → �
       pack B (fun t => (if t = 0 then ι else 0) + ((if t = 0 then 0 else ρ (t - 1)) +
         (if t = 0 then 0 else α (t - 1)))) (q + 1) := by
     rw [mul_base_pack, mul_base_pack, add_assoc, pack_add, pack_succ, pack_succ]
-    simp only [if_pos, Nat.add_eq_zero_iff, one_ne_zero, and_false, if_false, add_tsub_cancel_right]
+    simp only [ite_eq_left, Nat.add_eq_zero_iff, one_ne_zero, and_false, ite_false, add_tsub_cancel_right]
     simp
   rw [hL, hR]
   have hdL : ∀ t ≤ q + 1, (if t ≤ q then ρ t else 0) + (if t = 0 then 0 else γ (t - 1)) < B := by
@@ -65,18 +65,18 @@ theorem packed_register_iff {B K q ι : ℕ} (hKB : K < B) (ρ α γ : ℕ → �
     have e := pack_inj hdL hdR h
     refine ⟨by simpa using e 0 (by omega), fun t ht => ?_, ?_⟩
     · have := e (t + 1) (by omega)
-      simp only [show t + 1 ≤ q by omega, if_true, Nat.add_eq_zero_iff, one_ne_zero, and_false,
-        if_false, add_tsub_cancel_right, zero_add] at this
+      simp only [show t + 1 ≤ q by omega, ite_true, Nat.add_eq_zero_iff, one_ne_zero, and_false,
+        ite_false, add_tsub_cancel_right, zero_add] at this
       exact this
     · have := e (q + 1) (by omega)
-      simp only [show ¬ (q + 1 ≤ q) by omega, if_false, Nat.add_eq_zero_iff, one_ne_zero,
+      simp only [show ¬ (q + 1 ≤ q) by omega, ite_false, Nat.add_eq_zero_iff, one_ne_zero,
         and_false, add_tsub_cancel_right, zero_add] at this
       exact this
   · rintro ⟨h0, h1, h2⟩
     refine pack_congr fun t ht => ?_
     rcases t with _ | t
     · simp [h0]
-    · simp only [Nat.add_eq_zero_iff, one_ne_zero, and_false, if_false, add_tsub_cancel_right,
+    · simp only [Nat.add_eq_zero_iff, one_ne_zero, and_false, ite_false, add_tsub_cancel_right,
         zero_add]
       split_ifs with h
       · exact h1 t (by omega)
@@ -107,18 +107,18 @@ theorem packed_state_iff {B q e : ℕ} (hB : 1 < B) (σ η : ℕ → ℕ) (hσ :
     have e' := pack_inj hdL hdR h
     refine ⟨by simpa using e' 0 (by omega), fun t ht => ?_, ?_⟩
     · have := e' (t + 1) (by omega)
-      simp only [show t + 1 ≤ q by omega, if_true, Nat.add_eq_zero_iff, one_ne_zero, and_false,
-        if_false, add_tsub_cancel_right, zero_add] at this
+      simp only [show t + 1 ≤ q by omega, ite_true, Nat.add_eq_zero_iff, one_ne_zero, and_false,
+        ite_false, add_tsub_cancel_right, zero_add] at this
       exact this
     · have := e' (q + 1) (by omega)
-      simp only [show ¬ (q + 1 ≤ q) by omega, if_false, Nat.add_eq_zero_iff, one_ne_zero,
+      simp only [show ¬ (q + 1 ≤ q) by omega, ite_false, Nat.add_eq_zero_iff, one_ne_zero,
         and_false, add_tsub_cancel_right, zero_add] at this
       exact this.symm
   · rintro ⟨h0, h1, h2⟩
     refine pack_congr fun t ht => ?_
     rcases t with _ | t
     · simp [h0]
-    · simp only [Nat.add_eq_zero_iff, one_ne_zero, and_false, if_false, add_tsub_cancel_right,
+    · simp only [Nat.add_eq_zero_iff, one_ne_zero, and_false, ite_false, add_tsub_cancel_right,
         zero_add]
       split_ifs with h
       · exact h1 t (by omega)

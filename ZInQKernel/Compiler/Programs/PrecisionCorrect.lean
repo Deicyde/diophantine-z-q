@@ -418,9 +418,9 @@ theorem testRest_spec (E : ℕ → ℤ) {U V : ℕ} {κ F lhs rhs : ℤ} (h5 : E
         (κ * F).natAbs))) else false) then .accept else .reject) := by
   by_cases hc : lhs < rhs
   swap
-  · rw [if_neg hc]
+  · rw [ite_eq_right hc]
     exact ZBigStep.seqReject (guard'_reject (by simp [ZCond.Holds, h56, h57, hc]))
-  rw [if_pos hc]
+  rw [ite_eq_left hc]
   have p1 := guard'_pass (c := .lt 56 57) (E := E) (by simp [ZCond.Holds, h56, h57, hc])
   set L := (V - 1) / (4 * U) with hL
   -- `L`
@@ -440,10 +440,10 @@ theorem testRest_spec (E : ℕ → ℤ) {U V : ℕ} {κ F lhs rhs : ℤ} (h5 : E
     ZBigStep.seqNormal p1 (ZBigStep.seqNormal (ZBigStep.assign _ _ _) (ZBigStep.seqNormal
       (ZBigStep.assign _ _ _) (ZBigStep.seqNormal (ZBigStep.assign _ _ _) h)))
   by_cases hL0 : L = 0
-  · rw [if_pos hL0]
+  · rw [ite_eq_left hL0]
     exact pre (ZBigStep.seqReject (guard_reject (by
       simp [ZCond.Holds, e60, g₃ 5 (by omega), h5, hL0])))
-  rw [if_neg hL0]
+  rw [ite_eq_right hL0]
   have p2 := guard_pass (c := .neq 60 5) (E := E₃) (by
     simp [ZCond.Holds, e60, g₃ 5 (by omega), h5]; omega)
   -- `M`
@@ -484,11 +484,11 @@ theorem testCode_spec (E : ℕ → ℤ) (h5 : E 5 = 0) (h6 : E 6 = 1) (h8 : E 8 
     (hj : ptOf E 22 = jmul (E 4)) (hE : EarlyTestsInt (E 0) (E 1) (E 2) (E 3) (E 4)) :
     ZBigStep testCode E (if decideInt (E 0) (E 1) (E 2) (E 3) (E 4) then .accept else .reject) := by
   rw [testCode_eq]
-  simp only [decideInt, if_pos hE, ← hl, ← ha, ← hj]
+  simp only [decideInt, ite_eq_left hE, ← hl, ← ha, ← hj]
   have hws : ∀ w ∈ [14, 20, 26, 12, 18, 24], w + 1 < precT := by simp [precT]
   by_cases hz : (ptOf E 10).Z = 0 ∨ (ptOf E 16).Z = 0 ∨ (ptOf E 22).Z = 0 ∨
       (ptOf E 10).Y = 0 ∨ (ptOf E 16).Y = 0 ∨ (ptOf E 22).Y = 0
-  · rw [if_pos hz]
+  · rw [ite_eq_left hz]
     refine guardsCode_reject _ _ E hws ?_
     simp only [ptOf] at hz
     rcases hz with h | h | h | h | h | h
@@ -498,7 +498,7 @@ theorem testCode_spec (E : ℕ → ℤ) (h5 : E 5 = 0) (h6 : E 6 = 1) (h8 : E 8 
     · exact ⟨12, by simp, h⟩
     · exact ⟨18, by simp, h⟩
     · exact ⟨24, by simp, h⟩
-  rw [if_neg hz]
+  rw [ite_eq_right hz]
   simp only [ptOf, not_or] at hz
   obtain ⟨z1, z2, z3, z4, z5, z6⟩ := hz
   obtain ⟨E₁, a₁, c₁⟩ := guardsCode_pass [14, 20, 26, 12, 18, 24] (SLProg.code precT testSL testRest)
@@ -581,7 +581,7 @@ theorem precisionZ_spec (E : ℕ → ℤ) :
         g₂ 4 (by omega)] at this
     exact pre (ZBigStep.seqNormal h₁ (ZBigStep.seqNormal h₂ this))
   · have hd : decideInt (E₀ 0) (E₀ 1) (E₀ 2) (E₀ 3) (E₀ 4) = false := by
-      simp only [decideInt, if_neg hE]
+      simp only [decideInt, ite_eq_right hE]
     rw [hd]
     exact pre (ZBigStep.seqReject (er hE))
 
@@ -745,9 +745,9 @@ theorem precisionProgram_bigStep (c : Fin 5 → ℕ) :
   have hsim := ZStmt.compile_sim hz (ZStmt.varsBelow_of_varsBound precisionZ_varsBound) precRegT
     (le_refl _) ρ r
   by_cases hc : decide5 c = true
-  · rw [if_pos hc] at hsim ⊢
+  · rw [ite_eq_left hc] at hsim ⊢
     exact BigStep.seqNormal h hsim
-  · rw [if_neg hc] at hsim ⊢
+  · rw [ite_eq_right hc] at hsim ⊢
     exact BigStep.seqNormal h hsim
 
 /-- **The precision program is total.** -/
@@ -761,10 +761,10 @@ theorem precisionProgram_correct (c : Fin 5 → ℕ) :
   constructor
   · intro ha
     by_contra hc
-    rw [if_neg hc] at h
+    rw [ite_eq_right hc] at h
     exact Outcome.noConfusion (ha.deterministic h)
   · intro hc
-    rw [if_pos hc] at h
+    rw [ite_eq_left hc] at h
     exact h
 
 /-- The precision program accepts `c` iff `accepts(c)`. -/
@@ -777,7 +777,7 @@ theorem precisionProgram_reject_of_not_early (c : Fin 5 → ℕ) (h : ¬ EarlyTe
     BigStep precisionProgram.body (RM.initFile c) .reject := by
   have hb := precisionProgram_bigStep c
   have hd : decide5 c = false := by
-    simp only [decide5, decideInt]; rw [if_neg (show ¬ EarlyTestsInt _ _ _ _ _ from h)]
-  rwa [hd, if_neg (by simp)] at hb
+    simp only [decide5, decideInt]; rw [ite_eq_right (show ¬ EarlyTestsInt _ _ _ _ _ from h)]
+  rwa [hd, ite_eq_right (by simp)] at hb
 
 end ZInQ.Compiler.IR

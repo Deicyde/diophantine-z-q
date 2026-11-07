@@ -129,7 +129,7 @@ theorem writeVals_of_not_mem (y : ℕ → ℚ) (l : List (ℕ × ℚ)) {j : ℕ}
   | nil => rfl
   | cons e l ih =>
     obtain ⟨r, v⟩ := e
-    rw [writeVals_cons, if_neg (Ne.symm (h _ List.mem_cons_self))]
+    rw [writeVals_cons, ite_eq_right (Ne.symm (h _ List.mem_cons_self))]
     exact ih fun e he => h e (List.mem_cons_of_mem _ he)
 
 theorem writeVals_of_mem (y : ℕ → ℚ) {l : List (ℕ × ℚ)} (hl : (l.map Prod.fst).Nodup) {r : ℕ}
@@ -142,8 +142,8 @@ theorem writeVals_of_mem (y : ℕ → ℚ) {l : List (ℕ × ℚ)} (hl : (l.map 
     rw [writeVals_cons]
     rcases List.mem_cons.1 h with h' | h'
     · obtain ⟨rfl, rfl⟩ := Prod.mk.inj h'
-      rw [if_pos rfl]
-    · rw [if_neg]
+      rw [ite_eq_left rfl]
+    · rw [ite_eq_right]
       · exact ih hl.2 h'
       · rintro rfl; exact hl.1 ⟨(r, v), h', rfl⟩
 
