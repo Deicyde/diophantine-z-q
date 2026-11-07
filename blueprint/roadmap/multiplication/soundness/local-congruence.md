@@ -2,6 +2,9 @@
 article_id: af_6916b8dfc1aa12a1a25d2c7a
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.local_congruence
 ---
 
 # The congruence at an odd contact prime

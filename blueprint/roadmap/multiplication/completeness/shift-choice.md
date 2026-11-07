@@ -2,6 +2,9 @@
 article_id: af_986c5fd18351e100af5d830f
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.shift_choice, ZInQ.Mult.shift_choice'
 ---
 
 # Choice of the shift at a selected prime

@@ -2,6 +2,9 @@
 article_id: af_213974b61030ed333dcd79d6
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Translation.precisionCircuit_wellFormed, ZInQ.Translation.powerTemplate_wellFormed
 ---
 
 # Scope conditions of the natural precision circuit

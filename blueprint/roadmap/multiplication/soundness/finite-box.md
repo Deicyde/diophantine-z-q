@@ -2,6 +2,9 @@
 article_id: af_5cc5a7d088841f393cccbc20
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.finite_box
 ---
 
 # The finite-box deduction

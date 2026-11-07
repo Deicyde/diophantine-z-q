@@ -2,6 +2,9 @@
 article_id: af_5243a58af240a78f881bfed7
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.E0sub, ZInQ.Size.E1sub, ZInQ.Size.redK, ZInQ.Size.reductionHom, ZInQ.Size.ker_reductionHom, ZInQ.Size.E0_eq_top_of_good, ZInQ.Size.zsmul_addOrderOf_mem_E1
 ---
 
 # Reduction on the nonsingular part

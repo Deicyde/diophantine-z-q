@@ -2,6 +2,9 @@
 article_id: af_042cffb72f4407aa6f13963f
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.t_identity
 ---
 
 # The closed form of $T$

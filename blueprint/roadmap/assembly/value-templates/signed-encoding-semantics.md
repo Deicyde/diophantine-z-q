@@ -2,6 +2,9 @@
 article_id: af_2d303128db416726670b75a8
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.signedEncode_rel_iff
 ---
 
 # Semantics of the signed encoding

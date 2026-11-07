@@ -2,6 +2,9 @@
 article_id: af_b6b83bc5e59e0921bfd92a5c
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.small_constant_bounds
 ---
 
 # Small explicit bounds

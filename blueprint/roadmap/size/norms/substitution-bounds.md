@@ -2,6 +2,9 @@
 article_id: af_9158651be635a1bdd958d850
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.substitution_bounds, ZInQ.Size.rename_bounds, ZInQ.Size.l1_rename_eq
 ---
 
 # Substitution and renaming bounds

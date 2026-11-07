@@ -2,6 +2,9 @@
 article_id: af_c12e743750678945c2261197
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.valueTest_rel_iff
 ---
 
 # Semantics of the value-test template

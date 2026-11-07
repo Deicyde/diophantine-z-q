@@ -2,6 +2,8 @@
 article_id: af_949b5d797e82cdb231fcfcb8
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Mult.SlopePred, ZInQ.Mult.slopeR0, ZInQ.Mult.slopeA, ZInQ.Mult.slopeR, ZInQ.Mult.normTests, ZInQ.Mult.groupW, ZInQ.Mult.traceTheta, ZInQ.Mult.certShifts
 ---
 
 # The slope predicate

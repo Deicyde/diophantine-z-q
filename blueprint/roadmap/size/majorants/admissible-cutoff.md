@@ -2,6 +2,9 @@
 article_id: af_0853f76d0eed4943f87807b2
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.admissible_cutoff, ZInQ.Size.D_le_T
 ---
 
 # The cutoff is an admissible bound

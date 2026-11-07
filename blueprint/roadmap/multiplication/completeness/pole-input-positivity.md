@@ -2,6 +2,9 @@
 article_id: af_3d5bc95620f4cbe105bdc460
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.pole_input_small
 ---
 
 # Positivity and smallness of the pole input

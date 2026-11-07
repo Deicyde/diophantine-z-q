@@ -2,14 +2,18 @@
 article_id: af_a48917532060f169c6a957e0
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Translation.translate_rel_iff_zero, ZInQ.Translation.translate_rel_iff_value
 ---
 
 # Semantics of the model-evaluation translation
 
 Assume the multiplication statement M in its all-input form.
 Let $\mathcal N$ be a natural circuit with $k$ inputs that is well-formed with some bound, with
-power template $\mathcal P$ and a power recipe $\pi$ satisfying (PV) if it has call nodes, and let
-$\rho$ be its translation.
+power template $\mathcal P$ and a well-formed power recipe $\pi$ satisfying (PV) if it has call
+nodes, and let $\rho$ be its translation, with a table of nontrivial constants that is a prefix of
+$(4,2,3,c_3,1399)$ containing the constants of $\mathcal N$.
 
 1. *Zero mode, natural inputs.* For all $E_0,\dots,E_{k-1}\in\mathbb Q^5$,
    $$\mathrm{Rel}_\rho(E_0,\dots,E_{k-1})\iff\exists\,\theta\ \text{admissible for }\mathcal N\text{ with }

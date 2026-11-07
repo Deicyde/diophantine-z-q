@@ -2,6 +2,9 @@
 article_id: af_1c33d93dc5c1b83fd43ca980
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Translation.four_squares
 ---
 
 # Lagrange's four-square theorem

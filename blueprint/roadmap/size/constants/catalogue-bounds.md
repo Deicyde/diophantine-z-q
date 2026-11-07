@@ -2,6 +2,9 @@
 article_id: af_38e5d07a33c1516033681ac3
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.catalogue_bounds
 ---
 
 # The catalogue below the progression cutoff

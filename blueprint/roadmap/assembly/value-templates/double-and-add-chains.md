@@ -2,6 +2,9 @@
 article_id: af_ade280875002b2b1c6820ac7
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.chain_value, ZInQ.Assembly.chain_satisfiable, ZInQ.Assembly.chainBuild_binDigits_value, ZInQ.Assembly.chainCount_contacts
 ---
 
 # Double-and-add chains

@@ -2,6 +2,9 @@
 article_id: af_6bdaa52fe1d398a192eaf759
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.testGroup_rel_iff, ZInQ.Mult.testGroup_rel_iff_codes
 ---
 
 # Semantics of the test-group template

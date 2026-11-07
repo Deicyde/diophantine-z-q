@@ -2,6 +2,9 @@
 article_id: af_e749e0a0a9f07c74c2982ab0
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.guardPoly_size
 ---
 
 # Size of the guard polynomial

@@ -2,6 +2,9 @@
 article_id: af_8e6d5ca2a978652497a89785
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.ConstructorBounds, ZInQ.Size.NodeAdmissible, ZInQ.Size.nodes_majorant, ZInQ.Size.library_majorant
 ---
 
 # Templates satisfy the height majorant

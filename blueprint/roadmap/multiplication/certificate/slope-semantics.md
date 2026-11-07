@@ -2,6 +2,9 @@
 article_id: af_fca6e1326ab5141b86fdd02f
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.slope_rel_iff
 ---
 
 # Semantics of the slope template

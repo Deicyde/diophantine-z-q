@@ -2,6 +2,8 @@
 article_id: af_73174e996cbbf8d67ed04a5e
 declaration: def
 origin: bridged
+statement: formalized
+lean: ZInQ.Translation.nodeVal, ZInQ.Translation.circuitValue, ZInQ.Translation.templateValue, ZInQ.Translation.callValue, ZInQ.Translation.circuitPoly, ZInQ.Translation.Admissible, ZInQ.Translation.circuitValue_eq_eval_poly
 ---
 
 # Values and polynomial of a natural circuit

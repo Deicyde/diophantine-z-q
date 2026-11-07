@@ -2,6 +2,9 @@
 article_id: af_a670c1d34c64ea00736b9abb
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Translation.translate_complete
 ---
 
 # Natural solutions give rational witnesses

@@ -2,13 +2,19 @@
 article_id: af_0f101b9e91748e2bf42d0e17
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Translation.translate_rel_iff, ZInQ.Translation.modelRecipe_rel_iff
 ---
 
 # Relational form of a model-evaluation recipe
 
 Let $\rho$ be the model-evaluation recipe obtained by translating a natural circuit with $k$
-inputs, in value or zero mode, with or without natural constraints on the inputs and with
-an optional power recipe $\pi$, and let $p$ be its parameter count ($5k$ or $5(k+1)$). Call
+inputs that is well-formed with some bound, in value or zero mode, with or without natural
+constraints on the inputs and with an optional well-formed power recipe $\pi$ (present when the
+circuit has call nodes), and let $p$ be its parameter count ($5k$ or $5(k+1)$). The table of
+nontrivial constants of the translation is a prefix of $(4,2,3,c_3,1399)$ that contains the
+constants of the circuit. Call
 the variables of $\rho$ that are neither parameters nor in a private block of one of its calls
 its *free witnesses*: the generator variables $g_0,g_1,g_2$, the fresh points of the explicit
 witness variables and the fresh points of the constant, addition, multiplication and call

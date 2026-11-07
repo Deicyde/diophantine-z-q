@@ -2,6 +2,9 @@
 article_id: af_8ffaa295758fff6712545d61
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Translation.MultiplicationExact, ZInQ.Translation.natural_rel_iff
 ---
 
 # The natural-code predicate

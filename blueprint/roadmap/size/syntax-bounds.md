@@ -2,6 +2,9 @@
 article_id: af_59ef7ca67a1fe0dbf4f25ea2
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.Pstar_size, ZInQ.Size.Pstar_target_bounds
 ---
 
 # Variable, degree and coefficient bounds

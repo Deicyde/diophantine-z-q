@@ -2,6 +2,9 @@
 article_id: af_4c78eec56e9d363166369fef
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.closeCoordinates_rel_iff
 ---
 
 # Semantics of the coordinate window

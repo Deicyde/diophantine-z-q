@@ -2,6 +2,9 @@
 article_id: af_4b765c1343582fef4fbabb8c
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.psi_uniform, ZInQ.Size.guard_uniform, ZInQ.Size.const_uniform
 ---
 
 # Uniform bounds for the finite constructors

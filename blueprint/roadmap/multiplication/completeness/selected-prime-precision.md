@@ -2,6 +2,9 @@
 article_id: af_fa1b877a814d1f44d00860a6
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.tests_precision_selected
 ---
 
 # Precision of the tests at a selected prime

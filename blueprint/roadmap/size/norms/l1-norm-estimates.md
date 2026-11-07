@@ -2,6 +2,9 @@
 article_id: af_4d9990ab76ff6b53fb0dc78e
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.l1_estimates
 ---
 
 # Elementary estimates for the coefficient norm

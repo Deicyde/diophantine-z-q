@@ -2,6 +2,9 @@
 article_id: af_56d022ec8d070b320c36883c
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.closed_comparisons
 ---
 
 # Closed numerical comparisons

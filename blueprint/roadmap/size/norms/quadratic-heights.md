@@ -2,6 +2,9 @@
 article_id: af_1489ec543a565d87e0f613ea
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.QRep, ZInQ.Size.QRep.exists_add, ZInQ.Size.QRep.exists_sub, ZInQ.Size.QRep.exists_mul, ZInQ.Size.QRep.exists_two_mul, ZInQ.Size.QRep.exists_div, ZInQ.Size.QRep.coord_bounds
 ---
 
 # Sizes under quadratic-field operations

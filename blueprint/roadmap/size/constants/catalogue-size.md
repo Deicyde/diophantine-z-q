@@ -2,6 +2,9 @@
 article_id: af_502bc0108d251ff8c4634664
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.catalogue_size
 ---
 
 # Size of $N_s$ and $\ell$

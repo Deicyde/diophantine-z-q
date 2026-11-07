@@ -2,6 +2,9 @@
 article_id: af_43506cf4e50d1d519ba33af3
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.slope_height_le
 ---
 
 # The height of an accepted slope

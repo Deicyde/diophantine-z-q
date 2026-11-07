@@ -2,6 +2,9 @@
 article_id: af_4920ef18243f471dccec8ce1
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.tests_to_congruence
 ---
 
 # From the local tests to the congruence

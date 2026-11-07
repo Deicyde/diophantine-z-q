@@ -2,6 +2,9 @@
 article_id: af_b4a0970674dfe0f62cf9b752
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.r_equals_d, ZInQ.Size.R_eq_D
 ---
 
 # The parameter $R$ equals $D$

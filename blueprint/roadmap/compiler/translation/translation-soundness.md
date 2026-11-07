@@ -2,6 +2,9 @@
 article_id: af_a4a51f1480d6d4e45b1adbe5
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Translation.translate_sound
 ---
 
 # Every node point is the code of the node's value

@@ -2,6 +2,9 @@
 article_id: af_15ca60f1a4296040dd1f25ef
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.genP0_mem_E0_d, ZInQ.Size.redK_genP0_d, ZInQ.Size.resK_genA_d, ZInQ.Size.E0_eq_top_of_ne_d
 ---
 
 # Reduction of $P_0$ at the bad place

@@ -2,6 +2,9 @@
 article_id: af_56d6e8346eaa6e4b5aa332d8
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.model_majorant, ZInQ.Size.composition_majorant
 ---
 
 # Recipes satisfy the height majorant

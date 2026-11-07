@@ -2,6 +2,9 @@
 article_id: af_fec789b921027a32697019ad
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.multiply_complete
 ---
 
 # Completeness of the multiplication template

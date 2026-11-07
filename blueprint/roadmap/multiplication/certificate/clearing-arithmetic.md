@@ -2,6 +2,9 @@
 article_id: af_496f44c864138e067b934eb0
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.clearing_arithmetic, ZInQ.Mult.clearing_identities
 ---
 
 # The clearing inequalities

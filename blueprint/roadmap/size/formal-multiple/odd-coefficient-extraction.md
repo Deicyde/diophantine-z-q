@@ -2,6 +2,9 @@
 article_id: af_151513ff830bae631d1b2d55
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.padicValRat_coords_ge
 ---
 
 # Rational coordinates at odd primes

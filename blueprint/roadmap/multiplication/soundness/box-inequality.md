@@ -2,6 +2,9 @@
 article_id: af_4e7474540df5310d4643573e
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.box_inequality
 ---
 
 # The final inequality of the finite-box deduction

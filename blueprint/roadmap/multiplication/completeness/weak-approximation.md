@@ -2,6 +2,9 @@
 article_id: af_f97d1580e5ecd3f30a4dd17f
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.weak_approx_q
 ---
 
 # Weak approximation for the parameter $q$

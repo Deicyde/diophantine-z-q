@@ -2,6 +2,9 @@
 article_id: af_3f186c028871880047a7d2e0
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.exceptions_rel_iff
 ---
 
 # Semantics of the exceptional values

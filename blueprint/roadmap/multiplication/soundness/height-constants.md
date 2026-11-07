@@ -2,6 +2,9 @@
 article_id: af_015126792f69c15745677c4b
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.heightB0, ZInQ.Mult.heightB0_lt_ten, ZInQ.Mult.one_lt_log_41_sub
 ---
 
 # Explicit height constants

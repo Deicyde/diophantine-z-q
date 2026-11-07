@@ -2,6 +2,9 @@
 article_id: af_85ec2598e01e79cfc3287e70
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.abscissa_val_even
 ---
 
 # Parity of the abscissa on $y^2=x(x-\ell)(x+3\ell)$

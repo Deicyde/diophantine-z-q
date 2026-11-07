@@ -2,6 +2,9 @@
 article_id: af_2459ec66a3941590bbc825e6
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.multiply_sound
 ---
 
 # Soundness of the multiplication template

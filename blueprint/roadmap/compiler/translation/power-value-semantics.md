@@ -2,6 +2,9 @@
 article_id: af_9b134964ee432901f7803b4a
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Translation.powerValue_rel_iff, ZInQ.Translation.powerValue_spec
 ---
 
 # Semantics of the power-value recipe

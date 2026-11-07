@@ -2,6 +2,9 @@
 article_id: af_7fccb8cca72f8e3e30cb16ec
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.heightCertificate_rel_iff, ZInQ.Mult.HeightCert
 ---
 
 # Semantics of the height certificate template

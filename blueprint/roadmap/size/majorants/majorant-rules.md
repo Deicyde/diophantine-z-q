@@ -2,6 +2,9 @@
 article_id: af_c97bcef08b65a490cd31b1a6
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.Maj.mono, ZInQ.Size.Maj.X, ZInQ.Size.Maj.C, ZInQ.Size.Maj.add, ZInQ.Size.Maj.mul, ZInQ.Size.Maj.bind₁, ZInQ.Size.Maj.constructor, ZInQ.Size.Maj.rename, ZInQ.Size.Maj.bind₁_of_maj_zero, ZInQ.Size.Maj.sum_sq, ZInQ.Size.Maj.prod
 ---
 
 # Closure rules for the height majorant

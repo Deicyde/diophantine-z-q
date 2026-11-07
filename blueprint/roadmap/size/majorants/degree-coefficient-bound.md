@@ -2,6 +2,9 @@
 article_id: af_4b85c30934543b682e2cec28
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.Pstar_degree_coeff, ZInQ.Size.PstarNat_maj
 ---
 
 # Degree and coefficient bounds for the specified polynomial

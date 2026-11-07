@@ -2,6 +2,8 @@
 article_id: af_aaf25b05d838e79e291f6fb8
 declaration: def
 origin: bridged
+statement: formalized
+lean: ZInQ.Translation.WellFormedCore, ZInQ.Translation.WellFormed
 ---
 
 # Well-formed natural circuits

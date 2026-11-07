@@ -2,6 +2,9 @@
 article_id: af_bf23c419353066e2df2a5d55
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.common_group
 ---
 
 # The trace forces one common group and place

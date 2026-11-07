@@ -2,6 +2,9 @@
 article_id: af_62e71107b1d0803f487f9922
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.tower_bounds, ZInQ.Size.degree_lt_tower_seven, ZInQ.Size.coefficient_lt_tower_eight
 ---
 
 # Comparison with the towers

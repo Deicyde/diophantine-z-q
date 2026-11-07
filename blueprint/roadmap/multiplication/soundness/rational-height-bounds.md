@@ -2,6 +2,9 @@
 article_id: af_e723f99aa1a5e5b7a132dda6
 declaration: lemma
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.rational_height_bounds
 ---
 
 # Sum and quotient bounds for rational heights

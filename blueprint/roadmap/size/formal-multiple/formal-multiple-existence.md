@@ -2,6 +2,9 @@
 article_id: af_5ab0ee2cb4c01274f034ffe1
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.exists_formal_multiple, ZInQ.Size.leastFormalMultiple_bounds, ZInQ.Size.leastFormalMultiple_formalCondition, ZInQ.Size.M0_bounds
 ---
 
 # A successful formal multiple

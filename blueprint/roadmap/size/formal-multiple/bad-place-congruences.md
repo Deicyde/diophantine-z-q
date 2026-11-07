@@ -2,6 +2,9 @@
 article_id: af_26908decedf0232ab60fec7b
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.bad_place_congruences, ZInQ.Size.bad_place_congruences_zmod
 ---
 
 # Congruences for $P_0$ modulo seven

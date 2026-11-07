@@ -2,6 +2,9 @@
 article_id: af_45a01c2574b50b0f49bca688
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.D_bounds
 ---
 
 # Bounds for $D$

@@ -2,6 +2,9 @@
 article_id: af_300f2ca3b34a188effa5b5e6
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.close_rel_iff, ZInQ.Assembly.main_rel_iff, ZInQ.Assembly.valueUnion_rel_iff, ZInQ.Assembly.value_rel_iff, ZInQ.Assembly.spec_close_rel_iff, ZInQ.Assembly.spec_main_rel_iff, ZInQ.Assembly.spec_valueUnion_rel_iff, ZInQ.Assembly.spec_value_rel_iff
 ---
 
 # Relations of the outer recipes

@@ -2,6 +2,9 @@
 article_id: af_cee2912803350d1b4d415293
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.pole_input_valuations, ZInQ.Mult.poleInput
 ---
 
 # Valuations of the pole input of a completed slope

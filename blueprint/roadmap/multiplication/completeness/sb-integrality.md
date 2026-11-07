@@ -2,6 +2,9 @@
 article_id: af_2bcee6844345efa5d9d63278
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.tests_integral_old
 ---
 
 # Integrality of the tests at the old primes

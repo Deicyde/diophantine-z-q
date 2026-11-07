@@ -2,6 +2,9 @@
 article_id: af_82d475d89100a55547a93a2b
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.literal_cutoff, ZInQ.Size.formal_multiple_succeeds
 ---
 
 # The literal cutoff

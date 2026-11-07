@@ -2,6 +2,9 @@
 article_id: af_4a49ea6f49a9d4e65eeeb83b
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.card_affineSolutions_le, ZInQ.Size.card_points_le, ZInQ.Size.addOrderOf_le_two_card_add_one, ZInQ.Size.odd_prime_count_bounds
 ---
 
 # The trivial point count

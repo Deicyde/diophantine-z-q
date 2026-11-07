@@ -2,6 +2,9 @@
 article_id: af_d0e912d16601dc066c2d89a6
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.recipe_heights
 ---
 
 # Recipe heights

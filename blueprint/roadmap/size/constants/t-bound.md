@@ -2,6 +2,9 @@
 article_id: af_ffb01c564fad22b4e5a844c7
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.closedT_lt
 ---
 
 # The cutoff is below a triple tower

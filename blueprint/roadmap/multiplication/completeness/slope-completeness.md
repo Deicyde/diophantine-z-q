@@ -2,6 +2,9 @@
 article_id: af_f409a876f4ee828ed69ca8a4
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.slope_complete
 ---
 
 # Completeness of the slope certificate for a true triple

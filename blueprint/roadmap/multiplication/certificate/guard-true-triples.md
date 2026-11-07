@@ -2,6 +2,9 @@
 article_id: af_73428d409a7c5a4fb7036cc3
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.guard_true_triple, ZInQ.Mult.guard_false_triple, ZInQ.Mult.guard_rel_iff, ZInQ.Mult.guardPoly_zero_set
 ---
 
 # The guard passes true triples and rejects false triples in the box

@@ -2,6 +2,9 @@
 article_id: af_8e91cd3347a520216f16e82e
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.iota_coord_height
 ---
 
 # Heights of the codes in the guard box

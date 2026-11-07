@@ -2,6 +2,9 @@
 article_id: af_f0a470175447ecc8285c0636
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.generator_height, ZInQ.Mult.canonHeightE
 ---
 
 # The canonical height of multiples of $P_0$

@@ -2,6 +2,9 @@
 article_id: af_a2f47599157b711d493e7cbb
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.multiply_rel_iff_unguarded, ZInQ.Mult.multiply_rel_iff, ZInQ.Mult.multiply_rel_iff_cert
 ---
 
 # Unfolding the multiplication template

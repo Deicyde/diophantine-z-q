@@ -2,6 +2,9 @@
 article_id: af_da12d4dc3fbbb86f5fa951b7
 declaration: lemma
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.exists_reduction_multiple
 ---
 
 # Reduction orders of $P_0$

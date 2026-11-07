@@ -2,6 +2,9 @@
 article_id: af_ffcc22aaa06007eced4e6bf0
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.contact_valuations
 ---
 
 # Valuations of the normalization at an odd contact prime

@@ -2,6 +2,8 @@
 article_id: af_81092045b02e5b696f16c4c3
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Syntax.l1, ZInQ.Size.PairRing, ZInQ.Size.pairNorm, ZInQ.Size.pairDeg
 ---
 
 # Coefficient norms and degrees

@@ -2,6 +2,9 @@
 article_id: af_d7f5e2cab732cc7355890543
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Translation.precision_rel_iff, ZInQ.Translation.precision_rel_iff_accepts_of
 ---
 
 # Semantics of the rational translation

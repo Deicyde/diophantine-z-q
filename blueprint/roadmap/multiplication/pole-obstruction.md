@@ -4,7 +4,7 @@ declaration: lemma
 origin: cited
 statement: formalized
 proof: formalized
-lean: ZInQ.Assembly.poleSoluble_no_negative_odd
+lean: ZInQ.Mult.pole_obstruction
 ---
 
 # The one-sided pole obstruction

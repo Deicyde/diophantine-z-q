@@ -2,6 +2,9 @@
 article_id: af_a196dae9d8011ff77fa16256
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.rawZ_rel_iff_of, ZInQ.Mult.rawZ_not_rel, ZInQ.Mult.rawInverseX_rel_iff_of, ZInQ.Mult.rawInverseX_not_rel, ZInQ.Mult.log25_rel_iff, ZInQ.Mult.rawZ_rel_iota, ZInQ.Mult.rawInverseX_rel_iota
 ---
 
 # Semantics of the local-parameter, inverse-abscissa and logarithm templates

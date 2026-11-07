@@ -2,6 +2,9 @@
 article_id: af_e412ee299926ce7f7164d234
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.normDiv_size, ZInQ.Size.psiComponent_size
 ---
 
 # Size of the division polynomials

@@ -3,6 +3,7 @@ article_id: af_f3a82a28bda02069dfcbcf6c
 declaration: lemma
 origin: bridged
 statement: formalized
+proof: formalized
 lean: ZInQ.Mult.ellLog_ratio
 ---
 

@@ -2,6 +2,9 @@
 article_id: af_5efaee9a7805e7c8d026c681
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.formal_multiple_size
 ---
 
 # Size of the formal multiple constant

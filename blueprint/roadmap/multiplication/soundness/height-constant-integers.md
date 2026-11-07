@@ -2,6 +2,9 @@
 article_id: af_568e8584779f54fac930a6ab
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.height_constants_int
 ---
 
 # The integer inequalities behind the height constants

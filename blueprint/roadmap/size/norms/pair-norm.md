@@ -2,6 +2,9 @@
 article_id: af_fea335fde9760f46198e77d4
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Size.pair_norm_estimates
 ---
 
 # The weighted pair norm

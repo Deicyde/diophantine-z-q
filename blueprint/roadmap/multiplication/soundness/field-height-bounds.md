@@ -2,6 +2,9 @@
 article_id: af_c6f0b214ab1f42a429e679b4
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.field_height_bounds
 ---
 
 # Height bounds in $K_0$

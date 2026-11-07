@@ -2,6 +2,8 @@
 article_id: af_7a7cd7c7002dcafc8aa364b6
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Size.Maj, ZInQ.Size.nodeHeight, ZInQ.Size.nodeHeights, ZInQ.Size.templateHeight, ZInQ.Size.libraryHeights, ZInQ.Size.recipeHeight, ZInQ.Size.recipeHeights
 ---
 
 # Syntax heights

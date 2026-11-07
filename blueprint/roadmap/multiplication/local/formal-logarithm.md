@@ -3,7 +3,8 @@ article_id: af_6232cd6ae4ba063700a677b4
 declaration: theorem
 origin: background
 statement: formalized
-lean: ZInQ.Mult.formalLog, ZInQ.Mult.ellLog, ZInQ.Mult.ellLog_add, ZInQ.Mult.summable_log
+proof: formalized
+lean: ZInQ.Mult.formalLog, ZInQ.Mult.ellLog, ZInQ.Mult.formalLog_formalAdd, ZInQ.Mult.ellLog_add, ZInQ.Mult.summable_log
 ---
 
 # The formal logarithm

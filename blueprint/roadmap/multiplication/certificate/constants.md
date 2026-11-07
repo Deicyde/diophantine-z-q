@@ -2,6 +2,8 @@
 article_id: af_a9153e37829b9e4aeba1b220
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Mult.S_ht, ZInQ.Mult.catalogue, ZInQ.Mult.S_b, ZInQ.Mult.S_mul, ZInQ.Mult.Bp, ZInQ.Mult.Cp, ZInQ.Mult.Dp, ZInQ.Mult.Ep, ZInQ.Mult.contactPoly, ZInQ.Mult.IsOddContactPrime, ZInQ.Mult.prec
 ---
 
 # Prime sets and clearing exponents of the multiplication certificate

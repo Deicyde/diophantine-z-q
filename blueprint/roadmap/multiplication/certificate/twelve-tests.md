@@ -2,6 +2,8 @@
 article_id: af_37201bee3678c1995776dedf
 declaration: def
 origin: cited
+statement: formalized
+lean: ZInQ.Mult.invX, ZInQ.Mult.zOf, ZInQ.Mult.Lam, ZInQ.Mult.testValues, ZInQ.Mult.testValues_eq
 ---
 
 # The twelve local tests

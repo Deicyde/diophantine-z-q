@@ -2,6 +2,9 @@
 article_id: af_889d4242784987bdf424039d
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.Mult.pattern_slopes, ZInQ.Mult.GoodSlope
 ---
 
 # Slopes of an integer from the prime pattern
