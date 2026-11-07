@@ -52,7 +52,7 @@ theorem precisionShape_of (hH : HaltingNodeCheck) (code : ℤ) :
   obtain ⟨hk, hv, -, -, -⟩ := precisionCircuitOf_counts code
   obtain ⟨-, -, -, hadd, hmul, hcall, hconst⟩ := precisionCircuitOf_nodeStats hH code
   refine ⟨hk, hv.le, ?_, ?_, ?_, ?_, ?_⟩
-  · obtain ⟨rest, -, h⟩ := precisionCircuitOf_explicitVars code
+  · obtain ⟨rest, -, -, h⟩ := precisionCircuitOf_explicitVars code
     rw [h, List.countP_append]
     have : List.countP (fun v => decide (IsInputVar 5 v))
         [((0 : ℕ), VarKind.input), (1, .input), (2, .input), (3, .input), (4, .input),
