@@ -1,7 +1,5 @@
 import ZInQKernel.Multiplication.Soundness.MultiplySound
 import ZInQKernel.Multiplication.Completeness.Template
-import ZInQKernel.Syntax.Recipes.Polynomial
-import ZInQKernel.Size.FormalMultiple.Existence
 import ZInQKernel.Compiler.Translation.NaturalCode
 
 /-!
@@ -13,28 +11,14 @@ Assume the six-contact estimate, pole completeness and the twenty-two-prime patt
 constructors of the specification and the fixed constants `c_*`, `ℓ`, `T`, the multiplication
 template accepts `(Y₁, Y₂, Y₃) ∈ (ℚ⁵)³` exactly when `(Y₁, Y₂, Y₃) = (ι(a), ι(b), ι(ab))` for some
 `a, b ∈ ℤ` (`multiplication_exact`), and then `a` and `b` are unique
-(`multiplication_exact_unique`). This is input M of the assembly.
+(`multiplication_exact_unique`, `multiplication_existsUnique`). This is input M of the assembly.
 
-Soundness is `multiply_sound`, completeness `multiply_complete`; their hypotheses on the
-constructors hold for `specConstructors`: the fixed-scalar semantics of `S_{c_*}` is
-`scalarTemplate_rel_iff_iota` (with `c_* = 4 M₀ ≥ 4`), the guard of `specConstructors` is `G_T` by
-definition, and `M₀ ≥ 1` is `Size.M0_bounds`. No constant is evaluated: the values of the named
-constants are rewritten to `Syntax.cstar`, `Syntax.ell`, `Syntax.T` by `FixedConst.value_cstar`, …
+Soundness is `multiply_sound` (from H) and completeness `multiply_complete` (from PC and 22P).
 -/
 
 namespace ZInQ.Mult
 
 open Syntax
-
-/-- `M₀ ≥ 1`. -/
-theorem one_le_M0_fixed : 1 ≤ Syntax.M0 := (Size.M0_bounds Syntax.Ns_pos).1
-
-/-- The fixed-scalar semantics of `S_{c_*}` for the constructors of the specification. -/
-theorem spec_scalar_cstar_rel_iff (m : ℤ) (r : Fin 5 → ℚ) :
-    (scalarTemplate specConstructors (Syntax.cstar : ℤ)).Rel (Fin.append (iota m) r) ↔
-      r = iota (Syntax.cstar * m) :=
-  scalarTemplate_rel_iff_iota specConstructors rfl
-    (by exact_mod_cast (four_le_cstar one_le_M0_fixed).trans' (by norm_num)) m r
 
 /-- **Correctness of the multiplication template** (input M): for all `Y₁, Y₂, Y₃ ∈ ℚ⁵`,
 `Rel_multiply(Y₁, Y₂, Y₃) ⟺ ∃ a b ∈ ℤ, (Y₁, Y₂, Y₃) = (ι(a), ι(b), ι(ab))`. -/
@@ -42,14 +26,11 @@ theorem multiplication_exact (hH : SixContactEstimate) (hPC : PoleCompleteness)
     (h22 : FixedPrimePattern) :
     Translation.MultiplicationExact Syntax.specConstructors FixedConst.cstar.value
       FixedConst.ell.value FixedConst.T.value := by
-  rw [FixedConst.value_cstar, FixedConst.value_ell, FixedConst.value_T]
   intro Y₁ Y₂ Y₃
   constructor
-  · exact multiply_sound hH one_le_M0_fixed specConstructors spec_scalar_cstar_rel_iff rfl
-      Y₁ Y₂ Y₃
+  · exact multiply_sound hH Y₁ Y₂ Y₃
   · rintro ⟨a, b, rfl, rfl, rfl⟩
-    exact multiply_complete hPC h22 one_le_M0_fixed specConstructors _
-      spec_scalar_cstar_rel_iff rfl a b
+    exact multiply_complete hPC h22 a b
 
 /-- **Uniqueness of `a, b`** in the multiplication statement: if
 `(Y₁, Y₂, Y₃) = (ι(a), ι(b), ι(ab)) = (ι(a'), ι(b'), ι(a'b'))`, then `a = a'` and `b = b'`

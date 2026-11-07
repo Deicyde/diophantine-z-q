@@ -1,13 +1,14 @@
 import ZInQKernel.Multiplication.Certificate.Constants
 import ZInQKernel.Multiplication.Certificate.ClearingArithmetic
 import ZInQKernel.Hypotheses.Pole
+import ZInQKernel.Size.FormalMultiple.Existence
 
 /-!
 # Properties of the multiplication constants
 
 Blueprint: `multiplication/certificate/constants-properties.md`.
 
-1. `M₀ ≥ 1` (given a successful formal multiple, `one_le_M0`), so `c_* ≥ 4`; `ℓ₀ ≥ 1`.
+1. `M₀ ≥ 1` (`one_le_M0_spec`), so `c_* ≥ 4`; `ℓ₀ ≥ 1`.
 2. `S_mul` is a finite set of primes containing every prime `p ≤ 324`, `p ≤ R` for `p ∈ S_mul`,
    `R ≥ D` and `R ≥ 10¹²` (`S_mul_admissible`); the six-contact constant at `R` is
    `H₆(S_mul; R) = A_ht` (`Aht_eq_heightH6`), so the estimate reads
@@ -23,9 +24,8 @@ are identified through their equation lemmas only (`D_eq_heightD`, …): unfoldi
 would make the kernel evaluate them.
 
 Positivity of `M₀` is the success of the least-formal-multiple search, proved in the size
-chapter; here it enters as the hypothesis `∃ m, 1 ≤ m ∧ FormalCondition N_s m`, or directly as
-`1 ≤ M₀` where only the consequence is needed. Without it `c_* = 0`, and every prime divides
-`c_*`.
+chapter (`Size.M0_bounds`); `one_le_M0` derives it from any successful formal multiple and
+`one_le_M0_spec` is the instance. Without it `c_* = 0`, and every prime divides `c_*`.
 -/
 
 namespace ZInQ.Mult
@@ -73,11 +73,15 @@ theorem Aht_eq_heightH6 : (Syntax.Aht : ℝ) = heightH6 (Syntax.R : ℝ) := by
 theorem one_le_M0 (h : ∃ m, 1 ≤ m ∧ Syntax.FormalCondition Syntax.Ns m) : 1 ≤ Syntax.M0 :=
   (Syntax.M0_spec h).1
 
-theorem four_le_cstar (hM0 : 1 ≤ Syntax.M0) : 4 ≤ Syntax.cstar := by
+/-- `M₀ ≥ 1`: `N_s ≥ 1` has a formal multiple (`Size.M0_bounds`). -/
+theorem one_le_M0_spec : 1 ≤ Syntax.M0 := (Size.M0_bounds Syntax.Ns_pos).1
+
+theorem four_le_cstar : 4 ≤ Syntax.cstar := by
+  have := one_le_M0_spec
   rw [Syntax.cstar_eq]; omega
 
-theorem cstar_pos (hM0 : 1 ≤ Syntax.M0) : 0 < Syntax.cstar :=
-  lt_of_lt_of_le (by norm_num) (four_le_cstar hM0)
+theorem cstar_pos : 0 < Syntax.cstar :=
+  lt_of_lt_of_le (by norm_num) four_le_cstar
 
 theorem one_le_ell : 1 ≤ Syntax.ell := Syntax.ell_pos
 
@@ -248,14 +252,14 @@ theorem padicValNat_ell_of_not_mem {p : ℕ} (hp : p.Prime) (h : p ∉ S_b) :
 
 /-! ### Item 5 -/
 
-/-- **Primes outside `S_mul`.** Given `M₀ ≥ 1`, a prime `p ∉ S_mul` satisfies `p > 324`,
+/-- **Primes outside `S_mul`.** A prime `p ∉ S_mul` satisfies `p > 324`,
 `p ∤ c_*`, `p ∤ ℓ₀` and `p ∉ S₀ = {2, 3, 5, 7, 13}`. -/
-theorem not_mem_S_mul (hM0 : 1 ≤ Syntax.M0) {p : ℕ} (hp : p.Prime) (h : p ∉ S_mul) :
+theorem not_mem_S_mul {p : ℕ} (hp : p.Prime) (h : p ∉ S_mul) :
     324 < p ∧ ¬ p ∣ Syntax.cstar ∧ ¬ p ∣ Syntax.ell ∧ p ∉ poleS0 := by
   have h324 : 324 < p := by
     by_contra hle
     exact h (mem_S_mul_of_le hp (by omega))
-  refine ⟨h324, fun hd => h (mem_S_mul.2 (Or.inr (Or.inr ⟨hp, hd, (cstar_pos hM0).ne'⟩))),
+  refine ⟨h324, fun hd => h (mem_S_mul.2 (Or.inr (Or.inr ⟨hp, hd, cstar_pos.ne'⟩))),
     fun hd => ?_, fun h0 => ?_⟩
   · have : Fact p.Prime := ⟨hp⟩
     have hb : p ∉ S_b := fun hb => h (S_b_subset_S_mul hb)

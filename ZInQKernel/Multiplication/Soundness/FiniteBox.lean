@@ -154,8 +154,8 @@ theorem finite_box_of_heights {A : ℝ} (hA : 1 ≤ A) (n : Fin 3 → ℤ) (hf :
 /-- **The finite-box deduction**, from the data supplied by the height certificate: if
 `n₁n₂ ≠ n₃` and for each `i` the coordinates of `x([nᵢ]P₀)` are `a_{ij}/bᵢ` with `bᵢ ≠ 0`, each of
 the nine quantities `a_{ij}, bᵢ` being a sum of three slopes `t` with
-`Slope(t, ℓ₀; c_*, c_*n₁, c_*n₂, c_*n₃)`, then `|nᵢ| < T` (given H and `M₀ ≥ 1`). -/
-theorem finite_box_of_slopes (hH : SixContactEstimate) (hM0 : 1 ≤ Syntax.M0) (n : Fin 3 → ℤ)
+`Slope(t, ℓ₀; c_*, c_*n₁, c_*n₂, c_*n₃)`, then `|nᵢ| < T` (given H). -/
+theorem finite_box_of_slopes (hH : SixContactEstimate) (n : Fin 3 → ℤ)
     (hf : n 0 * n 1 ≠ n 2)
     (hcert : ∀ i, ∃ a₀ a₁ b : ℚ, b ≠ 0 ∧ b * iota (n i) 1 = a₀ ∧ b * iota (n i) 2 = a₁ ∧
       ∀ Q ∈ ({a₀, a₁, b} : Set ℚ), ∃ t₁ t₂ t₃ : ℚ, t₁ + t₂ + t₃ = Q ∧
@@ -167,7 +167,7 @@ theorem finite_box_of_slopes (hH : SixContactEstimate) (hM0 : 1 ≤ Syntax.M0) (
     obtain ⟨a₀, a₁, b, hb, e₀, e₁, hQ⟩ := hcert i
     refine ⟨a₀, a₁, b, hb, e₀, e₁, fun Q hQm => ?_⟩
     obtain ⟨t₁, t₂, t₃, hsum, hts⟩ := hQ Q hQm
-    exact ⟨t₁, t₂, t₃, hsum, fun t ht => (slope_height_le hH hM0 n hf' (hts t ht)).2⟩
+    exact ⟨t₁, t₂, t₃, hsum, fun t ht => (slope_height_le hH n hf' (hts t ht)).2⟩
   intro i
   have := hb i
   have hT : ((Syntax.T : ℕ) : ℝ) = (48 * (Syntax.Aht : ℝ)) ^ 13 := by
@@ -184,12 +184,12 @@ theorem nineQ_surj (A : Fin 3 → Fin 2 → ℚ) (b : Fin 3 → ℚ) (i : Fin 3)
 
 /-- The finite-box deduction from the height-certificate predicate `HeightCert` at the codes
 `ι(nᵢ)` with `ℓ = ℓ₀` and the shifts `(c_*, c_*n₁, c_*n₂, c_*n₃)`. -/
-theorem finite_box_of_heightCert (hH : SixContactEstimate) (hM0 : 1 ≤ Syntax.M0) (n : Fin 3 → ℤ)
+theorem finite_box_of_heightCert (hH : SixContactEstimate) (n : Fin 3 → ℤ)
     (hf : n 0 * n 1 ≠ n 2)
     (hcert : HeightCert (fun i => iota (n i)) (Syntax.ell : ℚ) (certShifts n)) :
     ∀ i, |n i| < (Syntax.T : ℤ) := by
   obtain ⟨A, b, hb, hQ⟩ := hcert
-  refine finite_box_of_slopes hH hM0 n hf fun i => ?_
+  refine finite_box_of_slopes hH n hf fun i => ?_
   obtain ⟨hb0, e₀, e₁⟩ := hb i
   refine ⟨A i 0, A i 1, b i, hb0, e₀, e₁, fun Q hQm => ?_⟩
   obtain ⟨⟨k₀, h₀⟩, ⟨k₁, h₁⟩, ⟨k₂, h₂⟩⟩ := nineQ_surj A b i
@@ -205,11 +205,11 @@ theorem finite_box_of_heightCert (hH : SixContactEstimate) (hM0 : 1 ≤ Syntax.M
   · rw [← h₁]; exact key k₁
   · rw [← h₂]; exact key k₂
 
-/-- **The finite-box deduction** (Proposition 6.1). Assume the six-contact estimate and
-`M₀ ≥ 1`. If `n₁n₂ ≠ n₃` and the unguarded certificate accepts
+/-- **The finite-box deduction** (Proposition 6.1). Assume the six-contact estimate.
+If `n₁n₂ ≠ n₃` and the unguarded certificate accepts
 `(ι(n₁), ι(n₂), ι(n₃), ℓ₀, ι(c_*), ι(c_*n₁), ι(c_*n₂), ι(c_*n₃))`, then `|nᵢ| < T`. The
 parameter vector `a ∈ ℚ³⁶` of the height-certificate template is described coordinatewise. -/
-theorem finite_box (hH : SixContactEstimate) (hM0 : 1 ≤ Syntax.M0) (n : Fin 3 → ℤ)
+theorem finite_box (hH : SixContactEstimate) (n : Fin 3 → ℤ)
     (hf : n 0 * n 1 ≠ n 2) (a : Fin 36 → ℚ)
     (hY : ∀ (i : Fin 3) (k : Fin 5), a ⟨5 * i + k, by omega⟩ = iota (n i) k)
     (hℓ : a 15 = (Syntax.ell : ℚ))
@@ -220,6 +220,6 @@ theorem finite_box (hH : SixContactEstimate) (hM0 : 1 ≤ Syntax.M0) (n : Fin 3 
   have e : (fun (i : Fin 3) (k : Fin 5) => a ⟨5 * i + k, by omega⟩) = fun i => iota (n i) :=
     funext fun i => funext fun k => hY i k
   rw [e] at hcert
-  exact finite_box_of_heightCert hH hM0 n hf hcert
+  exact finite_box_of_heightCert hH n hf hcert
 
 end ZInQ.Mult
