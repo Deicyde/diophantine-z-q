@@ -48,14 +48,23 @@ theorem Pstar_spec_of (hN : HaltingNodeCheck) (hCAT : CatalogueBound)
   obtain ⟨hdeg, hcoeff⟩ := Size.Pstar_target_bounds hCAT hN c3_natAbs_lt
   exact ⟨hdeg, hcoeff, fun q => (specPstar_zero_projection_valueRel hN q).trans (hval q)⟩
 
-/-- **The assembly lemma** (target form), from M and soundness and completeness of Close. -/
-theorem assembly_of (hN : HaltingNodeCheck) (hH : SixContactEstimate) (hPC : PoleCompleteness)
-    (hCAT : CatalogueBound) (hM : SpecMultiplicationExact)
-    (hsound : ∀ (n κ : ℤ) (t : ℚ), CloseRel (iota n) (iota κ) t →
-      n ∉ Compiler.Precision.contacts ∧ κ ≠ 0 ∧
-        |(t : ℝ) - n| < Real.exp (-(Compiler.Precision.bound n κ : ℝ)))
-    (hcomp : ∀ n κ : ℤ, n ∉ Compiler.Precision.contacts → κ ≠ 0 → CloseRel (iota n) (iota κ) n) :
-    FrozenTarget :=
-  ⟨specPstar (c3 : ℤ), Pstar_spec_of hN hCAT (exists_value_rel_iff_of hH hPC hM hsound hcomp)⟩
+/-- **The assembly lemma.** Under H, PC, 22P and CAT, and the node statistics of the universal
+halting circuit, the specified polynomial `P_* ∈ ℤ[X_0, …, X_{292890231904}]` has degree below
+`2↑↑7`, coefficients below `2↑↑8`, and rational zero projection to `X_0` exactly `ℤ`. -/
+theorem Pstar_spec (hN : HaltingNodeCheck) (hH : SixContactEstimate) (hPC : PoleCompleteness)
+    (h22 : FixedPrimePattern) (hCAT : CatalogueBound) :
+    (specPstar (c3 : ℤ)).totalDegree < hyperoperation 4 2 7 ∧
+      (∀ m : Fin 292890231905 →₀ ℕ, ((specPstar (c3 : ℤ)).coeff m).natAbs <
+        hyperoperation 4 2 8) ∧
+      ∀ q : ℚ, (∃ w : Fin 292890231904 → ℚ,
+          MvPolynomial.eval₂ (Int.castRingHom ℚ) (Fin.cons q w) (specPstar (c3 : ℤ)) = 0) ↔
+        ∃ z : ℤ, (z : ℚ) = q :=
+  Pstar_spec_of hN hCAT (exists_value_relation_iff hH hPC h22)
+
+/-- **The target statement** for `P_*`, under H, PC, 22P, CAT and the node statistics of the
+universal halting circuit. -/
+theorem assembly (hN : HaltingNodeCheck) (hH : SixContactEstimate) (hPC : PoleCompleteness)
+    (h22 : FixedPrimePattern) (hCAT : CatalogueBound) : FrozenTarget :=
+  ⟨specPstar (c3 : ℤ), Pstar_spec hN hH hPC h22 hCAT⟩
 
 end ZInQ.Assembly
