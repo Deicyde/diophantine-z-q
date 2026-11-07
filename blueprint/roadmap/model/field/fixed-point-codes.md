@@ -2,6 +2,9 @@
 article_id: af_c6d2fe5c039199bb2ade26a6
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.iota_eq_psi_unconditional, ZInQ.iota_eq_psi
 ---
 
 # Fixed point codes by division polynomials

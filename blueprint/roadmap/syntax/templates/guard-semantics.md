@@ -2,6 +2,9 @@
 article_id: af_c9e3809c9b4af907ad88dee8
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Syntax.guardTemplate_rel_codes3_iff, ZInQ.Syntax.guardTemplate_rel_iff_not_falseTriple_guardPoly
 ---
 
 # Semantics of the guard template

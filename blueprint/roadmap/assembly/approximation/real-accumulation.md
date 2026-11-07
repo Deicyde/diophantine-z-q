@@ -2,6 +2,9 @@
 article_id: af_db94cccfceea1aba7e4e10bc
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Assembly.exists_multiple_large_unconditional
 ---
 
 # Multiples of the generator approach the identity at both real places

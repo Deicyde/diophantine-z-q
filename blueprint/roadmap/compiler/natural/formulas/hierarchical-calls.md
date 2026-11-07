@@ -2,6 +2,9 @@
 article_id: af_ea81bd9a2a023d05a58dca6e
 declaration: theorem
 origin: cited
+statement: formalized
+proof: formalized
+lean: ZInQ.Compiler.Natural.toCircuit_item1, ZInQ.Compiler.Natural.toCircuit_natRel_iff, ZInQ.Compiler.Natural.toCircuit_natRel_iff_of_mspec, ZInQ.Compiler.Natural.toCircuit_andM_natRel_iff, ZInQ.Compiler.Natural.toCircuit_wellScoped, ZInQ.Compiler.Natural.toCircuit_poly
 ---
 
 # Circuits of hierarchical constructions
@@ -18,9 +21,11 @@ before the macro. Then:
 2. for every $c\in\mathbb N^k$, $Z_{\mathcal C}(c)$ holds if and only if there are natural values
    of the fresh variables for which $\varphi^\natural$ holds, where $\varphi^\natural$ is $\varphi$
    with every power call atom replaced by the relation $g_P=g_Q^{\,g_R}$ of its arguments;
-3. consequently $Z_{\mathcal C}(c)$ is equivalent to the conjunction of the relations of
-   the macros of the construction, as listed in the macro semantics, quantified over the
-   remaining fresh variables.
+3. consequently, if the construction has a macro specification $R$ over its inputs (built
+   from the macro semantics by the composition rules: conjunction, disjunction, and an
+   existential over each fresh variable), then $Z_{\mathcal C}(c)\iff R(c)$; that is,
+   $Z_{\mathcal C}(c)$ is equivalent to the conjunction of the relations of the macros of the
+   construction, quantified over the remaining fresh variables.
 
 The flat construction gives the same relation: replacing each power call by the flat
 power macro changes the polynomial and the variable numbering but not the relation.

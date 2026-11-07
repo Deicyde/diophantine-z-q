@@ -2,6 +2,9 @@
 article_id: af_009cb01e3f509bfbfcdf0e67
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.k0_identities, ZInQ.K0.totallyPositive_iff, ZInQ.k0_signs
 ---
 
 # Explicit identities in $K_0$

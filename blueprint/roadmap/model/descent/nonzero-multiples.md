@@ -2,6 +2,9 @@
 article_id: af_27935f7d660df017638fbd70
 declaration: lemma
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.genP0_not_isOfFinAddOrder, ZInQ.iota_injective, ZInQ.zsmul_genP0_affine, ZInQ.zsmul_genP0_affine_z_w, ZInQ.iota_zero_coord_iff
 ---
 
 # Nonzero multiples of the generator
