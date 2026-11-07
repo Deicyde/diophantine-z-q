@@ -5,6 +5,7 @@ import ZInQKernel.Assembly.Local.PoleInputReal
 import ZInQKernel.Assembly.Local.PoleObstruction
 import ZInQKernel.Assembly.Local.TestDivisibility
 import ZInQKernel.Assembly.Local.DeepMultiples
+import ZInQKernel.Assembly.Local.PoleInputLocal
 
 /-!
 # The six local tests of the assembly chapter
