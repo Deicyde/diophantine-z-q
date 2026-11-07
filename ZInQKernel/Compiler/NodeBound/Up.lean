@@ -228,10 +228,11 @@ structure Cost (a b : ℕ) (φ : NForm) : Prop where
   enc_a : encA φ = a
   enc_m : encM φ = b
 
-/-- A list of formulas with total encoding costs `a` and `b`. -/
-structure CostL (a b : ℕ) (φs : List NForm) : Prop where
+/-- A list of `n` formulas with total encoding costs `a` and `b`. -/
+structure CostL (a b n : ℕ) (φs : List NForm) : Prop where
   enc_a : encAL φs = a
   enc_m : encML φs = b
+  len : φs.length = n
 
 theorem Up.callPower (A B C : Ex) :
     Up P (Natural.callPower A B C) 0 0 (fun φ _ => Cost 0 0 φ) :=

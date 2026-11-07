@@ -88,7 +88,7 @@ theorem HasSucc.of_idxOf?' {x e i : ℕ} {l : List NatNode} (h : l.idxOf? (.add 
     (he : l.idxOf? (.const 1) = some e) : HasSucc x l := ⟨e, he, mem_of_idxOf? h⟩
 
 /-- The final step: the postcondition from the accumulated facts. -/
-macro "up_fin" : tactic => `(tactic| (with_reducible apply Up.pure; intro l h; casesm* _ ∧ _, Cost _ _ _, CostL _ _ _))
+macro "up_fin" : tactic => `(tactic| (with_reducible apply Up.pure; intro l h; casesm* _ ∧ _, Cost _ _ _, CostL _ _ _ _))
 
 /-- A bound proof: binds, primitives, the extra steps `t`, and the final step. -/
 macro "up_run" t:tacticSeq : tactic => `(tactic| repeat' (first
@@ -103,7 +103,9 @@ macro "up_run" t:tacticSeq : tactic => `(tactic| repeat' (first
 macro "up_costs" : tactic => `(tactic| first
   | (exact ⟨by simp only [encA, encAL, List.length_cons, List.length_nil, *],
       by simp only [encM, encML, List.length_cons, List.length_nil, *]⟩)
-  | (exact ⟨by simp only [encAL, *], by simp only [encML, *]⟩))
+  | (exact ⟨by simp only [encA, encAL, List.length_cons, List.length_nil, *],
+      by simp only [encM, encML, List.length_cons, List.length_nil, *],
+      by simp only [List.length_cons, List.length_nil]⟩))
 
 variable {P : List NatNode → Prop}
 
