@@ -206,6 +206,13 @@ theorem divF_size (n : ℕ) : Sz (divF n) ((n + 1) ^ 3) (100 * (n + 1) ^ 3) := b
         · exact max_le (by omega) (by omega)
         · exact max_succ_le (by omega) (by omega)
 
+/-- **Size of the division polynomials**, unfolded: `deg F_n ≤ (n + 1)³` and
+`‖F_n‖ ≤ 2^{100 (n+1)³}` for `F_n = f_n(x₀ + x₁ s)`. -/
+theorem normDiv_size (n : ℕ) :
+    pairDeg ((normDiv componentA n).eval compX) ≤ (n + 1) ^ 3 ∧
+      pairNorm ((normDiv componentA n).eval compX) ≤ 2 ^ (100 * (n + 1) ^ 3) :=
+  divF_size n
+
 /-- The pair `ψ_n(x, y)` for `n ≠ 0` has degree at most `(|n| + 1)³ + 1` and norm at most
 `2^{100 (|n|+1)³ + 3}`. -/
 theorem psiEval_size (n : ℤ) :
