@@ -19,3 +19,5 @@ import ZInQKernel.Compiler.Exponential
 import ZInQKernel.Multiplication.Local
 import ZInQKernel.Compiler.Translation
 import ZInQKernel.Assembly.Values
+import ZInQKernel.Assembly.Local
+import ZInQKernel.Size.FormalMultiple

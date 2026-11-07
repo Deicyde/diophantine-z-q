@@ -10,7 +10,8 @@ blueprint), which satisfy `w = t³ + A t w²` (`tw_equation`).
 
 *Addition estimate* (`chord_add`): if `v(tᵢ) ≥ m ≥ 1` and `v(wᵢ) ≥ 3m` for two points whose
 sum is not `O`, then the sum is affine with the same bounds and
-`v(t(P₁ + P₂) - t₁ - t₂) ≥ m + 1`.
+`v(t(P₁ + P₂) - t₁ - t₂) ≥ m + 1`; `chord_add_five` is the sharp form: the chord identity
+`z(P₁ + P₂) = z(P₁) + z(P₂) + 2Aλν/(1 + Aλ²)` and `v(t(P₁ + P₂) - t₁ - t₂) ≥ 5m`.
 
 This is the generic form (any field, any `ℤ ∪ {∞}`-valued valuation) of the estimate proved for
 `K₀` in `ZInQKernel/Model/Descent/KernelReduction.lean`, whose chord algebra (`vieta_shortCurve`,
@@ -158,8 +159,9 @@ theorem formal_chord_line {m : ℤ} (hm : 1 ≤ m) {x₁ y₁ x₂ y₂ : K} (hy
     linear_combination hDdef
 
 /-- The third point of the line `λ x + ν y = 1` through two points of the formal
-neighbourhood. -/
-theorem formal_third_point {m : ℤ} (hm : 1 ≤ m) {x₁ y₁ x₂ y₂ ℓ lam ν : K}
+neighbourhood, with the exact chord identity `t₃ - t₁ - t₂ = 2Aλν/(1 + Aλ²)` and the sharp
+bound `v(t₃ - t₁ - t₂) ≥ 5m`. -/
+theorem formal_third_point_five {m : ℤ} (hm : 1 ≤ m) {x₁ y₁ x₂ y₂ ℓ lam ν : K}
     (h₁ : (shortCurve A).toAffine.Equation x₁ y₁) (h₂ : (shortCurve A).toAffine.Equation x₂ y₂)
     (hxy : ¬(x₁ = x₂ ∧ y₁ = (shortCurve A).toAffine.negY x₂ y₂))
     (hℓ : (shortCurve A).toAffine.slope x₁ x₂ y₁ y₂ = ℓ) (hy₁ : y₁ ≠ 0) (hy₂ : y₂ ≠ 0)
@@ -171,7 +173,9 @@ theorem formal_third_point {m : ℤ} (hm : 1 ≤ m) {x₁ y₁ x₂ y₂ ℓ lam
     -(ℓ * (ℓ ^ 2 - x₁ - x₂) + 1 / ν) ≠ 0 ∧
       Vge v m ((ℓ ^ 2 - x₁ - x₂) / -(ℓ * (ℓ ^ 2 - x₁ - x₂) + 1 / ν)) ∧
       Vge v (3 * m) (1 / -(ℓ * (ℓ ^ 2 - x₁ - x₂) + 1 / ν)) ∧
-      Vge v (m + 1) ((ℓ ^ 2 - x₁ - x₂) / -(ℓ * (ℓ ^ 2 - x₁ - x₂) + 1 / ν) - x₁ / y₁ - x₂ / y₂) := by
+      (ℓ ^ 2 - x₁ - x₂) / -(ℓ * (ℓ ^ 2 - x₁ - x₂) + 1 / ν) - x₁ / y₁ - x₂ / y₂ =
+        2 * A * lam * ν / (1 + A * lam ^ 2) ∧
+      Vge v (5 * m) ((ℓ ^ 2 - x₁ - x₂) / -(ℓ * (ℓ ^ 2 - x₁ - x₂) + 1 / ν) - x₁ / y₁ - x₂ / y₂) := by
   have hV := vieta_shortCurve h₁ h₂ hxy hℓ
   have hc : y₁ - ℓ * x₁ = 1 / ν := by rw [hc₁]; ring
   rw [hc] at hV
@@ -220,25 +224,46 @@ theorem formal_third_point {m : ℤ} (hm : 1 ≤ m) {x₁ y₁ x₂ y₂ ℓ lam
       field_simp; ring
     rw [this, hℓν, key, div_div_eq_mul_div, neg_div', div_left_inj' hD0]
     field_simp
-  have hE : Vge v (m + 1) (x₃ / y₃ - x₁ / y₁ - x₂ / y₂) := by
+  have hE : Vge v (5 * m) (x₃ / y₃ - x₁ / y₁ - x₂ / y₂) := by
     rw [hdiff]
     have hN : Vge v (5 * m) (2 * A * lam * ν) :=
       ((((vge_ofNat 2).mul hA).mul hlam).mul hν).mono (by omega)
-    exact (hN.div_unit hDv).mono (by omega)
+    exact hN.div_unit hDv
   have ht₃ : Vge v m (x₃ / y₃) := by
     have : x₃ / y₃ = (x₃ / y₃ - x₁ / y₁ - x₂ / y₂) + x₁ / y₁ + x₂ / y₂ := by ring
     rw [this]
     exact ((hE.mono (by omega)).add ht₁).add ht₂
-  refine ⟨hy₃0, ht₃, ?_, hE⟩
+  refine ⟨hy₃0, ht₃, ?_, hdiff, hE⟩
   have : 1 / y₃ = lam * (x₃ / y₃) - ν := by
     field_simp; linear_combination -hline
   rw [this]
   exact ((hlam.mul ht₃).mono (by omega)).sub hν
 
-/-- **The addition estimate.** If `v(x/y) ≥ m ≥ 1` and `v(1/y) ≥ 3m` for two points whose sum
-is not `O`, then the sum is affine with the same bounds and
-`v(t(P₁ + P₂) - t(P₁) - t(P₂)) ≥ m + 1`. -/
-theorem chord_add {m : ℤ} (hm : 1 ≤ m) {x₁ y₁ x₂ y₂ : K}
+/-- The third point of the line `λ x + ν y = 1` through two points of the formal
+neighbourhood. -/
+theorem formal_third_point {m : ℤ} (hm : 1 ≤ m) {x₁ y₁ x₂ y₂ ℓ lam ν : K}
+    (h₁ : (shortCurve A).toAffine.Equation x₁ y₁) (h₂ : (shortCurve A).toAffine.Equation x₂ y₂)
+    (hxy : ¬(x₁ = x₂ ∧ y₁ = (shortCurve A).toAffine.negY x₂ y₂))
+    (hℓ : (shortCurve A).toAffine.slope x₁ x₂ y₁ y₂ = ℓ) (hy₁ : y₁ ≠ 0) (hy₂ : y₂ ≠ 0)
+    (ht₁ : Vge v m (x₁ / y₁)) (ht₂ : Vge v m (x₂ / y₂))
+    (hlam : Vge v (2 * m) lam) (hν : Vge v (3 * m) ν) (hν0 : ν ≠ 0) (hℓν : ℓ = -lam / ν)
+    (hc₁ : y₁ = ℓ * x₁ + 1 / ν) (hc₂ : y₂ = ℓ * x₂ + 1 / ν)
+    (e₃ : (-(ℓ * (ℓ ^ 2 - x₁ - x₂) + 1 / ν)) ^ 2 =
+      (ℓ ^ 2 - x₁ - x₂) ^ 3 + A * (ℓ ^ 2 - x₁ - x₂)) :
+    -(ℓ * (ℓ ^ 2 - x₁ - x₂) + 1 / ν) ≠ 0 ∧
+      Vge v m ((ℓ ^ 2 - x₁ - x₂) / -(ℓ * (ℓ ^ 2 - x₁ - x₂) + 1 / ν)) ∧
+      Vge v (3 * m) (1 / -(ℓ * (ℓ ^ 2 - x₁ - x₂) + 1 / ν)) ∧
+      Vge v (m + 1) ((ℓ ^ 2 - x₁ - x₂) / -(ℓ * (ℓ ^ 2 - x₁ - x₂) + 1 / ν) - x₁ / y₁ - x₂ / y₂) := by
+  obtain ⟨h1, h2, h3, -, h5⟩ := formal_third_point_five hA hm h₁ h₂ hxy hℓ hy₁ hy₂ ht₁ ht₂ hlam hν
+    hν0 hℓν hc₁ hc₂ e₃
+  exact ⟨h1, h2, h3, h5.mono (by omega)⟩
+
+/-- **The chord estimate**, sharp form. If `v(x/y) ≥ m ≥ 1` and `v(1/y) ≥ 3m` for two points
+whose sum is not `O`, then the sum is affine with the same bounds; in the coordinates `z = -x/y`,
+`ω = -1/y` the line through the two points (the tangent if they are equal) is `ω = λ z + ν` with
+`v(λ) ≥ 2m`, `v(ν) ≥ 3m`, and `z(P₁ + P₂) = z(P₁) + z(P₂) + 2Aλν/(1 + Aλ²)`; in particular
+`v(t(P₁ + P₂) - t(P₁) - t(P₂)) ≥ 5m`. -/
+theorem chord_add_five {m : ℤ} (hm : 1 ≤ m) {x₁ y₁ x₂ y₂ : K}
     (h₁ : (shortCurve A).toAffine.Nonsingular x₁ y₁)
     (h₂ : (shortCurve A).toAffine.Nonsingular x₂ y₂) (hy₁ : y₁ ≠ 0) (hy₂ : y₂ ≠ 0)
     (ht₁ : Vge v m (x₁ / y₁)) (ht₂ : Vge v m (x₂ / y₂))
@@ -246,7 +271,10 @@ theorem chord_add {m : ℤ} (hm : 1 ≤ m) {x₁ y₁ x₂ y₂ : K}
     (hne : Point.some x₁ y₁ h₁ + Point.some x₂ y₂ h₂ ≠ 0) :
     ∃ x₃ y₃ h₃, Point.some x₁ y₁ h₁ + Point.some x₂ y₂ h₂ = Point.some x₃ y₃ h₃ ∧ y₃ ≠ 0 ∧
       Vge v m (x₃ / y₃) ∧ Vge v (3 * m) (1 / y₃) ∧
-      Vge v (m + 1) (x₃ / y₃ - x₁ / y₁ - x₂ / y₂) := by
+      ∃ lam ν : K, Vge v (2 * m) lam ∧ Vge v (3 * m) ν ∧
+        -1 / y₁ = lam * (-x₁ / y₁) + ν ∧ -1 / y₂ = lam * (-x₂ / y₂) + ν ∧
+        -x₃ / y₃ = -x₁ / y₁ + -x₂ / y₂ + 2 * A * lam * ν / (1 + A * lam ^ 2) ∧
+        Vge v (5 * m) (x₃ / y₃ - x₁ / y₁ - x₂ / y₂) := by
   have e₁ := (shortCurve_equation_iff A x₁ y₁).mp h₁.1
   have e₂ := (shortCurve_equation_iff A x₂ y₂).mp h₂.1
   have hxy : ¬(x₁ = x₂ ∧ y₁ = (shortCurve A).toAffine.negY x₂ y₂) :=
@@ -293,7 +321,30 @@ theorem chord_add {m : ℤ} (hm : 1 ≤ m) {x₁ y₁ x₂ y₂ : K}
   have e₃ := (shortCurve_equation_iff A _ _).mp h₃.1
   rw [eX, eY] at e₃ ⊢
   generalize hℓ : (shortCurve A).toAffine.slope x₁ x₂ y₁ y₂ = ℓ at hℓν hc₁ hc₂ e₃ ⊢
-  exact formal_third_point hA hm h₁.1 h₂.1 hxy hℓ hy₁ hy₂ ht₁ ht₂ hlam hν hν0 hℓν hc₁ hc₂ e₃
+  obtain ⟨hy₃, ht₃, hw₃, hid, h5⟩ :=
+    formal_third_point_five hA hm h₁.1 h₂.1 hxy hℓ hy₁ hy₂ ht₁ ht₂ hlam hν hν0 hℓν hc₁ hc₂ e₃
+  refine ⟨hy₃, ht₃, hw₃, lam, -ν, hlam, hν.neg, ?_, ?_, ?_, h5⟩
+  · have hl : lam * x₁ + ν * y₁ = 1 := by rw [hc₁, hℓν]; field_simp; ring
+    field_simp; linear_combination hl
+  · have hl : lam * x₂ + ν * y₂ = 1 := by rw [hc₂, hℓν]; field_simp; ring
+    field_simp; linear_combination hl
+  · rw [neg_div, neg_div, neg_div]; linear_combination -hid
+
+/-- **The addition estimate.** If `v(x/y) ≥ m ≥ 1` and `v(1/y) ≥ 3m` for two points whose sum
+is not `O`, then the sum is affine with the same bounds and
+`v(t(P₁ + P₂) - t(P₁) - t(P₂)) ≥ m + 1`. -/
+theorem chord_add {m : ℤ} (hm : 1 ≤ m) {x₁ y₁ x₂ y₂ : K}
+    (h₁ : (shortCurve A).toAffine.Nonsingular x₁ y₁)
+    (h₂ : (shortCurve A).toAffine.Nonsingular x₂ y₂) (hy₁ : y₁ ≠ 0) (hy₂ : y₂ ≠ 0)
+    (ht₁ : Vge v m (x₁ / y₁)) (ht₂ : Vge v m (x₂ / y₂))
+    (hw₁ : Vge v (3 * m) (1 / y₁)) (hw₂ : Vge v (3 * m) (1 / y₂))
+    (hne : Point.some x₁ y₁ h₁ + Point.some x₂ y₂ h₂ ≠ 0) :
+    ∃ x₃ y₃ h₃, Point.some x₁ y₁ h₁ + Point.some x₂ y₂ h₂ = Point.some x₃ y₃ h₃ ∧ y₃ ≠ 0 ∧
+      Vge v m (x₃ / y₃) ∧ Vge v (3 * m) (1 / y₃) ∧
+      Vge v (m + 1) (x₃ / y₃ - x₁ / y₁ - x₂ / y₂) := by
+  obtain ⟨x₃, y₃, h₃, heq, hy₃, ht₃, hw₃, -, -, -, -, -, -, -, h5⟩ :=
+    chord_add_five hA hm h₁ h₂ hy₁ hy₂ ht₁ ht₂ hw₁ hw₂ hne
+  exact ⟨x₃, y₃, h₃, heq, hy₃, ht₃, hw₃, h5.mono (by omega)⟩
 
 end Estimates
 
