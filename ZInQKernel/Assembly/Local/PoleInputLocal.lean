@@ -313,7 +313,7 @@ theorem poleInput_local {n : ℤ} (hn : (n : ℚ) ∉ contactSet) {η : ℚ} (h�
     intro p hp hp2 hpZ
     have := Fact.mk hp
     obtain ⟨π, hπ, hπp⟩ := exists_prime_dvd_natCast p
-    have hσp := prime_star_dvd hπp
+    have hσp := star_dvd_natCast hπp
     have h1 := hlocal π hπ (hπp.trans (hcastdvd p hpZ))
     have h2 := hlocal (star π) (prime_star hπ) (hσp.trans (hcastdvd p hpZ))
     rw [Vge, le_vP_iff, Mult.vp_intCast hp2 hπ hπp hZ0] at h1

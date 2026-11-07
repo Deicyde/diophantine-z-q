@@ -2,6 +2,7 @@ import ZInQKernel.Multiplication.Local
 import ZInQKernel.Hypotheses.Height
 import ZInQKernel.Hypotheses.Pole
 import ZInQKernel.Compiler.Precision.HeightConstant
+import ZInQKernel.Multiplication.Certificate.Constants
 
 /-!
 # The six local tests
@@ -18,22 +19,16 @@ For `n, κ ∈ ℤ` and `t ∈ ℚ`, `Test n κ t` holds when `κ ≠ 0`, `t ∉
 * `R₀ = η · 2730⁶ · F(t)`, `a₀ = 1 - R₀ q²`, `R = R₀ a₀²` (`testR₀`, `testR`);
 * `W = ∏ⱼ (1 + R Cⱼ²)` with `Cⱼ = Dⱼ / F(t)` (`poleW`), `Θ = Tr(W⁻¹)` (`poleTheta`).
 
-`F(t) = t(t + 15)(t + 20)(t + 24)(t + 30)(t + 60)` is `contactPoly`.
+`F(t) = t(t + 15)(t + 20)(t + 24)(t + 30)(t + 60)` is `Mult.contactPoly`.
 -/
 
 namespace ZInQ.Assembly
 
 open WeierstrassCurve WeierstrassCurve.Affine ZInQ.Mult
 
-/-- `F(t) = ∏_{c ∈ 𝒞} (t - c) = t(t + 15)(t + 20)(t + 24)(t + 30)(t + 60)`. -/
-def contactPoly (t : ℚ) : ℚ := t * (t + 15) * (t + 20) * (t + 24) * (t + 30) * (t + 60)
-
 theorem contactPoly_intCast (n : ℤ) :
     contactPoly n = (ZInQ.Compiler.Precision.sixF n : ℚ) := by
   simp [contactPoly, ZInQ.Compiler.Precision.sixF]
-
-theorem contactPoly_eq_prod (t : ℚ) : contactPoly t = ∏ c ∈ contactSet, (t - c) := by
-  simp [contactPoly, contactSet]; ring
 
 theorem contactPoly_ne_zero_iff {t : ℚ} : contactPoly t ≠ 0 ↔ t ∉ contactSet := by
   rw [contactPoly_eq_prod, Finset.prod_ne_zero_iff]

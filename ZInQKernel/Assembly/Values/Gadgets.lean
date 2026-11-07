@@ -1,6 +1,7 @@
 import ZInQKernel.Assembly.Values.Lift
 import ZInQKernel.Assembly.Values.Tests
 import ZInQKernel.Compiler.Translation.Points
+import ZInQKernel.Cleanup.NonzeroMultiples
 
 /-!
 # The gadgets `Z`, `IX`, `Div` on canonical codes
@@ -25,16 +26,9 @@ theorem val_x (y : ℕ → ℚ) (p : Code) : Pair.val y p.x = ⟨evCode y p 1, e
 
 theorem val_y (y : ℕ → ℚ) (p : Code) : Pair.val y p.y = ⟨evCode y p 3, evCode y p 4⟩ := rfl
 
-/-- A nonzero multiple of `P₀` is affine with nonzero abscissa and ordinate. -/
-theorem exists_zsmul_genP0_eq_some {m : ℤ} (hm : m ≠ 0) :
-    ∃ (x y : K0) (h : genCurve.toAffine.Nonsingular x y), m • genP0 = .some x y h ∧ x ≠ 0 ∧
-      y ≠ 0 := by
-  obtain ⟨x, y, h, e, hy⟩ := admissible_of_ne_zero hm
-  exact ⟨x, y, h, e, x_ne_zero_of_y_ne_zero h.1 hy, hy⟩
-
 /-- The norm of the ordinate of `ι(m)`, `m ≠ 0`, is nonzero. -/
 theorem codeNormY_iota_ne_zero {m : ℤ} (hm : m ≠ 0) : codeNormY (iota m) ≠ 0 := by
-  obtain ⟨x, y, h, e, -, hy⟩ := exists_zsmul_genP0_eq_some hm
+  obtain ⟨x, y, h, e, -, hy⟩ := zsmul_genP0_affine hm
   rw [iota_def, e, pointCode_some, codeNormY]
   simp only [Matrix.cons_val]
   rw [← K0_ne_zero_iff_pairNorm]
@@ -55,7 +49,7 @@ theorem holds_zFormula_iota {y : ℕ → ℚ} {p : Code} {ζ : Pair} {k : ℕ} {
   · have h0 : ev y (p 0) = 1 := by
       have := congrFun hp 0; rw [iota_zero] at this; simpa [evCode] using this
     simp [h0, zIdx]
-  · obtain ⟨x, yy, h, e, hx, hy⟩ := exists_zsmul_genP0_eq_some hm
+  · obtain ⟨x, yy, h, e, hx, hy⟩ := zsmul_genP0_affine hm
     have h0 : ev y (p 0) = 0 := by
       have := congrFun hp 0; simpa [evCode, iota_apply_zero_eq_zero_iff] using this.trans
         ((iota_apply_zero_eq_zero_iff m).2 hm)
@@ -78,7 +72,7 @@ theorem holds_ixFormula_iota {y : ℕ → ℚ} {p : Code} {v : Pair} {m : ℤ}
   · have h0 : ev y (p 0) = 1 := by
       have := congrFun hp 0; rw [iota_zero] at this; simpa [evCode] using this
     simp [h0]
-  · obtain ⟨x, yy, h, e, hx, hy⟩ := exists_zsmul_genP0_eq_some hm
+  · obtain ⟨x, yy, h, e, hx, hy⟩ := zsmul_genP0_affine hm
     have h0 : ev y (p 0) = 0 := by
       have := congrFun hp 0; simpa [evCode] using this.trans
         ((iota_apply_zero_eq_zero_iff m).2 hm)

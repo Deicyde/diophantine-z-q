@@ -35,14 +35,6 @@ theorem map_truncLog {R S : Type*} [CommRing R] [CommRing S] (f : R →+* S) (δ
 @[simp] theorem logAt_zero : logAt 0 = 0 := by
   rw [logAt, zero_zsmul]; exact Lam_zero
 
-/-- `v_{σπ}(y) = v_π(σ y)` for the additive valuations. -/
-theorem vP_star {π : Zs} (hπ : Prime π) (y : K0) :
-    vP (star π) (prime_star hπ) y = vP π hπ (star y) := by
-  by_cases hy : y = 0
-  · subst hy; simp
-  have hsy : star y ≠ 0 := by rwa [ne_eq, star_eq_zero]
-  rw [vP_apply _ hy, vP_apply _ hsy, vp_star hπ]
-
 section
 
 variable {p : ℕ} [hp : Fact p.Prime]

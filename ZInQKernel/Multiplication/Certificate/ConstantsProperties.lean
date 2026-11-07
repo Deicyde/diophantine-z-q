@@ -138,9 +138,6 @@ theorem sixContact_at_Smul (hH : SixContactEstimate) {u : ℚ} (hu : u ∉ conta
 
 /-! ### Item 3 -/
 
-theorem two_mul_ten_pow_thirteen_le_Aht : 2 * 10 ^ 13 ≤ Syntax.Aht :=
-  Syntax.two_mul_ten_pow_thirteen_le_Aht
-
 theorem one_le_forty_eight_mul_Aht : 1 ≤ 48 * Syntax.Aht := by
   have := Syntax.Aht_pos; omega
 

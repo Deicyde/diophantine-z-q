@@ -37,16 +37,6 @@ section
 
 variable {p : ℕ} [hp : Fact p.Prime]
 
-omit hp in
-/-- A nonzero integer of absolute value less than `p` has `p`-adic valuation zero. -/
-theorem padicValRat_intCast_eq_zero {m : ℤ} (hm : m ≠ 0) (hmp : m.natAbs < p) :
-    padicValRat p (m : ℚ) = 0 := by
-  rw [padicValRat.of_int]
-  have : ¬ (p : ℤ) ∣ m := by
-    intro hd
-    exact hm (Int.eq_zero_of_dvd_of_natAbs_lt_natAbs hd (by simpa using hmp))
-  simp [padicValInt.eq_zero_of_not_dvd this]
-
 /-- If `v_p(x) > 0` and `v_p(y) = 0`, then `v_p(x + y) = 0`. -/
 theorem padicValRat_add_eq_zero {x y : ℚ} (hx : 0 < padicValRat p x) (hy0 : y ≠ 0)
     (hy : padicValRat p y = 0) : padicValRat p (x + y) = 0 := by

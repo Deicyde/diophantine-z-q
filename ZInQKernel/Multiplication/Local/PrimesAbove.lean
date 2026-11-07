@@ -453,4 +453,34 @@ theorem vp_trace_ge (hp2 : p ≠ 2) {π : Zs} (hπ : Prime π) (hπp : π ∣ (p
   rw [← vp_star hπ] at this
   omega
 
+/-! ### Elementary facts shared by the soundness and assembly chapters -/
+
+theorem star_dvd_natCast {π : Zs} {p : ℕ} (h : π ∣ (p : Zs)) : star π ∣ (p : Zs) := by
+  obtain ⟨c, hc⟩ := h
+  exact ⟨star c, by rw [← star_mul', ← hc]; simp⟩
+
+theorem star_ratCast (r : ℚ) : star (r : K0) = (r : K0) := by
+  ext <;> simp
+
+theorem vp_prod {π : Zs} (hπ : Prime π) {ι : Type*} (s : Finset ι) (f : ι → K0)
+    (h : ∀ i ∈ s, f i ≠ 0) : vp π (∏ i ∈ s, f i) = ∑ i ∈ s, vp π (f i) := by
+  classical
+  induction s using Finset.induction_on with
+  | empty => simpa using vp_isUnit hπ isUnit_one
+  | insert a s ha ih =>
+    rw [Finset.prod_insert ha, Finset.sum_insert ha,
+      vp_mul hπ (h a (Finset.mem_insert_self a s))
+        (Finset.prod_ne_zero_iff.mpr fun i hi => h i (Finset.mem_insert_of_mem hi)),
+      ih fun i hi => h i (Finset.mem_insert_of_mem hi)]
+
+omit hp in
+/-- A nonzero integer of absolute value less than `p` has `p`-adic valuation zero. -/
+theorem padicValRat_intCast_eq_zero {m : ℤ} (hm : m ≠ 0) (hmp : m.natAbs < p) :
+    padicValRat p (m : ℚ) = 0 := by
+  rw [padicValRat.of_int]
+  have : ¬ (p : ℤ) ∣ m := by
+    intro hd
+    exact hm (Int.eq_zero_of_dvd_of_natAbs_lt_natAbs hd (by simpa using hmp))
+  simp [padicValInt.eq_zero_of_not_dvd this]
+
 end ZInQ.Mult

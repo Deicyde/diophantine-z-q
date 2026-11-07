@@ -1,5 +1,6 @@
 import ZInQKernel.Hypotheses.Pole
 import ZInQ.PoleValuation
+import ZInQKernel.Multiplication.Certificate.Parity
 
 /-!
 # The one-sided pole obstruction
@@ -25,22 +26,12 @@ theorem four_sq_eq_zero {a b c d : ℚ} (ha : 0 ≤ a) (h : a + b ^ 2 + c ^ 2 + 
   refine ⟨by linarith, ?_, ?_, ?_⟩ <;> apply pow_eq_zero_iff (n := 2) (by norm_num) |>.mp <;>
     linarith
 
-/-- A solution of the pole polynomial with input `B ≠ 0` solves the witness system. -/
-theorem poleSystem_of_polePoly {B : ℚ} (hB : B ≠ 0) {b : Fin 6 → ℚ} {e z r₁ r₂ w : ℚ}
-    (h : polePoly B b e z r₁ r₂ w = 0) : poleSystem B ⟨b, e, z, r₁, r₂, w⟩ := by
-  unfold polePoly at h
-  obtain ⟨e0, e1, e2, e3⟩ :=
-    four_sq_eq_zero (Finset.sum_nonneg fun i _ => sq_nonneg _) ((mul_eq_zero.mp h).resolve_left hB)
-  rw [Finset.sum_eq_zero_iff_of_nonneg fun i _ => sq_nonneg _] at e0
-  exact ⟨fun i => pow_eq_zero_iff (n := 2) (by norm_num) |>.mp (e0 i (Finset.mem_univ i)),
-    sub_eq_zero.mp e1, sub_eq_zero.mp e2, sub_eq_zero.mp e3⟩
-
 /-- **The one-sided pole obstruction.** If `B ≠ 0` and `Φ(B)`, then for every prime `p ∤ 2730`,
 `v_p(B)` is not negative and odd. -/
 theorem poleSoluble_no_negative_odd {B : ℚ} (hB : B ≠ 0) (hΦ : PoleSoluble B) {p : ℕ}
     (hp : p.Prime) (hp2730 : ¬ p ∣ 2730) :
     ¬ (padicValRat p B < 0 ∧ Odd (padicValRat p B)) := by
   obtain ⟨b, e, z, r₁, r₂, w, h⟩ := hΦ
-  exact poleSystem_no_negative_odd_valuation B _ hB (poleSystem_of_polePoly hB h) p hp hp2730
+  exact poleSystem_no_negative_odd_valuation B _ hB (Mult.poleSystem_of_polePoly_eq_zero hB h) p hp hp2730
 
 end ZInQ.Assembly
