@@ -23,7 +23,7 @@ theorem formal_multiple_succeeds :
       (Ns : ℤ) ^ 4 ∣ (normalizedRep (xi (M0 • genP0))).1 ∧
       (Ns : ℤ) ^ 4 ∣ (normalizedRep (xi (M0 • genP0))).2.1 ∧
       Nat.Coprime (normalizedRep (xi (M0 • genP0))).2.2 Ns :=
-  ⟨Ns_pos, M0_bounds.1, M0_bounds.2.1, M0_bounds.2.2⟩
+  ⟨Ns_pos, (M0_bounds Ns_pos).1, (M0_bounds Ns_pos).2.1, (M0_bounds Ns_pos).2.2⟩
 
 /-- **Proposition 12.1** (the literal cutoff). -/
 theorem literal_cutoff (hCAT : CatalogueBound) :

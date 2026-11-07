@@ -1,37 +1,20 @@
 import ZInQKernel.Size.Constants.Catalogue
+import ZInQKernel.Size.FormalMultiple.Existence
 
 /-!
 # Size of the formal multiple constant
 
 Blueprint: `size/constants/formal-multiple-size.md`.
 
-The existence of a successful formal multiple (`size/formal-multiple/formal-multiple-existence.md`)
-gives `1 ≤ M₀ ≤ N_s^10`; with `N_s < 2^(2^2054)` this gives `c_* = 4 M₀ < 2^(2^2059)`.
+The existence of a successful formal multiple (`size/formal-multiple/formal-multiple-existence.md`,
+`ZInQ.Size.exists_formal_multiple` and `ZInQ.Size.M0_bounds`) gives `1 ≤ M₀ ≤ N_s^10`, using
+only `N_s ≥ 1` (`Syntax.Ns_pos`, from Dirichlet's theorem); with `N_s < 2^(2^2054)` this gives
+`c_* = 4 M₀ < 2^(2^2059)`.
 -/
 
 namespace ZInQ.Size
 
 open Syntax AmbientPow
-
-/-- A successful formal multiple exists below `N^10` (blueprint
-`size/formal-multiple/formal-multiple-existence.md`). This is the input proved by the
-formal-multiple section; its statement is final and its proof is supplied there. -/
-theorem exists_formalCondition_le_pow_ten {N : ℕ} (hN : 1 ≤ N) :
-    ∃ m, 1 ≤ m ∧ m ≤ N ^ 10 ∧ FormalCondition N m := by
-  sorry
-
-/-- `1 ≤ LFM(N) ≤ N^10`, and `LFM(N)` is a successful index, for every `N ≥ 1`. -/
-theorem leastFormalMultiple_le_pow_ten {N : ℕ} (hN : 1 ≤ N) :
-    1 ≤ leastFormalMultiple N ∧ leastFormalMultiple N ≤ N ^ 10 ∧
-      FormalCondition N (leastFormalMultiple N) := by
-  obtain ⟨m, hm1, hm, hc⟩ := exists_formalCondition_le_pow_ten hN
-  obtain ⟨h1, h2, h3⟩ := leastFormalMultiple_spec ⟨m, hm1, hc⟩
-  exact ⟨h1, (h3 m hm1 hc).trans hm, h2⟩
-
-/-- `1 ≤ M₀ ≤ N_s^10` and `M₀` is a successful index. Only `N_s ≥ 1` is used, which holds
-without the catalogue bound (`Syntax.Ns_pos`, from Dirichlet's theorem). -/
-theorem M0_bounds : 1 ≤ M0 ∧ M0 ≤ Ns ^ 10 ∧ FormalCondition Ns M0 := by
-  rw [M0_eq]; exact leastFormalMultiple_le_pow_ten Ns_pos
 
 set_option exponentiation.threshold 2100 in
 /-- The estimate for `c_*`, for variables. -/
@@ -50,11 +33,11 @@ theorem four_mul_lt_of {m n : ℕ} (hm : m ≤ n ^ 10) (hn : n < 2 ^ 2 ^ 2054) :
 
 /-- `c_* < 2^(2^2059)`. -/
 theorem cstar_lt (hCAT : CatalogueBound) : cstar < 2 ^ 2 ^ 2059 := by
-  rw [cstar_eq]; exact four_mul_lt_of M0_bounds.2.1 (Ns_bounds hCAT).2
+  rw [cstar_eq]; exact four_mul_lt_of (M0_bounds Ns_pos).2.1 (Ns_bounds hCAT).2
 
 /-- Size of the formal multiple constant (the blueprint statement). -/
 theorem formal_multiple_size (hCAT : CatalogueBound) :
     1 ≤ M0 ∧ M0 ≤ Ns ^ 10 ∧ cstar < 2 ^ 2 ^ 2059 :=
-  ⟨M0_bounds.1, M0_bounds.2.1, cstar_lt hCAT⟩
+  ⟨(M0_bounds Ns_pos).1, (M0_bounds Ns_pos).2.1, cstar_lt hCAT⟩
 
 end ZInQ.Size
