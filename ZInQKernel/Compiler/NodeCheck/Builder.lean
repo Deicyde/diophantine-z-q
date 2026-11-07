@@ -120,7 +120,7 @@ theorem bind {er : α → β} {er' : γ → δ} {m : NM α} {m' : FM β} {f : α
   exact ⟨k1, k2⟩⟩
 
 theorem note_bind {er : α → β} {k : MacroKind} {m : NM α} {m' : FM β} (h : Sim er m m') :
-    Sim er (Natural.note k >>= fun _ => m) m' := ⟨fun s t hr => h.run _ t (hr.of_eq rfl rfl rfl)⟩
+    Sim er (Natural.note k >>= fun _ => m) m' := ⟨fun _ t hr => h.run _ t (hr.of_eq rfl rfl rfl)⟩
 
 theorem congr_er {er er' : α → β} {m : NM α} {m' : FM β} (h : Sim er m m') (he : er = er') :
     Sim er' m m' := he ▸ h
@@ -305,7 +305,7 @@ theorem seqM_sim {α β : Type} {er : α → β} :
       Sim (List.map er) (Natural.seqM ms) (seqM ms')
   | [], [], .nil => Sim.pure rfl
   | _ :: _, _ :: _, .cons h hs =>
-    Sim.bind h fun a => Sim.bind (seqM_sim hs) fun as => Sim.pure rfl
+    Sim.bind h fun _ => Sim.bind (seqM_sim hs) fun _ => Sim.pure rfl
 
 /-- The conjunction of the formulas of a list of constructions. -/
 def andM (ms : List (FM FForm)) : FM FForm := do
@@ -473,18 +473,18 @@ mutual
 
 theorem encode_sim (τ : Syntax.ExPoly) : ∀ φ : NForm,
     Sim Ex.node (φ.encode τ) (eraseF φ).encode
-  | .eq a b => Sim.bind (scale_sim (-1) rfl) fun c => addL_sim rfl
-  | .atom f => Sim.pure rfl
-  | .call P Q R w j => Sim.pure rfl
+  | .eq _ _ => Sim.bind (scale_sim (-1) rfl) fun _ => addL_sim rfl
+  | .atom _ => Sim.pure rfl
+  | .call _ _ _ _ _ => Sim.pure rfl
   | .and fs => Sim.bind (encodeList_sim τ fs) fun es =>
-      Sim.bind (seqM_sim (forall₂_map_square es)) fun sq => addL_sim rfl
-  | .or fs => Sim.bind (encodeList_sim τ fs) fun es => mulL_sim rfl
+      Sim.bind (seqM_sim (forall₂_map_square es)) fun _ => addL_sim rfl
+  | .or fs => Sim.bind (encodeList_sim τ fs) fun _ => mulL_sim rfl
 
 theorem encodeList_sim (τ : Syntax.ExPoly) : ∀ fs : List NForm,
     Sim (List.map Ex.node) (NForm.encodeList τ fs) (FForm.encodeList (eraseFs fs))
   | [] => Sim.pure rfl
-  | f :: fs => Sim.bind (encode_sim τ f) fun e =>
-      Sim.bind (encodeList_sim τ fs) fun es => Sim.pure rfl
+  | f :: fs => Sim.bind (encode_sim τ f) fun _ =>
+      Sim.bind (encodeList_sim τ fs) fun _ => Sim.pure rfl
 
 end
 

@@ -19,7 +19,7 @@ open Natural Packed RM Universal
 /-- Append `c` unless present. -/
 def addC (c : ℤ) (S : List ℤ) : List ℤ := if c ∈ S then S else S ++ [c]
 
-theorem addC_of_mem {c : ℤ} {S : List ℤ} (h : c ∈ S) : addC c S = S := ite_cond_eq_true _ _ (eq_true h)
+theorem addC_of_mem {c : ℤ} {S : List ℤ} (h : c ∈ S) : addC c S = S := by simp [addC, h]
 
 theorem mem_addC_of_mem {c d : ℤ} {S : List ℤ} (h : d ∈ S) : d ∈ addC c S := by
   unfold addC; split_ifs <;> simp [h]
@@ -179,7 +179,7 @@ theorem cto_lt (hS : Has012 S) (a b : Ex) : CTo S (Natural.lt a b) S := by
 theorem cto_odd (hS : Has012 S) (x : Ex) : CTo S (Natural.odd x) S := by
   unfold Natural.odd; cto_tac
 
-theorem cto_power (hS : Has012 S) (P Q R : Ex) : CTo S (Natural.power .hierarchical P Q R) S :=
+theorem cto_power (_ : Has012 S) (P Q R : Ex) : CTo S (Natural.power .hierarchical P Q R) S :=
   CTo.bind (CTo.note S _) fun _ => CTo.callPower S P Q R
 
 theorem cto_binomial (hS : Has012 S) (C N K : Ex) :
@@ -357,11 +357,11 @@ mutual
 
 theorem cto_encode (τ : Syntax.ExPoly) : ∀ (φ : NForm) (S : List ℤ), (0 : ℤ) ∈ S → (1 : ℤ) ∈ S →
     CTo S (φ.encode τ) (encC (hasEq φ) S)
-  | .eq a b, S, _, _ =>
+  | .eq _ _, S, _, _ =>
     CTo.bind (CTo.bind (CTo.constant S (-1)) fun _ => CTo.mulL_cons _ _ _) fun _ =>
       CTo.addL_cons _ _ _
-  | .atom f, S, _, _ => CTo.pure S _
-  | .call P Q R w j, S, _, _ => CTo.pure S _
+  | .atom _, S, _, _ => CTo.pure S _
+  | .call _ _ _ _ _, S, _, _ => CTo.pure S _
   | .and fs, S, h0, h1 =>
     CTo.bind (cto_encodeList τ fs S h0 h1) fun es =>
       CTo.bind (CTo.seqM_map es _ fun x => CTo.square _ x) fun sq => CTo.addL (mem_encC h0) sq

@@ -71,7 +71,7 @@ theorem seqConcat_sim : ∀ {ms : List (NM (List NForm))} {ms' : List (FM (List 
       Sim (List.map eraseF) (Packed.seqConcat ms) (seqConcat ms')
   | [], [], .nil => Sim.pure rfl
   | _ :: _, _ :: _, .cons h hs =>
-    Sim.bind h fun a => Sim.bind (seqConcat_sim hs) fun b => Sim.pure (List.map_append ..)
+    Sim.bind h fun _ => Sim.bind (seqConcat_sim hs) fun _ => Sim.pure (List.map_append ..)
 
 theorem seqM_sim' {ms : List (NM NForm)} {ms' : List (FM FForm)}
     (h : List.Forall₂ (Sim eraseF) ms ms') :
@@ -256,7 +256,7 @@ def items3 (F : ℕ) (S : List ℕ) : FM (List FForm) := seqM (S.map fun x => ma
 
 theorem items3_sim (F : Ex) (S : List Ex) :
     Sim (List.map eraseF) (Packed.items3 F S) (items3 F.node (S.map Ex.node)) :=
-  seqM_sim' (forall₂_map fun x => mask_sim rfl rfl)
+  seqM_sim' (forall₂_map fun _ => mask_sim rfl rfl)
 
 /-- Item 4. -/
 def items4 (r : ℕ) (zero K D T F : ℕ) (R N : List ℕ) : FM (List FForm) :=
