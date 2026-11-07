@@ -81,7 +81,7 @@ theorem divModB_le (J x y z : ℕ) (isDiv : Bool) (s : ℕ) :
       (s + if isDiv then 48 else 50) := by
   cases isDiv <;> block_tac
 
-theorem incs_le (x k s : ℕ) : BlockLe (incs x k s) x (s + k) := by
+theorem incs_le (x k s : ℕ) : BlockLe (incs x k s) x (s + k + 1) := by
   intro ins hins
   simp only [incs, List.mem_map, List.mem_range] at hins
   obtain ⟨i, hi, rfl⟩ := hins
