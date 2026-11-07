@@ -2,6 +2,8 @@ import ZInQKernel.Assembly.Local.FormalMultiplication
 import ZInQKernel.Assembly.Local.DyadicTrace
 import ZInQKernel.Assembly.Local.SixLocalTests
 import ZInQKernel.Assembly.Local.PoleInputReal
+import ZInQKernel.Assembly.Local.PoleObstruction
+import ZInQKernel.Assembly.Local.TestDivisibility
 
 /-!
 # The six local tests of the assembly chapter
