@@ -1,6 +1,7 @@
 import ZInQKernel.Compiler.Universal.WrapperSize
 import ZInQKernel.Compiler.Universal.PrecisionCircuit
 import ZInQKernel.Compiler.Precision
+import ZInQKernel.Compiler.Interpreter.Correct
 
 /-!
 # The program literal and the natural precision polynomial
@@ -95,14 +96,12 @@ theorem haltingCircuit_c3_iff (hU : ∀ e n, interpreter.Accepts ![e, n] ↔ hal
   rw [haltingCircuit_natRel_iff_of hU, c3_def]
   exact halts_code_iff wrapper _ wrapper_valid n
 
-/-- **Semantics of the universal halting circuit**: `Z_ℋ(e, n) ↔ halts(e, n)`.
-
-The proof waits for the correctness of the universal interpreter
-(`interpreter_accepts_iff`, task nat-interpreter); everything else is
-`haltingCircuit_natRel_iff_of`. -/
+/-- **Semantics of the universal halting circuit**: `Z_ℋ(e, n) ↔ halts(e, n)`: the compiled
+circuit of the valid program `𝒰` accepts what `𝒰` accepts, and `𝒰` accepts `(e, n)` iff the
+program numbered `e` halts on `n` (`interpreter_accepts_iff`). -/
 theorem haltingCircuit_natRel_iff (e n : ℕ) :
     haltingCircuit.NatRel powerTemplate ![e, n] ↔ halts e n :=
-  haltingCircuit_natRel_iff_of (fun _ _ => sorry) e n
+  haltingCircuit_natRel_iff_of interpreter_accepts_iff e n
 
 end ZInQ.Compiler.Universal
 
@@ -125,12 +124,12 @@ theorem natural_polynomial_semantics_of
 natural precision circuit has a natural zero with inputs `c` (some natural values of its other
 `1,305,806` variables) iff `c` is accepted by the precision relation.
 
-The proof waits for two inputs of other tasks: the correctness of the universal interpreter
-(`interpreter_accepts_iff`) and the correctness of the wrapper (`wrapper-correct.md`); everything
-else is `natural_polynomial_semantics_of`. -/
+The proof waits for one input of another task, the correctness of the wrapper
+(`wrapper-correct.md`, task nat-programs); everything else is `natural_polynomial_semantics_of`
+with the correctness of the interpreter (`interpreter_accepts_iff`). -/
 theorem natural_polynomial_semantics (c : Fin 5 → ℕ) :
     precisionCircuit.NatRel powerTemplate c ↔ Precision.accepts c :=
-  natural_polynomial_semantics_of (fun _ _ => sorry) (fun _ => sorry) c
+  natural_polynomial_semantics_of interpreter_accepts_iff (fun _ => sorry) c
 
 theorem natRel_iff_witnessCount (C : NatCircuit) (T : Syntax.ExPoly) {m : ℕ}
     (hm : C.varCount - C.inputCount = m) (c : Fin C.inputCount → ℕ) :
