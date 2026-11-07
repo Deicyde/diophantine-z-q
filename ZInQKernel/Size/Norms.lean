@@ -5,3 +5,5 @@ import ZInQKernel.Size.Norms.Pair
 import ZInQKernel.Size.Norms.Quadratic
 import ZInQKernel.Size.Norms.DivisionPolynomials
 import ZInQKernel.Size.Norms.Coordinates
+import ZInQKernel.Size.Norms.Guard
+import ZInQKernel.Size.Norms.Constructors
