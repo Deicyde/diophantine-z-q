@@ -7,6 +7,7 @@ import ZInQKernel.Multiplication.Completeness.PoleLocal
 import ZInQKernel.Multiplication.Completeness.PatternSlopes
 import ZInQKernel.Multiplication.Completeness.PoleValuations
 import ZInQKernel.Multiplication.Completeness.TestsLocal
+import ZInQKernel.Multiplication.Completeness.SbIntegrality
 
 /-!
 # Completeness of the multiplication template
