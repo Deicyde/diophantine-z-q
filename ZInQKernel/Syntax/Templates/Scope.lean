@@ -879,89 +879,94 @@ def scopeLemma (tgt : Expr) : MetaM (Option Name) := do
     | _ => pure none
   | _ => pure none
 
+/-- The recursion depth allowed to `scope`: far beyond the depth of any goal it meets. -/
+def scopeFuel : ℕ := 100000
+
 /-- Prove a scope goal (`FOk`, `PairIn`, `CodeIn`, `ArgsIn`, `VarsIn`, an index predicate) by
 the structural lemmas, the hypotheses, unfolding of definitions and `decide`. -/
-partial def scopeGoal (g : MVarId) : TacticM Unit := g.withContext do
-  let tgt := (← instantiateMVars (← g.getType)).cleanupAnnotations.headBeta
-  if (← observing? (withReducible g.assumption)).isSome then return
-  -- a universally quantified hypothesis `∀ i, P (f i)`
-  for d in ← getLCtx do
-    if d.isImplementationDetail then continue
-    let ty := (← instantiateMVars d.type).cleanupAnnotations
-    if ty.isForall then
-      if !(← isProp ty.bindingDomain!) then
-        let saved ← saveState
-        try
-          let gs ← withReducible (g.apply d.toExpr)
-          for g' in gs do
-            unless ← g'.isAssigned do scopeGoal g'
-          return
-        catch _ => saved.restore
-  -- a goal `∀ i : Fin n, P i`
-  if tgt.isForall && (tgt.bindingDomain!.isAppOf ``Fin) then
-    let saved ← getGoals
-    setGoals [g]
-    evalTactic (← `(tactic| (intro i; fin_cases i)))
-    let gs ← getGoals
-    setGoals saved
-    for g' in gs do scopeGoal g'
-    return
-  match ← scopeLemma tgt with
-  | some n =>
-    let gs ← g.apply (← mkConstWithFreshMVarLevels n)
-    for g' in gs do
-      unless ← g'.isAssigned do scopeGoal g'
-  | none =>
-    let args := tgt.getAppArgs
-    let fn := tgt.getAppFn
-    -- coordinates `(e).1`, `(e).2` of a pair and `p i` of a code
-    if fn.isConstOf ``VarsIn then
-      let f ← whnfCore args[0]!
-      if f.isAppOfArity ``Prod.fst 3 || f.isAppOfArity ``Prod.snd 3 then
-        let u := f.appArg!
-        let G := args[1]!
-        let h ← mkFreshExprMVar (mkApp2 (mkConst ``PairIn) u G)
-        scopeGoal h.mvarId!
-        let pf ← if f.isAppOfArity ``Prod.fst 3 then mkAppM ``And.left #[h]
-          else mkAppM ``And.right #[h]
-        g.assign pf
-        return
-      let fType ← inferType f.getAppFn
-      if f.isApp && (← isDefEq fType (← mkArrow (mkApp (mkConst ``Fin) (mkNatLit 5))
-          (mkConst ``ZInQ.Syntax.Poly))) then
-        let p := f.appFn!
-        let G := args[1]!
-        let h ← mkFreshExprMVar (mkApp2 (mkConst ``CodeIn) p G)
-        scopeGoal h.mvarId!
-        g.assign (mkApp h f.appArg!)
-        return
-    -- unfold a user definition at the head of the subject
-    let subIdx? : Option ℕ :=
-      if fn.isConstOf ``FOk then some 2
-      else if fn.isConstOf ``PairIn || fn.isConstOf ``CodeIn || fn.isConstOf ``VarsIn then some 0
-      else none
-    if let some k := subIdx? then
-      let e ← whnfCore args[k]!
-      if let some e' ← unfoldDefinition? e then
-        let tgt' := mkAppN fn (args.set! k e')
-        let g' ← g.replaceTargetDefEq tgt'
-        scopeGoal g'
-        return
-    -- numeric index conditions
-    let saved ← getGoals
-    setGoals [g]
-    try
-      evalTactic (← `(tactic| decide))
-    catch _ =>
+def scopeGoal : ℕ → MVarId → TacticM Unit
+  | 0, _ => throwError "scope: recursion limit reached"
+  | fuel + 1, g => g.withContext do
+    let tgt := (← instantiateMVars (← g.getType)).cleanupAnnotations.headBeta
+    if (← observing? (withReducible g.assumption)).isSome then return
+    -- a universally quantified hypothesis `∀ i, P (f i)`
+    for d in ← getLCtx do
+      if d.isImplementationDetail then continue
+      let ty := (← instantiateMVars d.type).cleanupAnnotations
+      if ty.isForall then
+        if !(← isProp ty.bindingDomain!) then
+          let saved ← saveState
+          try
+            let gs ← withReducible (g.apply d.toExpr)
+            for g' in gs do
+              unless ← g'.isAssigned do scopeGoal fuel g'
+            return
+          catch _ => saved.restore
+    -- a goal `∀ i : Fin n, P i`
+    if tgt.isForall && (tgt.bindingDomain!.isAppOf ``Fin) then
+      let saved ← getGoals
+      setGoals [g]
+      evalTactic (← `(tactic| (intro i; fin_cases i)))
+      let gs ← getGoals
       setGoals saved
-      throwError "scope: cannot prove{indentExpr tgt}"
-    setGoals saved
+      for g' in gs do scopeGoal fuel g'
+      return
+    match ← scopeLemma tgt with
+    | some n =>
+      let gs ← g.apply (← mkConstWithFreshMVarLevels n)
+      for g' in gs do
+        unless ← g'.isAssigned do scopeGoal fuel g'
+    | none =>
+      let args := tgt.getAppArgs
+      let fn := tgt.getAppFn
+      -- coordinates `(e).1`, `(e).2` of a pair and `p i` of a code
+      if fn.isConstOf ``VarsIn then
+        let f ← whnfCore args[0]!
+        if f.isAppOfArity ``Prod.fst 3 || f.isAppOfArity ``Prod.snd 3 then
+          let u := f.appArg!
+          let G := args[1]!
+          let h ← mkFreshExprMVar (mkApp2 (mkConst ``PairIn) u G)
+          scopeGoal fuel h.mvarId!
+          let pf ← if f.isAppOfArity ``Prod.fst 3 then mkAppM ``And.left #[h]
+            else mkAppM ``And.right #[h]
+          g.assign pf
+          return
+        let fType ← inferType f.getAppFn
+        if f.isApp && (← isDefEq fType (← mkArrow (mkApp (mkConst ``Fin) (mkNatLit 5))
+            (mkConst ``ZInQ.Syntax.Poly))) then
+          let p := f.appFn!
+          let G := args[1]!
+          let h ← mkFreshExprMVar (mkApp2 (mkConst ``CodeIn) p G)
+          scopeGoal fuel h.mvarId!
+          g.assign (mkApp h f.appArg!)
+          return
+      -- unfold a user definition at the head of the subject
+      let subIdx? : Option ℕ :=
+        if fn.isConstOf ``FOk then some 2
+        else if fn.isConstOf ``PairIn || fn.isConstOf ``CodeIn || fn.isConstOf ``VarsIn then some 0
+        else none
+      if let some k := subIdx? then
+        let e ← whnfCore args[k]!
+        if let some e' ← unfoldDefinition? e then
+          let tgt' := mkAppN fn (args.set! k e')
+          let g' ← g.replaceTargetDefEq tgt'
+          scopeGoal fuel g'
+          return
+      -- numeric index conditions
+      let saved ← getGoals
+      setGoals [g]
+      try
+        evalTactic (← `(tactic| decide))
+      catch _ =>
+        setGoals saved
+        throwError "scope: cannot prove{indentExpr tgt}"
+      setGoals saved
 
 /-- Prove scope goals (`FOk`, `PairIn`, `CodeIn`, `ArgsIn`, `VarsIn`, index predicates). -/
 elab "scope" : tactic => do
   let g ← getMainGoal
   setGoals []
-  scopeGoal g
+  scopeGoal scopeFuel g
 
 /-- One step of a weakest-precondition computation `WP b s K`: dispatch on the head of `b`. -/
 elab "wp_step " G:term:max N:term:max : tactic => do
