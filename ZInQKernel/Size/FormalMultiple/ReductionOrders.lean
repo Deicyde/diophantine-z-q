@@ -75,8 +75,7 @@ theorem exists_order_at_prime {π : Zs} (hπ : Prime π) (h2 : ¬π ∣ 2)
     let _ : Field (Zs ⧸ Ideal.span {π}) := Ideal.Quotient.field _
     have : Finite (Zs ⧸ Ideal.span {π}) := Nat.finite_of_card_ne_zero hfin
     classical
-    have hρ : ∀ a, Ideal.Quotient.mk (Ideal.span {π}) a = 0 ↔ π ∣ a := fun a => by
-      rw [Ideal.Quotient.eq_zero_iff_mem, Ideal.mem_span_singleton]
+    have hρ := quotient_mk_eq_zero_iff π
     have hQ : genP0 ∈ E0sub hπ (Ideal.Quotient.mk (Ideal.span {π})) hρ (vge_genA hπ) rfl h2 := by
       rw [E0_eq_top_of_ne_d hπ _ hρ h2 hd]; exact AddSubgroup.mem_top _
     exact exists_order_of_mem_E0 hπ _ hρ (vge_genA hπ) rfl h2 hQ
