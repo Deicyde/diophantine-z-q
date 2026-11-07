@@ -18,6 +18,7 @@ import ZInQKernel.Compiler.Programs.PrecisionIR
 import ZInQKernel.Compiler.Programs.Wrapper
 import ZInQKernel.Compiler.Programs.PrecisionCorrect
 import ZInQKernel.Compiler.Programs.PrecisionMachine
+import ZInQKernel.Compiler.Programs.WrapperCorrect
 
 /-!
 # Programs of the natural compiler
