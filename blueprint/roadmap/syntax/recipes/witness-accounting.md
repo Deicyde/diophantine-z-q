@@ -4,7 +4,7 @@ declaration: theorem
 origin: cited
 statement: formalized
 proof: formalized
-lean: ZInQ.Syntax.specRecipes, ZInQ.Syntax.specLib, ZInQ.Syntax.specLib_wf, ZInQ.Syntax.specIntegers_variableCount_eq, ZInQ.Syntax.specIntegers_variableCount_le, ZInQ.Syntax.vars_integers_lt
+lean: ZInQ.Syntax.specRecipes, ZInQ.Syntax.specLib, ZInQ.Syntax.specLib_wf, ZInQ.Syntax.powerValueRecipe_variableCount, ZInQ.Syntax.precisionRecipe_variableCount_le, ZInQ.Syntax.specClose_witnessCount, ZInQ.Syntax.specMain_witnessCount, ZInQ.Syntax.specValueUnion_witnessCount, ZInQ.Syntax.specValue_witnessCount, ZInQ.Syntax.specIntegers_variableCount, ZInQ.Syntax.specIntegers_variableCount_eq, ZInQ.Syntax.specIntegers_variableCount_le, ZInQ.Syntax.vars_integers_lt
 ---
 
 # Witness accounting of the specified polynomial

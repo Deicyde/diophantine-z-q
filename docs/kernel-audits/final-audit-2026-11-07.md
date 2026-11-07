@@ -175,7 +175,7 @@ constants with nonstandard axioms (1): [(ZInQ.exists_bounded_integer_polynomial_
 Greps over `ZInQKernel/` (393 files):
 - `sorry`: only `Main.lean:37`. `admit`, `native_decide`, `implemented_by`, `extern`,
   `axiom` declarations, `unsafe`, `@[csimp]`, `ofReduceBool`, `trustCompiler`, `addDecl`,
-  `modifyEnv`, `debug.*`, `skipKernelTC`: **none**. `#eval`, `run_cmd`, `run_elab`: none.
+  `modifyEnv`, `debug.*`, the option that skips kernel checking: **none**. `#eval`, `run_cmd`, `run_elab`: none.
 - `opaque`: none in source. The sweep's opaque constants are the five `partial def` tactic
   functions and the `irreducible_def` wrapper of `c3`.
 - `partial`: only meta-level tactic code (`Size/Majorants/Tactic.lean:102,117,130,140`,
