@@ -132,4 +132,27 @@ theorem natural_polynomial_semantics (c : Fin 5 → ℕ) :
     precisionCircuit.NatRel powerTemplate c ↔ Precision.accepts c :=
   natural_polynomial_semantics_of (fun _ _ => sorry) (fun _ => sorry) c
 
+theorem natRel_iff_witnessCount (C : NatCircuit) (T : Syntax.ExPoly) {m : ℕ}
+    (hm : C.varCount - C.inputCount = m) (c : Fin C.inputCount → ℕ) :
+    C.NatRel T c ↔ ∃ z : Fin m → ℕ,
+      MvPolynomial.eval (fun i => (NatCircuit.natPoint C.inputCount m c z i : ℤ)) (C.poly T) = 0 := by
+  subst hm; rfl
+
+/-- The natural relation of the precision circuit with its `1,305,806` witness coordinates
+written out. -/
+theorem precisionCircuit_natRel_iff_witnesses (T : Syntax.ExPoly) (c : Fin 5 → ℕ) :
+    precisionCircuit.NatRel T c ↔ ∃ z : Fin 1305806 → ℕ,
+      MvPolynomial.eval (fun i => (NatCircuit.natPoint 5 1305806 c z i : ℤ))
+        (precisionCircuit.poly T) = 0 :=
+  natRel_iff_witnessCount precisionCircuit T precisionCircuit_counts.2.2.2.2 c
+
+/-- **Equation (C.4)** in the form of the article: some `z ∈ ℕ^1305806` makes `[[𝒩]](c, z)`
+vanish iff `c` is accepted. -/
+theorem natural_polynomial_semantics' (c : Fin 5 → ℕ) :
+    (∃ z : Fin 1305806 → ℕ,
+      MvPolynomial.eval (fun i => (NatCircuit.natPoint 5 1305806 c z i : ℤ))
+        (precisionCircuit.poly powerTemplate) = 0) ↔ Precision.accepts c :=
+  (precisionCircuit_natRel_iff_witnesses powerTemplate c).symm.trans
+    (natural_polynomial_semantics c)
+
 end ZInQ.Compiler
