@@ -40,3 +40,4 @@ import ZInQKernel.Assembly.Top
 import ZInQKernel.Multiplication.Top
 import ZInQKernel.Syntax.Builder
 import ZInQKernel.Compiler.NodeCheck
+import ZInQKernel.Compiler.NodeSkeleton
