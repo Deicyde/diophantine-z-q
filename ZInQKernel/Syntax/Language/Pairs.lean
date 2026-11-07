@@ -264,6 +264,9 @@ end Pair
 theorem holds_feq (x : ℕ → ℚ) (u v : Pair) : (feq u v).Holds x ↔ Pair.val x u = Pair.val x v := by
   simp [feq, QuadraticAlgebra.ext_iff]
 
+theorem lift_feq (y : ℕ → ℚ) (u v : Pair) : (feq u v).Lift y ↔ Pair.val y u = Pair.val y v := by
+  simp [feq, QuadraticAlgebra.ext_iff]
+
 /-- The pair norm vanishes only at `0`. -/
 theorem ev_norm_ne_zero_iff (x : ℕ → ℚ) (u : Pair) : ev x u.norm ≠ 0 ↔ Pair.val x u ≠ 0 := by
   rw [Pair.ev_norm, ← K0_ne_zero_iff_pairNorm]
@@ -325,6 +328,9 @@ theorem holds_isO (x : ℕ → ℚ) (p : Code) : (isO p).Holds x ↔ evCode x p 
   rw [isO, holds_peq, evCode_O]
 
 theorem holds_fin (x : ℕ → ℚ) (p : Code) : (fin p).Holds x ↔ ev x (p 0) = 0 := by
+  simp [fin]
+
+theorem lift_fin (y : ℕ → ℚ) (p : Code) : (fin p).Lift y ↔ ev y (p 0) = 0 := by
   simp [fin]
 
 /-- The curve atom pair says `[Y]² = [X]³ - d² [X]`. -/

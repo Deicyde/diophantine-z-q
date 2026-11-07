@@ -55,17 +55,6 @@ theorem lift_and_append (y : ℕ → ℚ) (l₁ l₂ : List Formula) :
 theorem lift_and_singleton (y : ℕ → ℚ) (φ : Formula) : (Formula.and [φ]).Lift y ↔ φ.Lift y := by
   simp
 
-/-- **Pair equality.** -/
-theorem lift_feq (y : ℕ → ℚ) (u v : Pair) : (feq u v).Lift y ↔ Pair.val y u = Pair.val y v := by
-  simp [feq, QuadraticAlgebra.ext_iff]
-
-theorem lift_nzFormula (y : ℕ → ℚ) (a : Poly) (c : ℕ) :
-    (nzFormula a c).Lift y ↔ ev y a * y c = 1 := by
-  simp [nzFormula]
-
-theorem lift_fin (y : ℕ → ℚ) (p : Code) : (fin p).Lift y ↔ ev y (p 0) = 0 := by
-  simp [fin]
-
 /-- `NZ_K(λ)` at a pair of consecutive variables says `[λ] ≠ 0`. -/
 theorem lift_nz_norm_imp (y : ℕ → ℚ) (k c : ℕ) :
     (nzFormula (varPair k).norm c).Lift y → pr y k ≠ 0 := by

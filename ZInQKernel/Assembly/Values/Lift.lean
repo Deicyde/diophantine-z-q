@@ -53,18 +53,8 @@ theorem lift_iff_holds_of_callees_nil {φ : Formula} (h : φ.callees = []) (y : 
 @[simp] theorem callees_divFormula (n d q : Pair) (k : ℕ) : (divFormula n d q k).callees = [] := by
   simp [divFormula]
 
-theorem lift_feq (y : ℕ → ℚ) (u v : Pair) : (feq u v).Lift y ↔ Pair.val y u = Pair.val y v := by
-  rw [lift_iff_holds_of_callees_nil (callees_feq u v), holds_feq]
-
 theorem lift_peq (y : ℕ → ℚ) (p q : Code) : (peq p q).Lift y ↔ evCode y p = evCode y q := by
   rw [lift_iff_holds_of_callees_nil (callees_peq p q), holds_peq]
-
-theorem lift_fin (y : ℕ → ℚ) (p : Code) : (fin p).Lift y ↔ ev y (p 0) = 0 := by
-  rw [lift_iff_holds_of_callees_nil (callees_fin p), holds_fin]
-
-theorem lift_nzFormula (y : ℕ → ℚ) (a : Poly) (c : ℕ) :
-    (nzFormula a c).Lift y ↔ ev y a * y c = 1 := by
-  rw [lift_iff_holds_of_callees_nil (callees_nzFormula a c), holds_nzFormula]
 
 theorem lift_zFormula (y : ℕ → ℚ) (p : Code) (ζ : Pair) (k : ℕ) :
     (zFormula p ζ k).Lift y ↔ (zFormula p ζ k).Holds y :=
