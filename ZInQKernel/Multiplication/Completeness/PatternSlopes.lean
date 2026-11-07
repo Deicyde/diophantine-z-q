@@ -1,4 +1,5 @@
 import ZInQKernel.Multiplication.Completeness.PatternValues
+import ZInQKernel.Multiplication.Certificate.ConstantsProperties
 
 /-!
 # Slopes of an integer from the prime pattern
@@ -15,8 +16,6 @@ one, and there are at most six of them.
 namespace ZInQ.Mult
 
 open scoped BigOperators
-
-attribute [local irreducible] catalogue
 
 /-- Conditions 1-4 of the slopes from the prime pattern, for the bound `B₀`. Condition 4 is
 stated with the explicit set `P` of odd contact primes outside `S_b`, of size at most six. -/
@@ -36,11 +35,6 @@ theorem GoodSlope.old_le_Cp {B₀ : ℝ} {t : ℚ} (ht : GoodSlope B₀ t) {p : 
   obtain ⟨h1, h2⟩ := ht.old p hp
   unfold Cp; push_cast
   constructor <;> linarith [(Nat.cast_nonneg (Bp p) : (0 : ℤ) ≤ Bp p)]
-
-theorem prime_of_mem_S_b {p : ℕ} (hp : p ∈ S_b) : p.Prime := by
-  rcases mem_S_b.mp hp with h | h
-  · exact (mem_S_ht.mp h).1
-  · exact (catalogueSet_prime (mem_catalogue.mp h)).1
 
 /-! ### One pattern value -/
 

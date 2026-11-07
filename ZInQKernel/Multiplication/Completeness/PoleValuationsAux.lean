@@ -19,8 +19,6 @@ namespace ZInQ.Mult
 
 open scoped BigOperators
 
-attribute [local irreducible] catalogue
-
 /-! ### Rational valuations -/
 
 theorem padicValRat_finset_prod {p : ℕ} [Fact p.Prime] {ι : Type*} (s : Finset ι) {f : ι → ℚ}

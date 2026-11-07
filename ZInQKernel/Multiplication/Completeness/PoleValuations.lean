@@ -19,8 +19,6 @@ namespace ZInQ.Mult
 
 open scoped BigOperators
 
-attribute [local irreducible] catalogue
-
 /-- The pole input `B = R/Θ²` of the slope predicate, for given `ℓ, η, q, t` and test values
 `D_{gj}`. -/
 noncomputable def poleInput (ℓ η q t : ℚ) (D : Fin 6 → Fin 12 → K0) : ℚ :=

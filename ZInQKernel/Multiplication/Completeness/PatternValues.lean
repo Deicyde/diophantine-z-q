@@ -13,8 +13,6 @@ namespace ZInQ.Mult
 
 open scoped BigOperators
 
-attribute [local irreducible] catalogue
-
 theorem catalogueSet_prime {q : ℕ} (hq : q ∈ catalogueSet) : q.Prime ∧ 324 < q := by
   obtain ⟨r, i, hr, hcop, -, rfl⟩ := hq
   exact ⟨(cataloguePrime_spec hr hcop i).1, (cataloguePrime_spec hr hcop i).2.1⟩
