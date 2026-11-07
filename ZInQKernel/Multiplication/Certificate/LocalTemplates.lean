@@ -185,13 +185,17 @@ theorem log25_rel_iff (ζ lam : Fin 2 → ℚ) :
   have hv : ∀ y : Fin 0 → ℚ, Pair.val (assign 4 0 (Fin.append ζ lam) y) (varPair 0) = pairK ζ :=
     fun y => by
       ext
-      · simp only [Pair.re_val, ev_varPair_fst]; exact assign_of_lt (i := 0) (Fin.append ζ lam) y (by omega)
-      · simp only [Pair.im_val, ev_varPair_snd]; exact assign_of_lt (i := 1) (Fin.append ζ lam) y (by omega)
+      · simp only [Pair.re_val, ev_varPair_fst]
+        exact assign_of_lt (i := 0) (Fin.append ζ lam) y (by omega)
+      · simp only [Pair.im_val, ev_varPair_snd]
+        exact assign_of_lt (i := 1) (Fin.append ζ lam) y (by omega)
   have hl : ∀ y : Fin 0 → ℚ, Pair.val (assign 4 0 (Fin.append ζ lam) y) (varPair 2) = pairK lam :=
     fun y => by
       ext
-      · simp only [Pair.re_val, ev_varPair_fst]; exact assign_of_lt (i := 2) (Fin.append ζ lam) y (by omega)
-      · simp only [Pair.im_val, ev_varPair_snd]; exact assign_of_lt (i := 3) (Fin.append ζ lam) y (by omega)
+      · simp only [Pair.re_val, ev_varPair_fst]
+        exact assign_of_lt (i := 2) (Fin.append ζ lam) y (by omega)
+      · simp only [Pair.im_val, ev_varPair_snd]
+        exact assign_of_lt (i := 3) (Fin.append ζ lam) y (by omega)
   simp only [holds_feq, Pair.val_log25, hv, hl]
   exact ⟨fun ⟨_, h⟩ => h.symm, fun h => ⟨Fin.elim0, h.symm⟩⟩
 

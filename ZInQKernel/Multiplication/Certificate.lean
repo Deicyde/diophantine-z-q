@@ -6,6 +6,11 @@ import ZInQKernel.Multiplication.Certificate.SlopePredicate
 import ZInQKernel.Multiplication.Certificate.ConstantsProperties
 import ZInQKernel.Multiplication.Certificate.LocalTemplates
 import ZInQKernel.Multiplication.Certificate.Guard
+import ZInQKernel.Multiplication.Certificate.LiftLemmas
+import ZInQKernel.Multiplication.Certificate.TestGroup
+import ZInQKernel.Multiplication.Certificate.Slope
+import ZInQKernel.Multiplication.Certificate.HeightCertificate
+import ZInQKernel.Multiplication.Certificate.Multiply
 
 /-!
 # The multiplication certificate and its semantics
