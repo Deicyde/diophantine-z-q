@@ -8,6 +8,7 @@ import ZInQKernel.Multiplication.Certificate.LocalTemplates
 import ZInQKernel.Multiplication.Certificate.Guard
 import ZInQKernel.Multiplication.Certificate.LiftLemmas
 import ZInQKernel.Multiplication.Certificate.TestGroup
+import ZInQKernel.Multiplication.Certificate.Slope
 
 /-!
 # The multiplication certificate and its semantics
