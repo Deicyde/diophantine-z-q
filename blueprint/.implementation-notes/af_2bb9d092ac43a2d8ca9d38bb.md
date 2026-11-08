@@ -1,13 +1,14 @@
-# Implementation note: A uniform bound for twisted sums
+# Implementation note: A lower bound for |L(1,χ)| at every nonprincipal character
 
-- Owner: pp-mertens (plan step 4.2, once steps 2 and 3 land) or the final assembly task. Namespace `ZInQ.Progressions`; modules import Mathlib (and earlier `Progressions` modules) only.
-- Lean name: proposed `ZInQ.Progressions.norm_twistedSum_le`.
+- Owner: pp-final. Namespace `ZInQ.Progressions`; modules under `ZInQKernel/Progressions/`, importing Mathlib and the delivered `Progressions` modules only.
+- This article replaces the earlier "uniform bound for twisted sums" (`2^24 q^5`). The delivered count `twentytwo_primes_of_LFunction_lower_bound` (Mertens/Unconditional) takes a lower bound `c ≤ ‖L(1,χ)‖` for all `χ ≠ 1` directly and forms `B = ((log q + 3)^2 + 6q)/c` itself, so no separate twisted-sum bound is needed. The name `norm_twistedSum_le` is already taken (by `‖S_χ(x)‖ ≤ (M² + 6q)/‖L(1,χ)‖`).
+- Lean name: proposed `ZInQ.Progressions.norm_LFunction_one_ge_min`.
 - Draft:
   ```lean
   variable {q : ℕ} [NeZero q]
-  open ArithmeticFunction in
-  theorem norm_twistedSum_le {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1) {x : ℝ} (hx : 1 ≤ x) :
-      ‖∑ n ∈ Finset.Ioc 0 ⌊x⌋₊, χ n * Λ n / n‖ ≤ 2 ^ 24 * (q : ℝ) ^ 5
+  theorem norm_LFunction_one_ge_min {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1) :
+      min (1 / (256 * (Real.log q + 3) ^ 7)) (1 / (40 * (q : ℝ) ^ ((3 : ℝ) / 2))) ≤
+        ‖DirichletCharacter.LFunction χ 1‖
   ```
-- Mathlib: `Real.log_le_sub_one_of_pos` at `√q` (so `log q + 3 ≤ 3 √q`), `Real.sq_sqrt`, `pow_le_pow_left₀`, `div_le_iff₀`; inputs `norm_LFunction_one_mul_twistedSum_le`, `norm_LFunction_one_ge_of_sq_ne_one`, `norm_LFunction_one_ge_of_sq_eq_one`.
-- The plan has `C₁ q^(5/2)`; the cleaner `2^24 q^5` (via `M ≤ 3√q`) avoids bounding `(log q + 3)^7 / q^(3/2)` and still leaves the final instance far below `2^(q^8)`.
+  (If the real-character bound is stated with `q * Real.sqrt q`, use the same spelling here.)
+- Inputs: `norm_LFunction_one_ge_of_sq_ne_one` (delivered, LSeries/ComplexChar) and `norm_LFunction_one_ge_of_sq_eq_one` (pp-final, real characters); `min_le_left`, `min_le_right`, case split on `χ ^ 2 = 1`.

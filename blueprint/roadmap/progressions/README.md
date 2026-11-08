@@ -17,8 +17,8 @@ $M=\log q+3$ and $S_\chi(x)=\sum_{n\le x}\chi(n)\Lambda(n)/n$.
 
 ## $L$-values near $s=1$
 
-Summation by parts bounds $L(\sigma,\chi)$, its derivative and its partial sums on
-$1\le\sigma\le2$, and the classical product inequality gives
+Summation by parts bounds $L(\sigma,\chi)$, its derivative and its partial sums for real
+$\sigma\ge1$, and the classical product inequality gives
 $|L(1,\chi)|\ge1/(256M^7)$ when $\chi^2\ne\chi_0$.
 
 - [Character sums and $L$-values near $s=1$](lseries/README.md)
@@ -29,7 +29,8 @@ When $\chi^2=\chi_0$, the value $L(1,\chi)$ is tied to a quadratic field: $\chi$
 Legendre symbol $(d/\cdot)$ away from $2q$, the Dedekind zeta function of
 $\mathbb Q(\sqrt d)$ factors as $\zeta(s)L(s,\chi)$ up to finitely many local factors, and
 the class number formula with crude bounds on the discriminant, the roots of unity and the
-regulator gives $|L(1,\chi)|\ge1/(40q^{3/2})$.
+regulator gives $|L(1,\chi)|\ge1/(40q^{3/2})$. The splitting law and the field need only that
+$d$ is not a square.
 
 - [Quadratic fields](quadratic-fields/README.md)
 - [Ideal counts in quadratic fields](ideal-counts/README.md)
@@ -37,9 +38,10 @@ regulator gives $|L(1,\chi)|\ge1/(40q^{3/2})$.
 
 ## The count
 
-Mertens' first theorem, the identity relating $L(1,\chi)S_\chi(x)$ to
+Mertens' first theorem (with constant $3$), the identity relating $L(1,\chi)S_\chi(x)$ to
 $\sum_{n\le x}\chi(n)\log n/n$, and orthogonality give at least twenty-two primes of each
-unit class in every interval $(y,x]$ with $\log(x/y)$ of order $q^6$.
+unit class in $(q^8,q^8e^{5qB}]$, where $B=(M^2+6q)/c$ and $c$ is a lower bound for
+$|L(1,\chi)|$ at all nonprincipal $\chi$; here $\log(e^{5qB})$ is of order $q^{11/2}$.
 
 - [Counting primes in a residue class](counting/README.md)
 

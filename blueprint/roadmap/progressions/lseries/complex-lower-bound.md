@@ -2,6 +2,9 @@
 article_id: af_b9c9b6d9b611b2069c5cf24c
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Progressions.norm_LFunction_one_ge_of_sq_ne_one
 ---
 
 # A lower bound for $|L(1,\chi)|$ at complex characters
