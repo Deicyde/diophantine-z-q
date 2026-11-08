@@ -1,2 +1,11 @@
 #0 num 33dig den 34dig omega(beta_1)=11 omega(theta_1)=3 OK m=273 k=2 n'=183 kind=('tyz', 'tyz') omega(beta)=8 omega(theta)=2 (m,k) pairs tried=154 (15.9s)
 #1 num 33dig den 34dig omega(beta_1)=12 omega(theta_1)=4 OK m=14 k=2 n'=1639 kind=('tyz', 'tyz') omega(beta)=10 omega(theta)=2 (m,k) pairs tried=137 (6.4s)
+#2 num 33dig den 33dig omega(beta_1)=9 omega(theta_1)=4 FAIL B=147687967591500001090692635550000/904222715307234954189883549705489 (40.3s)
+#3 num 32dig den 33dig omega(beta_1)=11 omega(theta_1)=4 FAIL B=42415078984885490022657513450000/435856053514370812267438898184169 (107.8s)
+#4 num 29dig den 31dig omega(beta_1)=9 omega(theta_1)=2 OK m=-10 k=2 n'=2449 kind=('tyz', 'tyz') omega(beta)=7 omega(theta)=2 (m,k) pairs tried=167 (22.7s)
+#5 num 30dig den 30dig omega(beta_1)=8 omega(theta_1)=2 OK m=1 k=2 n'=22879 kind=('tyz', 'tyz') omega(beta)=8 omega(theta)=2 (m,k) pairs tried=129 (10.8s)
+#6 num 29dig den 30dig omega(beta_1)=9 omega(theta_1)=6 OK m=-30 k=2 n'=4321 kind=('tyz', 'tyz') omega(beta)=8 omega(theta)=1 (m,k) pairs tried=173 (23.0s)
+#7 num 33dig den 35dig omega(beta_1)=11 omega(theta_1)=3 OK m=-91 k=0 n'=1 kind=('torsion', 'tyz') omega(beta)=9 omega(theta)=4 (m,k) pairs tried=52 (2.2s)
+#8 num 29dig den 30dig omega(beta_1)=10 omega(theta_1)=3 OK m=-42 k=1 n'=79 kind=('tyz', 'tyz') omega(beta)=7 omega(theta)=4 (m,k) pairs tried=112 (9.7s)
+#9 num 34dig den 35dig omega(beta_1)=10 omega(theta_1)=6 OK m=-91 k=1 n'=79 kind=('tyz', 'tyz') omega(beta)=12 omega(theta)=1 (m,k) pairs tried=116 (2.2s)
+manybeta first {'ok': 8, 'fail': 2}

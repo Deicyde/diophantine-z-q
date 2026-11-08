@@ -42,18 +42,23 @@ The repairs:
    > `β | n` such that each of `C_n` and `C_{nθ}` either carries the 2-torsion point with
    > abscissa class `β` or has `dim Sel₂ = 3` with a class of first coordinate `β`.
 
-   The experiments support it in the form "for some `m`". The form "for every `m`", in which the
-   multiplier is fixed in advance as in the manuscript's construction, is much harder to witness:
+   Experiments support it:
 
-   - With one multiplier fixed and `θ` built to have 7–9 small primes, the search found no
-     solution in several cases. That is not a counterexample, but it shows where a proof has to
-     work.
-   - Some `(β, θ)` admit the class on `C_{nθ}` for only a fraction of order `2^{−ω(θ)}` of the
-     auxiliary products tried.
+   - every one of 100 fresh admissible inputs (random and adversarial) was solved;
+   - so was every fixed `(B, m)` pair that was retried with the larger search, including
+     multipliers fixed in advance and `θ` built with up to 9 small primes.
 
-2. **Kriz's theorem is an unrefereed preprint** (arXiv:2002.04767v5, 19 Oct 2022; no journal
-   reference on arXiv, and I found no publication). Trust moves from the manuscript's 8,000 lines
-   to Kriz's 277-page preprint. That is better, but the input is still not published.
+   Suitable auxiliary products can be rare: for some `(β, θ)` the class `β` lies on `C_{nθ}`
+   for only a fraction of order `2^{−ω(θ)}` of random `n'`. So the proof must choose the
+   Legendre symbols of the auxiliary primes, as the manuscript does for `E_ℓ`.
+2. **The deep input.**
+   - Kriz's theorem is an unrefereed preprint (arXiv:2002.04767v5, 19 Oct 2022; no journal
+     reference on arXiv, and I found no publication). Trust moves from the manuscript's
+     8,000 lines to Kriz's 277-page preprint.
+   - **A published alternative works in the experiments.** Tian–Yuan–Zhang (Asian J. Math.
+     2017), in Smith's determinant form, certifies rank one for a curve with one extra
+     linear condition. Requiring it on every curve that needs the converse, the descent still
+     succeeded on 60 of 60 inputs (§4.3, §4.4).
 3. **Small corrections to the source note.** Its explicit `θ = 1` witness is wrong (§4.2).
    Its reformulation must be redone for `C_ℓ`: the parametrization and the surface change (§4.2).
    The "abscissa class `β`" condition needs the torsion bookkeeping of §4.2, and the cases
@@ -368,28 +373,60 @@ generators: `B = N/D²`, `N = Πp^{e_p}·u`, with `e_p ∈ {4,…,7}` on `S₀` 
 | random (`u < 10⁷`, `D` up to `50√(2N)`) | 30 | **30 of 30** solved. 29 with `n = β` (no auxiliary prime; the multiplier is the free parameter); 1 with one auxiliary prime. |
 | many primes in `β` (6–9 primes `< 300` in `u`; `ω(β)` up to 14) | 10 | 9 by the quick search (`k ≤ 2` primes `< 200`). The 10th by the two-phase search with `m = 5`, `n' = 971`. **10 of 10.** |
 | fixed multiplier, `n' ∈ {1, θ}` forbidden, random auxiliary sets (`k ≤ 7`, primes `< 20000`) | 20 inputs × 6 multipliers | 109 of 120 pairs at once. Of the 11 failures, the 8 from the second batch were rerun with the two-phase search (primes up to `10⁶`): **8 of 8 solved** with 3–6 auxiliary primes. The 3 from the first batch were not retried. |
-| fixed `m = 1`, `θ` built as a product of 4–9 small primes (`N = D² − θ₀Y²`) | see below | hardest family (results below) |
-
-Results for the smooth-`θ` family: RESULTS_SMOOTH.
+| fixed `m = 1`, `θ` built as a product of 4–9 small primes (`N = D² − θ₀Y²`) | 10 | SMOOTH_RESULT |
+| minimal `S₀` valuations (`e_p ∈ {4, 5}`), tiny cofactor | 10 | **10 of 10** (all `k = 0`) |
+| extreme `B` (just below `1/2`, or `D ≈ 10¹⁷`) | 10 | **10 of 10** |
+| **TYZ variant**: as above, but every curve that uses the converse must also pass TYZ's criterion | random 30; many-`β` 10; `S₀`-edge 10; extreme-`B` 10 | **30 of 30; 10 of 10; 10 of 10; 10 of 10.** Two many-`β` inputs needed the larger pool (`m = 5`, `n' = 87380822281`; `m = 105`, `n' = 93479`). |
 
 **Observations.**
 
 - **The multiplier carries most of the work.** With 64 multipliers, `n = β` succeeds for most
   inputs. Then only `C_{βθ}` needs the converse, because the class `β` on `C_β` is the torsion
   point `(β, 0)`.
-- **For a fixed multiplier, auxiliary primes are needed, and they are rarely suitable when `θ`
-  has many primes.** For the pair `B = 301705438760288079032880000/1164411428159110046935918403761`,
-  `m = 6` (`β = 3·13·41·199·773`, `ω(θ) = 7`), the class `β` lay on `C_{nθ}` for only 5 of 3,000
-  random `n'` (on both curves for 3), against 673 of 3,000 for `C_n`. Its existence is decided
-  by about `ω(θ)` Legendre conditions linking `θ`'s primes to the auxiliary primes. A proof must
-  choose those symbols by Dirichlet, exactly as the manuscript does for `E_ℓ` (lines 1035–1061).
+- **For a fixed multiplier, auxiliary primes are needed, and when `θ` has many primes suitable
+  ones are rare but exist.**
+  - For the pair `B = 301705438760288079032880000/1164411428159110046935918403761`, `m = 6`
+    (`β = 3·13·41·199·773`, `ω(θ) = 7`), the class `β` lay on `C_{nθ}` for only 5 of 3,000
+    random `n'` (on both curves for 3), against 673 of 3,000 for `C_n`.
+  - Its existence is decided by about `ω(θ)` Legendre conditions linking `θ`'s primes to the
+    auxiliary primes. A proof must choose those symbols by Dirichlet, exactly as the manuscript
+    does for `E_ℓ` (lines 1035–1061).
+  - The structured searches (beam, two-phase, annealing) reported failures on the smooth-`θ`
+    family. Plain random sampling of 2–10 primes up to `10⁶` (`brute_fixed_m.py`,
+    `brute_smooth_all.py`) then solved those cases with two auxiliary primes, after 100–15,000
+    trials. So the failures were artifacts of the searches. The two-phase search, for example,
+    stopped sampling after six partial starts.
+  - Likewise, with `ω(β) ≈ 10` most random products fail the necessary conditions at the primes
+    of `β`. That is why some quick searches failed.
 - **No invariant obstruction was found.** Three candidate invariants did not predict the rare
   failures (`out_obstruction_probe.txt`, `out_p0_probe.txt`):
   - products of quartic residue symbols `(β/p)₄` (`p | θ`) and `(θ/p)₄` (`p | β`);
   - `θ mod 16`;
   - the `n' = 1` case.
 
-  Every pair examined closely was eventually solved.
+  Every pair retried with the larger search was solved. The 3 failures from the first
+  fixed-multiplier batch were not retried, because their inputs were not recorded.
+
+**The linear system** (VERIFIED, derived from the local images and used by `sel2cong.py`).
+
+Let `d > 0` be odd and squarefree with primes `p_i`, and put `d_i = d/p_i`. Write a candidate
+class as `a = (−1)^{α₀}2^{α₁}Π p_j^{u_j}`, `b = (−1)^{β₀}2^{β₁}Π p_j^{v_j}`. Put
+`[x/p] = (1 − (x/p))/2 ∈ 𝔽₂` and `r_i(a) = α₀[−1/p_i] + α₁[2/p_i] + Σ_{j≠i} u_j[p_j/p_i]`,
+and similarly `r_i(b)`. The condition at `p_i` depends on `(u_i, v_i)`:
+
+| `(u_i, v_i)` | condition at `p_i` |
+| --- | --- |
+| `(0, 0)` | `r_i(a) = 0`, `r_i(b) = 0` |
+| `(1, 0)` | `r_i(a) = [d_i/p_i]`, `r_i(b) = [2/p_i]` |
+| `(1, 1)` | `r_i(a) = [−d_i/p_i]`, `r_i(b) = [−2d_i/p_i]` |
+| `(0, 1)` | `r_i(a) = [−1/p_i]`, `r_i(b) = [−d_i/p_i]` |
+
+The conditions at 2 and `∞` come from the table of 2-adic images above. The class `β` is the
+specialization `u = 1_{supp β}`, `α₀ = [β < 0]`, `α₁ = [2 | β]`.
+
+The descent lemma asks for auxiliary primes such that this system has exactly one solution class
+beyond the torsion, with that specialization, for both `d = n` and `d = nθ`. For the TYZ
+variant it must in addition satisfy Smith's bordered determinant for the residue class of `d`.
 
 **What a proof must do (SPECULATIVE outline).** Write `n = βn'` with auxiliary primes of chosen
 symbol type, as in the manuscript's slots. Arrange for both Monsky matrices (for `n` and `nθ`)
@@ -449,6 +486,10 @@ needs no edit.
     Lemma 5.4 (Poonen–Stoll); the descent at lines 1019–1121 rewritten for `C_ℓ`.
   - Lemma 5.5 (forward rank, A020/A082) is no longer needed in Section 5, because Kriz gives the
     rank directly.
+  - In the TYZ variant, Section 5 instead cites TYZ Theorem 1.2 (with Smith's Theorem 2.2, or a
+    direct proof of the needed F₂ identity) and Gross–Zagier–Kolyvagin (A020). Lemma 5.4
+    (Poonen–Stoll) is then unnecessary: rank 1 with finite Ш and `dim Sel₂ = 3` already force
+    `Ш[2] = 0`.
   - Sections 7–9 and Appendices E–G, and the 39 RC-only audit records, become unnecessary.
   - Lemma 1.2 and line 128 updated.
 - The audit adds one record for Kriz (Theorems 1.1, 9.23, 10.13, 10.17(2), with the `f₀ ≤ 3`
@@ -458,26 +499,35 @@ needs no edit.
 
 | Rank | Route | Gain | Chance |
 | --- | --- | --- | --- |
-| 1 | **K with a proved descent lemma** (all 64 multipliers available, auxiliary primes by Dirichlet) | PC follows from Kriz, Poonen–Stoll and an elementary lemma; RC (8,000 lines, 39 audit records) disappears | medium |
-| 2 | K-L: state in Lean the narrow hypothesis "a congruent number curve with `dim Sel₂ = 3` has a point with each Selmer first coordinate" and prove the descent in Lean | the hypothesis becomes a direct corollary of Kriz | medium, given 1 |
-| 3 | K with TYZ (published) instead of Kriz | refereed input | low–medium; needs the bordered-determinant condition for both `n` and `nθ` |
+| 1 | **K-Kriz: Route K with a proved descent lemma** (auxiliary primes by Dirichlet) | PC follows from Kriz, Poonen–Stoll and an elementary lemma; RC (8,000 lines, 39 audit records) disappears | medium–high |
+| 2 | **K-TYZ**: the same, with Tian–Yuan–Zhang's published criterion (in Smith's determinant form) on each curve that needs the converse | only published deep inputs remain: TYZ, plus Gross–Zagier–Kolyvagin, already A020; Poonen–Stoll is not needed | medium; the lemma needs one extra bordered-determinant condition per curve, which all 60 test inputs met |
+| 3 | K-L: state in Lean the narrow hypothesis "a congruent number curve with `dim Sel₂ = 3` (resp. passing TYZ) has a point with each Selmer first coordinate" and prove the descent in Lean | the hypothesis becomes a direct corollary of a cited theorem | medium, given 1 or 2 |
 | 4 | Keep `E_ℓ` and RC | no change | (status quo) |
 
-**Recommendation.** Prove the descent lemma for congruent number curves in the form "for each
-admissible `(β, θ)` with `β`'s 2-adic class fixed by a chosen `m`". Use the manuscript's slot
-construction transposed to the Monsky matrix of `C_d`. Test each step against
-`scratch/rv-route-k/sel2cong.py`.
+**Recommendation.** Prove the descent lemma for congruent number curves with the multiplier
+chosen by the 2-adic class of `β`. Use the manuscript's slot construction (lines 1035–1061),
+transposed to the linear system of §4.4. Prove it first in the Kriz form, then check whether one
+further auxiliary slot can also force Smith's bordered determinant (K-TYZ). Test each step
+against `scratch/rv-route-k/sel2cong.py` and `tyz_smith.py`.
 
 - **Success criterion.** A written proof that, for every admissible input and the chosen `m`,
   there are auxiliary primes making both `C_n` and `C_{nθ}` Selmer-minimal and containing the
-  class `β`. The proof is then validated by the two-phase search on the smooth-`θ` family, where
-  it must produce solutions the heuristic search did not find.
-- **Chance: medium.** The deep input fits exactly and soundness transfers. Every input tested
-  admitted a solution once all multipliers and large auxiliary primes were allowed. The risk is
-  the uniform simultaneous lemma. The class `β` on `C_{nθ}` is controlled by about `ω(θ)`
-  Legendre conditions, and minimality and presence of the class pull the auxiliary symbols in
-  opposite directions; the manuscript needed a delicate matrix argument for the same tension.
-  The second risk is that Kriz's theorem is unrefereed.
+  class `β`. Validate it by running the algorithm it yields on the smooth-`θ` family
+  (`descent_search.py`, generator `smooththeta`). Each output must pass `sel2cong.py`.
+- **Chance: medium–high**, for these reasons:
+  - The deep input fits exactly, and soundness transfers.
+  - Every input and every fixed `(B, m)` pair retried with the larger search admitted a
+    solution, usually with at most two auxiliary primes.
+  - No invariant obstruction appeared.
+  - The analogous lemma for `E_ℓ` was already carried out in the manuscript, with an extra
+    3-adic condition that `C_ℓ` does not have.
+
+  The remaining risks:
+  - Writing the simultaneous condition for `n` and `nθ` cleanly. When `θ` has many primes the
+    suitable auxiliary symbol patterns are a small fraction, so the proof must choose them
+    rather than count on them.
+  - Kriz's theorem is unrefereed. The TYZ variant removes that risk at the cost of a stronger
+    lemma.
 
 ## Scripts (in `scratch/rv-route-k/`)
 
@@ -488,7 +538,11 @@ construction transposed to the Monsky matrix of `C_d`. Test each step against
 | `validate_points.py` | Selmer classes against actual generators |
 | `reform_check.py` | parametrization, 40 explicit zeros of `Q_pole^C`, the `θ = 1` witness |
 | `descent_search.py` | generators and searches: `random`, `manybeta`, `smooththeta`, `edgeS0`, `extremeB`; drivers `first`, `stress`, `stressrand` |
-| `beam_search.py`, `twophase.py`, `anneal.py` | auxiliary-prime searches for a fixed multiplier |
+| `beam_search.py`, `twophase.py`, `anneal.py` | structured auxiliary-prime searches for a fixed multiplier (they under-perform) |
+| `brute_fixed_m.py`, `brute_smooth_all.py` | plain random auxiliary-prime search for a fixed multiplier, with re-verification |
+| `tyz_smith.py` | Smith's determinant form of TYZ, and its validation |
+| `descent_tyz.py`, `brute_tyz.py` | the descent with TYZ certificates (`KRIZ=1` switches `brute_tyz.py` back to the Kriz criterion) |
+| `smooth_theta_test.py` | the smooth-`θ` family with fixed `m = 1` and the two-phase search |
 | `diagnose_fixed_m.py`, `diagnose_pair.py`, `presence_beam.py`, `obstruction_probe.py`, `p0_probe.py` | diagnosis of the fixed-multiplier failures |
 
 Outputs are in `out_*.txt`.
