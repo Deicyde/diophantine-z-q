@@ -134,6 +134,25 @@ theorem deriv_LFunction_eq (χ : DirichletCharacter ℂ q) {σ : ℝ} (hσ : 1 <
   simp only [Complex.ofReal_re]
   exact (abscissaOfAbsConv_char_le_one χ).trans_lt (by exact_mod_cast hσ)
 
+omit [NeZero q] in
+/-- `q log(q+1) (q+1)^(-σ) ≤ log q + 1` for `q ≥ 2`, `σ ≥ 1`. -/
+theorem mul_log_succ_rpow_neg_le {σ : ℝ} (hσ : 1 ≤ σ) (hq2 : 2 ≤ q) :
+    (q : ℝ) * (Real.log ((q + 1 : ℕ) : ℝ) * ((q + 1 : ℕ) : ℝ) ^ (-σ)) ≤ Real.log q + 1 := by
+  have hq : (2 : ℝ) ≤ q := by exact_mod_cast hq2
+  have hq1 : (0 : ℝ) < ((q + 1 : ℕ) : ℝ) := by positivity
+  have hl : 0 ≤ Real.log ((q + 1 : ℕ) : ℝ) := Real.log_natCast_nonneg _
+  calc (q : ℝ) * (Real.log ((q + 1 : ℕ) : ℝ) * ((q + 1 : ℕ) : ℝ) ^ (-σ))
+      ≤ q * (Real.log ((q + 1 : ℕ) : ℝ) * ((q + 1 : ℕ) : ℝ)⁻¹) :=
+        mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left
+          (rpow_neg_le_inv_succ hσ q) hl) (by positivity)
+    _ ≤ Real.log ((q + 1 : ℕ) : ℝ) := by
+        rw [← mul_assoc, mul_comm (q : ℝ), mul_assoc]
+        refine mul_le_of_le_one_right hl ?_
+        rw [← div_eq_mul_inv, div_le_one hq1]; push_cast; linarith
+    _ ≤ Real.log (2 * q) := Real.log_le_log hq1 (by push_cast; linarith)
+    _ = Real.log 2 + Real.log q := Real.log_mul (by norm_num) (by linarith)
+    _ ≤ Real.log q + 1 := by linarith [Real.log_two_lt_d9]
+
 /-- Plan step 1: `‖L'(σ,χ)‖ ≤ M²` for real `σ > 1`. -/
 theorem norm_deriv_LFunction_le {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1) {σ : ℝ}
     (hσ : 1 < σ) : ‖deriv (DirichletCharacter.LFunction χ) σ‖ ≤ (Real.log q + 3) ^ 2 := by
@@ -145,22 +164,7 @@ theorem norm_deriv_LFunction_le {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1)
     (norm_sum_le _ _).trans (sum_norm_char_log_div_cpow_le χ hσ.le q)
   have hq : (2 : ℝ) ≤ q := by exact_mod_cast hq2
   have hlogq : 0 ≤ Real.log q := Real.log_nonneg (by linarith)
-  -- `q log(q+1) (q+1)^(-σ) ≤ log(q+1) ≤ log q + 1`
-  have h1 : (q : ℝ) * (Real.log ((q + 1 : ℕ) : ℝ) * ((q + 1 : ℕ) : ℝ) ^ (-σ)) ≤
-      Real.log q + 1 := by
-    have hq1 : (0 : ℝ) < ((q + 1 : ℕ) : ℝ) := by positivity
-    have hl : 0 ≤ Real.log ((q + 1 : ℕ) : ℝ) := Real.log_natCast_nonneg _
-    calc (q : ℝ) * (Real.log ((q + 1 : ℕ) : ℝ) * ((q + 1 : ℕ) : ℝ) ^ (-σ))
-        ≤ q * (Real.log ((q + 1 : ℕ) : ℝ) * ((q + 1 : ℕ) : ℝ)⁻¹) :=
-          mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left
-            (rpow_neg_le_inv_succ hσ.le q) hl) (by positivity)
-      _ ≤ Real.log ((q + 1 : ℕ) : ℝ) := by
-          rw [← mul_assoc, mul_comm (q : ℝ), mul_assoc]
-          refine mul_le_of_le_one_right hl ?_
-          rw [← div_eq_mul_inv, div_le_one hq1]; push_cast; linarith
-      _ ≤ Real.log (2 * q) := Real.log_le_log hq1 (by push_cast; linarith)
-      _ = Real.log 2 + Real.log q := Real.log_mul (by norm_num) (by linarith)
-      _ ≤ Real.log q + 1 := by linarith [Real.log_two_lt_d9]
+  have h1 := mul_log_succ_rpow_neg_le hσ.le hq2
   calc ‖LSeries (LSeries.logMul (fun n ↦ χ n)) σ‖
       ≤ ‖LSeries (LSeries.logMul (fun n ↦ χ n)) σ - P‖ + ‖P‖ := norm_le_norm_sub_add _ _
     _ ≤ (Real.log q + 1) + Real.log q * (1 + Real.log q) := add_le_add (htail.trans h1) hhead
