@@ -114,7 +114,7 @@ are squares, so the curves needed are `E_e` with `e ≡ g_β(t₁)` and `E_{eH}`
 (VERIFIED: derivation; `scratch/rs-pole/phi_search.py` builds the eleven witnesses from
 `(m, t₁, t₂)` and checks `Q_pole = 0` exactly in `ℚ`.)
 
-Three consequences:
+Four consequences:
 
 1. **Only the abscissa class matters.** `Φ` needs a point whose `x` lies in `βℚ*²`, that is, `β`
    in the image of the Kummer map of the 2-isogeny with kernel `(0, 0)`. The manuscript asks for
@@ -157,7 +157,7 @@ Section 5.1 (lines 1019–1121) proceeds in two steps.
 1. It chooses `m > 0`, then a positive squarefree `n ≡ 11 (mod 12)` that contains `β` and further
    auxiliary primes. The choice is made by reciprocity, CRT and Dirichlet, so that `E_n` and
    `E_{nθ}` both have `dim Sel₂ = 3` with the extra class `(β, 1)`.
-2. It applies RC to `n` and `nθ`, then the forward theorem (Lemma 5.4, line 1086), to get rank one
+2. It applies RC to `n` and `nθ`, then the forward theorem (the lemma "Forward analytic rank zero and one", line 1086), to get rank one
    and finite Ш. Hence `Ш[2] = 0`, so the class comes from a point, and the points give the
    eleven witnesses.
 
@@ -173,7 +173,7 @@ What is actually used (VERIFIED, by tracing the argument):
 
 - **Rank ≥ 1 is enough.** If `dim Sel₂ = 3` and `E(ℚ)[2] ≅ (ℤ/2)²`, then rank ≥ 1 already
   forces `E(ℚ)/2E(ℚ) = Sel₂` and `Ш[2] = 0`. Equivalently, the needed input is finiteness of
-  `Ш(E_ℓ)[2^∞]` for these two `ℓ`. By Cassels–Tate (Lemma 5.3, line 1072) the only alternative
+  `Ш(E_ℓ)[2^∞]` for these two `ℓ`. By Cassels–Tate (the lemma "Dimension three gives corank one", line 1072) the only alternative
   is rank 0 with `Ш[2^∞] ⊇ ℚ₂/ℤ₂`.
 - **Kolyvagin is not needed after RC.** Once `L′(E_ℓ, 1) ≠ 0` and the root number is `−1`,
   Gross–Zagier alone gives a non-torsion Heegner point, hence rank ≥ 1, and the previous point
@@ -197,7 +197,7 @@ What is actually used (VERIFIED, by tracing the argument):
 - **PC from RC** (lines 1019–1121): local squareclass bookkeeping with the multipliers
   (2730 = 2·3·5·7·13 realizes every real, 2-adic and 3-adic signature); then an explicit Rédei-type
   matrix construction of `n` (the matrix `K`, rank-one correction, auxiliary prime slots); then
-  Lemma 5.3 (corank one, Poonen–Stoll); then RC twice; then Lemma 5.4 (forward theorem);
+  the corank lemma (line 1072, Poonen–Stoll); then RC twice; then the forward lemma (line 1086);
   then rescaling to the eleven witnesses.
 - **RC** (Sections 7–9 and Appendices E–G, roughly 8,000 lines). Its own dependency order is
   stated at line 1818. It is a 2-adic induction on genus points and twisted central values:
@@ -215,8 +215,8 @@ What is actually used (VERIFIED, by tracing the argument):
 
 | Record | Theorem | Where used |
 | --- | --- | --- |
-| A019 | Poonen–Stoll, Cassels–Tate pairing alternating on the quotient by the divisible part | Lemma 5.3 |
-| A020 | Kolyvagin MPI/90-69 Thm 1; Gross–Zagier; Kato Cor. 14.3; BCDT | Lemma 5.4 (forward rank 0/1) |
+| A019 | Poonen–Stoll, Cassels–Tate pairing alternating on the quotient by the divisible part | corank lemma, line 1072 |
+| A020 | Kolyvagin MPI/90-69 Thm 1; Gross–Zagier; Kato Cor. 14.3; BCDT | forward lemma, line 1086 |
 | A022 | Dokchitser–Dokchitser, Selmer parity (Thm 1.8) | root number −1 under corank one |
 | A023, A049–A051 | Kato's Euler system: divisibility, lattice, reciprocity, norm relations | even coefficient bound |
 | A024 | Hoffstein–Luo, nonvanishing with bounded prime support | companions |
@@ -269,7 +269,7 @@ audit records A022–A054 and A069–A082 as far as they serve RC. PC's proof wo
 
 1. local bookkeeping;
 2. a Rédei-matrix construction of `n` for `C_n` and `C_{nθ}`;
-3. Lemma 5.3 (Poonen–Stoll);
+3. the corank lemma (line 1072, Poonen–Stoll);
 4. Kriz's theorem;
 5. rescaling.
 
