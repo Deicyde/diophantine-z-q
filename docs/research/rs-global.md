@@ -540,9 +540,10 @@ to the manuscript lines its anchors cite. The audit was taken against the presen
 | corollaries (6443–6590) | A047, A048 (2) | — | outside `FrozenTarget` |
 
 Half of the external applications serve PC alone: 39 records only in RC, plus A019, A020 and
-A082, 42 of 82 in all. A further 24 serve H alone. 22P has two records of its own and CAT one. The elementary inputs (formal
-groups A071, Dirichlet A057, four squares A055, division polynomials A056, the AFP exponential
-relation A077, Mordell–Weil A058–A060) are all proved in Lean, or replaced there by Lean proofs.
+A082, 42 of 82 in all. A further 24 serve H alone. 22P has two records of its own and CAT one.
+The elementary inputs (formal groups A071, Dirichlet A057, four squares A055, division polynomials
+A056, the AFP exponential relation A077, Mordell–Weil A058–A060) are all proved in Lean, or
+replaced there by Lean proofs.
 
 ### 3.2 The deep leaves of the three hypotheses
 
@@ -558,7 +559,7 @@ record, for each hypothesis, only the leaves that carry the depth, with their ex
 | Faltings 1983 (A008, A063) | semisimplicity and the Tate conjecture for abelian varieties over number fields | the Hom field and the transfer to `J₁(N)` |
 | Pan (A011) | Fontaine–Mazur for odd 2-dimensional de Rham representations of `G_ℚ` at `ℓ = 5` (residually reducible case) | modularity of `r₅` (lines 753–775) |
 | Gaudron–Rémond (A005, A015) | explicit isogeny estimates | CM case and transfer |
-| Javanpeykar (A014) | `h_F(J₁(N)) ≤ 1.3·10⁷N^12`-type Arakelov bound for Belyi curves | the polynomial dependence on `M` (exponent 24) |
+| Javanpeykar (A014) | Arakelov bounds for Belyi curves, giving `h_F(J₁(N)) ≤ 1.3·10⁷·N^12` (line 872) | the polynomial dependence on `M` (exponent 24) |
 | Fowler; CM heights (A003, A004, A065) | class number bound and the CM Faltings height formula | CM branch |
 | Lin–Yang, Lauter–Naehrig–Yang; Pazuki (A017, A018) | theta formula, theta versus Faltings height | back from `A` to `u` |
 
@@ -597,8 +598,8 @@ The 10/11 manuscript assumes the four preprint inputs and adds three leaves (VER
 
 - Koenigsmann's quaternionic description of semilocal rings (Ann. of Math. 183 (2016),
   Observation 5, Proposition 6, Remark 8), for `ℤ_(3)` (§13.1). Its proof rests on Hilbert
-  reciprocity and Hasse–Minkowski for quaternary forms (STANDARD; neither is in Mathlib v4.35 as
-  far as I know, see §4, A2).
+  reciprocity and Hasse–Minkowski for quaternary forms (STANDARD). A `grep` of the project's
+  Mathlib finds neither (see §4, A4).
 - DPRM (Davis, Amer. Math. Monthly 80 (1973), Theorem 8.1), for c.e. relations on labels.
 - Poonen's rank-one lemmas (ANTS-V, 2002, Lemmas 5, 6, 10, 11), cited as motivation; the needed
   local facts are reproved (10/11, Lemma 3.1).
