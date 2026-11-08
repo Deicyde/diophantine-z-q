@@ -111,9 +111,11 @@ imports four of its results (10/11, pp. 2–4):
   fixed finite set and `r` is a large split prime with `gcd(d₁, d₂) | 4` (10/11 (2.10)–(2.12)).
 
 From these the preprint obtains a Turing reduction of `H10(ℤ)` to `H10(ℚ)`. It explicitly does not
-claim a many-one reduction (10/11, p. 2, citing [1, §7]). Its arguments used an "all-ring
-pole-parity closure", "quotient-field localization" and a search for a failed rational test (10/11,
-Remark 8.2, p. 12).
+claim a many-one reduction (10/11, p. 2, citing [1, §7]). The 10/11 manuscript says its finite
+certificates replace "the all-ring pole-parity closure and the quotient-field localization
+arguments", and that "no compactness theorem or search for a failed rational test remains"
+(Remark 8.2, p. 12). Presumably these are the preprint's devices; the preprint itself could not be
+checked.
 
 **The 10/11 manuscript.** Its Theorem 1.1 (p. 1) is conditional on exactly these four inputs. The
 classical results it adds are:
@@ -386,9 +388,19 @@ the genus-one curves `y² = x(x − a₁e)(x − a₂e)`; the manuscript uses `a
   the parameters `e` and `eH` have opposite parities, one of them is even, and the device applies
   (Lemma 5.1). At an odd zero both may be odd.
 
-The same computation applies to any homogeneous `y² = g(x, e)`, with `g(x, 0)` a unit multiple of
-`x^{deg g}`. Parity control at every prime then needs `deg g` odd and `x` dividing `g` exactly
-once. With a parameter this means `deg g ≥ 3`, so genus at least one.
+The same computation applies to any squarefree homogeneous `g(x, e)` of degree `d` with `g(x, 0)`
+a unit multiple of `x^d`, at all primes outside a finite set.
+
+- If `v(x) < v(e)`, then `v(g) = d·v(x)`.
+- If `v(x) > v(e)`, then `v(g) ≡ k·v(x)` (mod 2), where `k` is the order of vanishing of `g(X, 1)`
+  at `X = 0`.
+
+Parity control therefore needs `d` odd and `x | g` (so `k = 1`). A genuine parameter then forces
+`d ≥ 3`, and the curves `y² = g(x, e)` (`e ≠ 0`) have genus `(d − 1)/2 ≥ 1`.
+
+This covers every device of the form "the abscissa of a point on `y² = g(x, e)`". Devices of
+another shape, such as norm forms or higher-dimensional varieties, are not covered by the
+computation; A5 discusses quadrics.
 
 Consequently every predicate built from this device asks, for completeness, for rational points on
 genus-one curves with a prescribed abscissa class. This is [rs-pole, Proposition 1]: a point on
@@ -422,7 +434,8 @@ facts).
 - Moreover the set `{([n]P₀, [m]P₀, [nm]P₀)}` is Zariski dense in `E³`.
   - For fixed `m`, its closure contains `{(x, [m]P₀, [m]x) : x ∈ E}`, because `ℤP₀` is dense in
     `E`.
-  - For a point `x` independent of `P₀`, the multiples of `(P₀, x)` are dense in `E²`.
+  - For a point `x` independent of `P₀` over `End(E)`, the multiples of `(P₀, x)` are dense in
+    `E²`. So the closure contains `{x} × E²` for such `x`, hence all of `E³`.
 
 So no algebraic condition on the three points cuts out the multiplication graph. A multiplication
 certificate needs auxiliary witnesses, whose existence for every true triple is an arithmetic
