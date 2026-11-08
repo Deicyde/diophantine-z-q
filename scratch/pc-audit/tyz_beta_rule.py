@@ -29,6 +29,7 @@ def two(x):
 N = int(sys.argv[1]); rng = random.Random(int(sys.argv[2]))
 tabs = {k: {} for k in ('a8', 'a16', 'ab8')}
 rowcert = {k: {} for k in ('5a', '5b', '6', '7a', '7b')}
+frac = {5: [0, 0], 6: [0, 0], 7: [0, 0]}
 cnt = 0
 tried = set()
 sqf = lambda x: int(pari.core(x))
@@ -64,6 +65,8 @@ while cnt < N:
     coset = [(sqf(sig[0] * t[0]), sqf(sig[1] * t[1])) for t in tors]
     L, D, _, _, _ = run(n)
     cert = int(any(D.values()))
+    frac[n % 8][0] += 1
+    frac[n % 8][1] += cert
     for a, b in coset:
         for name, key in (('a8', (n % 8,) + two(a)), ('a16', (n % 16,) + two(a)),
                           ('ab8', (n % 8,) + two(a) + two(b))):
@@ -79,3 +82,4 @@ for name, t in tabs.items():
 for r, t in rowcert.items():
     conf = [k for k, v in t.items() if len(v) > 1]
     print("row", r, "a-only keys", len(t), "conflicting", len(conf))
+print('certified fraction by class (n mod 8: samples, certified):', frac)

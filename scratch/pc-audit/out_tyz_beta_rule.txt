@@ -34,3 +34,4 @@ row 5b a-only keys 8 conflicting 0
 row 6 a-only keys 16 conflicting 0
 row 7a a-only keys 4 conflicting 4
 row 7b a-only keys 4 conflicting 4
+certified fraction by class (n mod 8: samples, certified): {5: [273, 240], 6: [365, 218], 7: [262, 244]}
