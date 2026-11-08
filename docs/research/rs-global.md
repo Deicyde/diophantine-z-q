@@ -857,7 +857,7 @@ After the cheapest possible changes, the trust boundary would consist of three s
 | 2 | **A1, minimal interface** in Lean (H_min, 22P₂; the gcd relaxation) | smaller and exact trust boundary; the precise target for every later proof | small refactors | high |
 | 3 | **Route L** [rs-pole §4.5], after rank 1: the descent in Lean, with PC replaced by the Kriz-form hypothesis | PC's elementary half becomes Lean; the hypothesis becomes a standard arithmetic statement | large but elementary | medium, given rank 1 |
 | 4 | **H's CM branch** [rs-height R5.3]: show that rational `u` never gives a CM fibre | removes 3–4 records from H | none (paper and computation) | medium |
-| 5 | **A3, five contacts** | one test group per slope, a 10-form pattern, `J` of degree 6 | a full redesign | low payoff |
+| 5 | **A3, five contacts** | a 10-form pattern, `J` of degree 6, possibly one test group per slope fewer | a full redesign | low payoff |
 | 6 | **22P below GTZ** [rs-pattern R4]: a literature search for progressions in dense subsets of the primes with restricted common difference | would remove the inverse theorem | none | low |
 | — | A4–A10, and removing H or 22P outright | — | — | negligible |
 
@@ -869,16 +869,17 @@ After the cheapest possible changes, the trust boundary would consist of three s
 2. **Attack PC next, through Route K.** PC is where the payoff is largest, for three reasons.
    - Its present proof is the largest unrefereed component: 42 of the 82 audit records serve
      only PC and RC (§3.1).
-   - It has a published-quality replacement that fits exactly: Kriz's theorem gives the
-     2-converse for every congruent twist, with no congruence condition.
+   - It has an expert replacement that fits exactly: Kriz's theorem, a complete preprint whose
+     publication status is unchecked, gives the 2-converse for every congruent twist, with no
+     congruence condition.
    - What remains after the replacement is elementary and needs no effectivity, so it can be
      formalized with what Mathlib already has.
 3. **Treat H as a permanent hypothesis**, and reduce its leaves on paper (the CM branch,
-   citation swaps). K2 is forced in every parity architecture (C1), and its only known source is
-   modularity (C7).
+   citation swaps). C1 shows that every parity architecture needs some size input, and C7 explains
+   why the only known one rests on modularity.
 4. **Treat 22P as a permanent hypothesis** in the form 22P₂. K3 is forced by the fixed-shift
-   test (F4), and no mechanism for multiplication without auxiliary arithmetic witnesses can exist
-   (C5).
+   test (F4). C5 shows that every multiplication certificate needs some arithmetic existence
+   theorem for its witnesses, and no mechanism with a cheaper one is known.
 
 ### 5.4 Recommendation
 
