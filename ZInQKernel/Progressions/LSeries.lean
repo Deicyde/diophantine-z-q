@@ -1,5 +1,6 @@
 import ZInQKernel.Progressions.LSeries.CharSum
 import ZInQKernel.Progressions.LSeries.Tail
+import ZInQKernel.Progressions.LSeries.Bounds
 
 /-!
 # Explicit bounds for Dirichlet L-functions near `s = 1`
