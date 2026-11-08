@@ -1,0 +1,4 @@
+#0 omega(beta)=4 omega(theta)=9 m=1: n'=236775111481 (k=2, 9919 trials, 57s) recheck [(3, True), (3, True)]
+#1 omega(beta)=3 omega(theta)=8 m=1: n'=546136323809 (k=2, 1678 trials, 9s) recheck [(3, True), (3, True)]
+#2 omega(beta)=8 omega(theta)=7 m=1: n'=698856257881 (k=2, 14891 trials, 76s) recheck [(3, True), (3, True)]
+#3 omega(beta)=2 omega(theta)=4 m=1: n'=84308531273154563 (k=3, 11 trials, 0s) recheck [(3, True), (3, True)]

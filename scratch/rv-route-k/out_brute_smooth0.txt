@@ -1,0 +1,2 @@
+FOUND n' = 57654270281 k = 2 {'tried': 105, 'pres_nt': 3, 'pres_both': 3, 'min_nt': 1} 1s
+final {'tried': 105, 'pres_nt': 3, 'pres_both': 3, 'min_nt': 1} 1s
