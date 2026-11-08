@@ -54,7 +54,7 @@ theorem Pstar_spec_of (hB : Compiler.NodeCheck.HaltingAddMulBound)
 of the universal halting circuit, the specified polynomial `P_* ∈ ℤ[X_0, …, X_{292890231904}]` has degree below
 `2↑↑7`, coefficients below `2↑↑8`, and rational zero projection to `X_0` exactly `ℤ`. -/
 theorem Pstar_spec (hB : Compiler.NodeCheck.HaltingAddMulBound) (hH : SixContactEstimate) (hPC : PoleCompleteness)
-    (h22 : FixedPrimePattern) :
+    (h22 : Mult.SlopeRepresentation) :
     (specPstar (c3 : ℤ)).totalDegree < hyperoperation 4 2 7 ∧
       (∀ m : Fin 292890231905 →₀ ℕ, ((specPstar (c3 : ℤ)).coeff m).natAbs <
         hyperoperation 4 2 8) ∧
@@ -66,7 +66,7 @@ theorem Pstar_spec (hB : Compiler.NodeCheck.HaltingAddMulBound) (hH : SixContact
 /-- **The target statement** for `P_*`, under H, PC, 22P and the addition and
 multiplication bound of the universal halting circuit. -/
 theorem assembly (hB : Compiler.NodeCheck.HaltingAddMulBound) (hH : SixContactEstimate) (hPC : PoleCompleteness)
-    (h22 : FixedPrimePattern) : FrozenTarget :=
+    (h22 : Mult.SlopeRepresentation) : FrozenTarget :=
   ⟨specPstar (c3 : ℤ), Pstar_spec hB hH hPC h22⟩
 
 end ZInQ.Assembly

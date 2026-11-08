@@ -5,6 +5,7 @@ import ZInQKernel.Multiplication.Completeness.PatternValues
 import ZInQKernel.Multiplication.Completeness.SquareDen
 import ZInQKernel.Multiplication.Completeness.PoleLocal
 import ZInQKernel.Multiplication.Completeness.PatternSlopes
+import ZInQKernel.Multiplication.Completeness.TwoSlope
 import ZInQKernel.Multiplication.Completeness.PoleValuations
 import ZInQKernel.Multiplication.Completeness.TestsLocal
 import ZInQKernel.Multiplication.Completeness.SbIntegrality

@@ -21,7 +21,7 @@ namespace ZInQ.Mult
 open Syntax
 
 /-- **Completeness of the multiplication template.** -/
-theorem multiply_complete (hPC : PoleCompleteness) (h22 : FixedPrimePattern) (a b : ℤ) :
+theorem multiply_complete (hPC : PoleCompleteness) (h22 : SlopeRepresentation) (a b : ℤ) :
     (multiplyTemplate specConstructors FixedConst.cstar.value FixedConst.ell.value
       FixedConst.T.value).Rel (codes3 (iota a) (iota b) (iota (a * b))) := by
   rw [FixedConst.value_cstar, FixedConst.value_ell, FixedConst.value_T]
