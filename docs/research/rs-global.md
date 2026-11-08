@@ -422,3 +422,119 @@ Consequences:
   [rs-pattern R3] would save 9.73·10¹⁰ variables. That is enough for four more test groups on each
   of the remaining 18 slopes, i.e. ten primes per slope.
 - **Layer B is free.** Changes to the value relation's tests cost nothing measurable.
+
+## 3. The manuscripts' proofs and their trust leaves
+
+### 3.1 The audit, sorted by role
+
+`audit_roles.py` assigns each of the 82 audit records to the roles of the construction, according
+to the manuscript lines its anchors cite. The audit was taken against the present manuscript
+(every record carries the SHA-256 `cb1148cd…` of `diophantine_zq.tex`). VERIFIED.
+
+| Role (manuscript lines) | Records only there | Shared records | Status in Lean |
+| --- | --- | --- | --- |
+| G: generator, Mordell–Weil (254–376) | A058, A059, A060 (3) | A055 (four squares) | proved |
+| H: six-contact height (377–972, 10936–11250) | A001–A018, A061–A064, A078, A079 (24) | A065, A066, A071 | hypothesis |
+| PC from RC (973–1122) | A019 (1) | A020, A082 (with RC); A057, A065, A066 | hypothesis |
+| RC (1760–5744, 6825–10935) | A022–A045, A049–A054, A067–A070, A073–A075, A080, A081 (39) | A020, A076, A082, A057, A065, A066, A071 | hypothesis (inside PC) |
+| M and 22P (1123–1759) | A021, A072 (2) | A057, A065, A071 | 22P hypothesis; the rest proved |
+| compiler (5745–6093) | A077 (1) | — | proved |
+| value relation (6094–6271) | — | A071, A076 | proved |
+| size and CAT (6272–6442) | A046 (1) | A071 | CAT₈ hypothesis, effective Dirichlet in progress |
+| corollaries (6443–6590) | A047, A048 (2) | — | outside `FrozenTarget` |
+
+Two thirds of the external applications serve PC: 39 records only in RC, plus A019, A020 and A082.
+A further 24 serve H. 22P has two records of its own and CAT one. The elementary inputs (formal
+groups A071, Dirichlet A057, four squares A055, division polynomials A056, the AFP exponential
+relation A077, Mordell–Weil A058–A060) are all proved in Lean, or replaced there by Lean proofs.
+
+### 3.2 The deep leaves of the three hypotheses
+
+The complete leaf tables are in [rs-height §3.2], [rs-pole §3.2] and [rs-pattern §3.2]. Here I
+record, for each hypothesis, only the leaves that carry the depth, with their exact use.
+
+**H** (proof at lines 409–964; STANDARD theorems, audit records as listed).
+
+| Leaf | Statement used | Use |
+| --- | --- | --- |
+| Baba–Granath; Lin–Yang (A001) | moduli of principally polarized QM abelian surfaces for the algebra of discriminant 6; the normalizer quotient is `ℙ¹_j` with branch data `0, ∞, −16/27` of indices `4, 6, 2` | the compact Shimura family (C7) |
+| Buzzard (A002) | integral models of Shimura curves with level structure (Theorem 2.1, Corollary 2.3) | good reduction of the cover outside `S` (lines 441–544) |
+| Faltings 1983 (A008, A063) | semisimplicity and the Tate conjecture for abelian varieties over number fields | the Hom field and the transfer to `J₁(N)` |
+| Pan (A011) | Fontaine–Mazur for odd 2-dimensional de Rham representations of `G_ℚ` at `ℓ = 5` (residually reducible case) | modularity of `r₅` (lines 753–775) |
+| Gaudron–Rémond (A005, A015) | explicit isogeny estimates | CM case and transfer |
+| Javanpeykar (A014) | `h_F(J₁(N)) ≤ 1.3·10⁷N^12`-type Arakelov bound for Belyi curves | the polynomial dependence on `M` (exponent 24) |
+| Fowler; CM heights (A003, A004, A065) | class number bound and the CM Faltings height formula | CM branch |
+| Lin–Yang, Lauter–Naehrig–Yang; Pazuki (A017, A018) | theta formula, theta versus Faltings height | back from `A` to `u` |
+
+**PC** (lines 1019–1121, then RC).
+
+| Leaf | Statement used | Use |
+| --- | --- | --- |
+| Poonen–Stoll (A019) | the Cassels–Tate pairing is alternating on `Ш` modulo its divisible part | `dim Sel₂ = 3 ⇒ corank 1` (line 1072) |
+| Kolyvagin, Gross–Zagier, Kato (A020, A082) | analytic rank `≤ 1` implies equal algebraic rank and finite `Ш` | the forward lemma (line 1086) |
+| BCDT (A066) | modularity of elliptic curves over `ℚ` | the forward lemma; replaceable by `X₀(24)` plus twisting [rs-pole §2.3] |
+| RC (Theorem 5.3, 39 records, about 8,000 lines) | `corank Sel_{2^∞}(E_ℓ) = 1 ⇒ ord_{s=1} L(E_ℓ, s) = 1` for squarefree `ℓ ≡ 11 (mod 12)` | applied to `E_n` and `E_{nθ}` |
+
+The leaves of RC include Kato's Euler system (A023, A049–A051), Waldspurger (A029–A031),
+Bump–Friedberg–Hoffstein (A025), the explicit Gross–Zagier formula of Cai–Shu–Tian (A027),
+Nekovář's Selmer complexes and duality (A036–A045, A075, A080, A081), and Dokchitser–Dokchitser
+parity (A022). RC itself is a new, unrefereed 2-converse: Kriz–Li (arXiv:1606.03172, Remark 1.6)
+note that the 2-converse was open in 2018, as [rs-pole §3.1] records. RC is the largest single
+trust leaf of the construction.
+
+**22P** (lines 1291–1704).
+
+| Leaf | Statement used | Use |
+| --- | --- | --- |
+| Green–Tao, *Linear equations in primes*, Ann. of Math. 171 (2010), Main Theorem (A021) | the asymptotic for a finite-complexity system of affine forms, conditional on GI(s) and MN(s) | the lower count for the 22 forms |
+| Green–Tao, Ann. of Math. 175 (2012), Theorem 1.1 (A021) | MN(s) for all s | same |
+| Green–Tao–Ziegler, Ann. of Math. 176 (2012), Theorem 1.3 (A021) | GI(s) for all s | same |
+| Williams 1974; Silverman III, V (A021, A072) | Mertens in progressions; CM reduction identities | sieve; identifying the good primes |
+
+**CAT** (lines 6285–6360): Bennett–Martin–O'Bryant–Rechnitzer, Theorem 1.2 and Corollary 6.17
+(A046). It is being replaced by a textbook effective Dirichlet theorem.
+
+### 3.3 The 10/11 manuscript and the preprint
+
+The 10/11 manuscript assumes the four preprint inputs and adds three leaves (VERIFIED against the
+10/11 text):
+
+- Koenigsmann's quaternionic description of semilocal rings (Ann. of Math. 183 (2016),
+  Observation 5, Proposition 6, Remark 8), for `ℤ_(3)` (§13.1). Its proof rests on Hilbert
+  reciprocity and Hasse–Minkowski for quaternary forms (STANDARD; neither is in Mathlib v4.35 as
+  far as I know, see §4, A2).
+- DPRM (Davis, Amer. Math. Monthly 80 (1973), Theorem 8.1), for c.e. relations on labels.
+- Poonen's rank-one lemmas (ANTS-V, 2002, Lemmas 5, 6, 10, 11), cited as motivation; the needed
+  local facts are reproved (10/11, Lemma 3.1).
+
+Its scalar bridge uses no prime pattern (10/11, p. 13: "the new scalar bridge does not use it
+again"). This matches F3: the bridge's `Supp` relation, like the 11/5 test, puts the variable
+label inside a product (`Mul_G(T, J, R)`, 10/11 Definition 12.1).
+
+What the four preprint inputs rest on cannot be checked here: the preprint and its companion
+papers are not in the repository. The 11/5 manuscript replaces each of them by its own proof
+(G, Lemma 5.1 with PC, H, 22P). One of these, G, is now a Lean theorem.
+
+### 3.4 The kinds of depth, by role
+
+Combining §2.2 and §2.3, every deep input of the 11/5 construction belongs to one of three kinds.
+Each kind is tied to one role.
+
+| Kind | Role | Why this kind (§2.3) | Present leaf |
+| --- | --- | --- | --- |
+| **K1. Points on infinitely many genus-one twists** with a prescribed Kummer class | completeness of denominator control (A2 and B4) | C2: the parity device needs genus `≥ 1`. C3: a fixed curve has finitely many abscissa classes. C4: no algebraic witnesses | PC ← RC (or Kriz, Route K) |
+| **K2. A uniform effective height bound on twists of a curve of genus `≥ 2`** | soundness (A2 and B2) | C1: only valuations mod `m` can be seen. C6: at least 5 contacts. C7: compact Shimura family plus modularity | H ← Pan, Faltings, Javanpeykar, … |
+| **K3. Primes in a linear pattern, with a Chebotarev condition on each prime** | completeness of multiplication (A2) | F4: fixed shift, one test group per prime, six groups per slope. C5: multiplication is not algebraic | 22P ← Green–Tao–Ziegler |
+
+Theorem 1.1 refutes Mazur's conjecture on the topology of rational points (lines 79–82; Mazur,
+Experiment. Math. 1 (1992), Conjecture 3, A047; that a Diophantine model of `ℤ` in `ℚ` contradicts
+it is Cornelissen–Zahidi, *Topology of Diophantine sets: remarks on Mazur's conjectures*, Contemp.
+Math. 270 (2000), STANDARD). So some input must produce rational points that are discrete in a
+way no previously known variety exhibits. The construction does this by coupling K1, which makes
+points exist on infinitely many fibres, with K2, which forces points over non-integers to have
+bounded height and hence, by the real approximation, not to exist. That pairing of an existence
+theorem with a uniform size theorem is what any architecture must reproduce.
+
+- Plausibly unavoidable in kind: K1 and K2, for every architecture whose denominator control comes
+  from parity (C1, C2). SPECULATIVE beyond such architectures.
+- Specific to the multiplication mechanism: K3 (F4). No alternative mechanism is known (§4).
