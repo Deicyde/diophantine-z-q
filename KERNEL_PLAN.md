@@ -66,7 +66,8 @@ certificates (the generator descent and height search, point counts, explicit co
    connect each checker to the mathematical statement. The final build uses no
    `native_decide`.
 3. **Classical inputs.** Formalize any classical input that milestone 1 states as a
-   hypothesis. The Mordell–Weil theorem for `E/K₀` is done.
+   hypothesis. The Mordell–Weil theorem for `E/K₀` is done. CAT is next: it follows from an
+   effective Dirichlet theorem ([docs/effective-dirichlet-plan.md](docs/effective-dirichlet-plan.md)).
 
 Status (2026-11-07):
 
