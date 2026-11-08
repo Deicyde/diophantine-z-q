@@ -709,8 +709,10 @@ might work, the main obstacle, a first test with a success criterion, and what i
 - **Idea.** Use the contact set found in C6. Its five contacts lie over the Shimura orbifold
   through `J₅(u) = 4(u − 1)²/(u³(2 − u)³)`, and they are five consecutive integers.
 - **Replaces.**
-  - Six contact forms per slope by five, so one test group per slope fewer: 27·162 = 4,374
-    witnesses per multiplication template, about 3.6·10¹⁰ variables (`budget.py`).
+  - Six contact forms per slope by five. If the odd-degree problem below can be avoided, this
+    removes one test group per slope: 27·162 = 4,374 witnesses per multiplication template,
+    about 3.6·10¹⁰ variables (`budget.py`). If it cannot, the denominator becomes a sixth tested
+    form and the count returns to six.
   - The 12-form pattern of 22P₂ by two blocks of five consecutive terms of one progression
     `u − cv`.
   - The degree-12 map `J` by a degree-6 map.
@@ -750,12 +752,12 @@ might work, the main obstacle, a first test with a success criterion, and what i
 - **Chance of any gain.** Nil (VERIFIED by comparing the two bridges). The real approximation is
   the cheaper choice.
 
-### A5. Quadratic-form architectures (Poonen, Koenigsmann, Park, Daans)
+### A5. Quadratic-form architectures (Poonen, Koenigsmann, Park)
 
 - **Idea.** Use the class-field-theoretic definitions of local and semilocal rings by quaternion
   norm forms. These give a `∀∃` definition of `ℤ` in `ℚ` (Poonen, Amer. J. Math. 131 (2009)), a
   `∀` definition (Koenigsmann 2016: `ℚ \ ℤ` is Diophantine), and their number-field analogues
-  (Park), in place of one of K1–K3.
+  (Park, Math. Res. Lett. 20 (2013)). The idea is to use them in place of one of K1–K3.
 - **Why it cannot replace any of them** (VERIFIED for each role, from §2.3):
   - **Denominator control (K1).** A norm form or quadric controls valuations only at the finitely
     many primes ramified in its algebra. An existential quantifier over the algebra gives a union,
