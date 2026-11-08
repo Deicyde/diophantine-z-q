@@ -18,8 +18,8 @@ $P_s=\prod_{p\le324,\ p\text{ prime}}p$ and $W=4P_s$:
 
 This is a finite computation. The manuscript states $10^5<W<2^{512}$ and
 $2^{2000}<F_0<2^{2250}$; the sharper $P_s<2^{433}$ is used for $N_s$ and $\ell$. The lower
-bound on $W$ was needed only to apply the progression estimate, which the catalogue-bound
-hypothesis replaces; it is kept for faithfulness.
+bound on $W$ is used to apply the effective Dirichlet theorem at $q=W$, which needs
+$W\ge2^{16}$.
 
 **Proof sketch.** Direct evaluation: $P_s$ and $W$ have the decimal values of the
 primorial literal, with $433$ and $435$ binary digits; $324!$ has $2241$ binary digits

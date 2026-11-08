@@ -30,11 +30,13 @@ hypothesis until the two-isogeny descent of the model chapter proved it.
 
 The multiplication certificate needs twenty-two simultaneous prime values of linear forms
 with prescribed reduction behaviour, and the size bounds need every unit class modulo the
-catalogue modulus to contain twenty-two primes below an explicit cutoff.
+catalogue modulus to contain twenty-two primes below the explicit cutoff $2^{W^8}$.
 
 - [The twenty-two-prime pattern](prime-pattern.md)
 - [The catalogue bound](catalogue-bound.md)
 
-Under the four remaining hypotheses the target holds.
+The catalogue bound is no longer an assumption of substance: the
+[progressions chapter](../progressions/README.md) proves it from an effective Dirichlet
+theorem. Under the four remaining hypotheses the target holds.
 
 - [The main theorem](main-theorem.md)

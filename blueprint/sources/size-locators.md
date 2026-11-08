@@ -110,7 +110,8 @@ of Proposition 12.1 as VII.2.1 (reduction on the nonsingular part, p. 188) and V
 
 Bibliography entry `bmor`, lines 11111-11114: Bennett, Martin, O'Bryant and Rechnitzer,
 *Explicit bounds for primes in arithmetic progressions*, Illinois J. Math. 62 (2018),
-Theorem 1.2. Its use in Proposition 12.1 is replaced by the catalogue-bound hypothesis.
+Theorem 1.2. Its use in Proposition 12.1 is replaced by the catalogue bound at the cutoff
+$2^{W^8}$, proved from an effective Dirichlet theorem in the progressions chapter.
 
 ## Companion size proof
 
