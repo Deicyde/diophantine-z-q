@@ -43,3 +43,4 @@ import ZInQKernel.Compiler.NodeCheck
 import ZInQKernel.Compiler.NodeBound
 import ZInQKernel.Compiler.NodeSkeleton
 import ZInQKernel.Progressions.Mertens
+import ZInQKernel.Progressions.LSeries
