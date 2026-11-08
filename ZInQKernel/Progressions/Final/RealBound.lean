@@ -1,6 +1,6 @@
 /-
 Plan steps 3.4–3.5 (effective Dirichlet): for a real character `χ ≠ 1` modulo `q`,
-`‖L(1, χ)‖ ≥ log((1 + √5)/2) / (18 q √q) ≥ 1 / (54 q √q)`.
+`‖L(1, χ)‖ ≥ log((1 + √5)/2) / (18 q √q) ≥ 1 / (40 q √q)`.
 -/
 import ZInQKernel.Progressions.Final.RealLimit
 import ZInQKernel.Progressions.QuadField
@@ -74,13 +74,23 @@ theorem prod_primeFactors_two_mul_le {q : ℕ} (hq : q ≠ 0) :
   rw [show (((2 : ℕ) : ℝ) + 1) / (((2 : ℕ) : ℝ) - 1) = 3 by norm_num]
   nlinarith
 
-/-- `log((1 + √5)/2) ≥ 1/3`. -/
-theorem one_third_le_log_golden : 1 / 3 ≤ Real.log ((1 + √5) / 2) := by
-  have h5 : 2 ≤ √5 := Real.le_sqrt_of_sq_le (by norm_num)
-  have hφ : 3 / 2 ≤ (1 + √5) / 2 := by linarith
-  have := Real.one_sub_inv_le_log_of_pos (x := (1 + √5) / 2) (by linarith)
-  have hinv : ((1 + √5) / 2)⁻¹ ≤ 2 / 3 := by
-    rw [inv_le_comm₀ (by linarith) (by norm_num)]; linarith
+/-- `log((1 + √5)/2) ≥ 9/20`: with `φ = (1 + √5)/2`, `φ² = φ + 1 ≥ 13/5`, so
+`2 log φ = log 2 + log(φ²/2) ≥ log 2 + 1 - 2/φ² ≥ 0.69 + 3/13`. -/
+theorem nine_twentieths_le_log_golden : 9 / 20 ≤ Real.log ((1 + √5) / 2) := by
+  have h5 : 11 / 5 ≤ √5 := Real.le_sqrt_of_sq_le (by norm_num)
+  set φ := (1 + √5) / 2 with hφ
+  have hφ0 : 0 < φ := by rw [hφ]; positivity
+  have hφ2 : φ ^ 2 = φ + 1 := by
+    rw [hφ, div_pow, add_sq, Real.sq_sqrt (by norm_num)]; ring
+  have hφ13 : 13 / 5 ≤ φ ^ 2 := by rw [hφ2, hφ]; linarith
+  have hlog : Real.log (φ ^ 2) = Real.log 2 + Real.log (φ ^ 2 / 2) := by
+    rw [Real.log_div (by positivity) (by norm_num)]; ring
+  have h1 := Real.one_sub_inv_le_log_of_pos (x := φ ^ 2 / 2) (by positivity)
+  have hinv : (φ ^ 2 / 2)⁻¹ ≤ 10 / 13 := by
+    rw [inv_le_comm₀ (by positivity) (by norm_num)]; linarith
+  have h2 := Real.log_two_gt_d9
+  rw [Real.log_pow] at hlog
+  push_cast at hlog
   linarith
 
 /-- **Real characters** (plan steps 3.4–3.5, sharp form). For a Dirichlet character `χ ≠ 1`
@@ -131,14 +141,14 @@ theorem log_golden_div_le_norm_LFunction_one {q : ℕ} [NeZero q] {χ : Dirichle
   nlinarith
 
 /-- **Real characters** (plan steps 3.4–3.5). For a Dirichlet character `χ ≠ 1` modulo `q` with
-`χ ^ 2 = 1`, `‖L(1, χ)‖ ≥ 1 / (54 q √q)`, i.e. `c q^(-3/2)` with `c = 1/54`. -/
+`χ ^ 2 = 1`, `‖L(1, χ)‖ ≥ 1 / (40 q^(3/2))`, with `q^(3/2)` written `q √q`. -/
 theorem norm_LFunction_one_ge_of_sq_eq_one {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ q}
-    (hχ1 : χ ≠ 1) (hχ2 : χ ^ 2 = 1) :
-    1 / (54 * (q * √q)) ≤ ‖DirichletCharacter.LFunction χ 1‖ := by
+    (hχ2 : χ ^ 2 = 1) (hχ1 : χ ≠ 1) :
+    1 / (40 * (q * √q)) ≤ ‖DirichletCharacter.LFunction χ 1‖ := by
   refine le_trans ?_ (log_golden_div_le_norm_LFunction_one hχ1 hχ2)
   have hq1 : (1 : ℝ) ≤ q := by exact_mod_cast Nat.one_le_iff_ne_zero.2 (NeZero.ne q)
   have : 0 < (q : ℝ) * √q := mul_pos (by linarith) (Real.sqrt_pos.2 (by linarith))
   rw [div_le_div_iff₀ (by positivity) (by positivity)]
-  nlinarith [one_third_le_log_golden]
+  nlinarith [nine_twentieths_le_log_golden]
 
 end ZInQ.Progressions
