@@ -12,11 +12,11 @@ $M=\log q+3$. For every real $\sigma$ with $1\le\sigma\le2$,
 $$|L(\sigma,\chi)|\le M .$$
 
 **Proof sketch.** For $\sigma>1$ the series converges absolutely to $L(\sigma,\chi)$. Split it
-at $N=q$: the first $q$ terms contribute at most $\sum_{n\le q}1/n\le1+\log q$, and the tail
-bound (in the form $|\sum_{q<n\le K}\chi(n)n^{-\sigma}|\le q(q+1)^{-\sigma}\le1$, obtained by
-summation by parts against the character sum bound) gives at most $1$ for the rest, so
-$|L(\sigma,\chi)|\le\log q+2$. The value at $\sigma=1$ follows by continuity of $L(s,\chi)$
-as $\sigma\to1^+$.
+at $N=q$: the first $q$ terms contribute at most $\sum_{n\le q}1/n\le1+\log q$, and by the
+tail bound every partial sum $\sum_{q<n\le K}\chi(n)n^{-\sigma}$ has absolute value at most
+$2q/q=2$, so $|L(\sigma,\chi)|\le\log q+3$. (Summation by parts gives the sharper
+$q(q+1)^{-\sigma}\le1$ for the tail.) The value at $\sigma=1$ follows by continuity of
+$L(s,\chi)$ as $\sigma\to1^+$.
 
 ## Depends on
 
