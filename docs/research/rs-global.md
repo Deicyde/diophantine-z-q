@@ -204,6 +204,23 @@ lines 6591–6605).
 - (B4) Completeness of B1 for `t = n`: one suitable shift `κ`, found by the compact-local-group
   argument (Lemma 11.2, line 6202; 10/11, Proposition 12.3).
 
+The two manuscripts fill the roles as follows (VERIFIED by reading both; the 10/11 references are
+to its sections and displayed equations).
+
+| Role | 10/11 | 11/5 |
+| --- | --- | --- |
+| A1 | Input E; Appendix A | G (Prop. 3.1), lines 350–375 |
+| A2, soundness | Input H via Lemma 6.3; the canonical-height bound (2.13); the finite list (7.5) | H via Prop. 6.1; the finite guard |
+| A2, completeness | Input R; Input P (2.1) for the integer guards (Lemmas 4.4, 5.3) | 22P; PC |
+| A3 | DPRM (Cor. 9.3) | natural predicate and compiler (Section 10) |
+| B1 | `Supp` (Prop. 12.2), from Input P (2.2) and formal groups | `Test` (Lemma 11.1), from Lemma 5.1 and formal groups |
+| B2 | Input H (Lemma 14.1) | H (line 6243) |
+| B3 | `Cong₃`: Koenigsmann's `ℤ_(3)` and the label relation `b = 16·3^k` | `Close`: real approximation and the compiled precision |
+| B4 | diagonal completeness (Prop. 12.3): compact local groups, Input P (2.1) on integers | Lemma 11.2: compact local groups, PC |
+
+The preprint (as reported by 10/11) used the same four inputs for a Turing reduction. How it
+distributed them over roles cannot be checked here.
+
 The deep inputs enter the roles as follows (VERIFIED: Lean consumers found by `grep`, listed in
 §1.3).
 
