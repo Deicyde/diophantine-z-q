@@ -560,3 +560,192 @@ theorem with a uniform size theorem is what any architecture must reproduce.
 - Plausibly unavoidable in kind: K1 and K2, for every architecture whose denominator control comes
   from parity (C1, C2). SPECULATIVE beyond such architectures.
 - Specific to the multiplication mechanism: K3 (F4). No alternative mechanism is known (§4).
+
+## 4. Candidate cheaper routes
+
+The routes below concern the architecture: how the hypotheses fit together, and changes of
+curve, contact set, pattern or test. The per-hypothesis routes are in the companion notes and are
+referred to, not repeated. Each route has the same six parts: the idea, what it replaces, why it
+might work, the main obstacle, a first test with a success criterion, and what it would break.
+
+### A1. One minimal interface for the three hypotheses (Lean only)
+
+- **Idea.** Replace the hypotheses of the main theorem by the weakest forms that the consumers
+  actually use (§2.1):
+  - H_min [rs-height R1];
+  - 22P₂ or (SR) [rs-pattern R1, R3];
+  - for PC, keep `PoleCompleteness` until Route K (A2) fixes its final form.
+
+  CAT₈ disappears when the effective Dirichlet theorem lands.
+- **Replaces.** Nothing mathematical. The trust boundary shrinks from a family of statements to
+  three single statements, each exactly what is consumed.
+- **Why it might work.** VERIFIED in the companion notes and rechecked in §1.3. Each hypothesis
+  is opened at one or two leaves.
+- **Main obstacle.** H_min is admissible only once `max S_mul ≤ D`, which currently uses CAT₈
+  (`Hmax_lt_D`, `cstar_lt_D`). 22P₂ uses the constant slope `−10` and needs a variant of
+  `goodSlope_of_values`.
+- **First test and success criterion.** Two independent refactors, one Lean process at a time:
+  `SixContactMin` with the two bridge lemmas, and `TwoSlopePattern` with a new proof of
+  `pattern_slopes`. Success: the main theorem takes `SixContactMin` and `TwoSlopePattern`;
+  `lake build` and `scripts/check_target.py` pass; `#print axioms` is unchanged.
+- **What it breaks.** Nothing. The polynomial is unchanged.
+- **Chance.** High.
+
+### A2. Route K: congruent number curves for the pole predicate
+
+- **Idea** [rs-pole §4.1]. Replace `x(x − e)(x + 3e)` by `x(x − e)(x + e)` in `Q_pole`, and RC by
+  Kriz's 2-converse for congruent number curves (arXiv:2002.04767v5, Theorems 9.23, 10.13,
+  10.17(2)).
+- **The architectural point.** Soundness is untouched. C2 shows that any cubic with two
+  parameter roots works, and Lemma 5.1 holds with the same `S₀` [rs-pole §4.1]. Completeness asks
+  only for points on genus-one twists (C2, C3), so the curve family can be chosen for the best
+  available converse theorem.
+  - After the change, every elliptic curve in the construction is a twist of `y² = x³ − x`, with
+    CM by `ℤ[i]`. The label curve `E` is its twist by `d` over `K₀`; the pole curves are its
+    twists over `ℚ`.
+  - The CM theory (Rubin's main conjecture, Kriz's supersingular methods at `p = 2`, ramified
+    in `ℚ(i)`) supplies the converse that the non-CM family `E_ℓ` lacks.
+- **Replaces.** RC (Sections 7–9 and Appendices E–G: 39 audit records of their own, and about
+  8,000 lines).
+- **Why it might work.**
+  - 30 of 30 random admissible inputs admit a suitable descent [rs-pole §4.1].
+  - PC is used only for completeness, so the descent needs no effective bounds: Mathlib's
+    Dirichlet theorem and quadratic reciprocity suffice for a later Lean proof (Route L).
+    VERIFIED: the pole witnesses are existential, and no constant of `P_*` depends on them.
+- **Main obstacle.**
+  - The uniform descent lemma for `C_n` and `C_{nθ}` is not yet proved.
+  - Kriz's theorem is a preprint as far as was checked, with LMFDB lookups for small cases.
+- **First test and success criterion.**
+  - A written proof of the descent lemma of [rs-pole §4.1]: every admissible `(β, θ)` admits
+    squarefree `n` with `β | n` such that `C_n` and `C_{nθ}` have `dim Sel₂ = 3` and contain the
+    class `β`. Check it against `scratch/rs-pole/selmer_descent.py` on 30 fresh inputs.
+  - A line-by-line hypothesis check of Kriz's Theorem 10.13.
+- **What it breaks.**
+  - `polePoly` and `poleT1`, `poleT2`, with their majorants. The degree (75) and the coefficient
+    bounds do not grow.
+  - A copy is needed of upstream's obstruction lemma, which sits in the frozen `lean/` snapshot.
+  - The polynomial is no longer the manuscript's literal `P_*`. That is allowed by
+    `FrozenTarget`, which is existential.
+- **Chance.** Medium.
+
+### A3. Five contacts: `𝒞₅ = {−1, 0, 1, 2, 3}` with the degree-6 map `J₅`
+
+- **Idea.** Use the contact set found in C6. Its five contacts lie over the Shimura orbifold
+  through `J₅(u) = 4(u − 1)²/(u³(2 − u)³)`, and they are five consecutive integers.
+- **Replaces.**
+  - Six contact forms per slope by five, so one test group per slope fewer: 27·162 = 4,374
+    witnesses per multiplication template, about 3.6·10¹⁰ variables (`budget.py`).
+  - The 12-form pattern of 22P₂ by two blocks of five consecutive terms of one progression
+    `u − cv`.
+  - The degree-12 map `J` by a degree-6 map.
+- **Why it might work.** The 11/5 proof of H uses `J` only through its ramification data over
+  `0, ∞, −16/27`, and `J₅` has the right data (VERIFIED, `five_contact_j.py`).
+- **Main obstacles.**
+  - H must be reproved for `J₅`, with new constants. The lines to recheck are 545–563 (the
+    pullback), 906–964 (back from `j` to `u`, including the rational root theorem for
+    `J₅(u) = a/b`) and the support conditions at `p > 324`.
+  - With an odd number of finite contacts, the slope normalization `R₀ = ηF(t)/(t − 1)⁸`
+    (line 1177) has odd degree. Odd poles of `t` would then become tested primes, and the
+    denominator `v` would join the pattern as a sixth form, as in the 10/11 pattern, where
+    `L_∞ = V` (10/11 (2.11)).
+  - The depth of K2 and K3 is unchanged. Two blocks of a progression whose common difference
+    must have bounded valuations at the old primes still need Green–Tao–Ziegler. This is the
+    restricted-difference obstacle of [rs-pattern R4].
+- **First test and success criterion.** Rewrite the proof of Theorem 4.1 for `J₅`. Success: a
+  five-contact estimate `h(u) ≤ H₅·M_S(u)^{e}` with explicit `H₅` and `e < 25`.
+- **What it breaks.** Almost everything with contacts in it: `contactSet` is used throughout
+  `ZInQKernel`, together with the test constants (`2730⁶F(t)`), 22P and the size chain.
+- **Chance.** Medium that the height proof transfers; low that the change pays for itself.
+
+### A4. The 10/11 identification: a 3-adic congruence instead of real approximation
+
+- **Idea.** Replace `Close` (real) by `Cong₃` (10/11, §13), with Koenigsmann's `ℤ_(3)`.
+- **Replaces.** Nothing deep. The 3-adic route still needs H (10/11 Lemma 14.1) and label
+  arithmetic (F2).
+- **Why it might work.** It is proved in 10/11, conditionally on the four inputs.
+- **Main obstacles.**
+  - It adds Koenigsmann's theorem, whose proof needs Hilbert reciprocity and Hasse–Minkowski for
+    quaternion norm forms. The project's Mathlib has neither: a `grep` for Hilbert symbols and
+    Hasse–Minkowski finds nothing.
+  - The 10/11 support relation needs the pole predicate on **all** integers, with integer
+    witnesses (10/11 Lemma 11.3 uses (2.1)). That is a completeness statement without the local
+    preparation that the 11/5 descent relies on.
+- **What it breaks.** The precision program and its correctness proof.
+- **Chance of any gain.** Nil (VERIFIED by comparing the two bridges). The real approximation is
+  the cheaper choice.
+
+### A5. Quadratic-form architectures (Poonen, Koenigsmann, Park, Daans)
+
+- **Idea.** Use the class-field-theoretic definitions of local and semilocal rings by quaternion
+  norm forms. These give a `∀∃` definition of `ℤ` in `ℚ` (Poonen, Amer. J. Math. 131 (2009)), a
+  `∀` definition (Koenigsmann 2016: `ℚ \ ℤ` is Diophantine), and their number-field analogues
+  (Park), in place of one of K1–K3.
+- **Why it cannot replace any of them** (VERIFIED for each role, from §2.3):
+  - **Denominator control (K1).** A norm form or quadric controls valuations only at the finitely
+    many primes ramified in its algebra. An existential quantifier over the algebra gives a union,
+    not an intersection, and only the universal quantifier of Poonen and Koenigsmann recovers all
+    primes. The genus-zero version of the parity device fails (C2, `n = 1`).
+  - **Size control (K2).** Quadrics satisfy weak approximation (Hasse–Minkowski), so rational
+    points are dense in their real points and no height gap can come from them. Any variety
+    whose rational points are dense in a union of components of its real locus satisfies Mazur's
+    conjecture, so it cannot carry the definition alone (§3.4).
+  - **Multiplication witnesses (K3).** Needed only because the shift is fixed (F4). Quadratic
+    forms do not change the test.
+- **Chance.** Negligible with present knowledge. This is a SPECULATIVE assessment only in that
+  some unknown combination might evade the arguments.
+
+### A6. An ineffective height bound
+
+- **Idea.** Replace H by a finiteness or ineffective statement.
+- **Why it fails for `FrozenTarget`.** F6: the size bounds need explicit constants. For the
+  bound-free statement an ineffective constant would suffice in both uses, but no ineffective
+  bound that is uniform in the twist and polynomial in `M` is known either (Faltings' theorem
+  works twist by twist).
+- **Chance.** Nil for the frozen target.
+
+### A7. A witness shift in the multiplication test
+
+- **Idea.** Let the prover choose the shift, as the value relation does, so that no prime needs
+  to be good.
+- **Why it fails.** F4: it is circular. Controlling a witness shift needs the product of two
+  labels or an order relation on labels, which is what multiplication provides.
+- **Chance.** Nil.
+
+### A8. More places, or a larger fixed shift
+
+- **Idea.** Work over a field of degree `r` in which the test primes split completely, using
+  `r` places and the condition `gcd(e₁, …, e_r) | c_*`. Or enlarge `c_*`, using the relaxation
+  `gcd(d₁, d₂) | c_*` of [rs-pattern §2.2].
+- **What a larger shift buys** (VERIFIED, `goodness_shift.py`, all 4,199 primes from 11 to 40,000).
+  Within the Chebotarev class `p ≡ 1 (mod 8)`, `(7/p) = −1`, the share of good primes rises from
+  0.856 for `c = 4` to 0.973, 0.990 and 0.996 when `c` absorbs the odd primes up to 10, 30 and
+  100.
+  - At `L = 324` it reaches 1.000 in this range, but only because `p < 40,000` forces the odd
+    part of `gcd(d₁, d₂)` to divide `a < 200`.
+  - Asymptotically the bad share is about `Σ_{ℓ>L} 2/ℓ² ≍ 1/(L log L) > 0` (SPECULATIVE
+    heuristic: `ℓ` must divide both `a` and `b² + 1`).
+- **Why it does not lower the depth.** The bottleneck of K3 is that the contact values must be
+  prime, not the density of good primes [rs-pattern R5]. More places also require a new
+  Mordell–Weil computation over a larger field, replacing a proved Lean statement (G).
+- **Chance of lowering depth.** Nil. The cheap version, the gcd relaxation, belongs in A1.
+
+### A9. A different label curve or abelian variety
+
+- **Idea.** Choose a label group with more explicit structure.
+- **Assessment** (VERIFIED as an argument).
+  - The label curve is already explicit: `E` is the twist of `y² = x³ − x` by `d` over `K₀`, with
+    CM by `ℤ[i]`, which gives the closed form of the good primes [rs-pattern §3.1, step 5].
+  - A rank-one curve over `ℚ` has only one place above each prime, and the two-place fixed-shift
+    test then fails (F4).
+  - None of K1, K2, K3 depends on the label curve: the pole curves, the contact cover and the
+    prime pattern are separate objects.
+  - A change would discard the Lean proof of G.
+- **Chance of lowering depth.** Nil.
+
+### A10. Doing arithmetic on scalars instead of labels
+
+- **Idea.** Avoid label multiplication by multiplying the rational scalars natively.
+- **Why it fails.** F2: the identification of a scalar with its label needs a precision computed
+  from the labels. Before the identification is complete, no scalar can be trusted to be an
+  integer.
+- **Chance.** Nil.
