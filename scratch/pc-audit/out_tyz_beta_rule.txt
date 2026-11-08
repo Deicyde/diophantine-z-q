@@ -1,0 +1,36 @@
+a8 keys 28 conflicting 8
+   n%8=5 sgn=0 v2=0 |a|odd%8=1 -> certificate [0, 1]
+   n%8=5 sgn=0 v2=0 |a|odd%8=3 -> certificate [1]
+   n%8=5 sgn=0 v2=0 |a|odd%8=5 -> certificate [0, 1]
+   n%8=5 sgn=0 v2=0 |a|odd%8=7 -> certificate [1]
+   n%8=5 sgn=1 v2=0 |a|odd%8=1 -> certificate [0, 1]
+   n%8=5 sgn=1 v2=0 |a|odd%8=3 -> certificate [1]
+   n%8=5 sgn=1 v2=0 |a|odd%8=5 -> certificate [0, 1]
+   n%8=5 sgn=1 v2=0 |a|odd%8=7 -> certificate [1]
+   n%8=6 sgn=0 v2=0 |a|odd%8=1 -> certificate [0]
+   n%8=6 sgn=0 v2=0 |a|odd%8=3 -> certificate [1]
+   n%8=6 sgn=0 v2=0 |a|odd%8=5 -> certificate [0]
+   n%8=6 sgn=0 v2=0 |a|odd%8=7 -> certificate [1]
+   n%8=6 sgn=0 v2=1 |a|odd%8=1 -> certificate [1]
+   n%8=6 sgn=0 v2=1 |a|odd%8=3 -> certificate [0]
+   n%8=6 sgn=0 v2=1 |a|odd%8=5 -> certificate [1]
+   n%8=6 sgn=0 v2=1 |a|odd%8=7 -> certificate [0]
+   n%8=6 sgn=1 v2=0 |a|odd%8=1 -> certificate [0]
+   n%8=6 sgn=1 v2=0 |a|odd%8=3 -> certificate [1]
+   n%8=6 sgn=1 v2=0 |a|odd%8=5 -> certificate [0]
+   n%8=6 sgn=1 v2=0 |a|odd%8=7 -> certificate [1]
+   n%8=6 sgn=1 v2=1 |a|odd%8=1 -> certificate [1]
+   n%8=6 sgn=1 v2=1 |a|odd%8=3 -> certificate [0]
+   n%8=6 sgn=1 v2=1 |a|odd%8=5 -> certificate [1]
+   n%8=6 sgn=1 v2=1 |a|odd%8=7 -> certificate [0]
+   n%8=7 sgn=0 v2=0 |a|odd%8=1 -> certificate [0, 1]
+   n%8=7 sgn=0 v2=0 |a|odd%8=7 -> certificate [0, 1]
+   n%8=7 sgn=1 v2=0 |a|odd%8=1 -> certificate [0, 1]
+   n%8=7 sgn=1 v2=0 |a|odd%8=7 -> certificate [0, 1]
+a16 keys 56 conflicting 16
+ab8 keys 60 conflicting 0
+row 5a a-only keys 8 conflicting 8
+row 5b a-only keys 8 conflicting 0
+row 6 a-only keys 16 conflicting 0
+row 7a a-only keys 4 conflicting 4
+row 7b a-only keys 4 conflicting 4
