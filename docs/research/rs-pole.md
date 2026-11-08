@@ -277,9 +277,27 @@ audit records A022–A054 and A069–A082 as far as they serve RC. PC's proof wo
   images are the span of the 2-torsion at odd bad primes and are obtained by `p`-adic sampling at
   2 (and 3) and at the real place. Linear algebra is over `𝔽₂`. Against PARI's `ellrank` on 19
   curves `C_N` and 19 curves `E_N`, `N ≤ 119`, it gives `dim Sel₂ = 2 + rank` in every case.
-  On realistic admissible inputs `B` it searches `n = β·n′`, with `n′` a product of at most three
-  primes below 300, such that `C_n` and `C_{nθ}` both have `dim Sel₂ = 3` and contain a class
-  with first coordinate `β`. RESULT_PLACEHOLDER (VERIFIED, computation, on the samples stated)
+  On realistic admissible inputs `B` it searches over `m > 0` dividing 2730 and over
+  `n = β·n′`, with `n′` a product of at most four primes in `[5, 281]` (prefiltered by the
+  necessary Legendre conditions). It asks that `C_n` and `C_{nθ}` both have `dim Sel₂ = 3` and
+  contain a class with first coordinate `β`. The inputs were 30 random
+  `B = 2⁴3⁶5⁶7⁶13⁶u/v²` with `u < 1000`, `gcd(v, 2730) = 1` and `0 < B < 1/2`. (Then
+  `v₂(B) ≥ 4`, `v_p(B) ≥ 6` on `S₀`, and `θ` has prime factors of up to 22 digits; the script
+  asserts admissibility, `θ ≡ 1 (mod 8)` and `gcd(θ, 2730) = 1`.)
+  **Result: a suitable `(m, n)` exists for 30 of 30 inputs**, each found in at most 2 s. In 24
+  cases `n = β` works. Then the class `β` on `C_β` is the 2-torsion point `(β, 0)`, and only the
+  single curve `C_{βθ}` needs the converse. The other 6 need one auxiliary prime. For two
+  solutions the curve `C_n` is small enough for PARI to find a generator (`n = 193285` and
+  `n = 1430`, from a preliminary run). Its abscissa class is `β` times a torsion class, as the
+  descent predicts (`check_points.py`). An earlier sampler that did not enforce
+  `gcd(v, 2730) = 1` produced inadmissible inputs (with `θ ≢ 1 (mod 8)`). Those account for the
+  only two failures seen, which is consistent with the role of the `S₀` hypothesis.
+  (VERIFIED, computation, on the samples stated)
+- *The same test for the manuscript's family.* For `E_ℓ` the same search also succeeds for 30 of
+  30 admissible inputs, all with `n = β` (torsion on `E_β`, Selmer-minimal `E_{βθ}`). But only 4
+  of the 30 solutions have `n` and `nθ ≡ 11 (mod 12)`, which is the domain of RC. The weakened
+  reduction of §2.3 would need RC beyond its stated congruence class. Kriz's theorem has no such
+  restriction. (VERIFIED, computation)
 
 **Main obstacles.**
 
@@ -309,7 +327,7 @@ audit records A022–A054 and A069–A082 as far as they serve RC. PC's proof wo
 > primes of the other and `θ` prime to 2730, there is squarefree `n` with `β | n` such that
 > `C_n` and `C_{nθ}` have `dim Sel₂ = 3` and contain a class `(β, ·)`.
 
-Check it against the script on 30 random admissible inputs per family. Success means a complete
+It already holds on 30 random admissible inputs (§4.1, `selmer_descent.py`). Success means a complete
 proof of the lemma, plus confirmation that Kriz's Theorem 10.13 has no further hypothesis (for
 example on the conductor exponent at 2; the proof treats small `f₀` by LMFDB lookup). This makes
 PC a corollary of Kriz's theorem.

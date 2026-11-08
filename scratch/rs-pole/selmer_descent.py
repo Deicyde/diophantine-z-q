@@ -76,7 +76,19 @@ def is_local_square(q, p):
     return c == (0, True)
 
 
+_IMG_CACHE = {}
+
+
 def local_image(N, a, b, p, rng, want):
+    if p in (0, 2, 3):
+        key = (a, b, p, sqclass(N, p) if p else (N > 0,))
+        if key not in _IMG_CACHE:
+            _IMG_CACHE[key] = _local_image(N, a, b, p, rng, want)
+        return _IMG_CACHE[key]
+    return _local_image(N, a, b, p, rng, want)
+
+
+def _local_image(N, a, b, p, rng, want):
     """Image of E(Q_p) in (Q_p*/Q_p*2)^2 under P -> (x, x - aN), by sampling.
     `want` is the expected size (|E(Q_p)[2]| * |2|_p^{-1}, i.e. 8 at p = 2, 4 at odd p,
     2 at the real place for three real roots)."""
@@ -253,25 +265,48 @@ def class_with_first(gens, ker, beta):
 
 def random_admissible_B(rng):
     K = 2**4 * 3**6 * 5**6 * 7**6 * 13**6
-    u = rng.randrange(1, 10**3)
-    lo = isqrt(2 * K * u) + 1
-    v = rng.randrange(lo, 4 * lo)
-    return F(K * u, v * v)
+    while True:
+        u = rng.randrange(1, 10**3)
+        lo = isqrt(2 * K * u) + 1
+        v = rng.randrange(lo, 4 * lo)
+        if gcd(v, 2730) == 1:     # then v_2(B) >= 4 and v_p(B) >= 6 on S_0
+            B = F(K * u, v * v)
+            assert all(vq(B, p) >= 4 for p in (2, 3, 5, 7, 13)) and 0 < B < F(1, 2)
+            return B
 
 
-def search_n(B, a, b, rng, primes, max_aux=3, max_m=None):
+def legendre(a, p):
+    return pow(a % p, (p - 1) // 2, p) == 1
+
+
+def search_n(B, a, b, rng, primes, max_aux=4, budget=120):
+    """Search m | 2730 (m > 0) and n = beta * n' (n' a product of <= max_aux auxiliary primes)
+    with E_n, E_{n theta} both Selmer-minimal containing a class with first coordinate beta.
+    Auxiliary primes are prefiltered by necessary local conditions at odd primes."""
+    import time
+    t0 = time.time()
     divs = [d for d in range(1, 2731) if 2730 % d == 0]
+    data = []
     for m in divs:
         beta = core(m * B)
         theta = core(m * (m - B))
-        if beta <= 1 or len(factor_primes(beta)) > 4 or len(factor_primes(theta)) > 5:
+        assert theta % 8 == 1 and gcd(theta, 2730) == 1
+        if beta <= 1:
             continue
-        pool = [q for q in primes if beta % q and theta % q and q > 3]
-        for k in range(0, max_aux + 1):
-            for combo in itertools.combinations(pool[:14], k):
+        bp = [p for p in factor_primes(beta) if p > 3]
+        pool = [q for q in primes if beta % q and theta % q and q > 3
+                and (legendre(beta, q) or legendre(a * b * beta, q))]
+        data.append((m, beta, theta, bp, pool))
+    for k in range(0, max_aux + 1):
+        for m, beta, theta, bp, pool in data:
+            for combo in itertools.combinations(pool[:16], k):
+                if time.time() - t0 > budget:
+                    return 'timeout'
                 nprime = 1
                 for q in combo:
                     nprime *= q
+                if not all(legendre(a * nprime, p) or legendre(b * nprime, p) for p in bp):
+                    continue
                 n = beta * nprime
                 try:
                     d1, g1, k1 = selmer_dim(n, a, b, rng)
@@ -283,7 +318,7 @@ def search_n(B, a, b, rng, primes, max_aux=3, max_m=None):
                 except RuntimeError as e:
                     print('  local image failure:', e, flush=True)
                     continue
-                return m, beta, theta, combo
+                return m, beta, theta, combo, round(time.time() - t0, 1)
     return None
 
 
@@ -299,5 +334,5 @@ if __name__ == "__main__":
         B = random_admissible_B(rng)
         res = search_n(B, a, b, rng, primes)
         print(i, fam, "B =", B, "->", res, flush=True)
-        ok += res is not None
+        ok += res not in (None, 'timeout')
     print(f"{fam}: simultaneous Selmer-minimal n found for {ok}/{N} inputs")
