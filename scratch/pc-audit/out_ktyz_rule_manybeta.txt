@@ -1,3 +1,0 @@
-PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
-PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
-input 0: solutions examined 12, solution certified by beta-rule alone: True

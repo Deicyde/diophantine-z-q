@@ -119,8 +119,16 @@ This is much weaker than either theorem as stated:
     Smith's asymptotic densities, as the number of prime factors grows, are 3/4, 1/2 and 3/4
     (Theorem 1.4).
   - More precisely (RK6): whether TYZ applies to `C_d` depends only on `|d| mod 8` and on the
-    2-adic and sign data of the class `σ_d`. When `|d| ≡ 5` or `6 (mod 8)` it depends only on
-    `β`. Since `θ ≡ 1 (mod 8)`, both curves `C_n` and `C_{nθ}` then satisfy the same condition.
+    2-adic and sign data of the class `σ_d`. Row 5b (for `|d| ≡ 5`) and row 6 (for `|d| ≡ 6`)
+    depend only on the first coordinate `β`. Since `θ ≡ 1 (mod 8)`, both curves `C_n` and
+    `C_{nθ}` then satisfy the same condition.
+  - Cost of the restriction (VERIFIED, counting):
+    - the `β`-rule of row 5b (`β` odd, `|β| ≡ 3 (mod 4)`) holds for 16 of the 64 multipliers;
+    - the rule of row 6 holds for 32 of the 64. Each 2-adic class of `β` with each sign comes
+      from exactly four multipliers, because `β ≡ mB` and the signed divisors of 2730 cover
+      `{±1} × ℚ₂*/ℚ₂*²` evenly.
+    - In addition `n' = n/β` must lie in one class modulo 4 or 8, a congruence on the auxiliary
+      primes.
 - **The `f₀ ≤ 3` cases do not occur** (RK1): the converse curves can be taken with odd part of
   `|d|` at least 11.
 
@@ -158,9 +166,10 @@ The records follow.
 
 **Source.** D. Kriz, *Supersingular main conjectures, Sylvester's conjecture and Goldfeld's
 conjecture*, arXiv:2002.04767v5. Read in the v5 LaTeX source and the v5 PDF (215 pages):
-Theorem 1.1 (p. 2), Assumption 5.6 and Example 5.7 (p. 106), Assumption 7.20, Definition 10.1,
-Proposition 10.5, Theorem 10.8 (pp. 192–194), Theorem 9.23 (p. 188), Theorem 10.13 (p. 198),
-Theorem 10.17 (p. 199).
+Theorem 1.1 (p. 4), Assumption 5.1 (p. 104), Assumption 5.6 and Example 5.7 (p. 106),
+Assumption 7.20 (p. 147), §9.2 (p. 179), Theorem 9.23 (p. 188), Definition 10.1 (pp. 189–190),
+Proposition 10.5 and Theorem 10.8 (pp. 192–194), Theorem 10.13 (p. 198), Theorem 10.17
+(p. 199). Page numbers are those of the PDF.
 
 **Version and status (VERIFIED, 2026-11-08).** Five arXiv versions: v1 12 Feb 2020, v2 26 Jul
 2021, v3 14 Sep 2021, v4 22 Jun 2022, v5 19 Oct 2022. The arXiv record has no journal reference,

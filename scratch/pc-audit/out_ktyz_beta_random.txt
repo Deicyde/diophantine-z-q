@@ -1,0 +1,3 @@
+input 0: {'m': 42, 'beta': 39366834, 'rule': '6', 'nprime': 558359, 'k': 2, 'evals': 85, 'tyz_row': '6', 'tyz_both': True, 'omega_beta': 5, 'omega_theta': 2}
+input 1: {'m': 2730, 'beta': 348579530, 'rule': '6', 'nprime': 608911, 'k': 2, 'evals': 3, 'tyz_row': '6', 'tyz_both': True, 'omega_beta': 4, 'omega_theta': 3}
+input 2: {'m': 273, 'beta': 474088979, 'rule': '5', 'nprime': 103, 'k': 1, 'evals': 15, 'tyz_row': '5b', 'tyz_both': True, 'omega_beta': 4, 'omega_theta': 2}
