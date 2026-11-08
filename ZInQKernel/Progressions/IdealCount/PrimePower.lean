@@ -277,4 +277,13 @@ theorem exists_localFactor (h2 : finrank ℚ K = 2) {p : ℕ} (hp : p.Prime) :
       ∀ k, (idealCount K (p ^ k) : ℤ) = ∑ j ∈ Finset.range (k + 1), ε ^ j :=
   ⟨localEps K p, localEps_mem_and_idealCount_prime_pow h2 hp⟩
 
+/-- The `ε` of item 2 is unique: it is `localEps K p = a_K(p) - 1`. -/
+theorem eq_localEps_of_idealCount_prime_pow {p : ℕ} {ε : ℤ}
+    (h : ∀ k, (idealCount K (p ^ k) : ℤ) = ∑ j ∈ Finset.range (k + 1), ε ^ j) :
+    ε = localEps K p := by
+  have h1 := h 1
+  rw [pow_one, Finset.sum_range_succ, Finset.sum_range_one, pow_zero, pow_one] at h1
+  rw [localEps, h1]
+  ring
+
 end ZInQ.Progressions
