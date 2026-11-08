@@ -15,8 +15,9 @@ that the manuscript uses at the cutoff $2^{W^3}$; the larger cutoff $2^{W^8}$ is
 of the effective Dirichlet theorem.
 
 **Proof sketch.** By the small explicit bounds, $W>10^5>2^{16}$. The effective Dirichlet
-theorem at $q=W$ and $a=r$ gives $22$ primes $p\equiv r\pmod W$ with
-$W^2<p<2^{W^8}$, and $W^2>324$.
+theorem at $q=W$ and $a=r$ gives $22$ primes $p\equiv r\pmod W$ with $W^2<p<2^{W^8}$, and
+$W^2>324$. Since $0\le r<W$, the congruence $p\equiv r\pmod W$ says that $p$ leaves the
+remainder $r$ on division by $W$. The constant $W$ is never evaluated beyond these bounds.
 
 ## Depends on
 

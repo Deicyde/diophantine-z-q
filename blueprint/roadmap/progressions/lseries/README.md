@@ -19,15 +19,16 @@ tails.
 - [Character sums are bounded by the modulus](character-sums.md)
 - [Tails of the twisted harmonic sums](tails.md)
 
-## Bounds on the real segment $[1,2]$
+## Bounds to the right of $1$
 
-On $1\le\sigma\le2$, $L(\sigma,\chi)$ is at most $M$ and its derivative at most $M^2$, so
-$L(\sigma,\chi)$ moves by at most $(\sigma-1)M^2$; the partial sums of $\chi(n)/n$ approach
-$L(1,\chi)$ at rate $2q/x$ and those of $\chi(n)\log n/n$ stay below $M^2$.
+For real $\sigma\ge1$, $L(\sigma,\chi)$ is at most $M$; for $\sigma>1$ its derivative is at
+most $M^2$, so $L(\sigma,\chi)$ moves by at most $(\sigma-1)M^2$; the partial sums of
+$\chi(n)/n$ approach $L(1,\chi)$ at rate $2q/x$ and those of $\chi(n)\log n/n$ stay below
+$M^2$.
 
 - [A bound for $L(\sigma,\chi)$ near $1$](l-value-bound.md)
 - [Partial sums of $\chi(n)\log n/n$](log-partial-sums.md)
-- [A bound for $L'(\sigma,\chi)$ near $1$](derivative-bound.md)
+- [A bound for $L'(\sigma,\chi)$ to the right of $1$](derivative-bound.md)
 - [Variation of $L(\sigma,\chi)$ near $1$](l-value-variation.md)
 - [Partial sums of $\chi(n)/n$ approximate $L(1,\chi)$](partial-sums.md)
 
