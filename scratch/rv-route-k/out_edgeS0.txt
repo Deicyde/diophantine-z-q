@@ -1,0 +1,11 @@
+#0 num 17dig den 19dig omega(beta_1)=3 omega(theta_1)=1 OK m=10 k=0 n'=1 kind=('torsion', 'selmer3') omega(beta)=5 omega(theta)=2 (m,k) pairs tried=7 (0.0s)
+#1 num 15dig den 16dig omega(beta_1)=2 omega(theta_1)=2 OK m=10 k=0 n'=1 kind=('torsion', 'selmer3') omega(beta)=2 omega(theta)=2 (m,k) pairs tried=7 (0.0s)
+#2 num 18dig den 19dig omega(beta_1)=4 omega(theta_1)=2 OK m=10 k=0 n'=1 kind=('torsion', 'selmer3') omega(beta)=4 omega(theta)=3 (m,k) pairs tried=7 (0.0s)
+#3 num 17dig den 18dig omega(beta_1)=4 omega(theta_1)=3 OK m=13 k=0 n'=1 kind=('torsion', 'selmer3') omega(beta)=5 omega(theta)=2 (m,k) pairs tried=8 (0.0s)
+#4 num 18dig den 19dig omega(beta_1)=5 omega(theta_1)=2 OK m=-1 k=0 n'=1 kind=('torsion', 'selmer3') omega(beta)=5 omega(theta)=2 (m,k) pairs tried=33 (0.0s)
+#5 num 19dig den 21dig omega(beta_1)=6 omega(theta_1)=2 OK m=7 k=0 n'=1 kind=('torsion', 'selmer3') omega(beta)=5 omega(theta)=3 (m,k) pairs tried=6 (0.0s)
+#6 num 17dig den 18dig omega(beta_1)=4 omega(theta_1)=3 OK m=130 k=0 n'=1 kind=('torsion', 'selmer3') omega(beta)=1 omega(theta)=2 (m,k) pairs tried=22 (0.0s)
+#7 num 17dig den 18dig omega(beta_1)=4 omega(theta_1)=3 OK m=7 k=0 n'=1 kind=('torsion', 'selmer3') omega(beta)=3 omega(theta)=2 (m,k) pairs tried=6 (0.0s)
+#8 num 15dig den 16dig omega(beta_1)=2 omega(theta_1)=3 OK m=6 k=0 n'=1 kind=('torsion', 'selmer3') omega(beta)=2 omega(theta)=2 (m,k) pairs tried=5 (0.0s)
+#9 num 16dig den 17dig omega(beta_1)=1 omega(theta_1)=2 OK m=65 k=0 n'=1 kind=('torsion', 'selmer3') omega(beta)=3 omega(theta)=3 (m,k) pairs tried=17 (0.0s)
+edgeS0 first {'ok': 10, 'fail': 0}
