@@ -1,4 +1,5 @@
 import ZInQKernel.Multiplication.Certificate.Constants
+import ZInQKernel.Hypotheses.HeightMin
 import ZInQKernel.Multiplication.Certificate.ClearingArithmetic
 import ZInQKernel.Hypotheses.Pole
 import ZInQKernel.Size.FormalMultiple.Existence
@@ -12,7 +13,8 @@ Blueprint: `multiplication/certificate/constants-properties.md`.
 2. `S_mul` is a finite set of primes containing every prime `p ≤ 324`, `p ≤ R` for `p ∈ S_mul`,
    `R ≥ D` and `R ≥ 10¹²` (`S_mul_admissible`); the six-contact constant at `R` is
    `H₆(S_mul; R) = A_ht` (`Aht_eq_heightH6`), so the estimate reads
-   `h(u) ≤ A_ht M_{S_mul}(u)²⁴` (`sixContact_at_Smul`).
+   `h(u) ≤ A_ht M_{S_mul}(u)²⁴` (`sixContact_at_Smul`, from the minimal hypothesis
+   `SixContactMin` and `H₆(D) ≤ H₆(R)`).
 3. `A_ht ≥ 2·10¹³`, `48 A_ht ≥ 1`, `T > 4`.
 4. The catalogue primes exceed `324` and are distinct, `H_cat` is squarefree with prime factors
    `𝓗`, and `v_p(ℓ₀) = E_p` for `p ∈ S_b`, `v_p(ℓ₀) = 0` otherwise (`padicValNat_ell`).
@@ -129,12 +131,14 @@ theorem S_mul_admissible :
     by exact_mod_cast Syntax.ten_pow_twelve_le_R⟩
 
 /-- **The six-contact estimate at `S = S_mul`, `R = max(D, H_max, c_*, 10¹²)`:**
-`h(u) ≤ A_ht M_{S_mul}(u)²⁴` for `u ∉ 𝒞`. -/
-theorem sixContact_at_Smul (hH : SixContactEstimate) {u : ℚ} (hu : u ∉ contactSet) :
+`h(u) ≤ A_ht M_{S_mul}(u)²⁴` for `u ∉ 𝒞`, from `SixContactMin` since `H₆(D) ≤ H₆(R) = A_ht`. -/
+theorem sixContact_at_Smul (hH : SixContactMin) {u : ℚ} (hu : u ∉ contactSet) :
     ratHeight u ≤ (Syntax.Aht : ℝ) * (contactSupport S_mul u : ℝ) ^ 24 := by
-  obtain ⟨h1, h2, h3, h4, h5⟩ := S_mul_admissible
-  rw [Aht_eq_heightH6]
-  exact hH S_mul h1 h2 _ h3 h4 h5 u hu
+  rewrite [Aht_eq_heightH6]
+  have hD : (1 : ℝ) ≤ heightD := by
+    exact_mod_cast le_trans (by norm_num) Compiler.Precision.ten_pow_twelve_le_heightD
+  exact (hH u hu).trans (mul_le_mul_of_nonneg_right
+    (heightH6_mono_of_one_le hD S_mul_admissible.2.2.1) (by positivity))
 
 /-! ### Item 3 -/
 

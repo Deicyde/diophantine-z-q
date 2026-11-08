@@ -166,11 +166,8 @@ theorem bound_eq_heightH6 (n κ : ℤ) :
     (bound n κ : ℝ) = heightH6 (heightD : ℝ) * |((κ * sixF n : ℤ) : ℝ)| ^ 24 := by
   rw [bound, ← A0_eq_heightH6, Nat.cast_mul, Nat.cast_pow, Nat.cast_natAbs, Int.cast_abs]
 
-/-- The six-contact estimate at `S = S_ht`, `R = D`: `h(u) ≤ A⁽⁰⁾_ht M_{S_ht}(u)²⁴`. -/
-theorem sixContact_at_heightPrimes (hH : SixContactEstimate) {u : ℚ} (hu : u ∉ contactSet) :
-    ratHeight u ≤ (A0 : ℝ) * (contactSupport heightPrimes u : ℝ) ^ 24 := by
-  obtain ⟨h1, h2, h3, h4, h5⟩ := heightD_admissible
-  rw [A0_eq_heightH6]
-  exact hH heightPrimes h1 h2 _ h3 h4 h5 u hu
+/- The six-contact estimate at `S = S_ht`, `R = D`, `sixContact_at_heightPrimes`, is derived from
+the minimal hypothesis `SixContactMin` in `ZInQKernel/Hypotheses/HeightMin.lean`: its statement
+names the multiplication prime set `S_mul`, which is defined downstream of this file. -/
 
 end ZInQ.Compiler.Precision
