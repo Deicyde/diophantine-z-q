@@ -27,10 +27,10 @@ $B_{\rm cm}=D^2\,3^{21000D^2}+1$ and $C_{\rm cm}=2B_{\rm cm}+4096(1028+5D+84000D
 about the prescribed integers, independent of the role of $T$ in excluding false
 multiplication triples; none of these integers is evaluated.
 
-**Proof sketch.** The catalogue bound puts the catalogue below $X=2^{W^3}$, so
-$H_{\max}<X$, $1\le N_s$ and $\log_2N_s<2^{2054}$. The successful formal multiple, applied to
+**Proof sketch.** The catalogue bound puts the catalogue below $X=2^{W^8}$, so
+$H_{\max}<X$, $1\le N_s$ and $\log_2N_s<2^{4613}$. The successful formal multiple, applied to
 $N=N_s\ge1$, gives $1\le M_0\le N_s^{10}$ and the divisibility conditions,
-and hence $c_*<2^{2^{2059}}$, while $2^{2^{8008}}<D<2^{2^{9010}}$; so $R=D$. Then
+and hence $c_*<2^{2^{4617}}$, while $2^{2^{8008}}<D<2^{2^{9010}}$; so $R=D$. Then
 $C_{\rm cm}<2^{50000D^2}<Q^{17}$ identifies the maximum and gives the closed form of $T$, and the
 closed form is below $2^{D^8}<2^{2^{2^{9013}}}$.
 

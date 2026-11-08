@@ -9,7 +9,7 @@ lean: ZInQ.Size.catalogue_bounds
 
 # The catalogue below the progression cutoff
 
-Assume the catalogue bound. Let $W=4P_s$ and $X=2^{W^3}$. For every residue $r$ with
+Assume the catalogue bound. Let $W=4P_s$ and $X=2^{W^8}$. For every residue $r$ with
 $1\le r<W$ and $\gcd(r,W)=1$ and every $j$ with $1\le j\le22$, the catalogue prime
 $p_{r,j}$ (the $j$-th prime $p>324$ with $p\equiv r\pmod W$) satisfies
 $$324<p_{r,j}<X .$$
@@ -27,9 +27,10 @@ The maximum of finitely many numbers below $X$ is below $X$ (an empty maximum is
 The product has $22\,\varphi(W)\le22W$ factors, each in $[1,X)$, so it lies in
 $[1,X^{22W}]$.
 
-The manuscript reaches the same conclusion through the progression estimate at $X$, which
-gives more than $X/(2W^4)>22$ primes in each unit class and notes that no prime at most
-$324$ lies in a unit class; the hypothesis states the needed count directly.
+The manuscript reaches the same conclusion at the smaller cutoff $2^{W^3}$ through the
+progression estimate, which gives more than $X/(2W^4)>22$ primes in each unit class and notes
+that no prime at most $324$ lies in a unit class. Here the cutoff is $X=2^{W^8}$, the range of
+the effective Dirichlet theorem, and the catalogue bound states the needed count directly.
 
 ## Depends on
 

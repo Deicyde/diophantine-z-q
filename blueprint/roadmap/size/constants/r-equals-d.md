@@ -12,8 +12,8 @@ lean: ZInQ.Size.r_equals_d, ZInQ.Size.R_eq_D
 Assume the catalogue bound. Then $H_{\max}<D$, $c_*<D$ and $10^{12}<D$; consequently
 $$R=\max(D,H_{\max},c_*,10^{12})=D .$$
 
-**Proof sketch.** $H_{\max}<2^{W^3}$ and $W^3<2^{3\cdot512}=2^{1536}$, so
-$H_{\max}<2^{2^{1536}}<2^{2^{8008}}<D$. Next $c_*<2^{2^{2059}}<2^{2^{8008}}<D$, and
+**Proof sketch.** $H_{\max}<2^{W^8}$ and $W^8<2^{8\cdot512}=2^{4096}$, so
+$H_{\max}<2^{2^{4096}}<2^{2^{8008}}<D$. Next $c_*<2^{2^{4617}}<2^{2^{8008}}<D$, and
 $10^{12}<2^{40}<D$. A maximum whose first entry dominates the others equals that entry.
 
 ## Depends on

@@ -21,15 +21,16 @@ $A_{\rm ht}=2\cdot10^{13}\max(1,C_{\rm cm},Q^{17})$ and $T=(48A_{\rm ht})^{13}$.
 ## The literal cutoff
 
 Proposition 12.1 has three ingredients. First, the prime catalogue is controlled by the
-catalogue-bound hypothesis: every unit class modulo $W$ has twenty-two primes above $324$
-below $X=2^{W^3}$, so $H_{\max}<X$, $H_{\rm cat}\le X^{22W}$ and $\log_2N_s<2^{2054}$. The
-manuscript derives this from the explicit progression estimate of Bennett, Martin, O'Bryant
-and Rechnitzer; here it is the hypothesis itself. Second, the least formal multiple has a
+catalogue bound: every unit class modulo $W$ has twenty-two primes above $324$ below
+$X=2^{W^8}$, so $H_{\max}<X$, $H_{\rm cat}\le X^{22W}$ and $\log_2N_s<2^{4613}$. The
+manuscript derives the same statement with the cutoff $2^{W^3}$ from the explicit progression
+estimate of Bennett, Martin, O'Bryant and Rechnitzer; here the cutoff is $2^{W^8}$, and the
+catalogue bound is proved from an effective Dirichlet theorem in the progressions chapter. Second, the least formal multiple has a
 successful index at most $N_s^{10}$: multiplying $P_0$ by the product of its reduction
 orders at the odd places above $N_s$ puts it in the kernel of reduction there, and a
 further factor $N_s^4$ pushes it deep into the filtration at every place above $N_s$,
 including the place above $2$, where $P_0$ already starts in the third filtration subgroup.
-Third, a chain of symbolic estimates gives $c_*<2^{2^{2059}}<2^{2^{8008}}<D$, hence $R=D$,
+Third, a chain of symbolic estimates gives $c_*<2^{2^{4617}}<2^{2^{8008}}<D$, hence $R=D$,
 identifies the maximum in $A_{\rm ht}$ as $Q^{17}$, and bounds $T$.
 
 The small explicit bounds and the catalogue estimates, then the constants derived from them,

@@ -24,11 +24,11 @@ Moreover $D\le T$. The literal constants of the templates need no hypothesis.
 **Proof sketch.** By the definitions, $D\le R\le Q\le Q^{17}\le A_{\rm ht}\le T$, and
 $D>2^{2^{8008}}$, so $B\ge2^{20}$. (1) The uniform constructor bounds hold at every
 $B\ge2^{20}$. For (2), $\ell\ge1$ since $P_s,H_{\rm cat}\ge1$, and
-$\ell<2^{2^{2063}}<D\le T$. For (3), by construction every index is $\varepsilon$,
+$\ell<2^{2^{4623}}<D\le T$. For (3), by construction every index is $\varepsilon$,
 $\varepsilon\pm1$ or $2\varepsilon$ with $\varepsilon\in\{c_*,4,2,3,c_3,1399\}$ (the values of
 $\mathrm{integer\_constant}_0,\dots,\mathrm{integer\_constant}_4$ are $4,2,3,c_3,1399$), so
-$|n|+1\le2|\varepsilon|+2$. Here $c_*<2^{2^{2059}}$ and $|c_3|<2^{2^{24}}$, so
-$|n|+1\le2\cdot2^{2^{2059}}\le2^{2^{2060}}<D\le T$. (4) is immediate. Nothing is evaluated:
+$|n|+1\le2|\varepsilon|+2$. Here $c_*<2^{2^{4617}}$ and $|c_3|<2^{2^{24}}$, so
+$|n|+1\le2\cdot2^{2^{4617}}\le2^{2^{4618}}<D\le T$. (4) is immediate. Nothing is evaluated:
 each comparison is between symbolic bounds.
 
 The manuscript lists "the absolute values of all literal fixed constants and all occurring

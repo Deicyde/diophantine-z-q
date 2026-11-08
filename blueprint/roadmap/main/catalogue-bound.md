@@ -9,10 +9,12 @@ lean: ZInQ.CatalogueBound
 # The catalogue bound
 
 With $W=4P_s$ as in the prime pattern, every unit residue class modulo $W$ contains at
-least twenty-two primes $p$ with $324<p<2^{W^3}$.
+least twenty-two primes $p$ with $324<p<2^{W^8}$.
 
-The manuscript deduces it from the explicit progression estimate of Bennett, Martin,
-O'Bryant and Rechnitzer; here it is a hypothesis of the main theorem.
+The manuscript deduces the same statement with the smaller cutoff $2^{W^3}$ from the
+explicit progression estimate of Bennett, Martin, O'Bryant and Rechnitzer. Here the cutoff
+is $2^{W^8}$, the range of the effective Dirichlet theorem of the progressions chapter, which
+proves the statement; the size bounds use it only through this cutoff.
 
 ## Depends on
 
