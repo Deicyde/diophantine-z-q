@@ -125,7 +125,20 @@ Three consequences:
    2-torsion points `(A, 0) ∈ E_A` and `(Ac², 0) ∈ E_{Ac²}`. (VERIFIED by computation,
    `toy_validate.py`.) More generally the 2-torsion handles exactly the cases where `θ` is a
    product of two torsion values, and since `θ > 0` this means `θ = 1`.
-3. **The surface.** `w² = θ g_β(t₁) g_β(t₂)` is a double cover of `ℙ¹ × ℙ¹` branched along a
+3. **A one-curve sufficient condition.** Take `t₁ = ∞`, that is `e = A`, so that the first point
+   is the 2-torsion point `(A, 0) ∈ E_A`. Since `AH = A²(A − B²) ≡ B(m − B)` modulo squares,
+   `Φ(B)` follows as soon as, for some signed divisor `m` of 2730,
+
+   ```
+   E_{B(m − B)} has a rational point with abscissa in mB·ℚ*².
+   ```
+
+   This is one curve per multiplier, with no auxiliary parameter. In the sample computations of
+   §4.1 it already suffices for 24 of 30 inputs (congruent family) and for 30 of 30 (π/3
+   family). With only sixteen positive multipliers it cannot be guaranteed in general, so the
+   descent needs the auxiliary primes of `n` as a fallback. (VERIFIED: derivation; the toy
+   certificate with `θ = 409`, `(t₁, t₂) = (∞, −1/15)`, is of this kind)
+4. **The surface.** `w² = θ g_β(t₁) g_β(t₂)` is a double cover of `ℙ¹ × ℙ¹` branched along a
    curve of bidegree `(4, 4)`: a K3 surface of Kummer type. Its rational points correspond to
    squareclasses `d` such that two quadratic twists `y² = d g_β(t)` and `y² = dθ g_β(t)` of a
    genus-one curve both have points, which are 2-coverings of `E_d` and `E_{dθ}`. PC is
