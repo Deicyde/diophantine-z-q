@@ -47,10 +47,10 @@ unproved descent lemma.
    - Fixed multiplier, trivial `n'` forbidden: 109/120 at once; 8 of the 11 failures were
      retried and solved with 3–6 auxiliary primes up to `10⁶`.
    - Hardest case: a fixed multiplier `m = 1` with `θ` built to have 4–9 small primes.
-     Structured searches (beam, two-phase, annealing) failed there. Plain random sampling of
-     2–10 primes up to `10⁶` solved every case examined (SMOOTH_FLEET), usually with two
-     auxiliary primes after 10–15,000 trials. Suitable `n'` are rare (about `2^{−ω(θ)}`) but
-     exist.
+     Structured searches (beam, annealing) failed on most of them. Plain random sampling of 2–10
+     primes up to `10⁶` (for one input, the two-phase search) solved all 10 with 2–4 auxiliary
+     primes, after 11 to about 60,000 filtered trials. Suitable `n'` are rare (as rare as 1 in
+     60,000) but exist.
    - No invariant obstruction was found: quartic residue symbols, `θ mod 16` and the `n' = 1`
      case were tested.
 6. **Other changes** (VERIFIED by grep).
