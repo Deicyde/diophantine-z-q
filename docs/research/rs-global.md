@@ -74,9 +74,9 @@ Notation.
 - **A new contact set.** The Shimura-curve mechanism of H also works with five contacts: the
   degree-6 map `J₅(u) = 4(u − 1)²/(u³(2 − u)³)` pulls the orbifold `ℙ¹_j(4, 6, 2)` back to `ℙ¹_u`
   with cone points exactly at the five consecutive integers `−1, 0, 1, 2, 3` (VERIFIED by exact
-  computation). The five rational cone points are unique: it is the only rational solution among
-  the four possible ramification passports. Transferring the proof of H to it is SPECULATIVE, and
-  it would not lower the depth of any input.
+  computation). Up to rational Möbius maps, it is the only degree-6 map of this kind whose cone
+  points are all rational. Transferring the proof of H to it is SPECULATIVE, and it would not lower
+  the depth of any input.
 - **Routes rejected, with reasons** (§4): the 3-adic identification of the 10/11 manuscript,
   quadratic-form (Poonen, Koenigsmann) architectures, an ineffective height bound, a witness shift
   in multiplication, more places or a larger shift, a different label curve, and arithmetic on
