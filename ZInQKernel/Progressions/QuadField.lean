@@ -5,3 +5,4 @@ the quadratic field `ℚ(√d)`.
 import ZInQKernel.Progressions.QuadField.Basic
 import ZInQKernel.Progressions.QuadField.Signature
 import ZInQKernel.Progressions.QuadField.Torsion
+import ZInQKernel.Progressions.QuadField.Discriminant
