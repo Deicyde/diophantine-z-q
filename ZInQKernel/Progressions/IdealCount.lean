@@ -1,5 +1,6 @@
 import ZInQKernel.Progressions.IdealCount.Basic
 import ZInQKernel.Progressions.IdealCount.PrimePower
+import ZInQKernel.Progressions.IdealCount.Splitting
 
 /-!
 # Ideal counts in number fields (plan step 3.3)
