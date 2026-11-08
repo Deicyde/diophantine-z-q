@@ -7,13 +7,14 @@ import ZInQKernel.Compiler.Translation.NaturalCode
 
 Blueprint: `multiplication/multiplication-template.md`.
 
-Assume the six-contact estimate, pole completeness and the twenty-two-prime pattern. For the
+Assume the six-contact estimate, pole completeness and the slope representation SR
+(`SlopeRepresentation`, a consequence of 22P and of 22P₂). For the
 constructors of the specification and the fixed constants `c_*`, `ℓ`, `T`, the multiplication
 template accepts `(Y₁, Y₂, Y₃) ∈ (ℚ⁵)³` exactly when `(Y₁, Y₂, Y₃) = (ι(a), ι(b), ι(ab))` for some
 `a, b ∈ ℤ` (`multiplication_exact`), and then `a` and `b` are unique
 (`multiplication_exact_unique`, `multiplication_existsUnique`). This is input M of the assembly.
 
-Soundness is `multiply_sound` (from H) and completeness `multiply_complete` (from PC and 22P).
+Soundness is `multiply_sound` (from H) and completeness `multiply_complete` (from PC and SR).
 -/
 
 namespace ZInQ.Mult
@@ -23,7 +24,7 @@ open Syntax
 /-- **Correctness of the multiplication template** (input M): for all `Y₁, Y₂, Y₃ ∈ ℚ⁵`,
 `Rel_multiply(Y₁, Y₂, Y₃) ⟺ ∃ a b ∈ ℤ, (Y₁, Y₂, Y₃) = (ι(a), ι(b), ι(ab))`. -/
 theorem multiplication_exact (hH : SixContactEstimate) (hPC : PoleCompleteness)
-    (h22 : FixedPrimePattern) :
+    (h22 : SlopeRepresentation) :
     Translation.MultiplicationExact Syntax.specConstructors FixedConst.cstar.value
       FixedConst.ell.value FixedConst.T.value := by
   intro Y₁ Y₂ Y₃
@@ -43,7 +44,7 @@ theorem multiplication_exact_unique {Y₁ Y₂ Y₃ : Fin 5 → ℚ} {a b a' b' 
 /-- Input M with uniqueness: `Rel_multiply(Y₁, Y₂, Y₃)` holds exactly when there are unique
 `a, b ∈ ℤ` with `(Y₁, Y₂, Y₃) = (ι(a), ι(b), ι(ab))`. -/
 theorem multiplication_existsUnique (hH : SixContactEstimate) (hPC : PoleCompleteness)
-    (h22 : FixedPrimePattern) (Y₁ Y₂ Y₃ : Fin 5 → ℚ) :
+    (h22 : SlopeRepresentation) (Y₁ Y₂ Y₃ : Fin 5 → ℚ) :
     (multiplyTemplate Syntax.specConstructors FixedConst.cstar.value FixedConst.ell.value
         FixedConst.T.value).Rel (Fin.append (Fin.append Y₁ Y₂) Y₃) ↔
       ∃! ab : ℤ × ℤ, Y₁ = iota ab.1 ∧ Y₂ = iota ab.2 ∧ Y₃ = iota (ab.1 * ab.2) := by

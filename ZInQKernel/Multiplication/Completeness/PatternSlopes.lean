@@ -9,8 +9,12 @@ Blueprint: `multiplication/completeness/pattern-slopes.md`.
 Hypothesis 22P writes every integer `A` as `t₁ + t₂ + t₃` with `t_j = u_j / v`, where `v` and
 all `u_j - b v` (`b ∈ 𝒞 ∪ {1}`) are pattern values `ε k p`. Each slope then satisfies the four
 conditions `GoodSlope B₀ t`: it avoids `𝒞 ∪ {1}`, has bounded valuations at the old primes `S_b`,
-its odd contact primes outside `S_b` are good pattern primes above `B₀` with contact valuation
-one, and there are at most six of them.
+its odd contact primes outside `S_b` are good slope primes (`GoodSlopePrime`) above `B₀` with
+contact valuation one, and there are at most six of them.
+
+`SlopeRepresentation` is what the rest of the completeness proof consumes: every integer is a sum
+of three slopes satisfying `GoodSlope 0`. It follows from 22P
+(`slopeRepresentation_of_fixedPrimePattern`) and from the two-slope pattern 22P₂ (`TwoSlope.lean`).
 -/
 
 namespace ZInQ.Mult
@@ -25,7 +29,7 @@ structure GoodSlope (B₀ : ℝ) (t : ℚ) : Prop where
   old : ∀ p ∈ S_b, |padicValRat p (t - 1)| ≤ Bp p ∧
     |padicValRat p (contactPoly t / (t - 1) ^ 8)| ≤ 8 * Bp p
   contact : ∀ p : ℕ, p ∉ S_b → IsOddContactPrime t p →
-    B₀ < p ∧ GoodPatternPrime p ∧
+    B₀ < p ∧ GoodSlopePrime p ∧
       ∀ c ∈ contactSet, 0 < padicValRat p (t - c) → padicValRat p (t - c) = 1
   few : ∃ P : Finset ℕ, P.card ≤ 6 ∧ ∀ p, p ∈ P ↔ p ∉ S_b ∧ IsOddContactPrime t p
 
@@ -218,7 +222,7 @@ theorem goodSlope_of_values (B₀ : ℝ) (u v : ℤ) (pf : ℤ → ℕ)
       linarith [(Int.natCast_nonneg (padicValInt q v) : (0 : ℤ) ≤ _)]
     obtain ⟨hqe, -⟩ := (hx b (hc b hb)).2.2.1 q hq hqS hne
     rw [hqe]
-    refine ⟨(hx b (hc b hb)).2.2.2.1, (hx b (hc b hb)).2.2.2.2, ?_⟩
+    refine ⟨(hx b (hc b hb)).2.2.2.1, (hx b (hc b hb)).2.2.2.2.goodSlopePrime, ?_⟩
     rw [← hqe]
     intro c' hc' hpos'
     obtain ⟨b', hb', rfl⟩ := mem_contactSet_iff.mp hc'
@@ -303,5 +307,15 @@ theorem pattern_slopes (h22 : FixedPrimePattern) (A : ℤ) (B₀ : ℝ) :
     rcases hx with rfl | ⟨b, hb, rfl⟩
     · exact mem_patternValues_v A u₁ u₂ x
     · exact mem_patternValues_u A u₁ u₂ v hu hb
+
+/-- **(SR) Slope representation**: every integer is a sum of three rationals satisfying the four
+conditions `GoodSlope 0`. This is exactly what completeness uses of the prime-pattern
+hypothesis. -/
+def SlopeRepresentation : Prop :=
+  ∀ A : ℤ, ∃ t : Fin 3 → ℚ, ∑ j, t j = A ∧ ∀ j, GoodSlope 0 (t j)
+
+/-- Hypothesis 22P gives the slope representation (`pattern_slopes` with `B₀ = 0`). -/
+theorem slopeRepresentation_of_fixedPrimePattern (h22 : FixedPrimePattern) : SlopeRepresentation :=
+  fun A => pattern_slopes h22 A 0
 
 end ZInQ.Mult

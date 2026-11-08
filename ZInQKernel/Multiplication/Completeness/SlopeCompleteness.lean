@@ -45,17 +45,17 @@ theorem one_le_pointCount (p : ℕ) (a : ZMod p) : 1 ≤ pointCount p a := by
   unfold pointCount; omega
 
 /-- For every prime `p` there is an admissible shift `h` (`h ≠ 0`, `h ≠ c_*`, `M₀ ∣ h`), adapted to
-the two reduced group orders at `p` when `p` is a good pattern prime. -/
+the two reduced group orders at `p` when `p` is a good slope prime. -/
 theorem exists_shift (p : ℕ) :
     ∃ h : ℤ, h ≠ 0 ∧ h ≠ Syntax.cstar ∧ (Syntax.M0 : ℤ) ∣ h ∧
-      (GoodPatternPrime p → ∃ (r : ZMod p) (_ : r ^ 2 = 2),
+      (GoodSlopePrime p → ∃ (r : ZMod p) (_ : r ^ 2 = 2),
         (75 - 53 * r : ZMod p) ≠ 0 ∧ (75 + 53 * r : ZMod p) ≠ 0 ∧
         (pointCount p (-(75 - 53 * r) ^ 2) : ℤ) ∣ h ∧
         (pointCount p (-(75 + 53 * r) ^ 2) : ℤ) ∣ h - Syntax.cstar) := by
   have hcs : (Syntax.cstar : ℤ) = 4 * Syntax.M0 := by rw [Syntax.cstar_eq]; push_cast; ring
   have hM0 := one_le_M0_spec
-  by_cases hgood : GoodPatternPrime p
-  · obtain ⟨-, -, r, hr, h1, h2, hgcd, -⟩ := hgood
+  by_cases hgood : GoodSlopePrime p
+  · obtain ⟨-, r, hr, h1, h2, hgcd⟩ := hgood
     obtain ⟨h, h0, hc, hM, hd1, hd2⟩ := shift_choice' Syntax.M0 _ _ hM0 (one_le_pointCount _ _)
       (one_le_pointCount _ _) hgcd
     refine ⟨h, h0, by rw [hcs]; exact hc, hM, fun _ => ⟨r, hr, h1, h2, hd1, by rw [hcs]; exact hd2⟩⟩

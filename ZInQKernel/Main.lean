@@ -18,6 +18,11 @@ boundary is the hypothesis list of this theorem. The manuscript's catalogue boun
 `exists_bounded_integer_polynomial_defining_integers_of_catalogueBound` takes CAT. The
 Mordell–Weil theorem for the generator curve, a hypothesis in earlier versions, is the theorem
 `mordellWeilE`.
+
+The hypothesis 22P is used only through the slope representation `Mult.SlopeRepresentation`.
+The two-slope pattern 22P₂ (`TwoSlopePattern`) also gives it, so the main theorem holds with 22P₂
+in place of 22P (`exists_bounded_integer_polynomial_defining_integers_of_twoSlopePattern`); 22P₂
+is a different prime pattern, not a consequence of 22P.
 -/
 
 namespace ZInQ
@@ -32,7 +37,7 @@ theorem exists_bounded_integer_polynomial_defining_integers_of_addMulBound
     (hB : Compiler.NodeCheck.HaltingAddMulBound) (hH : SixContactEstimate)
     (hPC : PoleCompleteness) (h22 : FixedPrimePattern) (hCAT : CatalogueBound8) :
     FrozenTarget :=
-  Assembly.assembly hB hH hPC h22 hCAT
+  Assembly.assembly hB hH hPC (Mult.slopeRepresentation_of_fixedPrimePattern h22) hCAT
 
 /-- **Main theorem, given the node statistics of the universal halting circuit** (the named
 finite check `HaltingNodeCheck`, a finite-computation input of milestone 1). -/
@@ -51,6 +56,16 @@ theorem exists_bounded_integer_polynomial_defining_integers_of
     (h22 : FixedPrimePattern) (hCAT : CatalogueBound8) : FrozenTarget :=
   exists_bounded_integer_polynomial_defining_integers_of_addMulBound
     Compiler.NodeCheck.haltingAddMulBound hH hPC h22 hCAT
+
+/-- **Main theorem, under the two-slope pattern 22P₂.** Under hypotheses H, PC, 22P₂ and CAT₈,
+there is an integer polynomial in `292890231905` variables, of degree below `2↑↑7` and with
+coefficients below `2↑↑8`, whose rational zero projection to the first variable is exactly `ℤ`.
+The polynomial is the same `P_*` as in the main theorem. -/
+theorem exists_bounded_integer_polynomial_defining_integers_of_twoSlopePattern
+    (hH : SixContactEstimate) (hPC : PoleCompleteness)
+    (h22 : TwoSlopePattern) (hCAT : CatalogueBound8) : FrozenTarget :=
+  Assembly.assembly Compiler.NodeCheck.haltingAddMulBound hH hPC
+    (Mult.slopeRepresentation_of_twoSlopePattern h22) hCAT
 
 /-- **Main theorem, under the manuscript's catalogue bound CAT** (cutoff `2^(W³)`), which
 implies CAT₈. -/
