@@ -645,7 +645,7 @@ might work, the main obstacle, a first test with a success criterion, and what i
     pullback), 906–964 (back from `j` to `u`, including the rational root theorem for
     `J₅(u) = a/b`) and the support conditions at `p > 324`.
   - With an odd number of finite contacts, the slope normalization `R₀ = ηF(t)/(t − 1)⁸`
-    (line 1177) has odd degree. Odd poles of `t` would then become tested primes, and the
+    (line 1179) has odd degree. Odd poles of `t` would then become tested primes, and the
     denominator `v` would join the pattern as a sixth form, as in the 10/11 pattern, where
     `L_∞ = V` (10/11 (2.11)).
   - The depth of K2 and K3 is unchanged. Two blocks of a progression whose common difference
@@ -749,3 +749,86 @@ might work, the main obstacle, a first test with a success criterion, and what i
   from the labels. Before the identification is complete, no scalar can be trusted to be an
   integer.
 - **Chance.** Nil.
+
+## 5. Ranking, order of attack, and recommendation
+
+### 5.1 What can and cannot be removed
+
+The CAT phase worked because CAT's depth was illusory: the proof used a bound with enormous room,
+and a textbook theorem covers it. For H, PC and 22P this note and the companion notes find the
+opposite.
+
+- Each is forced in kind by its role (§3.4).
+- The slack lies in constants, shapes and quantifier structure: one instance instead of a family,
+  an open set of witnesses instead of all inputs, 12 forms instead of 22. It does not lie in the
+  kind of theorem needed.
+
+After the cheapest possible changes, the trust boundary would consist of three statements:
+
+| Kind | Best available form | Its deep source | Could Lean prove it? |
+| --- | --- | --- | --- |
+| K2 (soundness) | H_min, one inequality | modularity of QM abelian surfaces (Pan), Faltings, effective Arakelov theory | no: modularity is far beyond Mathlib |
+| K1 (completeness) | after Route K: "a congruent twist with minimal `Sel₂` has a point with abscissa class `β`" | Kriz (with Poonen–Stoll) | the hypothesis no; the descent that reduces PC to it, yes |
+| K3 (completeness) | 22P₂, a 12-point homothetic pattern in the good primes | Green–Tao–Ziegler | no: not even Green–Tao 2008 is formalized, though Mathlib has Roth's theorem via corners |
+
+### 5.2 Ranking
+
+| Rank | Step | Gain | Lean feasibility | Chance |
+| --- | --- | --- | --- | --- |
+| 1 | **A2, Route K on paper**: the descent lemma for `C_n`, `C_{nθ}` and an audit of Kriz's Theorem 10.13 | replaces RC (39 records, about 8,000 unrefereed lines) by one expert theorem and an elementary descent | the descent is formalizable (Dirichlet and reciprocity are in Mathlib, and the project's own 2-isogeny descent over `K₀` gives patterns to reuse) | medium |
+| 2 | **A1, minimal interface** in Lean (H_min, 22P₂; the gcd relaxation) | smaller and exact trust boundary; the precise target for every later proof | small refactors | high |
+| 3 | **Route L** [rs-pole §4.5], after rank 1: the descent in Lean, with PC replaced by the Kriz-form hypothesis | PC's elementary half becomes Lean; the hypothesis becomes a standard arithmetic statement | large but elementary | medium, given rank 1 |
+| 4 | **H's CM branch** [rs-height R5.3]: show that rational `u` never gives a CM fibre | removes 3–4 records from H | none (paper and computation) | medium |
+| 5 | **A3, five contacts** | one test group per slope, a 10-form pattern, `J` of degree 6 | a full redesign | low payoff |
+| 6 | **22P below GTZ** [rs-pattern R4]: a literature search for progressions in dense subsets of the primes with restricted common difference | would remove the inverse theorem | none | low |
+| — | A4–A10, and removing H or 22P outright | — | — | negligible |
+
+### 5.3 The order of attack after CAT
+
+1. **Do A1 now.** It is cheap and certain, and it fixes the exact statements later work must
+   prove. H_min becomes admissible as soon as the effective Dirichlet theorem proves `Hmax_lt_D`
+   and `cstar_lt_D` unconditionally.
+2. **Attack PC next, through Route K.** PC is where the payoff is largest, for three reasons.
+   - Its present proof is the largest unrefereed component: two thirds of the audit's external
+     applications serve it (§3.1).
+   - It has a published-quality replacement that fits exactly: Kriz's theorem gives the
+     2-converse for every congruent twist, with no congruence condition.
+   - What remains after the replacement is elementary and needs no effectivity, so it can be
+     formalized with what Mathlib already has.
+3. **Treat H as a permanent hypothesis**, and reduce its leaves on paper (the CM branch,
+   citation swaps). K2 is forced in every parity architecture (C1), and its only known source is
+   modularity (C7).
+4. **Treat 22P as a permanent hypothesis** in the form 22P₂. K3 is forced by the fixed-shift
+   test (F4), and no mechanism for multiplication without auxiliary arithmetic witnesses can exist
+   (C5).
+
+### 5.4 Recommendation
+
+**The single most promising next step** is the first half of Route K: a written proof of the
+uniform descent lemma for congruent number curves, together with a line-by-line check of the
+hypotheses of Kriz's Theorem 10.13.
+
+**Success criterion.** A complete written proof of the following statement. For every admissible
+input `B` (square reduced denominator, `0 < B < 1/2`, `v_p(B) ≥ 4` for `p ∈ S₀`) there are a
+positive divisor `m` of 2730 and a squarefree `n` with `β = sqf(mB) | n`, such that:
+
+- `C_n : y² = x³ − n²x` and `C_{nθ}` (where `θ = sqf(m(m − B))`) both have `dim Sel₂ = 3`;
+- both contain the Kummer class with abscissa class `β`.
+
+The proof must also be confirmed against `scratch/rs-pole/selmer_descent.py` on 30 fresh random
+admissible inputs, and Kriz's Theorem 10.13 must be found to apply to every `C_d` with no further
+hypothesis. Then PC for the modified pole polynomial follows from Kriz's theorem, the corank lemma
+(line 1072) and rescaling.
+
+**Chance: medium.**
+
+- For: the input theorem exists and fits. The local conditions for `C_ℓ` are simpler than for
+  `E_ℓ`. Thirty of thirty samples succeeded, most with no auxiliary prime [rs-pole §4.1].
+- Against:
+  - The uniform lemma must control the Rédei–Monsky conditions for `n` and `nθ` at once,
+    including the 2-adic bookkeeping. The manuscript needed a careful matrix argument for the
+    analogous step (lines 1035–1061).
+  - Kriz's theorem is, as far as was checked, a preprint whose proof handles small cases by
+    database lookup.
+  - The change makes the polynomial differ from the manuscript's literal `P_*`. That is a
+    decision for the project lead, although `FrozenTarget` allows it.
