@@ -15,8 +15,8 @@ majorant for the constructed library with the constructors of the specification
    Lean development the constants need no hypothesis of the majorant;
 2. the fixed value `ℓ` has `1 ≤ ℓ ≤ T`;
 3. every psi index `n` has `|n| + 1 ≤ T + 1`: the indices are `ε`, `ε ± 1`, `2ε` for
-   `ε ∈ {c_*, 4, 2, 3, c₃, 1399}`, and `c_* < 2^(2^2059)`, `|c₃| < 2^(2^24)` give
-   `|n| + 1 ≤ 2^(2^2060) < D ≤ T`;
+   `ε ∈ {c_*, 4, 2, 3, c₃, 1399}`, and `c_* < 2^(2^4617)`, `|c₃| < 2^(2^24)` give
+   `|n| + 1 ≤ 2^(2^4618) < D ≤ T`;
 4. the guard has cutoff `T`, `0 ≤ T ≤ B - 1`;
 
 and the constructors of the specification satisfy the uniform bounds at `T + 1` (size-norms'
@@ -83,14 +83,14 @@ theorem two_mul_add_two_le {a X : ℕ} (h : a < X) : 2 * a + 2 ≤ 2 * X := by o
 /-- **The cutoff is an admissible bound.** Under the catalogue bound and for a program literal
 `|c₃| < 2^(2^24)`, `B = T + 1` satisfies the hypotheses of the template majorant for the
 constructed library with the constructors of the specification. -/
-theorem admissible_cutoff (hCAT : CatalogueBound) {c3 : ℤ} (hc3 : c3.natAbs < 2 ^ 2 ^ 24) :
+theorem admissible_cutoff (hCAT : CatalogueBound8) {c3 : ℤ} (hc3 : c3.natAbs < 2 ^ 2 ^ 24) :
     LibraryAdmissible (Syntax.T + 1) specConstructors FixedConst.cstar.value FixedConst.ell.value
       FixedConst.T.value c3 := by
   have hT := two_pow_twenty_le_T_add_one
   refine ⟨hT, specConstructors_bounds hT, ?_, ?_, ?_⟩
   · intro n hn
     obtain ⟨ε, hε, hn⟩ := List.mem_flatMap.1 hn
-    have hεX : ε.natAbs < 2 ^ 2 ^ 2059 := by
+    have hεX : ε.natAbs < 2 ^ 2 ^ 4617 := by
       simp only [integerConstants, List.mem_cons, List.not_mem_nil, or_false] at hε
       rcases hε with rfl | rfl | rfl | rfl | rfl | rfl
       · rewrite [FixedConst.value_cstar, Int.natAbs_natCast]; exact cstar_lt hCAT
@@ -101,8 +101,8 @@ theorem admissible_cutoff (hCAT : CatalogueBound) {c3 : ℤ} (hc3 : c3.natAbs < 
       · exact (show (1399 : ℤ).natAbs < 2 ^ 2 ^ 4 by norm_num).trans_le
           (two_pow_two_pow_mono (by norm_num))
     calc n.natAbs + 1 ≤ 2 * ε.natAbs + 2 := natAbs_psi_le hn
-      _ ≤ 2 * 2 ^ 2 ^ 2059 := two_mul_add_two_le hεX
-      _ ≤ 2 ^ 2 ^ (2059 + 1) := two_mul_two_pow_two_pow_le 2059
+      _ ≤ 2 * 2 ^ 2 ^ 4617 := two_mul_add_two_le hεX
+      _ ≤ 2 ^ 2 ^ (4617 + 1) := two_mul_two_pow_two_pow_le 4617
       _ ≤ Syntax.T + 1 := (two_pow_two_pow_lt_T (by norm_num)).le.trans (Nat.le_add_right _ 1)
   · rewrite [FixedConst.value_ell]
     exact fixed_cond_of ((ell_lt hCAT).trans (two_pow_two_pow_lt_T (by norm_num))).le

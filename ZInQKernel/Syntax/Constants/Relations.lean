@@ -74,10 +74,10 @@ theorem lt_Hmax : 324 < Hmax := by
 
 theorem Hmax_pos : 0 < Hmax := (Nat.zero_lt_succ 323).trans lt_Hmax
 
-/-- Hypothesis CAT gives `H_max < 2^(W³)`. -/
-theorem Hmax_lt_of_catalogueBound (hCAT : CatalogueBound) : Hmax < 2 ^ W ^ 3 := by
+/-- Hypothesis CAT₈ gives `H_max < 2^(W⁸)`. -/
+theorem Hmax_lt_of_catalogueBound8 (hCAT : CatalogueBound8) : Hmax < 2 ^ W ^ 8 := by
   rw [Hmax_eq_catalogueModulus, W_eq_catalogueModulus]
-  exact catalogueMax_lt_of_catalogueBound hCAT
+  exact catalogueMax_lt_of_catalogueBound8 hCAT
 
 theorem coprime_Ps_Hcat : Nat.Coprime Ps Hcat := by
   rw [Ps_eq, Hcat_eq]; exact coprime_primorial_catalogueProduct _ _ _
