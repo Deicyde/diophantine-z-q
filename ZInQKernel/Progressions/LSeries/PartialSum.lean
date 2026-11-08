@@ -47,7 +47,7 @@ theorem norm_sum_div_sub_LFunction_one_le {χ : DirichletCharacter ℂ q} (hχ :
   rw [← h1]
   refine le_of_tendsto ht (eventually_nhdsWithin_of_forall fun σ hσ ↦ ?_)
   exact (norm_LFunction_sub_sum_le hχ hσ N).trans
-    (mul_le_mul_of_nonneg_left (rpow_neg_le_inv_succ (le_of_lt hσ) N) (Nat.cast_nonneg q))
+    (mul_le_mul_of_nonneg_left (natSucc_rpow_neg_le_inv (le_of_lt hσ) N) (Nat.cast_nonneg q))
 
 /-- Plan step 1: `‖∑_{0<n≤x} χ(n)/n − L(1,χ)‖ ≤ 2q/x` for real `x ≥ 1`. -/
 theorem norm_partialSum_sub_LFunction_one_le {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1)
@@ -69,7 +69,7 @@ theorem norm_partialSum_sub_LFunction_one_le' {χ : DirichletCharacter ℂ q} (h
   rcases le_or_gt 1 x with h1 | h1
   · exact norm_partialSum_sub_LFunction_one_le hχ h1
   · rw [Nat.floor_eq_zero.mpr h1, Finset.Ioc_self, Finset.sum_empty, zero_sub, norm_neg]
-    have hq : (2 : ℝ) ≤ q := by exact_mod_cast two_le_of_ne_one hχ
+    have hq : (2 : ℝ) ≤ q := by exact_mod_cast two_le_modulus_of_char_ne_one hχ
     have hlog : Real.log q ≤ q - 1 := Real.log_le_sub_one_of_pos (by linarith)
     refine (norm_LFunction_one_le hχ).trans ?_
     rw [le_div_iff₀ hx]
@@ -81,7 +81,7 @@ theorem norm_sum_log_div_le {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1) (N 
   have e : ∀ s : Finset ℕ, ∑ n ∈ s, χ n * (Real.log n : ℂ) / (n : ℂ) =
       ∑ n ∈ s, χ n * (Real.log n : ℂ) / (n : ℂ) ^ ((1 : ℝ) : ℂ) := by
     intro s; simp only [Complex.ofReal_one, Complex.cpow_one]
-  have hq2 := two_le_of_ne_one hχ
+  have hq2 := two_le_modulus_of_char_ne_one hχ
   have hq : (2 : ℝ) ≤ q := by exact_mod_cast hq2
   have hlogq : 0 ≤ Real.log q := Real.log_nonneg (by linarith)
   have head : ∀ K ≤ q, ‖∑ n ∈ Ioc 0 K, χ n * (Real.log n : ℂ) / (n : ℂ)‖ ≤

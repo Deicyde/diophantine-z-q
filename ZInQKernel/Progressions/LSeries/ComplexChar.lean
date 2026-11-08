@@ -19,7 +19,7 @@ namespace ZInQ.Progressions
 variable {q : ℕ}
 
 /-- `∑_{n ≥ 1} n^(-(1+x)) ≤ 1 + 1/x` for `x > 0`. -/
-theorem tsum_one_div_rpow_le {x : ℝ} (hx : 0 < x) :
+theorem tsum_one_div_succ_rpow_le_one_add_inv {x : ℝ} (hx : 0 < x) :
     ∑' n : ℕ, 1 / ((n : ℝ) + 1) ^ (1 + x) ≤ 1 + 1 / x := by
   have hs : (1 : ℝ) < 1 + x := by linarith
   have h := ZetaAsymptotics.zeta_limit_aux1 hs
@@ -53,7 +53,7 @@ theorem norm_LSeries_one_le {x : ℝ} (hx : 0 < x) :
         rw [hnorm.tsum_eq_zero_add, LSeries.term_zero, norm_zero, zero_add]
     _ ≤ ∑' n : ℕ, 1 / ((n : ℝ) + 1) ^ (1 + x) :=
         ((summable_nat_add_iff 1).mpr hnorm).tsum_le_tsum hle hg
-    _ ≤ 1 + 1 / x := tsum_one_div_rpow_le hx
+    _ ≤ 1 + 1 / x := tsum_one_div_succ_rpow_le_one_add_inv hx
 
 variable [NeZero q]
 

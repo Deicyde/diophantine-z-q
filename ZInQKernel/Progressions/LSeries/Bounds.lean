@@ -20,14 +20,14 @@ namespace ZInQ.Progressions
 variable {q : ℕ} [NeZero q]
 
 /-- A nontrivial character has modulus at least 2. -/
-theorem two_le_of_ne_one {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1) : 2 ≤ q := by
+theorem two_le_modulus_of_char_ne_one {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1) : 2 ≤ q := by
   by_contra h
   have hq : q = 1 := by have := NeZero.ne q; omega
   exact hχ (DirichletCharacter.level_one' χ hq)
 
 omit [NeZero q] in
 /-- `∑_{0 < n ≤ N} 1/n ≤ 1 + log N`, in the spelling used here. -/
-theorem sum_Ioc_inv_le_one_add_log (N : ℕ) :
+theorem sum_Ioc_natCast_inv_le_one_add_log (N : ℕ) :
     ∑ n ∈ Ioc 0 N, ((n : ℝ))⁻¹ ≤ 1 + Real.log N := by
   have h := harmonic_le_one_add_log N
   rw [harmonic_eq_sum_Icc] at h
@@ -39,7 +39,7 @@ omit [NeZero q] in
 /-- Head of the L-series: `∑_{0 < n ≤ N} ‖χ(n)/n^σ‖ ≤ 1 + log N` for `σ ≥ 1`. -/
 theorem sum_norm_char_div_cpow_le (χ : DirichletCharacter ℂ q) {σ : ℝ} (hσ : 1 ≤ σ) (N : ℕ) :
     ∑ n ∈ Ioc 0 N, ‖χ n / (n : ℂ) ^ (σ : ℂ)‖ ≤ 1 + Real.log N := by
-  refine le_trans (Finset.sum_le_sum fun n hn ↦ ?_) (sum_Ioc_inv_le_one_add_log N)
+  refine le_trans (Finset.sum_le_sum fun n hn ↦ ?_) (sum_Ioc_natCast_inv_le_one_add_log N)
   have hn1 : (1 : ℝ) ≤ n := by exact_mod_cast (Finset.mem_Ioc.mp hn).1
   rw [char_div_cpow_eq, norm_mul, Complex.norm_real, Real.norm_eq_abs,
     abs_of_nonneg (Real.rpow_nonneg (Nat.cast_nonneg _) _), ← Real.rpow_neg_one]
@@ -58,7 +58,7 @@ theorem sum_norm_char_log_div_cpow_le (χ : DirichletCharacter ℂ q) {σ : ℝ}
   have hlogN : 0 ≤ Real.log N := Real.log_natCast_nonneg N
   refine le_trans (Finset.sum_le_sum fun n hn ↦ ?_)
     ((Finset.mul_sum _ _ _).symm.le.trans
-      (mul_le_mul_of_nonneg_left (sum_Ioc_inv_le_one_add_log N) hlogN))
+      (mul_le_mul_of_nonneg_left (sum_Ioc_natCast_inv_le_one_add_log N) hlogN))
   have hn := Finset.mem_Ioc.mp hn
   have hn1 : (1 : ℝ) ≤ n := by exact_mod_cast hn.1
   have hnN : (n : ℝ) ≤ N := by exact_mod_cast hn.2
@@ -84,7 +84,7 @@ theorem norm_LFunction_le_of_one_lt {χ : DirichletCharacter ℂ q} (hχ : χ �
     (norm_sum_le _ _).trans (sum_norm_char_div_cpow_le χ hσ.le q)
   have hq : (0 : ℝ) ≤ q := Nat.cast_nonneg q
   have h1 : (q : ℝ) * ((q + 1 : ℕ) : ℝ) ^ (-σ) ≤ 1 := by
-    refine (mul_le_mul_of_nonneg_left (rpow_neg_le_inv_succ hσ.le q) hq).trans ?_
+    refine (mul_le_mul_of_nonneg_left (natSucc_rpow_neg_le_inv hσ.le q) hq).trans ?_
     rw [← div_eq_mul_inv, div_le_one (by positivity)]
     push_cast; linarith
   calc ‖DirichletCharacter.LFunction χ σ‖
@@ -98,7 +98,7 @@ theorem continuous_LFunction_ofReal {χ : DirichletCharacter ℂ q} (hχ : χ �
   (DirichletCharacter.differentiable_LFunction hχ).continuous.comp Complex.continuous_ofReal
 
 /-- A closed bound on `L(σ,χ)` for `σ > 1` passes to `σ = 1` by continuity. -/
-theorem le_of_forall_one_lt {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1) {g : ℂ → ℝ}
+theorem LFunction_one_le_of_forall_one_lt {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1) {g : ℂ → ℝ}
     (hg : Continuous g) {C : ℝ}
     (h : ∀ σ : ℝ, 1 < σ → g (DirichletCharacter.LFunction χ σ) ≤ C) :
     g (DirichletCharacter.LFunction χ 1) ≤ C := by
@@ -114,7 +114,7 @@ theorem norm_LFunction_le {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1) {σ :
   rcases hσ.lt_or_eq with hσ | rfl
   · exact norm_LFunction_le_of_one_lt hχ hσ
   · rw [Complex.ofReal_one]
-    exact le_of_forall_one_lt hχ continuous_norm fun σ hσ ↦ norm_LFunction_le_of_one_lt hχ hσ
+    exact LFunction_one_le_of_forall_one_lt hχ continuous_norm fun σ hσ ↦ norm_LFunction_le_of_one_lt hχ hσ
 
 /-- Plan step 1: `‖L(1,χ)‖ ≤ M`. -/
 theorem norm_LFunction_one_le {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1) :
@@ -144,7 +144,7 @@ theorem mul_log_succ_rpow_neg_le {σ : ℝ} (hσ : 1 ≤ σ) (hq2 : 2 ≤ q) :
   calc (q : ℝ) * (Real.log ((q + 1 : ℕ) : ℝ) * ((q + 1 : ℕ) : ℝ) ^ (-σ))
       ≤ q * (Real.log ((q + 1 : ℕ) : ℝ) * ((q + 1 : ℕ) : ℝ)⁻¹) :=
         mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left
-          (rpow_neg_le_inv_succ hσ q) hl) (by positivity)
+          (natSucc_rpow_neg_le_inv hσ q) hl) (by positivity)
     _ ≤ Real.log ((q + 1 : ℕ) : ℝ) := by
         rw [← mul_assoc, mul_comm (q : ℝ), mul_assoc]
         refine mul_le_of_le_one_right hl ?_
@@ -157,7 +157,7 @@ theorem mul_log_succ_rpow_neg_le {σ : ℝ} (hσ : 1 ≤ σ) (hq2 : 2 ≤ q) :
 theorem norm_deriv_LFunction_le {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1) {σ : ℝ}
     (hσ : 1 < σ) : ‖deriv (DirichletCharacter.LFunction χ) σ‖ ≤ (Real.log q + 3) ^ 2 := by
   rw [deriv_LFunction_eq χ hσ, norm_neg]
-  have hq2 := two_le_of_ne_one hχ
+  have hq2 := two_le_modulus_of_char_ne_one hχ
   set P := ∑ n ∈ Ioc 0 q, χ n * (Real.log n : ℂ) / (n : ℂ) ^ (σ : ℂ)
   have htail := norm_LSeries_logMul_sub_sum_le hχ hσ hq2
   have hhead : ‖P‖ ≤ Real.log q * (1 + Real.log q) :=

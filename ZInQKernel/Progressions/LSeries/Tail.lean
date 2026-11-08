@@ -21,7 +21,7 @@ variable {q : ℕ} [NeZero q]
 
 /-- If `a 0 = 0` and `a` has sum `S`, a uniform bound on the finite sums `∑_{N < n ≤ K} a n`
 bounds the tail `S - ∑_{0 < n ≤ N} a n`. -/
-theorem norm_hasSum_sub_sum_Ioc_le {a : ℕ → ℂ} {S : ℂ} (h : HasSum a S) (ha : a 0 = 0) (N : ℕ)
+theorem norm_hasSum_sub_sum_Ioc_le_of_forall {a : ℕ → ℂ} {S : ℂ} (h : HasSum a S) (ha : a 0 = 0) (N : ℕ)
     {C : ℝ} (hC : ∀ K, ‖∑ n ∈ Ioc N K, a n‖ ≤ C) : ‖S - ∑ n ∈ Ioc 0 N, a n‖ ≤ C := by
   have e : ∀ K, ∑ n ∈ Ioc 0 K, a n = ∑ n ∈ range (K + 1), a n := by
     intro K
@@ -102,7 +102,7 @@ theorem norm_sum_Ioc_char_log_div_cpow_le {χ : DirichletCharacter ℂ q} (hχ :
     exact log_mul_rpow_neg_succ_le hσ (by omega)
 
 /-- `(N+1)^(-σ) ≤ 1/(N+1)` for `σ ≥ 1`. -/
-theorem rpow_neg_le_inv_succ {σ : ℝ} (hσ : 1 ≤ σ) (N : ℕ) :
+theorem natSucc_rpow_neg_le_inv {σ : ℝ} (hσ : 1 ≤ σ) (N : ℕ) :
     ((N + 1 : ℕ) : ℝ) ^ (-σ) ≤ ((N + 1 : ℕ) : ℝ)⁻¹ := by
   rw [← Real.rpow_neg_one]
   exact Real.rpow_le_rpow_of_exponent_le (by exact_mod_cast (by omega : 1 ≤ N + 1))
@@ -116,7 +116,7 @@ theorem norm_sum_Ioc_char_div_cpow_le_two_mul {χ : DirichletCharacter ℂ q} (h
   have hN' : (1 : ℝ) ≤ N := by exact_mod_cast hN
   have hq : (0 : ℝ) ≤ q := Nat.cast_nonneg q
   calc (q : ℝ) * ((N + 1 : ℕ) : ℝ) ^ (-σ) ≤ q * ((N + 1 : ℕ) : ℝ)⁻¹ :=
-        mul_le_mul_of_nonneg_left (rpow_neg_le_inv_succ hσ N) hq
+        mul_le_mul_of_nonneg_left (natSucc_rpow_neg_le_inv hσ N) hq
     _ ≤ 2 * q / N := by
         rw [div_eq_mul_inv, mul_comm 2 (q : ℝ), mul_assoc]
         refine mul_le_mul_of_nonneg_left ?_ hq
@@ -126,7 +126,7 @@ theorem norm_sum_Ioc_char_div_cpow_le_two_mul {χ : DirichletCharacter ℂ q} (h
         linarith
 
 /-- `log(N+1)/(N+1) ≤ log N / N` for `N ≥ 3`. -/
-theorem log_succ_div_le {N : ℕ} (hN : 3 ≤ N) :
+theorem log_natSucc_div_le_log_div {N : ℕ} (hN : 3 ≤ N) :
     Real.log ((N + 1 : ℕ) : ℝ) / ((N + 1 : ℕ) : ℝ) ≤ Real.log N / N := by
   have h3 : (3 : ℝ) ≤ N := by exact_mod_cast hN
   have he : Real.exp 1 ≤ (N : ℝ) := (Real.exp_one_lt_d9.le.trans (by norm_num)).trans h3
@@ -145,9 +145,9 @@ theorem norm_sum_Ioc_char_log_div_cpow_le_two_mul {χ : DirichletCharacter ℂ q
       ≤ q * (Real.log ((N + 1 : ℕ) : ℝ) / ((N + 1 : ℕ) : ℝ)) := by
         refine mul_le_mul_of_nonneg_left ?_ hq
         rw [div_eq_mul_inv]
-        exact mul_le_mul_of_nonneg_left (rpow_neg_le_inv_succ hσ N)
+        exact mul_le_mul_of_nonneg_left (natSucc_rpow_neg_le_inv hσ N)
           (Real.log_natCast_nonneg _)
-    _ ≤ q * (Real.log N / N) := mul_le_mul_of_nonneg_left (log_succ_div_le hN) hq
+    _ ≤ q * (Real.log N / N) := mul_le_mul_of_nonneg_left (log_natSucc_div_le_log_div hN) hq
     _ ≤ 2 * q * Real.log N / N := by
         rw [mul_div_assoc, mul_assoc]
         exact le_mul_of_one_le_left (mul_nonneg hq hlogN) (by norm_num)
@@ -173,7 +173,7 @@ theorem norm_LFunction_sub_sum_le {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 
   have hpos : ∀ M K : ℕ, ∀ n ∈ Ioc M K, n ≠ 0 := fun M K n hn ↦ by
     have := (Finset.mem_Ioc.mp hn).1; omega
   rw [← e _ (hpos 0 N)]
-  refine norm_hasSum_sub_sum_Ioc_le hsum (LSeries.term_zero _ _) N fun K ↦ ?_
+  refine norm_hasSum_sub_sum_Ioc_le_of_forall hsum (LSeries.term_zero _ _) N fun K ↦ ?_
   rw [e _ (hpos N K)]
   exact norm_sum_Ioc_char_div_cpow_le hχ (by linarith) N K
 
@@ -203,7 +203,7 @@ theorem norm_LSeries_logMul_sub_sum_le {χ : DirichletCharacter ℂ q} (hχ : χ
         ∑ n ∈ s, χ n * (Real.log n : ℂ) / (n : ℂ) ^ (σ : ℂ) :=
     fun s hs ↦ Finset.sum_congr rfl fun n hn ↦ term_logMul_char_eq χ _ (hs n hn)
   rw [← e _ (hpos 0 N)]
-  refine norm_hasSum_sub_sum_Ioc_le hsum (LSeries.term_zero _ _) N fun K ↦ ?_
+  refine norm_hasSum_sub_sum_Ioc_le_of_forall hsum (LSeries.term_zero _ _) N fun K ↦ ?_
   rw [e _ (hpos N K)]
   exact norm_sum_Ioc_char_log_div_cpow_le hχ hσ.le hN K
 
@@ -216,7 +216,7 @@ theorem norm_tail_le {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1) {σ : ℝ}
   refine (norm_LFunction_sub_sum_le hχ hσ N).trans ?_
   have hN' : (1 : ℝ) ≤ N := by exact_mod_cast hN
   have hq : (0 : ℝ) ≤ q := Nat.cast_nonneg q
-  refine (mul_le_mul_of_nonneg_left (rpow_neg_le_inv_succ hσ.le N) hq).trans ?_
+  refine (mul_le_mul_of_nonneg_left (natSucc_rpow_neg_le_inv hσ.le N) hq).trans ?_
   rw [← div_eq_mul_inv, Nat.cast_add, Nat.cast_one, div_le_div_iff₀ (by linarith) (by linarith)]
   nlinarith
 
@@ -235,9 +235,9 @@ theorem norm_tail_log_le {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1) {σ : 
       ≤ q * (Real.log ((N + 1 : ℕ) : ℝ) / ((N + 1 : ℕ) : ℝ)) := by
         refine mul_le_mul_of_nonneg_left ?_ hq
         rw [div_eq_mul_inv]
-        exact mul_le_mul_of_nonneg_left (rpow_neg_le_inv_succ hσ.le N)
+        exact mul_le_mul_of_nonneg_left (natSucc_rpow_neg_le_inv hσ.le N)
           (Real.log_natCast_nonneg _)
-    _ ≤ q * (Real.log N / N) := mul_le_mul_of_nonneg_left (log_succ_div_le hN) hq
+    _ ≤ q * (Real.log N / N) := mul_le_mul_of_nonneg_left (log_natSucc_div_le_log_div hN) hq
     _ ≤ 2 * q * Real.log N / N := by
         rw [mul_div_assoc, mul_assoc]
         exact le_mul_of_one_le_left (mul_nonneg hq hlogN) (by norm_num)
