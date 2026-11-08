@@ -62,4 +62,9 @@ for i in range(count):
     beta, theta = beta_theta(B, m)
     t0 = time.time()
     tr = run(abs(beta), theta)
-    print(f"#{i} m={m} kb={len(oddprimes(beta))} kt={len(oddprimes(theta))} beta mod 8={abs(beta)%8} Phi trace {tr} ({time.time()-t0:.0f}s)", flush=True)
+    fallback = ""
+    if tr[-1] != (0, 0):
+        import e6_family as E
+        E.RMAX, E.SAMP, E.fam, E.rng = 6, 3000, "free", random.Random(seed + i)
+        fallback = f" random-search least r = {E.solve(abs(beta), theta)}"
+    print(f"#{i} m={m} kb={len(oddprimes(beta))} kt={len(oddprimes(theta))} beta mod 8={abs(beta)%8} Phi trace {tr}{fallback} ({time.time()-t0:.0f}s)", flush=True)

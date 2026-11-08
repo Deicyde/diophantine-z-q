@@ -46,12 +46,14 @@ Every claim carries one of three marks.
    - If every prime of `θ` is `≡ 1 (mod 4)`, the class `(1, θ)` lies in `Sel₂(C_{βθ})`. Then
      `n = β` can never be certified.
 3. **The multiplier cannot do it alone** (VERIFIED, computation).
-   - Over random admissible inputs, each multiplier certifies `n = β` with frequency about 5% (92 of 1,920 evaluations on 30 inputs).
+   - Over random admissible inputs, each multiplier certifies `n = β` with frequency about 5%
+     (92 of 1,920 evaluations on 30 inputs).
    - Explicit admissible `B` exist for which none of the 64 multipliers gives a certificate with
      `n = β` (§4.3).
 4. **No bounded number of auxiliary primes suffices, whatever the multiplier** (Proposition B,
    VERIFIED).
-   - Suppose `β` contains `k` primes `≡ 1 (mod 21840)` that are pairwise quadratic residues.
+   - Suppose the primes of `β` outside `S₀` are `k` primes `≡ 1 (mod 21840)` that are pairwise
+     quadratic residues (an "isotropic core").
    - Then every certificate with `n' ≠ 1` needs `ω(n') ≥ k`, for every multiplier and every `q`.
    - A certificate with `n' = 1` needs `ω(θ) ≥ k`.
    - This is a counterexample to every "bounded" form of the lemma. It does not affect the
@@ -289,8 +291,8 @@ entirely global (the second descent).
 - `(1, θ)` is not torsion. If `β` is also a first coordinate, then `dim Sel₂ ≥ 4`. So `n = β` is
   never certified.
 - Checked on the 118 such pairs among the 400 above.
-- More generally, any class `(1, b)` in the Selmer group of the isogenous curve blocks the
-  certificate. With `dim Sel₂ = 3`, the extra class is then `(1, b)` and `β ∉ π₁`.
+- More generally, by the same count, any non-torsion class `(1, b)` in `Sel₂(C_{βθ})` blocks the
+  certificate.
 
 **Heuristic size** (SPECULATIVE). `A` restricted to the columns `≡ 1 (mod 4)` has rank at most the
 number of such primes. So solvability fails with probability of order `2^{−k₃}`, where `k₃` is the
@@ -306,14 +308,18 @@ has many such primes (§4.3).
 **Random inputs.** 30 inputs (`out_e1_random30.txt`).
 
 - Among 1,920 multiplier evaluations, 92 were certified (4.8%).
-- Another 441 had `dim Sel₂ = 3` with `β ∉ π₁`. This is the obstruction of Proposition A(iii) and
-  its generalization: the extra class is `(1, b)`.
+- Another 441 had `dim Sel₂ = 3` with `β ∉ π₁`. There the extra Selmer class has another first
+  coordinate, or first coordinate 1 as in Proposition A(iii) (`e1b_inspect.py` shows both kinds).
+  Since `β` is always in the abscissa Selmer group (A(i)), the failure is a second-descent
+  phenomenon.
 - Half of the multipliers have root number `+1`, and their dimensions are even, as parity predicts.
 - The number of certifying multipliers per input ranges over 0–6. Two inputs (#7 and #22) have none.
   This agrees with rv-route-k, where `n = β` sufficed for 29 of 30 inputs.
 
-**`β` with six extra primes `≡ 3 (mod 4)`.** 10 inputs (`out_e1_p3x6.txt`): 3 of the 10 have **no**
-certifying multiplier.
+**`β` with six extra primes `≡ 3 (mod 4)`.** 10 inputs (`out_e1_p3x6.txt`).
+
+- 15 of 640 multiplier evaluations were certified (2.3%).
+- 3 of the 10 inputs (#0, #2, #5) have **no** certifying multiplier.
 
 **Explicit inputs without any certifying multiplier** (`e7_counterexample.py`, `e11_core_check.py`).
 For each of the following, all 64 multipliers fail the certificate with `n = β`:
@@ -330,8 +336,8 @@ B₃ = 4291211885438170688127484392173498582608618500000 / 177869984161865322687
   For the others the certificate fails because `dim Sel₂ ≠ 3`.
 
 So the statement "some multiplier always works without auxiliary primes" is **false at the level of
-certificates**. (Some of these `B` might still satisfy `Φ_C` through `Ш`-free curves of higher Selmer
-rank, but no converse theorem can certify that.)
+certificates**. (For the multipliers with `β ∈ π₁` and `dim Sel₂ ≥ 4`, a point with abscissa class `β` may still
+exist, but no converse theorem certifies it.)
 
 ### 4.4 Proposition B: a lower bound on the number of auxiliary primes (VERIFIED)
 
@@ -365,8 +371,11 @@ holds with `n'` replaced by `n'θ`. In particular:
 3. *Counting.* The family has dimension at least `2(k − ω_odd(n'))` and meets the torsion trivially,
    because `d` has a prime outside `K`. So `dim Sel₂(C_d) ≥ 2(k − ω_odd(n')) + 2`. Then
    `dim Sel₂ = 3` forces `ω_odd(n') ≥ k`.
-4. *The second curve.* For `n'θ` in place of `n'`, the necessary condition holds automatically by
-   §3.1. ∎
+4. *The second curve.* The argument applies verbatim to `d = βn'θ`. The necessary condition
+   becomes `(n'θ/p) = 1`, which for `n' = 1` holds automatically by §3.1. ∎
+
+Odd primes `q | n'` with `[q/p_i] = 0` for all `i` (for instance `q ∈ {3, 5, 7, 13}`) impose no
+condition, so the bound really counts the auxiliary primes that are "visible" to the core.
 
 **Checks.**
 
@@ -389,9 +398,11 @@ holds with `n'` replaced by `n'θ`. In particular:
 - The manuscript's slot count (`d − 1` slots of one type plus `q₀`, with `d = ω(β)`, line 1046) is of
   the right order.
 - **Does this occur at the call sites?**
-  - Slope site: a core lies among the at most six primes of `P` together with the primes of `S_b`
-    that divide `β`. Under 22P₂ it has size at most 6. (The six pattern primes are `≡ ±1 (8)`; their
-    mutual symbols are not controlled.)
+  - Slope site: under 22P₂ the primes of `β` outside `S₀` are the six pattern primes, so a core has
+    size at most 6. (The pattern primes are `≡ ±1 (8)`; their mutual symbols are not controlled.)
+    Under 22P, `β` may also contain primes `≤ 324` and catalogue primes. The clean form above does
+    not cover those; with extra primes in `β`, the family of the proof must also satisfy one
+    condition per extra prime.
   - Test site: `β ≡ mηF(n)` for an arbitrary integer `n`. Whether `F(n)` contains arbitrarily large
     isotropic cores, with few other primes, is a question about prime factors of values of a sextic.
     It is plausible but not proved here (SPECULATIVE). PC as stated, for all admissible `B`,
@@ -423,8 +434,9 @@ any provable way.
 
 ### 4.6 Proposition C: symmetric auxiliary sets are degenerate (VERIFIED)
 
-**Proposition C.** Let `n' = q₁⋯q_r` with every `q_i ≡ 1 (mod 4)` and `gcd(n', 2β) = 1`. Suppose
-`(n'/p) = 1` for every prime `p | β` and `(β/q_i) = 1` for every `i`. Then
+**Proposition C.** Let `β > 0` be odd and squarefree, and let `n' = q₁⋯q_r` with every
+`q_i ≡ 1 (mod 4)` and `gcd(n', 2β) = 1`. Suppose `(n'/p) = 1` for every prime `p | β` and
+`(β/q_i) = 1` for every `i`. Then
 `(1, n') ∈ Sel₂(C_{βn'})`, and `C_{βn'}` carries no certificate. The same holds for `C_{βn'θ}` if,
 in addition, every prime of `θ` is `≡ 1 (mod 4)`.
 
@@ -432,7 +444,7 @@ in addition, every prime of `θ` is `≡ 1 (mod 4)`.
 
 - `D_λ v = 0`.
 - `(A𝟏_Q)_p = [n'/p] = 0` for `p | β`, and `(A𝟏_Q)_q = [β/q] = 0` for `q | n'`.
-- The 2-adic rows reduce to `λ·𝟏_Q = 0`.
+- The 2-adic rows reduce to `λ·𝟏_Q = 0`, in each of the four classes of `d` mod 8.
 - `(1, n')` is not torsion. If `β ∈ π₁`, then `dim ≥ 4`. ∎
 
 **What it implies for slots.**
@@ -466,9 +478,11 @@ each).
   already certified with `n = β`.
 - It stalls on the plateau `(φ₁, φ₂) = (1, 1)` in the other 7 (six with `β ≡ 5 (8)`, one with
   `β ≡ 7 (8)`) and stays there for 5 primes.
+- For the same multiplier, random symbolic search solves all 7 with 2 or 3 auxiliary primes. So
+  all 30 inputs admit a certificate for the multiplier drawn. The stall is a property of the greedy
+  order, not of the instance.
 - So a proof by "one prime at a time lowers `Φ`" fails as stated. A potential that sees the root
-  number class, or a two-prime step, would be needed. The rv-route-k random searches solve such
-  inputs with 2–4 primes.
+  number class, or a two-prime step, would be needed.
 
 ### 4.8 Candidate routes
 
@@ -497,8 +511,9 @@ pole-descent-k transposes).
 - *Idea:* choose `≥ k(β)` slots, with types dictated by Propositions B and C, so that both systems
   have corank exactly one with kernel containing the class `β`.
 - *Why it should work:*
-  - the decoupling of Proposition A(ii) holds for any auxiliary set satisfying the necessary
-    conditions, so the `β`-block and the `θ`-block enter only through their off-diagonal coupling;
+  - the necessary conditions (`(n'/p) = 1` at the primes `p ≡ 1 (4)` of `β`, `(β/q) = 1` at the
+    auxiliary `q ≡ 1 (4)`) give the decoupling of Proposition A(ii) at the primes `≡ 1 (mod 4)`.
+    Proposition C says it must fail at some prime `≡ 3 (mod 4)`; the slot design decides where;
   - the diagonal entries at the primes of `β` are the same for both curves;
   - every input tested so far was solved (here and in rv-route-k).
 - *Main obstacle:* the simultaneous corank condition for `n` and `nθ`, with `θ` arbitrary.
@@ -510,8 +525,9 @@ pole-descent-k transposes).
 **R5. Reachability instead of explicit slots** (SPECULATIVE).
 
 - *Idea:* Swinnerton-Dyer's Markov-chain analysis of 2-Selmer ranks under adding primes
-  (Math. Proc. Cambridge 145 (2008)), and Kane (Algebra Number Theory 7 (2013)), show that every
-  Selmer rank is reached from any starting twist.
+  (Math. Proc. Cambridge 145 (2008)) and Kane (Algebra Number Theory 7 (2013)) show that the
+  2-Selmer ranks of twists by products of many primes follow a limit law independent of the starting
+  curve (STANDARD). In particular, every admissible rank is reached from any start.
 - *Obstacle:*
   - DL needs two curves twisted by the same `n'`, a prescribed class, and restricted symbol data;
   - none of these is covered;
@@ -522,7 +538,8 @@ pole-descent-k transposes).
 **R6. Change the construction.**
 
 - *More multipliers, or extra factors `(A − cB²)` in `H` with fixed integers `c`.*
-  - Soundness survives: `v_p(H)` stays odd for `p ∤ c`.
+  - Soundness survives (VERIFIED by the valuation count of Lemma 5.1): for `p ∤ c` with `v_p(B) = k`
+    negative and odd, the valuation of `A(A − B²)(A − cB²)` is `5k`, which is odd.
   - This adds more candidate `θ`, but leaves `β` and Proposition B untouched.
   - Not worth the change.
 - *Restricting PC to the slope site.* Bounded `ω(β)` would help there, but the test site needs the
@@ -549,7 +566,8 @@ pole-descent-k transposes).
 | 5 | R1, R2 | none | refuted / very low |
 
 **Recommendation.** Write the slot construction directly in the linear system of Proposition 0 and the
-block form of Proposition A(ii). It should treat `θ` as an arbitrary integer satisfying §3.1, and use:
+block form of Proposition A(ii). It should treat `θ` as an arbitrary integer satisfying §3.1. A
+plausible design (SPECULATIVE) uses:
 
 - `ω(β) + O(1)` slots `≡ 1 (mod 8)` to kill the `β`-block (Proposition B shows that about `k(β)` are
   necessary);
