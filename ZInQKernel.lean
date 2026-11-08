@@ -45,3 +45,4 @@ import ZInQKernel.Compiler.NodeSkeleton
 import ZInQKernel.Progressions.Mertens
 import ZInQKernel.Progressions.LSeries
 import ZInQKernel.Progressions.RealChar
+import ZInQKernel.Progressions.QuadField
