@@ -1,4 +1,5 @@
 import ZInQKernel.Progressions.IdealCount.Basic
+import ZInQKernel.Progressions.IdealCount.PrimePower
 
 /-!
 # Ideal counts in number fields (plan step 3.3)
