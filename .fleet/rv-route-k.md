@@ -35,9 +35,10 @@ unproved descent lemma.
    (arXiv:1603.08479).
    - My transcription matches Monsky's coranks (60/60) and Smith's asymptotic densities, and
      always implies `dim Sel₂ = 3`.
-   - **Route K with TYZ instead of Kriz succeeds on 30 of 30 random inputs** (`out_tyz_random30.txt`).
-     The deep input could then be a published theorem plus Gross–Zagier–Kolyvagin. This variant
-     also no longer needs Poonen–Stoll.
+   - **Route K with TYZ instead of Kriz succeeds on 60 of 60 inputs** (30 random, 30
+     adversarial; `out_tyz_*.txt`, `out_brute_tyz_manybeta*.txt`). The deep input could then be
+     a published theorem plus Gross–Zagier–Kolyvagin. This variant also no longer needs
+     Poonen–Stoll.
 5. **Descent** (own exact 2-Selmer code, cross-checked with PARI `ell2cover` 30/30 and with
    actual generators 22/22).
    - Fresh random inputs: 30/30.
@@ -45,10 +46,13 @@ unproved descent lemma.
      multipliers allowed.
    - Fixed multiplier, trivial `n'` forbidden: 109/120 at once; 8 of the 11 failures were
      retried and solved with 3–6 auxiliary primes up to `10⁶`.
-   - Hardest case: a fixed multiplier with `θ` built to have 7–9 small primes. There the class
-     `β` lies on both curves for about 1% of random `n'`, but simultaneous Selmer-minimality was
-     not found by beam search, two-phase search or annealing (see the note for the brute-force
-     result).
+   - Hardest case: a fixed multiplier `m = 1` with `θ` built to have 4–9 small primes.
+     Structured searches (beam, two-phase, annealing) failed there. Plain random sampling of
+     2–10 primes up to `10⁶` solved every case examined (SMOOTH_FLEET), usually with two
+     auxiliary primes after 10–15,000 trials. Suitable `n'` are rare (about `2^{−ω(θ)}`) but
+     exist.
+   - No invariant obstruction was found: quartic residue symbols, `θ mod 16` and the `n' = 1`
+     case were tested.
 6. **Other changes** (VERIFIED by grep).
    - Lean: `polePoly`, `poleT1`, `poleT2` and their docstrings, the valuation copy, two parity
      lemmas.
@@ -61,18 +65,27 @@ unproved descent lemma.
 
 ## Ranking
 
-1. **K with a proved descent lemma**, with Kriz as input (weaker lemma, unrefereed input) or TYZ
-   as input (one extra bordered-determinant condition per curve, published input). Chance:
-   medium.
-2. **K-L**: a narrow Lean hypothesis ("Selmer-minimal congruent curve has a point with each
-   Selmer first coordinate"), with the descent formalized in Lean. Chance: medium, given 1.
-3. **Status quo** (`E_ℓ` and RC).
+1. **K-Kriz**: Route K with a proved descent lemma; the deep input is Kriz's preprint.
+   Chance: medium–high.
+2. **K-TYZ**: the same lemma plus one bordered-determinant condition per curve; the deep inputs
+   are published (TYZ, Gross–Zagier–Kolyvagin). Chance: medium.
+3. **K-L**: a narrow Lean hypothesis ("Selmer-minimal, resp. TYZ-certified, congruent curve has
+   a point with each Selmer first coordinate"), with the descent formalized in Lean. Chance:
+   medium, given 1 or 2.
+4. **Status quo** (`E_ℓ` and RC).
+
+**Single next step:** write the descent lemma for `C_d` with the multiplier fixed by the 2-adic
+class of `β`, transposing the manuscript's slot construction (lines 1035–1061) to the linear
+system in §4.4 of the note.
+- Success: a proof whose algorithm reproduces solutions on the smooth-`θ` family, each passing
+  `sel2cong.py`.
+- Chance: medium–high.
 
 ## Open questions
 
-- The uniform descent lemma, especially for a fixed multiplier and `θ` with many primes.
-  Presence of the class wants auxiliary primes with trivial symbols to `θ`'s primes;
-  minimality wants nontrivial ones.
+- The uniform descent lemma, especially for a fixed multiplier and `θ` with many primes. There
+  the suitable auxiliary symbol patterns are a small fraction (about `2^{−ω(θ)}`), so the proof
+  must choose them by Dirichlet rather than count on them.
 - Can the proof use the 64 multipliers? Heuristically they make the problem easy (29 of 30
   random inputs need no auxiliary prime), but a proof cannot rely on probability.
 - The publication status of Kriz's preprint and of Smith's 2016 reformulation. For the TYZ

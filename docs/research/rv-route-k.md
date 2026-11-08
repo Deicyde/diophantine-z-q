@@ -303,7 +303,7 @@ Hypotheses, checked against the text (VERIFIED):
 
 **Status.** arXiv lists v1 (Feb 2020) to v5 (Oct 2022) with no journal reference. I found no
 published version. It should be treated as a complete preprint by an expert, not as a refereed
-theorem. Kriz's published monograph (Annals of Math. Studies 212, 2021) is a different work.
+theorem. Kriz's published monograph *Supersingular p-adic L-functions, Maass–Shimura operators and Waldspurger formulas* (Annals of Mathematics Studies, Princeton, 2021) is a different work.
 
 **Fallback: Tian–Yuan–Zhang**, *Genus periods, genus points and congruent number problem*,
 Asian J. Math. 21 (2017), no. 4, 721–773 (published; read in arXiv:1411.4728v1).
@@ -320,16 +320,15 @@ Asian J. Math. 21 (2017), no. 4, 721–773 (published; read in arXiv:1411.4728v1
 - My transcription of Table 2 (`tyz_smith.py`) passes three checks (VERIFIED):
   - Smith's `M₁` and `M₂` coranks reproduce `dim Sel₂ − 2` from `sel2cong.py` on 60 of 60
     `n ≡ 1, 2 (mod 8)`.
-  - Every TYZ-certified `n` has `dim Sel₂ = 3`: 61 random `n < 10⁶`, plus all 530 certified
-    `n < 2000`.
+  - Every TYZ-certified `n` among 61 random `n < 10⁶` has `dim Sel₂ = 3`.
   - As `ω(n)` grows, the certified fraction of Selmer-minimal `n` tends to Smith's densities:
     0.69, 0.47 and 0.74 at `ω = 11`, against 0.75, 0.5 and 0.75. At small `ω` it is higher.
 
-  The analytic rank (PARI) is 1 for all 530 certified `n < 2000`. That check is weak, because by
+  The analytic rank (PARI) is 1 for all 530 TYZ-certified Selmer-minimal `n < 2000`. That check is weak, because by
   Kriz every Selmer-minimal `n` has analytic rank 1 anyway.
 - So TYZ needs, for each curve that uses the converse, Selmer minimality plus one bordered
   determinant condition. §4.4 tests whether the descent can meet both. In the experiments it
-  can: 30 of 30 random inputs, with all certificates from TYZ.
+  can: 60 of 60 inputs (30 random, 30 adversarial), with all certificates from TYZ.
 
 ### 4.4 The descent (VERIFIED computations; the lemma itself is SPECULATIVE)
 
