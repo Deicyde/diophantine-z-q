@@ -382,8 +382,9 @@ theorem. In both manuscripts that theorem is a prime pattern.
   with the right ramification serves as well. For five cone points of order 2 the orbifold Euler
   characteristic forces degree 6 (`−1/2 = 6·(−1/12)`). The four possible ramification passports
   give three-point covers, which the script solves exactly:
-  - `[2,2,2] [3,3] [2,2,2]` is Galois with group `S₃`, and its points over `∞` are fixed points of
-    an element of order 3 of `PGL₂(ℚ)`, which are never rational;
+  - `[2,2,2] [3,3] [2,2,2]`: with the two points over `∞` at `0` and `∞`, `J = kA²/u³` and
+    `kA² − j₁u³ = kB²` force `A = (α + βu³)/2`, so the three contacts over `0` are cube roots of
+    one number and never all rational;
   - `[2,2,2] [6] [2,2,1,1]` reduces to the polynomial Pell equation, whose cubic solution `T₃` has
     irrational roots;
   - `[2,4] [6] [2,1,1,1,1]` has an irreducible cubic among its contacts;

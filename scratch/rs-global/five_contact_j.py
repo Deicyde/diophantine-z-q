@@ -6,8 +6,9 @@ The 11/5 proof of H uses J only through its ramification over the three special 
 545-563), so a non-Galois J would serve as well as the dihedral quotient of degree 12.
 Orbifold Euler characteristic: -1/2 = N * (-1/12) forces N = 6 for an orbifold covering.
 Passports (cycle types over 0, infinity, -16/27) with five points of order 2:
-  (a) [2,2,2] [3,3] [2,2,2]   Galois with group S3; the points over infinity are fixed points of
-                              an order-3 element of PGL2(Q), which has no rational fixed point.
+  (a) [2,2,2] [3,3] [2,2,2]   with the poles at 0 and infinity, J = k A^2/u^3 and k A^2 - j1 u^3 = k B^2
+                              give (A - B)(A + B) = (j1/k) u^3, so A = (alpha + beta u^3)/2: the
+                              contacts over 0 are cube roots of one number, never all rational.
   (b) [2,2,2] [6]   [2,2,1,1] J = c A(u)^2 with A cubic: polynomial Pell identity.
   (c) [2,4]   [6]   [2,1,1,1,1]
   (d) [2,4]   [3,3] [2,2,1,1]
