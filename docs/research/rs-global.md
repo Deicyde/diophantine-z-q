@@ -718,6 +718,12 @@ might work, the main obstacle, a first test with a success criterion, and what i
   - The degree-12 map `J` by a degree-6 map.
 - **Why it might work.** The 11/5 proof of H uses `J` only through its ramification data over
   `0, ∞, −16/27`, and `J₅` has the right data (VERIFIED, `five_contact_j.py`).
+  - An illustration, not evidence for a bound (`five_contact_points.py`): for
+    `S = {2, 3, 5, 7, 11, 13}` and `|a|, b ≤ 4000`, there are 204 rationals `a/b` with
+    `M_S = 1` for `𝒞₅`, of maximal height 8.16. Three of them first appear between the bounds 1200
+    and 4000.
+  - The same search for the 11/5 contacts finds 131 points of maximal height 7.31, which agrees
+    with [rs-height §3.3].
 - **Main obstacles.**
   - H must be reproved for `J₅`, with new constants. The lines to recheck are 545–563 (the
     pullback), 906–964 (back from `j` to `u`, including the rational root theorem for
