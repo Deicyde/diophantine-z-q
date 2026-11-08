@@ -29,8 +29,8 @@ theorem classSum_eq_sum_twistedSum (ha : IsUnit a) (x : ℝ) :
   refine sum_congr rfl fun n _ ↦ sum_congr rfl fun χ _ ↦ ?_
   ring
 
-/-- `χ(a⁻¹) = χ(a)⁻¹` for a unit `a`. -/
 omit [NeZero q] in
+/-- `χ(a⁻¹) = χ(a)⁻¹` for a unit `a`. -/
 lemma dirichletCharacter_apply_inv_of_isUnit (χ : DirichletCharacter ℂ q) (ha : IsUnit a) :
     χ a⁻¹ = (χ a)⁻¹ := by
   have h1 : χ a⁻¹ * χ a = 1 := by
