@@ -465,8 +465,8 @@ to the manuscript lines its anchors cite. The audit was taken against the presen
 | size and CAT (6272–6442) | A046 (1) | A071 | CAT₈ hypothesis, effective Dirichlet in progress |
 | corollaries (6443–6590) | A047, A048 (2) | — | outside `FrozenTarget` |
 
-Two thirds of the external applications serve PC: 39 records only in RC, plus A019, A020 and A082.
-A further 24 serve H. 22P has two records of its own and CAT one. The elementary inputs (formal
+Half of the external applications serve PC alone: 39 records only in RC, plus A019, A020 and
+A082, 42 of 82 in all. A further 24 serve H alone. 22P has two records of its own and CAT one. The elementary inputs (formal
 groups A071, Dirichlet A057, four squares A055, division polynomials A056, the AFP exponential
 relation A077, Mordell–Weil A058–A060) are all proved in Lean, or replaced there by Lean proofs.
 
@@ -789,8 +789,8 @@ After the cheapest possible changes, the trust boundary would consist of three s
    prove. H_min becomes admissible as soon as the effective Dirichlet theorem proves `Hmax_lt_D`
    and `cstar_lt_D` unconditionally.
 2. **Attack PC next, through Route K.** PC is where the payoff is largest, for three reasons.
-   - Its present proof is the largest unrefereed component: two thirds of the audit's external
-     applications serve it (§3.1).
+   - Its present proof is the largest unrefereed component: 42 of the 82 audit records serve
+     only PC and RC (§3.1).
    - It has a published-quality replacement that fits exactly: Kriz's theorem gives the
      2-converse for every congruent twist, with no congruence condition.
    - What remains after the replacement is elementary and needs no effectivity, so it can be
