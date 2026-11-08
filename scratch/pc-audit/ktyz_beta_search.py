@@ -46,13 +46,19 @@ def main():
             for rule in beta_rule(beta):
                 cands.append((m, beta, theta, rule))
         rng.shuffle(cands)
+        if os.environ.get('FIXM'):
+            # one multiplier fixed in advance: the first (in DIVS order) admitting rule 6 with
+            # theta > 1, else rule 5
+            fixed = [c for c in sorted(cands, key=lambda c: (c[3] != '6', ds.DIVS.index(c[0])))
+                     if c[2] != 1][:1]
+            cands = fixed
         # first: theta = 1 cases need no converse
         for m, beta, theta, rule in cands:
             if theta == 1:
                 res = dict(m=m, beta=beta, theta=1, kind='theta=1')
                 break
         tries = 0
-        while res is None and evals < maxe and tries < 50 * maxe:
+        while res is None and cands and evals < maxe and tries < 50 * maxe:
             tries += 1
             m, beta, theta, rule = cands[tries % len(cands)]
             pool = [q for q in pool_all[:400] if beta % q and theta % q]

@@ -545,7 +545,7 @@ So no pairing argument (Cassels–Tate or Poonen–Stoll) is needed at this step
 finiteness of Ш. Cassels–Tate enters only in K-Kriz, to turn `dim Sel₂ = 3` into corank one
 (RK3). Without Selmer-minimality, rank one would not suffice: the class `σ` could then lie in the
 part of `Sel₂` that maps onto `Ш[2]`. That is why the descent must produce Selmer-minimal
-curves, as in the manuscript (line 1070: "arbitrary parity conditions at two would not suffice").
+curves, as the manuscript's descent does for `E_ℓ` (lines 1035–1070).
 
 ---
 
