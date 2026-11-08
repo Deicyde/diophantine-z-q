@@ -32,14 +32,14 @@ theorem maj_two_fifty_six {σ : Type*} {B : ℕ} {P : MvPolynomial σ ℤ} (h : 
   exact h
 
 /-- `[[integers]]` satisfies the majorant at height `256` for `B = T + 1`. -/
-theorem PstarNat_maj (hCAT : CatalogueBound) (hB : Compiler.NodeCheck.HaltingAddMulBound) {c3 : ℤ}
+theorem PstarNat_maj (hCAT : CatalogueBound8) (hB : Compiler.NodeCheck.HaltingAddMulBound) {c3 : ℤ}
     (hc3 : c3.natAbs < 2 ^ 2 ^ 24) :
     Maj (Syntax.T + 1) 256 (PstarNat (precisionCircuitOf c3) c3) :=
   integers_maj (admissible_cutoff hCAT hc3) (precisionShape_of hB c3)
 
 /-- **Degree and coefficient bounds for the specified polynomial.** Under the catalogue bound,
 `deg P_* ≤ (T+1)^2048` and `|[X^α] P_*| ≤ ‖P_*‖₁ ≤ 2^((T+1)^2048)` for every monomial `X^α`. -/
-theorem Pstar_degree_coeff (hCAT : CatalogueBound) (hB : Compiler.NodeCheck.HaltingAddMulBound) {c3 : ℤ}
+theorem Pstar_degree_coeff (hCAT : CatalogueBound8) (hB : Compiler.NodeCheck.HaltingAddMulBound) {c3 : ℤ}
     (hc3 : c3.natAbs < 2 ^ 2 ^ 24) :
     (specPstar c3).totalDegree ≤ (Syntax.T + 1) ^ 2048 ∧
       l1 (specPstar c3) ≤ 2 ^ (Syntax.T + 1) ^ 2048 ∧
@@ -54,7 +54,7 @@ theorem Pstar_degree_coeff (hCAT : CatalogueBound) (hB : Compiler.NodeCheck.Halt
 catalogue bound, `P_* ∈ ℤ[X_0, …, X_{292890231904}]` (the variable count is its type: the input
 `X_0` and `292890231904` witnesses, by the witness accounting) has
 `deg P_* ≤ (T+1)^2048 < 2↑↑7` and `|[X^α] P_*| ≤ 2^((T+1)^2048) < 2↑↑8`. -/
-theorem Pstar_size (hCAT : CatalogueBound) (hB : Compiler.NodeCheck.HaltingAddMulBound) {c3 : ℤ}
+theorem Pstar_size (hCAT : CatalogueBound8) (hB : Compiler.NodeCheck.HaltingAddMulBound) {c3 : ℤ}
     (hc3 : c3.natAbs < 2 ^ 2 ^ 24) :
     ((specPstar c3).totalDegree ≤ (Syntax.T + 1) ^ 2048 ∧
         (Syntax.T + 1) ^ 2048 < hyperoperation 4 2 7) ∧
@@ -65,7 +65,7 @@ theorem Pstar_size (hCAT : CatalogueBound) (hB : Compiler.NodeCheck.HaltingAddMu
     coefficient_lt_tower_eight _ (T_lt hCAT)⟩
 
 /-- The degree and coefficient conjuncts of the target `FrozenTarget` for `P_*`. -/
-theorem Pstar_target_bounds (hCAT : CatalogueBound) (hB : Compiler.NodeCheck.HaltingAddMulBound) {c3 : ℤ}
+theorem Pstar_target_bounds (hCAT : CatalogueBound8) (hB : Compiler.NodeCheck.HaltingAddMulBound) {c3 : ℤ}
     (hc3 : c3.natAbs < 2 ^ 2 ^ 24) :
     (specPstar c3).totalDegree < hyperoperation 4 2 7 ∧
       ∀ m : Fin 292890231905 →₀ ℕ, ((specPstar c3).coeff m).natAbs < hyperoperation 4 2 8 := by

@@ -132,4 +132,45 @@ theorem cataloguePrime_lt_of_catalogueBound (hCAT : CatalogueBound) {r : ℕ}
   simp only [Finset.mem_filter, Finset.mem_Ioo, Finset.mem_range] at hp ⊢
   exact ⟨hp.1.2, hp.2.1, hp.1.1, hp.2.2⟩
 
+
+open Classical in
+/-- **Hypothesis CAT₈**, the weaker form of CAT used by the size chain: every unit residue class
+modulo `W` contains at least twenty-two primes in the interval `(324, 2^(W⁸))`. It follows from
+CAT (`catalogueBound8_of_catalogueBound`) and from an effective Dirichlet theorem. -/
+def CatalogueBound8 : Prop :=
+  ∀ r : ℕ, r < catalogueModulus → Nat.Coprime r catalogueModulus →
+    22 ≤ ({p ∈ Finset.Ioo 324 (2 ^ catalogueModulus ^ 8) |
+      p.Prime ∧ p % catalogueModulus = r}).card
+
+/-- CAT implies CAT₈: the interval `(324, 2^(W³))` lies in `(324, 2^(W⁸))`. -/
+theorem catalogueBound8_of_catalogueBound (hCAT : CatalogueBound) : CatalogueBound8 := by
+  classical
+  -- The comparison `2^(w³) ≤ 2^(w⁸)` is proved for a variable `w`, so that the kernel never
+  -- evaluates the closed powers of `W`.
+  have hX : ∀ w : ℕ, 1 ≤ w → 2 ^ w ^ 3 ≤ 2 ^ w ^ 8 := fun w hw =>
+    pow_le_pow_right₀ (by norm_num) (pow_le_pow_right₀ hw (by norm_num))
+  have hW : 1 ≤ catalogueModulus := by
+    unfold catalogueModulus
+    exact Nat.one_le_iff_ne_zero.2 (mul_ne_zero (by norm_num) (primorial_pos 324).ne')
+  intro r hr hcop
+  refine le_trans (hCAT r hr hcop) (Finset.card_le_card ?_)
+  intro p hp
+  simp only [Finset.mem_filter, Finset.mem_Ioo] at hp ⊢
+  exact ⟨⟨hp.1.1, hp.1.2.trans_le (hX _ hW)⟩, hp.2⟩
+
+/-- Hypothesis CAT₈ bounds every catalogue prime by `X = 2^(W⁸)`: this is the bound `H_max < X`
+of Proposition 12.1, with the cutoff `2^(W⁸)` in place of `2^(W³)`. -/
+theorem cataloguePrime_lt_of_catalogueBound8 (hCAT : CatalogueBound8) {r : ℕ}
+    (hr : r < catalogueModulus) (hcop : Nat.Coprime r catalogueModulus) {i : ℕ} (hi : i < 22) :
+    cataloguePrime r i < 2 ^ catalogueModulus ^ 8 := by
+  classical
+  unfold cataloguePrime
+  apply Nat.nth_lt_of_lt_count
+  refine lt_of_lt_of_le hi (le_trans (hCAT r hr hcop) ?_)
+  rw [Nat.count_eq_card_filter_range]
+  apply Finset.card_le_card
+  intro p hp
+  simp only [Finset.mem_filter, Finset.mem_Ioo, Finset.mem_range] at hp ⊢
+  exact ⟨hp.1.2, hp.2.1, hp.1.1, hp.2.2⟩
+
 end ZInQ

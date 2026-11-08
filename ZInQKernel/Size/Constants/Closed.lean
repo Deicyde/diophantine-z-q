@@ -13,16 +13,16 @@ only lifts the elaborator's safeguard against large literal powers.
 
 namespace ZInQ.Size
 
-set_option exponentiation.threshold 2100 in
+set_option exponentiation.threshold 4700 in
 /-- Item 1: the exponents of `N_s` and `ℓ`. -/
 theorem closed_comparisons_1 :
-    433 + 22 * 2 ^ 2048 < 2 ^ 2053 ∧ 4 + 1262628 + 16104 * 2 ^ 2048 < 2 ^ 2063 ∧
+    433 + 22 * 2 ^ 4608 < 2 ^ 4613 ∧ 4 + 1262628 + 16104 * 2 ^ 4608 < 2 ^ 4623 ∧
       1262628 = 433 * 2916 ∧ 16104 = 22 * 732 := by
   decide
 
-set_option exponentiation.threshold 2100 in
+set_option exponentiation.threshold 4700 in
 /-- Item 2: the exponent of `c_*`. -/
-theorem closed_comparisons_2 : 2 + 10 * 2 ^ 2054 < 2 ^ 2059 := by
+theorem closed_comparisons_2 : 2 + 10 * 2 ^ 4613 < 2 ^ 4617 := by
   decide
 
 set_option exponentiation.threshold 9100 in
@@ -58,9 +58,9 @@ set_option maxRecDepth 20000 in
 set_option exponentiation.threshold 9100 in
 /-- The closed numerical comparisons of the size chapter, in one statement. -/
 theorem closed_comparisons :
-    (433 + 22 * 2 ^ 2048 < 2 ^ 2053 ∧ 4 + 1262628 + 16104 * 2 ^ 2048 < 2 ^ 2063 ∧
+    (433 + 22 * 2 ^ 4608 < 2 ^ 4613 ∧ 4 + 1262628 + 16104 * 2 ^ 4608 < 2 ^ 4623 ∧
       1262628 = 433 * 2916 ∧ 16104 = 22 * 732) ∧
-    2 + 10 * 2 ^ 2054 < 2 ^ 2059 ∧
+    2 + 10 * 2 ^ 4613 < 2 ^ 4617 ∧
     (10 ^ 12 < 2 ^ 40 ∧ 2250 + 2 ^ 9009 < 2 ^ 9010) ∧
     4096 * 85033 < 2 ^ 29 ∧
     ((96 * 10 ^ 13) ^ 13 < 2 ^ 650 ∧ 2210 * 116064000000 ^ 2 < 2 ^ 86) ∧

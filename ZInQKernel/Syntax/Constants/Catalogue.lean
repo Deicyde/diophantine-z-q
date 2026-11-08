@@ -224,12 +224,12 @@ theorem catalogueProduct_catalogueModulus_eq_prod :
     catalogueProduct catalogueModulus 22 324 = ∏ h ∈ catalogueFinset catalogueModulus 22 324, h :=
   catalogueProduct_eq_prod_catalogueFinset _ _ _
 
-/-- Hypothesis CAT bounds the catalogue maximum: `H_max < 2^(W³)`. -/
-theorem catalogueMax_lt_of_catalogueBound (hCAT : CatalogueBound) :
-    catalogueMax catalogueModulus 22 324 < 2 ^ catalogueModulus ^ 3 := by
+/-- Hypothesis CAT₈ bounds the catalogue maximum: `H_max < 2^(W⁸)`. -/
+theorem catalogueMax_lt_of_catalogueBound8 (hCAT : CatalogueBound8) :
+    catalogueMax catalogueModulus 22 324 < 2 ^ catalogueModulus ^ 8 := by
   refine catalogueMax_lt_of_forall (pow_pos two_pos _) fun r hr j hj => ?_
   obtain ⟨hr, hcop⟩ := mem_unitResidues_catalogueModulus.1 hr
-  exact cataloguePrime_lt_of_catalogueBound hCAT hr hcop hj
+  exact cataloguePrime_lt_of_catalogueBound8 hCAT hr hcop hj
 
 /- The catalogue is never evaluated: from here on the elaborator may not unfold it. -/
 attribute [irreducible] cataloguePrime catalogueProduct catalogueMax

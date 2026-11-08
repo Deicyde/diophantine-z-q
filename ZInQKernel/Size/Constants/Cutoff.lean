@@ -26,7 +26,7 @@ theorem formal_multiple_succeeds :
   ⟨Ns_pos, (M0_bounds Ns_pos).1, (M0_bounds Ns_pos).2.1, (M0_bounds Ns_pos).2.2⟩
 
 /-- **Proposition 12.1** (the literal cutoff). -/
-theorem literal_cutoff (hCAT : CatalogueBound) :
+theorem literal_cutoff (hCAT : CatalogueBound8) :
     R = D ∧
     (T = (48 * Aht) ^ 13 ∧ T = (96 * 10 ^ 13) ^ 13 * D ^ (2210 * G0 ^ 2 * D ^ 3) ∧
       Aht = 2 * 10 ^ 13 * max (max 1 Ccm) (Q ^ 17) ∧ Aht = 2 * 10 ^ 13 * Q ^ 17 ∧

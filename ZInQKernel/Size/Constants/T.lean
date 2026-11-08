@@ -7,7 +7,7 @@ import ZInQKernel.Size.Constants.FormalMultiple
 Blueprint: `size/constants/r-equals-d.md`, `size/constants/t-identity.md`,
 `size/constants/t-bound.md`.
 
-Under the catalogue bound `D` dominates `H_max`, `c_*` and `10^12`, so `R = D`; then
+Under the catalogue bound CAT₈ `D` dominates `H_max`, `c_*` and `10^12`, so `R = D`; then
 `Q = D^(10 G₀² D³)`, the maximum defining `A_ht` is `Q^17`, and
 `T = (96·10^13)^13 · D^(2210 G₀² D³) < 2^(D^8) < 2^(2^(2^9013))`.
 
@@ -22,19 +22,24 @@ open Syntax AmbientPow
 
 /-! ### `R = D` -/
 
-set_option exponentiation.threshold 2100 in
-theorem W_pow_three_lt : W ^ 3 < 2 ^ 1536 :=
-  calc W ^ 3 < (2 ^ 512) ^ 3 := natPow_lt_natPow_left W_lt_two_pow_512 (by decide)
-    _ = 2 ^ (512 * 3) := (natPow_mul _ _ _).symm
+set_option exponentiation.threshold 4200 in
+theorem W_pow_eight_lt : W ^ 8 < 2 ^ 4096 :=
+  calc W ^ 8 < (2 ^ 512) ^ 8 := natPow_lt_natPow_left W_lt_two_pow_512 (by decide)
+    _ = 2 ^ (512 * 8) := (natPow_mul _ _ _).symm
 
-/-- `H_max < 2^(W³) < 2^(2^1536) < D`. -/
-theorem Hmax_lt_D (hCAT : CatalogueBound) : Hmax < D :=
-  calc Hmax < 2 ^ W ^ 3 := Hmax_lt_of_catalogueBound hCAT
-    _ < 2 ^ 2 ^ 1536 := natPow_lt_natPow_right (by decide) W_pow_three_lt
+/-- `H_max < 2^(W⁸) < 2^(2^4096)`: the cutoff of CAT₈ in the form used by the size chain. -/
+theorem Hmax_lt_two_pow_two_pow (hCAT : CatalogueBound8) :
+    Hmax < 2 ^ W ^ 8 ∧ 2 ^ W ^ 8 < 2 ^ 2 ^ 4096 :=
+  ⟨Hmax_lt_of_catalogueBound8 hCAT, natPow_lt_natPow_right (by decide) W_pow_eight_lt⟩
+
+/-- `H_max < 2^(W⁸) < 2^(2^4096) < D`. -/
+theorem Hmax_lt_D (hCAT : CatalogueBound8) : Hmax < D :=
+  calc Hmax < 2 ^ W ^ 8 := (Hmax_lt_two_pow_two_pow hCAT).1
+    _ < 2 ^ 2 ^ 4096 := (Hmax_lt_two_pow_two_pow hCAT).2
     _ < D := two_pow_two_pow_lt_D (by decide)
 
-/-- `c_* < 2^(2^2059) < D`. -/
-theorem cstar_lt_D (hCAT : CatalogueBound) : cstar < D :=
+/-- `c_* < 2^(2^4617) < D`. -/
+theorem cstar_lt_D (hCAT : CatalogueBound8) : cstar < D :=
   (cstar_lt hCAT).trans (two_pow_two_pow_lt_D (by decide))
 
 set_option exponentiation.threshold 8100 in
@@ -47,12 +52,12 @@ theorem max_three_eq_of {d h c t : ℕ} (hh : h ≤ d) (hc : c ≤ d) (ht : t �
   rw [max_eq_left hh, max_eq_left hc, max_eq_left ht]
 
 /-- `R = max(D, H_max, c_*, 10^12) = D`. -/
-theorem R_eq_D (hCAT : CatalogueBound) : R = D := by
+theorem R_eq_D (hCAT : CatalogueBound8) : R = D := by
   rw [R_eq]
   exact max_three_eq_of (Hmax_lt_D hCAT).le (cstar_lt_D hCAT).le ten_pow_twelve_lt_D.le
 
 /-- The parameter `R` equals `D` (the blueprint statement). -/
-theorem r_equals_d (hCAT : CatalogueBound) :
+theorem r_equals_d (hCAT : CatalogueBound8) :
     Hmax < D ∧ cstar < D ∧ 10 ^ 12 < D ∧ R = D :=
   ⟨Hmax_lt_D hCAT, cstar_lt_D hCAT, ten_pow_twelve_lt_D, R_eq_D hCAT⟩
 
@@ -62,7 +67,7 @@ theorem Q_exponent_eq (d g : ℕ) : d * (10 * (d * g) ^ 2) = 10 * g ^ 2 * d ^ 3 
   ring
 
 /-- `Q = R^(R E₀) = D^(10 G₀² D³)`. -/
-theorem Q_eq_closed (hCAT : CatalogueBound) : Q = D ^ (10 * G0 ^ 2 * D ^ 3) := by
+theorem Q_eq_closed (hCAT : CatalogueBound8) : Q = D ^ (10 * G0 ^ 2 * D ^ 3) := by
   rw [Q_eq, R_eq_D hCAT, E0_eq, Q_exponent_eq]
 
 /-- The estimate `C_cm < 2^(50000 D²)`, for a variable `d ≥ 1`. -/
@@ -110,7 +115,7 @@ theorem three_hundred_le_D : 300 ≤ D :=
   (lt_D_of_lt (by decide)).le
 
 /-- `C_cm < 2^(50000 D²) < Q^17`. -/
-theorem Ccm_lt_Q17 (hCAT : CatalogueBound) :
+theorem Ccm_lt_Q17 (hCAT : CatalogueBound8) :
     Ccm < 2 ^ (50000 * D ^ 2) ∧ 2 ^ (50000 * D ^ 2) < Q ^ 17 := by
   constructor
   · rw [Ccm_eq, Bcm_eq]; exact Ccm_lt_of D_pos
@@ -120,7 +125,7 @@ theorem max_one_eq_of {c q : ℕ} (hc : c ≤ q) (hq : 1 ≤ q) : max (max 1 c) 
   max_eq_right (max_le hq hc)
 
 /-- `max(1, C_cm, Q^17) = Q^17`. -/
-theorem max_Aht_eq (hCAT : CatalogueBound) : max (max 1 Ccm) (Q ^ 17) = Q ^ 17 :=
+theorem max_Aht_eq (hCAT : CatalogueBound8) : max (max 1 Ccm) (Q ^ 17) = Q ^ 17 :=
   max_one_eq_of ((Ccm_lt_Q17 hCAT).1.trans (Ccm_lt_Q17 hCAT).2).le (one_le_natPow Q_pos 17)
 
 theorem Aht_closed_of (d g : ℕ) :
@@ -128,7 +133,7 @@ theorem Aht_closed_of (d g : ℕ) :
   rw [← natPow_mul]; congr 2; ring
 
 /-- `A_ht = 2·10^13 · Q^17 = 2·10^13 · D^(170 G₀² D³)`. -/
-theorem Aht_eq_closed (hCAT : CatalogueBound) :
+theorem Aht_eq_closed (hCAT : CatalogueBound8) :
     Aht = 2 * 10 ^ 13 * Q ^ 17 ∧ Aht = 2 * 10 ^ 13 * D ^ (170 * G0 ^ 2 * D ^ 3) := by
   have h : Aht = 2 * 10 ^ 13 * Q ^ 17 := by rw [Aht_eq, max_Aht_eq hCAT]
   refine ⟨h, ?_⟩
@@ -144,13 +149,13 @@ theorem T_closed_of (d g : ℕ) :
   ring
 
 /-- `T = (48 A_ht)^13 = (96·10^13)^13 · D^(2210 G₀² D³)`. -/
-theorem T_eq_closed (hCAT : CatalogueBound) :
+theorem T_eq_closed (hCAT : CatalogueBound8) :
     T = (96 * 10 ^ 13) ^ 13 * D ^ (2210 * G0 ^ 2 * D ^ 3) := by
   rw [T_eq, (Aht_eq_closed hCAT).1, Q_eq_closed hCAT]
   exact T_closed_of D G0
 
 /-- The closed form of `T` (the blueprint statement). -/
-theorem t_identity (hCAT : CatalogueBound) :
+theorem t_identity (hCAT : CatalogueBound8) :
     Q = D ^ (10 * G0 ^ 2 * D ^ 3) ∧
     (Ccm < 2 ^ (50000 * D ^ 2) ∧ 2 ^ (50000 * D ^ 2) < Q ^ 17 ∧
       max (max 1 Ccm) (Q ^ 17) = Q ^ 17) ∧
@@ -209,7 +214,7 @@ theorem closedT_lt :
   closedT_lt_of D_gt D_lt (by rw [G0_eq]; exact closed_comparisons_5.2) G0_pos
 
 /-- `T < 2^(2^(2^9013))`. -/
-theorem T_lt (hCAT : CatalogueBound) : T < 2 ^ 2 ^ 2 ^ 9013 := by
+theorem T_lt (hCAT : CatalogueBound8) : T < 2 ^ 2 ^ 2 ^ 9013 := by
   rw [T_eq_closed hCAT]; exact closedT_lt.1.trans closedT_lt.2
 
 /-- Upstream's `triplePower a = 2^(2^(2^a))`, as an equation for a variable: upstream states
@@ -217,7 +222,7 @@ it with another power instance, so this bridge must not be checked on a closed `
 theorem triplePower_eq (a : ℕ) : NumericalTowerBounds.triplePower a = 2 ^ 2 ^ 2 ^ a := rfl
 
 /-- `T < triplePower 9013`, in the form of upstream's `NumericalTowerBounds`. -/
-theorem T_lt_triplePower (hCAT : CatalogueBound) : T < NumericalTowerBounds.triplePower 9013 := by
+theorem T_lt_triplePower (hCAT : CatalogueBound8) : T < NumericalTowerBounds.triplePower 9013 := by
   rw [triplePower_eq]; exact T_lt hCAT
 
 end ZInQ.Size
