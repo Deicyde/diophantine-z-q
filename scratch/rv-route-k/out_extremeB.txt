@@ -1,0 +1,4 @@
+#0 num 20dig den 20dig omega(beta_1)=2 omega(theta_1)=2 OK m=13 k=0 n'=1 kind=('torsion', 'selmer3') omega(beta)=1 omega(theta)=5 (m,k) pairs tried=8 (0.0s)
+#1 num 21dig den 22dig omega(beta_1)=4 omega(theta_1)=1 OK m=1 k=1 n'=151 kind=('selmer3', 'selmer3') omega(beta)=4 omega(theta)=1 (m,k) pairs tried=65 (0.2s)
+#2 num 23dig den 23dig omega(beta_1)=2 omega(theta_1)=3 OK m=7 k=0 n'=1 kind=('torsion', 'selmer3') omega(beta)=3 omega(theta)=2 (m,k) pairs tried=6 (0.0s)
+#3 num 24dig den 25dig omega(beta_1)=2 omega(theta_1)=3 OK m=42 k=0 n'=1 kind=('torsion', 'selmer3') omega(beta)=5 omega(theta)=2 (m,k) pairs tried=16 (0.1s)
