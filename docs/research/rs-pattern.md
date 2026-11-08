@@ -100,7 +100,7 @@ each slope `t` must pass the slope predicate (lines 1177–1235). At each odd co
 of `t`, one of the six test groups must succeed at `p`. VERIFIED, lines 1705–1758 and
 `slope_complete`.
 
-- **One group per prime.** The trace `Θ = Tr Σ_g W_g^{-1}` has `12` summands, each `≡ 0` or `1 mod p`. The pole input `B = R/Θ²` has `v_p(B) = v_p(R) − 2v_p(Θ)`, and Lemma `lem:pole` (line 988) forbids a negative odd valuation. So some group must have all twelve normalized tests integral at a place above `p`. There are six groups, hence at most six odd contact primes per slope (field 4); this is why each value carries at most one large prime.
+- **One group per prime.** The trace `Θ = Tr Σ_g W_g^{-1}` has `12` summands, each `≡ 0` or `1 mod p`. The pole input `B = R/Θ²` has `v_p(B) = v_p(R) − 2v_p(Θ)`, and Lemma `lem:pole` (line 988) forbids a negative odd valuation. So some group must have all twelve normalized tests integral at a place above `p`. There are six groups, hence at most six odd contact primes per slope (field 4). With six contact values per slope, this is why 22P gives each value exactly one large prime.
 - **Splitting in `ℚ(√2)`.** The first eight tests place `H = [h]P₀` in the formal group at `𝔭 = (p, s − r)`, and `V₀ = H − [c_*]P₀` in the formal group at the conjugate place. With `p` inert the two places coincide, which would force `[c_*]P₀ ≡ O`. That happens for only finitely many `p`.
 - **The gcd condition.** One needs `h ≡ 0 (mod lcm(M₀, d₁))` and `h ≡ c_* (mod d₂)` (line 1710). This is solvable when `gcd(d₁, d₂) = 4`. More generally it is solvable exactly when `gcd(lcm(M₀, e₁), e₂) | c_*` for the orders `e_i` of `P₀` at the two places, i.e. when `gcd(e₁, e₂) | 4M₀`. (VERIFIED: `gcd(lcm(M₀,e₁), e₂) = lcm(gcd(M₀,e₂), gcd(e₁,e₂))`.)
 - **Contact valuation one.** At an odd contact prime with `v_p(t − c) = e` and `v_p(t − 1) = 0`, one has `v_p(RC²) = 2v_p(D) − (2k − 1)e`. A group therefore contributes residue 1 only if `v_p(D) ≥ ke − (e − 1)/2`.
@@ -161,6 +161,7 @@ The good-prime density changes little under the gcd relaxation (VERIFIED, comput
 ### 2.3 What cannot be weakened (inside the present construction)
 
 - **At most six odd contact primes per slope.** Each test group costs 162 witnesses (`test_group`, line 6747). The polynomial's variable count is fixed: `FrozenTarget` has exactly `292,890,231,904` witness variables, equal to the construction's count (`ZInQ.Syntax.witness_count_arith`). The multiplication template (35,134 witnesses) is instantiated `98,382 + 15,845·190 = 3,108,932` times. So one extra witness in it costs more than three million variables. A seventh group per slope does not fit (VERIFIED). Fewer witnesses are always allowed.
+  Strictly, one group could serve several primes `p, p′` if their conditions on its shift `h` are compatible. That requires cross-conditions such as `gcd(e₁(p), e₂(p′)) | c_*` between the reduction orders at different primes, which are even less controllable than the gcd condition. So the cap is effectively six primes per slope.
 - **Each odd-exponent prime outside `S_b` must be good individually, with exponent exactly 1** (§1.4).
 - **Bounded valuations at `S_b`** (field 2). An unbounded `v_q(t)` at an old prime makes `v_q(RC²)` for `k = 25` tend to `−∞`. The fixed `ℓ₀` and `c_*` cannot compensate: the conjugate-place tests have bounded `q`-adic depth because `h − c_*` does.
 - **Every `A`.** The nine integers are coordinates of `[n]P₀` with a free common positive scale. The scale does not reduce the problem to a special set of `A` in any evident way.
@@ -310,7 +311,7 @@ The routes fall into three groups:
 ### R3. Translation-invariant patterns: two slopes or a difference
 
 - *Idea.* The sum of three slopes has a parity obstruction to translation invariance. If `u_l = σ_l u₁ + κ_l v` for all three slopes, the coefficient of `u₁` in `Σ u_l = Av` is `1 + σ₂ + σ₃ ≠ 0`. For two slopes, `t₁ ± t₂ = A′`, all numerators are values of `u − c′v` for `c′` in a fixed 12-point set, i.e. a homothetic copy of a finite set. This is reachable either without changing the template, by fixing `t₃ = −10` (22P₂, §2.5), or with a smaller template, by using two slopes per quantity. The latter saves `9·1,298` witnesses per multiplication, which is allowed.
-- *Replaces.* The 22-form system in 3 variables, which has true complexity at least 4 and no translation invariance, by a 12-point pattern on a line (true complexity 10, translation-invariant).
+- *Replaces.* The system in 3 variables (18 contact forms of true complexity at least 4, or at least 5 with the shift `b = 1`; not translation-invariant) by a 12-point pattern on a line (true complexity 10, translation-invariant).
 - *Why it might work.*
   - Under GTZ the manuscript's proof adapts with fewer forms and 2 variables (fibers become lines; the fiber sieve has dimension 11). SPECULATIVE (routine).
   - It needs no multipliers and no catalogue (§2.5, VERIFIED).
