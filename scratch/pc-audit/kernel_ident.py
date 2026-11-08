@@ -42,6 +42,8 @@ names = ['a', 'b', 'ab']
 tally = {5: {}, 6: {}}
 cnt = {5: 0, 6: 0}
 tried = set()
+par6 = {}
+par5 = {}
 while min(cnt.values()) < N:
     n = rng.randrange(5, 10 ** 6)
     t = n % 8
@@ -96,6 +98,10 @@ while min(cnt.values()) < N:
             vals = {'a': a, 'b': b, 'ab': sqf(a * b)}
             if S(vals[names[u]]) | (S(vals[names[w]]) << r) == k:
                 ok = True
+                if t == 6 and (names[u], names[w]) == ('ab', 'b'):
+                    par6[a % 2] = par6.get(a % 2, 0) + 1
+                if t == 5 and (names[u], names[w]) == ('ab', 'a'):
+                    par5[a % 2] = par5.get(a % 2, 0) + 1
         key = (names[u], names[w])
         tally[t][key] = tally[t].get(key, 0) + ok
         if ok:
@@ -105,3 +111,4 @@ while min(cnt.values()) < N:
 for t in (5, 6):
     print("n =", t, "mod 8, samples", cnt[t], ": k = (S(u), S(w)) matched by some representative:",
           {f"({u},{w})": c for (u, w), c in tally[t].items() if c})
+print('parity of a on matching representatives (a mod 2: count): n=5', par5, ' n=6', par6)

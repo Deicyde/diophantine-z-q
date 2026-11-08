@@ -175,7 +175,7 @@ Proposition 10.5 and Theorem 10.8 (pp. 192–194), Theorem 10.13 (p. 198), Theor
 2021, v3 14 Sep 2021, v4 22 Jun 2022, v5 19 Oct 2022. The arXiv record has no journal reference,
 and a Crossref query finds no journal article with this title. The author's monograph
 *Supersingular p-adic L-functions, Maass–Shimura operators and Waldspurger formulas* (Annals of
-Math. Studies 212, 2021) is a different work. Status: **unrefereed preprint**.
+Math. Studies, Princeton, 2021) is a different work. Status: **unrefereed preprint**.
 
 **Exact statement.** Theorem 10.13 (Rank 1 p-Converse Theorem): *Let `E/ℚ` be an elliptic curve
 with CM by `O_K` and suppose `p` is ramified in `K`. Then*
@@ -254,11 +254,12 @@ Corollaries 4 and 7, Theorem 8(3)). For elliptic curves, Cassels, J. reine angew
 (1962), already gives an alternating nondegenerate pairing on `Ш/Ш_div` (STANDARD).
 
 **Use in Route K (VERIFIED, logic).** `C_d(ℚ)_tors = (ℤ/2)²` (STANDARD; e.g. Koblitz,
-*Introduction to elliptic curves and modular forms*, I §9, Proposition 17). The exact sequence
+*Introduction to elliptic curves and modular forms*, Ch. I, §9). The exact sequence
 `0 → C_d(ℚ)[2^∞]/2 → Sel₂ → Sel_{2^∞}[2] → 0` gives `dim Sel_{2^∞}[2] = 1` for a Selmer-minimal
 curve. Write `Sel_{2^∞} ≅ (ℚ₂/ℤ₂)^{r₂} ⊕ F` with `F` finite; then `F ≅ Ш[2^∞]/div`. If
-`r₂ = 0`, then `F` is cyclic and nonzero, which is impossible since `#F` is a square. So
-`r₂ = 1`, which is Kriz's hypothesis.
+`r₂ = 0`, then `F = Ш[2^∞]` is finite, cyclic and nonzero. That is impossible, because a
+nondegenerate alternating pairing on a finite abelian group forces it to have the form `G × G`.
+So `r₂ = 1`, which is Kriz's hypothesis.
 
 **Verdict.** Usable as is; needed only in K-Kriz.
 
@@ -451,16 +452,20 @@ Two control tests:
 indicator vector of the odd primes of `n` that divide `c`. Then the kernel of Smith's block is
 spanned by
 
-- `n ≡ 5 (mod 8)`: `k = (S(ab), S(a))` for some representative `(a, b)` (300 of 300);
-- `n ≡ 6 (mod 8)`: `k = (S(ab), S(b))` for some representative (300 of 300).
+- `n ≡ 5 (mod 8)`: `k = (S(ab), S(a))` for exactly one representative `(a, b)`, and that
+  representative has `a` odd (300 of 300);
+- `n ≡ 6 (mod 8)`: `k = (S(ab), S(b))` for exactly one representative, and it has `a` odd
+  (300 of 300).
 
 Here `a`, `b` and `ab` are the classes of `x`, `x − n` and `x + n`. With the bordered lemma this
 gives the rows directly:
 
 - row 5b: `(0, y)ᵀk = Σ_{p | a} (−1/p)₊ = χ₋₁(|a|_odd)`;
-- row 5a: `(y + z, 0)ᵀk = Σ_{p | ab} (−2/p)₊`;
-- row 6: `(y, y)ᵀk = yᵀS(a) = χ₋₁(|a|_odd)` on the matching representative, which is the
-  coset-invariant rule `[a even] + χ₋₁(|a|_odd)`.
+- row 5a: `(y + z, 0)ᵀk = Σ_{p | ab} (−2/p)₊`, which by the local relations equals the form in
+  the table;
+- row 6: `(y, y)ᵀk = yᵀ(S(ab) + S(b)) = yᵀS(a) = χ₋₁(|a|_odd)` with `a` odd, which is the
+  coset-invariant rule `[a even] + χ₋₁(|a|_odd)`. Multiplying `a` by `n` changes its parity and
+  multiplies its odd part by `n/2 ≡ 3 (mod 4)`, so the rule is invariant.
 
 What remains unwritten is a proof of the two kernel identifications from the local conditions
 of RK8, i.e. a change of basis between Monsky's matrix and Smith's symmetrized one. It is
