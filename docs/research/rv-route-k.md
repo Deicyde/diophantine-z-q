@@ -44,9 +44,10 @@ The repairs:
 
    Experiments support it:
 
-   - every one of 100 fresh admissible inputs (random and adversarial) was solved;
-   - so was every fixed `(B, m)` pair that was retried with the larger search, including
-     multipliers fixed in advance and `θ` built with up to 9 small primes.
+   - all 60 inputs run with every multiplier allowed were solved: 30 random, 30 adversarial;
+   - every fixed `(B, m)` pair retried with the larger search was solved: 8 stress pairs, and 10
+     inputs with `m = 1` fixed and `θ` built from 4–9 small primes;
+   - all 60 inputs run with the TYZ certificate were solved.
 
    Suitable auxiliary products can be rare: for some `(β, θ)` the class `β` lies on `C_{nθ}`
    for only a fraction of order `2^{−ω(θ)}` of random `n'`. So the proof must choose the
@@ -54,7 +55,7 @@ The repairs:
 2. **The deep input.**
    - Kriz's theorem is an unrefereed preprint (arXiv:2002.04767v5, 19 Oct 2022; no journal
      reference on arXiv, and I found no publication). Trust moves from the manuscript's
-     8,000 lines to Kriz's 277-page preprint.
+     8,000 lines to Kriz's 214-page preprint.
    - **A published alternative works in the experiments.** Tian–Yuan–Zhang (Asian J. Math.
      2017), in Smith's determinant form, certifies rank one for a curve with one extra
      linear condition. Requiring it on every curve that needs the converse, the descent still
@@ -270,7 +271,7 @@ descent.
 ### 4.3 Kriz's theorem: statement, hypotheses, status
 
 **Source.** D. Kriz, *Supersingular main conjectures, Sylvester's conjecture and Goldfeld's
-conjecture*, arXiv:2002.04767v5 (19 Oct 2022, 277 KB). The text below was read in v5.
+conjecture*, arXiv:2002.04767v5 (19 Oct 2022, 214 pages). The text below was read in v5.
 
 - **Theorem 1.1** (= Theorems 9.23 and 10.13). Let `E/ℚ` be an elliptic curve and `K/ℚ` an
   imaginary quadratic field such that `E/K` has CM by `O_K`, and let `p` be the unique prime
@@ -372,7 +373,7 @@ generators: `B = N/D²`, `N = Πp^{e_p}·u`, with `e_p ∈ {4,…,7}` on `S₀` 
 | random (`u < 10⁷`, `D` up to `50√(2N)`) | 30 | **30 of 30** solved. 29 with `n = β` (no auxiliary prime; the multiplier is the free parameter); 1 with one auxiliary prime. |
 | many primes in `β` (6–9 primes `< 300` in `u`; `ω(β)` up to 14) | 10 | 9 by the quick search (`k ≤ 2` primes `< 200`). The 10th by the two-phase search with `m = 5`, `n' = 971`. **10 of 10.** |
 | fixed multiplier, `n' ∈ {1, θ}` forbidden, random auxiliary sets (`k ≤ 7`, primes `< 20000`) | 20 inputs × 6 multipliers | 109 of 120 pairs at once. Of the 11 failures, the 8 from the second batch were rerun with the two-phase search (primes up to `10⁶`): **8 of 8 solved** with 3–6 auxiliary primes. The 3 from the first batch were not retried. |
-| fixed `m = 1`, `θ` built as a product of 4–9 small primes (`N = D² − θ₀Y²`) | 10 | SMOOTH_RESULT |
+| fixed `m = 1`, `θ` built as a product of 4–9 small primes (`N = D² − θ₀Y²`) | 10 | **10 of 10** with `m = 1` fixed: 8 by plain random sampling (2–4 auxiliary primes, after 11–15,000 trials), #4 by the two-phase search (`n' = 119131·236773·311009`, re-verified), and #8 (`ω(θ) = 8`) after 60,586 trials (`n' = 27802123643865553`). Every solution was re-verified. |
 | minimal `S₀` valuations (`e_p ∈ {4, 5}`), tiny cofactor | 10 | **10 of 10** (all `k = 0`) |
 | extreme `B` (just below `1/2`, or `D ≈ 10¹⁷`) | 10 | **10 of 10** |
 | **TYZ variant**: as above, but every curve that uses the converse must also pass TYZ's criterion | random 30; many-`β` 10; `S₀`-edge 10; extreme-`B` 10 | **30 of 30; 10 of 10; 10 of 10; 10 of 10.** Two many-`β` inputs needed the larger pool (`m = 5`, `n' = 87380822281`; `m = 105`, `n' = 93479`). |
@@ -392,9 +393,10 @@ generators: `B = N/D²`, `N = Πp^{e_p}·u`, with `e_p ∈ {4,…,7}` on `S₀` 
     does for `E_ℓ` (lines 1035–1061).
   - The structured searches (beam, two-phase, annealing) reported failures on the smooth-`θ`
     family. Plain random sampling of 2–10 primes up to `10⁶` (`brute_fixed_m.py`,
-    `brute_smooth_all.py`) then solved those cases with two auxiliary primes, after 100–15,000
-    trials. So the failures were artifacts of the searches. The two-phase search, for example,
-    stopped sampling after six partial starts.
+    `brute_smooth_all.py`) then solved all ten, with 2–4 auxiliary primes. The trials needed
+    ranged from 11 to about 60,000; the hardest case is #8, where `ω(θ) = 8`. So the failures
+    were artifacts of the searches. The two-phase search, for example, stopped sampling after six
+    partial starts.
   - Likewise, with `ω(β) ≈ 10` most random products fail the necessary conditions at the primes
     of `β`. That is why some quick searches failed.
 - **No invariant obstruction was found.** Three candidate invariants did not predict the rare
@@ -516,7 +518,7 @@ against `scratch/rv-route-k/sel2cong.py` and `tyz_smith.py`.
 - **Chance: medium–high**, for these reasons:
   - The deep input fits exactly, and soundness transfers.
   - Every input and every fixed `(B, m)` pair retried with the larger search admitted a
-    solution, usually with at most two auxiliary primes.
+    solution, with at most six auxiliary primes.
   - No invariant obstruction appeared.
   - The analogous lemma for `E_ℓ` was already carried out in the manuscript, with an extra
     3-adic condition that `C_ℓ` does not have.
