@@ -497,7 +497,27 @@ the two `β`-rules.
 - **30 of 30 inputs** have a solution in which every converse curve is certified by the
   `β`-rule alone.
 
-Harder families: HARD_RESULT
+**The K-TYZ-β descent itself (VERIFIED, `ktyz_beta_search.py`, `out_ktyz_beta_*.txt`).** The
+search is restricted from the start to multipliers whose `β` satisfies a rule and to `n'` in the
+required class mod 8. It uses 1–4 random auxiliary primes `≥ 11` from the first 400 such primes,
+prefiltered by the necessary local conditions. It asks that `C_n` and `C_{nθ}` both be
+Selmer-minimal with class `β`, and then re-checks Smith's determinant (row 5b or 6) on both
+curves.
+
+| Family (`rv-route-k` generators) | Solved | Solutions failing the TYZ re-check |
+| --- | --- | --- |
+| `random` | 30 of 30 (median 1 auxiliary prime, at most 195 evaluations) | 0 |
+| `manybeta` (`ω(β)` up to 14) | 9 of 10 at the first budget; the 10th solved on retry (below) | 0 |
+HARD_ROWS
+
+The unsolved `manybeta` input was replayed and retried with a pool of 2,000 primes, 1–6
+auxiliary primes and 3,000 evaluations per pair (`ktyz_retry.py`, `out_ktyz_retry_manybeta2.txt`).
+- 23 of the 48 (multiplier, rule) pairs then succeed. For example `m = −2730` with rule 5 succeeds
+  after 34 evaluations with the single prime `n' = 8719`, which lies outside the first pool.
+- All 23 solutions pass the TYZ re-check.
+- The other 25 pairs fail within 3,000 evaluations. This is the fixed-multiplier difficulty that
+  `rv-route-k.md` §4.4 already met in the Kriz form. It concerns the descent, not the deep input.
+
 
 ### RK7: Gross–Zagier, analytic rank one gives a point of infinite order
 

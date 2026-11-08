@@ -89,6 +89,8 @@ def main():
                            omega_theta=len(ds.factor(theta)))
         solved += res is not None
         print(f"input {it}: {res if res else 'NOT SOLVED after %d evaluations' % evals}", flush=True)
+        if os.environ.get('SHOWB'):
+            print(f"   B = {B}", flush=True)
     print(f"family {fam}: solved {solved}/{count}; solutions failing the TYZ re-check: {tyz_fail}")
 
 

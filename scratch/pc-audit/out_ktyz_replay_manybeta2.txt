@@ -1,0 +1,7 @@
+input 0: {'m': -2, 'beta': -2415685793574495, 'rule': '6', 'nprime': 6577234, 'k': 2, 'evals': 58, 'tyz_row': '6', 'tyz_both': True, 'omega_beta': 9, 'omega_theta': 2}
+   B = 268362005713852573255905900000/2970562845676007218277361976369
+input 1: {'m': 195, 'beta': 10207660151910024555, 'rule': '6', 'nprime': 9766706, 'k': 2, 'evals': 42, 'tyz_row': '6', 'tyz_both': True, 'omega_beta': 11, 'omega_theta': 1}
+   B = 491392907566575774576453483210000/2571519096590938002411300004615129
+input 2: NOT SOLVED after 4483 evaluations
+   B = 935055150168196710080578807020000/11713534546912537624416967266911041
+family manybeta: solved 2/3; solutions failing the TYZ re-check: 0
