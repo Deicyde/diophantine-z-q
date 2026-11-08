@@ -61,6 +61,20 @@ theorem norm_partialSum_sub_LFunction_one_le {χ : DirichletCharacter ℂ q} (h�
   calc (q : ℝ) / ((⌊x⌋₊ + 1 : ℕ) : ℝ) ≤ q / x := div_le_div_of_nonneg_left hq hx0 hlt.le
     _ ≤ 2 * q / x := div_le_div_of_nonneg_right (by linarith) hx0.le
 
+/-- The bound `‖∑_{0<n≤x} χ(n)/n − L(1,χ)‖ ≤ 2q/x` for every real `x > 0`
+(for `x < 1` the sum is empty and `‖L(1,χ)‖ ≤ log q + 3 ≤ 2q`). -/
+theorem norm_partialSum_sub_LFunction_one_le' {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1)
+    {x : ℝ} (hx : 0 < x) :
+    ‖∑ n ∈ Ioc 0 ⌊x⌋₊, χ n / (n : ℂ) - DirichletCharacter.LFunction χ 1‖ ≤ 2 * q / x := by
+  rcases le_or_gt 1 x with h1 | h1
+  · exact norm_partialSum_sub_LFunction_one_le hχ h1
+  · rw [Nat.floor_eq_zero.mpr h1, Finset.Ioc_self, Finset.sum_empty, zero_sub, norm_neg]
+    have hq : (2 : ℝ) ≤ q := by exact_mod_cast two_le_of_ne_one hχ
+    have hlog : Real.log q ≤ q - 1 := Real.log_le_sub_one_of_pos (by linarith)
+    refine (norm_LFunction_one_le hχ).trans ?_
+    rw [le_div_iff₀ hx]
+    nlinarith
+
 /-- `‖∑_{0<n≤N} χ(n) log n/n‖ ≤ M²` for every `N`. -/
 theorem norm_sum_log_div_le {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1) (N : ℕ) :
     ‖∑ n ∈ Ioc 0 N, χ n * (Real.log n : ℂ) / (n : ℂ)‖ ≤ (Real.log q + 3) ^ 2 := by

@@ -207,4 +207,39 @@ theorem norm_LSeries_logMul_sub_sum_le {χ : DirichletCharacter ℂ q} (hχ : χ
   rw [e _ (hpos N K)]
   exact norm_sum_Ioc_char_log_div_cpow_le hχ hσ.le hN K
 
+/-- Plan step 1, infinite tail, `σ > 1`, `N ≥ 1`:
+`‖∑_{n > N} χ(n)/n^σ‖ = ‖L(σ,χ) - ∑_{0<n≤N} χ(n)/n^σ‖ ≤ 2q/N`. -/
+theorem norm_tail_le {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1) {σ : ℝ} (hσ : 1 < σ) {N : ℕ}
+    (hN : 1 ≤ N) :
+    ‖DirichletCharacter.LFunction χ σ - ∑ n ∈ Ioc 0 N, χ n / (n : ℂ) ^ (σ : ℂ)‖ ≤
+      2 * q / N := by
+  refine (norm_LFunction_sub_sum_le hχ hσ N).trans ?_
+  have hN' : (1 : ℝ) ≤ N := by exact_mod_cast hN
+  have hq : (0 : ℝ) ≤ q := Nat.cast_nonneg q
+  refine (mul_le_mul_of_nonneg_left (rpow_neg_le_inv_succ hσ.le N) hq).trans ?_
+  rw [← div_eq_mul_inv, Nat.cast_add, Nat.cast_one, div_le_div_iff₀ (by linarith) (by linarith)]
+  nlinarith
+
+/-- Plan step 1, infinite logarithmic tail, `σ > 1`, `N ≥ 3`:
+`‖∑_{n > N} χ(n) log n/n^σ‖ ≤ 2q log N / N`. -/
+theorem norm_tail_log_le {χ : DirichletCharacter ℂ q} (hχ : χ ≠ 1) {σ : ℝ} (hσ : 1 < σ)
+    {N : ℕ} (hN : 3 ≤ N) :
+    ‖LSeries (LSeries.logMul (fun n ↦ χ n)) σ -
+        ∑ n ∈ Ioc 0 N, χ n * (Real.log n : ℂ) / (n : ℂ) ^ (σ : ℂ)‖ ≤
+      2 * q * Real.log N / N := by
+  refine (norm_LSeries_logMul_sub_sum_le hχ hσ (by omega)).trans ?_
+  have hq : (0 : ℝ) ≤ q := Nat.cast_nonneg q
+  have hN' : (3 : ℝ) ≤ N := by exact_mod_cast hN
+  have hlogN : 0 ≤ Real.log N / N := div_nonneg (Real.log_nonneg (by linarith)) (by linarith)
+  calc (q : ℝ) * (Real.log ((N + 1 : ℕ) : ℝ) * ((N + 1 : ℕ) : ℝ) ^ (-σ))
+      ≤ q * (Real.log ((N + 1 : ℕ) : ℝ) / ((N + 1 : ℕ) : ℝ)) := by
+        refine mul_le_mul_of_nonneg_left ?_ hq
+        rw [div_eq_mul_inv]
+        exact mul_le_mul_of_nonneg_left (rpow_neg_le_inv_succ hσ.le N)
+          (Real.log_natCast_nonneg _)
+    _ ≤ q * (Real.log N / N) := mul_le_mul_of_nonneg_left (log_succ_div_le hN) hq
+    _ ≤ 2 * q * Real.log N / N := by
+        rw [mul_div_assoc, mul_assoc]
+        exact le_mul_of_one_le_left (mul_nonneg hq hlogN) (by norm_num)
+
 end ZInQ.Progressions
