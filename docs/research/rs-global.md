@@ -367,19 +367,40 @@ So no algebraic condition on the three points cuts out the multiplication graph.
 certificate needs auxiliary witnesses, whose existence for every true triple is an arithmetic
 theorem. In both manuscripts that theorem is a prime pattern.
 
-**C6. At least five contacts, and six is the smallest rational orbit** (the first part is
-[rs-height R7], [rs-pattern R8]; the second is VERIFIED from a STANDARD classification).
+**C6. At least five contacts; five suffice for the Shimura mechanism** (the lower bound is
+[rs-height R7], [rs-pattern R8]; the rest is VERIFIED by `five_contact_j.py`).
 
 - With four or fewer contacts the twists have genus at most one. Positive-rank twists then give
   unbounded heights at bounded `M`, so no height bound of type H can hold.
-- The finite subgroups of `PGL₂(ℚ)` are cyclic of order 1, 2, 3, 4 or 6, and dihedral of order 4,
-  6, 8 or 12 (Beauville, *Finite subgroups of PGL₂(K)*, Contemp. Math. 522 (2010)). Orbits on
-  `ℙ¹(ℚ)` have size dividing the group order, so no rational Möbius group permutes five rational
-  points transitively.
-- The 11/5 contacts form one orbit of the dihedral group of order 12, and `J` is the quotient map
-  onto the Shimura orbifold `X⁶/W` [rs-height §3.3].
-- So a five-contact configuration like the preprint's cannot be a single rational orbit, and the
-  11/5 mechanism does not carry over to it.
+- The 11/5 contacts form one orbit of a dihedral group of order 12 in `PGL₂(ℚ)`, and `J` is the
+  quotient map onto the Shimura orbifold `X⁶/W = ℙ¹_j(4, 6, 2)` [rs-height §3.3]. No rational
+  group can do this for five points. The finite subgroups of `PGL₂(ℚ)` are cyclic of order 1, 2,
+  3, 4 or 6, or dihedral of order 4, 6, 8 or 12 (STANDARD; Beauville, *Finite subgroups of
+  PGL₂(K)*, Contemp. Math. 522 (2010)), and an orbit has size dividing the group order.
+- But the proof of H uses `J` only through its ramification over the three special values
+  `0, ∞, −16/27` (lines 545–563: indices `2, 6, 2`, normalized to `2, 1, 1`). A non-Galois `J`
+  with the right ramification serves as well. For five cone points of order 2 the orbifold Euler
+  characteristic forces degree 6 (`−1/2 = 6·(−1/12)`). The four possible ramification passports
+  give three-point covers, which the script solves exactly:
+  - `[2,2,2] [3,3] [2,2,2]` is Galois with group `S₃`, and its points over `∞` are fixed points of
+    an element of order 3 of `PGL₂(ℚ)`, which are never rational;
+  - `[2,2,2] [6] [2,2,1,1]` reduces to the polynomial Pell equation, whose cubic solution `T₃` has
+    irrational roots;
+  - `[2,4] [6] [2,1,1,1,1]` has an irreducible cubic among its contacts;
+  - `[2,4] [3,3] [2,2,1,1]` has exactly one solution with rational contacts, namely
+
+    `J₅(u) = 4(u − 1)² / (u³(2 − u)³)`,
+    `J₅(u) + 16/27 = −4(u − 3)(u + 1)(2u² − 4u + 3)² / (27u³(2 − u)³)`.
+
+    The pulled-back orbifold has index 2 exactly at `u = 1` (over `0`), at `u = 0, 2` (over
+    `∞`, ramification 3) and at `u = −1, 3` (over `−16/27`, unramified), and index 1 elsewhere.
+- So the five integers `𝒞₅ = {−1, 0, 1, 2, 3}`, five consecutive terms of an arithmetic
+  progression, are a contact set for which the 11/5 proof of H should go through with `J₅` (degree
+  6) in place of the degree-12 `J`. This is SPECULATIVE until the proof is rechecked with `J₅`;
+  the rational point `u = ∞` above the elliptic value `0` is one point and does not affect a
+  height bound. The preprint's height estimate also has five contact points, one of them `∞`
+  (10/11 (2.6)), which is consistent with this count; `u ↦ 1/u` moves `𝒞₅` to
+  `{∞, 1/2, 1, −1, 1/3}`. Section 4, route A3, weighs what five contacts would buy.
 
 **C7. Cusps break the step from parity to good reduction; isotrivial families lose the height**
 (the first part is [rs-height R4]; the second is VERIFIED as an argument). The mechanism of H needs
