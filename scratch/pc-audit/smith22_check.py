@@ -55,7 +55,7 @@ def g(d):
     return val
 
 
-def run(n):
+def run(n, sums=True):
     ps = [int(p) for p in pari.factor(n)[0]]
     two = 2 in ps
     odd = [p for p in ps if p != 2]
@@ -118,22 +118,23 @@ def run(n):
                         s ^= g(d0) & g(d1) & Lsha(full ^ sub)
         return s
 
-    if t == 1:
-        L['1'] = Lsha(full)
-    elif t == 2 or t == 6 or t == 3 or t in (5, 7):
-        pass
-    if t == 2:
-        L['2'] = S1(lambda d: d % 16 == n % 16)
-    if t == 3:
-        L['3'] = S1(lambda d: d % 8 == 3)
-    if t == 5:
-        L['5a'] = S1(lambda d: d % 8 == 5)
-        L['5b'] = S2(lambda d: d % 8 == 7, lambda d: d % 8 == 3)
-    if t == 6:
-        L['6'] = S2(lambda d: d % 16 == (7 * n) % 16, lambda d: d % 8 == 7) ^ S1(lambda d: d % 16 == n % 16)
-    if t == 7:
-        L['7a'] = S1(lambda d: d % 8 == 7)
-        L['7b'] = S2(lambda d: d % 8 == 5, lambda d: d % 8 == 3)
+    if sums:
+        if t == 1:
+            L['1'] = Lsha(full)
+        elif t == 2 or t == 6 or t == 3 or t in (5, 7):
+            pass
+        if t == 2:
+            L['2'] = S1(lambda d: d % 16 == n % 16)
+        if t == 3:
+            L['3'] = S1(lambda d: d % 8 == 3)
+        if t == 5:
+            L['5a'] = S1(lambda d: d % 8 == 5)
+            L['5b'] = S2(lambda d: d % 8 == 7, lambda d: d % 8 == 3)
+        if t == 6:
+            L['6'] = S2(lambda d: d % 16 == (7 * n) % 16, lambda d: d % 8 == 7) ^ S1(lambda d: d % 16 == n % 16)
+        if t == 7:
+            L['7a'] = S1(lambda d: d % 8 == 7)
+            L['7b'] = S2(lambda d: d % 8 == 5, lambda d: d % 8 == 3)
 
     # Smith's matrices
     A = [[0] * r for _ in range(r)]
@@ -219,7 +220,7 @@ def run(n):
     elif n % 4 == 3 and r >= 1:
         m = [A[i][:r - 1] for i in range(r - 1)]
         red = det2(mat_from(m), r - 1) if r > 1 else 1
-    return L, dets, red, g(n), r
+    return L, dets, red, (g(n) if sums else None), r
 
 
 if __name__ == "__main__":
