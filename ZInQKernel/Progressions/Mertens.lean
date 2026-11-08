@@ -2,6 +2,8 @@ import ZInQKernel.Progressions.Mertens.First
 import ZInQKernel.Progressions.Mertens.Defs
 import ZInQKernel.Progressions.Mertens.Orthogonality
 import ZInQKernel.Progressions.Mertens.Twisted
+import ZInQKernel.Progressions.Mertens.PrimePowers
+import ZInQKernel.Progressions.Mertens.Principal
 
 /-!
 # Plan step 4: Mertens' theorem and the residue-class count
