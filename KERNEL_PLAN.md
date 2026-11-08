@@ -33,9 +33,16 @@ the manuscript's `2^(W³)`), which leaves three:
 
 ```lean
 theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of
-    (hH : SixContactEstimate) (hPC : PoleCompleteness)
+    (hH : SixContactMin) (hPC : PoleCompleteness)
     (h22 : FixedPrimePattern) : FrozenTarget
 ```
+
+H enters in its minimal form `SixContactMin` (`ZInQKernel/Hypotheses/HeightMin.lean`): the one
+inequality `h(u) ≤ H₆(D) M_{S_mul}(u)²⁴` for `u ∈ ℚ \ 𝒞` that the proof uses, the instance
+`S = S_mul`, `R = D` of Theorem 4.1. The manuscript's form `SixContactEstimate` implies it
+(`ZInQ.sixContactMin_of_sixContactEstimate`), and
+`exists_bounded_integer_polynomial_defining_integers_of_sixContactEstimate` is the main theorem
+with H as stated in the manuscript.
 
 `scripts/check_target.py` checks that `FrozenTarget` is upstream's frozen statement token
 for token. Removing another hypothesis means formalizing its source theorem or finding a

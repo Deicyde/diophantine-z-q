@@ -1,5 +1,6 @@
 import ZInQKernel.Target
 import ZInQKernel.Hypotheses.Height
+import ZInQKernel.Hypotheses.HeightMin
 import ZInQKernel.Hypotheses.Pole
 import ZInQKernel.Hypotheses.MordellWeil
 import ZInQKernel.Hypotheses.PrimePattern

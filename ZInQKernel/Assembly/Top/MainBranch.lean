@@ -1,5 +1,6 @@
 import ZInQKernel.Assembly.Local.TestDivisibility
 import ZInQ.RationalSeparation
+import ZInQKernel.Hypotheses.HeightMin
 
 /-!
 # An accepting main branch forces the exact value
@@ -23,7 +24,7 @@ theorem ratHeight_eq_rationalLogHeight (q : ℚ) : ratHeight q = rationalLogHeig
 
 /-- **The height bound of an accepting main branch.** If `n ∉ 𝒞` and `Test(n, κ, t)`, then
 `h(t) ≤ 𝓑(n, κ) = A⁽⁰⁾_ht |κ F(n)|²⁴`. -/
-theorem ratHeight_le_bound_of_test (hH : SixContactEstimate) {n κ : ℤ} {t : ℚ}
+theorem ratHeight_le_bound_of_test (hH : SixContactMin) {n κ : ℤ} {t : ℚ}
     (hn : n ∉ contacts) (hT : Test n κ t) : ratHeight t ≤ (bound n κ : ℝ) := by
   have hdvd := test_dvd hT
   obtain ⟨hκ, ht, -⟩ := hT
@@ -38,7 +39,7 @@ theorem ratHeight_le_bound_of_test (hH : SixContactEstimate) {n κ : ℤ} {t : �
 
 /-- **Exactness from closeness and the six local tests.** If `n ∉ 𝒞`,
 `|t - n| < e^{-𝓑(n, κ)}` in `ℝ` and `Test(n, κ, t)`, then `t = n`. -/
-theorem eq_of_close_of_test (hH : SixContactEstimate) {n κ : ℤ} {t : ℚ} (hn : n ∉ contacts)
+theorem eq_of_close_of_test (hH : SixContactMin) {n κ : ℤ} {t : ℚ} (hn : n ∉ contacts)
     (hclose : |(t : ℝ) - n| < Real.exp (-(bound n κ : ℝ))) (hT : Test n κ t) : t = n :=
   eq_int_of_real_abs_sub_lt_exp_neg_of_height_le t n _
     ((ratHeight_eq_rationalLogHeight t).symm ▸ ratHeight_le_bound_of_test hH hn hT) hclose

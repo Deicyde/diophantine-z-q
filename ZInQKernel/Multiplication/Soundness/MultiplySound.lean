@@ -21,7 +21,7 @@ namespace ZInQ.Mult
 open Syntax
 
 /-- **Soundness of the multiplication template.** -/
-theorem multiply_sound (hH : SixContactEstimate) (Y₁ Y₂ Y₃ : Fin 5 → ℚ)
+theorem multiply_sound (hH : SixContactMin) (Y₁ Y₂ Y₃ : Fin 5 → ℚ)
     (hY : (multiplyTemplate specConstructors FixedConst.cstar.value FixedConst.ell.value
       FixedConst.T.value).Rel (codes3 Y₁ Y₂ Y₃)) :
     ∃ a b : ℤ, Y₁ = iota a ∧ Y₂ = iota b ∧ Y₃ = iota (a * b) := by

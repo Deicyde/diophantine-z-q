@@ -28,7 +28,7 @@ open Syntax Compiler.Precision Compiler.Universal
 
 /-- **An accepting main branch forces the exact value**, from soundness of Close: if
 `Rel_close(ι(n), ι(κ), t)` and `Test(n, κ, t)`, then `t = n`. -/
-theorem main_branch_eq_of (hH : SixContactEstimate)
+theorem main_branch_eq_of (hH : SixContactMin)
     (hsound : ∀ (n κ : ℤ) (t : ℚ), CloseRel (iota n) (iota κ) t →
       (n : ℚ) ∉ contactSet ∧ κ ≠ 0 ∧ |(t : ℝ) - n| < Real.exp (-(bound n κ : ℝ)))
     {n κ : ℤ} {t : ℚ} (hc : CloseRel (iota n) (iota κ) t) (hT : Test n κ t) : t = n := by
@@ -37,7 +37,7 @@ theorem main_branch_eq_of (hH : SixContactEstimate)
 
 /-- **The exact ordinary-value relation**, from soundness and completeness of Close:
 `Rel_value(N, t) ⟺ ∃ n ∈ ℤ, N = ι(n) ∧ t = n`. -/
-theorem value_relation_iff_of (hH : SixContactEstimate) (hPC : PoleCompleteness)
+theorem value_relation_iff_of (hH : SixContactMin) (hPC : PoleCompleteness)
     (hM : SpecMultiplicationExact)
     (hsound : ∀ (n κ : ℤ) (t : ℚ), CloseRel (iota n) (iota κ) t →
       (n : ℚ) ∉ contactSet ∧ κ ≠ 0 ∧ |(t : ℝ) - n| < Real.exp (-(bound n κ : ℝ)))
@@ -62,7 +62,7 @@ theorem value_relation_iff_of (hH : SixContactEstimate) (hPC : PoleCompleteness)
 
 /-- **Projection of the exact ordinary-value relation**, from soundness and completeness of
 Close: `(∃ N ∈ ℚ⁵, Rel_value(N, t)) ⟺ t ∈ ℤ`. -/
-theorem exists_value_relation_iff_of (hH : SixContactEstimate) (hPC : PoleCompleteness)
+theorem exists_value_relation_iff_of (hH : SixContactMin) (hPC : PoleCompleteness)
     (hM : SpecMultiplicationExact)
     (hsound : ∀ (n κ : ℤ) (t : ℚ), CloseRel (iota n) (iota κ) t →
       (n : ℚ) ∉ contactSet ∧ κ ≠ 0 ∧ |(t : ℝ) - n| < Real.exp (-(bound n κ : ℝ)))
@@ -77,14 +77,14 @@ theorem exists_value_relation_iff_of (hH : SixContactEstimate) (hPC : PoleComple
 
 /-- **An accepting main branch forces the exact value.** Under H, PC and SR, if
 `Rel_close(ι(n), ι(κ), t)` and `Test(n, κ, t)`, then `t = n`. -/
-theorem main_branch_eq (hH : SixContactEstimate) (hPC : PoleCompleteness)
+theorem main_branch_eq (hH : SixContactMin) (hPC : PoleCompleteness)
     (h22 : Mult.SlopeRepresentation) {n κ : ℤ} {t : ℚ} (hc : CloseRel (iota n) (iota κ) t)
     (hT : Test n κ t) : t = n :=
   main_branch_eq_of hH (close_sound (Mult.multiplication_exact hH hPC h22)) hc hT
 
 /-- **The exact ordinary-value relation.** Under H, PC and SR, for all `N ∈ ℚ⁵` and `t ∈ ℚ`,
 `Rel_value(N, t) ⟺ ∃ n ∈ ℤ, N = ι(n) ∧ t = n`. -/
-theorem value_relation_iff (hH : SixContactEstimate) (hPC : PoleCompleteness)
+theorem value_relation_iff (hH : SixContactMin) (hPC : PoleCompleteness)
     (h22 : Mult.SlopeRepresentation) (N : Fin 5 → ℚ) (t : ℚ) :
     ValueRel N t ↔ ∃ n : ℤ, N = iota n ∧ t = n :=
   have hM := Mult.multiplication_exact hH hPC h22
@@ -92,7 +92,7 @@ theorem value_relation_iff (hH : SixContactEstimate) (hPC : PoleCompleteness)
 
 /-- **The exact ordinary-value relation, projected.** Under H, PC and SR, for every `t ∈ ℚ`,
 `(∃ N ∈ ℚ⁵, Rel_value(N, t)) ⟺ t ∈ ℤ`. -/
-theorem exists_value_relation_iff (hH : SixContactEstimate) (hPC : PoleCompleteness)
+theorem exists_value_relation_iff (hH : SixContactMin) (hPC : PoleCompleteness)
     (h22 : Mult.SlopeRepresentation) (t : ℚ) :
     (∃ N : Fin 5 → ℚ, ValueRel N t) ↔ ∃ z : ℤ, (z : ℚ) = t :=
   have hM := Mult.multiplication_exact hH hPC h22
