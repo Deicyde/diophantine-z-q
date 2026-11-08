@@ -321,7 +321,7 @@ def gen_extremeB(rng):
             while gcd(D, N) != 1:
                 D += 1
         else:
-            D = rand_coprime(rng, 10 ** 30, 10 ** 31, N)
+            D = rand_coprime(rng, 10 ** 17, 10 ** 18, N)
         B = Fr(N, D * D)
         if admissible(B):
             return B

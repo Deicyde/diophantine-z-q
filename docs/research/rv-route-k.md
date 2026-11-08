@@ -306,12 +306,25 @@ Asian J. Math. 21 (2017), no. 4, 721–773 (published; read in arXiv:1411.4728v1
 - Theorem 1.2: for squarefree `n ≡ 5, 6, 7 (mod 8)`, if a parity sum `L_x(n)` of genus class
   numbers `g(d) = #2Cl(ℚ(√−d))`, `d | n`, is odd, then `ord_{s=1} L(E^{(n)}, s) = 1`. Hence
   rank 1 (Gross–Zagier–Kolyvagin) and finite Ш.
-- Smith (arXiv:1603.08479, Thm 1.4 and Table 2) rewrites `L_x(n) ≠ 0` as the nonvanishing of a
-  bordered Monsky determinant `|M v; vᵀ 0|`. It implies `dim Sel₂ = 3`, and holds for half
-  (`n ≡ 6`) or three quarters (`n ≡ 5, 7`) of the Selmer-minimal `n`.
-- So TYZ would need, for both `n` and `nθ`, Selmer minimality plus one extra linear condition.
-  Whether the descent can also meet that condition is untested. (SPECULATIVE; the matrices in
-  Smith's Table 2 were not re-derived here.)
+- Smith (arXiv:1603.08479, Thms 2.1, 2.2 and Table 2) rewrites `L_x(n) ≠ 0` as the
+  nonvanishing of a bordered Monsky determinant `|M v; vᵀ 0|` (rows 5a/5b, 6, 7a/7b). Smith's
+  Theorem 1.4: it implies `dim Sel₂ = 3`, and holds for half (`n ≡ 6`) or three quarters
+  (`n ≡ 5, 7`) of the Selmer-minimal `n`. Smith's paper is an arXiv preprint (2016); I found no
+  journal version. It is used here only as an equivalent F₂-linear-algebra form of TYZ's
+  genus-class-number sums.
+- My transcription of Table 2 (`tyz_smith.py`) passes three checks (VERIFIED):
+  - Smith's `M₁` and `M₂` coranks reproduce `dim Sel₂ − 2` from `sel2cong.py` on 60 of 60
+    `n ≡ 1, 2 (mod 8)`.
+  - Every TYZ-certified `n` has `dim Sel₂ = 3`: 61 random `n < 10⁶`, plus all 530 certified
+    `n < 2000`.
+  - As `ω(n)` grows, the certified fraction of Selmer-minimal `n` tends to Smith's densities:
+    0.69, 0.47 and 0.74 at `ω = 11`, against 0.75, 0.5 and 0.75. At small `ω` it is higher.
+
+  The analytic rank (PARI) is 1 for all 530 certified `n < 2000`. That check is weak, because by
+  Kriz every Selmer-minimal `n` has analytic rank 1 anyway.
+- So TYZ needs, for each curve that uses the converse, Selmer minimality plus one bordered
+  determinant condition. §4.4 tests whether the descent can meet both. In the experiments it
+  can: 30 of 30 random inputs, with all certificates from TYZ.
 
 ### 4.4 The descent (VERIFIED computations; the lemma itself is SPECULATIVE)
 

@@ -1,0 +1,2 @@
+#0 num 33dig den 34dig omega(beta_1)=11 omega(theta_1)=3 OK m=273 k=2 n'=183 kind=('tyz', 'tyz') omega(beta)=8 omega(theta)=2 (m,k) pairs tried=154 (15.9s)
+#1 num 33dig den 34dig omega(beta_1)=12 omega(theta_1)=4 OK m=14 k=2 n'=1639 kind=('tyz', 'tyz') omega(beta)=10 omega(theta)=2 (m,k) pairs tried=137 (6.4s)
