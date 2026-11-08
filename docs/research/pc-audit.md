@@ -508,7 +508,9 @@ curves.
 | --- | --- | --- |
 | `random` | 30 of 30 (median 1 auxiliary prime, at most 195 evaluations) | 0 |
 | `manybeta` (`ω(β)` up to 14) | 9 of 10 at the first budget; the 10th solved on retry (below) | 0 |
-HARD_ROWS
+| `edgeS0` (minimal `S₀` valuations, small `β`) | 10 of 10 | 0 |
+| `extremeB` (`B` near `1/2` or tiny) | 10 of 10 | 0 |
+SMOOTH_ROW
 
 The unsolved `manybeta` input was replayed and retried with a pool of 2,000 primes, 1–6
 auxiliary primes and 3,000 evaluations per pair (`ktyz_retry.py`, `out_ktyz_retry_manybeta2.txt`).
