@@ -136,3 +136,26 @@ for d, A, B in T:
     cands1 = c1 if cands1 is None else cands1 & c1
     print(f"   |D|={d}: c0 in {sorted(c0)}, c1 in {sorted(c1)}")
 print("forced: c0 =", cands0, " c1 =", cands1)
+
+print("\n== Part E (count of CM points: 2^b h(D) must equal 4 for a rational point of X*(6))")
+def h_forms(D):
+    """number of primitive reduced positive definite forms of discriminant D < 0"""
+    n = 0; a = 1
+    while 3*a*a <= -D:
+        for b in range(-a + 1, a + 1):
+            if (b*b - D) % (4*a): continue
+            c = (b*b - D)//(4*a)
+            if c < a or (c == a and b < 0): continue
+            if sp.gcd(sp.gcd(a, b), c) == 1: n += 1
+        a += 1
+    return n
+okE = True
+for d, A, B in T:
+    D = -d
+    sym = {p: (0 if D % p == 0 else int(kron(D, p))) for p in (2, 3)}
+    b = sum(1 for p in (2, 3) if sym[p] == -1)
+    h = h_forms(D)
+    good = (2**b*h == 4) and all(s != 1 for s in sym.values())
+    okE &= good
+    print(f"|D|={d:4d} (D/2)={sym[2]:2d} (D/3)={sym[3]:2d} b={b} h={h}  2^b h={2**b*h}")
+print("2^b h = 4 and no p | 6 split, for every entry:", okE)
