@@ -1,0 +1,1 @@
+good primes in progression up to 4.00e+11: 78668003
