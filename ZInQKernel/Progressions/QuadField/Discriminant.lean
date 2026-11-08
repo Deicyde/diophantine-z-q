@@ -31,6 +31,20 @@ theorem Qsqrt.discr_basis : Algebra.discr ℚ (QuadraticAlgebra.basis (d : ℚ) 
 
 variable [Fact (¬ IsSquare (d : ℚ))]
 
+/-- `√d` as an element of the ring of integers of `ℚ(√d)`. -/
+def Qsqrt.sqrtInt : 𝓞 (Qsqrt d) := ⟨ω, Qsqrt.isIntegral_omega⟩
+
+@[simp]
+theorem Qsqrt.coe_sqrtInt : ((Qsqrt.sqrtInt : 𝓞 (Qsqrt d)) : Qsqrt d) = ω := rfl
+
+theorem Qsqrt.sqrtInt_sq : (Qsqrt.sqrtInt : 𝓞 (Qsqrt d)) ^ 2 = (d : 𝓞 (Qsqrt d)) := by
+  apply RingOfIntegers.coe_injective
+  have h : (ω : Qsqrt d) ^ 2 = algebraMap ℚ (Qsqrt d) (d : ℚ) := by
+    rw [sq, omega_mul_omega_eq_algebraMap, map_zero, zero_mul, add_zero]
+  rw [map_pow, map_intCast]
+  change (ω : Qsqrt d) ^ 2 = _
+  rw [h, map_intCast]
+
 theorem Qsqrt.ne_zero : d ≠ 0 := by
   rintro rfl
   exact Fact.out (p := ¬ IsSquare ((0 : ℤ) : ℚ)) (by simp)
