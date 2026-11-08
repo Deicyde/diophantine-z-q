@@ -1,0 +1,108 @@
+#0 m=1 beta2=1 sign=+ qt=1 qb=-1 s16=-1 prod=1 present(C_n)=60 present(C_ntheta)=39
+#0 m=2 beta2=even sign=+ qt=-1 qb=-1 s16=1 prod=1 present(C_n)=45 present(C_ntheta)=40
+#0 m=3 beta2=3 sign=+ qt=1 qb=-1 s16=-1 prod=1 present(C_n)=23 present(C_ntheta)=9
+#0 m=5 beta2=13 sign=+ qt=1 qb=-1 s16=-1 prod=1 present(C_n)=28 present(C_ntheta)=33
+#0 m=6 beta2=even sign=+ qt=1 qb=-1 s16=1 prod=-1 present(C_n)=13 present(C_ntheta)=3
+#0 m=7 beta2=7 sign=+ qt=1 qb=-1 s16=-1 prod=1 present(C_n)=116 present(C_ntheta)=8
+#0 m=-1 beta2=15 sign=- qt=-1 qb=-1 s16=-1 prod=-1 present(C_n)=64 present(C_ntheta)=68
+#0 m=-2 beta2=even sign=- qt=1 qb=-1 s16=1 prod=-1 present(C_n)=36 present(C_ntheta)=17
+#1 m=1 beta2=even sign=+ qt=1 qb=1 s16=-1 prod=-1 present(C_n)=11 present(C_ntheta)=4
+#1 m=2 beta2=13 sign=+ qt=1 qb=1 s16=-1 prod=-1 present(C_n)=12 present(C_ntheta)=5
+#1 m=3 beta2=even sign=+ qt=-1 qb=1 s16=-1 prod=1 present(C_n)=21 present(C_ntheta)=11
+#1 m=5 beta2=even sign=+ qt=1 qb=-1 s16=-1 prod=1 present(C_n)=8 present(C_ntheta)=1
+#1 m=6 beta2=15 sign=+ qt=1 qb=1 s16=-1 prod=-1 present(C_n)=56 present(C_ntheta)=55
+#1 m=7 beta2=even sign=+ qt=1 qb=1 s16=-1 prod=-1 present(C_n)=15 present(C_ntheta)=22
+#1 m=-1 beta2=even sign=- qt=1 qb=1 s16=-1 prod=-1 present(C_n)=6 present(C_ntheta)=0
+#1 m=-2 beta2=3 sign=- qt=1 qb=1 s16=-1 prod=-1 present(C_n)=12 present(C_ntheta)=1
+#2 m=1 beta2=5 sign=+ qt=1 qb=-1 s16=-1 prod=1 present(C_n)=46 present(C_ntheta)=11
+#2 m=2 beta2=even sign=+ qt=1 qb=-1 s16=1 prod=-1 present(C_n)=111 present(C_ntheta)=23
+#2 m=3 beta2=15 sign=+ qt=-1 qb=-1 s16=-1 prod=-1 present(C_n)=91 present(C_ntheta)=67
+#2 m=5 beta2=1 sign=+ qt=-1 qb=1 s16=-1 prod=1 present(C_n)=123 present(C_ntheta)=61
+#2 m=6 beta2=even sign=+ qt=-1 qb=-1 s16=1 prod=1 present(C_n)=49 present(C_ntheta)=32
+#2 m=7 beta2=3 sign=+ qt=1 qb=-1 s16=-1 prod=1 present(C_n)=41 present(C_ntheta)=10
+#2 m=-1 beta2=11 sign=- qt=-1 qb=-1 s16=-1 prod=-1 present(C_n)=51 present(C_ntheta)=54
+#2 m=-2 beta2=even sign=- qt=-1 qb=-1 s16=1 prod=1 present(C_n)=92 present(C_ntheta)=46
+#3 m=1 beta2=even sign=+ qt=1 qb=-1 s16=1 prod=-1 present(C_n)=66 present(C_ntheta)=52
+#3 m=2 beta2=11 sign=+ qt=1 qb=1 s16=1 prod=1 present(C_n)=53 present(C_ntheta)=56
+#3 m=3 beta2=even sign=+ qt=-1 qb=-1 s16=1 prod=1 present(C_n)=33 present(C_ntheta)=15
+#3 m=5 beta2=even sign=+ qt=1 qb=1 s16=1 prod=1 present(C_n)=79 present(C_ntheta)=35
+#3 m=6 beta2=1 sign=+ qt=1 qb=-1 s16=1 prod=-1 present(C_n)=82 present(C_ntheta)=29
+#3 m=7 beta2=even sign=+ qt=1 qb=-1 s16=1 prod=-1 present(C_n)=43 present(C_ntheta)=2
+#3 m=-1 beta2=even sign=- qt=1 qb=-1 s16=1 prod=-1 present(C_n)=79 present(C_ntheta)=20
+#3 m=-2 beta2=5 sign=- qt=-1 qb=-1 s16=1 prod=1 present(C_n)=49 present(C_ntheta)=48
+#4 m=1 beta2=even sign=+ qt=-1 qb=-1 s16=-1 prod=-1 present(C_n)=80 present(C_ntheta)=40
+#4 m=2 beta2=15 sign=+ qt=-1 qb=-1 s16=-1 prod=-1 present(C_n)=123 present(C_ntheta)=114
+#4 m=3 beta2=even sign=+ qt=1 qb=-1 s16=-1 prod=1 present(C_n)=35 present(C_ntheta)=9
+#4 m=5 beta2=even sign=+ qt=1 qb=-1 s16=-1 prod=1 present(C_n)=55 present(C_ntheta)=2
+#4 m=6 beta2=13 sign=+ qt=1 qb=-1 s16=-1 prod=1 present(C_n)=41 present(C_ntheta)=7
+#4 m=7 beta2=even sign=+ qt=1 qb=-1 s16=-1 prod=1 present(C_n)=106 present(C_ntheta)=69
+#4 m=-1 beta2=even sign=- qt=1 qb=-1 s16=-1 prod=1 present(C_n)=90 present(C_ntheta)=50
+#4 m=-2 beta2=1 sign=- qt=1 qb=-1 s16=-1 prod=1 present(C_n)=122 present(C_ntheta)=85
+#5 m=1 beta2=9 sign=+ qt=1 qb=-1 s16=1 prod=-1 present(C_n)=76 present(C_ntheta)=26
+#5 m=2 beta2=even sign=+ qt=1 qb=-1 s16=1 prod=-1 present(C_n)=46 present(C_ntheta)=5
+#5 m=3 beta2=11 sign=+ qt=-1 qb=-1 s16=1 prod=1 present(C_n)=26 present(C_ntheta)=3
+#5 m=5 beta2=5 sign=+ qt=1 qb=-1 s16=1 prod=-1 present(C_n)=32 present(C_ntheta)=1
+#5 m=6 beta2=even sign=+ qt=-1 qb=-1 s16=1 prod=1 present(C_n)=27 present(C_ntheta)=13
+#5 m=7 beta2=15 sign=+ qt=-1 qb=-1 s16=1 prod=1 present(C_n)=106 present(C_ntheta)=42
+#5 m=-1 beta2=7 sign=- qt=1 qb=-1 s16=1 prod=-1 present(C_n)=72 present(C_ntheta)=11
+#5 m=-2 beta2=even sign=- qt=-1 qb=-1 s16=1 prod=1 present(C_n)=50 present(C_ntheta)=23
+#6 m=1 beta2=15 sign=+ qt=-1 qb=1 s16=1 prod=-1 present(C_n)=102 present(C_ntheta)=30
+#6 m=2 beta2=even sign=+ qt=-1 qb=1 s16=-1 prod=1 present(C_n)=54 present(C_ntheta)=57
+#6 m=3 beta2=13 sign=+ qt=1 qb=1 s16=1 prod=1 present(C_n)=25 present(C_ntheta)=5
+#6 m=5 beta2=3 sign=+ qt=1 qb=-1 s16=1 prod=-1 present(C_n)=50 present(C_ntheta)=47
+#6 m=6 beta2=even sign=+ qt=-1 qb=1 s16=1 prod=-1 present(C_n)=33 present(C_ntheta)=7
+#6 m=7 beta2=9 sign=+ qt=1 qb=1 s16=1 prod=1 present(C_n)=118 present(C_ntheta)=6
+#6 m=-1 beta2=1 sign=- qt=1 qb=1 s16=1 prod=1 present(C_n)=113 present(C_ntheta)=30
+#6 m=-2 beta2=even sign=- qt=1 qb=1 s16=-1 prod=-1 present(C_n)=49 present(C_ntheta)=8
+#7 m=1 beta2=even sign=+ qt=-1 qb=-1 s16=-1 prod=-1 present(C_n)=32 present(C_ntheta)=16
+#7 m=2 beta2=1 sign=+ qt=1 qb=-1 s16=-1 prod=1 present(C_n)=66 present(C_ntheta)=37
+#7 m=3 beta2=even sign=+ qt=-1 qb=-1 s16=-1 prod=-1 present(C_n)=26 present(C_ntheta)=9
+#7 m=5 beta2=even sign=+ qt=-1 qb=-1 s16=-1 prod=-1 present(C_n)=35 present(C_ntheta)=3
+#7 m=6 beta2=3 sign=+ qt=1 qb=-1 s16=-1 prod=1 present(C_n)=27 present(C_ntheta)=0
+#7 m=7 beta2=even sign=+ qt=-1 qb=-1 s16=-1 prod=-1 present(C_n)=57 present(C_ntheta)=13
+#7 m=-1 beta2=even sign=- qt=-1 qb=-1 s16=-1 prod=-1 present(C_n)=34 present(C_ntheta)=10
+#7 m=-2 beta2=15 sign=- qt=1 qb=-1 s16=-1 prod=1 present(C_n)=73 present(C_ntheta)=28
+#8 m=1 beta2=11 sign=+ qt=1 qb=-1 s16=1 prod=-1 present(C_n)=7 present(C_ntheta)=17
+#8 m=2 beta2=even sign=+ qt=1 qb=-1 s16=1 prod=-1 present(C_n)=20 present(C_ntheta)=18
+#8 m=3 beta2=9 sign=+ qt=1 qb=-1 s16=1 prod=-1 present(C_n)=72 present(C_ntheta)=14
+#8 m=5 beta2=7 sign=+ qt=-1 qb=-1 s16=1 prod=1 present(C_n)=26 present(C_ntheta)=12
+#8 m=6 beta2=even sign=+ qt=-1 qb=-1 s16=1 prod=1 present(C_n)=35 present(C_ntheta)=4
+#8 m=7 beta2=13 sign=+ qt=1 qb=-1 s16=1 prod=-1 present(C_n)=30 present(C_ntheta)=28
+#8 m=-1 beta2=5 sign=- qt=-1 qb=-1 s16=1 prod=1 present(C_n)=12 present(C_ntheta)=0
+#8 m=-2 beta2=even sign=- qt=-1 qb=-1 s16=1 prod=1 present(C_n)=16 present(C_ntheta)=21
+#9 m=1 beta2=11 sign=+ qt=-1 qb=1 s16=-1 prod=1 present(C_n)=39 present(C_ntheta)=36
+#9 m=2 beta2=even sign=+ qt=1 qb=1 s16=-1 prod=-1 present(C_n)=43 present(C_ntheta)=58
+#9 m=3 beta2=1 sign=+ qt=1 qb=1 s16=-1 prod=-1 present(C_n)=68 present(C_ntheta)=12
+#9 m=5 beta2=7 sign=+ qt=1 qb=1 s16=-1 prod=-1 present(C_n)=106 present(C_ntheta)=64
+#9 m=6 beta2=even sign=+ qt=-1 qb=1 s16=-1 prod=1 present(C_n)=38 present(C_ntheta)=34
+#9 m=7 beta2=13 sign=+ qt=1 qb=1 s16=-1 prod=-1 present(C_n)=39 present(C_ntheta)=40
+#9 m=-1 beta2=5 sign=- qt=-1 qb=1 s16=-1 prod=1 present(C_n)=49 present(C_ntheta)=15
+#9 m=-2 beta2=even sign=- qt=-1 qb=1 s16=-1 prod=1 present(C_n)=50 present(C_ntheta)=12
+#10 m=1 beta2=13 sign=+ qt=-1 qb=-1 s16=-1 prod=-1 present(C_n)=51 present(C_ntheta)=9
+#10 m=2 beta2=even sign=+ qt=-1 qb=-1 s16=-1 prod=-1 present(C_n)=19 present(C_ntheta)=10
+#10 m=3 beta2=15 sign=+ qt=1 qb=-1 s16=-1 prod=1 present(C_n)=119 present(C_ntheta)=120
+#10 m=5 beta2=1 sign=+ qt=1 qb=1 s16=-1 prod=-1 present(C_n)=68 present(C_ntheta)=11
+#10 m=6 beta2=even sign=+ qt=-1 qb=-1 s16=-1 prod=-1 present(C_n)=95 present(C_ntheta)=78
+#10 m=7 beta2=11 sign=+ qt=1 qb=-1 s16=-1 prod=1 present(C_n)=42 present(C_ntheta)=11
+#10 m=-1 beta2=3 sign=- qt=1 qb=-1 s16=-1 prod=1 present(C_n)=29 present(C_ntheta)=2
+#10 m=-2 beta2=even sign=- qt=1 qb=-1 s16=-1 prod=1 present(C_n)=28 present(C_ntheta)=6
+#11 m=1 beta2=5 sign=+ qt=-1 qb=1 s16=-1 prod=1 present(C_n)=50 present(C_ntheta)=9
+#11 m=2 beta2=even sign=+ qt=-1 qb=1 s16=1 prod=-1 present(C_n)=35 present(C_ntheta)=8
+#11 m=3 beta2=15 sign=+ qt=1 qb=1 s16=-1 prod=-1 present(C_n)=24 present(C_ntheta)=8
+#11 m=5 beta2=9 sign=+ qt=1 qb=-1 s16=-1 prod=1 present(C_n)=78 present(C_ntheta)=4
+#11 m=6 beta2=even sign=+ qt=1 qb=1 s16=1 prod=1 present(C_n)=16 present(C_ntheta)=18
+#11 m=7 beta2=3 sign=+ qt=1 qb=1 s16=-1 prod=-1 present(C_n)=39 present(C_ntheta)=23
+#11 m=-1 beta2=11 sign=- qt=-1 qb=1 s16=-1 prod=1 present(C_n)=48 present(C_ntheta)=10
+#11 m=-2 beta2=even sign=- qt=-1 qb=1 s16=1 prod=-1 present(C_n)=53 present(C_ntheta)=26
+(q_theta, q_beta, s16, obstructed): count
+(-1, -1, -1, False) 13
+(-1, -1, 1, False) 12
+(-1, -1, 1, True) 1
+(-1, 1, -1, False) 9
+(-1, 1, 1, False) 4
+(1, -1, -1, False) 20
+(1, -1, -1, True) 1
+(1, -1, 1, False) 16
+(1, 1, -1, False) 13
+(1, 1, -1, True) 1
+(1, 1, 1, False) 6
