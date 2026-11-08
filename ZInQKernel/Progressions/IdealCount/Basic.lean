@@ -22,6 +22,11 @@ noncomputable def idealCount (n : ℕ) : ℕ :=
 theorem dedekindZeta_eq_LSeries_idealCount (s : ℂ) :
     dedekindZeta K s = LSeries (fun n ↦ (idealCount K n : ℂ)) s := rfl
 
+/-- The only ideal of norm `1` is `𝓞 K`. -/
+theorem idealCount_one : idealCount K 1 = 1 :=
+  Nat.card_eq_one_iff_exists.mpr
+    ⟨⟨⊤, absNorm_top⟩, fun I ↦ Subtype.ext (absNorm_eq_one_iff.mp I.2)⟩
+
 section ring
 
 variable {R : Type*} [CommRing R]

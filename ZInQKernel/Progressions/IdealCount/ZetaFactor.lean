@@ -48,10 +48,6 @@ theorem LSeriesSummable_idealCount {s : ℂ} (hs : 1 < s.re) :
 
 /-! ### Multiplicativity of the terms -/
 
-theorem idealCount_one : idealCount K 1 = 1 :=
-  Nat.card_eq_one_iff_exists.mpr
-    ⟨⟨⊤, absNorm_top⟩, fun I ↦ Subtype.ext (absNorm_eq_one_iff.mp I.2)⟩
-
 theorem term_idealCount_one (s : ℂ) : term (fun n ↦ (idealCount K n : ℂ)) s 1 = 1 := by
   simp [idealCount_one]
 
