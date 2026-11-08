@@ -437,10 +437,25 @@ Two control tests:
 - With the 2-adic and sign data of both `a` and `b`, the full TYZ certificate is determined
   without conflict (60 keys, 0 conflicts).
 
-Each rule is the bordered lemma, with the border vector (`y+z`, `y`) evaluated on the support of
-one coordinate of the class. A written proof requires matching the kernel of Smith's symmetrized
-matrix with Monsky's parametrization of `Sel₂` (Heath-Brown 1994, Appendix). That matching is
-SPECULATIVE in the sense of not yet written, but it is routine linear algebra.
+**Where the rules come from (VERIFIED by computation, `kernel_ident.py`, `out_kernel_ident.txt`,
+300 Selmer-minimal `n` in each class).** For an integer `c`, write `S(c) ∈ 𝔽₂^r` for the
+indicator vector of the odd primes of `n` that divide `c`. Then the kernel of Smith's block is
+spanned by
+
+- `n ≡ 5 (mod 8)`: `k = (S(ab), S(a))` for some representative `(a, b)` (300 of 300);
+- `n ≡ 6 (mod 8)`: `k = (S(ab), S(b))` for some representative (300 of 300).
+
+Here `a`, `b` and `ab` are the classes of `x`, `x − n` and `x + n`. With the bordered lemma this
+gives the rows directly:
+
+- row 5b: `(0, y)ᵀk = Σ_{p | a} (−1/p)₊ = χ₋₁(|a|_odd)`;
+- row 5a: `(y + z, 0)ᵀk = Σ_{p | ab} (−2/p)₊`;
+- row 6: `(y, y)ᵀk = yᵀS(a) = χ₋₁(|a|_odd)` on the matching representative, which is the
+  coset-invariant rule `[a even] + χ₋₁(|a|_odd)`.
+
+What remains unwritten is a proof of the two kernel identifications from the local conditions
+of RK8, i.e. a change of basis between Monsky's matrix and Smith's symmetrized one. It is
+SPECULATIVE only in the sense of not yet written; it is routine linear algebra over `𝔽₂`.
 
 **Application to Route K.** Take `σ_d` with first coordinate `β` on both converse curves
 `C_n, C_{nθ}`. Since `θ ≡ 1 (mod 8)`, `|nθ| ≡ |n| (mod 8)`, so:
@@ -648,7 +663,8 @@ an alternative that would make the 2-adic refinement unnecessary once it is refe
 | `bordered_lemma.py` | bordered-determinant lemma; coranks of Smith's blocks against `dim Sel₂` | `out_bordered_lemma.txt` |
 | `parity_check.py` | `dim Sel₂ − 2` odd exactly for `n ≡ 5, 6, 7 (mod 8)`, all squarefree `n < 5000` | `out_parity_check.txt` |
 | `kriz_examples.py` | conductors, `f₀`, ranks and Selmer dimensions of `256b1` and small `C_d` | `out_kriz_examples.txt` |
-| `ktyz_rule_test.py` | Route K descent with TYZ certificates predicted by the `β`-rules | `out_ktyz_rule_random.txt` |
+| `kernel_ident.py` | kernel of Smith's block in terms of the Selmer class | `out_kernel_ident.txt` |
+| `ktyz_rule_test.py` | Route K descent with TYZ certificates predicted by the `β`-rules | `out_ktyz_rule_*.txt` |
 
 Sources were downloaded from arXiv into a separate directory and read as LaTeX and PDF text.
 They are not committed.
