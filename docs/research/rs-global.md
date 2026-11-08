@@ -471,9 +471,10 @@ theorem. In both manuscripts that theorem is a prime pattern.
     `∞`, ramification 3) and at `u = −1, 3` (over `−16/27`, unramified), and index 1 elsewhere.
 - So the five integers `𝒞₅ = {−1, 0, 1, 2, 3}`, five consecutive terms of an arithmetic
   progression, are a contact set for which the 11/5 proof of H should go through with `J₅` (degree
-  6) in place of the degree-12 `J`. This is SPECULATIVE until the proof is rechecked with `J₅`;
-  the rational point `u = ∞` above the elliptic value `0` is one point and does not affect a
-  height bound. The preprint's height estimate also has five contact points, one of them `∞`
+  6) in place of the degree-12 `J`. This is SPECULATIVE until the proof is rechecked with `J₅`.
+  One condition that the proof checks explicitly does hold (line 541: `j = J(u)` is finite,
+  nonzero and not elliptic). For `u ∈ ℚ \ 𝒞₅`, `J₅(u)` is finite and nonzero, and the
+  non-contact points over `−16/27` are the irrational roots of `2u² − 4u + 3`. The preprint's height estimate also has five contact points, one of them `∞`
   (10/11 (2.6)), which is consistent with this count; `u ↦ 1/u` moves `𝒞₅` to
   `{∞, 1/2, 1, −1, 1/3}`. Section 4, route A3, weighs what five contacts would buy.
 
