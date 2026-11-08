@@ -672,14 +672,15 @@ might work, the main obstacle, a first test with a success criterion, and what i
   Kriz's 2-converse for congruent number curves (arXiv:2002.04767v5, Theorems 9.23, 10.13,
   10.17(2)).
 - **The architectural point.** Soundness is untouched. C2 shows that any cubic with two
-  parameter roots works, and Lemma 5.1 holds with the same `S₀` [rs-pole §4.1]. Completeness asks
+  parameter roots works (the device needs `p ∤ 2` for `a₁ = 1`, `a₂ = −1`), and Lemma 5.1 holds with the same `S₀` [rs-pole §4.1]. Completeness asks
   only for points on genus-one twists (C2, C3), so the curve family can be chosen for the best
   available converse theorem.
-  - After the change, every elliptic curve in the construction is a twist of `y² = x³ − x`, with
+  - After the change, every elliptic curve in the polynomial is a twist of `y² = x³ − x`, with
     CM by `ℤ[i]`. The label curve `E` is its twist by `d` over `K₀`; the pole curves are its
     twists over `ℚ`.
-  - The CM theory (Rubin's main conjecture, Kriz's supersingular methods at `p = 2`, ramified
-    in `ℚ(i)`) supplies the converse that the non-CM family `E_ℓ` lacks.
+  - The complex multiplication is what makes a 2-converse available: Kriz's theorem concerns
+    curves with CM by `O_K` at a prime ramified in `K`, here `p = 2` and `K = ℚ(i)`
+    [rs-pole §4.1]. No 2-converse is known for the non-CM family `E_ℓ` [rs-pole §4.2].
 - **Replaces.** RC (Sections 7–9 and Appendices E–G: 39 audit records of their own, and about
   8,000 lines).
 - **Why it might work.**
