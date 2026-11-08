@@ -2,6 +2,9 @@
 article_id: af_c04ea1b527b5dcd8b27db4eb
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Progressions.norm_LFunction_one_ge_of_sq_eq_one, ZInQ.Progressions.log_golden_div_le_norm_LFunction_one
 ---
 
 # A lower bound for $L(1,\chi)$ at real characters

@@ -1,7 +1,10 @@
 # Removing CAT: an effective Dirichlet theorem
 
-Status: plan (2026-11-07). The main theorem
-`ZInQ.exists_bounded_integer_polynomial_defining_integers_of` takes four hypotheses. Three of
+Status: done (2026-11-08). `ZInQ.catalogueBound8 : CatalogueBound8` is proved in
+`ZInQKernel/Progressions/`, and the main theorem no longer takes CAT. The plan below is kept as
+written; the delivered constants are in the blueprint chapter `progressions/`. When the plan was
+written, the main theorem
+`ZInQ.exists_bounded_integer_polynomial_defining_integers_of` took four hypotheses. Three of
 them (H, PC, 22P) rest on Shimura curves and modularity, the Gross–Zagier–Kolyvagin package
 with BCDT, and Green–Tao–Ziegler; none of that is within reach of Mathlib. The fourth, CAT, is a
 statement about primes in arithmetic progressions, and the proof uses it with so much room to

@@ -2,6 +2,9 @@
 article_id: af_2bb9d092ac43a2d8ca9d38bb
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Progressions.min_le_norm_LFunction_one, ZInQ.Progressions.effectiveLBound_le_norm_LFunction_one
 ---
 
 # A lower bound for $|L(1,\chi)|$ at every nonprincipal character

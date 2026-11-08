@@ -2,6 +2,9 @@
 article_id: af_85601b4f63ca8f5eb41719f4
 declaration: theorem
 origin: background
+statement: formalized
+proof: formalized
+lean: ZInQ.Progressions.effective_dirichlet
 ---
 
 # An effective Dirichlet theorem

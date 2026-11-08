@@ -3,7 +3,7 @@ article_id: af_075f1a21fc89092c9c041b93
 declaration: def
 origin: cited
 statement: formalized
-lean: ZInQ.CatalogueBound
+lean: ZInQ.CatalogueBound8, ZInQ.CatalogueBound
 ---
 
 # The catalogue bound

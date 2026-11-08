@@ -2,6 +2,9 @@
 article_id: af_e33c13903b172075cd2ead63
 declaration: theorem
 origin: bridged
+statement: formalized
+proof: formalized
+lean: ZInQ.catalogueBound8
 ---
 
 # The catalogue bound holds
