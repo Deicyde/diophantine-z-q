@@ -30,6 +30,67 @@ Notation.
   and CAT / CAT₈ (`CatalogueBound`, `CatalogueBound8`). RC is the restricted converse
   (Theorem 5.3, line 1005).
 
+## Summary
+
+- **Two layers in all three constructions.** The OpenAI preprint (as reported by the 10/11
+  manuscript), the 10/11 manuscript and the 11/5 manuscript share one skeleton.
+  - Layer A builds arithmetic on the labels `[n]P₀`: addition, then multiplication, then
+    computably enumerable relations.
+  - Layer B identifies a rational `t` with its label, through support control, a height bound and
+    an approximation to a precision computed in Layer A.
+
+  The 10/11 inputs map to 11/5 as follows: rank one becomes G, now a Lean theorem; pole parity
+  splits into an elementary soundness lemma (Lemma 5.1) and a narrower completeness statement (PC);
+  the five-point height becomes the six-contact H; the prime patterns become 22P. CAT is new in
+  11/5 and serves only the size bounds.
+- **Which roles force which inputs** (§2.2, VERIFIED in Lean and in the manuscript).
+  - Soundness uses only H, at one instance per layer, with different shapes: polynomial in `M`
+    for the finite box, any effective function for the precision.
+  - Completeness uses PC in both layers and 22P only in Layer A.
+  - Layer B consumes Layer A in both directions: `value_relation_iff_of` takes
+    `SpecMultiplicationExact`, and the test forms the code of `κn`. So 22P is a hypothesis of the
+    value relation although no Layer B lemma opens it.
+  - The variable shift `κ` is what keeps prime patterns out of Layer B (F3). A fixed shift in
+    Layer A, which a witness shift cannot replace without circularity, is what forces them into
+    Layer A (F4).
+- **Why the inputs are deep** (§§2.3, 3.4). Each deep input belongs to one of three kinds, each
+  tied to one role.
+  - **K1**, points on infinitely many genus-one twists. A parity device with a free parameter
+    needs a cubic, hence genus at least one (C2, VERIFIED); a fixed curve has only finitely many
+    abscissa classes (C3).
+  - **K2**, a uniform effective height bound. Full valuation control is equivalent to the theorem
+    itself (C1). Turning parity into good reduction needs a compact Shimura family, and bounding
+    heights there needs modularity (C7).
+  - **K3**, linear prime patterns. Multiplication of labels is not algebraic (C5), and the
+    fixed-shift test needs each tested prime to be good.
+
+  K1 and K2 are plausibly unavoidable in any parity-based architecture; K3 is specific to the
+  local-test mechanism for multiplication, but no alternative mechanism is known.
+- **Quantitative facts** (VERIFIED by computation).
+  - 99.95% of the 292,890,231,904 witness variables sit inside the 8,332,156 copies of the
+    multiplication template, and 74.7% inside its test groups. A design change costs 8.3 million
+    variables per witness of the template.
+  - Half of the audit records (42 of 82) serve only PC and RC.
+- **A new contact set.** The Shimura-curve mechanism of H also works with five contacts: the
+  degree-6 map `J₅(u) = 4(u − 1)²/(u³(2 − u)³)` pulls the orbifold `ℙ¹_j(4, 6, 2)` back to `ℙ¹_u`
+  with cone points exactly at the five consecutive integers `−1, 0, 1, 2, 3` (VERIFIED by exact
+  computation). The five rational cone points are unique: it is the only rational solution among
+  the four possible ramification passports. Transferring the proof of H to it is SPECULATIVE, and
+  it would not lower the depth of any input.
+- **Routes rejected, with reasons** (§4): the 3-adic identification of the 10/11 manuscript,
+  quadratic-form (Poonen, Koenigsmann) architectures, an ineffective height bound, a witness shift
+  in multiplication, more places or a larger shift, a different label curve, and arithmetic on
+  scalars.
+- **Recommendation** (§5). Order of attack after CAT:
+  1. the minimal interface in Lean (H_min, 22P₂): high chance, small payoff;
+  2. PC through Route K, congruent number curves with Kriz's 2-converse, replacing the
+     8,000-line restricted converse: medium chance, the largest payoff;
+  3. the descent of Route K in Lean;
+  4. H and 22P stay hypotheses, with paper-level trimming of their leaves.
+
+  The single most promising next step is the uniform descent lemma for congruent number curves,
+  together with an audit of Kriz's Theorem 10.13. Chance: medium.
+
 ## 1. The statement and every use
 
 ### 1.1 Three constructions and their inputs
