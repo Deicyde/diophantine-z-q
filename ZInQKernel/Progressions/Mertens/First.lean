@@ -51,7 +51,7 @@ theorem psi_le_three_mul {x : ℝ} (hx : 0 ≤ x) : ψ x ≤ 3 * x := by
 theorem psi_div_le_three {x : ℝ} (hx : 0 < x) : ψ x / x ≤ 3 := by
   rw [div_le_iff₀ hx]; exact psi_le_three_mul hx.le
 
-lemma prod_Ioc_cast_eq_factorial (N : ℕ) : ∏ n ∈ Ioc 0 N, (n : ℝ) = (N ! : ℝ) := by
+lemma prod_Ioc_natCast_eq_factorial_real (N : ℕ) : ∏ n ∈ Ioc 0 N, (n : ℝ) = (N ! : ℝ) := by
   induction N with
   | zero => simp
   | succ N ih =>
@@ -63,21 +63,21 @@ lemma sum_log_eq_sum_vonMangoldt_mul_div (N : ℕ) :
   rw [← sum_Ioc_mul_zeta_eq_sum, vonMangoldt_mul_zeta]
   simp [ArithmeticFunction.log_apply]
 
-lemma sum_log_le (N : ℕ) : ∑ n ∈ Ioc 0 N, Real.log n ≤ N * Real.log N := by
+lemma sum_Ioc_log_le_mul_log (N : ℕ) : ∑ n ∈ Ioc 0 N, Real.log n ≤ N * Real.log N := by
   calc ∑ n ∈ Ioc 0 N, Real.log n ≤ ∑ _n ∈ Ioc 0 N, Real.log N := by
         refine sum_le_sum fun n hn ↦ ?_
         rw [mem_Ioc] at hn
         exact log_le_log (by exact_mod_cast hn.1) (by exact_mod_cast hn.2)
     _ = N * Real.log N := by simp
 
-lemma sum_log_ge (N : ℕ) : N * Real.log N - N ≤ ∑ n ∈ Ioc 0 N, Real.log n := by
+lemma mul_log_sub_le_sum_Ioc_log (N : ℕ) : N * Real.log N - N ≤ ∑ n ∈ Ioc 0 N, Real.log n := by
   rcases N.eq_zero_or_pos with rfl | hN
   · simp
   have hpos : (0 : ℝ) < N ! := by exact_mod_cast N.factorial_pos
   have h := Real.pow_div_factorial_le_exp (x := (N : ℝ)) (by positivity) N
   have h' := log_le_log (by positivity) h
   rw [log_exp, log_div (by positivity) hpos.ne', Real.log_pow] at h'
-  rw [← log_prod (fun n hn ↦ by simp at hn; exact_mod_cast hn.1.ne'), prod_Ioc_cast_eq_factorial]
+  rw [← log_prod (fun n hn ↦ by simp at hn; exact_mod_cast hn.1.ne'), prod_Ioc_natCast_eq_factorial_real]
   linarith
 
 /-- `N·S(N)` lies between `Σ_{n ≤ N} log n` and `Σ_{n ≤ N} log n + ψ(N)`. -/
@@ -117,7 +117,7 @@ theorem log_sub_two_le_mertensSum {x : ℝ} (hx : 1 ≤ x) : log x - 2 ≤ merte
       rw [div_sub_one hN.ne', div_le_one hN]; linarith
     linarith
   obtain ⟨h1, -⟩ := mul_mertensSum_bounds N
-  have h2 := sum_log_ge N
+  have h2 := mul_log_sub_le_sum_Ioc_log N
   rw [mertensSum_eq_floor]
   have : log N - 1 ≤ mertensSum N := by
     rw [← mul_le_mul_iff_of_pos_left hN]; nlinarith
@@ -130,7 +130,7 @@ theorem mertensSum_le_log_add_three {x : ℝ} (hx : 1 ≤ x) : mertensSum x ≤ 
   have hN : (0 : ℝ) < N := by exact_mod_cast hN1
   have hNx : (N : ℝ) ≤ x := Nat.floor_le (by linarith)
   obtain ⟨-, h1⟩ := mul_mertensSum_bounds N
-  have h2 := sum_log_le N
+  have h2 := sum_Ioc_log_le_mul_log N
   have h3 := psi_le_three_mul hN.le
   rw [mertensSum_eq_floor]
   have : mertensSum N ≤ log N + 3 := by

@@ -49,7 +49,7 @@ theorem sum_vonMangoldt_mul_le_sum_primePow {A P K : Finset ℕ} (h : ℕ → �
 
 /-- For a prime `p` (indeed any `p ≥ 2`), `Σ_{m ≤ k < n} p^{-k} ≤ p^{-m} · p/(p − 1)`, used as
 `Σ_{k ∈ Ico m n} (1/p)^k ≤ (1/p)^m / (1 − 1/p)`. -/
-lemma sum_Ico_inv_pow_le {p : ℕ} (hp : 2 ≤ p) (m n : ℕ) :
+lemma sum_Ico_one_div_pow_le_of_two_le {p : ℕ} (hp : 2 ≤ p) (m n : ℕ) :
     ∑ k ∈ Ico m n, (1 / (p : ℝ)) ^ k ≤ (1 / (p : ℝ)) ^ m / (1 - 1 / p) := by
   have hp' : (2 : ℝ) ≤ p := by exact_mod_cast hp
   exact geom_sum_Ico_le_of_lt_one (by positivity) (by rw [div_lt_one (by linarith)]; linarith)
@@ -157,7 +157,7 @@ theorem sum_nonprime_vonMangoldt_div_le_two (N : ℕ) :
               refine sum_congr (by ext; simp only [mem_Icc, mem_Ico]; omega) fun k _ ↦ ?_
               push_cast; rw [one_div_pow]
           _ ≤ Real.log p * ((1 / (p : ℝ)) ^ 2 / (1 - 1 / p)) := by
-              gcongr; exact sum_Ico_inv_pow_le hp2 _ _
+              gcongr; exact sum_Ico_one_div_pow_le_of_two_le hp2 _ _
           _ = Real.log p / (p * (p - 1)) := by
               have : (p : ℝ) - 1 ≠ 0 := by linarith
               field_simp
@@ -223,7 +223,7 @@ theorem sum_Ioc_nonprime_vonMangoldt_div_le {Y : ℕ} (hY : 1 ≤ Y) (M : ℕ) :
           have := Nat.log_lt_of_lt_pow (by omega) hk.2
           simp only [mem_Ico]; omega
       _ ≤ Real.log p * ((1 / (p : ℝ)) ^ k₀ / (1 - 1 / p)) := by
-          gcongr; exact sum_Ico_inv_pow_le hp2 _ _
+          gcongr; exact sum_Ico_one_div_pow_le_of_two_le hp2 _ _
       _ ≤ Real.log p * (2 / Y) := by
           refine mul_le_mul_of_nonneg_left ?_ hlog
           have h2 : 1 / 2 ≤ 1 - 1 / (p : ℝ) := by
@@ -253,7 +253,7 @@ theorem sum_Ioc_nonprime_vonMangoldt_div_le {Y : ℕ} (hY : 1 ≤ Y) (M : ℕ) :
           refine sum_congr (by ext; simp only [mem_Icc, mem_Ico]; omega) fun k _ ↦ ?_
           push_cast; rw [one_div_pow]
       _ ≤ Real.log p * ((1 / (p : ℝ)) ^ 2 / (1 - 1 / p)) := by
-          gcongr; exact sum_Ico_inv_pow_le hp2 _ _
+          gcongr; exact sum_Ico_one_div_pow_le_of_two_le hp2 _ _
       _ = Real.log p / (p * (p - 1)) := by
           have : (p : ℝ) - 1 ≠ 0 := by linarith
           field_simp
@@ -340,7 +340,7 @@ theorem sum_nonunit_vonMangoldt_div_le_log {q : ℕ} (hq : q ≠ 0) (N : ℕ) :
               refine sum_congr (by ext; simp only [mem_Icc, mem_Ico]; omega) fun k _ ↦ ?_
               push_cast; rw [one_div_pow]
           _ ≤ Real.log p * ((1 / (p : ℝ)) ^ 1 / (1 - 1 / p)) := by
-              gcongr; exact sum_Ico_inv_pow_le hp2 _ _
+              gcongr; exact sum_Ico_one_div_pow_le_of_two_le hp2 _ _
           _ ≤ Real.log p * 1 := by
               gcongr
               rw [pow_one, div_le_one (by rw [sub_pos, div_lt_one (by linarith)]; linarith)]

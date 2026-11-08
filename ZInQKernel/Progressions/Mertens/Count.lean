@@ -26,7 +26,7 @@ lemma classSum_sub_classSum_nat (a : ZMod q) {x : ℝ} {Y : ℕ} (hY : (Y : ℝ)
   ring
 
 /-- `log t / t ≤ log y / y` for `3 ≤ y ≤ t`. -/
-lemma log_div_self_le_of_le {y t : ℝ} (hy : 3 ≤ y) (hyt : y ≤ t) :
+lemma log_div_self_le_of_three_le {y t : ℝ} (hy : 3 ≤ y) (hyt : y ≤ t) :
     Real.log t / t ≤ Real.log y / y := by
   have he : exp 1 ≤ 3 := by linarith [exp_one_lt_d9]
   exact log_div_self_antitoneOn (Set.mem_Ici.mpr (he.trans hy))
@@ -48,7 +48,7 @@ theorem sum_Ioc_classSum_le (a : ZMod q) {Y : ℕ} (hY : 3 ≤ Y) (M : ℕ) :
     refine sum_le_card_nsmul _ _ _ fun p hp ↦ ?_
     simp only [mem_filter, mem_Ioc] at hp
     rw [vonMangoldt_apply_prime hp.2.1]
-    exact log_div_self_le_of_le hY' (by exact_mod_cast hp.1.1.le)
+    exact log_div_self_le_of_three_le hY' (by exact_mod_cast hp.1.1.le)
   · calc ∑ n ∈ Ioc Y M with ((n : ℕ) : ZMod q) = a ∧ ¬ n.Prime, Λ n / n
           ≤ ∑ n ∈ Ioc Y M with ¬ n.Prime, Λ n / n := by
             refine sum_le_sum_of_subset_of_nonneg ?_ fun n _ _ ↦
@@ -144,7 +144,7 @@ theorem twentytwo_primes_of_twisted_bound (hq : 3 ≤ q) {a : ℕ} (ha : a.Copri
   have hlog3 : Real.log 3 ≤ 2 := by
     have := Real.log_le_sub_one_of_pos (x := 3) (by norm_num); linarith
   have hlogY : Real.log Y / Y ≤ 16 / 6561 := by
-    have h1 := log_div_self_le_of_le (by norm_num) hY'
+    have h1 := log_div_self_le_of_three_le (by norm_num) hY'
     have h3 : Real.log 6561 ≤ 16 := by
       rw [show (6561 : ℝ) = 3 ^ 8 by norm_num, Real.log_pow]; push_cast; linarith
     calc Real.log Y / Y ≤ Real.log 6561 / 6561 := h1
@@ -157,7 +157,7 @@ theorem twentytwo_primes_of_twisted_bound (hq : 3 ≤ q) {a : ℕ} (ha : a.Copri
     have hs81 : (81 : ℝ) ≤ ((q ^ 4 : ℕ) : ℝ) := by exact_mod_cast hq4
     have hlog4 : Real.log 4 ≤ 3 := by
       have := Real.log_le_sub_one_of_pos (x := 4) (by norm_num); linarith
-    have h1 := log_div_self_le_of_le (by norm_num) hs81
+    have h1 := log_div_self_le_of_three_le (by norm_num) hs81
     have h81 : Real.log 81 ≤ 8 := by
       rw [show (81 : ℝ) = 3 ^ 4 by norm_num, Real.log_pow]; push_cast; linarith
     have h2 : (2 + 2 * Real.log 4) / ((q ^ 4 : ℕ) : ℝ) ≤ 8 / 81 := by

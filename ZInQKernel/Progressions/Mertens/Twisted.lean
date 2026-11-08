@@ -21,20 +21,20 @@ noncomputable def twistedVonMangoldtDiv (χ : DirichletCharacter ℂ q) : Arithm
   ⟨fun n ↦ χ n * Λ n / n, by simp⟩
 
 /-- The arithmetic function `n ↦ χ(n) / n`. -/
-noncomputable def charDiv (χ : DirichletCharacter ℂ q) : ArithmeticFunction ℂ :=
+noncomputable def charDivArith (χ : DirichletCharacter ℂ q) : ArithmeticFunction ℂ :=
   ⟨fun n ↦ χ n / n, by simp⟩
 
 lemma twistedVonMangoldtDiv_mul_charDiv (χ : DirichletCharacter ℂ q) (n : ℕ) :
-    (twistedVonMangoldtDiv χ * charDiv χ) n = χ n * Real.log n / n := by
+    (twistedVonMangoldtDiv χ * charDivArith χ) n = χ n * Real.log n / n := by
   rw [mul_apply]
   have h : ∀ x ∈ n.divisorsAntidiagonal,
-      twistedVonMangoldtDiv χ x.1 * charDiv χ x.2 = χ n / n * (Λ x.1 : ℂ) := by
+      twistedVonMangoldtDiv χ x.1 * charDivArith χ x.2 = χ n / n * (Λ x.1 : ℂ) := by
     intro x hx
     rw [Nat.mem_divisorsAntidiagonal] at hx
     obtain ⟨rfl, hn⟩ := hx
     have h1 : (x.1 : ℂ) ≠ 0 := by exact_mod_cast left_ne_zero_of_mul hn
     have h2 : (x.2 : ℂ) ≠ 0 := by exact_mod_cast right_ne_zero_of_mul hn
-    simp only [twistedVonMangoldtDiv, charDiv, coe_mk, Nat.cast_mul, map_mul]
+    simp only [twistedVonMangoldtDiv, charDivArith, coe_mk, Nat.cast_mul, map_mul]
     field_simp
   rw [sum_congr rfl h, ← mul_sum,
     Nat.sum_divisorsAntidiagonal (f := fun a _ ↦ (Λ a : ℂ)), ← Complex.ofReal_sum,
@@ -44,7 +44,7 @@ lemma twistedVonMangoldtDiv_mul_charDiv (χ : DirichletCharacter ℂ q) (n : ℕ
 /-- `T(x) = Σ_{d ≤ x} χ(d) Λ(d)/d · Σ_{m ≤ x/d} χ(m)/m`. -/
 theorem logSum_eq_sum (χ : DirichletCharacter ℂ q) (x : ℝ) :
     logSum χ x = ∑ d ∈ Ioc 0 ⌊x⌋₊, χ d * Λ d / d * recipSum χ (x / d) := by
-  have h := sum_Ioc_mul_eq_sum_sum (twistedVonMangoldtDiv χ) (charDiv χ) ⌊x⌋₊
+  have h := sum_Ioc_mul_eq_sum_sum (twistedVonMangoldtDiv χ) (charDivArith χ) ⌊x⌋₊
   simp_rw [twistedVonMangoldtDiv_mul_charDiv] at h
   rw [logSum, h]
   refine sum_congr rfl fun d _ ↦ ?_
