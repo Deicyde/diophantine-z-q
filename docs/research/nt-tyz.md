@@ -456,3 +456,54 @@ extra class-3 factors cancel is proved here.
 (random classes and a random function `g` on subsets, `r = 2, …, 9` primes, 400 trials). It finds
 `c_n(e) = Λ(n/e)` for every `e ≡ 7` and every `e ≡ 5`, with no value outside `{0, 1}`. It also finds
 `C₂ = T_5b` and `C₁ = T_5a` in all 400 trials (`out_coeff_check.txt`).
+
+### 4.4 Proof of Proposition N (VERIFIED, from I1–I7)
+
+Assume `𝓛(n) = 0`. By I3 `P(n)` is torsion, so `P(n) ∈ A[(1+i)³] = A(ℚ(i))` by I4. Since `β'` fixes
+`ℚ(i)` (F3), `P(n)^{β'} + P(n) = 2P(n) ∈ 2A[(1+i)³] = A[1+i] = ℤτ(1)`.
+
+By Lemma N2, `P(n) = Σ_e ℓ_e Z(e) + 2X`, where `ℓ_e ∈ {0, 1}`, `ℓ_e ≡ Λ(n/e)`, and
+`X = Σ_e ((c_n(e) − ℓ_e)/2) Z(e) ∈ A(ℍ'_n)`. Apply `β' + 1`, which is additive and commutes with
+`[i]` (F4):
+
+```
+Σ_{e≡5} ℓ_e Z(e)^{β'+1}  +  Σ_{e≡7} ℓ_e Z(e)^{β'+1}  +  2(X^{β'} + X)  ∈  ℤτ(1).
+```
+
+By I5, `Z(e)^{β'+1} ∈ g(e)τ((1−i)/2) + ℤτ(1)` for `e ≡ 5`, and `Z(e)^{β'+1} = g(e)τ(1/2)` for `e ≡ 7`.
+So the first two sums are `a·τ((1−i)/2) + N·τ(1/2)` modulo `ℤτ(1)`, with integers
+`a = Σ_{e≡5} ℓ_e g(e) ≡ T_5a(n)` and `N = Σ_{e≡7} ℓ_e g(e) ≡ T_5b(n)`. All other terms are torsion,
+so `2(X^{β'} + X)` is torsion, and hence so is `X^{β'} + X`. That point lies in `A(ℍ'_n)` by F5,
+hence in `A[(1+i)³]` by I4, so `2(X^{β'} + X) ∈ ℤτ(1)`. Therefore
+
+```
+a(1−i)/2 + N/2 = (a + N)/2 − (a/2) i  ∈  ℤ + (1+i)ℤ[i] = ℤ[i],
+```
+
+so `a` and `N` are even. That is, `T_5a(n) ≡ T_5b(n) ≡ 0`.
+
+Contrapositive: if `T_5b(n)` (or `T_5a(n)`) is odd, then `𝓛(n) ≠ 0`. By I7 this gives
+`ord_{s=1} L(E_n, s) ≤ 1`, and the root number `−1` makes the order odd, hence equal to 1. ∎
+
+*What the proof does not use.* It does not use Proposition 3.4 (statement or proof), the `(5, 1)`
+bracket, the "i.e." of Theorem 3.5(2), the integer `ρ(n)`, Theorem 1.2, or any ordering
+convention, apart from the unambiguous one fixed by Lemma N1. The inputs I3–I6 are the same ones
+TYZ's own proof of part (2) uses. I1 and I2 replace Proposition 3.4. The case `n ≡ 7` goes the same
+way: there `c_n(e) ≡ i·Λ(n/e)` for `e ≡ 5`, and the brackets are `T_7b` and `T_7a`. It is not
+needed.
+
+### 4.5 Recommended citation
+
+> Tian–Yuan–Zhang, *Genus periods, genus points and congruent number problem*, Asian J. Math. 21
+> (2017), 721–774 (arXiv:1411.4728v1): Theorem 3.5 (first assertion) and the argument of the proof of
+> Theorem 3.5(2) in §3.3, for `n ≡ 5 (mod 8)`. It gives: if `T_5b(n)` is odd, then `𝓛(n) ≠ 0`, so
+> `L(E_n, s)` has a simple zero at `s = 1`. A complete proof from TYZ's Theorem 3.5 (first
+> assertion), Lemmas 3.16, 3.18, 3.21, Lemma 2.8, Proposition 2.3 and the recursion of §3.1 is in
+> `docs/research/nt-tyz.md` §4. Theorem 1.2 must not be cited in its literal form: with "all
+> `d_i > 1`" it is false (`n = 26565`).
+
+In CR₃'s trust statement (`ZInQKernel/Hypotheses/CertifiedRank.lean`), "Theorem 3.5(2) with its
+proof in §3.3" should become "Theorem 3.5 and the argument of the proof of Theorem 3.5(2), §3.3, as
+completed in nt-tyz §4", and Theorem 1.2 should not be cited. tyz-5b's Proposition 1.1 is
+Proposition N. Its two implicit facts are F1 and F2, and the facts it did not mention are F3–F6
+together with Lemma N2.
