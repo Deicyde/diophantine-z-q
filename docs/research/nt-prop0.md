@@ -582,14 +582,14 @@ The main theorem then has a variant with `CertifiedRankSel` in place of `Certifi
 
 - **The case analyses over `ℚ_p` and `ℚ₂`** (files 4 and 5). They need a convenient interface:
   write `x = p^k u` with `u ∈ ℤ_p*`, then read the classes of `x ± d` off `k` and the residue of `u`
-  (mod `p`, or mod 8 at 2). Lemma T has eleven cases. The risk is bookkeeping friction (norms versus
+  (mod `p`, or mod 8 at 2). Lemma T has about ten cases. The risk is bookkeeping friction (norms versus
   valuations, casts from `ℤ` and `ℚ`), not mathematics. Proving (P) once in a reusable form (in the
   shape "`|y| < |x|` implies `x + y ≡ x`") keeps every case to a few lines.
 - **Lemma J** (file 6). Exchanging the order of the triple sum `Σ_n Σ_{ξ,η}` and splitting
   `ξ² = η²` from `ξ² ≠ η²` is routine on paper and tedious with `Finset` sums. The square-class
   invariance `S(nt²) = χ(t)S(n)` needs a reindexing, like the substitution in `ProbeQ.lean`. The step
-  from `Σ_{n≠0} S(n)²` to `((p − 1)/2)(S(1)² + S(g)²)` needs a count of squares
-  (`quadraticChar_card_sqrts` or `FiniteField.card_sq...`).
+  from `Σ_{n≠0} S(n)²` to `((p − 1)/2)(S(1)² + S(g)²)` needs the fact that every nonzero square has exactly two square roots
+  (`quadraticChar_card_sqrts`).
 - **`Bits.lean`.** Products over `d.primeFactors` and the residue bit of a product of primes are of
   the same kind as the existing `Realize.lean` and `Slots/Symbols.lean`. They are long but follow known
   patterns.
@@ -633,3 +633,80 @@ can be done independently. Success criterion: at most about 300 lines.
 The probes run so far: both Hensel halves of SQ (`Probe.lean`, about 75 lines) and Lemma Q
 (`ProbeQ.lean`, about 35 lines, compiled on the first attempt) build against the project's Mathlib
 with standard axioms only.
+
+## 5. Routes and ranking
+
+**R1. Proposition 0 in full; CR₃ replaced by `CR₃^Sel`** (§1.4, §2, §4).
+
+- *Payoff.* The explicit system, Monsky's matrix and the Legendre-symbol bookkeeping leave the trust
+  boundary. The hypothesis reads "for these `d`, Selmer rank 3 implies `Ш[2] = 0`", with `Sel₂` in its
+  textbook form (§1.3). By Silverman X.1.4 this is equivalent to `rank C_d(ℚ) ≥ 1`, which is what Kriz,
+  or TYZ with GZK, provide.
+- *Main obstacle.* Volume and friction rather than mathematics: the 2-adic case analysis of Lemma T,
+  Lemma J, and the bit bookkeeping of `Bits.lean`. Every step has a written elementary proof (§2), and
+  the whole identification passed an independent end-to-end test (`t_prop0.py`, 40,512 pairs).
+- *First test.* `loc_padic_dvd_iff` as in §4.4: at most about 600 lines, no `sorry`, standard axioms.
+- *Chance: high.* Nothing in it is deep. The only analytic-looking input, at the good primes, is
+  replaced by Lemma J, an orthogonality identity. Mathlib has every primitive (Hensel, residue maps,
+  quadratic characters, Jacobi sums), and the two probes compiled with little effort.
+
+**R3. The congruent-number form: hypothesis "`C_d(ℚ)` is infinite".**
+
+> **CR₃^cong.** If `d ≡ 5 (mod 8)` is squarefree, `#Sel₂(d) = 8` and `Sel₂(d)` contains a pair with
+> `|a| ≡ 7 (mod 8)`, then `C_d(ℚ)` is infinite, i.e. `d` is a congruent number.
+
+Lean would then prove `CR₃^Sel` from `CR₃^cong`. On top of R1 this needs:
+
+- (a) the pair map `δ` as a homomorphism on `C_d(ℚ)` with kernel `2C_d(ℚ)`. Its first coordinate is the
+  repo's `kummer` on `shortCurve (−d²)`, with `kummer_add`; the kernel would come from
+  `kummer_eq_one_iff` and `rescale_phi_phi`, or from a halving lemma;
+- (b) `δ(C_d(ℚ)) ⊆ Sel₂(d)`, which is Lemma 1.2 over `ℚ` together with "rational squares are local
+  squares";
+- (c) Mordell–Weil for `C_d/ℚ`, from (a), (b) and `#Sel₂ = 8` (finite index of `2C_d(ℚ)`), via
+  `AddCommGroup.fg_of_descent'` and Mathlib's naive height. This is the pattern of `mordellWeilE`;
+- (d) for a finitely generated infinite `C_d(ℚ)` with `C_d(ℚ)[2]` of order 4, `[C_d(ℚ) : 2C_d(ℚ)] ≥ 8`,
+  hence `δ(C_d(ℚ)) = Sel₂(d)`.
+
+Assessment:
+
+- *Payoff.* The deep input reads exactly as the conclusions of Tian–Yuan–Zhang ("`n` is a congruent
+  number") or of any rank-one theorem. `Ш` and the injectivity half of Silverman X.1.4 also move into
+  Lean.
+- *Main obstacle.* Items (a), (c) and (d): the full 2-descent homomorphism (the repo only has the
+  2-isogeny half, and `phi` has no `phi_add`), and Mordell–Weil over `ℚ` for a family of curves.
+- *First test.* Define `δ₂` (the class of `x − d`) on `shortCurve (−d²)` over any field and prove
+  `δ₂(P + Q) = δ₂(P)δ₂(Q)`, reusing the proof of `kummer_add`. Success criterion: under 400 lines.
+- *Chance: medium.* The pieces have precedents in the repo (MW over `ℚ(√2)`), but the work is about
+  as large again as R1.
+
+A variant keeps the explicit system as the antecedent ("`Σ(𝒞_d)` has 8 solutions, including class
+`a`, ⇒ `C_d(ℚ)` infinite"). It then needs only the necessity half of Proposition 0, since rational
+points give solutions, and not Lemma G2 or the sufficiency half of Lemma T. Its hypothesis is less
+canonical, because the antecedent is still the system.
+
+**R2. Proposition 0 at the bad places only** (a milestone of R1, and its fallback).
+
+- *Payoff.* Define `Sel₂^S(d)` with conditions at `∞`, `2` and `p | d` only, on the box `ℚ(S ∪ {2}, 2)²`, and
+  skip §2.3. The trust statement then adds one STANDARD fact: at a prime of good reduction not
+  dividing 2, the local image is the unramified subgroup (Silverman X.4; exact proposition number
+  UNCHECKED here).
+- *Main obstacle.* As R1, minus files 6 and 7.
+- *First test.* As R1.
+- *Chance: high*, but the payoff is strictly smaller than R1's. Since §2.3 turned out elementary, R2
+  is worth doing only as an intermediate commit.
+
+**Rejected approaches** (low chance or no benefit):
+
+- Hilbert symbols: the local conditions could be written as Hilbert-symbol identities, but Mathlib
+  has none, and the x-form makes them unnecessary.
+- At the good primes, the textbook route through `E(ℚ_p)/2E(ℚ_p) ≅ E(𝔽_p)/2E(𝔽_p)`: it needs reduction
+  of points over `ℚ_p`, the formal group and the Kummer homomorphism.
+- At the good primes, the Hasse–Weil bound for `D_{a,b}/𝔽_p`, or Chevalley–Warning: the latter does not
+  apply (degree sum 4, four variables).
+- Galois cohomology: it is not needed (§1.3).
+
+| Rank | Route | Payoff | Main obstacle | First test | Chance |
+| --- | --- | --- | --- | --- | --- |
+| 1 | R1: full Proposition 0, `CR₃^Sel` | system out of the trust boundary; hypothesis = textbook `Sel₂` + "Selmer rank 3 ⇒ `Ш[2]=0`" | Lemma T, Lemma J, bit bookkeeping (2,500–4,000 lines) | `loc_padic_dvd_iff` in ≤ 600 lines | high: all steps elementary, written and tested; two probes compiled |
+| 2 | R3: `CR₃^cong` ("`d` is congruent") | hypothesis in the exact form of TYZ / rank-one theorems | full 2-descent homomorphism, MW over `ℚ` for `C_d` | `δ₂` additive, ≤ 400 lines | medium: precedent in the repo, but as large again as R1 |
+| 3 | R2: bad places only | as R1, plus one cited STANDARD fact | as R1 minus files 6–7 | as R1 | high, but dominated by R1 |
