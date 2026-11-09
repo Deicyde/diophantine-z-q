@@ -148,4 +148,60 @@ now, and it need not be.
 A second, equivalent wording avoids `H¹` altogether. `Sel₂` is then the set of everywhere locally
 soluble 2-coverings of `C_d` of the shape `D_{a,b}` (Cassels' formulation). The two wordings agree by
 Lemma 1.2 and the fact that every 2-covering of a curve with full 2-torsion is isomorphic to one
-`D_{a,b}` (STANDARD; Silverman X.1.4, X.3). The Lean definition is the same in both cases.
+`D_{a,b}` (STANDARD in substance, Silverman X.3; the exact statement there is UNCHECKED here). The Lean definition is the same in both cases.
+
+### 1.4 The hypothesis in the literature's form
+
+With `Sel₂(d)` as in §1.3 and `Loc_K(a, b)` the x-form condition of §1.1, the narrowed hypothesis reads:
+
+> **CR₃^Sel.** Let `d > 0` be squarefree with `d ≡ 5 (mod 8)`. If `Sel₂(d)` has exactly 8 elements
+> and contains a pair `(a, b)` with `|a| ≡ 7 (mod 8)`, then `D_{a',b'}(ℚ) ≠ ∅` for every
+> `(a', b') ∈ Sel₂(d)`.
+
+In Lean (SPECULATIVE wording, to be fixed in the first file of §4):
+
+```lean
+def Sel2 (d : ℕ) : Set (ℤ × ℤ) :=
+  {ab | Squarefree ab.1 ∧ Squarefree ab.2 ∧ Loc ℝ d ab.1 ab.2 ∧
+        ∀ p : ℕ, (hp : p.Prime) → haveI := Fact.mk hp; Loc ℚ_[p] d ab.1 ab.2}
+
+def CertifiedRankSel : Prop :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → (Sel2 d).ncard = 8 →
+    (∃ ab ∈ Sel2 d, ab.1.natAbs % 8 = 7) → ∀ ab ∈ Sel2 d, Loc ℚ d ab.1 ab.2
+```
+
+where `Loc K d a b := (IsSquare (a : K) ∧ IsSquare (b : K)) ∨ ∃ x : K, IsSquare (x / a) ∧
+IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))`.
+
+**What `CR₃^Sel` says in the literature's terms** (given Silverman X.1.4, STANDARD). By Lemma 1.2 over
+`ℚ`, the conclusion says `δ(C_d(ℚ)) = Sel₂(C_d)`, that is `Ш(C_d)[2] = 0`. Since `δ` induces an injection
+`C_d(ℚ)/2C_d(ℚ) → Sel₂` and `C_d(ℚ)[2] = C_d[2]` has order 4, `dim δ(C_d(ℚ)) = 2 + rank C_d(ℚ)`. So
+under `dim Sel₂ = 3` the conclusion is equivalent to `rank C_d(ℚ) ≥ 1`, i.e. to `d` being a congruent
+number. The sources named in the docstring of `ZInQ.CertifiedRank` give this:
+
+- Kriz's 2-converse (arXiv:2002.04767, Theorem 10.13) with the corank lemma;
+- or, under exactly the hypothesis `|a| ≡ 7 (mod 8)`, Tian–Yuan–Zhang (Theorem 3.5(2)) with
+  Gross–Zagier–Kolyvagin (docs/research/tyz-5b.md).
+
+Both routes are STANDARD as recorded there; this note does not recheck them. Compared with CR₃ the
+gain is that the explicit system, Legendre symbols and Monsky matrices disappear from the trust
+boundary. What remains is the textbook definition of `Sel₂` and the statement "Selmer rank 3 implies
+rank 1" for these curves.
+
+**CR₃ from `CR₃^Sel` and Proposition 0 (VERIFIED on paper, all steps elementary).** Assume the
+hypotheses of `ZInQ.CertifiedRank`: `d ≡ 5 (mod 8)` squarefree, `a` a squarefree divisor of `d` with
+`|a| ≡ 7 (mod 8)`, `(natConfig d _).sols.card = 8`, and `σ ∈ sols` with `σ.first = natClass d a`.
+
+1. Proposition 0 (§2.8) gives a bijection `sols ≃ Sel₂(d)`, `σ ↦ (a(σ), b(σ))`. So
+   `(Sel2 d).ncard = 8`.
+2. `σ.first = natClass d a` means `a₀ = [a < 0]`, `a₁ = 0` and `u_p = [p | a]`. Because `a` is a
+   squarefree divisor of `d`, this gives `a(σ) = a`. So `(a, b(σ)) ∈ Sel₂(d)` with `|a| ≡ 7`.
+3. `CR₃^Sel` gives `Loc_ℚ(a, b(σ))`. The first alternative is impossible: `a ∈ ℚ*²` with `a`
+   squarefree forces `a = 1`. So there is `x ∈ ℚ` with `x/a = r₁²`, `(x − d)/b = r₂²` and
+   `(x + d)/(ab) = r₃²`.
+4. `x ≠ 0`. Otherwise `−d/b` and `d/(ab)` are nonzero squares, so `a ≡ −1`, which forces `a = −1`,
+   against `|a| ≡ 7`.
+5. `y = a b r₁ r₂ r₃` satisfies `y² = x³ − d²x` (by `ring`), and `x/a = r₁²` is a square.
+
+This is the conclusion of `CertifiedRank`. In Lean, steps 3–5 take a few dozen lines; step 2 is a
+factorization argument on squarefree integers (`Int.squarefree`, `Nat.prod_primeFactors_of_squarefree`).
