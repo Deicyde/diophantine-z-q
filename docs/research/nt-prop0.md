@@ -26,7 +26,7 @@ Proposition 0 needs and how the hypothesis would then read.
   valuation of `x` proves it. At `2`, for `d ≡ 5 (mod 8)`, there are eight classes: four torsion
   classes and the four classes of the points with `x = 1/4`, `−4d²`, `d(1 + 4d)/(1 − 4d)` and
   `−d(1 − 4d)/(1 + 4d)`. The necessity half is a case analysis on `v₂(x)` and `x mod 8`.
-- **The good primes need neither the group law nor the Hasse bound** (§2.4, new). Here sufficiency
+- **The good primes need neither the group law nor the Hasse bound** (§2.3, new). Here sufficiency
   means that every unit pair is locally soluble at `p ∤ 2d`. It follows from a character-sum count
   over `𝔽_p`, Jacobsthal's identity `Σ_n S(n)² = p(p − 1)(1 + χ(−1))` for
   `S(n) = Σ_x χ(x³ − nx)` (an elementary orthogonality computation, which gives `|S(d²)| ≤ 2√p`), a
@@ -37,8 +37,8 @@ Proposition 0 needs and how the hypothesis would then read.
   Hilbert symbol, no square-class criterion for `ℚ_p`, no 2-descent and no Selmer group. The main
   missing pieces are short: the unit-square criteria for `ℚ_p` and `ℚ₂`, and the sum of `χ` over a
   quadratic polynomial.
-- **Plan** (§4). About 2,500–4,000 lines in eight files, in three tiers. The first step, the
-  square-class criterion for `ℚ_p` and the real and `p | d` places, would show that the case
+- **Plan** (§4). About 2,500–4,000 lines in nine files, in three tiers. The first step, the
+  square-class criterion for `ℚ_p` and the places `p | d`, would show that the case
   analyses over `ℚ_p` are manageable in Lean.
 
 Status labels: VERIFIED (checked against the text or by a computation), STANDARD (a published
@@ -148,7 +148,8 @@ now, and it need not be.
 A second, equivalent wording avoids `H¹` altogether. `Sel₂` is then the set of everywhere locally
 soluble 2-coverings of `C_d` of the shape `D_{a,b}` (Cassels' formulation). The two wordings agree by
 Lemma 1.2 and the fact that every 2-covering of a curve with full 2-torsion is isomorphic to one
-`D_{a,b}` (STANDARD in substance, Silverman X.3; the exact statement there is UNCHECKED here). The Lean definition is the same in both cases.
+`D_{a,b}` (STANDARD in substance, Silverman X.3; the exact statement there is UNCHECKED here).
+The Lean definition is the same in both cases.
 
 ### 1.4 The hypothesis in the literature's form
 
@@ -192,7 +193,7 @@ rank 1" for these curves.
 hypotheses of `ZInQ.CertifiedRank`: `d ≡ 5 (mod 8)` squarefree, `a` a squarefree divisor of `d` with
 `|a| ≡ 7 (mod 8)`, `(natConfig d _).sols.card = 8`, and `σ ∈ sols` with `σ.first = natClass d a`.
 
-1. Proposition 0 (§2.8) gives a bijection `sols ≃ Sel₂(d)`, `σ ↦ (a(σ), b(σ))`. So
+1. Proposition 0 (§2.7) gives a bijection `sols ≃ Sel₂(d)`, `σ ↦ (a(σ), b(σ))`. So
    `(Sel2 d).ncard = 8`.
 2. `σ.first = natClass d a` means `a₀ = [a < 0]`, `a₁ = 0` and `u_p = [p | a]`. Because `a` is a
    squarefree divisor of `d`, this gives `a(σ) = a`. So `(a, b(σ)) ∈ Sel₂(d)` with `|a| ≡ 7`.
@@ -204,7 +205,7 @@ hypotheses of `ZInQ.CertifiedRank`: `d ≡ 5 (mod 8)` squarefree, `a` a squarefr
 5. `y = a b r₁ r₂ r₃` satisfies `y² = x³ − d²x` (by `ring`), and `x/a = r₁²` is a square.
 
 This is the conclusion of `CertifiedRank`. In Lean, steps 3–5 take a few dozen lines; step 2 is a
-factorization argument on squarefree integers (`Int.squarefree`, `Nat.prod_primeFactors_of_squarefree`).
+factorization argument on squarefree integers (`Int.squarefree_natAbs`, `Nat.prod_primeFactors_of_squarefree`).
 
 ## 2. The local computations, in the order Lean needs them
 
@@ -265,7 +266,8 @@ In Lean this is `Real.isSquare_iff` (nonnegativity) followed by `nlinarith`-size
   - If `v(x) < 0`, all three valuations equal `v(x)`, so `v(a) ≡ v(b) ≡ v(x) ≡ 2v(x) ≡ 0`.
   - If `v(x) > 0`, then `v(x ∓ d) = 0`, so `v(b) ≡ 0` and `v(a) ≡ 0`.
   - If `v(x) = 0`, then `v(a)` is even. At most one of `x − d`, `x + d` is divisible by `p`, because
-    their difference `2d` is a unit. Whichever is a unit forces `v(b)` or `v(a) + v(b)` to be even. ∎
+    their difference `2d` is a unit. Whichever is a unit forces `v(b)` or `v(a) + v(b)` to be even,
+    and with `v(a)` even this gives `v(b)` even. ∎
 
 **Lemma G2 (unit pairs are soluble).** Let `p ∤ 2d` and let `a, b` be prime to `p`. Then `Loc_{ℚ_p}(a, b)`.
 
@@ -308,7 +310,7 @@ The quadratic sums use **Lemma Q**: `Σ_ξ χ((ξ − e)(ξ − e′)) = −1` f
 
 - (1) `S(nt²) = χ(t)S(n)` for `t ≠ 0`. Substitute `ξ = tη`, so that `ξ³ − nt²ξ = t³(η³ − nη)`. Hence
   `S(n)²` depends only on the square class of `n`, and `S(d̄²)² = S(1)²`.
-- (2) `S(0) = Σ χ(ξ)³ = 0`.
+- (2) `S(0) = Σ χ(ξ³) = Σ χ(ξ) = 0`.
 - (3) `Σ_{n∈𝔽_p} S(n)² = p(p − 1)(1 + χ(−1))`. Indeed
   `S(n)² = Σ_{ξ,η} χ(ξη) χ((ξ² − n)(η² − n))`. The inner sum over `n` is `p − 1` if `ξ² = η²` and `−1`
   otherwise (Lemma Q, and `χ(c²) = 1` for `c ≠ 0`). So the total is
@@ -320,8 +322,8 @@ For `p ≥ 29` we have `(p − 15)² > 4p`, so `|S(d̄²)| < p − 15` and `N �
 `S² ≤ 4p < (p − 15)²` is integer arithmetic.
 
 *Step 3 (small primes).* For `p ∈ {3, 5, 7, 11, 13, 17, 19, 23}`, Step 1 is checked over all
-`d̄ ∈ 𝔽_p*` and all four pairs of classes `(α, β)`. This is a finite computation that Lean can run by
-`decide` on `ZMod p`.
+`d̄ ∈ 𝔽_p*` and all four pairs of classes `(α, β)`. This is a finite computation; in Lean it is best
+done by a Boolean checker on `ℕ` run with `decide +kernel` (§4.2).
 
 *Checks.*
 
