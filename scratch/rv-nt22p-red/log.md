@@ -27,3 +27,21 @@ Python env: /tmp/rvred-venv (cypari2 2.17, gmpy2, numpy, mpmath). Recreate with
 - Catalogue = first 22 primes > 324 in each unit class mod W = 4 P_s; every prime 324 < p < W is
   itself the first prime of its class, so S_b contains ALL primes < W ~ 10^137. Pattern primes are
   above that; all prime factors of v below W are old primes (B_p = 1 for 324 < p).
+
+## Step 3: library + batch 1 (Lemma P(1)-(2) locally)
+
+- `slopelib.py`: independent implementation (R0, field 2, Lemma P hypotheses, Hensel square root,
+  weak-approximation q = m/(Dpole L^k) with CRT residue targets, model test values in Z[sqrt2],
+  v_p(B) via PARI p-adics with precision tracking, B real via mpmath). Model S_b = S_ht ∪ H,
+  H = [331, 337]; ell0 = 12 P_s^2916 H^732 exactly (383,613 digits). Smoke test `t_smoke.py` OK.
+- `b1_lemmaP1.py` (output `b1_out.txt`), 30 inputs: l=2 e=1..5; l in S0 with e=1,5,40;
+  l = 11, 331, 317; v = 2^7 3^6 5^5 7^5 13^5 at each S0 prime; 5 controls with F(t)<0.
+  * Under the hypotheses of Lemma P: v_l(R0) = 2e, v_l(t-1) = -e, R0 square, and the Hensel
+    q0 = w/l^e gives v_l(1 - R0 q0^2) >= N in 25/25 cases. Lemma P(1)-(2): CORRECT.
+  * l = 2, e = 1, 2: R0 is a non-square in 2000/2000 random samples (not "often": always).
+    Proof: unit part == (1+6k)*5 mod 8 (e=1), == 5 mod 8 (e=2), k odd. So e >= 3 is sharp.
+    Harmless: e <= 4 = B_2 is covered by field 2.
+  * Controls F(t) < 0, eta = -1, e = 5: R0 square at l = 5, 13 (2000/2000), non-square at
+    l = 2, 3, 7 (0/2000). "Lemma P must fail for F<0" is true only at l in {2,3,7}; at
+    l == 1 mod 4 it holds (since -1 is a square). Not a defect; the hypothesis F(t) > 0 could be
+    weakened to "eta R0 l^{-2e} is a square in Q_l".
