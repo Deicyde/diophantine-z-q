@@ -538,3 +538,44 @@ with abscissa in `βℚ*²`.*
 *Proof.* A class with first coordinate `β` is not torsion: the torsion first coordinates are `±1, ±n`
 up to squares, with odd parts `1` and `n`, both `≡ 1 (mod 4)`, while `|β| ≡ 3 (mod 4)`. Theorem 4.3 gives
 `det M_5b = 1`, Theorem 3.6 gives `T_5b(n) = 1`, and Corollary 1.2 gives the point. ∎
+
+## 5. The curves of the slot construction (VERIFIED)
+
+**Theorem 5.1.** *Let `B` be admissible, and let `m`, `β`, `θ`, `q₀`, `r_p`, `r_ℓ` and `n` be chosen as in
+slot-k §2.4. Then for `d ∈ {n, nθ}`: `|d|` is squarefree, `|d| ≡ 5 (mod 8)`, `T_5b(|d|) = 1`, and `C_d` has a
+rational point of infinite order with abscissa in `βℚ*²`. The proof uses Tian–Yuan–Zhang (Proposition
+1.1), Gross–Zagier and Kolyvagin (Lemma 5.5 of the manuscript), and otherwise only elementary
+statements.*
+
+*Proof.* What slot-k proves about these curves, and nothing else, is used:
+
+1. *Congruences.* `|β| ≡ 7 (mod 8)` (Step 0 of slot-k §2.4), `q₀ ≡ 3 (mod 8)`, every `r_p` and `r_ℓ` is
+   `≡ 1 (mod 8)`, so `|n| ≡ 7 · 3 ≡ 5 (mod 8)`; and `θ ≡ 1 (mod 8)` by (θ1), so `|nθ| ≡ 5 (mod 8)`. (This is
+   the computation of slot-k §2.6.)
+2. *Squarefree and odd.* `|n|` and `|nθ|` are odd and squarefree (slot-k §2.5, first paragraph: the slots
+   are distinct primes outside `2βθ`, and `β`, `θ` are coprime by (θ2)).
+3. *Selmer data.* `dim Sel₂(C_{|n|}) = dim Sel₂(C_{|nθ|}) = 3`, and `β` is a first coordinate of both
+   (slot-k §2.5, Theorem, steps 3–6). The curve and the first coordinate do not change under `d ↦ −d`.
+4. *The class `β`.* `β` is odd with `|β| ≡ 7 ≡ 3 (mod 4)`.
+
+Corollary 4.4, applied to `|n|` and to `|nθ|`, gives the conclusion. ∎
+
+**Which extra facts are needed.** None beyond slot-k's theorem: the hypotheses of §§1–4 are
+"`|d| ≡ 5 (mod 8)` squarefree, `dim Sel₂ = 3`, and a first coordinate `β` with `|β|_odd ≡ 3 (mod 4)`", and
+slot-k supplies all of them. In particular:
+
+- the sign of `β` (and the sign choice `x = s + 1` of slot-k) plays no role here, since the rule depends
+  only on `|β|` and is invariant under the torsion cosets;
+- the number of primes of `n`, the size of `θ` and the symbols of the slots play no role;
+- no condition on `n' = n/β` modulo 8 has to be added (pc-audit §4.2 expected one): `n' = q₀ Π r ≡ 3
+  (mod 8)` holds automatically;
+- the case `θ = 1` (then `C_{nθ} = C_n`) and the torsion certificates of slot-k §1.2 do not occur in the
+  construction (`n/β ≠ ±1`).
+
+**Consequence for Route K.** For every admissible `B`, the slot construction gives `m` and `n` such that
+`C_n` and `C_{nθ}` have rational points with abscissa in `βℚ*²`, so `Φ_C(B)` holds (rv-route-k §4.2), with
+the deep input taken from Tian–Yuan–Zhang and Gross–Zagier–Kolyvagin instead of Kriz. Slot-k's
+narrowed hypothesis CR₃ (§4.1 there), restricted to `d ≡ 5 (mod 8)` and `|a| ≡ 7 (mod 8)`, follows from
+Corollary 4.4 together with Proposition 0, exactly as slot-k anticipated there (its "SPECULATIVE until RK6
+is checked" is now settled for this restriction). More generally the restriction may be relaxed to
+`|a|_odd ≡ 3 (mod 4)`.
