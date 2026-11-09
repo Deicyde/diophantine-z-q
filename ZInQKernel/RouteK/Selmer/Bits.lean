@@ -472,4 +472,42 @@ theorem not_dvd_selPair {d p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) (hpd : ¬p �
     ¬(p : ℤ) ∣ (selPair d σ).1 ∧ ¬(p : ℤ) ∣ (selPair d σ).2 :=
   ⟨not_dvd_classInt hp hp2 hpd _ _ _, not_dvd_classInt hp hp2 hpd _ _ _⟩
 
+/-! ### Assembly, given Lemmas T and G2 -/
+
+/-- **Proposition 0, first half, from the local lemmas** (nt-prop0 §2.7). Let `d ≡ 5 (mod 8)` be
+squarefree. Given Lemma T at 2 (`hT`, the statement of §2.5) and Lemma G2 at the primes `p ∤ 2d`
+(`hG`), `σ` solves `Σ(𝒞_d)` iff `(a(σ), b(σ)) ∈ Sel₂(C_d)`. -/
+theorem isSol_iff_selPair_mem_of_local {d : ℕ} (hd5 : d % 8 = 5) (hsq : Squarefree d)
+    (hT : ∀ a b : ℤ, a ≠ 0 → b ≠ 0 → (Loc ℚ_[2] d a b ↔ ∃ i j k : ℕ, i < 2 ∧ j < 2 ∧ k < 2 ∧
+      IsSquare ((a * d ^ i * (-1) ^ j : ℤ) : ℚ_[2]) ∧
+      IsSquare ((b * 2 ^ i * (-d) ^ j * 5 ^ k : ℤ) : ℚ_[2])))
+    (hG : ∀ (p : ℕ) [Fact p.Prime], p ≠ 2 → ¬p ∣ d → ∀ a b : ℤ, ¬(p : ℤ) ∣ a → ¬(p : ℤ) ∣ b →
+      Loc ℚ_[p] d a b)
+    (σ : Unknowns d.primeFactors) :
+    (natConfig d (odd_of_mod_eight_eq_five hd5)).IsSol σ ↔ selPair d σ ∈ Sel2 d := by
+  set hd := odd_of_mod_eight_eq_five hd5
+  have hd0 : d ≠ 0 := by omega
+  have ha0 : (selPair d σ).1 ≠ 0 := classInt_ne_zero _ _ _ _
+  have hb0 : (selPair d σ).2 ≠ 0 := classInt_ne_zero _ _ _ _
+  constructor
+  · rintro ⟨hE1, hE2, hR, hD⟩
+    refine ⟨squarefree_classInt hd _ _ _, squarefree_classInt hd _ _ _,
+      (loc_real_selPair_iff hd0 σ).mpr hR, fun p _ => ?_⟩
+    by_cases hp2 : p = 2
+    · subst hp2
+      exact (hT _ _ ha0 hb0).mpr ((classCond_two_iff_D hd5 hsq σ hR).mpr hD)
+    by_cases hpd : p ∣ d
+    · have hmem : p ∈ d.primeFactors := Nat.mem_primeFactors.mpr ⟨Fact.out, hpd, hd0⟩
+      exact (loc_padic_selPair_iff_rows hd hsq σ hmem).mpr ⟨hE1 _, hE2 _⟩
+    · exact hG p hp2 hpd _ _ (not_dvd_selPair Fact.out hp2 hpd σ).1
+        (not_dvd_selPair Fact.out hp2 hpd σ).2
+  · rintro ⟨-, -, hR, hloc⟩
+    have hR' := (loc_real_selPair_iff hd0 σ).mp hR
+    have hrows : ∀ x : d.primeFactors,
+        (natConfig d hd).E1 σ x ∧ (natConfig d hd).E2 σ x := fun x => by
+      have : Fact (x : ℕ).Prime := ⟨Nat.prime_of_mem_primeFactors x.2⟩
+      exact (loc_padic_selPair_iff_rows hd hsq σ x.2).mp (hloc x)
+    exact ⟨fun x => (hrows x).1, fun x => (hrows x).2, hR',
+      (classCond_two_iff_D hd5 hsq σ hR').mp ((hT _ _ ha0 hb0).mp (hloc 2))⟩
+
 end ZInQ.RouteK.Selmer
