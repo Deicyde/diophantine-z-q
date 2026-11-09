@@ -51,3 +51,4 @@ import ZInQKernel.Progressions.IdealCount
 import ZInQKernel.Progressions.Final
 import ZInQKernel.RouteK.System
 import ZInQKernel.RouteK.Slots
+import ZInQKernel.RouteK.Assembly
