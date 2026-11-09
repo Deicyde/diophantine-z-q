@@ -362,7 +362,9 @@ that every Selmer class comes from a rational point. Since `C_d(ℚ)[2] = C_d[2]
 `rank C_d(ℚ) ≥ 1` (and then to `rank = 1`, `Ш[2] = 0`). This is provided by either of:
 
 * Kriz's 2-converse theorem (arXiv:2002.04767, Theorem 10.13; `E = C_d`, CM by `ℤ[i]`, `p = 2`;
-  its standing assumption `f₀ ≥ 4` holds since `d ≥ 21` once `#Sel₂ = 8` and `d ≡ 5 (mod 8)`)
+  its standing assumption `f₀ ≥ 4` holds since `d ≥ 21`, as in `ZInQ.CertifiedRank`: by
+  Proposition 0 the Selmer class `a` with `|a| ≡ 7 (mod 8)` is a signed divisor of `d`, so
+  `d = |a| m` with `m ≡ 3 (mod 8)`)
   together with the corank lemma (manuscript line 1072; Poonen–Stoll: the Cassels–Tate pairing
   makes `dim Ш[2]` even when `Ш` is finite), giving `rank C_d(ℚ) = 1` and `Ш(C_d)[2] = 0`;
 * or, for exactly the 2-adic shape `d ≡ 5`, `|a| ≡ 7 (mod 8)` assumed here, Tian–Yuan–Zhang

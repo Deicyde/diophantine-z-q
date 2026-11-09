@@ -15,3 +15,4 @@
 - BadOdd.lean: padic_norm_natCast_of_squarefree, padic_norm_ne_zpow_odd, loc_padic_dvd_iff (Lemma B, §4.4
   statement unchanged). Proof by comparing ‖x‖ with ‖d‖ = p⁻¹ (no valuation case split needed). No sorry.
 - lake build ZInQKernel OK; #print axioms certifiedRank_of_sel, loc_padic_dvd_iff: propext, Classical.choice, Quot.sound.
+- CertifiedRankSel docstring: d ≥ 21 justified through Proposition 0. Report written (.fleet/p0-local.md).
