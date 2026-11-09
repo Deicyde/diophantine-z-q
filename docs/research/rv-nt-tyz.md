@@ -165,8 +165,10 @@ recursion of I2 modulo 2, not from `Λ`, so the test covers Lemma N1 as well. Th
   `(7, 3)` steps, gives 2181 and 1261 mismatches. So the test does detect errors in the parts of I1
   that matter.
 - *Proposition 3.4 under a distinguished `d₁`.* If `d₁ = 1` is admitted and `d₁` is distinguished
-  among the class-1 factors, the predicted coefficient of `Z(e)` is `Σ_π (k(π) + [e ≡ 5])w(π)`. This
-  disagrees with the recursion on 10 023 of the coefficients above. Proposition 3.4 is true only with
+  among the class-1 factors, the predicted coefficient of `Z(e)` for `e ≡ 5` is
+  `Σ_π (1 + k(π))w(π)`. For `e ≡ 7` the prediction is `Λ(n/e)`, since there `d₁` is the class-3
+  block. This disagrees with the recursion on 4876 of the coefficients above, in 265 of the 360
+  configurations. Proposition 3.4 is true only with
   the set-partition convention, under which its coefficient of `Z(e)` is `Λ(n/e)`. This agrees with
   nt-tyz §2.3.
 

@@ -112,13 +112,15 @@ def run_config(r, cls, g, check_readings=True):
                 tot += w
         return tot % 2
 
-    def readingD(m):  # sum (1 + k) w over partitions with at most one non-class-1 block
+    def readingD(m):  # Prop 3.4 coefficient if d1 = 1 is admitted and d1 is distinguished
         cm = c8(m)
         tot = 0
         for cl, w in blocks_w(m):
             k = cl.count(1)
             if (cm == 1 and k == len(cl)) or (cm == 3 and cl.count(3) == 1 and k == len(cl) - 1):
-                tot += (k + (1 if cm == 1 else 0)) * w
+                # e = 5: d1 = 1 or a distinguished class-1 block (1 + k labelings);
+                # e = 7: d1 is the class-3 block (1 labeling)
+                tot += ((1 + k) if cm == 1 else 1) * w
         return tot % 2
 
     out = dict(n1_fail=0, n2_fail=0, nonreal=0, br_fail=0, D_fail=0, ncoef=0)

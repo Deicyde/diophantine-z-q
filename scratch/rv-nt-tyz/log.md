@@ -34,7 +34,7 @@ Hand derivations:
   L(q) computed from the Lemma 2.8 recursion mod 2 (not from Lambda); P(D) from the section 3.1 recursion in F_2[i].
   20440 coefficients c_n(e) compared: 0 mismatches with Lambda(n/e) (Lemma N2), 0 non-real, 0 Lemma N1 mismatches
   (L(q) vs Lambda(q) on all q), brackets (C1, C2) = (T5a, T5b) in all 360 trials; T5b odd in 136 trials.
-- Reading D of Prop 3.4 (d1 = 1 admitted, distinguished) disagrees on 10023 coefficients (298 trials): Prop 3.4 must be read with set-partition semantics.
+- Reading D of Prop 3.4 (d1 = 1 admitted, distinguished) disagrees on 4876 coefficients (265 trials) [first run had a bug: e = 7 predicted as sum k w instead of Lambda; fixed and rerun]: Prop 3.4 must be read with set-partition semantics.
 - Mutation tests (90 trials each): eps(5,3) class = 1 instead of i: still 0 mismatches (confirms the hand observation that the (5,3) class is irrelevant); eps = i on (5,1) or (7,3) steps: thousands of mismatches (test is sensitive).
 - 30 actual n = 5 mod 8 (3..7 primes, n < 3e6) with g from reduced forms: 152 coefficients, 0 mismatches; T5b odd for 14.
 - Verdict: Lemma N2 / N1 CORRECT, numerically corroborated.

@@ -2,4 +2,4 @@ trials 360, per r: {1: 40, 2: 40, 3: 40, 4: 40, 5: 40, 6: 40, 7: 40, 8: 40, 9: 4
 coefficients compared: 20440
 Lemma N1 mismatches: 0; Lemma N2 mismatches: 0; non-real c(e): 0; bracket (C1,C2) != (T5a,T5b): 0
 trials with T5b odd: 136
-reading D of Prop 3.4 disagrees with the recursion on 10023 coefficients (298 trials)
+reading D of Prop 3.4 disagrees with the recursion on 4876 coefficients (265 trials)
