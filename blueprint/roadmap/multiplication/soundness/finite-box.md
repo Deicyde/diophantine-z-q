@@ -9,15 +9,15 @@ lean: ZInQ.Mult.finite_box
 
 # The finite-box deduction
 
-Assume the six-contact height estimate. Let
+Assume the minimal height hypothesis. Let
 $n_1,n_2,n_3\in\mathbb Z$ with $n_1n_2\ne n_3$, and suppose the unguarded certificate accepts
 $(\iota(n_1),\iota(n_2),\iota(n_3))$:
 $$\mathrm{Rel}_{\mathtt{height\_certificate}}\bigl(\iota(n_1),\iota(n_2),\iota(n_3),\ell_0,\iota(c_*),\iota(c_*n_1),\iota(c_*n_2),\iota(c_*n_3)\bigr).$$
 Then
 $$\max_i|n_i|<T=(48A_{\rm ht})^{13}.$$
 
-This is Proposition 6.1, with the height estimate applied to $S_{\rm mul}$ with constant
-$A_{\rm ht}$. The bound is symbolic: neither $A_{\rm ht}$ nor $T$ is evaluated.
+This is Proposition 6.1, with the height estimate applied to $S_{\rm mul}$ in its minimal form
+and its constant $H_6(D)$ weakened to $A_{\rm ht}$. The bound is symbolic: neither $A_{\rm ht}$ nor $T$ is evaluated.
 
 **Proof sketch.** Put $f=n_1n_2-n_3\ne0$ and $N=\max_i|n_i|$; then $N\ge1$ and
 $|f|\le N^2+N\le2N^2$. By the height-certificate semantics there are $a_{ij},b_i$ and $27$
@@ -38,7 +38,7 @@ inequality gives $N<(48A_{\rm ht})^{13}=T$.
 - [The height certificate template](../../syntax/templates/template-height-certificate.md)
 - [Prime sets and clearing exponents of the multiplication certificate](../certificate/constants.md)
 - [Point codes](../../model/point-codes.md)
-- [The six-contact height estimate](../../main/six-contact-estimate.md)
+- [The minimal height hypothesis](../../main/six-contact-min.md)
 
 ## Proof depends on
 

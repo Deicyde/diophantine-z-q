@@ -11,7 +11,7 @@ lean: ZInQ.Mult.slope_complete
 
 Assume pole completeness. Let
 $n_1,n_2\in\mathbb Z$, $n_3=n_1n_2$ and $c=(c_*,c_*n_1,c_*n_2,c_*n_3)$. If $t\in\mathbb Q$
-satisfies conditions 1-4 of the slopes from the prime pattern (for some $B_0$), then
+satisfies conditions 1-4 of the slope representation (for some $B_0$), then
 $$\mathrm{Slope}(t,\ell_0;c).$$
 
 This is where pole completeness is used: it supplies the eleven pole witnesses once the
@@ -19,7 +19,7 @@ pole input is shown to satisfy its hypotheses, including all nonzero guards.
 
 **Proof sketch.** Condition 1 gives $t\notin\mathcal C\cup\{1\}$, and $\ell_0\ne0$. Choose $\eta$
 with $R_0=\eta F(t)/(t-1)^8>0$. Let $p_1,\dots,p_m$ ($m\le6$) be the odd contact primes of $t$
-outside $S_b$; each $p_g$ is a good pattern prime with orders $d_1,d_2$, $\gcd(d_1,d_2)=4$,
+outside $S_b$; each $p_g$ is a good slope prime with orders $d_1,d_2$, $\gcd(d_1,d_2)=4$,
 and $p_g>324$. For $g\le m$ the shift choice gives $h_g>c_*$ with $M_0\mid h_g$, $d_1\mid h_g$
 and $d_2\mid h_g-c_*$; for $g>m$ put $h_g=2c_*$. Put $z_{g,i}=n_ih_g$ and
 $D_{gj}=\tau_j(h_g,z_g;c)$. Each $h_g\ne0,c_*$. The tests are integral at every prime above
@@ -34,7 +34,7 @@ $\Phi(B)$, which completes the slope predicate.
 ## Depends on
 
 - [The slope predicate](../certificate/slope-predicate.md)
-- [Slopes of an integer from the prime pattern](pattern-slopes.md)
+- [The slope representation](slope-representation.md)
 - [Prime sets and clearing exponents of the multiplication certificate](../certificate/constants.md)
 - [Pole completeness](../../main/pole-completeness.md)
 

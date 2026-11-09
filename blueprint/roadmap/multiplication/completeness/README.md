@@ -1,10 +1,10 @@
 # Completeness: true triples are accepted
 
 Completeness says that the multiplication template accepts
-$(\iota(a),\iota(b),\iota(ab))$ for all integers $a,b$. It uses the twenty-two-prime pattern
-22P to choose the slopes, pole completeness PC to supply the pole witnesses, and the
-generator certificate (hence Mordell-Weil) through the fixed-scalar and guard semantics. It
-does not use the six-contact estimate.
+$(\iota(a),\iota(b),\iota(ab))$ for all integers $a,b$. It uses the slope representation, a
+consequence of the twenty-two-prime pattern 22P, to choose the slopes, pole completeness PC to
+supply the pole witnesses, and the generator certificate (hence Mordell-Weil) through the
+fixed-scalar and guard semantics. It does not use the six-contact estimate.
 
 ## Slopes from the prime pattern
 
@@ -15,6 +15,14 @@ the old primes $S_b$ and at most six odd contact primes outside $S_b$, each of e
 valuation one and good.
 
 - [Slopes of an integer from the prime pattern](pattern-slopes.md)
+
+The rest of the proof uses only the conclusion with no lower bound on the contact primes:
+every integer is a sum of three good slopes. The two-slope pattern gives this too, with the
+slopes $u/v$, $A+10-u/v$ and the constant $-10$.
+
+- [The slope representation](slope-representation.md)
+- [The twenty-two-prime pattern gives the slope representation](slope-representation-from-pattern.md)
+- [The two-slope pattern gives the slope representation](slope-representation-from-two-slope.md)
 
 ## The witnesses of a test group
 

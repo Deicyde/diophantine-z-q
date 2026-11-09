@@ -9,8 +9,8 @@ lean: ZInQ.Assembly.Pstar_spec, ZInQ.Assembly.assembly
 
 # The assembly lemma
 
-Assume the six-contact estimate, pole completeness and the twenty-two-prime pattern. Then
-the specified polynomial
+Assume the minimal height hypothesis, pole completeness and the slope representation.
+Then the specified polynomial
 $P_*\in\mathbb Z[X_0,\dots,X_{292890231904}]$ satisfies:
 
 1. $\deg P_*<2\uparrow\uparrow7$;
@@ -21,14 +21,16 @@ $P_*\in\mathbb Z[X_0,\dots,X_{292890231904}]$ satisfies:
 In particular $P_*$ witnesses the target statement, from which the main theorem follows
 at once.
 
-This is the manuscript's Lemma 1.2 in the form used here, over the three hypotheses H, PC and
-22P; the manuscript's fourth input CAT is a theorem here (the catalogue bound holds). Its inputs are: G, that canonical codes form $2E(K_0)=\mathbb ZP_0$ with exact
+This is the manuscript's Lemma 1.2 in the form used here, over the minimal form of H (the
+instance $S=S_{\rm mul}$, $R=D$ of the six-contact estimate), PC, and the slope representation,
+which is what the multiplication proof uses of 22P and which 22P and 22P₂ both give; the
+manuscript's fourth input CAT is a theorem here (the catalogue bound holds). Its inputs are: G, that canonical codes form $2E(K_0)=\mathbb ZP_0$ with exact
 membership and raw addition (from the generator certificate, whose Mordell–Weil input is
-proved by the two-isogeny descent); M, multiplication (from the six-contact estimate, pole
-completeness and the prime pattern); C, the semantics of the
+proved by the two-isogeny descent); M, multiplication (from the minimal height hypothesis, pole
+completeness and the slope representation); C, the semantics of the
 natural precision polynomial and its rational translation; B, the literal specification of
 $P_*$ with its witness accounting and size bounds (the size bounds use the catalogue
-bound); and the hypotheses H and PC themselves. Besides the three hypotheses, the proof uses
+bound); and the hypotheses H (in its minimal form) and PC themselves. Besides the three hypotheses, the proof uses
 one finite computation, checked in the kernel: the node statistics of the universal halting circuit, on which the
 witness accounting and the size bounds of B depend.
 
@@ -45,9 +47,9 @@ shape required by the target statement.
 
 - [The target statement](../main/frozen-target.md)
 - [The specified polynomial](../syntax/literal-polynomial.md)
-- [The six-contact height estimate](../main/six-contact-estimate.md)
+- [The minimal height hypothesis](../main/six-contact-min.md)
 - [Pole completeness](../main/pole-completeness.md)
-- [The twenty-two-prime pattern](../main/prime-pattern.md)
+- [The slope representation](../multiplication/completeness/slope-representation.md)
 
 ## Proof depends on
 

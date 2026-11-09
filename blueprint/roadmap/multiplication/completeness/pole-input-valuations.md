@@ -9,7 +9,7 @@ lean: ZInQ.Mult.pole_input_valuations, ZInQ.Mult.poleInput
 
 # Valuations of the pole input of a completed slope
 
-Let $t\in\mathbb Q$ satisfy conditions 1-4 of the slopes from the prime pattern (for some
+Let $t\in\mathbb Q$ satisfy conditions 1-4 of the slope representation (for some
 $B_0$), and let $P(t)$ be its set of odd contact primes outside $S_b$. Let
 $\eta\in\{1,-1\}$, $R_0=\eta F(t)/(t-1)^8$, and let $q\in\mathbb Q$ satisfy $v_p(q)\ge C_p$ for
 $p\in S_b$ and $v_p(q)\ge0$ for $p\in P(t)$, with $a=1-R_0q^2\ne0$; put $R=\ell_0^2a^2R_0$. Let
@@ -55,7 +55,7 @@ even.
 ## Depends on
 
 - [The slope predicate](../certificate/slope-predicate.md)
-- [Slopes of an integer from the prime pattern](pattern-slopes.md)
+- [The slope representation](slope-representation.md)
 - [Prime sets and clearing exponents of the multiplication certificate](../certificate/constants.md)
 
 ## Proof depends on
