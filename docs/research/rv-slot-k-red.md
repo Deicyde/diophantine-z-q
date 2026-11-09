@@ -14,7 +14,35 @@ Each step examined is marked:
 - **GAP**: missing or wrong, with what fails and whether it can be repaired;
 - **UNCHECKED**: not examined here.
 
-<!-- VERDICT -->
+## Verdict
+
+**DL is proved as written.** No counterexample to the construction exists, and none was found.
+
+- **Every step holds.** Each step of slot-k §2, together with the input properties (θ1)–(θ4) and
+  the parts of Proposition 0 that the proof uses (odd places, real place, place 2 for `d ≡ 5 (mod 8)`),
+  is CORRECT. No GAP was found.
+- **No prescribed choice can be impossible.** Every slot condition is a residue or non-residue
+  condition modulo a distinct prime, plus a class mod 8. This holds in all the edge cases:
+  `θ = 1`; `ω(β) = 1`; primes of `β` all `≡ 3 (mod 4)`; `P ⊆ {3, 5, 7, 13}`; either sign of `β`;
+  every choice of `p₀`; slots as small as `q₀ = 3`.
+- **The produced curves never failed the certificate.** On 363 runs over 16 adversarial families
+  of admissible inputs (including isotropic cores and both call sites), both curves were certified
+  every time by an exact 2-Selmer computation independent of Proposition 0. The theorem also holds
+  on every abstract configuration with `|P| + |T| ≤ 5` except `(|P|, |T|) = (5, 0)` (exhaustive,
+  117,076 cases), and on 6,000 random configurations with `|P| ≤ 6`, `|T| ≤ 5`.
+
+The findings are minor and none needs a repair for correctness (§3):
+
+- **F1.** One prescribed condition, `[q₀/ℓ] = 0` for `ℓ ∈ T`, is superfluous, and the stated reason
+  for it is wrong.
+- **F2.** The comparison with Proposition B ("within one of the bound") is overstated.
+- **F3–F5.** Remarks: every other condition is load-bearing; small slots are allowed; an unused
+  by-product of the input argument.
+
+Outside the scope of this report (UNCHECKED here): the deep input (Kriz's 2-converse with
+Poonen–Stoll, or TYZ), and the passage from the two points to `PoleSoluble` (rv-route-k §4.2).
+
+## Marks
 
 ## 1. Setting
 
@@ -314,7 +342,8 @@ Every run satisfied (θ1)–(θ4), and every run was certified: both curves have
 **Notes on the families.**
 
 - The primes of `β` and of `θ` occur in all four classes mod 8.
-- `θ` has at least one prime `≡ 3 (mod 4)` in most runs. That is the case in which the sign rule
+- `θ` has a prime `≡ 3 (mod 4)` in at least 264 of the 363 runs (2 runs have too many primes for the
+  log to show their classes). That is the case in which the sign rule
   matters.
 - In `large` a tenth run was abandoned: the search for a slot with about 19 symbol conditions at
   earlier slots exceeded its budget of `10⁷` candidates. This is a limit of the implementation,
