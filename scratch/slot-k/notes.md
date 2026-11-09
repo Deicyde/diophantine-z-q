@@ -61,3 +61,8 @@
 - Place-2 rows: structure (depends on c(𝒞) and λ·u, μ·u, λ·v, μ·v) and c=5 rows verified by hand: image of C_5(Q_2) spanned by (5,2),(7,3),(1,5) [x=1/4]; conditions a_v=0, a_ε=b_ε, b_v=a_ω ⇔ a1=0, λ·u=λ·v, b1=μ·u.
 - Mathlib names checked: Nat.forall_exists_prime_gt_and_zmodEq, Nat.chineseRemainderOfList, jacobiSym.quadratic_reciprocity_one_mod_four, legendreSym.mul, FiniteField.exists_nonsquare.
 - B1 (8 multipliers) all OK; B2 running.
+
+## Step 10 (families B123, e11; ellrank)
+- B1, B2, B3 (no certifying multiplier with n=β, descent-alt §4.3): all 8 multipliers each with β odd, |β|≡7 (8): 24/24 OK (out_B123.txt), up to 17 aux primes (B1, m=±65), ≤ 89 digits.
+- e11 core-6 instances #0 (=B3), #1: 16/16 OK (out_e11.txt).
+- t4_ellrank.py (small realizations, PARI ellrank effort 6): rank bounds [1,1] on all 20 curves; explicit points found on 6 curves (3 instances), all with abscissa class β (mod torsion cosets). ellheegner too slow.
