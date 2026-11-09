@@ -51,6 +51,16 @@ def sb_check(lab, t, ell0_val, mode="new", only=None):
           f"0<B<1/2: {0 < rl['B'] < 0.5}", flush=True)
     return s0, oddneg, rl
 
+def admissible_v(A, v):
+    """Multiply v by each old prime p for which the offsets cover every class mod p (else some
+    value is divisible by p for every x)."""
+    S = splus(A)
+    offs = [max(S) - c for c in S]
+    for p in Sb:
+        if v % p and len({o % p for o in offs}) == p:
+            v *= p
+    return v
+
 def pseudo_x(A, v):
     S = splus(A)
     offs = [max(S) - c for c in S]
@@ -66,7 +76,9 @@ if "A" in part:
              (5, 2**200 * 3 * 7), (-1000, 13**150 * 2 * 3 * 7), (10**6, 331**5 * 337**3 * 2**7 * 3 * 7),
              (-68, 5**130 * 2 * 3 * 7), (-40, 7**150 * 2**3 * 3), (1, 2**5 * 3**5 * 5**5 * 7**5 * 13**5 * 11**5),
              (-71, 2**3 * 3 * 7 * 11**80 * 17**60)]
-    for A, v in cases:
+    skip = int(sys.argv[2]) if len(sys.argv) > 2 else 0
+    for A, v in cases[skip:]:
+        v = admissible_v(A, v)
         x = pseudo_x(A, v)
         S = splus(A)
         u = x + max(S) * v
@@ -91,6 +103,7 @@ if "B" in part:
 if "C" in part:
     print("Part C: Remark 3 (Lemma P only on S0; old q at S_b \\ S0) with deep poles outside S0")
     for A, v in [(-70, 2**6 * 3**6 * 7 * 11**200), (0, 2**5 * 7 * 3 * 331**60), (-69, 2**8 * 3 * 7 * 337**40 * 17**150)]:
+        v = admissible_v(A, v)
         x = pseudo_x(A, v)
         S = splus(A)
         u = x + max(S) * v
