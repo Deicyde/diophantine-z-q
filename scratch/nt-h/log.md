@@ -15,3 +15,13 @@
     for every positive valuation, parity cannot see it; approach primes infinite (Chebotarev).
   * Q1: rank-0 elliptic quotient route is vacuous on twists having a nontrivial point (image
     point is non-torsion) - to verify numerically on the 131 points of rs-height §3.3.
+
+## Step 1 (computation: elliptic quotients)
+- scratch/nt-h/quotients.py (output quotients.output.txt): for all 131 points u with M_S(u)=1,
+  S = primes <= 13, |a|,b <= 1500, the image of u in each of the 15 elliptic quotients
+  E_I^{(d(u))} is NON-torsion (131/131 points, 15/15 quotients). So every twist that carries a
+  nontrivial point has all 15 elliptic quotients of positive rank: a "rank-zero quotient" route
+  is vacuous exactly on the twists that matter. VERIFIED.
+- Lean consumers re-read: ratHeight_le_bound_of_test (MainBranch.lean:27), eq_of_close_of_test
+  (:42), slope_height_le_of (ContactSupport.lean:49, uses the estimate only at the slope t),
+  sixContact_at_Smul (ConstantsProperties.lean:135), sixContact_at_heightPrimes (HeightMin.lean:76).
