@@ -430,8 +430,10 @@ form.
    so `A[ℓ]` extends to a finite flat group scheme over the unramified ring `O_{L_v}`. By
    Raynaud's uniqueness of finite flat models for `e = 1 < ℓ - 1` (Raynaud, Bull. SMF 102
    (1974), §3.3, UNCHECKED numbering), the `G_{ℚ_ℓ}`-module `r̄_λ` is finite flat over `ℤ_ℓ`.
-   (The twisting cocycle `β^{-1}a_σμ_σ` is unramified at `ℓ`.) Serre's weight recipe gives
-   `k(r̄_λ) = 2` (Serre, Duke Math. J. 54 (1987), §2.8, UNCHECKED).
+   (The twisting cocycle `β^{-1}a_σμ_σ` is unramified at `ℓ`.) Its determinant is the mod-`ℓ`
+   cyclotomic character times a finite character unramified at `ℓ`, so `r̄_λ|_{I_ℓ}` is not
+   trivial, and Serre's weight recipe for finite flat representations gives `k(r̄_λ) = 2`
+   (Serre, Duke Math. J. 54 (1987), §2.8, UNCHECKED).
 4. **Level.** The prime-to-`ℓ` Artin conductor `N(r̄_λ)` divides the conductor of `r_λ` at
    primes `p ≠ ℓ` (reduction does not increase the conductor exponent; Serre 1987, §1.2,
    UNCHECKED). The local bounds of lines 796-857 hold for `r_λ` at every `p ≠ ℓ`, and `ℓ ∉ T`
