@@ -382,3 +382,37 @@ On the 30 inputs of `random30` with seed 5, three variants of the construction w
 
 The check is therefore sensitive to the conditions that matter, and confirms that `[q₀/ℓ]` does
 not.
+
+## 5. Repairs
+
+None is needed for the validity of DL. For the final text:
+
+1. **F1.**
+   - In slot-k §2.4 either delete the condition `[q₀/ℓ] = 0 (ℓ ∈ T)`, or keep it as a harmless
+     normalization.
+   - In either case, replace "its symbols at `T` by the transfer to the second curve" (§2.5, "What
+     each slot does") with: "the symbols of `q₀` at `T` are internal to the glued set `T ∪ {q₀}` and
+     play no role".
+   - Dropping the condition shortens the Lean lemma L3.
+2. **F2.** In slot-k §2.6, replace "This is within one of the bound" with "the bound is `k(β)` and
+   `ω(β) ≥ k(β) + 1`; the two agree up to one exactly when `β` has a single prime outside its core".
+3. **Optional, for the write-up.** State the sign remark of §2.5 above: `±β` are simultaneously in
+   `π₁`. The sign of `β` enters only through the prescribed symbol `[q₀/p*] = s + 1`.
+4. **Optional, for the Lean formalization.** The proof uses Proposition 0 only for `d ≡ 5 (mod 8)`,
+   and its place-2 rows only in the form verified in slot-k §2.1. CR₃ can therefore be stated for
+   `d ≡ 5 (mod 8)` alone without losing anything, as slot-k §4.1 already suggests.
+
+## Scripts (in `scratch/rv-slot-k-red/`)
+
+| Script | Purpose |
+| --- | --- |
+| `sel2.py` | exact `Sel₂(C_d)` from the definition (local images at `∞`, 2, `p | d`) |
+| `prop0.py` | the Selmer system of slot-k §2.1, from the text |
+| `t_prop0_vs_sel2.py`, `t_prop0_full.py` | Proposition 0 against `sel2.py` (600 curves, subspace equality) |
+| `construct.py` | the construction of slot-k §2.4 with actual primes; negative-control variants |
+| `gens.py`, `families.py` | generators of admissible inputs and the 16 families of §4.3 |
+| `run_batch.py`, `summarize.py` | driver (at most 30 runs per batch) and the table of §4.3 |
+| `t_symbolic_exh.py` | exhaustive check of the theorem on abstract configurations (§4.4) |
+| `t_variants.py` | randomizing one prescribed condition at a time (F3) |
+| `t_base.py` | base configurations (slot-k §2.3) |
+| `out_*.txt` | outputs of the batches |
