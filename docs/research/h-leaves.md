@@ -392,3 +392,114 @@ Faltings' finiteness theorem.
 - The audit records A008 and A063 would change their source fields from Faltings 1983 to
   "GR14 Theorem 1.4 + Tate's argument", with this note as the translation.
 
+## 3. Route R5.2: the p-adic comparison
+
+### 3.1 What is needed (VERIFIED)
+
+Pan's theorem is applied to `r₅` at `p = 5` (line 756). In arXiv:1901.07166v2, Conjecture 1.0.1
+requires `ρ : G_ℚ → GL₂(ℚ̄_p)` continuous, irreducible, ramified at finitely many places, odd, and
+"the restriction of `ρ` at the decomposition group at `p` is **potentially semi-stable** in the
+sense of Fontaine". Theorem 1.0.4 adds, for odd `p`: `ρ|G_{ℚ_p}` has **distinct Hodge–Tate
+weights**, and a residual condition only when `p = 3`. So at `p = 5` the `p`-adic input is:
+
+> **(P)** `r₅|G_{ℚ₅}` is potentially semistable, with Hodge–Tate weights `0, -1` at every
+> coefficient embedding.
+
+The manuscript obtains (P) in three steps: the de Rham comparison for the rigid analytification
+of `A/F`, `F = L'_v` with `v | 5` (Scholze, Cor. 1.8 and Thms 9.1, 9.3, with the corrigendum;
+A009); duality, summands and finite descent to `G_{ℚ₅}` (Milne AV I.12.1(a), Brinon–Conrad 5.2.1,
+6.3.3, 6.3.8; A009); then Berger's theorem "de Rham ⇒ potentially semistable" (A010). The de Rham
+property of `r₅` over `ℚ₅` is used once more at line 759: the twisting character in Pan's
+conclusion is a de Rham subrepresentation of the Hom representation, which feeds Conrad's local
+algebraicity statement.
+
+Scholze's corollary is a statement about proper smooth *rigid-analytic* varieties (VERIFIED in
+arXiv:1205.3463: "For any proper smooth rigid-analytic variety `X` over `k` … `H^i(X_et, ℚ_p)` is
+de Rham, with associated filtered `k`-vector space `H^i_dR(X)`"). Only the algebraic case, for an
+abelian surface, is needed here; that is why the manuscript needs the extra GAGA-type step through
+Scholze's Theorems 9.1 and 9.3.
+
+### 3.2 Option (a): the same statement from the algebraic comparison theorems
+
+Replace the first paragraph of the proof of Lemma `lem:de-rham-descent` (lines 10953-10965) by:
+`H¹_et(A_{F̄}, ℚ₅)` is de Rham, with `D_dR` equal to `H¹_dR(A/F)` and its Hodge filtration.
+Published sources for exactly this statement:
+
+- Fontaine, *Cohomologie de de Rham, cohomologie cristalline et représentations p-adiques*,
+  LNM 1016 (1983), 86-108, for abelian varieties;
+- Fontaine–Messing, *p-adic periods and p-adic étale cohomology*, Contemp. Math. 67 (1987), for
+  abelian varieties, by an explicit pairing;
+- Faltings, *Crystalline cohomology and p-adic Galois representations*, in *Algebraic analysis,
+  geometry and number theory* (Johns Hopkins, 1989), 25-80, for proper smooth varieties;
+- Tsuji, *p-adic étale cohomology and crystalline cohomology in the semi-stable reduction case*,
+  Invent. Math. 137 (1999), 233-411, which gives `C_st`; with de Jong's alterations it gives
+  `C_pst` and hence `C_dR`.
+
+Status: the attributions are VERIFIED against Berger04, §I.3 ("It was shown early on by Fontaine
+that the Tate modules … of all abelian varieties `A` are de Rham … and that `D_dR(V)` is
+isomorphic to the dual of the de Rham cohomology of `A`"; "Faltings (who proved that `V` is
+crystalline if `X` has good reduction and that `V` is de Rham otherwise)"; Tsuji for `C_st`). The
+primary statements and their numbering are **UNCHECKED** (sources not readable here).
+
+What option (a) changes: Scholze 2013, its corrigendum and the analytic comparison (Theorems 9.1,
+9.3) leave the trust base. Everything after the first paragraph of the lemma stays, and Berger's
+theorem (A010) stays. The statement consumed is the same, so no constant changes.
+
+### 3.3 Option (b): potential good reduction and the crystalline comparison
+
+Option (b) uses the special nature of `A`: a QM surface has potentially good reduction
+everywhere. The following lemma needs no input outside the present trust base.
+
+**Lemma PG.** *Let `v` be a place of `L'` above 5, `F = L'_v`, `F' = F(A[3])`. Then `A_{F'}` has
+good reduction.*
+
+*Proof* (VERIFIED as an argument).
+
+1. `A_{F'}` has semistable reduction, by Silverberg–Zarhin Theorem 3.5 with `n = 3`, which is
+   prime to 5 (A013, exactly the application at lines 814-818). By their Theorem 3.3 (as recorded
+   in A013), the inertia group `I` of `F'` acts unipotently on `V₃(A)`. So `V₃(A)^I ≠ 0`.
+2. Every geometric endomorphism of `A` is defined over `L ⊆ F'` (line 561), and
+   `End⁰(A_{F'}) = B` by NoCM. The action of `B` on `V₃(A)` commutes with `G_{F'}`, so
+   `V₃(A)^I` is a `B ⊗ ℚ₃`-submodule.
+3. `B ⊗ ℚ₃` is a division algebra (`B = (2, -3)` has discriminant 6; the manuscript uses this at
+   line 454). A module over it has `ℚ₃`-dimension divisible by 4, and `dim V₃(A) = 4`. So
+   `V₃(A)^I = V₃(A)`.
+4. By the criterion of Néron–Ogg–Shafarevich (Serre–Tate, Ann. of Math. 88 (1968), Theorem 1;
+   already used in A061), `A_{F'}` has good reduction. ∎
+
+The same argument works at every prime `p`, with `n = 3` and `V₃` if `p ≠ 3`, and with `n = 5`
+and `V₂` if `p = 3` (`B ⊗ ℚ₂` is also a division algebra). This is the classical fact that QM
+abelian surfaces have potentially good reduction everywhere.
+
+**Consequence for (P).** Assume:
+
+> **(Cris)** *If an abelian variety `A'` over a finite extension `F'` of `ℚ_p` has good reduction,
+> then `V_p(A')` is crystalline, and `D_cris(V_p(A')^∨) ⊗ F' = H¹_dR(A'/F')` with its Hodge
+> filtration.*
+
+Then:
+
+- `V₅(A)|G_{F'}` is crystalline with Hodge numbers `2, 2`, hence Hodge–Tate weights `0, 0, -1, -1`
+  in the Tate convention;
+- by the lemma's hypothesis, restricted to `G_{F'}`, `V₅(A) ⊗ C₅ ≅ r|G_{F'} ⊕ r|G_{F'}`. As a
+  `ℚ₅`-representation, `r|G_{F'}` is a direct summand of a finite direct sum of copies of
+  `V₅(A)|G_{F'}`, hence crystalline. Brinon–Conrad Theorem 5.2.1, already cited in A009, is the
+  closure statement for any regular period ring, `B_cris` included (STANDARD);
+- the weight bookkeeping of the lemma's last paragraph is unchanged and gives weights `0, -1` for
+  `r` at each coefficient embedding;
+- `F'/ℚ₅` is finite, so `r₅|G_{ℚ₅}` is potentially crystalline, in particular potentially
+  semistable. This is (P), without Berger's theorem.
+
+The de Rham property over `ℚ₅` used at line 759 still follows: crystalline implies de Rham over
+`F'`, and the finite descent paragraph of the lemma (lines 10980-10994, which is proved in the
+text) carries it down to `ℚ₅`.
+
+**Sources for (Cris).** Faltings 1989 (crystalline if good reduction, for proper smooth
+varieties); Coleman–Iovita, *The Frobenius and monodromy operators for curves and abelian
+varieties*, Duke Math. J. 97 (1999), 171-215, and Breuil, *Groupes p-divisibles, groupes finis et
+modules filtrés*, Ann. of Math. 152 (2000), 489-549 (good reduction if and only if crystalline,
+for abelian varieties); Tsuji 1999 (the case of trivial monodromy of `C_st`). The attributions are
+VERIFIED against Berger04, §I.3. The primary statements are **UNCHECKED**. For abelian varieties
+with good reduction the statement goes back to Fontaine's theory of Barsotti–Tate groups
+(Ann. of Math. 115 (1982)); that attribution is from memory and is **UNCHECKED**.
+
