@@ -60,3 +60,10 @@
   Expand each 𝓛(q_j) (partition reading); s = #class-3 blocks; s=1 terms: Fubini numbers (odd) ⟹ 𝓛(n/e);
   s≥3 terms cancel by swapping the groups of the first two class-3 blocks. So c_n(e) ≡ 𝓛(n/e) mod 2Z[i]. (VERIFIED, by hand)
 - Cor 1.4 (n≡5 congruent under A_0 or B_1) uses only the first sum: unaffected by the reading issue.
+
+## Step 4 (coefficient lemma, computational check)
+- coeff_check.py (abstract data: random classes, random g; 400 trials, r=2..9): coefficient of Z(e) in P(n) mod 2Z[i]
+  equals 𝓛(n/e) (partition reading) for all e≡7 (0 mismatches) AND for all e≡5 (6676 vs 𝓛=1, 3693 vs 𝓛=0, never
+  a nonreal value). C2 = T5b in 400/400, C1 = T5a in 400/400. So the corrected Prop 3.4 for n≡5 is
+  P(n) ≡ Σ_{e|n, e≡5,7} 𝓛(n/e) Z(e) mod 2A(ℍ'_n); the (5,1) bracket is T5a (tyz-5b's SPECULATIVE remark confirmed,
+  and provable by the same involution: s even, s=0 Fubini, s≥2 swap).
