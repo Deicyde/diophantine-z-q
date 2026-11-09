@@ -245,3 +245,60 @@ control (§6) shows that `β` then indeed leaves `π₁(Sel₂(C_{d₂}))` whene
 
 **Conclusion of the theorem.** CORRECT. Both curves have `dim Sel₂ = 3` and `β ∈ π₁`. Neither
 certificate is of torsion type, since `n/β` and `nθ/β` are not `±1`.
+
+## 7. The count (§2.6)
+
+- **Count.** CORRECT. `n/β = q₀ · Π_{p≠p₀} r_p · Π_ℓ r_ℓ` has `1 + (ω(β) − 1) + ω(θ)` distinct
+  primes, all new. My real-prime runs (§6) have exactly `ω(β) + ω(θ)` slots in every run.
+- **Comparison with Proposition B.** Finding 2. In the setting of descent-alt Proposition B (an
+  isotropic core `K` of `k` primes `≡ 1 (mod 21840)` with `K ⊆ supp β ⊆ K ∪ S₀`), `|β| ≡ 7 (mod 8)`
+  forces a prime of `{3, 5, 7, 13}` into `β`, so `k + 1 ≤ ω(β) ≤ k + 4`, and the construction uses
+  `ω(β)` auxiliary primes for the first curve: between one and four more than the bound. For
+  general `β` there is no relation at all between `ω(β)` and the size of an isotropic core (which
+  may be `0`). The note's phrase "within one of the lower bound" (introduction and §2.6) should be
+  replaced by "of the same order as the lower bound in the core situation of Proposition B". This
+  has no bearing on DL, which places no bound on the number of auxiliary primes; descent-alt §2(a)
+  shows that none is needed.
+
+## 8. The statement proved against the statement Route K needs
+
+**What DL gives.** For every admissible `B`, an eligible `m` and `n = β · (slots)` such that
+`C_{|n|}` and `C_{|n|θ}` have `dim Sel₂ = 3` and a Selmer class with first coordinate exactly `β`
+(signed, `β = sqf(mB)`). That is the certificate of Selmer type of §1.2, for both curves, with the
+same `m` defining `β` and `θ`.
+
+**From certificate to point.** CORRECT, given the deep input. Since `C_d` has full rational
+2-torsion, the corank lemma (manuscript line 1072) turns `dim Sel₂ = 3` into
+`corank Sel_{2^∞} = 1`: the Kummer sequence gives `r + dim Ш[2] = 1`, and the alternating
+Cassels–Tate pairing (Poonen–Stoll) makes `dim F[2]` even for the finite part `F` of `Ш[2^∞]`.
+Kriz's Theorem 10.13 (`E = C_d`, `K = ℚ(i)`, `p = 2`; CM by `ℤ[i] = O_K` holds for every `d ≠ 0`)
+gives `rank C_d(ℚ) = 1`. Kriz's construction assumes `f₀ ≥ 4`, where `f₀` is the odd part of `|d|`
+here; for `d ∈ {d₁, d₂}` one has `f₀ = d ≥ 21`, so the LMFDB step of Kriz's proof is not reached
+(finding 4). Then pc-audit RK9 applies: `C_d(ℚ)/2C_d(ℚ)` has dimension `2 + 1 = 3`, so it equals
+`Sel₂`; the class `β` is the image of `P + 2Q` with `Q` of infinite order, a non-torsion point, and
+for a non-torsion point the first Kummer coordinate is the class of `x`. Hence `x ∈ βℚ*²`
+(`x ≠ 0`). Note that `|β| ≥ 7`, so `β ≢ ±1`, and `β ≢ ±d`; the class `β` cannot be a torsion class.
+
+**From points to `Φ_C(B)`.** CORRECT. With `x + ℓ` in place of `x + 3ℓ`, the polynomial asks for
+`b ∈ {0,1}⁶` (any signed divisor `m` of 2730 is realized), `A = mB`, `H = A(A − B²)`, a point
+`(A, r₁)` on `C_e`, a point `(Az², zr₂)` on `C_{eH}` and `w = (eHz)^{-1}`, so `e, z, H ≠ 0`. Note
+`H = mB²(m − B) ≡ m(m − B)`, so `sqf(H) = θ`, and `H ≠ 0` since `0 < B < 1/2`. Let `(βs², y₁)` lie on
+`C_n` and `(βs'², y₂)` on `C_{nθ}`, and write `A = βt²`, `H = θh²`. Scaling by `(t/s)²` moves the
+first point to `(A, y₁t³/s³)` on `C_e` with `e = nt²/s²`. Then `eH ≡ nθ`, and scaling the second
+point by `t h/s` (so that the curve becomes `C_{nθ t²h²/s²} = C_{eH}`) gives a point with abscissa
+`β s'² t²h²/s² = A z²`, `z = s'h/s ≠ 0`. All eleven witnesses are rational, and `w = (eHz)^{-1}`.
+The sign of `n` is immaterial, since `C_n = C_{−n}`. This is the reformulation of rv-route-k
+§4.2 in the direction that is used, and it needs exactly "a rational point with abscissa in `βℚ*²`
+on `C_n` and on `C_{nθ}`, for one `m`", which is what the certificates give.
+
+**Lean hypothesis.** The admissibility conditions of §1.1 coincide with the hypotheses of
+`ZInQ.PoleCompleteness` (`IsSquare B.den`, `0 < B < 1/2`, `4 ≤ padicValRat p B` on `S₀`), and
+`PoleSoluble` is the vanishing of `B` times a sum of squares, which for `B > 0` is the system above.
+So DL, plus the passage from certificates to points, gives the `x + ℓ` version of PC for every
+admissible `B`, with no restriction on `B` beyond those hypotheses.
+
+**What DL does not settle.** The passage from certificate to point is the deep input (Kriz, an
+unrefereed preprint, with the repair of its Theorem 10.8 noted in pc-audit RK1; or, for the
+restricted 2-adic shape `|n| ≡ 5 (mod 8)`, `|β| ≡ 7 (mod 8)` that the construction always
+produces, TYZ with Gross–Zagier if pc-audit RK6 holds). That is outside the scope of this report
+and is UNCHECKED here.
