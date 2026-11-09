@@ -64,3 +64,8 @@ Hand derivations:
   from Thm 3.5 first assertion + Lemma 3.18 (P(n) - m alpha_n torsion, m = 2^{-1-rho} L). So reading A of Thm 1.2 for
   n = 5 is fully proved by nt-tyz 4.4's argument plus F3 (both halves) -- strengthens nt-tyz.
 - Line refs: "L2077" is L2076-2077; harmless.
+
+## Step 6 (deliverables)
+- docs/research/rv-nt-tyz.md written in six parts; B1 rephrased as an inconsistency (Lemma 2.8 vs Thm 2.1 at m = 3),
+  since Q(3) itself was not computed.
+- .fleet/rv-nt-tyz.md written. Task complete.
