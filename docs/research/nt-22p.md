@@ -183,7 +183,7 @@ prime. As [RP §1.4] notes, the step needs only `gcd(e₁, e₂) | c_*` for the 
 at the two places above `p`, a one-lemma relaxation.
 
 **Necessity.** The honest witnesses of the group assigned to `p` must put `H` in the formal group at
-one place above `p`, and `H − [c_*]P₀` at the other (lines 1185–1190, 1706–1712). For `H ∈ E(K₀)`
+one place above `p`, and `H − [c_*]P₀` at the other (lines 1196–1199, 1706–1712). For `H ∈ E(K₀)`
 the odd parts of these two conditions are `h ≡ 0 (mod e₁′)` and `h ≡ c_* (mod e₂′)`, where `e₁′`,
 `e₂′` are the odd parts of the reduction orders. They are compatible iff the odd part of
 `gcd(e₁, e₂)` divides `c_*`. Torsion in `E(K₀)` changes only 2-parts. So some condition at every
