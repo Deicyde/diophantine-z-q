@@ -66,3 +66,6 @@ Lemmas (all proved on paper, all VERIFIED on abstract random data, scripts fores
   4 rule, 5 slot curves, 6 validation, 7 remains, scripts). analytic_check.py: 12 small slot curves,
   analytic rank 1 and point with x in beta Q^2 on all.
 - Independent referee (subagent) checking sections 2-4; pending. Then .fleet/tyz-5b.md.
+
+## Done
+- Referee remarks incorporated; .fleet/tyz-5b.md written.
