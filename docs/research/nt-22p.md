@@ -298,3 +298,120 @@ the ball of Lemma P(2) with `N = 23v_ℓ(v) + v_ℓ(12) + 2`, instead of `v_ℓ(
 The polynomial, the slope predicate and soundness are untouched: `a` enters `R` squared (line
 1180), so it never changes the parity of a valuation. SPECULATIVE only in that the modified proof
 has not been written out in Lean; every step is the existing one or Lemma P.
+
+### 3.3 The progression form of the hypothesis
+
+Put `A′ = A + 10`, `T = 𝒞 ∪ {1}` and `S_A⁺ = T ∪ (A′ − T)`, a set of at most 14 integers, and let
+`K_A = max S_A⁺ − min S_A⁺`. Let `G′ = {p ∈ G : p > max(S_b)}`.
+
+> **22P_AP.** For every `K` the set `G′` contains an arithmetic progression
+> `x, x + v, …, x + Kv` with `x ≥ 1` and `v ≥ 1`.
+
+This statement does not mention `A`, the catalogue multipliers or the old primes, except through
+the lower bound `max S_b` for the primes.
+
+**Proposition AP.** 22P_AP implies the slope representation (with field 2 replaced by 2′, §3.2).
+
+*Proof.* Given `A`, take a progression of length `K_A + 1` in `G′` and put
+`u = x + (max S_A⁺)v`. For `c′ ∈ S_A⁺` the number `u − c′v = x + (max S_A⁺ − c′)v` is a term of
+the progression, so all fourteen numbers `u − c′v` are primes of `G′`. Put
+`t₁ = u/v`, `t₂ = A′ − u/v`, `t₃ = −10`.
+
+- *Lowest terms.* A prime dividing `u` and `v` divides every term, which are distinct primes:
+  impossible. So `t₁ = u/v` and `t₂ = (A′v − u)/v` are in lowest terms.
+- *Field 1.* `u − cv ≠ 0` and `u − v ≠ 0`, hence `t₁ ∉ 𝒞 ∪ {1}`; the same for `t₂`, whose numbers
+  `t₂ − c = −(u − (A′ − c)v)/v` and `t₂ − 1 = −(u − (A′ − 1)v)/v` are nonzero.
+- *Signs.* `t₁ = max S_A⁺ + x/v > max S_A⁺ ≥ 1 > 0`, so `F(t₁) > 0`. Also
+  `t₂ = A′ − max S_A⁺ − x/v`. If `A′ + 60 ≥ 1` then `max S_A⁺ = A′ + 60` and `t₂ < −60`; otherwise
+  `max S_A⁺ = 1` and `t₂ < A′ − 1 < −60`. In both cases all six factors `t₂ − c` are negative and
+  `F(t₂) > 0`. So `η = 1` for both slopes, as Lemma P requires. This needs no condition on the
+  progression.
+- *Field 2′ at `ℓ ∈ S_b`.* All fourteen numbers are primes larger than `max S_b`, so they are
+  `ℓ`-units. Let `e = v_ℓ(v)`.
+  - If `e = 0`, then `v_ℓ(t − 1) = 0` and `v_ℓ(F(t)/(t − 1)⁸) = 0`, and field 2 holds.
+  - If `e ≥ 1`, then `v_ℓ(t − 1) = −e` and `v_ℓ(F(t)/(t − 1)⁸) = 2e`. Field 2 holds when
+    `e ≤ B_ℓ`. Otherwise `e ≥ 2` (since `B_ℓ ≥ 1`) and, for `ℓ = 2`, `e ≥ 5 > 3`. The hypotheses
+    of Lemma P hold: the seven numerators are units and `F(t) > 0`.
+- *Fields 3 and 4.* For `j = 1, 2` the odd contact primes of `t_j` outside `S_b` are exactly the six
+  primes `u − cv` (for `t₁`) or `u − (A′ − c)v` (for `t₂`), each with contact valuation 1. Primes
+  dividing `v` give negative valuations, and a pattern prime does not divide `v`. This is the
+  argument of `Mult.slopeRepresentation_of_twoSlopePattern` (`TwoSlope.lean`), unchanged.
+- *The constant slope.* `GoodSlope 0 (−10)` holds with no contact prime outside `S_ht`
+  ([RP §2.5], VERIFIED there by computation).
+
+So `A = t₁ + t₂ + t₃` with three good slopes in the sense of 2′. ∎ VERIFIED (by hand), given
+Lemma P. Strictly, a progression of length `K_A + 1` is more than needed (only the fourteen terms
+indexed by `max S_A⁺ − S_A⁺` are used), but it is what Green–Tao 2008 provides.
+
+Two remarks.
+
+1. Field 2′ is not a weakening one can avoid by a clever choice of progression: every progression of
+   `K + 1` primes larger than `K + 1` has `v` divisible by every prime `≤ K + 1`, and `K_A ≈ |A| + 71`.
+   So for large `|A|` every old prime divides `v`, usually to a high power. This is the obstacle of
+   [RP R4], and Lemma P is what removes it. VERIFIED (elementary: if `ℓ ≤ K + 1` and `ℓ ∤ v`, the
+   terms run through all classes mod `ℓ`).
+2. The numbers `u − v` and `u − (A′ − 1)v` are prime in this form only for convenience. They make
+   field 2 trivial at the old primes not dividing `v`. Without them one needs
+   `v_ℓ(u − v) ≤ B_ℓ` there, which is again a restriction that no Szemerédi-type theorem provides.
+   Including two more points in the pattern costs nothing.
+
+### 3.4 Green–Tao 2008 implies 22P_AP
+
+**Theorem** (Green–Tao, *The primes contain arbitrarily long arithmetic progressions*, Ann. of
+Math. 167 (2008), 481–547, Theorem 1.2, "Szemerédi's theorem in the primes"). *Let `A` be a subset
+of the primes with `limsup_{N→∞} π(N)^{−1}|A ∩ [1, N]| > 0`. Then `A` contains infinitely many
+arithmetic progressions of length `k`, for every `k`.* STANDARD; statement VERIFIED against the
+arXiv TeX source math/0404188v6 (theorem `sz-primes`, the second theorem of §1).
+
+Apply it to `G′`. By Proposition D, `G′` has relative density about `0.106 > 0` (removing finitely
+many primes changes nothing). A progression of primes with `k ≥ 2` terms has `v ≠ 0`. Reversing the
+order if necessary, `v ≥ 1`. So 22P_AP follows. VERIFIED, given Proposition D.
+
+**What the proof of the main theorem then rests on, for this hypothesis:**
+
+| Input | Status | Where |
+| --- | --- | --- |
+| Green–Tao 2008, Theorem 1.2 | STANDARD | §3.4 |
+| CM identities for the reductions of `E` (Silverman III.7.4, III.8.6, V.1.1, V.2.3.1) | STANDARD, record A072 | §2.1; needed only to identify `G` |
+| PNT in progressions (fixed modulus), or Hecke for `ℚ(i)` for the exact constant | STANDARD | Proposition D |
+| Lattice sieve for the bad `ℓ > L` | elementary (manuscript lines 1600–1642) | Proposition D |
+| Lemma P and the modified choice of `q` | elementary, VERIFIED by hand | §3.2 |
+| Proposition AP | elementary, VERIFIED by hand | §3.3 |
+
+Compared with the manuscript's proof of Proposition 6.2 (record A021: Green–Tao 2010 linear
+equations, Green–Tao 2012 Möbius–nilsequences, Green–Tao–Ziegler 2012 inverse theorem), the
+following leave: the inverse theorem for all Gowers norms, the Möbius–nilsequence estimate, the
+singular-series analysis (lines 1382–1453), the two-variable Selberg sieve with uniform constants
+(1455–1552) and the fibre count (1644–1680). The catalogue `𝓗` also loses its role in the proof
+of the pattern ([RP R2]), since no unit classes need adjusting.
+
+Green–Tao 2008 itself uses Szemerédi's theorem (in its quantitative finite form), the transference
+principle and the Goldston–Yıldırım correlation estimates. Conlon, Fox and Zhao
+(*A relative Szemerédi theorem*, GAFA 25 (2015); arXiv:1305.5440; and the exposition
+arXiv:1403.2957) simplified the transference so that only a linear forms condition on the majorant
+is needed, and the correlation condition disappears (STANDARD as described in the abstracts;
+UNCHECKED in detail). This is the shortest known route, and the one a formalization would follow.
+
+### 3.5 Literature on restricted common differences
+
+Before Lemma P removed the need, I looked for Szemerédi-type theorems in the primes in which the
+common difference has prescribed valuations at finitely many primes (only arXiv abstracts and
+sources were readable):
+
+- Tao–Ziegler, *The primes contain arbitrarily long polynomial progressions* (Acta Math. 201 (2008);
+  arXiv:math/0610050): `x + P_i(m)` prime for integer polynomials with `P_i(0) = 0` and
+  `1 ≤ m ≤ x^ε`. Taking `P_i(m) = i·Wm` forces divisibility of the difference by `W`, which is the
+  opposite of what was needed. No valuation upper bound.
+- Bergelson–Leibman–Ziegler (arXiv:1007.1839) and related work on differences from the shifted
+  primes `p − 1`: ergodic statements for dense subsets of the integers, not of the primes.
+- Frei–König–Tinková, *Linear constellations in primes with arithmetic restrictions*
+  (arXiv:2408.17441): the Green–Tao linear-equations asymptotic for primes with prescribed Artin
+  symbols, unconditionally. It covers the Chebotarev part of goodness, not the gcd condition, and it
+  rests on the Green–Tao–Ziegler machinery, so it does not lower the depth.
+- Narrow progressions (arXiv:1409.1327, 1509.04955): progressions with small difference, not
+  difference in a prescribed class.
+
+No theorem with valuation-restricted differences for dense subsets of the primes was found. One
+cannot hold in general: inside the primes `≡ 1 (mod 3⁵)` every difference is divisible by `3⁵`. A
+`W`-trick does not help either. It changes the dense set at each term of the progression, which the
+relative Szemerédi theorem does not handle ([RP R4]). The question is moot after Lemma P.
