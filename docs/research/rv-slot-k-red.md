@@ -8,15 +8,10 @@ was rechecked by hand, and the construction was reimplemented from the text of s
 against an exact 2-Selmer computation written from the definition (independent of Proposition 0
 and of the code of slot-k and descent-alt).
 
-Each step examined is marked:
-
-- **CORRECT**: checked here, by hand or by an exhaustive computation;
-- **GAP**: missing or wrong, with what fails and whether it can be repaired;
-- **UNCHECKED**: not examined here.
-
 ## Verdict
 
-**DL is proved as written.** No counterexample to the construction exists, and none was found.
+**DL is proved as written.** The construction has no counterexample (its proof is correct), and the
+adversarial search found none.
 
 - **Every step holds.** Each step of slot-k §2, together with the input properties (θ1)–(θ4) and
   the parts of Proposition 0 that the proof uses (odd places, real place, place 2 for `d ≡ 5 (mod 8)`),
@@ -43,6 +38,12 @@ Outside the scope of this report (UNCHECKED here): the deep input (Kriz's 2-conv
 Poonen–Stoll, or TYZ), and the passage from the two points to `PoleSoluble` (rv-route-k §4.2).
 
 ## Marks
+
+Each step examined is marked:
+
+- **CORRECT**: checked here, by hand or by an exhaustive computation;
+- **GAP**: missing or wrong, with what fails and whether it can be repaired;
+- **UNCHECKED**: not examined here.
 
 ## 1. Setting
 
@@ -110,7 +111,7 @@ and `p₀`; glue primes `r_ℓ ≡ 1 (mod 8)` (`ℓ ∈ T`) linked exactly to `�
 - **Lemma 1 (partner).** CORRECT. `E1_r` and `E2_r` force `u_r = u_y` and `v_r = v_y`. The only
   other occurrence of `u_r` is the term `[r/y](u_r + u_y)` in `E1_y`, and that term then vanishes.
   `λ_r = μ_r = 0`, so `(D)` and `c` are unchanged.
-- **Lemma 2 (gluing).** CORRECT. I redid steps 1–4 by hand.
+- **Lemma 2 (gluing).** CORRECT. Steps 1–4 were redone by hand.
   - In `Σ_{x∈X} E1_x` each `u_{r_ℓ}` occurs twice, in `[r_ℓ/ℓ](u_{r_ℓ} + u_g)` and
     `[r_ℓ/g](u_{r_ℓ} + u_g)`, and cancels.
   - The terms inside `X` vanish because all `u_x` are equal. No symmetry among the symbols of `X` is
@@ -180,7 +181,7 @@ and `p₀`; glue primes `r_ℓ ≡ 1 (mod 8)` (`ℓ ∈ T`) linked exactly to `�
 **Sign remark.** Because `(−1, −d) ∈ Sel₂(C_d)`, `β ∈ π₁` if and only if `−β ∈ π₁`. The sign of `β`
 therefore never decides membership. It enters only through `x = s + 1` in the prescribed symbols
 of `q₀`, which change the configuration. That is what slot-k means by "this is where the sign of
-`β` enters", and the negative control confirms it (§4.3).
+`β` enters", and the negative controls confirm it (F3, §4.5).
 
 ## 3. Findings
 
@@ -199,9 +200,9 @@ the reason slot-k gives for it is wrong.**
     own remark 1 in §5.1 says so.
   - Formula (2.1) for `u_{r_ℓ}` involves only `y ∈ S'`.
 - Computation agrees:
-  - with `[q₀/ℓ]` random, all 30 runs of an actual-prime batch were still certified;
-  - so were 1,000 random abstract configurations and all 2,048 cases of the exhaustive check with
-    `|P| = |T| = 2` (§4.3).
+  - with `[q₀/ℓ]` random, all 30 runs of an actual-prime batch were still certified (§4.5);
+  - so were 1,000 random abstract configurations (F3) and all 2,048 cases of the exhaustive check
+    with `|P| = |T| = 2` (§4.4).
 - *Repair.* Drop the condition, or keep it and delete the justification. Dropping it removes
   `ω(θ)` residue conditions from the Lean lemma L3.
 
@@ -211,7 +212,7 @@ the reason slot-k gives for it is wrong.**
 - On the first curve the construction uses `ω(β)` auxiliary primes visible to `β` (`q₀` and the
   `r_p`). Proposition B gives the lower bound `k(β)`, the size of an isotropic core.
 - `|β| ≡ 7 (mod 8)` forces `ω(β) ≥ k(β) + 1`, but `ω(β)` can be much larger than `k(β)`.
-  - On the core inputs of §4.2, where `β` is the core times the `S₀`-part supplied by `m`,
+  - On the core inputs of §4.3, where `β` is the core times the `S₀`-part supplied by `m`,
     `ω(β) − k(β)` ranges over 1–3 across the multipliers.
   - Extra primes of `β` outside the core widen the gap without bound.
 - *Repair.* Say "uses `ω(β) ≥ k(β) + 1` visible auxiliary primes, against the lower bound `k(β)`".
@@ -244,7 +245,8 @@ bits (1,000 trials each, `ω(β) ≤ 6`, `ω(θ) ≤ 5`). The share of trials wh
 - Nothing in the proof requires the slots to be large or prime to 2730. `q₀ = 3` or `q₀ = 11`,
   and `r = 17` or `r = 41`, are allowed whenever they satisfy the symbol conditions and do not
   divide `2βθ`.
-- The run that takes every slot to be the least prime with its pattern (§4.2) exercises this.
+- The family `small_slots` of §4.3, which takes every slot to be the least prime with its pattern,
+  exercises this (`q₀ = 3` in 4 runs).
 - Whether the downstream use (the witness `e` of `PoleSoluble`) tolerates auxiliary primes in
   `{3, 5, 7, 13}` was not examined here (UNCHECKED). descent-alt §2(a) states that nothing
   downstream constrains `e`. If a constraint appeared, it would be met by excluding these primes in
@@ -343,8 +345,7 @@ Every run satisfied (θ1)–(θ4), and every run was certified: both curves have
 
 - The primes of `β` and of `θ` occur in all four classes mod 8.
 - `θ` has a prime `≡ 3 (mod 4)` in at least 264 of the 363 runs (2 runs have too many primes for the
-  log to show their classes). That is the case in which the sign rule
-  matters.
+  log to show their classes). That is the case in which the sign rule matters.
 - In `large` a tenth run was abandoned: the search for a slot with about 19 symbol conditions at
   earlier slots exceeded its budget of `10⁷` candidates. This is a limit of the implementation,
   which imposes the conditions at earlier slots by trial. It is not a failure of the construction,
