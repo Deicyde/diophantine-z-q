@@ -305,3 +305,35 @@ Result, for all 30 slopes (ten instances, three slopes each):
 **No failure.** Instances with `|S_A⁺| = 14` (for example `A = 0`) are much rarer at this size; a
 search up to `x = 2·10¹¹` with `v = 480480` was still running when this report was written. Part A of
 §3.6 covers `|S_A⁺| = 14` with pseudo-instances.
+
+### 3.6 Pseudo-instances with very deep poles; Remark 3; density count
+
+*Part A* (`b5A_out.txt`, `b5A2_out.txt`; 10 instances, 20 slopes). For these instances the
+`|S_A⁺|` values are `S_b`-units but not required to be prime. At the old primes and at the real
+place this is exactly the situation of a genuine instance; contact primes are not modelled. The
+choices of `(A, v)` were: `(−70, 2⁴⁰·3·7·11)`, `(−69, 2⁴⁰·3³⁰)`, `(0, (2·3·5·7·13)²⁰)`,
+`(5, 2²⁰⁰·3·7)`, `(−1000, 2·3·7·11·13¹⁵⁰)`, `(10⁶, 2⁷·3·7·11·331⁵·337³)`, `(−68, 2·3·5¹³⁰·7)`,
+`(−40, 2³·3·7¹⁵⁰)`, `(1, (2·3·5·7·11·13)⁵)`, `(−71, 2³·3·7·11⁸⁰·17⁶⁰)`. Here `v` is multiplied by
+every old prime whose residues the offsets cover. For every slope, field 2′ holds, with the Lemma P
+alternative exactly at the primes with `e > B_ℓ`. Also `v_ℓ(B) ≥ 5832` on `S₀` (up to `15854` at
+`2²⁰⁰`), there is no negative odd valuation, and `0 < B < 1/2`. **No failure.**
+
+*Part C, Remark 3* (`b5C_out.txt`, 3 instances, 6 slopes). Lemma P is used only on `S₀`, and the
+old `q` is used at deep poles outside `S₀`: `11²⁰⁰`, `331⁶⁰`, and `17¹⁵⁰·337⁴⁰`. PC holds in every
+case. The valuations at those primes are negative but even: `v₁₁(B) = −20712`,
+`v₃₃₁(B) = −8784`, `v₁₇(B) = −2408, −2412`, `v₃₃₇(B) = −1464`. This confirms remark 3 of §3.3: PC
+asks nothing at `S_b ∖ S₀` beyond parity. It also confirms that the old bound
+`v_p(B) ≥ 103C_p + 8` on all of `S_b` fails in this variant (§4, item 5).
+
+*Density count* (`dens.py`). An independent implementation of `GoodSlopePrime`, by point counts with
+PARI `ellcard`, finds 1,925 good slope primes among the 17,983 odd primes below `2·10⁵` (share
+0.107). All of them lie in the class `p ≡ 1 (mod 8)`, `(7/p) = −1` (2,271 primes, of which 85% are
+good). This agrees with nt-22p §2.1.
+
+### 3.7 Totals
+
+Lemma P locally: 30 inputs. Pole input with deep poles: 30 inputs (21 with the modified `q`, all
+passing; 9 controls, failing exactly as predicted). Lemma P(3) in isolation: 10 slopes, each with
+two choices of `q`. Genuine instances: 10 (30 slopes). Pseudo-instances: 13 (26 slopes). Sign step:
+28 values of `A`. No input satisfying the hypotheses of Lemma P, Proposition AP or field 2′ failed
+any condition of PC.
