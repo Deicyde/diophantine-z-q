@@ -285,3 +285,71 @@ occur.
 
 Batches have at most 30 runs and were run one after another. A run is one input with one
 multiplier.
+
+### 4.3 Results on admissible inputs
+
+Every run satisfied (θ1)–(θ4), and every run was certified: both curves have `dim Sel₂ = 3` with
+`β ∈ π₁`, and both have `d ≡ 5 (mod 8)`.
+
+| Family | What it attacks | Runs | Certified | `ω(β)` | `ω(θ)` | Slots | Signs |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `theta1` | `θ = 1`; `β = ±7, ±15, ±39, ±455` and others with `ω(β) ≤ 4` | 21 | 21 | 1–4 | 0 | 1–4 | ± |
+| `omega1` | `ω(β) = 1`: `β = ±p`, `p ∈ {7, 23, 31, 47, 71, 10079, 999983, 46216991}`; `θ` with primes `≡ 3, 5, 7 (mod 8)` | 16 | 16 | 1 | 1–4 | 2–5 | ± |
+| `all3mod4` | every prime of `β` `≡ 3 (mod 4)` | 28 | 28 | 1–7 | 1–9 | 2–14 | ± |
+| `mostly1mod4` | one prime `≡ 3 (mod 4)`, the others `≡ 1 (mod 4)` | 18 | 18 | 2–7 | 1–6 | 4–13 | ± |
+| `thetacls` | `θ` with `{3, 5, 7} ⊆` its classes; only 3s; only 5s; only 7s; only 1s; two primes `≡ 3 (mod 4)` | 30 | 30 | 1–4 | 1–5 | 3–9 | ± |
+| `s0beta` | `P ⊆ {3, 5, 7, 13}`, every `p₀` | 26 | 26 | 1–3 | 1–6 | 2–8 | ± |
+| `allm` | all 8 eligible multipliers per input | 24 | 24 | 2–9 | 1–6 | 3–15 | ± |
+| `p0var` | every choice of `p₀` | 15 | 15 | 7–8 | 3–4 | 11 | − |
+| `cores` | isotropic cores `k = 3, 4, 5, 6`, all eligible `m` | 30 | 30 | 4–9 | 1–7 | 6–14 | ± |
+| `cores_extra` | core plus a large prime `≡ 3, 7 (mod 8)` | 30 | 30 | 4–8 | 1–7 | 7–14 | ± |
+| `slope_site` | six good slope primes `≡ ±1 (mod 8)`, `B = R₀s²` | 30 | 30 | 6–9 | 2–6 | 9–14 | ± |
+| `test_site` | `β = sqf(mηF(n))`, `|n| ≤ 10⁶` | 17 | 17 | 4–14 | 1–6 | 7–18 | ± |
+| `test_site_b` | the same, `|n| ≤ 3000` | 13 | 13 | 6–11 | 1–4 | 7–13 | ± |
+| `small_slots` | each slot the least prime with its pattern (`q₀ = 3` in 4 runs) | 26 | 26 | 1–6 | 0–5 | 1–10 | ± |
+| `large` | `ω(β) = 9–12`, `ω(θ) ≥ 3` | 9 | 9 | 9–12 | 3–8 | 13–17 | ± |
+| `random30` | random admissible `B` | 30 | 30 | 1–9 | 1–6 | 3–14 | ± |
+| **total** | | **363** | **363** | 1–14 | 0–9 | 1–18 | |
+
+**Notes on the families.**
+
+- The primes of `β` and of `θ` occur in all four classes mod 8.
+- `θ` has at least one prime `≡ 3 (mod 4)` in most runs. That is the case in which the sign rule
+  matters.
+- In `large` a tenth run was abandoned: the search for a slot with about 19 symbol conditions at
+  earlier slots exceeded its budget of `10⁷` candidates. This is a limit of the implementation,
+  which imposes the conditions at earlier slots by trial. It is not a failure of the construction,
+  whose slots exist by Dirichlet's theorem.
+
+### 4.4 Exhaustive and random checks of the theorem on abstract data
+
+`t_symbolic_exh.py` enumerates every configuration with `|P| = a`, `|T| = b`:
+
+- all classes mod 8, with `Π_P ≡ 7` and `Π_T ≡ 1`;
+- all symbols inside `P`, inside `T` and from `P` to `T`, with the reverse symbols fixed by
+  reciprocity, subject to (θ3) and (θ4);
+- both signs of `β`, and every `p₀`.
+
+It adds the slots symbolically and checks both systems with Proposition 0. There were no failures
+in any of the following.
+
+| `(a, b)` | (1,0) | (2,0) | (3,0) | (4,0) | (1,1) | (2,1) | (3,1) | (4,1) | (1,2) | (2,2) | (3,2) | (1,3) | (2,3) | (1,4) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| cases | 2 | 32 | 768 | 32768 | 2 | 32 | 768 | 32768 | 16 | 512 | 24576 | 256 | 16384 | 8192 |
+
+- With `[q₀/ℓ]` arbitrary, all 2,048 cases for `(2, 2)` also pass.
+- `t_variants.py` on random abstract data (`ω(β) ≤ 6`, `ω(θ) ≤ 5`) found no failure in 6,000
+  trials. The same script produces the table of F3.
+
+### 4.5 Negative controls on actual primes
+
+On the 30 inputs of `random30` with seed 5, three variants of the construction were run:
+
+| Variant | Certified |
+| --- | --- |
+| sign rule `x = s` | 6/30 |
+| `[q₀/p]` flipped for `p ≠ p₀` (keeping `Σ_P [q₀/p] = x`) | 0/30 |
+| `[q₀/ℓ]` random (F1) | 30/30 |
+
+The check is therefore sensitive to the conditions that matter, and confirms that `[q₀/ℓ]` does
+not.
