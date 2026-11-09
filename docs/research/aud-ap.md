@@ -67,9 +67,9 @@ primes, `S_b = S_ht ∪ 𝓗`.
 
 Junk values. `K = 0` asks for one good prime above `max S_b` and an arbitrary `v ≥ 1`; this is
 implied by the infinitude of `G`, which Proposition D gives. The arithmetic is in `ℕ` with only
-additions and multiplications, so there is no truncated subtraction. `S_b` is neither empty nor
-too small: it is the full set of the note (a smaller set would make the hypothesis weaker, which
-the kernel would have caught only if the proof needed the missing primes), and it is finite, so the
+additions and multiplications, so there is no truncated subtraction. `S_b` takes no junk value: it is
+the full set of the note, not an empty or truncated one (which would only weaken the hypothesis,
+and the proof of Proposition AP would then fail to typecheck), and it is a finite set, so the
 hypothesis is not false for a trivial reason (an infinite `S_b` would make it false and the variant
 vacuous). `x ≥ 1` is redundant (`x` is a prime) and harmless. CORRECT.
 
@@ -102,11 +102,12 @@ of positive relative upper density, `limsup_{N→∞} π(N)^{−1}|A ∩ [1, N]|
 infinitely many arithmetic progressions of length `k` for all `k`.* The progressions are
 non-trivial (common difference `d ≠ 0`; with `d = 0` the theorem would be empty). The docstring of
 `GoodPrimeAP` quotes this correctly, with the right theorem number. Its proof in the paper is an
-outline: §10 says that the method "also extends" to Theorem 1.2, the one change being a
-pigeonholed residue class `b mod W`, and leaves the details to the reader. The Conlon–Fox–Zhao
+outline: the section "Further remarks" (§11 of the arXiv source; the docstring says §10) says
+that the method "also extends" to Theorem 1.2, the one significant change being a pigeonholed
+residue class `b mod W`, and "we leave the details to the reader". The Conlon–Fox–Zhao
 exposition (arXiv:1403.2957) proves Theorem 1.1 in full and lists the dense-subset form only as
 an extension. The docstring records this caveat (from `rv-nt22p-ap`, F3). CORRECT as a citation;
-the caveat stands (finding F3 below).
+the caveat stands (finding F2 below).
 
 **Proposition D** (nt-22p §2.2): `G` has natural density `(1/8)∏_{ℓ ≡ 1 (4)}(1 − 2/(ℓ − 1)²)`
 in the primes. Only its weakest consequence is used: `G` has positive relative upper density.
