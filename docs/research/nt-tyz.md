@@ -89,3 +89,87 @@ Lemma 3.21 (`betaaction`). (VERIFIED)
   These are Smith's `𝓛_5a`, `𝓛_5b` (arXiv:1603.08479, Table 2) and tyz-5b's `T_5b`.
 - All parities are in `𝔽₂`. For Gaussian integers, `≡` means modulo `2ℤ[i]`; there `±1 ≡ 1` and
   `±i ≡ i`.
+
+## 1. Sources and exact statements
+
+### 1.1 Versions (VERIFIED where stated)
+
+- **arXiv:1411.4728.** The arXiv API and abs page list a single version, v1 (submitted 18 Nov 2014),
+  with no journal reference. The e-print is one LaTeX file, `Period7.tex`. All quotations below are
+  from it.
+- **Journal.** Crossref gives *Genus periods, genus points and congruent number problem*, Asian J.
+  Math. 21 (2017), no. 4, 721–774, DOI 10.4310/ajm.2017.v21.n4.a5. Crossref registers no update,
+  correction or erratum for this DOI. The journal text was not accessible (UNCHECKED). In
+  particular it is not known whether the journal version changed the statement of Theorem 1.2.
+- **Dependencies.** The steps used in §4 rest only on results proved inside TYZ. Their external
+  inputs are Waldspurger's formula and the Gross–Zagier formula of Yuan–Zhang–Zhang (Annals of Math.
+  Studies 184; TYZ Theorems 4.1, 4.x `EGZ`), Gross–Zagier and Kolyvagin (TYZ cite Kolyvagin, Math.
+  USSR Izv. 32 (1989), and *Euler systems*, Grothendieck Festschrift II (1990), L3297–3304), and
+  Rédei. These are refereed publications, not on arXiv. Tian's *Congruent numbers and Heegner
+  points* (arXiv:1210.8231, one version, v1; Cambridge J. Math. 2 (2014)) supplies the induction
+  method but is not quoted in the steps used.
+
+### 1.2 The statements (VERIFIED against the source)
+
+**Theorem 1.1** (L371–380). *Let `n ≡ 1, 2, 3 (mod 8)` be positive and squarefree. Then `𝓛(n)` is an
+integer, and `𝓛(n) ≡ Σ_{n = d₀d₁⋯d_ℓ, d_i ≡ 1 (8), i > 0} Π_i g(d_i) (mod 2)`. Here all decompositions
+`n = d₀⋯d_ℓ` are non-ordered with `d_i > 1` for all `i ≥ 0`. The right-hand side is considered to be 1
+if `n = 1`.*
+
+**Theorem 1.2** (L389–409). *Let `n ≡ 5, 6, 7 (mod 8)` be positive and squarefree. Then `𝓛(n)` is an
+integer. If `n ≡ 5, 7 (mod 8)`, then `2^{−ρ(n)}𝓛(n)` is even only if*
+
+```
+Σ_{n = d₀⋯d_ℓ;  d_i ≡ 1 (8), i>0}  Π_i g(d_i)
+   ≡  Σ_{n = d₀⋯d_ℓ;  d₀ ≡ 5,6,7;  d₁ ≡ 1,2,3;  d_i ≡ 1 (8), i>1}  Π_i g(d_i)  ≡  0   (mod 2).
+```
+
+*If `n ≡ 6`, [the second sum alone] `≡ 0`. Here all decompositions `n = d₀⋯d_ℓ` are non-ordered with
+all `d_i > 1`.*
+
+**Recursion** (§3.1, L1320–1327). `P(n) ∈ A(ℍ'_n)` is defined inductively by
+
+```
+P(n) := Z(n) − Σ_{n = d₀d₁;  d₀ ≡ 5,6,7;  d₁ ≡ 1,2,3 (8);  d₁ > 1}  ε(d₀, d₁) 𝓛(d₁) P(d₀),
+```
+
+where `Z(n) = Σ_{t∈Φ₀} f_n(P_n)^t` is the genus point and `ε(d₀, d₁) ∈ μ₄` is as in Theorem 3.3. Here
+`d₁ > 1` is written explicitly. "`𝓛(d₁) ∈ ℤ` by Theorem 1.1."
+
+**Theorem 3.3** (L1299–1311, the `ε`-part). *`P_χ` is non-torsion only if `χ = χ_{d₀,d₁}` with
+`n = d₀d₁`, `d₀ ≡ 5, 6, 7`, `d₁ ≡ 1, 2, 3 (8)`. In that case `P_χ = ε(d₀, d₁) 2^{h₂(n)} 𝓛(d₁) 𝒫(d₀)` in
+`A(H'_n(i)) ⊗ ℚ`, where `ε(d₀, d₁) = ±i` if `(d₀, d₁) ≡ (5, 3) (mod 8)` and `ε(d₀, d₁) = ±1`
+otherwise.*
+
+**Proposition 3.4** (L1332–1348). *In `A(ℍ'_n)`,*
+
+```
+P(n) ≡ Σ_{n = d₀d₁⋯d_ℓ;  d₀ ≡ 5,6,7;  d₁ ≡ 1,2,3;  d_i ≡ 1, i>1}  ε(d₀, d₁) (Π_{i≥1} g(d_i)) Z(d₀)
+       + i Σ_{(d₀, d₁, d₂) ≡ (5, 3, 2);  d_i ≡ 1, i>2}  (Π_{i≥1} g(d_i)) Z(d₀)      mod 2A(ℍ'_n).
+```
+
+The statement says nothing about ordering or about `d₁ = 1`. Its proof (L2024–2163) needs
+`d₁ = 1`: "the contribution by `d₀ = d₀'' = n`, `d₁ = 1` is the single term `Z(n)`" (L2077).
+
+**Theorem 3.5** (L1353–1374). *The vector `𝒫(n) = 2^{−1−ρ(n)}𝓛(n)α_n ∈ A(K_n)^− ⊗ ℚ` is represented by
+`P(n)`, in the sense that they are equal in `A(ℍ'_n) ⊗ ℚ`. Moreover (1) `𝓛(n)` is integral; (2) assume
+that `P(n) ∈ A(K_n)^− + A[4]`, i.e. `2^{−ρ(n)}𝓛(n)` is even. If `n ≡ 5, 7 (mod 8)`, then [the two sums
+of Theorem 1.2] `≡ 0 (mod 2)`; if `n ≡ 6`, [the second sum] `≡ 0`.* Theorem 3.5 does **not** repeat
+the sentence "all decompositions are non-ordered with all `d_i > 1`".
+
+**Lemma 2.8** (L1062–1066). *`Σ_{n = d₁d₂} ε(d₁, d₂) 𝓛(d₁) 𝓛(d₂) = Q(n)`, where `ε(d₁, d₂) = ±1` and the
+sum is over non-ordered decompositions `n = d₁d₂` with `d₁, d₂ > 0` and `d₂ ≡ 1 (mod 8)`.* (Here
+`n ≡ 1, 2, 3`, the setting of §2.)
+
+**Proposition 2.3** (L580–586). *`f_n((B̂^×)²) ⊂ 1 + 2ℤ`; therefore `Q(n) ≡ g(n) (mod 2)`.*
+
+**Lemma 3.16** (L2182–2185). *`ℚ(A[4]) = ℚ(√2, i)` and `A(ℚ(i)) = A[(1+i)³]`.*
+
+**Lemma 3.18** (L2230–2232). *`A(ℍ'_n)_tors = A[(1+i)³]` if `n` is odd.*
+
+**Lemma 3.21** (L2504–2525). With `β₁ = r_∞(−1)r₂(−2)`, `β₂ = r_∞(−1)r₂(6)` and any liftings `β'_j`:
+*(1) for `n ≡ 5 (mod 8)`, `Z(n)^{β'₁+1} = Z(n)^{β'₂+1} ∈ g(n)τ((1−i)/2) + ℤτ(1)`; … (4) for `n ≡ 7
+(mod 8)`, `Z(n)^{β'₁+1} = Z(n)^{β'₂+1} = g(n)τ(1/2)`.*
+
+**Corollary 1.4** (L427–466) uses only the first sum, with the value `g(n)`. The reading issue below
+does not affect it.
