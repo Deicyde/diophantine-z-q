@@ -579,3 +579,92 @@ narrowed hypothesis CR₃ (§4.1 there), restricted to `d ≡ 5 (mod 8)` and `|a
 Corollary 4.4 together with Proposition 0, exactly as slot-k anticipated there (its "SPECULATIVE until RK6
 is checked" is now settled for this restriction). More generally the restriction may be relaxed to
 `|a|_odd ≡ 3 (mod 4)`.
+
+## 6. Validation (VERIFIED, exact computations)
+
+The class numbers `g(d)` are computed with PARI (`quadclassunit`), independently of Rédei theory; the
+Selmer groups with the exact 2-descent `scratch/rv-route-k/sel2cong.py` (local images from torsion
+points and explicit 2-adic points, checked against PARI in rv-route-k), independently of Proposition 0
+and of §4.
+
+**The lemmas on abstract data.** Random data: `r ≤ 10` symbols, bits `a_{ij}` subject only to
+reciprocity, random `y`, `z`, and `g` defined by Proposition 2.3.
+
+| Statement | Trials | Mismatches |
+| --- | --- | --- |
+| Lemma 2.1 (forest lemma, brute-force enumeration of forests, `r ≤ 6`) | 2,751 | 0 |
+| Lemma 2.2(3) (`κ_i + κ_j`) | 2,272 | 0 |
+| Proposition 3.3 (forest form of `det M₁`) | 3,000 | 0 |
+| Proposition 3.5 (class 1 versus class 3) | 849 | 0 |
+| Smith's row 1 (`det M₁ = 𝓛`, class 1) | 747 | 0 |
+| Proposition 3.4 (forest form of `det M_5b`) | 846 | 0 |
+| Theorem 3.6 (row 5b) | 846 + 747 | 0 |
+
+**The rule on actual curves.** Random odd squarefree `n ≡ 5 (mod 8)`; for each: Lemma 4.1's dimension
+formula (all `n`), and for the Selmer-minimal ones the kernel identification of Lemma 4.1, Theorem 4.3
+on all four representatives, and the genus sum `T_5b(n)` from PARI class groups against `det M_5b`.
+
+| Sample | `n` | `dim Sel₂ = 2 + corank M₁` | Selmer-minimal | Lemma 4.1 kernel | Theorem 4.3 | `T_5b = det M_5b` (PARI) | `det M_5b = 1` |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2–6 primes `< 400` | 300 | 300 | 229 | 229 | 229 | 229 of 229 | 149 |
+| 3–8 primes `< 3000` | 600 | 600 | 453 | 453 | 453 | 453 of 453 | 238 |
+| 8–14 primes `< 10⁵` | 300 | 300 | 249 | 249 | 249 | (not computed) | 122 |
+
+The last column shows that both values of the rule occur often, so the agreement of `T_5b` with
+`det M_5b` is tested in both directions (217 + 215 curves with value 0).
+
+**The slot curves.**
+
+- *Admissible inputs.* The first 30 inputs of slot-k's random generator (seed 2026, as in slot-k §3.2,
+  family `random30`), first eligible multiplier: `ω(β)` from 2 to 6, `ω(θ)` from 2 to 5, curves with 6 to
+  20 primes and slots of up to 89 digits. For all 60 curves `C_n`, `C_{nθ}`: `|d| ≡ 5 (mod 8)`,
+  `dim Sel₂ = 3`, `β ∈ π₁` (exact descent), `|β| ≡ 3 (mod 4)` and `det M_5b = 1` (Legendre symbols). The
+  genus sum itself cannot be computed at this size (class groups of discriminants with hundreds of
+  digits, and Bell-number many partitions).
+- *Small realizations.* 30 realizations of the construction with the least admissible slot primes
+  (below `2·10⁵`), with data `(β, θ)` satisfying (θ1)–(θ4) built from small primes, `ω(β) ≤ 3`,
+  `1 ≤ ω(θ) ≤ 2` (as in slot-k's `t4_ellrank.py`, but with `θ ≠ 1`). 60 curves with 3 to 10 primes; all have
+  `|d| ≡ 5`, `dim Sel₂ = 3`, `β ∈ π₁`, `det M_5b = 1`; for the 55 curves with at most 8 primes the genus
+  sum `T_5b` computed from PARI class groups equals 1. No failure.
+- *Analytic rank (numerical, a sanity check of Proposition 1.1's conclusion).* For the twelve curves
+  `n = βq₀` with `p = |β| < 80` prime `≡ 7 (mod 8)`, both signs, and `q₀` the least slot prime, PARI's
+  `ellanalyticrank` gives analytic rank 1 (leading coefficient between 3.4 and 15.4), and `ellrank`
+  finds a point with abscissa in `βℚ*²` up to torsion on every one.
+
+## 7. What remains, and what Route K still needs
+
+**Proved here.**
+- Proposition 1.1: the form of TYZ used, located in the proof of TYZ Theorem 3.5(2), with the two facts
+  that the proof leaves implicit (the bracket is `T_5b`, and the two torsion coefficients are
+  independent).
+- Proposition 2.3 (Rédei's formulas) from genus theory, Lemma 2.1 (forest lemma) and Lemma 2.2.
+- Theorem 3.6 (Smith's row 5b) and, on the way, Proposition 3.5 (Smith's row 1), by a new argument.
+- Lemma 4.1 (Monsky-type identification of `Sel₂` with `ker M₁` for `n ≡ 5`), Theorem 4.3 (pc-audit's
+  rule for row 5b) and Corollary 4.4.
+- Theorem 5.1: every curve of the slot construction satisfies the hypotheses, with no extra condition.
+
+**What Route K still needs.**
+1. *The citation of TYZ* (Proposition 1.1). Either cite the proof of Theorem 3.5(2) explicitly, or confirm
+   in the journal version that the second sum of Theorems 1.2 and 3.5(2) admits `d₁ = 1` (UNCHECKED).
+   Asking the authors is the quickest way to settle the reading. If neither is acceptable, the
+   alternative is to strengthen the descent so that `T_5a(d)` is even for both curves (then the literal
+   statement suffices); this has not been examined (SPECULATIVE), because row 5a depends on the second
+   Kummer coordinate (pc-audit RK6).
+2. *Slot-k's theorem* (DL), now under independent review, and Proposition 0 for `c = 5` (descent-alt
+   §4.1, slot-k §2.1), on which Lemma 4.1 also rests. The exact-descent checks above test Lemma 4.1
+   independently of Proposition 0.
+3. *Gross–Zagier and Kolyvagin*, exactly as the manuscript already uses them (Lemma 5.5, A020).
+
+**What Route K no longer needs.** Kriz's Theorem 10.13 (pc-audit RK1), the Cassels–Tate pairing for this
+step (RK3), Smith's preprint (RK5, replaced by §3 for the one row used) and any 2-adic strengthening of
+the descent (pc-audit §4.2 proposed one; slot-k's construction already satisfies the row-5b rule).
+
+## Scripts (`scratch/tyz-5b/`)
+
+| Script | Purpose | Output |
+| --- | --- | --- |
+| `forest_check.py` | Proposition 3.3, Smith's rows 1 and 5b on abstract data | `out_forest_check.txt` |
+| `lemma_check.py` | Lemmas 2.1, 2.2(3), Propositions 3.4, 3.5, Theorem 3.6 on abstract data | `out_lemma_check.txt` |
+| `rule_check.py` | Lemma 4.1, Theorem 4.3, and `T_5b` with PARI class groups, on actual curves | `out_rule_check.txt` |
+| `slot_tyz.py` | the slot curves: admissible inputs and small realizations | `out_slot_admissible.txt`, `out_slot_small.txt` |
+| `analytic_check.py` | analytic rank and points on small slot curves | `out_analytic_check.txt` |
