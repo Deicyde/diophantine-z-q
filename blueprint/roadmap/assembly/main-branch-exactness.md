@@ -9,17 +9,17 @@ lean: ZInQ.Assembly.main_branch_eq
 
 # An accepting main branch forces the exact value
 
-Assume the six-contact estimate, pole completeness and the twenty-two-prime
-pattern. Let $n,\kappa\in\mathbb Z$ and $t\in\mathbb Q$. If
+Assume the minimal height hypothesis, pole completeness and the slope
+representation. Let $n,\kappa\in\mathbb Z$ and $t\in\mathbb Q$. If
 $\mathrm{Rel}_{\mathtt{close}}(\iota(n),\iota(\kappa),t)$ and $\operatorname{Test}(n,\kappa,t)$, then $t=n$.
 
 **Proof sketch.** Soundness of Close gives $n\notin\mathcal C$, $\kappa\ne0$ and
 $|t-n|<e^{-B(n,\kappa)}$. The test gives $t\notin\mathcal C$ and, by the divisibility lemma,
 $M_{S_{\rm ht}}(t)\mid\kappa F(n)$; as $\kappa F(n)\ne0$, $M_{S_{\rm ht}}(t)\le|\kappa F(n)|$. Apply the
-six-contact estimate with $S=S_{\rm ht}$ (all primes $p\le324$, maximum $317$) and $R=D$,
-which satisfies $R\ge\max(D,\max S,10^{12})$ because that maximum is $D$, at $u=t\notin\mathcal C$:
-$$h(t)\le H_6(S_{\rm ht};D)\,M_{S_{\rm ht}}(t)^{24}\le A^{(0)}_{\rm ht}\,|\kappa F(n)|^{24}=B(n,\kappa),$$
-where $H_6(S_{\rm ht};D)=A^{(0)}_{\rm ht}$ is the precision height constant. Suppose
+minimal height hypothesis at $u=t\notin\mathcal C$; since $S_{\rm ht}\subseteq S_{\rm mul}$,
+$M_{S_{\rm mul}}(t)$ divides $M_{S_{\rm ht}}(t)$, so
+$$h(t)\le H_6(D)\,M_{S_{\rm mul}}(t)^{24}\le H_6(D)\,M_{S_{\rm ht}}(t)^{24}\le A^{(0)}_{\rm ht}\,|\kappa F(n)|^{24}=B(n,\kappa),$$
+where $H_6(D)=H_6(S_{\rm ht};D)=A^{(0)}_{\rm ht}$ is the precision height constant. Suppose
 $t=a/b\ne n$ in lowest terms, $b>0$. Then $|a-nb|\ge1$, so
 $$|t-n|\ge1/b\ge e^{-h(t)}\ge e^{-B(n,\kappa)},$$
 contradicting soundness of Close. Hence $t=n$. No numerical value of $A^{(0)}_{\rm ht}$ or $D$ is needed.
@@ -31,9 +31,9 @@ contradicting soundness of Close. Hence $t=n$. No numerical value of $A^{(0)}_{\
 - [The six local tests](value-templates/six-local-tests.md)
 - [The outer composition recipes](../syntax/recipes/outer-recipes.md)
 - [Point codes](../model/point-codes.md)
-- [The six-contact height estimate](../main/six-contact-estimate.md)
+- [The minimal height hypothesis](../main/six-contact-min.md)
 - [Pole completeness](../main/pole-completeness.md)
-- [The twenty-two-prime pattern](../main/prime-pattern.md)
+- [The slope representation](../multiplication/completeness/slope-representation.md)
 
 ## Proof depends on
 

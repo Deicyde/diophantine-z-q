@@ -155,7 +155,7 @@ theorem finite_box_of_heights {A : ℝ} (hA : 1 ≤ A) (n : Fin 3 → ℤ) (hf :
 `n₁n₂ ≠ n₃` and for each `i` the coordinates of `x([nᵢ]P₀)` are `a_{ij}/bᵢ` with `bᵢ ≠ 0`, each of
 the nine quantities `a_{ij}, bᵢ` being a sum of three slopes `t` with
 `Slope(t, ℓ₀; c_*, c_*n₁, c_*n₂, c_*n₃)`, then `|nᵢ| < T` (given H). -/
-theorem finite_box_of_slopes (hH : SixContactEstimate) (n : Fin 3 → ℤ)
+theorem finite_box_of_slopes (hH : SixContactMin) (n : Fin 3 → ℤ)
     (hf : n 0 * n 1 ≠ n 2)
     (hcert : ∀ i, ∃ a₀ a₁ b : ℚ, b ≠ 0 ∧ b * iota (n i) 1 = a₀ ∧ b * iota (n i) 2 = a₁ ∧
       ∀ Q ∈ ({a₀, a₁, b} : Set ℚ), ∃ t₁ t₂ t₃ : ℚ, t₁ + t₂ + t₃ = Q ∧
@@ -184,7 +184,7 @@ theorem nineQ_surj (A : Fin 3 → Fin 2 → ℚ) (b : Fin 3 → ℚ) (i : Fin 3)
 
 /-- The finite-box deduction from the height-certificate predicate `HeightCert` at the codes
 `ι(nᵢ)` with `ℓ = ℓ₀` and the shifts `(c_*, c_*n₁, c_*n₂, c_*n₃)`. -/
-theorem finite_box_of_heightCert (hH : SixContactEstimate) (n : Fin 3 → ℤ)
+theorem finite_box_of_heightCert (hH : SixContactMin) (n : Fin 3 → ℤ)
     (hf : n 0 * n 1 ≠ n 2)
     (hcert : HeightCert (fun i => iota (n i)) (Syntax.ell : ℚ) (certShifts n)) :
     ∀ i, |n i| < (Syntax.T : ℤ) := by
@@ -209,7 +209,7 @@ theorem finite_box_of_heightCert (hH : SixContactEstimate) (n : Fin 3 → ℤ)
 If `n₁n₂ ≠ n₃` and the unguarded certificate accepts
 `(ι(n₁), ι(n₂), ι(n₃), ℓ₀, ι(c_*), ι(c_*n₁), ι(c_*n₂), ι(c_*n₃))`, then `|nᵢ| < T`. The
 parameter vector `a ∈ ℚ³⁶` of the height-certificate template is described coordinatewise. -/
-theorem finite_box (hH : SixContactEstimate) (n : Fin 3 → ℤ)
+theorem finite_box (hH : SixContactMin) (n : Fin 3 → ℤ)
     (hf : n 0 * n 1 ≠ n 2) (a : Fin 36 → ℚ)
     (hY : ∀ (i : Fin 3) (k : Fin 5), a ⟨5 * i + k, by omega⟩ = iota (n i) k)
     (hℓ : a 15 = (Syntax.ell : ℚ))

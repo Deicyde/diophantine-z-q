@@ -23,7 +23,7 @@ open Syntax
 
 /-- **Correctness of the multiplication template** (input M): for all `Y₁, Y₂, Y₃ ∈ ℚ⁵`,
 `Rel_multiply(Y₁, Y₂, Y₃) ⟺ ∃ a b ∈ ℤ, (Y₁, Y₂, Y₃) = (ι(a), ι(b), ι(ab))`. -/
-theorem multiplication_exact (hH : SixContactEstimate) (hPC : PoleCompleteness)
+theorem multiplication_exact (hH : SixContactMin) (hPC : PoleCompleteness)
     (h22 : SlopeRepresentation) :
     Translation.MultiplicationExact Syntax.specConstructors FixedConst.cstar.value
       FixedConst.ell.value FixedConst.T.value := by
@@ -43,7 +43,7 @@ theorem multiplication_exact_unique {Y₁ Y₂ Y₃ : Fin 5 → ℚ} {a b a' b' 
 
 /-- Input M with uniqueness: `Rel_multiply(Y₁, Y₂, Y₃)` holds exactly when there are unique
 `a, b ∈ ℤ` with `(Y₁, Y₂, Y₃) = (ι(a), ι(b), ι(ab))`. -/
-theorem multiplication_existsUnique (hH : SixContactEstimate) (hPC : PoleCompleteness)
+theorem multiplication_existsUnique (hH : SixContactMin) (hPC : PoleCompleteness)
     (h22 : SlopeRepresentation) (Y₁ Y₂ Y₃ : Fin 5 → ℚ) :
     (multiplyTemplate Syntax.specConstructors FixedConst.cstar.value FixedConst.ell.value
         FixedConst.T.value).Rel (Fin.append (Fin.append Y₁ Y₂) Y₃) ↔

@@ -18,6 +18,12 @@ the height of a rational number by its odd contact support.
 
 - [The six-contact height estimate](six-contact-estimate.md)
 
+The proof uses the estimate at a single prime set and radius, $S=S_{\rm mul}$ and $R=D$, and
+the main theorem assumes only this instance.
+
+- [The minimal height hypothesis](six-contact-min.md)
+- [The six-contact estimate implies its minimal form](six-contact-min-of-estimate.md)
+
 Pole completeness asserts the rational solubility of one explicit polynomial for all
 suitably prepared inputs.
 
@@ -35,8 +41,17 @@ catalogue modulus to contain twenty-two primes below the explicit cutoff $2^{W^8
 - [The twenty-two-prime pattern](prime-pattern.md)
 - [The catalogue bound](catalogue-bound.md)
 
+The multiplication proof uses the prime pattern only to write every integer as a sum of three
+slopes with controlled contact primes, the
+[slope representation](../multiplication/completeness/slope-representation.md). A second
+pattern in primes, with two slopes and twelve linear forms, also gives it, so it can replace
+the twenty-two-prime pattern.
+
+- [The two-slope prime pattern](two-slope-pattern.md)
+
 The catalogue bound is no longer an assumption of substance: the
 [progressions chapter](../progressions/README.md) proves it from an effective Dirichlet
-theorem. Under the four remaining hypotheses the target holds.
+theorem. Under the remaining hypotheses (the minimal form of the height estimate, pole completeness
+and the twenty-two-prime pattern, or the two-slope pattern in its place) the target holds.
 
 - [The main theorem](main-theorem.md)

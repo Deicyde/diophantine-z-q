@@ -1,0 +1,33 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+input 0: solutions examined 40, solution certified by beta-rule alone: True
+input 1: solutions examined 40, solution certified by beta-rule alone: True
+input 2: solutions examined 40, solution certified by beta-rule alone: True
+input 3: solutions examined 40, solution certified by beta-rule alone: True
+input 4: solutions examined 40, solution certified by beta-rule alone: True
+input 5: solutions examined 40, solution certified by beta-rule alone: True
+input 6: solutions examined 40, solution certified by beta-rule alone: True
+input 7: solutions examined 40, solution certified by beta-rule alone: True
+input 8: solutions examined 40, solution certified by beta-rule alone: True
+input 9: solutions examined 40, solution certified by beta-rule alone: True
+input 10: solutions examined 40, solution certified by beta-rule alone: True
+input 11: solutions examined 40, solution certified by beta-rule alone: True
+input 12: solutions examined 40, solution certified by beta-rule alone: True
+input 13: solutions examined 40, solution certified by beta-rule alone: True
+input 14: solutions examined 40, solution certified by beta-rule alone: True
+input 15: solutions examined 40, solution certified by beta-rule alone: True
+input 16: solutions examined 40, solution certified by beta-rule alone: True
+input 17: solutions examined 40, solution certified by beta-rule alone: True
+input 18: solutions examined 40, solution certified by beta-rule alone: True
+input 19: solutions examined 40, solution certified by beta-rule alone: True
+input 20: solutions examined 40, solution certified by beta-rule alone: True
+input 21: solutions examined 40, solution certified by beta-rule alone: True
+input 22: solutions examined 40, solution certified by beta-rule alone: True
+input 23: solutions examined 40, solution certified by beta-rule alone: True
+input 24: solutions examined 40, solution certified by beta-rule alone: True
+input 25: solutions examined 40, solution certified by beta-rule alone: True
+input 26: solutions examined 40, solution certified by beta-rule alone: True
+input 27: solutions examined 40, solution certified by beta-rule alone: True
+input 28: solutions examined 40, solution certified by beta-rule alone: True
+input 29: solutions examined 40, solution certified by beta-rule alone: True
+rule checks 1348, violations 0; inputs with a beta-rule-certified solution 30/30
