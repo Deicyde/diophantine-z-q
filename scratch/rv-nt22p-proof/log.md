@@ -23,3 +23,16 @@
   v(B) = 2E+2α+2e-2v(12) ≥ 46e+4. CORRECT. With E = E_p it even gives ≥ 103C_p+8 (Lean part1 bound survives).
 - ℓ=2: e=1: ∏ ≡ 1+2w mod 8 (w odd) -> 3 or 7; e=2: ≡ 5 mod 8. Never a 2-adic square with η=1 (to verify numerically).
   Note's "often not a square" understates: never.
+
+## Step 3 (computation, scratch/rv-nt22p-proof/lemmaP_check.py, own implementation)
+- Part A (exhaustive, u mod 2^(e+6), v = 2^e w, w odd < 64): class of ∏(u-cv) mod 8:
+  e=1: {3,7}; e=2: {5}; e≥3: {1}. So with η=1, R0 is NEVER a 2-adic square for e=1,2
+  (the note says "often not"). For e=1 and class 7, η=-1 would make it a square; irrelevant since η is fixed by sign.
+  CONFIRMS Lemma P(1) at 2 and the necessity of e ≥ 3; e ≤ 2 ≤ B_2 = 4 is covered by field 2.
+
+## Step 4 (Lean consumers of GoodSlope / SlopeRepresentation)
+- GoodSlope built in: PatternSlopes.goodSlope_of_values (l.118), pattern_slopes; TwoSlope.goodSlope_of_primeValues
+  (l.41, hypothesis hold: v_q(v), v_q(u-v) ≤ B_q), goodSlope_neg_ten (l.199).
+- GoodSlope.old consumed only in pole_input_valuations part1 (PoleValuations.lean:126). old_le_Cp has no users.
+- SlopeRepresentation consumed by Core, Template, Exact, Assembly, ValueRelation as an opaque hypothesis: unchanged
+  if the definition of GoodSlope changes (they never destructure it).
