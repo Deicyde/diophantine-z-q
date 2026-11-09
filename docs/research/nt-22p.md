@@ -542,15 +542,15 @@ of the symmetry for the pattern.
     and `ZMod` square roots). The grid argument of `weak_approx_q` adapts by shifting the grid.
 - *First test.* State and prove in Lean the integer form of Lemma P(1)–(2): for `ℓ` odd (or `ℓ = 2`,
   `e ≥ 3`), `u, v` as in Lemma P and every `N`, there is `w ∈ ℤ` with
-  `v_ℓ(1 − R₀ w² ℓ^{−2e}·…) ≥ N`. Then derive `SlopeRepresentation'` from `GoodPrimeAP` along §3.3.
+  `v_ℓ(1 − (R₀ℓ^{−2e})w²) ≥ N` (then `q = w/ℓ^{e}` has `v_ℓ(1 − R₀q²) ≥ N`). Then derive `SlopeRepresentation'` from `GoodPrimeAP` along §3.3.
   *Success criterion:* `Mult.slopeRepresentation_of_goodPrimeAP` builds, and the main theorem
   builds with `GoodPrimeAP` in place of `TwoSlopePattern`, axioms unchanged.
 - *Chance: high.* Every step is elementary and checked by hand. Lemma P was tested on 30 samples
   (§3.2). The sign condition is automatic (§3.3). The main risk is Lean effort, not mathematics.
 
 **Route 2 (D).**
-- *Payoff.* A complete proof that `G` has positive relative lower density, from Dirichlet's theorem
-  in progressions, the CM identities (A072) and an elementary lattice sieve. With Route 1 this makes
+- *Payoff.* A complete proof that `G` has positive relative lower density, from the prime number
+  theorem in progressions, the CM identities (A072) and an elementary lattice sieve. With Route 1 this makes
   22P a corollary of a single classical theorem (GT08).
 - *Main obstacle.* Uniformity of the sieve bound for `L < ℓ ≤ N^{1/8}` (a Selberg or Brun upper
   bound for primes in a lattice of index `ℓ²` in `ℤ[i]`), and the CM identification written for `p`
