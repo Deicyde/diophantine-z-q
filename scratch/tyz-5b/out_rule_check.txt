@@ -1,0 +1,6 @@
+seed 12 omega 3 8 primes < 3000 {'n': 600, 'minimal': 453, 'K1': 600, 'K2': 453, 'K3': 453, 'T': 453, 'Tcount': 453, 'det1': 238}
+
+real	1m2.481s
+seed 13 omega 8 14 primes < 100000 {'n': 300, 'minimal': 249, 'K1': 300, 'K2': 249, 'K3': 249, 'T': 0, 'Tcount': 0, 'det1': 122}
+
+real	0m0.426s

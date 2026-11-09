@@ -34,3 +34,13 @@ Lemmas (all proved on paper, all VERIFIED on abstract random data, scripts fores
   z-coefficients with the kappa_i + kappa_j lemma).  This is Smith's row 1 in disguise.
 - det M_5b = sum over partitions with one class-7 block and all other blocks class 3; with R1 this is
   the TYZ tau(1/2) bracket.  So Smith row 5b holds (abstract data: 0 mismatches).
+
+## Step 3 (RK6 rule for row 5b) -- proved via Lemma K + bordered lemma
+- Lemma K: for odd n > 0, n = 5 mod 8, Sel_2 = T + H with H = {b1 = 0, a0 = lambda.u}; H ~ ker M_1 via
+  sigma -> (u+v, u) (i.e. (S(ab), S(a))).  Proof: direct comparison of slot-k Sigma(C) (c = 5 rows) with
+  the kernel equations of M_1; uses lambda.s = 0, mu.t = 0 from summing rows (y(V) = 0).
+- Bordered lemma: det [[M, v],[v^T, 0]] = v^T k (F_2, corank 1).  v = (0, y): v^T k = lambda.u = [|a|_odd = 3 mod 4].
+- VERIFIED on actual curves (rule_check.py, exact descent sel2cong.py, PARI class groups for TYZ):
+  seed 11: 300 n (omega 2-6, p<400): K1 300/300, minimal 229, K2/K3/T 229/229.
+  seed 12: 600 n (omega 3-8, p<3000): K1 600/600, minimal 453, K2/K3/T 453/453.
+  seed 13: 300 n (omega 8-14, p<1e5): K1 300/300, minimal 249, K2/K3 249/249 (no PARI sum).
