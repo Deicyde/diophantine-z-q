@@ -140,3 +140,97 @@ implied by `e ≥ 1`. For rational `t` the whole hypothesis is just `v_ℓ(t) = 
 `v_ℓ(t − 1) = v_ℓ(t)` and `v_ℓ(R₀) = −2v_ℓ(t)`, without reference to `u, v`. The second
 alternative of field 2′ can be stated as
 `v_ℓ(t) < 0 ∧ F(t) > 0 ∧ (ℓ = 2 → v_2(t) ≤ −3)`. This is also the convenient form for Lean.
+
+### 7. Field 2′ and the modified choice of `q` — CORRECT
+
+Let `t` satisfy fields 1, 2′, 3, 4. Let `S_pole ⊂ S_b` be the primes where the second
+alternative of 2′ is used, `P` the odd contact primes outside `S_b`, and
+`N_ℓ = 23e_ℓ + v_ℓ(12) + 2`. If `S_pole ≠ ∅` then `F(t) > 0`, so the sign chosen in
+`slope_complete` is `η = 1`. That choice is forced by `R₀ > 0` and is the one Lemma P needs: the
+real place and the places of `S_pole` ask for the same `η`. The positivity lemma
+`pole_input_small` gives `ε > 0` depending on `R₀`, `ℓ₀` and the normalized tests only, not on
+`q`. The open conditions on `q` are then:
+
+1. at `ℓ ∈ S_pole`, `q` lies in the ball of Lemma P(2) for `N_ℓ`, a ball of radius
+   `ℓ^{−(N_ℓ − e − v(2))}` around `±R₀^{−1/2}`;
+2. at `ℓ ∈ S_b ∖ S_pole`, `v_ℓ(q) ≥ C_ℓ` (as now);
+3. at `p ∈ P`, `v_p(q) ≥ 0` (as now);
+4. at the real place, `|q − R₀^{−1/2}| < δ` and `q ≠ ±R₀^{−1/2}` (as now).
+
+These are finitely many non-empty open conditions at distinct places, so weak approximation
+gives `q ∈ ℚ`. Concretely, take `q = m/(L ℓ′^k)` with `L = ∏_{ℓ∈S_pole} ℓ^{e_ℓ}` and `ℓ′` a prime
+outside `S_b ∪ P`. Then `m` is fixed modulo `M = ∏_{S_pole} ℓ^{N_ℓ+1} ∏_{S_b∖S_pole} ℓ^{C_ℓ}`.
+The residue at `ℓ ∈ S_pole` is `w_ℓ · (L/ℓ^{e_ℓ}) · ℓ′^k`, which depends on `k`. Fixing `k`
+first, the admissible `q` form a coset of `(M/(Lℓ′^k))ℤ` in `ℚ`, whose spacing tends to `0`.
+With this `q`, the place-by-place check is:
+
+- `ℓ ∈ S_pole`: Lemma P(3) (finding 3) gives `v_ℓ(B) ≥ 46e + 4 ≥ 4`, in fact `≥ 103C_ℓ + 8`.
+- `ℓ ∈ S_b ∖ S_pole`: field 2 holds there and `v_ℓ(q) ≥ C_ℓ`, so `a` is an `ℓ`-unit, and part 1 of
+  `pole_input_valuations` applies verbatim: `v_ℓ(B) ≥ 103C_ℓ + 8`.
+- `p ∈ P`: `v_p(R₀) = 1` and `q` is `p`-integral, so `a ≡ 1 (mod p)`, `v_p(R) = 1`, and part 2
+  gives `v_p(B) = 1`. Nothing here depends on the old primes.
+- Other finite primes, including `ℓ′`: part 3 gives `v_p(B) ≡ v_p(F(t)/(t − 1)⁸) ≡ 0 (mod 2)`.
+  This holds because `a` enters `R` squared and `Θ ∈ ℚ` enters `B` squared, so the parity does
+  not depend on `q`. The evenness of `v_p(F(t)/(t − 1)⁸)` at `p ∉ S_b ∪ P` is
+  `even_padicValRat_contactQuot` and uses field 3 only. In particular `ℓ′ ∉ P` is all that is
+  needed of the auxiliary prime.
+- Real place: as before, `0 < |a| < ε` gives `W_g > 0`, `Θ > 0` and `0 < B < 1/2`, together with
+  all the non-vanishing guards.
+
+So `B` has square reduced denominator, `0 < B < 1/2` and `v_p(B) ≥ 4` on `S₀ ⊂ S_b`, which are
+exactly the hypotheses of `PoleCompleteness` (`Hypotheses/Pole.lean:62`; manuscript Theorem 5.2,
+line 1001). The polynomial, the slope predicate and soundness are untouched: field 2′ is a
+condition on the slopes produced by the completeness proof, not on the predicate.
+
+### 8. Proposition AP — CORRECT
+
+With `T = 𝒞 ∪ {1}`, `S⁺ = T ∪ (A′ − T)` and `u = x + (max S⁺)v`, each `u − c′v`
+(`c′ ∈ S⁺`) is the term of index `max S⁺ − c′ ∈ [0, K_A]`.
+
+- *Lowest terms*: a common prime of `u` and `v` divides `x`, hence every term. The terms are
+  distinct primes (`v ≥ 1`), which is impossible. Also `gcd(A′v − u, v) = gcd(u, v) = 1`.
+- *Signs*: `t₁ = max S⁺ + x/v > 1 > 0` (here `x ≥ 1` is used), so all six factors of `F(t₁)`
+  are positive. Next, `max S⁺ = max(1, A′ + 60)`. If `A′ + 60 ≥ 1` then `t₂ = −60 − x/v < −60`.
+  Otherwise `t₂ = A′ − 1 − x/v < A′ − 1 < −60`. Either way all six factors of `F(t₂)` are
+  negative and `F(t₂) > 0`.
+- *Field 1*: `t₁ − c = (u − cv)/v` and `t₂ − c = −(u − (A′ − c)v)/v` are nonzero, and so are the
+  analogous expressions for `c = 1`.
+- *Field 2′*: all fourteen numbers are primes `> max S_b`, hence `ℓ`-units for `ℓ ∈ S_b`. If
+  `e = 0`, both valuations of field 2 vanish. If `1 ≤ e ≤ B_ℓ`, field 2 holds
+  (`|v_ℓ(t − 1)| = e ≤ B_ℓ` and `|v_ℓ(R₀)| = 2e ≤ 8B_ℓ`). If `e > B_ℓ`, the alternative of 2′
+  holds; at `ℓ = 2` this means `e ≥ 5 ≥ 3`. Since the condition `|v_ℓ(t − 1)| ≤ B_ℓ` reads
+  `e ≤ B_ℓ` here, field 2 holds exactly when `e ≤ B_ℓ`.
+- *Fields 3, 4*: an odd contact prime `p ∉ S_b` of `t₁` has `v_p(u − cv) > v_p(v)`, so `p ∤ v`
+  (a prime dividing `v` gives `v_p(t₁ − c) = −v_p(v) < 0`) and `p | u − cv`, a prime. So `p` is that
+  prime, which lies in `G`, has valuation 1 and exceeds `max S_b ≥ 0 = B₀`. There are at most six
+  such primes. The same holds for `t₂`. These are the arguments of `goodSlope_of_primeValues`
+  (`TwoSlope.lean:41`) without its hypothesis `hold`.
+- *Constant slope*: `goodSlope_neg_ten` gives field 2 for `−10`, hence 2′.
+
+### 9. Remark 1 — wrong constant, harmless
+
+For `A′ ≥ −59`, `max S⁺ = A′ + 60` and `min S⁺ = −60`, so `K_A = A + 130`. For `A′ ≤ −60`,
+`K_A = 2 − A′ = −A − 8`. (For example, `A = 0` gives `S⁺ ⊂ [−60, 70]` and `K_A = 130`.) So
+`K_A = |A| + O(1)`, but not `≈ |A| + 71`. The remark only uses that `K_A → ∞`.
+
+### 10. Remark 3: Lemma P is needed only on `S₀` — CORRECT, and can be strengthened
+
+`PoleCompleteness` asks for `v_p(B) ≥ 4` only on `S₀`. Elsewhere it asks only that `B` have a
+square reduced denominator, that is, that every negative `v_p(B)` be even. At `ℓ ∈ S_b ∖ S₀`,
+`v_ℓ(B) = 2(E_ℓ + α − v_ℓ(Θ)) + v_ℓ(R₀)`. In the progression form `v_ℓ(R₀) = 2e`, so `v_ℓ(B)` is
+even for every `q` and every test values. CORRECT. No condition on `q` is needed at those
+primes, and the catalogue primes (`B_ℓ = 1`) never need Lemma P.
+
+The same computation gives a stronger statement. Since
+`v_ℓ(R₀) ≡ v_ℓ(F(t)) (mod 2)`, field 2 at `ℓ ∈ S_b ∖ S₀` can be replaced by the single condition
+"`v_ℓ(F(t))` is even", with no bound at all. Field 2 at those primes is used nowhere else in the
+completeness proof: `GoodSlope.old` is consumed only in part 1 of `pole_input_valuations`
+(`PoleValuations.lean:126`), and part 1 is used only for the `S₀` bound and for the
+square-denominator conclusion. With this change field 2′ becomes:
+
+> **2″.** For `ℓ ∈ S₀`: field 2 holds at `ℓ`, or `v_ℓ(t) < 0`, `F(t) > 0` and
+> (`ℓ = 2 ⇒ v_2(t) ≤ −3`). For `ℓ ∈ S_b ∖ S₀`: `v_ℓ(F(t))` is even.
+
+This makes the Lean change smaller: Lemma P and the residue-class weak approximation are needed
+at five primes only, and part 1 of `pole_input_valuations` splits into an `S₀` part and an
+evenness part.
