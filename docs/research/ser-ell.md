@@ -259,13 +259,13 @@ lies above the Masser–Wüstholz threshold of R1. Infinitely many such `ℓ` ex
   Hecke conventions: `V_ℓ(J₁(N))` contains both `ρ_{g'}` and `ρ_{ḡ'}` (`ḡ'` is the newform with
   conjugate coefficients). So whichever of `T_p` or `T_p^*` normalizes Eichler–Shimura, `r_λ|_{G_{L'}}`
   is a constituent of `V_ℓ(J₁(N_{g'})) ⊗ ℚ̄_ℓ`. This is the hypothesis "common constituent of
-  `V(A)` and `V(J)`" of line 860, with `N = N_{g'} ≤ QM²`. Lines 860-966 then go through verbatim.
+  `V(A)` and `V(J)`" of line 861, with `N = N_{g'} ≤ QM²`. Lines 860-966 then go through verbatim.
   They use `N` only through `N ≤ QM²` (index bound `N²`, Javanpeykar `h_F(J) ≤ 1.3·10⁷N^{12}`,
   `g ≤ N²`).
 - **What is no longer used.** The twist removal (Conrad, A011): KW's `g_ℓ` matches `r̄_λ` itself,
   not a twist, and the pigeonhole compares traces directly. Weight bookkeeping `{0,-1}` against
   `{0,1-k}`: `k = 2` comes from R3. Carayol's bound on the primitive level: the level is `N(r̄_λ)`
-  by R5. Li's Fricke stability serves Shimura's quotient `A_f` (A011). The transfer at line 860
+  by R5. Li's Fricke stability serves Shimura's quotient `A_f` (A011). The transfer at line 861
   targets `J₁(N)`, so it appears dispensable as well. That is a separate question, not examined
   here; nt-h keeps it.
 - **Consumed downstream.** The non-CM part of the height estimate (lines 858-904), unchanged.
