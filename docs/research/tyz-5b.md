@@ -248,8 +248,8 @@ in `D`. Hence each such forest contributes exactly once. ∎
 **Lemma 2.2 (column sums).** *The column sums of `L_B` are `c_j = y_j (1 + y(B))`. Hence:*
 1. *if `y(B) = 1`, all cofactors of `L_B` are equal, and `κ_ρ(B) =: κ(B)` does not depend on `ρ`;*
 2. *for all `B`, `det L_B[B∖j, B∖i] = κ_j(B)` for all `i, j ∈ B`;*
-3. *(`κ`-difference) for `i ≠ j` in `B`, `κ_i(B) + κ_j(B) = Σ c(T_i)` over the forests of `B` rooted at
-   `{i, j}`, where `T_i` is the tree of `i` and `c(T) = Σ_{v∈T} c_v`.*
+3. *(`κ`-difference) for `i ≠ j` in `B`, `κ_i(B) + κ_j(B) = Σ_φ wt(φ) c(T_i(φ))` over the forests `φ` of
+   `B` rooted at `{i, j}`, where `T_i(φ)` is the tree of `i` and `c(T) = Σ_{v∈T} c_v`.*
 
 *Proof.* Column `j`: `Σ_{i≠j} a_{ij} + L_{jj} = Σ_{i≠j} (a_{ij} + a_{ji}) = y_j (y(B) − y_j) = y_j(1 + y(B))`
 mod 2. (2) The rows of `L_B[B∖j, B]` sum to zero, so the column `i` of this matrix is the sum of the
@@ -281,8 +281,10 @@ angew. Math. 171 (1934); STANDARD, exact theorem numbers UNCHECKED):
   `ψ : 𝔽₂^t → Cl(K)[2]`, `e ↦ [Π 𝔭^{e_p}]`, is onto, and its kernel is `{0, e_d}` with `e_d` the vector of
   the primes of `d` (the ideal `(√−d)`), for `d > 3` in case 1 and `d > 1` in case 2. (If `Π𝔭^{e_p} = (α)`,
   then `d' = Π p^{e_p} = N(α)`. In case 2, `d' = a² + db²` with `d' | 2d` squarefree forces `d' ∈ {1, d}`:
-  `b = 0` gives `d' = 1`, `|b| = 1` gives `d' ≥ d` and `2d = a² + d` is impossible. In case 1,
-  `4d' = a² + db²` with `d' | d` forces `d' ∈ {1, d}` unless `d' = d/3 = a²`, i.e. `d = 3`.)
+  `b = 0` gives `d' = 1`; `|b| = 1` gives `d' ≥ d`, and `2d = a² + d` is impossible; `|b| ≥ 2` gives
+  `d' ≥ 4d > 2d`. In case 1, `4d' = a² + db²` with `d' | d`: `b = 0` gives `d' = 1`; `|b| = 1` gives
+  `d' ≥ d/4`, so `d' ∈ {d/3, d}`, and `d' = d/3` means `d/3 = a²`, i.e. `d = 3`, while `4d = a² + d` would
+  need `3d = a²`, again `d = 3`; `|b| = 2` gives `d' = d`; `|b| ≥ 3` gives `4d' ≥ 9d`.)
 - (G2) A class `[𝔞]` is a square in `Cl(K)` iff `N𝔞` is a norm from `K*`. (If `N𝔞 = N(α)`, the
   fractional ideal `𝔠 = 𝔞α^{−1}` has `𝔠𝔠̄ = (1)`, hence `𝔠 = 𝔟/𝔟̄ = 𝔟²/N𝔟` by factoring into primes;
   the converse is clear.)
@@ -404,8 +406,10 @@ Let `c₇` be the number of blocks of class 7. If `c₇ = 0`, the count is `|π|
 `𝓛(d_S) = det M₁(d_S)` for `d_S ≡ 1 (mod 8)`, which is row 1 of Smith's Table 2. It is proved here
 independently of Smith's Propositions 2.4–2.5.
 
-*Proof.* Fix the bits `a_{ij}` and `y`, and regard both sides as functions of `z ∈ 𝔽₂^S`. Each side is a
-multilinear polynomial in `z`; we compare coefficients.
+*Proof.* Fix the bits `a_{ij}` and `y`. Replace each `g(B)` by its expression in Proposition 2.3, which
+involves `z` only through the factors `z_ρ` (the `κ_ρ(B)` and the conditions on `y(B)` do not depend on
+`z`). Then both sides become functions of `z ∈ 𝔽₂^S`, that is, multilinear polynomials in `z`. We prove
+that these polynomials are equal by comparing coefficients, and then evaluate them at the actual `z`.
 
 *Left side.* A block of class 1 has `y(B) = 0` and contributes `[z(B) = 0] g(B) = (1 + z(B)) Σ_ρ z_ρ κ_ρ(B)`
 by (2.2). Using `z_ρ² = z_ρ`,
@@ -519,7 +523,8 @@ nonzero (rank one, as the corank is one), so `adj(M) = kkᵀ`. Expanding along t
 `det [[M, v], [vᵀ, 0]] = vᵀ adj(M) v = (vᵀk)² = vᵀk`. ∎
 
 **Theorem 4.3 (rule of row 5b).** *Let `n > 0` be odd, squarefree, `n ≡ 5 (mod 8)`, with
-`dim Sel₂(C_n) = 3`. Let `σ ∈ Sel₂(C_n)` be a non-torsion class and `a` any of the four first coordinates
+`dim Sel₂(C_n) = 3`. Let `σ ∈ Sel₂(C_n)` be a non-torsion class (all of them lie in one coset of `𝒯`,
+since `dim H = 1`) and `a` any of the four first coordinates
 of `σ + 𝒯`. Then*
 
 ```
@@ -533,11 +538,11 @@ representative `(a, b)` of `σ + 𝒯` in `H`. `M_5b` is `M₁` bordered by `v =
 multiplying by `n` replaces `u` by `u + 𝟏`, and `y·𝟏 = y(V) = 0`. So the value is the same for all four. ∎
 
 **Corollary 4.4.** *Under the hypotheses of Theorem 4.3, if `β` is a first coordinate of `Sel₂(C_n)`
-with `β` odd and `|β| ≡ 3 (mod 4)`, then `T_5b(n) = 1`, and `C_n` has a rational point of infinite order
+with `|β|_odd ≡ 3 (mod 4)` (automatically `β` is odd, as `a₁ = 0` for `c = 5`), then `T_5b(n) = 1`, and `C_n` has a rational point of infinite order
 with abscissa in `βℚ*²`.*
 
 *Proof.* A class with first coordinate `β` is not torsion: the torsion first coordinates are `±1, ±n`
-up to squares, with odd parts `1` and `n`, both `≡ 1 (mod 4)`, while `|β| ≡ 3 (mod 4)`. Theorem 4.3 gives
+up to squares, with odd parts `1` and `n`, both `≡ 1 (mod 4)`, while `|β|_odd ≡ 3 (mod 4)`. Theorem 4.3 gives
 `det M_5b = 1`, Theorem 3.6 gives `T_5b(n) = 1`, and Corollary 1.2 gives the point. ∎
 
 ## 5. The curves of the slot construction (VERIFIED)
@@ -633,6 +638,13 @@ The last column shows that both values of the rule occur often, so the agreement
   finds a point with abscissa in `βℚ*²` up to torsion on every one.
 
 ## 7. What remains, and what Route K still needs
+
+**Independent check.** A separate referee, given §§2–4, redid every proof by hand and tested
+Theorem 3.6, Propositions 3.3 and 3.5 and Lemma 4.1 (by brute-force solution counts of the Selmer system)
+with its own code on about 1,500 random configurations, and Proposition 2.3 against class numbers
+counted by reduced forms for all 2,431 odd squarefree `d < 6000`. It found no error; its presentational
+remarks (the weighted form of Lemma 2.2(3), the full case analysis in (G1), the formal use of
+Proposition 2.3 in Proposition 3.5) are incorporated. This was an automated review, not a human one.
 
 **Proved here.**
 - Proposition 1.1: the form of TYZ used, located in the proof of TYZ Theorem 3.5(2), with the two facts
