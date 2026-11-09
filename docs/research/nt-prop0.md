@@ -205,3 +205,137 @@ hypotheses of `ZInQ.CertifiedRank`: `d ≡ 5 (mod 8)` squarefree, `a` a squarefr
 
 This is the conclusion of `CertifiedRank`. In Lean, steps 3–5 take a few dozen lines; step 2 is a
 factorization argument on squarefree integers (`Int.squarefree`, `Nat.prod_primeFactors_of_squarefree`).
+
+## 2. The local computations, in the order Lean needs them
+
+Throughout, `Loc_K(a, b)` is the x-form condition of §1.1. Two remarks are used everywhere.
+
+- **(Inv)** If `a = a's²` and `b = b't²` with `s, t ∈ K*`, then `Loc_K(a, b) ⟺ Loc_K(a', b')`, with the same
+  `x`: divide the three squares by `s²`, `t²` and `(st)²` (VERIFIED). So `Loc` depends only on the classes.
+- **(Tor)** If the first alternative fails and the witness is `x ∈ {0, d, −d}`, then `(a, b)` is
+  respectively `(−1, −d)`, `(d, 2)` or `(−d, −2d)` up to squares (proof of Lemma 1.2). Otherwise `x`,
+  `x − d`, `x + d` are nonzero, `x ≡ a`, `x − d ≡ b`, `x + d ≡ ab`, and `x(x − d)(x + d) ∈ K*²`.
+
+### 2.1 Square classes of `ℚ_p` (VERIFIED on paper; Mathlib inputs in §3)
+
+**Lemma SQ.**
+
+- (a) Let `p` be odd and `u ∈ ℤ_p*`. Then `u ∈ ℚ_p*²` if and only if its residue `ū ∈ 𝔽_p` is a square.
+- (b) Let `u ∈ ℤ₂*`. Then `u ∈ ℚ₂*²` if and only if `u ≡ 1 (mod 8)`.
+- (c) A nonzero `r = p^k u` (with `u` a unit) is a square if and only if `k` is even and `u` is a square.
+
+*Proof.*
+
+- (a) (⇒) If `u = r²`, then `|r| = 1`, so `r ∈ ℤ_p`, and we reduce mod `p`. (⇐) Pick `a ∈ ℤ_p` with
+  `ā² = ū`. Then `F = X² − u` has `|F(a)| < 1 = |F′(a)|²`, since `F′(a) = 2a` is a unit. Hensel's lemma
+  gives a root.
+- (b) (⇐) Take `a = 1`: `|F(1)| = |1 − u| ≤ 2⁻³ < 2⁻² = |F′(1)|²`. (⇒) An odd `r` has `r² ≡ 1 (mod 8)`.
+- (c) Valuations.
+
+Two consequences are used in the case analyses.
+
+- **Perturbation (P).** If `p` is odd and `|y| < |x|`, then `(x + y)/x ∈ ℚ_p*²`, since `1 + y/x ≡ 1` mod
+  `p`. If `p = 2` and `|y| ≤ 2⁻³|x|`, the same holds, since `1 + y/x ≡ 1 (mod 8)`.
+- **Rational test (RT).** A rational number whose numerator and denominator are prime to `p`, and
+  whose residue is a square mod `p` (respectively `≡ 1 (mod 8)` when `p = 2`), is a square in `ℚ_p`.
+
+### 2.2 The real place (VERIFIED)
+
+**Lemma ∞.** `Loc_ℝ(a, b)` holds if and only if `a` and `b` have the same sign. This is row `(R)`,
+`a₀ = b₀`.
+
+*Proof.*
+
+- If `a, b > 0`, take `x = d`: `x/a ≥ 0`, `x − d = 0`, `x + d > 0`. If `a, b < 0`, take `x = 0`.
+- Conversely, suppose `a > 0 > b`. Then `x ≥ 0`, `x − d ≤ 0` and `(x + d)/(ab) ≥ 0`, so `x + d ≤ 0`, which
+  contradicts `x ≥ 0`. Suppose `a < 0 < b`. Then `x ≤ 0` and `x − d ≥ 0`, which contradicts `d > 0`.
+  The first alternative of `Loc` forces `a, b > 0`. ∎
+
+In Lean this is `Real.isSquare_iff` (nonnegativity) followed by `nlinarith`-sized arguments.
+
+### 2.3 Odd primes not dividing `d` (VERIFIED on paper; computations below)
+
+**Lemma G1 (no ramification).** Let `p ∤ 2d`. If `Loc_{ℚ_p}(a, b)`, then `v_p(a)` and `v_p(b)` are even.
+
+*Proof.*
+
+- First alternative: clear.
+- Witness `x ∈ {0, ±d}`: the classes `(−1, −d)`, `(d, 2)`, `(−d, −2d)` are units at `p`.
+- Otherwise `v(x) ≡ v(a)`, `v(x − d) ≡ v(b)` and `v(x + d) ≡ v(a) + v(b)` (mod 2). Three cases:
+  - If `v(x) < 0`, all three valuations equal `v(x)`, so `v(a) ≡ v(b) ≡ v(x) ≡ 2v(x) ≡ 0`.
+  - If `v(x) > 0`, then `v(x ∓ d) = 0`, so `v(b) ≡ 0` and `v(a) ≡ 0`.
+  - If `v(x) = 0`, then `v(a)` is even. At most one of `x − d`, `x + d` is divisible by `p`, because
+    their difference `2d` is a unit. Whichever is a unit forces `v(b)` or `v(a) + v(b)` to be even. ∎
+
+**Lemma G2 (unit pairs are soluble).** Let `p ∤ 2d` and let `a, b` be prime to `p`. Then `Loc_{ℚ_p}(a, b)`.
+
+The proof has three steps: a statement over `𝔽_p`, a count, and a lift.
+
+*Step 1 (the statement over `𝔽_p`).* It suffices to find `ξ ∈ 𝔽_p` such that `ξ/ā`, `(ξ − d̄)/b̄` and
+`(ξ + d̄)/(āb̄)` are squares in `𝔽_p` (zero allowed), or else that `ā, b̄` are squares. Given such a `ξ`,
+the lift is as follows.
+
+- If `ξ ∉ {0, ±d̄}`, take any `x ∈ ℤ` with `x̄ = ξ`. Then `x/a`, `(x − d)/b` and `(x + d)/(ab)` are
+  `p`-adic units with square residues, hence squares by SQ(a).
+- If `ξ = 0`, `d̄` or `−d̄`, take `x = 0`, `d` or `−d` exactly. The two nonzero quantities are units with
+  square residues.
+- If `ā, b̄` are squares, then `a, b ∈ ℚ_p*²` by SQ(a).
+
+*Step 2 (counting, for `p ≥ 29`).* Let `χ` be the quadratic character of `𝔽_p`, `α = χ(ā)`, `β = χ(b̄)`,
+and `N` the number of `ξ ∉ {0, ±d̄}` with `χ(ξ) = α`, `χ(ξ − d̄) = β` and `χ(ξ + d̄) = αβ`. Then
+
+```
+8N = Σ_{ξ ∉ {0,±d̄}} (1 + αχ(ξ)) (1 + βχ(ξ − d̄)) (1 + αβχ(ξ + d̄)).
+```
+
+Expanding:
+
+- the constant term is `p − 3`;
+- each of the three linear sums `Σ′ χ(ξ − e)` equals `0` minus two excluded terms of absolute value 1;
+- each of the three quadratic sums `Σ′ χ((ξ − e)(ξ − e′))` equals `−1` minus one excluded term;
+- the cubic term has coefficient `α²β² = 1` and equals `S(d̄²)`, where `S(n) = Σ_{ξ∈𝔽_p} χ(ξ³ − nξ)`
+  (its excluded terms vanish).
+
+Hence `8N ≥ p − 15 − |S(d̄²)|`.
+
+The quadratic sums use **Lemma Q**: `Σ_ξ χ((ξ − e)(ξ − e′)) = −1` for `e ≠ e′`. Substituting
+`ξ = e + (e′ − e)t` turns it into `Σ_t χ(t(t − 1)) = χ(−1) J(χ, χ)`, and Mathlib's
+`jacobiSum_nontrivial_inv` gives `J(χ, χ⁻¹) = −χ(−1)`, with `χ⁻¹ = χ`.
+
+**Lemma J (Jacobsthal).** `S(d̄²)² ≤ 4p`.
+
+*Proof.*
+
+- (1) `S(nt²) = χ(t)S(n)` for `t ≠ 0`. Substitute `ξ = tη`, so that `ξ³ − nt²ξ = t³(η³ − nη)`. Hence
+  `S(n)²` depends only on the square class of `n`, and `S(d̄²)² = S(1)²`.
+- (2) `S(0) = Σ χ(ξ)³ = 0`.
+- (3) `Σ_{n∈𝔽_p} S(n)² = p(p − 1)(1 + χ(−1))`. Indeed
+  `S(n)² = Σ_{ξ,η} χ(ξη) χ((ξ² − n)(η² − n))`. The inner sum over `n` is `p − 1` if `ξ² = η²` and `−1`
+  otherwise (Lemma Q, and `χ(c²) = 1` for `c ≠ 0`). So the total is
+  `−(Σ_ξ χ(ξ))² + p Σ_{ξ≠0} (χ(ξ²) + χ(−ξ²)) = p(p − 1)(1 + χ(−1))`.
+- If `p ≡ 3 (mod 4)`, then (3) gives `S ≡ 0`. If `p ≡ 1 (mod 4)`, then (1)–(3) give
+  `((p − 1)/2)(S(1)² + S(g)²) = 2p(p − 1)` for a non-square `g`, so `S(1)² ≤ 4p`. ∎
+
+For `p ≥ 29` we have `(p − 15)² > 4p`, so `|S(d̄²)| < p − 15` and `N ≥ 1`. This uses no square root:
+`S² ≤ 4p < (p − 15)²` is integer arithmetic.
+
+*Step 3 (small primes).* For `p ∈ {3, 5, 7, 11, 13, 17, 19, 23}`, Step 1 is checked over all
+`d̄ ∈ 𝔽_p*` and all four pairs of classes `(α, β)`. This is a finite computation that Lean can run by
+`decide` on `ZMod p`.
+
+*Checks.*
+
+- `t_fp_surj.py` verifies the `𝔽_p` statement of Step 1 for all odd `p < 400` and all `d̄`
+  (13,808 pairs, 0 failures). Only 18 pairs, all with small `p`, need a torsion witness or the
+  trivial class.
+- `t_charsum.py` verifies, for `p < 600`, Lemma J in the exact form `S(n)² + S(gn)² = 4p` when
+  `p ≡ 1 (mod 4)`, and `S ≡ 0` when `p ≡ 3 (mod 4)`.
+- `t_charsum.py` also verifies, for `p < 200` and all `d̄`, the bound `8N ≥ p − 15 − |S(d̄²)|` and
+  `N ≥ 1` for `p ≥ 29`. There were 0 failures.
+
+*Why this matters.* The textbook proof of G2 goes through good reduction: `E(ℚ_p)/2E(ℚ_p) ≅ E(𝔽_p)/2E(𝔽_p)`
+has order 4 and `δ` is injective. In Lean that needs the formal group or reduction of points, the
+Kummer map as a homomorphism, and the halving lemma. A direct attack on `D_{a,b}(𝔽_p) ≠ ∅` needs the
+Hasse–Weil bound. Chevalley–Warning does not apply, since the two quadrics in four variables have
+degree sum `4`, which is not less than `4`. The route above needs only Lemma Q, Lemma J and Hensel's
+lemma for `X² − u`. It is the reason G2 becomes a medium-sized task.
