@@ -18,3 +18,15 @@ contains infinitely many arithmetic progressions of length k for all k." Degener
 NOTE: the proof of Thm 1.2 is only sketched in GT08 sec. 10 ("we leave the details to the reader":
 pigeonhole a class b mod W). The CFZ exposition arXiv:1403.2957 proves only Thm 1.1 completely and
 lists Thm 1.2 under "extensions" (sec. 'Szemeredi's theorem in the primes'). Minor trust-base point.
+
+Step 3 (density, own script scratch/rv-nt22p-ap/density.py, PARI 2.17 via cypari2, own venv):
+- literal GoodSlopePrime (both roots r, brute-force affine point count + 1) vs CM description
+  (p = 1 mod 8, (7/p) = -1, p = a^2+b^2 with a odd, no odd l | gcd(a, p+1)): all primes
+  325 <= p <= 40000: 0 mismatches (450 good primes p < 40000 in total).
+- same with PARI ellcard for all p <= 2e5: 0 mismatches, 1925 good primes (matches note);
+  good p <= 324: 17, 41, 73, 97, 241, 257, 313.
+- primes 11 <= p <= 3e7 (1,857,855 primes): class share 0.12503, good share 0.10610,
+  good/class 0.84860; Euler product prod_{l=1(4), l<1e7}(1-2/(l-1)^2) = 0.84820 (x 1/8 = 0.10602).
+- By hand: 2-part of gcd is exactly 4 (difference 4a, a odd; full 2-torsion forces trace = 2 mod 4,
+  so trace is +-2a with a odd); (7/p)=1 => curves isomorphic (a1/a2 = d1^4/49 a 4th power iff 7 is a
+  square, -1 being a square); (7/p) = -1 => quadratic twists, orders p+1-+2a. CORRECT.
