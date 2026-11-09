@@ -312,8 +312,8 @@ argument of §3.4 (set `K = 1`) does not apply. VERIFIED as a reading of the two
 If a test enforced (Pos_K), H would be unnecessary. Write `t = a/b`. Then `a - c_ib` is supported
 on `S₀ ∪ supp K` for three contacts, and
 `(c₂-c₃)(a-c₁b) + (c₃-c₁)(a-c₂b) + (c₁-c₂)(a-c₃b) = 0` is an `S`-unit equation. Stewart–Yu
-(Duke Math. J. 108 (2001), STANDARD as cited in rs-height R2) bound it effectively and
-sub-polynomially in the radical, giving `h(t) ≪ rad(K)^{1/3+ε}` up to `S₀`-factors. That is far
+(Duke Math. J. 108 (2001), STANDARD as cited in rs-height R2) bound it effectively, with
+exponent `1/3 + ε` in the radical, giving `h(t) ≪ rad(K)^{1/3+ε}` up to `S₀`-factors. That is far
 inside the slack of both uses (§1.3), and it rests on linear forms in logarithms only. Since
 `S`-unit solutions have no uniformity problem in a twist, this would remove modularity, the
 Shimura curve and all 23 leaves of h-leaves §5.1.
@@ -380,3 +380,77 @@ surfaces over a rational quaternionic Shimura curve are the cheapest for (H) (SP
 claim about the literature; the reduction to complete curves is VERIFIED as an argument).
 Changing the discriminant `6` to another indefinite discriminant changes the contact set, not
 the depth.
+
+### 3.7 What §3 shows
+
+- A family carrying the parity mechanism (G) has no cusps (Lemma M). So its moduli lie on a
+  complete curve, and the Baker-accessible moduli spaces are excluded. The genus-two model of the
+  present family shows this concretely: as curves, the fibres degenerate at every positive
+  contact valuation (§3.3).
+- Tests that add integrality at finitely many primes are cheap but useless, since the approach
+  primes of a cusp form a set of positive density (§3.4).
+- The only route that would make H Baker-accessible is a test enforcing relative positivity
+  (Pos_K). It is not excluded by C1 (§3.5), and it would replace H by Stewart–Yu. But it needs an
+  existential local device of a kind that does not exist in the literature.
+
+So a Route-K-style change for H, unlike for pole completeness, has no candidate. For PC the change
+kept the local tests and replaced the family of curves by one with a structural theorem behind it
+(rank one through Heegner points). For H, the local tests fix the family up to the choice of a
+rational quaternionic Shimura curve, and the structural theorem behind it is modularity.
+
+## 4. An older modularity input: Serre's argument at large ℓ
+
+### 4.1 The present step (VERIFIED, lines 717-857)
+
+The manuscript builds `ρ_ℓ = r_ℓ ⊕ r_ℓ` on `G_ℚ`, with `r_ℓ|_{G_{L'}}` absolutely irreducible
+(Faltings at `ℓ = 3, 5`, A008), de Rham with Hodge–Tate weights `0, -1` (appendix lemma, A009),
+potentially semistable (Berger, A010), odd, and unramified outside `T ∪ {ℓ}`. Pan's Theorem 1.0.4
+at `ℓ = 5` (A011) makes `r₅` modular up to a twist. Conrad's local algebraicity removes the twist
+and forces weight 2. Li and Shimura give `r₅ ⊂ V(A_f)`. Traces then identify `r₃` with the
+modular system, and Carayol's local–global compatibility (I1 of h-leaves) bounds the level of `f`
+by the conductor of `r_ℓ`, which the local analysis bounds by `QM²` (lines 796-857). These local
+bounds hold for every coefficient prime `ℓ ≠ p` (the argument at lines 814-846 uses only that
+wild inertia above `U₀` acts trivially on `V_ℓ(A)` for `ℓ ≠ p`).
+
+### 4.2 The replacement (VERIFIED as an argument; cited statements STANDARD, numbering UNCHECKED)
+
+Fix the non-CM fibre `A = A_u` with the descended system `(r_λ)` of lines 717-796. Its traces
+`t_p = tr r_λ(Frob_p)` lie in one number field `C` and are independent of `λ` (lines 776-790).
+This independence comes from Frobenius endomorphisms of reductions of `A`, not from the modular
+form.
+
+1. **Residual irreducibility for almost all `ℓ`.** For all but finitely many `ℓ`, `A[ℓ]` is a
+   semisimple `G_{L'}`-module and `End_{G_{L'}}(A[ℓ]) = O/ℓO`. This is the mod-`ℓ` form of
+   Faltings' theorems (Faltings 1983; Zarhin; effective in Masser–Wüstholz, *Refinements of the
+   Tate conjecture for abelian varieties*, 1995, cited by Zywina, Theorem 2.4, as recorded in
+   h-leaves §4.5). Since `O/ℓ ≅ M₂(𝔽_ℓ)` for `ℓ ∤ 6`, the commutant of `r̄_λ|_{G_{L'}}` is the
+   scalars, so `r̄_λ` is absolutely irreducible. No bound on the exceptional `ℓ` is needed below.
+2. **Oddness** is inherited from `r_λ` (lines 742-752).
+3. **Weight.** For `ℓ ∉ T`, `ℓ > 2`, `L` is unramified at `ℓ` and `A` has good reduction there,
+   so `A[ℓ]` extends to a finite flat group scheme over the unramified ring `O_{L_v}`. By
+   Raynaud's uniqueness of finite flat models for `e = 1 < ℓ - 1` (Raynaud, Bull. SMF 102
+   (1974), §3.3, UNCHECKED numbering), the `G_{ℚ_ℓ}`-module `r̄_λ` is finite flat over `ℤ_ℓ`.
+   (The twisting cocycle `β^{-1}a_σμ_σ` is unramified at `ℓ`.) Serre's weight recipe gives
+   `k(r̄_λ) = 2` (Serre, Duke Math. J. 54 (1987), §2.8, UNCHECKED).
+4. **Level.** The prime-to-`ℓ` Artin conductor `N(r̄_λ)` divides the conductor of `r_λ` at
+   primes `p ≠ ℓ` (reduction does not increase the conductor exponent; Serre 1987, §1.2,
+   UNCHECKED). The local bounds of lines 796-857 hold for `r_λ` at every `p ≠ ℓ`, and `ℓ ∉ T`
+   contributes nothing. So `N(r̄_λ) ≤ QM²`.
+5. **Serre's conjecture, strong form** (Khare–Wintenberger, Invent. Math. 178 (2009), with the
+   level and weight optimization of Ribet, Edixhoven, Diamond, Buzzard and others that it
+   invokes; STANDARD, exact theorem numbers UNCHECKED). For each `ℓ` as above there is a
+   newform `f_ℓ` of weight 2 and level `N_ℓ ∣ N(r̄_λ)` with `ρ̄_{f_ℓ,λ'} ≅ r̄_λ`.
+6. **Pigeonhole.** The newforms of weight 2 and level `≤ QM²`, with all their Galois conjugates,
+   form a finite set. So one newform `f`, with one embedding of its coefficient field, serves
+   for infinitely many `ℓ`. For `p ∉ T ∪ supp(N_f)`, the algebraic integer `t_p - a_p(f)` (in
+   the compositum of `C` and the coefficient field of `f`) then lies in primes above infinitely
+   many `ℓ`, so it is `0`.
+7. **Conclusion.** `r_λ` and `ρ_{f,λ}` have the same traces at almost all Frobenius elements.
+   `r_λ` is irreducible (its reduction is), so by Chebotarev and Brauer–Nesbitt
+   `r_λ ≅ ρ_{f,λ}^{ss}` for every `λ`. Shimura's construction puts `ρ_{f,λ}` in `V_λ(A_f)`,
+   a quotient of `J₁(N_f)`. The transfer step (lines 858-905) runs as before with
+   `N = N_f ≤ QM²`.
+
+This is Serre's 1987 argument (from residual modularity at infinitely many `ℓ` to `ℓ`-adic
+modularity), which Khare–Wintenberger's theorem makes unconditional. The same argument is how
+modularity of `GL₂`-type abelian varieties over `ℚ` is usually deduced from Serre's conjecture.
