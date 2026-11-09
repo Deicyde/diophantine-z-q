@@ -18,59 +18,59 @@ at which some `v_p(u-c)`, `c ∈ 𝒞`, is positive and odd. `S_ht` = primes `�
 
 ## Summary
 
-- **What the consumers use (§1, VERIFIED).** The two consumers apply the estimate at a single
-  adversarial rational number each: the slope `t` of an accepted multiplication certificate
-  (`ZInQ.Mult.slope_height_le_of`) and the rational value `t` of an accepted main branch
-  (`ZInQ.Assembly.ratHeight_le_bound_of_test`). They extract from `t` only `t ∉ 𝒞` and a
-  divisibility of `M_S(t)` (or its 25th power) into an integer they control. The precision use
-  tolerates any computable bound; the multiplication use tolerates any exponent `e < 25` with the
-  present template (§1.3: the size chapter absorbs `e = 25 - 2^{-2^{65535}}`) and a constant `A` up
-  to `log₂ A ≈ D^{2^{56000}}`, but not a super-polynomial shape.
-- **No cheap restriction of `u` helps (§2).** Every restriction of the slopes that the
-  construction can impose cheaply (images of rational maps, local conditions at finitely many
-  primes, conic conditions) leaves a family of twists of a compact curve of genus `≥ 2`, or makes
-  H false. A "rank-zero quotient" argument is vacuous: for all 131 points with `M_S = 1` for
-  `S = {2,…,13}` found in rs-height §3.3, the image in each of the 15 elliptic quotients of the
-  twist is non-torsion (VERIFIED, `quotients.py`). So every twist that has a point has all its
-  elliptic quotients of positive rank.
-- **Changes of construction (§3).** Three lemmas make the obstruction of rs-height R2/R4 and
-  rs-global C1/C7 precise and general.
-  - *Cusp lemma* (VERIFIED as an argument): at a cusp the reduction is multiplicative for every
-    positive approach valuation, and every cusp is approached at infinitely many primes
-    (Chebotarev). A test that sees valuations modulo `m` at all primes, or integrality at
-    finitely many primes, never sees these primes. So no change of the precision or
-    multiplication test of this kind makes a cusp available.
-  - *Affine-moduli lemma* (VERIFIED as an argument): the parity mechanism forces the family to
-    extend with potentially good reduction over the complete genus-17 curve `C`. Hence its moduli
-    map lands in a moduli space containing complete curves. The moduli spaces in which effective
-    Shafarevich theorems are proved by Baker's method or S-unit equations (elliptic curves,
-    `M_{0,n}`, hyperelliptic curves, genus two) are affine, so they only receive isotrivial
-    families. What is left is abelian varieties (`A_g`, `g ≥ 2`) or curves of genus `≥ 3`. There
-    the only known effective Shafarevich bounds go through modularity.
-  - *Detection lemma* (VERIFIED as an argument): detecting all positive valuations is rs-global
-    C1 even in the multiplication test, where true triples have `f = 0`. The reason is that
-    completeness of the pole predicate brings back the full set of PC inputs.
-  - Conclusion: within architectures whose local tests are parity or valuation-mod-`m` tests,
-    QM surfaces over the disc-6 Shimura curve over `ℚ` are the cheapest family that can work
-    (SPECULATIVE in this generality, argued in §3.6). Removing H by a change of construction would
-    need a new kind of local test, and C1 says that kind is the theorem itself.
-- **An older modularity input (§4).** The modularity step can use Serre's 1987 argument at
-  varying `ℓ`: Khare–Wintenberger's theorem (Serre's conjecture in its strong form, with level
-  `N(r̄_ℓ)` and weight 2) at infinitely many large `ℓ` outside `T`, then a pigeonhole over the
-  finitely many weight-2 newforms of level `≤ QM²`. This replaces Pan's theorem at `ℓ = 5`
-  (A011). It also removes the p-adic Hodge theory (A009 with the appendix lemma, A010 Berger,
-  Conrad's local algebraicity) and Carayol's local–global compatibility, because the level comes
-  out of the strong form. Faltings' `ℓ`-adic theorems at `ℓ = 3, 5` (A008) give way to the
-  large-`ℓ` mod-`ℓ` theorem, where Masser–Wüstholz's effective version applies. The argument is
-  written out in §4.1 (VERIFIED as an argument). The exact numbering in Khare–Wintenberger and in
-  the level- and weight-optimization papers is UNCHECKED. The depth is unchanged (modularity
-  lifting underlies both theorems), but every modularity input is from 2009 or earlier.
-  Constants are unchanged.
-- **Ranking (§5).** (1) Swap to Serre's argument at large `ℓ`: medium payoff, high chance.
-  (2) Restate the consumers' hypotheses in their "consumer shape": small payoff, high chance.
-  (3) A new kind of local test that sees positive valuations at all primes without defining
-  `ℤ`: would remove H; chance nil by C1. (4) Effective Shafarevich for QM surfaces without
-  modularity: would remove modularity from H; very low chance.
+- **What the consumers use (§1, VERIFIED).** Each consumer applies the estimate at one
+  adversarial rational number: the slope `t` of an accepted multiplication certificate
+  (`ZInQ.Mult.slope_height_le_of`) and the value `t` of an accepted main branch
+  (`ZInQ.Assembly.ratHeight_le_bound_of_test`). From `t` they use only `t ∉ 𝒞` and the fact that
+  `M_S(t)` (or its 25th power) divides an integer they control. The precision use tolerates any
+  computable bound. With the present template, the multiplication use tolerates any exponent
+  `e ≤ 25 - 2^{-2^{65535}}` and any constant with `log₂ A = D^x`, `x < 2^{56525}` (now `x = 7`),
+  but no super-polynomial shape. What cannot be weakened is uniformity over the infinitely many
+  twists `C_d`.
+- **No cheap restriction of `u` helps (§2).** Soundness is a worst-case statement about one
+  existential witness, so bounds on average or outside a thin set are useless. Every restriction
+  the construction can impose cheaply leaves twists of a compact curve of genus `≥ 2` or makes H
+  false. A rank-zero-quotient argument is vacuous. For all 131 points with `M_S = 1`,
+  `S = {2,…,13}`, the image in each of the 15 elliptic quotients of the twist has infinite order
+  (VERIFIED, `quotients.py`).
+- **Changes of construction (§3).**
+  - *Cusp lemma* (VERIFIED as an argument). Each cusp of a family over `ℙ¹_u` is approached at a
+    set of primes of positive density. At those primes the fibre is bad for every positive
+    valuation, even or odd, so parity tests never see them. Adding integrality tests at finitely
+    many primes is cheap but does not help.
+  - *An instance* (VERIFIED, `genus2cusp.py`). As genus-two *curves*, the fibres of the present
+    family degenerate at every prime with a positive contact valuation: `J₁₀ = j³` vanishes
+    exactly at the contacts, and `J₂⁵/J₁₀` is non-integral in all 19 cases tested. So the
+    Baker-accessible effective Shafarevich theorems for genus-two curves would need all those
+    primes in the conductor. Only the Jacobians are cusp-free.
+  - *Affine-moduli lemma* (VERIFIED as an argument). A family with the parity-to-good-reduction
+    property has no cusps, so its moduli map sends `ℙ¹_u` to a complete curve. The moduli spaces
+    where Baker or `S`-unit methods give effective Shafarevich theorems (elliptic curves, genus
+    two, hyperelliptic, cyclic covers) are affine, so they carry only isotrivial families, which
+    lose the height (rs-global C7). What remains is complete curves in `A_g` or `M_g`. There the
+    only known polynomial height bound is for `GL₂`-type fibres through modularity, so QM
+    surfaces are the cheapest choice (SPECULATIVE as a claim about the literature).
+  - *Relative positivity* (§3.5). C1 does not exclude a test enforcing "`v_p(t - c) > 0 ⇒ p ∣ K`"
+    relative to the controlled label integer `K`, since true inputs never need `K = ±1`. Such a
+    test would replace H by the Stewart–Yu `S`-unit bound, a Baker-type result. But no
+    existential local device sees positive valuations at all primes, so this route has no known
+    first step.
+- **An older modularity input (§4).** Serre's 1987 argument at varying `ℓ` applies: Khare–
+  Wintenberger's strong form of Serre's conjecture at infinitely many large `ℓ ∉ T` (level
+  `N(r̄_λ) ≤ QM²`, weight 2 by finite flatness), then a pigeonhole over the finitely many
+  weight-2 newforms of level `≤ QM²`. This replaces Pan's theorem (A011). It removes the de Rham
+  comparison (A009), Berger (A010) and Conrad's local algebraicity. Carayol's compatibility stops
+  being a separate leaf but stays inside the citation of the strong form. Faltings at `ℓ = 3, 5`
+  is replaced by the mod-`ℓ` theorem for almost all `ℓ`, and no effective `ℓ` is needed. The
+  argument is written out in §4.2 (VERIFIED as an argument; the theorem numbers are UNCHECKED).
+  Depth is unchanged, constants are unchanged, and the modularity input dates from 2009.
+  Langlands–Tunnell with 3-adic lifting, level lowering alone, and modular parametrizations of
+  `X⁶/W` do not apply (§4.4).
+- **Ranking (§5).** (1) Serre's argument at large `ℓ`: medium payoff, high chance. (2) Combine it
+  with h-leaves: small extra, high chance. (3) Consumer-shaped hypotheses in Lean: small payoff,
+  high chance. (4) A relative positivity test: would remove H, very low chance. (5) Effective
+  Shafarevich for QM surfaces without modularity: very low chance. (6, 7) Thin sets, rank-zero
+  quotients, elliptic or genus-two families: settled negatively.
 
 ## 1. The statement and its two consumers
 
