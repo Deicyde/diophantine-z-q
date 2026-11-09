@@ -9,8 +9,8 @@ lean: ZInQ.Assembly.value_relation_iff, ZInQ.Assembly.exists_value_relation_iff
 
 # The exact ordinary-value relation
 
-Assume the six-contact estimate, pole completeness and the twenty-two-prime
-pattern. Then for every $N\in\mathbb Q^5$ and every $t\in\mathbb Q$,
+Assume the minimal height hypothesis, pole completeness and the slope
+representation. Then for every $N\in\mathbb Q^5$ and every $t\in\mathbb Q$,
 $$\mathrm{Rel}_{\mathtt{value}}(N,t)\iff\exists\,n\in\mathbb Z:\ N=\iota(n)\ \text{and}\ t=n .$$
 Consequently, for every $t\in\mathbb Q$,
 $$\bigl(\exists\,N\in\mathbb Q^5:\ \mathrm{Rel}_{\mathtt{value}}(N,t)\bigr)\iff t\in\mathbb Z .$$
@@ -45,9 +45,9 @@ exceptional integers are given exactly by their displayed branches.
 
 - [The outer composition recipes](../syntax/recipes/outer-recipes.md)
 - [Point codes](../model/point-codes.md)
-- [The six-contact height estimate](../main/six-contact-estimate.md)
+- [The minimal height hypothesis](../main/six-contact-min.md)
 - [Pole completeness](../main/pole-completeness.md)
-- [The twenty-two-prime pattern](../main/prime-pattern.md)
+- [The slope representation](../multiplication/completeness/slope-representation.md)
 
 ## Proof depends on
 

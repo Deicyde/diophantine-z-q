@@ -9,7 +9,7 @@ lean: ZInQ.Mult.multiply_complete
 
 # Completeness of the multiplication template
 
-Assume pole completeness and the twenty-two-prime pattern. For all $a,b\in\mathbb Z$,
+Assume pole completeness and the slope representation. For all $a,b\in\mathbb Z$,
 $$\mathrm{Rel}_{\mathtt{multiply}}\bigl(\iota(a),\iota(b),\iota(ab)\bigr).$$
 
 This direction does not use the six-contact estimate. Negative indices, zero indices and
@@ -20,8 +20,8 @@ show the unguarded certificate and the guard at $(\iota(n_1),\iota(n_2),\iota(n_
 points $\iota(c_*),\iota(c_*n_i)$. The guard holds at a true triple. For the height
 certificate, write $x([n_i]P_0)=x_{i0}+x_{i1}s$ (zero if $n_i=0$), let $b_i\ge1$ be the least
 common denominator of $x_{i0},x_{i1}$ and $a_{ij}=b_ix_{ij}\in\mathbb Z$. For each of the nine
-integers $a_{10},a_{11},b_1,\dots,b_3$, the prime pattern gives three slopes with that sum
-satisfying conditions 1-4, and each of these $27$ slopes satisfies the slope predicate by
+integers $a_{10},a_{11},b_1,\dots,b_3$, the slope representation gives three good slopes with that
+sum, and each of these $27$ slopes satisfies the slope predicate by
 the completeness of the slope certificate. The semantics of the height certificate then
 gives the relation.
 
@@ -31,14 +31,13 @@ gives the relation.
 - [Point codes](../../model/point-codes.md)
 - [Semantics of templates and recipes](../../syntax/template-semantics.md)
 - [Pole completeness](../../main/pole-completeness.md)
-- [The twenty-two-prime pattern](../../main/prime-pattern.md)
+- [The slope representation](slope-representation.md)
 
 ## Proof depends on
 
 - [Unfolding the multiplication template](../certificate/multiply-unfolding.md)
 - [Semantics of the height certificate template](../certificate/height-certificate-semantics.md)
 - [The guard passes true triples and rejects false triples in the box](../certificate/guard-true-triples.md)
-- [Slopes of an integer from the prime pattern](pattern-slopes.md)
 - [Completeness of the slope certificate for a true triple](slope-completeness.md)
 
 ## Sources
