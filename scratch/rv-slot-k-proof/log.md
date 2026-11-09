@@ -26,3 +26,15 @@ manuscript lines 975–1070.
 - Statement vs Route K: manuscript Q_pole with x+ℓ needs e with a point of abscissa exactly
   A = mB on C_e, and a point (Az², ·) on C_{eH}, H = A(A − B²) ≡ m(m − B). Points on C_n, C_{nθ}
   with abscissa in βℚ*² rescale to these (e = n t²/s²): CORRECT.
+
+## Step 2 (own exact descent; Prop 0 cross-check)
+
+- `sel2.py`: own exact 2-descent for C_d (local images from torsion at odd p | d, from searched
+  2-adic points at 2, real place from torsion), independent of Prop 0 and of slot-k code.
+- `validate_sel2_pari.py`: dim Sel₂ from sel2.py vs PARI `ell2cover` (length = dim Sel₂) on 30
+  random odd squarefree d (1–5 primes < 400, all classes mod 8): 0 mismatches.
+- `system.py`: own implementation of Σ(𝒞) (all four rows of (D)).
+- `validate_prop0.py`: Σ(𝒞_d) vs sel2.py on 30 random d (1–7 primes < 3000; 8/9/8/5 curves with
+  d ≡ 1/3/5/7 mod 8): dimension and membership of every signed odd divisor of d as a first
+  coordinate: 0 mismatches. (Supports Prop 0 for all c; the proof needs only c = 5, checked by
+  hand in step 1.)
