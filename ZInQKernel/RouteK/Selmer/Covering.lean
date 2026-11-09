@@ -170,6 +170,34 @@ theorem loc_torsion {d a b x : K} (h2 : (2 : K) ≠ 0) (hd : d ≠ 0) (ha : a �
     rw [← f₁, ← f₂, ← f₃]]
   ring
 
+/-- Cancellation in `K*/K*²`: from `ab ≡ c` and `b ≡ e` (with `e ≠ 0`) get `a ≡ ce`. -/
+theorem sqEq_of_mul_sqEq {a b c e : K} (h₁ : SqEq (a * b) c) (h₂ : SqEq b e) (he : e ≠ 0) :
+    SqEq a (c * e) := by
+  obtain ⟨s, hs, e₁⟩ := h₁
+  obtain ⟨t, ht, rfl⟩ := h₂
+  refine ⟨s / (e * t), div_ne_zero hs (mul_ne_zero he ht), ?_⟩
+  field_simp
+  linear_combination e₁
+
+/-- A square factor can be dropped: `u ≡ v e²`, `e ≠ 0`, gives `u ≡ v`. -/
+theorem SqEq.of_mul_sq {u v e : K} (h : SqEq u (v * e ^ 2)) (he : e ≠ 0) : SqEq u v :=
+  h.trans ⟨e, he, rfl⟩
+
+/-- **(Inv)** with the torsion witnesses (proof of Lemma 1.2, ⇒): the covering of a torsion class
+`(d^i (−1)^j, 2^i (−d)^j)`, `i, j ∈ {0, 1}`, is soluble, hence so is that of any `(a, b)` in such
+a class. -/
+theorem loc_of_sqEq_torsion {d a b : K} (h2 : (2 : K) ≠ 0) (hd : d ≠ 0) {i j : ℕ} (hi : i < 2)
+    (hj : j < 2) (ha : SqEq a (d ^ i * (-1) ^ j)) (hb : SqEq b (2 ^ i * (-d) ^ j)) :
+    Loc K d a b := by
+  rw [loc_congr_sq ha hb]
+  interval_cases i <;> interval_cases j
+  · exact Or.inl ⟨⟨1, by ring⟩, ⟨1, by ring⟩⟩
+  · refine Or.inr ⟨0, ⟨0, by simp⟩, ⟨1, ?_⟩, ⟨1, ?_⟩⟩ <;> field_simp <;> ring
+  · refine Or.inr ⟨d, ⟨1, ?_⟩, ⟨0, by simp⟩, ⟨1, ?_⟩⟩ <;>
+      first | (field_simp; done) | (field_simp; ring)
+  · refine Or.inr ⟨-d, ⟨1, ?_⟩, ⟨1, ?_⟩, ⟨0, by simp⟩⟩ <;>
+      first | (field_simp; done) | (field_simp; ring)
+
 /-! ### The projective covering -/
 
 /-- The 2-covering `D_{a,b} : a z₁² − b z₂² = d w², a z₁² − ab z₃² = −d w²` has a `K`-point. -/
@@ -254,7 +282,8 @@ theorem loc_iff_kummer [DecidableEq K] {d a b : K} (h2 : (2 : K) ≠ 0) (hd : d 
   · rintro (⟨⟨s, hs⟩, ⟨t, ht⟩⟩ | ⟨x, h₁, h₂, h₃⟩)
     · have hs0 : s ≠ 0 := by rintro rfl; exact ha (by rw [hs, mul_zero])
       have ht0 : t ≠ 0 := by rintro rfl; exact hb (by rw [ht, mul_zero])
-      exact ⟨.zero, ⟨s, hs0, by rw [hs]; simp [kummer]; ring⟩, ⟨t, ht0, by rw [ht]; simp [kummer]; ring⟩⟩
+      exact ⟨.zero, ⟨s, hs0, by rw [hs]; simp [kummer]; ring⟩,
+        ⟨t, ht0, by rw [ht]; simp [kummer]; ring⟩⟩
     · have hx3 := loc_torsion h2 hd ha hb h₁ h₂ h₃
       obtain ⟨r₁, e₁⟩ := h₁
       obtain ⟨r₂, e₂⟩ := h₂
@@ -502,7 +531,8 @@ theorem exists_point_of_loc {d : ℕ} (hd : d ≠ 0) {a b : ℤ} (hsq : Squarefr
     have g : b * (a * r₃ ^ 2 + r₂ ^ 2) = 0 := by linear_combination -f₂ - f₃
     have g' : ((-a : ℤ) : ℚ) = (r₂ / r₃) ^ 2 := by
       push_cast; field_simp; linear_combination -(mul_eq_zero.mp g).resolve_left hb'
-    have := eq_one_of_squarefree_of_isSquare (fun x hx => hsq x (dvd_neg.mp hx)) ⟨r₂ / r₃, by rw [g', sq]⟩
+    have := eq_one_of_squarefree_of_isSquare (fun x hx => hsq x (dvd_neg.mp hx))
+      ⟨r₂ / r₃, by rw [g', sq]⟩
     rw [show a = -1 by omega] at ha7; simp at ha7
 
 /-- **CR₃ from CR₃^Sel and Proposition 0** (nt-prop0 §1.4, steps 1–5). -/

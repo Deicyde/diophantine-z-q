@@ -11,3 +11,7 @@
   isSquare_padic_iff, isSquare_two_adic_iff; RT: isSquare_intCast_of_residue, isSquare_intCast_div_of_residue,
   isSquare_ratCast_of_residue, isSquare_intCast_div_two_adic, isSquare_ratCast_two_adic. Compiles.
 - Real.lean: loc_real_iff (d a b : ℝ), loc_real_iff_int. Compiles.
+- Covering.lean additions: sqEq_of_mul_sqEq, SqEq.of_mul_sq, loc_of_sqEq_torsion (torsion witnesses).
+- BadOdd.lean: padic_norm_natCast_of_squarefree, padic_norm_ne_zpow_odd, loc_padic_dvd_iff (Lemma B, §4.4
+  statement unchanged). Proof by comparing ‖x‖ with ‖d‖ = p⁻¹ (no valuation case split needed). No sorry.
+- lake build ZInQKernel OK; #print axioms certifiedRank_of_sel, loc_padic_dvd_iff: propext, Classical.choice, Quot.sound.
