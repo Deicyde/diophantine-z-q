@@ -56,3 +56,48 @@ No finding invalidates any of the three claims.
 | B4 | scope | inputs I3–I6 | TYZ's Theorem 3.3 (generalized Gross–Zagier), the first assertion of Theorem 3.5, Lemma 3.18 (notably its Step 3, `√2 ∉ ℍ'_n`) and Lemma 3.21 (via Theorem 3.6) are used as citations. Their statements are unambiguous and are quoted correctly. Their proofs were read but not re-verified. |
 | B5 | cosmetic | nt-tyz §1.2, §2.3 | The quotation "the contribution by `d₀ = d₀'' = n`, `d₁ = 1` is the single term `Z(n)`" is at L2076, not L2077. |
 | C1 | scope | nt-tyz §5.1 | The chain uses Proposition 0 (descent-alt §4.1) and tyz-5b's Lemma 4.1, Theorem 4.3 and Theorem 3.6. These were not re-proved here. Their combined conclusion was tested on 50 actual curves with no failure (§6). |
+
+## 1. The inputs I1–I7 against the source
+
+| Input | Source | Check |
+|-------|--------|-------|
+| I1, recursion | L1320–1327 | CORRECT. `P(n) := Z(n) − Σ ε(d₀, d₁)𝓛(d₁)P(d₀)` over `n = d₀d₁`, `d₀ ≡ 5, 6, 7`, `d₁ ≡ 1, 2, 3 (8)`, `d₁ > 1` (written explicitly), with `ε` "as in Theorem GZ". `ℍ'_n = L_n(i)·Π_{d₀|n, d₀≡5,6} H'_{d₀}` (L1320), so `ℍ'_{d₀} ⊂ ℍ'_n` for `d₀ | n`, and `i ∈ ℍ'_n`. |
+| I1, `ε`-classes | Thm 3.3, L1299–1311 | CORRECT. `ε(d₀, d₁) = ±i` if `(d₀, d₁) ≡ (5, 3)`, `±1` otherwise. Modulo `2ℤ[i]`, `±1 ≡ 1` and `±i ≡ i`. |
+| I2 | Lemma 2.8, L1062–1077; L1082; Prop 2.3, L580–586 | CORRECT as a congruence, but see B1. For `m ≡ 1`, the pairs `{d₁, d₂}` are unordered (L1068–1077, using the symmetry of Lemma 2.7); for `m ≡ 3`, `d₁ ≡ 3` is fixed by its class. `𝓛(1) = 1` (L1082; also confirmed numerically). `Q(m) ≡ g(m)` because `f_m` takes odd values on squares. |
+| I3 | Thm 3.5, L1353–1356; proof L2343–2380; L1295 | CORRECT. `P(n)` and `𝒫(n)` are equal in `A(ℍ'_n) ⊗ ℚ`; `𝒫(n) = 0` if `𝓛(n) = 0` (L1295). Since `K_n ⊂ L_n(i) ⊂ ℍ'_n`, both sides live in `A(ℍ'_n) ⊗ ℚ`. |
+| I4 | Lemma 3.16, L2182–2185; Lemma 3.18, L2230–2232 | CORRECT. `A(ℚ(i)) = A[(1+i)³]`, and `A(ℍ'_n)_tors = A[(1+i)³]` for odd `n`. With `A(ℂ) = ℂ/(1+i)ℤ[i]` (L1386), `A[(1+i)³] = τ(½ℤ[i])` (L1399), `A[1+i] = ℤτ(1)`, and `2A[(1+i)³] = A[1+i]`. |
+| I5 | Lemma 3.21, L2504–2525 | CORRECT. `β₁ = r_∞(−1)r₂(−2)` and `β'₁` is *any* lift to `Gal(ℚ̄/ℚ)` (L2497–2499). For `e ≡ 5`: `Z(e)^{β'+1} ∈ g(e)τ((1−i)/2) + ℤτ(1)`. For `e ≡ 7`: `Z(e)^{β'+1} = g(e)τ(1/2)`. Since `β'` is fixed independently of `e`, the lemma may be applied with one `β'` to every `Z(e)`, `e | n`. |
+| I6 | Prop 3.2(1), L1253–1258 | CORRECT. For `d ≡ 5`, `H'_d(√2)` is the ring class field of conductor 4 of `K_d`, and `H'_d` is its fixed field under `σ_{1+2ϖ}`. |
+| I7 | L318–345 | CORRECT. Root number `−1` for `n ≡ 5, 6, 7` (Birch–Stephens, quoted at L318–327), and `𝓛(n) = 0` exactly when `ord_{s=1} L(E_n, s) > 1` (L338–345). |
+
+**On B1.** TYZ's Theorem 2.1 (L556–562) states `P(d₁, d₂) = ±2^{k−a}w_K 𝓛(d₁)𝓛(d₂)`. The character
+formula (L995–1003) gives `Σ' P(d₁, d₂) = 2^{h₂(m)−δ}Q(m)` over non-ordered decompositions with
+`d₂ ≡ 1`, where `δ = [m ≡ 1 (8)]`. For `m ≡ 3`, `h₂(m) = k − 1` and `a = 1`; for `m ≡ 1`, `h₂(m) = k` and
+`δ = 1`. In both cases the powers of 2 cancel and `w_K Σ ε𝓛(d₁)𝓛(d₂) = Q(m)`. Here `w_K = 1`, except for
+`m = 3`, where `ℚ(√−3)` has six roots of unity and `w_K = 3`. For `m = 3`, the only genus character is
+trivial, so `Q(3) = P(3, 1) = ±3𝓛(3)𝓛(1)`. Numerically `𝓛(3)² = 1` and `𝓛(1)² = 1` (from the
+definition at L338, with `L(E_n, 1)` and `Ω_{n,∞}` computed to 10 digits). So `Q(3) = ±3` and Lemma 2.8
+as printed (`Q(3) = ±𝓛(3)`) is wrong at `m = 3`. The error is an odd factor. The congruence
+`Σ ε𝓛𝓛 ≡ g(m) (mod 2)`, which is all that Lemma N1 uses, holds for every `m ≡ 1, 3`.
+
+## 2. Lemma N1 (CORRECT)
+
+The statement: for odd squarefree `m ≡ 1, 3 (mod 8)`, `𝓛(m) ≡ Λ(m) (mod 2)`. Re-derived as follows.
+The proof is by induction on `m`, from I2 modulo 2 (where `ε ≡ 1`).
+
+*Case `m ≡ 1`.* In I2, the pair `{1, m}` contributes `𝓛(m)`. For the pairs with both factors `> 1`
+(both `≡ 1`), the induction hypothesis turns `𝓛(d₁)𝓛(d₂)` into `Λ(d₁)Λ(d₂)`. That product is the sum
+of `w(π)` over the partitions `π` of `m` into class-1 blocks, each block lying inside `d₁` or inside
+`d₂`. A partition with `b` blocks arises from exactly `2^{b−1} − 1` unordered pairs, one for each
+splitting of its blocks into two nonempty groups. This number is `0` for `b = 1` and odd for
+`b ≥ 2`. Hence `𝓛(m) ≡ g(m) + Σ_{b(π)≥2} w(π) = Λ(m)`. CORRECT.
+
+*Case `m ≡ 3`.* The pairs are `(d₁, d₂)` with `d₁ ≡ 3` and `d₂ ≡ 1`. The pair with `d₂ = 1`
+contributes `𝓛(m)`. A partition with one class-3 block and a set `S` of class-1 blocks arises
+`2^{|S|} − 1` times, once for each nonempty subset of `S` whose union is `d₂`. This number is odd
+exactly when `|S| ≥ 1`. Hence `𝓛(m) ≡ g(m) + Σ_{|S|≥1} w(π) = Λ(m)`. CORRECT.
+
+The remark after the lemma is also correct: the reading of Theorem 1.1 with a distinguished `d₀`
+gives `Σ b(π)w(π)`, which fails the recursion as soon as some two-block partition has
+`g(d₁)g(d₂) = 1`. Lemma N1 was also confirmed numerically on every proper divisor class in the 360
+configurations of §3.3: there `𝓛` is computed from the recursion of I2, not from `Λ`.
