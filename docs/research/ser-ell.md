@@ -265,8 +265,9 @@ lies above the Masser–Wüstholz threshold of R1. Infinitely many such `ℓ` ex
 - **What is no longer used.** The twist removal (Conrad, A011): KW's `g_ℓ` matches `r̄_λ` itself,
   not a twist, and the pigeonhole compares traces directly. Weight bookkeeping `{0,-1}` against
   `{0,1-k}`: `k = 2` comes from R3. Carayol's bound on the primitive level: the level is `N(r̄_λ)`
-  by R5. Li's Fricke stability is needed only if the manuscript keeps Shimura's quotient `A_f`.
-  With `J₁(N)` as the target, as at line 860, it can be dropped too.
+  by R5. Li's Fricke stability serves Shimura's quotient `A_f` (A011). The transfer at line 860
+  targets `J₁(N)`, so it appears dispensable as well. That is a separate question, not examined
+  here; nt-h keeps it.
 - **Consumed downstream.** The non-CM part of the height estimate (lines 858-904), unchanged.
 
 ## 3. Findings, with severity
@@ -283,3 +284,77 @@ lies above the Masser–Wüstholz threshold of R1. Infinitely many such `ℓ` ex
 
 No finding affects a constant. No hypothesis of the cited theorems fails. In particular, KW needs
 no condition on the residual image, and `ℓ ∤ N(r̄_λ)` holds by definition.
+
+## 4. Repaired text of steps 3-6
+
+**Step 3 (weight).** Let `ℓ ∉ T`, `ℓ > 3`, and let `w | ℓ` be a place of `L'`. `L'` is unramified at
+`ℓ`, so `I_{L'_w} = I_ℓ`. On `G_{L'}`, `ρ_ℓ` is the Tate action of `A`, and `A` has good reduction at
+`w`. Every `G_ℚ`-stable lattice of `r_ℓ` therefore reduces to a subquotient of some
+`A[ℓ^n] ⊗ O_λ`. So `r̄_λ|_{G_{L'_w}}` is the generic fibre of a finite flat group scheme over
+`O_{L'_w}`, whose absolute ramification index is `1 < ℓ - 1`. By Raynaud's theorem on vector space
+schemes (§3.4), the semisimplification of `r̄_λ|_{I_ℓ}` is `ψ ⊕ ψ^ℓ` or `ω^α ⊕ ω^β` with
+`α, β ∈ {0,1}`. Since `det V_ℓ(A) = χ_ℓ²`, the determinant `det r̄_λ|_{I_ℓ}` is `ω` times a
+quadratic character, and it lies in `{1, ω, ω²}`. For `ℓ > 3` this forces it to be `ω`. In the
+non-semisimple case, the connected–étale sequence and Kummer theory over `O_{L'_w}^{ur}` show that
+`r̄_λ|_{I_ℓ}` is a peu ramifiée extension of `1` by `ω`. In every case Serre's recipe gives
+`k(r̄_λ) = 2`; it depends only on `r̄_λ|_{I_ℓ}`.
+
+**Step 4 (level).** For `p ≠ ℓ`, the subgroups of `G_{ℚ_p}` shown at lines 812-857 to act trivially
+through `ρ_ℓ` act trivially on every reduction. So `a_p(r̄_λ) ≤ E_0` for `p ≤ R`,
+`a_p(r̄_λ) ≤ 2` for `p > R` in `T`, and `a_p(r̄_λ) = 0` for `p ∉ T`. Hence `N(r̄_λ) ≤ QM²`.
+
+**Step 5 (Serre's conjecture).** By Khare–Wintenberger (Invent. Math. 178 (2009) 485-504, 505-586)
+and Kisin (Invent. Math. 178 (2009) 587-634), together with the classical level and weight
+optimization for `ℓ > 2`, the representation `r̄_λ` arises from a newform of weight `k(r̄_λ) = 2`
+and level `N(r̄_λ)`.
+
+**Step 6 (pigeonhole).** As in R6, over the finite set of pairs (newform of weight 2 and level
+`≤ QM²`, embedding of its coefficient field).
+
+## 5. Corrected trust-base table (replaces the route-1 rows of nt-h §4.3)
+
+| h-leaves §5.1 row | Present use | After route 1 (audited) |
+| --- | --- | --- |
+| 9 (A008, `ℓ = 3, 5`) | absolute irreducibility of `r_ℓ`; conductor at 5 from `r₃` | replaced by mod-`ℓ` Faltings for large `ℓ`: MW95 §1, Cor. 1, 2 (UNCHECKED), read as Zywina, arXiv:1910.14171, Thm 2.4 (VERIFIED as restated). Faltings–Zarhin (non-effective) also suffices. The conductor at 5 no longer needs `r₃`. |
+| 10 (A009) | de Rham, weights `0, -1`, for Pan | removed (direct use) |
+| A010 (Berger) | potentially semistable, for Pan | removed |
+| 11 (A011): Pan, Thm 1.0.4 | `ℓ`-adic modularity at `ℓ = 5` | replaced by Serre's conjecture, strong form: **KW I, KW II and Kisin 2009** (all UNCHECKED primary; restated in Gee 1402.7197 §3, Dieulefait 0712.1317 §3, BDJ 0810.2106v5 Thm 3.17), plus the pigeonhole R6 |
+| 11 (A011): Conrad / Serre 1968 | twist removal, `k = 2` | removed |
+| 11 (A011): Li, Shimura | `r ⊂ V(A_f)` | Shimura (Eichler–Shimura) kept; Li kept as in nt-h (possibly dispensable, R7) |
+| 17 (I1, Carayol) | `N_f ≤` conductor | no separate leaf; inside the strong-form citation (level optimization) |
+| new | | Raynaud 1974, §2 (subquotients) and §3.4 (inertia exponents, `e = 1`): UNCHECKED. Serre 1987, §1 (`N(ρ̄)`) and §2 (`k(ρ̄)`, peu/très ramifiée): UNCHECKED, read through BDJ Thm 3.17 and Gee §2. Chebotarev, Brauer–Nesbitt. |
+
+nt-h's table cites "Raynaud 1974 (finite flat models)" and "Serre 1987 (conductor of a
+reduction)". Per F3 and F5, the Raynaud entry should be §2 and §3.4, not the uniqueness of §3.3,
+and the Serre entry should be the definitions only.
+
+## 6. Computations
+
+Computation A, which checks the order `O`, is the only one with a numerical outcome. B and C
+evaluate Serre's recipe and a small exponent argument as I restated them. They confirm the case
+analysis but are not independent evidence for the source statements.
+
+`scratch/ser-ell/checks.py` (pure Python, independent of earlier scripts; output in
+`checks.output.txt`):
+
+- **A.** `O = ℤ[i,(1+j)/2] ⊂ (2,-3)` is closed under multiplication. The Gram determinant of `Trd`
+  on `(1, i, (1+j)/2, (i+ij)/2)` is `-36`, so the reduced discriminant is 6 and `O/ℓ ≅ M₂(𝔽_ℓ)`
+  for `ℓ ∤ 6` (R1).
+- **B.** Serre's recipe on every inertia type that Raynaud allows for `e = 1`, for all primes
+  `5 ≤ ℓ < 120`. With `det = ω` on inertia, finite flat types always give weight 2. The très
+  ramifiée type gives `ℓ + 1`, and determinants `1` or `ω²` give `ℓ` or `ℓ + 2` (R3).
+- **C.** A quadratic character `η` of `I_ℓ` with `ωη ∈ {1, ω, ω²}` must be trivial for every prime
+  `5 ≤ ℓ < 60`. For `ℓ = 3` it need not be (R3, item 4).
+
+## 7. Sources
+
+Read here (arXiv): Zywina 1910.14171; Buzzard–Diamond–Jarvis 0810.2106v5; Gee 1402.7197;
+Dieulefait 0712.1317; Khare–Wintenberger math/0412076 (the 2004 preprint, which has no Inventiones
+numbering).
+
+Not readable here, hence UNCHECKED: Khare–Wintenberger, Invent. Math. 178 (2009) I and II; Kisin,
+Invent. Math. 178 (2009) 587-634; Serre, Duke Math. J. 54 (1987), including §2.8; Raynaud, Bull.
+SMF 102 (1974); Masser–Wüstholz 1995; Faltings 1983 (mod-`ℓ` form); Zarhin 1985; Carayol 1989;
+Ribet 1990; Diamond 1995; Edixhoven 1992. nt-h's locators "Serre 1987, §2.8", "§1.2" and "Raynaud
+§3.3" remain unconfirmed. The last is replaced above by §2 and §3.4, whose numbering is also
+unconfirmed.
