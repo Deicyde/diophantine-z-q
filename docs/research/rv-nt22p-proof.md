@@ -35,7 +35,7 @@ mathematics.
 | 6 | Redundant hypotheses of Lemma P (seven numerators prime to `ℓ`) | not an error | cosmetic |
 | 7 | Field 2′ and the modified choice of `q` (all five kinds of places) | CORRECT | — |
 | 8 | Proposition AP (lowest terms, signs, fields 1, 2′, 3, 4) | CORRECT | — |
-| 9 | Remark 1: the constant in `K_A ≈ |A| + 71` | wrong constant; harmless | cosmetic |
+| 9 | Remark 1: the constant in the size of `K_A` | wrong constant; harmless | cosmetic |
 | 10 | Remark 3: Lemma P only on `S₀ = {2, 3, 5, 7, 13}` | CORRECT; can be strengthened | — |
 | 11 | Plan of Lean changes (§3.2, §5 Route 1) | incomplete | minor |
 | 12 | Size of the poles actually needing Lemma P | observation | — |
