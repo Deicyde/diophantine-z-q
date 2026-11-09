@@ -295,9 +295,10 @@ With the actual normalization `E_ℓ = 52C_ℓ + v_ℓ(12) + 4`, the old argumen
 `e ≤ 126` on `S_ht` (`C_ℓ = 56`) and `e ≤ 31` on the catalogue (`C_ℓ = 14`), and then
 `v_ℓ(B) = 2E_ℓ + 2e − 2v_ℓ(12) ≥ 4`. The bounds `B_ℓ` of field 2 are therefore far from sharp.
 This does not make Lemma P superfluous: Green–Tao gives no bound at all on `v_ℓ(v)`, and by
-Remark 1 the poles at the small primes grow with `|A|`. It does show that the new branch is
-exercised only for poles of order above about 126 at the primes of `S₀`. This explains why the
-old proof never needed it, and it gives an easy sanity check for a Lean statement of the branch.
+Remark 1 the poles at the small primes grow with `|A|`. It does show that, mathematically, the
+new branch is needed only for poles of order above 126 at the primes of `S₀`; the threshold
+`e > B_ℓ = 4` in field 2′ is a convenience. The old bound also gives an easy sanity check for a
+Lean statement of the branch: the two branches must agree for `5 ≤ e ≤ 126`.
 
 ## Numerical checks
 
@@ -315,3 +316,38 @@ note's scripts (`scratch/rv-nt22p-proof/lemmaP_check.py`, output `lemmaP_check.o
 - *Negative control*, 30 samples: the root was perturbed so that `α_ℓ = 19e_ℓ < 23e_ℓ`. Then
   `v_ℓ(Θ)` is large and `v_ℓ(B)` is very negative at every prime in every sample. So with
   `E_ℓ = 0` the threshold `2α − 46e > v_ℓ(12)` is not slack.
+
+## Repairs
+
+None of these changes the mathematics of §3.2–3.3. With them the modified completeness argument
+and Proposition AP are proved.
+
+1. **(Finding 5.)** Replace the control sentence of §3.2 by: "for `v₂(v) ∈ {1, 2}` and `η = 1`,
+   `R₀` is never a square in `ℚ₂`. The unit `R₀2^{−2e}` is `≡ 3, 7 (mod 8)` for `e = 1` and
+   `≡ 5 (mod 8)` for `e = 2`, so `v₂(1 − R₀q²) ≤ 2` for all `q`. These cases are covered by
+   field 2, since `e ≤ 2 < B₂`."
+2. **(Finding 6.)** State Lemma P and the second alternative of field 2′ with the hypothesis
+   `v_ℓ(t) = −e < 0` (plus `F(t) > 0`, and `e ≥ 3` if `ℓ = 2`), and note that the seven
+   numerators are then automatically `ℓ`-units.
+3. **(Finding 9.)** In Remark 1 replace `K_A ≈ |A| + 71` by `K_A = A + 130` for `A ≥ −69` and
+   `K_A = −A − 8` for `A ≤ −70`.
+4. **(Finding 10, optional.)** Use 2″ in place of 2′: Lemma P on `S₀` only, and at
+   `ℓ ∈ S_b ∖ S₀` only the parity condition "`v_ℓ(F(t))` even". This shortens the Lean work and
+   removes the need to discuss the catalogue primes.
+5. **(Finding 11.)** Replace the three-item Lean plan of §5, Route 1, by the list of finding 11.
+   In particular: the conclusions of `pole_input_valuations` need not change;
+   `goodSlope_of_primeValues` must be replaced, not reused, for progressions; the residue
+   class in the new weak approximation depends on the power of the auxiliary prime; and Lemma
+   P(1)–(2) follows from `hensels_lemma` applied to `X² − Π` at `1`, whose hypothesis is exactly
+   "`ℓ` odd, or `e ≥ 3`".
+6. **(Finding 7, presentation.)** In the list "the modified completeness argument", add that the
+   real place and the places of `S_pole` require the same sign `η = 1`, and that this is why
+   `F(t) > 0` belongs to field 2′. Also add that `ℓ′ ∉ P` is the only condition on the auxiliary
+   prime of the weak approximation.
+
+## What this report does not cover
+
+Proposition D (positive density of `G`), the application of Green–Tao 2008, and §4 of the note
+were not examined. Proposition AP was checked as an implication from 22P_AP. The constant slope
+`−10` was taken from `goodSlope_neg_ten`, which is kernel-checked. No Lean code was written or
+run: the statements in finding 11 come from reading the source.
