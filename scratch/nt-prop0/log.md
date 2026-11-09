@@ -50,3 +50,10 @@
   the table (symbolic), and every quotient is a square in ℚ₂ for 250 values d ≡ 5 (8): 0 failures.
 - Lemma B (p | d) and Lemma T (2) written in the uniform form "∃ i j (k), a d^i (−1)^j and
   b 2^i (−d)^j (5^k) are squares", which turns into bits in §2.6.
+
+## Step 5 (Lean probe; note §3 written)
+- scratch/nt-prop0/Probe.lean (run with `lake env lean` from ~/dzq, Mathlib 56a0058, imports
+  Padics.Hensel + Padics.RingHoms only, ~3 s per run, 4 runs one at a time, load < 4):
+  `probe_isSquare_of_toZModPow_three` (u ∈ ℤ₂, toZModPow 3 u = 1 ⇒ IsSquare u) and
+  `probe_isSquare_of_toZMod` (p odd, u unit, residue square ⇒ IsSquare u), both via `hensels_lemma`.
+  ~75 lines total, axioms propext/Classical.choice/Quot.sound. So SQ(a)(⇐), SQ(b)(⇐) are cheap.
