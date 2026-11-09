@@ -118,3 +118,14 @@ Python env: /tmp/rvred-venv (cypari2 2.17, gmpy2, numpy, mpmath). Recreate with
   v_p(B) = 1 at all 6 selected primes; negative valuations only at the prime u - v (resp.
   u - (A'-1)v): -216 = 2(-8) + (-8) - 2*96 (the eight k=1 tests have v(RC^2) = -12 there), and at
   the auxiliary prime; den(B) square; 0 < B < 1/2. NO FAILURE.
+
+## Step 9: b3 batch 2 (b3_out2.txt), b5 part A partial
+
+- A = -69 (boundary of the sign cases, |S+| = 12), v = 480480, x = 2547011473: all three slopes
+  ALL OK. Coincidence case: t2's contact prime 2547011473 is t1's prime u - v.
+- A = -70, v = 2^3·3·5·7·11·13·331^2 (catalogue stand-in, e = 2 > B = 1), x = 2924927297:
+  ALL OK with Lemma P at 331 (v_331(a) = 52), and also with Remark 3 (old q at 331).
+- b5 part A (pseudo-instances, values S_b-units): A=-70 v=2^40·3·7·11; A=-69 v=2^40·3^30;
+  A=0 v=(2·3·5·7·13)^20; A=5 v=2^200·3·7: field 2' holds, Lemma P branch at the deep primes,
+  S0 valuations 6840-15854, no odd negative valuation, 0<B<1/2. Remaining cases running.
+- Total so far: 9 genuine instances (27 slopes), 0 failures.
