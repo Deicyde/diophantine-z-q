@@ -24,3 +24,12 @@ Setup: C_d: y^2 = x(x-d)(x+d), e1=0, e2=d, e3=-d, d>0 odd squarefree. Kummer (x-
   d≡7: (0,1,0|1,0,0),(0,1,0|0,0,0),(0,0,0|0,0,1): a_v=0, a_ω=0, b_ε=0 -> a1=0, μ·u=0, b0=λ·v.
   All four rows agree with descent-alt §4.1 and slot-k §2.1 (D). CORRECT. Note: the rows for c=1,5 use (R) to
   rewrite a_ε=b_ε as λ·u=λ·v; legitimate since (R) is part of the system.
+
+## Step 3 (own exact descent sel2.py; own Prop 0 system prop0.py; differential test t_prop0.py)
+- sel2.py: local images at oo, 2, p|d from sampled genuine local points (x with x(x^2-d^2) a Q_v-square),
+  stopping at the known size (1, 3, 2); no use of Prop 0 or of the torsion-span argument.
+- prop0.py: the system as derived in step 2.
+- t_prop0.py (out_t_prop0.txt): 30 random odd squarefree d, 1-5 primes < 400, 8/8/7/7 in classes 1,3,5,7 mod 8.
+  Same Selmer space (not just dimension) and same pi_1 membership for every signed divisor of d: 0 mismatches.
+  PARI ellrank on the first 10: C = 2 + r2 + s equals dim Sel_2 in 10/10.
+  => Prop 0 CORRECT (hand proof step 2 + computation).

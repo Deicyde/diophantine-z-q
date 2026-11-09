@@ -1,0 +1,31 @@
+d=5415073 (1 mod 8) primes=[113, 173, 277] dim(points)=6 dim(prop0)=6 same_space=True pi1_agree=True ellrank=[0, 0, 4]
+d=5537211 (3 mod 8) primes=[3, 47, 173, 227] dim(points)=4 dim(prop0)=4 same_space=True pi1_agree=True ellrank=[2, 2, 0]
+d=36585005 (5 mod 8) primes=[5, 97, 241, 313] dim(points)=5 dim(prop0)=5 same_space=True pi1_agree=True ellrank=[1, 1, 2]
+d=17097695 (7 mod 8) primes=[5, 73, 139, 337] dim(points)=5 dim(prop0)=5 same_space=True pi1_agree=True ellrank=[1, 3, 0]
+d=171615377 (1 mod 8) primes=[47, 109, 139, 241] dim(points)=4 dim(prop0)=4 same_space=True pi1_agree=True ellrank=[0, 2, 0]
+d=3 (3 mod 8) primes=[3] dim(points)=2 dim(prop0)=2 same_space=True pi1_agree=True ellrank=[0, 0, 0]
+d=45789368333 (5 mod 8) primes=[43, 73, 179, 227, 359] dim(points)=3 dim(prop0)=3 same_space=True pi1_agree=True ellrank=[1, 1, 0]
+d=383 (7 mod 8) primes=[383] dim(points)=3 dim(prop0)=3 same_space=True pi1_agree=True ellrank=[1, 1, 0]
+d=250162961 (1 mod 8) primes=[29, 101, 223, 383] dim(points)=6 dim(prop0)=6 same_space=True pi1_agree=True ellrank=[0, 0, 4]
+d=107 (3 mod 8) primes=[107] dim(points)=2 dim(prop0)=2 same_space=True pi1_agree=True ellrank=[0, 0, 0]
+d=40301 (5 mod 8) primes=[191, 211] dim(points)=3 dim(prop0)=3 same_space=True pi1_agree=True
+d=53671 (7 mod 8) primes=[191, 281] dim(points)=5 dim(prop0)=5 same_space=True pi1_agree=True
+d=817 (1 mod 8) primes=[19, 43] dim(points)=2 dim(prop0)=2 same_space=True pi1_agree=True
+d=1484029963 (3 mod 8) primes=[13, 29, 131, 151, 199] dim(points)=4 dim(prop0)=4 same_space=True pi1_agree=True
+d=24330389 (5 mod 8) primes=[23, 43, 73, 337] dim(points)=3 dim(prop0)=3 same_space=True pi1_agree=True
+d=199 (7 mod 8) primes=[199] dim(points)=3 dim(prop0)=3 same_space=True pi1_agree=True
+d=161215482409 (1 mod 8) primes=[47, 211, 223, 269, 271] dim(points)=4 dim(prop0)=4 same_space=True pi1_agree=True
+d=832569139 (3 mod 8) primes=[31, 43, 47, 97, 137] dim(points)=4 dim(prop0)=4 same_space=True pi1_agree=True
+d=103777637 (5 mod 8) primes=[37, 59, 137, 347] dim(points)=5 dim(prop0)=5 same_space=True pi1_agree=True
+d=27959 (7 mod 8) primes=[73, 383] dim(points)=5 dim(prop0)=5 same_space=True pi1_agree=True
+d=553 (1 mod 8) primes=[7, 79] dim(points)=4 dim(prop0)=4 same_space=True pi1_agree=True
+d=1940578382339 (3 mod 8) primes=[197, 269, 317, 331, 349] dim(points)=2 dim(prop0)=2 same_space=True pi1_agree=True
+d=8517 (5 mod 8) primes=[3, 17, 167] dim(points)=3 dim(prop0)=3 same_space=True pi1_agree=True
+d=2793983 (7 mod 8) primes=[61, 163, 281] dim(points)=3 dim(prop0)=3 same_space=True pi1_agree=True
+d=348312716113 (1 mod 8) primes=[71, 223, 233, 263, 359] dim(points)=6 dim(prop0)=6 same_space=True pi1_agree=True
+d=584219 (3 mod 8) primes=[53, 73, 151] dim(points)=2 dim(prop0)=2 same_space=True pi1_agree=True
+d=6157 (5 mod 8) primes=[47, 131] dim(points)=3 dim(prop0)=3 same_space=True pi1_agree=True
+d=519674303 (7 mod 8) primes=[41, 149, 257, 331] dim(points)=5 dim(prop0)=5 same_space=True pi1_agree=True
+d=6593 (1 mod 8) primes=[19, 347] dim(points)=2 dim(prop0)=2 same_space=True pi1_agree=True
+d=331 (3 mod 8) primes=[331] dim(points)=2 dim(prop0)=2 same_space=True pi1_agree=True
+mismatches: 0 of 30
