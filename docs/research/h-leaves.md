@@ -188,11 +188,24 @@ points), Elkies' paper is a cross-check and not a premise. rv-h-cm lists five re
 citations and wording (R1-R5); none affects the argument, and none affects the list above,
 except that Saia's restatements must not be cited (R1).
 
-One point of comparison matters for the choice of proof of NoCM. GR Theorem 5.12 (the field of
-moduli) rests partly on Jordan's 1981 Harvard thesis, which is unpublished (rv-h-cm, "Sources
-read"). The three-case proof of h-cm (Cases A-C) uses Theorem 5.8, Proposition 5.6 and Lemma
-5.9, but not Theorem 5.12. Whether Proposition 5.6 itself rests on Jordan's thesis was not
-checked here (UNCHECKED). If it does not, the three-case proof has the smaller trust base.
+**Jordan's thesis is not a hidden leaf** (VERIFIED against the arXiv text of González–Rotger,
+math/0612732). Their introduction says that Jordan's thesis (Ch. III) is unpublished and treats
+only maximal orders and trivial level, and that they therefore prove the needed statements "in
+full generality" in their appendix (§5). In that appendix:
+
+- Theorem 5.12 (field of moduli) is proved there from Theorem 5.8 (Shimura reciprocity, cited
+  to Shimura 1967, Main Theorem II), Lemma 5.10 (complex conjugation on `CM(R)`) and
+  Proposition 5.6;
+- Proposition 5.6 is stated with citations to Ogg, Jordan and Bertolini–Darmon, and is derived
+  from the bijection between `CM(R)` and `𝒪¹`-classes of normalized optimal embeddings together
+  with Eichler's theory of optimal embeddings (Vignéras). Jordan is cited, not used.
+
+So the published inputs of NoCM are González–Rotger §5, Shimura's reciprocity law (Shimura 1967,
+through their Theorem 5.8), Eichler's theory of optimal embeddings (Vignéras) and Ogg's
+description of the fixed points of Atkin–Lehner involutions. The misprint in the non-emptiness
+criterion of Proposition 5.6 (rv-h-cm R1(a)) is visible in the arXiv text as well: the printed
+criterion "`DN/(D(R)N*(R))` divides `disc R`" carries no hypothesis `(f, D) = 1`. NoCM uses
+only the count and the free transitive action, under `(f, 6) = 1`, which (Emb) supplies.
 
 **Count.** Before NoCM the proof of H consumed 26 records. After NoCM it consumes 22 (A003,
 A004, A005 and A065 leave), plus the new NoCM inputs above, plus the unrecorded inputs I1 and
