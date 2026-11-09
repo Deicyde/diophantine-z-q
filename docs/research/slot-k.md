@@ -469,3 +469,66 @@ class β; CR₃ ⇒ points; L6 ⇒ PoleSoluble`.
 
 The elementary part (L1–L6) has no analytic or cohomological content. Following pc-audit §4.4, a
 SPECULATIVE estimate is a few weeks of formalization.
+
+## 5. Assessment
+
+### 5.1 Is the proof complete?
+
+**DL is true, and §2 proves it** (VERIFIED). The proof uses:
+
+- the explicit 2-descent of Proposition 0. The rows actually used are the odd places and the real
+  place (proved by hand in descent-alt §4.1), the structure of the place-2 rows, and the explicit
+  rows for `c = 5`. The last two are rechecked by hand in §2.1;
+- quadratic reciprocity and its supplements, for Legendre and Jacobi symbols (STANDARD);
+- the Chinese remainder theorem and Dirichlet's theorem (STANDARD; A057);
+- the properties (θ1)–(θ4) of the input pairs (descent-alt §3.1; manuscript lines 1027–1033).
+
+No step uses the witness `q`, and no step depends on the size of `θ` or on its symbols beyond
+(θ1)–(θ4). The construction is uniform: it treats both call sites at once, for every admissible `B`.
+
+Computations (§3) confirm the construction on every requested family with the exact descent, and
+confirm the theorem itself on 3,300 random abstract configurations, including up to 12 primes in each
+of `β` and `θ`.
+
+**Where a reviewer should look hardest.**
+
+1. *Lemma 2, step 3.* It sums the rows over the glued set `X`, so that the glue unknowns `u_{r_ℓ}`
+   cancel. The cancellation needs `u_ℓ = u_g` for all `ℓ ∈ G`, which comes from step 1. The terms
+   inside `X` vanish because they come in the form `[x'/x](u_{x'} + u_x)` with equal values; no
+   symmetry of the symbols among `X` is needed.
+2. *Step 5 of the theorem.* The identification of the glued `θ`-configuration with `𝒞_Σ` uses
+   (θ4) twice: once directly for `[θ/p]`, once through Jacobi reciprocity for `[p/θ]`. It uses that
+   the `r_p` have trivial symbols at `T`, and that `θ ≡ 1 (mod 8)` keeps the class of `q₀`.
+3. *The sign bookkeeping in step 6.* `u_{r_ℓ} = λ_ℓ(s + x + 1)` vanishes only because `x = s + 1`.
+   The negative control of §3.3 shows that the opposite choice fails exactly when `θ` has a prime
+   `≡ 3 (mod 4)`.
+4. *Proposition 0 itself.* descent-alt determined the place-2 table by computing images from sampled
+   2-adic points until dimension 3 was reached. §2.1 replaces this, for what the proof needs, by a
+   direct argument. A reviewer may prefer a fully written derivation of all four rows, but the proof
+   uses only the `c = 5` row.
+
+Per Jack's decision, the Lean construction switches to `x + ℓ` only once this proof survives an
+independent review. The review is the remaining step.
+
+### 5.2 What DL does not settle
+
+- **The deep input.** The certificates give points only through Kriz's 2-converse (an unrefereed
+  preprint; pc-audit RK1), with Poonen–Stoll (A019). Alternatively, through TYZ and Gross–Zagier, if
+  the row-5b rule of pc-audit RK6 holds. The construction automatically lands in that rule
+  (`|n| ≡ 5 (mod 8)`, `|β| ≡ 7`), so it needs no change for the TYZ variant (§2.6).
+- **The written manuscript.** Section 5's descent (lines 1019–1121) would be rewritten for `C_ℓ`
+  along §2. The manuscript's slot count (`d − 1` slots plus `q₀`) and the role of `q₀` carry over;
+  the `θ`-slots are new.
+
+### 5.3 Open questions
+
+- **The minimal number of slots.** The construction uses `ω(β) + ω(θ)`. Proposition B forces at
+  least `k(β)`, the size of an isotropic core, and random searches typically find 2–4. Does
+  `ω(β) + O(1)` always suffice, i.e. can the `θ`-slots be avoided? Since the witness `q` cannot
+  control `θ`, a bound independent of `θ` would need a different way to make the second curve
+  inherit the Selmer group of the first.
+- **Other base configurations.** Lemma 3 is the only base with one auxiliary prime, and it forces
+  `|β| ≡ 3, 7 (mod 8)`. Bases with two auxiliary primes exist for `|β| ≡ 1, 5` (`t2_template.py`).
+  They would allow the other multipliers, which matters only if a later variant restricts `m`.
+- **A Selmer-free deep input.** CR₃ (§4.1) is stated through the explicit system. If one wants the
+  Lean hypothesis to mention genuine Selmer groups, Proposition 0 must be formalized first.
