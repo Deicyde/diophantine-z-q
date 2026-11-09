@@ -175,3 +175,55 @@ statements (`GoodSlope`, `poleInput`, `pole_input_valuations`, `slope_complete`,
 Checks of the implementation: (i) the old argument reproduces `v_p(B) ≥ 103C_p + 8` on `S_b` for
 slopes satisfying field 2; (ii) the controls of §3.3 fail exactly where the theory predicts; (iii) an
 independent count gives 1,925 good slope primes below `2·10⁵` (§3.6), as in nt-22p.
+
+### 3.2 Lemma P(1)–(2) locally (30 inputs; `b1_lemmaP1.py`, `b1_out.txt`)
+
+The inputs were `ℓ = 2` with `e = 1, …, 5`; each `ℓ ∈ S₀ ∖ {2}` with `e = 1, 5, 40`; `ℓ = 11, 317`
+and the catalogue stand-in `331`; `v = 2⁷3⁶5⁵7⁵13⁵` at each prime of `S₀`; and five controls with
+`F(t) < 0` (`η = −1`, `e = 5`).
+
+- In all 25 inputs satisfying the hypotheses of Lemma P: `v_ℓ(R₀) = 2e`, `v_ℓ(t − 1) = −e`, `R₀`
+  is a square in `ℚ_ℓ`, and the Hensel point `q₀ = w/ℓ^e` has `v_ℓ(1 − R₀q₀²) ≥ N`.
+  **No failure.**
+- `ℓ = 2`, `e = 1, 2`, `F(t) > 0`: `R₀` is a non-square in 2,000 of 2,000 random samples for
+  each `e` (F2). `e = 3`: a square in 2,000 of 2,000.
+- `F(t) < 0`, `e = 5`: `R₀` is a non-square at `ℓ = 2, 3, 7` (0 squares in 2,000 samples each)
+  and a square at `ℓ = 5, 13` (2,000 squares in 2,000 samples) (F3).
+
+### 3.3 The pole input for slopes with deep poles (30 inputs; `b2_poles.py`, `b2_out.txt`)
+
+The slopes were random `t = u/v` with the stated `v`. `B` was computed with the modified `q`
+(Lemma P ball where field 2 fails) or, for the controls, with the old `q` (`v_ℓ(q) ≥ C_ℓ` on all of
+`S_b`). The test values were random. Selected primes are not modelled in this batch (§3.5 treats
+them).
+
+| Inputs | `q` | Result |
+| --- | --- | --- |
+| `v = 2^e`, `e = 1, …, 5` | modified (ball at `2` only for `e = 5`) | all PC conditions hold; `v₂(B) = 5834, 5836, 5838, 5840, 6096` |
+| `v = ℓ^e`, `ℓ ∈ {3, 5, 7, 13}`, `e = 5, 200` | modified | all hold; `v_ℓ(B) ≈ 6090` (`e = 5`), `15840` (`e = 200`) |
+| `v = 331², 331⁴⁰, 11²⁰⁰` | modified | all hold (`v₃₃₁(B) = 1572, 3472`) |
+| `v = 2⁷3⁶5⁵7⁵13⁵`, `v = 2¹⁵⁰3¹³⁰5¹⁴⁰7⁵13²⁰⁰331³` | modified, ball at six primes | all hold |
+| `v = 2³, 2⁴`, ball forced although field 2 holds | Lemma P branch | all hold (`v₂(B) = 5996, 6050`) |
+| `F(t) < 0`, `v = 5²⁰⁰`, `η = −1`, ball | extended Lemma P (F3) | all hold |
+| controls: `v = 3²⁰⁰, 13²⁰⁰, 2²⁰⁰` | old | **fail** as predicted: `v_ℓ(B) = −20690, −20712, −20666` |
+| control: `F(t) < 0`, `v = 3²⁰⁰` | old (no ball exists) | **fails**: `v₃(B) = −20680` |
+| threshold: `v = 3^e`, `e = 120, 130, 140, 150, 160` | old | `v₃(B) = 6072, 4932, 1274, −2390, −6050` |
+
+Every PC condition was checked: `v_ℓ(B) ≥ 4` on `S₀`, no negative odd valuation on the model `S_b`,
+and `0 < B < 1/2` (`B` between `10^{−120}` and below `10^{−300}`, depending on the slack). For unit
+test values, the old choice gives `v₃(B) = 18E₃ − 366e + O(1)` with `E₃ = 2917`, once
+`46e > 2E₃ − v₃(12)` (that is, `e ≥ 127`). The predicted values `4926, 1266, −2394, −6054` and
+`−20694` match the computed ones within the `O(1)`. So the old `q` works up to `e = 143` and fails
+beyond (F5). The control with `F(t) < 0` at `ℓ = 3` shows that `η = 1` matters there. `R₀` is not a
+square in `ℚ₃`, so `v₃(a) ≤ 0` for every `q`, and such a slope cannot be completed at all once
+`e ≥ 144`. Proposition AP never produces such slopes.
+
+### 3.4 Lemma P(3) in isolation, and deep poles outside `S₀` (`b5_pseudo.py`)
+
+*Part B* (`b5B_out.txt`, 10 slopes, each with two choices of `q`): here `ℓ₀` is replaced by
+`ℓ₀/ℓ^{E_ℓ}`, so that `v_ℓ(ℓ₀) = 0` and only Lemma P can produce `v_ℓ(B) ≥ 4`. The slopes were
+`(ℓ, e) = (2, 3), (2, 7), (3, 1), (3, 9), (5, 2), (7, 4), (13, 1), (13, 6), (5, 30), (7, 60)`.
+With the Lemma P ball, `v_ℓ(B) = 166, 362, 58, 460, 108, 208, 58, 308, 1508, 3008`, all `≥ 4`.
+With the old `q`, `v_ℓ(B) = −1094, −2548, −360, −3288, −724, −1456, −366, −2196, −10980, −21948`,
+that is, `−366e` up to `O(1)`. So Lemma P(3) holds with `E_ℓ = 0`, and the implementation detects
+failures.
