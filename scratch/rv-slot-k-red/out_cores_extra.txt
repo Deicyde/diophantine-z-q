@@ -1,17 +1,4 @@
-Traceback (most recent call last):
-  File "/home/jackmccarthy/dzq-wt/rv-slot-k-red/scratch/rv-slot-k-red/run_batch.py", line 11, in <module>
-    runs = getattr(families, fam)(rng)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jackmccarthy/dzq-wt/rv-slot-k-red/scratch/rv-slot-k-red/families.py", line 181, in cores_extra
-    K = core_primes(rng, k)
-        ^^^^^^^^^^^^^^^^^^^
-  File "/home/jackmccarthy/dzq-wt/rv-slot-k-red/scratch/rv-slot-k-red/families.py", line 141, in core_primes
-    if all(leg(p, q) == 0 for q in K):
-       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jackmccarthy/dzq-wt/rv-slot-k-red/scratch/rv-slot-k-red/families.py", line 141, in <genexpr>
-    if all(leg(p, q) == 0 for q in K):
-           ^^^^^^^^^
-  File "/home/jackmccarthy/dzq-wt/rv-slot-k-red/scratch/rv-slot-k-red/sel2.py", line 22, in leg
-    assert j != 0, (a, p)
-           ^^^^^^
-AssertionError: (1026481, 1026481)
+#00 core3+e        m=  -195 beta=-|7| w(b)=4 w(t)=3 P=[1, 1, 1, 7] T=[7, 3, 5] p0=7 slots=7 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#01 core4+e        m=   -91 beta=-|7| w(b)=5 w(t)=5 P=[1, 1, 1, 1, 7] T=[3, 3, 3, 5, 7] p0=1 slots=10 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#02 core4+e        m=  1365 beta=+|7| w(b)=6 w(t)=5 P=[5, 1, 1, 1, 1, 3] T=[3, 3, 7, 5, 3] p0=3 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#03 core5+e        m=    35 beta=+|7| w(b)=7 w(t)=2 P=[5, 3, 1, 1, 1, 1, 1] T=[7, 7] p0=1 slots=9 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK

@@ -60,3 +60,11 @@
 - t_variants sign 1000 8: failures (470, all "C2 loses beta") occur exactly when theta has a prime
   = 3 mod 4 (530 others certified): confirms slot-k 3.3 negative-control statement.
 - Report sections 1-2.5 drafted (all steps CORRECT).
+
+## Step 5
+- t_symbolic_exh (3,2): 24576 cases, 0 failures. (5,0) exhaustive was stopped (too slow); random
+  abstract data t_variants none 5000 21 (omega(beta) <= 6, omega(theta) <= 5): 0 failures.
+- test_site seed 13: 17 runs completed before the batch was stopped by a time limit, 17/17
+  certified, omega(beta) 4-14, omega(theta) 1-6, up to 18 slots. (Bottleneck: the search for the
+  symbols at earlier slots, 2^j candidates for the j-th slot; not factoring.)
+- Report: sections 1-3 and 4.1-4.2 drafted.
