@@ -553,10 +553,11 @@ they are part of the trust base and should have audit records.
 - **I1.** Carayol 1986, Théorème (A), at `F = ℚ`, weight 2, places `λ | 5` (for `p ≠ 5`) and
   `λ | 3` (for `p = 5`): `v_p(N)` equals the conductor exponent of `ρ_{f,λ}|G_{ℚ_p}`. Only the
   inequality "`v_p(N)` is at most the conductor exponent" is consumed (line 856), together with
-  "`p ∤ N` if `ρ_{f,λ}` is unramified at `p`". Both are contained in Théorème (A). For weight 2
-  the compatibility at primes of good reduction of `A_f` also follows from Eichler–Shimura and
-  Igusa, but the bound at the primes of bad reduction needs Carayol (or Langlands' Antwerp
-  paper for weight 2; its coverage was not checked, SPECULATIVE).
+  "`p ∤ N` if `ρ_{f,λ}` is unramified at `p`". Both are contained in Théorème (A). The older
+  converse direction ("`p ∤ N` implies unramified", from the good reduction of `X₁(N)` at `p`)
+  is **not** the one consumed; the consumed direction bounds the level by the conductor and
+  needs Carayol's theorem (for weight 2 perhaps also Langlands' Antwerp II paper, LNM 349
+  (1973); its coverage was not checked, SPECULATIVE).
 - **I2.** Néron mapping property (Bosch–Lütkebohmert–Raynaud, *Néron models*, Springer 1990,
   §1.2): a homomorphism between abelian varieties with good reduction at `v` extends to their
   Néron models, hence reduces. Used for `μ_σ` at lines 781-784.
