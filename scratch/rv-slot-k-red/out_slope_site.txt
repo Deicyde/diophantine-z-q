@@ -23,3 +23,9 @@
 #22 slope u=-307823 v=120 m=   -15 beta=-|7| w(b)=8 w(t)=4 P=... T=[7, 7, 1, 1] p0=7 slots=12 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
 #23 slope u=81799 v=296 m=    15 beta=+|7| w(b)=8 w(t)=5 P=... T=[3, 1, 7, 1, 5] p0=7 slots=13 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
 #24 slope u=763559 v=192 m=  -455 beta=-|7| w(b)=9 w(t)=5 P=... T=[3, 3, 7, 5, 3] p0=7 slots=14 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#25 slope u=-125897 v=104 m=   -39 beta=-|7| w(b)=8 w(t)=3 P=... T=[7, 3, 5] p0=1 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#26 slope u=-17839 v=168 m=    15 beta=+|7| w(b)=8 w(t)=4 P=... T=[1, 7, 1, 7] p0=7 slots=12 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#27 slope u=553727 v=24 m=   -15 beta=-|7| w(b)=8 w(t)=6 P=... T=[3, 7, 7, 7, 7, 3] p0=7 slots=14 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#28 slope u=39079 v=48 m=    39 beta=+|7| w(b)=8 w(t)=6 P=... T=[3, 7, 1, 1, 3, 7] p0=7 slots=14 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#29 slope u=202343 v=112 m=    39 beta=+|7| w(b)=8 w(t)=5 P=... T=[5, 3, 3, 3, 7] p0=7 slots=13 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+family slope_site seed 13: 30/30 certified, 139s

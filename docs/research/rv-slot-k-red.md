@@ -100,3 +100,56 @@ and `p₀`; glue primes `r_ℓ ≡ 1 (mod 8)` (`ℓ ∈ T`) linked exactly to `�
   - Exhaustively (`t_base.py`): a configuration `{p*, q}` has dimension 3 and `±p* ∈ π₁` exactly
     for the classes `(7, 3)` and `(3, 7)`, for both symbols. With two auxiliary symbols, bases exist
     for every class of `p*`. This confirms slot-k §2.3.
+
+### 2.4 The slots (slot-k §2.4)
+
+- **Existence.** CORRECT. Each slot has one condition mod 8 and, for each odd prime already fixed,
+  one condition "residue" or "non-residue". These are conditions modulo distinct primes, each
+  satisfiable by `(y − 1)/2 ≥ 1` invertible classes. By CRT and Dirichlet the slot exists, and it
+  can be taken outside any finite set. No choice can be impossible: the conditions never refer
+  twice to the same modulus, and none of them involves `θ` or `β` beyond their prime sets. In
+  particular nothing breaks when:
+  - `ω(β) = 1` (no `r_p`; Lemma 2 with `G = ∅` is the identity, and `[q₀/p₀] = x`);
+  - `θ = 1` (no `r_ℓ`; `d₂ = d₁`);
+  - `P ⊆ {3, 5, 7, 13}` (`β ∈ ±{7, 15, 39, 455}`);
+  - a slot is a small prime such as `q₀ = 3` or `q₀ = 11`. Only `q₀ ∤ 2βθ` is required. The search
+    in §4 also took every slot as the least prime with its symbol pattern.
+- **Reverse symbols.** CORRECT: `[y/r] = [r/y]` for `r ≡ 1 (mod 4)`, and `[y/q₀] = [q₀/y] + λ_y`.
+- **The condition `[q₀/ℓ] = 0` (`ℓ ∈ T`) is never used.** See Finding F1. It is harmless.
+
+### 2.5 The theorem (slot-k §2.5)
+
+- **Reduction to `d₁ = |n|`, `d₂ = |n|θ`.** CORRECT. Both are odd, positive and squarefree, by
+  (θ1), (θ2) and the choice of the slots.
+- **Step 1 (Lemma 1 for the `r_ℓ` on `𝒞₁`).** CORRECT. Inside `S₁`, each `r_ℓ` is linked only to
+  `q₀`, since `ℓ ∉ S₁` and the symbols with `P`, `R_P` and the other `r_ℓ'` vanish. Removing the
+  `r_ℓ` one at a time keeps the hypothesis.
+- **Step 2 (Lemma 2 with `g = p₀`, `G = P ∖ {p₀}`, `S' = {q₀}`).** CORRECT.
+  - `[r_p/q₀] = 0`, and `[r_p/r_{p'}] = 0` in both directions: the later slot's condition, plus
+    symmetry.
+  - The glued class is `|β| mod 8 = 7`, and `[q₀/p*] = Σ_P [q₀/p] = x`.
+- **Step 3 (dimension 3).** CORRECT, by Lemma 3 and Proposition 0 for `c = 5`.
+- **Step 4 (lift of `β` to `𝒞₁`).** CORRECT. With `a₀ = s` and `w = 1`, Lemma 3 gives
+  `v_{p*} = s + x = 1` and `v_{q₀} = s + x + 1 = 0`. Then (2.1) gives
+  `u_{r_p} = [q₀/p] + 1 + λ_p x = 0`, and Lemma 1 gives `u_{r_ℓ} = u_{q₀} = 0`. So `u = 𝟏_P`, and the
+  first coordinate is `(−1)^s|β| = β`.
+- **Step 5 (Lemma 2 with `g = q₀`, `G = T` on `𝒞₂`).** CORRECT.
+  - `c_{q₀*} = 3θ ≡ 3 (mod 8)` by (θ1).
+  - `[q₀*/p] = [q₀/p] + [θ/p] = [q₀/p]` by (θ4).
+  - `[p/q₀*] = [p/q₀] + [p/θ]`, and `(p/θ) = (θ/p) = 1` by Jacobi reciprocity (`θ > 0`,
+    `θ ≡ 1 (mod 4)`).
+  - The symbols between `R_P` and `T` vanish.
+  - The glued configuration is `𝒞_Σ`. The symbols `[q₀/ℓ]` are internal to `X = T ∪ {q₀}` and do
+    not enter (F1).
+- **Step 6 (lift of `β` to `𝒞₂`).** CORRECT.
+  - By (2.1), `u_{r_ℓ} = Σ_P [p/ℓ] + Σ_{R_P}[r_p/ℓ]u_{r_p} + λ_ℓ(v_{q₀} + a₀)`.
+  - Here `Σ_{R_P}[r_p/ℓ]u_{r_p} = 0` and `v_{q₀} + a₀ = s`, so `u_{r_ℓ} = [|β|/ℓ] + sλ_ℓ = [β/ℓ] = 0`
+    by (θ3).
+- **Non-torsion.** CORRECT. `n/β` and `nθ/β` are not `±1`, so `β ∉ {±1, ±d}` modulo squares. The
+  class `β` is therefore not a torsion class, and a point realizing it has `x ∈ βℚ*²` with
+  `y ≠ 0`.
+
+**Sign remark.** Because `(−1, −d) ∈ Sel₂(C_d)`, `β ∈ π₁` if and only if `−β ∈ π₁`. The sign of `β`
+therefore never decides membership. It enters only through `x = s + 1` in the prescribed symbols
+of `q₀`, which change the configuration. That is what slot-k means by "this is where the sign of
+`β` enters", and the negative control confirms it (§4.3).
