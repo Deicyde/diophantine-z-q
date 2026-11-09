@@ -166,3 +166,82 @@ Then `E2_{p*}` reduces to `xw + a₀ + xw = a₀ = b₀`, and `E2_{q₀}` to
 The side claim that `{p*, q}` with one auxiliary prime gives dimension 3 and `±p* ∈ π₁` exactly for
 `(c_{p*}, c_q) ∈ {(7, 3), (3, 7)}`, for either symbol, I confirmed by enumerating all 32 two-prime
 configurations with my own system. It is not used in the proof.
+
+## 5. The slots and the proof of DL (§2.4, §2.5)
+
+### 5.1 Satisfiability of the slot conditions
+
+CORRECT. Every condition the construction imposes is a condition on the **new** prime modulo an
+**already fixed** prime: `[q₀/p]` and `[q₀/ℓ]` are residue conditions on `q₀` modulo `p ∈ P` and
+`ℓ ∈ T`; `[r/y]` for a glue slot `r` is a residue condition on `r` modulo `y`. No condition is ever
+imposed in the reverse direction on an earlier prime, so reciprocity creates no constraint: it only
+determines the reverse symbols afterwards (`[y/r] = [r/y]` for `r ≡ 1 (mod 4)`,
+`[y/q₀] = [q₀/y] + λ_y`), and Lemmas 1–2 and the theorem use these reverse symbols correctly.
+
+- The moduli of one slot are `8` and pairwise distinct odd primes: `P ∩ T = ∅` by (θ2), `β` and `θ`
+  are odd, and each slot is a new prime. Each odd condition "`r` is a nonzero square mod `y`" or
+  "`r` is a non-square mod `y`" is a nonempty set of `(y−1)/2` invertible classes, including for
+  `y = 3`. The class mod 8 (`3` or `1`) is invertible. By CRT the conditions define a nonempty union
+  of invertible classes modulo `8Π y`, and Dirichlet gives infinitely many primes in it, so the
+  slot can avoid all primes already used. Being a unit modulo each `y`, it is automatically prime
+  to `βθ` and to the earlier slots.
+- No slot condition depends on another slot's choice except through the list of moduli, so the
+  sequential choice never gets stuck.
+- Edge cases. If `θ = 1`, `T = ∅` and there are no `r_ℓ`. If `ω(β) = 1`, there are no `r_p` and
+  `[q₀/p₀] = x`. If every prime of `β` (or of `θ`) is `≡ 3 (mod 4)`, nothing changes: the prescribed
+  bits `1 + λ_p x` are just bits. If `3 ∤ β`, the construction allows `q₀ = 3`; this is harmless
+  (Proposition 0 holds for every odd squarefree `d`, and `|n| ≥ 21` still). The primes `3, 7` of `β`
+  that come from `m` are treated like any other prime of `β`.
+
+The real-prime computation of §6 implements exactly these CRT and Dirichlet steps.
+
+### 5.2 The theorem, step by step
+
+**Reduction.** CORRECT. `C_n = C_{|n|}`, and the first Kummer coordinate is the class of `x`; so
+`d₁ = |n|`, `d₂ = d₁θ` are odd, positive and squarefree (slots are distinct new primes, (θ2)).
+
+**Step 1.** CORRECT. In `S₁ = P ∪ {q₀} ∪ R_P ∪ R_T`, each `r_ℓ` has nonzero symbol only at `q₀`:
+zero at `P` and `R_P` by its own condition, zero at earlier `r_{ℓ'}` by its condition and at later
+ones by theirs (reciprocity for `≡ 1 (mod 4)`), and its other partner `ℓ` is not in `S₁`. Lemma 1
+removes the `r_ℓ` one at a time; each still has the single neighbour `q₀`.
+
+**Step 2.** CORRECT. In `𝒞_Σ` on `P ∪ {q₀} ∪ R_P`, each `r_p` is linked exactly to `p` and `p₀`:
+zero at `P ∖ {p, p₀}`, at `q₀` and at the other `r_{p'}` (earlier by its condition, later by
+theirs). Lemma 2 with `g = p₀`, `G = P ∖ {p₀}`, `S' = {q₀}` gives `𝒞₀` on `{p*, q₀}` with
+`c_{p*} = Π c_p = |β| mod 8 = 7` and `[q₀/p*] = Σ_{p∈P}[q₀/p] = x`; as a check, `[p*/q₀] =
+Σ_p([q₀/p] + λ_p) = x + λ_{p*} = x + 1`, as Lemma 3 requires.
+
+**Step 3.** CORRECT. Lemma 3 and Proposition 0 for `d₁` (`c = 5`).
+
+**Step 4.** CORRECT. Lifting `σ₀` with `a₀ = s` through Lemma 2: `u_P = 1`, `u_{q₀} = 0`,
+`v_P = s + x`, `v_{q₀} = s + x + 1`. By (2.1) with `S' = {q₀}`:
+`u_{r_p} = [q₀/p](u_{q₀} + u_{p₀}) + u_{p₀} + λ_p(v_{p₀} + a₀) = [q₀/p] + 1 + λ_p x`, which is `0` by
+the choice `[q₀/p] = 1 + λ_p x`. (`p₀` itself needs no condition; `[q₀/p₀]` only fixes the sum
+`x`.) Through Lemma 1, `u_{r_ℓ} = u_{q₀} = 0`. So `u = 𝟏_P`, `a₀ = s`, `a₁ = 0`, and the first
+coordinate is `(−1)^s|β| = β`.
+
+**Step 5.** CORRECT, including the two uses of (θ4). Lemma 2 applies to `𝒞₂` with `g = q₀`,
+`G = T`, `R = R_T`, `S' = P ∪ R_P`: each `r_ℓ` is linked exactly to `ℓ` and `q₀`. The glued vertex
+has `c_{q₀*} = 3θ ≡ 3 (mod 8)` by (θ1), hence `λ_{q₀*} = μ_{q₀*} = 1` as for `q₀`. For `p ∈ P`:
+`[q₀*/p] = [q₀/p] + Σ_ℓ[ℓ/p] = [q₀/p] + [θ/p] = [q₀/p]` by (θ4) and multiplicativity of the
+Legendre symbol, and `[p/q₀*] = [p/q₀] + Σ_ℓ[p/ℓ]`, where `Σ_ℓ[p/ℓ] = Σ_ℓ([ℓ/p] + λ_pλ_ℓ) =
+[θ/p] + λ_pλ_θ = 0` by (θ4) and `θ ≡ 1 (mod 4)`. (This is Jacobi reciprocity, written inside the
+configuration.) For `r_p ∈ R_P`: `[r_p/ℓ] = 0` for all `ℓ ∈ T` by the condition on `r_p`, and
+`[ℓ/r_p] = [r_p/ℓ]`, so `[r_p/q₀*] = [r_p/q₀] = 0` and likewise in reverse. So the glued
+configuration is `𝒞_Σ` with `q₀*` in place of `q₀`, and `Σ(𝒞₂) ≅ Σ(𝒞_Σ) ≅ Σ(𝒞₁)`: dimension 3.
+
+**Step 6.** CORRECT, including the sign. The class of step 4 in `Σ(𝒞_Σ)` has `u_P = 1`,
+`u_{q₀} = 0`, `u_{R_P} = 0`, `a₀ = s` and `v_{q₀} = s + x + 1` (the value of `v_{g*}`, carried
+over unchanged from `𝒞₀`). By (2.1) with `g = q₀`:
+`u_{r_ℓ} = Σ_{p∈P}[p/ℓ](1 + 0) + Σ_{r_p}[r_p/ℓ](0 + 0) + 0 + λ_ℓ(s + x + 1 + s) = [|β|/ℓ] + λ_ℓ(x + 1)`.
+(θ3) for the signed `β` gives `0 = [β/ℓ] = sλ_ℓ + [|β|/ℓ]`. So
+`u_{r_ℓ} = λ_ℓ(s + x + 1) = 0` exactly because `x = s + 1`. Also `u_T = u_{q₀} = 0`. So the lifted
+class has `u = 𝟏_P`, `a₀ = s`, `a₁ = 0`: first coordinate `β`.
+
+The choice `x = s + 1` is free for the first curve (Lemma 3 holds for both values of `x`, and step 4
+works for either) and forced only by step 6, as the note says. With `x = s`, step 6 gives
+`u_{r_ℓ} = λ_ℓ`, so the lifted class acquires the factors `r_ℓ` for `ℓ ≡ 3 (mod 4)`; my negative
+control (§6) shows that `β` then indeed leaves `π₁(Sel₂(C_{d₂}))` whenever `θ` has such a prime.
+
+**Conclusion of the theorem.** CORRECT. Both curves have `dim Sel₂ = 3` and `β ∈ π₁`. Neither
+certificate is of torsion type, since `n/β` and `nθ/β` are not `±1`.
