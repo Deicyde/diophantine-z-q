@@ -36,3 +36,15 @@
 - GoodSlope.old consumed only in pole_input_valuations part1 (PoleValuations.lean:126). old_le_Cp has no users.
 - SlopeRepresentation consumed by Core, Template, Exact, Assembly, ValueRelation as an opaque hypothesis: unchanged
   if the definition of GoodSlope changes (they never destructure it).
+
+## Step 5 (computation Part B/C; output in lemmaP_check.out)
+- Own implementation: exact arithmetic in Q(√2); t=u/v with poles at all of S0 (e_2 in [3,8], others [1,5]), F(t)>0;
+  q = m/∏ℓ^e built by CRT from Hensel roots of (R0 ℓ^{-2e})^{-1} mod ℓ^{N+4}, N = 23e+v(12)+2;
+  D_gj random in Z[√2] (72 values), ℓ0 = 1 (worst case E=0).
+- Part B, 30 samples: α ≥ N at all five primes 30/30; v(Θ)=v(12) 30/30; v(B) ≥ 4 30/30; v(B)=2α+2e-2v(12) exactly 30/30.
+- Part C control (root perturbed so α = 19e < 23e): v(B) ≥ 4 fails at every prime in 30/30 (v(B) very negative):
+  the threshold 2α-46e > v(12) is really used (when E = 0).
+- First run had a bug in my CRT (q*ℓ^e residue inverted); fixed, rerun as above.
+- Observation: with the actual ℓ0, E_ℓ = 52C_ℓ+v(12)+4 (=2916+v(12) on S_ht, 732 on catalogue), so the OLD
+  argument (q small, α=0) already works for e with 2E_ℓ-46e > v(12): e ≤ 126 on S_ht, e ≤ 31 on catalogue.
+  Lemma P is needed only for larger e. Field-2 bounds B_p are far from sharp, but no fixed bound suffices for Green–Tao.

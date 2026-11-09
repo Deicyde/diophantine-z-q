@@ -144,9 +144,9 @@ def build_q(t, u, v, N, shift=None):
         w = sqrt_mod_prime_power(pow(un, -1, mod), l, M)   # w^2 * unit = 1 mod l^M
         if shift and l in shift:
             w = w + l ** shift[l]
-        # q = m / L must have q * l^e = w, i.e. m * (l^e / L) = w mod l^M
+        # q = m / L must have q * l^e = m / cof = w, i.e. m = w * cof mod l^M
         cof = L // l ** e
-        res.append((w * pow(cof, -1, mod) % mod, mod))
+        res.append((w * cof % mod, mod))
     m, mod = crt(res)
     return Fr(m, L), es
 
