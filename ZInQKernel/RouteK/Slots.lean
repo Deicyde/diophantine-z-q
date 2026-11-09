@@ -3,6 +3,7 @@ import ZInQKernel.RouteK.Slots.Multiplier
 import ZInQKernel.RouteK.Slots.Theta
 import ZInQKernel.RouteK.Slots.Symbols
 import ZInQKernel.RouteK.Slots.Dirichlet
+import ZInQKernel.RouteK.Slots.Construction
 
 /-!
 # Route K: input data and slot primes of the descent lemma
