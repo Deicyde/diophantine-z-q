@@ -67,3 +67,19 @@
   a nonreal value). C2 = T5b in 400/400, C1 = T5a in 400/400. So the corrected Prop 3.4 for n≡5 is
   P(n) ≡ Σ_{e|n, e≡5,7} 𝓛(n/e) Z(e) mod 2A(ℍ'_n); the (5,1) bracket is T5a (tyz-5b's SPECULATIVE remark confirmed,
   and provable by the same involution: s even, s=0 Fubini, s≥2 swap).
+
+## Step 5 (other sources; Kriz; unrefereed citations; sanity check)
+- Crossref (reachable): TYZ journal DOI 10.4310/ajm.2017.v21.n4.a5, AJM 21(4) 721-774; no update/corrigendum
+  registered. Journal text unreachable (UNCHECKED). arXiv TYZ: v1 only, no journal-ref.
+- Tian expository: ICCM Notices 5 (2017) 51-61 (DOI 10.4310/iccm.2017.v5.n1.a3) and Proc. ICM 2022, 1990-2010
+  (DOI 10.4171/icm2022/85): both unreachable (UNCHECKED). Smith 1702.02325v2, Kriz 2002.04767v5, Chen 2411.14188:
+  no restatement of TYZ Thm 1.2 (grep). Smith 1603.08479 Thm 2.1 = reading A, rows separate (unrefereed).
+- CR₃ (Lean CertifiedRank: all d≡5, |a|≡7, dim Sel=3, a ∈ π1) follows from tyz-5b Cor 4.4 for every such d,
+  so Kriz is not needed anywhere in CR₃ (not only for slot curves). VERIFIED by comparing the statements.
+- Unrefereed in CR₃'s chain: Kolyvagin MPIM preprint MPI/90-69 (manuscript lem:forward-rank, A020; TYZ themselves
+  cite Kolyvagin Izv. 1989 and Grothendieck Festschrift 1990); Smith 1603.08479 (replaced); Kriz (alternative only);
+  BCDT cited via author manuscript (not needed for CM curves); project notes (descent-alt Prop 0, tyz-5b §§2-4, slot-k)
+  reviewed only by automated referees; and TYZ itself read only in its arXiv (preprint) form.
+- TYZ Thm 3.3's proof itself uses GZ+Kolyvagin [K1] for proportionality (line 1993).
+- reading_a_check.py (30 random n≡5, n<3e5, 2-4 primes): (T5a,T5b,rank) counts {(0,0,1):6,(0,1,1):3,(1,0,1):10,(1,1,1):11};
+  no counterexample to reading A.
