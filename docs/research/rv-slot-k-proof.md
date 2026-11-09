@@ -246,6 +246,39 @@ control (§6) shows that `β` then indeed leaves `π₁(Sel₂(C_{d₂}))` whene
 **Conclusion of the theorem.** CORRECT. Both curves have `dim Sel₂ = 3` and `β ∈ π₁`. Neither
 certificate is of torsion type, since `n/β` and `nθ/β` are not `±1`.
 
+## 6. Computations
+
+All code is new and independent of the note's scripts. PARI (through `cypari2`) is used only to
+compare dimensions, to factor integers and to test primality.
+
+1. **Exact descent.** `sel2.py` computes `Sel₂(C_d)` for odd squarefree `d > 0` as the
+   intersection of local conditions. At odd `p | d` the local image is the span of the torsion
+   images; at 2 it is the span of the images of 2-adic points found by search, until the dimension
+   reaches 3; at `∞` it comes from the torsion. It does not use the system of Proposition 0. Against
+   PARI's `ell2cover` on 30 random `d` (1–5 primes below 400, all classes mod 8): 0 mismatches
+   (`validate_sel2_pari.py`).
+2. **Proposition 0.** `system.py` implements `Σ(𝒞)` (all four classes). Against `sel2.py` on 30
+   random `d` (1–7 primes below 3000): dimensions and first-coordinate membership of every signed
+   odd divisor of `d` agree, 0 mismatches (`validate_prop0.py`).
+3. **The theorem on abstract data** (`abstract_dl.py`). The data are classes mod 8 for the primes
+   of `β` (product `≡ 7`) and of `θ` (product `≡ 1`), a sign `s`, arbitrary symbols within `P` and
+   within `T` (reciprocity imposed), and cross symbols `M_{pℓ} = [ℓ/p]` constrained exactly by
+   (θ4) (row sums `0`) and (θ3) with reciprocity (column sums `(s + 1)λ_ℓ`). The slots are added
+   with the symbols of §2.4, and both systems are solved.
+   - Exhaustive over all such data with `|P| ≤ 3`, `|T| ≤ 3` (542,032 cases, including `θ = 1`,
+     `ω(β) = 1`, and all-`λ = 1` classes): dimension 3 and the class `β`, with its sign, on both
+     curves in every case (`out_abstract_exh.txt`).
+   - 1,000 random cases with `|P|, |T| ≤ 10`: 0 failures (`out_abstract_more.txt`).
+   - Negative control `x = s`: the first curve is always certified. The second loses `β` exactly
+     when `θ` has a prime `≡ 3 (mod 4)` (10,568 failures in the exhaustive range, 221 of 300
+     random cases, all of that kind).
+   - With the slot condition `[q₀/ℓ] = 0` replaced by random bits: 0 failures in the exhaustive
+     range `|P| ≤ 3`, `|T| ≤ 2` (finding 1).
+4. **End to end with actual primes** (`real_dl.py`). The construction of §2.4 uses CRT over the
+   primes of `β` and `θ` with random admissible residues and searches the resulting progression for
+   primes, testing the symbols at earlier slots. Both curves are certified with `sel2.py` (not with
+   the system). REALRESULTS
+
 ## 7. The count (§2.6)
 
 - **Count.** CORRECT. `n/β = q₀ · Π_{p≠p₀} r_p · Π_ℓ r_ℓ` has `1 + (ω(β) − 1) + ω(θ)` distinct

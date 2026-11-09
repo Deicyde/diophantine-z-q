@@ -246,15 +246,17 @@ def fam_theta(rng, nT, sign):
             continue
         break
     while True:
-        m = sign * rng.choice([d for d in DIVS if d > 0])  # even m may be needed for beta odd
-        # want theta u^2 = w^2 mod N, N = 2^7 3^4 5^4 7^4 13^4; take u = 1 mod N-part, w = sqrt(theta)
-        N = 2 ** 7 * 3 ** 4 * 5 ** 4 * 7 ** 4 * 13 ** 4
+        m = sign * rng.choice([d for d in DIVS if d > 0])  # beta = sqf(w^2 - theta u^2) for every m
+        # want theta u^2 = w^2 mod N, N = 2^5 3^4 5^4 7^4 13^4; take u = 1 mod N-part, w = sqrt(theta)
+        N = 2 ** 5 * 3 ** 4 * 5 ** 4 * 7 ** 4 * 13 ** 4
         # w0 with w0^2 = theta mod N (CRT of Hensel lifts)
         w0 = 0
         Mo = 1
-        for p, k in [(2, 7), (3, 4), (5, 4), (7, 4), (13, 4)]:
+        for p, k in [(2, 5), (3, 4), (5, 4), (7, 4), (13, 4)]:
             q = p ** k
-            r = next(t for t in range(1, q) if (t * t - theta) % q == 0)
+            # a random square root: note beta = sqf(w^2 - theta u^2) does not depend on m here,
+            # so the 2-adic class of beta must be varied through the root
+            r = rng.choice([t for t in range(1, q) if (t * t - theta) % q == 0])
             k2 = ((r - w0) * pow(Mo, -1, q)) % q
             w0 += Mo * k2
             Mo *= q
