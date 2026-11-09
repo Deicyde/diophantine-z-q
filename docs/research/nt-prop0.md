@@ -596,8 +596,8 @@ The main theorem then has a variant with `CertifiedRankSel` in place of `Certifi
   the same kind as the existing `Realize.lean` and `Slots/Symbols.lean`. They are long but follow known
   patterns.
 - **Small primes.** The check for `p < 29` covers about 6,000 triples `(d̄, class, ξ)`. It should be
-  a `Nat`-valued Boolean checker proved by `decide +kernel`, not `decide` on `ZMod p` (see the
-  project's notes on kernel speed). Alternatively one could improve the constant 15, but this is not
+  a `Nat`-valued Boolean checker proved by `decide +kernel`, not `decide` on `ZMod p`, because the
+  kernel evaluates `ZMod` arithmetic and `Decidable` instances slowly. Alternatively one could improve the constant 15, but this is not
   needed.
 
 ### 4.3 Effort tiers (SPECULATIVE estimates)

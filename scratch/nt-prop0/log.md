@@ -60,3 +60,7 @@
 - scratch/nt-prop0/ProbeQ.lean: Lemma Q (Σ_ξ χ((ξ−e)(ξ−e′)) = −1, e ≠ e′, any finite field of odd
   characteristic) from `jacobiSum_nontrivial_inv`, `IsQuadratic.inv`, `quadraticChar_sq_one'`:
   compiles first try, ~35 lines, standard axioms.
+
+## Step 6 (deliverables)
+- docs/research/nt-prop0.md complete (§0–§5, ranking R1 > R3 > R2), .fleet/nt-prop0.md written.
+- Task finished; follow-ups listed in the fleet report.
