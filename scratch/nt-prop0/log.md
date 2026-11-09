@@ -19,3 +19,14 @@
 - Local analysis plan: p | d odd by valuation of x (cases v<0, v=0, v=1 with t≡±1, v≥2); ∞ by sign of x;
   2 for d≡5 by v(x) and x mod 8 (8 classes; non-torsion ones need √(1−16d²) ∈ ℚ₂);
   p ∤ 2d: necessity by valuations, sufficiency needs δ_{F_p} surjective (group law + halving) + Hensel.
+
+## Step 2 (tests of the local computations; scripts in scratch/nt-prop0/)
+- t_two_adic.py: for 13 d ≡ 5 (8), the points x = 1/4, −4d², d(1+4d)/(1−4d), −d(1−4d)/(1+4d) lie on
+  C_d(ℚ₂) and have classes (1,5),(7,7),(5,10),(3,14) exactly; sampling rational x (v₂ ∈ [−6,6],
+  odd part < 2^12) on 6 curves gives exactly the 8 classes {(1,1),(1,5),(7,7),(7,3),(5,10),(5,2),(3,6),(3,14)}.
+- t_fp_surj.py: δ_{F_p} onto (F_p*/F_p*²)² for all odd p < 400 and all d mod p (13808 pairs, 0 fail).
+- t_charsum.py: Jacobsthal S(n)² + S(gn)² = 4p (p ≡ 1 mod 4), S ≡ 0 (p ≡ 3 mod 4), p < 600: 0 fail.
+  Fibre bound 8N ≥ p − 15 − |S(d²)| and N > 0 for p ≥ 29 / p ≥ 19 (p < 200, all d): 0 fail.
+- KEY FINDING: the good-prime sufficiency (unit pairs locally soluble at p ∤ 2d) needs neither the
+  group law nor Hasse: x-form of the covering + character-sum count + Jacobsthal's identity
+  (Σ_n S(n)² = p(p−1)(1+χ(−1)), elementary) + unit-square Hensel lift. Small p < 29 by finite check.
