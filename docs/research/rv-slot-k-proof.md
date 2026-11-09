@@ -302,3 +302,28 @@ unrefereed preprint, with the repair of its Theorem 10.8 noted in pc-audit RK1; 
 restricted 2-adic shape `|n| ≡ 5 (mod 8)`, `|β| ≡ 7 (mod 8)` that the construction always
 produces, TYZ with Gross–Zagier if pc-audit RK6 holds). That is outside the scope of this report
 and is UNCHECKED here.
+
+## 9. Repairs and suggestions
+
+No mathematical repair is required. Suggested edits to `slot-k.md`:
+
+1. (Finding 1.) In §2.4 either drop the condition `[q₀/ℓ] = 0` for `ℓ ∈ T` or mark it as optional,
+   and in §2.5 "What each slot does" replace "its symbols at `T` [are dictated] by the transfer to
+   the second curve" by: "its symbols at `T` are irrelevant: they lie inside the glued set of
+   step 5". Dropping it also removes `ω(θ)` conditions from the choice of `q₀`, which matters for a
+   Lean formalization of L3.
+2. (Finding 2.) Replace "within one of the lower bound of Proposition B" (introduction, §2.6) by a
+   statement that is true in general, for instance: "in the core situation of Proposition B the
+   first curve uses between `k + 1` and `k + 4` auxiliary primes, against the bound `k`".
+3. (Finding 3.) In §2.1, state both directions: Selmer classes are unramified outside `2d∞`
+   (Silverman X.1.4), hence supported on `−1, 2` and the primes of `d`; such classes satisfy the
+   local conditions at good primes `p ∤ 2d` automatically.
+4. (Finding 4.) In §1.2 and §4.1 cite Kriz's Theorem 10.13 rather than 10.17(2), as pc-audit RK1
+   recommends, and record that Kriz's standing hypothesis `f₀ ≥ 4` holds because the odd part of
+   `|d|` is `d ≥ 21` for both curves.
+5. (Finding 5.) In §1.2 phrase the torsion certificate as: "`d ≡ β` or `d ≡ −β` modulo squares;
+   then `(d, 0)` or `(−d, 0)` is a point of `C_d` with abscissa in `βℚ*²`". It is never used by the
+   construction.
+6. (Optional.) Step 5 can be written without Jacobi symbols: `Σ_ℓ[p/ℓ] = Σ_ℓ([ℓ/p] + λ_pλ_ℓ) =
+   [θ/p] + λ_pλ_θ`, which is `0` by (θ4) and `θ ≡ 1 (mod 4)`. This is the form a Lean proof (L5)
+   would use, since it needs only Legendre reciprocity prime by prime.
