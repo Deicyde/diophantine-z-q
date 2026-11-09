@@ -350,3 +350,38 @@ smallest primes meeting the slot conditions were taken, giving 10 curves with `d
   first coordinate (`1, −1, d, −d`), as the certificate predicts.
 
 This tests the deep input on a few cases; it is not part of the proof.
+
+## 5. Findings and repairs
+
+No finding affects the validity of DL. Severity scale: **major** (the proof fails as written),
+**minor** (a written argument or citation is incomplete but the statement is right and the repair is
+routine), **cosmetic** (presentation only).
+
+| # | Severity | Where | Finding |
+| --- | --- | --- | --- |
+| F1 | minor | descent-alt §4.1 (place 2); slot-k §2.1, §5.1 item 4 | The place-2 rows are justified by sampled points, and only the eight classes for `d ≡ 5` are printed, without the points. slot-k proves the row `c = 5` by hand; the rows `c = 1, 3, 7` have no written proof. All four rows are correct (§1.4). |
+| F2 | minor | slot-k §2.1, "Odd places and the real place" | Only one half of the reduction to `ℚ(S ∪ {2}, 2)²` is stated: classes supported on `−1, 2` and the primes of `d` satisfy the conditions outside `2d∞`. The other half, that every Selmer class is unramified outside `2d`, is not. |
+| F3 | minor | slot-k §1.2, §4.1 | Kriz is cited as "Theorems 10.13 and 10.17(2)"; 10.13 alone is the right citation (pc-audit RK1). The standing hypothesis `f₀ ≥ 4` is not checked. |
+| F4 | cosmetic | slot-k throughout | Symbol clashes. `x` denotes both an abscissa and the bit `[q₀/p*]`; `ω` both the prime-counting function and the 2-adic bit `(w² − 1)/8`; `K` both Monsky's matrix and (in the cited literature) the CM field. The rows of `(D)` for `c = 1, 5` silently use `(R)`. |
+| F5 | cosmetic | slot-k introduction and §2.6 | "Within one of the lower bound of Proposition B" holds only when `β` has exactly one prime outside the core; in general the gap is at most four (§3). |
+
+**Repairs.**
+
+- **F1.** Replace the sampled table by the derivation of §1.4: the torsion images `(d, 2)`,
+  `(−1, −d)` and the single point `x = 1/4`. That point lies on `C_d(ℚ₂)` for every odd `d` and has
+  class `(1, 5)`. The table of §1.4 then proves all four rows in a few lines. State that the
+  rows for `c = 1, 5` are written modulo `(R)`.
+- **F2.** Add one sentence: at an odd `p ∤ d` the curve has good reduction, so the local image is
+  the unramified subgroup (Silverman X.1.4). Hence `Sel₂(C_d) ⊂ ℚ(S ∪ {2}, 2)²`, and conversely
+  those classes satisfy every condition outside `2d∞`.
+- **F3.** Cite Kriz, Theorem 10.13, with `K = ℚ(i)` and `p = 2`. Add: "`f₀` is the odd part of
+  `|d| ≥ 21`, so Assumption 5.6(1) holds and the LMFDB step in Kriz's proof is not needed." For the
+  corank lemma, Cassels' alternating pairing suffices for elliptic curves; Poonen–Stoll may be kept.
+- **F4.** Rename the bit `x` (for example to `ξ`) and the 2-adic bit `ω` (for example to `η`).
+- **F5.** Replace "within one" by "at most four above the bound, and one above it when `β` has a
+  single prime outside the core".
+
+With these repairs the proof of DL in slot-k §2 is complete. It rests on Proposition 0 (proved in
+§1), on quadratic reciprocity for Legendre and Jacobi symbols, on CRT and Dirichlet's theorem, and on
+(θ1)–(θ4). The passage from certificates to points rests on Kriz's Theorem 10.13, an unrefereed
+preprint, and on the corank lemma (§2.2). The status of that deep input is unchanged by this review.
