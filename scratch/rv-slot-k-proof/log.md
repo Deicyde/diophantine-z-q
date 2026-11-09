@@ -66,3 +66,14 @@ Data: classes of P (product ≡ 7), of T (product ≡ 1), sign s, symbols within
 - Kriz f₀ ≥ 4: odd part of |d| is d ≥ 21. Fine (finding 4: make explicit; cite 10.13).
 - From points to Φ_C: rederived from polePoly with x+ℓ; scalings λ = t/s and th/s. CORRECT.
 - Report sections 0–5, 7–9 written.
+
+## Step 5 (real primes, `real_dl.py`)
+
+- Own construction with CRT over primes of β, θ and progression search for slot conditions; own
+  exact descent certifies. 30 runs: 12 random, 6 θ = 1 (3+/3−), 5 β all ≡ 3 mod 4, 7 prescribed θ
+  with primes ≡ 3 mod 4 (4+/3−). All 30: both curves dim 3 with β ∈ π₁; slots = ω(β)+ω(θ).
+  `out_real_dl.txt`.
+- Test-generator bug found and fixed on the way (not a proof issue): for B = m(1 − θc²),
+  β = sqf(w² − θu²) does not depend on m, so the 2-adic class of β must be varied via the square
+  root; earlier version looped.
+- Exhaustive abstract rerun complete: 541,748 cases, 0 failures; negative control as before.

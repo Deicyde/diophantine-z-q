@@ -51,7 +51,7 @@ directly from `polePoly`. The deep input itself (Kriz) is outside this review.
   - negative control `x = s`: fails exactly when `θ` has a prime `≡ 3 (mod 4)`.
 - End to end with actual primes for 30 runs `(B, m)` of admissible `B`, certified by the own exact
   descent. Families: random; `θ = 1` with both signs of `β`; `β` with only primes `≡ 3 (mod 4)`;
-  prescribed `θ` with primes `≡ 3 (mod 4)` and both signs of `β`. RESULT_PLACEHOLDER
+  prescribed `θ` with primes `≡ 3 (mod 4)` and both signs of `β`. Both curves certified in all 30 runs (`ω(β)` 1–8, `ω(θ)` 0–6, 16 runs with `β < 0`, 20 with a prime `≡ 3 (mod 4)` in `θ`, 22 distinct multipliers); slot count always `ω(β) + ω(θ)`.
 
 ## Suggestions
 
