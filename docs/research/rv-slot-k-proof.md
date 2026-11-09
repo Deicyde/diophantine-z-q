@@ -31,6 +31,26 @@ The findings are all minor. None affects the validity of DL:
 No repair is needed for the proof. Findings 1–5 are editorial. The repairs section lists the
 suggested rewordings.
 
+**Marks, step by step.**
+
+| Step | Mark | Section here |
+| --- | --- | --- |
+| (θ1)–(θ4) | CORRECT | §1 |
+| Step 0 (multiplier), for every eligible `m` | CORRECT | §1 |
+| Proposition 0: odd places, primes `∤ 2d`, real place | CORRECT | §2 |
+| Proposition 0: place-2 row for `c = 5`; structure of the place-2 rows | CORRECT | §2 |
+| Proposition 0: place-2 rows for `c = 1, 3, 7` | not used; consistent with an exact descent on 30 curves | §2, §6 |
+| Lemma 1 | CORRECT | §3 |
+| Lemma 2, steps 1–4, (2.1), (2.2), bijectivity | CORRECT | §3 |
+| Lemma 3 | CORRECT | §4 |
+| Existence of the slots (CRT, reciprocity, Dirichlet, edge cases) | CORRECT | §5.1 |
+| Steps 1–6 of the theorem | CORRECT | §5.2 |
+| Count `ω(β) + ω(θ)` | CORRECT | §7 |
+| Comparison with Proposition B | overstated (finding 2), not used | §7 |
+| DL ⟹ points on `C_n`, `C_{nθ}` with abscissa in `βℚ*²` (given Kriz) | CORRECT | §8 |
+| Points ⟹ zero of the `x + ℓ` pole polynomial | CORRECT | §8 |
+| Kriz's Theorem 10.13 itself | UNCHECKED (outside scope) | §8 |
+
 ## 1. The inputs (§1.1 of the note)
 
 Notation is that of the note: `C_d : y² = x³ − d²x`, Kummer map `P ↦ (x, x − d)`, `[x/p] ∈ 𝔽₂`
@@ -270,8 +290,11 @@ compare dimensions, to factor integers and to test primality.
      curves in every case (`out_abstract_exh.txt`).
    - 1,000 random cases with `|P|, |T| ≤ 10`: 0 failures (`out_abstract_more.txt`).
    - Negative control `x = s`: the first curve is always certified. The second loses `β` exactly
-     when `θ` has a prime `≡ 3 (mod 4)` (10,568 failures in the exhaustive range, 221 of 300
-     random cases, all of that kind).
+     when `θ` has a prime `≡ 3 (mod 4)`. In the exhaustive range `|P| + |T| ≤ 5` there are 10,568
+     failures, and in each size class their number equals the number of data in which `θ` has such
+     a prime (for instance `3/4` of the cases for `|T| = 3`, `1/2` for `|T| = 2`). In 300 random
+     cases, 221 fail, all of that kind. This matches step 6, where `x = s` gives
+     `u_{r_ℓ} = λ_ℓ`.
    - With the slot condition `[q₀/ℓ] = 0` replaced by random bits: 0 failures in the exhaustive
      range `|P| ≤ 3`, `|T| ≤ 2` (finding 1).
 4. **End to end with actual primes** (`real_dl.py`). The construction of §2.4 uses CRT over the
