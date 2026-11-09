@@ -64,3 +64,13 @@
   theorem goodPrimeAP_of_greenTao_propD : GreenTaoDense → PropDUpper → ZInQ.GoodPrimeAP compiles against the branch,
   axioms [propext, Classical.choice, Quot.sound]. (First attempt: decidability-instance mismatch, fixed by `convert`.)
   So GoodPrimeAP follows from GT 1.2 + Prop D with no extra condition. CORRECT.
+
+## Step 6 (complete proof of the dense form; section numbers)
+- Tao–Ziegler arXiv math/0610050 (Acta Math. 201 (2008)) TeX: main theorem (label mainthm, "Polynomial Szemerédi
+  theorem for the primes"): A ⊂ primes with limsup |A∩[N]|/|P∩[N]| > 0, P_i ∈ ℤ[m], P_i(0)=0 ⇒ infinitely many
+  x+P_1(m),…,x+P_k(m) in A with m > 0. With P_i = (i−1)m this is GT 1.2 with v > 0 directly. The general A is
+  handled in the proof (§2, pigeonholed class b mod W, footnote says b=1 possible only for A = P). Statement VERIFIED;
+  proof not refereed here. Gives the citation repair for the GT caveat.
+- GT arXiv v6 section list: the "our method also extends to prove Theorem 1.2" remark is in §11 "Further remarks"
+  (sections: 1 Intro … 7 Bohr sets, 8 Furstenberg tower, 9 measure, 10 correlation, 11 Further remarks). Docstring
+  and rv-nt22p-ap say §10. Cosmetic (published numbering unchecked).
