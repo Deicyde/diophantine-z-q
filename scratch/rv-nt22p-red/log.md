@@ -45,3 +45,25 @@ Python env: /tmp/rvred-venv (cypari2 2.17, gmpy2, numpy, mpmath). Recreate with
     l = 2, 3, 7 (0/2000). "Lemma P must fail for F<0" is true only at l in {2,3,7}; at
     l == 1 mod 4 it holds (since -1 is a square). Not a defect; the hypothesis F(t) > 0 could be
     weakened to "eta R0 l^{-2e} is a square in Q_l".
+
+## Step 4: batch 2 run 1 (partial), AP instance search, first end-to-end instance
+
+- b2 run 1 (`b2_out_partial_run1.txt`, 16 of 30 inputs before I stopped it to speed up the
+  library): every input with the modified q passed (v_l(B) >= 4 on S0, no odd negative valuation on
+  the model S_b, 0 < B < 1/2). Rerunning all 30 with the faster library (`b2_out.txt`).
+- Library fix: at split primes the norm W0^2 - 2 W1^2 loses all precision when one embedding of
+  W is a unit and the other has large negative valuation (selected primes); now each embedding
+  sqrt2 -> +-r in Q_p is computed separately.
+- Independent density count (`dens.py`): 1,925 good slope primes among odd primes < 2e5 (share
+  0.107), all in the class p == 1 (8), (7/p) = -1; agrees with nt-22p/[RP].
+- `ap_search.py`: sieve + PARI ellcard search for genuine instances of the 14-point set of
+  Prop AP. Admissibility: for A = -70 (|S+| = 11) v must be divisible by 2, 3, 7, 11; for |S+| = 14
+  by 2, 3, 7 (or 2, 7). Hits (all values good slope primes):
+  A=-70: v=480480=2^5·3·5·7·11·13 x=6455441; v=2^10·3·5·7·11·13 x=249339257, 522677321;
+  v=2^5·3^5·5·7·11·13 x=654796201, 835325417; v=2^3·3·5^5·7·11·13 x=2046031433;
+  v=2^3·3·5·7^5·11·13 x=2733858433, 4249498417. (Further runs in progress.)
+- `b3_ap.py` on A=-70, v=480480, x=6455441: t1 = 6935921/480480, t2 = -35764721/480480, t3 = -10.
+  Fields 1, 2', 3, 4 hold for all three (Lemma P branch at 2 for t1, t2, e = 5). v_2(B) = 6096,
+  6100; other S0 primes 5834; v_p(B) = 1 at all 6+6 selected primes; only negative valuations
+  at u - v (resp. u - (A'-1) v), even (-216), and at the auxiliary prime (even); 0 < B < 1/2.
+  t3 = -10: eta = -1, all fine. ALL OK.

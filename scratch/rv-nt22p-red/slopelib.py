@@ -267,6 +267,7 @@ class PoleInput:
         g = gmpy2.gcd(n, d)
         self.a_num, self.a_den = n // g, d // g
         assert self.a_num != 0
+        self.cinv = {k: 1 / (self.R0 ** k * (self.t - 1) ** (k + 1)) for k in (1, 25)}
 
     def v_a(self, p):
         return vp_int(self.a_num, p) - vp_int(self.a_den, p)
@@ -284,12 +285,26 @@ class PoleInput:
             pari(f"({a_unit}+O({p}^{M}))^2 * {p}^({2*(nv-dv)})") * padic(R0, p, M)
         vR = int(pari.valuation(Rp, p))
         Theta = pari(0)
-        minW = None
-        for g, row in enumerate(self.D):
+        cp = {k: padic(self.cinv[k], p, M) for k in (1, 25)}
+        split = p != 2 and int(pari(f"kronecker(2,{p})")) == 1
+        if split:
+            # two embeddings sqrt2 -> +-r into Q_p: no cancellation in norms
+            r = pari.sqrt(pari(f"2 + O({p}^{M + 10})"))
+            for g, row in enumerate(self.D):
+                for sg in (1, -1):
+                    W = pari(1)
+                    for j, (x, y) in enumerate(row):
+                        k = PREC[j]
+                        c = cp[k]
+                        C = c * (x + sg * y * r)
+                        W = W * (1 + Rp * C * C)
+                    Theta = Theta + 1 / W
+            row = None
+        for g, row in enumerate(self.D if not split else []):
             W = (pari(1), pari(0))
             for j, (x, y) in enumerate(row):
                 k = PREC[j]
-                c = padic(1 / (R0 ** k * (t - 1) ** (k + 1)), p, M)
+                c = cp[k]
                 Cx, Cy = c * x, c * y
                 C2 = (Cx * Cx + 2 * Cy * Cy, 2 * Cx * Cy)
                 fac = (1 + Rp * C2[0], Rp * C2[1])
@@ -311,15 +326,14 @@ class PoleInput:
         R = mpmath.mpf(int(self.ell0)) ** 2 * a ** 2 * mpmath.mpf(self.R0.numerator) / self.R0.denominator
         t, R0 = self.t, self.R0
         Theta = mpmath.mpf(0)
+        cr = {k: mpmath.mpf(self.cinv[k].numerator) / self.cinv[k].denominator for k in (1, 25)}
         Ws = []
         for sgn in (1, -1):
             for row in self.D:
                 W = mpmath.mpf(1)
                 for j, (x, y) in enumerate(row):
                     k = PREC[j]
-                    den = mpmath.mpf(Fr(R0) ** k * (t - 1) ** (k + 1)) if False else \
-                        mpmath.mpf((R0 ** k * (t - 1) ** (k + 1)).numerator) / (R0 ** k * (t - 1) ** (k + 1)).denominator
-                    C = (x + sgn * y * s2) / den
+                    C = (x + sgn * y * s2) * cr[k]
                     W *= 1 + R * C * C
                 Ws.append(W)
                 Theta += 1 / W
