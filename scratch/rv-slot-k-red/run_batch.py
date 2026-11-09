@@ -8,6 +8,7 @@ rng = random.Random(seed)
 import construct as _c
 for a in sys.argv:
     if a.startswith("VARIANT="): _c.VARIANT = a.split("=")[1]
+    if a == "SMALLEST": _c.SMALLEST = True
 runs = getattr(families, fam)(rng)
 assert len(runs) <= 30
 nok = 0; t0 = time.time()

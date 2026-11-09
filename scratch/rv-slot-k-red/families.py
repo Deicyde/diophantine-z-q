@@ -136,7 +136,7 @@ def core_primes(rng, k, lo=2 * 10**4, hi=3 * 10**6):
         while len(K) < k and tries < 20000:
             tries += 1
             p = rng.randrange(lo // 21840, hi // 21840) * 21840 + 1
-            if not gmpy2.is_prime(p):
+            if p in K or not gmpy2.is_prime(p):
                 continue
             if all(leg(p, q) == 0 for q in K):
                 K.append(p)
@@ -292,3 +292,37 @@ def test_site(rng):
         m = rng.choice(eligible(B))
         out.append((B, m, 'rand', 'test n=%d' % n))
     return out
+
+
+def large(rng):
+    """omega(beta) 9-12, theta with several primes (up to about 20 slots)."""
+    out = []
+    for i in range(12):
+        k = rng.randint(9, 12)
+        while True:
+            cs = [rng.choice((1, 3, 5, 7)) for _ in range(k)]
+            if prod(cs) % 8 == 7:
+                break
+        b = beta_with_classes(rng, cs, lo=17, hi=3000)
+        B, m = gen_from_beta(rng, b, abound=5, want=lambda th, T: len(T) >= 3)
+        if B is not None:
+            out.append((B, m, 'rand', 'large w=%d' % k))
+    return out
+
+
+def small_slots(rng):
+    """random inputs, slots taken as the least primes of their progressions (q0 may be 3, 11, ...)."""
+    out = []
+    for i in range(10):
+        B = gen_random(rng, kmax=3)
+        m = rng.choice(eligible(B))
+        out.append((B, m, 'rand', 'small'))
+    for b in (7, -7, 15, -15, 39, -39, 455, -455, 23, -23):
+        B, m = gen_from_beta(rng, b)
+        if B is not None:
+            out.append((B, m, 'min', 'small b=%d' % b))
+    for b in (7, -15, 39, -455, 31, -47):
+        B, m = gen_theta_one(rng, b)
+        if B is not None:
+            out.append((B, m, 'min', 'small th=1 b=%d' % b))
+    return out[:30]

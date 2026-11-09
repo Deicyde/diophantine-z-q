@@ -105,9 +105,29 @@ def crt(congs):
     return a % M, M
 
 
+def find_prime_small(congs, extra, forbidden):
+    """least prime with the same symbol conditions as the CRT data (scan upwards)."""
+    conds = []
+    for r, mdl in congs:
+        if mdl == 8:
+            cls8 = r
+        else:
+            conds.append((mdl, leg(r, mdl)))
+    conds += list(extra)
+    c = 2
+    while True:
+        c = int(gmpy2.next_prime(c))
+        if c % 8 != cls8 or c in forbidden or any(c == y for y, _ in conds):
+            continue
+        if all(leg(c, y) == w for y, w in conds):
+            return c
+
+
 def find_prime(congs, extra, forbidden, rng, max_tries=10**7):
     """smallest-ish prime in the CRT progression satisfying extra symbol conditions
     extra: list of (y, want) meaning [prime/y] = want (y odd prime)."""
+    if SMALLEST:
+        return find_prime_small(congs, extra, forbidden)
     a, M = crt(congs)
     k = rng.randrange(0, 10**6)
     for t in range(max_tries):
@@ -126,6 +146,7 @@ def find_prime(congs, extra, forbidden, rng, max_tries=10**7):
     raise RuntimeError("no prime found")
 
 
+SMALLEST = False  # take the least prime of each progression (small slots, e.g. q0 = 3)
 VARIANT = None  # negative controls: 'wrongx', 'q0T', 'q0p'
 
 
@@ -228,4 +249,6 @@ def summary(rec):
                 len(rec['T']), [p % 8 for p in rec['P']] if len(rec['P']) < 8 else '...',
                 [l % 8 for l in rec['T']] if len(rec['T']) < 8 else '...', rec['p0'] % 8 if rec['p0'] > 13 else rec['p0'],
                 rec['slots'], c[0][0], c[0][1], c[0][2], c[1][0], c[1][1], c[1][2],
-                rec['inprops_bad'], 'OK' if rec['ok'] else '*** FAILURE ***'))
+                rec['inprops_bad'], 'OK' if rec['ok'] else '*** FAILURE ***')) + (
+                " q0=%d minslot=%d" % (rec['q0'], min([rec['q0']] + list(rec['RP'].values()) + list(rec['RT'].values())))
+                if rec['q0'] < 10**4 else "")
