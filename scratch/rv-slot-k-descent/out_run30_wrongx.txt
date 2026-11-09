@@ -1,0 +1,30 @@
+#0 B1: theta has no prime = 3 mod 4, skip negative control
+#1 B2: theta has no prime = 3 mod 4, skip negative control
+#2 B3: theta has no prime = 3 mod 4, skip negative control
+#3 e11#1: theta has no prime = 3 mod 4, skip negative control
+#4 stall#8 m=195 beta<0=0 |beta|%8=7 w(beta)=5 w(theta)=4 theta1-4=1111 slots=9 (max 42 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#5 stall#18 m=-910 beta<0=1 |beta|%8=7 w(beta)=6 w(theta)=3 theta1-4=1111 slots=9 (max 43 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#6 stall#19 m=-210 beta<0=1 |beta|%8=7 w(beta)=3 w(theta)=4 theta1-4=1111 slots=7 (max 40 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#7 stall#20 m=2 beta<0=0 |beta|%8=7 w(beta)=3 w(theta)=4 theta1-4=1111 slots=7 (max 39 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#8 stall#23 m=-2730 beta<0=1 |beta|%8=7 w(beta)=5 w(theta)=4 theta1-4=1111 slots=9 (max 41 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#9 stall#28 m=30 beta<0=0 |beta|%8=7 w(beta)=5 w(theta)=3 theta1-4=1111 slots=8 (max 47 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#10 core3.0: theta has no prime = 3 mod 4, skip negative control
+#11 core3.1 m=-105 beta<0=1 |beta|%8=7 w(beta)=5 w(theta)=5 theta1-4=1111 slots=10 (max 61 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#12 core3.2 m=-42 beta<0=1 |beta|%8=7 w(beta)=4 w(theta)=4 theta1-4=1111 slots=8 (max 55 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#13 core4.0: theta has no prime = 3 mod 4, skip negative control
+#14 core4.1 m=14 beta<0=0 |beta|%8=7 w(beta)=6 w(theta)=5 theta1-4=1111 slots=11 (max 74 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#15 rand.0: theta has no prime = 3 mod 4, skip negative control
+#16 rand.1: theta has no prime = 3 mod 4, skip negative control
+#17 rand.2: theta has no prime = 3 mod 4, skip negative control
+#18 rand.3 m=195 beta<0=0 |beta|%8=7 w(beta)=6 w(theta)=4 theta1-4=1111 slots=10 (max 42 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#19 rand.4 m=5 beta<0=0 |beta|%8=7 w(beta)=2 w(theta)=4 theta1-4=1111 slots=6 (max 39 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#20 rand.5 m=-7 beta<0=1 |beta|%8=7 w(beta)=4 w(theta)=3 theta1-4=1111 slots=7 (max 37 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#21 rand.6 m=13 beta<0=0 |beta|%8=7 w(beta)=4 w(theta)=4 theta1-4=1111 slots=8 (max 54 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#22 rand.7: theta has no prime = 3 mod 4, skip negative control
+#23 rand.8: theta has no prime = 3 mod 4, skip negative control
+#24 rand.9: theta has no prime = 3 mod 4, skip negative control
+#25 rand.10 m=-30 beta<0=1 |beta|%8=7 w(beta)=6 w(theta)=4 theta1-4=1111 slots=10 (max 51 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#26 rand.11 m=10 beta<0=0 |beta|%8=7 w(beta)=3 w(theta)=4 theta1-4=1111 slots=7 (max 43 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#27 rand.12 m=6 beta<0=0 |beta|%8=7 w(beta)=5 w(theta)=2 theta1-4=1111 slots=7 (max 45 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#28 rand.13 m=-1365 beta<0=1 |beta|%8=7 w(beta)=4 w(theta)=6 theta1-4=1111 slots=10 (max 56 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=False prop0(d1)=True FAIL [wrong x] (0s)
+#29 rand.14: theta has no prime = 3 mod 4, skip negative control
