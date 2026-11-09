@@ -39,3 +39,16 @@
 - Literal predicate below 324: {17, 41, 73, 97, 241, 257, 313}; 2 and 7 are not good (p = 2: r = 0, counts 3, 3).
 - Relative density in (324, 2·10⁶): 15821/148867 = 0.1063; Euler product (l < 10⁶) 0.1060. Consistent with Prop D.
 - Longest AP of good primes in (324, 3·10⁵) found: length 10 (x = 53681, v = 9240). No local obstruction seen.
+
+## Step 4 (sources)
+- Green–Tao arXiv math/0404188v6 TeX (fetched): second theorem of §1, label sz-primes, "Let A be any subset of the
+  primes of positive relative upper density, limsup π(N)^{-1}|A∩[1,N]| > 0 ... Then A contains infinitely many
+  arithmetic progressions of length k for all k." Numbered 1.2. Line ~1947 (§10): "our method also extends to prove
+  Theorem 1.2 ... The only significant change ... pigeonhole ... residue class b mod W" (outline only). CORRECT as
+  quoted in the GoodPrimeAP docstring; caveat present.
+- Conlon–Fox–Zhao exposition arXiv:1403.2957: complete proof of Theorem 1.1 only; dense-subset form listed as an
+  extension (§ "Szemerédi's theorem in the primes"). Confirms referee caveat F3.
+- Referees: rv-nt22p-ap (F1–F6; F4 = formalization status, now addressed by ap-lean), rv-nt22p-proof (findings 5, 6,
+  9–11). ap-lean statements agree: PoleAbsorbHyp keeps the redundant seven-numerator clause (cosmetic, finding 6);
+  field 2′ (not 2″); pole_input_valuations_AP concludes ≥ 4 on S_b (rv says conclusions could stay ≥ 103C+8; ≥ 4 is
+  what PoleCompleteness uses — kernel-checked chain, so harmless).
