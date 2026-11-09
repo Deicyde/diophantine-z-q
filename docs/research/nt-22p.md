@@ -209,3 +209,92 @@ argument and the Green–Tao 2008 route of §3) needs good primes only through c
 The infinite family of conditions is thus elementary bookkeeping, not a source of depth. The
 relaxation `gcd(e₁, e₂) | c_*`, or a larger shift [RG A8], raises the density but changes nothing
 qualitative.
+
+---
+
+## 3. Green–Tao 2008 suffices (question 2)
+
+### 3.1 The obstacle of route R4
+
+Green–Tao 2008 (*The primes contain arbitrarily long arithmetic progressions*, Ann. of Math. 167
+(2008) 481–547, Theorem 1.2): every subset of the primes of positive relative upper density contains
+arithmetic progressions of every finite length. STANDARD; the statement is quoted from memory and
+agrees with the arXiv abstract (math/0404188: the transference principle gives progressions in "any
+subset of a sufficiently pseudorandom set of positive relative density"); the theorem number is
+UNCHECKED. A `(K + 1)`-term progression `x, x + v, …, x + Kv` contains the homothetic copy
+`{x + jv : j ∈ J}` of every `J ⊂ [0, K]`. So Green–Tao 2008 applied to `G` produces the twelve
+primes of 22P₂, but with no control of the common difference `v`.
+
+22P₂ asks for `v_q(v) ≤ 4` at `q ≤ 324` (and `≤ 1` at the catalogue). [RP §2.3, R4] argues that
+this is unavoidable ("an unbounded `v_q(t)` at an old prime makes `v_q(RC²)` for `k = 25` tend to
+`−∞`; the fixed `ℓ₀` and `c_*` cannot compensate"). It also notes, correctly, that no Szemerédi-type
+theorem forces valuation conditions on the difference for general dense subsets of the primes. For
+example, inside the primes `≡ 1 (mod 3⁵)` every difference is divisible by `3⁵`. The literature
+search of §3.5 found nothing that gives the condition for the primes. The argument of [RP] overlooks
+one free parameter: the witness `q`.
+
+### 3.2 Poles at old primes are absorbed by the witness `q`
+
+**Lemma P (pole absorption).** Let `ℓ` be a prime, `t = u/v ∈ ℚ` in lowest terms with
+`e = v_ℓ(v) ≥ 1`, and assume that the seven numbers `u − cv` (`c ∈ 𝒞`) and `u − v` are prime to
+`ℓ`, and that `F(t) > 0` (so `η = 1`). Assume `ℓ` odd, or `ℓ = 2` and `e ≥ 3`.
+
+1. `v_ℓ(R₀) = 2e`, `v_ℓ(t − 1) = −e`, and `R₀` is a square in `ℚ_ℓ`.
+2. For every `N` the set of `q ∈ ℚ_ℓ` with `v_ℓ(1 − R₀q²) ≥ N` is a non-empty open set.
+3. Suppose that at every place `𝔩` of `K₀` above `ℓ` all test values satisfy `v_𝔩(D_{gj}) ≥ 0`, with
+   `v_𝔩` normalized to extend `v_ℓ`. If `v_ℓ(a) ≥ N ≥ 23e + v_ℓ(12) + 2`, then `v_ℓ(B) ≥ 4`.
+
+*Proof.* (1) `R₀ = F(t)/(t − 1)⁸ = v²F(u, v)/(u − v)⁸`, and
+`F(u, v) = u⁶∏_{c∈𝒞}(1 − cv/u)` with `u` an `ℓ`-unit (it is the value `u − 0·v`). Hence
+`R₀ ℓ^{−2e} = (vℓ^{−e})² u⁶ (u − v)^{−8} · ∏_c(1 − cv/u)`. The first three factors are squares of
+`ℓ`-units, and the product is `≡ 1 (mod ℓ^e)`. A unit `≡ 1 (mod ℓ)` is a square in `ℚ_ℓ` for odd
+`ℓ`, and a unit `≡ 1 (mod 8)` is a square in `ℚ₂`.
+
+(2) Take `q₀ = ±R₀^{−1/2} ∈ ℚ_ℓ`. Then `1 − R₀q² = −R₀(q − q₀)(q + q₀)`, and
+`v_ℓ(1 − R₀q²) = 2e + v_ℓ(q − q₀) + v_ℓ(q + q₀) ≥ N` on a small ball around `q₀`.
+
+(3) Write `E_ℓ = v_ℓ(ℓ₀) ≥ 0` and `α = v_ℓ(a)`. Then `v(R) = 2E_ℓ + 2α + 2e`, and
+`v(C_{gj}) = v(D_{gj}) − 2ek_j + e(k_j + 1) ≥ −e(k_j − 1)`, so
+`v(RC_{gj}²) ≥ 2E_ℓ + 2α + 2e − 2e(k_j − 1) ≥ 2α − 46e` for `k_j ∈ {1, 25}`. With `α ≥ N` this
+exceeds `v_ℓ(12)`. Each `W_g` is then `≡ 1` to valuation `> v_ℓ(12)` at every place above `ℓ`, so
+`Θ = 12 + Tr Σ_g (W_g^{−1} − 1)` has `v_ℓ(Θ − 12) > v_ℓ(12)` and `v_ℓ(Θ) = v_ℓ(12)`. Finally
+`v_ℓ(B) = v(R) − 2v_ℓ(12) ≥ 2N − 2v_ℓ(12) ≥ 4`. ∎ VERIFIED (by hand, above).
+
+The hypothesis of (3) holds at every `ℓ ∈ S_b` for the honest witnesses, since `M₀ | h`
+(`ZInQ.Mult.tests_integral_old`, `SbIntegrality.lean:98`, whose hypotheses do not mention `t`;
+manuscript line 1728). The same computation is the manuscript's real-place argument (`a → 0`,
+lines 1747–1751), transported to `ℚ_ℓ`; it needs `R₀` to be a local square, as the real argument
+needs `R₀ > 0`.
+
+**Numerical check** (`scratch/nt-22p/atrick.py`, 30 random samples with `v_ℓ(v)` up to 40 at each
+`ℓ ∈ S₀`):
+
+- `R₀` was a square in `ℚ_ℓ` at all five primes in 30 of 30 samples;
+- one rational `q` was built for each sample by the Chinese remainder theorem with an auxiliary
+  prime, as in `ZInQ.Mult.weak_approx_q`. In all 30 samples it had `v_ℓ(a) ≥ 25v_ℓ(v) + 10` at all
+  five primes and `|a| < 10^{−300}`.
+- Control: with `v₂(v) ≤ 2`, `R₀` is often not a square in `ℚ₂` (22 non-squares among the valid
+  samples). This is why Lemma P assumes `e ≥ 3` at 2; for `e ≤ 2 ≤ B₂` the existing argument
+  applies.
+
+VERIFIED (computation).
+
+**The modified completeness argument.** Replace field 2 (`old`) of `GoodSlope` by:
+
+> **2′.** For every `ℓ ∈ S_b`, either the bounds of field 2 hold at `ℓ`, or `F(t) > 0` and `t`
+> satisfies the hypotheses of Lemma P at `ℓ`.
+
+In the proof of slope completeness (manuscript lines 1720–1758; Lean `slope_complete`,
+`pole_input_valuations`, `weak_approx_q`), let `S_pole ⊂ S_b` be the primes where the second
+alternative is used. Choose `q` by weak approximation as now, except that at `ℓ ∈ S_pole` it lies in
+the ball of Lemma P(2) with `N = 23v_ℓ(v) + v_ℓ(12) + 2`, instead of `v_ℓ(q) ≥ C_ℓ`.
+
+- At `ℓ ∈ S_pole`, Lemma P(3) gives `v_ℓ(B) ≥ 4`.
+- At the other primes of `S_b` the old argument applies unchanged.
+- At the selected odd contact primes, `q` is still integral, so `a` is a unit and `v_p(B) = 1`.
+- At all other primes, `a` contributes an even valuation, so the parity argument is unchanged.
+- At the real place, `a → 0` as before.
+
+The polynomial, the slope predicate and soundness are untouched: `a` enters `R` squared (line
+1180), so it never changes the parity of a valuation. SPECULATIVE only in that the modified proof
+has not been written out in Lean; every step is the existing one or Lemma P.
