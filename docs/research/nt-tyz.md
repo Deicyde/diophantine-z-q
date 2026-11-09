@@ -545,3 +545,66 @@ pairing, or Smith's preprint. Kriz remains only as the alternative route named i
 6. **The project's own notes.** Proposition 0 (descent-alt §4.1, with slot-k §2.1 for the place 2),
    tyz-5b §§2–4 and this note have been reviewed only by automated referees (tyz-5b §7, slot-k §5.1).
    They are proofs, not citations, but no human has refereed them.
+
+## 6. Ranking of routes
+
+1. **Cite Proposition N with the proof of §4.**
+   *Payoff:* CR₃'s analytic input rests on unambiguous statements of TYZ (Theorem 3.5 first
+   assertion, Lemmas 2.8, 3.16, 3.18, 3.21, Proposition 2.3, the recursion of §3.1). It no longer
+   depends on the false literal Theorem 1.2, on the ambiguous Proposition 3.4, or on Smith.
+   *Main obstacle:* a human referee must check Lemmas N1 and N2 and the facts F3–F5. They are short,
+   but they are new text, not citations.
+   *First test:* an independent reviewer re-derives Lemma N2 by hand and recomputes `c_n(e)` from
+   the recursion with their own code, on at least 300 random configurations with up to 9 primes.
+   They also check F5 against Proposition 3.2(1). *Success:* no mismatch, and no gap found in
+   F3–F5.
+   *Chance: high.* The argument is a parity count, 400 abstract trials agree, and its analytic
+   inputs are the ones TYZ's own proof uses.
+2. **Replace the Kolyvagin preprint (MPI/90-69) by refereed sources.**
+   *Payoff:* removes the last unrefereed citation from CR₃'s deep chain (§5.2, item 1). This also
+   helps the other uses of Lemma 5.5.
+   *Main obstacle:* finding a refereed statement with matching hypotheses. One candidate is
+   Gross–Zagier with Kolyvagin (Izvestiya 1989) and an auxiliary non-vanishing theorem
+   (Bump–Friedberg–Hoffstein, Invent. Math. 102 (1990), or Murty–Murty, Ann. of Math. 133 (1991)).
+   Another is an expository source such as Gross, *Kolyvagin's work on modular elliptic curves*
+   (LMS Lecture Notes 153, 1991). Editing the manuscript is Jack's decision.
+   *First test:* read these sources and write down one statement that gives "`ord_{s=1} = 1` ⟹
+   `rank = 1`" for every elliptic curve over `ℚ` (or at least for `C_d`). *Success:* a refereed
+   theorem whose hypotheses are all discharged for `C_d`.
+   *Chance: high.* The result is classical, and only its bibliographic form is at issue.
+3. **Obtain an authoritative restatement: Tian's ICM 2022 article, the ICCM Notices article, or the
+   authors.**
+   *Payoff:* a published sentence stating reading A (or the `(7, 3)` row alone) can be cited beside
+   §4. A confirmed erratum to the literal Theorem 1.2 would also protect other users.
+   *Main obstacle:* access (both articles were unreachable here). Writing to the authors is an
+   outward-facing step for Jack.
+   *First test:* read the ICM 2022 article (open access from EMS Press) and search for the
+   `n ≡ 5 (mod 8)` criterion. *Success:* a statement equivalent to reading A, or one listing the
+   `(7, 3)` sum separately.
+   *Chance: medium.* Expository articles usually state the criterion loosely, and the convention may
+   again be left implicit.
+4. **Compare the journal version.**
+   *Payoff:* if the journal text admits `d₁ = 1` or separates the brackets, Proposition N becomes a
+   direct citation. If it keeps "all `d_i > 1`", the error is confirmed in print and §4 is required.
+   *Main obstacle:* access to Asian J. Math. 21(4).
+   *First test:* compare Theorems 1.2 and 3.5(2) and Proposition 3.4 of the journal text with §1.2.
+   *Success:* reading A stated explicitly.
+   *Chance: medium.* Zhang's citation of "Corollary 1.3" suggests the text was revised, but nothing
+   is known about the convention.
+5. **Move the elementary half of CR₃ into Lean** (SPECULATIVE).
+   *Idea:* state the trusted hypothesis as "`det M_5b(d) = 1` (an `𝔽₂` determinant of Legendre
+   symbols) ⟹ point", and prove in Lean the `𝔽₂` statement of tyz-5b Theorem 4.3 (8-solution system
+   with first coordinate `a`, `|a| ≡ 7` ⟹ `det M_5b = 1`).
+   *Payoff:* the trusted statement shrinks to "TYZ row 5b + Rédei + Gross–Zagier + RK9". That
+   statement is closer to the literature.
+   *Main obstacle:* the trust content barely changes. Rédei's formulas and Proposition 0 would still
+   sit inside the hypothesis, and the forest-lemma formalization is sizeable.
+   *First test:* state Theorem 4.3 in Lean over `ZMod 2` matrices and check it by `decide` for
+   `r ≤ 4`. *Success:* the statement typechecks and the small cases close.
+   *Chance: low* (for a meaningful reduction of trust; the formalization itself is feasible).
+
+**Eliminated.**
+- *Strengthening the descent so that `T_5a` is also even, in order to cite the literal Theorem
+  1.2* (tyz-5b §7, item 1). The literal statement is false (§1.4), so it cannot be cited at all.
+- *Classical Heegner/Monsky criteria in place of TYZ.* They cover `n` with one or two odd primes,
+  while the slot curves have 6 to 20 (tyz-5b §6).
