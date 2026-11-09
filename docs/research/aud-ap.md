@@ -75,3 +75,58 @@ field 3 of `GoodSlope`). I checked that it defines the set whose density Proposi
   `17, 41, 73, 97, 241, 257, 313`. As a sanity check against a hidden local obstruction, the good
   primes in `(324, 3·10⁵)` contain a ten-term progression (`53681 + 9240j`, `0 ≤ j ≤ 9`).
   CORRECT.
+
+### 1.4 What Green–Tao 2008 and Proposition D give
+
+**Green–Tao 2008, Theorem 1.2.** I read the statement in the TeX source of arXiv math/0404188v6
+(the second theorem of §1, label `sz-primes`, numbered 1.2): *let `A` be any subset of the primes
+of positive relative upper density, `limsup_{N→∞} π(N)^{−1}|A ∩ [1, N]| > 0`; then `A` contains
+infinitely many arithmetic progressions of length `k` for all `k`.* The progressions are
+non-trivial (common difference `d ≠ 0`; with `d = 0` the theorem would be empty). The docstring of
+`GoodPrimeAP` quotes this correctly, with the right theorem number. Its proof in the paper is an
+outline: §10 says that the method "also extends" to Theorem 1.2, the one change being a
+pigeonholed residue class `b mod W`, and leaves the details to the reader. The Conlon–Fox–Zhao
+exposition (arXiv:1403.2957) proves Theorem 1.1 in full and lists the dense-subset form only as
+an extension. The docstring records this caveat (from `rv-nt22p-ap`, F3). CORRECT as a citation;
+the caveat stands (finding F3 below).
+
+**Proposition D** (nt-22p §2.2): `G` has natural density `(1/8)∏_{ℓ ≡ 1 (4)}(1 − 2/(ℓ − 1)²)`
+in the primes. Only its weakest consequence is used: `G` has positive relative upper density.
+It is a proof sketch (Hecke's theorem for `ℚ(i)` or the prime number theorem in progressions, plus
+the two-dimensional sieve of the manuscript, lines 1600–1642); `rv-nt22p-ap` finds it correct as a
+sketch and lists what the write-up must contain (its F5). UNCHECKED here beyond the numerical
+agreement of 1.3; it is the one unwritten step between the published theorem and `GoodPrimeAP`
+(finding F2 below).
+
+**The derivation.** Write, in Lean,
+
+```lean
+def GreenTaoDense : Prop :=
+  ∀ A : Set ℕ, (∀ p ∈ A, p.Prime) →
+    (∃ δ : ℝ, 0 < δ ∧ ∃ᶠ N in atTop,
+      δ * (Nat.primeCounting N : ℝ) ≤ (((Finset.range (N + 1)).filter (· ∈ A)).card : ℝ)) →
+    ∀ k : ℕ, ∃ x d : ℤ, d ≠ 0 ∧ ∀ j : ℕ, j < k → ∃ p ∈ A, (p : ℤ) = x + j * d
+
+def PropDUpper : Prop :=
+  ∃ δ : ℝ, 0 < δ ∧ ∃ᶠ N in atTop,
+    δ * (Nat.primeCounting N : ℝ) ≤
+      (((Finset.range (N + 1)).filter ZInQ.GoodSlopePrime).card : ℝ)
+
+theorem goodPrimeAP_of_greenTao_propD (hGT : GreenTaoDense) (hD : PropDUpper) :
+    ZInQ.GoodPrimeAP
+```
+
+`GreenTaoDense` is Theorem 1.2 with "infinitely many progressions" weakened to "one", and with
+`limsup > 0` written as "`δπ(N) ≤ |A ∩ [0, N]|` for infinitely many `N`, for some `δ > 0`". The two
+forms are equivalent: the ratio lies in `[0, 1]` because `A` consists of primes, so a positive
+limsup `λ` gives the second form with `δ = λ/2`, and the second form gives `limsup ≥ δ`; and
+`0 ∉ A`. `PropDUpper` is implied by the natural-density statement of Proposition D. The
+derivation: put `M = max S_b` and `A = {p ∈ G : p > M}`. Then
+`|A ∩ [0, N]| ≥ |G ∩ [0, N]| − (M + 1)`, and `π(N) → ∞` (`Nat.tendsto_primeCounting`), so `A`
+satisfies the density hypothesis with `δ/2`. Theorem 1.2 with `k = K + 1` gives `x, d ∈ ℤ`,
+`d ≠ 0`, and primes `p_j = x + jd ∈ A` for `j ≤ K`. If `d > 0`, take `x′ = p₀` and `v = d`; if
+`d < 0`, reverse: `x′ = p_K`, `v = −d`, and `x′ + jv = p_{K−j}`. Then `x′ ≥ 2`, `v ≥ 1`, and every
+term is in `G` and exceeds every element of `S_b`. No condition beyond the two inputs is used.
+
+I compiled this derivation against the branch (`scratch` file, not part of the repository); see
+§4 for the outcome. <!-- DERIVE -->
