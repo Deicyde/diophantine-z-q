@@ -9,3 +9,4 @@
 - squarefree_classInt added; #print axioms on all main lemmas: propext, Classical.choice, Quot.sound only.
 - isSol_iff_selPair_mem_of_local: IsSol <-> selPair ∈ Sel2 given Lemma T (hT) and G2 (hG) as hypotheses.
 - Merged origin/wip/p0-two (Lemma T, loc_two_adic_iff: RHS identical to my class condition). Added loc_two_selPair_iff, loc_two_selPair_iff_D, isSol_iff_selPair_mem_of_G2. Build OK, axioms standard.
+- Report .fleet/p0-bits.md written.
