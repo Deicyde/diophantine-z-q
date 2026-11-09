@@ -153,3 +153,76 @@ and `p₀`; glue primes `r_ℓ ≡ 1 (mod 8)` (`ℓ ∈ T`) linked exactly to `�
 therefore never decides membership. It enters only through `x = s + 1` in the prescribed symbols
 of `q₀`, which change the configuration. That is what slot-k means by "this is where the sign of
 `β` enters", and the negative control confirms it (§4.3).
+
+## 3. Findings
+
+No step of the proof fails, and no input was found on which a prescribed choice is impossible or
+the produced curves fail the certificate. The findings below concern the presentation and the side
+claims. None of them affects the validity of DL.
+
+**F1 (minor; the proof is unaffected). The condition `[q₀/ℓ] = 0` for `ℓ ∈ T` is superfluous, and
+the reason slot-k gives for it is wrong.**
+
+- slot-k §2.5 ("What each slot does") says that the symbols of `q₀` at `T` are dictated "by the
+  transfer to the second curve". They are not used anywhere.
+  - In `𝒞₁` the primes `ℓ ∈ T` do not occur.
+  - In `𝒞₂` they are glued to `q₀` by Lemma 2 with `X = T ∪ {q₀}`. Symbols between two elements of
+    `X` drop out of every row, since they multiply `u_x + u_{x'} = 0` or `v_x + v_{x'} = 0`; slot-k's
+    own remark 1 in §5.1 says so.
+  - Formula (2.1) for `u_{r_ℓ}` involves only `y ∈ S'`.
+- Computation agrees:
+  - with `[q₀/ℓ]` random, all 30 runs of an actual-prime batch were still certified;
+  - so were 1,000 random abstract configurations and all 2,048 cases of the exhaustive check with
+    `|P| = |T| = 2` (§4.3).
+- *Repair.* Drop the condition, or keep it and delete the justification. Dropping it removes
+  `ω(θ)` residue conditions from the Lean lemma L3.
+
+**F2 (minor; a side claim). "Within one of the bound" (slot-k §2.6) holds only when
+`ω(β) = k(β) + 1`.**
+
+- On the first curve the construction uses `ω(β)` auxiliary primes visible to `β` (`q₀` and the
+  `r_p`). Proposition B gives the lower bound `k(β)`, the size of an isotropic core.
+- `|β| ≡ 7 (mod 8)` forces `ω(β) ≥ k(β) + 1`, but `ω(β)` can be much larger than `k(β)`. For the
+  core-6 input `B₃` of descent-alt §4.3, `ω(β)` ranges over 7–11 across the multipliers.
+- *Repair.* Say "uses `ω(β) ≥ k(β) + 1` visible auxiliary primes, against the lower bound `k(β)`".
+
+**F3 (remark). Every other prescribed condition is load-bearing.** This was measured on random
+abstract data satisfying (θ1)–(θ4), replacing one family of prescribed symbols at a time by random
+bits (1,000 trials each, `ω(β) ≤ 6`, `ω(θ) ≤ 5`). The share of trials whose conclusion fails is:
+
+| Family replaced by random bits | Failures |
+| --- | --- |
+| `[q₀/p]`, `p ∈ P ∖ {p₀}` | 68% |
+| `r_p` at `T` | 34% |
+| `r_p` at `q₀` | 44% |
+| `r_p` at `P ∖ {p, p₀}` | 61% |
+| `r_p` at earlier `r_p` | 46% |
+| `r_ℓ` at `P` | 78% |
+| `r_ℓ` at `T ∖ {ℓ}` | 34% |
+| `r_ℓ` at `R_P` and earlier `r_ℓ` | 62% |
+| `q₀ ≡ 7` instead of `3 (mod 8)` | 100% (dimension 4) |
+| sign rule `x = s` instead of `s + 1` | 47–53% |
+
+- With the sign rule `x = s`, only the second curve fails. It loses the class `β`, and it does so
+  exactly when `θ` has a prime `≡ 3 (mod 4)`: 470 of 1,000 trials, against 530 certified trials
+  without such a prime. This confirms the negative control of slot-k §3.3.
+- So, apart from F1, the construction has no redundant condition that a reader might be tempted to
+  weaken.
+
+**F4 (remark). Small and special slots.**
+
+- Nothing in the proof requires the slots to be large or prime to 2730. `q₀ = 3` or `q₀ = 11`,
+  and `r = 17` or `r = 41`, are allowed whenever they satisfy the symbol conditions and do not
+  divide `2βθ`.
+- The run that takes every slot to be the least prime with its pattern (§4.2) exercises this.
+- Whether the downstream use (the witness `e` of `PoleSoluble`) tolerates auxiliary primes in
+  `{3, 5, 7, 13}` was not examined here (UNCHECKED). descent-alt §2(a) states that nothing
+  downstream constrains `e`. If a constraint appeared, it would be met by excluding these primes in
+  the Dirichlet step, which costs nothing.
+
+**F5 (remark). An unused consequence of the input argument.**
+
+- The proof of (θ1) shows that `θ` is a square modulo 3, 5, 7 and 13, since `1 − B/m` is a unit
+  square there. The construction does not use this.
+- Test generators that prescribe `θ` must respect it. Abstract tests that ignore it, as in slot-k
+  §3.3 and here, test a superset of the actual inputs, which is harmless.
