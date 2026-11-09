@@ -1,23 +1,24 @@
 import ZInQKernel.Multiplication.Completeness.SlopeCompleteness
 import ZInQKernel.Multiplication.Completeness.PatternSlopes
+import ZInQKernel.Multiplication.Completeness.TwoSlope
 
 /-!
 # The mathematical core of completeness
 
 For a true triple `(n₁, n₂, n₃) = (a, b, ab)`: every integer is a sum of three slopes satisfying
-the slope predicate (pattern slopes and slope completeness), and the abscissa coordinates of each
-`[n_i]P₀` are `a_{ij}/b_i` with integers `a_{ij}` and `b_i ≥ 1`. These are the witnesses of the
-height certificate.
+the slope predicate (the slope representation `SlopeRepresentation`, from 22P or 22P₂, and slope
+completeness), and the abscissa coordinates of each `[n_i]P₀` are `a_{ij}/b_i` with integers
+`a_{ij}` and `b_i ≥ 1`. These are the witnesses of the height certificate.
 -/
 
 namespace ZInQ.Mult
 
 /-- Every integer is a sum of three slopes satisfying `Slope(·, ℓ₀; c_*, c_* n₁, c_* n₂, c_* n₁n₂)`. -/
-theorem slopes_of_int (hPC : PoleCompleteness) (h22 : FixedPrimePattern)
+theorem slopes_of_int (hPC : PoleCompleteness) (h22 : SlopeRepresentation)
     (n₁ n₂ A : ℤ) :
     ∃ t : Fin 3 → ℚ, ∑ l, t l = A ∧
       ∀ l, SlopePred (t l) Syntax.ell (certShifts ![n₁, n₂, n₁ * n₂]) := by
-  obtain ⟨t, hsum, hgood⟩ := pattern_slopes h22 A 0
+  obtain ⟨t, hsum, hgood⟩ := h22 A
   exact ⟨t, hsum, fun l => slope_complete hPC n₁ n₂ (hgood l)⟩
 
 /-- Two rationals have a common denominator `b ≥ 1`. -/
@@ -33,7 +34,7 @@ theorem exists_common_den (x y : ℚ) :
 are integers `b_i ≥ 1` and `a_{ij}` with `b_i x_{ij} = a_{ij}`, where `x_{i0}, x_{i1}` are the
 coordinates `1, 2` of the code `ι(n_i)`, and each of the nine integers `a_{ij}, b_i` is a sum of
 three slopes satisfying the slope predicate. -/
-theorem completeness_core (hPC : PoleCompleteness) (h22 : FixedPrimePattern)
+theorem completeness_core (hPC : PoleCompleteness) (h22 : SlopeRepresentation)
     (a b : ℤ) :
     ∃ (B : Fin 3 → ℕ) (A : Fin 3 → Fin 2 → ℤ),
       (∀ i, 0 < B i) ∧

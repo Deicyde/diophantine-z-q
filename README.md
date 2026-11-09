@@ -1,10 +1,12 @@
 # Z is Diophantine in Q
 
-> **This fork** proves the 11/5 manuscript's Theorem 1.1 in Lean from four explicit
-> hypotheses: the six-contact height estimate, pole completeness, the twenty-two-prime pattern
-> and the catalogue bound. They enter the main theorem as `Prop`s, not axioms; Mordell–Weil
-> for the generator curve, first a fifth hypothesis, is proved. Everything else is proved in
-> Lean, and every finite computation is checked by the kernel:
+> **This fork** proves the 11/5 manuscript's Theorem 1.1 in Lean from three explicit
+> hypotheses: the six-contact height estimate, pole completeness and the twenty-two-prime
+> pattern. They enter the main theorem as `Prop`s, not axioms. Two more inputs started as
+> hypotheses and are proved: Mordell–Weil for the generator curve, and the catalogue bound,
+> which follows from an effective Dirichlet theorem
+> ([docs/effective-dirichlet-plan.md](docs/effective-dirichlet-plan.md)). Everything else is
+> proved in Lean, and every finite computation is checked by the kernel:
 > `ZInQ.exists_bounded_integer_polynomial_defining_integers_of` (`ZInQKernel/Main.lean`) has no
 > `sorry`, uses no `native_decide`, and depends only on the axioms `propext`,
 > `Classical.choice` and `Quot.sound`. See [KERNEL_PLAN.md](KERNEL_PLAN.md), the

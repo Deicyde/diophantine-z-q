@@ -42,3 +42,9 @@ import ZInQKernel.Syntax.Builder
 import ZInQKernel.Compiler.NodeCheck
 import ZInQKernel.Compiler.NodeBound
 import ZInQKernel.Compiler.NodeSkeleton
+import ZInQKernel.Progressions.Mertens
+import ZInQKernel.Progressions.LSeries
+import ZInQKernel.Progressions.RealChar
+import ZInQKernel.Progressions.QuadField
+import ZInQKernel.Progressions.IdealCount
+import ZInQKernel.Progressions.Final

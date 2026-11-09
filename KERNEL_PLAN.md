@@ -27,17 +27,19 @@ Each of these conclusions is an elementary statement about rational numbers, int
 the explicit curve `E`. They enter the main theorem as **explicit hypotheses** (Lean
 `Prop`s in `ZInQKernel/Hypotheses/`), not as `axiom`s, so the trust boundary is visible in
 the theorem's type. MW has since been proved in Lean
-(`ZInQKernel/Model/Descent/MordellWeil.lean`), which leaves four:
+(`ZInQKernel/Model/Descent/MordellWeil.lean`), and CAT by an effective Dirichlet theorem
+(`ZInQKernel/Progressions/`; the proof needs the catalogue only below `2^(W⁸)`, far above
+the manuscript's `2^(W³)`), which leaves three:
 
 ```lean
 theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of
     (hH : SixContactEstimate) (hPC : PoleCompleteness)
-    (h22 : FixedPrimePattern) (hCAT : CatalogueBound) : FrozenTarget
+    (h22 : FixedPrimePattern) : FrozenTarget
 ```
 
 `scripts/check_target.py` checks that `FrozenTarget` is upstream's frozen statement token
-for token. Removing a hypothesis means formalizing its source theorem; MW was the only
-one within reach of current Mathlib.
+for token. Removing another hypothesis means formalizing its source theorem or finding a
+cheaper route to it; MW and CAT were within reach of current Mathlib.
 
 ## The polynomial is constructed in Lean
 
@@ -66,13 +68,14 @@ certificates (the generator descent and height search, point counts, explicit co
    connect each checker to the mathematical statement. The final build uses no
    `native_decide`.
 3. **Classical inputs.** Formalize any classical input that milestone 1 states as a
-   hypothesis. The Mordell–Weil theorem for `E/K₀` is done. CAT is next: it follows from an
+   hypothesis. The Mordell–Weil theorem for `E/K₀` is done, and so is CAT, through an
    effective Dirichlet theorem ([docs/effective-dirichlet-plan.md](docs/effective-dirichlet-plan.md)).
 
 Status (2026-11-07):
 
 - Milestones 1 and 2 are done. `ZInQ.exists_bounded_integer_polynomial_defining_integers_of`
-  (`ZInQKernel/Main.lean`) proves `FrozenTarget` from the four hypotheses with no `sorry` and
+  (`ZInQKernel/Main.lean`) proves `FrozenTarget` from three hypotheses (H, PC, 22P; CAT is the theorem
+  `ZInQ.catalogueBound8`) with no `sorry` and
   no `native_decide`; `#print axioms` lists only `propext`, `Classical.choice` and
   `Quot.sound`.
 - The last finite computation was the node statistics of the universal halting circuit. The
@@ -98,7 +101,7 @@ landed). All of them are checked by the kernel; the audited library `ZInQKernel`
 | Checked by the kernel | the small-height search (`ZInQ.Search.searchCheck_eq_true`: `Nat.rec` loops over Boolean tests built from the kernel's GMP `Nat` operations, closed by `decide +kernel` in about 60 s); the 324-primorial literal (a Boolean trial-division checker with a soundness lemma); the point counts modulo 17 and 23; the node statistics of the power template (about 35 s) and its translation statistics (about 1 min); the template parameter and witness tables; the shape of the 1,399-instruction universal interpreter and its equality with the compiled structured interpreter (a few seconds each); the size and validity of the wrapper program; the witness-count arithmetic; the closed comparisons and small constant bounds of the size chapter; the integer inequalities behind the height constants; the clearing arithmetic; the congruences of P₀ modulo 7; the height comparisons and the small residue and sign tables |
 | Node statistics of the halting circuit | the bounds the proof uses (at most 125,307 additions and 98,361 multiplications among the 293,568 hash-consed nodes of the universal halting circuit) are kernel proofs, by the presence-only upper-bound judgment of `ZInQKernel/Compiler/NodeBound/`; the variable count, the constants and the call count are proved symbolically. The exact counts, used by no theorem, are kernel proofs as well (`ZInQKernel/Compiler/NodeSkeleton/`, 89 chunked `decide +kernel` checks) |
 | Replaced by symbolic proofs | the other counts of the halting and precision circuits (from the counting lemmas of the packed compiler and the construction), the scope of the precision circuit, every statement about the astronomically large constants, the guard product over the false triples |
-| Not computable | the catalogue bound CAT, a closed statement about φ(4·324#) ≈ 7.5·10¹²⁹ residue classes; it stays a hypothesis |
+| Not computable, proved instead | the catalogue bound CAT, a closed statement about φ(4·324#) ≈ 7.5·10¹²⁹ residue classes; with the cutoff raised to 2^(W⁸) it follows from an effective Dirichlet theorem (`ZInQKernel/Progressions/`) |
 
 The saved JSON constructions are compared with the Lean construction only by external
 scripts; they are not inputs to the proof.

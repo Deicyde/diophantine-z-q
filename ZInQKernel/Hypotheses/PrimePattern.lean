@@ -10,6 +10,13 @@ the inverse theorem for the Gowers norms (Green–Tao–Ziegler). Proposition 12
 Martin, O'Bryant and Rechnitzer. Neither input is in Mathlib; both conclusions are
 elementary statements about integers, so they enter the main theorem as explicit
 hypotheses.
+
+`TwoSlopePattern` (22P₂) is an alternative to 22P: a homothetic copy of a twelve-point set
+inside the good primes, which the proof uses through the constant slope `-10`. It gives the
+same conclusion of the completeness proof (`Mult.slopeRepresentation_of_twoSlopePattern`), with
+the same polynomial. It is a different linear pattern in primes, not a consequence of 22P; its
+expected proof is the Green–Tao–Ziegler argument of Proposition 6.2 with two variables and twelve
+forms.
 -/
 
 namespace ZInQ
@@ -108,6 +115,42 @@ def FixedPrimePattern : Prop :=
     ∀ x ∈ patternValues A u₁ u₂ v, ∃ (ε : ℤ) (k p : ℕ),
       (ε = 1 ∨ ε = -1) ∧ k ∈ catalogueMultipliers ∧ B₀ < p ∧ GoodPatternPrime p ∧
         x = ε * k * p
+
+/-- The conditions on a prime that the completeness proof of the multiplication template uses:
+`p` splits in `ℚ(√2)`, both reductions of `E` at the places above `p` are good, and their orders
+`d₁, d₂` satisfy `gcd(d₁, d₂) = 4`. This is `GoodPatternPrime` without `p ≠ 2` and `p ∤ d₁ d₂`. -/
+def GoodSlopePrime (p : ℕ) : Prop :=
+  p.Prime ∧ ∃ r : ZMod p, r ^ 2 = 2 ∧
+    (75 - 53 * r : ZMod p) ≠ 0 ∧ (75 + 53 * r : ZMod p) ≠ 0 ∧
+    Nat.gcd (pointCount p (-(75 - 53 * r) ^ 2)) (pointCount p (-(75 + 53 * r) ^ 2)) = 4
+
+theorem GoodPatternPrime.goodSlopePrime {p : ℕ} (hp : GoodPatternPrime p) : GoodSlopePrime p := by
+  obtain ⟨hp, -, r, hr, h1, h2, hgcd, -⟩ := hp
+  exact ⟨hp, r, hr, h1, h2, hgcd⟩
+
+/-- The twelve values `u - c v` and `u - (A + 10 - c) v` (`c ∈ 𝒞 = {0, -15, -20, -24, -30, -60}`)
+of the two-slope pattern: the contact numerators of the slopes `u / v` and `A + 10 - u / v`. -/
+def twoSlopeValues (A u v : ℤ) : List ℤ :=
+  ([0, -15, -20, -24, -30, -60] : List ℤ).flatMap fun c => [u - c * v, u - (A + 10 - c) * v]
+
+/-- **Hypothesis 22P₂** (the two-slope prime pattern). For every integer `A` there are integers
+`u, v` with `v ≠ 0` such that the absolute value of each of the twelve numbers `u - c' v`,
+`c' ∈ 𝒞 ∪ (A + 10 - 𝒞)`, is a good slope prime greater than `324` and outside the catalogue, and
+such that `v`, `u - v` and `u - (A + 9) v` have valuation at most `4` at the primes `q ≤ 324` and
+at most `1` at the catalogue primes.
+
+It is used through the three slopes `u / v`, `A + 10 - u / v` and the constant slope `-10`, which
+sum to `A`. In other words: a homothetic copy `u - v · (𝒞 ∪ (A + 10 - 𝒞))` of a twelve-point set
+inside the good primes, with the common difference `v` and the numerators of `t - 1` controlled
+at the old primes. For instance, `v = 8 P_s w` with `w` odd and `v_q(w) ≤ 3` for `q ≤ 324`,
+twelve good primes above the catalogue, and no square of a catalogue prime dividing `w`, `u - v`
+or `u - (A + 9) v` satisfy these conditions. -/
+def TwoSlopePattern : Prop :=
+  ∀ A : ℤ, ∃ u v : ℤ, v ≠ 0 ∧
+    (∀ x ∈ twoSlopeValues A u v,
+      GoodSlopePrime x.natAbs ∧ 324 < x.natAbs ∧ x.natAbs ∉ catalogueSet) ∧
+    ∀ x ∈ [v, u - v, u - (A + 9) * v], ∀ q : ℕ, q.Prime →
+      (q ≤ 324 → padicValInt q x ≤ 4) ∧ (q ∈ catalogueSet → padicValInt q x ≤ 1)
 
 open Classical in
 /-- **Hypothesis CAT** (the progression estimate as used in Proposition 12.1): every unit

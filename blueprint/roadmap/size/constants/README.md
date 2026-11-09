@@ -10,14 +10,14 @@ explicit numbers of at most a few thousand binary digits; they are collected in 
 
 - [Closed numerical comparisons](closed-comparisons.md)
 
-The catalogue-bound hypothesis puts every catalogue prime below $X=2^{W^3}$. This bounds
-the catalogue maximum and product, hence $N_s$ and the pole clearing constant $\ell$.
+The catalogue bound puts every catalogue prime below $X=2^{W^8}$. This bounds the catalogue
+maximum and product, hence $N_s$ and the pole clearing constant $\ell$.
 
 - [The catalogue below the progression cutoff](catalogue-bounds.md)
 - [Size of $N_s$ and $\ell$](catalogue-size.md)
 
 The least formal multiple is at most $N_s^{10}$ (proved in the next section), so
-$c_*=4M_0$ is below $2^{2^{2059}}$, far below $D$, whose double logarithm lies between
+$c_*=4M_0$ is below $2^{2^{4617}}$, far below $D$, whose double logarithm lies between
 $8008$ and $9010$.
 
 - [Size of the formal multiple constant](formal-multiple-size.md)
