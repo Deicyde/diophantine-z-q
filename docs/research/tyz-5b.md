@@ -198,3 +198,65 @@ abscissa in `βℚ*²`.* (Proposition 1.1 for `n = |d|`, Lemma 5.5, and the argu
 
 The rest of the note shows that `T_5b(|d|)` is odd for the curves of slot-k: §2–3 express `T_5b` as a
 determinant, §4 evaluates the determinant on a Selmer-minimal curve, §5 applies this to slot-k.
+
+## 2. Forests and Rédei's formulas
+
+### 2.1 The forest lemma (VERIFIED, proved here)
+
+Let `U` be a finite set with bits `a_{ij}` (`i ≠ j`), and let `L` be its Laplacian: `L_{ij} = a_{ij}`,
+`L_{ii} = Σ_{j≠i} a_{ij}`. For `R ⊆ U`, a **forest rooted at `R`** is a map `f : U ∖ R → U` with `f(i) ≠ i`
+and no cycles (iterating `f` from any `i` reaches `R`). Its **trees** are the fibres of the map
+"iterate `f` until `R`"; each tree contains exactly one root, and `f` maps each tree into itself. The
+weight is `wt(f) = Π_i a_{i f(i)}`. All determinants are over `𝔽₂`, where they equal permanents.
+
+**Lemma 2.1 (forest lemma).** *For `F, W ⊆ U` with `|F| = |W|`,*
+
+```
+det L[U ∖ F, U ∖ W] = Σ wt(f),   f over forests rooted at F in which every tree contains exactly one element of W.
+```
+
+*Here `L[I, J]` is the submatrix with rows `I` and columns `J`.*
+
+This is the `𝔽₂` case of the all-minors matrix-tree theorem (Chaiken, SIAM J. Alg. Disc. Meth. 3
+(1982); STANDARD). A self-contained proof:
+
+*Proof.* Expand `det L[U∖F, U∖W] = Σ_σ Π_i L_{iσ(i)}` over bijections `σ : U∖F → U∖W`, and expand each
+diagonal entry `L_{ii} = Σ_{j≠i} a_{ij}`. The terms correspond to pairs `(f, D)`: `f : U∖F → U` with
+`f(i) ≠ i`, and `D = {i : σ(i) = i}`, where `σ(i) = i` on `D` and `σ(i) = f(i)` off `D` must be a bijection
+onto `U ∖ W`. The term has weight `wt(f)`.
+
+*Cycles cancel.* Let `Z` be a cycle of `f`. If some `i ∈ Z` is not in `D`, then `σ(i) = f(i)`; if `f(i)`
+were in `D`, then `σ(f(i)) = f(i) = σ(i)`, contradicting injectivity. Going around `Z`, either `Z ⊆ D` or
+`Z ∩ D = ∅`. In the second case `σ` permutes `Z`, so `Z ⊆ U ∖ W`, and `Z` may be moved into `D` without
+changing the image of `σ`. Toggling the cycle of `f` containing the smallest cyclic element is therefore
+a weight-preserving involution without fixed points on the pairs where `f` has a cycle, and these
+terms cancel mod 2.
+
+*Acyclic `f`.* Then `f` is a forest rooted at `F`, and `σ` moves elements only within trees. Let `T` be a
+tree with root `ρ`. Its domain elements `T ∖ {ρ}` are sent by `σ` injectively into `T ∖ W`, onto all of it,
+so `|T| − 1 = |T ∖ W|`: each tree contains exactly one element `w` of `W`. Conversely, if this holds,
+`σ` is unique: `w ∉ D` (as `w ∉ U∖W`), so `σ(w) = f(w)`; then `f(w)` is not hit by itself, so it is not in
+`D`, and so on up to the root, which receives `σ` of its child on the path. Every vertex off the path
+from `w` to `ρ` must be hit by itself (by induction from the leaves: its children are in `D`), so it lies
+in `D`. Hence each such forest contributes exactly once. ∎
+
+**Consequences.** For `B ⊆ V` and `ρ ∈ B` put `κ_ρ(B) = det L_B[B∖ρ, B∖ρ]`. By Lemma 2.1 with `U = B`,
+`F = W = {ρ}`, it is the number mod 2 of spanning arborescences of `B` rooted at `ρ` (every vertex of
+`B ∖ ρ` has one arrow inside `B`, `i → f(i)` of weight `a_{i f(i)}`, and all paths lead to `ρ`).
+
+**Lemma 2.2 (column sums).** *The column sums of `L_B` are `c_j = y_j (1 + y(B))`. Hence:*
+1. *if `y(B) = 1`, all cofactors of `L_B` are equal, and `κ_ρ(B) =: κ(B)` does not depend on `ρ`;*
+2. *for all `B`, `det L_B[B∖j, B∖i] = κ_j(B)` for all `i, j ∈ B`;*
+3. *(`κ`-difference) for `i ≠ j` in `B`, `κ_i(B) + κ_j(B) = Σ c(T_i)` over the forests of `B` rooted at
+   `{i, j}`, where `T_i` is the tree of `i` and `c(T) = Σ_{v∈T} c_v`.*
+
+*Proof.* Column `j`: `Σ_{i≠j} a_{ij} + L_{jj} = Σ_{i≠j} (a_{ij} + a_{ji}) = y_j (y(B) − y_j) = y_j(1 + y(B))`
+mod 2. (2) The rows of `L_B[B∖j, B]` sum to zero, so the column `i` of this matrix is the sum of the
+others, and deleting column `i` or column `j` gives the same determinant mod 2. (1) If `y(B) = 1` the
+columns also sum to zero, so by the transposed argument the cofactor does not depend on the deleted row
+either. (3) In `L_B[B∖j, B∖j]`, add all other rows to row `i`: the new row `i` is
+`(c − L_{j,·})` restricted to `B ∖ j`. The determinant splits as `det(row i ← c) + det(row i ← L_{j,·})`.
+The second matrix is `L_B[B∖i, B∖j]` with rows permuted, of determinant `κ_i(B)` by (2). Expanding the
+first along the row `c`: `Σ_{v ∈ B∖j} c_v det L_B[B∖{i,j}, B∖{j,v}]`, and by Lemma 2.1 (roots `{i, j}`,
+`W = {j, v}`) the minor counts the 2-forests rooted at `{i, j}` with `v` in the tree of `i` (for `v = i`, all
+2-forests). Summing over `v` gives `Σ c(T_i)`. ∎
