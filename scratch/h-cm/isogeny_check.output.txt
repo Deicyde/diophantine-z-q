@@ -1,0 +1,32 @@
+l=5: deg t = 6; zeros/poles of t: ([1, 1, 2, 2], []) ; zeros of t-1: [1, 1, 4]
+   w_l is an involution: True ; w_l permutes zeros of t and of t-1 within each multiplicity class (checked by values below)
+   rational CM value t = -169/27  ->  table |D| = 84
+   rational CM value t = -1377/1024  ->  table |D| = 51
+   rational CM value t = 0  ->  table |D| = 24
+   rational CM value t = 1  ->  table |D| = 4
+   rational CM value t = 5776/3375  ->  table |D| = 120
+   rational CM value t = 3211/1024  ->  table |D| = 19
+   rational CM value t = 2312/125  ->  table |D| = 40
+l=7: deg t = 8; zeros/poles of t: ([1, 1, 2, 2, 2], [1, 1]) ; zeros of t-1: [4, 4]
+   w_l is an involution: True ; w_l permutes zeros of t and of t-1 within each multiplicity class (checked by values below)
+   rational CM value t = -701784/15625  ->  table |D| = 168
+   rational CM value t = -169/27  ->  table |D| = 84
+   rational CM value t = 0  ->  table |D| = 24
+   rational CM value t = 13689/15625  ->  table |D| = 132
+   rational CM value t = 152881/138240  ->  table |D| = 75
+   rational CM value t = 3211/1024  ->  table |D| = 19
+   rational CM value t = 2312/125  ->  table |D| = 40
+l=13: deg t = 14; zeros/poles of t: ([2, 2, 2, 2, 2, 2, 2], [1, 1, 6, 6]) ; zeros of t-1: [1, 1, 4, 4, 4]
+   w_l is an involution: True ; w_l permutes zeros of t and of t-1 within each multiplicity class (checked by values below)
+   rational CM value t = -701784/15625  ->  table |D| = 168
+   rational CM value t = -1377/1024  ->  table |D| = 51
+   rational CM value t = -1073152081/3024000000  ->  table |D| = 147
+   rational CM value t = 15545888/20796875  ->  table |D| = 88
+   rational CM value t = 27008742384/27680640625  ->  table |D| = 312
+   rational CM value t = 1  ->  table |D| = 4
+   rational CM value t = 152881/138240  ->  table |D| = 75
+   rational CM value t = 21250987/16000000  ->  table |D| = 43
+   rational CM value t = 5776/3375  ->  table |D| = 120
+   rational CM value t = 2312/125  ->  table |D| = 40
+   rational CM value t = 421850521/1771561  ->  table |D| = 100
+table values recomputed algebraically: [4, 19, 24, 40, 43, 51, 75, 84, 88, 100, 120, 132, 147, 168, 312]
