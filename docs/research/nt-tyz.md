@@ -375,3 +375,84 @@ hypothesis "`P(n) ∈ A(K_n)^− + A[4]`". Only the last sentence is used for CR
 - **I6** (Proposition 3.2(1)), for F5.
 - **I7** (§1, L318–345). The definition of `𝓛(n)`, which is `0` exactly when `ord_{s=1} > 1`, and the
   root number `−1` for `n ≡ 5, 6, 7` (Birch–Stephens, quoted by TYZ; STANDARD).
+
+### 4.3 Two lemmas (VERIFIED, proved here)
+
+For odd squarefree `m ≡ 1` or `3 (mod 8)`, let `Λ(m) = Σ w(π)` over the partitions `π` of `m` whose
+blocks all have class 1, except for exactly one block of class 3 when `m ≡ 3`. So `Λ(m) = 𝓛₁(m)` for
+`m ≡ 1`, `Λ(m) = Σ_{d≡3} g(d)𝓛₁(m/d)` for `m ≡ 3`, and `Λ(1) = 1`.
+
+**Lemma N1** (Theorem 1.1, set-partition reading). *For odd squarefree `m ≡ 1, 3 (mod 8)`,
+`𝓛(m) ≡ Λ(m) (mod 2)`.*
+
+*Proof.* Induction on `m`, using I2 modulo 2 (`ε = ±1`). The case `m = 1` is `𝓛(1) = 1`.
+
+- *Case `m ≡ 1`.* I2 reads `𝓛(m) + Σ Λ(d₁)Λ(d₂) ≡ g(m)`, over unordered pairs `{d₁, d₂}` with
+  `d₁d₂ = m` and both `> 1`. Both factors are `≡ 1`, and `Λ` is multiplicative on them in the sense
+  that `Λ(d₁)Λ(d₂)` is the sum of `w(π)` over the partitions of `m` that refine `{d₁, d₂}`. A
+  partition `π` with `b` blocks arises from exactly `2^{b−1} − 1` unordered pairs: the unordered
+  splittings of its blocks into two nonempty groups. That number is `0` for `b = 1` and odd for
+  `b ≥ 2`. So `𝓛(m) ≡ g(m) + Σ_{π, b≥2} w(π) = Λ(m)`, since the one-block partition has weight `g(m)`.
+- *Case `m ≡ 3`.* The pairs are `(d₁, d₂)` with `d₁ ≡ 3` and `d₂ ≡ 1`, `d₂ > 1`. A partition `π`
+  with one class-3 block and a set `S` of class-1 blocks arises `2^{|S|} − 1` times: choose a
+  nonempty subset of `S` for `d₂`. Hence `𝓛(m) ≡ g(m) + Σ_{|S|≥1} w(π) = Λ(m)`. ∎
+
+So "non-ordered" in Theorem 1.1 means set partitions, also for `m ≡ 1`, where every factor has the
+same class. A reading with `d₀` distinguished would give `Σ b(π)w(π)`, and this violates I2 already
+for partitions with two blocks.
+
+**Lemma N2** (coefficients of the genus point). *Let `n ≡ 5 (mod 8)` be squarefree. Then
+`P(n) = Σ_e c_n(e) Z(e)` over the divisors `e | n` with `e ≡ 5, 7 (mod 8)`, with `c_n(e) ∈ ℤ[i]` and*
+
+```
+c_n(e) ≡ Λ(n/e) ≡ 𝓛(n/e)   (mod 2ℤ[i]).
+```
+
+*Proof.* Unwinding the recursion I1 gives `P(n) = Σ_e c_n(e) Z(e)` with
+
+```
+c_n(e) = Σ_{chains}  Π_{j=0}^{k−1} ( −ε(D_{j+1}, q_j) 𝓛(q_j) ),
+```
+
+summed over the chains `n = D₀ > D₁ > ⋯ > D_k = e` (`k ≥ 0`) of divisors with every `D_j ≡ 5, 7`,
+where `q_j = D_j/D_{j+1} > 1`. Since `D_j/D_{j+1} = q_j` and the classes `D_j` lie in `{5, 7}`, the
+quotients have class `q_j ≡ 1, 3`, and every ordered factorization `n/e = q₀q₁⋯q_{k−1}` into factors
+`> 1` of classes 1 and 3 is a chain. A class-3 factor switches the class of `D` between 5 and 7, and a
+class-1 factor keeps it. By I1, a step has `ε ≡ i` exactly when it goes from class 7 to class 5.
+Starting from `D₀ ≡ 5`, these are the 2nd, 4th, … class-3 factors. So, modulo 2,
+
+```
+c_n(e) ≡ Σ_{(q₀, …, q_{k−1})}  i^{⌊s/2⌋} Π_j 𝓛(q_j),     s = number of class-3 factors q_j.
+```
+
+Now replace each `𝓛(q_j)` by `Λ(q_j)` (Lemma N1) and expand. A term of the expansion is an ordered
+factorization together with a partition of each `q_j` (one class-3 block if `q_j ≡ 3`, none if
+`q_j ≡ 1`). Equivalently, it is a partition `π` of `n/e` into blocks of classes 1 and 3, together with
+an ordered set partition `(G₀, …, G_{k−1})` of the blocks of `π` into nonempty groups, each group
+containing at most one class-3 block. Its weight is `i^{⌊s/2⌋} w(π)`, where `s` is the number of
+class-3 blocks of `π`. This depends only on `π`. So
+
+```
+c_n(e) ≡ Σ_π  i^{⌊s(π)/2⌋} w(π) N(π),    N(π) = number of admissible ordered groupings.
+```
+
+- If `s(π) ≥ 2`, exchange the groups of the two class-3 blocks with the smallest labels. They lie in
+  different groups, so this is a fixed-point-free involution on the admissible groupings, and
+  `N(π)` is even.
+- If `s(π) ≤ 1`, every ordered set partition of the `b` blocks is admissible, so `N(π) = a(b)`, the
+  Fubini number (`a(0) = 1`). All Fubini numbers are odd: `a(b) = Σ_{j=1}^{b} C(b, j) a(b − j) ≡
+  Σ_{j=1}^{b} C(b, j) = 2^b − 1` for `b ≥ 1`, by induction.
+
+The parity of `s(π)` is fixed by the class of `n/e`. For `e ≡ 7` we have `n/e ≡ 3`, so `s` is odd and
+only `s = 1` survives. For `e ≡ 5` we have `n/e ≡ 1`, so `s` is even and only `s = 0` survives. In
+both cases the surviving `π` are exactly those counted by `Λ(n/e)`, and the factor `i^{⌊s/2⌋}` is 1.
+Hence `c_n(e) ≡ Λ(n/e)`. (For `e = n` the only chain is the empty one, and `c_n(n) = 1 = Λ(1)`.) ∎
+
+In particular the coefficient of `Z(e)` is real modulo 2 for both classes. TYZ's factor
+`i^{(n−1)/2}` equals `±1` for `n ≡ 5`, and tyz-5b's remark that the terms with an even number of
+extra class-3 factors cancel is proved here.
+
+*Check.* `coeff_check.py` computes `c_n(e)` in `ℤ[i]/2` directly from the recursion, on abstract data
+(random classes and a random function `g` on subsets, `r = 2, …, 9` primes, 400 trials). It finds
+`c_n(e) = Λ(n/e)` for every `e ≡ 7` and every `e ≡ 5`, with no value outside `{0, 1}`. It also finds
+`C₂ = T_5b` and `C₁ = T_5a` in all 400 trials (`out_coeff_check.txt`).
