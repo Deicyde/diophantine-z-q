@@ -219,9 +219,10 @@ of all 32 squarefree `n ≡ 5 (mod 8)` below `52000` with at most 7 prime factor
 (`literal_reading.py`; the numerical rank is used only to select candidates) finds reading A
 consistent on all 32. Readings B and C fail exactly on the two values above, the only ones in the
 scan with `g(n) = 1`. This matches the identity of §1.3: when `𝓛(n) = 0` and `T_5a ≡ T_5b ≡ 0`,
-reading B's sum is `g(n)`. In the other direction, on 30 random squarefree `n ≡ 5`, `n < 3·10⁵`, every
-`n` with `T_5a` or `T_5b` odd has analytic rank 1. There were 24 such `n`, three of them with only
-`T_5b` odd (`reading_a_check.py`).
+reading B's sum is `g(n)`. In the other direction, 30 random samples of squarefree `n ≡ 5`, `n < 3·10⁵`
+(28 distinct values), were tested: every sample with `T_5a` or `T_5b` odd has analytic rank 1.
+There were 24 such samples (22 distinct `n`), three of them with only `T_5b` odd
+(`reading_a_check.py`).
 
 **Consequence.** The project cannot cite the *literal* Theorem 1.2: its text is false. It can cite
 reading A, which is the statement TYZ's proof gives (§4 proves it for `n ≡ 5`). Smith also read the
@@ -242,3 +243,70 @@ theorem this way (§3).
 - S5. The contribution of `2A(ℍ'_n)^{β'+1}` is torsion, so it lies in `2A(ℍ'_n)_tors = 2A(ℚ(i)) =
   ℤτ(1)`.
 - S6. "Thus the coefficients in both of the brackets must be even."
+
+### 2.2 The facts the proof leaves implicit
+
+The two facts tyz-5b names (its §1.2) are correct:
+
+- **F1. The second bracket is `T_5b(n)`** (VERIFIED). Every class-7 term has `d₁ ≡ 3` (§1.3). The
+  factor `g(d₀)` comes from Lemma 3.21(4), `Z(d₀)^{β'+1} = g(d₀)τ(1/2)`, and `ε(d₀, d₁) = ±1` for
+  `(7, 3)`. This presupposes the non-ordered reading of the factors `d_i`, `i > 1`, in
+  Proposition 3.4, which that statement does not say (see §2.3).
+- **F2. The brackets are separately even** (VERIFIED, sharpened in §2.3).
+
+Four more facts are used without comment:
+
+- **F3. `β` fixes `ℚ(i)` and negates `√−n`** (VERIFIED). Let `χ` be the idele class character of a
+  quadratic field. It is trivial on the principal idele `−2`, and it is unramified with
+  `χ_p(−2) = 1` at the primes not dividing the discriminant. For `ℚ(i)`: `χ_∞(−1) = −1`, so
+  `χ₂(−2) = −1`, and `χ(β) = χ_∞(−1)χ₂(−2) = 1`. For `K_n`, `n ≡ 5, 7 (mod 8)`: `χ₂(−2) =
+  −Π_{p|n} (−2/p) = −(−2/n) = 1`, so `χ(β) = −1`.
+- **F4. `[i]` commutes with `β'`** (VERIFIED). `[i]` is defined over `ℚ(i)`, which `β'` fixes (F3).
+  So `β' + 1` may be applied term by term to the `ℤ[i]`-combinations of Proposition 3.4 (the
+  coefficients `ε = ±i` and the factor `i^{(n−1)/2}`).
+- **F5. `ℍ'_n` is Galois over `ℚ`** (VERIFIED from Proposition 3.2(1)). S5 needs
+  `x^{β'} + x ∈ A(ℍ'_n)` for `x ∈ A(ℍ'_n)`, so that Lemma 3.18 applies. Here
+  `ℍ'_n = L_n(i)·Π_{d₀≡5} H'_{d₀}`. `L_n(i)` is abelian over `ℚ`. By Proposition 3.2(1), `H'_d` is the
+  fixed field in the ring class field `H_{d,4}` of conductor 4 of the order-2 subgroup
+  `⟨σ_{1+2ϖ}⟩`. `Gal(H_{d,4}/ℚ)` is generalized dihedral: complex conjugation inverts
+  `Gal(H_{d,4}/K_d)` (STANDARD; Cox, *Primes of the form x² + ny²*, Lemma 9.3). So every subgroup of
+  `Gal(H_{d,4}/K_d)` is normal in `Gal(H_{d,4}/ℚ)`, `H'_d` is Galois over `ℚ`, and so is the
+  compositum.
+- **F6. The "i.e." of Theorem 3.5(2)** ("`P(n) ∈ A(K_n)^− + A[4]`, i.e. `2^{−ρ(n)}𝓛(n)` is even") is
+  asserted without proof. It is **not needed** for the form used, which only needs `𝓛(n) ≠ 0`. If
+  `𝓛(n) = 0`, then `P(n)` represents `𝒫(n) = 0` (first assertion of Theorem 3.5), so `P(n)` is
+  torsion and lies in `A[(1+i)³] ⊂ A[4]` (Lemma 3.18). That is the hypothesis of S1 with `P = 0`.
+
+### 2.3 Is the `(7, 3)` bracket established on its own?
+
+**The last step: yes** (VERIFIED). Write the class-5 bracket as a Gaussian integer
+`C₁ = a + bi`, and let `C₂ ∈ ℤ` be the class-7 bracket (F1). With `τ(x) = 0` iff `x ∈ (1+i)ℤ[i]`, S4–S5 say
+`C₁(1−i)/2 + C₂/2 ∈ ℤ + (1+i)ℤ[i] = ℤ[i]`, that is,
+
+```
+((a + b + C₂) + (b − a) i) / 2 ∈ ℤ[i]   ⟺   a ≡ b  and  C₂ ≡ 0   (mod 2).
+```
+
+So `C₂` is even whatever `C₁` is, and nothing about the `(5, 1)` bracket enters. (This is F2 in a
+sharper form: tyz-5b checked the cases where `C₁` is a unit times an integer.)
+
+**The coefficients: not as written.** `C₁` and `C₂` are read off Proposition 3.4. That
+proposition is used for all classes at once, and three things about it fall short.
+
+1. *Statement.* It does not say whether the factors are ordered, or whether `d₁ = 1` is allowed. Its
+   proof needs `d₁ = 1` (L2077). With ordered factors `d_i`, `i > 1`, the class-7 coefficient would
+   change (a partition with `k` class-1 blocks would be counted `k!` times).
+2. *Proof structure.* It is proved by induction on `n` for all classes together (L2041–2047: "it
+   suffices to prove that the above formula (applied to every `P(d₀)` below) …"). The class-7
+   coefficient of `P(n)` is assembled from the coefficients of `P(d₀)` for all `d₀ ≡ 5, 7`, including
+   the class-5 coefficients, which are exactly the ambiguous `(5, 1)` part.
+3. *Proof detail.* The cancellation of the multiplicities (L2063–2071: "if this set is non-empty,
+   the number of such partitions is even") is a one-line sketch covering both classes of `d₀`. The
+   pairing of the `(5, 3)` terms (L2079–2096) is correct as stated. Both sides of
+   `ε(d₀''d₁'', d₁)ε(d₀'', d₁'') = ±ε(d₀''d₁, d₁'')ε(d₀'', d₁)` contain exactly one factor of type
+   `(5, 3)`, whichever class `d₀''` has (VERIFIED).
+
+None of this shows that Proposition 3.4 is wrong. §4.3 proves its correct form for `n ≡ 5`:
+`P(n) ≡ Σ_e 𝓛(n/e) Z(e)`, over `e | n` with `e ≡ 5, 7`. That form agrees with reading A. But a
+citation of the `(7, 3)` bracket that goes through Proposition 3.4 inherits the ambiguity of its
+statement. The proof in §4 avoids Proposition 3.4 entirely.
