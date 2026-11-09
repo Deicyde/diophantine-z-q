@@ -134,3 +134,44 @@ No finding is a GAP. Each step's status is in §2.
 
 UNCHECKED here (outside this report's focus): Proposition D, and the application of Green–Tao
 2008 in §3.4.
+
+## 3. Computations
+
+### 3.1 Implementation
+
+Everything was implemented afresh from the manuscript (lines 1177–1191 and 1705–1758) and the Lean
+statements (`GoodSlope`, `poleInput`, `pole_input_valuations`, `slope_complete`,
+`weak_approx_q`, `PoleCompleteness`), in Python with PARI/GP 2.17 (`cypari2`), `gmpy2` and
+`mpmath`. Scripts: `scratch/rv-nt22p-red/` (`slopelib.py` is the library).
+
+- **Old primes.** `S_b` is modelled as `S_ht ∪ {331, 337}`, with `331` and `337` standing in for
+  catalogue primes (`B_p = 1`, `E_p = 732`). The true catalogue contains every prime between `324`
+  and `W = 4P_s ≈ 10¹³⁷` (each such prime is the first prime of its own class), so genuine pattern
+  primes are astronomically large. The model keeps the local situation at every old prime that
+  occurs. The constant `ℓ₀ = 12·P_s^{2916}·331^{732}·337^{732}` (383,613 digits) is used exactly.
+- **The witness `q`.** This is the modified weak approximation of §2.2:
+  `q = m/(∏_{S_pole}ℓ^{e_ℓ}·L^k)`, with `L = 1000003` (or the next prime avoiding all relevant
+  primes) and `m` in the CRT class giving `v_ℓ(1 − R₀q²) ≥ N_ℓ = 23e_ℓ + v_ℓ(12) + 2` at
+  `ℓ ∈ S_pole` (the Hensel square root of the unit `(R₀ℓ^{−2e})^{−1}`) and `v_p(q) ≥ C_p` on the rest
+  of `S_b`. `m` is the member of the class nearest to `R₀^{−1/2}·∏ℓ^{e_ℓ}·L^k`, and `L^k` is large
+  enough that `R·max|C|² < 10^{−40}`. The resulting `q` has about 391,000 digits.
+- **Test values.** The model takes six groups of twelve elements of `ℤ[√2]`, integral everywhere,
+  either random (coefficients up to `10⁶`) or equal to `1`. A group assigned to a selected prime `p`
+  has `D_{gj} = π^{k_j}·(cofactor)` with `π` a generator of a prime of `ℤ[√2]` above `p`. This
+  realizes exactly the hypotheses `hD_old`, `hD_sel` of `pole_input_valuations`. Unit test values at
+  `ℓ` are the worst case for Lemma P(3).
+- **The pole input.** `B` has millions of digits and is never formed. `v_p(B)` is computed from
+  exact `t, q, a, R₀, ℓ₀` in PARI's `p`-adic arithmetic with precision tracking: through the two
+  embeddings `√2 ↦ ±r` at split `p`, and in `ℚ_p(√2)` at inert or ramified `p`. The real value of
+  `B` is computed in `mpmath` from both real embeddings. The square-denominator condition is checked
+  at every prime where `v_p(B)` can be odd. Since `v_p(B) ≡ v_p(R₀) (mod 2)` identically, these are
+  the primes dividing a numerator or the denominator of `R₀`, all known, together with the auxiliary
+  prime. At every other prime `v_p(B)` is even.
+- **Genuine pattern instances.** A sieve with PARI `ellcard` (`ap_search.py`) finds `x, v` such
+  that all the numbers `u − c′v`, `c′ ∈ S_A⁺`, are good slope primes in the sense of
+  `GoodSlopePrime` (point counts of both reductions, `gcd = 4`). Admissibility forces `2, 3, 7, 11 | v`
+  for `A = −70`, `2 | v` for `A = −69`, and `2, 3, 7 | v` for `A = −40`.
+
+Checks of the implementation: (i) the old argument reproduces `v_p(B) ≥ 103C_p + 8` on `S_b` for
+slopes satisfying field 2; (ii) the controls of §3.3 fail exactly where the theory predicts; (iii) an
+independent count gives 1,925 good slope primes below `2·10⁵` (§3.6), as in nt-22p.
