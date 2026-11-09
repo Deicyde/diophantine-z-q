@@ -310,3 +310,62 @@ None of this shows that Proposition 3.4 is wrong. §4.3 proves its correct form 
 `P(n) ≡ Σ_e 𝓛(n/e) Z(e)`, over `e | n` with `e ≡ 5, 7`. That form agrees with reading A. But a
 citation of the `(7, 3)` bracket that goes through Proposition 3.4 inherits the ambiguity of its
 statement. The proof in §4 avoids Proposition 3.4 entirely.
+
+## 3. Published statements elsewhere
+
+- **Smith, arXiv:1603.08479** (v1 28 Mar 2016, v2 29 Mar 2016; the two versions differ only in the
+  abstract and acknowledgements; no journal reference). Theorem 2.1 (label `thm:TYZ`, cited as
+  "[Theorem 1.1, 1.2]" of TYZ) reads: *"if `n` is 5, 6, or 7 mod 8, and if the row `x` agrees with `n`
+  mod 8, then the analytic rank of `E^{(n)}` is exactly one if `𝓛_x(n)` is nonzero"*. Table 2 lists
+  `𝓛_5a = Σ_{d≡5} g(d)𝓛(n/d)` and `𝓛_5b = Σ_{d₀≡7, d₁≡3} g(d₀)g(d₁)𝓛(n/d₀d₁)` as separate rows, and
+  the introduction says "either `𝓛_5a(n)` or `𝓛_5b(n)` is nonzero". Smith's `𝓛` is defined by a
+  recursion that picks the block of a fixed prime, so it is the set-partition sum `𝓛₁`. This is
+  exactly reading A, with the form used stated as one row (VERIFIED, LaTeX source `cnc.tex`,
+  `intro.tex`). The paper is unrefereed.
+- **Tian, expository.** Y. Tian, *Congruent number problem*, Notices of the ICCM 5 (2017), no. 1,
+  51–61 (DOI 10.4310/iccm.2017.v5.n1.a3), which Dalawat (arXiv:2201.11071v2, in a commented-out
+  passage) calls "an expository account" of TYZ. Y. Tian, *The congruent number problem and elliptic
+  curves*, Proc. ICM 2022, Vol. 3, 1990–2010 (DOI 10.4171/icm2022/85). Neither text was accessible,
+  and Crossref holds no abstract for either (UNCHECKED). These are the most likely places for an
+  authoritative restatement.
+- **Papers citing TYZ, read in their arXiv sources.** None restates Theorem 1.2:
+  Burungale–Tian, arXiv:2104.06732v2 (cites TYZ only for "more than 50% of `n ≡ 5, 6, 7` are
+  congruent, cf. [TYZ, Sm1]"); Dalawat, arXiv:2201.11071v2 (only in commented-out text);
+  Feng–Liu–Pan–Tian, arXiv:2405.11132 (method only); Zhang, arXiv:2111.11618 (TYZ's Theorem 1.1 and
+  Corollary 1.4 for `n` with no class of order 4); Guo–Ye–Yin, arXiv:2505.13133 (general citation);
+  Sun, arXiv:2610.31631 (the method of TYZ §§3.1, 3.3).
+- **Related papers that do not cite TYZ.** Smith, arXiv:1702.02325v2 (only an acknowledgement of
+  Tian); Kriz, arXiv:2002.04767v5 (cites Yuan–Zhang–Zhang and Burungale–Tian, not TYZ); Chen,
+  arXiv:2411.14188.
+
+So the only accessible statement of the form used is Smith's unrefereed one. It agrees with
+reading A.
+
+## 4. What to cite, and a self-contained proof
+
+### 4.1 The statement
+
+**Proposition N.** *Let `n ≡ 5 (mod 8)` be positive and squarefree. If `𝓛(n) = 0`, then `T_5a(n)` and
+`T_5b(n)` are both even. In particular, if `T_5b(n)` is odd, then `𝓛(n) ≠ 0` and
+`ord_{s=1} L(E_n, s) = 1`.*
+
+The first sentence is reading A of Theorem 3.5(2) for `n ≡ 5`, with `P(n) ∈ A[4]` in place of the
+hypothesis "`P(n) ∈ A(K_n)^− + A[4]`". Only the last sentence is used for CR₃.
+
+### 4.2 Inputs (all from TYZ, all unambiguous)
+
+- **I1** (recursion, §3.1, L1320–1327, with the `ε`-classification of Theorem 3.3). `P(n)` is
+  defined by the displayed recursion. `𝓛(d₁) ∈ ℤ`, and `ε(d₀, d₁) ≡ i (mod 2ℤ[i])` if
+  `(d₀, d₁) ≡ (5, 3)` and `≡ 1` otherwise. Here `d₁ > 1` is explicit. For `d₀ | n`, `ℍ'_{d₀} ⊂ ℍ'_n`,
+  so all `P(d₀)` and `Z(d₀)` lie in the `ℤ[i]`-module `A(ℍ'_n)`.
+- **I2** (Lemma 2.8 and Proposition 2.3). For odd squarefree `m ≡ 1, 3 (mod 8)`:
+  `Σ ε 𝓛(d₁)𝓛(d₂) = Q(m) ≡ g(m)`, over non-ordered `m = d₁d₂` with `d₂ ≡ 1`; and `𝓛(1) = 1` (L1080).
+  For `m ≡ 3` the factor `d₁ ≡ 3` is distinguished by its class. For `m ≡ 1` the pairs are
+  unordered (L1072–1077: the symmetry `P(d₁, d₂) = P(d₂, d₁)` of Lemma 2.7 is used to halve the sum).
+- **I3** (Theorem 3.5, first assertion; proof L2343–2380). `P(n)` and `𝒫(n)` are equal in
+  `A(ℍ'_n) ⊗ ℚ`, and `𝒫(n) = 0` if `𝓛(n) = 0` (L1294).
+- **I4** (Lemmas 3.16, 3.18). `A(ℍ'_n)_tors = A[(1+i)³] = A(ℚ(i))` for odd `n`.
+- **I5** (Lemma 3.21(1), (4)), with `β' = β'₁`.
+- **I6** (Proposition 3.2(1)), for F5.
+- **I7** (§1, L318–345). The definition of `𝓛(n)`, which is `0` exactly when `ord_{s=1} > 1`, and the
+  root number `−1` for `n ≡ 5, 6, 7` (Birch–Stephens, quoted by TYZ; STANDARD).
