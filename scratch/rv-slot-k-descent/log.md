@@ -57,3 +57,22 @@ Setup: C_d: y^2 = x(x-d)(x+d), e1=0, e2=d, e3=-d, d>0 odd squarefree. Kummer (x-
 - Theorem steps 1-6: symbol bookkeeping checked (r_l only linked to q0 inside S1; r_p conditions = Lemma 2
   hypotheses incl. later slots by reciprocity; q0* class 3*theta = 3; Jacobi (p/theta) = (theta/p) since
   theta = 1 mod 4, theta > 0; u_{r_p} = [q0/p]+1+lam_p x = 0; u_{r_l} = lam_l (s+x+1) = 0). CORRECT.
+
+## Step 6 (construction on 30 admissible inputs; out_run30.txt)
+- slots.py: own implementation of slot-k 2.4 (CRT mod 8 and primes of beta*theta, search for conditions mod
+  earlier slots). run30.py: inputs B1, B2, B3 (descent-alt 4.3), e11#1 (core 6, second input of
+  out_e11_core6.txt; B3 is #0), the six greedy-stall inputs #8,#18,#19,#20,#23,#28 (slot-k out_e8_replay.txt),
+  3 own core-3 and 2 own core-4 instances (core primes = 1 mod 21840, pairwise residues), 15 own random.
+  Multiplier: fewest slots for B1,B2,B3,e11#1; random eligible otherwise. 17 runs with beta<0, 13 with beta>0.
+- Result: (theta1)-(theta4) hold in 30/30; slots = w(beta)+w(theta) (5-12, up to 85 digits); d1 = 5 (8);
+  dim Sel2(C_d1) = dim Sel2(C_d2) = 3 and beta in pi_1 for both: 30/30 CERTIFIED. Prop 0 = point descent on C_d1:
+  30/30.
+- Negative control (wrongx: x = s instead of s+1), out_run30_wrongx.txt: 16 inputs whose theta has a prime
+  = 3 (4): first curve still certified, second still dim 3 but beta not in pi_1: 16/16 as predicted by step 6.
+  The other 14 skipped (theta has no prime = 3 mod 4, where wrong x is harmless).
+
+## Step 7 (ellrank on small realizations; out_t_ellrank.txt)
+- 5 pairs (beta, theta) with (theta1)-(theta4) (small primes, not from admissible B), slots = smallest primes.
+  10 curves, d up to 1.3e12: own descent dim 3 and beta in pi_1 in 10/10; ellrank [r1,r2,s] = [1,1,0] in 10/10
+  (C = 2 + r2 + s = 3 agrees). Points found on 4 curves; each abscissa class is beta times a torsion first
+  coordinate (4/4).
