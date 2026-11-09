@@ -55,3 +55,14 @@ Data: classes of P (product ≡ 7), of T (product ≡ 1), sign s, symbols within
   proof of Lemma 2 shows, symbols inside the glued set X = T ∪ {q₀} never enter; this slot
   condition is superfluous (harmless). The note's claim (§2.5 "What each slot does") that the
   symbols of q₀ at T are dictated by the transfer is inaccurate: they are free.
+
+## Step 4 (side checks, report drafting)
+
+- Two-prime bases (§2.3 side claim): enumerated all 32 configurations {p*, q}: dim 3 and ±p* ∈ π₁
+  exactly for (7,3), (3,7), either symbol. CORRECT (unused by the proof).
+- Step 0 count: odd divisors of 2730 are 4 per class of (ℤ/8)*; 8 eligible multipliers per B.
+- §2.6 "within one of the lower bound": only when ω(β) = k+1; in Prop B setting k+1 ≤ ω(β) ≤ k+4.
+  Minor overstatement (finding 2).
+- Kriz f₀ ≥ 4: odd part of |d| is d ≥ 21. Fine (finding 4: make explicit; cite 10.13).
+- From points to Φ_C: rederived from polePoly with x+ℓ; scalings λ = t/s and th/s. CORRECT.
+- Report sections 0–5, 7–9 written.
