@@ -15,7 +15,7 @@ def lamc(c): return 1 if c % 4 == 3 else 0
 def bit(name, default):
     return rng.randint(0, 1) if var == name else default
 
-fails = 0; fails_detail = {}
+fails = 0; fails_detail = {}; corr = {}
 for trial in range(N):
     a = rng.randint(1, 6); b = rng.randint(0, 5)
     while True:
@@ -91,7 +91,11 @@ for trial in range(N):
             if y in P: tgt |= 1 << (4 + i)
         if dim != 3: bad.append(name + ':dim%d' % dim)
         elif not contains_first(ker, tgt, len(S)): bad.append(name + ':nobeta')
+    has3 = any(lamc(C[l]) for l in T)
+    corr[(bool(bad), has3)] = corr.get((bool(bad), has3), 0) + 1
     if bad:
         fails += 1
         k = ','.join(bad); fails_detail[k] = fails_detail.get(k, 0) + 1
 print("variant %-7s trials %d failures %d %s" % (var, N, fails, fails_detail))
+if var == 'sign':
+    print("  (failed, theta has a prime = 3 mod 4) counts:", corr)

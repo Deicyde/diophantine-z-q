@@ -48,3 +48,15 @@
   (random abstract data, omega(beta) <= 6, omega(theta) <= 5): none 0/1000 failures;
   q0P 676; q0T 0 (superfluous); rpT 344; rpq0 440; rpP 613; rpR 455; rlP 780; rlT 335; rlR 620;
   q0 = 7 mod 8: 1000 (dim 4); x = s: 527 (only C2 loses beta). Every other condition is load-bearing.
+
+## Step 4 (more adversarial batches; report drafting)
+- s0beta (P inside {3,5,7,13}, beta in +-{7,15,39,455}, theta nontrivial, every p0): 26/26.
+- allm (3 random inputs x all 8 eligible multipliers, both signs): 24/24.
+- p0var (omega(beta) = 7, 8; every choice of p0): 15/15.
+- slope_site (t = u/v with all six |u + cv| prime = +-1 mod 8, v = 0 mod 8; R0 = eta F(t)/(t-1)^8,
+  B = R0 s^2): 30/30.
+- cores: isotropic cores k = 3, 4, 5, 6 (primes = 1 mod 21840, pairwise QR), all eligible m: 30/30.
+- cores_extra crashed on a generator bug (duplicate core prime -> leg(p,p)); fixed, rerun pending.
+- t_variants sign 1000 8: failures (470, all "C2 loses beta") occur exactly when theta has a prime
+  = 3 mod 4 (530 others certified): confirms slot-k 3.3 negative-control statement.
+- Report sections 1-2.5 drafted (all steps CORRECT).
