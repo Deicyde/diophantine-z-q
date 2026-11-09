@@ -142,7 +142,7 @@ Hence `c_n(e) ≡ Λ(n/e) ≡ 𝓛(n/e) (mod 2ℤ[i])`. This is real for both cl
 Steps of type `(5, 3)` occur only in chains with `s ≥ 2`, and all such terms cancel in point 4.
 Therefore Lemma N2 holds whatever the `ε`-class of a `(5, 3)` step is. Of the `ε`-classification in
 I1, only `ε ≡ 1` on `(5, 1)`, `(7, 1)` and `(7, 3)` is used. In particular, the factor `i^{(n−1)/2}` in
-TYZ's display (L2588) plays no role for `n ≡ 5`.
+TYZ's display (L2586) plays no role for `n ≡ 5`.
 
 ### 3.3 Independent recomputation
 
@@ -175,3 +175,75 @@ The same argument gives this, now starting at `D₀ ≡ 7`. The first class-3 st
 carries `i`. The survivors have `s = 1` for `e ≡ 5` and `s = 0` for `e ≡ 7`. The recomputation on 120
 configurations with `n ≡ 7` (3825 coefficients) found no mismatch. CORRECT for the coefficient lemma.
 The rest of the `n ≡ 7` case was not examined.
+
+## 4. The facts F3–F6 and the proof of Proposition N
+
+### 4.1 F3 (CORRECT)
+
+Let `χ` be the idele class character of a quadratic field, and `β = r_∞(−1)r₂(−2)`. Then `β` acts on
+the field by `χ(β) = χ_∞(−1)χ₂(−2)`. The normalization of the Artin map does not matter for quadratic
+characters. By the product formula for the principal idele `−2`, and since `χ_p(−2) = 1` at the
+unramified odd `p`, `χ₂(−2) = (χ_∞(−2)Π_{p ramified, odd} χ_p(−2))^{−1}`.
+
+- For `ℚ(i)`: `χ_∞(−2) = −1`, so `χ₂(−2) = −1` and `χ(β) = (−1)(−1) = 1`. So `β` fixes `i`.
+- For `K_n`, `n ≡ 5 (mod 8)`: at `p | n`, `χ_p(−2) = (−2/p)`, so `χ₂(−2) = −(−2/n) = −(−1)(−1)... `; precisely
+  `(−1/n) = 1` and `(2/n) = −1`, hence `(−2/n) = −1`, `χ₂(−2) = 1` and `χ(β) = −1`. So `β` negates `√−n`.
+
+Proposition N uses only the first item. The second is needed for the full Theorem 3.5(2) (§4.5).
+
+### 4.2 F4 (CORRECT, not needed)
+
+`[i]` is defined over `ℚ(i)`, and `β'` fixes `ℚ(i)`, so `([i]x)^{β'} = [i]x^{β'}`. The proof of
+Proposition N applies `β' + 1` only to `Σ ℓ_e Z(e)` with integers `ℓ_e`, and to `2X`, where it needs
+only that `X^{β'} + X` lies in `A(ℍ'_n)`. So F4 is never used (B2).
+
+### 4.3 F5 (CORRECT)
+
+By I6, for `d ≡ 5`, `K_d ⊂ H'_d ⊂ H_{d,4}`, the ring class field of conductor 4. `Gal(H_{d,4}/ℚ)` is
+the semidirect product of the abelian group `Gal(H_{d,4}/K_d)` by complex conjugation, which acts by
+inversion (Cox, *Primes of the form x² + ny²*, Lemma 9.3). Every subgroup `U` of the abelian part
+satisfies `cUc^{−1} = U^{−1} = U`, so it is normal. Hence `H'_d` is Galois over `ℚ`. `L_n(i)` is abelian
+over `ℚ`, and a compositum of Galois extensions is Galois. So `ℍ'_n` is Galois over `ℚ`, and every lift
+`β'` maps `A(ℍ'_n)` to itself. This is what the last step needs: `X ∈ A(ℍ'_n)` implies
+`X^{β'} + X ∈ A(ℍ'_n)`. TYZ use the same fact without comment at L2593 ("the contribution from
+`2A(ℍ'_n)^{β'+1}` is torsion, contained in `2A(ℍ'_n)_tors`").
+
+### 4.4 Proof of Proposition N (CORRECT)
+
+Each step was checked.
+
+1. `𝓛(n) = 0` ⟹ `𝒫(n) = 0` ⟹ `P(n)` maps to `0` in `A(ℍ'_n) ⊗ ℚ` (I3). So `P(n)` is torsion, and
+   `P(n) ∈ A[(1+i)³] = A(ℚ(i))` (I4).
+2. `β'` fixes `ℚ(i)` (F3, first item), so `P(n)^{β'} + P(n) = 2P(n) ∈ 2A[(1+i)³] = A[1+i] = ℤτ(1)`.
+3. By Lemma N2, `c_n(e) − ℓ_e ∈ 2ℤ[i]` with `ℓ_e ∈ {0, 1}`, `ℓ_e ≡ Λ(n/e)`. So
+   `P(n) = Σ ℓ_e Z(e) + 2X` with `X ∈ A(ℍ'_n)`. This uses I1: `Z(e) ∈ A(ℍ'_n)`, a `ℤ[i]`-module.
+4. Apply `β' + 1`. By I5, `Σ ℓ_e Z(e)^{β'+1} ≡ aτ((1−i)/2) + Nτ(1/2)` modulo `ℤτ(1)`, with
+   `a = Σ_{e≡5} ℓ_e g(e) ≡ Σ_{e≡5} g(e)𝓛₁(n/e) = T_5a(n)` and
+   `N = Σ_{e≡7} ℓ_e g(e) ≡ Σ_{e≡7} g(e)Σ_{d≡3} g(d)𝓛₁(n/ed) = T_5b(n)`.
+5. Every other term is torsion, so `2(X^{β'} + X)` is torsion. Then `X^{β'} + X` is a torsion point of
+   `A(ℍ'_n)` (F5), so it lies in `A[(1+i)³]` (I4), and `2(X^{β'} + X) ∈ ℤτ(1)`.
+6. So `τ(a(1−i)/2 + N/2) ∈ ℤτ(1)`, that is, `a(1−i)/2 + N/2 ∈ ℤ + (1+i)ℤ[i] = ℤ[i]`. This gives
+   `a ≡ 0` and `a + N ≡ 0`, hence `T_5a(n) ≡ T_5b(n) ≡ 0`.
+7. Contrapositive and I7: if `T_5b(n)` is odd, then `𝓛(n) ≠ 0`, so `ord_{s=1} ≤ 1`, and the root number
+   `−1` makes the order equal to 1.
+
+The proof uses neither Proposition 3.4 nor Theorem 1.2, and no ordering convention beyond Lemma N1.
+The claim of nt-tyz §4.4 ("What the proof does not use") is CORRECT.
+
+*Differential test.* For 30 random squarefree `n ≡ 5 (mod 8)` below `2·10⁵` with at least 3 prime
+factors, `T_5a(n)` and `T_5b(n)` were computed from Rédei matrices and compared with the analytic rank
+of `C_n`, computed numerically. In 24 cases `T_5a` or `T_5b` is odd (in 4 of them only `T_5b`), and
+all 24 have analytic rank 1. One case has analytic rank 3, with `T_5a ≡ T_5b ≡ 0`. No contradiction.
+
+### 4.5 F6, and the full reading A for `n ≡ 5` (finding A2)
+
+nt-tyz marks the "i.e." of Theorem 3.5(2) as unproved and avoids it. The direction that Theorem 1.2
+needs is immediate. Suppose `2^{−ρ(n)}𝓛(n) = 2m` with `m ∈ ℤ`. Then `𝒫(n) = mα_n ∈ A(K_n)^−`, and
+`P(n) − mα_n` is torsion in `A(ℍ'_n)` (I3), hence lies in `A[(1+i)³] ⊂ A[4]` (I4). So
+`P(n) ∈ A(K_n)^− + A[4]`.
+
+Under this hypothesis, write `P(n) = P + t`. Then `P^{β'} = −P` by F3 (second item), and
+`t ∈ A(ℍ'_n)[4] = A(ℚ(i))` is fixed by `β'`, so `P(n)^{β'} + P(n) = 2t ∈ ℤτ(1)`. Steps 3–6 above then
+give `T_5a ≡ T_5b ≡ 0`. So reading A of Theorem 1.2 (and of Theorem 3.5(2)) for `n ≡ 5` is fully
+proved by nt-tyz's argument, not only Proposition N. The converse direction of the "i.e." is not
+needed anywhere.
