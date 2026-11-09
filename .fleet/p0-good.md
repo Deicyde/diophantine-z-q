@@ -1,7 +1,7 @@
 # p0-good: Proposition 0, file 7 (Good.lean, odd primes not dividing `d`)
 
 Plan: `docs/research/nt-prop0.md` §2.3 and §4.1 file 7. Module `ZInQKernel/RouteK/Selmer/Good.lean`
-(191 lines), namespace `ZInQ.RouteK.Selmer`. Root module `ZInQKernel/RouteK/SelmerGood.lean`,
+(185 lines), namespace `ZInQ.RouteK.Selmer`. Root module `ZInQKernel/RouteK/SelmerGood.lean`,
 imported from `ZInQKernel.lean`. This branch also contains the merges of `wip/p0-local` and
 `wip/p0-charsum`.
 
