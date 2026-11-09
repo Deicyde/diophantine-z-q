@@ -159,3 +159,67 @@ lies above the Masser–Wüstholz threshold of R1. Infinitely many such `ℓ` ex
   model from `O_{L'_w}` to `ℤ_ℓ` is needed, contrary to nt-h's appeal to Raynaud §3.3. The descent
   is true (full faithfulness for `e < ℓ - 1` plus étale descent) but unused.
 - **Consumed downstream.** In R5 and R6, `k(r̄_λ) = 2` for every `ℓ` as above, independent of `ℓ`.
+
+### R4. Level `N(r̄_λ) ≤ QM²` (step 4): CORRECT, with a simpler justification (F5)
+
+- **Source.** Serre 1987, §1 (definition of `N(ρ̄)`: the prime-to-`ℓ` Artin conductor) is
+  UNCHECKED. The same definition is read in Gee, arXiv:1402.7197, §2 (the paragraph defining
+  `𝔫(ρ̄)` through the lower ramification filtration, and "`N(ρ̄)` … is just the prime-to-`p` part of
+  the Artin conductor"). nt-h also cites "Serre 1987, §1.2" for `a_p(r̄) ≤ a_p(r)`. That attribution
+  is UNCHECKED and in doubt: the usual references are Livné (1989) and Carayol (1989). It is not
+  needed.
+- **Check.** Fix `p ≠ ℓ`. The manuscript's three local arguments (lines 812-857) are statements
+  about subgroups of `G_{ℚ_p}` that act trivially through `ρ_ℓ`, and they pass to every reduction.
+  - For `p ≤ R`: `G^u_{ℚ_p}` with `u > U_0` acts trivially on `V_ℓ(A)`, hence on `T_ℓ(A)`, hence on
+    `A[ℓ]`. `a_σμ_σ = 1` and `β = 1` on these groups. So `r̄_λ` is trivial on them,
+    `sw(r̄_λ) = ∫_0^∞ codim (r̄_λ)^{G^u} du ≤ 2U_0`, and `a_p(r̄_λ) ≤ 2 + 2U_0 ≤ E_0`.
+  - For `p > R`, `p ∈ T`: `L_v/ℚ_p` is tame, `A` has good reduction (`p ∉ S`), and `β` is tame. So
+    wild inertia acts trivially and `a_p(r̄_λ) = codim (r̄_λ)^{I_p} ≤ 2`.
+  - For `p ∉ T`: `r̄_λ` is unramified.
+
+  `N(r̄_λ)` is prime to `ℓ` by definition. Hence
+  `N(r̄_λ) ≤ ∏_{p≤R} p^{E_0} · ∏_{p∈supp M, p>R} p² ≤ R^{RE_0} M² = QM²`.
+- **Conventions.** For `ℓ ≠ p` the residual Swan conductor is computed by the same upper-numbering
+  integral, since wild inertia is pro-`p` and acts semisimply in characteristic `ℓ`.
+- **Consumed downstream.** In R6, the bound `N(r̄_λ) ≤ QM²`, uniform in `ℓ`.
+
+### R5. Serre's conjecture, strong form (step 5): CORRECT as an application; citation incomplete (F1)
+
+- **Sources.** Khare–Wintenberger, *Serre's modularity conjecture (I), (II)*, Invent. Math. 178
+  (2009) 485-504 and 505-586: UNCHECKED (not readable here; not on arXiv; the 2004 preprint
+  math/0412076 was read and has neither the theorem nor its numbering). Kisin, *Modularity of
+  2-adic Barsotti–Tate representations*, Invent. Math. 178 (2009) 587-634: UNCHECKED, and
+  **missing from nt-h**. Restatements read:
+  - Gee, arXiv:1402.7197, §2. The weak conjecture "has been proved only in the case `F = ℚ`. This
+    was achieved by Khare, Wintenberger, and Kisin" [KW I, KW II, Kisin]. The implication from weak
+    to strong "has essentially been known since the late 1970's except for a few cases where
+    `p = 2`" (Deligne, Fontaine, Edixhoven).
+  - Dieulefait, arXiv:0712.1317, end of §4. Kisin's characteristic-2 lifting results "allow to
+    cover also the remaining cases of Serre's conjecture, i.e., the cases of even level".
+  - BDJ, arXiv:0810.2106v5, Theorem 3.17. For a modular `ρ` over `ℚ`, the weights in which `ρ` is
+    modular (level prime to `ℓ`) are exactly `W(ρ)`.
+- **Statement used.** Let `ρ̄ : G_ℚ → GL₂(𝔽̄_ℓ)` be continuous, odd and absolutely irreducible,
+  with `ℓ > 2`. Then there is a newform `g` of weight `k(ρ̄)`, level `N(ρ̄)` and character `ε(ρ̄)`,
+  and an embedding of its coefficient field into `ℚ̄_ℓ`, such that `ρ̄_g ≅ ρ̄`.
+- **Hypotheses checked.** Continuous: yes. Odd: R2. Absolutely irreducible: R1. `ℓ > 2`: `ℓ > 324`.
+  `ℓ ∤ N(ρ̄)`: automatic, since `N(ρ̄)` is prime to `ℓ` by definition. The theorem has **no
+  hypothesis on the residual image** (such as irreducibility on `G_{ℚ(ζ_ℓ)}` or non-dihedral image).
+  Those hypotheses belong to the modularity lifting theorems inside its proof, not to its
+  statement. `k(r̄_λ) = 2` (R3) and `N(r̄_λ) ≤ QM²` (R4).
+- **Why Kisin is needed.** `2 ∈ S ⊆ T`. `A` may have bad reduction at 2, and `β` "possibly" ramifies
+  at 2 (line 708). So `N(r̄_λ)` may be even. By the two restatements above, the even-level case of
+  the weak conjecture rests on Kisin's 2-adic theorem.
+- **Strong form.** If the published statement of Khare–Wintenberger is the weak form, the passage
+  to level `N(ρ̄)` and weight `k(ρ̄)` for `ℓ > 2` uses classical optimization theorems. These are
+  Ribet's level lowering (Invent. Math. 100 (1990)), Carayol (Duke 1989), Diamond's refinement
+  (1995), Mazur's principle and Edixhoven (Invent. Math. 109 (1992)). BDJ's proof of Theorem 3.17
+  uses Deligne and Fontaine (Edixhoven, Theorems 2.5, 2.6), Mazur's principle (Edixhoven 2.8),
+  Edixhoven 4.5 and Gross's companion forms. In the weight-2 finite flat case the companion forms
+  are not needed: the split case reaches weight 2 by Mazur's principle. All of these are UNCHECKED
+  here and belong inside the citation of the strong form. The audit record should quote whichever
+  statement is actually printed.
+- **Conventions.** Serre's normalization is `tr ρ_g(Frob_p) = a_p(g)` and `det ρ_g = ε χ_ℓ^{k-1}`,
+  with `Frob_p` arithmetic. This matches the Tate-module convention of `r_ℓ` (`det = χ_ℓ ×` finite).
+  Any mismatch is absorbed in R6, because the set of newforms is closed under `g ↦ ḡ` (R7).
+- **Consumed downstream.** In R6, for each `ℓ` in the infinite set, a newform `g_ℓ` of weight 2,
+  level `≤ QM²`, and a prime `λ'` of `ℚ(g_ℓ)` above `ℓ` with `ρ̄_{g_ℓ,λ'} ≅ r̄_λ`.
