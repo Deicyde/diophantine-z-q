@@ -172,7 +172,8 @@ fibers" (lines 581-631) is replaced by this lemma. The proof keeps the dichotomy
 - the sources Fowler and Barquero-Sanchez et al. leave the trust base of H; Gaudron–Rémond and
   Faltings 1983 stay through A015, A016 and A006.
 
-**Added** (as checked by rv-h-cm; not rechecked here):
+**Added** (statements as checked by rv-h-cm; the numbering of González–Rotger was rechecked
+here in the arXiv text):
 
 - J. González and V. Rotger, *Non-elliptic Shimura curves of genus one*, J. Math. Soc. Japan 58
   (2006), 927-948 (journal reference VERIFIED from the arXiv record of math/0612732), §5:
@@ -246,8 +247,8 @@ comes afterwards, from GR14 Theorem 1.4 applied to the isogeny that U2 produces 
   satisfies `deg_L A_ω ≤ c·max(1, h_F(A), ‖ω‖²)^κ`, with `κ = (g-1)4^g g!` and
   `c = c₀[k:ℚ]^κ (deg_L A)^{1+gκ}`. This is the transcendence input of every isogeny estimate.
 - **The isogeny theorem and the Tate conjecture** (MW93b). The paper was not readable here
-  (UNCHECKED). vK (§4, the paragraph after the proof of Lemma 4.1; VERIFIED as a statement of vK) records that
-  "Masser–Wüstholz gave a new proof of the Tate conjecture on using their isogeny estimates which
+  (UNCHECKED). vK (§4, the paragraph after the proof of Lemma 4.1; VERIFIED as a statement of
+  vK) records that "Masser–Wüstholz gave a new proof of the Tate conjecture on using their isogeny estimates which
   rely on transcendence theory", that Bost and David made the estimates effective (Bost's
   Bourbaki exposé, p. 121), and that GR14 gives completely explicit constants. vK also states the
   GR14 bound in the form used here: for `A'` that is `K`-isogenous to `A`, GR14 Theorem 1.4 gives
