@@ -7,6 +7,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import cypari2
 pari = cypari2.Pari(); pari.allocatemem(2 * 10 ** 9)
 import slotk
+_kr = pari.kronecker
+slotk.JAC = lambda x, q: int(_kr(x, q))
 
 def fac(n):
     n = abs(int(n))

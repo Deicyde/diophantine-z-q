@@ -46,3 +46,8 @@
 - slotk.py: construction with actual primes (CRT on P∪T, Euler-criterion search for symbols between aux primes; naive full CRT made sizes double per slot).
 - run_dl.py random30 (seed 2026, first multiplier with |β|≡7 (8)): 30/30 both curves certified ('selmer3') by the exact descent sel2cong.py; #aux = ω(β)+ω(θ) ∈ [?], aux primes ≤ 46 digits. Output out_random30.txt.
 - Draft §1, §2.1–2.3 of docs/research/slot-k.md written.
+
+## Step 7 (families)
+- Greedy-stall inputs: e8 replayed (seed 7, MAXK 9 recovered by find_seed_e8.py; replay diverges after #0 because of tie-breaking, but uses the same greedy) → stall inputs #8,#18,#19,#20,#23,#28 (out_e8_replay.txt; #8 not solved by e8's random fallback either). Construction: 6/6 inputs OK for every multiplier with β odd, |β|≡7 (8) (out_stall.txt).
+- Speed: Jacobi via PARI kronecker; search cost 2^j for mutual aux symbols (j ≤ ω(β)+ω(θ)).
+- Observation: n=βq0∏r has |n|≡7·3≡5 (8) and |β|≡3 (4): this is the K-TYZ-β row-5b rule of pc-audit §4.2.
