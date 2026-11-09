@@ -1,6 +1,7 @@
 import Mathlib.NumberTheory.JacobiSum.Basic
 import Mathlib.NumberTheory.LegendreSymbol.QuadraticChar.Basic
 import Mathlib.NumberTheory.LegendreSymbol.Basic
+import Mathlib.Tactic.NormNum.Prime
 
 /-!
 # Character sums over finite fields for the good primes of Proposition 0
@@ -333,5 +334,124 @@ theorem exists_xi_of_card (hF : ringChar F ≠ 2) (hq : 26 ≤ Fintype.card F) {
   rw [e3, map_mul]
 
 end Field
+
+section Small
+
+/-! ### Small primes: a `Nat`-valued checker run by `decide +kernel` -/
+
+/-- Euler's criterion on `ℕ`: `x^(p/2) mod p`, which is `1` on squares and `p - 1` on non-squares. -/
+def eulerNat (p x : ℕ) : ℕ := Nat.pow x (p / 2) % p
+
+/-- `ξ` witnesses Step 1 for `d̄ = dv` and the classes `al`, `be` (each `1` or `p - 1`). -/
+def xiOK (p dv al be ξ : ℕ) : Bool :=
+  (ξ == 0 || eulerNat p ξ == al) && (ξ == dv || eulerNat p (ξ + p - dv) == be) &&
+    (ξ + dv == p || eulerNat p (ξ + dv) == al * be % p)
+
+/-- Step 1 at `p` for every `d̄ ≠ 0` and every pair of classes except the trivial one. -/
+def xiCheckPrime (p : ℕ) : Bool :=
+  (List.range p).all fun dv => dv == 0 ||
+    [(1, p - 1), (p - 1, 1), (p - 1, p - 1)].all fun c =>
+      (List.range p).any fun ξ => xiOK p dv c.1 c.2 ξ
+
+/-- The odd primes below `29`. -/
+def xiSmallPrimes : List ℕ := [3, 5, 7, 11, 13, 17, 19, 23]
+
+theorem xiCheck_small : xiSmallPrimes.all xiCheckPrime = true := by decide +kernel
+
+variable {p : ℕ} [hp : Fact p.Prime]
+
+theorem eulerNat_cast (x : ℕ) : ((eulerNat p x : ℕ) : ZMod p) = (x : ZMod p) ^ (p / 2) := by
+  rw [eulerNat, ZMod.natCast_mod, Nat.pow_eq, Nat.cast_pow]
+
+/-- Euler's criterion for quotients: `c^(p/2) = a^(p/2)` with `a ≠ 0` makes `c / a` a square. -/
+theorem isSquare_div_of_pow_eq {a c : ZMod p} (ha : a ≠ 0) (h : c = 0 ∨ c ^ (p / 2) = a ^ (p / 2)) :
+    IsSquare (c / a) := by
+  rcases h with h | h
+  · rw [h, zero_div]; exact IsSquare.zero
+  by_cases hc : c = 0
+  · rw [hc, zero_div]; exact IsSquare.zero
+  rw [ZMod.euler_criterion p (div_ne_zero hc ha), div_pow, h, div_self (pow_ne_zero _ ha)]
+
+/-- The checker's witness gives the three squares of Step 1. -/
+theorem xi_of_xiOK {d a b : ZMod p} {dv al be ξ : ℕ} (hdv : dv < p) (hd : (dv : ZMod p) = d)
+    (ha : a ≠ 0) (hb : b ≠ 0) (hal : (al : ZMod p) = a ^ (p / 2))
+    (hbe : (be : ZMod p) = b ^ (p / 2)) (h : xiOK p dv al be ξ = true) :
+    IsSquare ((ξ : ZMod p) / a) ∧ IsSquare (((ξ : ZMod p) - d) / b) ∧
+      IsSquare (((ξ : ZMod p) + d) / (a * b)) := by
+  simp only [xiOK, Bool.and_eq_true, Bool.or_eq_true, beq_iff_eq] at h
+  obtain ⟨⟨h1, h2⟩, h3⟩ := h
+  refine ⟨isSquare_div_of_pow_eq ha ?_, isSquare_div_of_pow_eq hb ?_,
+    isSquare_div_of_pow_eq (mul_ne_zero ha hb) ?_⟩
+  · rcases h1 with h1 | h1
+    · left; rw [h1, Nat.cast_zero]
+    · right; rw [← eulerNat_cast, h1, hal]
+  · have hcast : ((ξ + p - dv : ℕ) : ZMod p) = (ξ : ZMod p) - d := by
+      rw [Nat.cast_sub (by omega), Nat.cast_add, ZMod.natCast_self, add_zero, hd]
+    rcases h2 with h2 | h2
+    · left; rw [h2, hd, sub_self]
+    · right; rw [← hcast, ← eulerNat_cast, h2, hbe]
+  · rcases h3 with h3 | h3
+    · left; rw [← hd, ← Nat.cast_add, h3, ZMod.natCast_self]
+    · right; rw [← hd, ← Nat.cast_add, ← eulerNat_cast, h3, ZMod.natCast_mod, Nat.cast_mul, hal,
+        hbe, mul_pow]
+
+/-- The class `a^(p/2)` of `a ≠ 0` as a natural number: `1` or `p - 1`. -/
+theorem exists_classNat {a : ZMod p} (ha : a ≠ 0) :
+    (a ^ (p / 2) = 1 ∧ ((1 : ℕ) : ZMod p) = a ^ (p / 2)) ∨
+      (a ^ (p / 2) = -1 ∧ ((p - 1 : ℕ) : ZMod p) = a ^ (p / 2)) := by
+  rcases ZMod.pow_div_two_eq_neg_one_or_one p ha with h | h
+  · left; rw [h, Nat.cast_one]; exact ⟨rfl, rfl⟩
+  · right
+    rw [h, Nat.cast_sub hp.out.one_lt.le, ZMod.natCast_self, Nat.cast_one, zero_sub]
+    exact ⟨rfl, rfl⟩
+
+/-- Step 1 of §2.3 for the primes `p ∈ {3, …, 23}`, from the checker. -/
+theorem exists_xi_of_check (hcheck : xiCheckPrime p = true) {d a b : ZMod p} (hd : d ≠ 0)
+    (ha : a ≠ 0) (hb : b ≠ 0) :
+    (IsSquare a ∧ IsSquare b) ∨
+      ∃ ξ : ZMod p, IsSquare (ξ / a) ∧ IsSquare ((ξ - d) / b) ∧ IsSquare ((ξ + d) / (a * b)) := by
+  have hdv : d.val < p := ZMod.val_lt d
+  have hdv0 : d.val ≠ 0 := fun h => hd ((ZMod.val_eq_zero d).mp h)
+  have hdd : (d.val : ZMod p) = d := ZMod.natCast_zmod_val d
+  have key : ∀ al be : ℕ, (al, be) ∈ [(1, p - 1), (p - 1, 1), (p - 1, p - 1)] →
+      (al : ZMod p) = a ^ (p / 2) → (be : ZMod p) = b ^ (p / 2) →
+      ∃ ξ : ZMod p, IsSquare (ξ / a) ∧ IsSquare ((ξ - d) / b) ∧
+        IsSquare ((ξ + d) / (a * b)) := by
+    intro al be hmem hal hbe
+    simp only [xiCheckPrime, List.all_eq_true, List.mem_range, Bool.or_eq_true, beq_iff_eq,
+      List.any_eq_true] at hcheck
+    obtain ⟨ξ, -, hξ⟩ := (hcheck d.val hdv).resolve_left hdv0 (al, be) hmem
+    exact ⟨ξ, xi_of_xiOK hdv hdd ha hb hal hbe hξ⟩
+  rcases exists_classNat ha with ⟨ha1, hal⟩ | ⟨-, hal⟩ <;>
+    rcases exists_classNat hb with ⟨hb1, hbe⟩ | ⟨-, hbe⟩
+  · left
+    exact ⟨(ZMod.euler_criterion p ha).mpr ha1, (ZMod.euler_criterion p hb).mpr hb1⟩
+  · exact Or.inr (key _ _ (by simp) hal hbe)
+  · exact Or.inr (key _ _ (by simp) hal hbe)
+  · exact Or.inr (key _ _ (by simp) hal hbe)
+
+/-- **Step 1 of §2.3.** For an odd prime `p` and `d, a, b` nonzero in `𝔽_p`: either `a` and `b` are
+squares, or there is `ξ` with `ξ / a`, `(ξ - d) / b` and `(ξ + d) / (ab)` squares (zero allowed).
+For `p ≥ 29` from the count; for `p < 29` from the checker `xiCheck_small`. -/
+theorem exists_xi (hp2 : p ≠ 2) {d a b : ZMod p} (hd : d ≠ 0) (ha : a ≠ 0) (hb : b ≠ 0) :
+    (IsSquare a ∧ IsSquare b) ∨
+      ∃ ξ : ZMod p, IsSquare (ξ / a) ∧ IsSquare ((ξ - d) / b) ∧ IsSquare ((ξ + d) / (a * b)) := by
+  by_cases hlarge : 29 ≤ p
+  · right
+    have hF : ringChar (ZMod p) ≠ 2 := by rwa [ZMod.ringChar_zmod_n]
+    have hq : 26 ≤ Fintype.card (ZMod p) := by rw [ZMod.card]; omega
+    obtain ⟨ξ, -, -, -, h⟩ := exists_xi_of_card hF hq hd ha hb
+    exact ⟨ξ, h⟩
+  · have hmem : p ∈ xiSmallPrimes := by
+      have hpp := hp.out
+      interval_cases p <;> first
+        | (simp [xiSmallPrimes]; done)
+        | exact absurd rfl hp2
+        | (exfalso; revert hpp; norm_num)
+    have hcheck : xiCheckPrime p = true := List.all_eq_true.mp xiCheck_small p hmem
+    exact exists_xi_of_check hcheck hd ha hb
+
+end Small
+
 
 end ZInQ.RouteK.Selmer
