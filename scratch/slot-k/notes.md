@@ -56,3 +56,8 @@
 - t3_symbolic.py: random abstract data with only (θ1)–(θ4), Prop 0 system (symsel): 300 (ω≤6), 1000 (ω≤12), 2000 (ω≤3) trials: 0 failures (both curves dim 3, β∈π1 with sign).
 - Negative control WRONGX=1 (x=s instead of s+1): curve 1 still certified, curve 2 dim 3 but β∉π1 in 183/300 (exactly when T has primes ≡3 mod 4) — the sign choice is necessary.
 - slotk.py speed: gcd with primorial sieve.
+
+## Step 9 (note §4 drafted; place-2 check)
+- Place-2 rows: structure (depends on c(𝒞) and λ·u, μ·u, λ·v, μ·v) and c=5 rows verified by hand: image of C_5(Q_2) spanned by (5,2),(7,3),(1,5) [x=1/4]; conditions a_v=0, a_ε=b_ε, b_v=a_ω ⇔ a1=0, λ·u=λ·v, b1=μ·u.
+- Mathlib names checked: Nat.forall_exists_prime_gt_and_zmodEq, Nat.chineseRemainderOfList, jacobiSym.quadratic_reciprocity_one_mod_four, legendreSym.mul, FiniteField.exists_nonsquare.
+- B1 (8 multipliers) all OK; B2 running.
