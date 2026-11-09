@@ -17,7 +17,7 @@ to computation:
 
 | Input | Deep dependency |
 | --- | --- |
-| H (Theorem 4.1) | Shimura curves, Buzzard's integral models, modularity at five, effective CM heights |
+| H (Theorem 4.1) | Shimura curves, Buzzard's integral models, modularity at five, effective CM heights (avoidable: for rational `u` the fibre has no CM, [docs/research/h-cm.md](docs/research/h-cm.md), checked in [docs/research/rv-h-cm.md](docs/research/rv-h-cm.md)) |
 | PC (Theorem 5.2) | the restricted converse (Theorem 5.3): Kato, Waldspurger, Bump–Friedberg–Hoffstein, Nekovář, Gross–Zagier–Kolyvagin, BCDT |
 | 22P (Proposition 6.2), used by M | Green–Tao linear equations in primes, Möbius–nilsequences, Green–Tao–Ziegler |
 | CAT (Proposition 12.1), used by B | the explicit progression estimate of Bennett–Martin–O'Bryant–Rechnitzer |
