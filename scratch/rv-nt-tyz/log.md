@@ -28,3 +28,13 @@ Hand derivations:
 - Sums: T5a = T5b = 0; second sum A = 0, B = 1, C = 1, and also reading D (d_1=1 admitted, d_1 distinguished) = 1. CORRECT (and D refuted too).
 - Rank: points found by ellrank (different from nt-tyz's points), checked exactly on curve; Kummer images of T1,T2,P1..P3 span dim 5 => rank >= 3 (exact). Regulators 39.4026, 269.7036 (match nt-tyz). Root number -1. So ord >= 3 by GZK, calL(n)=0. CORRECT.
 - Conclusion: claim (a) holds: Theorem 1.2 under readings B, C (and D) is false; only the set-partition reading A survives these tests.
+
+## Step 3 (coefficients of the genus point; own code coeff_recompute.py, coeff_real.py)
+- 360 abstract configurations (40 each for r = 1..9 primes; random classes with product 5 mod 8, random g on subsets).
+  L(q) computed from the Lemma 2.8 recursion mod 2 (not from Lambda); P(D) from the section 3.1 recursion in F_2[i].
+  20440 coefficients c_n(e) compared: 0 mismatches with Lambda(n/e) (Lemma N2), 0 non-real, 0 Lemma N1 mismatches
+  (L(q) vs Lambda(q) on all q), brackets (C1, C2) = (T5a, T5b) in all 360 trials; T5b odd in 136 trials.
+- Reading D of Prop 3.4 (d1 = 1 admitted, distinguished) disagrees on 10023 coefficients (298 trials): Prop 3.4 must be read with set-partition semantics.
+- Mutation tests (90 trials each): eps(5,3) class = 1 instead of i: still 0 mismatches (confirms the hand observation that the (5,3) class is irrelevant); eps = i on (5,1) or (7,3) steps: thousands of mismatches (test is sensitive).
+- 30 actual n = 5 mod 8 (3..7 primes, n < 3e6) with g from reduced forms: 152 coefficients, 0 mismatches; T5b odd for 14.
+- Verdict: Lemma N2 / N1 CORRECT, numerically corroborated.
