@@ -431,8 +431,8 @@ Let `t = u/v` be a good slope (fields 1–4), and `P` its set of odd contact pri
 Call a contact value `u − cv` *square-like* if it has no prime outside `S_b` to an odd power.
 
 - *Each value that is not square-like carries exactly one prime of `P`.* For `p > 324` at most one
-  contact value is divisible by `p` (two values `u − cv`, `u − c′v` share only primes dividing
-  `(c − c′)v` and `u`, and `|c − c′| ≤ 60`). So the primes of `P` are distributed over the six values,
+  contact value is divisible by `p`: a common prime of `u − cv` and `u − c′v` divides `(c − c′)v`,
+  hence `c − c′` (it cannot divide `v` and `u`), and `|c − c′| ≤ 60`. So the primes of `P` are distributed over the six values,
   and `|P| ≤ 6` (field 4). If all six values fail to be square-like, each carries exactly one prime
   of `P` to an odd power (`= 1`, field 3), times an `S_b`-part and a square. VERIFIED (elementary).
 - *Square-like values cut out curves of positive genus.* Requiring `m` of the six values to be
@@ -451,11 +451,10 @@ contact values prime (up to bounded factors). VERIFIED in the sense just stated.
 construction with nonlinear forms only makes the prime problem harder.
 
 *Complexity.* The six forms `u − cv`, `c ∈ 𝒞`, are pairwise independent linear forms in two
-variables. Their true complexity in the sense of Green–Tao (*Linear equations in primes*, Def. 1.5
-and the discussion of true complexity; Gowers–Wolf) is 4: the fifth powers of six binary linear
-forms are linearly dependent (they live in a space of dimension 6... the binary quintics), while
-their fourth powers... more simply, `s` is the least integer with `(u − cv)^{s+1}` linearly independent,
-and six such powers are independent iff `s + 2 ≥ 6` (Vandermonde). STANDARD definition; the
+variables. Their true complexity in the sense of Green–Tao (*Linear equations in primes*, Ann. of
+Math. 171 (2010), §1, and Gowers–Wolf) is the least `s` for which the powers `(u − cv)^{s+1}` are
+linearly independent. These are six binary forms of degree `s + 1`, in a space of dimension `s + 2`,
+and by Vandermonde they are independent as soon as `s + 2 ≥ 6`. So the true complexity is 4. STANDARD definition; the
 computation is VERIFIED (elementary). The circle method controls systems of true complexity 1
 (three-term progressions: van der Corput 1939; Green, Ann. of Math. 161 (2005) for dense subsets).
 So even one good slope of large height is beyond Fourier analysis. The answer to "at most three
@@ -476,10 +475,9 @@ miss a set of positive density.
 (such a prime is never good, §2.1). By the Chinese remainder theorem, the integers `A` with
 `v_{p_k}(sA − r) = 1` for every `k` form a set of density `∏_k (p_k − 1)/p_k² > 0`. For such `A`
 the slope `A − k` has the odd contact prime `p_k` at the contact `c = 0`, and `p_k` is not good. ∎
-VERIFIED (elementary). With `K = T₀ + T₀` this rules out "one variable slope plus two constants",
-and with `K = T₀` it rules out "two variable slopes from independent families plus constants" only
-if the variable slopes do not cooperate. The two-slope form 22P₂ uses exactly two cooperating
-slopes and one constant.
+VERIFIED (elementary). With `K = T₀ + T₀` this rules out "one variable slope plus two constant
+slopes": a positive density of integers is missed. The two-slope form 22P₂ therefore uses the minimum,
+two variable slopes (which share their denominator and so cooperate) and one constant.
 
 Numerically the obstruction appears late (`scratch/nt-22p/constslopes.py`, PARI/GP):
 
@@ -515,3 +513,73 @@ same odd contact primes outside the primes of `det γ` and of the coefficients. 
 preserved up to the old primes, but `γ` does not fix the sum condition `t₁ + t₂ = A′`. It produces
 more good slopes from one good slope, not fewer prime forms. SPECULATIVE beyond this: I see no use
 of the symmetry for the pattern.
+
+---
+
+## 5. Ranking of routes
+
+| Rank | Route | Payoff | Main obstacle | Chance |
+| --- | --- | --- | --- | --- |
+| 1 | **AP**: Lemma P + field 2′ + hypothesis 22P_AP (§3.2–3.3) | 22P becomes "the good primes contain arbitrarily long progressions", independent of `A`; its proof needs only Green–Tao 2008 | Lean work: field 2′, a local square root, a weak approximation with residue targets | high |
+| 2 | **D**: write out Proposition D | the justification of 22P_AP becomes GT08 Thm 1.2 plus textbook inputs | a careful write-up of the CM lattice sieve with uniform constants | high |
+| 3 | **R**: relax `gcd(d₁, d₂) = 4` to `gcd(e₁, e₂) | c_*` | in-class density 0.85 → 0.88; a cleaner `GoodSlopePrime` | none (one lemma in `shift_choice`), but almost no payoff | high (low value) |
+| 4 | **F**: a goodness condition with finitely many Chebotarev conditions | would make `G` a Chebotarev set | impossible for the fixed-shift test (§2.4); needs a new test, against [RG F4, A8] | low |
+| 5 | **C**: at most three simultaneous prime forms (circle method) | would remove Szemerédi-type input | each slope needs six forms of true complexity 4 (§4.1) | negligible |
+
+**Route 1 (AP).**
+- *Payoff.* The Lean hypothesis `TwoSlopePattern` (twelve values, valuation side conditions, `A`
+  quantified) is replaced by
+  `GoodPrimeAP : ∀ K N : ℕ, ∃ x v : ℕ, N < x ∧ 0 < v ∧ ∀ j ≤ K, GoodSlopePrime (x + j * v)`.
+  This is literally a special case of Green–Tao 2008 Theorem 1.2 once `G` has positive relative
+  density. The GTZ machinery of record A021 leaves the trust base of this hypothesis.
+- *Main obstacle.* Three Lean changes:
+  - `GoodSlope.old` becomes the disjunction 2′;
+  - `slope_complete`/`pole_input_valuations` gain the Lemma P branch at old primes. The algebra is
+    the existing `S_b` estimate with `v(R) ≥ 2N` in place of `v(ℓ₀)`;
+  - `weak_approx_q` (`WeakApproximation.lean:29`) must hit a residue class `q ≡ q_ℓ (mod ℓ^{N})`
+    after scaling by `ℓ^{e}`, not only `v_ℓ(q) ≥ e_ℓ`. The class is an integer square root of the unit
+    `(R₀ℓ^{−2e})^{−1}` modulo `ℓ^{N}`, obtained by Hensel lifting (Mathlib has Hensel's lemma for `ℤ_[p]`
+    and `ZMod` square roots). The grid argument of `weak_approx_q` adapts by shifting the grid.
+- *First test.* State and prove in Lean the integer form of Lemma P(1)–(2): for `ℓ` odd (or `ℓ = 2`,
+  `e ≥ 3`), `u, v` as in Lemma P and every `N`, there is `w ∈ ℤ` with
+  `v_ℓ(1 − R₀ w² ℓ^{−2e}·…) ≥ N`. Then derive `SlopeRepresentation'` from `GoodPrimeAP` along §3.3.
+  *Success criterion:* `Mult.slopeRepresentation_of_goodPrimeAP` builds, and the main theorem
+  builds with `GoodPrimeAP` in place of `TwoSlopePattern`, axioms unchanged.
+- *Chance: high.* Every step is elementary and checked by hand. Lemma P was tested on 30 samples
+  (§3.2). The sign condition is automatic (§3.3). The main risk is Lean effort, not mathematics.
+
+**Route 2 (D).**
+- *Payoff.* A complete proof that `G` has positive relative lower density, from Dirichlet's theorem
+  in progressions, the CM identities (A072) and an elementary lattice sieve. With Route 1 this makes
+  22P a corollary of a single classical theorem (GT08).
+- *Main obstacle.* Uniformity of the sieve bound for `L < ℓ ≤ N^{1/8}` (a Selberg or Brun upper
+  bound for primes in a lattice of index `ℓ²` in `ℤ[i]`), and the CM identification written for `p`
+  rather than for a value of a form. Both are in the manuscript (lines 1554–1642) in a slightly
+  different setting.
+- *First test.* Write the proof with explicit constants and check it numerically. For `L = 50` the
+  predicted lower bound for the relative density of `G` must lie below the observed `0.1064`
+  (`scratch/nt-22p/density.py`) and be positive.
+- *Chance: high*, because the manuscript's argument transposes directly.
+
+**Route 3 (R).** *Payoff* small. *Obstacle* none. *First test:* change `shift_choice'` to assume
+`gcd(d₁, d₂) ∣ c_*`; success if `exists_shift` still builds. *Chance high, value low.* It does not
+change the depth of anything.
+
+**Route 4 (F).** *Payoff:* `G` would become a Chebotarev set. *Obstacle:* the honest witnesses need
+the odd part of `gcd(e₁, e₂)` to divide `c_*` (§2.4). A test with a finite set of shifts absorbs only
+finitely many `ℓ`, and a witness shift is circular [RP R8]. *First test:* exhibit a test with
+fixed shifts `c₁, …, c_r` whose success condition at `p` is a Chebotarev condition in one fixed
+field; success if the condition is implied by a Frobenius class in a fixed finite extension.
+*Chance low*: under Route 1 only positive density is needed, so this would buy nothing anyway.
+
+**Route 5 (C).** *Payoff:* replace Szemerédi-type input by Fourier analysis. *Obstacle:* §4.1
+(true complexity 4 per slope; square-like values lead to curves of positive genus or to binary
+quartics). *First test:* none sensible. *Chance negligible* in the present architecture: a
+different height theorem with at most three contacts is impossible ([RP R8], positive-rank
+twists of elliptic curves).
+
+**Recommendation.** Take Route 1 together with Route 2. The prime-pattern hypothesis then becomes the
+single statement that the good slope primes contain arbitrarily long arithmetic progressions. That
+is an immediate corollary of Green–Tao 2008 and of an elementary density computation for a CM
+curve. The construction (the polynomial) does not change; only the completeness proof uses the
+witness `q` more cleverly at the old primes.
