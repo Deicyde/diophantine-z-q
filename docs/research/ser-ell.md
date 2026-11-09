@@ -25,7 +25,7 @@ None of the seven steps fails. The findings are about citations and justificatio
 - **F1 (moderate).** Step 5 cites Khare–Wintenberger alone. The published proof of Serre's
   conjecture also uses Kisin, *Modularity of 2-adic Barsotti–Tate representations*, Invent. Math.
   178 (2009) 587-634, for even conductor. Nothing makes `N(r̄_λ)` odd: `2 ∈ T` always, `A` may be
-  bad at 2, and `β` may ramify at 2 (line 708). So Kisin's theorem must be cited too. If Khare and
+  bad at 2, and `β` may ramify at 2 (line 707). So Kisin's theorem must be cited too. If Khare and
   Wintenberger's published statement has only the weak form, the classical level and weight
   optimization belongs to the citation as well. Either way the trust base gains Kisin's paper.
 - **F2-F4 (minor).** Step 3 (weight 2) is true, but its written proof has three defects. It works
@@ -56,7 +56,7 @@ Fix `u ∈ ℚ \ 𝒞` with a non-CM fibre: `A/K`, `End⁰(A_ℚ̄) = B = (2,-3)
   over `ℚ`, unramified outside `T`, and has degree `≤ QM`.
 - For each `ℓ` and each embedding `ι_ℓ : C → ℚ̄_ℓ`,
   `ρ_ℓ(σ) = β(σ)^{-1} a_σ μ_σ ∘ σ` on `V_ℓ(A) ⊗ E_λ` is a representation of `G_ℚ`, and
-  `ρ_ℓ ≅ r_ℓ ⊕ r_ℓ` by matrix units. **On `G_{L'}`, `ρ_ℓ` is the Tate action of `A`** (line 732).
+  `ρ_ℓ ≅ r_ℓ ⊕ r_ℓ` by matrix units. **On `G_{L'}`, `ρ_ℓ` is the Tate action of `A`** (line 731).
   On `G_L` it is the Tate action twisted by the character `β^{-1}|_{G_L}`.
 - For `p ∉ T`, `p ≠ ℓ`: `t_p = ½ β(σ)^{-1} a_σ tr(μ̄_σ ∘ F)` is one element of `C` with
   `ι_ℓ(t_p) = tr r_ℓ(Frob_p)` for every `ℓ ≠ p` (lines 781-790). The manuscript states this for
@@ -135,8 +135,8 @@ lies above the Masser–Wüstholz threshold of R1. Infinitely many such `ℓ` ex
     inertia.
 - **Hypotheses checked.**
   1. `ℓ ∉ T`, so `L'` is unramified at `ℓ`. `L` is unramified outside `T`, and `β` is unramified
-     outside `T` after the final twist at line 708. So for a place `w | ℓ` of `L'`, `I_{L'_w} = I_ℓ`.
-  2. On `G_{L'_w}`, `ρ_ℓ` is the Tate action (line 732), and `A` has good reduction at `w`
+     outside `T` after the final twist at lines 703-708. So for a place `w | ℓ` of `L'`, `I_{L'_w} = I_ℓ`.
+  2. On `G_{L'_w}`, `ρ_ℓ` is the Tate action (line 731), and `A` has good reduction at `w`
      (`ℓ ∉ S`). Let `Λ ⊂ r_ℓ` be a `G_ℚ`-stable `O_λ`-lattice. A suitable multiple of `Λ ⊕ Λ` lies
      between `ℓ^n(T_ℓA ⊗ O_λ)` and `T_ℓA ⊗ O_λ`. So `Λ/λΛ` is a subquotient of
      `A[ℓ^{n+1}] ⊗ O_λ`, which is the generic fibre of a finite flat group scheme over `O_{L'_w}`.
@@ -207,7 +207,7 @@ lies above the Masser–Wüstholz threshold of R1. Infinitely many such `ℓ` ex
   Those hypotheses belong to the modularity lifting theorems inside its proof, not to its
   statement. `k(r̄_λ) = 2` (R3) and `N(r̄_λ) ≤ QM²` (R4).
 - **Why Kisin is needed.** `2 ∈ S ⊆ T`. `A` may have bad reduction at 2, and `β` "possibly" ramifies
-  at 2 (line 708). So `N(r̄_λ)` may be even. By the two restatements above, the even-level case of
+  at 2 (line 707). So `N(r̄_λ)` may be even. By the two restatements above, the even-level case of
   the weak conjecture rests on Kisin's 2-adic theorem.
 - **Strong form.** If the published statement of Khare–Wintenberger is the weak form, the passage
   to level `N(ρ̄)` and weight `k(ρ̄)` for `ℓ > 2` uses classical optimization theorems. These are
@@ -275,7 +275,7 @@ lies above the Masser–Wüstholz threshold of R1. Infinitely many such `ℓ` ex
 | # | Severity | Step | Finding | Repair |
 | --- | --- | --- | --- | --- |
 | F1 | moderate | 5 | Serre's conjecture is cited to Khare–Wintenberger alone. Its even-level case also rests on Kisin, Invent. Math. 178 (2009) 587-634, and `N(r̄_λ)` may be even (`2 ∈ T`, `β` may ramify at 2). If the printed KW statement is the weak form, the level and weight optimization (Ribet 1990, Carayol 1989, Diamond 1995, Edixhoven 1992 with Mazur's principle) is also part of the citation. | Cite KW I, KW II and Kisin 2009 together as "Serre's conjecture (strong form)". Record the exact printed statement in a new audit record once the papers can be read. |
-| F2 | minor | 3 | The argument is written over `O_{L_v}`, but on `G_L` the representation is the Tate action twisted by `β^{-1}`. The parenthetical "the twisting cocycle is unramified at `ℓ`" is not an argument. | Work over `L'`, the kernel field of `β|_{G_L}`. It is unramified at `ℓ ∉ T`, and there `ρ_ℓ` is the Tate action (line 732). Then `I_{L'_w} = I_ℓ` (R3, items 1-2). |
+| F2 | minor | 3 | The argument is written over `O_{L_v}`, but on `G_L` the representation is the Tate action twisted by `β^{-1}`. The parenthetical "the twisting cocycle is unramified at `ℓ`" is not an argument. | Work over `L'`, the kernel field of `β|_{G_L}`. It is unramified at `ℓ ∉ T`, and there `ρ_ℓ` is the Tate action (line 731). Then `I_{L'_w} = I_ℓ` (R3, items 1-2). |
 | F3 | minor | 3 | nt-h cites Raynaud's uniqueness (§3.3) to make `r̄_λ` finite flat over `ℤ_ℓ`. That descent is not needed, because `k(ρ̄)` depends only on `ρ̄|_{I_ℓ}`. The inputs actually needed are missing: closure under subquotients (for an arbitrary `G_ℚ`-stable lattice), Raynaud's inertia exponents (§3.4), and "finite flat ⇒ peu ramifiée". | R3, items 2, 3, 5 and 6. |
 | F4 | minor | 3 | "Its determinant is the mod-`ℓ` cyclotomic character times a finite character unramified at `ℓ`" is asserted without proof. | R3, item 4 (`ℓ > 3`). Alternatively use the crystalline determinant, but that reintroduces `p`-adic Hodge theory. |
 | F5 | minor | 4 | "Reduction does not increase the conductor exponent; Serre 1987, §1.2": attribution unconfirmed. | Not needed: apply lines 812-857 to `r̄_λ` directly (R4). |
