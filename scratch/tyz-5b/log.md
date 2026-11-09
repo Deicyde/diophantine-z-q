@@ -60,3 +60,9 @@ Lemmas (all proved on paper, all VERIFIED on abstract random data, scripts fores
 - Genus theory derivation of Table 1 rows 1, 3 written out (principal genus via Hilbert 90 + Hasse norm;
   kernel {1, n} of ambiguous ideals for n > 1; Hilbert symbols).
 - Manuscript lem:forward-rank at line 1086 (A020) gives rank one from analytic rank one.
+
+## Note status
+- docs/research/tyz-5b.md written (sections: verdict, notation, 1 TYZ, 2 forests + Redei, 3 row 5b,
+  4 rule, 5 slot curves, 6 validation, 7 remains, scripts). analytic_check.py: 12 small slot curves,
+  analytic rank 1 and point with x in beta Q^2 on all.
+- Independent referee (subagent) checking sections 2-4; pending. Then .fleet/tyz-5b.md.
