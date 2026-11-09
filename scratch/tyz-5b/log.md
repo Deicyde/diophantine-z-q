@@ -50,3 +50,13 @@ Lemmas (all proved on paper, all VERIFIED on abstract random data, scripts fores
   dim Sel_2 = 3, beta in pi_1, chi_{-1}(|beta|) = 1, det M_5b = 1.  0 failures.  (out_slot_admissible.txt)
 - slot_tyz.py small 30 7 (least-prime realizations, T nonempty): 60 curves, 55 with omega <= 8 where the
   TYZ tau(1/2) bracket was computed with PARI class groups: all = 1.  0 failures. (out_slot_small.txt)
+
+## Facts fixed for the note
+- TYZ numbering (arXiv v1, thm counter per section, remarks share it): Thm 1.1 (lg), Thm 1.2 (lg'),
+  Cor 1.4, Thm 3.3 (GZ formula, from YZZ), Prop 3.4 (congruence), Thm 3.5 (m3), Lemma 3.18 (torsion2:
+  A(H'_n)_tors in A[4]), Lemma 3.21 (betaaction); proof of 3.5(2) = last subsubsection of Section 3.3.
+- tau(1/2), tau((1-i)/2) independent mod Z tau(1): checked by hand (a u(1-i)/2 + b/2 in Z[i] => a,b even).
+- Fubini numbers odd => the d0 = 5 bracket of Prop 3.4 is 5a with set-partition L (side remark only).
+- Genus theory derivation of Table 1 rows 1, 3 written out (principal genus via Hilbert 90 + Hasse norm;
+  kernel {1, n} of ambiguous ideals for n > 1; Hilbert symbols).
+- Manuscript lem:forward-rank at line 1086 (A020) gives rank one from analytic rank one.
