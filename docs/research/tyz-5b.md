@@ -611,13 +611,13 @@ on all four representatives, and the genus sum `T_5b(n)` from PARI class groups 
 | 8–14 primes `< 10⁵` | 300 | 300 | 249 | 249 | 249 | (not computed) | 122 |
 
 The last column shows that both values of the rule occur often, so the agreement of `T_5b` with
-`det M_5b` is tested in both directions (217 + 215 curves with value 0).
+`det M_5b` is tested in both directions (80 + 215 Selmer-minimal curves with value 0).
 
 **The slot curves.**
 
 - *Admissible inputs.* The first 30 inputs of slot-k's random generator (seed 2026, as in slot-k §3.2,
   family `random30`), first eligible multiplier: `ω(β)` from 2 to 6, `ω(θ)` from 2 to 5, curves with 6 to
-  20 primes and slots of up to 89 digits. For all 60 curves `C_n`, `C_{nθ}`: `|d| ≡ 5 (mod 8)`,
+  20 primes. For all 60 curves `C_n`, `C_{nθ}`: `|d| ≡ 5 (mod 8)`,
   `dim Sel₂ = 3`, `β ∈ π₁` (exact descent), `|β| ≡ 3 (mod 4)` and `det M_5b = 1` (Legendre symbols). The
   genus sum itself cannot be computed at this size (class groups of discriminants with hundreds of
   digits, and Bell-number many partitions).
