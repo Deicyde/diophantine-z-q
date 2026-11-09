@@ -1,5 +1,9 @@
 import ZInQKernel.Multiplication.Completeness.AP.LemmaP
 import ZInQKernel.Multiplication.Completeness.AP.GoodSlope
+import ZInQKernel.Multiplication.Completeness.AP.WeakApprox
+import ZInQKernel.Multiplication.Completeness.AP.PoleValuations
+import ZInQKernel.Multiplication.Completeness.AP.SlopeCompleteness
+import ZInQKernel.Multiplication.Completeness.AP.Completeness
 
 /-!
 # Route AP: the slope representation from arithmetic progressions of good primes
