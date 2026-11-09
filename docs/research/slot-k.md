@@ -116,8 +116,25 @@ A solution corresponds to the pair of classes `a = (−1)^{a₀}2^{a₁}Π x^{u_
 - descent-alt checked the system against an independent exact descent (`sel2cong.py`, itself
   checked against PARI in rv-route-k) on 600 curves with 0 mismatches.
 
-Only two structural features of `(D)` are used below: it depends on `𝒞` only through `c(𝒞)`, and on
-`u, v` only through the sums `λ·u`, `μ·u`, `λ·v`.
+**What the proof uses from Proposition 0** (VERIFIED here independently of descent-alt's table).
+
+- *Odd places and the real place*: as above, proved by hand in descent-alt §4.1. Classes are
+  automatically unramified outside `2d∞`, since they are supported on `−1, 2` and the primes of `d`
+  (Silverman, *The Arithmetic of Elliptic Curves*, X.1.4; STANDARD).
+- *Structure of the place-2 rows.* Write the class of a 2-adic unit `w` as `(ε, ω)` with
+  `ε = (w − 1)/2` and `ω = (w² − 1)/8` mod 2. For `a = (−1)^{a₀}2^{a₁}Π p^{u_p}` the 2-adic class is
+  `(v, ε, ω) = (a₁, a₀ + λ·u, μ·u)`, because `ε(−1) = 1`, `ω(−1) = 0`, `ε(p) = λ_p` and `ω(p) = μ_p`.
+  Likewise for `b`, with `(b₁, b₀ + λ·v, μ·v)`. The local image at 2 depends only on the class of `d` in
+  `ℚ₂*/ℚ₂*²`, which is `c(𝒞)` for odd `d > 0`, since `C_d ≅ C_{d'}` over `ℚ₂` when `d/d'` is a 2-adic
+  square. So the rows `(D)` depend on `𝒞` only through `c(𝒞)`, and on `u, v` only through
+  `λ·u, μ·u, λ·v, μ·v`. This is all that Lemmas 1 and 2 use.
+- *The rows for `c = 5`*, used in Lemma 3. Over `ℚ₂`, `C_d ≅ C_5`. The image of
+  `C_5(ℚ₂)/2C_5(ℚ₂)` (dimension 3, since `#E(ℚ₂)/2E(ℚ₂) = 4 · 2`) contains the torsion images
+  `(5, 2)` and `(−1, −5) ≡ (7, 3)`, and the image `(1, 5)` of the point with `x = 1/4`. Indeed
+  `x − 5 = −19/4` and `x + 5 = 21/4` both have class 5, so `x(x − 5)(x + 5)` is a square in `ℚ₂`.
+  In bits `(v, ε, ω | v, ε, ω)` the three generators are `(0,0,1 | 1,0,0)`, `(0,1,0 | 0,1,1)` and
+  `(0,0,0 | 0,0,1)`. They span the space cut out by `a_v = 0`, `a_ε = b_ε`, `b_v = a_ω`. With `(R)`
+  these are exactly `a₁ = 0`, `λ·u = λ·v`, `b₁ = μ·u`, the row of `(D)` for `c = 5`.
 
 The torsion classes `(1,1)`, `(−1,−d)`, `(d,2)`, `(−d,−2d)` have `u ∈ {0, 𝟏_S}`. A class with
 first coordinate `±β` therefore has `u = 𝟏_{supp β}` or, after adding `(d, 2)`, `u = 𝟏_{S ∖ supp β}`.
@@ -139,7 +156,7 @@ the map that forgets `u_r, v_r` is an isomorphism from the solutions of `Σ(𝒞
 other rows that contain `u_r` or `v_r` are `E1_y`, `E2_y`, through the terms `u_r + u_y` and
 `v_r + v_y`, which vanish once `E1_r`, `E2_r` hold. The diagonal of `K` is built into the terms
 `u_r + u_y`, so no other entry changes. `c(𝒞 ∖ r) = c(𝒞)` because `c_r = 1`, and `r` contributes
-nothing to `λ·u`, `μ·u`, `λ·v`. ∎
+nothing to `λ·u`, `μ·u`, `λ·v`, `μ·v`. ∎
 
 **Lemma 2 (gluing).** Let `S = S' ⊔ {g} ⊔ G ⊔ R`, where `R = {r_ℓ : ℓ ∈ G}` consists of glue primes
 with
@@ -178,8 +195,8 @@ with `a₁ = 0`, which `(D)` forces.
    `Σ_{y∈S'} [y/g*](u_y + u_g) + λ_{g*} v_g = a₀λ_{g*} + a₁μ_{g*}`, which is the row `E1_{g*}` of `Σ(𝒞*)`.
    The same computation applies to the `E2` rows, with `Σ_x μ_x u_x = μ_{g*}u_g`.
 4. *Places 2 and ∞.* `c(𝒞*) = c(𝒞)`, because the glue primes are `≡ 1 (mod 8)`. Also
-   `λ·u = λ|_{S'}·u|_{S'} + λ_{g*}u_g`, and likewise for `μ·u` and `λ·v`. So `(D)` and `(R)` are the
-   same on both sides.
+   `λ·u = λ|_{S'}·u|_{S'} + λ_{g*}u_g`, and likewise for `μ·u`, `λ·v` and `μ·v`. So `(D)` and `(R)`
+   are the same on both sides.
 
 So `Φ` maps solutions to solutions. It is injective: if the image is 0, then `u_X = v_X = 0` by step 1,
 and (2.1) and its `v`-analogue give `u_R = v_R = 0`. It is surjective: given a solution of `Σ(𝒞*)`, set
