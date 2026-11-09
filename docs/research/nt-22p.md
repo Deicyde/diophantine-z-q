@@ -135,7 +135,7 @@ written out; each step is STANDARD or elementary.)
 Hecke's theorem can be avoided at the price of the exact constant. The congruences `p ≢ −1
 (mod ℓ)` for odd `ℓ ≤ L` are conditions on `p` alone. Imposing them leaves relative density
 `≫ 1/log L` by the prime number theorem in arithmetic progressions, against a tail `O(1/L)`. This
-is exactly the manuscript's choice (lines 1384–1390 and the classes `c_q`, lines 1336–1340). It
+is exactly the manuscript's choice (lines 1384–1390 and the classes `c_q`, lines 1332–1335). It
 gives positive lower density with only the rational prime number theorem in progressions and the
 elementary sieve.
 
@@ -150,8 +150,8 @@ lattice-sieve argument, is in the manuscript itself.
 In the proof of Proposition 6.2 (lines 1291–1704) the gcd condition is handled in three places:
 
 1. **Small `ℓ` by congruences.** The prescribed residues `c_2 = 1 (8)`, `c_7 = 3 (7)`,
-   `c_q = 1 (q)` for the other `q ≤ 324` (lines 1336–1340), the catalogue residues `≠ 0, −1`
-   (lines 1355–1358), and the exclusion of the planes `ε_νF_ν = −k_ν` at every `q ≤ L` (lines
+   `c_q = 1 (q)` for the other `q ≤ 324` (lines 1332–1335), the catalogue residues `≠ 0, −1`
+   (lines 1351–1354), and the exclusion of the planes `ε_νF_ν = −k_ν` at every `q ≤ L` (lines
    1384–1390) make every prime value `p ≢ −1 (mod ℓ)` for each odd `ℓ ≤ L`. VERIFIED.
 2. **The CM identities** (lines 1554–1598, record A072, Silverman III.7.4, III.8.6, V.1.1,
    V.2.3.1): the description of §2.1. VERIFIED by reading and by the computation above.
