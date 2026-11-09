@@ -109,3 +109,12 @@ Python env: /tmp/rvred-venv (cypari2 2.17, gmpy2, numpy, mpmath). Recreate with
 - b3 genuine instances (A=-70): v with 2^10, 2^5 3^5, 5^5, 7^5: all three slopes ALL OK
   (Lemma P branch at the primes with e >= 5; v_p(B)=1 at all selected primes; den square;
   0 < B < 1/2).
+
+## Step 8: b3 batch 1 complete (b3_out.txt), 7 genuine instances x 3 slopes = 21 slopes
+
+- A=-70: v = 2^10·3·5·7·11·13, 2^5·3^5·5·7·11·13, 2^3·3·5^5·7·11·13 (test values 'one'),
+  2^3·3·5·7^5·11·13, 2^3·3·5·7·11·13^5; A=-40: v = 2^5·3^5·5·7·13 (two x, one with 'one').
+  Every slope: fields 1, 2', 3, 4 hold; S0 valuations >= 5834 (Lemma P primes 6090-6348);
+  v_p(B) = 1 at all 6 selected primes; negative valuations only at the prime u - v (resp.
+  u - (A'-1)v): -216 = 2(-8) + (-8) - 2*96 (the eight k=1 tests have v(RC^2) = -12 there), and at
+  the auxiliary prime; den(B) square; 0 < B < 1/2. NO FAILURE.
