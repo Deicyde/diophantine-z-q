@@ -182,8 +182,10 @@ the reason slot-k gives for it is wrong.**
 
 - On the first curve the construction uses `ω(β)` auxiliary primes visible to `β` (`q₀` and the
   `r_p`). Proposition B gives the lower bound `k(β)`, the size of an isotropic core.
-- `|β| ≡ 7 (mod 8)` forces `ω(β) ≥ k(β) + 1`, but `ω(β)` can be much larger than `k(β)`. For the
-  core-6 input `B₃` of descent-alt §4.3, `ω(β)` ranges over 7–11 across the multipliers.
+- `|β| ≡ 7 (mod 8)` forces `ω(β) ≥ k(β) + 1`, but `ω(β)` can be much larger than `k(β)`.
+  - On the core inputs of §4.2, where `β` is the core times the `S₀`-part supplied by `m`,
+    `ω(β) − k(β)` ranges over 1–3 across the multipliers.
+  - Extra primes of `β` outside the core widen the gap without bound.
 - *Repair.* Say "uses `ω(β) ≥ k(β) + 1` visible auxiliary primes, against the lower bound `k(β)`".
 
 **F3 (remark). Every other prescribed condition is load-bearing.** This was measured on random
