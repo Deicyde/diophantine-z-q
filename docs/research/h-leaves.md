@@ -54,7 +54,7 @@ Coleman–Iovita 1999; Breuil 2000; Tate 1966 and 1967; SGA 7; Carayol 1986.
   homomorphisms of good-reduction abelian varieties (lines 781-784). Both should be recorded.
 - **CM branch (§1.3).** NoCM removes A003, A004 and A005 from the proof entirely, and removes the
   H-use of A065 (its other uses, lines 1009-1016 and 1759-1769, are outside H). It removes the CM
-  use of A006 and of Faltings 1983 at line 621, but A006 stays for lines 894-903. It adds
+  use of A006 and of Faltings 1983 at line 621, but A006 stays for lines 894-900. It adds
   González–Rotger §5, Vignéras (Emb) and, through González–Rotger, Shimura's reciprocity law.
 - **R5.1, Masser–Wüstholz (§2).** Both uses of Faltings' finiteness theorems can switch. What the
   proof needs is qualitative: semisimplicity and the endomorphism theorem for `A/L'` at `ℓ = 3, 5`
@@ -115,14 +115,14 @@ bound).
 | 1-2 | Stable-model extension of automorphisms, free quotients, tame Kummer local form | 480-534 | A078 | Stacks 0E97, 07S7, 0EYG | kept |
 | 3 | Restriction of scalars, endomorphism rank, Néron–Ogg–Shafarevich, Hom field `L` | 544-562 | A061 | Milne AV notes | kept |
 | 3 | Polarizable tori are abelian varieties; Hodge endomorphisms are algebraic; `End⁰ ∈ {B, M₂(k)}` | 564-577 | A079 | Milne AV notes I.2.8-2.9 | kept (NoCM needs the dichotomy) |
-| 4 | `h(Δ) ≤ k ⇒ √|Δ| ≤ 2k²e^{21000k²}` at `k = D` | 581-593 | A003 | Fowler, Prop. 2.7 | **removed** |
+| 4 | `h(Δ) ≤ k ⇒ √(-Δ) ≤ 2k²e^{21000k²}` at `k = D` | 581-593 | A003 | Fowler, Prop. 2.7 | **removed** |
 | 4 | Degree of `j(E)` is the order class number; `j(E)` integral | 583-598 | A065 | Fowler §2.1 | **removed from H** (kept at 1009-1016, 1759-1769) |
 | 4 | Faltings height of a CM elliptic curve (discriminant formula) | 595-613 | A004 | Barquero-Sanchez et al., Eq. (6.2) | **removed** |
 | 4 | Isogeny estimate with source `E²`, target `A` | 614-619 | A005 | Gaudron–Rémond 2014, Thm 1.4 | **removed** (theorem kept via A015) |
 | 4, 8 | `h_F(target) ≤ h_F(source) + ½ log deg`, additivity | 620-628, 894-900 | A006 | Faltings 1983, Lemma 5 | CM use removed; kept for 894-900 |
 | 5 | Skolem–Noether; sign cocycle | 632-663 | A062 | Milne CFT notes IV.2.10 | kept |
 | 5 | `Br(ℚ)[2]`, local square roots, reciprocity, injectivity of `Br(ℚ) → ⊕ Br(ℚ_v)` | 665-708 | A007 | Milne ADT I; Milne CFT notes | kept |
-| 6 | Semisimplicity of `V_ℓ(A)|G_{L'}` and `End_{G_{L'}} V_ℓ(A) = B ⊗ ℚ_ℓ`, hence `r_ℓ` absolutely irreducible | 732-734 | A008 | Faltings 1983, Satz 3, Satz 4 | kept; §2 |
+| 6 | Semisimplicity of `V_ℓ(A)` over `G_{L'}` and `End_{G_{L'}} V_ℓ(A) = B ⊗ ℚ_ℓ`, hence `r_ℓ` absolutely irreducible | 732-734 | A008 | Faltings 1983, Satz 3, Satz 4 | kept; §2 |
 | 6 | `H¹_et(A_{F̄}, ℚ_ℓ)` de Rham; duality; summands; finite descent; weights `0, -1` | 735-738, 10939-11005 | A009 | Scholze 2013 + corrigendum; Brinon–Conrad; Milne AV I.12.1 | kept; §3 |
 | 6 | de Rham ⇒ potentially semistable | 739-741 | A010 | Berger 2002 | kept; §3 |
 | 6 | Fontaine–Mazur for `GL₂` at `p = 5`; local algebraicity of the twist; Li's Fricke formula; Shimura's `A_f` | 755-774 | A011 | Pan, Thm 1.0.4; Conrad preprint; Li 1975; Shimura 1973 | kept |
@@ -632,7 +632,7 @@ constant in `H₆(S;R)`.
 | 7 | A062 | Skolem–Noether | 632-647 | Reiner, *Maximal orders* (book) | none |
 | 8 | A007 | `Br(ℚ)[2]`, local square-root obstruction, reciprocity, injectivity of the local–global map | 665-708 | Cassels–Fröhlich 1967 (book); Milne, *Arithmetic duality theorems* (book) | none |
 | 9 | A008, A063 | semisimplicity and `End_{G_{L'}} V_ℓ A = B ⊗ ℚ_ℓ` (`ℓ = 3, 5`); `Hom_{L'}(A, J) ⊗ ℚ₅ = Hom_{G_{L'}}(V₅A, V₅J)`; Poincaré complement | 732-734, 861-867 | GR14, Duke 2014, Thm 1.4 (refereed; already A015) + Tate's argument (§2.3) + Mumford §19 | none |
-| 10 | A009 (new form) | `A_{F'}` has good reduction (Lemma PG); `V₅(A)|G_{F'}` crystalline with Hodge numbers `2, 2`; duality; summands; finite descent | 735-741, 10939-11005 | (Cris): Faltings 1989 (proceedings), Coleman–Iovita, Duke 1999 (refereed), Breuil, Ann. of Math. 2000 (refereed), all UNCHECKED; Lemma PG from rows 4 and 15; descent proved in the text | none |
+| 10 | A009 (new form) | `A_{F'}` has good reduction (Lemma PG); `V₅(A)` crystalline over `G_{F'}` with Hodge numbers `2, 2`; duality; summands; finite descent | 735-741, 10939-11005 | (Cris): Faltings 1989 (proceedings), Coleman–Iovita, Duke 1999 (refereed), Breuil, Ann. of Math. 2000 (refereed), all UNCHECKED; Lemma PG from rows 4 and 15; descent proved in the text | none |
 | 11 | A011 | Fontaine–Mazur for `GL₂` at `p = 5`; local algebraicity of the twist; Fricke stability; `A_f` and its Euler factors | 755-774 | Pan, J. Amer. Math. Soc. 2022 (refereed); Serre 1968 (book) for local algebraicity; Li, Math. Ann. 1975 (refereed); Shimura, J. Math. Soc. Japan 1973 (refereed) | none |
 | 12 | A064 | independence of `ℓ` of characteristic polynomials; Chebotarev; Brauer–Nesbitt | 776-794 | Mumford 1970 §19 (book); Cassels–Fröhlich (book) | none |
 | 13 | I2 | homomorphisms of good-reduction abelian varieties reduce | 781-784 | Bosch–Lütkebohmert–Raynaud, *Néron models* (book) | none |
