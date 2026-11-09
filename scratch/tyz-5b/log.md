@@ -44,3 +44,9 @@ Lemmas (all proved on paper, all VERIFIED on abstract random data, scripts fores
   seed 11: 300 n (omega 2-6, p<400): K1 300/300, minimal 229, K2/K3/T 229/229.
   seed 12: 600 n (omega 3-8, p<3000): K1 600/600, minimal 453, K2/K3/T 453/453.
   seed 13: 300 n (omega 8-14, p<1e5): K1 300/300, minimal 249, K2/K3 249/249 (no PARI sum).
+
+## Steps 4-5 (slot-k curves) -- VERIFIED
+- slot_tyz.py admissible 30 (run_dl.gen_random seed 2026, first multiplier): 60 curves, all |d| = 5 mod 8,
+  dim Sel_2 = 3, beta in pi_1, chi_{-1}(|beta|) = 1, det M_5b = 1.  0 failures.  (out_slot_admissible.txt)
+- slot_tyz.py small 30 7 (least-prime realizations, T nonempty): 60 curves, 55 with omega <= 8 where the
+  TYZ tau(1/2) bracket was computed with PARI class groups: all = 1.  0 failures. (out_slot_small.txt)
