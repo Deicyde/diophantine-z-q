@@ -32,3 +32,10 @@
 - Observation: internal definitions cannot weaken the variant: its conclusion is FrozenTarget and its hypotheses
   are SixContactMin, CertifiedRank (unchanged) and GoodPrimeAP, which mentions only GoodSlopePrime, S_b (and
   pointCount, catalogue). The only way the variant could "say less" is if GoodPrimeAP were false or not what GT+D give.
+
+## Step 3 (independent computation: scratch/aud-ap/goodprimes.py, output goodprimes.out)
+- Own transcription of the Lean GoodSlopePrime (point counts over F_p, ∃ root r of r²=2, d(±r) ≠ 0, gcd = 4)
+  vs the CM description of nt-22p §2.1, all primes 324 < p < 20000: 240 good, 0 mismatches. CORRECT.
+- Literal predicate below 324: {17, 41, 73, 97, 241, 257, 313}; 2 and 7 are not good (p = 2: r = 0, counts 3, 3).
+- Relative density in (324, 2·10⁶): 15821/148867 = 0.1063; Euler product (l < 10⁶) 0.1060. Consistent with Prop D.
+- Longest AP of good primes in (324, 3·10⁵) found: length 10 (x = 53681, v = 9240). No local obstruction seen.
