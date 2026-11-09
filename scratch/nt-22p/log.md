@@ -29,3 +29,18 @@
   relative upper density (CM + Hecke/sieve, unconditional).
 - rs-pattern 2.3 claimed this condition unavoidable ("fixed l0 and c_* cannot compensate"); it did
   not consider the witness q.
+
+## Step 2: computations
+- scratch/nt-22p/density.py: all primes 11..3e6. Point-count GoodSlopePrime = CM description on
+  all primes < 2e5 (1925 good, matches rs-pattern). Good primes: 10.64% of primes, 85.04% of the
+  class p=1(8),(7/p)=-1; Euler product prod_{l=1(4)}(1-2/(l-1)^2) = 0.8482. VERIFIED.
+- scratch/nt-22p/atrick.py: 30 random (u,v) with v_l(v) up to 40 at l in S0, u-cv, u-v units:
+  R0 square in Q_l at all l in S0 in 30/30; explicit q (CRT + auxiliary prime 1009, as in
+  weak_approx_q) with v_l(1-R0 q^2) >= 25 e_l + 10 at all l in S0 and |a| < 1e-300: 30/30.
+  Control: v_2(v) <= 2 gives non-squares in Q_2 (22 of the valid samples) -> those cases use the
+  old bounded-valuation argument (e <= 2 <= B_2).
+- Literature (arXiv abstracts only; other hosts unreachable): Green-Tao math/0404188 (Szemeredi
+  in primes via transference), Tao-Ziegler math/0610050 (polynomial progressions, P_i(0)=0,
+  m <= x^eps: no valuation control), 2408.17441 (constellations with Artin-symbol restrictions,
+  unconditional; primitive roots under GRH), 1509.04955 (narrow progressions), 1305.5440
+  (Conlon-Fox-Zhao relative Szemeredi). No theorem with valuation-restricted differences found.
