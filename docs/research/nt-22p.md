@@ -354,6 +354,11 @@ Two remarks.
    field 2 trivial at the old primes not dividing `v`. Without them one needs
    `v_ℓ(u − v) ≤ B_ℓ` there, which is again a restriction that no Szemerédi-type theorem provides.
    Including two more points in the pattern costs nothing.
+3. Pole completeness asks for `v_ℓ(B) ≥ 4` only at `ℓ ∈ S₀ = {2, 3, 5, 7, 13}` (§1). At an old
+   prime `ℓ ∈ S_b ∖ S₀` it asks only that a negative valuation of `B` be even. In the progression form
+   the numerators are `ℓ`-units, so `v_ℓ(R₀) = 2v_ℓ(v)` is even, and `v_ℓ(B) = v_ℓ(R) − 2v_ℓ(Θ)` is
+   even whatever `q` is. So Lemma P is needed only at the five primes of `S₀`. Field 2′ is stated for
+   all of `S_b` only to keep the existing proof structure. VERIFIED (by hand, from `R = ℓ₀²a²R₀`).
 
 ### 3.4 Green–Tao 2008 implies 22P_AP
 
