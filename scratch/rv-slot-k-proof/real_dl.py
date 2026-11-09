@@ -86,14 +86,15 @@ def jac_bit(a, p):
     return legendre_bit(a, p)
 
 
-def find_prime(rng, cls8, conds, avoid):
+def find_prime(rng, cls8, conds, avoid, base):
     """Prime r = cls8 mod 8, with [r/y] = bit for (y, bit) in conds, r not in avoid.
 
-    CRT over the small moduli (bits of the first 12 conditions, chosen by random residues),
-    then search the progression testing the remaining conditions.
+    CRT over the moduli in `base` (the primes of beta and theta; residues chosen at random with
+    the required symbol), then search the progression testing the conditions at earlier slots.
+    Keeping earlier slots out of the CRT modulus keeps the slots from doubling in size.
     """
-    crt = conds[:12]
-    rest = conds[12:]
+    crt = [cy for cy in conds if cy[0] in base]
+    rest = [cy for cy in conds if cy[0] not in base]
     M = 8
     a = cls8
     for y, bit in crt:
@@ -129,6 +130,7 @@ def construct(rng, beta, P, T):
     x = (s + 1) % 2
     p0, rest = P[0], P[1:]
     used = set(P) | set(T)
+    base = set(P) | set(T)
     conds = []
     tot = 0
     for p in rest:
@@ -137,20 +139,20 @@ def construct(rng, beta, P, T):
         tot ^= b
     conds.append((p0, x ^ tot))
     conds += [(l, 0) for l in T]
-    q0 = find_prime(rng, 3, conds, used)
+    q0 = find_prime(rng, 3, conds, used, base)
     used.add(q0)
     RP = []
     for p in rest:
         conds = [(p, 1), (p0, 1)] + [(y, 0) for y in rest if y != p] + [(l, 0) for l in T] \
             + [(q0, 0)] + [(r, 0) for r in RP]
-        r = find_prime(rng, 1, conds, used)
+        r = find_prime(rng, 1, conds, used, base)
         used.add(r)
         RP.append(r)
     RT = []
     for l in T:
         conds = [(l, 1), (q0, 1)] + [(p, 0) for p in P] + [(y, 0) for y in T if y != l] \
             + [(r, 0) for r in RP] + [(r, 0) for r in RT]
-        r = find_prime(rng, 1, conds, used)
+        r = find_prime(rng, 1, conds, used, base)
         used.add(r)
         RT.append(r)
     return q0, RP, RT
