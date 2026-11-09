@@ -32,9 +32,9 @@ proof of that form whose inputs are all unambiguous statements of the paper.
    (ICCM Notices 5 (2017) 51–61; Proc. ICM 2022, 1990–2010) could not be read (UNCHECKED). Six
    other papers that cite TYZ, and three related papers that do not, never restate the theorem
    (§3).
-5. **What to cite.** Proposition A below, with the proof of §4. That proof bypasses
+5. **What to cite.** Proposition N below, with the proof of §4. That proof bypasses
    Proposition 3.4 entirely: it computes the coefficients of the genus point modulo 2 directly
-   from the recursion that defines it (Lemma C). Its inputs are Theorem 3.5 (first assertion),
+   from the recursion that defines it (Lemma N2). Its inputs are Theorem 3.5 (first assertion),
    Lemmas 3.16, 3.18 and 3.21(1), (4), the recursion of §3.1, the `ε`-classification of
    Theorem 3.3, and Lemma 2.8 with Proposition 2.3. All of these are unambiguous. The same
    argument proves reading A of Theorem 3.5(2) for `n ≡ 5` in full. Along the way it settles
@@ -48,7 +48,7 @@ proof of that form whose inputs are all unambiguous statements of the paper.
    longer used), Kriz (an alternative only), the project's own notes, and the fact that TYZ was
    read in its arXiv form only.
 
-**Proposition A** (the statement to cite). *Let `n ≡ 5 (mod 8)` be positive and squarefree. If*
+**Proposition N** (the statement to cite). *Let `n ≡ 5 (mod 8)` be positive and squarefree. If*
 `T_5b(n) = Σ_{d₀ ≡ 7, d₁ ≡ 3 (8)} g(d₀) g(d₁) 𝓛₁(n/d₀d₁)` *is odd, then `𝓛(n) ≠ 0`. Hence
 `ord_{s=1} L(E_n, s) = 1`.* Here `𝓛₁(m)` is the sum of `Π g(B)` over the set partitions of the
 primes of `m` into blocks `B ≡ 1 (mod 8)`. (Proof in §4; reference: TYZ, Theorem 3.5 and the
@@ -103,7 +103,7 @@ Lemma 3.21 (`betaaction`). (VERIFIED)
   particular it is not known whether the journal version changed the statement of Theorem 1.2.
 - **Dependencies.** The steps used in §4 rest only on results proved inside TYZ. Their external
   inputs are Waldspurger's formula and the Gross–Zagier formula of Yuan–Zhang–Zhang (Annals of Math.
-  Studies 184; TYZ Theorems 4.1, 4.x `EGZ`), Gross–Zagier and Kolyvagin (TYZ cite Kolyvagin, Math.
+  Studies 184; TYZ appendix, Theorems A.3, A.8 and A.9 `EGZ`), Gross–Zagier and Kolyvagin (TYZ cite Kolyvagin, Math.
   USSR Izv. 32 (1989), and *Euler systems*, Grothendieck Festschrift II (1990), L3297–3304), and
   Rédei. These are refereed publications, not on arXiv. Tian's *Congruent numbers and Heegner
   points* (arXiv:1210.8231, one version, v1; Cambridge J. Math. 2 (2014)) supplies the induction
@@ -173,3 +173,72 @@ sum is over non-ordered decompositions `n = d₁d₂` with `d₁, d₂ > 0` and 
 
 **Corollary 1.4** (L427–466) uses only the first sum, with the value `g(n)`. The reading issue below
 does not affect it.
+
+### 1.3 The readings of the second sum for `n ≡ 5 (mod 8)` (VERIFIED)
+
+For odd `n ≡ 5`, the classes allowed in the second sum leave two types of term: `(d₀, d₁) ≡ (5, 1)`
+and `(d₀, d₁) ≡ (7, 3)`.
+
+- *`(7, 3)` terms.* Here `d₀` and `d₁` are the unique factors of classes 7 and 3, so `d₁ > 1`
+  automatically, and the non-ordered factors `d_i ≡ 1`, `i > 1`, form a partition. The product
+  `Π_i g(d_i)` runs over all `i ≥ 0`. These terms add up to `T_5b(n)` under every reading.
+- *`(5, 1)` terms.* Three readings are possible.
+  - **A** (`d₁ = 1` admitted): the factors other than `d₀` form an arbitrary, possibly empty,
+    partition into class-1 blocks. The sum is `T_5a(n)`, which equals the first sum.
+  - **B** (all `d_i > 1`, non-ordered; `d₁` is just one of the class-1 factors): the partitions
+    with one class-5 block and at least one class-1 block. The sum is `T_5a(n) + g(n)`, because the
+    only excluded partition is `{n}`.
+  - **C** (`d₁ > 1` distinguished among the class-1 factors): `Σ_π k(π) w(π)`, where `k(π)` is the
+    number of class-1 blocks.
+
+So the second sum is `T_5a + T_5b` (A), `T_5a + g(n) + T_5b` (B), or `Σ k w + T_5b` (C). Under
+reading A, Theorem 1.2 for `n ≡ 5` says: *if `2^{−ρ(n)}𝓛(n)` is even, then `T_5a(n)` and `T_5b(n)`
+are both even.* That contains the form used (tyz-5b Proposition 1.1, here Proposition N). The final
+sentence of Theorem 1.2 ("all `d_i > 1`") selects B or C. Theorem 3.5(2) has no such sentence and
+so permits A. The proof of Proposition 3.4 requires A (L2077).
+
+### 1.4 Readings B and C are false (VERIFIED, exact computation)
+
+Take `n = 26565 = 3·5·7·11·23` and `n = 33117 = 3·7·19·83`. Both are `≡ 5 (mod 8)`.
+
+- *Rank.* PARI's `ellrank` gives rank bounds `3..3` and three points on `C_n`, for example
+  `(−18515, 2592100)`, `(−13860, 2668050)`, `(31740, 3094650)` for `n = 26565`. The height
+  determinants are `39.40` and `269.70`. Independently of heights, the Kummer images of the 2-torsion
+  together with the three points span a 5-dimensional subspace of `(ℚ*/ℚ*²)²`. So
+  `dim C_n(ℚ)/2C_n(ℚ) ≥ 5` and `rank C_n(ℚ) ≥ 3` (`scratch/nt-tyz/kummer_independence.py`).
+- *Analytic rank.* If `ord_{s=1} L(C_n, s) ≤ 1`, then `rank = ord ≤ 1` by Gross–Zagier–Kolyvagin
+  (manuscript Lemma 5.5; STANDARD). So `ord ≥ 2`, and `𝓛(n) = 0` by TYZ's definition (L338–344).
+  Hence `2^{−ρ}𝓛(n) = 0` is even and the hypothesis of Theorem 1.2 holds.
+- *Genus sums.* With `g` from PARI class groups, certified by `bnfcertify` and checked against
+  Rédei's formula on every divisor: `g(n) = 1`, `T_5a = T_5b = 0`, the reading-B `(5,1)` sum `= 1`
+  and the reading-C `(5,1)` sum `= 1`. So the second sum is `0` under A and `1` under B and C
+  (`certify_counterexamples.py`, `out_certify.txt`).
+
+Theorem 1.2 read as B or C is therefore false, and so is Theorem 3.5(2) read the same way. A scan
+of all 32 squarefree `n ≡ 5 (mod 8)` below `52000` with at most 7 prime factors and analytic rank 3
+(`literal_reading.py`; the numerical rank is used only to select candidates) finds reading A
+consistent on all 32. Readings B and C fail exactly on the two values above, the only ones in the
+scan with `g(n) = 1`. This matches the identity of §1.3: when `𝓛(n) = 0` and `T_5a ≡ T_5b ≡ 0`,
+reading B's sum is `g(n)`. In the other direction, on 30 random squarefree `n ≡ 5`, `n < 3·10⁵`, every
+`n` with `T_5a` or `T_5b` odd has analytic rank 1. There were 24 such `n`, three of them with only
+`T_5b` odd (`reading_a_check.py`).
+
+**Consequence.** The project cannot cite the *literal* Theorem 1.2: its text is false. It can cite
+reading A, which is the statement TYZ's proof gives (§4 proves it for `n ≡ 5`). Smith also read the
+theorem this way (§3).
+
+## 2. The proof of Theorem 3.5(2) for `n ≡ 5` (L2560–2600), step by step
+
+### 2.1 The argument as written (VERIFIED by reading)
+
+- S1. Assume `P(n) = P + t` with `P ∈ A(K_n)^−` and `t ∈ A[4]`.
+- S2. `β = r_∞(−1)r₂(−2)` acts on `K_n` by `√−n ↦ −√−n` ("explicit calculation"), so
+  `P(n)^β + P(n) = t^β + t`.
+- S3. `t ∈ A(ℍ'_n)[4] = A(ℚ(i))` (Lemma 3.18), and `β` acts trivially on `ℚ(i)`. So
+  `P(n)^β + P(n) = 2t ∈ ℤτ(1)`.
+- S4. Apply `β' + 1` to Proposition 3.4 and use Lemma 3.21. This gives
+  `c₁ τ((1−i)/2) + c₂ τ(1/2) ∈ 2A(ℍ'_n)^{β'+1} + ℤτ(1)`, where
+  `c₁ = i^{(n−1)/2} Σ_{d₀≡5, d₁≡1,3, d_i≡1} Π_i g(d_i)` and `c₂ = Σ_{d₀≡7, d₁≡1,3, d_i≡1} Π_i g(d_i)`.
+- S5. The contribution of `2A(ℍ'_n)^{β'+1}` is torsion, so it lies in `2A(ℍ'_n)_tors = 2A(ℚ(i)) =
+  ℤτ(1)`.
+- S6. "Thus the coefficients in both of the brackets must be even."
