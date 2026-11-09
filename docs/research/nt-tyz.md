@@ -331,8 +331,8 @@ statement. The proof in §4 avoids Proposition 3.4 entirely.
 - **Papers citing TYZ, read in their arXiv sources.** None restates Theorem 1.2:
   Burungale–Tian, arXiv:2104.06732v2 (cites TYZ only for "more than 50% of `n ≡ 5, 6, 7` are
   congruent, cf. [TYZ, Sm1]"); Dalawat, arXiv:2201.11071v2 (only in commented-out text);
-  Feng–Liu–Pan–Tian, arXiv:2405.11132 (method only); Zhang, arXiv:2111.11618 (TYZ's Theorem 1.1 and
-  Corollary 1.4 for `n` with no class of order 4); Guo–Ye–Yin, arXiv:2505.13133 (general citation);
+  Feng–Liu–Pan–Tian, arXiv:2405.11132 (method only); Zhang, arXiv:2111.11618 (cites "[TYZ, Theorem 1.1, Corollary 1.3]",
+  journal version, for the case `s₂(n) = 0`, `n ≡ 1, 2, 3`); Guo–Ye–Yin, arXiv:2505.13133 (general citation);
   Sun, arXiv:2610.31631 (the method of TYZ §§3.1, 3.3).
 - **Related papers that do not cite TYZ.** Smith, arXiv:1702.02325v2 (only an acknowledgement of
   Tian); Kriz, arXiv:2002.04767v5 (cites Yuan–Zhang–Zhang and Burungale–Tian, not TYZ); Chen,
@@ -340,6 +340,12 @@ statement. The proof in §4 avoids Proposition 3.4 entirely.
 
 So the only accessible statement of the form used is Smith's unrefereed one. It agrees with
 reading A.
+
+*A warning on numbering.* Zhang cites the journal version for a statement that is Theorem 1.1 with
+Corollary 1.4 in arXiv v1, but calls it "Corollary 1.3". In arXiv v1, Remark 1.3 shares the counter.
+If Zhang's number is right, the journal numbering differs from arXiv v1 at least in §1 (UNCHECKED).
+A citation should therefore give the arXiv version together with the label, for example "Theorem
+3.5 (`m3`) of arXiv:1411.4728v1", or name the result in words.
 
 ## 4. What to cite, and a self-contained proof
 
@@ -359,11 +365,11 @@ hypothesis "`P(n) ∈ A(K_n)^− + A[4]`". Only the last sentence is used for CR
   `(d₀, d₁) ≡ (5, 3)` and `≡ 1` otherwise. Here `d₁ > 1` is explicit. For `d₀ | n`, `ℍ'_{d₀} ⊂ ℍ'_n`,
   so all `P(d₀)` and `Z(d₀)` lie in the `ℤ[i]`-module `A(ℍ'_n)`.
 - **I2** (Lemma 2.8 and Proposition 2.3). For odd squarefree `m ≡ 1, 3 (mod 8)`:
-  `Σ ε 𝓛(d₁)𝓛(d₂) = Q(m) ≡ g(m)`, over non-ordered `m = d₁d₂` with `d₂ ≡ 1`; and `𝓛(1) = 1` (L1080).
+  `Σ ε 𝓛(d₁)𝓛(d₂) = Q(m) ≡ g(m)`, over non-ordered `m = d₁d₂` with `d₂ ≡ 1`; and `𝓛(1) = 1` (L1082).
   For `m ≡ 3` the factor `d₁ ≡ 3` is distinguished by its class. For `m ≡ 1` the pairs are
-  unordered (L1072–1077: the symmetry `P(d₁, d₂) = P(d₂, d₁)` of Lemma 2.7 is used to halve the sum).
+  unordered (L1068–1077: the symmetry `P(d₁, d₂) = P(d₂, d₁)` of Lemma 2.7 is used to halve the sum).
 - **I3** (Theorem 3.5, first assertion; proof L2343–2380). `P(n)` and `𝒫(n)` are equal in
-  `A(ℍ'_n) ⊗ ℚ`, and `𝒫(n) = 0` if `𝓛(n) = 0` (L1294).
+  `A(ℍ'_n) ⊗ ℚ`, and `𝒫(n) = 0` if `𝓛(n) = 0` (L1295).
 - **I4** (Lemmas 3.16, 3.18). `A(ℍ'_n)_tors = A[(1+i)³] = A(ℚ(i))` for odd `n`.
 - **I5** (Lemma 3.21(1), (4)), with `β' = β'₁`.
 - **I6** (Proposition 3.2(1)), for F5.
