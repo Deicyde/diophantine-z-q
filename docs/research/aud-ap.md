@@ -128,8 +128,17 @@ satisfies the density hypothesis with `δ/2`. Theorem 1.2 with `k = K + 1` gives
 `d < 0`, reverse: `x′ = p_K`, `v = −d`, and `x′ + jv = p_{K−j}`. Then `x′ ≥ 2`, `v ≥ 1`, and every
 term is in `G` and exceeds every element of `S_b`. No condition beyond the two inputs is used.
 
-I compiled this derivation against the branch (`scratch` file, not part of the repository); see
-§4 for the outcome. <!-- DERIVE -->
+I compiled this derivation against the branch, outside the repository's library: it is accepted
+with the axioms `propext`, `Classical.choice`, `Quot.sound` (§4). So `GoodPrimeAP` follows from
+Theorem 1.2 and Proposition D with no hidden condition. CORRECT.
+
+A complete proof of the form used is available: the main theorem of Tao–Ziegler, *The primes
+contain arbitrarily long polynomial progressions* (Acta Math. 201 (2008); arXiv math/0610050),
+states that a set of primes of positive relative upper density contains infinitely many
+configurations `x + P₁(m), …, x + P_k(m)` with `m > 0`, for integer polynomials vanishing at `0`.
+With `P_i = (i − 1)m` this is Theorem 1.2 with a positive common difference. Its proof treats a
+general dense set (the residue class `b mod W` is chosen by pigeonhole in §2 there). I checked the
+statement in the TeX source, not the proof.
 
 ## 2. The statement of the variant
 
@@ -200,3 +209,18 @@ Intermediate lemmas, read against the note (statements only):
   `min S_A⁺ = min(−60, A′ − 1)`, `K = max − min`, `u = x + (max S_A⁺)v`, slopes
   `u/v`, `(A′v − u)/v`, `−10`. These are the note's choices, with the referees' corrected `K_A`.
   CORRECT.
+
+## 4. Checks run
+
+| Check | Outcome |
+| --- | --- |
+| `lake build ZInQKernel` on the branch | success, 9593 jobs, no `sorry` warning |
+| `python3 scripts/check_target.py` | "FrozenTarget matches lean/Frozen/BoundedIntegerPolynomial.lean" |
+| `#print axioms` of the variant | `[propext, Classical.choice, Quot.sound]` |
+| `#print axioms` of `Mult.slopeRepresentationAP_of_goodPrimeAP` | `[propext, Classical.choice, Quot.sound]` |
+| `#check` of the variant and of the main theorem | `SixContactMin → CertifiedRank → GoodPrimeAP → FrozenTarget` and `SixContactMin → CertifiedRank → FixedPrimePattern → FrozenTarget` |
+| `#print GoodPrimeAP`, `#print FrozenTarget` | as quoted in §1.1 and as in `Target.lean` |
+| grep of `PrimeAP.lean`, `AP.lean`, `AP/*.lean` for `sorry`, `admit`, `axiom`, `native_decide`, `implemented_by`, `extern`, `set_option`, `unsafe`, `partial`, `opaque`, `csimp`, `macro`, `elab`, `run_cmd`, `#eval` | no occurrence in code (one match of the word "Lean." in a docstring); none in the lines added to `Main.lean` |
+| `goodPrimeAP_of_greenTao_propD` (§1.4) | compiles; axioms `[propext, Classical.choice, Quot.sound]` |
+| literal `GoodSlopePrime` vs the CM description, `324 < p < 20000` | 240 good primes, no mismatch |
+| relative density of `G` in `(324, 2·10⁶)` | `0.1063` (Euler product `0.1060`) |
