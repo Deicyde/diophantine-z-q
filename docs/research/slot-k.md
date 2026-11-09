@@ -351,14 +351,15 @@ Both curves therefore carry a certificate of Selmer type. It is never of torsion
 **The invariant.** The construction is not an iterative descent; each step is an exact isomorphism.
 The invariant is the number of symbols of the configuration outside the base `{p*, q₀}`:
 
-- for `C_{d₁}` it is `2(ω(β) − 1) + ω(θ)`, and for `C_{d₂}` it is `2(ω(β) − 1) + 3ω(θ)`;
+- for `C_{d₁}` it is `2(ω(β) − 1) + ω(θ)`, and for `C_{d₂}` it is `2(ω(β) − 1) + 2ω(θ)`;
 - each application of Lemma 1 lowers it by one, and Lemma 2 lowers it by `2|G|`;
 - the Selmer group (and the lift of the class `β`) is unchanged at each step, and the process ends
   at the base, where Lemma 3 computes everything.
 
-This avoids the plateaus of greedy one-prime descent (descent-alt §4.7). The greedy order never
-creates the configuration `{p*, q₀}`, because the `r_p` are invisible to the potential until all of
-them are present.
+This is different from greedy one-prime descent (descent-alt §4.7), which adds the prime that most
+lowers a potential and stalls on plateaus. Here the slots are prescribed in advance. The potential
+need not decrease at every step, and it does not have to: the proof computes the end result
+directly.
 
 ### 2.6 How many auxiliary primes, and comparison with the lower bound
 

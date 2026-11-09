@@ -51,3 +51,8 @@
 - Greedy-stall inputs: e8 replayed (seed 7, MAXK 9 recovered by find_seed_e8.py; replay diverges after #0 because of tie-breaking, but uses the same greedy) → stall inputs #8,#18,#19,#20,#23,#28 (out_e8_replay.txt; #8 not solved by e8's random fallback either). Construction: 6/6 inputs OK for every multiplier with β odd, |β|≡7 (8) (out_stall.txt).
 - Speed: Jacobi via PARI kronecker; search cost 2^j for mutual aux symbols (j ≤ ω(β)+ω(θ)).
 - Observation: n=βq0∏r has |n|≡7·3≡5 (8) and |β|≡3 (4): this is the K-TYZ-β row-5b rule of pc-audit §4.2.
+
+## Step 8 (symbolic test of the theorem; proof written in note §2.4–2.6)
+- t3_symbolic.py: random abstract data with only (θ1)–(θ4), Prop 0 system (symsel): 300 (ω≤6), 1000 (ω≤12), 2000 (ω≤3) trials: 0 failures (both curves dim 3, β∈π1 with sign).
+- Negative control WRONGX=1 (x=s instead of s+1): curve 1 still certified, curve 2 dim 3 but β∉π1 in 183/300 (exactly when T has primes ≡3 mod 4) — the sign choice is necessary.
+- slotk.py speed: gcd with primorial sieve.

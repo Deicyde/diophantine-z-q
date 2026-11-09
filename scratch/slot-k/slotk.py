@@ -50,6 +50,8 @@ def _jac_py(x, q):
 JAC = _jac_py  # replaced by PARI's kronecker in the drivers
 
 SMALL = [p for p in range(3, 2000) if all(p % d for d in range(2, int(p ** 0.5) + 1))]
+PRIMORIAL = prod(SMALL)
+from math import gcd
 
 
 def prime_with(cls8, symbols, avoid, search=None, rng=None):
@@ -67,7 +69,7 @@ def prime_with(cls8, symbols, avoid, search=None, rng=None):
     q = a + M * rng.randrange(1, 10 ** 6)
     while True:
         q += M
-        if any(q % p == 0 for p in SMALL if p < q):
+        if gcd(q, PRIMORIAL) != 1 and q > 2000:
             continue
         if all(JAC(x, q) == (1 if b == 0 else -1) for x, b in search.items()):
             if q not in avoid and is_prime(q):
