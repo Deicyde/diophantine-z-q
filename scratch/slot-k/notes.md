@@ -14,3 +14,8 @@
 - symsel.equations(cfg) gives rows over [a0,a1,b0,b1,u,v]; cfg=(d mod 8, lam, mu, L). has_first(cfg,umask).
 - Manuscript template: kerK = <1, 1_supp β>, d-1 slots type (0,0) + one q0 of type (1,1); rank-one correction.
 - Next: design the construction for C_d in Prop 0 language. Plan: one sub-question per step.
+
+## Step 2 (merge origin/main; read descent-alt in full again, pc-audit §2, §4)
+- origin/main merged: pc-audit.md now present.
+- pc-audit §2.2: deep input needed only as (R≥1) for Selmer-minimal C_d (dim Sel2=3) with class β; RK9: rank≥1 + dim 3 ⇒ σ_d from a point.
+- pc-audit §4.2 K-TYZ-β variant: extra rule |n|≡5 (8), β odd, |β|≡3 (4) — optional strengthening; target Kriz form first.
