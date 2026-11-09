@@ -74,9 +74,10 @@ reduced denominator of `B` is a square.
 odd. Then `|β| ≡ |m_odd| · b (mod 8)`, with `b` the odd squarefree kernel of `B`: the two differ by
 the square of the odd number `gcd(m_odd, b)` and by odd squares. The odd divisors `1, 3, 5, 7` of
 2730 cover `(ℤ/8)*`, and the sign of `m` is free. For each admissible `B` exactly 8 of the 64
-signed divisors give `β` odd with `|β| ≡ 7 (mod 8)`: `v₂(m)` is forced, the 16 odd divisors of
-2730 fall four into each class of `(ℤ/8)*`, and both signs are allowed. Every one of them satisfies (θ1)–(θ4), and the proof uses nothing else about `m`,
-so the construction works for whichever eligible `m` is picked.
+signed divisors give `β` odd with `|β| ≡ 7 (mod 8)`: `v₂(m)` is forced, the 16 odd divisors of 2730
+fall four into each class of `(ℤ/8)*`, and both signs are allowed. Every one of them satisfies
+(θ1)–(θ4), and the proof uses nothing else about `m`, so the construction works for whichever
+eligible `m` is picked.
 
 ## 2. Configurations and Proposition 0 (§2.1)
 
