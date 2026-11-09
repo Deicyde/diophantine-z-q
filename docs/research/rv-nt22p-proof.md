@@ -119,8 +119,9 @@ The other factors of `R₀2^{−2e}` are odd squares. Hence:
 
 - for `e ≥ 3`, `Π ≡ 1 (mod 8)` and `R₀` is a 2-adic square;
 - for `e = 1`, the class of `R₀2^{−2e}` mod 8 is `3` or `7`, and for `e = 2` it is `5`; with
-  `η = 1`, `R₀` is **never** a square in `ℚ₂`. Then `v_2(1 − R₀q²)` is bounded (by at most
-  `2e + 2`), and no choice of `q` absorbs the pole.
+  `η = 1`, `R₀` is **never** a square in `ℚ₂`. Then `v_2(1 − R₀q²) ≤ 2` for every `q`:
+  the valuation of `R₀q²` is even, and when it is `0` the unit `R₀q²` is `≡ 3, 5, 7 (mod 8)`,
+  so `1 − R₀q²` has valuation 1 or 2. No choice of `q` absorbs the pole.
 
 I checked this exhaustively over `u` mod `2^{e+6}` and odd `w < 64`, for `e = 1, …, 6`. The
 square classes are `{3, 7}`, `{5}`, `{1}`, `{1}`, `{1}`, `{1}`.
