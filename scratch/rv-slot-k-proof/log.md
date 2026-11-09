@@ -38,3 +38,20 @@ manuscript lines 975–1070.
   d ≡ 1/3/5/7 mod 8): dimension and membership of every signed odd divisor of d as a first
   coordinate: 0 mismatches. (Supports Prop 0 for all c; the proof needs only c = 5, checked by
   hand in step 1.)
+
+## Step 3 (abstract theorem, own code `abstract_dl.py`)
+
+Data: classes of P (product ≡ 7), of T (product ≡ 1), sign s, symbols within P and within T
+(reciprocity), cross symbols M = [ℓ/p] constrained exactly by (θ4) (row sums 0) and (θ3)
+(column sums (s+1)λ_ℓ); slots added symbolically per §2.4; both systems solved with system.py.
+- Exhaustive over all data with |P| ≤ 3, |T| ≤ 3 (542,032 cases incl. 524,288 for (3,3)), x = s+1:
+  every case gives dim 3 and the class β (with sign) on both curves. `out_abstract_exh.txt`.
+  Includes θ = 1 (|T| = 0), ω(β) = 1, all-λ = 1 classes.
+- Random |P| ≤ 10, |T| ≤ 10, 1,000 cases: 0 failures. `out_abstract_more.txt`.
+- Negative control x = s: first curve always fine; second curve loses β exactly when θ has a prime
+  ≡ 3 mod 4 (exhaustive: 10,568 failures, all of type [(3,True),(3,False)]; random 221/300, all
+  with such a prime). Confirms step 6 is where the sign matters.
+- Condition [q₀/ℓ] = 0 replaced by random bits: 0 failures (exhaustive |P| ≤ 3, |T| ≤ 2). As the
+  proof of Lemma 2 shows, symbols inside the glued set X = T ∪ {q₀} never enter; this slot
+  condition is superfluous (harmless). The note's claim (§2.5 "What each slot does") that the
+  symbols of q₀ at T are dictated by the transfer is inaccurate: they are free.
