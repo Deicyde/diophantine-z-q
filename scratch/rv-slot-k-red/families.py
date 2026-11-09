@@ -326,3 +326,27 @@ def small_slots(rng):
         if B is not None:
             out.append((B, m, 'min', 'small th=1 b=%d' % b))
     return out[:30]
+
+
+def test_site_b(rng):
+    """13 further test-site inputs with |n| <= 3000 (completes the 17 runs of test_site seed 13)."""
+    out = []
+    while len(out) < 13:
+        n = rng.randint(-3000, 3000)
+        if n in (0, -15, -20, -24, -30, -60):
+            continue
+        R0 = 2730 ** 6 * Fpoly(Fr(n))
+        eta = 1 if R0 > 0 else -1
+        R0 *= eta
+        bound = int(gmpy2.isqrt(int(R0))) * 2 + 2
+        for _ in range(200):
+            a = rng.randint(1, 50)
+            s = Fr(a, 2730 * rng.randrange(bound // 2730 * a + 1, bound // 2730 * a * 4 + 10))
+            B = R0 * s * s
+            if admissible(B):
+                break
+        else:
+            continue
+        m = rng.choice(eligible(B))
+        out.append((B, m, 'rand', 'test n=%d' % n))
+    return out

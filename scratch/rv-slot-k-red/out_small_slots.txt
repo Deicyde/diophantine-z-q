@@ -1,0 +1,27 @@
+#00 small          m=  2730 beta=+|7| w(b)=2 w(t)=5 P=[3, 5] T=[5, 3, 7, 1, 1] p0=5 slots=7 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=1867 minslot=1867
+#01 small          m=    78 beta=+|7| w(b)=6 w(t)=2 P=[5, 7, 5, 1, 5, 5] T=[1, 1] p0=13 slots=8 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=3187 minslot=2969
+#02 small          m=    -2 beta=-|7| w(b)=3 w(t)=5 P=[3, 5, 1] T=[1, 5, 7, 7, 5] p0=5 slots=8 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=4931 minslot=1801
+#03 small          m=  -546 beta=-|7| w(b)=3 w(t)=4 P=[5, 7, 5] T=[7, 1, 7, 1] p0=13 slots=7 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=3 minslot=3
+#04 small          m=   -39 beta=-|7| w(b)=3 w(t)=3 P=[5, 7, 5] T=[7, 3, 5] p0=7 slots=6 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=3803 minslot=1993
+#05 small          m=  -182 beta=-|7| w(b)=5 w(t)=4 P=[5, 7, 7, 1, 3] T=[5, 7, 7, 5] p0=7 slots=9 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=5867 minslot=5867
+#06 small          m=   -21 beta=-|7| w(b)=3 w(t)=3 P=[5, 7, 5] T=[5, 5, 1] p0=5 slots=6 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=59 minslot=59
+#07 small          m=     6 beta=+|7| w(b)=1 w(t)=2 P=[7] T=[1, 1] p0=7 slots=3 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=67 minslot=67
+#08 small          m=  -195 beta=-|7| w(b)=3 w(t)=2 P=[7, 5, 5] T=[7, 7] p0=5 slots=5 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=1627 minslot=1609
+#09 small          m=  -273 beta=-|7| w(b)=6 w(t)=4 P=[5, 7, 5, 7, 7, 1] T=[5, 3, 5, 3] p0=7 slots=10 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=227 minslot=227
+#10 small b=7      m=     7 beta=+|7| w(b)=1 w(t)=2 P=[7] T=[7, 7] p0=7 slots=3 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=139 minslot=139
+#11 small b=-7     m=   -13 beta=-|7| w(b)=1 w(t)=3 P=[7] T=[7, 7, 1] p0=7 slots=4 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=883 minslot=883
+#12 small b=15     m=    35 beta=+|7| w(b)=2 w(t)=5 P=[3, 5] T=[7, 1, 7, 5, 5] p0=3 slots=7 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=4723 minslot=4723
+#13 small b=-15    m=  -273 beta=-|7| w(b)=2 w(t)=4 P=[3, 5] T=[1, 5, 5, 1] p0=3 slots=6 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=563 minslot=563
+#14 small b=39     m=   210 beta=+|7| w(b)=2 w(t)=2 P=[3, 5] T=[7, 7] p0=3 slots=4 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=307 minslot=41
+#15 small b=-39    m=   -14 beta=-|7| w(b)=2 w(t)=5 P=[3, 5] T=[3, 7, 1, 3, 7] p0=3 slots=7 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=3083 minslot=3083
+#16 small b=455    m=    91 beta=+|7| w(b)=3 w(t)=2 P=[5, 7, 5] T=[7, 7] p0=5 slots=5 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=379 minslot=379
+#17 small b=-455   m=  -210 beta=-|7| w(b)=3 w(t)=4 P=[5, 7, 5] T=[3, 3, 3, 3] p0=5 slots=7 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=811 minslot=811
+#18 small b=23     m=     5 beta=+|7| w(b)=1 w(t)=3 P=[7] T=[7, 3, 5] p0=7 slots=4 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=379 minslot=73
+#19 small b=-23    m=  -455 beta=-|7| w(b)=1 w(t)=3 P=[7] T=[7, 3, 5] p0=7 slots=4 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=131 minslot=131
+#20 small th=1 b=7 m=   105 beta=+|7| w(b)=1 w(t)=0 P=[7] T=[] p0=7 slots=1 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=3 minslot=3
+#21 small th=1 b=-15 m=  -546 beta=-|7| w(b)=2 w(t)=0 P=[3, 5] T=[] p0=3 slots=2 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=83 minslot=17
+#22 small th=1 b=39 m=   273 beta=+|7| w(b)=2 w(t)=0 P=[3, 5] T=[] p0=3 slots=2 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=19 minslot=19
+#23 small th=1 b=-455 m=  -182 beta=-|7| w(b)=3 w(t)=0 P=[5, 7, 5] T=[] p0=5 slots=3 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=19 minslot=17
+#24 small th=1 b=31 m=    30 beta=+|7| w(b)=1 w(t)=0 P=[7] T=[] p0=7 slots=1 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=3 minslot=3
+#25 small th=1 b=-47 m=   -10 beta=-|7| w(b)=1 w(t)=0 P=[7] T=[] p0=7 slots=1 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK q0=3 minslot=3
+family small_slots seed 15: 26/26 certified, 17s

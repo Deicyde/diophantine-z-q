@@ -68,3 +68,13 @@
   certified, omega(beta) 4-14, omega(theta) 1-6, up to 18 slots. (Bottleneck: the search for the
   symbols at earlier slots, 2^j candidates for the j-th slot; not factoring.)
 - Report: sections 1-3 and 4.1-4.2 drafted.
+
+## Step 6 (all batches done)
+- cores_extra 30/30; small_slots (least primes; q0 = 3 in 4 runs, slots 17, 19, 41 ...) 26/26;
+  large 9/9 completed (the 10th run hit the search budget of 10^7 candidates for a slot with ~19
+  earlier-slot conditions: an implementation limit, not a failure); random30 seed 21 30/30;
+  test_site_b (|n| <= 3000) 13/13.
+- `summarize.py`: 16 families, 363 runs, 363 certified, 0 failures; omega(beta) 1-14,
+  omega(theta) 0-9, slots 1-18; both signs of beta in every family except p0var.
+- VERDICT: DL proved as written. No GAP found; findings F1 (superfluous [q0/l] = 0 with wrong
+  rationale), F2 ("within one of the bound" overstated), remarks F3-F5.
