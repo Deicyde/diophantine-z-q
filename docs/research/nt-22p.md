@@ -415,3 +415,103 @@ No theorem with valuation-restricted differences for dense subsets of the primes
 cannot hold in general: inside the primes `≡ 1 (mod 3⁵)` every difference is divisible by `3⁵`. A
 `W`-trick does not help either. It changes the dense set at each term of the progression, which the
 relative Szemerédi theorem does not handle ([RP R4]). The question is moot after Lemma P.
+
+---
+
+## 4. Can fewer forms be prime at once? (question 3)
+
+[RP §2.3, R3, R6, R8] argues that two non-constant slopes with twelve prime forms are forced. This
+section tests that argument piece by piece. The conclusion is that it is right for every
+construction in which the slopes are linear fractional functions of the parameters. The twelve forms
+can, however, be put in one arithmetic progression (§3.3), and that is what matters for the depth.
+
+### 4.1 One slope already needs six prime forms
+
+Let `t = u/v` be a good slope (fields 1–4), and `P` its set of odd contact primes outside `S_b`.
+Call a contact value `u − cv` *square-like* if it has no prime outside `S_b` to an odd power.
+
+- *Each value that is not square-like carries exactly one prime of `P`.* For `p > 324` at most one
+  contact value is divisible by `p` (two values `u − cv`, `u − c′v` share only primes dividing
+  `(c − c′)v` and `u`, and `|c − c′| ≤ 60`). So the primes of `P` are distributed over the six values,
+  and `|P| ≤ 6` (field 4). If all six values fail to be square-like, each carries exactly one prime
+  of `P` to an odd power (`= 1`, field 3), times an `S_b`-part and a square. VERIFIED (elementary).
+- *Square-like values cut out curves of positive genus.* Requiring `m` of the six values to be
+  `S_b`-units times squares puts `(u : v)` on one of finitely many `(ℤ/2)^{m−1}`-covers of `ℙ¹`
+  branched at `m` points, of genus `1 + 2^{m−3}(m − 4)`: genus 0 for `m ≤ 3`, 1 for `m = 4`, 5 for
+  `m = 5`, 17 for `m = 6` ([RP R6], STANDARD by Riemann–Hurwitz). For `m ≥ 5` there are finitely many
+  points (Faltings). For `m = 4` the points lie on finitely many elliptic curves, and the remaining two
+  values would be two functions on an elliptic curve required to be prime at once: no theorem of
+  that kind exists. For `m = 3` the conic is rational, but `u` and `v` become binary quartic forms in
+  the new parameters, and three binary quartics would have to take prime values at once. Prime values
+  of a single general binary quartic are not known (Heath-Brown handled `x³ + 2y³`;
+  Friedlander–Iwaniec handled `x² + y⁴`).
+
+So in any family that is linear in the parameters, a slope of unbounded height needs all six
+contact values prime (up to bounded factors). VERIFIED in the sense just stated. A
+construction with nonlinear forms only makes the prime problem harder.
+
+*Complexity.* The six forms `u − cv`, `c ∈ 𝒞`, are pairwise independent linear forms in two
+variables. Their true complexity in the sense of Green–Tao (*Linear equations in primes*, Def. 1.5
+and the discussion of true complexity; Gowers–Wolf) is 4: the fifth powers of six binary linear
+forms are linearly dependent (they live in a space of dimension 6... the binary quintics), while
+their fourth powers... more simply, `s` is the least integer with `(u − cv)^{s+1}` linearly independent,
+and six such powers are independent iff `s + 2 ≥ 6` (Vandermonde). STANDARD definition; the
+computation is VERIFIED (elementary). The circle method controls systems of true complexity 1
+(three-term progressions: van der Corput 1939; Green, Ann. of Math. 161 (2005) for dense subsets).
+So even one good slope of large height is beyond Fourier analysis. The answer to "at most three
+forms" is no.
+
+### 4.2 Two non-constant slopes are forced
+
+The manuscript writes each integer as a sum of three slopes. Could all but one of them be constants?
+
+Let `T₀` be the set of good slopes with no odd contact prime outside `S_b`. For `t = u/v ∈ T₀`,
+`F(u, v) = Dm²` with `D` a signed product of primes of `S_b`. So `(u/v, m/v³)` is a rational point on
+one of finitely many genus-2 curves `Dy² = F(x)`. By Faltings's theorem (STANDARD), `T₀` is finite.
+
+**Claim.** If `K ⊂ ℚ` is finite, the integers `A` for which some `k ∈ K` makes `A − k` a good slope
+miss a set of positive density.
+
+*Proof.* For each `k = r/s ∈ K` choose a distinct prime `p_k ∤ s` outside `S_b` with `p_k ≡ 3 (mod 4)`
+(such a prime is never good, §2.1). By the Chinese remainder theorem, the integers `A` with
+`v_{p_k}(sA − r) = 1` for every `k` form a set of density `∏_k (p_k − 1)/p_k² > 0`. For such `A`
+the slope `A − k` has the odd contact prime `p_k` at the contact `c = 0`, and `p_k` is not good. ∎
+VERIFIED (elementary). With `K = T₀ + T₀` this rules out "one variable slope plus two constants",
+and with `K = T₀` it rules out "two variable slopes from independent families plus constants" only
+if the variable slopes do not cooperate. The two-slope form 22P₂ uses exactly two cooperating
+slopes and one constant.
+
+Numerically the obstruction appears late (`scratch/nt-22p/constslopes.py`, PARI/GP):
+
+| Quantity | Value |
+| --- | --- |
+| smooth good slopes `u/v` with `|u|, v ≤ 120` (`S_b = S_ht`) | 3,670 |
+| `|T₀ + T₀|` within that box | 3,771,642 |
+| integers `0 ≤ |A| < 3000` of the form `k₁ + k₂ + t`, `kᵢ` smooth, `t` good | all 6,000 |
+
+VERIFIED (computation). So small `A` are easy. The Claim shows the failure is real but begins only
+at large `A`, as the size of `T₀` suggests. The constant slope `−10` is useful precisely because it
+lets the two variable slopes share one denominator.
+
+### 4.3 Three slopes do not help, and two slopes give a progression
+
+- With three variable slopes `t_j = u_j/v` and `Σu_j = Av`, the eighteen contact forms live in three
+  variables and are not translation-invariant ([RP R3]: the coefficient `1 + σ₂ + σ₃` of `u₁`
+  cannot vanish). They are not a homothetic copy of a fixed set, so Green–Tao 2008 does not apply.
+- With slopes with different denominators `u/v + u′/v′ = A′`, the condition is quadratic.
+- With a common denominator and two slopes, the forms are `u − c′v`, `c′ ∈ S_A⁺`, a homothetic copy
+  of a 14-point set of integers, hence contained in one progression (§3.3). This is the cheapest
+  shape the architecture allows. Its depth is that of Szemerédi's theorem in the primes, and
+  Green–Tao 2008 supplies it.
+
+### 4.4 The symmetry of the contact set
+
+The Möbius transformations of `ℙ¹(ℚ)` mapping `𝒞` onto itself form a group of order 12
+(`scratch/nt-22p/mobius.py`: twelve maps, among them a 6-cycle
+`0 → −15 → −20 → −24 → −30 → −60 → 0`; so the group is dihedral of order 12 and `𝒞` is the vertex
+set of a "hexagon" on the conic `ℙ¹`). VERIFIED (computation). For `γ` in this group,
+`γ(t) − γ(c) = det(γ)(t − c)/(j(t)j(c))` with `j` the denominator of `γ`, so `t` and `γ(t)` have the
+same odd contact primes outside the primes of `det γ` and of the coefficients. Goodness is therefore
+preserved up to the old primes, but `γ` does not fix the sum condition `t₁ + t₂ = A′`. It produces
+more good slopes from one good slope, not fewer prime forms. SPECULATIVE beyond this: I see no use
+of the symmetry for the pattern.
