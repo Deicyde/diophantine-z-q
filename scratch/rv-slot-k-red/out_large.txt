@@ -8,12 +8,12 @@
 #07 large w=10     m=  -273 beta=-|7| w(b)=10 w(t)=3 P=... T=[3, 1, 3] p0=7 slots=13 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
 #08 large w=11     m=  -130 beta=-|7| w(b)=11 w(t)=6 P=... T=[3, 5, 5, 3, 5, 5] p0=1 slots=17 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
 Traceback (most recent call last):
-  File "/home/jackmccarthy/dzq-wt/rv-slot-k-red/scratch/rv-slot-k-red/run_batch.py", line 16, in <module>
+  File "scratch/rv-slot-k-red/run_batch.py", line 16, in <module>
     rec = construct(B, m, rng, p0c)
           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jackmccarthy/dzq-wt/rv-slot-k-red/scratch/rv-slot-k-red/construct.py", line 220, in construct
+  File "scratch/rv-slot-k-red/construct.py", line 220, in construct
     r = find_prime(congs, extra, used, rng)
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jackmccarthy/dzq-wt/rv-slot-k-red/scratch/rv-slot-k-red/construct.py", line 146, in find_prime
+  File "scratch/rv-slot-k-red/construct.py", line 146, in find_prime
     raise RuntimeError("no prime found")
 RuntimeError: no prime found
