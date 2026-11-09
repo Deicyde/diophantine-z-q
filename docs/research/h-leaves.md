@@ -611,3 +611,71 @@ here (UNCHECKED); the replacements change no statement and no constant.
   (A012), Silverman (A071), Li (1975), Shimura (1973).** Published or classical; no change
   proposed beyond §4.4.
 
+## 5. The reduced trust base
+
+### 5.1 Final table
+
+The table assumes the three recommended changes: NoCM in place of the CM paragraph (§1.3),
+R5.1 through GR14 and Tate's argument (§2), and R5.2 option (b) (§3.3). It includes the two
+unrecorded inputs I1 and I2. "Refereed" refers to the best source listed; "book" means a
+published monograph or textbook. The last column says whether the change of source alters a
+constant in `H₆(S;R)`.
+
+| # | Leaf | Statement as used | Lines | Best source (status) | Constant |
+| --- | --- | --- | --- | --- | --- |
+| 1 | A001 | QM polarization datum; quotient `P¹_j` with branch values `0, ∞, -16/27`, indices `4, 6, 2`; labelling of `j` at discriminants `-4, -3, -24` | 409-442, 532-542 | Baba–Granath, Canad. J. Math. 2008 (refereed; audit uses the 2005 preprint); Lin–Yang arXiv:1807.00466 (refereed status not determined) | none |
+| 2 | A002 | smooth projective model of the full level-3 curve through Buzzard's `V₁(5)` | 443-478 | Buzzard, Duke 1997 (refereed; audit uses the corrected 2002 author version) | none |
+| 3 | A078 | extension of automorphisms to stable models; free finite quotients; tame local form `u - c = z²` | 480-534 | SGA 1; Deligne–Mumford 1969 (refereed); currently Stacks project | none |
+| 4 | A061 | endomorphism rank of `Res_{K/ℚ} A`; Néron–Ogg–Shafarevich; Hom field `L` unramified outside `T` | 544-562 | Mumford 1970 (book); Serre–Tate, Ann. of Math. 1968 (refereed) | none |
+| 5 | A079 | polarizable tori are abelian varieties; Hodge endomorphisms algebraic; `End⁰ ∈ {B, M₂(k)}` | 564-577 | Mumford 1970 (book) | none |
+| 6 | NoCM | Shimura reciprocity for `X⁶`; structure and count of `CM(R)` under `(f, 6) = 1`; ramified Atkin–Lehner rule; local embeddings; ring class fields | replaces 581-631 | González–Rotger, J. Math. Soc. Japan 2006, §5 (refereed); Shimura, Ann. of Math. 1967 (refereed); Vignéras, LNM 800 (book); Cox (book) | none (`C_cm` kept in the formula) |
+| 7 | A062 | Skolem–Noether | 632-647 | Reiner, *Maximal orders* (book) | none |
+| 8 | A007 | `Br(ℚ)[2]`, local square-root obstruction, reciprocity, injectivity of the local–global map | 665-708 | Cassels–Fröhlich 1967 (book); Milne, *Arithmetic duality theorems* (book) | none |
+| 9 | A008, A063 | semisimplicity and `End_{G_{L'}} V_ℓ A = B ⊗ ℚ_ℓ` (`ℓ = 3, 5`); `Hom_{L'}(A, J) ⊗ ℚ₅ = Hom_{G_{L'}}(V₅A, V₅J)`; Poincaré complement | 732-734, 861-867 | GR14, Duke 2014, Thm 1.4 (refereed; already A015) + Tate's argument (§2.3) + Mumford §19 | none |
+| 10 | A009 (new form) | `A_{F'}` has good reduction (Lemma PG); `V₅(A)|G_{F'}` crystalline with Hodge numbers `2, 2`; duality; summands; finite descent | 735-741, 10939-11005 | (Cris): Faltings 1989 (proceedings), Coleman–Iovita, Duke 1999 (refereed), Breuil, Ann. of Math. 2000 (refereed), all UNCHECKED; Lemma PG from rows 4 and 15; descent proved in the text | none |
+| 11 | A011 | Fontaine–Mazur for `GL₂` at `p = 5`; local algebraicity of the twist; Fricke stability; `A_f` and its Euler factors | 755-774 | Pan, J. Amer. Math. Soc. 2022 (refereed); Serre 1968 (book) for local algebraicity; Li, Math. Ann. 1975 (refereed); Shimura, J. Math. Soc. Japan 1973 (refereed) | none |
+| 12 | A064 | independence of `ℓ` of characteristic polynomials; Chebotarev; Brauer–Nesbitt | 776-794 | Mumford 1970 §19 (book); Cassels–Fröhlich (book) | none |
+| 13 | I2 | homomorphisms of good-reduction abelian varieties reduce | 781-784 | Bosch–Lütkebohmert–Raynaud, *Néron models* (book) | none |
+| 14 | A012 | different and upper breaks; conductor exponent `≤ 2 + 2U₀` | 796-846 | Serre, in Cassels–Fröhlich 1967 (book) | none |
+| 15 | A013 | semistable reduction over `F(A[3])` (`F(A[5])` at `p = 3`); unipotent inertia | 814-818 | Silverberg–Zarhin, Ann. Inst. Fourier 1995 (refereed); SGA 7 I, IX, Prop. 4.7 (UNCHECKED) | none |
+| 16 | A071 | logarithm of `Ĝ_m` on `U^{e+1}` | 828-831 | Silverman (book) | none |
+| 17 | I1 | level of `f` bounded by the conductor of `ρ_{f,λ}` | 852-857 | Carayol, Ann. Sci. ÉNS 1986, Théorème (A) (refereed) | none |
+| 18 | A014 | `h_F(J₁(N)) ≤ 1.3·10⁷ N^{12}` | 868-876 | Javanpeykar, Algebra Number Theory 2014 (refereed) | none |
+| 19 | A015 | isogeny `J → A × Z` over `L'` of degree `≤ κ(J)` | 878-892 | GR14, Duke 2014, Thm 1.4 (refereed) | none |
+| 20 | A006 | `h_F(target) ≤ h_F(source) + ½ log deg`; additivity | 894-900 | Faltings, Invent. Math. 1983, Lemma 5 (refereed); Raynaud, Astérisque 127 (1985) | none |
+| 21 | A016 | `h_F(Z) ≥ -(3/2) dim Z` | 894-895 | GR14 §9, quoting Bost (refereed; Bost's own text not read) | none |
+| 22 | A017 | `j = 3779136 (∏ z_m)⁴ / (∑ z_m⁸)⁵` on the quaternionic locus | 908-932 | Lauter–Naehrig–Yang, J. Number Theory (refereed); Lin–Yang (status not determined) | none |
+| 23 | A018 | theta height versus Faltings height, `r = 2`, `g = 2` | 934-947 | Pazuki, Bull. Soc. Math. France 2012 (refereed) | none |
+
+Leaves that leave the base: A003 (Fowler), A004 (CM Faltings height), A005 (CM isogeny), the
+H-use of A065, Faltings 1983 Satz 3, Satz 4 and §5 Corollary 1, Scholze 2013 with its
+corrigendum, and Berger 2002 (A010).
+
+The deep inputs that remain are: one modularity theorem (Pan), one transcendence theorem
+(GR14 Theorem 1.4, used for the explicit isogeny at lines 878-892 and, through Tate's argument,
+for the Hom and semisimplicity statements), the crystalline comparison for abelian varieties with
+good reduction, Shimura's reciprocity law for CM points, Carayol's local–global compatibility, and
+the explicit Arakelov estimates (Faltings' Lemma 5, Bost's lower bound, Javanpeykar, Pazuki).
+
+### 5.2 Constants and the Lean statements (VERIFIED)
+
+No change in §§1-4 alters a numerical bound:
+
+- NoCM deletes the CM paragraph, but the definitions of `B_cm`, `C_cm` and `H₆(S;R)` (lines
+  390-397) are kept, as rv-h-cm §5 recommends. Since `max(1, C_cm, Q_R^{17}) = Q_R^{17}` for every
+  admissible `R` (rv-h-cm §5, and line 6353), `H₆(S;R)` has the same value and the same formula.
+- R5.1 and R5.2 replace qualitative statements (existence of homomorphisms, semisimplicity,
+  potential semistability). The bounds at lines 868-900 use A014, A015, A016 and A006, whose
+  statements do not change.
+- §4 changes only citations, except for I1 and I2, which make explicit inputs that were already
+  used.
+
+The Lean statements are unaffected. `heightH6 R = 2·10¹³·max 1 (max heightCcm (heightQ R ^ 17))`
+with `heightCcm = 2·heightBcm + 4096·(1028 + 5·heightD + 84000·heightD²)` and
+`heightBcm = heightD²·3^(21000·heightD²) + 1` (`ZInQKernel/Hypotheses/Height.lean`, lines 70-90)
+match lines 390-395. `SixContactEstimate` (lines 95-98) and `SixContactMin`
+(`ZInQKernel/Hypotheses/HeightMin.lean`, lines 36-38: `ratHeight u ≤ heightH6 heightD *
+contactSupport Mult.S_mul u ^ 24`) state Theorem 4.1 and its instance `S = S_mul`, `R = D`.
+Since Theorem 4.1 is proved with the same constant, both statements hold as stated, with the
+same numerals.
+
