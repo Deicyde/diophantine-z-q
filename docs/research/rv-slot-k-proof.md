@@ -54,9 +54,8 @@ reduced denominator of `B` is a square.
 odd. Then `|β| ≡ |m_odd| · b (mod 8)`, with `b` the odd squarefree kernel of `B`: the two differ by
 the square of the odd number `gcd(m_odd, b)` and by odd squares. The odd divisors `1, 3, 5, 7` of
 2730 cover `(ℤ/8)*`, and the sign of `m` is free. For each admissible `B` exactly 8 of the 64
-signed divisors give `β` odd with `|β| ≡ 7 (mod 8)` (two signs times the four values of `m_odd`
-mod 8 that can be combined with the right `v₂(m)`; each such class is hit by the divisors with the
-right residue). Every one of them satisfies (θ1)–(θ4), and the proof uses nothing else about `m`,
+signed divisors give `β` odd with `|β| ≡ 7 (mod 8)`: `v₂(m)` is forced, the 16 odd divisors of
+2730 fall four into each class of `(ℤ/8)*`, and both signs are allowed. Every one of them satisfies (θ1)–(θ4), and the proof uses nothing else about `m`,
 so the construction works for whichever eligible `m` is picked.
 
 ## 2. Configurations and Proposition 0 (§2.1)
@@ -110,3 +109,60 @@ with it on 30 further random `d` (1–7 primes below 3000, 8, 9, 8, 5 curves wit
 in dimension and in the membership of every signed odd divisor of `d` as a first coordinate. So
 Proposition 0 also holds in the classes `c = 1, 3, 7` on this sample, although the proof never uses
 them.
+
+## 3. The gluing lemmas (§2.2)
+
+A glue prime `r` has `c_r = 1`, so `λ_r = μ_r = 0` and `[x/r] = [r/x]` for all `x`.
+
+**Lemma 1 (partner).** CORRECT. With `[r/y] = 1` for exactly one `y`, `E1_r` is
+`[y/r](u_y + u_r) = u_y + u_r = 0` and `E2_r` is `v_y + v_r = 0`. The unknowns `u_r, v_r` occur
+elsewhere only in `E1_y`, `E2_y`, through `[r/y](u_r + u_y)` and `[r/y](v_r + v_y)`, which vanish
+once `E1_r`, `E2_r` hold. The rows `(D)` and `(R)` do not see `r`, and `c` is unchanged. So
+forgetting `u_r, v_r` is a bijection onto the solutions of `Σ(𝒞 ∖ r)`, with inverse
+`u_r = u_y`, `v_r = v_y`.
+
+**Lemma 2 (gluing).** CORRECT, including the point the note flags (step 3). Put `X = G ∪ {g}`.
+
+1. `E1_{r_ℓ}` is `[ℓ/r_ℓ](u_ℓ + u_{r_ℓ}) + [g/r_ℓ](u_g + u_{r_ℓ}) = u_ℓ + u_g = 0`; the `u_{r_ℓ}`
+   cancel because `r_ℓ` has exactly two neighbours. Likewise `v_ℓ = v_g`.
+2. At `y ∈ S'` no glue prime is linked to `y`, and the terms from `X` are
+   `Σ_{x∈X}[x/y](u_x + u_y) = (Σ_{x∈X}[x/y])(u_g + u_y) = [g*/y](u_g + u_y)`. Same for `v`. So the
+   rows at `S'` are those of `Σ(𝒞*)`.
+3. `E1_ℓ` is
+   `Σ_{y∈S'}[y/ℓ](u_y + u_ℓ) + Σ_{x∈X∖ℓ}[x/ℓ](u_x + u_ℓ) + (u_{r_ℓ} + u_ℓ) + λ_ℓ v_ℓ = a₀λ_ℓ + a₁μ_ℓ`
+   (no other glue prime is linked to `ℓ`). With `u_X = u_g`, `v_X = v_g`, `a₁ = 0` this solves to
+   (2.1). In `E1_g + Σ_ℓ E1_ℓ` the glue terms are `(u_{r_ℓ} + u_g) + (u_{r_ℓ} + u_ℓ) = u_g + u_ℓ`,
+   which is `0` by step 1, whatever `u_{r_ℓ}` is; the terms between two elements of `X` are
+   `[x'/x](u_{x'} + u_x) = 0` since `u_X` is constant, so no symmetry of the symbols inside `X` is
+   used. What remains is `Σ_{y∈S'}(Σ_{x∈X}[y/x])(u_y + u_g) + (Σ_x λ_x)v_g = a₀Σλ_x + a₁Σμ_x`,
+   which is `E1_{g*}`, because `λ` and `μ` are additive under products of classes, so
+   `λ_{g*} = Σ_x λ_x` and `μ_{g*} = Σ_x μ_x`. For the `E2` rows, `Σ_x μ_x u_x = μ_{g*}u_g` as well,
+   and `E2_ℓ` solves to (2.2), which I rederived term by term; `b₁` enters (2.2) but is a coordinate
+   of the image.
+4. `c(𝒞*) = c(𝒞)` and `λ·u = λ|_{S'}·u|_{S'} + λ_{g*}u_g` (glue primes contribute nothing); same
+   for `μ·u`, `λ·v`, `μ·v`. So `(D)`, `(R)` agree.
+
+Reciprocity in `𝒞*`: `[y/g*] + [g*/y] = Σ_{x∈X}([y/x] + [x/y]) = λ_y Σ_x λ_x = λ_yλ_{g*}`. Correct.
+Injectivity and surjectivity are as stated: on the inverse side, `u_X = u_{g*}`, `u_R` from (2.1),
+(2.2), and `E1_g` (resp. `E2_g`) then holds because `E1_g + Σ E1_ℓ` equals `E1_{g*}` identically
+once `u_X` and `v_X` are constant.
+
+A consequence used in finding 1: the symbols between two elements of `X` never enter any row of
+`Σ(𝒞)` once `u_X`, `v_X` are constant, and they do not enter `𝒞*`. In step 5 of the theorem
+`X = T ∪ {q₀}`, so the slot condition `[q₀/ℓ] = 0` (`ℓ ∈ T`) is not needed. My exhaustive test
+(§6) confirms that dropping it changes nothing.
+
+## 4. The base configuration (§2.3)
+
+**Lemma 3.** CORRECT. With `c_{p*} = 7`, `c_{q₀} = 3`: `λ = (1, 1)`, `μ = (0, 1)`, `c = 21 ≡ 5`;
+`[p*/q₀] = x + 1` by reciprocity. With `w = u_{p*} + u_{q₀}`, `(Ku)_{p*} = xw`, `(Ku)_{q₀} = (x+1)w`,
+and the rows are exactly as displayed in the note. `E1` gives `v_{p*} = a₀ + xw`,
+`v_{q₀} = a₀ + (x+1)w` (using `a₁ = 0`), so `v_{p*} + v_{q₀} = w`, which is the row `λ·v = λ·u`.
+Then `E2_{p*}` reduces to `xw + a₀ + xw = a₀ = b₀`, and `E2_{q₀}` to
+`u_{q₀} + (x+1)w + a₀ + (x+1)w = u_{q₀} + a₀ = b₀ + b₁`, both consequences of `(R)` and
+`b₁ = μ·u = u_{q₀}`. Free: `a₀, u_{p*}, u_{q₀}`; dimension 3. For `u = (1, 0)`: `w = 1`,
+`v_{p*} = a₀ + x`, `v_{q₀} = a₀ + x + 1`, `b₁ = 0`. This is `σ₀`, for either value of `x`.
+
+The side claim that `{p*, q}` with one auxiliary prime gives dimension 3 and `±p* ∈ π₁` exactly for
+`(c_{p*}, c_q) ∈ {(7, 3), (3, 7)}`, for either symbol, I confirmed by enumerating all 32 two-prime
+configurations with my own system. It is not used in the proof.
