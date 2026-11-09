@@ -47,3 +47,5 @@ l=5 e=30 t=39935452277831684826967/931322574615478515625
 l=7 e=60 t=15837549266670524702397956485226107273316457481683658/508021860739623365322188197652216501772434524836001
   ball: eta=+1 field2' ok: True LemmaP-branch=[7] Spole=[7]
      v_l(B)={7: 3008}  S0>=4: True  odd-negative: []  negative-even: {}  0<B<1/2: True
+  old q: eta=+1 field2' ok: True LemmaP-branch=[7] Spole=[]
+     v_l(B)={7: -21948}  S0>=4: False  odd-negative: []  negative-even: {7: -21948}  0<B<1/2: True

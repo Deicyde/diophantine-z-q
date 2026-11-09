@@ -83,3 +83,14 @@ Python env: /tmp/rvred-venv (cypari2 2.17, gmpy2, numpy, mpmath). Recreate with
   ball not forced) v_l(B) < 0: expected, the old argument needs E_l. With e = 7 at 2 and e = 9 at
   3 (Lemma P ball) v_l(B) = 362, 460 >= 4, and the old q gives -2548, -3288: Lemma P(3) works
   with E_l = 0, and the implementation detects failures. Rerun with ball forced: b5B_out.txt.
+
+## Step 6: Lemma P(3) isolation (b5B_out.txt), report parts 1-2 drafted
+
+- b5 part B (ball forced, v_l(ell0) = 0), 10 slopes x 2 choices of q: Lemma P ball gives
+  v_l(B) = 166, 362, 58, 460, 108, 208, 58, 308, 1508, 3008 (all >= 4); old q gives
+  -1094, -2548, -360, -3288, -724, -1456, -366, -2196, -10980, -21948 (~ -366e, as predicted by
+  v(B) = 18(E + alpha) - 366e for unit test values). Lemma P(3): CORRECT; N sufficient, not sharp.
+- b2 (rerun) so far: all modified-q inputs pass; controls with old q at e = 200 fail as predicted
+  (v_3(B) = -20690 vs predicted 18*2917 - 366*200 = -20694).
+- slopelib fix: log10(R0) via mpmath (float overflow for v ~ 10^300). Restarted b5 A and C.
+- Report docs/research/rv-nt22p-red.md: verdict, findings F1-F7, step checks 2.1-2.3 written.

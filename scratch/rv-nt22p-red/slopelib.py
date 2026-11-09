@@ -170,7 +170,7 @@ def choose_q(t, eta, Sb, Spole, Nl, sel, avoid, ell0_val, Cmax_log10=0.0, slack=
     # size of Laux^k: R = ell0^2 a^2 R0 with |a| <~ 2 sqrt(R0) Mres / (Dpole Laux^k)
     log_ell0 = gmpy2.num_digits(mpz(ell0_val), 10)
     log_need = (log_ell0 + gmpy2.num_digits(Mres, 10) + Cmax_log10 + slack
-                + 1.5 * abs(math.log10(float(R0))) + 5)
+                + 1.5 * abs(float(mpmath.log10(mpmath.mpf(R0.numerator) / R0.denominator))) + 5)
     k = int(log_need / math.log10(Laux)) + 2
     Lk = mpz(Laux) ** k
     Den = mpz(Dpole) * Lk

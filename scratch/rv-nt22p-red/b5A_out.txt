@@ -1,0 +1,4 @@
+Part A: pseudo-instances
+A=-70 v=[2, 40; 3, 1; 7, 1; 11, 1] x=205130670240857
+  t1: eta=+1 field2' ok: True LemmaP-branch=[2] Spole=[2]
+     v_l(B)={2: 7854, 3: 5834, 5: 5832, 7: 5834, 11: 5834, 13: 5832}  S0>=4: True  odd-negative: []  negative-even: {}  0<B<1/2: True
