@@ -84,3 +84,90 @@ Every claim carries one of four marks.
   `Π g` over the partitions of the primes of `m` into blocks of class 1 (Smith's recursive definition of `𝓛` (§2, before Theorem 2.1)
   chooses the block containing a fixed prime, so it enumerates exactly these partitions; VERIFIED by
   reading Smith §2).
+
+## 1. The theorem used
+
+### 1.1 Tian–Yuan–Zhang (VERIFIED by reading arXiv:1411.4728v1)
+
+**Source.** Y. Tian, X. Yuan, S.-W. Zhang, *Genus periods, genus points and congruent number
+problem*, Asian J. Math. 21 (2017), no. 4, 721–774. Read in arXiv:1411.4728v1 (18 Nov 2014, the only
+arXiv version), LaTeX source. Theorems are numbered by section, with remarks, lemmas and propositions
+on the same counter. The journal text could not be retrieved (UNCHECKED); pc-audit RK4 records the
+same limitation.
+
+**Setting (§1).** For squarefree `n > 0`, `E_n : ny² = x³ − x`, isomorphic to `C_n` over `ℚ` by
+`(x, y) ↦ (nx, n²y)`. By Birch–Stephens the root number of `E_n` is `−1` for `n ≡ 5, 6, 7 (mod 8)`
+(quoted in TYZ §1; STANDARD). The invariant `𝓛(n)` is defined from `L(E_n, 1)` if `ord_{s=1} = 0`,
+from `L'(E_n, 1)/R_n` if `ord_{s=1} = 1`, and is `0` if `ord_{s=1} > 1`. The integer `ρ(n) ≥ 0` is defined
+by `2^{ρ(n)} = [E_n(ℚ) : φ_n(A_n(ℚ)) + E_n[2]]` for a 2-isogeny `φ_n : A_n → E_n`.
+
+**Theorem 1.2** (= Theorem 3.5(2), which is stated as "an enhanced version of Theorem 1.2"). *Let
+`n ≡ 5, 6, 7 (mod 8)` be positive and squarefree. Then `𝓛(n)` is an integer. If `n ≡ 5, 7 (mod 8)`,
+then `2^{−ρ(n)}𝓛(n)` is even only if*
+
+```
+Σ_{n = d₀⋯d_ℓ, d_i ≡ 1 (8), i>0} Π_i g(d_i)  ≡  Σ_{n = d₀⋯d_ℓ, d₀ ≡ 5,6,7, d₁ ≡ 1,2,3, d_i ≡ 1 (8), i>1} Π_i g(d_i)  ≡  0 (mod 2).
+```
+
+*All decompositions are non-ordered with all `d_i > 1`.* (The case `n ≡ 6` is not used here.)
+
+**Hypotheses.** Only `n > 0`, squarefree, `n ≡ 5, 6, 7 (mod 8)`. There is no condition on the number of
+prime factors, on their residues, or on the Selmer group.
+
+**Imports of TYZ's proof.** Waldspurger's formula, the Gross–Zagier formula of Yuan–Zhang–Zhang (their
+Theorem 3.3, "Gross–Zagier formula", for the quadratic points `P_χ`) and Tian's induction. For the
+remark that the rank part of BSD holds when `ord_{s=1} ≤ 1`, they cite Coates–Wiles, Rubin,
+Gross–Zagier and Kolyvagin (§1).
+
+### 1.2 The form used, and where TYZ prove it (VERIFIED by reading the proof)
+
+**Proposition 1.1.** *Let `n ≡ 5 (mod 8)` be positive and squarefree. If `T_5b(n)` is odd, then
+`2^{−ρ(n)}𝓛(n)` is odd; in particular `𝓛(n) ≠ 0` and `ord_{s=1} L(E_n, s) = 1`.*
+
+*Where it is proved.* TYZ §3.3, last subsubsection ("Proof of Theorem 3.5: part (2)"). Assume
+`P(n) ∈ A(K_n)^− + A[4]`, which TYZ identify with "`2^{−ρ(n)}𝓛(n)` is even" in the statement of
+Theorem 3.5(2). Here `P(n)` is the genus point, an explicit combination of CM points on a modular
+curve, and `A : 2y² = x³ + x`. TYZ apply `β' + 1` to the congruence of Proposition 3.4 and use
+Lemma 3.21 and Lemma 3.18 (`A(ℍ'_n)_tors ⊂ A[4]`). They obtain, for `n ≡ 5 (mod 8)`,
+
+```
+c₁ τ((1−i)/2) + c₂ τ(1/2) ∈ ℤ τ(1),
+c₁ = i^{(n−1)/2} Σ_{d₀ ≡ 5, d₁ ≡ 1,3, d_i ≡ 1 (i>1)} Π_i g(d_i),    c₂ = Σ_{d₀ ≡ 7, d₁ ≡ 1,3, d_i ≡ 1 (i>1)} Π_i g(d_i),
+```
+
+and conclude "the coefficients in both of the brackets must be even". The facts behind each step:
+
+- *The second bracket is `T_5b(n)`.* If `d₀ ≡ 7` and the `d_i`, `i > 1`, are `≡ 1`, then `d₁ ≡ 5 · 7 ≡ 3`, so
+  `d₁ ≡ 1` does not occur. `d₀` and `d₁` are the unique factors of classes 7 and 3, so `d₁ > 1`
+  automatically, and the non-ordered factors `d_i ≡ 1`, `i > 1`, form a partition. The product
+  `Π_i g(d_i)` includes `i = 0`, because Lemma 3.21(4) gives `Z(d₀)^{β'+1} = g(d₀)τ(1/2)` for `d₀ ≡ 7`. The
+  unit `ε(d₀, d₁) = ±1` of Theorem 3.3 for `(d₀, d₁) ≡ (7, 3)` does not matter, since
+  `−τ(1/2) = τ(1/2) − τ(1)`.
+- *Both coefficients must be even.* Here `τ : ℂ/(1+i)ℤ[i] → A(ℂ)` and `ℤτ(1) = {0, τ(1)}`. If
+  `a·u(1−i)/2 + b/2 ∈ ℤ + (1+i)ℤ[i] = ℤ[i]` with `u ∈ {±1, ±i}` and `a, b ∈ ℤ`, then `a` and `b` are even:
+  for `a, b` not both even, the left side is `u(1−i)/2`, `1/2` or `(u(1−i) + 1)/2`, and none of these lies
+  in `ℤ[i]` for any of the four units (checked case by case).
+
+So the contrapositive is Proposition 1.1: `T_5b(n)` odd implies `P(n) ∉ A(K_n)^− + A[4]`, that is,
+`2^{−ρ(n)}𝓛(n)` is odd. Directly: if `𝓛(n) = 0`, the first assertion of Theorem 3.5 (`P(n)` represents
+`2^{−1−ρ(n)}𝓛(n)α_n` in `A(ℍ'_n) ⊗ ℚ`) makes `P(n)` torsion, hence in `A[4]` by Lemma 3.18, a
+contradiction. Finally `𝓛(n) ≠ 0` gives `ord_{s=1} ≤ 1` by the definition of `𝓛`, and the root number `−1`
+gives `ord_{s=1} = 1`.
+
+*Relation with the statement of Theorem 1.2.* For `n ≡ 5` the first sum is Smith's
+`T_5a = Σ_{d ≡ 5} g(d)𝓛(n/d)` (here `d₀ ≡ 5` is the unique factor not `≡ 1`). The second sum consists of
+the `(5, 1)` terms and the `(7, 3)` terms. If `d₁ = 1` is admitted in the second sum, as Proposition 3.4
+requires (its term `Z(n)` is `d₀ = n`, `d₁ = 1`; pc-audit RK4), the `(5, 1)` terms give `T_5a` again (see
+the remark below) and the statement reads `T_5a ≡ T_5a + T_5b ≡ 0`, which is equivalent to the two
+conditions of the proof; then Proposition 1.1 follows from the statement itself. Under the literal
+reading `d₁ > 1`, the second sum becomes `T_5a + g(n) + T_5b`, and Proposition 1.1 needs the proof. This is
+the citation issue of the verdict.
+
+*Remark (the `(5, 1)` bracket; VERIFIED, not used).* Unwinding the recursion
+`P(n) = Z(n) − Σ ε(d₀, d₁)𝓛(d₁)P(d₀)` that defines `P(n)`, the coefficient of `Z(d₀)` for `d₀ ≡ 5` is a sum
+over ordered factorizations of `n/d₀` into factors `≡ 1`. After expanding each `𝓛` (Theorem 1.1) into
+partitions, each partition into `k` blocks is counted once for every ordered set partition of its blocks,
+that is, by the Fubini number `a(k)`. All Fubini numbers are odd (`a(k) = Σ_j C(k, j) a(k − j)` over
+`j ≥ 1`, and induction), so the coefficient is `𝓛(n/d₀)` mod 2 and the first bracket is `T_5a`. The terms
+with an even number of extra factors `≡ 3` carry a factor `±i` per pair of class changes and cancel in
+pairs mod 2; this part was not written out, and only the second bracket is used.
