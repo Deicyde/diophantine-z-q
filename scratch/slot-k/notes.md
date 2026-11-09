@@ -19,3 +19,11 @@
 - origin/main merged: pc-audit.md now present.
 - pc-audit §2.2: deep input needed only as (R≥1) for Selmer-minimal C_d (dim Sel2=3) with class β; RK9: rank≥1 + dim 3 ⇒ σ_d from a point.
 - pc-audit §4.2 K-TYZ-β variant: extra rule |n|≡5 (8), β odd, |β|≡3 (4) — optional strengthening; target Kriz form first.
+
+## Step 3 (first structural analysis; by hand, to be verified)
+- Mazur–Rubin twisting shortcut unusable: comparison needs q square at all bad p, then reciprocity kills loc_q (all [p/q]=0).
+- Parity: q≡1 (8) keeps |d| mod 8, so s changes by even amounts.
+- A = K (manuscript's K: (Ku)_i = Σ_{j≠i}[p_j/p_i](u_j+u_i)), K1=0.
+- Aux q≡1 (8): equations at q are (Ku)_q=0,(Kv)_q=0; Q-block K_QQ = diag(X1_I+Y1)+Y, K_QQ 1_Q = X1_I.
+- σ (u=1_P,u_Q=0) needs X1_P=0 ⇒ K_QQ singular; aux block acts as Laplacian change of input symbols + one virtual prime with symbol vector w=[n'/·].
+- Edge gadget (q1~p, q2~p', q1~q2, all ≡1 (8)) toggles L_pp' exactly, but lifts u_P=1_P to u_{q1}=u_{q2}=1 (breaks σ unless both p,p'∈P... lifts to |β|q1q2).
