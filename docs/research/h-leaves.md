@@ -270,3 +270,73 @@ at `p = 5`, and the identification of `r₃` is needed at `ℓ = 3` to compute t
 So the uses at `ℓ = 3, 5` need the `ℓ`-adic theorem, valid for every `ℓ`, which comes from the
 isogeny theorem through Tate's argument.
 
+### 2.3 From the isogeny theorem to U1 and U2 (VERIFIED as an argument)
+
+Fix a number field `k`, a prime `ℓ`, and an abelian variety `X/k`. Write `T = T_ℓ(X)`,
+`V = T ⊗ ℚ_ℓ`, `G = G_k`, `E = End_k(X)`, `R = E ⊗ ℚ_ℓ`. Two standard facts are used: `E ⊗ ℤ_ℓ →
+End(T)` is injective with torsion-free cokernel (Mumford, *Abelian varieties*, §19, Theorem 3;
+Milne AV I.10.15, already used in A061), and `E ⊗ ℚ` is a semisimple algebra by Poincaré
+reducibility (Milne AV I.10.1, already used in A063). Since `ℚ` has characteristic zero, `R` is
+then semisimple as well.
+
+**(F_X)** *There are only finitely many `k`-isomorphism classes of abelian varieties over `k`
+that are `k`-isogenous to `X`.*
+
+*(F_X) from GR14 Theorem 1.4.* If `Y` is `k`-isogenous to `X`, there is a `k`-isogeny `φ: X → Y`
+of degree at most `κ(X)`. Then `Y ≅ X/ker φ` over `k`, and `ker φ` is a `G`-stable subgroup of
+`X(k̄)` of order at most `κ(X)`, hence contained in `X[n]` with `n = ⌊κ(X)⌋!`. The finite group
+`X[n](k̄)` has finitely many subgroups, and each `G`-stable one determines `X/G` up to
+`k`-isomorphism. ∎
+
+**Claim 1 (Tate).** *Assume (F_X). For every `G`-stable subspace `W ⊆ V` there is `u ∈ R` with
+`u(V) = W`.*
+
+*Proof.* Put `U_n = (W ∩ T) + ℓⁿT`, a `G`-stable lattice with `ℓⁿT ⊆ U_n ⊆ T`. Its image
+`G_n = U_n/ℓⁿT ⊂ T/ℓⁿT = X[ℓⁿ]` is a finite `k`-subgroup. Let `π_n : X → Y_n = X/G_n`, and let
+`ρ_n : Y_n → X` be the isogeny with `ρ_n ∘ π_n = ℓⁿ`. Identifying `V_ℓ(Y_n)` with `V` through
+`π_n`, one has `T_ℓ(Y_n) = ℓ^{-n}U_n`, so `T_ℓ(ρ_n)` maps `T_ℓ(Y_n)` onto `U_n`. By (F_X) there
+are `m` and an infinite set `I` of indices `n > m` with `Y_n ≅ Y_m` over `k`; fix such
+isomorphisms `α_n : Y_m → Y_n`. Then `u_n = ρ_n α_n ρ_m^{-1} ∈ E ⊗ ℚ` maps `U_m` onto `U_n`.
+Since `ℓ^mT ⊆ U_m`, `v_n = ℓ^m u_n` maps `T` into `U_n ⊆ T`, so `v_n ∈ E ⊗ ℤ_ℓ` by the
+torsion-freeness of the cokernel. As `E ⊗ ℤ_ℓ` is compact, a subsequence converges to some
+`v ∈ E ⊗ ℤ_ℓ`.
+
+- `v(T) ⊆ W ∩ T`: for `n ≥ n'` in `I`, `v_n(T) ⊆ U_n ⊆ U_{n'}`, and `⋂_{n'} U_{n'} = W ∩ T`.
+- `v(U_m) ⊇ ℓ^m(W ∩ T)`: if `y ∈ ℓ^m(W ∩ T) ⊆ ℓ^mU_n = v_n(U_m)`, write `y = v_n(x_n)` with
+  `x_n ∈ U_m`; a limit point `x` of the `x_n` satisfies `v(x) = y`.
+
+Hence `v(V) = W`. ∎
+
+**Claim 2 (semisimplicity).** *Assume (F_X). Then `V` is a semisimple `ℚ_ℓ[G]`-module.*
+
+*Proof.* Let `W ⊆ V` be `G`-stable and `𝔞 = {x ∈ R : x(V) ⊆ W}`. It is a right ideal of `R`, so
+`𝔞 = eR` for an idempotent `e`, because `R` is semisimple. Then `eV ⊆ W`, and `W = u(V) = eu(V) ⊆
+eV` for the `u ∈ 𝔞` of Claim 1. So `W = eV`, and `(1 - e)V` is a `G`-stable complement, since
+`e` commutes with `G`. ∎
+
+**Claim 3 (Tate conjecture).** *Assume (F_{X×X}). Then `End_G(V) = R`. If `X = A × A'`, then
+`Hom_G(V_ℓA, V_ℓA') = Hom_k(A, A') ⊗ ℚ_ℓ`.*
+
+*Proof.* Let `f ∈ End_G(V)`. Its graph `Γ_f ⊆ V ⊕ V = V_ℓ(X × X)` is `G`-stable, so by Claims 1
+and 2 for `X × X` it equals `e(V ⊕ V)` for an idempotent `e ∈ End_k(X × X) ⊗ ℚ_ℓ = M₂(R)`. Let `C`
+be the commutant of `R` in `End(V)`. For `c ∈ C`, `diag(c, c)` commutes with `M₂(R)`, hence with
+`e`, and preserves `Γ_f`, so `cf = fc`. Thus `f` lies in the bicommutant of `R`, which is `R`
+because `V` is a faithful module over the semisimple algebra `R` (double centralizer theorem).
+For `X = A × A'`, `End_k(X)` and `End_G(V_ℓX)` both decompose into the four blocks
+`Hom(A, A)`, `Hom(A', A)`, `Hom(A, A')`, `Hom(A', A')` (respectively their `G`-equivariant Tate
+versions); equality of the wholes gives equality of the `(A, A')` blocks. ∎
+
+These are Tate's arguments (Invent. Math. 2 (1966), §2), written out because his paper treats
+finite fields; the proofs above use nothing about `k` except (F). The only arithmetic input is
+(F), which GR14 Theorem 1.4 supplies for every abelian variety over a number field.
+
+**Application.**
+
+- **U1.** Apply GR14 Theorem 1.4 over `k = L'` to `X = A` and to `X = A × A`. Claims 2 and 3 give
+  the semisimplicity of `V_ℓ(A)` and `End_{G_k}(V_ℓA) = B ⊗ ℚ_ℓ` for **every** `ℓ`, in
+  particular `ℓ = 3, 5`.
+- **U2.** Apply it to `X = A × J` and `X = (A × J)²`. Claim 2 gives the semisimplicity of
+  `V₅(A × J) = V₅(A) ⊕ V₅(J)`, hence of `V₅(J)`, and Claim 3 gives
+  `Hom_{G_k}(V₅A, V₅J) = Hom_k(A, J) ⊗ ℚ₅`. The rest of A063 (coefficient extension, absolute
+  simplicity, Poincaré complement over `L'`) is unchanged.
+
