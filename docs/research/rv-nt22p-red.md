@@ -266,3 +266,42 @@ None is needed for correctness. In order of usefulness:
 - The true catalogue. Only two stand-in catalogue primes were modelled, and pattern primes are
   necessarily larger than `max S_b`, an astronomically large number. The local analysis at each old
   prime does not depend on the other old primes. This is the only modelling assumption.
+
+### 3.5 Proposition AP end to end on genuine instances (`ap_search.py`, `b3_ap.py`, `b3_out*.txt`)
+
+For each instance, every value `u − c′v` (`c′ ∈ S_A⁺`) is a good slope prime. The slopes are
+`t₁ = u/v`, `t₂ = A + 10 − u/v` and `t₃ = −10`. For each slope, fields 1, 2′, 3, 4 were checked
+directly from the definitions. Then `q` was built by the modified weak approximation, test values
+were chosen with one group assigned to each odd contact prime, and `B` was evaluated as in §3.1.
+
+| `A` | `|S_A⁺|` | `v` | `x` | Lemma P branch at |
+| --- | --- | --- | --- | --- |
+| −70 | 11 | `2⁵·3·5·7·11·13` | 6455441 | 2 |
+| −70 | 11 | `2¹⁰·3·5·7·11·13` | 249339257 | 2 |
+| −70 | 11 | `2⁵·3⁵·5·7·11·13` | 654796201 | 2, 3 |
+| −70 | 11 | `2³·3·5⁵·7·11·13` (test values `1`) | 2046031433 | 5 |
+| −70 | 11 | `2³·3·5·7⁵·11·13` | 2733858433 | 7 |
+| −70 | 11 | `2³·3·5·7·11·13⁵` | 7409892761 | 13 |
+| −70 | 11 | `2³·3·5·7·11·13·331²` (also with Remark 3) | 2924927297 | 331 |
+| −69 | 12 | `2⁵·3·5·7·11·13` | 2547011473 | 2 |
+| −40 | 11 | `2⁵·3⁵·5·7·13` (two `x`, once with test values `1`) | 752276761, 937852193 | 2, 3 |
+
+`A = −70` and `A = −69` lie on the two sides of the change of sign case (`A′ + 60 = 0` and `1`), and
+`A = −40` is in the first case. In `A = −69`, the prime `u − (A′ − c)v` for `c = −60` coincides with
+the prime `u − v` of `t₁`. In `A = −70` and `A = −40`, three contact primes are shared by `t₁` and
+`t₂`.
+
+Result, for all 30 slopes (ten instances, three slopes each):
+
+- fields 1, 2′, 3, 4 hold, with the Lemma P alternative exactly at the primes listed;
+- `v_ℓ(B) ≥ 5832` on `S₀` (from `6090` to `6348` at the Lemma P primes);
+- `v_p(B) = 1` at each of the six selected primes of every variable slope;
+- the only negative valuations among the checked primes are at the auxiliary prime and at the
+  prime `u − v` (respectively `u − (A′ − 1)v`). There `v_p(B) = −216 = 2·(−8) + (−8) − 2·96`, because
+  `v_p(R₀) = v_p(a) = −8` and each of the eight tests with `k_j = 1` has `v(RC²) = −12`. Both are
+  even, so the reduced denominator of `B` is a square;
+- `0 < B < 1/2` (`log₁₀ B` between `−146` and `−694`).
+
+**No failure.** Instances with `|S_A⁺| = 14` (for example `A = 0`) are much rarer at this size; a
+search up to `x = 2·10¹¹` with `v = 480480` was still running when this report was written. Part A of
+§3.6 covers `|S_A⁺| = 14` with pseudo-instances.
