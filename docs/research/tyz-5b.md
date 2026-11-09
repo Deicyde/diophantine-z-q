@@ -32,7 +32,8 @@ Two reservations, neither of them mathematical gaps in this note:
   `2^{−ρ(n)}𝓛(n)` is odd". The proof of TYZ Theorem 3.5(2) establishes exactly this (§1.2). The
   *statement* of Theorems 1.2 and 3.5(2) groups the `(7, 3)` sum with the `(5, 1)` sum; it implies
   the form used under the reading that the second sum includes `d₁ = 1` (the reading that the proof
-  requires, pc-audit RK4), but not under the literal reading `d₁ > 1`. The journal version could not
+  requires, pc-audit RK4); under the literal reading `d₁ > 1` the form used must be taken from the
+  proof. The journal version could not
   be retrieved; its statement should be compared before citing (UNCHECKED).
 - **Status of the inputs from the other notes.** The chain uses slot-k's theorem (under independent
   review) and Proposition 0 of descent-alt §4.1 for `c = 5` (rechecked in slot-k §2.1).
@@ -81,9 +82,9 @@ Every claim carries one of four marks.
   ```
 
   In Smith's notation `T_5b(n) = Σ_{d₀ ≡ 7, d₁ ≡ 3 (8)} g(d₀)g(d₁)𝓛(n/d₀d₁)`, where `𝓛(m)` is the sum of
-  `Π g` over the partitions of the primes of `m` into blocks of class 1 (Smith's recursive definition of `𝓛` (§2, before Theorem 2.1)
-  chooses the block containing a fixed prime, so it enumerates exactly these partitions; VERIFIED by
-  reading Smith §2).
+  `Π g` over the partitions of the primes of `m` into blocks of class 1. (Smith's recursive definition
+  of `𝓛` in §2 chooses the block containing a fixed prime, so it enumerates exactly these partitions;
+  VERIFIED by reading Smith §2.)
 
 ## 1. The theorem used
 
@@ -155,13 +156,13 @@ contradiction. Finally `𝓛(n) ≠ 0` gives `ord_{s=1} ≤ 1` by the definition
 gives `ord_{s=1} = 1`.
 
 *Relation with the statement of Theorem 1.2.* For `n ≡ 5` the first sum is Smith's
-`T_5a = Σ_{d ≡ 5} g(d)𝓛(n/d)` (here `d₀ ≡ 5` is the unique factor not `≡ 1`). The second sum consists of
-the `(5, 1)` terms and the `(7, 3)` terms. If `d₁ = 1` is admitted in the second sum, as Proposition 3.4
-requires (its term `Z(n)` is `d₀ = n`, `d₁ = 1`; pc-audit RK4), the `(5, 1)` terms give `T_5a` again (see
-the remark below) and the statement reads `T_5a ≡ T_5a + T_5b ≡ 0`, which is equivalent to the two
-conditions of the proof; then Proposition 1.1 follows from the statement itself. Under the literal
-reading `d₁ > 1`, the second sum becomes `T_5a + g(n) + T_5b`, and Proposition 1.1 needs the proof. This is
-the citation issue of the verdict.
+`T_5a = Σ_{d ≡ 5} g(d)𝓛(n/d)` (`d₀ ≡ 5` is the unique factor not `≡ 1`). The second sum consists of the
+`(5, 1)` terms and the `(7, 3)` terms, and the `(7, 3)` terms are `T_5b`. The `(5, 1)` terms are ambiguous
+in the statement. If they are read as the first bracket of the proof, which requires `d₁ = 1` to be
+admitted (the term `Z(n)` of Proposition 3.4 is `d₀ = n`, `d₁ = 1`; pc-audit RK4) and which equals `T_5a`
+(remark below, partly SPECULATIVE), then the statement reads `T_5a ≡ T_5a + T_5b ≡ 0` and implies
+Proposition 1.1. Under the literal reading (all `d_i > 1`) the `(5, 1)` terms are a different sum, and
+Proposition 1.1 must be taken from the proof. This is the citation issue of the verdict.
 
 *Remark (the `(5, 1)` bracket; not used, partly SPECULATIVE).* Unwinding the recursion
 `P(n) = Z(n) − Σ ε(d₀, d₁)𝓛(d₁)P(d₀)` that defines `P(n)`, the coefficient of `Z(d₀)` for `d₀ ≡ 5` is a sum
