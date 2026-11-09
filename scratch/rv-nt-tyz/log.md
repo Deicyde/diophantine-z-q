@@ -3,3 +3,21 @@
 ## Step 0 (setup)
 - No earlier log; fresh start from f927237.
 - Downloaded arXiv:1411.4728v1 e-print independently; sha256 b295b160...fed2 matches nt-tyz's. Single file Period7.tex.
+
+## Step 1 (source reading; Period7.tex)
+Checked statements quoted in nt-tyz 1.2 against the source:
+- Thm 1.1 (L371-380), Thm 1.2 (L389-409) incl. final sentence "non-ordered with all d_i>1": CORRECT quotation.
+- Recursion (L1320-1327): d_1>1 explicit; eps "as in Theorem GZ": CORRECT.
+- Thm 3.3 eps-classification (+-i iff (5,3)): CORRECT quotation.
+- Prop 3.4 statement silent on ordering / d_1=1: CORRECT. Proof L2024-2105: sketch; "contribution by d0=d0''=n, d1=1 is Z(n)" at L2076-77 (one line off): CORRECT.
+- Thm 3.5 (L1353-1374) lacks the "d_i>1" sentence: CORRECT. First assertion proof L2343-2380 read.
+- Lemma 2.8 (L1062), L(1)=1 (L1082), Prop 2.3 (L580): CORRECT quotations. Lemma 2.8 normalisation: 2^{k-a}w_K vs 2^{h2-delta}: equal for m=1,3 mod 8 except m=3 (w_K=3, odd factor) -- harmless mod 2.
+- Lemma 3.16, 3.18, 3.21 statements: CORRECT quotations. beta'_j any lifting to Gal(Qbar/Q).
+- Def of calL(n), calP(n)=0 if calL(n)=0 (L1295): CORRECT.
+
+Hand derivations:
+- Lemma N1 (both cases m=1, m=3 mod 8): CORRECT (counts 2^{b-1}-1 and 2^{|S|}-1 re-derived).
+- Lemma N2: CORRECT. Chain unwinding, class bookkeeping (q_j in {1,3} forced), eps=i exactly on 7->5 steps, bijection with (partition, ordered admissible grouping), involution for s>=2, Fubini parity. Observed: result does not depend on the eps-class of (5,3) steps at all (they only occur when s>=2, which cancels).
+- Prop N proof: CORRECT given I1-I7. Observations: F4 is not needed (l_e integers; X only needs X^{beta'}+X in A(H'_n)); second half of F3 (negation of sqrt(-n)) not needed.
+- F3: CORRECT (redone with product formula). F5: CORRECT (generalized dihedral => subfields of ring class field over K are Galois over Q).
+- Readings: found a 4th literal reading D (d_1=1 admitted AND d_1 distinguished among class-1 factors) giving T5a + Sum k w + T5b; nt-tyz's A must be understood as "set partitions counted once" semantics. To check numerically on the counterexamples.
