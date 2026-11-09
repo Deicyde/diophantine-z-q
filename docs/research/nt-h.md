@@ -187,3 +187,111 @@ descent, but the witnesses form a positive-dimensional family, and `e` alone mov
 through a one-parameter family of curves. No mechanism is known that would make all of them
 insoluble. Stating H_P^c and H_M^c in Lean is a refactor that shrinks the trust boundary
 slightly, as R1 of rs-height did. It is not a route to a proof.
+
+## 3. Changes of construction: cusps, moduli and the local tests
+
+The question is whether some change of the contact set, the family or the tests turns H into a
+statement about integral points, `S`-unit equations or a family with elementary height control,
+as Route K turned pole completeness into rank one for congruent number curves. Route K worked
+because the new statement was *true for a structural reason with a published proof behind it*
+(Tian–Yuan–Zhang) and the rest was a descent. For H, the corresponding published theorems are
+effective Shafarevich theorems, and §§3.1-3.5 locate exactly which of them the architecture can
+reach.
+
+### 3.1 What the mechanism needs (VERIFIED, lines 510-563)
+
+The proof of Theorem 4.1 attaches to `u ∈ ℚ \ 𝒞` an abelian surface `A_u` over a field `K` of
+degree `≤ 324` that is unramified outside `T = S ∪ supp M_S(u)`, with good reduction outside `S`.
+Lines 510-534 give the local form: near a contact, `u - c = z²` up to a unit, so an *even*
+valuation `v_p(u - c)` gives an unramified local extension, and the level-3 structure gives good
+reduction there. Two properties of the family are used:
+
+- (G) at every prime `p ∉ S` and every `u` with all contact valuations even at `p`, the fibre
+  has good reduction over an unramified extension of `ℚ_p`;
+- (H) the size of the fibre (its Faltings height) is bounded polynomially in its conductor.
+
+(G) is what links the local tests, which see `v_p(u - c) mod 2`, to arithmetic. (H) is the deep
+input. Any replacement of the family must keep (G) and make (H) cheaper.
+
+### 3.2 The cusp lemma (VERIFIED as an argument; ingredients STANDARD)
+
+Call a closed point `α` of `ℙ¹_u` a *cusp* of a family of abelian varieties (or of curves) over
+an open set of `ℙ¹_u` if the family does not have potentially good reduction at `α`, i.e. its
+moduli map sends `α` to the boundary of a toroidal or stable compactification.
+
+**Lemma C.** Let `α` be a cusp of degree `k` over `ℚ`. Then:
+
+1. the set `P_α` of primes `p` at which `α` has a `ℚ_p`-rational point has Dirichlet density at
+   least `1/k` (Chebotarev applied to the Galois closure of `ℚ(α)`; STANDARD);
+2. for all `p ∈ P_α` outside a finite set and every `u ∈ ℚ` with `m = v_p(u - α) > 0` (computed
+   in `ℚ_p` at a `ℚ_p`-point of `α`), the fibre at `u` has bad reduction at `p`, and stays bad
+   after every finite extension of `ℚ_p`. For a family of abelian varieties the Tate parameter of
+   the toric part has valuation `m · w > 0` (`w` the width), so the toric rank is positive for
+   every `m ≥ 1`. For a family of curves the stable reduction is singular.
+
+So at the primes of `P_α` the bad reduction comes from `v_p(u - α) > 0` whatever its parity.
+Suppose a soundness proof argues by local insolubility, as every soundness argument of the
+manuscript does (Lemma 5.1 at lines 987-1000; the test lemma at lines 6151-6200). Then at a
+prime `p ∈ P_α` where all contact valuations of `u` are `0`, the local solubility of every
+parity test is the same for `v_p(u - α) = 0` and for `v_p(u - α) = 2`, since it depends only on
+the contact valuations modulo 2. So such a proof cannot conclude that `p` divides the controlled
+integer (`κF(n)` in use P, `f` in use M). The conductor of the fibre then contains primes the
+test does not bound, and (H) yields nothing.
+
+Placing `α` among the contacts does not help either. Odd valuations become visible, but an even
+positive valuation at `α` still gives bad reduction (item 2), and parity tests do not see it.
+This is rs-height R4, now with the quantifier made explicit: the trouble is not one cusp but the
+positive-density set `P_α` of approach primes.
+
+### 3.3 An instance inside the present construction: the genus-two curve (VERIFIED)
+
+The QM surfaces `A_u` are Jacobians of genus-two curves away from the decomposable locus. Their
+Igusa invariants (line 538, from Lin–Yang (2), (14)) are
+`[J₂, J₄, J₆, J₁₀] = [12(j+1), 6(j²+j+1), 4(j³-2j²+1), j³]`, `j = J(u) = -57600F(u)²/G(u)⁶`.
+So `J₁₀ = j³` vanishes exactly at `j = 0`, i.e. at the six contacts (`F(u) = 0`). The contact set
+is precisely the preimage of the decomposable locus. By Liu's criterion (Q. Liu, Math. Ann. 295
+(1993); STANDARD, theorem number UNCHECKED), a genus-two curve has potentially good reduction at
+`p` only if `J₂⁵/J₁₀ = 12⁵(j+1)⁵/j³` is `p`-integral. `genus2cusp.py` evaluates `v_p(J₂⁵/J₁₀)` for
+19 inputs at primes `331 ≤ p ≤ 353`: contact valuation `1` at `c = -15`, contact valuation `2` at
+`c = -15` and `c = -24`, and `u` `p`-adically close to a root of `G` (for `p ≡ 1 mod 3`). In every
+case the valuation is negative (`-6`, `-12`, `-12`, `-24`). So **the genus-two curve `C_{J(u)}`
+has bad stable reduction at every prime with a positive contact valuation, even or odd, and at
+the approach primes of the roots of `G`**, while its Jacobian has good reduction there (lines
+545-563). As curves, the six contacts and the two roots of `G` are cusps of the family; as
+abelian surfaces, the family has none.
+
+This matters for Baker-type routes. Effective Shafarevich theorems for genus-two and hyperelliptic
+curves are proved by Baker's method through discriminant and `S`-unit equations (Smart, Math.
+Comp. 66 (1997); von Känel, J. Théor. Nombres Bordeaux 26 (2014); STANDARD as references, not
+re-read here). They bound curves with good reduction outside a set `S'`. For `C_{J(u)}`, the set
+`S'` must contain every prime with a positive contact valuation, which is the full support of
+`F(u)`'s numerator. So the curve route needs positivity detection at all primes, which is C1
+(§3.4). The Jacobian route avoids the cusps, and that is why it needs modularity.
+
+### 3.4 Tests that also see integrality (VERIFIED as arguments)
+
+Could a precision or multiplication test that also detects integrality at some primes make a
+cusp available? There are three cases.
+
+- **Integrality at a fixed finite set `P`.** This is cheap: `ℤ_(p)` is Diophantine in `ℚ`
+  (Koenigsmann 2016, Proposition 6, STANDARD and already used by the 10/11 manuscript at `p = 3`).
+  Adding it to the tests would cost a few variables and a degree increase, with no change to
+  Lemma 5.1 or to the size chapter beyond the variable budget (rs-global §2.4). But `P_α` is
+  infinite (Lemma C(1)), so finitely many primes never cover the approach primes of a cusp.
+- **Positivity at all primes, rational cusp.** Let `R(t, K)` say that `v_p(t - α) ≤ 0` for every
+  prime `p ∤ K` outside a fixed finite `S₀`. If `R` were Diophantine, then
+  `{1/(t - α) : R(t, 1)} = ℤ[1/S₀]` minus finitely many points would be Diophantine, and C1
+  (`ℤ = Ψ ∩ ⋂_{p∈S₀} ℤ_(p)`) gives the main theorem. So the test is as hard as the target.
+- **Positivity at all primes, irrational cusp** (`α` of degree `k ≥ 2`). Here `R(t, 1)` says that
+  the numerator of the norm form `g(t) = N(t - α)` is an `S₀`-unit. For `k ≥ 3` this set is finite
+  (Thue–Mahler), for `k = 2` it is a Pell-type set, so C1 does not apply directly. But no device
+  of the manuscript's kind can express `R`. Parity devices see `v_p mod 2` (rs-global C2), and
+  quadratic-form tests (Hasse–Minkowski, quaternion norms) see `v_p mod 2` at each prime. The
+  known way to see positivity at a prime `p` uses `p` as a parameter of the test (Koenigsmann,
+  Park), and quantifying over all `p` is a universal quantifier. That is exactly why those
+  definitions of `ℤ` are `∀∃` rather than existential (rs-global A5). So this case would need a
+  new kind of existential local test, and none is known (SPECULATIVE assessment).
+
+So no change of the precision or multiplication test of the kinds considered makes a cusp
+available, and the cost of trying would fall on the soundness lemmas (5.1 and the test lemma),
+which would have to prove positivity rather than parity.
