@@ -46,3 +46,33 @@ Started 2026-11-09. Task: find Lean formalizations of Green-Tao / relative Szeme
   ElNando888/KrafftSieve, openai/LongGapsBetweenPrimes, flt-regular. No Green-Tao, no Szemerédi,
   no relative Szemerédi. Ilin's own repos listed: lean-pool, Clawristotle, MazurTheorem,
   homotopy-groups-lean, Autoformalization. VERIFIED (paper source).
+- web search "Vasily Ilin twitter Green-Tao formalized", "lean-pool GreenTao vilin97.github.io",
+  "primes contain arbitrarily long arithmetic progressions Lean ... github",
+  "Conlon Fox Zhao relative Szemerédi Lean formalization dense model theorem": nothing relevant
+  (found the Reservoir page reservoir.lean-lang.org/@LeanPool/lean-pool, title only).
+- Hugging Face API search (datasets/models/spaces) for green-tao, greentao, green_tao, lean-pool,
+  leanpool, lean-eval, Vilin97, szemeredi: no Green-Tao artefact. Vilin97 on HF: datasets KilterBoard,
+  Clawristotle-Logs, space VeriDeepResearch.
+- Source archives of public GitHub repos CAN be downloaded here at exact commits (no code search, no
+  listing of a user's repos). Used below.
+- Vilin97/lean-pool, branch main at commit 9c7629e5549220179437cc258a5b0787257d4d54 (2026-09-29; latest
+  tag v4.34.0 = 374d6870, 2026-09-15). Lean v4.34.0, Mathlib v4.34.0. License Apache-2.0.
+  250 projects in LeanPool/projects.yml. grep -i "green.?tao|GreenTao|relative.?szemer|szemer" over the
+  whole tree: hits only LeanPool/DensityHalesJewett/* (Szemerédi's theorem, see below), PFR files
+  (Ruzsa distance, BSG), candidates/shortlist.md (Bourgain extractor / Szemerédi–Trotter; Erdős 1196
+  Erdős–Sárközy–Szemerédi), candidates/decisions.jsonl (leanprover/lean-eval-leaderboard: "250+
+  problem-statement stubs (FermatLastTheorem, RiemannHypothesis, Szemeredi...) each ':= by sorry'").
+  NO Green-Tao and no relative Szemerédi in Lean Pool at this commit. VERIFIED.
+- LeanPool/lean-pool (the organisation copy, newer): archive too large to download (>500 MB); not checked.
+- FOUND: Lean Pool project "densityhalesjewett" (Gabriel Dahia; upstream gdahia/densityhalesjewett commit
+  1c2f5aa1b99caa8e2a87beacf80f07f066c309d3, commit time 2026-09-17; Apache-2.0; projects.yml
+  "status: verified", "provenance: AI"). 4426 lines. Density Hales–Jewett (DKT proof) =>
+  Szemerédi's theorem `Combinatorics.ArithmeticProgression.exists_of_density_nat_atTop` and the
+  Varnavides count `Combinatorics.ArithmeticProgression.exists_many_of_density_nat`
+  (LeanPool/DensityHalesJewett/DensityHalesJewett/Varnavides.lean:296). Not Green-Tao (needs density
+  in ℕ), but it is the combinatorial black box of the transference proofs.
+  The upstream repo archive itself could not be fetched ("not found", version-control timestamp
+  2026-09-17 14:55:36 confirmed for 1c2f5aa).
+- Guessed repo names (green-tao, greentao, GreenTao, green_tao, relative-szemeredi, GreenTaoTheorem,
+  szemeredi) under gdahia, Vilin97, LeanPool, YaelDillies, b-mehta, AxiomMath, teorth: none exist.
+- YaelDillies/LeanAPAP exists (tag v4.34.0, 26a124f5, 2026-09-17): Kelley–Meka 3-AP bounds, not Green-Tao.
