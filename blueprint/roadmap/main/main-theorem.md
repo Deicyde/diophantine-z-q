@@ -4,7 +4,7 @@ declaration: theorem
 origin: cited
 statement: formalized
 proof: formalized
-lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_addMulBound
+lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactEstimate, ZInQ.exists_bounded_integer_polynomial_defining_integers_of, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_addMulBound
 ---
 
 # The main theorem
@@ -14,7 +14,8 @@ Then the target statement holds: some integer polynomial in $292{,}890{,}231{,}9
 of degree below $2\uparrow\uparrow7$ and with coefficients below $2\uparrow\uparrow8$, has
 rational zero projection to its first variable exactly $\mathbb Z$.
 
-The manuscript's fourth input, the catalogue bound, is a theorem here
+The proof uses the height estimate only at one set of primes and one radius, so the formal
+statement assumes just that instance. The manuscript's fourth input, the catalogue bound, is a theorem here
 ([the catalogue bound holds](../progressions/catalogue-instance.md)): every unit class modulo
 $W$ contains twenty-two primes $p$ with $324<p<2^{W^8}$, by an effective Dirichlet theorem.
 

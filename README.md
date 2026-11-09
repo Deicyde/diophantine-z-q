@@ -1,5 +1,11 @@
 # Z is Diophantine in Q
 
+**Blueprint site: https://deicyde.github.io/diophantine-z-q/**
+
+Browse every statement of the formal proof there: its informal statement and proof sketch, the
+statements it depends on, its Lean declarations with links into the source, and whether it is
+proved. The site is rebuilt from `main` after each passing verification run.
+
 > **This fork** proves the 11/5 manuscript's Theorem 1.1 in Lean from three explicit
 > hypotheses: the six-contact height estimate, pole completeness and the twenty-two-prime
 > pattern. They enter the main theorem as `Prop`s, not axioms. Two more inputs started as
@@ -10,8 +16,9 @@
 > `ZInQ.exists_bounded_integer_polynomial_defining_integers_of` (`ZInQKernel/Main.lean`) has no
 > `sorry`, uses no `native_decide`, and depends only on the axioms `propext`,
 > `Classical.choice` and `Quot.sound`. See [KERNEL_PLAN.md](KERNEL_PLAN.md), the
-> [final audit](docs/kernel-audits/final-audit-2026-11-07.md) and the Autoform
-> [blueprint](blueprint/README.md). The rest of this README is upstream's.
+> [final audit](docs/kernel-audits/final-audit-2026-11-07.md), the
+> [blueprint site](https://deicyde.github.io/diophantine-z-q/) and its sources in
+> [blueprint/](blueprint/README.md). The rest of this README is upstream's.
 
 This repository contains the November 5, 2026 manuscript **Z is Diophantine in Q**, the October 11, 2026 manuscript **A conditional Diophantine definition of Z in Q from four arithmetic inputs**, and comparison notes. A research archive preserves the constructions, computations, proof drafts, reviews, and partial Lean formalization developed for the 11/5 manuscript.
 
