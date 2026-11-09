@@ -246,7 +246,7 @@ def fam_theta(rng, nT, sign):
             continue
         break
     while True:
-        m = sign * rng.choice([1, 3, 5, 7, 15, 21, 35, 105])
+        m = sign * rng.choice([d for d in DIVS if d > 0])  # even m may be needed for beta odd
         # want theta u^2 = w^2 mod N, N = 2^7 3^4 5^4 7^4 13^4; take u = 1 mod N-part, w = sqrt(theta)
         N = 2 ** 7 * 3 ** 4 * 5 ** 4 * 7 ** 4 * 13 ** 4
         # w0 with w0^2 = theta mod N (CRT of Hensel lifts)
