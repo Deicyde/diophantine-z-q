@@ -300,7 +300,14 @@ compare dimensions, to factor integers and to test primality.
 4. **End to end with actual primes** (`real_dl.py`). The construction of §2.4 uses CRT over the
    primes of `β` and `θ` with random admissible residues and searches the resulting progression for
    primes, testing the symbols at earlier slots. Both curves are certified with `sel2.py` (not with
-   the system). Thirty runs `(B, m)`, one after another: 12 random admissible `B`; 6 with `θ = 1` (3 with `β > 0`, 3 with `β < 0`); 5 with every prime of `β` `≡ 3 (mod 4)`; 7 with a prescribed `θ` of 3–6 primes including primes `≡ 3 (mod 4)` (4 with `β > 0`, 3 with `β < 0`). Over the 30 runs, `ω(β)` ranges over 1–8, `ω(θ)` over 0–6, 16 runs have `β < 0`, 20 have a prime `≡ 3 (mod 4)` in `θ`, and 22 different multipliers occur, odd and even. Both curves have `dim Sel₂ = 3` and `β ∈ π₁` in **all 30 runs**, the number of slots is exactly `ω(β) + ω(θ)` (2–12), and the slots have at most 57 digits (`out_real_dl.txt`). Primality of the slots is BPSW, which is ample for a test.
+   the system). Thirty runs `(B, m)`, one after another: 12 random admissible `B`; 6 with `θ = 1`
+   (3 with `β > 0`, 3 with `β < 0`); 5 with every prime of `β` `≡ 3 (mod 4)`; 7 with a prescribed
+   `θ` of 3–6 primes including primes `≡ 3 (mod 4)` (4 with `β > 0`, 3 with `β < 0`). Over the 30
+   runs, `ω(β)` ranges over 1–8, `ω(θ)` over 0–6, 16 runs have `β < 0`, 20 have a prime `≡ 3 (mod
+   4)` in `θ`, and 22 different multipliers occur, odd and even. Both curves have `dim Sel₂ = 3`
+   and `β ∈ π₁` in **all 30 runs**, the number of slots is exactly `ω(β) + ω(θ)` (2–12), and the
+   slots have at most 57 digits (`out_real_dl.txt`). Primality of the slots is BPSW, which is
+   ample for a test.
 
 ## 7. The count (§2.6)
 
