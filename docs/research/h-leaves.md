@@ -503,3 +503,61 @@ VERIFIED against Berger04, §I.3. The primary statements are **UNCHECKED**. For 
 with good reduction the statement goes back to Fontaine's theory of Barsotti–Tate groups
 (Ann. of Math. 115 (1982)); that attribution is from memory and is **UNCHECKED**.
 
+### 3.4 Comparison and verdict on R5.2
+
+| | Manuscript (A009 + A010) | Option (a) | Option (b) |
+| --- | --- | --- | --- |
+| Variety | rigid analytification of `A/F` | `A/F` algebraic | `A/F'`, `F' = F(A[3])`, good reduction |
+| Comparison used | de Rham, rigid-analytic (Scholze) | de Rham, algebraic | crystalline, good reduction |
+| GAGA step (Scholze 9.1, 9.3) | needed | not needed | not needed |
+| dR ⇒ pst (Berger) | needed | needed | **not needed** |
+| Finite descent (lemma, lines 10980-10994) | needed | needed | needed only for line 759 |
+| New inputs | — | Fontaine 1983 / Faltings 1989 / Tsuji 1999 | (Cris); Lemma PG (no new source) |
+| Status of the new input | — | UNCHECKED (attribution VERIFIED) | UNCHECKED (attribution VERIFIED) |
+| Effect on constants | — | none | none |
+
+Both options consume a statement that the proof needs in exactly the form stated: Pan's
+hypothesis (P) is qualitative, and the conductor bounds (lines 796-857) do not use the
+`p`-adic comparison at all (the conductor at 5 is computed from `r₃`, line 794). So **both
+switches are possible and neither changes a constant.**
+
+Recommendation: option (b). It removes two leaves (Scholze with corrigendum, Berger) instead of
+one, it replaces them by a theorem that is older and narrower than Scholze's (crystalline
+comparison for abelian varieties with good reduction), and the extra geometric input, Lemma PG,
+is proved from leaves already in the base (A013, A061) and NoCM. The final remark of the
+appendix (lines 11001-11005: Hodge–Tate alone would not prove de Rham) is respected: (Cris) gives
+crystalline, which is stronger than de Rham.
+
+## 4. Further leaves
+
+### 4.1 Berger (A010)
+
+Removed by option (b) of §3.3.
+
+### 4.2 Raynaud's criterion (A013)
+
+The manuscript cites Silverberg–Zarhin, Ann. Inst. Fourier 45 (1995), Theorem 3.5 (semistable
+reduction over a field where all `n`-torsion is rational, `n ≥ 3` prime to the residue
+characteristic) and Theorem 3.3 (unipotent inertia). The same criterion is Raynaud's, in
+Grothendieck's exposé IX of SGA 7 I (LNM 288, 1972), Proposition 4.7, and the unipotence is in the
+same exposé. vK (Lemma 4.1, proof of (i); VERIFIED as vK's citation) cites "[Grothendieck–Raynaud,
+Proposition 4.7]" for exactly the statement "`A_L` is semistable for `L = K(A[15])`". The SGA
+statement and numbering are **UNCHECKED** here. Payoff: an older and canonical source with the
+same statement; no constant changes.
+
+### 4.3 Unrecorded leaves: Carayol and the Néron mapping property
+
+These are not replacements but additions (§1.2, I1 and I2). They are standard and published, but
+they are part of the trust base and should have audit records.
+
+- **I1.** Carayol 1986, Théorème (A), at `F = ℚ`, weight 2, places `λ | 5` (for `p ≠ 5`) and
+  `λ | 3` (for `p = 5`): `v_p(N)` equals the conductor exponent of `ρ_{f,λ}|G_{ℚ_p}`. Only the
+  inequality "`v_p(N)` is at most the conductor exponent" is consumed (line 856), together with
+  "`p ∤ N` if `ρ_{f,λ}` is unramified at `p`". Both are contained in Théorème (A). For weight 2
+  the compatibility at primes of good reduction of `A_f` also follows from Eichler–Shimura and
+  Igusa, but the bound at the primes of bad reduction needs Carayol (or Langlands' Antwerp
+  paper for weight 2; its coverage was not checked, SPECULATIVE).
+- **I2.** Néron mapping property (Bosch–Lütkebohmert–Raynaud, *Néron models*, Springer 1990,
+  §1.2): a homomorphism between abelian varieties with good reduction at `v` extends to their
+  Néron models, hence reduces. Used for `μ_σ` at lines 781-784.
+
