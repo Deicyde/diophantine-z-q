@@ -37,3 +37,13 @@ l=13 e=1 t=134/13
 l=13 e=6 t=55968963/4826809
   ball: eta=+1 field2' ok: True LemmaP-branch=[13] Spole=[13]
      v_l(B)={13: 308}  S0>=4: True  odd-negative: []  negative-even: {}  0<B<1/2: True
+  old q: eta=+1 field2' ok: True LemmaP-branch=[13] Spole=[]
+     v_l(B)={13: -2196}  S0>=4: False  odd-negative: []  negative-even: {13: -2196}  0<B<1/2: True
+l=5 e=30 t=39935452277831684826967/931322574615478515625
+  ball: eta=+1 field2' ok: True LemmaP-branch=[5] Spole=[5]
+     v_l(B)={5: 1508}  S0>=4: True  odd-negative: []  negative-even: {}  0<B<1/2: True
+  old q: eta=+1 field2' ok: True LemmaP-branch=[5] Spole=[]
+     v_l(B)={5: -10980}  S0>=4: False  odd-negative: []  negative-even: {5: -10980}  0<B<1/2: True
+l=7 e=60 t=15837549266670524702397956485226107273316457481683658/508021860739623365322188197652216501772434524836001
+  ball: eta=+1 field2' ok: True LemmaP-branch=[7] Spole=[7]
+     v_l(B)={7: 3008}  S0>=4: True  odd-negative: []  negative-even: {}  0<B<1/2: True

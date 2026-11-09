@@ -1,0 +1,15 @@
+Part C: Remark 3 (Lemma P only on S0; old q at S_b \ S0) with deep poles outside S0
+A=-70 v=[2, 6; 3, 6; 7, 1; 11, 200] x=137338046807369
+Traceback (most recent call last):
+  File "/home/jackmccarthy/dzq-wt/rv-nt22p-red/scratch/rv-nt22p-red/b5_pseudo.py", line 99, in <module>
+    sb_check("t1", t1, ELL0, mode="S0only")
+  File "/home/jackmccarthy/dzq-wt/rv-nt22p-red/scratch/rv-nt22p-red/b5_pseudo.py", line 40, in sb_check
+    q, info = L.choose_q(t, eta, Sb, Spole, Nl, [], [], ell0_val, Cmax_log10=max(Cmax, 0))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jackmccarthy/dzq-wt/rv-nt22p-red/scratch/rv-nt22p-red/slopelib.py", line 173, in choose_q
+    + 1.5 * abs(math.log10(float(R0))) + 5)
+                           ^^^^^^^^^
+  File "/usr/local/fbcode/platform010/lib/python3.12/numbers.py", line 316, in __float__
+    return int(self.numerator) / int(self.denominator)
+           ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+OverflowError: integer division result too large for a float

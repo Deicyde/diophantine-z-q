@@ -105,3 +105,32 @@ No finding is a GAP. Each step's status is in §2.
   progression form, `v_ℓ(R₀) = 2e` is even, so `v_ℓ(B)` is even for every `q`, and PC requires
   nothing more there. CORRECT. (Negative even valuations then occur at such `ℓ` if the old `q` is
   kept and `e` is large. This is allowed, and it was observed in the computation, §3.4.)
+
+### 2.3 Proposition AP
+
+- **The fourteen values.** For `c′ ∈ S_A⁺`, `u − c′v = x + (max S_A⁺ − c′)v` with
+  `max S_A⁺ − c′ ∈ [0, K_A]`: a term of the progression. For `t₂ = A′ − u/v`,
+  `t₂ − c = −(u − (A′ − c)v)/v` and `t₂ − 1 = −(u − (A′ − 1)v)/v`. CORRECT.
+- **Lowest terms.** A common prime of `u` and `v` divides `x` and hence every term. CORRECT.
+- **Field 1.** The numerators are nonzero primes. CORRECT.
+- **Signs.** `max S_A⁺ = max(1, A′ + 60)`. If `A′ + 60 ≥ 1`, then `t₂ = −60 − x/v < −60`;
+  otherwise `t₂ = A′ − 1 − x/v < A′ − 1 < −60`. Also `t₁ > max S_A⁺ ≥ 1`. So `F(t₁), F(t₂) > 0`.
+  CORRECT, and tested at the change of case (§3.5).
+- **Field 2′.** At `ℓ ∈ S_b` all fourteen values are `ℓ`-units, being primes `> max S_b`. If
+  `ℓ ∤ v`, both valuations in field 2 are 0. If `e ≥ 1`, then `v_ℓ(t − 1) = −e` and
+  `v_ℓ(F(t)/(t − 1)⁸) = 2e`, so field 2 holds iff `e ≤ B_ℓ`. Otherwise `e ≥ B_ℓ + 1`, which is
+  `≥ 5` at `2`, and the hypotheses of Lemma P hold. CORRECT.
+- **Fields 3, 4.** The odd contact primes outside `S_b` of `t₁` are exactly the six primes
+  `u − cv`, with valuation 1. Primes dividing `v` give negative valuations, and no pattern prime
+  divides `v`. The same holds for `t₂`. Coincidences `T ∩ (A′ − T) ≠ ∅` (which occur, for example,
+  at `A = −70, −40`, where `|S_A⁺| = 11`) only make a prime a contact prime of both slopes, or make
+  a contact prime of one slope the prime `u − v` of the other. Each slope has its own groups, so
+  nothing changes. CORRECT.
+- **The constant slope `−10`.** `t − c ∈ {−10, 5, 10, 14, 20, 50}`, `t − 1 = −11`, and `F(−10) < 0`,
+  so `η = −1`; there are no poles and field 2 holds. CORRECT. Recomputed in every instance of §3.5.
+- **Remark 1.** The divisibility argument is CORRECT. The value of `K_A` is wrong (F1).
+- **The Lean form `GoodPrimeAP`** (`∀ K N, ∃ x v, N < x ∧ 0 < v ∧ ∀ j ≤ K, GoodSlopePrime (x + jv)`),
+  applied with `N = max S_b`, gives exactly what the proof uses. CORRECT.
+
+UNCHECKED here (outside this report's focus): Proposition D, and the application of Green–Tao
+2008 in §3.4.

@@ -88,3 +88,13 @@ if "B" in part:
         print(f"l={l} e={e} t={u}/{v}")
         sb_check("ball", t, e0, mode="force", only=[l])
         sb_check("old q", t, e0, mode="old", only=[l])
+if "C" in part:
+    print("Part C: Remark 3 (Lemma P only on S0; old q at S_b \\ S0) with deep poles outside S0")
+    for A, v in [(-70, 2**6 * 3**6 * 7 * 11**200), (0, 2**5 * 7 * 3 * 331**60), (-69, 2**8 * 3 * 7 * 337**40 * 17**150)]:
+        x = pseudo_x(A, v)
+        S = splus(A)
+        u = x + max(S) * v
+        t1 = Fr(u, v); t2 = Fr(A + 10) - t1
+        print(f"A={A} v={L.pari(f'factor({v})')} x={x}")
+        sb_check("t1", t1, ELL0, mode="S0only")
+        sb_check("t2", t2, ELL0, mode="S0only")
