@@ -410,6 +410,88 @@ directly.
   This is the 2-adic rule under which pc-audit expects TYZ's row 5b to certify both curves. That
   expectation rests on pc-audit RK6, which this note does not check (SPECULATIVE here).
 
+## 3. Validation
+
+### 3.1 The algorithm
+
+`scratch/slot-k/slotk.py` implements §2.4 with actual primes; `run_dl.py` and `run_families.py` are
+the drivers.
+
+1. Factor `β` and `θ` (PARI) for every signed divisor `m` with `β` odd and `|β| ≡ 7 (mod 8)`.
+2. Choose `q₀`, then the `r_p`, then the `r_ℓ`, as in §2.4. The conditions modulo 8 and modulo the
+   primes of `βθ` are imposed by the Chinese remainder theorem. The conditions modulo earlier slots
+   are imposed by searching the resulting progression and testing Jacobi symbols. (Imposing them by
+   CRT as well would double the size of the slots at each step.)
+3. Certify `C_n` and `C_{nθ}` with the exact 2-descent `scratch/rv-route-k/sel2cong.py`. It computes
+   the local images at odd primes from the torsion points, at 2 from explicit 2-adic points, and was
+   checked against PARI in rv-route-k. It is independent of Proposition 0 and of §2. The output is
+   `selmer3` when `dim Sel₂ = 3` and `β ∈ π₁`.
+
+The slots in the tests have at most 89 digits. The exact descent only needs Legendre symbols, so
+their size does not matter.
+
+### 3.2 Results (VERIFIED, exact descent)
+
+Each line is one input family. A *run* is one input with one multiplier; every multiplier with `β`
+odd and `|β| ≡ 7 (mod 8)` was run (8 per input), except for `random30` and `smooth`, which use one.
+
+| Family | Source | Inputs | Runs | Both curves certified | `ω(β)` | `ω(θ)` | Slots |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `random30` | 30 random admissible `B` (generator of descent-alt `common.py`, seed 2026) | 30 | 30 | 30 | 2–6 | 2–5 | 4–10 |
+| `allm` | 5 random admissible `B`, all eligible multipliers (seed 77) | 5 | 40 | 40 | 1–6 | 1–6 | 4–11 |
+| `B123` | the three inputs of descent-alt §4.3 with no certifying multiplier for `n = β` | 3 | 24 | 24 | 7–11 | 1–7 | 9–17 |
+| `e11` | the two core-6 inputs of `e11_core_check.py` (`out_e11_core6.txt`; #0 is `B₃`) | 2 | 16 | 16 | 7–9 | 1–7 | 9–15 |
+| `core3` | 3 inputs with an isotropic core of size 3 (as in `e10_core_instance.py`) | 3 | 24 | 24 | 4–6 | 1–7 | 6–11 |
+| `core6` | 3 inputs with an isotropic core of size 6 (as in `e11_core_check.py`) | 3 | 24 | 24 | 7–9 | 2–8 | 10–15 |
+| `stall` | the 6 inputs on which greedy descent stalls (below) | 6 | 48 | 48 | 2–6 | 1–6 | 3–11 |
+| `smooth` | 10 smooth-`θ` inputs of rv-route-k (`gen_smooththeta`, `m = 1`) | 10 | 10 | 10 | 3–6 | 4–9 | 7–15 |
+| **total** | | **62** | **216** | **216** | | | |
+
+In every run the number of slots is exactly `ω(β) + ω(θ)`, as §2.6 states.
+
+Notes on the families.
+
+- *Greedy stalls.* `out_e8_greedy_random30.txt` does not record the inputs. The seed and size bound
+  (7 and 9) were recovered by `find_seed_e8.py` from its first line, and `e8_replay.py` reran the
+  greedy descent of descent-alt §4.7 printing `B`. The replay agrees on the first inputs, then
+  diverges because of random tie-breaking, but it is the same algorithm. It stalls on six inputs
+  (#8, #18, #19, #20, #23, #28 of `out_e8_replay.txt`). On #8 even the random fallback search of
+  e8 found nothing.
+- *Smooth `θ`.* The family is designed for `m = 1`. Inputs were drawn until `m = 1` gives `β` odd
+  with `|β| ≡ 7 (mod 8)`, so that the construction runs on the smooth `θ` itself (up to 9 primes
+  below 100).
+- *Core instances.* The core primes are `≡ 1 (mod 21840)` and pairwise residues. Since
+  `|β| ≡ 7 (mod 8)`, `β` has at least one prime outside the core, so `ω(β) ≥ k + 1`, in line with
+  Proposition B.
+
+### 3.3 Tests of the proof itself
+
+- **Abstract configurations** (`t3_symbolic.py`, VERIFIED with the system of Proposition 0 as
+  implemented in descent-alt `symsel.py`). Random data satisfying only (θ1)–(θ4): classes mod 8 of
+  the primes of `β` (product `≡ 7`) and `θ` (product `≡ 1`), random symbols subject to reciprocity,
+  (θ3) and (θ4), random sign. The slots are added symbolically. In 3,300 trials (300 with
+  `ω(β), ω(θ) ≤ 6`, 1,000 with `≤ 12`, 2,000 with `≤ 3`) both systems had dimension 3 and contained
+  the class `β`, with its sign.
+- **Negative control.** With the wrong sign choice `x = s` instead of `x = s + 1`, the first curve is
+  still certified and the second still has dimension 3, but `β` drops out of `π₁` in 183 of 300
+  trials: exactly those where `θ` has a prime `≡ 3 (mod 4)`. So step 6 of the proof is sharp.
+- **The gluing of `θ`** (`t1_transfer.py`): 200 random configurations of actual primes with a hub
+  and partners; the two Selmer dimensions agreed in all 200.
+- **Base configurations** (`t2_template.py`): exhaustive over classes and symbols; see §2.3.
+- **Rational points** (`t4_ellrank.py`, PARI `ellrank`, effort 6). Ten small realizations of the
+  construction (primes below 3000, with data satisfying (θ1)–(θ4), not coming from admissible `B`).
+  `ellrank` gives the upper bound 1 for the rank of all 20 curves, consistent with `dim Sel₂ = 3`.
+  It found explicit points on 6 curves (3 instances), and each has abscissa class `β` up to the
+  torsion cosets. On the others `ellrank` found no point (its lower bound 1 is then not backed by a
+  point); `ellheegner` was too slow at these conductors. This part tests the deep input on a few
+  cases, not the descent.
+
+### 3.4 What the computations do and do not show
+
+They confirm the construction on every family requested, including all inputs on which earlier
+methods failed (no certifying multiplier, isotropic cores, greedy stalls, smooth `θ`). They are not
+the proof: §2 proves that the construction succeeds for every admissible `B`.
+
 ## 4. What the Lean proof would need
 
 ### 4.1 The narrowed hypothesis
