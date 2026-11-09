@@ -78,3 +78,7 @@
   omega(theta) 0-9, slots 1-18; both signs of beta in every family except p0var.
 - VERDICT: DL proved as written. No GAP found; findings F1 (superfluous [q0/l] = 0 with wrong
   rationale), F2 ("within one of the bound" overstated), remarks F3-F5.
+
+## Step 7 (deliverables)
+- docs/research/rv-slot-k-red.md complete (verdict, marks, audit 2.1-2.5, findings F1-F5,
+  computations 4.1-4.5, repairs, scripts). .fleet/rv-slot-k-red.md written. Task complete.
