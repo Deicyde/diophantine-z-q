@@ -94,3 +94,18 @@ Python env: /tmp/rvred-venv (cypari2 2.17, gmpy2, numpy, mpmath). Recreate with
   (v_3(B) = -20690 vs predicted 18*2917 - 366*200 = -20694).
 - slopelib fix: log10(R0) via mpmath (float overflow for v ~ 10^300). Restarted b5 A and C.
 - Report docs/research/rv-nt22p-red.md: verdict, findings F1-F7, step checks 2.1-2.3 written.
+
+## Step 7: batch 2 complete (b2_out.txt), b3 instances 2-5
+
+- b2, 30 inputs: all 21 inputs with the modified q (incl. l=2 e=1..5, S0 primes e=5,200, 331^2,
+  331^40, 11^200, two multi-prime v, Lemma P forced at l=2 e=3,4, and F<0 at l=5 with eta=-1)
+  satisfy every PC hypothesis checked (S0 >= 4, no odd negative valuation on S_b, 0<B<1/2).
+- Controls: old q at e=200 (l=3,13,2): v_l(B) = -20690, -20712, -20666 (predicted ~ -20694).
+  F<0 at l=3 e=200: R0 not a square, so no Lemma P ball exists; old q gives -20680. Any q has
+  v_3(a) <= 0 there, so such a slope cannot be completed at all: the hypothesis eta = 1 matters at
+  l = 3 mod 4 (consistent with nt-22p; Prop AP avoids it by F(t1), F(t2) > 0).
+- Threshold, old q, l=3: e=120: 6072, 130: 4932, 140: 1274, 150: -2390, 160: -6050; predicted
+  18*2917 - 366e = 4926, 1266, -2394, -6054 (e >= 127). Old q works up to e = 143. F5 CONFIRMED.
+- b3 genuine instances (A=-70): v with 2^10, 2^5 3^5, 5^5, 7^5: all three slopes ALL OK
+  (Lemma P branch at the primes with e >= 5; v_p(B)=1 at all selected primes; den square;
+  0 < B < 1/2).

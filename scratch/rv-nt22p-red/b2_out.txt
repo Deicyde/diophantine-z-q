@@ -27,3 +27,36 @@ threshold old q, l=3 e=120                 eta=+1 Spole=[] | S0 v(B)>=4: True | 
 threshold old q, l=3 e=130                 eta=+1 Spole=[] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5818, 3:4932, 5:5825, 7:5832, 11:5833, 13:5832, 19:5833, 23:5833, 31:5833, 131:5833, 167:5833, 191:5833, 227:5833, 277:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=1.3507768615640511e-173) | 16.6s
 threshold old q, l=3 e=140                 eta=+1 Spole=[] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5838, 3:1274, 5:5786, 7:5832, 13:5833, 17:5833, 83:5833, 109:5833, 151:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=1.56277822366794e-173) | 16.5s
 threshold old q, l=3 e=150                 eta=+1 Spole=[] | S0 v(B)>=4: False | v_l(B) at check primes: {2:5838, 3:-2390, 5:5832, 7:5825, 11:5833, 13:5833, 17:5833, 31:5833, 137:5833, 293:5833} | odd negative on S_b: [] | S_b-part of den(B): [(3, 2390)] | 0<B<1/2: True (B=1.6512776569421775e-173) | 16.4s
+threshold old q, l=3 e=160                 eta=+1 Spole=[] | S0 v(B)>=4: False | v_l(B) at check primes: {2:5811, 3:-6050, 5:5825, 7:5833, 13:5832, 23:5833, 31:5833, 43:5833, 47:5833, 179:5833, 233:5833} | odd negative on S_b: [] | S_b-part of den(B): [(3, 6050)] | 0<B<1/2: True (B=3.15219563036655e-121) | 16.5s
+
+SUMMARY (True = all PC hypotheses checked at S_b and real place):
+  l=2 e=1                                    True
+  l=2 e=2                                    True
+  l=2 e=3                                    True
+  l=2 e=4                                    True
+  l=2 e=5                                    True
+  l=3 e=5                                    True
+  l=3 e=200                                  True
+  l=5 e=5                                    True
+  l=5 e=200                                  True
+  l=7 e=5                                    True
+  l=7 e=200                                  True
+  l=13 e=5                                   True
+  l=13 e=200                                 True
+  l=331(H) e=2                               True
+  l=331(H) e=40                              True
+  l=11 e=200                                 True
+  multi 2^7 3^6 5^5 7^5 13^5                 True
+  multi 2^150 3^130 5^140 7^5 13^200 331^3   True
+  l=2 e=3 Lemma P branch                     True
+  l=2 e=4 Lemma P branch                     True
+  CONTROL old q, l=3 e=200                   False
+  CONTROL old q, l=13 e=200                  False
+  CONTROL old q, l=2 e=200                   False
+  CONTROL F<0, l=3 e=200, old q              False
+  F<0, l=5 e=200, ball (eta=-1)              True
+  threshold old q, l=3 e=120                 True
+  threshold old q, l=3 e=130                 True
+  threshold old q, l=3 e=140                 True
+  threshold old q, l=3 e=150                 False
+  threshold old q, l=3 e=160                 False

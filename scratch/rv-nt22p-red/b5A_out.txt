@@ -4,3 +4,8 @@ A=-70 v=[2, 40; 3, 1; 7, 1; 11, 1] x=205130670240857
      v_l(B)={2: 7854, 3: 5834, 5: 5832, 7: 5834, 11: 5834, 13: 5832}  S0>=4: True  odd-negative: []  negative-even: {}  0<B<1/2: True
   t2: eta=+1 field2' ok: True LemmaP-branch=[2] Spole=[2]
      v_l(B)={2: 7846, 3: 5834, 5: 5832, 7: 5834, 11: 5834, 13: 5832}  S0>=4: True  odd-negative: []  negative-even: {}  0<B<1/2: True
+A=-69 v=[2, 40; 3, 30] x=963423098561513
+  t1: eta=+1 field2' ok: True LemmaP-branch=[2, 3] Spole=[2, 3]
+     v_l(B)={2: 7850, 3: 7346, 5: 5832, 7: 5832, 13: 5832}  S0>=4: True  odd-negative: []  negative-even: {}  0<B<1/2: True
+  t2: eta=+1 field2' ok: True LemmaP-branch=[2, 3] Spole=[2, 3]
+     v_l(B)={2: 7848, 3: 7342, 5: 5832, 7: 5832, 13: 5832}  S0>=4: True  odd-negative: []  negative-even: {}  0<B<1/2: True
