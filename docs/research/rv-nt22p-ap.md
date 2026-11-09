@@ -55,7 +55,7 @@ No finding is critical or major. Section 2 lists the findings; Section 7 lists t
 | §3.3 field 2′ | CORRECT (case split checked; Lemma P(1) checked) |
 | §3.3 fields 3 and 4 | CORRECT (same argument as `goodSlope_of_primeValues`) |
 | §3.3 the constant slope `−10` | CORRECT (kernel-checked `goodSlope_neg_ten`) |
-| §3.3 remark 1 (every small prime divides `v`) | CORRECT; the size `K_A ≈ |A| + 71` is wrong |
+| §3.3 remark 1 (every small prime divides `v`) | CORRECT; the stated size of `K_A` is wrong (F1) |
 | §3.3 remark 3 (Lemma P needed only on `S₀`) | CORRECT |
 | §3.4 statement of Green–Tao 2008, Theorem 1.2 | CORRECT (checked against the TeX source) |
 | §3.4 22P_AP from Theorem 1.2 and Proposition D | CORRECT |

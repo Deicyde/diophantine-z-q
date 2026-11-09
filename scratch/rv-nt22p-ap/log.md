@@ -57,3 +57,7 @@ Step 5 (trust base): GT08 Thm 1.2 is a special case input; it rests on Szemeredi
 bounds), transference, GY correlation estimates; the manuscript route (GT10 + GTZ + MN) is strictly
 deeper. Caveats: (a) the main theorem only rests on GoodPrimeAP after Lean work for field 2' (not
 done); (b) Prop D is a sketch; (c) GT08 Thm 1.2's proof is sketched in GT08 sec. 10.
+
+Step 6: report docs/research/rv-nt22p-ap.md (verdict: AP proved as written given 3.2; D correct as
+sketch; GT step correct; trust-base claim right in substance; findings F1-F6, none critical/major,
+F4 moderate) and .fleet/rv-nt22p-ap.md written and committed. Task complete.
