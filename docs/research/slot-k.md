@@ -44,6 +44,18 @@ Every claim carries one of three marks.
   - (θ3) `(β/ℓ) = 1` for every prime `ℓ | θ`;
   - (θ4) `(θ/p) = 1` for every odd prime `p | β`.
 
+  *Proof* (recalled from descent-alt §3.1). Since `m(m − B) = m²(1 − B/m)` and `B/m = mB/m²`, there
+  are rationals `c, t` with `θc² = 1 − βt²` and `βt² = B/m`. Every prime `p | m` lies in `S₀`, so
+  `v_p(B/m) ≥ 3` there; for `p ∤ m`, `v_p(B/m) = v_p(B)` is even when negative (square denominator).
+  - At 2 and at `3, 5, 7, 13`: `v_p(βt²) ≥ 3`, so `1 − βt²` is `≡ 1 (mod 8)` resp. a `p`-adic unit
+    square. Hence `θ` is odd, `≡ 1 (mod 8)` and prime to 2730. Also `θ > 0`, since
+    `|B/m| ≤ B < 1/2`. This is (θ1).
+  - At an odd `p | β`: `v_p(βt²)` is odd, hence positive by the remark above. So `1 − βt²` is a
+    `p`-adic unit square: `p ∤ θ` and `(θ/p) = 1`. This is (θ2) and (θ4).
+  - At `ℓ | θ`: `v_ℓ(1 − βt²)` is odd. It cannot be that `v_ℓ(βt²) > 0` (then `1 − βt²` is a unit),
+    nor that `v_ℓ(βt²) < 0` (then the valuation would be `v_ℓ(B)`, which is even). So `βt²` is an
+    `ℓ`-adic unit with `βt² ≡ 1 (mod ℓ)`, and `(β/ℓ) = 1`. This is (θ3).
+
 ### 1.2 Certificates (VERIFIED, descent-alt Notation and §2(c); rv-route-k §4.3)
 
 For squarefree `d` and the class `β`, a **certificate** for `C_d` is one of:
@@ -53,7 +65,7 @@ For squarefree `d` and the class `β`, a **certificate** for `C_d` is one of:
 - (Selmer) `dim_{𝔽₂} Sel₂(C_d) = 3` and `β ∈ π₁(Sel₂(C_d))`.
 
 In the Selmer case, Kriz's 2-converse (arXiv:2002.04767v5, Theorems 10.13 and 10.17(2)) together
-with the corank lemma (manuscript Lemma 5.3 at line 1072; Poonen–Stoll, audit record A019) gives
+with the corank lemma (`lem:corank`, manuscript line 1072; Poonen–Stoll, audit record A019) gives
 `rank C_d(ℚ) = 1` and `Ш(C_d)[2] = 0`. Then `C_d(ℚ)/2C_d(ℚ) = Sel₂(C_d)`, so the class with first
 coordinate `β` comes from a rational point (pc-audit RK9). This is the only use of a deep theorem;
 pc-audit §2.2 states it as the hypothesis (R≥1) on the certified curves.
