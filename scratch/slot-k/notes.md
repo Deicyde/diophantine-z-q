@@ -34,3 +34,10 @@
 - σ (u=1_P) lifts with first coordinate β iff v_z(σ)+a0(σ)=0 (u_{r_ℓ}=λ_ℓ(v_h+a0)).
 - t1_transfer.py: 200 random actual-prime trials, dim Sel equal in all; β∈π1 transfers in 31/37 (6 failures = the v_z+a0 condition).
 - PARI available via `~/bin/uv run --with cypari2 python`.
+
+## Step 5 (collapse lemma, template, full construction — derived, to validate)
+- P-collapse: partners r_p (p∈P∖{p0}) ≡1 (8), [r_p/p]=[r_p/p0]=1, else 0 ⇒ Sel ≅ virtual system with P replaced by one prime p* ≡ |β| (8), symbols = Jacobi sums. Lift of σ*: u_{r_p} = [n''/p]+1+λ_p(v*+a0) (must be 0).
+- t2_template.py: one aux suffices iff (p*,q0) ≡ (7,3) or (3,7) mod 8, any symbol x=[q0/p*]: dim 3, p*∈π1. By hand: σ*: v_p*=a0+x, v_q0=a0+x+1 (ε=v*+a0=x, η=v_q0+a0=x+1).
+- T-hub may be q0 itself. T lift: u_{r_ℓ}=λ_ℓ(s+η), s=[β<0].
+- Construction: m with β odd, |β|≡7 (8); x=s+1; q0≡3 (8), [q0/p]=1+λ_p x (p≠p0), [q0/p0]=x+Σ_{p≠p0}(1+λ_p x), [q0/ℓ]=0; r_p; r_ℓ ([r_ℓ/ℓ]=[r_ℓ/q0]=1). n=β q0 ∏r. #aux = ω(β)+ω(θ).
+- m with |β|≡7 (8), β odd always exists: |m_odd| mod 8 covers 1,3,5,7.
