@@ -71,3 +71,7 @@
 - core3 24/24, core6 24/24, smooth 10/10 (m=1, ω(θ) up to 9), allm 40/40 (incl. ω(β)=1).
 - Total 62 inputs, 216 runs, 216 certified on both curves; slots = ω(β)+ω(θ) in every run (summarize.py).
 - Note §1.1 now recalls proofs of (θ1)–(θ4).
+
+## Step 12 (review, final)
+- Automated adversarial review of §§1–2: no errors; Lemma 2 checked on 3000 random virtual configs, end-to-end on 558 curves with real primes < 3e5. Remark applied: (2.2) v-analogue written; c=1,3,7 rows unused.
+- .fleet/slot-k.md written.

@@ -191,7 +191,13 @@ solutions of `Σ(𝒞)` onto those of `Σ(𝒞*)`. In the inverse, `u_ℓ = u_g`
 u_{r_ℓ} = Σ_{y∈S'} [y/ℓ](u_y + u_g) + u_g + λ_ℓ(v_g + a₀),                                    (2.1)
 ```
 
-with `a₁ = 0`, which `(D)` forces.
+with `a₁ = 0`, which `(D)` forces. Likewise, from `E2_ℓ`,
+
+```
+v_{r_ℓ} = Σ_{y∈S'} [y/ℓ](v_y + v_g) + v_g + μ_ℓu_g + λ_ℓ(v_g + b₀) + b₁μ_ℓ.                    (2.2)
+```
+
+Here `b₁` need not vanish, but it is carried along by `Φ`, so (2.2) is a function of the image.
 
 *Proof.* Let `X = G ∪ {g}`.
 
@@ -211,7 +217,7 @@ with `a₁ = 0`, which `(D)` forces.
    are the same on both sides.
 
 So `Φ` maps solutions to solutions. It is injective: if the image is 0, then `u_X = v_X = 0` by step 1,
-and (2.1) and its `v`-analogue give `u_R = v_R = 0`. It is surjective: given a solution of `Σ(𝒞*)`, set
+and (2.1), (2.2) give `u_R = v_R = 0`. It is surjective: given a solution of `Σ(𝒞*)`, set
 `u_X = u_{g*}`, `v_X = v_{g*}` and define `u_R`, `v_R` by `E1_ℓ`, `E2_ℓ`. The rows at `r_ℓ`, `ℓ` and `S'`
 then hold by steps 1–3, `E1_g` holds because `E1_g + Σ E1_ℓ` is `E1_{g*}`, and step 4 handles the rest. ∎
 
@@ -598,8 +604,17 @@ of `β` and `θ`.
    `≡ 3 (mod 4)`.
 4. *Proposition 0 itself.* descent-alt determined the place-2 table by computing images from sampled
    2-adic points until dimension 3 was reached. §2.1 replaces this, for what the proof needs, by a
-   direct argument. A reviewer may prefer a fully written derivation of all four rows, but the proof
-   uses only the `c = 5` row.
+   direct argument. The rows for `c = 1, 3, 7` are never used: Lemmas 1–2 use only the structure of
+   the rows, and every curve the construction produces has `c = 5`. Those rows rest only on
+   descent-alt's 600-curve check.
+
+**A first independent check.** A separate reviewer, given only §§1–2 and the code, redid
+Lemmas 1–3, the place-2 rows for `c = 5`, (θ1)–(θ4) and steps 0–6 by hand. It found no error. Its
+only remark was that the `v`-analogue (2.2) of (2.1) should be written out, which is now done. It
+also tested Lemma 2 on 3,000 random virtual configurations, comparing dimensions and checking (2.1)
+on every kernel vector, and ran the end-to-end construction with real primes below 300,000 on 558
+curves (`symsel.py`). There were no failures. This was an automated review, not the human review
+Jack requires.
 
 Per Jack's decision, the Lean construction switches to `x + ℓ` only once this proof survives an
 independent review. The review is the remaining step.
