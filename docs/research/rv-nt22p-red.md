@@ -20,7 +20,7 @@ manuscript Theorem 5.2, `ZInQ.PoleCompleteness`) asks: reduced denominator of `B
 Proposition AP, that is, the implication "22P_AP ⟹ every integer is a sum of three slopes
 satisfying fields 1, 2′, 3, 4 ⟹ the slope predicate is complete at every true triple". I found no
 counterexample and no gap. Every step was checked by hand, and the statements were tested on
-independently implemented data (about 120 slope inputs in six batches, including genuine
+independently implemented data (about 150 inputs in six batches, §3.7, including genuine
 instances of the 14-point pattern made of good slope primes, with `v` divisible by `2¹⁰`, `3⁵`, `5⁵`,
 `7⁵`, `13⁵` or `331²`, and on both sides of the change of sign case at `A = −69/−70`).
 
@@ -303,8 +303,8 @@ Result, for all 30 slopes (ten instances, three slopes each):
 - `0 < B < 1/2` (`log₁₀ B` between `−146` and `−694`).
 
 **No failure.** Instances with `|S_A⁺| = 14` (for example `A = 0`) are much rarer at this size; a
-search up to `x = 2·10¹¹` with `v = 480480` was still running when this report was written. Part A of
-§3.6 covers `|S_A⁺| = 14` with pseudo-instances.
+search for `A = 0` with `v = 480480` up to `x = 2·10¹¹` found none. Part A of §3.6 covers
+`|S_A⁺| = 14` with pseudo-instances.
 
 ### 3.6 Pseudo-instances with very deep poles; Remark 3; density count
 
