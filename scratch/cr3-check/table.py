@@ -1,8 +1,20 @@
 """Markdown tables for .fleet/cr3-check.md from cmp40.json, points40.json and slot5.json."""
 import json, os
 rows = json.load(open('cmp40.json'))
-pts = json.load(open('points40.json')) if os.path.exists('points40.json') else []
+import glob
+pts = [p for f in sorted(glob.glob('points40_*.json')) for p in json.load(open(f))]
 P = {(p['d'], p['a']): p for p in pts}
+for f in sorted(glob.glob('points2_*.json')):
+    for p in json.load(open(f)):
+        if p['found'] or (p['d'], p['a']) not in P or not P[(p['d'], p['a'])]['found']:
+            P[(p['d'], p['a'])] = p
+if os.path.exists('quartic_found.txt'):
+    for line in open('quartic_found.txt'):
+        w = line.split()
+        if 'FOUND' in w and 'NOT' not in w:
+            k = (int(w[0]), int(w[1]))
+            if k not in P or not P[k]['found']:
+                P[k] = dict(d=k[0], a=k[1], found=True, how='quartic search ' + w[2])
 print('| d | primes (class mod 8) | Lean #sols | dim Sel₂: Lean / indep / rv sel2.py / PARI | Sel₂ sets equal | a with \\|a\\| ≡ 7 and Lean σ.first = natClass d a | CR₃ hyp. | point with x ∈ aℚ*² (a > 0 / a < 0) |')
 print('|---|---|---|---|---|---|---|---|')
 for r in rows:

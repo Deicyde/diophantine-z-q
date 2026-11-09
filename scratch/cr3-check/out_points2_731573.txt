@@ -2,3 +2,7 @@ PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
 731573 BSD-predicted height of a generator (Sha = 1): 355.9508145579407
   *** ellheegner: Warning: increasing stack size to 2000003072.
 731573 ellheegner points: 0
+731573 ellrank(effort=20) points: 0
+731573 ellrank(effort=30) points: 0
+731573 4087 none within limits NOT FOUND 
+731573 -4087 none within limits NOT FOUND 

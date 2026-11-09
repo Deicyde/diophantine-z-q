@@ -5,3 +5,6 @@ PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
 731573 -4087 none within limits NOT FOUND 
 5671693 127 none within limits NOT FOUND 
 5671693 -127 none within limits NOT FOUND 
+15335133 356631 none within limits NOT FOUND 
+15335133 -356631 none within limits NOT FOUND 
+found 2 of 8
