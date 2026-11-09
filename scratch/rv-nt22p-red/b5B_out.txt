@@ -1,0 +1,9 @@
+Part B: Lemma P(3) with v_l(ell0) = 0
+l=2 e=3 t=395/8
+  ball: eta=+1 field2' ok: True LemmaP-branch=[] Spole=[2]
+     v_l(B)={2: 166}  S0>=4: True  odd-negative: []  negative-even: {}  0<B<1/2: True
+  old q: eta=+1 field2' ok: True LemmaP-branch=[] Spole=[]
+     v_l(B)={2: -1094}  S0>=4: False  odd-negative: []  negative-even: {2: -1094}  0<B<1/2: True
+l=2 e=7 t=2663/128
+  ball: eta=+1 field2' ok: True LemmaP-branch=[2] Spole=[2]
+     v_l(B)={2: 362}  S0>=4: True  odd-negative: []  negative-even: {}  0<B<1/2: True

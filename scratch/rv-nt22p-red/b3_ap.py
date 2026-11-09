@@ -88,7 +88,7 @@ def check_slope(name, t, mode="new", dmode="random", verbose=True):
               f"q has {L.gmpy2.num_digits(L.mpz(q.denominator), 10)} digits; ALL OK: {ok}")
     return ok
 
-def run_instance(A, v, x, dmode="random"):
+def run_instance(A, v, x, dmode="random", mode="new"):
     Ap = A + 10
     S = splus(A)
     u = x + max(S) * v
@@ -97,12 +97,14 @@ def run_instance(A, v, x, dmode="random"):
     print(f"  all {len(vals)} values good slope primes > max S_b: {all(good_slope_prime(n) and n > max(Sb) for n in vals)}")
     t1 = Fr(u, v)
     t2 = Fr(Ap) - t1
-    oks = [check_slope("t1", t1, dmode=dmode), check_slope("t2", t2, dmode=dmode),
-           check_slope("t3=-10", Fr(-10), dmode=dmode)]
+    oks = [check_slope("t1", t1, mode=mode, dmode=dmode), check_slope("t2", t2, mode=mode, dmode=dmode),
+           check_slope("t3=-10", Fr(-10), mode=mode, dmode=dmode)]
     print(f"  t1 + t2 + t3 == A: {t1 + t2 - 10 == A};  all slopes OK: {all(oks)}")
     return all(oks)
 
 if __name__ == "__main__":
     A, v, x = int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3])
     dmode = sys.argv[4] if len(sys.argv) > 4 else "random"
-    run_instance(A, v, x, dmode)
+    mode = sys.argv[5] if len(sys.argv) > 5 else "new"
+    print("test values:", dmode, " Lemma P used at:", "all of S_b where needed" if mode == "new" else "S0 only (Remark 3)")
+    run_instance(A, v, x, dmode, mode)

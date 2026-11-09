@@ -67,3 +67,19 @@ Python env: /tmp/rvred-venv (cypari2 2.17, gmpy2, numpy, mpmath). Recreate with
   6100; other S0 primes 5834; v_p(B) = 1 at all 6+6 selected primes; only negative valuations
   at u - v (resp. u - (A'-1) v), even (-216), and at the auxiliary prime (even); 0 < B < 1/2.
   t3 = -10: eta = -1, all fine. ALL OK.
+
+## Step 5: more instances, sign batch, Lemma P(3) isolation
+
+- More genuine instances (ap_runs_out.txt, ap_runs2_out.txt): A=-70 v=2^3·3·5·7·11·13^5
+  x=7409892761, 8739955537; A=-70 v=2^3·3·5·7·11·13·331^2 x=2924927297, 9413594497;
+  A=-69 (|S+| = 12, first sign case, boundary A'+60 = 1) v=480480 x=2547011473;
+  A=-40 (|S+| = 11, first case) v=2^5·3^5·5·7·13 x=752276761, 937852193.
+- b4_signs.py (b4_out.txt): 28 values of A incl. -75..-63, the case change at A = -69/-70, A with
+  |S+| = 11, 12, 13, +-10^6; 200 random (x, v) each incl. v = 2^40, 3^30·7: t1 > max S+,
+  t2 < -60, F(t1), F(t2) > 0, t1, t2 not in C ∪ {1}: no failure. Sign step: CORRECT.
+- Correction to nt-22p §3.3 remark 1: K_A = A + 130 for A' + 60 >= 1 and K_A = -A - 8 = |A| - 8
+  otherwise (not "|A| + 71"). No consequence.
+- b5 part B run 1 (b5B_out_run1_unforced.txt): with v_l(ell0) = 0 and e <= 4 (field 2 holds,
+  ball not forced) v_l(B) < 0: expected, the old argument needs E_l. With e = 7 at 2 and e = 9 at
+  3 (Lemma P ball) v_l(B) = 362, 460 >= 4, and the old q gives -2548, -3288: Lemma P(3) works
+  with E_l = 0, and the implementation detects failures. Rerun with ball forced: b5B_out.txt.
