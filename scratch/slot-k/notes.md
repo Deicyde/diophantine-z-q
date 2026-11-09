@@ -9,3 +9,8 @@
 - Prop B: needs ≥ k aux primes. Prop C: symmetric sets fail.
 - Greedy stalls; random 2-3 aux primes solved all.
 - pc-audit.md not present in repo (searched).
+
+## Step 1 (read rv-route-k 4.2-4.4, manuscript 1019-1070, symsel.py)
+- symsel.equations(cfg) gives rows over [a0,a1,b0,b1,u,v]; cfg=(d mod 8, lam, mu, L). has_first(cfg,umask).
+- Manuscript template: kerK = <1, 1_supp β>, d-1 slots type (0,0) + one q0 of type (1,1); rank-one correction.
+- Next: design the construction for C_d in Prop 0 language. Plan: one sub-question per step.
