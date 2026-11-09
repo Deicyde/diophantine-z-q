@@ -626,3 +626,20 @@ independent review. The review is the remaining step.
   They would allow the other multipliers, which matters only if a later variant restricts `m`.
 - **A Selmer-free deep input.** CR₃ (§4.1) is stated through the explicit system. If one wants the
   Lean hypothesis to mention genuine Selmer groups, Proposition 0 must be formalized first.
+
+## Scripts (in `scratch/slot-k/`)
+
+| Script | Purpose | Output |
+| --- | --- | --- |
+| `slotk.py` | the construction of §2.4 with actual primes; certification by `sel2cong.py` | |
+| `run_dl.py` | driver, random admissible inputs | `out_random30.txt` |
+| `run_families.py` | drivers for `B123`, `e11`, `core3`, `core6`, `stall`, `smooth`, `allm` | `out_<family>.txt` |
+| `summarize.py` | the table of §3.2 | |
+| `find_seed_e8.py`, `e8_replay.py` | recover and replay descent-alt's greedy descent, printing the inputs | `out_e8_replay.txt` |
+| `t1_transfer.py` | the gluing of `θ` onto an auxiliary prime, on actual primes | |
+| `t2_template.py` | exhaustive search of base configurations (§2.3) | |
+| `t3_symbolic.py` | the theorem on random abstract data; `WRONGX=1` gives the negative control | |
+| `t4_ellrank.py` | PARI `ellrank` on small realizations | `out_t4_ellrank.txt` |
+| `t_one.py` | timing of one instance | |
+
+PARI is used through `cypari2` (for factoring `θ`, Jacobi symbols in the prime search, and `ellrank`).
