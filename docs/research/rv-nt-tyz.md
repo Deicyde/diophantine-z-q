@@ -205,7 +205,7 @@ inversion (Cox, *Primes of the form x² + ny²*, Lemma 9.3). Every subgroup `U` 
 satisfies `cUc^{−1} = U^{−1} = U`, so it is normal. Hence `H'_d` is Galois over `ℚ`. `L_n(i)` is abelian
 over `ℚ`, and a compositum of Galois extensions is Galois. So `ℍ'_n` is Galois over `ℚ`, and every lift
 `β'` maps `A(ℍ'_n)` to itself. This is what the last step needs: `X ∈ A(ℍ'_n)` implies
-`X^{β'} + X ∈ A(ℍ'_n)`. TYZ use the same fact without comment at L2593 ("the contribution from
+`X^{β'} + X ∈ A(ℍ'_n)`. TYZ use the same fact without comment at L2594 ("the contribution from
 `2A(ℍ'_n)^{β'+1}` is torsion, contained in `2A(ℍ'_n)_tors`").
 
 ### 4.4 Proof of Proposition N (CORRECT)
@@ -247,3 +247,85 @@ Under this hypothesis, write `P(n) = P + t`. Then `P^{β'} = −P` by F3 (second
 give `T_5a ≡ T_5b ≡ 0`. So reading A of Theorem 1.2 (and of Theorem 3.5(2)) for `n ≡ 5` is fully
 proved by nt-tyz's argument, not only Proposition N. The converse direction of the "i.e." is not
 needed anywhere.
+
+## 5. The counterexamples of nt-tyz §1.4 (CORRECT)
+
+**Readings.** For `n ≡ 5`, the `(7, 3)` terms of the second sum give `T_5b(n)` under every reading,
+because `d₀` and `d₁` are the unique blocks of classes 7 and 3. The `(5, 1)` terms give:
+
+- A (set partitions, `d₁ = 1` admitted, each set partition counted once): `T_5a(n)`;
+- B (all `d_i > 1`; `d₁` is one of the class-1 blocks, counted once): `Σ_{k(π)≥1} w(π) = T_5a + g(n)`;
+- C (all `d_i > 1`; `d₁` distinguished among the class-1 blocks): `Σ_π k(π)w(π)`;
+- D (`d₁ = 1` admitted *and* `d₁` distinguished; added here): `Σ_π (1 + k(π))w(π) = T_5a + Σ_π k(π)w(π)`.
+
+Here `π` runs over the partitions with one class-5 block and `k(π)` class-1 blocks.
+
+**Factorizations.** `26565 = 3·5·7·11·23` and `33117 = 3·7·19·83`, both `≡ 5 (mod 8)`. CORRECT.
+
+**Class-group parities.** `g(d)` was computed for all 31 resp. 15 divisors `d > 1` by three methods,
+which agree on every divisor. (i) `g(d) = h(D)/#Cl(D)[2]`, by enumerating the reduced forms of
+discriminant `D = disc ℚ(√−d)` and the reduced ambiguous forms (`b = 0`, `b = a` or `a = c`). This is
+exact and unconditional. (ii) Rédei's formula: `g(d)` is odd iff the 4-rank `t − 1 − rank_{𝔽₂} R` is `0`,
+where `R` is the Rédei matrix. (iii) PARI's `quadclassunit`. Both `n` have `g(n) = 1`. CORRECT.
+
+**Genus sums.** For both `n`: `T_5a = T_5b = 0`. Hence the second sum is `0` under A and `1` under B, C
+and D. CORRECT (and reading D is refuted as well).
+
+**Rank.** Three points on each curve `C_n : y² = x³ − n²x` were found by a search (PARI's `ellrank`,
+used only to find them; they differ from those listed in nt-tyz):
+
+- `n = 26565`: `(−8349, 2304324)`, `(−644, 673946)`, `(148764, 56455938)`;
+- `n = 33117`: `(53067, 9552060)`, `(−1120791/100, 3299122323/1000)`, `(917301/25, 378261576/125)`.
+
+Each was checked exactly to lie on the curve. The Kummer map `x ↦ (x, x − n) ∈ (ℚ*/ℚ*²)²`, corrected
+at the 2-torsion points as usual, is injective on `C_n(ℚ)/2C_n(ℚ)`. The images of `(0, 0)`, `(n, 0)`
+and the three points span a 5-dimensional `𝔽₂`-space; the squarefree parts were computed by exact
+factorization. Since `C_n(ℚ)[2] = (ℤ/2)²`, `dim C_n(ℚ)/2C_n(ℚ) = 2 + rank`, so `rank C_n(ℚ) ≥ 3`
+(exact). As a numerical cross-check, the regulators of these triples are `39.4026` and `269.7036`,
+equal to those reported in nt-tyz for different points. The root number is `−1`.
+
+**Conclusion.** If `ord_{s=1} L(C_n, s) ≤ 1`, Gross–Zagier–Kolyvagin would give rank `= ord ≤ 1`. So
+`ord ≥ 2`, and in fact `ord ≥ 3` because the order is odd. By TYZ's definition (L338–345), `𝓛(n) = 0`,
+so the hypothesis "`2^{−ρ(n)}𝓛(n)` is even" of Theorem 1.2 holds. Its conclusion fails under readings
+B, C and D. Theorem 1.2 read literally is false. Claim (a) is proved. A rank lower bound of 2 would
+already suffice.
+
+**Finding A1.** nt-tyz says the only true reading "admits the trivial factor `d₁ = 1`". Reading D also
+admits `d₁ = 1` and is false. The correct description is the set-partition convention: decompositions
+are set partitions of the primes of `n`, each counted once, and `d₁` is the block of class 2 or 3 if
+there is one, and `1` otherwise. With this convention, the coefficient lemma (§3) shows that
+Proposition 3.4 holds, and §4.5 shows that Theorem 1.2 holds for `n ≡ 5`.
+
+## 6. Section 5.1 of nt-tyz: Kriz is not needed
+
+**The deduction (CORRECT).** CR₃ (`ZInQ.CertifiedRank`) assumes that `d > 0` is squarefree with
+`d ≡ 5 (mod 8)`, that `a | d` is squarefree with `|a| ≡ 7 (mod 8)`, that the system `Σ(𝒞_d)` has 8
+solutions, and that one solution has first coordinate the class of `a`. By Proposition 0
+(descent-alt §4.1), this says `dim Sel₂(C_d) = 3` and `a ∈ π₁(Sel₂(C_d))`. Since `|a|` is odd and
+`≡ 3 (mod 4)`, tyz-5b's Corollary 4.4 applies to every such `d`. Its proof goes through Theorem 4.3
+(via Lemma 4.1 and the bordered-determinant Lemma 4.2), which gives `det M_5b = 1`. Theorem 3.6 then
+gives `T_5b(d) = 1`. Corollary 1.2 (Proposition N, then "analytic rank one ⟹ rank ≥ 1", then pc-audit
+RK9) gives the point. A class with first coordinate `a` is not torsion, since the torsion classes have
+odd parts `1` and `d`, both `≡ 1 (mod 4)`. No step uses Kriz, the Cassels–Tate pairing or Smith's
+preprint.
+
+Only rank `≥ 1` is needed: `rank ≤ dim Sel₂ − 2 = 1` holds for free. So Gross–Zagier, with an
+auxiliary non-vanishing twist, would suffice in place of Kolyvagin. nt-tyz §5.2 makes the same point.
+
+**What was not re-proved (C1).** Proposition 0, Lemma 4.1, Theorem 4.3 and Theorem 3.6 of tyz-5b
+are elementary but long. They are outside the scope of this review. Their combined conclusion was
+tested instead.
+
+**Test on actual curves.** The 2-Selmer group was computed by a full 2-descent written for this
+review. The local images `W_v ⊂ (ℚ_v*/ℚ_v*²)²` of `C_d(ℚ_v)/2C_d(ℚ_v)`, for `v ∈ {∞, 2, p | d}`, are
+generated by local points until they reach their known dimensions (1, 3 and 2). Then
+`Sel₂ = {(b₁, b₂) : loc_v ∈ W_v for all v}`. This agreed with `2^{2+rank}` on nine test curves,
+including both counterexamples (32 elements each).
+
+- 30 random CR₃-admissible pairs `(d, a)` with `d < 2·10⁶` (2 to 5 primes): `T_5b(d) = 1` in all 30.
+  For two of them (`d = 226733` and `d = 265341`), a generator `P` was found, and one of `P + T`,
+  `T ∈ C_d[2]`, has `x/a` a square. This is the conclusion of CR₃, checked end to end.
+- A separate sample of 20 admissible `d` with 4 or 5 primes: `T_5b(d) = 1` in all 20.
+
+Claim (c) is proved as a deduction, relative to the elementary results of tyz-5b and Proposition 0,
+and the tests found no exception.
