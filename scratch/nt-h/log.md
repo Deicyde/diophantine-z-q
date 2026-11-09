@@ -30,3 +30,17 @@
 - docs/research/nt-h.md: summary, §1 consumers + slack (slack.py), §2 thin sets / rank-zero.
 - Run interrupted after this; resumed (Step 3): remaining §3 (cusp, affine-moduli, detection
   lemmas), §4 (Serre large-l argument), §5 ranking, .fleet/nt-h.md.
+
+## Step 3 (computation: genus-2 curve model degenerates at all contact primes)
+- scratch/nt-h/genus2cusp.py (+ .output.txt): with the Igusa point of line 538,
+  J2^5/J10 = 12^5 (j+1)^5 / j^3, and v_p(J2^5/J10) < 0 for v_p(u-c) = 1 AND = 2 (even!) at
+  p in {331,...,353}, and for u p-adically near a root of G (p = 1 mod 3). 19 inputs, all
+  non-integral. By Liu's criterion the genus-2 curve C_{J(u)} has bad (non-potentially-good)
+  reduction at every prime with a positive contact valuation, whatever the parity; only the
+  Jacobian is good. VERIFIED (algebra + computation); Liu's criterion STANDARD, number UNCHECKED.
+- Consequence for Q2: the Baker-accessible genus-2 Shafarevich (Smart 1997; von Kanel 2014)
+  would need all positive-valuation primes in the conductor = C1. The contact set is exactly the
+  preimage of the decomposable locus (J10 = j^3 = 0 <=> F(u) = 0).
+- Q3 plan for §4: Serre's pigeonhole at large l: KW strong form (level N(rbar), weight 2 from
+  finite flatness at l outside T), pigeonhole over newforms of level <= QM^2. Removes Pan,
+  A009/A010, Conrad's local algebraicity; Carayol moves inside the citation of the strong form.
