@@ -56,3 +56,11 @@
   "A subset of primes, limsup pi(N)^{-1}|A cap [1,N]| > 0 => infinitely many APs of length k, all k".
 - arXiv abstracts read: 1007.1839 (Bergelson-Leibman-Ziegler, shifted primes), 1403.2957 and
   1305.5440 (Conlon-Fox-Zhao simplified transference), 2408.17441 (Frei-Koenig-Tinkova).
+
+## Step 4
+- Note sections 3.3 (22P_AP, Prop AP), 3.4 (GT08), 3.5 (literature), 4 (fewer forms), 5 (ranking).
+- constslopes.py (H=120): |T0|=3670, |T0+T0|=3771642, all |A|<3000 covered; mobius.py: group of
+  order 12 (contains a 6-cycle). Faltings => T0 finite => CRT: one variable slope + constants fails
+  on a positive density of A.
+- Lemma P only needed on S0 (PC asks v>=4 only there; parity automatic elsewhere).
+- Report .fleet/nt-22p.md written. Task complete.
