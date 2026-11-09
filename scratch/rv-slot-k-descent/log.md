@@ -76,3 +76,7 @@ Setup: C_d: y^2 = x(x-d)(x+d), e1=0, e2=d, e3=-d, d>0 odd squarefree. Kummer (x-
   10 curves, d up to 1.3e12: own descent dim 3 and beta in pi_1 in 10/10; ellrank [r1,r2,s] = [1,1,0] in 10/10
   (C = 2 + r2 + s = 3 agrees). Points found on 4 curves; each abscissa class is beta times a torsion first
   coordinate (4/4).
+
+## Step 8 (report)
+- docs/research/rv-slot-k-descent.md written in six parts; verdict: DL proved as written; findings F1-F3 minor,
+  F4-F5 cosmetic. .fleet/rv-slot-k-descent.md written. DONE.
