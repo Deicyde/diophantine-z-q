@@ -51,3 +51,57 @@ modified `q` does not satisfy at the pole primes (§4, item 5).
 | F7 | cosmetic | §3.3 announces "Two remarks" and lists three. |
 
 No finding is a GAP. Each step's status is in §2.
+
+## 2. Step-by-step check
+
+### 2.1 Lemma P
+
+- **(1) `v_ℓ(R₀) = 2e`, `v_ℓ(t − 1) = −e`.** From `t − c = (u − cv)/v`,
+  `R₀ = v²F(u, v)/(u − v)⁸`, and all numerators are `ℓ`-units (F4). CORRECT.
+- **(1) `R₀` is a square in `ℚ_ℓ`.** `R₀ℓ^{−2e} = (vℓ^{−e})²(u³)²(u − v)^{−8}∏_c(1 − cv/u)`, and each
+  factor `1 − cv/u` is `≡ 1 (mod ℓ^e)`. A unit `≡ 1 (mod ℓ)` is a square for odd `ℓ`, and a unit
+  `≡ 1 (mod 8)` is a square in `ℚ₂`. CORRECT. The hypothesis `e ≥ 3` at `2` is sharp (F2), and
+  `F(t) > 0` can be weakened at `ℓ ≡ 1 (mod 4)` (F3).
+- **(2) The ball.** With `q₀ = ±R₀^{−1/2}`, `1 − R₀q² = −R₀(q − q₀)(q + q₀)`, so
+  `v_ℓ(a) = 2e + v_ℓ(q − q₀) + v_ℓ(2q₀)` once `v_ℓ(q − q₀) > v_ℓ(2q₀) = v_ℓ(2) − e`. Hence
+  `v_ℓ(a) ≥ N` on a ball. CORRECT.
+- **(3) `v_ℓ(B) ≥ 4`.** `v(R) = 2E_ℓ + 2α + 2e` and
+  `v(C_{gj}) = v(D_{gj}) − 2ek_j + e(k_j + 1) ≥ −e(k_j − 1)`, so `v(RC_{gj}²) ≥ 2E_ℓ + 2α − 46e` for
+  `k_j ∈ {1, 25}`. For `α ≥ N` this is at least `2v_ℓ(12) + 4 > v_ℓ(12)`, so every `W_g^{±1}` is
+  `≡ 1` beyond `v_ℓ(12)` at each place above `ℓ`. The trace step holds also at the ramified prime
+  `2`: for `x ∈ K₀` with `v_𝔭(x) = m/2` (normalized to extend `v₂`), the different `(2√2) = 𝔭³`
+  gives `v₂(Tr x) ≥ ⌊(m + 3)/2⌋ ≥ m/2`. So `v_ℓ(Θ) = v_ℓ(12)` and
+  `v_ℓ(B) = 2E_ℓ + 2α + 2e − 2v_ℓ(12) ≥ 46e + 4`. CORRECT. Only `E_ℓ ≥ 0` is used (F6).
+- **Integrality of the tests above `S_b`.** `ZInQ.Mult.tests_integral_old`
+  (`SbIntegrality.lean:98`) has hypotheses `M₀ | h`, `h ≠ 0`, `h ≠ c_*` and `p ∈ S_b`. It does not
+  mention `t`, and `slope_complete` discharges these hypotheses from `exists_shift` independently
+  of `t`. CORRECT.
+
+### 2.2 The modified choice of `q`
+
+- **Where field 2 is used.** `GoodSlope.old` is used only in `pole_input_valuations`
+  (`PoleValuations.lean:126`). `GoodSlope.old_le_Cp` has no other caller. Field 2 has no consumer
+  in the selected-prime analysis, in the shift choice, or in the real-place lemma
+  `pole_input_small`. So replacing field 2 by 2′ affects only the `S_b` part of
+  `pole_input_valuations`. CORRECT.
+- **Compatibility of the local conditions.** The conditions on `q` are: a ball around `±R₀^{−1/2}`
+  at each `ℓ ∈ S_pole`, `v_p(q) ≥ C_p` at `p ∈ S_b ∖ S_pole`, `v_p(q) ≥ 0` at the selected primes,
+  and `|q − R₀^{−1/2}| < δ` at the real place. They concern distinct places, so weak approximation
+  applies. Concretely, `q = m/(∏_{ℓ∈S_pole}ℓ^{e_ℓ}·L^k)` with `L` an auxiliary prime, `m` in a
+  residue class modulo `∏ℓ^{N_ℓ+e_ℓ+O(1)}·∏p^{C_p}` (Hensel lifting gives the class), and `m`
+  nearest to `R₀^{−1/2}·∏ℓ^{e_ℓ}·L^k`. This is the construction I implemented (§3.1). CORRECT.
+- **The other primes.** At `p ∈ S_b ∖ S_pole` nothing changes. At a selected prime `p`, `q` is
+  `p`-integral and `v_p(R₀) = 1`, so `a ≡ 1 (mod p)` and `v_p(B) = 1` as before. At every other
+  prime, including the auxiliary prime and the primes of `S_pole`'s denominators, `a` enters `R`
+  squared, so `v_p(B) ≡ v_p(R₀) (mod 2)`. And `v_p(R₀)` is odd only at odd contact primes (all
+  selected) and possibly at primes of `S_b`. CORRECT.
+- **Real place.** `W_g ≥ 1` in both real embeddings (`RC² ≥ 0`), so `0 < Θ ≤ 12`, and `B → 0⁺` as
+  `a → 0`; `pole_input_small` applies unchanged. CORRECT.
+- **`q ≠ 0` in Lean.** The present proof of `pole_input_valuations` derives `q ≠ 0` from
+  `v_p(q) ≥ C_p` at `p ∈ S_b` (via `padicValRat 0 = 0`). At `ℓ ∈ S_pole` the modified `q` has
+  `v_ℓ(q) = −e ≠ 0`, which again forces `q ≠ 0`, but the derivation must be rewritten. Not a
+  mathematical gap; a formal obligation missing from nt-22p §5.
+- **Remark 3 of §3.3 (Lemma P needed only on `S₀`).** At `ℓ ∈ S_b ∖ S₀`, for a slope of the
+  progression form, `v_ℓ(R₀) = 2e` is even, so `v_ℓ(B)` is even for every `q`, and PC requires
+  nothing more there. CORRECT. (Negative even valuations then occur at such `ℓ` if the old `q` is
+  kept and `e` is large. This is allowed, and it was observed in the computation, §3.4.)

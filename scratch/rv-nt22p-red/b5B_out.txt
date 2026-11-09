@@ -32,3 +32,8 @@ l=7 e=4 t=140942/2401
 l=13 e=1 t=134/13
   ball: eta=+1 field2' ok: True LemmaP-branch=[] Spole=[13]
      v_l(B)={13: 58}  S0>=4: True  odd-negative: []  negative-even: {}  0<B<1/2: True
+  old q: eta=+1 field2' ok: True LemmaP-branch=[] Spole=[]
+     v_l(B)={13: -366}  S0>=4: False  odd-negative: []  negative-even: {13: -366}  0<B<1/2: True
+l=13 e=6 t=55968963/4826809
+  ball: eta=+1 field2' ok: True LemmaP-branch=[13] Spole=[13]
+     v_l(B)={13: 308}  S0>=4: True  odd-negative: []  negative-even: {}  0<B<1/2: True
