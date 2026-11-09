@@ -295,3 +295,88 @@ cusp available? There are three cases.
 So no change of the precision or multiplication test of the kinds considered makes a cusp
 available, and the cost of trying would fall on the soundness lemmas (5.1 and the test lemma),
 which would have to prove positivity rather than parity.
+
+### 3.5 Relative positivity: what C1 does and does not exclude
+
+C1 excludes a positivity predicate that is complete on a set containing `ℤ`. The consumers need
+less. In use P the controlled integer is `K = κF(n)` with `κ, n` label integers (multiples of
+`P₀`, `Assembly.Test`, `SixLocalTests.lean`, line 66), and in use M it is `f = n₀n₁ - n₂`.
+Consider the *relative* condition
+
+> (Pos_K) for every prime `p ∉ S₀` and every contact `c`: `v_p(t - c) > 0 ⇒ p ∣ K`.
+
+True inputs satisfy it: for `t = n`, `v_p(n - c) > 0` gives `p ∣ F(n) ∣ K`. In use M, true triples
+have `f = 0`, so (Pos_f) is vacuous for them. So completeness never asks for `K = ±1`, and the
+argument of §3.4 (set `K = 1`) does not apply. VERIFIED as a reading of the two consumers.
+
+If a test enforced (Pos_K), H would be unnecessary. Write `t = a/b`. Then `a - c_ib` is supported
+on `S₀ ∪ supp K` for three contacts, and
+`(c₂-c₃)(a-c₁b) + (c₃-c₁)(a-c₂b) + (c₁-c₂)(a-c₃b) = 0` is an `S`-unit equation. Stewart–Yu
+(Duke Math. J. 108 (2001), STANDARD as cited in rs-height R2) bound it effectively and
+sub-polynomially in the radical, giving `h(t) ≪ rad(K)^{1/3+ε}` up to `S₀`-factors. That is far
+inside the slack of both uses (§1.3), and it rests on linear forms in logarithms only. Since
+`S`-unit solutions have no uniformity problem in a twist, this would remove modularity, the
+Shimura curve and all 23 leaves of h-leaves §5.1.
+
+Why no such test is known (SPECULATIVE assessment, with VERIFIED ingredients):
+
+- The label curve does supply relative information. `w([K]P₀)` has positive valuation at a good
+  prime `p` exactly when `[K]P₀` reduces to `O`, so the formal group already turns "`p ∣ K`" into
+  a local condition (this is how `test_dvd` works). The missing half is a local device that turns
+  "`v_p(t - c) > 0`" into a local obstruction at every prime at once.
+- The parity device cannot do this: its witnesses rescale by squares (the `q` in
+  `a₀ = 1 - R₀q²`, and square scaling in Lemma 5.1), which neutralizes every even valuation
+  (rs-global C2). Iterated square roots of depth `L` see valuations not divisible by `2^L`
+  (rs-height R2). A finite depth always leaves `v_p = 2^L`.
+- Quadratic forms and quaternion norms see positivity only at primes that are parameters of the
+  form (rs-global A5). Making the parameter range over all primes needs a universal quantifier.
+- An existential test that enforced (Pos_K) for all `K` in a set containing two coprime values,
+  and accepted every `t` with `num(t - c) ∣ K^∞` (not only true inputs), would define
+  `ℤ[1/K₁] ∩ ℤ[1/K₂] = ℤ` directly. So a usable device must be complete only on the special
+  pairs `(n, κF(n))`. It would itself be a new Diophantine construction, of the same kind as the
+  main theorem.
+
+So the route stays open in logic but has no known first step. It is rs-height R2 with the
+reason for "very low" stated precisely: no existential local device sees positive valuations at
+all primes, even relative to a controlled integer.
+
+### 3.6 The affine-moduli lemma (VERIFIED as an argument; ingredients STANDARD)
+
+**Lemma M.** Let a family of abelian varieties (or of curves of genus `≥ 2`) over an open subset
+of `ℙ¹_u` satisfy (G) of §3.1 for some finite contact set and all primes outside a finite set.
+Then the family has no cusp. Its moduli map extends to a morphism from the complete curve `ℙ¹_u`
+to the coarse moduli space (`A_g` or `M_g`), so its image is a complete curve or a point. If the
+coarse moduli space of the family is affine, the family is isotrivial.
+
+*Proof.* Let `α` be a cusp. By Lemma C(1) there are infinitely many `p ∈ P_α`. For such `p`
+outside the finite exceptional sets, choose `u ∈ ℚ` with `v_p(u - α) = 2` and all contact
+valuations at `p` zero. This is possible by weak approximation if `α` is not a contact, and
+with `v_p(u - c) = 2` if `α = c` is a contact. All contact valuations are then even, so (G)
+gives good reduction over an unramified extension. Lemma C(2) gives bad reduction after every
+finite extension. Contradiction. With no cusp, the family has potentially good reduction at every
+point of `ℙ¹_u`, so the moduli map extends over every point (Néron–Ogg–Shafarevich and the
+stable reduction theorem; STANDARD). A morphism from a complete connected curve to an affine
+variety is constant (STANDARD). ∎
+
+The coarse moduli spaces that are affine include `M_{1,1} = 𝔸¹_j` and its level covers, the
+configuration spaces `M_{0,n}` and their quotients, the hyperelliptic loci `H_g` (quotients of
+`M_{0,2g+2}`), `M_2` (Igusa), and moduli of cyclic covers of `ℙ¹` (finite over quotients of
+`M_{0,n}`) (STANDARD). These are exactly the families for which effective Shafarevich theorems
+are proved by Baker's method or `S`-unit equations: elliptic curves over `ℚ` (Coates 1970),
+genus-two curves (Smart 1997), hyperelliptic curves (von Känel 2014). The reason is the same in
+each case: the branch points satisfy `S`-unit equations, and branch points live in `M_{0,n}`. The
+claim "exactly" is an assessment of the literature known to us (SPECULATIVE). By Lemma M and C7
+(isotrivial families lose the height), none of these families can carry H.
+
+What remains is complete curves in `A_g` (`g ≥ 2`) or in `M_g` (`g ≥ 3`). The rational complete
+curves in `A_2` include the Shimura curves of indefinite rational quaternion algebras, of which
+`X⁶/W` is the simplest (rs-global C6). For a family over such a curve, (H) is an effective
+Shafarevich theorem, and the only polynomial one we know is for abelian varieties of `GL₂`-type
+over `ℚ`, through modularity (von Känel's method, used by the manuscript at lines 717-905). QM
+surfaces are `GL₂`-type after the descent of lines 631-716. Families over complete curves whose
+fibres are not of `GL₂`-type, such as Mumford's families in `A_4` or Kodaira fibrations in
+`M_g`, have no known effective Shafarevich theorem at all. So among families satisfying (G), QM
+surfaces over a rational quaternionic Shimura curve are the cheapest for (H) (SPECULATIVE as a
+claim about the literature; the reduction to complete curves is VERIFIED as an argument).
+Changing the discriminant `6` to another indefinite discriminant changes the contact set, not
+the depth.
