@@ -108,10 +108,11 @@ A solution corresponds to the pair of classes `a = (−1)^{a₀}2^{a₁}Π x^{u_
 **Proposition 0** (descent-alt §4.1, VERIFIED there). If `𝒞` is the configuration of an odd squarefree
 `d > 0`, then `(a, b) ↦ solution` identifies `Sel₂(C_d)` with the solution space of `Σ(𝒞)`.
 
-- The rows at odd `p | d` are the local conditions at `p`: the local image is spanned by the
-  torsion images, and `E1_p`, `E2_p` say that the unit parts of `a`, `b` at `p` have the residue
-  symbols `u_p[d/p · p⁻¹ … ]` prescribed by the four valuation patterns.
-- `(R)` is the real place for `d > 0`; `(D)` is the place 2, read off from the 2-adic image.
+- The rows at an odd `p | d` are the local conditions at `p`. The local image is spanned by the
+  torsion images `(d, 2)` and `(−1, −d)`. For each of the four valuation patterns `(u_p, v_p)` of
+  `(a, b)` at `p`, `E1_p` and `E2_p` prescribe the residue symbols of the unit parts of `a` and `b`:
+  these symbols are `u_p[d_p/p] + v_p[−1/p]` for `a` and `u_p[2/p] + v_p[−d_p/p]` for `b`,
+  where `d_p = d/p`.
 - descent-alt checked the system against an independent exact descent (`sel2cong.py`, itself
   checked against PARI in rv-route-k) on 600 curves with 0 mismatches.
 
@@ -216,5 +217,165 @@ base. With one auxiliary prime `q`, a configuration `{p*, q}` has dimension 3 an
 when `(c_{p*}, c_q) ∈ {(7, 3), (3, 7)}`, for either value of the symbol. For `c_{p*} ∈ {1, 5}` at
 least two auxiliary primes are needed.
 
-The pair `(7, 3)` is the classical one: for primes `p ≡ 7`, `q ≡ 3 (mod 8)`, `pq ≡ 5 (mod 8)` and
-`Sel₂(C_{pq})` has dimension 3 (Monsky, appendix to Heath-Brown, Invent. Math. 118 (1994); STANDARD).
+For actual primes `p ≡ 7`, `q ≡ 3 (mod 8)`, Lemma 3 with Proposition 0 says that `Sel₂(C_{pq})` has
+dimension 3 and contains a class with first coordinate `p`.
+
+### 2.4 The slots
+
+Let `B` be admissible.
+
+**Step 0 (multiplier).** Choose a signed divisor `m` of 2730 such that `β = sqf(mB)` is odd and
+`|β| ≡ 7 (mod 8)`. Such an `m` exists (VERIFIED):
+
+- the parity of `v₂(β)` is `v₂(B) + v₂(m)` mod 2, so `v₂(m) ≡ v₂(B)` makes `β` odd;
+- then `|β| ≡ |m_odd| · b (mod 8)`, where `b` is the odd squarefree kernel of `|B|`, because odd squares
+  are `≡ 1 (mod 8)`;
+- the odd parts `1, 3, 5, 7, 13, 15, 21, 35, …` of the divisors of 2730 cover all four classes mod 8
+  (for instance `1, 3, 5, 7`);
+- the sign of `m` is free and does not change `|β|`.
+
+Let `P` be the set of primes of `β`, so `|β| = Π_{p∈P} p` and `P ≠ ∅` (since `|β| ≡ 7`), and let `T`
+be the set of primes of `θ` (possibly empty). Fix `p₀ ∈ P`. Put `s = [β < 0]` and `x = s + 1 ∈ 𝔽₂`.
+
+**Slot `q₀`.** A prime `q₀ ∤ 2βθ` with
+
+```
+q₀ ≡ 3 (mod 8),
+[q₀/p] = 1 + λ_p x                      for p ∈ P ∖ {p₀},
+[q₀/p₀] = x + Σ_{p ∈ P∖{p₀}} (1 + λ_p x),
+[q₀/ℓ] = 0                              for ℓ ∈ T.
+```
+
+By construction `Σ_{p∈P} [q₀/p] = x`.
+
+**Slots `r_p`, for `p ∈ P ∖ {p₀}`** (chosen one after the other). A prime `r_p` with
+
+```
+r_p ≡ 1 (mod 8),    [r_p/p] = [r_p/p₀] = 1,
+[r_p/y] = 0  for y ∈ (P ∖ {p, p₀}) ∪ T ∪ {q₀} ∪ {earlier r_{p'}}.
+```
+
+**Slots `r_ℓ`, for `ℓ ∈ T`** (chosen one after the other). A prime `r_ℓ` with
+
+```
+r_ℓ ≡ 1 (mod 8),    [r_ℓ/ℓ] = [r_ℓ/q₀] = 1,
+[r_ℓ/y] = 0  for y ∈ P ∪ (T ∖ {ℓ}) ∪ {all r_p} ∪ {earlier r_{ℓ'}}.
+```
+
+Finally
+
+```
+n = β · q₀ · Π_{p ∈ P∖{p₀}} r_p · Π_{ℓ ∈ T} r_ℓ,      ω(n/β) = ω(β) + ω(θ).
+```
+
+**Existence of the slots** (VERIFIED). Each slot is subject to one condition modulo 8 and one condition
+modulo each of finitely many distinct odd primes `y` already fixed: "`r` is a nonzero square mod `y`"
+or "`r` is a non-square mod `y`". Each such condition is a nonempty union of invertible classes mod
+`y`, since an odd prime has `(y − 1)/2 ≥ 1` squares and as many non-squares. By the Chinese remainder
+theorem the conditions together define a nonempty union of invertible classes modulo
+`8 Π y`. By Dirichlet's theorem on primes in arithmetic progressions (STANDARD; audit record A057)
+each class contains infinitely many primes, so the slot can be chosen outside the finite set of
+primes already used. The conditions never conflict, because each refers to a different modulus.
+
+The conditions fix the symbols `[slot/y]`. The reverse symbols `[y/slot]` are then fixed by quadratic
+reciprocity: `[y/r] = [r/y]` for the glue slots `r ≡ 1 (mod 4)`, and
+`[y/q₀] = [q₀/y] + λ_y` for `q₀ ≡ 3 (mod 4)`. Lemmas 1 and 2 are stated with this convention.
+
+### 2.5 The proof of DL (VERIFIED)
+
+**Theorem.** With the choices of §2.4, `C_n` and `C_{nθ}` both have `dim_{𝔽₂} Sel₂ = 3`, and `β` is a
+first coordinate of both Selmer groups. So both curves carry a certificate of Selmer type, and DL
+holds with `ω(β) + ω(θ)` auxiliary primes.
+
+*Proof.* `C_d` depends only on `d²`, and the first Kummer coordinate is the class of `x`. So we may
+replace `n` by `d₁ = |n|` and `nθ` by `d₂ = d₁θ`. Both are odd, positive and squarefree: the slots are
+distinct primes outside `2βθ`, and `β`, `θ` are coprime by (θ2). Let `𝒞₁`, `𝒞₂` be their
+configurations, on `S₁ = P ∪ {q₀} ∪ R_P ∪ R_T` and `S₂ = S₁ ∪ T`. By Proposition 0 it suffices to work
+with `Σ(𝒞₁)` and `Σ(𝒞₂)`.
+
+*The first curve.*
+
+1. Each `r_ℓ ∈ R_T` has exactly one nonzero symbol inside `S₁`, namely at `q₀` (its other one is at
+   `ℓ ∉ S₁`). Removing them one at a time by Lemma 1 identifies `Σ(𝒞₁)` with `Σ(𝒞_Σ)`, where `𝒞_Σ`
+   is the configuration on `P ∪ {q₀} ∪ R_P`. The inverse sets `u_{r_ℓ} = u_{q₀}`, `v_{r_ℓ} = v_{q₀}`.
+2. Lemma 2 applies to `𝒞_Σ` with `g = p₀`, `G = P ∖ {p₀}`, `R = R_P` and `S' = {q₀}`: the slots `r_p`
+   have exactly the required symbols. The glued configuration `𝒞₀` lives on `{p*, q₀}`, with
+   `c_{p*} = |β| mod 8 = 7`, `c_{q₀} = 3` and `[q₀/p*] = Σ_{p∈P} [q₀/p] = x`.
+3. By Lemma 3, `Σ(𝒞₀)` has dimension 3. Hence `dim Sel₂(C_{d₁}) = 3`.
+4. Lift the solution `σ₀` of Lemma 3 with `a₀ = s`. Through Lemma 2: `u_P = 𝟏_P`, `u_{q₀} = 0`,
+   `v_{q₀} = s + x + 1`, `v_{p₀} = s + x`, and by (2.1), for `p ∈ P ∖ {p₀}`,
+
+   ```
+   u_{r_p} = [q₀/p](0 + 1) + 1 + λ_p(v_{p₀} + a₀) = [q₀/p] + 1 + λ_p x = 0
+   ```
+
+   by the choice of `[q₀/p]`. Through Lemma 1: `u_{r_ℓ} = u_{q₀} = 0`. So `Sel₂(C_{d₁})` contains a
+   class with `u = 𝟏_P`, `a₀ = s`, `a₁ = 0`. Its first coordinate is `(−1)^s|β| = β`.
+
+*The second curve.*
+
+5. Lemma 2 applies to `𝒞₂` with `g = q₀`, `G = T`, `R = R_T` and `S' = P ∪ R_P`. The glued vertex
+   `q₀*` has class `3·θ ≡ 3 (mod 8)` by (θ1). Its symbols with `y ∈ S'` are as follows.
+   - For `p ∈ P`: `[p/q₀*] = [p/q₀] + [p/θ]` and `[q₀*/p] = [q₀/p] + [θ/p]`. By (θ4), `(θ/p) = 1`.
+     By the reciprocity law for Jacobi symbols (STANDARD), since `θ ≡ 1 (mod 4)` and `θ > 0`,
+     `(p/θ) = (θ/p) = 1`. So both symbols are those of `q₀`.
+   - For `r_p ∈ R_P`: all symbols between `r_p` and `T` vanish by construction.
+
+   So the glued configuration is `𝒞_Σ` itself, with `q₀*` in place of `q₀`. By step 1,
+   `Σ(𝒞₂) ≅ Σ(𝒞_Σ) ≅ Σ(𝒞₁)`, and `dim Sel₂(C_{d₂}) = 3`.
+6. Lift the class of step 4 (in `Σ(𝒞_Σ)`: `u_P = 𝟏_P`, `u_{q₀} = 0`, `u_{R_P} = 0`, `a₀ = s`,
+   `v_{q₀} = s + x + 1`) through Lemma 2. Then `u_T = u_{q₀} = 0` and, by (2.1), for `ℓ ∈ T`,
+
+   ```
+   u_{r_ℓ} = Σ_{p∈P} [p/ℓ] + λ_ℓ(v_{q₀} + a₀) = [|β|/ℓ] + λ_ℓ(x + 1).
+   ```
+
+   By (θ3), `[β/ℓ] = 0`, that is `[|β|/ℓ] = sλ_ℓ`. So `u_{r_ℓ} = λ_ℓ(s + x + 1) = 0`, because
+   `x = s + 1`. The lifted class has `u = 𝟏_P`, `a₀ = s`, `a₁ = 0`: its first coordinate is `β`.
+
+Both curves therefore carry a certificate of Selmer type. It is never of torsion type, since
+`n/β` and `nθ/β` are not `±1`. ∎
+
+**What each slot does.**
+
+- `q₀` is the symmetry-breaking slot that Proposition C requires (a prime `≡ 3 (mod 4)`). Together
+  with the glued prime `p*` it forms the two-prime base of Lemma 3. Its symbols at `P ∖ {p₀}` are
+  dictated by the lifting condition `u_{r_p} = 0`, and its symbols at `T` by the transfer to the
+  second curve.
+- The `r_p` reduce the primes of `β` to one virtual prime of class 7. The Selmer group does not
+  change (Lemma 2), and the class `β` survives because of the choice of `[q₀/p]`.
+- The `r_ℓ` hang the primes of `θ` on `q₀`, so that the second curve has the same Selmer group as the
+  first. The class `β` survives because of (θ3) and the choice `x = s + 1`. This is where the sign of
+  `β` enters.
+
+**The invariant.** The construction is not an iterative descent; each step is an exact isomorphism.
+The invariant is the number of symbols of the configuration outside the base `{p*, q₀}`:
+
+- for `C_{d₁}` it is `2(ω(β) − 1) + ω(θ)`, and for `C_{d₂}` it is `2(ω(β) − 1) + 3ω(θ)`;
+- each application of Lemma 1 lowers it by one, and Lemma 2 lowers it by `2|G|`;
+- the Selmer group (and the lift of the class `β`) is unchanged at each step, and the process ends
+  at the base, where Lemma 3 computes everything.
+
+This avoids the plateaus of greedy one-prime descent (descent-alt §4.7). The greedy order never
+creates the configuration `{p*, q₀}`, because the `r_p` are invisible to the potential until all of
+them are present.
+
+### 2.6 How many auxiliary primes, and comparison with the lower bound
+
+- **Count.** `ω(n/β) = ω(β) + ω(θ)`: one `q₀ ≡ 3 (mod 8)`, `ω(β) − 1` primes `≡ 1 (mod 8)` for `β`,
+  and `ω(θ)` primes `≡ 1 (mod 8)` for `θ` (VERIFIED, §2.4).
+- **Proposition B** (descent-alt §4.4). If `β` has an isotropic core of size `k`, every certificate
+  needs at least `k` auxiliary odd primes visible to the core. Here `|β| ≡ 7 (mod 8)` and core primes
+  are `≡ 1 (mod 8)`, so `ω(β) ≥ k + 1`. For the first curve the construction uses
+  `ω(β) ≥ k + 1` auxiliary primes (`q₀` and the `r_p`; the `r_ℓ` do not count, being partners).
+  This is within one of the bound.
+- **The `θ`-slots are a device of the proof.** They are not forced: the random searches of
+  rv-route-k and descent-alt found certificates with 2–4 auxiliary primes in total on most inputs.
+  Whether `ω(β) + O(1)` slots always suffice is open (§5).
+- **The manuscript.** The proof for `E_ℓ` (lines 1044–1061) uses `d − 1` slots of type `(0,0)` and
+  one slot `q₀` of type `(1,1)`, where `d = ω(β)`. That is the same shape as `R_P ∪ {q₀}` here. The
+  manuscript then asserts that "adding the support of `θ` preserves this block" (line 1050). The
+  slots `r_ℓ` and Lemma 2 make the corresponding step explicit for `C_d`.
+- **The K-TYZ-β rule** (pc-audit §4.2). `|n| ≡ 7 · 3 ≡ 5 (mod 8)`, `β` is odd and `|β| ≡ 3 (mod 4)`.
+  This is the 2-adic rule under which pc-audit expects TYZ's row 5b to certify both curves. That
+  expectation rests on pc-audit RK6, which this note does not check (SPECULATIVE here).
