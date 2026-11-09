@@ -163,3 +163,49 @@ In the proof of Proposition 6.2 (lines 1291–1704) the gcd condition is handled
 The argument is unconditional and, as far as I can check it, complete; it uses only the
 Green–Tao asymptotic (record A021) for the lower count and elementary sieves for the rest. It
 does not need GRH, Chebotarev with error terms, or any non-CM input. **Finding: no defect.**
+
+### 2.4 Where the gcd condition is used, and why finitely many conditions do not serve the test
+
+**Uses** (VERIFIED, by reading the Lean consumers):
+
+- `GoodSlopePrime` enters the completeness proof only through `GoodSlope.contact`, destructured in
+  `slope_complete` (`SlopeCompleteness.lean`, `obtain ⟨-, hgood, -⟩ := ht.contact …`) and passed to
+  `exists_shift` (`SlopeCompleteness.lean:47–66`).
+- `exists_shift` uses the root `r` of `X² − 2`, the two non-vanishing conditions `75 ∓ 53r ≠ 0`,
+  and `gcd(d₁, d₂) = 4`. The last is used only by `shift_choice'` (`ShiftChoice.lean`), which
+  solves `h ≡ 0 (mod lcm(M₀, d₁))`, `h ≡ c_* (mod d₂)`.
+- `tests_precision_selected` then needs only `d₁ | h` and `d₂ | h − c_*` (and `324 < p`).
+- Manuscript: the same, lines 1706–1716 ("Compatibility follows from
+  `gcd(lcm(M₀, d₁), d₂) | M₀ gcd(d₁, d₂) = 4M₀ = c_*`").
+
+So the only consumer is the Chinese remainder step for the shift `h` of the group assigned to the
+prime. As [RP §1.4] notes, the step needs only `gcd(e₁, e₂) | c_*` for the orders `e₁, e₂` of `P₀`
+at the two places above `p`, a one-lemma relaxation.
+
+**Necessity.** The honest witnesses of the group assigned to `p` must put `H` in the formal group at
+one place above `p`, and `H − [c_*]P₀` at the other (lines 1185–1190, 1706–1712). For `H ∈ E(K₀)`
+the odd parts of these two conditions are `h ≡ 0 (mod e₁′)` and `h ≡ c_* (mod e₂′)`, where `e₁′`,
+`e₂′` are the odd parts of the reduction orders. They are compatible iff the odd part of
+`gcd(e₁, e₂)` divides `c_*`. Torsion in `E(K₀)` changes only 2-parts. So some condition at every
+odd `ℓ ∤ c_*` is necessary for the group at `p` to succeed: a slope with an odd contact prime `p`
+for which `ℓ | gcd(e₁, e₂)`, `ℓ ∤ c_*`, cannot pass the slope predicate with that prime selected.
+VERIFIED, as an argument from the test identities; [RG F4] explains why the shift must be fixed.
+
+**No finite version.** The bad events at different `ℓ` are independent: they are conditions on
+`π` modulo coprime moduli, and Hecke's theorem equidistributes Gaussian primes in
+`(ℤ[i]/m)^×`. So for any finite set of `ℓ` and any admissible class, a positive proportion of the
+primes in it are bad at some further `ℓ`; no Chebotarev condition in one fixed number field implies
+`gcd(d₁, d₂) = 4`. VERIFIED for `d₁, d₂` from the CM description. For the orders `e₁, e₂` of `P₀`,
+the corresponding statement needs the Kummer theory of `P₀` and is SPECULATIVE. A finite version
+would therefore serve the multiplication completeness proof only after a change of the test, and
+[RG F4, A7, A8] show that the fixed shift cannot be removed.
+
+**Why it does not matter.** Every route to the pattern considered here (the manuscript's GTZ
+argument and the Green–Tao 2008 route of §3) needs good primes only through counting:
+
+- the GTZ route needs an upper bound for bad primes in a pattern, which the CM lattice sieve gives;
+- the Green–Tao 2008 route needs positive relative upper density of `G`, which Proposition D gives.
+
+The infinite family of conditions is thus elementary bookkeeping, not a source of depth. The
+relaxation `gcd(e₁, e₂) | c_*`, or a larger shift [RG A8], raises the density but changes nothing
+qualitative.
