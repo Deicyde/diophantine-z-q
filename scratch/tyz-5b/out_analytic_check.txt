@@ -1,0 +1,12 @@
+beta=7 q0=3 |n|=21 |n|%8=5 analytic rank=1 L^(r)/r!=3.8026 ellrank=[1, 1, 0] point x in beta Q^2: True
+beta=-7 q0=11 |n|=77 |n|%8=5 analytic rank=1 L^(r)/r!=9.9073 ellrank=[1, 1, 0] point x in beta Q^2: True
+beta=23 q0=11 |n|=253 |n|%8=5 analytic rank=1 L^(r)/r!=7.9171 ellrank=[1, 1, 0] point x in beta Q^2: True
+beta=-23 q0=3 |n|=69 |n|%8=5 analytic rank=1 L^(r)/r!=7.0338 ellrank=[1, 1, 0] point x in beta Q^2: True
+beta=31 q0=3 |n|=93 |n|%8=5 analytic rank=1 L^(r)/r!=7.9377 ellrank=[1, 1, 0] point x in beta Q^2: True
+beta=-31 q0=19 |n|=589 |n|%8=5 analytic rank=1 L^(r)/r!=7.2473 ellrank=[1, 1, 0] point x in beta Q^2: True
+beta=47 q0=11 |n|=517 |n|%8=5 analytic rank=1 L^(r)/r!=15.4009 ellrank=[1, 1, 0] point x in beta Q^2: True
+beta=-47 q0=3 |n|=141 |n|%8=5 analytic rank=1 L^(r)/r!=3.4277 ellrank=[1, 1, 0] point x in beta Q^2: True
+beta=71 q0=11 |n|=781 |n|%8=5 analytic rank=1 L^(r)/r!=11.0339 ellrank=[1, 1, 0] point x in beta Q^2: True
+beta=-71 q0=3 |n|=213 |n|%8=5 analytic rank=1 L^(r)/r!=11.4234 ellrank=[1, 1, 0] point x in beta Q^2: True
+beta=79 q0=3 |n|=237 |n|%8=5 analytic rank=1 L^(r)/r!=14.5684 ellrank=[1, 1, 0] point x in beta Q^2: True
+beta=-79 q0=11 |n|=869 |n|%8=5 analytic rank=1 L^(r)/r!=4.7327 ellrank=[1, 1, 0] point x in beta Q^2: True
