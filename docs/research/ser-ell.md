@@ -123,7 +123,7 @@ lies above the Masser–Wüstholz threshold of R1. Infinitely many such `ℓ` ex
     inertia characters of a simple finite flat `𝔽`-vector space scheme over a base with absolute
     ramification `e < ℓ - 1` are products of fundamental characters with exponents in `[0, e]`.
     UNCHECKED (numbering Théorème 3.4.3 recalled, not read). Restated and used in Gee,
-    arXiv:1402.7197, §5, and in Buzzard–Diamond–Jarvis (BDJ), arXiv:0810.2106v5, §3.
+    arXiv:1402.7197, §3, and in Buzzard–Diamond–Jarvis (BDJ), arXiv:0810.2106v5, §3.
   - (c) Raynaud 1974, §2: generic fibres of finite flat group schemes are closed under subobjects
     and quotients. UNCHECKED; standard.
   - (d) Serre, Duke Math. J. 54 (1987), §2: the recipe for `k(ρ̄)`, and its value 2 on finite flat
@@ -190,11 +190,11 @@ lies above the Masser–Wüstholz threshold of R1. Infinitely many such `ℓ` ex
   math/0412076 was read and has neither the theorem nor its numbering). Kisin, *Modularity of
   2-adic Barsotti–Tate representations*, Invent. Math. 178 (2009) 587-634: UNCHECKED, and
   **missing from nt-h**. Restatements read:
-  - Gee, arXiv:1402.7197, §2. The weak conjecture "has been proved only in the case `F = ℚ`. This
+  - Gee, arXiv:1402.7197, §3 (opening paragraphs). The weak conjecture "has been proved only in the case `F = ℚ`. This
     was achieved by Khare, Wintenberger, and Kisin" [KW I, KW II, Kisin]. The implication from weak
     to strong "has essentially been known since the late 1970's except for a few cases where
     `p = 2`" (Deligne, Fontaine, Edixhoven).
-  - Dieulefait, arXiv:0712.1317, end of §4. Kisin's characteristic-2 lifting results "allow to
+  - Dieulefait, arXiv:0712.1317, end of §3 ("The level 1 case"). Kisin's characteristic-2 lifting results "allow to
     cover also the remaining cases of Serre's conjecture, i.e., the cases of even level".
   - BDJ, arXiv:0810.2106v5, Theorem 3.17. For a modular `ρ` over `ℚ`, the weights in which `ρ` is
     modular (level prime to `ℓ`) are exactly `W(ρ)`.
