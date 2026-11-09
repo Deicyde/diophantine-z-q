@@ -1,0 +1,31 @@
+#00 thetacls0      m=    13 beta=+|7| w(b)=3 w(t)=4 P=[3, 5, 1] T=[3, 7, 5, 1] p0=1 slots=7 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#01 thetacls1      m=     7 beta=+|7| w(b)=1 w(t)=2 P=[7] T=[3, 3] p0=7 slots=3 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#02 thetacls2      m=   -21 beta=-|7| w(b)=4 w(t)=2 P=[1, 7, 3, 3] T=[7, 7] p0=1 slots=6 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#03 thetacls3      m=   546 beta=+|7| w(b)=1 w(t)=2 P=[7] T=[5, 5] p0=7 slots=3 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#04 thetacls4      m=  -273 beta=-|7| w(b)=2 w(t)=1 P=[5, 3] T=[1] p0=3 slots=3 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#05 thetacls5      m=   -91 beta=-|7| w(b)=3 w(t)=2 P=[1, 5, 3] T=[7, 7] p0=1 slots=5 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#06 thetacls0      m=   -15 beta=-|7| w(b)=1 w(t)=5 P=[7] T=[3, 1, 1, 7, 5] p0=7 slots=6 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#07 thetacls1      m=   455 beta=+|7| w(b)=4 w(t)=2 P=[7, 3, 1, 3] T=[3, 3] p0=3 slots=6 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#08 thetacls2      m=     2 beta=+|7| w(b)=2 w(t)=2 P=[3, 5] T=[7, 7] p0=5 slots=4 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#09 thetacls3      m=     5 beta=+|7| w(b)=4 w(t)=2 P=[7, 3, 3, 1] T=[5, 5] p0=7 slots=6 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#10 thetacls4      m=   -26 beta=-|7| w(b)=4 w(t)=2 P=[1, 7, 3, 3] T=[1, 1] p0=3 slots=6 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#11 thetacls5      m=    78 beta=+|7| w(b)=4 w(t)=2 P=[3, 1, 3, 7] T=[3, 3] p0=3 slots=6 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#12 thetacls0      m=    -2 beta=-|7| w(b)=4 w(t)=5 P=[3, 1, 7, 3] T=[3, 3, 3, 5, 7] p0=1 slots=9 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#13 thetacls1      m=    39 beta=+|7| w(b)=3 w(t)=2 P=[3, 1, 5] T=[3, 3] p0=1 slots=5 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#14 thetacls2      m=   -70 beta=-|7| w(b)=1 w(t)=2 P=[7] T=[7, 7] p0=7 slots=3 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#15 thetacls3      m=     7 beta=+|7| w(b)=2 w(t)=2 P=[5, 3] T=[5, 5] p0=5 slots=4 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#16 thetacls4      m=   -42 beta=-|7| w(b)=2 w(t)=2 P=[3, 5] T=[1, 1] p0=5 slots=4 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#17 thetacls5      m=   -26 beta=-|7| w(b)=1 w(t)=2 P=[7] T=[7, 7] p0=7 slots=3 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#18 thetacls0      m=    35 beta=+|7| w(b)=1 w(t)=3 P=[7] T=[3, 5, 7] p0=7 slots=4 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#19 thetacls1      m=    14 beta=+|7| w(b)=3 w(t)=2 P=[1, 5, 3] T=[3, 3] p0=5 slots=5 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#20 thetacls2      m=   -30 beta=-|7| w(b)=4 w(t)=2 P=[1, 7, 3, 3] T=[7, 7] p0=3 slots=6 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#21 thetacls3      m=     6 beta=+|7| w(b)=3 w(t)=2 P=[3, 5, 1] T=[5, 5] p0=5 slots=5 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#22 thetacls4      m=    70 beta=+|7| w(b)=4 w(t)=1 P=[3, 3, 7, 1] T=[1] p0=7 slots=5 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#23 thetacls5      m=   273 beta=+|7| w(b)=2 w(t)=2 P=[3, 5] T=[3, 3] p0=3 slots=4 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#24 thetacls0      m=    -7 beta=-|7| w(b)=1 w(t)=3 P=[7] T=[5, 7, 3] p0=7 slots=4 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#25 thetacls1      m=  -210 beta=-|7| w(b)=3 w(t)=4 P=[5, 3, 1] T=[3, 3, 3, 3] p0=3 slots=7 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#26 thetacls2      m=   273 beta=+|7| w(b)=1 w(t)=2 P=[7] T=[7, 7] p0=7 slots=3 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#27 thetacls3      m=    -7 beta=-|7| w(b)=2 w(t)=2 P=[3, 5] T=[5, 5] p0=5 slots=4 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#28 thetacls4      m=    30 beta=+|7| w(b)=2 w(t)=2 P=[3, 5] T=[1, 1] p0=5 slots=4 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#29 thetacls5      m=     7 beta=+|7| w(b)=3 w(t)=2 P=[1, 3, 5] T=[3, 3] p0=1 slots=5 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+family thetacls seed 12: 30/30 certified, 1s

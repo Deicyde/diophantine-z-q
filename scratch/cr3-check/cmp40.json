@@ -1,0 +1,1320 @@
+[
+{
+"d": 2413,
+"primes": [
+19,
+127
+],
+"cls": [
+3,
+7
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+127,
+-127
+],
+"cr3_hyp": [
+127,
+-127
+]
+},
+{
+"d": 5549,
+"primes": [
+31,
+179
+],
+"cls": [
+7,
+3
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+31,
+-31
+],
+"cr3_hyp": [
+31,
+-31
+]
+},
+{
+"d": 1133,
+"primes": [
+11,
+103
+],
+"cls": [
+3,
+7
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+103,
+-103
+],
+"cr3_hyp": [
+103,
+-103
+]
+},
+{
+"d": 13493,
+"primes": [
+103,
+131
+],
+"cls": [
+7,
+3
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+103,
+-103
+],
+"cr3_hyp": [
+103,
+-103
+]
+},
+{
+"d": 14141,
+"primes": [
+79,
+179
+],
+"cls": [
+7,
+3
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+79,
+-79
+],
+"cr3_hyp": [
+79,
+-79
+]
+},
+{
+"d": 3781,
+"primes": [
+19,
+199
+],
+"cls": [
+3,
+7
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+199,
+-199
+],
+"cr3_hyp": [
+199,
+-199
+]
+},
+{
+"d": 13973,
+"primes": [
+89,
+157
+],
+"cls": [
+1,
+5
+],
+"lean_card": 32,
+"lean_dim": 5,
+"indep_dim": 5,
+"rv_dim": 5,
+"pari_dim": 5,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 2,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [],
+"cr3_hyp": []
+},
+{
+"d": 2501,
+"primes": [
+41,
+61
+],
+"cls": [
+1,
+5
+],
+"lean_card": 32,
+"lean_dim": 5,
+"indep_dim": 5,
+"rv_dim": 5,
+"pari_dim": 5,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 2,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [],
+"cr3_hyp": []
+},
+{
+"d": 4181,
+"primes": [
+37,
+113
+],
+"cls": [
+5,
+1
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [],
+"cr3_hyp": []
+},
+{
+"d": 11461,
+"primes": [
+73,
+157
+],
+"cls": [
+1,
+5
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [],
+"cr3_hyp": []
+},
+{
+"d": 106997,
+"primes": [
+11,
+71,
+137
+],
+"cls": [
+3,
+7,
+1
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+9727,
+-9727
+],
+"cr3_hyp": [
+9727,
+-9727
+]
+},
+{
+"d": 280789,
+"primes": [
+17,
+83,
+199
+],
+"cls": [
+1,
+3,
+7
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+3383,
+-3383
+],
+"cr3_hyp": [
+3383,
+-3383
+]
+},
+{
+"d": 731573,
+"primes": [
+61,
+67,
+179
+],
+"cls": [
+5,
+3,
+3
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+4087,
+-4087
+],
+"cr3_hyp": [
+4087,
+-4087
+]
+},
+{
+"d": 1214501,
+"primes": [
+73,
+127,
+131
+],
+"cls": [
+1,
+7,
+3
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+127,
+-127
+],
+"cr3_hyp": [
+127,
+-127
+]
+},
+{
+"d": 518629,
+"primes": [
+37,
+107,
+131
+],
+"cls": [
+5,
+3,
+3
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+4847,
+-4847
+],
+"cr3_hyp": [
+4847,
+-4847
+]
+},
+{
+"d": 11077,
+"primes": [
+11,
+19,
+53
+],
+"cls": [
+3,
+3,
+5
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+1007,
+-1007
+],
+"cr3_hyp": [
+1007,
+-1007
+]
+},
+{
+"d": 433493,
+"primes": [
+41,
+97,
+109
+],
+"cls": [
+1,
+1,
+5
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [],
+"cr3_hyp": []
+},
+{
+"d": 1427077,
+"primes": [
+73,
+113,
+173
+],
+"cls": [
+1,
+1,
+5
+],
+"lean_card": 32,
+"lean_dim": 5,
+"indep_dim": 5,
+"rv_dim": 5,
+"pari_dim": 5,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 2,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [],
+"cr3_hyp": []
+},
+{
+"d": 527669,
+"primes": [
+47,
+103,
+109
+],
+"cls": [
+7,
+7,
+5
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [],
+"cr3_hyp": []
+},
+{
+"d": 74269,
+"primes": [
+13,
+29,
+197
+],
+"cls": [
+5,
+5,
+5
+],
+"lean_card": 32,
+"lean_dim": 5,
+"indep_dim": 5,
+"rv_dim": 5,
+"pari_dim": 5,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 2,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [],
+"cr3_hyp": []
+},
+{
+"d": 22212173,
+"primes": [
+29,
+37,
+127,
+163
+],
+"cls": [
+5,
+5,
+7,
+3
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+4727,
+-4727
+],
+"cr3_hyp": [
+4727,
+-4727
+]
+},
+{
+"d": 303405,
+"primes": [
+3,
+5,
+113,
+179
+],
+"cls": [
+3,
+5,
+1,
+3
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+895,
+-895
+],
+"cr3_hyp": [
+895,
+-895
+]
+},
+{
+"d": 138165,
+"primes": [
+3,
+5,
+61,
+151
+],
+"cls": [
+3,
+5,
+5,
+7
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+15,
+-15
+],
+"cr3_hyp": [
+15,
+-15
+]
+},
+{
+"d": 5671693,
+"primes": [
+17,
+37,
+71,
+127
+],
+"cls": [
+1,
+5,
+7,
+7
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+127,
+-127
+],
+"cr3_hyp": [
+127,
+-127
+]
+},
+{
+"d": 19886717,
+"primes": [
+31,
+59,
+83,
+131
+],
+"cls": [
+7,
+3,
+3,
+3
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+31,
+-31
+],
+"cr3_hyp": [
+31,
+-31
+]
+},
+{
+"d": 64057229,
+"primes": [
+43,
+79,
+109,
+173
+],
+"cls": [
+3,
+7,
+5,
+5
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+1489703,
+-1489703
+],
+"cr3_hyp": [
+1489703,
+-1489703
+]
+},
+{
+"d": 86948237,
+"primes": [
+19,
+131,
+181,
+193
+],
+"cls": [
+3,
+3,
+5,
+1
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [],
+"cr3_hyp": []
+},
+{
+"d": 1981293,
+"primes": [
+3,
+73,
+83,
+109
+],
+"cls": [
+3,
+1,
+3,
+5
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [],
+"cr3_hyp": []
+},
+{
+"d": 38820013,
+"primes": [
+43,
+73,
+83,
+149
+],
+"cls": [
+3,
+1,
+3,
+5
+],
+"lean_card": 32,
+"lean_dim": 5,
+"indep_dim": 5,
+"rv_dim": 5,
+"pari_dim": 5,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 2,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [],
+"cr3_hyp": []
+},
+{
+"d": 3896269,
+"primes": [
+13,
+23,
+83,
+157
+],
+"cls": [
+5,
+7,
+3,
+5
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [],
+"cr3_hyp": []
+},
+{
+"d": 41594005133,
+"primes": [
+101,
+113,
+139,
+157,
+167
+],
+"cls": [
+5,
+1,
+3,
+5,
+7
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+2465999,
+-2465999
+],
+"cr3_hyp": [
+2465999,
+-2465999
+]
+},
+{
+"d": 5361627277,
+"primes": [
+41,
+73,
+83,
+113,
+191
+],
+"cls": [
+1,
+1,
+3,
+1,
+7
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+571663,
+-571663
+],
+"cr3_hyp": [
+571663,
+-571663
+]
+},
+{
+"d": 4584527461,
+"primes": [
+19,
+67,
+101,
+181,
+197
+],
+"cls": [
+3,
+3,
+5,
+5,
+5
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+3439,
+-3439
+],
+"cr3_hyp": [
+3439,
+-3439
+]
+},
+{
+"d": 3741938677,
+"primes": [
+41,
+61,
+67,
+137,
+163
+],
+"cls": [
+1,
+5,
+3,
+1,
+3
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+559919,
+-559919
+],
+"cr3_hyp": [
+559919,
+-559919
+]
+},
+{
+"d": 15335133,
+"primes": [
+3,
+11,
+43,
+101,
+107
+],
+"cls": [
+3,
+3,
+3,
+5,
+3
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+356631,
+-356631
+],
+"cr3_hyp": [
+356631,
+-356631
+]
+},
+{
+"d": 252336837,
+"primes": [
+3,
+41,
+73,
+157,
+179
+],
+"cls": [
+3,
+1,
+1,
+5,
+3
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+28103,
+-28103
+],
+"cr3_hyp": [
+28103,
+-28103
+]
+},
+{
+"d": 57049269,
+"primes": [
+3,
+23,
+31,
+149,
+179
+],
+"cls": [
+3,
+7,
+7,
+5,
+3
+],
+"lean_card": 32,
+"lean_dim": 5,
+"indep_dim": 5,
+"rv_dim": 5,
+"pari_dim": 5,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 2,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+31,
+-31,
+12351,
+-12351,
+26671,
+-26671,
+318711,
+-318711
+],
+"cr3_hyp": []
+},
+{
+"d": 365904845,
+"primes": [
+5,
+43,
+53,
+163,
+197
+],
+"cls": [
+5,
+3,
+5,
+3,
+5
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [],
+"cr3_hyp": []
+},
+{
+"d": 71760581861,
+"primes": [
+97,
+113,
+167,
+197,
+199
+],
+"cls": [
+1,
+1,
+7,
+5,
+7
+],
+"lean_card": 32,
+"lean_dim": 5,
+"indep_dim": 5,
+"rv_dim": 5,
+"pari_dim": 5,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 2,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [
+18871,
+-18871,
+2181239,
+-2181239
+],
+"cr3_hyp": []
+},
+{
+"d": 1320054901,
+"primes": [
+11,
+41,
+103,
+157,
+181
+],
+"cls": [
+3,
+1,
+7,
+5,
+5
+],
+"lean_card": 8,
+"lean_dim": 3,
+"indep_dim": 3,
+"rv_dim": 3,
+"pari_dim": 3,
+"pari_rank": [
+1,
+1
+],
+"sha_s": 0,
+"rootno": -1,
+"same_group": true,
+"firsts_ok": true,
+"a7_lean": [],
+"cr3_hyp": []
+}
+]

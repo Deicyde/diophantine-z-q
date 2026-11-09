@@ -1,0 +1,11 @@
+#0 omega(beta)=4 omega(theta)=9 m=1: n'=236775111481 (k=2, 9919 trials, 57s) recheck [(3, True), (3, True)]
+#1 omega(beta)=3 omega(theta)=8 m=1: n'=546136323809 (k=2, 1678 trials, 9s) recheck [(3, True), (3, True)]
+#2 omega(beta)=8 omega(theta)=7 m=1: n'=698856257881 (k=2, 14891 trials, 76s) recheck [(3, True), (3, True)]
+#3 omega(beta)=2 omega(theta)=4 m=1: n'=84308531273154563 (k=3, 11 trials, 0s) recheck [(3, True), (3, True)]
+#4 omega(theta)=5 m=1: not found in 20000 trials
+#5 omega(beta)=2 omega(theta)=9 m=1: n'=293673054239 (k=2, 1498 trials, 8s) recheck [(3, True), (3, True)]
+#6 omega(beta)=7 omega(theta)=7 m=1: n'=169210819690462442067809 (k=4, 327 trials, 1s) recheck [(3, True), (3, True)]
+#7 omega(beta)=8 omega(theta)=7 m=1: n'=143748491476823 (k=3, 3406 trials, 15s) recheck [(3, True), (3, True)]
+#8 omega(theta)=8 m=1: not found in 20000 trials
+#9 omega(beta)=3 omega(theta)=4 m=1: n'=64325838060561541 (k=3, 1849 trials, 7s) recheck [(3, True), (3, True)]
+solved 8 of 10

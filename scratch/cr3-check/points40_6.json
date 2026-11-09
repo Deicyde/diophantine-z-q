@@ -1,0 +1,50 @@
+[
+{
+"d": 106997,
+"a": 9727,
+"how": "none within limits",
+"found": false,
+"x": null,
+"y": null
+},
+{
+"d": 106997,
+"a": -9727,
+"how": "none within limits",
+"found": false,
+"x": null,
+"y": null
+},
+{
+"d": 303405,
+"a": 895,
+"how": "ellrank(effort=0)",
+"found": true,
+"x": "11702533120/18769",
+"y": "-1105964349192800/2571353"
+},
+{
+"d": 303405,
+"a": -895,
+"how": "ellrank(effort=0)",
+"found": true,
+"x": "-151184295/1024",
+"y": "-3337316064675/32768"
+},
+{
+"d": 4584527461,
+"a": 3439,
+"how": "none within limits",
+"found": false,
+"x": null,
+"y": null
+},
+{
+"d": 4584527461,
+"a": -3439,
+"how": "none within limits",
+"found": false,
+"x": null,
+"y": null
+}
+]

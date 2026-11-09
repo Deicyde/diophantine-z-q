@@ -1,0 +1,22 @@
+[
+{
+"d": 1214501,
+"a": 127,
+"how": "none within limits",
+"found": false,
+"pred_height": 515.4697095863686,
+"height": null,
+"x": null,
+"y": null
+},
+{
+"d": 1214501,
+"a": -127,
+"how": "none within limits",
+"found": false,
+"pred_height": 515.4697095863686,
+"height": null,
+"x": null,
+"y": null
+}
+]

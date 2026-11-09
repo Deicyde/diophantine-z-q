@@ -1,0 +1,4 @@
+final {'tried': 6988, 'pres_nt': 9, 'pres_both': 1, 'min_nt': 0} 28s
+final {'tried': 6849, 'pres_nt': 0, 'pres_both': 0, 'min_nt': 0} 27s
+FOUND n' = 27802123643865553 k = 3 {'tried': 60586, 'pres_nt': 47, 'pres_both': 9, 'min_nt': 2} 248s
+final {'tried': 60586, 'pres_nt': 47, 'pres_both': 9, 'min_nt': 2} 248s

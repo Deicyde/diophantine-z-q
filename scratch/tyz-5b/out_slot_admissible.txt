@@ -1,0 +1,34 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+PARI stack size set to 1000000000 bytes, maximum size set to 2000003072
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+#0 m=6 beta%8=7 w(beta)=3 w(theta)=4 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 10} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 14}
+#1 m=2 beta%8=7 w(beta)=5 w(theta)=3 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 13} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 16}
+#2 m=14 beta%8=7 w(beta)=4 w(theta)=5 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 13} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 18}
+#3 m=7 beta%8=7 w(beta)=6 w(theta)=2 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 14} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 16}
+#4 m=7 beta%8=7 w(beta)=2 w(theta)=5 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 9} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 14}
+#5 m=2 beta%8=7 w(beta)=5 w(theta)=4 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 14} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 18}
+#6 m=3 beta%8=7 w(beta)=3 w(theta)=3 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 9} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 12}
+#7 m=14 beta%8=7 w(beta)=4 w(theta)=3 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 11} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 14}
+#8 m=7 beta%8=7 w(beta)=2 w(theta)=2 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 6} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 8}
+#9 m=3 beta%8=7 w(beta)=4 w(theta)=3 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 11} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 14}
+#10 m=3 beta%8=7 w(beta)=5 w(theta)=3 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 13} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 16}
+#11 m=14 beta%8=7 w(beta)=4 w(theta)=2 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 10} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 12}
+#12 m=6 beta%8=7 w(beta)=3 w(theta)=2 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 8} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 10}
+#13 m=2 beta%8=7 w(beta)=2 w(theta)=3 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 7} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 10}
+#14 m=7 beta%8=7 w(beta)=2 w(theta)=4 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 8} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 12}
+#15 m=7 beta%8=7 w(beta)=3 w(theta)=5 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 11} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 16}
+#16 m=6 beta%8=7 w(beta)=2 w(theta)=2 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 6} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 8}
+#17 m=14 beta%8=7 w(beta)=4 w(theta)=3 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 11} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 14}
+#18 m=1 beta%8=7 w(beta)=4 w(theta)=4 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 12} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 16}
+#19 m=2 beta%8=7 w(beta)=3 w(theta)=4 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 10} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 14}
+#20 m=14 beta%8=7 w(beta)=4 w(theta)=3 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 11} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 14}
+#21 m=1 beta%8=7 w(beta)=3 w(theta)=3 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 9} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 12}
+#22 m=14 beta%8=7 w(beta)=4 w(theta)=4 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 12} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 16}
+#23 m=5 beta%8=7 w(beta)=4 w(theta)=3 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 11} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 14}
+#24 m=1 beta%8=7 w(beta)=3 w(theta)=2 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 8} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 10}
+#25 m=14 beta%8=7 w(beta)=4 w(theta)=2 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 10} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 12}
+#26 m=3 beta%8=7 w(beta)=4 w(theta)=2 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 10} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 12}
+#27 m=1 beta%8=7 w(beta)=4 w(theta)=3 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 11} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 14}
+#28 m=7 beta%8=7 w(beta)=5 w(theta)=5 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 15} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 20}
+#29 m=7 beta%8=7 w(beta)=5 w(theta)=4 C_n:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 14} C_ntheta:{'mod8': 5, 'dim': 3, 'beta_in': True, 'rule': 1, 'det5b': 1, 'omega': 18}
+curves 60 failures 0

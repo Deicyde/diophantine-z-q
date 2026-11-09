@@ -1,0 +1,12 @@
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+P=[167] T=[293, 421] s=0 q0=67 R_P=[] R_T=[281, 137] | d=430742933 rank in [1,1] points=0 beta-point=False ; d=53133433014349 rank in [1,1] points=0 beta-point=False
+P=[31] T=[] s=1 q0=19 R_P=[] R_T=[] | d=-589 rank in [1,1] points=1 beta-point=True ; d=-589 rank in [1,1] points=1 beta-point=True
+P=[167] T=[] s=0 q0=43 R_P=[] R_T=[] | d=7181 rank in [1,1] points=1 beta-point=True ; d=7181 rank in [1,1] points=1 beta-point=True
+P=[131, 173] T=[] s=1 q0=19 R_P=[17] R_T=[] | d=-7320149 rank in [1,1] points=0 beta-point=False ; d=-7320149 rank in [1,1] points=0 beta-point=False
+P=[5, 67] T=[] s=0 q0=83 R_P=[113] R_T=[] | d=3141965 rank in [1,1] points=0 beta-point=False ; d=3141965 rank in [1,1] points=0 beta-point=False
+P=[107, 109] T=[] s=0 q0=11 R_P=[257] R_T=[] | d=32971301 rank in [1,1] points=0 beta-point=False ; d=32971301 rank in [1,1] points=0 beta-point=False
+P=[67, 157] T=[] s=0 q0=59 R_P=[41] R_T=[] | d=25445461 rank in [1,1] points=0 beta-point=False ; d=25445461 rank in [1,1] points=0 beta-point=False
+P=[3, 13] T=[] s=0 q0=19 R_P=[137] R_T=[] | d=101517 rank in [1,1] points=1 beta-point=True ; d=101517 rank in [1,1] points=1 beta-point=True
+P=[79, 97] T=[617] s=0 q0=19 R_P=[137] R_T=[1361] | d=27147579829 rank in [1,1] points=0 beta-point=False ; d=16750056754493 rank in [1,1] points=0 beta-point=False
+P=[59, 109] T=[] s=1 q0=11 R_P=[313] R_T=[] | d=-22141933 rank in [1,1] points=0 beta-point=False ; d=-22141933 rank in [1,1] points=0 beta-point=False
+ellrank: 3/10 with rank exactly 1 on both curves and a point with x in beta Q*^2

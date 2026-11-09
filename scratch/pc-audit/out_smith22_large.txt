@@ -1,0 +1,11 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+n tested: 150
+row 1 count 24 nonzero 10 mismatches 0
+row 2 count 35 nonzero 11 mismatches 0
+row 3 count 27 nonzero 11 mismatches 0
+row 5a count 25 nonzero 14 mismatches 0
+row 5b count 25 nonzero 9 mismatches 0
+row 6 count 21 nonzero 11 mismatches 0
+row 7a count 18 nonzero 7 mismatches 0
+row 7b count 18 nonzero 10 mismatches 0
+total mismatches 0 Redei table mismatches 0

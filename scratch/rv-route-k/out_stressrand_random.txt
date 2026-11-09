@@ -1,0 +1,11 @@
+#0 num 27dig den 29dig omega(beta_1)=2 omega(theta_1)=4 m=1:k1n'409 m=2:k1n'1699 m=3:k2n'352211 m=5:k1n'1879 m=6:k1n'373 m=7:k1n'71 (0.7s)
+#1 num 27dig den 30dig omega(beta_1)=4 omega(theta_1)=4 m=1:k2n'1871999 m=2:k2n'846941 m=3:k1n'1949 m=5:k2n'774281 m=6:k1n'1811 m=7:k2n'2341849 (0.7s)
+#2 num 28dig den 32dig omega(beta_1)=5 omega(theta_1)=1 m=1:k1n'1721 m=2:k3n'3590113529 m=3:k1n'241 m=5:k2n'607687 m=6:k2n'439291 m=7:k1n'101 (4.6s)
+#3 num 25dig den 28dig omega(beta_1)=4 omega(theta_1)=5 m=1:k1n'1409 m=2:k2n'1179721 m=3:k2n'2770289 m=5:k1n'1039 m=6:k2n'97319 m=7:k2n'3028279 (2.2s)
+#4 num 23dig den 26dig omega(beta_1)=5 omega(theta_1)=5 m=1:k2n'1113061 m=2:k2n'2434 m=3:k2n'862679 m=5:FAIL m=6:k1n'911 m=7:k1n'1451 (6.0s)
+#5 num 27dig den 31dig omega(beta_1)=3 omega(theta_1)=2 m=1:k1n'431 m=2:k1n'1399 m=3:k3n'320861071 m=5:k1n'241 m=6:FAIL m=7:k2n'7849 (7.0s)
+#6 num 27dig den 28dig omega(beta_1)=6 omega(theta_1)=4 m=1:FAIL m=2:k1n'181 m=3:k1n'101 m=5:k1n'607 m=6:k2n'95351 m=7:k5n'4684193711454449 (10.0s)
+#7 num 25dig den 27dig omega(beta_1)=3 omega(theta_1)=2 m=1:k1n'47 m=2:k2n'204241 m=3:k1n'61 m=5:k1n'1289 m=6:k2n'2012599 m=7:k2n'1080889 (0.5s)
+#8 num 24dig den 28dig omega(beta_1)=3 omega(theta_1)=4 m=1:k2n'794329 m=2:k2n'263981 m=3:k5n'111039795800833 m=5:k1n'751 m=6:k2n'1885027 m=7:k1n'1823 (3.8s)
+#9 num 25dig den 28dig omega(beta_1)=3 omega(theta_1)=3 m=1:k2n'3616567 m=2:k2n'1627517 m=3:k2n'81007 m=5:k2n'1801721 m=6:k5n'9335522231531 m=7:k3n'1619510873 (4.5s)
+random stressrand {'ok': 57, 'fail': 3}

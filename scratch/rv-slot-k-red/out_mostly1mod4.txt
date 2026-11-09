@@ -1,0 +1,19 @@
+#00 mostly1mod4 w=2 m=    21 beta=+|7| w(b)=2 w(t)=5 P=[1, 7] T=[3, 3, 5, 3, 7] p0=7 slots=7 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#01 mostly1mod4 w=2 m= -2730 beta=-|7| w(b)=2 w(t)=3 P=[1, 7] T=[3, 1, 3] p0=7 slots=5 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#02 mostly1mod4 w=4 m=    35 beta=+|7| w(b)=4 w(t)=5 P=[1, 7, 1, 1] T=[7, 7, 7, 1, 7] p0=1 slots=9 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#03 mostly1mod4 w=4 m=  -130 beta=-|7| w(b)=4 w(t)=5 P=[7, 1, 1, 1] T=[7, 3, 5, 7, 7] p0=7 slots=9 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#04 mostly1mod4 w=2 m=     3 beta=+|7| w(b)=2 w(t)=3 P=[5, 3] T=[7, 1, 7] p0=3 slots=5 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#05 mostly1mod4 w=2 m=    -7 beta=-|7| w(b)=2 w(t)=2 P=[3, 5] T=[5, 5] p0=5 slots=4 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#06 mostly1mod4 w=4 m=     1 beta=+|7| w(b)=4 w(t)=2 P=[1, 5, 1, 3] T=[3, 3] p0=5 slots=6 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#07 mostly1mod4 w=4 m=   -15 beta=-|7| w(b)=4 w(t)=3 P=[1, 1, 5, 3] T=[5, 7, 3] p0=5 slots=7 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#08 mostly1mod4 w=3 m=    14 beta=+|7| w(b)=3 w(t)=1 P=[5, 5, 7] T=[1] p0=5 slots=4 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#09 mostly1mod4 w=3 m=  -455 beta=-|7| w(b)=3 w(t)=4 P=[5, 7, 5] T=[3, 5, 7, 1] p0=5 slots=7 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#10 mostly1mod4 w=5 m=   182 beta=+|7| w(b)=5 w(t)=3 P=[5, 5, 5, 7, 5] T=[3, 3, 1] p0=5 slots=8 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#11 mostly1mod4 w=5 m=  -210 beta=-|7| w(b)=5 w(t)=3 P=[7, 5, 5, 5, 5] T=[5, 7, 3] p0=7 slots=8 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#12 mostly1mod4 w=4 m=    14 beta=+|7| w(b)=4 w(t)=3 P=[5, 5, 3, 5] T=[3, 1, 3] p0=5 slots=7 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#13 mostly1mod4 w=4 m=  -210 beta=-|7| w(b)=4 w(t)=2 P=[5, 5, 3, 5] T=[3, 3] p0=5 slots=6 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#14 mostly1mod4 w=7 m=     6 beta=+|7| w(b)=7 w(t)=6 P=[1, 7, 1, 5, 1, 1, 5] T=[1, 7, 5, 3, 7, 7] p0=1 slots=13 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#15 mostly1mod4 w=7 m=  -105 beta=-|7| w(b)=7 w(t)=1 P=[1, 5, 1, 1, 1, 5, 7] T=[1] p0=1 slots=8 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#16 mostly1mod4 w=7 m=    91 beta=+|7| w(b)=7 w(t)=5 P=[1, 1, 1, 3, 5, 1, 1] T=[7, 3, 5, 5, 5] p0=1 slots=12 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#17 mostly1mod4 w=7 m=  -910 beta=-|7| w(b)=7 w(t)=3 P=[3, 1, 1, 1, 1, 1, 5] T=[5, 1, 5] p0=1 slots=10 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+family mostly1mod4 seed 12: 18/18 certified, 8s
