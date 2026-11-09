@@ -38,3 +38,17 @@ Hand derivations:
 - Mutation tests (90 trials each): eps(5,3) class = 1 instead of i: still 0 mismatches (confirms the hand observation that the (5,3) class is irrelevant); eps = i on (5,1) or (7,3) steps: thousands of mismatches (test is sensitive).
 - 30 actual n = 5 mod 8 (3..7 primes, n < 3e6) with g from reduced forms: 152 coefficients, 0 mismatches; T5b odd for 14.
 - Verdict: Lemma N2 / N1 CORRECT, numerically corroborated.
+
+## Step 4 (section 5.1, Kriz; own code cr3_sample.py, propN_diff.py)
+- Logical chain of nt-tyz 5.1 checked against CertifiedRank.lean and tyz-5b (Cor 1.2, Thm 3.6, Thm 4.3, Cor 4.4):
+  Lean hypotheses (d = 5 mod 8 squarefree, a | d squarefree, |a| = 7 mod 8, 8 solutions, a first coordinate)
+  give, via Proposition 0 (descent-alt 4.1; NOT re-checked here), dim Sel2 = 3 and a in pi_1(Sel2). |a| = 7 mod 8
+  implies |a|_odd = 3 mod 4, so Cor 4.4 applies to every such d. Cor 4.4 -> Thm 4.3 (Lemma 4.1 + bordered det),
+  Thm 3.6, Cor 1.2 (Prop N + GZK + RK9). No step uses Kriz, Cassels-Tate or Smith: CORRECT (logic).
+  Not re-proved here: tyz-5b Thms 3.6, 4.3, Lemma 4.1, Prop 0 (UNCHECKED by this review, but see test below).
+- Independent test (own full 2-descent via local Kummer images, sanity-checked against ellrank on 9 curves incl. both
+  counterexamples): 30 random CR3-admissible (d, a), d < 2e6 (2-5 primes): T5b(d) = 1 in all 30. Two of them
+  (226733, 265341): PARI finds a generator and a point with x/a a square (CR3 conclusion end to end).
+  A separate check of 20 admissible d with 4-5 primes: T5b = 1 in all 20.
+- Differential test of Prop N: 30 random n = 5 mod 8, n < 2e5, >= 3 primes: 24 have T5a or T5b odd, all of
+  analytic rank 1 (numerical); 0 contradictions.

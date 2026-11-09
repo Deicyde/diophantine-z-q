@@ -1,0 +1,31 @@
+174909 [3, 7, 8329] T5a 1 T5b 1 an.rank 1 
+47845 [5, 7, 1367] T5a 0 T5b 0 an.rank 1 
+136293 [3, 181, 251] T5a 1 T5b 0 an.rank 1 
+191573 [17, 59, 191] T5a 0 T5b 0 an.rank 1 
+131005 [5, 7, 19, 197] T5a 0 T5b 1 an.rank 1 
+103845 [3, 5, 7, 23, 43] T5a 1 T5b 0 an.rank 1 
+143845 [5, 13, 2213] T5a 1 T5b 0 an.rank 1 
+58461 [3, 13, 1499] T5a 1 T5b 0 an.rank 1 
+14781 [3, 13, 379] T5a 0 T5b 1 an.rank 1 
+142005 [3, 5, 9467] T5a 1 T5b 0 an.rank 1 
+92037 [3, 11, 2789] T5a 1 T5b 0 an.rank 1 
+60909 [3, 79, 257] T5a 1 T5b 1 an.rank 1 
+29309 [7, 53, 79] T5a 0 T5b 1 an.rank 1 
+146757 [3, 13, 53, 71] T5a 0 T5b 0 an.rank 1 
+115221 [3, 193, 199] T5a 0 T5b 0 an.rank 3 
+31901 [19, 23, 73] T5a 0 T5b 0 an.rank 1 
+15301 [11, 13, 107] T5a 0 T5b 1 an.rank 1 
+135317 [7, 13, 1487] T5a 0 T5b 0 an.rank 1 
+128845 [5, 73, 353] T5a 1 T5b 0 an.rank 1 
+74469 [3, 103, 241] T5a 1 T5b 1 an.rank 1 
+41789 [11, 29, 131] T5a 1 T5b 0 an.rank 1 
+146557 [17, 37, 233] T5a 1 T5b 0 an.rank 1 
+122485 [5, 11, 17, 131] T5a 1 T5b 0 an.rank 1 
+133773 [3, 17, 43, 61] T5a 1 T5b 1 an.rank 1 
+31053 [3, 11, 941] T5a 1 T5b 0 an.rank 1 
+111885 [3, 5, 7459] T5a 1 T5b 1 an.rank 1 
+73573 [29, 43, 59] T5a 1 T5b 1 an.rank 1 
+8229 [3, 13, 211] T5a 1 T5b 0 an.rank 1 
+123221 [7, 29, 607] T5a 1 T5b 1 an.rank 1 
+59813 [13, 43, 107] T5a 1 T5b 0 an.rank 1 
+samples 30; with T5a or T5b odd: 24 ; contradictions: 0
