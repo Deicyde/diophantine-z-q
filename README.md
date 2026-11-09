@@ -9,11 +9,13 @@ proved. The site is rebuilt from `main` after each passing verification run.
 > **This fork** proves the 11/5 manuscript's Theorem 1.1 in Lean from three explicit
 > hypotheses: the six-contact height estimate, a certified-rank statement CR₃ for congruent number
 > curves, and the twenty-two-prime pattern. They enter the main theorem as `Prop`s, not axioms.
-> Three more inputs started as hypotheses and are proved: Mordell–Weil for the generator curve,
-> the catalogue bound, which follows from an effective Dirichlet theorem
-> ([docs/effective-dirichlet-plan.md](docs/effective-dirichlet-plan.md)), and pole completeness
-> (for the Route K pole polynomial), which follows from CR₃ by an explicit 2-descent
-> ([docs/research/slot-k.md](docs/research/slot-k.md)). Everything else is
+> Three more inputs started as hypotheses and are proved: Mordell–Weil for the generator curve;
+> the catalogue bound, by an effective Dirichlet theorem
+> ([docs/effective-dirichlet-plan.md](docs/effective-dirichlet-plan.md)); and pole completeness,
+> by an explicit 2-descent from CR₃ ([docs/research/slot-k.md](docs/research/slot-k.md)). For
+> that last step the polynomial's pole template uses the congruent number curves
+> `y² = x(x − ℓ)(x + ℓ)` where the manuscript has `x + 3ℓ`; the statement proved, with its
+> variable count and bounds, is the manuscript's. Everything else is
 > proved in Lean, and every finite computation is checked by the kernel:
 > `ZInQ.exists_bounded_integer_polynomial_defining_integers_of` (`ZInQKernel/Main.lean`) has no
 > `sorry`, uses no `native_decide`, and depends only on the axioms `propext`,
