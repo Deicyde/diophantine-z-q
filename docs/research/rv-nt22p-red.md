@@ -227,3 +227,42 @@ With the Lemma P ball, `v_ℓ(B) = 166, 362, 58, 460, 108, 208, 58, 308, 1508, 3
 With the old `q`, `v_ℓ(B) = −1094, −2548, −360, −3288, −724, −1456, −366, −2196, −10980, −21948`,
 that is, `−366e` up to `O(1)`. So Lemma P(3) holds with `E_ℓ = 0`, and the implementation detects
 failures.
+
+## 4. Repairs and suggested changes
+
+None is needed for correctness. In order of usefulness:
+
+1. **§3.3, remark 1 (F1).** Replace "`K_A ≈ |A| + 71`" by "`K_A = A + 130` if `A ≥ −69`, and
+   `K_A = −A − 8` if `A ≤ −70`".
+2. **§3.2, numerical check (F2).** Replace "with `v₂(v) ≤ 2`, `R₀` is often not a square in `ℚ₂`" by
+   "with `v₂(v) ∈ {1, 2}`, `R₀` is never a square in `ℚ₂`". Reason: modulo 8,
+   `R₀2^{−2e}` is a square times `(1 + 6k)·5` (`e = 1`) or times `5` (`e = 2`), with `k = (v/2^e)/u`
+   odd. So the hypothesis `e ≥ 3` is sharp.
+3. **Lemma P, hypotheses (F3, F4).** Optionally replace "`F(t) > 0` (so `η = 1`)" by "`ηR₀ℓ^{−2e}`
+   is a square in `ℚ_ℓ`, which holds when `F(t) > 0`, and also when `F(t) < 0` and
+   `ℓ ≡ 1 (mod 4)`". Drop "the seven numbers … are prime to `ℓ`", which follows from `ℓ | v` and
+   `gcd(u, v) = 1`.
+4. **§3.2, after Lemma P (F5).** Optionally add: with the manuscript's `ℓ₀`, the old choice of
+   `q` already gives `v_ℓ(B) ≥ 4` at `ℓ ∈ S₀` for `e ≤ 126` (take `α = 0` in the proof of (3)).
+   The Lemma P branch is therefore needed only for `e ≥ 127`, which Proposition AP produces when
+   `|A|` is large. This explains why field 2 could afford `B_ℓ = 4`.
+5. **§5, Route 1, Lean obligations.** Add to the list:
+   - `pole_input_valuations` obtains `q ≠ 0` from `C_p ≤ v_p(q)` on `S_b`. In the new branch,
+     derive it from `v_ℓ(q) = −e ≠ 0` at a pole prime, or from `a ≠ 0` and `R₀ ≠ 0`.
+   - The first conclusion of `pole_input_valuations` (`v_p(B) ≥ 103C_p + 8` on `S_b`) becomes false
+     at the pole primes, where Lemma P gives `v_ℓ(B) ≥ 46e + 4` instead, and it is false at a deep
+     pole outside `S₀` if Remark 3 is used. The consumer `slope_complete` needs only the
+     `S₀`-conclusion and the square denominator. So the first conclusion should be weakened or
+     dropped.
+6. **§3.3 (F7).** "Two remarks" → "Three remarks".
+
+## 5. What was not checked
+
+- Proposition D and the application of Green–Tao 2008 (§3.4), apart from the count of §3.6.
+- The genuineness of the test values: the model test values are arbitrary integral elements of
+  `ℤ[√2]` with the assumed divisibility at selected primes. The actual values (from `E(K₀)`,
+  `M₀`, the shifts `h`) were not computed. This is harmless, since `tests_integral_old` and
+  `tests_precision_selected` are kernel-checked and do not depend on `t`.
+- The true catalogue. Only two stand-in catalogue primes were modelled, and pattern primes are
+  necessarily larger than `max S_b`, an astronomically large number. The local analysis at each old
+  prime does not depend on the other old primes. This is the only modelling assumption.
