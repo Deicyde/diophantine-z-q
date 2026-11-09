@@ -1,0 +1,2 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+#0 B1 m=-1 beta<0=1 |beta|%8=7 w(beta)=10 w(theta)=2 theta1-4=1111 slots=12 (max 70 digits) d1%8=5 dim1=3 beta_in1=True dim2=3 beta_in2=True prop0(d1)=True CERTIFIED (2s)
