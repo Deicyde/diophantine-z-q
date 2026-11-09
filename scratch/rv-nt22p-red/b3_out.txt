@@ -1,3 +1,35 @@
 test values: random  Lemma P used at: all of S_b where needed
 Instance A=-70 v=15375360 = [2, 10; 3, 1; 5, 1; 7, 1; 11, 1; 13, 1] x=249339257; |S+|=11
   all 11 values good slope primes > max S_b: True
+  [t1] t = 264714617/15375360  eta=+1  F(t)>0: True
+    fields: 1 True | 2' True (Lemma P branch at [2]) | 3 True | 4 True (odd contact primes outside S_b: [264714617, 495345017, 572221817, 633723257, 725975417, 1187236217])
+    v_l(B) on S0: {2: 6346, 3: 5834, 5: 5834, 7: 5834, 13: 5834}; Spole used: [2]; v_l(a) on Spole: [247]
+    v_p(B) at selected primes: {264714617: 1, 495345017: 1, 572221817: 1, 633723257: 1, 725975417: 1, 1187236217: 1}
+    primes with odd v_p(B) besides selected: {}
+    checked part of den(B): primes [(249339257, 216)] + Laux^6520200; square: True
+    0 < B < 1/2: True  (log10 B = -359.4); q has 391216 digits; ALL OK: True
+  [t2] t = -1187236217/15375360  eta=+1  F(t)>0: True
+    fields: 1 True | 2' True (Lemma P branch at [2]) | 3 True | 4 True (odd contact primes outside S_b: [264714617, 725975417, 818227577, 879729017, 956605817, 1187236217])
+    v_l(B) on S0: {2: 6348, 3: 5834, 5: 5834, 7: 5834, 13: 5834}; Spole used: [2]; v_l(a) on Spole: [248]
+    v_p(B) at selected primes: {264714617: 1, 725975417: 1, 818227577: 1, 879729017: 1, 956605817: 1, 1187236217: 1}
+    primes with odd v_p(B) besides selected: {}
+    checked part of den(B): primes [(1202611577, 216)] + Laux^6521700; square: True
+    0 < B < 1/2: True  (log10 B = -550.2); q has 391306 digits; ALL OK: True
+  [t3=-10] t = -10/1  eta=-1  F(t)>0: False
+    fields: 1 True | 2' True (Lemma P branch at []) | 3 True | 4 True (odd contact primes outside S_b: [])
+    v_l(B) on S0: {2: 5838, 3: 5832, 5: 5838, 7: 5833, 13: 5832}; Spole used: []; v_l(a) on Spole: []
+    v_p(B) at selected primes: {}
+    primes with odd v_p(B) besides selected: {7: 5833}
+    checked part of den(B): primes [] + Laux^6517500; square: True
+    0 < B < 1/2: True  (log10 B = -146.5); q has 391051 digits; ALL OK: True
+  t1 + t2 + t3 == A: True;  all slopes OK: True
+test values: random  Lemma P used at: all of S_b where needed
+Instance A=-70 v=38918880 = [2, 5; 3, 5; 5, 1; 7, 1; 11, 1; 13, 1] x=654796201; |S+|=11
+  all 11 values good slope primes > max S_b: True
+  [t1] t = 693715081/38918880  eta=+1  F(t)>0: True
+    fields: 1 True | 2' True (Lemma P branch at [2, 3]) | 3 True | 4 True (odd contact primes outside S_b: [693715081, 1277498281, 1472092681, 1627768201, 1861281481, 3028847881])
+    v_l(B) on S0: {2: 6096, 3: 6094, 5: 5834, 7: 5834, 13: 5834}; Spole used: [2, 3]; v_l(a) on Spole: [127, 126]
+    v_p(B) at selected primes: {693715081: 1, 1277498281: 1, 1472092681: 1, 1627768201: 1, 1861281481: 1, 3028847881: 1}
+    primes with odd v_p(B) besides selected: {}
+    checked part of den(B): primes [(654796201, 216)] + Laux^6520300; square: True
+    0 < B < 1/2: True  (log10 B = -380.5); q has 391223 digits; ALL OK: True
