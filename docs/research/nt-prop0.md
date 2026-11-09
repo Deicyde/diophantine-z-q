@@ -339,3 +339,88 @@ Kummer map as a homomorphism, and the halving lemma. A direct attack on `D_{a,b}
 Hasse–Weil bound. Chevalley–Warning does not apply, since the two quadrics in four variables have
 degree sum `4`, which is not less than `4`. The route above needs only Lemma Q, Lemma J and Hensel's
 lemma for `X² − u`. It is the reason G2 becomes a medium-sized task.
+
+### 2.4 Odd primes dividing `d` (VERIFIED)
+
+**Lemma B.** Let `p | d` be odd. Then `Loc_{ℚ_p}(a, b)` holds if and only if there are `i, j ∈ {0, 1}`
+with `a d^i (−1)^j ∈ ℚ_p*²` and `b 2^i (−d)^j ∈ ℚ_p*²`. That is, `(a, b)` is one of the torsion classes
+`(1, 1)`, `(d, 2)`, `(−1, −d)`, `(−d, −2d)`.
+
+*Proof.*
+
+- (⇐) By (Inv), it suffices to give witnesses for the four torsion classes: the first alternative
+  for `(1, 1)`, and `x = d`, `0`, `−d` for the other three.
+- (⇒) The first alternative and the torsion witnesses are covered by (Tor). Otherwise, let
+  `k = v_p(x)`.
+  - *`k ≤ 0`.* Then `|d/x| < 1`, so `x − d ≡ x` and `x + d ≡ x` by (P). Hence `b ≡ a` and `ab ≡ a`, so
+    `b ≡ 1` and `a ≡ 1`.
+  - *`k ≥ 2`.* Then `|x/d| < 1`, so `x − d ≡ −d` and `x + d ≡ d`. Hence `b ≡ −d` and `ab ≡ d`, so
+    `a ≡ −1`. This is `(−1, −d)`.
+  - *`k = 1`.* Write `x = dt` with `t` a unit. Then `x(x − d)(x + d) = d³ t(t − 1)(t + 1)`.
+    - If `t ∓ 1` are both units, the valuation is 3, which is odd: impossible. They are not both
+      non-units, since their difference is 2.
+    - If `p | t − 1`, then `t ≡ 1` and `(t + 1)/2 ≡ 1` by (P). So `x ≡ d` and `x + d ≡ 2d`, giving
+      `(a, b) ≡ (d, 2)`.
+    - If `p | t + 1`, then `x ≡ −d` and `x − d = d(t − 1) ≡ −2d`, giving `(−d, −2d)`. ∎
+
+The proof uses only (P), (Inv), (Tor) and valuations. The residue symbols enter only in §2.6, when
+the class condition is turned into bits. This agrees with rv-slot-k-descent §1.2: the local image is
+the span of the torsion images, of dimension 2.
+
+### 2.5 The place 2, for `d ≡ 5 (mod 8)` (VERIFIED)
+
+**Lemma T.** Let `d ≡ 5 (mod 8)`. Then `Loc_{ℚ₂}(a, b)` holds if and only if there are `i, j, k ∈ {0, 1}`
+with `a d^i (−1)^j ∈ ℚ₂*²` and `b 2^i (−d)^j 5^k ∈ ℚ₂*²`.
+
+The eight classes are the torsion classes and the products of each torsion class with `(1, 5)`.
+Written with representatives in `{1, 3, 5, 7, 2, 6, 10, 14}`, they are `(1,1), (1,5), (7,7), (7,3),
+(5,10), (5,2), (3,6), (3,14)`, which is the list of descent-alt §4.1 and the table of
+rv-slot-k-descent §1.4.
+
+*Proof of (⇐).* By (Inv) it suffices to treat one representative per class. The table gives a witness
+for each:
+
+| `(i, j, k)` | `(a, b)` | witness `x` | `x/a` | `(x − d)/b` | `(x + d)/(ab)` |
+| --- | --- | --- | --- | --- | --- |
+| `(0,0,0)` | `(1, 1)` | first alternative | | | |
+| `(1,0,0)` | `(d, 2)` | `d` | `1` | `0` | `1` |
+| `(0,1,0)` | `(−1, −d)` | `0` | `0` | `1` | `1` |
+| `(1,1,0)` | `(−d, −2d)` | `−d` | `1` | `1` | `0` |
+| `(0,0,1)` | `(1, 5)` | `1/4` | `1/4` | `(1 − 4d)/20` | `(1 + 4d)/20` |
+| `(1,0,1)` | `(d, 10)` | `d(1+4d)/(1−4d)` | `(1+4d)/(1−4d)` | `(2d)²/(5(1−4d))` | `1/(5(1−4d))` |
+| `(0,1,1)` | `(−1, −5d)` | `−4d²` | `(2d)²` | `(1+4d)/5` | `(1−4d)/5` |
+| `(1,1,1)` | `(−d, −10d)` | `−d(1−4d)/(1+4d)` | `(1−4d)/(1+4d)` | `1/(5(1+4d))` | `2²/(5(1+4d))` |
+
+Since `d` is odd, `1 ± 4d ≡ 5 (mod 8)`. So `(1 ± 4d)/5`, `(1 + 4d)/(1 − 4d)`, `(1 − 4d)/(1 + 4d)` and
+`5(1 ± 4d)` are 2-adic units `≡ 1 (mod 8)`. Every entry of the last three columns is therefore an
+even power of 2 times such a unit, and a square by (RT).
+
+- The `(a, b)` column and the three quotients were checked by computer algebra
+  (`t_witness_sympy.py`, below).
+- `t_two_adic.py` checks that the four non-torsion points have the classes `(1,5), (7,7), (5,10),
+  (3,14)` for 13 values `d ≡ 5 (mod 8)`.
+- The witnesses are the points `x = 1/4` (slot-k §2.1, rv-slot-k-descent §1.4) and its translates by
+  `T₁`, `T₂`, `T₃`, namely `x ↦ −d²/x`, `x ↦ d(x + d)/(x − d)` and `x ↦ −d(x − d)/(x + d)`. Lean
+  needs only the rational numbers in the table, not the group law.
+
+*Proof of (⇒).* By (Tor), assume `x ∉ {0, ±d}` with `x(x − d)(x + d)` a square, and let `v = v₂(x)`.
+
+- *`v < 0` odd, or `v > 0` odd.* The valuation of `x(x − d)(x + d)` is `3v` or `v`, which is odd:
+  impossible.
+- *`v ≤ −4`.* `|d/x| ≤ 2⁻⁴`, so `x ± d ≡ x` by (P), and `(a, b) ≡ (1, 1)` as in §2.4.
+- *`v = −2`.* Write `x = u/4`. Then `(x ∓ d)/x = 1 ∓ 4d/u ≡ 5 (mod 8)`, so `x ∓ d ≡ 5x`. The product
+  is `≡ 25x³ ≡ x`, a square. So `a ≡ 1` and `b ≡ 5`.
+- *`v ≥ 4`.* `x − d ≡ −d` and `x + d ≡ d` by (P), giving `(−1, −d)`.
+- *`v = 2`.* `(x − d)/(−d) = 1 − x/d ≡ 5` and `(x + d)/d ≡ 5`. So `b ≡ −5d`, `ab ≡ 5d`, and
+  `a ≡ −1`. This is `(−1, −5d)`.
+- *`v = 0`.* Then `x − d` and `x + d` are even, and their sum `2x` has valuation 1. So one of them
+  has valuation exactly 1. The other has valuation at least 2, and in fact odd and at least 3,
+  because the product is a square.
+  - If `v(x + d) ≥ 3`, then `x ≡ −d (mod 8)`, so `a ≡ x ≡ −d`. Also `b ≡ x − d = 2s` with
+    `s ≡ −d (mod 4)`, so `b ≡ −2d` or `−10d`.
+  - If `v(x − d) ≥ 3`, then `a ≡ d`. Also `ab ≡ x + d = 2s′` with `s′ ≡ d (mod 4)`, so `ab ≡ 2d` or `10d`,
+    and `b ≡ 2` or `10`. ∎
+
+Every step reduces to "a 2-adic unit `≡ 1 (mod 8)` is a square" and to residues mod 8. The proof is
+longer than at `p | d` but has the same shape. The sampled image in `t_two_adic.py` (rational
+`x = 2^k u` with `|k| ≤ 6`, `u < 2¹²`, on 6 curves) is exactly these eight classes.
