@@ -85,3 +85,73 @@ Coleman–Iovita 1999; Breuil 2000; Tate 1966 and 1967; SGA 7; Carayol 1986.
   (`Hypotheses/HeightMin.lean`, line 36) hold as stated, with the same numerals (VERIFIED by
   reading both files).
 
+## 1. The external theorems imported by the proof of Theorem 4.1
+
+### 1.1 Method (VERIFIED)
+
+The list below was obtained in two ways, which agree.
+
+- Every `\cite` in lines 377-966 and 10936-11010 was extracted (32 occurrences, at lines 419,
+  422, 444, 564, 588, 605, 615, 621, 692, 733, 737, 739, 756, 761, 769, 771, 812, 816, 830, 870,
+  878, 895, 911, 916, 934 and 10955-11003).
+- Every application record whose `manuscript_anchors` meet these lines was listed from
+  `applications.json`. This gives A001-A018, A061-A065, A071, A078, A079, and A066 with a context
+  anchor at lines 770-774 only.
+
+A066 (BCDT and Milne's modular-forms notes) is not imported by the proof of H. Its anchor at
+lines 770-774 records the Tate-versus-cohomological convention for `A_f`, and the `A_f` of the
+proof of H is constructed by Shimura's Theorem 1, which is part of A011. A071 enters only
+through its citation of Silverman IV.6.4 at line 830 (the `2`-adic logarithm in the conductor
+bound).
+
+### 1.2 Inventory
+
+"Step" refers to the outline in rs-height §3.1. The last column gives the effect of NoCM.
+
+| Step | Statement as used | Lines | Audit | Source | Under NoCM |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Polarization datum, normalizer quotient `P¹_j`, branch values `0, ∞, -16/27`, indices `4, 6, 2` | 409-442 | A001 | Baba–Granath 2005 preprint; Lin–Yang arXiv v1 | kept |
+| 1 | Smooth integral model of the level-3 curve via `V₁(5)` | 443-478 | A002 | Buzzard 1996/2002; Stacks 07S7 | kept |
+| 1-2 | Stable-model extension of automorphisms, free quotients, tame Kummer local form | 480-534 | A078 | Stacks 0E97, 07S7, 0EYG | kept |
+| 3 | Restriction of scalars, endomorphism rank, Néron–Ogg–Shafarevich, Hom field `L` | 544-562 | A061 | Milne AV notes | kept |
+| 3 | Polarizable tori are abelian varieties; Hodge endomorphisms are algebraic; `End⁰ ∈ {B, M₂(k)}` | 564-577 | A079 | Milne AV notes I.2.8-2.9 | kept (NoCM needs the dichotomy) |
+| 4 | `h(Δ) ≤ k ⇒ √|Δ| ≤ 2k²e^{21000k²}` at `k = D` | 581-593 | A003 | Fowler, Prop. 2.7 | **removed** |
+| 4 | Degree of `j(E)` is the order class number; `j(E)` integral | 583-598 | A065 | Fowler §2.1 | **removed from H** (kept at 1009-1016, 1759-1769) |
+| 4 | Faltings height of a CM elliptic curve (discriminant formula) | 595-613 | A004 | Barquero-Sanchez et al., Eq. (6.2) | **removed** |
+| 4 | Isogeny estimate with source `E²`, target `A` | 614-619 | A005 | Gaudron–Rémond 2014, Thm 1.4 | **removed** (theorem kept via A015) |
+| 4, 8 | `h_F(target) ≤ h_F(source) + ½ log deg`, additivity | 620-628, 894-900 | A006 | Faltings 1983, Lemma 5 | CM use removed; kept for 894-900 |
+| 5 | Skolem–Noether; sign cocycle | 632-663 | A062 | Milne CFT notes IV.2.10 | kept |
+| 5 | `Br(ℚ)[2]`, local square roots, reciprocity, injectivity of `Br(ℚ) → ⊕ Br(ℚ_v)` | 665-708 | A007 | Milne ADT I; Milne CFT notes | kept |
+| 6 | Semisimplicity of `V_ℓ(A)|G_{L'}` and `End_{G_{L'}} V_ℓ(A) = B ⊗ ℚ_ℓ`, hence `r_ℓ` absolutely irreducible | 732-734 | A008 | Faltings 1983, Satz 3, Satz 4 | kept; §2 |
+| 6 | `H¹_et(A_{F̄}, ℚ_ℓ)` de Rham; duality; summands; finite descent; weights `0, -1` | 735-738, 10939-11005 | A009 | Scholze 2013 + corrigendum; Brinon–Conrad; Milne AV I.12.1 | kept; §3 |
+| 6 | de Rham ⇒ potentially semistable | 739-741 | A010 | Berger 2002 | kept; §3 |
+| 6 | Fontaine–Mazur for `GL₂` at `p = 5`; local algebraicity of the twist; Li's Fricke formula; Shimura's `A_f` | 755-774 | A011 | Pan, Thm 1.0.4; Conrad preprint; Li 1975; Shimura 1973 | kept |
+| 6 | Independence of `ℓ` of characteristic polynomials; Chebotarev; Brauer–Nesbitt | 776-794 | A064 | Milne AV notes I.10.20, IV.3.9; Milne CFT notes VIII.7.4 | kept |
+| 7 | Different and upper ramification breaks; conductor bound `2 + 2U₀` | 796-846 | A012 | Serre, *Local class field theory* (Cassels–Fröhlich), VI.4.1-4.3 | kept |
+| 7 | Semistable reduction over `F(A[3])` (`F(A[5])` if `p = 3`); unipotent inertia | 814-818 | A013 | Silverberg–Zarhin, Thms 3.3, 3.5 | kept |
+| 7 | Logarithm of `Ĝ_m` at `p = 2` | 828-831 | A071 | Silverman IV.6.4 | kept |
+| 8 | Faltings Hom theorem for `(A, J)` over `L'`; Poincaré complement | 861-867 | A063 | Faltings 1983, §5 Cor. 1; Milne AV notes I.10.1 | kept; §2 |
+| 8 | `h_F(J₁(N)) ≤ 1.3·10⁷ N^{12}` | 868-876 | A014 | Javanpeykar, Thm 1.1.1 | kept |
+| 8 | Isogeny estimate with source `J`, target `A × Z` | 878-892 | A015 | Gaudron–Rémond 2014, Thm 1.4 | kept |
+| 8 | `h_F(Z) ≥ -(3/2) dim Z` | 894-895 | A016 | Gaudron–Rémond 2014, §9 (Bost) | kept |
+| 9 | Theta formula for `j` on the quaternionic locus | 908-932 | A017 | Lin–Yang (2), (14); Lauter–Naehrig–Yang §2.2 | kept |
+| 9 | Theta height versus Faltings height, `r = 2`, `g = 2` | 934-947 | A018 | Pazuki, Cor. 1.3(2) | kept |
+
+Two inputs are used **without a citation and without an audit record** (VERIFIED by reading the
+lines and by checking the anchors of every record):
+
+- **I1. Local–global compatibility for weight-two newforms** (lines 852-857). The level `N` of
+  `f` is bounded by the Artin conductor of `r₅` (of `r₃` at the prime 5). This needs: for a
+  newform of weight 2, level `N` and character, and a place `λ ∤ p`, the exponent of `p` in `N`
+  equals the conductor exponent of `ρ_{f,λ}|G_{ℚ_p}`. That is Carayol, Ann. Sci. ÉNS 19 (1986),
+  Théorème (A) (STANDARD; the paper is already pinned in the audit for A032). No audit record of
+  the proof of H contains it: A012 bounds the conductor of `r_ℓ`, not the level of `f`. The
+  existing evidence files mention Carayol only for A032 (lines 9761-9880).
+- **I2. Extension of homomorphisms to good reduction** (lines 781-784). The reduction of
+  `μ_σ : {}^σA → A` to an isogeny of reductions uses the Néron mapping property (Bosch–Lütkebohmert–
+  Raynaud, *Néron models*, §1.2; STANDARD, section number not rechecked here). The descent review
+  (`evidence/descent.md`, line 137) already notes that the sentence names no theorem.
+
+Two further standard facts are inside recorded applications and need no separate entry:
+Poincaré reducibility (A063, Milne I.10.1) and Chebotarev (A064).
+
