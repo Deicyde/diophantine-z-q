@@ -30,3 +30,17 @@
 - KEY FINDING: the good-prime sufficiency (unit pairs locally soluble at p ∤ 2d) needs neither the
   group law nor Hasse: x-form of the covering + character-sum count + Jacobsthal's identity
   (Σ_n S(n)² = p(p−1)(1+χ(−1)), elementary) + unit-square Hensel lift. Small p < 29 by finite check.
+
+## Step 3 (end-to-end test, inventory, routes)
+- t_prop0.py: 30 random d ≡ 5 (8) (1–4 primes < 60; a few repeats), every pair in the box
+  ⟨−1,2,p|d⟩²: local solubility in x-form at ∞, 2, p | d (classes of sampled points ∪ torsion)
+  ⟺ system E1,E2,R,D(c=5): 40512 pairs, 0 mismatches.
+- Inventory (scratch/nt-prop0/mathlib-inventory.md): Hensel (hensels_lemma, Hensel.lean:460),
+  unitCoeff_spec, toZMod, toZModPow, Padic.valuation, Rat.isSquare_iff_even_factorization,
+  quadraticChar_sum_zero, jacobiSum_nontrivial_inv, Subgroup.index_range; MISSING: unit-square criteria
+  in ℚ_p, Hilbert symbol, Σχ(quadratic), Kummer/2-descent, Fintype of E(F_q), Hasse.
+  Repo: Model/Descent/Kummer.lean has SqClass, sqc, kummer (x-coordinate class on shortCurve b,
+  homomorphism kummer_add), kummer_eq_one_iff, phi; MW via AddCommGroup.fg_of_descent'.
+  (Agent suggested Chevalley–Warning at p ∤ 2d: wrong, degrees 2+2 = 4 = number of variables.)
+- Route R3 idea: hypothesis "C_d(ℚ) infinite" (d congruent) suffices with only the NECESSITY half of
+  Prop 0 + δ hom/injective + MW for C_d/ℚ (repo machinery). Bigger investment.
