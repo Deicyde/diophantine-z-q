@@ -44,3 +44,15 @@
   m <= x^eps: no valuation control), 2408.17441 (constellations with Artin-symbol restrictions,
   unconditional; primitive roots under GRH), 1509.04955 (narrow progressions), 1305.5440
   (Conlon-Fox-Zhao relative Szemeredi). No theorem with valuation-restricted differences found.
+
+## Step 3 (resumed run)
+- Note had sections Summary, 1, 2, 3.1, 3.2 (300 lines). Re-checked Lemma P(3) against ms 1716-1758:
+  v_p(D_gj) >= 0 at S_b comes from M0 (independent of t), eta chosen so R0 > 0. OK.
+- New: in the AP form with S^+ = C u {1} u (A'-C) u {A'-1}, A' = A+10, u = x + (max S^+) v,
+  x, v > 0: t1 = max S^+ + x/v > 0 and t2 = A' - t1 < -60, so F(t1), F(t2) > 0 automatically:
+  eta = +1, Lemma P applies at every old prime. u - v is a pattern prime, so at l with e = 0 all
+  valuations vanish; at l = 2 with e <= 2 the old bounds hold.
+- Green-Tao 2008 Theorem 1.2 (sz-primes) statement VERIFIED from arXiv TeX source math/0404188v6:
+  "A subset of primes, limsup pi(N)^{-1}|A cap [1,N]| > 0 => infinitely many APs of length k, all k".
+- arXiv abstracts read: 1007.1839 (Bergelson-Leibman-Ziegler, shifted primes), 1403.2957 and
+  1305.5440 (Conlon-Fox-Zhao simplified transference), 2408.17441 (Frei-Koenig-Tinkova).
