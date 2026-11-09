@@ -98,3 +98,75 @@ which is `(E2_p)`. In descent-alt's matrix notation these are `Au + D_λv = a₀
 identity component have `x > d`, with class `(+, +)`. Points on the other component have
 `−d < x < 0`, with class `(−, −)`. The image is `{(+,+), (−,−)}`, and the condition is `a₀ = b₀`,
 which is row `(R)`.
+
+### 1.4 The place 2 (CORRECT, all four classes)
+
+For `p = 2`, `#E(ℚ₂)/2E(ℚ₂) = #E(ℚ₂)[2] · |2|₂^{−1} = 8`, so the local image has dimension 3. Write a
+class in `ℚ₂*/ℚ₂*²` as `(v, ε, ω)`, where `w = 2^v w'` with `w'` a unit, `ε = (w' − 1)/2` and
+`ω = (w'² − 1)/8` mod 2. Then `−1 = (0,1,0)`, `2 = (1,0,0)` and `p = (0, λ_p, μ_p)` for an odd prime
+`p`. So the class of `a` is `(a₁, a₀ + λ·u, μ·u)` and that of `b` is `(b₁, b₀ + λ·v, μ·v)`. The
+scaling `(x, y) ↦ (t²x, t³y)` is an isomorphism `C_d → C_{t²d}` that preserves both Kummer
+coordinates up to squares. So the local image depends only on the class of `d` in `ℚ₂*/ℚ₂*²`, that
+is, on `d mod 8`.
+
+The three generators are the two torsion images `(d, 2)`, `(−1, −d)` and one non-torsion class.
+That class is the same for every odd `d`:
+
+> **The point `x = 1/4`.** `x(x − d)(x + d) = (1 − 16d²)/64`, and `1 − 16d² ≡ 1 (mod 16)` is a 2-adic
+> square, so `x = 1/4` is the abscissa of a point of `C_d(ℚ₂)`. Its class is
+> `(1/4, (1 − 4d)/4) ≡ (1, 5)`, since `1 − 4d ≡ 5 (mod 8)`. In bits it is `(0,0,0 | 0,0,1)`.
+
+The generators and the subspace they span, for each class, are as follows (bits
+`(a_v, a_ε, a_ω | b_v, b_ε, b_ω)`):
+
+| `d mod 8` | `(d, 2)` | `(−1, −d)` | `(1, 5)` | equations of the span |
+| --- | --- | --- | --- | --- |
+| 1 | `(0,0,0│1,0,0)` | `(0,1,0│0,1,0)` | `(0,0,0│0,0,1)` | `a_v = 0`, `a_ω = 0`, `a_ε = b_ε` |
+| 3 | `(0,1,1│1,0,0)` | `(0,1,0│0,0,1)` | `(0,0,0│0,0,1)` | `a_v = 0`, `b_ε = 0`, `a_ω = b_v` |
+| 5 | `(0,0,1│1,0,0)` | `(0,1,0│0,1,1)` | `(0,0,0│0,0,1)` | `a_v = 0`, `a_ε = b_ε`, `b_v = a_ω` |
+| 7 | `(0,1,0│1,0,0)` | `(0,1,0│0,0,0)` | `(0,0,0│0,0,1)` | `a_v = 0`, `a_ω = 0`, `b_ε = 0` |
+
+In each row the three vectors are independent, so they span the whole image. Substituting the bits
+of `a` and `b` gives:
+
+| `d mod 8` | condition at 2, as derived | descent-alt §4.1 | slot-k §2.1 `(D)` |
+| --- | --- | --- | --- |
+| 1 | `a₁ = 0`, `μ·u = 0`, `a₀ + λ·u = b₀ + λ·v` | `a₁ = 0, μ·u = 0, λ·v = λ·u` | same |
+| 3 | `a₁ = 0`, `b₀ = λ·v`, `b₁ = μ·u` | `a₁ = 0, b₀ = λ·v, b₁ = μ·u` | same |
+| 5 | `a₁ = 0`, `a₀ + λ·u = b₀ + λ·v`, `b₁ = μ·u` | `a₁ = 0, b₁ = μ·u, λ·v = λ·u` | same |
+| 7 | `a₁ = 0`, `μ·u = 0`, `b₀ = λ·v` | `a₁ = 0, μ·u = 0, b₀ = λ·v` | same |
+
+For `d ≡ 1, 5` the tables write `λ·u = λ·v` where the local condition is
+`a₀ + λ·u = b₀ + λ·v`. The two are equivalent in the presence of the real row `a₀ = b₀`, which is
+part of the system. So every row of descent-alt and of slot-k is CORRECT.
+
+*On descent-alt's derivation.* descent-alt computed the images at 2 from sampled 2-adic points until
+the span reached dimension 3. That is a valid proof, because each sampled class is a genuine element
+of a subgroup of known order 8. But only the eight classes for `d ≡ 5` are printed, without the
+points, so the written proof covers one class of the four. slot-k §2.1 redoes the class `d ≡ 5` by
+hand with the point `x = 1/4` on `C_5`; its generators and span equations agree with the table
+above. The table, with the single point `x = 1/4`, gives a written proof for all four classes
+(finding F1).
+
+### 1.5 Proposition 0 (CORRECT)
+
+Combining §§1.1–1.4: for odd squarefree `d > 0`, `(a, b) ∈ Sel₂(C_d)` if and only if
+`(a₀, a₁, b₀, b₁, u, v)` satisfies `(E1_x)`, `(E2_x)` for every prime `x | d`, the real row `(R)`, and
+the row of `(D)` for `d mod 8`. Row by row this is the system of descent-alt §4.1 and slot-k §2.1.
+
+What the proof of DL uses from it:
+
+- the rows `(E1)`, `(E2)`, `(R)`, for all configurations met (§1.2, §1.3);
+- the fact that `(D)` depends on `u, v` only through `λ·u`, `μ·u`, `λ·v`, `μ·v` and on `d` only
+  through `d mod 8` (§1.4, all classes);
+- the row for `d ≡ 5`. Both curves have `d₁ ≡ |β| · q₀ ≡ 7 · 3 ≡ 5` and `d₂ = d₁θ ≡ 5 (mod 8)`, by
+  (θ1). Every configuration in the chain of Lemmas 1–2 has the same class `c = 5`, since glue primes
+  are `≡ 1 (mod 8)` and the glued vertex has class `Π c_x`.
+
+slot-k's claim that the rows for `c = 1, 3, 7` are never used is correct. Those rows are
+nevertheless correct, which matters for the Lean hypothesis CR₃ of slot-k §4.1 if it is stated for
+all odd `d`.
+
+Prop 0 is a statement about actual integers `d`. slot-k applies it only to the actual `d₁`, `d₂`;
+the virtual configurations of Lemmas 1–3 enter only through combinatorial isomorphisms of
+solution spaces. This is the correct order of logic.

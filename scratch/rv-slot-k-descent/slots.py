@@ -17,12 +17,29 @@ POS = [a for a in range(1, 2731) if 2730 % a == 0]
 DIVS = [s * a for a in POS for s in (1, -1)]
 
 
+_fc = {}
+
+
 def factor(n):
     n = abs(int(n))
     if n <= 1:
         return {}
-    f = pari.factor(n)
-    return {int(p): int(e) for p, e in zip(f[0], f[1])}
+    if n not in _fc:
+        f = pari.factor(n)
+        _fc[n] = {int(p): int(e) for p, e in zip(f[0], f[1])}
+    return _fc[n]
+
+
+def sqfQ(r):
+    """Signed squarefree part of a nonzero rational (numerator and denominator factored separately)."""
+    out = -1 if r < 0 else 1
+    f = dict(factor(r.numerator))
+    for p, e in factor(r.denominator).items():
+        f[p] = f.get(p, 0) + e
+    for p, e in f.items():
+        if e % 2:
+            out *= p
+    return out
 
 
 def sqf_int(n):
@@ -54,17 +71,18 @@ def bit(y, p):
     return 0 if l == 1 else 1
 
 
+def beta_of(B, m):
+    return sqfQ(m * B)
+
+
 def beta_theta(B, m):
-    beta = sqf_int((m * B).numerator * (m * B).denominator)
-    t = m * (m - B)
-    theta = sqf_int(t.numerator * t.denominator)
-    return beta, theta
+    return beta_of(B, m), sqfQ(m * (m - B))
 
 
 def eligible(B):
     out = []
     for m in DIVS:
-        beta, theta = beta_theta(B, m)
+        beta = beta_of(B, m)
         if beta % 2 and abs(beta) % 8 == 7:
             out.append(m)
     return out
