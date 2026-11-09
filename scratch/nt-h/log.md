@@ -44,3 +44,13 @@
 - Q3 plan for §4: Serre's pigeonhole at large l: KW strong form (level N(rbar), weight 2 from
   finite flatness at l outside T), pigeonhole over newforms of level <= QM^2. Removes Pan,
   A009/A010, Conrad's local algebraicity; Carayol moves inside the citation of the strong form.
+
+## Step 4 (note completed)
+- §3: cusp lemma (C), genus-two instance, integrality tests, relative positivity (Pos_K) —
+  CORRECTION of the Step-0 idea: C1 does NOT exclude positivity relative to a controlled label
+  integer K (true inputs never need K = ±1); it is open in logic, but no existential device is
+  known. Pos_K would let Stewart-Yu replace H. Affine-moduli lemma (M).
+- §4: Serre's large-l pigeonhole argument written out (7 steps), leaf table vs h-leaves §5.1,
+  other older routes (Langlands-Tunnell, level lowering, parametrization of X^6/W, Ribet-Pyle,
+  Ellenberg-Skinner) ruled out or no gain.
+- §5 ranking. Summary rewritten. Next: .fleet/nt-h.md.
