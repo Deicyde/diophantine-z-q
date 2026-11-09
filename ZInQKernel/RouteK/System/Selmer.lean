@@ -173,6 +173,25 @@ theorem card_sols_reindex : (𝒞.reindex e).sols.card = 𝒞.sols.card := by
   rw [← Fintype.card_coe, ← Fintype.card_coe]
   exact Fintype.card_congr (𝒞.solsReindexEquiv e)
 
+/-- Two configurations that match through `e : κ ≃ ι` on the classes and on the off-diagonal
+symbols have corresponding solution sets, by `σ ↦ σ ∘ e⁻¹`. -/
+def solsEquivOfIso {𝒞' : Config κ} (hc : ∀ x, 𝒞'.cls x = 𝒞.cls (e x))
+    (hb : ∀ x y, x ≠ y → 𝒞'.bit x y = 𝒞.bit (e x) (e y)) : 𝒞'.sols ≃ 𝒞.sols :=
+  (Equiv.subtypeEquivRight fun σ => by
+    rw [𝒞'.sols_congr (𝒞' := 𝒞.reindex e) hc hb]).trans (𝒞.solsReindexEquiv e)
+
+@[simp] theorem solsEquivOfIso_apply {𝒞' : Config κ} (hc : ∀ x, 𝒞'.cls x = 𝒞.cls (e x))
+    (hb : ∀ x y, x ≠ y → 𝒞'.bit x y = 𝒞.bit (e x) (e y)) (σ : 𝒞'.sols) :
+    (𝒞.solsEquivOfIso e hc hb σ).1 = σ.1.comp e.symm := rfl
+
+@[simp] theorem solsEquivOfIso_symm_apply {𝒞' : Config κ} (hc : ∀ x, 𝒞'.cls x = 𝒞.cls (e x))
+    (hb : ∀ x y, x ≠ y → 𝒞'.bit x y = 𝒞.bit (e x) (e y)) (σ : 𝒞.sols) :
+    ((𝒞.solsEquivOfIso e hc hb).symm σ).1 = σ.1.comp e := rfl
+
+theorem card_sols_of_iso {𝒞' : Config κ} (hc : ∀ x, 𝒞'.cls x = 𝒞.cls (e x))
+    (hb : ∀ x y, x ≠ y → 𝒞'.bit x y = 𝒞.bit (e x) (e y)) : 𝒞'.sols.card = 𝒞.sols.card :=
+  Finset.card_eq_of_equiv (𝒞.solsEquivOfIso e hc hb)
+
 end reindex
 
 end Config

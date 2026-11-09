@@ -34,9 +34,9 @@ variable {ι R : Type*} [Fintype ι] [DecidableEq ι] [Fintype R] [DecidableEq R
 /-- The restriction of a configuration on `ι ⊕ R` to `ι`. -/
 def restrictLeft (𝒞 : Config (ι ⊕ R)) : Config ι where
   cls x := 𝒞.cls (.inl x)
-  cls_mem x := 𝒞.cls_mem _
-  bit x y := 𝒞.bit (.inl x) (.inl y)
-  recip x y h := 𝒞.recip _ _ (Sum.inl_injective.ne h)
+  cls_mem _ := 𝒞.cls_mem _
+  bit a b := 𝒞.bit (.inl a) (.inl b)
+  recip _ _ h := 𝒞.recip _ _ (Sum.inl_injective.ne h)
 
 /-- The hypotheses of Lemma 1 for the family `R`: every `r ∈ R` is a glue prime whose only nonzero
 symbol `[r/z]` is at `z = y r`. -/
@@ -49,9 +49,11 @@ structure Partners (𝒞 : Config (ι ⊕ R)) (y : R → ι) : Prop where
 def partnerExtend (y : R → ι) (σ : Unknowns ι) : Unknowns (ι ⊕ R) :=
   ⟨σ.a0, σ.a1, σ.b0, σ.b1, Sum.elim σ.u (σ.u ∘ y), Sum.elim σ.v (σ.v ∘ y)⟩
 
+omit [Fintype ι] [DecidableEq ι] [Fintype R] [DecidableEq R] in
 @[simp] theorem partnerExtend_comp_inl (y : R → ι) (σ : Unknowns ι) :
     (partnerExtend y σ).comp Sum.inl = σ := rfl
 
+omit [Fintype ι] [DecidableEq ι] [Fintype R] [DecidableEq R] in
 theorem partnerExtend_first (y : R → ι) (σ : Unknowns ι) :
     (partnerExtend y σ).first = (σ.a0, σ.a1, Sum.elim σ.u (σ.u ∘ y)) := rfl
 
@@ -79,17 +81,20 @@ theorem Partners.monsky_inl (h : Partners 𝒞 y) {u : ι ⊕ R → ZMod 2}
     · rw [h.bit_other r _ Sum.inl_ne_inr (fun e => hx (Sum.inl_injective e)), zero_mul]
   rw [this, add_zero]; rfl
 
+omit [DecidableEq ι] [DecidableEq R] in
 theorem Partners.prodClass_eq (h : Partners 𝒞 y) : 𝒞.prodClass = 𝒞.restrictLeft.prodClass := by
   rw [prodClass, Fintype.prod_sum_type]
   simp only [h.cls_eq_one, Finset.prod_const_one, mul_one]
   rfl
 
+omit [DecidableEq ι] [DecidableEq R] in
 theorem Partners.dot_lam (h : Partners 𝒞 y) (u : ι ⊕ R → ZMod 2) :
     dot 𝒞.lam u = dot 𝒞.restrictLeft.lam (u ∘ Sum.inl) := by
   rw [dot, Fintype.sum_sum_type]
   simp only [lam, h.cls_eq_one, lam8_one, zero_mul, Finset.sum_const_zero, add_zero]
   rfl
 
+omit [DecidableEq ι] [DecidableEq R] in
 theorem Partners.dot_mu (h : Partners 𝒞 y) (u : ι ⊕ R → ZMod 2) :
     dot 𝒞.mu u = dot 𝒞.restrictLeft.mu (u ∘ Sum.inl) := by
   rw [dot, Fintype.sum_sum_type]
@@ -167,7 +172,7 @@ def Partners.solsEquiv (h : Partners 𝒞 y) : 𝒞.sols ≃ 𝒞.restrictLeft.s
 theorem Partners.bijOn (h : Partners 𝒞 y) :
     Set.BijOn (fun σ : Unknowns (ι ⊕ R) => σ.comp Sum.inl) (𝒞.sols : Set (Unknowns (ι ⊕ R)))
       (𝒞.restrictLeft.sols : Set (Unknowns ι)) :=
-  Set.InvOn.bijOn (f' := partnerExtend y) ⟨fun σ hσ => h.extend_comp hσ, fun _ _ => rfl⟩
+  Set.InvOn.bijOn (f' := partnerExtend y) ⟨fun _ hσ => h.extend_comp hσ, fun _ _ => rfl⟩
     (fun _ hσ => h.comp_mem hσ) (fun _ hσ => h.extend_mem hσ)
 
 theorem Partners.card_sols (h : Partners 𝒞 y) : 𝒞.sols.card = 𝒞.restrictLeft.sols.card :=
@@ -182,9 +187,9 @@ variable {ι : Type*} [Fintype ι] [DecidableEq ι]
 /-- The configuration `𝒞 ∖ r` on the remaining symbols. -/
 def erase (𝒞 : Config ι) (r : ι) : Config {x // x ≠ r} where
   cls x := 𝒞.cls x
-  cls_mem x := 𝒞.cls_mem _
+  cls_mem _ := 𝒞.cls_mem _
   bit x y := 𝒞.bit x y
-  recip x y h := 𝒞.recip _ _ (fun e => h (Subtype.ext e))
+  recip _ _ h := 𝒞.recip _ _ (fun e => h (Subtype.ext e))
 
 /-- `ι ≃ {x // x ≠ r} ⊕ Unit`, sending `r` to the right summand. -/
 def sumUnitEquiv (r : ι) : {x // x ≠ r} ⊕ Unit ≃ ι where
@@ -209,6 +214,7 @@ structure Partner (𝒞 : Config ι) (r y : ι) : Prop where
 
 variable {𝒞 : Config ι} {r y : ι}
 
+omit [Fintype ι] in
 theorem Partner.partners (h : 𝒞.Partner r y) :
     Partners (𝒞.reindex (sumUnitEquiv r)) (fun _ => ⟨y, h.ne⟩) where
   cls_eq_one _ := h.cls_eq_one

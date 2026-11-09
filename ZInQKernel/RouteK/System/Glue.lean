@@ -55,25 +55,35 @@ section glueSimp
 
 variable (𝒞 : Config (S' ⊕ (Option G ⊕ G)))
 
+omit [Fintype S'] [DecidableEq S'] in
 @[simp] theorem glue_cls_none : 𝒞.glue.cls none = ∏ o, 𝒞.cls (.inr (.inl o)) := rfl
+omit [Fintype S'] [DecidableEq S'] in
 @[simp] theorem glue_cls_some (s : S') : 𝒞.glue.cls (some s) = 𝒞.cls (.inl s) := rfl
+omit [Fintype S'] [DecidableEq S'] in
 @[simp] theorem glue_bit_some_some (y y' : S') :
     𝒞.glue.bit (some y) (some y') = 𝒞.bit (.inl y) (.inl y') := rfl
+omit [Fintype S'] [DecidableEq S'] in
 @[simp] theorem glue_bit_some_none (y : S') :
     𝒞.glue.bit (some y) none = ∑ o, 𝒞.bit (.inl y) (.inr (.inl o)) := rfl
+omit [Fintype S'] [DecidableEq S'] in
 @[simp] theorem glue_bit_none_some (y : S') :
     𝒞.glue.bit none (some y) = ∑ o, 𝒞.bit (.inr (.inl o)) (.inl y) := rfl
+omit [Fintype S'] [DecidableEq S'] in
 @[simp] theorem glue_lam_some (s : S') : 𝒞.glue.lam (some s) = 𝒞.lam (.inl s) := rfl
+omit [Fintype S'] [DecidableEq S'] in
 @[simp] theorem glue_mu_some (s : S') : 𝒞.glue.mu (some s) = 𝒞.mu (.inl s) := rfl
 
+omit [Fintype S'] [DecidableEq S'] in
 /-- `λ_{g*} = Σ_{x ∈ G ∪ {g}} λ_x`. -/
 theorem glue_lam_none : 𝒞.glue.lam none = ∑ o, 𝒞.lam (.inr (.inl o)) :=
   lam8_prod _ _ fun _ _ => 𝒞.cls_mem _
 
+omit [Fintype S'] [DecidableEq S'] in
 /-- `μ_{g*} = Σ_{x ∈ G ∪ {g}} μ_x`. -/
 theorem glue_mu_none : 𝒞.glue.mu none = ∑ o, 𝒞.mu (.inr (.inl o)) :=
   mu8_prod _ _ fun _ _ => 𝒞.cls_mem _
 
+omit [DecidableEq S'] in
 /-- `c(𝒞*) = c(𝒞)` when the glue primes have class 1 (in general it differs by `Π c_{r_ℓ}`). -/
 theorem glue_prodClass (h : ∀ ℓ, 𝒞.cls (.inr (.inr ℓ)) = 1) : 𝒞.glue.prodClass = 𝒞.prodClass := by
   simp only [prodClass, Fintype.prod_option, Fintype.prod_sum_type, glue_cls_none, glue_cls_some,
@@ -91,6 +101,7 @@ def glueVec (w : S' ⊕ (Option G ⊕ G) → ZMod 2) : Option S' → ZMod 2
 def glueMap (σ : Unknowns (S' ⊕ (Option G ⊕ G))) : Unknowns (Option S') :=
   ⟨σ.a0, σ.a1, σ.b0, σ.b1, glueVec σ.u, glueVec σ.v⟩
 
+omit [Fintype S'] [DecidableEq S'] [Fintype G] [DecidableEq G] in
 theorem glueMap_first (σ : Unknowns (S' ⊕ (Option G ⊕ G))) :
     (glueMap σ).first = (σ.a0, σ.a1, glueVec σ.u) := rfl
 
@@ -118,6 +129,7 @@ def glueLift (𝒞 : Config (S' ⊕ (Option G ⊕ G))) (τ : Unknowns (Option S'
         τ.v none + 𝒞.mu (.inr (.inl (some ℓ))) * τ.u none +
         𝒞.lam (.inr (.inl (some ℓ))) * (τ.v none + τ.b0) + τ.b1 * 𝒞.mu (.inr (.inl (some ℓ)))
 
+omit [DecidableEq S'] [Fintype G] [DecidableEq G] in
 @[simp] theorem glueMap_glueLift (𝒞 : Config (S' ⊕ (Option G ⊕ G))) (τ : Unknowns (Option S')) :
     glueMap (𝒞.glueLift τ) = τ := by
   ext o
@@ -141,14 +153,17 @@ structure Gluing (𝒞 : Config (S' ⊕ (Option G ⊕ G))) : Prop where
 def GlueConst (w : S' ⊕ (Option G ⊕ G) → ZMod 2) : Prop :=
   ∀ o : Option G, w (.inr (.inl o)) = w (.inr (.inl none))
 
+omit [Fintype S'] [DecidableEq S'] [DecidableEq G] in
 theorem GlueConst.sum_mul {w : S' ⊕ (Option G ⊕ G) → ZMod 2} (hw : GlueConst w)
     (f : Option G → ZMod 2) :
     ∑ o, f o * w (.inr (.inl o)) = (∑ o, f o) * w (.inr (.inl none)) := by
   rw [Finset.sum_mul]; exact Finset.sum_congr rfl fun o _ => by rw [hw o]
 
+omit [DecidableEq S'] [Fintype G] [DecidableEq G] in
 theorem glueLift_u_const (𝒞 : Config (S' ⊕ (Option G ⊕ G))) (τ : Unknowns (Option S')) :
     GlueConst (𝒞.glueLift τ).u := fun _ => rfl
 
+omit [DecidableEq S'] [Fintype G] [DecidableEq G] in
 theorem glueLift_v_const (𝒞 : Config (S' ⊕ (Option G ⊕ G))) (τ : Unknowns (Option S')) :
     GlueConst (𝒞.glueLift τ).v := fun _ => rfl
 
@@ -156,9 +171,11 @@ variable {𝒞 : Config (S' ⊕ (Option G ⊕ G))}
 
 namespace Gluing
 
+omit [Fintype S'] [DecidableEq S'] [Fintype G] [DecidableEq G] in
 theorem lam_r (h : 𝒞.Gluing) (ℓ : G) : 𝒞.lam (.inr (.inr ℓ)) = 0 := by
   simp [lam, h.cls_eq_one]
 
+omit [Fintype S'] [DecidableEq S'] [Fintype G] [DecidableEq G] in
 theorem mu_r (h : 𝒞.Gluing) (ℓ : G) : 𝒞.mu (.inr (.inr ℓ)) = 0 := by
   simp [mu, h.cls_eq_one]
 
@@ -229,6 +246,7 @@ theorem sum_monsky_X (h : 𝒞.Gluing) {u : S' ⊕ (Option G ⊕ G) → ZMod 2} 
   rw [CharTwo.add_self_eq_zero, mul_zero, zero_add]
   rfl
 
+omit [DecidableEq S'] in
 theorem dot_lam (h : 𝒞.Gluing) {w : S' ⊕ (Option G ⊕ G) → ZMod 2} (hw : GlueConst w) :
     dot 𝒞.lam w = dot 𝒞.glue.lam (glueVec w) := by
   rw [dot, dot, Fintype.sum_sum_type, Fintype.sum_sum_type, hw.sum_mul]
@@ -236,6 +254,7 @@ theorem dot_lam (h : 𝒞.Gluing) {w : S' ⊕ (Option G ⊕ G) → ZMod 2} (hw :
   simp only [h.lam_r, zero_mul, Finset.sum_const_zero, add_zero]
   rw [add_comm]; rfl
 
+omit [DecidableEq S'] in
 theorem dot_mu (h : 𝒞.Gluing) {w : S' ⊕ (Option G ⊕ G) → ZMod 2} (hw : GlueConst w) :
     dot 𝒞.mu w = dot 𝒞.glue.mu (glueVec w) := by
   rw [dot, dot, Fintype.sum_sum_type, Fintype.sum_sum_type, hw.sum_mul]
@@ -243,6 +262,7 @@ theorem dot_mu (h : 𝒞.Gluing) {w : S' ⊕ (Option G ⊕ G) → ZMod 2} (hw : 
   simp only [h.mu_r, zero_mul, Finset.sum_const_zero, add_zero]
   rw [add_comm]; rfl
 
+omit [DecidableEq S'] in
 theorem D_iff (h : 𝒞.Gluing) {σ : Unknowns (S' ⊕ (Option G ⊕ G))} (hu : GlueConst σ.u)
     (hv : GlueConst σ.v) : 𝒞.D σ ↔ 𝒞.glue.D (glueMap σ) := by
   rw [D, D, glue_prodClass 𝒞 h.cls_eq_one, h.dot_lam hu, h.dot_mu hu, h.dot_lam hv]
@@ -282,15 +302,17 @@ theorem glueMap_isSol (h : 𝒞.Gluing) {σ : Unknowns (S' ⊕ (Option G ⊕ G))
       rwa [E1, h.monsky_inl hu] at this
   · rintro (_ | y)
     · have hs := Finset.sum_congr rfl fun (o : Option G) (_ : o ∈ Finset.univ) => h2 (.inr (.inl o))
-      simp only [E2, Finset.sum_add_distrib, ← Finset.mul_sum] at hs
+      simp only [Finset.sum_add_distrib, ← Finset.mul_sum] at hs
       rw [h.sum_monsky_X hv, hu.sum_mul, hv.sum_mul, ← glue_lam_none, ← glue_mu_none] at hs
       exact hs
     · have := h2 (.inl y)
       rwa [E2, h.monsky_inl hv] at this
 
+omit [DecidableEq S'] [Fintype G] [DecidableEq G] in
 @[simp] theorem glueVec_glueLift_u (τ : Unknowns (Option S')) : glueVec (𝒞.glueLift τ).u = τ.u :=
   funext fun o => by cases o <;> rfl
 
+omit [DecidableEq S'] [Fintype G] [DecidableEq G] in
 @[simp] theorem glueVec_glueLift_v (τ : Unknowns (Option S')) : glueVec (𝒞.glueLift τ).v = τ.v :=
   funext fun o => by cases o <;> rfl
 
@@ -346,7 +368,7 @@ theorem glueLift_isSol (h : 𝒞.Gluing) {τ : Unknowns (Option S')} (hτ : 𝒞
     · exact hE1g
     · exact hE1ℓ ℓ
     · rw [E1, h.monsky_r, h.lam_r, h.mu_r]
-      simp only [hσ, glueLift, CharTwo.add_self_eq_zero, mul_zero, zero_mul, add_zero]
+      simp only [hσ, glueLift, CharTwo.add_self_eq_zero, mul_zero, zero_mul]
   · rintro (y | (_ | ℓ) | ℓ)
     · have := h2 (some y)
       rw [E2, ← glueVec_glueLift_v (𝒞 := 𝒞) τ, ← h.monsky_inl hv] at this
@@ -354,7 +376,7 @@ theorem glueLift_isSol (h : 𝒞.Gluing) {τ : Unknowns (Option S')} (hτ : 𝒞
     · exact hE2g
     · exact hE2ℓ ℓ
     · rw [E2, h.monsky_r, h.lam_r, h.mu_r]
-      simp only [hσ, glueLift, CharTwo.add_self_eq_zero, mul_zero, zero_mul, add_zero]
+      simp only [hσ, glueLift, CharTwo.add_self_eq_zero, mul_zero, zero_mul]
   · rw [h.D_iff hu hv, hσ, glueMap_glueLift]; exact h4
 
 /-- The lift inverts `Φ` on solutions: a solution is determined by its image, through step 1 and
