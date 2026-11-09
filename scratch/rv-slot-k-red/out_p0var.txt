@@ -1,0 +1,16 @@
+#00 p0var          m=   -14 beta=-|7| w(b)=7 w(t)=4 P=[1, 1, 5, 3, 7, 5, 3] T=[5, 3, 3, 5] p0=1 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#01 p0var          m=   -14 beta=-|7| w(b)=7 w(t)=4 P=[1, 1, 5, 3, 7, 5, 3] T=[5, 3, 3, 5] p0=1 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#02 p0var          m=   -14 beta=-|7| w(b)=7 w(t)=4 P=[1, 1, 5, 3, 7, 5, 3] T=[5, 3, 3, 5] p0=5 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#03 p0var          m=   -14 beta=-|7| w(b)=7 w(t)=4 P=[1, 1, 5, 3, 7, 5, 3] T=[5, 3, 3, 5] p0=3 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#04 p0var          m=   -14 beta=-|7| w(b)=7 w(t)=4 P=[1, 1, 5, 3, 7, 5, 3] T=[5, 3, 3, 5] p0=7 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#05 p0var          m=   -14 beta=-|7| w(b)=7 w(t)=4 P=[1, 1, 5, 3, 7, 5, 3] T=[5, 3, 3, 5] p0=5 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#06 p0var          m=   -14 beta=-|7| w(b)=7 w(t)=4 P=[1, 1, 5, 3, 7, 5, 3] T=[5, 3, 3, 5] p0=3 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#07 p0var          m=   -91 beta=-|7| w(b)=8 w(t)=3 P=... T=[7, 7, 1] p0=3 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#08 p0var          m=   -91 beta=-|7| w(b)=8 w(t)=3 P=... T=[7, 7, 1] p0=5 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#09 p0var          m=   -91 beta=-|7| w(b)=8 w(t)=3 P=... T=[7, 7, 1] p0=7 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#10 p0var          m=   -91 beta=-|7| w(b)=8 w(t)=3 P=... T=[7, 7, 1] p0=7 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#11 p0var          m=   -91 beta=-|7| w(b)=8 w(t)=3 P=... T=[7, 7, 1] p0=3 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#12 p0var          m=   -91 beta=-|7| w(b)=8 w(t)=3 P=... T=[7, 7, 1] p0=1 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#13 p0var          m=   -91 beta=-|7| w(b)=8 w(t)=3 P=... T=[7, 7, 1] p0=5 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#14 p0var          m=   -91 beta=-|7| w(b)=8 w(t)=3 P=... T=[7, 7, 1] p0=7 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+family p0var seed 13: 15/15 certified, 20s

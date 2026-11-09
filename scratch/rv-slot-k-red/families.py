@@ -125,3 +125,170 @@ def thetacls(rng):
         if B is not None:
             out.append((B, m, 'rand', 'thetacls%d' % k))
     return out[:30]
+
+
+def core_primes(rng, k, lo=2 * 10**4, hi=3 * 10**6):
+    """k primes = 1 mod 21840, pairwise quadratic residues (an isotropic core, descent-alt Prop B)."""
+    from sel2 import leg
+    while True:
+        K = []
+        tries = 0
+        while len(K) < k and tries < 20000:
+            tries += 1
+            p = rng.randrange(lo // 21840, hi // 21840) * 21840 + 1
+            if not gmpy2.is_prime(p):
+                continue
+            if all(leg(p, q) == 0 for q in K):
+                K.append(p)
+        if len(K) == k:
+            return K
+
+
+def S0power(rng):
+    return 2 ** rng.randint(4, 7) * 3 ** rng.randint(4, 7) * 5 ** rng.randint(4, 7) \
+        * 7 ** rng.randint(4, 7) * 13 ** rng.randint(4, 7)
+
+
+def B_over(rng, N):
+    """admissible B = N / D^2 with D coprime to N, D^2 > 2N."""
+    while True:
+        D = int(gmpy2.isqrt(2 * N)) + rng.randrange(1, 10**6)
+        if gmpy2.gcd(D, N) == 1:
+            B = Fr(N, D * D)
+            if admissible(B):
+                return B
+
+
+def cores(rng):
+    """beta = (isotropic core of size k) x (S0 part from the multiplier); every eligible m."""
+    out = []
+    for k, nm in ((3, 8), (4, 8), (6, 8), (5, 6)):
+        K = core_primes(rng, k)
+        N = S0power(rng) * prod(K)
+        B = B_over(rng, N)
+        ms = eligible(B)
+        rng.shuffle(ms)
+        for m in ms[:nm]:
+            out.append((B, m, 'rand', 'core%d' % k))
+    return out[:30]
+
+
+def cores_extra(rng):
+    """core of size k plus one large prime = 7 mod 8 (or 3 mod 8) in B; theta via t."""
+    out = []
+    for i in range(30):
+        k = rng.choice([3, 4, 5, 6])
+        K = core_primes(rng, k)
+        e = rand_prime(rng, 10**3, 10**7, rng.choice([3, 7]))
+        b0 = prod(K) * e
+        # pick S0-part so that |beta| = 7 mod 8
+        for f in (1, 3, 5, 7, 15, 39, 455, 21, 35, 13):
+            if (b0 * f) % 8 == 7:
+                break
+        b = rng.choice([1, -1]) * b0 * f
+        B, m = gen_from_beta(rng, b)
+        if B is not None:
+            out.append((B, m, 'rand', 'core%d+e' % k))
+    return out
+
+
+def s0beta(rng):
+    """P inside {3,5,7,13}: beta in +-{7, 15, 39, 455}, nontrivial theta, all p0 choices."""
+    out = []
+    for b in (7, -7, 15, -15, 39, -39, 455, -455):
+        for j in range(4 if abs(b) == 455 else 3):
+            B, m = gen_from_beta(rng, b, want=lambda th, T: len(T) >= 1)
+            if B is not None:
+                out.append((B, m, j, 's0beta %d' % b))
+    return out[:30]
+
+
+def allm(rng):
+    """3 random inputs, every eligible multiplier (both signs, all odd parts = 7)."""
+    out = []
+    for i in range(3):
+        B = gen_random(rng)
+        for m in eligible(B):
+            out.append((B, m, 'rand', 'allm%d' % i))
+    return out[:30]
+
+
+def p0var(rng):
+    """one input per beta size, every choice of p0."""
+    out = []
+    for c in ([3, 5, 1, 1, 5, 3, 7], [7, 7, 7, 1, 5, 3, 5, 3]):
+        b = beta_with_classes(rng, c) if prod(c) % 8 == 7 else None
+        if b is None:
+            continue
+        B, m = gen_from_beta(rng, b, want=lambda th, T: len(T) >= 2)
+        for j in range(len(c)):
+            out.append((B, m, j, 'p0var'))
+    return out[:30]
+
+
+CONTACT = (0, 15, 20, 24, 30, 60)
+
+
+def Fpoly(t):
+    r = Fr(1)
+    for c in CONTACT:
+        r *= (t + c)
+    return r
+
+
+def slope_pattern_uv(rng, lo=10**3, hi=10**6, v=None):
+    """t = u/v with every |u + c v| (c in the contact set) a prime = +-1 mod 8 (six good slope
+    primes, as under 22P2): v = 0 mod 8, u = +-1 mod 8."""
+    while True:
+        vv = v if v is not None else 8 * rng.randint(1, 50)
+        u = rng.randrange(lo, hi) * rng.choice([1, -1])
+        if u % 8 not in (1, 7) or gmpy2.gcd(u, vv) != 1:
+            continue
+        if all(gmpy2.is_prime(abs(u + c * vv)) for c in CONTACT):
+            return u, vv
+
+
+def slope_site(rng):
+    """slope call site: R0 = eta F(t)/(t-1)^8 with six good slope primes, B = R0 s^2."""
+    out = []
+    while len(out) < 30:
+        u, v = slope_pattern_uv(rng)
+        t = Fr(u, v)
+        R0 = Fpoly(t) / (t - 1) ** 8
+        eta = 1 if R0 > 0 else -1
+        R0 *= eta
+        for _ in range(200):
+            s = Fr(2730 ** rng.randint(2, 4) * rng.randint(1, 30), rng.randrange(10**3, 10**12))
+            B = R0 * s * s
+            if admissible(B):
+                break
+        else:
+            continue
+        ms = eligible(B)
+        m = rng.choice(ms)
+        out.append((B, m, 'rand', 'slope u=%d v=%d' % (u, v)))
+    return out
+
+
+def test_site(rng):
+    """test call site: R0 = eta 2730^6 F(n), n integer, B = R0 s^2 (s may have v_p = -1 on S0)."""
+    out = []
+    while len(out) < 30:
+        n = rng.choice([rng.randint(-200, 200), rng.randint(-10**4, 10**4), rng.randint(-10**6, 10**6)])
+        if n in (0, -15, -20, -24, -30, -60):
+            continue
+        R0 = 2730 ** 6 * Fpoly(Fr(n))
+        eta = 1 if R0 > 0 else -1
+        R0 *= eta
+        bound = int(gmpy2.isqrt(int(R0))) * 2 + 2
+        for _ in range(200):
+            a = rng.randint(1, 50)
+            s = Fr(a, 2730 * rng.randrange(bound // 2730 * a + 1, bound // 2730 * a * 4 + 10))
+            B = R0 * s * s
+            if admissible(B):
+                break
+        else:
+            continue
+        m = rng.choice(eligible(B))
+        out.append((B, m, 'rand', 'test n=%d' % n))
+    return out

@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/jackmccarthy/dzq-wt/rv-slot-k-red/scratch/rv-slot-k-red/run_batch.py", line 11, in <module>
+    runs = getattr(families, fam)(rng)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jackmccarthy/dzq-wt/rv-slot-k-red/scratch/rv-slot-k-red/families.py", line 181, in cores_extra
+    K = core_primes(rng, k)
+        ^^^^^^^^^^^^^^^^^^^
+  File "/home/jackmccarthy/dzq-wt/rv-slot-k-red/scratch/rv-slot-k-red/families.py", line 141, in core_primes
+    if all(leg(p, q) == 0 for q in K):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jackmccarthy/dzq-wt/rv-slot-k-red/scratch/rv-slot-k-red/families.py", line 141, in <genexpr>
+    if all(leg(p, q) == 0 for q in K):
+           ^^^^^^^^^
+  File "/home/jackmccarthy/dzq-wt/rv-slot-k-red/scratch/rv-slot-k-red/sel2.py", line 22, in leg
+    assert j != 0, (a, p)
+           ^^^^^^
+AssertionError: (1026481, 1026481)

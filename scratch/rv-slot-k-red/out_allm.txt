@@ -1,0 +1,25 @@
+#00 allm0          m=     5 beta=+|7| w(b)=8 w(t)=5 P=... T=[3, 1, 1, 5, 7] p0=7 slots=13 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#01 allm0          m=    -5 beta=-|7| w(b)=8 w(t)=4 P=... T=[1, 7, 7, 1] p0=13 slots=12 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#02 allm0          m=    13 beta=+|7| w(b)=8 w(t)=2 P=... T=[7, 7] p0=7 slots=10 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#03 allm0          m=   -13 beta=-|7| w(b)=8 w(t)=2 P=... T=[5, 5] p0=5 slots=10 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#04 allm0          m=    21 beta=+|7| w(b)=9 w(t)=6 P=... T=[3, 7, 5, 1, 7, 7] p0=7 slots=15 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#05 allm0          m=   -21 beta=-|7| w(b)=9 w(t)=5 P=... T=[7, 1, 1, 3, 5] p0=1 slots=14 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#06 allm0          m=  1365 beta=+|7| w(b)=7 w(t)=3 P=[3, 7, 7, 5, 1, 1, 1] T=[1, 3, 3] p0=7 slots=10 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#07 allm0          m= -1365 beta=-|7| w(b)=7 w(t)=3 P=[3, 7, 7, 5, 1, 1, 1] T=[3, 1, 3] p0=7 slots=10 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#08 allm1          m=     5 beta=+|7| w(b)=7 w(t)=3 P=[7, 5, 5, 1, 7, 1, 7] T=[7, 3, 5] p0=7 slots=10 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#09 allm1          m=    -5 beta=-|7| w(b)=7 w(t)=2 P=[7, 5, 5, 1, 7, 1, 7] T=[1, 1] p0=7 slots=9 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#10 allm1          m=    13 beta=+|7| w(b)=7 w(t)=3 P=[5, 7, 5, 1, 7, 1, 7] T=[1, 1, 1] p0=7 slots=10 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#11 allm1          m=   -13 beta=-|7| w(b)=7 w(t)=2 P=[5, 7, 5, 1, 7, 1, 7] T=[7, 7] p0=5 slots=9 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#12 allm1          m=    21 beta=+|7| w(b)=8 w(t)=3 P=... T=[3, 7, 5] p0=5 slots=11 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#13 allm1          m=   -21 beta=-|7| w(b)=8 w(t)=2 P=... T=[3, 3] p0=1 slots=10 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#14 allm1          m=  1365 beta=+|7| w(b)=6 w(t)=3 P=[3, 5, 1, 7, 1, 7] T=[3, 1, 3] p0=1 slots=9 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#15 allm1          m= -1365 beta=-|7| w(b)=6 w(t)=1 P=[3, 5, 1, 7, 1, 7] T=[1] p0=3 slots=7 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#16 allm2          m=    14 beta=+|7| w(b)=3 w(t)=3 P=[3, 5, 1] T=[5, 5, 1] p0=3 slots=6 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#17 allm2          m=   -14 beta=-|7| w(b)=3 w(t)=2 P=[3, 5, 1] T=[3, 3] p0=5 slots=5 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#18 allm2          m=    30 beta=+|7| w(b)=2 w(t)=1 P=[7, 1] T=[1] p0=1 slots=3 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#19 allm2          m=   -30 beta=-|7| w(b)=2 w(t)=4 P=[7, 1] T=[5, 3, 7, 1] p0=7 slots=6 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#20 allm2          m=    78 beta=+|7| w(b)=4 w(t)=4 P=[5, 7, 5, 1] T=[3, 3, 5, 5] p0=7 slots=8 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#21 allm2          m=   -78 beta=-|7| w(b)=4 w(t)=3 P=[5, 7, 5, 1] T=[3, 5, 7] p0=7 slots=7 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#22 allm2          m=   910 beta=+|7| w(b)=3 w(t)=3 P=[3, 5, 1] T=[7, 7, 1] p0=3 slots=6 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+#23 allm2          m=  -910 beta=-|7| w(b)=3 w(t)=4 P=[3, 5, 1] T=[5, 3, 1, 7] p0=3 slots=7 d1:(dim 3, beta True, 5) d2:(dim 3, beta True, 5) inprops_bad=[] OK
+family allm seed 13: 24/24 certified, 27s

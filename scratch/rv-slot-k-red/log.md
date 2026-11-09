@@ -34,3 +34,17 @@
     [q0/l] = 0 is not used. Reason: in Lemma 2 (g = q0, G = T) symbols inside X = T u {q0} cancel,
     and l is not in S_1. slot-k 2.5 "What each slot does" says q0's symbols at T are dictated by
     the transfer: that justification is wrong (harmless superfluous condition). MINOR.
+
+## Step 3 (symbolic checks with the Proposition 0 system)
+- `t_symbolic_exh.py a b`: EXHAUSTIVE over classes mod 8, all symbols (reciprocity, theta3, theta4),
+  both signs, every p0. (a,b) = (1,0) 2, (2,0) 32, (3,0) 768, (1,1) 2, (1,2) 16, (2,1) 32,
+  (2,2) 512, (1,3) 256, (3,1) 768, (2,3) 16384, (4,0) 32768, (4,1) 32768, (1,4) 8192 cases:
+  0 failures.  `2 2 free` (q0 symbols at T arbitrary): 2048 cases, 0 failures.
+- `t_base.py`: Lemma 3 / 2.3 claims confirmed: with one auxiliary prime, dim 3 and +-p* in pi_1
+  iff classes {7,3} or {3,7} (both symbols, both signs); with two auxiliary primes bases exist for
+  every class of p*.  Note: +p* and -p* are always both in pi_1 (since (-1,-d) is in Sel_2), so the
+  sign of beta never matters for membership; the sign only enters through x in q0's symbols.
+- `t_variants.py v 1000 7`: randomizing one prescribed family of symbols at a time
+  (random abstract data, omega(beta) <= 6, omega(theta) <= 5): none 0/1000 failures;
+  q0P 676; q0T 0 (superfluous); rpT 344; rpq0 440; rpP 613; rpR 455; rlP 780; rlT 335; rlR 620;
+  q0 = 7 mod 8: 1000 (dim 4); x = s: 527 (only C2 loses beta). Every other condition is load-bearing.
