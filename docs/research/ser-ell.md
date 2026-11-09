@@ -72,3 +72,90 @@ Fix `u ∈ ℚ \ 𝒞` with a non-CM fibre: `A/K`, `End⁰(A_ℚ̄) = B = (2,-3)
 
 `r̄_λ` denotes the semisimplified reduction of `r_ℓ` (for the embedding `ι_ℓ`, `λ` the induced
 prime). Once step 1 shows it is absolutely irreducible, it does not depend on the lattice.
+
+## 2. Audit records for steps 1-7
+
+Each record follows the format of `docs/theorem-application-audit/`: source, statement, hypotheses
+checked, conventions, and the object consumed downstream. Fix a prime `ℓ ∉ T` (so `ℓ > 324`) that
+lies above the Masser–Wüstholz threshold of R1. Infinitely many such `ℓ` exist.
+
+### R1. Residual absolute irreducibility (step 1): CORRECT
+
+- **Source.** Masser–Wüstholz, *Refinements of the Tate conjecture for abelian varieties* (Abelian
+  varieties, Egloffstein 1993, de Gruyter 1995), §1, Corollaries 1 and 2: UNCHECKED, not readable
+  here. It was read as restated in Zywina, *An effective open image theorem for abelian varieties*,
+  arXiv:1910.14171, **Theorem 2.4** (numbering confirmed from the source). The non-effective
+  versions are due to Faltings and Zarhin (UNCHECKED). The audited A008 (Faltings 1983, Satz 3, 4)
+  is the `ℓ`-adic statement and does **not** give this.
+- **Statement (Zywina 2.4).** Let `A/K` be an abelian variety over a number field and `L/K` finite.
+  There are `c, γ > 0`, depending only on `dim A`, such that for `ℓ ≥ c·max([L:ℚ], h(A))^γ` the
+  `𝔽_ℓ[G_L]`-module `A[ℓ]` is semisimple and `End(A_L) ⊗ 𝔽_ℓ → End_{𝔽_ℓ[G_L]}(A[ℓ])` is an
+  isomorphism. Here `h` is the stable Faltings height.
+- **Hypotheses checked.** Apply it with `L = L'`. Then `End(A_{L'}) = End(A_ℚ̄)` because `L ⊆ L'`
+  defines every geometric endomorphism (line 591). That ring is an order of `B` containing `O`, and
+  `O` is maximal, so it equals `O`. The Gram determinant of the reduced trace on the basis
+  `(1, i, (1+j)/2, (i+ij)/2)` is `-36`, so the reduced discriminant is 6 (computation A of §6).
+  For `ℓ ∤ 6`, `O/ℓO` is central simple of dimension 4 over `𝔽_ℓ`, hence `≅ M₂(𝔽_ℓ)` by Wedderburn.
+  Matrix units then give `A[ℓ] ≅ W ⊕ W` with `dim W = 2` and `End_{G_{L'}}(W) = 𝔽_ℓ`. A semisimple
+  module with commutant `𝔽_ℓ` is absolutely irreducible: over `𝔽̄_ℓ` it stays semisimple and its
+  commutant is `𝔽̄_ℓ`.
+- **Passage to `r̄_λ`.** On `G_{L'}`, `ρ_ℓ` is the Tate action, so
+  `(ρ̄_ℓ|_{G_{L'}})^{ss} ≅ (W ⊗ k_λ)²`. Also `ρ_ℓ ≅ r_ℓ ⊕ r_ℓ`. Jordan–Hölder gives
+  `(r̄_λ|_{G_{L'}})^{ss} ≅ W ⊗ k_λ`, which is absolutely irreducible. So `r̄_λ` is an absolutely
+  irreducible representation of `G_ℚ`.
+- **Conventions.** `h(A)` and `[L':ℚ]` enter only the threshold. Route 1 needs infinitely many `ℓ`,
+  not an explicit one, so the threshold never enters a constant.
+- **Consumed downstream.** In R5, `r̄_λ : G_ℚ → GL₂(𝔽̄_ℓ)` absolutely irreducible for infinitely many
+  `ℓ`. In R7, irreducibility of `r_λ`, which follows.
+
+### R2. Oddness (step 2): CORRECT
+
+- **Source.** Manuscript, lines 742-752 (internal).
+- **Statement and check.** `r_ℓ(c)` has eigenvalues `1, -1`. Both lie in `ℤ` and are distinct mod
+  `ℓ > 2`, so `r̄_λ(c)` has eigenvalues `1, -1` and `det r̄_λ(c) = -1`.
+- **Consumed downstream.** In R5, the hypothesis "odd".
+
+### R3. Weight 2 (step 3): CORRECT after repairs F2-F4
+
+- **Sources.**
+  - (a) The `ℓ`-torsion of an abelian scheme is a finite flat group scheme (standard).
+  - (b) Raynaud, *Schémas en groupes de type (p, …, p)*, Bull. SMF 102 (1974), §3.4: the tame
+    inertia characters of a simple finite flat `𝔽`-vector space scheme over a base with absolute
+    ramification `e < ℓ - 1` are products of fundamental characters with exponents in `[0, e]`.
+    UNCHECKED (numbering Théorème 3.4.3 recalled, not read). Restated and used in Gee,
+    arXiv:1402.7197, §5, and in Buzzard–Diamond–Jarvis (BDJ), arXiv:0810.2106v5, §3.
+  - (c) Raynaud 1974, §2: generic fibres of finite flat group schemes are closed under subobjects
+    and quotients. UNCHECKED; standard.
+  - (d) Serre, Duke Math. J. 54 (1987), §2: the recipe for `k(ρ̄)`, and its value 2 on finite flat
+    representations with cyclotomic determinant on inertia. UNCHECKED. Read through BDJ Theorem
+    3.15 and its proof (arXiv v5 numbering). That proof lists the Serre weights of every
+    `ρ̄|_{G_{ℚ_ℓ}}` and contains the converse statement: "if `ρ` is modular of weight 2 and level
+    prime to `ℓ`, then `ρ|_{G_{ℚ_ℓ}}` arises from a finite flat group scheme over `ℤ_ℓ`". BDJ also
+    state, just before Conjecture 3.12, that the weight set depends only on the restriction to
+    inertia.
+- **Hypotheses checked.**
+  1. `ℓ ∉ T`, so `L'` is unramified at `ℓ`. `L` is unramified outside `T`, and `β` is unramified
+     outside `T` after the final twist at line 708. So for a place `w | ℓ` of `L'`, `I_{L'_w} = I_ℓ`.
+  2. On `G_{L'_w}`, `ρ_ℓ` is the Tate action (line 732), and `A` has good reduction at `w`
+     (`ℓ ∉ S`). Let `Λ ⊂ r_ℓ` be a `G_ℚ`-stable `O_λ`-lattice. A suitable multiple of `Λ ⊕ Λ` lies
+     between `ℓ^n(T_ℓA ⊗ O_λ)` and `T_ℓA ⊗ O_λ`. So `Λ/λΛ` is a subquotient of
+     `A[ℓ^{n+1}] ⊗ O_λ`, which is the generic fibre of a finite flat group scheme over `O_{L'_w}`.
+     By (c), `r̄_λ|_{G_{L'_w}}` (any lattice) is finite flat over `O_{L'_w}`, which has `e = 1`.
+  3. By (b), with `e = 1 < ℓ - 1`, the semisimplification of `r̄_λ|_{I_ℓ}` is either `ψ ⊕ ψ^ℓ`
+     (`ψ` a fundamental character of level 2) or `ω^α ⊕ ω^β` with `α, β ∈ {0, 1}`.
+  4. Determinant (repair F4). `det V_ℓ(A) = ω_ℓ²` (Weil pairing), and `det(r ⊕ r) = (det r)²`.
+     So on `G_{L'}`, `det r_ℓ = χ_ℓ η` with `η` quadratic, and `det r̄_λ|_{I_ℓ} = ω·η|_{I_ℓ}`. By 3,
+     the determinant lies in `{1, ω, ω²}` on inertia. `ω^{±1}` is not quadratic for `ℓ > 3`, so
+     `η|_{I_ℓ} = 1` and `det r̄_λ|_{I_ℓ} = ω` (computation C).
+  5. The cases are therefore: `ψ ⊕ ψ^ℓ`; `ω ⊕ 1`; or a non-split extension. A non-split extension
+     must have sub `ω` and quotient `1`, because the connected–étale sequence puts the étale part
+     in the quotient. In the opposite orientation the connected part splits off over `ℤ_ℓ^{ur}`.
+     That extension is peu ramifiée: its Kummer class comes from `H¹_fppf(O_{L'_w^{ur}}, μ_ℓ)`,
+     which is the units modulo `ℓ`-th powers (BDJ Remark 3.? before Lemma 3.13 records this
+     identification for `ℓ`-divisible groups; the finite flat case is the same Kummer sequence).
+  6. Serre's recipe gives `k = 2` in all three cases (computation B). A très ramifiée extension,
+     which is excluded here, would give `ℓ + 1`. Determinant `1` or `ω²` would give `ℓ` or `ℓ + 2`.
+- **Conventions.** Serre's `k(ρ̄)` depends only on `ρ̄|_{I_ℓ}`. So no descent of the finite flat
+  model from `O_{L'_w}` to `ℤ_ℓ` is needed, contrary to nt-h's appeal to Raynaud §3.3. The descent
+  is true (full faithfulness for `e < ℓ - 1` plus étale descent) but unused.
+- **Consumed downstream.** In R5 and R6, `k(r̄_λ) = 2` for every `ℓ` as above, independent of `ℓ`.
