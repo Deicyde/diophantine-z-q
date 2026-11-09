@@ -84,6 +84,12 @@ theorem odd_of_mem_primesOf {β : ℤ} (hβ : Odd β) {p : ℕ} (hp : p ∈ prim
   subst h
   exact (Int.not_even_iff_odd.mpr hβ) (even_iff_two_dvd.mpr (by exact_mod_cast hd))
 
+/-- For squarefree `β`, `|β| = ∏_{p ∈ P} p`. -/
+theorem natAbs_eq_prod_primesOf {β : ℤ} (hβ : Squarefree β) :
+    ((β.natAbs : ℕ) : ℤ) = ∏ p ∈ primesOf β, (p : ℤ) := by
+  rw [primesOf, ← Nat.cast_prod, Nat.prod_primeFactors_of_squarefree
+    (Int.squarefree_natAbs.mpr hβ)]
+
 /-- A prime outside `{2} ∪ P ∪ T` does not divide `2βθ`. -/
 theorem not_dvd_two_mul_of_not_mem {β θ : ℤ} (hβ : β ≠ 0) (hθ : θ ≠ 0) {q : ℕ} (hq : q.Prime)
     (h2 : q ≠ 2) (hP : q ∉ primesOf β) (hT : q ∉ primesOf θ) : ¬ (q : ℤ) ∣ 2 * β * θ := by
@@ -97,7 +103,8 @@ theorem not_dvd_two_mul_of_not_mem {β θ : ℤ} (hβ : β ≠ 0) (hθ : θ ≠ 
 
 theorem nat_mod_eight_of_modEq {q : ℕ} {a : ℕ} (h : (q : ℤ) ≡ a [ZMOD 8]) (ha : a < 8) :
     q % 8 = a := by
-  have := Int.natCast_modEq_iff.mp (by exact_mod_cast h : ((q : ℕ) : ℤ) ≡ ((a : ℕ) : ℤ) [ZMOD ((8 : ℕ) : ℤ)])
+  have := Int.natCast_modEq_iff.mp
+    (by exact_mod_cast h : ((q : ℕ) : ℤ) ≡ ((a : ℕ) : ℤ) [ZMOD ((8 : ℕ) : ℤ)])
   rw [Nat.ModEq, Nat.mod_eq_of_lt ha] at this
   exact this
 
@@ -146,7 +153,8 @@ theorem exists_glue_family (S : Finset ℕ) (hS : ∀ y ∈ S, y.Prime ∧ y ≠
         exact hr i ((Finset.mem_insert.mp hi).resolve_left h)
     · intro i hi j hj hij
       simp only [Finset.coe_insert, Set.mem_insert_iff, Finset.mem_coe] at hi hj
-      by_cases h1 : i = i₀ <;> by_cases h2 : j = i₀ <;> simp only [h1, h2, ite_true, ite_false] at hij
+      by_cases h1 : i = i₀ <;> by_cases h2 : j = i₀ <;>
+        simp only [h1, h2, ite_true, ite_false] at hij
       · rw [h1, h2]
       · exact absurd hij.symm (hr₀ne j (hj.resolve_left h2))
       · exact absurd hij (hr₀ne i (hi.resolve_left h1))

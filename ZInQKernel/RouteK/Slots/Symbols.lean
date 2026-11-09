@@ -64,7 +64,8 @@ theorem legBit_mul {a b : ℤ} (ha : (a : ZMod p) ≠ 0) (hb : (b : ZMod p) ≠ 
   have h := legendreSym.mul p a b
   rw [legendreSym_eq_ite_legBit hab, legendreSym_eq_ite_legBit ha,
     legendreSym_eq_ite_legBit hb] at h
-  rcases legBit_eq_zero_or_one p a with h1 | h1 <;> rcases legBit_eq_zero_or_one p b with h2 | h2 <;>
+  rcases legBit_eq_zero_or_one p a with h1 | h1 <;>
+    rcases legBit_eq_zero_or_one p b with h2 | h2 <;>
     rcases legBit_eq_zero_or_one p (a * b) with h3 | h3 <;> simp only [h1, h2, h3] at h ⊢ <;>
     first | decide | norm_num at h
 
@@ -76,6 +77,35 @@ theorem lamBit_eq (p : ℕ) [Fact p.Prime] : lamBit p = if p % 4 = 3 then 1 else
   · simp only [show ¬ IsSquare (-1 : ZMod p) by rw [this]; exact not_not.mpr h, h, ite_true,
       ite_false]
   · simp only [this.mpr h, h, ite_true, ite_false]
+
+/-- `μ_p = [p ≡ 3, 5 (mod 8)]` for an odd prime `p`. -/
+theorem muBit_eq (p : ℕ) [Fact p.Prime] (hp2 : p ≠ 2) :
+    muBit p = if p % 8 = 3 ∨ p % 8 = 5 then 1 else 0 := by
+  rw [muBit, legBit, show ((2 : ℤ) : ZMod p) = 2 by push_cast; rfl]
+  have h := ZMod.exists_sq_eq_two_iff hp2
+  have hodd : p % 2 = 1 := (Nat.Prime.eq_two_or_odd Fact.out).resolve_left hp2
+  by_cases h35 : p % 8 = 3 ∨ p % 8 = 5
+  · have : ¬ IsSquare (2 : ZMod p) := by rw [h]; omega
+    simp only [this, h35, ite_true, ite_false]
+  · have : IsSquare (2 : ZMod p) := by rw [h]; omega
+    simp only [this, h35, ite_true, ite_false]
+
+/-- Multiplicativity over a finite product: `[∏ f i/p] = Σ [f i/p]` when every `f i` is prime to
+`p`. -/
+theorem legBit_prod {ι : Type*} (s : Finset ι) (f : ι → ℤ) (hf : ∀ i ∈ s, (f i : ZMod p) ≠ 0) :
+    legBit p (∏ i ∈ s, f i) = ∑ i ∈ s, legBit p (f i) := by
+  classical
+  induction s using Finset.induction_on with
+  | empty =>
+    simp only [Finset.prod_empty, Finset.sum_empty, legBit, Int.cast_one]
+    simp [IsSquare.one]
+  | @insert i s hi ih =>
+    rw [Finset.prod_insert hi, Finset.sum_insert hi]
+    have hs : ((∏ j ∈ s, f j : ℤ) : ZMod p) ≠ 0 := by
+      push_cast
+      exact Finset.prod_ne_zero_iff.mpr fun j hj => hf j (Finset.mem_insert_of_mem hj)
+    rw [legBit_mul (hf i (Finset.mem_insert_self _ _)) hs,
+      ih fun j hj => hf j (Finset.mem_insert_of_mem hj)]
 
 end Prime
 
@@ -135,7 +165,8 @@ theorem legBit_symm_of_one_mod_four {r y : ℕ} (hr : r.Prime) (hy : y.Prime) (h
   have h := legBit_reciprocity hr hy (by omega) hy2 hry
   simp only [lamBit_eq r, show r % 4 ≠ 3 by omega, ite_false, zero_mul] at h
   revert h
-  rcases legBit_eq_zero_or_one r y with h1 | h1 <;> rcases legBit_eq_zero_or_one y r with h2 | h2 <;>
+  rcases legBit_eq_zero_or_one r y with h1 | h1 <;>
+    rcases legBit_eq_zero_or_one y r with h2 | h2 <;>
     rw [h1, h2] <;> decide
 
 /-- Reverse symbols for a prime `q ≡ 3 (mod 4)`: `[y/q] = [q/y] + λ_y`. -/
@@ -146,7 +177,8 @@ theorem legBit_symm_of_three_mod_four {q y : ℕ} (hq : q.Prime) (hy : y.Prime) 
   simp only [lamBit_eq q, hq4, ite_true, one_mul] at h
   revert h
   rw [lamBit]
-  rcases legBit_eq_zero_or_one q y with h1 | h1 <;> rcases legBit_eq_zero_or_one y q with h2 | h2 <;>
+  rcases legBit_eq_zero_or_one q y with h1 | h1 <;>
+    rcases legBit_eq_zero_or_one y q with h2 | h2 <;>
     rcases legBit_eq_zero_or_one y (-1) with h3 | h3 <;> rw [h1, h2, h3] <;> decide
 
 end ZInQ.RouteK

@@ -246,8 +246,10 @@ theorem theta1 {B : ℚ} (hB : Admissible B) {m : ℤ} (hm : m ∣ 2730) :
   · have : 0 < thetaOf B m * c ^ 2 := hc' ▸ hpos
     exact pos_of_mul_pos_left this (sq_nonneg c)
   · obtain ⟨-, c₁, M₁, hc₁, hM₁, h⟩ := theta_local_S0 hB hm (p := 2) (by decide)
-    have ho1 : Odd c₁ := Int.not_even_iff_odd.mp fun he => hc₁ (by exact_mod_cast even_iff_two_dvd.mp he)
-    have ho2 : Odd M₁ := Int.not_even_iff_odd.mp fun he => hM₁ (by exact_mod_cast even_iff_two_dvd.mp he)
+    have ho1 : Odd c₁ :=
+      Int.not_even_iff_odd.mp fun he => hc₁ (by exact_mod_cast even_iff_two_dvd.mp he)
+    have ho2 : Odd M₁ :=
+      Int.not_even_iff_odd.mp fun he => hM₁ (by exact_mod_cast even_iff_two_dvd.mp he)
     have h' : thetaOf B m * c₁ ^ 2 ≡ M₁ ^ 2 [ZMOD 8] := by simpa using h
     have h8 : thetaOf B m ≡ 1 [ZMOD 8] := by
       have e1 := (int_sq_modEq_one_of_odd ho1).mul_left (thetaOf B m)

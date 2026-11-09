@@ -53,8 +53,8 @@ theorem sqfNat_squarefree (n : ℕ) : Squarefree (sqfNat n) := by
 
 theorem sqfNat_mul_sq {n : ℕ} (hn : n ≠ 0) : ∃ k : ℕ, k ≠ 0 ∧ n = sqfNat n * k ^ 2 := by
   refine ⟨∏ p ∈ n.primeFactors, p ^ (n.factorization p / 2),
-    Finset.prod_ne_zero_iff.mpr fun p hp => pow_ne_zero _ (Nat.prime_of_mem_primeFactors hp).ne_zero,
-    ?_⟩
+    Finset.prod_ne_zero_iff.mpr fun p hp =>
+      pow_ne_zero _ (Nat.prime_of_mem_primeFactors hp).ne_zero, ?_⟩
   conv_lhs => rw [← Nat.prod_factorization_pow_eq_self hn]
   rw [Finsupp.prod, Nat.support_factorization, sqfNat, Finset.prod_filter, ← Finset.prod_pow,
     ← Finset.prod_mul_distrib]
