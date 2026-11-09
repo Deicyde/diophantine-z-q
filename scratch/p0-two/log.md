@@ -9,3 +9,4 @@
   nonzero hypotheses; missing import of BadOdd for padic_norm_ne_zpow_odd; one rw on norm_neg).
 - lake build ZInQKernel OK; #print axioms: propext, Classical.choice, Quot.sound.
 - Profile: no declaration ≥ 100 ms; file ~6 s plus 3.3 s import.
+- Report .fleet/p0-two.md written; done.
