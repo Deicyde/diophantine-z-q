@@ -17,3 +17,20 @@
 - If d1 = 1 is allowed in the statement (as the proof needs: Z(n) term), statement-level sums are
   5a and 5a+5b, so "5b odd => certified" follows from the statement itself. Literal reading
   (d1 > 1) gives second sum = 5a + 5b + g(n); then one needs the proof's separate bracket.
+
+## Step 2 (row 5b) -- a new, shorter proof by forest expansion (no Smith closures)
+Definitions fixed: V = odd primes of n; a_ij = (p_j/p_i)_+; L = Laplacian (L_ii = sum_j a_ij) = Smith's A;
+y_i = [p_i = 3 mod 4], z_i = [p_i = +-3 mod 8]; reciprocity a_ij + a_ji = y_i y_j.
+kappa_rho(B) = det L_B[B-rho, B-rho] = # arborescences of induced graph on B rooted at rho (mod 2).
+Lemmas (all proved on paper, all VERIFIED on abstract random data, scripts forest_check.py, lemma_check.py):
+- Forest lemma F (all-minors matrix-tree over F_2): det L[V-F, V-W] = # forests rooted at F with each
+  tree containing exactly one W-vertex.
+- Redei (STANDARD, derived from genus theory): y(B)=1: g(B) = kappa(B) (all roots equal);
+  y(B)=0: g(B) = sum_rho z_rho kappa_rho(B).
+- det M_1 = sum over forests with an even number of trees of prod_T z_root y(T)
+  = sum over partitions into class-3 blocks (even number) of prod g.  [3000/3000]
+- kappa_i + kappa_j = sum over 2-forests rooted at {i,j} of c(T_i), c = column sums of L. [VERIFIED]
+- R1: for class-1 S, sum over class-1 partitions = sum over class-3 partitions (proved by comparing
+  z-coefficients with the kappa_i + kappa_j lemma).  This is Smith's row 1 in disguise.
+- det M_5b = sum over partitions with one class-7 block and all other blocks class 3; with R1 this is
+  the TYZ tau(1/2) bracket.  So Smith row 5b holds (abstract data: 0 mismatches).

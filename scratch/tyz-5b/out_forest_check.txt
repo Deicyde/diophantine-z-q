@@ -1,0 +1,1 @@
+trials 3000 rmax 7 counts {'forest_M1': 3000, 'row1_smith': 747, 'row5b_smith': 747} mismatches {}
