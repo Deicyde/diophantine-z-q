@@ -350,15 +350,8 @@ for `C ≠ R` they cancel mod 2; the diagonal terms give `det L'[·, C]² det X[
 det M₁ = Σ_φ wt(φ) · [φ has an even number of trees] · Π_{trees T of φ} z_{root(T)} y(T),
 ```
 
-*the sum over all forests `φ` of `V` (rooted anywhere). Equivalently,*
-
-```
-det M₁ = Σ_π Π_{B∈π} g(B),   π over partitions of V into blocks of class 3 (their number is then even
-                              exactly when y(V) = 0; if y(V) = 1 the sum is empty in effect: det M₁ = 0).
-```
-
-*Precisely: if `y(V) = 0`, `det M₁` is the sum of `Π g(B)` over the partitions of `V` into blocks of class
-3; if `y(V) = 1`, `det M₁ = 0`.*
+*the sum over all forests `φ` of `V` (rooted anywhere). Equivalently: if `y(V) = 0`, `det M₁` is the sum
+of `Π_{B∈π} g(B)` over the partitions `π` of `V` into blocks of class 3; if `y(V) = 1`, `det M₁ = 0`.*
 
 *Proof.* `det(N + D) = Σ_F Π_{i∈F} d_i det N[F^c, F^c]` for a diagonal `D`. Apply it to the diagonal `D_z`
 of the lower block: `det M₁ = Σ_{F⊆V} z^F det [[X, L'ᵀ], [L', 0]]` with `L' = L[V∖F, V]` and
@@ -397,3 +390,61 @@ det M_5b = Σ_{π : all blocks have y = 1, |π| even} Π_B g(B) · #{B₀ ∈ π
 
 Let `c₇` be the number of blocks of class 7. If `c₇ = 0`, the count is `|π|`, even. If `c₇ = 1`, it is 1
 (`B₀` must be the class-7 block). If `c₇ ≥ 2`, it is 0. Finally `|π|` is even iff `y(V) = 0`. ∎
+
+### 3.2 From class-1 blocks to class-3 blocks
+
+**Proposition 3.5.** *For every `S ⊆ V` with `y(S) = 0`,*
+
+```
+Σ_{π partition of S into blocks of class 1} Π_B g(B)  =  Σ_{π partition of S into blocks of class 3} Π_B g(B).
+```
+
+*(For `S = ∅` both sides are 1; if `z(S) = 1` both sides are 0.)* With Proposition 3.3 this says
+`𝓛(d_S) = det M₁(d_S)` for `d_S ≡ 1 (mod 8)`, which is row 1 of Smith's Table 2. It is proved here
+independently of Smith's Propositions 2.4–2.5.
+
+*Proof.* Fix the bits `a_{ij}` and `y`, and regard both sides as functions of `z ∈ 𝔽₂^S`. Each side is a
+multilinear polynomial in `z`; we compare coefficients.
+
+*Left side.* A block of class 1 has `y(B) = 0` and contributes `[z(B) = 0] g(B) = (1 + z(B)) Σ_ρ z_ρ κ_ρ(B)`
+by (2.2). Using `z_ρ² = z_ρ`,
+
+```
+(1 + z(B)) Σ_ρ z_ρ κ_ρ(B) = Σ_{j ≠ ρ} z_j z_ρ κ_ρ(B) = Σ_{{i,j} ⊆ B} z_i z_j (κ_i(B) + κ_j(B)).
+```
+
+So the coefficient of `z^F` (`F ⊆ S`) on the left is the sum over partitions `π` of `S` into blocks with
+`y(B) = 0` and `|B ∩ F| = 2`, of `Π_B (κ_{i_B}(B) + κ_{j_B}(B))`, where `B ∩ F = {i_B, j_B}`. By Lemma 2.2(3),
+with column sums `c_v = y_v` on a block with `y(B) = 0`, `κ_i(B) + κ_j(B) = Σ y(T_i)` over the 2-forests
+`(T_i, T_j)` of `B` rooted at `{i, j}`. A partition into such blocks, together with a 2-forest in each block,
+is the same as a forest `φ` of `S` rooted at `F` together with a perfect matching of its trees (the two
+trees of a block). The condition `y(B) = 0` reads `y(T_i) = y(T_j)`, and the weight `y(T_i)[y(T_i) = y(T_j)]`
+equals `y(T_i)y(T_j)`. Hence the coefficient is
+
+```
+Σ_{φ rooted at F} wt(φ) · #{perfect matchings of the trees of φ} · Π_T y(T)  =  [|F| even] Σ_{φ rooted at F} wt(φ) Π_T y(T),
+```
+
+since a set of `2k` elements has `(2k − 1)!!` perfect matchings, an odd number.
+
+*Right side.* A block of class 3 has `y(B) = 1` and contributes `[z(B) = 1] g(B) = Σ_ρ z_ρ κ_ρ(B)` by
+(2.1). The coefficient of `z^F` is the sum over partitions into blocks with `y(B) = 1` and `|B ∩ F| = 1`
+of `Π_B κ_{ρ_B}(B)`, `B ∩ F = {ρ_B}`, that is, `Σ_{φ rooted at F} wt(φ) Π_T y(T)`. When this product is
+nonzero, `y(S) = Σ_T y(T) = |F|` mod 2, so `|F|` is even because `y(S) = 0`.
+
+The coefficients agree for every `F`. ∎
+
+### 3.3 Row 5b
+
+**Theorem 3.6 (Smith's Theorem 2.2, row 5b).** *If `n ≡ 5 (mod 8)`, then `T_5b(n) = det M_5b`.*
+
+*Proof.* `T_5b(n) = Σ_{B₇, B₃} g(B₇) g(B₃) 𝓛(S)`, over disjoint blocks of classes 7 and 3, where
+`S = V ∖ (B₇ ∪ B₃)` has class `5 · 7 · 3 ≡ 1` (so `y(S) = 0`) and `𝓛(S)` is the left side of Proposition 3.5
+for `S`. Replace it by the right side. The result is the sum, over partitions `π` of `V` with one block of
+class 7 and `c₃ ≥ 1` blocks of class 3 and no others, of `c₃ · Π_B g(B)` (the factor `c₃` counts the choice
+of `B₃`). Here `5 ≡ 7 · 3^{c₃} (mod 8)` forces `c₃` odd, so `c₃ ≡ 1`, and the sum is the right side of
+Proposition 3.4 (`y(V) = 0` as `n ≡ 1 (mod 4)`). ∎
+
+**Remark.** The same method gives the other rows of Smith's Table 2 with little change (rows 3, 5a, 7a,
+7b are bordered versions of Proposition 3.3; rows 2 and 6 involve `D_{y+z}`). They are not needed here and
+were not written out; the computations of §6 check rows 1 and 5b only.
