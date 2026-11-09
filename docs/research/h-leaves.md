@@ -155,3 +155,48 @@ lines and by checking the anchors of every record):
 Two further standard facts are inside recorded applications and need no separate entry:
 Poincaré reducibility (A063, Milne I.10.1) and Chebotarev (A064).
 
+### 1.3 What the CM-branch removal changes
+
+NoCM (h-cm Theorem NoCM; rv-h-cm §7.2) says: for `u ∈ ℚ \ 𝒞`, no point of `X⁶` over
+`j = J(u)` is a CM point, so `End⁰(A_ℚ̄) = B` for every fibre surface `A`. The paragraph "CM
+fibers" (lines 581-631) is replaced by this lemma. The proof keeps the dichotomy of A079
+(`End⁰(A_ℚ̄)` is `B` or `M₂(k)`) and excludes the second case.
+
+**Removed from the proof of H** (VERIFIED against INVENTORY.md and the anchors):
+
+- A003 (Fowler, Prop. 2.7 at `k = D`), A004 (the CM Faltings height formula) and A005 (the
+  `E² → A` application of Gaudron–Rémond Theorem 1.4) entirely;
+- the H-use of A065 (Fowler §2.1, class polynomials). Its uses at lines 1009-1016 and 1759-1769
+  are in other parts of the manuscript and stay;
+- the CM use of A006 (lines 619-628). A006 stays for lines 894-900;
+- the sources Fowler and Barquero-Sanchez et al. leave the trust base of H; Gaudron–Rémond and
+  Faltings 1983 stay through A015, A016 and A006.
+
+**Added** (as checked by rv-h-cm; not rechecked here):
+
+- J. González and V. Rotger, *Non-elliptic Shimura curves of genus one*, J. Math. Soc. Japan 58
+  (2006), 927-948 (journal reference VERIFIED from the arXiv record of math/0612732), §5:
+  Theorem 5.8 (Shimura reciprocity, which they attribute to Shimura 1967, Main Theorem II),
+  Proposition 5.6 (structure and count of `CM(R)`, to be used only under `(f, 6) = 1`), Lemma 5.9
+  (ramified Atkin–Lehner rule), and Theorem 5.12 if the short proof of rv-h-cm §7.2 is used;
+- Vignéras, LNM 800, Ch. II §1 and Ch. III §5, for the local embedding condition (Emb);
+- ring class fields are unramified outside the conductor (Cox, §9), for Case A of h-cm;
+- the labelling of `j` by Baba–Granath, which the manuscript already uses (A001, A017).
+
+With repair R3 of rv-h-cm (the twist constants from Shimura reciprocity at the elliptic
+points), Elkies' paper is a cross-check and not a premise. rv-h-cm lists five repairs of
+citations and wording (R1-R5); none affects the argument, and none affects the list above,
+except that Saia's restatements must not be cited (R1).
+
+One point of comparison matters for the choice of proof of NoCM. GR Theorem 5.12 (the field of
+moduli) rests partly on Jordan's 1981 Harvard thesis, which is unpublished (rv-h-cm, "Sources
+read"). The three-case proof of h-cm (Cases A-C) uses Theorem 5.8, Proposition 5.6 and Lemma
+5.9, but not Theorem 5.12. Whether Proposition 5.6 itself rests on Jordan's thesis was not
+checked here (UNCHECKED). If it does not, the three-case proof has the smaller trust base.
+
+**Count.** Before NoCM the proof of H consumed 26 records. After NoCM it consumes 22 (A003,
+A004, A005 and A065 leave), plus the new NoCM inputs above, plus the unrecorded inputs I1 and
+I2 of §1.2. Fowler's effective class-number bound at `k = D`, the CM height formula and one
+application of the isogeny estimate are gone; they are replaced by classical facts about CM
+points on `X⁶` (Shimura 1967, Vignéras 1980, González–Rotger 2006).
+
