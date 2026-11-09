@@ -1,0 +1,2 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+106997 BSD-predicted height of a generator (Sha = 1): 77.6735361593786

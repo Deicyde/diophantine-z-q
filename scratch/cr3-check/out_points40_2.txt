@@ -1,0 +1,7 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+1133 103 ellrank(effort=0) FOUND x = 1121645003548/982258281 (22 digits in num+den)
+1133 -103 ellrank(effort=0) FOUND x = -12241884956103/10889757316 (26 digits in num+den)
+1214501 127 none within limits NOT FOUND 
+1214501 -127 none within limits NOT FOUND 
+19886717 31 none within limits NOT FOUND 
+19886717 -31 none within limits NOT FOUND 

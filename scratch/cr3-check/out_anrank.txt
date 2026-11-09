@@ -1,0 +1,15 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+2413 root number -1 analytic rank 1 L^(r)(1) = 10.50596777090957949
+5549 root number -1 analytic rank 1 L^(r)(1) = 3.449969994731303553
+1133 root number -1 analytic rank 1 L^(r)(1) = 7.308575228174400764
+13493 root number -1 analytic rank 1 L^(r)(1) = 8.535719736867568576
+14141 root number -1 analytic rank 1 L^(r)(1) = 21.72998079022450565
+3781 root number -1 analytic rank 1 L^(r)(1) = 5.310774333941613521
+106997 root number -1 analytic rank 1 L^(r)(1) = 9.962067490553093833
+280789 root number -1 analytic rank 1 L^(r)(1) = 2.038904831908820919
+731573 root number -1 analytic rank 1 L^(r)(1) = 17.45916059069708343
+1214501 root number -1 analytic rank 1 L^(r)(1) = 19.62304566790341798
+518629 root number -1 analytic rank 1 L^(r)(1) = 8.740278714218745938
+11077 root number -1 analytic rank 1 L^(r)(1) = 7.861717341848999558
+303405 root number -1 analytic rank 1 L^(r)(1) = 3.610120319178160522
+138165 root number -1 analytic rank 1 L^(r)(1) = 24.42649929801837208
