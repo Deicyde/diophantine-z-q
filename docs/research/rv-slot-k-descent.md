@@ -225,3 +225,50 @@ solutions are the Selmer classes, and §2.2 then gives the point. Two remarks:
 
 - since §1.4 proves all four place-2 rows, CR₃ may be stated for every odd `d`, as slot-k proposes;
 - if it is restricted to `d ≡ 5 (mod 8)`, only the row `c = 5` enters its justification.
+
+## 3. The rest of the proof, step by step
+
+These steps lie outside the 2-descent proper. They were nevertheless rederived, because the proof
+uses the system of Proposition 0 through them.
+
+| Step (slot-k) | Content | Mark |
+| --- | --- | --- |
+| §1.1 (θ1)–(θ4) | from `θc² = 1 − βt²`, `βt² = B/m`, `v_p(B/m) ≥ 3` on `S₀`, square denominator | CORRECT |
+| §2.4 Step 0 | `v₂(m) ≡ v₂(B)` makes `β` odd; odd squares are `≡ 1 (8)`, so `|β| ≡ m_odd·b`; `1, 3, 5, 7` and `2, 6, 10, 14` divide 2730 | CORRECT |
+| §2.2 Lemma 1 | `E1_r`, `E2_r` force `u_r = u_y`, `v_r = v_y`; the `r`-terms in rows `y` then vanish | CORRECT |
+| §2.2 Lemma 2 | steps 1–4, injectivity, surjectivity; (2.1), (2.2) | CORRECT |
+| §2.3 Lemma 3 | rows for `{p*, q₀}`, `c = 21 ≡ 5`; dimension 3; `σ₀` | CORRECT |
+| §2.4 slot existence | CRT on distinct odd moduli and 8; Dirichlet; reverse symbols by reciprocity | CORRECT |
+| §2.5 steps 1–4 | `r_ℓ` linked only to `q₀` inside `S₁`; Lemma 2 hypotheses for `R_P`; `u_{r_p} = [q₀/p] + 1 + λ_p x = 0` | CORRECT |
+| §2.5 steps 5–6 | `c_{q₀*} = 3θ ≡ 3`; `(p/θ) = (θ/p) = 1` by Jacobi reciprocity (`θ ≡ 1 (4)`, `θ > 0`); `u_{r_ℓ} = λ_ℓ(s + x + 1) = 0` | CORRECT |
+
+Details worth recording:
+
+- **Lemma 2, the `E2` rows.** In the sum `E2_g + Σ_{ℓ∈G} E2_ℓ`, the terms in the glue unknowns are
+  `Σ_ℓ ([r_ℓ/g](v_{r_ℓ} + v_g) + [r_ℓ/ℓ](v_{r_ℓ} + v_ℓ)) = Σ_ℓ (v_g + v_ℓ)`. This vanishes once
+  `v_ℓ = v_g`. The diagonal terms give `Σ_x μ_x u_x = μ_{g*} u_g`, and the right-hand sides add up
+  because `λ` and `μ` are characters of `(ℤ/8)*`. So `𝒞*` satisfies reciprocity and the summed row is
+  `E2_{g*}`.
+- **Lemma 2, hypotheses in the theorem.** For a later slot `r'`, the condition `[r'/r] = 0` is
+  imposed on `r'`. It transfers to `[r/r'] = 0` because both are `≡ 1 (mod 4)`. So each glue prime
+  has exactly the symbols Lemma 2 requires inside the configuration where it is used. In step 1 the
+  prime `ℓ` lies outside `S₁`, so `r_ℓ` has exactly one nonzero symbol there, at `q₀`. This is
+  Lemma 1's hypothesis.
+- **The class `β` in step 6.** `Σ_{y∈P∪R_P}[y/ℓ](u_y + u_{q₀}) = Σ_{p∈P}[p/ℓ] = [|β|/ℓ]`, since
+  `[r_p/ℓ] = 0`. (θ3) gives `[|β|/ℓ] = sλ_ℓ`. With `v_{q₀} + a₀ = x + 1` this yields
+  `u_{r_ℓ} = λ_ℓ(s + x + 1)`, which vanishes because `x = s + 1`. The lifted class has `u = 𝟏_P`,
+  `a₀ = s`, `a₁ = 0`, so its first coordinate is `(−1)^s|β| = β`.
+- **Edge cases.** `T = ∅` (`θ = 1`) and `|P| = 1` are covered: Lemma 1 and Lemma 2 are applied
+  zero times, and Lemma 3 applies with `x = [q₀/p₀]`. Primes `3, 5, 7, 13` in `β` are allowed;
+  only `2 ∤ βθ` is used.
+
+**Not affecting DL.** slot-k §2.6 says that the number of auxiliary primes is "within one of the
+lower bound of Proposition B". For the first curve the construction uses `ω(β)` primes (`q₀` and
+the `r_p`), and the bound is the core size `k`. Under Proposition B's hypothesis
+`supp β ⊆ K ∪ {2, 3, 5, 7, 13}`, so `k + 1 ≤ ω(β) ≤ k + 4`. The claim "within one" therefore holds
+only when `β` has exactly one prime outside the core; in general the gap is at most four. Example:
+the core-3 input `core3.0` of §4.2 has `ω(β) = 5`, so the gap is two (finding F5, cosmetic). The
+claim is a remark on economy, not part of the proof.
+
+Propositions A, B and C of descent-alt are not used by the proof of DL, and were not refereed
+here beyond this remark (UNCHECKED).
