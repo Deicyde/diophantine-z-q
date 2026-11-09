@@ -1,5 +1,6 @@
 import ZInQKernel.RouteK.Selmer.BadOdd
 import ZInQKernel.RouteK.Selmer.Real
+import ZInQKernel.RouteK.Selmer.Two
 
 /-!
 # From local classes to the rows of `Σ(𝒞_d)`
@@ -15,8 +16,10 @@ This file turns the local class conditions of Lemmas B, ∞ and T into the rows 
 * `classCond_two_iff`: at `2`, for `d ≡ 5 (mod 8)`, the class condition of Lemma T
   (`a d^i (−1)^j` and `b 2^i (−d)^j 5^k` squares in `ℚ₂` for some `i, j, k ∈ {0, 1}`) is
   equivalent to `a₁ = 0`, `b₁ = μ·u` and `a₀ + λ·u = b₀ + λ·v`; together with `(R)` this is the
-  row `(D)`, `twoAdicRows 5` (`classCond_two_iff_D`).
+  row `(D)`, `twoAdicRows 5` (`classCond_two_iff_D`). With Lemma T (`loc_two_adic_iff`,
+  `Selmer/Two.lean`): `loc_two_selPair_iff`, `loc_two_selPair_iff_D`.
 * `not_dvd_classInt`: at an odd prime `p ∤ d`, `a` and `b` are prime to `p`.
+* `isSol_iff_selPair_mem_of_G2`: Proposition 0, first half, given Lemma G2 at the primes `p ∤ 2d`.
 
 The common step writes `a d^i (−1)^j` and `b 2^i (−d)^j` as `(−1)^s 2^t Π_{q ∣ d} q^{e_q}`
 (`classInt_mul_eq`, using `d = Π_{q ∣ d} q`) and reads the square class off the exponents:
@@ -411,6 +414,28 @@ theorem classCond_two_and_R_iff {d : ℕ} (hd5 : d % 8 = 5) (hsq : Squarefree d)
   ⟨fun ⟨h, hR⟩ => ⟨(classCond_two_iff_D hd5 hsq σ hR).mp h, hR⟩,
     fun ⟨h, hR⟩ => ⟨(classCond_two_iff_D hd5 hsq σ hR).mpr h, hR⟩⟩
 
+/-- **Lemma T in bits** (nt-prop0 §2.6, at `2`): for squarefree `d ≡ 5 (mod 8)`, the covering of
+`(a(σ), b(σ))` is soluble over `ℚ₂` iff `a₁ = 0`, `b₁ = μ·u` and `a₀ + λ·u = b₀ + λ·v`. -/
+theorem loc_two_selPair_iff {d : ℕ} (hd5 : d % 8 = 5) (hsq : Squarefree d)
+    (σ : Unknowns d.primeFactors) :
+    Loc ℚ_[2] d (selPair d σ).1 (selPair d σ).2 ↔
+      σ.a1 = 0 ∧ σ.b1 = dot (natConfig d (odd_of_mod_eight_eq_five hd5)).mu σ.u ∧
+        σ.a0 + dot (natConfig d (odd_of_mod_eight_eq_five hd5)).lam σ.u =
+          σ.b0 + dot (natConfig d (odd_of_mod_eight_eq_five hd5)).lam σ.v := by
+  rw [loc_two_adic_iff hd5 (selPair d σ).1 (selPair d σ).2 (classInt_ne_zero _ _ _ _)
+    (classInt_ne_zero _ _ _ _)]
+  exact classCond_two_iff hd5 hsq σ
+
+/-- **Row `(D)` from Lemma T** (nt-prop0 §2.6): under `(R)`, the covering of `(a(σ), b(σ))` is
+soluble over `ℚ₂` iff `σ` satisfies the row `(D)` (`twoAdicRows 5`). -/
+theorem loc_two_selPair_iff_D {d : ℕ} (hd5 : d % 8 = 5) (hsq : Squarefree d)
+    (σ : Unknowns d.primeFactors) (hR : σ.a0 = σ.b0) :
+    Loc ℚ_[2] d (selPair d σ).1 (selPair d σ).2 ↔
+      (natConfig d (odd_of_mod_eight_eq_five hd5)).D σ := by
+  rw [loc_two_adic_iff hd5 (selPair d σ).1 (selPair d σ).2 (classInt_ne_zero _ _ _ _)
+    (classInt_ne_zero _ _ _ _)]
+  exact classCond_two_iff_D hd5 hsq σ hR
+
 /-! ### The real place -/
 
 /-- **Row `(R)`** (nt-prop0 §2.6, at `∞`): the covering of `(a(σ), b(σ))` is soluble over `ℝ` iff
@@ -509,5 +534,14 @@ theorem isSol_iff_selPair_mem_of_local {d : ℕ} (hd5 : d % 8 = 5) (hsq : Square
       exact (loc_padic_selPair_iff_rows hd hsq σ x.2).mp (hloc x)
     exact ⟨fun x => (hrows x).1, fun x => (hrows x).2, hR',
       (classCond_two_iff_D hd5 hsq σ hR').mp ((hT _ _ ha0 hb0).mp (hloc 2))⟩
+
+/-- **Proposition 0, first half, from Lemma G2** (nt-prop0 §2.7): with Lemma T proved
+(`loc_two_adic_iff`), only Lemma G2 at the primes `p ∤ 2d` remains as a hypothesis. -/
+theorem isSol_iff_selPair_mem_of_G2 {d : ℕ} (hd5 : d % 8 = 5) (hsq : Squarefree d)
+    (hG : ∀ (p : ℕ) [Fact p.Prime], p ≠ 2 → ¬p ∣ d → ∀ a b : ℤ, ¬(p : ℤ) ∣ a → ¬(p : ℤ) ∣ b →
+      Loc ℚ_[p] d a b)
+    (σ : Unknowns d.primeFactors) :
+    (natConfig d (odd_of_mod_eight_eq_five hd5)).IsSol σ ↔ selPair d σ ∈ Sel2 d :=
+  isSol_iff_selPair_mem_of_local hd5 hsq (fun a b ha hb => loc_two_adic_iff hd5 a b ha hb) hG σ
 
 end ZInQ.RouteK.Selmer
