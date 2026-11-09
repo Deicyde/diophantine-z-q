@@ -19,9 +19,9 @@ each step by hand against the manuscript and the Lean source. An independent exa
 confirms Lemma P(1) at `ℓ = 2` and Lemma P(3) on 30 samples, and a negative control shows that
 its threshold is really used. None of the repairs below changes the argument. They correct one
 false numerical statement (about `e = 1, 2` at the prime 2) and one wrong constant (`K_A`), drop
-redundant hypotheses, and correct the plan of Lean changes in §5 of the note. That plan is
-incomplete and partly wrong about which lemmas change, but it is correct about which lemmas need
-new mathematics.
+redundant hypotheses, and complete the plan of Lean changes in §5 of the note. That plan
+leaves out several lemmas that must change, but it names the right lemmas as the ones needing new
+mathematics.
 
 ## Findings
 
@@ -37,7 +37,7 @@ new mathematics.
 | 8 | Proposition AP (lowest terms, signs, fields 1, 2′, 3, 4) | CORRECT | — |
 | 9 | Remark 1: the constant in `K_A ≈ |A| + 71` | wrong constant; harmless | cosmetic |
 | 10 | Remark 3: Lemma P only on `S₀ = {2, 3, 5, 7, 13}` | CORRECT; can be strengthened | — |
-| 11 | Plan of Lean changes (§3.2, §5 Route 1) | incomplete; partly wrong | minor |
+| 11 | Plan of Lean changes (§3.2, §5 Route 1) | incomplete | minor |
 | 12 | Size of the poles actually needing Lemma P | observation | — |
 
 Details follow, in the order of the table.
@@ -234,3 +234,84 @@ square-denominator conclusion. With this change field 2′ becomes:
 This makes the Lean change smaller: Lemma P and the residue-class weak approximation are needed
 at five primes only, and part 1 of `pole_input_valuations` splits into an `S₀` part and an
 evenness part.
+
+### 11. Which Lean lemmas change — the note's plan is incomplete
+
+The note lists three changes: `GoodSlope.old`, `slope_complete`/`pole_input_valuations`, and
+`weak_approx_q`. The full list, from reading the consumers, is as follows. The first five need new
+mathematics or a real change of proof; the others need a one-line adaptation or none.
+
+1. **New lemma (Lemma P(1)–(2), integer form).** For a prime `ℓ`, `t ∈ ℚ` with `v_ℓ(t) = −e < 0`,
+   `F(t) > 0` and (`ℓ = 2 ⇒ e ≥ 3`), and every `N`, there is `w ∈ ℤ` with
+   `v_ℓ(1 − R₀(w/ℓ^e)²) ≥ N` for `R₀ = F(t)/(t − 1)⁸`. A short route is to apply Mathlib's
+   `hensels_lemma` in `ℤ_[ℓ]` to `X² − Π` at `X = 1`. Its hypothesis `‖Π − 1‖ < ‖2‖²` is
+   `ℓ^{−e} < 1` for odd `ℓ` and `2^{−e} < 1/4`, i.e. `e ≥ 3`, at `ℓ = 2`. This is exactly the
+   dichotomy of finding 5. The other factor `(vℓ^{−e})u³(u − v)^{−4}` of `(R₀ℓ^{−2e})^{1/2}` is
+   explicit.
+2. **`weak_approx_q`** (`WeakApproximation.lean:29`). Add a variant with a third finite set of
+   primes, carrying exponents `e_ℓ`, precisions `N_ℓ` and integer targets `w_ℓ`, with conclusion
+   `v_ℓ(qℓ^{e_ℓ} − w_ℓ) ≥ N_ℓ`. In the grid proof the residue of the numerator modulo `ℓ^{N_ℓ}`
+   depends on the power `ℓ′^k` of the auxiliary prime (finding 7). So `k` must be fixed before
+   the residue is computed, and the grid is a coset `r_k + Mℤ`, not `Mℤ`. The existing lemma can
+   stay for the other callers.
+3. **`pole_input_valuations`** (`PoleValuations.lean:62`). Replace the hypothesis `hq_old` by a
+   per-prime disjunction: `(field 2 at p ∧ C_p ≤ v_p(q)) ∨ (v_p(t) < 0 ∧ 23(−v_p(t)) + v_p(12) + 2 ≤ v_p(a))`.
+   Part 1 gets a second branch, which is the computation of finding 3: `hva` is replaced by
+   `v_p(a) ≥ N_p`, and `v_p(R₀) = −2v_p(t)`, `v_p(t − 1) = v_p(t)` follow from `v_p(t) < 0`.
+   That branch needs neither `η = 1` nor the square root. The **conclusions can stay as they
+   are**, including `103C_p + 8 ≤ v_p(B)` on `S_b`. Parts 2 and 3 are unchanged. Under 2″
+   (finding 10), part 1 is instead stated on `S₀`, with an evenness clause on `S_b ∖ S₀`.
+4. **`slope_complete`** (`SlopeCompleteness.lean:75`). Compute `S_pole` and the targets
+   `w_ℓ` (item 1), call the new weak approximation (item 2), and feed item 3. It needs a small
+   lemma that the sign chosen by `R₀ > 0` is `η = 1` when `contactPoly t > 0`. Item 3's
+   `v_p(a) ≥ N_p` follows from `v_ℓ(qℓ^e − w) ≥ N` by the identity of Lemma P(2).
+5. **New** `slopeRepresentation_of_goodPrimeAP`, with a constructor `goodSlope_of_progression`.
+   The existing `goodSlope_of_primeValues` (`TwoSlope.lean:41`) cannot be reused as it stands:
+   its hypothesis `hold` (`v_q(v) ≤ B_q` and `v_q(u − v) ≤ B_q` on `S_b`) is exactly what fails
+   for progressions. Its proof of fields 1, 3, 4 can be reused. Field 2′ needs the case split of
+   finding 8.
+6. **`GoodSlope`** (`PatternSlopes.lean:26`). Field `old` becomes the disjunction 2′ (or 2″).
+   `GoodSlope.old_le_Cp` has no users and can be deleted or restated under the first alternative.
+7. **Constructors of the old kind** need one `Or.inl` each: `goodSlope_of_values` (`PatternSlopes.lean:113`),
+   hence `pattern_slopes` and `slopeRepresentation_of_fixedPrimePattern`; `goodSlope_of_primeValues`,
+   `goodSlope_neg_ten` and `slopeRepresentation_of_twoSlopePattern` (`TwoSlope.lean`). The present
+   main theorems from 22P and 22P₂ therefore survive.
+8. **Hypotheses and assembly.** Add the hypothesis `GoodPrimeAP` (`Hypotheses/PrimePattern.lean`)
+   and a main-theorem variant (`Main.lean`).
+9. **Unchanged.** `tests_integral_old`, `tests_precision_selected`, `exists_shift`,
+   `padicValRat_contactQuot_eq_one` and `even_padicValRat_contactQuot` (`PoleValuationsAux.lean`),
+   `pole_input_small`, and the consumers of `SlopeRepresentation` (`Core.lean`,
+   `Template.lean`, `Top/Exact.lean`, `Assembly/Top/*.lean`). These never destructure
+   `GoodSlope`.
+
+An alternative with less churn is to leave `GoodSlope` alone and add `GoodSlope′`. One would then
+prove `GoodSlope → GoodSlope′`, state `slope_complete` for `GoodSlope′`, and let
+`SlopeRepresentation` quantify over `GoodSlope′`. Either way the work is items 1–5.
+
+### 12. How large must a pole be before Lemma P is needed? — observation
+
+With the actual normalization `E_ℓ = 52C_ℓ + v_ℓ(12) + 4`, the old argument (`v_ℓ(q)` large, so
+`α = 0`) already works whenever `v(RC²) ≥ 2E_ℓ − 46e > v_ℓ(12)`. That is the case for
+`e ≤ 126` on `S_ht` (`C_ℓ = 56`) and `e ≤ 31` on the catalogue (`C_ℓ = 14`), and then
+`v_ℓ(B) = 2E_ℓ + 2e − 2v_ℓ(12) ≥ 4`. The bounds `B_ℓ` of field 2 are therefore far from sharp.
+This does not make Lemma P superfluous: Green–Tao gives no bound at all on `v_ℓ(v)`, and by
+Remark 1 the poles at the small primes grow with `|A|`. It does show that the new branch is
+exercised only for poles of order above about 126 at the primes of `S₀`. This explains why the
+old proof never needed it, and it gives an easy sanity check for a Lean statement of the branch.
+
+## Numerical checks
+
+All computations used exact arithmetic in `ℚ(√2)` and an implementation independent of the
+note's scripts (`scratch/rv-nt22p-proof/lemmaP_check.py`, output `lemmaP_check.out`).
+
+- *Square classes at 2* (exhaustive; finding 5): the class of `∏_c(u − cv)` mod 8 for
+  `v_2(v) = e` is `{3, 7}`, `{5}`, `{1}`, `{1}`, `{1}`, `{1}` for `e = 1, …, 6`.
+- *Lemma P(3)*, 30 samples. Each sample is a slope with poles at all five primes of `S₀`
+  (`e₂ ∈ [3, 8]`, other `e_ℓ ∈ [1, 5]`) and `F(t) > 0`. One rational `q` was built by the Chinese
+  remainder theorem from Hensel roots, with `α_ℓ ≥ 23e_ℓ + v_ℓ(12) + 2`. There were 72 random
+  test values `D_{gj} ∈ ℤ[√2]`, and `ℓ₀ = 1` (the worst case `E_ℓ = 0`). Results, out of 30:
+  `α_ℓ ≥ N_ℓ` at all five primes in 30; `v_ℓ(Θ) = v_ℓ(12)` in 30;
+  `v_ℓ(B) = 2α_ℓ + 2e_ℓ − 2v_ℓ(12)` exactly in 30; `v_ℓ(B) ≥ 4` in 30.
+- *Negative control*, 30 samples: the root was perturbed so that `α_ℓ = 19e_ℓ < 23e_ℓ`. Then
+  `v_ℓ(Θ)` is large and `v_ℓ(B)` is very negative at every prime in every sample. So with
+  `E_ℓ = 0` the threshold `2α − 46e > v_ℓ(12)` is not slack.
