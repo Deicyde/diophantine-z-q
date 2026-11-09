@@ -115,7 +115,7 @@ It is a proof sketch (Hecke's theorem for `ℚ(i)` or the prime number theorem i
 the two-dimensional sieve of the manuscript, lines 1600–1642); `rv-nt22p-ap` finds it correct as a
 sketch and lists what the write-up must contain (its F5). UNCHECKED here beyond the numerical
 agreement of 1.3; it is the one unwritten step between the published theorem and `GoodPrimeAP`
-(finding F2 below).
+(finding F1 below).
 
 **The derivation.** Write, in Lean,
 

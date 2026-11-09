@@ -74,3 +74,7 @@
 - GT arXiv v6 section list: the "our method also extends to prove Theorem 1.2" remark is in §11 "Further remarks"
   (sections: 1 Intro … 7 Bohr sets, 8 Furstenberg tower, 9 measure, 10 correlation, 11 Further remarks). Docstring
   and rv-nt22p-ap say §10. Cosmetic (published numbering unchecked).
+
+## Step 7 (deliverables)
+- docs/research/aud-ap.md written (verdict: faithful as written; F1 moderate trust base, F2–F3 minor, F4 cosmetic,
+  F5 observation). .fleet/aud-ap.md written. Done.
