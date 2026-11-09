@@ -59,3 +59,8 @@
 - scratch/aud-ap/Axioms.lean (output axioms.out): variant type
   SixContactMin → CertifiedRank → GoodPrimeAP → FrozenTarget (main: … → FixedPrimePattern → FrozenTarget);
   #print axioms variant and slopeRepresentationAP_of_goodPrimeAP: [propext, Classical.choice, Quot.sound]. CORRECT.
+- scratch/aud-ap/Derive.lean (output derive.out): Lean forms GreenTaoDense (GT 2008 Thm 1.2, one progression,
+  d ∈ ℤ \ {0}) and PropDUpper (positive relative upper density of GoodSlopePrime);
+  theorem goodPrimeAP_of_greenTao_propD : GreenTaoDense → PropDUpper → ZInQ.GoodPrimeAP compiles against the branch,
+  axioms [propext, Classical.choice, Quot.sound]. (First attempt: decidability-instance mismatch, fixed by `convert`.)
+  So GoodPrimeAP follows from GT 1.2 + Prop D with no extra condition. CORRECT.

@@ -42,7 +42,7 @@ theorem goodPrimeAP_of_greenTao_propD (hGT : GreenTaoDense) (hD : PropDUpper) :
         (Finset.range (N + 1)).filter (· ∈ A) ∪ Finset.range (M + 1) := by
       intro p hp
       simp only [Finset.mem_filter, Finset.mem_range, Finset.mem_union, hA,
-        Set.mem_setOf_eq] at hp ⊢
+        Set.mem_ofPred_eq] at hp ⊢
       by_cases h : M < p
       · exact Or.inl ⟨hp.1, hp.2, h⟩
       · exact Or.inr (by omega)
@@ -65,7 +65,7 @@ theorem goodPrimeAP_of_greenTao_propD (hGT : GreenTaoDense) (hD : PropDUpper) :
     have := hcount N
     linarith
   intro K
-  obtain ⟨x, d, hd, hprog⟩ := hGT A hAprime hdense (K + 1)
+  obtain ⟨x, d, hd, hprog⟩ := hGT A hAprime (by convert hdense) (K + 1)
   -- the terms of the progression, as natural numbers in `A`
   choose! p hpA hpeq using fun j (hj : j < K + 1) => hprog j hj
   rcases lt_or_gt_of_ne hd with hneg | hpos
