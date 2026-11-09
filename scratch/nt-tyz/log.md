@@ -83,3 +83,8 @@
 - TYZ Thm 3.3's proof itself uses GZ+Kolyvagin [K1] for proportionality (line 1993).
 - reading_a_check.py (30 random n≡5, n<3e5, 2-4 primes): (T5a,T5b,rank) counts {(0,0,1):6,(0,1,1):3,(1,0,1):10,(1,1,1):11};
   no counterexample to reading A.
+
+## Step 6 (deliverables)
+- docs/research/nt-tyz.md written (§§1-6, ranking) and .fleet/nt-tyz.md. Zhang 2111.11618 cites journal
+  "[TYZ, Theorem 1.1, Corollary 1.3]" for the arXiv Thm 1.1 + Cor 1.4 statement: journal numbering may differ.
+- Task complete.

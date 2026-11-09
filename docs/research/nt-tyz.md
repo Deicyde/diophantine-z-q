@@ -13,7 +13,7 @@ proof of that form whose inputs are all unambiguous statements of the paper.
    (`T_5b(n)` odd ⟹ `𝓛(n) ≠ 0`) directly.
 2. **The literal statement of Theorem 1.2 is false.** Theorem 1.2 ends with "all decompositions
    … are non-ordered with all `d_i > 1`". Read that way, the second sum for `n ≡ 5 (mod 8)` is
-   `T_5a(n) + g(n) + T_5b(n)` (§1.4). For `n = 26565 = 3·5·7·11·23` and `n = 33117 = 3·7·19·83`
+   `T_5a(n) + g(n) + T_5b(n)` (§1.3). For `n = 26565 = 3·5·7·11·23` and `n = 33117 = 3·7·19·83`
    this sum is odd while `rank C_n(ℚ) = 3`, so `𝓛(n) = 0` (VERIFIED, exact computation). The same
    two values refute the other literal reading, where `d₁ > 1` is a distinguished factor. The
    only true reading admits the trivial factor `d₁ = 1` (reading A). Under that reading the two
