@@ -191,3 +191,69 @@ implies 2′. CORRECT.
 **Remark 3 of §3.3.** `ZInQ.PoleCompleteness` (`Hypotheses/Pole.lean:62`) asks for a square
 reduced denominator, `0 < B < 1/2` and `v_p(B) ≥ 4` only for `p ∈ S₀`. At `ℓ ∈ S_b ∖ S₀` with a
 pole, `v_ℓ(B) = 2v_ℓ(ℓ₀) + 2v_ℓ(a) + 2e − 2v_ℓ(Θ)` is even for every `q`, since `Θ ∈ ℚ`. CORRECT.
+
+**Interface.** `SlopeRepresentation` is consumed only through `slope_complete`, one slope at a
+time (`Core.lean:17`). In `slope_complete` the field `old` reaches only `pole_input_valuations`,
+whose `part1` turns it into `v_p(B) ≥ 103C_p + 8` on `S_b`. That bound is used only for
+`v_p(B) ≥ 4` on `S₀` and for the square denominator. So the replacement of field 2 by 2′ is local,
+as the note says. Whether the new `part1` holds is the content of §3.2 (outside this report).
+
+## 4. Proposition D
+
+**The description of `G` (§2.1).** For `p > 324`, `GoodSlopePrime p` holds iff `p ≡ 1 (mod 8)`,
+`(7/p) = −1`, and no odd prime `ℓ` divides both `a` and `p + 1`, where `p = a² + b²` with `a` odd.
+I checked each step by hand:
+
+- *Splitting.* `r² = 2` is solvable iff `p ≡ ±1 (mod 8)`. For `p ≡ 3 (mod 4)`, `y² = x³ + αx` is
+  supersingular, both orders are `p + 1`, and the gcd is `p + 1 > 4`.
+- *Twists.* `d₁d₂ = 75² − 2·53² = 7`, so `a₁/a₂ = d₁²/d₂² = d₁⁴/49`. For `p ≡ 1 (mod 4)` this is
+  a fourth power iff `7` is a square mod `p`. If it is, the two curves are isomorphic and the gcd
+  is `d₁ ≥ p + 1 − 2√p > 4`. If not, the curves are quadratic twists of each other, with traces
+  `±τ`.
+- *The trace.* `x³ − d²x` splits over `𝔽_p`, so `4 | #E`. Since `p + 1 ≡ 2 (mod 8)`, this forces
+  `τ ≡ 2 (mod 4)`, hence `τ = ±2a` with `a` odd (the alternative `±2b` has `b` even). So the orders
+  are `p + 1 ∓ 2a`.
+- *The gcd.* The orders differ by `4a`, which has 2-adic valuation exactly 2, so the 2-part of the
+  gcd is exactly `4`. An odd `ℓ` divides both orders iff `ℓ | a` and `ℓ | p + 1`. Then
+  `b² ≡ −1 (mod ℓ)`, so `ℓ ≡ 1 (mod 4)`.
+
+Computation (Section 8): the literal Lean definition (both roots `r`, point counts by brute force
+or by PARI) agrees with this description at every prime `325 ≤ p ≤ 2·10⁵`. CORRECT.
+
+**The density.** In `ℤ[i]/ℓ ≅ 𝔽_ℓ × 𝔽_ℓ`, the bad event at `ℓ ≡ 1 (mod 4)` is that the generator
+with odd real part lies in `±(1, −1)`: two classes out of `(ℓ − 1)²`, independent of the
+conditions modulo 8 and 7 on the norm. Hecke's theorem for the ray class groups of `ℚ(i)` gives
+the density `(1/8)∏_{ℓ ≤ L}(1 − 2/(ℓ − 1)²)` for the primes with no bad `ℓ ≤ L`. Together with
+the uniform tail bound `O(1/L)` (F5), this gives the natural density
+`(1/8)∏_{ℓ≡1 (4)}(1 − 2/(ℓ − 1)²) ≈ 0.1060`. Numerically, the share of good primes among the primes
+up to `3·10⁷` is `0.10610`. CORRECT.
+
+**Relative density.** Proposition D is a statement about `|G ∩ [1, N]|/π(N)`, which is exactly the
+relative density in Green–Tao's Theorem 1.2. Removing the finitely many primes `≤ max S_b`, or
+`≤ N` for any fixed `N`, does not change it. So `G′` and `G ∩ (N, ∞)` have positive relative upper
+(indeed natural) density. CORRECT.
+
+## 5. Green–Tao 2008
+
+The TeX source of arXiv math/0404188v6 (the version published in Ann. of Math. 167 (2008)) states
+in §1:
+
+> **Theorem 1.2** (Szemerédi's theorem in the primes). Let `A` be any subset of the prime numbers
+> of positive relative upper density, thus `limsup_{N→∞} π(N)^{−1}|A ∩ [1, N]| > 0`, where `π(N)`
+> denotes the number of primes less than or equal to `N`. Then `A` contains infinitely many
+> arithmetic progressions of length `k` for all `k`.
+
+- *Upper or lower density.* Upper density suffices. Proposition D gives more, a natural density.
+- *Non-degenerate progressions.* In the proof (of Theorem 1.1, and in §10 for Theorem 1.2) the
+  degenerate progressions `r = 0` contribute `O(N^{−1} log^k N) = o(1)` and are discarded. The
+  progressions counted are genuine progressions of integers, because their terms lie in
+  `[ε_kN, 2ε_kN]` with `ε_k < 1/k`. So the progressions are non-constant and consist of primes in
+  `A`. Reversing the order if needed gives `v ≥ 1`, and `x ≥ 1` because the terms are primes.
+- *Large first term.* "Infinitely many progressions" alone does not bound the first term from
+  below (the difference could grow instead). Applying the theorem to `G ∩ (N, ∞)` gives `x > N`
+  directly. This is the form needed for the Lean statement
+  `GoodPrimeAP : ∀ K N, ∃ x v, N < x ∧ 0 < v ∧ ∀ j ≤ K, GoodSlopePrime (x + j v)`. The note says
+  this ("removing finitely many primes changes nothing").
+
+So 22P_AP follows from Theorem 1.2 and Proposition D. CORRECT. The caveat on the completeness of
+the published proof of Theorem 1.2 is F3.
