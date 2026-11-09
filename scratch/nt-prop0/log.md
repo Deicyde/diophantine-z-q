@@ -57,3 +57,6 @@
   `probe_isSquare_of_toZModPow_three` (u ∈ ℤ₂, toZModPow 3 u = 1 ⇒ IsSquare u) and
   `probe_isSquare_of_toZMod` (p odd, u unit, residue square ⇒ IsSquare u), both via `hensels_lemma`.
   ~75 lines total, axioms propext/Classical.choice/Quot.sound. So SQ(a)(⇐), SQ(b)(⇐) are cheap.
+- scratch/nt-prop0/ProbeQ.lean: Lemma Q (Σ_ξ χ((ξ−e)(ξ−e′)) = −1, e ≠ e′, any finite field of odd
+  characteristic) from `jacobiSum_nontrivial_inv`, `IsQuadratic.inv`, `quadraticChar_sq_one'`:
+  compiles first try, ~35 lines, standard axioms.
