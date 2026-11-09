@@ -507,3 +507,41 @@ proof in §3.3" should become "Theorem 3.5 and the argument of the proof of Theo
 completed in nt-tyz §4", and Theorem 1.2 should not be cited. tyz-5b's Proposition 1.1 is
 Proposition N. Its two implicit facts are F1 and F2, and the facts it did not mention are F3–F6
 together with Lemma N2.
+
+## 5. Kriz, and the unrefereed sources in CR₃'s justification
+
+### 5.1 Kriz is not needed (VERIFIED)
+
+tyz-5b claims this for the slot curves. It holds for all of CR₃. The Lean statement
+(`ZInQ.CertifiedRank`) covers squarefree `d ≡ 5 (mod 8)` and squarefree `a | d` with `|a| ≡ 7 (mod 8)`,
+with the explicit system of 8 solutions containing one with first coordinate `a`. By Proposition 0
+(descent-alt §4.1) these hypotheses say `dim Sel₂(C_d) = 3` and `a ∈ π₁(Sel₂(C_d))`. Since `|a|` is odd
+and `≡ 3 (mod 4)`, tyz-5b Corollary 4.4 applies to every such `d`. It gives `T_5b(d) = 1` (tyz-5b
+Theorems 3.6 and 4.3, elementary), then a point of infinite order with abscissa in `aℚ*²` (Proposition
+N, Gross–Zagier–Kolyvagin, pc-audit RK9). No step uses Kriz (arXiv:2002.04767), the Cassels–Tate
+pairing, or Smith's preprint. Kriz remains only as the alternative route named in the trust statement.
+
+### 5.2 Unrefereed sources still cited (VERIFIED by reading the citations)
+
+1. **Kolyvagin, MPIM preprint MPI/90-69 (1990).** This is the manuscript's source for Lemma 5.5
+   (`lem:forward-rank`, L1086–1109; bibliography L11163–11167; audit records A020, C030), which
+   CR₃ uses for "analytic rank one ⟹ rank one". It is a preprint. The same title appeared as
+   Kolyvagin's address in Proc. ICM Kyoto 1990, 429–436 (contents not compared; UNCHECKED). For the
+   CM curves `C_d`, CR₃ needs only "analytic rank one ⟹ rank ≥ 1" (pc-audit RK7), which needs
+   Gross–Zagier (Invent. Math. 84 (1986)) plus an auxiliary imaginary quadratic field with a
+   non-vanishing twist, or the published Kolyvagin papers TYZ cite (Math. USSR Izv. 32 (1989);
+   Grothendieck Festschrift II (1990)). TYZ's own proof of Theorem 3.3 already uses Gross–Zagier and
+   Kolyvagin (L1993), through these published references. Exact theorem numbers of these
+   replacements were not checked here (UNCHECKED).
+2. **TYZ in its arXiv form.** The journal text was not read. The only version compared is the arXiv
+   preprint, so every statement in §1.2 is a statement of the preprint (UNCHECKED against the
+   journal, §1.1).
+3. **Smith, arXiv:1603.08479.** It is no longer used for row 5b: tyz-5b §3 reproves it. It still
+   appears in pc-audit RK5 and in the history of the route.
+4. **Kriz, arXiv:2002.04767v5.** It is an alternative only (§5.1). Its arXiv metadata carries no
+   journal reference. Its publication status after 2022 was not checked.
+5. **BCDT,** cited in the manuscript through the authors' manuscript (bibliography L11150–11154) but
+   published in J. Amer. Math. Soc. 14 (2001). Not needed for `C_d`, which has CM (pc-audit RK7).
+6. **The project's own notes.** Proposition 0 (descent-alt §4.1, with slot-k §2.1 for the place 2),
+   tyz-5b §§2–4 and this note have been reviewed only by automated referees (tyz-5b §7, slot-k §5.1).
+   They are proofs, not citations, but no human has refereed them.
