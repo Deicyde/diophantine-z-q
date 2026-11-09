@@ -7,21 +7,22 @@ proof: formalized
 lean: ZInQ.Mult.abscissa_val_even
 ---
 
-# Parity of the abscissa on $y^2=x(x-\ell)(x+3\ell)$
+# Parity of the abscissa on $y^2=x(x-\ell)(x+\ell)$
 
-Let $p\ne3$ be a prime, $\ell\in\mathbb Q^\times$ with $v_p(\ell)$ even, and
+Let $p$ be a prime, $\ell\in\mathbb Q^\times$ with $v_p(\ell)$ even, and
 $x,y\in\mathbb Q$ with $x\ne0$ and
-$$y^2=x(x-\ell)(x+3\ell).$$
+$$y^2=x(x-\ell)(x+\ell).$$
 Then $v_p(x)$ is even.
 
 **Proof sketch.** If $v_p(x)=v_p(\ell)$ there is nothing to prove. Otherwise
-$v_p(x-\ell)=\min(v_p(x),v_p(\ell))$, and, since $v_p(3)=0$, also
-$v_p(x+3\ell)=\min(v_p(x),v_p(\ell))$; in particular both factors are nonzero, so the right
+$v_p(x-\ell)=v_p(x+\ell)=\min(v_p(x),v_p(\ell))$, by the equality case of the ultrametric
+inequality, at every prime $p$; in particular both factors are nonzero, so the right
 side is nonzero, $y\ne0$, and
 $$2v_p(y)=v_p(x)+2\min\bigl(v_p(x),v_p(\ell)\bigr).$$
 Hence $v_p(x)$ is even. (This is the manuscript's square-scaling step: after scaling $\ell$
 to a unit, the cubic has valuation $v_p(x)$ if $v_p(x)>0$ and $3v_p(x)$ if $v_p(x)<0$.) The
-hypothesis $p\ne2$ is not needed.
+manuscript's curve $y^2=x(x-\ell)(x+3\ell)$ needs $p\ne3$ at this step; the Route K curve needs
+no condition on $p$.
 
 ## Depends on
 

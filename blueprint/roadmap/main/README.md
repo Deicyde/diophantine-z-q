@@ -25,9 +25,13 @@ the main theorem assumes only this instance.
 - [The six-contact estimate implies its minimal form](six-contact-min-of-estimate.md)
 
 Pole completeness asserts the rational solubility of one explicit polynomial for all
-suitably prepared inputs.
+suitably prepared inputs. The polynomial here is the Route K one, whose curves are congruent
+number curves, and pole completeness is no longer assumed: the
+[Route K chapter](../route-k/README.md) proves it from a narrower hypothesis, CR₃, which turns an
+explicit 2-Selmer certificate of a congruent number curve into a rational point.
 
 - [Pole completeness](pole-completeness.md)
+- [The certified rank hypothesis](certified-rank.md)
 
 The generator argument uses the Mordell–Weil theorem for $E$ over $K_0$. It was a
 hypothesis until the two-isogeny descent of the model chapter proved it.
@@ -51,7 +55,8 @@ the twenty-two-prime pattern.
 
 The catalogue bound is no longer an assumption of substance: the
 [progressions chapter](../progressions/README.md) proves it from an effective Dirichlet
-theorem. Under the remaining hypotheses (the minimal form of the height estimate, pole completeness
-and the twenty-two-prime pattern, or the two-slope pattern in its place) the target holds.
+theorem. Under the remaining hypotheses (the minimal form of the height estimate, the certified
+rank hypothesis CR₃, or pole completeness in its place, and the twenty-two-prime pattern, or the
+two-slope pattern in its place) the target holds.
 
 - [The main theorem](main-theorem.md)

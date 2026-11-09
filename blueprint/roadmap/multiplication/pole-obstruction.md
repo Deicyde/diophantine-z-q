@@ -15,7 +15,9 @@ definition of $\Phi$ only; the hypothesis PC is not assumed). If $B\in\mathbb Q$
 $\Phi(B)$, then for every prime $p\notin S_0$ it is not the case that $v_p(B)$ is negative
 and odd.
 
-This is Lemma 5.1. It uses no hypothesis: it is the elementary direction of the pole
+This is Lemma 5.1, for the Route K pole polynomial, whose curves are $y^2=x(x-\ell)(x+\ell)$
+instead of the manuscript's $y^2=x(x-\ell)(x+3\ell)$; the statement and $S_0$ are unchanged. It
+uses no hypothesis: it is the elementary direction of the pole
 predicate, and the multiplication soundness argument uses it at the odd contact primes.
 
 **Proof sketch.** Take a rational zero $(b_0,\dots,b_5,e,z,r_1,r_2,w)$ of $Q_{\rm pole}$ with
@@ -27,13 +29,13 @@ $2730=2\cdot3\cdot5\cdot7\cdot13$ and $v_p(m)=0$ for $p\notin S_0$.
 
 Suppose $k=v_p(B)<0$ is odd. Then $v_p(A)=v_p(mB)=k$; since $2k<k$,
 $v_p(A-B^2)=2k$, so $v_p(H)=3k$. The equations say that $(A,r_1)$ lies on
-$E_e:y^2=x(x-e)(x+3e)$ and, multiplying $r_2^2=T_2$ by $z^2$, that $(Az^2,zr_2)$ lies on
-$E_{eH}$: $(zr_2)^2=z^2T_2=Az^2(Az^2-eH)(Az^2+3eH)$. Both abscissas are nonzero ($m\ne0$
+$C_e:y^2=x(x-e)(x+e)$ and, multiplying $r_2^2=T_2$ by $z^2$, that $(Az^2,zr_2)$ lies on
+$C_{eH}$: $(zr_2)^2=z^2T_2=Az^2(Az^2-eH)(Az^2+eH)$. Both abscissas are nonzero ($m\ne0$
 because $1-2b_0=\pm1$ and the other factors are positive, and $z\ne0$), and both parameters
 $e,eH$ are nonzero. The valuations of $e$ and $eH$ differ by the odd number $3k$, so exactly
-one of them is even. If $v_p(e)$ is even, the parity lemma ($p\ne3$ because $p\notin S_0$)
-applied to $(A,r_1)$ makes $v_p(A)=k$ even; if $v_p(eH)$ is even, it makes
-$v_p(Az^2)=k+2v_p(z)$ even. Both contradict $k$ odd.
+one of them is even. If $v_p(e)$ is even, the parity lemma applied to $(A,r_1)$ makes
+$v_p(A)=k$ even; if $v_p(eH)$ is even, it makes $v_p(Az^2)=k+2v_p(z)$ even. Both contradict $k$
+odd.
 
 ## Depends on
 
@@ -41,7 +43,7 @@ $v_p(Az^2)=k+2v_p(z)$ even. Both contradict $k$ odd.
 
 ## Proof depends on
 
-- [Parity of the abscissa on $y^2=x(x-\ell)(x+3\ell)$](abscissa-parity.md)
+- [Parity of the abscissa on $y^2=x(x-\ell)(x+\ell)$](abscissa-parity.md)
 
 ## Sources
 

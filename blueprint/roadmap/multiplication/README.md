@@ -22,13 +22,14 @@ few small closed identities and inequalities.
 
 Write $\Phi(B)$ for the rational solubility of the pole polynomial $Q_{\rm pole}$ with input
 $B$. For $B\ne0$ the witnesses give a signed divisor $m$ of $2730$ and points
-$(A,r_1)\in E_e$, $(Az^2,zr_2)\in E_{eH}$ on curves $E_\ell:y^2=x(x-\ell)(x+3\ell)$, and a
+$(A,r_1)\in C_e$, $(Az^2,zr_2)\in C_{eH}$ on the congruent number curves
+$C_\ell:y^2=x(x-\ell)(x+\ell)$ (the manuscript has $x+3\ell$), and a
 parity argument on the valuation of the abscissa shows that $\Phi(B)$ is impossible when
 $v_p(B)$ is negative and odd at a prime $p\notin\{2,3,5,7,13\}$. This elementary direction is
-what soundness uses; the converse, pole completeness, is a hypothesis and is used only for
-completeness.
+what soundness uses; the converse, pole completeness, is used only for completeness, and the
+[Route K chapter](../route-k/README.md) proves it from the certified rank hypothesis.
 
-- [Parity of the abscissa on $y^2=x(x-\ell)(x+3\ell)$](abscissa-parity.md)
+- [Parity of the abscissa on $y^2=x(x-\ell)(x+\ell)$](abscissa-parity.md)
 - [The one-sided pole obstruction](pole-obstruction.md)
 
 ## Local conventions
