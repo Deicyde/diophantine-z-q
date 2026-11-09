@@ -340,3 +340,55 @@ finite fields; the proofs above use nothing about `k` except (F). The only arith
   `Hom_{G_k}(V₅A, V₅J) = Hom_k(A, J) ⊗ ℚ₅`. The rest of A063 (coefficient extension, absolute
   simplicity, Poincaré complement over `L'`) is unchanged.
 
+### 2.4 Use-by-use comparison
+
+| | U1 (A008) | U2 (A063) |
+| --- | --- | --- |
+| Field of definition needed | `L'` (all endomorphisms already over `L ⊆ L'`) | `L'` (both `A` and `J` over `L'`; the isogeny `A × Z → J` must be over `L'` for A015) |
+| Abelian varieties | `A` (dim 2) | `A` and `J₁(N)` (dim `≥ 2`, `≤ Q³M⁴`) |
+| Polarization | none used | none used |
+| Primes `ℓ` | `3` and `5` | `5` |
+| Effective? | no; qualitative | no; qualitative (the bound comes later from A015) |
+| Faltings 1983 gives | Satz 3, Satz 4 (all `k`, all `ℓ`) | §5 Cor. 1 and Satz 3 |
+| Replacement gives | Claims 2-3 for `X = A`, `A × A` over `L'`, all `ℓ` | Claims 2-3 for `X = A × J`, `(A × J)²` over `L'`, all `ℓ` |
+| Input of the replacement | GR14 Thm 1.4 over `k = K = L'` | the same |
+| Can switch? | **yes** | **yes** |
+
+The fields match exactly: GR14 Theorem 1.4 is applied over the same field `L'` and with `k = K`,
+as A015 already does. The statements match exactly: Claims 2-3 are Faltings' Satz 3 and Satz 4
+(rational form) and Corollary 1 of §5, for every number field and every `ℓ`. Nothing effective is
+needed, so nothing about the size of `κ(X)` matters, and in particular the large dimension of
+`(A × J)²` is harmless.
+
+If one prefers to cite Masser–Wüstholz directly, the same derivation works with MW93b's isogeny
+theorem in place of GR14, provided MW93b gives (F_X) for every abelian variety over a number field
+without a polarization hypothesis. That could not be checked (MW93b not readable here; UNCHECKED).
+The route through GR14 has the advantage that GR14 Theorem 1.4 is already a leaf (A015), with its
+statement checked against the published page images, so the change adds no new source at all.
+
+### 2.5 The one open check: non-circularity
+
+The replacement is only a reduction if the proof of GR14 Theorem 1.4 (or of MW93b) does not
+itself use Faltings' Tate theorem or semisimplicity. Masser and Wüstholz's purpose was a proof
+independent of Faltings (vK §4, quoted in §2.2; GR11's introduction describes the period theorem
+and its isogeny consequences as resting on transcendence and the slope method). It is plausible
+that GR14 follows the same scheme: the period theorem applied to the graph of a given isogeny,
+Zarhin's trick, and Faltings' height-variation lemma (A006), which belongs to the Arakelov part of
+Faltings 1983, not its finiteness part. But GR14 was not readable here, so this is **UNCHECKED**.
+It is the first item to verify when the pinned GR14 file is available: search its proof of
+Theorem 1.4 for any use of the Tate conjecture, of semisimplicity of Tate modules, or of
+Faltings' finiteness theorem.
+
+### 2.6 Verdict on R5.1
+
+- U1 and U2 both switch. The new trust base for these steps is GR14 Theorem 1.4 (already A015)
+  plus the elementary arguments of §2.3 and two standard facts already in the base (Mumford §19
+  Theorem 3 / Milne I.10.15; Poincaré reducibility).
+- Faltings 1983 then remains in the trust base of H only through A006 (Lemma 5, the
+  height-variation inequality `h_F(target) ≤ h_F(source) + ½ log deg`, with additivity). That is
+  part of the Arakelov theory of the Faltings height, which GR14 needs anyway.
+- No constant changes: U1 and U2 are qualitative, and the degree bound at lines 878-892 is
+  computed from A015 as before.
+- The audit records A008 and A063 would change their source fields from Faltings 1983 to
+  "GR14 Theorem 1.4 + Tate's argument", with this note as the translation.
+
