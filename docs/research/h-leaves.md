@@ -679,3 +679,24 @@ contactSupport Mult.S_mul u ^ 24`) state Theorem 4.1 and its instance `S = S_mul
 Since Theorem 4.1 is proved with the same constant, both statements hold as stated, with the
 same numerals.
 
+## 6. Open checks
+
+In order of importance:
+
+1. **Non-circularity of GR14 Theorem 1.4** (§2.5). Read the proof of Theorem 1.4 in the pinned
+   published GR14 file and confirm that it uses neither the Tate conjecture nor the
+   semisimplicity of Tate modules nor Faltings' finiteness theorem. If it does, cite MW93b for
+   (F) instead, after checking that MW93b gives (F) for every abelian variety over a number field
+   without a polarization hypothesis.
+2. **(Cris)** (§3.3). Pin a primary source for the crystalline comparison for abelian varieties
+   with good reduction over an arbitrary finite extension of `ℚ₅` (Faltings 1989, Coleman–Iovita
+   1999, Breuil 2000 or Tsuji 1999) and record the exact theorem number. If none can be pinned,
+   option (a) with Fontaine 1983 or Faltings 1989 is the fallback, and A010 stays.
+3. **New audit records for I1 and I2** (§1.2): Carayol 1986, Théorème (A) at weight 2, in the
+   direction "level ≤ conductor"; the Néron mapping property for the reduction of `μ_σ`.
+4. **Numbering in the published replacements of §4.4** (Mumford, Reiner, Cassels–Fröhlich,
+   Fontaine's Astérisque 223, Serre 1968, SGA 1, SGA 7, Deligne–Mumford, Baba–Granath 2008,
+   Buzzard 1997). None changes a statement, but each must be read before it is cited.
+5. **NoCM** is used here as checked by rv-h-cm. Its repairs R1-R5 must be applied when the CM
+   paragraph is replaced; in particular González–Rotger's Proposition 5.6 must be cited only
+   under `(f, 6) = 1`, and Saia's restatements must not be cited.
