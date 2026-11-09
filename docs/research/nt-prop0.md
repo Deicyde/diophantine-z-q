@@ -424,3 +424,78 @@ even power of 2 times such a unit, and a square by (RT).
 Every step reduces to "a 2-adic unit `≡ 1 (mod 8)` is a square" and to residues mod 8. The proof is
 longer than at `p | d` but has the same shape. The sampled image in `t_two_adic.py` (rational
 `x = 2^k u` with `|k| ≤ 6`, `u < 2¹²`, on 6 curves) is exactly these eight classes.
+
+### 2.6 From classes to the system `Σ(𝒞_d)` (VERIFIED)
+
+Let `a = a(σ)` and `b = b(σ)` as in §0, and let `d ≡ 5 (mod 8)`.
+
+**At `p ∈ S`.** By Lemma B and SQ(c), local solubility holds if and only if there are `i, j` with the
+following properties.
+
+- Valuations: `u_p + i` and `v_p + j` are even, so `i = u_p` and `j = v_p`.
+- Residues: the unit parts of `a d^{u_p}(−1)^{v_p}` and `b 2^{u_p}(−d)^{v_p}` are squares mod `p`.
+
+Since the residue bit is additive (`legBit` multiplicativity, `RouteK/Slots/Symbols.lean`), the bit
+of the unit part of `a` at `p` is `a₀λ_p + a₁μ_p + Σ_{y≠p} u_y[y/p]`, and that of `d/p` is
+`Σ_{y≠p}[y/p]`. The two residue conditions are then
+
+```
+a₀λ_p + a₁μ_p + Σ_{y≠p} u_y[y/p] + u_p Σ_{y≠p}[y/p] + v_p λ_p = 0,
+b₀λ_p + b₁μ_p + Σ_{y≠p} v_y[y/p] + u_p μ_p + v_p (λ_p + Σ_{y≠p}[y/p]) = 0.
+```
+
+These are `E1_p` and `E2_p` of `Selmer.lean` (with `(Ku)_p = Σ_{y≠p}[y/p](u_y + u_p)`), the same
+computation as rv-slot-k-descent §1.2.
+
+**At `∞`.** Lemma ∞ gives `a₀ = b₀`, which is `(R)`.
+
+**At `2`.** Write the class of an odd residue `w` mod 8 as `(ε, ω) = (lam8 w, mu8 w)`. These are the
+homomorphisms `lam8`, `mu8` of `RouteK/System/Config.lean`, with `lam8_prod` and `mu8_prod`. The
+relevant values are:
+
+- `ε(−1) = 1`, `ω(−1) = 0`;
+- `ε(5) = 0`, `ω(5) = 1`;
+- `ε(d) = 0`, `ω(d) = 1`, since `d ≡ 5`;
+- `ε(p) = λ_p`, `ω(p) = μ_p` for `p ∈ S`.
+
+By Lemma T and SQ(b),(c), local solubility holds if and only if there are `i, j, k` with:
+
+- valuations: `a₁ = 0` (since `d` is odd) and `b₁ = i`;
+- `ε`, unit part of `a`: `a₀ + λ·u + j = 0`;
+- `ω`, unit part of `a`: `μ·u + i = 0`;
+- `ε`, unit part of `b`: `b₀ + λ·v + j = 0`;
+- `ω`, unit part of `b`: `μ·v + j + k = 0`.
+
+Eliminating `i = b₁`, `j = a₀ + λ·u` and `k` (which is free) leaves `a₁ = 0`, `b₁ = μ·u` and
+`a₀ + λ·u = b₀ + λ·v`. Together with `(R)` this is `twoAdicRows 5`: `a1 = 0 ∧ b1 = mu ∧ lv = lu`. In
+`Config.D` the class is `prodClass = Π_p (p mod 8) = d mod 8`.
+
+**At `p ∉ S ∪ {2}`.** `a(σ)` and `b(σ)` are units, so Lemma G2 gives local solubility with no
+condition.
+
+### 2.7 Proposition 0 and the count (VERIFIED on paper)
+
+**Proposition 0 (Lean form).** Let `d > 0` be squarefree with `d ≡ 5 (mod 8)`, and let
+`σ : Unknowns d.primeFactors`. Then `(natConfig d _).IsSol σ ⟺ (a(σ), b(σ)) ∈ Sel2 d`.
+
+*Proof.* `a(σ)` and `b(σ)` are squarefree. Combine §2.6 at `∞`, at `p ∈ S`, at `2`, and Lemma G2 at the
+remaining primes. ∎
+
+**Corollary (count).** `σ ↦ (a(σ), b(σ))` is a bijection `sols → Sel2 d`. In particular
+`(Sel2 d).ncard = (natConfig d _).sols.card`.
+
+*Proof.*
+
+- Injective: the sign, `v₂` and `v_p` recover `a₀, a₁, u_p` and `b₀, b₁, v_p`.
+- Onto: let `(a, b) ∈ Sel2 d`. By Lemma G1 and squarefreeness, no prime outside `S ∪ {2}` divides `a`
+  or `b`. So `a = ±2^{a₁}Π_{p∈S} p^{u_p}` with exponents in `{0, 1}`, and likewise for `b`. Hence
+  `(a, b) = (a(σ), b(σ))` for the `σ` read off from them, and `σ` is a solution by Proposition 0. ∎
+
+*End-to-end check.* `t_prop0.py` implements the local conditions independently: classes of sampled
+`ℚ_p`-points together with the torsion points, at `∞`, at `2` and at `p | d`. It compares them with
+its own implementation of `E1`, `E2`, `(R)` and `(D)` for `c = 5` on 30 random `d ≡ 5 (mod 8)` with up
+to 4 primes below 60 (a few values repeat), over every pair in the box `⟨−1, 2, p | d⟩²`. Result:
+40,512 pairs, 0 mismatches. The same identification was checked before against an exact descent
+(descent-alt §4.1: 600 values of `d`; rv-slot-k-descent §4.1) and against the Lean definitions
+(cr3-check: 40 values of `d`). The new content here is the x-form of the coverings and the proofs
+written in the order Lean needs.

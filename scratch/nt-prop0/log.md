@@ -44,3 +44,9 @@
   (Agent suggested Chevalley–Warning at p ∤ 2d: wrong, degrees 2+2 = 4 = number of variables.)
 - Route R3 idea: hypothesis "C_d(ℚ) infinite" (d congruent) suffices with only the NECESSITY half of
   Prop 0 + δ hom/injective + MW for C_d/ℚ (repo machinery). Bigger investment.
+
+## Step 4 (note §2.1–2.5 written)
+- t_witness_sympy.py (run with uv + sympy): the 7 witnesses of Lemma T give exactly the quotients of
+  the table (symbolic), and every quotient is a square in ℚ₂ for 250 values d ≡ 5 (8): 0 failures.
+- Lemma B (p | d) and Lemma T (2) written in the uniform form "∃ i j (k), a d^i (−1)^j and
+  b 2^i (−d)^j (5^k) are squares", which turns into bits in §2.6.
