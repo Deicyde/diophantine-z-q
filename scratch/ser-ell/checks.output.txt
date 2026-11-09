@@ -1,0 +1,11 @@
+A. O closed under multiplication: True
+A. det(Trd(e_a e_b)) = -36 (maximal order of reduced discriminant 6 <=> |det| = 36)
+A. hence O/lO is central simple, = M_2(F_l) by Wedderburn, for all l not dividing 6
+B. l = 5 {('level2', 0, 1): 2, ('level2', 1, 0): 2, ('ss', 0, 0): 5, ('ss', 0, 1): 2, ('ss', 1, 0): 2, ('ss', 1, 1): 7, ('nonsplit-peu', 1, 0): 2, ('nonsplit-tres', 1, 0): 6}
+B. l = 7 {('level2', 0, 1): 2, ('level2', 1, 0): 2, ('ss', 0, 0): 7, ('ss', 0, 1): 2, ('ss', 1, 0): 2, ('ss', 1, 1): 9, ('nonsplit-peu', 1, 0): 2, ('nonsplit-tres', 1, 0): 8}
+B. l = 113 {('level2', 0, 1): 2, ('level2', 1, 0): 2, ('ss', 0, 0): 113, ('ss', 0, 1): 2, ('ss', 1, 0): 2, ('ss', 1, 1): 115, ('nonsplit-peu', 1, 0): 2, ('nonsplit-tres', 1, 0): 114}
+B. finite flat types with det = omega and weight != 2: none (l = primes in [5,120))
+C. l = 3 quadratic eta|I allowed: [0, 1]
+C. l = 5 quadratic eta|I allowed: [0]
+C. l = 7 quadratic eta|I allowed: [0]
+C. eta|I forced trivial for every prime 5 <= l < 60
