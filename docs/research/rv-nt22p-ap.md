@@ -257,3 +257,79 @@ in §1:
 
 So 22P_AP follows from Theorem 1.2 and Proposition D. CORRECT. The caveat on the completeness of
 the published proof of Theorem 1.2 is F3.
+
+## 6. The trust base
+
+The table at the end of §3.4 compares the AP route with the manuscript's proof of
+Proposition 6.2. Here is my assessment.
+
+- *Deep inputs.* The manuscript's proof uses three deep theorems: Green–Tao 2010 (linear
+  equations in primes), Green–Tao 2012 (Möbius and nilsequences) and Green–Tao–Ziegler 2012 (the
+  inverse theorem for all Gowers norms). On top of these it uses about four hundred lines of its
+  own estimates: singular series, a two-variable Selberg sieve, the fibre count, and the unit
+  classes of the catalogue. The AP route uses Green–Tao 2008, whose ingredients are Szemerédi's
+  theorem in finitary form, the transference principle and the Goldston–Yıldırım correlation
+  estimates. Strictly speaking, the AP route's inputs are not a subset of the manuscript's, because
+  the 2010 paper does not cite Szemerédi's theorem. But Szemerédi's theorem is much older and has
+  several independent complete proofs (combinatorial, ergodic, Fourier-analytic and
+  hypergraph-theoretic), and it also follows from the inverse theorem. In depth and in auditability
+  the reduction is real. **The claim that the trust base shrinks is correct in substance.**
+- *Shape of the hypothesis.* 22P_AP does not mention `A`, the catalogue multipliers or valuations
+  at the old primes, only the lower bound on the primes. It is literally a special case of a
+  published theorem, applied to a set whose relative density is computed in Proposition D. That
+  is a real gain over 22P (multipliers, signs, 22 forms in three variables) and over 22P₂
+  (valuation side conditions), for which no published theorem applies directly.
+- *What the table omits.*
+  - (i) The steps from 22P_AP to the slope representation are paper mathematics until Route 1 is
+    formalized (F4). Today the Lean derivation from 22P₂ is kernel-checked, so for the Lean main
+    theorem the trust base shrinks only after that work.
+  - (ii) Proposition D is a sketch (F5). It belongs to the paper justification of the hypothesis,
+    as the manuscript's 400 lines do for 22P, and it has to be written out. It reuses the
+    manuscript's sieve, so it adds no new kind of input.
+  - (iii) Theorem 1.2 is proved in Green–Tao 2008 only in outline (F3).
+  - (iv) The CM facts of record A072 enter only to identify `G` and compute its density.
+
+## 7. Repairs
+
+1. (F1) In §3.3, remark 1, replace "`K_A ≈ |A| + 71`" by
+   "`K_A = A + 130` for `A ≥ −69` and `K_A = −A − 8` for `A ≤ −70`, so `K_A ≥ 61`". Add: "every
+   progression of `K_A + 1 ≥ 62` primes above `62` has `v` divisible by every prime `≤ 61`; in
+   particular `8 | v` (all terms are `≡ 1 mod 8`), so the case `ℓ = 2`, `v₂(v) ≤ 2` of Lemma P does
+   not occur."
+2. (F2) In the proof of Proposition AP, say "the at most fourteen numbers", and note that a prime
+   shared by `t₁` and `t₂` is harmless, because `GoodSlope` and `slope_complete` treat the slopes
+   separately.
+3. (F3) In §3.1 and §3.4, cite "Green–Tao 2008, Theorem 1.2 (stated in §1; proof outlined in
+   §10)", give a reference with a complete proof of the dense-subset form, and make the
+   UNCHECKED/VERIFIED labels consistent. The number 1.2 is right.
+4. (F4) In the trust-base table, mark the rows for Lemma P, the modified choice of `q` and
+   Proposition AP as "to be formalized (Route 1)", and say that until then the derivation of the
+   slope representation from the hypothesis is not kernel-checked.
+5. (F5) In the write-up of Proposition D, cite the uniform two-dimensional sieve for
+   `L < ℓ ≤ N^{1/8}` explicitly (the manuscript's (`eq:prime-selberg`) and
+   (`eq:prime-truncated-denominator`), or Brun–Titchmarsh for `ℤ[i]`), and keep the term
+   `√N log N` in the tail.
+6. (F6) In §3.4, replace "quantitative finite form" by "finitary (Varnavides) form, with no
+   bounds needed".
+
+None of these repairs changes a statement or a proof step of Propositions AP or D.
+
+## 8. Computations
+
+All scripts were written for this report: `scratch/rv-nt22p-ap/density.py` and
+`scratch/rv-nt22p-ap/apcheck.py`, using Python with exact rationals and PARI/GP 2.17.
+
+| Check | Result |
+| --- | --- |
+| literal `GoodSlopePrime` (both roots `r`, brute-force point counts) vs CM description, all primes `325 ≤ p ≤ 40000` | 0 mismatches; 450 good primes below `40000` |
+| same with PARI `ellcard`, all primes `325 ≤ p ≤ 2·10⁵` | 0 mismatches; 1,925 good primes below `2·10⁵`; good `p ≤ 324`: 17, 41, 73, 97, 241, 257, 313 |
+| primes `11 ≤ p ≤ 3·10⁷` (1,857,855 primes) | class share `0.12503`, good share `0.10610`, good/class `0.84860` |
+| `∏_{ℓ≡1 (4), ℓ<10⁷}(1 − 2/(ℓ − 1)²)` | `0.84820` (times `1/8`: `0.10602`) |
+| Proposition AP: 149 values of `A` (all of `[−80, 60]`, `±10⁶`, `±1000`, `−71…−68`), 3 random progressions each, two seeds, with `v_ℓ(v)` up to 30 at each `ℓ ∈ S₀` | indexing, `t₁ + t₂ + t₃ = A`, field 1, `F(t₁) > 0`, `F(t₂) > 0`, `t₂ < −60`, `v_ℓ(t − 1) = −e`, `v_ℓ(R₀) = 2e`: all hold |
+| Lemma P(1) on these slopes, whenever `e > B_ℓ` (7,778 cases) | `R₀` a square in `ℚ_ℓ` in every case |
+| control: `ℓ = 2`, `v₂(v) ≤ 2`, `F(t) > 0` | `R₀` a non-square in `ℚ₂` in 200 of 200 samples |
+
+The synthetic progressions in the Proposition AP test are not progressions of primes (a
+progression of at least 62 primes above `max S_b` is far beyond computation). They test the
+algebra: they are chosen so that every term is a unit at each prime of `S₀`, which is all the
+argument uses at the old primes.
