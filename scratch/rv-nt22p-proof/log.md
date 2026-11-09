@@ -48,3 +48,11 @@
 - Observation: with the actual ℓ0, E_ℓ = 52C_ℓ+v(12)+4 (=2916+v(12) on S_ht, 732 on catalogue), so the OLD
   argument (q small, α=0) already works for e with 2E_ℓ-46e > v(12): e ≤ 126 on S_ht, e ≤ 31 on catalogue.
   Lemma P is needed only for larger e. Field-2 bounds B_p are far from sharp, but no fixed bound suffices for Green–Tao.
+
+## Step 6 (report)
+- docs/research/rv-nt22p-proof.md written (verdict: proved after listed repairs, all minor).
+- .fleet/rv-nt22p-proof.md written.
+- Status of every step: Lemma P(1),(2),(3) CORRECT; tests independent of t CORRECT; prime 2 CORRECT
+  (note's control understates); field 2′ + weak approximation CORRECT; Prop AP CORRECT; Remark 1 constant wrong
+  (cosmetic); Remark 3 CORRECT (strengthenable to parity condition); Lean plan incomplete (minor).
+- No Lean run was needed or made. DONE.
