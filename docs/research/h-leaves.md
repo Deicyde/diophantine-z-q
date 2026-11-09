@@ -213,3 +213,60 @@ I2 of §1.2. Fowler's effective class-number bound at `k = D`, the CM height for
 application of the isogeny estimate are gone; they are replaced by classical facts about CM
 points on `X⁶` (Shimura 1967, Vignéras 1980, González–Rotger 2006).
 
+## 2. Route R5.1: Faltings' finiteness theorems replaced by isogeny estimates
+
+### 2.1 The two uses, stated exactly (VERIFIED by reading lines 718-734 and 860-867, A008, A063)
+
+Let `k = L'`, a number field with `[k:ℚ] ≤ QM`, Galois over `ℚ` (line 711). Every geometric
+endomorphism and every conjugacy homomorphism of `A` is defined over `L ⊆ k` (line 561), and
+`End⁰(A_k) = B` by NoCM.
+
+- **U1 (A008, line 732).** For `ℓ ∈ {3, 5}`: `V_ℓ(A)` is a semisimple `ℚ_ℓ[G_k]`-module and
+  `End_{G_k}(V_ℓ(A)) = End_k(A) ⊗ ℚ_ℓ = B ⊗ ℚ_ℓ`. The manuscript says "for each coefficient prime
+  `ℓ`", but only `ℓ = 5` (Pan's irreducibility hypothesis, line 756) and `ℓ = 3` (the
+  identification of `r₃` with the modular representation by traces, line 792) are consumed.
+  The audit's derivation of absolute irreducibility of `r_ℓ|G_k` from these two facts (A008,
+  "Source inspection") is elementary and stays as it is.
+- **U2 (A063, lines 861-864).** For `J = J₁(N)` over `k`: if `V₅(A)` and `V₅(J)` have a common
+  `G_k`-constituent after extending coefficients, then `Hom_k(A, J) ≠ 0`. The audit's derivation
+  uses two Faltings facts: semisimplicity of `V₅(J)` (so that a common constituent gives a
+  nonzero equivariant map, after the finite-intersection argument for coefficient extension), and
+  the Hom theorem `Hom_k(A, J) ⊗ ℚ₅ = Hom_{G_k}(V₅A, V₅J)`.
+
+In both uses the statement is **qualitative** (no bound is consumed), over the **given number
+field `k`**, for **arbitrary** abelian varieties `A` and `J` (no polarization hypothesis is
+used), and at the **fixed** primes `ℓ = 3, 5`. The only explicit bound in this part of the proof
+comes afterwards, from GR14 Theorem 1.4 applied to the isogeny that U2 produces (A015).
+
+### 2.2 What Masser and Wüstholz prove, and what could be checked
+
+- **The period theorem** (MW93a). GR11 (VERIFIED, read in the arXiv text, introduction) restate
+  it as: for a polarized `(A, L)` of dimension `g` over `k`, a complex embedding `σ` and a period
+  `ω ≠ 0` of `A_σ`, the smallest abelian subvariety `A_ω` whose tangent space contains `ω`
+  satisfies `deg_L A_ω ≤ c·max(1, h_F(A), ‖ω‖²)^κ`, with `κ = (g-1)4^g g!` and
+  `c = c₀[k:ℚ]^κ (deg_L A)^{1+gκ}`. This is the transcendence input of every isogeny estimate.
+- **The isogeny theorem and the Tate conjecture** (MW93b). The paper was not readable here
+  (UNCHECKED). vK (§4, the paragraph after the proof of Lemma 4.1; VERIFIED as a statement of vK) records that
+  "Masser–Wüstholz gave a new proof of the Tate conjecture on using their isogeny estimates which
+  rely on transcendence theory", that Bost and David made the estimates effective (Bost's
+  Bourbaki exposé, p. 121), and that GR14 gives completely explicit constants. vK also states the
+  GR14 bound in the form used here: for `A'` that is `K`-isogenous to `A`, GR14 Theorem 1.4 gives
+  isogenies of degree at most `κ(A)` (vK, equation for `|h(A) - h(A')|`).
+- **The refinements** (MW95). Not readable here (UNCHECKED). Zywina, Theorem 2.4 (VERIFIED as
+  Zywina's restatement, with his proof citing MW95, §1, Corollaries 1 and 2, Lemmas 2.3 and 5.2
+  and the final remark): there are `c, γ` depending only on `dim A` such that for
+  `ℓ ≥ c·max([L:ℚ], h(A))^γ`, `A[ℓ]` is a semisimple `𝔽_ℓ[G_L]`-module and
+  `End(A_L) ⊗ 𝔽_ℓ = End_{G_L}(A[ℓ])`.
+- **GR14, Theorem 1.4** (audited as A015 against the published page images; not reread here).
+  For abelian varieties over `k` that are isogenous, there are isogenies in both directions of
+  degree at most `κ(A) = ((14g)^{64g²}[k:ℚ]·max(h_F(A), log[k:ℚ], 1)²)^{1024g³}`, where `A` is the
+  first of the two and `g = dim A`. No polarization is assumed. The manuscript applies it with
+  `k = K = L'` (line 878); the same specialization is used below.
+
+**The mod-`ℓ` refinements do not cover U1.** They need `ℓ ≥ c·max([L':ℚ], h(A))^γ`. Here
+`h_F(A)` can be as large as `Q^{17}M^{24}` and `[L':ℚ]` as large as `QM`, so the threshold is
+astronomically larger than 5, and the proof cannot move to a large `ℓ`: Pan's theorem is applied
+at `p = 5`, and the identification of `r₃` is needed at `ℓ = 3` to compute the conductor at 5.
+So the uses at `ℓ = 3, 5` need the `ℓ`-adic theorem, valid for every `ℓ`, which comes from the
+isogeny theorem through Tate's argument.
+
