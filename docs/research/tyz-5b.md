@@ -507,3 +507,34 @@ gives `Ku + Kv + μ∗u = b₁μ = 0`. Top: `Ku + λ∗v = a₀λ` by `E1`, and 
 *Onto.* Given `(s, t)` in the kernel, put `u = t`, `v = s + t`, `a₁ = 0`, `a₀ = b₀ = λ·t`, `b₁ = 0`. Then
 `(D)` holds: `b₁ = 0 = μ·t = μ·u`, and `λ·v = λ·s + λ·t = λ·u`. `E1`: `Kt + λ∗(s + t) = (λ·t)λ = a₀λ` is the top
 equation (as `λ·s = 0`). `E2`: `μ∗t + K(s + t) + λ∗(s + t) = (Ks + μ∗t) + (Kt + λ∗(s+t)) = a₀λ = b₀λ + b₁μ`. ∎
+
+### 4.2 The bordered determinant
+
+**Lemma 4.2** (pc-audit RK6, proved there; recalled). *Let `M` be a symmetric matrix over `𝔽₂` of corank
+one, with kernel spanned by `k`. Then `det [[M, v], [vᵀ, 0]] = vᵀk` for every vector `v`.*
+
+*Proof.* `M · adj(M) = det(M) I = 0`, so the columns of `adj(M)` lie in `⟨k⟩`; `adj(M)` is symmetric and
+nonzero (rank one, as the corank is one), so `adj(M) = kkᵀ`. Expanding along the last row and column,
+`det [[M, v], [vᵀ, 0]] = vᵀ adj(M) v = (vᵀk)² = vᵀk`. ∎
+
+**Theorem 4.3 (rule of row 5b).** *Let `n > 0` be odd, squarefree, `n ≡ 5 (mod 8)`, with
+`dim Sel₂(C_n) = 3`. Let `σ ∈ Sel₂(C_n)` be a non-torsion class and `a` any of the four first coordinates
+of `σ + 𝒯`. Then*
+
+```
+det M_5b = [the odd part of |a| is ≡ 3 (mod 4)] = Σ_{p odd, p | a} y_p.
+```
+
+*Proof.* By Lemma 4.1, `M₁` has corank one and its kernel is spanned by `k = (u + v, u)` for the
+representative `(a, b)` of `σ + 𝒯` in `H`. `M_5b` is `M₁` bordered by `v = (0, y)`, so by Lemma 4.2
+`det M_5b = y·u = Σ_{p | a} y_p`, the parity of the number of prime factors `≡ 3 (mod 4)` of `a`, which is
+`[|a|_odd ≡ 3 (mod 4)]`. The other first coordinates of `σ + 𝒯` are `−a`, `na`, `−na` up to squares;
+multiplying by `n` replaces `u` by `u + 𝟏`, and `y·𝟏 = y(V) = 0`. So the value is the same for all four. ∎
+
+**Corollary 4.4.** *Under the hypotheses of Theorem 4.3, if `β` is a first coordinate of `Sel₂(C_n)`
+with `β` odd and `|β| ≡ 3 (mod 4)`, then `T_5b(n) = 1`, and `C_n` has a rational point of infinite order
+with abscissa in `βℚ*²`.*
+
+*Proof.* A class with first coordinate `β` is not torsion: the torsion first coordinates are `±1, ±n`
+up to squares, with odd parts `1` and `n`, both `≡ 1 (mod 4)`, while `|β| ≡ 3 (mod 4)`. Theorem 4.3 gives
+`det M_5b = 1`, Theorem 3.6 gives `T_5b(n) = 1`, and Corollary 1.2 gives the point. ∎
