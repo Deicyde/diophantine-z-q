@@ -265,7 +265,7 @@ compare dimensions, to factor integers and to test primality.
    within `T` (reciprocity imposed), and cross symbols `M_{pℓ} = [ℓ/p]` constrained exactly by
    (θ4) (row sums `0`) and (θ3) with reciprocity (column sums `(s + 1)λ_ℓ`). The slots are added
    with the symbols of §2.4, and both systems are solved.
-   - Exhaustive over all such data with `|P| ≤ 3`, `|T| ≤ 3` (542,032 cases, including `θ = 1`,
+   - Exhaustive over all such data with `|P| ≤ 3`, `|T| ≤ 3` (541,748 cases, including `θ = 1`,
      `ω(β) = 1`, and all-`λ = 1` classes): dimension 3 and the class `β`, with its sign, on both
      curves in every case (`out_abstract_exh.txt`).
    - 1,000 random cases with `|P|, |T| ≤ 10`: 0 failures (`out_abstract_more.txt`).

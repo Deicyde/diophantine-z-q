@@ -46,7 +46,7 @@ directly from `polePoly`. The deep input itself (Kriz) is outside this review.
 - Own Selmer system (`system.py`) vs own exact descent: 30 curves, dimension and every signed odd
   divisor as a first coordinate, 0 mismatches (all four classes mod 8).
 - The theorem on abstract data satisfying only (θ1)–(θ4):
-  - exhaustive for `|P|, |T| ≤ 3` (542,032 cases) and 1,000 random cases with `|P|, |T| ≤ 10`;
+  - exhaustive for `|P|, |T| ≤ 3` (541,748 cases) and 1,000 random cases with `|P|, |T| ≤ 10`;
     0 failures;
   - negative control `x = s`: fails exactly when `θ` has a prime `≡ 3 (mod 4)`.
 - End to end with actual primes for 30 runs `(B, m)` of admissible `B`, certified by the own exact

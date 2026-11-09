@@ -44,7 +44,7 @@ manuscript lines 975–1070.
 Data: classes of P (product ≡ 7), of T (product ≡ 1), sign s, symbols within P and within T
 (reciprocity), cross symbols M = [ℓ/p] constrained exactly by (θ4) (row sums 0) and (θ3)
 (column sums (s+1)λ_ℓ); slots added symbolically per §2.4; both systems solved with system.py.
-- Exhaustive over all data with |P| ≤ 3, |T| ≤ 3 (542,032 cases incl. 524,288 for (3,3)), x = s+1:
+- Exhaustive over all data with |P| ≤ 3, |T| ≤ 3 (541,748 cases incl. 524,288 for (3,3)), x = s+1:
   every case gives dim 3 and the class β (with sign) on both curves. `out_abstract_exh.txt`.
   Includes θ = 1 (|T| = 0), ω(β) = 1, all-λ = 1 classes.
 - Random |P| ≤ 10, |T| ≤ 10, 1,000 cases: 0 failures. `out_abstract_more.txt`.
