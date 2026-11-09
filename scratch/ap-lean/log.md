@@ -19,3 +19,4 @@
 - Leaf 6: Main.lean exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP: proved.
 - Leaf 7: lake build ZInQKernel OK, no sorry; check_target.py OK; #print axioms = propext,
   Classical.choice, Quot.sound.
+- Report .fleet/ap-lean.md written; rv-nt22p-red draft also reports no gap.
