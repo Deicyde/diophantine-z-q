@@ -14,3 +14,23 @@
   classes mod 8, tested).
 - By hand: E1/E2 rows from the torsion span at odd p (CORRECT); real place (CORRECT); place-2 rows
   for c = 5 from the three generators (5,2), (-1,-5), (1,5) [x=1/4] (CORRECT).
+
+## Step 2 (own implementation of slot-k 2.4; first adversarial batches)
+- `construct.py`: section 2.4 from the text (multiplier given; q0 by CRT on 8, P, T; r_p by CRT on
+  8, P, T, q0 plus search for symbols at earlier slots; r_l likewise). Checks (theta1)-(theta4) on
+  each input and certifies C_|n|, C_|n|theta with `sel2.py` (definition-based, not Prop 0).
+- `gens.py`, `families.py`: own generators. B = m beta t^2, t = 2730^2 a/b gives sqf(mB) = beta,
+  theta = sqf(1 - beta t^2); theta = 1 via t = 2k/(beta + k^2).
+- Results (all certified, (theta1)-(theta4) held on every input):
+  - theta1 (theta = 1; beta = +-7, +-15, +-39, +-455, omega(beta) 1-4): 21/21.
+  - omega1 (beta = +-p, p = 7, 23, 31, 47, 71, 10079, 999983, a random 8-digit p; theta with
+    primes in classes 3/5/7): 16/16.
+  - all3mod4 (all primes of beta = 3 mod 4, omega 1-7, both signs, theta with a 3 mod 4 prime): 28/28.
+  - mostly1mod4 (one prime 3 mod 4, rest 1 mod 4, omega 2-7): 18/18.
+  - thetacls (theta with {3,5,7} present / only 3s / only 7s / only 5s / only 1s / two 3 mod 4): 30/30.
+- Negative controls on random30 seed 5 (shows the check is not vacuous):
+  - wrong sign x = s: 6/30 certified; flipping [q0/p] for p != p0: 0/30.
+  - **q0T** (symbols [q0/l], l in T, random instead of 0): 30/30 certified. So the condition
+    [q0/l] = 0 is not used. Reason: in Lemma 2 (g = q0, G = T) symbols inside X = T u {q0} cancel,
+    and l is not in S_1. slot-k 2.5 "What each slot does" says q0's symbols at T are dictated by
+    the transfer: that justification is wrong (harmless superfluous condition). MINOR.
