@@ -38,3 +38,25 @@
   g certified by bnfcertify and equal to Redei's formula on all divisors. kummer_independence.py: Kummer images
   of torsion + 3 points have F2-rank 5 (exact), so rank ≥ 3, so by GZK ord_{s=1} ≠ 1, root number -1 gives ord ≥ 3,
   L(n)=0. => Under readings B, C Theorem 1.2 is FALSE (VERIFIED); only reading A is a true statement.
+
+## Step 3 (rerun after interruption; sources re-downloaded, e-print sha256 b295b160...fed2, same file)
+- Rechecked the n≡5 proof of Thm 3.5(2) (lines 2560-2600) line by line:
+  * t ∈ A(ℍ'_n)_tors = A[(1+i)^3] = A(Q(i)) (Lemmas 3.18, 3.16); β=r_∞(-1)r_2(-2) fixes Q(i) and negates √-n
+    (idelic check: χ_{-4}: (-1)(-1)=1; χ_{-n}: χ_2(-2) = -(-2/n) = 1 for n≡5,7, times χ_∞(-1)=-1).
+  * [i] commutes with β' (β' fixes Q(i)), so β'+1 may be applied to Z[i]-combinations.
+  * ℍ'_n is Galois over Q: H'_d = fixed field of an order-2 subgroup of Gal(H_{d,4}/K_d), normal in the
+    generalized dihedral Gal(H_{d,4}/Q). Needed so that x^{β'}+x ∈ A(ℍ'_n) for x ∈ A(ℍ'_n) (TYZ silent).
+  * Independence: C_1 = a+bi ∈ Z[i], C_2 ∈ Z, C_1(1-i)/2 + C_2/2 ∈ Z[i] ⟺ a≡b and C_2 even (mod 2).
+    So C_2 even regardless of C_1. (VERIFIED)
+- Only 𝓛(n)≠0 is needed, so the unproved "i.e." (P(n) ∈ A(K_n)^-+A[4] ⟺ 2^{-ρ}𝓛 even) is not needed:
+  𝓛(n)=0 ⟹ P(n) torsion (Thm 3.5 first assertion) ⟹ P(n) ∈ A[4] (Lemma 3.18) ⟹ hypothesis of the argument.
+- §2 numbering: Thm 2.1, Thm 2.2 (LQ), Prop 2.3 (odd: Q≡g), Thm 2.4, Lem 2.5, Thm 2.6, Lem 2.7 (symmetry),
+  Lem 2.8 (Σ_{non-ordered n=d1d2, d2≡1} ε𝓛(d1)𝓛(d2) = Q(n)).
+- Reading of Thm 1.1 for m≡1: the recursion of Lem 2.8 + Prop 2.3 forces the set-partition reading
+  (pointed reading fails the recursion already for two blocks: weight 2+1 odd). For m≡3 unique class-3 block.
+- Reading B second sum = T5a + g(n) + T5b (only the trivial partition {n} is dropped). Explains both
+  counterexamples (g(n)=1, T5a=T5b=0). Reading A = T5a + T5b.
+- Coefficient of Z(e), e≡7, in P(n), n≡5: chains n=D_0>...>D_k=e, weights -ε𝓛(q_j); mod 2: i^{#(7→5 steps)}.
+  Expand each 𝓛(q_j) (partition reading); s = #class-3 blocks; s=1 terms: Fubini numbers (odd) ⟹ 𝓛(n/e);
+  s≥3 terms cancel by swapping the groups of the first two class-3 blocks. So c_n(e) ≡ 𝓛(n/e) mod 2Z[i]. (VERIFIED, by hand)
+- Cor 1.4 (n≡5 congruent under A_0 or B_1) uses only the first sum: unaffected by the reading issue.
