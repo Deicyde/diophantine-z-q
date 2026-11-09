@@ -186,8 +186,8 @@ characters. By the product formula for the principal idele `−2`, and since `χ
 unramified odd `p`, `χ₂(−2) = (χ_∞(−2)Π_{p ramified, odd} χ_p(−2))^{−1}`.
 
 - For `ℚ(i)`: `χ_∞(−2) = −1`, so `χ₂(−2) = −1` and `χ(β) = (−1)(−1) = 1`. So `β` fixes `i`.
-- For `K_n`, `n ≡ 5 (mod 8)`: at `p | n`, `χ_p(−2) = (−2/p)`, so `χ₂(−2) = −(−2/n) = −(−1)(−1)... `; precisely
-  `(−1/n) = 1` and `(2/n) = −1`, hence `(−2/n) = −1`, `χ₂(−2) = 1` and `χ(β) = −1`. So `β` negates `√−n`.
+- For `K_n`, `n ≡ 5 (mod 8)`: at `p | n`, `χ_p(−2) = (−2/p)`, so `χ₂(−2) = −(−2/n)`. Here
+  `(−1/n) = 1` and `(2/n) = −1`, so `(−2/n) = −1`, `χ₂(−2) = 1` and `χ(β) = −1`. So `β` negates `√−n`.
 
 Proposition N uses only the first item. The second is needed for the full Theorem 3.5(2) (§4.5).
 
