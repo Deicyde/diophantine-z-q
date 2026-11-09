@@ -327,8 +327,8 @@ For `X = A × A'`, `End_k(X)` and `End_G(V_ℓX)` both decompose into the four b
 `Hom(A, A)`, `Hom(A', A)`, `Hom(A, A')`, `Hom(A', A')` (respectively their `G`-equivariant Tate
 versions); equality of the wholes gives equality of the `(A, A')` blocks. ∎
 
-These are Tate's arguments (Invent. Math. 2 (1966), §2), written out because his paper treats
-finite fields; the proofs above use nothing about `k` except (F). The only arithmetic input is
+These are Tate's arguments (Invent. Math. 2 (1966); section number not rechecked), written out
+because his paper treats finite fields; the proofs above use nothing about `k` except (F). The only arithmetic input is
 (F), which GR14 Theorem 1.4 supplies for every abelian variety over a number field.
 
 **Application.**
