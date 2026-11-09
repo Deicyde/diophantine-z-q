@@ -11,10 +11,12 @@ and with coefficients below $2\uparrow\uparrow 8$, whose rational zero projectio
 first variable is exactly $\mathbb Z$.
 
 The theorem is proved from explicitly stated arithmetic hypotheses: the six-contact
-height estimate, pole completeness and a twenty-two-prime pattern, whose proofs lie far
-outside current formal libraries, and a bound for the prime catalogue, which an effective
-Dirichlet theorem proves. The Mordell–Weil theorem for the generator curve, first stated as
-a fifth hypothesis, is proved. Everything else is to be proved, with every finite computation
+height estimate, a certified rank hypothesis for congruent number curves and a
+twenty-two-prime pattern, whose proofs lie far outside current formal libraries. Pole
+completeness, a hypothesis in earlier versions, is proved from the certified rank hypothesis
+for a variant of the manuscript's pole polynomial; the bound for the prime catalogue is proved
+by an effective Dirichlet theorem; and the Mordell–Weil theorem for the generator curve, first
+stated as a fifth hypothesis, is proved. Everything else is to be proved, with every finite computation
 checked by the Lean kernel.
 
 ## Chapters
@@ -27,3 +29,4 @@ checked by the Lean kernel.
 - [Assembly and the ordinary-value relation](assembly/README.md)
 - [The cutoff and polynomial size](size/README.md)
 - [Primes in arithmetic progressions](progressions/README.md)
+- [Pole completeness from certified rank (Route K)](route-k/README.md)

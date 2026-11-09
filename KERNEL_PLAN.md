@@ -18,7 +18,7 @@ to computation:
 | Input | Deep dependency |
 | --- | --- |
 | H (Theorem 4.1) | Shimura curves, Buzzard's integral models, modularity at five, effective CM heights (avoidable: for rational `u` the fibre has no CM, [docs/research/h-cm.md](docs/research/h-cm.md), checked in [docs/research/rv-h-cm.md](docs/research/rv-h-cm.md)) |
-| PC (Theorem 5.2) | the restricted converse (Theorem 5.3): Kato, Waldspurger, Bump–Friedberg–Hoffstein, Nekovář, Gross–Zagier–Kolyvagin, BCDT |
+| PC (Theorem 5.2) | the restricted converse (Theorem 5.3): Kato, Waldspurger, Bump–Friedberg–Hoffstein, Nekovář, Gross–Zagier–Kolyvagin, BCDT. Under Route K (pole polynomial with the congruent number curves `x + ℓ`), PC is **proved** from the narrow hypothesis CR₃ (`ZInQ.poleCompleteness_of_certifiedRank`): Kriz's 2-converse with the corank lemma, or Tian–Yuan–Zhang with Gross–Zagier–Kolyvagin, for curves `C_d`, `d ≡ 5 (mod 8)`, with a 3-dimensional explicit 2-Selmer system |
 | 22P (Proposition 6.2), used by M | Green–Tao linear equations in primes, Möbius–nilsequences, Green–Tao–Ziegler |
 | CAT (Proposition 12.1), used by B | the explicit progression estimate of Bennett–Martin–O'Bryant–Rechnitzer |
 | MW, used by G | the Mordell–Weil theorem over `ℚ(√2)`: **proved** (`ZInQ.mordellWeilE`, from the two-isogeny descent and Mathlib's descent theorem) |
@@ -29,11 +29,12 @@ the explicit curve `E`. They enter the main theorem as **explicit hypotheses** (
 the theorem's type. MW has since been proved in Lean
 (`ZInQKernel/Model/Descent/MordellWeil.lean`), and CAT by an effective Dirichlet theorem
 (`ZInQKernel/Progressions/`; the proof needs the catalogue only below `2^(W⁸)`, far above
-the manuscript's `2^(W³)`), which leaves three:
+the manuscript's `2^(W³)`). PC, for the Route K pole polynomial, is a theorem from the narrower
+hypothesis CR₃ (below). That leaves three hypotheses, H_min, CR₃ and 22P:
 
 ```lean
 theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of
-    (hH : SixContactMin) (hPC : PoleCompleteness)
+    (hH : SixContactMin) (hCR : CertifiedRank)
     (h22 : FixedPrimePattern) : FrozenTarget
 ```
 
@@ -43,6 +44,23 @@ inequality `h(u) ≤ H₆(D) M_{S_mul}(u)²⁴` for `u ∈ ℚ \ 𝒞` that the 
 (`ZInQ.sixContactMin_of_sixContactEstimate`), and
 `exists_bounded_integer_polynomial_defining_integers_of_sixContactEstimate` is the main theorem
 with H as stated in the manuscript.
+
+CR₃ (`CertifiedRank`, `ZInQKernel/Hypotheses/CertifiedRank.lean`) replaces pole completeness.
+The pole polynomial is the Route K one: its curves are the congruent number curves
+`y² = x(x - ℓ)(x + ℓ)` instead of the manuscript's `x + 3ℓ` (Lemma 5.1, soundness, holds for both).
+CR₃ says: if `d > 0` is squarefree with `d ≡ 5 (mod 8)`, `a` is a squarefree divisor of `d` with
+`|a| ≡ 7 (mod 8)`, and the explicit 2-Selmer system `Σ(𝒞_d)` of `d` (`ZInQKernel/RouteK/System/`,
+built from Legendre symbols only) has exactly 8 solutions, one of them with first coordinate the
+class of `a`, then `C_d : y² = x³ − d²x` has a rational point with `x ≠ 0` and `x ∈ aℚ*²`. It follows
+from Proposition 0 (the system is `Sel₂(C_d)`, `docs/research/descent-alt.md` §4.1) with either
+Kriz's 2-converse (arXiv:2002.04767, Theorem 10.13) and the corank lemma (Poonen–Stoll), or
+Tian–Yuan–Zhang (Theorem 3.5(2)) and Gross–Zagier–Kolyvagin (`docs/research/tyz-5b.md`). PC is then
+a theorem (`ZInQ.poleCompleteness_of_certifiedRank`): the descent lemma DL
+(`ZInQ.RouteK.descent_lemma`, `docs/research/slot-k.md` §2, proved in `ZInQKernel/RouteK/`) gives,
+for every admissible input `B`, a multiplier `m` and two curves `C_{|n|}`, `C_{|nθ|}` certified for
+the class `β = sqf(mB)`; CR₃ gives the points, and these give a zero of the pole polynomial.
+`exists_bounded_integer_polynomial_defining_integers_of_poleCompleteness` is the main theorem with
+PC (Route K) in place of CR₃.
 
 `scripts/check_target.py` checks that `FrozenTarget` is upstream's frozen statement token
 for token. Removing another hypothesis means formalizing its source theorem or finding a
@@ -81,8 +99,9 @@ certificates (the generator descent and height search, point counts, explicit co
 Status (2026-11-07):
 
 - Milestones 1 and 2 are done. `ZInQ.exists_bounded_integer_polynomial_defining_integers_of`
-  (`ZInQKernel/Main.lean`) proves `FrozenTarget` from three hypotheses (H, PC, 22P; CAT is the theorem
-  `ZInQ.catalogueBound8`) with no `sorry` and
+  (`ZInQKernel/Main.lean`) proves `FrozenTarget` from three hypotheses (H_min, CR₃, 22P; CAT is the
+  theorem `ZInQ.catalogueBound8`, and PC, for the Route K pole polynomial, the theorem
+  `ZInQ.poleCompleteness_of_certifiedRank`) with no `sorry` and
   no `native_decide`; `#print axioms` lists only `propext`, `Classical.choice` and
   `Quot.sound`.
 - The last finite computation was the node statistics of the universal halting circuit. The

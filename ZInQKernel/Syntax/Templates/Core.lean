@@ -238,11 +238,11 @@ noncomputable def poleM (b : Fin 6 → Poly) : Poly :=
 /-- `H = A(A - B²)`. -/
 noncomputable def poleH (A B : Poly) : Poly := A * (A - B ^ 2)
 
-/-- `T₁ = A(A - e)(A + 3e)`. -/
-noncomputable def poleT1 (A e : Poly) : Poly := A * (A - e) * (A + 3 * e)
+/-- `T₁ = A(A - e)(A + e)` (Route K; the manuscript has `A + 3e`). -/
+noncomputable def poleT1 (A e : Poly) : Poly := A * (A - e) * (A + e)
 
-/-- `T₂ = A(Az² - eH)(Az² + 3eH)`. -/
-noncomputable def poleT2 (A e z H : Poly) : Poly := A * (A * z ^ 2 - e * H) * (A * z ^ 2 + 3 * e * H)
+/-- `T₂ = A(Az² - eH)(Az² + eH)` (Route K; the manuscript has `Az² + 3eH`). -/
+noncomputable def poleT2 (A e z H : Poly) : Poly := A * (A * z ^ 2 - e * H) * (A * z ^ 2 + e * H)
 
 /-- `B S` with `A` given: `S = Σ(bᵢ² - bᵢ)² + (eHzw - 1)² + (r₁² - T₁)² + (r₂² - T₂)²`. -/
 noncomputable def poleBS (B A : Poly) (b : Fin 6 → Poly) (e z r1 r2 w : Poly) : Poly :=
@@ -252,7 +252,7 @@ noncomputable def poleBS (B A : Poly) (b : Fin 6 → Poly) (e z r1 r2 w : Poly) 
 
 /-- The pole polynomial `Q_pole = B S` at polynomials `B`, `b₀, …, b₅`, `e`, `z`, `r₁`, `r₂`,
 `w`, with `m = (1-2b₀)(1+b₁)(1+2b₂)(1+4b₃)(1+6b₄)(1+12b₅)`, `A = mB`, `H = A(A - B²)`,
-`T₁ = A(A-e)(A+3e)`, `T₂ = A(Az²-eH)(Az²+3eH)` and
+`T₁ = A(A-e)(A+e)`, `T₂ = A(Az²-eH)(Az²+eH)` (the Route K polynomial `ZInQ.polePoly`) and
 `S = Σ(bᵢ² - bᵢ)² + (eHzw - 1)² + (r₁² - T₁)² + (r₂² - T₂)²`. -/
 noncomputable def polePolyOf (B : Poly) (b : Fin 6 → Poly) (e z r1 r2 w : Poly) : Poly :=
   poleBS B (poleM b * B) b e z r1 r2 w

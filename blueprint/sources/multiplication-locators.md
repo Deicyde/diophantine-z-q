@@ -43,7 +43,9 @@ fixed catalogue; a common numerical $R$ may bound both sets.
 multiplier $m$, $A=mB$, $H=A(A-B^2)$, $T_1$, $T_2$, $Q_{\rm pole}$, $\Phi(B)$; for $B\ne0$,
 $m$ is a signed divisor of $2730$ and the equations give points $(A,r_1)\in E_e$ and
 $(Az^2,zr_2)\in E_{eH}$ with $eHz\ne0$, where $E_\ell:y^2=x(x-\ell)(x+3\ell)$; total degree
-$75$.
+$75$. The blueprint uses the Route K polynomial instead, with the factors $A+e$ and $Az^2+eH$ and
+the curves $y^2=x(x-\ell)(x+\ell)$; see the
+[Route K locators](route-k-locators.md#soundness-for-the-congruent-number-curves).
 
 ## One-sided obstruction
 
@@ -53,7 +55,8 @@ $v_p(B)$ is not negative and odd for any $p\notin S_0$.
 ## Pole completeness
 
 `hyp:PC`, Theorem 5.2, lines 1001-1004. Used here only as the hypothesis of the
-completeness direction.
+completeness direction; for the Route K polynomial it is proved from the certified rank
+hypothesis CR₃.
 
 ## Section 6 opening
 

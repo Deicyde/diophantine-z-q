@@ -1,0 +1,26 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+B1 m=1 w(beta)=10 w(theta)=2 #aux=12 maxaux_digits=72 C_n:selmer3 C_ntheta:selmer3 OK
+B1 m=65 w(beta)=10 w(theta)=7 #aux=17 maxaux_digits=73 C_n:selmer3 C_ntheta:selmer3 OK
+B1 m=105 w(beta)=9 w(theta)=4 #aux=13 maxaux_digits=71 C_n:selmer3 C_ntheta:selmer3 OK
+B1 m=273 w(beta)=11 w(theta)=3 #aux=14 maxaux_digits=72 C_n:selmer3 C_ntheta:selmer3 OK
+B1 m=-1 w(beta)=10 w(theta)=2 #aux=12 maxaux_digits=72 C_n:selmer3 C_ntheta:selmer3 OK
+B1 m=-65 w(beta)=10 w(theta)=7 #aux=17 maxaux_digits=73 C_n:selmer3 C_ntheta:selmer3 OK
+B1 m=-105 w(beta)=9 w(theta)=4 #aux=13 maxaux_digits=71 C_n:selmer3 C_ntheta:selmer3 OK
+B1 m=-273 w(beta)=11 w(theta)=4 #aux=15 maxaux_digits=72 C_n:selmer3 C_ntheta:selmer3 OK
+B2 m=5 w(beta)=11 w(theta)=3 #aux=14 maxaux_digits=74 C_n:selmer3 C_ntheta:selmer3 OK
+B2 m=13 w(beta)=9 w(theta)=2 #aux=11 maxaux_digits=72 C_n:selmer3 C_ntheta:selmer3 OK
+B2 m=21 w(beta)=10 w(theta)=2 #aux=12 maxaux_digits=74 C_n:selmer3 C_ntheta:selmer3 OK
+B2 m=1365 w(beta)=10 w(theta)=5 #aux=15 maxaux_digits=73 C_n:selmer3 C_ntheta:selmer3 OK
+B2 m=-5 w(beta)=11 w(theta)=5 #aux=16 maxaux_digits=74 C_n:selmer3 C_ntheta:selmer3 OK
+B2 m=-13 w(beta)=9 w(theta)=4 #aux=13 maxaux_digits=72 C_n:selmer3 C_ntheta:selmer3 OK
+B2 m=-21 w(beta)=10 w(theta)=4 #aux=14 maxaux_digits=74 C_n:selmer3 C_ntheta:selmer3 OK
+B2 m=-1365 w(beta)=10 w(theta)=4 #aux=14 maxaux_digits=74 C_n:selmer3 C_ntheta:selmer3 OK
+B3 m=6 w(beta)=8 w(theta)=7 #aux=15 maxaux_digits=88 C_n:selmer3 C_ntheta:selmer3 OK
+B3 m=70 w(beta)=9 w(theta)=4 #aux=13 maxaux_digits=89 C_n:selmer3 C_ntheta:selmer3 OK
+B3 m=182 w(beta)=7 w(theta)=3 #aux=10 maxaux_digits=85 C_n:selmer3 C_ntheta:selmer3 OK
+B3 m=390 w(beta)=8 w(theta)=4 #aux=12 maxaux_digits=88 C_n:selmer3 C_ntheta:selmer3 OK
+B3 m=-6 w(beta)=8 w(theta)=1 #aux=9 maxaux_digits=88 C_n:selmer3 C_ntheta:selmer3 OK
+B3 m=-70 w(beta)=9 w(theta)=2 #aux=11 maxaux_digits=89 C_n:selmer3 C_ntheta:selmer3 OK
+B3 m=-182 w(beta)=7 w(theta)=3 #aux=10 maxaux_digits=87 C_n:selmer3 C_ntheta:selmer3 OK
+B3 m=-390 w(beta)=8 w(theta)=5 #aux=13 maxaux_digits=88 C_n:selmer3 C_ntheta:selmer3 OK
+ALL OK 3 / 3
