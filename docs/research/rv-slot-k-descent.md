@@ -22,7 +22,7 @@ notion: by Kriz's Theorem 10.13 and the corank lemma it yields a rational point 
 `βℚ*²`. Gluing Lemmas 1 and 2, the base Lemma 3 and steps 0–6 of the theorem were rederived by hand
 without finding an error.
 
-The findings are all of minor or cosmetic severity: imprecise citations, one implicit hypothesis, and
+The findings are all of minor or cosmetic severity: imprecise citations (with one unchecked but trivially satisfied hypothesis of Kriz), one half-step left implicit, and
 an incomplete written proof of the place-2 rows in descent-alt. None affects the validity of DL. The
 repairs are listed in §5. They are recommended before the argument enters the manuscript or the
 Lean hypothesis CR₃.
