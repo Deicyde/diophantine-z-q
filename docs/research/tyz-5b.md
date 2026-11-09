@@ -163,11 +163,38 @@ conditions of the proof; then Proposition 1.1 follows from the statement itself.
 reading `d₁ > 1`, the second sum becomes `T_5a + g(n) + T_5b`, and Proposition 1.1 needs the proof. This is
 the citation issue of the verdict.
 
-*Remark (the `(5, 1)` bracket; VERIFIED, not used).* Unwinding the recursion
+*Remark (the `(5, 1)` bracket; not used, partly SPECULATIVE).* Unwinding the recursion
 `P(n) = Z(n) − Σ ε(d₀, d₁)𝓛(d₁)P(d₀)` that defines `P(n)`, the coefficient of `Z(d₀)` for `d₀ ≡ 5` is a sum
 over ordered factorizations of `n/d₀` into factors `≡ 1`. After expanding each `𝓛` (Theorem 1.1) into
 partitions, each partition into `k` blocks is counted once for every ordered set partition of its blocks,
 that is, by the Fubini number `a(k)`. All Fubini numbers are odd (`a(k) = Σ_j C(k, j) a(k − j)` over
 `j ≥ 1`, and induction), so the coefficient is `𝓛(n/d₀)` mod 2 and the first bracket is `T_5a`. The terms
 with an even number of extra factors `≡ 3` carry a factor `±i` per pair of class changes and cancel in
-pairs mod 2; this part was not written out, and only the second bracket is used.
+pairs mod 2; this part was not written out (SPECULATIVE). Only the second bracket is used.
+
+### 1.3 What Gross–Zagier and Kolyvagin add, and what the conclusion gives
+
+- **Rank one.** Proposition 1.1 gives `ord_{s=1} L(C_n, s) = 1`. The manuscript's Lemma 5.5
+  (`lem:forward-rank`, line 1086; audit record A020: Gross–Zagier, Kolyvagin MPI/90-69 Theorem 1,
+  STANDARD) then gives `rank C_n(ℚ) = 1` and `Ш(C_n/ℚ)` finite. Modularity of `C_n` is classical (CM by
+  `ℤ[i]`; Deuring, Shimura), so the BCDT citation inside Lemma 5.5 is not needed for these curves
+  (pc-audit RK7). Only "analytic rank one implies rank at least one" is used below.
+- **A Heegner-type point.** TYZ's Theorem 3.5 says more: the genus point `P(n)`, an explicit sum of
+  CM points `f_n(P_n)^t` over a set of representatives of `2Cl'_n` corrected by lower genus points,
+  represents `2^{−1−ρ(n)}𝓛(n)α_n`, where `α_n` generates `A(K_n)^−` modulo torsion. When `𝓛(n) ≠ 0` this
+  point has infinite order in `A(K_n)^− ≅ A^{(−n)}(ℚ)`, a curve 2-isogenous to `E_n`. TYZ do not compute
+  its 2-adic Kummer class.
+- **No prescribed class.** Neither TYZ nor Gross–Zagier says which class of `C_n(ℚ)/2C_n(ℚ)` the point
+  occupies. The class `β` comes from Selmer-minimality, as follows (pc-audit RK9, VERIFIED there and
+  rechecked here): `C_n(ℚ)[2] = (ℤ/2)²` (STANDARD), so `dim C_n(ℚ)/2C_n(ℚ) = 2 + rank = 3 = dim Sel₂(C_n)`.
+  The Kummer map is injective on `C_n(ℚ)/2C_n(ℚ)`, so it is onto `Sel₂(C_n)`. If `σ ∈ Sel₂` has first
+  coordinate `β`, some `P ∈ C_n(ℚ)` maps to `σ`, and so does `P + 2Q` for `Q` of infinite order, which has
+  infinite order. A point of infinite order has `x ∉ {0, ±n}`, so its first coordinate is the class of
+  `x`: the abscissa lies in `βℚ*²`. Neither the Cassels–Tate pairing nor finiteness of `Ш` is used.
+
+**Corollary 1.2.** *Let `d` be squarefree with `|d| ≡ 5 (mod 8)`, `dim Sel₂(C_d) = 3`, and `β` a first
+coordinate of `Sel₂(C_d)`. If `T_5b(|d|)` is odd, then `C_d` has a rational point of infinite order with
+abscissa in `βℚ*²`.* (Proposition 1.1 for `n = |d|`, Lemma 5.5, and the argument above.)
+
+The rest of the note shows that `T_5b(|d|)` is odd for the curves of slot-k: §2–3 express `T_5b` as a
+determinant, §4 evaluates the determinant on a Selmer-minimal curve, §5 applies this to slot-k.
