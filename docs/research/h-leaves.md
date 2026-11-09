@@ -562,3 +562,49 @@ they are part of the trust base and should have audit records.
   §1.2): a homomorphism between abelian varieties with good reduction at `v` extends to their
   Néron models, hence reduces. Used for `μ_σ` at lines 781-784.
 
+### 4.4 Unrefereed or preprint sources, and published replacements
+
+Several leaves of H are cited from course notes, a preprint, an online project, or a preprint
+version of a paper that was later published (VERIFIED from SOURCES.md, which records the version
+used). In each case the statement used is classical and a published source with the same
+statement exists. The numbering in the published sources listed below was **not** rechecked
+here (UNCHECKED); the replacements change no statement and no constant.
+
+| Leaf | Cited version | Statement used | Published source |
+| --- | --- | --- | --- |
+| A061, A063 (I.10.1), A064 (I.10.20), A079 (I.2.8-2.9), A009 (I.12.1) | Milne, *Abelian varieties*, course notes v2.00 (2008) | analytic and algebraic basics of abelian varieties | Mumford, *Abelian varieties* (1970), §§1-3, 19-21; Milne, *Abelian varieties*, in Cornell–Silverman (eds.), *Arithmetic geometry*, Springer 1986 |
+| A062 (IV.2.10), A007, A064 (VIII.7.4) | Milne, *Class field theory*, course notes v4.03 (2020) | Skolem–Noether; Brauer group of `ℚ`; Chebotarev | Reiner, *Maximal orders* (Skolem–Noether); Cassels–Fröhlich (eds.), *Algebraic number theory* (1967), Ch. VII (Tate) |
+| A007 | Milne, *Arithmetic duality theorems*, 2nd ed. (2006), Ch. I | local and global duality | published book (Academic Press 1986; 2nd ed. 2006) |
+| A009 | Brinon–Conrad, CMI notes (2009) | closure of admissible representations; finite descent | Fontaine, *Le corps des périodes p-adiques* and *Représentations p-adiques semi-stables*, Astérisque 223 (1994) |
+| A011 | Conrad, *Lifting global representations with local properties*, preprint (2011), App. B | a de Rham character of `G_{ℚ₅}` is finite times an integral power of the cyclotomic character | Serre, *Abelian ℓ-adic representations and elliptic curves* (1968), Ch. III (locally algebraic characters); Fontaine, Astérisque 223 |
+| A002, A078 | Stacks project, tags 07S7, 0E97, 0EYG | free finite quotients; uniqueness of stable models; tame Kummer form | SGA 1, Exp. V and XIII (Abhyankar's lemma); Deligne–Mumford, Publ. IHÉS 36 (1969) |
+| A001, A017 | Baba–Granath, MPI preprint (2005) | polarization datum, branch data, labelling of `j` | Baba–Granath, *Genus 2 curves with quaternionic multiplication*, Canad. J. Math. 60 (2008) (from memory; equivalence of numbering UNCHECKED) |
+| A001, A017 | Lin–Yang, arXiv:1807.00466v1 | Riemann form convention; Igusa invariants on the locus | publication not determined (the arXiv record has no journal reference, VERIFIED) |
+| A002 | Buzzard, author version corrected in 2002 | integral model of `V₁(5)` | Buzzard, Duke Math. J. 87 (1997) (from memory). The audit deliberately uses the corrected author version; the corrections should be compared with the published text before switching |
+| A011 | Pan, arXiv:1901.07166v2 | Theorem 1.0.4 | J. Amer. Math. Soc. 35 (2022), 1031-1169 (recorded in SOURCES.md; publisher text not compared) |
+
+### 4.5 Leaves for which no older replacement was found
+
+- **Pan, Theorem 1.0.4 (A011).** The older route is Khare–Wintenberger (Serre's conjecture) plus
+  Kisin's Fontaine–Mazur theorem (J. Amer. Math. Soc. 22 (2009)), as in the earlier von
+  Känel–Kret-type argument (rs-height R5.4). It needs `r̄_ℓ|G_{ℚ(ζ_ℓ)}` absolutely irreducible
+  for the chosen `ℓ`, hence a move to a large `ℓ`. Large-`ℓ` irreducibility is available from
+  MW95 (Zywina, Theorem 2.4) and Lemma PG gives potential crystallinity at every `ℓ`, so the route
+  is not obstructed. But it trades one modularity theorem for two of the same depth, plus an
+  irreducibility argument over `ℚ(ζ_ℓ)` that was not worked out (SPECULATIVE). Not recommended
+  as a reduction.
+- **Javanpeykar (A014).** No other published bound polynomial in `N` for `h_F(J₁(N))` was found;
+  bounds of Ullmo type cover `J₀(N)` for squarefree `N` only. vK uses the same input
+  (introduction, item (iii); VERIFIED as vK's statement), which suggests it is the standard one.
+- **Pazuki (A018).** The published explicit comparison between theta height and Faltings height
+  in genus 2. Older comparisons (Bost–David) are not explicit or not published.
+- **Gaudron–Rémond (A015, A016).** The explicit isogeny estimate is needed for the bound at lines
+  878-892, so the non-explicit MW93b cannot replace A015. After §2 the same theorem also carries
+  U1 and U2, so this single leaf now supplies all three isogeny-theoretic inputs.
+- **Faltings 1983, Lemma 5 (A006).** It is the origin of the height-variation inequality. Raynaud,
+  *Hauteurs et isogénies*, Astérisque 183 (1990), gives the exact formula; that is an
+  alternative with a stronger statement, not an older one.
+- **Lin–Yang and Lauter–Naehrig–Yang (A017), Buzzard (A002), Serre's local class field theory
+  (A012), Silverman (A071), Li (1975), Shimura (1973).** Published or classical; no change
+  proposed beyond §4.4.
+
