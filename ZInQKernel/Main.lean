@@ -6,6 +6,8 @@ import ZInQKernel.Hypotheses.CertifiedRank
 import ZInQKernel.RouteK.Assembly.PoleCompleteness
 import ZInQKernel.Model.Descent.MordellWeil
 import ZInQKernel.Hypotheses.PrimePattern
+import ZInQKernel.Hypotheses.PrimeAP
+import ZInQKernel.Multiplication.Completeness.AP
 import ZInQKernel.Assembly.Top
 import ZInQKernel.Compiler.NodeBound
 
@@ -36,6 +38,11 @@ boundary is the hypothesis list of this theorem.
   The two-slope pattern 22P₂ (`TwoSlopePattern`) also gives it, so the main theorem holds with 22P₂
   in place of 22P (`exists_bounded_integer_polynomial_defining_integers_of_twoSlopePattern`); 22P₂
   is a different prime pattern, not a consequence of 22P.
+* Route AP: the progression hypothesis 22P_AP (`GoodPrimeAP`, arbitrarily long arithmetic
+  progressions of good slope primes, a consequence of Green–Tao 2008, Theorem 1.2) gives the
+  slope representation under field 2′ (`Mult.SlopeRepresentationAP`, Proposition AP), which is
+  enough for completeness by Lemma P; so the main theorem holds with 22P_AP in place of 22P
+  (`exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP`).
 
 Three inputs that were hypotheses in earlier versions are theorems: the Mordell–Weil theorem for
 the generator curve (`mordellWeilE`), the catalogue bound CAT₈ (`catalogueBound8`: twenty-two
@@ -119,5 +126,21 @@ theorem exists_bounded_integer_polynomial_defining_integers_of_twoSlopePattern
     (h22 : TwoSlopePattern) : FrozenTarget :=
   Assembly.assembly Compiler.NodeCheck.haltingAddMulBound hH (poleCompleteness_of_certifiedRank hCR)
     (Mult.slopeRepresentation_of_twoSlopePattern h22)
+
+/-- **Main theorem, under the progression hypothesis 22P_AP.** Under hypotheses H
+(`SixContactMin`), CR₃ (`CertifiedRank`) and 22P_AP (`GoodPrimeAP`: for every `K` the good slope
+primes above `max S_b` contain an arithmetic progression of `K + 1` terms), there is an integer
+polynomial in `292890231905` variables, of degree below `2↑↑7` and with coefficients below `2↑↑8`,
+whose rational zero projection to the first variable is exactly `ℤ`. The polynomial is the same
+`P_*` as in the main theorem.
+
+22P_AP enters through Proposition AP (`Mult.slopeRepresentationAP_of_goodPrimeAP`): every integer
+is a sum of three slopes satisfying field 2′, where a pole at an old prime is allowed when
+`F(t) > 0`; completeness absorbs such a pole with the witness `q` (Lemma P,
+`Mult.slope_complete_AP`). Route AP of `docs/research/nt-22p.md`. -/
+theorem exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP
+    (hH : SixContactMin) (hCR : CertifiedRank) (hAP : GoodPrimeAP) : FrozenTarget :=
+  Assembly.assembly_AP Compiler.NodeCheck.haltingAddMulBound hH
+    (poleCompleteness_of_certifiedRank hCR) (Mult.slopeRepresentationAP_of_goodPrimeAP hAP)
 
 end ZInQ
