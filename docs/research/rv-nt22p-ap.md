@@ -270,10 +270,10 @@ Proposition 6.2. Here is my assessment.
   classes of the catalogue. The AP route uses Green–Tao 2008, whose ingredients are Szemerédi's
   theorem in finitary form, the transference principle and the Goldston–Yıldırım correlation
   estimates. Strictly speaking, the AP route's inputs are not a subset of the manuscript's, because
-  the 2010 paper does not cite Szemerédi's theorem. But Szemerédi's theorem is much older and has
+  the 2010 paper does not use Szemerédi's theorem. But Szemerédi's theorem is much older and has
   several independent complete proofs (combinatorial, ergodic, Fourier-analytic and
-  hypergraph-theoretic), and it also follows from the inverse theorem. In depth and in auditability
-  the reduction is real. **The claim that the trust base shrinks is correct in substance.**
+  hypergraph-theoretic), and it can also be derived from the inverse theorem by the arithmetic
+  regularity method. In depth and in auditability the reduction is real. **The claim that the trust base shrinks is correct in substance.**
 - *Shape of the hypothesis.* 22P_AP does not mention `A`, the catalogue multipliers or valuations
   at the old primes, only the lower bound on the primes. It is literally a special case of a
   published theorem, applied to a set whose relative density is computed in Proposition D. That
