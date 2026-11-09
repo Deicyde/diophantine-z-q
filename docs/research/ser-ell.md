@@ -330,9 +330,9 @@ and the Serre entry should be the definitions only.
 
 ## 6. Computations
 
-Computation A, which checks the order `O`, is the only one with a numerical outcome. B and C
-evaluate Serre's recipe and a small exponent argument as I restated them. They confirm the case
-analysis but are not independent evidence for the source statements.
+Computation A checks a fact about the order `O` directly. B and C evaluate Serre's recipe and a
+small exponent argument as restated here. They confirm the case analysis of R3, but they are not
+evidence for the source statements themselves.
 
 `scratch/ser-ell/checks.py` (pure Python, independent of earlier scripts; output in
 `checks.output.txt`):

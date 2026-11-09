@@ -78,3 +78,11 @@ F5 (minor): step 4 cites "Serre 1987 §1.2" for a(rbar) <= a(r) (attribution dou
 F6 (minor): step 6 bookkeeping: pigeonhole over pairs (f, embedding), t_p integrality.
 F7 (minor, framing): "no p-adic Hodge theory left" / "one theorem from 2009": KW and Kisin use
    p-adic Hodge theory internally; the removal of A009/A010/Conrad is a removal of direct uses only.
+
+## Step 4 (report)
+- docs/research/ser-ell.md written in pieces (verdict, objects, R1-R7, findings table, repaired
+  steps, trust-base table, computations, sources). Section locators for Gee (§2 conductor, §3
+  weak/strong, Raynaud use) and Dieulefait (§3 end) rechecked against the TeX.
+- Verdict: proved after listed repairs, constants unchanged; primaries (KW I/II, Kisin, Raynaud 3.4,
+  Serre §2) UNCHECKED, read through Gee/BDJ/Dieulefait restatements.
+- .fleet/ser-ell.md written. Task complete. No Lean was run (none needed).
