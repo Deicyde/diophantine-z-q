@@ -52,3 +52,15 @@ Hand derivations:
   A separate check of 20 admissible d with 4-5 primes: T5b = 1 in all 20.
 - Differential test of Prop N: 30 random n = 5 mod 8, n < 2e5, >= 3 primes: 24 have T5a or T5b odd, all of
   analytic rank 1 (numerical); 0 contradictions.
+
+## Step 5 (loose ends)
+- n = 7 remark of nt-tyz 4.4 (c_n(e) = i Lambda(n/e) for e = 5, Lambda(n/e) for e = 7): hand check (7->5 step carries i,
+  s = 1 for e = 5) and coeff_n7.py: 120 configs, 3825 coefficients, 0 mismatches. CORRECT.
+- TYZ Lemma 2.8 normalisation at m = 3: Thm 2.1 gives P(3,1) = +-2^{k-a} w_K L(3) L(1) = +-3 L(3) with w_K = 3, and
+  Q(3) = P(3,1) (one genus character), so Lemma 2.8's "sum eps L L = Q" reads +-L(3) = +-3 L(3): literally off by the odd
+  factor w_K = 3 (true: w_K * sum = Q). calL(1)^2 = calL(3)^2 = 1 numerically (calL_small.py). Harmless for Lemma N1 (mod 2),
+  but I2 as quoted ("= Q(m)") is inaccurate for m = 3: MINOR.
+- F6 (the "i.e." of Thm 3.5(2)): the direction needed for Thm 1.2 (2^{-rho}L even => P(n) in A(K_n)^- + A[4]) is immediate
+  from Thm 3.5 first assertion + Lemma 3.18 (P(n) - m alpha_n torsion, m = 2^{-1-rho} L). So reading A of Thm 1.2 for
+  n = 5 is fully proved by nt-tyz 4.4's argument plus F3 (both halves) -- strengthens nt-tyz.
+- Line refs: "L2077" is L2076-2077; harmless.
