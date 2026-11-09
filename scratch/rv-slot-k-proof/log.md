@@ -77,3 +77,7 @@ Data: classes of P (product ≡ 7), of T (product ≡ 1), sign s, symbols within
   β = sqf(w² − θu²) does not depend on m, so the 2-adic class of β must be varied via the square
   root; earlier version looped.
 - Exhaustive abstract rerun complete: 541,748 cases, 0 failures; negative control as before.
+
+## Step 6
+
+- Report docs/research/rv-slot-k-proof.md and .fleet/rv-slot-k-proof.md complete. Verdict: DL proved as written; five minor editorial findings. Done.
