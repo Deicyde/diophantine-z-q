@@ -25,3 +25,8 @@
 - Lean consumers re-read: ratHeight_le_bound_of_test (MainBranch.lean:27), eq_of_close_of_test
   (:42), slope_height_le_of (ContactSupport.lean:49, uses the estimate only at the slope t),
   sixContact_at_Smul (ConstantsProperties.lean:135), sixContact_at_heightPrimes (HeightMin.lean:76).
+
+## Step 2 (note §§0-2 written, commit c71aafc)
+- docs/research/nt-h.md: summary, §1 consumers + slack (slack.py), §2 thin sets / rank-zero.
+- Run interrupted after this; resumed (Step 3): remaining §3 (cusp, affine-moduli, detection
+  lemmas), §4 (Serre large-l argument), §5 ranking, .fleet/nt-h.md.
