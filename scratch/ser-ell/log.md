@@ -40,12 +40,12 @@ Preliminary verdicts (to be refined):
   Prop 2.1, Thm 2.2 Faltings, Prop 2.3, Thm 2.4 MW): for l >= c max([L:Q], h(A))^gamma, A[l] is a
   semisimple F_l[G_L]-module and End(A_L) (x) F_l = End_{G_L}(A[l]); proof cites MW95 §1 Cor 1, 2.
   VERIFIED as Zywina's statement. Step 1 citation fixed.
-- BDJ arXiv 0810.2106v5: Conjecture 3.12 (W(rho) = modular weights, for modular rho) and Theorem 3.15
+- BDJ arXiv 0810.2106v5: Conjecture 3.14 (W(rho) = modular weights, for modular rho) and Theorem 3.17
   (it holds for K = Q; proof via Deligne/Fontaine (Edixhoven Thms 2.5, 2.6), Mazur's principle,
   Edixhoven 4.5, Gross). Table in the proof: b = 1 (cyclotomic quotient) case, W contains V_{0,1}
   (weight 2) unless tres ramifiee; irreducible case b = 1 gives {V_{0,1}, V_{0,l}}. Also: "If rho is
   modular of weight 2 and level prime to l then rho|G_{Q_l} arises from a finite flat group scheme".
-  Numbering is the arXiv v5 numbering (computed from counters: 3.12, 3.15).
+  Numbering is the arXiv v5 numbering (computed from counters, remarks share the theorem counter: Remark 3.11 peu ramifiee, Conj 3.14, Thm 3.17; an earlier count 3.12/3.15 missed the remark environment).
 - Gee 1402.7197 (§ on statement): weak Serre proved by Khare, Wintenberger AND Kisin
   [Invent 178 (2009) 485-504, 505-586, 587-634]; weak => strong known for Q (Deligne, Fontaine,
   Edixhoven; p = 2 cases by KW+Kisin).

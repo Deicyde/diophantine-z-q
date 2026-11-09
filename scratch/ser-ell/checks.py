@@ -3,7 +3,7 @@
 A. The order O = Z[i,(1+j)/2] in B = (2,-3) has reduced discriminant 6, so O/lO = M_2(F_l)
    for every prime l not dividing 6 (step 1 needs this).
 B. Serre's weight recipe (Serre 1987, section 2, as restated in the proof of
-   Buzzard-Diamond-Jarvis, Theorem 3.15 of arXiv 0810.2106v5) evaluated on every inertia type
+   Buzzard-Diamond-Jarvis, Theorem 3.17 of arXiv 0810.2106v5) evaluated on every inertia type
    that Raynaud's theorem allows for a finite flat F-vector space scheme of rank 2 over an
    unramified base (e = 1): tame characters are products of fundamental characters with
    exponents in {0, 1}.  With det = omega on inertia the weight is always 2 (step 3).

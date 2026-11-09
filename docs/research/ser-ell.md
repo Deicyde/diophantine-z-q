@@ -128,10 +128,10 @@ lies above the Masser–Wüstholz threshold of R1. Infinitely many such `ℓ` ex
     and quotients. UNCHECKED; standard.
   - (d) Serre, Duke Math. J. 54 (1987), §2: the recipe for `k(ρ̄)`, and its value 2 on finite flat
     representations with cyclotomic determinant on inertia. UNCHECKED. Read through BDJ Theorem
-    3.15 and its proof (arXiv v5 numbering). That proof lists the Serre weights of every
+    3.17 and its proof (arXiv v5 numbering). That proof lists the Serre weights of every
     `ρ̄|_{G_{ℚ_ℓ}}` and contains the converse statement: "if `ρ` is modular of weight 2 and level
     prime to `ℓ`, then `ρ|_{G_{ℚ_ℓ}}` arises from a finite flat group scheme over `ℤ_ℓ`". BDJ also
-    state, just before Conjecture 3.12, that the weight set depends only on the restriction to
+    state, just before Conjecture 3.14, that the weight set depends only on the restriction to
     inertia.
 - **Hypotheses checked.**
   1. `ℓ ∉ T`, so `L'` is unramified at `ℓ`. `L` is unramified outside `T`, and `β` is unramified
@@ -151,7 +151,7 @@ lies above the Masser–Wüstholz threshold of R1. Infinitely many such `ℓ` ex
      must have sub `ω` and quotient `1`, because the connected–étale sequence puts the étale part
      in the quotient. In the opposite orientation the connected part splits off over `ℤ_ℓ^{ur}`.
      That extension is peu ramifiée: its Kummer class comes from `H¹_fppf(O_{L'_w^{ur}}, μ_ℓ)`,
-     which is the units modulo `ℓ`-th powers (BDJ Remark 3.? before Lemma 3.13 records this
+     which is the units modulo `ℓ`-th powers (BDJ Remark 3.11 records this
      identification for `ℓ`-divisible groups; the finite flat case is the same Kummer sequence).
   6. Serre's recipe gives `k = 2` in all three cases (computation B). A très ramifiée extension,
      which is excluded here, would give `ℓ + 1`. Determinant `1` or `ω²` would give `ℓ` or `ℓ + 2`.
