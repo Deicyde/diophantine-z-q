@@ -312,3 +312,88 @@ Two consequences used below. For every nonempty `B`:
 ```
 
 (For `y(B) = 1` all `κ_ρ(B)` equal `κ(B) = g(B)`, and `Σ_ρ y_ρ = y(B) = 1`.)
+
+## 3. Row 5b of Smith's Theorem 2.2 (VERIFIED, proved here)
+
+Smith proves his Table 2 by enumerating involutions and "closures" (Smith §2.1–2.2); row 5b takes a
+paragraph that relies on row 1 and on "the normal argument". The proof below is different: Lemma 2.1
+turns every determinant into a sum over forests, and Proposition 2.3 turns every genus sum into a sum
+over forests; the two are then compared directly. It uses only the abstract properties of the data:
+reciprocity `a_{ij} + a_{ji} = y_iy_j`, and `g` given by Proposition 2.3.
+
+### 3.1 Forest expansion of the determinants
+
+Write `X = L + Lᵀ` (so `X_{ij} = y_iy_j` for `i ≠ j`, `X_{ii} = 0`).
+
+**Lemma 3.1.** *For `W ⊆ V`, `det X[W, W] = 1` if `|W|` is even and `y_w = 1` for all `w ∈ W`, and `0`
+otherwise.*
+
+*Proof.* If some `y_w = 0`, row `w` vanishes (and `W ≠ ∅`). Otherwise `X[W, W] = J − I` (all ones minus
+the identity), whose determinant is `(−1)^{|W|−1}(|W| − 1)`, odd iff `|W|` is even. ∎
+
+**Lemma 3.2.** *Let `F ⊆ V` and let `L' = L[V ∖ F, V]` (`m = |V ∖ F|` rows). Then over `𝔽₂`*
+
+```
+det | X    L'ᵀ |  =  Σ_{C ⊆ V, |C| = m}  det L'[·, C] · det X[V∖C, V∖C].
+    | L'   0   |
+```
+
+*Proof.* Generalized Laplace expansion along the last `m` rows, whose nonzero entries lie in the first
+`r` columns: the sum runs over column sets `C ⊆ V` with `|C| = m`, the minor is `det L'[·, C]`, and the
+complementary minor is `det (X[V, V∖C] | L'ᵀ)`. Expanding the latter along its last `m` columns gives
+`Σ_R det L'[·, R] det X[V∖R, V∖C]`. Since `X` is symmetric, the terms `(C, R)` and `(R, C)` are equal, so
+for `C ≠ R` they cancel mod 2; the diagonal terms give `det L'[·, C]² det X[V∖C] = det L'[·, C] det X[V∖C]`. ∎
+
+**Proposition 3.3 (forest form of `det M₁`).**
+
+```
+det M₁ = Σ_φ wt(φ) · [φ has an even number of trees] · Π_{trees T of φ} z_{root(T)} y(T),
+```
+
+*the sum over all forests `φ` of `V` (rooted anywhere). Equivalently,*
+
+```
+det M₁ = Σ_π Π_{B∈π} g(B),   π over partitions of V into blocks of class 3 (their number is then even
+                              exactly when y(V) = 0; if y(V) = 1 the sum is empty in effect: det M₁ = 0).
+```
+
+*Precisely: if `y(V) = 0`, `det M₁` is the sum of `Π g(B)` over the partitions of `V` into blocks of class
+3; if `y(V) = 1`, `det M₁ = 0`.*
+
+*Proof.* `det(N + D) = Σ_F Π_{i∈F} d_i det N[F^c, F^c]` for a diagonal `D`. Apply it to the diagonal `D_z`
+of the lower block: `det M₁ = Σ_{F⊆V} z^F det [[X, L'ᵀ], [L', 0]]` with `L' = L[V∖F, V]` and
+`z^F = Π_{i∈F} z_i`. By Lemma 3.2 and Lemma 3.1, with `W = V ∖ C`, `|W| = |F|`,
+
+```
+det M₁ = Σ_F z^F Σ_{W : |W| = |F| even, y|_W ≡ 1} det L[V∖F, V∖W].
+```
+
+By Lemma 2.1 the inner determinant counts the forests rooted at `F` whose trees contain exactly one
+element of `W` each. Exchanging the sums, a forest `φ` rooted at `F` is counted with
+`Σ_W Π_T [|T ∩ W| = 1, its element has y = 1] = Π_T y(T)`, and `|W| = |F|` = number of trees. This is the
+first formula. For the second, group the forests by their partition into trees: a tree is a spanning
+arborescence of its vertex set `B`, rooted at some `ρ ∈ B`, so the forests with tree partition `π`
+contribute `Π_{B∈π} y(B) Σ_ρ z_ρ κ_ρ(B)`, times `[|π| even]`. By (2.1) this is
+`Π_B [B has class 3] g(B)`. If all blocks have `y(B) = 1`, then `y(V) = |π|` mod 2, so `[|π| even] = [y(V) = 0]`. ∎
+
+**Proposition 3.4 (forest form of `det M_5b`).** *Assume `y(V) = 0`. Then*
+
+```
+det M_5b = Σ_π Π_{B∈π} g(B),   π over partitions of V with exactly one block of class 7 and all other
+                                blocks of class 3.
+```
+
+*Proof.* In the expansion of a symmetric determinant over `𝔽₂` as a sum over involutions, the last
+index `e` (with `M_{ee} = 0`) is paired with some lower index `k'` (entry `y_k`), so
+`det M_5b = Σ_k y_k det N_k`, where `N_k` is `M₁` with the lower row and column `k'` deleted. As in
+Proposition 3.3, `det N_k = Σ_{F ⊆ V∖k} z^F Σ_W det L[V∖(F∪{k}), V∖W] det X[W]` with `|W| = |F| + 1`, and
+Lemma 2.1 gives forests rooted at `F ∪ {k}`. So `det M_5b` is the sum over forests `φ` with an even number
+of trees and one distinguished tree `T₀` (rooted at `k`), of
+`wt(φ) · y_{root(T₀)} y(T₀) · Π_{T ≠ T₀} z_{root(T)} y(T)`. Grouping by partitions and using (2.1):
+
+```
+det M_5b = Σ_{π : all blocks have y = 1, |π| even} Π_B g(B) · #{B₀ ∈ π : z(B) = 1 for all B ≠ B₀}.
+```
+
+Let `c₇` be the number of blocks of class 7. If `c₇ = 0`, the count is `|π|`, even. If `c₇ = 1`, it is 1
+(`B₀` must be the class-7 block). If `c₇ ≥ 2`, it is 0. Finally `|π|` is even iff `y(V) = 0`. ∎
