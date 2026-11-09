@@ -532,3 +532,104 @@ Two observations follow.
   (P), (RT), Lemma Q and Lemma J. The integer congruence lemmas `realChar_exists_sq_mod_pow_odd` and
   `realChar_exists_sq_mod_two_pow` (`Progressions/RealChar/Hensel.lean`) are not usable as stated,
   because they concern `ℤ/pⁿ`, not `ℚ_p`. `hensels_lemma` gives SQ directly.
+
+## 4. A Lean plan
+
+### 4.1 Files and statements, in dependency order
+
+The new code would live in a directory such as `ZInQKernel/RouteK/Selmer/`. It imports
+`RouteK/System` (for `Config`, `IsSol`, `natConfig`, `natClass`), `RouteK/Slots/Symbols.lean` (for
+`legBit`) and the Mathlib modules of §3. All statement names below are proposals (SPECULATIVE until
+written).
+
+1. **`Covering.lean`** (§1).
+   - `Loc K d a b`, with `loc_congr_sq` (Inv) and `loc_torsion` (Tor);
+   - the projective covering and `cov_iff_loc`, plus the Kummer-image form `loc_iff_kummer` (Lemma 1.2);
+   - `Sel2 d` and `CertifiedRankSel`;
+   - `certifiedRank_of_sel : CertifiedRankSel → Prop0Statement → CertifiedRank`, the argument of §1.4
+     steps 2–5, with Proposition 0 still a hypothesis at this stage.
+
+   This makes the reduction explicit before any local work is done.
+2. **`PadicSquare.lean`** (§2.1).
+   - `isSquare_padic_iff` (SQ(a), SQ(c)) and `isSquare_two_adic_iff` (SQ(b), SQ(c)) for `x : ℚ_[p]`, with the
+     unit part taken from `Padic.valuation` and `PadicInt.mkUnits`;
+   - the perturbation lemmas (P) and the rational tests (RT).
+   - The two Hensel halves are already proved in `scratch/nt-prop0/Probe.lean`.
+3. **`Real.lean`**: Lemma ∞, `loc_real_iff : Loc ℝ d a b ↔ (0 < a ↔ 0 < b)`.
+4. **`BadOdd.lean`**: Lemma B, `loc_padic_dvd_iff`, for odd `p | d` (§2.4).
+5. **`Two.lean`**: Lemma T, `loc_two_adic_iff`, for `d ≡ 5 (mod 8)`. It has the eight witnesses of the
+   table in §2.5 and the case analysis on `v₂(x)`.
+6. **`CharSum.lean`**: everything over `𝔽_p`, with no `p`-adic content.
+   - Lemma Q (proved in `scratch/nt-prop0/ProbeQ.lean`) and Lemma J;
+   - the count `8N ≥ p − 15 − |S(d̄²)|`;
+   - `exists_xi`, the statement of Step 1 of §2.3, for `p ≥ 29`, and for `p < 29` by a Boolean checker
+     run with `decide +kernel`.
+7. **`Good.lean`**: Lemma G1 (`loc_padic_good_even`) and Lemma G2 (`loc_padic_good_of_units`), the lift
+   from `CharSum.lean` by SQ(a).
+8. **`Bits.lean`** (§2.6).
+   - Turn the class conditions into `E1_p`, `E2_p`, `(R)` and `twoAdicRows 5`.
+   - Residue bits of `a(σ)` and `b(σ)` at `p ∈ S` through `legBit` multiplicativity, and the mod-8
+     characters through `lam8_prod` and `mu8_prod`.
+9. **`Prop0.lean`** (§2.7).
+   - `prop0 : (natConfig d _).IsSol σ ↔ (aOf σ, bOf σ) ∈ Sel2 d`;
+   - `solsEquivSel2`, with `(Sel2 d).ncard = (natConfig d _).sols.card`;
+   - `certifiedRank_of_certifiedRankSel : CertifiedRankSel → CertifiedRank`.
+
+The main theorem then has a variant with `CertifiedRankSel` in place of `CertifiedRank`, as
+`..._of_poleCompleteness` and `..._of_sixContactEstimate` are variants today.
+
+### 4.2 The hardest steps
+
+- **The case analyses over `ℚ_p` and `ℚ₂`** (files 4 and 5). They need a convenient interface:
+  write `x = p^k u` with `u ∈ ℤ_p*`, then read the classes of `x ± d` off `k` and the residue of `u`
+  (mod `p`, or mod 8 at 2). Lemma T has eleven cases. The risk is bookkeeping friction (norms versus
+  valuations, casts from `ℤ` and `ℚ`), not mathematics. Proving (P) once in a reusable form (in the
+  shape "`|y| < |x|` implies `x + y ≡ x`") keeps every case to a few lines.
+- **Lemma J** (file 6). Exchanging the order of the triple sum `Σ_n Σ_{ξ,η}` and splitting
+  `ξ² = η²` from `ξ² ≠ η²` is routine on paper and tedious with `Finset` sums. The square-class
+  invariance `S(nt²) = χ(t)S(n)` needs a reindexing, like the substitution in `ProbeQ.lean`. The step
+  from `Σ_{n≠0} S(n)²` to `((p − 1)/2)(S(1)² + S(g)²)` needs a count of squares
+  (`quadraticChar_card_sqrts` or `FiniteField.card_sq...`).
+- **`Bits.lean`.** Products over `d.primeFactors` and the residue bit of a product of primes are of
+  the same kind as the existing `Realize.lean` and `Slots/Symbols.lean`. They are long but follow known
+  patterns.
+- **Small primes.** The check for `p < 29` covers about 6,000 triples `(d̄, class, ξ)`. It should be
+  a `Nat`-valued Boolean checker proved by `decide +kernel`, not `decide` on `ZMod p` (see the
+  project's notes on kernel speed). Alternatively one could improve the constant 15, but this is not
+  needed.
+
+### 4.3 Effort tiers (SPECULATIVE estimates)
+
+| Tier | Content | Size |
+| --- | --- | --- |
+| Cheap wins | files 1 and 3; the Hensel halves of file 2 (done: `Probe.lean`); Lemma Q (done: `ProbeQ.lean`) | 300–500 lines, days |
+| Medium investment | file 2 complete; files 4, 6, 7, 8, 9 | 1,500–2,500 lines, 2–4 weeks |
+| Bigger investment | file 5 (Lemma T, necessity) and integration with `Main.lean`; separately, route R3 of §5 | 600–1,000 lines for file 5; R3 one to two months more |
+
+Slot-k §4.3 estimated "months" for Proposition 0, assuming Galois cohomology and local images were
+needed. With the coverings in x-form and the character-sum argument at the good primes, neither is
+needed. The whole of Proposition 0 is an elementary development of about 2,500–4,000 lines.
+
+### 4.4 The first step
+
+**Test.** Write `PadicSquare.lean` (SQ(a), SQ(c), (P) for odd `p`) and `BadOdd.lean`, ending with
+
+```lean
+theorem loc_padic_dvd_iff {p : ℕ} [Fact p.Prime] (hp : p ≠ 2) {d : ℕ} (hpd : p ∣ d)
+    (hd : Squarefree d) (a b : ℤ) (ha : a ≠ 0) (hb : b ≠ 0) :
+    Loc ℚ_[p] d a b ↔ ∃ i j : ℕ, i < 2 ∧ j < 2 ∧
+      IsSquare ((a * d ^ i * (-1) ^ j : ℤ) : ℚ_[p]) ∧ IsSquare ((b * 2 ^ i * (-d) ^ j : ℤ) : ℚ_[p])
+```
+
+**Success criterion.** Compiles with no `sorry`, `#print axioms` shows only the standard three, at
+most about 600 lines, and no declaration takes more than 30 s. Success shows that a case analysis
+over `ℚ_p` with valuations, unit parts and residues is manageable in Lean. Files 5 and 7 are the
+same kind of argument (with residues mod 8, respectively a lift), so their cost can then be
+extrapolated.
+
+**Parallel probe.** Lemma J over `ZMod p`, in the form `(S 1)^2 ≤ 4p`, has no `p`-adic content and
+can be done independently. Success criterion: at most about 300 lines.
+
+The probes run so far: both Hensel halves of SQ (`Probe.lean`, about 75 lines) and Lemma Q
+(`ProbeQ.lean`, about 35 lines, compiled on the first attempt) build against the project's Mathlib
+with standard axioms only.
