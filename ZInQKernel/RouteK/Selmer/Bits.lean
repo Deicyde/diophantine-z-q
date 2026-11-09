@@ -249,6 +249,168 @@ theorem loc_padic_selPair_iff_rows {d : ℕ} (hd : Odd d) (hsq : Squarefree d)
 
 end Odd
 
+/-! ### Square classes of signed products at `2` -/
+
+theorem oddClasses_pow {c : ZMod 8} (hc : c ∈ oddClasses) (n : ℕ) : c ^ n ∈ oddClasses := by
+  induction n with
+  | zero => rw [pow_zero]; decide
+  | succ n ih => rw [pow_succ]; exact oddClasses_mul ih hc
+
+theorem lam8_pow {c : ZMod 8} (hc : c ∈ oddClasses) (n : ℕ) : lam8 (c ^ n) = (n : ZMod 2) * lam8 c := by
+  induction n with
+  | zero => simp
+  | succ n ih => rw [pow_succ, lam8_mul (oddClasses_pow hc n) hc, ih]; push_cast; ring
+
+theorem mu8_pow {c : ZMod 8} (hc : c ∈ oddClasses) (n : ℕ) : mu8 (c ^ n) = (n : ZMod 2) * mu8 c := by
+  induction n with
+  | zero => simp
+  | succ n ih => rw [pow_succ, mu8_mul (oddClasses_pow hc n) hc, ih]; push_cast; ring
+
+theorem eq_one_iff_lam8_mu8 {c : ZMod 8} (hc : c ∈ oddClasses) : c = 1 ↔ lam8 c = 0 ∧ mu8 c = 0 := by
+  revert c; decide
+
+/-- An odd integer is a square in `ℚ₂` iff it is `≡ 1 (mod 8)`. -/
+theorem isSquare_two_adic_intCast_iff {z : ℤ} (hz : Odd z) :
+    IsSquare (z : ℚ_[2]) ↔ (z : ZMod 8) = 1 := by
+  have hz2 : ¬((2 : ℕ) : ℤ) ∣ z := by
+    rw [Nat.cast_ofNat, ← even_iff_two_dvd, Int.not_even_iff_odd]; exact hz
+  have hu : ‖(z : ℤ_[2])‖ = 1 := by
+    rw [PadicInt.norm_def, PadicInt.coe_intCast]; exact padic_norm_intCast_eq_one hz2
+  have := isSquare_coe_iff_toZModPow_two hu
+  rw [PadicInt.coe_intCast, map_intCast] at this
+  exact this
+
+theorem odd_prime_of_mem_primeFactors {d : ℕ} (hd : Odd d) (q : d.primeFactors) : (q : ℕ) % 2 = 1 :=
+  Nat.odd_iff.mp ((prime_ne_two_of_mem_primeFactors hd q.2).1.odd_of_ne_two
+    (prime_ne_two_of_mem_primeFactors hd q.2).2)
+
+/-- The integer `(−1)^s 2^t Π_{q ∣ d} q^{e_q} 5^k` (`d` odd) is a square in `ℚ₂` iff `t` is even
+and the odd part is `≡ 1 (mod 8)`, i.e. its characters `λ = s + Σ e_q λ_q` and
+`μ = k + Σ e_q μ_q` vanish. -/
+theorem isSquare_two_adic_signedProd_iff {d : ℕ} (hd : Odd d) (s t k : ℕ) (e : d.primeFactors → ℕ) :
+    IsSquare (((((-1) ^ s * 2 ^ t * ∏ q : d.primeFactors, ((q : ℕ) : ℤ) ^ e q) * 5 ^ k : ℤ)) : ℚ_[2]) ↔
+      Even t ∧ (s : ZMod 2) + ∑ q, (e q : ZMod 2) * lam8 ((q : ℕ) : ZMod 8) = 0 ∧
+        (k : ZMod 2) + ∑ q, (e q : ZMod 2) * mu8 ((q : ℕ) : ZMod 8) = 0 := by
+  set z : ℤ := (-1) ^ s * (∏ q : d.primeFactors, ((q : ℕ) : ℤ) ^ e q) * 5 ^ k
+  have hN : ((-1) ^ s * 2 ^ t * ∏ q : d.primeFactors, ((q : ℕ) : ℤ) ^ e q) * 5 ^ k =
+      ((2 : ℕ) : ℤ) ^ t * z := by
+    simp only [z]; push_cast; ring
+  have hodd : Odd z := by
+    refine (odd_neg_one.pow.mul ?_).mul (by decide : Odd (5 : ℤ)).pow
+    refine Finset.prod_induction _ Odd (fun _ _ => Odd.mul) odd_one fun q _ => Odd.pow ?_
+    exact_mod_cast Nat.odd_iff.mpr (odd_prime_of_mem_primeFactors hd q)
+  have hz2 : ¬((2 : ℕ) : ℤ) ∣ z := by
+    rw [Nat.cast_ofNat, ← even_iff_two_dvd, Int.not_even_iff_odd]; exact hodd
+  have hmem : ∀ q : d.primeFactors, ((q : ℕ) : ZMod 8) ∈ oddClasses := fun q =>
+    natCast_mem_oddClasses (odd_prime_of_mem_primeFactors hd q)
+  have hm1 : (-1 : ZMod 8) ∈ oddClasses := by decide
+  have hm5 : (5 : ZMod 8) ∈ oddClasses := by decide
+  have hP := prod_mem_oddClasses univ (fun q : d.primeFactors => ((q : ℕ) : ZMod 8) ^ e q)
+    fun q _ => oddClasses_pow (hmem q) _
+  have hcast : (z : ZMod 8) =
+      (-1) ^ s * (∏ q : d.primeFactors, ((q : ℕ) : ZMod 8) ^ e q) * 5 ^ k := by
+    simp only [z]; push_cast; rfl
+  rw [hN, isSquare_padic_pow_mul_iff hz2, isSquare_two_adic_intCast_iff hodd, hcast,
+    eq_one_iff_lam8_mu8 (oddClasses_mul (oddClasses_mul (oddClasses_pow hm1 s) hP)
+      (oddClasses_pow hm5 k)),
+    lam8_mul (oddClasses_mul (oddClasses_pow hm1 s) hP) (oddClasses_pow hm5 k),
+    lam8_mul (oddClasses_pow hm1 s) hP, mu8_mul (oddClasses_mul (oddClasses_pow hm1 s) hP)
+      (oddClasses_pow hm5 k), mu8_mul (oddClasses_pow hm1 s) hP, lam8_pow hm1, lam8_pow hm5,
+    mu8_pow hm1, mu8_pow hm5, lam8_prod _ _ fun q _ => oddClasses_pow (hmem q) _,
+    mu8_prod _ _ fun q _ => oddClasses_pow (hmem q) _]
+  simp only [fun q => lam8_pow (hmem q), fun q => mu8_pow (hmem q),
+    (by decide : lam8 (-1) = 1), (by decide : lam8 5 = 0), (by decide : mu8 (-1) = 0),
+    (by decide : mu8 5 = 1), mul_one, mul_zero, add_zero, zero_add]
+  constructor
+  · rintro ⟨h₁, h₂, h₃⟩; exact ⟨h₁, h₂, by rw [add_comm]; exact h₃⟩
+  · rintro ⟨h₁, h₂, h₃⟩; exact ⟨h₁, h₂, by rw [add_comm]; exact h₃⟩
+
+theorem natConfig_lam_eq_lam8 {d : ℕ} (hd : Odd d) (q : d.primeFactors) :
+    (natConfig d hd).lam q = lam8 ((q : ℕ) : ZMod 8) := rfl
+
+theorem natConfig_mu_eq_mu8 {d : ℕ} (hd : Odd d) (q : d.primeFactors) :
+    (natConfig d hd).mu q = mu8 ((q : ℕ) : ZMod 8) := rfl
+
+/-- For a squarefree `d`, the product of the classes mod 8 of its primes is `d mod 8`. -/
+theorem prod_primeFactors_zmod8 {d : ℕ} (hd : Squarefree d) :
+    ∏ q : d.primeFactors, ((q : ℕ) : ZMod 8) = (d : ZMod 8) := by
+  rw [Finset.prod_coe_sort d.primeFactors (fun q : ℕ => (q : ZMod 8)), ← Nat.cast_prod,
+    Nat.prod_primeFactors_of_squarefree hd]
+
+theorem natConfig_prodClass {d : ℕ} (hd : Odd d) (hsq : Squarefree d) :
+    (natConfig d hd).prodClass = (d : ZMod 8) :=
+  prod_primeFactors_zmod8 hsq
+
+theorem bits_two_core (a0 a1 b0 b1 Lu Mu Lv Mv : ZMod 2) :
+    (∃ x y z : ZMod 2, (a1 = 0 ∧ a0 + y + Lu = 0 ∧ Mu + x = 0) ∧
+      (b1 = x ∧ b0 + y + Lv = 0 ∧ z + (Mv + y) = 0)) ↔
+      a1 = 0 ∧ b1 = Mu ∧ a0 + Lu = b0 + Lv := by
+  revert a0 a1 b0 b1 Lu Mu Lv Mv; decide
+
+/-- **The place 2 in bits** (nt-prop0 §2.6, at `2`). Let `d ≡ 5 (mod 8)` be squarefree. The class
+condition of Lemma T for `(a(σ), b(σ))` — `a d^i (−1)^j` and `b 2^i (−d)^j 5^k` are squares in
+`ℚ₂` for some `i, j, k ∈ {0, 1}` — holds iff `a₁ = 0`, `b₁ = μ·u` and `a₀ + λ·u = b₀ + λ·v`. -/
+theorem classCond_two_iff {d : ℕ} (hd5 : d % 8 = 5) (hsq : Squarefree d)
+    (σ : Unknowns d.primeFactors) :
+    (∃ i j k : ℕ, i < 2 ∧ j < 2 ∧ k < 2 ∧
+      IsSquare (((selPair d σ).1 * d ^ i * (-1) ^ j : ℤ) : ℚ_[2]) ∧
+      IsSquare (((selPair d σ).2 * 2 ^ i * (-d) ^ j * 5 ^ k : ℤ) : ℚ_[2])) ↔
+      σ.a1 = 0 ∧ σ.b1 = dot (natConfig d (odd_of_mod_eight_eq_five hd5)).mu σ.u ∧
+        σ.a0 + dot (natConfig d (odd_of_mod_eight_eq_five hd5)).lam σ.u =
+          σ.b0 + dot (natConfig d (odd_of_mod_eight_eq_five hd5)).lam σ.v := by
+  set hd := odd_of_mod_eight_eq_five hd5
+  have ha : ∀ i j : ℕ, (selPair d σ).1 * d ^ i * (-1) ^ j = ((-1) ^ (σ.a0.val + j) *
+      2 ^ (σ.a1.val + 0) * ∏ q : d.primeFactors, ((q : ℕ) : ℤ) ^ ((σ.u q).val + i)) * 5 ^ 0 := by
+    intro i j
+    rw [← classInt_mul_eq hsq]
+    simp only [selPair]; ring
+  have hb : ∀ i j k : ℕ, (selPair d σ).2 * 2 ^ i * (-(d : ℤ)) ^ j * 5 ^ k = ((-1) ^ (σ.b0.val + j) *
+      2 ^ (σ.b1.val + i) * ∏ q : d.primeFactors, ((q : ℕ) : ℤ) ^ ((σ.v q).val + j)) * 5 ^ k := by
+    intro i j k
+    rw [← classInt_mul_eq hsq]
+    simp only [selPair]; rw [neg_pow]; ring
+  have hd8 : (d : ZMod 8) = 5 := natCast_zmod8_of_mod hd5
+  have hmem : ∀ q ∈ (univ : Finset d.primeFactors), ((q : ℕ) : ZMod 8) ∈ oddClasses := fun q _ =>
+    natCast_mem_oddClasses (odd_prime_of_mem_primeFactors hd q)
+  have hL : ∑ q : d.primeFactors, lam8 ((q : ℕ) : ZMod 8) = 0 := by
+    rw [← lam8_prod _ _ hmem, prod_primeFactors_zmod8 hsq, hd8]; decide
+  have hM : ∑ q : d.primeFactors, mu8 ((q : ℕ) : ZMod 8) = 1 := by
+    rw [← mu8_prod _ _ hmem, prod_primeFactors_zmod8 hsq, hd8]; decide
+  have hdotL : ∀ w : d.primeFactors → ZMod 2,
+      dot (natConfig d hd).lam w = ∑ q, w q * lam8 ((q : ℕ) : ZMod 8) := fun w =>
+    Finset.sum_congr rfl fun q _ => by rw [natConfig_lam_eq_lam8, mul_comm]
+  have hdotM : ∀ w : d.primeFactors → ZMod 2,
+      dot (natConfig d hd).mu w = ∑ q, w q * mu8 ((q : ℕ) : ZMod 8) := fun w =>
+    Finset.sum_congr rfl fun q _ => by rw [natConfig_mu_eq_mu8, mul_comm]
+  simp only [ha, hb]
+  rw [bits_exists_three]
+  simp only [isSquare_two_adic_signedProd_iff hd, bits_even_val_add_iff, bits_even_val_iff,
+    Nat.cast_add, ZMod.natCast_zmod_val, Nat.cast_zero, add_zero, bits_sum_add_mul, hL, hM,
+    mul_zero, mul_one, zero_add, hdotL, hdotM]
+  exact bits_two_core _ _ _ _ _ _ _ _
+
+/-- **Row `(D)`** (nt-prop0 §2.6, at `2`): under the sign row `(R)`, the class condition of
+Lemma T for `(a(σ), b(σ))` is the row `(D)` of `Σ(𝒞_d)`, i.e. `twoAdicRows 5`. -/
+theorem classCond_two_iff_D {d : ℕ} (hd5 : d % 8 = 5) (hsq : Squarefree d)
+    (σ : Unknowns d.primeFactors) (hR : σ.a0 = σ.b0) :
+    (∃ i j k : ℕ, i < 2 ∧ j < 2 ∧ k < 2 ∧
+      IsSquare (((selPair d σ).1 * d ^ i * (-1) ^ j : ℤ) : ℚ_[2]) ∧
+      IsSquare (((selPair d σ).2 * 2 ^ i * (-d) ^ j * 5 ^ k : ℤ) : ℚ_[2])) ↔
+      (natConfig d (odd_of_mod_eight_eq_five hd5)).D σ := by
+  rw [classCond_two_iff hd5 hsq, Config.D, natConfig_prodClass _ hsq,
+    natCast_zmod8_of_mod hd5, Nat.cast_ofNat, Config.twoAdicRows_five, hR, add_right_inj]
+  exact and_congr_right fun _ => and_congr_right fun _ => eq_comm
+
+/-- The rows `(R)` and `(D)` together are the class conditions at `∞` and at `2`. -/
+theorem classCond_two_and_R_iff {d : ℕ} (hd5 : d % 8 = 5) (hsq : Squarefree d)
+    (σ : Unknowns d.primeFactors) :
+    ((∃ i j k : ℕ, i < 2 ∧ j < 2 ∧ k < 2 ∧
+      IsSquare (((selPair d σ).1 * d ^ i * (-1) ^ j : ℤ) : ℚ_[2]) ∧
+      IsSquare (((selPair d σ).2 * 2 ^ i * (-d) ^ j * 5 ^ k : ℤ) : ℚ_[2])) ∧ σ.a0 = σ.b0) ↔
+      (natConfig d (odd_of_mod_eight_eq_five hd5)).D σ ∧ σ.a0 = σ.b0 :=
+  ⟨fun ⟨h, hR⟩ => ⟨(classCond_two_iff_D hd5 hsq σ hR).mp h, hR⟩,
+    fun ⟨h, hR⟩ => ⟨(classCond_two_iff_D hd5 hsq σ hR).mpr h, hR⟩⟩
+
 /-! ### The real place -/
 
 /-- **Row `(R)`** (nt-prop0 §2.6, at `∞`): the covering of `(a(σ), b(σ))` is soluble over `ℝ` iff
