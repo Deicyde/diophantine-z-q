@@ -10,7 +10,25 @@ the proofs; this audit concerns what the statements say.
 
 Each examined step is marked CORRECT (checked here), GAP (missing or wrong) or UNCHECKED.
 
-<!-- VERDICT -->
+## Verdict
+
+**The statements are faithful as written.**
+
+- `GoodPrimeAP` is the hypothesis 22P_AP of nt-22p §3.3, with the same quantifiers, `x ≥ 1`,
+  `v ≥ 1`, the same lower bound `max S_b` (written "larger than every element of `S_b`", an
+  equivalent form), and the same set of good slope primes `G`. It follows from Green–Tao 2008,
+  Theorem 1.2, and the positive relative upper density of `G` (Proposition D) with no further
+  condition. I proved this implication in Lean against the branch, from a Lean form of each of
+  the two statements.
+- The variant has the main theorem's conclusion `FrozenTarget` (the frozen statement, checked
+  token for token) and its two other hypotheses `SixContactMin` and `CertifiedRank`, which the
+  branch does not touch. Its axioms are `propext`, `Classical.choice`, `Quot.sound`.
+- The new definitions (`PoleAbsorbHyp`, `OldBounds`, `GoodSlopeAP`, `SlopeRepresentationAP`, the
+  repeated completeness chain) match nt-22p §3.2 and the referees' corrections. They occur only in
+  intermediate statements, so they cannot weaken what the variant proves.
+
+The findings (§5) concern the trust statement: Proposition D is still a sketch (moderate), and two
+citations or docstrings need small corrections (minor).
 
 ## 1. The hypothesis `GoodPrimeAP`
 
@@ -224,3 +242,60 @@ Intermediate lemmas, read against the note (statements only):
 | `goodPrimeAP_of_greenTao_propD` (§1.4) | compiles; axioms `[propext, Classical.choice, Quot.sound]` |
 | literal `GoodSlopePrime` vs the CM description, `324 < p < 20000` | 240 good primes, no mismatch |
 | relative density of `G` in `(324, 2·10⁶)` | `0.1063` (Euler product `0.1060`) |
+
+## 5. Findings
+
+No finding is critical or major. None concerns a Lean statement; F1–F3 concern the trust
+statement attached to `GoodPrimeAP` and its documentation.
+
+**F1 (moderate; trust base, not a defect of the statement). Proposition D is still a sketch.**
+`GoodPrimeAP` follows from Green–Tao 2008, Theorem 1.2, and the positive relative upper density
+of `G` (§1.4, kernel-checked). The second input is Proposition D of nt-22p §2.2, which is a proof
+sketch: a transposition of the manuscript's sieve (lines 1600–1642) from prime values of a form
+to primes up to `N`, plus Hecke's theorem for `ℚ(i)` or the prime number theorem in progressions.
+The referee `rv-nt22p-ap` (its F5) finds the sketch correct and lists the two points the write-up
+must make explicit: the upper bound `≪ N/(ℓ² log N)`, uniform in `ℓ`, for `L < ℓ ≤ N^{1/8}`
+(trivial lattice counting is not enough there), and the tail `ℓ > N^{1/8}`. My computation agrees
+numerically (density `0.1063` against `0.1060`) but is no proof. Until Proposition D is written
+out, the docstring's "it follows from the theorem of Green and Tao" rests on an unwritten step.
+The docstring says so ("Proposition D is a sketch that still has to be written out"), so the
+documentation is accurate; the gap is in the supporting mathematics. Repairable: write out
+Proposition D in its weakest useful form, positive relative upper (or lower) density, by the
+"Hecke avoided" route of nt-22p §2.2.
+
+**F2 (minor; citation). The dense-subset form of Green–Tao is proved there only in outline, and
+the section is misnumbered.** The docstring correctly records that Green–Tao prove Theorem 1.2
+only in outline and asks for a complete proof to be cited, without naming one. In the arXiv v6
+source the outline is in §11 ("Further remarks"), not §10 as the docstring and `rv-nt22p-ap` say
+(I did not check the numbering of the published version). A complete proof of exactly the form
+needed is the main theorem of Tao–Ziegler 2008 with linear polynomials (§1.4), which gives a
+positive common difference directly. Repair: cite it in the docstring of `GoodPrimeAP`.
+
+**F3 (minor; documentation). The module docstring of `Main.lean` names only Green–Tao.** The new
+bullet calls `GoodPrimeAP` "a consequence of Green–Tao 2008, Theorem 1.2". It is a consequence
+of Theorem 1.2 *and* Proposition D (F1). The docstring of `GoodPrimeAP` itself is complete.
+Repair: add "and Proposition D (positive density of the good slope primes)" to the bullet.
+
+**F4 (cosmetic). Redundant clauses.** `PoleAbsorbHyp` keeps the seven non-divisibility clauses,
+which follow from `1 ≤ v_ℓ(t.den)` and lowest terms (`rv-nt22p-proof` finding 6); `GoodPrimeAP`
+keeps `1 ≤ x`, which follows from primality. Both are harmless: the first is in an intermediate
+definition, and the second is implied by the inputs (§1.4). No repair needed.
+
+**F5 (observation). The hypothesis asks for more than Proposition AP uses.** `GoodPrimeAP`
+asks for `K + 1` terms for every `K`; Proposition AP uses at most fourteen terms of a progression
+of length `K_A + 1` (`K_A = A + 130` or `−A − 8`). This is the form Green–Tao provides, and a
+weaker hypothesis (a homothetic copy of the fourteen-point set `max S_A⁺ − S_A⁺`) would not have a
+simpler proof. No repair needed.
+
+## 6. Repairs
+
+1. (F1) Write out Proposition D, at least in the form "the good slope primes have positive relative
+   upper density in the primes", following nt-22p §2.2 and `rv-nt22p-ap` F5.
+2. (F2) In the docstring of `GoodPrimeAP`, cite Tao–Ziegler, Acta Math. 201 (2008), main theorem
+   with `P_i = (i − 1)m`, as a complete proof of the dense-subset form, and correct "§10" to the
+   section of the cited version ("Further remarks", §11 of arXiv v6).
+3. (F3) In the module docstring of `Main.lean`, add Proposition D next to Green–Tao 2008.
+4. Optional: add the derivation of §1.4 (`GreenTaoDense`, `PropDUpper`,
+   `goodPrimeAP_of_greenTao_propD`) to the repository next to `GoodPrimeAP`. It makes the trust
+   statement precise: the hypothesis is then a named consequence of two named statements, one
+   published and one to be written out.
