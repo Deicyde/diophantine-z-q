@@ -116,6 +116,8 @@ def SelmerCertified (d : ℕ) (a : ℤ) : Prop :=
   ∃ hd : Odd d, (natConfig d hd).sols.card = 8 ∧
     ∃ σ ∈ (natConfig d hd).sols, σ.first = natClass d a
 
+theorem odd_of_mod_eight_eq_five {d : ℕ} (h : d % 8 = 5) : Odd d := Nat.odd_iff.mpr (by omega)
+
 /-- Transport of a certificate from the configuration of a family of primes to that of their
 product. -/
 theorem selmerCertified_of_primeCfg {κ : Type*} [Fintype κ] [DecidableEq κ] (f : κ → ℕ)
