@@ -1,2 +1,8 @@
 PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
 B1 m=1 w(beta)=10 w(theta)=2 #aux=12 maxaux_digits=72 C_n:selmer3 C_ntheta:selmer3 OK
+B1 m=65 w(beta)=10 w(theta)=7 #aux=17 maxaux_digits=73 C_n:selmer3 C_ntheta:selmer3 OK
+B1 m=105 w(beta)=9 w(theta)=4 #aux=13 maxaux_digits=71 C_n:selmer3 C_ntheta:selmer3 OK
+B1 m=273 w(beta)=11 w(theta)=3 #aux=14 maxaux_digits=72 C_n:selmer3 C_ntheta:selmer3 OK
+B1 m=-1 w(beta)=10 w(theta)=2 #aux=12 maxaux_digits=72 C_n:selmer3 C_ntheta:selmer3 OK
+B1 m=-65 w(beta)=10 w(theta)=7 #aux=17 maxaux_digits=73 C_n:selmer3 C_ntheta:selmer3 OK
+B1 m=-105 w(beta)=9 w(theta)=4 #aux=13 maxaux_digits=71 C_n:selmer3 C_ntheta:selmer3 OK

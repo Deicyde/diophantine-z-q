@@ -380,3 +380,75 @@ directly.
 - **The K-TYZ-β rule** (pc-audit §4.2). `|n| ≡ 7 · 3 ≡ 5 (mod 8)`, `β` is odd and `|β| ≡ 3 (mod 4)`.
   This is the 2-adic rule under which pc-audit expects TYZ's row 5b to certify both curves. That
   expectation rests on pc-audit RK6, which this note does not check (SPECULATIVE here).
+
+## 4. What the Lean proof would need
+
+### 4.1 The narrowed hypothesis
+
+Route K replaces `PoleCompleteness` by the version for `x + ℓ` (rv-route-k §2.2, §4.5). With DL proved,
+the only input Lean cannot prove is the passage from a certificate of Selmer type to a rational point.
+Mathlib has no Selmer groups. The hypothesis should therefore be stated with the explicit system of
+§2.1, which only needs Legendre symbols of the primes of `d`. Write `𝒞_d` for the configuration of an
+odd squarefree `d > 0`.
+
+> **CR₃ (certified rank).** Let `d > 0` be odd and squarefree, and let `a` be a squarefree divisor of
+> `±d`. Suppose the solution space of `Σ(𝒞_d)` has 8 elements (dimension 3) and contains a
+> solution with first coordinate `a`. Then `C_d` has a rational point `(x, y)` with
+> `x ∈ aℚ*²`.
+
+Justification (not part of the Lean proof):
+
+- Proposition 0 identifies `Σ(𝒞_d)` with `Sel₂(C_d)` (descent-alt §4.1; VERIFIED there, see §5
+  for its status);
+- Kriz, Theorems 10.13 and 10.17(2), with the corank lemma (manuscript line 1072; Poonen–Stoll,
+  A019), gives `rank C_d(ℚ) = 1` and `Ш(C_d)[2] = 0` when `dim Sel₂ = 3`;
+- pc-audit RK9: then `C_d(ℚ)/2C_d(ℚ) = Sel₂(C_d)`, so the class `a` comes from a point, which can be
+  taken with `x ≠ 0`.
+
+CR₃ can be narrowed further, at no cost to the proof:
+
+- to `d ≡ 5 (mod 8)` and `|a| ≡ 7 (mod 8)`, since the construction only produces such pairs
+  (`|n| ≡ 7·3`, `|β| ≡ 7`);
+- to the `d` whose configuration has the shape of §2.4 (a glued base `{p*, q₀}`). This restriction
+  does not make the deep input weaker in any useful sense, so it is not recommended.
+
+The first restriction is exactly the K-TYZ-β rule of pc-audit §4.2. If pc-audit's RK6 analysis of
+TYZ row 5b is confirmed, CR₃ in this restricted form follows from Tian–Yuan–Zhang Theorem 1.2 plus
+Gross–Zagier–Kolyvagin (A020), both published, without Kriz (SPECULATIVE until RK6 is checked).
+
+### 4.2 The lemmas Lean would prove
+
+| Lemma | Content | Main Mathlib inputs |
+| --- | --- | --- |
+| L1 (multiplier) | for admissible `B` some signed divisor `m` of 2730 gives `β` odd with `|β| ≡ 7 (mod 8)` | finite case analysis on `v₂` and residues mod 8; `decide` over the 64 divisors |
+| L2 (θ1)–(θ4) | properties of `θ` from `θc² = 1 − βt²` | valuations (`padicValRat`), `ZMod` squares; parts are already in the valuation lemmas of `PoleObstruction.lean` |
+| L3 (slots) | existence of `q₀`, `r_p`, `r_ℓ` with prescribed residue conditions, distinct and outside `2βθ` | Dirichlet: `Nat.forall_exists_prime_gt_and_zmodEq` (`NumberTheory/LSeries/PrimesInAP.lean`); CRT: `Nat.chineseRemainderOfList`; existence of non-residues (`ZMod.exists_sq_eq_neg_one_iff` style lemmas, `legendreSym.eq_neg_one_iff`) |
+| L4 (system) | definition of `Σ(𝒞)` for a finite configuration; Lemmas 1 and 2 as bijections of solution sets; Lemma 3 by `decide` | `Finset` sums in `ZMod 2`, `Fintype.card` of solution sets under bijections |
+| L5 (realization) | the configuration of `d₁`, `d₂` is the abstract one: symbols of products, the reverse symbols, the Jacobi step `(p/θ) = (θ/p)` | `legendreSym.mul`, `jacobiSym.quadratic_reciprocity_one_mod_four`, `jacobiSym.at_neg_one`, `jacobiSym.at_two` |
+| L6 (points to `PoleSoluble`) | two points with abscissa in `βℚ*²` on `C_n`, `C_{nθ}` give a zero of the `x + ℓ` pole polynomial | the algebra of rv-route-k §4.2 (`reform_check.py`), done once by `ring`/`field_simp` |
+
+The chain is `L1, L2, L3 ⇒ (configurations); L4, L5 ⇒ the systems have dimension 3 and contain the
+class β; CR₃ ⇒ points; L6 ⇒ PoleSoluble`.
+
+### 4.3 The hardest steps to formalize
+
+- **L4, the gluing bijection.** The proof of Lemma 2 is short on paper but manipulates sums over a
+  configuration whose index set changes (`S` versus `S' ⊔ {g*}`), with the diagonal of `K` built from
+  row sums. In Lean the clean route is to index configurations by a `Fintype`, prove Lemma 2 for an
+  abstract index type `S' ⊕ Unit ⊕ G ⊕ G` (glue primes indexed by `G`), and transport along
+  equivalences. This is the largest piece; it is elementary but bookkeeping-heavy.
+- **L5, from actual primes to the abstract configuration.** Every symbol of the configuration of
+  `d₁` and `d₂` has to be computed from the residue conditions of L3: the reverse symbols by
+  reciprocity, the symbols of `θ` and `|β|` by multiplicativity of the Jacobi symbol, and the classes
+  mod 8 by `χ₄`, `χ₈`. Mathlib has every ingredient; the cost is the number of cases.
+- **L3, choosing the slots.** Dirichlet and CRT are available. The Lean statement must produce a
+  `List` of primes with a pairwise condition, by recursion on the primes of `β` and `θ`, and prove
+  distinctness and squarefreeness of the product.
+- **CR₃ itself** is a hypothesis, so no Selmer theory enters Lean. Its proof from Kriz requires
+  Proposition 0, which identifies the explicit system with `Sel₂(C_d)`. That identification is the
+  natural next target if one later wants a Lean statement in terms of genuine Selmer groups; Mathlib
+  currently has neither Galois cohomology of elliptic curves nor local images, so it is out of reach
+  for now (SPECULATIVE effort estimate: months).
+
+The elementary part (L1–L6) has no analytic or cohomological content. Following pc-audit §4.4, a
+SPECULATIVE estimate is a few weeks of formalization.
