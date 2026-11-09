@@ -21,3 +21,10 @@ Hand derivations:
 - Prop N proof: CORRECT given I1-I7. Observations: F4 is not needed (l_e integers; X only needs X^{beta'}+X in A(H'_n)); second half of F3 (negation of sqrt(-n)) not needed.
 - F3: CORRECT (redone with product formula). F5: CORRECT (generalized dihedral => subfields of ring class field over K are Galois over Q).
 - Readings: found a 4th literal reading D (d_1=1 admitted AND d_1 distinguished among class-1 factors) giving T5a + Sum k w + T5b; nt-tyz's A must be understood as "set partitions counted once" semantics. To check numerically on the counterexamples.
+
+## Step 2 (counterexamples of nt-tyz 1.4; own code genus.py, counterexamples.py, rank_lower.py)
+- Factorisations 26565 = 3*5*7*11*23, 33117 = 3*7*19*83, both = 5 mod 8: CORRECT.
+- g(d) on all 31 resp. 15 divisors by three methods (reduced forms h/#ambiguous, Redei 4-rank, PARI quadclassunit): all agree. g(n)=1 for both.
+- Sums: T5a = T5b = 0; second sum A = 0, B = 1, C = 1, and also reading D (d_1=1 admitted, d_1 distinguished) = 1. CORRECT (and D refuted too).
+- Rank: points found by ellrank (different from nt-tyz's points), checked exactly on curve; Kummer images of T1,T2,P1..P3 span dim 5 => rank >= 3 (exact). Regulators 39.4026, 269.7036 (match nt-tyz). Root number -1. So ord >= 3 by GZK, calL(n)=0. CORRECT.
+- Conclusion: claim (a) holds: Theorem 1.2 under readings B, C (and D) is false; only the set-partition reading A survives these tests.
