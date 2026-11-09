@@ -66,3 +66,8 @@
 - B1, B2, B3 (no certifying multiplier with n=β, descent-alt §4.3): all 8 multipliers each with β odd, |β|≡7 (8): 24/24 OK (out_B123.txt), up to 17 aux primes (B1, m=±65), ≤ 89 digits.
 - e11 core-6 instances #0 (=B3), #1: 16/16 OK (out_e11.txt).
 - t4_ellrank.py (small realizations, PARI ellrank effort 6): rank bounds [1,1] on all 20 curves; explicit points found on 6 curves (3 instances), all with abscissa class β (mod torsion cosets). ellheegner too slow.
+
+## Step 11 (all families done; §3 written)
+- core3 24/24, core6 24/24, smooth 10/10 (m=1, ω(θ) up to 9), allm 40/40 (incl. ω(β)=1).
+- Total 62 inputs, 216 runs, 216 certified on both curves; slots = ω(β)+ω(θ) in every run (summarize.py).
+- Note §1.1 now recalls proofs of (θ1)–(θ4).
