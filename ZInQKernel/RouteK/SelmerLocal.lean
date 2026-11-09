@@ -1,4 +1,6 @@
 import ZInQKernel.RouteK.Selmer.Covering
+import ZInQKernel.RouteK.Selmer.PadicSquare
+import ZInQKernel.RouteK.Selmer.Real
 
 /-!
 # Proposition 0, local part

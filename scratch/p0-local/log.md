@@ -5,3 +5,9 @@
   kummer (on shortCurve (-d^2)), loc_iff_kummer (Lemma 1.2), Sel2, CertifiedRankSel, classInt, selPair,
   Prop0Statement (iff + surjectivity onto Sel2), selPair_injective, classInt_natClass,
   exists_point_of_loc, certifiedRank_of_sel. Compiles, no sorry.
+- PadicSquare.lean: isSquare_of_norm_sub_one_lt (one Hensel lemma for all p: ‖u-1‖ < ‖2‖²), (P) general
+  sqEq_add_of_norm_lt_two_sq, odd sqEq_add_of_norm_lt, sqEq_add_of_norm_le_two_adic; unitPart,
+  isSquare_iff_even_valuation (SQ(c)), isSquare_coe_iff_toZMod (SQ(a)), isSquare_coe_iff_toZModPow_two (SQ(b)),
+  isSquare_padic_iff, isSquare_two_adic_iff; RT: isSquare_intCast_of_residue, isSquare_intCast_div_of_residue,
+  isSquare_ratCast_of_residue, isSquare_intCast_div_two_adic, isSquare_ratCast_two_adic. Compiles.
+- Real.lean: loc_real_iff (d a b : ℝ), loc_real_iff_int. Compiles.
