@@ -602,8 +602,11 @@ here (UNCHECKED); the replacements change no statement and no constant.
   878-892, so the non-explicit MW93b cannot replace A015. After §2 the same theorem also carries
   U1 and U2, so this single leaf now supplies all three isogeny-theoretic inputs.
 - **Faltings 1983, Lemma 5 (A006).** It is the origin of the height-variation inequality. Raynaud,
-  *Hauteurs et isogénies*, Astérisque 183 (1990), gives the exact formula; that is an
-  alternative with a stronger statement, not an older one.
+  *Hauteurs et isogénies*, exposé VII of *Séminaire sur les pinceaux arithmétiques : la
+  conjecture de Mordell*, Astérisque 127 (1985) (reference VERIFIED from the bibliography of
+  GR11), gives the exact formula and the additivity `h(A₁ × A₂) = h(A₁) + h(A₂)` (GR11 cites its
+  Corollary 2.1.3 for additivity and duality). It is an alternative with a stronger statement,
+  not an older one.
 - **Lin–Yang and Lauter–Naehrig–Yang (A017), Buzzard (A002), Serre's local class field theory
   (A012), Silverman (A071), Li (1975), Shimura (1973).** Published or classical; no change
   proposed beyond §4.4.
