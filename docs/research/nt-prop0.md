@@ -499,3 +499,36 @@ to 4 primes below 60 (a few values repeat), over every pair in the box `⟨−1,
 (descent-alt §4.1: 600 values of `d`; rv-slot-k-descent §4.1) and against the Lean definitions
 (cr3-check: 40 values of `d`). The new content here is the x-form of the coverings and the proofs
 written in the order Lean needs.
+
+## 3. What Mathlib v4.35.0 has (VERIFIED by grep, rev `56a0058`)
+
+The full list, with line numbers, is in `scratch/nt-prop0/mathlib-inventory.md`. `M/` stands for
+`Mathlib/`. The declarations this plan relies on were rechecked by hand: `hensels_lemma`,
+`unitCoeff_spec`, `toZMod`, `jacobiSum`, `jacobiSum_nontrivial_inv`, `quadraticChar_sum_zero`,
+`Rat.isSquare_iff_even_factorization` and `Subgroup.index_range`.
+
+| Need | Mathlib | Verdict |
+| --- | --- | --- |
+| `ℚ_p`, `ℤ_p`, valuation, unit part | `Padic`, `PadicInt`, `Padic.valuation`, `valuation_ratCast`, `PadicInt.unitCoeff_spec` (`Padics/PadicIntegers.lean:432`), `mkUnits` | EXISTS |
+| residue maps | `PadicInt.toZMod` (`Padics/RingHoms.lean:301`), `ker_toZMod` (328), `toZModPow` (448) | EXISTS |
+| Hensel | `hensels_lemma` (`Padics/Hensel.lean:460`), hypothesis `‖F(a)‖ < ‖F′(a)‖²`; also `IsAdicComplete.henselianRing` | EXISTS |
+| squares in `ℚ_p` (SQ, P, RT) | none; only `Rat.isSquare_iff_even_factorization` (`PadicVal/Basic.lean:394`) | MISSING (short) |
+| squares in `ℝ` | `Real.isSquare_iff` | EXISTS |
+| Legendre, Jacobi, `χ₄`, `χ₈`, reciprocity | `legendreSym.*`, `jacobiSym.*`, `ZMod.χ₄`, `ZMod.χ₈`; the repo's `legBit` layer (`RouteK/Slots/Symbols.lean`) | EXISTS |
+| quadratic character sums | `quadraticChar`, `quadraticChar_sum_zero` (`QuadraticChar/Basic.lean:238`), `jacobiSum` (`JacobiSum/Basic.lean:48`), `jacobiSum_nontrivial_inv` (140) | PARTIAL: Lemma Q and Lemma J missing |
+| Hilbert symbol, isotropy over `ℚ_p` or `𝔽_q`, conics | none | MISSING (not needed) |
+| Chevalley–Warning | `char_dvd_card_solutions_of_sum_lt` (`FieldTheory/ChevalleyWarning.lean:110`) | EXISTS (not applicable to `D_{a,b}`) |
+| Weierstrass curves, group law, base change of points | `WeierstrassCurve.Affine.Point`, `AddCommGroup` (`Affine/Point.lean:805`, needs `[Field F] [DecidableEq F]`), `Point.map`, `Point.baseChange` (822, 858) | EXISTS (not needed for Prop 0) |
+| Kummer map, 2-descent, coverings, Selmer group of a curve | none in Mathlib. `IsDedekindDomain.selmerGroup` is `K(S, n)`, definition only. The repo's `Model/Descent/Kummer.lean` has `SqClass`, `sqc`, the 2-isogeny Kummer map `kummer` on `y² = x³ + bx` with `kummer_add`, `kummer_eq_one_iff`, `rescale_phi_phi` | MISSING in Mathlib, partial in the repo |
+| `E(𝔽_q)` finite, Hasse bound, reduction of points over `ℚ_p` | none | MISSING (avoided by §2.3) |
+| `[G : 2G] = #G[2]`, descent theorem, heights | `Subgroup.index_range` (`GroupTheory/Index.lean:902`), `AddCommGroup.fg_of_descent'` (`GroupTheory/Descent.lean:147`), `approx_parallelogram_law`, `finite_torsion` (`NumberTheory/Height/EllipticCurve.lean:80, 123`) | EXISTS (only for route R3) |
+
+Two observations follow.
+
+- **The repo's curve is already `C_d`.** `shortCurve (−d²)` is `y² = x³ − d²x`, so the repo's `kummer`
+  is the first coordinate `δ₁` of `δ`, as a homomorphism over any field. This matters only for route
+  R3 (§5), which needs the group law.
+- **Nothing missing is deep.** Everything Proposition 0 needs from outside the repo is short: SQ,
+  (P), (RT), Lemma Q and Lemma J. The integer congruence lemmas `realChar_exists_sq_mod_pow_odd` and
+  `realChar_exists_sq_mod_two_pow` (`Progressions/RealChar/Hensel.lean`) are not usable as stated,
+  because they concern `ℤ/pⁿ`, not `ℚ_p`. `hensels_lemma` gives SQ directly.
