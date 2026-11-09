@@ -272,3 +272,81 @@ claim is a remark on economy, not part of the proof.
 
 Propositions A, B and C of descent-alt are not used by the proof of DL, and were not refereed
 here beyond this remark (UNCHECKED).
+
+## 4. Computations
+
+All scripts are in `scratch/rv-slot-k-descent/`. They are new, and import nothing from the
+directories of the earlier notes. PARI (through `cypari2`) is used only for factoring, for CRT, and
+for the `ellrank` cross-checks.
+
+### 4.1 An independent exact 2-descent (`sel2.py`)
+
+The code computes `Sel₂(C_d)` for odd squarefree `d > 0` without using Proposition 0 or the
+torsion-span argument of §1.2.
+
+- The global group is `ℚ(S ∪ {2}, 2)²`, with basis `−1, 2` and the primes of `d`.
+- At each place `v ∈ {∞, 2} ∪ {p | d}`, the local image is the span of the Kummer classes
+  `(x, x − d)` of sampled rationals `x` with `x(x − d)(x + d)` a nonzero square in `ℚ_v`. Sampling
+  stops when the span reaches the known order of `E(ℚ_v)/2E(ℚ_v)`: dimension 1, 3, 2. A larger span
+  aborts the run. The image is a subgroup and every sampled class is genuine, so the result is
+  exact.
+- `Sel₂` is the intersection of the preimages of the local images, computed by linear algebra over
+  `𝔽₂`.
+
+**Proposition 0 against it** (`t_prop0.py`, `out_t_prop0.txt`). The test used 30 random odd
+squarefree `d`, with 1–5 primes below 400, drawn 8, 8, 7, 7 from the classes 1, 3, 5, 7 mod 8. The
+system of §1.5 (`prop0.py`, written from the derivation above) gives the same subspace of
+`ℚ(S ∪ {2}, 2)²` as the point-based descent in 30 of 30 cases. The comparison is of the subspace
+itself, not just its dimension. Membership in `π₁` agrees for every signed divisor of `d`.
+Selmer dimensions ranged over 2–6. PARI's `ellrank` was run on the first 10. Its unconditional
+quantities satisfy `C = T + r₂ + s` with `T = 2`, and `C` equals the computed `dim Sel₂` in 10 of 10.
+
+### 4.2 The construction on 30 admissible inputs (`slots.py`, `run30.py`, `out_run30.txt`)
+
+`slots.py` implements slot-k §2.4 from its text. The conditions modulo 8 and modulo the primes of
+`βθ` are imposed by CRT. Those modulo earlier slots are imposed by testing Legendre symbols along
+the progression. The 30 inputs are:
+
+- `B₁`, `B₂`, `B₃` of descent-alt §4.3: no multiplier certifies them with `n = β`. `B₃` has an
+  isotropic core of size 6;
+- the second core-6 input of descent-alt's `e11` computation;
+- the six inputs on which the greedy descent of descent-alt §4.7 stalls. Their values of `B` are
+  recorded in slot-k's replay output, `#8, #18, #19, #20, #23, #28`;
+- five new Proposition B instances: three with a core of size 3 and two with a core of size 4.
+  Core primes are `≡ 1 (mod 21840)` and pairwise quadratic residues;
+- fifteen new random admissible inputs, `B = N/D²` with `v_p(N) ∈ [4, 7]` on `S₀` and a random
+  cofactor of up to 14 digits.
+
+The multiplier is the one with the fewest slots for the first four inputs, and a random eligible
+one for the others. In 16 runs `β < 0` and in 14 runs `β > 0`, so both branches of the sign
+bookkeeping are exercised. Results:
+
+| Quantity | Result |
+| --- | --- |
+| (θ1)–(θ4), checked directly | 30 / 30 |
+| `ω(β)`, `ω(θ)` | 2–10, 1–6 |
+| number of slots | `ω(β) + ω(θ)` in every run (5–12; slots up to 85 digits) |
+| `d₁ mod 8` | 5 in every run |
+| `dim Sel₂(C_{d₁}) = 3` and `β ∈ π₁` | 30 / 30 |
+| `dim Sel₂(C_{d₁θ}) = 3` and `β ∈ π₁` | 30 / 30 |
+| Proposition 0 equals the point descent on `C_{d₁}` (same subspace) | 30 / 30 |
+
+**Negative control** (`out_run30_wrongx.txt`). The same 30 inputs were rerun with the wrong sign
+choice `x = s` in place of `x = s + 1`. Sixteen of them have a prime `≡ 3 (mod 4)` in `θ`; on the
+other fourteen the change is harmless by step 6, and they were skipped. On all 16 the first curve
+is still certified, and the second still has `dim Sel₂ = 3`, but `β ∉ π₁(Sel₂(C_{d₁θ}))`. This is
+exactly what step 6 predicts, since `u_{r_ℓ} = λ_ℓ` then. It also shows that the descent is able to
+reject a wrong construction.
+
+### 4.3 The deep input on small realizations (`t_ellrank.py`, `out_t_ellrank.txt`)
+
+The certified curves of §4.2 have conductors far beyond `ellrank`. Five small pairs `(β, θ)`
+satisfying (θ1)–(θ4) were therefore drawn. They do not come from admissible `B`. For each, the
+smallest primes meeting the slot conditions were taken, giving 10 curves with `d ≤ 1.4·10¹²`.
+
+- The independent descent certifies all 10.
+- `ellrank` returns `[r₁, r₂, s] = [1, 1, 0]` on all 10, consistent with `dim Sel₂ = 3`.
+- It found explicit points on 4 curves. In each case the abscissa class is `β` times a torsion
+  first coordinate (`1, −1, d, −d`), as the certificate predicts.
+
+This tests the deep input on a few cases; it is not part of the proof.
