@@ -329,3 +329,44 @@ including both counterexamples (32 elements each).
 
 Claim (c) is proved as a deduction, relative to the elementary results of tyz-5b and Proposition 0,
 and the tests found no exception.
+
+## 7. Repairs
+
+1. **(B1) Quote I2 as a congruence.** Replace "`Σ ε𝓛(d₁)𝓛(d₂) = Q(m) ≡ g(m)`" by
+   "`w_K Σ ε𝓛(d₁)𝓛(d₂) = Q(m)` (TYZ Theorem 2.1 with the character formula; Lemma 2.8 as printed omits
+   `w_K`, which is `3` for `m = 3` and `1` otherwise), hence `Σ ε𝓛(d₁)𝓛(d₂) ≡ g(m) (mod 2)`". Lemma N1
+   uses nothing more. The proof of Lemma N1 is unchanged.
+2. **(A1) State reading A as a convention on set partitions.** "Decompositions are set partitions of
+   the primes of `n`, each counted once; `d₀` is the block of class 5, 6 or 7, `d₁` the block of class
+   2 or 3 if there is one and `1` otherwise, and `d_i`, `i > 1`, the class-1 blocks." Also record that
+   the reading with `d₁ = 1` admitted but `d₁` distinguished (reading D) is refuted by the same two
+   values.
+3. **(B2, B3) Optional simplifications.** In §4.4 of nt-tyz, drop the appeal to F4, and note that
+   only the first half of F3 is used. In I1, note that only `ε ≡ 1` on `(5, 1)`, `(7, 1)` and `(7, 3)`
+   is used. These changes shrink the list of facts a human referee must check. They change nothing
+   in the logic.
+4. **(A2) Optional strengthening.** Add the two-line argument of §4.5. With it, nt-tyz proves reading
+   A of Theorems 1.2 and 3.5(2) for `n ≡ 5` in full, with the hypothesis "`2^{−ρ(n)}𝓛(n)` is even".
+   This supports the recommendation that a correct published form exists, which Proposition N
+   instantiates.
+5. **(B5)** Line reference L2077 → L2076.
+
+None of these repairs touches the citation recommended in nt-tyz §4.5 or the conclusion for CR₃.
+
+## Computations
+
+All computations are exact unless marked numerical. PARI/GP 2.17 was used only for factorizations,
+for a third class-group cross-check, for finding points, and for the numerical items. The code is in
+`scratch/rv-nt-tyz/`.
+
+| Computation | Method | Result |
+|-------------|--------|--------|
+| `g(d)`, genus sums for 26565, 33117 (`counterexamples.py`, `genus.py`) | reduced forms; Rédei matrix; PARI | three methods agree on 46 divisors; `T_5a = T_5b = 0`; A = 0, B = C = D = 1 |
+| rank ≥ 3 (`rank_lower.py`) | exact Kummer images of `T₁, T₂, P₁, P₂, P₃` | span of dimension 5 for both `n` |
+| Lemmas N1, N2 (`coeff_recompute.py`) | recursions I1, I2 in `𝔽₂[i]` vs set-partition enumeration | 360 configurations, 20 440 coefficients, 0 mismatches; brackets = `(T_5a, T_5b)` |
+| mutation tests | altered `ε`-rule | `(5, 3)` class irrelevant; `(5, 1)` / `(7, 3)` errors detected |
+| N1, N2 on actual `n` (`coeff_real.py`) | `g` from reduced forms | 30 `n`, 152 coefficients, 0 mismatches |
+| `n ≡ 7` coefficients (`coeff_n7.py`) | as above | 120 configurations, 3825 coefficients, 0 mismatches |
+| `𝓛(1)`, `𝓛(3)` (`calL_small.py`) | numerical `L(E_n, 1)/Ω` | `𝓛(1)² = 𝓛(3)² = 1` to 10 digits |
+| Proposition N vs analytic rank (`propN_diff.py`) | Rédei parities; numerical analytic rank | 30 `n`, 24 with an odd sum, all of analytic rank 1 |
+| §5.1 on actual curves (`cr3_sample.py`) | own full 2-descent; Rédei parities | 30 + 20 admissible `d`, `T_5b = 1` in all; 2 end-to-end points |
