@@ -63,7 +63,7 @@ Setup: C_d: y^2 = x(x-d)(x+d), e1=0, e2=d, e3=-d, d>0 odd squarefree. Kummer (x-
   earlier slots). run30.py: inputs B1, B2, B3 (descent-alt 4.3), e11#1 (core 6, second input of
   out_e11_core6.txt; B3 is #0), the six greedy-stall inputs #8,#18,#19,#20,#23,#28 (slot-k out_e8_replay.txt),
   3 own core-3 and 2 own core-4 instances (core primes = 1 mod 21840, pairwise residues), 15 own random.
-  Multiplier: fewest slots for B1,B2,B3,e11#1; random eligible otherwise. 17 runs with beta<0, 13 with beta>0.
+  Multiplier: fewest slots for B1,B2,B3,e11#1; random eligible otherwise. 16 runs with beta<0, 14 with beta>0.
 - Result: (theta1)-(theta4) hold in 30/30; slots = w(beta)+w(theta) (5-12, up to 85 digits); d1 = 5 (8);
   dim Sel2(C_d1) = dim Sel2(C_d2) = 3 and beta in pi_1 for both: 30/30 CERTIFIED. Prop 0 = point descent on C_d1:
   30/30.

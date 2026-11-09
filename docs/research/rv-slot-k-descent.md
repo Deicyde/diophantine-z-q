@@ -170,3 +170,58 @@ all odd `d`.
 Prop 0 is a statement about actual integers `d`. slot-k applies it only to the actual `d₁`, `d₂`;
 the virtual configurations of Lemmas 1–3 enter only through combinatorial isomorphisms of
 solution spaces. This is the correct order of logic.
+
+## 2. The certificate and the deep input
+
+### 2.1 Definition (CORRECT)
+
+slot-k §1.2 defines a Selmer certificate for `C_d` by `dim_{𝔽₂} Sel₂(C_d) = 3` and
+`β ∈ π₁(Sel₂(C_d))`. Here `π₁` is the projection to the first Kummer coordinate `x`. The
+construction replaces `n` by `d₁ = |n|`. This is harmless: `C_n` and `C_{|n|}` are the same curve,
+and the first Kummer coordinate is the class of `x` for either choice of `e₂ = ±d`. Only the second
+coordinate changes, from `x − d` to `x + d`.
+
+### 2.2 From a certificate to a point (CORRECT)
+
+The chain below is the one that pc-audit (§2.2, RK1, RK3, RK9) and rv-route-k §4.3 use.
+
+1. **Corank one.** Manuscript Lemma `lem:corank` (line 1072) is stated for any elliptic curve over
+   `ℚ` with full rational 2-torsion, so it applies to `C_d` as it stands. Its proof is correct:
+   - the Kummer sequence gives `r + dim Ш[2] = dim Sel₂ − 2 = 1`;
+   - write `Ш[2^∞] = (ℚ₂/ℤ₂)^t ⊕ F` with `F` finite. The Cassels–Tate pairing is alternating and
+     nondegenerate on `Ш/Ш_div`, so `dim F[2]` is even;
+   - this forces `F = 0` and `r + t = 1`.
+
+   For elliptic curves the alternating property is already in Cassels (1962). Poonen–Stoll (A019)
+   is not needed, but citing it is not wrong.
+2. **Kriz.** `C_d` has CM by `ℤ[i] = O_{ℚ(i)}` over `ℚ(i)`, and `p = 2` is the prime that ramifies
+   in `ℚ(i)`. Theorem 10.13 of arXiv:2002.04767v5 gives `rank C_d(ℚ) = 1` and `#Ш < ∞` from
+   `corank_{ℤ₂} Sel_{2^∞} = 1`. Its standing assumption `f₀ ≥ 4` (pc-audit RK1) holds: `f₀` is the
+   odd part of `|d|`, and `|d|` is divisible by at least two odd primes (those of `β` and `q₀`), so
+   `f₀ ≥ 21`.
+3. **`Ш[2] = 0` and every class comes from a point.** From `r = 1` and `r + dim Ш[2] = 1`,
+   `C_d(ℚ)/2C_d(ℚ) = Sel₂(C_d)`. If `P` represents the class with first coordinate `β`, so does the
+   non-torsion point `P + 2Q` for a generator `Q`. A non-torsion point has `x ∉ {0, ±d}`, so its
+   abscissa lies in `βℚ*²` (pc-audit RK9).
+
+So a certificate on each of `C_n` and `C_{nθ}` gives the two points that rv-route-k §4.2 turns into
+`Φ_C(B)`. That reformulation was not re-examined here (UNCHECKED in this report; it is outside its
+focus).
+
+*Remarks on the citations* (finding F3, minor).
+
+- slot-k cites "Theorems 10.13 and 10.17(2)". pc-audit RK1 points out that Theorem 10.17 is
+  stated under header hypotheses belonging to its part (1), and recommends citing 10.13 directly.
+- slot-k does not mention the hypothesis `f₀ ≥ 4`. It holds trivially here, as shown in item 2.
+- The deep input is used exactly once per curve, and only in the form (R≥1) of pc-audit §2.2.
+  slot-k's §1.2 and CR₃ (§4.1) state it consistently with that.
+
+### 2.3 CR₃ (CORRECT as a consequence of the above)
+
+slot-k §4.1 proposes the Lean hypothesis CR₃. It reads: for odd squarefree `d > 0` and a squarefree
+divisor `a` of `±d`, if the system `Σ(𝒞_d)` has exactly 8 solutions, one of them with first
+coordinate `a`, then `C_d` has a rational point with `x ∈ aℚ*²`. By Proposition 0 (§1.5) the
+solutions are the Selmer classes, and §2.2 then gives the point. Two remarks:
+
+- since §1.4 proves all four place-2 rows, CR₃ may be stated for every odd `d`, as slot-k proposes;
+- if it is restricted to `d ≡ 5 (mod 8)`, only the row `c = 5` enters its justification.
