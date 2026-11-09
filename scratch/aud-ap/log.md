@@ -52,3 +52,10 @@
   9–11). ap-lean statements agree: PoleAbsorbHyp keeps the redundant seven-numerator clause (cosmetic, finding 6);
   field 2′ (not 2″); pole_input_valuations_AP concludes ≥ 4 on S_b (rv says conclusions could stay ≥ 103C+8; ≥ 4 is
   what PoleCompleteness uses — kernel-checked chain, so harmless).
+
+## Step 5 (Lean runs, one at a time)
+- `lake build ZInQKernel`: Build completed successfully (9593 jobs), 7m01s; no "declaration uses 'sorry'". CORRECT.
+- `python3 scripts/check_target.py`: "FrozenTarget matches lean/Frozen/BoundedIntegerPolynomial.lean". CORRECT.
+- scratch/aud-ap/Axioms.lean (output axioms.out): variant type
+  SixContactMin → CertifiedRank → GoodPrimeAP → FrozenTarget (main: … → FixedPrimePattern → FrozenTarget);
+  #print axioms variant and slopeRepresentationAP_of_goodPrimeAP: [propext, Classical.choice, Quot.sound]. CORRECT.
