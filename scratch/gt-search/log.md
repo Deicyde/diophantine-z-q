@@ -76,3 +76,48 @@ Started 2026-11-09. Task: find Lean formalizations of Green-Tao / relative Szeme
 - Guessed repo names (green-tao, greentao, GreenTao, green_tao, relative-szemeredi, GreenTaoTheorem,
   szemeredi) under gdahia, Vilin97, LeanPool, YaelDillies, b-mehta, AxiomMath, teorth: none exist.
 - YaelDillies/LeanAPAP exists (tag v4.34.0, 26a124f5, 2026-09-17): Kelley–Meka 3-AP bounds, not Green-Tao.
+- math-inc/FormalQualBench main = efaa113c6a00a79e92842ce541b407d7695d7699 (2026-03-19), Lean v4.28.0,
+  Apache-2.0: FormalQualBench/GreenTaoTheorem/Main.lean is a `sorry` stub
+  `theorem MainTheorem : ∀ k : ℕ, ∃ a d : ℕ, 0 < d ∧ ∀ i : Fin k, Nat.Prime (a + i.1 * d)`. VERIFIED.
+- arXiv 2605.26959 (MerLean-Prover; TeX source): FormalQualBench table: GreenTaoTheorem is among the
+  13 problems NOT closed by MerLean. arXiv 2610.35962 (h1; TeX source): 14/23 FormalQualBench, no
+  per-problem list, no mention of Green-Tao.
+- web search "FormalQualBench results Green-Tao theorem solved by agent", "FormalQualBench leaderboard",
+  "OpenGauss FormalQualBench solved problems list GreenTaoTheorem", "\"GreenTaoTheorem\" Lean proof",
+  "LeanTriathlon Green-Tao numina": no solution found.
+- project-numina/LeanTriathlon 2aede4209c203ae9901eff870744e4b77dc6173f (2026-06-27): only
+  LiveLeanTriathlonSorry/GreenTaoTheorem/All.lean (sorry statement).
+- google-deepmind/formal-conjectures main 84cf7f8adfb0ea8d14c7d00bdf145cc9032bdf88 (2026-10-14):
+  mentions Green-Tao only in ErdosProblems/3.lean and 210.lean (see doc).
+- math-inc/OpenGauss, Koerbser/erdos-3-autolab, gdahia/densityhalesjewett: exist (commit lookups
+  answer) but their source archives could not be produced; not inspected.
+- *** leanprover/lean-eval main 38361be884302c7edce1908c4aef8296eb2cb27e (2026-10-07), Lean
+  v4.35.0-rc3, Apache-2.0: problem `green_tao` (LeanEval/NumberTheory/GreenTao.lean, submitter Kim
+  Morrison): `theorem green_tao : ContainsArbitraryAPs {p : ℕ | Nat.Prime p}` with
+  `def ContainsArbitraryAPs (A : Set ℕ) : Prop := ∀ k : ℕ, ∃ a b : ℕ, 1 ≤ b ∧ ∀ j : ℕ, j < k → a + b * j ∈ A`.
+  audits/v1/selection-2026-08-20.md: green_tao solves 2 (issues 907, 1052), first accepted
+  2026-08-01T07:07:21Z.
+- *** leanprover/lean-eval-submissions main e6cee4be3b6ce6f7625c5a2914a090be1ff24729 (2026-10-14),
+  results/*.json: SEVEN comparator-accepted green_tao results (all with submission.public = false):
+    1. Vilin97 (Vasily Ilin), accepted 2026-08-01T07:07:21Z, model gpt-5.6-Sol, issue 907,
+       repo Vilin97/lean-eval-green-tao @ 0c5d3337c3ebb59c318ab9030e31b835826141f8, benchmark commit
+       3f3786f3b4d9a4b64a5859b3036aca190cd25613. production_description: "Produced autonomously by
+       gpt-5.6-Sol in Codex, with human direction. Builds on Mathlib and LeanEval's transference/majorant
+       framework, adding a source-full ordered hypergraph-removal assembly. The submitted source contains
+       no sorry, admit, added axioms, set_option, or native_decide."
+    2. ZhengyangZhang06, 2026-08-16T10:52:12Z, "Humanifa + GPT 5.6 sol", issue 1052, humanfia/lean-eval
+       @ ab2e8d68a5e4e07055f919e0e38bb43bf53a252b, publication "planned" 2026-08-31.
+    3. Vilin97 file also: Axiom Prover (Axiom Math), 2026-08-29T06:44:34Z, issue 1481,
+       AxiomMath/lean-eval-submissions-final @ b092f7455ac0cf0c405e42fbb669ef8144de9fd9, private.
+    4. lukerj00, Tau (caj.al), 2026-09-05T18:47:17Z, lukerj00/tau-lean-eval-submission @ 04868934, private.
+    5. skidanovalex, NEAR AI w/ DeepSeek V4, 2026-09-16T02:40:44Z, SkidanovAlex/leaneval-deepseek @ 865b8d22.
+    6. sarjinius, Midas, 2026-09-27T20:24:03Z, midas-intelligence/midas-leaneval-submission @ 87b09d3b, private.
+    7. ma4ypic4y, max gp (GPT-6 / gpt-6.1-sol), 2026-10-12T13:11:02Z, ma4ypic4y/lean-eval-top1 @ f0705867,
+       "92 submitted Lean sources", private.
+  None of these seven repositories is publicly readable now (all lookups: git ls-remote fails = private
+  or deleted). VERIFIED (records read from results JSON).
+- Hugging Face dataset humanfia-lab/lean-eval-source @ 6a6d9f67a91d546677321aeea559c2857b697635
+  (2026-08-18; green_tao workspace unchanged since 2528f9e2, 2026-08-08): problems/green_tao/ =
+  Humanize attempt, 15370 lines, Lean v4.32.0-rc1, Mathlib 360da6fa. Submission.lean:
+  `by_cases hk : k ≤ 27; · exact Lucas.primeAP_of_le_twenty_seven k hk; · sorry` -> INCOMPLETE
+  (pre-acceptance snapshot). License: "UNLICENSED © Zijian Zhang". VERIFIED (downloaded).
