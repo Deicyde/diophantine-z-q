@@ -228,3 +228,60 @@ bits (1,000 trials each, `ω(β) ≤ 6`, `ω(θ) ≤ 5`). The share of trials wh
   square there. The construction does not use this.
 - Test generators that prescribe `θ` must respect it. Abstract tests that ignore it, as in slot-k
   §3.3 and here, test a superset of the actual inputs, which is harmless.
+
+## 4. Computations
+
+All scripts are in `scratch/rv-slot-k-red/`. None imports code from `scratch/slot-k/`,
+`scratch/descent-alt/` or `scratch/rv-route-k/`.
+
+### 4.1 An independent exact 2-Selmer computation
+
+`sel2.py` computes `Sel₂(C_d)` for odd squarefree `d > 0` directly from the definition, as the
+classes `(a, b)` in `⟨−1, 2, p | d⟩²` whose local class lies in the local image at `∞`, at 2 and at
+every `p | d`. Outside `2d∞` the condition holds automatically. The local images are computed as
+follows:
+
+- at odd `p | d`, the span of the two torsion images;
+- at `∞`, the span of `(−, −)`;
+- at 2, the span of the Kummer images of 2-adic points. The points are found by searching rationals
+  `x` with `x(x − d)(x + d)` a nonzero 2-adic square. The search stops when the span reaches
+  dimension `3 = log₂ #C_d(ℚ₂)/2`; the script asserts that it does.
+
+**Checks.**
+
+- *Against PARI.* On 27 small `d` the dimensions agree with PARI's `ellrank`, as
+  `dim Sel₂ = 2 + R + s`. Examples: `d = 17` has `Ш[2]` of rank 2, and `d = 113` has `R = 2`.
+- *Against Proposition 0.* `prop0.py` implements the system of slot-k §2.1 from the text. On 600
+  random `d` (1–8 primes below 3000; 128, 162, 153 and 157 curves in the classes 1, 3, 5, 7 mod 8),
+  the two computations give the same subspace of `(ℚ*/ℚ*²)²`, not merely the same dimension
+  (`t_prop0_full.py`). Proposition 0 is therefore confirmed in all four classes, beyond the class 5
+  that the proof uses.
+
+### 4.2 The construction on adversarial admissible inputs
+
+`construct.py` implements slot-k §2.4 from its text:
+
+- it computes `β` and `θ` from `B` and `m`, factoring with PARI, and checks (θ1)–(θ4);
+- it chooses `q₀` by CRT modulo 8 and the primes of `βθ`;
+- it chooses the `r_p`, then the `r_ℓ`, by CRT modulo 8, the primes of `βθ` and `q₀`, followed by a
+  search for the symbols at the earlier slots;
+- it certifies `C_{|n|}` and `C_{|n|θ}` with `sel2.py`.
+
+`p₀` is chosen at random, or set to every element of `P` in turn. One option instead takes every
+slot to be the least prime with its prescribed symbol pattern, so that slots such as `q₀ = 3`
+occur.
+
+**Generators** (`gens.py`, `families.py`).
+
+- For a prescribed signed `β` the input is `B = mβt²` with `t = 2730²a/b`. Then `sqf(mB) = β` and
+  `θ = sqf(1 − βt²)`, and inputs are kept when they are admissible and `θ` has the wanted shape.
+- `θ = 1` comes from the conic `βt² + c² = 1` through `(0, 1)`, that is `t = 2k/(β + k²)`.
+- Isotropic cores are primes `≡ 1 (mod 21840)` that are pairwise quadratic residues, as in
+  Proposition B.
+- The slope site uses `t = u/v` with all six `|u + cv|` (`c ∈ {0, 15, 20, 24, 30, 60}`) prime and
+  `≡ ±1 (mod 8)`, `R₀ = ηF(t)/(t − 1)⁸` and `B = R₀s²`, exactly as `slopeR` gives
+  (`B = ℓ²a²R₀/Θ²`).
+- The test site uses `R₀ = η·2730⁶F(n)` with integer `n`, and `B = R₀s²`, exactly as `testR` gives.
+
+Batches have at most 30 runs and were run one after another. A run is one input with one
+multiplier.
