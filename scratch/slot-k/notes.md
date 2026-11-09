@@ -27,3 +27,10 @@
 - Aux q≡1 (8): equations at q are (Ku)_q=0,(Kv)_q=0; Q-block K_QQ = diag(X1_I+Y1)+Y, K_QQ 1_Q = X1_I.
 - σ (u=1_P,u_Q=0) needs X1_P=0 ⇒ K_QQ singular; aux block acts as Laplacian change of input symbols + one virtual prime with symbol vector w=[n'/·].
 - Edge gadget (q1~p, q2~p', q1~q2, all ≡1 (8)) toggles L_pp' exactly, but lifts u_P=1_P to u_{q1}=u_{q2}=1 (breaks σ unless both p,p'∈P... lifts to |β|q1q2).
+
+## Step 4 (θ-transfer lemma)
+- Construction: aux hub h≡1 (8) = partner of an aux z (symbol 1 only at z, 0 at T); for each ℓ∈T a partner r_ℓ≡1 (8) with [r_ℓ/ℓ]=[r_ℓ/h]=1, all other symbols 0; all other aux q have [q/ℓ]=0 ∀ℓ∈T.
+- Claim (derived by hand): Sel(C_{d1 θ}) ≅ Sel(C_{d1}) (d1=|β|·n'), via u_T=u_h 1_T, v_T=v_h 1_T, u_{r_ℓ}, v_{r_ℓ} slack. Uses only θ≡1 (8), (θ/p)=1 (p|β), (β/ℓ)=1.
+- σ (u=1_P) lifts with first coordinate β iff v_z(σ)+a0(σ)=0 (u_{r_ℓ}=λ_ℓ(v_h+a0)).
+- t1_transfer.py: 200 random actual-prime trials, dim Sel equal in all; β∈π1 transfers in 31/37 (6 failures = the v_z+a0 condition).
+- PARI available via `~/bin/uv run --with cypari2 python`.
