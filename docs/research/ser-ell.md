@@ -223,3 +223,63 @@ lies above the Masser–Wüstholz threshold of R1. Infinitely many such `ℓ` ex
   Any mismatch is absorbed in R6, because the set of newforms is closed under `g ↦ ḡ` (R7).
 - **Consumed downstream.** In R6, for each `ℓ` in the infinite set, a newform `g_ℓ` of weight 2,
   level `≤ QM²`, and a prime `λ'` of `ℚ(g_ℓ)` above `ℓ` with `ρ̄_{g_ℓ,λ'} ≅ r̄_λ`.
+
+### R6. Pigeonhole over newforms (step 6): CORRECT after bookkeeping (F6)
+
+- **Source.** Elementary. It uses that `S₂(Γ₁(N))` is finite-dimensional (Shimura, *Introduction to
+  the arithmetic theory of automorphic functions*, 1971, Ch. 2; standard), and that a nonzero
+  algebraic integer lies in only finitely many prime ideals.
+- **Check.** Let `𝓕` be the set of pairs `(g, τ)`, where `g` is a newform of weight 2, level
+  `≤ QM²` and any character, and `τ : ℚ(g) → ℚ̄` is an embedding. `𝓕` is finite. For each `ℓ` in
+  the infinite set, R5 gives `g_ℓ` and `λ'`. The embeddings `ι_ℓ : C → ℚ̄_ℓ` (fixed) and
+  `ℚ(g_ℓ) → ℚ̄_ℓ` (from `λ'`) together define a ring map `C ⊗ ℚ(g_ℓ) → ℚ̄_ℓ`. It factors through
+  one compositum, that is, through a pair (the fixed `C ⊂ ℚ̄`, some `τ_ℓ`). Pigeonhole gives one
+  `(g, τ) ∈ 𝓕` for an infinite set `Λ` of `ℓ`. For `p ∉ T ∪ supp N_g`, put `δ_p = t_p - τ(a_p(g))`
+  in `E = C·τ(ℚ(g))`. For every `ℓ ∈ Λ` with `ℓ ≠ p`, the image of `δ_p` in `𝔽̄_ℓ` is
+  `tr r̄_λ(Frob_p) - tr ρ̄_{g,λ'}(Frob_p) = 0`. Both `t_p` and `a_p(g)` are algebraic integers:
+  `t_p` is the trace of `r_λ(Frob_p)` for every `λ`, and a continuous representation of a compact
+  group has `λ`-integral traces. So `δ_p` lies in primes of `E` of infinitely many residue
+  characteristics, and `δ_p = 0`.
+- **Conventions.** nt-h's phrase "with all their Galois conjugates … one embedding" expresses this.
+  The explicit form above is what an audit record should state.
+- **Consumed downstream.** One newform `g' = g^τ` with `N_{g'} ≤ QM²` and `t_p = a_p(g')` for all
+  `p ∉ T ∪ supp N_{g'}`.
+
+### R7. Identification and transfer (step 7): CORRECT
+
+- **Sources.**
+  - Chebotarev density and Brauer–Nesbitt (standard).
+  - The Eichler–Shimura relation and Shimura's construction (A011: Shimura, *On the factors of the
+    jacobian variety of a modular function field*, Theorem 1, as audited). They put `ρ_{g',ι}` in
+    `V_ℓ(J₁(N_{g'})) ⊗ ℚ̄_ℓ`.
+  - The Faltings Hom theorem (A063), unchanged.
+- **Check.** By R6, `r_λ` and `ρ_{g',ι}` have equal traces on a density-one set of Frobenius
+  elements, so their semisimplifications agree. `r_λ` is irreducible because `r̄_λ` is (R1), and
+  for `λ` outside `Λ` one still gets `r_λ^{ss} ≅ ρ_{g',ι}^{ss}`, which is all the transfer needs. On
+  Hecke conventions: `V_ℓ(J₁(N))` contains both `ρ_{g'}` and `ρ_{ḡ'}` (`ḡ'` is the newform with
+  conjugate coefficients). So whichever of `T_p` or `T_p^*` normalizes Eichler–Shimura, `r_λ|_{G_{L'}}`
+  is a constituent of `V_ℓ(J₁(N_{g'})) ⊗ ℚ̄_ℓ`. This is the hypothesis "common constituent of
+  `V(A)` and `V(J)`" of line 860, with `N = N_{g'} ≤ QM²`. Lines 860-966 then go through verbatim.
+  They use `N` only through `N ≤ QM²` (index bound `N²`, Javanpeykar `h_F(J) ≤ 1.3·10⁷N^{12}`,
+  `g ≤ N²`).
+- **What is no longer used.** The twist removal (Conrad, A011): KW's `g_ℓ` matches `r̄_λ` itself,
+  not a twist, and the pigeonhole compares traces directly. Weight bookkeeping `{0,-1}` against
+  `{0,1-k}`: `k = 2` comes from R3. Carayol's bound on the primitive level: the level is `N(r̄_λ)`
+  by R5. Li's Fricke stability is needed only if the manuscript keeps Shimura's quotient `A_f`.
+  With `J₁(N)` as the target, as at line 860, it can be dropped too.
+- **Consumed downstream.** The non-CM part of the height estimate (lines 858-904), unchanged.
+
+## 3. Findings, with severity
+
+| # | Severity | Step | Finding | Repair |
+| --- | --- | --- | --- | --- |
+| F1 | moderate | 5 | Serre's conjecture is cited to Khare–Wintenberger alone. Its even-level case also rests on Kisin, Invent. Math. 178 (2009) 587-634, and `N(r̄_λ)` may be even (`2 ∈ T`, `β` may ramify at 2). If the printed KW statement is the weak form, the level and weight optimization (Ribet 1990, Carayol 1989, Diamond 1995, Edixhoven 1992 with Mazur's principle) is also part of the citation. | Cite KW I, KW II and Kisin 2009 together as "Serre's conjecture (strong form)". Record the exact printed statement in a new audit record once the papers can be read. |
+| F2 | minor | 3 | The argument is written over `O_{L_v}`, but on `G_L` the representation is the Tate action twisted by `β^{-1}`. The parenthetical "the twisting cocycle is unramified at `ℓ`" is not an argument. | Work over `L'`, the kernel field of `β|_{G_L}`. It is unramified at `ℓ ∉ T`, and there `ρ_ℓ` is the Tate action (line 732). Then `I_{L'_w} = I_ℓ` (R3, items 1-2). |
+| F3 | minor | 3 | nt-h cites Raynaud's uniqueness (§3.3) to make `r̄_λ` finite flat over `ℤ_ℓ`. That descent is not needed, because `k(ρ̄)` depends only on `ρ̄|_{I_ℓ}`. The inputs actually needed are missing: closure under subquotients (for an arbitrary `G_ℚ`-stable lattice), Raynaud's inertia exponents (§3.4), and "finite flat ⇒ peu ramifiée". | R3, items 2, 3, 5 and 6. |
+| F4 | minor | 3 | "Its determinant is the mod-`ℓ` cyclotomic character times a finite character unramified at `ℓ`" is asserted without proof. | R3, item 4 (`ℓ > 3`). Alternatively use the crystalline determinant, but that reintroduces `p`-adic Hodge theory. |
+| F5 | minor | 4 | "Reduction does not increase the conductor exponent; Serre 1987, §1.2": attribution unconfirmed. | Not needed: apply lines 812-857 to `r̄_λ` directly (R4). |
+| F6 | minor | 6 | The embedding bookkeeping and the integrality of `t_p` are left implicit. | R6. |
+| F7 | minor (framing) | §4.3, route 2 | "No `p`-adic Hodge theory left in H" and "one theorem from 2009". KW and Kisin use finite flat and potentially Barsotti–Tate deformation theory (Breuil–Kisin modules) internally, and the citation is three papers. | Say: route 1 removes the *direct* uses of A009, A010 and Conrad. `p`-adic Hodge theory stays inside the citation of Serre's conjecture, as Carayol does. |
+
+No finding affects a constant. No hypothesis of the cited theorems fails. In particular, KW needs
+no condition on the residual image, and `ℓ ∤ N(r̄_λ)` holds by definition.
