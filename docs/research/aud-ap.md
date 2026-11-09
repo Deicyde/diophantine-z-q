@@ -130,3 +130,73 @@ term is in `G` and exceeds every element of `S_b`. No condition beyond the two i
 
 I compiled this derivation against the branch (`scratch` file, not part of the repository); see
 §4 for the outcome. <!-- DERIVE -->
+
+## 2. The statement of the variant
+
+```lean
+theorem exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP
+    (hH : SixContactMin) (hCR : CertifiedRank) (hAP : GoodPrimeAP) : FrozenTarget
+```
+
+- **Conclusion.** `FrozenTarget`, the same proposition as in the main theorem
+  `exists_bounded_integer_polynomial_defining_integers_of` (same constant, not a copy). The check
+  that `FrozenTarget` is token for token the frozen upstream statement passes (§4). The proof
+  term is `Assembly.assembly_AP haltingAddMulBound hH (poleCompleteness_of_certifiedRank hCR)
+  (slopeRepresentationAP_of_goodPrimeAP hAP)`, and `assembly_AP` produces the witness
+  `specPstar c₃`, the same polynomial `P_*` as `Assembly.assembly`. CORRECT.
+- **The other hypotheses.** `SixContactMin` and `CertifiedRank` are the constants used by the main
+  theorem. Between the merge base with `main` and the branch, the only changes under
+  `ZInQKernel/`, `lean/` and `scripts/` are new files (`Hypotheses/PrimeAP.lean`,
+  `Multiplication/Completeness/AP.lean` and `AP/*.lean`), one import in `ZInQKernel.lean`, and in
+  `Main.lean` two imports, one docstring bullet and the new theorem. No existing definition or
+  statement changed, so `SixContactMin`, `CertifiedRank`, `PoleCompleteness`, `FrozenTarget`,
+  `GoodSlopePrime`, `S_b` and the catalogue are those of `main`. CORRECT.
+- **No hidden hypothesis.** The variant takes no further argument; the halting-circuit bound is
+  the theorem `Compiler.NodeCheck.haltingAddMulBound`, as in the main theorem. Its axioms are the
+  standard three (§4). CORRECT.
+
+## 3. The definitions of the new modules
+
+A remark on scope first. The variant's statement mentions only `SixContactMin`, `CertifiedRank`,
+`GoodPrimeAP` and `FrozenTarget`, and `GoodPrimeAP` mentions only `GoodSlopePrime`, `S_b`,
+`pointCount` and the catalogue, all from `main`. The definitions introduced by the branch
+(`PoleAbsorbHyp`, `OldBounds`, `GoodSlopeAP`, `SlopeRepresentationAP`) occur only in intermediate
+statements. However they are chosen, they cannot weaken what the variant proves; a vacuous or
+too-weak intermediate definition could only make some proof fail, and the kernel accepts all of
+them. I still compared them with the note, since they are the Lean form of its argument and
+other work may cite them.
+
+| Definition | Note / referees | Verdict |
+| --- | --- | --- |
+| `PoleAbsorbHyp ℓ t`: `1 ≤ v_ℓ(t.den)`, `ℓ = 2 → 3 ≤ v_ℓ(t.den)`, `ℓ ∤ t.num − c·t.den` for `c ∈ 𝒞 ∪ {1}` | Lemma P: `t = u/v` lowest terms, `e = v_ℓ(v) ≥ 1`, the seven `u − cv`, `u − v` prime to `ℓ`, `ℓ` odd or `e ≥ 3` | CORRECT. Lowest terms by `num/den`. The seven clauses are redundant (`rv-nt22p-proof` finding 6), cosmetic. `F(t) > 0` is carried by field 2′ instead, which is equivalent where it is used. Primality of `ℓ` is not in the definition; it is used only at `ℓ ∈ S_b`, all prime. |
+| `OldBounds p t` | field 2 of `GoodSlope` at one prime | CORRECT: verbatim copy of the field `old` of `GoodSlope` (`PatternSlopes.lean:29`). |
+| `GoodSlopeAP B₀ t` | `GoodSlope` with field 2 replaced by 2′: "either the bounds of field 2 hold at `ℓ`, or `F(t) > 0` and Lemma P's hypotheses hold at `ℓ`" | CORRECT: fields `not_mem_contactSet`, `ne_one`, `contact`, `few` are verbatim; `old` is `OldBounds p t ∨ (0 < contactPoly t ∧ PoleAbsorbHyp p t)`. `GoodSlope → GoodSlopeAP` is proved. |
+| `SlopeRepresentationAP` | slope representation with 2′ | CORRECT: `SlopeRepresentation` with `GoodSlope 0` replaced by `GoodSlopeAP 0` (same `B₀ = 0`, three slopes, sum `A`). |
+
+Non-vacuity. `GoodSlopeAP` is not trivially satisfiable: fields 3 and 4 are those of
+`GoodSlope`, and the second alternative of 2′ still requires a pole of the right order with
+`F(t) > 0`. `SlopeRepresentationAP` is weaker than `SlopeRepresentation` (proved), and that is the
+point of the route; the kernel-checked `slope_complete_AP` shows it still suffices.
+
+The repeated completeness chain (`slopes_of_int_AP`, `completeness_core_AP`,
+`multiply_complete_AP`, `multiplication_exact_AP`, `exists_value_relation_iff_AP`,
+`assembly_AP`) has the statements of the originals with `h22 : SlopeRepresentationAP` in place of
+`SlopeRepresentation`; the conclusions (`SlopePred t ell (certShifts …)`, the multiplication
+relation, `MultiplicationExact`, the value relation, `FrozenTarget`) are unchanged. CORRECT.
+
+Intermediate lemmas, read against the note (statements only):
+
+- `lemmaP_one`, `lemmaP_two`, `lemmaP_two_ball`: Lemma P(1), (2), with `v_ℓ(1 − R₀q²) ≥ N`
+  written `‖1 − R₀q²‖ ≤ ℓ^{−N}` in `ℚ_ℓ`. CORRECT.
+- `lemmaP_three`: Lemma P(3), with `e : ℕ` (also `e = 0`), test integrality at every prime of
+  `ℤ[√2]` above `p`, `v_p(ℓ₀) ≥ 0`, `v_p(a) ≥ 23e + v_p(12) + 2`; conclusion `v_p(B) ≥ 4`. CORRECT.
+- `pole_input_valuations_AP`: concludes `v_p(B) ≥ 4` on `S_b` where the original concludes
+  `≥ 103C_p + 8`. Pole completeness needs `≥ 4` on `S₀ ⊂ S_b` only. CORRECT (a weaker
+  intermediate conclusion that is still sufficient).
+- `weak_approx_targets`: assumes `S ∩ S′ = ∅`, which holds in the application (`S_b` and the
+  selected contact primes outside `S_b`). CORRECT.
+- `slope_complete_AP`: same conclusion as `slope_complete`, hypothesis `GoodSlopeAP`. CORRECT.
+- `slopeRepresentationAP_of_goodPrimeAP`: Proposition AP with `max S_A⁺ = max(1, A′ + 60)`,
+  `min S_A⁺ = min(−60, A′ − 1)`, `K = max − min`, `u = x + (max S_A⁺)v`, slopes
+  `u/v`, `(A′v − u)/v`, `−10`. These are the note's choices, with the referees' corrected `K_A`.
+  CORRECT.
