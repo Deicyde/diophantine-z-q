@@ -101,3 +101,77 @@ The remark after the lemma is also correct: the reading of Theorem 1.1 with a di
 gives `Σ b(π)w(π)`, which fails the recursion as soon as some two-block partition has
 `g(d₁)g(d₂) = 1`. Lemma N1 was also confirmed numerically on every proper divisor class in the 360
 configurations of §3.3: there `𝓛` is computed from the recursion of I2, not from `Λ`.
+
+## 3. Lemma N2: the coefficients of the genus point
+
+### 3.1 Re-derivation (CORRECT)
+
+Let `n ≡ 5 (mod 8)` be squarefree. Unwinding I1 gives `P(n) = Σ_e c_n(e)Z(e)` over the divisors
+`e ≡ 5, 7`, with `c_n(e) = Σ Π_{j<k} (−ε(D_{j+1}, q_j)𝓛(q_j))`. The sum runs over the chains
+`n = D₀ > D₁ > ⋯ > D_k = e` with every `D_j ≡ 5, 7`, and `q_j = D_j/D_{j+1} > 1`. The following points
+were checked one by one.
+
+1. *Chains and ordered factorizations.* `5q` and `7q` lie in `{5, 7} (mod 8)` exactly when `q ≡ 1, 3`.
+   So the chains are exactly the ordered factorizations `n/e = q₀⋯q_{k−1}` into factors `> 1` of
+   classes 1 and 3. A class-3 factor switches the class of `D` between 5 and 7; a class-1 factor
+   keeps it.
+2. *Where `i` occurs.* The step from `D_j` to `D_{j+1}` uses `ε(D_{j+1}, q_j)`, which is `≡ i` iff
+   `(D_{j+1}, q_j) ≡ (5, 3)`, that is, iff the step goes from class 7 to class 5. Starting from
+   `D₀ ≡ 5`, these are the 2nd, 4th, … class-3 steps. So the unit factor is `i^{⌊s/2⌋}`, where `s` is the
+   number of class-3 factors. The sign `(−1)^k` is `≡ 1`.
+3. *Expansion.* Replace `𝓛(q_j)` by `Λ(q_j)` (Lemma N1; both are integers, so this is legitimate
+   modulo `2ℤ[i]`) and expand. The terms correspond bijectively to pairs (a partition `π` of `n/e`
+   into blocks of classes 1 and 3; an ordered set partition of the blocks of `π` into nonempty groups,
+   each with at most one class-3 block). A group with one class-3 block has product `≡ 3`, a group
+   without has product `≡ 1`, and `Λ(q)` enumerates exactly the partitions of `q` with that many
+   class-3 blocks. The weight `i^{⌊s(π)/2⌋}w(π)` depends only on `π`.
+4. *Cancellation.* If `s(π) ≥ 2`, exchanging the groups of the two class-3 blocks with the smallest
+   labels is a fixed-point-free involution on the admissible groupings. The two blocks lie in
+   different groups, every group still has at most one class-3 block, and the involution preserves
+   the weight. So the multiplicity `N(π)` is even. If `s(π) ≤ 1`, every ordered set partition is
+   admissible, and `N(π)` is the Fubini number `a(b)`, which is odd: `a(0) = 1`, and
+   `a(b) = Σ_{j≥1} C(b, j)a(b − j) ≡ 2^b − 1` by induction.
+5. *Parity of `s`.* The product of the blocks is `≡ 3^{s}`. So `s` is even iff `n/e ≡ 1`, iff `e ≡ 5`;
+   then only `s = 0` survives. And `s` is odd iff `e ≡ 7`; then only `s = 1` survives. In both cases
+   the survivors are exactly the partitions counted by `Λ(n/e)`, with unit factor `i⁰ = 1`.
+
+Hence `c_n(e) ≡ Λ(n/e) ≡ 𝓛(n/e) (mod 2ℤ[i])`. This is real for both classes of `e`.
+
+### 3.2 A remark (B3)
+
+Steps of type `(5, 3)` occur only in chains with `s ≥ 2`, and all such terms cancel in point 4.
+Therefore Lemma N2 holds whatever the `ε`-class of a `(5, 3)` step is. Of the `ε`-classification in
+I1, only `ε ≡ 1` on `(5, 1)`, `(7, 1)` and `(7, 3)` is used. In particular, the factor `i^{(n−1)/2}` in
+TYZ's display (L2588) plays no role for `n ≡ 5`.
+
+### 3.3 Independent recomputation
+
+`c_n(e)` was computed in `ℤ[i]/2 = 𝔽₂[i]` directly from the recursion I1, on abstract
+configurations: `r` labelled primes with random classes in `{1, 3, 5, 7}` whose product is `5`, and a
+random function `g` from nonempty subsets to `𝔽₂`. The values `𝓛(q)` were computed from the
+recursion of I2 modulo 2, not from `Λ`, so the test covers Lemma N1 as well. They were compared with
+`Λ(n/e)`, computed by direct enumeration of set partitions.
+
+- 360 configurations, 40 for each `r = 1, …, 9`: 20 440 coefficients `c_n(e)`, no mismatch with
+  `Λ(n/e)`, and no coefficient with a nonzero `i`-part. No mismatch between the recursion's `𝓛(q)`
+  and `Λ(q)`. The two brackets `C₁ = Σ_{e≡5} c_n(e)g(e)` and `C₂ = Σ_{e≡7} c_n(e)g(e)` equal `T_5a` and
+  `T_5b` in all 360 configurations. `T_5b` is odd in 136 of them.
+- 30 actual integers `n ≡ 5 (mod 8)` below `3·10⁶` with 3 to 7 prime factors, with `g` from
+  class-group computations: 152 coefficients, no mismatch.
+- Mutation tests (90 configurations each). Giving `ε` the class 1 instead of `i` on `(5, 3)` steps
+  still gives no mismatch, as §3.2 predicts. Giving `ε` the class `i` on `(5, 1)` steps, or on
+  `(7, 3)` steps, gives 2181 and 1261 mismatches. So the test does detect errors in the parts of I1
+  that matter.
+- *Proposition 3.4 under a distinguished `d₁`.* If `d₁ = 1` is admitted and `d₁` is distinguished
+  among the class-1 factors, the predicted coefficient of `Z(e)` is `Σ_π (k(π) + [e ≡ 5])w(π)`. This
+  disagrees with the recursion on 10 023 of the coefficients above. Proposition 3.4 is true only with
+  the set-partition convention, under which its coefficient of `Z(e)` is `Λ(n/e)`. This agrees with
+  nt-tyz §2.3.
+
+### 3.4 The case `n ≡ 7`
+
+nt-tyz states without proof that for `n ≡ 7`, `c_n(e) ≡ iΛ(n/e)` for `e ≡ 5` and `Λ(n/e)` for `e ≡ 7`.
+The same argument gives this, now starting at `D₀ ≡ 7`. The first class-3 step goes from 7 to 5 and
+carries `i`. The survivors have `s = 1` for `e ≡ 5` and `s = 0` for `e ≡ 7`. The recomputation on 120
+configurations with `n ≡ 7` (3825 coefficients) found no mismatch. CORRECT for the coefficient lemma.
+The rest of the `n ≡ 7` case was not examined.
