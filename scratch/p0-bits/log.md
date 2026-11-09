@@ -6,3 +6,4 @@
 - Leaf 3 against the explicit §2.5 class condition: isSquare_two_adic_signedProd_iff, classCond_two_iff
   (a1=0, b1=μ·u, a0+λ·u=b0+λ·v), classCond_two_iff_D (with (R): row (D)), classCond_two_and_R_iff. Compiled.
 - p0-two had no report yet (only a merge commit) at this point.
+- squarefree_classInt added; #print axioms on all main lemmas: propext, Classical.choice, Quot.sound only.

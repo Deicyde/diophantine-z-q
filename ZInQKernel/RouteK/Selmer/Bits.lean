@@ -422,6 +422,34 @@ theorem loc_real_selPair_iff {d : ℕ} (hd0 : d ≠ 0) (σ : Unknowns d.primeFac
   rw [classInt_pos_iff, classInt_pos_iff]
   rcases zmod2_cases σ.a0 with h | h <;> rcases zmod2_cases σ.b0 with h' | h' <;> simp [h, h']
 
+/-! ### Squarefreeness -/
+
+/-- `classInt d e₀ e₁ w = (−1)^{e₀} 2^{e₁} Π_{q ∣ d} q^{w_q}` is squarefree for odd `d`, so
+`a(σ)` and `b(σ)` are squarefree (nt-prop0 §2.7, proof of Proposition 0). -/
+theorem squarefree_classInt {d : ℕ} (hd : Odd d) (e₀ e₁ : ZMod 2) (w : d.primeFactors → ZMod 2) :
+    Squarefree (classInt d e₀ e₁ w) := by
+  have hpow : ∀ n : ℕ, n.Prime → ∀ e : ZMod 2, Squarefree (n ^ e.val) := fun n hn e => by
+    rcases zmod2_cases e with rfl | rfl
+    · simp
+    · rw [show (1 : ZMod 2).val = 1 from rfl, pow_one]; exact hn.squarefree
+  rw [← Int.squarefree_natAbs]
+  have habs : (classInt d e₀ e₁ w).natAbs = 2 ^ e₁.val * ∏ q : d.primeFactors, (q : ℕ) ^ (w q).val := by
+    have : classInt d e₀ e₁ w =
+        (-1) ^ e₀.val * ((2 ^ e₁.val * ∏ q : d.primeFactors, (q : ℕ) ^ (w q).val : ℕ) : ℤ) := by
+      unfold classInt; push_cast; ring
+    rw [this, Int.natAbs_mul, Int.natAbs_pow, Int.natAbs_natCast]
+    simp
+  rw [habs, Nat.squarefree_mul_iff]
+  refine ⟨?_, hpow 2 Nat.prime_two _, ?_⟩
+  · refine Nat.Coprime.prod_right fun q _ => Nat.Coprime.pow _ _ ?_
+    obtain ⟨hq, hq2⟩ := prime_ne_two_of_mem_primeFactors hd q.2
+    exact (Nat.coprime_primes Nat.prime_two hq).mpr (Ne.symm hq2)
+  · refine Finset.squarefree_prod_of_pairwise_isCoprime (fun a _ b _ hab => ?_)
+      fun q _ => hpow q (Nat.prime_of_mem_primeFactors q.2) _
+    simp only [Function.onFun, ← Nat.coprime_iff_isRelPrime]
+    exact Nat.Coprime.pow _ _ ((Nat.coprime_primes (Nat.prime_of_mem_primeFactors a.2)
+      (Nat.prime_of_mem_primeFactors b.2)).mpr fun h => hab (Subtype.ext h))
+
 /-! ### Good primes -/
 
 /-- At an odd prime `p ∤ d`, `classInt d e₀ e₁ w = (−1)^{e₀} 2^{e₁} Π_{q ∣ d} q^{w_q}` is prime to
