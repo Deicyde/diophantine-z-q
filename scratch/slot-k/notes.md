@@ -41,3 +41,8 @@
 - T-hub may be q0 itself. T lift: u_{r_ℓ}=λ_ℓ(s+η), s=[β<0].
 - Construction: m with β odd, |β|≡7 (8); x=s+1; q0≡3 (8), [q0/p]=1+λ_p x (p≠p0), [q0/p0]=x+Σ_{p≠p0}(1+λ_p x), [q0/ℓ]=0; r_p; r_ℓ ([r_ℓ/ℓ]=[r_ℓ/q0]=1). n=β q0 ∏r. #aux = ω(β)+ω(θ).
 - m with |β|≡7 (8), β odd always exists: |m_odd| mod 8 covers 1,3,5,7.
+
+## Step 6 (implementation, first validation)
+- slotk.py: construction with actual primes (CRT on P∪T, Euler-criterion search for symbols between aux primes; naive full CRT made sizes double per slot).
+- run_dl.py random30 (seed 2026, first multiplier with |β|≡7 (8)): 30/30 both curves certified ('selmer3') by the exact descent sel2cong.py; #aux = ω(β)+ω(θ) ∈ [?], aux primes ≤ 46 digits. Output out_random30.txt.
+- Draft §1, §2.1–2.3 of docs/research/slot-k.md written.

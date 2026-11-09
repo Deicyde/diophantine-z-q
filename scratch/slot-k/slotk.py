@@ -42,19 +42,30 @@ def nonres(p):
     return g
 
 
-def prime_with(cls8, symbols, avoid):
-    """A prime q = cls8 (mod 8) with [q/p] = symbols[p] for each odd prime p, q not in avoid."""
+SMALL = [p for p in range(3, 2000) if all(p % d for d in range(2, int(p ** 0.5) + 1))]
+
+
+def prime_with(cls8, symbols, avoid, search=None, rng=None):
+    """A prime q = cls8 (mod 8) with [q/p] = symbols[p] for the odd primes p in `symbols`
+    (imposed by CRT) and [x/q] = search[x] for the odd primes x in `search` (found by search,
+    using Euler's criterion).  q is not in `avoid`."""
+    import random
+    rng = rng or random.Random(0)
     a, M = cls8 % 8, 8
     for p, e in symbols.items():
         r = 1 if e == 0 else nonres(p)
-        # CRT: x = a mod M, x = r mod p
         t = ((r - a) * pow(M, -1, p)) % p
         a, M = a + M * t, M * p
-    q = a
+    search = search or {}
+    q = a + M * rng.randrange(1, 10 ** 6)
     while True:
-        if q not in avoid and q > 2 and is_prime(q):
-            return q
         q += M
+        if any(q % p == 0 for p in SMALL if p < q):
+            continue
+        e = (q - 1) // 2
+        if all(pow(x, e, q) == (1 if b == 0 else q - 1) for x, b in search.items()):
+            if q not in avoid and is_prime(q):
+                return q
 
 
 def factor_small(n, primes_hint=()):
@@ -116,14 +127,15 @@ def construct(beta, theta, P, T):
     q0 = prime_with(3, sym, used); used.add(q0)
     RP = []
     for p in Prest:
-        sy = {y: 0 for y in P + T + [q0] + RP}
+        sy = {y: 0 for y in P + T}
         sy[p] = 1; sy[p0] = 1
-        r = prime_with(1, sy, used); used.add(r); RP.append(r)
+        r = prime_with(1, sy, used, search={y: 0 for y in [q0] + RP}); used.add(r); RP.append(r)
     RT = []
     for l in T:
-        sy = {y: 0 for y in P + T + [q0] + RP + RT}
-        sy[l] = 1; sy[q0] = 1
-        r = prime_with(1, sy, used); used.add(r); RT.append(r)
+        sy = {y: 0 for y in P + T}
+        sy[l] = 1
+        se = {y: 0 for y in RP + RT}; se[q0] = 1
+        r = prime_with(1, sy, used, search=se); used.add(r); RT.append(r)
     return q0, RP, RT
 
 
