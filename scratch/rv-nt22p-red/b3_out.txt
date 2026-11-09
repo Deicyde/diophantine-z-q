@@ -108,3 +108,10 @@ Instance A=-70 v=3430747320 = [2, 3; 3, 1; 5, 1; 7, 1; 11, 1; 13, 5] x=740989276
     primes with odd v_p(B) besides selected: {}
     checked part of den(B): primes [(7409892761, 216)] + Laux^6521000; square: True
     0 < B < 1/2: True  (log10 B = -412.6); q has 391266 digits; ALL OK: True
+  [t2] t = -216685479281/3430747320  eta=+1  F(t)>0: True
+    fields: 1 True | 2' True (Lemma P branch at [13]) | 3 True | 4 True (odd contact primes outside S_b: [10840640081, 113763059681, 134347543601, 148070532881, 165224269481, 216685479281])
+    v_l(B) on S0: {2: 5838, 3: 5834, 5: 5834, 7: 5834, 13: 6090}; Spole used: [13]; v_l(a) on Spole: [124]
+    v_p(B) at selected primes: {10840640081: 1, 113763059681: 1, 134347543601: 1, 148070532881: 1, 165224269481: 1, 216685479281: 1}
+    primes with odd v_p(B) besides selected: {}
+    checked part of den(B): primes [(220116226601, 216)] + Laux^6522800; square: True
+    0 < B < 1/2: True  (log10 B = -652.2); q has 391374 digits; ALL OK: True

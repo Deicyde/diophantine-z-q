@@ -210,7 +210,7 @@ them).
 | threshold: `v = 3^e`, `e = 120, 130, 140, 150, 160` | old | `v₃(B) = 6072, 4932, 1274, −2390, −6050` |
 
 Every PC condition was checked: `v_ℓ(B) ≥ 4` on `S₀`, no negative odd valuation on the model `S_b`,
-and `0 < B < 1/2` (`B` between `10^{−120}` and below `10^{−300}`, depending on the slack). For unit
+and `0 < B < 1/2` (`B` lies between `10^{−117}` and values below `10^{−300}`, depending on the slack chosen for `q`). For unit
 test values, the old choice gives `v₃(B) = 18E₃ − 366e + O(1)` with `E₃ = 2917`, once
 `46e > 2E₃ − v₃(12)` (that is, `e ≥ 127`). The predicted values `4926, 1266, −2394, −6054` and
 `−20694` match the computed ones within the `O(1)`. So the old `q` works up to `e = 143` and fails
