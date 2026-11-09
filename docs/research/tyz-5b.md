@@ -445,6 +445,65 @@ class 7 and `c₃ ≥ 1` blocks of class 3 and no others, of `c₃ · Π_B g(B)`
 of `B₃`). Here `5 ≡ 7 · 3^{c₃} (mod 8)` forces `c₃` odd, so `c₃ ≡ 1`, and the sum is the right side of
 Proposition 3.4 (`y(V) = 0` as `n ≡ 1 (mod 4)`). ∎
 
-**Remark.** The same method gives the other rows of Smith's Table 2 with little change (rows 3, 5a, 7a,
+**Remark (SPECULATIVE).** The same method should give the other rows of Smith's Table 2 with little change (rows 3, 5a, 7a,
 7b are bordered versions of Proposition 3.3; rows 2 and 6 involve `D_{y+z}`). They are not needed here and
 were not written out; the computations of §6 check rows 1 and 5b only.
+
+## 4. The row-5b determinant on a Selmer-minimal curve (pc-audit RK6, row 5b; VERIFIED, proved here)
+
+Let `n > 0` be odd, squarefree, `n ≡ 5 (mod 8)`; so `y(V) = 0`, `z(V) = 1`.
+
+### 4.1 The Selmer group and the kernel of `M₁`
+
+We use the Selmer system `Σ(𝒞)` of slot-k §2.1 for the configuration of `n` (class `c = 5`). By
+Proposition 0 (descent-alt §4.1; the odd places by hand there, the rows at 2 for `c = 5` by hand in slot-k
+§2.1) its solutions are the elements of `Sel₂(C_n)`, written `(a, b)` with
+`a = (−1)^{a₀}2^{a₁}Π p_i^{u_i}`, `b = (−1)^{b₀}2^{b₁}Π p_i^{v_i}`. With `(Ku)_i = Σ_{j≠i} a_{ij}(u_i + u_j)`, the
+equations for `c = 5` are
+
+```
+(E1)  Ku + λv = a₀λ + a₁μ,      (E2)  μ∗u + Kv + λ∗v = b₀λ + b₁μ,
+(R)   a₀ = b₀,                  (D)   a₁ = 0,  b₁ = μ·u,  λ·v = λ·u,
+```
+
+with `λ = y`, `μ = z`, `∗` the coordinatewise product and `·` the dot product. The torsion subgroup `𝒯` is
+spanned by `(−1, −n)` and `(n, 2)`.
+
+**Lemma 4.1.** *Let `H` be the set of solutions with `b₁ = 0` and `a₀ = λ·u`. Then `Sel₂(C_n) = 𝒯 ⊕ H`, and*
+
+```
+H → ker M₁,    (a, b) ↦ k(a, b) = (u + v, u)
+```
+
+*is an isomorphism. In particular `dim Sel₂(C_n) = 2 + corank M₁`.*
+
+In terms of classes, `u + v` and `u` are the indicator vectors of the odd primes dividing `ab` (the class of
+`x + n`) and `a` (the class of `x`). This is the kernel identification that pc-audit RK6 found by
+computation for `n ≡ 5`. The conditions defining `H` say that `b` is odd and `a ≡ 1 (mod 4)` (the class of
+`a` in `ℚ₂*/ℚ₂*²` has `ε = a₀ + λ·u = 0`).
+
+*Proof.* *The kernel of `M₁`.* For `(s, t) ∈ 𝔽₂^r × 𝔽₂^r`: `(Xs)_i = y_i(y·s + s_i)`;
+`(Lᵀt)_i = Σ_{j≠i}(a_{ij}t_i + a_{ji}t_j) = (Kt)_i + y_i(y·t + t_i)` by reciprocity; `(Ls)_i = (Ks)_i`. So
+`M₁(s, t) = 0` reads
+
+```
+(top)  Kt + λ∗(s + t) = (λ·s + λ·t) λ,        (bottom)  Ks + μ∗t = 0.
+```
+
+Summing over `i`: `Σ_i (Kw)_i = Σ_i w_i Σ_{j≠i}(a_{ij} + a_{ji}) = Σ_i w_i y_i(y(V) + y_i) = λ·w` for any `w`,
+because `y(V) = 0`. The top rows sum to `λ·t + λ·(s + t) = y(V)(…) = 0`, so `λ·s = 0`; the bottom rows sum
+to `λ·s + μ·t = 0`, so `μ·t = 0`.
+
+*Torsion and `H`.* The four elements of `𝒯` change `(b₁, a₀ + λ·u)` by `(0,0)`, `(0,1)` for `(−1, −n)`,
+`(1, λ·𝟏) = (1, 0)` for `(n, 2)`, and `(1, 1)` for `(−n, −2n)`. So every coset of `𝒯` meets `H` exactly
+once, and `Sel₂ = 𝒯 ⊕ H` (`H` is a subspace, cut out by two linear conditions).
+
+*`H` maps into the kernel.* Let `(a, b) ∈ H`, `s = u + v`, `t = u`. Bottom: `E1 + E2` with `a₁ = 0`, `b₀ = a₀`
+gives `Ku + Kv + μ∗u = b₁μ = 0`. Top: `Ku + λ∗v = a₀λ` by `E1`, and the required right side is
+`(λ·(u + v) + λ·u)λ = (λ·v)λ = (λ·u)λ = a₀λ` by `(D)` and the definition of `H`.
+
+*Injective.* If `u = v = 0`, then `a₀ = λ·u = 0`, `b₀ = a₀ = 0`, `a₁ = 0`, `b₁ = 0`.
+
+*Onto.* Given `(s, t)` in the kernel, put `u = t`, `v = s + t`, `a₁ = 0`, `a₀ = b₀ = λ·t`, `b₁ = 0`. Then
+`(D)` holds: `b₁ = 0 = μ·t = μ·u`, and `λ·v = λ·s + λ·t = λ·u`. `E1`: `Kt + λ∗(s + t) = (λ·t)λ = a₀λ` is the top
+equation (as `λ·s = 0`). `E2`: `μ∗t + K(s + t) + λ∗(s + t) = (Ks + μ∗t) + (Kt + λ∗(s+t)) = a₀λ = b₀λ + b₁μ`. ∎
