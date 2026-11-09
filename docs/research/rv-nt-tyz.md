@@ -29,9 +29,9 @@ Each step examined is marked **CORRECT** (checked here), **GAP** (missing or wro
   values.
 - **(b) Proved after one minor repair.** Lemmas N1 and N2, the facts F3–F5, and the proof of
   Proposition N are correct. Each of the inputs I1–I7 is quoted correctly from the source, with one
-  exception. Lemma 2.8 of TYZ (input I2) is literally false for `m = 3`: it is off by the factor
-  `w_K = 3`, an internal inconsistency of TYZ with their own Theorem 2.1 (finding B1). Lemma N1 uses
-  I2 only modulo 2, where the factor is harmless, so the repair is to quote I2 as a congruence. Two
+  exception. At `m = 3`, TYZ's Lemma 2.8 (input I2) is inconsistent with their own Theorem 2.1 by
+  the factor `w_K = 3` (finding B1). Lemma N1 uses I2 only modulo 2, and the odd factor does not
+  matter there. So the repair is to quote I2 as a congruence. Two
   of the facts listed, F4 and the second half of F3, are not needed for Proposition N. The `ε`-class
   of the `(5, 3)` steps does not enter Lemma N2 at all (findings B2, B3). The deep inputs (TYZ
   Theorem 3.3, Theorem 3.5 first assertion, Lemmas 3.18 and 3.21) are taken as citations; their
@@ -50,7 +50,7 @@ No finding invalidates any of the three claims.
 |---|----------|-------|---------|
 | A1 | minor | nt-tyz Verdict 2, §1.3 | "The only true reading admits the trivial factor `d₁ = 1`" is imprecise. A fourth literal reading D (admit `d₁ = 1`, and count `d₁` as a distinguished factor) gives the second sum `T_5a + Σ_π k(π)w(π) + T_5b`, which is also `1` for both counterexamples. The surviving reading is the set-partition reading: each set partition of the primes of `n` is counted once. |
 | A2 | minor | nt-tyz §1.3, §2.2 F6 | nt-tyz calls the "i.e." of Theorem 3.5(2) unproved (F6). The direction that Theorem 1.2 needs (`2^{−ρ(n)}𝓛(n)` even ⟹ `P(n) ∈ A(K_n)^− + A[4]`) is immediate from Theorem 3.5 (first assertion) and Lemma 3.18 (§4.5 below). So reading A of Theorem 1.2 for `n ≡ 5` is *fully* proved by the argument of nt-tyz §4.4, not only Proposition N. For `n ≡ 7`, only the coefficient lemma was checked (§3.4). For `n ≡ 6`, nothing was checked. |
-| B1 | minor | nt-tyz §4.2, I2 | TYZ's Lemma 2.8 (`Σ ε𝓛(d₁)𝓛(d₂) = Q(m)`) is off by the factor `w_K` for `m = 3`, where `w_K = 3`. TYZ's Theorem 2.1 gives `Q(3) = P(3, 1) = ±3𝓛(3)`, while Lemma 2.8 gives `Q(3) = ±𝓛(3)`, and `𝓛(3) = ±1`. The correct identity is `w_K Σ ε𝓛𝓛 = Q(m)`. Lemma N1 needs only the congruence modulo 2, which holds. |
+| B1 | minor | nt-tyz §4.2, I2 | At `m = 3`, where `w_K = 3`, TYZ's Lemma 2.8 (`Σ ε𝓛(d₁)𝓛(d₂) = Q(m)`) is inconsistent with their Theorem 2.1. Theorem 2.1 and the character formula give `Q(3) = P(3, 1) = ±3𝓛(3)`, Lemma 2.8 gives `Q(3) = ±𝓛(3)`, and `𝓛(3) = ±1`. If Theorem 2.1 is right, the correct identity is `w_K Σ ε𝓛𝓛 = Q(m)`. Either way the discrepancy is an odd factor, so the congruence modulo 2, which is all Lemma N1 needs, holds. |
 | B2 | remark | nt-tyz §4.4, §2.2 F3, F4 | F4 (`[i]` commutes with `β'`) is not used by the proof of Proposition N: the coefficients `ℓ_e` are integers, and `X` enters only through `X^{β'} + X ∈ A(ℍ'_n)` (F5). The second half of F3 (`β` negates `√−n`) is not used either. It is needed only for the full Theorem 3.5(2) (finding A2). |
 | B3 | remark | nt-tyz §4.3, I1 | The value of `ε` on `(5, 3)` steps does not enter Lemma N2: such steps occur only in chains with at least two class-3 factors, and these cancel in pairs. Mutation tests confirm this (§3.3). So I1 is needed only for the pairs `(5, 1)`, `(7, 1)`, `(7, 3)`, where `ε ≡ 1`. |
 | B4 | scope | inputs I3–I6 | TYZ's Theorem 3.3 (generalized Gross–Zagier), the first assertion of Theorem 3.5, Lemma 3.18 (notably its Step 3, `√2 ∉ ℍ'_n`) and Lemma 3.21 (via Theorem 3.6) are used as citations. Their statements are unambiguous and are quoted correctly. Their proofs were read but not re-verified. |
@@ -76,9 +76,11 @@ formula (L997–1003, with L1068–1077) gives `Σ' P(d₁, d₂) = 2^{h₂(m)�
 `δ = 1`. In both cases the powers of 2 cancel and `w_K Σ ε𝓛(d₁)𝓛(d₂) = Q(m)`. Here `w_K = 1`, except for
 `m = 3`, where `ℚ(√−3)` has six roots of unity and `w_K = 3`. For `m = 3`, the only genus character is
 trivial, so `Q(3) = P(3, 1) = ±3𝓛(3)𝓛(1)`. Numerically `𝓛(3)² = 1` and `𝓛(1)² = 1` (from the
-definition at L338, with `L(E_n, 1)` and `Ω_{n,∞}` computed to 10 digits). So `Q(3) = ±3` and Lemma 2.8
-as printed (`Q(3) = ±𝓛(3)`) is wrong at `m = 3`. The error is an odd factor. The congruence
-`Σ ε𝓛𝓛 ≡ g(m) (mod 2)`, which is all that Lemma N1 uses, holds for every `m ≡ 1, 3`.
+definition at L338, with `L(E_n, 1)` and `Ω_{n,∞}` computed to 10 digits). So Theorem 2.1 gives
+`Q(3) = ±3`, while Lemma 2.8 as printed gives `Q(3) = ±1`. The value `Q(3) = f_3(1)` was not computed
+independently here, so it is not decided which of the two statements is misprinted. Since they differ
+by an odd factor, the congruence `Σ ε𝓛𝓛 ≡ g(m) (mod 2)`, which is all that Lemma N1 uses, holds for
+every `m ≡ 1, 3` in either case.
 
 ## 2. Lemma N1 (CORRECT)
 
@@ -333,9 +335,9 @@ and the tests found no exception.
 ## 7. Repairs
 
 1. **(B1) Quote I2 as a congruence.** Replace "`Σ ε𝓛(d₁)𝓛(d₂) = Q(m) ≡ g(m)`" by
-   "`w_K Σ ε𝓛(d₁)𝓛(d₂) = Q(m)` (TYZ Theorem 2.1 with the character formula; Lemma 2.8 as printed omits
-   `w_K`, which is `3` for `m = 3` and `1` otherwise), hence `Σ ε𝓛(d₁)𝓛(d₂) ≡ g(m) (mod 2)`". Lemma N1
-   uses nothing more. The proof of Lemma N1 is unchanged.
+   "`Σ ε𝓛(d₁)𝓛(d₂) ≡ Q(m) ≡ g(m) (mod 2)` (Lemma 2.8 with Proposition 2.3; at `m = 3`, Lemma 2.8 and
+   Theorem 2.1 differ by the odd factor `w_K = 3`, and the congruence holds under either)". Lemma N1 uses
+   nothing more, and its proof is unchanged.
 2. **(A1) State reading A as a convention on set partitions.** "Decompositions are set partitions of
    the primes of `n`, each counted once; `d₀` is the block of class 5, 6 or 7, `d₁` the block of class
    2 or 3 if there is one and `1` otherwise, and `d_i`, `i > 1`, the class-1 blocks." Also record that
