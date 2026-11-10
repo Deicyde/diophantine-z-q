@@ -11,3 +11,4 @@
 - lake build ZInQKernel: success. #print axioms goodSlopePrime_of_gcd (and _iff, _seventeen',
   jacobsthal, mod_four_of_dvd_cp): [propext, Classical.choice, Quot.sound].
 - rv-pd-paper report: F1 (shift_mul needs p ≠ 2) already applied; nothing else for files 1-2.
+- Report .fleet/pd-lean-1.md written. Done.
