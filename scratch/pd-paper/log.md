@@ -42,3 +42,8 @@
   2-D Selberg sieve with ν(q)=(2q-1)/q², q≡1(4), q≠ℓ, q≤w=N^{1/40}, level y=N^{1/20};
   S ≥ S₀(w;ℓ) ≥ (3/5)·((2/3)log w − 2)/V, V ≤ 2ζ(2)^4 < 15 (r ≤ h*v convolution);
   A₁ ≈ 16003; Dirichlet assembly by discrete Abel summation; need log L > 15 A₁.
+
+## Step 3 (writing)
+- check F (gcdformula.py 30000): gcd of the two point counts = 4 gcd(c_p, p+1), 806 pairs, 0 failures.
+- sieveaux.py: R(w) ≥ (2/3)log w − 2, S0(w)≈0.29 log w, V≈2.74 (bound 14.6), r ≤ h*v, Σ_{ℓ>L}1/ℓ² ≤ 4log4/(L log L).
+- pd-paper.md piece 1 (header, summary, §0) written.
