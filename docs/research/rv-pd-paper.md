@@ -59,3 +59,32 @@ and this set equals "class and `gcd(c_p, p + 1) = 1`". Every odd prime dividing 
 | Units | CORRECT | Every `a ∈ A_L` is a unit mod `M_L` (odd, nonzero mod 7 and mod each `ℓ ∈ Q_L`). This is the hypothesis `IsUnit a` of the Mathlib lemma. |
 | Mathlib statement | CORRECT | `ArithmeticFunction.vonMangoldt.LSeries_residueClass_lower_bound` (`Mathlib/NumberTheory/LSeries/PrimesInAP.lean:348`) is exactly as quoted: `[NeZero q]`, `IsUnit a`, `∃ C, ∀ x ∈ Ioc 1 2, φ(q)⁻¹/(x − 1) − C ≤ ∑' n, residueClass a n / n^x`. |
 | Lemma 3.1 | CORRECT | The sum over `a ∈ A_L` is a finite sum of summable `tsum`s, since `x > 1`. Prime powers contribute at most `K₀ = Σ_p log p/(p(p − 1)) = 0.75537…`, which I recomputed. See F5 for the Lean form. |
+
+### §4 The primes removed at `ℓ > L`
+
+| Step | Mark | Comment |
+| --- | --- | --- |
+| §4.1 (why trivial counts fail) | CORRECT | Heuristic, not used. |
+| Prop. 4.1 (lattice count) | CORRECT | `c_p = ℓU` with `1 ≤ \|U\| ≤ √N/ℓ`, and `e_p` in two classes mod `ℓ` within `[−√N, √N]`. Product `(2√N/ℓ)(4√N/ℓ + 2)`. The sum over `ℓ > N^{1/4}` is at most `8N/(N^{1/4} − 1) + 4√N(1 + ½ log N) ≤ 20N^{3/4}` for `N ≥ 10³`. The count is zero for `ℓ > √N`. |
+| §4.3 set-up | CORRECT | `F(U, V) ≥ 1`, because `ℓ ∤ b`. `I₂` is an interval, and `M₁, M₂ ≤ 2T/ℓ + 1`. `p ↦ (c_p/ℓ, (e_p − b)/ℓ)` is injective with image in `ℬ`, since `\|c_p\|, \|e_p\| ≤ √p ≤ T`. In (4.1), a prime `p > w` is coprime to `P`. |
+| Sieve data versus `BoundingSieve` / `SelbergSieve` | CORRECT | Mathlib's fields are `support : Finset ℕ`, `prodPrimes` squarefree, `weights ≥ 0`, `totalMass`, `nu` multiplicative with `0 < nu p < 1` for `p ∣ prodPrimes`, and `level ≥ 1`. Mathlib defines `multSum d = Σ_{n ∈ support, d ∣ n} weights n`, `rem d = multSum d − nu d·totalMass` and `siftedSum = Σ_{n ∈ support, Coprime P n} weights n`. The note's data meet every field. I built the instance in Lean (§3 below). |
+| `selberg_bound_simple` | CORRECT | PrimeNumberTheoremAnd (tag `v4.35.0`, `PrimeNumberTheoremAnd/Mathlib/NumberTheory/Sieve/Selberg.lean:435`): `siftedSum ≤ totalMass/selbergBoundingSum + Σ_{d ∣ P} (if (d : ℝ) ≤ level then 3^{ω(d)}·\|rem d\| else 0)`. Here `selbergBoundingSum = Σ_{l ∣ P} (if l² ≤ level then g l else 0)` and `g = nu.pmul (prodPrimeFactors (1 − nu p)⁻¹)`, so `g(q) = ν(q)/(1 − ν(q))`. The theorem has no hypotheses beyond the structure. It needs neither complete multiplicativity nor all small primes in `P`. |
+| Lemma 4.3 (`ρ(q) = 2q − 1`) | CORRECT | Two lines through `0` over `𝔽_q`, `q ≡ 1 (mod 4)`, `q ≠ ℓ`. Also checked by enumeration for `q < 120` and `ℓ ∈ {5, 13, 17, 29}`. |
+| Lemma 4.4 (remainders) | CORRECT | Each residue class meets an interval of `M` integers in `M/d + θ` points, `\|θ\| ≤ 1`, and `ρ(d) ≤ 2^{ω(d)}d`. On real boxes (`N ≤ 10⁸`, `d ≤ 1105`) the largest observed ratio `\|R_d\|/(2^{ω(d)}(M₁ + M₂ + d))` is `0.049`. |
+| Error term | CORRECT | `6^{ω(d)} ≤ d²`, since every prime factor is `≥ 5`. There are at most `y` terms, so the sum is at most `y³(M₁ + M₂ + y)`. Since `T/ℓ ≥ N^{1/4} ≥ max(2, y)`, `M₁ + M₂ + y ≤ 6T/ℓ`. With `ℓ ≤ N^{1/4}` this gives `6N^{−1/10} log N ≤ 1` for `N ≥ 10³⁰`. |
+| Total mass | CORRECT | `(1 + N^{−1/4}/2)² ≤ 5/4` for `N ≥ 324`. |
+| Lemma 4.5 | CORRECT | `g(q) = (2q − 1)/(q − 1)² ≥ 2/q`. The `l ∣ P` with `l² ≤ w²` are exactly the `l ∈ 𝒟` with `l ≤ w` and `ℓ ∤ l`. Terms with `ℓ ∣ l` are at most `(2/ℓ)S₀(w)`. So `S ≥ (3/5)R(w)/V`. Exact computation of `S` for `w ≤ 10⁵` and `ℓ ∈ {5, 13, 101, 997}`: the margin over the bound is at least `1.02`. |
+| Claim A | CORRECT | `\|E(t)\| < log(1 + 1/n) ≤ 1/n ≤ 2/t`. The Mathlib lemmas give `H_n − log(n + 1) < γ < H_n − log n` for `n ≥ 1`. `S₁ ∈ [2/3, 1]` and `S₂ ∈ [−(log 3)/3, 0]` (alternating, with decreasing terms from `d = 3`). Numerically, `min_w (R(w) − (2/3)log w + 2) = 2.77` over the tested `w ≤ 10⁶`. |
+| Claim B | CORRECT | Prime-power comparison: equality except `r(q^{2j+1}) = 2j + 2 ≤ 2(2j + 1)`. `V ≤ 2ζ(2)⁴ = 14.64` by the lcm count. Checked `r ≤ h ∗ v` for `n < 2·10⁴`. Partial sum `V(10⁶) = 2.74`, and `max R/S₀ = 2.43`. |
+| Prop. 4.2 constants | CORRECT | `(log N/60 − 2)/25 ≥ log N/1600` iff `log N ≥ 1920`. `5·1600 + 1 = 8001`, two roots, `2N^{1/40} ≤ N/(ℓ² log N)`. |
+| §4.6 (alternatives to the sieve) | CORRECT in conclusion, inaccurate in one detail | See F4. Not used by the proof. |
+
+### §5 Assembly
+
+| Step | Mark | Comment |
+| --- | --- | --- |
+| Lemma 5.1 | CORRECT | Dyadic blocks and `θ(x) ≤ x log 4` (Mathlib `Chebyshev.theta_le_log4_mul_x`, for `x ≥ 0`). Checked for `L` from `2` to `10⁵`. |
+| Lemma 5.2 (Abel summation) | CORRECT | Partial summation with `θ_S(0) = 0`. `θ_S(M)M^{−x} → 0`. `n^{−x} − (n + 1)^{−x} ≤ xn^{−x−1}` and `Σ n^{−x} ≤ x/(x − 1)`. The constant does not depend on `κ` or on `x ∈ (1, 2]`. |
+| Prop. 5.3 | CORRECT | Contradiction with `liminf ≥ η > κ`. Mathlib `Chebyshev.eventually_primeCounting_le` is stated for `π ⌊x⌋₊` with real `x`, which specialises to natural `N`. The resulting `c = κ/(log 4 + ε)` can be taken arbitrarily close to `η/log 4`. |
+| Theorem D | CORRECT | `T_L ∩ [1, N] ⊆ ⋃_{ℓ > L} Bad_ℓ ∩ [1, N]`. Prop. 4.2 is used for `L < ℓ ≤ N^{1/4}`, `N ≥ N₁`, and Prop. 4.1 above `N^{1/4}`. `liminf(A − B) ≥ liminf A − limsup B`. `3/(8L)` against `5.545A₁/(L log L)` gives the condition `log L > 14.79A₁`. |
+| Remark 5.4 and the remarks after Theorem D | UNCHECKED | Not used. |
