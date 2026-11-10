@@ -1,0 +1,15 @@
+import Mathlib
+#check @Summable.tsum_add
+#check @Summable.tsum_finsetSum
+#check @summable_sum
+#check @Summable.of_nonneg_of_le
+#check @Summable.tsum_le_tsum
+#check @Finset.prod_sdiff
+#check @Nat.card_pi
+#check @Nat.card_eq_fintype_card
+#check @ArithmeticFunction.LSeriesSummable_vonMangoldt
+#check @LSeriesSummable
+#check @Finset.sum_ite_eq'
+#check @Real.rpow_le_rpow_of_exponent_le
+#check @Nat.Coprime.prod_right
+#check @Finset.prod_coe_sort
