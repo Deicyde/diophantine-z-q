@@ -1,0 +1,62 @@
+l=2 e=1                                    eta=+1 Spole=[] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5834, 3:5838, 5:5838, 7:5833, 11:5833, 13:5832, 17:5833, 31:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=4.971689663100859e-126) | 16.4s
+l=2 e=2                                    eta=+1 Spole=[] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5836, 3:5832, 5:5832, 7:5833, 13:5832, 41:5833, 191:5833, 251:5833, 271:5833, 311:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=3.379642093928505e-161) | 16.4s
+l=2 e=3                                    eta=+1 Spole=[] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5838, 3:5839, 5:5832, 7:5834, 11:5833, 13:5834, 17:5833, 73:5833, 89:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=7.871470499948626e-123) | 16.4s
+l=2 e=4                                    eta=+1 Spole=[] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5840, 3:5809, 5:5832, 7:5833, 13:5834, 17:5833, 47:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=3.818863498099524e-161) | 16.4s
+l=2 e=5                                    eta=+1 Spole=[2] | S0 v(B)>=4: True | v_l(B) at check primes: {2:6096, 3:5838, 5:5838, 7:5833, 11:5833, 13:5832, 23:5833, 29:5833, 53:5833, 151:5833, 197:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=4.396008410248064e-127) | 16.4s
+l=3 e=5                                    eta=+1 Spole=[3] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5838, 3:6092, 5:5838, 7:5825, 11:5833, 13:5832, 19:5833, 29:5833, 71:5833, 79:5833, 151:5833, 181:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=2.6469044648733153e-134) | 16.6s
+l=3 e=200                                  eta=+1 Spole=[3] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5841, 3:15842, 5:5832, 7:5833, 13:5832, 19:5833, 137:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=tiny) | 16.6s
+l=5 e=5                                    eta=+1 Spole=[5] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5844, 3:5825, 5:6090, 7:5833, 11:5833, 13:5832, 29:5833, 41:5833, 59:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=8.876910655834222e-131) | 16.4s
+l=5 e=200                                  eta=+1 Spole=[5] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5825, 3:5832, 5:15840, 7:5832, 11:5833, 13:5833, 23:5833, 139:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=tiny) | 16.7s
+l=7 e=5                                    eta=+1 Spole=[7] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5825, 3:5832, 5:5832, 7:6090, 13:5832, 17:5833, 23:5833, 29:5833, 43:5833, 59:5833, 67:5833, 199:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=8.869787321711596e-133) | 16.5s
+l=7 e=200                                  eta=+1 Spole=[7] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5844, 3:5841, 5:5832, 7:15840, 13:5832, 37:5833, 61:5833, 149:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=tiny) | 16.8s
+l=13 e=5                                   eta=+1 Spole=[13] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5838, 3:5826, 5:5832, 7:5833, 11:5833, 13:6090, 61:5833, 79:5833, 101:5833, 269:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=2.0642307410019293e-151) | 16.5s
+l=13 e=200                                 eta=+1 Spole=[13] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5838, 3:5832, 5:5832, 7:5833, 11:5833, 13:15840, 73:5833, 181:5833, 307:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=tiny) | 17.0s
+l=331(H) e=2                               eta=+1 Spole=[331] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5805, 3:5838, 5:5832, 7:5833, 11:5833, 13:5816, 17:5833, 19:5833, 29:5833, 331:1572} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=2.05018550825763e-127) | 16.4s
+l=331(H) e=40                              eta=+1 Spole=[331] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5844, 3:5838, 5:5832, 7:5833, 13:5832, 37:5833, 103:5833, 107:5833, 271:5833, 331:3472} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=tiny) | 16.8s
+l=11 e=200                                 eta=+1 Spole=[11] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5844, 3:5809, 5:5832, 7:5833, 11:15840, 13:5833, 19:5833, 59:5833, 67:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=tiny) | 16.8s
+multi 2^7 3^6 5^5 7^5 13^5                 eta=+1 Spole=[2, 3, 5, 7, 13] | S0 v(B)>=4: True | v_l(B) at check primes: {2:6196, 3:6142, 5:6090, 7:6092, 11:5833, 13:6090, 17:5833, 19:5833, 37:5833, 53:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=1.0483083780472601e-166) | 16.5s
+multi 2^150 3^130 5^140 7^5 13^200 331^3   eta=+1 Spole=[2, 3, 5, 7, 13, 331] | S0 v(B)>=4: True | v_l(B) at check primes: {2:13346, 3:12344, 5:12840, 7:6090, 11:5833, 13:15840, 23:5833, 31:5833, 43:5833, 293:5833, 331:1622} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=tiny) | 17.3s
+l=2 e=3 Lemma P branch                     eta=+1 Spole=[2] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5996, 3:5832, 5:5832, 7:5833, 11:5833, 13:5833, 17:5833, 19:5833, 23:5833, 29:5833, 53:5833, 67:5833, 73:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=2.7314514604537154e-161) | 16.5s
+l=2 e=4 Lemma P branch                     eta=+1 Spole=[2] | S0 v(B)>=4: True | v_l(B) at check primes: {2:6050, 3:5832, 5:5832, 7:5833, 13:5833, 17:5833, 83:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=6.59837417295085e-127) | 16.6s
+CONTROL old q, l=3 e=200                   eta=+1 Spole=[] | S0 v(B)>=4: False | v_l(B) at check primes: {2:5847, 3:-20690, 5:5832, 7:5833, 13:5832, 17:5833, 19:5833, 41:5833, 59:5833, 61:5833, 89:5833, 97:5833, 137:5833} | odd negative on S_b: [] | S_b-part of den(B): [(3, 20690)] | 0<B<1/2: True (B=7.798020048899976e-124) | 16.6s
+CONTROL old q, l=13 e=200                  eta=+1 Spole=[] | S0 v(B)>=4: False | v_l(B) at check primes: {2:5825, 3:5832, 5:5832, 7:5835, 11:5833, 13:-20712, 17:5833, 31:5833, 37:5833, 41:5833, 43:5833, 257:5833} | odd negative on S_b: [] | S_b-part of den(B): [(13, 20712)] | 0<B<1/2: True (B=1.1223377880531667e-122) | 16.6s
+CONTROL old q, l=2 e=200                   eta=+1 Spole=[] | S0 v(B)>=4: False | v_l(B) at check primes: {2:-20666, 3:5832, 5:5832, 7:5833, 13:5832, 19:5833, 31:5833, 41:5833, 83:5833, 97:5833, 179:5833} | odd negative on S_b: [] | S_b-part of den(B): [(2, 20666)] | 0<B<1/2: True (B=4.8958148287745806e-136) | 16.9s
+CONTROL F<0, l=3 e=200, old q              eta=-1 Spole=[] | S0 v(B)>=4: False | v_l(B) at check primes: {2:5818, 3:-20680, 5:5832, 7:5833, 11:5833, 13:5833, 89:5833, 277:5833} | odd negative on S_b: [] | S_b-part of den(B): [(3, 20680)] | 0<B<1/2: True (B=6.612834697678201e-117) | 16.6s
+F<0, l=5 e=200, ball (eta=-1)              eta=-1 Spole=[5] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5844, 3:5825, 5:15840, 7:5833, 11:5833, 13:5832, 31:5833, 41:5833, 151:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=tiny) | 16.8s
+threshold old q, l=3 e=120                 eta=+1 Spole=[] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5838, 3:6072, 5:5838, 7:5834, 11:5833, 13:5833, 17:5833, 41:5833, 43:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=5.483731953699127e-173) | 16.6s
+threshold old q, l=3 e=130                 eta=+1 Spole=[] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5818, 3:4932, 5:5825, 7:5832, 11:5833, 13:5832, 19:5833, 23:5833, 31:5833, 131:5833, 167:5833, 191:5833, 227:5833, 277:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=1.3507768615640511e-173) | 16.6s
+threshold old q, l=3 e=140                 eta=+1 Spole=[] | S0 v(B)>=4: True | v_l(B) at check primes: {2:5838, 3:1274, 5:5786, 7:5832, 13:5833, 17:5833, 83:5833, 109:5833, 151:5833} | odd negative on S_b: [] | S_b-part of den(B): [] | 0<B<1/2: True (B=1.56277822366794e-173) | 16.5s
+threshold old q, l=3 e=150                 eta=+1 Spole=[] | S0 v(B)>=4: False | v_l(B) at check primes: {2:5838, 3:-2390, 5:5832, 7:5825, 11:5833, 13:5833, 17:5833, 31:5833, 137:5833, 293:5833} | odd negative on S_b: [] | S_b-part of den(B): [(3, 2390)] | 0<B<1/2: True (B=1.6512776569421775e-173) | 16.4s
+threshold old q, l=3 e=160                 eta=+1 Spole=[] | S0 v(B)>=4: False | v_l(B) at check primes: {2:5811, 3:-6050, 5:5825, 7:5833, 13:5832, 23:5833, 31:5833, 43:5833, 47:5833, 179:5833, 233:5833} | odd negative on S_b: [] | S_b-part of den(B): [(3, 6050)] | 0<B<1/2: True (B=3.15219563036655e-121) | 16.5s
+
+SUMMARY (True = all PC hypotheses checked at S_b and real place):
+  l=2 e=1                                    True
+  l=2 e=2                                    True
+  l=2 e=3                                    True
+  l=2 e=4                                    True
+  l=2 e=5                                    True
+  l=3 e=5                                    True
+  l=3 e=200                                  True
+  l=5 e=5                                    True
+  l=5 e=200                                  True
+  l=7 e=5                                    True
+  l=7 e=200                                  True
+  l=13 e=5                                   True
+  l=13 e=200                                 True
+  l=331(H) e=2                               True
+  l=331(H) e=40                              True
+  l=11 e=200                                 True
+  multi 2^7 3^6 5^5 7^5 13^5                 True
+  multi 2^150 3^130 5^140 7^5 13^200 331^3   True
+  l=2 e=3 Lemma P branch                     True
+  l=2 e=4 Lemma P branch                     True
+  CONTROL old q, l=3 e=200                   False
+  CONTROL old q, l=13 e=200                  False
+  CONTROL old q, l=2 e=200                   False
+  CONTROL F<0, l=3 e=200, old q              False
+  F<0, l=5 e=200, ball (eta=-1)              True
+  threshold old q, l=3 e=120                 True
+  threshold old q, l=3 e=130                 True
+  threshold old q, l=3 e=140                 True
+  threshold old q, l=3 e=150                 False
+  threshold old q, l=3 e=160                 False

@@ -6,8 +6,12 @@ import ZInQKernel.Hypotheses.CertifiedRank
 import ZInQKernel.RouteK.Assembly.PoleCompleteness
 import ZInQKernel.Model.Descent.MordellWeil
 import ZInQKernel.Hypotheses.PrimePattern
+import ZInQKernel.Hypotheses.PrimeAP
+import ZInQKernel.Hypotheses.GreenTao
+import ZInQKernel.Multiplication.Completeness.AP
 import ZInQKernel.Assembly.Top
 import ZInQKernel.Compiler.NodeBound
+import ZInQKernel.RouteK.Selmer.Prop0
 
 /-!
 # The main theorem
@@ -36,6 +40,16 @@ boundary is the hypothesis list of this theorem.
   The two-slope pattern 22P₂ (`TwoSlopePattern`) also gives it, so the main theorem holds with 22P₂
   in place of 22P (`exists_bounded_integer_polynomial_defining_integers_of_twoSlopePattern`); 22P₂
   is a different prime pattern, not a consequence of 22P.
+* Route AP: the progression hypothesis 22P_AP (`GoodPrimeAP`, arbitrarily long arithmetic
+  progressions of good slope primes) gives the slope representation under field 2′
+  (`Mult.SlopeRepresentationAP`, Proposition AP), which is enough for completeness by Lemma P; so
+  the main theorem holds with 22P_AP in place of 22P
+  (`exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP`). 22P_AP follows from two
+  inputs together, not from Green–Tao alone: Green–Tao 2008, Theorem 1.2 in its dense form
+  (`GreenTaoDense`; complete proof in Tao–Ziegler 2008) and Proposition D of
+  `docs/research/nt-22p.md` (`GoodPrimeDensity`: the good slope primes have positive relative upper
+  density in the primes), by `goodPrimeAP_of_greenTaoDense`; so the main theorem holds with these
+  two in place of 22P (`exists_bounded_integer_polynomial_defining_integers_of_greenTaoDense`).
 
 Three inputs that were hypotheses in earlier versions are theorems: the Mordell–Weil theorem for
 the generator curve (`mordellWeilE`), the catalogue bound CAT₈ (`catalogueBound8`: twenty-two
@@ -100,6 +114,26 @@ theorem exists_bounded_integer_polynomial_defining_integers_of
   exists_bounded_integer_polynomial_defining_integers_of_addMulBound
     Compiler.NodeCheck.haltingAddMulBound hH hCR h22
 
+/-- **Main theorem, with CR₃^Sel in place of CR₃.** Under hypotheses H (`SixContactMin`),
+CR₃^Sel (`RouteK.Selmer.CertifiedRankSel`) and 22P, there is an integer polynomial in
+`292890231905` variables, of degree below `2↑↑7` and with coefficients below `2↑↑8`, whose rational
+zero projection to the first variable is exactly `ℤ`.
+
+CR₃^Sel is a narrower hypothesis than CR₃: it speaks of the 2-Selmer group `Sel₂(C_d)` itself
+(`RouteK.Selmer.Sel2`, defined by local solubility of the 2-coverings over `ℝ` and every `ℚ_p`),
+not of the explicit linear system `Σ(𝒞_d)` with its Legendre symbols. In the literature's terms it
+says: for squarefree `d ≡ 5 (mod 8)`, if `dim_{𝔽₂} Sel₂(C_d) = 3` and some Selmer class `(a, b)` has
+`|a| ≡ 7 (mod 8)`, then every Selmer class comes from a rational point, i.e. `Ш(C_d)[2] = 0`
+(equivalently `rank C_d(ℚ) ≥ 1`). This follows from Kriz's 2-converse theorem with the corank
+lemma, or from Tian–Yuan–Zhang with Gross–Zagier–Kolyvagin. Proposition 0
+(`RouteK.Selmer.prop0Statement`, proved in Lean) identifies `Σ(𝒞_d)` with `Sel₂(C_d)`, which turns
+CR₃^Sel into CR₃ (`RouteK.Selmer.certifiedRank_of_certifiedRankSel`). -/
+theorem exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel
+    (hH : SixContactMin) (hCRS : RouteK.Selmer.CertifiedRankSel)
+    (h22 : FixedPrimePattern) : FrozenTarget :=
+  exists_bounded_integer_polynomial_defining_integers_of hH
+    (RouteK.Selmer.certifiedRank_of_certifiedRankSel hCRS) h22
+
 /-- **Main theorem, with H as in the manuscript.** Under the six-contact estimate (Theorem 4.1),
 CR₃ and 22P, there is an integer polynomial in `292890231905` variables, of degree below `2↑↑7`
 and with coefficients below `2↑↑8`, whose rational zero projection to the first variable is
@@ -119,5 +153,48 @@ theorem exists_bounded_integer_polynomial_defining_integers_of_twoSlopePattern
     (h22 : TwoSlopePattern) : FrozenTarget :=
   Assembly.assembly Compiler.NodeCheck.haltingAddMulBound hH (poleCompleteness_of_certifiedRank hCR)
     (Mult.slopeRepresentation_of_twoSlopePattern h22)
+
+/-- **Main theorem, under the progression hypothesis 22P_AP.** Under hypotheses H
+(`SixContactMin`), CR₃ (`CertifiedRank`) and 22P_AP (`GoodPrimeAP`: for every `K` the good slope
+primes above `max S_b` contain an arithmetic progression of `K + 1` terms), there is an integer
+polynomial in `292890231905` variables, of degree below `2↑↑7` and with coefficients below `2↑↑8`,
+whose rational zero projection to the first variable is exactly `ℤ`. The polynomial is the same
+`P_*` as in the main theorem.
+
+22P_AP enters through Proposition AP (`Mult.slopeRepresentationAP_of_goodPrimeAP`): every integer
+is a sum of three slopes satisfying field 2′, where a pole at an old prime is allowed when
+`F(t) > 0`; completeness absorbs such a pole with the witness `q` (Lemma P,
+`Mult.slope_complete_AP`). Route AP of `docs/research/nt-22p.md`. -/
+theorem exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP
+    (hH : SixContactMin) (hCR : CertifiedRank) (hAP : GoodPrimeAP) : FrozenTarget :=
+  Assembly.assembly_AP Compiler.NodeCheck.haltingAddMulBound hH
+    (poleCompleteness_of_certifiedRank hCR) (Mult.slopeRepresentationAP_of_goodPrimeAP hAP)
+
+/-- **Main theorem, under Green–Tao (dense form) and Proposition D.** Under hypotheses H
+(`SixContactMin`), CR₃ (`CertifiedRank`), Szemerédi's theorem in the primes (`GreenTaoDense`:
+every set of primes of positive relative upper density contains arithmetic progressions of every
+finite length) and the density part of Proposition D (`GoodPrimeDensity`: the good slope primes have
+positive relative upper density in the primes), there is an integer polynomial in `292890231905`
+variables, of degree below `2↑↑7` and with coefficients below `2↑↑8`, whose rational zero projection
+to the first variable is exactly `ℤ`. The two last hypotheses give 22P_AP
+(`goodPrimeAP_of_greenTaoDense`). -/
+theorem exists_bounded_integer_polynomial_defining_integers_of_greenTaoDense
+    (hH : SixContactMin) (hCR : CertifiedRank) (hGT : GreenTaoDense) (hD : GoodPrimeDensity) :
+    FrozenTarget :=
+  exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP hH hCR
+    (goodPrimeAP_of_greenTaoDense hGT hD)
+
+/-- **Main theorem, under the narrowest hypotheses so far.** Under H (`SixContactMin`), CR₃^Sel
+(`RouteK.Selmer.CertifiedRankSel`, stated with the textbook 2-Selmer group), Szemerédi's theorem in
+the primes (`GreenTaoDense`) and the density part of Proposition D (`GoodPrimeDensity`), there is an
+integer polynomial in `292890231905` variables, of degree below `2↑↑7` and with coefficients below
+`2↑↑8`, whose rational zero projection to the first variable is exactly `ℤ`. Proposition 0
+(`RouteK.Selmer.certifiedRank_of_certifiedRankSel`) gives CR₃, and the last two hypotheses give
+22P_AP. -/
+theorem exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_greenTaoDense
+    (hH : SixContactMin) (hCRS : RouteK.Selmer.CertifiedRankSel) (hGT : GreenTaoDense)
+    (hD : GoodPrimeDensity) : FrozenTarget :=
+  exists_bounded_integer_polynomial_defining_integers_of_greenTaoDense hH
+    (RouteK.Selmer.certifiedRank_of_certifiedRankSel hCRS) hGT hD
 
 end ZInQ

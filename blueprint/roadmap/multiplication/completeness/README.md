@@ -24,6 +24,10 @@ slopes $u/v$, $A+10-u/v$ and the constant $-10$.
 - [The twenty-two-prime pattern gives the slope representation](slope-representation-from-pattern.md)
 - [The two-slope pattern gives the slope representation](slope-representation-from-two-slope.md)
 
+Neither pattern is needed: [route AP](../../route-ap/README.md) weakens the condition at the old
+primes so that a slope may have a pole there when $F(t)>0$, absorbs such a pole in the slope
+certificate, and obtains the weakened representation from long progressions of good slope primes.
+
 ## The witnesses of a test group
 
 Each odd contact prime of a slope gets its own private test group. At such a prime, with

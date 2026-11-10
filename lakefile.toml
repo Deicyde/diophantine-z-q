@@ -15,3 +15,11 @@ path = "lean"
 
 [[lean_lib]]
 name = "ZInQKernel"
+
+# Vendored Green-Tao proof (Vilin97/Autoformalization, green-tao/, Apache-2.0); see
+# ThirdParty/GreenTao/NOTICE.md.
+[[lean_lib]]
+name = "GreenTaoVendor"
+srcDir = "ThirdParty/GreenTao"
+roots = ["Submission", "ChallengeDeps"]
+leanOptions = { autoImplicit = false }

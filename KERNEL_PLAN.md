@@ -17,10 +17,10 @@ to computation:
 
 | Input | Deep dependency |
 | --- | --- |
-| H (Theorem 4.1) | Shimura curves, Buzzard's integral models, modularity at five, effective CM heights (avoidable: for rational `u` the fibre has no CM, [docs/research/h-cm.md](docs/research/h-cm.md), checked in [docs/research/rv-h-cm.md](docs/research/rv-h-cm.md)) |
+| H (Theorem 4.1) | in Version 14 ([docs/research/h-v14.md](docs/research/h-v14.md) §3.3): the canonical model of the discriminant-six Shimura curve (Deligne, Buzzard, Baba–Granath, Lin–Yang); modularity at five (Calegari's survey statement of Pan's theorem, with Faltings' Tate theorem, Scholze's de Rham comparison and a Deligne–Serre/Kato twist argument); Carayol's local–global compatibility; the isogeny estimate of Gaudron–Rémond and Arakelov bounds; Igusa's theta identities; five unpublished upstream proof supplements; effective CM heights (probably avoidable: [docs/research/h-cm.md](docs/research/h-cm.md) argues that for rational `u` the fibre has no CM, and one model review, [docs/research/rv-h-cm.md](docs/research/rv-h-cm.md), found the argument correct after repairs) |
 | PC (Theorem 5.2) | the restricted converse (Theorem 5.3): Kato, Waldspurger, Bump–Friedberg–Hoffstein, Nekovář, Gross–Zagier–Kolyvagin, BCDT. Under Route K (pole polynomial with the congruent number curves `x + ℓ`), PC is **proved** from the narrow hypothesis CR₃ (`ZInQ.poleCompleteness_of_certifiedRank`): Kriz's 2-converse with the corank lemma, or Tian–Yuan–Zhang with Gross–Zagier–Kolyvagin, for curves `C_d`, `d ≡ 5 (mod 8)`, with a 3-dimensional explicit 2-Selmer system |
-| 22P (Proposition 6.2), used by M | Green–Tao linear equations in primes, Möbius–nilsequences, Green–Tao–Ziegler |
-| CAT (Proposition 12.1), used by B | the explicit progression estimate of Bennett–Martin–O'Bryant–Rechnitzer |
+| 22P (Proposition 6.2), used by M | Green–Tao linear equations in primes, Möbius–nilsequences, Green–Tao–Ziegler. **Replaced** by route AP, whose input is proved in Lean: Szemerédi's theorem in the primes (`ZInQ.greenTaoDense`, from a vendored Green–Tao proof) and Proposition D (`ZInQ.Density.goodPrimeDensity`) |
+| CAT (a step in the proof of Proposition 12.1), used by B | the explicit progression estimate of Bennett–Martin–O'Bryant–Rechnitzer; the weaker form CAT₈ that the proof needs is **proved** (`ZInQ.catalogueBound8`, from an effective Dirichlet theorem) |
 | MW, used by G | the Mordell–Weil theorem over `ℚ(√2)`: **proved** (`ZInQ.mordellWeilE`, from the two-isogeny descent and Mathlib's descent theorem) |
 
 Each of these conclusions is an elementary statement about rational numbers, integers or
@@ -37,6 +37,15 @@ theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of
     (hH : SixContactMin) (hCR : CertifiedRank)
     (h22 : FixedPrimePattern) : FrozenTarget
 ```
+
+Route AP (below) replaces 22P with a statement that is proved in Lean, which leaves two:
+
+```lean
+theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRank
+    (hH : SixContactMin) (hCR : CertifiedRank) : FrozenTarget
+```
+
+in `ZInQKernel/MainGreenTao.lean`, the only module that imports the vendored Green–Tao library.
 
 H enters in its minimal form `SixContactMin` (`ZInQKernel/Hypotheses/HeightMin.lean`): the one
 inequality `h(u) ≤ H₆(D) M_{S_mul}(u)²⁴` for `u ∈ ℚ \ 𝒞` that the proof uses, the instance
@@ -61,6 +70,50 @@ for every admissible input `B`, a multiplier `m` and two curves `C_{|n|}`, `C_{|
 the class `β = sqf(mB)`; CR₃ gives the points, and these give a zero of the pole polynomial.
 `exists_bounded_integer_polynomial_defining_integers_of_poleCompleteness` is the main theorem with
 PC (Route K) in place of CR₃.
+
+Two narrower hypotheses are available as variants of the main theorem. Proposition 0 is proved in
+Lean (`ZInQKernel/RouteK/Selmer/`, `ZInQ.RouteK.Selmer.prop0Statement`): the explicit system is the
+textbook 2-Selmer group, defined through the local solubility of 2-coverings. So CR₃ follows from
+CR₃^Sel (`ZInQ.RouteK.Selmer.CertifiedRankSel`): for these `d`, if `Sel₂(C_d)` has 8 elements and
+contains a class with `|a| ≡ 7 (mod 8)`, then every Selmer class comes from a rational point, that is
+`Ш(C_d)[2] = 0`. `exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel` is the
+main theorem with CR₃^Sel. Next, 22P can be replaced by 22P_AP (`ZInQ.GoodPrimeAP`: the good slope
+primes above `max S_b` contain arithmetic progressions of every length), through a change in the
+completeness proof that leaves the polynomial unchanged (`docs/research/nt-22p.md` §3, Lemma P and
+Proposition AP, checked by three model referee runs and a Lean-statement audit:
+`docs/research/rv-nt22p-*.md`, `aud-ap.md`). That variant is
+`exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP`. 22P_AP follows from
+Szemerédi's theorem in the primes (`ZInQ.GreenTaoDense`: Green–Tao 2008, Theorem 1.2) and the
+positive relative density of the good slope primes (`ZInQ.GoodPrimeDensity`: Proposition D of
+nt-22p §2, proved on paper in `docs/research/pd-paper.md` and checked by a model referee run,
+`docs/research/rv-pd-paper.md`), giving
+`exists_bounded_integer_polynomial_defining_integers_of_greenTaoDense` and, with CR₃^Sel as well,
+`exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_greenTaoDense`.
+
+Szemerédi's theorem in the primes is proved in Lean. Vasily Ilin's Lean proof of the Green–Tao
+theorem for the set of all primes is vendored in `ThirdParty/GreenTao/` under the Apache License 2.0
+and ported to this Lean and Mathlib (`ThirdParty/GreenTao/NOTICE.md` lists the changes).
+`ZInQ.greenTaoDense` (`ZInQKernel/External/GreenTaoDense/`) extends that proof to every set of
+primes of positive relative upper density, following `docs/research/gt-dense.md`.
+Proposition D is proved in Lean as well: `ZInQ.Density.goodPrimeDensity` (`ZInQKernel/Density/`)
+follows `pd-paper.md`, with the Selberg sieve of PrimeNumberTheoremAnd vendored unchanged under the
+Apache License 2.0 in `ZInQKernel/Sieve/`. `ZInQKernel/MainGreenTao.lean` discharges both statements:
+`exists_bounded_integer_polynomial_defining_integers_of_goodPrimeDensity` assumes 6C_min, CR₃ and
+GoodPrimeDensity, `exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_goodPrimeDensity`
+assumes 6C_min, CR₃^Sel and GoodPrimeDensity, and
+`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRank` and
+`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankSel` assume only
+6C_min and CR₃, respectively CR₃^Sel. `ZInQKernel/Main.lean`, and with it the three-hypothesis main
+theorem, does not import the vendored library.
+
+On the CR₃ side, Theorem 4.3 of `docs/research/tyz-5b.md` is proved in Lean
+(`ZInQKernel/RouteK/Rank5b/`, `ZInQ.RouteK.Rank5b.det_M5b_eq_dot`): on a Selmer-minimal curve the
+determinant of Smith's matrix `M_5b` is the parity of the number of primes `≡ 3 (mod 4)` dividing
+the first coordinate of a non-torsion Selmer class. So CR₃^Sel follows from `CertifiedRank5b` (if `Sel₂(C_d)` has 8 elements
+and `det M_5b = 1`, every Selmer class comes from a rational point;
+`ZInQ.RouteK.Rank5b.certifiedRankSel_of_certifiedRank5b`). `CertifiedRank5b` is logically stronger
+than CR₃^Sel, but it is stated in the terms of Smith's table, the step toward Tian–Yuan–Zhang's own
+statement (`tyz-5b.md` §3).
 
 `scripts/check_target.py` checks that `FrozenTarget` is upstream's frozen statement token
 for token. Removing another hypothesis means formalizing its source theorem or finding a
@@ -141,6 +194,7 @@ scripts; they are not inputs to the proof.
 | `ZInQKernel/Hypotheses/` | The explicit hypotheses, and the statement of MW (now proved) |
 | `blueprint/` | The Autoform blueprint: the informal dependency graph and its Lean status |
 | `scripts/check_target.py` | Identity check between `FrozenTarget` and the frozen upstream statement |
+| `scripts/print_axioms.lean` | `#print axioms` for the main theorems, their variants and the theorems that replace former hypotheses |
 
 ## Build
 
@@ -148,6 +202,7 @@ scripts; they are not inputs to the proof.
 lake exe cache get
 lake build
 python3 scripts/check_target.py
+lake env lean scripts/print_axioms.lean
 ```
 
 The `autoform verify` workflow builds the project, validates the blueprint and audits

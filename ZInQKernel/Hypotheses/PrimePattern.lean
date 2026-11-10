@@ -5,11 +5,17 @@ import Mathlib
 
 Proposition 6.2 (`prop:fixed-prime-pattern`) of the 11/5 manuscript is proved with the
 Green–Tao asymptotic for linear equations in primes, the Möbius–nilsequences theorem and
-the inverse theorem for the Gowers norms (Green–Tao–Ziegler). Proposition 12.1
-(`prop:cutoff`) bounds the catalogue with the explicit progression estimate of Bennett,
-Martin, O'Bryant and Rechnitzer. Neither input is in Mathlib; both conclusions are
-elementary statements about integers, so they enter the main theorem as explicit
-hypotheses.
+the inverse theorem for the Gowers norms (Green–Tao–Ziegler). Its conclusion is an
+elementary statement about integers, so the three-hypothesis main theorem takes it as an
+explicit hypothesis, `FixedPrimePattern` (22P). The two-hypothesis theorem
+(`ZInQKernel/MainGreenTao.lean`) does not need it: route AP uses `GoodPrimeAP` instead, which
+is proved (`Hypotheses/PrimeAP.lean`, `Hypotheses/GreenTao.lean`). The definitions
+`pointCount` and `GoodSlopePrime` below are used by both routes.
+
+The proof of Proposition 12.1 (`prop:cutoff`, the literal cutoff) bounds the catalogue with
+the explicit progression estimate of Bennett, Martin, O'Bryant and Rechnitzer (CAT below). The
+weaker form CAT₈, with the cutoff `2^(W⁸)`, is proved in Lean by an effective Dirichlet theorem
+(`ZInQ.catalogueBound8`, `ZInQKernel/Progressions/`), and it is the form the size chain uses.
 
 `TwoSlopePattern` (22P₂) is an alternative to 22P: a homothetic copy of a twelve-point set
 inside the good primes, which the proof uses through the constant slope `-10`. It gives the
@@ -153,15 +159,16 @@ def TwoSlopePattern : Prop :=
       (q ≤ 324 → padicValInt q x ≤ 4) ∧ (q ∈ catalogueSet → padicValInt q x ≤ 1)
 
 open Classical in
-/-- **Hypothesis CAT** (the progression estimate as used in Proposition 12.1): every unit
-residue class modulo `W` contains at least twenty-two primes in the interval `(324, 2^(W³))`. -/
+/-- **Hypothesis CAT** (the progression estimate as used in the proof of Proposition 12.1):
+every unit residue class modulo `W` contains at least twenty-two primes in the interval
+`(324, 2^(W³))`. -/
 def CatalogueBound : Prop :=
   ∀ r : ℕ, r < catalogueModulus → Nat.Coprime r catalogueModulus →
     22 ≤ ({p ∈ Finset.Ioo 324 (2 ^ catalogueModulus ^ 3) |
       p.Prime ∧ p % catalogueModulus = r}).card
 
 /-- Hypothesis CAT bounds every catalogue prime by `X = 2^(W³)`: this is the bound
-`H_max < X` drawn from it in Proposition 12.1. -/
+`H_max < X` drawn from it in the proof of Proposition 12.1. -/
 theorem cataloguePrime_lt_of_catalogueBound (hCAT : CatalogueBound) {r : ℕ}
     (hr : r < catalogueModulus) (hcop : Nat.Coprime r catalogueModulus) {i : ℕ} (hi : i < 22) :
     cataloguePrime r i < 2 ^ catalogueModulus ^ 3 := by
@@ -202,7 +209,7 @@ theorem catalogueBound8_of_catalogueBound (hCAT : CatalogueBound) : CatalogueBou
   exact ⟨⟨hp.1.1, hp.1.2.trans_le (hX _ hW)⟩, hp.2⟩
 
 /-- Hypothesis CAT₈ bounds every catalogue prime by `X = 2^(W⁸)`: this is the bound `H_max < X`
-of Proposition 12.1, with the cutoff `2^(W⁸)` in place of `2^(W³)`. -/
+of the proof of Proposition 12.1, with the cutoff `2^(W⁸)` in place of `2^(W³)`. -/
 theorem cataloguePrime_lt_of_catalogueBound8 (hCAT : CatalogueBound8) {r : ℕ}
     (hr : r < catalogueModulus) (hcop : Nat.Coprime r catalogueModulus) {i : ℕ} (hi : i < 22) :
     cataloguePrime r i < 2 ^ catalogueModulus ^ 8 := by
