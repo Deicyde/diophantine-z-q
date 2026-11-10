@@ -42,31 +42,31 @@ theorem sum_zBit_eq (hd : Odd d) (B : Finset d.primeFactors) :
     natCast_mem_oddClasses (Selmer.odd_prime_of_mem_primeFactors hd q)]
   exact Finset.sum_congr rfl fun q _ => zBit_eq_mu8 hd q
 
-theorem mod8_iff (n k : ℕ) (hk : k < 8) : n % 8 = k ↔ (n : ZMod 8) = (k : ZMod 8) := by
+theorem natMod8_eq_iff_cast (n k : ℕ) (hk : k < 8) : n % 8 = k ↔ (n : ZMod 8) = (k : ZMod 8) := by
   rw [ZMod.natCast_eq_natCast_iff', Nat.mod_eq_of_lt hk]
 
-theorem class_iff (hd : Odd d) (B : Finset d.primeFactors) :
+theorem dProd_class_iff (hd : Odd d) (B : Finset d.primeFactors) :
     (dProd B % 8 = 7 ↔ ∑ q ∈ B, yBit d q = 1 ∧ ∑ q ∈ B, zBit d q = 0) ∧
     (dProd B % 8 = 3 ↔ ∑ q ∈ B, yBit d q = 1 ∧ ∑ q ∈ B, zBit d q = 1) ∧
     (dProd B % 8 = 7 ∨ dProd B % 8 = 3 ∨ dProd B % 8 = 1 ↔
       ¬(∑ q ∈ B, yBit d q = 0 ∧ ∑ q ∈ B, zBit d q = 1)) := by
-  rw [sum_yBit_eq hd, sum_zBit_eq hd, mod8_iff _ 7 (by norm_num), mod8_iff _ 3 (by norm_num),
-    mod8_iff _ 1 (by norm_num)]
+  rw [sum_yBit_eq hd, sum_zBit_eq hd, natMod8_eq_iff_cast _ 7 (by norm_num), natMod8_eq_iff_cast _ 3 (by norm_num),
+    natMod8_eq_iff_cast _ 1 (by norm_num)]
   have hc := dProd_mem_oddClasses hd B
   generalize ((dProd B : ℕ) : ZMod 8) = c at hc ⊢
   revert c; decide
 
-theorem admissible_iff (hd : Odd d) (P : Finpartition (univ : Finset d.primeFactors)) :
+theorem admissible5bNat_iff (hd : Odd d) (P : Finpartition (univ : Finset d.primeFactors)) :
     Admissible5bNat d P ↔ Admissible5b (yBit d) (zBit d) P := by
   unfold Admissible5bNat Admissible5b
-  rw [Finset.filter_congr fun B _ => (class_iff hd B).1,
-    Finset.filter_congr fun B _ => (class_iff hd B).2.1]
-  exact and_congr Iff.rfl (and_congr Iff.rfl (forall₂_congr fun B _ => (class_iff hd B).2.2))
+  rw [Finset.filter_congr fun B _ => (dProd_class_iff hd B).1,
+    Finset.filter_congr fun B _ => (dProd_class_iff hd B).2.1]
+  exact and_congr Iff.rfl (and_congr Iff.rfl (forall₂_congr fun B _ => (dProd_class_iff hd B).2.2))
 
 /-- The genus sum `T5b d`, defined with residues mod 8, is `genusSum5b` of the bits. -/
 theorem T5b_eq_genusSum5b (hd : Odd d) : T5b d = genusSum5b (aBit d) (yBit d) (zBit d) := by
   unfold T5b genusSum5b gBit
-  exact Finset.sum_congr rfl fun P _ => if_congr (admissible_iff hd P) rfl rfl
+  exact Finset.sum_congr rfl fun P _ => if_congr (admissible5bNat_iff hd P) rfl rfl
 
 /-- For squarefree `d ≡ 1 (mod 4)`, `y(V) = Σ_{p ∣ d} y_p = 0`. -/
 theorem sum_yBit_univ (hd5 : d % 8 = 5) (hsq : Squarefree d) : ∑ q, yBit d q = 0 := by
@@ -75,7 +75,7 @@ theorem sum_yBit_univ (hd5 : d % 8 = 5) (hsq : Squarefree d) : ∑ q, yBit d q =
     rw [Finset.prod_attach d.primeFactors (fun q => q)]
     exact Nat.prod_primeFactors_of_squarefree hsq
   rw [sum_yBit_eq hd, dProd, Finset.prod_coe_sort_eq_attach, h1]
-  rw [show (d : ZMod 8) = ((5 : ℕ) : ZMod 8) from (mod8_iff d 5 (by norm_num)).1 hd5]
+  rw [show (d : ZMod 8) = ((5 : ℕ) : ZMod 8) from (natMod8_eq_iff_cast d 5 (by norm_num)).1 hd5]
   decide
 
 /-- **Theorem 3.6** (Smith's Theorem 2.2, row 5b; tyz-5b §3.3): for squarefree `d ≡ 5 (mod 8)`,
