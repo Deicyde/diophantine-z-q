@@ -20,8 +20,13 @@ twenty-two values
 $$v,\qquad u_j-bv\quad(1\le j\le3,\ b\in\{0,-15,-20,-24,-30,-60,1\})$$
 equals $\epsilon kp$ with $\epsilon=\pm1$, $k\in\mathcal K$ and $p>B_0$ a good prime.
 
-The manuscript proves it with the Green–Tao asymptotic for linear equations in primes;
-here it is a hypothesis of the main theorem.
+The manuscript proves it with the Green–Tao asymptotic for linear equations in primes. Here it
+is a hypothesis of the three-hypothesis form of the main theorem only, and it is no longer
+needed: [route AP](../route-ap/README.md) changes the completeness proof of the multiplication
+template, not the polynomial, so that it needs only arithmetic progressions of good slope primes
+([the statement 22P_AP](../route-ap/good-prime-ap.md)), and these follow from Szemerédi's theorem
+in the primes and Proposition D, both proved
+([the main theorem from two hypotheses](main-theorem-two-hypotheses.md)).
 
 ## Depends on
 

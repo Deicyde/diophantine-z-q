@@ -17,7 +17,10 @@ $a_0=[a<0]$, $a_1=0$ and $u_p=[p\mid a]$ for the primes $p\mid d$. Then $C_d$ ha
 point $(x,y)$ with $x\ne0$ and $x/a$ a square in $\mathbb Q$.
 
 CR₃ is a statement about Legendre symbols and rational points only; no Selmer group enters it.
-It rests on the following theorems, none of which is formalized here.
+It rests on the following theorems. Proposition 0 is now formalized
+([Proposition 0](../selmer/proposition-0.md)), so CR₃ follows from its Selmer form
+([CR₃ from its Selmer form](../selmer/certified-rank-of-sel.md)), and so is the row-5b determinant
+of route (i) ([Theorem 4.3](../rank-5b/theorem-4-3.md)); the rank-one theorems are not.
 
 - *Proposition 0* (descent-alt §4.1; its place-2 rows for $d\equiv5\pmod8$ are rechecked in
   slot-k §2.1) identifies the solutions of $\Sigma(\mathcal C_d)$ with the 2-Selmer group

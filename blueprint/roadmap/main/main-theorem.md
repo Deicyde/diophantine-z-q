@@ -28,6 +28,12 @@ pattern. The manuscript's fourth input, the catalogue bound, is a theorem here
 ([the catalogue bound holds](../progressions/catalogue-instance.md)): every unit class modulo
 $W$ contains twenty-two primes $p$ with $324<p<2^{W^8}$, by an effective Dirichlet theorem.
 
+The twenty-two-prime pattern is not needed at all: route AP proves the completeness of the
+multiplication template from long progressions of good slope primes, which Szemerédi's theorem in
+the primes and Proposition D supply, so the same polynomial works under the minimal height
+hypothesis and CR₃ alone ([the main theorem from two hypotheses](main-theorem-two-hypotheses.md)).
+The present form, which keeps the manuscript's prime pattern, uses none of that material.
+
 ## Depends on
 
 - [The target statement](frozen-target.md)

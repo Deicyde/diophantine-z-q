@@ -33,6 +33,10 @@ explicit 2-Selmer certificate of a congruent number curve into a rational point.
 - [Pole completeness](pole-completeness.md)
 - [The certified rank hypothesis](certified-rank.md)
 
+CR₃ follows from a form stated with the 2-Selmer group itself, CR₃^Sel, because the explicit system
+is that Selmer group ([Proposition 0](../selmer/README.md)); CR₃^Sel in turn follows from a
+hypothesis in the terms of Smith's row-5b determinant ([the row-5b chapter](../rank-5b/README.md)).
+
 The generator argument uses the Mordell–Weil theorem for $E$ over $K_0$. It was a
 hypothesis until the two-isogeny descent of the model chapter proved it.
 
@@ -53,6 +57,12 @@ the twenty-two-prime pattern.
 
 - [The two-slope prime pattern](two-slope-pattern.md)
 
+Neither pattern is needed any more. [Route AP](../route-ap/README.md) proves the completeness of
+the multiplication template, for the same polynomial, from long arithmetic progressions of good
+slope primes; these come from Szemerédi's theorem in the primes, proved from a Lean proof of the
+Green–Tao theorem ([the Green–Tao chapter](../green-tao/README.md)), and from the positive density
+of the good slope primes, [Proposition D](../density/README.md).
+
 The catalogue bound is no longer an assumption of substance: the
 [progressions chapter](../progressions/README.md) proves it from an effective Dirichlet
 theorem. Under the remaining hypotheses (the minimal form of the height estimate, the certified
@@ -60,3 +70,9 @@ rank hypothesis CR₃, or pole completeness in its place, and the twenty-two-pri
 two-slope pattern in its place) the target holds.
 
 - [The main theorem](main-theorem.md)
+
+With route AP the prime pattern drops out, and the target holds under the minimal height
+hypothesis and CR₃ alone, or under the minimal height hypothesis and CR₃^Sel.
+
+- [The main theorem from two hypotheses](main-theorem-two-hypotheses.md)
+- [The main theorem from the Selmer form of the rank hypothesis](main-theorem-selmer.md)
