@@ -8,3 +8,4 @@
 - Glue.lean: allF, ofPartFun, gluing prod_sum_allF. Compiles.
 - Count.lean: card_fpfi (pairings parity), card_setA (compatible partitions ↔ pairings). Compiles.
 - Genus.lean: block weights w7/w3/w1 as forest sums (w1 via Lemma 2.2(3)); marked form of T5b. Compiles.
+- Thm36.lean: genusSum5b_eq_forest, det_M5bG_eq_genusSum5b (Theorem 3.6 for bits, reciprocity + y(V)=0). Compiles, no sorry.
