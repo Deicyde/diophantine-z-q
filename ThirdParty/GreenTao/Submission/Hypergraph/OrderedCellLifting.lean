@@ -178,7 +178,6 @@ theorem card_deletionCylinder
                 D (eraseOrderedFace e i) := by
         ext x
         simp [eraseCoordinate_eq_removeNth]
-        rfl
       rw [hcylinder]
       exact h
 

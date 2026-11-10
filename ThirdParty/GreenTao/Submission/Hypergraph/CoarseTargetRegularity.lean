@@ -386,7 +386,6 @@ theorem CoarseTargetOrderedComplexRegularityCertificate.nonempty
               OrderedPartitionComplex.withTopLayer,
               Fin.lastCases_castSucc, Fin.succ_castSucc]
             convert hgap using 1
-            rfl
       · intro q
         cases q using Fin.lastCases with
         | last =>
@@ -468,7 +467,6 @@ theorem CoarseTargetOrderedComplexRegularityCertificate.nonempty
               Fin.lastCases_castSucc,
               OrderedPartitionComplex.dropTop] at hcomplexity
             convert hcomplexity using 1
-            rfl
       · intro q
         cases q using Fin.lastCases with
         | last =>
@@ -507,7 +505,6 @@ theorem CoarseTargetOrderedComplexRegularityCertificate.nonempty
               Fin.lastCases_castSucc,
               OrderedPartitionComplex.dropTop] at hcomplexity
             convert hcomplexity using 1
-            rfl
 
 /-! ## Total coarse-target gap -/
 

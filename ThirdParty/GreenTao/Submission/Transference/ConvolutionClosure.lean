@@ -207,7 +207,7 @@ theorem eval_pure
     (u : CutTestFamily G r) (hu : IsBoundedCutTest u)
     (z : G) :
     (pure u hu).eval z = generalizedConvolution r u z := by
-  simp [eval, pure]
+  exact mean_const (α := ULift.{u} Unit) _
 
 /-- The constant-one function represented as a generalized convolution at
 positive arity. -/

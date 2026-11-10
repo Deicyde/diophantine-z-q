@@ -291,6 +291,7 @@ theorem iterNextDecoded_majorant_zero
       simp [iterNextDecoded, iterNext,
         reindex, csStageParamEquiv,
         csOrderedStageCurrentIndex]
+      rfl
   | succ r ih =>
       change
         (iterNextDecoded S.next).majorant

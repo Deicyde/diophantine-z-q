@@ -937,11 +937,10 @@ theorem SmoothSieveCutoff.summable_selectedCFZCanonicalCarryEulerCompletionTailI
               carry.1 : ℂ) *
             pairedCutoffFourierEnvelope χ tu.1 tu.2‖
     convert hscaled using 1
-    · rfl
-    · funext S
-      simp only [
-        SmoothSieveCutoff.selectedCFZCanonicalCarryEulerCompletionTailIntegrand,
-        norm_neg, norm_mul, mul_assoc]
+    funext S
+    simp only [
+      SmoothSieveCutoff.selectedCFZCanonicalCarryEulerCompletionTailIntegrand,
+      norm_neg, norm_mul, mul_assoc]
   · exact Summable.of_finite
 
 /-- Each signed tail term is integrable. -/
@@ -1027,8 +1026,8 @@ theorem SmoothSieveCutoff.summable_integral_norm_selectedCFZCanonicalCarryEulerC
       ‖χ.selectedCFZCanonicalCarryEulerCompletionTailIntegrand
         (N := N) (w := w) (b := b) e R idx tu‖
       ∂(volume.prod volume))
-  rw [summable_prod_of_nonneg fun _idx =>
-    integral_nonneg fun _tu => norm_nonneg _]
+  refine (summable_prod_of_nonneg fun _idx =>
+    integral_nonneg fun _tu => norm_nonneg _).2 ?_
   constructor
   · intro carry
     have hall :=
@@ -1057,11 +1056,10 @@ theorem SmoothSieveCutoff.summable_integral_norm_selectedCFZCanonicalCarryEulerC
           (fun q : SelectedCFZFormIndex e => q.1)
           carry.1 : ℂ)‖
     convert hscaled using 1
-    · rfl
-    · funext S
-      simp only [
-        SmoothSieveCutoff.selectedCFZCanonicalCarryEulerCompletionTailIntegrand,
-        norm_neg, norm_mul, integral_const_mul]
+    funext S
+    simp only [
+      SmoothSieveCutoff.selectedCFZCanonicalCarryEulerCompletionTailIntegrand,
+      norm_neg, norm_mul, integral_const_mul]
   · exact Summable.of_finite
 
 /-- For one canonical carry, subtracting the complete support series from

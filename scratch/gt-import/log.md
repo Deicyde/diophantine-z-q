@@ -19,3 +19,13 @@ Build outputs kept in scratch/gt-import/build*.txt.
   Sieve/LocalFactors (2× `simpa using h` → `convert h <;> rfl`), Sieve/PrimeHarmonicProductBound
   (`simpa [← hq]` → `subst hq; exact`), Sieve/WTrickedEulerCorrection (simp → rw + exact Finset.prod_attach),
   Transference/BooleanCutReduction (simpa [defs] using t → exact t).
+
+## Step 2, batch 2
+- `convert h using 1` now closes defeq side goals itself: trailing `rfl`/`· rfl` removed (No goals) in
+  Hypergraph/CoarseTargetRegularity (3), Hypergraph/StrongOrderedComplexRegularity (3), Sieve/CFZCanonicalEulerCompletion (2);
+  `simp [...]` now closes `ext` goal: trailing `rfl` removed in Hypergraph/OrderedCellLifting.
+- Transference/RelativeCountingDecoderStep: simp leaves a defeq goal, `rfl` added.
+- Transference/ConvolutionClosure.eval_pure: `simp [eval, pure]` no longer closes; `exact mean_const (α := ULift Unit) _`.
+- Sieve/CFZCanonicalEulerCompletion: `rw [summable_prod_of_nonneg ...]` (rewrite of an iff by motive failure) →
+  `refine (summable_prod_of_nonneg ...).2 ?_`.
+- Hypergraph/ConfigurationWeightedHierarchy: one more prod_le_prod_of_subset_of_le_one → ₀.

@@ -1,0 +1,937 @@
+⚠ [9046/9278] Replayed Submission.Finite.Mean
+warning: ThirdParty/GreenTao/Submission/Finite/Mean.lean: imports `Mathlib.Algebra.BigOperators.Expect` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Finite/Mean.lean: imports `Mathlib.Data.Fintype.Card` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Finite/Mean.lean: imports `Mathlib.Tactic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9050/9278] Replayed Submission.Primes.ReducedResidues
+warning: ThirdParty/GreenTao/Submission/Primes/ReducedResidues.lean: imports `Mathlib.Combinatorics.Pigeonhole` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Primes/ReducedResidues.lean: imports `Mathlib.Data.Nat.Totient` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Primes/ReducedResidues.lean: imports `Mathlib.Data.ZMod.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Primes/ReducedResidues.lean: imports `Mathlib.NumberTheory.Primorial` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9051/9278] Replayed Submission.Sieve.TruncatedDivisorSum
+warning: ThirdParty/GreenTao/Submission/Sieve/TruncatedDivisorSum.lean: imports `Mathlib.Analysis.SpecialFunctions.Log.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/TruncatedDivisorSum.lean: imports `Mathlib.Data.Nat.Totient` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/TruncatedDivisorSum.lean: imports `Mathlib.NumberTheory.ArithmeticFunction.Moebius` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/TruncatedDivisorSum.lean: imports `Mathlib.NumberTheory.Divisors` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/TruncatedDivisorSum.lean: imports `Mathlib.Tactic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9052/9278] Replayed Submission.Primes.WTrick
+warning: ThirdParty/GreenTao/Submission/Primes/WTrick.lean: imports `Mathlib.Data.ZMod.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Primes/WTrick.lean:82:29: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Primes/WTrick.lean:95:29: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [9053/9278] Replayed Submission.GreenTao.Parameters
+warning: ThirdParty/GreenTao/Submission/GreenTao/Parameters.lean: imports `Mathlib.Analysis.SpecialFunctions.Log.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/GreenTao/Parameters.lean: imports `Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/GreenTao/Parameters.lean: imports `Mathlib.Analysis.SpecificLimits.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9054/9278] Replayed Submission.LinearForms.Basic
+warning: ThirdParty/GreenTao/Submission/LinearForms/Basic.lean: imports `Mathlib.Data.ZMod.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9056/9278] Replayed Submission.LinearForms.Geometry
+warning: ThirdParty/GreenTao/Submission/LinearForms/Geometry.lean: imports `Mathlib.Data.Int.Lemmas` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9057/9278] Replayed Submission.Sieve.CongruenceAverage
+warning: ThirdParty/GreenTao/Submission/Sieve/CongruenceAverage.lean: imports `Mathlib.Algebra.GCDMonoid.FinsetLemmas` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/CongruenceAverage.lean: imports `Mathlib.Algebra.Order.BigOperators.Group.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/CongruenceAverage.lean: imports `Mathlib.Data.Fintype.BigOperators` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/CongruenceAverage.lean: imports `Mathlib.Data.Fintype.Pi` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/CongruenceAverage.lean: imports `Mathlib.Logic.Equiv.Fin.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/CongruenceAverage.lean: imports `Mathlib.Tactic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9059/9278] Replayed Submission.Sieve.LocalFactors
+warning: ThirdParty/GreenTao/Submission/Sieve/LocalFactors.lean: imports `Mathlib.Algebra.Field.ZMod` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/LocalFactors.lean: imports `Mathlib.GroupTheory.Index` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/LocalFactors.lean: imports `Mathlib.LinearAlgebra.Pi` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/LocalFactors.lean:180:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/LocalFactors.lean:235:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9061/9278] Replayed Submission.Sieve.SmoothCutoff
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoff.lean: imports `Mathlib.Analysis.Calculus.BumpFunction.InnerProduct` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoff.lean: imports `Mathlib.Analysis.Calculus.ContDiff.Deriv` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoff.lean: imports `Mathlib.Analysis.Calculus.Deriv.MeanValue` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoff.lean: imports `Mathlib.Analysis.Calculus.Deriv.Support` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoff.lean: imports `Mathlib.MeasureTheory.Integral.Bochner.Set` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoff.lean: imports `Mathlib.MeasureTheory.Integral.IntegralEqImproper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9062/9278] Replayed Submission.Sieve.SmoothMajorant
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothMajorant.lean:81:51: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [9064/9278] Replayed Submission.Sieve.SmoothCutoffFourier
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoffFourier.lean: imports `Mathlib.Analysis.Distribution.SchwartzSpace.Fourier` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoffFourier.lean: imports `Mathlib.Tactic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9065/9278] Replayed Submission.Sieve.ZetaNearOne
+warning: ThirdParty/GreenTao/Submission/Sieve/ZetaNearOne.lean: imports `Mathlib.NumberTheory.Harmonic.ZetaAsymp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9066/9278] Replayed Submission.Sieve.FourierZetaParameters
+warning: ThirdParty/GreenTao/Submission/Sieve/FourierZetaParameters.lean: imports `Mathlib.Analysis.SpecialFunctions.Pow.Complex` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9067/9278] Replayed Submission.Sieve.SmoothCutoffFourierTail
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoffFourierTail.lean: imports `Mathlib.MeasureTheory.Integral.IntegralEqImproper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9068/9278] Replayed Submission.Sieve.SmoothCutoffFourierProductTail
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoffFourierProductTail.lean: imports `Mathlib.MeasureTheory.Integral.Pi` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9069/9278] Replayed Submission.Sieve.MultivariateFourierExpansion
+warning: ThirdParty/GreenTao/Submission/Sieve/MultivariateFourierExpansion.lean: imports `Mathlib.MeasureTheory.Integral.Prod` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9070/9278] Replayed Submission.Sieve.CyclicMajorant
+warning: ThirdParty/GreenTao/Submission/Sieve/CyclicMajorant.lean:69:30: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+⚠ [9071/9278] Replayed Submission.GreenTao.Majorization
+warning: ThirdParty/GreenTao/Submission/GreenTao/Majorization.lean:320:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/GreenTao/Majorization.lean:348:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9072/9278] Replayed Submission.Primes.Chebyshev
+warning: ThirdParty/GreenTao/Submission/Primes/Chebyshev.lean: imports `Mathlib.NumberTheory.Chebyshev` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Primes/Chebyshev.lean: imports `Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9073/9278] Replayed Submission.Primes.WTrickDensity
+warning: ThirdParty/GreenTao/Submission/Primes/WTrickDensity.lean:625:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Primes/WTrickDensity.lean:670:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Primes/WTrickDensity.lean:699:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Primes/WTrickDensity.lean:721:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9074/9278] Replayed Submission.Transference.CutDiscrepancy
+warning: ThirdParty/GreenTao/Submission/Transference/CutDiscrepancy.lean: imports `Mathlib.Algebra.BigOperators.Fin` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Transference/CutDiscrepancy.lean: imports `Mathlib.Data.Fin.Tuple.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Transference/CutDiscrepancy.lean:99:21: `mul_le_one₀` has been deprecated: No replacement, use constituent lemmas from proof.
+⚠ [9077/9278] Replayed Submission.Transference.DenseModel
+warning: ThirdParty/GreenTao/Submission/Transference/DenseModel.lean: imports `Mathlib.Analysis.LocallyConvex.Separation` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9078/9278] Replayed Submission.Transference.PolynomialApproximation
+warning: ThirdParty/GreenTao/Submission/Transference/PolynomialApproximation.lean: imports `Mathlib.Topology.ContinuousMap.Weierstrass` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9081/9278] Replayed Submission.Transference.BoxNorm
+warning: ThirdParty/GreenTao/Submission/Transference/BoxNorm.lean:267:12: `mul_le_one₀` has been deprecated: No replacement, use constituent lemmas from proof.
+⚠ [9083/9278] Replayed Submission.Transference.StrongLinearForms
+warning: ThirdParty/GreenTao/Submission/Transference/StrongLinearForms.lean: imports `Mathlib.Algebra.Order.BigOperators.Expect` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Transference/StrongLinearForms.lean: imports `Mathlib.Algebra.Order.Chebyshev` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Transference/StrongLinearForms.lean:353:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Transference/StrongLinearForms.lean:379:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9084/9278] Replayed Submission.Sieve.CyclicLinearFormsLimitAssembly
+warning: ThirdParty/GreenTao/Submission/Sieve/CyclicLinearFormsLimitAssembly.lean: imports `Mathlib.Order.Filter.Finite` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9085/9278] Replayed Submission.Hypergraph.ConditionalAverage
+warning: ThirdParty/GreenTao/Submission/Hypergraph/ConditionalAverage.lean: imports `Mathlib.Algebra.Order.BigOperators.Expect` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Hypergraph/ConditionalAverage.lean: imports `Mathlib.Order.Partition.Finpartition` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9088/9278] Replayed Submission.Hypergraph.OrderedPattern
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedPattern.lean:157:13: `OrderEmbedding.range_inj` has been deprecated: Use `OrderEmbedding.range_inj_of_wellFoundedLT` instead
+
+Hint: Replace the deprecated name:
+  OrderEmbedding.range_inj_̲o̲f̲_̲w̲e̲l̲l̲F̲o̲u̲n̲d̲e̲d̲L̲T̲
+⚠ [9089/9278] Replayed Submission.Hypergraph.Regularity
+warning: ThirdParty/GreenTao/Submission/Hypergraph/Regularity.lean:522:33: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/Regularity.lean:534:33: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [9094/9278] Replayed Submission.Hypergraph.HypergraphBundleDuplication
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleDuplication.lean:165:34: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleDuplication.lean:173:34: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleDuplication.lean:196:34: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleDuplication.lean:204:34: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [9095/9278] Replayed Submission.Hypergraph.FamilyRegularity
+warning: ThirdParty/GreenTao/Submission/Hypergraph/FamilyRegularity.lean:47:0: automatically included section variable(s) unused in theorem `Submission.GreenTao.FaceRegularityState.familyEnergy_nonneg`:
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/FamilyRegularity.lean:56:0: automatically included section variable(s) unused in theorem `Submission.GreenTao.FaceRegularityState.familyEnergy_le_card`:
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/FamilyRegularity.lean:71:0: automatically included section variable(s) unused in theorem `Submission.GreenTao.FaceRegularityState.familyEnergy_mono`:
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/FamilyRegularity.lean:124:0: automatically included section variable(s) unused in theorem `Submission.GreenTao.FaceRegularityState.exists_index_booleanCut_of_not_familyRegular`:
+  [Fintype ι]
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/FamilyRegularity.lean:182:39: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/FamilyRegularity.lean:198:39: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/FamilyRegularity.lean:517:0: automatically included section variable(s) unused in theorem `Submission.GreenTao.FaceRegularityState.isFaceCutRegularFamily_of_familyRegularAgainst_supports`:
+  [Fintype ι]
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [9096/9278] Replayed Submission.Hypergraph.GeneratorCells
+warning: ThirdParty/GreenTao/Submission/Hypergraph/GeneratorCells.lean:48:51: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [9104/9278] Replayed Submission.Sieve.PairedDivisibilityCRT
+warning: ThirdParty/GreenTao/Submission/Sieve/PairedDivisibilityCRT.lean: imports `Mathlib.Data.ZMod.QuotientRing` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/PairedDivisibilityCRT.lean:146:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [9105/9278] Replayed Submission.Sieve.PairedLocalFactors
+warning: ThirdParty/GreenTao/Submission/Sieve/PairedLocalFactors.lean: imports `Mathlib.Data.Nat.GCD.Prime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/PairedLocalFactors.lean: imports `Mathlib.Data.Nat.Squarefree` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9106/9278] Replayed Submission.Sieve.GoodPrimeAffineRank
+warning: ThirdParty/GreenTao/Submission/Sieve/GoodPrimeAffineRank.lean:191:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9108/9278] Replayed Submission.Sieve.EulerProductControl
+warning: ThirdParty/GreenTao/Submission/Sieve/EulerProductControl.lean: imports `Mathlib.Analysis.SpecialFunctions.Log.Summable` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/EulerProductControl.lean: imports `Mathlib.NumberTheory.SumPrimeReciprocals` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9109/9278] Replayed Submission.Sieve.CFZEulerProductControl
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZEulerProductControl.lean:283:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZEulerProductControl.lean:306:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9110/9278] Replayed Submission.Sieve.ComplexLocalFactorControl
+warning: ThirdParty/GreenTao/Submission/Sieve/ComplexLocalFactorControl.lean:920:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9111/9278] Replayed Submission.Sieve.ComplexEulerProductTail
+warning: ThirdParty/GreenTao/Submission/Sieve/ComplexEulerProductTail.lean: imports `Mathlib.Analysis.Normed.Ring.InfiniteProd` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9112/9278] Replayed Submission.Sieve.PrimeHarmonicProductBound
+warning: ThirdParty/GreenTao/Submission/Sieve/PrimeHarmonicProductBound.lean: imports `Mathlib.Analysis.Complex.ExponentialBounds` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/PrimeHarmonicProductBound.lean: imports `Mathlib.Analysis.SpecialFunctions.ImproperIntegrals` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/PrimeHarmonicProductBound.lean: imports `Mathlib.NumberTheory.EulerProduct.DirichletLSeries` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/PrimeHarmonicProductBound.lean: imports `Mathlib.NumberTheory.Harmonic.Bounds` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/PrimeHarmonicProductBound.lean: imports `Mathlib.Topology.Algebra.InfiniteSum.Field` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9115/9278] Replayed Submission.Sieve.CutoffNormalizerIntegral
+warning: ThirdParty/GreenTao/Submission/Sieve/CutoffNormalizerIntegral.lean: imports `Mathlib.Analysis.SpecialFunctions.ImproperIntegrals` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/CutoffNormalizerIntegral.lean: imports `Mathlib.MeasureTheory.Integral.Prod` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9116/9278] Replayed Submission.Sieve.CutoffNormalizerProduct
+warning: ThirdParty/GreenTao/Submission/Sieve/CutoffNormalizerProduct.lean: imports `Mathlib.MeasureTheory.Integral.Pi` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9118/9278] Replayed Submission.Sieve.ZetaEulerProductIdentification
+warning: ThirdParty/GreenTao/Submission/Sieve/ZetaEulerProductIdentification.lean: imports `Mathlib.NumberTheory.EulerProduct.DirichletLSeries` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9120/9278] Replayed Submission.Sieve.ComplexEulerProductComparison
+warning: ThirdParty/GreenTao/Submission/Sieve/ComplexEulerProductComparison.lean:216:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/ComplexEulerProductComparison.lean:398:16: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ThirdParty/GreenTao/Submission/Sieve/ComplexEulerProductComparison.lean:496:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/ComplexEulerProductComparison.lean:583:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9122/9278] Replayed Submission.Sieve.WTrickedGoodPrime
+warning: ThirdParty/GreenTao/Submission/Sieve/WTrickedGoodPrime.lean:109:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/WTrickedGoodPrime.lean:124:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9123/9278] Replayed Submission.Sieve.CFZCongruenceBoundary
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCongruenceBoundary.lean:788:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9124/9278] Replayed Submission.Sieve.SelectedCFZAffineLocalProduct
+warning: ThirdParty/GreenTao/Submission/Sieve/SelectedCFZAffineLocalProduct.lean:59:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9125/9278] Replayed Submission.Sieve.SelectedCFZDivisorEulerBridge
+warning: ThirdParty/GreenTao/Submission/Sieve/SelectedCFZDivisorEulerBridge.lean:82:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/SelectedCFZDivisorEulerBridge.lean:217:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/SelectedCFZDivisorEulerBridge.lean:261:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/SelectedCFZDivisorEulerBridge.lean:288:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9126/9278] Replayed Submission.Sieve.CFZCarryBlockBoundary
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryBlockBoundary.lean: imports `Mathlib.Data.Int.Interval` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9128/9278] Replayed Submission.Sieve.CFZCarryBlockEulerBridge
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryBlockEulerBridge.lean:655:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9129/9278] Replayed Submission.Sieve.CFZCanonicalCarryCellDiscrepancy
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryCellDiscrepancy.lean:190:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryCellDiscrepancy.lean:192:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryCellDiscrepancy.lean:296:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryCellDiscrepancy.lean:298:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9132/9278] Replayed Submission.Sieve.CFZCarryDivisorExpansion
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryDivisorExpansion.lean:152:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9134/9278] Replayed Submission.Sieve.CFZCarryFourierTailBound
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:158:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:160:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:334:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:336:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:1140:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:1144:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9136/9278] Replayed Submission.Sieve.CFZCarryFourierTailPolylog
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailPolylog.lean:50:13: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailPolylog.lean:708:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailPolylog.lean:713:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9137/9278] Replayed Submission.Sieve.CFZCarryEulerTail
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerTail.lean:269:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerTail.lean:270:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9138/9278] Replayed Submission.Sieve.WTrickedEulerCorrection
+warning: ThirdParty/GreenTao/Submission/Sieve/WTrickedEulerCorrection.lean: imports `Mathlib.NumberTheory.PrimeCounting` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/WTrickedEulerCorrection.lean:79:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/WTrickedEulerCorrection.lean:101:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/WTrickedEulerCorrection.lean:181:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9139/9278] Replayed Submission.Sieve.CFZCarryEulerFactorization
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerFactorization.lean:106:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerFactorization.lean:107:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerFactorization.lean:130:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerFactorization.lean:131:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9143/9278] Replayed Submission.Sieve.UnrestrictedPrimeSupportEulerSeries
+warning: ThirdParty/GreenTao/Submission/Sieve/UnrestrictedPrimeSupportEulerSeries.lean:292:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/UnrestrictedPrimeSupportEulerSeries.lean:422:16: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ThirdParty/GreenTao/Submission/Sieve/UnrestrictedPrimeSupportEulerSeries.lean:444:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/UnrestrictedPrimeSupportEulerSeries.lean:577:16: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ThirdParty/GreenTao/Submission/Sieve/UnrestrictedPrimeSupportEulerSeries.lean:615:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9144/9278] Replayed Submission.Sieve.CFZCanonicalDivisorExpansion
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorExpansion.lean:164:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorExpansion.lean:441:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorExpansion.lean:473:10: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9147/9278] Replayed Submission.Sieve.CFZCanonicalDivisorRankinMassPolylog
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorRankinMassPolylog.lean:104:10: `mul_le_one₀` has been deprecated: No replacement, use constituent lemmas from proof.
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorRankinMassPolylog.lean:215:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorRankinMassPolylog.lean:258:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorRankinMassPolylog.lean:478:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9150/9278] Replayed Submission.Sieve.CFZCanonicalCyclicBoundaryLimit
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCyclicBoundaryLimit.lean:76:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCyclicBoundaryLimit.lean:831:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCyclicBoundaryLimit.lean:834:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCyclicBoundaryLimit.lean:890:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9153/9278] Replayed Submission.Sieve.CFZUniformFiniteFourierCorrection
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZUniformFiniteFourierCorrection.lean:74:24: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [9155/9278] Replayed ChallengeDeps
+warning: ThirdParty/GreenTao/ChallengeDeps.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9157/9278] Replayed Submission.ArithmeticProgression.Count
+warning: ThirdParty/GreenTao/Submission/ArithmeticProgression/Count.lean: imports `Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/ArithmeticProgression/Count.lean: imports `Mathlib.Data.ZMod.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9159/9278] Replayed Submission.ArithmeticProgression.ShortInterval
+warning: ThirdParty/GreenTao/Submission/ArithmeticProgression/ShortInterval.lean: imports `Mathlib.Data.Int.ModEq` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9164/9278] Replayed Submission.GreenTao.DiagonalNegligibility
+warning: ThirdParty/GreenTao/Submission/GreenTao/DiagonalNegligibility.lean: imports `Mathlib.Analysis.SpecialFunctions.Log.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9166/9278] Replayed Submission.GreenTao.CofinalPrimeModulusAssembly
+warning: ThirdParty/GreenTao/Submission/GreenTao/CofinalPrimeModulusAssembly.lean: imports `Mathlib.Data.Nat.Prime.Infinite` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9170/9278] Replayed Submission.Transference.APCut
+warning: ThirdParty/GreenTao/Submission/Transference/APCut.lean: imports `Mathlib.Data.Int.Lemmas` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Transference/APCut.lean: imports `Mathlib.Data.ZMod.Units` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Transference/APCut.lean: imports `Mathlib.RingTheory.Int.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9171/9278] Replayed Submission.Transference.SimplexTelescoping
+warning: ThirdParty/GreenTao/Submission/Transference/SimplexTelescoping.lean: imports `Mathlib.Algebra.BigOperators.Ring.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9175/9278] Replayed Submission.Hypergraph.Removal
+warning: ThirdParty/GreenTao/Submission/Hypergraph/Removal.lean: imports `Mathlib.Data.Finset.Max` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9176/9278] Replayed Submission.Hypergraph.APRemoval
+warning: ThirdParty/GreenTao/Submission/Hypergraph/APRemoval.lean:123:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9177/9278] Replayed Submission.Hypergraph.OrderedSimplexBridge
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedSimplexBridge.lean: imports `Mathlib.Order.Hom.PowersetCard` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedSimplexBridge.lean:43:8: `OrderEmbedding.range_inj` has been deprecated: Use `OrderEmbedding.range_inj_of_wellFoundedLT` instead
+
+Hint: Replace the deprecated name:
+  OrderEmbedding.range_inj_̲o̲f̲_̲w̲e̲l̲l̲F̲o̲u̲n̲d̲e̲d̲L̲T̲
+⚠ [9179/9278] Replayed Submission.Transference.SimplexCounting
+warning: ThirdParty/GreenTao/Submission/Transference/SimplexCounting.lean: imports `Mathlib.Algebra.Order.BigOperators.Expect` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9194/9278] Replayed Submission.Hypergraph.OrderedEnergy
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedEnergy.lean: imports `Mathlib.Algebra.Order.Chebyshev` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✖ [9197/9278] Building Submission.Sieve.CFZCanonicalEulerCompletion (2.8s)
+trace: .> LEAN_PATH=/home/jackmccarthy/dzq-wt/gt-import/.lake/packages/Cli/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/gt-import/.lake/packages/batteries/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/gt-import/.lake/packages/Qq/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/gt-import/.lake/packages/aesop/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/gt-import/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/gt-import/.lake/packages/importGraph/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/gt-import/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/gt-import/.lake/packages/plausible/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/gt-import/.lake/packages/mathlib/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/gt-import/lean/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/gt-import/.lake/build/lib/lean /home/jackmccarthy/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /home/jackmccarthy/dzq-wt/gt-import/ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletion.lean -o /home/jackmccarthy/dzq-wt/gt-import/.lake/build/lib/lean/Submission/Sieve/CFZCanonicalEulerCompletion.olean -i /home/jackmccarthy/dzq-wt/gt-import/.lake/build/lib/lean/Submission/Sieve/CFZCanonicalEulerCompletion.ilean -c /home/jackmccarthy/dzq-wt/gt-import/.lake/build/ir/Submission/Sieve/CFZCanonicalEulerCompletion.c --setup /home/jackmccarthy/dzq-wt/gt-import/.lake/build/ir/Submission/Sieve/CFZCanonicalEulerCompletion.setup.json --json
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletion.lean:568:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+error: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletion.lean:1059:6: Tactic `rfl` failed: The left-hand side
+  fun y =>
+    ∫ (x : (SelectedCFZFormIndex e → ℝ) × (SelectedCFZFormIndex e → ℝ)),
+      ‖χ.selectedCFZCanonicalCarryEulerCompletionTailIntegrand e R (carry, y) x‖ ∂volume.prod volume
+is not definitionally equal to the right-hand side
+  fun i =>
+    ‖↑(cfzCanonicalCarryCellDensity (fun q => ↑q) ↑carry)‖ *
+      ∫ (tu : (SelectedCFZFormIndex e → ℝ) × (SelectedCFZFormIndex e → ℝ)),
+        ‖pairedCutoffFourierEnvelope χ tu.1 tu.2 *
+            unrestrictedPrimeSupportTerm
+              (cfzCanonicalCarryPairedFourierPrimeLocalFactor N (primorial w) b R (fun q => ↑q) (↑carry) tu.1 tu.2)
+              ↑i‖ ∂volume.prod volume
+
+case e'_5
+k N w b : ℕ
+inst✝ : NeZero N
+χ : SmoothSieveCutoff
+hk : 2 ≤ k
+hbound : (exceptionalPrimeBound fun q => cfzAffineForm q) ≤ w
+hwb : (primorial w).Coprime b
+e : LinearFormsExponent k
+R : ℕ
+hR : 2 ≤ R
+carry : ↥(cfzCanonicalCarryVectorChoices (SelectedCFZFormIndex e) k)
+hall :
+  Summable fun S =>
+    ∫ (tu : (SelectedCFZFormIndex e → ℝ) × (SelectedCFZFormIndex e → ℝ)),
+      ‖pairedCutoffFourierEnvelope χ tu.1 tu.2 *
+          unrestrictedPrimeSupportTerm
+            (cfzCanonicalCarryPairedFourierPrimeLocalFactor N (primorial w) b R (fun q => ↑q) (↑carry) tu.1 tu.2)
+            S‖ ∂volume.prod volume
+hbase :
+  Summable fun S =>
+    ∫ (tu : (SelectedCFZFormIndex e → ℝ) × (SelectedCFZFormIndex e → ℝ)),
+      ‖pairedCutoffFourierEnvelope χ tu.1 tu.2 *
+          unrestrictedPrimeSupportTerm
+            (cfzCanonicalCarryPairedFourierPrimeLocalFactor N (primorial w) b R (fun q => ↑q) (↑carry) tu.1 tu.2)
+            ↑S‖ ∂volume.prod volume
+hscaled :
+  Summable fun i =>
+    ‖↑(cfzCanonicalCarryCellDensity (fun q => ↑q) ↑carry)‖ *
+      ∫ (tu : (SelectedCFZFormIndex e → ℝ) × (SelectedCFZFormIndex e → ℝ)),
+        ‖pairedCutoffFourierEnvelope χ tu.1 tu.2 *
+            unrestrictedPrimeSupportTerm
+              (cfzCanonicalCarryPairedFourierPrimeLocalFactor N (primorial w) b R (fun q => ↑q) (↑carry) tu.1 tu.2)
+              ↑i‖ ∂volume.prod volume
+⊢ (fun y =>
+      ∫ (x : (SelectedCFZFormIndex e → ℝ) × (SelectedCFZFormIndex e → ℝ)),
+        ‖χ.selectedCFZCanonicalCarryEulerCompletionTailIntegrand e R (carry, y) x‖ ∂volume.prod volume) =
+    fun i =>
+    ‖↑(cfzCanonicalCarryCellDensity (fun q => ↑q) ↑carry)‖ *
+      ∫ (tu : (SelectedCFZFormIndex e → ℝ) × (SelectedCFZFormIndex e → ℝ)),
+        ‖pairedCutoffFourierEnvelope χ tu.1 tu.2 *
+            unrestrictedPrimeSupportTerm
+              (cfzCanonicalCarryPairedFourierPrimeLocalFactor N (primorial w) b R (fun q => ↑q) (↑carry) tu.1 tu.2)
+              ↑i‖ ∂volume.prod volume
+error: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletion.lean:1060:4: No goals to be solved
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletion.lean:1346:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9202/9278] Built Submission.Transference.ConvolutionClosure (4.8s)
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:107:10: `mul_le_one₀` has been deprecated: No replacement, use constituent lemmas from proof.
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:256:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:257:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:258:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:259:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:366:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:367:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:405:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:406:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9203/9278] Built Submission.Transference.RelativeSzemeredi (4.2s)
+⚠ [9204/9278] Built Submission.Transference.ProjectedFaceCutClosure (5.3s)
+warning: ThirdParty/GreenTao/Submission/Transference/ProjectedFaceCutClosure.lean:360:12: `mul_le_one₀` has been deprecated: No replacement, use constituent lemmas from proof.
+⚠ [9205/9278] Built Submission.Hypergraph.OrderedCellLifting (10s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedCellLifting.lean: imports `Mathlib.Data.Fin.Tuple.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9206/9278] Built Submission.GreenTao.CofinalPrimeTransference (4.2s)
+warning: ThirdParty/GreenTao/Submission/GreenTao/CofinalPrimeTransference.lean: imports `Mathlib.Data.Nat.Prime.Factorial` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/GreenTao/CofinalPrimeTransference.lean: imports `Mathlib.Order.Filter.Finite` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/GreenTao/CofinalPrimeTransference.lean:165:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9207/9278] Built Submission.Transference.RelativeCountingCertificate (4.5s)
+✔ [9208/9278] Built Submission.Hypergraph.OrderedBoundaryPartition (4.4s)
+✔ [9209/9278] Built Submission.Hypergraph.OrderedStrongCleaning (4.4s)
+⚠ [9210/9278] Built Submission.Hypergraph.AggregateGeneratedCellRemoval (4.9s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AggregateGeneratedCellRemoval.lean:164:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲

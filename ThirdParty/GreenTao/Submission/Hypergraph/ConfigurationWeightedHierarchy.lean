@@ -125,7 +125,7 @@ theorem configurationRankPrefixBarrier_le_erase
   classical
   unfold configurationRankPrefixBarrier
     configurationHalfDensityBarrier
-  apply Finset.prod_le_prod_of_subset_of_le_one
+  apply Finset.prod_le_prod_of_subset_of_le_one₀
     (erase_subset_positiveOrderedFacesUpToRank_of_max
       s e hmax)
   · intro f _hf
