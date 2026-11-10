@@ -49,8 +49,8 @@ The diff itself, and upstream's sources and guide, are kept outside the reposito
    - the arithmetic argument of the main construction (34 hunks);
    - exposition, attribution and audit records, including the bibliography (20 hunks).
 
-   **The first version's caveat was wrong in substance.** It said Version 14 changed nothing
-   outside the new section and that the main polynomial's arithmetic was untouched. In fact
+   **The first version's conclusion does not hold.** It could not see Version 14 outside the new
+   section, and concluded that the main construction's arithmetic was untouched. In fact
    Version 14 rewrites large parts of the **proof** of Theorem 4.1. It also tightens the proofs of
    Lemmas 5.4 and 5.5, changes the inverse-theorem source in the proof of Proposition 6.2, and
    repairs several steps inside the proof of RC.
@@ -62,8 +62,8 @@ The diff itself, and upstream's sources and guide, are kept outside the reposito
 3. **What changes is the justification of two of our hypotheses (VERIFIED, §2).**
    - **SixContactMin.** The proof of Theorem 4.1 grows from 557 to 987 lines (V13 L486-1042,
      V14 L688-1674), and Appendix H (`lem:de-rham-descent`) is deleted. The changes:
-     - The modularity step becomes the new Lemma `lem:qm-modularity-descent` (V14 L480-667, scope paragraph L669-680). Its
-       immediate supplier is "the published statement in [Calegari, ICM 2022, p. 624]; Pan's work
+     - The modularity step becomes the new Lemma `lem:qm-modularity-descent` (V14 L480-667;
+       scope paragraph L669-680). Its immediate supplier is "the published statement in [Calegari, ICM 2022, p. 624]; Pan's work
        is its proof source". Berger's monodromy theorem and Conrad's local-algebraicity preprint
        drop out. The twist and the weight are pinned down by a new argument (Deligne–Serre,
        Kato 2004 §§9.4 and 14.10, Shimura, Li).
@@ -111,8 +111,7 @@ The diff itself, and upstream's sources and guide, are kept outside the reposito
 Classes:
 - **N**: the new Version 14 section.
 - **Q**: the quartic constructions, meaning Version 13 sections 14-17, the simultaneous-prime
-  appendix, the Version 9-13 quartic sections, and the abstract and introduction sentences about
-  them.
+  appendix, the Version 9-13 quartic sections, and the abstract's sentence about them.
 - **A**: the arithmetic argument of the main construction (Theorem 4.1, Lemma 5.1, Theorems 5.2
   and 5.3, Lemmas 5.4 and 5.5, Proposition 6.2, §§7-9, Appendices E-H, and their inputs).
   Each A hunk carries a tag for what it feeds:
@@ -224,8 +223,8 @@ constants in the displayed definition of `H₆(S;R)` are unchanged" (V14 L476-47
 said "a direct modularity argument at coefficient prime five" (V13 L476).
 
 **The modularity step: new lemma.**
-- `lem:qm-modularity-descent` (V14 L480-503, proof L504-667). Hypotheses: `A` is an abelian surface over a finite
-  Galois extension of `ℚ` whose geometric endomorphism algebra is a quaternion division algebra
+- `lem:qm-modularity-descent` (V14 L480-503, proof L504-667). Hypotheses: `A` is an abelian
+  surface over a finite Galois extension of `ℚ` whose geometric endomorphism algebra is a quaternion division algebra
   `B`; there are `B`-compatible quasi-isogenies `μ_σ` with rational cocycle `c(σ,τ)`; and there is
   a cochain `t` with `t_σ t_τ c(σ,τ) = t_{στ}`. Conclusion: "If `ρ₅(σ) = t_σ μ_σ ∘ σ` is written
   as `r₅ ⊕ r₅` …, then `r₅` is the Tate realization of a primitive weight-two cuspidal newform,
@@ -316,7 +315,7 @@ the ICM proceedings pagination was not compared).**
 - Yuan, the published Chinese article, in place of the English translation;
 - Voight, GTM 288 (2021);
 - Milne 1986 (Cornell–Silverman) and Milne, *Introduction to Shimura varieties* (2005), replacing
-  Milne's course notes;
+  Milne's *Abelian varieties* course notes;
 - Fontaine, Astérisque 223 (1994), replacing Brinon–Conrad.
 
 Upstream also adds five project proof supplements. They are cited, but their text is not in the
@@ -334,8 +333,10 @@ L23919-23923; the other three at L24274-24292). None of these could be read here
     preprint, Milne's notes, and the preprints of Baba–Granath, Buzzard and Lin–Yang are no longer
     cited in §4.
   - §6 item 3 (I1, Carayol) is addressed upstream.
-  - §6 item 2 (crystalline comparison, option (b)) is moot for Berger, since Version 14 uses no
-    pst. Scholze is still used.
+  - §6 item 2 (crystalline comparison, option (b)): Version 14 no longer cites Berger, because
+    the survey's definition of "geometric" already takes pst ⟺ de Rham as given. Berger's theorem
+    therefore enters only through that definition (SPECULATIVE reading, §7). Scholze is still
+    used for the de Rham property, so option (b) would still remove both.
   - §6 item 1 (non-circularity of GR14 Theorem 1.4) is unaffected: the `J₁(N)` transfer with GR14
     is unchanged apart from the complement.
   - ser-ell's Serre-conjecture route still replaces exactly the modularity input, now
@@ -345,9 +346,10 @@ L23919-23923; the other three at L24274-24292). None of these could be read here
 
 ### 2.3 Lemmas 5.4 and 5.5: the justification of CertifiedRankSel (VERIFIED)
 
-Route K uses both lemmas. Lemma 5.5 (`ord_{s=1} ≤ 1` ⟹ rank equal and `Ш` finite) enters through
-Proposition N and tyz-5b step 5. Lemma 5.4 (`dim Sel₂ = 3` ⟹ corank one) enters through the
-corank count, and through the Kriz alternative.
+Lemma 5.5 (`ord_{s=1} ≤ 1` ⟹ rank equal and `Ш` finite) is the GZK input of CR₃'s main route
+(Proposition N, tyz-5b step 5; nt-tyz §5.2 item 1). Lemma 5.4 (`dim Sel₂ = 3` ⟹ corank one, via
+Cassels–Tate) enters only the alternative route through Kriz's 2-converse (KERNEL_PLAN.md). The
+main route uses no Cassels–Tate pairing (nt-tyz §5.1).
 
 - **Lemma 5.4** (statement V14 L1791-1794, identical). The proof now states: "The displayed
   divisible summand is the maximal divisible subgroup: any divisible subgroup maps trivially to
@@ -500,7 +502,7 @@ Version 14 left these Version 13 changes in place, except where noted.
 - **Lemma 5.5.** The first version said it "still cites Kolyvagin's MPIM preprint". That holds for
   Version 13 only; Version 14 cites the ICM address (§2.3).
 
-The 11/5 and Version 13 diffs used for this section are in `scratch/v14-routes/` (first version).
+The 11/5 against Version 13 comparison of this section was made by the first version (`scratch/v14-routes/`).
 
 ## 5. The quartic route (VERIFIED)
 
