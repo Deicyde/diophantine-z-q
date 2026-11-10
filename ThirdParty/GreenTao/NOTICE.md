@@ -38,16 +38,16 @@ Kinds of change:
    `Finset.prod_le_prod₀` (46 sites), `Finset.prod_le_one` → `Finset.prod_le_one₀` (21),
    `Finset.prod_le_prod_of_subset_of_one_le` → `…₀` (2), `Finset.prod_le_prod_of_subset_of_le_one` → `…₀` (2).
 2. `convert … using 1` (and `simp`) now close definitional side goals themselves: trailing `rfl`,
-   `· rfl` or `· congr 1` steps that failed with "No goals" were removed (about 16 sites); conversely two
-   sites needed an added `rfl`.
+   `· rfl` or `· congr 1` steps that failed with "No goals" were removed (about 16 sites); conversely one
+   site needed an added `rfl`.
 3. Changed simp normal forms: a few `simp`/`simpa` calls replaced by `convert … <;> rfl`, `subst`+`exact`,
    `rw`+`exact`, or a direct `exact` of the lemma (Sieve/LocalFactors, Sieve/PrimeHarmonicProductBound,
    Sieve/WTrickedEulerCorrection, Transference/BooleanCutReduction, Transference/ConvolutionClosure).
 4. One `rw` with an iff lemma (`summable_prod_of_nonneg`) failed with a motive error and became
    `refine (…).2 ?_` (Sieve/CFZCanonicalEulerCompletion).
 
-The detailed per-change log is in `scratch/gt-import/log.md` at the repository root; `git diff` against
-the commit that added the unmodified copy shows every edit.
+The detailed per-change log is in `scratch/gt-import/log.md` at the repository root. Comparing each
+file with `green-tao/` at the source commit above shows every edit.
 
 Modified files (paths relative to this directory):
 

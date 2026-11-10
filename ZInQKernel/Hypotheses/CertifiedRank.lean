@@ -31,7 +31,8 @@ completeness that Lean does not prove, and it follows from published (or preprin
     (manuscript line 1072; Poonen–Stoll: the Cassels–Tate pairing makes `dim Ш[2]` even when finite)
     gives `rank C_d(ℚ) = 1` and `Ш(C_d)[2] = 0`;
   - or, for exactly the 2-adic shape `d ≡ 5`, `|a| ≡ 7 (mod 8)` assumed here, Tian–Yuan–Zhang
-    (Asian J. Math. 21 (2017), Theorem 3.5(2) with its proof in §3.3) shows `L(C_d, 1) = 0` with
+    (Asian J. Math. 21 (2017): Theorem 3.5 and the argument of the proof of Theorem 3.5(2), §3.3,
+    as completed in `docs/research/nt-tyz.md` §4, Proposition N) shows `L(C_d, 1) = 0` with
     `L'(C_d, 1) ≠ 0`, and Gross–Zagier–Kolyvagin gives rank one (`docs/research/tyz-5b.md`).
 * Either way `C_d(ℚ)/2C_d(ℚ) = Sel₂(C_d)` (pc-audit RK9), so the class `a` comes from a rational
   point. That point is not torsion: the torsion classes are `1, −1, d, −d`, and `|a| ≢ 1, d`

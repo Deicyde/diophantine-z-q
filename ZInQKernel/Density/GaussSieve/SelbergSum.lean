@@ -2,7 +2,7 @@
 The lemma `prod_factors_sum_pow_mult` below is adapted from `Sieve.prod_factors_sum_pow_compMult`
 of PrimeNumberTheoremAnd (`PrimeNumberTheoremAnd/Mathlib/NumberTheory/Sieve/SelbergBounds.lean`,
 Copyright (c) 2023 Arend Mellendijk, released under the Apache 2.0 license; see
-`THIRD_PARTY_NOTICES.md`). The only change: the hypothesis "completely multiplicative" is weakened
+`ZInQKernel/Sieve/LICENSE`). The only change: the hypothesis "completely multiplicative" is weakened
 to "multiplicative", which is all the proof uses.
 -/
 import ZInQKernel.Sieve.SelbergBounds
