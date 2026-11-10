@@ -24,3 +24,26 @@
   "p.624" is a survey sentence (Survey.tex L630-633): Pan proves modularity up to twist of any
   geometric rho: G_Q -> GL2(Qbar_p), p >= 5, assuming distinct HT weights and odd. Not a
   numbered theorem.
+- H15-H26 read. §5: non-CM argument for E_ell made explicit (RC curves); Lemma 5.4 proof
+  (maximal divisible subgroup; Poonen-Stoll Cor 4, 7, Thm 8); Lemma 5.5 proof (BCDT via Silverman
+  C.13.6; Kolyvagin now cited from Proc. ICM Kyoto 1990 pp. 429-436, Thms 1-5 pp. 430-431,
+  instead of MPIM preprint MPI/90-69; explicit J_1(N) -> A quotient). Statements identical.
+  §6: Prop 6.2 statement identical; proof's GI(20) source changed from GTZ arXiv v5 + erratum to
+  `local-gi`, a project supplement (quartic-local-gi-supplement.pdf, 8 Nov 2026). §7: RC proof
+  (DD Crelle Thm 1.8 -> DD Annals 2010 Thm 1.4; Amir-Hong newform; Shimura quotient; native
+  genus lattice paragraph; Cornut-Jetchev Thm 3.1 -> project conductor-one supplement).
+- H27-H37: quartic route (H5 height proof: full-three model, PEL, the Calegari/Pan lemma now
+  shared; V13 comment "UNAPPLIED CANDIDATE: ... published Pan match pending" removed; 41-form
+  prime pattern now via local-gi). H38-H39: degree-four section, Kollar -> Colliot-Thelene-
+  Salberger. H40-H43: App B/D records. H44-H52: App E/F RC repairs (Kato cochains; DD; Ribet
+  1990; CJ -> project). H53: App H deleted. H54-H55: Gaussian prime appendix (Dodos-
+  Kanellopoulos -> Green-Tao Prop 10.1 + local-gi; new majorant lemma). H56-H58: V12 layout.
+  H59: sec:v14 inserted at V14 L22784-23739 (offset +22783 from the earlier addition.tex line
+  numbers; only refs sec:v13, subsec:v12-inputs and own labels). H60-H72: bibliography.
+- stmts.py: statements of prop:generator, thm:height, lem:pole, hyp:PC, hyp:RC, lem:corank,
+  lem:forward-rank, prop:fixed-prime-pattern, lem:assembly identical V13 -> V14; proofs of
+  thm:height, lem:corank, lem:forward-rank, prop:fixed-prime-pattern, prop:generator changed.
+- Calegari definition of geometric (Survey.tex L124-128): irreducible, unramified outside finitely
+  many primes, pst (equivalently de Rham) at p.
+- Our notes: GoodPrimeDensity does not use GTZ (nt-22p L539). h-leaves I1 (Carayol) now cited
+  in V14 (carayol1987, L1481); I2 (mu_sigma extends) still uncited (V14 L1459-1460).
