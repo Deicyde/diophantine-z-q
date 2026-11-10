@@ -3,6 +3,7 @@ import ZInQKernel.RouteK.Rank5b.Bordered
 import ZInQKernel.RouteK.Rank5b.Matrices
 import ZInQKernel.RouteK.Rank5b.Kernel
 import ZInQKernel.RouteK.Rank5b.Row5b
+import ZInQKernel.RouteK.Rank5b.Check
 
 /-!
 # Route K, row 5b (root module)
@@ -15,7 +16,8 @@ The elementary half of the Tian–Yuan–Zhang route for CR₃^Sel (`docs/resear
   `Config.hEquivKer`, `Config.card_sols_eq`);
 * `Rank5b.Row5b`: Lemma 4.1 for `Sel₂(C_n)` (`sel2_ncard_eq_four_mul`, `sel2HEquivKer`),
   Theorem 4.3 (`det_M5b_eq_dot`), Corollary 4.4 (`det_M5b_eq_one`), the hypothesis
-  `CertifiedRank5b` and `certifiedRankSel_of_certifiedRank5b`.
+  `CertifiedRank5b` and `certifiedRankSel_of_certifiedRank5b`;
+* `Rank5b.Check`: kernel cross-checks `det M_5b = 1` for `n = 21` and `det M_5b = 0` for `n = 5`.
 
 The main theorem under CR₃^5b in place of CR₃ is
 `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_certifiedRank5b`.
