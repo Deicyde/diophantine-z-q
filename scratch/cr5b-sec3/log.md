@@ -11,3 +11,4 @@
 - Thm36.lean: genusSum5b_eq_forest, det_M5bG_eq_genusSum5b (Theorem 3.6 for bits, reciprocity + y(V)=0). Compiles, no sorry.
 - TYZ.lean: T5b_eq_genusSum5b, det_M5b_eq_T5b (Thm 3.6), CertifiedRankTYZ, certifiedRank5b_of_certifiedRankTYZ; root Rank5bSec3 with variant main theorem. #print axioms clean.
 - Props.lean: card_setAgen, sum_prod_uniform, Prop 3.3 (det_M1G_eq_class3, det_M1G_eq_zero), Prop 3.5 (sum_class1_eq_sum_class3). Compiles.
+- Prop34.lean: Prop 3.4 partition form det_M5bG_eq_class73. Compiles.
