@@ -328,7 +328,6 @@ def localCertificate
       selectedGrowthCoarseComplexityBound,
       Fin.lastCases_castSucc] at h
     convert h using 1
-    rfl
   fine_complexity := by
     intro e
     have h := R.fine_complexity j.castSucc e
@@ -336,7 +335,6 @@ def localCertificate
       selectedGrowthFineComplexityBound,
       Fin.lastCases_castSucc] at h
     convert h using 1
-    rfl
 
 /-- Exact selected bound for the coarse upper layer adjacent to rank `j`.
 For the top adjacent rank this reduces to the unchanged initial top bound;

@@ -580,7 +580,6 @@ theorem Realization.nonempty
                     OrderedPartitionComplex.withTopLayer,
                     Fin.lastCases_castSucc, Fin.succ_castSucc]
                   convert hgap using 1
-                  rfl
             gap_le := by
               intro q
               cases q using Fin.lastCases with

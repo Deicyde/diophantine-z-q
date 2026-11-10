@@ -29,3 +29,9 @@ Build outputs kept in scratch/gt-import/build*.txt.
 - Sieve/CFZCanonicalEulerCompletion: `rw [summable_prod_of_nonneg ...]` (rewrite of an iff by motive failure) →
   `refine (summable_prod_of_nonneg ...).2 ?_`.
 - Hypergraph/ConfigurationWeightedHierarchy: one more prod_le_prod_of_subset_of_le_one → ₀.
+
+## Step 2, batch 3
+- More `convert h using 1` closing defeq side goals: trailing `rfl`/`· congr 1`/`· rfl` removed in
+  Hypergraph/AdaptiveCoarseTargetRegularity (1), Hypergraph/GrowthFunctionComplexRegularity (2),
+  Hypergraph/SourceFullCoarseTargetRegularity (2).
+- `lake build GreenTaoVendor`: Build completed successfully (9278 jobs).

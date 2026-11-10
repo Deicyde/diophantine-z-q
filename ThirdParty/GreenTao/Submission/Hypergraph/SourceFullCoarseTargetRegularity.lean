@@ -588,7 +588,6 @@ def node
               sourceFullRankGap, Fin.succ_last,
               nodeScale_node_last, Fin.val_last]
             convert htopGap using 1
-            · congr 1
         | cast q =>
             simp only [
               AdaptiveCoarseTargetSchedule.Landing.length_node_castSucc,
@@ -598,7 +597,6 @@ def node
             convert
               (next chosen).reciprocal_gap_le lower q using 1
             · congr 1
-            · rfl
   selected_coarse_bound := by
     intro P q
     cases P with
