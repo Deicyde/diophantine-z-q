@@ -6,3 +6,4 @@
 - DetAlg.lean (matrix det lemma w/o invertibility, border, quad form), DetForest.lean (det P(c,d) forest sum via pmin block decomposition + transversal sum): compile.
 - M5bForest.lean: det_M1G, det_M5bG, det_M5bG_forest (Prop 3.4 forest form). Compiles.
 - Glue.lean: allF, ofPartFun, gluing prod_sum_allF. Compiles.
+- Count.lean: card_fpfi (pairings parity), card_setA (compatible partitions ↔ pairings). Compiles.
