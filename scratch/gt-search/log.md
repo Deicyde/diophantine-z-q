@@ -183,3 +183,10 @@ Started 2026-11-09. Task: find Lean formalizations of Green-Tao / relative Szeme
   progressions_above_of_greenTaoDense (GreenTaoDense + density of G => GoodPrimeAP shape). Compiled with
   lean v4.35.0 against Mathlib 56a00585 (16:12, load 5.6): no errors, no warnings;
   #print axioms progressions_above_of_greenTaoDense = [propext, Classical.choice, Quot.sound]. VERIFIED.
+- web search "hypergraph removal lemma formalized in Lean", "Green-Tao theorem formalized Isabelle Coq Rocq
+  HOL proof assistant", "leanprover zulip archive lean-eval green_tao solved": nothing relevant.
+- Checked names used in the doc: ZMod.exists_sq_eq_two_iff, legendreSym.quadratic_reciprocity,
+  _root_.sum_mul_eq_sub_sub_integral_mul (Mathlib/NumberTheory/AbelSummation.lean),
+  Chebyshev.primeCounting_sub_theta_div_log_isBigO exist in Mathlib 56a00585.
+- Correction: Lean Pool DHJ is 17 modules / 6,026 lines (the 4,426 above omitted the DensityIncrement/ subdir).
+- Wrote docs/research/gt-search.md and .fleet/gt-search.md. Task complete.
