@@ -7,6 +7,7 @@ import ZInQKernel.RouteK.Rank5b.Sec3.DetForest
 import ZInQKernel.RouteK.Rank5b.Sec3.M5bForest
 import ZInQKernel.RouteK.Rank5b.Sec3.Glue
 import ZInQKernel.RouteK.Rank5b.Sec3.Count
+import ZInQKernel.RouteK.Rank5b.Sec3.Genus
 
 /-!
 # Route K, row 5b, §§2–3 of tyz-5b (root module)

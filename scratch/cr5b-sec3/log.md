@@ -7,3 +7,4 @@
 - M5bForest.lean: det_M1G, det_M5bG, det_M5bG_forest (Prop 3.4 forest form). Compiles.
 - Glue.lean: allF, ofPartFun, gluing prod_sum_allF. Compiles.
 - Count.lean: card_fpfi (pairings parity), card_setA (compatible partitions ↔ pairings). Compiles.
+- Genus.lean: block weights w7/w3/w1 as forest sums (w1 via Lemma 2.2(3)); marked form of T5b. Compiles.
