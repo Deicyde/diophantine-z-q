@@ -3,3 +3,4 @@
   det M5b reduced by a rank-one lemma to a bordered P = [[D_y,Lᵀ],[L,D_z]]).
 - Defs.lean (lapl, kappa, redeiG, genusSum5b, gBit, T5b), Perm.lean (pmin, det bridge, row ops), Forest.lean (Lemma 2.1 pmin_lapl_eq_forests): all compile, no sorry.
 - Redei.lean: kappa_eq_forests, Lemma 2.2(1)-(3) (kappa_add_kappa via row-sum trick), (2.1),(2.2). Compiles.
+- DetAlg.lean (matrix det lemma w/o invertibility, border, quad form), DetForest.lean (det P(c,d) forest sum via pmin block decomposition + transversal sum): compile.
