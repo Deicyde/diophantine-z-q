@@ -142,7 +142,7 @@ UNCHECKED here (outside this report's focus): Proposition D, and the application
 Everything was implemented afresh from the manuscript (lines 1177–1191 and 1705–1758) and the Lean
 statements (`GoodSlope`, `poleInput`, `pole_input_valuations`, `slope_complete`,
 `weak_approx_q`, `PoleCompleteness`), in Python with PARI/GP 2.17 (`cypari2`), `gmpy2` and
-`mpmath`. Scripts: `scratch/rv-nt22p-red/` (`slopelib.py` is the library).
+`mpmath`. The scripts and their outputs are in `scratch/rv-nt22p-red/`.
 
 - **Old primes.** `S_b` is modelled as `S_ht ∪ {331, 337}`, with `331` and `337` standing in for
   catalogue primes (`B_p = 1`, `E_p = 732`). The true catalogue contains every prime between `324`
@@ -167,7 +167,7 @@ statements (`GoodSlope`, `poleInput`, `pole_input_valuations`, `slope_complete`,
   at every prime where `v_p(B)` can be odd. Since `v_p(B) ≡ v_p(R₀) (mod 2)` identically, these are
   the primes dividing a numerator or the denominator of `R₀`, all known, together with the auxiliary
   prime. At every other prime `v_p(B)` is even.
-- **Genuine pattern instances.** A sieve with PARI `ellcard` (`ap_search.py`) finds `x, v` such
+- **Genuine pattern instances.** A sieve, with point counts by PARI `ellcard`, finds `x, v` such
   that all the numbers `u − c′v`, `c′ ∈ S_A⁺`, are good slope primes in the sense of
   `GoodSlopePrime` (point counts of both reductions, `gcd = 4`). Admissibility forces `2, 3, 7, 11 | v`
   for `A = −70`, `2 | v` for `A = −69`, and `2, 3, 7 | v` for `A = −40`.
@@ -176,7 +176,7 @@ Checks of the implementation: (i) the old argument reproduces `v_p(B) ≥ 103C_p
 primes of `S_ht` for slopes satisfying field 2 (observed values `5805`–`5847`); (ii) the controls of §3.3 fail exactly where the theory predicts; (iii) an
 independent count gives 1,925 good slope primes below `2·10⁵` (§3.6), as in nt-22p.
 
-### 3.2 Lemma P(1)–(2) locally (30 inputs; `b1_lemmaP1.py`, `b1_out.txt`)
+### 3.2 Lemma P(1)–(2) locally (30 inputs)
 
 The inputs were `ℓ = 2` with `e = 1, …, 5`; each `ℓ ∈ S₀ ∖ {2}` with `e = 1, 5, 40`; `ℓ = 11, 317`
 and the catalogue stand-in `331`; `v = 2⁷3⁶5⁵7⁵13⁵` at each prime of `S₀`; and five controls with
@@ -190,7 +190,7 @@ and the catalogue stand-in `331`; `v = 2⁷3⁶5⁵7⁵13⁵` at each prime of `
 - `F(t) < 0`, `e = 5`: `R₀` is a non-square at `ℓ = 2, 3, 7` (0 squares in 2,000 samples each)
   and a square at `ℓ = 5, 13` (2,000 squares in 2,000 samples) (F3).
 
-### 3.3 The pole input for slopes with deep poles (30 inputs; `b2_poles.py`, `b2_out.txt`)
+### 3.3 The pole input for slopes with deep poles (30 inputs)
 
 The slopes were random `t = u/v` with the stated `v`. `B` was computed with the modified `q`
 (Lemma P ball where field 2 fails) or, for the controls, with the old `q` (`v_ℓ(q) ≥ C_ℓ` on all of
@@ -218,9 +218,9 @@ beyond (F5). The control with `F(t) < 0` at `ℓ = 3` shows that `η = 1` matter
 square in `ℚ₃`, so `v₃(a) ≤ 0` for every `q`, and such a slope cannot be completed at all once
 `e ≥ 144`. Proposition AP never produces such slopes.
 
-### 3.4 Lemma P(3) in isolation, and deep poles outside `S₀` (`b5_pseudo.py`)
+### 3.4 Lemma P(3) in isolation
 
-*Part B* (`b5B_out.txt`, 10 slopes, each with two choices of `q`): here `ℓ₀` is replaced by
+Ten slopes, each with two choices of `q`. Here `ℓ₀` is replaced by
 `ℓ₀/ℓ^{E_ℓ}`, so that `v_ℓ(ℓ₀) = 0` and only Lemma P can produce `v_ℓ(B) ≥ 4`. The slopes were
 `(ℓ, e) = (2, 3), (2, 7), (3, 1), (3, 9), (5, 2), (7, 4), (13, 1), (13, 6), (5, 30), (7, 60)`.
 With the Lemma P ball, `v_ℓ(B) = 166, 362, 58, 460, 108, 208, 58, 308, 1508, 3008`, all `≥ 4`.
@@ -228,7 +228,7 @@ With the old `q`, `v_ℓ(B) = −1094, −2548, −360, −3288, −724, −1456
 that is, `−366e` up to `O(1)`. So Lemma P(3) holds with `E_ℓ = 0`, and the implementation detects
 failures.
 
-### 3.5 Proposition AP end to end on genuine instances (`ap_search.py`, `b3_ap.py`, `b3_out*.txt`)
+### 3.5 Proposition AP end to end on genuine instances
 
 For each instance, every value `u − c′v` (`c′ ∈ S_A⁺`) is a good slope prime. The slopes are
 `t₁ = u/v`, `t₂ = A + 10 − u/v` and `t₃ = −10`. For each slope, fields 1, 2′, 3, 4 were checked
@@ -264,12 +264,12 @@ Result, for all 30 slopes (ten instances, three slopes each):
 - `0 < B < 1/2` (`log₁₀ B` between `−146` and `−694`).
 
 **No failure.** Instances with `|S_A⁺| = 14` (for example `A = 0`) are much rarer at this size; a
-search for `A = 0` with `v = 480480` up to `x = 2·10¹¹` found none. Part A of §3.6 covers
+search for `A = 0` with `v = 480480` up to `x = 2·10¹¹` found none. The pseudo-instances of §3.6 cover
 `|S_A⁺| = 14` with pseudo-instances.
 
 ### 3.6 Pseudo-instances with very deep poles; Remark 3; density count
 
-*Part A* (`b5A_out.txt`, `b5A2_out.txt`; 10 instances, 20 slopes). For these instances the
+*Pseudo-instances* (10 instances, 20 slopes). For these instances the
 `|S_A⁺|` values are `S_b`-units but not required to be prime. At the old primes and at the real
 place this is exactly the situation of a genuine instance; contact primes are not modelled. The
 choices of `(A, v)` were: `(−70, 2⁴⁰·3·7·11)`, `(−69, 2⁴⁰·3³⁰)`, `(0, (2·3·5·7·13)²⁰)`,
@@ -279,14 +279,14 @@ every old prime whose residues the offsets cover. For every slope, field 2′ ho
 alternative exactly at the primes with `e > B_ℓ`. Also `v_ℓ(B) ≥ 5832` on `S₀` (up to `15854` at
 `2²⁰⁰`), there is no negative odd valuation, and `0 < B < 1/2`. **No failure.**
 
-*Part C, Remark 3* (`b5C_out.txt`, 3 instances, 6 slopes). Lemma P is used only on `S₀`, and the
+*Remark 3* (3 instances, 6 slopes). Lemma P is used only on `S₀`, and the
 old `q` is used at deep poles outside `S₀`: `11²⁰⁰`, `331⁶⁰`, and `17¹⁵⁰·337⁴⁰`. PC holds in every
 case. The valuations at those primes are negative but even: `v₁₁(B) = −20712`,
 `v₃₃₁(B) = −8784`, `v₁₇(B) = −2408, −2412`, `v₃₃₇(B) = −1464`. This confirms remark 3 of §3.3: PC
 asks nothing at `S_b ∖ S₀` beyond parity. It also confirms that the old bound
 `v_p(B) ≥ 103C_p + 8` on all of `S_b` fails in this variant (§4, item 5).
 
-*Density count* (`dens.py`). An independent implementation of `GoodSlopePrime`, by point counts with
+*Density count.* An independent implementation of `GoodSlopePrime`, by point counts with
 PARI `ellcard`, finds 1,925 good slope primes among the 17,983 odd primes below `2·10⁵` (share
 0.107). All of them lie in the class `p ≡ 1 (mod 8)`, `(7/p) = −1` (2,271 primes, of which 85% are
 good). This agrees with nt-22p §2.1.
