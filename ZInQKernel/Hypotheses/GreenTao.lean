@@ -5,11 +5,12 @@ import ZInQKernel.Hypotheses.PrimeAP
 
 The trust statement of `GoodPrimeAP` (hypothesis 22P_AP) splits into two named statements:
 
-* `GreenTaoDense`: Szemerédi's theorem in the primes (Green–Tao 2008, Theorem 1.2; complete proof
-  in Tao–Ziegler 2008): a set of primes of positive relative upper density contains arithmetic
-  progressions of every finite length;
+* `GreenTaoDense`: Szemerédi's theorem in the primes (Green–Tao 2008, Theorem 1.2): a set of primes
+  of positive relative upper density contains arithmetic progressions of every finite length. It is
+  proved in Lean as `ZInQ.greenTaoDense` (`ZInQKernel/External/GreenTaoDense.lean`);
 * `GoodPrimeDensity`: the good slope primes (`GoodSlopePrime`) have positive relative upper density
-  in the primes (Proposition D of `docs/research/nt-22p.md`).
+  in the primes (Proposition D of `docs/research/nt-22p.md`, proved on paper in
+  `docs/research/pd-paper.md`).
 
 `goodPrimeAP_of_greenTaoDense` derives `GoodPrimeAP` from the two, with no further input.
 -/
@@ -35,25 +36,29 @@ def PrimesRelUpperDensityPos (A : Set ℕ) : Prop :=
 /-- **Green–Tao, dense form.** Every set of primes of positive relative upper density contains
 arithmetic progressions of every finite length.
 
-**Trust statement.** Not proved in Lean. This is Theorem 1.2 of B. Green and T. Tao, *The primes
-contain arbitrarily long arithmetic progressions*, Ann. of Math. 167 (2008), 481–547 (Szemerédi's
-theorem in the primes; here with "infinitely many progressions" weakened to "one"). Green and Tao
-prove Theorem 1.2 there only in outline (section 11 of arXiv math/0404188v6). A complete proof of
-the needed form is the main theorem of T. Tao and T. Ziegler, *The primes contain arbitrarily long
-polynomial progressions*, Acta Math. 201 (2008), 213–305, applied with the linear polynomials
-`P_i = (i − 1) m`. The published Lean proofs of Green–Tao known to the project prove the statement
-only for the set of all primes (Theorem 1.1, the lean-eval `green_tao` statement), not this dense
-form. -/
+This is Theorem 1.2 of B. Green and T. Tao, *The primes contain arbitrarily long arithmetic
+progressions*, Ann. of Math. 167 (2008), 481–547 (Szemerédi's theorem in the primes; here with
+"infinitely many progressions" weakened to "one"). Green and Tao prove Theorem 1.2 there only in
+outline (section 11 of arXiv math/0404188v6); T. Tao and T. Ziegler, *The primes contain arbitrarily
+long polynomial progressions*, Acta Math. 201 (2008), 213–305, give a complete proof.
+
+**Proved in Lean**: `ZInQ.greenTaoDense` (`ZInQKernel/External/GreenTaoDense.lean`) extends the
+vendored Lean proof of Theorem 1.1 (`ThirdParty/GreenTao/`, Vasily Ilin) to dense sets of primes,
+following `docs/research/gt-dense.md`. The statement stays a named `Prop` so that the
+`_of_greenTaoDense` variants of `ZInQKernel/Main.lean` do not import the vendored library;
+`ZInQKernel/MainGreenTao.lean` discharges it. -/
 def GreenTaoDense : Prop :=
   ∀ A : Set ℕ, A ⊆ {p | p.Prime} → PrimesRelUpperDensityPos A → ContainsArbitraryAPs A
 
 /-- **Proposition D (upper density part).** The good slope primes (`GoodSlopePrime`) have positive
 relative upper density in the primes.
 
-**Trust statement.** Not proved in Lean. This is Proposition D of `docs/research/nt-22p.md`: the
-good slope primes have relative density about `0.106` in the primes, from the CM description of
-the reductions of the curves involved, the prime number theorem in progressions and an elementary
-lattice sieve. Its proof is written on paper only as a sketch. -/
+**Trust statement.** Not proved in Lean yet. This is Proposition D of `docs/research/nt-22p.md`
+(numerically, relative density about `0.106`). `docs/research/pd-paper.md` proves it on paper: the
+good slope primes have positive lower Dirichlet density (Theorem D, from Jacobsthal's character
+sums, Dirichlet's theorem in residue classes and a two-dimensional Selberg sieve), which gives
+positive relative upper density (Proposition 5.3). A model referee run found it proved as written
+(`docs/research/rv-pd-paper.md`). The Lean proof is in progress under `ZInQKernel/Density/`. -/
 def GoodPrimeDensity : Prop :=
   PrimesRelUpperDensityPos {p | GoodSlopePrime p}
 

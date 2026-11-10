@@ -26,12 +26,10 @@ the good slope primes above `max S_b`, which have positive relative density (abo
 `docs/research/nt-22p.md`, Proposition D, from the CM description of the reductions of `E`, the
 prime number theorem in progressions and an elementary lattice sieve). A progression of `K + 1 ≥ 2`
 distinct primes has a nonzero common difference, which can be taken positive by reversing it.
-Caveats from the referee report `rv-nt22p-ap`: Green–Tao prove Theorem 1.2 only in outline
-(section 11 of arXiv math/0404188v6); a complete proof of the dense-subset form is the main theorem
-of Tao–Ziegler (*The primes contain arbitrarily long polynomial progressions*, Acta Math. 201
-(2008), 213–305, with `P_i = (i − 1) m`). Proposition D is a sketch that still has to be written
-out. The two inputs are split into the named statements `GreenTaoDense` and `GoodPrimeDensity`
-(`Hypotheses/GreenTao.lean`), which imply this hypothesis (`goodPrimeAP_of_greenTaoDense`). -/
+The two inputs are split into the named statements `GreenTaoDense` and `GoodPrimeDensity`
+(`Hypotheses/GreenTao.lean`), which imply this hypothesis (`goodPrimeAP_of_greenTaoDense`).
+`GreenTaoDense` is proved in Lean (`ZInQ.greenTaoDense`), and Proposition D is proved on paper
+(`docs/research/pd-paper.md`), so this hypothesis now rests on Proposition D alone. -/
 def GoodPrimeAP : Prop :=
   ∀ K : ℕ, ∃ x v : ℕ, 1 ≤ x ∧ 1 ≤ v ∧
     ∀ j ≤ K, GoodSlopePrime (x + j * v) ∧ ∀ q ∈ Mult.S_b, q < x + j * v
