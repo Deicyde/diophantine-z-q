@@ -47,3 +47,9 @@
   many primes, pst (equivalently de Rham) at p.
 - Our notes: GoodPrimeDensity does not use GTZ (nt-22p L539). h-leaves I1 (Carayol) now cited
   in V14 (carayol1987, L1481); I2 (mu_sigma extends) still uncited (V14 L1459-1460).
+- docs/research/v14-routes.md rewritten against the published source (hunk table, §2 effects
+  with quotes, sec:v14 line numbers converted at +22783, recommendation adds a re-base of
+  h-leaves on V14 §4). Line numbers rechecked by grep after writing.
+- .fleet/v14-routes2.md written. Flagged: scratch/v14-routes/{main,app}.diff (first task)
+  contain Version 13 text; left in place for the user to decide.
+- Complete.
