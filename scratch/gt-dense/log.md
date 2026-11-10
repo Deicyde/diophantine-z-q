@@ -4,3 +4,4 @@
 - Window.lean: added exists_prime_scale_near (Bertrand), card_window_le_card_quarter, exists_prime_modulus_of_frequently_window (c1/6 X/log X in (X/4,X], X=W*(q/8)). Build OK.
 - Drafted (uncompiled, awaiting gt-import) scratch/gt-dense/draft/{SetWeight,PrimeModulusTransference,Assembly}.lean
 - Typechecked SetWeight, PrimeModulusTransference (minus final deep-input theorem) and Assembly drafts against gt-import worktree oleans (read-only via LEAN_PATH): all OK. Remaining: hasPrimeModulusSubweightCounts needs Sieve/Hypergraph oleans; bridge.
+- 2026-11-10 04:17: gt-import report still absent after 5 h of waiting (wip/gt-import unchanged at 'port batch 2'). Wrote partial report .fleet/gt-dense.md; stopping.
