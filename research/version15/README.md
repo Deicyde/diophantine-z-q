@@ -1,4 +1,4 @@
-# Version 15 research candidate
+# Version 15 research
 
 Read the [manuscript PDF](snapshots/v15-222-004/manuscript/quartic_v15.pdf) or [TeX source](snapshots/v15-222-004/manuscript/quartic_v15.tex), then use the [artifact index](ARTIFACT-INDEX.md) for the exact polynomial tables and reproduction tools.
 
@@ -13,6 +13,6 @@ For A_N = 149^(2N+1), the coefficient height is A_N² + 1 when N >= 53. This num
 - [Bounded research alternatives](history/optimization-notes/README.md)
 - [Version 14 history](../version14/CUMULATIVE-HANDOFF.md) and [repository overview](../../README.md)
 
-The 222 package verifies its finite algebra and coefficient tables. The historical snapshot checker and its 233 mode apply to snapshot018, not to the new 222 selection. Mathematical review, finite verification, source/identity binding and publication retain their separate scopes. Final authenticated release records are not asserted by this local preparation.
+The 222 package verifies its finite algebra and coefficient tables. The historical snapshot checker and its 233 mode apply to snapshot018, not to the new 222 selection. Mathematical review, finite verification, source/identity binding and publication retain their separate scopes. The [published release](https://github.com/elliotglazer/diophantine-z-q/releases/tag/quartic-222-version-15) contains the selected manuscript and cumulative archive. [PR 26](https://github.com/elliotglazer/diophantine-z-q/pull/26) and its successful [protocol evaluation](https://github.com/elliotglazer/diophantine-z-q/pull/26/checks) record the release integration.
 
-The files `CANDIDATE-MANIFEST.json`, `HANDOFF-MANIFEST.json`, `OVERLAY-MANIFEST.json` and `BASE-OVERLAY.json` preserve earlier staging records. Their recorded identities and relative paths belong to those historical selections; they are not manifests of this updated 222-variable tree. The final integrated file manifest will be frozen after the new source, PDF and review inputs are joined.
+The files `CANDIDATE-MANIFEST.json`, `HANDOFF-MANIFEST.json`, `OVERLAY-MANIFEST.json` and `BASE-OVERLAY.json` preserve earlier staging records. Their recorded identities and relative paths belong to those historical selections; they are not manifests of this updated 222-variable tree. The published cumulative archive contains the final overlay and its manifest; see the [handoff and archive checksum](CUMULATIVE-HANDOFF.md).

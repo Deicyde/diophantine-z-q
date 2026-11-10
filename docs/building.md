@@ -2,7 +2,15 @@
 
 Run these commands from the repository root. Python scripts use the standard library. The current quartic and the original large construction have separate checks. The Version 7 handoffs contain their own build instructions under `current/`; Version 9 adds the [odd-product constructions](quartic-523-540/README.md). See the [handoff guide](../handoff/README.md) for the archive layout and verification procedure.
 
-## Current 299- and 314-variable quartics
+## Current 222-variable quartic family
+
+Run the portable finite check from the repository root:
+
+    python -B research/version15/quartics/quartic-222/verify.py
+
+The [Version 15 package guide](../research/version15/quartics/quartic-222/README.md) documents parameter substitution and the separate scopes of finite verification and the arithmetic proof. The defining threshold remains ineffective. The [Version 15 manuscript PDF and TeX](../research/version15/README.md) are the published source selection; the retained manuscript build command below targets Version 14.
+
+## Retained 299- and 314-variable quartics
 
 Run the exact replay and inventory commands in the [Version 14 guide](manuscript-revisions/version14/GUIDE.md). Its finite checks, manuscript review and inherited arithmetic inputs have separate scopes.
 
@@ -63,9 +71,9 @@ python -E -B /path/to/writable-copy/verify_certificate.py /path/to/writable-copy
 
 This portable checker writes `verification.json` in the supplied directory. Use the copy to keep the released package's exact file inventory unchanged. The packaged original receipt is [evidence/final-verification.json](../quartics/quartic-4973/evidence/final-verification.json). The checker verifies exact projection-preserving equivalence to the pinned source and the complete integer expansion, including the variable count, degree and coefficient bound. These checks do not prove the source system's arithmetic characterization of the integers. The [Version 4 evidence](quartic-4973/README.md) records that separate argument and its review scope.
 
-## Version 14 manuscript
+## Retained Version 14 manuscript
 
-Run `python scripts/build_paper.py` to build the current Version 14 TeX with the pinned Tectonic engine and bundle. The build writes `quartic_v14.pdf`, its logs and the build receipt under `build/paper/`; it does not replace the checked-in PDF. Review the exact rendered pages and total page count recorded in the Version 14 PDF QA receipt and reviewed workflow. Historical Version 13 receipts retain their original scope.
+Run `python scripts/build_paper.py` to build the retained Version 14 TeX with the pinned Tectonic engine and bundle. The build writes `quartic_v14.pdf`, its logs and the build receipt under `build/paper/`; it does not replace the checked-in PDF. Review the exact rendered pages and total page count recorded in the Version 14 PDF QA receipt and reviewed workflow. Historical Version 13 receipts retain their original scope.
 
 ## Manuscript inventories
 
@@ -131,7 +139,7 @@ Read the [Lean README](../lean/README.md) for the trust boundary and allowed axi
 
 ## Continuous integration
 
-The [manuscript workflow](../.github/workflows/manuscript-integration.yml) reproduces the quartic, validates the historical and current manuscript inventories, and compiles the current manuscript. Run it by manual dispatch; the research workflow also runs on pushes. The [research workflow](../.github/workflows/research-checks.yml) checks the original construction, the historical inventory, manuscript compilation and the accepted Lean helpers.
+The [Version 15 workflow](../.github/workflows/version15-current.yml) checks the selected 222-variable package. The retained [manuscript workflow](../.github/workflows/manuscript-integration.yml) reproduces the Version 14 quartics, validates its manuscript inventories, and compiles that edition. Run it by manual dispatch; the research workflow also runs on pushes. The [research workflow](../.github/workflows/research-checks.yml) checks the original construction, the historical inventory, manuscript compilation and the accepted Lean helpers.
 
 GitHub Actions dependencies are pinned to commit hashes; the elan installer and Tectonic archives are pinned by SHA-256. Workflows upload their reports and logs. A green run means the named checks passed on that commit. It does not certify the global arithmetic inputs or complete the main Lean proof.
 

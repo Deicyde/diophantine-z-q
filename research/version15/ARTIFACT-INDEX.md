@@ -4,7 +4,7 @@ The selected new family has 222 total variables, 196 quadratic residuals and 2,2
 
 | Artifact | File | Scope |
 | --- | --- | --- |
-| Manuscript PDF | [quartic_v15.pdf](snapshots/v15-222-004/manuscript/quartic_v15.pdf) | Current 222-variable draft |
+| Manuscript PDF | [quartic_v15.pdf](snapshots/v15-222-004/manuscript/quartic_v15.pdf) | Published 222-variable manuscript |
 | TeX source | [quartic_v15.tex](snapshots/v15-222-004/manuscript/quartic_v15.tex) | Matching source selection |
 | 222-variable reproduction guide | [Package README](quartics/quartic-222/README.md) | Parameters, exact checks and review chain |
 | Raw quadratic system | [raw222-ir.json](quartics/quartic-222/tables/raw222-ir.json) | 222 variables; 196 residuals |
@@ -18,4 +18,4 @@ The selected new family has 222 total variables, 196 quadratic residuals and 2,2
 
 A_N = 149^(2N+1) is a fixed coefficient parameter and is not counted as a variable. The coefficient bound A_N² + 1 holds for N >= 53. The defining theorem has a separate ineffective threshold N0. See the [release notes](RELEASE-NOTES.md) and [cumulative handoff](CUMULATIVE-HANDOFF.md).
 
-The final selection manifest must bind the exact manuscript/PDF hashes and release assets. Authenticated publication remains separate from this artifact index.
+The [published release](https://github.com/elliotglazer/diophantine-z-q/releases/tag/quartic-222-version-15) provides the manuscript source, PDF and cumulative archive. The [handoff](CUMULATIVE-HANDOFF.md) records the archive checksum and reconstruction instructions.
