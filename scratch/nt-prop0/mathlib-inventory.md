@@ -1,7 +1,7 @@
 # Mathlib inventory for an explicit 2-descent on y^2 = x^3 - d^2 x
 
-Mathlib v4.35.0, rev 56a0058, at `/home/jackmccarthy/dzq/.lake/packages/mathlib/Mathlib`
-(written `M/` below). Repo: `/home/jackmccarthy/dzq-wt/nt-prop0/ZInQKernel` (written `ZQ/`).
+Mathlib v4.35.0, rev 56a0058, at `.lake/packages/mathlib/Mathlib`
+(written `M/` below). Repo: `ZInQKernel` (written `ZQ/`).
 Found with grep/sed only; nothing was built. Line numbers are for this checkout.
 
 Verdict key: EXISTS = usable as is; PARTIAL = the pieces are there but the statement we want is not;
