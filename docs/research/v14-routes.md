@@ -33,11 +33,14 @@ A-H). In those files a hunk at left line `l` is N5 line `l + 140` (main) or `l +
    valuation argument for the multiplication tests, and three repairs inside the proof of RC
    (Kato's 1999 theorem at the prime 2, the scope of a congruence off the coefficient filter, and
    a determinant specialization lemma) (VERIFIED, §2).
-3. **The new material is a second construction, the "quartic route".** Versions 4-14 add
-   explicit quartic polynomials (Version 14: 299 variables, 6,630 monomials) defining ℤ in ℚ by a
-   different construction: four elliptic labels, a Lucas growth test and a root-height bound. It
-   has no universal compiler, no multiplication template and no Proposition 6.2. Its deep inputs
-   are (VERIFIED, §3):
+3. **The new material is a second construction, the "quartic route".** The versions after 11/5
+   add explicit quartic polynomials (4,973, 962, 540, 523, 498, 411 and 394 variables in Version
+   13; 299 in Version 14, with 6,630 monomials) defining ℤ in ℚ by a different construction: four
+   elliptic labels, a Lucas growth test and a root-height bound. The current quartics (Versions
+   9-14) use no universal compiler, no multiplication template and not Proposition 6.2. (The
+   original base compiler of Section 14 applied "the prime-pattern argument of Section 6" to at
+   most 41 affine forms, V13 L8322-8327; the later sources replaced it.) Their deep inputs are
+   (VERIFIED, §3):
    - a five-contact height estimate (`hyp:o8-height`, V13 L6854, exponent 24, and the sharper
      `thm:quartic-height19`, V13 L8922, exponent 19, constant below 2^2093966), proved by the same
      kind of argument as Theorem 4.1: a Shimura curve (discriminant 210), QM surfaces,
@@ -198,7 +201,7 @@ templates to the mathematical relations (V13 L12060-12147). Its `pole` row is `Q
 manuscript's pole polynomial with the `x + 3ℓ` curves. §13 adds Mazur's Conjecture 2 and the
 remark that OpenAI already obtained Turing degree `0'`. None of this touches a hypothesis.
 
-## 3. The quartic route (Versions 4-14)
+## 3. The quartic route (Version 13 sections 14-18 and appendices I-L; Version 14)
 
 ### 3.1 Its curve is our curve (VERIFIED)
 
@@ -273,8 +276,10 @@ valuations. The appendix proving it (V13 L16545-19175) "uses the published fixed
 estimate of Mitsui, the one-parameter equidistribution and factorization results of Green–Tao,
 and published ordinary-prime transference results", following Sun (arXiv:2610.20691v2, Theorem
 4.1) and the ideal-norm method of Frei–Tinková (arXiv:2408.17441v3), "no theorem from that work is
-assumed" (V13 L16549-16558). The quartic sources take their global choices from this theorem
-(V13 L19252-19255, V13 L10700-10704).
+assumed" (V13 L16549-16558). The quartic sources from the 962-variable one onward take their global choices from this
+theorem (V13 L19252-19255, V13 L10700-10704). The original base compiler of Section 14 used
+instead the linear-forms prime pattern of Section 6, with at most 41 affine forms (V13
+L8322-8327), which is a Green–Tao–Ziegler input like the manuscript's Proposition 6.2.
 
 Compared with our GreenTaoDense plus GoodPrimeDensity, this is harder. The pattern `u + c_jw²` is
 a polynomial progression, so Tao–Ziegler's dense polynomial theorem would give the primes and the
