@@ -11,6 +11,7 @@ import ZInQKernel.Hypotheses.GreenTao
 import ZInQKernel.Multiplication.Completeness.AP
 import ZInQKernel.Assembly.Top
 import ZInQKernel.Compiler.NodeBound
+import ZInQKernel.RouteK.Selmer.Prop0
 
 /-!
 # The main theorem
@@ -112,6 +113,26 @@ theorem exists_bounded_integer_polynomial_defining_integers_of
     (h22 : FixedPrimePattern) : FrozenTarget :=
   exists_bounded_integer_polynomial_defining_integers_of_addMulBound
     Compiler.NodeCheck.haltingAddMulBound hH hCR h22
+
+/-- **Main theorem, with CR₃^Sel in place of CR₃.** Under hypotheses H (`SixContactMin`),
+CR₃^Sel (`RouteK.Selmer.CertifiedRankSel`) and 22P, there is an integer polynomial in
+`292890231905` variables, of degree below `2↑↑7` and with coefficients below `2↑↑8`, whose rational
+zero projection to the first variable is exactly `ℤ`.
+
+CR₃^Sel is a narrower hypothesis than CR₃: it speaks of the 2-Selmer group `Sel₂(C_d)` itself
+(`RouteK.Selmer.Sel2`, defined by local solubility of the 2-coverings over `ℝ` and every `ℚ_p`),
+not of the explicit linear system `Σ(𝒞_d)` with its Legendre symbols. In the literature's terms it
+says: for squarefree `d ≡ 5 (mod 8)`, if `dim_{𝔽₂} Sel₂(C_d) = 3` and some Selmer class `(a, b)` has
+`|a| ≡ 7 (mod 8)`, then every Selmer class comes from a rational point, i.e. `Ш(C_d)[2] = 0`
+(equivalently `rank C_d(ℚ) ≥ 1`). This follows from Kriz's 2-converse theorem with the corank
+lemma, or from Tian–Yuan–Zhang with Gross–Zagier–Kolyvagin. Proposition 0
+(`RouteK.Selmer.prop0Statement`, proved in Lean) identifies `Σ(𝒞_d)` with `Sel₂(C_d)`, which turns
+CR₃^Sel into CR₃ (`RouteK.Selmer.certifiedRank_of_certifiedRankSel`). -/
+theorem exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel
+    (hH : SixContactMin) (hCRS : RouteK.Selmer.CertifiedRankSel)
+    (h22 : FixedPrimePattern) : FrozenTarget :=
+  exists_bounded_integer_polynomial_defining_integers_of hH
+    (RouteK.Selmer.certifiedRank_of_certifiedRankSel hCRS) h22
 
 /-- **Main theorem, with H as in the manuscript.** Under the six-contact estimate (Theorem 4.1),
 CR₃ and 22P, there is an integer polynomial in `292890231905` variables, of degree below `2↑↑7`

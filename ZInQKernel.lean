@@ -53,3 +53,9 @@ import ZInQKernel.RouteK.System
 import ZInQKernel.RouteK.Slots
 import ZInQKernel.RouteK.Assembly
 import ZInQKernel.Multiplication.Completeness.AP
+import ZInQKernel.RouteK.SelmerLocal
+import ZInQKernel.RouteK.SelmerCharSum
+import ZInQKernel.RouteK.SelmerBits
+import ZInQKernel.RouteK.SelmerTwo
+import ZInQKernel.RouteK.SelmerGood
+import ZInQKernel.RouteK.SelmerProp0
