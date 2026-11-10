@@ -1332,3 +1332,1381 @@ warning: ThirdParty/GreenTao/Submission/GreenTao/CofinalPrimeModulusAssembly.lea
 ✔ [9576/9762] Built ZInQKernel.RouteK.Selmer.BadOdd (5.3s)
 ✔ [9577/9763] Built Submission.Hypergraph.StrongOrderedRegularity (4.4s)
 ✔ [9578/9763] Built ZInQKernel.RouteK.Selmer.Good (5.3s)
+⚠ [9579/9763] Built Submission.Sieve.CFZCarryDivisorExpansion (2.8s)
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryDivisorExpansion.lean:152:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9580/9763] Built Submission.Sieve.WTrickedFourierNormalization (2.5s)
+⚠ [9581/9763] Built Submission.Sieve.CFZCanonicalCarryCellDiscrepancy (3.2s)
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryCellDiscrepancy.lean:190:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryCellDiscrepancy.lean:192:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryCellDiscrepancy.lean:296:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryCellDiscrepancy.lean:298:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9582/9764] Built Submission.Sieve.WTrickedEulerCorrectionLimit (3.4s)
+✔ [9583/9765] Built ZInQKernel.RouteK.Assembly.PoleCompleteness (4.3s)
+⚠ [9584/9765] Built Submission.GreenTao.CofinalPrimeTransference (4.3s)
+warning: ThirdParty/GreenTao/Submission/GreenTao/CofinalPrimeTransference.lean: imports `Mathlib.Data.Nat.Prime.Factorial` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/GreenTao/CofinalPrimeTransference.lean: imports `Mathlib.Order.Filter.Finite` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/GreenTao/CofinalPrimeTransference.lean:165:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9585/9766] Built ZInQKernel.Syntax.Recipes.Translate (4.8s)
+✔ [9586/9767] Built Submission.Transference.RelativeSimplexIteration (4.7s)
+✔ [9587/9767] Built Submission.Sieve.CFZCarryFourierBridge (2.7s)
+✔ [9588/9767] Built Submission.Sieve.CFZCanonicalCarryEulerBridge (2.8s)
+✔ [9589/9768] Built ZInQKernel.Compiler.Universal.Grows (7.2s)
+⚠ [9590/9768] Built Submission.Hypergraph.OrderedCellLifting (10s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedCellLifting.lean: imports `Mathlib.Data.Fin.Tuple.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9591/9768] Built Submission.GreenTao.ReducedResidueCofinalTransference (4.3s)
+warning: ThirdParty/GreenTao/Submission/GreenTao/ReducedResidueCofinalTransference.lean:136:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9592/9768] Built ZInQKernel.RouteK.Selmer.Two (8.5s)
+✔ [9593/9768] Built ZInQKernel.Syntax.Recipes.Scope (5.0s)
+⚠ [9594/9768] Built Submission.Sieve.CFZCarryEulerTail (2.0s)
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerTail.lean:269:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerTail.lean:270:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9595/9768] Built ZInQKernel.Compiler.Translation.TranslateShape (6.7s)
+✔ [9596/9768] Built Submission.Transference.RecursiveRelativeSimplex (4.7s)
+⚠ [9597/9768] Built Submission.Sieve.CFZCarryFourierTailBound (3.3s)
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:158:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:160:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:334:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:336:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:1140:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:1144:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9598/9771] Built Submission.Sieve.CFZCanonicalCarryBoundaryBound (2.6s)
+✔ [9599/9771] Built ZInQKernel.Compiler.Universal.Halting (4.2s)
+✔ [9600/9772] Built Submission.Hypergraph.OrderedStrongCleaning (4.5s)
+⚠ [9601/9772] Built Submission.Sieve.UnrestrictedPrimeSupportEulerSeries (3.1s)
+warning: ThirdParty/GreenTao/Submission/Sieve/UnrestrictedPrimeSupportEulerSeries.lean:292:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/UnrestrictedPrimeSupportEulerSeries.lean:422:16: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ThirdParty/GreenTao/Submission/Sieve/UnrestrictedPrimeSupportEulerSeries.lean:444:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/UnrestrictedPrimeSupportEulerSeries.lean:577:16: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ThirdParty/GreenTao/Submission/Sieve/UnrestrictedPrimeSupportEulerSeries.lean:615:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9602/9772] Built Submission.Hypergraph.OrderedBoundaryPartition (4.5s)
+⚠ [9603/9772] Built Submission.Hypergraph.AggregateGeneratedCellRemoval (4.9s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AggregateGeneratedCellRemoval.lean:164:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [9604/9773] Built Submission.Sieve.CFZCarryEulerFactorization (2.5s)
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerFactorization.lean:106:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerFactorization.lean:107:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerFactorization.lean:130:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerFactorization.lean:131:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9605/9773] Built Submission.Sieve.CFZCarryHarmonicLcmEulerBound (2.0s)
+✔ [9606/9774] Built ZInQKernel.RouteK.Selmer.Bits (7.1s)
+✔ [9607/9774] Built ZInQKernel.Compiler.Translation.TranslateScope (4.8s)
+✔ [9608/9774] Built Submission.Transference.RecursiveRelativeCount (4.6s)
+✔ [9609/9775] Built ZInQKernel.Compiler.Universal.CodeSize (4.4s)
+✔ [9610/9775] Built Submission.Sieve.CFZCarryFourierEulerNormalization (2.6s)
+⚠ [9611/9781] Built Submission.Sieve.CFZCanonicalDivisorExpansion (2.9s)
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorExpansion.lean:164:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorExpansion.lean:441:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorExpansion.lean:473:10: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9612/9781] Built Submission.Hypergraph.OrderedAtomEnergy (4.4s)
+✔ [9613/9781] Built ZInQKernel.Compiler.Translation.PowerScope (30s)
+⚠ [9614/9781] Built Submission.Sieve.CFZCarryFourierTailPolylog (3.3s)
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailPolylog.lean:50:13: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailPolylog.lean:708:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailPolylog.lean:713:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9615/9781] Built Submission.Hypergraph.GeneratedCellOrderedRemovalInduction (6.6s)
+✔ [9616/9781] Built ZInQKernel.RouteK.Selmer.Prop0 (4.3s)
+✔ [9617/9781] Built Submission.Sieve.CFZCanonicalDivisorTruncation (2.8s)
+✔ [9618/9782] Built ZInQKernel.Compiler.Translation.Library (4.5s)
+✔ [9619/9782] Built Submission.Transference.GeneralRelativeSimplexStep (4.8s)
+⚠ [9620/9782] Built Submission.Sieve.CFZCanonicalCyclicBoundaryLimit (3.5s)
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCyclicBoundaryLimit.lean:76:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCyclicBoundaryLimit.lean:831:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCyclicBoundaryLimit.lean:834:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCyclicBoundaryLimit.lean:890:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9621/9782] Built Submission.Hypergraph.OrderedGoodAtoms (5.3s)
+✔ [9622/9782] Built Submission.Sieve.CFZCanonicalDivisorRankinTruncation (2.0s)
+✔ [9623/9782] Built ZInQKernel.RouteK.Rank5b.Matrices (4.3s)
+⚠ [9624/9782] Built Submission.Hypergraph.PreliminaryOrderedRegularity (5.2s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/PreliminaryOrderedRegularity.lean:567:49: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/PreliminaryOrderedRegularity.lean:586:47: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/PreliminaryOrderedRegularity.lean:874:49: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/PreliminaryOrderedRegularity.lean:877:49: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+✔ [9625/9785] Built ZInQKernel.Compiler.Universal.WrapperSize (9.7s)
+✔ [9626/9785] Built Submission.Sieve.FixedPrimorialSieveSchedule (2.5s)
+✔ [9627/9785] Built Submission.Sieve.CyclicMajorantSchedule (2.6s)
+✔ [9628/9786] Built ZInQKernel.Compiler.Translation.TranslateSemantics (4.4s)
+✔ [9629/9786] Built Submission.Transference.RelativeSimplexComparison (4.7s)
+⚠ [9630/9786] Built ZInQKernel.Density.Abel (6.2s)
+warning: ZInQKernel/Density/Abel.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9631/9788] Built Submission.Sieve.CFZCanonicalDivisorIntegralCancellation (3.5s)
+⚠ [9632/9788] Built Submission.Sieve.CFZCanonicalDivisorRankinMassPolylog (3.4s)
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorRankinMassPolylog.lean:104:10: `mul_le_one₀` has been deprecated: No replacement, use constituent lemmas from proof.
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorRankinMassPolylog.lean:215:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorRankinMassPolylog.lean:258:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorRankinMassPolylog.lean:478:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9633/9788] Built Submission.Hypergraph.FullOrderedRegularity (4.9s)
+✔ [9634/9788] Built Submission.Hypergraph.BoundaryBernoulli (4.5s)
+⚠ [9635/9788] Built Submission.Sieve.CFZUniformFiniteFourierCorrection (2.8s)
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZUniformFiniteFourierCorrection.lean:74:24: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+✔ [9636/9788] Built Submission.Sieve.CFZCanonicalDivisorTruncationLimit (2.4s)
+✔ [9637/9788] Built ZInQKernel.RouteK.Rank5b.Kernel (6.6s)
+⚠ [9638/9788] Built ZInQKernel.Density.CharSum (5.6s)
+warning: ZInQKernel/Density/CharSum.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9639/9788] Built Submission.Transference.ProjectedFaceCutClosure (5.4s)
+warning: ThirdParty/GreenTao/Submission/Transference/ProjectedFaceCutClosure.lean:360:12: `mul_le_one₀` has been deprecated: No replacement, use constituent lemmas from proof.
+⚠ [9640/9788] Built Submission.Sieve.CFZCanonicalEulerCompletion (3.4s)
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletion.lean:568:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletion.lean:1345:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9641/9788] Built ZInQKernel.Density.PrimeTail (5.3s)
+✔ [9642/9788] Built Submission.Hypergraph.OrderedRemoval (4.9s)
+✔ [9643/9788] Built Submission.Hypergraph.OrderedPatternPartition (4.6s)
+✔ [9644/9788] Built Submission.Hypergraph.StrongFullOrderedRegularity (4.9s)
+✔ [9645/9790] Built ZInQKernel.Compiler.Universal.NodeCheck (32s)
+⚠ [9646/9790] Built Submission.Hypergraph.OrderedConfigurationCounting (5.6s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:258:8: `OrderEmbedding.range_inj` has been deprecated: Use `OrderEmbedding.range_inj_of_wellFoundedLT` instead
+
+Hint: Replace the deprecated name:
+  OrderEmbedding.range_inj_̲o̲f̲_̲w̲e̲l̲l̲F̲o̲u̲n̲d̲e̲d̲L̲T̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:514:13: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:1498:4: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:1511:4: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:1560:6: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:1562:6: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:1584:40: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:1612:40: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:1620:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [9647/9790] Built Submission.Hypergraph.CoarseAtomBridge (5.2s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseAtomBridge.lean: imports `Mathlib.Algebra.Order.Chebyshev` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9648/9790] Built ZInQKernel.RouteK.Rank5b.Row5b (4.7s)
+⚠ [9649/9790] Built Submission.Sieve.CFZCanonicalEulerCompletionTail (3.7s)
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletionTail.lean:1422:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletionTail.lean:1427:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletionTail.lean:1474:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletionTail.lean:1479:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9650/9790] Built ZInQKernel.Density.Description (5.3s)
+✔ [9651/9790] Built Submission.Transference.RelativeCountingCertificate (4.6s)
+✔ [9652/9790] Built ZInQKernel.Compiler.NodeCheck.Check (4.6s)
+✔ [9653/9790] Built ZInQKernel.Compiler.NodeBound.Defs (4.1s)
+⚠ [9654/9790] Built Submission.Hypergraph.StrongOrderedComplexRegularity (5.6s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/StrongOrderedComplexRegularity.lean:882:33: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/StrongOrderedComplexRegularity.lean:882:33: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [9655/9790] Built ZInQKernel.Compiler.NodeCheck.Consts (5.5s)
+warning: ZInQKernel/Compiler/NodeCheck/Consts.lean:73:8: `ite_cond_eq_true` has been deprecated: Use `ite_eq_left_of_eq_true` instead
+
+Hint: Replace the deprecated name:
+  i̵t̵e̵_̵c̵o̵n̵d̵_̵e̵q̵_̵t̵r̵u̵e̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲_̲o̲f̲_̲e̲q̲_̲t̲r̲u̲e̲
+warning: ZInQKernel/Compiler/NodeCheck/Consts.lean:77:8: `ite_cond_eq_false` has been deprecated: Use `ite_eq_right_of_eq_false` instead
+
+Hint: Replace the deprecated name:
+  i̵t̵e̵_̵c̵o̵n̵d̵_̵e̵q̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲_̲o̲f̲_̲e̲q̲_̲f̲a̲l̲s̲e̲
+warning: ZInQKernel/Compiler/NodeCheck/Consts.lean:283:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Compiler/NodeCheck/Consts.lean:398:6: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Compiler/NodeCheck/Consts.lean:398:18: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+✔ [9656/9790] Built Submission.Hypergraph.OrderedRemovalTheorem (4.2s)
+⚠ [9657/9790] Built Submission.Sieve.CFZCanonicalCarryFourierNormalization (2.7s)
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryFourierNormalization.lean:131:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryFourierNormalization.lean:263:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryFourierNormalization.lean:284:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryFourierNormalization.lean:500:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9658/9790] Built Submission.Sieve.CFZCanonicalCompleteMainTermBridge (3.2s)
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCompleteMainTermBridge.lean:935:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCompleteMainTermBridge.lean:939:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9659/9790] Built ZInQKernel.Density.GaussSieve.Local (5.6s)
+warning: ZInQKernel/Density/GaussSieve/Local.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9660/9790] Built Submission.Hypergraph.CoarseOrderedRemoval (4.6s)
+✔ [9661/9790] Built ZInQKernel.RouteK.Rank5b.Check (7.4s)
+✔ [9662/9794] Built ZInQKernel.Density.Lattice (5.3s)
+✔ [9663/9794] Built ZInQKernel.Syntax.Recipes.PowerValue (56s)
+✔ [9664/9794] Built Submission.Transference.RelativeCountingDecoder (4.9s)
+✔ [9665/9794] Built ZInQKernel.Compiler.NodeBound.Up (4.8s)
+⚠ [9667/9801] Built ZInQKernel.Compiler.NodeCheck.Fast (5.0s)
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:86:21: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:96:46: This simp argument is unused:
+  List.filter_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [h, ih]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:104:24: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:109:31: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:132:14: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:138:13: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:144:37: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:161:37: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:179:36: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:196:10: This simp argument is unused:
+  List.filter_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Packed.incTo, Packed.nzTo, Packed.zTo, h, inPairF, hx, hy, lookupVW_eq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:204:37: This simp argument is unused:
+  ih
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:207:18: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:221:25: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:235:48: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:242:55: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:247:14: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:253:21: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:264:27: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:269:34: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:277:56: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:287:63: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:297:6: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+⚠ [9668/9801] Built ZInQKernel.Compiler.Universal.Specialize (11s)
+warning: ZInQKernel/Compiler/Universal/Specialize.lean: imports `ZInQ.CantorDecoder` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9669/9801] Built Submission.Sieve.CFZCanonicalCarryAverageInterior (2.6s)
+⚠ [9670/9801] Built ZInQKernel.Sieve.AuxResults (2.4s)
+warning: ZInQKernel/Sieve/AuxResults.lean: imports `Mathlib.Algebra.Order.Antidiag.Nat` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Sieve/AuxResults.lean: imports `Mathlib.Analysis.SpecialFunctions.Integrals.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Sieve/AuxResults.lean: imports `Mathlib.Analysis.SumIntegralComparisons` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Sieve/AuxResults.lean: imports `Mathlib.NumberTheory.ArithmeticFunction.Moebius` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9671/9801] Built Submission.Hypergraph.CoarseTargetRegularity (5.1s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseTargetRegularity.lean:419:33: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseTargetRegularity.lean:419:33: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [9672/9801] Built ZInQKernel.Compiler.NodeCheck.Reduced (4.1s)
+✔ [9673/9801] Built Submission.Hypergraph.OrderedRemovalParameters (5.5s)
+⚠ [9674/9801] Built Submission.Hypergraph.CoarseConfigurationCounting (5.0s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseConfigurationCounting.lean:828:4: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseConfigurationCounting.lean:841:4: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseConfigurationCounting.lean:890:6: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseConfigurationCounting.lean:892:6: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseConfigurationCounting.lean:912:45: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseConfigurationCounting.lean:940:45: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseConfigurationCounting.lean:948:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [9675/9801] Built ZInQKernel.Density.GaussSieve.Box (5.3s)
+warning: ZInQKernel/Density/GaussSieve/Box.lean:95:27: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/Density/GaussSieve/Box.lean:96:51: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+⚠ [9676/9801] Built ZInQKernel.Density.Residues (11s)
+warning: ZInQKernel/Density/Residues.lean:56:15: Variable name `ℓ` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _ℓ
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9677/9801] Built ZInQKernel.Compiler.Translation.PowerValue (4.6s)
+⚠ [9678/9801] Built ZInQKernel.Sieve.Basic (2.9s)
+warning: ZInQKernel/Sieve/Basic.lean: imports `Mathlib.NumberTheory.SelbergSieve` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9679/9801] Built Submission.Transference.RelativeCountingDecoderStep (5.2s)
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderStep.lean:503:17: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderStep.lean:815:6: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderStep.lean:841:6: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderStep.lean:853:8: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderStep.lean:946:8: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderStep.lean:1215:17: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderStep.lean:1300:17: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+⚠ [9680/9801] Built ZInQKernel.Density.GaussSieve.Harmonic (5.6s)
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:251:27: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:258:27: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:298:20: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:303:47: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:309:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:311:47: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:302:35: This simp argument is unused:
+  Nat.lt_succ_iff
+
+Hint: Omit it from the simp argument list.
+  [apply] simp at hj
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:325:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:325:20: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:327:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:327:45: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:340:49: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:345:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:445:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:445:27: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:452:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:454:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:454:44: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:453:16: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:453:16: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+✔ [9681/9801] Built ZInQKernel.Compiler.NodeBound.OfCheck (4.2s)
+⚠ [9682/9801] Built Submission.Hypergraph.AdaptiveCoarseTargetRegularity (5.3s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveCoarseTargetRegularity.lean:660:46: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveCoarseTargetRegularity.lean:690:18: Unused tactic linter: `all_goals rfl` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveCoarseTargetRegularity.lean:748:18: Unused tactic linter: `all_goals rfl` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveCoarseTargetRegularity.lean:690:28: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveCoarseTargetRegularity.lean:748:28: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveCoarseTargetRegularity.lean:660:46: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [9683/9801] Built ZInQKernel.Compiler.NodeBound.Macros (8.8s)
+✔ [9684/9801] Built Submission.Hypergraph.OrderedRemovalAssembly (4.4s)
+✔ [9685/9801] Built ZInQKernel.Compiler.Universal.SpecializeShape (7.7s)
+✔ [9686/9801] Built Submission.Hypergraph.GrowthFunctionRegularity (4.9s)
+✔ [9687/9801] Built Submission.Hypergraph.CoarseOrderedRemovalTheorem (4.3s)
+✔ [9688/9801] Built Submission.Hypergraph.ConfigurationWeightedDefect (4.6s)
+✔ [9689/9801] Built ZInQKernel.Sieve.Selberg (4.1s)
+⚠ [9690/9801] Built Submission.Hypergraph.HypergraphBundleConfigurationBridge (4.9s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean: imports `Mathlib.Data.Fin.Tuple.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:116:5: `OrderEmbedding.range_inj` has been deprecated: Use `OrderEmbedding.range_inj_of_wellFoundedLT` instead
+
+Hint: Replace the deprecated name:
+  OrderEmbedding.range_inj_̲o̲f̲_̲w̲e̲l̲l̲F̲o̲u̲n̲d̲e̲d̲L̲T̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:340:4: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:341:4: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:431:15: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:433:17: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:453:15: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:455:17: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:509:13: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:514:13: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:529:15: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:531:17: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [9691/9801] Built Submission.Transference.RelativeCountingDecoderTerminal (5.2s)
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderTerminal.lean:573:10: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderTerminal.lean:729:17: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderTerminal.lean:941:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9692/9801] Built Submission.Hypergraph.OrderedFullBoundary (8.5s)
+✔ [9693/9801] Built ZInQKernel.Density.PropD (7.2s)
+✔ [9694/9801] Built Submission.Hypergraph.CoarseTargetRemovalBridge (4.3s)
+✔ [9695/9801] Built ZInQKernel.Compiler.NodeBound.Items (6.0s)
+✔ [9696/9801] Built Submission.Hypergraph.GrowthFunctionComplexRegularity (4.8s)
+⚠ [9697/9801] Built ZInQKernel.Sieve.SelbergBounds (2.6s)
+warning: ZInQKernel/Sieve/SelbergBounds.lean: imports `Mathlib.NumberTheory.Primorial` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Sieve/SelbergBounds.lean: imports `Mathlib.Analysis.Asymptotics.Lemmas` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Sieve/SelbergBounds.lean: imports `Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9698/9801] Built Submission.Hypergraph.ConfigurationWeightedCounting (4.5s)
+✔ [9699/9801] Built ZInQKernel.Compiler.Universal.PrecisionCircuit (8.1s)
+⚠ [9700/9801] Built Submission.Hypergraph.HypergraphBundleConfigurationStep (4.6s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationStep.lean:149:4: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationStep.lean:150:4: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationStep.lean:176:4: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationStep.lean:177:4: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [9701/9801] Built Submission.Transference.RelativeCountingHeterogeneousMask (5.1s)
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingHeterogeneousMask.lean:599:24: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingHeterogeneousMask.lean:601:24: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingHeterogeneousMask.lean:780:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9702/9801] Built Submission.Hypergraph.SourceFullGoodAtoms (4.9s)
+✔ [9703/9801] Built Submission.Hypergraph.CoarseTargetRemovalSchedules (4.9s)
+✔ [9704/9801] Built ZInQKernel.Compiler.NodeBound.Encode (4.7s)
+✔ [9705/9801] Built Submission.Hypergraph.TowerDominatingGrowth (4.3s)
+⚠ [9706/9801] Built Submission.Hypergraph.HierarchicalGoodAtoms (5.3s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HierarchicalGoodAtoms.lean:61:28: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [9707/9801] Built ZInQKernel.Density.GaussSieve.SelbergSum (4.9s)
+warning: ZInQKernel/Density/GaussSieve/SelbergSum.lean:235:4: Unused tactic linter: `push_cast at hl ⊢` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+✔ [9708/9801] Built ZInQKernel.Compiler.Universal.WrapperCode (4.3s)
+✔ [9709/9801] Built Submission.Hypergraph.ConfigurationWeightedHierarchy (4.4s)
+✔ [9710/9801] Built Submission.Hypergraph.HypergraphBundleFrozenUniformity (4.2s)
+⚠ [9711/9801] Built Submission.Hypergraph.HypergraphBundleSourceGoodnessBridge (4.8s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleSourceGoodnessBridge.lean:667:15: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleSourceGoodnessBridge.lean:669:15: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleSourceGoodnessBridge.lean:742:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleSourceGoodnessBridge.lean:743:6: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleSourceGoodnessBridge.lean:744:6: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleSourceGoodnessBridge.lean:750:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9712/9801] Built ZInQKernel.Syntax.Recipes.Precision (29s)
+✔ [9713/9801] Built Submission.Hypergraph.SourceFullOrderedRemoval (4.5s)
+⚠ [9714/9801] Built Submission.Hypergraph.CoarseTargetRankwiseRemovalBridge (4.3s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseTargetRankwiseRemovalBridge.lean:78:12: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseTargetRankwiseRemovalBridge.lean:106:60: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseTargetRankwiseRemovalBridge.lean:80:10: Unused tactic linter: `all_goals rfl` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseTargetRankwiseRemovalBridge.lean:80:20: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+✔ [9715/9801] Built Submission.Transference.RelativeCountingInduction (5.6s)
+✔ [9716/9801] Built ZInQKernel.Compiler.NodeBound.Items67 (5.0s)
+⚠ [9717/9801] Built Submission.Hypergraph.HierarchicalParameterSelection (4.8s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HierarchicalParameterSelection.lean: imports `Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9718/9801] Built ZInQKernel.Compiler.Universal (4.2s)
+⚠ [9719/9801] Built ZInQKernel.Density.GaussSieve.Instance (5.3s)
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:53:26: `Prime.dvd_finset_prod_iff` has been deprecated: Use `Prime.dvd_finsetProd_iff` instead
+
+Hint: Replace the deprecated name:
+  Prime.dvd_finset_̵p̵P̲rod_iff
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:106:27: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:107:38: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:202:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:204:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:214:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:215:47: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:216:47: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:203:54: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:217:54: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:203:54: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:217:54: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:254:25: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:263:21: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+✔ [9720/9801] Built Submission.Hypergraph.SuffixConfigurationCounting (4.6s)
+⚠ [9721/9801] Built Submission.Hypergraph.HypergraphBundleFrozenCut (4.8s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleFrozenCut.lean:149:40: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+✔ [9722/9801] Built ZInQKernel.Compiler.Translation.PrecisionScope (8.1s)
+✔ [9723/9801] Built Submission.Transference.RelativeCountingErrorSchedule (4.5s)
+✔ [9724/9801] Built ZInQKernel.Compiler.NodeBound.Program67 (5.1s)
+✔ [9725/9801] Built Submission.Hypergraph.SourceFullBundleCounting (4.3s)
+⚠ [9726/9801] Built Submission.Hypergraph.CoarseTargetRemovalScheduleBase (7.6s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseTargetRemovalScheduleBase.lean:88:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9727/9801] Built Submission.Transference.RelativeCountingParameterSelection (5.3s)
+✔ [9728/9801] Built ZInQKernel.Compiler.NodeBound.Top (5.7s)
+⚠ [9729/9801] Built ZInQKernel.Density.GaussSieve (9.5s)
+warning: ZInQKernel/Density/GaussSieve.lean:76:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve.lean:76:19: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve.lean:78:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve.lean:343:27: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+✔ [9730/9801] Built Submission.Hypergraph.SourceFullCoarseTargetRegularity (18s)
+✔ [9731/9801] Built Submission.GreenTao.FinalTransferenceAssembly (4.3s)
+✔ [9732/9801] Built ZInQKernel.DensitySieve (3.9s)
+⚠ [9733/9801] Built Submission.Hypergraph.RankwiseStageShiftedRegularity (8.0s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/RankwiseStageShiftedRegularity.lean:1201:4: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/RankwiseStageShiftedRegularity.lean:1287:8: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/RankwiseStageShiftedRegularity.lean:1293:8: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+✔ [9734/9801] Built Submission.Hypergraph.SourceFullRankwiseBundleCounting (4.3s)
+✔ [9735/9801] Built Submission.Hypergraph.SourceFullBundleRemovalParameters (4.8s)
+✔ [9736/9801] Built ZInQKernel.Density.PropDFinal (4.1s)
+⚠ [9737/9801] Built Submission.Sieve.StandardCyclicLinearForms (5.3s)
+warning: ThirdParty/GreenTao/Submission/Sieve/StandardCyclicLinearForms.lean:316:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9738/9801] Built Submission.Hypergraph.AdaptiveCoarseTargetRemovalSelector (4.3s)
+✔ [9739/9801] Built Submission.Hypergraph.ExactGapSelectedRemovalParameters (5.3s)
+⚠ [9740/9801] Built Submission.Hypergraph.StoppingTimeRemovalSelector (4.8s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/StoppingTimeRemovalSelector.lean:89:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/StoppingTimeRemovalSelector.lean:90:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/StoppingTimeRemovalSelector.lean:91:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/StoppingTimeRemovalSelector.lean:228:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/StoppingTimeRemovalSelector.lean:229:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/StoppingTimeRemovalSelector.lean:230:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9741/9801] Built Submission.Hypergraph.SourceFullBundleRemovalAssembly (5.5s)
+✔ [9742/9801] Built Submission.Hypergraph.RankPrefixSelectedRemoval (4.2s)
+⚠ [9743/9801] Built Submission.Hypergraph.AdaptiveRegularityParameterSchedule (6.7s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveRegularityParameterSchedule.lean:378:6: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveRegularityParameterSchedule.lean:392:8: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveRegularityParameterSchedule.lean:397:8: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+✔ [9744/9801] Built Submission.Hypergraph.RankPrefixRemovalSelector (4.9s)
+✔ [9745/9801] Built ZInQKernel.Compiler.Translation.Rational (30s)
+✔ [9746/9801] Built ZInQKernel.Syntax.Recipes.Accounting (37s)
+✔ [9747/9801] Built ZInQKernel.Compiler.NodeBound.Check (25s)
+✔ [9748/9801] Built Submission.Hypergraph.LookaheadGeneratedCellRemoval (6.1s)
+⚠ [9749/9801] Built Submission.Hypergraph.RankPrefixWeightedRemovalExtension (6.2s)
+warning: ThirdParty/GreenTao/Submission/Hypergraph/RankPrefixWeightedRemovalExtension.lean:406:6: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/RankPrefixWeightedRemovalExtension.lean:406:18: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/RankPrefixWeightedRemovalExtension.lean:414:6: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/RankPrefixWeightedRemovalExtension.lean:414:18: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+✔ [9750/9801] Built ZInQKernel.Syntax.Recipes.Polynomial (4.7s)
+✔ [9751/9801] Built ZInQKernel.Compiler.NodeBound (4.1s)
+✔ [9752/9801] Built Submission.Helpers (3.9s)
+⚠ [9753/9801] Built ZInQKernel.Assembly.Values.Outer (5.2s)
+warning: ZInQKernel/Assembly/Values/Outer.lean:220:162: This simp argument is unused:
+  List.map_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ (List.ofFn K ++ [t])).length = (closeRecipe w).parameterCount by simp; rfl),
+    ofFn_eleven (show (closeRecipe w).parameterCount = 11 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_nil]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:221:4: This simp argument is unused:
+  List.map_nil
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ (List.ofFn K ++ [t])).length = (closeRecipe w).parameterCount by simp; rfl),
+    ofFn_eleven (show (closeRecipe w).parameterCount = 11 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:274:51: This simp argument is unused:
+  List.map_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (mainRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (mainRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_nil]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:274:66: This simp argument is unused:
+  List.map_nil
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (mainRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (mainRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:322:51: This simp argument is unused:
+  List.map_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (valueUnionRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (valueUnionRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_nil]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:322:66: This simp argument is unused:
+  List.map_nil
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (valueUnionRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (valueUnionRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:358:51: This simp argument is unused:
+  List.map_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (valueRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (valueRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_nil]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:358:66: This simp argument is unused:
+  List.map_nil
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (valueRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (valueRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [9754/9801] Built ZInQKernel.Multiplication.Certificate.Spec (4.1s)
+✔ [9755/9801] Built Submission (3.0s)
+✔ [9756/9801] Built ZInQKernel.Assembly.Values (3.0s)
+✔ [9757/9801] Built ZInQKernel.Syntax.Recipes.Literal (4.5s)
+✔ [9758/9801] Built ZInQKernel.Multiplication.Certificate (4.0s)
+✔ [9759/9801] Built ZInQKernel.Syntax.Recipes (4.0s)
+✔ [9760/9801] Built ZInQKernel.External.GreenTaoDense.PrimeModulusTransference (4.5s)
+✔ [9761/9801] Built ZInQKernel.Assembly.Close.Relation (5.1s)
+✔ [9762/9801] Built ZInQKernel.Size.Majorants.RecipeHeights (4.9s)
+✔ [9763/9801] Built ZInQKernel.Multiplication.Soundness.CommonGroup (5.6s)
+✔ [9764/9801] Built ZInQKernel.Assembly.Top.Spec (4.2s)
+✔ [9765/9801] Built ZInQKernel.External.GreenTaoDense.Assembly (5.2s)
+⚠ [9766/9801] Built ZInQKernel.Assembly.Close.Soundness (4.5s)
+warning: ZInQKernel/Assembly/Close/Soundness.lean: imports `Mathlib.Analysis.Complex.ExponentialBounds` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9767/9801] Built ZInQKernel.Assembly.Close.Completeness (6.2s)
+✔ [9768/9801] Built ZInQKernel.Size.Majorants.Cutoff (4.3s)
+✔ [9769/9801] Built ZInQKernel.External.GreenTaoDense (4.1s)
+✔ [9770/9801] Built ZInQKernel.Multiplication.Soundness.TestsToCongruence (5.4s)
+✔ [9771/9801] Built ZInQKernel.Assembly.Close (4.1s)
+✔ [9772/9801] Built ZInQKernel.Size.Majorants.Bound (4.3s)
+✔ [9773/9801] Built ZInQKernel.Multiplication.Soundness.LocalCongruence (4.1s)
+✔ [9774/9801] Built ZInQKernel.Multiplication.Completeness.PoleValuationsAux (4.4s)
+✔ [9775/9801] Built ZInQKernel.Multiplication.Soundness.ContactSupport (4.3s)
+✔ [9776/9801] Built ZInQKernel.Multiplication.Completeness.TestsLocal (4.5s)
+✔ [9777/9801] Built ZInQKernel.Multiplication.Completeness.TwoSlope (5.9s)
+✔ [9778/9801] Built ZInQKernel.Multiplication.Completeness.SelectedReduction (4.4s)
+✔ [9779/9801] Built ZInQKernel.Multiplication.Completeness.SbIntegrality (4.7s)
+✔ [9780/9801] Built ZInQKernel.Multiplication.Soundness.FiniteBox (6.3s)
+✔ [9781/9801] Built ZInQKernel.Multiplication.Completeness.PoleValuations (10s)
+✔ [9782/9801] Built ZInQKernel.Multiplication.Completeness.AP.LemmaP (5.2s)
+✔ [9783/9801] Built ZInQKernel.Multiplication.Soundness.MultiplySound (4.0s)
+✔ [9784/9801] Built ZInQKernel.Multiplication.Completeness.AP.GoodSlope (4.2s)
+✔ [9785/9801] Built ZInQKernel.Multiplication.Completeness.SelectedPrecision (6.7s)
+✔ [9786/9801] Built ZInQKernel.Multiplication.Completeness.SlopeCompleteness (5.7s)
+✔ [9787/9801] Built ZInQKernel.Multiplication.Completeness.AP.PoleValuations (8.0s)
+✔ [9788/9801] Built ZInQKernel.Multiplication.Completeness.Core (4.0s)
+✔ [9789/9801] Built ZInQKernel.Multiplication.Completeness.AP.SlopeCompleteness (6.1s)
+✔ [9790/9801] Built ZInQKernel.Multiplication.Completeness.Template (4.9s)
+✔ [9791/9801] Built ZInQKernel.Multiplication.Top.Exact (4.2s)
+✔ [9792/9801] Built ZInQKernel.Multiplication.Top (4.0s)
+✔ [9793/9801] Built ZInQKernel.Assembly.Top.ValueRelation (4.2s)
+✔ [9794/9801] Built ZInQKernel.Assembly.Top.Assembly (4.3s)
+✔ [9795/9801] Built ZInQKernel.Assembly.Top (3.9s)
+✔ [9796/9801] Built ZInQKernel.Multiplication.Completeness.AP.Completeness (5.1s)
+✔ [9797/9801] Built ZInQKernel.Multiplication.Completeness.AP.PropAP (5.4s)
+✔ [9798/9801] Built ZInQKernel.Multiplication.Completeness.AP (4.1s)
+✔ [9799/9801] Built ZInQKernel.Main (4.2s)
+✔ [9800/9801] Built ZInQKernel.MainGreenTao (4.0s)
+✔ [9801/9801] Built ZInQKernel.RouteK.Rank5b (4.0s)
+Build completed successfully (9801 jobs).
+
+real	5m55.333s
+user	29m0.608s
+sys	9m8.733s
+done
