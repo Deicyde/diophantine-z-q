@@ -13,3 +13,9 @@ After filling in PROJECT.md, give the agent this prompt:
 > Read PROTOCOL.md, AGENTS.md, and PROJECT.md. Pursue the stated mathematical objective while satisfying every applicable protocol obligation. Use the smallest adequate review implementation: one canonical ledger, reusable evidence, and incremental validation. Begin research alongside that setup; do not make infrastructure development a separate preliminary project. Preserve independent source-first reconstruction, application review, and final assembly review. Report unresolved mathematics, accepted work awaiting integration, and mechanical release work separately.
 
 These are reusable instructions and a template, not a prebuilt automated gate. The starter-kit protocol is an exact copy of the [governing protocol](../PROTOCOL.md); update the copy when that protocol changes. The two companions provide reusable operating instructions and a project brief. They do not replace this repository's [own agent instructions](../../../AGENTS.md) or assert that its proof has completed review.
+
+## Release workflow
+
+The companion operating instructions include a practical release plan: immutable commit and artifact bindings, an end-to-end preflight, compatibility with existing signed evidence when used, and resumable stages that preserve successful unchanged work. PROJECT.md records the phase budgets, progress and error locations, recovery owner, and publication/readback steps.
+
+After two unexplained infrastructure failures in a stage, diagnose and reproduce the failing step before another expensive full run while independent work continues. Publication should be a short delivery step after expensive validation. Changed relevant inputs or checkers still require the affected checks to run again. These instructions do not add mathematical assurance duties, extra human signoffs, permissions or a custom service to the selected framework.

@@ -45,3 +45,8 @@ README.md -text
 CONTRIBUTING.md -text
 .github/pull_request_template.md -text
 docs/research-review/** -text
+
+# Exact Version 15 research and verification bytes.
+research/version15/** -text
+scripts/v15/** -text
+.github/workflows/version15-checks.yml -text

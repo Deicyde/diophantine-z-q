@@ -1,5 +1,11 @@
 # Z is Diophantine in Q
 
+## Version 15 review candidate
+
+[Read the manuscript](research/version15/snapshots/v15-222-004/manuscript/quartic_v15.pdf), [open the TeX source](research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex), or [browse the research index](research/version15/README.md). This update selects a quartic family in **222 total variables** with **2,277 nonzero coordinate monomials**, alongside the original huge construction and the retained 314-variable decimal quartic. Exact release binding and authenticated publication records remain pending.
+
+The [222-variable package](research/version15/quartics/quartic-222/README.md) includes raw and sparse tables, a fixed-parameter generator, and finite checks. Its defining threshold N0 remains ineffective; the coefficient bound for N >= 53 does not certify that defining threshold. [Release notes](research/version15/RELEASE-NOTES.md) and the [cumulative handoff](research/version15/CUMULATIVE-HANDOFF.md) retain the construction and review history.
+
 ## Version 14
 
 This repository contains *Z is Diophantine in Q*, Version 14, dated November 9, 2026. It gives quartics in **299 total variables** with exact symbolic coefficients and **314 total variables** with every coefficient written out in decimal. The original large construction, earlier quartic proofs and Version 11 Kato index-set and limiting-class repair remain in the manuscript. The Version 9 starting reductions were contributed by Gabriel Conant with ChatGPT.
@@ -45,6 +51,7 @@ $$
 
 | Construction | Total variables, including input | Degree | Nonzero monomials | Coefficient magnitude |
 | --- | ---: | ---: | ---: | --- |
+| Version 15, selected family | 222 | 4 | 2,277 | $A_N^2+1$ for $N\ge53$, where $A_N=149^{2N+1}$ |
 | Original | 292,890,231,905 | Less than $2\uparrow\uparrow7$ | Not expanded | Less than $2\uparrow\uparrow8$ |
 | Version 14, decimal table | 314 | 4 | 6,672 | Less than $2^{6496}$ |
 | Version 14, symbolic table | 299 | 4 | 6,630 | Maximum $186624\cdot3^{2^{26}}$ |
