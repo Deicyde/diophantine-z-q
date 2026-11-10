@@ -1,0 +1,1864 @@
+✔ [9068/9333] Built ZInQ.NumericalTowerBounds (853ms)
+warning: ZInQKernel/Model/Descent/Kummer.lean:221:0: automatically included section variable(s) unused in theorem `ZInQ.Descent.tZero_def`:
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Kummer.lean:227:0: automatically included section variable(s) unused in theorem `ZInQ.Descent.eq_zero_of_x_eq_zero`:
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Kummer.lean:386:0: automatically included section variable(s) unused in theorem `ZInQ.Descent.phi_equation`:
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Kummer.lean:407:8: automatically included section variable(s) unused in theorem `ZInQ.Descent.phi_zero`:
+  [(shortCurve b).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [(shortCurve b).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Kummer.lean:409:0: automatically included section variable(s) unused in theorem `ZInQ.Descent.phi_some_of_eq_zero`:
+  [(shortCurve b).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [(shortCurve b).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Kummer.lean:413:0: automatically included section variable(s) unused in theorem `ZInQ.Descent.phi_some`:
+  [(shortCurve b).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [(shortCurve b).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [9082/9373] Built ZInQ.AlphaCRTWitness (860ms)
+✔ [9095/9373] Built ZInQ.AlphaSignedResidue (954ms)
+⚠ [9098/9514] Built ZInQ.PoleValuation (1.4s)
+warning: ZInQ/PoleValuation.lean:234:30: Variable name `hp2` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hp2
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9112/9608] Built ZInQ.RationalPositiveGuard (1.4s)
+✔ [9113/9608] Built ZInQ.BinomialDigit (1.0s)
+warning: ZInQKernel/Compiler/Programs/Runs.lean:161:88: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Compiler/Programs/Runs.lean:168:86: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Compiler/Programs/Runs.lean:161:88: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Compiler/Programs/Runs.lean:168:86: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Compiler/Programs/Runs.lean:197:76: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Compiler/Programs/Runs.lean:197:76: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+✔ [9131/9608] Built ZInQ.ModelDuplicationBounds (2.0s)
+✔ [9135/9608] Built ZInQ.PrecisionArithmetic (1.1s)
+warning: ZInQKernel/Compiler/Programs/SignedSpec.lean:221:5: Variable name `hf` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hf
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Assembly/Real/Accumulation.lean:31:0: automatically included section variable(s) unused in theorem `ZInQ.Assembly.shortCurve_map`:
+  [DecidableEq F]
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq F] [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [9181/9610] Built ZInQ.AlphaCore (2.1s)
+✔ [9189/9610] Built ZInQ.CantorDecoder (754ms)
+✔ [9203/9610] Built ZInQ.BitwiseMacros (1.5s)
+✔ [9204/9610] Built ZInQ.ExplicitCutoffBounds (1.6s)
+✔ [9205/9610] Built ZInQ.PrecisionAlgorithms (594ms)
+✔ [9206/9610] Built ZInQ.RationalSeparation (1.6s)
+✔ [9207/9610] Built ZInQ.AlphaParity (1.2s)
+✔ [9208/9610] Built ZInQ.AlphaPowerModulus (1.2s)
+✔ [9212/9613] Built ZInQ.AlphaCompanionBound (1.4s)
+warning: ZInQKernel/Compiler/Programs/LoweringCorrect.lean:357:23: Variable name `i` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _i
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Model/Descent/Factor.lean:192:25: Unused tactic linter: `push_cast at h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Model/Descent/Residue.lean:128:22: Variable name `hx` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hx
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Model/Descent/Residue.lean:162:25: Unused tactic linter: `push_cast at hx` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Model/Descent/KernelReduction.lean:52:0: automatically included section variable(s) unused in theorem `ZInQ.sum_t_identity`:
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/KernelReduction.lean:65:0: automatically included section variable(s) unused in theorem `ZInQ.tw_equation`:
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/KernelReduction.lean:217:0: automatically included section variable(s) unused in theorem `ZInQ.kernel_third_point`:
+  [(shortCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [(shortCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/KernelReduction.lean:323:49: This simp argument is unused:
+  shortCurve_negY
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:65:12: Variable name `y` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _y
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:97:0: automatically included section variable(s) unused in theorem `ZInQ.red_add_of_slope`:
+  [(shortCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [(shortCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:122:59: This simp argument is unused:
+  shortCurve_a₁
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Affine.addY, Affine.negAddY, shortCurve_negY, shortCurve_a₃, zero_mul, sub_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:122:74: This simp argument is unused:
+  shortCurve_a₃
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Affine.addY, Affine.negAddY, shortCurve_negY, shortCurve_a₁, zero_mul, sub_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:122:89: This simp argument is unused:
+  zero_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Affine.addY, Affine.negAddY, shortCurve_negY, shortCurve_a₁, shortCurve_a₃, sub_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:123:4: This simp argument is unused:
+  sub_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Affine.addY, Affine.negAddY, shortCurve_negY, shortCurve_a₁, shortCurve_a₃, zero_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:168:0: automatically included section variable(s) unused in theorem `ZInQ.not_vge_addX`:
+  hA
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit hA in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:181:0: automatically included section variable(s) unused in theorem `ZInQ.add_of_red_opp`:
+  [(shortCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [(shortCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:479:60: Variable name `hT` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hT
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Compiler/Circuits/Compilation.lean:397:6: Variable name `s` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _s
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9276/9623] Built ZInQ.AlphaAddition (1.2s)
+✔ [9277/9623] Built ZInQ.AlphaUnordered (1.3s)
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+✔ [9341/9623] Built ZInQ.AlphaParameterCongruence (1.1s)
+warning: ZInQKernel/Compiler/Circuits/Builder.lean:255:78: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Compiler/Circuits/Builder.lean:255:78: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+✔ [9357/9626] Built ZInQ.AlphaPowerBounds (1.2s)
+warning: ZInQKernel/Compiler/Circuits/Packed/Counts.lean:129:28: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ZInQKernel/Compiler/Circuits/Packed/Counts.lean:129:28: Unused tactic linter: `simp` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Compiler/Circuits/Scope.lean:127:52: This simp argument is unused:
+  s'
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:22:37: This simp argument is unused:
+  ih
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:95:17: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:122:72: This simp argument is unused:
+  getD_map_node
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [eraseF]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:125:14: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:140:30: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:144:30: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:149:29: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:158:72: This simp argument is unused:
+  getD_map_node
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Packed.incHandles, incHandles, List.map_map, Function.comp_def]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:178:30: This simp argument is unused:
+  getD_map_node
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [h1, h2]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:218:39: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:234:12: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:252:16: This simp argument is unused:
+  getLastD_map_node
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [eraseF]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:262:20: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:272:13: This simp argument is unused:
+  id
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [← getD_map_node]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:276:47: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:290:13: This simp argument is unused:
+  id
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [← getD_map_node]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:294:26: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:305:13: This simp argument is unused:
+  id
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [← getD_map_node]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:312:55: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:335:6: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Multiplication/Local/FormalLogarithm.lean:92:0: automatically included section variable(s) unused in theorem `ZInQ.Mult.ellLog_neg`:
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Multiplication/Certificate/TestGroup.lean:320:54: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Multiplication/Certificate/TestGroup.lean:321:54: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Multiplication/Certificate/TestGroup.lean:322:55: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Multiplication/Certificate/TestGroup.lean:323:59: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Multiplication/Certificate/TestGroup.lean:320:54: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Multiplication/Certificate/TestGroup.lean:321:54: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Multiplication/Certificate/TestGroup.lean:322:55: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Multiplication/Certificate/TestGroup.lean:323:59: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Multiplication/Certificate/Slope.lean:119:58: This simp argument is unused:
+  map_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [slopeContact, contactPoly, map_mul, map_add, ev_ofNat, add_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [9402/9638] Built ZInQ.AlphaIndexCompanion (1.3s)
+warning: ZInQKernel/Compiler/Translation/NaturalCode.lean:87:2: Unused tactic linter: `change (∃ y : ℕ → ℚ, (∀ i : Fin 5, y i = A i) ∧ _) ↔ _` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Assembly/Values/Chains.lean:91:74: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Assembly/Values/Chains.lean:91:74: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Compiler/Programs/FieldSpec.lean:269:69: Variable name `h` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _h
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:194:12: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:194:12: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:194:12: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:194:12: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:443:14: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:443:14: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:443:14: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:443:14: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:443:14: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:443:14: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: ZInQKernel/Compiler/Programs/CappedSpec.lean:29:37: Variable name `hd` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hd
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Compiler/Programs/CappedSpec.lean:40:40: Variable name `hd` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hd
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Compiler/Programs/CappedSpec.lean:85:81: Variable name `hd` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hd
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Compiler/Programs/CappedSpec.lean:142:67: Variable name `hd` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hd
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Assembly/Values/Close.lean:159:32: This simp argument is unused:
+  Matrix.cons_val_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_sub, ev_X, Matrix.cons_val_one, Matrix.head_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Close.lean:159:54: This simp argument is unused:
+  Matrix.cons_val_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_sub, ev_X, Matrix.cons_val_zero, Matrix.head_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Close.lean:159:75: This simp argument is unused:
+  Matrix.head_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_sub, ev_X, Matrix.cons_val_zero, Matrix.cons_val_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/ValueTest.lean:24:16: This simp argument is unused:
+  QuadraticAlgebra.algebraMap_eq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+
+Hint: Replace the deprecated name:
+  OrderEmbedding.range_inj_̲o̲f̲_̲w̲e̲l̲l̲F̲o̲u̲n̲d̲e̲d̲L̲T̲
+
+Hint: Replace the deprecated name:
+  OrderEmbedding.range_inj_̲o̲f̲_̲w̲e̲l̲l̲F̲o̲u̲n̲d̲e̲d̲L̲T̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+  [Fintype ι]
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+  [Fintype ι]
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  OrderEmbedding.range_inj_̲o̲f̲_̲w̲e̲l̲l̲F̲o̲u̲n̲d̲e̲d̲L̲T̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  OrderEmbedding.range_inj_̲o̲f̲_̲w̲e̲l̲l̲F̲o̲u̲n̲d̲e̲d̲L̲T̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9687/9847] Built ZInQ.AlphaDivisibility (1.2s)
+✔ [9688/9847] Built ZInQ.AlphaLargeOddPair (1.4s)
+⚠ [9690/9847] Built ZInQ.AlphaCompanionPeriod (1.4s)
+warning: ZInQ/AlphaCompanionPeriod.lean:63:56: Variable name `hB` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hB
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9691/9847] Built ZInQ.AlphaWitnessTransport (1.2s)
+✔ [9692/9847] Built ZInQ.PowerBoundDraft (1.3s)
+⚠ [9693/9847] Built ZInQ.AlphaSquareDivisibilityDraft (1.4s)
+warning: ZInQ/AlphaSquareDivisibilityDraft.lean:24:48: Variable name `hB` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hB
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQ/AlphaSquareDivisibilityDraft.lean:76:24: Variable name `hB` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hB
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9694/9847] Built ZInQ.AlphaPeriodReflection (1.2s)
+⚠ [9695/9847] Built ZInQKernel.Multiplication.Certificate.Parity (5.6s)
+✔ [9696/9847] Built ZInQ.AlphaSquareBridgeDraft (1.2s)
+✔ [9697/9847] Built ZInQ.AlphaFoldedResidue (1.2s)
+⚠ [9698/9847] Built ZInQKernel.Compiler.Exponential.AlphaDivisibility (1.7s)
+⚠ [9699/9847] Built ZInQKernel.Compiler.Exponential.AlphaPeriod (1.7s)
+⚠ [9700/9847] Built ZInQKernel.Compiler.Exponential.AlphaEquations (2.1s)
+⚠ [9701/9847] Built ZInQKernel.External.GreenTaoDense.Window (8.7s)
+✔ [9702/9847] Built ZInQKernel.Assembly.Local.PoleObstruction (4.4s)
+✔ [9703/9847] Built ZInQKernel.External.GreenTaoDense.PrimeModulusTransference (6.7s)
+⚠ [9704/9847] Built ZInQKernel.Compiler.Exponential.PowerEquations (2.5s)
+✔ [9705/9847] Built ZInQKernel.RouteK.Slots.Theta (5.5s)
+✔ [9706/9847] Built ZInQKernel.Compiler.Exponential (1.7s)
+✔ [9707/9847] Built ZInQKernel.External.GreenTaoDense.Assembly (7.0s)
+✔ [9708/9847] Built ZInQKernel.RouteK.Slots.Construction (6.2s)
+✔ [9709/9847] Built ZInQKernel.Assembly.Local.TestDivisibility (7.7s)
+✔ [9710/9847] Built ZInQKernel.RouteK.Slots (6.6s)
+✔ [9711/9847] Built ZInQKernel.External.GreenTaoDense (6.8s)
+⚠ [9712/9847] Built ZInQKernel.Assembly.Top.MainBranch (6.6s)
+✔ [9713/9847] Built ZInQKernel.Assembly.Local.PoleInputLocal (9.6s)
+✔ [9714/9847] Built ZInQKernel.RouteK.Assembly.Realize (4.4s)
+⚠ [9715/9847] Built ZInQKernel.Compiler.Circuits.MacroSemantics (18s)
+✔ [9716/9847] Built ZInQKernel.Assembly.Local.TestCompleteness (5.1s)
+✔ [9717/9847] Built ZInQKernel.Hypotheses.CertifiedRank (4.2s)
+✔ [9718/9847] Built ZInQKernel.RouteK.Assembly.Data (4.4s)
+✔ [9719/9847] Built ZInQKernel.Compiler.Circuits.PowerTemplate (4.4s)
+⚠ [9720/9847] Built ZInQKernel.Compiler.Circuits.Exposed (4.6s)
+warning: ZInQKernel/Compiler/Circuits/Exposed.lean:45:50: Variable name `i` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _i
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9721/9847] Built ZInQKernel.Assembly.Local (4.4s)
+✔ [9722/9847] Built ZInQKernel.RouteK.Assembly.FirstCurve (4.7s)
+✔ [9723/9847] Built ZInQKernel.Compiler.Circuits.Packed.Scope (4.5s)
+✔ [9724/9847] Built ZInQKernel.RouteK.Selmer.Covering (5.8s)
+✔ [9725/9847] Built ZInQKernel.Compiler.Circuits.Packed.Semantics (6.7s)
+✔ [9726/9847] Built ZInQKernel.RouteK.Assembly.SecondCurve (4.8s)
+✔ [9727/9847] Built ZInQKernel.RouteK.Selmer.Real (4.7s)
+✔ [9728/9847] Built ZInQKernel.RouteK.Selmer.PadicSquare (5.2s)
+✔ [9729/9847] Built ZInQKernel.RouteK.Assembly.DL (4.3s)
+⚠ [9730/9847] Built ZInQKernel.Compiler.Circuits.Packed.Polynomial (6.9s)
+warning: ZInQKernel/Compiler/Circuits/Packed/Polynomial.lean:32:25: unused name: h3
+✔ [9731/9847] Built ZInQKernel.RouteK.Selmer.BadOdd (5.6s)
+✔ [9732/9847] Built ZInQKernel.RouteK.Selmer.Good (5.8s)
+✔ [9733/9847] Built ZInQKernel.RouteK.Assembly.PoleCompleteness (4.7s)
+✔ [9734/9847] Built ZInQKernel.Compiler.Circuits.Hierarchical (5.0s)
+✔ [9735/9847] Built ZInQKernel.RouteK.SelmerLocal (4.3s)
+✔ [9736/9847] Built ZInQKernel.RouteK.SelmerGood (4.3s)
+✔ [9737/9847] Built ZInQKernel.RouteK.Assembly (4.6s)
+✔ [9738/9847] Built ZInQKernel.Cleanup.HierarchicalCalls (4.3s)
+✔ [9739/9847] Built ZInQKernel.RouteK.Selmer.Two (8.6s)
+✔ [9740/9847] Built ZInQKernel.Cleanup (4.1s)
+✔ [9741/9847] Built ZInQKernel.RouteK.SelmerTwo (4.0s)
+✔ [9742/9847] Built ZInQKernel.RouteK.Selmer.Bits (6.8s)
+✔ [9743/9847] Built ZInQKernel.Compiler.Circuits.PowerTemplateNodes (34s)
+✔ [9744/9847] Built ZInQKernel.RouteK.SelmerBits (3.9s)
+✔ [9745/9847] Built ZInQKernel.RouteK.Selmer.Prop0 (4.1s)
+✔ [9746/9847] Built ZInQKernel.Compiler.Circuits (4.1s)
+✔ [9747/9847] Built ZInQKernel.RouteK.SelmerProp0 (3.8s)
+✔ [9748/9847] Built ZInQKernel.Syntax.Recipes.Translate (4.8s)
+✔ [9749/9847] Built ZInQKernel.Compiler.Universal.Grows (7.2s)
+✔ [9750/9847] Built ZInQKernel.Syntax.Recipes.Scope (5.4s)
+✔ [9751/9847] Built ZInQKernel.Compiler.Translation.TranslateShape (6.7s)
+✔ [9752/9847] Built ZInQKernel.Compiler.Universal.Halting (4.3s)
+✔ [9753/9847] Built ZInQKernel.Compiler.Universal.CodeSize (5.6s)
+✔ [9754/9847] Built ZInQKernel.Compiler.Translation.TranslateScope (6.0s)
+✔ [9755/9847] Built ZInQKernel.Compiler.Translation.PowerScope (32s)
+✔ [9756/9847] Built ZInQKernel.Compiler.Translation.Library (28s)
+✔ [9757/9847] Built ZInQKernel.Compiler.Universal.NodeCheck (36s)
+✔ [9758/9847] Built ZInQKernel.Compiler.Translation.TranslateSemantics (4.3s)
+✔ [9759/9847] Built ZInQKernel.Compiler.Universal.WrapperSize (33s)
+✔ [9760/9847] Built ZInQKernel.Compiler.NodeBound.Defs (4.1s)
+✔ [9761/9847] Built ZInQKernel.Compiler.NodeCheck.Check (4.6s)
+⚠ [9762/9847] Built ZInQKernel.Compiler.NodeCheck.Consts (5.5s)
+warning: ZInQKernel/Compiler/NodeCheck/Consts.lean:73:8: `ite_cond_eq_true` has been deprecated: Use `ite_eq_left_of_eq_true` instead
+
+Hint: Replace the deprecated name:
+  i̵t̵e̵_̵c̵o̵n̵d̵_̵e̵q̵_̵t̵r̵u̵e̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲_̲o̲f̲_̲e̲q̲_̲t̲r̲u̲e̲
+warning: ZInQKernel/Compiler/NodeCheck/Consts.lean:77:8: `ite_cond_eq_false` has been deprecated: Use `ite_eq_right_of_eq_false` instead
+
+Hint: Replace the deprecated name:
+  i̵t̵e̵_̵c̵o̵n̵d̵_̵e̵q̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲_̲o̲f̲_̲e̲q̲_̲f̲a̲l̲s̲e̲
+warning: ZInQKernel/Compiler/NodeCheck/Consts.lean:283:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Compiler/NodeCheck/Consts.lean:398:6: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Compiler/NodeCheck/Consts.lean:398:18: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+✔ [9763/9847] Built ZInQKernel.Compiler.NodeBound.Up (4.6s)
+⚠ [9764/9847] Built ZInQKernel.Compiler.NodeCheck.Fast (4.8s)
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:86:21: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:96:46: This simp argument is unused:
+  List.filter_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [h, ih]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:104:24: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:109:31: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:132:14: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:138:13: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:144:37: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:161:37: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:179:36: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:196:10: This simp argument is unused:
+  List.filter_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Packed.incTo, Packed.nzTo, Packed.zTo, h, inPairF, hx, hy, lookupVW_eq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:204:37: This simp argument is unused:
+  ih
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:207:18: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:221:25: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:235:48: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:242:55: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:247:14: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:253:21: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:264:27: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:269:34: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:277:56: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:287:63: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Fast.lean:297:6: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+✔ [9765/9847] Built ZInQKernel.Compiler.NodeCheck.Reduced (4.2s)
+⚠ [9766/9847] Built ZInQKernel.Compiler.Universal.Specialize (10s)
+✔ [9767/9847] Built ZInQKernel.Compiler.NodeBound.OfCheck (4.2s)
+✔ [9768/9847] Built ZInQKernel.Compiler.NodeCheck (4.2s)
+⚠ [9769/9847] Built ZInQKernel.Compiler.NodeSkeleton.Sim.Basic (5.0s)
+warning: ZInQKernel/Compiler/NodeSkeleton/Sim/Basic.lean:233:88: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Compiler/NodeSkeleton/Sim/Basic.lean:233:88: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+✔ [9770/9847] Built ZInQKernel.Syntax.Recipes.PowerValue (59s)
+✔ [9771/9847] Built ZInQKernel.Compiler.NodeBound.Macros (9.1s)
+✔ [9772/9847] Built ZInQKernel.Compiler.Universal.SpecializeShape (7.4s)
+⚠ [9773/9847] Built ZInQKernel.Compiler.NodeSkeleton.Sim.Prims (5.2s)
+warning: ZInQKernel/Compiler/NodeSkeleton/Sim/Prims.lean:282:12: `ite_cond_eq_true` has been deprecated: Use `ite_eq_left_of_eq_true` instead
+
+Hint: Replace the deprecated name:
+  i̵t̵e̵_̵c̵o̵n̵d̵_̵e̵q̵_̵t̵r̵u̵e̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲_̲o̲f̲_̲e̲q̲_̲t̲r̲u̲e̲
+warning: ZInQKernel/Compiler/NodeSkeleton/Sim/Prims.lean:285:12: `ite_cond_eq_false` has been deprecated: Use `ite_eq_right_of_eq_false` instead
+
+Hint: Replace the deprecated name:
+  i̵t̵e̵_̵c̵o̵n̵d̵_̵e̵q̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲_̲o̲f̲_̲e̲q̲_̲f̲a̲l̲s̲e̲
+warning: ZInQKernel/Compiler/NodeSkeleton/Sim/Prims.lean:395:17: This simp argument is unused:
+  hc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only at hok ⊢
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [9774/9847] Built ZInQKernel.Compiler.Translation.PowerValue (4.4s)
+✔ [9775/9847] Built ZInQKernel.Compiler.NodeSkeleton.Sim.Macros (4.7s)
+✔ [9776/9847] Built ZInQKernel.Compiler.NodeBound.Items (6.8s)
+✔ [9777/9847] Built ZInQKernel.Compiler.Universal.PrecisionCircuit (7.9s)
+✔ [9778/9847] Built ZInQKernel.Compiler.NodeBound.Encode (4.5s)
+✔ [9779/9847] Built ZInQKernel.Compiler.NodeSkeleton.Sim.Packed (4.8s)
+✔ [9780/9847] Built ZInQKernel.Compiler.Universal.WrapperCode (4.3s)
+✔ [9781/9847] Built ZInQKernel.Compiler.NodeBound.Items67 (4.8s)
+✔ [9782/9847] Built ZInQKernel.Compiler.NodeSkeleton.Sim.Assembly (4.9s)
+✔ [9783/9847] Built ZInQKernel.Compiler.Universal (4.2s)
+✔ [9784/9847] Built ZInQKernel.Compiler.Translation.PrecisionScope (7.5s)
+✔ [9785/9847] Built ZInQKernel.Compiler.NodeBound.Program67 (4.9s)
+⚠ [9786/9847] Built ZInQKernel.Compiler.NodeSkeleton.Final (8.0s)
+warning: ZInQKernel/Compiler/NodeSkeleton/Final.lean:68:23: This simp argument is unused:
+  List.getD_cons_succ
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [hubsData, List.getD_cons_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeSkeleton/Final.lean:335:24: This simp argument is unused:
+  List.getD_cons_succ
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [lanesData, List.getD_cons_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [9787/9847] Built ZInQKernel.Compiler.NodeBound.Top (5.5s)
+✔ [9788/9847] Built ZInQKernel.Syntax.Recipes.Precision (29s)
+✔ [9789/9847] Built ZInQKernel.Compiler.NodeSkeleton.Main (4.1s)
+✔ [9790/9847] Built ZInQKernel.Compiler.NodeSkeleton (4.0s)
+✔ [9791/9847] Built ZInQKernel.Compiler.NodeBound.Check (25s)
+✔ [9792/9847] Built ZInQKernel.Compiler.NodeBound (3.9s)
+✔ [9793/9847] Built ZInQKernel.Compiler.Translation.Rational (30s)
+✔ [9794/9847] Built ZInQKernel.Compiler.Translation (4.0s)
+✔ [9795/9847] Built ZInQKernel.Syntax.Recipes.Accounting (36s)
+✔ [9796/9847] Built ZInQKernel.Syntax.Recipes.Polynomial (4.4s)
+⚠ [9797/9847] Built ZInQKernel.Assembly.Values.Outer (5.2s)
+warning: ZInQKernel/Assembly/Values/Outer.lean:220:162: This simp argument is unused:
+  List.map_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ (List.ofFn K ++ [t])).length = (closeRecipe w).parameterCount by simp; rfl),
+    ofFn_eleven (show (closeRecipe w).parameterCount = 11 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_nil]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:221:4: This simp argument is unused:
+  List.map_nil
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ (List.ofFn K ++ [t])).length = (closeRecipe w).parameterCount by simp; rfl),
+    ofFn_eleven (show (closeRecipe w).parameterCount = 11 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:274:51: This simp argument is unused:
+  List.map_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (mainRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (mainRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_nil]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:274:66: This simp argument is unused:
+  List.map_nil
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (mainRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (mainRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:322:51: This simp argument is unused:
+  List.map_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (valueUnionRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (valueUnionRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_nil]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:322:66: This simp argument is unused:
+  List.map_nil
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (valueUnionRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (valueUnionRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:358:51: This simp argument is unused:
+  List.map_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (valueRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (valueRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_nil]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Outer.lean:358:66: This simp argument is unused:
+  List.map_nil
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [forall_fin_getD_iff _ _
+        (show (List.ofFn N ++ [t]).length = (valueRecipe w).parameterCount by simp; rfl),
+    ofFn_six (show (valueRecipe w).parameterCount = 6 from rfl), ofFn_append_eq_iff, List.cons.injEq, and_true,
+    List.map_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [9798/9847] Built ZInQKernel.Multiplication.Certificate.Spec (4.1s)
+✔ [9799/9847] Built ZInQKernel.Syntax.Recipes.Literal (4.2s)
+✔ [9800/9847] Built ZInQKernel.Assembly.Values (4.0s)
+✔ [9801/9847] Built ZInQKernel.Multiplication.Certificate (4.0s)
+✔ [9802/9847] Built ZInQKernel.Syntax.Recipes (3.0s)
+✔ [9803/9847] Built ZInQKernel.Assembly.Close.Relation (5.2s)
+✔ [9804/9847] Built ZInQKernel.Size.Majorants.RecipeHeights (4.8s)
+✔ [9805/9847] Built ZInQKernel.Multiplication.Soundness.CommonGroup (5.2s)
+✔ [9806/9847] Built ZInQKernel.Assembly.Top.Spec (4.1s)
+⚠ [9807/9847] Built ZInQKernel.Assembly.Close.Soundness (4.4s)
+✔ [9808/9847] Built ZInQKernel.Assembly.Close.Completeness (5.0s)
+✔ [9809/9847] Built ZInQKernel.Size.Majorants.Cutoff (4.3s)
+✔ [9810/9847] Built ZInQKernel.Multiplication.Soundness.TestsToCongruence (5.3s)
+✔ [9811/9847] Built ZInQKernel.Assembly.Close (3.0s)
+✔ [9812/9847] Built ZInQKernel.Size.Majorants.Bound (3.0s)
+✔ [9813/9847] Built ZInQKernel.Multiplication.Soundness.LocalCongruence (4.0s)
+✔ [9814/9847] Built ZInQKernel.Multiplication.Completeness.PoleValuationsAux (4.6s)
+✔ [9815/9847] Built ZInQKernel.Size.Majorants (4.1s)
+✔ [9816/9847] Built ZInQKernel.Multiplication.Soundness.ContactSupport (4.3s)
+✔ [9817/9847] Built ZInQKernel.Multiplication.Completeness.TestsLocal (4.6s)
+✔ [9818/9847] Built ZInQKernel.Multiplication.Completeness.TwoSlope (5.7s)
+✔ [9819/9847] Built ZInQKernel.Syntax.Builder.Recipes (30s)
+✔ [9820/9847] Built ZInQKernel.Multiplication.Completeness.SelectedReduction (4.6s)
+✔ [9821/9847] Built ZInQKernel.Multiplication.Completeness.SbIntegrality (4.8s)
+✔ [9822/9847] Built ZInQKernel.Multiplication.Soundness.FiniteBox (6.6s)
+✔ [9823/9847] Built ZInQKernel.Multiplication.Completeness.PoleValuations (10s)
+✔ [9824/9847] Built ZInQKernel.Multiplication.Completeness.AP.LemmaP (5.3s)
+✔ [9825/9847] Built ZInQKernel.Syntax.Builder (4.2s)
+✔ [9826/9847] Built ZInQKernel.Multiplication.Soundness.MultiplySound (3.9s)
+✔ [9827/9847] Built ZInQKernel.Multiplication.Completeness.AP.GoodSlope (4.3s)
+✔ [9828/9847] Built ZInQKernel.Multiplication.Completeness.SelectedPrecision (6.6s)
+✔ [9829/9847] Built ZInQKernel.Multiplication.Soundness (3.0s)
+✔ [9830/9847] Built ZInQKernel.Multiplication.Completeness.SlopeCompleteness (5.6s)
+✔ [9831/9847] Built ZInQKernel.Multiplication.Completeness.AP.PoleValuations (8.1s)
+✔ [9832/9847] Built ZInQKernel.Multiplication.Completeness.Core (4.0s)
+✔ [9833/9847] Built ZInQKernel.Multiplication.Completeness.AP.SlopeCompleteness (6.1s)
+✔ [9834/9847] Built ZInQKernel.Multiplication.Completeness.Template (4.9s)
+✔ [9835/9847] Built ZInQKernel.Multiplication.Completeness (3.9s)
+✔ [9836/9847] Built ZInQKernel.Multiplication.Top.Exact (4.0s)
+✔ [9837/9847] Built ZInQKernel.Multiplication.Top (3.0s)
+✔ [9838/9847] Built ZInQKernel.Assembly.Top.ValueRelation (4.2s)
+✔ [9839/9847] Built ZInQKernel.Assembly.Top.Assembly (4.3s)
+✔ [9840/9847] Built ZInQKernel.Assembly.Top (4.1s)
+✔ [9841/9847] Built ZInQKernel.Multiplication.Completeness.AP.Completeness (4.9s)
+✔ [9842/9847] Built ZInQKernel.Multiplication.Completeness.AP.PropAP (5.5s)
+✔ [9843/9847] Built ZInQKernel.Multiplication.Completeness.AP (4.1s)
+✔ [9844/9847] Built ZInQKernel.Main (4.0s)
+✔ [9845/9847] Built ZInQKernel.MainGreenTao (4.2s)
+✔ [9846/9847] Built ZInQKernel (4.1s)
+Build completed successfully (9847 jobs).

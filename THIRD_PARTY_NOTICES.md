@@ -28,3 +28,12 @@ The research handoff is a provenance archive with a broader scope than the curat
 [Archive reference inventory](docs/archive-reference-inventory.json) groups the saved PDF references and Isabelle theory files by content hash and records their original paths. It is not a complete license audit of every excerpt in the archive. The 11/5 manuscript's bibliography, archive source manifests, and original documents should be used to resolve attribution and redistribution terms.
 
 Before making the historical archive public, complete the per-source rights review. Where redistribution is not permitted or remains unresolved, distribute a reference and source URL instead of a copy. Do not apply the project's original-work license to the entire archive as a single undifferentiated work.
+
+## Vendored Lean code
+
+- `ThirdParty/GreenTao/`: a complete Lean proof of the Green–Tao theorem (`Submission.green_tao`), copied from
+  Vilin97/Autoformalization, directory `green-tao/`, commit `0dc67d87416c19690dd641a178ada32cca95c651`, under the
+  Apache License 2.0 (`ThirdParty/GreenTao/LICENSE`). Produced with GPT-5.6 Sol in Codex under the direction of
+  Vasily Ilin as a lean-eval benchmark submission. Ported to Lean 4.35.0 / Mathlib v4.35.0 with local proof edits;
+  provenance and the list of modifications are in `ThirdParty/GreenTao/NOTICE.md`. Used by
+  `ZInQKernel/External/GreenTaoPrimes.lean`.
