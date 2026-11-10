@@ -339,3 +339,57 @@ Dirichlet density avoids the question.
 
 **Choice: route (iii).**
 
+### 3.2 The main term
+
+**Lemma 3.1.** For every `L ≥ 5` there is `K_L` such that `Φ_{C_L}(x) ≥ δ_L/(x − 1) − K_L` for all
+`x ∈ (1, 2]`.
+
+*Proof.* Every `a ∈ A_L` is a unit mod `M_L`. Summing `LSeries_residueClass_lower_bound` over `a ∈ A_L`
+gives `Σ_{n mod M_L ∈ A_L} Λ(n)/n^x ≥ |A_L|/(φ(M_L)(x − 1)) − Σ_a C_a`. A prime `p` lies in `C_L` iff
+`p mod M_L ∈ A_L`, so the left side is `Φ_{C_L}(x)` plus a contribution of prime powers `p^k`, `k ≥ 2`.
+That contribution is at most `K₀ = Σ_p Σ_{k≥2} log p/p^k = Σ_p log p/(p(p − 1)) < 1` (numerically
+`0.7554`). Mathlib's `summable_residueClass_non_primes_div` gives its finiteness, class by class. Put
+`K_L = K₀ + Σ_a C_a`. ∎ VERIFIED (by hand, against the Mathlib statement). The count `|A_L|/φ(M_L) = δ_L`
+is the Chinese remainder theorem: Mathlib `ZMod.prodEquivPi` (`ZMod (∏ aᵢ) ≃+* Π ZMod aᵢ` for pairwise
+coprime `aᵢ`), `ZMod.chineseRemainder`, `Nat.totient_mul`, `Nat.totient_prime`.
+
+---
+
+## 4. The primes removed at `ℓ > L`
+
+### 4.1 What is needed, and why trivial counting fails
+
+Theorem D needs `θ_{T_L}(N) ≤ α_L N + o(N)`, with `α_L < δ_L`. Two naive bounds fail.
+
+- *Using `p ≡ −1 (mod ℓ)` alone.* Then `#(Bad_ℓ ∩ [1, N]) ≤ π(N; ℓ, −1) ≈ π(N)/(ℓ − 1)`. The sum over
+  `L < ℓ ≤ N^θ` is about `π(N)·log(θ log N/log L)`, which is unbounded relative to `π(N)`. The bad
+  event has density `≍ 1/ℓ²` only through the joint condition on `(c_p, p)`.
+- *Counting lattice points instead of primes.* This gives `#(Bad_ℓ ∩ [1, N]) ≤ 8N/ℓ² + …`
+  (Proposition 4.1), and `Σ_{ℓ>L} 8N/ℓ² ≍ N/(L log L)`. For fixed `L` this is not `O(π(N))` with a small
+  constant: it lacks the factor `1/log N`. The same loss occurs in Dirichlet-series form:
+  `Σ_{α ≡ β (mod ℓ)} N(α)^{−x} ≈ (π/ℓ²)/(x − 1)`, against `Σ_p p^{−x} ≈ log(1/(x − 1))`.
+
+So for `L < ℓ ≤ N^θ` one needs `#(Bad_ℓ ∩ [1, N]) ≤ A₁N/(ℓ² log N)` uniformly in `ℓ`. This is
+`rv-nt22p-ap` F5. VERIFIED (by hand).
+
+### 4.2 Large `ℓ`: a lattice count
+
+For an odd prime `ℓ ≡ 1 (mod 4)`, let `b_ℓ ∈ (0, ℓ)` be one root of `b² ≡ −1 (mod ℓ)`; the other root is
+`ℓ − b_ℓ`.
+
+**Proposition 4.1.** For every `N` and every prime `ℓ ≡ 1 (mod 4)`:
+
+  `#(Bad_ℓ ∩ [1, N]) ≤ 8N/ℓ² + 4√N/ℓ`, and this count is `0` if `ℓ > √N`.
+
+Consequently, for `N ≥ 10³`, `Σ_{ℓ > N^{1/4}} #(Bad_ℓ ∩ [1, N]) ≤ 20N^{3/4}`.
+
+*Proof.* Let `p ∈ Bad_ℓ`, `p ≤ N`. By Proposition 1.6, `p = c_p² + e_p²` with `c_p` odd, hence nonzero,
+`ℓ | c_p`, and `e_p² ≡ −1 (mod ℓ)`, so `e_p ≡ ±b_ℓ (mod ℓ)`. The map `p ↦ (c_p, e_p)` is injective.
+Write `c_p = ℓU` with `1 ≤ |U| ≤ √N/ℓ`: at most `2√N/ℓ` choices, and none if `ℓ > √N`. For `e_p` there
+are at most `2(2√N/ℓ + 1)` choices in `[−√N, √N]` in the two classes. Multiply. For the sum, use
+`Σ_{n > X} 8N/n² ≤ 8N/(X − 1)` with `X = N^{1/4} ≥ 2`, and `Σ_{n ≤ √N} 4√N/n ≤ 4√N(1 + log √N)`.
+Finally, `16N^{3/4} + 4√N(1 + (1/2)log N) ≤ 20N^{3/4}` for `N ≥ 10³`. ∎ VERIFIED (by hand; the
+manuscript has the same count at lines 1626–1636, with the term `√X log X` noted by `rv-nt22p-ap` F5).
+Numerically, 1250 primes of the class below `10⁸` are bad at some `ℓ > 100 = N^{1/4}`, against the bound
+`20N^{3/4} = 2·10⁷` (`density_1e8.out`).
+
