@@ -1,3 +1,4 @@
+-- Modified in this repository (2026, port to Lean 4.35.0 and Mathlib 56a00585): see ThirdParty/GreenTao/NOTICE.md.
 import Submission.Transference.RelativeDensificationIteration
 
 /-!
