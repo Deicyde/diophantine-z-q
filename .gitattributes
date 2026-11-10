@@ -50,3 +50,4 @@ docs/research-review/** -text
 research/version15/** -text
 scripts/v15/** -text
 .github/workflows/version15-checks.yml -text
+.github/workflows/version15-current.yml -text
