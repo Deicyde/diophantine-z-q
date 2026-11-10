@@ -713,3 +713,94 @@ Success proves that the step considered the most specialised (D1 of `gt-search.m
 CM curve through quartic Jacobi sums) is a few hundred lines of character sums. It also gives the
 interface (`InClass`, `cp`, `BadSet`) on which every later file is stated.
 
+---
+
+## 7. Ranking of routes
+
+| Rank | Route | Payoff | Main obstacle | Chance |
+| --- | --- | --- | --- | --- |
+| 1 | **DS-cond**: files 1–6 and 9, ending with `goodPrimeDensity_of_uniformBadBound` | Proposition D reduced to one explicit counting statement (`UniformBadBound`) | analysis plumbing (`tsum`, Abel summation, CRT counts) | high |
+| 2 | **DS**: Route 1 plus the port of the PrimeNumberTheoremAnd sieve and the two-dimensional instance (file 8) | `GoodPrimeAP` follows from Green–Tao 1.2 alone; Proposition D proved | Lemmas 4.3–4.5 in Lean; porting 1.5k lines | high |
+| 3 | **NAT**: natural density through `WeakPNT_AP` | positive lower natural density, matching `nt-22p.md`'s wording | importing PrimeNumberTheoremAnd (`v4.34` pins; two `sorry`s in `Wiener.lean` whose reach is unconfirmed) | medium |
+| 4 | **H**: Hecke for `ℚ(i)` | the exact density `0.1060…` | Hecke `L`-functions and their non-vanishing on `Re s = 1`, none in Mathlib | low |
+| 5 | **NS**: a subset of `G` that avoids the uniform sieve | would remove file 8 | §4.6: every candidate fails | low |
+
+**Route 1 (DS-cond).**
+- *Payoff.* The trust base for `GoodPrimeAP` becomes Green–Tao 1.2 plus `UniformBadBound`. The latter
+  is a statement about integers `p ≤ N` with `p = c² + e²`, `ℓ | c`, `ℓ | p + 1`, checkable by anyone
+  familiar with sieves, and it is the manuscript's own estimate (lines 1600–1624) in a simpler setting.
+  The CM step is fully proved (Proposition 1.6).
+- *Main obstacle.* Files 3 and 4: real-exponent `tsum`s and the CRT count of `A_L`. Both are routine.
+- *First test.* §6.5. *Success criterion:* `goodSlopePrime_of_gcd` builds with standard axioms and
+  reproves `GoodSlopePrime 17`.
+- *Chance: high.* Every step is elementary, written out above, and tested numerically (§1–§2). The
+  Mathlib statements used were read in the source.
+
+**Route 2 (DS).**
+- *Payoff.* Proposition D becomes a theorem. With a formal Green–Tao 1.2 (`gt-search.md` §1), the main
+  theorem's AP variant would need no number-theoretic hypothesis beyond those already in the kernel.
+- *Main obstacle.* File 8. Lemma 4.3 is easy on paper but needs a CRT count of a two-dimensional
+  residue set. Lemma 4.5 needs Claims A and B. `selberg_bound_simple` exists and is sorry-free, but it is
+  pinned to Lean `v4.34.0`. The module proxy had no `v4.35.0` archive.
+- *First test.* Port `Sieve/Selberg.lean` and its three companions to the pinned Mathlib, and
+  instantiate `BoundingSieve` for one fixed `ℓ` (say `ℓ = 5`) with the box `ℬ` of §4.3. *Success
+  criterion:* `selberg_bound_simple` applies, `multSum_eq` is proved in the form of Lemma 4.4, and the
+  port compiles without `sorry`.
+- *Chance: high.* The mathematics is complete, with explicit constants. The risk is volume
+  (1–1.5k new lines), not a missing idea.
+
+**Route 3 (NAT).** *Payoff:* lower natural density instead of Dirichlet density; cosmetic for
+`GoodPrimeAP`. *Obstacle:* a version mismatch, and the `sorry`s in `Wiener.lean`. *First test:*
+`#print axioms WeakPNT_AP` in a PrimeNumberTheoremAnd build; success if it reports no `sorryAx`.
+*Chance: medium*: it depends on someone else's project.
+
+**Route 4 (H).** *Payoff:* the constant `(1/8)∏(1 − 2/(ℓ − 1)²)`; not used anywhere. *Obstacle:* ray
+class characters of `ℚ(i)`, their `L`-functions, and `L(1, ψ) ≠ 0`. *First test:* none sensible before
+Mathlib has Hecke characters. *Chance: low.*
+
+**Route 5 (NS).** *Payoff:* would remove file 8. *Obstacle:* §4.6; the joint condition on `(c_p, p)` at
+all large `ℓ` has no one-variable substitute. *First test:* find a set `G′ ⊆ G`, defined by conditions
+on `p` modulo integers or by Chebotarev conditions in a fixed field, with positive density. Success if
+`density.py` shows `G′ ⊆ G`. The independence heuristic predicts failure. *Chance: low.*
+
+**Recommendation.** Do Route 1 now (it starts with the first step of §6.5), then Route 2. Route 1 alone
+already replaces the unwritten Proposition D by a proved reduction to an explicit sieve estimate.
+
+---
+
+## 8. Open questions
+
+1. Does PrimeNumberTheoremAnd have a tag for Lean 4.35 under another name? Only `v4.34.0` was found.
+   If not, the port of file 7 is from `v4.34.0` (`c39a7511`).
+2. Can a cheaper upper-bound sieve replace the optimal Selberg weights? For example, take
+   `λ_d = μ(d)·max(0, log(w/d))/log w` and evaluate the main term directly. That would avoid
+   `selberg_bound_weights`, but needs an asymptotic for `Σ_{d,e} λ_dλ_e ν([d, e])`, which is probably
+   longer.
+3. The lean-eval Green–Tao solutions (`gt-search.md` §1.1) prove Theorem 1.1. Whether their
+   transference takes a dense subset (Theorem 1.2) is the other half of the trust base. It is outside
+   this note.
+4. Is `UniformBadBound` true with `A = 1` for all `N ≥ 10⁸`? The data suggest a constant near `0.3`.
+   This does not matter for the proof.
+
+## References
+
+- Manuscript `diophantine_zq.tex`, lines 1291–1704 (proof of Proposition 6.2), in particular
+  1554–1598 (conjugate orders) and 1600–1642 (bad prime values); records A021, A072.
+- `docs/research/nt-22p.md` §2 (Proposition D sketch), `rv-nt22p-ap.md` F5 (branch `wip/rv-nt22p-ap`),
+  `aud-ap.md` §1.3–1.4 (branch `wip/aud-ap`), `gt-search.md` §3–4 (branch `wip/gt-search`).
+- B. Green, T. Tao, *The primes contain arbitrarily long arithmetic progressions*, Ann. of Math. 167
+  (2008), Theorem 1.2 (statement VERIFIED in `rv-nt22p-ap.md` §5 from the arXiv TeX source).
+- E. Jacobsthal, *Über die Darstellung der Primzahlen der Form 4n + 1 als Summe zweier Quadrate*, J. reine
+  angew. Math. 132 (1907) (UNCHECKED; Lemma 1.4 is proved in full above).
+- K. Ireland, M. Rosen, *A Classical Introduction to Modern Number Theory*, 2nd ed., Ch. 18 §4
+  (UNCHECKED; not used).
+- H. Halberstam, H.-E. Richert, *Sieve Methods* (1974), for the Selberg upper-bound sieve (STANDARD; the
+  closed bound used is `SelbergSieve.selberg_bound_simple` of PrimeNumberTheoremAnd, read in source).
+- Mathlib `56a005855ea1`: `NumberTheory/LSeries/PrimesInAP.lean`, `NumberTheory/NumberField/DedekindZeta.lean`,
+  `NumberTheory/NumberField/DirichletDensity.lean`, `NumberTheory/SelbergSieve.lean`,
+  `NumberTheory/Chebyshev.lean`, `NumberTheory/LegendreSymbol/*`, `NumberTheory/Harmonic/EulerMascheroni.lean`,
+  `RingTheory/Frobenius.lean`, `Data/ZMod/QuotientRing.lean`.
+- PrimeNumberTheoremAnd `v4.34.0` (`c39a751132c8`): `PrimeNumberTheoremAnd/Mathlib/NumberTheory/Sieve/*.lean`,
+  `PrimeNumberTheoremAnd/BrunTitchmarsh.lean`, `PrimeNumberTheoremAnd/Wiener.lean`.
+- Scripts: `scratch/pd-paper/lemmas.py` (checks A–E), `gcdformula.py` (check F), `density.py`
+  (outputs `density_1e7.out`, `density_1e8.out`), `sieveaux.py` (output `sieveaux.out`).

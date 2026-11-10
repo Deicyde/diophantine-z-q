@@ -47,3 +47,4 @@
 - check F (gcdformula.py 30000): gcd of the two point counts = 4 gcd(c_p, p+1), 806 pairs, 0 failures.
 - sieveaux.py: R(w) ≥ (2/3)log w − 2, S0(w)≈0.29 log w, V≈2.74 (bound 14.6), r ≤ h*v, Σ_{ℓ>L}1/ℓ² ≤ 4log4/(L log L).
 - pd-paper.md piece 1 (header, summary, §0) written.
+- pd-paper.md pieces 2-8 written (§1–§8).
