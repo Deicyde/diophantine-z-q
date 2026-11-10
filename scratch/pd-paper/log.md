@@ -30,3 +30,15 @@
       φ(ak²)=χ(k)φ(a); φ(1)≡2 (mod 4) for p≡1 (4) (orbits x,-x,1/x,-1/x); Jacobsthal
       φ(1)²+φ(r)²=4p (r non-square). Hence t=∓φ(1), p=(t/2)²+(φ(r)/2)², 4|d_i, v2(gcd)=2.
   (c) bad ℓ ⇒ ℓ≡1 (4) (e²≡-1), so ℓ=3,7 and all ℓ≡3 (4) need no condition.
+
+## Step 2 (computations)
+- scratch/pd-paper/lemmas.py 20000: (A) pointCount = p+1+φ(a) 6783 samples, (B) scaling 6783,
+  (C) φ(1)≡2 mod 4 1125 primes, (D) Jacobsthal 1125 primes, (E) literal GoodSlopePrime ⇔
+  [p≡1(8), (p/7)=-1, gcd(c,p+1)=1, p=c²+e² c odd] all 2261 odd primes <20000: 0 failures.
+- scratch/pd-paper/density.py 1e7, 1e8 (outputs density_1e7.out, density_1e8.out): |G|/π = 0.10612 (1e8);
+  Euler product/8 = 0.10602; G*_L matches main·tail prediction (L=5..1000); every bad ℓ ≡ 1 (4);
+  max |Bad_ℓ| ℓ² log N/N over 13<ℓ≤N^{1/4} = 0.302 (heuristic 0.25); tail beyond N^{1/4}: 2e-4 π(N).
+- Proof design fixed: single involution x ↦ -D²/x gives 4 | pointCount(-D²) (replaces parity lemma);
+  2-D Selberg sieve with ν(q)=(2q-1)/q², q≡1(4), q≠ℓ, q≤w=N^{1/40}, level y=N^{1/20};
+  S ≥ S₀(w;ℓ) ≥ (3/5)·((2/3)log w − 2)/V, V ≤ 2ζ(2)^4 < 15 (r ≤ h*v convolution);
+  A₁ ≈ 16003; Dirichlet assembly by discrete Abel summation; need log L > 15 A₁.
