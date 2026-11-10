@@ -129,3 +129,14 @@ Python env: /tmp/rvred-venv (cypari2 2.17, gmpy2, numpy, mpmath). Recreate with
   A=0 v=(2·3·5·7·13)^20; A=5 v=2^200·3·7: field 2' holds, Lemma P branch at the deep primes,
   S0 valuations 6840-15854, no odd negative valuation, 0<B<1/2. Remaining cases running.
 - Total so far: 9 genuine instances (27 slopes), 0 failures.
+
+## Step 10: final batches and reports (COMPLETE)
+
+- b5 part A (b5A_out.txt cases 1-4, b5A2_out.txt cases 5-10, after an admissibility fix: v is
+  multiplied by every old prime whose classes the offsets cover; before the fix pseudo_x looped
+  forever): 20 slopes, all pass.
+- b5 part C (b5C_out.txt), Remark 3: old q at 11^200, 331^60, 17^150·337^40: PC holds;
+  v_p(B) negative even there (-20712, -8784, -2408/-2412, -1464).
+- A = 0 genuine search (v = 480480, x <= 2e11): no hit. A = -68 search stopped.
+- Report docs/research/rv-nt22p-red.md and .fleet/rv-nt22p-red.md written. Verdict: proved as
+  written (scope: Lemma P, modified q, Prop AP); findings F1-F7, none blocking.
