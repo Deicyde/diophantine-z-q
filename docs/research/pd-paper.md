@@ -207,3 +207,135 @@ pairs `(p, r)` with `p < 3·10⁴`: no failure.
 - The Hasse bound is not used. If `n₋ = 0`, (3) still holds, because `gcd(0, n) = n` and the
   computation above is about divisors. In fact `n₋ > 0` follows from `c_p² ≤ p`.
 
+---
+
+## 2. The subset `G*_L`
+
+### 2.1 Definition
+
+Fix `L ≥ 5`. Let `Q_L` be the set of primes `ℓ` with `5 ≤ ℓ ≤ L` and `ℓ ≡ 1 (mod 4)`, put
+`M_L = 56·∏_{ℓ∈Q_L} ℓ`, and let `A_L ⊂ (ℤ/M_L)^×` be the set of residues `a` with
+
+- `a ≡ 1 (mod 8)`,
+- `a mod 7 ∈ {3, 5, 6}` (the non-squares mod 7),
+- `a mod ℓ ∉ {0, −1}` for every `ℓ ∈ Q_L`.
+
+Let `C_L` be the set of primes `p` with `p mod M_L ∈ A_L`. For a prime `ℓ ≡ 1 (mod 4)`, let `Bad_ℓ` be
+the set of primes `p` with `p ≡ 1 (mod 8)`, `p mod 7 ∈ {3, 5, 6}`, `ℓ | c_p` and `ℓ | p + 1`. Put
+`T_L = ⋃_{ℓ>L, ℓ≡1 (4)} Bad_ℓ` and `G*_L = C_L ∖ T_L`.
+
+**Lemma 2.1.** `G*_L ⊆ G`.
+
+*Proof.* Let `p ∈ G*_L`. Then `p ≡ 1 (mod 8)` and `p mod 7 ∈ {3, 5, 6}`. If an odd prime `ℓ` divides
+`gcd(c_p, p + 1)`, then `ℓ ≡ 1 (mod 4)` by Proposition 1.6(4), so `ℓ ≥ 5`. If `ℓ ≤ L`, then `ℓ ∈ Q_L`
+and `p ≢ −1 (mod ℓ)`, a contradiction. If `ℓ > L`, then `p ∈ Bad_ℓ ⊆ T_L`, again a contradiction. So
+`gcd(c_p, p + 1) = 1`, and Proposition 1.6(4) gives `GoodSlopePrime p`. ∎ VERIFIED (by hand).
+
+Three remarks on the choice.
+
+1. **No condition at `ℓ ≡ 3 (mod 4)`, and in particular none at 3 or 7 beyond `(p/7) = −1`.** Such
+   primes never divide `gcd(c_p, p + 1)` (Proposition 1.6(4)). The manuscript imposes `p ≢ −1 (mod ℓ)`
+   at every odd `ℓ ≤ L` (lines 1384–1390), because it does not use this fact before the bad-value count.
+   VERIFIED (by hand; `density.py` found no bad `ℓ ≡ 3 (mod 4)` among the primes below `10⁸`).
+2. **`p ≢ −1 (mod ℓ)` rather than `p ≡ 1 (mod ℓ)`.** A single residue class mod `M_L` would have density
+   `1/φ(M_L)`, which decays exponentially in `L`, while the tail (§4) decays only like `1/(L log L)`. So
+   the whole set `A_L` is needed. The excluded class `0` only removes the prime `ℓ` itself; it makes
+   every element of `A_L` a unit.
+3. **Density of the main term.** By the Chinese remainder theorem, `|A_L| = 1·3·∏_{ℓ∈Q_L}(ℓ − 2)` and
+   `φ(M_L) = 4·6·∏_{ℓ∈Q_L}(ℓ − 1)`. So
+
+   `δ_L := |A_L|/φ(M_L) = (1/8)∏_{ℓ∈Q_L}(ℓ − 2)/(ℓ − 1) ≥ (1/8)∏_{n=5}^{L}(n − 2)/(n − 1) = 3/(8(L − 1))`,
+
+   since every factor is at most 1 and the product over all `5 ≤ n ≤ L` telescopes. VERIFIED (by hand).
+   The crude bound is enough below. Mertens' theorem would give `δ_L ≍ (log L)^{−1/2}`.
+
+### 2.2 Numerical check
+
+`scratch/pd-paper/density.py` (all primes up to `N = 10⁸`; output `density_1e8.out`) gives:
+
+| Set | Share of all primes `≤ 10⁸` | Prediction |
+| --- | --- | --- |
+| `p ≡ 1 (8)`, `(p/7) = −1` | 0.12508 | `1/8` |
+| `G` | 0.10612 | `(1/8)∏_{ℓ≡1 (4)}(1 − 2/(ℓ − 1)²) = 0.10602` |
+| `G*_5` | 0.09095 | `δ_5·∏_{ℓ>5}(1 − 2/(ℓ − 1)²) = 0.09088` (`δ_5 = 0.09375`) |
+| `G*_13` | 0.08456 | 0.08448 (`δ_13 = 0.08594`) |
+| `G*_50` | 0.07342 | 0.07335 (`δ_50 = 0.07364`) |
+| `G*_100` | 0.06845 | 0.06840 (`δ_100 = 0.06852`) |
+| `G*_1000` | 0.05661 | 0.05657 (`δ_1000 = 0.05658`) |
+
+The share of primes of the class that are bad at some `ℓ > 13`, `> 50`, `> 100` is `0.00212`,
+`0.00048`, `0.00022` of all primes. The heuristic `Σ_{ℓ>L, ℓ≡1 (4)} 2/(8(ℓ − 1)²)` predicts `0.00214`,
+`0.00049`, `0.00022`. Individual counts `|Bad_ℓ ∩ [1, 10⁸]|` agree with `2|C|/(ℓ − 1)²`, for example
+89880 against 90080 at `ℓ = 5`, and 140 against 144 at `ℓ = 101`. VERIFIED (computation). The prediction
+column uses Hecke equidistribution (§3.1) and is not proved here. The proof below gives only the much
+weaker lower bound `δ_L − α_L` for large `L`.
+
+### 2.3 Frobenius conditions and `ℚ`-classes
+
+The conditions defining `C_L` are Frobenius conditions in `ℚ(ζ_{M_L})`. Since this field is abelian,
+every condition set is a union of conjugacy classes, hence of `ℚ`-classes. The field suggested in the
+task, the Galois closure `K₁ = ℚ(√2, √d, √d̄)` of `ℚ(√d)` (with `d = 75 − 53√2`), has degree 8 and group
+`D₄`. Indeed, `d` is not a square in `ℚ(√2, √7)`: writing `d = (u + v√7)²` with `u, v ∈ ℚ(√2)` forces
+`uv = 0`; then either `d` or `d/7` is a square in `ℚ(√2)`, but their norms `7` and `1/7` are not rational
+squares. VERIFIED (by hand). `K₁` contains `√7 = ±√d·√d̄`. The condition used, "`p` splits in
+`ℚ(√2)` and `d, d̄` have opposite quadratic characters mod the primes above `p`", is "`p ≡ ±1 (mod 8)` and
+`(7/p) = −1`". It is pulled back from the abelian quotient `Gal(ℚ(√2, √7)/ℚ)`, hence a union of
+conjugacy classes of `D₄`. Adding `p ≡ 1 (mod 4)` (the field `ℚ(i)`) gives the class mod 56. The finer
+condition "`d` is a square mod `𝔭`" (a non-abelian condition in `K₁`) plays no role, because the gcd
+only sees the product `dd̄ = 7` (Proposition 1.6(2)).
+
+---
+
+## 3. The lower bound for `C_L`
+
+### 3.1 Three routes
+
+**(i) Chebotarev, or Hecke for `ℚ(i)`.** This is needed only for the exact density of `G`. The bad
+events at `ℓ` are conditions on a Gaussian prime `ϖ` modulo `ℓ` (`nt-22p.md` §2.1). Their independence
+and density `2/(ℓ − 1)²` come from Hecke's equidistribution of prime ideals in ray classes of `ℚ(i)`.
+STANDARD (Hecke 1920; Narkiewicz, *Elementary and Analytic Theory of Algebraic Numbers*, Ch. 7; exact
+theorem numbers UNCHECKED). Neither Mathlib nor PrimeNumberTheoremAnd has it. Mathlib has no Hecke
+`L`-functions. In PrimeNumberTheoremAnd the Chebotarev material is blueprint prose
+(`Wiener.lean`, section "The Chebotarev density theorem: the case of cyclotomic extensions", and
+`Consequences.lean:2537`). VERIFIED (grep of tag `v4.34.0`). Not needed here.
+
+**(ii) Dirichlet density through Dedekind zeta functions and Artin induction.** Let `K/ℚ` be Galois with
+group `Γ`, and let `C ⊆ Γ` be a union of `ℚ`-classes (closed under conjugation and under `σ ↦ σ^k` for
+`k` prime to the order of `σ`). By Artin's induction theorem, `1_C` is a `ℚ`-linear combination
+`Σ_H a_H Ind_H^Γ 1` over cyclic subgroups `H`. Then
+`Σ_{p : Frob_p ∈ C} p^{−s} = Σ_H a_H log ζ_{K^H}(s) + O(1)`. Each `ζ_{K^H}` has a simple pole at `s = 1`,
+so `log ζ_{K^H}(s) = log(1/(s − 1)) + O(1)` as `s → 1⁺`, with no zero-free region needed. Hence `C` has
+Dirichlet density `Σ_H a_H = |C|/|Γ|`. STANDARD (Frobenius's density theorem; Artin induction: Serre,
+*Linear Representations of Finite Groups*, §9.2; theorem number UNCHECKED). What Mathlib has:
+
+- the simple pole and its residue: `NumberField.dedekindZeta`, `NumberField.dedekindZeta_residue`,
+  `NumberField.dedekindZeta_residue_pos`, `NumberField.tendsto_sub_one_mul_dedekindZeta_nhdsGT`
+  (`(s − 1)ζ_K(s) → residue` as `s → 1⁺`, the class number formula) (`NumberTheory/NumberField/DedekindZeta.lean`);
+- Dirichlet density of sets of primes of a number field: `NumberField.Set.primeIdealZetaSum`,
+  `HasDirichletDensity`, `dirichletDensity`, with basic lemmas only (empty set, `0 ≤ δ ≤ 1`, finite
+  sets) (`NumberField/DirichletDensity.lean`);
+- Frobenius elements: `AlgHom.IsArithFrobAt` and `IsArithFrobAt.exists_of_isInvariant`
+  (`RingTheory/Frobenius.lean`); for cyclotomic fields `IsCyclotomicExtension.autEquivPow`
+  (`Gal ≃* (ZMod n)ˣ`) and `galEquivZMod`, `mem_zpowers_galEquivZMod_of_mem_stabilizer`
+  (`NumberField/Cyclotomic/Galois.lean`).
+
+What it lacks: the Euler product of `ζ_K` (so `log ζ_K = Σ_𝔭 N𝔭^{−s} + O(1)`), the splitting of `p` in
+`K^H` in terms of Frobenius classes, and Artin's induction theorem. VERIFIED (grep). This route would be
+needed for a genuinely non-abelian condition. Section 2.3 shows that there is none here.
+
+**(iii) Dirichlet's theorem for residue classes.** This is route (ii) for `K = ℚ(ζ_M)`. Mathlib has it
+in the needed form:
+
+> `ArithmeticFunction.vonMangoldt.LSeries_residueClass_lower_bound {q : ℕ} [NeZero q] {a : ZMod q}
+> (ha : IsUnit a) : ∃ C : ℝ, ∀ {x : ℝ} (_ : x ∈ Set.Ioc 1 2),
+> (q.totient : ℝ)⁻¹ / (x − 1) − C ≤ ∑' n, residueClass a n / (n : ℝ) ^ x`
+
+with `residueClass a = {n | (n : ZMod q) = a}.indicator Λ` (`NumberTheory/LSeries/PrimesInAP.lean:348`),
+and `summable_residueClass_non_primes_div` (line 181) for the prime powers. VERIFIED (source). Natural
+density would need the prime number theorem in progressions, PrimeNumberTheoremAnd `WeakPNT_AP`
+(`Wiener.lean:4025`). That file contains two `sorry`s (lines 327 and 347). VERIFIED (grep). Whether
+`WeakPNT_AP` depends on them is UNCHECKED (`gt-search.md` §4 found by a static grep that it does not).
+Dirichlet density avoids the question.
+
+**Choice: route (iii).**
+
