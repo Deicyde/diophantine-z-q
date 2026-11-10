@@ -18,8 +18,7 @@ A-H). In those files a hunk at left line `l` is N5 line `l + 140` (main) or `l +
 
 1. **The source of Version 14 is not available in full.** `~/gt-src/v14/quartic_v14.tex` is a
    127-byte GitHub API "Not Found" reply, not TeX (VERIFIED). The upstream repository could not be
-   reached here: the Go module proxy refuses it because the tree exceeds 500 MB, and the raw, CDN
-   and API hosts do not answer (VERIFIED, 2026-11-09). What is available is `addition.tex`, the new
+   fetched from this machine (tried 2026-11-09). What is available is `addition.tex`, the new
    Version 14 section `sec:v14` ("A quartic presentation with 299 variables", 955 lines), and the
    full Version 13 (November 7, 22,087 lines). The comparison below is therefore 11/5 against
    Version 13, plus Version 13 against the Version 14 section. Any change that Version 14 makes
@@ -343,10 +342,9 @@ defined in the manuscript (VERIFIED: its only occurrence is V13 L1084).
 If Theorem 1.1 there is a pointwise statement "`corank Sel_{2^∞}(E) = 1` implies `ord_{s=1} L = 1`"
 for curves with rational 2-torsion satisfying some condition `s₂(E) = 1`, and if the curves `C_d`
 of CR₃^Sel satisfy it, then CR₃^Sel would follow from it, Lemma 5.4 and Lemma 5.5. That would be a
-source independent of Tian–Yuan–Zhang (SPECULATIVE). The preprint could not be read:
-- the Go module proxy knows the commit (pseudo-version timestamp 20261030003535) but times out
-  fetching the repository;
-- the title is not on arXiv (arXiv API searches, 2026-11-09).
+source independent of Tian–Yuan–Zhang (SPECULATIVE). The preprint could not be read: the
+`openai/math` repository could not be fetched from this machine, and the title is not on arXiv
+(arXiv API searches, 2026-11-09).
 
 It is unrefereed, so at best it would be a cross-check, as Kriz is now (nt-tyz §5.1).
 
