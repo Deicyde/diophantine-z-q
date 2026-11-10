@@ -10,14 +10,16 @@ an integer polynomial in 292,890,231,905 variables, of degree below $2\uparrow\u
 and with coefficients below $2\uparrow\uparrow 8$, whose rational zero projection to the
 first variable is exactly $\mathbb Z$.
 
-The theorem is proved from explicitly stated arithmetic hypotheses: the six-contact
-height estimate, a certified rank hypothesis for congruent number curves and a
-twenty-two-prime pattern, whose proofs lie far outside current formal libraries. Pole
-completeness, a hypothesis in earlier versions, is proved from the certified rank hypothesis
-for a variant of the manuscript's pole polynomial; the bound for the prime catalogue is proved
-by an effective Dirichlet theorem; and the Mordell–Weil theorem for the generator curve, first
-stated as a fifth hypothesis, is proved. Everything else is to be proved, with every finite computation
-checked by the Lean kernel.
+The theorem is proved from two explicitly stated arithmetic hypotheses, the six-contact height
+estimate and a certified rank hypothesis for congruent number curves, whose proofs lie far
+outside current formal libraries. The manuscript's other inputs are proved. Pole completeness
+follows from the certified rank hypothesis for a variant of the manuscript's pole polynomial;
+the bound for the prime catalogue follows from an effective Dirichlet theorem; the Mordell–Weil
+theorem for the generator curve, first stated as a hypothesis, is proved; and the
+twenty-two-prime pattern is not needed: a change in the completeness proof, route AP, uses
+long arithmetic progressions of good primes instead, which come from Szemerédi's theorem in the
+primes (from a Lean proof of the Green–Tao theorem) and a density theorem for those primes.
+Everything else is proved, with every finite computation checked by the Lean kernel.
 
 ## Chapters
 
@@ -30,3 +32,8 @@ checked by the Lean kernel.
 - [The cutoff and polynomial size](size/README.md)
 - [Primes in arithmetic progressions](progressions/README.md)
 - [Pole completeness from certified rank (Route K)](route-k/README.md)
+- [Long progressions of good primes replace the prime pattern (route AP)](route-ap/README.md)
+- [Szemerédi's theorem in the primes (Green–Tao)](green-tao/README.md)
+- [The density of good slope primes (Proposition D)](density/README.md)
+- [The explicit system is the 2-Selmer group (Proposition 0)](selmer/README.md)
+- [The row-5b determinant](rank-5b/README.md)
