@@ -8,7 +8,7 @@ published theorems that the hypothesis CR₃^5b rests on are cited at the end.
 ## Notation
 
 `docs/research/tyz-5b.md`, Notation: the bits $a_{ij}=(p_j/p_i)_+$, $y_i=(-1/p_i)_+$,
-$z_i=(2/p_i)_+$, Smith's matrix $L$ (his $A$), the matrices $M_1$ and $M_{5b}$, and the genus sum
+$z_i=(2/p_i)_+$, Smith's matrix $L$ (Smith's $A$), the matrices $M_1$ and $M_{5b}$, and the genus sum
 $T_{5b}(n)$ of row 5b of Smith's Table 2.
 
 ## Lemma 4.1

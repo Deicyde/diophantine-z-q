@@ -1,4 +1,5 @@
 ---
+article_id: af_d6739f06268bd37f40432af4
 declaration: def
 origin: bridged
 statement: formalized

@@ -1,4 +1,5 @@
 ---
+article_id: af_9b19767b2c5b68b78591a8d2
 declaration: theorem
 origin: bridged
 statement: formalized
@@ -43,9 +44,10 @@ density statement, which gives the theorem.
 - [The statement 22P_AP](../route-ap/good-prime-ap.md)
 - [Proposition AP](../route-ap/proposition-ap.md)
 - [Completeness under the weakened slope representation](../route-ap/completeness-ap.md)
+- [The assembly lemma under the weakened slope representation](../route-ap/assembly-ap.md)
 - [22P_AP from Green–Tao and Proposition D](../route-ap/good-prime-ap-from-green-tao.md)
 - [Szemerédi's theorem in the primes](../green-tao/dense-theorem.md)
-- [Proposition 5.3](../density/proposition-5-3.md)
+- [Proposition D](../density/proposition-d.md)
 
 ## Sources
 

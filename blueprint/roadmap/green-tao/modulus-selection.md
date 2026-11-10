@@ -1,4 +1,5 @@
 ---
+article_id: af_181d4d375eb36f52e97b453c
 declaration: theorem
 origin: bridged
 statement: formalized

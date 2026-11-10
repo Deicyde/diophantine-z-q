@@ -1,4 +1,5 @@
 ---
+article_id: af_dfb09b8d14338f0fea503569
 declaration: theorem
 origin: background
 statement: formalized
@@ -13,7 +14,7 @@ natural numbers $a$ and $b\ge1$ such that $a+bj$ is prime for every $j<k$.
 
 This is Theorem 1.1 of Green and Tao. Its Lean proof is not written in this project: it is
 Vasily Ilin's proof from the repository Vilin97/Autoformalization (directory `green-tao/`, commit
-`0dc67d87416c19690dd641a178ada32cca95c651`), produced under his direction as a submission to the
+`0dc67d87416c19690dd641a178ada32cca95c651`), produced under Ilin's direction as a submission to the
 `green_tao` target of the lean-eval benchmark and distributed under the Apache License 2.0. It is
 vendored in this repository with its license and a notice, and ported to the project's Lean and
 Mathlib versions with proof edits only; its statement is unchanged, and it is the statement here,
