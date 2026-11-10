@@ -504,3 +504,97 @@ on prime powers the two agree except for `q ≡ 1 (4)` with `k = 2j + 1` odd, wh
 `#(Bad_ℓ ∩ [1, N]) ≤ 16002N/(ℓ² log N) + 2N^{1/40} ≤ 16003N/(ℓ² log N)`, because
 `N/(ℓ² log N) ≥ √N/log N ≥ 2N^{1/40}`. ∎ VERIFIED (by hand), given `selberg_bound_simple`.
 
+### 4.6 Can a cleverer `G*` avoid the sieve?
+
+I looked for a subset of `G` whose density can be bounded below without a uniform upper bound at large
+`ℓ`. None of the following works.
+
+- *Finitely many Chebotarev conditions.* No condition in a fixed number field implies
+  `gcd(c_p, p + 1) = 1`. The events at different `ℓ` are independent (`nt-22p.md` §2.4, "No finite
+  version"), so any Chebotarev class contains a positive proportion of primes that are bad at some
+  larger `ℓ`. This is SPECULATIVE in the strict sense: it rests on Hecke equidistribution, which is not
+  proved here. It is consistent with `density.py`.
+- *Conditions on `p` alone* (`p ≢ −1 (mod ℓ)` for more `ℓ`, or `(p + 1)/2` with few prime factors).
+  Removing `p ≡ −1 (mod ℓ)` for all `ℓ ≤ N^θ` is itself a sieve, of the lower-bound kind, on primes, which
+  is harder. Asking `(p + 1)/2` to be prime or smooth leaves a set of density zero, or of unknown
+  density.
+- *Conditions on `c_p`.* `c_p mod m` is a Frobenius condition in a ray class field of `ℚ(i)`. It is not a
+  congruence on `p`, so controlling it requires Hecke. A restriction such as `|c_p| < L` has density
+  zero.
+- *Weaker density notions.* Upper density "for infinitely many `N`" does not help: the bad count must
+  still be summed over `ℓ` at a single `N`. Dirichlet density does not help either (§4.1).
+- *Brun's pure sieve* reaches only `z = (log N)^{O(1)}` and saves `1/log log N`, so the sum over `ℓ` is
+  about `N/(L log log N)`, which is not `o(π(N))`.
+
+What can replace the Selberg sieve, at equal or greater cost:
+
+- a Brun–Titchmarsh theorem for prime ideals of `ℚ(i)` in ray classes mod `ℓ`, uniform in `ℓ` (for
+  example Hinz–Lodemann, *On Siegel zeros of Hecke–Landau zeta-functions*, Monatsh. Math. 118 (1994);
+  UNCHECKED, statement from memory), whose proof is a Selberg sieve in `ℤ[i]`;
+- the arithmetic large sieve in two dimensions;
+- a one-dimensional Selberg sieve in `e` for each fixed `U`. Here the density `ν_U(q) = #{e : e² ≡ −ℓ²U²}/q`
+  depends on `U`, so the bound for `S` must be averaged over `U`, which is more work than §4.5.
+
+Conclusion: an upper-bound sieve of dimension 1 (two-dimensional, sifting density `≈ 2/q` on half the
+primes) at level `N^δ` is the minimal input. This is how the manuscript argues (lines 1600–1642). VERIFIED
+in the sense that every alternative above fails for the stated reason. SPECULATIVE that no other choice
+exists.
+
+---
+
+## 5. Assembly
+
+**Lemma 5.1 (prime tail).** For `L ≥ 2`, `Σ_{ℓ>L} 1/ℓ² ≤ 4 log 4/(L log L)`.
+
+*Proof.* `Σ_{ℓ>L} ℓ^{−2} ≤ (log L)^{−1} Σ_{k≥0} Σ_{2^kL<ℓ≤2^{k+1}L} (log ℓ)/ℓ²
+≤ (log L)^{−1} Σ_k θ(2^{k+1}L)/(4^kL²) ≤ (log L)^{−1} Σ_k (log 4)·2^{k+1}/(4^kL)`, by Mathlib
+`Chebyshev.theta_le_log4_mul_x`. ∎ VERIFIED (by hand; `sieveaux.py` for `L = 10, …, 10⁴`).
+
+**Lemma 5.2 (Abel summation).** Let `S` be a set of primes and `x > 1`.
+
+1. If `θ_S(n) ≤ κn + βn^{3/4} log n` for all `n ≥ n₀`, then
+   `(x − 1)Φ_S(x) ≤ κx² + (x − 1)C(S, n₀, β)`, for a constant `C(S, n₀, β)` independent of `x ∈ (1, 2]`.
+2. Hence, if `#(S ∩ [1, N]) ≤ αN/log N + βN^{3/4}` for all `N ≥ N₀`, then
+   `limsup_{x→1⁺}(x − 1)Φ_S(x) ≤ α`.
+
+*Proof.* Let `a_n = log n·1_S(n)`. Discrete partial summation (Mathlib `Finset.sum_range_by_parts`)
+gives `Σ_{n≤M} a_n n^{−x} = θ_S(M)M^{−x} + Σ_{n<M} θ_S(n)(n^{−x} − (n + 1)^{−x})`. Use
+`n^{−x} − (n + 1)^{−x} ≤ x n^{−x−1}`, `Σ_{n≥1} n^{−x} ≤ x/(x − 1)` and
+`Σ_n n^{−1/4−x} log n ≤ Σ_n n^{−5/4} log n < ∞`; the terms `n < n₀` give a constant. Let `M → ∞`.
+(2) follows from (1), since `θ_S(N) ≤ #(S ∩ [1, N])·log N`. ∎ VERIFIED (by hand).
+
+**Proposition 5.3 (Dirichlet density ⇒ upper natural density).** Let `S` be a set of primes with
+`liminf_{x→1⁺}(x − 1)Φ_S(x) ≥ η > 0`. Then `θ_S(N) > κN` for infinitely many `N`, for every `κ < η`. Hence
+`PrimesRelUpperDensityPos S` holds with every `c < η/log 4`.
+
+*Proof.* If `θ_S(n) ≤ κn` for all `n ≥ n₀` with `κ < η`, Lemma 5.2(1) (with `β = 0`) gives
+`limsup (x − 1)Φ_S(x) ≤ κ < η`, a contradiction. For such `N`, `#(S ∩ [1, N]) ≥ θ_S(N)/log N > κN/log N`.
+By Chebyshev, `π(N) ≤ (log 4 + ε)N/log N` for large `N` (Mathlib `Chebyshev.eventually_primeCounting_le`).
+So `#(S ∩ [1, N]) ≥ (κ/(log 4 + ε))·π(N)` infinitely often. ∎ VERIFIED (by hand).
+
+*Remark 5.4.* With the classical normalisation, the lower Dirichlet density
+`δ⁻(S) = liminf_{x→1⁺} Σ_{p∈S} p^{−x}/Σ_p p^{−x}` is at most the upper relative density
+`limsup #(S ∩ [1, N])/π(N)`, by the same Abel summation with `π(t)` in place of `θ(t)`. STANDARD (for
+example Serre, *A Course in Arithmetic*, VI.4.5; exact location UNCHECKED). The von Mangoldt
+normalisation is the one that matches `LSeries_residueClass_lower_bound`, and it avoids `log(1/(x − 1))`.
+
+**Theorem D.** Let `L ≥ 5` with `log L ≥ 15A₁` (`A₁ = 16003`). Then
+`liminf_{x→1⁺}(x − 1)Φ_{G*_L}(x) ≥ η_L := δ_L − α_L > 0`, where `α_L = A₁Σ_{ℓ>L} ℓ^{−2}`. Consequently
+(Lemma 2.1 and Proposition 5.3), `G` satisfies `PrimesRelUpperDensityPos` with every `c < η_L/log 4`.
+
+*Proof.* For `N ≥ max(N₁, L⁴)`, Proposition 4.2 for `L < ℓ ≤ N^{1/4}` and Proposition 4.1 for
+`ℓ > N^{1/4}` give `#(T_L ∩ [1, N]) ≤ α_L N/log N + 20N^{3/4}`. By Lemma 5.2(2),
+`limsup (x − 1)Φ_{T_L}(x) ≤ α_L`. Since `G*_L ⊇ C_L ∖ T_L`, `Φ_{G*_L} ≥ Φ_{C_L} − Φ_{T_L}`, and Lemma 3.1
+gives `liminf (x − 1)Φ_{G*_L}(x) ≥ δ_L − α_L`. Finally, `δ_L ≥ 3/(8(L − 1)) > 3/(8L)` (§2.1, remark 3)
+and `α_L ≤ 4(log 4)A₁/(L log L) < 5.55A₁/(L log L)` (Lemma 5.1). Their difference is positive when
+`log L > 14.8A₁`. ∎ VERIFIED (by hand), given the cited Mathlib and PrimeNumberTheoremAnd statements.
+
+*Remarks.*
+- The constant is absurd (`L ≈ e^{240045}`), but only `η_L > 0` enters `GoodPrimeAP`. With Mertens'
+  theorem (`δ_L ≍ (log L)^{−1/2}`) and an optimised sieve (true constant about `0.25`, §4.3) one could take
+  `L` of size about 50, as the table of §2.2 suggests. This is not needed.
+- Replacing Lemma 3.1 by the prime number theorem in progressions (`WeakPNT_AP`) turns the same argument
+  into a positive lower natural density `liminf #(G ∩ [1, N])/π(N) ≥ η_L`. Adding Hecke's theorem gives
+  the exact density `0.1060…` of `nt-22p.md` §2.2.
+- Only the inclusion `G*_L ⊆ G` is used. Nothing depends on the converse description of `G`.
+
