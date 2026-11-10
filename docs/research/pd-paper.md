@@ -598,3 +598,118 @@ and `α_L ≤ 4(log 4)A₁/(L log L) < 5.55A₁/(L log L)` (Lemma 5.1). Their di
   the exact density `0.1060…` of `nt-22p.md` §2.2.
 - Only the inclusion `G*_L ⊆ G` is used. Nothing depends on the converse description of `G`.
 
+---
+
+## 6. A Lean plan
+
+### 6.1 Files and statements
+
+The plan adds a directory `ZInQKernel/Density/` and a vendored `ZInQKernel/Sieve/`. No existing file
+changes, except that the final link replaces the hypothesis `GoodPrimeAP` by `GreenTaoDense`. Names are
+proposals; `χ = quadraticChar (ZMod p)`. Line counts are estimates, not measurements.
+
+| # | File | Content (section of this note) | Lines |
+| --- | --- | --- | --- |
+| 1 | `Density/CharSum.lean` | `jac a = Σ_x χ(x³ + ax)`; Lemmas 1.1–1.5 | 300–450 |
+| 2 | `Density/Description.lean` | `InClass`, `cp`, `ep`; Proposition 1.6 | 200–300 |
+| 3 | `Density/Abel.lean` | `PhiS`; Lemma 5.2, Proposition 5.3 | 250–400 |
+| 4 | `Density/Residues.lean` | `A_L`, CRT count, `δ_L ≥ 3/(8(L − 1))`, Lemma 3.1 | 250–400 |
+| 5 | `Density/PrimeTail.lean` | Lemma 5.1 | 100–200 |
+| 6 | `Density/Lattice.lean` | Proposition 4.1 | 200–300 |
+| 7 | `Sieve/{Basic,AuxResults,Selberg,SelbergBounds}.lean` | PrimeNumberTheoremAnd `v4.34.0`, ported to Lean 4.35 / Mathlib `56a00585` | 1536 existing |
+| 8 | `Density/GaussSieve.lean` | Lemmas 4.3–4.5, Claims A and B, Proposition 4.2 | 900–1500 |
+| 9 | `Density/PropD.lean` | Theorem D; the conditional and unconditional Proposition D | 150–250 |
+
+Key statements:
+
+```lean
+namespace ZInQ.Density
+-- File 1
+noncomputable def jac {p : ℕ} [Fact p.Prime] (a : ZMod p) : ℤ :=
+  ∑ x : ZMod p, quadraticChar (ZMod p) (x ^ 3 + a * x)
+theorem pointCount_eq (hp2 : p ≠ 2) (a : ZMod p) : (pointCount p a : ℤ) = p + 1 + jac a
+theorem jac_sq_mul {k : ZMod p} (hk : k ≠ 0) (a : ZMod p) :
+    jac (k ^ 2 * a) = quadraticChar (ZMod p) k * jac a
+theorem sum_quadraticChar_shift_mul {α β : ZMod p} (h : α ≠ β) :
+    ∑ t : ZMod p, quadraticChar (ZMod p) ((t + α) * (t + β)) = -1
+theorem jacobsthal (hp4 : p % 4 = 1) {r : ZMod p} (hr : ¬ IsSquare r) :
+    jac (1 : ZMod p) ^ 2 + jac r ^ 2 = 4 * p
+theorem four_dvd_pointCount (hp4 : p % 4 = 1) {D : ZMod p} (hD : D ≠ 0) :
+    4 ∣ pointCount p (-D ^ 2)
+-- File 2
+def InClass (p : ℕ) : Prop := p % 8 = 1 ∧ (p % 7 = 3 ∨ p % 7 = 5 ∨ p % 7 = 6)
+theorem gcd_pointCount_eq (hp : p.Prime) (hC : InClass p) {r : ZMod p} (hr : r ^ 2 = 2) :
+    Nat.gcd (pointCount p (-(75 - 53 * r) ^ 2)) (pointCount p (-(75 + 53 * r) ^ 2))
+      = 4 * Int.gcd (cp p) (p + 1)
+theorem goodSlopePrime_of_gcd (hp : p.Prime) (hC : InClass p)
+    (h : Int.gcd (cp p) (p + 1) = 1) : GoodSlopePrime p
+theorem mod_four_of_dvd_cp {ℓ : ℕ} (hℓ : ℓ.Prime) (hℓ2 : ℓ ≠ 2) (hp : p.Prime) (hC : InClass p)
+    (h1 : (ℓ : ℤ) ∣ cp p) (h2 : ℓ ∣ p + 1) : ℓ % 4 = 1
+-- File 9
+def BadSet (ℓ : ℕ) : Set ℕ := {p | p.Prime ∧ InClass p ∧ (ℓ : ℤ) ∣ cp p ∧ ℓ ∣ p + 1}
+def UniformBadBound : Prop :=
+  ∃ A N₁ : ℝ, 0 < A ∧ ∀ N : ℕ, N₁ ≤ N → ∀ ℓ : ℕ, ℓ.Prime → ℓ % 4 = 1 → 5 ≤ ℓ →
+    ((ℓ : ℝ) ^ 4 ≤ N) →
+    (((Finset.range (N + 1)).filter (· ∈ BadSet ℓ)).card : ℝ) ≤ A * N / (ℓ ^ 2 * Real.log N)
+theorem goodPrimeDensity_of_uniformBadBound (h : UniformBadBound) :
+    GTSearch.PrimesRelUpperDensityPos {p | GoodSlopePrime p}
+theorem uniformBadBound : UniformBadBound          -- file 8
+theorem goodPrimeDensity : GTSearch.PrimesRelUpperDensityPos {p | GoodSlopePrime p}
+```
+
+The final link is `progressions_above_of_greenTaoDense` (`scratch/gt-search/GreenTaoReduction.lean`)
+applied to `goodPrimeDensity` with `S := Mult.S_b`. It gives
+`GreenTaoDense → GoodPrimeAP` and hence the main theorem under the single hypothesis Green–Tao 1.2.
+
+### 6.2 Order and milestones
+
+1. **Milestone 1 (files 1, 2).** `goodSlopePrime_of_gcd`. Sanity checks against the existing
+   `goodPatternPrime_seventeen`: `cp 17 = −1` (`p = 1 + 16`) and `cp 41 = −5` (`41 = 25 + 16`), by
+   `decide` on `jac`; `scratch/pd-paper` gives the values for the class primes below 324.
+2. **Milestone 2 (files 3, 4, 5, 6, 9 conditional).** `goodPrimeDensity_of_uniformBadBound`. This reduces
+   Proposition D to one explicit, elementary counting statement about integers. It is already a
+   better trust base than "Proposition D (sketch)": the hypothesis mentions neither density nor
+   elliptic curves.
+3. **Milestone 3 (file 7).** Port the PrimeNumberTheoremAnd sieve files. They need only Mathlib's
+   `SelbergSieve.lean`, `ArithmeticFunction` and `Batteries`. They are Apache-2.0; keep the headers and
+   add a notice.
+4. **Milestone 4 (file 8).** `uniformBadBound`, hence `goodPrimeDensity` unconditionally.
+
+### 6.3 The hardest steps
+
+- **Lemma 4.3/4.4 in Lean (file 8).** Counting `(U, V) ∈ (ℤ/d)²` with `d | F(U, V)` for squarefree `d`,
+  through `ZMod.prodEquivPi` and the factorisation of `x² + y²` over `ZMod q`. Then counting a box with
+  residue conditions, uniformly. These are routine but long finite-combinatorics proofs. The
+  `BoundingSieve` interface wants `support : Finset ℕ` with `weights` as multiplicities. Define
+  `weights n = ((ℬ.filter (F · = n)).card : ℝ)`.
+- **Claims A and B (file 8).** Alternating partial sums, the Euler–Mascheroni bracket, the convolution
+  inequality `r ≤ h ∗ v` (a multiplicativity argument on prime powers), and `V ≤ 2ζ(2)⁴` (through
+  `hasSum_zeta_two` and an `lcm` count). An alternative for Claim B: bound `Σ_{m≤w} v(m)/m` by an Euler
+  product over primes `≤ w` (PrimeNumberTheoremAnd's `prod_factors_sum_pow_compMult` has this shape).
+- **`selbergBoundingSum` versus `S₀`.** PrimeNumberTheoremAnd's `selbergBoundingSum_ge_sum_div` assumes
+  `ν` completely multiplicative and every prime `≤ level` in `P`. Neither holds here, so Lemma 4.5 needs
+  its own proof. The structure (`g(l) ≥ ∏_{q|l} 2/q` on `l | P`) is simpler than that lemma.
+- **Analysis plumbing (files 3, 4).** `tsum` over `ℕ` with real exponents, summability, and the passage
+  from `residueClass` (which includes prime powers) to sums over primes. Mathlib's
+  `summable_residueClass_non_primes_div` and `LSeries_residueClass_lower_bound` do the analytic work.
+
+### 6.4 Effort tiers
+
+| Tier | Work | Result |
+| --- | --- | --- |
+| cheap win | files 1, 2 (about 500–750 lines) | the CM description, without CM theory; the earlier estimate for this piece (`gt-search.md` §4, D1) was 1.5–3k lines |
+| medium investment | files 3, 4, 5, 6, 9-conditional (about 1–1.5k lines) | Proposition D modulo `UniformBadBound` |
+| bigger investment | files 7, 8 (port of 1.5k lines plus about 1–1.5k new) | Proposition D unconditionally; `GoodPrimeAP` from Green–Tao 1.2 alone |
+
+Total new code is about 2.5–4k lines, plus the 1.5k-line port, against 6–10k in `gt-search.md` §4.
+
+### 6.5 The first step
+
+**State and prove `jacobsthal`, `four_dvd_pointCount` and `goodSlopePrime_of_gcd` (files 1, 2).**
+*Success criterion:* the three theorems build against the pinned Mathlib. `#print axioms
+goodSlopePrime_of_gcd` reports `[propext, Classical.choice, Quot.sound]`. And
+`goodSlopePrime_of_gcd` reproves `GoodSlopePrime 17` from `InClass 17` and `cp 17 = −1`.
+Success proves that the step considered the most specialised (D1 of `gt-search.md`: point counts of a
+CM curve through quartic Jacobi sums) is a few hundred lines of character sums. It also gives the
+interface (`InClass`, `cp`, `BadSet`) on which every later file is stated.
+
