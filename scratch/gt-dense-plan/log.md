@@ -7,3 +7,4 @@
 - gt-import vendors under ThirdParty/GreenTao with module names Submission.* (lean_lib GreenTaoVendor).
 - Mathlib 56a0058 has Chebyshev.theta_le_log4_mul_x, psi_le_primeCounting_mul_log, psi_ge, Bertrand.
 - Next: write docs/research/gt-dense.md, commit; then scratch Lean for window lemma + residue pigeonhole.
+- Wrote docs/research/gt-dense.md (first full draft). Next: scratch Window.lean.
