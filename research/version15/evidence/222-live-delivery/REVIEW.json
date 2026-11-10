@@ -3,7 +3,7 @@
   "decision": "accepted_within_scope",
   "reviewed_at": "2026-11-10T12:26:20.766352+00:00",
   "reviewer_agent": "01a1c426-ce3c-73b2-bc1f-18da903ebf63",
-  "reviewer_run": "01a1c4f5-9e5a-7082-9c12-c876f25edd6c",
+  "reviewer_run": "01a1c561-10da-70a0-855e-a32600dbac0d",
   "observed_model": "gpt-6-astra",
   "comparison_baseline": {
     "repository": "elliotglazer/diophantine-z-q",
@@ -202,5 +202,15 @@
     "A report-only successor must be checked as an exact additive transport before an actual acknowledgment. This baseline report does not predict a successor commit, source hash or final target hash.",
     "Adding this review body as documentary availability must not treat the body as a proof of its own correctness. Actual final target/dependency and PR bindings belong to subsequent genuine ACK events.",
     "Coverage dependency membership and assembly target must be recomputed for the added ordinary applications; old target approvals are not relabeled."
-  ]
+  ],
+  "identity_correction": {
+    "predecessor_body_sha256": "84ddc460cf9b5f337459c86c9b43af9eaea70d24fe00eb429ebca2bbe21df431",
+    "observed_at": "2026-11-10T12:27:27.057206+00:00",
+    "actual_model": "gpt-6-astra",
+    "actual_thread_id": "01a1c426-ce3c-73b2-bc1f-18da903ebf63",
+    "actual_turn_id": "01a1c561-10da-70a0-855e-a32600dbac0d",
+    "turn_trigger": "goal",
+    "basis": "Fresh nodeRepl.requestMeta x-codex-turn-metadata observation in this operational review turn. Prior body mistakenly copied historical4f5 run metadata from continuity context. Agent/model and all scope decisions are unchanged.",
+    "provider_attestation": false
+  }
 }
