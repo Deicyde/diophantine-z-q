@@ -1,11 +1,12 @@
 import ZInQKernel.Density.PrimeTail
+import ZInQKernel.Density.Description
 
 /-!
 # The lattice count for large `ℓ` (pd-paper Proposition 4.1)
 
-`ClassMod56 p` is the congruence class of Proposition 1.6 (`p ≡ 1 (mod 8)` and
-`p mod 7 ∈ {3, 5, 6}`), and `BadSetOf c ℓ` is the set `Bad_ℓ` of §2.1 for a function `c : ℕ → ℤ`
-(the intended instance is `c = cp`, the half trace of pd-lean-1's `Description.lean`).
+`InClass p` (pd-lean-1, `Description.lean`) is the congruence class of Proposition 1.6
+(`p ≡ 1 (mod 8)` and `p mod 7 ∈ {3, 5, 6}`), and `BadSetOf c ℓ` is the set `Bad_ℓ` of §2.1 for a function `c : ℕ → ℤ`
+(the instance used is `c = cp`; see `PropD.lean`).
 
 The count uses only the representation `p = c_p² + e²` of a class prime (Proposition 1.6(1)),
 taken as the hypothesis `hrep`:
@@ -21,15 +22,10 @@ namespace ZInQ.Density
 
 open Finset
 
-/-- The congruence class of Proposition 1.6: `p ≡ 1 (mod 8)` and `p mod 7 ∈ {3, 5, 6}`. -/
-def ClassMod56 (p : ℕ) : Prop := p % 8 = 1 ∧ (p % 7 = 3 ∨ p % 7 = 5 ∨ p % 7 = 6)
-
-instance : DecidablePred ClassMod56 := fun p => by unfold ClassMod56; infer_instance
-
 /-- `Bad_ℓ` (§2.1) for a function `c : ℕ → ℤ`: the class primes `p` with `ℓ ∣ c p` and
 `ℓ ∣ p + 1`. -/
 def BadSetOf (c : ℕ → ℤ) (ℓ : ℕ) : Set ℕ :=
-  {p | p.Prime ∧ ClassMod56 p ∧ (ℓ : ℤ) ∣ c p ∧ ℓ ∣ p + 1}
+  {p | p.Prime ∧ InClass p ∧ (ℓ : ℤ) ∣ c p ∧ ℓ ∣ p + 1}
 
 /-- The lattice points `(c, e) ∈ [−√N, √N]²` with `c ≠ 0`, `ℓ ∣ c` and `ℓ ∣ e² + 1`. -/
 def latticePts (ℓ N : ℕ) : Finset (ℤ × ℤ) :=
@@ -173,7 +169,7 @@ theorem card_latticePts_le (ℓ N : ℕ) (hℓ : ℓ.Prime) :
 open Classical in
 /-- `p ↦ (c_p, e_p)` embeds `Bad_ℓ ∩ [0, N]` into the lattice points. -/
 theorem card_badSet_le_latticePts (c : ℕ → ℤ)
-    (hrep : ∀ p : ℕ, p.Prime → ClassMod56 p → ∃ e : ℤ, (p : ℤ) = c p ^ 2 + e ^ 2) (ℓ N : ℕ) :
+    (hrep : ∀ p : ℕ, p.Prime → InClass p → ∃ e : ℤ, (p : ℤ) = c p ^ 2 + e ^ 2) (ℓ N : ℕ) :
     ((range (N + 1)).filter (· ∈ BadSetOf c ℓ)).card ≤ (latticePts ℓ N).card := by
   choose! e he using hrep
   refine card_le_card_of_injOn (fun p => (c p, e p)) ?_ ?_
@@ -317,7 +313,7 @@ open Classical in
 /-- **Proposition 4.1, per prime.** `#(Bad_ℓ ∩ [0, N]) ≤ 8N/ℓ² + 4√N/ℓ`, and the second term
 vanishes when `ℓ > √N` (indeed the whole count does). -/
 theorem card_badSet_le (c : ℕ → ℤ)
-    (hrep : ∀ p : ℕ, p.Prime → ClassMod56 p → ∃ e : ℤ, (p : ℤ) = c p ^ 2 + e ^ 2) {ℓ : ℕ}
+    (hrep : ∀ p : ℕ, p.Prime → InClass p → ∃ e : ℤ, (p : ℤ) = c p ^ 2 + e ^ 2) {ℓ : ℕ}
     (hℓ : ℓ.Prime) (N : ℕ) :
     (((range (N + 1)).filter (· ∈ BadSetOf c ℓ)).card : ℝ) ≤
       8 * N / (ℓ : ℝ) ^ 2 + (if ℓ ≤ Nat.sqrt N then 4 * Real.sqrt N / ℓ else 0) :=
@@ -327,7 +323,7 @@ open Classical in
 /-- **Proposition 4.1.** For `N ≥ 1` and a finite set `F` of primes `ℓ` with `ℓ⁴ > N`,
 `Σ_{ℓ ∈ F} #(Bad_ℓ ∩ [0, N]) ≤ 20 N^{3/4}`. -/
 theorem sum_card_badSet_large_le (c : ℕ → ℤ)
-    (hrep : ∀ p : ℕ, p.Prime → ClassMod56 p → ∃ e : ℤ, (p : ℤ) = c p ^ 2 + e ^ 2) {N : ℕ}
+    (hrep : ∀ p : ℕ, p.Prime → InClass p → ∃ e : ℤ, (p : ℤ) = c p ^ 2 + e ^ 2) {N : ℕ}
     (hN : 1 ≤ N) (F : Finset ℕ) (hF : ∀ ℓ ∈ F, ℓ.Prime ∧ N < ℓ ^ 4) :
     ∑ ℓ ∈ F, (((range (N + 1)).filter (· ∈ BadSetOf c ℓ)).card : ℝ) ≤
       20 * (N : ℝ) ^ ((3 : ℝ) / 4) :=
