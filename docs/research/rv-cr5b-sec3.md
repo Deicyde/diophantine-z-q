@@ -28,7 +28,7 @@ trust statement (the docstring of `CertifiedRankTYZ`, and the one-line summary i
 the main-theorem variant) and the project documentation.
 
 - `T5b d = 1` is exactly the parity condition of TYZ's `(7, 3)` genus sum (the coefficient of
-  `τ(1/2)` in the proof of their Theorem 3.5(2), L2585–2594), once Rédei's formula (tyz-5b
+  `τ(1/2)` in the proof of their Theorem 3.5(2), L2582–2593), once Rédei's formula (tyz-5b
   Proposition 2.3) identifies `gBit d B` with `#2Cl(ℚ(√−d_B)) mod 2` on the blocks that occur
   (VERIFIED, §1).
 - The premises `d % 8 = 5` and `Squarefree d` are exactly those of TYZ (positive squarefree
@@ -132,7 +132,7 @@ needs, and the mirror of §4 computes `Sel2` from the same local conditions.
 - TYZ's bracket (L2589–2593): `Σ_{n = d₀d₁⋯d_ℓ, d₀ ≡ 7, d₁ ≡ 1,3, d_i ≡ 1 (i>1)} Π_i g(d_i)`. The
   product runs over all `i ≥ 0`: the coefficient of `Z(d₀)` carries `Π_{i≥1} g(d_i)`
   (Proposition 3.4, L1332–1346), and `Z(d₀)^{β'+1} = g(d₀)τ(1/2)` for `d₀ ≡ 7` (Lemma 3.21(4),
-  L2517). For `n ≡ 5` the class of `d₁` is forced: `d₁ ≡ 5·7 ≡ 3`. With `n` squarefree, a
+  L2515). For `n ≡ 5` the class of `d₁` is forced: `d₁ ≡ 5·7 ≡ 3`. With `n` squarefree, a
   factorization with distinguished `d₀`, `d₁` and an unordered multiset of factors `d_i > 1`
   (`i > 1`) is the same as a set partition with one block of class 7 and one of class 3 (these
   being unique, they are distinguished by their classes). Under nt-tyz's Lemma N2, which
@@ -201,7 +201,7 @@ deep inputs (rv-nt-tyz B4).
 - The quoted genus sum `Σ_{d₀ ≡ 7, d₁ ≡ 3} g(d₀)g(d₁)𝓛(n/d₀d₁)` is TYZ's bracket only if `𝓛` means
   `𝓛₁` (F3).
 - "if [the sum] is odd, then `2^{−ρ(n)}𝓛(n)` is odd": the proof of part (2) assumes
-  `P(n) ∈ A(K_n)^− + A[4]` and identifies it with "`2^{−ρ(n)}𝓛(n)` is even" (L1361). nt-tyz F6
+  `P(n) ∈ A(K_n)^− + A[4]` and identifies it with "`2^{−ρ(n)}𝓛(n)` is even" (L1358). nt-tyz F6
   calls this "i.e." unproved. rv-nt-tyz A2 shows that the direction needed is immediate from
   Theorem 3.5 and Lemma 3.18. So the claim is true, but more than needed. The proof as written
   takes the coefficients from Proposition 3.4, a sketch (nt-tyz Verdict 3). The project's reviewed
@@ -219,7 +219,7 @@ rank one gives `rank C_d(ℚ) = 1`".
   citation is unrefereed.
 - What is needed: `ord_{s=1} L(C_d, s) = 1 ⟹ rank C_d(ℚ) ≥ 1`. This is the Gross–Zagier theorem
   (B. Gross, D. Zagier, *Heegner points and derivatives of L-series*, Invent. Math. 84 (1986),
-  225–320), applied over an imaginary quadratic field `K` satisfying the Heegner hypothesis for the
+  225–320; data as in TYZ's bibliography, L3276–3277), applied over an imaginary quadratic field `K` satisfying the Heegner hypothesis for the
   conductor `32d²` with `L(C_d^K, 1) ≠ 0`. Such a `K` exists by the nonvanishing theorems of
   Bump–Friedberg–Hoffstein and Murty–Murty (both 1990–91; exact statements UNCHECKED here; pc-audit
   RK7 records the same input). Then `L'(C_d/K, 1) = L'(C_d, 1)L(C_d^K, 1) ≠ 0`, so the Heegner point
@@ -227,9 +227,9 @@ rank one gives `rank C_d(ℚ) = 1`".
   infinite order. Modularity of `C_d` is classical (CM by `ℤ[i]`; Deuring, Shimura), so BCDT is not
   needed. Kolyvagin is not needed (STANDARD; this is pc-audit RK7, rechecked).
 - Kolyvagin does enter upstream, inside TYZ: TYZ define `𝓛(n)` in the case `ord_{s=1} = 1` through
-  the regulator `R_n` of "a generator of `E_n(ℚ)/E_n(ℚ)_tor` (in the case of rank one)" (L351), and
-  `α_n` as a generator of `A(K_n)^−/tors` (L1293), after citing Coates–Wiles, Rubin, Gross–Zagier
-  and Kolyvagin for the rank part of BSD (L332–333). This is part of the TYZ citation, not of the
+  the regulator `R_n` of "a generator of `E_n(ℚ)/E_n(ℚ)_tor` (in the case of rank one)" (L352), and
+  `α_n` as a generator of `A(K_n)^−/tors` (L1295), after citing Coates–Wiles, Rubin, Gross–Zagier
+  and Kolyvagin for the rank part of BSD (L334–335). This is part of the TYZ citation, not of the
   extra step. The recommended wording says so, so that "Kolyvagin is not needed" is not read as a
   claim about the whole chain.
 
