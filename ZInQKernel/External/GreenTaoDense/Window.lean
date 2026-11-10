@@ -1,6 +1,7 @@
 import Mathlib.NumberTheory.Chebyshev
 import Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics
 import Mathlib.Analysis.SpecificLimits.Basic
+import Mathlib.NumberTheory.Bertrand
 
 /-!
 # The window lemma
@@ -193,5 +194,83 @@ theorem frequently_window_of {A : Set ℕ} [DecidablePred (· ∈ A)] {c : ℝ} 
     exact mul_le_mul_of_nonneg_right hlower hlogN.le
   rw [hεdef] at hmul
   nlinarith
+
+/-! ## Choosing the prime modulus -/
+
+/-- **Bertrand modulus selection.** For `W > 0` and any `Z` there is a prime `q > 8 ⌊Z/W⌋` with
+`Z ≤ W ⌊q/8⌋ ≤ 2Z + 2W`. -/
+theorem exists_prime_scale_near (W Z : ℕ) (hW : 0 < W) :
+    ∃ q : ℕ, q.Prime ∧ 8 * (Z / W) < q ∧ Z ≤ W * (q / 8) ∧ W * (q / 8) ≤ 2 * Z + 2 * W := by
+  set m := Z / W + 1 with hm
+  obtain ⟨q, hq, h1, h2⟩ := Nat.exists_prime_lt_and_le_two_mul (8 * m) (Nat.mul_ne_zero (by norm_num) (Nat.succ_ne_zero _))
+  have hq8 : m ≤ q / 8 := by omega
+  have hq8' : q / 8 ≤ 2 * m := by omega
+  have hZ : Z < W * m := Nat.lt_mul_div_succ Z hW
+  have hWm : W * (Z / W) ≤ Z := Nat.mul_div_le Z W
+  refine ⟨q, hq, by omega, hZ.le.trans (Nat.mul_le_mul_left W hq8), ?_⟩
+  calc W * (q / 8) ≤ W * (2 * m) := Nat.mul_le_mul_left W hq8'
+    _ = 2 * (W * (Z / W)) + 2 * W := by rw [hm]; ring
+    _ ≤ 2 * Z + 2 * W := by omega
+
+/-- Moving from the window `(Z/2, Z]` to the window `(X/4, X]` for `Z ≤ X ≤ 2Z + 2W` loses at most
+`W/2 + 1` elements. -/
+theorem card_window_le_card_quarter (A : Set ℕ) [DecidablePred (· ∈ A)] {W Z X : ℕ}
+    (hZX : Z ≤ X) (hX : X ≤ 2 * Z + 2 * W) :
+    ((Ioc (Z / 2) Z).filter (· ∈ A)).card ≤ ((Ioc (X / 4) X).filter (· ∈ A)).card + (W / 2 + 1) := by
+  have hsub : (Ioc (Z / 2) Z).filter (· ∈ A) ⊆ (Ioc (X / 4) X).filter (· ∈ A) ∪ Ioc (Z / 2) (X / 4) := by
+    intro x hx
+    simp only [mem_filter, mem_Ioc, mem_union] at hx ⊢
+    by_cases h : X / 4 < x
+    · exact Or.inl ⟨⟨h, by omega⟩, hx.2⟩
+    · exact Or.inr ⟨hx.1.1, by omega⟩
+  refine (card_le_card hsub).trans ((card_union_le _ _).trans ?_)
+  rw [Nat.card_Ioc]
+  omega
+
+/-- **Window transfer.** If `A` has `c₁ Z / log Z` elements in `(Z/2, Z]` for infinitely many `Z`,
+then for every `W > 0` and every bound `Q₀` there is a prime `q ≥ Q₀` such that `X = W ⌊q/8⌋ ≥ Q₀`
+and `A` has at least `(c₁/6) X / log X` elements in `(X/4, X]`. -/
+theorem exists_prime_modulus_of_frequently_window {A : Set ℕ} [DecidablePred (· ∈ A)] {c₁ : ℝ}
+    (hc₁ : 0 < c₁)
+    (h : ∃ᶠ Z : ℕ in atTop, c₁ * Z / Real.log Z ≤ (((Ioc (Z / 2) Z).filter (· ∈ A)).card : ℝ))
+    {W : ℕ} (hW : 0 < W) (Q₀ : ℕ) :
+    ∃ q : ℕ, q.Prime ∧ Q₀ ≤ q ∧ Q₀ ≤ W * (q / 8) ∧
+      c₁ / 6 * ((W * (q / 8) : ℕ) : ℝ) / Real.log ((W * (q / 8) : ℕ) : ℝ) ≤
+        (((Ioc (W * (q / 8) / 4) (W * (q / 8))).filter (· ∈ A)).card : ℝ) := by
+  have hε : 0 < c₁ / (2 * ((W : ℝ) + 1)) := by positivity
+  have hlog : ∀ᶠ Z : ℕ in atTop, Real.log Z ≤ c₁ / (2 * ((W : ℝ) + 1)) * Z := by
+    have := (isLittleO_log_id_atTop.def hε).and (eventually_ge_atTop (1 : ℝ))
+    filter_upwards [tendsto_natCast_atTop_atTop.eventually this] with Z ⟨hZ, hZ1⟩
+    rwa [id, Real.norm_of_nonneg (log_nonneg hZ1), Real.norm_of_nonneg (by linarith)] at hZ
+  obtain ⟨Z, hZcount, hZlog, hZbig⟩ :=
+    (h.and_eventually (hlog.and (eventually_ge_atTop (Q₀ * W + 2 * W + Q₀ + 3)))).exists
+  obtain ⟨q, hq, hqZ, hZX, hXZ⟩ := exists_prime_scale_near W Z hW
+  set X := W * (q / 8) with hX
+  have hQq : Q₀ ≤ q := by
+    have : Q₀ ≤ Z / W := (Nat.le_div_iff_mul_le hW).2 (by omega)
+    omega
+  refine ⟨q, hq, hQq, by omega, ?_⟩
+  have hZ1 : (1 : ℝ) < Z := by exact_mod_cast (show 1 < Z by omega)
+  have hlogZ : 0 < Real.log Z := log_pos hZ1
+  have hX3 : (X : ℝ) ≤ 3 * Z := by exact_mod_cast (show X ≤ 3 * Z by omega)
+  have hlogX : Real.log Z ≤ Real.log X := log_le_log (by linarith) (by exact_mod_cast hZX)
+  have hcard := card_window_le_card_quarter A hZX hXZ
+  have hcardR : (((Ioc (Z / 2) Z).filter (· ∈ A)).card : ℝ) ≤
+      (((Ioc (X / 4) X).filter (· ∈ A)).card : ℝ) + (W + 1) := by
+    have h2 : ((Ioc (Z / 2) Z).filter (· ∈ A)).card ≤
+        ((Ioc (X / 4) X).filter (· ∈ A)).card + (W + 1) := hcard.trans (by omega)
+    exact_mod_cast h2
+  -- `c₁ Z / log Z ≥ 2 (W + 1)`
+  have hbig : 2 * ((W : ℝ) + 1) ≤ c₁ * Z / Real.log Z := by
+    rw [le_div_iff₀ hlogZ]
+    have := mul_le_mul_of_nonneg_left hZlog (by positivity : (0 : ℝ) ≤ 2 * ((W : ℝ) + 1))
+    rw [← mul_assoc, mul_div_cancel₀ _ (by positivity)] at this
+    linarith
+  have hXZ' : c₁ / 6 * (X : ℝ) / Real.log X ≤ c₁ * Z / Real.log Z / 2 := by
+    rw [div_div, div_le_div_iff₀ (by linarith) (by positivity)]
+    have : c₁ / 6 * (X : ℝ) * (Real.log Z * 2) ≤ c₁ / 6 * (3 * Z) * (Real.log X * 2) := by
+      apply mul_le_mul (by gcongr) (by linarith) (by positivity) (by positivity)
+    nlinarith
+  linarith
 
 end ZInQ.GreenTaoDense
