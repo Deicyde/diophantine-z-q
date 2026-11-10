@@ -197,6 +197,153 @@ theorem card_gaussBad_le {ℓ : ℕ} (hℓ : ℓ.Prime) (hℓ5 : 5 ≤ ℓ) (N w
   push_cast at this
   linarith
 
+/-- The test case `ℓ = 5` of the sieve instance: the Selberg bound and `S ≥ (log w)/10`. -/
+theorem siftedSum_le_five (b : ℤ) (K w : ℕ) (hw : 1 ≤ w) :
+    (gaussSieve 5 b K w hw).siftedSum ≤
+        ((2 * K + 1) * (2 * K + 2) : ℝ) / (gaussSieve 5 b K w hw).selbergBoundingSum +
+          (w : ℝ) ^ 8 * (4 * K + 4) ∧
+      Real.log w / 10 ≤ (gaussSieve 5 b K w hw).selbergBoundingSum :=
+  ⟨siftedSum_le Nat.prime_five, selbergBoundingSum_ge_log Nat.prime_five le_rfl⟩
+
+/-- The real inequality behind Proposition 4.2, with `u = N^{1/40}`. -/
+theorem gaussBad_final_ineq {u ℓ : ℝ} {K w : ℕ} (hu4 : 4 ≤ u) (hlog : 400 * Real.log u ≤ u ^ 2)
+    (hℓ1 : 1 ≤ ℓ) (hℓ : ℓ ^ 4 ≤ u ^ 40) (hK : (K : ℝ) ≤ u ^ 20 / ℓ) (hw1 : (w : ℝ) ≤ u)
+    (hw2 : u - 1 < w) :
+    (w + 1) + 2 * (10 * ((2 * K + 1) * (2 * K + 2) : ℝ) / Real.log w + (w : ℝ) ^ 8 * (4 * K + 4))
+      ≤ 14402 * u ^ 40 / (ℓ ^ 2 * Real.log (u ^ 40)) := by
+  have hu0 : 0 < u := by linarith
+  have hℓ0 : 0 < ℓ := by linarith
+  have hℓ10 : ℓ ≤ u ^ 10 := by
+    rw [show u ^ 40 = (u ^ 10) ^ 4 by ring] at hℓ
+    exact (pow_le_pow_iff_left₀ hℓ0.le (by positivity) (by norm_num)).1 hℓ
+  have hℓ20 : ℓ ^ 2 ≤ u ^ 20 := by
+    calc ℓ ^ 2 ≤ (u ^ 10) ^ 2 := pow_le_pow_left₀ hℓ0.le hℓ10 2
+      _ = u ^ 20 := by ring
+  have hu1 : 1 ≤ u := by linarith
+  have hu10 : u ≤ u ^ 10 := le_self_pow₀ hu1 (by norm_num)
+  set Q := u ^ 20 / ℓ with hQ
+  have hQ10 : u ^ 10 ≤ Q := by
+    rw [hQ, le_div_iff₀ hℓ0]
+    calc u ^ 10 * ℓ ≤ u ^ 10 * u ^ 10 := mul_le_mul_of_nonneg_left hℓ10 (by positivity)
+      _ = u ^ 20 := by ring
+  have hQ4 : 4 ≤ Q := by linarith
+  have hK0 : (0 : ℝ) ≤ K := Nat.cast_nonneg K
+  have hX : ((2 * K + 1) * (2 * K + 2) : ℝ) ≤ 9 * Q ^ 2 := by nlinarith
+  have hE : (4 * K + 4 : ℝ) ≤ 5 * Q := by linarith
+  have hlogu : Real.log 4 ≤ Real.log u := Real.log_le_log (by norm_num) hu4
+  have hlog4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
+  have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
+  have hlu0 : 0 < Real.log u := by linarith
+  have hw0 : (0 : ℝ) < w := by linarith
+  have hlogw : Real.log u / 2 ≤ Real.log w := by
+    have h1 : u / 2 ≤ w := by linarith
+    have h2 : Real.log (u / 2) ≤ Real.log w := Real.log_le_log (by positivity) h1
+    rw [Real.log_div hu0.ne' (by norm_num)] at h2
+    linarith
+  set D := u ^ 40 / (ℓ ^ 2 * Real.log u) with hD
+  have hDpos : 0 < D := by positivity
+  have hL : Real.log (u ^ 40) = 40 * Real.log u := by rw [Real.log_pow]; norm_num
+  have hRHS : 14402 * u ^ 40 / (ℓ ^ 2 * Real.log (u ^ 40)) = (14402 / 40) * D := by
+    rw [hL, hD]; field_simp
+  rw [hRHS]
+  -- main term
+  have ha : 10 * ((2 * K + 1) * (2 * K + 2) : ℝ) / Real.log w ≤ 180 * D := by
+    calc 10 * ((2 * K + 1) * (2 * K + 2) : ℝ) / Real.log w ≤ 10 * (9 * Q ^ 2) / (Real.log u / 2) :=
+          div_le_div₀ (by positivity) (by linarith) (by positivity) hlogw
+      _ = 180 * D := by rw [hQ, hD]; field_simp; ring
+  -- error term
+  have hb : (w : ℝ) ^ 8 * (4 * K + 4) ≤ D / 80 := by
+    have hw8 : (w : ℝ) ^ 8 ≤ u ^ 8 := pow_le_pow_left₀ hw0.le hw1 8
+    have h1 : (w : ℝ) ^ 8 * (4 * K + 4) ≤ u ^ 8 * (5 * Q) :=
+      mul_le_mul hw8 hE (by positivity) (by positivity)
+    refine h1.trans ?_
+    have h2 : 400 * ℓ * u ^ 28 * Real.log u ≤ u ^ 40 := by
+      calc 400 * ℓ * u ^ 28 * Real.log u = ℓ * u ^ 28 * (400 * Real.log u) := by ring
+        _ ≤ u ^ 10 * u ^ 28 * u ^ 2 := by
+          apply mul_le_mul (mul_le_mul_of_nonneg_right hℓ10 (by positivity)) hlog (by positivity)
+            (by positivity)
+        _ = u ^ 40 := by ring
+    rw [hQ, hD, show u ^ 8 * (5 * (u ^ 20 / ℓ)) = 5 * u ^ 28 / ℓ by ring,
+      show u ^ 40 / (ℓ ^ 2 * Real.log u) / 80 = u ^ 40 / (80 * ℓ ^ 2 * Real.log u) by ring,
+      div_le_div_iff₀ (by positivity) (by positivity)]
+    calc 5 * u ^ 28 * (80 * ℓ ^ 2 * Real.log u) = (400 * ℓ * u ^ 28 * Real.log u) * ℓ := by ring
+      _ ≤ u ^ 40 * ℓ := mul_le_mul_of_nonneg_right h2 hℓ0.le
+  -- the primes `≤ w`
+  have hc : (w : ℝ) + 1 ≤ D / 40 := by
+    have h1 : (w : ℝ) + 1 ≤ 2 * u := by linarith
+    refine h1.trans ?_
+    rw [hD, div_div, le_div_iff₀ (by positivity)]
+    have h80 : 80 * Real.log u ≤ u ^ 2 := by linarith
+    have hu23 : u ^ 23 ≤ u ^ 40 := pow_le_pow_right₀ hu1 (by norm_num)
+    calc 2 * u * (ℓ ^ 2 * Real.log u * 40) = u * ℓ ^ 2 * (80 * Real.log u) := by ring
+      _ ≤ u * u ^ 20 * u ^ 2 := by
+        apply mul_le_mul (mul_le_mul_of_nonneg_left hℓ20 hu0.le) h80 (by positivity) (by positivity)
+      _ = u ^ 23 := by ring
+      _ ≤ u ^ 40 := hu23
+  linarith
+
+/-- **Proposition 4.2** for `GaussBad` (constant `A = 14402`, `N₁` not explicit). -/
+theorem uniformGaussBadBound :
+    ∃ A N₁ : ℝ, 0 < A ∧ ∀ N : ℕ, N₁ ≤ N → ∀ ℓ : ℕ, ℓ.Prime → ℓ % 4 = 1 → 5 ≤ ℓ →
+      ((ℓ : ℝ) ^ 4 ≤ N) →
+      (((range (N + 1)).filter (· ∈ GaussBad ℓ)).card : ℝ) ≤ A * N / (ℓ ^ 2 * Real.log N) := by
+  have hev : ∀ᶠ u : ℝ in Filter.atTop, 400 * Real.log u ≤ u ^ 2 := by
+    have h := (isLittleO_log_rpow_atTop (r := 2) (by norm_num)).bound
+      (show (0 : ℝ) < 1 / 400 by norm_num)
+    filter_upwards [h, Filter.eventually_ge_atTop (1 : ℝ)] with u hu hu1
+    rw [Real.norm_of_nonneg (Real.log_nonneg hu1), Real.norm_of_nonneg (by positivity),
+      Real.rpow_two] at hu
+    linarith
+  obtain ⟨U₀, hU₀⟩ := Filter.eventually_atTop.1 hev
+  set M := max U₀ 4
+  refine ⟨14402, M ^ 40, by norm_num, fun N hN ℓ hℓ _ hℓ5 hℓN => ?_⟩
+  have hM4 : 4 ≤ M := le_max_right _ _
+  have hn0 : (0 : ℝ) ≤ N := Nat.cast_nonneg N
+  set u := (N : ℝ) ^ (((40 : ℕ) : ℝ)⁻¹) with hu
+  have hu40 : u ^ 40 = N := Real.rpow_inv_natCast_pow hn0 (by norm_num)
+  have huM : M ≤ u := by
+    have := Real.rpow_le_rpow (by positivity) hN (show (0 : ℝ) ≤ ((40 : ℕ) : ℝ)⁻¹ by positivity)
+    rwa [Real.pow_rpow_inv_natCast (by positivity) (by norm_num)] at this
+  have hu4 : 4 ≤ u := hM4.trans huM
+  have hlog : 400 * Real.log u ≤ u ^ 2 := hU₀ u ((le_max_left _ _).trans huM)
+  set w := ⌊u⌋₊
+  have hw1 : (w : ℝ) ≤ u := Nat.floor_le (by linarith)
+  have hw2 : u - 1 < w := Nat.sub_one_lt_floor u
+  have hw : 2 ≤ w := by
+    have : (2 : ℝ) < w := by linarith
+    exact_mod_cast this.le
+  have hsqrt : √(N : ℝ) = u ^ 20 := by
+    rw [← hu40, show u ^ 40 = (u ^ 20) ^ 2 by ring]
+    exact Real.sqrt_sq (by positivity)
+  have hℓR : (1 : ℝ) ≤ ℓ := by exact_mod_cast hℓ.one_lt.le
+  have hK : ((Nat.sqrt N / ℓ : ℕ) : ℝ) ≤ u ^ 20 / ℓ := by
+    refine Nat.cast_div_le.trans ?_
+    rw [← hsqrt]
+    exact div_le_div_of_nonneg_right Real.nat_sqrt_le_real_sqrt (by positivity)
+  have h1 := card_gaussBad_le hℓ hℓ5 N w hw
+  have h2 := gaussBad_final_ineq hu4 hlog hℓR (by rw [hu40]; exact hℓN) hK hw1 hw2
+  rw [hu40] at h2
+  linarith
+
+/-- **`uniformBadBound`** (pd-paper.md §6.1, file 8): the statement `UniformBadBound`, with
+`BadSet ℓ = {p | p.Prime ∧ InClass p ∧ (ℓ : ℤ) ∣ cp p ∧ ℓ ∣ p + 1}` written out. -/
+theorem uniformBadBound :
+    ∃ A N₁ : ℝ, 0 < A ∧ ∀ N : ℕ, N₁ ≤ N → ∀ ℓ : ℕ, ℓ.Prime → ℓ % 4 = 1 → 5 ≤ ℓ →
+      ((ℓ : ℝ) ^ 4 ≤ N) →
+      (((Finset.range (N + 1)).filter
+          (· ∈ {p : ℕ | p.Prime ∧ InClass p ∧ (ℓ : ℤ) ∣ cp p ∧ ℓ ∣ p + 1})).card : ℝ) ≤
+        A * N / (ℓ ^ 2 * Real.log N) := by
+  obtain ⟨A, N₁, hA, h⟩ := uniformGaussBadBound
+  refine ⟨A, N₁, hA, fun N hN ℓ hℓ h4 h5 hℓN => le_trans ?_ (h N hN ℓ hℓ h4 h5 hℓN)⟩
+  have hsub : (Finset.range (N + 1)).filter
+        (· ∈ {p : ℕ | p.Prime ∧ InClass p ∧ (ℓ : ℤ) ∣ cp p ∧ ℓ ∣ p + 1}) ⊆
+      (range (N + 1)).filter (· ∈ GaussBad ℓ) := by
+    intro p hp
+    simp only [mem_filter, Set.mem_setOf_eq] at hp ⊢
+    exact ⟨hp.1, mem_gaussBad_of_bad hp.2.1 hp.2.2.1 hp.2.2.2.1 hp.2.2.2.2⟩
+  exact_mod_cast card_le_card hsub
+
 end
 
 end ZInQ.Density

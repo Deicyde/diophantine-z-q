@@ -44,3 +44,9 @@ The files `ZInQKernel/Sieve/AuxResults.lean`, `ZInQKernel/Sieve/Basic.lean`,
 Change made: only the `import PrimeNumberTheoremAnd.Mathlib.NumberTheory.Sieve.X` lines were replaced by
 `import ZInQKernel.Sieve.X`. No other line was modified. The module `ZInQKernel/SieveVendor.lean`
 (original to this project) imports the four files.
+
+Adapted lemma: `ZInQ.Density.GaussSieve.prod_factors_sum_pow_mult` in
+`ZInQKernel/Density/GaussSieve/SelbergSum.lean` is a copy of `Sieve.prod_factors_sum_pow_compMult` from
+the same upstream file `SelbergBounds.lean` (same tag, commit and license). Change made: the name, and
+the hypothesis "completely multiplicative" is weakened to "multiplicative" (one line of the proof,
+`hf.isMultiplicative.map_prod`, becomes `hf.map_prod`). The file header records the origin.
