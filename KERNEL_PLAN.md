@@ -194,6 +194,7 @@ scripts; they are not inputs to the proof.
 | `ZInQKernel/Hypotheses/` | The explicit hypotheses, and the statement of MW (now proved) |
 | `blueprint/` | The Autoform blueprint: the informal dependency graph and its Lean status |
 | `scripts/check_target.py` | Identity check between `FrozenTarget` and the frozen upstream statement |
+| `scripts/print_axioms.lean` | `#print axioms` for the main theorems, their variants and the theorems that replace former hypotheses |
 
 ## Build
 
@@ -201,6 +202,7 @@ scripts; they are not inputs to the proof.
 lake exe cache get
 lake build
 python3 scripts/check_target.py
+lake env lean scripts/print_axioms.lean
 ```
 
 The `autoform verify` workflow builds the project, validates the blueprint and audits
