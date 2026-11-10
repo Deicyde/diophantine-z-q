@@ -232,4 +232,9 @@ theorem goodPrimeDensity_of_uniformBadBound (h : UniformBadBound) : GoodPrimeDen
   rw [e1]
   nlinarith
 
+/-- **22P_AP from Green–Tao and the uniform bad-prime bound.** -/
+theorem goodPrimeAP_of_greenTaoDense_uniformBadBound (hGT : GreenTaoDense)
+    (hU : UniformBadBound) : GoodPrimeAP :=
+  goodPrimeAP_of_greenTaoDense hGT (goodPrimeDensity_of_uniformBadBound hU)
+
 end ZInQ.Density
