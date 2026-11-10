@@ -1,0 +1,9 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+n = 26565: ellrank bounds 3..3; points [('-8349', '2304324'), ('-644', '673946'), ('148764', '56455938')]
+  exact: all points on C_n; Kummer span of T1, T2 and 3 points has dim 5 => rank >= 3
+  height-pairing determinant (numerical) = 39.4026
+  root number = -1, analytic rank (numerical) = 3
+n = 33117: ellrank bounds 3..3; points [('53067', '9552060'), ('-1120791/100', '3299122323/1000'), ('917301/25', '378261576/125')]
+  exact: all points on C_n; Kummer span of T1, T2 and 3 points has dim 5 => rank >= 3
+  height-pairing determinant (numerical) = 269.7036
+  root number = -1, analytic rank (numerical) = 3
