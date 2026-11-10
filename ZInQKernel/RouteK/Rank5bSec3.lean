@@ -14,6 +14,7 @@ import ZInQKernel.RouteK.Rank5b.Sec3.Thm36
 import ZInQKernel.RouteK.Rank5b.Sec3.TYZ
 import ZInQKernel.RouteK.Rank5b.Sec3.Props
 import ZInQKernel.RouteK.Rank5b.Sec3.Prop34
+import ZInQKernel.RouteK.Rank5b.Sec3.Check
 
 /-!
 # Route K, row 5b, §§2–3 of tyz-5b (root module)
