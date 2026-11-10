@@ -74,11 +74,23 @@ completeness proof that leaves the polynomial unchanged (`docs/research/nt-22p.m
 Proposition AP, checked by three model referee runs and a Lean-statement audit:
 `docs/research/rv-nt22p-*.md`, `aud-ap.md`). That variant is
 `exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP`. 22P_AP follows from
-Szemerédi's theorem in the primes (`ZInQ.GreenTaoDense`: Green–Tao 2008, Theorem 1.2, with a
-complete proof by Tao–Ziegler 2008) and the positive relative density of the good slope primes
-(`ZInQ.GoodPrimeDensity`: Proposition D of nt-22p §2, so far a sketch on paper), giving
+Szemerédi's theorem in the primes (`ZInQ.GreenTaoDense`: Green–Tao 2008, Theorem 1.2) and the
+positive relative density of the good slope primes (`ZInQ.GoodPrimeDensity`: Proposition D of
+nt-22p §2, proved on paper in `docs/research/pd-paper.md` and checked by a model referee run,
+`docs/research/rv-pd-paper.md`; its Lean proof is in progress under `ZInQKernel/Density/`), giving
 `exists_bounded_integer_polynomial_defining_integers_of_greenTaoDense` and, with CR₃^Sel as well,
 `exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_greenTaoDense`.
+
+Szemerédi's theorem in the primes is proved in Lean. Vasily Ilin's Lean proof of the Green–Tao
+theorem for the set of all primes is vendored in `ThirdParty/GreenTao/` under the Apache License 2.0
+and ported to this Lean and Mathlib (`ThirdParty/GreenTao/NOTICE.md` lists the changes).
+`ZInQ.greenTaoDense` (`ZInQKernel/External/GreenTaoDense/`) extends that proof to every set of
+primes of positive relative upper density, following `docs/research/gt-dense.md`.
+`ZInQKernel/MainGreenTao.lean` discharges the hypothesis with it:
+`exists_bounded_integer_polynomial_defining_integers_of_goodPrimeDensity` assumes 6C_min, CR₃ and
+GoodPrimeDensity, and `exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_goodPrimeDensity`
+assumes 6C_min, CR₃^Sel and GoodPrimeDensity. `ZInQKernel/Main.lean`, and with it the main theorem,
+does not import the vendored library.
 
 `scripts/check_target.py` checks that `FrozenTarget` is upstream's frozen statement token
 for token. Removing another hypothesis means formalizing its source theorem or finding a
