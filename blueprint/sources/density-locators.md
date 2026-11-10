@@ -60,6 +60,6 @@ The Selberg sieve bound is the theorem `selberg_bound_simple` of the PrimeNumber
 (https://github.com/AlexKontorovich/PrimeNumberTheoremAnd, files
 `Mathlib/NumberTheory/Sieve/{AuxResults,Basic,Selberg,SelbergBounds}.lean`, tag `v4.35.0`, by
 Arend Mellendijk), built on Mathlib's `BoundingSieve` and `SelbergSieve` structures. It is vendored
-in this repository under the Apache License 2.0 with only its import lines changed; the repository's
-`THIRD_PARTY_NOTICES.md` records the commit and the license. For the mathematics see
+in this repository under the Apache License 2.0 with only its import lines changed; the license is
+`ZInQKernel/Sieve/LICENSE`. For the mathematics see
 H. Halberstam and H.-E. Richert, *Sieve Methods*, Academic Press, 1974, Chapter 3.

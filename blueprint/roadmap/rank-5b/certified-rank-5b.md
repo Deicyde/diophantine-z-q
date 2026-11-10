@@ -22,10 +22,12 @@ rests on the following, none of which is formalized:
   $\det M_{5b}$ equals the genus sum
   $T_{5b}(n)=\sum_{d_0\equiv7,\,d_1\equiv3\,(8)}g(d_0)g(d_1)\mathcal L(n/d_0d_1)$ modulo $2$, where
   $g(d)$ is the parity of $\#2\mathrm{Cl}(\mathbb Q(\sqrt{-d}))$.
-- *Tian–Yuan–Zhang*, the proof of their Theorem 3.5(2) (§3.3): if $T_{5b}(n)$ is odd, then
+- *Tian–Yuan–Zhang*, Theorem 3.5 and the argument of the proof of their Theorem 3.5(2) (§3.3), as
+  completed in nt-tyz §4 (Proposition N): if $T_{5b}(n)$ is odd, then
   $2^{-\rho(n)}\mathcal L(n)$ is odd, so $L(C_n,s)$ vanishes to order exactly one at $s=1$ (the root
-  number is $-1$ for $n\equiv5\pmod8$). The form used is the one their proof establishes; their
-  statement groups this sum with another (tyz-5b §1.2).
+  number is $-1$ for $n\equiv5\pmod8$). The form used is the one their proof gives; it rests on
+  their Proposition 3.4, whose proof is a sketch, and nt-tyz §4 proves it directly. Their statement
+  groups this sum with another (tyz-5b §1.2).
 - *Gross–Zagier and Kolyvagin*: then $\operatorname{rank}C_n(\mathbb Q)=1$.
 - Then $\dim C_n(\mathbb Q)/2C_n(\mathbb Q)=2+1=3=\dim\mathrm{Sel}_2(C_n)$, so the Kummer map is onto
   $\mathrm{Sel}_2(C_n)$ and every Selmer class comes from a rational point.

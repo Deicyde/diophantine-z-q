@@ -18,8 +18,8 @@ to computation:
 | Input | Deep dependency |
 | --- | --- |
 | H (Theorem 4.1) | in Version 14 ([docs/research/h-v14.md](docs/research/h-v14.md) §3.3): the canonical model of the discriminant-six Shimura curve (Deligne, Buzzard, Baba–Granath, Lin–Yang); modularity at five (Calegari's survey statement of Pan's theorem, with Faltings' Tate theorem, Scholze's de Rham comparison and a Deligne–Serre/Kato twist argument); Carayol's local–global compatibility; the isogeny estimate of Gaudron–Rémond and Arakelov bounds; Igusa's theta identities; five unpublished upstream proof supplements; effective CM heights (probably avoidable: [docs/research/h-cm.md](docs/research/h-cm.md) argues that for rational `u` the fibre has no CM, and one model review, [docs/research/rv-h-cm.md](docs/research/rv-h-cm.md), found the argument correct after repairs) |
-| PC (Theorem 5.2) | the restricted converse (Theorem 5.3): Kato, Waldspurger, Bump–Friedberg–Hoffstein, Nekovář, Gross–Zagier–Kolyvagin, BCDT. Under Route K (pole polynomial with the congruent number curves `x + ℓ`), PC is **proved** from the narrow hypothesis CR₃ (`ZInQ.poleCompleteness_of_certifiedRank`): Kriz's 2-converse with the corank lemma, or Tian–Yuan–Zhang with Gross–Zagier–Kolyvagin, for curves `C_d`, `d ≡ 5 (mod 8)`, with a 3-dimensional explicit 2-Selmer system |
-| 22P (Proposition 6.2), used by M | Green–Tao linear equations in primes, Möbius–nilsequences, Green–Tao–Ziegler. **Replaced** by route AP, whose input is proved in Lean: Szemerédi's theorem in the primes (`ZInQ.greenTaoDense`, from a vendored Green–Tao proof) and Proposition D (`ZInQ.Density.goodPrimeDensity`) |
+| PC (Theorem 5.2) | the restricted converse (Theorem 5.3): Kato, Waldspurger, Bump–Friedberg–Hoffstein, Nekovář, Gross–Zagier–Kolyvagin, BCDT. Under Route K (pole polynomial with the congruent number curves `x + ℓ`), PC is **proved** from the narrow hypothesis CR₃ (`ZInQ.poleCompleteness_of_certifiedRank`): Kriz's 2-converse with the corank lemma, or Tian–Yuan–Zhang with Gross–Zagier–Kolyvagin (of which only Gross–Zagier is needed, [docs/research/pc-audit.md](docs/research/pc-audit.md) RK7), for curves `C_d`, `d ≡ 5 (mod 8)`, with a 3-dimensional explicit 2-Selmer system |
+| 22P (Proposition 6.2), used by M | Green–Tao linear equations in primes, Möbius–nilsequences, Green–Tao–Ziegler. **Replaced** by route AP, whose input is proved in Lean: Szemerédi's theorem in the primes (`ZInQ.greenTaoDense`, from a vendored Green–Tao proof) and the weak form of Proposition D (`ZInQ.Density.goodPrimeDensity`) |
 | CAT (a step in the proof of Proposition 12.1), used by B | the explicit progression estimate of Bennett–Martin–O'Bryant–Rechnitzer; the weaker form CAT₈ that the proof needs is **proved** (`ZInQ.catalogueBound8`, from an effective Dirichlet theorem) |
 | MW, used by G | the Mordell–Weil theorem over `ℚ(√2)`: **proved** (`ZInQ.mordellWeilE`, from the two-isogeny descent and Mathlib's descent theorem) |
 
@@ -45,7 +45,9 @@ theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMi
     (hH : SixContactMin) (hCR : CertifiedRank) : FrozenTarget
 ```
 
-in `ZInQKernel/MainGreenTao.lean`, the only module that imports the vendored Green–Tao library.
+in `ZInQKernel/MainGreenTao.lean`. Apart from the root module `ZInQKernel.lean`, which imports everything,
+it is the only module that combines the vendored Green–Tao library or the vendored sieve with the
+main construction.
 
 H enters in its minimal form `SixContactMin` (`ZInQKernel/Hypotheses/HeightMin.lean`): the one
 inequality `h(u) ≤ H₆(D) M_{S_mul}(u)²⁴` for `u ∈ ℚ \ 𝒞` that the proof uses, the instance
@@ -63,7 +65,9 @@ built from Legendre symbols only) has exactly 8 solutions, one of them with firs
 class of `a`, then `C_d : y² = x³ − d²x` has a rational point with `x ≠ 0` and `x ∈ aℚ*²`. It follows
 from Proposition 0 (the system is `Sel₂(C_d)`, `docs/research/descent-alt.md` §4.1) with either
 Kriz's 2-converse (arXiv:2002.04767, Theorem 10.13) and the corank lemma (Poonen–Stoll), or
-Tian–Yuan–Zhang (Theorem 3.5(2)) and Gross–Zagier–Kolyvagin (`docs/research/tyz-5b.md`). PC is then
+Tian–Yuan–Zhang (Theorem 3.5 and the argument of the proof of Theorem 3.5(2), §3.3, as completed in
+`docs/research/nt-tyz.md` §4) and Gross–Zagier–Kolyvagin (`docs/research/tyz-5b.md`; only Gross–Zagier
+is needed, `docs/research/pc-audit.md` RK7). PC is then
 a theorem (`ZInQ.poleCompleteness_of_certifiedRank`): the descent lemma DL
 (`ZInQ.RouteK.descent_lemma`, `docs/research/slot-k.md` §2, proved in `ZInQKernel/RouteK/`) gives,
 for every admissible input `B`, a multiplier `m` and two curves `C_{|n|}`, `C_{|nθ|}` certified for
@@ -80,24 +84,27 @@ contains a class with `|a| ≡ 7 (mod 8)`, then every Selmer class comes from a 
 main theorem with CR₃^Sel. Next, 22P can be replaced by 22P_AP (`ZInQ.GoodPrimeAP`: the good slope
 primes above `max S_b` contain arithmetic progressions of every length), through a change in the
 completeness proof that leaves the polynomial unchanged (`docs/research/nt-22p.md` §3, Lemma P and
-Proposition AP, checked by three model referee runs and a Lean-statement audit:
+Proposition AP, checked by three model reviews and a model audit of the Lean statements:
 `docs/research/rv-nt22p-*.md`, `aud-ap.md`). That variant is
 `exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP`. 22P_AP follows from
-Szemerédi's theorem in the primes (`ZInQ.GreenTaoDense`: Green–Tao 2008, Theorem 1.2) and the
-positive relative density of the good slope primes (`ZInQ.GoodPrimeDensity`: Proposition D of
-nt-22p §2, proved on paper in `docs/research/pd-paper.md` and checked by a model referee run,
-`docs/research/rv-pd-paper.md`), giving
+Szemerédi's theorem in the primes (`ZInQ.GreenTaoDense`: Green–Tao 2008, Theorem 1.2, proved there
+only in outline; Tao–Ziegler, Acta Math. 201 (2008), give a complete proof) and the
+positive relative upper density of the good slope primes (`ZInQ.GoodPrimeDensity`: the weak form of
+Proposition D of nt-22p §2, proved on paper in `docs/research/pd-paper.md` and checked by a model
+review, `docs/research/rv-pd-paper.md`), giving
 `exists_bounded_integer_polynomial_defining_integers_of_greenTaoDense` and, with CR₃^Sel as well,
 `exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_greenTaoDense`.
 
-Szemerédi's theorem in the primes is proved in Lean. Vasily Ilin's Lean proof of the Green–Tao
-theorem for the set of all primes is vendored in `ThirdParty/GreenTao/` under the Apache License 2.0
-and ported to this Lean and Mathlib (`ThirdParty/GreenTao/NOTICE.md` lists the changes).
+Szemerédi's theorem in the primes is proved in Lean. The Lean proof of the Green–Tao theorem for the
+set of all primes that Vasily Ilin produced with GPT-5.6 Sol in Codex, as a lean-eval benchmark
+submission, is vendored in `ThirdParty/GreenTao/` under the Apache License 2.0 and ported to this
+Lean and Mathlib (`ThirdParty/GreenTao/NOTICE.md` lists the changes).
 `ZInQ.greenTaoDense` (`ZInQKernel/External/GreenTaoDense/`) extends that proof to every set of
 primes of positive relative upper density, following `docs/research/gt-dense.md`.
-Proposition D is proved in Lean as well: `ZInQ.Density.goodPrimeDensity` (`ZInQKernel/Density/`)
-follows `pd-paper.md`, with the Selberg sieve of PrimeNumberTheoremAnd vendored unchanged under the
-Apache License 2.0 in `ZInQKernel/Sieve/`. `ZInQKernel/MainGreenTao.lean` discharges both statements:
+The weak form of Proposition D is proved in Lean as well: `ZInQ.Density.goodPrimeDensity`
+(`ZInQKernel/Density/`) follows `pd-paper.md`, with Arend Mellendijk's Selberg sieve from
+PrimeNumberTheoremAnd vendored, unchanged except its import lines, under the Apache License 2.0 in
+`ZInQKernel/Sieve/`. `ZInQKernel/MainGreenTao.lean` discharges both statements:
 `exists_bounded_integer_polynomial_defining_integers_of_goodPrimeDensity` assumes 6C_min, CR₃ and
 GoodPrimeDensity, `exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_goodPrimeDensity`
 assumes 6C_min, CR₃^Sel and GoodPrimeDensity, and
@@ -111,9 +118,9 @@ On the CR₃ side, Theorem 4.3 of `docs/research/tyz-5b.md` is proved in Lean
 determinant of Smith's matrix `M_5b` is the parity of the number of primes `≡ 3 (mod 4)` dividing
 the first coordinate of a non-torsion Selmer class. So CR₃^Sel follows from `CertifiedRank5b` (if `Sel₂(C_d)` has 8 elements
 and `det M_5b = 1`, every Selmer class comes from a rational point;
-`ZInQ.RouteK.Rank5b.certifiedRankSel_of_certifiedRank5b`). `CertifiedRank5b` is logically stronger
-than CR₃^Sel, but it is stated in the terms of Smith's table, the step toward Tian–Yuan–Zhang's own
-statement (`tyz-5b.md` §3).
+`ZInQ.RouteK.Rank5b.certifiedRankSel_of_certifiedRank5b`). `CertifiedRank5b` implies CR₃^Sel, so as a
+hypothesis it is at least as strong, but it is stated in the terms of Smith's table, the step toward
+Tian–Yuan–Zhang's own statement (`tyz-5b.md` §3).
 
 `scripts/check_target.py` checks that `FrozenTarget` is upstream's frozen statement token
 for token. Removing another hypothesis means formalizing its source theorem or finding a
