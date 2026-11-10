@@ -8,3 +8,8 @@
 - Quartic route (V9-V14): five-contact height (hyp:o8-height, thm:quartic-height19; Shimura disc 210), seven-witness
   pole Psi(b) from RC (x+3l curves), Sun-type simultaneous Gaussian primes (thm:v5-simultaneous-primes). No weaker input.
 - openai/math pointwise 2-converse preprint: Go proxy times out (commit ts 20261030003535); not on arXiv. UNCHECKED.
+- checks.py: quartic curve/point = main E,P0 under (eps^4 x, eps^6 y), eps=1+s; V14 norms and Q=0 roots verified.
+- Height in quartic route: hyp:o8-height (L6854) and thm:quartic-height19 (L8922); H19 uses X_H (nebentypus kernel),
+  GR2023 Thm 1.9(1) (not on arXiv), vonKaenel2021, Mascot; Thm 4.1 uses J_1(N), GR2014 Thm 1.4.
+- Recommendation decided: GPD/GTD stay first (in flight); next new attack = CertifiedRankSel elementary bridge
+  (tyz-5b Sec 4 Lemma 4.1 + Thm 4.3 in Lean, now that Prop 0 is in Lean). Writing docs/research/v14-routes.md.
