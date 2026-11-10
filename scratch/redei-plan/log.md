@@ -7,3 +7,4 @@
 - 07:55 lake build ZInQKernel.RouteK.Rank5b.Sec3.TYZ
 - 07:59 Probe.lean compiles (statements, sorry); instances Field/CharZero/FiniteDimensional/NumberField/IsGalois/Fintype ClassGroup all inferred for QNeg n
 - 08:01 probe: proved card_gal, isIntegral_omega, algNorm_eq, norm_nonneg, odd_card_range_sq_iff, fundamental_identity, exists_conj_eq; plumbing T5bCl_eq_T5b, certifiedRankTYZ_iff (modulo gCl_eq_gBit). Next: write docs/research/redei-plan.md and report.
+- 08:04 wrote docs/research/redei-plan.md and .fleet/redei-plan.md; done
