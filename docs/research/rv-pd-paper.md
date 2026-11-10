@@ -88,3 +88,97 @@ and this set equals "class and `gcd(c_p, p + 1) = 1`". Every odd prime dividing 
 | Prop. 5.3 | CORRECT | Contradiction with `liminf ≥ η > κ`. Mathlib `Chebyshev.eventually_primeCounting_le` is stated for `π ⌊x⌋₊` with real `x`, which specialises to natural `N`. The resulting `c = κ/(log 4 + ε)` can be taken arbitrarily close to `η/log 4`. |
 | Theorem D | CORRECT | `T_L ∩ [1, N] ⊆ ⋃_{ℓ > L} Bad_ℓ ∩ [1, N]`. Prop. 4.2 is used for `L < ℓ ≤ N^{1/4}`, `N ≥ N₁`, and Prop. 4.1 above `N^{1/4}`. `liminf(A − B) ≥ liminf A − limsup B`. `3/(8L)` against `5.545A₁/(L log L)` gives the condition `log L > 14.79A₁`. |
 | Remark 5.4 and the remarks after Theorem D | UNCHECKED | Not used. |
+
+## 2. Findings
+
+No finding affects the proof of Theorem D or of Proposition 5.3. Severity scale: *major* (the proof
+fails), *medium* (a repair is needed before formalising), *minor* (a statement, reference or remark to
+correct), *cosmetic*.
+
+**F1 (minor; Lean plan §6.1).** `sum_quadraticChar_shift_mul` is stated without `p ≠ 2`, and it is false
+for `p = 2`. In `ZMod 2` with `{α, β} = {0, 1}`, the product `(t + α)(t + β) = t(t + 1)` vanishes for both
+`t`, so the sum is `0`, not `−1`. Lemma 1.3 in the text assumes `p` odd, so only the Lean statement is
+affected. *Repair:* add `(hp2 : p ≠ 2)`, as `pointCount_eq` already has. `jacobsthal` and
+`four_dvd_pointCount` are safe, because `p % 4 = 1` excludes `p = 2`.
+
+**F2 (minor; §6.1 file 7, §7 Route 2, §8 question 1, references).** The note says PrimeNumberTheoremAnd
+has only a `v4.34.0` tag and plans to port 1536 lines to Lean 4.35. In fact PrimeNumberTheoremAnd has a
+tag `v4.35.0` (commit `127b50e3`). Its `lake-manifest.json` pins Mathlib `56a005855ea1`, which is exactly
+our revision, and its toolchain is `v4.35.0`. I compiled `Sieve/AuxResults.lean`, `Sieve/Basic.lean` and
+`Sieve/Selberg.lean` from that tag, unmodified, against our Mathlib. They import only Mathlib, Batteries
+and each other. `#print axioms SelbergSieve.selberg_bound_simple` reports
+`[propext, Classical.choice, Quot.sound]`. *Repair:* replace "port" by "vendor unchanged" (keeping the
+Apache-2.0 headers) and answer open question 1. The Route 2 obstacle "pinned to `v4.34.0`" disappears.
+`SelbergBounds.lean` is not needed for `selberg_bound_simple`, so file 7 needs 1007 lines, not 1536.
+
+**F3 (minor; §0, §6.1, final link).** The note states the target as `GTSearch.PrimesRelUpperDensityPos`
+and closes with `progressions_above_of_greenTaoDense` from a scratch file of another branch. On `main`,
+`ZInQKernel/Hypotheses/GreenTao.lean` now defines `ZInQ.PrimesRelUpperDensityPos` (the same definition)
+and `ZInQ.GoodPrimeDensity := PrimesRelUpperDensityPos {p | GoodSlopePrime p}`. It already proves
+`goodPrimeAP_of_greenTaoDense : GreenTaoDense → GoodPrimeDensity → GoodPrimeAP`. *Repair:* state the
+final theorem as `ZInQ.goodPrimeDensity : ZInQ.GoodPrimeDensity` and drop the scratch link.
+
+**F4 (minor; §4.6, not used).** "Brun's pure sieve reaches only `z = (log N)^{O(1)}` and saves
+`1/log log N`" understates it. The pure sieve gives an asymptotic for `z` up to
+`exp(c log N/log log N)`, and saves a factor `≍ log log N/log N` for this sifting problem of dimension 1.
+The conclusion still holds. The resulting per-`ℓ` bound `≪ N log log N/(ℓ² log N)` sums to
+`≍ π(N)·log log N/(L log L)`, which is not `O(π(N)/L)` uniformly in `N`. *Repair:* restate the
+parameters. The conclusion needs no change.
+
+**F5 (cosmetic; Lemma 3.1, Lean form).** `summable_residueClass_non_primes_div` is the summability at
+exponent `1`, of `n ↦ (if n.Prime then 0 else residueClass a n)/n`. Lemma 3.1 needs the prime-power part
+at exponent `x ∈ (1, 2]`, bounded uniformly in `x`. In Lean this takes a comparison `n^{−x} ≤ n^{−1}` and
+`tsum_le_tsum`. The note's phrase "gives its finiteness, class by class" hides this step. Alternatively,
+bound the prime-power part directly by `K₀`, which is uniform in `x` and in the class.
+
+**F6 (cosmetic).** In §4.4 the path should read
+`PrimeNumberTheoremAnd/Mathlib/NumberTheory/Sieve/Selberg.lean:435`. That line number is also correct in
+`v4.35.0`. The note marks Summary items 2–4 VERIFIED. I confirm them independently (§1 above). The
+labels themselves were not relied on.
+
+## 3. Lean checks made for this report
+
+- *Sieve theorem.* As in F2: the three files compile against the pinned Mathlib, and `#check` gives the
+  statement quoted in §1 above, with standard axioms only.
+- *Instance of the §4.3 data.* I built a `SelbergSieve` with the following data:
+  - `support = F(ℬ)` with `F(U, V) = ((ℓU)² + (b + ℓV)²).toNat` on the box
+    `[−⌊T/ℓ⌋, ⌊T/ℓ⌋] × {V : |b + ℓV| ≤ T}`, where `T = Nat.sqrt N`;
+  - `weights n = #{x ∈ ℬ : F x = n}` and `totalMass = M₁M₂`;
+  - `prodPrimes = ∏{q ≤ w : q prime, q % 4 = 1, q ≠ ℓ}`;
+  - `nu = prodPrimeFactors (q ↦ (2q − 1)/q²)` and `level = w²`.
+
+  Every field is proved: squarefreeness through `Finset.squarefree_prod_of_pairwise_isCoprime`,
+  multiplicativity through `IsMultiplicative.prodPrimeFactors`, and `0 < ν(q) < 1`. The instance depends
+  on `[propext, Classical.choice, Quot.sound]`, and `selberg_bound_simple` applies to it with no further
+  hypothesis.
+
+## 4. Suggestions for the formalisation
+
+1. **Natural versus real parameters.** The instance above uses a natural `w`. If the formalisation takes
+   `w = ⌊N^{1/40}⌋₊`, then `log w ≥ log N/40 − log 2`, and the inequality `S ≥ log N/1600` needs
+   `log N ≥ 2370` instead of `1920`. Either raise `N₁` to `e^{2400}`, or filter the primes of `P` by
+   `(q : ℝ) ≤ N^{1/40}` and keep `level = N^{1/20}` real (the structure allows a real level). With
+   `T = Nat.sqrt N` instead of `√N`, the box still contains every `(c_p/ℓ, (e_p − b)/ℓ)`, and
+   `M₁, M₂ ≤ 2T/ℓ + 1` still holds. The error-term inequality `T/ℓ ≥ max(2, y)` has ample slack.
+2. **Lemma 4.4 in Lean.** Prove the count for an arbitrary interval of integers and an arbitrary residue
+   set `Ω ⊆ (ℤ/d)²`: `|#{x ∈ I₁ × I₂ : x mod d ∈ Ω} − |Ω|M₁M₂/d²| ≤ |Ω|((M₁ + M₂)/d + 1)`. Then apply it
+   with `|Ω| = ρ(d)`, using CRT and Lemma 4.3. This keeps the box-geometry separate from the arithmetic.
+3. **Keep `UniformBadBound` as the milestone** (§6.2). It isolates file 8 cleanly, and the reduction
+   `goodPrimeDensity_of_uniformBadBound` uses only Propositions 1.6 and 4.1, Lemmas 3.1, 5.1 and 5.2, and
+   Proposition 5.3. All of them are checked above.
+4. The constants have large slack. The data give `#Bad_ℓ·ℓ² log N/N ≤ 0.42` at `N = 2·10⁶` (`ℓ = 5`)
+   against `A₁ = 16003`. So any loss from the natural-number conventions can be absorbed by enlarging
+   `N₁` and `A₁`, without touching the structure of the proof.
+
+## 5. Computations
+
+All scripts are my own implementations and do not import the note's scripts.
+
+- Description of §1: literal point counts against the character-sum description, for all 403 class
+  primes `p < 3·10⁴` and both roots `r`, and literal `GoodSlopePrime` against the prediction for every
+  odd prime `p < 3·10⁴`. No mismatch.
+- Section 4: local densities `ρ(q)`; remainders on real boxes; Claims A and B; the exact Selberg sum
+  `S` against Lemma 4.5; Lemma 5.1; `K₀`; and the counts `#Bad_ℓ` at `N = 2·10⁶`, which agree with
+  `2|C|/(ℓ − 1)²` (for example `2331` against `2328` at `ℓ = 5`). The count of class primes bad at some
+  `ℓ > N^{1/4}` is `79`, against the bound `20N^{3/4} ≈ 1.06·10⁶`. Every inequality held, with the margins
+  quoted in §1.
