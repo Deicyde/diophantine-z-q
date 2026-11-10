@@ -1,11 +1,13 @@
 import ZInQKernel.Hypotheses.GreenTao
 import ZInQKernel.External.GreenTaoDense.Window
+import ZInQKernel.External.GreenTaoDense.Assembly
 
 /-!
 # Green–Tao, dense form: root module
 
 Root module of task `gt-dense` (plan: `docs/research/gt-dense.md`). Step 1: the window lemma for
-`ZInQ.PrimesRelUpperDensityPos`.
+`ZInQ.PrimesRelUpperDensityPos`. Steps 2–6 (`SetWeight`, `PrimeModulusTransference`, `Assembly`)
+and the bridge `ZInQ.greenTaoDense : ZInQ.GreenTaoDense`.
 -/
 
 namespace ZInQ.GreenTaoDense
@@ -21,5 +23,13 @@ theorem frequently_window {A : Set ℕ} (h : ZInQ.PrimesRelUpperDensityPos A) :
   obtain ⟨c, hc, hfreq⟩ := h
   exact ⟨c * Real.log 2 / 24, by have := Real.log_pos one_lt_two; positivity,
     frequently_window_of hc hfreq⟩
+
+/-- **Green–Tao, dense form** (`ZInQ.GreenTaoDense`), from the vendored proof of Green–Tao. -/
+theorem _root_.ZInQ.greenTaoDense : ZInQ.GreenTaoDense := by
+  intro A hA hd k
+  obtain ⟨c₁, hc₁, hwin⟩ := frequently_window hd
+  obtain ⟨a, d, hd0, h⟩ :=
+    containsAP_of_frequently_window hasPrimeModulusSubweightCounts hA hc₁ hwin k
+  exact ⟨a, d, hd0, h⟩
 
 end ZInQ.GreenTaoDense
