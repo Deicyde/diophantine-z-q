@@ -50,3 +50,17 @@
 - Minor Lean-plan issues: sum_quadraticChar_shift_mul as stated is false for p=2 (needs p != 2);
   target now ZInQ.GoodPrimeDensity in GreenTao.lean on main (note still points at scratch gt-search link);
   PNT tag v4.35.0 pins our Mathlib, so file 7 is vendoring not porting.
+
+## Step 4 (PNT sieve compiled against our Mathlib; Mathlib names; sections 1, 6-8 reread)
+- Copied PNT v4.35.0 Sieve/{AuxResults,Basic,Selberg}.lean unmodified to scratch/rv-pd-paper/pntsieve/src,
+  compiled one at a time with lake env lean -o against Mathlib 56a00585 (load 4, 112 GB free): all compile.
+  Check.lean: #check selberg_bound_simple = statement in note; #print axioms -> [propext, Classical.choice,
+  Quot.sound]. So Lean-plan file 7 is vendoring, no port; note's open question 1 answered (tag v4.35.0 exists).
+- Section 1 reread line by line: Lemmas 1.1-1.5, Prop 1.6 CORRECT (g(tau x) = (D/x)^4 g(x) recomputed).
+- Mathlib names: Equiv.Perm.card_fixedPoints_modEq (Function.End, f^(p^n)=1), exists_sq_eq_prime_iff_of_mod_four_eq_one
+  (IsSquare (q:ZMod p) <-> IsSquare (p:ZMod q)), quadraticChar_card_sqrts, exists_sq_eq_two_iff, exists_sq_eq_neg_one_iff,
+  summable_residueClass_non_primes_div (exponent 1; Lean needs comparison for x>1): all exist as cited.
+- Sec 4.6 (not used in the proof): Brun pure sieve reach misstated (z up to exp(c log N/loglog N), saving
+  loglog N/log N); conclusion "insufficient" still holds (alpha would grow like loglog N).
+- PNT selbergBoundingSum_ge_sum_div indeed assumes CompletelyMultiplicative nu and every prime <= level in P (6.3 CORRECT).
+- Verdict forming: proved as written; only minor/editorial findings.
