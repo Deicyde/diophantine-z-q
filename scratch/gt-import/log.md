@@ -35,3 +35,10 @@ Build outputs kept in scratch/gt-import/build*.txt.
   Hypergraph/AdaptiveCoarseTargetRegularity (1), Hypergraph/GrowthFunctionComplexRegularity (2),
   Hypergraph/SourceFullCoarseTargetRegularity (2).
 - `lake build GreenTaoVendor`: Build completed successfully (9278 jobs).
+
+## Steps 3–5
+- NOTICE.md written; THIRD_PARTY_NOTICES.md: appended section "Vendored Lean code".
+- ZInQKernel/External/GreenTaoPrimes.lean: `ZInQ.greenTao_primes := Submission.green_tao` (definitions agree by unfolding).
+- `lake build ZInQKernel`: success (9841 jobs, 4m54s wall incl. rebuilding dependents).
+- `#print axioms Submission.green_tao` and `ZInQ.greenTao_primes`: [propext, Classical.choice, Quot.sound].
+- Vendored code contains no sorry/axiom/native_decide/implemented_by/extern/set_option.
