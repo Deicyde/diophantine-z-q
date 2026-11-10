@@ -121,3 +121,32 @@ Started 2026-11-09. Task: find Lean formalizations of Green-Tao / relative Szeme
   Humanize attempt, 15370 lines, Lean v4.32.0-rc1, Mathlib 360da6fa. Submission.lean:
   `by_cases hk : k ≤ 27; · exact Lucas.primeAP_of_le_twenty_seven k hk; · sorry` -> INCOMPLETE
   (pre-acceptance snapshot). License: "UNLICENSED © Zijian Zhang". VERIFIED (downloaded).
+- humanfia snapshot green_tao: components are conditional reductions specialised to the primes
+  (`prime_progression_of_uniform_dense_model`, `prime_progression_of_selberg_apDual_pseudorandom`,
+  `contains_of_wTrickedPrimes`, ...); no general relative Szemerédi theorem; the final step is `sorry`.
+  Not built (incomplete, unlicensed, needs Mathlib 360da6fa which is not available here).
+- lean-eval-submissions README (e6cee4be): server submissions default to "scheduled" publication:
+  "Accepted scheduled source is released under Apache License 2.0 exactly two UTC calendar months after
+  acceptance." The results JSON does not record the publication choice. Legacy issue submissions
+  (Vilin97 #907, humanfia #1052, Axiom #1481, ...) have no required embargo and no automatic release.
+  Server-intake green_tao results: skidanovalex (accepted 2026-09-16 -> earliest scheduled release
+  2026-11-16 if "scheduled" was chosen; UNVERIFIED whether it was).
+- Mathlib 56a00585 (local): Dirichlet series lower bound for primes in a class
+  `ArithmeticFunction.vonMangoldt.LSeries_residueClass_lower_bound`, continuation
+  `continuousOn_LFunctionResidueClassAux`, Dirichlet's theorem `Nat.forall_exists_prime_gt_and_modEq`,
+  `Nat.infinite_setOf_prime_and_modEq`; Selberg sieve set-up `Mathlib/NumberTheory/SelbergSieve.lean`
+  (`BoundingSieve`, `SelbergSieve`, `siftedSum_le_mainSum_errSum_of_upperMoebius`,
+  `upperMoebius_lambdaSquared`, `mainSum_lambdaSquared_eq_sum_mul_sum_sq`); Chebyshev bounds
+  `Chebyshev.theta_le_log4_mul_x`, `theta_ge`, `primeCounting_eq_theta_div_log_add_integral`;
+  `Nat.Prime.sq_add_sq`, GaussianInt; Jacobi sums `jacobiSum_mul_jacobiSum_inv`,
+  `exists_jacobiSum_eq_neg_one_add`, `gaussSum_pow_eq_prod_jacobiSum`. No Brun–Titchmarsh, no PNT in APs,
+  no Mertens. VERIFIED by grep.
+- PrimeNumberTheoremAnd main = tag v4.34.0 = c39a751132c88b6e8080b74c74023fd95b3d8be0 (2026-10-01),
+  Lean v4.34.0, Apache-2.0: `WeakPNT_AP` (Wiener.lean:4025; ψ(N;q,a)/N → 1/φ(q)), `WeakPNT_AP_prelim`,
+  `dirichlet_thm`, `chebyshev_asymptotic` (Consequences.lean:177), Brun–Titchmarsh for intervals
+  `BrunTitchmarsh.primesBetween_le` (BrunTitchmarsh.lean:248), Selberg sieve bound
+  `SelbergSieve.selberg_bound_simple` (Mathlib/NumberTheory/Sieve/Selberg.lean:435), Mertens' first
+  theorem `sum_mangoldt_div_eq_log`, `E₁Λ.bounded` (IEANTN/Mertens.lean). Wiener.lean has 2 sorries
+  (`prelim_decay_2`, `prelim_decay_3`), used only by `decay_alt` -> IEANTN/CH2; static grep says
+  `WeakPNT_AP` does not use them (NOT verified by #print axioms: no Mathlib v4.34 build available).
+  No Gaussian-integer sieve, no Hecke/Chebotarev proof (Chebotarev section is blueprint prose).
