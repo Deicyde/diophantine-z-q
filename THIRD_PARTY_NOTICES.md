@@ -28,3 +28,19 @@ The research handoff is a provenance archive with a broader scope than the curat
 [Archive reference inventory](docs/archive-reference-inventory.json) groups the saved PDF references and Isabelle theory files by content hash and records their original paths. It is not a complete license audit of every excerpt in the archive. The 11/5 manuscript's bibliography, archive source manifests, and original documents should be used to resolve attribution and redistribution terms.
 
 Before making the historical archive public, complete the per-source rights review. Where redistribution is not permitted or remains unresolved, distribute a reference and source URL instead of a copy. Do not apply the project's original-work license to the entire archive as a single undifferentiated work.
+
+## NOTICE: vendored Selberg sieve (PrimeNumberTheoremAnd)
+
+The files `ZInQKernel/Sieve/AuxResults.lean`, `ZInQKernel/Sieve/Basic.lean`,
+`ZInQKernel/Sieve/Selberg.lean` and `ZInQKernel/Sieve/SelbergBounds.lean` are copies of
+`PrimeNumberTheoremAnd/Mathlib/NumberTheory/Sieve/{AuxResults,Basic,Selberg,SelbergBounds}.lean` from
+
+- source repository: https://github.com/AlexKontorovich/PrimeNumberTheoremAnd
+- tag `v4.35.0`, commit `127b50e33f6033e2147921167a117af96d9ba4ea` (it pins Mathlib `v4.35.0`, the
+  revision this repository uses)
+- license: Apache License 2.0; the upstream license text is copied to `ZInQKernel/Sieve/LICENSE`.
+  Copyright (c) 2023 Arend Mellendijk (per the file headers, which are kept unchanged).
+
+Change made: only the `import PrimeNumberTheoremAnd.Mathlib.NumberTheory.Sieve.X` lines were replaced by
+`import ZInQKernel.Sieve.X`. No other line was modified. The module `ZInQKernel/SieveVendor.lean`
+(original to this project) imports the four files.
