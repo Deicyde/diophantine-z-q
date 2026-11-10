@@ -1,6 +1,6 @@
 # bp-wave4 report: the blueprint records the work since Route K
 
-No Lean file was edited. Five new chapters (76 leaf articles, 5 chapter READMEs, five new
+No Lean file was edited. Five new chapters (74 leaf articles, 5 chapter READMEs, five new
 locator files under blueprint/sources/) and two new main-theorem articles were added, and
 several existing articles were updated. `lake build ZInQKernel` succeeds;
 `autoform check blueprint --lean-root .` reports OK (499 articles, 1516 dependencies, 453 fully
