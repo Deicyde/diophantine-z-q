@@ -64,7 +64,7 @@ theorem containsAP_of_frequently_window (hT : HasPrimeModulusSubweightCounts) {A
   -- the mean bound
   have hlog2 : 0 < Real.log 2 := Real.log_pos one_lt_two
   set α' := α * c₂ * 4 / Real.log 2 with hα'
-  have hcheb := chebyshev_wTrick_lower_bound hW (α := α') (by positivity) (by omega)
+  have hcheb := chebyshev_wTrick_lower_bound hW (N := M + 1) (α := α') (by positivity) (by omega)
     (by rw [← hX]; omega)
   rw [← hX] at hcheb
   have hL : 0 ≤ Real.log (X / 4 + 1 : ℕ) := Real.log_nonneg (by exact_mod_cast (by omega : 1 ≤ X / 4 + 1))

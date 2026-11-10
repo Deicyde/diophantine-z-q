@@ -111,8 +111,10 @@ theorem wTrickedSetWeight_untrickPrimeZMod (α : ℝ) (hW : 0 < W) {p : ℕ}
     wTrickedSetWeight A α W b (untrickPrimeZMod N W b p) =
       α * ((W.totient : ℝ) / W) * log p := by
   rw [quarterIntervalSetClass, mem_filter] at hp
+  have hA : wTrickedValue W b (untrickPrimeZMod N W b p) ∈ A := by
+    rw [wTrickedValue_untrickPrimeZMod hW hp.1]; exact hp.2
   unfold wTrickedSetWeight
-  rw [if_pos (by rw [wTrickedValue_untrickPrimeZMod hW hp.1]; exact hp.2)]
+  split_ifs
   exact wTrickedPrimeWeight_untrickPrimeZMod α hW hp.1
 
 theorem setClass_log_mass_div_card_le_mean (hα : 0 ≤ α) (hW : 0 < W) :
@@ -129,6 +131,7 @@ theorem setClass_log_mass_div_card_le_mean (hα : 0 ≤ α) (hW : 0 < W) :
   exact div_le_div_of_nonneg_right
     (Finset.sum_le_univ_sum_of_nonneg (wTrickedSetWeight_nonneg hα W b)) (Nat.cast_nonneg N)
 
+omit [NeZero N] in
 theorem card_mul_log_cutoff_le_setClass_log_mass :
     (#(quarterIntervalSetClass A W N b) : ℝ) * log (wTrickPrimeScale W N / 4 + 1 : ℕ) ≤
       ∑ p ∈ quarterIntervalSetClass A W N b, log p := by
