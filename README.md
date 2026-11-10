@@ -6,20 +6,28 @@ Browse every statement of the formal proof there: its informal statement and pro
 statements it depends on, its Lean declarations with links into the source, and whether it is
 proved. The site is rebuilt from `main` after each passing verification run.
 
-> **This fork** proves the 11/5 manuscript's Theorem 1.1 in Lean from three explicit
-> hypotheses: the six-contact height estimate, a certified-rank statement CR₃ for congruent number
-> curves, and the twenty-two-prime pattern. They enter the main theorem as `Prop`s, not axioms.
-> Three more inputs started as hypotheses and are proved: Mordell–Weil for the generator curve;
-> the catalogue bound, by an effective Dirichlet theorem
+> **This fork** proves the 11/5 manuscript's Theorem 1.1 in Lean from two explicit
+> hypotheses: the six-contact height estimate and a certified-rank statement CR₃ for congruent
+> number curves. They enter the theorem as `Prop`s, not axioms. Three more inputs started as
+> hypotheses and are proved: Mordell–Weil for the generator curve; the catalogue bound, by an
+> effective Dirichlet theorem
 > ([docs/effective-dirichlet-plan.md](docs/effective-dirichlet-plan.md)); and pole completeness,
 > by an explicit 2-descent from CR₃ ([docs/research/slot-k.md](docs/research/slot-k.md)). For
-> that last step the polynomial's pole template uses the congruent number curves
+> that step the polynomial's pole template uses the congruent number curves
 > `y² = x(x − ℓ)(x + ℓ)` where the manuscript has `x + 3ℓ`; the statement proved, with its
-> variable count and bounds, is the manuscript's. Everything else is
+> variable count and bounds, is the manuscript's. A fourth, the twenty-two-prime pattern, is not
+> needed: a change in a completeness proof ([docs/research/nt-22p.md](docs/research/nt-22p.md))
+> uses long progressions of good primes instead, which come from Szemerédi's theorem in the primes
+> (Vasily Ilin's Lean proof of the Green–Tao theorem, vendored in `ThirdParty/GreenTao/` and
+> extended to dense sets of primes) and a density theorem for those primes
+> ([docs/research/pd-paper.md](docs/research/pd-paper.md)). Everything else is
 > proved in Lean, and every finite computation is checked by the kernel:
-> `ZInQ.exists_bounded_integer_polynomial_defining_integers_of` (`ZInQKernel/Main.lean`) has no
-> `sorry`, uses no `native_decide`, and depends only on the axioms `propext`,
-> `Classical.choice` and `Quot.sound`. See [KERNEL_PLAN.md](KERNEL_PLAN.md), the
+> `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRank`
+> (`ZInQKernel/MainGreenTao.lean`) has no `sorry`, uses no `native_decide`, and depends only on
+> the axioms `propext`, `Classical.choice` and `Quot.sound`. So does the three-hypothesis version
+> that keeps the manuscript's prime pattern and none of the vendored code,
+> `ZInQ.exists_bounded_integer_polynomial_defining_integers_of` (`ZInQKernel/Main.lean`). See
+> [KERNEL_PLAN.md](KERNEL_PLAN.md), the
 > [final audit](docs/kernel-audits/final-audit-2026-11-07.md), the
 > [blueprint site](https://deicyde.github.io/diophantine-z-q/) and its sources in
 > [blueprint/](blueprint/README.md). The rest of this README is upstream's.

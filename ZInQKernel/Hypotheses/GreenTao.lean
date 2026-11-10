@@ -10,7 +10,8 @@ The trust statement of `GoodPrimeAP` (hypothesis 22P_AP) splits into two named s
   proved in Lean as `ZInQ.greenTaoDense` (`ZInQKernel/External/GreenTaoDense.lean`);
 * `GoodPrimeDensity`: the good slope primes (`GoodSlopePrime`) have positive relative upper density
   in the primes (Proposition D of `docs/research/nt-22p.md`, proved on paper in
-  `docs/research/pd-paper.md`).
+  `docs/research/pd-paper.md`). It is proved in Lean as `ZInQ.Density.goodPrimeDensity`
+  (`ZInQKernel/Density/PropDFinal.lean`).
 
 `goodPrimeAP_of_greenTaoDense` derives `GoodPrimeAP` from the two, with no further input.
 -/
@@ -53,12 +54,13 @@ def GreenTaoDense : Prop :=
 /-- **Proposition D (upper density part).** The good slope primes (`GoodSlopePrime`) have positive
 relative upper density in the primes.
 
-**Trust statement.** Not proved in Lean yet. This is Proposition D of `docs/research/nt-22p.md`
-(numerically, relative density about `0.106`). `docs/research/pd-paper.md` proves it on paper: the
-good slope primes have positive lower Dirichlet density (Theorem D, from Jacobsthal's character
-sums, Dirichlet's theorem in residue classes and a two-dimensional Selberg sieve), which gives
-positive relative upper density (Proposition 5.3). A model referee run found it proved as written
-(`docs/research/rv-pd-paper.md`). The Lean proof is in progress under `ZInQKernel/Density/`. -/
+This is Proposition D of `docs/research/nt-22p.md` (numerically, relative density about `0.106`).
+`docs/research/pd-paper.md` proves it on paper: the good slope primes have positive lower Dirichlet
+density (Theorem D, from Jacobsthal's character sums, Dirichlet's theorem in residue classes and a
+two-dimensional Selberg sieve), which gives positive relative upper density (Proposition 5.3).
+
+**Proved in Lean**: `ZInQ.Density.goodPrimeDensity` (`ZInQKernel/Density/`, with the Selberg sieve
+vendored from PrimeNumberTheoremAnd in `ZInQKernel/Sieve/`). -/
 def GoodPrimeDensity : Prop :=
   PrimesRelUpperDensityPos {p | GoodSlopePrime p}
 
