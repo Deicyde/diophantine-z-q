@@ -157,3 +157,14 @@ Started 2026-11-09. Task: find Lean formalizations of Green-Tao / relative Szeme
   Line.exists_of_density_atTop, exists_of_density_nat: [propext, Classical.choice, Quot.sound].
   No `sorry`/`axiom`/`native_decide` in the sources. VERIFIED. So Szemerédi + Varnavides port to our
   pinned versions with zero changes.
+- *** google-deepmind/formal-conjectures 84cf7f8a: FormalConjectures/ErdosProblems/219.lean
+  `theorem erdos_219 : ∀ N : ℕ, ∃ l ∈ primeArithmeticProgressions, N ≤ ENat.card l` (Green–Tao 1.1)
+  is tagged `formal_proof using lean4 at
+  "https://github.com/plby/lean-proofs/blob/1268917deaaaa0d674f651287027baa26cea9920/src/latest/ErdosProblems/Erdos219.lean"`;
+  ErdosProblems/1187.lean `erdos_1187.parts.i` (monochromatic k-APs of primes in every finite colouring
+  of ℤ; the docstring derives it from the dense-subset Green–Tao) is tagged `formal_proof using lean4 at
+  "https://github.com/plby/lean-proofs/blob/8822f7ddef30fadbd92e1c6ab4ed897af356af5e/src/latest/ErdosProblems/Erdos1187.lean#L246"`.
+  Erdős 3 `erdos_3.variants.green_tao` is the r_4 bound (sorry); Erdős 210 is Green–Tao ordinary lines.
+- web search "plby lean-proofs Erdos219 Green-Tao formal proof": nothing beyond formal-conjectures PRs.
+- arXiv 2606.05400 (LeanMarathon; TeX source): no Green–Tao (Szemerédi hits are Erdős 1196/1217).
+- plby/lean-proofs: first archive request timed out (large repository); retrying.
