@@ -8,3 +8,4 @@
 - Check.lean: det M5b 21 = 1, det M5b 5 = 0 by kernel (reindex to primeCfg, explicit entries,
   det_succ_row_zero + decide); ~9s. Incremental `lake build ZInQKernel` OK (26s).
 - #print axioms: propext, Classical.choice, Quot.sound only; check_target.py OK.
+- Report .fleet/cr5b-lean.md written. Done.
