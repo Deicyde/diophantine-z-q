@@ -1,4 +1,5 @@
 import ZInQKernel.Density.Abel
+import ZInQKernel.Density.PrimeTail
 
 /-!
 # Proposition D modulo the uniform bad-prime bound (pd-paper §§2–5)

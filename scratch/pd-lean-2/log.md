@@ -7,3 +7,4 @@
   lake build ZInQKernel OK.
 - Plan: PropD generic over c : ℕ → ℤ (pd-lean-1 not landed): needs (h1) goodSlopePrime_of_gcd,
   (h2) c p odd, (h3) ∃ e, p = c² + e² for class primes.
+- PrimeTail.lean: sum_inv_sq_le_of_primes_gt (3 log4/(L log L), any finite set of primes > L), prime_tail (note form). Abel+Chebyshev instead of dyadic.
