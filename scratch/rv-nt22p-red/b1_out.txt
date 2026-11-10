@@ -1,0 +1,43 @@
+label | v_l(R0) | v_l(t-1) | R0 square in Q_l | v_l(1-R0 q0^2) >= N
+l=2 e=1                      |    2 |   -1 | False | None | LemmaP hyp False
+l=2 e=2                      |    4 |   -2 | False | None | LemmaP hyp False
+l=2 e=3                      |    6 |   -3 | True  | True | LemmaP hyp True
+l=2 e=4                      |    8 |   -4 | True  | True | LemmaP hyp True
+l=2 e=5                      |   10 |   -5 | True  | True | LemmaP hyp True
+l=3 e=1                      |    2 |   -1 | True  | True | LemmaP hyp True
+l=3 e=5                      |   10 |   -5 | True  | True | LemmaP hyp True
+l=3 e=40                     |   80 |  -40 | True  | True | LemmaP hyp True
+l=5 e=1                      |    2 |   -1 | True  | True | LemmaP hyp True
+l=5 e=5                      |   10 |   -5 | True  | True | LemmaP hyp True
+l=5 e=40                     |   80 |  -40 | True  | True | LemmaP hyp True
+l=7 e=1                      |    2 |   -1 | True  | True | LemmaP hyp True
+l=7 e=5                      |   10 |   -5 | True  | True | LemmaP hyp True
+l=7 e=40                     |   80 |  -40 | True  | True | LemmaP hyp True
+l=13 e=1                     |    2 |   -1 | True  | True | LemmaP hyp True
+l=13 e=5                     |   10 |   -5 | True  | True | LemmaP hyp True
+l=13 e=40                    |   80 |  -40 | True  | True | LemmaP hyp True
+l=11 e=2 (S_b not S0)        |    4 |   -2 | True  | True | LemmaP hyp True
+l=331 e=2 (S_b not S0)       |    4 |   -2 | True  | True | LemmaP hyp True
+l=317 e=6 (S_b not S0)       |   12 |   -6 | True  | True | LemmaP hyp True
+multi, at l=2                |   14 |   -7 | True  | True | LemmaP hyp True
+multi, at l=3                |   12 |   -6 | True  | True | LemmaP hyp True
+multi, at l=5                |   10 |   -5 | True  | True | LemmaP hyp True
+multi, at l=7                |   10 |   -5 | True  | True | LemmaP hyp True
+multi, at l=13               |   10 |   -5 | True  | True | LemmaP hyp True
+CONTROL F<0 l=2 e=5          |   10 |   -5 | False | None | LemmaP hyp False
+CONTROL F<0 l=3 e=5          |   10 |   -5 | False | None | LemmaP hyp False
+CONTROL F<0 l=5 e=5          |   10 |   -5 | True  | True | LemmaP hyp False
+CONTROL F<0 l=7 e=5          |   10 |   -5 | False | None | LemmaP hyp False
+CONTROL F<0 l=13 e=5         |   10 |   -5 | True  | True | LemmaP hyp False
+FAILURES of Lemma P(1)-(2) under its hypotheses: []
+
+statistics over 2000 random u each:
+  l=2 e=1 eta=1: R0 square in 0/2000
+  l=2 e=2 eta=1: R0 square in 0/2000
+  l=2 e=3 eta=1: R0 square in 2000/2000
+  l=3 e=1 eta=1: R0 square in 2000/2000
+  l=2 e=5 eta=-1: R0 square in 0/2000
+  l=3 e=5 eta=-1: R0 square in 0/2000
+  l=5 e=5 eta=-1: R0 square in 2000/2000
+  l=7 e=5 eta=-1: R0 square in 0/2000
+  l=13 e=5 eta=-1: R0 square in 2000/2000
