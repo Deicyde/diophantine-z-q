@@ -241,7 +241,7 @@ theorem half_rankwiseDensityProduct_le_fullConfigurationCount
       (∏ e : PositiveOrderedFace k r, α e.rank) ≤
         ∏ e : PositiveOrderedFace k r,
           mixedConfigurationCoarseDensity P A e := by
-    apply Finset.prod_le_prod
+    apply Finset.prod_le_prod₀
     · intro e _he
       exact (hα e.rank).le
     · intro e _he

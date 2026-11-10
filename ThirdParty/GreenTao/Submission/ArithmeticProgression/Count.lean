@@ -72,7 +72,7 @@ theorem cyclicAPProduct_mono {k N : ℕ} {f g : ZMod N → ℝ}
     (hf : ∀ x, 0 ≤ f x) (hfg : ∀ x, f x ≤ g x)
     (a d : ZMod N) :
     cyclicAPProduct k N f a d ≤ cyclicAPProduct k N g a d := by
-  exact Finset.prod_le_prod
+  exact Finset.prod_le_prod₀
     (fun j _ => hf (cyclicAPTerm a d j))
     (fun j _ => hfg (cyclicAPTerm a d j))
 

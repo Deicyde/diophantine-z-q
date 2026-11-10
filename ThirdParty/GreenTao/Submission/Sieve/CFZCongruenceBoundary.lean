@@ -824,7 +824,7 @@ theorem abs_boxMean_sub_meanMod_le_boundary
       (trimmedSide D side) D F htrimdvd htrimpos hD hperiodic
   have hprodle :
       (∏ i, trimmedSide D side i) ≤ ∏ i, side i := by
-    apply Finset.prod_le_prod
+    apply Finset.prod_le_prod₀
     · intro i _hi
       exact Nat.zero_le _
     · intro i _hi
@@ -885,7 +885,7 @@ theorem abs_pairedDivisibilityIndicator_le_one
     positivity
   rw [abs_of_nonneg hnonneg]
   unfold pairedDivisibilityIndicator
-  apply Finset.prod_le_one
+  apply Finset.prod_le_one₀
   · intro q _hq
     unfold natDivisibilityIndicator
     positivity

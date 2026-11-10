@@ -60,7 +60,7 @@ theorem apIncidentMajorantProduct_mono
     apIncidentMajorantProduct n N f j a y ≤
       apIncidentMajorantProduct n N g j a y := by
   unfold apIncidentMajorantProduct
-  exact Finset.prod_le_prod
+  exact Finset.prod_le_prod₀
     (fun t _ => hf0 _)
     (fun t _ => hfg _)
 

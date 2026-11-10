@@ -162,7 +162,7 @@ theorem apHeterogeneousIncidentProduct_mono
     apHeterogeneousIncidentProduct n N g j a y ≤
       apHeterogeneousIncidentProduct n N ν j a y := by
   unfold apHeterogeneousIncidentProduct
-  exact Finset.prod_le_prod
+  exact Finset.prod_le_prod₀
     (fun t _ => (h t _).1)
     (fun t _ => (h t _).2)
 

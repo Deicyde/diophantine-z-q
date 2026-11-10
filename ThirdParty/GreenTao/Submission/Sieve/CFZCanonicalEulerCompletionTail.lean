@@ -216,7 +216,7 @@ theorem selectedCFZCanonicalCompleteSupportMass_le_zetaProduct
             (‖(1 - (p : ℂ) ^
                 (-(((1 + (Real.log R)⁻¹ : ℝ)) : ℂ)))⁻¹‖ ^ A *
               ‖(1 - (p : ℂ) ^ (-((2 : ℝ) : ℂ)))⁻¹‖ ^ B) := by
-        apply Finset.prod_le_prod
+        apply Finset.prod_le_prod₀
         · intro p _hp
           have hnonneg :=
             selectedCFZCanonicalCompletePrimeErrorMajorant_nonneg e R p
@@ -232,7 +232,7 @@ theorem selectedCFZCanonicalCompleteSupportMass_le_zetaProduct
             ‖riemannZeta ((2 : ℝ) : ℂ)‖ ^ B := by
         apply ge_of_tendsto hright
         filter_upwards [eventually_ge_atTop s] with t hst
-        apply Finset.prod_le_prod_of_subset_of_one_le hst
+        apply Finset.prod_le_prod_of_subset_of_one_le₀ hst
         · intro p _hp
           positivity
         · intro p _hpt _hps

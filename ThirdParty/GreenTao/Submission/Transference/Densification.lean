@@ -348,7 +348,7 @@ theorem abs_prod_sub_prod_le_sum_abs
         hg a (Finset.mem_insert_self a s)
       have hfs : |∏ i ∈ s, f i| ≤ 1 := by
         rw [Finset.abs_prod]
-        exact Finset.prod_le_one
+        exact Finset.prod_le_one₀
           (fun i _ => abs_nonneg (f i))
           (fun i hi => hf i (Finset.mem_insert_of_mem hi))
       have ih' :
@@ -446,7 +446,7 @@ theorem abs_prod_le_one
     (hu : ∀ i ∈ s, |u i| ≤ 1) :
     |∏ i ∈ s, u i| ≤ 1 := by
   rw [Finset.abs_prod]
-  exact Finset.prod_le_one
+  exact Finset.prod_le_one₀
     (fun i _ => abs_nonneg (u i)) hu
 
 /-- One densification step with the remaining bounded factors already

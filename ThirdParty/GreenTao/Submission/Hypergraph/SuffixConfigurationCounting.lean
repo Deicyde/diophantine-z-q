@@ -254,7 +254,7 @@ theorem configurationHalfDensityBarrier_le_one
     (s : Finset (PositiveOrderedFace k r)) :
     configurationHalfDensityBarrier α s ≤ 1 := by
   unfold configurationHalfDensityBarrier
-  apply Finset.prod_le_one
+  apply Finset.prod_le_one₀
   · intro e _he
     exact div_nonneg (hα0 e.rank) (by norm_num)
   · intro e _he

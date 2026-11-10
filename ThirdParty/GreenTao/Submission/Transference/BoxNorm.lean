@@ -331,7 +331,6 @@ theorem tailCutIntegrand_mul
       rw [mul_mul_mul_comm]
       rw [← Finset.prod_mul_distrib]
       simp only [eraseCoordinate_succ_cons, pairedTailCut]
-      rfl
 
 /-- One Cauchy--Schwarz step: delete the head cut factor, duplicate the head
 coordinate, and pair all remaining factors. -/

@@ -64,7 +64,7 @@ theorem simplexWeight_mono {k : ℕ} {V : Fin k → Type*}
     (hHG : ∀ j x, H.edgeWeight j x ≤ G.edgeWeight j x)
     (x : (i : Fin k) → V i) :
     H.simplexWeight x ≤ G.simplexWeight x := by
-  exact Finset.prod_le_prod
+  exact Finset.prod_le_prod₀
     (fun j _ => hH j (deleteCoordinate x j))
     (fun j _ => hHG j (deleteCoordinate x j))
 

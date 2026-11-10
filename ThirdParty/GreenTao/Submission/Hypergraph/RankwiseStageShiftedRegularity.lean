@@ -1420,7 +1420,7 @@ theorem not_hasRankwiseStageIndexedCoarseTargetRemovalSchedules_two
             (Finset.univ :
               Finset (PositiveOrderedFace k 2)).erase e0,
             ρ e.lowerRank) ≤ 1 := by
-      apply Finset.prod_le_one
+      apply Finset.prod_le_one₀
       · intro e _he
         exact hρnonneg e.lowerRank
       · intro e _he

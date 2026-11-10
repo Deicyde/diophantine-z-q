@@ -358,7 +358,7 @@ theorem frozenBundleRemainderCutTest_bounded
     · positivity
   · intro i y
     unfold frozenBundleRemainderCutTest
-    apply Finset.prod_le_one
+    apply Finset.prod_le_one₀
     · intro g hg
       split_ifs
       · exact

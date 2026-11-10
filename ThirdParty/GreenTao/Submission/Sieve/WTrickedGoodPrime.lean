@@ -446,7 +446,7 @@ theorem norm_pairedFourierLocalRatio_wTricked_sub_one_le
             ‖pairedFourierPrimeCoefficient
               R p (t q) (u q)‖)) ≤
           ∏ _q : κ, (4 : ℝ) := by
-        apply Finset.prod_le_prod
+        apply Finset.prod_le_prod₀
         · intro q _hq
           positivity
         · intro q _hq

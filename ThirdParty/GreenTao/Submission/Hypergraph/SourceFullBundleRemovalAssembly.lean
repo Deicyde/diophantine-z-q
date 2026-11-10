@@ -301,7 +301,7 @@ theorem hasUniformOrderedPatternRemoval_sourceFull
             ∏ _e : PositiveOrderedFace k r,
               sourceBundleDensity δ S.ceiling := by simp
         _ ≤ ∏ e : PositiveOrderedFace k r, α e.rank := by
-          apply Finset.prod_le_prod
+          apply Finset.prod_le_prod₀
           · intro e _he
             exact hfloor
           · intro e _he

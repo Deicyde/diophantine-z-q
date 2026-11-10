@@ -272,7 +272,7 @@ theorem le_of_mem_primesLEAsPrimes
   unfold primesLEAsPrimes at hp
   rcases Finset.mem_map.mp hp with ⟨q, _hq, hq⟩
   have hle := Nat.le_of_mem_primesLE q.2
-  simpa [← hq] using hle
+  subst hq; exact hle
 
 /-- The finite prime product is bounded by a fixed natural power of the
 Riemann zeta function at `1 + 1 / log R`. -/
@@ -307,7 +307,7 @@ theorem primeHarmonicProduct_nat_le_norm_zeta_pow
     _ ≤ ∏ p ∈ primesLEAsPrimes R,
         ‖(1 - (p : ℂ) ^
           (-(((1 + (Real.log R)⁻¹ : ℝ)) : ℂ)))⁻¹‖ ^ (3 * A) := by
-      apply Finset.prod_le_prod
+      apply Finset.prod_le_prod₀
       · intro p _hp
         positivity
       · intro p hp
@@ -317,7 +317,7 @@ theorem primeHarmonicProduct_nat_le_norm_zeta_pow
           ((((1 + (Real.log R)⁻¹ : ℝ)) : ℂ))‖ ^ (3 * A) := by
       apply ge_of_tendsto hzeta
       filter_upwards [eventually_ge_atTop (primesLEAsPrimes R)] with t ht
-      apply Finset.prod_le_prod_of_subset_of_one_le ht
+      apply Finset.prod_le_prod_of_subset_of_one_le₀ ht
       · intro p _hp
         positivity
       · intro p _hpt _hps
@@ -406,7 +406,7 @@ theorem primeHarmonicProduct_le_one_add_log_pow_natCeil
     primeHarmonicProduct A R ≤
         primeHarmonicProduct (⌈A⌉₊ : ℝ) R := by
       unfold primeHarmonicProduct
-      apply Finset.prod_le_prod
+      apply Finset.prod_le_prod₀
       · intro p _hp
         positivity
       · intro p hp

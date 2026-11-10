@@ -172,9 +172,7 @@ theorem cutTestProduct_eq_sum_boolean
             (cutTestFamilyOfBooleanAssignment b) x := by
   classical
   symm
-  simpa [cutTestProduct, cutTestCoordinateValue,
-    cutTestFamilyOfBooleanAssignment,
-    usedCutTestCoordinateEmbedding] using
+  exact
     (sum_bernoulliAssignmentWeight_mul_embedding
       (cutTestCoordinateValue u)
       (usedCutTestCoordinateEmbedding x))

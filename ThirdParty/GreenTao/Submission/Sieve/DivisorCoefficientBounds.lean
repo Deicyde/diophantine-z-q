@@ -59,7 +59,7 @@ theorem abs_smoothDivisorFamilyCoefficient_le_one
     |smoothDivisorFamilyCoefficient χ.toFun R z| ≤ 1 := by
   unfold smoothDivisorFamilyCoefficient
   rw [Finset.abs_prod]
-  apply Finset.prod_le_one
+  apply Finset.prod_le_one₀
   · intro q _hq
     exact abs_nonneg _
   · intro q _hq

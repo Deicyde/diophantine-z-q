@@ -447,7 +447,7 @@ theorem pow_le_regularized_simplexWeight_of_avoids_lowDeletion
         ∏ j : Fin (n + 1),
           (regularizedSimplexSystem H.toWeighted S).edgeWeight j
             (deleteCoordinate x j) := by
-      apply Finset.prod_le_prod
+      apply Finset.prod_le_prod₀
       · intro _ _
         exact hτ
       · intro j _

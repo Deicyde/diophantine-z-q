@@ -338,7 +338,7 @@ theorem apTwoCopyCutTest_bounded
         exact Finset.prod_nonneg fun b _ => (hg b t _).1
       · intro t z
         unfold apTwoCopyCutTest
-        exact Finset.prod_le_one
+        exact Finset.prod_le_one₀
           (fun b _ => (hg b t _).1)
           (fun b _ => (hg b t _).2)
 
@@ -392,7 +392,7 @@ theorem apTwoCopyCutTest_mono
       · unfold apTwoCopyCutTest
         exact Finset.prod_nonneg fun b _ => (hgh b t _).1
       · unfold apTwoCopyCutTest
-        exact Finset.prod_le_prod
+        exact Finset.prod_le_prod₀
           (fun b _ => (hgh b t _).1)
           (fun b _ => (hgh b t _).2)
 

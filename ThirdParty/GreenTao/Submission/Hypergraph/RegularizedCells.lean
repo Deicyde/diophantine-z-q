@@ -182,7 +182,7 @@ theorem card_branchSystem_le
     Fintype.card R.BranchSystem ≤
       ∏ j, n ^ R.stepIndex j := by
   rw [R.card_branchSystem]
-  apply Finset.prod_le_prod
+  apply Finset.prod_le_prod₀
   · intro j _hj
     exact Nat.zero_le _
   · intro j _hj
@@ -222,7 +222,7 @@ theorem card_topAtomChoice_le
     Fintype.card R.TopAtomChoice ≤
       ∏ j, 2 ^ R.stepIndex j := by
   rw [R.card_topAtomChoice]
-  apply Finset.prod_le_prod
+  apply Finset.prod_le_prod₀
   · intro j _hj
     exact Nat.zero_le _
   · intro j _hj

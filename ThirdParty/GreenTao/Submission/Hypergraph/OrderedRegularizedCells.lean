@@ -414,7 +414,7 @@ theorem card_branchSystem_le
       ∏ e : OrderedFace k r,
         r ^ R.stepIndex e := by
   rw [R.card_branchSystem]
-  apply Finset.prod_le_prod
+  apply Finset.prod_le_prod₀
   · intro e _he
     exact Nat.zero_le _
   · intro e _he
@@ -457,7 +457,7 @@ theorem card_topAtomChoice_le
       ∏ e : OrderedFace k r,
         2 ^ R.stepIndex e := by
   rw [R.card_topAtomChoice]
-  apply Finset.prod_le_prod
+  apply Finset.prod_le_prod₀
   · intro e _he
     exact Nat.zero_le _
   · intro e _he

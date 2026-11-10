@@ -616,7 +616,7 @@ theorem abs_boxMean_sub_trimmedBoxMean_le_boundary
     exact Nat.mul_pos (Nat.div_pos (hside i) hD) hD
   have hprodle :
       (∏ i, trimmedSide D side i) ≤ ∏ i, side i := by
-    apply Finset.prod_le_prod
+    apply Finset.prod_le_prod₀
     · intro i _hi
       exact Nat.zero_le _
     · intro i _hi

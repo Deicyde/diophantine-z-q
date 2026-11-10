@@ -61,8 +61,8 @@ theorem prod_smallPrimeFinset_eq_prod_primesLE
     (w : ℕ) (f : ℕ → M) :
     ∏ p ∈ smallPrimeFinset w, f p =
       ∏ p ∈ Nat.primesLE w, f p := by
-  simp [smallPrimeFinset, Finset.prod_map,
-    Finset.prod_attach]
+  rw [smallPrimeFinset, Finset.prod_map]
+  exact Finset.prod_attach _ _
 
 /-- At every small prime, the exact W-tricked arithmetic factor is one. -/
 theorem pairedFourierPrimeLocalFactor_wTricked_eq_one_of_small

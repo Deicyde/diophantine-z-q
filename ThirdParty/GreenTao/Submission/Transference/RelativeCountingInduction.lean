@@ -192,7 +192,7 @@ theorem simplexTwoCopyCutTest_mono
       · unfold simplexTwoCopyCutTest
         exact Finset.prod_nonneg fun b _ => (hHK b t _).1
       · unfold simplexTwoCopyCutTest
-        exact Finset.prod_le_prod
+        exact Finset.prod_le_prod₀
           (fun b _ => (hHK b t _).1)
           (fun b _ => (hHK b t _).2)
 

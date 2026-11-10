@@ -487,7 +487,7 @@ theorem abs_cfzCarryVectorResiduePairedIndicator_le_one
   rw [abs_of_nonneg hnonneg]
   unfold cfzCarryVectorResiduePairedIndicator
     pairedDivisibilityIndicator
-  apply Finset.prod_le_one
+  apply Finset.prod_le_one₀
   · intro q _hq
     unfold natDivisibilityIndicator
     positivity

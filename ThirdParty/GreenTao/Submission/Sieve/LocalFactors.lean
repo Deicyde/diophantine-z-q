@@ -195,7 +195,7 @@ theorem card_commonZeroFinsetZMod_mul
       AddMonoidHom.card_fiber_eq_of_mem_range L.toAddMonoidHom
         (hsurj y) (hsurj target)
     rw [hcommon]
-    simpa using h
+    convert h <;> rfl
   have hsplit :
       Fintype.card (ι → ZMod p) =
         ∑ y : ZMod p × ZMod p,
@@ -243,7 +243,7 @@ theorem card_zeroFinsetZMod_mul
     have h :=
       AddMonoidHom.card_fiber_eq_of_mem_range L.toAddMonoidHom
         (hsurj y) (hsurj target)
-    simpa [L, target, zeroFinsetZMod] using h
+    unfold zeroFinsetZMod; convert h <;> rfl
   have hsplit :
       Fintype.card (ι → ZMod p) =
         ∑ y : ZMod p,

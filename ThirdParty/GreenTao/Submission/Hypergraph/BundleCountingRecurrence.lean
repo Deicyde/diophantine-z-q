@@ -143,7 +143,7 @@ theorem pow_sub_card_mul_le_finiteCount
       α ^ s.card =
           ∏ _e ∈ s, α := by simp
       _ ≤ ∏ e ∈ s, p e := by
-        apply Finset.prod_le_prod
+        apply Finset.prod_le_prod₀
         · intro e he
           exact hα
         · intro e he

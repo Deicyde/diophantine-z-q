@@ -685,7 +685,7 @@ theorem pow_le_regularized_patternWeight_of_lowerCellOccurrence
       (∏ _e : OrderedFace k r, τ) ≤
         ∏ e : OrderedFace k r,
           R.atomEdgeWeight a e := by
-    apply Finset.prod_le_prod
+    apply Finset.prod_le_prod₀
     · intro e _he
       exact hτ
     · intro e _he

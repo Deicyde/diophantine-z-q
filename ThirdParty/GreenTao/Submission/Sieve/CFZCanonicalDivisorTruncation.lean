@@ -372,7 +372,7 @@ theorem norm_fixedFamilyPrimeSupportCoefficient_le_threeMajorant
     fixedFamilyPrimeLocalCoefficient
     fixedFamilyPrimeSupportThreeMajorant
   rw [norm_prod]
-  apply Finset.prod_le_prod
+  apply Finset.prod_le_prod₀
   · intro p _hp
     positivity
   · intro p _hp
@@ -386,7 +386,7 @@ theorem norm_fixedFamilyPrimeSupportCoefficient_le_threeMajorant
           ‖pairedFourierPrimeCoefficient
             R (p : ℕ) (t q) (u q)‖) ≤
           ∏ _q ∈ support p, (3 : ℝ) := by
-        apply Finset.prod_le_prod
+        apply Finset.prod_le_prod₀
         · intro q _hq
           exact norm_nonneg _
         · intro q _hq

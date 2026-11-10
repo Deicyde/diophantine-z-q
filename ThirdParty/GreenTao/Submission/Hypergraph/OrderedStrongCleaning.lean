@@ -268,7 +268,7 @@ theorem sub_pow_le_fine_patternWeight_of_lowerCellOccurrence
             Finset (OrderedFace k r)),
           (fine e).structured (H.edgeWeight e)
             (orderedFaceTuple e x) := by
-    apply Finset.prod_le_prod
+    apply Finset.prod_le_prod₀
     · intro e _he
       exact hsub
     · intro e _he

@@ -143,7 +143,7 @@ theorem cutTestProduct_le_one
     {G : Type*} {r : ℕ} {u : CutTestFamily G r}
     (hu : IsBoundedCutTest u) (x : Fin r → G) :
     cutTestProduct u x ≤ 1 :=
-  Finset.prod_le_one
+  Finset.prod_le_one₀
     (fun i _ => hu.nonneg i (eraseCoordinate i x))
     (fun i _ => hu.le_one i (eraseCoordinate i x))
 

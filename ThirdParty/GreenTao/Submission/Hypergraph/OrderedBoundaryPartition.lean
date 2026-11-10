@@ -234,7 +234,7 @@ theorem complexity_orderedBoundaryPartition_le
         ∏ i : Fin (j + 1),
           FacePartition.complexity
             (P (eraseBoundaryFace e i)) := by
-      apply Finset.prod_le_prod
+      apply Finset.prod_le_prod₀
       · intro i _
         exact Nat.zero_le _
       intro i _
@@ -260,7 +260,7 @@ theorem complexity_orderedBoundaryPartition_le_pow
             (P (eraseBoundaryFace e i)) :=
       complexity_orderedBoundaryPartition_le P e
     _ ≤ ∏ _i : Fin (j + 1), M := by
-      apply Finset.prod_le_prod
+      apply Finset.prod_le_prod₀
       · intro i _
         exact Nat.zero_le _
       intro i _

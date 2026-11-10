@@ -317,7 +317,7 @@ theorem complexity_orderedFullLowerBoundaryPartition_le
                 (orderedFullLowerComplexRank e d)
                 (orderedFullLowerAmbientFace e d)) := by
       apply Nat.mul_le_mul_left
-      apply Finset.prod_le_prod
+      apply Finset.prod_le_prod₀
       · intro d _hd
         exact Nat.zero_le _
       · intro d _hd

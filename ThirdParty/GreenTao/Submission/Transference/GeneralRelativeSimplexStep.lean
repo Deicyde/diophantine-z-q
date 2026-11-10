@@ -167,7 +167,7 @@ theorem generalSimplexIncidentProduct_mono
     generalSimplexIncidentProduct H j a y ≤
       generalSimplexIncidentProduct K j a y := by
   unfold generalSimplexIncidentProduct
-  exact Finset.prod_le_prod
+  exact Finset.prod_le_prod₀
     (fun t _ => (h t _).1)
     (fun t _ => (h t _).2)
 

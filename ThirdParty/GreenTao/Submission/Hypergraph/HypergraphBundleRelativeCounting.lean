@@ -199,7 +199,7 @@ theorem pow_card_edges_le_bundleMainProduct_of_edges
     _ ≤
         ∏ g ∈ B.edges,
           p (g.image B.projection) := by
-      apply Finset.prod_le_prod
+      apply Finset.prod_le_prod₀
       · intro g hg
         exact ha
       · intro g hg

@@ -638,7 +638,7 @@ theorem complexWeightedHigherOrderCoefficientMass_pairedFourier_le
               R p (t q) (u q)‖) :=
       complexWeightedHigherOrderCoefficientMass_le_prod_one_add_norm _
     _ ≤ ∏ _q : κ, (4 : ℝ) := by
-      apply Finset.prod_le_prod
+      apply Finset.prod_le_prod₀
       · intro q _hq
         positivity
       · intro q _hq
@@ -746,7 +746,7 @@ theorem norm_pairedFourierLocalRatio_sub_one_le
             ‖pairedFourierPrimeCoefficient
               R p (t q) (u q)‖)) ≤
           ∏ _q : κ, (4 : ℝ) := by
-        apply Finset.prod_le_prod
+        apply Finset.prod_le_prod₀
         · intro q _hq
           positivity
         · intro q _hq

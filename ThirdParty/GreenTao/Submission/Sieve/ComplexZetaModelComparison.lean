@@ -126,7 +126,7 @@ theorem norm_complexProductHigherOrderRemainder_le
       rw [norm_prod]
       calc
         (∏ q ∈ s, ‖e q‖) ≤ B ^ s.card :=
-          (Finset.prod_le_prod
+          (Finset.prod_le_prod₀
             (fun q _hq => norm_nonneg (e q))
             (fun q _hq => he q)).trans_eq (by
               simp)

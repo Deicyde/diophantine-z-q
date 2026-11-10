@@ -459,7 +459,7 @@ theorem partialConfigurationWeight_le_one
     (x : Fin k → G) :
     partialConfigurationWeight A s x ≤ 1 := by
   unfold partialConfigurationWeight
-  apply Finset.prod_le_one
+  apply Finset.prod_le_one₀
   · intro e he
     exact configurationFaceWeight_nonneg A e _
   · intro e he
@@ -563,7 +563,7 @@ theorem configurationRemainderCutTest_bounded
     · positivity
   · intro i y
     unfold configurationRemainderCutTest
-    apply Finset.prod_le_one
+    apply Finset.prod_le_one₀
     · intro f hf
       split_ifs
       · exact configurationFaceWeight_nonneg A f _

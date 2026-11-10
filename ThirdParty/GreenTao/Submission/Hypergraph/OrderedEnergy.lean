@@ -204,7 +204,7 @@ theorem mixedOrderedPatternTerm_sq_le_edgeDiff_sq
     exact (hH f (orderedFaceTuple f x)).1
   have hA1 : A ≤ 1 := by
     unfold A
-    apply Finset.prod_le_one
+    apply Finset.prod_le_one₀
     · intro f hf
       exact (hH f (orderedFaceTuple f x)).1
     · intro f hf
@@ -216,7 +216,7 @@ theorem mixedOrderedPatternTerm_sq_le_edgeDiff_sq
     exact (hK f (orderedFaceTuple f x)).1
   have hB1 : B ≤ 1 := by
     unfold B
-    apply Finset.prod_le_one
+    apply Finset.prod_le_one₀
     · intro f hf
       exact (hK f (orderedFaceTuple f x)).1
     · intro f hf

@@ -155,7 +155,7 @@ theorem fixedFamilyPrimeSupportActualCoefficientMass_le_rpow
   classical
   unfold fixedFamilyPrimeSupportActualCoefficientMass
     fixedFamilyPrimeSupportRpowCoefficientMass
-  apply Finset.prod_le_prod
+  apply Finset.prod_le_prod₀
   · intro p _hp
     positivity
   · intro p _hp
@@ -166,7 +166,7 @@ theorem fixedFamilyPrimeSupportActualCoefficientMass_le_rpow
           ∏ _q ∈ support p,
             (3 * (p : ℝ) ^
               (-(Real.log (R : ℝ))⁻¹)) := by
-        apply Finset.prod_le_prod
+        apply Finset.prod_le_prod₀
         · intro q _hq
           exact norm_nonneg _
         · intro q _hq

@@ -275,7 +275,7 @@ theorem pow_card_edges_le_bundleMainProduct
     _ ≤
         ∏ g ∈ B.edges,
           p (g.image B.projection) := by
-      apply Finset.prod_le_prod
+      apply Finset.prod_le_prod₀
       · intro g hg
         exact ha
       · intro g hg
@@ -442,7 +442,7 @@ theorem pow_card_maximalRemainder_le
             (B.edges.erase g₀).filter
               (fun g => ¬ g.card < g₀.card),
           p (g.image B.projection) := by
-      apply Finset.prod_le_prod
+      apply Finset.prod_le_prod₀
       · intro g hg
         exact ha
       · intro g hg
@@ -588,7 +588,7 @@ theorem duplicateOutside_bundleProduct_le_lowerOrder
         ∏ d ∈ D.edges,
           C.pullbackBaseEdgeWeight A
             d (edgeTuple d x) := by
-      apply Finset.prod_le_prod_of_subset_of_le_one
+      apply Finset.prod_le_prod_of_subset_of_le_one₀
         hDC
       · intro d hd
         exact

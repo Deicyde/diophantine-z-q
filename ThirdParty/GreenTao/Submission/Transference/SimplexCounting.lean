@@ -50,13 +50,13 @@ theorem abs_prod_sub_prod_le_card_mul
       have hfprod0 : 0 ≤ ∏ i ∈ s, f i :=
         Finset.prod_nonneg fun i hi => hf0 i (Finset.mem_insert_of_mem hi)
       have hfprod1 : (∏ i ∈ s, f i) ≤ 1 :=
-        Finset.prod_le_one
+        Finset.prod_le_one₀
           (fun i hi => hf0 i (Finset.mem_insert_of_mem hi))
           (fun i hi => hf1 i (Finset.mem_insert_of_mem hi))
       have hgprod0 : 0 ≤ ∏ i ∈ s, g i :=
         Finset.prod_nonneg fun i hi => hg0 i (Finset.mem_insert_of_mem hi)
       have hgprod1 : (∏ i ∈ s, g i) ≤ 1 :=
-        Finset.prod_le_one
+        Finset.prod_le_one₀
           (fun i hi => hg0 i (Finset.mem_insert_of_mem hi))
           (fun i hi => hg1 i (Finset.mem_insert_of_mem hi))
       have ih' :

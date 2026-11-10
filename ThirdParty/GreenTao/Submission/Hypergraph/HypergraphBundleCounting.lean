@@ -292,7 +292,7 @@ theorem bundleProduct_le_one
     (x : K → G) :
     B.bundleProduct A x ≤ 1 := by
   unfold bundleProduct
-  apply Finset.prod_le_one
+  apply Finset.prod_le_one₀
   · intro g hg
     exact (hA g hg (edgeTuple g x)).1
   · intro g hg

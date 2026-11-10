@@ -279,7 +279,7 @@ theorem orderedPatternMixedCutTest_bounded
     · positivity
   · intro i y
     unfold orderedPatternMixedCutTest
-    apply Finset.prod_le_one
+    apply Finset.prod_le_one₀
     · intro f _hf
       split_ifs
       · positivity

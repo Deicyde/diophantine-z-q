@@ -57,7 +57,7 @@ theorem GeneratedOrderedPatternRegularization.card_cellIndex_le_stepBound
           2 ^ R.stepIndex e) ≤
           ∏ _e : OrderedFace k r,
             2 ^ stepBound := by
-        apply Finset.prod_le_prod
+        apply Finset.prod_le_prod₀
         · intro e _he
           exact Nat.zero_le _
         · intro e _he
@@ -72,7 +72,7 @@ theorem GeneratedOrderedPatternRegularization.card_cellIndex_le_stepBound
           r ^ R.stepIndex e) ≤
           ∏ _e : OrderedFace k r,
             r ^ stepBound := by
-        apply Finset.prod_le_prod
+        apply Finset.prod_le_prod₀
         · intro e _he
           exact Nat.zero_le _
         · intro e _he

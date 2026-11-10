@@ -1020,7 +1020,7 @@ theorem mixedFullConfigurationCount_lower_bound_rankwise
   have hproduct :
       (∏ e : PositiveOrderedFace k r, α e.rank) ≤
         ∏ e : PositiveOrderedFace k r, p e := by
-    apply Finset.prod_le_prod
+    apply Finset.prod_le_prod₀
     · intro e _he
       exact hα e.rank
     · intro e _he

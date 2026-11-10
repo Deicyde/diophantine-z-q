@@ -669,7 +669,7 @@ theorem norm_selectedCFZCanonicalCarry_unrestrictedPrimeSupportTerm_le
   unfold unrestrictedPrimeSupportTerm
     selectedCFZCanonicalCompleteSupportMajorant
   rw [norm_prod]
-  apply Finset.prod_le_prod
+  apply Finset.prod_le_prod₀
   · intro p _hp
     exact norm_nonneg _
   · intro p _hp

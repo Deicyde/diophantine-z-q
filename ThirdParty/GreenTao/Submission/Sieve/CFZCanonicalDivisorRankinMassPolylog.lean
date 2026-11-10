@@ -97,7 +97,7 @@ theorem pairedDivisorRankinWeight_le_one
       -(Real.log (R : ℝ))⁻¹ ≤ 0 := by
     exact neg_nonpos.mpr (inv_nonneg.mpr hlog)
   unfold pairedDivisorRankinWeight
-  apply Finset.prod_le_one
+  apply Finset.prod_le_one₀
   · intro q _hq
     positivity
   · intro q _hq
@@ -251,7 +251,7 @@ theorem norm_fixedFamilyPrimeSupportDensity_selectedCarry_assignment_le_inv_lcm
     _ hzR hz, norm_prod]
   rw [← SmoothSieveCutoff.prod_inv_primeFactors_eq_inv_of_squarefree
     (squarefree_pairedDivisorLcm hz)]
-  apply Finset.prod_le_prod
+  apply Finset.prod_le_prod₀
   · intro p _hp
     exact norm_nonneg _
   · intro p _hp
@@ -571,7 +571,7 @@ theorem selectedCFZCarryVectorRpowRankinMass_le_eulerMajorant
           (1 +
             (selectedCFZCanonicalRankinEulerCoefficient e : ℝ) /
               (p : ℝ)) := by
-      apply Finset.prod_le_prod
+      apply Finset.prod_le_prod₀
       · intro p _hp
         exact Finset.sum_nonneg fun s _hs =>
           mul_nonneg (pow_nonneg (by positivity) _)
@@ -660,7 +660,7 @@ theorem pairedDivisorHarmonicEulerMajorant_selected_le_rankinRpow
       (1 + (((2 ^ (2 * m) - 1 : ℕ) : ℝ) / (p : ℝ)))) ≤
       ∏ p ∈ Nat.primesLE R,
         (1 + (((4 ^ m : ℕ) : ℝ) / (p : ℝ)))
-  apply Finset.prod_le_prod
+  apply Finset.prod_le_prod₀
   · intro p _hp
     positivity
   · intro p _hp

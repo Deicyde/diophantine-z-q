@@ -114,7 +114,7 @@ theorem selectedCFZCarryEulerProductAtBlock_le_one
     selectedCFZCarryEulerProductAtBlock
       (N := N) W b e z a ≤ 1 := by
   unfold selectedCFZCarryEulerProductAtBlock
-  apply Finset.prod_le_one
+  apply Finset.prod_le_one₀
   · intro p _hp
     exact affineFamilyZeroDensity_nonneg
       (p : ℕ)
@@ -290,7 +290,7 @@ theorem selectedCFZCarryEulerProductAtBlock_le_inv_lcm
             (pairedPrimeSupport z p)) ≤
           ∏ p : (pairedDivisorLcm z).primeFactors,
             (1 : ℝ) / (p : ℝ) := by
-        apply Finset.prod_le_prod
+        apply Finset.prod_le_prod₀
         · intro p _hp
           exact affineFamilyZeroDensity_nonneg
             (p : ℕ)
@@ -680,7 +680,7 @@ theorem norm_transformedDivisorFamilySide_le_moebiusMass
         ∏ q,
           |(ArithmeticFunction.moebius (d q) : ℝ)| *
             ‖χ.cutoffFourierTransform (t q)‖ := by
-      apply Finset.prod_le_prod
+      apply Finset.prod_le_prod₀
       · intro q _hq
         positivity
       · intro q _hq
