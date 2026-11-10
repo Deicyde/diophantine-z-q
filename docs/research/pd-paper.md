@@ -22,7 +22,7 @@ of `𝔽_p` (Mathlib `quadraticChar (ZMod p)`), and for `a ∈ 𝔽_p`
    `∃ c > 0, ∃ᶠ N in atTop, c·π(N) ≤ #(G ∩ [0, N])` (`GTSearch.PrimesRelUpperDensityPos`, the hypothesis
    of Green–Tao 2008, Theorem 1.2). It is deduced from a positive lower Dirichlet density:
    `liminf_{x→1⁺} (x − 1)Φ_G(x) > 0` (Theorem D, §5). The implication from Dirichlet density to upper
-   density is Proposition 5.1. It needs only Abel summation and Chebyshev's bound `π(N) ≪ N/log N`.
+   density is Proposition 5.3. It needs only Abel summation and Chebyshev's bound `π(N) ≪ N/log N`.
 2. **The arithmetic description needs no CM theory** (§1). For `p ≡ 1 (mod 8)` with `(p/7) = −1`, put
    `c_p = φ_p(1)/2`. Then `p = c_p² + e_p²` with `c_p` odd, the two point counts in `GoodSlopePrime`
    are `p + 1 ∓ 2c_p`, and their gcd is exactly `4·gcd(c_p, p + 1)`. The proof uses only elementary
@@ -45,9 +45,9 @@ of `𝔽_p` (Mathlib `quadraticChar (ZMod p)`), and for `a ∈ 𝔽_p`
    `ν(q) = (2q − 1)/q²` for `q ≡ 1 (mod 4)`. The bound for the Selberg sum `S ≫ log N` is proved by an
    elementary comparison with `Σ r(n)/n` (no Mertens theorem, no `L(1, χ₄)` evaluation). For
    `ℓ > N^{1/4}` a lattice count gives `O(N^{3/4})`. Trivial counting cannot replace the sieve (§4.1),
-   and no choice of `G*` avoids it (§4.6). PrimeNumberTheoremAnd's `SelbergSieve.selberg_bound_simple`
+   and none of the choices of `G*` examined in §4.6 avoids it. PrimeNumberTheoremAnd's `SelbergSieve.selberg_bound_simple`
    (sorry-free, built on Mathlib's `BoundingSieve`) is the closed Selberg bound this needs.
-5. **Lean plan** (§6). Nine files, about 3.5–5.5k lines. That is less than earlier estimates, because the
+5. **Lean plan** (§6). Nine files: about 2.5–4k new lines plus a 1.5k-line port. That is less than earlier estimates, because the
    CM step shrinks to a few hundred lines of character sums. The hard part is the sieve instance
    (§4.3–4.5). A conditional theorem `goodPrimeDensity_of_uniformBadBound`, with the sieve bound as its
    only hypothesis, isolates it. The first step is Proposition 1.6 in Lean, which removes the most
@@ -75,12 +75,12 @@ statement to prove is
 
 It will be derived from
 
-> **Theorem D.** There are `L` and `η > 0` such that `(x − 1)·Φ_{G*_L}(x) ≥ η` for all `x ∈ (1, x₀]`,
-> for some `x₀ > 1`. In particular `liminf_{x→1⁺}(x − 1)Φ_G(x) > 0`.
+> **Theorem D.** There is `L` with `liminf_{x→1⁺}(x − 1)·Φ_{G*_L}(x) ≥ η_L > 0`. Since `G*_L ⊆ G`,
+> in particular `liminf_{x→1⁺}(x − 1)Φ_G(x) > 0`.
 
-through Proposition 5.1 (Dirichlet density ⇒ upper natural density). Theorem D gives a lower
+through Proposition 5.3 (Dirichlet density ⇒ upper natural density). Theorem D gives a lower
 Dirichlet density in the von Mangoldt normalisation. The classical normalisation
-`Σ_{p∈G} p^{−x}/log(1/(x − 1))` is equivalent for this purpose (Remark 5.2). The full Proposition D of
+`Σ_{p∈G} p^{−x}/log(1/(x − 1))` is equivalent for this purpose (Remark 5.4). The full Proposition D of
 `nt-22p.md` §2.2 (natural density equal to `(1/8)∏_{ℓ≡1 (4)}(1 − 2/(ℓ − 1)²) ≈ 0.1060`) needs Hecke's
 theorem for `ℚ(i)`. It is not needed for `GoodPrimeAP` (§3.1).
 
