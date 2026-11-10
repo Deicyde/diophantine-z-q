@@ -11,3 +11,4 @@
 - Pan arXiv v2 (last version, Sep 2021) re-read: Thm at FM.tex L226 needs rho as in Conj (pst at p), distinct HT, p=3 condition only.
 - Upstream supplements unreadable (repo too large for the module mirror). Writing docs/research/h-v14.md next.
 - wrote docs/research/h-v14.md (inventory, row map, open checks, CM, Serre route, recommendation)
+- wrote .fleet/h-v14.md; done
