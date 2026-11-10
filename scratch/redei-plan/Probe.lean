@@ -105,11 +105,16 @@ local notation "O" => 𝓞 (QNeg n)
 /-! ### 3.1 Field facts (`Redei/Field.lean`) -/
 
 theorem card_gal : Nat.card (K ≃ₐ[ℚ] K) = 2 := by
-  sorry
+  rw [IsGalois.card_aut_eq_finrank, QuadraticAlgebra.finrank_eq_two]
 
 /-- `ω = √−n` is an algebraic integer. -/
 theorem isIntegral_omega : IsIntegral ℤ (QuadraticAlgebra.omega : K) := by
-  sorry
+  refine IsIntegral.of_pow (n := 2) (by norm_num) ?_
+  have h : (QuadraticAlgebra.omega : K) ^ 2 = algebraMap ℤ K (-(n : ℤ)) := by
+    rw [pow_two, QuadraticAlgebra.omega_mul_omega_eq_algebraMap]
+    simp
+  rw [h]
+  exact isIntegral_algebraMap
 
 /-- `θ = (1 + √−n)/2` is an algebraic integer when `n ≡ 3 (mod 4)`. -/
 theorem isIntegral_theta (h3 : n % 4 = 3) :
@@ -121,10 +126,36 @@ theorem norm_eq_mul_conj (σ : K ≃ₐ[ℚ] K) (hσ : σ ≠ 1) (x : K) :
     algebraMap ℚ K (Algebra.norm ℚ x) = x * σ x := by
   sorry
 
+/-- `Algebra.norm` is Mathlib's explicit quadratic norm. -/
+theorem algNorm_eq (x : K) : Algebra.norm ℚ x = QuadraticAlgebra.norm x := by
+  rw [Algebra.norm_apply]
+  exact QuadraticAlgebra.det_toLinearMap_eq_norm x
+
 theorem norm_nonneg (x : K) : 0 ≤ Algebra.norm ℚ x := by
-  sorry
+  rw [algNorm_eq, QuadraticAlgebra.norm_def]
+  have h0 : (0 : ℚ) ≤ n := Nat.cast_nonneg n
+  nlinarith [mul_self_nonneg x.re, mul_self_nonneg x.im, mul_nonneg h0 (mul_self_nonneg x.im)]
 
 /-! ### 3.2 Primes (`Redei/Primes.lean`) -/
+
+/-- The Galois fundamental identity in `ℚ(√−n)` (API check: `IsGaloisGroup (K ≃ₐ[ℚ] K) ℤ 𝓞K`). -/
+theorem fundamental_identity {p : ℕ} (hp : p.Prime) :
+    (Ideal.primesOver (Ideal.span {(p : ℤ)}) O).ncard *
+      (Ideal.ramificationIdxIn (Ideal.span {(p : ℤ)}) O *
+        Ideal.inertiaDegIn (Ideal.span {(p : ℤ)}) O) = 2 := by
+  have : (Ideal.span {(p : ℤ)}).IsPrime :=
+    (Ideal.span_singleton_prime (by exact_mod_cast hp.ne_zero)).2
+      (Nat.prime_iff_prime_int.mp hp)
+  rw [Ideal.ncard_primesOver_mul_ramificationIdxIn_mul_inertiaDegIn _ O (K ≃ₐ[ℚ] K), card_gal]
+
+/-- Galois conjugates of a prime over `p` are the primes over `p` (API check). -/
+theorem exists_conj_eq {p : ℕ} (hp : p.Prime) (P Q : Ideal O) [P.IsPrime] [Q.IsPrime]
+    [P.LiesOver (Ideal.span {(p : ℤ)})] [Q.LiesOver (Ideal.span {(p : ℤ)})] :
+    ∃ σ : K ≃ₐ[ℚ] K, σ • P = Q := by
+  have : (Ideal.span {(p : ℤ)}).IsPrime :=
+    (Ideal.span_singleton_prime (by exact_mod_cast hp.ne_zero)).2
+      (Nat.prime_iff_prime_int.mp hp)
+  exact Ideal.exists_smul_eq_of_isGaloisGroup (Ideal.span {(p : ℤ)}) P Q (K ≃ₐ[ℚ] K)
 
 /-- Splitting trichotomy for a prime `P` of `𝓞 K` over `p` (Galois fundamental identity
 `#primesOver · e · f = 2`). -/
@@ -243,7 +274,36 @@ theorem exists_chi_eq (hn : Odd n) (hsq : Squarefree n) (ε : n.primeFactors →
 theorem odd_card_range_sq_iff {G : Type*} [CommGroup G] [Finite G] :
     Odd (Nat.card (powMonoidHom 2 : G →* G).range) ↔
       (powMonoidHom 2 : G →* G).ker ⊓ (powMonoidHom 2 : G →* G).range = ⊥ := by
-  sorry
+  set H := (powMonoidHom 2 : G →* G).range
+  constructor
+  · intro hodd
+    rw [eq_bot_iff]
+    rintro x ⟨hx1, hx2⟩
+    have h2 : x ^ 2 = 1 := hx1
+    have hdvd : orderOf x ∣ 2 := orderOf_dvd_of_pow_eq_one h2
+    have hdvdH : orderOf (⟨x, hx2⟩ : H) ∣ Nat.card H := orderOf_dvd_natCard _
+    rw [Subgroup.orderOf_mk] at hdvdH
+    have h1 : orderOf x = 1 := by
+      rcases (Nat.dvd_prime Nat.prime_two).1 hdvd with h | h
+      · exact h
+      · exfalso
+        rw [h] at hdvdH
+        exact (Nat.not_even_iff_odd.2 hodd) (even_iff_two_dvd.2 hdvdH)
+    exact Subgroup.mem_bot.2 (orderOf_eq_one_iff.1 h1)
+  · intro hbot
+    by_contra hodd
+    rw [Nat.not_odd_iff_even] at hodd
+    have : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
+    obtain ⟨y, hy⟩ := exists_prime_orderOf_dvd_card' (G := H) 2 (even_iff_two_dvd.1 hodd)
+    have hker : (y : G) ∈ (powMonoidHom 2 : G →* G).ker := by
+      show (y : G) ^ 2 = 1
+      rw [← Subgroup.orderOf_coe] at hy
+      rw [← hy]
+      exact pow_orderOf_eq_one _
+    have hmem : (y : G) ∈ (⊥ : Subgroup G) := hbot ▸ ⟨hker, y.2⟩
+    have : orderOf (y : G) = 1 := orderOf_eq_one_iff.2 (Subgroup.mem_bot.1 hmem)
+    rw [Subgroup.orderOf_coe, hy] at this
+    exact absurd this (by norm_num)
 
 /-- **Principal genus theorem**: `2Cl = ker χ`. -/
 theorem range_sq_eq_ker_chi (hn : Odd n) (hsq : Squarefree n) :
