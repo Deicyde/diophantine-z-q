@@ -150,3 +150,10 @@ Started 2026-11-09. Task: find Lean formalizations of Green-Tao / relative Szeme
   (`prelim_decay_2`, `prelim_decay_3`), used only by `decay_alt` -> IEANTN/CH2; static grep says
   `WeakPNT_AP` does not use them (NOT verified by #print axioms: no Mathlib v4.34 build available).
   No Gaussian-integer sieve, no Hecke/Chebotarev proof (Chebotarev section is blueprint prose).
+- BUILD (2026-11-09 16:01, load 6, 110 GB free): Lean Pool LeanPool/DensityHalesJewett (17 modules, all
+  files from Vilin97/lean-pool 9c7629e5, unchanged) compiled with plain `lean` v4.35.0 one module at a
+  time against the local Mathlib 56a00585 oleans: all 17 modules OK, 0 warnings, ~35 s total.
+  `#print axioms` (~/gt-builds/dhj/Axioms.lean): exists_of_density_nat_atTop, exists_many_of_density_nat,
+  Line.exists_of_density_atTop, exists_of_density_nat: [propext, Classical.choice, Quot.sound].
+  No `sorry`/`axiom`/`native_decide` in the sources. VERIFIED. So Szemerédi + Varnavides port to our
+  pinned versions with zero changes.
