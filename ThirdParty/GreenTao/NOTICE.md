@@ -26,11 +26,14 @@ Theorem 1.1), proved here as `Submission.green_tao`.
 
 ## Modifications in this repository
 
-The files were first committed unchanged, then ported to Lean 4.35.0 and Mathlib
-`56a005855ea17e0b0958f73ec801ae140b0a1679` with local proof edits only. No statement was changed,
+In the fork Deicyde/diophantine-z-q the files were first committed unchanged, then ported to Lean
+4.35.0 and Mathlib `56a005855ea17e0b0958f73ec801ae140b0a1679` with local proof edits only. No statement was changed,
 and no `sorry`, `axiom`, `native_decide`, `implemented_by`, `extern` or kernel-skipping option
 was added (the source contains none either). `#print axioms Submission.green_tao` reports
 `propext`, `Classical.choice`, `Quot.sound`.
+
+Each modified file starts with a one-line comment saying that it was changed in this repository
+(Apache License 2.0, section 4(b)); the counts below do not include those lines.
 
 Kinds of change:
 

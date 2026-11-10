@@ -29,9 +29,11 @@ of route (i) ([Theorem 4.3](../rank-5b/theorem-4-3.md)); the rank-one theorems a
 - *Rank one*, by either of two routes. (i) For $d\equiv5\pmod8$ and a first coordinate with
   $|a|\equiv3\pmod4$, an elementary computation (the row-5b determinant of Smith's Monsky
   matrices, reproved in tyz-5b §§2–4) shows that the genus sum $T_{5b}(d)$ of Tian, Yuan and Zhang
-  is odd; the proof of their Theorem 3.5(2) then gives that $L(C_d,s)$ vanishes to order exactly
-  one at $s=1$, and Gross–Zagier–Kolyvagin give $\operatorname{rank}C_d(\mathbb Q)=1$. Both are
-  published; the form of TYZ used is the one their proof establishes. (ii) Kriz's 2-converse
+  is odd; their Theorem 3.5 and the argument of the proof of their Theorem 3.5(2), as completed in
+  nt-tyz §4 (Proposition N), then give that $L(C_d,s)$ vanishes to order exactly one at $s=1$, and
+  Gross–Zagier–Kolyvagin give $\operatorname{rank}C_d(\mathbb Q)=1$. Both are published; the form
+  of TYZ used is the one their proof gives, which rests on their Proposition 3.4, whose proof is a
+  sketch, and nt-tyz §4 proves that form directly. (ii) Kriz's 2-converse
   theorem (Theorems 10.13 and 10.17(2), an unrefereed preprint) with the corank lemma
   (Poonen–Stoll) gives $\operatorname{rank}C_d(\mathbb Q)=1$ and $Ш(C_d)[2]=0$.
 - Then $\dim C_d(\mathbb Q)/2C_d(\mathbb Q)=2+1=\dim\mathrm{Sel}_2(C_d)$, so the Kummer map is onto

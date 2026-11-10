@@ -189,7 +189,8 @@ Legendre symbols of the primes of `n`) is `1`, then the 2-covering `D_{a,b}` of 
 
 **Trust statement.** CR₃^5b is not proved in Lean. It follows from Tian–Yuan–Zhang
 (Y. Tian, X. Yuan, S.-W. Zhang, *Genus periods, genus points and congruent number problem*, Asian
-J. Math. 21 (2017), no. 4, 721–774: the proof of Theorem 3.5(2) in §3.3, through Smith's row 5b)
+J. Math. 21 (2017), no. 4, 721–774: Theorem 3.5 and the argument of the proof of Theorem 3.5(2) in
+§3.3, as completed in `docs/research/nt-tyz.md` §4, through Smith's row 5b)
 together with Gross–Zagier–Kolyvagin, as follows (`docs/research/tyz-5b.md` §§1, 3):
 
 * tyz-5b §3 (elementary, Smith's row 5b reproved): `det M_5b = T_5b(n)`, the genus sum
