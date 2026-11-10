@@ -1,0 +1,26 @@
+# pdf_grep.py output: theorem headers only (truncated lines). PDFs kept outside the repository.
+## Pan arXiv:1901.07166v2 (arXiv-compiled PDF)
+p2: Conjecture 1.0.1 (Fontaine-Mazur). Letp be a prime number and
+p3: Theorem 1.0.2. Letp be an odd prime and ρ be as in the conjecture. Assume furthermore
+p4: Corollary 1.0.3. T has dimension at least 1 + 2.
+p5: Theorem 1.0.4. Letp be an odd prime and ρ be as in conjecture 1.0.1. Assume that
+p5: Remark 1.0.5. In his thesis [Tun18], Shen-Ning Tung proved this result under the us ua
+p111: Theorem 7.1.1. Letp> 2 be an odd prime number. Let F be a totally real abelian exten
+p124: Theorem 8.0.1. Letp> 2 be an odd prime. Let F be a totally real extension of Q in wh
+p125: Remark 8.0.2. In his thesis [Tun18], Shen-Ning Tung proved this result without our e
+p125: Remark 8.0.3. Ifρ|GFv is reducible for any v|p, i.e. ordinary, the Theorem can be pr
+p125: Remark 8.0.4. WhenF = Q, the last condition automatically holds by the work of Khare
+p132: Theorem 9.0.1. LetF be a totally real extension of Q in which p completely splits. S
+p133: Remark 9.0.2. If we are in the ordinary case, i.e. ρ|GFv is reducible for any v|p, t
+p133: Remark 9.0.3. Again the last condition holds when F = Q. See remark 8.0.4.
+## Breuil arXiv:math/0009252v1 (Annals 152 (2000) typeset version)
+p1: Annals of Mathematics, 152 (2000), 489–549
+p5: Corollaire 1.6. Supposons p⁄= 2 et k⊆ Fp. Soient A une vari ´et´e
+p59: Corollaire 5.3.4. Supposons p⁄= 2 et k⊆ Fp. Soient A une vari ´et´e
+## Berger arXiv:math/0102179v3
+p6: Th´ eor` eme 0.6.Si V est une repr´ esentation de de Rham, alors V
+p7: 5.4. Le th´ eor` eme 0.6 correspond au th´ eor` eme 5.19. Le premier point
+p56: Th´ eor` eme 5.19.Si V est une repr´ esentationp-adique de de Rham,
+p58: On est maintenant en mesure de d´ emontrer le th´ eor` eme 5.19.
+## Coleman-Iovita arXiv:math/9701229v1
+p3: crystalline if and only if A has good reduction.
