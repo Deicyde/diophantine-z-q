@@ -89,23 +89,38 @@ theorem det_M5b_eq_T5b (hd5 : d % 8 = 5) (hsq : Squarefree d) : (M5b d).det = T5
 `#Sel₂(C_d) = 8` (`dim Sel₂ = 3`) and odd genus sum `T_5b(d) = 1`, every 2-Selmer class of
 `C_d : y² = x³ − d²x` comes from a rational point: `D_{a,b}(ℚ) ≠ ∅` for every `(a, b) ∈ Sel₂(C_d)`.
 
-*Trust statement.* This is a consequence of the following published theorems, none of which is
-formalized here:
+*Trust statement.* This is not proved in Lean. It follows from the following published results,
+none of them formalized here, together with Theorem 3.6 (`det_M5b_eq_T5b`, proved):
 
 * **Tian–Yuan–Zhang** (Y. Tian, X. Yuan, S.-W. Zhang, *Genus periods, genus points and congruent
-  number problem*, Asian J. Math. 21 (2017), no. 4, 721–774; arXiv:1411.4728), in the form proved in
-  the proof of their Theorem 3.5(2) (§3.3, "Proof of Theorem 3.5: part (2)"): for squarefree
-  `n ≡ 5 (mod 8)`, if the `(7, 3)` genus sum `Σ_{d₀ ≡ 7, d₁ ≡ 3 (8)} g(d₀) g(d₁) 𝓛(n/d₀d₁)` is odd,
-  then `2^{−ρ(n)}𝓛(n)` is odd, so `𝓛(n) ≠ 0` and `ord_{s=1} L(C_n, s) = 1` (the root number is `−1`).
-  See `docs/research/tyz-5b.md` §1 (Proposition 1.1; the citation caveat on the reading of the
-  statement of Theorems 1.2 and 3.5(2)) and `docs/research/nt-tyz.md`.
-* **Rédei's formula** (genus theory: Gauss, Rédei 1934; tyz-5b Proposition 2.3): `g(d) =
-  #2Cl(ℚ(√−d)) mod 2` equals the determinant forms used in the definition of `gBit`
-  (`Sec3.redeiG`), so that `T5b d` is the genus sum of TYZ. The identity `T5b d = det M_5b`
-  (`det_M5b_eq_T5b`, Theorem 3.6) is proved in Lean; Proposition 2.3 is not.
-* **Gross–Zagier and Kolyvagin** (manuscript Lemma 5.5, `lem:forward-rank`): analytic rank one
-  gives `rank C_d(ℚ) = 1`; then `dim C_d(ℚ)/2C_d(ℚ) = 2 + 1 = 3 = dim Sel₂(C_d)`, so the Kummer map
-  is onto `Sel₂(C_d)`, i.e. every Selmer class has `D_{a,b}(ℚ) ≠ ∅` (`Selmer.loc_iff_kummer`). -/
+  number problem*, Asian J. Math. 21 (2017), no. 4, 721–774; read in arXiv:1411.4728v1, the journal
+  text was not available): Theorem 3.5 (first assertion) and the argument of the proof of
+  Theorem 3.5(2) in §3.3, for `n ≡ 5 (mod 8)`, as completed in `docs/research/nt-tyz.md` §4
+  (Proposition N; reviewed in `docs/research/rv-nt-tyz.md`). For squarefree `n ≡ 5 (mod 8)`: if
+  the `(7, 3)` genus sum `Σ_{d₀ ≡ 7, d₁ ≡ 3 (8)} g(d₀) g(d₁) 𝓛₁(n/d₀d₁)` is odd, where `𝓛₁(m)` is
+  the sum of `Π g(B)` over the set partitions of the primes of `m` into blocks `≡ 1 (mod 8)`, then
+  TYZ's invariant `𝓛(n)` is nonzero, so `ord_{s=1} L(C_n, s) ≤ 1`, and since the root number is `−1`
+  (Birch–Stephens), `ord_{s=1} L(C_n, s) = 1`. TYZ's Theorem 1.2 must not be cited literally (with
+  "all `d_i > 1`" it is false; nt-tyz §1.4). TYZ's own definition of `𝓛(n)` uses Coates–Wiles,
+  Rubin, Gross–Zagier and Kolyvagin (TYZ §1).
+* **Rédei's formula** (genus theory; L. Rédei, J. Reine Angew. Math. 171 (1934), 55–60; the `κ`
+  forms are derived in `docs/research/tyz-5b.md` Proposition 2.3): for every set `B` of primes of
+  `d` with `d_B ≢ 5 (mod 8)`, `gBit d B = #2Cl(ℚ(√−d_B)) mod 2`. So `T5b d` is the `(7, 3)` genus
+  sum above for `n = d`.
+* **Gross–Zagier** (Invent. Math. 84 (1986), 225–320), over an imaginary quadratic field `K` that
+  satisfies the Heegner hypothesis and has `L(C_d^K, 1) ≠ 0` (Bump–Friedberg–Hoffstein;
+  Murty–Murty); `C_d` is modular because it has CM by `ℤ[i]` (Deuring, Shimura). This gives
+  `ord_{s=1} L(C_d, s) = 1 ⟹ rank C_d(ℚ) ≥ 1` (`docs/research/pc-audit.md` RK7). Neither
+  Kolyvagin nor BCDT is needed for this step.
+
+Then (elementary, `docs/research/pc-audit.md` RK9): `C_d(ℚ)[2]` has order 4, so
+`dim C_d(ℚ)/2C_d(ℚ) = 2 + rank ≥ 3 = dim Sel₂(C_d)`. The Kummer map is injective on
+`C_d(ℚ)/2C_d(ℚ)` (Silverman X.1.4), hence onto `Sel₂(C_d)`, and every Selmer class has
+`D_{a,b}(ℚ) ≠ ∅` (`Selmer.loc_iff_kummer`). Neither finiteness of `Ш` nor the Cassels–Tate
+pairing is used.
+
+Under `d % 8 = 5` and `Squarefree d`, `CertifiedRankTYZ` is equivalent to `CertifiedRank5b` by
+Theorem 3.6 (review: `docs/research/rv-cr5b-sec3.md`). -/
 def CertifiedRankTYZ : Prop :=
   ∀ d : ℕ, d % 8 = 5 → Squarefree d → (Sel2 d).ncard = 8 → T5b d = 1 →
     ∀ ab ∈ Sel2 d, Loc ℚ d ab.1 ab.2

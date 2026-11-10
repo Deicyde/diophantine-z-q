@@ -122,6 +122,18 @@ and `det M_5b = 1`, every Selmer class comes from a rational point;
 hypothesis it is at least as strong, but it is stated in the terms of Smith's table, the step toward
 Tian–Yuan–Zhang's own statement (`tyz-5b.md` §3).
 
+That step is done: sections 2 and 3 of `tyz-5b.md` are proved in Lean (`ZInQKernel/RouteK/Rank5b/Sec3/`),
+including the forest lemma and Theorem 3.6, `det M_5b = T_5b(d)` (`ZInQ.RouteK.Rank5b.det_M5b_eq_T5b`),
+where `T_5b(d)` is Tian–Yuan–Zhang's `(7, 3)` genus sum with Rédei's `g` written in Legendre symbols.
+`CertifiedRankTYZ` (for squarefree `d ≡ 5 (mod 8)` with `#Sel₂(C_d) = 8` and `T_5b(d)` odd, every
+Selmer class comes from a rational point) is the hypothesis in their own terms; it is equivalent to
+`CertifiedRank5b` and gives
+`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZ`. Its trust
+statement names Tian–Yuan–Zhang (Proposition N of `docs/research/nt-tyz.md`), Rédei's formula and
+Gross–Zagier; one model review found it faithful after docstring repairs, with a numerical check
+against PARI on 30 values of `d` (`docs/research/rv-cr5b-sec3.md`). Rédei's formula itself is not
+formalized (`docs/research/redei-plan.md` plans it: about 2,650 lines).
+
 `scripts/check_target.py` checks that `FrozenTarget` is upstream's frozen statement token
 for token. Removing another hypothesis means formalizing its source theorem or finding a
 cheaper route to it; MW and CAT were within reach of current Mathlib.

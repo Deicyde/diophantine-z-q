@@ -40,7 +40,8 @@ namespace ZInQ
 
 /-- **Theorem 1.1** from 6C_min and CR₃^TYZ (`RouteK.Rank5b.CertifiedRankTYZ`: for squarefree
 `d ≡ 5 (mod 8)` with `#Sel₂(C_d) = 8` and odd genus sum `T_5b(d)`, every 2-Selmer class of `C_d` comes
-from a rational point — a consequence of Tian–Yuan–Zhang, Rédei's formula and Gross–Zagier–Kolyvagin).
+from a rational point — a consequence of Tian–Yuan–Zhang (Proposition N of
+`docs/research/nt-tyz.md`), Rédei's formula and Gross–Zagier).
 
 CR₃^TYZ implies CR₃^5b by Theorem 3.6 (`RouteK.Rank5b.certifiedRank5b_of_certifiedRankTYZ`), which
 implies CR₃^Sel by Corollary 4.4 (`RouteK.Rank5b.certifiedRankSel_of_certifiedRank5b`). -/
