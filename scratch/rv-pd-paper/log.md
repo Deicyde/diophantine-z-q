@@ -25,3 +25,28 @@
   card_fixedPoints_modEq (Function.End, p-power), exists_sq_eq_two_iff, exists_sq_eq_prime_iff_of_mod_four_eq_one,
   exists_sq_eq_neg_one_iff, EM seq bounds (H_n - log(n+1) < gamma < H_n - log n, n>=1), theta_le_log4_mul_x,
   eventually_primeCounting_le (pi floor x <= (log4+eps) x/log x eventually), sum_range_by_parts, totient_mul/prime.
+
+## Step 3 (section 4 and 5 by hand; sec4.py)
+- Mathlib BoundingSieve: multSum d = sum_{n in support, d|n} weights n; rem d = multSum d - nu d * totalMass;
+  siftedSum = sum_{n in support, Coprime P n} weights n. selbergTerms = nu.pmul prodPrimeFactors (1-nu p)^-1.
+  selbergBoundingSum = sum_{l | P, l^2 <= y} g l. PNT v4.35.0 Selberg.lean selberg_bound_simple at line below;
+  Sieve files import only Mathlib + Batteries + each other.
+- 4.3 set-up CORRECT: F(U,V) >= 1 (b+lV != 0), (4.1) CORRECT (prime p > w coprime to P), M1,M2 <= 2T/l+1.
+- Lemma 4.3 CORRECT (also sec4.py: rho(q) = 2q-1 for q<120, l in {5,13,17,29}: 0 failures).
+- Lemma 4.4 CORRECT (sec4.py on boxes N up to 1e8: max |R_d|/(2^w(M1+M2+d)) = 0.049).
+- 4.4 error term CORRECT: 6^omega <= d^2, #d <= y, M1+M2+y <= 6T/l, 6 N^{-1/10} log N <= 1 at N=1e30.
+  Total mass (1+N^{-1/4}/2)^2 <= 5/4 for N >= 324 CORRECT.
+- Lemma 4.5 CORRECT: g(q) = (2q-1)/(q-1)^2 >= 2/q; l|P, l^2<=w^2 iff l in D, l<=w, l!=ell-free; ell-terms
+  <= (2/ell)S0(w); S >= (3/5)R/V. Claim A CORRECT (|E|<log(1+1/n)<=1/n<=2/t; S1 in [2/3,1]; S2 in [-log3/3,0];
+  Mathlib EM lemmas: seq n = H_n - log(n+1) < gamma < seq' n = H_n - log n (n>=1)). Claim B CORRECT
+  (prime-power check; V <= 2 zeta(2)^4 = 14.64 via lcm count). sec4.py: r<=h*v n<2e4 ok; min R(w)-bound = 2.77;
+  S exact >= bound for w<=1e5, l in {5,13,101,997} (min margin 1.02); R(1e6)=11.50, S0(1e6)=4.74.
+- Prop 4.2 constants CORRECT: (logN/60-2)/25 >= logN/1600 iff logN >= 1920; 5*1600+1 = 8001; 2*8001+1.
+- Prop 4.1 CORRECT; sum bound 16N^{3/4}+4 sqrt N (1+logN/2) <= 20 N^{3/4} for N>=1e3.
+- Lemma 5.1 CORRECT (dyadic + theta <= log4 x). Lemma 5.2 CORRECT. Prop 5.3 CORRECT (Mathlib
+  eventually_primeCounting_le is in floor-x form; fine for N nat). Theorem D CORRECT: 0.375/(L) vs 5.545 A1/(L log L)
+  gives log L > 14.79 A1; L = e^{240045}.
+- sec4.py: Bad_l counts at N=2e6 match 2|C|/(l-1)^2; max bad*l^2 logN/N = 0.42 (l=5); c_17=-1, c_41=-5 as in note.
+- Minor Lean-plan issues: sum_quadraticChar_shift_mul as stated is false for p=2 (needs p != 2);
+  target now ZInQ.GoodPrimeDensity in GreenTao.lean on main (note still points at scratch gt-search link);
+  PNT tag v4.35.0 pins our Mathlib, so file 7 is vendoring not porting.
