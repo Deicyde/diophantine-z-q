@@ -1,11 +1,11 @@
-# Builds work-in-progress branches (wip/**) so that agents without a local Lean
-# toolchain can compile their changes. It checks nothing beyond `lake build`.
+# Builds a work-in-progress branch on request, so that agents without a local
+# Lean toolchain can compile their changes. It checks nothing beyond `lake build`.
+# It runs only by workflow_dispatch: the agent fleet pushes wip/** branches every
+# few minutes, and a build per push was far more Actions time than they need.
 
 name: lean wip
 
 on:
-  push:
-    branches: ['wip/**']
   workflow_dispatch:
 
 permissions:
