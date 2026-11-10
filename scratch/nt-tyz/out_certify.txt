@@ -1,0 +1,16 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+n=26565 = [3, 5, 7, 11, 23], n mod 8 = 5, root number = -1
+  ellrank bounds: 3..3, points found: 3
+  points: [[-18515, 2592100], [-13860, 2668050], [31740, 3094650]]
+  det(height matrix) = 39.4025674653555
+  g certified (bnfcertify) = Redei on all 31 divisors; g(n) = 1
+  T5a=0 T5b=0 (5,1)_unordered,d1>1=1 (5,1)_distinguished,d1>1=1
+  second sum: reading A=0, B=1, C=1
+n=33117 = [3, 7, 19, 83], n mod 8 = 5, root number = -1
+  ellrank bounds: 3..3, points found: 3
+  points: [[-20667, 3720060], [-3616725/121, 3281092920/1331], [-1120791/100, 3299122323/1000]]
+  det(height matrix) = 269.703626444092
+  g certified (bnfcertify) = Redei on all 15 divisors; g(n) = 1
+  T5a=0 T5b=0 (5,1)_unordered,d1>1=1 (5,1)_distinguished,d1>1=1
+  second sum: reading A=0, B=1, C=1

@@ -1,0 +1,33 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+n=1533 primes=[3, 7, 73] T5a=1 T5b=1 analytic_rank=1
+n=341 primes=[11, 31] T5a=1 T5b=1 analytic_rank=1
+n=3589 primes=[37, 97] T5a=1 T5b=0 analytic_rank=1
+n=2077 primes=[31, 67] T5a=0 T5b=1 analytic_rank=1
+n=3053 primes=[43, 71] T5a=0 T5b=1 analytic_rank=1
+n=28613 primes=[13, 31, 71] T5a=0 T5b=0 analytic_rank=1
+n=205 primes=[5, 41] T5a=0 T5b=0 analytic_rank=1
+n=20213 primes=[17, 29, 41] T5a=1 T5b=0 analytic_rank=1
+n=182573 primes=[41, 61, 73] T5a=0 T5b=0 analytic_rank=1
+n=5829 primes=[3, 29, 67] T5a=1 T5b=1 analytic_rank=1
+n=205757 primes=[37, 67, 83] T5a=1 T5b=0 analytic_rank=1
+n=3157 primes=[7, 11, 41] T5a=1 T5b=0 analytic_rank=1
+n=71021 primes=[29, 31, 79] T5a=0 T5b=0 analytic_rank=1
+n=63181 primes=[23, 41, 67] T5a=1 T5b=1 analytic_rank=1
+n=2021 primes=[43, 47] T5a=1 T5b=1 analytic_rank=1
+n=437 primes=[19, 23] T5a=1 T5b=1 analytic_rank=1
+n=493 primes=[17, 29] T5a=1 T5b=0 analytic_rank=1
+n=16037 primes=[7, 29, 79] T5a=0 T5b=1 analytic_rank=1
+n=6789 primes=[3, 31, 73] T5a=1 T5b=1 analytic_rank=1
+n=19765 primes=[5, 59, 67] T5a=1 T5b=1 analytic_rank=1
+n=2021 primes=[43, 47] T5a=1 T5b=1 analytic_rank=1
+n=1261 primes=[13, 97] T5a=1 T5b=0 analytic_rank=1
+n=187829 primes=[31, 73, 83] T5a=1 T5b=0 analytic_rank=1
+n=3589 primes=[37, 97] T5a=1 T5b=0 analytic_rank=1
+n=1909 primes=[23, 83] T5a=1 T5b=1 analytic_rank=1
+n=4453 primes=[61, 73] T5a=0 T5b=0 analytic_rank=1
+n=53157 primes=[3, 13, 29, 47] T5a=0 T5b=0 analytic_rank=1
+n=253 primes=[11, 23] T5a=1 T5b=1 analytic_rank=1
+n=15477 primes=[3, 7, 11, 67] T5a=1 T5b=0 analytic_rank=1
+n=3869 primes=[53, 73] T5a=1 T5b=0 analytic_rank=1
+(T5a, T5b, rank) -> count: {(0, 0, 1): 6, (0, 1, 1): 3, (1, 0, 1): 10, (1, 1, 1): 11}
+counterexamples to reading A: []
