@@ -56,3 +56,4 @@ import ZInQKernel.RouteK.SelmerLocal
 import ZInQKernel.RouteK.SelmerCharSum
 import ZInQKernel.RouteK.SelmerBits
 import ZInQKernel.RouteK.SelmerTwo
+import ZInQKernel.RouteK.SelmerGood
