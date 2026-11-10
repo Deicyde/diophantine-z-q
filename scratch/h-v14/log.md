@@ -10,3 +10,4 @@
 - form_check.py: Gram(E0) matrix and det 1, E1 = 6 E0 (BG printed form), Rosati identity, disc 6, |(O/3O)*|=72, |(O/5O)*|=480: pass.
 - Pan arXiv v2 (last version, Sep 2021) re-read: Thm at FM.tex L226 needs rho as in Conj (pst at p), distinct HT, p=3 condition only.
 - Upstream supplements unreadable (repo too large for the module mirror). Writing docs/research/h-v14.md next.
+- wrote docs/research/h-v14.md (inventory, row map, open checks, CM, Serre route, recommendation)
