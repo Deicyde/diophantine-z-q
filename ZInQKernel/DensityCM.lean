@@ -1,4 +1,5 @@
 import ZInQKernel.Density.CharSum
+import ZInQKernel.Density.Description
 
 /-!
 # Proposition D, files 1–2: the arithmetic description of the good slope primes
