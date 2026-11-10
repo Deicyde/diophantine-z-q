@@ -24,6 +24,14 @@ Fill this in briefly. Existing instructions and authorizations supplied elsewher
 - Public/private destinations and permitted differences:
 - Confidential material that must not enter public artifacts:
 
+## Minimal release plan
+
+- Immutable candidate commit and artifact manifest; derived hosting metadata checked separately:
+- Ordered stages, commands, dependencies, owners and saved success records; exact inputs and checker/configuration versions that permit reuse:
+- End-to-end preflight, existing signed-evidence compatibility if applicable, failure/retry cases, and live-only checks still pending:
+- Measured or estimated time, compute and storage budget per phase; progress/error reporting location and recovery owner:
+- Short publication and readback steps under existing authorization; safe resume point after partial publication:
+
 ## Operating constraints and authorization
 - Priority and any time, compute, concurrency or memory constraints:
 - Publication, messaging, access-change and purchase authorizations already given:
