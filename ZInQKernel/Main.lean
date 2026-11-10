@@ -184,4 +184,17 @@ theorem exists_bounded_integer_polynomial_defining_integers_of_greenTaoDense
   exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP hH hCR
     (goodPrimeAP_of_greenTaoDense hGT hD)
 
+/-- **Main theorem, under the narrowest hypotheses so far.** Under H (`SixContactMin`), CR₃^Sel
+(`RouteK.Selmer.CertifiedRankSel`, stated with the textbook 2-Selmer group), Szemerédi's theorem in
+the primes (`GreenTaoDense`) and the density part of Proposition D (`GoodPrimeDensity`), there is an
+integer polynomial in `292890231905` variables, of degree below `2↑↑7` and with coefficients below
+`2↑↑8`, whose rational zero projection to the first variable is exactly `ℤ`. Proposition 0
+(`RouteK.Selmer.certifiedRank_of_certifiedRankSel`) gives CR₃, and the last two hypotheses give
+22P_AP. -/
+theorem exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_greenTaoDense
+    (hH : SixContactMin) (hCRS : RouteK.Selmer.CertifiedRankSel) (hGT : GreenTaoDense)
+    (hD : GoodPrimeDensity) : FrozenTarget :=
+  exists_bounded_integer_polynomial_defining_integers_of_greenTaoDense hH
+    (RouteK.Selmer.certifiedRank_of_certifiedRankSel hCRS) hGT hD
+
 end ZInQ

@@ -62,6 +62,24 @@ the class `β = sqf(mB)`; CR₃ gives the points, and these give a zero of the p
 `exists_bounded_integer_polynomial_defining_integers_of_poleCompleteness` is the main theorem with
 PC (Route K) in place of CR₃.
 
+Two narrower hypotheses are available as variants of the main theorem. Proposition 0 is proved in
+Lean (`ZInQKernel/RouteK/Selmer/`, `ZInQ.RouteK.Selmer.prop0Statement`): the explicit system is the
+textbook 2-Selmer group, defined through the local solubility of 2-coverings. So CR₃ follows from
+CR₃^Sel (`ZInQ.RouteK.Selmer.CertifiedRankSel`): for these `d`, if `Sel₂(C_d)` has 8 elements and
+contains a class with `|a| ≡ 7 (mod 8)`, then every Selmer class comes from a rational point, that is
+`Ш(C_d)[2] = 0`. `exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel` is the
+main theorem with CR₃^Sel. Next, 22P can be replaced by 22P_AP (`ZInQ.GoodPrimeAP`: the good slope
+primes above `max S_b` contain arithmetic progressions of every length), through a change in the
+completeness proof that leaves the polynomial unchanged (`docs/research/nt-22p.md` §3, Lemma P and
+Proposition AP, checked by three model referee runs and a Lean-statement audit:
+`docs/research/rv-nt22p-*.md`, `aud-ap.md`). That variant is
+`exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP`. 22P_AP follows from
+Szemerédi's theorem in the primes (`ZInQ.GreenTaoDense`: Green–Tao 2008, Theorem 1.2, with a
+complete proof by Tao–Ziegler 2008) and the positive relative density of the good slope primes
+(`ZInQ.GoodPrimeDensity`: Proposition D of nt-22p §2, so far a sketch on paper), giving
+`exists_bounded_integer_polynomial_defining_integers_of_greenTaoDense` and, with CR₃^Sel as well,
+`exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_greenTaoDense`.
+
 `scripts/check_target.py` checks that `FrozenTarget` is upstream's frozen statement token
 for token. Removing another hypothesis means formalizing its source theorem or finding a
 cheaper route to it; MW and CAT were within reach of current Mathlib.
