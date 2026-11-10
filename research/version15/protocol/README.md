@@ -1,6 +1,6 @@
 # Version 15 protocol records
 
-The [current 222-variable records](current222/README.md) contain 193 ordinary applications, 1,187 source uses, 1,167 connections and 32 formal findings. These files preserve the independently reviewed normalization candidate. The completed release integration is recorded by [PR 26](https://github.com/elliotglazer/diophantine-z-q/pull/26) and the successful [protocol evaluation](https://github.com/elliotglazer/research-review-controller/actions/runs/42873707544); the preserved candidate files retain their original scope and are not themselves authenticated receipts. The current manuscript and PDF are fixed; these records do not change their mathematical content.
+The [current 222-variable records](current222/README.md) contain 193 ordinary applications, 1,187 source uses, 1,167 connections and 32 formal findings. These files preserve the independently reviewed normalization candidate. The completed release integration is recorded by [PR 26](https://github.com/elliotglazer/diophantine-z-q/pull/26) and the successful [protocol evaluation](https://github.com/elliotglazer/diophantine-z-q/pull/26/checks); the preserved candidate files retain their original scope and are not themselves authenticated receipts. The current manuscript and PDF are fixed; these records do not change their mathematical content.
 
 ## Retained 233-variable predecessor
 

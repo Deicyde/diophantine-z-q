@@ -14,7 +14,7 @@ The accepted 222 construction chain includes its explicit tables, rational coord
 
 ## Review history and limits
 
-The [preserved protocol records](protocol/README.md) and earlier review material retain their exact historical scope. The release was integrated through [PR 26](https://github.com/elliotglazer/diophantine-z-q/pull/26) after the successful [protocol evaluation](https://github.com/elliotglazer/research-review-controller/actions/runs/42873707544). The [published release](https://github.com/elliotglazer/diophantine-z-q/releases/tag/quartic-222-version-15) retains the exact manuscript and archive bytes; earlier preparation records are not relabeled as authenticated receipts.
+The [preserved protocol records](protocol/README.md) and earlier review material retain their exact historical scope. The release was integrated through [PR 26](https://github.com/elliotglazer/diophantine-z-q/pull/26) after the successful [protocol evaluation](https://github.com/elliotglazer/diophantine-z-q/pull/26/checks). The [published release](https://github.com/elliotglazer/diophantine-z-q/releases/tag/quartic-222-version-15) retains the exact manuscript and archive bytes; earlier preparation records are not relabeled as authenticated receipts.
 
 The effectivity-3 missing-original-observation limitation remains explicit in the preserved finding history. The H6 corollary authorship correction and the independent replacement remain recorded; the separate 314 lift scope is unchanged. Contributor exclusions and review chronology are preserved rather than inferred from role names.
 
