@@ -13,3 +13,4 @@
   GR2023 Thm 1.9(1) (not on arXiv), vonKaenel2021, Mascot; Thm 4.1 uses J_1(N), GR2014 Thm 1.4.
 - Recommendation decided: GPD/GTD stay first (in flight); next new attack = CertifiedRankSel elementary bridge
   (tyz-5b Sec 4 Lemma 4.1 + Thm 4.3 in Lean, now that Prop 0 is in Lean). Writing docs/research/v14-routes.md.
+- Wrote docs/research/v14-routes.md and .fleet/v14-routes.md; task complete.
