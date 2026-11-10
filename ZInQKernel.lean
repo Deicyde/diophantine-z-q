@@ -62,4 +62,7 @@ import ZInQKernel.RouteK.SelmerProp0
 import ZInQKernel.External.GreenTaoDense
 import ZInQKernel.External.GreenTaoPrimes
 import ZInQKernel.MainGreenTao
+import ZInQKernel.DensityMain
+import ZInQKernel.SieveVendor
 import ZInQKernel.DensityCM
+import ZInQKernel.DensitySieve

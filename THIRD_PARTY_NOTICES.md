@@ -37,3 +37,25 @@ Before making the historical archive public, complete the per-source rights revi
   Vasily Ilin as a lean-eval benchmark submission. Ported to Lean 4.35.0 / Mathlib v4.35.0 with local proof edits;
   provenance and the list of modifications are in `ThirdParty/GreenTao/NOTICE.md`. Used by
   `ZInQKernel/External/GreenTaoPrimes.lean`.
+
+## NOTICE: vendored Selberg sieve (PrimeNumberTheoremAnd)
+
+The files `ZInQKernel/Sieve/AuxResults.lean`, `ZInQKernel/Sieve/Basic.lean`,
+`ZInQKernel/Sieve/Selberg.lean` and `ZInQKernel/Sieve/SelbergBounds.lean` are copies of
+`PrimeNumberTheoremAnd/Mathlib/NumberTheory/Sieve/{AuxResults,Basic,Selberg,SelbergBounds}.lean` from
+
+- source repository: https://github.com/AlexKontorovich/PrimeNumberTheoremAnd
+- tag `v4.35.0`, commit `127b50e33f6033e2147921167a117af96d9ba4ea` (it pins Mathlib `v4.35.0`, the
+  revision this repository uses)
+- license: Apache License 2.0; the upstream license text is copied to `ZInQKernel/Sieve/LICENSE`.
+  Copyright (c) 2023 Arend Mellendijk (per the file headers, which are kept unchanged).
+
+Change made: only the `import PrimeNumberTheoremAnd.Mathlib.NumberTheory.Sieve.X` lines were replaced by
+`import ZInQKernel.Sieve.X`. No other line was modified. The module `ZInQKernel/SieveVendor.lean`
+(original to this project) imports the four files.
+
+Adapted lemma: `ZInQ.Density.GaussSieve.prod_factors_sum_pow_mult` in
+`ZInQKernel/Density/GaussSieve/SelbergSum.lean` is a copy of `Sieve.prod_factors_sum_pow_compMult` from
+the same upstream file `SelbergBounds.lean` (same tag, commit and license). Change made: the name, and
+the hypothesis "completely multiplicative" is weakened to "multiplicative" (one line of the proof,
+`hf.isMultiplicative.map_prod`, becomes `hf.map_prod`). The file header records the origin.
