@@ -13,3 +13,4 @@
 - Residues.lean: QL, modSet, ML, crt (ZMod.prodEquivPi), cond, AL, card_AL (=3∏(ℓ-2), via Nat.card + subtypePiEquivPi), totient_ML, deltaL, deltaL_eq, deltaL_ge (L≥4), isUnit_of_mem_AL, CL, mem_CL, phi_CL_lower (Lemma 3.1). Build OK.
 - PropD.lean: BadSet, UniformBadBound, cp_rep, TL, goodSlopePrime_of_mem_CL (Lemma 2.1), card_TL_le, eventually_rpow_mul_log_le, exists_L, goodPrimeDensity_of_uniformBadBound. Build OK; axioms propext/choice/Quot.sound.
 - Merged origin/wip/pd-sieve (report present). PropDFinal.lean: uniformBadBound_holds (convert + Iff.rfl, decidability instances differ), goodPrimeDensity, goodPrimeAP_of_greenTaoDense'. PropD: goodPrimeAP_of_greenTaoDense_uniformBadBound. Build OK, axioms standard.
+- Report .fleet/pd-lean-2.md written. Done.
