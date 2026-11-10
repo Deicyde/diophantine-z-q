@@ -393,3 +393,114 @@ manuscript has the same count at lines 1626–1636, with the term `√X log X` n
 Numerically, 1250 primes of the class below `10⁸` are bad at some `ℓ > 100 = N^{1/4}`, against the bound
 `20N^{3/4} = 2·10⁷` (`density_1e8.out`).
 
+### 4.3 Medium `ℓ`: the sieve set-up
+
+**Proposition 4.2 (uniform bound).** Let `N ≥ N₁ := e^{1920}`, and let `ℓ ≡ 1 (mod 4)` be a prime with
+`5 ≤ ℓ ≤ N^{1/4}`. Then `#(Bad_ℓ ∩ [1, N]) ≤ A₁N/(ℓ² log N)` with `A₁ = 16003`.
+
+The constants are far from optimal: `density.py` gives `max |Bad_ℓ ∩ [1, N]|·ℓ² log N/N ≈ 0.30` for
+`13 < ℓ ≤ N^{1/4}`, `N = 10⁸`. They are chosen so that every step is a one-line inequality.
+
+*Set-up.* Fix `ℓ` and a root `b ∈ {b_ℓ, ℓ − b_ℓ}`. Put `T = √N`, `K = ⌊T/ℓ⌋`, `I₁ = [−K, K] ∩ ℤ` and
+`I₂ = {V ∈ ℤ : |b + ℓV| ≤ T}`. Both are intervals of integers, with `M₁ = |I₁| ≤ 2T/ℓ + 1` and
+`M₂ = |I₂| ≤ 2T/ℓ + 1`. Put `ℬ = I₁ × I₂` and `F(U, V) = (ℓU)² + (b + ℓV)² ∈ ℕ`. Every
+`p ∈ Bad_ℓ ∩ [1, N]` with `e_p ≡ b (mod ℓ)` equals `F(U, V)` for `(U, V) = (c_p/ℓ, (e_p − b)/ℓ) ∈ ℬ`, and
+distinct `p` give distinct points.
+
+*Sieve data* (Mathlib `BoundingSieve`, `SelbergSieve`):
+
+- `support = F(ℬ)` (a `Finset ℕ`), `weights n = #{(U, V) ∈ ℬ : F(U, V) = n}`, `totalMass X = M₁M₂`;
+- `prodPrimes P = ∏{q prime : q ≤ w, q ≡ 1 (mod 4), q ≠ ℓ}` with `w = N^{1/40}`; `level y = w² = N^{1/20}`;
+- `nu ν`, multiplicative, with `ν(q) = (2q − 1)/q²` for `q | P`, so `0 < ν(q) < 1`.
+
+`multSum d = #{(U, V) ∈ ℬ : d | F(U, V)}`, and `siftedSum` counts the points with `gcd(F(U, V), P) = 1`.
+If `F(U, V) = p` is a prime `> w`, the point is counted. So
+
+  `#{p ∈ Bad_ℓ ∩ [1, N] : e_p ≡ b} ≤ siftedSum + w`.   (4.1)
+
+**Lemma 4.3 (local densities).** Let `q ≡ 1 (mod 4)` be a prime, `q ≠ ℓ`. Then
+`#{(U, V) ∈ 𝔽_q² : F(U, V) = 0} = 2q − 1`. For squarefree `d | P`, by the Chinese remainder theorem,
+`ρ(d) := #{(U, V) ∈ (ℤ/d)² : d | F(U, V)} = ∏_{q|d}(2q − 1) = ν(d)d²`.
+
+*Proof.* `(U, V) ↦ (ℓU, b + ℓV)` is a bijection of `𝔽_q²`, since `ℓ` is invertible mod `q`. With
+`i² = −1` in `𝔽_q`, `x² + y² = (x − iy)(x + iy)` vanishes exactly on two lines that meet only at `0`:
+`2q − 1` points. ∎ VERIFIED (by hand). This is the manuscript's computation at lines 1610–1614.
+
+**Lemma 4.4 (remainders).** For squarefree `d | P`, `multSum d = ν(d)X + R_d` with
+`|R_d| ≤ ρ(d)((M₁ + M₂)/d + 1) ≤ 2^{ω(d)}(M₁ + M₂ + d)`.
+
+*Proof.* For each of the `ρ(d)` residue pairs `(u, v)`, `#{U ∈ I₁ : U ≡ u (mod d)} = M₁/d + θ₁` and
+`#{V ∈ I₂ : V ≡ v} = M₂/d + θ₂` with `|θᵢ| ≤ 1`. The product is
+`M₁M₂/d² + θ₁M₂/d + θ₂M₁/d + θ₁θ₂`. Sum over the pairs, and use `ρ(d) ≤ ∏_{q|d} 2q = 2^{ω(d)}d`. ∎
+VERIFIED (by hand).
+
+### 4.4 The Selberg bound and the error terms
+
+PrimeNumberTheoremAnd (`Mathlib/NumberTheory/Sieve/Selberg.lean:435`, tag `v4.34.0`) proves
+
+> `SelbergSieve.selberg_bound_simple : siftedSum ≤ X / S + ∑ d ∈ divisors P,
+> if (d : ℝ) ≤ y then 3 ^ ω d * |R d| else 0`,
+
+where `S = selbergBoundingSum = Σ_{l | P, l² ≤ y} g(l)`, and `g = selbergTerms` is multiplicative with
+`g(q) = ν(q)/(1 − ν(q))`. VERIFIED (source read; the file and its three companions contain no `sorry`;
+they import Mathlib's `NumberTheory/SelbergSieve.lean`, which has the definitions and
+`siftedSum_le_mainSum_errSum_of_upperMoebius`, `upperMoebius_lambdaSquared`,
+`mainSum_lambdaSquared_eq_sum_mul_sum_sq`, but no closed bound). The supporting lemmas there are
+`selberg_bound_weights` (`|γ d| ≤ 1`), `selberg_bound_muPlus` and `selberg_bound_simple_errSum`.
+
+*Error term.* For `d | P` all prime factors are `≥ 5`, so `3^{ω(d)}2^{ω(d)} ≤ d²`. By Lemma 4.4,
+
+  `Σ_{d|P, d≤y} 3^{ω(d)}|R_d| ≤ y³(M₁ + M₂ + y)`.
+
+Since `ℓ ≤ N^{1/4}`, `T/ℓ ≥ N^{1/4} ≥ max(2, y)`, so `M₁ + M₂ + y ≤ 6T/ℓ`, and the error is at most
+`6N^{3/20}√N/ℓ = (N/(ℓ² log N))·6ℓN^{−7/20} log N ≤ (N/(ℓ² log N))·6N^{−1/10} log N`. This is at most
+`N/(ℓ² log N)` once `N ≥ 10³⁰`. VERIFIED (by hand).
+
+*Total mass.* `X = M₁M₂ ≤ (2T/ℓ + 1)² ≤ (4N/ℓ²)(1 + N^{−1/4}/2)² ≤ 5N/ℓ²` for `N ≥ 324`.
+
+### 4.5 The lower bound for the Selberg sum
+
+**Lemma 4.5.** For `w ≥ 3` and every prime `ℓ ≥ 5`: `S ≥ ((2/3)log w − 2)/25`.
+
+*Proof.* `g(q) = (2q − 1)/(q − 1)² ≥ 2/q`. Since `y = w²`, the condition `l² ≤ y` means `l ≤ w`. Let `𝒟`
+be the set of squarefree numbers all of whose prime factors are `≡ 1 (mod 4)`. Every `l ∈ 𝒟` with
+`l ≤ w` and `ℓ ∤ l` divides `P`. Hence `S ≥ S₀(w; ℓ) := Σ_{l∈𝒟, l≤w, ℓ∤l} 2^{ω(l)}/l`. The terms with
+`ℓ | l` contribute at most `(2/ℓ)S₀(w)`, where `S₀(w) = Σ_{l∈𝒟, l≤w} 2^{ω(l)}/l`. So
+`S₀(w; ℓ) ≥ (3/5)S₀(w)`. The lemma follows from Claims A and B below with `V < 15`:
+`S ≥ (3/5)·((2/3)log w − 2)/15`. ∎
+
+Let `χ₄` be the non-principal character mod 4, `r(n) = Σ_{d|n} χ₄(d)` and `R(w) = Σ_{n≤w} r(n)/n`.
+
+*Claim A.* `R(w) ≥ (2/3)log w − 2` for `w ≥ 3`.
+
+*Proof.* `R(w) = Σ_{d≤w} (χ₄(d)/d)H(w/d)`, where `H(t) = Σ_{m≤t} 1/m`. For `t ≥ 1` and `n = ⌊t⌋`,
+`H_n − log(n + 1) < γ < H_n − log n` (Mathlib `eulerMascheroniSeq_lt_eulerMascheroniConstant` and
+`eulerMascheroniConstant_lt_eulerMascheroniSeq'`). So `H(t) = log t + γ + E(t)` with
+`|E(t)| ≤ 1/n ≤ 2/t`. Then
+
+  `R(w) = S₁ log w − S₂ + γS₁ + Σ_{d≤w} χ₄(d)E(w/d)/d`,
+
+with `S₁ = Σ_{d≤w} χ₄(d)/d ∈ [2/3, 1]` and `S₂ = Σ_{d≤w} χ₄(d)(log d)/d ∈ [−(log 3)/3, 0]`. Both are
+partial sums of alternating series with decreasing terms; the first term of `S₂` is `0`, and
+`(log x)/x` decreases for `x ≥ 3`. The last sum is at most `Σ_{d≤w} 2/w ≤ 2` in absolute value. ∎
+VERIFIED (by hand; `sieveaux.py`: `R(10⁶) = 11.50 ≥ 7.21`).
+
+*Claim B.* `R(w) ≤ V·S₀(w)`, where `V = Σ_{m≥1} v(m)/m ≤ 2ζ(2)⁴ < 15`, for the multiplicative `v`
+defined by: `v(2^a) = 1`; for `q ≡ 3 (mod 4)`, `v(q^{2b}) = 1` and `v(q^{2b+1}) = 0`; for `q ≡ 1 (mod 4)`,
+`v(q^{2j}) = 2j + 1` and `v(q^{2j+1}) = 0`.
+
+*Proof.* Let `h = 2^ω·1_𝒟`. Pointwise `r ≤ h ∗ v`: both sides are multiplicative and nonnegative, and
+on prime powers the two agree except for `q ≡ 1 (4)` with `k = 2j + 1` odd, where
+`r(q^k) = k + 1 ≤ 2k = (h ∗ v)(q^k)`. Hence
+`R(w) ≤ Σ_{m≤w} (v(m)/m)·Σ_{l≤w/m} h(l)/l ≤ V·S₀(w)`. For the bound on `V`: `v` vanishes off
+`m = 2^a s²` with `s` odd, and `v(2^a s²) ≤ τ(s²) ≤ τ(s)²`. Moreover
+`Σ_s τ(s)²/s² = Σ_{d,e} Σ_{lcm(d,e) | s} s^{−2} ≤ ζ(2)·Σ_{d,e} lcm(d, e)^{−2} ≤ ζ(2)⁴`, by writing
+`d = gd′`, `e = ge′`. With the factor `Σ_a 2^{−a} = 2`, `V ≤ 2ζ(2)⁴ = 14.64`. ∎ VERIFIED (by hand;
+`sieveaux.py`: `r ≤ h ∗ v` for `n < 3000`; partial sums of `V` reach `2.74`; `S₀(10⁶) = 4.74`).
+
+*Proof of Proposition 4.2.* Take `w = N^{1/40}`. For `log N ≥ 1920`, Lemma 4.5 gives
+`S ≥ (log N/60 − 2)/25 ≥ log N/1600`. The Selberg bound, §4.4 and (4.1) give, for each of the two roots
+`b`, `siftedSum ≤ (5N/ℓ²)(1600/log N) + N/(ℓ² log N) = 8001N/(ℓ² log N)`. So
+`#(Bad_ℓ ∩ [1, N]) ≤ 16002N/(ℓ² log N) + 2N^{1/40} ≤ 16003N/(ℓ² log N)`, because
+`N/(ℓ² log N) ≥ √N/log N ≥ 2N^{1/40}`. ∎ VERIFIED (by hand), given `selberg_bound_simple`.
+
