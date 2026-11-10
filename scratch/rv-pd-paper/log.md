@@ -72,3 +72,6 @@
   applies verbatim. (w taken natural here; with w = floor(N^{1/40}) the constant N1 must rise to about e^{2370}:
   log w >= logN/40 - log 2 gives (2/3)log w - 2 >= logN/60 - 2.47 >= logN/64 iff logN >= 2370.)
 - Next: write docs/research/rv-pd-paper.md and .fleet/rv-pd-paper.md.
+
+## Step 6
+- Wrote docs/research/rv-pd-paper.md (verdict: proved as written; findings F1-F6 minor/cosmetic) and .fleet/rv-pd-paper.md. Done.
