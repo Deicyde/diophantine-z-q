@@ -1,0 +1,6 @@
+Gram(E0) = [[0, 0, -1, 1], [0, 0, 1, -2], [1, -1, 0, 0], [-1, 2, 0, 0]]  det = 1
+Gram(E1) = 6 Gram(E0); det Gram(E1) = 1296 = 6^4: True
+E0 alternating; E0(ax,y) = E0(x, mu^-1 abar mu y) on the basis: OK
+det Trd-Gram = -36 (reduced discriminant^2 * (-1) => disc 6): True
+|(O/3O)^*| = 72  |(O/5O)^*| = 480  |GL2(F5)| = 480
+ALL CHECKS PASSED

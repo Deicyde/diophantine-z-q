@@ -7,3 +7,6 @@
 - GR11 (arXiv 1105.1230v1) cites Faltings only for height def (L513) and isogeny height variation (L526): partial evidence for h-leaves open check 1. GR14 not on arXiv.
 - Scholze arXiv: §9 Thm 9.1 rigid GAGA, Prop 9.2, Thm 9.3 Huber comparison (numbering consistent).
 - Lin-Yang arXiv v1 Example fX6: j6 normalization 0,inf,-16/27 at -4,-3,-24; LY fixes c_i at disc -19 (j6=81/64), V14 at disc -24. igusa_check.py: all exact checks pass.
+- form_check.py: Gram(E0) matrix and det 1, E1 = 6 E0 (BG printed form), Rosati identity, disc 6, |(O/3O)*|=72, |(O/5O)*|=480: pass.
+- Pan arXiv v2 (last version, Sep 2021) re-read: Thm at FM.tex L226 needs rho as in Conj (pst at p), distinct HT, p=3 condition only.
+- Upstream supplements unreadable (repo too large for the module mirror). Writing docs/research/h-v14.md next.
