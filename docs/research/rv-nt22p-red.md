@@ -46,8 +46,8 @@ modified `q` does not satisfy at the pole primes (§4, item 5).
 | F2 | minor (text) | §3.2 numerical check: "with `v₂(v) ≤ 2`, `R₀` is often not a square in `ℚ₂`". In fact `R₀` is *never* a square in `ℚ₂` when `v₂(v) ∈ {1, 2}` and `F(t) > 0`: the unit part of `R₀2^{−2e}` is `≡ 3` or `7 (mod 8)` for `e = 1` and `≡ 5 (mod 8)` for `e = 2`. The hypothesis `e ≥ 3` of Lemma P is therefore sharp. Harmless, because `e ≤ 4 = B₂` falls under field 2. |
 | F3 | remark | Lemma P's hypothesis `F(t) > 0` (so `η = 1`) is needed only at `ℓ = 2` and `ℓ ≡ 3 (mod 4)`. For `F(t) < 0` the same proof works at `ℓ ≡ 1 (mod 4)` (for example `ℓ = 5, 13`), since `−1` is a square in `ℚ_ℓ`. The correct hypothesis is "`ηR₀ℓ^{−2e}` is a square in `ℚ_ℓ`". Proposition AP never needs this (both variable slopes have `F > 0`). |
 | F4 | remark | The hypothesis "the seven numbers `u − cv`, `u − v` are prime to `ℓ`" of Lemma P is automatic: `ℓ | v` and `gcd(u, v) = 1` give `u − cv ≡ u ≢ 0 (mod ℓ)`. |
-| F5 | remark | With the manuscript's `ℓ₀`, the old choice `v_ℓ(q) ≥ C_ℓ` already gives `v_ℓ(B) ≥ 4` at `ℓ ∈ S₀` for poles of order `e ≤ 126`, by the manuscript's own estimate with `C_ℓ` replaced by `2e`. For test values that are units at `ℓ`, it gives this for `e ≤ 143`, and computation confirms that it fails from `e ≈ 150` on (§3.3). The bound `B_ℓ = 4` of field 2 is far from what the proof needs. Lemma P is needed only beyond this range, which Proposition AP does reach for large `|A|` (F1). |
-| F6 | remark | The constant `N = 23e + v_ℓ(12) + 2` of Lemma P(3) is sufficient but not sharp: for unit test values the conclusion holds from `v_ℓ(a) ≳ 20.3e − E_ℓ` (§3.3). Lemma P(3) holds even with `E_ℓ = 0`, which the computation confirms (§3.3, Part B). |
+| F5 | remark | With the manuscript's `ℓ₀`, the old choice `v_ℓ(q) ≥ C_ℓ` already gives `v_ℓ(B) ≥ 4` at `ℓ ∈ S₀` for poles of order `e ≤ 126`: the computation of Lemma P(3) with `α = 0` gives `v(RC²) ≥ 2E_ℓ − 46e > v_ℓ(12)` as long as `46e < 5832`. For test values that are units at `ℓ`, it gives this for `e ≤ 143`, and computation confirms that it fails from `e ≈ 150` on (§3.3). The bound `B_ℓ = 4` of field 2 is far from what the proof needs. Lemma P is needed only beyond this range, which Proposition AP does reach for large `|A|` (F1). |
+| F6 | remark | The constant `N = 23e + v_ℓ(12) + 2` of Lemma P(3) is sufficient but not sharp: for unit test values the conclusion holds from `v_ℓ(a) ≳ 20.3e − E_ℓ` (§3.3). Lemma P(3) holds even with `E_ℓ = 0`, which the computation confirms (§3.4). |
 | F7 | cosmetic | §3.3 announces "Two remarks" and lists three. |
 
 No finding is a GAP. Each step's status is in §2.
@@ -104,7 +104,7 @@ No finding is a GAP. Each step's status is in §2.
 - **Remark 3 of §3.3 (Lemma P needed only on `S₀`).** At `ℓ ∈ S_b ∖ S₀`, for a slope of the
   progression form, `v_ℓ(R₀) = 2e` is even, so `v_ℓ(B)` is even for every `q`, and PC requires
   nothing more there. CORRECT. (Negative even valuations then occur at such `ℓ` if the old `q` is
-  kept and `e` is large. This is allowed, and it was observed in the computation, §3.4.)
+  kept and `e` is large. This is allowed, and it was observed in the computation, §3.6.)
 
 ### 2.3 Proposition AP
 
@@ -172,8 +172,8 @@ statements (`GoodSlope`, `poleInput`, `pole_input_valuations`, `slope_complete`,
   `GoodSlopePrime` (point counts of both reductions, `gcd = 4`). Admissibility forces `2, 3, 7, 11 | v`
   for `A = −70`, `2 | v` for `A = −69`, and `2, 3, 7 | v` for `A = −40`.
 
-Checks of the implementation: (i) the old argument reproduces `v_p(B) ≥ 103C_p + 8` on `S_b` for
-slopes satisfying field 2; (ii) the controls of §3.3 fail exactly where the theory predicts; (iii) an
+Checks of the implementation: (i) the old argument reproduces `v_p(B) ≥ 103C_p + 8 = 5776` at the
+primes of `S_ht` for slopes satisfying field 2 (observed values `5805`–`5847`); (ii) the controls of §3.3 fail exactly where the theory predicts; (iii) an
 independent count gives 1,925 good slope primes below `2·10⁵` (§3.6), as in nt-22p.
 
 ### 3.2 Lemma P(1)–(2) locally (30 inputs; `b1_lemmaP1.py`, `b1_out.txt`)
@@ -182,7 +182,7 @@ The inputs were `ℓ = 2` with `e = 1, …, 5`; each `ℓ ∈ S₀ ∖ {2}` with
 and the catalogue stand-in `331`; `v = 2⁷3⁶5⁵7⁵13⁵` at each prime of `S₀`; and five controls with
 `F(t) < 0` (`η = −1`, `e = 5`).
 
-- In all 25 inputs satisfying the hypotheses of Lemma P: `v_ℓ(R₀) = 2e`, `v_ℓ(t − 1) = −e`, `R₀`
+- In all 23 inputs satisfying the hypotheses of Lemma P: `v_ℓ(R₀) = 2e`, `v_ℓ(t − 1) = −e`, `R₀`
   is a square in `ℚ_ℓ`, and the Hensel point `q₀ = w/ℓ^e` has `v_ℓ(1 − R₀q₀²) ≥ N`.
   **No failure.**
 - `ℓ = 2`, `e = 1, 2`, `F(t) > 0`: `R₀` is a non-square in 2,000 of 2,000 random samples for
@@ -227,45 +227,6 @@ With the Lemma P ball, `v_ℓ(B) = 166, 362, 58, 460, 108, 208, 58, 308, 1508, 3
 With the old `q`, `v_ℓ(B) = −1094, −2548, −360, −3288, −724, −1456, −366, −2196, −10980, −21948`,
 that is, `−366e` up to `O(1)`. So Lemma P(3) holds with `E_ℓ = 0`, and the implementation detects
 failures.
-
-## 4. Repairs and suggested changes
-
-None is needed for correctness. In order of usefulness:
-
-1. **§3.3, remark 1 (F1).** Replace "`K_A ≈ |A| + 71`" by "`K_A = A + 130` if `A ≥ −69`, and
-   `K_A = −A − 8` if `A ≤ −70`".
-2. **§3.2, numerical check (F2).** Replace "with `v₂(v) ≤ 2`, `R₀` is often not a square in `ℚ₂`" by
-   "with `v₂(v) ∈ {1, 2}`, `R₀` is never a square in `ℚ₂`". Reason: modulo 8,
-   `R₀2^{−2e}` is a square times `(1 + 6k)·5` (`e = 1`) or times `5` (`e = 2`), with `k = (v/2^e)/u`
-   odd. So the hypothesis `e ≥ 3` is sharp.
-3. **Lemma P, hypotheses (F3, F4).** Optionally replace "`F(t) > 0` (so `η = 1`)" by "`ηR₀ℓ^{−2e}`
-   is a square in `ℚ_ℓ`, which holds when `F(t) > 0`, and also when `F(t) < 0` and
-   `ℓ ≡ 1 (mod 4)`". Drop "the seven numbers … are prime to `ℓ`", which follows from `ℓ | v` and
-   `gcd(u, v) = 1`.
-4. **§3.2, after Lemma P (F5).** Optionally add: with the manuscript's `ℓ₀`, the old choice of
-   `q` already gives `v_ℓ(B) ≥ 4` at `ℓ ∈ S₀` for `e ≤ 126` (take `α = 0` in the proof of (3)).
-   The Lemma P branch is therefore needed only for `e ≥ 127`, which Proposition AP produces when
-   `|A|` is large. This explains why field 2 could afford `B_ℓ = 4`.
-5. **§5, Route 1, Lean obligations.** Add to the list:
-   - `pole_input_valuations` obtains `q ≠ 0` from `C_p ≤ v_p(q)` on `S_b`. In the new branch,
-     derive it from `v_ℓ(q) = −e ≠ 0` at a pole prime, or from `a ≠ 0` and `R₀ ≠ 0`.
-   - The first conclusion of `pole_input_valuations` (`v_p(B) ≥ 103C_p + 8` on `S_b`) becomes false
-     at the pole primes, where Lemma P gives `v_ℓ(B) ≥ 46e + 4` instead, and it is false at a deep
-     pole outside `S₀` if Remark 3 is used. The consumer `slope_complete` needs only the
-     `S₀`-conclusion and the square denominator. So the first conclusion should be weakened or
-     dropped.
-6. **§3.3 (F7).** "Two remarks" → "Three remarks".
-
-## 5. What was not checked
-
-- Proposition D and the application of Green–Tao 2008 (§3.4), apart from the count of §3.6.
-- The genuineness of the test values: the model test values are arbitrary integral elements of
-  `ℤ[√2]` with the assumed divisibility at selected primes. The actual values (from `E(K₀)`,
-  `M₀`, the shifts `h`) were not computed. This is harmless, since `tests_integral_old` and
-  `tests_precision_selected` are kernel-checked and do not depend on `t`.
-- The true catalogue. Only two stand-in catalogue primes were modelled, and pattern primes are
-  necessarily larger than `max S_b`, an astronomically large number. The local analysis at each old
-  prime does not depend on the other old primes. This is the only modelling assumption.
 
 ### 3.5 Proposition AP end to end on genuine instances (`ap_search.py`, `b3_ap.py`, `b3_out*.txt`)
 
@@ -333,7 +294,46 @@ good). This agrees with nt-22p §2.1.
 ### 3.7 Totals
 
 Lemma P locally: 30 inputs. Pole input with deep poles: 30 inputs (21 with the modified `q`, all
-passing; 9 controls, failing exactly as predicted). Lemma P(3) in isolation: 10 slopes, each with
+passing; 9 runs with the old `q`, passing or failing exactly as predicted). Lemma P(3) in isolation: 10 slopes, each with
 two choices of `q`. Genuine instances: 10 (30 slopes). Pseudo-instances: 13 (26 slopes). Sign step:
 28 values of `A`. No input satisfying the hypotheses of Lemma P, Proposition AP or field 2′ failed
 any condition of PC.
+
+## 4. Repairs and suggested changes
+
+None is needed for correctness. In order of usefulness:
+
+1. **§3.3, remark 1 (F1).** Replace "`K_A ≈ |A| + 71`" by "`K_A = A + 130` if `A ≥ −69`, and
+   `K_A = −A − 8` if `A ≤ −70`".
+2. **§3.2, numerical check (F2).** Replace "with `v₂(v) ≤ 2`, `R₀` is often not a square in `ℚ₂`" by
+   "with `v₂(v) ∈ {1, 2}`, `R₀` is never a square in `ℚ₂`". Reason: modulo 8,
+   `R₀2^{−2e}` is a square times `(1 + 6k)·5` (`e = 1`) or times `5` (`e = 2`), with `k = (v/2^e)/u`
+   odd. So the hypothesis `e ≥ 3` is sharp.
+3. **Lemma P, hypotheses (F3, F4).** Optionally replace "`F(t) > 0` (so `η = 1`)" by "`ηR₀ℓ^{−2e}`
+   is a square in `ℚ_ℓ`, which holds when `F(t) > 0`, and also when `F(t) < 0` and
+   `ℓ ≡ 1 (mod 4)`". Drop "the seven numbers … are prime to `ℓ`", which follows from `ℓ | v` and
+   `gcd(u, v) = 1`.
+4. **§3.2, after Lemma P (F5).** Optionally add: with the manuscript's `ℓ₀`, the old choice of
+   `q` already gives `v_ℓ(B) ≥ 4` at `ℓ ∈ S₀` for `e ≤ 126` (take `α = 0` in the proof of (3)).
+   The Lemma P branch is therefore needed only for `e ≥ 127`, which Proposition AP produces when
+   `|A|` is large. This explains why field 2 could afford `B_ℓ = 4`.
+5. **§5, Route 1, Lean obligations.** Add to the list:
+   - `pole_input_valuations` obtains `q ≠ 0` from `C_p ≤ v_p(q)` on `S_b`. In the new branch,
+     derive it from `v_ℓ(q) = −e ≠ 0` at a pole prime, or from `a ≠ 0` and `R₀ ≠ 0`.
+   - The first conclusion of `pole_input_valuations` (`v_p(B) ≥ 103C_p + 8` on `S_b`) becomes false
+     at the pole primes, where Lemma P gives `v_ℓ(B) ≥ 46e + 4` instead, and it is false at a deep
+     pole outside `S₀` if Remark 3 is used. The consumer `slope_complete` needs only the
+     `S₀`-conclusion and the square denominator. So the first conclusion should be weakened or
+     dropped.
+6. **§3.3 (F7).** "Two remarks" → "Three remarks".
+
+## 5. What was not checked
+
+- Proposition D and the application of Green–Tao 2008 (§3.4), apart from the count of §3.6.
+- The genuineness of the test values: the model test values are arbitrary integral elements of
+  `ℤ[√2]` with the assumed divisibility at selected primes. The actual values (from `E(K₀)`,
+  `M₀`, the shifts `h`) were not computed. This is harmless, since `tests_integral_old` and
+  `tests_precision_selected` are kernel-checked and do not depend on `t`.
+- The true catalogue. Only two stand-in catalogue primes were modelled, and pattern primes are
+  necessarily larger than `max S_b`, an astronomically large number. The local analysis at each old
+  prime does not depend on the other old primes. This is the only modelling assumption.
