@@ -168,3 +168,18 @@ Started 2026-11-09. Task: find Lean formalizations of Green-Tao / relative Szeme
 - web search "plby lean-proofs Erdos219 Green-Tao formal proof": nothing beyond formal-conjectures PRs.
 - arXiv 2606.05400 (LeanMarathon; TeX source): no Green–Tao (Szemerédi hits are Erdős 1196/1217).
 - plby/lean-proofs: first archive request timed out (large repository); retrying.
+- plby/lean-proofs: commit 1268917deaaaa0d674f651287027baa26cea9920 exists, commit time 2026-09-07 04:32:25 UTC;
+  both 1268917 and 8822f7dd: "module source tree too large (max 524288000 bytes)" -> cannot be downloaded
+  from here. Guessed smaller repos plby/{green-tao,GreenTao,green_tao,erdos-219,Erdos219,erdos,
+  erdos-proofs,lean-eval}: none. HF search plby / lean-proofs / alexeev / Erdos219: nothing.
+  plby's lean-eval results file has 1 result (erdos_unit_distance_conjecture_false), no green_tao.
+  web search "Erdős problem 219 ... Lean formal proof Boris Alexeev", "Erdős problem 1187 ... Lean":
+  nothing. => UNREAD candidate; must be checked from a machine with GitHub access.
+- AxiomMath/DedekindZetaZeroFree (found by web search "Tau Ceti Lean formalization number theory project";
+  uniform zero-free region for Dedekind zeta): exists but archive not obtainable. Guessed AxiomMath
+  chebotarev/PrimeIdealTheorem/HeckeLFunctions repos: none public.
+- Scratch Lean file scratch/gt-search/GreenTaoReduction.lean (Mathlib only): defs ContainsArbitraryAPs,
+  PrimesRelUpperDensityPos, GreenTaoDense; theorems PrimesRelUpperDensityPos.diff_le,
+  progressions_above_of_greenTaoDense (GreenTaoDense + density of G => GoodPrimeAP shape). Compiled with
+  lean v4.35.0 against Mathlib 56a00585 (16:12, load 5.6): no errors, no warnings;
+  #print axioms progressions_above_of_greenTaoDense = [propext, Classical.choice, Quot.sound]. VERIFIED.
