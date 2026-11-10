@@ -64,3 +64,11 @@
   loglog N/log N); conclusion "insufficient" still holds (alpha would grow like loglog N).
 - PNT selbergBoundingSum_ge_sum_div indeed assumes CompletelyMultiplicative nu and every prime <= level in P (6.3 CORRECT).
 - Verdict forming: proved as written; only minor/editorial findings.
+
+## Step 5 (Lean instance of the section 4.3 sieve data)
+- pntsieve/src/Instance.lean: SelbergSieve with support = F(box), weights = multiplicities, totalMass = M1*M2,
+  prodPrimes = prod of primes q <= w, q = 1 mod 4, q != l, nu = prodPrimeFactors (2q-1)/q^2, level w^2.
+  All fields proved; #print axioms RvPd.sieve = [propext, Classical.choice, Quot.sound]; selberg_bound_simple
+  applies verbatim. (w taken natural here; with w = floor(N^{1/40}) the constant N1 must rise to about e^{2370}:
+  log w >= logN/40 - log 2 gives (2/3)log w - 2 >= logN/60 - 2.47 >= logN/64 iff logN >= 2370.)
+- Next: write docs/research/rv-pd-paper.md and .fleet/rv-pd-paper.md.
