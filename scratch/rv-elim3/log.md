@@ -62,3 +62,10 @@ the same; theta = +-1 rank 9 not even. Agrees with el-k3 in every case.
 Galois action checked by hand: sigma_b, sigma_i on roots; fam-1 graph w = +- i sqrt(theta) f(s)/(beta s^2)
 (f(lambda/(beta s)) = -f(s)/(beta s^2)^2), so sigma_i and sigma_t flip eps there; correct.
 H^1(Gal(K/Q), NS) = H^1(Q, NS) by inflation (NS torsion-free, trivial G_K action): Br1/Br0 claim fine.
+
+## Step 7. el-k3 case B (caseB_parity.py rerun + hand check) — VERIFIED
+Rerun: "admissible parity patterns: []". Hand checks: node orbits under <s_b, s_i> (root orbits {1,2},{3,4};
+s_b swaps both, s_i swaps 3,4) give exactly O1..O6; Gamma.L_c = b - sum_d m_cd (F_s.F_t = 1, E^2 = -1);
+parity of Gamma.L_c = parity of the number of odd branches on L_c; two odd branches on one line are
+impossible (a Galois-stable pair on L_1 would be moved to L_2 by s_b; lines are disjoint in Y);
+no Q-point lies on B; branch locus misses E_cd. So the enumeration covers every case.
