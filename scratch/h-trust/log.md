@@ -78,3 +78,16 @@
   (.out not tracked); rerun outputs saved in scratch/h-trust/reruns/; they match rv-h-novel log lines C1, C2
   ("transfer chain exact at Q=1e12, M in {1,2,7}: ok"; "tested 135 mismatches 0").
 - c3_breaks.py (PARI idealramgroups) not rerun.
+
+## Step 10 (line map, decisions)
+- N5 (cb1148cd) anchors: L443 integral model; L480 stable model; L502 P^1_Zp; L510 pullback; L524 K; L532 conjugates; L544 Hom field;
+  L564 End dichotomy; L581 CM; L632 descent; L681 sqrt obstruction; L719 rho_l; L742 odd; L752 unramified; L755 Pan; L776 system;
+  L796 break bound; L813 semistability (L816 SZ, L821 U_0); L823 p=2 (L830 Silverman); L846 a_p<=2+2U_0; L849 p>R; L852 level; L860 transfer;
+  L908 Hauptmodul/theta; L934 Pazuki; L956 final.
+- FINDING (cosmetic): rv-h-novel steps 5-8 cite L820-877; actual N5 lines are L796-812, L813-823, L823-846, L846-857 (offset ~+22).
+  Its steps 1-3 and 9 line ranges are right.
+- 40*10000*2^24+96 = 6710886400096 < 10^13 (python): VERIFIED.
+- Astra whole review scope: 11/4 text L363-875 "including geometric premises" (hash bfc4192d, not N5).
+- Decisions: D1 pst via N5 route (c) Scholze+Berger (all refereed; no new repo argument), Brinon-Conrad -> Fontaine 1994;
+  D2 keep Faltings 1983 for semisimplicity/End/Hom (not h-leaves R5.1) so GR14 non-circularity is moot;
+  D3 good reduction via h-b1 Lemma PR; D4 NoCM (rv-h-cm §7.2); D5 Pan cited per rv-h-a011 R1-R2.
