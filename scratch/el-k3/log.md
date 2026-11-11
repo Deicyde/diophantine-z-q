@@ -47,3 +47,25 @@ rs-pole §2.2, cr3-map-literature R3). Φ(B) with multiplier m ⇔ X_{β_m,θ_m}
   (hyperellratpoints on w² = c(β²t⁴ − 1), c = sqf(θ f(s₀))). Sanity: planted point found.
 - (199, 257): smallest point H = 74 (s = −7, t = −11/74). (3791, 1889), (−260287, 11953): none.
 - Even 3-4 digit θ need points of height ≳ 10²; naive search is useless beyond toys.
+
+### S4. E2 realistic inputs (`e2_realistic.py 7 12 3 1000`, output `out_e2.txt`; VERIFIED computation)
+- 12 admissible B from the rs-pole §4.1 sampler; first DL multiplier m ∈ {1,3,5,7,2,6,10,14}
+  with |β| ≡ 7 (8). θ has 22-25 digits (prime factors up to 25 digits).
+- One-curve fibre (s = ∞), curve C_{βθ}: PARI ellrank = [1,1] (Selmer rank 1) in 12/12, **no
+  point found** in 12/12. Caveat: PARI's lower bound 1 is the parity/Selmer value, not a proven
+  point (it also prints [1,1,0,[]] for d = 157, whose generator is huge).
+- Exact Selmer certificate (sel2cong) for the one-curve case: 0/12 at the first m (seed 5 run: 1/1).
+- Naive search on X (s₀ height ≤ 3, t height ≤ 10³): no point, 12/12.
+- BSD heuristic (L′(1) := 1, |tors|² = 16, Ω = 2ω₁, Tamagawa from ellglobalred): ĥ(generator)
+  ≈ 10^7.2 … 10^11.7. Any point of X_{β,θ} gives an explicit point (log-height O(log H)) on a
+  rank-one curve C_{nθ} with nθ ≥ θ, so heuristically log H(point of X) ≳ 10^7 for these inputs
+  (SPECULATIVE: BSD + typical L′). Points exist only as existence statements; no construction
+  with coefficients of size poly(θ) (e.g. a ℚ-conic on X with coefficients poly(β, θ), whose least
+  point has log-height O(log θ) by Legendre/Holzer) can produce them.
+
+### S5. Consequences recorded
+- Special θ for the Picard lattice: only θ ∈ ⟨−1, β⟩ℚ*²; admissible ⇒ θ = 1, the trivial witness,
+  which L7/L8 restrict to finitely many (q, m) per B (genus / integral points). With k bounded
+  by bit-encoding, m = m₀k² gives finitely many tries.
+- (θ3) is exactly the local condition at ℓ | θ, ℓ ≡ 1 (4): if (β/ℓ) = −1 then v_ℓ(f(s)) is even
+  for all s ∈ ℚ_ℓ and X_{β,θ}(ℚ_ℓ) = ∅ (VERIFIED by the valuation argument).

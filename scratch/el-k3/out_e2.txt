@@ -1,0 +1,24 @@
+B#0 m=3 beta=15 theta=104274822241663275980569 (24 digits, primes [11, 1447, 23417, 7075027, 39542023])
+    one-curve cert=None ellrank=[1,1] pts_found=0 heights=[] BSD-est h(gen)~1.16e+08 (log10 8.1); naive X search: None  [0.1s]
+B#1 m=5 beta=4855 theta=2975948522105909130724609 (25 digits, primes [31, 2711, 35410674814744102649])
+    one-curve cert=None ellrank=[1,1] pts_found=0 heights=[] BSD-est h(gen)~1.79e+11 (log10 11.3); naive X search: None  [0.2s]
+B#2 m=2 beta=287 theta=1170460604785748102289649 (25 digits, primes [1170460604785748102289649])
+    one-curve cert=None ellrank=[1,1] pts_found=0 heights=[] BSD-est h(gen)~4.37e+11 (log10 11.6); naive X search: None  [0.2s]
+B#3 m=7 beta=455 theta=21085630947939660713809 (23 digits, primes [11, 173, 14071, 18330007, 42959599])
+    one-curve cert=None ellrank=[1,1] pts_found=0 heights=[] BSD-est h(gen)~7.21e+07 (log10 7.9); naive X search: None  [0.1s]
+B#4 m=6 beta=951 theta=814623687749019844727929 (24 digits, primes [23, 509, 39989, 1740086638092623])
+    one-curve cert=None ellrank=[1,1] pts_found=0 heights=[] BSD-est h(gen)~1.04e+10 (log10 10.0); naive X search: None  [0.1s]
+B#5 m=1 beta=199 theta=1960977998010702961681561 (25 digits, primes [89, 22033460651805651254849])
+    one-curve cert=None ellrank=[1,1] pts_found=0 heights=[] BSD-est h(gen)~4.71e+11 (log10 11.7); naive X search: None  [0.2s]
+B#6 m=10 beta=55 theta=578045322054935811770521 (24 digits, primes [479, 8296995731, 145447248829])
+    one-curve cert=None ellrank=[1,1] pts_found=0 heights=[] BSD-est h(gen)~8.4e+09 (log10 9.9); naive X search: None  [0.1s]
+B#7 m=3 beta=7 theta=243862647618322528883929 (24 digits, primes [29, 37, 83, 267259, 10245546558409])
+    one-curve cert=None ellrank=[1,1] pts_found=0 heights=[] BSD-est h(gen)~4.87e+08 (log10 8.7); naive X search: None  [0.1s]
+B#8 m=3 beta=1047 theta=415691051863473987256681 (24 digits, primes [415691051863473987256681])
+    one-curve cert=None ellrank=[1,1] pts_found=0 heights=[] BSD-est h(gen)~4.97e+11 (log10 11.7); naive X search: None  [0.2s]
+B#9 m=10 beta=15 theta=39382932430244420582569 (23 digits, primes [103, 179, 421, 19457, 260771316721])
+    one-curve cert=None ellrank=[1,1] pts_found=0 heights=[] BSD-est h(gen)~7.16e+07 (log10 7.9); naive X search: None  [0.1s]
+B#10 m=3 beta=39 theta=9883901159206532654641 (22 digits, primes [61, 67, 379, 941, 6547, 1035744371])
+    one-curve cert=None ellrank=[1,1] pts_found=0 heights=[] BSD-est h(gen)~1.45e+07 (log10 7.2); naive X search: None  [0.1s]
+B#11 m=10 beta=15 theta=219406132280115741001129 (24 digits, primes [11, 463, 599, 1741, 5717, 7225722851])
+    one-curve cert=None ellrank=[1,1] pts_found=0 heights=[] BSD-est h(gen)~4.22e+07 (log10 7.6); naive X search: None  [0.1s]
