@@ -35,8 +35,8 @@ one slot choice suffice. The assertion depends on the slot conditions, so a chan
 construction changes what it asserts.
 
 CR₃^DL,Rk is not proved here; it is a hypothesis. It follows from CR₃^Rk and from CR₃^TYZ,Rk, so
-it rests on the same published theorems: Kriz's 2-converse theorem with the corank lemma, or
-Tian–Yuan–Zhang with Gross–Zagier.
+it rests on the same theorems: Tian–Yuan–Zhang as completed by Proposition N, which is not
+refereed, and Gross–Zagier with an auxiliary field.
 
 ## Depends on
 
@@ -47,7 +47,6 @@ Tian–Yuan–Zhang with Gross–Zagier.
 ## Sources
 
 - [The two curves of a slot choice](../../../sources/rank-locators.md#the-two-curves-of-a-slot-choice)
-- [Kriz](../../../sources/rank-locators.md#kriz)
 - [Tian-Yuan-Zhang](../../../sources/rank-locators.md#tian-yuan-zhang)
 - [Gross-Zagier](../../../sources/rank-locators.md#gross-zagier)
-- [Cassels-Tate](../../../sources/route-k-locators.md#cassels-tate)
+- [The trust statement for CR3](../../../sources/route-k-locators.md#the-trust-statement-for-cr3)

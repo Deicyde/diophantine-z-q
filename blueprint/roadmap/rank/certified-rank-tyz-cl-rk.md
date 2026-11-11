@@ -16,11 +16,13 @@ $d_B\equiv7$, exactly one with $d_B\equiv3$, and all other blocks with $d_B\equi
 the product of the primes in $B$, and $2\,\mathrm{Cl}(K)$ is the subgroup of squares of the class
 group of the ring of integers of $K$. Then $C_d(\mathbb Q)$ has a point of infinite order.
 
-This is Tian–Yuan–Zhang with their own genus class numbers (Theorem 3.5 and the argument of the
-proof of Theorem 3.5(2), as completed in nt-tyz §4, Proposition N), which gives that $L(C_d,s)$
-vanishes to order exactly one at $s=1$, followed by Gross–Zagier, which gives
-$\operatorname{rank}C_d(\mathbb Q)\ge1$. No Rédei formula and no condition on $\mathrm{Sel}_2(C_d)$
-enter. It is a hypothesis, not proved here.
+This is Tian–Yuan–Zhang with their own genus class numbers (Theorem 3.5, first assertion, with
+Theorem 3.3, Proposition 3.2, Lemmas 2.8, 3.16, 3.18, 3.21 and Proposition 2.3), as completed by
+Proposition N (nt-tyz §4, not refereed): if $T^{\mathrm{Cl}}_{5b}(d)$ is odd then their invariant
+$\mathcal L(d)$ is nonzero, and since the root number is $-1$, $L(C_d,s)$ vanishes to order exactly
+one at $s=1$; followed by Gross–Zagier over an auxiliary imaginary quadratic field
+(Bump–Friedberg–Hoffstein), which gives $\operatorname{rank}C_d(\mathbb Q)\ge1$. No Rédei formula
+and no condition on $\mathrm{Sel}_2(C_d)$ enter. It is a hypothesis, not proved here.
 
 ## Depends on
 
@@ -29,5 +31,6 @@ enter. It is a hypothesis, not proved here.
 ## Sources
 
 - [The positive-rank form](../../sources/rank-locators.md#the-positive-rank-form)
+- [The trust statement for CR3](../../sources/route-k-locators.md#the-trust-statement-for-cr3)
 - [Tian-Yuan-Zhang](../../sources/rank-locators.md#tian-yuan-zhang)
 - [Gross-Zagier](../../sources/rank-locators.md#gross-zagier)

@@ -28,7 +28,7 @@ are theorems here, the other two are not:
   $T_{5b}(n)$ is the genus sum of the previous item. This is a theorem here: [Rédei's
   formula](../redei/redei-formula.md).
 - *Gross–Zagier*, over an auxiliary imaginary quadratic field $K$ that satisfies the Heegner
-  hypothesis and has $L(C_n^K,1)\ne0$ (Bump–Friedberg–Hoffstein, or Murty–Murty), for the curve
+  hypothesis and has $L(C_n^K,1)\ne0$ (Bump–Friedberg–Hoffstein), for the curve
   $C_n$, which is modular because it has complex multiplication by $\mathbb Z[i]$: analytic rank one
   gives $\operatorname{rank}C_n(\mathbb Q)\ge1$.
 - Then, as $C_n(\mathbb Q)[2]$ has order $4$, $\dim C_n(\mathbb Q)/2C_n(\mathbb Q)\ge3=\dim\mathrm{Sel}_2(C_n)$,
@@ -54,3 +54,4 @@ $\#2\mathrm{Cl}(\mathbb Q(\sqrt{-d_B}))$ in place of $g_n(B)$ is in the [Rédei 
 - [Proposition N](../../sources/rank-5b-locators.md#proposition-n)
 - [Tian-Yuan-Zhang](../../sources/rank-5b-locators.md#tian-yuan-zhang)
 - [Gross-Zagier over an auxiliary field](../../sources/rank-5b-locators.md#gross-zagier-over-an-auxiliary-field)
+- [The trust statement for CR3](../../sources/route-k-locators.md#the-trust-statement-for-cr3)

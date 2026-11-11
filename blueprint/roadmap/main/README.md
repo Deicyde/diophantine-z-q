@@ -69,7 +69,7 @@ the twenty-two-prime pattern.
 
 Neither pattern is needed any more. [Route AP](../route-ap/README.md) proves the completeness of
 the multiplication template, for the same polynomial, from long arithmetic progressions of good
-slope primes; these come from Szemerédi's theorem in the primes, proved from a Lean proof of the
+slope primes; these come from Szemerédi's theorem in the primes, proved from the
 Green–Tao theorem ([the Green–Tao chapter](../green-tao/README.md)), and from the positive density
 of the good slope primes, [Proposition D](../density/README.md).
 
@@ -83,15 +83,15 @@ pattern.
 - [The main theorem](main-theorem.md)
 
 With route AP the prime pattern drops out, and the target holds under the minimal height
-hypothesis and CR₃ alone, or under the minimal height hypothesis and CR₃^Sel.
+hypothesis and CR₃ alone, or under the minimal height hypothesis and CR₃^Sel or CR₃^5b.
 
 - [The main theorem from two hypotheses](main-theorem-two-hypotheses.md)
 - [The main theorem from the Selmer form of the rank hypothesis](main-theorem-selmer.md)
 
 Under the minimal height hypothesis the target also holds with CR₃ replaced by CR₃^TYZ or
 CR₃^TYZ_Cl, by any of the positive-rank forms, by positive rank on the two curves of a slot
-choice, or by any of the equivalent forms that ask for infinitely many rational points instead of
-positive rank.
+choice (for every input of the descent, or only for the inputs of admissible numbers), or by
+any of the equivalent forms that ask for infinitely many rational points instead of positive rank.
 
 - [The main theorem from the Tian–Yuan–Zhang forms of the rank hypothesis](main-theorem-tyz.md)
 - [The main theorem from the positive-rank forms of the rank hypothesis](main-theorem-positive-rank.md)
