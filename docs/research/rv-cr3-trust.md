@@ -109,9 +109,20 @@ Note that, given B9, TYZ's framework already presupposes `rank = 1` when `ord = 
 logically redundant. It is still worth keeping, because it makes the final step independent of
 Kolyvagin and of the definition of `𝓛(n)`.
 
-### 1.4 Lean run
+### 1.4 Lean run (VERIFIED)
 
-See the log, step 6, for the build and the `#print axioms` output.
+The modules `RouteK.RankDL`, `RankVariants`, `Rank5bSec3` and `RankInf` were built with `lake build`
+(9843 jobs, success). `lake env lean scratch/rv-cr3-trust/Check.lean` then elaborates four
+compositions without error (output: `out_check_lean.txt`):
+
+- `CertifiedRankTYZClRk → CertifiedRankTYZ`
+- `CertifiedRankTYZClRk → CertifiedRankTYZCl`
+- `CertifiedRankTYZClRk → CertifiedRank5b`
+- `CertifiedRankTYZClRk → CertifiedRankDLAdmRk`
+
+`#print axioms` gives exactly `[propext, Classical.choice, Quot.sound]` for those four, for the two
+new variants (`…_sixContactMin_certifiedRank5b`, `…_sixContactMin_certifiedRankDLAdmRk`), for the
+`…TYZClRk` variant and for `certifiedRankTYZClInf_iff_certifiedRankTYZClRk`.
 
 ## 2. The analytic-to-algebraic step (question 2)
 

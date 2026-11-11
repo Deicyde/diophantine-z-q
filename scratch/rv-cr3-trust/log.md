@@ -89,3 +89,10 @@ Target: docs/research/cr3-trust.md (base of that note: 14b28b23; this worktree: 
   Point group. STANDARD: Mathlib's addition is the chord-tangent law (Silverman III.2.3 formulas); and the Inf
   form avoids the group law entirely (Lean-proved equivalence). Add one sentence.
 - Form count: with the DLAdmRk variant there are now 14 forms with main-theorem variants (cr3-trust: 13).
+
+## Step 6: Lean run (load 4.7, 135 GB available)
+- lake build ZInQKernel.RouteK.RankDL RankVariants Rank5bSec3 RankInf: Build completed successfully (9843 jobs).
+- lake env lean scratch/rv-cr3-trust/Check.lean (output out_check_lean.txt): elaborates without error.
+  rv_tyz_of_tyzClRk, rv_tyzCl_of_tyzClRk, rv_5b_of_tyzClRk, rv_dlAdm_of_tyzClRk (F1 compositions),
+  the two new variants (…certifiedRank5b, …certifiedRankDLAdmRk), …TYZClRk variant and
+  certifiedRankTYZClInf_iff_certifiedRankTYZClRk: all [propext, Classical.choice, Quot.sound]. F1 VERIFIED.
