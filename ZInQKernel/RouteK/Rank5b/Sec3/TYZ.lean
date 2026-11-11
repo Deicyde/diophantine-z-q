@@ -90,7 +90,8 @@ theorem det_M5b_eq_T5b (hd5 : d % 8 = 5) (hsq : Squarefree d) : (M5b d).det = T5
 `C_d : y² = x³ − d²x` comes from a rational point: `D_{a,b}(ℚ) ≠ ∅` for every `(a, b) ∈ Sel₂(C_d)`.
 
 *Trust statement.* This is not proved in Lean. It follows from the following published results,
-none of them formalized here, together with Theorem 3.6 (`det_M5b_eq_T5b`, proved):
+together with Theorem 3.6 (`det_M5b_eq_T5b`, proved); of them, only Rédei's formula is proved in
+Lean:
 
 * **Tian–Yuan–Zhang** (Y. Tian, X. Yuan, S.-W. Zhang, *Genus periods, genus points and congruent
   number problem*, Asian J. Math. 21 (2017), no. 4, 721–774; read in arXiv:1411.4728v1, the journal
@@ -104,8 +105,8 @@ none of them formalized here, together with Theorem 3.6 (`det_M5b_eq_T5b`, prove
   "all `d_i > 1`" it is false; nt-tyz §1.4). TYZ's own definition of `𝓛(n)` uses Coates–Wiles,
   Rubin, Gross–Zagier and Kolyvagin (TYZ §1).
 * **Rédei's formula** (genus theory; L. Rédei, J. Reine Angew. Math. 171 (1934), 55–60; the `κ`
-  forms are derived in `docs/research/tyz-5b.md` Proposition 2.3): for every set `B` of primes of
-  `d` with `d_B ≢ 5 (mod 8)`, `gBit d B = #2Cl(ℚ(√−d_B)) mod 2`. So `T5b d` is the `(7, 3)` genus
+  forms are derived in `docs/research/tyz-5b.md` Proposition 2.3): for every nonempty set `B` of
+  primes of `d`, `gBit d B = #2Cl(ℚ(√−d_B)) mod 2`. So `T5b d` is the `(7, 3)` genus
   sum above for `n = d`. This step is proved in Lean (`RouteK.Redei.redeiFormula`).
 * **Gross–Zagier** (Invent. Math. 84 (1986), 225–320), over an imaginary quadratic field `K` that
   satisfies the Heegner hypothesis and has `L(C_d^K, 1) ≠ 0` (Bump–Friedberg–Hoffstein;

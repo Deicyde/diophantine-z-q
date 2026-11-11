@@ -133,7 +133,7 @@ statement names Tian–Yuan–Zhang (Proposition N of `docs/research/nt-tyz.md`)
 Gross–Zagier; one model review found it faithful after docstring repairs, with a numerical check
 against PARI on 30 values of `d` (`docs/research/rv-cr5b-sec3.md`). Rédei's formula is proved in
 Lean: the Prop `ZInQ.RouteK.Rank5b.RedeiFormula` is the theorem `ZInQ.RouteK.Redei.redeiFormula`
-(`ZInQKernel/RouteK/Redei/`, the eight modules of `docs/research/redei-plan.md` §3.2: ambiguous
+(`ZInQKernel/RouteK/Redei/`, the eight steps of `docs/research/redei-plan.md` §3.2: ambiguous
 classes, genus characters and their surjectivity by Dirichlet's theorem, genus theory
 `Cl² = ⋂ ker χ_q` by counting, the 4-rank statement, and the 𝔽₂ linear algebra that matches
 Rédei's matrix with the bits). So `CertifiedRankTYZCl`, the hypothesis with Tian–Yuan–Zhang's own

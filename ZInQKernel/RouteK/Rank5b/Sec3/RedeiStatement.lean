@@ -85,7 +85,7 @@ Trust statement (no Rédei needed: `g` is TYZ's own class number):
   number problem*, Asian J. Math. 21 (2017), no. 4, 721–774; arXiv:1411.4728), Theorem 3.5 and the
   argument of the proof of Theorem 3.5(2) (§3.3), as completed in `docs/research/nt-tyz.md` §4,
   Proposition N: for squarefree `n ≡ 5 (mod 8)`, if the genus sum
-  `Σ_{d₀ ≡ 7, d₁ ≡ 3 (8)} g(d₀) g(d₁) 𝓛(n/d₀d₁)` (= `T5bCl n` mod 2) is odd, then `𝓛(n) ≠ 0` and
+  `Σ_{d₀ ≡ 7, d₁ ≡ 3 (8)} g(d₀) g(d₁) 𝓛₁(n/d₀d₁)` (= `T5bCl n` mod 2) is odd, then `𝓛(n) ≠ 0` and
   `ord_{s=1} L(C_n, s) = 1`.
 * **Gross–Zagier** with an auxiliary imaginary quadratic field satisfying the Heegner hypothesis
   and with `L(C_d^K, 1) ≠ 0` (Bump–Friedberg–Hoffstein or Murty–Murty;
@@ -93,8 +93,9 @@ Trust statement (no Rédei needed: `g` is TYZ's own class number):
   `dim Sel₂(C_d) = 3` every Selmer class is then the image of a rational point
   (`docs/research/pc-audit.md` RK9; `Selmer.loc_iff_kummer`).
 
-Under `RedeiFormula` this is equivalent to `CertifiedRankTYZ`
-(`certifiedRankTYZ_iff_of_redeiFormula`). -/
+It is equivalent to `CertifiedRankTYZ`: `certifiedRankTYZ_iff_of_redeiFormula` with Rédei's
+formula, which is proved (`RouteK.Redei.redeiFormula`); unconditionally,
+`RouteK.Redei.certifiedRankTYZ_iff'`. -/
 def CertifiedRankTYZCl : Prop :=
   ∀ d : ℕ, d % 8 = 5 → Squarefree d → (Sel2 d).ncard = 8 → T5bCl d = 1 →
     ∀ ab ∈ Sel2 d, Loc ℚ d ab.1 ab.2
