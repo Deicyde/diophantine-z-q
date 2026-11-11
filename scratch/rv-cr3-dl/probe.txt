@@ -1,0 +1,3 @@
+'rvdl_inputs_example' depends on axioms: [propext, Classical.choice, Quot.sound]
+'rvdl_slots_example' depends on axioms: [propext, Classical.choice, Quot.sound]
+'rvdl_certifiedRankDLRk_of_certifiedRankRk' depends on axioms: [propext, Classical.choice, Quot.sound]
