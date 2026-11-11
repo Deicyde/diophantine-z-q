@@ -1,11 +1,13 @@
 # Manuscripts
 
-The current manuscript is **Version 15**:
+The current manuscript is **Version 16**, dated November 11, 2026:
 
-- [PDF: quartic_v15.pdf](../research/version15/snapshots/v15-222-004/manuscript/quartic_v15.pdf)
-- [TeX: quartic_v15.tex](../research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex)
-- [Version 15 artifacts and review scopes](../research/version15/README.md)
-- [Current research handoff](../research/version15/CUMULATIVE-HANDOFF.md)
+- [PDF: quartic_v16.pdf](quartic_v16.pdf)
+- [TeX: quartic_v16.tex](quartic_v16.tex)
+- [Correction inventory and review scope](../research/version16/README.md)
+- [Research handoff](../research/version16/CUMULATIVE-HANDOFF.md)
+
+The [Version 15 PDF](../research/version15/snapshots/v15-222-004/manuscript/quartic_v15.pdf), [TeX](../research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex) and [research records](../research/version15/README.md) remain unchanged.
 
 Version 14 and its [reductions, inventory and review scopes](../docs/manuscript-revisions/version14/GUIDE.md) remain available below.
 

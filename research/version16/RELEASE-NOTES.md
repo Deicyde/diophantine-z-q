@@ -1,0 +1,9 @@
+# Version 16
+
+November 11, 2026.
+
+This version incorporates three changes requested after the fourth Fable 5.2 audit: exact horizontal normalization before finite covers, two corrected Gaudron–Rémond citations, and explicit identification of the Tao–Ziegler fixed-extra-modulus argument as an adaptation of the proofs.
+
+The abstract, theorem statements and polynomial data are unchanged from Version 15. The manuscript retains the original large construction, the 314-variable decimal quartic and the 222-variable family with an ineffective defining threshold. It includes no Busy Beaver argument.
+
+Read the [review scope](README.md) and [findings ledger](FINDINGS.json) for what was changed and what this audit did not establish. Historical source qualifications and incomplete external review are preserved.
