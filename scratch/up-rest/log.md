@@ -27,3 +27,9 @@
 - tao-ziegler-proof-adaptation: v16 l.20060-20072 in subsec "Fixed Artin conditions in quadratic patterns" (l.19989), section of thm:v5-simultaneous-primes. Not cited by large construction (grep of v5 labels/v5tz in v16 l.1-7586, 13005-17543: none).
 - TZ-PRECISION-AMENDMENT.json: one occurrence, "divisor-sum local factors are unchanged" -> "satisfy the same uniform estimates"; decision: changes no theorem, estimate, parameter order.
 - v15:gi-full (GI) is cited by the large construction: v16 l.2217 (22P), 9565, 10406 (quartic sec), 13326 (dependency table). So the horizontal normalization correction sits under 22P's GI input in upstream's own large-construction proof.
+
+## Step 4: compiler/bridge/size sections; upstream Lean
+- n5_vs_v16.txt has no changed block inside N5 l.5745-6442 (sec:compiler, sec:bridge, sec:size): those sections are verbatim in v16. Changes nearest: N5 4364 (V 5346-5347), N5 6474/6477/6494 (corollaries section, V 7457-7483). VERIFIED.
+- Primary-applications table: N5 l.6812 "Primes {greentao,moebius,gtz,bmor}" -> v16 l.13326 "{greentao,moebius,bmor} and Section v15:gi-full"; Height row N5 l.6808 pan2022 -> v16 l.13321 calegari-icm2022 (H domain). bmor bib v16 l.39400 (BMOR 2018 Thm 1.2) still the CAT source.
+- RC section N5 1765-1767, 1779-1784 -> v16 2582-2600, 2612-2677: non-CM proof and modularity citation expanded (Silverman C.13.6, Shimura factors, Faltings isogeny). Expository; RC is off the fork's path (Route K + CR3).
+- Upstream lean/ (d76bcde): 60 files; sha256 identical to fork's lean/ except README.md (upstream adds that Frozen target is for the original 292,890,231,905-variable polynomial, not the quartic). lean/Frozen/BoundedIntegerPolynomial.lean identical => ZInQKernel/Target.lean FrozenTarget unchanged. No quartic frozen target upstream. VERIFIED.
