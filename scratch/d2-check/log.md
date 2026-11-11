@@ -16,3 +16,11 @@
   #4 and #18 share β=−191, d₁=9741 (different θ). 20 curves, 19 distinct d.
 - Slot facts on kept curves (20 curves): d % 8 = 5, squarefree, β | d, exact 2-descent dim Sel₂ = 3 with β ∈ π₁: all 20 OK.
 - Output slots.json, out_slots.txt.
+
+## Step 3 (curves)
+- curves.py on the 20 kept curves: ellrootno; ellanalyticrank (prec 19) for d < 2·10^6 (9 curves); ellrank effort 0..3 (stop when r1=r2 and r1 points);
+  Kummer images (core x, core(x−d)); torsion (−1,−d), (d,2), (−d,−2d); test β ∈ π₁(span).
+- Result: root number −1 on 20/20; analytic rank 1 on 9/9; ellrank [r1,r2] = [1,1], s = 0 on 20/20 (no upper bound 0).
+  Points found on 6 curves (all d₁: 23749, 9741 (twice), 374821, 34013, 2877, 7701); β ∈ π₁(span) on 6/6, never in the torsion span alone.
+  No point at effort 3 on 14 curves (all 10 d₂ ≥ 5.4·10^8, d₁ = 359053, 12549, 12419789); r1=1 there comes from PARI's parity/Cassels–Tate step, not a point.
+- Verdict so far: PASS. Output curves.json, out_curves_raw.txt.
