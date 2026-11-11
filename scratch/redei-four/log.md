@@ -6,3 +6,4 @@
   range_sq_eq_ker_chi, card_ker_sq_eq, card_ker_psi, odd_gCl_iff, oddGClStatement, redeiFormula).
 - FourRank.lean compiles (lake env lean), no errors; added to Redei.lean.
 - Dropped hR from the TYZCl / TYZClRk main-theorem variants (in place, no cycle); docstrings, print_axioms updated. lake build ZInQKernel OK (9918 jobs).
+- print_axioms: 49 entries, all [propext, Classical.choice, Quot.sound]. Report written.
