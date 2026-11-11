@@ -43,3 +43,4 @@
 - lake env lean scripts/print_axioms.lean: 61 entries, every one [propext, Classical.choice, Quot.sound]
   (output scratch/h-v16-adopt/print_axioms.out).
 - Fix: C3 Galois choice and C8 step 1 phrased with N5's local lemma (F = completion at w|5 of a Galois F_glob ⊇ L'); C1 decomposition restricted from G_{L'}.
+- Report .fleet/h-v16-adopt.md written.
