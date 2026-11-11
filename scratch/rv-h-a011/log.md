@@ -13,3 +13,4 @@
 - hilbert_check.py: (2,-3) ramified exactly at {2,3} among inf,2,3,5,7 (route (a) needs 3). Output saved.
 - No Lean run needed (paper review only).
 - Next: write docs/research/rv-h-a011.md and .fleet/rv-h-a011.md.
+- Wrote docs/research/rv-h-a011.md (line refs rechecked: Pan L253, L4428, L4450, L4782; Breuil Lemme 5.2.1 on journal p. 544; Berger L415) and .fleet/rv-h-a011.md. Verdict: proved after the listed repairs. Done.
