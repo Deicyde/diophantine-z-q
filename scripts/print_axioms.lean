@@ -40,6 +40,11 @@ Each declaration should depend on `[propext, Classical.choice, Quot.sound]` only
 #print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClInf
 #print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLInf
 
+-- Variants with the literature forms of the hypotheses (`MainLiterature.lean`).
+#print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzRow5b_functionalEquation5_grossZagier
+#print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_jHeightBound_certifiedRankTYZClRk
+#print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_jHeightBound_tyzRow5b_functionalEquation5_grossZagier
+
 -- Theorems that replace former hypotheses, and the vendored Green–Tao theorem.
 #print axioms ZInQ.greenTaoDense
 #print axioms ZInQ.Density.goodPrimeDensity
@@ -75,3 +80,11 @@ Each declaration should depend on `[propext, Classical.choice, Quot.sound]` only
 #print axioms ZInQ.poleCompleteness_of_certifiedRank
 #print axioms ZInQ.mordellWeilE
 #print axioms ZInQ.catalogueBound8
+
+-- Reductions of the hypotheses to their literature forms (`Hypotheses/CR3Literature.lean`,
+-- `Hypotheses/JHeight.lean`).
+#print axioms ZInQ.Literature.certifiedRankTYZClRk_of_literature
+#print axioms ZInQ.Literature.rootNumberVanishing_of_functionalEquation
+#print axioms ZInQ.Literature.tyzRow5b_of_readingA
+#print axioms ZInQ.Literature.IsLContinuation.eq
+#print axioms ZInQ.JHeight.sixContactMin_of_jHeightBound
