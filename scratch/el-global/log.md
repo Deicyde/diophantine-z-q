@@ -48,3 +48,10 @@ tests D_j from [h]P0, [s0]P0, [h-kappa]P0, [s0-kappa n]P0 on E/K0 (exact, Fracti
 Outcome: v_e(Theta) = 6 and v_e(B) = -11 in 30/30 cases. So (P11) holds on slices with genuine labels
 (rv-barrier C5 had used arbitrary D_j). A first run with (-7,3), (11,1) hit the 600 s cap after 19 cases
 (all -11); those pairs were replaced.
+
+## Step 4: E3 (VERIFIED, `e3_nondeep_bad.py`)
+
+Input: t = n integer (n = 271..332), kappa' = 1 (not deep), h = 2, s0 = 2n, eta = sign F(n), q = 0; the
+first 30 pairs (n, p) with p > 324, v_p(F(n)) odd. p-adic arithmetic in K0 (x) Q_p, precision p^400.
+Outcome: v_p(B) = -11 in 30/30 cases (v_p(F) = 1 in all). So data honest in every coordinate except the
+depth of kappa is bad at every odd contact prime > 324. This is the "kappa-deformation" used in GG-B.
