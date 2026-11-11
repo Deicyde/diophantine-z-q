@@ -28,12 +28,15 @@ namespace ZInQ
 /-- **Main theorem, with CR₃^5b in place of CR₃.** Under hypotheses H (`SixContactMin`),
 CR₃^5b (`RouteK.Rank5b.CertifiedRank5b`: for squarefree `n ≡ 5 (mod 8)` with `#Sel₂(C_n) = 8` and
 Smith's row-5b determinant `det M_5b = 1`, every 2-Selmer class of `C_n` comes from a rational
-point; a consequence of Tian–Yuan–Zhang and Gross–Zagier–Kolyvagin) and 22P, there is an integer
+point; a consequence of Tian–Yuan–Zhang with Proposition N, and Gross–Zagier with an auxiliary
+field, see `docs/research/cr3-trust.md`) and 22P, there is an integer
 polynomial in `292890231905` variables, of degree below `2↑↑7` and with coefficients below
 `2↑↑8`, whose rational zero projection to the first variable is exactly `ℤ`.
 
 CR₃^5b implies CR₃^Sel by tyz-5b Corollary 4.4 (`RouteK.Rank5b.certifiedRankSel_of_certifiedRank5b`,
-proved in Lean from Proposition 0). -/
+proved in Lean from Proposition 0). The variant without 22P is
+`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRank5b`
+(`RouteK/Rank5bSec3.lean`). -/
 theorem exists_bounded_integer_polynomial_defining_integers_of_certifiedRank5b
     (hH : SixContactMin) (hCR5 : RouteK.Rank5b.CertifiedRank5b)
     (h22 : FixedPrimePattern) : FrozenTarget :=

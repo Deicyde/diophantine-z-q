@@ -97,7 +97,8 @@ Lean:
   number problem*, Asian J. Math. 21 (2017), no. 4, 721–774; read in arXiv:1411.4728v1, the journal
   text was not available): Theorem 3.5 (first assertion) and the argument of the proof of
   Theorem 3.5(2) in §3.3, for `n ≡ 5 (mod 8)`, as completed in `docs/research/nt-tyz.md` §4
-  (Proposition N; reviewed in `docs/research/rv-nt-tyz.md`). For squarefree `n ≡ 5 (mod 8)`: if
+  (Proposition N; reviewed in `docs/research/rv-nt-tyz.md` and `docs/research/rv-prop-n.md`).
+  For squarefree `n ≡ 5 (mod 8)`: if
   the `(7, 3)` genus sum `Σ_{d₀ ≡ 7, d₁ ≡ 3 (8)} g(d₀) g(d₁) 𝓛₁(n/d₀d₁)` is odd, where `𝓛₁(m)` is
   the sum of `Π g(B)` over the set partitions of the primes of `m` into blocks `≡ 1 (mod 8)`, then
   TYZ's invariant `𝓛(n)` is nonzero, so `ord_{s=1} L(C_n, s) ≤ 1`, and since the root number is `−1`
@@ -109,8 +110,8 @@ Lean:
   primes of `d`, `gBit d B = #2Cl(ℚ(√−d_B)) mod 2`. So `T5b d` is the `(7, 3)` genus
   sum above for `n = d`. This step is proved in Lean (`RouteK.Redei.redeiFormula`).
 * **Gross–Zagier** (Invent. Math. 84 (1986), 225–320), over an imaginary quadratic field `K` that
-  satisfies the Heegner hypothesis and has `L(C_d^K, 1) ≠ 0` (Bump–Friedberg–Hoffstein;
-  Murty–Murty); `C_d` is modular because it has CM by `ℤ[i]` (Deuring, Shimura). This gives
+  satisfies the Heegner hypothesis and has `L(C_d^K, 1) ≠ 0` (Bump–Friedberg–Hoffstein);
+  `C_d` is modular because it has CM by `ℤ[i]` (Deuring, Shimura). This gives
   `ord_{s=1} L(C_d, s) = 1 ⟹ rank C_d(ℚ) ≥ 1` (`docs/research/pc-audit.md` RK7). Neither
   Kolyvagin nor BCDT is needed for this step.
 
@@ -121,7 +122,9 @@ Then (elementary, `docs/research/pc-audit.md` RK9): `C_d(ℚ)[2]` has order 4, s
 pairing is used.
 
 Under `d % 8 = 5` and `Squarefree d`, `CertifiedRankTYZ` is equivalent to `CertifiedRank5b` by
-Theorem 3.6 (review: `docs/research/rv-cr5b-sec3.md`). -/
+Theorem 3.6 (review: `docs/research/rv-cr5b-sec3.md`). Lean derives it from
+`Rank.CertifiedRankTYZClRk` (`Redei.certifiedRankTYZRk_of_certifiedRankTYZClRk`,
+`Rank.certifiedRankTYZ_of_certifiedRankTYZRk'`); see `docs/research/cr3-trust.md`. -/
 def CertifiedRankTYZ : Prop :=
   ∀ d : ℕ, d % 8 = 5 → Squarefree d → (Sel2 d).ncard = 8 → T5b d = 1 →
     ∀ ab ∈ Sel2 d, Loc ℚ d ab.1 ab.2

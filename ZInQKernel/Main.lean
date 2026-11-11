@@ -32,9 +32,10 @@ boundary is the hypothesis list of this theorem.
   produces, for every admissible input, two congruent number curves whose explicit 2-Selmer systems
   have dimension 3 and contain the class `β`; CR₃ turns these certificates into rational points, and
   the points give a zero of the pole polynomial. CR₃ concerns only curves `C_d` with
-  `d ≡ 5 (mod 8)` and classes `|a| ≡ 7 (mod 8)`; it follows from Proposition 0 with Kriz's
-  2-converse and the corank lemma, or with Tian–Yuan–Zhang and Gross–Zagier–Kolyvagin (see its
-  docstring). `exists_bounded_integer_polynomial_defining_integers_of_poleCompleteness` is the main
+  `d ≡ 5 (mod 8)` and classes `|a| ≡ 7 (mod 8)`; it follows from Proposition 0 with
+  Tian–Yuan–Zhang, Proposition N and Gross–Zagier with an auxiliary field (see its docstring and
+  `docs/research/cr3-trust.md`; Kriz's 2-converse is an alternative that is not needed).
+  `exists_bounded_integer_polynomial_defining_integers_of_poleCompleteness` is the main
   theorem with PC in place of CR₃.
 * The hypothesis 22P is used only through the slope representation `Mult.SlopeRepresentation`.
   The two-slope pattern 22P₂ (`TwoSlopePattern`) also gives it, so the main theorem holds with 22P₂
@@ -124,8 +125,9 @@ CR₃^Sel is a narrower hypothesis than CR₃: it speaks of the 2-Selmer group `
 not of the explicit linear system `Σ(𝒞_d)` with its Legendre symbols. In the literature's terms it
 says: for squarefree `d ≡ 5 (mod 8)`, if `dim_{𝔽₂} Sel₂(C_d) = 3` and some Selmer class `(a, b)` has
 `|a| ≡ 7 (mod 8)`, then every Selmer class comes from a rational point, i.e. `Ш(C_d)[2] = 0`
-(equivalently `rank C_d(ℚ) ≥ 1`). This follows from Kriz's 2-converse theorem with the corank
-lemma, or from Tian–Yuan–Zhang with Gross–Zagier–Kolyvagin. Proposition 0
+(equivalently `rank C_d(ℚ) ≥ 1`). This follows from Tian–Yuan–Zhang with Proposition N and
+Gross–Zagier with an auxiliary field (`docs/research/cr3-trust.md`); Kriz's 2-converse theorem
+with the corank lemma is an alternative that is not needed. Proposition 0
 (`RouteK.Selmer.prop0Statement`, proved in Lean) identifies `Σ(𝒞_d)` with `Sel₂(C_d)`, which turns
 CR₃^Sel into CR₃ (`RouteK.Selmer.certifiedRank_of_certifiedRankSel`). -/
 theorem exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel

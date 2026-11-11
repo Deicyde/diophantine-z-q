@@ -359,23 +359,28 @@ implies `Ш(C_d)[2] = 0`, i.e. `δ(C_d(ℚ)) = Sel₂(C_d)`. Indeed, by Lemma 1.
 complete 2-descent, and induces an injection `C_d(ℚ)/2C_d(ℚ) ↪ Sel₂(C_d)`), the conclusion says
 that every Selmer class comes from a rational point. Since `C_d(ℚ)[2] = C_d[2]` has order 4,
 `dim δ(C_d(ℚ)) = 2 + rank C_d(ℚ)`, so under `#Sel₂ = 8` the conclusion is equivalent to
-`rank C_d(ℚ) ≥ 1` (and then to `rank = 1`, `Ш[2] = 0`). This is provided by either of:
+`rank C_d(ℚ) ≥ 1` (and then to `rank = 1`, `Ш[2] = 0`). Lean derives CR₃^Sel from
+`Rank.CertifiedRankRk` (`Rank.certifiedRankSel_of_certifiedRankRk'`, with RK9 and Mordell–Weil
+proved), and that from `Rank.CertifiedRankTYZClRk`; see `docs/research/cr3-trust.md`. The positive
+rank is provided by:
 
-* Kriz's 2-converse theorem (arXiv:2002.04767, Theorem 10.13; `E = C_d`, CM by `ℤ[i]`, `p = 2`;
-  its standing assumption `f₀ ≥ 4` holds since `d ≥ 21`, as in `ZInQ.CertifiedRank`: by
+* for exactly the 2-adic shape `d ≡ 5`, `|a| ≡ 7 (mod 8)` assumed here, Tian–Yuan–Zhang
+  (Asian J. Math. 21 (2017): Theorem 3.5 and the argument of the proof of Theorem 3.5(2), §3.3, as
+  completed in `docs/research/nt-tyz.md` §4, Proposition N), which gives
+  `ord_{s=1} L(C_d, s) = 1`, and Gross–Zagier (Invent. Math. 84 (1986)) with an auxiliary
+  imaginary quadratic field (Bump–Friedberg–Hoffstein; `docs/research/pc-audit.md` RK7), which
+  gives `rank C_d(ℚ) ≥ 1`; Kolyvagin's published papers enter only inside Tian–Yuan–Zhang.
+  Tian–Yuan–Zhang's hypothesis is reached through Corollary 4.4 and Theorem 3.6 of
+  `docs/research/tyz-5b.md` (`RouteK.Rank5b.det_M5b_eq_one`, `RouteK.Rank5b.det_M5b_eq_T5b`) and
+  Rédei's formula (`RouteK.Redei.redeiFormula`), all proved in Lean.
+* as an alternative that is not needed (a preprint; `docs/research/nt-tyz.md` §5.1), Kriz's
+  2-converse theorem (arXiv:2002.04767, Theorem 10.13; `E = C_d`, CM by `ℤ[i]`, `p = 2`;
+  its standing assumption `f₀ ≥ 4` holds since `d ≥ 21`: by
   Proposition 0 the Selmer class `a` with `|a| ≡ 7 (mod 8)` is a signed divisor of `d`, so
   `d = |a| m` with `m ≡ 3 (mod 8)`)
   together with the corank lemma (manuscript line 1072; Cassels–Tate: the pairing on `Ш/Ш_div` is
   nondegenerate and alternating, so `dim (Ш/Ш_div)[2]` is even, with no finiteness of `Ш` assumed),
-  giving `rank C_d(ℚ) = 1` and `Ш(C_d)[2] = 0`;
-* or, for exactly the 2-adic shape `d ≡ 5`, `|a| ≡ 7 (mod 8)` assumed here, Tian–Yuan–Zhang
-  (Asian J. Math. 21 (2017): Theorem 3.5 and the argument of the proof of Theorem 3.5(2), §3.3, as
-  completed in `docs/research/nt-tyz.md` §4, Proposition N), which gives
-  `ord_{s=1} L(C_d, s) = 1`, and Gross–Zagier–Kolyvagin, which gives `rank C_d(ℚ) = 1` and
-  `Ш(C_d)` finite (`docs/research/tyz-5b.md`); then `dim Sel₂ = 3 = 2 + 1` forces `Ш[2] = 0`.
-  Tian–Yuan–Zhang's hypothesis is reached through Corollary 4.4 and Theorem 3.6 of
-  `docs/research/tyz-5b.md` (`RouteK.Rank5b.det_M5b_eq_one`, `RouteK.Rank5b.det_M5b_eq_T5b`) and
-  Rédei's formula (`RouteK.Redei.redeiFormula`), all proved in Lean.
+  giving `rank C_d(ℚ) = 1` and `Ш(C_d)[2] = 0`.
 
 Compared with `ZInQ.CertifiedRank`, the explicit system `Σ(𝒞_d)`, the Legendre symbols and
 Monsky's matrix are not part of the hypothesis: they enter only through Proposition 0
