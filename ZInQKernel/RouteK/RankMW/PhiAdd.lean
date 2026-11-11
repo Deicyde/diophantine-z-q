@@ -109,4 +109,79 @@ theorem mwDouble_of_line {c X₁ Y₁ X₃ Y₃ L N : K}
 
 end Line
 
+/-! ### `φ` and the two-torsion point -/
+
+section Phi
+
+variable [DecidableEq K] {b b' : K} [(shortCurve b).IsElliptic] [(shortCurve b').IsElliptic]
+  (hb' : b' = -4 * b)
+
+include hb' in
+/-- `φ(-P) = -φ(P)`. -/
+theorem mwPhi_neg (P : (shortCurve b).toAffine.Point) : phi hb' (-P) = -phi hb' P := by
+  rcases P with _ | ⟨x, y, h⟩
+  · rfl
+  rw [Point.neg_some]
+  by_cases hx : x = 0
+  · rw [phi_some_of_eq_zero _ _ hx, phi_some_of_eq_zero _ _ hx]; rfl
+  rw [phi_some _ _ hx, phi_some _ _ hx]
+  simp only [Point.mk, Point.neg_some, Point.some.injEq, shortCurve_negY]
+  constructor
+  · ring
+  · ring
+
+/-- `(x, y) + (0, 0) = (b/x, -b y/x²)`. -/
+theorem mwAdd_tZero_some {x y : K} (h : (shortCurve b).toAffine.Nonsingular x y) (hx : x ≠ 0) :
+    ∃ h', Point.some x y h + tZero = .some (b / x) (-(b * y) / x ^ 2) h' := by
+  obtain ⟨h0, ht⟩ := tZero_def (b := b)
+  rw [ht, Point.add_of_X_ne hx]
+  have he := (shortCurve_equation_iff b x y).mp h.1
+  have ex : (shortCurve b).toAffine.addX x 0 ((shortCurve b).toAffine.slope x 0 y 0) = b / x := by
+    rw [Affine.slope_of_X_ne hx]
+    simp only [Affine.addX, shortCurve_a₁, shortCurve_a₂, sub_zero, zero_mul, add_zero]
+    field_simp
+    linear_combination he
+  have ey : (shortCurve b).toAffine.addY x 0 y ((shortCurve b).toAffine.slope x 0 y 0) =
+      -(b * y) / x ^ 2 := by
+    rw [Affine.slope_of_X_ne hx]
+    simp only [Affine.addY, Affine.negAddY, Affine.addX, Affine.negY, shortCurve_a₁,
+      shortCurve_a₂, shortCurve_a₃, sub_zero, zero_mul, add_zero]
+    field_simp
+    linear_combination (-y) * he
+  have hn := nonsingular_add h h0 (fun hxy => hx hxy.left)
+  rw [ex, ey] at hn
+  exact ⟨hn, by simp only [Point.some.injEq]; exact ⟨ex, ey⟩⟩
+
+theorem mwTZero_add_tZero : (tZero : (shortCurve b).toAffine.Point) + tZero = 0 := by
+  obtain ⟨h0, ht⟩ := tZero_def (b := b)
+  rw [ht]
+  exact Point.add_self_of_Y_eq (by rw [shortCurve_negY, neg_zero])
+
+theorem mwNeg_tZero : -(tZero : (shortCurve b).toAffine.Point) = tZero := by
+  rw [neg_eq_iff_add_eq_zero, mwTZero_add_tZero]
+
+include hb' in
+theorem mwPhi_tZero : phi hb' (tZero : (shortCurve b).toAffine.Point) = 0 := by
+  obtain ⟨h0, ht⟩ := tZero_def (b := b)
+  rw [ht, phi_some_of_eq_zero _ _ rfl]
+
+include hb' in
+/-- `φ(P + (0,0)) = φ(P)`. -/
+theorem mwPhi_add_tZero (P : (shortCurve b).toAffine.Point) : phi hb' (P + tZero) = phi hb' P := by
+  have hb : b ≠ 0 := ne_zero_of_isElliptic
+  rcases P with _ | ⟨x, y, h⟩
+  · show phi hb' (0 + tZero) = phi hb' 0
+    rw [zero_add, mwPhi_tZero, phi_zero]
+  by_cases hx : x = 0
+  · rw [some_eq_tZero h hx, mwTZero_add_tZero, phi_zero, mwPhi_tZero]
+  obtain ⟨h', e⟩ := mwAdd_tZero_some h hx
+  rw [e, phi_some _ _ (div_ne_zero hb hx), phi_some _ _ hx]
+  simp only [Point.mk, Point.some.injEq]
+  constructor
+  · field_simp
+  · field_simp
+    ring
+
+end Phi
+
 end ZInQ.RouteK.Rank
