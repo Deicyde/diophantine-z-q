@@ -58,3 +58,13 @@
   buzzard (author version 1996/2002), linyang (arXiv v1), conrad-local-characters (preprint 2011), milne ADT (book, 2nd ed 2006 = published).
   pan2022 cited as arXiv v2 with JAMS 35 (2022) 1031-1169.
 - carayol bibitem = Ann. Sci. ENS 19 (1986) 409-468, Thm A: in N5 bib but not cited in H proof.
+
+## Step 8 (Lean files + h-v14 summary)
+- Height.lean module doc names "Shimura curves, Buzzard's integral models, modularity at five, effective CM"; SixContactEstimate docstring
+  is statement-only. HeightMin.lean module doc + SixContactMin docstring are statement/derivation only (no trust statement).
+- KERNEL_PLAN.md L20 H row: names "five unpublished upstream proof supplements" (target of T3 success criterion).
+- h-a011/rv-h-a011 analysed V14's lem:qm-modularity-descent, not N5. N5 L720-774 already applies Pan Thm 1.0.4 directly
+  (route (c): Scholze + Berger), twist via Conrad App B (V14: Deligne-Serre/Kato). So for N5: hypothesis discharges = rv-h-a011 table
+  §3.1 transfers (same r_5, same hypotheses), but N5's twist paragraph L757-768 is not model-reviewed against N5 text.
+- Twist/weight check (by reading): Pan => r ~ rho_g (x) psi, psi in Hom(rho_g, r) de Rham char a.e. unramified => finite * eps^n
+  (Serre 1968 Ch III / Tate); weights {n, n+1-k} = {0,-1} => (n,k)=(0,2) only (n=-1 gives k=0). VERIFIED as argument.
