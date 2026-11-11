@@ -65,3 +65,9 @@
   rho_g^HOM (x) eps_g^-1 (k=2), absorbed into the finite twist: same conclusion.
 - Other uncited items in N5 L740-790: "duality preserves the conductor" (L774; standard);
   Eichler-Shimura a_p = trace (C9/C10); Kronecker-Weber; HT closure under Hom/sub.
+
+## Step 7. Deliverables
+- docs/research/rv-h-c8.md written: verdict "holds after repairs R1-R5" (R1 normalization, R2 k=1
+  Deligne-Serre, R3 5|N supplier coverage, R4 minor uncited items, R5 h-trust bookkeeping).
+- .fleet/rv-h-c8.md written. No files under ZInQKernel/, blueprint/ or other notes edited.
+- No Lean run was needed or started.
