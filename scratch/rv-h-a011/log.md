@@ -1,0 +1,16 @@
+# rv-h-a011 log
+- 2026-11-10 start: no previous log.
+- Read h-a011.md in full. Pan FM.tex L150-233 and notation L268-270: quote of Conj 1.0.1 / Thm 1.0.4 exact; conventions (eps weight -1, geometric Frob) exact.
+- Pan body (Thm 7.1.1, 8.0.1, 9.0.1, Cor classicality L1192) all assume "de Rham", not pst; Thm 8.0.1 assumes rho|G_Fv abs. irreducible (non-ordinary), ordinary case by SW01 (Rem 8.0.3); Rem 9.0.2 uses Kis09a, HT15. So §1.2's description of 8.0.1 is incomplete.
+- V14 (CR-stripped copy ~/gt-src/scratch-rva011/v14.tex) L476-690, L1393-1546, L8140-8205 read. V14 bib pan2022 (L23910-23913) cites arXiv v2 explicitly ("historical author-proof version"), so it is not evidence for the JAMS numbering. berger2002 has a bib entry (L23906) but no \cite. calegari/direct-p5 also cited at L10386-10389 (sec:v4-inherited) and calegari at L13296 (Height row of the applications table).
+- Breuil PDF p.2, 4-5, 57-61 read: Cor 5.3.4 quote exact; K totally ramified over K0 = W(k)[1/p], e>=1; proof says the used direction is "classiques ... dues a Fontaine".
+- SZ 1995 not downloadable (numdam connection reset). SZ 1998 (alg-geom/9702004v2) cites Raynaud's criterion as SGA7 IX Prop 4.7, not as their own 1995 Thm 3.5.
+- Breuil Lemme 5.2.1 proof: "Si k est fini" / "Si k ⊂ F_p-bar n'est pas fini" (p.~543-544): finite residue fields included. VERIFIED.
+- Berger v3 TeX L4 "version revisee (1ere revision) pour Inventiones"; Thm 0.6 at L423, 5.19 at L3633; L417-420: proof rests on Andre's quasi-unipotence (p-adic monodromy).
+- Berger04 L389, L1220-1224, L1258 quotes exact. BMS Thm 1.1(i) (TeX L210-222) exact.
+- Coleman-Iovita p.3: wording "only if part ... known by [Fo-BT]; if part conjectured in [Fo-MGF]" is reversed relative to the content; the arXiv file has no bibliography, so [Fo-BT] = Ann. Math. 115 (1982) is inferred, not read.
+- Crossref rechecked (vol 35 no 4, 1031-1169, online 2021-11-15, abstract same). arXiv abs: v2 2021-09-03, comment "137 pages; v2, revised version". AMS site unreachable: JAMS numbering still UNCHECKED.
+- hilbert_check.py: (2,-3) ramified exactly at {2,3} among inf,2,3,5,7 (route (a) needs 3). Output saved.
+- No Lean run needed (paper review only).
+- Next: write docs/research/rv-h-a011.md and .fleet/rv-h-a011.md.
+- Wrote docs/research/rv-h-a011.md (line refs rechecked: Pan L253, L4428, L4450, L4782; Breuil Lemme 5.2.1 on journal p. 544; Berger L415) and .fleet/rv-h-a011.md. Verdict: proved after the listed repairs. Done.
