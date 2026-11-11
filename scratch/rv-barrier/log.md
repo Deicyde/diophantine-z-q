@@ -53,3 +53,15 @@ Lemma G:
   quadric whose only point is the vertex).
 - Cor 3 "uniform" = a Q-variety W -> P dominant with RC generic fibre and a P-morphism W -> Y. Families
   over finite covers of P (algebraic, multi-valued formulas; thin sets) are not covered.
+
+## Step 4. E1 rerun (scratch/rv-barrier/e1_rerun.py, independent code)
+Inputs: 30 primes (every other prime in [331,1000)), B = c/p (c<40), m in first 16 divisors of 2730;
+G5 with B = R0/p^2, R0 = c p. Outcome: G1 witnesses at exactly the 10 sampled primes p = 1 mod 4
+(0 mismatches with the Hilbert-symbol prediction (-1/p)); G2, G3, G5 witnesses at 30/30 primes.
+Matches el-gadget E1 (28/59, 59/59). VERIFIED.
+
+## Step 5. E2 rerun (scratch/rv-barrier/e2_rerun.py, independent code, tests in K0 = Q(sqrt2))
+Inputs: 30 bad data (10 each with v_p(R0) = 1, 3, -1; p = prime(70..300); one test with v_p = -1..-3),
+20 q each with p-power denominators up to p^4 and p-divisible numerators. Outcome: 600/600 pairs bad.
+(el-gadget sampled only v_p(R0) = 1 with rational tests.) Column property VERIFIED on the sample;
+the paper argument in Step 3 covers all cases.
