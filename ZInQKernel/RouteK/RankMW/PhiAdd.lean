@@ -182,6 +182,138 @@ theorem mwPhi_add_tZero (P : (shortCurve b).toAffine.Point) : phi hb' (P + tZero
   · field_simp
     ring
 
+include hb' in
+/-- Additivity of `φ` in the generic case: `x₁ ≠ x₂`, `x₁ x₂ ≠ b`, all abscissas nonzero. -/
+theorem mwPhi_add_generic {x₁ y₁ x₂ y₂ : K} (h₁ : (shortCurve b).toAffine.Nonsingular x₁ y₁)
+    (h₂ : (shortCurve b).toAffine.Nonsingular x₂ y₂) (hx₁ : x₁ ≠ 0) (hx₂ : x₂ ≠ 0)
+    (hx : x₁ ≠ x₂) (hb : x₁ * x₂ ≠ b)
+    (hx₃ : (shortCurve b).toAffine.addX x₁ x₂ ((shortCurve b).toAffine.slope x₁ x₂ y₁ y₂) ≠ 0) :
+    phi hb' (.some x₁ y₁ h₁ + .some x₂ y₂ h₂) = phi hb' (.some x₁ y₁ h₁) + phi hb' (.some x₂ y₂ h₂) := by
+  have hxy : ¬(x₁ = x₂ ∧ y₁ = (shortCurve b).toAffine.negY x₂ y₂) := fun h => hx h.1
+  have key := mul_addX_eq h₁ h₂ hxy
+  have e₁ := (shortCurve_equation_iff b x₁ y₁).mp h₁.1
+  have e₂ := (shortCurve_equation_iff b x₂ y₂).mp h₂.1
+  have h₃ := nonsingular_add h₁ h₂ hxy
+  have e₃ := (shortCurve_equation_iff b _ _).mp h₃.1
+  rw [Point.add_of_X_ne hx, phi_some _ _ hx₃, phi_some _ _ hx₁, phi_some _ _ hx₂]
+  simp only [Point.mk]
+  set ℓ := (shortCurve b).toAffine.slope x₁ x₂ y₁ y₂ with hℓdef
+  set x₃ := (shortCurve b).toAffine.addX x₁ x₂ ℓ with hx₃def
+  have hℓ : ℓ * (x₁ - x₂) = y₁ - y₂ := by
+    rw [hℓdef, Affine.slope_of_X_ne hx]; field_simp [sub_ne_zero.mpr hx]
+  have V1 : x₁ + x₂ + x₃ = ℓ ^ 2 := by
+    simp only [hx₃def, Affine.addX, shortCurve_a₁, shortCurve_a₂]; ring
+  set ν := y₁ - ℓ * x₁ with hν
+  have hy₁ : y₁ = ℓ * x₁ + ν := by rw [hν]; ring
+  have hy₂ : y₂ = ℓ * x₂ + ν := by rw [hν]; linear_combination hℓ
+  have hy₃ : (shortCurve b).toAffine.addY x₁ x₂ y₁ ℓ = -(ℓ * x₃ + ν) := by
+    simp only [Affine.addY, Affine.negAddY, Affine.negY, shortCurve_a₁, shortCurve_a₃, hx₃def]
+    ring
+  have V3 : x₁ * x₂ * x₃ = ν ^ 2 := key
+  have V2 : x₁ * x₂ + x₁ * x₃ + x₂ * x₃ = b - 2 * ℓ * ν := by
+    apply mul_left_cancel₀ (sub_ne_zero.mpr hx)
+    linear_combination e₁ - (y₁ + ℓ * x₁ + ν) * hy₁ - e₂ + (y₂ + ℓ * x₂ + ν) * hy₂ +
+      (x₁ - x₂) * (x₁ + x₂) * V1
+  have hν0 : ν ≠ 0 := by
+    intro h0
+    rw [h0] at V3
+    simp only [ne_eq, OfNat.ofNat_ne_zero, not_false_eq_true, zero_pow, mul_eq_zero] at V3
+    tauto
+  have e₃' : (ℓ * x₃ + ν) ^ 2 = x₃ ^ 3 + b * x₃ := by rw [hy₃] at e₃; linear_combination e₃
+  have hX : y₁ ^ 2 / x₁ ^ 2 ≠ y₂ ^ 2 / x₂ ^ 2 := by
+    intro h
+    rw [div_eq_div_iff (pow_ne_zero 2 hx₁) (pow_ne_zero 2 hx₂)] at h
+    have : x₁ * x₂ * ((x₁ - x₂) * (x₁ * x₂ - b)) = 0 := by
+      linear_combination h - x₂ ^ 2 * e₁ + x₁ ^ 2 * e₂
+    rcases mul_eq_zero.mp this with h0 | h0
+    · exact mul_ne_zero hx₁ hx₂ h0
+    rcases mul_eq_zero.mp h0 with h0 | h0
+    · exact hx (sub_eq_zero.mp h0)
+    · exact hb (sub_eq_zero.mp h0)
+  have hl₃ : (shortCurve b).toAffine.addY x₁ x₂ y₁ ℓ * (b - x₃ ^ 2) / x₃ ^ 2 =
+      -((b / ν - ℓ) * ((shortCurve b).toAffine.addY x₁ x₂ y₁ ℓ ^ 2 / x₃ ^ 2) +
+        (-ν - b * ℓ ^ 2 / ν)) := by
+    rw [hy₃]
+    have := mwPhi_line hx₃ hν0 (y := ℓ * x₃ + ν) rfl e₃'
+    linear_combination -this
+  have hs : y₁ ^ 2 / x₁ ^ 2 + y₂ ^ 2 / x₂ ^ 2 +
+      (shortCurve b).toAffine.addY x₁ x₂ y₁ ℓ ^ 2 / x₃ ^ 2 = (b / ν - ℓ) ^ 2 := by
+    rw [hy₃, neg_sq]
+    rw [hy₁, hy₂]
+    exact mwPhi_sum_sq hx₁ hx₂ hx₃ hν0 V1 V2 V3
+  exact (mwAdd_of_line _ _ _ hX (mwPhi_line hx₁ hν0 hy₁ e₁) (mwPhi_line hx₂ hν0 hy₂ e₂)
+    hl₃ hs).symm
+
+include hb' in
+/-- Additivity of `φ` for doubling, when `y ≠ 0` and `2P ≠ (0,0)`. -/
+theorem mwPhi_double {x y : K} (h : (shortCurve b).toAffine.Nonsingular x y) (hx : x ≠ 0)
+    (hy : y ≠ 0)
+    (hx₃ : (shortCurve b).toAffine.addX x x ((shortCurve b).toAffine.slope x x y y) ≠ 0) :
+    phi hb' (.some x y h + .some x y h) = phi hb' (.some x y h) + phi hb' (.some x y h) := by
+  have h2 : (2 : K) ≠ 0 := two_ne_zero_of_isElliptic (b := b)
+  have hy' : y ≠ (shortCurve b).toAffine.negY x y := by
+    rw [shortCurve_negY]; intro h0; apply hy
+    have : (2 : K) * y = 0 := by linear_combination h0
+    exact (mul_eq_zero.mp this).resolve_left h2
+  have hxy : ¬(x = x ∧ y = (shortCurve b).toAffine.negY x y) := fun h => hy' h.2
+  have key := mul_addX_eq h h hxy
+  have e := (shortCurve_equation_iff b x y).mp h.1
+  have h₃ := nonsingular_add h h hxy
+  have e₃ := (shortCurve_equation_iff b _ _).mp h₃.1
+  rw [Point.add_self_of_Y_ne hy', phi_some _ _ hx₃, phi_some _ _ hx]
+  simp only [Point.mk]
+  set ℓ := (shortCurve b).toAffine.slope x x y y with hℓdef
+  set x₃ := (shortCurve b).toAffine.addX x x ℓ with hx₃def
+  have ht : 2 * y * ℓ = 3 * x ^ 2 + b := by
+    rw [hℓdef, Affine.slope_of_Y_ne rfl hy']
+    simp only [Affine.negY, shortCurve_a₁, shortCurve_a₂, shortCurve_a₃, shortCurve_a₄,
+      zero_mul, mul_zero, add_zero, sub_zero]
+    rw [show y - -y = 2 * y by ring]
+    exact mul_div_cancel₀ _ (mul_ne_zero h2 hy)
+  have V1 : x + x + x₃ = ℓ ^ 2 := by
+    simp only [hx₃def, Affine.addX, shortCurve_a₁, shortCurve_a₂]; ring
+  set ν := y - ℓ * x with hν
+  have hy₁ : y = ℓ * x + ν := by rw [hν]; ring
+  have hy₃ : (shortCurve b).toAffine.addY x x y ℓ = -(ℓ * x₃ + ν) := by
+    simp only [Affine.addY, Affine.negAddY, Affine.negY, shortCurve_a₁, shortCurve_a₃, hx₃def]
+    ring
+  have V3 : x * x * x₃ = ν ^ 2 := key
+  have V2 : x * x + x * x₃ + x * x₃ = b - 2 * ℓ * ν := by
+    linear_combination ht - 2 * ℓ * hy₁ + 2 * x * V1
+  have hν0 : ν ≠ 0 := by
+    intro h0
+    rw [h0] at V3
+    simp only [ne_eq, OfNat.ofNat_ne_zero, not_false_eq_true, zero_pow, mul_eq_zero] at V3
+    tauto
+  have hx3eq : x₃ * (2 * y) ^ 2 = (x ^ 2 - b) ^ 2 := by
+    have : x₃ = ℓ ^ 2 - 2 * x := by linear_combination V1
+    rw [this]
+    linear_combination (2 * y * ℓ + 3 * x ^ 2 + b) * ht - 8 * x * e
+  have hxb : b - x ^ 2 ≠ 0 := by
+    intro h0
+    have : x₃ * (2 * y) ^ 2 = 0 := by rw [hx3eq]; linear_combination (b - x ^ 2) * h0
+    rcases mul_eq_zero.mp this with h1 | h1
+    · exact hx₃ h1
+    · exact pow_ne_zero 2 (mul_ne_zero h2 hy) h1
+  have e₃' : (ℓ * x₃ + ν) ^ 2 = x₃ ^ 3 + b * x₃ := by rw [hy₃] at e₃; linear_combination e₃
+  have hY : y * (b - x ^ 2) / x ^ 2 ≠ 0 :=
+    div_ne_zero (mul_ne_zero hy hxb) (pow_ne_zero 2 hx)
+  have ht' : (b / ν - ℓ) * (2 * (y * (b - x ^ 2) / x ^ 2)) = 3 * (y ^ 2 / x ^ 2) ^ 2 + b' := by
+    rw [hb']
+    exact mwPhi_tangent hx hν0 hy₁ e ht
+  have hl₃ : (shortCurve b).toAffine.addY x x y ℓ * (b - x₃ ^ 2) / x₃ ^ 2 =
+      -((b / ν - ℓ) * ((shortCurve b).toAffine.addY x x y ℓ ^ 2 / x₃ ^ 2) +
+        (-ν - b * ℓ ^ 2 / ν)) := by
+    rw [hy₃]
+    have := mwPhi_line hx₃ hν0 (y := ℓ * x₃ + ν) rfl e₃'
+    linear_combination -this
+  have hs : y ^ 2 / x ^ 2 + y ^ 2 / x ^ 2 +
+      (shortCurve b).toAffine.addY x x y ℓ ^ 2 / x₃ ^ 2 = (b / ν - ℓ) ^ 2 := by
+    rw [hy₃, neg_sq]
+    rw [hy₁]
+    exact mwPhi_sum_sq hx hx hx₃ hν0 V1 V2 V3
+  exact (mwDouble_of_line _ _ h2 hY ht' (mwPhi_line hx hν0 hy₁ e) hl₃ hs).symm
+
 end Phi
 
 end ZInQ.RouteK.Rank
