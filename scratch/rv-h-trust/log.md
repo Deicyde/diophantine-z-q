@@ -65,3 +65,16 @@ Target: docs/research/h-trust.md (713 lines, merged at fd8677ac via 81057fcc).
 - A9 Milne paragraph: σ∈Aut(C/Q̄) fixes torsion points, so σφ=φ on a dense set, so φ is defined over Q̄.
   Centralizer: rational elements of B⊗B^op commuting with right mult. by J are B⊗Z_B(J), Z_B(J)=ℚ or
   imaginary quadratic k ⊂ B, B⊗k ≅ M_2(k). VERIFIED as an argument.
+
+## Step 5. Script reruns (one at a time, ~/pyenv/bin/python, outputs in scratch/rv-h-trust/reruns/)
+| script | compared with | outcome |
+| scratch/h-v14/form_check.py | form_check.output.txt | identical |
+| scratch/h-v14/igusa_check.py | igusa_check.output.txt | identical |
+| scratch/h-b1/b1_checks.py | b1_checks.output.txt | identical |
+| scratch/rv-h-cm/check.py | check.output.txt | identical |
+| scratch/rv-h-novel/c1_constants.py | scratch/h-trust/reruns/…c1….output.txt | identical |
+| scratch/rv-h-novel/c2_sqrt_criterion.py | scratch/h-trust/reruns/…c2….output.txt | identical |
+| scratch/rv-h-novel/c3_breaks.py | rv-h-novel log step C3 ("all true") | "ALL OK: True", 15 fields, 0.5 s |
+- h-trust §2.3 says c3_breaks "not rerun (PARI)": now rerun, agrees.
+- h-trust Summary 4(d)/§2.7(iv) "seven exact scripts": its own table lists 9 scripts in 8 rows; rv-h-b1's
+  scratch/rv-h-b1/rv_checks.py (R2 elliptic enumeration, R6 neatness, R7) is now also an input (A4, A5). Count wrong (cosmetic).
