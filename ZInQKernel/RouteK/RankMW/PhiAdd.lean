@@ -53,4 +53,60 @@ theorem mwPhi_tangent {b x y ℓ ν : K} (hx : x ≠ 0) (hν : ν ≠ 0) (hy : y
   subst hb
   linear_combination (-8*ℓ^3*x^3 - 17*ℓ^2*ν*x^2 - 12*ℓ*ν^2*x + 12*ℓ*x^4 - 3*ν^3 + 6*ν*x^3) * he
 
+/-! ### Addition on the target curve along a line -/
+
+section Line
+
+variable [DecidableEq K]
+
+/-- Two points of `E_c` with distinct abscissas on the line `Y = L X + N` add up to the
+reflection of the third point of that line. -/
+theorem mwAdd_of_line {c X₁ Y₁ X₂ Y₂ X₃ Y₃ L N : K}
+    (h₁ : (shortCurve c).toAffine.Nonsingular X₁ Y₁) (h₂ : (shortCurve c).toAffine.Nonsingular X₂ Y₂)
+    (h₃ : (shortCurve c).toAffine.Nonsingular X₃ Y₃) (hX : X₁ ≠ X₂)
+    (hl₁ : Y₁ = L * X₁ + N) (hl₂ : Y₂ = L * X₂ + N) (hl₃ : Y₃ = -(L * X₃ + N))
+    (hs : X₁ + X₂ + X₃ = L ^ 2) :
+    Point.some X₁ Y₁ h₁ + Point.some X₂ Y₂ h₂ = Point.some X₃ Y₃ h₃ := by
+  rw [Point.add_of_X_ne hX]
+  simp only [Point.some.injEq]
+  have hL : (shortCurve c).toAffine.slope X₁ X₂ Y₁ Y₂ = L := by
+    rw [Affine.slope_of_X_ne hX, div_eq_iff (sub_ne_zero.mpr hX)]
+    linear_combination hl₁ - hl₂
+  simp only [Affine.addX, Affine.addY, Affine.negAddY, Affine.negY, shortCurve_a₁, shortCurve_a₂,
+    shortCurve_a₃, hL, zero_mul, add_zero, sub_zero]
+  constructor
+  · linear_combination -hs
+  · linear_combination -hl₁ + L * hs - hl₃
+
+/-- Doubling along the tangent line `Y = L X + N`. -/
+theorem mwDouble_of_line {c X₁ Y₁ X₃ Y₃ L N : K}
+    (h₁ : (shortCurve c).toAffine.Nonsingular X₁ Y₁)
+    (h₃ : (shortCurve c).toAffine.Nonsingular X₃ Y₃) (h2 : (2 : K) ≠ 0) (hY : Y₁ ≠ 0)
+    (ht : L * (2 * Y₁) = 3 * X₁ ^ 2 + c)
+    (hl₁ : Y₁ = L * X₁ + N) (hl₃ : Y₃ = -(L * X₃ + N))
+    (hs : X₁ + X₁ + X₃ = L ^ 2) :
+    Point.some X₁ Y₁ h₁ + Point.some X₁ Y₁ h₁ = Point.some X₃ Y₃ h₃ := by
+  have hY' : Y₁ ≠ (shortCurve c).toAffine.negY X₁ Y₁ := by
+    rw [shortCurve_negY]; intro h; apply hY
+    have : (2 : K) * Y₁ = 0 := by linear_combination h
+    exact (mul_eq_zero.mp this).resolve_left h2
+  rw [Point.add_self_of_Y_ne hY']
+  simp only [Point.some.injEq]
+  have hL : (shortCurve c).toAffine.slope X₁ X₁ Y₁ Y₁ = L := by
+    rw [Affine.slope_of_Y_ne rfl hY']
+    simp only [Affine.negY, shortCurve_a₁, shortCurve_a₂, shortCurve_a₃, shortCurve_a₄,
+      zero_mul, mul_zero, add_zero, sub_zero]
+    rw [div_eq_iff (by
+      intro h; apply hY
+      have : (2 : K) * Y₁ = 0 := by linear_combination h
+      exact (mul_eq_zero.mp this).resolve_left h2)]
+    linear_combination -ht
+  simp only [Affine.addX, Affine.addY, Affine.negAddY, Affine.negY, shortCurve_a₁, shortCurve_a₂,
+    shortCurve_a₃, hL, zero_mul, add_zero, sub_zero]
+  constructor
+  · linear_combination -hs
+  · linear_combination -hl₁ + L * hs - hl₃
+
+end Line
+
 end ZInQ.RouteK.Rank
