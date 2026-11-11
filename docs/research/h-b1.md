@@ -155,7 +155,7 @@ Notation as in N5 L405-438:
 | --- | --- | --- | --- |
 | M1 | cover over a number field, with group action defined over it | `Γ'` acts on `Y₃` over `ℚ` (right translation by elements of `G(𝔸_f)` normalizing `K₃`, Hecke action on the canonical model), with quotient `P¹_j` (N5 L428-438) | STANDARD (Deligne 1979, §2.7 and §5 (UNVERIFIED locators); Milne, *Introduction to Shimura varieties*, §13) |
 | M2 | Galois extension and its group | Let `Y^{(1)}` be a `ℚ`-irreducible component, `Γ₁` its stabilizer in `Γ'` and `κ₁` the kernel of `Γ₁` on it. Then `M := ℚ(Y^{(1)})` is Galois over `ℚ(j)` with group `Γ₁/κ₁` (Artin's theorem, since `Y^{(1)}/Γ₁ = P¹_j`). The points of `Y₃` over any `j₀` all have the residue field of `M` there, because `Γ'` is defined over `ℚ` | PROVED HERE |
-| M3 | order of the group | `|Γ'| = 4·72/2 = 144 = 2⁴3²`: `|(𝒪/3𝒪)^*| = 72`, the image of `ℤ̂^*` is `{±1}`, and the local normalizer index is 2 at each of the two division primes. So `|Γ₁/κ₁|` divides 144, and `p ∤ |Γ_M|` for every `p ≥ 5`. This refines h-map's "divides 4·72" and N5's `≤ 324` | VERIFIED (script §B) for 72 and `{±1}`; STANDARD for the local index (Vignéras, LNM 800, Ch. II) |
+| M3 | order of the group | `Γ'` has order `4·72/2 = 144 = 2⁴3²`: `(𝒪/3𝒪)^*` has 72 elements, the image of `ℤ̂^*` is `{±1}`, and the local normalizer index is 2 at each of the two division primes. So the order of `Γ₁/κ₁` divides 144, and `p` does not divide the order of `Γ_M` for any `p ≥ 5`. This refines h-map's "divides 4·72" and N5's `≤ 324` | VERIFIED (script §B) for 72 and `{±1}`; STANDARD for the local index (Vignéras, LNM 800, Ch. II) |
 | M4 | branch points and indices | `(0,4)`, `(∞,6)`, `(−16/27,2)` | STANDARD (Baba–Granath, Canad. J. Math. 2008; Lin–Yang 2020; cited at N5 L418-419) |
 | M5 | branch locus étale mod `p` | the pairwise differences of `0, ∞, −16/27` are supported on `{2,3}`, so the branch points are distinct mod every `p ≥ 5`, and they are rational, so Beckmann's (c) holds | VERIFIED (§A) |
 | M6 | no vertical ramification at `p ≥ 5` | Lemma NV (§3) | PROVED HERE |
@@ -304,7 +304,7 @@ needed: see L814 below.
 | L529-530 | "the proper model and its universal abelian scheme give good reduction outside the places over `S`" | Lemma PR(ii) |
 | L563-566 | every conjugate has good reduction at primes outside `T` | the conjugates are `σA = A_{σx}` with `σx ∈ Y₃(K)` (`K` is Galois), so Lemma PR(ii) applies |
 | L847-850 | `p > R`: the surface has good reduction | Lemma PR(ii), since `p > R ≥ 10¹² > 3` |
-| L814 | `p = 3`: adjoin `A[5]` | no change. Semistability over `L_v(A[5])` comes from Raynaud's criterion (Silverberg–Zarhin Thm 3.5), not from b11. h-map's "L814 for `v | 3`" needs no replacement |
+| L814 | `p = 3`: adjoin `A[5]` | no change. Semistability over `L_v(A[5])` comes from Raynaud's criterion (Silverberg–Zarhin Thm 3.5), not from b11. h-map's "L814 for `v` over 3" needs no replacement |
 
 The numerals `F₀ = 324!`, `D`, `E₀` and `H₆` are unchanged. Nothing downstream of L530 uses the
 integral model (VERIFIED by reading L530-972; `grep` for "integral model / proper model" in N5
