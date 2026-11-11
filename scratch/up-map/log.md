@@ -56,3 +56,7 @@
 ## Step 10 (thm:height proof, N5 l.404-972 vs V16 l.707-1704)
 - Hunks (diff --strip-trailing-cr): Lin-Yang QM data (N5 l.419-437 -> V16 l.722-820, cites a001-moduli-project l.748, ly-d6-normalization-project l.781); integral model: N5 l.443-478 ("Apply [buzzard Thm 2.1, Cor 2.3] to V_1(5) over Z[1/30]") -> V16 l.829-~1141, six phases, full proofs in §v15:marking-descent (l.30109) and §v15:tate-polarized (l.30096); bib b11-integral-model-project (l.39281, research/version14/proofs/b11-integral-model-v1) is listed but not cited in text. N5 lem:de-rham-descent reference (N5 l.735-751) dropped (de Rham appendix gone; replaced by lem:qm-modularity-descent). Baba-Granath, Milne AV, LNY normalisation passages expanded; igusa-theta-project cited l.1647. VERIFIED.
 - research/version14/proofs/ holds 26 supplement dirs (a001-moduli-current-v1, b11-integral-model-v1, direct-p5-modularity-v1, igusa-theta-v1, ly-d6-normalization-v1, local-gi-v1, pan-*, qm-*, cj-* (Cornut-Jetchev replacements), yuan-final-source-v1, ...).
+
+## Step 11 (catalogue and cutoff)
+- Catalogue definition (first 22 primes above 324 in each unit class mod W=4*prod_{p<=324}p): N5 l.238-245 = V16 l.331-338 (only §2 change: "companion SOURCE_MAP.json" -> "the same manifest", N5 l.163-164 / V16 l.257).
+- §12 "The cutoff and polynomial size" (N5 l.6272-6442 vs V16 l.7255-7425) byte-identical modulo CRLF, including the catalogue bound H_max < X=2^{W^3}, H_cat <= X^{22W}, log2 N_s < 2^2054 via [bmor Thm 1.2, Cor 6.17] (N5 l.6296-6310). VERIFIED (diff).
