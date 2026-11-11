@@ -3,3 +3,4 @@
 - first build attempt (mistakenly at load 196): open Selmer must be inside namespace; fixed
 - step1 committed (module builds)
 - step2 root variant builds
+- step3 checks done (build ok, check_target ok, axioms std); report written
