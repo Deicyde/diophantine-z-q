@@ -30,3 +30,10 @@
   Hom theorem L863 cites faltings1983 nearby (L733) only.
 - Steps L531-545 (all conjugates geometrically isomorphic; Igusa invariants in j) and L546-563 (Hom field L, [L:Q]<=D)
   are N5's own arguments; not in rv-h-novel scope (premises).
+
+## Step 4 (N5 lem:de-rham-descent L10939-11000; h-v14 §2.7, §3.2-§4)
+- lem:de-rham-descent cites scholze2013 Cor1.8, Thms 9.1/9.3 + erratum; milne-av Pt I Thm 12.1(a); brinon-conrad Thm5.2.1, Prop6.3.3, 6.3.8.
+  So N5's pst route = (c): Scholze dR + Berger dR=>pst. Brinon-Conrad = lecture notes (unrefereed) -> replaceable by Fontaine 1994 (h-v14 §4.4).
+- a001 = (form correction: reproduced by scratch/h-v14/form_check.py) + (coarse-moduli application: NOT reproduced; BG "local index slip" in Lemma 3.1).
+- ly-d6, igusa-theta: reproduced by scratch/h-v14/igusa_check.py from LY arXiv v1 + Igusa normalization.
+- Uncited in V14/N5: free-quotient, effective descent, stable-model uniqueness (A078; removed by B1), I2, l-independence, Faltings Hom, Skolem-Noether, Chebotarev.
