@@ -15,6 +15,7 @@ import ZInQKernel.RouteK.Rank5b.Sec3.TYZ
 import ZInQKernel.RouteK.Rank5b.Sec3.Props
 import ZInQKernel.RouteK.Rank5b.Sec3.Prop34
 import ZInQKernel.RouteK.Rank5b.Sec3.Check
+import ZInQKernel.RouteK.Rank5b.Sec3.RedeiStatement
 
 /-!
 # Route K, row 5b, §§2–3 of tyz-5b (root module)
@@ -33,7 +34,9 @@ Tian–Yuan–Zhang:
 * `Sec3.Glue`, `Sec3.Count`, `Sec3.Genus`, `Sec3.Thm36`: the genus sum as a forest sum
   (`Sec3.genusSum5b_eq_forest`) and Theorem 3.6 for bits (`Sec3.det_M5bG_eq_genusSum5b`);
 * `Sec3.TYZ`: Theorem 3.6 (`det_M5b_eq_T5b`), the hypothesis `CertifiedRankTYZ` and
-  `certifiedRank5b_of_certifiedRankTYZ`.
+  `certifiedRank5b_of_certifiedRankTYZ`;
+* `Sec3.RedeiStatement`: CR₃ with TYZ's class numbers `#2Cl(ℚ(√−d_B))` (`CertifiedRankTYZCl`), Rédei's
+  formula as a Prop (`RedeiFormula`) and `certifiedRankTYZ_iff_of_redeiFormula`.
 -/
 
 namespace ZInQ
@@ -49,5 +52,18 @@ theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_cer
   exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankSel hH
     (RouteK.Rank5b.certifiedRankSel_of_certifiedRank5b
       (RouteK.Rank5b.certifiedRank5b_of_certifiedRankTYZ hCR))
+
+/-- **Theorem 1.1** from 6C_min, CR₃ in Tian–Yuan–Zhang's own terms (`RouteK.Rank5b.CertifiedRankTYZCl`,
+with `g(d_B) = #2Cl(ℚ(√−d_B))`) and Rédei's formula (`RouteK.Rank5b.RedeiFormula`, tyz-5b
+Proposition 2.3; a classical theorem stated as a Prop, not proved here).
+
+Rédei's formula turns CR₃ in class-number form into CR₃^TYZ
+(`RouteK.Rank5b.certifiedRankTYZ_iff_of_redeiFormula`), and
+`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZ` applies. -/
+theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZCl
+    (hH : SixContactMin) (hCR : RouteK.Rank5b.CertifiedRankTYZCl)
+    (hR : RouteK.Rank5b.RedeiFormula) : FrozenTarget :=
+  exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZ hH
+    ((RouteK.Rank5b.certifiedRankTYZ_iff_of_redeiFormula hR).1 hCR)
 
 end ZInQ
