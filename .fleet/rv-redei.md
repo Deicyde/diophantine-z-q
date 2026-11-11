@@ -44,3 +44,5 @@
 ## Suggestions
 Fix N1 and N2 in TYZ.lean the next time someone edits trust statements, and refresh the blueprint
 page.
+
+Log of the run: `scratch/rv-redei/log.md`.
