@@ -118,6 +118,11 @@ Verdict item 5: CONFIRMED with two minor corrections.
 - scratch/rv-up/quotes.py: 8-token shingle match of the four notes + all scratch/up-*/ files against an upstream corpus
   (scratch/rv-up/quotes.corpus.txt: 7307 files, 362 MB: every manuscripts/*.tex, the V15 snapshot tex, research/version14-16,
   collaborator notes, docs/, p214 research/quartic214, top-level READMEs; files > 5 MB and other snapshots excluded).
-  Runs >= 25 words: none (quotes.output.txt empty). With 6-token shingles and >= 12 words (quotes12.output.txt): 21 runs,
+  Runs >= 25 words: none (quotes.output.txt empty). With 6-token shingles and >= 12 words (quotes12.output.txt): 19 runs,
   longest 21 words (up-map l.162-164, the V16 l.155-159 sentence), then 16, 15 words; all bibliographic titles or one-sentence
   quotations. No passage longer than about 1.5 lines. Verdict item 6: CONFIRMED.
+
+## Step 7 — deliverables
+- docs/research/rv-up.md written (verdict table, details §§1-7, proposed h-trust changes §3.5).
+- .fleet/rv-up.md written.
+- Additional finding while drafting: up-h did not treat the BG ADVERSE-CASE handed over by up-map (grep up-h.md/log: no hit).
