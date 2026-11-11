@@ -1,0 +1,27 @@
+{
+  "source_commit": "0b3abc5ea22a77cd04f43ae360f35a440269bfe7",
+  "source_repository": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\version16-fable-corrections-20261111\\private-repository",
+  "files": [
+    {
+      "path": "scripts/check_application_reviews.py",
+      "old_sha256": "581b74870e47069fd56f28755088733ba18aa3853540ad70bec0fa0a3c1a93e6",
+      "new_sha256": "9dc85ba98fc3fd75a2fb1e71bbe157cdef6342db7e1836c42168d1ac5d2e9b4c"
+    },
+    {
+      "path": "docs/audit-history/builder-binding.json",
+      "old_sha256": null,
+      "new_sha256": "9f4e9a69777a9aa7c8c32f028945f15d0e0526087b1877096be2cc0f64b0597d"
+    },
+    {
+      "path": ".gitattributes",
+      "old_sha256": "ed63a473a16109468d2d845d42447fc6bd83723a65d4aad836de4caf55091dfd",
+      "new_sha256": "5ff0d5c474397959522007ccc6e0e48c432883e0737d09c7eea6f80b77277c61"
+    }
+  ],
+  "unchanged_blob_checkout_refresh": {
+    "path": "docs/current-manuscript.json",
+    "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33"
+  },
+  "historical_record_unchanged_sha256": "2b0dd7653076633f53c1e32b43dd4c11a664b5ace5b5685ff6afc30ed4b82ca4",
+  "status": "candidate_not_installed_or_independently_accepted"
+}

@@ -1,0 +1,47 @@
+{
+  "original_failure": "Current builder has no matching review binding",
+  "overlay_output": "PASS: 7 negative controls rejected.\nPASS: 29 application-review negative controls rejected.\nPASS: 8 application contracts, revision and follow-up records for manuscripts/quartic_v14.tex. Build selector checked separately; historical acceptance is not current-manuscript approval. Not a proof check.\n",
+  "commands": [
+    {
+      "command": [
+        "C:\\Users\\glaze\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "-B",
+        "scripts/check_audit_history.py",
+        "--self-test"
+      ],
+      "cwd": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\record-manuscript-policy-20261111\\compatibility-repair\\integration",
+      "exit_code": 0,
+      "stdout": "PASS: 9 historical dispositions, evidence pins and manuscript passages. Not a mathematical proof check.\nPASS: 7 negative controls rejected.\nPASS: 29 application-review negative controls rejected.\nPASS: 8 application contracts, revision and follow-up records for manuscripts/quartic_v14.tex. Build selector checked separately; historical acceptance is not current-manuscript approval. Not a proof check.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\glaze\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "-B",
+        "scripts/check_current_manuscript.py"
+      ],
+      "cwd": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\record-manuscript-policy-20261111\\compatibility-repair\\integration",
+      "exit_code": 0,
+      "stdout": "{\n  \"profile_sha256\": \"09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33\",\n  \"version\": 16,\n  \"tex\": {\n    \"path\": \"manuscripts/quartic_v16.tex\",\n    \"sha256\": \"aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74\"\n  },\n  \"pdf\": {\n    \"path\": \"manuscripts/quartic_v16.pdf\",\n    \"sha256\": \"5634295d85bdfd2aef476ad49827b160f119e94996e1f644c3b05a96eabf6315\"\n  },\n  \"build_record\": {\n    \"path\": \"research/version16/BUILD.json\",\n    \"sha256\": \"f6ba2c40770a1819d2f275d78114320eb874d62e1ef299acb13fba075c6c05b0\"\n  },\n  \"required_tex_inputs\": [],\n  \"scope\": \"File hashes, declared edition and recorded build mapping only. Mathematical completeness, the recorded build's provenance and semantic PDF identity require independent review.\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\glaze\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "-B",
+        "scripts/test_current_manuscript.py"
+      ],
+      "cwd": "C:\\Users\\glaze\\Documents\\Codex\\2026-11-02\\lo\\work\\record-manuscript-policy-20261111\\compatibility-repair\\integration",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "...........s...\n----------------------------------------------------------------------\nRan 15 tests in 0.510s\n\nOK (skipped=1)\n"
+    }
+  ],
+  "status": "passed_isolated_candidate_checks",
+  "source_checkout_unchanged": true,
+  "candidate_sha256": {
+    "scripts/check_application_reviews.py": "9dc85ba98fc3fd75a2fb1e71bbe157cdef6342db7e1836c42168d1ac5d2e9b4c",
+    "docs/audit-history/builder-binding.json": "9f4e9a69777a9aa7c8c32f028945f15d0e0526087b1877096be2cc0f64b0597d"
+  },
+  "materialized_input_files": 167
+}

@@ -1,0 +1,25 @@
+{
+  "id": "POLICY-HISTORICAL-BUILDER-COMPATIBILITY",
+  "status": "repair_proposed_pending_independent_acceptance",
+  "classification": "nonmathematical_integration_failure",
+  "origin": {
+    "kind": "actual_private_ci_failure",
+    "run_id": 43106485455,
+    "job_id": 130811050266,
+    "head_commit": "0b3abc5ea22a77cd04f43ae360f35a440269bfe7",
+    "url": "https://github.com/elliotglazer/private-diophantine/actions/runs/43106485455/job/130811050266",
+    "error": "ValueError: Current builder has no matching review binding"
+  },
+  "issue": "The legacy application checker couples the historical V14 audit register to a literal source assignment removed by the reviewed profile-driven V16 builder.",
+  "proposed_disposition": "Use an explicit exact builder/profile/review/history/current-source binding for the profile-driven path, retain all historical checks and the no-profile legacy path, reject missing or stale bindings, and preserve the newly pinned profile bytes across checkouts.",
+  "related_scope": "Current builder selection, profile pinning, the historical application checker and its negative controls, and Git checkout line endings of the newly bound profile. This does not reopen the V16 mathematical derivations.",
+  "repair_author_agent": "/root/v16_coverage_acceptance",
+  "actual_author_run_id": null,
+  "independent_acceptance": null,
+  "evidence": [
+    "CANDIDATE.json",
+    "TEST-RESULTS.json",
+    "candidate.patch"
+  ],
+  "limitations": "The actual author run and independent review must be supplied from genuine records. Local isolated tests do not establish remote CI success. Existing policy and historical review records retain their original scope."
+}

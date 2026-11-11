@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "builder": {
+    "path": "scripts/build_paper.py",
+    "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+  },
+  "profile": {
+    "path": "docs/current-manuscript.json",
+    "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33"
+  },
+  "historical_review": {
+    "path": "docs/audit-history/current.json",
+    "sha256": "2b0dd7653076633f53c1e32b43dd4c11a664b5ace5b5685ff6afc30ed4b82ca4"
+  },
+  "selected_manuscript": {
+    "path": "manuscripts/quartic_v16.tex",
+    "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+  },
+  "review": {
+    "path": "docs/research-review/record-manuscript-policy-2026-11-11/REVIEW.json",
+    "sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+  },
+  "scope": "The exact accepted policy/software review covers this profile-driven builder and profile. The selected current TeX is checked at its exact profile pin. The V14 application record remains historical and every contract, edit, approval, follow-up and evidence check still applies to its own pinned manuscript. This binding neither transfers those V14 approvals to V16 nor supplies mathematical or protected release acceptance."
+}
