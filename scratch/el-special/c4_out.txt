@@ -1,0 +1,33 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+0 n= -74 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=0s
+1 n= -612 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=1s
+2 n= 624 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=1s
+3 n= -710 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=1s
+4 n= -915 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=2s
+5 n= 339 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=2s
+6 n= 331 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=2s
+7 n= -611 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=3s
+8 n= -600 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=3s
+9 n= -431 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=4s
+10 n= -830 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=4s
+11 n= -530 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=4s
+12 n= -940 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=5s
+13 n= 451 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=5s
+14 n= -851 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=5s
+15 n= -311 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=6s
+16 n= -319 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=6s
+17 n= 552 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=6s
+18 n= -3 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=7s
+19 n= -142 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=7s
+20 n= -762 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=7s
+21 n= -472 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=8s
+22 n= -848 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=8s
+23 n= -503 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=8s
+24 n= -740 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=9s
+25 n= -10 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=9s
+26 n= -210 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=10s
+27 n= -490 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=10s
+28 n= 221 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=10s
+29 n= 65 theta=1: 0 one-curve hits (height<=20): 0 of 2048 [] t=11s
+TOTAL hits 0 of 61440 ; inputs with at least one hit: 0 /30
+sanity hit: True
