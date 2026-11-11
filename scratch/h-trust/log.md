@@ -91,3 +91,11 @@
 - Decisions: D1 pst via N5 route (c) Scholze+Berger (all refereed; no new repo argument), Brinon-Conrad -> Fontaine 1994;
   D2 keep Faltings 1983 for semisimplicity/End/Hom (not h-leaves R5.1) so GR14 non-circularity is moot;
   D3 good reduction via h-b1 Lemma PR; D4 NoCM (rv-h-cm §7.2); D5 Pan cited per rv-h-a011 R1-R2.
+
+## Step 11 (note drafted)
+- docs/research/h-trust.md written: §0 route table, §1 outline 36 steps (A1-A10, B1-B3, C1-C10, D1-D5, E1-E4, F1-F4),
+  §2 residuals (2.1 model-reviewed, 2.2 unreviewed: Lemma PR + moduli identification A4, 2.3 scripts, 2.4 five citation swaps,
+  2.5 UNVERIFIED locators with places, 2.6 policy), §3 docstring drafts (Height.lean module + SixContactEstimate;
+  HeightMin.lean appended paragraph + SixContactMin) and KERNEL_PLAN H row, §4 next step.
+- Status counts: [U] 3 (A4-A6); pure [R]/[S] 7; [R]+[M] application 5; [M] 21.
+- Good-reduction uses in N5: L529, L558, L753, L781, L849 (grep).
