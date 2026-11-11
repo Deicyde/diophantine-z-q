@@ -28,3 +28,6 @@
 ## Step 4 (supplement, table)
 - ellheegner on C_12549 (no point at effort 3): killed at the 10 min timeout; supplement dropped (heegner.py kept, no output).
 - table.py → out_table.txt (one line per curve): 20 curves, 0 failures. PARI dim Sel₂ = 2 + r2 + s = 3 on all 20 agrees with sel2cong.
+
+## Step 5
+- docs/research/d2-check.md and .fleet/d2-check.md written. Verdict PASS.

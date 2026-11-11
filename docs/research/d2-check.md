@@ -83,8 +83,8 @@ sel2cong and PARI on all 20 curves.
 
 - Only 10 of 30 pairs survive the bound 10¹², all with ω(β) = ω(θ) = 1. The bound selects the
   smallest slot configurations, so pairs with r_p slots (ω(β) ≥ 2) or several r_ℓ are untested here.
-- Unconditional evidence of positive rank (an analytic rank 1, or a point) exists for 10 of the 19
-  distinct curves (9 analytic ranks; points on 6, overlapping). No d₂ has either. On those curves
+- Unconditional evidence of positive rank (an analytic rank 1, or a point) exists for 8 of the 19
+  distinct d: the 9 analytic-rank curves (d = 9741 twice), which include the 5 distinct d with points. No d₂ has either. On those curves
   the evidence is root number −1 with Sel₂ of dimension 3: positive rank then follows from finite Sha
   (2-parity), which is exactly what CR₃ assumes.
 - This is a consistency check of the hypothesis, not evidence for it beyond the sample.
