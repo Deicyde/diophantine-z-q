@@ -218,12 +218,20 @@ the generic point of `V(p)`.
    - Let `𝔓 ∈ Z` lie over `P_i`, and let `Q_i` be a height-one prime over `D_i` through `𝔓`. Its
      residue field `k(Q_i)` is `ℚ(y)k_p` for some `y` over `b_i` (M2), so `k(Q_i) = k_p` by
      step 2.
-   - By (Ab), étale locally at `𝔓`, `Z` is a quotient of `R^{sh}_{P_i}[z^{1/n}, p^{1/n}]`, and
-     the closure of `Q_i` has fraction field `k_p(p^{1/c})` with `c = [I_𝔓 : I_{Q_i}]`. Here
-     `D_i ≅ Spec R` is already strictly henselian. So `c = 1`, that is,
+   - The closure of `Q_i` in `Z` is `Spec A'`, where `A'` is local (it lies over the strictly
+     henselian `D_i ≅ Spec R`) and finite over `R`, with fraction field `k(Q_i) = k_p`. A local
+     domain finite over the strictly henselian `R` with fraction field `Frac R` is strictly
+     henselian and unibranch, and its branch at `𝔓` has residue degree 1 over `k_p`.
+   - By (Ab), étale locally at `𝔓`, `Z` is a quotient `(R^{sh}_{P_i}[z^{1/n}, p^{1/n}])^H`
+     of a Kummer cover. In this model there is a unique branch over `z = 0` through `𝔓`, the
+     inertia `I_{Q_i}` is the image of `μ_n × 1`, and the residue degree of the branch of the
+     closure of `Q_i` over `k_p` equals `[I_𝔓 : I_{Q_i}]` (its fraction field is
+     `k_p(p^{1/c})`, `c = [I_𝔓 : I_{Q_i}]`). By the previous bullet this degree is 1, so
      `I_𝔓 = I_{Q_i}`, which is cyclic of order `e_i` (M4).
-   - `𝔓` lies on the special fibre, so some prime over `V(p)` passes through it, and its
-     inertia group, a conjugate of `I_V`, lies in `I_𝔓`. Hence a conjugate of `I_V` lies in
+   - Existence of the primes: `Z → P¹_R` is flat (§1.2), so going-down holds; hence `𝔓`
+     contains a height-one prime `Q_i` over `D_i` and a height-one vertical prime `q` over
+     `V(p)`. Inclusion of inertia: if `σ ≡ id mod q` then `σ ≡ id mod 𝔓` (as `q ⊂ 𝔓`), so
+     `I_q ⊂ I_𝔓`. The group `I_q` is a conjugate of `I_V`. Hence a conjugate of `I_V` lies in
      `I_{Q_i}`.
 4. *Conclusion.*
    - Steps 3 at `b = ∞` (`e = 6`) and at `b = −16/27` (`e = 2`) give `|I_V| ∣ 2`.
