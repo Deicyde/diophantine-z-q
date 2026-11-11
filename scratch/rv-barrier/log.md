@@ -65,3 +65,17 @@ Inputs: 30 bad data (10 each with v_p(R0) = 1, 3, -1; p = prime(70..300); one te
 20 q each with p-power denominators up to p^4 and p-divisible numerators. Outcome: 600/600 pairs bad.
 (el-gadget sampled only v_p(R0) = 1 with rational tests.) Column property VERIFIED on the sample;
 the paper argument in Step 3 covers all cases.
+
+## Step 6. C3 rerun (scratch/rv-barrier/c3_rerun.py, independent code)
+(a) 30 random (B, m0, lambda): explicit witnesses on C_beta (torsion) and C_{beta m(m-B)} with
+x in beta Q*^2: 30/30. (b) 30 random (p in prime(67..400), B = c/p, lambda with v_p(lambda) in -3..3):
+max v_p(k) = -1, so v_p(m) <= -2 < v_p(B). Paper proof of (b) for all lambda: v_p(g) = -1, v_p(beta) = 1,
+v(1/(beta l)) = -1 - v(l) and v(l) have different parity, so v(t) = min(...) <= -1, v(k) <= -1.
+VERIFIED. Route M is a rational (RC) family over the B-line: its failure is the case Lemma G predicts.
+
+## Step 7. C5 rerun (scratch/rv-barrier/c5_rerun.py, independent code)
+Inputs: 30 = p in {10007, 100003, 1000033} x c in C x M in {0,1,2,3} (cycled), random q0 and D_j in Q(sqrt2).
+Outcome: v_p(B) = 15 - 52M for M >= 1 and v_p(B) = -11 for M = 0, 30/30 matches. VERIFIED.
+New: M = 0 (q fixed, p-integral) already gives an odd pole (order 11) along n = c + lam, so Cor 2 does not
+need q -> infinity; gamma0 = (n = c, q0, D) is then a point of the affine P itself (removes the
+boundary-point repair for Cor 2). Model check: tests C_j = D_j/F as in TestDivisibility.lean (hC).
