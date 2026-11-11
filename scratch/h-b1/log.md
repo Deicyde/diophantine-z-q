@@ -38,3 +38,8 @@
 - D: counterexample F1 for p in {331,337,347,349,353}: p | disc Q(sqrt(43p)). VERIFIED.
 - E: 30 samples (contact / G-root / H-root / negative / generic; primes 331..5000): inertia order
   e/gcd(e,m) predicted by tame specialization equals the M_S(u) parity criterion in all 30. VERIFIED.
+
+## Step 3 (writing)
+- docs/research/h-b1.md: Beckmann statement (UNVERIFIED), Prop. TS from SGA 1, matching table
+  M1-M10, Lemma NV, Lemma PR (i)-(ii), replacement table, remaining items, verdict.
+- .fleet/h-b1.md written. Task complete.

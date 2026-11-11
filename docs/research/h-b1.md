@@ -1,0 +1,363 @@
+# Route B1: the integral model of the Shimura curve replaced by tame specialization (audit record)
+
+Status: research note (task h-b1, 2026-11-11). This is task T1 of `docs/research/h-map.md`
+(branch `wip/h-map`), §3.2, route B1. It proves Lemma PR of h-map from published theorems and
+records the exact replacement for every place where the frozen 11/5 manuscript
+(`diophantine_zq.tex`, "N5 L…") uses the integral model built in the unpublished supplement
+`b11-integral-model`. Scripts and outputs are in `scratch/h-b1/`, with the work log in
+`scratch/h-b1/log.md`.
+
+Marks:
+
+- **VERIFIED**: checked against the manuscript or the repository, or by an exact computation in
+  `scratch/h-b1/b1_checks.py`, whose output is saved beside it.
+- **STANDARD**: a published theorem, with a reference. No source outside the repository could be
+  read in this task. Every locator (theorem number, page) is therefore **UNVERIFIED** unless
+  stated otherwise, and the place to check it is named.
+- **PROVED HERE**: a short argument written in this note from STANDARD inputs. It has not been
+  reviewed by anyone else.
+- **SPECULATIVE**: an assessment.
+
+## Summary
+
+1. **Beckmann alone does not remove b11 (VERIFIED).** h-map's sketch assumed that a tame cover
+   whose branch points stay distinct mod `p` has no vertical ramification at `p`. That is false
+   in general. `y² = p·j(27j+16)` has group `ℤ/2`, its branch points `0` and `−16/27` stay
+   distinct mod every `p ≥ 5`, and its fibre at `j = 1` is `ℚ(√(43p))`, which is ramified at `p`
+   (checked for five primes `p > 324`, section D of the script). Beckmann's theorem lists "no
+   vertical ramification" as a separate hypothesis. It holds only outside an unspecified finite
+   set of primes. So route B1 needs one more input.
+2. **That input is supplied here (Lemma NV, PROVED HERE).** For the cover `Y₃ → P¹_j`, vertical
+   ramification at `p ≥ 5` is ruled out as follows. The fibres over the branch points are CM
+   points. Shimura reciprocity makes them unramified at `p`. Abhyankar's lemma then forces the
+   vertical inertia into the inertia groups at `∞` and at `−16/27`. The images of these in the
+   Atkin–Lehner group `W ≅ (ℤ/2)²` differ, so the vertical inertia is trivial. No integral model
+   of `Y₃` is used.
+3. **Lemma PR is proved (§4).**
+   - (i) For `p ∉ S`, `K` is unramified at `p` unless some `v_p(u−c)` is positive and odd. In
+     fact this holds for every `p ≥ 17`.
+   - (ii) `A` has good reduction at every place `v ∤ 3` of `K`.
+
+   The inputs are:
+   - Zariski–Nagata purity and Abhyankar's lemma (SGA 1);
+   - Shimura reciprocity for the canonical model (Deligne);
+   - the moduli interpretation of `Y₃` over `ℚ`;
+   - Grothendieck's semistable reduction (SGA 7), which reproves Morita's potentially good
+     reduction;
+   - Serre–Tate.
+
+   The specialization step is the special case of Beckmann's theorem (Prop. TS) that we need,
+   and §1.2 proves it directly from SGA 1. Beckmann is therefore cited only for attribution.
+4. **Replacements (§5).** Every use of the integral model in N5 L441-534, L529-530, L563-566
+   and L847-850 has an exact replacement. L814 (at `v | 3`) uses only Raynaud's criterion, so it
+   never needed b11.
+5. **Verdict.** B1 removes `b11`, Buzzard 1997 (A002) and the stable-model and tame-quotient
+   scheme theory (A078) from H's justification. In their place come published theorems plus one
+   short new argument, Lemma NV, which needs one independent review. Rating: **high** that the
+   argument is correct as written (SPECULATIVE). Overall rating of the route after this audit:
+   **medium-high → high**, conditional on that review and on checking the locators listed in §6.
+
+## 1. Beckmann's specialization theorem
+
+### 1.1 Statement (from memory; text not read; UNVERIFIED)
+
+S. Beckmann, *On extensions of number fields obtained by specializing branched coverings*,
+J. reine angew. Math. 419 (1991), pp. 27–53 (page range UNVERIFIED). The main statement is
+Proposition 4.2 there (number UNVERIFIED). Legrand restates it as the "Specialization Inertia
+Theorem", for example in P. Legrand, *Specialization results and ramification conditions*, Israel
+J. Math. (2016), §2. Dèbes and Legrand also restate it, in *Specialization results in Galois
+theory*, Trans. AMS (2013). Both restatements are UNVERIFIED.
+
+> Let `k` be a number field and `f: X → P¹_k` a Galois cover with group `G` defined over `k`
+> (its function field is Galois over `k(T)`; Beckmann allows `X` not geometrically irreducible),
+> with branch points `t₁,…,t_r` and ramification indices `e₁,…,e_r`. Let `g_i` be a generator of
+> an inertia group at `t_i`. Let `𝔭` be a prime of `k` such that
+> (a) `𝔭 ∤ |G|`;
+> (b) no two branch points meet modulo `𝔭`;
+> (c) `𝔭` is unramified in `k(t₁,…,t_r)/k`;
+> (d) `𝔭` is not vertically ramified in `k(X)/k(T)`.
+> Let `t₀ ∈ P¹(k)` not be a branch point. Then `𝔭` ramifies in the specialization `k(X)_{t₀}`
+> only if `t₀` meets some `t_i` modulo `𝔭`. In that case the inertia group at `𝔭` is
+> conjugate to `⟨g_i^{I_𝔭(t₀,t_i)}⟩`, where `I_𝔭` is the intersection multiplicity.
+
+Beckmann also shows that only finitely many primes fail (a)-(d). Hypothesis (d) is genuinely
+separate (VERIFIED by the counterexample in the Summary, item 1). What h-map attributed to
+Beckmann, "no vertical ramification when `p ∤ |G|` and the branch locus is étale mod `p`", is
+true only up to a twist. Grothendieck's tame specialization (SGA 1 Exp. XIII) gives good
+reduction of the *geometric* cover over `𝒪_𝔭^{sh}`. The `k`-model can still differ from a model
+with good reduction by a ramified twist. *To check:* the numbering and the exact form of (d) in
+Beckmann §4-5, and Legrand's restatement.
+
+### 1.2 The case used here, proved from SGA 1 (Prop. TS; PROVED HERE from STANDARD inputs)
+
+Inputs:
+
+- (P) Zariski–Nagata purity: a finite morphism from a normal scheme onto a regular scheme,
+  étale in codimension one, is étale (SGA 1, Exp. X, Thm 3.1; UNVERIFIED locator).
+- (Ab) Abhyankar's lemma: let `X` be regular, `D` a divisor with normal crossings, and `V` a
+  normal finite cover of `X`, étale over `X − D` and tamely ramified along `D`. Then, étale
+  locally at a point `x`, `V` is a disjoint union of quotients of Kummer covers
+  `X[t₁^{1/n₁},…,t_s^{1/n_s}]`, where the `t_i` are local equations of the branches of `D`
+  through `x` and the `n_i` are prime to the residue characteristic. Consequently the inertia
+  group at a point of `V` over `x` is abelian and generated by the inertia groups of the
+  height-one primes of `V` through it, over the branches of `D` (SGA 1, Exp. XIII, 5.3;
+  Grothendieck–Murre, LNM 208; UNVERIFIED locators).
+
+Set-up. Let `R` be the strict henselization of `ℤ_(p)`, `k_p = Frac R`, and let `M/ℚ(j)` be a
+finite Galois extension with group `Γ_M`. Assume:
+
+- `p ∤ |Γ_M|`;
+- the branch points `b_i ∈ P¹(ℚ)` are pairwise distinct mod `p`;
+- `Z`, the normalization of `P¹_R` in a factor field `M'` of `M ⊗ k_p`, is unramified over the
+  generic point of the special fibre `V(p)`.
+
+Write `D = ∪ D_i` for the closures of the `b_i`. Then:
+
+- `Z → P¹_R` is étale outside `D` (by (P)). The only codimension-one points of `P¹_R` are the
+  generic points of horizontal divisors, where the cover is étale off `D`, and the generic point
+  of `V(p)`.
+- `D ∪ V(p)` has normal crossings, because the `D_i` are sections that are disjoint mod `p`.
+- The ramification is tame along `D` (residue characteristic 0) and along `V(p)` (degree prime
+  to `p`, so the residue extension is separable).
+
+Prop. TS. Let `j₀ ∈ P¹(ℚ)` not be a branch point, and `K_{j₀}` the residue field of `M` at a
+place over `j₀`.
+
+- If `j₀ mod p` is not any `b_i mod p`, then `K_{j₀}` is unramified at `p`.
+- If `j₀ ≡ b_i mod p`, let `m = v_p(j₀ − b_i)`, using the coordinate `1/j` when `b_i = ∞`.
+  Then the inertia group of `K_{j₀}` at `p` is conjugate to `⟨g_i^m⟩` and has order
+  `e_i / gcd(e_i, m)`.
+
+Proof.
+
+- In the first case, the section `j₀: Spec R → P¹_R` stays inside the étale locus.
+- In the second case, at `P_i = (b_i mod p)` the only branch of the branch locus is
+  `D_i: z = 0`, with `z = j − b_i`. By (Ab), `Z` is étale locally a disjoint union of copies of
+  `R_{P_i}^{sh}[z^{1/e_i}]`. Pulling back along `j₀` gives `R[(p^m w)^{1/e_i}]` with `w` a unit.
+  The local generator then acts through its `m`-th power. ∎
+
+This is Beckmann's conclusion in our case. Her hypothesis (c) holds because `b_i ∈ ℚ`, and (d)
+is the assumption on `Z`.
+
+## 2. Matching the hypotheses to `Y₃ → P¹_j`
+
+Notation as in N5 L405-438:
+
+- `B = (2,−3)` and `𝒪 = ℤ⟨1, i, (1+j)/2, (i+ij)/2⟩`;
+- `K₀ = 𝒪̂^*` and `K₃ = ker(K₀ → (𝒪/3𝒪)^*)`;
+- `N` is the finite-adelic normalizer of `𝒪̂`;
+- `Γ' = N/(𝔸_f^* K₃)`;
+- `Y₃ = Sh_{K₃}` is the canonical model over `ℚ`;
+- `X₆ = Sh_{K₀}`, `W = N/(𝔸_f^* K₀)`, and `X₆/W = X₆^* = P¹_j` in the Baba–Granath
+  coordinate.
+
+| # | Hypothesis / fact | Value for `Y₃ → P¹_j` | Mark |
+| --- | --- | --- | --- |
+| M1 | cover over a number field, with group action defined over it | `Γ'` acts on `Y₃` over `ℚ` (right translation by elements of `G(𝔸_f)` normalizing `K₃`, Hecke action on the canonical model), with quotient `P¹_j` (N5 L428-438) | STANDARD (Deligne 1979, §2.7 and §5 (UNVERIFIED locators); Milne, *Introduction to Shimura varieties*, §13) |
+| M2 | Galois extension and its group | Let `Y^{(1)}` be a `ℚ`-irreducible component, `Γ₁` its stabilizer in `Γ'` and `κ₁` the kernel of `Γ₁` on it. Then `M := ℚ(Y^{(1)})` is Galois over `ℚ(j)` with group `Γ₁/κ₁` (Artin's theorem, since `Y^{(1)}/Γ₁ = P¹_j`). The points of `Y₃` over any `j₀` all have the residue field of `M` there, because `Γ'` is defined over `ℚ` | PROVED HERE |
+| M3 | order of the group | `|Γ'| = 4·72/2 = 144 = 2⁴3²`: `|(𝒪/3𝒪)^*| = 72`, the image of `ℤ̂^*` is `{±1}`, and the local normalizer index is 2 at each of the two division primes. So `|Γ₁/κ₁|` divides 144, and `p ∤ |Γ_M|` for every `p ≥ 5`. This refines h-map's "divides 4·72" and N5's `≤ 324` | VERIFIED (script §B) for 72 and `{±1}`; STANDARD for the local index (Vignéras, LNM 800, Ch. II) |
+| M4 | branch points and indices | `(0,4)`, `(∞,6)`, `(−16/27,2)` | STANDARD (Baba–Granath, Canad. J. Math. 2008; Lin–Yang 2020; cited at N5 L418-419) |
+| M5 | branch locus étale mod `p` | the pairwise differences of `0, ∞, −16/27` are supported on `{2,3}`, so the branch points are distinct mod every `p ≥ 5`, and they are rational, so Beckmann's (c) holds | VERIFIED (§A) |
+| M6 | no vertical ramification at `p ≥ 5` | Lemma NV (§3) | PROVED HERE |
+| M7 | the specialization point | `j₀ = J(u) = −57600F²/G⁶` is never a branch value for `u ∈ ℚ∖𝒞`: `F(u) ≠ 0`, `G` has no real root, and `H` has no rational root, since the discriminants of its three quadratic factors (10800, 43200, 43200) are not squares | VERIFIED (§A) |
+| M8 | the fibre field | `Y₃` is étale over `j₀`, so the normalized pullback to `P¹_u` (N5 L509-523) is étale over `u`, and its fibre over `u` is the fibre of `Y₃` over `j₀`. Hence N5's `K` is the residue field `K_{j₀}` of `M` (M2), and it is Galois over `ℚ` | PROVED HERE |
+| M9 | the fibres over the branch points are CM points with maximal orders | The orders in `𝒪` containing an elliptic element are `ℤ[x₄]` (`trd 2, nrd 2`, discriminant −4), `ℤ[x₆]` (`3, 3`, discriminant −3) and `ℤ[μ]` (`0, 6`, discriminant −24). All three are maximal, and their Atkin–Lehner images are `w₂, w₃, w₆` | VERIFIED (§C) |
+| M10 | `X₆` is geometrically connected and `X₆ → P¹_j` is `W`-Galois | `nrd(K₀) = ℤ̂^*`, so `π₀ = ℚ^*_{>0}∖𝔸_f^*/ℤ̂^* = 1`, and `|W| = 4` acts faithfully | STANDARD (Deligne 1971 §2 for `π₀` (UNVERIFIED locator); Baba–Granath for `X₆^* = X₆/W`) |
+
+Remark on M2. N5's Galois closure "splitting field of the fibre" is the residue field of a Galois
+extension at an unramified place. That is all that Prop. TS needs. We do not need `Γ'` to act
+faithfully or freely.
+
+## 3. Lemma NV: no vertical ramification (PROVED HERE)
+
+**Lemma NV.** Let `p ≥ 5`. The normalization `Z` of `P¹_R` in `M'` (§1.2) is unramified over
+the generic point of `V(p)`.
+
+*Proof.*
+
+1. *Tameness.* `|Γ_M|` divides 144 (M3), so `p ∤ |Γ_M|`. The set-up of §1.2 applies, except for
+   the conclusion we are proving. Let `I_V` be the inertia group of a prime of `Z` over the
+   generic point of `V(p)`. These primes are permuted transitively, so `I_V` is defined up to
+   conjugacy. It is cyclic of order prime to `p`.
+2. *The fibres over the branch points are unramified at `p`.*
+   - Let `y ∈ Y₃` lie over `b_i`. The fibre is a `Γ'`-orbit and `Γ'` is defined over `ℚ`, so
+     `ℚ(y) = ℚ(y₀)` for `y₀ = [τ_i, 1]`, where `τ_i` is fixed by an elliptic element of
+     `N ∩ B^*_+`. Here we use `G(𝔸_f) = B^*_+ K₀`: class number one and surjectivity of `nrd`,
+     STANDARD (Vignéras III.5, UNVERIFIED locator).
+   - `τ_i` is a CM point, with CM field `E_i = ℚ(i)`, `ℚ(√−3)` or `ℚ(√−6)` for
+     `b_i = 0, ∞, −16/27`.
+   - `E_i ∩ 𝒪` is the maximal order (M9). Over `0` and `∞` the stabilizer in `𝒪¹/±1` has order
+     2 or 3 and contains `ℤ[i]` or `ℤ[ζ₃]`. Over `−16/27` the point is fixed by `w₆`, that is, by
+     an element of `𝒪` of trace 0 and norm 6, which gives `ℤ[√−6]`. In all three cases the order
+     is maximal.
+   - Hence `𝒪_{E_i} ⊗ ℤ_ℓ ⊂ 𝒪_ℓ` for every `ℓ`, so `∏_{ℓ≠3} 𝒪_{E_i,ℓ}^* ⊂ K₃`.
+   - By Shimura reciprocity on the canonical model, `σ_s[τ_i, 1] = [τ_i, r(s)]` for
+     `s ∈ 𝔸_{E_i}^*`, where `r` is the identity or conjugation, depending on the convention.
+     (STANDARD: Deligne 1971 (Bourbaki 389) §3; Milne, *Introduction to Shimura varieties*,
+     §12-13; locators UNVERIFIED.)
+   - So `y₀` is fixed by the Artin images of `E_i^* E_{i,∞}^* ∏_{ℓ∤3} 𝒪_{E_i,ℓ}^*`. Therefore
+     `E_i(y₀)/E_i` is unramified outside 3, and since `E_i/ℚ` is ramified only at 2 and 3,
+     `ℚ(y₀)` is unramified at every `p ≥ 5`.
+3. *Local analysis at `P_i = (b_i mod p)`.*
+   - Let `𝔓 ∈ Z` lie over `P_i`, and let `Q_i` be a height-one prime over `D_i` through `𝔓`. Its
+     residue field `k(Q_i)` is `ℚ(y)k_p` for some `y` over `b_i` (M2), so `k(Q_i) = k_p` by
+     step 2.
+   - By (Ab), étale locally at `𝔓`, `Z` is a quotient of `R^{sh}_{P_i}[z^{1/n}, p^{1/n}]`, and
+     the closure of `Q_i` has fraction field `k_p(p^{1/c})` with `c = [I_𝔓 : I_{Q_i}]`. Here
+     `D_i ≅ Spec R` is already strictly henselian. So `c = 1`, that is,
+     `I_𝔓 = I_{Q_i}`, which is cyclic of order `e_i` (M4).
+   - `𝔓` lies on the special fibre, so some prime over `V(p)` passes through it, and its
+     inertia group, a conjugate of `I_V`, lies in `I_𝔓`. Hence a conjugate of `I_V` lies in
+     `I_{Q_i}`.
+4. *Conclusion.*
+   - Steps 3 at `b = ∞` (`e = 6`) and at `b = −16/27` (`e = 2`) give `|I_V| ∣ 2`.
+   - Suppose `|I_V| = 2`. Then a conjugate of `I_V` is the subgroup of order 2 of a conjugate of
+     `I_{Q_∞}`. Its image in `W = Gal(ℚ(X₆)/ℚ(j))` is `⟨σ_∞^3⟩ = ⟨σ_∞⟩`, where `σ_b` generates
+     the inertia of `X₆ → P¹_j` at `b`. Likewise, from `−16/27`, the image is `⟨σ_{−16/27}⟩`.
+     (`M ⊇ ℚ(X₆)`, because `Y^{(1)} → X₆` is dominant. Images of inertia groups are inertia
+     groups.)
+   - `W` is abelian, so conjugate subgroups have the same image. Hence
+     `⟨σ_∞⟩ = ⟨σ_{−16/27}⟩`.
+   - But `X₆ → P¹_j` is a connected `(ℤ/2)²`-cover branched at most at three points (M10). Its
+     inertia generators satisfy `σ₀σ_∞σ_{−16/27} = 1` and generate `W`. So all three are
+     nontrivial and pairwise distinct. (This matches M9: `w₂, w₃, w₆`.) Contradiction.
+   - So `I_V = 1`. ∎
+
+Remark. The argument uses only two branch points and the abelian quotient `W`. It does not need
+the exact group `Γ_M`, only `p ∤ |Γ_M|`.
+
+## 4. Lemma PR
+
+**Lemma PR.** Let `S ⊇ {p ≤ 324}`, let `u ∈ ℚ∖𝒞`, and let `K` be the splitting field of the
+fibre over `u` (N5 L524). Let `A/K` be the abelian surface of a point `x ∈ Y₃(K)` over `J(u)`.
+Then:
+
+- (i) for `p ∉ S`, `K` is unramified at `p` unless some `v_p(u−c)`, `c ∈ 𝒞`, is positive and
+  odd;
+- (ii) `A` has good reduction at every finite place `v ∤ 3` of `K`.
+
+*Proof of (i).* Let `p ≥ 17`. This covers every `p ∉ S`.
+
+1. By M8, `K = K_{j₀}` with `j₀ = J(u)`. By Lemma NV and M3, M5, Prop. TS applies at `p`.
+2. Suppose `v_p(u) ≥ 0`.
+   - The resultants of `F, G, H` and the discriminants are supported on `{2,3,5}`, and the
+     leading coefficients of `G` and `H` on `{7}` and `{11,13}` (VERIFIED, §A). So at most one
+     of `F(u), G(u), H(u)` is divisible by `p`, and at most one contact `c` has `v_p(u−c) > 0`.
+     The contact differences are supported on `{2,3,5}`.
+   - If `v_p(F(u)) = v_p(u−c) = v > 0`, then `j₀` meets `0` with multiplicity `2v`. The inertia
+     has order `4/gcd(4,2v)`, which is 1 exactly when `v` is even.
+   - If `v_p(G(u)) = w > 0`, then `j₀` meets `∞` with multiplicity `6w`, and the inertia is
+     trivial.
+   - If `v_p(H(u)) = w > 0`, then `j₀ + 16/27 = 16H²/(27G⁶)` (VERIFIED) meets `−16/27` with
+     multiplicity `2w`, and the inertia is trivial (`e = 2`).
+   - Otherwise `j₀` is a `p`-unit with `j₀ ≢ −16/27`, so it meets nothing, and `K` is
+     unramified at `p`.
+3. Suppose `v_p(u) < 0`. `F²` and `G⁶` have degree 12 and leading coefficients 1 and `7⁶`, so
+   `j₀ ≡ J(∞) = −57600/7⁶ (mod p)`. Both `J(∞)` and `J(∞) + 16/27 = 2⁴11²13²/(3³7⁶)` are
+   `p`-units (VERIFIED), so `j₀` meets nothing.
+4. A sample check of 30 cases agrees with this case analysis in every case (VERIFIED, §E):
+   contact, `G`-root, `H`-root, negative valuation and generic `u`, at primes 331-5000. ∎
+
+*Proof of (ii).*
+
+1. **Moduli interpretation (STANDARD).** `Y₃` is the fine moduli scheme over `ℚ` of quadruples
+   `(A, ι: 𝒪 → End A, λ, η)`. Here `λ` is a principal polarization of the type fixed by `μ`
+   (N5 L407-418), and `η: 𝒪/3𝒪 ≅ A[3]` is an `𝒪`-linear isomorphism.
+   - The level `K₃` is neat (`1 + 3M₄(ℤ₃)` is torsion-free, N5 L468-470).
+   - References: Shimura, Ann. of Math. 85 (1967); Deligne 1971 §4 (moduli for PEL type and
+     the canonical model); Milne, *Introduction*, §8 and §14; Kottwitz, JAMS 5 (1992) §5.
+     Locators UNVERIFIED.
+   - N5 needs this already over `ℚ` ("choose a fibre `A/K`", L528). Only its integral extension
+     came from b11.
+   - So `x ∈ Y₃(K)` gives `ι` defined over `K` and `η` defined over `K`, that is,
+     `A[3] ⊂ A(K)`.
+2. **Potentially good reduction (Morita, PROVED HERE from STANDARD inputs).**
+   - By Grothendieck (SGA 7, Exp. IX, Thm 3.6), `A` has semistable reduction over a finite
+     extension `K'`.
+   - The connected special fibre of the Néron model is an extension of an abelian variety by a
+     torus `T` of dimension `t ≤ 2`.
+   - By the Néron mapping property, `End A` acts on the Néron model, hence on the character
+     group `X(T)` (functoriality of the toric part, SGA 7 IX §2; UNVERIFIED locator).
+   - This gives a unital map `B = 𝒪⊗ℚ → End(X(T)⊗ℚ) = M_t(ℚ)`. Then `ℚ^t` is a module over
+     the division algebra `B`, of dimension 4, so `4 ∣ t`, and `t = 0`.
+   - (Morita, Hokkaido Math. J. 10 (1981), proves the same; locator UNVERIFIED.)
+3. **Good reduction at `v ∤ 3`.**
+   - Let `ρ: G_{K_v} → GL(T₃A) ≅ GL₄(ℤ₃)`, with `3` different from the residue characteristic.
+   - Potentially good reduction means `ρ(I_v)` is finite (Serre–Tate, Ann. of Math. 88 (1968),
+     Thm 2).
+   - `A[3]` is rational, so `ρ(I_v) ⊂ 1 + 3M₄(ℤ₃)`, which is torsion-free (N5 L468-470; also
+     Serre–Tate §4). So `ρ(I_v) = 1`.
+   - By Néron–Ogg–Shafarevich (Serre–Tate, Thm 1), `A` has good reduction at `v`. ∎
+
+At `v | 3` the same argument with `ℓ = 5` gives good reduction over `K_v(A[5])`. This is not
+needed: see L814 below.
+
+## 5. Exact replacements in the manuscript
+
+| N5 lines | What b11 / the integral model supplied there | Replacement |
+| --- | --- | --- |
+| L441-478 | smooth projective `X₃₅` over `ℤ[1/30]` via Buzzard's `V₁(5)`; free quotient by `G₅`; descent of the universal abelian scheme | Delete. Use only the generic fibre: §4(ii) step 1 (STANDARD moduli interpretation of `Y₃` over `ℚ`) |
+| L480-482 | the components have genus `≥ 2` (for stable models) | Delete (not used elsewhere) |
+| L482-507 | normalizer action on the stable model; tame quotient; three disjoint branch sections; integral `P¹_{ℤ_p}` in the coordinate `j` | M1-M5 plus Lemma NV (§3) and Prop. TS (§1.2) |
+| L509-523 | pullback by `J`, tame normalization, local form `u − c = z²` | M7, M8 and §4(i) steps 2-3. The normalized cover of `P¹_u` is not needed, because its fibre over `u` equals the fibre of `Y₃` over `J(u)` |
+| L524-528 | `K` normal, `[K:ℚ] ≤ 324!`, unramified outside `T = S ∪ supp M_S(u)` | Degree: unchanged (generic fibre, L436-438; in fact `[K:ℚ]` is at most the order of `Γ_M`, which divides 144 (M2-M3)). Unramified outside `T`: Lemma PR(i) |
+| L529-530 | "the proper model and its universal abelian scheme give good reduction outside the places over `S`" | Lemma PR(ii) |
+| L563-566 | every conjugate has good reduction at primes outside `T` | the conjugates are `σA = A_{σx}` with `σx ∈ Y₃(K)` (`K` is Galois), so Lemma PR(ii) applies |
+| L847-850 | `p > R`: the surface has good reduction | Lemma PR(ii), since `p > R ≥ 10¹² > 3` |
+| L814 | `p = 3`: adjoin `A[5]` | no change. Semistability over `L_v(A[5])` comes from Raynaud's criterion (Silverberg–Zarhin Thm 3.5), not from b11. h-map's "L814 for `v | 3`" needs no replacement |
+
+The numerals `F₀ = 324!`, `D`, `E₀` and `H₆` are unchanged. Nothing downstream of L530 uses the
+integral model (VERIFIED by reading L530-972; `grep` for "integral model / proper model" in N5
+finds only L443, L529 and the unrelated L2963).
+
+## 6. What remains unpublished or unchecked after B1
+
+1. **Lemma NV, Prop. TS and the M2/M8 bookkeeping are PROVED HERE and unreviewed.** They need
+   one independent review. Its focus should be §3 step 3 (the residue field of the prime over
+   `D_i` versus `[I_𝔓 : I_{Q_i}]`) and step 4.
+2. **Locators not read (UNVERIFIED):**
+   - Beckmann Prop. 4.2 (attribution only);
+   - SGA 1 X 3.1 and XIII 5.3, and Grothendieck–Murre;
+   - SGA 7 IX 3.6 and the toric functoriality;
+   - Serre–Tate Thms 1-2 and the torsion lemma;
+   - Deligne 1971 and 1979 (reciprocity, `π₀`, Hecke action);
+   - Shimura 1967 and Kottwitz 1992 (moduli);
+   - Vignéras (local normalizers, class number one);
+   - Morita 1981.
+
+   All of these are classical. The risk is in the numbering, not in the content (SPECULATIVE).
+3. **Sign and normalization conventions** for reciprocity (`r = id` or conjugation). The
+   argument is insensitive to them, because the unit group used is conjugation-stable.
+4. **Branch data M4** still rests on Baba–Granath and Lin–Yang, as before. B1 adds no new
+   dependence on them.
+5. **Not touched by B1:**
+   - W1, the manuscript's scalar descent, conductor bound and transfer (task T2);
+   - W3, I1, I2 and the independence of `ℓ`;
+   - W4, GR14 non-circularity;
+   - the identification of N5's "level-three curve with all determinant components" with the
+     moduli problem of §4(ii) step 1. That identification is standard but is stated in N5 only
+     through b11's construction. It should be checked that N5's `Y₃` (defined as `Sh_{K₃}`)
+     and the moduli scheme agree, including the polarization type.
+6. **Scripts:** `scratch/h-b1/b1_checks.py`, with output `b1_checks.output.txt`, covering
+   sections A-E. Each was run once, in about 1 minute of CPU.
+
+## 7. Verdict
+
+B1, as amended here, removes `b11-integral-model` from the justification of H, together with
+Buzzard 1997 (A002) and the stable-model and tame-quotient theory (A078). After the amendment,
+Theorem 4.1's good-reduction step (N5 L441-566, L847-850) rests on:
+
+- SGA 1 (purity and Abhyankar);
+- the canonical model with Shimura reciprocity (Deligne);
+- the classical moduli interpretation over `ℚ`;
+- SGA 7 semistable reduction, or Morita;
+- Serre–Tate;
+- Baba–Granath and Lin–Yang;
+
+plus the exact computations of `scratch/h-b1`, and one new half-page argument (Lemma NV). The
+amendment is essential: Beckmann's theorem by itself leaves vertical ramification open (Summary,
+item 1).
+
+Rating: **high** (SPECULATIVE) that Lemma PR holds as proved here. **Medium-high** that the
+record survives review unchanged, mainly because of Lemma NV step 3. Payoff: it closes h-map's
+W2. Combined with B2-B5, no supplement is left in H's justification.
