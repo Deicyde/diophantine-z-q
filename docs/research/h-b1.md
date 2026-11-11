@@ -162,7 +162,7 @@ Notation as in N5 L405-438:
 | M7 | the specialization point | `j₀ = J(u) = −57600F²/G⁶` is never a branch value for `u ∈ ℚ∖𝒞`: `F(u) ≠ 0`, `G` has no real root, and `H` has no rational root, since the discriminants of its three quadratic factors (10800, 43200, 43200) are not squares | VERIFIED (§A) |
 | M8 | the fibre field | `Y₃` is étale over `j₀`, so the normalized pullback to `P¹_u` (N5 L509-523) is étale over `u`, and its fibre over `u` is the fibre of `Y₃` over `j₀`. Hence N5's `K` is the residue field `K_{j₀}` of `M` (M2), and it is Galois over `ℚ` | PROVED HERE |
 | M9 | the fibres over the branch points are CM points with maximal orders | The orders in `𝒪` containing an elliptic element are `ℤ[x₄]` (`trd 2, nrd 2`, discriminant −4), `ℤ[x₆]` (`3, 3`, discriminant −3) and `ℤ[μ]` (`0, 6`, discriminant −24). All three are maximal, and their Atkin–Lehner images are `w₂, w₃, w₆` | VERIFIED (§C) |
-| M10 | `X₆` is geometrically connected and `X₆ → P¹_j` is `W`-Galois | `nrd(K₀) = ℤ̂^*`, so `π₀ = ℚ^*_{>0}∖𝔸_f^*/ℤ̂^* = 1`, and `|W| = 4` acts faithfully | STANDARD (Deligne 1971 §2 for `π₀` (UNVERIFIED locator); Baba–Granath for `X₆^* = X₆/W`) |
+| M10 | `X₆` is geometrically connected and `X₆ → P¹_j` is `W`-Galois | `nrd(K₀) = ℤ̂^*`, so `π₀ = ℚ^*_{>0}∖𝔸_f^*/ℤ̂^* = 1`, and `W`, of order 4, acts faithfully | STANDARD (Deligne 1971 §2 for `π₀` (UNVERIFIED locator); Baba–Granath for `X₆^* = X₆/W`) |
 
 Remark on M2. N5's Galois closure "splitting field of the fibre" is the residue field of a Galois
 extension at an unramified place. That is all that Prop. TS needs. We do not need `Γ'` to act
