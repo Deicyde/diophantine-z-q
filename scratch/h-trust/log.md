@@ -44,3 +44,11 @@
   (3) fibre over t(u) has residue field Q(i), free W-orbit (scratch/rv-h-cm/check.py). Then GR(Gonzalez-Rotger JMSJ 58 2006) Thm5.12, Prop5.6
   (only under (f,6)=1), Thm5.8 (reciprocity), Lemma5.9; Vigneras (Emb). Removes Fowler, cmheight, GR14 CM use.
   Replace N5 L578-631, keep L564-577. H6 unchanged.
+
+## Step 6 (h-leaves §4-§6 read)
+- h-leaves §5.1 final table rows 1-23 with N5 lines + best sources. I1 Carayol 1986 Thm (A) (direction level<=conductor), I2 BLR Néron models §1.2 (used at N5 L781-784).
+- h-leaves R5.1 (Faltings finiteness -> GR14 + Tate argument) is unreviewed; decision for T3: KEEP Faltings 1983 (refereed) for
+  semisimplicity/End/Hom -> GR14 non-circularity (W4) becomes irrelevant (only matters if Faltings is derived from GR14).
+- Raynaud criterion: SGA7 IX Prop 4.7 alternative to SZ95 Thm3.5 (UNCHECKED).
+- §4.4 published replacements for unrefereed sources: Milne course notes -> Mumford 1970 / Milne 1986 (Cornell-Silverman);
+  Brinon-Conrad -> Fontaine Astérisque 223; Conrad preprint App B -> Serre 1968 Ch III; Stacks -> SGA1/DM69 (moot after B1).
