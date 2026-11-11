@@ -172,7 +172,7 @@ Notation as in N5 L405-438:
 | M6 | no vertical ramification at `p ≥ 5` | Lemma NV (§3) | PROVED HERE |
 | M7 | the specialization point | `j₀ = J(u) = −57600F²/G⁶` is never a branch value for `u ∈ ℚ∖𝒞`: `F(u) ≠ 0`, `G` has no real root, and `H` has no rational root, since the discriminants of its three quadratic factors (10800, 43200, 43200) are not squares | VERIFIED (§A) |
 | M8 | the fibre field | `Y₃` is étale over `j₀`, so the normalized pullback to `P¹_u` (N5 L509-523) is étale over `u`, and its fibre over `u` is the fibre of `Y₃` over `j₀`. Hence N5's `K` is the residue field `K_{j₀}` of `M` (M2), and it is Galois over `ℚ` | PROVED HERE |
-| M9 | the fibres over the branch points are CM points with maximal orders | The orders in `𝒪` containing an elliptic element are `ℤ[x₄]` (`trd 2, nrd 2`, discriminant −4), `ℤ[x₆]` (`3, 3`, discriminant −3) and `ℤ[μ]` (`0, 6`, discriminant −24). All three are maximal, and their Atkin–Lehner images are `w₂, w₃, w₆` | VERIFIED (§C) |
+| M9 | the fibres over the branch points (indeed over every elliptic point) are CM points whose CM order has conductor prime to every `p ≥ 5` | Complete enumeration of the elliptic elements of the normalizer (primitive `x ∈ 𝒪`, `nrd x ∣ 6`, finite order mod `ℚ^*`), by `(\|trd\|, nrd)`: `(0,1)` → `ℤ[i]`, image 1; `(1,1)` → `ℤ[ζ₃]`, image 1; `(2,2)` → `ℤ[i]`, image `w₂`; `(3,3)` → `ℤ[ζ₃]`, image `w₃`; `(0,3)` → `ℤ[ζ₃]` (not `ℤ[√−3]`), image `w₃`; `(0,6)` → `ℤ[√−6]`, image `w₆`. Type `(0,2)` is absent: `ℚ(√−2)` does not embed in `B` since 3 splits in it. So `ℚ(x) ∩ 𝒪` is always the maximal order of discriminant `−4`, `−3` or `−24` (conductor 1) | VERIFIED (§C here; complete list: `scratch/rv-h-b1/rv_checks.py` R2) |
 | M10 | `X₆` is geometrically connected and `X₆ → P¹_j` is `W`-Galois | `nrd(K₀) = ℤ̂^*`, so `π₀ = ℚ^*_{>0}∖𝔸_f^*/ℤ̂^* = 1`, and `W`, of order 4, acts faithfully | STANDARD (Deligne 1971 §2 for `π₀` (UNVERIFIED locator); Baba–Granath for `X₆^* = X₆/W`) |
 
 Remark on M2. N5's Galois closure "splitting field of the fibre" is the residue field of a Galois
@@ -197,10 +197,15 @@ the generic point of `V(p)`.
      STANDARD (Vignéras III.5, UNVERIFIED locator).
    - `τ_i` is a CM point, with CM field `E_i = ℚ(i)`, `ℚ(√−3)` or `ℚ(√−6)` for
      `b_i = 0, ∞, −16/27`.
-   - `E_i ∩ 𝒪` is the maximal order (M9). Over `0` and `∞` the stabilizer in `𝒪¹/±1` has order
-     2 or 3 and contains `ℤ[i]` or `ℤ[ζ₃]`. Over `−16/27` the point is fixed by `w₆`, that is, by
-     an element of `𝒪` of trace 0 and norm 6, which gives `ℤ[√−6]`. In all three cases the order
-     is maximal.
+   - What is needed is only: *the CM order `E_i ∩ 𝒪` has conductor prime to `p`.* Then
+     `𝒪_{E_i} ⊗ ℤ_ℓ ⊂ 𝒪_ℓ` for every `ℓ` prime to the conductor, so
+     `∏_{ℓ ∤ 3f} 𝒪_{E_i,ℓ}^* ⊂ K₃` with `f` the conductor, and the argument below gives
+     `E_i(y₀)/E_i` unramified outside `3f`.
+   - By the complete enumeration of M9, every elliptic element `x` of the normalizer has
+     `ℚ(x) ∩ 𝒪` maximal, of discriminant `−4` (types `(0,1)`, `(2,2)`, `W`-images 1, `w₂`),
+     `−3` (types `(1,1)`, `(3,3)`, `(0,3)`, `W`-images 1, `w₃, w₃`) or `−24` (type `(0,6)`,
+     `W`-image `w₆`). So `f = 1` for every elliptic point, and this holds whatever the
+     labelling of the branch values `0, ∞, −16/27` (Baba–Granath's labelling is not used).
    - Hence `𝒪_{E_i} ⊗ ℤ_ℓ ⊂ 𝒪_ℓ` for every `ℓ`, so `∏_{ℓ≠3} 𝒪_{E_i,ℓ}^* ⊂ K₃`.
    - By Shimura reciprocity on the canonical model, `σ_s[τ_i, 1] = [τ_i, r(s)]` for
      `s ∈ 𝔸_{E_i}^*`, where `r` is the identity or conjugation, depending on the convention.

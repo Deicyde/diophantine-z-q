@@ -8,3 +8,4 @@
 - L814-816: p=3 adjoin A[3] (A[5] if p=3), Raynaud via Silverberg-Zarhin Thm 3.5. No model. CONFIRMED.
 - L476-477: b11's sentence "represents exactly the full-three moduli problem, so its generic fiber is Y_3". CONFIRMED.
 ## 2. Edits: Summary item 1 (F1 remark, R5), Summary item 4 locators, §1.2 finiteness (excellence) + flatness (normal dim 2 → CM → miracle flatness).
+## 3. Edits: M9 row → full R2 enumeration (6 types, W-images, (0,2) absent); NV step 2 → 'conductor prime to p' + orders disc -4,-3,-24 maximal with W-images.
