@@ -30,3 +30,12 @@ Exponent 24 = 2 (N ≤ QM^2) × 12 (h_F(J_1(N)) ≪ N^12).
 - Use M: h ≤ A M^e, M^k | f, needs e < k (now k=25, e=24); constant budget log2log2log2 T < 65536 (rs-height §2.3; not re-derived here).
 - rs-height routes: R1 (H_min, now DONE in Lean as SixContactMin), R2 Baker very low, R3 per-curve very low, R4 elliptic very low,
   R5 citation swaps (R5.3 CM branch → now h-cm.md), R6 shape freedom, R7 contact set.
+
+## Step 4. h-a011.md, h-v14.md read (summaries + leaf tables)
+- Upstream Version 14 (V14 L448-1680) is the current paper proof; frozen 11/5 tex in repo differs.
+- V14 leaves: 30 published keys, 1 survey sentence (Calegari ICM), Pan (arXiv v2/JAMS 35 (2022)), 5 supplements
+  (direct-p5-modularity, a001-moduli, ly-d6-normalization, b11-integral-model, igusa-theta; unreadable here).
+- h-a011: Pan Thm 1.0.4 applied directly, pst via Silverberg–Zarhin 3.5 + Breuil Cor 5.3.4; removes survey + direct-p5 → 4 supplements.
+  ly-d6, igusa-theta, a001(form part) reproduced by scratch/h-v14 scripts; b11 (integral model) carries unchecked content.
+- Uncited: I2 (μ_σ extends over local abelian schemes, V14 L1459), independence of ℓ (L1462), Faltings Hom (L1552), Stacks inputs of b11.
+- Open: GR14 non-circularity (GR14 not on arXiv), Carayol 1987 locator.
