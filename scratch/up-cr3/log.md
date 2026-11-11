@@ -15,3 +15,10 @@
 - Both are inputs of RC only; neither is used by PC's descent or the forward lemma.
 - V16 sec:rc 2570-2576: RC's organization "follows" openaipointwise (OpenAI preprint 7 Oct 2026, Thm 1.1 "pointwise 2-converse for elliptic curves with rational two-torsion"; bib 39551); not readable here (no copy in ~/upstream: find -iname '*pointwise*' empty; upstream docs/manuscript-revisions/version10/sources.json:52-56 lists it as "Unpublished attribution source only").
 - V16 2577-2601: E_l non-CM (j=35152/9); so RC concerns non-CM curves, while Route K's C_d have CM by Z[i].
+
+## Step 3: later pole modules in V16 and the 214 proposal
+- V16 RC proof span: sec:rc 2570 .. sec:compiler 6728 (RC concluded 6720) plus app:even-source 13339, app:odd-source 14844, app:endpoints 16582-17543 (~8,300 lines). N5: 1760-5744 plus 6825-10935.
+- V16 seven-variable pole Psi(b) (eq:o8-pole, 8793-8798; B=17b; curves p^2=B(1-e)(1+3e), Bq^2=(s^2-Bh)(s^2+3Bh): same x(x-l)(x+3l) family, exceptional set {2,3,17}); Lemma hyp:o8-pole 8806-8815 proved from RC + Lemma corank; Lemma original-seven-simultaneous-realization 8870ff re-does the S11-S12 descent with RC (statement 8871-8882). V16 7622-7625: "seven-variable pole lemma ... proved from Theorem hyp:RC; it is not inferred from hyp:PC".
+- V16 Prop "Linear-unit ordinary pole" 10671-10700: new module, soundness by valuation parity; completeness "under the same inherited realization and rank hypotheses" (10680-10682), i.e. RC again.
+- 214 proposal (~/upstream-p214 110cf72, research/quartic214/): PROOF.md:25 source-carry; proofs/source-carry.md C04 (lines 11-17) retains RC verbatim for E_l, l=11 mod 12, applied to n_pole and n_pole*theta (V15:8870-8970 descent), points via finite Sha; proofs/existence.md:86 pole input squareclasses at 2,3,17 unchanged. No new pole route.
+- grep Tian|Kriz|Smith|congruent number in V13-V16: no hits on the pole side (only Yuan2024 = integral moduli, and the Q(sqrt2) congruent-type curve y^2=x^3-d^2x with d=75-53sqrt2 of sec:model, V16 353).
