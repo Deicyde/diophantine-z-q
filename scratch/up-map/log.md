@@ -46,3 +46,9 @@
 - Part v15:gi-full (l.23831-30083): internal proof of GI(k) (linear nilsequence inverse theorem for U^{k+1}[N], non-effective, l.23849-23865), replaces citation of GTZ; used by 22P (l.2217), base compiler (l.9565), quartic (l.10406), simultaneous primes app (l.19476-19704).
 - Short sections v15:tate-polarized, marking-descent, picard-norm, cm-reduction (l.30096-30184) supply sub-steps (Milne, BLR, Diamond-Im, Silverman CM, Cai-Shu-Tian); cm-oriented replaces Cornut-Jetchev in RC.
 - 222 family (Part l.30185-39914): ineffectivity from Von Buhren's family height theorem [v15-aggregate-VonBuhren, bib l.39776] in v15:aggregate (l.31490-31519: slope effective, additive constant not); base248 uses five-contact estimate h(u) <= C_3 M_5(u)^3(1+log M_5), C_3=2^330770 (l.32427-32429), pole obstruction outside 2,3,17, simultaneous prime pattern (l.32432-32438). v222:construction (l.37110-): A_N=149^(2N+1), contacts 0,1,2401,-343/32 (same as hyp:o8-height). VERIFIED.
+
+## Step 9 (V15 -> V16 diff: the three corrections)
+- (1) App simultaneous primes, V16 l.20060-20077: Tao-Ziegler [v5tz] dense-model results (Thm 11, Cor 3, Thm 13, Thm 15) are now "adaptations of their proofs", not literal applications, because the W-modulus contains a fixed extra factor (V15 l.20060-20072).
+- (2) GI "Sections 9--11 at every rank step", V16 l.26822-26842 and 26908-26915: horizontal Taylor identities made exact by lattice corrections gamma_{h,i} before coordinate removal.
+- (3) v15:height, V16 l.30664, 30677: citation [gr2014] (Gaudron-Remond, Polarisations et isogenies, Duke 2014) corrected to new [gr-periods2014] (Theoreme des periodes..., CMH 89 (2014), bib l.39342-39346) for §2.3 / Cor 8.4. §4's uses of gr2014 Thm 1.4 / §9 (V16 l.1322, 1599, 1616; N5 l.615, 878, 895) unchanged and point to the Duke paper.
+- Title/date l.40-42; AI statement adds Fable 5.2. Nothing else changed. VERIFIED (diff).
