@@ -71,3 +71,5 @@ rv-nt-tyz.md NOT read until own verdicts are written.
   corrections 2 (β' any lift to Gal(Qbar/Q), L2495-2500) and 3 (ℍ'_n def L1320).
 - Added by this review: 22 rank-3 tests (vs 1), 6 new reading-B counterexamples, even-coefficient variant
   refuted, (7,1) mutation, Lean-form match.
+
+## Step 10. Deliverables: docs/research/rv-prop-n.md, .fleet/rv-prop-n.md written. Task complete.
