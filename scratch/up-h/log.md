@@ -75,3 +75,6 @@
 
 ## Step 11 (note drafted: docs/research/up-h.md)
 - Line corrections while drafting: Jacobian numeric V16 L30797; finite-twist determinant argument V16 L660-667 (not L650-659); Kato realization L618-650; k=1 L604-616; scalar descent paragraph V16 L1339; modularity/conductor paragraph L1442; transfer paragraph L1572; CM paragraph header L1288 (block N5 578-631 = V16 1285-1338 includes the preceding line); Bost line V16 L30661-30664; Conrad citation N5 L761.
+
+## Step 12 (fleet report)
+- .fleet/up-h.md written: verdict (no narrowing/removal; thm:height unchanged N5..V16; V16 GR fix outside §4), main finding (V14+ fixed C8/C3/A9-citation; C9 Euler-factor, R-A9-2, CM branch, rv-h-novel R2-R3, I2 kept; survey + 4 supplements added), next step (h-v16-adopt: C8 determinant argument, C3 Galois F + Fontaine, A4 Deligne locators, E4 CMH locator).
