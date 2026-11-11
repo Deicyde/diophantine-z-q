@@ -48,3 +48,7 @@
 - Outcome: |a| ≡ 3 (4) ⇒ T5b = 1 on 12/12 (as tyz-5b Cor 4.4); |a| ≡ 1 (4) gives T5a = 1 on 9/11
   only (d = two cases with T5a = T5b = 0). A row-5a slot design would need an extra condition;
   T5a is not controlled on the current design (7/12 odd).
+
+## Step 6 (research note)
+- Wrote docs/research/wk-cr3.md (§0 verdict, §1 candidates a/b/c with the slot-choice lemma,
+  §2 Lean statements and compile status, §3 faithfulness table, §4 tiers, §5 scripts).
