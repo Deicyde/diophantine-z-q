@@ -49,3 +49,16 @@ v(l^2 a^2 R0 / Theta0^2) <= 2v(a) - 1, negative odd (v(a) <= 0 since v(R0) odd) 
 Every use of the pole step has v(R0) odd, so v(a) <= 0 holds wherever needed.
 Repair (minor): the Lean change is not a pure substitution; pole_step/hex must be restated with a
 numerator R_num = R_W a^2 different from the W argument (one extra inequality 2v(a) <= 0).
+
+## Step 6. el-k3 NS lattice reruns (k1_rerun.sh, k2_invariants.py) — VERIFIED
+k1_rerun.sh BETA: copies of el-k3 ns_lattice/ns_invariants/ns_h1 with BETA substituted (outputs in
+scratch/rv-elim3/k1_b*/). Inputs beta in {7, 15, 23, -7, 39} (5 runs).
+Outcome, all 5: Gram of 40 curves rank 20, lattice disc -16, Galois isometric; NS^G generic: rank 8,
+disc -1024, D^2 = 0 mod 4, D.D' even; theta = +-1: rank 9, disc 1024, odd pairings; theta = beta: rank 8 even;
+H^1 = 0 generic, Z/2 for theta = 1, -1, beta.
+k2_invariants.py (independent: PARI matkerint on the stacked (g - 1), Gram K^T G K, qfsign), same 5 beta,
+plus theta = -beta (omitted by el-k3): generic rank 8 disc -1024 sig (1,7) even/0 mod 4; theta = -beta
+the same; theta = +-1 rank 9 not even. Agrees with el-k3 in every case.
+Galois action checked by hand: sigma_b, sigma_i on roots; fam-1 graph w = +- i sqrt(theta) f(s)/(beta s^2)
+(f(lambda/(beta s)) = -f(s)/(beta s^2)^2), so sigma_i and sigma_t flip eps there; correct.
+H^1(Gal(K/Q), NS) = H^1(Q, NS) by inflation (NS torsion-free, trivial G_K action): Br1/Br0 claim fine.
