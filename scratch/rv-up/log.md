@@ -45,3 +45,18 @@ Verdict item 1: CONFIRMED (with locator correction for the constants block; cons
     I2 / l-independence uncited at V16 L1486-1489: CONFIRMED.
 (d) Determinant argument checked by hand (see rv-up.md §2): sound. Requires (HT) for psi's weight to get k=2, but no
     local algebraicity. Changes no constant, no Lean statement (proof text of a trust note only).
+
+## Step 3 — item 3 (Baba-Granath record), reading
+- Read ~/upstream/research/version14/proofs/a001-moduli-current-v1/ADVERSE-CASE.md (14 lines) and PROOF.md (57 lines).
+  Record: BG Prop 3.7 proof (printed p.743) infers phi=(f1_*,f2_*): J(C(-24)) -> E1 x E2 is an iso from "f1(a)=f1(b),
+  f2(a)=f2(b) => a=b"; record shows phi phi^dagger = ([2],[2]), deg phi = 4; counterexample (+-sqrt r, 0). Says it is a
+  proof concern, not a falsity claim about 3.7's statement. Chain: LY eq.(2) attributed to BG; BG 3.9 uses 3.7's CM calc.
+- Read ~/upstream/research/version14/proofs/ly-d6-normalization-v1/PROOF.md: derives [J2..J10](j) from LY Example 30
+  (divisor identities, Y1 and Y'5 parametrizations, disc -24 intersection x=-6+-6sqrt(-3)) + LY (13)-(14), without
+  LY eq.(2) or BG 3.7-3.10.
+- Fork: N5 cites BG at L422 (branch data, with LY) and L533 (polarized relation V_Z = V/W, A7); LY eq.(2) at N5 L911 (F1).
+  h-trust: BG at l.89, 185-188 (A2: Thm 2.1 + "§3"), 252 (A5 Lemma NV: W=(Z/2)^2), 286-291 (A7: Thm 2.1), 786, 853, 928, 972, 1025;
+  F1 l.688-696 lists "Lin-Yang 2020, eqs. (2), (14), (13)".
+- scratch/h-v14/igusa_check.py (read): derives c1..c4 from LY Ex.30 data at P_-4 (Y1, u=1728) and P_-24 (Y'5,
+  x=-6+6sqrt(-3)), then [J2..J10](j) and the theta constant 3779136. It does NOT consume LY eq.(2); its -19 line is an
+  arithmetic tautology (c1*81/64 = 81/64), not an input. So F1's computation route = upstream's ly-d6 route.
