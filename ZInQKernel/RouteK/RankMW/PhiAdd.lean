@@ -314,6 +314,78 @@ theorem mwPhi_double {x y : K} (h : (shortCurve b).toAffine.Nonsingular x y) (hx
     exact mwPhi_sum_sq hx hx hx₃ hν0 V1 V2 V3
   exact (mwDouble_of_line _ _ h2 hY ht' (mwPhi_line hx hν0 hy₁ e) hl₃ hs).symm
 
+include hb' in
+/-- Doubling, at group level: for `R ∉ {O, (0,0)}` with `2R ∉ {O, (0,0)}`. -/
+theorem mwPhi_double' (R : (shortCurve b).toAffine.Point) (hR0 : R ≠ 0) (hRT : R ≠ tZero)
+    (h2R0 : R + R ≠ 0) (h2RT : R + R ≠ tZero) : phi hb' (R + R) = phi hb' R + phi hb' R := by
+  rcases R with _ | ⟨x, y, h⟩
+  · exact absurd rfl hR0
+  have hx : x ≠ 0 := fun hx => hRT (some_eq_tZero h hx)
+  have hy : y ≠ 0 := fun hy =>
+    h2R0 (Point.add_self_of_Y_eq (by rw [shortCurve_negY, hy, neg_zero]))
+  have hy' : y ≠ (shortCurve b).toAffine.negY x y := by
+    intro h0; apply h2R0; exact Point.add_self_of_Y_eq h0
+  have hx₃ : (shortCurve b).toAffine.addX x x ((shortCurve b).toAffine.slope x x y y) ≠ 0 :=
+    fun h0 => h2RT (by rw [Point.add_self_of_Y_ne hy']; exact some_eq_tZero _ h0)
+  exact mwPhi_double hb' h hx hy hx₃
+
+include hb' in
+/-- **The two-isogeny is additive**: `φ(P + Q) = φ(P) + φ(Q)`. -/
+theorem mwPhi_add (P Q : (shortCurve b).toAffine.Point) :
+    phi hb' (P + Q) = phi hb' P + phi hb' Q := by
+  by_cases hP0 : P = 0
+  · rw [hP0, zero_add, phi_zero, zero_add]
+  by_cases hQ0 : Q = 0
+  · rw [hQ0, add_zero, phi_zero, add_zero]
+  by_cases hPT : P = tZero
+  · rw [hPT, add_comm, mwPhi_add_tZero, mwPhi_tZero, zero_add]
+  by_cases hQT : Q = tZero
+  · rw [hQT, mwPhi_add_tZero, mwPhi_tZero, add_zero]
+  by_cases hS0 : P + Q = 0
+  · have hQ : Q = -P := (neg_eq_of_add_eq_zero_right hS0).symm
+    rw [hS0, phi_zero, hQ, mwPhi_neg, add_neg_cancel]
+  by_cases hST : P + Q = tZero
+  · have hQ : Q = -P + tZero := by rw [← hST]; abel
+    rw [hST, mwPhi_tZero, hQ, mwPhi_add_tZero, mwPhi_neg, add_neg_cancel]
+  rcases P with _ | ⟨x₁, y₁, h₁⟩
+  · exact absurd rfl hP0
+  rcases Q with _ | ⟨x₂, y₂, h₂⟩
+  · exact absurd rfl hQ0
+  have hx₁ : x₁ ≠ 0 := fun hx => hPT (some_eq_tZero h₁ hx)
+  have hx₂ : x₂ ≠ 0 := fun hx => hQT (some_eq_tZero h₂ hx)
+  by_cases hx : x₁ = x₂
+  · rcases (Point.X_eq_iff (h₁ := h₁) (h₂ := h₂)).mp hx with hPQ | hPQ
+    · rw [← hPQ] at hS0 hST ⊢
+      exact mwPhi_double' hb' _ hP0 hPT hS0 hST
+    · exact absurd (by rw [hPQ, neg_add_cancel]) hS0
+  by_cases hb : x₁ * x₂ = b
+  · obtain ⟨h', e⟩ := mwAdd_tZero_some h₁ hx₁
+    have hx' : b / x₁ = x₂ := by rw [div_eq_iff hx₁, ← hb]; ring
+    rcases (Point.X_eq_iff (h₁ := h') (h₂ := h₂)).mp hx' with hPQ | hPQ
+    · rw [← e] at hPQ
+      rw [← hPQ, show Point.some x₁ y₁ h₁ + (Point.some x₁ y₁ h₁ + tZero) =
+        (Point.some x₁ y₁ h₁ + Point.some x₁ y₁ h₁) + tZero by abel, mwPhi_add_tZero,
+        mwPhi_add_tZero]
+      refine mwPhi_double' hb' _ hP0 hPT ?_ ?_
+      · intro h0; apply hST; rw [← hPQ, ← add_assoc, h0, zero_add]
+      · intro h0; apply hS0; rw [← hPQ, ← add_assoc, h0, mwTZero_add_tZero]
+    · exfalso; apply hST
+      rw [← e] at hPQ
+      have hQ : Point.some x₂ y₂ h₂ = -(Point.some x₁ y₁ h₁ + tZero) := by rw [hPQ, neg_neg]
+      rw [hQ, neg_add, ← add_assoc, add_neg_cancel, zero_add, mwNeg_tZero]
+  have hx₃ : (shortCurve b).toAffine.addX x₁ x₂ ((shortCurve b).toAffine.slope x₁ x₂ y₁ y₂) ≠ 0 :=
+    fun h0 => hST (by rw [Point.add_of_X_ne hx]; exact some_eq_tZero _ h0)
+  exact mwPhi_add_generic hb' h₁ h₂ hx₁ hx₂ hx hb hx₃
+
+/-- The two-isogeny as a homomorphism. -/
+noncomputable def mwPhiHom : (shortCurve b).toAffine.Point →+ (shortCurve b').toAffine.Point where
+  toFun := phi hb'
+  map_zero' := rfl
+  map_add' := mwPhi_add hb'
+
+@[simp] theorem mwPhiHom_apply (P : (shortCurve b).toAffine.Point) :
+    mwPhiHom hb' P = phi hb' P := rfl
+
 end Phi
 
 end ZInQ.RouteK.Rank
