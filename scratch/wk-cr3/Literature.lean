@@ -3,6 +3,7 @@ import Mathlib.Analysis.Analytic.Order
 import Mathlib.Analysis.Analytic.Uniqueness
 import Mathlib.Analysis.Complex.CauchyIntegral
 import ZInQKernel.RouteK.Rank.Statements
+import ZInQKernel.RouteK.RankVariants
 
 /-!
 # wk-cr3 draft: CR₃ from three literature statements
@@ -165,9 +166,19 @@ theorem rootNumberVanishing_of_functionalEquation (h : FunctionalEquation5) :
     · exact absurd h4 (Complex.cpow_ne_zero_iff_of_exponent_ne_zero (by norm_num) |>.mpr hpi)
   · exact h3
 
+/-! ### The main theorem from H and the three literature statements -/
+
+/-- **Theorem 1.1 of the manuscript from `SixContactMin`, TYZ row 5b, the functional equation and
+Gross–Zagier.** -/
+theorem frozenTarget_of_sixContactMin_literature (hH : SixContactMin) (hT : TYZRow5b)
+    (hF : FunctionalEquation5) (hG : GrossZagierKolyvagin) : FrozenTarget :=
+  exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk hH
+    (certifiedRankTYZClRk_of_literature hT (rootNumberVanishing_of_functionalEquation hF) hG)
+
 end ZInQ.WkCR3
 
 #print axioms ZInQ.WkCR3.IsLContinuation.eq
 #print axioms ZInQ.WkCR3.certifiedRankTYZClRk_of_literature
 #print axioms ZInQ.WkCR3.tyzRow5b_of_readingA
 #print axioms ZInQ.WkCR3.rootNumberVanishing_of_functionalEquation
+#print axioms ZInQ.WkCR3.frozenTarget_of_sixContactMin_literature

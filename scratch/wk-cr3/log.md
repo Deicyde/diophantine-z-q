@@ -35,3 +35,7 @@
   model y² = x³ − d²x globally minimal, Kodaira III at 2 and I0* at p | d (additive: Mathlib local
   factor 1, ellap = 0), ellap(p) = p + 1 − #C_d(F_p) for good p < 40. 0 failures
   (out_conventions_check.txt).
+
+## Step 4 (main-theorem variant)
+- Added `frozenTarget_of_sixContactMin_literature : SixContactMin → TYZRow5b → FunctionalEquation5 →
+  GrossZagierKolyvagin → FrozenTarget` (via RankVariants.lean:69). Compiles; standard axioms.
