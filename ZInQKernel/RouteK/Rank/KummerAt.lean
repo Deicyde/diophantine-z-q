@@ -81,9 +81,11 @@ noncomputable def tRootPt : (shortCurve b).toAffine.Point :=
   have : (shortCurve b).IsElliptic := shortCurve_isElliptic hb
   Point.mk (kummerAt_tRoot_equation he)
 
+omit [DecidableEq K] in
 include he in
 theorem tRootPt_def : ∃ h, tRootPt h2 hb he = .some e 0 h := ⟨_, rfl⟩
 
+omit [DecidableEq K] in
 include he in
 theorem some_eq_tRootPt {x y : K} (h : (shortCurve b).toAffine.Nonsingular x y) (hx : x = e) :
     Point.some x y h = tRootPt h2 hb he := by
