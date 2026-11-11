@@ -55,7 +55,7 @@
 - k=1: {0,1-k} = {0,0} is right, but the supplier is Deligne-Serre 1974 (finite image) + Sen/Tate
   (finite image => HT weight 0), not Faltings/Scholl/Saito (k>=2). Pan's intro statement does not
   restrict k.
-- 5 | level(g) possible: N5 computes the conductor at 5 via r_3, so r_5 may be ramified at 5;
+- 5 | level(g) possible: T = S ∪ supp M_S(u) (N5 L528) depends on u; Part D (L814-830) treats p=5 like any p in T (correction: use of r_3 at 5 is because l != p is needed, not evidence);
   g = f (x) finite twist. Supplier must cover p | N: Saito 1997 does (pst, all N); Scholl motive +
   Scholze 2013 Cor 1.8 (already a C3 leaf) + Fontaine closure do; Scholl + Faltings 1989 crystalline
   covers only 5 ∤ N; Tsuji 1999 needs de Jong 1996 alterations (Kuga-Sato not semistable at p|N).
