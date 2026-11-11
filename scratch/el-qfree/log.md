@@ -48,3 +48,23 @@ Torsion witness then gives Φ (rs-pole §2.2(2), N = β; Loc depends on d only t
 (c) For fixed k, X ∈ □ is a curve in q: w² = ε m₀(m₀k²T(R)² − R N_W(R)²), R = R₀(1 − R₀q²)²,
     T = Tr W, N_W = Nm W (Θ = T/N_W). deg_R(R N_W²) = 1 + 2·2·#{j: C_j ≠ 0}; with 6 nonzero
     tests deg_R = 25, deg_q = 100: hyperelliptic genus 49 (if squarefree). Finitely many q (Faltings).
+
+## S4. q-uniform (rational-curve) routes: structure (derivation; dimension count SPECULATIVE)
+Notation: σ(q) = a₀/Θ (test) so B = R₀σ², θ(q) ≡ m(m − R₀σ²) ≡ m(m T(R)² − R N_W(R)²), R = R₀a₀².
+- Over ℚ(q): C_N(ℚ̄(q)) ⊗ ℚ ≅ Hom(Jac(Y_N), C₁) ⊗ ℚ, Y_N : y² = N(q) (hyperelliptic involution
+  acts as −1 on Jac, so every map is odd). STANDARD (twists of constant curves).
+- Torsion classes over ℚ(q): x ∈ {0, ±N}; both points torsion ⇔ θ(q) ∈ ±ℚ(q)*², false since
+  m − B(q) has simple zeros. So a q-uniform Φ needs Jac(Y_N) or Jac(Y_{Nθ}) ⊇ C₁ (over ℚ̄).
+- N constant (e.g. N = β): need Jac(Y_θ) ⊇ C₁, Y_θ : w² = m(mT² − RN_W²), genus 49 (6 nonzero
+  tests) or 33 (n = 1, h = 2κ, s₀ = 2κn: tests D₄ = D₅ = 0). Tested in E3.
+- General q = φ(x), N = G(ψ(x)): a rational curve on the 3-fold
+  V' : w² = m(m − R₀σ(q)²)(β² − τ₁⁴)(β² − τ₂⁴) (double cover of ℙ¹_q×ℙ¹×ℙ¹ branched in tridegree
+  (100, 4, 4)), K_{V'} = π*O(48, 0, 0): Kodaira dimension 1, canonical fibration = projection to
+  the q-line. On the surface S : w² = θ(q)Q(ρ) (Q a quartic, bidegree (100, 4)), K_S = π*O(48, 0) and
+  a rational curve Z with deg(q|Z) = e has −K_S·Z − 1 = −48e − 1 < 0 (expected dimension of
+  rational curves). Parameter count for (φ, ψ) of degrees (e, d): conditions 50e + 2d, parameters
+  2e + 2d − 1. Overdetermined by 48e + 1 for every e, d. So rational curves of q-values exist only
+  for special (non-generic) θ. (count: derivation; conclusion SPECULATIVE)
+- Note: S(ℚ) is expected Zariski dense (fibres over q are 2-coverings of C_{βθ(q)}, about half with
+  positive rank), so the obstruction is to explicit/uniform witnesses, not to existence; proving
+  existence for one q is again a positive-rank statement for C_{βθ(q)} (= CR₃ shape).
