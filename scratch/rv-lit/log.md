@@ -57,3 +57,13 @@
   not import Mult.S_mul); the adoption must prove it (rfl claimed).
 - scratch/rv-lit/Probe.lean compiles: (shortCurve (-(d:ℚ)^2)).a₄ = -(d^2) by rfl; Complex.Gamma 0 = 0;
   analyticOrderAt f z = 0 when f not analytic at z.
+
+## Step 7: wk-cr3.md §§0-5 read
+- §1.3 Lemma (ii) checked by hand: {1,5} is a subgroup of (Z/8)^×; |β| ≡ 7 and d/|β| ≡ 5·7 ≡ 3 lie outside, so each has a
+  prime ≡ 3 or 7 (mod 8), distinct as d squarefree. (i) checked: v_p(β(β²s⁴-1)) = 1 or 3-4k, odd (needs v_p(β) = 1).
+- §1.3 table lists Kriz arXiv:2002.04767 Thm 10.13 (2-converse) as covering every CR3 curve, "preprint, status not
+  checked": the conclusion "only TYZ among refereed theorems" is conditional on that status (not checkable offline).
+- §3 table row FunctionalEquation5: "exactly the standard FE ... True as stated? yes" is wrong for the draft (false at
+  s = 0, 2 and every s with s or 2-s a nonpositive integer, by Γ junk; Step 3). GrossZagierKolyvagin row cites
+  Murty-Murty 1991 (derivative nonvanishing; wrong direction).
+- §3 L-series paragraph (Δ = 64d^6, c4 = 48d^2, minimal, additive at 2 and p | d) agrees with an_check.py.
