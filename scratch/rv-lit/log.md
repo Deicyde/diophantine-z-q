@@ -38,3 +38,13 @@
   TYZThm35ReadingA (∀F, 2 ≤ ord ⇒ T5aCl = 0 ∧ T5bCl = 0) = Prop N first sentence with 𝓛(n)=0 read as ord ≥ 2. Exact.
 - Quantifiers: ∃F in TYZRow5b/HeckeContinuation, ∀F elsewhere; harmless by IsLContinuation.eq (F unique).
 - lit-adopt: no origin/wip/lit-adopt ref yet.
+
+## Step 5: H side, JHeightBound vs N5 (diophantine_zq.tex) and h-trust Parts E, F
+- N5 L381-383: F(u) = u(u+15)(u+20)(u+24)(u+30)(u+60), G(u) = 7u^2+300u+3600 = Fh, Gh of BackToU.lean.
+- N5 L510: pullback by J(u) = -57600F(u)^2/G(u)^6 = Jmap; N5 L949-950: "j = a/b, -57600bF(X)^2 - aG(X)^6 has u as a root"
+  so the j of F1-F2 is J(u) (the fibre over u). j finite: G has no rational root; j ≠ 0: u ∉ 𝒞.
+- Chain: F2 h(j) ≤ 40 h([z_m]) + 22 (L928-932); F3 h([z_m]) ≤ 10^4·2^24·X, X = max(1,h_F(A)) (L934-947);
+  E4 X ≤ max(1,C_cm,Q_R^17) M^24 (L900-905, both branches). X ≥ 1 gives h(J(u)) ≤ (40·10^4·2^24+22)·max(1,C_cm,Q_R^17)·M^24
+  = JHeightBound at R = D (heightX D = max 1 (max C_cm (Q_D^17)), Q_R = R^(R E0)), S = S_mul. Exact; nothing beyond A1-F3.
+- twelve_mul_ratHeight_le: Lean proof does not use u ∉ 𝒞 (true for all u); sample check scratch/rv-lit/f4_check.py:
+  30 u (6 contact values, 24 others), max 12h(u)-h(J(u)) = 49.1 ≤ 450, every gcd(57600F_h^2, G_h^6) divides C0. VERIFIED (sample).
