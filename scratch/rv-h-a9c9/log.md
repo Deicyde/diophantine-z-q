@@ -50,3 +50,6 @@ diophantine_zq.tex at commit 97cec7fd (11/5 text). rv-h-trust.md not read until 
 - A9: holds as stated (R-A9-1 citation swap, R-A9-2 name descent fact).
 - C9: holds after repairs R-C9-1 (Euler-factor -> constituent needs K_f-linear ES or all rho_{f^sigma}),
   R-C9-2, R-C9-3 (wording).
+
+## Step 6: compared with rv-h-trust §2.1 (L177-186): no disagreement; rv-h-trust's open provision
+(Shimura Thm 1 hypothesis) resolved. Wrote §§3-5 and .fleet/rv-h-a9c9.md.

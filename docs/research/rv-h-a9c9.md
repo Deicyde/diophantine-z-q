@@ -191,4 +191,39 @@ duality), E1 (Faltings' Hom theorem applied to `V₅(A) ⊃ r₅ ⊂ V₅(J₁(N
 
 ## 3. Comparison with rv-h-trust
 
-(Written after §§1-2; see below.)
+rv-h-trust §2.1 (read after §§1-2 were committed) treats both passages in a few lines.
+
+| Point | rv-h-trust §2.1 | here |
+| --- | --- | --- |
+| A9 descent `ℂ → ℚ̄` | correct (torsion density) | agree; the "fixed ⇒ defined over `ℚ̄`" step is named (R-A9-2) |
+| A9 centralizer | `B ⊗ Z_B(J)`, `Z_B(J) = ℚ` or imaginary quadratic: correct | agree; full argument, imaginarity proof, and an exact computation for three `J` |
+| A9 analytic bridge | not discussed (citation status in h-trust A9) | standard; the `milne-av` bibliography entry names the wrong theorem (12.1(a)) |
+| C9 Shimura hypothesis | correct *provided* Thm 1 asks for a Hecke- and Fricke-stable span (UNVERIFIED) | the conjugate span is Hecke-, diamond-, `Aut(ℂ)`- and Fricke-stable, so any of these hypotheses is met; the upstream audit reports the Fricke condition on p.526 (AUDIT-READ); the `K_f`-linear route avoids it entirely |
+| C9 Li's formula | assumed | argument for every conjugate (newness is Galois-stable), 30-sample numerical check |
+| C9 constituent | "Eichler–Shimura, Chebotarev and Faltings place `r₅` in `V₅(A_f)`" | agree; adds that the zeta identity alone does not suffice (Klein-four example), so the `K_f`-linear Eichler–Shimura statement is the needed input (R-C9-1) |
+| C9 duality / conductor | not discussed | weights pick the Tate side; conductor invariance proved (R-C9-2) |
+| C9 twist / "primitive" | twist and Li's newform theorem as uncited inputs | agree; adds the normalization and "primitive ≠ twist-minimal" wording (R-C9-3) |
+
+No disagreement on any verdict. This review is more detailed on C9 and resolves rv-h-trust's
+single open provision.
+
+## 4. Consequence for H's trust statement
+
+- A9's Milne paragraph and C9's Li–Shimura sentence now have **two model reviews** (rv-h-trust,
+  rv-h-a9c9). With C3 (rv-h-trust, rv-h-c3) and C8 (Astra, rv-h-c8), every passage new in the
+  11/5 text has two model reviews. Item (vii) of h-trust's list of single-review passages can be
+  closed. These remain model reviews, not human refereeing.
+- Statuses unchanged: A9 **[M]** (citation still [P] until R-A9-1); C9 **[R]** with application
+  **[M]**. The "To check" for Shimura 1973 Thm 1 in h-trust C9 and its §2.4 item 4 can read: met
+  for the conjugate span whatever the exact form (Hecke, `Aut(ℂ)` or Fricke stability), the
+  Fricke form being AUDIT-READ; and not needed on the `K_f`-linear Eichler–Shimura route.
+- Suggested additions to h-trust C9's supplier list: the `K_f`-linear Eichler–Shimura relation
+  (`V_ℓ(A_f)` free of rank 2 over `K_f ⊗ ℚ_ℓ`, `tr Frob_p = a_p`), Galois-stability of newforms,
+  and conductor invariance under duality. To A9's: the descent fact (R-A9-2).
+- Nothing here changes the Lean side (`ZInQ.SixContactMin` remains a hypothesis).
+
+## 5. Next step
+
+Read Shimura 1973 Thm 1 (p.526) and Li 1975 p.296 against a copy of the papers, to turn the two
+AUDIT-READ items into VERIFIED locators; this is the only remaining open point here, and the
+`K_f`-linear route (Shimura 1971 Thm 7.9 and §7.5) makes even that optional.
