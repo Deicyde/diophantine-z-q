@@ -49,3 +49,5 @@
 - Correction made while writing: the Tier-2 packaged hypothesis is NOT equivalent to
   JHeightBound; a fake model needs h(J(u)) ≲ 2.6e8 Q^12 M^24 (Javanpeykar's h_F(J₁(N)) enters
   linearly, GR14 only logarithmically). Recorded as SPECULATIVE sketch in §4.3.
+
+## Step 7: .fleet/wk-h.md written
