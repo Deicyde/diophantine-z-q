@@ -70,8 +70,10 @@ Checked:
   (`#synth AddCommGroup` returns Mathlib's `Point.instAddCommGroup`), so `¬IsOfFinAddOrder P` is
   "`P` has infinite order in `C_d(ℚ)`". Equivalent to `rank C_d(ℚ) ≥ 1`, since `C_d(ℚ)` is
   finitely generated (`fg_points`).
-- **Names.** No other `Sel2`, `Loc`, `T5b`, `shortCurve`, `kummer` is defined anywhere in
-  `ZInQKernel/` (grep), and the printed statements show `ZInQ.RouteK.Selmer.Sel2`,
+- **Names.** `Sel2`, `Loc`, `T5b` and `shortCurve` each have a single definition in `ZInQKernel/`
+  (grep). There are two `kummer`s, `ZInQ.Descent.kummer` (Kummer map of the 2-isogeny, used by
+  RankMW) and `ZInQ.RouteK.Selmer.kummer` (complete 2-descent, used by `loc_iff_kummer`); RK9 uses
+  the latter through `delta_eq_sqc_kummer`, so there is no mix-up. And the printed statements show `ZInQ.RouteK.Selmer.Sel2`,
   `ZInQ.RouteK.Rank5b.T5b`, `ZInQ.RouteK.Rank5b.T5bCl`. `Sel2 d` is the textbook 2-Selmer group of
   the complete 2-descent: squarefree integer pairs `(a, b)` (unique representatives of
   `(ℚ*/ℚ*²)²`) whose covering `Loc` is soluble over `ℝ` and every `ℚ_p`; `Loc K` is equivalent to

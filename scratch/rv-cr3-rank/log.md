@@ -14,3 +14,4 @@
 - Scratch Stmts.lean (deleted): elaborated statements (stmts.txt), Point group = Mathlib instAddCommGroup,
   and `CertifiedRankTYZRk → CertifiedRankRk` elaborates via det_M5b_eq_one + det_M5b_eq_T5b.
 - Wrote docs/research/rv-cr3-rank.md. Verdict: no blocker; remarks R1–R4 (docstrings / KERNEL_PLAN wording).
+- Wrote .fleet/rv-cr3-rank.md; done.
