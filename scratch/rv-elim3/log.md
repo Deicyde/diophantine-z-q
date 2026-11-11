@@ -76,3 +76,12 @@ y^2 = x^5 - x (p=19) gives [] (its Jacobian is ~ E^2 with CM by Z[sqrt-2], ordin
 Instances (n,h,s0,eta,m), genus 33: (1,2,2,1,1) p=19: [], p=43 (new): []; (1,2,2,1,-1) p=19: []; p=47 singular.
 Validity of the test (derivation): a Qbar-factor ~ C1 of Jac Y has good reduction at p (good for Jac)
 and CM by Z[i] with p inert, so it is supersingular over F_{p^f}; then (alpha^2/p)^f is a root of unity.
+
+## Step 9. el-cert X1/X2 rerun (scratch/el-cert/x1_genus.py, unchanged, seed 1) — VERIFIED
+Outcome: X1 counterexamples 0; theta=1 curve: test original deg 100 genus 49, M1 deg 4 genus 1;
+slope original deg 1036 genus 517, M1 deg 4 genus 1 (squarefree). Matches el-cert X2.
+
+## Step 10. el-qfree E3 rerun completed (q2_e3.py, 5.5 min total) — VERIFIED
+(1,2,2,1,1): p=19 [], p=43 []. (1,2,2,1,-1): p=19 [], p=47 singular. (1,2,2,-1,3): p=67 [], p=71 [] (new).
+(1,2,2,1,2) (new multiplier): p=19 [], p=43 []; p=23, 47 singular. All genus 33. No supersingular
+factor at any good p = 3 mod 4: Hom(Jac Y_theta, C1) = 0 for these 4 constant-N instances.

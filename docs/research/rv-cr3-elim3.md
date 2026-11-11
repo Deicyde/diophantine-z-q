@@ -3,7 +3,7 @@
 Branch `wip/rv-elim3` (from `d549dabb`). No Lean was run. No file under `ZInQKernel/`,
 `blueprint/` or another note was edited. Scripts are in `scratch/rv-elim3/`. The step log
 `scratch/rv-elim3/log.md` gives the inputs and outcome of each computation (Steps 0-10).
-PARI 2.17 via cypari2. Every computation ran sequentially in the foreground, each in under 5 minutes.
+PARI 2.17 via cypari2. Every computation ran sequentially in the foreground, each in under 6 minutes.
 
 Marks:
 - **VERIFIED**: by exact computation (script named) or by a derivation checked here against the
@@ -207,8 +207,7 @@ is supersingular over `𝔽_{p^f}`. Then `(α²/p)^f` is a root of unity, and so
 **Rerun** (`q2_e3.py`).
 - Positive controls: `y² = x³ − x` (p = 19) and `y² = x⁴ − 1` (p = 23) both give the cyclotomic
   factor `y + 1`.
-- Genus-33 instances: see Step 8/10 of the log. `(1,2,2,1,1)` gives `[]` at `p = 19` and at the new
-  prime `p = 43`. `(1,2,2,1,−1)` gives `[]` at `p = 19`. Further outcomes are in §3.5.
+- Genus-33 instances: the outcomes are in §3.5.
 
 **Repair (scope).**
 - The reduction to `Hom(Jac Y_θ, C₁)` holds for a constant twist `N`; el-qfree §0 and §4 state it
@@ -219,9 +218,19 @@ is supersingular over `𝔽_{p^f}`. Then `(α²/p)^f` is a root of unity, and so
 - So "every `q`-uniform witness needs `Hom(Jac Y_θ, C₁) ≠ 0`" is VERIFIED only for witnesses
   rational in `q` with constant `N`.
 
-### 3.5 E3 sample outcome
+### 3.5 E3 sample outcome (VERIFIED, `q2_e3.py`, log Step 10)
 
-See the log, Step 10.
+All four instances have genus 33, and every good prime tested gives `[]`.
+
+| instance `(n,h,s₀,η,m)` | primes with `[]` | singular primes | new here |
+| --- | --- | --- | --- |
+| (1,2,2,1,1) | 19, 43 | none | prime 43 |
+| (1,2,2,1,−1) | 19 | 47 | none |
+| (1,2,2,−1,3) | 67, 71 | none | prime 71 |
+| (1,2,2,1,2) | 19, 43 | 23, 47 | the whole instance (new multiplier) |
+
+So there is no supersingular factor at any good prime `p ≡ 3 (mod 4)`, and
+`Hom(Jac Y_θ, C₁) = 0` on all four instances. el-qfree's E3 is reproduced and extended.
 
 **Verdict.** The main claims are verified after the repairs. "Very low" **stands**. The strongest
 point, that a per-instance choice of `q` leaves a rank statement for `C_{Nθ(q)}`, is untouched by
