@@ -23,3 +23,15 @@
   2.2.5, 2.3.1 replace "§§4-6".
 - E4: CMH 2014 §2.3 (pp.351-352), Cor 8.4 (p.400) as second locator.
 - §2.4: conrad-local-characters row dropped (note below the table); brinon-conrad row -> Fontaine Thm 3.8.
+
+## Step 3: statuses, counts, residuals, changelog; Lean comments and KERNEL_PLAN
+- No step status or §1 count changes (7 / 5 / 24 / 0): C8 stays [M], C3 [M], F1 [R]+[S], A2 [R], A4 [M], E4 [R].
+- Changed counts: Summary 4(d) scripts (+ endo24, theta24, branch_check named), 4(e) Five -> Four unrefereed
+  editions; §2.7 (iv) scripts, (v) four citation swaps. Route-table row L719-795; §2.1 item 1 (C8); §2.5 items 3
+  (Kato), 6 (Deligne locators), 11 (Fontaine Thm 3.8, Washington, Mumford Weil pairing, CMH; Serre 1968 dropped);
+  §3 preamble and drafts; §4; header and sources (rv-up, up-h). Changelog entry "Task h-v16-adopt".
+- Height.lean module docstring: "(Saito 1997, Scholl 1990 with Scholze 2013, or Kato 2004)" and "Four citations";
+  Lin–Yang 2020 kept (Example 30, eqs. (13)-(14) still used); no Baba–Granath Props added. §3 draft = Lean text (checked).
+- HeightMin.lean: unchanged (names no changed supplier).
+- KERNEL_PLAN.md H row: Kato 2004 added to the (HT) supplier list.
+- Lines <= 100 chars in edited prose (two pre-existing long lines in h-trust also reflowed).
