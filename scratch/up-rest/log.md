@@ -59,3 +59,7 @@
 - Applying EDITS.json (8 edits, each old string unique) to research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex gives EDITS.sha256; then EDITORIAL-AMENDMENT.json edits and TZ-PRECISION-AMENDMENT.json give a file byte-identical to manuscripts/quartic_v16.tex. So v15 -> v16 changes are exactly those. VERIFIED.
 - v16 FINDINGS.json: 4 findings (horizontal-normalization: "missing at finite-cover site"; GR-citations: "wrong Gaudron-Remond paper"; TZ-extra-factor: wording implied direct application, "no mathematical replacement"; Bogolyubov-number: withdrawn). unclosed_audit_scope: Kato 1999 pp.314-318, Ribet 1990 pp.440-443 unread (both RC path: v16 l.2781-2785, 15105-15116); full changed-modulus TZ re-derivation not done by Fable.
 - Fork trust notes: cr3-trust.md and h-trust.md cite neither Kato 1999 nor Ribet 1990 (grep). 
+
+## Step 9: deliverables
+- docs/research/up-rest.md written (verdict, §1 22P/route AP, §2 CAT/MW/compiler/assembly/size, §3 V16 corrections table, §4 upstream Lean + audit, §5 recommendations). GI(k) target lines checked: V16 L23847-23859. lean/AXIOMS.json: PASS, 704 declarations, axioms within {propext, Classical.choice, Quot.sound}.
+- .fleet/up-rest.md written.
