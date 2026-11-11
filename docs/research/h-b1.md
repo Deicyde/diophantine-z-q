@@ -248,7 +248,15 @@ the generic point of `V(p)`.
    - So `I_V = 1`. ∎
 
 Remark. The argument uses only two branch points and the abelian quotient `W`. It does not need
-the exact group `Γ_M`, only `p ∤ |Γ_M|`.
+the exact group `Γ_M`, only `p ∤ |Γ_M|`. It does not depend on the Baba–Granath labelling of
+the branch values either: any pair of branch points gives the contradiction (at the order-4 point
+`g₀² ↦ 1`, so pairing it with either other point also works).
+
+Independent support on the `W`-layer (VERIFIED, `scratch/rv-h-b1/rv_checks.py` R7). Elkies'
+model `ℚ(X₆) = ℚ(j)(√j, √(−(27j+16)))` (checked in `docs/research/rv-h-cm.md` §2) has constants
+`−1` and `3`, so `X₆ → P¹_j` has no vertical ramification at any `p ≥ 5`: NV's conclusion on the
+`W`-quotient, from Elkies' computation rather than from NV. On 30 samples `(j₀, p)`,
+`5 ≤ p < 400`, ramification of `p` in the biquadratic fibre agrees with Prop. TS in every case.
 
 ## 4. Lemma PR
 
@@ -326,13 +334,22 @@ needed: see L814 below.
 | L509-523 | pullback by `J`, tame normalization, local form `u − c = z²` | M7, M8 and §4(i) steps 2-3. The normalized cover of `P¹_u` is not needed, because its fibre over `u` equals the fibre of `Y₃` over `J(u)` |
 | L524-528 | `K` normal, `[K:ℚ] ≤ 324!`, unramified outside `T = S ∪ supp M_S(u)` | Degree: unchanged (generic fibre, L436-438; in fact `[K:ℚ]` is at most the order of `Γ_M`, which divides 144 (M2-M3)). Unramified outside `T`: Lemma PR(i) |
 | L529-530 | "the proper model and its universal abelian scheme give good reduction outside the places over `S`" | Lemma PR(ii) |
-| L563-566 | every conjugate has good reduction at primes outside `T` | the conjugates are `σA = A_{σx}` with `σx ∈ Y₃(K)` (`K` is Galois), so Lemma PR(ii) applies |
+| L557-558 | every conjugate has good reduction at primes outside `T` | the conjugates are `σA = A_{σx}` with `σx ∈ Y₃(K)` (`K` is Galois), so Lemma PR(ii) applies (`3 ∈ T`) |
+| L752-753 | `r_ℓ` unramified outside `T ∪ {ℓ}`, since there `A` has good reduction | Lemma PR(ii) at places over primes `∉ T ∋ 3` |
+| L778-781 | for `p ∉ T ∪ {3,5}`, `A` has good reduction at `v` (Frobenius comparison of `Ā_v` with the reduction of `^σA`) | Lemma PR(ii), since `v ∤ 3` |
 | L847-850 | `p > R`: the surface has good reduction | Lemma PR(ii), since `p > R ≥ 10¹² > 3` |
 | L814 | `p = 3`: adjoin `A[5]` | no change. Semistability over `L_v(A[5])` comes from Raynaud's criterion (Silverberg–Zarhin Thm 3.5), not from b11. h-map's "L814 for `v` over 3" needs no replacement |
 
 The numerals `F₀ = 324!`, `D`, `E₀` and `H₆` are unchanged. Nothing downstream of L530 uses the
-integral model (VERIFIED by reading L530-972; `grep` for "integral model / proper model" in N5
-finds only L443, L529 and the unrelated L2963).
+integral model itself (VERIFIED by reading L530-972; `grep` for "integral model / proper model" in
+N5 finds only L443, L529 and the unrelated L2963). Downstream lines use only its *conclusion*,
+good reduction of `A` (and its conjugates) at places outside `T ∋ 3`: these are exactly L557-558,
+L752-753, L781 and L848-849, each covered by Lemma PR(ii) in the table above (VERIFIED by
+rv-h-b1's grep of N5 L1-1200 for "good reduction", "stable model", "semistable", "potentially
+good" and related phrases, and re-read in this repair). At L848-849 the prime `p > R` may lie
+in `supp M_S(u) ⊂ T`, where `K` can ramify; PR(ii) still applies, since it covers every `v ∤ 3`.
+L814 never used b11 (confirmed by rv-h-b1 §6 and re-read here): it adjoins `A[3]` (`A[5]` at
+`p = 3`) and invokes Raynaud's criterion; no model enters.
 
 ## 6. What remains unpublished or unchecked after B1
 
