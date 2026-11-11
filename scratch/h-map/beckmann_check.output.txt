@@ -1,0 +1,12 @@
+G^6-97200F^2 == H^2: True
+J + 16/27 == 16 H^2/(27 G^6): True
+J(oo) = -57600/117649  J(oo)+16/27 = 327184/3176523 {2: 4, 11: 2, 13: 2} {3: 3, 7: 6}
+Res(F,G) primes: [2, 3, 5]
+Res(F,H) primes: [2, 3, 5]
+Res(G,H) primes: [2, 3, 5]
+disc(F) primes: [2, 3, 5]
+disc(G) primes: [2, 3, 5]
+disc(H) primes: [2, 3, 5]
+leading coeffs F,G,H: 1 7 [11, 13]
+primes dividing contact differences: [2, 3, 5]
+57600 = {2: 8, 3: 2, 5: 2}

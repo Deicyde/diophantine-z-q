@@ -55,3 +55,14 @@ Galois group of order with prime factors ⊆ {2,3}?; branch points 0,∞,-16/27 
   G(u)≡0: meets ∞ mult 6v, index 6 → trivial; H(u)≡0: meets -16/27 mult 2v, index 2 → trivial; v_p(u)<0: J(u)→-57600/7^6, not a branch value.
 Then good reduction of A/K at p: QM ⇒ potentially good everywhere + full level-3 rational over K, p≠3 ⇒ good (Serre–Tate/Raynaud).
 To check: (i) Beckmann's exact hypotheses (G-cover over Q vs mere cover; no extra bad primes); (ii) |G| of Galois closure; (iii) J(∞) value.
+
+## Step 7. beckmann_check.py (sympy, exact; output beckmann_check.output.txt)
+Inputs F,G,H,J. Outcome (VERIFIED): G^6-97200F^2=H^2; J+16/27 = 16H^2/(27G^6); J(∞) = -57600/7^6, J(∞)+16/27 = 2^4 11^2 13^2/(3^3 7^6);
+primes of Res(F,G),Res(F,H),Res(G,H),disc F,G,H, contact differences, 57600: all ⊆ {2,3,5}; LC(G)=7, LC(H)=11·13·... ⊆{11,13}.
+So for p ∉ {2,3,5,7,11,13}: at most one contact has v_p(u-c)>0; J(u) meets 0 with multiplicity exactly 2v_p(u-c);
+meets ∞ with mult 6v_p(G(u)); meets -16/27 with mult 2v_p(H(u)); v_p(u)<0 ⇒ J(u) ≡ J(∞) ∉ {0,∞,-16/27} mod p.
+Group-theory side (argument, SPECULATIVE until checked): Γ(3) ⊲ Γ* = N(O)^+/Q^*; [Γ*:±Γ(3)] = 4·|O^1 image in (O_3/3O_3)^*|/2 = 4·36/2 = 72
+(O_3 division order: |(O_3/3O_3)^*| = 81-9 = 72, norm-1 part 36). So each geometric component of Y_3 → P^1_j is Galois with group of
+order 72 = 2^3 3^2 (component genus 4 by χ = 72·(-1/12)). Tame for p ≥ 5.
+Good reduction: Morita (Hokkaido Math. J. 10 (1981)) QM ⇒ potentially good everywhere; full level 3 over K, v∤3 ⇒ inertia finite and ≡1 mod 3 ⇒ trivial
+(Serre's lemma) ⇒ good (Serre–Tate 1968 Thm 1). So A/K good at all v∤3 regardless of K; parity is used only for "K unramified at p".
