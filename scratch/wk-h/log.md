@@ -42,3 +42,10 @@
 - `jHeightBound_of_sig`: sorry (assembly; needs F2 via logHeight_eval_le and height invariance
   of ℚ-points under extension).
 - `lake env lean scratch/wk-h/Arakelov.lean`: compiles, ~13 s, one sorry warning.
+
+## Step 6: docs/research/wk-h.md written
+- Classification table (36 steps: W 15, G 8, R 3, B 10), interfaces I1-I6, Mathlib statability
+  table, drafts, obstacle, verdict with tiers.
+- Correction made while writing: the Tier-2 packaged hypothesis is NOT equivalent to
+  JHeightBound; a fake model needs h(J(u)) ≲ 2.6e8 Q^12 M^24 (Javanpeykar's h_F(J₁(N)) enters
+  linearly, GR14 only logarithmically). Recorded as SPECULATIVE sketch in §4.3.
