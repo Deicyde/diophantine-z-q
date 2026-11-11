@@ -84,3 +84,16 @@ Verdict item 1: CONFIRMED (with locator correction for the constants block; cons
 - h-trust dependence: only F1 (l.691) and l.797 name LY eq.(2); no step names BG Props 3.7-3.10. A2 (l.185-188) cites BG
   "§2.1 (Thm 2.1) and §3" (locator broad enough to include 3.7-3.9); A5 (l.252) BG for W=(Z/2)^2; A7 (l.286-293) BG Thm 2.1
   + LY (13)-(14), Ex. 29-30 via igusa_check.py; l.89, l.928 general. h-v14.md l.335 (A017) also cites LY (2).
+
+## Step 4 — item 4 (22P / GI / route AP)
+- V16 L2215-2228: 22P proof takes GI(20) from Section v15:gi-full (L2217) [with greentao Main Thm p.1763, moebius Thm 1.1].
+- v15:gi-full = Part at V16 L23831 (next Part L30185). diff V15->V16 hunks: 40, 42, 20060-20077 (TZ), 26822-26842 and
+  26908-26915 (horizontal normalization, inside the GI Part), 30664, 30677 (GR), bib 39342-39346, 39920-39926.
+- research/version16/FINDINGS.json: first finding "horizontal-normalization": "missing at finite-cover site". So V16's first
+  correction (in FINDINGS order) fills a step missing in the GI Part that 22P consumes. (up-map §4 lists TZ first, manuscript
+  order; no conflict.) up-rest "L26821-26842": diff says 26822-26842 (off by one).
+- Fork: ZInQ.greenTaoDense (ZInQKernel/External/GreenTaoDense.lean:28) and ZInQ.Density.goodPrimeDensity
+  (ZInQKernel/Density/PropDFinal.lean:24) are theorems; no `sorry` in those dirs, no `axiom` decl in ZInQKernel (grep);
+  MainGreenTao.lean:21-31 feeds them to the main theorem. aud-ap.md l.238-239 records #print axioms = [propext,
+  Classical.choice, Quot.sound] (not rerun; no Lean run needed). Green-Tao 2008 = transference + Szemeredi, no GI (STANDARD).
+Verdict item 4: CONFIRMED.
