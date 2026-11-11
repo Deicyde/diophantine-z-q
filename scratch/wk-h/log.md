@@ -32,3 +32,13 @@
   Mult.S_mul by rfl).
 - `lake env lean scratch/wk-h/BackToU.lean`: compiles, 9 s; one sorry (twelve_mul_ratHeight_le,
   F4). Proved: cert_x, cert_y (ring), G_ne_zero, sixContactMin_of_jHeightBound (nlinarith).
+
+## Step 5: Tier-2 draft scratch/wk-h/Arakelov.lean
+- Signature `ArakelovSig` (AV over bundled number fields, dim, hF, Isog/deg, prod, J1, jQM,
+  theta nulls); Prop fields Javanpeykar (Thm 1.1.1 at X₁(N)), GaudronRemond (Thm 1.4),
+  FaltingsVariation (Lemma 5 + additivity), BostLower (GR14 §9), Pazuki (Cor 1.3(2), g=r=2),
+  IgusaLY (LY eqs (2),(13),(14), LNY §2.2); residual ModularLevelBound S (A1-E1).
+- `transfer_numerics` (E3-E4 arithmetic, N5 L868-905): PROVED (no sorry).
+- `jHeightBound_of_sig`: sorry (assembly; needs F2 via logHeight_eval_le and height invariance
+  of ℚ-points under extension).
+- `lake env lean scratch/wk-h/Arakelov.lean`: compiles, ~13 s, one sorry warning.
