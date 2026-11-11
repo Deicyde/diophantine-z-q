@@ -69,3 +69,11 @@ Verdict item 1: CONFIRMED (with locator correction for the constants block; cons
   (forms [5,+-4,2],[10,+-4,1]) x(z) = -6 +- 6 sqrt(-3) (|x^2+12x+144| < 2e-37), and F1's theta expression
   3779136 (prod theta)^4/(sum theta^8)^5 at Omega = z[[3,5],[5,10]] equals -16/27 to < 2e-39. Independent of LY's
   polynomials, LY eq.(2) and BG. Remaining input: Omega(z) is the QM point P_-24 (next: endo24.py).
+- scratch/rv-up/endo24.py (exact; PARI matkerint + sympy; output endo24.output.txt), A = C^2/(Omega Z^2+Z^2),
+  Omega = z[[3,5],[5,10]], z root of 5z^2+4z+2 (disc -24), principal polarization E=[[0,I],[-I,0]]:
+  End(A) rank 8, a ring, Rosati-stable; an embedding of N5's O = Z<1,I,(1+J)/2,(I+IJ)/2> with Rosati
+  a -> mu^{-1} conj(a) mu, mu = 2J+IJ, exists (found as iota(O) with induced mu' = (-3I+4J+IJ)/2, mu'^2=-6, then conjugated
+  by a normalizer element gamma with gamma mu' gamma^{-1} = +-mu; final I, J printed and all relations rechecked on 4x4
+  integer matrices). Commutant of iota(O) in End(A): rank 2, discriminant -24 (basis 1, w with w^2+4w+10=0), i.e. the
+  maximal order Z[sqrt(-6)]. So A is the QM point P_-24 (CM by the maximal order of disc -24) for N5's datum.
+  With theta24.py: F1's formula gives j(P_-24) = -16/27, with no use of BG 3.7/3.9, LY eq.(2) or LY's Y'5 claims.
