@@ -67,3 +67,14 @@
   s = 0, 2 and every s with s or 2-s a nonpositive integer, by Γ junk; Step 3). GrossZagierKolyvagin row cites
   Murty-Murty 1991 (derivative nonvanishing; wrong direction).
 - §3 L-series paragraph (Δ = 64d^6, c4 = 48d^2, minimal, additive at 2 and p | d) agrees with an_check.py.
+
+## Step 8: wk-h.md §§1-6 read
+- §1 counts: W 15, G 8, R 3, B 10 = 36 = h-trust labels A1-A10, B1-B3, C1-C10, D1-D5, E1-E4, F1-F4. Counts correct.
+- §1 rule "a step with a W input whose own argument is new is classed G or B" is not applied to A9, C3, C9: h-trust §2.1
+  lists three passages new in N5 inside them (A9 Milne paragraph L564-570 + centralizer step; C3 lemma de-rham-descent
+  L734-737, L10938-11000; C9 Li-Shimura sentence L768-772, repairs R-C9-1..3). Also G steps B1-B3, D2-D4 carry the
+  repository repairs R1-R3 (rv-h-novel), not counted as R. Classification understates new/repository argument.
+- §3.3 theta-vacuity: z = (1,...,1,t), Φ(z) = 3779136 t^4/(9+t^8)^5; t ↦ [3779136 t^4 s^36 : (9s^8+t^8)^5] has no common
+  zero, so it is a degree-40 morphism of P^1 and h(t) = h(j)/40 + O(1) (STANDARD functoriality). Claim holds.
+- §3.1/§5 absence claims spot-checked by grep of Mathlib: no TateModule, Faltings, Newform, Chebotarev, Skolem-Noether,
+  HodgeTate, Herbrand/upper numbering, Néron model (only HeckeRing/Defs mentions Shimura).
