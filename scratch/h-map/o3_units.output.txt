@@ -1,0 +1,5 @@
+O is a ring (closed under products): True; disc check nrd form det:
+  det(trace form) = 36  (expect disc^2 = 36)
+|O/3O| = 81  units: 72  norm = 1 mod 3: 36
+order of image of O^1 in (O/3O)^*/±1 (assuming strong approx surjectivity): 18
+Galois group order of a geometric component of Y_3 -> P^1_j: 4 * 18 = 72
