@@ -94,3 +94,15 @@ arithmetic data each covering a thin set).
 Test-site formulas (`R₀ = 2730⁶|F(n)|`, `a₀ = 1 − R₀q²`, `W = Π(1 + R C_j²)` over `ℚ(√2)`,
 `Θ = Tr W⁻¹`, `B = R/Θ²`), random fixed `D_j ∈ ℚ(√2)`, `n = c + p`, `q = q₀p^{−M}`:
 `v_p(B) = 15 − 52M` in 12/12 cases (`p ∈ {1000003, 998244353}`, `c ∈ {0, −24}`, `M = 1,2,3`).
+
+## C4. Bounded multipliers `m₀k²`, `k ≤ 2⁸` (`c4_bounded_multiplier.py`, output `c4_out.txt`, 11 s) — VERIFIED (exact search)
+- Inputs: 30 toy test-site values `B = R₀(u/w)²`, `R₀ = 2730⁶|F(n)|`, `|n| ≤ 10³`, `u ≤ 10³`,
+  `w = ⌊√(2R₀u²)⌋ + r` (`r ≤ 10⁶`, `gcd(w, 2730) = 1`), so `0 < B < 1/2`, square denominator,
+  `S₀` valuations. `m₀ ∈ {1,2,3,5,6,7,10,13}`, `1 ≤ k ≤ 256`: 61440 pairs `(B, m)`.
+- Tests: (i) `θ = 1`; (ii) torsion shortcut `N = β`: `w² = θ(β²s⁴ − 1)` has a point with
+  `H(s) ≤ 20` (`hyperellratpoints`; unreduced classes `θ ~ m₀(m₀k²w² − R₀u²)`, `β ~ m₀R₀`).
+- Outcome: (i) 0; (ii) 0 of 61440; 0/30 inputs with any hit. Sanity: the same search finds the
+  planted point for `θ = β²(3/2)⁴ − 1`.
+- Reading: within the multiplier budget, small explicit points do not occur on these inputs
+  (as expected from S3: explicit points would come from a family). This does not bound the
+  height of points that exist (TYZ/CR₃ give them non-explicitly).
