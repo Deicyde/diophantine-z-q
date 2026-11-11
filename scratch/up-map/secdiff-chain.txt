@@ -1,0 +1,140 @@
+=== diophantine_zq.tex -> quartic_12504.tex
+A:   52(   88) B:   55(   96) -0 +8  The main theorem and proof structure
+A: 6443(  147) B: 6454(  147) -1 +1  Consequences of the integer definition
+A:10936(  314) B:13700(  378) -0 +64  De Rham comparison and finite descent in the height argument
+NEW   B:6602(2076) The base residual compiler
+NEW   B:8679(675) An explicit quartic definition of the integers
+=== quartic_12504.tex -> quartic_9625.tex
+A:   55(   96) B:   55(   96) -1 +1  The main theorem and proof structure
+A: 8679(  675) B: 8679( 1153) -239 +717  An explicit quartic definition of the integers
+A:13700(  378) B:14178(  390) -0 +12  De Rham comparison and finite descent in the height argument
+=== quartic_9625.tex -> quartic_4973.tex
+A:   55(   96) B:   59(  101) -5 +10  The main theorem and proof structure
+GONE  A:8679 An explicit quartic definition of the integers
+A:14178(  390) B:14588(  397) -0 +7  De Rham comparison and finite descent in the height argument
+NEW   B:8688(1554) An explicit quartic defining the integers
+=== quartic_4973.tex -> quartic_1272.tex
+A:   59(  101) B:   63(  105) -0 +4  The main theorem and proof structure
+A: 8688( 1554) B: 8696( 1554) -1 +1  An explicit quartic defining the integers
+A:14588(  397) B:15755(   75) -325 +3  De Rham comparison and finite descent in the height argument
+NEW   B:10251(272) Arithmetic interfaces for the smaller quartic
+NEW   B:10524(885) The shared-point quartic in 1272 variables
+NEW   B:15831(1135) Simultaneous primes with coprime adjacent norms
+=== quartic_1272.tex -> quartic_v7.tex
+A:   63(  105) B:   63(  108) -2 +5  The main theorem and proof structure
+GONE  A:10524 The shared-point quartic in 1272 variables
+A:15831( 1135) B:16159( 3042) -127 +2034  Simultaneous primes with coprime adjacent norms
+NEW   B:10527(1033) The shared-point quartic in 962 variables
+NEW   B:11561(176) Why a single defining polynomial must have degree at least four
+=== quartic_v7.tex -> quartic_v8.tex
+=== quartic_v8.tex -> quartic_v9.tex
+A:   58(  108) B:   65(  116) -0 +8  The main theorem and proof structure
+A:16154( 3042) B:16169( 2630) -413 +1  Simultaneous primes with coprime adjacent norms
+A:19197(    9) B:19834(   12) -0 +3  AI usage statement
+NEW   B:18800(1033) The odd-product quartics in 523 and 540 variables
+=== quartic_v9.tex -> quartic_v10.tex
+A:   65(  116) B:   65(  136) -2 +22  The main theorem and proof structure
+A:  295(  122) B:  315(  125) -0 +3  The elliptic model of integer indices
+A:  418(  595) B:  441(  600) -0 +5  The six-contact height estimate
+A: 1014(  149) B: 1042(  158) -0 +9  The pole predicate and its converse input
+A: 1164(  636) B: 1201(  669) -8 +41  Multiplication and the finite false-triple guard
+A: 1801(  957) B: 1871(  976) -3 +22  The restricted converse and its dependency order
+A: 2759( 1663) B: 2848( 1712) -4 +53  Actual classes, local conditions and central comparison
+A: 6484(  147) B: 6622(  160) -3 +16  Consequences of the integer definition
+A:11764(   58) B:11915(   66) -0 +8  Source identities and scope
+A:11823(  116) B:11982(  204) -0 +88  Literal finite-constructor specification
+A:11982( 1380) B:12229( 1441) -0 +61  Fixed-form arithmetic and the even coefficient source
+A:15138(  954) B:15446(  956) -1 +3  Nonvanishing, normalization and the final family
+A:18800( 1033) B:19110( 1065) -3 +35  The odd-product quartics in 523 and 540 variables
+=== quartic_v10.tex -> quartic_v11.tex
+A:12229( 1441) B:12229( 1500) -10 +69  Fixed-form arithmetic and the even coefficient source
+A:19110( 1065) B:19169( 1066) -1 +2  The odd-product quartics in 523 and 540 variables
+=== quartic_v11.tex -> quartic_v12.tex
+A:   65(  136) B:   65(  143) -1 +8  The main theorem and proof structure
+A:19169( 1066) B:19176(  623) -443 +0  The odd-product quartics in 523 and 540 variables
+NEW   B:19800(1414) A quartic in 498 variables
+=== quartic_v12.tex -> quartic_v13.tex
+A:   65(  143) B:   65(  143) -6 +6  The main theorem and proof structure
+A:19800( 1414) B:19800(  971) -443 +0  A quartic in 498 variables
+NEW   B:20772(1303) A quartic presentation with 394 variables
+=== quartic_v13.tex -> quartic_v14.tex
+A:   65(  143) B:   65(  143) -7 +7  The main theorem and proof structure
+A:  322(  125) B:  322(  125) -3 +3  The elliptic model of integer indices
+A:  448(  600) B:  448( 1232) -146 +778  The six-contact height estimate
+A: 1049(  158) B: 1681(  193) -8 +43  The pole predicate and its converse input
+A: 1208(  669) B: 1875(  670) -5 +6  Multiplication and the finite false-triple guard
+A: 1878(  976) B: 2546( 1081) -12 +117  The restricted converse and its dependency order
+A: 6790( 2076) B: 7563( 2362) -148 +434  The base residual compiler
+A: 8867( 1554) B: 9926( 1565) -6 +17  An explicit quartic defining the integers
+A:11729(  176) B:12799(  180) -11 +15  Why a single defining polynomial must have degree at least four
+A:11922(   66) B:12996(   66) -6 +6  Source identities and scope
+A:12194(   41) B:13268(   45) -12 +16  Primary theorem applications
+A:12236( 1500) B:13314( 1504) -4 +8  Fixed-form arithmetic and the even coefficient source
+A:13737( 1774) B:14819( 1737) -96 +59  Actual odd theta forms and their operators
+A:15512(  956) B:16557(  961) -0 +5  Nonvanishing, normalization and the final family
+GONE  A:16469 De Rham comparison and finite descent in the height argument
+A:16545( 2630) B:17519( 2807) -71 +248  Simultaneous primes with coprime adjacent norms
+A:19800(  971) B:20951(  971) -4 +4  A quartic in 498 variables
+A:20772( 1303) B:21923(  862) -443 +2  A quartic presentation with 394 variables
+NEW   B:22786(1549) A quartic presentation with 299 variables
+=== quartic_v14.tex -> quartic_v15.tex
+A:   65(  143) B:   76(  158) -1 +16  The main theorem and proof structure
+A:  209(  112) B:  235(  111) -2 +1  A finite specification of the polynomial
+A:  448( 1232) B:  473( 1231) -6 +5  The six-contact height estimate
+A: 1681(  193) B: 1705(  193) -1 +1  The pole predicate and its converse input
+A: 1875(  670) B: 1899(  670) -1 +1  Multiplication and the finite false-triple guard
+A: 2546( 1081) B: 2570( 1081) -1 +1  The restricted converse and its dependency order
+A: 7563( 2362) B: 7587( 2362) -1 +1  The base residual compiler
+A: 9926( 1565) B: 9950( 1565) -1 +1  An explicit quartic defining the integers
+A:12799(  180) B:12823(  181) -0 +1  Why a single defining polynomial must have degree at least four
+A:13268(   45) B:13293(   45) -2 +2  Primary theorem applications
+A:13314( 1504) B:13339( 1504) -1 +1  Fixed-form arithmetic and the even coefficient source
+A:14819( 1737) B:14844( 1737) -4 +4  Actual odd theta forms and their operators
+A:17519( 2807) B:17544( 2807) -3 +3  Simultaneous primes with coprime adjacent norms
+A:22786( 1549) B:22811(  953) -596 +0  A quartic presentation with 299 variables
+NEW   B:23765(39) Unary theta series with imprimitive sieves
+NEW   B:23805(22) Coefficient conjugation and finite theta twists
+NEW   B:23828(586) Assembly of the precise inverse-theorem input
+NEW   B:24415(285) The polynomial GI(2) base from the published bracket theorem
+NEW   B:24701(236) Tautification and the shifted nilcharacter construction
+NEW   B:24938(379) A local replacement for the filtration argument in GTZ Lemma 13.2
+NEW   B:25318(283) Difference decomposition and the additive-quadruple estimate
+NEW   B:25602(474) One-variable factorization and approximate additive linearization
+NEW   B:26077(499) Equal-scale factorization and the bias and torsion joins
+NEW   B:26577(560) Sections 9--11 at every rank step
+NEW   B:27138(534) GTZ-LP-04: the petal quotient and degree--rank construction
+NEW   B:27673(496) The Section 12 semidirect-product join
+NEW   B:28170(265) Degree conversion and the finite rank iteration
+NEW   B:28436(438) Scaling symbols and symmetric multilinearisation with the factorial retained
+NEW   B:28875(149) The plain additive-quadruple implication on a finite interval
+NEW   B:29025(424) The Section 13 correlation and symmetry join
+NEW   B:29450(407) Same-step linearization using the increment polynomial group
+NEW   B:29858(193) A normalized local converse for the GI assembly
+NEW   B:30052(12) Uniform selection of represented lower tests
+NEW   B:30065(12) Integral endomorphisms and polarized automorphisms
+NEW   B:30078(14) Descent of the marked abelian scheme
+NEW   B:30093(9) The finite forgetful map and its Picard norm
+NEW   B:30103(51) Labelled CM points and their common-place reduction
+NEW   B:30155(720) Integral evaluation and the effective contact height
+NEW   B:30876(361) Disjoint contacts and height amplification
+NEW   B:31238(455) Uniform aggregate trace height
+NEW   B:31694(232) Plain formal parameters and rational approximations
+NEW   B:31927(194) Prime selection and simultaneous denominator preparation
+NEW   B:32122(220) Finite avoidance and simultaneous scalar preparation
+NEW   B:32343(796) The 248-variable arithmetic baseline
+NEW   B:33140(636) From the baseline to the 238-variable predecessor
+NEW   B:33777(1225) The explicit 238-variable predecessor
+NEW   B:35003(16) Large integer coefficients
+NEW   B:35020(784) The 233-variable family: arithmetic and exact reductions
+NEW   B:35805(1273) The explicit 233-variable system
+NEW   B:37079(445) The 222-variable family
+NEW   B:37525(2353) The explicit 222-variable quartic
+NEW   B:39879(3) Version 15 provenance
+NEW   B:39883(1) The 238-variable predecessor: provenance
+=== quartic_v15.tex -> quartic_v16.tex
+A:17544( 2807) B:17544( 2812) -10 +15  Simultaneous primes with coprime adjacent norms
+A:26577(  560) B:26582(  586) -3 +29  Sections 9--11 at every rank step
+A:30155(  720) B:30186(  720) -2 +2  Integral evaluation and the effective contact height
+A:37525( 2353) B:37556( 2358) -0 +5  The explicit 222-variable quartic
+A:39883(    1) B:39919(    4) -0 +3  The 238-variable predecessor: provenance
+A:39885(   12) B:39924(    9) -4 +1  AI usage statement

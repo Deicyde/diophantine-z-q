@@ -1,0 +1,7 @@
+quartic_12504.tex: thm:target: 1.1; thm:height: 4.1; hyp:PC: 5.2; hyp:RC: 5.3; prop:fixed-prime-pattern: 6.2; prop:cutoff: 12.1; 
+quartic_1272.tex: thm:target: 1.1; thm:height: 4.1; hyp:PC: 5.2; hyp:RC: 5.3; prop:fixed-prime-pattern: 6.2; prop:cutoff: 12.1; 
+quartic_v8.tex: thm:target: 1.1; thm:height: 4.1; hyp:PC: 5.2; hyp:RC: 5.3; prop:fixed-prime-pattern: 6.2; prop:cutoff: 12.1; 
+quartic_v9.tex: thm:target: 1.1; thm:height: 4.1; hyp:PC: 5.2; hyp:RC: 5.3; prop:fixed-prime-pattern: 6.2; prop:cutoff: 12.1; 
+quartic_v13.tex: thm:target: 1.1; thm:height: 4.1; hyp:PC: 5.2; hyp:RC: 5.3; prop:fixed-prime-pattern: 6.2; prop:cutoff: 12.1; 
+quartic_v14.tex: thm:target: 1.1; thm:height: 4.2; hyp:PC: 5.2; hyp:RC: 5.3; prop:fixed-prime-pattern: 6.2; prop:cutoff: 12.1; 
+quartic_v15.tex: thm:target: 1.3; thm:height: 4.2; hyp:PC: 5.2; hyp:RC: 5.3; prop:fixed-prime-pattern: 6.2; prop:cutoff: 12.1; 

@@ -1,0 +1,30 @@
+N5: sec:height L377-972 (596 lines)
+V13: sec:height L448-1048 (601 lines)
+V14: sec:height L448-1680 (1233 lines)
+V15: sec:height L473-1704 (1232 lines)
+V16: sec:height L473-1704 (1232 lines)
+N5: constants L378-397, theorem L404-409; identical to N5: True
+V13: constants L454-473, theorem L480-485; identical to N5: True
+V14: constants L454-473, theorem L682-687; identical to N5: True
+V15: constants L479-498, theorem L707-712; identical to N5: True
+V16: constants L479-498, theorem L707-712; identical to N5: True
+diff N5 -> V13: 1 hunks
+    N5 L378-377 -> V13 L449-453 (insert)
+diff V14 -> V15: 5 hunks
+    V14 L784-785 -> V15 L809-809 (replace)
+    V14 L808-808 -> V15 L832-832 (replace)
+    V14 L870-870 -> V15 L894-894 (replace)
+    V14 L912-912 -> V15 L936-936 (replace)
+    V14 L1117-1117 -> V15 L1141-1141 (replace)
+diff V15 -> V16: 0 hunks
+N5: project-supplement citations in sec:height: 0 {}
+V13: project-supplement citations in sec:height: 0 {}
+V14: project-supplement citations in sec:height: 10 {'a001-moduli-project': 1, 'b11-integral-model-project': 4, 'direct-p5-modularity-project': 1, 'igusa-theta-project': 1, 'ly-d6-normalization-project': 3}
+V15: project-supplement citations in sec:height: 6 {'a001-moduli-project': 1, 'direct-p5-modularity-project': 1, 'igusa-theta-project': 1, 'ly-d6-normalization-project': 3}
+V16: project-supplement citations in sec:height: 6 {'a001-moduli-project': 1, 'direct-p5-modularity-project': 1, 'igusa-theta-project': 1, 'ly-d6-normalization-project': 3}
+log(pi*sqrt2) = 1.4913034761293729 < 3/2: True
+log(2/sqrt(pi)) = 0.1207822376352452 < 1: True
+log2 B_* = 109444.81278551639
+log2 H_* ~ 4645521.025491656 < 4783227: True
+log2 H_19 ~ 2093447.0848566105 < 2093966: True
+log2 C_3 ~ 330681.340942044 < 330770: True
