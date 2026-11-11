@@ -64,7 +64,7 @@ CR₃ says: if `d > 0` is squarefree with `d ≡ 5 (mod 8)`, `a` is a squarefree
 built from Legendre symbols only) has exactly 8 solutions, one of them with first coordinate the
 class of `a`, then `C_d : y² = x³ − d²x` has a rational point with `x ≠ 0` and `x ∈ aℚ*²`. It follows
 from Proposition 0 (the system is `Sel₂(C_d)`, `docs/research/descent-alt.md` §4.1) with either
-Kriz's 2-converse (arXiv:2002.04767, Theorem 10.13) and the corank lemma (Poonen–Stoll), or
+Kriz's 2-converse (arXiv:2002.04767, Theorem 10.13) and the corank lemma (Cassels–Tate on `Ш/Ш_div`), or
 Tian–Yuan–Zhang (Theorem 3.5 and the argument of the proof of Theorem 3.5(2), §3.3, as completed in
 `docs/research/nt-tyz.md` §4) and Gross–Zagier–Kolyvagin (`docs/research/tyz-5b.md`; only Gross–Zagier
 is needed, `docs/research/pc-audit.md` RK7). PC is then

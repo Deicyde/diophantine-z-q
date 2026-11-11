@@ -26,7 +26,17 @@ proved. The site is rebuilt from `main` after each passing verification run.
 > (`ZInQKernel/MainGreenTao.lean`) has no `sorry`, uses no `native_decide`, and depends only on
 > the axioms `propext`, `Classical.choice` and `Quot.sound`. So does the three-hypothesis version
 > that keeps the manuscript's prime pattern and none of the vendored code,
-> `ZInQ.exists_bounded_integer_polynomial_defining_integers_of` (`ZInQKernel/Main.lean`). See
+> `ZInQ.exists_bounded_integer_polynomial_defining_integers_of` (`ZInQKernel/Main.lean`). CR₃ can
+> also be stated in Tian–Yuan–Zhang's own terms: `CertifiedRankTYZClRk` says that for squarefree
+> `d ≡ 5 (mod 8)` whose genus sum of class numbers is odd, `C_d(ℚ)` has a point of infinite order,
+> which is Tian–Yuan–Zhang's argument for their Theorem 3.5(2), as completed in
+> [docs/research/nt-tyz.md](docs/research/nt-tyz.md) (Proposition N), followed by Gross–Zagier.
+> Everything between that statement and CR₃ is proved in Lean (Proposition 0, Theorem 3.6 and
+> Corollary 4.4 of [docs/research/tyz-5b.md](docs/research/tyz-5b.md), Rédei's formula, the
+> complete 2-descent and Mordell–Weil for the curves `C_d`), so the theorem also follows from the
+> six-contact height estimate and `CertifiedRankTYZClRk` alone
+> (`ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk`,
+> `ZInQKernel/RouteK/RankVariants.lean`). See
 > [KERNEL_PLAN.md](KERNEL_PLAN.md), the
 > [final audit](docs/kernel-audits/final-audit-2026-11-07.md), the
 > [blueprint site](https://deicyde.github.io/diophantine-z-q/) and its sources in
