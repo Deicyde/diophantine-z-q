@@ -155,6 +155,19 @@ condition on `Sel₂`) and `CertifiedRankTYZClRk`, with main-theorem variants in
 least. `CertifiedRankTYZRk` is the form whose content is literally Tian–Yuan–Zhang's argument,
 Rédei's formula and Gross–Zagier, with no condition on `Sel₂`.
 
+The proof applies CR₃ at only two curves, `C_{d₁}` and `C_{d₁|θ|}`, where `d₁ = D.d₁` comes from a
+slot choice `D : RouteK.Slots β θ p₀` (`RouteK/RankDL.lean`). `RouteK.Rank.CertifiedRankDLRk` says
+that for all `β, θ, p₀` with `RouteK.Inputs β θ p₀` some slot choice gives two curves with rational
+points of infinite order. Lean proves `CertifiedRankTYZRk → CertifiedRankDLRk` and
+`CertifiedRankDLRk → PoleCompleteness`, hence the main theorem from SixContactMin and
+`CertifiedRankDLRk`
+(`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLRk`);
+`CertifiedRankDLAdmRk` quantifies only over admissible `B`. These forms rest on the same literature
+as `CertifiedRankTYZRk`. What they add is a smaller target for partial results, such as explicit
+points on the curves of some slot choice (`poleSoluble_of_slots_infinite_order`). They depend on the
+internal definitions `Inputs` and `Slots`, so a change to the slot construction changes their
+meaning.
+
 `scripts/check_target.py` checks that `FrozenTarget` is upstream's frozen statement token
 for token. Removing another hypothesis means formalizing its source theorem or finding a
 cheaper route to it; MW and CAT were within reach of current Mathlib.
