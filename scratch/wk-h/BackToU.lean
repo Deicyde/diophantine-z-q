@@ -49,14 +49,111 @@ theorem cert_y (a b : ℤ) :
 theorem G_ne_zero (u : ℚ) : 7 * u ^ 2 + 300 * u + 3600 ≠ 0 := by
   nlinarith [sq_nonneg (7 * u + 150)]
 
-/-- **F4, strengthened.** `12 h(u) ≤ h(J(u)) + 300` for `u ∉ 𝒞`. N5 proves `h(u) < h(J(u)) + 74`
-by the rational-root theorem; the certificates give the degree-12 form. Proof plan (not yet
-written): for `u = a/b` in lowest terms, `gcd(F_h, G_h) ∣ 3·104976000000` by `cert_x`, `cert_y`
-and `gcd(a, b) = 1`; hence `gcd(57600F_h², G_h⁶) ∣ 57600·(3·104976000000)⁶`; and
-`max(|a|,b)⁷ ≤ C·(max(|a|,b)·|F_h| + max(|a|,b)⁵·|G_h|)` with `C ≤ 2·10⁸` gives
-`max(|a|,b)¹² ≤ (4·10⁸)⁶·max(57600F_h², G_h⁶)`. -/
+/-- `C₀ = 57600²·3⁷·(2¹⁰3⁸5⁶)⁷`, the bound for the cancellation in `J(u)`. -/
+def C0 : ℤ := (57600 * 3 ^ 7) * (57600 * 104976000000 ^ 7)
+
+/-- **Cancellation bound.** For coprime `a, b`, a common divisor of `57600F_h²` and `G_h⁶` divides
+`C₀` (from `cert_x`, `cert_y` raised to the 7th power). -/
+theorem dvd_C0 {a b c : ℤ} (hab : IsCoprime a b) (hP : c ∣ 57600 * Fh a b ^ 2)
+    (hQ : c ∣ Gh a b ^ 6) : c ∣ C0 := by
+  have key : ∀ x y : ℤ, 57600 * (x + y) ^ 7 =
+      57600 * x ^ 2 * (x ^ 5 + 7 * x ^ 4 * y + 21 * x ^ 3 * y ^ 2 + 35 * x ^ 2 * y ^ 3 +
+        35 * x * y ^ 4 + 21 * y ^ 5) + y ^ 6 * (57600 * (7 * x + y)) := by intros; ring
+  have hsplit : ∀ (A B : ℤ), c ∣ 57600 * (A * Fh a b + B * Gh a b) ^ 7 := by
+    intro A B
+    rw [key]
+    refine dvd_add ?_ ?_
+    · have : 57600 * (A * Fh a b) ^ 2 = (57600 * Fh a b ^ 2) * A ^ 2 := by ring
+      rw [this, mul_assoc]; exact dvd_mul_of_dvd_left hP _
+    · have : (B * Gh a b) ^ 6 = Gh a b ^ 6 * B ^ 6 := by ring
+      rw [this, mul_assoc]; exact dvd_mul_of_dvd_left hQ _
+  have hx : c ∣ 57600 * 3 ^ 7 * a ^ 49 := by
+    have e : 57600 * 3 ^ 7 * a ^ 49 = 57600 * (3 * a ^ 7) ^ 7 := by ring
+    rw [e, cert_x]; exact hsplit _ _
+  have hy : c ∣ 57600 * 104976000000 ^ 7 * b ^ 49 := by
+    have e : 57600 * 104976000000 ^ 7 * b ^ 49 = 57600 * (104976000000 * b ^ 7) ^ 7 := by ring
+    rw [e, cert_y]; exact hsplit _ _
+  obtain ⟨s, t, hst⟩ := hab.pow (m := 49) (n := 49)
+  have e : C0 = (57600 * 104976000000 ^ 7 * s) * (57600 * 3 ^ 7 * a ^ 49) +
+      (57600 * 3 ^ 7 * t) * (57600 * 104976000000 ^ 7 * b ^ 49) := by
+    have : C0 = C0 * (s * a ^ 49 + t * b ^ 49) := by rw [hst, mul_one]
+    rw [this, C0]; ring
+  rw [e]
+  exact dvd_add (dvd_mul_of_dvd_right hx _) (dvd_mul_of_dvd_right hy _)
+
+theorem abs_monomial_le {a b m : ℤ} (ha : |a| ≤ m) (hb : |b| ≤ m) (i j : ℕ) :
+    |a ^ i * b ^ j| ≤ m ^ (i + j) := by
+  have hm : 0 ≤ m := (abs_nonneg a).trans ha
+  rw [abs_mul, abs_pow, abs_pow, pow_add]
+  exact mul_le_mul (pow_le_pow_left₀ (abs_nonneg _) ha _) (pow_le_pow_left₀ (abs_nonneg _) hb _)
+    (by positivity) (by positivity)
+
+/-- **Lower bound.** With `m = max(|a|, |b|) > 0`: `m¹² ≤ 10⁴⁸ max(57600F_h², G_h⁶)`. -/
+theorem lower_bound {a b m : ℤ} (ha : |a| ≤ m) (hb : |b| ≤ m) (hm : 0 < m)
+    (hmax : m = |a| ∨ m = |b|) :
+    m ^ 12 ≤ 10 ^ 48 * max (57600 * Fh a b ^ 2) (Gh a b ^ 6) := by
+  by_contra hlt
+  push Not at hlt
+  have hP := le_max_left (57600 * Fh a b ^ 2) (Gh a b ^ 6)
+  have hQ := le_max_right (57600 * Fh a b ^ 2) (Gh a b ^ 6)
+  have hF : 240 * 10 ^ 24 * |Fh a b| < m ^ 6 := by
+    have h2 : (240 * 10 ^ 24 * |Fh a b|) ^ 2 < (m ^ 6) ^ 2 := by
+      rw [mul_pow, sq_abs]; nlinarith
+    exact lt_of_pow_lt_pow_left₀ 2 (by positivity) h2
+  have hG : 10 ^ 8 * |Gh a b| < m ^ 2 := by
+    have h6 : (10 ^ 8 * |Gh a b|) ^ 6 < (m ^ 2) ^ 6 := by
+      rw [mul_pow, pow_abs, abs_of_nonneg (by positivity : (0:ℤ) ≤ Gh a b ^ 6)]
+      nlinarith
+    exact lt_of_pow_lt_pow_left₀ 6 (by positivity) h6
+  have hX : 240 * 10 ^ 24 * (m * |Fh a b|) < m ^ 7 := by nlinarith
+  have hY : 10 ^ 8 * (m ^ 5 * |Gh a b|) < m ^ 7 := by
+    have : (0 : ℤ) < m ^ 5 := by positivity
+    nlinarith
+  have m10 : -m ≤ a ∧ a ≤ m := abs_le.mp ha
+  have m01 : -m ≤ b ∧ b ≤ m := abs_le.mp hb
+  have mono : ∀ i j : ℕ, i + j = 5 → -m ^ 5 ≤ a ^ i * b ^ j ∧ a ^ i * b ^ j ≤ m ^ 5 := by
+    intro i j hij
+    have := abs_monomial_le ha hb i j
+    rw [hij] at this
+    exact abs_le.mp this
+  have m50 := mono 5 0 rfl
+  have m41 := mono 4 1 rfl
+  have m32 := mono 3 2 rfl
+  have m23 := mono 2 3 rfl
+  have m14 := mono 1 4 rfl
+  have m05 := mono 0 5 rfl
+  simp only [pow_one, pow_zero, mul_one, one_mul] at m50 m41 m32 m23 m14 m05
+  have hm7 : (0 : ℤ) < m ^ 7 := by positivity
+  have tri : ∀ A B : ℤ, |A * Fh a b + B * Gh a b| ≤ |A| * |Fh a b| + |B| * |Gh a b| := by
+    intro A B; rw [← abs_mul, ← abs_mul]; exact abs_add_le _ _
+  rcases hmax with h | h
+  · have hA : |-200 * a - 4800 * b| ≤ 5000 * m := by
+      rw [abs_le]; constructor <;> linarith
+    have hB : |29 * a ^ 5 + 3700 * a ^ 4 * b + 164400 * a ^ 3 * b ^ 2 + 2880000 * a ^ 2 * b ^ 3 +
+        17280000 * a * b ^ 4| ≤ 20328129 * m ^ 5 := by
+      rw [abs_le]; constructor <;> linarith
+    have e := tri (-200 * a - 4800 * b) (29 * a ^ 5 + 3700 * a ^ 4 * b + 164400 * a ^ 3 * b ^ 2 +
+      2880000 * a ^ 2 * b ^ 3 + 17280000 * a * b ^ 4)
+    rw [← cert_x, abs_mul, abs_pow, ← h, show |(3 : ℤ)| = 3 by norm_num] at e
+    have e1 := mul_le_mul_of_nonneg_right hA (abs_nonneg (Fh a b))
+    have e2 := mul_le_mul_of_nonneg_right hB (abs_nonneg (Gh a b))
+    linarith
+  · have hA : |-1001 * a - 37650 * b| ≤ 38651 * m := by
+      rw [abs_le]; constructor <;> linarith
+    have hB : |143 * a ^ 5 + 20557 * a ^ 4 * b + 1026600 * a ^ 3 * b ^ 2 +
+        20691900 * a ^ 2 * b ^ 3 + 133110000 * a * b ^ 4 + 29160000 * b ^ 5| ≤
+        184009200 * m ^ 5 := by
+      rw [abs_le]; constructor <;> linarith
+    have e := tri (-1001 * a - 37650 * b) (143 * a ^ 5 + 20557 * a ^ 4 * b +
+      1026600 * a ^ 3 * b ^ 2 + 20691900 * a ^ 2 * b ^ 3 + 133110000 * a * b ^ 4 + 29160000 * b ^ 5)
+    rw [← cert_y, abs_mul, abs_pow, ← h, show |(104976000000 : ℤ)| = 104976000000 by norm_num] at e
+    have e1 := mul_le_mul_of_nonneg_right hA (abs_nonneg (Fh a b))
+    have e2 := mul_le_mul_of_nonneg_right hB (abs_nonneg (Gh a b))
+    linarith
+
+/-- **F4, strengthened.** `12 h(u) ≤ h(J(u)) + 450` for `u ∉ 𝒞` (N5: `h(u) < h(J(u)) + 74`). -/
 theorem twelve_mul_ratHeight_le (u : ℚ) (hu : u ∉ contactSet) :
-    12 * ratHeight u ≤ ratHeight (Jmap u) + 300 := by
+    12 * ratHeight u ≤ ratHeight (Jmap u) + 450 := by
   sorry
 
 /-- `SixContactMin` for a general prime set `S` (`ZInQ.SixContactMin` is `SixContactMinAt

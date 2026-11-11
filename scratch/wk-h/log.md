@@ -51,3 +51,9 @@
   linearly, GR14 only logarithmically). Recorded as SPECULATIVE sketch in §4.3.
 
 ## Step 7: .fleet/wk-h.md written
+
+## Step 8: F4 lemmas in BackToU.lean
+- PROVED: dvd_C0 (common divisor of 57600F_h², G_h⁶ divides C0 = 57600²·3⁷·104976000000⁷ for
+  coprime a,b), abs_monomial_le, lower_bound (m¹² ≤ 10⁴⁸ max(57600F_h², G_h⁶), m = max(|a|,|b|)).
+- F4 constant changed 300 → 450 (log(10⁴⁸C0) ≈ 318; crude log 10 < 3 gives 139·3 = 417).
+- Remaining sorry: twelve_mul_ratHeight_le (assembly). Compiles, ~6 s.
