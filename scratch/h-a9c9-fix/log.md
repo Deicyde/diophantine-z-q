@@ -11,3 +11,6 @@
 - Step 2 done: Height.lean module docstring (review counts; Eichler–Shimura/Shimura 1971; GAGA),
   same text in h-trust §3 draft; KERNEL_PLAN H row (review count; Eichler–Shimura). HeightMin.lean
   unchanged. Lines <= 100 chars checked.
+- Step 3: lake build ZInQKernel succeeded (9919 jobs); print_axioms: 59 entries, all exactly
+  [propext, Classical.choice, Quot.sound] (output in print_axioms.out). git diff of
+  ZInQKernel/: only module-docstring lines of Hypotheses/Height.lean changed.
