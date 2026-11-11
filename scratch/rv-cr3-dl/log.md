@@ -14,3 +14,11 @@ Review of feb18a7b (cr3-dl, RouteK/RankDL.lean) and 350f7798 (rv-cr3-rank follow
   * KERNEL_PLAN "…_certifiedRankRk assumes the least" contradicted by DLRk (Rk → DLRk is
     provable in a few lines; to check in scratch).
   * DLRk docstring: "or Kriz's 2-converse" does not follow from TYZRk → DLRk; needs Rk → DLRk.
+- lake build ZInQKernel: success (9913 jobs), exit 0 (build-tail.txt).
+- print_axioms: 45/45 entries [propext, Classical.choice, Quot.sound] (axioms.txt).
+- Probe (deleted; text in report §5): Inputs (-7) 1 7, Nonempty (Slots (-7) 1 7),
+  CertifiedRankRk → CertifiedRankDLRk all elaborate, standard axioms (probe.txt).
+  Fixes during probe: Squarefree not decidable (used Prime.squarefree, squarefree_one);
+  legBit 7 1 via simp [IsSquare.one].
+- Report docs/research/rv-cr3-dl.md written: Lean no blocker; doc blocker B1 KERNEL_PLAN.md:152–155
+  ("assumes the least"); remarks R1–R4.
