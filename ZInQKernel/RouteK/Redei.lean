@@ -4,6 +4,7 @@ import ZInQKernel.RouteK.Redei.Entry
 import ZInQKernel.RouteK.Redei.Ambiguous
 import ZInQKernel.RouteK.Redei.Genus
 import ZInQKernel.RouteK.Redei.Dirichlet
+import ZInQKernel.RouteK.Redei.Bridge
 
 /-!
 # Rédei's formula (`docs/research/redei-plan.md` §3.2), root module
@@ -16,5 +17,8 @@ import ZInQKernel.RouteK.Redei.Dirichlet
   `card_ker_sq_le : #Cl[2] ≤ 2^{t−1}`;
 * `Redei/Genus.lean`: the genus characters `chi n q` (`χ_q([𝔞]) = [N𝔞/q]`), `chi_ramIdeal`;
 * `Redei/Dirichlet.lean`: split primes and the surjectivity of the genus characters
-  (`exists_chi_eq`).
+  (`exists_chi_eq`);
+* `Redei/Bridge.lean` (step 8, imports `Redei/Kernel.lean`, step 7): `RedeiFormula` from the 4-rank
+  statement `OddGClStatement` (`redeiFormula_of_oddGClStatement`), and
+  `certifiedRankTYZRk_of_oddGClStatement`.
 -/
