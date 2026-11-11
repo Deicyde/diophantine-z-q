@@ -2,7 +2,8 @@
 
 Status: research note (task h-trust, 2026-11-11; task T3 of `docs/research/h-map.md`), repaired
 by task h-adopt (2026-11-11) after its review `docs/research/rv-h-trust.md` (verdict: adopt after
-the repairs of its §6; changelog at the end). It turns the
+the repairs of its §6; changelog at the end), and by task h-c38 (2026-11-11) after the reviews
+`docs/research/rv-h-c3.md` (step C3) and `docs/research/rv-h-c8.md` (step C8). It turns the
 routes of h-map §3.2 (B1-B5), the review rv-h-novel and the earlier H notes into one numbered
 outline of the proof of Theorem 4.1, in the form `ZInQ.SixContactEstimate` states it. For each
 step it names the supplier and gives the status. It then lists what remains outside refereed
@@ -21,8 +22,11 @@ repository could be read (there is no network).
   and Prop. TS hold as stated; the identification A4 holds once four citations are explicit).
   The repairs 1-6 of rv-h-b1 §8 are applied in h-b1 (its changelog).
 - `docs/research/rv-h-novel.md` (review of the novel steps, repairs R1-R3).
-- `docs/research/rv-h-trust.md`, the review of this note, which also gives the only model review
+- `docs/research/rv-h-trust.md`, the review of this note, which also gives the first model review
   of three passages that are new in N5 (§2.1 item 1 below).
+- `docs/research/rv-h-c3.md`, a second, independent model review of C3's lemma (holds as stated;
+  repairs R1-R3), and `docs/research/rv-h-c8.md`, a focused model review of C8 on the N5 text
+  (holds after repairs R1-R3: normalization of `ρ_g`, weight one, levels divisible by 5).
 - The Lean files `ZInQKernel/Hypotheses/Height.lean` and `ZInQKernel/Hypotheses/HeightMin.lean`.
 
 Marks:
@@ -50,7 +54,7 @@ A8, C6 and D4 use A5 and A6); since no step is [U] any more, inheritance changes
   with the model review named. "Astra" means the four scoped Astra reviews of the **11/4** text
   (sha256 `bfc4192d…`, not N5; rv-h-novel, Provenance). Inside the proof the two texts differ
   only in a few passages (rv-h-trust §2.1); three of them (C3's lemma, A9's Milne paragraph,
-  C9's Li–Shimura sentence) have been read only by rv-h-trust.
+  C9's Li–Shimura sentence) were first read by rv-h-trust, and C3's lemma also by rv-h-c3.
 - **[U] unchecked**: a repository argument that no independent review has read.
 - **[S] script**: an exact computation in the repository with its output saved. "rerun" means
   it was rerun here and gave identical output (log, Step 9).
@@ -64,7 +68,8 @@ A8, C6 and D4 use A5 and A6); since no step is [U] any more, inheritance changes
      C2, C7, C9, E4, F3.
    - 24 steps are N5 or repository arguments reviewed by models only. They are covered by
      rv-h-novel (N5 text), Astra (11/4 text), rv-h-a011 (Version 14 text), rv-h-cm, rv-h-b1
-     (A4-A6) or rv-h-trust (the three N5-only passages in A9, C3 and C9).
+     (A4-A6), rv-h-trust (the three N5-only passages in A9, C3 and C9), rv-h-c3 (C3, a second
+     review) or rv-h-c8 (C8 on the N5 text).
    - No step is unchecked. A4-A6 (the identification of N5's level-three curve with the moduli
      scheme, and h-b1's Lemma PR (i) and (ii), which replace the integral model) are
      model-reviewed by rv-h-b1, whose repairs 1-6 are applied in h-b1.
@@ -80,10 +85,12 @@ A8, C6 and D4 use A5 and A6); since no step is [U] any more, inheritance changes
      Berger's monodromy theorem. It is not taken from Lemma PG plus the crystalline comparison
      (h-leaves R5.2(b)). The reason is that Scholze 2013 and Berger 2002 are refereed and need
      no new repository argument beyond N5's existing Lemma `lem:de-rham-descent`, while Lemma PG
-     would add one. That lemma is itself an N5 argument with a single model review
-     (rv-h-trust §2.1), so D1 trades Scholze (with the corrigendum and Thms 9.1, 9.3), Berger
-     and that lemma against Lemma PG and the crystalline comparison; both routes are sound
-     (rv-h-trust §3). Fallback if Scholze's analytic comparison is questioned: option (a) of
+     would add one. That lemma is itself an N5 argument with two independent model reviews
+     (rv-h-trust §2.1, rv-h-c3), so D1 trades Scholze (with the corrigendum and Thms 9.1, 9.3),
+     Berger and that lemma against Lemma PG and the crystalline comparison; both routes are
+     sound (rv-h-trust §3). rv-h-c3 §3.2 adds a third, citation-only route: pst at 5 directly
+     from semistable reduction (SGA 7 IX) and `C_st` (Tsuji 1999), with neither the descent
+     paragraph nor Berger (STANDARD; SPECULATIVE as a recommendation). Fallback if Scholze's analytic comparison is questioned: option (a) of
      h-leaves §3.2 (Fontaine / Faltings 1989 / Tsuji 1999, citation only; SPECULATIVE).
    - **(D2)** Semisimplicity, the endomorphism theorem and the Hom theorem are taken from
      Faltings 1983, not from GR14 plus Tate's argument (h-leaves R5.1). With this choice the
@@ -131,7 +138,7 @@ admissible because `S_mul` consists of primes, contains the primes `≤ 324`, `m
 | L531-577, conjugates, Hom field, dichotomy | N5 text | — |
 | L578-631, CM branch | NoCM (rv-h-cm §7.2), route B5 | Fowler, Barquero-Sanchez et al., the CM use of GR14 |
 | L632-716, scalar descent | N5 text, with rv-h-novel repair R1 | — |
-| L719-795, modularity | N5 text: Pan Thm 1.0.4, Scholze + Berger (D1), Faltings (D2); hypothesis check by Astra "descent" and "whole" on the N5 text, and rv-h-a011 §3.1; citations per rv-h-a011 R1-R2; eigenform p-adic Hodge theory for the twist (C8); route B2 | `direct-p5` (never in N5); Conrad's preprint replaced by Serre 1968 |
+| L719-795, modularity | N5 text: Pan Thm 1.0.4, Scholze + Berger (D1), Faltings (D2); hypothesis check by Astra "descent" and "whole" on the N5 text, and rv-h-a011 §3.1; citations per rv-h-a011 R1-R2; eigenform p-adic Hodge theory for the twist, in the Tate-module normalization, for all levels and with Deligne–Serre for weight one (C8, rv-h-c8); route B2 | `direct-p5` (never in N5); Conrad's preprint replaced by Serre 1968 |
 | L796-857, conductor | N5 text, with rv-h-novel repairs R2-R3; Carayol 1986 for I1 (B4) | — |
 | L860-905, transfer | N5 text; GR14 for the explicit bound only (D2) | the W4 dependency |
 | L908-964, back to `u` | N5 text, with LY, LNY, Igusa, Pazuki, through `igusa_check.py`; route B3 | `ly-d6`, `igusa-theta` |
@@ -363,17 +370,41 @@ L781 and L849-850).
 L10939-11000).
 - *Suppliers.*
   - Scholze, Forum Math. Pi 1 (2013), Cor. 1.8 and Thms 9.1, 9.3, with the corrigendum, Forum
-    Math. Pi 4 (2016). UNVERIFIED in the journal; h-leaves read the arXiv introduction.
+    Math. Pi 4 (2016). UNVERIFIED in the journal; h-leaves read the arXiv introduction. Its
+    hypotheses hold for `A/F` with `F` finite over `ℚ_ℓ` (rv-h-c3 §3.1 P1). It is more than the
+    step needs: Faltings 1989 or Tsuji 1999 (de Rham comparison for proper smooth schemes) is a
+    citation-only fallback with no GAGA step (STANDARD).
   - `V_ℓ(A) ≅ H¹_et(A_F̄, ℚ_ℓ)^∨`: N5 cites Milne's notes, Part I, Thm 12.1(a), which are [P].
-    Replacement: Milne 1986 (Cornell–Silverman), §15, or Mumford §19.
+    Replacement: Mumford, *Abelian varieties* (1970), §§19-20, or Milne 1986
+    (Cornell–Silverman), §15.
   - Closure under duals and subquotients, and finite descent: N5 cites Brinon–Conrad, CMI notes
-    (2009), Thm 5.2.1 and Props. 6.3.3, 6.3.8, which are [P]. Replacement: Fontaine,
-    *Représentations p-adiques semi-stables*, Astérisque 223 (1994), Exp. VIII (UNVERIFIED).
-- *Status:* **[M] (rv-h-trust only).** The lemma is new in N5: the 11/4 text read by Astra
-  said "finite-extension descent … [faltings1988]" at this point and has no such lemma. The only
-  review is rv-h-trust §2.1 (weight step and Hilbert 90 descent correct, given Scholze; one
-  model); h-leaves §3.1 read it as an inventory, not a review. The citations are [P] until they
-  are swapped.
+    (2009), Thm 5.2.1 and Props. 6.3.3, 6.3.8, which are [P]. Replacement: Fontaine (ed.),
+    *Périodes p-adiques*, Astérisque 223 (1994). Exposé number UNVERIFIED and suspect: rv-h-c3
+    R2 recalls (SPECULATIVE) that the de Rham admissibility formalism is in Fontaine's Exp. III,
+    while Exp. VIII, named here before, is on potentially semistable representations. Check the
+    exposé numbers before adopting the citation.
+- *Repairs (rv-h-c3 §4; wording and citations, no change of argument).*
+  - **R1.** N5's proof descends from `F` to `K` through a Galois closure `F' ⊇ F` and does not
+    state that de Rham over `F` implies de Rham over `F'`. Add the line: `F' ⊗_F D_F → D_{F'}` is
+    injective (`B_dR^{G_{F'}} = F'`), so `dim D_{F'} ≥ dim W`, and `≤` always holds; or cite it
+    with the same Fontaine reference as the descent (VERIFIED as an argument, rv-h-c3 §3.1 P5).
+  - **R2.** The citation swaps above (Milne's notes → Mumford §§19-20 or Milne 1986 §15;
+    Brinon–Conrad → Fontaine, Astérisque 223, exposé to be checked; Faltings 1989 / Tsuji 1999
+    as the fallback for Scholze).
+  - **R3.** The normalization of `ρ_g` in C8, where the lemma's weights `{0, −1}` are compared
+    with the eigenform's; applied in C8 below (it is rv-h-c8's R1).
+- *Shorter route (rv-h-c3 §3.2; STANDARD, SPECULATIVE as a recommendation).* `r_ℓ|G_F` is a
+  summand of `V_ℓ(A_F) ⊗ C_ℓ`, and `V_ℓ(A_F)` is pst by semistable reduction (SGA 7 IX) and
+  `C_st` (Tsuji 1999). So `r_ℓ|G_{ℚ_ℓ}` is pst and its Hodge–Tate weights can be read on `G_F`,
+  with neither the descent paragraph nor Berger (C4). The descent paragraph is correct but not
+  load-bearing; this corrects rv-h-trust §3, which said C8 needs it in either route.
+- *Status:* **[M] (rv-h-trust, rv-h-c3: two independent model reviews).** The lemma is new in
+  N5: the 11/4 text read by Astra said "finite-extension descent … [faltings1988]" at this point
+  and has no such lemma. rv-h-trust §2.1 found the weight step and the Hilbert 90 descent correct,
+  given Scholze. rv-h-c3, written without first reading rv-h-trust's treatment, found that the
+  lemma holds as stated and that its conclusion is exactly what N5 uses, with the repairs above;
+  the two reviews agree. h-leaves §3.1 read it as an inventory, not a review. The citations are
+  [P] until they are swapped.
 
 **C4. de Rham implies potentially semistable** (N5 L739-741).
 - *Supplier.* Berger, *Représentations p-adiques et équations différentielles*, Invent. Math.
@@ -406,38 +437,78 @@ L10939-11000).
   The hypothesis check was reviewed on text identical to N5's: Astra descent AUDIT (the Pan
   item) and Astra whole REPORT ("Scalar descent and modularity") check Pan's hypothesis list
   against C2 and C4-C6, which are the same in 11/4 and N5; C3 is covered by rv-h-trust §2.1
-  (Pan arXiv v2, Thm 1.0.4 with Conj. 1.0.1, ASTRA-READ). The discharge table rv-h-a011 §3.1,
-  written for Version 14, also applies to N5, because the representation `r₅` and the
-  hypothesis list are the same; its route (c) is N5's route.
+  and rv-h-c3 §3.3 (Pan arXiv v2, Thm 1.0.4 with Conj. 1.0.1, ASTRA-READ; Pan's convention,
+  `ε` of weight `−1`, is N5's). The discharge table rv-h-a011 §3.1, written for Version 14, also
+  applies to N5, because the representation `r₅` and the hypothesis list are the same; its
+  route (c) is N5's route.
 - *Policy.* This is repair R2 of rv-h-a011: the leaf is Pan's stated theorem. The works cited
   inside its proof (Skinner–Wiles 1999/2001, Kisin, Hu–Tan, Khare–Wintenberger) are not leaves.
 - *Status:* **[R]** for the theorem; **[M]** for the hypothesis check.
 
 **C8. The twist and the weight** (N5 L757-768).
-- *Content.* The twisting character is de Rham and unramified almost everywhere, hence a finite
-  character times an integral power of the cyclotomic character. Comparing `{0, −1}` with
-  `{n, n+1−k}` gives `k = 2`, `n = 0`. The finite part is absorbed into `f`.
+- *Normalization (rv-h-c8 R1, rv-h-c3 R3).* Tate convention: the cyclotomic character `χ` has
+  Hodge–Tate weight `−1` (as in N5 L757, C3 and Pan). `ρ_g` denotes the representation of the
+  eigenform `g` (weight `k`, nebentypus `ε_g`) with `tr ρ_g(Frob_ℓ^arith) = a_ℓ(g)` and
+  `det ρ_g = ε_g χ^{k−1}`, i.e. the Tate-module (arithmetic-Frobenius) normalization, as on
+  `V_p(J₁(N))` for `k = 2`. Its weights are `{0, 1−k}`. N5 does not fix this, and its phrase "the
+  modular weights `{0, 1−k}`" is right only in this normalization. Pan's paper uses geometric
+  Frobenius: there `ρ_g` is the cohomological representation (`H^{k−1}` of the Kuga–Sato
+  variety), with weights `{0, k−1}`. The two differ by duality, and `U^∨ ≅ U ⊗ det(U)^{−1}` for
+  2-dimensional `U`, so bringing Pan's conclusion to the Tate-module normalization changes only
+  the twisting character (h-a011 §4).
+- *Content.* `r₅ ≅ ρ_g ⊗ ψ` with `ψ` continuous (Pan's "up to twist"). The twisting character is
+  Hodge–Tate (N5 says de Rham, which is true but more than needed) and unramified almost
+  everywhere, hence a finite character times an integral power of the cyclotomic character.
+  Comparing `{0, −1}` with `{n, n+1−k}` gives `k = 2`, `n = 0`. The finite part is absorbed into
+  `f`.
 - *Suppliers.*
-  - **The `5`-adic representation `ρ_g` of a cuspidal eigenform of weight `k` is de Rham at 5,
-    with Hodge–Tate weights `{0, 1−k}`.** N5 uses this twice without a citation: the twisting
-    character is "a de Rham subrepresentation of the Hom representation", and N5 compares
-    `{0, −1}` with "the modular weights `{0, 1−k}`" (rv-h-trust §1.2 item 1). For the first use
-    Hodge–Tate suffices. Refereed sources: Faltings, *Hodge–Tate structures and modular forms*,
-    Math. Ann. 278 (1987) (Hodge–Tate); Scholl, *Motives for modular forms*, Invent. Math. 100
-    (1990), with Faltings 1989 or Tsuji 1999 (de Rham); or Saito, *Modular forms and p-adic
-    Hodge theory*, Invent. Math. 129 (1997). Locators UNVERIFIED. Version 14 used Kato 2004 here
-    (h-a011 §4).
+  - **(HT) For every cuspidal eigenform `g` (every weight `k ≥ 1`, every level `N`, including
+    `5 | N`, every nebentypus), `ρ_g|G_{ℚ₅}` is Hodge–Tate, with weights `{0, 1−k}` in the
+    normalization above** (normalization-free form: its two weights differ by `k − 1`;
+    rv-h-c8 §3.1). N5 uses this twice without a citation: the twisting character is "a de Rham
+    subrepresentation of the Hom representation", and N5 compares `{0, −1}` with "the modular
+    weights `{0, 1−k}`" (rv-h-trust §1.2 item 1). Hodge–Tate suffices for both uses (Tate's local
+    algebraicity needs only Hodge–Tate, and Hodge–Tate is closed under Hom and subobjects). The
+    eigenform of Pan's theorem can have level divisible by 5 (`T` depends on `u`, and nothing in
+    N5 excludes bad reduction above 5; rv-h-c8 §3.3), so the supplier must cover all levels.
+    Refereed sources (locators UNVERIFIED):
+    - **for `k ≥ 2` and every level, including `5 | N`:** Saito, *Modular forms and p-adic Hodge
+      theory*, Invent. Math. 129 (1997) (pst at `p` for every level; weights `0, k−1` in the
+      cohomological normalization); or Scholl, *Motives for modular forms*, Invent. Math. 100
+      (1990), with Scholze 2013, Cor. 1.8 and Fontaine's closure under subquotients, both already
+      leaves of C3;
+    - **only for `5 ∤ N`:** Scholl 1990 with Faltings 1989 (crystalline comparison); Scholl 1990
+      with Tsuji 1999 covers `5 | N` only together with de Jong's alterations (Publ. IHÉS 83,
+      1996);
+    - Faltings, *Hodge–Tate structures and modular forms*, Math. Ann. 278 (1987) (Hodge–Tate,
+      `k ≥ 2`): whether it covers `5 | N` is UNVERIFIED (check its hypotheses on the level);
+    - **for `k = 1`:** none of the above. Deligne–Serre, Ann. Sci. ÉNS 7 (1974), Thm 4.1
+      (weight-one forms have finite image), plus: a representation with finite image on inertia
+      has all Hodge–Tate weights 0 (STANDARD). Then `ρ_g ⊗ ψ` has equal weights, which C3
+      excludes. (Alternatively Pan's body produces regular algebraic automorphic
+      representations, hence `k ≥ 2`; UNVERIFIED reading.)
+    - Version 14 used Kato 2004 here (h-a011 §4).
   - Local algebraicity of Hodge–Tate characters: N5 cites Conrad's preprint (2011), App. B,
     pp. 32-33, which is [P]. Replacement: Serre, *Abelian ℓ-adic representations and elliptic
-    curves* (1968), Ch. III (Tate's theorem on Hodge–Tate characters). Locator UNVERIFIED;
-    check III-§1 and the appendix.
-- *Check here.* `{n, n+1−k} = {0, −1}` with `k ≥ 1` forces `n = 0`, `k = 2`. The other matching
-  gives `k = 0` (VERIFIED as an argument).
-- *Status:* **[M]**, but only through Astra "descent" (ADDENDUM item 5) on the 11/4 text, which
-  accepted the argument without naming the eigenform input above. rv-h-a011 checked Version
-  14's different twist argument (Deligne–Serre / Kato), and rv-h-novel left this paragraph out
-  of scope. With C3 and C9's Li–Shimura sentence (rv-h-trust only), it is among the
-  least-reviewed paragraphs of Part C.
+    curves* (1968), Ch. III (Tate's theorem on Hodge–Tate characters), or Tate, *p-divisible
+    groups* (1967), §3.3, Thm 2. Locator UNVERIFIED; check III-§1 and the appendix.
+- *Check here.* In the Tate-module normalization, `{n, n+1−k} = {0, −1}` with `k ≥ 1` forces
+  `n = 0`, `k = 2`; the other matching gives `k = 0` (VERIFIED as an argument). In Pan's
+  cohomological normalization the comparison forces `k = 2` and twist `χ¹`, not "power zero"
+  (rv-h-c8 `weights.py`, exhaustive over `k ≤ 200`, `|n| ≤ 300`). The conclusion is the same:
+  for `k = 2`, `ρ_g^coh ⊗ χ = (ρ_g^Tate)^∨ ⊗ χ = ρ_g^Tate ⊗ ε_g^{−1}`, a finite twist, absorbed
+  into `f` (rv-h-c8 §5; rv-h-c3 §3.4). So `k = 2` is normalization-free and "power zero" holds
+  in the Tate-module normalization, which is the one C9 needs (Tate module of `A_f`).
+- *Uncited but elementary (rv-h-c8 R4, §4 items 3-4).* Finiteness of `ψ` on inertia at `ℓ ≠ 5`
+  (`ψ(I_ℓ)` is the image of `ℤ_ℓ^×`, and `O_E^×` is virtually pro-5), and Kronecker–Weber for
+  "finite ray-class character".
+- *Status:* **[M] (Astra "descent" on the identical 11/4 text, and rv-h-c8 on N5: two model
+  reviews).** Astra (ADDENDUM item 5) accepted the argument without naming the eigenform input;
+  its AUDIT item 6 warned against mixing the pairs `{0, k−1}` and `{0, 1−k}`. rv-h-c8 names the
+  input, checks it against the N5 text, and finds that C8 holds after the repairs above
+  (normalization, weight one, levels divisible by 5). The supplier (HT) is **[R]** with those
+  corrections. rv-h-a011 checked Version 14's different twist argument (Deligne–Serre / Kato),
+  and rv-h-novel left this paragraph out of scope.
 
 **C9. Newform and `A_f`** (N5 L768-774).
 - *Suppliers.*
@@ -450,6 +521,8 @@ L10939-11000).
     Japan 25 (1973), Thm 1. To check: that its hypothesis is exactly a Hecke- and
     Fricke-stable span, which is what Li's formula supplies.
   - Then Eichler–Shimura, Chebotarev and Faltings' semisimplicity place `r₅` in `V₅(A_f)`.
+  - L774, "this duality preserves the conductor": the Artin / Weil–Deligne conductor of `V^∨`
+    equals that of `V` (Serre, *Local fields* VI; Deligne 1973, §8), uncited in N5 (rv-h-c8 §6).
   - Locators UNVERIFIED.
 - *Status:* **[R]**. The application is [M]: the part present in 11/4 by Astra "descent"; the
   Li–Shimura sentence (N5 L768-772) is new in N5 and has been reviewed only by rv-h-trust §2.1
@@ -588,18 +661,22 @@ in §1 (this includes the eigenform input added to C8 after rv-h-trust §1.2 ite
    - A3, A7, A8 and the centralizer step of A9 (Astra "whole", 11/4 text);
    - B1-B3, C1, C10 and D1-D4 (rv-h-novel on N5, plus Astra);
    - C5, C8 and the 11/4 part of C9 (Astra "descent", 11/4 text; parts of C2 and C5 also in
-     rv-h-a011, on Version 14);
+     rv-h-a011, on Version 14; C8 also in rv-h-c8, on N5);
    - E1 and E4 (rv-h-novel);
    - F2-F4 (Astra "height").
 
-   **Three passages are new in N5 and have a single model review, rv-h-trust §2.1** (Astra read
-   the 11/4 text, which lacks them):
-   - C3, Lemma `lem:de-rham-descent` (N5 L734-737 and L10938-11000);
+   **Three passages are new in N5** (Astra read the 11/4 text, which lacks them). Two have a
+   single model review, rv-h-trust §2.1:
    - A9, the Milne paragraph (N5 L564-570);
    - C9, the Li–Shimura sentence (N5 L768-772).
 
-   **C8** (twist and weight) has had only Astra's review of the 11/4 text, which did not name
-   the eigenform input. rv-h-novel and rv-h-a011 both left N5's version of it out of scope.
+   The third, C3's Lemma `lem:de-rham-descent` (N5 L734-737 and L10938-11000), has two
+   independent model reviews that agree: rv-h-trust §2.1 and rv-h-c3 (holds as stated; repairs
+   R1-R3, wording and citations).
+
+   **C8** (twist and weight) has two model reviews: Astra's of the 11/4 text, which did not name
+   the eigenform input, and rv-h-c8 on N5, which names it and finds that C8 holds after its
+   repairs R1-R3 (normalization of `ρ_g`, weight one, levels divisible by 5), applied in §1 C8.
 2. **NoCM** (A10): h-cm with the review rv-h-cm, after its repairs R1-R5.
 3. **The hypothesis check for Pan** (C7): Astra "descent" and "whole" on text identical to N5,
    and h-a011 with the review rv-h-a011, written for Version 14 and transferred to N5 in §1 C7.
@@ -614,8 +691,8 @@ in §1 (this includes the eigenform input added to C8 after rv-h-trust §1.2 ite
 
 ### 2.2 Repository arguments with no independent review
 
-None, after rv-h-b1 and rv-h-trust. If the project wants a second model review of C3's lemma,
-which has only rv-h-trust's, it belongs here.
+None, after rv-h-b1 and rv-h-trust. C3's lemma now has a second model review (rv-h-c3), and C8
+a review on the N5 text (rv-h-c8).
 
 ### 2.3 Repository scripts (exact computations)
 
@@ -638,9 +715,9 @@ That is the nine scripts of the original eight rows, plus `rv_checks.py` and `br
 
 | N5 key | Used at | Replacement | Statement change |
 | --- | --- | --- | --- |
-| `milne-av` (course notes v2.00, 2008) | A9 (L564), C3 (L10968) | Mumford, *Abelian varieties* (1970), §§1-3, 19-20; Milne in Cornell–Silverman (1986) | none |
-| `brinon-conrad` (CMI notes, 2009) | C3 | Fontaine, Astérisque 223 (1994), Exp. II-III and VIII | none |
-| `conrad-local-characters` (preprint, 2011) | C8 | Serre 1968, Ch. III | none |
+| `milne-av` (course notes v2.00, 2008) | A9 (L564), C3 (L10968) | Mumford, *Abelian varieties* (1970), §§1-3, 19-20; Milne in Cornell–Silverman (1986), §15 | none |
+| `brinon-conrad` (CMI notes, 2009) | C3 | Fontaine, Astérisque 223 (1994); exposé numbers to check (rv-h-c3 R2: the admissibility formalism is probably Exp. III, and Exp. VIII, named here before, is on potentially semistable representations; SPECULATIVE) | none |
+| `conrad-local-characters` (preprint, 2011) | C8 | Serre 1968, Ch. III, or Tate 1967, §3.3 | none |
 | `babagranath` (MPI preprint, 2005) | A2, A7 | Canad. J. Math. 60 (2008) | numbering to compare; the "local index slip" of Lemma 3.1 is not used (A3 is proved in N5) |
 | `linyang` (arXiv v1, 2018) | A1, A2, A7, F1 | Math. Z. 295 (2020) | equation and example numbers to compare |
 | `buzzard` (author version, 2002) | N5 L444 | deleted by B1 | — |
@@ -678,9 +755,12 @@ UNVERIFIED in the sense above, but no human has read them:
 2. **Carayol 1986, Théorème (A)**: its coverage of `F = ℚ`, weight 2, every `p ≠ ℓ`. Check the
    statement in §0 of the paper (Numdam ASENS_1986_4_19_3_409_0); N5 L9778 already gives
    §§0.3-0.7, pp. 409-411.
-3. **The C8 supplier**: Faltings, Math. Ann. 278 (1987), or Scholl, Invent. Math. 100 (1990) with
-   Faltings 1989 / Tsuji 1999, or Saito, Invent. Math. 129 (1997): that the `p`-adic
-   representation of a weight-`k` eigenform is Hodge–Tate (de Rham) with weights `{0, 1−k}`.
+3. **The C8 supplier** (HT): Saito, Invent. Math. 129 (1997), or Scholl, Invent. Math. 100
+   (1990) with Scholze 2013 Cor. 1.8: that the `p`-adic representation of a weight-`k` eigenform
+   is Hodge–Tate with weights `{0, 1−k}` (Tate-module normalization), **at every level,
+   including `p | N`** (rv-h-c8 R3). Faltings, Math. Ann. 278 (1987): whether it covers `p | N`.
+   Scholl with Faltings 1989 covers only `p ∤ N`, and Scholl with Tsuji 1999 needs de Jong 1996.
+   For `k = 1`: Deligne–Serre 1974, Thm 4.1 (rv-h-c8 R2).
 4. **Shimura 1973, Thm 1**: that its hypothesis is exactly a Hecke- and Fricke-stable span (C9).
 5. **SGA 1 X 3.1, XIII 5.3; SGA 7 IX 3.6, IX 4.7**, and **Serre–Tate 1968, Thms 1-2**: for
    Lemma PR. These are classical, and the numbering is the risk.
@@ -689,7 +769,8 @@ UNVERIFIED in the sense above, but no human has read them:
    interpretation and its four inputs (A3-A5; h-b1 §4A).
 7. **Faltings 1983**: Lemma 5 (§5), and the 1984 erratum (that it touches none of Satz 3, Satz 4,
    Korollar 1, Lemma 5).
-8. **Scholze, Forum Math. Pi 1 (2013), Cor. 1.8 and Thms 9.1, 9.3**, and the corrigendum.
+8. **Scholze, Forum Math. Pi 1 (2013), Cor. 1.8 and Thms 9.1, 9.3**, and the corrigendum (C3,
+   and C8 on the Scholl route).
 9. **Li 1975** (main theorem; p. 296); **Shimura 1971 §3.6 / Atkin–Li 1978** (twists of
    eigenforms).
 10. **Baba–Granath 2008** and **Lin–Yang 2020**: compare the journal numbering with the preprint
@@ -697,7 +778,8 @@ UNVERIFIED in the sense above, but no human has read them:
 11. **Vignéras LNM 800** (local normalizers, embedding condition); **Reiner** (Skolem–Noether);
     **Mumford §19** (Thms 1, 3, 4); **BLR §1.2**; **Serre, *Local fields* III §6, IV §§1-3**,
     and ***Corps locaux* VI §2** (upper-numbering conductor, D4); **Serre 1968 Ch. III**;
-    **Fontaine, Astérisque 223**; **Tate in Cassels–Fröhlich Ch. VII**.
+    **Fontaine, Astérisque 223** (exposé numbers: rv-h-c3 R2); **Tate in Cassels–Fröhlich
+    Ch. VII**.
 
 ### 2.6 Policy items (not gaps)
 
@@ -706,7 +788,8 @@ UNVERIFIED in the sense above, but no human has read them:
 - **Inside Berger.** Berger's theorem rests on André, Kedlaya and Mebkhout (rv-h-a011 F3). All
   are refereed. This is not a residual.
 - **Conventions.** Hodge–Tate sign, Frobenius and reciprocity normalizations were checked to be
-  immaterial (rv-h-a011 §2; h-b1 §6 item 3).
+  immaterial (rv-h-a011 §2; h-b1 §6 item 3). The normalization of the eigenform representation in
+  C8 changes only the twisting character, not the conclusion (rv-h-c8 §5), once C8 fixes it.
 - **Height normalizations.** Javanpeykar and GR14 both use the original stable Faltings height
   (ASTRA-READ); Pazuki's Deligne normalization is handled explicitly by `X_D` (N5 L939-941); and
   rv-h-novel step 9 shows that `O(g)` shifts are absorbed. No residual (rv-h-trust §4 item 7).
@@ -724,8 +807,9 @@ Outside refereed sources, H rests on:
 - (iv) nine exact scripts (§2.3), plus `rv-h-b1/rv_checks.py` and `rv-h-trust/branch_check.py`;
 - (v) five citation swaps (§2.4);
 - (vi) the locator checks of §2.5 (the ASTRA-READ ones read by a model only);
-- (vii) three N5 passages with a single model review (rv-h-trust): C3's lemma, A9's Milne
-  paragraph, C9's Li–Shimura sentence.
+- (vii) two N5 passages with a single model review (rv-h-trust): A9's Milne paragraph and C9's
+  Li–Shimura sentence. C3's lemma (rv-h-trust, rv-h-c3) and C8 (Astra on 11/4, rv-h-c8 on N5)
+  each have two model reviews, with their repairs applied in §1.
 
 No unpublished upstream proof supplement is used.
 
@@ -733,7 +817,10 @@ No unpublished upstream proof supplement is used.
 
 These are the drafts as repaired after rv-h-trust §5 (items 1-5, the HeightMin paragraph and the
 KERNEL_PLAN row). Task h-adopt applied them verbatim to the Lean files and to KERNEL_PLAN.md; the
-definitions, statements, proofs and numerals are unchanged.
+definitions, statements, proofs and numerals are unchanged. Task h-c38 updated three items in the
+drafts, the Lean docstring and the row alike, after rv-h-c3 and rv-h-c8: the C8 supplier (its
+normalization, all levels, Deligne–Serre for weight one), the review count of the twist and weight
+step, and that of the de Rham descent lemma. The `HeightMin.lean` texts needed no change.
 
 **`ZInQKernel/Hypotheses/Height.lean`**: the module docstring and the docstring of
 `SixContactEstimate`.
@@ -766,8 +853,10 @@ principally on the following.
   - Galois representations: Faltings' finiteness theorems (1983); Scholze's de Rham comparison
     (2013, with its 2016 corrigendum); Berger's p-adic monodromy theorem (2002); Pan's
     Fontaine–Mazur theorem (J. Amer. Math. Soc. 35 (2022), Theorem 1.0.4 of
-    arXiv:1901.07166v2); the p-adic Hodge theory of modular forms (Faltings 1987, Scholl 1990
-    or Saito 1997); Li 1975 and Shimura 1973 for newforms; Carayol's local–global
+    arXiv:1901.07166v2); the p-adic Hodge theory of modular forms, in the Tate-module
+    (arithmetic-Frobenius) normalization with weights `{0, 1−k}`, at every level including
+    levels divisible by 5 (Saito 1997, or Scholl 1990 with Scholze 2013), and Deligne–Serre
+    1974 for weight one; Li 1975 and Shimura 1973 for newforms; Carayol's local–global
     compatibility (1986, Théorème A).
   - Local fields: local class field theory and ramification (Serre), and Raynaud's criterion
     (Silverberg–Zarhin 1995).
@@ -781,14 +870,15 @@ principally on the following.
     (`docs/reviews/height-replacement/`).
   - The geometric bookkeeping: the level-three degree and the conjugates, the Hom field and the
     endomorphism dichotomy (Astra "whole").
-  - Oddness, and the twist and weight argument (Astra "descent" only, on the 11/4 text).
+  - Oddness (Astra "descent", on the 11/4 text), and the twist and weight argument (Astra
+    "descent" on the 11/4 text and `docs/research/rv-h-c8.md` on the 11/5 text).
   - The theta-height comparison and the return to `u` (Astra "height").
   - The application of Pan's theorem: Astra "descent" and "whole" on the manuscript's text, and
     `docs/research/rv-h-a011.md`.
-  - Three passages that are new in the 11/5 text have been reviewed only in
-    `docs/research/rv-h-trust.md`: the de Rham descent lemma (`lem:de-rham-descent`), the
-    paragraph on Hodge endomorphisms in the dichotomy, and the Li–Shimura sentence on the
-    newform.
+  - Three passages are new in the 11/5 text. The de Rham descent lemma
+    (`lem:de-rham-descent`) has two independent model reviews (`docs/research/rv-h-trust.md`,
+    `docs/research/rv-h-c3.md`); the paragraph on Hodge endomorphisms in the dichotomy and the
+    Li–Shimura sentence on the newform have been reviewed only in `rv-h-trust.md`.
 * **Repository arguments that replace manuscript text.**
   - The CM branch is empty for rational `u` (`docs/research/h-cm.md`; model review
     `rv-h-cm.md`).
@@ -851,7 +941,7 @@ arguments, with no unpublished upstream proof supplement (`Hypotheses/Height.lea
 **H row of the dependency table in KERNEL_PLAN.md** (T3 success criterion: the row names no
 supplement as an input):
 
-| H (Theorem 4.1) | refereed theorems (Shimura curve: Shimura, Deligne, Kottwitz, Baba–Granath, Lin–Yang, González–Rotger; SGA 1, SGA 7, Serre–Tate; Faltings 1983; Scholze; Berger; Pan's Theorem 1.0.4; p-adic Hodge theory of modular forms (Faltings 1987, Scholl 1990 or Saito 1997); Li, Shimura 1973; Carayol; Serre's local fields; Silverberg–Zarhin; Javanpeykar; Gaudron–Rémond; Pazuki; Igusa), plus the manuscript's descent, conductor and transfer arguments (model reviews only: [rv-h-novel](docs/research/rv-h-novel.md), Astra), the manuscript's geometric, twist and theta-height bookkeeping (Astra; the de Rham lemma and two other passages new in the 11/5 text reviewed only in [rv-h-trust](docs/research/rv-h-trust.md)), NoCM ([h-cm](docs/research/h-cm.md), [rv-h-cm](docs/research/rv-h-cm.md)), and Lemma PR in place of the integral model ([h-b1](docs/research/h-b1.md); model review [rv-h-b1](docs/research/rv-h-b1.md)). No unpublished upstream proof supplement. Outline: [docs/research/h-trust.md](docs/research/h-trust.md) |
+| H (Theorem 4.1) | refereed theorems (Shimura curve: Shimura, Deligne, Kottwitz, Baba–Granath, Lin–Yang, González–Rotger; SGA 1, SGA 7, Serre–Tate; Faltings 1983; Scholze; Berger; Pan's Theorem 1.0.4; p-adic Hodge theory of modular forms in the Tate-module normalization, at every level (Saito 1997, or Scholl 1990 with Scholze), with Deligne–Serre 1974 for weight one; Li, Shimura 1973; Carayol; Serre's local fields; Silverberg–Zarhin; Javanpeykar; Gaudron–Rémond; Pazuki; Igusa), plus the manuscript's descent, conductor and transfer arguments (model reviews only: [rv-h-novel](docs/research/rv-h-novel.md), Astra), the manuscript's geometric, twist and theta-height bookkeeping (Astra; the twist and weight step also [rv-h-c8](docs/research/rv-h-c8.md); of three passages new in the 11/5 text, the de Rham lemma reviewed in [rv-h-trust](docs/research/rv-h-trust.md) and [rv-h-c3](docs/research/rv-h-c3.md), the other two only in rv-h-trust), NoCM ([h-cm](docs/research/h-cm.md), [rv-h-cm](docs/research/rv-h-cm.md)), and Lemma PR in place of the integral model ([h-b1](docs/research/h-b1.md); model review [rv-h-b1](docs/research/rv-h-b1.md)). No unpublished upstream proof supplement. Outline: [docs/research/h-trust.md](docs/research/h-trust.md) |
 
 ## 4. Next step
 
@@ -861,13 +951,17 @@ The review this section asked for is done: `docs/research/rv-h-trust.md` (this o
 - (1) line coverage, (2) the transfer of the Pan hypothesis check to N5 (C7) and (4) the moduli
   identification A4 are done (rv-h-trust §§1.1, 2.2; rv-h-b1 §7);
 - (3) C8 is done, except that its new supplier (the p-adic Hodge theory of the eigenform, §1 C8)
-  is a locator still to read.
+  is a locator still to read. rv-h-c8 has since reviewed C8 on the N5 text (repairs R1-R3
+  applied in §1 C8).
 
 What remains are the network checks of §2.5. The most important are Pan's JAMS text,
 Carayol's Théorème A at `F = ℚ`, the C8 supplier, and the hypothesis of Shimura 1973 Thm 1.
 They decide whether any statement must change; the rest decide numbering only (SPECULATIVE).
-Optional: a second model review of the three N5-only passages (§2.1 item 1), above all C3's
-lemma.
+For the C8 supplier the check is at `p | N`: Saito 1997 (or Scholl 1990 with Scholze's Cor. 1.8),
+and Deligne–Serre 1974 Thm 4.1 for weight one. For C3, check the exposé numbers of Fontaine's
+Astérisque 223 (rv-h-c3 R2). The second model review of C3's lemma is done (rv-h-c3). Optional:
+a second model review of the other two N5-only passages (A9's Milne paragraph, C9's Li–Shimura
+sentence; §2.1 item 1).
 
 ## Changelog
 
@@ -900,3 +994,35 @@ only: no argument and no constant changes, and no unpublished supplement becomes
 5. **Drafts (D1-D3).** §3 repaired per rv-h-trust §5 and applied to `Hypotheses/Height.lean`,
    `Hypotheses/HeightMin.lean` and KERNEL_PLAN.md.
 6. **Next step (N1-N3).** §4 rewritten.
+
+Task h-c38 (2026-11-11), applying `docs/research/rv-h-c3.md` R1-R3 and
+`docs/research/rv-h-c8.md` R1-R3 (with R4-R5 where they are bookkeeping). Wording, citations and
+review counts only: no argument, constant or Lean statement changes.
+
+1. **Header, marks, Summary.** rv-h-c3 and rv-h-c8 added as sources; C3's lemma now has two
+   model reviews (Summary items 1 and 3, D1); rv-h-c3's citation-only pst route noted under D1;
+   route table row L719-795 names the C8 normalization, all levels and Deligne–Serre.
+2. **C3.** rv-h-c3 R1 (the restriction step "de Rham over `F` ⇒ over `F'`"), R2 (Milne's notes →
+   Mumford §§19-20 / Milne 1986 §15; Brinon–Conrad → Fontaine, Astérisque 223, with the
+   "Exp. VIII" locator flagged as suspect; Faltings 1989 / Tsuji 1999 as fallback for Scholze),
+   R3 (pointer to C8); the shorter route of rv-h-c3 §3.2. Status: "[M] (rv-h-trust, rv-h-c3: two
+   independent model reviews)". C7: C3's hypothesis also covered by rv-h-c3 §3.3.
+3. **C8.** rv-h-c8 R1 = rv-h-c3 R3: `ρ_g` fixed in the Tate-module (arithmetic-Frobenius)
+   normalization, `det ρ_g = ε_g χ^{k−1}`, weights `{0, 1−k}`; in Pan's geometric normalization
+   the weights are `{0, k−1}` and the twist is `χ¹`, with the same conclusion for `k = 2`.
+   Supplier stated as (HT), Hodge–Tate sufficing. R2: Deligne–Serre 1974, Thm 4.1 for `k = 1`.
+   R3: the supplier must cover `5 | N`; Saito 1997, or Scholl 1990 with Scholze 2013 Cor. 1.8,
+   named for all levels; Scholl with Faltings 1989 only for `5 ∤ N`, with Tsuji 1999 only with de
+   Jong 1996; Faltings 1987's level coverage UNVERIFIED. R4: the two elementary uncited steps
+   (in C8) and "duality preserves the conductor" (in C9). R5: status "[M] (Astra on 11/4,
+   rv-h-c8 on N5: two model reviews)", supplier [R] with the corrections.
+4. **Residuals.** §2.1: C3 and C8 each have two model reviews; the single-review N5 passages are
+   A9's and C9's. §2.2 note updated. §2.4: Milne 1986 §15, the Fontaine exposé flag, Tate 1967.
+   §2.5 item 3 (C8 supplier at `p | N`, Deligne–Serre), item 8 (Scholze also for C8), item 11.
+   §2.6 conventions: C8's normalization. §2.7 (vii) updated.
+5. **Drafts and Lean comments.** §3 and the module docstring of `Hypotheses/Height.lean`: the C8
+   supplier with its normalization, all levels and Deligne–Serre; the review counts of the twist
+   and weight step and of the de Rham lemma. Same in the H row of KERNEL_PLAN.md.
+   `HeightMin.lean` unchanged.
+6. **Next step.** §4: C3's second review done; the C8 locator check is at `p | N`; Fontaine's
+   exposé numbers.
