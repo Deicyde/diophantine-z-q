@@ -12,3 +12,17 @@
 - Elementary check: every d in CR3's domain (d ≡ 5 (8), a | d, |a| ≡ 7 (8)) has ≥ 2 primes ≢ 1 (8)
   (a has a prime ≡ 3,7; d/|a| ≡ 3 (8) has a prime ≡ 3,7). So criteria with "all primes ≡ 1 (8)
   but one" (Tian 2014) never apply, for any slot choice.
+
+## Step 2 (Lean draft `scratch/wk-cr3/Literature.lean`)
+- Compiled with `lake env lean` run in ~/dzq-check2 (prebuilt oleans at 520e27e5; `git diff
+  520e27e5 66e9ce28` touches only KERNEL_PLAN.md, README.md). No errors, no sorry.
+  `#print axioms`: propext, Classical.choice, Quot.sound for `IsLContinuation.eq`,
+  `certifiedRankTYZClRk_of_literature`, `tyzRow5b_of_readingA` (out_literature.txt).
+- Definitions: `IsLContinuation E F` (F entire, = Mathlib `E.LSeries` on Re s > 3/2);
+  `T5aCl`, `Admissible5aNat` (row 5a with gCl).
+- Props: `GrossZagierKolyvagin` (all E/ℚ elliptic: ord_{s=1} = 1 ⇒ point of infinite order),
+  `RootNumberVanishing` (d ≡ 5: F 1 = 0), `TYZRow5b` (T5bCl d = 1 ⇒ ∃ F, ord ≤ 1),
+  `HeckeContinuation` (∃ F for d ≠ 0), `TYZThm35ReadingA` (ord ≥ 2 ⇒ T5aCl = T5bCl = 0).
+- Theorems: `IsLContinuation.eq` (uniqueness, identity theorem), `analyticOrder_eq_one`,
+  `certifiedRankTYZClRk_of_literature : TYZRow5b → RootNumberVanishing → GrossZagierKolyvagin →
+  CertifiedRankTYZClRk`, `tyzRow5b_of_readingA : TYZThm35ReadingA → HeckeContinuation → TYZRow5b`.
