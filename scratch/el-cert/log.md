@@ -37,3 +37,13 @@ Marks: VERIFIED / STANDARD / SPECULATIVE. Worktree base e3612538.
   m(m - B) = c^2 (theta = 1) then Phi(B) by the 2-torsion witness (rs-pole 2.2(2)). No
   admissibility (0<B<1/2, square den, S0 valuations) is needed for that. (VERIFIED: reading)
 - M1 + theta=1 target: Y^2 = m^2 Theta0^2 - m R0' (1 - R0 q^2)^2, a genus-1 quartic in q.
+
+## X1-X2 (script x1_genus.py, PARI, < 3 min)
+
+- X1: M1 valuation logic, k odd in 1..11, v(Theta0) in -6..11, v(q) in -12..11: Phi(B) => 2v(Theta0) < k
+  with 0 counterexamples. (VERIFIED)
+- X2: genus of the theta=1 curve y^2 = m(m N^2 - R0 a^2 D^2) (Theta = N/D reduced), toy tests
+  (random C in Q(sqrt2), R0 = 7/3, m = 3):
+  test site original: deg_q s = 50, squarefree degree 100, genus 49;
+  slope site original: deg_q s = 518, degree 1036, genus 517;
+  M1 (both sites): degree 4, genus 1. (VERIFIED, exact)
