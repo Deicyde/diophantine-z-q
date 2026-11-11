@@ -17,3 +17,10 @@ residuals, changelog); sync Height.lean / HeightMin.lean comments and the KERNEL
   counts of twist/weight and de Rham lemma. Lines <= 100 chars (checked with python).
 - HeightMin.lean: nothing names C8 or review counts; unchanged.
 - KERNEL_PLAN H row: same two changes.
+
+## Step 3 (build and axioms)
+- lake build ZInQKernel: success (9919 jobs).
+- lake env lean scripts/print_axioms.lean: 59 entries, every one [propext, Classical.choice,
+  Quot.sound] (parsed across wrapped lines).
+- git diff d5a63902 -- ZInQKernel/: only lines inside the module docstring of
+  Hypotheses/Height.lean changed; HeightMin.lean untouched.
