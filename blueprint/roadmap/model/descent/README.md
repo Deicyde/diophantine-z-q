@@ -1,3 +1,7 @@
+---
+article_id: af_4aa9d040566edd7e9bcafaad
+---
+
 # Descent, torsion and rank
 
 The classical two-isogeny descent for curves $y^2=x^3+bx$ supplies the Kummer map, its

@@ -97,9 +97,14 @@ $L(C_n,s)$ vanish to order exactly one at $s=1$.
 The manuscript's Lemma 5.5 (`lem:forward-rank`, line 1086): analytic rank one implies rank
 one, by Gross–Zagier and Kolyvagin.
 
-## Poonen-Stoll
+## Cassels-Tate
 
 The manuscript's corank lemma (`lem:corank`, line 1072): for an elliptic curve with full
 rational two-torsion, a 2-Selmer group of dimension $3$ gives $2^\infty$-Selmer corank one. The
-proof uses the Cassels–Tate pairing of B. Poonen and M. Stoll, *The Cassels–Tate pairing on
-polarized abelian varieties*, Ann. of Math. 150 (1999).
+proof uses only that the Cassels–Tate pairing on $Ш/Ш_{\rm div}$ is nondegenerate and alternating,
+so $\dim(Ш/Ш_{\rm div})[2]$ is even; no finiteness of $Ш$ is assumed. For elliptic curves this is
+due to J. W. S. Cassels, J. reine angew. Math. 211 (1962), as `docs/research/pc-audit.md` RK3 cites
+it; the title (*Arithmetic on curves of genus 1. IV. Proof of the Hauptvermutung*) and the pages
+95–112 were not checked against the journal. The manuscript cites B. Poonen and
+M. Stoll, *The Cassels–Tate pairing on polarized abelian varieties*, Ann. of Math. 150 (1999).
+`docs/research/pc-audit.md` RK3 and `docs/research/rv-cr3-dl.md` §2.2 check the argument.

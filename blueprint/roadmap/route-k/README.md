@@ -77,7 +77,10 @@ $|n|$ and $|n\theta|$ to the base configuration, and the class $\beta$ survives 
 
 Two points with abscissas in $\beta\mathbb Q^{*2}$ on $C_N$ and $C_{N\theta}$ rescale to the
 witnesses of the pole polynomial. With CR₃ applied to the two certified curves this proves pole
-completeness, which the main theorem therefore no longer assumes.
+completeness, which the main theorem therefore no longer assumes. The proof applies CR₃ to these
+two curves only; the [two-curves section](../rank/two-curves/README.md) proves pole completeness
+from positive rank on curves of the same kind: the two curves of some slot choice, for every
+triple $\beta,\theta,p_0$ that admissible inputs produce.
 
 - [Points on two congruent number curves give pole solubility](points-pole-solubility.md)
 - [Pole completeness from the certified rank hypothesis](pole-completeness-from-cr3.md)

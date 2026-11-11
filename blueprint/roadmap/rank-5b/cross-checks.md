@@ -16,8 +16,8 @@ this statement, $C_{21}$ has a Selmer group with $8$ elements and $7$ is a first
 
 **Proof sketch.** The determinant is unchanged when the primes are relabelled. For $21$, with
 the primes listed as $(3,7)$, the bits are $(7/3)_+=0$ and $(3/7)_+=1$, $y_3=y_7=1$, $z_3=1$,
-$z_7=0$, and the $5\times5$ determinant over $\mathbb F_2$ is expanded along rows; the kernel checks
-the finite computation. For $5$, $y_5=0$, so the bordering row of $M_{5b}$ vanishes.
+$z_7=0$, and the $5\times5$ determinant over $\mathbb F_2$ is expanded along rows, a finite
+computation. For $5$, $y_5=0$, so the bordering row of $M_{5b}$ vanishes.
 
 ## Depends on
 

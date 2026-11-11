@@ -1,3 +1,7 @@
+---
+article_id: af_6aa68df1fcbe2b34b58c29f2
+---
+
 # The exact precision computation
 
 The five natural inputs of the precision computation are signed encodings, decoded in the

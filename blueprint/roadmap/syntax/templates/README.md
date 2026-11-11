@@ -1,3 +1,7 @@
+---
+article_id: af_29d9111307cfc70e0506eaaa
+---
+
 # The other templates
 
 Besides membership and raw addition, the core elliptic templates express the local

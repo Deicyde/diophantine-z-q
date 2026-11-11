@@ -1,3 +1,7 @@
+---
+article_id: af_a59043516f48d09a2fae0c7c
+---
+
 # The natural precision polynomial
 
 This chapter proves the natural half of input $\mathsf C$: an explicit polynomial

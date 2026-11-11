@@ -1,3 +1,7 @@
+---
+article_id: af_3033098b737610d3d47b7757
+---
+
 # Assembly and the ordinary-value relation
 
 This chapter proves that the rational zero projection of the specified polynomial $P_*$ is

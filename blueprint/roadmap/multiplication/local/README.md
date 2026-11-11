@@ -1,3 +1,7 @@
+---
+article_id: af_5971f1d401ed5ed61c874681
+---
+
 # Local conventions: the formal group and the truncated logarithm
 
 The multiplication certificate reads arithmetic information off points of $2E(K_0)$ at

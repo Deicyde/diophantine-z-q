@@ -1,3 +1,7 @@
+---
+article_id: af_b308239de19c9c5310e8dca8
+---
+
 # The finite specification of the polynomial
 
 The target polynomial $P_*$ is defined by construction. It is a finite composition of

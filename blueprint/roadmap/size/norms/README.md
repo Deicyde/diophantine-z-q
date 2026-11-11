@@ -1,3 +1,7 @@
+---
+article_id: af_5d00aba1d97dea6b4835af52
+---
+
 # Norms, division polynomials and the finite constructors
 
 Integer polynomials are measured by total degree and coefficient $\ell^1$ norm, and pairs

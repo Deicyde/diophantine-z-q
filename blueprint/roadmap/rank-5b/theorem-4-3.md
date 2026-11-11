@@ -22,7 +22,7 @@ $\tau_{e,f}$ with $(e,f)=(a_0+y\cdot u,\,b_1)$ gives an element $h$ of $H$, and
 $k=(u_h+v_h,\,u_h)$ is a nonzero element of $\ker M_1$ (it is nonzero because the tuple is not
 torsion), so $\ker M_1=\{0,k\}$. $M_1$ is symmetric and $M_{5b}$ is $M_1$ bordered by $(0,y)$, so
 Lemma 4.2 gives $\det M_{5b}=(0,y)\cdot k=y\cdot u_h$. Finally $u_h=u+f\mathbf 1$ and
-$y\cdot\mathbf 1=0$ since $n\equiv1\pmod4$, so $y\cdot u_h=y\cdot u$. The Lean proof does this for any
+$y\cdot\mathbf 1=0$ since $n\equiv1\pmod4$, so $y\cdot u_h=y\cdot u$. The proof does this for any
 configuration of class $5$ whose system has $8$ solutions, and specializes to the configuration
 of $n$.
 

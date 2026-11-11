@@ -70,6 +70,7 @@ Selmer group). Used, not formalized, to identify the Selmer group defined here w
 
 The theorems behind CR₃^Sel are those named for CR₃: Kriz, *Supersingular main conjectures, Sylvester's
 conjecture and Goldfeld's conjecture* (arXiv:2002.04767), Theorems 10.13 and 10.17(2), with the corank
-lemma of Poonen–Stoll; or Tian–Yuan–Zhang, *Genus periods, genus points and congruent number problem*,
+lemma (the Cassels–Tate pairing on $Ш/Ш_{\rm div}$ is nondegenerate and alternating: Cassels,
+J. reine angew. Math. 211 (1962); the manuscript cites Poonen–Stoll, Ann. of Math. 150 (1999)); or Tian–Yuan–Zhang, *Genus periods, genus points and congruent number problem*,
 Asian J. Math. 21 (2017), Theorem 3.5(2), with Gross–Zagier–Kolyvagin (see
 `docs/research/tyz-5b.md`).
