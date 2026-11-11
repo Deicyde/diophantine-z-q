@@ -88,3 +88,8 @@
 - diff scratch/wk-h/BackToU.lean vs ZInQKernel/Hypotheses/JHeight.lean: imports HeightMin; namespace ZInQ.JHeight;
   SixContactMinAt and contactSupport_pos' dropped; sixContactMin_of_jHeightBound now JHeightBound Mult.S_mul → SixContactMin
   (uses contactSupport_pos); JHeightBound, heightX, Jmap, Fh, Gh, C0 bodies identical. Only the listed changes so far.
+
+## Step 10: TYZ sample (scratch/rv-lit/tyz_sample.py) — VERIFIED (sample)
+- Independent implementation of T5bCl / T5aCl (set partitions, g = h/#Cl[2] via quadclassunit) and ellanalyticrank on 30 d:
+  26565, 33117 (rank 3: T5a = T5b = 0) and the first 28 squarefree d ≡ 5 (8) with ≥ 2 primes ≡ 3,7 (8) (21..645).
+  T5b odd on 26 of them, all analytic rank 1; no rank ≥ 2 case with T5a or T5b odd. 0 violations of TYZRow5b / ReadingA.
