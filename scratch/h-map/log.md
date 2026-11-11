@@ -39,3 +39,19 @@ Exponent 24 = 2 (N ≤ QM^2) × 12 (h_F(J_1(N)) ≪ N^12).
   ly-d6, igusa-theta, a001(form part) reproduced by scratch/h-v14 scripts; b11 (integral model) carries unchecked content.
 - Uncited: I2 (μ_σ extends over local abelian schemes, V14 L1459), independence of ℓ (L1462), Faltings Hom (L1552), Stacks inputs of b11.
 - Open: GR14 non-circularity (GR14 not on arXiv), Carayol 1987 locator.
+
+## Step 5. Remaining notes read (h-leaves, nt-h, ser-ell summaries)
+- h-leaves: I1 Carayol (level ≤ conductor, l.852-857), I2 Néron mapping property for μ_σ (l.781-784); R5.1 Faltings→GR14+Tate argument
+  (open: GR14 non-circularity); R5.2 Lemma PG + crystalline comparison.
+- nt-h: consumer slack (e ≤ 25-2^{-2^65535}, log2 A = D^x, x<2^56525); cusp lemma, affine-moduli lemma ⇒ QM/Shimura cheapest;
+  Serre's argument at large ℓ (KW+Kisin 2009) replaces Pan. ser-ell: proved after repairs (F1: Kisin needed).
+- grep docs/: no note mentions Beckmann's specialization theorem → new candidate route for b11 (see step 6).
+
+## Step 6. Candidate: replace the integral model (b11 supplement, A002/A078) by Beckmann specialization (SPECULATIVE)
+Claim: K = splitting field of fibre of normalized cover over u is unramified at p ∉ S iff all v_p(u-c) even, via
+Beckmann (J. reine angew. Math. 419 (1991)) specialization-inertia theorem applied to Y_3 → P^1_j (geometric
+Galois group of order with prime factors ⊆ {2,3}?; branch points 0,∞,-16/27 distinct mod p ≥ 5), pulled back by J:
+  contact c: J(u) meets 0 with mult 2v, branch index 4 → inertia g^{2v}: trivial iff v even;
+  G(u)≡0: meets ∞ mult 6v, index 6 → trivial; H(u)≡0: meets -16/27 mult 2v, index 2 → trivial; v_p(u)<0: J(u)→-57600/7^6, not a branch value.
+Then good reduction of A/K at p: QM ⇒ potentially good everywhere + full level-3 rational over K, p≠3 ⇒ good (Serre–Tate/Raynaud).
+To check: (i) Beckmann's exact hypotheses (G-cover over Q vs mere cover; no extra bad primes); (ii) |G| of Galois closure; (iii) J(∞) value.
