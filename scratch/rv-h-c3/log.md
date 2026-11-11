@@ -72,3 +72,13 @@ Outcome: proof correct as written; one unstated routine step (restriction F -> F
     normalizing rho_g to weights {0,1-k}").
 - Only the multiset {0,-1} at the single embedding of K = Q_5 is used downstream. The lemma's
   per-embedding statement for general K is more than needed.
+
+## Step 4. Own verdict (written before reading rv-h-trust's C3 treatment)
+HOLDS AS STATED (mathematically). Repairs are citation/wording only:
+- R1: add the one-line restriction step (de Rham over F => over F') or cite it.
+- R2: replace [P] sources (Milne notes, Brinon-Conrad notes) by refereed ones
+  (Mumford §19-20 or Milne 1986 §15; Fontaine Ast. 223 Exp. III); Scholze locators unverified here.
+- R3 (C8, not C3): fix rho_g's normalization before "power zero".
+Consequence for H: C3 can move from "[M] single model review" to "[M] two independent model
+reviews"; the lemma is a routine consequence of standard p-adic Hodge theory, with an alternative
+route (pst directly) that needs neither the descent paragraph nor Berger.
