@@ -74,3 +74,14 @@ Script `g0_counterexamples.py` (PARI qfsolve, exact check of every witness in �
 Example (G1): `B = 1/337`, `m = 2`: `(−139/337)² + (−659/337)² = 2(2 − 1/337)`.
 VERIFIED (exact). Outcome: as predicted, uniform soundness fails; with an existential parameter ranging over a
 set whose square classes generate, it fails at every prime tested.
+
+## E2. Column property (VERIFIED: derivation + exact check)
+
+Derivation: for `p` odd with `v_p(R₀)` odd, `v(1 + RC²) = min(0, v(R) + 2v(C))` (no cancellation, odd vs 0), so
+`v(B) = v(R) + 2Σ_j min(0, v(R) + 2v(C_j))` for rational tests (`Θ = 2/W`); `v(R) = v(R₀) + 2v(a)` with `v(a) ≤ 0`,
+and `v(B)` is nondecreasing in `v(R)` (step 2). Bad at a `p`-integral `q` (`v(a) = 0`) ⇒ bad for all `q`.
+Over `K₀` the trace bound only raises `v(Θ)`, so the same holds (trace_val).
+Script `column_check.py`: 30 random bad data (`v_p(R₀) = 1`, one test with `v_p(C) = −1`, `p ∈ (349, 2741)`),
+200 random `q` each (denominators up to `p³`): 6000 pairs, 0 not bad.
+Consequence: the pole gadget must reject a whole column `{y} × ℙ¹_q`, so by Theorem G (column form) the
+completeness variety over honest data cannot have RC generic fibre.
