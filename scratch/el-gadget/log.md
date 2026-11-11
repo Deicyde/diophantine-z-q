@@ -85,3 +85,10 @@ Script `column_check.py`: 30 random bad data (`v_p(R₀) = 1`, one test with `v_
 200 random `q` each (denominators up to `p³`): 6000 pairs, 0 not bad.
 Consequence: the pole gadget must reject a whole column `{y} × ℙ¹_q`, so by Theorem G (column form) the
 completeness variety over honest data cannot have RC generic fibre.
+
+## E3. Genus of the trivial-witness curve on honest lines (current design; VERIFIED, `genus_trivial.py`)
+
+Toy test site: `R₀ = 331·u`, six tests in `ℚ(√2)` with small coordinates, `Θ = Tr W⁻¹`, `B = R₀a²/Θ²`.
+Curve `h² = m(m − B(q))`: degree 84–100 in `q`, 52–76 branch points, genus 25–37 (3 trials × m ∈ {1,2}).
+(The slope site has 72 tests: larger.) So the double-cover gadget "m(m−B) ∈ ℚ²" (sound) needs a rational
+point on a curve of genus ≥ 25 per instance: Faltings-finite, no uniform argument.
