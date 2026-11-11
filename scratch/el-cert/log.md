@@ -110,3 +110,5 @@ Marks: VERIFIED / STANDARD / SPECULATIVE. Worktree base e3612538.
   tridegree (2,2,2) in (P^1)^3, a K3. (VERIFIED: algebra)
 - R4 one-curve torsion target (t1 = inf): Phi <= E_{B(m-B)} point with x in mB Q*^2: quartic in t,
   same fibre-product counting (genus >= 1 in each parameter). (VERIFIED: rs-pole 2.2(3) algebra)
+
+## S6. Deliverables written: docs/research/el-cert.md, .fleet/el-cert.md (verdict very low).
