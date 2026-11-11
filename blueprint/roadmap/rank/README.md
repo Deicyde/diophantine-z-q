@@ -15,7 +15,9 @@ generated, a point of infinite order gives $|C_d(\mathbb Q)/2C_d(\mathbb Q)|\ge8
 $\mathrm{Sel}_2(C_d)$ has order $8$ the image is all of it. So CR₃^Sel, CR₃^TYZ and CR₃^TYZ_Cl have
 positive-rank forms that ask only for a point of infinite order on $C_d$. With Mordell–Weil for every $C_d$, proved in its own section, the positive-rank
 forms imply the original ones, and the positive-rank form of CR₃^Sel implies CR₃. The proof of pole completeness applies the hypothesis at only two curves, those of
-a slot choice, and a last section states the positive-rank hypothesis for exactly those curves.
+a slot choice, and a further section states the positive-rank hypothesis for exactly those curves. A
+last section restates the positive-rank hypotheses with the conclusion that the equation
+$y^2=x^3-d^2x$ has infinitely many rational solutions, which mentions no group law.
 
 Throughout, $C_d$ is the curve $E_{-d^2}$, $\mathrm{Sel}_2(C_d)$ is the Selmer group of the
 [Proposition 0 chapter](../selmer/README.md), and $u\equiv v$ means that $u/v$ is a nonzero
@@ -68,3 +70,12 @@ choice; this section states the positive-rank hypothesis for exactly those curve
 completeness from it.
 
 - [The rank hypothesis on the two curves of a slot choice](two-curves/README.md)
+
+## The hypotheses as infinitely many rational points
+
+The positive-rank forms mention the group law on $C_d(\mathbb Q)$. For $d\ne0$, with Mordell–Weil,
+a point of infinite order exists exactly when $y^2=x^3-d^2x$ has infinitely many rational
+solutions, so each of CR₃^Rk, CR₃^TYZ,Rk, CR₃^TYZ_Cl,Rk and CR₃^DL,Rk is equivalent to a form with
+that conclusion, which mentions no group law.
+
+- [The rank hypotheses as infinitely many rational points](infinitely-many-points/README.md)

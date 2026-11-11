@@ -89,9 +89,11 @@ hypothesis and CR₃ alone, or under the minimal height hypothesis and CR₃^Sel
 - [The main theorem from the Selmer form of the rank hypothesis](main-theorem-selmer.md)
 
 Under the minimal height hypothesis the target also holds with CR₃ replaced by CR₃^TYZ or
-CR₃^TYZ_Cl, by any of the positive-rank forms, or by positive rank on the two curves of a slot
-choice.
+CR₃^TYZ_Cl, by any of the positive-rank forms, by positive rank on the two curves of a slot
+choice, or by any of the equivalent forms that ask for infinitely many rational points instead of
+positive rank.
 
 - [The main theorem from the Tian–Yuan–Zhang forms of the rank hypothesis](main-theorem-tyz.md)
 - [The main theorem from the positive-rank forms of the rank hypothesis](main-theorem-positive-rank.md)
 - [The main theorem from positive rank on the two curves of a slot choice](main-theorem-two-curves.md)
+- [The main theorem from the infinitely-many-points forms of the rank hypothesis](main-theorem-infinitely-many-points.md)

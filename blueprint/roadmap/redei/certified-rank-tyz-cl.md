@@ -19,8 +19,10 @@ rests on the following:
 
 - *Tian–Yuan–Zhang*, Theorem 3.5 and the argument of the proof of their Theorem 3.5(2) (§3.3), as
   completed in nt-tyz §4 (Proposition N): for squarefree $d\equiv5\pmod8$, if the genus sum
-  $\sum_{d_0\equiv7,\,d_1\equiv3\,(8)}g(d_0)g(d_1)\mathcal L(d/d_0d_1)$, which is
+  $\sum_{d_0\equiv7,\,d_1\equiv3\,(8)}g(d_0)g(d_1)\mathcal L_1(d/d_0d_1)$, which is
   $T^{\rm Cl}_{5b}(d)$ modulo $2$, is odd, then $L(C_d,s)$ vanishes to order exactly one at $s=1$.
+  Here $\mathcal L_1(m)$ is the sum, over the set partitions of the primes of $m$ into blocks $B$
+  with $d_B\equiv1\pmod8$, of $\prod_B g(d_B)$.
 - *Gross–Zagier*, over an auxiliary imaginary quadratic field satisfying the Heegner hypothesis
   with $L(C_d^K,1)\ne0$: analytic rank one gives $\operatorname{rank}C_d(\mathbb Q)\ge1$.
 - The step from positive rank to every Selmer class: when $|\mathrm{Sel}_2(C_d)|=8$ and $C_d$ has

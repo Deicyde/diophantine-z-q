@@ -20,8 +20,8 @@ The six-contact estimate is the assertion that for every such $S$, every real
 $R\ge\max(D,\max S,10^{12})$ and every $u\in\mathbb Q\setminus\mathcal C$,
 $$h(u)\le H_6(S;R)\,M_S(u)^{24}.$$
 
-The manuscript proves it with Shimura curves, integral models, modularity at the prime five
-and an effective CM height bound; here it is a hypothesis of the main theorem.
+Its proof needs Shimura curves, modularity and Arakelov geometry; here it is a hypothesis of the
+main theorem.
 
 ## Depends on
 

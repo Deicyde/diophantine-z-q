@@ -91,6 +91,17 @@ coordinate $\beta$), §2.1 (Corollary 4.4 and Theorem 3.6 give an odd genus sum 
 (the chain from these hypotheses to Tian–Yuan–Zhang's input, an odd genus sum with their own class
 numbers).
 
+## The infinitely-many-points forms
+
+A project-authored restatement, not taken from the manuscript or from any published source:
+`KERNEL_PLAN.md`, the paragraph beginning "These hypotheses all conclude", records that the four
+positive-rank hypotheses CR₃^Rk, CR₃^TYZ,Rk, CR₃^TYZ_Cl,Rk and CR₃^DL,Rk are restated with the
+conclusion that $y^2=x^3-d^2x$ has infinitely many rational solutions, so that the hypotheses can be
+read without the group law, and that each form is equivalent to its positive-rank form through
+Mordell–Weil for $C_d$ (see Mordell-Weil for the congruent number curves above). For squarefree
+$d>0$ this conclusion is the classical statement that $d$ is a congruent number; that reading is
+standard background and no proof here uses it.
+
 ## Kriz
 
 D. Kriz, *Supersingular main conjectures, Sylvester's conjecture and Goldfeld's conjecture*,
