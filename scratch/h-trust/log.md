@@ -68,3 +68,13 @@
   §3.1 transfers (same r_5, same hypotheses), but N5's twist paragraph L757-768 is not model-reviewed against N5 text.
 - Twist/weight check (by reading): Pan => r ~ rho_g (x) psi, psi in Hom(rho_g, r) de Rham char a.e. unramified => finite * eps^n
   (Serre 1968 Ch III / Tate); weights {n, n+1-k} = {0,-1} => (n,k)=(0,2) only (n=-1 gives k=0). VERIFIED as argument.
+
+## Step 9 (script reruns, sequential, each < 15 s CPU, ~/pyenv/bin/python, cwd /tmp/htrust-run)
+- scratch/h-v14/form_check.py: output identical to form_check.output.txt.
+- scratch/h-v14/igusa_check.py: identical to igusa_check.output.txt.
+- origin/wip/h-b1:scratch/h-b1/b1_checks.py: identical to b1_checks.output.txt ("all 30 agree: True"). 0.7 s.
+- scratch/rv-h-cm/check.py: identical to check.output.txt. 12.6 s.
+- origin/wip/rv-h-novel:scratch/rv-h-novel/c1_constants.py, c2_sqrt_criterion.py: no output file committed on that branch
+  (.out not tracked); rerun outputs saved in scratch/h-trust/reruns/; they match rv-h-novel log lines C1, C2
+  ("transfer chain exact at Q=1e12, M in {1,2,7}: ok"; "tested 135 mismatches 0").
+- c3_breaks.py (PARI idealramgroups) not rerun.
