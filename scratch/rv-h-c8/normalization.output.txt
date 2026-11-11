@@ -1,0 +1,6 @@
+PARI stack size set to 200000000 bytes, maximum size set to 200003584
+11a1 N = 11 primes checked = 25 mismatches (newform a_l vs ellap vs l+1-#E) = 0
+37a1 N = 37 primes checked = 25 mismatches (newform a_l vs ellap vs l+1-#E) = 0
+389a1 N = 389 primes checked = 25 mismatches (newform a_l vs ellap vs l+1-#E) = 0
+level 13 weight 2 char order 6 : #eigenforms(new) = 1 coeff field degree = 2
+conj(a_l) = conj(chi(l)) a_l exactly (complex conj = t->1-t on Q(zeta_6)) for all 24 primes: True
