@@ -37,3 +37,31 @@
 - S_2^new(13, chi order 6): 1 eigenform, coefficients in Q(zeta_6); conj(a_l)=conj(chi(l))a_l
   exactly for 24 primes l<100: fbar = f (x) chi^-1 is a Galois conjugate of f, so COH-normalized
   rho_f^vee (x) cyc = rho_fbar also lies in V(A_f). VERIFIED (sample).
+
+## Step 5. 11/4 vs N5 for C8
+- git show 09c0c3f3:diophantine_zq.tex (sha256 bfc4192d..., = Astra's text); diff of 11/4
+  L731-745 with N5 L757-771: only change in C8 = "Local algebraicity [conrad App. B]" added before
+  "class field theory"; C9's Li-Shimura sentence replaces "Thus". VERIFIED (agrees with rv-h-trust).
+
+## Step 6. Argument checks (as arguments, no computation)
+- psi in Hom(rho_g, rho): if rho = rho_g (x) psi, id gives a G-stable line rho_g^vee (x) rho_g (x) psi
+  ⊃ psi. Hom of HT (resp. dR) reps is HT (resp. dR); subobjects too (Fontaine). HT suffices for
+  both uses (Tate/Sen local algebraicity needs HT only; the comparison uses HT weights only).
+- l != 5: psi(I_l) ⊂ image of Z_l^x (local CFT) in O_E^x; Hom_cont(Z_l, O_E^x) has finite image
+  (O_E^x virtually pro-5); unramified a.e. + G_Q^ab = Zhat^x (Kronecker-Weber) => psi chi^n has
+  finite order. N5's "finite inertia at every other prime" is this, uncited (elementary).
+- Robust form of the comparison: only |difference of HT weights of rho_g| = k-1 is needed for
+  k=2; the value of the cyclotomic power depends on normalization (Step 3).
+- k=1: {0,1-k} = {0,0} is right, but the supplier is Deligne-Serre 1974 (finite image) + Sen/Tate
+  (finite image => HT weight 0), not Faltings/Scholl/Saito (k>=2). Pan's intro statement does not
+  restrict k.
+- 5 | level(g) possible: N5 computes the conductor at 5 via r_3, so r_5 may be ramified at 5;
+  g = f (x) finite twist. Supplier must cover p | N: Saito 1997 does (pst, all N); Scholl motive +
+  Scholze 2013 Cor 1.8 (already a C3 leaf) + Fontaine closure do; Scholl + Faltings 1989 crystalline
+  covers only 5 ∤ N; Tsuji 1999 needs de Jong 1996 alterations (Kuga-Sato not semistable at p|N).
+  Whether Faltings 1987/1989 cover bad reduction: UNVERIFIED (no source access).
+- Downstream: C9/C10 use r_5 = rho_f^HOM (Tate module of A_f), f weight 2 newform. In HOM
+  normalization "power zero" gives exactly this; in COH, psi = eta*chi and rho_g^COH (x) chi =
+  rho_g^HOM (x) eps_g^-1 (k=2), absorbed into the finite twist: same conclusion.
+- Other uncited items in N5 L740-790: "duality preserves the conductor" (L774; standard);
+  Eichler-Shimura a_p = trace (C9/C10); Kronecker-Weber; HT closure under Hom/sub.
