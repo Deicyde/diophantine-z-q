@@ -362,7 +362,7 @@ its owner.
 - **Corpus** (`quotes.corpus.txt`): 7307 files, 362 MB. It covers every `manuscripts/*.tex`, the
   V15 snapshot, `research/version14-16`, the collaborator notes, `docs/`, p214's
   `research/quartic214` and the top-level READMEs. Files over 5 MB and the other snapshots are
-  excluded.
+  excluded. (The file list, which names paths on the build host, is not kept in the repository.)
 - **Runs of 25 words or more:** none (`quotes.output.txt` is empty).
 - **Runs of 12 words or more** (6-token shingles, `quotes12.output.txt`): 19 runs. The longest
   are 21 words (up-map l.162-164, a one-sentence quotation of V16 l.155-159), then 16 and

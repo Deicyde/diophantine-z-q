@@ -2,7 +2,7 @@
 Tokens = whitespace-split, lowercased, outer punctuation/backticks/markdown stripped. A word of FILE is 'covered' if it lies
 in an 8-token shingle that occurs in some corpus file. Maximal covered runs of >= MINW words are printed with the corpus
 file of their first shingle and whether the run also occurs in N5 (the fork's own copy of the 11/5 text)."""
-import sys, re
+import os, sys, re
 K, MINW = 8, 25
 def toks(s):
     out = []
@@ -43,7 +43,7 @@ for f, t in F.items():
             while j < len(t) and cov[j]: j += 1
             if j - i >= MINW:
                 inn5 = all(tuple(t[k:k+K]) in n5set for k in range(i, j - K + 1))
-                print(f"{f}: {j-i} words, src {src[i].replace('/home/jackmccarthy/','~/')}, in N5: {inn5}\n    {' '.join(t[i:min(j, i+40)])}{' ...' if j-i > 40 else ''}")
+                print(f"{f}: {j-i} words, src {src[i].replace(os.path.expanduser('~') + '/', '~/')}, in N5: {inn5}\n    {' '.join(t[i:min(j, i+40)])}{' ...' if j-i > 40 else ''}")
             i = j
         else:
             i += 1
