@@ -92,3 +92,31 @@ Toy test site: `R₀ = 331·u`, six tests in `ℚ(√2)` with small coordinates,
 Curve `h² = m(m − B(q))`: degree 84–100 in `q`, 52–76 branch points, genus 25–37 (3 trials × m ∈ {1,2}).
 (The slope site has 72 tests: larger.) So the double-cover gadget "m(m−B) ∈ ℚ²" (sound) needs a rational
 point on a curve of genus ≥ 25 per instance: Faltings-finite, no uniform argument.
+
+## E4. Minimal-genus redesign (genus 1), `genus1_redesign.py`
+
+Hypothetical redesign: `Θ` independent of `q` on honest lines (`Θ₀`); then "m(m − B) ∈ ℚ²" needs a point on the
+genus-1 quartic `h² = m(mΘ₀² − R₀(1 − R₀q²)²)` (genus 1 is the minimum allowed by Theorem G).
+30 toy samples (`R₀ = p·u`, `p ∈ [349, 1223]`, `Θ₀` random), all 16 small multipliers `m`:
+points of height ≤ 2000: 0/30 samples. ellrank of the Jacobians: max rank lower bound 1 in 29, 2 in 1.
+Outcome: the condition is a Hasse-principle question for genus-1 quartics (2-coverings), the same kind as
+CR₃; no free points. (Soundness of the redesign itself not checked: SPECULATIVE.)
+
+## Other constructions considered (arguments, no computation needed)
+
+- Sections over the needed locus: honest data is Zariski dense in the data space (multiples of P₀ are dense
+  in E; a proper subvariety of E contains finitely many multiples), so a family of witnesses over it is a
+  rational section; it is defined on a dense open set, which meets the p-adically open bad set; so
+  Φ' holds at bad data. Excluded (rs-global C4 in column form).
+- Global (reciprocity / Brauer–Manin) soundness for RC gadgets: E1 found GLOBAL rational counterexamples.
+  In general, for smooth proper RC `X`, Brauer classes evaluate constantly at primes of good reduction, so under
+  Colliot-Thélène's conjecture (BM is the only obstruction to WA) bad rational points exist at the primes of
+  Theorem G. Unconditional when `X` is ℚ-rational with a point, or a quadric fibration of rank ≥ 5 over a
+  rational base (fibres everywhere locally soluble at good primes; HM + WA on the base).
+- Stein factorization: `X → Y' → Y` with `Y' → Y` finite and `X → Y'` geometrically integral. If `X → Y'` is RC,
+  Theorem G applied over `Y'` shows LUS of `X` ⇔ LUS of `Y'`: soundness lives on the finite part (square-class
+  conditions `f(y, q) ∈ ℚ²`). Over a bad column the curve `{h² = f(y,q)}` must have no ℚ_p-points; genus 0 is
+  RC, so excluded by Theorem G; hence genus ≥ 1 (E3: 25–37 now; E4: 1 at best).
+- Pell / integral-point gadgets (`m = m₀k²`, `k` integral): `k` is bit-encoded, hence bounded by `2^{#bits}`;
+  Pell solutions grow exponentially, so no uniform completeness; integrality of `k` from elsewhere would be
+  circular (it is what the construction defines).
