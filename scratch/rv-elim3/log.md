@@ -11,3 +11,10 @@ Derivation (L7 generalized): if a = v_p(A) is odd and a - 2b > 0 (b = v_p(B)), n
 The proof never uses b < 0. Hence for b >= 1 odd and v_p(m) even > b, no Q_p solution:
 this re-derives el-qfree's completeness constraint (v_p(m) = 0 where v_p(B) = 1) without Loc/beta.
 Trivial witness: e = A, r1 = 0, z^2 = H, r2 = 0 solves the system when m(m - B) is a nonzero square.
+
+## Step 2. Necessity of the multiplier window (q1_window.py) — VERIFIED
+Inputs: p in {331, 337, 1009}; m = p (v=1), p^-2 (v=-2), p^3 (v=3); B = m(1 - c^2) with c = 1/p, 1+p, 1/p^2.
+Then m(m-B) = (mc)^2, trivial witness e = A, r1 = r2 = 0, z = sqrt(H) solves the system exactly.
+Outcome: 9/9 solved with v_p(B) = -1. So any m with v_p(m) odd or negative at p > 324 breaks
+SC1 globally (not just "for this proof"). el-qfree S2 window (v_p(m) even >= 0) is necessary and
+sufficient. Completeness constraint v_p(m) = 0 at b = 1: VERIFIED by Step 1 derivation.
