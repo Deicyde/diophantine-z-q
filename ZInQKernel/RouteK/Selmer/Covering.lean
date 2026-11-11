@@ -365,13 +365,17 @@ that every Selmer class comes from a rational point. Since `C_d(ℚ)[2] = C_d[2]
   its standing assumption `f₀ ≥ 4` holds since `d ≥ 21`, as in `ZInQ.CertifiedRank`: by
   Proposition 0 the Selmer class `a` with `|a| ≡ 7 (mod 8)` is a signed divisor of `d`, so
   `d = |a| m` with `m ≡ 3 (mod 8)`)
-  together with the corank lemma (manuscript line 1072; Poonen–Stoll: the Cassels–Tate pairing
-  makes `dim Ш[2]` even when `Ш` is finite), giving `rank C_d(ℚ) = 1` and `Ш(C_d)[2] = 0`;
+  together with the corank lemma (manuscript line 1072; Cassels–Tate: the pairing on `Ш/Ш_div` is
+  nondegenerate and alternating, so `dim (Ш/Ш_div)[2]` is even, with no finiteness of `Ш` assumed),
+  giving `rank C_d(ℚ) = 1` and `Ш(C_d)[2] = 0`;
 * or, for exactly the 2-adic shape `d ≡ 5`, `|a| ≡ 7 (mod 8)` assumed here, Tian–Yuan–Zhang
   (Asian J. Math. 21 (2017): Theorem 3.5 and the argument of the proof of Theorem 3.5(2), §3.3, as
   completed in `docs/research/nt-tyz.md` §4, Proposition N), which gives
   `ord_{s=1} L(C_d, s) = 1`, and Gross–Zagier–Kolyvagin, which gives `rank C_d(ℚ) = 1` and
   `Ш(C_d)` finite (`docs/research/tyz-5b.md`); then `dim Sel₂ = 3 = 2 + 1` forces `Ш[2] = 0`.
+  Tian–Yuan–Zhang's hypothesis is reached through Corollary 4.4 and Theorem 3.6 of
+  `docs/research/tyz-5b.md` (proved in Lean: `RouteK.Rank5b.det_M5b_eq_one`,
+  `RouteK.Rank5b.det_M5b_eq_T5b`) and Rédei's formula (the Prop `RouteK.Rank5b.RedeiFormula`).
 
 Compared with `ZInQ.CertifiedRank`, the explicit system `Σ(𝒞_d)`, the Legendre symbols and
 Monsky's matrix are not part of the hypothesis: they enter only through Proposition 0

@@ -149,9 +149,11 @@ class (`loc_of_mem_sel2_of_infinite_order`). Each hypothesis therefore has a pos
 "`C_d(ℚ)` has a point of infinite order" (equivalently, `d` is a congruent number):
 `CertifiedRankRk`, `CertifiedRankTYZRk` (squarefree `d ≡ 5 (mod 8)` with `T_5b(d)` odd; no
 condition on `Sel₂`) and `CertifiedRankTYZClRk`, with main-theorem variants in
-`RouteK/RankVariants.lean`. The narrowest is
-`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZRk`: its CR₃
-input is exactly what Tian–Yuan–Zhang's argument and Gross–Zagier give, through Rédei's formula.
+`RouteK/RankVariants.lean`. `CertifiedRankTYZRk` implies `CertifiedRankRk`
+(`certifiedRankRk_of_certifiedRankTYZRk`, by Corollary 4.4 and Theorem 3.6), so
+`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankRk` assumes the
+least. `CertifiedRankTYZRk` is the form whose content is literally Tian–Yuan–Zhang's argument,
+Rédei's formula and Gross–Zagier, with no condition on `Sel₂`.
 
 `scripts/check_target.py` checks that `FrozenTarget` is upstream's frozen statement token
 for token. Removing another hypothesis means formalizing its source theorem or finding a
