@@ -21,3 +21,9 @@
   conductors 32d^2 for odd d, 64·17^2 for d=34) and 18 others with split AND nonsplit multiplicative reduction at p=2
   (26b1, 34a1, [1,1,1,1,1] split; 14a1, 26a1, 30a1 nonsplit) and p=3 (21a1, 30a1 split; 15a1, 24a1, 33a1 nonsplit),
   plus non-minimal models. 0 mismatches.
+
+## Step 3: functional equation data (scratch/rv-lit/fe_check.py) — VERIFIED (numerically)
+- First 30 squarefree d ≡ 5 (mod 8) up to 285: conductor 32d^2 and ellrootno -1 for all 30.
+- d = 5, 13, 21: |Λ(2-s)+Λ(s)| < 2e-17 at s = 0.3+0.7i, 1.2-2i, 0.9 with Λ = N^{s/2}(2π)^{-s}Γ(s)L(s) (PARI lfun).
+- L(C_d, 2) = 0.911, 1.024, 0.904 ≠ 0: the unrestricted FunctionalEquation5 at s = 0 (Mathlib Γ(0) = 0 so Λ(0) = 0,
+  Λ(2) ≠ 0) is false; confirms the lit-adopt restriction is needed.
