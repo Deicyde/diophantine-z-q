@@ -76,3 +76,5 @@ monodromy ⊆ S_324 ⇒ p ∤ |G| for p > 324 — enough for S ⊇ primes ≤ 32
 - docs/reviews/height-replacement/REPORT.md: the 11/5 proof of Thm 4.1 (post von Känel–Kret replacement) had 4 scoped Astra AI reviews,
   "not independent human peer review". So the manuscript link of the chain is unrefereed.
 - V14 source not available on this host (not in ~/dzq/scratch); V14 facts taken from h-v14/h-a011/rv-h-a011.
+
+## Step 10. Deliverables written: docs/research/h-map.md, .fleet/h-map.md (commit 331c7394). Line refs corrected to N5 L524-532, L814.
