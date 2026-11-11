@@ -72,3 +72,7 @@
 - [gtz, Thm 1.3] cited in 22P proof in V9, V10, V13 (one cite each), absent from V14 on. V14 §6 l.2193 cites [local-gi, Assembly §§1,6] (bib l.23990: project supplement "A local proof supplement for the required Gowers inverse theorem", 8 Nov 2026, quartic-local-gi-supplement.pdf in manuscripts/). V15 §6 l.2217 replaces it by internal Part v15:gi-full (diff V14 l.2193 -> V15 l.2217 is the only §6 change).
 - V14 l.10377-10390 (quartic §): "historical prime-pattern source used arXiv:1009.3998v5 with its erratum"; inverse-theorem premise now from local-gi; modularity via lem:qm-modularity-descent + Calegari ICM p.624. VERIFIED.
 - Theorem line table per version (abstract line, quartic theorem lines) collected for up-map.md.
+
+## Step 14 (theorem numbers)
+- scratch/up-map/thmnum.py computes theorem-counter numbers; validated on N5 (Thm 1.1, 4.1, 5.2, 5.3, Prop 6.1, 6.2, 12.1 as in the task). Table in scratch/up-map/thmnum-table.txt: V2..V13 same numbers as N5; V14: thm:height = Theorem 4.2 (Lemma 4.1 = lem:qm-modularity-descent); V15/V16: thm:target = Theorem 1.3 (1.1 = 314 decimal quartic, 1.2 = 222 family), thm:height 4.2, PC 5.2, RC 5.3, 22P Prop 6.2, cutoff Prop 12.1.
+- §3 (N5 254-376 vs V16 347-472): attribution [openaihtp, Prop 2.1]; class-number-one justification changed from Minkowski bound to norm-Euclidean + unit description (V16 l.369-371). VERIFIED.
