@@ -1,0 +1,5 @@
+'ZInQ.WkCR3.IsLContinuation.eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.WkCR3.certifiedRankTYZClRk_of_literature' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.WkCR3.tyzRow5b_of_readingA' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.WkCR3.rootNumberVanishing_of_functionalEquation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.WkCR3.frozenTarget_of_sixContactMin_literature' depends on axioms: [propext, Classical.choice, Quot.sound]

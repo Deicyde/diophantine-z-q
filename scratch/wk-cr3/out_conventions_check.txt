@@ -1,0 +1,22 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+5 True -1 True [3, -1] True True OK
+85 True -1 True [3, -1, -1] True True OK
+173 True -1 True [3, -1] True True OK
+269 True -1 True [3, -1] True True OK
+357 True -1 True [3, -1, -1, -1] True True OK
+437 True -1 True [3, -1, -1] True True OK
+517 True -1 True [3, -1, -1] True True OK
+613 True -1 True [3, -1] True True OK
+709 True -1 True [3, -1] True True OK
+797 True -1 True [3, -1] True True OK
+885 True -1 True [3, -1, -1, -1] True True OK
+973 True -1 True [3, -1, -1] True True OK
+1069 True -1 True [3, -1] True True OK
+1149 True -1 True [3, -1, -1] True True OK
+1229 True -1 True [3, -1] True True OK
+1309 True -1 True [3, -1, -1, -1] True True OK
+1397 True -1 True [3, -1, -1] True True OK
+1501 True -1 True [3, -1, -1] True True OK
+1597 True -1 True [3, -1] True True OK
+1677 True -1 True [3, -1, -1, -1] True True OK
+failures: 0 of 20
