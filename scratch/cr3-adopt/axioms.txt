@@ -1,0 +1,121 @@
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRank' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankSel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_goodPrimeDensity' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_goodPrimeDensity' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactEstimate' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_twoSlopePattern' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_poleCompleteness' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_addMulBound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_nodeCheck' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_greenTaoDense' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_greenTaoDense' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_certifiedRank5b' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRank5b' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZ' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZCl' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankRk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZRk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLRk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLAdmRk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankInf' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZInf' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClInf' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLInf' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.greenTaoDense' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Density.goodPrimeDensity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.greenTao_primes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Submission.green_tao' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Selmer.certifiedRank_of_certifiedRankSel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank5b.certifiedRankSel_of_certifiedRank5b' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank5b.det_M5b_eq_T5b' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank5b.certifiedRank5b_of_certifiedRankTYZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank5b.certifiedRankTYZ_iff_of_redeiFormula' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Redei.oddGClStatement' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Redei.redeiFormula' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Redei.certifiedRankTYZ_iff'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Redei.certifiedRankTYZRk_of_certifiedRankTYZClRk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.RouteK.Rank.fg_points' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank.twoTorsion_card' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank.loc_of_mem_sel2_of_infinite_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank.certifiedRank_of_certifiedRankRk'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank.certifiedRankTYZ_of_certifiedRankTYZRk'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank.certifiedRankTYZCl_of_certifiedRankTYZClRk'' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.RouteK.Rank.certifiedRankRk_of_certifiedRankTYZRk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank.sel_of_selmerCertified' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank.certifiedRankDLRk_of_certifiedRankTYZRk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank.certifiedRankDLRk_of_certifiedRankRk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank.poleCompleteness_of_certifiedRankDLRk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank.poleCompleteness_of_certifiedRankDLAdmRk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank.certifiedRankDLAdmRk_of_certifiedRankDLRk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank.exists_infinite_order_iff_infinitelyManyPoints' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.RouteK.Rank.certifiedRankInf_iff_certifiedRankRk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank.certifiedRankTYZInf_iff_certifiedRankTYZRk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RouteK.Rank.certifiedRankTYZClInf_iff_certifiedRankTYZClRk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.RouteK.Rank.certifiedRankDLInf_iff_certifiedRankDLRk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.poleCompleteness_of_certifiedRank' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.mordellWeilE' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.catalogueBound8' depends on axioms: [propext, Classical.choice, Quot.sound]

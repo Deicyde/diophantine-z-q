@@ -1,0 +1,12 @@
+IDENTICAL  ZInQKernel/Hypotheses/CertifiedRank.lean
+IDENTICAL  ZInQKernel/Main.lean
+IDENTICAL  ZInQKernel/RouteK/Rank/Statements.lean
+IDENTICAL  ZInQKernel/RouteK/Rank5b.lean
+IDENTICAL  ZInQKernel/RouteK/Rank5b/Row5b.lean
+IDENTICAL  ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean
+IDENTICAL  ZInQKernel/RouteK/Rank5b/Sec3/TYZ.lean
+IDENTICAL  ZInQKernel/RouteK/RankDL.lean
+IDENTICAL  ZInQKernel/RouteK/RankInf.lean
+IDENTICAL  ZInQKernel/RouteK/RankVariants.lean
+IDENTICAL  ZInQKernel/RouteK/Selmer/Covering.lean
+ALL IDENTICAL

@@ -20,3 +20,9 @@ Base: 81bb5d8f (wip/cr3-adopt from origin/wip/integrate-w19).
   TYZ + Proposition N + Gross–Zagier with an auxiliary field (Kriz an alternative, not needed),
   pointer to cr3-trust.md / rv-cr3-trust.md; the 5b and DLAdmRk SixContactMin variants added;
   sentence that TYZClRk implies all 14 forms. Rest unchanged.
+- Step 4: `lake build ZInQKernel`: success (9919 jobs; output scratch/cr3-adopt/build.txt).
+  `lake env lean scripts/print_axioms.lean`: 61 entries, all exactly [propext, Classical.choice,
+  Quot.sound] (scratch/cr3-adopt/axioms.txt). Comment-only check
+  (scratch/cr3-adopt/strip_check.py 81bb5d8f HEAD): all 11 changed .lean files IDENTICAL after
+  stripping comments and docstrings (strip_check_out.txt); the stripper was mutation-tested (a
+  changed `T5bCl d = 1` is detected, a changed docstring word is not).
