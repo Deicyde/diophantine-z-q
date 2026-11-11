@@ -24,3 +24,6 @@
   Quot.sound] (output scratch/h-adopt/print_axioms.out).
 - scratch/h-adopt/strip_comments.py: code with comments stripped is identical to HEAD for both
   Lean files, so only comment text changed (git diff also inspected).
+
+## Step 5
+- Report written: .fleet/h-adopt.md. Done.
