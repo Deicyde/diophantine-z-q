@@ -31,3 +31,24 @@ cannot create points. Any prime-structured choice of `N` only matters as a proof
   Lemma 11.2 `Test(ι(n), ι(κ), n)`).
 - Consequence: bounded `ω(β)` does not remove the obstacle, since `θ = sqf(m(m − B(q)))`
   is uncontrolled at both sites; `Φ` still needs `θ ∈ T_β·T_β`.
+
+## S2/C3. Rational multipliers: a Châtelet surface gives explicit witnesses (`c3_chatelet_multiplier.py`, ~2 s)
+- **Construction (VERIFIED algebra + 30/30 exact checks).** Any `B ≠ 0`, `m₀`; `β = sqf(m₀B)`,
+  `m₀B = βg²`. With `N = β` (torsion point `(β, 0)` on `C_β`), the second curve needs
+  `m(m − B) ≡ β²t⁴ − 1`. For `m = m₀k²`: `(m₀k)² − βg² ∈ (β²t⁴−1)ℚ²`, i.e. a point of the
+  Châtelet surface `x² − βy² = β²t⁴ − 1`. Since `β²t⁴−1 = −N(1+t√β)·(1+βt²)` and
+  `1 + βt² = βY′²` on the conic `Y′² − t² = 1/β`, the point is `x = βtY′, y = Y′`.
+  Family: `t = (1/(βλ) − λ)/2`, `Y′ = (1/(βλ) + λ)/2`, `k = gβt/m₀`, then
+  `m(m − B) = (β²t⁴−1)(kg/Y′)²` and `x = β(βt²+1)²(kg/Y′)²` lies on `C_{β·m(m−B)}` with
+  `x ∈ βℚ*²`. So `Φ_{m₀k²}(B)` holds for every `B` with explicit witnesses.
+- **Soundness side (VERIFIED, exhaustive sample).** `B = c/p` (`p ∈ {331, 337, 1009}`,
+  `c ∈ {1,2,3,7}`), 2304 values of `λ` each: always `v_p(k) ≤ −1`, so `v_p(m) ≤ −2 < v_p(B)`
+  (cr3-map-needs L7 boundary). The explicit family exists exactly because `k` may have
+  denominators; Lemma 5.1 needs `k` integral at `p > 324`.
+- **Integral `k` (VERIFIED on 30 instance-like `B = b/δ²`, δ with two primes in [400, 5000]).**
+  On this family `k = G(ν² − βμ²)/(2m₀δμν)` (`λ = μ/ν`, `G = √(m₀b/β)`); `k ∈ ℤ[1/S]` forces
+  `μ | G`, `ν | Gβ` up to `S`-units and `ν² ≡ βμ² (mod δ′)`: finitely many `λ`. Found for 0/30
+  (2512 `λ` tested).
+- **Budget.** Even an integral `k` would have size about `δG` (unbounded in the instance), while
+  multiplier bits give `k < 2^L` for a fixed `L`. An unbounded integer inside the pole call
+  needs an existential definition of integers, which is the target itself (circular).
