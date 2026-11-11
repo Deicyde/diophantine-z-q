@@ -22,3 +22,13 @@ sample size 30
 19365 [3, 5, 1291] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
 20069 [7, 47, 61] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
 21109 [11, 19, 101] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
+21909 [3, 67, 109] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=False(none found) ok
+22885 [5, 23, 199] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
+23901 [3, 31, 257] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
+24485 [5, 59, 83] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
+25517 [17, 19, 79] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ell2cover) ok
+26285 [5, 7, 751] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=False(none found) ok
+27213 [3, 47, 193] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=False(none found) ok
+28301 [7, 13, 311] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
+29445 [3, 5, 13, 151] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
+failures (T5bCl, root number, analytic rank, torsion): 0  class groups certified: 87

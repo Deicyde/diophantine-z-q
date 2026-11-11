@@ -60,18 +60,21 @@ step's own argument.
    numbers, `C_d(ℚ)` has a point of infinite order. It implies all the forms that assume less, which
    are all forms except `CertifiedRankTYZ`, `CertifiedRankTYZCl` and `CertifiedRank5b`, and those
    three are implied by the `Rk` form of the same name.
-2. **The outline (§1)** has 24 steps in five parts: the match of the Lean statement (A), the deep
-   results of TYZ (B), Proposition N (C), the rank step (D), and the Lean side for the other forms
-   (E).
-   - 5 steps are Lean-proved or verified by reading the Lean definitions: A4, A5 (by reading), and
-     E1-E3 (Lean).
-   - 9 steps rest on refereed theorems only: B1-B9 (TYZ and its imports; TYZ read in arXiv v1).
-   - 4 steps rest on refereed theorems with a locator to check: D1-D4 (Gross–Zagier, the
-     auxiliary non-vanishing theorem, modularity of `C_d`, the root number).
-   - 6 steps are repository arguments with model reviews: A1-A3 (the match of `gCl`, `T5bCl` and
-     the premises; rv-redei, rv-cr5b-sec3, rv-cr3-rank) and C1-C3 (Lemmas N1 and N2 and the proof
-     of Proposition N; one model review, rv-nt-tyz, with a second one, rv-prop-n, running in
-     parallel with this task).
+2. **The outline (§1)** has 26 steps in five parts: the match of the Lean statement (A1-A6), the
+   deep results of TYZ (B1-B9), Proposition N (C1-C4), the rank step (D1-D4), and the Lean side for
+   the other forms (E1-E3).
+   - 3 steps are Lean-proved: E1-E3 (Rédei's formula; Theorem 3.6, Corollary 4.4, Proposition 0;
+     RK9 and Mordell–Weil).
+   - 2 steps are verified here: A4 (the curve, by hand) and A6 (a computation on 30 curves).
+   - 10 steps rest on refereed theorems only: B1-B9 and C4 (TYZ and its imports; TYZ read in
+     arXiv v1 only).
+   - 3 steps rest on refereed theorems whose exact locators are still to check: D1-D3
+     (modularity of `C_d`, the auxiliary non-vanishing theorem, Gross–Zagier). D4 records the
+     alternatives that are not used (Lemma 5.5 of the manuscript, Kriz).
+   - 7 steps are repository arguments with model reviews: A1, A2, A3, A5 (the match of `gCl`,
+     `T5bCl`, the premises and the conclusion; rv-redei, rv-cr5b-sec3, rv-cr3-rank) and C1-C3
+     (Lemmas N1 and N2 and the proof of Proposition N). C1-C3 have one model review, rv-nt-tyz; a
+     second one, rv-prop-n, runs in parallel with this task.
    - No step is unchecked.
 3. **What remains outside refereed sources and Lean (§2):**
    - (a) Proposition N: Lemmas N1 and N2, the facts F3 (first half) and F5, and the proof of
@@ -83,9 +86,9 @@ step's own argument.
      §1.4), so whether the journal corrected it is open (§2.3).
    - (d) About 25 locators UNVERIFIED (§2.4), and the TYZ locators ARXIV-READ only.
    - (e) Exact scripts (§2.5).
-4. **New computation (VERIFIED, §1 A6).** On 30 values of `d` (3 to 5 primes, `d < 30000`) with
-   `T5b d = 1`, `T5bCl d` computed from certified class groups is `1`, the root number is `−1`, the
-   analytic rank is `1`, and an explicit non-torsion point exists. A scan of all 386 squarefree
+4. **New computation (§1 A6).** On 30 values of `d` (3 to 5 primes, `d < 30000`) with
+   `T5b d = 1`: `T5bCl d`, computed from certified class groups, is `1`; the root number is `−1`; and
+   the analytic rank is `1` (numerical). An explicit non-torsion point was found on 24 of the 30 curves; on the other 6 the generator was too large for `ellrank` and for a search of the 2-coverings to height `10⁵`. A scan of all 386 squarefree
    `d ≡ 5 (mod 8)` below 30000 with 3 to 5 primes and `T5b d = 1` finds `#Sel₂(C_d) = 8` in every
    case. So the premise `#Sel₂ = 8` of the non-`Rk` TYZ forms excluded nothing in that range
    (rv-cr5b-sec3 §1.6 had left this open).
@@ -256,12 +259,20 @@ follow its section counter (nt-tyz, header, VERIFIED there).
 - *Content.* `scratch/cr3-trust/tyzcl_check.py`, output `out_tyzcl_check.txt`. The inputs are 30 of
   the 386 squarefree `d ≡ 5 (mod 8)`, `d < 30000`, with 3 to 5 primes and `T5b d = 1` (every 13th).
   For each `d`, `T5bCl d` is computed from its Lean definition, with the class groups of the full
-  rings of integers from `bnfinit` certified by `bnfcertify` (87 fields, unconditional). The root
-  number (`ellrootno`), the analytic rank (`ellanalyticrank`, numerical) and a rational point (from
-  `ellrank`, or `ellheegner` when `ellrank` lists none) are computed; the point is checked exactly to
-  lie on `C_d` and to have `y ≠ 0`, so it lies outside `C_d(ℚ)_tors = C_d[2]` (`elltors` gives 4)
-  and has infinite order.
-- *Outcome.* RESULT_A6
+  rings of integers from `bnfinit` certified by `bnfcertify` (87 fields, unconditional). The script
+  also computes the root number (`ellrootno`), the analytic rank (`ellanalyticrank`, numerical) and
+  a rational point. The point comes from `ellrank`, or, when `ellrank` reports rank 1 but lists no
+  point, from a search of the 2-coverings (`ell2cover`, `hyperellratpoints` to height `10⁵`,
+  `scratch/cr3-trust/cover_point.py`). It is checked exactly to lie on `C_d` and to have `y ≠ 0`.
+  So it lies outside `C_d(ℚ)_tors = C_d[2]` (`elltors` gives 4) and has infinite order.
+  (`ellheegner` was tried first and was too slow at conductor `32·10293²`.)
+- *Outcome.* No failure. `T5bCl d = 1` on all 30, so it agrees with Lean's `T5b d = 1`, as
+  `T5bCl_eq_T5b'` requires. The root number is `−1` and the analytic rank is `1` on all 30, and
+  `ellrank` gives the bounds `[1, 1]`. An explicit non-torsion point was found on 24 curves (23 by
+  `ellrank`, 1 by the covering search). On the other 6 (`d = 10293, 15565, 18309, 21909, 26285,
+  27213`) none was found: their generators are too large for these searches (searching
+  `d = 10293, 15565` to height `10⁶` also found nothing). This is consistent with analytic rank 1,
+  but there the point is not certified.
 - *Selection scan.* `scratch/cr3-trust/select.py` (`out_select.txt`): all 386 values with
   `T5b d = 1` have `#Sel₂(C_d) = 8` (Selmer group from the local images of
   `scratch/rv-cr5b-sec3/mirror.py`, which follows Lean's `Loc`). So in this range the premise
