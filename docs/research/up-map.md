@@ -438,9 +438,13 @@ All paths are relative to `~/upstream`.
     - V16 bib l.39270–39276 keeps this: "The adjacent Baba--Granath product-map finding is
       preserved separately."
     - The fork's `h-v14.md` l.203 already records Props 3.7–3.8 as "explicitly not used"
-      (V14 L757–759). h-trust.md l.89 uses Baba–Granath 2008 and Lin–Yang 2020 in place of
-      `a001`, `ly-d6` and `igusa-theta`, so **up-h should check whether any fork leaf depends on
-      Lin–Yang eq. (2) through Baba–Granath 3.9**. (SPECULATIVE as to impact)
+      (V14 L757–759).
+    - h-trust.md l.89 uses Baba–Granath 2008 and Lin–Yang 2020 in place of `a001`, `ly-d6` and
+      `igusa-theta`. Its leaf F1 (l.688–696, `j` in theta constants) lists "Lin–Yang 2020, eqs.
+      (2), (14), (13)" among its suppliers, next to Igusa 1967, Lauter–Naehrig–Yang and
+      `igusa_check.py` (VERIFIED).
+    - **up-h should decide whether F1 stands without Lin–Yang eq. (2).** (SPECULATIVE as to
+      impact.)
   - The V14 GI objections are listed in `version14/final-coverage/ADDITIONAL-FINDINGS-HISTORY.json`
     l.5–22 (survey).
 - **V15** (`research/version15/RELEASE-NOTES.md`, 19 lines; `README.md`, 18 lines; VERIFIED).

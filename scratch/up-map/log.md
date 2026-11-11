@@ -95,3 +95,7 @@
 ## Step 21 (checks for up-map.md)
 - grep -i "congruent number" V16: 0 hits; in ~/upstream/research, docs, p214 proposal: only research/version14/retained-sources/parity-frozen-4eaee875.tex (+ a copy under evidence/release-completion-017), l.291 (pi/3-congruent numbers remark). VERIFIED.
 - V16 bib kato (l.39470) = Asterisque 295 (2004). V2 prop:cutoff l.6296. V10 Issue 2 paragraph l.122-126.
+
+## Step 23 (fleet report)
+- Fork h-trust.md leaf F1 (l.688-696) cites Lin-Yang 2020 eqs. (2), (14), (13) + LNY 2015 + Igusa 1967 + igusa_check.py; h-trust.md l.89 replaces a001/ly-d6/igusa-theta by Baba-Granath 2008, Lin-Yang 2020, Igusa 1967, LNY 2015. Connects to upstream ADVERSE-CASE (Baba-Granath Prop 3.7 -> 3.9 -> Lin-Yang (2)). VERIFIED (read).
+- Wrote .fleet/up-map.md (verdict, finding, next step).
