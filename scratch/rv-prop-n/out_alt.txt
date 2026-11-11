@@ -1,0 +1,23 @@
+99645 g(n) 0 T5a 0 T5b 0 readingB 0
+60229 g(n) 0 T5a 0 T5b 0 readingB 0
+92045 g(n) 0 T5a 0 T5b 0 readingB 0
+134805 g(n) 1 T5a 0 T5b 0 readingB 1
+41181 g(n) 0 T5a 0 T5b 0 readingB 0
+23709 g(n) 0 T5a 0 T5b 0 readingB 0
+26565 g(n) 1 T5a 0 T5b 0 readingB 1
+356741 g(n) 0 T5a 0 T5b 0 readingB 0
+141141 g(n) 1 T5a 0 T5b 0 readingB 1
+468741 g(n) 0 T5a 0 T5b 0 readingB 0
+485485 g(n) 0 T5a 0 T5b 0 readingB 0
+582981 g(n) 0 T5a 0 T5b 0 readingB 0
+821541 g(n) 0 T5a 0 T5b 0 readingB 0
+887565 g(n) 1 T5a 0 T5b 0 readingB 1
+2817661 g(n) 0 T5a 0 T5b 0 readingB 0
+951405 g(n) 0 T5a 0 T5b 0 readingB 0
+1582581 g(n) 0 T5a 0 T5b 0 readingB 0
+1915485 g(n) 0 T5a 0 T5b 0 readingB 0
+2225685 g(n) 0 T5a 0 T5b 0 readingB 0
+2379405 g(n) 1 T5a 0 T5b 0 readingB 1
+2422245 g(n) 1 T5a 0 T5b 0 readingB 1
+13498485 g(n) 1 T5a 0 T5b 0 readingB 1
+22 rank-3 values; with g(n)=1: [134805, 26565, 141141, 887565, 2379405, 2422245, 13498485]
