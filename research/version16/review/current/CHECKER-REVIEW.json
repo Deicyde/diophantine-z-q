@@ -1,0 +1,24 @@
+{
+  "schema": "v16-finite-checker-review/v1",
+  "reviewer": "/root/v16_correction_review",
+  "author_of_checker_change": false,
+  "decision": "accept-narrow-binding-change",
+  "checker": "research/version16/check.py",
+  "checker_sha256": "8cf0c312006d6d7a567eef4a84c833991f6e8991ec530c1580983f06d8df403f",
+  "manuscript_sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+  "checks": [
+    "Read complete checker and diff. The original eight exact replacements reconstruct the original reviewed2f7295 source.",
+    "The single AI amendment then reconstructs a9cb3d source. It is compared both to the amendment hash and to the preserved pre-precision archive bytes.",
+    "The unique precision replacement matches the requested manuscript path and gives exactly the installed aeb2b6 source. Line count is unchanged.",
+    "Original review and application records remain bound to the original reviewed source, not relabeled as approval of the current hash.",
+    "Build and manifest are bound to the current installed hash; the checked PDF is5634295d85bdfd2aef476ad49827b160f119e94996e1f644c3b05a96eabf6315.",
+    "Executed the checker with ordinary Python -B. PASS:8original edits,1AI amendment,1precision amendment,36files verified.",
+    "Verified original REVIEW.md hash4d6965228b0d81da983aa1d9b985bd76433c78625b7d1a6bfdc6fa83a2c89af5 and REVIEW.json hashae4bf3ef28d7492aa59ec64d42e046b2382fd4af85aea8ab082ea533a4b7e8b3 are unchanged."
+  ],
+  "defects_found_in_requested_change": [],
+  "limits": [
+    "Finite artifact-binding review only. No mathematical acceptance or protected-controller authentication is inferred from checker PASS.",
+    "The checker intentionally does not treat self-reported review fields as trusted model-eligibility evidence.",
+    "Final current native-packet acknowledgment remains pending."
+  ]
+}

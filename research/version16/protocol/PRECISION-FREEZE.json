@@ -1,0 +1,9 @@
+{
+  "frozen_at": "2026-11-11T20:18:38.523Z",
+  "old_source_sha256": "a9cb3d59596d80e796224e979faf764662739d74cd91cdef080c37e1c8af9fc1",
+  "new_source_sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+  "line_count": 39932,
+  "source_delta": "Exactly lines20076-20077; no other bytes changed.",
+  "prior_exposure": "I identified the ambiguity in the old source and asked the mathematical reviewer for a diagnosis. I saw that reviewer proposed this exact wording and have read its unchanged proof argument. This is exposed source-first review, not blind review. I did not author the wording or modify the manuscript. New inventory rebinding has not yet been inspected.",
+  "initial_path_normalization": "INITIAL.original.json retains native bytes21056a32763eae0b40aed0439bae07c2c4b20961ea3abd613cb0385a7325ce00. INITIAL.json changes only its source path from the old live location to the exact preserved a9cb archive. Initial mathematical contents and original Markdown chronology are unchanged."
+}

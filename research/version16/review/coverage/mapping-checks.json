@@ -1,0 +1,266 @@
+{
+  "target_sha256": "a9cb3d59596d80e796224e979faf764662739d74cd91cdef080c37e1c8af9fc1",
+  "current_lines": 39932,
+  "coverage_rows": 127,
+  "source_uses": 1187,
+  "declared_edges": 505,
+  "connections": 1167,
+  "validated_location_count": 3549,
+  "gaps": [],
+  "errors": [],
+  "changed_ranges": [
+    {
+      "label": "index/1/location",
+      "old": [
+        1,
+        75
+      ],
+      "current": [
+        1,
+        75
+      ]
+    },
+    {
+      "label": "index/27/location",
+      "old": [
+        17544,
+        20351
+      ],
+      "current": [
+        17544,
+        20356
+      ]
+    },
+    {
+      "label": "index/41/location",
+      "old": [
+        26577,
+        27137
+      ],
+      "current": [
+        26582,
+        27168
+      ]
+    },
+    {
+      "label": "index/55/location",
+      "old": [
+        30155,
+        30875
+      ],
+      "current": [
+        30186,
+        30906
+      ]
+    },
+    {
+      "label": "index/69/location",
+      "old": [
+        39885,
+        39896
+      ],
+      "current": [
+        39921,
+        39932
+      ]
+    },
+    {
+      "label": "index/70/location",
+      "old": [
+        39108,
+        39878
+      ],
+      "current": [
+        39139,
+        39914
+      ]
+    },
+    {
+      "label": "uses/458/inline_argument",
+      "old": [
+        19989,
+        20164
+      ],
+      "current": [
+        19989,
+        20169
+      ]
+    },
+    {
+      "label": "uses/460/inline_argument",
+      "old": [
+        19989,
+        20164
+      ],
+      "current": [
+        19989,
+        20169
+      ]
+    },
+    {
+      "label": "uses/461/inline_argument",
+      "old": [
+        19989,
+        20164
+      ],
+      "current": [
+        19989,
+        20169
+      ]
+    },
+    {
+      "label": "uses/462/inline_argument",
+      "old": [
+        19989,
+        20164
+      ],
+      "current": [
+        19989,
+        20169
+      ]
+    },
+    {
+      "label": "uses/463/inline_argument",
+      "old": [
+        19989,
+        20164
+      ],
+      "current": [
+        19989,
+        20169
+      ]
+    },
+    {
+      "label": "uses/542/supplier/location",
+      "old": [
+        30601,
+        30656
+      ],
+      "current": [
+        30632,
+        30687
+      ]
+    },
+    {
+      "label": "uses/542/inline_argument",
+      "old": [
+        30601,
+        30656
+      ],
+      "current": [
+        30632,
+        30687
+      ]
+    },
+    {
+      "label": "uses/543/supplier/location",
+      "old": [
+        30601,
+        30656
+      ],
+      "current": [
+        30632,
+        30687
+      ]
+    },
+    {
+      "label": "uses/543/inline_argument",
+      "old": [
+        30601,
+        30656
+      ],
+      "current": [
+        30632,
+        30687
+      ]
+    },
+    {
+      "label": "uses/544/supplier/location",
+      "old": [
+        30601,
+        30656
+      ],
+      "current": [
+        30632,
+        30687
+      ]
+    },
+    {
+      "label": "uses/544/inline_argument",
+      "old": [
+        30601,
+        30656
+      ],
+      "current": [
+        30632,
+        30687
+      ]
+    },
+    {
+      "label": "uses/545/supplier/location",
+      "old": [
+        30601,
+        30656
+      ],
+      "current": [
+        30632,
+        30687
+      ]
+    },
+    {
+      "label": "uses/545/inline_argument",
+      "old": [
+        30601,
+        30656
+      ],
+      "current": [
+        30632,
+        30687
+      ]
+    },
+    {
+      "label": "uses/546/supplier/location",
+      "old": [
+        30601,
+        30656
+      ],
+      "current": [
+        30632,
+        30687
+      ]
+    },
+    {
+      "label": "uses/546/inline_argument",
+      "old": [
+        30601,
+        30656
+      ],
+      "current": [
+        30632,
+        30687
+      ]
+    },
+    {
+      "label": "uses/547/supplier/location",
+      "old": [
+        30601,
+        30656
+      ],
+      "current": [
+        30632,
+        30687
+      ]
+    },
+    {
+      "label": "uses/547/inline_argument",
+      "old": [
+        30601,
+        30656
+      ],
+      "current": [
+        30632,
+        30687
+      ]
+    }
+  ]
+}
