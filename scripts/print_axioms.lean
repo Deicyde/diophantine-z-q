@@ -32,6 +32,7 @@ Each declaration should depend on `[propext, Classical.choice, Quot.sound]` only
 #print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankRk
 #print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZRk
 #print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk
+#print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLRk
 
 -- Theorems that replace former hypotheses, and the vendored Green–Tao theorem.
 #print axioms ZInQ.greenTaoDense
@@ -49,6 +50,11 @@ Each declaration should depend on `[propext, Classical.choice, Quot.sound]` only
 #print axioms ZInQ.RouteK.Rank.certifiedRank_of_certifiedRankRk'
 #print axioms ZInQ.RouteK.Rank.certifiedRankTYZ_of_certifiedRankTYZRk'
 #print axioms ZInQ.RouteK.Rank.certifiedRankTYZCl_of_certifiedRankTYZClRk'
+#print axioms ZInQ.RouteK.Rank.sel_of_selmerCertified
+#print axioms ZInQ.RouteK.Rank.certifiedRankDLRk_of_certifiedRankTYZRk
+#print axioms ZInQ.RouteK.Rank.poleCompleteness_of_certifiedRankDLRk
+#print axioms ZInQ.RouteK.Rank.poleCompleteness_of_certifiedRankDLAdmRk
+#print axioms ZInQ.RouteK.Rank.certifiedRankDLAdmRk_of_certifiedRankDLRk
 #print axioms ZInQ.poleCompleteness_of_certifiedRank
 #print axioms ZInQ.mordellWeilE
 #print axioms ZInQ.catalogueBound8
