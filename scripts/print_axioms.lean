@@ -33,6 +33,10 @@ Each declaration should depend on `[propext, Classical.choice, Quot.sound]` only
 #print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZRk
 #print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk
 #print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLRk
+#print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankInf
+#print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZInf
+#print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClInf
+#print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLInf
 
 -- Theorems that replace former hypotheses, and the vendored Green–Tao theorem.
 #print axioms ZInQ.greenTaoDense
@@ -61,6 +65,11 @@ Each declaration should depend on `[propext, Classical.choice, Quot.sound]` only
 #print axioms ZInQ.RouteK.Rank.poleCompleteness_of_certifiedRankDLRk
 #print axioms ZInQ.RouteK.Rank.poleCompleteness_of_certifiedRankDLAdmRk
 #print axioms ZInQ.RouteK.Rank.certifiedRankDLAdmRk_of_certifiedRankDLRk
+#print axioms ZInQ.RouteK.Rank.exists_infinite_order_iff_infinitelyManyPoints
+#print axioms ZInQ.RouteK.Rank.certifiedRankInf_iff_certifiedRankRk
+#print axioms ZInQ.RouteK.Rank.certifiedRankTYZInf_iff_certifiedRankTYZRk
+#print axioms ZInQ.RouteK.Rank.certifiedRankTYZClInf_iff_certifiedRankTYZClRk
+#print axioms ZInQ.RouteK.Rank.certifiedRankDLInf_iff_certifiedRankDLRk
 #print axioms ZInQ.poleCompleteness_of_certifiedRank
 #print axioms ZInQ.mordellWeilE
 #print axioms ZInQ.catalogueBound8
