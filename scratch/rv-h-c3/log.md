@@ -82,3 +82,18 @@ HOLDS AS STATED (mathematically). Repairs are citation/wording only:
 Consequence for H: C3 can move from "[M] single model review" to "[M] two independent model
 reviews"; the lemma is a routine consequence of standard p-adic Hodge theory, with an alternative
 route (pst directly) that needs neither the descent paragraph nor Berger.
+
+## Step 5. Comparison with rv-h-trust (read after Step 4): §2.1 "Review here", §3 D1, §1.2 item 1
+- Agreement: lemma holds given Scholze; weight step and Hilbert 90 descent correct.
+- Not in rv-h-trust (new here):
+  (a) unstated restriction step F -> F' (R1); trivial.
+  (b) pst follows directly (summand of V_l(A_F) (x) C_l, pst by semistable reduction + C_st), so
+      neither the descent paragraph nor Berger is needed for Pan; Berger/descent only re-derive it.
+      rv-h-trust §3 calls the descent paragraph needed "in either route": for pst it is not
+      (pst over K is defined through a finite extension). C8's use of weights over Q_5 needs only
+      HT weights, which are also insensitive to finite extension.
+  (c) "power zero" in C8 depends on rho_g's normalization (Pan fixes geometric Frobenius); k = 2 and
+      the end result do not (R3). rv-h-trust and h-trust C8 state wt(rho_g) = {0,1-k} unqualified.
+  (d) h-trust C3 proposes Fontaine Ast. 223 "Exp. VIII" as the replacement for BC 5.2.1/6.3.3/6.3.8.
+      From memory (SPECULATIVE, unverified): Exp. VIII is Fontaine's l-adic pst exposé; the de Rham
+      formalism is Exp. III (§§1.4-1.5 admissibility; §3 de Rham). Flag for a locator check.
