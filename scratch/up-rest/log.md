@@ -54,3 +54,8 @@
   v13 only 86, 1172-1174, 1194-1198; v14 adds 138, 273-275, 1265, 1408, 1416-1418; v15 adds 163-164; v16 = v15 (same N5 block list except 11253 = AI credit "Fable 5.1 and 5.2").
 - v15-only blocks vs v14: N5 163-164, 8102 (-> v15:theta-transport), 9623 (-> v15:unary-poisson), i.e. v15 internalizes supplements as sections: v15:gi-full (Part, v16 23831), v15:cm-oriented (30163; replaces v14's external cj-conductor-one-project, v14 l.3424), v15:picard-norm (30124), v15:tate-polarized (30096), v15:marking-descent (30109), v15:unary-poisson (23770), v15:theta-transport (23810).
 - Fork's earlier note docs/research/v14-routes.md already covers v13->v14 (statements byte-identical; GI source -> local-gi; RC repairs; quartic prime input harder than GreenTaoDense+GoodPrimeDensity).
+
+## Step 8: v15 -> v16 reconstruction (scratch/up-rest/v15_to_v16.py)
+- Applying EDITS.json (8 edits, each old string unique) to research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex gives EDITS.sha256; then EDITORIAL-AMENDMENT.json edits and TZ-PRECISION-AMENDMENT.json give a file byte-identical to manuscripts/quartic_v16.tex. So v15 -> v16 changes are exactly those. VERIFIED.
+- v16 FINDINGS.json: 4 findings (horizontal-normalization: "missing at finite-cover site"; GR-citations: "wrong Gaudron-Remond paper"; TZ-extra-factor: wording implied direct application, "no mathematical replacement"; Bogolyubov-number: withdrawn). unclosed_audit_scope: Kato 1999 pp.314-318, Ribet 1990 pp.440-443 unread (both RC path: v16 l.2781-2785, 15105-15116); full changed-modulus TZ re-derivation not done by Fable.
+- Fork trust notes: cr3-trust.md and h-trust.md cite neither Kato 1999 nor Ribet 1990 (grep). 
