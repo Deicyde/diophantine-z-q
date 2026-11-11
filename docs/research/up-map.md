@@ -88,7 +88,7 @@ All files are under `~/upstream` unless noted. Dates are the `\date` lines (VERI
 | V7 | `manuscripts/archive/quartic_v7.tex` | Nov 6 (l.41) | 4973 + 962-var quartic (55409 monomials; l.11217). "Degree at least four" section |
 | V8 | `manuscripts/archive/quartic_v8.tex` | Nov 6 (l.41) | Same polynomials. Abstract states that the minimum degree is 4 (l.44) |
 | V9 | `manuscripts/quartic_v9.tex` | Nov 7 (l.41) | quartics in 540 vars (coeff < 2^3247) and 523 vars (64·3^(2^27)) (`thm:v9-quartics` l.18807) |
-| V10 | `manuscripts/quartic_v10.tex` | Nov 7 (l.41) | Same tables. Issue 2 response (§1 l.~150–160 in V16 numbering: l.149–156) |
+| V10 | `manuscripts/quartic_v10.tex` | Nov 7 (l.41) | Same tables. Issue 2 response (V10 l.~120–126; V16 l.155–159) |
 | V11 | `manuscripts/quartic_v11.tex` | Nov 7 (l.41) | Same tables. Kato index-set repair in App "Fixed-form arithmetic" |
 | V12 | `manuscripts/quartic_v12.tex` | Nov 7 (l.41) | quartics in 514 vars (< 2^3247) and 498 vars (16·3^(2^26)) |
 | V13 | `manuscripts/quartic_v13.tex` | Nov 7 (l.41) | quartics in 411 vars (6388 monomials) and 394 vars |
@@ -148,11 +148,11 @@ V2–V13 use N5's numbers: 1.1, 4.1, 5.2, 5.3, 6.2, 12.1.
   - §3 +3, §4 +5, §5 +9, §6 +41, §7 +22, §8 +53, §13 +16;
   - App "Source identities" +8, App "Literal finite-constructor specification" +88 (the
     saved-template identification table), App "Fixed-form" +61.
-  - V16 §1 l.149–156: "Version 10 clarified determinant specialization, the published prime-two
+  - V16 §1 l.155–159: "Version 10 clarified determinant specialization, the published prime-two
     Euler-system input, the local valuation deduction, and the identification of the saved
     templates … The polynomial specifications and numerical bounds are unchanged."
 - **V10→V11.** Only App "Fixed-form arithmetic and the even coefficient source" changes (−10/+69).
-  V16 §1 l.147–148: "Version 11's index-set and retained-class identification in the published
+  V16 §1 l.152–153: "Version 11's index-set and retained-class identification in the published
   Kato application".
 - **V13→V14.** Changes:
   - §4 height: −146/+778.
@@ -242,6 +242,13 @@ V2–V13 use N5's numbers: 1.1, 4.1, 5.2, 5.3, 6.2, 12.1.
     `research/version14/proofs/` (26 supplement directories).
   - New citations in V16 §4: Deligne 1971, Deligne–Serre, Kato, Calegari, Milne–Shimura 2005,
     Igusa 1967, Carayol 1987, Voight 2021, Serre–Tate. (VERIFIED)
+- **V14 → V16 (VERIFIED, diff of V14 l.448–1680 against V15 l.473–1704, then V15 → V16).**
+  - The only change in §4 after V14: five citations of `b11-integral-model-project` become
+    §`v15:marking-descent` / §`v15:tate-polarized`.
+  - So V16 §4 is V14 §4 with the b11 supplement inlined. The fork's `docs/research/h-v14.md`
+    (the H trust leaves re-based on V14 §4) therefore applies to V16 §4 line for line, after a
+    V14 → V16 offset of +25 lines (+24 after V14 l.785). The exception is the integral-model leaves, which now point
+    into the manuscript.
 - **Bearing on the fork.** h-b1.md replaces "the unpublished integral-model supplement" by Lemma PR.
   - Upstream now writes that integral-model construction out in the manuscript: V16 l.829 ff.
     and §`v15:marking-descent`.
@@ -343,14 +350,176 @@ V2–V13 use N5's numbers: 1.1, 4.1, 5.2, 5.3, 6.2, 12.1.
 
 ## 5. Release notes, findings and edit records (research/versionN/)
 
-(See §5 entries below; filled from the research-notes survey.)
+All paths are relative to `~/upstream`.
+- VERIFIED marks lines read for this note.
+- "(survey)" marks a line located by a delegated read-only survey and not re-read here.
+
+### 5.1 Version by version
+
+- **Collaborator notes, 11-06** (`research/2026-11-06-collaborator-notes/`).
+  - README l.5 (VERIFIED): the collaborators' von Känel–Kret height estimate "can be replaced by
+    the existing five-contact proof in Version 4". This concerns the quartic route, not
+    Theorem 4.1.
+  - `fable-repository-audit.md` l.13–15 (VERIFIED):
+    - completeness is treated as depending on RC;
+    - "the prime-pattern theorem in Section 6 was not read in any pass".
+- **V6** (`research/version6/README.md` l.9, 13; `analytic-proof/ASSESSMENT.md` l.17, 21;
+  survey).
+  - V6 proves the Gaussian ray-field estimate in place of the Frei–Tinková theorem.
+  - It feeds the simultaneous-primes appendix of the quartics.
+  - The original construction "do[es] not use this new input".
+- **V7** (`research/version7/README.md` l.3, 7; survey). Four audits of the Gaussian appendix
+  and their repairs. They do not re-audit RC or the height theorem.
+- **V9** (`research/version9/README.md` l.3, 9; survey). Adds the 523/540 quartics. "No new
+  external arithmetic theorem."
+- **V10, Issue 2.**
+  - Issue 2 is manvirjaswal's "Full check of the 11/5 manuscript"
+    (`docs/manuscript-revisions/version10/issue2.json` l.5, VERIFIED). It raised nine points
+    (`version10/README.md` l.7–17; dispositions in `responses.json` l.4–96; survey).
+  - Points bearing on the inputs (survey):
+    - 2: determinant specialization in the RC chain;
+    - 4: Kato 1999 Thm 0.8 at the prime 2, in the RC chain;
+    - 5–6: conjugated ratios printed, the template dictionary, and the δ/α valuation deduction
+      in §6;
+    - 7: OpenAI credit at §4, §5, RC and §7;
+    - 9: no-seed congruence in §7.
+  - `docs/audit-history/issue2/README.md` l.3–17 (survey): most edits "restored or connected
+    existing arguments".
+- **V11** (`docs/manuscript-revisions/version11/README.md` l.3, VERIFIED). A follow-up on Issue 2
+  "found a missing connection in Version 10":
+  - K8 had been defined on Kato 2004's restricted index set, but Kato 1999 needs every multiple
+    of a fixed integer.
+  - The repair is in App "Fixed-form arithmetic and the even coefficient source", in the RC
+    chain.
+- **V12, V13** (`version12/README.md` l.36; `version13/GUIDE.md` l.35; survey). New quartic
+  reductions only. They explicitly do not re-prove RC, the height theorem or the prime pattern.
+- **V14.**
+  - `research/version14/README.md` (13 lines) and `SUPPORTING-NOTES.md` (63 lines) (VERIFIED).
+    - The supporting notes are mostly RC: Heegner descent, CM points, Néron models, Atkin–Lehner,
+      Cornut–Jetchev conductor-one.
+    - The others are on GI (LP03 selection, Bertrand, the convex boundary) and on the forgetful
+      Picard map.
+  - `research/version14/proofs/` has 26 supplement directories. Their statuses (VERIFIED, first
+    lines):
+    - `direct-p5-modularity-v1`: "AUTHORED FOR INDEPENDENT REVIEW … not an acceptance of the full
+      modularity ancestry";
+    - `b11-integral-model-v1/ASSEMBLY.md`: "Author draft for independent review";
+    - `igusa-theta-v1/PROOF.md`: "pending independent review" (replaces the LNY publisher-proof
+      citation for two theta identities);
+    - `ly-d6-normalization-v1`: "pending review".
+  - **`a001-moduli-current-v1/ADVERSE-CASE.md` (14 lines, VERIFIED)** records a defect in the
+    proof of Baba–Granath (CJM 2008) Prop. 3.7:
+    - the map J(C) → E₁ × E₂ there has degree 4;
+    - the printed curve-point separation claim has a direct counterexample, the Weierstrass
+      points (±√r, 0).
+    - The narrowed A001 argument does not use Prop. 3.7. But Lin–Yang's eq. (2) weighted-Igusa
+      formula is attributed to Baba–Granath Prop. 3.9, which uses 3.7. Upstream therefore routes
+      the normalization through `ly-d6` and `igusa-theta`.
+    - V16 bib l.39270–39276 keeps this: "The adjacent Baba--Granath product-map finding is
+      preserved separately."
+    - The fork's `h-v14.md` l.203 already records Props 3.7–3.8 as "explicitly not used"
+      (V14 L757–759). h-trust.md l.89 uses Baba–Granath 2008 and Lin–Yang 2020 in place of
+      `a001`, `ly-d6` and `igusa-theta`, so **up-h should check whether any fork leaf depends on
+      Lin–Yang eq. (2) through Baba–Granath 3.9**. (SPECULATIVE as to impact)
+  - The V14 GI objections are listed in `version14/final-coverage/ADDITIONAL-FINDINGS-HISTORY.json`
+    l.5–22 (survey).
+- **V15** (`research/version15/RELEASE-NOTES.md`, 19 lines; `README.md`, 18 lines; VERIFIED).
+  - The 222 family: 196 residuals, 2277 monomials, ineffective N₀. Published from merge 2b34f71
+    after PR 26.
+  - The original construction "remain[s] available".
+  - Protocol records `protocol/current222/`: 193 applications, 1187 source uses, 1167
+    connections. `FINDINGS.proposed.json` holds 32 formal findings: 30 repaired, 2 out of scope.
+    - None concerns the statements of Thm 4.1, PC, RC or 22P.
+    - The height-related findings HEIGHT-MODULAR-CLAUSE6 and SF11-SOURCE-ROUTE concern the
+      222-family modular height application.
+    - `unpublished-foundation-closure-1..5` keep GI and the theta transport internal.
+    - `CONNECTIONS.json` still binds the original six-contact theorem's connections. (VERIFIED by
+      a JSON read.)
+- **V16** (`research/version16/README.md`, VERIFIED).
+  - Three corrections from the "fourth Fable 5.2 audit" (`audits/fable-5-2-audit-4.pdf`,
+    pp. 84–97). "The abstract, theorem statements and polynomial data are unchanged".
+  - The exact edits are in `EDITS.json`. Recheck with `python -B research/version16/check.py`
+    (not run here).
+  - `FINDINGS.json` l.26–37 (VERIFIED):
+    - the Bogolyubov-numbering objection was withdrawn;
+    - unclosed audit scope: "Kato1999 pp314–318 and Ribet1990 pp440–443 unread by Fable", and
+      the changed-modulus Tao–Ziegler estimates were not re-derived;
+    - `"no_new_whole_proof_acceptance": true`.
+
+### 5.2 Upstream's theorem-application audit (`docs/theorem-application-audit/`)
+
+- An inventory of 82 external-theorem application families (A001–A082). It is bound to
+  `source/audited-baseline.tex`, whose 11259 lines are N5's line count, so it audits N5 itself.
+  Its anchors are N5 line numbers: `thm:height` 404, `hyp:PC` 1001, `hyp:RC` 1005, 22P 1267,
+  catalogue 238–241, cutoff 6285. (survey)
+- Entries by input (survey):
+  - H: A001–A018, A061–A064, A078–A079. `evidence/height-whole.md` l.9–14: "No material
+    mathematical defect".
+  - PC: A019, A020, A082. `evidence/pole.md` l.5–9: no new gap in RC ⇒ PC.
+  - RC: A022–A029, A032, A049–A051, A076.
+  - 22P: A021, using GTZ v5 Thm 1.3 "with separate erratum".
+  - Dirichlet/catalogue: A057.
+  - BMOR cutoff: A046.
+- **`SOURCES.md` l.404 (VERIFIED):** the GTZ input is arXiv:1009.3998v5 together with the
+  separate author erratum. v5 "retains original Proposition 8.3", so the erratum is required.
+  - This is the background to upstream replacing GTZ by its own GI proof.
+  - The fork's route AP (nt-22p.md) does not use GTZ.
+- Findings F001–F008 (survey):
+  - F001: Faltings 1988 was cited for de Rham but gives only Hodge–Tate. It was replaced by
+    Scholze plus corrigendum and Brinon–Conrad, in the height proof.
+  - F007: the Kolyvagin locator, in the PC chain.
+  - The others are locators or misprints.
+
+### 5.3 What the records say about the original construction
+
+- No record withdraws, weakens or makes conditional any statement of the 292890231905-variable
+  construction.
+  - The V16 README and RELEASE-NOTES say the statements are unchanged.
+  - `research/version16/review/coverage/REVIEW.md` l.39 (survey) says the construction "retains
+    its six-component arithmetic and compiler composition".
+- Every release disclaims a whole-proof acceptance.
+- Upstream's Lean formalization has a `sorry` (README l.93; survey).
+
+### 5.4 The 214-variable proposal and the October 11 manuscript
+
+- **p214** (`~/upstream-p214`).
+  - A single commit, 110cf72 (Cameron Freer, 11-11). Its parent is upstream main *before* V16
+    (`research/quartic214/PROVENANCE.json`), so p214 builds on V15, not V16.
+  - Statement (README.md l.5–11, VERIFIED):
+    - an ineffective N₀; for N ≥ N₀, x ∈ ℤ ⇔ ∃y ∈ ℚ^213 with P_N(x, y) = 0;
+    - P_N is a sum of squares of 188 quadratic rows, degree 4;
+    - H(P_N) = 149^(4N+2) + 1 for N ≥ 53.
+  - Status: "public author proposal", independent review pending (README l.3).
+  - Inputs:
+    - `proofs/source-carry.md` l.7 (C02, VERIFIED): "The original huge polynomial's compiler,
+      six-contact input and canonical code domain are not themselves needed".
+    - RC is kept for E_ℓ: y² = x(x−ℓ)(x+3ℓ) (C04, l.11–15; survey).
+    - The eleven-witness PC is not used.
+    - A new ten-contact height h(u) < C₂ M_S10(u)^(2103/1024) (`proofs/uniform-existence.md`
+      l.40, P10, VERIFIED), with modularity via Calegari ICM.
+    - Von Buhren 2017 Thm 1.1 is the source of ineffectivity (P09, l.38–39, VERIFIED).
+    - V15's GI Part, and V15's Gaussian simultaneous-prime theorem in place of a prime pattern
+      (survey).
+- **October 11 manuscript** (`October 11 Manuscript/README.md` l.3; survey of the PDF).
+  - "A conditional Diophantine definition of Z in Q from four arithmetic inputs", Sohail Farhangi
+    with ChatGPT 6, dated Oct 11.
+  - Thm 1.1 (p.1) is conditional on four inputs imported from OpenAI's HTP preprint (Sept 24
+    version):
+    - pole parity;
+    - rank one for y² = x³ − d²x with d = 75 − 53√2 over ℚ(√2);
+    - a *five-point* height estimate (p.3, eq. 2.6);
+    - compatible prime patterns (pp.3–4).
+  - No variable count. Thm 1.2 (p.2): a reduction convertible to degree ≤ 4.
+  - It has no RC or PC template analog. Its height input is a five-point analog of H.
+  - Page numbers come from a custom PDF text parser (no pdftotext on the host) and were not
+    re-checked.
 
 ## 6. Status in V16 of the N5 statements the fork formalizes or assumes
 
 | N5 statement (fork use) | V16 | Status |
 | --- | --- | --- |
 | Thm 1.1 / FrozenTarget (formalized target) | Thm 1.3, l.113–129 | **Unchanged** (byte-identical). Upstream calls it "Original" in README's table |
-| Construction behind FrozenTarget: §2 spec, §3 model, §6 templates, §§9–12 compiler/bridge/cutoff, App literal | §§2–3, 6, 9–12 | **Unchanged polynomial.** §§9–12 identical. §2: one wording change (SOURCE_MAP.json → "the same manifest"). §3: Minkowski argument → norm-Euclidean (l.369–371). §6: twelve tests written with explicit σ (V10). App literal: +88-line template table (V10). V16 l.152: "The polynomial specifications and numerical bounds are unchanged" |
+| Construction behind FrozenTarget: §2 spec, §3 model, §6 templates, §§9–12 compiler/bridge/cutoff, App literal | §§2–3, 6, 9–12 | **Unchanged polynomial.** §§9–12 identical. §2: one wording change (SOURCE_MAP.json → "the same manifest"). §3: Minkowski argument → norm-Euclidean (l.369–371). §6: twelve tests written with explicit σ (V10). App literal: +88-line template table (V10). V16 l.159: "The polynomial specifications and numerical bounds are unchanged" |
 | Thm 4.1 = H (assumed, SixContactMin) | Thm 4.2, l.707 | **Statement and constants unchanged. Proof changed** (V14): published modularity (Calegari ICM p.624 / Pan) via Lemma 4.1; integral model written out; project supplements |
 | Thm 5.2 PC + pole template x + 3ℓ (fork replaces by Route K + CR3) | Thm 5.2, l.1736 | **Unchanged** statement, polynomial and template. Proof gained detail; RC attributed to OpenAI 2-converse preprints |
 | Thm 5.3 RC (not used by fork) | Thm 5.3, l.1746 | **Unchanged** statement. Proof elaborated (V10, V14) |
