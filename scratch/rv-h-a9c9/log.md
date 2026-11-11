@@ -45,3 +45,8 @@ diophantine_zq.tex at commit 97cec7fd (11/5 text). rv-h-trust.md not read until 
   one needs the K_f-linear Eichler-Shimura trace (V_lambda(A_f) rank 2 over K_{f,lambda},
   tr Frob_p = a_p) or the existence of all rho_{f^sigma, iota} + Brauer-Nesbitt + Chebotarev.
   Both standard. With the K_f-linear route the Fricke condition (Li) is not needed at all.
+
+## Step 5: own verdicts drafted (docs/research/rv-h-a9c9.md §§1-2) before reading rv-h-trust
+- A9: holds as stated (R-A9-1 citation swap, R-A9-2 name descent fact).
+- C9: holds after repairs R-C9-1 (Euler-factor -> constituent needs K_f-linear ES or all rho_{f^sigma}),
+  R-C9-2, R-C9-3 (wording).
