@@ -30,3 +30,18 @@ diophantine_zq.tex at commit 97cec7fd (11/5 text). rv-h-trust.md not read until 
 - Remark (by reasoning): the twist of a non-normalized eigenform can vanish: g(z)=f(3z), f=11a,
   psi mod 3 -> sum psi(n)a_n(g)q^n = 0. Harmless if one twists the newform of g (a_1=1) or works
   with Hecke eigenvalue systems at p not dividing N*cond(psi).
+
+## Step 4: sources available offline; C9 Euler-factor step
+- No local copies of Milne AV notes, Li 1975, Shimura 1973 (searched ~/dzq-wt, ~/dzq, /tmp).
+  Upstream audit notes (docs/theorem-application-audit/evidence/parallel-geometry-report.md
+  L95-105; parallel-geometry-a011-fricke-review.md; parallel-galois-height-report.md L95-130)
+  claim page-scan readings: Milne Part I Thms 2.8-2.9 printed p.14; Li p.296 paragraph before
+  Lemma 6 (F|H_M = gamma F|K, any character); Shimura 1973 Thm 1 p.526: quotient A_f of J_1(N),
+  field action with Hecke eigenvalues, dim = [K_f:Q] unconditional; zeta identity under the
+  hypothesis that the full conjugate span is stable under h(z) -> h(-1/(Nz))/z^2.
+  Status here: AUDIT-READ (upstream model audit), not checked against the sources by me.
+- c9_charpoly_divisibility.py: G=Z/2xZ/2, V=1+a+b, U=ab: charpoly_U(g) | charpoly_V(g) for all g,
+  but <U,V>=0. So a total Euler-factor identity alone does not give 'r_5 is a constituent';
+  one needs the K_f-linear Eichler-Shimura trace (V_lambda(A_f) rank 2 over K_{f,lambda},
+  tr Frob_p = a_p) or the existence of all rho_{f^sigma, iota} + Brauer-Nesbitt + Chebotarev.
+  Both standard. With the K_f-linear route the Fricke condition (Li) is not needed at all.
