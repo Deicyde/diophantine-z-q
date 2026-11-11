@@ -78,3 +78,31 @@ Target: docs/research/h-trust.md (713 lines, merged at fd8677ac via 81057fcc).
 - h-trust §2.3 says c3_breaks "not rerun (PARI)": now rerun, agrees.
 - h-trust Summary 4(d)/§2.7(iv) "seven exact scripts": its own table lists 9 scripts in 8 rows; rv-h-b1's
   scratch/rv-h-b1/rv_checks.py (R2 elliptic enumeration, R6 neatness, R7) is now also an input (A4, A5). Count wrong (cosmetic).
+
+## Step 6. Astra primary-source readings already in the repository (docs/reviews/height-replacement/)
+Astra reviewers had network and record reading these locators (model readings, on 3f0b79f3/bfc4192d text;
+the cited theorems are the same in N5):
+- Faltings 1983: Satz 3 (semisimplicity), Satz 4 (End), **Korollar 1 (Hom)**, printed pp. 360-361 (descent/AUDIT L41).
+  => h-trust E1 "Satz 4 (the Hom theorem)" contradicts this record; Hom = Kor. 1 (or Satz 4 for A×J).
+- Silverberg–Zarhin Thm 3.5, printed p. 406, n ≥ 3 (conductor/AUDIT L15).
+- Berger: author/journal version Thm 0.7 and Cor 5.22; arXiv v3 Thm 0.6, 5.19 (descent/ADDENDUM item 3).
+- Pan arXiv v2 Thm 1.0.4 + Conj 1.0.1 (descent/AUDIT L53; whole/REPORT L39). JAMS not read by anyone.
+- Javanpeykar Thm 1.1.1 printed p. 90, §2.3 p. 98, original Faltings metric (height/AUDIT L21, whole L53).
+- GR14 Thm 1.4: κ(A)=((14g)^{64g²}[k:Q]max(h_F,log[k:Q],1)²)^{1024g³}, original stable Faltings normalization,
+  both directions; §9 Bost h_F ≥ -3dim/2; printed pp. 2058-2060, 2098, 2101-2102 (height/AUDIT L23).
+- Pazuki §2.3 and Cor 1.3(2), metric shift log π for g=2 (whole/REPORT L59).
+- Baba–Granath MPI preprint §2.1 Thm 1, §3.2 (whole/REPORT L23); Buzzard Thm 2.1/Cor 2.3 (whole L17);
+  Milne ADT Ch. I (descent L27, whole L33); Milne AV Prop 10.20 (ℓ-independence).
+=> h-trust §2.5 ("no one in this repository has read the source"; items 1 (in part), 3, 6, 8, 9, 10 (in part))
+   overstates the unread set. Under its own marks these are "read by a model reviewer (Astra)".
+- Astra whole/REPORT also reviewed N5's inline integral-model route (Buzzard + tame stable model; 11/4 text,
+  identical to N5 L443-530): a second, independent model-reviewed route for A5-A6 besides Lemma PR.
+- Astra descent/AUDIT + whole/REPORT check Pan's hypotheses directly on text identical to N5 C2, C4-C7
+  (diff of Step 3) => C7's N5-transfer needs no V14 detour, except C3 (lemma, Step 4).
+
+## Step 7. Branch values at rational u (scratch/rv-h-trust/branch_check.py, sympy, <1 s)
+- G^6-97200F^2 = H^2: True. J+16/27 = 16 H^2/(27 G^6). The three quadratic factors of H have discriminants
+  10800, 43200, 43200 (non-squares); disc G = -10800. => for u ∈ ℚ∖𝒞, J(u) ∉ {0, ∞, -16/27}: the fibre is
+  over a non-branch point (used implicitly by A5/M8). VERIFIED.
+- rv-h-novel step 4's second range "L797-818" is also ~+21 off (N5 C10 is L776-795); h-trust Summary 6
+  names only steps 5-8.
