@@ -33,3 +33,35 @@ Target: docs/research/h-trust.md (713 lines, merged at fd8677ac via 81057fcc).
       [U] labels, §2.2, docstring "not yet reviewed" and KERNEL_PLAN "review pending" are stale.
   F-g A1 says uniqueness of the principal polarization is not needed; rv-h-b1 §7 item 2 needs it for A4
       (λ adds no data). Elementary proof: λ'=λ∘a, same Rosati ⇒ a central symmetric ⇒ a∈ℚ_{>0}, principal ⇒ a=1.
+
+## Step 3. Which N5 text did the Astra reviews actually read? (VERIFIED by diff)
+- `git show 09c0c3f3:diophantine_zq.tex` has sha256 bfc4192de00e… (= Astra final_source_sha256);
+  97cec7fd has cb1148cd6c77… (= N5).
+- Diff of Thm 4.1 section, 11/4 L380-935 vs N5 L376-966: scratch/rv-h-trust/thm41_n4_vs_n5.diff (150 lines).
+  Changed hunks inside the proof:
+  1. A1 (N5 L417-419): Riemann-form convention sentence added (cosmetic).
+  2. A9 (N5 L564-570): the Milne paragraph (polarizable tori, Hodge endos algebraic, defined over Q̄) is NEW in N5.
+  3. C3 (N5 L734-737): 11/4 had "finite-extension descent … [faltings1988]"; N5 replaces it by
+     Lemma lem:de-rham-descent (N5 L10938-11000, Scholze route). 11/4 has no such lemma
+     (grep "de-rham\|scholze" in 11/4: only faltings1988 at L713). => Astra never read N5's C3.
+  4. C8 (N5 L759-761): local algebraicity citation (Conrad) added; argument otherwise unchanged.
+  5. C9 (N5 L765-769): Li Fricke formula + Shimura Thm 1 sentence NEW in N5.
+  6. C10: "arithmetic Frobenius lift" -> lift of x↦x^p (cosmetic).
+  7. D1 Herbrand derivation, D3 Silverman IV.6.4: new (covered by rv-h-novel on N5).
+  8. F1 (N5 L908-927): LY/LNY substitution written out (covered by igusa_check.py).
+  All other proof text (A2-A3, A7, A8, A9 centralizer part, B, C1-C2, C4-C7, D2, D4-D5, E, F2-F4) identical.
+- Consequence: h-trust's "[M] (Astra …)" is accurate for A3, A7, A8, F2-F4, E, and the 11/4 parts;
+  NOT for C3 (lemma), the Milne paragraph of A9, the Li/Shimura sentence of C9.
+- Astra descent ADDENDUM item 3 (in repo, docs/reviews/height-replacement/descent/ADDENDUM.md) records
+  Berger's published/author version numbering: Theorem 0.7 and Corollary 5.22 (arXiv v3: 0.6, 5.19).
+  h-trust C4 / §2.5 item 8 call the journal number UNVERIFIED and do not cite this record.
+  Astra item 6 also gives Milne AV Prop 10.20 for ℓ-independence (h-trust C10 cites Mumford §19 Thm 4).
+
+## Step 4. Model review here of the N5-only text (N5 L10938-11000; L564-570)
+- lem:de-rham-descent: read line by line. Holds as an argument given Scholze Cor 1.8, Thms 9.1/9.3
+  (UNVERIFIED locators). Weight step: (V⊗C)⊗_{C,τ}Q̄_ℓ = V⊗Q̄_ℓ has weights {0,0,-1,-1} = 2×wt(r⊗_τ),
+  so wt(r⊗_τ) = {0,-1}; HT weights are unchanged by restriction to G_F. Descent paragraph correct
+  (Hilbert 90 for B_dR-semilinear Gal(F'/K)-action). VERIFIED as an argument.
+- A9 Milne paragraph: σ∈Aut(C/Q̄) fixes torsion points, so σφ=φ on a dense set, so φ is defined over Q̄.
+  Centralizer: rational elements of B⊗B^op commuting with right mult. by J are B⊗Z_B(J), Z_B(J)=ℚ or
+  imaginary quadratic k ⊂ B, B⊗k ≅ M_2(k). VERIFIED as an argument.

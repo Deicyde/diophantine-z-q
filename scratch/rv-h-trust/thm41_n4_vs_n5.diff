@@ -1,0 +1,150 @@
+0a1,18
+> % Begin 02-height-pole-multiplication.tex
+> \section{The six-contact height estimate}\label{sec:height}
+> Set
+> \[
+>  \Cset=\{0,-15,-20,-24,-30,-60\},\qquad
+>  F(u)=u(u+15)(u+20)(u+24)(u+30)(u+60),
+> \]
+> and $G(u)=7u^2+300u+3600$. For a finite prime set $S$ containing all
+> primes at most 324 and $u\notin\Cset$, define
+> \[
+>  M_S(u)=\prod_{\substack{p\notin S:\ v_p(u-c)>0\text{ odd}\\
+>                           \text{for some }c\in\Cset}}p.
+> \]
+> Negative valuations of $u$ do not enter the product. Put
+> \begin{align*}
+>  F_0&=324!,\qquad D=F_0\,3^{256F_0^4},\qquad G_0=116064000000,\\
+>  E_0&=10(DG_0)^2,\qquad Q_R=R^{RE_0},\\
+>  B_{\rm cm}&=D^2\,3^{21000D^2}+1,\\
+24c42,45
+< and determinant one. This is the principal-polarization datum whose
+---
+> and determinant one, in the ordered basis
+> $(1,i,(1+j)/2,(i+ij)/2)$. The Riemann form is the convention of
+> \cite[equation (3) and Lemma 3]{linyang}; its Rosati involution is
+> $a\mapsto\mu^{-1}\overline a\mu$. This is the principal-polarization datum whose
+167a189,195
+> By \cite[Part I, Theorems 2.8--2.9]{milne-av}, polarizable complex
+> tori are abelian varieties and their analytic homomorphisms are algebraic.
+> After clearing lattice denominators, the same assertion identifies
+> rational Hodge endomorphisms with algebraic quasi-endomorphisms.
+> These endomorphisms are defined over $\overline{\Q}$: every automorphism
+> of $\mathbb C/\overline{\Q}$ fixes their action on all torsion points, and
+> torsion is Zariski dense.
+332,335c360,363
+< The representation is de Rham at $\ell$, by finite-extension
+< descent of the de Rham property from the Tate module
+< \cite{faltings1988}, and its
+< two Hodge--Tate weights are those of an elliptic Tate module.
+---
+> Lemma~\ref{lem:de-rham-descent} below shows that the representation
+> is de Rham at $\ell$, by proper-smooth comparison and finite descent
+> \cite{scholze2013,scholze-erratum}, and that its
+> two Hodge--Tate weights are $0,-1$ in the Tate convention.
+357,358c385,387
+< and is unramified outside finitely many primes. By class field
+< theory over $\mathbb Q$, it is a finite character times an integral
+---
+> and is unramified outside finitely many primes. Local algebraicity
+> \cite[Appendix B, pp.~32--33]{conrad-local-characters} and class field
+> theory over $\mathbb Q$ make it a finite character times an integral
+364,365c393,397
+< the eigenform and take its primitive newform $f$. Thus $r_5$ is
+< a constituent of the Tate module of the modular abelian variety
+---
+> the eigenform and take its primitive newform $f$. Li's Fricke formula
+> \cite[p.~296, before Lemma 6]{li-newforms} makes the span of its
+> coefficient conjugates Fricke-stable. Shimura's quotient construction
+> and Euler-factor identity \cite[Theorem 1]{shimura-factors} therefore
+> show that $r_5$ is a constituent of the Tate module of the modular abelian variety
+372c404,405
+< of $L$ and an arithmetic Frobenius lift $\sigma$ at $v$. Since
+---
+> of $L$ and a lift $\sigma\in G_{\mathbb Q_p}$ of the residue
+> field map $x\mapsto x^p$ in its decomposition group. Since
+392,393c425,426
+< exponent $\delta$, an Eisenstein polynomial over its maximal
+< unramified subfield gives
+---
+> exponent $\delta$, let $f$ be the Eisenstein polynomial of a
+> uniformizer $\pi$ over the maximal unramified subfield. Then
+396,397c429,435
+< smallest valuation. The different formula in upper numbering
+< then bounds the largest positive upper break by
+---
+> smallest valuation. The identity
+> $f'(\pi)=\prod_{\sigma\ne1}(\pi-\sigma\pi)$ over the inertia
+> conjugates gives $\delta=\sum_{i\ge0}(|G_i|-1)$. Changing variables
+> by the Herbrand function yields
+> $\delta/e=1-1/e+\int_0^\infty(1-|G^u|^{-1})\,du$.
+> Before the last positive upper break the integrand is at least
+> $1/2$, so that break is bounded by
+399c437
+< \cite[Chapter IV]{serrelocal}.
+---
+> \cite[Sections 4.1--4.3]{serrelocal}.
+415c453,455
+< at most four. If $e=v_F(2)\le D$, the local logarithm gives
+---
+> at most four. If $e=v_F(2)\le D$, the logarithm for $\widehat{\mathbf G}_m$ identifies
+> $U_F^{e+1}$ with $\mathfrak m_F^{e+1}$ since $e+1>e$
+> \cite[IV.6.4, p.~132]{silverman}. Multiplication by four gives
+493,499c533,557
+< The compatible theta normalizations in \cite{linyang,lny} give
+< \[
+<  j=3779136\frac{(\prod z_m)^4}{(\sum z_m^8)^5},\qquad
+<  h(j)\le40h([z_m])+22,
+< \]
+< where the product and sum run over the ten even theta nulls.
+< Adjoining the six zero odd coordinates does not change their projective height.
+---
+> Use the Hauptmodul normalized by the values $0,\infty,-16/27$
+> at the CM points of discriminants $-4,-3,-24$.
+> In a common weighted-projective representative,
+> \cite[equations (2) and (14), pp.~3 and 17]{linyang} gives
+> \[
+>  J_2=12(j+1),\quad J_4=6(j^2+j+1),\quad J_{10}=j^3,
+>  \qquad \psi_4=J_2^2-24J_4=144j,\quad \chi_{10}=-j^3/4.
+> \]
+> The conventions of \cite[\S2.2, p.~4]{lny} are
+> $\psi_4=2^{-2}\sum_{m\ {\rm even}}z_m^8$ and
+> $\chi_{10}=-2^{-14}\prod_{m\ {\rm even}}z_m^2$.
+> The quotient $\chi_{10}^2/\psi_4^5$ is unchanged by weighted
+> rescaling. Since our $j$ is finite and nonzero, its denominator
+> is nonzero, and substitution gives
+> \[
+>  j=16\cdot144^5\frac{\chi_{10}^2}{\psi_4^5}
+>   =3779136\frac{(\prod_{m\ {\rm even}}z_m)^4}
+>                  {(\sum_{m\ {\rm even}}z_m^8)^5}.
+> \]
+> The two homogeneous polynomials have degree $40$ and coefficient
+> $\ell^1$ norms $3779136$ and $10^5$. Hence
+> $h(j)\le40h([z_m])+22$.
+> The product and sum use the ten even theta nulls of the same
+> principally polarized surface. Adjoining the six zero odd
+> coordinates does not change their projective height.
+534,556d591
+< 
+< The final value argument uses $S_{\rm ht}=\{p:p\le324\}$. Multiplication
+< uses $S_{\rm mul}=S_{\rm ht}\cup\mathcal H\cup\operatorname{supp}(c_*)$,
+< where $\mathcal H$ is the fixed catalogue. A common numerical $R$ may
+< bound both sets. It does not identify them.
+< 
+< \section{The pole predicate and its converse input}\label{sec:pole}
+< Let $S_0=\{2,3,5,7,13\}$. With input $B$ and eleven witnesses
+< $b_0,\ldots,b_5,e,z,r_1,r_2,w$, define
+< \begin{align*}
+<  m&=(1-2b_0)(1+b_1)(1+2b_2)(1+4b_3)(1+6b_4)(1+12b_5),\\
+<  A&=mB,\qquad H=A(A-B^2),\\
+<  T_1&=A(A-e)(A+3e),\qquad T_2=A(Az^2-eH)(Az^2+3eH),\\
+<  Q_{\rm pole}&=B\Bigl(\sum_{i=0}^5(b_i^2-b_i)^2+(eHzw-1)^2\\
+<  &\hspace{4em}+(r_1^2-T_1)^2+(r_2^2-T_2)^2\Bigr).
+< \end{align*}
+< Write $\Phi(B)$ for rational solubility. For $B\ne0$, $m$ is a signed
+< divisor of 2730, and the equations give points $(A,r_1)\in E_e$ and
+< $(Az^2,zr_2)\in E_{eH}$ with $eHz\ne0$, where
+< $E_\ell:y^2=x(x-\ell)(x+3\ell)$. The polynomial has total degree 75.
+< 
+< \begin{lemma}[One-sided obstruction]\label{lem:pole}
+< If $B\ne0$ and $\Phi(B)$, then $v_p(B)$ is not negative and odd for
