@@ -62,3 +62,23 @@ For p odd, p not | m R0 (f = m(m Th0^2 - R0 a^2), a = 1 - R0 q^2):
   choice; completeness must use the per-instance freedom (kappa, h, s0) -- no theorem controls the prime
   factors of Th0 (an elliptic-net value). L7 also costs ~61 bits per pole call (el-cert) and needs v_p(m)
   even at p > 324 only, i.e. Lemma 5.1 at 17 <= p <= 324 must be supplied otherwise at the test site.
+
+## Step 5. Global test on toy instances (s5_global.py, s5_validate.py; s5_out.json/txt)
+- Criterion (Silverman X.4.9 form): with E : y^2 = x(x^2 + b x + ac), C_m is the phi-covering of class c
+  (equivalently a = -mR, since a c == ac = alpha(T)); C_m(Q) != empty <=> core(-m R1) in span(alpha(T),
+  alpha(2-saturated generators)). s5_validate.py: 150 random small (m, Th, R): (points found, hit) counts
+  (F,F) 114, (F,T) 3, (T,T) 33, (T,F) 0. VERIFIED consistent.
+- Toy: 30 instances, n random 1..40, R0 = 2730^6 F(n) (Lean testR0), Th0 = u/v, u, v <= 1e4 random,
+  gcd(u, F(n)) = 1 (honest at contact primes); reduce to R1 = core(R0), Th = Th0 / s (L5).
+  For each instance the first 8 m (by |m|) of the 64 with C_m everywhere locally soluble (every instance
+  had > 8). 240 curves. ellrank(E, effort 2) + ellsaturation(.,2); hyperellratpoints height 2000.
+- Outcome: rank E (lo,hi): (1,1) 119, (0,0) 75, (0,2) 39, (1,3) 7. Hits 2/240 (2 instances of 30);
+  hyperellratpoints points: 0/240. Decided non-hit 74 (all rank 0 => locally soluble C_m with no Q-point:
+  nontrivial element of Sha(E_J)[phi], i.e. Hasse principle FAILS); 69 of these also have PARI's
+  unconditional s = rank Sha(E_J)[2]/2Sha[4] > 0. Undecided 164 (126 have rank_lo > #generators found).
+- First run had a bug (rank 1 reported with no generator counted as decided); corrected here.
+
+## Step 6. Independent check (s6_sha_check.py)
+- 6 decided non-hit curves (n = 8, Th0 = 5235/8234, m in {1,-2,-3,3,-5,-6}): brute-force p-adic points at all
+  primes < 200 dividing 2 m R1 disc: soluble at all. ellrank(E_J) = [1,3,0],[1,1,4],[1,1,2],[0,0,2],[1,1,2],[1,1,2]:
+  5/6 show unconditional Sha(E_J)[2] != 0 (s = 2 or 4).
