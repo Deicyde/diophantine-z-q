@@ -15,8 +15,8 @@ is stated from SixContactMin and each positive-rank form:
 * `exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZRk`:
   `RouteK.Rank.CertifiedRankTYZRk` (odd genus sum `T5b d` gives positive rank);
 * `exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk`:
-  `RouteK.Rank.CertifiedRankTYZClRk` (the same with Tian–Yuan–Zhang's class numbers) and Rédei's
-  formula `RouteK.Rank5b.RedeiFormula`.
+  `RouteK.Rank.CertifiedRankTYZClRk` (the same with Tian–Yuan–Zhang's class numbers; Rédei's
+  formula `RouteK.Rank5b.RedeiFormula` is proved, `RouteK.Redei.redeiFormula`).
 -/
 
 namespace ZInQ
@@ -61,12 +61,12 @@ theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_cer
   exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZ hH
     (RouteK.Rank.certifiedRankTYZ_of_certifiedRankTYZRk' hCR)
 
-/-- **Theorem 1.1** from 6C_min, CR₃^TYZ_Cl,Rk (odd genus sum of class numbers gives a point of
-infinite order on `C_d`) and Rédei's formula (`RouteK.Rank5b.RedeiFormula`, a Prop). -/
+/-- **Theorem 1.1** from 6C_min and CR₃^TYZ_Cl,Rk (odd genus sum of class numbers gives a point of
+infinite order on `C_d`). Rédei's formula, needed to pass from class numbers to Rédei's bits, is
+proved (`RouteK.Redei.redeiFormula`). -/
 theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk
-    (hH : SixContactMin) (hCR : RouteK.Rank.CertifiedRankTYZClRk)
-    (hR : RouteK.Rank5b.RedeiFormula) : FrozenTarget :=
+    (hH : SixContactMin) (hCR : RouteK.Rank.CertifiedRankTYZClRk) : FrozenTarget :=
   exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZCl hH
-    (RouteK.Rank.certifiedRankTYZCl_of_certifiedRankTYZClRk' hCR) hR
+    (RouteK.Rank.certifiedRankTYZCl_of_certifiedRankTYZClRk' hCR)
 
 end ZInQ
