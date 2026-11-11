@@ -4,3 +4,4 @@
   supplied it in gCl_dProd_eq_gBit. Other Bridge statements take B nonempty already.
 - Drafted Redei/FourRank.lean (chi_psi, odd_card_range_sq_iff, genusMap counting,
   range_sq_eq_ker_chi, card_ker_sq_eq, card_ker_psi, odd_gCl_iff, oddGClStatement, redeiFormula).
+- FourRank.lean compiles (lake env lean), no errors; added to Redei.lean.
