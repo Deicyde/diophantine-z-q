@@ -20,3 +20,15 @@
   So C_m(Q) != empty  <=>  -m R0 in alpha(E(Q)) subset Q*/Q*^2, alpha(x,y) = x, alpha(T) = ac.
   alpha(O) = 1 needs -mR0 square; alpha(T) = ac == d needs m(m Th0^2 - R0) square (the q = 0 point).
   Otherwise a point of infinite order of E in a prescribed class is needed.
+
+## Step 3a. Real instances, first pass (s3_real_local.py, first version)
+- Input: n = 1..5, kappa = 1, (h, s0) in {(2,3),(3,5),(2,7),(5,2),(3,4),(4,7)}; Theta0 from Lean formulas
+  (k0.py copied from scratch/el-qfree). num Theta0: 248-1530 digits; trial division to 1e7.
+- Outcome: all 30 are NOT honest (2 v_p(Theta0) >= v_p(R0) at some odd-valuation contact prime): kappa = 1
+  tests are not deep. So C_m is insoluble at those contact primes for all 64 m (as soundness demands).
+  Honest instances need astronomically deep kappa (el-cert) and cannot be computed; kappa = 1 data is used
+  only as a proxy for the prime factors of Theta0 (as rv-elim3 did).
+- Soundness/honest-prime lemma L1 (proof): p odd, p not | m, v_p(R0) = k odd, 2 v_p(Theta0) < k  =>
+  C_m(Q_p) != empty (q = 0 disc: f(q) = m^2 Theta0^2 (1 - B(q)/m), v_p(B(q)) > 0 for v(q) >= 0).
+- Slope site under M1: B = l^2 a^2 R0 / Theta0^2, a = 1 - R0 q^2: curve h^2 = m(m Theta0^2 - l^2 R0 a^2)
+  is C_m with Theta0 -> Theta0 / l (same family).
