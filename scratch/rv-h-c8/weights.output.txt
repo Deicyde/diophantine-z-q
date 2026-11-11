@@ -1,0 +1,3 @@
+HOM solutions (k,n) with 1<=k<=200, |n|<=300: [(2, 0)]
+COH solutions (k,n) with 1<=k<=200, |n|<=300: [(2, -1)]
+det check passed for all solutions
