@@ -140,7 +140,7 @@ and two 2-torsion points give `Φ` (rs-pole §2.2(2); `Loc` depends only on `d²
   `P₀`, `genD`), with `n ≤ 3`, `κ = 1`, three shift pairs, `η = ±1`, `q ∈ {0, 1/2}`.
 - Sizes: `N` has 356 to more than 4000 digits; `D` has 210 to more than 2000.
 - Search: all admissible `m₀`, `k ≤ 256`, `ε = ±1`.
-- Outcome: **0 hits.** `D` is never a square, and has prime factors above 324 (581611 and others:
+- Outcome: **0 hits.** `D` is never a square, and has prime factors above 324 (found: 491, 577,
   593, 8273, 81611).
 
 **Verdict.** Fails. Obstruction: the denominator of `B(q)` must cancel against an S-integral
