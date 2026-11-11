@@ -361,8 +361,11 @@ V2–V13 use N5's numbers: 1.1, 4.1, 5.2, 5.3, 6.2, 12.1.
      périodes et degrés minimaux d'isogénies, CMH 89 (2014)\] (`gr-periods2014`, bib
      l.39342–39346).
    - §4's uses of \[gr2014\] = *Polarisations et isogénies* (Duke 2014), Thm 1.4 / §9, are
-     unchanged (V16 l.1322, 1599, 1616; N5 l.615, 878, 895) and correct as cited. (VERIFIED: the
-     bib entry and the theorem numbers match the Duke paper's entry.)
+     unchanged (V16 l.1322, 1599, 1616; N5 l.615, 878, 895). VERIFIED: the locators agree with the
+     Duke bib entry, which lists "Theorem 1.4 and Section 9" (V16 l.39347–39350). The V16 README
+     says "The Duke paper remains cited for its separate isogeny results".
+   - Whether Theorem 1.4 of the Duke paper says what §4 needs was not checked here (UNCHECKED;
+     h-v14.md treats this leaf).
 - Otherwise V16 changes only the title, the date and the AI statement, which adds Fable 5.2.
 
 ## 5. Release notes, findings and edit records (research/versionN/)
@@ -537,7 +540,7 @@ All paths are relative to `~/upstream`.
 | --- | --- | --- |
 | Thm 1.1 / FrozenTarget (formalized target) | Thm 1.3, l.113–129 | **Unchanged** (byte-identical). Upstream calls it "Original" in README's table |
 | Construction behind FrozenTarget: §2 spec, §3 model, §6 templates, §§9–12 compiler/bridge/cutoff, App literal | §§2–3, 6, 9–12 | **Unchanged polynomial.** §§9–12 identical. §2: one wording change (SOURCE_MAP.json → "the same manifest"). §3: Minkowski argument → norm-Euclidean (l.369–371). §6: twelve tests written with explicit σ (V10). App literal: +88-line template table (V10). V16 l.159: "The polynomial specifications and numerical bounds are unchanged" |
-| Thm 4.1 = H (assumed, SixContactMin) | Thm 4.2, l.707 | **Statement and constants unchanged. Proof changed** (V14): published modularity (Calegari ICM p.624 / Pan) via Lemma 4.1; integral model written out; project supplements |
+| Thm 4.1 = H (assumed, SixContactMin) | Thm 4.2, l.707 | **Statement and constants unchanged. Proof changed in V14** (published modularity via Calegari ICM p.624 / Pan in Lemma 4.1; integral model written out; project supplements). V15 inlines the b11 supplement; V16 leaves §4 unchanged, so `h-v14.md` applies. Baba–Granath Prop. 3.7 concern recorded upstream (§5.1) |
 | Thm 5.2 PC + pole template x + 3ℓ (fork replaces by Route K + CR3) | Thm 5.2, l.1736 | **Unchanged** statement, polynomial and template. Proof gained detail; RC attributed to OpenAI 2-converse preprints |
 | Thm 5.3 RC (not used by fork) | Thm 5.3, l.1746 | **Unchanged** statement. Proof elaborated (V10, V14) |
 | Prop 6.2 = 22P (fork replaces by route AP) | Prop 6.2, l.2076 | **Statement unchanged.** Proof's GTZ inverse theorem replaced by internal GI (V14 supplement, V15 Part) |
