@@ -10,7 +10,8 @@ CR₃^TYZ_Cl (`Selmer.CertifiedRankSel`, `Rank5b.CertifiedRankTYZ`, `Rank5b.Cert
 conclusion is "every 2-Selmer class of `C_d` comes from a rational point", follow from forms whose
 conclusion is exactly what the published theorems give: `C_d(ℚ)` has a point of infinite order
 (equivalently, `d` is a congruent number). Mordell–Weil for `C_d` over `ℚ` enters as the explicit
-hypothesis `hfg`, pending its proof in `RouteK/RankMW`.
+hypothesis `hfg`; `fg_points` (`RouteK/RankMW.lean`) proves it, and `RouteK/RankVariants.lean` states
+the derivations and the main theorem without it.
 -/
 
 namespace ZInQ.RouteK.Rank

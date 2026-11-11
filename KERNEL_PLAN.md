@@ -139,6 +139,20 @@ Tian–Yuan–Zhang's own `g(d) = #2Cl(ℚ(√−d))` (class groups of `ℚ(√�
 `exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZCl` takes
 SixContactMin, `CertifiedRankTYZCl` and `RedeiFormula`.
 
+These hypotheses all conclude that every 2-Selmer class of `C_d` comes from a rational point, while
+the published theorems give only that `C_d(ℚ)` has positive rank. The step between them
+(`docs/research/pc-audit.md` RK9) is proved in Lean: the complete 2-descent map is a homomorphism
+with kernel `2C_d(ℚ)` and image in `Sel₂(C_d)` (`RouteK/Rank/`), and `C_d(ℚ)` is finitely generated
+for every `d ≠ 0` (`ZInQ.RouteK.Rank.fg_points`, `RouteK/RankMW/`, from the two-isogeny descent and
+Mathlib's descent theorem), so a point of infinite order and `#Sel₂(C_d) = 8` give every Selmer
+class (`loc_of_mem_sel2_of_infinite_order`). Each hypothesis therefore has a positive-rank form,
+"`C_d(ℚ)` has a point of infinite order" (equivalently, `d` is a congruent number):
+`CertifiedRankRk`, `CertifiedRankTYZRk` (squarefree `d ≡ 5 (mod 8)` with `T_5b(d)` odd; no
+condition on `Sel₂`) and `CertifiedRankTYZClRk`, with main-theorem variants in
+`RouteK/RankVariants.lean`. The narrowest is
+`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZRk`: its CR₃
+input is exactly what Tian–Yuan–Zhang's argument and Gross–Zagier give, through Rédei's formula.
+
 `scripts/check_target.py` checks that `FrozenTarget` is upstream's frozen statement token
 for token. Removing another hypothesis means formalizing its source theorem or finding a
 cheaper route to it; MW and CAT were within reach of current Mathlib.
