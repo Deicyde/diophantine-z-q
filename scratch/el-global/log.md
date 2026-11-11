@@ -122,3 +122,11 @@ labels are morphisms of Q = [kappa]P0: [h]P0 = [2]Q, [s0]P0 = [2n]Q, [h-kappa]P0
   h^(L) = k^2 h^(P0). Using it needs an upper bound for h^(L) in terms of the data; bad data may carry
   labels of any height (the adversary chooses them), so this is a height hypothesis of SixContactMin's
   kind, not a replacement for CR3.
+
+## Step 7: deliverables
+
+- `docs/research/el-global.md` written (Theorem GG, proofs, residual, E1-E3, relation to barriers).
+  Corrections made while drafting: dropped the claim that w is constant on W° (w may have poles; only
+  density is used); simple connectivity is of A^2 in characteristic 0.
+- `.fleet/el-global.md` written. Verdict: very low.
+- Open check: CDJLZ Thm 1.3 is cited from memory (no network); verify the exact statement before reuse.
