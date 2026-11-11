@@ -85,3 +85,12 @@ For p odd, p not | m R0 (f = m(m Th0^2 - R0 a^2), a = 1 - R0 q^2):
 - Correction: s6 read the first (buggy) s5_out.json, so its rank-1 sample curves were not really decided;
   only m = 3 (rank 0) is a decided non-hit there. s6 thus confirms local solubility (brute force) and
   Sha(E_J)[2] != 0 on these Jacobians, not that each listed C_m lies in Sha.
+
+## Step 7. Rank-1 retry (s7_rank1.py 30 6 90; s7_out.txt)
+- 30 undecided rank-(1,1) curves from s5, ellrank effort 6, 90 s cap: generator found 0/30 (all "no gen").
+  Rank-1 cases stay undecided; among decided curves hits are 2/76.
+
+## Step 8. Deliverables
+- docs/research/el-e4.md and .fleet/el-e4.md written. Verdict: sound, budget-neutral; local solubility not
+  forced (only m0 matters); Hasse principle fails (74 proven counterexamples among 240 locally soluble);
+  needed statement incomparable with CR3 and unsupported by published theorems. Chance very low.
