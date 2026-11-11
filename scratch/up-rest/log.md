@@ -47,3 +47,10 @@
 - v5tz = Tao-Ziegler, Polynomial patterns in the primes, Forum Math Pi 6 (2018) e1 (bib v16 l.39215-39219), Thms 9, 11, 13, 15, Cor 3. Fork's GreenTaoDense docstring (ZInQKernel/Hypotheses/GreenTao.lean:36-50) cites Tao-Ziegler Acta 201 (2008) only as background; statement proved in Lean (ZInQKernel/External/GreenTaoDense.lean:28). No dependence on v5tz.
 - v16 TZ paragraph l.20060-20078: W = E * prod_{p<=v} p with fixed E; unit residue kills small-prime divisibility; "same uniform estimates" (precision amendment). Applies only to thm:v5-simultaneous-primes (quartic prime input: p_j = u + c_j w^2, Gaussian generator congruences mod 16, 7, M, cross-coprimality of d_eps(pi_j), d_eta(pi_h)), v16 l.17565-17590. Sun 86 unknowns arXiv:2610.20691v2 is the strategy source (bib l.39185).
 - GI Part intro v16 l.23831-23875: target GI(k) as a finite family of nilmanifolds, constants dependent only on k, delta. Upstream's rationale for replacing GTZ Thm 1.3 by a local proof not located (searched v14/v15 READMEs, release notes).
+
+## Step 7: v13/v14/v15 alignments (scratch/up-rest/n5_vs_v13.txt, _v14, _v15)
+- Matched N5 lines: v13 11232, v14 10851, v15 10847, v16 10846.
+- In fork-relevant N5 ranges (52-376 spec/model, 1123-1760 mult/22P, 5745-6442 compiler/size):
+  v13 only 86, 1172-1174, 1194-1198; v14 adds 138, 273-275, 1265, 1408, 1416-1418; v15 adds 163-164; v16 = v15 (same N5 block list except 11253 = AI credit "Fable 5.1 and 5.2").
+- v15-only blocks vs v14: N5 163-164, 8102 (-> v15:theta-transport), 9623 (-> v15:unary-poisson), i.e. v15 internalizes supplements as sections: v15:gi-full (Part, v16 23831), v15:cm-oriented (30163; replaces v14's external cj-conductor-one-project, v14 l.3424), v15:picard-norm (30124), v15:tate-polarized (30096), v15:marking-descent (30109), v15:unary-poisson (23770), v15:theta-transport (23810).
+- Fork's earlier note docs/research/v14-routes.md already covers v13->v14 (statements byte-identical; GI source -> local-gi; RC repairs; quartic prime input harder than GreenTaoDense+GoodPrimeDensity).
