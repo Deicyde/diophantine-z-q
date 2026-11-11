@@ -1,7 +1,0 @@
-#0 omega(beta)=4 theta=450007768019759698681 omega(theta)=9 m=1: None n'=phase 2 stuck; best dims sum 10
-#1 omega(beta)=3 theta=134435972720951281 omega(theta)=8 m=1: None n'=phase 2 stuck; best dims sum 8
-#2 omega(beta)=8 theta=97473405316750849 omega(theta)=7 m=1: None n'=phase 2 stuck; best dims sum 14
-#3 omega(beta)=2 theta=4718493529 omega(theta)=4 m=1: phase1 n'=57220406037018641
-#4 omega(beta)=4 theta=3954924249649 omega(theta)=5 m=1: phase1 n'=8772632188831367
-#5 omega(beta)=2 theta=84409126296413881561 omega(theta)=9 m=1: None n'=phase 2 stuck; best dims sum 10
-#6 omega(beta)=7 theta=2207582750820721 omega(theta)=7 m=1: None n'=phase 2 stuck; best dims sum 12

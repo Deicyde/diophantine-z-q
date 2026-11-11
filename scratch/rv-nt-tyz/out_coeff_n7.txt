@@ -1,1 +1,0 @@
-n = 7 configurations: 120; coefficients: 3825 ; mismatches with i^[e=5] Lambda(n/e): 0

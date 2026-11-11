@@ -1,8 +1,0 @@
-s2+36x, s3, s5+248832x, s6 at x=-6+6sqrt(-3): [0, 6912, 0, -32845824]
-ratios at disc -24: -16/27 1 11/27
-c1..c4 = 1 1 1 1
-[J2,J4,J6,J10] after rescaling by -12: [12*(j + 1), 6*(j**2 + j + 1), 4*(j - 1)*(j**2 - j - 1), j**3]
-psi4 = 144*j  chi10 = -j**3/4
-16*144^5*2^-28/2^-10 = 3779136
-NoCM identity G^6 - 97200 F^2 = H^2 and t(u) = H^2/G^6: OK
-ALL CHECKS PASSED

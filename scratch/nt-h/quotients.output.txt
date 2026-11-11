@@ -1,4 +1,0 @@
-131 points
-points whose image is non-torsion in all 15 quotients: 131
-histogram (#non-torsion quotients -> #points): {15: 131}
-examples with fewer than 15: []

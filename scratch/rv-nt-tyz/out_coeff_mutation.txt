@@ -1,8 +1,0 @@
-EPS_I=53
-Lemma N1 mismatches: 0; Lemma N2 mismatches: 0; non-real c(e): 0; bracket (C1,C2) != (T5a,T5b): 0
-EPS_I=
-Lemma N1 mismatches: 0; Lemma N2 mismatches: 0; non-real c(e): 0; bracket (C1,C2) != (T5a,T5b): 0
-EPS_I=51
-Lemma N1 mismatches: 0; Lemma N2 mismatches: 2181; non-real c(e): 2181; bracket (C1,C2) != (T5a,T5b): 52
-EPS_I=73
-Lemma N1 mismatches: 0; Lemma N2 mismatches: 1261; non-real c(e): 1261; bracket (C1,C2) != (T5a,T5b): 38

@@ -1,2 +1,0 @@
-26565 rank of Kummer images of torsion + 3 points: 5 (5 means rank >= 3)
-33117 rank of Kummer images of torsion + 3 points: 5 (5 means rank >= 3)

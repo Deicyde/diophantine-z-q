@@ -1,8 +1,0 @@
-import ZInQKernel
-
-#check @ZInQ.exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP
-#check @ZInQ.exists_bounded_integer_polynomial_defining_integers_of
-#print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP
-#print axioms ZInQ.Mult.slopeRepresentationAP_of_goodPrimeAP
-#print ZInQ.GoodPrimeAP
-#print ZInQ.FrozenTarget

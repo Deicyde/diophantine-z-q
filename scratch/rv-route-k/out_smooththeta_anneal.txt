@@ -1,1 +1,0 @@
-#0 omega(beta)=4 omega(theta)=9 m=1: not found, best 4

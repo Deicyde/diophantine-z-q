@@ -1,7 +1,0 @@
-a=3 b=1 free=False: 768 cases, 0 failures []
-a=2 b=3 free=False: 16384 cases, 0 failures []
-a=4 b=0 free=False: 32768 cases, 0 failures []
-a=4 b=1 free=False: 32768 cases, 0 failures []
-a=1 b=4 free=False: 8192 cases, 0 failures []
-Terminated
-a=3 b=2 free=False: 24576 cases, 0 failures []

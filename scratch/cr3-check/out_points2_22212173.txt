@@ -1,5 +1,0 @@
-PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
-22212173 ellrank(effort=20) points: 0
-22212173 ellrank(effort=30) points: 0
-22212173 4727 none within limits NOT FOUND 
-22212173 -4727 none within limits NOT FOUND 

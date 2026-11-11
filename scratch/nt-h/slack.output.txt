@@ -1,3 +1,0 @@
-log2 m may be as large as 2^65536 - 7*2^9010 - 13; is it > 2^65535 ? True
-log2 A = D^x is admissible for x < 2^56525 (rs-height quoted 2^56000)
-current x = 7; margin factor in x: 2^56525 / 7

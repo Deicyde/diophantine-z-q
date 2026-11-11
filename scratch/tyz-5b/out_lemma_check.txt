@@ -1,2 +1,0 @@
-trials 3000 rmax 7 seed 4 counts {'forest_F': 2576, 'kappa_sum': 2126, 'M5b': 762, 'row5b': 762, 'R1': 765} mismatches {}
-trials 300 rmax 10 seed 5 counts {'M5b': 84, 'row5b': 84, 'forest_F': 175, 'kappa_sum': 146, 'R1': 84} mismatches {}
