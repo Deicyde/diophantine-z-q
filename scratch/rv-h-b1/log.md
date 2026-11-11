@@ -33,3 +33,26 @@ Manuscript: diophantine_zq.tex in this worktree (last touched 97cec7fd, "Novembe
   for semistability: no model used. CONFIRMED h-b1's claim.
 - L848-849 "the surface has good reduction" for p > R: p may lie in supp M_S(u) ⊂ T, so this
   needs good reduction also where K ramifies; PR(ii) (all v ∤ 3) gives it.
+
+## 4. scratch/rv-h-b1/rv_checks.py (run once, 1.2 s CPU; output rv_checks.output.txt)
+- R1: det(trd(e_r e_s)) = -36, Hilbert symbols (2,-3)_p = -1 exactly at p = 2,3 => O maximal of
+  disc 6 (N5 L405 claim VERIFIED). mu = 2j+ij has mu^2 = -6; Trd(mu^-1 x ybar) matrix equals N5's
+  displayed matrix, det 1 (VERIFIED).
+- R2: all elliptic normalizer types (primitive x in O, nrd | 6, finite order mod Q^*), box [-6,6]^4:
+  (|t|,n) = (0,1) D=-4 W:1; (0,3) D=-12 but Q(x)∩O = Z[zeta_3] D=-3, W:w3; (0,6) D=-24 W:w6;
+  (1,1) D=-3 W:1; (2,2) D=-4 order 4 W:w2; (3,3) D=-3 order 6 W:w3. (0,2) (D=-8) absent:
+  Q(sqrt-2) does not embed in B because 3 splits in it (STANDARD embedding criterion).
+  => every elliptic CM order in O is maximal, discriminants {-3,-4,-24}, supported on {2,3}.
+  Stronger than M9: step 2 of NV needs only conductor prime to p, which holds for EVERY
+  elliptic point, independent of which branch value carries which type.
+- R3: chi(O^1/±1) = -1/3 = 4 * chi(2,4,6) = 4 * (-1/12). RH: X_6 -> P^1_j (deg 4, e=2,2,2) g=0;
+  component of Y_3 -> P^1_j (deg 72, e=4,6,2) g=4, agreeing with index 18 torsion-free subgroup
+  of O^1/±1 (2g-2 = 18/3 = 6).
+- R4: |(O/3O)^*| = 72, |(O/3O)^1| = 36, |Gamma'| = 144 = 2^4 3^2, two geometric components
+  (pi_0 = (Z/3)^*), each of degree 72 over P^1_j. M3 VERIFIED (local normalizer index 2 is STANDARD).
+- R5: F1 = y^2 = p j(27j+16) is the quadratic twist by p of y^2 = j(27j+16), whose j=1 fibre
+  Q(sqrt 43) (disc 172) is unramified at p. Residue fields of F1 over its branch points are Q.
+  So F1 shows: (a)-(c) of Beckmann do not imply (d), and unramified branch fibres (NV step 2)
+  do not imply (d) either; F1 has I_0 = I_{-16/27} = whole group, which NV's step 4 excludes for Y_3.
+- R6: no elliptic power x^k (non-central) lies in Q^* K_3: ramification index at an elliptic point
+  = order in B^*/Q^* (consistent with neatness, N5 L468-470).
