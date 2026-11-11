@@ -1,0 +1,90 @@
+{
+  "schema": "quartic214-public-contract-index-v1",
+  "role": "Author contracts only; no independent approval",
+  "contracts": [
+    {
+      "path": "research/quartic214/contracts/uniform-existence.json",
+      "sha256": "832900c2f480bce3eb77bef6c8b408a7ca16229b8414104e3938849a3b3bc011",
+      "application_id": "D214-UNIFORM-EXISTENCE-20261111",
+      "obligations": 9
+    },
+    {
+      "path": "research/quartic214/contracts/source-carry.json",
+      "sha256": "0ccb359a72c0c0215ab2d4bad7a5a2a49ca2a2cddaa9254eb698a6e69c39688e",
+      "application_id": "D214-INHERITED-ANALYTIC-RC-CARRY",
+      "obligations": 9
+    },
+    {
+      "path": "research/quartic214/contracts/modularity-1.json",
+      "sha256": "677d87aa2fdd08d4025a8fcdf2be03ec9b0185faf408ae82f463b8910797ab88",
+      "application_id": "M1-CHANGED-MINIMAL-CHARACTER",
+      "obligations": 9
+    },
+    {
+      "path": "research/quartic214/contracts/modularity-2.json",
+      "sha256": "bf0032fd58169d79f84fe6587a1902ad0fda12da895147eed4bc0bf01e08809e",
+      "application_id": "M2-M3-ORIGINAL-R5-MODULARITY",
+      "obligations": 9
+    },
+    {
+      "path": "research/quartic214/contracts/modularity-3.json",
+      "sha256": "3852c1fcb2d79e2a14a271c010d5dbf57665699187cfb0b22cca069f09096195",
+      "application_id": "M4-SAME-FORM-COMPANION",
+      "obligations": 9
+    },
+    {
+      "path": "research/quartic214/contracts/modularity-4.json",
+      "sha256": "8634c90335f48b12c74f8612fd6b67e5da085f6beb6e3ca56235eaf4d90c4392",
+      "application_id": "M5-DIRECT-CONDUCTOR-AND-NEW-LIFT",
+      "obligations": 9
+    },
+    {
+      "path": "research/quartic214/contracts/modularity-5.json",
+      "sha256": "a908b6093393a4e13dd3fd57f33b2f3ab30f1619dbbaf4d99971ffe66f4f68f2",
+      "application_id": "M6-DETERMINANT-MULTIPLICITY-QUOTIENT",
+      "obligations": 9
+    },
+    {
+      "path": "research/quartic214/contracts/modularity-6.json",
+      "sha256": "3b61613f34a5f8746804ab2e6aa24aa787cc5fb6485ac2c5aa2a1a1cc4da9ab9",
+      "application_id": "G-P-D210-GEOMETRY-AND-S10-CARRY",
+      "obligations": 9
+    },
+    {
+      "path": "research/quartic214/contracts/height-evaluation.json",
+      "sha256": "0f524e806c2b3d3fa62fa3479a561ab069d84ab1be6f24c46ddaa5095a117474",
+      "application_id": "H04-integral-evaluation-and-trace-lattice",
+      "obligations": 9
+    },
+    {
+      "path": "research/quartic214/contracts/height-different.json",
+      "sha256": "51628e37c28208b3c62be6a4d1899d650bd7b8d0e80fe236ce7a2fe6485ef5a6",
+      "application_id": "H04-DIFFERENT-MODULAR-20261110",
+      "obligations": 9
+    },
+    {
+      "path": "research/quartic214/contracts/height-metric.json",
+      "sha256": "05edb1fa2ce8e02dfcfb0623db7b0c56a73e3e9df9e82eee0f7bc2ca4e438c1b",
+      "application_id": "H04-METRIC-ARCHIMEDEAN",
+      "obligations": 9
+    },
+    {
+      "path": "research/quartic214/contracts/height-averaging.json",
+      "sha256": "e5c2281d8f4cc6f0a0c8234c0fad9f909021cbd95943c0c11fd94ce68441895f",
+      "application_id": "H03-PUBLISHED-PRODUCT-AVERAGING",
+      "obligations": 9
+    },
+    {
+      "path": "research/quartic214/contracts/height-assembly.json",
+      "sha256": "a13a2c2209d28728b9f76d301bcf2c36cdf0eca8820b91ab0f2f567477972a0d",
+      "application_id": "H04-SAME-OBJECT-MODULAR-HEIGHT-ASSEMBLY",
+      "obligations": 9
+    },
+    {
+      "path": "research/quartic214/contracts/H4-reflection.json",
+      "sha256": "350fba85a5d6820a835d4fe0e16b59b09b6e579939d0fcd23b66c8a2c4302edf",
+      "application_id": "H04-FULL-FAMILY-CONSTANT-AND-CENTER2-TRANSFER",
+      "obligations": 9
+    }
+  ]
+}

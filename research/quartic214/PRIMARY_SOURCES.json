@@ -1,0 +1,930 @@
+{
+  "height": {
+    "format": "height-sources-v1",
+    "author": "/root/sol61_height_foundation",
+    "parentPrivateCommit": "4acd40881c4abb6da7017c803a8f8d4b851d54cf",
+    "broxCommit": "0697019486451cdfdb71b3272d5f26c6270d2a6b",
+    "proofSha256": "25960e40419c7abea1f90ab4b35108169a5ca6ad04dccf3a3643e8d0e9bb7d7f",
+    "sourceUseInitialSha256": "7f027bcc37a8b4e888dee6f8890f0093c2e1d71176a75ec5e88f800c6ece9818",
+    "files": [
+      {
+        "url": "https://smf.emath.fr/system/files/filepdf/smf_mem_176_0.pdf",
+        "accessDate": "2026-11-10",
+        "sha256": "b1e2e32bec626cf6d27fb7d6d8702b5c707e0c3dc002d979088e62d8cda514a4",
+        "status": "final published PDF checked",
+        "locator": "Theorem1.9(1),pp7\u20138; original stable normalization",
+        "omitted_local_path": "GR2023-published.pdf"
+      },
+      {
+        "url": "https://www-fourier.univ-grenoble-alpes.fr/~remond/2476.pdf",
+        "accessDate": "2026-11-10",
+        "sha256": "e23a019a7432e299014ead57a1ba51c3945b8351a64c96f339536786c8f79c5d",
+        "status": "authorJune2021PDF checked; final2022body unavailable via subscription redirect",
+        "locator": "Corollary1.2,stable remark,Proposition2.1",
+        "omitted_local_path": "Remond2021-author.pdf"
+      },
+      {
+        "url": "https://www.jstage.jst.go.jp/article/jmath1948/25/3/25_3_523/_pdf/-char/ja",
+        "accessDate": "2026-11-10",
+        "sha256": "6a34cc46d06c0f5d4e7d380ddcbc45ec3143b19359bfebba5b1c8f00976f3308",
+        "status": "final published PDF checked",
+        "locator": "Theorem1,pp526\u2013527 including Fricke condition",
+        "omitted_local_path": "Shimura1973-published.pdf"
+      },
+      {
+        "url": "https://math.berkeley.edu/~ribet/Articles/korea.pdf",
+        "accessDate": "2026-11-10",
+        "sha256": "4c491a5294d1f4ec1b62855560aaea95cb64802d8fdd80fdd51ae2d2432f66ed",
+        "status": "archived author PDF checked; final publication identity not asserted",
+        "locator": "\u00a73",
+        "omitted_local_path": "Ribet-author.pdf"
+      }
+    ],
+    "applications": {
+      "O1-supplier": [
+        "U01",
+        "U02",
+        "U03",
+        "U04",
+        "U05",
+        "U06",
+        "U07",
+        "U08",
+        "U09",
+        "U10",
+        "U11",
+        "U16"
+      ],
+      "O1-reflection": [
+        "U11",
+        "U12"
+      ],
+      "O9-consumers": [
+        "U13",
+        "U14",
+        "U15"
+      ]
+    },
+    "closureLimits": [
+      "Final R\u00e9mond2022body not compared",
+      "Faltings/Chebotarev/Poincare/Li and underlying geometry/modularity/Arakelov inputs retain parent source-version qualifications",
+      "No independent inventory-coverage decision supplied"
+    ],
+    "copyright": "Local third-party PDFs are source evidence. Do not infer redistribution permission; release may retain URL/hash/locator without PDF copies."
+  },
+  "bridges": {
+    "sources": [
+      {
+        "id": "Faltings-Rational-Points.pdf",
+        "url": "https://yhzhumath.github.io/Mordell2024/RP.pdf",
+        "sha256": "3122011c0f12cc991fc0ff1601bb77cc1cd3e5ab2a0db023c0bf224ea576b6aa",
+        "bytes": 11049110,
+        "locator": "Second edition1986, Theorem1a-b, printed204/PDF212; title pages checked",
+        "accessDate": "2026-11-10",
+        "inspectedBy": "/root",
+        "status": "published page image directly read; current application authored separately, awaiting independent review",
+        "repositoryCopy": false
+      },
+      {
+        "id": "Milne-Abelian-Varieties-1986.pdf",
+        "url": "https://www.jmilne.org/math/articles/1986b.pdf",
+        "sha256": "86259344a576e4ef75a9d81e9bf43143f872a72b14cf8fcc2703f3aea6349136",
+        "bytes": 3833583,
+        "locator": "Published1986, Proposition12.1, printed122/PDF20",
+        "accessDate": "2026-11-10",
+        "inspectedBy": "/root",
+        "status": "published page image directly read; current application authored separately, awaiting independent review",
+        "repositoryCopy": false
+      },
+      {
+        "id": "Li-p294.jpg",
+        "url": "https://images.p.sub.uni-goettingen.de/iiif/image/gdz:PPN235181684_0212:00000302/full/1800,/0/default.jpg",
+        "sha256": "9b31b9fc6f0b176bff3b0ef85f8f07285c0d40cb282cc80d20401e24a6b60d49",
+        "bytes": 991846,
+        "locator": "Mathematische Annalen212(1975), printed294",
+        "accessDate": "2026-11-10",
+        "inspectedBy": "/root",
+        "status": "published page image directly read; current application authored separately, awaiting independent review",
+        "repositoryCopy": false
+      },
+      {
+        "id": "Li-p295.jpg",
+        "url": "https://images.p.sub.uni-goettingen.de/iiif/image/gdz:PPN235181684_0212:00000303/full/1800,/0/default.jpg",
+        "sha256": "3c4882694168d10693977176097644198fc312259ce7715872b063264cf78633",
+        "bytes": 629475,
+        "locator": "Mathematische Annalen212(1975), printed295",
+        "accessDate": "2026-11-10",
+        "inspectedBy": "/root",
+        "status": "published page image directly read; current application authored separately, awaiting independent review",
+        "repositoryCopy": false
+      },
+      {
+        "id": "Li-p296.jpg",
+        "url": "https://images.p.sub.uni-goettingen.de/iiif/image/gdz:PPN235181684_0212:00000304/full/1800,/0/default.jpg",
+        "sha256": "11f38136cd27108d507c7662d1ddb46d8c572874b314b69aa1ad8be16395aad3",
+        "bytes": 758672,
+        "locator": "Mathematische Annalen212(1975), printed296",
+        "accessDate": "2026-11-10",
+        "inspectedBy": "/root",
+        "status": "published page image directly read; current application authored separately, awaiting independent review",
+        "repositoryCopy": false
+      },
+      {
+        "id": "GR2014-published.pdf",
+        "url": "https://ems.press/content/serial-article-files/43351?nt=1",
+        "sha256": "5afec329530089fd62d686f5e75331c91fc97fbf775ad6c4b275fc514459f31e",
+        "bytes": 576654,
+        "locator": "Definition2.1 and\u00a72.3 pp351\u2013352; Corollary8.4 p400; PDFpages9\u201310,58",
+        "accessDate": "2026-11-10",
+        "inspectedBy": "/root",
+        "status": "Published definition,corollary proof and pageimages read; source/application bridge awaiting independent review",
+        "repositoryCopy": false
+      }
+    ],
+    "qualification": "URLs and exact byte hashes identify external published evidence. Full third-party books and images are local review copies, not redistributed in the packet. Source/application discussion is PRIMARY_SOURCE_BRIDGES.md.",
+    "remondFinal": "Publisher article link redirects to subscription; final2022body not compared. Existing authorJune2021 version remains frozen."
+  },
+  "modularity": {
+    "role": "AUTHOR only",
+    "date": "2026-11-11",
+    "primary_sources": [
+      {
+        "id": "Calegari2023",
+        "sha256": "d8e9a3ec3f2a4bedd674d95cf5f1e03fe26a67745c6f1cadf39b3fbf9e004cb5",
+        "bytes": 834759,
+        "locator": "definitions611\u2013612; statement624",
+        "url": "https://ems.press/content/book-chapter-files/33140?nt=1",
+        "publication": "EMS ICM2022 vol2 (2023),610\u2013651",
+        "actual_inspection": "actual statement text read; image-only Milne and Faltings pages additionally visually inspected",
+        "consumer_proof_sections": "M2",
+        "authoritative_version": "published source; Milne author-hosted published chapter/edition"
+      },
+      {
+        "id": "Carayol1987",
+        "sha256": "cc2605dd390eae903712a650e925b322472bb8831a11d6282b40030c0753944b",
+        "bytes": 1162324,
+        "locator": "\u00a7\u00a71.4,2.1,2.4,3.4.2,4.1/fullTheorem4; printed36,37,41,42",
+        "url": "https://www.numdam.org/item/AST_1987__147-148__33_0.pdf",
+        "publication": "Ast\u00e9risque147\u2013148(1987),33\u201347",
+        "actual_inspection": "actual statement text read; image-only Milne and Faltings pages additionally visually inspected",
+        "consumer_proof_sections": "M5",
+        "authoritative_version": "published source; Milne author-hosted published chapter/edition"
+      },
+      {
+        "id": "Scholze2013",
+        "sha256": "f47a05bbcdd1ac69deb87ce4b6af5bbbc245cbbf0e99df74e8bf73b6d89227d7",
+        "bytes": 688182,
+        "locator": "Cor1.8pp5\u20136; Thms9.1,9.3pp74\u201375",
+        "url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/9C5E8381BE3CD320ECADDDEAD2616B55/S2050508613000012a.pdf",
+        "publication": "Forum Math.Pi1(2013),e1",
+        "actual_inspection": "actual statement text read; image-only Milne and Faltings pages additionally visually inspected",
+        "consumer_proof_sections": "M2",
+        "authoritative_version": "published source; Milne author-hosted published chapter/edition"
+      },
+      {
+        "id": "Scholze2016",
+        "sha256": "3caea8d89df1e7d047d4edc89a679cd1deb2a19ec350effb450305a9c8eef3d1",
+        "bytes": 166017,
+        "locator": "whole4-page correction, especiallyp2",
+        "url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/423022854D448D337C999BCD505D8F75/S2050508616000044a.pdf",
+        "publication": "Forum Math.Pi4(2016),e6",
+        "actual_inspection": "actual statement text read; image-only Milne and Faltings pages additionally visually inspected",
+        "consumer_proof_sections": "M2",
+        "authoritative_version": "published source; Milne author-hosted published chapter/edition"
+      },
+      {
+        "id": "Fontaine1994",
+        "sha256": "ace926ffda578dacfe8a333c38d450235506ebe18f558ee9bfcb96dc6f70a8ec",
+        "bytes": 6497435,
+        "locator": "\u00a7\u00a73.4\u20133.8; Theorem3.8p142",
+        "url": "https://www.numdam.org/item/AST_1994__223__113_0.pdf",
+        "publication": "Ast\u00e9risque223(1994),113\u2013184",
+        "actual_inspection": "actual statement text read; image-only Milne and Faltings pages additionally visually inspected",
+        "consumer_proof_sections": "M2\u2013M3",
+        "authoritative_version": "published source; Milne author-hosted published chapter/edition"
+      },
+      {
+        "id": "Kato2004",
+        "sha256": "3c6e14b11fa60262db8aff782ce3cf4d83e9100c0be83621a7e4ce502cec605d",
+        "bytes": 18010813,
+        "locator": "\u00a7\u00a75.4,6.3,8.3,9.2,9.4,14.10.2\u20133; pp155,161\u2013162,181,187\u2013188,240",
+        "url": "https://www.numdam.org/item/AST_2004__295__117_0.pdf",
+        "publication": "Ast\u00e9risque295(2004),117\u2013290",
+        "actual_inspection": "actual statement text read; image-only Milne and Faltings pages additionally visually inspected",
+        "consumer_proof_sections": "M2\u2013M3",
+        "authoritative_version": "published source; Milne author-hosted published chapter/edition"
+      },
+      {
+        "id": "DeligneSerre1974",
+        "sha256": "65b390f6d33e827e30c6c66bbc15421eca51db3180bdf5996dcee19047be97fc",
+        "bytes": 2402609,
+        "locator": "\u00a7\u00a71.6\u20131.9,3.1\u20133.2,Theorem4.1,8.2,8.5\u20138.6; pp509\u2013510,513\u2013514,525\u2013526",
+        "url": null,
+        "publication": "Ann.Sci.ENS(4)7(1974),507\u2013530",
+        "actual_inspection": "actual statement text read; image-only Milne and Faltings pages additionally visually inspected",
+        "consumer_proof_sections": "M3\u2013M4",
+        "authoritative_version": "published source; Milne author-hosted published chapter/edition"
+      },
+      {
+        "id": "Milne1986",
+        "sha256": "86259344a576e4ef75a9d81e9bf43143f872a72b14cf8fcc2703f3aea6349136",
+        "bytes": 3833583,
+        "locator": "Prop12.1p122; Prop12.9p125; Thm15.1(a)p129; scanpages20,23,27 visually read",
+        "url": null,
+        "publication": "ArithmeticGeometry,Springer(1986),103\u2013150",
+        "actual_inspection": "actual statement text read; image-only Milne and Faltings pages additionally visually inspected",
+        "consumer_proof_sections": "M2,M4,M6",
+        "authoritative_version": "published source; Milne author-hosted published chapter/edition"
+      },
+      {
+        "id": "Faltings1986",
+        "sha256": "3122011c0f12cc991fc0ff1601bb77cc1cd3e5ab2a0db023c0bf224ea576b6aa",
+        "bytes": 11049110,
+        "locator": "Complements to Mordell,Theorem1(a,b)p204; scanp212 visually read",
+        "url": null,
+        "publication": "RationalPoints,secondedition,Vieweg(1986)",
+        "actual_inspection": "actual statement text read; image-only Milne and Faltings pages additionally visually inspected",
+        "consumer_proof_sections": "M2,M6",
+        "authoritative_version": "published source; Milne author-hosted published chapter/edition"
+      },
+      {
+        "id": "MilneADT2006",
+        "sha256": "2c6195ec76a974f3f336c77cb71cc3845b018aad2d43136716b3477a3bc5fb31",
+        "bytes": 2136045,
+        "locator": "I.1.3,1.5,1.6(b,c)pp18\u201319; II.2.1proofp164",
+        "url": "https://www.jmilne.org/math/Books/ADTnot.pdf",
+        "publication": "ArithmeticDualityTheorems,2ndedition,BookSurge2006",
+        "actual_inspection": "actual statement text read; image-only Milne and Faltings pages additionally visually inspected",
+        "consumer_proof_sections": "M1,M3",
+        "authoritative_version": "published source; Milne author-hosted published chapter/edition"
+      },
+      {
+        "id": "MilneShimura2005",
+        "sha256": "6336f0a23084dc0bf815a901c61a0f925dbc8dc1c395af8864c1d90bea69c4a1",
+        "bytes": 1035957,
+        "locator": "complex uniformization and Theorem6.8,Cor6.9p319",
+        "url": "https://www.jmilne.org/math/xnotes/svi2005.pdf",
+        "publication": "ClayMath.Proc4(2005),265\u2013378",
+        "actual_inspection": "actual statement text read; image-only Milne and Faltings pages additionally visually inspected",
+        "consumer_proof_sections": "M2",
+        "authoritative_version": "published source; Milne author-hosted published chapter/edition"
+      },
+      {
+        "id": "Shimura1973",
+        "sha256": "6a34cc46d06c0f5d4e7d380ddcbc45ec3143b19359bfebba5b1c8f00976f3308",
+        "bytes": 1646652,
+        "locator": "Theorem1pp526\u2013527; \u00a74equation4.1p531",
+        "url": "https://www.jstage.jst.go.jp/article/jmath/25/3/25_3_523/_pdf",
+        "publication": "J.Math.Soc.Japan25(1973),523\u2013544",
+        "actual_inspection": "actual statement text read; image-only Milne and Faltings pages additionally visually inspected",
+        "consumer_proof_sections": "M3,M6",
+        "authoritative_version": "published source; Milne author-hosted published chapter/edition",
+        "access": "Copied exact already-frozen published PDF from private height packet after current JStage500; source text directly read"
+      },
+      {
+        "id": "Serre1968-reprint1989",
+        "sha256": "971dbfdd4414d99ea21d7d0af63dbb790d7b1188e9aec37f422181a2b543dec4",
+        "bytes": 5563667,
+        "locator": "ChapterI\u00a72.2Corollary2pI-8;\u00a72.3theorem/lemmapI-10\u201311",
+        "url": "https://www.math.mcgill.ca/darmon/courses/18-19/gs/serre-mcgill.pdf",
+        "publication": "Abelianl-AdicRepresentationsandEllipticCurves,1968,Addison-Wesley1989reprint",
+        "actual_inspection": "actual statement text read; image-only Milne and Faltings pages additionally visually inspected",
+        "consumer_proof_sections": "M4,M6",
+        "authoritative_version": "published source; Milne author-hosted published chapter/edition"
+      },
+      {
+        "id": "Li1975-p294",
+        "sha256": "9b31b9fc6f0b176bff3b0ef85f8f07285c0d40cb282cc80d20401e24a6b60d49",
+        "bytes": 991846,
+        "locator": "Math.Ann.212(1975),printed294",
+        "url": "https://images.p.sub.uni-goettingen.de/iiif/image/gdz:PPN235181684_0212:00000302/full/1800,/0/default.jpg",
+        "actual_inspection": "p296,p298 visually read; p294,p295 acquired, prior bridge read; no false claim of visual reading p294/p295",
+        "consumer_proof_sections": "M3precision finding; M6Fricke"
+      },
+      {
+        "id": "Li1975-p295",
+        "sha256": "3c4882694168d10693977176097644198fc312259ce7715872b063264cf78633",
+        "bytes": 629475,
+        "locator": "Math.Ann.212(1975),printed295",
+        "url": "https://images.p.sub.uni-goettingen.de/iiif/image/gdz:PPN235181684_0212:00000303/full/1800,/0/default.jpg",
+        "actual_inspection": "p296,p298 visually read; p294,p295 acquired, prior bridge read; no false claim of visual reading p294/p295",
+        "consumer_proof_sections": "M3precision finding; M6Fricke"
+      },
+      {
+        "id": "Li1975-p296",
+        "sha256": "11f38136cd27108d507c7662d1ddb46d8c572874b314b69aa1ad8be16395aad3",
+        "bytes": 758672,
+        "locator": "Math.Ann.212(1975),printed296",
+        "url": "https://images.p.sub.uni-goettingen.de/iiif/image/gdz:PPN235181684_0212:00000304/full/1800,/0/default.jpg",
+        "actual_inspection": "p296,p298 visually read; p294,p295 acquired, prior bridge read; no false claim of visual reading p294/p295",
+        "consumer_proof_sections": "M3precision finding; M6Fricke"
+      },
+      {
+        "id": "Li1975-p298",
+        "sha256": "609bb6f3a234820789a6a07ed8219ac002e723e9fa46103e27a60d3b1dcdc386",
+        "bytes": 868473,
+        "locator": "Math.Ann.212(1975),printed298",
+        "url": "https://images.p.sub.uni-goettingen.de/iiif/image/gdz:PPN235181684_0212:00000306/full/1800,/0/default.jpg",
+        "actual_inspection": "p296,p298 visually read; p294,p295 acquired, prior bridge read; no false claim of visual reading p294/p295",
+        "consumer_proof_sections": "M3precision finding; M6Fricke"
+      },
+      {
+        "id": "PanAuthorV2",
+        "sha256": "590171129d28a65749cf92b1f6099dbacaa90cc6698828f0a4dfd3da943f4824",
+        "bytes": 1552018,
+        "locator": "Theorem1.0.4p5; Conjecture1.0.1p2",
+        "url": "https://arxiv.org/pdf/1901.07166v2",
+        "authoritative_version": "historical author version, NOT final published body",
+        "actual_inspection": "actual theorem/definitions read",
+        "use": "proof ancestry/history only; immediate live modularity input is Calegari2023"
+      },
+      {
+        "id": "SilverbergZarhin1995",
+        "sha256": "fc62ba1c9d1315a0c441a3dd7de46a254f379289e630c407a3336c0230d91052",
+        "bytes": 1826653,
+        "locator": "Theorems3.4/3.5,printed405\u2013406",
+        "url": "https://www.numdam.org/article/AIF_1995__45_2_403_0.pdf",
+        "publication": "AnnalesInstitutFourier45(1995),403\u2013420",
+        "actual_inspection": "actualfinalTheorems3.4/3.5andSection3textread;hashmatchesretainedpublicsource",
+        "consumer": "PROVIDER_SCOPE_CARRYP4;PROOF_FINALM5"
+      },
+      {
+        "id": "Serre1967-retained-ramification",
+        "publication": "Cassels\u2013FrohlichAlgebraicNumberTheory(1967),ChapterVI,Localclassfieldtheory,128\u2013161",
+        "locator": "\u00a7\u00a74.1\u20134.3pp155\u2013159",
+        "retained_extract_sha256": "e0367b25a022eb27ec220e3c15b474a94fb96d70a6bb89b77f4a02c2231950fe",
+        "retrieval_url": "unknown in retainedsource record; no newlyinventedURL",
+        "actual_inspection": "retainedexactsourceapplicationandgeneraltheoremprofilecheckedagainstcurrentobjects;notafreshprimaryextractread",
+        "carry_evidence": [
+          "CONDUCTOR_RAMIFICATION_PROFILES.json",
+          "PUBLIC_FULL_COVER_DECISIONS.json",
+          "PROVIDER_SCOPE_CARRY.mdP4"
+        ]
+      }
+    ],
+    "internal_sources": [
+      {
+        "id": "private-height",
+        "sha256": "25960e40419c7abea1f90ab4b35108169a5ca6ad04dccf3a3643e8d0e9bb7d7f",
+        "bytes": 23844,
+        "locator": "H0\u2013H4; constructionH0/H1; applicationsH0.2/H1/H2; consumersH2\u2013H4"
+      },
+      {
+        "id": "private-v14-source",
+        "sha256": "b6f35c38c9e7370e8ee1b73948f9caa805ed194ca8551a9a61ab9f543ef06d5c",
+        "bytes": 1164623,
+        "locator": "481\u2013660;8097\u20138347 actual originalr5/r3/CL1/CL2"
+      },
+      {
+        "id": "parent9",
+        "sha256": "73ca3d625ba42160cd2a58b4479a9053ee487d95f99161bf62b28d71c0fe54da",
+        "bytes": 18705,
+        "locator": "\u00a7\u00a71\u20133"
+      },
+      {
+        "id": "cutoff",
+        "sha256": "1a6ae253afd4e92fd2e06dcd3d1bf733464c0320d0861476fa88402b7440fd6f",
+        "bytes": 16422,
+        "locator": "\u00a71"
+      },
+      {
+        "id": "public-v15",
+        "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+        "bytes": 1924438,
+        "locator": "lemma505\u2013705; baseline1334\u20131505; b-family8252\u20138495"
+      },
+      {
+        "id": "source-bridge",
+        "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+        "bytes": 12939,
+        "locator": "Faltings/Poincare/Li actual source-application proofs"
+      },
+      {
+        "id": "direct-p5-PROOF.md",
+        "sha256": "995d60ad7b793c17096bbb55476f52104af45a84d634713e3c490fe9bbd6ffda",
+        "bytes": 9670,
+        "locator": "whole actual argument"
+      },
+      {
+        "id": "direct-p5-FAMILY-CONNECTION.md",
+        "sha256": "f8169651e1835464ef65927f92d0eb24f8af0ada1ab8b5da8b37cf4603ad34f9",
+        "bytes": 1013,
+        "locator": "whole actual argument"
+      },
+      {
+        "id": "direct-p5-FIVE-TO-THREE-CONNECTION.md",
+        "sha256": "56d613891398cb485f88aedd69c53f3afdb34a8cb167b89d4527e2538920fb35",
+        "bytes": 6341,
+        "locator": "whole actual argument"
+      },
+      {
+        "id": "direct-p5-CLASSICAL-LOCAL-CONNECTION.md",
+        "sha256": "d990c04c59fbf78ea085e018a6da82f269bb7735379b82255f2ffd4fac110c5e",
+        "bytes": 8237,
+        "locator": "whole actual argument"
+      },
+      {
+        "id": "direct-p5-SOURCES.md",
+        "sha256": "13cc8eed66c1e7714431c0cbef200a3a3c2e9853d5dcf2eab4aef7bc278ad5da",
+        "bytes": 2932,
+        "locator": "whole actual argument"
+      },
+      {
+        "id": "direct-p5-SOURCE-STATUS.md",
+        "sha256": "0658b7a9be745216f57d0ee71820c2e91f5c790132902bdc879d2dc44b833f8d",
+        "bytes": 2180,
+        "locator": "whole actual argument"
+      },
+      {
+        "id": "D210-fullprovider",
+        "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b",
+        "bytes": 19349,
+        "locator": "wholeproof \u00a7\u00a71\u20139,16sourceapplications"
+      },
+      {
+        "id": "D210-geometricisogeny",
+        "sha256": "f889eab0b9f7880a647ebb34f10ac44a73aaf748f2041cb03dea756079d6ab9e",
+        "bytes": 5819,
+        "locator": "wholeactualargument"
+      },
+      {
+        "id": "Yuan-finalbridge",
+        "sha256": "cad3c3e1a78dc2f300a6150181184067ae5636a7339292c7fe74ef8298e89f69",
+        "bytes": 4154,
+        "locator": "wholeactualmaximalstackandisometrycomparison"
+      },
+      {
+        "id": "H19-sourceprofiles",
+        "sha256": "e9d209cbbecf3c0048cb7d5fb17ff4b428de23c8263659b84b2be8097816e9ec",
+        "bytes": 4940417,
+        "locator": "16FULL-COVER+4conductor+H19RAMIFICATION+CM/D210profiles"
+      },
+      {
+        "id": "public-final006coverage",
+        "sha256": "9b7dc976e14eb57b940e6f478e921726f3158403b890589f3269ee6eec3f743c",
+        "bytes": 1428503,
+        "locator": "exactextractedscopes"
+      }
+    ],
+    "access_findings": [
+      {
+        "source": "PanfinalJAMS2022",
+        "attempts": [
+          "https://www.ams.org/jams/2022-35-04/S0894-0347-2021-00991-1/S0894-0347-2021-00991-1.pdf",
+          "https://www.ams.org/journals/jams/2022-35-04/S0894-0347-2021-00991-1/S0894-0347-2021-00991-1.pdf"
+        ],
+        "result": "403; final body not read; Calegari final statement read and used directly"
+      },
+      {
+        "source": "Washington1997Theorem14.1",
+        "result": "not reacquired; proofM3instead derives finiteDirichletcharacter from published MilneADTglobalreciprocity and Qidele decomposition"
+      }
+    ],
+    "uninspected_live_antecedents": [
+      "The sixteen exactpublicfullD210sourceapplications are carried at their accepted scope, not freshly reaudited from every finalPDF/HTML; the wholeinternalproof and currentprivateconnection are directlyread. Independentcurrentreviewmustacceptthisexactcarry.",
+      "No primaryfinalPanJAMSbodycomparison; immediatefinalpublishedCalegaritheoremisdirectlychecked.",
+      "SeparateheightH3Remond/final214assemblyremainrootlanes."
+    ],
+    "supersedes_scope_statements_only": "SOURCE_USES.json remains frozen initialauthorhistory; this finalinventory adds exactH01andconductorcarry, without changing initialfiles.",
+    "final_bindings": [
+      {
+        "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+        "bytes": 25777
+      },
+      {
+        "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+        "bytes": 13337
+      },
+      {
+        "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+        "bytes": 16324
+      },
+      {
+        "sha256": "48fd4208cabd031cabf9d71f4a9b9dc5e1f7176bed6489a9d7224f5d7dcfb7e5",
+        "bytes": 227373
+      },
+      {
+        "sha256": "00643457f3c10e53fd31ab7b7d38755906c8dcc433939480f130d4339b2a3127",
+        "bytes": 21154
+      },
+      {
+        "sha256": "64896dfbb8661e04c044a68aa8679ee5dc20c0da36cc9a57640a885b7ca46614",
+        "bytes": 1501
+      },
+      {
+        "sha256": "0e7280479d5ace418b4383c814361812863cb097f424916b801c17ddbc8eb51e",
+        "bytes": 1945
+      },
+      {
+        "sha256": "b97585cd239a9c7b3138dabb010eb959fc16f708bb1af4de2e35b182f5cc372a",
+        "bytes": 3050
+      }
+    ]
+  },
+  "height_evaluation": [
+    {
+      "sha256": "cc7f1947308a6c8db0d6d0d406bfecc4ef2363d710f694b1cc5fe9bb0ba8219f",
+      "bytes": 16117,
+      "id": "S-00R4",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/00R4",
+      "access_date": "2026-11-10",
+      "locator": "Lemma 10.128.1, statement and proof: all three miracle-flatness hypotheses",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "05a6f4daf4e0ce0e22731a953dc355b411931313c9e549bbec1f7b9d0a1105c9",
+      "bytes": 18424,
+      "id": "S-031S",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/031S",
+      "access_date": "2026-11-10",
+      "locator": "Lemma 10.157.4, normal iff R1 and S2, including proof of normal \u21d2 depth at least min(2,dimension)",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "f043e46feb56ec178ef2af81acf345fabc93d42e71a9f1e544e962edbe329af9",
+      "bytes": 17764,
+      "id": "S-00H8",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/00H8",
+      "access_date": "2026-11-10",
+      "locator": "Proposition 10.38.7, statement and proof: going down for integral extension of domains over normal domain",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "1921d9e780f76f5ea003c57bb58b855748d4f9a333c4dad7d877c649ca1605f2",
+      "bytes": 14961,
+      "id": "S-0AHI",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/0AHI",
+      "access_date": "2026-11-10",
+      "locator": "Lemma 54.4.2, statement and proof: domination of proper modification by point blowups over finite regular dimension-two centres",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "1715af2753bb039ae57ebd0d69d3b4efa1050bdd538629f8b17f4dae0751d4c1",
+      "bytes": 17338,
+      "id": "S-0BFP",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/0BFP",
+      "access_date": "2026-11-10",
+      "locator": "Lemma 33.17.3, statement parts (1)\u2013(2), proof: codimension-one isomorphism locus for proper birational reduced source",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "56877b9b7bb0e689cf3c5004fbe9eb4abd828d85652ff0306b99af928cdc2ad0",
+      "bytes": 19975,
+      "id": "S-0AWQ",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/0AWQ",
+      "access_date": "2026-11-10",
+      "locator": "Section 48.23, Lemma 48.23.1, statement and proof: canonical sheaf of connected CM scheme is a coherent CM module",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "2d6f74cf8e80e4cab6b19656a6a6a50998fbb26805ead641658436109112ce65",
+      "bytes": 32467,
+      "id": "S-0AVT",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/0AVT",
+      "access_date": "2026-11-10",
+      "locator": "Section 31.13, Definition 31.13.1 and Lemmas 31.13.12\u201331.13.14: reflexivity, extension and normal S2 criterion",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "d7e45af8f20d8af5017d2db20c2907ae5092031fc7650b7c561a4e398dfc13ed",
+      "bytes": 18328,
+      "id": "S-0BUL",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/0BUL",
+      "access_date": "2026-11-10",
+      "locator": "Lemma 49.15.1, statement and proof: finite Hom duality and compatibility with restrictions; 2024 corrected target of f shriek",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "d36a3ecb38faa3db89bf72578c1b00c449ee985808e122c664366857a2c3a072",
+      "bytes": 14286,
+      "id": "S-0C0I",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/0C0I",
+      "access_date": "2026-11-10",
+      "locator": "Lemma 49.2.12, statement and proof: nonunique algebraic comparison; qualification recorded, not used as a canonical trace normalization",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "8b93bd28adc3f32bb19dbf647502c3a140ee586997bc0c323cf25856a3447204",
+      "bytes": 14246,
+      "id": "S-0BW2",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/0BW2",
+      "access_date": "2026-11-10",
+      "locator": "Lemma 49.8.2, statement and proof: complementary module\u2192Hom via x\u21a6[b\u21a6Tr(bx)]",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "69a7fc254581a7fbd20e41f7a56086d6184f6843be666e2dfe93658893bef4d7",
+      "bytes": 14028,
+      "id": "S-0BW3",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/0BW3",
+      "access_date": "2026-11-10",
+      "locator": "Lemma 49.8.3, statement (1) and proof: 1 maps to the trace element for flat finite generically etale extension",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "cab9835bfd28b4c45507644b09cc1f56d78572a6a9bedb1fba0385fdb9b24536",
+      "bytes": 13377,
+      "id": "S-0F42",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/0F42",
+      "access_date": "2026-11-10",
+      "locator": "Situation 48.16.1: Noetherian base and finite-type separated scheme category",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "793c7be1cd2a4f36fce5e49e10e1f5f04642924f7b2f6a6fae4117f4e718476e",
+      "bytes": 21847,
+      "id": "S-0ATX",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/0ATX",
+      "access_date": "2026-11-10",
+      "locator": "Lemma 48.16.3, statement and proof: canonical composition comparison for upper shriek",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "9cc1165e76b572600e5ed912353529cea4eb290d0e7fcc86cb1a302d27e6eafb",
+      "bytes": 14999,
+      "id": "S-0AU0",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/0AU0",
+      "access_date": "2026-11-10",
+      "locator": "Lemma 48.17.1, statement and proof: restriction to opens",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "9592cdfc190919da3ff6408cc8edb6b05fbe82fc546bafb2a5450997f773001c",
+      "bytes": 18311,
+      "id": "S-0B6U",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/0B6U",
+      "access_date": "2026-11-10",
+      "locator": "Lemma 48.17.9, statement (5) and proof: tensor comparison for perfect, in particular flat, morphism",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "3b33f531f4fbed0748f632bc79ec2687c364cb7b0ea495916356e7f09e00b68a",
+      "bytes": 15946,
+      "id": "S-0E9U",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/0E9U",
+      "access_date": "2026-11-10",
+      "locator": "Lemma 48.18.1, statement and proof: flat base-change comparison",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "73a846e8b92c1be1901fc8ceda12fcfc31a37f0f32cd0dad899be9ca66634df6",
+      "bytes": 18222,
+      "id": "S-0E9Z",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/0E9Z",
+      "access_date": "2026-11-10",
+      "locator": "Lemma 48.29.2, statement and conormal/adjunction proof: smooth differential identification; the conormal construction commutes with flat base change",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "f2578b1976e269273994b8cb04dd07efd34006d887dcc7d077015ffa42338466",
+      "bytes": 14213,
+      "id": "S-04HN",
+      "title": "The Stacks Project",
+      "version": "Continuously maintained online reference, exact raw HTML snapshot accessed 2026-11-10; no global release commit asserted",
+      "publication_status": "Published online mathematical reference",
+      "url": "https://stacks.math.columbia.edu/tag/04HN",
+      "access_date": "2026-11-10",
+      "locator": "Lemma 41.18.3, statement and proof: finite etale morphism splits into identity maps on etale neighbourhood",
+      "access_scope": "Statement, listed definitions and relevant proof read",
+      "license": "HTML footer links GNU Free Documentation License"
+    },
+    {
+      "sha256": "ec890fb41c58dee038ee2e06b530954f3aab85035238cd54a4c0ef081fcb8ea0",
+      "bytes": 1222544,
+      "id": "S-JAV",
+      "title": "Polynomial bounds for Arakelov invariants of Belyi curves",
+      "author": "Ariyan Javanpeykar, with appendix by Peter Bruin",
+      "version": "Final published Algebra & Number Theory 8 (2014), 89\u2013140",
+      "publication_status": "Final published paper",
+      "doi": "10.2140/ant.2014.8.89",
+      "url": "https://msp.org/ant/2014/8-1/ant-v8-n1-p04-s.pdf",
+      "access_date": "2026-11-10",
+      "locator": "Arithmetic surface definition pp.95\u201396; Lemma 2.3.1 and its proof p.99",
+      "access_scope": "Definition and actual blowup proof read; point-height conclusion not substituted for formula",
+      "distribution": "Local research evidence; full PDF excluded from default integration copy list"
+    }
+  ],
+  "height_different": [
+    {
+      "id": "javanpeykar-published.pdf",
+      "sha256": "ec890fb41c58dee038ee2e06b530954f3aab85035238cd54a4c0ef081fcb8ea0",
+      "url": "https://msp.org/ant/2014/8-1/ant-v8-n1-p04-s.pdf",
+      "access_date": "2026-11-10",
+      "publication_status": "final publisher PDF",
+      "version": "ANT8(2014),89\u2013140, DOI10.2140/ant.2014.8.89",
+      "publication_scope": "Full third-party PDF retained only as local reviewer source; publication bundle may retain URL/hash and scoped excerpts instead."
+    },
+    {
+      "id": "stacks-0BFG.html",
+      "sha256": "f2b650fba17a059317eb935e33d33572a84edb970a5a7fc954a2be3d8a6eb212",
+      "url": "https://stacks.math.columbia.edu/tag/0BFG",
+      "access_date": "2026-11-10",
+      "publication_status": "Stacks live tag page archived as exact HTML snapshot; no Git commit asserted",
+      "version": "content served at access date, byte-hash version",
+      "publication_scope": "Full third-party PDF retained only as local reviewer source; publication bundle may retain URL/hash and scoped excerpts instead."
+    },
+    {
+      "id": "stacks-0BVZ.html",
+      "sha256": "40a236f53d34753c7301bd6c881018f086b149e6b482cf15d1fed7339b11c829",
+      "url": "https://stacks.math.columbia.edu/tag/0BVZ",
+      "access_date": "2026-11-10",
+      "publication_status": "Stacks live tag page archived as exact HTML snapshot; no Git commit asserted",
+      "version": "content served at access date, byte-hash version",
+      "publication_scope": "Full third-party PDF retained only as local reviewer source; publication bundle may retain URL/hash and scoped excerpts instead."
+    },
+    {
+      "id": "stacks-0BW0.html",
+      "sha256": "0615dff37470db0bc6ed411b7e9b340bc8636ebe2ba73f92155eb41b02af85da",
+      "url": "https://stacks.math.columbia.edu/tag/0BW0",
+      "access_date": "2026-11-10",
+      "publication_status": "Stacks live tag page archived as exact HTML snapshot; no Git commit asserted",
+      "version": "content served at access date, byte-hash version",
+      "publication_scope": "Full third-party PDF retained only as local reviewer source; publication bundle may retain URL/hash and scoped excerpts instead."
+    },
+    {
+      "id": "stacks-0BW4.html",
+      "sha256": "e00ca39df1423bf9650831740a12ba11073e26b97145501aed047e71e3b5eb29",
+      "url": "https://stacks.math.columbia.edu/tag/0BW4",
+      "access_date": "2026-11-10",
+      "publication_status": "Stacks live tag page archived as exact HTML snapshot; no Git commit asserted",
+      "version": "content served at access date, byte-hash version",
+      "publication_scope": "Full third-party PDF retained only as local reviewer source; publication bundle may retain URL/hash and scoped excerpts instead."
+    },
+    {
+      "id": "stacks-0BW6.html",
+      "sha256": "1fd9f612c858f0111c257515bf42f527408d4fedf4e4351a01a5ab3abdfabe9f",
+      "url": "https://stacks.math.columbia.edu/tag/0BW6",
+      "access_date": "2026-11-10",
+      "publication_status": "Stacks live tag page archived as exact HTML snapshot; no Git commit asserted",
+      "version": "content served at access date, byte-hash version",
+      "publication_scope": "Full third-party PDF retained only as local reviewer source; publication bundle may retain URL/hash and scoped excerpts instead."
+    },
+    {
+      "id": "stacks-0BWB.html",
+      "sha256": "3f08ca631d04dcd310e4831f2129c98fc5aad0e16a374bfcd2dffeb7a65338b0",
+      "url": "https://stacks.math.columbia.edu/tag/0BWB",
+      "access_date": "2026-11-10",
+      "publication_status": "Stacks live tag page archived as exact HTML snapshot; no Git commit asserted",
+      "version": "content served at access date, byte-hash version",
+      "publication_scope": "Full third-party PDF retained only as local reviewer source; publication bundle may retain URL/hash and scoped excerpts instead."
+    },
+    {
+      "id": "stacks-0BWE.html",
+      "sha256": "a6ea73cec0946ca70e7c1bdfc99594f2a8e15ee232abab158d9a92a39cc9fbac",
+      "url": "https://stacks.math.columbia.edu/tag/0BWE",
+      "access_date": "2026-11-10",
+      "publication_status": "Stacks live tag page archived as exact HTML snapshot; no Git commit asserted",
+      "version": "content served at access date, byte-hash version",
+      "publication_scope": "Full third-party PDF retained only as local reviewer source; publication bundle may retain URL/hash and scoped excerpts instead."
+    },
+    {
+      "id": "stacks-0BWF.html",
+      "sha256": "a1a842d28f6abc94ef2eadd9948f894988d02d1ea125b014f1ca441d702360b5",
+      "url": "https://stacks.math.columbia.edu/tag/0BWF",
+      "access_date": "2026-11-10",
+      "publication_status": "Stacks live tag page archived as exact HTML snapshot; no Git commit asserted",
+      "version": "content served at access date, byte-hash version",
+      "publication_scope": "Full third-party PDF retained only as local reviewer source; publication bundle may retain URL/hash and scoped excerpts instead."
+    },
+    {
+      "id": "von-kaenel-published.pdf",
+      "sha256": "5749ce3a371c571655b44174e2a0d65c2e53dc179f518f0e52d585ff73da46f9",
+      "url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/5DA2DC5985591DFBC9A26C20BA22F49B/S2050509421000293a.pdf/the-effective-shafarevich-conjecture-for-abelian-varieties-of-dollartext-gl2dollar-type.pdf",
+      "access_date": "2026-11-10",
+      "publication_status": "final publisher PDF",
+      "version": "FoM Sigma9(2021)e39, DOI10.1017/fms.2021.29",
+      "publication_scope": "Full third-party PDF retained only as local reviewer source; publication bundle may retain URL/hash and scoped excerpts instead."
+    }
+  ],
+  "height_metric": [
+    {
+      "id": "J2014",
+      "title": "Polynomial bounds for Arakelov invariants of Belyi curves",
+      "author": "Ariyan Javanpeykar, appendix Peter Bruin",
+      "publication": "Algebra & Number Theory 8 (2014), 89\u2013140",
+      "doi": "10.2140/ant.2014.8.89",
+      "url": "https://msp.org/ant/2014/8-1/ant-v8-n1-p04-s.pdf",
+      "accessed": "2026-11-10",
+      "version": "Final publisher PDF",
+      "evidence": {
+        "path": "sources/javanpeykar2014.pdf",
+        "sha256": "ec890fb41c58dee038ee2e06b530954f3aab85035238cd54a4c0ef081fcb8ea0",
+        "bytes": 1222544
+      },
+      "text": {
+        "path": "sources/javanpeykar2014.txt",
+        "sha256": "ae952c57b066d1cd0daaffb88a5407a84bc970a694bb8f1e1e27e2aa33935845",
+        "bytes": 163512
+      },
+      "locators": [
+        "\u00a72.1 printed pp93\u201394: H0 inner product and determinant metric",
+        "\u00a72.3 printed pp97\u201398: minimal regular semistable model, normalized arithmetic degree and stable Jacobian identification"
+      ],
+      "scope": "Direct final published statement and its definitions; Szpiro lemma cited there is not separately re-audited. The published identification is the permitted theorem input."
+    },
+    {
+      "id": "VK2021",
+      "title": "The effective Shafarevich conjecture for abelian varieties of GL2-type",
+      "author": "Rafael von K\u00e4nel",
+      "publication": "Forum of Mathematics, Sigma 9 (2021), e39, 1\u201329",
+      "doi": "10.1017/fms.2021.29",
+      "url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/5DA2DC5985591DFBC9A26C20BA22F49B/S2050509421000293a.pdf/the-effective-shafarevich-conjecture-for-abelian-varieties-of-dollartext-gl2dollar-type.pdf",
+      "accessed": "2026-11-10",
+      "version": "Final publisher PDF",
+      "evidence": {
+        "path": "sources/vonkanel2021.pdf",
+        "sha256": "5749ce3a371c571655b44174e2a0d65c2e53dc179f518f0e52d585ff73da46f9",
+        "bytes": 667353
+      },
+      "text": {
+        "path": "sources/vonkanel2021.txt",
+        "sha256": "6ddb8af13dc25fd1c5a2a8f8c822e8ab77ed65fde6a4456ab9609b6c50a671a2",
+        "bytes": 161161
+      },
+      "locators": [
+        "\u00a72.1 printed p5: N\u00e9ron differential-line norm, all-embedding degree, stable extension invariance",
+        "\u00a72.1 printed p5 after(2.2): hF=hB\u2212(g/2)log\u03c0"
+      ],
+      "scope": "Final definition/base-change paragraphs read, not a complete source audit of its cited semistable-reduction and N\u00e9ron-model theorems."
+    }
+  ],
+  "uniform_existence": [
+    {
+      "author": "J\u00e9r\u00f4me Von Buhren",
+      "title": "Borne de hauteur semi-effective pour le probl\u00e8me de Mordell\u2013Lang dans une vari\u00e9t\u00e9 ab\u00e9lienne",
+      "edition": "JTNB29(2017),307\u2013320, final published",
+      "url": "https://www.numdam.org/item/10.5802/jtnb.981.pdf",
+      "doi": "10.5802/jtnb.981",
+      "locator": "printed308 Theorem1.1, definition of C(Gamma,epsilon) and embedding(1.1)",
+      "distribution": "local read-only source; no third-party PDF copied into this packet"
+    }
+  ]
+}

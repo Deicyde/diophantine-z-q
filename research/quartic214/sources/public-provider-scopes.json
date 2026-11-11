@@ -1,0 +1,185 @@
+{
+  "schema": "public214-provider-scope-pointers-v1",
+  "sources": [
+    {
+      "original_extraction": "author-supplement/2026-11-11/modularity/PUBLIC_FULL_COVER_DECISIONS.json",
+      "original_extraction_sha256": "00643457f3c10e53fd31ab7b7d38755906c8dcc433939480f130d4339b2a3127",
+      "public_source": {
+        "path": "research/version15/evidence/222-sourcefirst/final-006/PROTOCOL14-COVERAGE-REVIEW.json",
+        "sha256": "9b7dc976e14eb57b940e6f478e921726f3158403b890589f3269ee6eec3f743c",
+        "bytes": 1428503
+      },
+      "record_ids": [
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-ALGEBRAIC-FAMILY",
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-CANONICAL-MODEL",
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-COMPONENT-BASE",
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-CURVE-FIBERS",
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-DIVISION-LATTICE",
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-GENUS-CONSTANCY",
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-GENUS-INPUT",
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-MAXIMAL-STACK",
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-PEL-CLASSIFICATION",
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-PRINCIPAL-POLARIZATION",
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-PROJECTIVITY",
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-RELATIVE-AMPLENESS",
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-SCHEME-FROM-AMPLE",
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-TATE-FAITHFULNESS",
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-THREE-TORSION",
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-TRIVIAL-INERTIA",
+        "connection:V15-INHERITED--ACTIVE-H19-RAMIFICATION-NUMBERING"
+      ],
+      "role": "Exact public source profiles and historical decisions at their preserved scope; no new acceptance"
+    },
+    {
+      "original_extraction": "author-supplement/2026-11-11/modularity/FULL_COVER_SOURCE_PROFILES.json",
+      "original_extraction_sha256": "48fd4208cabd031cabf9d71f4a9b9dc5e1f7176bed6489a9d7224f5d7dcfb7e5",
+      "public_source": {
+        "path": "research/version15/protocol/current-coverage/INHERITED-TRANSPORT-PROPOSALS.json",
+        "sha256": "e9d209cbbecf3c0048cb7d5fb17ff4b428de23c8263659b84b2be8097816e9ec",
+        "bytes": 4940417
+      },
+      "record_ids": [
+        "ACTIVE-H19-FULL-COVER-ALGEBRAIC-FAMILY",
+        "ACTIVE-H19-FULL-COVER-CANONICAL-MODEL",
+        "ACTIVE-H19-FULL-COVER-COMPONENT-BASE",
+        "ACTIVE-H19-FULL-COVER-CURVE-FIBERS",
+        "ACTIVE-H19-FULL-COVER-DIVISION-LATTICE",
+        "ACTIVE-H19-FULL-COVER-GENUS-CONSTANCY",
+        "ACTIVE-H19-FULL-COVER-GENUS-INPUT",
+        "ACTIVE-H19-FULL-COVER-MAXIMAL-STACK",
+        "ACTIVE-H19-FULL-COVER-PEL-CLASSIFICATION",
+        "ACTIVE-H19-FULL-COVER-PRINCIPAL-POLARIZATION",
+        "ACTIVE-H19-FULL-COVER-PROJECTIVITY",
+        "ACTIVE-H19-FULL-COVER-RELATIVE-AMPLENESS",
+        "ACTIVE-H19-FULL-COVER-SCHEME-FROM-AMPLE",
+        "ACTIVE-H19-FULL-COVER-TATE-FAITHFULNESS",
+        "ACTIVE-H19-FULL-COVER-THREE-TORSION",
+        "ACTIVE-H19-FULL-COVER-TRIVIAL-INERTIA",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-ALGEBRAIC-FAMILY",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-CANONICAL-MODEL",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-COMPONENT-BASE",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-CURVE-FIBERS",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-DIVISION-LATTICE",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-GENUS-CONSTANCY",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-GENUS-INPUT",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-MAXIMAL-STACK",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-PEL-CLASSIFICATION",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-PRINCIPAL-POLARIZATION",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-PROJECTIVITY",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-RELATIVE-AMPLENESS",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-SCHEME-FROM-AMPLE",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-TATE-FAITHFULNESS",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-THREE-TORSION",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-TRIVIAL-INERTIA"
+      ],
+      "role": "Exact public source profiles and historical decisions at their preserved scope; no new acceptance"
+    },
+    {
+      "original_extraction": "author-supplement/2026-11-11/modularity/PUBLIC_GEOMETRY_SCOPES.json",
+      "original_extraction_sha256": "3a30379ebf778f592103961b52a7eab85cb6d7cb71ca22c34e5bf7e11776e326",
+      "public_source": {
+        "path": "research/version15/evidence/222-sourcefirst/final-006/PROTOCOL14-COVERAGE-REVIEW.json",
+        "sha256": "9b7dc976e14eb57b940e6f478e921726f3158403b890589f3269ee6eec3f743c",
+        "bytes": 1428503
+      },
+      "record_ids": [
+        "connection:V15-INHERITED--ACTIVE-CURRENT-YUAN-INTEGRAL-FROM-CURRENT-YUAN-MODEL",
+        "connection:V15-INHERITED--ACTIVE-CURRENT-YUAN-INTEGRAL-USE-YUAN-INTEGRAL",
+        "connection:V15-INHERITED--ACTIVE-CURRENT-YUAN-METRIC-FROM-CURRENT-YUAN-INTEGRAL",
+        "connection:V15-INHERITED--ACTIVE-CURRENT-YUAN-METRIC-USE-YUAN-METRIC",
+        "connection:V15-INHERITED--ACTIVE-CURRENT-YUAN-MODEL-USE-YUAN-MODEL",
+        "connection:V15-INHERITED--ACTIVE-H19-CM-ELLIPTIC-DISCRIMINANT",
+        "connection:V15-INHERITED--ACTIVE-H19-CM-GR2023",
+        "connection:V15-INHERITED--ACTIVE-H19-CM-HEIGHT",
+        "connection:V15-INHERITED--ACTIVE-H19-D210-FIBER-FIELD",
+        "connection:V15-INHERITED--ACTIVE-H19-D210-GEOMETRIC-ISOGENIES"
+      ],
+      "role": "Exact public source profiles and historical decisions at their preserved scope; no new acceptance"
+    },
+    {
+      "original_extraction": "author-supplement/2026-11-11/modularity/PUBLIC_CONDUCTOR_SCOPES.json",
+      "original_extraction_sha256": "02c8d13ee44f547c2766f8deead52a835b92afd68deec01a04bb6f2765be3fcc",
+      "public_source": {
+        "path": "research/version15/evidence/222-sourcefirst/final-006/PROTOCOL14-COVERAGE-REVIEW.json",
+        "sha256": "9b7dc976e14eb57b940e6f478e921726f3158403b890589f3269ee6eec3f743c",
+        "bytes": 1428503
+      },
+      "record_ids": [
+        "connection:V15-INHERITED--ACTIVE-B11-TATE-SOURCE-TORSION-RANK",
+        "connection:V15-INHERITED--ACTIVE-CJ-CONDUCTOR-ONE-REDUCTION",
+        "connection:V15-INHERITED--ACTIVE-GENERATOR-RANK-AND-TORSION",
+        "connection:V15-INHERITED--ACTIVE-GI-MF-TORSION-TO-ASSEMBLY",
+        "connection:V15-INHERITED--ACTIVE-H19-ACTUAL-CONDUCTOR-COMPARISON",
+        "connection:V15-INHERITED--ACTIVE-H19-ELEVEN-TORSION-SEMISTABILITY",
+        "connection:V15-INHERITED--ACTIVE-H19-FULL-COVER-THREE-TORSION",
+        "connection:V15-INHERITED--ACTIVE-H19-NUMERICAL-CONDUCTOR",
+        "connection:V15-INHERITED--ACTIVE-H19-SEMISTABLE-EXTENSION",
+        "connection:V15-INHERITED--ACTIVE-H19-TORSION-GOOD-REDUCTION",
+        "connection:V15-INHERITED--ACTIVE-N03-SQUARED-H-EXCEPTIONS-TO-V13-H-TORSION-EXCLUSION",
+        "connection:V15-INHERITED--ACTIVE-N24-COMMON-SCALE-LOCAL-TO-V13-H-TORSION-EXCLUSION",
+        "connection:V15-INHERITED--ACTIVE-N38-AUXILIARY-TORSION-LOG-TRANSFER-TO-V13-H-HALF-INDEX",
+        "connection:V15-INHERITED--ACTIVE-N38-AUXILIARY-TORSION-LOG-TRANSFER-TO-V13-H-LOG-IDENTITIES",
+        "connection:V15-INHERITED--ACTIVE-N38-AUXILIARY-TORSION-LOG-TRANSFER-TO-V13-HEIGHT-CONTRADICTIONS",
+        "connection:V15-INHERITED--ACTIVE-N41-ROOT-RESTORATION-AND-COMPLETENESS-TO-V13-H-TORSION-EXCLUSION",
+        "connection:V15-INHERITED--ACTIVE-N45-S-ORIENTED-RECIPROCAL-EXTENSION-TO-V13-SCALAR-TORSION-LOG",
+        "connection:V15-INHERITED--ACTIVE-QUARTIC-N38-AUXILIARY-TORSION-LOG-TRANSFER",
+        "connection:V15-INHERITED--ACTIVE-RETAINED-V13-H-TORSION-EXCLUSION",
+        "connection:V15-INHERITED--ACTIVE-RETAINED-V13-SCALAR-TORSION-LOG",
+        "connection:V15-INHERITED--ACTIVE-SOURCE-LIMIT-OUTPUT-TORSION-CANCELLATION",
+        "connection:V15-INHERITED--ACTIVE-THETA-SOURCE-CASSELMAN-CONDUCTOR-ONE",
+        "connection:V15-INHERITED--ACTIVE-THETA-SOURCE-SILVERMAN-TORSION-REDUCTION"
+      ],
+      "role": "Exact public source profiles and historical decisions at their preserved scope; no new acceptance"
+    },
+    {
+      "original_extraction": "author-supplement/2026-11-11/modularity/CONDUCTOR_INHERITED_PROFILES.json",
+      "original_extraction_sha256": "6ebf4d36a6789e7516ef8722e07abc35bc67114787ef42349a91925052d766a7",
+      "public_source": {
+        "path": "research/version15/protocol/current-coverage/INHERITED-TRANSPORT-PROPOSALS.json",
+        "sha256": "e9d209cbbecf3c0048cb7d5fb17ff4b428de23c8263659b84b2be8097816e9ec",
+        "bytes": 4940417
+      },
+      "record_ids": [
+        "ACTIVE-H19-ELEVEN-TORSION-SEMISTABILITY",
+        "ACTIVE-H19-NUMERICAL-CONDUCTOR",
+        "ACTIVE-H19-SEMISTABLE-EXTENSION",
+        "ACTIVE-H19-TORSION-GOOD-REDUCTION",
+        "V15-INHERITED--ACTIVE-H19-ELEVEN-TORSION-SEMISTABILITY",
+        "V15-INHERITED--ACTIVE-H19-NUMERICAL-CONDUCTOR",
+        "V15-INHERITED--ACTIVE-H19-SEMISTABLE-EXTENSION",
+        "V15-INHERITED--ACTIVE-H19-TORSION-GOOD-REDUCTION"
+      ],
+      "role": "Exact public source profiles and historical decisions at their preserved scope; no new acceptance"
+    },
+    {
+      "original_extraction": "author-supplement/2026-11-11/modularity/CONDUCTOR_RAMIFICATION_PROFILES.json",
+      "original_extraction_sha256": "c0a2905f87c0cc6691cb690d652972da7b01e05b7f3c2b441e0b8eb95f8d6e1f",
+      "public_source": {
+        "path": "research/version15/protocol/current-coverage/INHERITED-TRANSPORT-PROPOSALS.json",
+        "sha256": "e9d209cbbecf3c0048cb7d5fb17ff4b428de23c8263659b84b2be8097816e9ec",
+        "bytes": 4940417
+      },
+      "record_ids": [
+        "ACTIVE-H19-ACTUAL-CONDUCTOR-COMPARISON",
+        "ACTIVE-H19-EFFECTIVE-JACOBIAN-FACTOR",
+        "ACTIVE-H19-ELEVEN-TORSION-SEMISTABILITY",
+        "ACTIVE-H19-FULL-COVER-THREE-TORSION",
+        "ACTIVE-H19-IMPORT-BAKER-DIAMOND",
+        "ACTIVE-H19-IMPORT-SHIMURA",
+        "ACTIVE-H19-NUMERICAL-CONDUCTOR",
+        "ACTIVE-H19-RAMIFICATION-NUMBERING",
+        "ACTIVE-H19-TORSION-GOOD-REDUCTION",
+        "V15-INHERITED--ACTIVE-H19-ACTUAL-CONDUCTOR-COMPARISON",
+        "V15-INHERITED--ACTIVE-H19-EFFECTIVE-JACOBIAN-FACTOR",
+        "V15-INHERITED--ACTIVE-H19-ELEVEN-TORSION-SEMISTABILITY",
+        "V15-INHERITED--ACTIVE-H19-FULL-COVER-THREE-TORSION",
+        "V15-INHERITED--ACTIVE-H19-IMPORT-BAKER-DIAMOND",
+        "V15-INHERITED--ACTIVE-H19-IMPORT-SHIMURA",
+        "V15-INHERITED--ACTIVE-H19-NUMERICAL-CONDUCTOR",
+        "V15-INHERITED--ACTIVE-H19-RAMIFICATION-NUMBERING",
+        "V15-INHERITED--ACTIVE-H19-TORSION-GOOD-REDUCTION"
+      ],
+      "role": "Exact public source profiles and historical decisions at their preserved scope; no new acceptance"
+    }
+  ]
+}

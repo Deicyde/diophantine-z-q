@@ -1,0 +1,29 @@
+{
+  "schema": "quartic214-public-review-profile/v1",
+  "author": "/root",
+  "date": "2026-11-11",
+  "mode": "substantive research contribution; not a new numbered manuscript release",
+  "target": "There exists a fixed N0 such that for every integer N>=N0, the supplied 214-variable quartic defines Z by rational projection of its input coordinate.",
+  "effectivity": "N0 remains ineffective. N>=53 is solely a coefficient-height threshold. No specified defining member is certified.",
+  "source_base": "511529bbe9d635194f0c9d925709e77a5d3afa64",
+  "public_destination": "elliotglazer/diophantine-z-q",
+  "head_branch": "proposal/quartic-214-protocol-d",
+  "required_artifacts": [
+    "research/quartic214/README.md",
+    "research/quartic214/PROOF.md",
+    "research/quartic214/PROVENANCE.json",
+    "research/quartic214/SOURCE_PATH_MAP.json",
+    "research/quartic214/construction",
+    "research/quartic214/proofs",
+    "research/quartic214-protocol-d-public"
+  ],
+  "numbered_release_duties": {
+    "manuscript_and_pdf": "The existing Version15 manuscript/PDF are retained byte-for-byte. The new research proof is the linked Markdown proof suite; no new numbered TeX/PDF release is claimed.",
+    "tables": "The complete new rows and symbolic table are committed with an exact generator and checker. The parameter is a fixed coefficient, not an existential coordinate.",
+    "history": "Retain source versions, attribution, initial reconstruction, findings and exact review scopes; private PRs may be cited for provenance, but required mathematical content is supplied publicly or already present in the public base.",
+    "scope": "Only the214construction, its required proof sources and its review evidence are selected."
+  },
+  "publication_authorization": "The user authorized a public214PR on2026-11-11 and expressly allowed citations/mentions of priorPRs. Other private candidate payloads are not selected.",
+  "private_mirror": "No new private publication is configured for this public contribution. Historical private sources retain their frozen identities.",
+  "acceptance_boundary": "Fresh non-author mathematical, coverage, public-source adoption and release reviews are distinct. Final public acceptance additionally requires the designated protected controller/App; this author profile is not an authorization or acceptance receipt."
+}

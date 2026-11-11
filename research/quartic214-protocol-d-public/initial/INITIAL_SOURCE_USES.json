@@ -1,0 +1,251 @@
+{
+  "task": "/root/d214_astra_sourcefirst",
+  "requested_model": "gpt-6-astra",
+  "run_limit": "Parent requested exact model. No provider-signed identity or protected-controller run receipt available. This is not public controller eligibility evidence.",
+  "role": "non-author internal model reviewer",
+  "commit": "bfeb8400982c9a169e4fdd39fb68ec053621e8ed",
+  "scope": "214 proof interfaces plus fresh modular-Jacobian height review; full214 coverage not yet established",
+  "prior_exposure": "Parent brief disclosed prior Sol component verdict and public V15 acceptance. No declared graphs/contracts/favorable reports read before freeze. Historical claims within proof text are not adopted as evidence.",
+  "files": {
+    "quadratic-ten-contact-integration/PROOF.md": "08a4991bd2266293b8221cbf29b87028c789ff6dbb56fe24163aa786c4f889cb",
+    "quadratic-ten-contact-integration/existence/PROOF.md": "2fffcdd5d647a458db073bebec3c144d7bb2166163b92811ddcb308728171c2a",
+    "quadratic-ten-contact-integration/height/PROOF.md": "25960e40419c7abea1f90ab4b35108169a5ca6ad04dccf3a3643e8d0e9bb7d7f",
+    "quartic214-height-closure/metric/PROOF.md": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+    "quartic214-height-closure/evaluation/PROOF.md": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+    "quartic214-height-closure/different/PROOF.md": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+    "quartic214-height-closure/ASSEMBLY.md": "b33433634ef912c5e1a5b61c44bac0c87287f3c2fe5d6a7a687e15d065e9d3ff"
+  },
+  "entries": [
+    {
+      "id": "1.1",
+      "file": "quadratic-ten-contact-integration/PROOF.md",
+      "site": "214 assembly",
+      "required_input_and_supplier_to_check": "Existence proof in full, actual raw224 construction, changed local orders, full-family height, aggregate trace and uniform scalar lower bound. Ineffective N0; coefficient threshold53 independent.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "1.2",
+      "file": "quadratic-ten-contact-integration/PROOF.md",
+      "site": "256 consumer",
+      "required_input_and_supplier_to_check": "Separate construction/local packets and height H5-H7. Outside this214 scope.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "2.1",
+      "file": "quadratic-ten-contact-integration/existence/PROOF.md",
+      "site": "construction",
+      "required_input_and_supplier_to_check": "188 primitive quadratic rows/214 coordinates; Laurent clearing20 factors,162 untouched rows, q inverses and complete expansion. Exact checker and raw224 inverse maps required.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "2.2",
+      "file": "quadratic-ten-contact-integration/existence/PROOF.md",
+      "site": "recovery",
+      "required_input_and_supplier_to_check": "E/Q(sqrt2), forced149, reference H, scalar, ratios, roots; all denominator/zero branches. Actual V15 passages needed.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "2.3",
+      "file": "quadratic-ten-contact-integration/existence/PROOF.md",
+      "site": "local",
+      "required_input_and_supplier_to_check": "Odd contact valuations outside Sigma; disjoint residues, trace inequality, pole obstruction, positive even reciprocals; logarithm precision4 and integrality before congruences yield each M_j^3|Delta and M_j|num(beta-n).",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "2.4",
+      "file": "quadratic-ten-contact-integration/existence/PROOF.md",
+      "site": "height",
+      "required_input_and_supplier_to_check": "Full H0-H4 family; discard fixed Sigma primes; transformations2+1/t and2+1/(2-t), inverse norms3/7, disjoint radicals give exponent7/6.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "2.5",
+      "file": "quadratic-ten-contact-integration/existence/PROOF.md",
+      "site": "uniform soundness",
+      "required_input_and_supplier_to_check": "Aggregate trace B^2<=M1h(T)+M2 on actual root family; T=t1/t0. Scalar c>=149^L_N, h(beta)<=C3*149^-L_N*c*(1+log(c)/3). Lucas |Delta|<=14B^4 and logB>=(c-5)log(c-2); all constants independent of N. Squarefree51.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "2.6",
+      "file": "quadratic-ten-contact-integration/existence/PROOF.md",
+      "site": "completeness",
+      "required_input_and_supplier_to_check": "Simultaneous Gaussian prime theorem, scalar-S/parity preparation, finite progression and real neighborhoods, separated reduction orders, fresh pole witnesses, q>0, uniform all sufficiently large N.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "2.7",
+      "file": "quadratic-ten-contact-integration/existence/PROOF.md",
+      "site": "218",
+      "required_input_and_supplier_to_check": "Old exponents on nonzero q domain; separate control claimed.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "3.1",
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "site": "H0 geometry",
+      "required_input_and_supplier_to_check": "Full three-marked normalizer fibre, five branches, degree576 support field L, all homomorphisms/good reduction, h(a)<=2max(0,hF)+128, CM<854R, non-CM absolute simplicity.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "3.2",
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "site": "H0/H1 modularity",
+      "required_input_and_supplier_to_check": "Sign local boundaries/global reciprocity, continuous square root, unwanted inertia removal, minimal2-primary characters, normalized cocycle, original Tate restriction Lprime and absolute irreducibility. Exact r5 and r3 same final primitive form; local compatibility and conductor bound for changed splitting.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "3.3",
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "site": "H1 determinants",
+      "required_input_and_supplier_to_check": "(epsilon chi)^2=1, ord epsilon|U, U E(R)<R and dprime<=1152U.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "3.4",
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "site": "H0.3",
+      "required_input_and_supplier_to_check": "Three new height proofs and ASSEMBLY supply actual quotient-Jacobian bound, no primorial shortcut.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "3.5",
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "site": "H2",
+      "required_input_and_supplier_to_check": "Shimura modular factor arbitrary even nebentypus, Li Fricke stability, coefficient conjugates, rational restricted traces, Chebotarev and Faltings; actual Lprime isogeny A_f~A^r, s/r<=4, invariant differentials and Poincare yield subvariety B0.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "3.6",
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "site": "H3",
+      "required_input_and_supplier_to_check": "Stable subvariety/quotient inequality, Bost lower bound, actual quotient surfaces C_i, GR dimension2 isogeny over Lprime original stable height and directional height comparison.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "3.7",
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "site": "H4",
+      "required_input_and_supplier_to_check": "Rational interval certificate all M>=1, CM branch, C2<2^(7557/32), alpha2103/1024.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "3.8",
+      "file": "quadratic-ten-contact-integration/height/PROOF.md",
+      "site": "H5-H7",
+      "required_input_and_supplier_to_check": "Separate256 reflection3/11 cross-primes, root sums and effective3^628 margins outside214 scope.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "4.1",
+      "file": "quartic214-height-closure/metric/PROOF.md",
+      "site": "1",
+      "required_input_and_supplier_to_check": "Published original stable Faltings metric identifies semistable differential lattice with actual Jacobian; periods fix scalar and extension normalization.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "4.2",
+      "file": "quartic214-height-closure/metric/PROOF.md",
+      "site": "2",
+      "required_input_and_supplier_to_check": "RH Belyi ramification and canonical divisor give one rank-g minor over K; disc radius1/2 mean value and Hadamard give(2/sqrt(pi))^g.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "4.3",
+      "file": "quartic214-height-closure/metric/PROOF.md",
+      "site": "3",
+      "required_input_and_supplier_to_check": "Integral determinant degree sign, same E/F/C, all embeddings, g1 included genus0 excluded.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "5.1",
+      "file": "quartic214-height-closure/evaluation/PROOF.md",
+      "site": "1",
+      "required_input_and_supplier_to_check": "Trace-lattice finiteness, normal dimension2 CM, going-down/miracle flatness; C=B/(t-2)B finite projective unsaturated order.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "5.2",
+      "file": "quartic214-height-closure/evaluation/PROOF.md",
+      "site": "2",
+      "required_input_and_supplier_to_check": "Common resolution by point blowups, canonical +exceptional pullback, codimension1 descent, same generic differential.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "5.3",
+      "file": "quartic214-height-closure/evaluation/PROOF.md",
+      "site": "3",
+      "required_input_and_supplier_to_check": "Finite duality Hom_A(B,A)dt, S2 reflexive extension; trace normalization not arbitrary.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "5.4",
+      "file": "quartic214-height-closure/evaluation/PROOF.md",
+      "site": "4",
+      "required_input_and_supplier_to_check": "Split etale base change fixes trace scalar; projective Hom nonflat specialization gives actual evaluation into Cdual.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "5.5",
+      "file": "quartic214-height-closure/evaluation/PROOF.md",
+      "site": "5",
+      "required_input_and_supplier_to_check": "Local determinant and projection lengths give Ardeg(pr_I Cdual)<=half logNorm disc(C), every I and residue prime.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "6.1",
+      "file": "quartic214-height-closure/different/PROOF.md",
+      "site": "1",
+      "required_input_and_supplier_to_check": "Same trace determinant specialized to C; semilocal completed components/full residue degrees disc=sum f_j r_j.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "6.2",
+      "file": "quartic214-height-closure/different/PROOF.md",
+      "site": "2",
+      "required_input_and_supplier_to_check": "Trace reconstruction of Lenstra r<=e-1+e v(n) for imperfect residues; vertical/horizontal divisors and bad-set base change.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "6.3",
+      "file": "quartic214-height-closure/different/PROOF.md",
+      "site": "3",
+      "required_input_and_supplier_to_check": "Finite flat LCI[n], differential scalar n, trace-normalized Adual=n^-1 A; dual-inclusion reversal and tower pass bound to every intermediate field.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "6.4",
+      "file": "quartic214-height-closure/different/PROOF.md",
+      "site": "4",
+      "required_input_and_supplier_to_check": "Primitive torsion quotient modulo H even when |H| not invertible; Galois-compatible identification with X_H kills +/-1, connected degree d=N s product(1+1/p).",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "6.5",
+      "file": "quartic214-height-closure/different/PROOF.md",
+      "site": "5",
+      "required_input_and_supplier_to_check": "Every p>3 including bad level uses torsion; p2/3 Lenstra; horizontal0 log2; normalized sum d(log12+logN+2logd).",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "7.1",
+      "file": "quartic214-height-closure/ASSEMBLY.md",
+      "site": "A-C",
+      "required_input_and_supplier_to_check": "Same X_H,t,B,unsaturated C,E,F,trace map,stable metric,normalized field cancellation; finite semistable splitting field existence imported.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "7.2",
+      "file": "quartic214-height-closure/ASSEMBLY.md",
+      "site": "D",
+      "required_input_and_supplier_to_check": "H=ker epsilon even, actual surface factor g>=2; g<=d RH; H0.3/H4 and214 consume identical estimate.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    },
+    {
+      "id": "7.3",
+      "file": "quartic214-height-closure/ASSEMBLY.md",
+      "site": "E",
+      "required_input_and_supplier_to_check": "Geometry/CM/modularity/analytic/Remond remain; component success cannot imply whole closure.",
+      "status": "source-first reconstructed; source/application acceptance pending"
+    }
+  ]
+}

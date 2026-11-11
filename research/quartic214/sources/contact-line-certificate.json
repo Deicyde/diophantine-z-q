@@ -1,0 +1,73 @@
+{
+  "role": "Exactfinitearithmeticverification of retained D210 branch reconstruction; not proof of source quotientmodels",
+  "source": "Gonzalez\u2013Rotger2006 Theorem4.2/Table2, as literally displayed in private/currentpublic D210proof",
+  "quartic_checks": [
+    {
+      "m": 30,
+      "quartic": [
+        -43,
+        -686,
+        -2915,
+        -1372,
+        -172
+      ],
+      "I": 5762401,
+      "J": 27665272798,
+      "j": "191342053882402567201/129708022500",
+      "legendre_parameter": "1/2401",
+      "identity": true
+    },
+    {
+      "m": 42,
+      "quartic": [
+        -43,
+        600,
+        -986,
+        -600,
+        -43
+      ],
+      "I": 2074384,
+      "J": 5816466304,
+      "j": "2179252305146449/66177562500",
+      "legendre_parameter": "32/375",
+      "identity": true
+    },
+    {
+      "m": 70,
+      "quartic": [
+        -43,
+        256,
+        -130,
+        -768,
+        -387
+      ],
+      "I": 806416,
+      "J": 1448236928,
+      "j": "128031684631201/9922500",
+      "legendre_parameter": "1/225",
+      "identity": true
+    },
+    {
+      "m": 105,
+      "quartic": [
+        -43,
+        2,
+        505,
+        12,
+        -1548
+      ],
+      "I": 1053721,
+      "J": 2163135238,
+      "j": "1169975873419524361/108425318400",
+      "legendre_parameter": "5/1029",
+      "identity": true
+    }
+  ],
+  "candidate_domain": "six cross-ratios each for1/2401and32/375; all36pairs checked",
+  "survivors": [
+    [
+      "2401",
+      "-343/32"
+    ]
+  ]
+}
