@@ -24,3 +24,15 @@ rv-nt-tyz.md NOT read until own verdicts are written.
 - Teeth: the distinguished-d0 reading sum b(pi)w(pi) differs from Lambda in 184/453 trials.
 - Hand check of 4.4: P(n)^{β'} = Σ ℓ_e Z(e)^{β'} + 2X^{β'} uses only additivity of β' (ℓ_e ∈ {0,1});
   F4 ([i] commutes with β') is NOT needed in §4.4 (Z[i]-coefficients are absorbed in X).
+
+## Step 4. PARI ground truth, run 1 (tyzlib.py, ground_truth.py -> out_run1.txt)
+- tyzlib: g(d) = [all cyclic factors of Cl(Q(sqrt -d)) have v2 <= 1] (= parity of #Cl^2), field disc -d or -4d,
+  quadclassunit (GRH-conditional for large D; cross-checked against Rédei bits implemented as Lean redeiG:
+  agreement on every sample). T5a, T5b = set-partition sums (Lean Admissible5bNat for T5b).
+- Selection (not ground truth): select_rank3.py seed 11, 600 random squarefree n≡5, >=3 primes, in [3000,2e5],
+  kept ellrank upper bound >=3 (no look at T5a/T5b): 10 values. select_genus.py: products of 5-6 primes with
+  >=2 primes ≡3 and >=1 ≡7 mod 8 (forces chains with (5,3)-steps), sorted by (T5a,T5b).
+- Run 1, 30 inputs: 10 Selmer>=3 candidates (7 have analytic rank 3: 99645, 60229, 92045, 134805, 41181,
+  23709, 26565; all T5a=T5b=0, as Prop N predicts); 12 with T5b odd (5-6 primes, incl. 285285, 2535645,
+  2028117): all analytic rank 1; 3 with only T5a odd: rank 1; 5 with T5a=T5b=0: rank 1 (no prediction).
+  Violations: 0. Rédei/class-group agreement: 30/30.
