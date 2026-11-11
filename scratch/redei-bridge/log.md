@@ -10,3 +10,4 @@
   (v4.35 deprecations). No warnings. Axioms of redeiFormula_of_oddGClStatement and
   certifiedRankTYZRk_of_oddGClStatement: propext, Classical.choice, Quot.sound.
 - Added import line to ZInQKernel/RouteK/Redei.lean.
+- Full lake build ZInQKernel OK. Report written.
