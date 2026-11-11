@@ -1,0 +1,500 @@
+[
+{
+"d": 23749,
+"beta": -127,
+"rootno": -1,
+"anrank": 1,
+"Lderiv": "4.465654835292490900",
+"effort": 0,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [
+[
+"2922101083/58081",
+"139252059602832/13997521"
+]
+],
+"kummer": [
+[
+187,
+374
+]
+],
+"beta_in_span": true,
+"beta_in_tors": false,
+"i": 3,
+"role": "d1",
+"primes": [
+11,
+17,
+127
+]
+},
+{
+"d": 790580461,
+"beta": -127,
+"rootno": -1,
+"effort": 3,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [],
+"kummer": [],
+"beta_in_span": null,
+"beta_in_tors": false,
+"i": 3,
+"role": "d2",
+"primes": [
+11,
+17,
+127,
+33289
+]
+},
+{
+"d": 9741,
+"beta": -191,
+"rootno": -1,
+"anrank": 1,
+"Lderiv": "14.37510032169126479",
+"effort": 0,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [
+[
+"34904568819007059/40965355201",
+"6520712210538436750858200/8291346927327199"
+]
+],
+"kummer": [
+[
+51,
+102
+]
+],
+"beta_in_span": true,
+"beta_in_tors": false,
+"i": 4,
+"role": "d1",
+"primes": [
+3,
+17,
+191
+]
+},
+{
+"d": 2744633901,
+"beta": -191,
+"rootno": -1,
+"effort": 3,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [],
+"kummer": [],
+"beta_in_span": null,
+"beta_in_tors": false,
+"i": 4,
+"role": "d2",
+"primes": [
+3,
+17,
+191,
+281761
+]
+},
+{
+"d": 374821,
+"beta": -31,
+"rootno": -1,
+"anrank": 1,
+"Lderiv": "0.8501359909379558185",
+"effort": 0,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [
+[
+"-3689775/16",
+"9081349095/64"
+]
+],
+"kummer": [
+[
+-31,
+-31
+]
+],
+"beta_in_span": true,
+"beta_in_tors": false,
+"i": 5,
+"role": "d1",
+"primes": [
+31,
+107,
+113
+]
+},
+{
+"d": 5865573829,
+"beta": -31,
+"rootno": -1,
+"effort": 3,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [],
+"kummer": [],
+"beta_in_span": null,
+"beta_in_tors": false,
+"i": 5,
+"role": "d2",
+"primes": [
+31,
+107,
+113,
+15649
+]
+},
+{
+"d": 34013,
+"beta": -7,
+"rootno": -1,
+"anrank": 1,
+"Lderiv": "2.566251877925541809",
+"effort": 0,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [
+[
+"-24367/16",
+"84865305/64"
+]
+],
+"kummer": [
+[
+-7,
+-7
+]
+],
+"beta_in_span": true,
+"beta_in_tors": false,
+"i": 7,
+"role": "d1",
+"primes": [
+7,
+43,
+113
+]
+},
+{
+"d": 26817515837,
+"beta": -7,
+"rootno": -1,
+"effort": 3,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [],
+"kummer": [],
+"beta_in_span": null,
+"beta_in_tors": false,
+"i": 7,
+"role": "d2",
+"primes": [
+7,
+43,
+113,
+788449
+]
+},
+{
+"d": 2877,
+"beta": 7,
+"rootno": -1,
+"anrank": 1,
+"Lderiv": "23.28778233616189850",
+"effort": 0,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [
+[
+"42450584461852/14424250201",
+"58246825740785817310/1732366873390301"
+]
+],
+"kummer": [
+[
+7,
+7
+]
+],
+"beta_in_span": true,
+"beta_in_tors": false,
+"i": 11,
+"role": "d1",
+"primes": [
+3,
+7,
+137
+]
+},
+{
+"d": 674256597,
+"beta": 7,
+"rootno": -1,
+"effort": 3,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [],
+"kummer": [],
+"beta_in_span": null,
+"beta_in_tors": false,
+"i": 11,
+"role": "d2",
+"primes": [
+3,
+7,
+137,
+234361
+]
+},
+{
+"d": 359053,
+"beta": 23,
+"rootno": -1,
+"anrank": 1,
+"Lderiv": "8.445472129363275200",
+"effort": 3,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [],
+"kummer": [],
+"beta_in_span": null,
+"beta_in_tors": false,
+"i": 15,
+"role": "d1",
+"primes": [
+23,
+67,
+233
+]
+},
+{
+"d": 18699839293,
+"beta": 23,
+"rootno": -1,
+"effort": 3,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [],
+"kummer": [],
+"beta_in_span": null,
+"beta_in_tors": false,
+"i": 15,
+"role": "d2",
+"primes": [
+23,
+67,
+233,
+52081
+]
+},
+{
+"d": 12549,
+"beta": -47,
+"rootno": -1,
+"anrank": 1,
+"Lderiv": "21.50478405948232682",
+"effort": 3,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [],
+"kummer": [],
+"beta_in_span": null,
+"beta_in_tors": false,
+"i": 17,
+"role": "d1",
+"primes": [
+3,
+47,
+89
+]
+},
+{
+"d": 4302914061,
+"beta": -47,
+"rootno": -1,
+"effort": 3,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [],
+"kummer": [],
+"beta_in_span": null,
+"beta_in_tors": false,
+"i": 17,
+"role": "d2",
+"primes": [
+3,
+47,
+89,
+342889
+]
+},
+{
+"d": 9741,
+"beta": -191,
+"rootno": -1,
+"anrank": 1,
+"Lderiv": "14.37510032169126479",
+"effort": 0,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [
+[
+"34904568819007059/40965355201",
+"6520712210538436750858200/8291346927327199"
+]
+],
+"kummer": [
+[
+51,
+102
+]
+],
+"beta_in_span": true,
+"beta_in_tors": false,
+"i": 18,
+"role": "d1",
+"primes": [
+3,
+17,
+191
+]
+},
+{
+"d": 2473912029,
+"beta": -191,
+"rootno": -1,
+"effort": 3,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [],
+"kummer": [],
+"beta_in_span": null,
+"beta_in_tors": false,
+"i": 18,
+"role": "d2",
+"primes": [
+3,
+17,
+191,
+253969
+]
+},
+{
+"d": 12419789,
+"beta": -199,
+"rootno": -1,
+"effort": 3,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [],
+"kummer": [],
+"beta_in_span": null,
+"beta_in_tors": false,
+"i": 22,
+"role": "d1",
+"primes": [
+139,
+199,
+449
+]
+},
+{
+"d": 786930250829,
+"beta": -199,
+"rootno": -1,
+"effort": 3,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [],
+"kummer": [],
+"beta_in_span": null,
+"beta_in_tors": false,
+"i": 22,
+"role": "d2",
+"primes": [
+139,
+199,
+449,
+63361
+]
+},
+{
+"d": 7701,
+"beta": 151,
+"rootno": -1,
+"anrank": 1,
+"Lderiv": "2.296644024045378078",
+"effort": 0,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [
+[
+"-2499",
+"364140"
+]
+],
+"kummer": [
+[
+-51,
+-102
+]
+],
+"beta_in_span": true,
+"beta_in_tors": false,
+"i": 23,
+"role": "d1",
+"primes": [
+3,
+17,
+151
+]
+},
+{
+"d": 540987549,
+"beta": 151,
+"rootno": -1,
+"effort": 3,
+"r1": 1,
+"r2": 1,
+"s": 0,
+"gens": [],
+"kummer": [],
+"beta_in_span": null,
+"beta_in_tors": false,
+"i": 23,
+"role": "d2",
+"primes": [
+3,
+17,
+151,
+70249
+]
+}
+]

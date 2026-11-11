@@ -1,0 +1,7 @@
+GL4(F5) = 116064000000 == G0: True ; GL4(F3) = 24261120 <= G0: True
+2+8x^2 <= 10x^2 for x>=1:  True
+2(1+log2 a!) <= 4a^2 on sample: True
+1024*360 = 368640
+three log bounds on sample: True
+transfer chain exact at Q=1e12, M in {1,2,7}: ok
+4D<=R^2 when R>=max(D,1e12): yes since 4<=R

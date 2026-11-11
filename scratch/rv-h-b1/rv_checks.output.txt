@@ -1,0 +1,80 @@
+== R1. maximality of O and N5's polarization datum
+det(trd(e_r e_s)) = -36 = (disc O)^2 with disc O = 6
+Hilbert symbols (2,-3)_p for p in 2,3,5,7,oo: [-1, -1, 1, 1] 1
+=> B ramified exactly at {2,3}, disc(B)=6, and disc(O)=6: O is maximal: True
+mu = 2j+ij: mu^2 = (-6, 0, 0, 0)  (expect -6)
+Trd(mu^-1 x ybar) matrix: [[0, 0, -1, 1], [0, 0, 1, -2], [1, -1, 0, 0], [-1, 2, 0, 0]]  det: 1
+
+== R2. all elliptic elements of the normalizer, up to Q^*
+search box: O-coordinates in [-6,6]^4
+ |trd|=0 nrd=1: example (-3, -4, 6, 1), order mod Q^* = 2, disc Z[x] = -4, (Q(x) cap O) = Z[x] index 1 -> disc -4, fundamental: True, normalizes O: True, W-image 1
+ |trd|=0 nrd=3: example (-3, -4, 6, 2), order mod Q^* = 2, disc Z[x] = -12, (Q(x) cap O) = Z[x] index 2 -> disc -3, fundamental: True, normalizes O: True, W-image w3
+ |trd|=0 nrd=6: example (-2, -2, 4, 1), order mod Q^* = 2, disc Z[x] = -24, (Q(x) cap O) = Z[x] index 1 -> disc -24, fundamental: True, normalizes O: True, W-image w6
+ |trd|=1 nrd=1: example (-3, -3, 5, 0), order mod Q^* = 6, disc Z[x] = -3, (Q(x) cap O) = Z[x] index 1 -> disc -3, fundamental: True, normalizes O: True, W-image 1
+ |trd|=2 nrd=2: example (-4, -4, 6, 1), order mod Q^* = 4, disc Z[x] = -4, (Q(x) cap O) = Z[x] index 1 -> disc -4, fundamental: True, normalizes O: True, W-image w2
+ |trd|=3 nrd=3: example (-4, -3, 5, 0), order mod Q^* = 6, disc Z[x] = -3, (Q(x) cap O) = Z[x] index 1 -> disc -3, fundamental: True, normalizes O: True, W-image w3
+types possible a priori (t^2/n in {0,1,2,3}): [(0, 1), (0, 2), (0, 3), (0, 6), (1, 1), (2, 2), (3, 3)]
+absent from O (no embedding): those not listed above
+CM discriminants of all elliptic points: [-24, -4, -3]  all fundamental: True  prime support: [2, 3]
+elliptic types with nontrivial W-image and their image: [(2, 'w3'), (2, 'w6'), (4, 'w2'), (6, 'w3')]
+
+== R3. Euler characteristics and Riemann-Hurwitz
+chi(O^1/+-1 \ H) = -(1/6)prod_{p|6}(p-1) = -1/3
+chi of (2,4,6) triangle orbifold = -(1-1/2-1/4-1/6) = -1/12 ; 4 * that = -1/3 (= chi1, so [Gamma^*: O^1] = 4 = |W| is consistent)
+ X_6 -> P^1_j (deg 4, three branch points e=2): 2g-2 = -2, g = 0
+ component of Y_3 -> P^1_j (deg 72, e=4,6,2): 2g-2 = 6, g = 4
+ component of Y_3 = (O^1 cap K_3)\H, torsion-free of index 18 in O^1/+-1: 2g-2 = 18*(-chi1) = 6 -> g = 4
+ (X_6 genus 0 forces all three of 0, oo, -16/27 to be branch points of X_6 -> P^1_j with
+  pairwise distinct nontrivial inertia generators s0*s_oo*s_-16/27 = 1 generating W = (Z/2)^2)
+
+== R4. |Gamma'| and component stabiliser
+|(O/3O)^*| = 72  |(O/3O)^1| (nrd = 1 mod 3) = 36  nrd surjective onto F_3^*: True
+|Gamma'| = |W| * |(O/3O)^*| / |{+-1}| = 144
+pi_0(Y_3) = Zhat^*/nrd(K_3 Zhat^*)... = (Z/3)^*: 2 geometric components; stabiliser order 144/2 = 72
+degree of a component over X_6: |(O/3O)^1/{+-1}| = 18 ; over P^1_j: 4*18 = 72
+144 = {2: 4, 3: 2}  -> p does not divide |Gamma_M| for p >= 5
+
+== R5. what counterexample F1 shows
+ p=331: fibre at j=1 of y^2=p j(27j+16): disc 14233 (p | disc: True); of the untwisted y^2=j(27j+16): disc 172 (p | disc: False); residue fields over the branch points j=0,-16/27 of the twisted cover: Q (totally ramified points), unramified at p
+ p=337: fibre at j=1 of y^2=p j(27j+16): disc 57964 (p | disc: True); of the untwisted y^2=j(27j+16): disc 172 (p | disc: False); residue fields over the branch points j=0,-16/27 of the twisted cover: Q (totally ramified points), unramified at p
+ p=347: fibre at j=1 of y^2=p j(27j+16): disc 14921 (p | disc: True); of the untwisted y^2=j(27j+16): disc 172 (p | disc: False); residue fields over the branch points j=0,-16/27 of the twisted cover: Q (totally ramified points), unramified at p
+ p=349: fibre at j=1 of y^2=p j(27j+16): disc 60028 (p | disc: True); of the untwisted y^2=j(27j+16): disc 172 (p | disc: False); residue fields over the branch points j=0,-16/27 of the twisted cover: Q (totally ramified points), unramified at p
+ p=353: fibre at j=1 of y^2=p j(27j+16): disc 60716 (p | disc: True); of the untwisted y^2=j(27j+16): disc 172 (p | disc: False); residue fields over the branch points j=0,-16/27 of the twisted cover: Q (totally ramified points), unramified at p
+ In F1 the inertia groups at the two branch points are the same group Z/2, so Lemma NV step 3 allows I_V = Z/2;
+ NV's step 4 needs two branch points whose inertia images in an abelian quotient generate different subgroups.
+
+== R6. neatness: elliptic x with x^k in Q^* K_3 only if x^k central
+ violations: [] -> ramification index of Y_3 -> P^1_j at an elliptic point = its order in B^*/Q^*
+
+== R7. Prop. TS tested on the W-layer X_6 -> P^1_j with real fields (30 samples)
+ p=113 j0=153228/25 v_p(j0)=2 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=73 j0=52517279/27 v_p(j0)=0 v_p(j0+16/27)=3: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=331 j0=3/109561 v_p(j0)=-2 v_p(j0+16/27)=-2: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=199 j0=-51/10 v_p(j0)=0 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=379 j0=1292769/28 v_p(j0)=2 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=19 j0=1481464/135 v_p(j0)=0 v_p(j0+16/27)=3: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=211 j0=7/9393931 v_p(j0)=-3 v_p(j0+16/27)=-3: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=67 j0=490/23 v_p(j0)=0 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=271 j0=1084/5 v_p(j0)=1 v_p(j0+16/27)=0: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=71 j0=5719/54 v_p(j0)=0 v_p(j0+16/27)=1: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=127 j0=15/16129 v_p(j0)=-2 v_p(j0+16/27)=-2: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=139 j0=94 v_p(j0)=0 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=89 j0=102973/30 v_p(j0)=2 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=197 j0=3143449/135 v_p(j0)=0 v_p(j0+16/27)=2: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=337 j0=21/113569 v_p(j0)=-2 v_p(j0+16/27)=-2: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=101 j0=-43/4 v_p(j0)=0 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=293 j0=95810660413/7 v_p(j0)=4 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=283 j0=19461563/108 v_p(j0)=0 v_p(j0+16/27)=2: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=233 j0=5/54289 v_p(j0)=-2 v_p(j0+16/27)=-2: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=137 j0=-193/40 v_p(j0)=0 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=79 j0=156025/6 v_p(j0)=2 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=79 j0=42388/459 v_p(j0)=0 v_p(j0+16/27)=1: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=223 j0=17/11089567 v_p(j0)=-3 v_p(j0+16/27)=-3: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=37 j0=407/21 v_p(j0)=1 v_p(j0+16/27)=0: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=97 j0=15515441/16 v_p(j0)=3 v_p(j0+16/27)=0: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=383 j0=3431/27 v_p(j0)=0 v_p(j0+16/27)=1: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=353 j0=9/43986977 v_p(j0)=-3 v_p(j0+16/27)=-3: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=101 j0=-280/33 v_p(j0)=0 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=383 j0=3373847/7 v_p(j0)=2 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=167 j0=35704/621 v_p(j0)=0 v_p(j0+16/27)=1: p ramified in fibre: True, Prop. TS predicts: True ok
+ all 30 agree: True

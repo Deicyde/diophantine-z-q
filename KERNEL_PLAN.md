@@ -17,7 +17,7 @@ to computation:
 
 | Input | Deep dependency |
 | --- | --- |
-| H (Theorem 4.1) | in Version 14 ([docs/research/h-v14.md](docs/research/h-v14.md) §3.3): the canonical model of the discriminant-six Shimura curve (Deligne, Buzzard, Baba–Granath, Lin–Yang); modularity at five (Calegari's survey statement of Pan's theorem, with Faltings' Tate theorem, Scholze's de Rham comparison and a Deligne–Serre/Kato twist argument; [docs/research/h-a011.md](docs/research/h-a011.md) applies Pan's Theorem 1.0.4 directly instead of the survey and one supplement, and one model review found it proved after repairs, [docs/research/rv-h-a011.md](docs/research/rv-h-a011.md)); Carayol's local–global compatibility; the isogeny estimate of Gaudron–Rémond and Arakelov bounds; Igusa's theta identities; five unpublished upstream proof supplements; effective CM heights (probably avoidable: [docs/research/h-cm.md](docs/research/h-cm.md) argues that for rational `u` the fibre has no CM, and one model review, [docs/research/rv-h-cm.md](docs/research/rv-h-cm.md), found the argument correct after repairs) |
+| H (Theorem 4.1) | refereed theorems (Shimura curve: Shimura, Deligne, Kottwitz, Baba–Granath, Lin–Yang, González–Rotger; SGA 1, SGA 7, Serre–Tate; Faltings 1983; Scholze; Berger; Pan's Theorem 1.0.4; p-adic Hodge theory of modular forms in the Tate-module normalization, at every level (Saito 1997, or Scholl 1990 with Scholze), with Deligne–Serre 1974 for weight one; Li, Shimura 1973, Eichler–Shimura (Shimura 1971); Carayol; Serre's local fields; Silverberg–Zarhin; Javanpeykar; Gaudron–Rémond; Pazuki; Igusa), plus the manuscript's descent, conductor and transfer arguments (model reviews only: [rv-h-novel](docs/research/rv-h-novel.md), Astra), the manuscript's geometric, twist and theta-height bookkeeping (Astra; the twist and weight step also [rv-h-c8](docs/research/rv-h-c8.md); of three passages new in the 11/5 text, the de Rham lemma reviewed in [rv-h-trust](docs/research/rv-h-trust.md) and [rv-h-c3](docs/research/rv-h-c3.md), the other two in rv-h-trust and [rv-h-a9c9](docs/research/rv-h-a9c9.md)), NoCM ([h-cm](docs/research/h-cm.md), [rv-h-cm](docs/research/rv-h-cm.md)), and Lemma PR in place of the integral model ([h-b1](docs/research/h-b1.md); model review [rv-h-b1](docs/research/rv-h-b1.md)). No unpublished upstream proof supplement. Outline: [docs/research/h-trust.md](docs/research/h-trust.md) |
 | PC (Theorem 5.2) | the restricted converse (Theorem 5.3): Kato, Waldspurger, Bump–Friedberg–Hoffstein, Nekovář, Gross–Zagier–Kolyvagin, BCDT. Under Route K (pole polynomial with the congruent number curves `x + ℓ`), PC is **proved** from the narrow hypothesis CR₃ (`ZInQ.poleCompleteness_of_certifiedRank`): Kriz's 2-converse with the corank lemma, or Tian–Yuan–Zhang with Gross–Zagier–Kolyvagin (of which only Gross–Zagier is needed, [docs/research/pc-audit.md](docs/research/pc-audit.md) RK7), for curves `C_d`, `d ≡ 5 (mod 8)`, with a 3-dimensional explicit 2-Selmer system |
 | 22P (Proposition 6.2), used by M | Green–Tao linear equations in primes, Möbius–nilsequences, Green–Tao–Ziegler. **Replaced** by route AP, whose input is proved in Lean: Szemerédi's theorem in the primes (`ZInQ.greenTaoDense`, from a vendored Green–Tao proof) and the weak form of Proposition D (`ZInQ.Density.goodPrimeDensity`) |
 | CAT (a step in the proof of Proposition 12.1), used by B | the explicit progression estimate of Bennett–Martin–O'Bryant–Rechnitzer; the weaker form CAT₈ that the proof needs is **proved** (`ZInQ.catalogueBound8`, from an effective Dirichlet theorem) |
@@ -64,7 +64,7 @@ CR₃ says: if `d > 0` is squarefree with `d ≡ 5 (mod 8)`, `a` is a squarefree
 built from Legendre symbols only) has exactly 8 solutions, one of them with first coordinate the
 class of `a`, then `C_d : y² = x³ − d²x` has a rational point with `x ≠ 0` and `x ∈ aℚ*²`. It follows
 from Proposition 0 (the system is `Sel₂(C_d)`, `docs/research/descent-alt.md` §4.1) with either
-Kriz's 2-converse (arXiv:2002.04767, Theorem 10.13) and the corank lemma (Poonen–Stoll), or
+Kriz's 2-converse (arXiv:2002.04767, Theorem 10.13) and the corank lemma (Cassels–Tate on `Ш/Ш_div`), or
 Tian–Yuan–Zhang (Theorem 3.5 and the argument of the proof of Theorem 3.5(2), §3.3, as completed in
 `docs/research/nt-tyz.md` §4) and Gross–Zagier–Kolyvagin (`docs/research/tyz-5b.md`; only Gross–Zagier
 is needed, `docs/research/pc-audit.md` RK7). PC is then
@@ -133,7 +133,7 @@ statement names Tian–Yuan–Zhang (Proposition N of `docs/research/nt-tyz.md`)
 Gross–Zagier; one model review found it faithful after docstring repairs, with a numerical check
 against PARI on 30 values of `d` (`docs/research/rv-cr5b-sec3.md`). Rédei's formula is proved in
 Lean: the Prop `ZInQ.RouteK.Rank5b.RedeiFormula` is the theorem `ZInQ.RouteK.Redei.redeiFormula`
-(`ZInQKernel/RouteK/Redei/`, the eight modules of `docs/research/redei-plan.md` §3.2: ambiguous
+(`ZInQKernel/RouteK/Redei/`, the eight steps of `docs/research/redei-plan.md` §3.2: ambiguous
 classes, genus characters and their surjectivity by Dirichlet's theorem, genus theory
 `Cl² = ⋂ ker χ_q` by counting, the 4-rank statement, and the 𝔽₂ linear algebra that matches
 Rédei's matrix with the bits). So `CertifiedRankTYZCl`, the hypothesis with Tian–Yuan–Zhang's own
@@ -152,7 +152,11 @@ class (`loc_of_mem_sel2_of_infinite_order`). Each hypothesis therefore has a pos
 "`C_d(ℚ)` has a point of infinite order" (equivalently, `d` is a congruent number):
 `CertifiedRankRk`, `CertifiedRankTYZRk` (squarefree `d ≡ 5 (mod 8)` with `T_5b(d)` odd; no
 condition on `Sel₂`) and `CertifiedRankTYZClRk`, with main-theorem variants in
-`RouteK/RankVariants.lean`. `CertifiedRankTYZClRk` implies `CertifiedRankTYZRk`
+`RouteK/RankVariants.lean`. `RouteK/RankInf.lean` states the same four hypotheses (with
+`CertifiedRankDLRk` below) with the conclusion "`C_d` has infinitely many rational points", the
+classical statement that `d` is a congruent number, and proves each equivalent to its positive-rank
+form (`exists_infinite_order_iff_infinitelyManyPoints`, from `fg_points`), so the trusted text can
+be read without Mathlib's group law. `CertifiedRankTYZClRk` implies `CertifiedRankTYZRk`
 (`certifiedRankTYZRk_of_certifiedRankTYZClRk`, by Rédei's formula), which implies `CertifiedRankRk`
 (`certifiedRankRk_of_certifiedRankTYZRk`, by Corollary 4.4 and Theorem 3.6), so of these three
 `exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankRk` assumes the

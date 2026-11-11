@@ -1,0 +1,30 @@
+0 167 554089 q0 59 RP [] RT [337] slots_ok True 14 d1 3320461 d2 1839830915029 None None
+1 -27839 258241 q0 67 RP [1777, 2273] RT [7177] slots_ok True 42 d1 54070233301016821 d2 13963151117887884871861 None None
+2 -7 99121 q0 683 RP [] RT [1009, 113] slots_ok True 26 d1 545115277 d2 54032371371517 None None
+3 -127 33289 q0 11 RP [] RT [17] slots_ok True 14 d1 23749 d2 790580461 {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True} {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True}
+4 -191 281761 q0 3 RP [] RT [17] slots_ok True 14 d1 9741 d2 2744633901 {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True} {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True}
+5 -31 15649 q0 107 RP [] RT [113] slots_ok True 14 d1 374821 d2 5865573829 {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True} {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True}
+6 -671 20329 q0 139 RP [673] RT [97, 5273] slots_ok True 42 d1 32105681294797 d2 652676395041928213 None None
+7 -7 788449 q0 43 RP [] RT [113] slots_ok True 14 d1 34013 d2 26817515837 {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True} {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True}
+8 303 851449 q0 163 RP [641] RT [601] slots_ok True 26 d1 19026667749 d2 16200237228218301 None None
+9 2839 382729 q0 3 RP [313] RT [1913] slots_ok True 26 d1 5099715573 d2 1951809041538717 None None
+10 -183 140449 q0 11 RP [401] RT [1201] slots_ok True 26 d1 969462813 d2 136160082623037 None None
+11 7 234361 q0 3 RP [] RT [137] slots_ok True 14 d1 2877 d2 674256597 {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True} {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True}
+12 6887 578041 q0 19 RP [137] RT [1361] slots_ok True 26 d1 24398457821 d2 14103308957308661 None None
+13 47 406249 q0 1291 RP [] RT [929, 769, 12953] slots_ok True 42 d1 561482880855581 d2 228101858864698925669 None None
+14 23 897121 q0 107 RP [] RT [257, 5689] slots_ok True 26 d1 3598161653 d2 3227986380301013 None None
+15 23 52081 q0 67 RP [] RT [233] slots_ok True 14 d1 359053 d2 18699839293 {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True} {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True}
+16 -7 279241 q0 179 RP [] RT [137, 281] slots_ok True 26 d1 48236741 d2 13469675793581 None None
+17 -47 342889 q0 3 RP [] RT [89] slots_ok True 14 d1 12549 d2 4302914061 {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True} {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True}
+18 -191 253969 q0 3 RP [] RT [17] slots_ok True 14 d1 9741 d2 2473912029 {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True} {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True}
+19 -46191 184921 q0 499 RP [1721, 4217] RT [13177, 18913] slots_ok True 62 d1 41688795746449372283013 d2 7709133798229164371947046973 None None
+20 23 704209 q0 67 RP [] RT [233, 353] slots_ok True 26 d1 126745709 d2 89255468989181 None None
+21 -10823 63961 q0 3 RP [3217] RT [1721, 281] slots_ok True 42 d1 50513465475573 d2 3230891765283124653 None None
+22 -199 63361 q0 139 RP [] RT [449] slots_ok True 14 d1 12419789 d2 786930250829 {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True} {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True}
+23 151 70249 q0 3 RP [] RT [17] slots_ok True 14 d1 7701 d2 540987549 {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True} {'mod8': 5, 'sqf': True, 'beta_div': True, 'sel_dim': 3, 'beta_in_pi1': True}
+24 18511 85201 q0 3 RP [97] RT [89] slots_ok True 26 d1 479416389 d2 40846755759189 None None
+25 -7663 148801 q0 59 RP [137] RT [313, 1721] slots_ok True 42 d1 33365421241517 d2 4964808046158971117 None None
+26 -199 200041 q0 131 RP [] RT [313] slots_ok True 14 d1 8159597 d2 1632253943477 None None
+27 -127 371569 q0 179 RP [] RT [569, 2281, 4337] slots_ok True 42 d1 127962797432669 d2 47547008679259387661 None None
+28 6031 63961 q0 251 RP [3217] RT [2153, 2617] slots_ok True 42 d1 27438594612642277 d2 1754999950019212679197 None None
+29 10807 25321 q0 3 RP [1129] RT [761] slots_ok True 26 d1 27855118149 d2 705319446650829 None None
