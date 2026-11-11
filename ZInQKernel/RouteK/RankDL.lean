@@ -224,4 +224,16 @@ theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_cer
     (Mult.slopeRepresentationAP_of_goodPrimeAP
       (goodPrimeAP_of_greenTaoDense greenTaoDense Density.goodPrimeDensity))
 
+/-- **Theorem 1.1** from 6C_min and CR₃^DL,Adm,Rk (`RouteK.Rank.CertifiedRankDLAdmRk`: for every
+admissible `B`, a multiplier and a slot choice whose two curves have points of infinite order).
+Pole completeness comes from `RouteK.Rank.poleCompleteness_of_certifiedRankDLAdmRk`; the rest of
+the assembly is that of
+`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLRk`. -/
+theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLAdmRk
+    (hH : SixContactMin) (hCR : RouteK.Rank.CertifiedRankDLAdmRk) : FrozenTarget :=
+  Assembly.assembly_AP Compiler.NodeCheck.haltingAddMulBound hH
+    (RouteK.Rank.poleCompleteness_of_certifiedRankDLAdmRk hCR)
+    (Mult.slopeRepresentationAP_of_goodPrimeAP
+      (goodPrimeAP_of_greenTaoDense greenTaoDense Density.goodPrimeDensity))
+
 end ZInQ

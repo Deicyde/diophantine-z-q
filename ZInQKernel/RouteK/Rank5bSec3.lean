@@ -43,6 +43,16 @@ Tian–Yuan–Zhang:
 
 namespace ZInQ
 
+/-- **Theorem 1.1** from 6C_min and CR₃^5b (`RouteK.Rank5b.CertifiedRank5b`), without 22P: CR₃^5b
+implies CR₃^Sel by Corollary 4.4 (`RouteK.Rank5b.certifiedRankSel_of_certifiedRank5b`), and
+`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankSel` applies.
+The variant `exists_bounded_integer_polynomial_defining_integers_of_certifiedRank5b` also takes
+22P. -/
+theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRank5b
+    (hH : SixContactMin) (hCR : RouteK.Rank5b.CertifiedRank5b) : FrozenTarget :=
+  exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankSel hH
+    (RouteK.Rank5b.certifiedRankSel_of_certifiedRank5b hCR)
+
 /-- **Theorem 1.1** from 6C_min and CR₃^TYZ (`RouteK.Rank5b.CertifiedRankTYZ`: for squarefree
 `d ≡ 5 (mod 8)` with `#Sel₂(C_d) = 8` and odd genus sum `T_5b(d)`, every 2-Selmer class of `C_d` comes
 from a rational point — a consequence of Tian–Yuan–Zhang (Proposition N of
