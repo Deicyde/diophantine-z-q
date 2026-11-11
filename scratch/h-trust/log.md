@@ -99,3 +99,6 @@
   HeightMin.lean appended paragraph + SixContactMin) and KERNEL_PLAN H row, §4 next step.
 - Status counts: [U] 3 (A4-A6); pure [R]/[S] 7; [R]+[M] application 5; [M] 21.
 - Good-reduction uses in N5: L529, L558, L753, L781, L849 (grep).
+
+## Step 12 (fleet report)
+- .fleet/h-trust.md written. E4 range corrected to L893-905. Task deliverables complete. No Lean run was needed or made.
