@@ -60,3 +60,17 @@ varieties (genus ≥ 1 fibrations), where no Hasse principle holds in general.
 Remark (input-dependent coefficients). Theorem G is about the total space; letting the form's
 coefficients depend on `y` (or on extra existential parameters) changes nothing, since C₁ applies over
 `F_m` whatever the coefficients are.
+
+## E1. Genus-0 gadgets with input-dependent coefficients: explicit soundness counterexamples
+
+Script `g0_counterexamples.py` (PARI qfsolve, exact check of every witness in ℚ). Primes `331 ≤ p < 700`
+(59 primes); inputs `B = u/(p s²)`, `u < 60`, `s ∈ {1,2,3}`, multiplier `m` among the 16 positive divisors of 2730
+(the smallest ones). A witness = rational zero with `v_p(B) = −1` (negative odd, `p > 324`): violates LUS.
+- G1 `x² + y² = m(m − B)`: witnesses at 28/59 primes = exactly the primes `p ≡ 1 (mod 4)` (28 of 59), i.e. the
+  primes split in `L = ℚ(i)`, the field of the multiplicity-one components over `B = ∞`. Matches Theorem G.
+- G2 `x² − m y² = m − B`: 59/59 (the existential multiplier covers every Frobenius class).
+- G3 Poonen-type, algebra depending on input: `2/B ∈ S_{m, m−B}`: 59/59.
+- G5 multi-input `x² − R₀y² = m(m − B)`, `B = R₀σ²`: 59/59, trivially (`m = 1`, `x = 1`, `y = σ`: a section).
+Example (G1): `B = 1/337`, `m = 2`: `(−139/337)² + (−659/337)² = 2(2 − 1/337)`.
+VERIFIED (exact). Outcome: as predicted, uniform soundness fails; with an existential parameter ranging over a
+set whose square classes generate, it fails at every prime tested.
