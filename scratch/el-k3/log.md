@@ -69,3 +69,17 @@ rs-pole §2.2, cr3-map-literature R3). Φ(B) with multiplier m ⇔ X_{β_m,θ_m}
   by bit-encoding, m = m₀k² gives finitely many tries.
 - (θ3) is exactly the local condition at ℓ | θ, ℓ ≡ 1 (4): if (β/ℓ) = −1 then v_ℓ(f(s)) is even
   for all s ∈ ℚ_ℓ and X_{β,θ}(ℚ_ℓ) = ∅ (VERIFIED by the valuation argument).
+
+### S6. Classification of rational curves over ℚ (`caseB_parity.py`; VERIFIED: derivation + mod-2 enumeration)
+- Let R ⊂ X_{β,θ} be an irreducible curve of geometric genus 0 defined over ℚ, Γ = π(R) ⊂ Y.
+- Case B (R = deck(R), R → Γ of degree 2): R̃ → Γ̃ ≅ ℙ¹ has exactly 2 branch points = branches of
+  Γ meeting B = ΣL_c + ΣM_d with odd multiplicity; they form a Galois orbit, so lie on {L1,L2},
+  {L3,L4}, {M1,M2} or {M3,M4}. With orbit-constant multiplicities, Γ·L_c ≡ b − Σ_d m_cd,
+  Γ·M_d ≡ a − Σ_c m_cd force equal parities on all eight lines: enumeration of all 2⁸ residue
+  patterns finds no admissible one. **Case B does not occur over ℚ** (any θ; β ≠ ±1, ±2 so that
+  Gal(ℚ(i,√β)/ℚ) = V4).
+- Case A (R ≠ deck(R), both over ℚ): Γ is birational to R and θ·f(s)f(t)|_Γ ∈ ℚ(Γ)*², so Γ
+  pins the class θ. Producing such Γ for a given θ is equivalent to producing points (a point
+  gives Γ through it only if such a curve exists; conversely Γ gives points iff Γ̃ is a split conic).
+- So the only θ-uniform source of points (case B conics w² = θh(z), soluble by Hasse–Minkowski
+  from local data) is absent; this is the precise form in which the K3 geometry fails.
