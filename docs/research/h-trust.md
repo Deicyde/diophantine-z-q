@@ -449,7 +449,7 @@ L10939-11000).
 - *Check.* The arithmetic is in `c1_constants.py` (rerun).
 - *Status:* **[R]**.
 
-**E4. Height variation, additivity, lower bound** (N5 L893-900).
+**E4. Height variation, additivity, lower bound** (N5 L893-905).
 - *Suppliers.*
   - Faltings 1983, Lemma 5. Alternative: Raynaud, Astérisque 127 (1985), Exp. VII,
     Cor. 2.1.3.
