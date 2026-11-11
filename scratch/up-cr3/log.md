@@ -26,3 +26,4 @@
 ## Step 4: computation (scratch/up-cr3/local2.py, out_local2.txt)
 - Upstream analog of Proposition 0 is prose: V16 8925-8961 (also V13 7845ff, V14 8904ff, V15 8928ff) local images of E_l in coordinates (x+3l, x-l); 2-adic claim V16 8931-8936.
 - Check: 30 squarefree l = 11 mod 12 (11..371), x = a*2^k (a odd |a|<256, |k|<=6), 11833 Q_2-points: 0 violations of "both v2(x+3l), v2(x-l) even"; j = 35152/9 for all 30. VERIFIED (sample).
+- V9 sec:pole = N5 up to the two attribution paragraphs (9 changed lines vs V13); V10 = V11 = V12 = V13 in sec:pole (diff empty).
