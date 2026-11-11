@@ -6,6 +6,8 @@ records the exact replacement for every place where the frozen 11/5 manuscript
 (`diophantine_zq.tex`, "N5 L…") uses the integral model built in the unpublished supplement
 `b11-integral-model`. Scripts and outputs are in `scratch/h-b1/`, with the work log in
 `scratch/h-b1/log.md`.
+Repaired (task h-b1-fix, 2026-11-11) per `docs/research/rv-h-b1.md` §8; see the changelog at the
+end.
 
 Marks:
 
@@ -467,3 +469,32 @@ item 1).
 Rating: **high** (SPECULATIVE) that Lemma PR holds as proved here. **Medium-high** that the
 record survives review unchanged, mainly because of Lemma NV step 3. Payoff: it closes h-map's
 W2. Combined with B2-B5, no supplement is left in H's justification.
+
+## Changelog
+
+Task h-b1-fix (2026-11-11), applying `docs/research/rv-h-b1.md` §8 (work log
+`scratch/h-b1-fix/log.md`). None of these changes the argument.
+
+1. **Repair 1 (table, rv T1/T2).** §5: the conjugate good-reduction line is N5 L557-558, not
+   L563-566 (L563-566 is the Milne Hodge-endomorphism paragraph). Added rows L752-753 (`r_ℓ`
+   unramified outside `T ∪ {ℓ}`) and L778-781 (good reduction at `p ∉ T ∪ {3,5}` for the
+   Frobenius comparison), both covered by PR(ii). The paragraph after the table names all
+   downstream uses of the conclusion and keeps the finding that L814 never used b11. Summary
+   item 4 and §7 line ranges updated. Locators re-read in N5.
+2. **Repair 2 (NV step 3; Prop. TS).** §3 step 3 now gives the full argument (closure of `Q_i`
+   is local, finite over `R` with fraction field `k_p`, hence strictly henselian and unibranch,
+   residue degree 1 = `[I_𝔓 : I_{Q_i}]` in the Kummer model; going-down by flatness; `I_q ⊂ I_𝔓`).
+   §1.2 adds finiteness (`R` excellent) and flatness (normal of dimension 2 over regular).
+3. **Repair 3 (M9, NV step 2).** M9 cites the complete enumeration of elliptic normalizer types
+   (rv R2) with CM orders and `W`-images; NV step 2 is stated with "conductor prime to `p`" and
+   the CM orders of discriminant `−3`, `−4`, `−24`, all maximal, with their `W`-images.
+4. **Repair 4 (Summary item 1).** F1 also shows that unramified branch fibres are not enough, so
+   NV's `W`-step is essential (rv R5).
+5. **Repair 5 (§4A, new).** The one `ℚ`-structure on `Y₃ = Sh_{K₃}` shared by NV, PR(ii) and
+   N5 (Baba–Granath's `j`), with the four STANDARD inputs (canonical model = moduli; uniqueness
+   of the `μ`-principal polarization; Weil-pairing compatibility; level-3 rigidity), each
+   UNVERIFIED with where to check it. Pointers added in §4(ii) step 1, §6 items 2 and 5, §7.
+6. **Repair 6 (optional, done).** §3 remark: the `W`-layer check (Elkies constants `−1`, `3`; rv
+   R7) as independent support for NV, and robustness to the branch labelling.
+7. **Scripts rerun.** `scratch/h-b1/b1_checks.py` and `scratch/rv-h-b1/rv_checks.py`: outputs
+   byte-identical to the saved ones (copies in `scratch/h-b1-fix/`).
