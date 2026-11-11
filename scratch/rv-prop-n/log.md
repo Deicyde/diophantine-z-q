@@ -44,8 +44,8 @@ rv-nt-tyz.md NOT read until own verdicts are written.
   all T5a = T5b = 0. T5b odd with 7 primes (4849845, 12777765, 10975965): analytic rank 1. T5a odd only
   (13803405): rank 1. 1101565, 1564437 (Selmer bound 3, an. rank 1): T5a=T5b=0. Violations 0; Rédei = class
   group on 21/21.
-- Totals runs 1-2: 51 inputs, 22 of analytic rank 3 (all T5a=T5b=0), 21 with T5b odd (all rank 1),
-  5 with only T5a odd (all rank 1).
+- Totals runs 1-2: 51 inputs, 22 of analytic rank 3 (all T5a=T5b=0), 15 with T5b odd (all rank 1),
+  4 with only T5a odd (all rank 1). [corrected in step 8: earlier count 21/5 was a miscount]
 
 ## Step 6. Alternative readings on the 22 rank-3 values (alt_readings.py, out_alt.txt; no new L-runs)
 - g(n)=1 for 7 of them: 134805, 26565, 141141, 887565, 2379405, 2422245, 13498485.
@@ -60,3 +60,7 @@ rv-nt-tyz.md NOT read until own verdicts are written.
 - So N2 needs eps ≡ ±1 at (5,1), (7,1), (7,3), and is insensitive to eps at (5,3) (the s>=2 terms cancel by
   the involution whatever their weight). The only part of I1's eps-input actually used is "eps(d0,d1) = ±1
   unless (d0,d1) ≡ (5,3)".
+
+## Step 8. Own verdicts written (docs/research/rv-prop-n.md §§1-6), before reading rv-nt-tyz
+- Verdict: Prop N holds as stated relative to quoted I1-I7; corrections: F4 unused in §4.4; single β' serving
+  all ℍ'_e should be stated; ℍ'_{d0} ⊂ ℍ'_n is quoted; state which eps-info is used.
