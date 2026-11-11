@@ -35,3 +35,10 @@
 - HeightMin.lean: unchanged (names no changed supplier).
 - KERNEL_PLAN.md H row: Kato 2004 added to the (HT) supplier list.
 - Lines <= 100 chars in edited prose (two pre-existing long lines in h-trust also reflowed).
+
+## Step 4: build and axioms
+- strip_compare.py (comments and docstrings stripped) on Height.lean before/after: code identical.
+  Only Height.lean changed under ZInQKernel/.
+- lake build ZInQKernel: Build completed successfully (9919 jobs). Load ~6-16, 133 GB available.
+- lake env lean scripts/print_axioms.lean: 61 entries, every one [propext, Classical.choice, Quot.sound]
+  (output scratch/h-v16-adopt/print_axioms.out).
