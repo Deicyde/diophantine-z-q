@@ -17,7 +17,7 @@ to computation:
 
 | Input | Deep dependency |
 | --- | --- |
-| H (Theorem 4.1) | in Version 14 ([docs/research/h-v14.md](docs/research/h-v14.md) §3.3): the canonical model of the discriminant-six Shimura curve (Deligne, Buzzard, Baba–Granath, Lin–Yang); modularity at five (Calegari's survey statement of Pan's theorem, with Faltings' Tate theorem, Scholze's de Rham comparison and a Deligne–Serre/Kato twist argument); Carayol's local–global compatibility; the isogeny estimate of Gaudron–Rémond and Arakelov bounds; Igusa's theta identities; five unpublished upstream proof supplements; effective CM heights (probably avoidable: [docs/research/h-cm.md](docs/research/h-cm.md) argues that for rational `u` the fibre has no CM, and one model review, [docs/research/rv-h-cm.md](docs/research/rv-h-cm.md), found the argument correct after repairs) |
+| H (Theorem 4.1) | in Version 14 ([docs/research/h-v14.md](docs/research/h-v14.md) §3.3): the canonical model of the discriminant-six Shimura curve (Deligne, Buzzard, Baba–Granath, Lin–Yang); modularity at five (Calegari's survey statement of Pan's theorem, with Faltings' Tate theorem, Scholze's de Rham comparison and a Deligne–Serre/Kato twist argument; [docs/research/h-a011.md](docs/research/h-a011.md) applies Pan's Theorem 1.0.4 directly instead of the survey and one supplement, and one model review found it proved after repairs, [docs/research/rv-h-a011.md](docs/research/rv-h-a011.md)); Carayol's local–global compatibility; the isogeny estimate of Gaudron–Rémond and Arakelov bounds; Igusa's theta identities; five unpublished upstream proof supplements; effective CM heights (probably avoidable: [docs/research/h-cm.md](docs/research/h-cm.md) argues that for rational `u` the fibre has no CM, and one model review, [docs/research/rv-h-cm.md](docs/research/rv-h-cm.md), found the argument correct after repairs) |
 | PC (Theorem 5.2) | the restricted converse (Theorem 5.3): Kato, Waldspurger, Bump–Friedberg–Hoffstein, Nekovář, Gross–Zagier–Kolyvagin, BCDT. Under Route K (pole polynomial with the congruent number curves `x + ℓ`), PC is **proved** from the narrow hypothesis CR₃ (`ZInQ.poleCompleteness_of_certifiedRank`): Kriz's 2-converse with the corank lemma, or Tian–Yuan–Zhang with Gross–Zagier–Kolyvagin (of which only Gross–Zagier is needed, [docs/research/pc-audit.md](docs/research/pc-audit.md) RK7), for curves `C_d`, `d ≡ 5 (mod 8)`, with a 3-dimensional explicit 2-Selmer system |
 | 22P (Proposition 6.2), used by M | Green–Tao linear equations in primes, Möbius–nilsequences, Green–Tao–Ziegler. **Replaced** by route AP, whose input is proved in Lean: Szemerédi's theorem in the primes (`ZInQ.greenTaoDense`, from a vendored Green–Tao proof) and the weak form of Proposition D (`ZInQ.Density.goodPrimeDensity`) |
 | CAT (a step in the proof of Proposition 12.1), used by B | the explicit progression estimate of Bennett–Martin–O'Bryant–Rechnitzer; the weaker form CAT₈ that the proof needs is **proved** (`ZInQ.catalogueBound8`, from an effective Dirichlet theorem) |
@@ -132,7 +132,12 @@ Selmer class comes from a rational point) is the hypothesis in their own terms; 
 statement names Tian–Yuan–Zhang (Proposition N of `docs/research/nt-tyz.md`), Rédei's formula and
 Gross–Zagier; one model review found it faithful after docstring repairs, with a numerical check
 against PARI on 30 values of `d` (`docs/research/rv-cr5b-sec3.md`). Rédei's formula itself is not
-formalized (`docs/research/redei-plan.md` plans it: about 2,650 lines).
+formalized (`docs/research/redei-plan.md` plans it: about 2,650 lines), but it is stated exactly as
+the Prop `ZInQ.RouteK.Rank5b.RedeiFormula`. With it, `CertifiedRankTYZCl`, the hypothesis with
+Tian–Yuan–Zhang's own `g(d) = #2Cl(ℚ(√−d))` (class groups of `ℚ(√−d)` from Mathlib), is equivalent to
+`CertifiedRankTYZ` (`certifiedRankTYZ_iff_of_redeiFormula`), and
+`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZCl` takes
+SixContactMin, `CertifiedRankTYZCl` and `RedeiFormula`.
 
 `scripts/check_target.py` checks that `FrozenTarget` is upstream's frozen statement token
 for token. Removing another hypothesis means formalizing its source theorem or finding a
