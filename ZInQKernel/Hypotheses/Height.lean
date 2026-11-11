@@ -20,7 +20,7 @@ principally on the following.
     1967; Deligne 1971, 1979; Kottwitz 1992), its branch data and Igusa coordinates
     (Baba–Granath 2008; Lin–Yang 2020; Igusa 1967; Lauter–Naehrig–Yang 2015), and its CM points
     (González–Rotger 2006).
-  - Abelian varieties: Mumford's book (1970), Skolem–Noether, and the Brauer group of `ℚ`
+  - Abelian varieties: Mumford's book (1970) with GAGA, Skolem–Noether, and the Brauer group of `ℚ`
     (Milne's *Arithmetic duality theorems*; Tate in Cassels–Fröhlich).
   - Reduction: tame specialization (SGA 1, Exp. X, XIII), semistable reduction (SGA 7, Exp. IX),
     and Néron–Ogg–Shafarevich (Serre–Tate 1968).
@@ -30,8 +30,8 @@ principally on the following.
     arXiv:1901.07166v2); the p-adic Hodge theory of modular forms, in the Tate-module
     (arithmetic-Frobenius) normalization with weights `{0, 1−k}`, at every level including
     levels divisible by 5 (Saito 1997, or Scholl 1990 with Scholze 2013), and Deligne–Serre
-    1974 for weight one; Li 1975 and Shimura 1973 for newforms; Carayol's local–global
-    compatibility (1986, Théorème A).
+    1974 for weight one; Li 1975, Shimura 1973 and the Eichler–Shimura relation (Shimura
+    1971) for newforms and `A_f`; Carayol's local–global compatibility (1986, Théorème A).
   - Local fields: local class field theory and ramification (Serre), and Raynaud's criterion
     (Silverberg–Zarhin 1995).
   - Heights: Javanpeykar 2014, the isogeny theorem of Gaudron–Rémond (2014, Theorem 1.4),
@@ -49,10 +49,10 @@ principally on the following.
   - The theta-height comparison and the return to `u` (Astra "height").
   - The application of Pan's theorem: Astra "descent" and "whole" on the manuscript's text, and
     `docs/research/rv-h-a011.md`.
-  - Three passages are new in the 11/5 text. The de Rham descent lemma
-    (`lem:de-rham-descent`) has two independent model reviews (`docs/research/rv-h-trust.md`,
-    `docs/research/rv-h-c3.md`); the paragraph on Hodge endomorphisms in the dichotomy and the
-    Li–Shimura sentence on the newform have been reviewed only in `rv-h-trust.md`.
+  - Three passages are new in the 11/5 text, and each has two independent model reviews: the
+    de Rham descent lemma (`lem:de-rham-descent`; `docs/research/rv-h-trust.md` and
+    `docs/research/rv-h-c3.md`), and the paragraph on Hodge endomorphisms in the dichotomy and
+    the Li–Shimura sentence on the newform (`rv-h-trust.md` and `docs/research/rv-h-a9c9.md`).
 * **Repository arguments that replace manuscript text.**
   - The CM branch is empty for rational `u` (`docs/research/h-cm.md`; model review
     `rv-h-cm.md`).

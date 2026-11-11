@@ -898,7 +898,10 @@ KERNEL_PLAN row). Task h-adopt applied them verbatim to the Lean files and to KE
 definitions, statements, proofs and numerals are unchanged. Task h-c38 updated three items in the
 drafts, the Lean docstring and the row alike, after rv-h-c3 and rv-h-c8: the C8 supplier (its
 normalization, all levels, Deligne–Serre for weight one), the review count of the twist and weight
-step, and that of the de Rham descent lemma. The `HeightMin.lean` texts needed no change.
+step, and that of the de Rham descent lemma. The `HeightMin.lean` texts needed no change. Task
+h-a9c9-fix updated, after rv-h-a9c9, the review count of the other two passages new in the 11/5
+text, the newform suppliers (the Eichler–Shimura relation, Shimura 1971) and GAGA, in the drafts,
+the Lean docstring and the row alike; `HeightMin.lean` again needed no change.
 
 **`ZInQKernel/Hypotheses/Height.lean`**: the module docstring and the docstring of
 `SixContactEstimate`.
@@ -924,7 +927,7 @@ principally on the following.
     1967; Deligne 1971, 1979; Kottwitz 1992), its branch data and Igusa coordinates
     (Baba–Granath 2008; Lin–Yang 2020; Igusa 1967; Lauter–Naehrig–Yang 2015), and its CM points
     (González–Rotger 2006).
-  - Abelian varieties: Mumford's book (1970), Skolem–Noether, and the Brauer group of `ℚ`
+  - Abelian varieties: Mumford's book (1970) with GAGA, Skolem–Noether, and the Brauer group of `ℚ`
     (Milne's *Arithmetic duality theorems*; Tate in Cassels–Fröhlich).
   - Reduction: tame specialization (SGA 1, Exp. X, XIII), semistable reduction (SGA 7, Exp. IX),
     and Néron–Ogg–Shafarevich (Serre–Tate 1968).
@@ -934,8 +937,8 @@ principally on the following.
     arXiv:1901.07166v2); the p-adic Hodge theory of modular forms, in the Tate-module
     (arithmetic-Frobenius) normalization with weights `{0, 1−k}`, at every level including
     levels divisible by 5 (Saito 1997, or Scholl 1990 with Scholze 2013), and Deligne–Serre
-    1974 for weight one; Li 1975 and Shimura 1973 for newforms; Carayol's local–global
-    compatibility (1986, Théorème A).
+    1974 for weight one; Li 1975, Shimura 1973 and the Eichler–Shimura relation (Shimura
+    1971) for newforms and `A_f`; Carayol's local–global compatibility (1986, Théorème A).
   - Local fields: local class field theory and ramification (Serre), and Raynaud's criterion
     (Silverberg–Zarhin 1995).
   - Heights: Javanpeykar 2014, the isogeny theorem of Gaudron–Rémond (2014, Theorem 1.4),
@@ -953,10 +956,10 @@ principally on the following.
   - The theta-height comparison and the return to `u` (Astra "height").
   - The application of Pan's theorem: Astra "descent" and "whole" on the manuscript's text, and
     `docs/research/rv-h-a011.md`.
-  - Three passages are new in the 11/5 text. The de Rham descent lemma
-    (`lem:de-rham-descent`) has two independent model reviews (`docs/research/rv-h-trust.md`,
-    `docs/research/rv-h-c3.md`); the paragraph on Hodge endomorphisms in the dichotomy and the
-    Li–Shimura sentence on the newform have been reviewed only in `rv-h-trust.md`.
+  - Three passages are new in the 11/5 text, and each has two independent model reviews: the
+    de Rham descent lemma (`lem:de-rham-descent`; `docs/research/rv-h-trust.md` and
+    `docs/research/rv-h-c3.md`), and the paragraph on Hodge endomorphisms in the dichotomy and
+    the Li–Shimura sentence on the newform (`rv-h-trust.md` and `docs/research/rv-h-a9c9.md`).
 * **Repository arguments that replace manuscript text.**
   - The CM branch is empty for rational `u` (`docs/research/h-cm.md`; model review
     `rv-h-cm.md`).
@@ -1019,7 +1022,7 @@ arguments, with no unpublished upstream proof supplement (`Hypotheses/Height.lea
 **H row of the dependency table in KERNEL_PLAN.md** (T3 success criterion: the row names no
 supplement as an input):
 
-| H (Theorem 4.1) | refereed theorems (Shimura curve: Shimura, Deligne, Kottwitz, Baba–Granath, Lin–Yang, González–Rotger; SGA 1, SGA 7, Serre–Tate; Faltings 1983; Scholze; Berger; Pan's Theorem 1.0.4; p-adic Hodge theory of modular forms in the Tate-module normalization, at every level (Saito 1997, or Scholl 1990 with Scholze), with Deligne–Serre 1974 for weight one; Li, Shimura 1973; Carayol; Serre's local fields; Silverberg–Zarhin; Javanpeykar; Gaudron–Rémond; Pazuki; Igusa), plus the manuscript's descent, conductor and transfer arguments (model reviews only: [rv-h-novel](docs/research/rv-h-novel.md), Astra), the manuscript's geometric, twist and theta-height bookkeeping (Astra; the twist and weight step also [rv-h-c8](docs/research/rv-h-c8.md); of three passages new in the 11/5 text, the de Rham lemma reviewed in [rv-h-trust](docs/research/rv-h-trust.md) and [rv-h-c3](docs/research/rv-h-c3.md), the other two only in rv-h-trust), NoCM ([h-cm](docs/research/h-cm.md), [rv-h-cm](docs/research/rv-h-cm.md)), and Lemma PR in place of the integral model ([h-b1](docs/research/h-b1.md); model review [rv-h-b1](docs/research/rv-h-b1.md)). No unpublished upstream proof supplement. Outline: [docs/research/h-trust.md](docs/research/h-trust.md) |
+| H (Theorem 4.1) | refereed theorems (Shimura curve: Shimura, Deligne, Kottwitz, Baba–Granath, Lin–Yang, González–Rotger; SGA 1, SGA 7, Serre–Tate; Faltings 1983; Scholze; Berger; Pan's Theorem 1.0.4; p-adic Hodge theory of modular forms in the Tate-module normalization, at every level (Saito 1997, or Scholl 1990 with Scholze), with Deligne–Serre 1974 for weight one; Li, Shimura 1973, Eichler–Shimura (Shimura 1971); Carayol; Serre's local fields; Silverberg–Zarhin; Javanpeykar; Gaudron–Rémond; Pazuki; Igusa), plus the manuscript's descent, conductor and transfer arguments (model reviews only: [rv-h-novel](docs/research/rv-h-novel.md), Astra), the manuscript's geometric, twist and theta-height bookkeeping (Astra; the twist and weight step also [rv-h-c8](docs/research/rv-h-c8.md); of three passages new in the 11/5 text, the de Rham lemma reviewed in [rv-h-trust](docs/research/rv-h-trust.md) and [rv-h-c3](docs/research/rv-h-c3.md), the other two in rv-h-trust and [rv-h-a9c9](docs/research/rv-h-a9c9.md)), NoCM ([h-cm](docs/research/h-cm.md), [rv-h-cm](docs/research/rv-h-cm.md)), and Lemma PR in place of the integral model ([h-b1](docs/research/h-b1.md); model review [rv-h-b1](docs/research/rv-h-b1.md)). No unpublished upstream proof supplement. Outline: [docs/research/h-trust.md](docs/research/h-trust.md) |
 
 ## 4. Next step
 
@@ -1035,11 +1038,15 @@ The review this section asked for is done: `docs/research/rv-h-trust.md` (this o
 What remains are the network checks of §2.5. The most important are Pan's JAMS text,
 Carayol's Théorème A at `F = ℚ`, the C8 supplier, and the hypothesis of Shimura 1973 Thm 1.
 They decide whether any statement must change; the rest decide numbering only (SPECULATIVE).
+(Shimura 1973 has since dropped out of this group: see the end of this section.)
 For the C8 supplier the check is at `p | N`: Saito 1997 (or Scholl 1990 with Scholze's Cor. 1.8),
 and Deligne–Serre 1974 Thm 4.1 for weight one. For C3, check the exposé numbers of Fontaine's
-Astérisque 223 (rv-h-c3 R2). The second model review of C3's lemma is done (rv-h-c3). Optional:
-a second model review of the other two N5-only passages (A9's Milne paragraph, C9's Li–Shimura
-sentence; §2.1 item 1).
+Astérisque 223 (rv-h-c3 R2). The second model reviews of the three N5-only passages are done
+(rv-h-c3 for C3's lemma; rv-h-a9c9 for A9's Milne paragraph and C9's Li–Shimura sentence).
+Since rv-h-a9c9, the hypothesis of Shimura 1973 Thm 1 no longer decides any statement: the
+conjugate span meets it in any form, and the `K_f`-linear Eichler–Shimura route of §1 C9 avoids
+it. Reading Shimura 1973 p. 526 and Li 1975 p. 296 would turn their AUDIT-READ marks into read
+locators; Shimura 1971 Thm 7.9 and §7 are the locators of the route actually used.
 
 ## Changelog
 
@@ -1104,3 +1111,37 @@ review counts only: no argument, constant or Lean statement changes.
    `HeightMin.lean` unchanged.
 6. **Next step.** §4: C3's second review done; the C8 locator check is at `p | N`; Fontaine's
    exposé numbers.
+
+Task h-a9c9-fix (2026-11-11), applying `docs/research/rv-h-a9c9.md` §§1.4, 2.4 and 4 (repairs
+R-A9-1, R-A9-2, R-C9-1 to R-C9-3). Citations, the stated reason in C9, and review counts only:
+no constant, status or Lean statement changes.
+
+1. **Header, marks, Summary.** rv-h-a9c9 added as a source; new mark AUDIT-READ (the upstream
+   theorem-application audit's reading, recorded by rv-h-a9c9); the [M] definition and Summary
+   item 1 name rv-h-a9c9 as the second review of A9's and C9's N5-only passages; item 4(f)
+   mentions the AUDIT-READ locators; the route-table row L719-795 names the `K_f`-linear
+   Eichler–Shimura relation.
+2. **A9.** R-A9-1: Riemann plus GAGA (or Chow), with Mumford 1970 §§1-3 and Serre's GAGA, or
+   Milne 1986 §1, in place of the course notes (p. 14 AUDIT-READ); the `milne-av` bibliography
+   entry names only Thm 12.1(a), so the in-text locator Thms 2.8-2.9 is to be kept. R-A9-2: the
+   descent fact (fixed by `Aut(ℂ/ℚ̄)` ⇒ defined over `ℚ̄`, or the rigidity bijection; Conrad
+   2006 §3). The centralizer step VERIFIED by rv-h-a9c9. Status [M], now with two model reviews.
+3. **C9.** R-C9-1: the Euler-factor inference replaced by the `K_f`-linear Eichler–Shimura
+   relation (`V_ℓ(A_f)` free of rank 2 over `K_f ⊗ ℚ_ℓ`, `tr Frob_p = a_p`; Shimura 1971 §7 and
+   Thm 7.9, Ribet 1977, Diamond–Im §12.5, Diamond–Shurman Thm 8.7.2), then Chebotarev,
+   Brauer–Nesbitt and Faltings' semisimplicity; the Klein-four example of why the identity alone
+   does not suffice; the Hodge–Tate side check. R-C9-2: Galois-stability of newness (Shimura 1971
+   Thm 3.52 with strong multiplicity one) and the conductor invariance under duality (*Corps
+   locaux* VI §2, Deligne 1973 §8). R-C9-3: "primitive newform" is Li's normalized newform, not
+   twist-minimal; `g` normalized. Shimura 1973 Thm 1: its hypothesis is met for the conjugate
+   span whatever its form (Hecke, `Aut(ℂ)` or Fricke stability), the Fricke form AUDIT-READ, and
+   not needed on the `K_f`-linear route. Status [R], application [M], now with two model reviews.
+4. **Residuals.** §2.1 item 1: all three N5-only passages have two model reviews. §2.2 note.
+   §2.4 `milne-av` row: both locators and the bibliography fix. §2.5: AUDIT-READ paragraph;
+   item 4 (Shimura 1973) no longer decisive; item 9 adds the C9 and A9 locators. §2.7 (vii)
+   closed.
+5. **Drafts and Lean comments.** §3, the module docstring of `Hypotheses/Height.lean` and the H
+   row of KERNEL_PLAN.md: the review count of A9's and C9's passages (rv-h-trust and
+   rv-h-a9c9), the Eichler–Shimura relation (Shimura 1971) among the newform suppliers, and GAGA
+   with Mumford. `HeightMin.lean` unchanged (it states no review counts or C9 suppliers).
+6. **Next step.** §4: second reviews done; Shimura 1973's hypothesis no longer decisive.
