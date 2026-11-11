@@ -72,3 +72,6 @@
 - Correction: V16 Buzzard Thm 2.1/Cor 2.3 at L835 (not L837); Buzzard p.592 uniqueness L730, L1038; Def 1.1 p.593 L851. Deligne 1971: §4.9 L979; §§4.8-4.10 L995; §4.10 L1012; Thm 4.7 L1036; §§4.11-4.12 L1057; §4.15 L1069; Prop 1.15 L1074; §§4.16-4.17 L1082; Thm 4.21, Cor 5.7, Ex 5.8 L1099; Deligne 1979 2.2.5, 2.3.1 L1101.
 - Offsets: V13 = N5 + 76 inside sec:height after L378 (N5 L564→V13 L640, L578→L654, verified); V15/V16 = V14 + 25 up to V14 L784, + 24 from V14 L786 (checks.output.txt).
 - upstream docs/theorem-application-audit/evidence/kato-carayol.md: no hit for "9.4"/"p.188"/"14.10" (Kato §9.4 locator not shown as audit-read there).
+
+## Step 11 (note drafted: docs/research/up-h.md)
+- Line corrections while drafting: Jacobian numeric V16 L30797; finite-twist determinant argument V16 L660-667 (not L650-659); Kato realization L618-650; k=1 L604-616; scalar descent paragraph V16 L1339; modularity/conductor paragraph L1442; transfer paragraph L1572; CM paragraph header L1288 (block N5 578-631 = V16 1285-1338 includes the preceding line); Bost line V16 L30661-30664; Conrad citation N5 L761.
