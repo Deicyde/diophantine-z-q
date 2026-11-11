@@ -15,7 +15,8 @@ import ZInQKernel.RouteK.Redei.Entry
 * `chi n q : ClassGroup O →* Multiplicative (ZMod 2)`, the genus character `χ_q([𝔞]) = [N𝔞/q]`,
   defined through a chosen representative prime to `q`; `chi_mk0`;
 * `chi_ramIdeal`: `χ_q([𝔭_p]) = R_{qp}` (`redeiEntry`), for every `p ∈ ramSet n`. For `p = q` this
-  uses `𝔭_q · Π_{p ≠ q} 𝔭_p = (√−n)` (`span_omega`).
+  uses `𝔭_q · Π_{p ≠ q} 𝔭_p = (√−n)` (`span_omega`);
+* `chi_prod_ramIdeal`: `χ_q(Π_p [𝔭_p]^{e_p}) = Σ_p R_{qp} e_p`, the plan's `chi_psi` without `psi`.
 -/
 
 noncomputable section
@@ -275,6 +276,19 @@ theorem chi_ramIdeal (hn : Odd n) (hsq : Squarefree n) (q : n.primeFactors) (p :
     rw [chi_mk0 n hn hsq q ⟨ramIdeal n p, ramIdeal_mem n p⟩ hI]
     change Multiplicative.ofAdd (legBit q ((Ideal.absNorm (ramIdeal n p) : ℕ) : ℤ)) = _
     rw [hNp]
+
+variable (n) in
+/-- `χ_q(Π_p [𝔭_p]^{e_p}) = Σ_p R_{qp} e_p`. With `ψ(e) = Π_p [𝔭_p]^{e_p}` (step 3, `psi`), this is
+the plan's `chi_psi`. -/
+theorem chi_prod_ramIdeal (hn : Odd n) (hsq : Squarefree n) (q : n.primeFactors)
+    (e : ramSet n → ZMod 2) :
+    Multiplicative.toAdd (chi n q (∏ p : ramSet n,
+      ClassGroup.mk0 (⟨ramIdeal n p, ramIdeal_mem n p⟩ : (Ideal O)⁰) ^ (e p).val)) =
+      ∑ p, redeiEntry n q p * e p := by
+  rw [map_prod, toAdd_prod]
+  refine Finset.sum_congr rfl fun p _ => ?_
+  rw [map_pow, chi_ramIdeal n hn hsq q p, toAdd_pow, toAdd_ofAdd, nsmul_eq_mul,
+    ZMod.natCast_zmod_val, mul_comm]
 
 end Genus
 

@@ -19,3 +19,10 @@
 - Fixes: legendreSym.to_jacobiSym lives in namespace jacobiSym; rw with n = ∏ q fails (motive, ε
   indexed by n.primeFactors): use congrArg.
 - lake build ZInQKernel.RouteK.Redei: OK.
+
+## chi_prod_ramIdeal (Genus.lean) and final checks
+- chi_prod_ramIdeal: χ_q(Π_p [𝔭_p]^{e_p.val}) = Σ_p R_{qp} e_p.
+- Checked in a scratch file (deleted) against origin/wip/redei-amb 07213a89 Ambiguous.lean:
+  chi_psi := by rw [psi_apply, ← chi_prod_ramIdeal n hn hsq q e]; simp only [toAdd_ofAdd, ambigClass_eq hn hsq]
+  compiles.
+- lake build ZInQKernel: OK (9914 jobs). #print axioms: propext, Classical.choice, Quot.sound only.
