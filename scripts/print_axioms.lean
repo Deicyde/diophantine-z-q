@@ -44,6 +44,10 @@ Each declaration should depend on `[propext, Classical.choice, Quot.sound]` only
 #print axioms ZInQ.RouteK.Rank5b.det_M5b_eq_T5b
 #print axioms ZInQ.RouteK.Rank5b.certifiedRank5b_of_certifiedRankTYZ
 #print axioms ZInQ.RouteK.Rank5b.certifiedRankTYZ_iff_of_redeiFormula
+#print axioms ZInQ.RouteK.Redei.oddGClStatement
+#print axioms ZInQ.RouteK.Redei.redeiFormula
+#print axioms ZInQ.RouteK.Redei.certifiedRankTYZ_iff'
+#print axioms ZInQ.RouteK.Redei.certifiedRankTYZRk_of_certifiedRankTYZClRk
 #print axioms ZInQ.RouteK.Rank.fg_points
 #print axioms ZInQ.RouteK.Rank.twoTorsion_card
 #print axioms ZInQ.RouteK.Rank.loc_of_mem_sel2_of_infinite_order

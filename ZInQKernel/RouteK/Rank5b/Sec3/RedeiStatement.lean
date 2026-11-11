@@ -17,6 +17,8 @@ probe `scratch/redei-plan/Probe.lean`.
   `d_B ≡ 7, 3` or `1 (mod 8)`;
 * `T5bCl_eq_T5b` and `certifiedRankTYZ_iff_of_redeiFormula :
   RedeiFormula → (CertifiedRankTYZCl ↔ CertifiedRankTYZ)`.
+
+`RedeiFormula` is proved in `RouteK/Redei/FourRank.lean` (`ZInQ.RouteK.Redei.redeiFormula`).
 -/
 
 noncomputable section
@@ -65,9 +67,10 @@ The scope is exactly that of `T5b`: the blocks of a set partition are nonempty, 
 counted by `Admissible5bNat` have only blocks with `d_B ≡ 7, 3, 1 (mod 8)`; blocks with
 `d_B ≡ 5 (mod 8)` never occur.
 
-This is a classical theorem, not proved here. It is stated as a Prop exactly so that a later
-formalization can discharge it without touching anything else (plan: `docs/research/redei-plan.md`,
-route (c): ambiguous classes, genus characters, Dirichlet's theorem and 𝔽₂ linear algebra). -/
+It is stated here as a Prop so that the modules downstream do not depend on its proof. It is
+proved as `ZInQ.RouteK.Redei.redeiFormula` (`RouteK/Redei/FourRank.lean`), following
+`docs/research/redei-plan.md`, route (c): ambiguous classes, genus characters, Dirichlet's theorem
+and 𝔽₂ linear algebra. -/
 def RedeiFormula : Prop :=
   ∀ d : ℕ, Odd d → Squarefree d → ∀ B : Finset d.primeFactors, B.Nonempty →
     (dProd B % 8 = 7 ∨ dProd B % 8 = 3 ∨ dProd B % 8 = 1) →
