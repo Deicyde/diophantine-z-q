@@ -69,3 +69,6 @@ Hashes of diophantine_zq.tex in git history: 09c0c3f3 (2026-11-04) = bfc4192d...
 N5 = 97cec7fd = cb1148cd... . Between them the in-scope text changed (Herbrand-function derivation of the
 break bound first appears in 6f37dd99; Silverman IV.6.4 sentence; Eisenstein/f'(pi) identity). So the
 Astra hash does not identify N5's text of L820-865; this review covers N5 directly.
+
+## Step 4: deliverables
+docs/research/rv-h-novel.md (9 steps: all correct; repairs R1-R3 cosmetic) and .fleet/rv-h-novel.md written.
