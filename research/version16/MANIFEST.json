@@ -3,7 +3,7 @@
   "version": 16,
   "date": "2026-11-11",
   "base_commit": "511529bbe9d635194f0c9d925709e77a5d3afa64",
-  "manuscript_sha256": "2f7295c71e58df196470a1d812b594d5d4eda991a8d3daa50cc402b4133d0d05",
+  "manuscript_sha256": "a9cb3d59596d80e796224e979faf764662739d74cd91cdef080c37e1c8af9fc1",
   "scope": "Version16 exact correction package; root README and SHA256SUMS are repository navigation, not an assertion of whole-proof or App acceptance.",
   "files": [
     {
@@ -22,19 +22,19 @@
       "bytes": 12886
     },
     {
-      "path": "manuscripts/README.md",
-      "sha256": "b7b6df5e897f98b3966ee12c36400c27fb7d487ce3474babec3c9cbc1db7c23d",
-      "bytes": 2185
-    },
-    {
       "path": "manuscripts/quartic_v16.pdf",
-      "sha256": "8f17d3b8234182aa5323ce3d37e2ef1d4bd4916e7a56f0bd95dd040992cbbeec",
-      "bytes": 2732150
+      "sha256": "b21fb904d8c47ad1e51acc9d0622507831d504b52232b1f043677ace51749f80",
+      "bytes": 2732199
     },
     {
       "path": "manuscripts/quartic_v16.tex",
-      "sha256": "2f7295c71e58df196470a1d812b594d5d4eda991a8d3daa50cc402b4133d0d05",
-      "bytes": 1926469
+      "sha256": "a9cb3d59596d80e796224e979faf764662739d74cd91cdef080c37e1c8af9fc1",
+      "bytes": 1926477
+    },
+    {
+      "path": "manuscripts/README.md",
+      "sha256": "b7b6df5e897f98b3966ee12c36400c27fb7d487ce3474babec3c9cbc1db7c23d",
+      "bytes": 2185
     },
     {
       "path": "research/version16/APPLICATIONS.json",
@@ -42,14 +42,29 @@
       "bytes": 5000
     },
     {
+      "path": "research/version16/audits/fable-5-2-audit-4.pdf",
+      "sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116",
+      "bytes": 2262754
+    },
+    {
       "path": "research/version16/BUILD.json",
-      "sha256": "b97f4a6de25fe5a3574bf815940a5bae72911f5d02f9e96d3bc6efa8a5503b1f",
-      "bytes": 638
+      "sha256": "4977b3578d98af2e271ebe6579ee5ed7c808e3846cafc2299da2873257d02416",
+      "bytes": 733
+    },
+    {
+      "path": "research/version16/check.py",
+      "sha256": "f7a264458abd869b079dde71239ce6b1276d1d86a76c6593bdd326c8551af64e",
+      "bytes": 5763
     },
     {
       "path": "research/version16/CUMULATIVE-HANDOFF.md",
       "sha256": "9223e831c5938a0374a3343d7909d586d7b1e7cb1f40c21a07293a120c973c62",
       "bytes": 1201
+    },
+    {
+      "path": "research/version16/EDITORIAL-AMENDMENT.json",
+      "sha256": "eededef3bf1eec093eed7ee338c892b10548e4857bc4067222ed07a265c2631a",
+      "bytes": 2498
     },
     {
       "path": "research/version16/EDITS.json",
@@ -67,29 +82,19 @@
       "bytes": 900
     },
     {
-      "path": "research/version16/README.md",
-      "sha256": "d46ff4657f63f55714d3fe00c16268470848d388f8c93ee35ddba62be4f0b581",
-      "bytes": 2988
-    },
-    {
-      "path": "research/version16/RELEASE-NOTES.md",
-      "sha256": "79f9813f4c52f9ce16316f1203556691e3b4fb6f29abb032b094b028b51b55fc",
-      "bytes": 815
-    },
-    {
-      "path": "research/version16/audits/fable-5-2-audit-4.pdf",
-      "sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116",
-      "bytes": 2262754
-    },
-    {
-      "path": "research/version16/check.py",
-      "sha256": "5ff36613d44aa6c86754e8333b8bdabd13f1e06622661093d9ca8fcdd407a6a4",
-      "bytes": 4656
-    },
-    {
       "path": "research/version16/pack_handoff.py",
       "sha256": "58840d07605e1ed683c57dd5b22e2187649ef71d57680e8fb804085dab39a308",
       "bytes": 3577
+    },
+    {
+      "path": "research/version16/README.md",
+      "sha256": "f4a0a817ae9dd3754e0b05aa79e219636d65b5cbda411fabe53c1aeebc2845a6",
+      "bytes": 3313
+    },
+    {
+      "path": "research/version16/RELEASE-NOTES.md",
+      "sha256": "1e3326986a6dc3af35866c67dd725c73c025c5ff9736d342367dacee54b78db5",
+      "bytes": 1024
     },
     {
       "path": "research/version16/review/INITIAL-RECONSTRUCTION.md",

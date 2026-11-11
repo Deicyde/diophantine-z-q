@@ -33,7 +33,8 @@ def checked(path, expected):
 def main():
     edits = load("EDITS.json")
     before = checked(edits["baseline"], edits["baseline_sha256"])
-    after = checked(edits["manuscript"], edits["sha256"])
+    amendment = load("EDITORIAL-AMENDMENT.json")
+    after = checked(edits["manuscript"], amendment["manuscript_sha256"])
     reconstructed = before.decode("utf-8")
     expected_ids = {
         "version", "date", "horizontal-normalization",
@@ -45,7 +46,22 @@ def main():
     for edit in edits["edits"]:
         assert reconstructed.count(edit["old"]) == 1, edit["id"]
         reconstructed = reconstructed.replace(edit["old"], edit["new"], 1)
+    reviewed = reconstructed.encode("utf-8")
+    assert digest(reviewed) == edits["sha256"] == amendment["reviewed_manuscript_sha256"]
+    assert amendment["manuscript"] == edits["manuscript"]
+    assert len(amendment["edits"]) == 1
+    for edit in amendment["edits"]:
+        assert edit["id"] == "restore-original-ai-statement"
+        assert reconstructed.count(edit["old"]) == 1
+        reconstructed = reconstructed.replace(edit["old"], edit["new"], 1)
     assert reconstructed.encode("utf-8") == after
+    original = checked(amendment["original_statement_source"],
+                       amendment["original_statement_source_sha256"]).decode("utf-8")
+    def ai_statement(text):
+        return text.split(r"\section*{AI usage statement}")[1].split(r"\end{document}")[0].replace("\r\n", "\n")
+    expected = ai_statement(original).replace("with auditing from Fable 5.1.",
+                                               "with auditing from Fable 5.1 and 5.2.")
+    assert ai_statement(reconstructed) == expected
     b, a = before.decode("utf-8"), after.decode("utf-8")
     abstract = r"\\begin\{abstract\}.*?\\end\{abstract\}"
     assert re.findall(abstract, b, re.S) == re.findall(abstract, a, re.S)
@@ -58,7 +74,7 @@ def main():
     assert a.count(r"\bibitem{gr2014}") == 1
     assert a.count("{gr-periods2014}") == 3
     apps = load("APPLICATIONS.json")
-    assert apps["manuscript_sha256"] == digest(after)
+    assert apps["manuscript_sha256"] == digest(reviewed)
     assert len(apps["applications"]) == 3
     for app in apps["applications"]:
         for field in ("source", "required", "constructed", "domain_coverage",
@@ -73,7 +89,7 @@ def main():
     review = load("review/REVIEW.json")
     assert review["decision"] == "accepted_scoped_corrections"
     assert review["manuscript"] == edits["manuscript"]
-    assert review["manuscript_sha256"] == digest(after)
+    assert review["manuscript_sha256"] == digest(reviewed)
     assert review["baseline_sha256"] == digest(before)
     assert review["author_of_manuscript"] is False
     assert review["author_of_edits"] is False
@@ -96,6 +112,7 @@ def main():
     print(json.dumps({"status": "PASS", "version": 16,
                       "manuscript_sha256": digest(after),
                       "exact_edits": len(edits["edits"]),
+                      "editorial_amendments": len(amendment["edits"]),
                       "abstract_and_theorem_statements_unchanged": True,
                       "files_verified": len(manifest["files"]),
                       "scope": "Finite artifact binding; not mathematical or App acceptance"},

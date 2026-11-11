@@ -3,14 +3,16 @@
   "bundle": "https://data1b.fullyjustified.net/tlextras-2022.0r0.tar",
   "cache_only": true,
   "source": "manuscripts/quartic_v16.tex",
-  "source_sha256": "2f7295c71e58df196470a1d812b594d5d4eda991a8d3daa50cc402b4133d0d05",
+  "source_sha256": "a9cb3d59596d80e796224e979faf764662739d74cd91cdef080c37e1c8af9fc1",
   "pdf": "manuscripts/quartic_v16.pdf",
-  "pdf_sha256": "8f17d3b8234182aa5323ce3d37e2ef1d4bd4916e7a56f0bd95dd040992cbbeec",
+  "pdf_sha256": "b21fb904d8c47ad1e51acc9d0622507831d504b52232b1f043677ace51749f80",
   "pages": 549,
   "tex_errors": 0,
   "unresolved_references": 0,
   "inherited_overfull_boxes": 4,
   "new_changed_passage_overfull_boxes": 0,
   "inherited_duplicate_equation_destinations": true,
-  "scope": "Build and visual checks, not proof verification."
+  "scope": "Build and visual checks, not proof verification.",
+  "editorial_amendment": "EDITORIAL-AMENDMENT.json",
+  "visually_checked_editorial_page": 549
 }

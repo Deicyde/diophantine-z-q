@@ -10,7 +10,7 @@ Dated November 11, 2026. This edition incorporates three corrections from the [f
 2. Cite Gaudron–Rémond's *Théorème des périodes et degrés minimaux d'isogénies*, Comment. Math. Helv. 89 (2014), 343–403, DOI 10.4171/CMH/322, for the two auxiliary Faltings-height statements. The Duke paper remains cited for its separate isogeny results.
 3. Describe the fixed-extra-factor Tao–Ziegler use as an adaptation of the proofs. This edition does not substitute the alternative statement-only reduction sketched by Fable.
 
-The [exact edits](EDITS.json) reconstruct this TeX from the preserved Version 15 source. The [application inventory](APPLICATIONS.json), [findings](FINDINGS.json), [review](review/REVIEW.json), [build record](BUILD.json) and [artifact manifest](MANIFEST.json) separate mathematical review from finite validation and repository approval.
+The [exact edits](EDITS.json) reconstruct the mathematically reviewed Version 16 source from the preserved Version 15 source. The subsequent [editorial amendment](EDITORIAL-AMENDMENT.json) restores the original AI usage statement, adds Fable 5.2 to the auditing credit, and moves the unchanged Conant credit immediately before that statement. The independent mathematical review retains its original byte binding. The [application inventory](APPLICATIONS.json), [findings](FINDINGS.json), [review](review/REVIEW.json), [build record](BUILD.json) and [artifact manifest](MANIFEST.json) separate mathematical review from finite validation and repository approval.
 
 ## Scope and remaining review limits
 
