@@ -68,3 +68,12 @@ Notation: σ(q) = a₀/Θ (test) so B = R₀σ², θ(q) ≡ m(m − R₀σ²) �
 - Note: S(ℚ) is expected Zariski dense (fibres over q are 2-coverings of C_{βθ(q)}, about half with
   positive rank), so the obstruction is to explicit/uniform witnesses, not to existence; proving
   existence for one q is again a positive-rank statement for C_{βθ(q)} (= CR₃ shape).
+
+## E2. θ = ±1 with bounded multipliers on real test-site inputs (VERIFIED, `e2_theta1.py`, `e2_out.txt`)
+Inputs: n ∈ {1,2,3}, κ = 1, (h, s₀) ∈ {(2,2n), (3,2n), (−1,n)}, η = ±1, q ∈ {0, 1/2}: 30 inputs.
+B = N/D built from the Lean formulas (k0.py). Checked exactly: ε m₀ D (m₀k²D − N) ∈ □ for all
+signed m₀ ⊆ S ∩ (supp N ∪ odd-supp D) (S = primes ≤ 324), 1 ≤ k ≤ 256, ε = ±1.
+Outcome: 0 hits on 30/30 inputs. N has 356-4000+ digits, D 210-2000+ digits; reduced D is never a
+square (for free q the admissibility condition IsSquare(B.den) is not automatic), so by S3(b) even
+unbounded S-integral k fails unless the prime-to-S part of D is a square. D has prime factors
+> 324 (e.g. 593, 8273, 81611), none in S. Runtime ≈ 50 min.
