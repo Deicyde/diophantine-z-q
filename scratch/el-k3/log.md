@@ -83,3 +83,5 @@ rs-pole §2.2, cr3-map-literature R3). Φ(B) with multiplier m ⇔ X_{β_m,θ_m}
   gives Γ through it only if such a curve exists; conversely Γ gives points iff Γ̃ is a split conic).
 - So the only θ-uniform source of points (case B conics w² = θh(z), soluble by Hasse–Minkowski
   from local data) is absent; this is the precise form in which the K3 geometry fails.
+
+### S7. Deliverables written: docs/research/el-k3.md, .fleet/el-k3.md (verdict: very low).
