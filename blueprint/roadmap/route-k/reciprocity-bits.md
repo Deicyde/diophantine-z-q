@@ -4,7 +4,7 @@ declaration: theorem
 origin: background
 statement: formalized
 proof: formalized
-lean: ZInQ.RouteK.legBit_reciprocity, ZInQ.RouteK.lamBit_eq, ZInQ.RouteK.muBit_eq, ZInQ.RouteK.legBit_mul, ZInQ.RouteK.legBit_prod, ZInQ.RouteK.legBit_eq_zero_iff, ZInQ.RouteK.legBit_symm_of_one_mod_four, ZInQ.RouteK.legBit_symm_of_three_mod_four
+lean: ZInQ.RouteK.legBit_reciprocity, ZInQ.RouteK.lamBit_eq, ZInQ.RouteK.muBit_eq, ZInQ.RouteK.legBit_mul, ZInQ.RouteK.legBit_prod, ZInQ.RouteK.legBit_eq_zero_iff, ZInQ.RouteK.legBit_symm_of_one_mod_four, ZInQ.RouteK.legBit_symm_of_three_mod_four, ZInQ.RouteK.legBit_eq_iff_legendreSym, ZInQ.RouteK.natCast_zmod_ne_zero_of_prime_ne
 ---
 
 # Quadratic reciprocity in residue bits
@@ -14,7 +14,8 @@ $$[q/p]+[p/q]=\lambda_p\lambda_q,\qquad\lambda_p=[p\equiv3\pmod4],\qquad
 \mu_p=[p\equiv3,5\pmod8],$$
 and $[ab/p]=[a/p]+[b/p]$ for integers $a,b$ prime to $p$ (so the bit of a finite product of
 integers prime to $p$ is the sum of their bits). For $a$ prime to $p$, $[a/p]=0$ if and only if
-$(a/p)=1$.
+$(a/p)=1$; more generally, for $b\in\mathbb F_2$, $[a/p]=b$ if and only if $(a/p)=(-1)^b$. A prime
+$q\ne p$ is prime to $p$.
 
 These are quadratic reciprocity, its two supplementary laws and the multiplicativity of the
 Legendre symbol, rewritten in $\mathbb F_2$. In particular, for a prime $r\equiv1\pmod4$ the bits

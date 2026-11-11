@@ -12,8 +12,8 @@ lean: ZInQ.Compiler.NodeCheck.HaltingAddMulCheck, ZInQ.Compiler.NodeCheck.haltin
 The node list of the universal halting circuit $\mathcal H$ has exactly $125{,}307$ additions
 and $98{,}361$ multiplications, hence $293{,}568$ nodes in all.
 
-So the bounds of the [node statistics](halting-node-check.md) are attained. No other statement
-uses the equality.
+So the bounds of the [node statistics](halting-node-check.md) are attained. Apart from a form of the
+main theorem that takes it as a hypothesis, no other statement uses the equality.
 
 **Proof sketch.** A closed computation: run the construction with its hash-consing table and
 count the node kinds. The bounds give one inequality; the other needs every request not

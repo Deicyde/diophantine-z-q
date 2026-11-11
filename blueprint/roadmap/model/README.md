@@ -1,3 +1,7 @@
+---
+article_id: af_82e0b8cb2471ff532b6f5e24
+---
+
 # The elliptic model of integer indices
 
 The polynomial never manipulates an integer index directly. It represents the index $n$ by

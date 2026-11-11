@@ -1,3 +1,7 @@
+---
+article_id: af_a94e934a85998bca9239cff7
+---
+
 # Fixed constants and the guard product
 
 A fixed integer expression is built from literals, references, arithmetic, powers,

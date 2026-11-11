@@ -67,3 +67,11 @@ import ZInQKernel.SieveVendor
 import ZInQKernel.DensityCM
 import ZInQKernel.DensitySieve
 import ZInQKernel.RouteK.Rank5b
+import ZInQKernel.RouteK.RankMW
+import ZInQKernel.RouteK.Rank5bSec3
+import ZInQKernel.RouteK.Rank
+import ZInQKernel.RouteK.RankVariants
+import ZInQKernel.RouteK.RankDL
+import ZInQKernel.RouteK.RankInf
+import ZInQKernel.RouteK.RedeiKernel
+import ZInQKernel.RouteK.Redei

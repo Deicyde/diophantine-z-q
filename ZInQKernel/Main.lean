@@ -184,7 +184,7 @@ theorem exists_bounded_integer_polynomial_defining_integers_of_greenTaoDense
   exists_bounded_integer_polynomial_defining_integers_of_goodPrimeAP hH hCR
     (goodPrimeAP_of_greenTaoDense hGT hD)
 
-/-- **Main theorem, under the narrowest hypotheses so far.** Under H (`SixContactMin`), CR₃^Sel
+/-- **Main theorem from H, CR₃^Sel and route AP's two inputs.** Under H (`SixContactMin`), CR₃^Sel
 (`RouteK.Selmer.CertifiedRankSel`, stated with the textbook 2-Selmer group), Szemerédi's theorem in
 the primes (`GreenTaoDense`) and the density part of Proposition D (`GoodPrimeDensity`), there is an
 integer polynomial in `292890231905` variables, of degree below `2↑↑7` and with coefficients below

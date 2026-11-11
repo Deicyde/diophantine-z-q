@@ -1,3 +1,7 @@
+---
+article_id: af_395622cd27cfa2cf768d9408
+---
+
 # Natural constructions and the power interface
 
 The compiler writes its conditions as formulas over integer polynomials with fresh

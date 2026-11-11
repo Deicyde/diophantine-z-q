@@ -22,6 +22,12 @@ Through Proposition 0 this says that $C_n$ and $C_{n\theta}$ have 2-Selmer group
 $3$ in which $\beta$ is a first Kummer coordinate. The construction uses
 $\omega(\beta)+\omega(\theta)$ auxiliary primes.
 
+Along the way: for admissible $B$, a signed divisor $m$ of $2730$ with $\beta$ odd and
+$|\beta|\equiv7\pmod8$, and a prime $p_0$ dividing $\beta$, the triple $\beta,\theta,p_0$ satisfies
+the hypotheses of the realization: $\beta$ is squarefree, $\theta>0$ is squarefree with
+$\theta\equiv1\pmod8$, $\beta$ and $\theta$ are coprime, $[\beta/\ell]=0$ for every prime
+$\ell\mid\theta$, and $[\theta/p]=0$ for every prime $p\mid\beta$.
+
 **Proof sketch.** By the multiplier lemma choose $m$ with $\beta$ odd and $|\beta|\equiv7\pmod8$;
 then $P(\beta)\ne\emptyset$, and by (θ1)–(θ4) the pair $\beta,\theta$ satisfies the hypotheses of
 the realization (with $\beta$, $\theta$ squarefree as squarefree parts of nonzero rationals, and
@@ -32,6 +38,7 @@ $|n\theta|=d_1\theta=d_2$, and the realization gives every assertion; $d_2\equiv
 
 - [Admissible inputs, the squarefree part, $\beta$ and $\theta$](squarefree-part.md)
 - [The configuration of an odd number and Selmer certificates](prime-configuration.md)
+- [Residue bits](residue-bits.md)
 
 ## Proof depends on
 

@@ -1,3 +1,7 @@
+---
+article_id: af_02fccc89c41769dd575a610c
+---
+
 # The universal interpreter and the five-input circuit
 
 Programs are numbered by $e+1=2^w(2D+1)$, with four base-$2^w$ digits of $D$ per state;

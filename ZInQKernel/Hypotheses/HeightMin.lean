@@ -24,6 +24,17 @@ named: `Mult.S_mul = S_ht ∪ 𝓗 ∪ supp(c_*)`, with `S_ht` the primes `≤ 3
 catalogue of twenty-two primes above `324` in each unit class modulo `W = 4·324#`, and
 `c_* = 4 M₀` with `M₀` the least formal multiple of `N_s`; its defining expression is not
 readable inline.
+
+## Trust
+
+`SixContactMin` is not proved in Lean. It is the instance `S = S_mul`, `R = D` of
+`SixContactEstimate`, and `sixContactMin_of_sixContactEstimate` (`ZInQKernel/Main.lean`) derives
+it in Lean. Its justification is therefore exactly that of Theorem 4.1, recorded in the module
+docstring of `Hypotheses/Height.lean` and in `docs/research/h-trust.md`. The instance is
+admissible because `S_mul` consists of primes, contains the primes `≤ 324`, `max S_mul ≤ D`, and
+`10¹² ≤ D`; the proof of Theorem 4.1 uses `R` only through these lower bounds. H cannot be
+narrowed further or removed (`docs/research/h-map.md` §§1, 3.1, 3.3): the two consumers need a
+bound that is effective and uniform in `u`.
 -/
 
 namespace ZInQ
@@ -32,7 +43,10 @@ open scoped BigOperators
 
 /-- **Hypothesis H, minimal form.** For every `u ∈ ℚ \ 𝒞`, `h(u) ≤ H₆(D) · M_{S_mul}(u)²⁴`, where
 `H₆(D) = A⁽⁰⁾_ht = 2·10¹³ max(1, C_cm, (D^(D E₀))¹⁷)`. This is the instance `S = S_mul`, `R = D`
-of the six-contact estimate `SixContactEstimate`. -/
+of the six-contact estimate `SixContactEstimate`. It is the only form of H that the main theorems
+assume. Its trust statement is that of Theorem 4.1: refereed theorems plus model-reviewed
+arguments, with no unpublished upstream proof supplement (`Hypotheses/Height.lean`,
+`docs/research/h-trust.md`). -/
 def SixContactMin : Prop :=
   ∀ u : ℚ, u ∉ contactSet →
     ratHeight u ≤ heightH6 (heightD : ℝ) * (contactSupport Mult.S_mul u : ℝ) ^ 24

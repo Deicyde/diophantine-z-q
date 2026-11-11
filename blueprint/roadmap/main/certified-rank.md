@@ -17,35 +17,50 @@ $a_0=[a<0]$, $a_1=0$ and $u_p=[p\mid a]$ for the primes $p\mid d$. Then $C_d$ ha
 point $(x,y)$ with $x\ne0$ and $x/a$ a square in $\mathbb Q$.
 
 CR₃ is a statement about Legendre symbols and rational points only; no Selmer group enters it.
-It rests on the following theorems. Proposition 0 is now formalized
+It rests on the following theorems. Proposition 0 is proved
 ([Proposition 0](../selmer/proposition-0.md)), so CR₃ follows from its Selmer form
-([CR₃ from its Selmer form](../selmer/certified-rank-of-sel.md)), and so is the row-5b determinant
-of route (i) ([Theorem 4.3](../rank-5b/theorem-4-3.md)); the rank-one theorems are not.
+([CR₃ from its Selmer form](../selmer/certified-rank-of-sel.md)). So are the elementary steps of
+route (i), namely the rule of row 5b ([Theorem 4.3](../rank-5b/theorem-4-3.md)) with
+[Corollary 4.4](../rank-5b/corollary-4-4.md), the identity of the row-5b determinant with the genus
+sum ([Theorem 3.6](../rank-5b/genus-sum/theorem-3-6.md)) and
+[Rédei's formula](../redei/redei-formula.md), and so is the last step below, from rank one to every
+Selmer class ([RK9](../rank/two-descent/every-selmer-class.md), with
+[Mordell–Weil for $C_d$](../rank/mordell-weil/finite-generation.md)). The rank-one theorems are not
+proved here.
 
 - *Proposition 0* (descent-alt §4.1; its place-2 rows for $d\equiv5\pmod8$ are rechecked in
   slot-k §2.1) identifies the solutions of $\Sigma(\mathcal C_d)$ with the 2-Selmer group
   $\mathrm{Sel}_2(C_d)$, so the hypotheses say that $\dim\mathrm{Sel}_2(C_d)=3$ and that $a$ is a
   first Kummer coordinate of $\mathrm{Sel}_2(C_d)$.
-- *Rank one*, by either of two routes. (i) For $d\equiv5\pmod8$ and a first coordinate with
-  $|a|\equiv3\pmod4$, an elementary computation (the row-5b determinant of Smith's Monsky
-  matrices, reproved in tyz-5b §§2–4) shows that the genus sum $T_{5b}(d)$ of Tian, Yuan and Zhang
-  is odd; their Theorem 3.5 and the argument of the proof of their Theorem 3.5(2), as completed in
-  nt-tyz §4 (Proposition N), then give that $L(C_d,s)$ vanishes to order exactly one at $s=1$, and
-  Gross–Zagier–Kolyvagin give $\operatorname{rank}C_d(\mathbb Q)=1$. Both are published; the form
+- *Rank one*, by either of two routes. (i) For $d\equiv5\pmod8$ with $|\mathrm{Sel}_2(C_d)|=8$ and a
+  first coordinate with $|a|\equiv7\pmod8$, the shape CR₃ assumes, an elementary computation (the
+  row-5b determinant of Smith's Monsky matrices, reproved in tyz-5b §§2–4) shows that the genus sum
+  $T_{5b}(d)$ of Tian, Yuan and Zhang is odd; their Theorem 3.5 and the argument of the proof of
+  their Theorem 3.5(2), as completed in nt-tyz §4 (Proposition N), then give that $L(C_d,s)$
+  vanishes to order exactly one at $s=1$, and Gross–Zagier–Kolyvagin give
+  $\operatorname{rank}C_d(\mathbb Q)=1$. Both are published; the form
   of TYZ used is the one their proof gives, which rests on their Proposition 3.4, whose proof is a
   sketch, and nt-tyz §4 proves that form directly. (ii) Kriz's 2-converse
   theorem (Theorems 10.13 and 10.17(2), an unrefereed preprint) with the corank lemma
-  (Poonen–Stoll) gives $\operatorname{rank}C_d(\mathbb Q)=1$ and $Ш(C_d)[2]=0$.
+  (the Cassels–Tate pairing on $Ш(C_d)/Ш(C_d)_{\rm div}$ is nondegenerate and alternating, so
+  $\dim(Ш/Ш_{\rm div})[2]$ is even; no finiteness of $Ш$ is assumed) gives
+  $\operatorname{rank}C_d(\mathbb Q)=1$ and $Ш(C_d)[2]=0$.
 - Then $\dim C_d(\mathbb Q)/2C_d(\mathbb Q)=2+1=\dim\mathrm{Sel}_2(C_d)$, so the Kummer map is onto
-  $\mathrm{Sel}_2(C_d)$ and the class $a$ comes from a point $P$, which may be taken of infinite
-  order (replace $P$ by $P+2Q$). The torsion classes are $1,-1,d,-d$, which $a$ is not since
+  $\mathrm{Sel}_2(C_d)$ ([RK9](../rank/two-descent/every-selmer-class.md)) and the class $a$ comes
+  from a point $P$, which may be taken of infinite order (replace $P$ by $P+2Q$). The torsion
+  classes are $1,-1,d,-d$, which $a$ is not since
   $|a|\equiv7$ and $d\equiv5\pmod8$. A point of infinite order has $x\notin\{0,\pm d\}$, so its first
   Kummer coordinate is the class of $x$: $x\in a\mathbb Q^{*2}$.
 
 The congruences $d\equiv5$, $|a|\equiv7\pmod8$ are exactly what the descent lemma produces, so
 CR₃ is as narrow as the proof allows short of naming the configurations of the slot
-construction. It is not proved here; it is a hypothesis of the main theorem, and it implies
-pole completeness for the pole polynomial with the curves $x+\ell$.
+construction. A form that names them, with positive rank as its conclusion, is
+[CR₃^DL,Rk](../rank/two-curves/certified-rank-dl-rk.md); it follows from the positive-rank forms
+CR₃^Rk and CR₃^TYZ,Rk, and [the main theorem also holds](main-theorem-two-curves.md) under it and
+[under the positive-rank forms](main-theorem-positive-rank.md) of the hypothesis
+([the positive-rank chapter](../rank/README.md)). CR₃ is not proved here; it is a
+hypothesis of the main theorem, and it implies pole completeness for the pole polynomial with the
+curves $x+\ell$.
 
 ## Depends on
 
@@ -59,4 +74,4 @@ pole completeness for the pole polynomial with the curves $x+\ell$.
 - [Tian-Yuan-Zhang](../../sources/route-k-locators.md#tian-yuan-zhang)
 - [Gross-Zagier-Kolyvagin](../../sources/route-k-locators.md#gross-zagier-kolyvagin)
 - [Kriz](../../sources/route-k-locators.md#kriz)
-- [Poonen-Stoll](../../sources/route-k-locators.md#poonen-stoll)
+- [Cassels-Tate](../../sources/route-k-locators.md#cassels-tate)

@@ -1,3 +1,7 @@
+---
+article_id: af_9f2ff1ce5c9780216391c542
+---
+
 # Bounds for the fixed constants
 
 Only a few small facts are computed: the size of the primorial, the factorial $324!$ to

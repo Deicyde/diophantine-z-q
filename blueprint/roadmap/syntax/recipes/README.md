@@ -1,3 +1,7 @@
+---
+article_id: af_519a7625ef80e8c6f677962e
+---
+
 # Recipes and witness accounting
 
 A natural circuit is translated into a model-evaluation recipe: every variable and node

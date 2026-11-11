@@ -1,3 +1,7 @@
+---
+article_id: af_d02df4812f02a2aeb287c2a2
+---
+
 # The certificate and its semantics
 
 This section fixes the constants of the multiplication certificate and translates each of

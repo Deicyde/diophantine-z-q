@@ -1,3 +1,7 @@
+---
+article_id: af_ac4bae90b32cf2c391e77669
+---
+
 # Exact precision computation and polynomial compilation
 
 The ordinary-value argument needs one exact computation: from five integers

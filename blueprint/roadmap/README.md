@@ -13,12 +13,17 @@ first variable is exactly $\mathbb Z$.
 The theorem is proved from two explicitly stated arithmetic hypotheses, the six-contact height
 estimate and a certified rank hypothesis for congruent number curves, whose proofs lie far
 outside current formal libraries. The manuscript's other inputs are proved. Pole completeness
-follows from the certified rank hypothesis for a variant of the manuscript's pole polynomial;
-the bound for the prime catalogue follows from an effective Dirichlet theorem; the Mordell–Weil
-theorem for the generator curve, first stated as a hypothesis, is proved; and the
+follows from the certified rank hypothesis for a variant of the manuscript's pole polynomial,
+and also from positive rank of the congruent number curves that hypothesis covers, or of only the
+two curves the descent constructs; the bound for the prime catalogue follows from an effective
+Dirichlet theorem; the Mordell–Weil theorem for the generator curve, first stated as a
+hypothesis, is proved; and the
 twenty-two-prime pattern is not needed: a change in the completeness proof, route AP, uses
 long arithmetic progressions of good primes instead, which come from Szemerédi's theorem in the
 primes (from a Lean proof of the Green–Tao theorem) and a density theorem for those primes.
+The passage from positive rank to points in every Selmer class rests on the complete 2-descent
+and the Mordell–Weil theorem for these curves, and Smith's row-5b identity and Rédei's formula
+let the hypothesis be stated in Tian, Yuan and Zhang's terms; all four are proved.
 Everything else is proved, with every finite computation checked by the Lean kernel.
 
 ## Chapters
@@ -37,3 +42,5 @@ Everything else is proved, with every finite computation checked by the Lean ker
 - [The density of good slope primes (Proposition D)](density/README.md)
 - [The explicit system is the 2-Selmer group (Proposition 0)](selmer/README.md)
 - [The row-5b determinant](rank-5b/README.md)
+- [Rédei's formula for the 4-rank of class groups](redei/README.md)
+- [The rank hypothesis as positive rank](rank/README.md)

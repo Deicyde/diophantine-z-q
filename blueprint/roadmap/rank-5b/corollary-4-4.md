@@ -17,8 +17,8 @@ For class $5$ the solution has $a_1=0$, so $|a|=\prod_pp^{u_p}$, and its class m
 $y\cdot u=[\,|a|\equiv3\pmod4\,]=1$. The solution is not torsion: the torsion first coordinates
 have absolute value $1$ or $n$, both $\equiv1\pmod4$. Theorem 4.3 gives $\det M_{5b}=y\cdot u=1$.
 
-The note states the corollary for a first coordinate with odd part $\equiv3\pmod4$; the Lean
-statement takes the shape $|a|\equiv7\pmod8$ of the hypothesis CR₃^Sel, a special case.
+The note states the corollary for a first coordinate with odd part $\equiv3\pmod4$; the
+statement here takes the shape $|a|\equiv7\pmod8$ of the hypothesis CR₃^Sel, a special case.
 
 ## Depends on
 

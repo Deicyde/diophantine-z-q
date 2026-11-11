@@ -1,3 +1,7 @@
+---
+article_id: af_edcebeb08b4defc20402def1
+---
+
 # Approximation for every fixed shift
 
 The precision computation of the compiler chapter decides, for five integers

@@ -1,3 +1,7 @@
+---
+article_id: af_264464403ceb2da5ad9eaf75
+---
+
 # Completeness: true triples are accepted
 
 Completeness says that the multiplication template accepts

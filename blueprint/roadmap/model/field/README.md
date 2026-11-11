@@ -1,3 +1,7 @@
+---
+article_id: af_ea28059799ebdf10c248728c
+---
+
 # The field, the curve and division polynomials
 
 Everything takes place over $K_0=\mathbb Q(s)$, $s^2=2$, written in the basis $1,s$, so that
