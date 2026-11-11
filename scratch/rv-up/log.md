@@ -60,3 +60,8 @@ Verdict item 1: CONFIRMED (with locator correction for the constants block; cons
 - scratch/h-v14/igusa_check.py (read): derives c1..c4 from LY Ex.30 data at P_-4 (Y1, u=1728) and P_-24 (Y'5,
   x=-6+6sqrt(-3)), then [J2..J10](j) and the theta constant 3779136. It does NOT consume LY eq.(2); its -19 line is an
   arithmetic tautology (c1*81/64 = 81/64), not an input. So F1's computation route = upstream's ly-d6 route.
+- scratch/rv-up/bg37.py (output bg37.output.txt): for generic y^2=f(x^2), the Weierstrass points (+-s,0), f(s^2)=0,
+  have equal images under both bielliptic quotients; the separation claim fails exactly at iota-fixed points.
+  deg phi = 4 from phi phi^dagger = diag([2],[2]) (STANDARD; Frey-Kani 1991 / Kani: J ~ (E1xE2)/graph of E1[2]->E2[2]).
+  The record's numbers for C(-24) (disc f = 442368 = 2^14*3^3, f(0)=1-sqrt 2) NOT checked: BG's curve not available here.
+  The printed BG sentence itself NOT read (no copy of CJM 60 here); verdict on "printed sentence" rests on upstream's quotation.
