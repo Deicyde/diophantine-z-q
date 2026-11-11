@@ -107,7 +107,7 @@ def case(n, kap, c, q=Fr(3, 7), eta=1):
     return 1 - 12 - 2*vTh, vTh
 
 if __name__ == "__main__":
-    pairs = [(2, 1), (3, 1), (5, 2), (-7, 3), (11, 1)]
+    pairs = [(2, 1), (3, 1), (5, 2), (-3, 1), (4, 1)]
     out = []
     for n, kap in pairs:
         for c in contacts:

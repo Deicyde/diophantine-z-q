@@ -39,3 +39,12 @@ contact c (rv-barrier C5 with arbitrary D_j; E1 below with genuine label coordin
   rational point on a non-RC variety (column form: a curve of genus >= 1 in (q, L); t-slice through a
   fixed label: a curve of genus >= 2 by Riemann-Hurwitz over the six contacts) or a point of A(Q)^s on
   a proper subvariety H_{n,lab} (a Mordell-Lang intersection). Neither is supplied by holding a label.
+
+## Step 3: E1 (VERIFIED, `e1_slice_pole.py`)
+
+Input: 5 genuine label pairs (n, kappa) in {(2,1),(3,1),(5,2),(-3,1),(4,1)}, h = 2kappa, s0 = 2kappa n,
+tests D_j from [h]P0, [s0]P0, [h-kappa]P0, [s0-kappa n]P0 on E/K0 (exact, Fractions), q = 3/7, eta = 1;
+6 contacts each: 30 cases. Laurent series in e = t - c.
+Outcome: v_e(Theta) = 6 and v_e(B) = -11 in 30/30 cases. So (P11) holds on slices with genuine labels
+(rv-barrier C5 had used arbitrary D_j). A first run with (-7,3), (11,1) hit the 600 s cap after 19 cases
+(all -11); those pairs were replaced.
