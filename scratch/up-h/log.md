@@ -67,3 +67,8 @@
 
 ## Step 9 (script)
 - scratch/up-h/checks.py + checks.output.txt (run with python3 -I on N5 and the four upstream sources): sec:height N5 L377-972, V13 L448-1048, V14 L448-1680, V15/V16 L473-1704; constants+statement identical in all five; diff N5→V13 = insert V13 L449-453 only; V14→V15 = 5 one-line replacements (V14 L784-785, 808, 870, 912, 1117 → V15 L809, 832, 894, 936, 1141); V15→V16 = 0. Supplement citations in sec:height: N5 0, V13 0, V14 10, V15 6, V16 6 ("weighted-project" earlier was the word "weighted-projective", not a key). log(π√2)=1.4913<3/2; log(2/√π)=0.1208<1. Upstream log2 claims hold: log2 H_*≈4645521<4783227; log2 H_19≈2093447<2093966; log2 C_3≈330681<330770 (log2 B_*≈109444.8).
+
+## Step 10 (locators for the note)
+- Correction: V16 Buzzard Thm 2.1/Cor 2.3 at L835 (not L837); Buzzard p.592 uniqueness L730, L1038; Def 1.1 p.593 L851. Deligne 1971: §4.9 L979; §§4.8-4.10 L995; §4.10 L1012; Thm 4.7 L1036; §§4.11-4.12 L1057; §4.15 L1069; Prop 1.15 L1074; §§4.16-4.17 L1082; Thm 4.21, Cor 5.7, Ex 5.8 L1099; Deligne 1979 2.2.5, 2.3.1 L1101.
+- Offsets: V13 = N5 + 76 inside sec:height after L378 (N5 L564→V13 L640, L578→L654, verified); V15/V16 = V14 + 25 up to V14 L784, + 24 from V14 L786 (checks.output.txt).
+- upstream docs/theorem-application-audit/evidence/kato-carayol.md: no hit for "9.4"/"p.188"/"14.10" (Kato §9.4 locator not shown as audit-read there).
