@@ -72,3 +72,5 @@ import ZInQKernel.RouteK.Rank5bSec3
 import ZInQKernel.RouteK.Rank
 import ZInQKernel.RouteK.RankVariants
 import ZInQKernel.RouteK.RankDL
+import ZInQKernel.RouteK.RedeiKernel
+import ZInQKernel.RouteK.Redei
