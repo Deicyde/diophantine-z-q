@@ -314,3 +314,15 @@ these, the last two are textbook theorems; the first rests on TYZ together with 
 | `conventions_check.py` | conductor, root number, minimality, reduction types, `a_p` on 20 curves | 0 failures (`out_conventions_check.txt`) |
 | `row5a_check.py` | class of the Selmer generator against `T5a`, `T5b` on 30 minimal-Selmer curves | `|a| ≡ 3 (4)` ⟹ `T5b = 1` (12/12); `|a| ≡ 1 (4)`: `T5a = 1` on 9/11 (`out_row5a_check.txt`) |
 | `log.md` | step log | — |
+
+## Note (2026-11-11, after rv-lit)
+
+- §0, §2.2 and §3: `FunctionalEquation5` as drafted (for every `s`) is false in Lean. Mathlib's
+  `Complex.Gamma` is 0 at `0, −1, −2, …`, so at `s = 0` the identity forces `L(C_d, 2) = 0`. The
+  adopted form (`ZInQKernel/Hypotheses/CR3Literature.lean`) holds for `0 < Re s < 2` only; it is a
+  consequence of the functional equation and suffices, since the proof uses `s = 1`. The adopted
+  Gross–Zagier Prop is `GrossZagier`. Its source for `L(E^K, 1) ≠ 0` is Bump–Friedberg–Hoffstein
+  1990 (through Waldspurger) or Friedberg–Hoffstein 1995; Murty–Murty 1991 concerns derivatives
+  (rv-lit N1).
+- §1.3: "only TYZ among refereed theorems" assumes that Kriz's 2-converse (arXiv:2002.04767) is
+  unrefereed; its publication status was not checked (rv-lit N2).

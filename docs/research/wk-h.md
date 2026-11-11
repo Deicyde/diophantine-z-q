@@ -377,3 +377,8 @@ The modularity half, which holds every new argument, would be unchanged.
 `JHeightBound Mult.S_mul`, with H's docstring and trust statement moved to it. Then it runs a
 full build and `print_axioms`. That task should first ask the owner whether the `j`-form, a
 statement about the Hauptmodul value rather than about `u`, is the preferred hypothesis.
+
+## Note (2026-11-11, after rv-lit)
+
+- §1: A9, C3 and C9 each contain a passage that is new in N5, so about 12 of the 36 steps are
+  applications of well-known theorems, not 15 (rv-lit N3). The verdict is unchanged.

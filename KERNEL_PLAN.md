@@ -66,6 +66,17 @@ Selmer condition, and in Lean it implies every other form of CR₃. The forms th
 `CertifiedRankDLAdmRk` (the paragraphs on CR₃'s forms below).
 The two hypotheses' trust statements, which list every step with its supplier, published or not,
 are `docs/research/h-trust.md` and `docs/research/cr3-trust.md`.
+`ZInQKernel/MainLiterature.lean` splits CR₃ further, into three Props over Mathlib's L-series of an
+elliptic curve (`ZInQKernel/Hypotheses/CR3Literature.lean`): `Literature.GrossZagier` (for every
+elliptic curve over ℚ, a simple zero of `L(E, s)` at `s = 1` gives a point of infinite order),
+`Literature.FunctionalEquation5` (the functional equation of `L(C_d, s)` with conductor `32d²` and
+root number `−1`, on the critical strip) and `Literature.TYZRow5b` (`L(C_d, s)` vanishes to order
+at most 1 at `s = 1` when `T5bCl d = 1`). The first two are textbook theorems. The third is
+Tian–Yuan–Zhang's Theorem 3.5(2) in the reading that Proposition N proves, which no refereed text
+prints (`docs/research/wk-cr3.md`, reviewed in `docs/research/rv-lit.md`). The same file has
+variants that assume H in its j-form `JHeight.JHeightBound` (`ZInQKernel/Hypotheses/JHeight.lean`),
+a bound on the height of the Hauptmodul value `J(u)`. It implies `SixContactMin` in Lean (step F4
+and the final numerics), so its trust statement is steps A1–F3 of h-trust (`docs/research/wk-h.md`).
 
 H enters in its minimal form `SixContactMin` (`ZInQKernel/Hypotheses/HeightMin.lean`): the one
 inequality `h(u) ≤ H₆(D) M_{S_mul}(u)²⁴` for `u ∈ ℚ \ 𝒞` that the proof uses, the instance
