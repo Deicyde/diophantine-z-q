@@ -89,3 +89,8 @@ many `γ` where it meets the guard locus). Contradiction. ∎
 **Scope.** Not excluded: per-instance constructions not given by one algebraic family over a
 dense subset of `P` (e.g. existence theorems such as CR₃, or infinitely many families indexed by
 arithmetic data each covering a thin set).
+
+## C5. Odd pole along the curves of S3 Cor. 2 (`c5_pole_order.py`, <1 s) — VERIFIED
+Test-site formulas (`R₀ = 2730⁶|F(n)|`, `a₀ = 1 − R₀q²`, `W = Π(1 + R C_j²)` over `ℚ(√2)`,
+`Θ = Tr W⁻¹`, `B = R/Θ²`), random fixed `D_j ∈ ℚ(√2)`, `n = c + p`, `q = q₀p^{−M}`:
+`v_p(B) = 15 − 52M` in 12/12 cases (`p ∈ {1000003, 998244353}`, `c ∈ {0, −24}`, `M = 1,2,3`).
