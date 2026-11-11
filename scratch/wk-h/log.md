@@ -18,3 +18,10 @@
 - N5 L858-964 read: proof factors through h_F(A): (A–D) ⇒ A is an L'-isogeny factor of J₁(N),
   N ≤ QM², [L':ℚ] ≤ QM; (E) ⇒ h_F(A) ≤ Q¹⁷M²⁴; (F) ⇒ h(u) ≤ 10¹³ max(1,h_F(A)).
 - J(u) = −57600 F(u)²/G(u)⁶ (scratch/h-b1/b1_checks.py l.20).
+
+## Step 3: F4 certificate (scratch/wk-h/f4_cert.py, output f4_cert.output.txt)
+- Res(F,G) = 4081466880000000000 = 2^18 3^13 5^10.
+- 3x^7 = A1 F_h + B1 G_h, 104976000000 y^7 = A2 F_h + B2 G_h, A_i, B_i integer binary forms of
+  degrees 1, 5 (ℓ¹ norms 20333129, 184047851). VERIFIED (sympy expand = 0).
+- Consequence (argument, to be checked in Lean): for coprime a,b, gcd(F_h(a,b),G_h(a,b)) divides
+  3·2^10 3^8 5^6, and 12 h(u) ≤ h(J(u)) + c with c ≈ 300 (N5 F4: h(u) < h(j) + 74).
