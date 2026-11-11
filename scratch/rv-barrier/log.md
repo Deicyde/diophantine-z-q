@@ -79,3 +79,8 @@ Outcome: v_p(B) = 15 - 52M for M >= 1 and v_p(B) = -11 for M = 0, 30/30 matches.
 New: M = 0 (q fixed, p-integral) already gives an odd pole (order 11) along n = c + lam, so Cor 2 does not
 need q -> infinity; gamma0 = (n = c, q0, D) is then a point of the affine P itself (removes the
 boundary-point repair for Cor 2). Model check: tests C_j = D_j/F as in TestDivisibility.lean (hC).
+
+## Step 8. Deliverables
+docs/research/rv-cr3-barrier.md and .fleet/rv-barrier.md written. Verdicts: Theorem G holds after R1-R3
+(global paragraph refuted as stated, R5); Lemma G holds (R6; Cor 1/3 after R7); Lemma G' strengthening.
+Main scope gap: N1 ("CR3's kind" unproved) and N2 (global soundness).
