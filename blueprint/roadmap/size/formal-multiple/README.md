@@ -1,3 +1,7 @@
+---
+article_id: af_bfa033913928de85d7035f39
+---
+
 # The least formal multiple
 
 The constant $M_0=\mathrm{LFM}(N_s)$ is the least $m\ge1$ for which the normalized

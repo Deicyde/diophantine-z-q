@@ -1,3 +1,7 @@
+---
+article_id: af_5cdfffe9bd1cdcaab466803e
+---
+
 # Formulas, gadgets and witness scope
 
 Templates are generated from formulas: equality is a difference, conjunction a sum of

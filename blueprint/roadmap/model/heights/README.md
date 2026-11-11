@@ -1,3 +1,7 @@
+---
+article_id: af_53e904d4ca57fda3b5845a58
+---
+
 # Heights and the finite search
 
 The $x$-height on $C$ changes under doubling by a factor four up to the explicit constants

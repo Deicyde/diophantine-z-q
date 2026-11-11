@@ -1,3 +1,7 @@
+---
+article_id: af_adb97b4864b033078289530c
+---
+
 # The six local tests
 
 The relation Test (defined with the value templates) puts the six tests $D_1,\dots,D_6$ over

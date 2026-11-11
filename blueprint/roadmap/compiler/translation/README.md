@@ -1,3 +1,7 @@
+---
+article_id: af_c8f84bf89012dbc5e6e05b65
+---
+
 # Translation to rational point codes
 
 The natural precision polynomial speaks about natural numbers; the target polynomial has

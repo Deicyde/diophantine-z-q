@@ -1,3 +1,7 @@
+---
+article_id: af_fdd954ec51fe3a6053f6fb98
+---
+
 # Syntax heights and the final comparison
 
 The specified polynomial is a compact syntax, not an expanded monomial list: node lists

@@ -1,3 +1,7 @@
+---
+article_id: af_52305b67e76e99d13d5538c5
+---
+
 # Soundness: accepted triples are true
 
 Soundness says that every rational triple accepted by the multiplication template consists

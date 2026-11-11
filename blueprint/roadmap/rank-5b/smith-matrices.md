@@ -25,7 +25,9 @@ $M_1$ is symmetric, and by quadratic reciprocity $a_{pq}+a_{qp}=y_py_q$ for $p\n
 $L+L^{\mathsf T}$ has entries $y_py_q$ off the diagonal and $0$ on it.
 
 These are the matrices of row 5b of Smith's Table 2; row 5b says that for $n\equiv5\pmod8$ the
-determinant of $M_{5b}$ is the genus sum $T_{5b}(n)$ of Tian, Yuan and Zhang.
+determinant of $M_{5b}$ is the genus sum $T_{5b}(n)$ of Tian, Yuan and Zhang ([Theorem 3.6](genus-sum/theorem-3-6.md)
+for Rédei's $g$ in Legendre symbols, and with their class numbers through [the agreement of the two
+genus sums](../redei/genus-sums-agree.md), by Rédei's formula).
 
 ## Depends on
 

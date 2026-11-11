@@ -23,7 +23,9 @@ manuscript's $Q_{\rm pole}$ has the factors $A+3e$ and $Az^2+3eH$ (the curves
 $y^2=x(x-\ell)(x+3\ell)$) and derives pole completeness from its restricted converse theorem by a
 simultaneous descent. Here pole completeness is no longer a hypothesis of the main theorem: it
 is proved from the certified rank hypothesis CR₃
-([pole completeness from the certified rank hypothesis](../route-k/pole-completeness-from-cr3.md)).
+([pole completeness from the certified rank hypothesis](../route-k/pole-completeness-from-cr3.md)),
+and also from positive rank on the two congruent number curves of a slot choice, CR₃^DL,Rk
+([pole completeness from CR₃^DL,Rk](../rank/two-curves/pole-completeness-from-dl-rk.md)).
 
 ## Depends on
 

@@ -1,3 +1,7 @@
+---
+article_id: af_255a67c8042b3c09f99de017
+---
+
 # The value templates and their relations
 
 The value relation is assembled from the membership template, three value templates

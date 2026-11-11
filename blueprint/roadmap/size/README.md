@@ -1,3 +1,7 @@
+---
+article_id: af_88f5a1aa1179848ba5e4bf39
+---
+
 # The cutoff and polynomial size
 
 This chapter supplies the quantitative half of input B: the fixed constants of the

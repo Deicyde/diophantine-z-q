@@ -1,3 +1,7 @@
+---
+article_id: af_09a9eac70b552e067c9193a7
+---
+
 # The packed-history compiler
 
 A primitive program with $m$ instructions over $r$ registers is compiled by packing a run of

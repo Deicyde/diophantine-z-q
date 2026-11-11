@@ -53,5 +53,9 @@ $\Sigma(\mathcal C_d)$.
 
 ## The certified rank hypothesis in Selmer form
 
+CR₃^Sel also follows from its positive-rank form CR₃^Rk, which under the same premises asks only
+that $C_d(\mathbb Q)$ have a point of infinite order, by RK9 and Mordell–Weil for $C_d$, both proved
+([the positive-rank chapter](../rank/README.md)).
+
 - [The certified rank hypothesis in Selmer form](certified-rank-sel.md)
 - [The certified rank hypothesis from its Selmer form](certified-rank-of-sel.md)

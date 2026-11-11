@@ -1,3 +1,7 @@
+---
+article_id: af_393f448e6d2767f86dbde8a0
+---
+
 # The alpha and power formulas
 
 The alpha sequence $U_n=\alpha_b(n)$ satisfies $U_0=0$, $U_1=1$, $U_{n+2}=bU_{n+1}-U_n$. It

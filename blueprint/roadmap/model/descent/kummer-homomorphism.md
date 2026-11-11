@@ -4,13 +4,18 @@ declaration: theorem
 origin: background
 statement: formalized
 proof: formalized
-lean: ZInQ.Descent.kummer_add, ZInQ.Descent.kummerHom
+lean: ZInQ.Descent.kummer_add, ZInQ.Descent.kummerHom, ZInQ.Descent.mul_addX_eq, ZInQ.Descent.kummer_two_nsmul
 ---
 
 # The Kummer map is a homomorphism
 
 Let $K$ be a field of characteristic different from $2$ and $b\in K^\times$. The Kummer map
-$\alpha_b:E_b(K)\to K^\times/K^{\times2}$ is a group homomorphism.
+$\alpha_b:E_b(K)\to K^\times/K^{\times2}$ is a group homomorphism. In particular
+$\alpha_b(2P)=1$ for every $P\in E_b(K)$.
+
+Along the way: let $(x_1,y_1)$ and $(x_2,y_2)$ be affine points of $E_b(K)$ that are not negatives
+of each other, let $\lambda$ be the slope of the chord (or tangent) through them, and let
+$x_3=\lambda^2-x_1-x_2$ be the abscissa of their sum. Then $x_1x_2x_3=(y_1-\lambda x_1)^2$.
 
 **Proof sketch.** (Silverman, Proposition X.4.9; Silverman-Tate, Section III.5.) Since
 $\alpha_b(-P)=\alpha_b(P)$ and squareclasses have exponent two, it suffices to show
@@ -22,7 +27,8 @@ gives the claim ($\nu\ne0$). If some $P_i=(0,0)$, then $\nu=0$, the other two ab
 the roots of $x^2-\lambda^2x+b$, and their product is $b=\alpha_b((0,0))$ modulo squares. The
 case analysis matches the chord, tangent and vertical cases of the addition law; in the
 formula for $x(P+Q)$ via the slope, the identity follows from the factorization of the
-cubic above.
+cubic above, with $\nu=y_1-\lambda x_1$. Finally $\alpha_b(2P)=\alpha_b(P)^2=1$, since square classes
+have exponent two.
 
 ## Depends on
 

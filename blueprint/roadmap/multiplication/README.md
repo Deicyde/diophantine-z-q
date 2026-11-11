@@ -1,3 +1,7 @@
+---
+article_id: af_666d246a72a909c31243d8d6
+---
+
 # Multiplication and the finite false-triple guard
 
 The multiplication template is the arithmetic core of the construction: it must accept a

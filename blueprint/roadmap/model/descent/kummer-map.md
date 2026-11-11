@@ -21,7 +21,8 @@ $K^\times/K^{\times2}$ multiplicatively.
   Its values lie on $E_{-4b}:Y^2=X^3-4bX$, by the identity
   $y^2(b-x^2)^2x^2=y^6-4bx^4y^2$ for $y^2=x^3+bx$.
 - The *rescaling* $\lambda_b:E_{16b}\to E_b$ is $\lambda_b(O)=O$,
-  $\lambda_b((x,y))=(x/4,\,y/8)$; it is a bijection with inverse $(x,y)\mapsto(4x,8y)$.
+  $\lambda_b((x,y))=(x/4,\,y/8)$; it is a group isomorphism (the change of coordinates
+  $(x,y)\mapsto(u^2x,u^3y)$ with $u=1/2$), with inverse $(x,y)\mapsto(4x,8y)$.
 
 In this chapter $b=-d^2$ gives $E=E_{-d^2}$, $E'=E_{4d^2}:y^2=x^3+4d^2x$, the isogeny
 $\varphi=\varphi_{-d^2}:E\to E'$ and the dual isogeny
