@@ -84,7 +84,7 @@ labels are morphisms of Q = [kappa]P0: [h]P0 = [2]Q, [s0]P0 = [2n]Q, [h-kappa]P0
   covers Y_i -> A and a Zariski-dense finitely generated Omega in A(k), some finite-index coset of Omega
   misses every pi_i(Y_i(k))) => honest points over a finite-index coset lie on a component W° whose
   normalization is etale over A'; by Serre-Lang (Mumford, Abelian varieties, §18) W° is an abelian
-  variety, psi = phi + c with phi an isogeny of degree delta, c in A'(Q). w is constant on W° (proper).
+  variety, psi = phi + c with phi an isogeny of degree delta, c in A'(Q). (w may have poles on W°; only density is used.)
   Non-dominant components and non-geometrically-irreducible ones carry finitely many honest points
   (Faltings / Mordell-Lang for the cyclic group Z P0 in connected A'; geometric irreducibility).
 - **Isogeny lifting.** [delta]A'(Q) ⊂ phi(W°(Q)) (phi o phi' = [delta]). If w0 lies over Q0 = [kappa0 j0]P0
