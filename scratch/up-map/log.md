@@ -29,3 +29,7 @@
 - V16 is CRLF (use diff --strip-trailing-cr).
 - §6 (N5 1123-1759 vs V16 1899-2569): attribution "adapt [openaihtp, Section 2 and Lemma 6.1]" (V16 l.1900-1901); twelve tests redefined explicitly with conjugated primed ratios A_i - sigma(A'_i) (V16 l.1951-1958 vs N5 l.1172-1174); valuation deduction at a contact prime rewritten as an explicit argument (V16 l.1978-2007 vs N5 l.1194-1198). prop:box and prop:fixed-prime-pattern statements unchanged.
 - 22P proof: N5 l.1405-1418 uses Green-Tao Main Theorem p.1763 + Green-Tao Moebius Thm 1.1 + [gtz, Thm 1.3] (GTZ inverse theorem, arXiv v5 + erratum); V16 l.2214-2224 replaces gtz by Section v15:gi-full (local polynomial inverse theorem proof, Part at V16 l.23831-30083), "GI(20) and MN(20)". Rest of 22P proof (catalogue, Dirichlet, W-trick, Mertens) unchanged. VERIFIED.
+
+## Step 6 (§7 RC, N5 1760-2717 vs V16 2570-3651)
+- Added attribution: organisation follows [openaipointwise] (ring-class interpolation, determinant transfer, coefficient systems), broader converse in [openaigoldfeld] (V16 l.2571-2577).
+- Non-CM: explicit invariants + Fowler class polynomial (V16 l.2582-2600). Modularity: BCDT via Silverman C.13.6/C.16.4, newform via [amirhong Thm 3.1], Shimura Thm 1, Faltings 1983 isogeny (l.2612-2677, was BCDT+Milne MF). Parity: [ddselmer Thm 1.4] replaces [dd Thm 1.8] (l.2686-2689). At 2: [kato1999 Thm 0.8] (l.2781-2785). New paragraph "native genus lattice" (l.3317-3342). Cornut-Jetchev Thm 3.1 replaced by §v15:cm-oriented (l.3448-3449). VERIFIED (diff).
