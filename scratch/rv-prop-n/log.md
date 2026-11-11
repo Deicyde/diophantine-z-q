@@ -36,3 +36,19 @@ rv-nt-tyz.md NOT read until own verdicts are written.
   23709, 26565; all T5a=T5b=0, as Prop N predicts); 12 with T5b odd (5-6 primes, incl. 285285, 2535645,
   2028117): all analytic rank 1; 3 with only T5a odd: rank 1; 5 with T5a=T5b=0: rank 1 (no prediction).
   Violations: 0. Rédei/class-group agreement: 30/30.
+
+## Step 5. PARI ground truth, run 2 (21 inputs, out_run2.txt)
+- Selection: select_rank3b.py (products of k=4..7 small primes, >=1 prime ≡7 and >=1 ≡3 mod 8, ellrank upper
+  bound >=3; seeds 21-24) and select_genus.py k=7 seed 25.
+- Results: 15 values of analytic rank 3 with 4-7 primes (e.g. 2817661 = 7·11·23·37·43, 13498485 = 7 primes):
+  all T5a = T5b = 0. T5b odd with 7 primes (4849845, 12777765, 10975965): analytic rank 1. T5a odd only
+  (13803405): rank 1. 1101565, 1564437 (Selmer bound 3, an. rank 1): T5a=T5b=0. Violations 0; Rédei = class
+  group on 21/21.
+- Totals runs 1-2: 51 inputs, 22 of analytic rank 3 (all T5a=T5b=0), 21 with T5b odd (all rank 1),
+  5 with only T5a odd (all rank 1).
+
+## Step 6. Alternative readings on the 22 rank-3 values (alt_readings.py, out_alt.txt; no new L-runs)
+- g(n)=1 for 7 of them: 134805, 26565, 141141, 887565, 2379405, 2422245, 13498485.
+- So (a) reading B (T5a+g(n)+T5b even) fails on 7 values (nt-tyz had 26565, 33117); (b) a recursion with an
+  even coefficient in place of L(d1) (which would give c_n(e)≡0 for e≠n, i.e. "rank>=2 => g(n) even") is
+  refuted: indirect numerical support that the quoted recursion coefficient is L(d1) without a factor 2.
