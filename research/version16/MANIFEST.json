@@ -48,8 +48,8 @@
     },
     {
       "path": "research/version16/CUMULATIVE-HANDOFF.md",
-      "sha256": "9223e831c5938a0374a3343d7909d586d7b1e7cb1f40c21a07293a120c973c62",
-      "bytes": 1201
+      "sha256": "ec56f01de0f27960fccdd51318e98990b104d7dab2907de90480b4838ab2611f",
+      "bytes": 1642
     },
     {
       "path": "research/version16/EDITORIAL-AMENDMENT.json",
@@ -240,6 +240,16 @@
       "path": "research/version16/review/current/TZ-PRECISION-ADDENDUM.md",
       "sha256": "e2c57cc9d635289f9ddee5f51c07a2f533cc1624a5204440d25647ef2766bdd5",
       "bytes": 2255
+    },
+    {
+      "path": "research/version16/review/gate/DELIVERY-SUPPORT-REVIEW.json",
+      "sha256": "9ef2b5c674f8c982020b5a9021df412bec8526f7db2161d351a166314465d416",
+      "bytes": 13989
+    },
+    {
+      "path": "research/version16/review/gate/FINAL-STRUCTURAL-CHECK.json",
+      "sha256": "f2065552adc2edb8d34411e042b1fe2e38ea8591cffd71a0a9c1bcf807db7a38",
+      "bytes": 752
     },
     {
       "path": "research/version16/snapshots/pre-precision/quartic_v16.tex",
