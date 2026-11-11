@@ -1,0 +1,33 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+d=110837 primes=[23, 61, 79] nontorsion|a|mod4=[1] T5a=0 T5b=0
+d=102837 primes=[3, 7, 59, 83] nontorsion|a|mod4=[3] T5a=1 T5b=1
+d=27141 primes=[3, 83, 109] nontorsion|a|mod4=[] T5a=1 T5b=0
+d=5605 primes=[5, 19, 59] nontorsion|a|mod4=[] T5a=1 T5b=0
+d=332189 primes=[11, 13, 23, 101] nontorsion|a|mod4=[3] T5a=1 T5b=1
+d=40061 primes=[7, 59, 97] nontorsion|a|mod4=[1] T5a=1 T5b=0
+d=34397 primes=[11, 53, 59] nontorsion|a|mod4=[] T5a=1 T5b=0
+d=32421 primes=[3, 101, 107] nontorsion|a|mod4=[3] T5a=0 T5b=1
+d=49381 primes=[19, 23, 113] nontorsion|a|mod4=[1] T5a=1 T5b=0
+d=24205 primes=[5, 47, 103] nontorsion|a|mod4=[1] T5a=0 T5b=0
+d=205757 primes=[37, 67, 83] nontorsion|a|mod4=[] T5a=1 T5b=0
+d=56389 primes=[17, 31, 107] nontorsion|a|mod4=[1] T5a=1 T5b=0
+d=287749 primes=[7, 11, 37, 101] nontorsion|a|mod4=[] T5a=1 T5b=0
+d=59813 primes=[13, 43, 107] nontorsion|a|mod4=[] T5a=1 T5b=0
+d=39589 primes=[11, 59, 61] nontorsion|a|mod4=[1] T5a=1 T5b=0
+d=191101 primes=[41, 59, 79] nontorsion|a|mod4=[3] T5a=1 T5b=1
+d=80869 primes=[17, 67, 71] nontorsion|a|mod4=[3] T5a=1 T5b=1
+d=14053 primes=[13, 23, 47] nontorsion|a|mod4=[3] T5a=0 T5b=1
+d=7733 primes=[11, 19, 37] nontorsion|a|mod4=[3] T5a=1 T5b=1
+d=55309 primes=[19, 41, 71] nontorsion|a|mod4=[1] T5a=1 T5b=0
+d=127205 primes=[5, 13, 19, 103] nontorsion|a|mod4=[3] T5a=1 T5b=1
+d=215717 primes=[23, 83, 113] nontorsion|a|mod4=[3] T5a=1 T5b=1
+d=11869 primes=[11, 13, 83] nontorsion|a|mod4=[1] T5a=1 T5b=0
+d=51901 primes=[17, 43, 71] nontorsion|a|mod4=[3] T5a=0 T5b=1
+d=113693 primes=[41, 47, 59] nontorsion|a|mod4=[3] T5a=0 T5b=1
+d=47821 primes=[17, 29, 97] nontorsion|a|mod4=[] T5a=1 T5b=0
+d=294733 primes=[53, 67, 83] nontorsion|a|mod4=[1] T5a=1 T5b=0
+d=1309 primes=[7, 11, 17] nontorsion|a|mod4=[1] T5a=1 T5b=0
+d=349853 primes=[7, 23, 41, 53] nontorsion|a|mod4=[3] T5a=0 T5b=1
+d=36613 primes=[19, 41, 47] nontorsion|a|mod4=[1] T5a=1 T5b=0
+(|a| mod 4 of non-torsion classes, T5a, T5b) -> count: {((), 1, 0): 7, ((1,), 0, 0): 2, ((1,), 1, 0): 9, ((3,), 0, 1): 5, ((3,), 1, 1): 7}

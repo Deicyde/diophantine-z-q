@@ -39,3 +39,12 @@
 ## Step 4 (main-theorem variant)
 - Added `frozenTarget_of_sixContactMin_literature : SixContactMin → TYZRow5b → FunctionalEquation5 →
   GrossZagierKolyvagin → FrozenTarget` (via RankVariants.lean:69). Compiles; standard axioms.
+
+## Step 5 (row 5a experiment)
+- `row5a_check.py 30 11` (Sel2 from rv-cr5b-sec3/mirror.py, T5a/T5b from nt-tyz/literal_reading.py
+  with PARI class groups): 30 squarefree d ≡ 5 (8), 3–5 primes < 120, #Sel2 = 8.
+  Counts (|a| mod 4 of non-torsion first coordinates, T5a, T5b): ((),1,0):7, ((1,),0,0):2,
+  ((1,),1,0):9, ((3,),0,1):5, ((3,),1,1):7 (out_row5a_check.txt).
+- Outcome: |a| ≡ 3 (4) ⇒ T5b = 1 on 12/12 (as tyz-5b Cor 4.4); |a| ≡ 1 (4) gives T5a = 1 on 9/11
+  only (d = two cases with T5a = T5b = 0). A row-5a slot design would need an extra condition;
+  T5a is not controlled on the current design (7/12 odd).
