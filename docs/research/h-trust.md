@@ -431,12 +431,14 @@ L10939-11000).
     V16 L39243-39247; up-h §2 row 3), and it settles rv-h-c3 R2's exposé question by page
     range; the content is UNVERIFIED. The finite descent is the Hilbert 90 argument written in
     N5's lemma (and in V16 L566-571), from a finite Galois local extension to `ℚ₅`.
-- *Galois choice of `F` (task h-v16-adopt, after up-h §4 item 2).* Take the number field `F`,
-  over which `A` and its geometric endomorphisms are defined, Galois over `ℚ`, as V16 L536-537
-  does: replace `F` by its Galois closure and `A` by its base change. This is free, since only
-  the existence of some finite `F` is used (rv-up §2.3). Then every completion `F_v/ℚ₅` is
-  Galois, Scholze's comparison applies to `A` over `F_v` directly, and the descent runs from
-  `F_v` to `ℚ₅` with no intermediate field.
+- *Galois choice of the field (task h-v16-adopt, after up-h §4 item 2).* N5 applies its lemma
+  (local fields `K/ℚ_ℓ` and `F/K`) with `K = ℚ₅` and `F` a completion of `L'`, where C1 makes
+  `r₅ ⊕ r₅` the Tate action of `A`. Instead, as V16 L536-537 does, let `F_glob ⊇ L'` be finite
+  Galois over `ℚ` with `A` and its geometric endomorphisms defined over it, base change `A`, and
+  take `F = (F_glob)_w` for a place `w | 5`. The decomposition `V₅(A) ⊗ E ≅ r₅ ⊕ r₅` restricts
+  to `G_F`. This is free, since only the existence of some finite extension is used (rv-up
+  §2.3). Then `F/ℚ₅` is Galois, Scholze's comparison applies to `A` over `F` directly, and the
+  descent runs from `F` to `ℚ₅` with no intermediate field.
 - *Repairs (rv-h-c3 §4; wording and citations, no change of argument).*
   - **R1.** Not needed with the Galois choice above. (On N5's route, which descends through a
     Galois closure `F' ⊇ F`, it is the line: `F' ⊗_F D_F → D_{F'}` is injective
@@ -517,13 +519,13 @@ L10939-11000).
 - *Finiteness of `ψ`: the determinant argument* (task h-v16-adopt, after up-h §4 item 1; it
   replaces N5's appeal to local algebraicity of Hodge–Tate characters at L760-761). This is
   Version 14's argument, kept in Version 16 at V16 L660-667; the wording here is ours.
-  1. Choose `F/ℚ` finite Galois with `A`, its geometric endomorphisms and a polarization defined
-     over `F` (C3). The Weil pairing of that polarization is `G_F`-equivariant with values in
-     `ℚ₅(1)`, so `G_F` acts on `V₅(A)` through `GSp₄` with multiplier `χ`, and
-     `det V₅(A) = χ²` on `G_F`.
-  2. `V₅(A) ⊗ E ≅ r₅|G_F ⊕ r₅|G_F` (C1), so `(det r₅)² = χ²` on `G_F`. The character
-     `α := det r₅ · χ^{−1}` of `G_ℚ` therefore satisfies `α² = 1` on the finite-index subgroup
-     `G_F`, and has finite image.
+  1. Let `F/ℚ` be finite Galois, containing `L'`, with `A`, its geometric endomorphisms and a
+     polarization defined over `F` (the global field `F_glob` of C3). The Weil pairing of that
+     polarization is `G_F`-equivariant with values in `ℚ₅(1)`, so `G_F` acts on `V₅(A)` through
+     `GSp₄` with multiplier `χ`, and `det V₅(A) = χ²` on `G_F`.
+  2. `V₅(A) ⊗ E ≅ r₅|G_F ⊕ r₅|G_F` (C1, restricted from `G_{L'}`), so `(det r₅)² = χ²` on
+     `G_F`. The character `α := det r₅ · χ^{−1}` of `G_ℚ` therefore satisfies `α² = 1` on the
+     finite-index subgroup `G_F`, and has finite image.
   3. `det r₅ = det ρ_g · ψ² = ε_g χ^{k−1} ψ²`, and `k = 2` by the weight comparison, so
      `ψ² = α ε_g^{−1}`, which has finite image. Each value of `ψ` is a square root of one of
      finitely many scalars, so `ψ` has finite image.
