@@ -78,3 +78,13 @@
   zero, so it is a degree-40 morphism of P^1 and h(t) = h(j)/40 + O(1) (STANDARD functoriality). Claim holds.
 - §3.1/§5 absence claims spot-checked by grep of Mathlib: no TateModule, Faltings, Newform, Chebotarev, Skolem-Noether,
   HodgeTate, Herbrand/upper numbering, Néron model (only HeckeRing/Defs mentions Shimura).
+
+## Step 9: origin/wip/lit-adopt (b32c3f36; no .fleet/lit-adopt.md yet, no MainLiterature.lean yet)
+- diff scratch/wk-cr3/Literature.lean vs ZInQKernel/Hypotheses/CR3Literature.lean: namespace ZInQ.Literature; docstrings;
+  GrossZagierKolyvagin -> GrossZagier with supplier BFH 1990 (Waldspurger) / Friedberg-Hoffstein 1995 (Murty-Murty dropped);
+  FunctionalEquation5 gains `0 < s.re → s.re < 2 →`; its use at s = 1 discharged by norm_num; frozenTarget theorem and
+  RankVariants import removed (to MainLiterature). All other Prop bodies identical (GrossZagier, TYZRow5b, RootNumberVanishing,
+  HeckeContinuation, TYZThm35ReadingA, T5aCl, Admissible5aNat, IsLContinuation, completedL).
+- diff scratch/wk-h/BackToU.lean vs ZInQKernel/Hypotheses/JHeight.lean: imports HeightMin; namespace ZInQ.JHeight;
+  SixContactMinAt and contactSupport_pos' dropped; sixContactMin_of_jHeightBound now JHeightBound Mult.S_mul → SixContactMin
+  (uses contactSupport_pos); JHeightBound, heightX, Jmap, Fh, Gh, C0 bodies identical. Only the listed changes so far.
