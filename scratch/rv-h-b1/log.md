@@ -56,3 +56,31 @@ Manuscript: diophantine_zq.tex in this worktree (last touched 97cec7fd, "Novembe
   do not imply (d) either; F1 has I_0 = I_{-16/27} = whole group, which NV's step 4 excludes for Y_3.
 - R6: no elliptic power x^k (non-central) lies in Q^* K_3: ramification index at an elliptic point
   = order in B^*/Q^* (consistent with neatness, N5 L468-470).
+
+## 5. Step-by-step check of Prop. TS and Lemma NV (paper review; no computation)
+- Prop. TS. Normalization Z is finite (R = Z_(p)^sh is excellent). Z normal over the regular
+  2-dim P^1_R => flat; unramified at codim-1 points off D => étale there; purity (SGA 1 X 3.1)
+  => étale off D. Case 1: section misses D => pullback finite étale over strictly henselian R =>
+  split => K_{j0} ⊂ k_p, unramified. Case 2: Spec R -> P^1_R factors through O^sh_{P_i}; local
+  model ⊔ O^sh[z^{1/e_i}] (Abhyankar with only D_i through P_i, after NV); z -> p^m w, w ∈ R^*
+  has an e_i-th root => fibre ∏ k_p(p^{1/(e_i/g)}), g = gcd(e_i,m). HOLDS.
+- NV step 1: tameness along V(p): e prime to p and residue extension of F_p-bar(j) separable
+  because its degree divides 144. HOLDS.
+- NV step 2: G(A_f) = G(Q)_+ K_0 (strong approximation for B^1, nrd(K_0) = Zhat^*, Q^*_{>0}Zhat^*
+  = A_f^*) => each point over b_i is in the Gamma'-orbit of some [tau,1]. Reciprocity: art(s) fixes
+  [h,1] when r(s) ∈ K_3; r(s) ∈ prod_{l≠3} O_{E,l}^* ⊂ K_3 because Q(x)∩O is maximal at every l
+  (R2). So E(y0) ⊂ ray class field of conductor 3^∞ of E, Q(y0) unramified at p >= 5. HOLDS.
+  Needs only conductor prime to p (R2 shows all elliptic CM orders maximal anyway).
+- NV step 3: I_P (P over P_i) = Galois group of O^sh_{Z,P} over O^sh_{P_i} (residue field of P_i is
+  F_p-bar). Kummer model (O^sh[z^{1/n},p^{1/n}])^H: unique branch over z=0; with I_Q = image of
+  mu_n×1, [I_P:I_Q] = residue degree of that branch over k_p. Closure of Q_i is Spec A', A' local
+  finite birational over R (k(Q_i) = k_p by step 2) => strictly henselian, unibranch => degree 1
+  => I_P = I_{Q_i}. Going-down (Z flat) gives a vertical prime q ⊂ P; I_q ⊂ I_P (σ ≡ id mod q
+  => mod P). HOLDS.
+- NV step 4: from (∞, e=6) and (-16/27, e=2): |I_V| | 2. If I_V = <g>, g ~ g_∞^3 maps to σ_∞,
+  g ~ g_{-16/27} maps to σ_{-16/27}; W abelian => σ_∞ = σ_{-16/27}, contradicting g(X_6) = 0
+  (R3: three distinct nontrivial generators). Images of inertia = inertia (char 0 horizontal
+  divisors; k_p(X_6) = Q(X_6) ⊗ k_p is a field since X_6 is geometrically connected). HOLDS.
+  Robust to the Baba-Granath labelling: any pair of branch points works (order-4 point:
+  g_0^2 maps to 1, so pairing it with either other point also gives a contradiction).
+- F1 (R5) has I_0 = I_{-16/27} = Z/2: the W-step is exactly what fails there. Consistent.
