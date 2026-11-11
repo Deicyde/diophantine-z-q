@@ -1,0 +1,19 @@
+form (5, 4, 2) disc -24
+rank End(A) = 8
+End(A) closed under products: True
+End(A) Rosati-stable: True
+bound 2: #(R^2=2) = 8, #(R^2=-3) = 20
+embedding of O into End(A) found: True
+iota(O) Rosati-stable: True
+nu (in I,J,IJ coords) = [0, -3, 4, 1] ; nu^2 = -24 * Id: True
+mu' = lam*nu, lam = 1/2 ; mu' in iota(O) with O-coords [-2, -2, 4, 1] : True
+normalizer element gamma with gamma mu' gamma^-1 = +-mu found: True
+O-embedding with Rosati a -> mu^{-1} conj(a) mu found: True
+I = [[-4, -8, 0, 1], [2, 4, -1, 0], [0, -2, -4, 2], [2, 0, -8, 4]]
+J = [[3, 2, -10, 6], [-2, -3, 4, -2], [-4, -12, -1, 2], [-8, -20, 2, 1]]
+mu^2 = -6: True
+O generators lie in End(A): True
+rank of commutant of O in End(A) = 2
+discriminant of the commutant order det(Tr_{K/Q}(x_a x_b)) = -24
+  basis element: Tr_{K/Q} = 2 ; Norm = 1
+  basis element: Tr_{K/Q} = -4 ; Norm = 10

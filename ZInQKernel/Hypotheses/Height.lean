@@ -29,14 +29,15 @@ principally on the following.
     Fontaine–Mazur theorem (J. Amer. Math. Soc. 35 (2022), Theorem 1.0.4 of
     arXiv:1901.07166v2); the p-adic Hodge theory of modular forms, in the Tate-module
     (arithmetic-Frobenius) normalization with weights `{0, 1−k}`, at every level including
-    levels divisible by 5 (Saito 1997, or Scholl 1990 with Scholze 2013), and Deligne–Serre
-    1974 for weight one; Li 1975, Shimura 1973 and the Eichler–Shimura relation (Shimura
-    1971) for newforms and `A_f`; Carayol's local–global compatibility (1986, Théorème A).
+    levels divisible by 5 (Saito 1997, Scholl 1990 with Scholze 2013, or Kato 2004), and
+    Deligne–Serre 1974 for weight one; Li 1975, Shimura 1973 and the Eichler–Shimura relation
+    (Shimura 1971) for newforms and `A_f`; Carayol's local–global compatibility (1986,
+    Théorème A).
   - Local fields: local class field theory and ramification (Serre), and Raynaud's criterion
     (Silverberg–Zarhin 1995).
   - Heights: Javanpeykar 2014, the isogeny theorem of Gaudron–Rémond (2014, Theorem 1.4),
     Faltings' height variation, and Pazuki 2012.
-  - Five citations of the manuscript to lecture notes or preprints are replaced by refereed
+  - Four citations of the manuscript to lecture notes or preprints are replaced by refereed
     editions (`docs/research/h-trust.md` §2.4).
 * **Manuscript arguments reviewed by models only, never by a human referee.**
   - The scalar descent, the uniform conductor bound `N ≤ Q_R M²` and the transfer from
