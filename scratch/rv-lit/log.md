@@ -101,3 +101,5 @@
 - /tmp concatenation of CR3Literature + JHeight + MainLiterature (from git show) compiled with lake env lean in this worktree
   (load 3, 138 GB free): the three variants depend on [propext, Classical.choice, Quot.sound].
 - Deviations listed in .fleet/lit-adopt.md match Step 9's diff; nothing else changed.
+
+## Step 12: deliverables written: docs/research/rv-lit.md, .fleet/rv-lit.md
