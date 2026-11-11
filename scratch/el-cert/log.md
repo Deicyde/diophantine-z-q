@@ -47,3 +47,20 @@ Marks: VERIFIED / STANDARD / SPECULATIVE. Worktree base e3612538.
   test site original: deg_q s = 50, squarefree degree 100, genus 49;
   slope site original: deg_q s = 518, degree 1036, genus 517;
   M1 (both sites): degree 4, genus 1. (VERIFIED, exact)
+
+## X3. Arithmetic of the M1 theta=1 curve C_m: Y^2 = m^2 T^2 - m R0 (1 - R0 q^2)^2 (T = Theta0)
+
+- Lemma (local obstruction). p odd, p !| 2mR0, v_p(T) >= 1, (R0/p) = -1. Then C_m(Q_p) != {} iff
+  (-m/p) = -1. Proof: R0 nonresidue => 1 - R0 q^2 never in pZ_p for q in Z_p, and for v(q) < 0 the
+  term R0 q^2 dominates; so f(q) = -m R0 A^2 (1 + O(p)) with A != 0, a square iff (-mR0/p) = 1.
+  (VERIFIED: derivation; x3_local.py brute force mod p^3, p in 11..23, 26/26 agree)
+- X3b (x3_stats.py, 200 trials per row): obstruction primes r ~ Poisson((1/2) log log N),
+  N = num(Theta0), primes ~1e12 with (R0/p) = -1, R0 = 2730^6 F(7). P(some m locally unobstructed):
+  log10 N = 1e3: DL8 0.430, signed divisors of 2730 0.785, group <-1, p<=324> (2^67) 1.000
+  log10 N = 1e6: 0.120, 0.425, 1.000
+  log10 N = 1e9: 0.015, 0.115, 1.000
+  Honest Theta0 has height ~ kappa^2 h(P0) with kappa a common multiple of group orders, so
+  log10 N is astronomically large: with 6 multiplier bits theta=1 is locally impossible for most
+  instances; the L7 multipliers m0 k^2, m0 | prod_{p<=324} p, clear the local obstruction but cost
+  61 more bits per pole call (~61 x 8.3e6 = 5.1e8 variables to save). (VERIFIED as stated; the
+  Poisson model is SPECULATIVE)
