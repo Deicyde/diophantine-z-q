@@ -86,8 +86,9 @@ A8, C6 and D4 use A5 and A6); since no step is [U] any more, inheritance changes
 2. **No unpublished supplement is used.**
    - `direct-p5` was never cited by N5, which applies Pan's Theorem 1.0.4 directly at L756.
      h-a011 is needed only for its hypothesis check.
-   - `a001`, `ly-d6` and `igusa-theta` are replaced by Baba–Granath 2008, Lin–Yang 2020,
-     Igusa 1967 and Lauter–Naehrig–Yang 2015, read through `scratch/h-v14/form_check.py` and
+   - `a001`, `ly-d6` and `igusa-theta` are replaced by Baba–Granath 2008 (Thm 2.1, Lemma 3.1;
+     not Props 3.7-3.10), Lin–Yang 2020 (eq. (3), Lemma 3, eqs. (13)-(14), Examples 29-30; not
+     eq. (2)), Igusa 1967 and Lauter–Naehrig–Yang 2015, read through `scratch/h-v14/form_check.py` and
      `igusa_check.py` (both rerun, identical output).
    - `b11` and Buzzard 1997 (N5 L443-530) are replaced by h-b1's Lemma PR.
 3. **Two choices that shorten the trust base (VERIFIED as reasoning).**
@@ -183,8 +184,11 @@ Each step gives N5 lines, content, supplier(s) with locator, and status.
   are `0, ∞, −16/27`, with indices `4, 6, 2`, at the CM points of discriminants `−4, −3, −24`.
 - *Suppliers.*
   - Baba–Granath, *Genus 2 curves with quaternionic multiplication*, Canad. J. Math. 60 (2008),
-    §2.1 (Thm 2.1) and §3. N5 cites the 2005 MPI preprint, whose §2.1 Thm 1 and §3.2 are
-    ASTRA-READ (Astra whole REPORT); the journal numbering is UNVERIFIED. Version 14 records a
+    §2.1 Thm 2.1, Lemma 3.1 and the §3 datum (p. 739); Props 3.7-3.10 are not used. The disc
+    −24 label at the `w₆` fixed points follows from `μ² = −6` and the maximality of `ℤ[√−6]`,
+    and is confirmed by `scratch/rv-up/endo24.py` (rv-up §3.5 item 2). N5 cites the 2005 MPI
+    preprint, whose §2.1 Thm 1 and §3.2 are ASTRA-READ (Astra whole REPORT); the journal
+    numbering is UNVERIFIED. Version 14 records a
     "local index slip" in its Lemma 3.1 (h-v14 §2.2). Step A3 does not use that lemma.
   - Lin–Yang 2020, Example 30. VERIFIED in arXiv v1 by h-v14; the journal number is UNVERIFIED.
   - Independent check of the elliptic-point data: rv-h-cm §2.3 derives Elkies' twist constants
@@ -687,12 +691,27 @@ L10939-11000).
 
 **F1. `j` in theta constants** (N5 L908-927).
 - *Content.* `j = 3779136·(∏ z_m)⁴/(∑ z_m⁸)⁵`.
-- *Suppliers.*
-  - Lin–Yang 2020, eqs. (2), (14), (13).
-  - Lauter–Naehrig–Yang, J. Number Theory (2015), §2.2.
-  - Igusa, *Modular forms and projective invariants*, Amer. J. Math. 89 (1967), pp. 833-834 and
-    848.
-  - All checked through `igusa_check.py` (rerun, identical). Journal locators UNVERIFIED.
+- *Suppliers* (rv-up §3.5 item 1).
+  - Lin–Yang 2020, Example 30: the divisors of `s₂ = ψ₄` and `s₅ = 2¹²3⁵χ₁₀` on the
+    quaternionic locus `X`. They make `χ₁₀²/ψ₄⁵` a degree-one function on `X ≅ P¹` with zero at
+    P₋₄ and pole at P₋₃. Also eqs. (13)-(14), Igusa's conversion between `ψ₄, ψ₆, χ₁₀, χ₁₂` and
+    `J₂…J₁₀`.
+  - Lauter–Naehrig–Yang, J. Number Theory (2015), §2.2, and Igusa, *Modular forms and
+    projective invariants*, Amer. J. Math. 89 (1967), pp. 833-834 and 848: the theta
+    expressions of `ψ₄` and `χ₁₀`.
+  - `scratch/h-v14/igusa_check.py` (rerun, identical; again by h-v16-adopt). It derives the
+    Igusa vector from Example 30 without eq. (2).
+  - The constant at P₋₂₄ is checked without Lin–Yang's `Y′₅` data and without Baba–Granath by
+    `scratch/rv-up/endo24.py` and `scratch/rv-up/theta24.py` (both rerun by h-v16-adopt,
+    identical). The first shows, exactly, that at the disc −24 Heegner point of `Y′₅` the
+    principally polarized surface carries N5's QM datum and that its commutant is `ℤ[√−6]`. The
+    second shows that the theta expression equals −16/27 there (to 40 digits).
+  - Not used: Lin–Yang eq. (2), cited at N5 L911. Lin–Yang attribute it to Baba–Granath, whose
+    Prop. 3.9 rests on Prop. 3.7, whose printed proof has a defect recorded upstream (rv-up
+    §3: the separation claim fails at the Weierstrass points, and the product map has degree
+    4; the statement itself is not claimed false).
+  - Journal locators UNVERIFIED. F1 does not stand on Igusa 1967 and computation alone: the
+    global shape of `j_θ` on `X` (its divisor `P₋₄ − P₋₃`) is the Lin–Yang input (rv-up §3.4).
 - *Status:* **[R]+[S]**. This replaces `ly-d6` and `igusa-theta` (route B3).
 
 **F2. `h(j) ≤ 40·h([z_m]) + 22`** (N5 L928-932).
@@ -764,7 +783,8 @@ text (rv-h-c8).
 | Script | Output | Used in | Rerun |
 | --- | --- | --- | --- |
 | `scratch/h-v14/form_check.py` | `form_check.output.txt` | A1, A3 | identical (h-trust, rv-h-trust) |
-| `scratch/h-v14/igusa_check.py` | `igusa_check.output.txt` | A7, F1 | identical (h-trust, rv-h-trust) |
+| `scratch/h-v14/igusa_check.py` | `igusa_check.output.txt` | A7, F1 | identical (h-trust, rv-h-trust, h-v16-adopt) |
+| `scratch/rv-up/endo24.py`, `theta24.py` | `endo24.output.txt`, `theta24.output.txt` | A2, F1 (P₋₂₄: QM datum, commutant `ℤ[√−6]`, `j_θ = −16/27`) | identical (h-v16-adopt) |
 | `scratch/h-b1/b1_checks.py` | `b1_checks.output.txt` | A3, A5 | identical (h-trust, rv-h-b1, rv-h-trust) |
 | `scratch/rv-h-b1/rv_checks.py` | `rv_checks.output.txt` | A4, A5 (R1 form, R2 elliptic enumeration, R6 neatness) | identical (h-b1-fix) |
 | `scratch/h-map/beckmann_check.py`, `o3_units.py` | `.output.txt` | A5, A3 | not rerun (subsumed by `b1_checks.py`) |
@@ -774,7 +794,8 @@ text (rv-h-c8).
 | `scratch/rv-h-novel/c3_breaks.py` | none committed | D1, D3 | "ALL OK: True" on 15 local Galois extensions (rv-h-trust) |
 | `scratch/rv-h-trust/branch_check.py` | `branch_check.output.txt` | A5, A7 (`J(u)` not a branch value) | written and run by rv-h-trust |
 
-That is the nine scripts of the original eight rows, plus `rv_checks.py` and `branch_check.py`.
+That is the nine scripts of the original eight rows, plus `rv_checks.py`, `branch_check.py`
+and rv-up's `endo24.py` and `theta24.py`.
 
 ### 2.4 Unrefereed editions cited by N5, with refereed replacements (citation swaps only)
 
@@ -794,7 +815,7 @@ all C8 uses beyond the eigenform input (rv-h-trust §4).
 
 Every published locator in §1 is UNVERIFIED unless §1 says it was read. Read in arXiv, in this
 repository: Pan v2 Thm 1.0.4, Berger v3 Thm 0.6/5.19, González–Rotger §5, Lin–Yang v1 Ex. 30 and
-eqs. (2), (13), (14), and Scholze's introduction.
+eqs. (2), (13), (14) (eq. (2) read but not used; see F1), and Scholze's introduction.
 
 **ASTRA-READ** (a model opened the primary source; rv-h-trust §4 item 2). These are not
 UNVERIFIED in the sense above, but no human has read them:
