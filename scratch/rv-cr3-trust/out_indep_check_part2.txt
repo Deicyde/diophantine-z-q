@@ -1,0 +1,18 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+T5bCl=1 count (3..5 primes, d<30000): 386
+sample: [17733, 18821, 19685, 20661, 21549, 22413, 23253, 24141, 25077, 25917, 26677, 27853, 28941, 29877]
+17733 [3, 23, 257] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=None OK
+18821 [11, 29, 59] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=None OK
+19685 [5, 31, 127] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=None OK
+20661 [3, 71, 97] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=None OK
+21549 [3, 11, 653] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=None OK
+22413 [3, 31, 241] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=None OK
+23253 [3, 23, 337] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=None OK
+24141 [3, 13, 619] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=None OK
+25077 [3, 13, 643] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=None OK
+25917 [3, 53, 163] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=None OK
+26677 [7, 37, 103] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=None OK
+27853 [7, 23, 173] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=None OK
+28941 [3, 11, 877] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=None OK
+29877 [3, 23, 433] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=None OK
+failures: 0

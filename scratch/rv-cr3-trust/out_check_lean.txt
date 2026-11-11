@@ -1,0 +1,16 @@
+'rv_tyz_of_tyzClRk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'rv_tyzCl_of_tyzClRk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'rv_5b_of_tyzClRk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'rv_dlAdm_of_tyzClRk' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRank5b' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLAdmRk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.RouteK.Rank.certifiedRankTYZClInf_iff_certifiedRankTYZClRk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
