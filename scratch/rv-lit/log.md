@@ -14,3 +14,10 @@
 - eulerProduct = tprod in the pointwise-discrete topology (private instance); Multipliable since each coefficient
   stabilizes (tendsTo_eulerProduct_ofPowerSeries, Northcott q). So LFunction = formal ∏_p (1/f_p(p^-s)).
 - LSeries = Mathlib LSeries (tsum of f n / n^s, term 0 = 0); absolutely summable for Re s > 3/2 (Hasse).
+
+## Step 2: a_n check (scratch/rv-lit/an_check.py) — VERIFIED
+- Mathlib recipe transcribed (global minimal model, Δ/c4 valuations, Mathlib's split polynomial, point count with infinity,
+  1/f_p expansion) vs PARI ellan, n <= 300, 29 curves: C_d for d = 5,13,21,29,37,53,1,6,7,15,34 (all bad primes additive,
+  conductors 32d^2 for odd d, 64·17^2 for d=34) and 18 others with split AND nonsplit multiplicative reduction at p=2
+  (26b1, 34a1, [1,1,1,1,1] split; 14a1, 26a1, 30a1 nonsplit) and p=3 (21a1, 30a1 split; 15a1, 24a1, 33a1 nonsplit),
+  plus non-minimal models. 0 mismatches.
