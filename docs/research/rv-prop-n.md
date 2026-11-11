@@ -217,3 +217,56 @@ Corrections to nt-tyz §4 (none changes the verdict):
 3. I1's "for `d₀ | n`, `ℍ'_{d₀} ⊂ ℍ'_n`" is part of the quoted definition of `ℍ'_n`, not a proved
    statement; it should be marked as quoted.
 4. (Clarity.) State in §4.2 which `ε`-information is used: only `ε ≡ ±1` at `(5,1), (7,1), (7,3)`.
+
+## 7. Comparison with rv-nt-tyz (read after §§1–6 were written and committed)
+
+**Agreement.** rv-nt-tyz reaches the same verdict on Proposition N ("proved after one minor repair")
+and the same assessment of every step of §§4.3–4.4. Point by point:
+
+| Point | rv-nt-tyz | this review |
+|---|---|---|
+| N1, N2, proof §4.4 | CORRECT (hand + 360 abstract configurations) | VERIFIED (hand + 453 abstract configurations, own code) |
+| I2 only mod 2 | B1: at `m = 3`, Lemma 2.8 and Theorem 2.1 differ by the odd factor `w_K = 3`; repair: quote I2 as a congruence | §2: I2 enters only mod 2; the abstract model perturbs `Q(m)` and `𝓛(m)` by even errors (a factor 3 is such an error), N1 unaffected. Same conclusion; the `w_K` diagnosis is rv-nt-tyz's (it needs the source) |
+| F4 unused | B2 | correction 1 |
+| `ε` at `(5, 3)` irrelevant | B3, mutation at `(5,1)`, `(7,3)` | §4.3, mutation at `(5,1)`, `(7,1)`, `(7,3)`, and at all-`ε ≡ 1` |
+| single `β'` for all `e` | I5 row: TYZ's `β'₁` is any lift to `Gal(ℚ̄/ℚ)` (L2495–2500) | correction 2: should be said in nt-tyz; rv-nt-tyz's source check settles it |
+| `ℍ'_{d₀} ⊂ ℍ'_n` | I1 row: `ℍ'_n = L_n(i)·Π_{d₀ \| n, d₀ ≡ 5,6} H'_{d₀}` (L1320) | correction 3: marked quoted; rv-nt-tyz's quotation settles it |
+| F5 | CORRECT (same argument) | VERIFIED given I6 |
+| second half of F3 | not needed for Prop N | not used in §4.2 (also re-derived) |
+| numerics | 30 `n < 2·10⁵`: 24 with an odd sum, all rank 1; **one** of rank 3 | 51 `n` up to `1.4·10⁷`: 19 with an odd sum, all rank 1; **22** of rank 3 (up to 7 primes), all `T_5a = T_5b = 0` |
+| Lean forms | not examined | §1: `T5bCl` is Proposition N's `T_5b` with TYZ's `g`; `T5b` agrees through `RedeiFormula` and on all 51 samples |
+
+**What this review adds.** (1) The contrapositive is now tested on 22 curves of analytic rank 3 rather than
+one (in rv-nt-tyz) or nt-tyz's 32 below 52000, including many with 6–7 primes of mixed classes. (2) Six new
+values refuting reading B (`134805, 141141, 887565, 2379405, 2422245, 13498485`), and the observation that
+the same data refute any even-coefficient variant of the recursion (§5.3). (3) The match between Proposition
+N's conclusion and the Lean statements `CertifiedRankTYZClRk`/`CertifiedRankTYZRk` (§1). (4) The `(7, 1)`
+mutation, completing the list of `ε`-classes the proof depends on.
+
+**What rv-nt-tyz has that this review cannot.** The comparison of I1–I7 with `Period7.tex` (B1 rests on
+it), and the findings A1 (state reading A as a set-partition convention) and A2 (the "i.e." direction needed
+for the full reading A is immediate). Neither affects Proposition N.
+
+**Disagreements.** None.
+
+## 8. Consequence for CR₃'s trust statement
+
+Proposition N may be cited as CR₃'s analytic input in the form already used in `Statements.lean`
+("Theorem 3.5 and the argument of the proof of Theorem 3.5(2), §3.3, as completed in nt-tyz §4,
+Proposition N"). Suggested additions for the trust statement (task cr3-trust):
+
+1. Proposition N and its Lemmas N1, N2 are repository arguments with **two independent model reviews**
+   (rv-nt-tyz, rv-prop-n) and no human review.
+2. Its TYZ inputs are: the recursion of §3.1, used only modulo 2 and only through "`ε = ±1` except at
+   `(5, 3)`"; Lemma 2.8 with Proposition 2.3, used only modulo 2 (Lemma 2.8 is misprinted or inconsistent
+   with Theorem 2.1 at `m = 3` by an odd factor, rv-nt-tyz B1); Theorem 3.5 (first assertion); Lemmas 3.16,
+   3.18, 3.21(1), (4); Proposition 3.2(1). Proposition 3.4 and Theorem 1.2 are not used, and Theorem 1.2
+   in its literal form is false (now eight values: 26565, 33117 and the six of §5.3).
+3. The quotations were checked against the arXiv source once (rv-nt-tyz), not against the journal text.
+4. The step "analytic rank one ⟹ point of infinite order" (Gross–Zagier) is separate from Proposition N.
+
+## 9. Next step
+
+A human referee (or a source-holding reviewer) confirms the three sensitive quotations against TYZ:
+the recursion's coefficient `ε(d₀, d₁)𝓛(d₁)` with `ε = ±1` at `(5,1), (7,1), (7,3)`; Lemma 3.21(1), (4);
+Theorem 3.5's first assertion. Everything else in Proposition N is elementary and has been checked twice.

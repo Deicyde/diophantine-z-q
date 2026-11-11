@@ -64,3 +64,10 @@ rv-nt-tyz.md NOT read until own verdicts are written.
 ## Step 8. Own verdicts written (docs/research/rv-prop-n.md §§1-6), before reading rv-nt-tyz
 - Verdict: Prop N holds as stated relative to quoted I1-I7; corrections: F4 unused in §4.4; single β' serving
   all ℍ'_e should be stated; ℍ'_{d0} ⊂ ℍ'_n is quoted; state which eps-info is used.
+
+## Step 9. Compared with rv-nt-tyz (read only now)
+- Same verdict; no disagreement. rv-nt-tyz B1 (Lemma 2.8 vs Thm 2.1 at m=3: odd factor w_K=3), B2 (F4 unused),
+  B3 (eps at (5,3) irrelevant) coincide with or are covered by own findings; its source check settles own
+  corrections 2 (β' any lift to Gal(Qbar/Q), L2495-2500) and 3 (ℍ'_n def L1320).
+- Added by this review: 22 rank-3 tests (vs 1), 6 new reading-B counterexamples, even-coefficient variant
+  refuted, (7,1) mutation, Lean-form match.
