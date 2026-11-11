@@ -1,0 +1,14 @@
+p=2 k=1: 1 characters checked
+p=2 k=2: 2 characters checked
+p=2 k=3: 4 characters checked
+p=2 k=4: 8 characters checked
+p=3 k=1: 2 characters checked
+p=3 k=2: 6 characters checked
+p=3 k=3: 18 characters checked
+p=5 k=1: 4 characters checked
+p=5 k=2: 20 characters checked
+p=7 k=1: 6 characters checked
+p=7 k=2: 42 characters checked
+p=11 k=1: 10 characters checked
+p=13 k=1: 12 characters checked
+tested 135 mismatches 0
