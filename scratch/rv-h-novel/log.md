@@ -59,3 +59,7 @@ C1 scratch/rv-h-novel/c1_constants.py (.out): G0=116064000000=|GL4(F5)| exactly;
 C2 scratch/rv-h-novel/c2_sqrt_criterion.py (.out): 13 inputs (p,k) in {2^1..2^4,3^1..3^3,5,25,7,49,11,13};
   for every character psi of (Z/p^k)^x: psi is a square of a character of (Z/p^{k+2})^x iff psi(-1)=1.
   135 characters, 0 mismatches. VERIFIED (unit part of the L683-689 criterion).
+C3 scratch/rv-h-novel/c3_breaks.py (.out): 15 Galois fields (9 at p=2, 4 at p=3, 2 at p=5), PARI
+  idealramgroups at one P|p. Checked (a) Hilbert delta = v_P(diff), (b) delta<=e-1+e v_p(e),
+  (c) delta/e = 1-1/e + int(1-1/|G^u|) exactly, (d) u_last <= 2delta/e, (e) p=2: U^{3e+1} in U^4 mod P^n,
+  n in {5e+2,6e+3}. All true. (b) is sharp for Q(zeta3,3^(1/3)) and Q(zeta5,5^(1/5)). VERIFIED (examples).
