@@ -1,0 +1,5 @@
+f1(a)==f1(b): True  f2(a)==f2(b): True  a!=b (s!=0): True
+E1 eq at image: 0
+E2 eq at image: 0
+sigma1 P == sigma2 P iff y == 0: [0, 2*y]
+deg diag([2],[2]) = 16 => deg phi = 4

@@ -1,0 +1,38 @@
+docs/research/up-cr3.md: 12 words, src ~/upstream/manuscripts/quartic_v10.tex, in N5: False
+    these preprints are cited for attribution not assumed as additional converse inputs
+docs/research/up-cr3.md: 12 words, src ~/upstream/research/version16/protocol/CURRENT-CORRECTIONS.md, in N5: False
+    uninspected kato and ribet pages remain an explicit limitation of that audit
+docs/research/up-cr3.md: 15 words, src ~/upstream/research/version14/evidence/release-tool-independent-review/r4/selected/paper.txt, in N5: False
+    k kato euler systems iwasawa theory and selmer groups kodai math j 22 1999 313–372
+docs/research/up-cr3.md: 12 words, src ~/upstream/docs/theorem-application-audit/evidence/theta.md, in N5: False
+    an eichler order of level n in the quaternion algebra ramified at
+docs/research/up-h.md: 13 words, src ~/upstream/research/version16/APPLICATIONS.json, in N5: False
+    gaudron–rémond théorème des périodes et degrés minimaux d'isogénies comment math helv 89 2014
+docs/research/up-map.md: 21 words, src ~/upstream/manuscripts/quartic_v12.tex, in N5: False
+    version 10 clarified determinant specialization the published prime-two euler-system input the local valuation deduction and the identification of the saved templates
+docs/research/up-map.md: 14 words, src ~/upstream/manuscripts/quartic_v10.tex, in N5: True
+    a direct modularity argument at coefficient prime five and a separate effective cm argument
+docs/research/up-map.md: 15 words, src ~/upstream/research/2026-11-06-collaborator-notes/README.md, in N5: False
+    von känel–kret height estimate can be replaced by the existing five-contact proof in version 4
+docs/research/up-map.md: 12 words, src ~/upstream/research/2026-11-06-collaborator-notes/fable-repository-audit.md, in N5: False
+    the prime-pattern theorem in section 6 was not read in any pass
+docs/research/up-map.md: 15 words, src ~/upstream-p214/research/quartic214/proofs/source-carry.md, in N5: False
+    the original huge polynomial's compiler six-contact input and canonical code domain are not themselves needed
+docs/research/up-map.md: 12 words, src ~/upstream/research/version15/history/final-placement-001/README.md, in N5: False
+    a conditional diophantine definition of z in q from four arithmetic inputs
+scratch/up-h/log.md: 12 words, src ~/upstream/research/version14/evidence/release-tool-independent-review/r4/selected/paper.txt, in N5: False
+    proves h for each of the two sets of constants used below
+scratch/up-h/log.md: 14 words, src ~/upstream/research/version16/APPLICATIONS.json, in N5: False
+    gaudron–rémond théorème des périodes et degrés minimaux d'isogénies comment math helv 89 2014 343–403
+scratch/up-h/log.md: 15 words, src ~/upstream/research/version16/review/current/REVIEW.md, in N5: False
+    separate duke gr2014 entry and its earlier theorem 1.4 and section 9 uses remain intact
+scratch/up-h/log.md: 12 words, src ~/upstream/manuscripts/quartic_v10.tex, in N5: True
+    fixes their action on all torsion points and torsion is zariski dense
+scratch/up-h/log.md: 16 words, src ~/upstream/manuscripts/quartic_v14.tex, in N5: False
+    the local two-torsion brauer group has order two and the square-root criterion distinguishes its two classes
+scratch/up-h/log.md: 14 words, src ~/upstream/manuscripts/quartic_v14.tex, in N5: False
+    full proofs and the exact source hypotheses for its six phases are recorded in
+scratch/up-map/log.md: 12 words, src ~/upstream/research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json, in N5: False
+    the six-contact height theorem gives the stated h6(s;r times m_s(u)^24 upper bound
+scratch/up-rest/log.md: 12 words, src ~/upstream/research/version16/review/current/REVIEW.json, in N5: False
+    tao-ziegler polynomial patterns in the primes forum math pi 6 2018 e1
