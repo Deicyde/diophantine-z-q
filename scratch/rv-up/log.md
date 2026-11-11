@@ -97,3 +97,19 @@ Verdict item 1: CONFIRMED (with locator correction for the constants block; cons
   MainGreenTao.lean:21-31 feeds them to the main theorem. aud-ap.md l.238-239 records #print axioms = [propext,
   Classical.choice, Quot.sound] (not rerun; no Lean run needed). Green-Tao 2008 = transference + Szemeredi, no GI (STANDARD).
 Verdict item 4: CONFIRMED.
+
+## Step 5 — item 5 (pole side)
+- diff N5 sec:pole 973-1122 vs V16 1705-1898: hunks 1a2-4 (openaihtp attribution), 32a36-41 (RC = case of openaipointwise /
+  openaigoldfeld, "cited for attribution, not assumed"), 41-42c50-53 (non-CM via Fowler), 107-109c118-125 (Poonen-Stoll
+  locators), 120-121c136-139 (BCDT via Silverman C.13.6), 132c150-176 (Kolyvagin pp.430-431 + explicit J1(N)->A).
+  Removed text: only the 8 lines of those sentences. Q_pole, E_l template, lem:pole, PC, RC, descent, points unchanged.
+- V16 1887-1897: RC on n and n theta + lem:forward-rank (Kolyvagin Thm 1, V16 1843) -> rank 1, Sha finite, Sha[2]=0 ->
+  Kummer class represented by points. V16 2779-2785: Kato 13.4(2) at 2 via kato1999 Thm 0.8. Ribet 1990 V16 15105-15116.
+- grep V16: Kriz 0, "congruent number" 0; "Tian" 4 hits = Cai-Shu-Tian (explicit Gross-Zagier; V16 3353, 13307, 14908, 30146,
+  bib 39483), not TYZ; "Smith" = Smith normal form; Gross-Zagier bib 39456 cited once (V16 13316 table). up-cr3 l.182
+  "grep Tian, Yuan finds only Yuan2024" is inaccurate (CST); its conclusion "TYZ never cited" stands.
+- openaipointwise/openaigoldfeld cited at V16 1741-1742, 2572-2574 ("organization ... follows"), 13066 (source catalogue:
+  S30, S18, S29, S32 = Sections 2,4,5,9 of openaipointwise, "provenance labels ... not independent arithmetic
+  assumptions", V16 13064-13069). The S12/S18/S29/S30/S32 *-frozen-4eaee875.tex rows are already in N5 L6627-6647.
+  So: no logical premise per the manuscript; textual provenance of RC sections. up-cr3 does not mention the catalogue.
+Verdict item 5: CONFIRMED with two minor corrections.
