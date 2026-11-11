@@ -63,3 +63,9 @@ C3 scratch/rv-h-novel/c3_breaks.py (.out): 15 Galois fields (9 at p=2, 4 at p=3,
   idealramgroups at one P|p. Checked (a) Hilbert delta = v_P(diff), (b) delta<=e-1+e v_p(e),
   (c) delta/e = 1-1/e + int(1-1/|G^u|) exactly, (d) u_last <= 2delta/e, (e) p=2: U^{3e+1} in U^4 mod P^n,
   n in {5e+2,6e+3}. All true. (b) is sharp for Q(zeta3,3^(1/3)) and Q(zeta5,5^(1/5)). VERIFIED (examples).
+
+## Step 3: provenance of the Astra reviews
+Hashes of diophantine_zq.tex in git history: 09c0c3f3 (2026-11-04) = bfc4192d... = Astra "final_source_sha256";
+N5 = 97cec7fd = cb1148cd... . Between them the in-scope text changed (Herbrand-function derivation of the
+break bound first appears in 6f37dd99; Silverman IV.6.4 sentence; Eisenstein/f'(pi) identity). So the
+Astra hash does not identify N5's text of L820-865; this review covers N5 directly.
