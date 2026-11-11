@@ -32,3 +32,19 @@ Pole system with multiplier m: A = mB, H = A(A − B²), e, z as in L7. Fix odd 
   would need Δ_{a,b} ⊇ consumed primes for every witness (a, b), which no fixed choice of b forces
   (primes splitting in ℚ(√b) escape; Chebotarev). STANDARD (Poonen) + derivation.
 - Conclusion: M is a finite set {m₀k² : m₀ | ±Π_{p≤324} p, k < 2^K}.
+
+## S3. Exact θ = ±1 criterion (VERIFIED by derivation)
+B = N/D reduced, m = m₀k², ε = ±1. θ ≡ ε·1 ⇔ X := ε m₀ D (m₀k²D − N) ∈ ℚ*².
+Torsion witness then gives Φ (rs-pole §2.2(2), N = β; Loc depends on d only through d²).
+(a) Bounded integer k: m₀ squarefree, so m₀ ⊆ S ∩ (supp N ∪ odd-supp D); finite check (E2).
+(b) k ∈ ℤ[1/S] arbitrary: let D' be the prime-to-S part of D. For ℓ | D', v_ℓ(m₀k²D − N) = 0, so
+    v_ℓ(X) = v_ℓ(D): D' must be a square, and −ε m₀ N (D/ℓ^{v_ℓ D}) must be a QR mod ℓ.
+    Global form: with D' = E², X ∈ □ ⇔ (m₀kE)² − ε'·W² = m₀N·(S-unit square) splits as
+    g·g' = m₀N, g + g' = 2m₀kE: k = (g + m₀N/g)/(2m₀E) with g ∈ (divisors of N')·(S-units).
+    So k exists iff some g = u·g₁ (u S-unit, g₁ | N') has g² ≡ −m₀N (mod E·2m₀). The S-unit u
+    ranges over ⟨S⟩ ⊂ (ℤ/E)*; when ⟨S⟩ ⊇ squares of (ℤ/E)* the condition is a Legendre condition
+    only, but u (hence k) has exponents ~ ord(⟨S⟩ mod E) ~ E: k is doubly exponential in the
+    size of B. Not encodable with bounded bits.
+(c) For fixed k, X ∈ □ is a curve in q: w² = ε m₀(m₀k²T(R)² − R N_W(R)²), R = R₀(1 − R₀q²)²,
+    T = Tr W, N_W = Nm W (Θ = T/N_W). deg_R(R N_W²) = 1 + 2·2·#{j: C_j ≠ 0}; with 6 nonzero
+    tests deg_R = 25, deg_q = 100: hyperelliptic genus 49 (if squarefree). Finitely many q (Faltings).
