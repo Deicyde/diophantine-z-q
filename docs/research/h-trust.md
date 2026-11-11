@@ -218,8 +218,13 @@ Each step gives N5 lines, content, supplier(s) with locator, and status.
 - *Suppliers* (the four inputs of rv-h-b1 §7, written out in h-b1 §4A):
   1. Canonical model = moduli scheme, with no extra copies since `ker¹(ℚ, B^*) = 1`: Shimura,
      *Construction of class fields and zeta functions of algebraic curves*, Ann. of Math. 85
-     (1967); Deligne, *Travaux de Shimura*, Sém. Bourbaki 389 (1971), §§4-6; Kottwitz,
-     J. Amer. Math. Soc. 5 (1992), §5 and §8. Milne, *Introduction to Shimura varieties* (Clay
+     (1967); Deligne, *Travaux de Shimura*, Sém. Bourbaki 389 (1971): Riemann's equivalence
+     Thm 4.7, the homogeneous polarization and markings §§4.8-4.12, the analytic families
+     §4.15, the PEL-to-Siegel closed immersion Prop. 1.15, the `ℚ`-model of the Siegel level
+     §§4.16-4.17, and the canonical model of the PEL image over the reflex field `ℚ` Thm 4.21,
+     Cor. 5.7 and Ex. 5.8; with Deligne 1979, 2.2.5 and 2.3.1, for the homological sign
+     convention. These are the locators of V16 L979-1101 (up-h §2 row 2), adopted by task
+     h-v16-adopt in place of "§§4-6". Kottwitz, J. Amer. Math. Soc. 5 (1992), §5 and §8. Milne, *Introduction to Shimura varieties* (Clay
      Math. Proc. 4, 2005), §8 and §14, is published lecture notes; the first three suffice.
   2. Uniqueness of the principal polarization with Rosati involution `a ↦ μ⁻¹āμ`, so that `λ`
      adds no data (rv-h-trust §1.2 item 5). Elementary proof: if `λ' = λ∘a` has the same Rosati
@@ -410,19 +415,28 @@ L10939-11000).
     Replacement: Mumford, *Abelian varieties* (1970), §§19-20, or Milne 1986
     (Cornell–Silverman), §15.
   - Closure under duals and subquotients, and finite descent: N5 cites Brinon–Conrad, CMI notes
-    (2009), Thm 5.2.1 and Props. 6.3.3, 6.3.8, which are [P]. Replacement: Fontaine (ed.),
-    *Périodes p-adiques*, Astérisque 223 (1994). Exposé number UNVERIFIED and suspect: rv-h-c3
-    R2 recalls (SPECULATIVE) that the de Rham admissibility formalism is in Fontaine's Exp. III,
-    while Exp. VIII, named here before, is on potentially semistable representations. Check the
-    exposé numbers before adopting the citation.
+    (2009), Thm 5.2.1 and Props. 6.3.3, 6.3.8, which are [P]. Replacement: Fontaine,
+    *Représentations p-adiques semi-stables*, in *Périodes p-adiques*, Astérisque 223 (1994),
+    113-184, Thm 3.8, p. 142 (closure of de Rham representations under duals, tensor products
+    and subquotients; definitions in §§3.4-3.7). This is the citation of V16 L564-565 (bibitem
+    V16 L39243-39247; up-h §2 row 3), and it settles rv-h-c3 R2's exposé question by page
+    range; the content is UNVERIFIED. The finite descent is the Hilbert 90 argument written in
+    N5's lemma (and in V16 L566-571), from a finite Galois local extension to `ℚ₅`.
+- *Galois choice of `F` (task h-v16-adopt, after up-h §4 item 2).* Take the number field `F`,
+  over which `A` and its geometric endomorphisms are defined, Galois over `ℚ`, as V16 L536-537
+  does: replace `F` by its Galois closure and `A` by its base change. This is free, since only
+  the existence of some finite `F` is used (rv-up §2.3). Then every completion `F_v/ℚ₅` is
+  Galois, Scholze's comparison applies to `A` over `F_v` directly, and the descent runs from
+  `F_v` to `ℚ₅` with no intermediate field.
 - *Repairs (rv-h-c3 §4; wording and citations, no change of argument).*
-  - **R1.** N5's proof descends from `F` to `K` through a Galois closure `F' ⊇ F` and does not
-    state that de Rham over `F` implies de Rham over `F'`. Add the line: `F' ⊗_F D_F → D_{F'}` is
-    injective (`B_dR^{G_{F'}} = F'`), so `dim D_{F'} ≥ dim W`, and `≤` always holds; or cite it
-    with the same Fontaine reference as the descent (VERIFIED as an argument, rv-h-c3 §3.1 P5).
+  - **R1.** Not needed with the Galois choice above. (On N5's route, which descends through a
+    Galois closure `F' ⊇ F`, it is the line: `F' ⊗_F D_F → D_{F'}` is injective
+    (`B_dR^{G_{F'}} = F'`), so `dim D_{F'} ≥ dim W`, and `≤` always holds; VERIFIED as an
+    argument, rv-h-c3 §3.1 P5.)
   - **R2.** The citation swaps above (Milne's notes → Mumford §§19-20 or Milne 1986 §15;
-    Brinon–Conrad → Fontaine, Astérisque 223, exposé to be checked; Faltings 1989 / Tsuji 1999
-    as the fallback for Scholze).
+    Brinon–Conrad → Fontaine, Astérisque 223, pp. 113-184, Thm 3.8, p. 142; Faltings 1989 /
+    Tsuji 1999 as the fallback for Scholze). V16 L561 cites Milne 1986, Thm 15.1(a), p. 129, for
+    the duality `V_ℓ(A) ≅ H¹_et^∨`, a sharper locator for the Milne 1986 option.
   - **R3.** The normalization of `ρ_g` in C8, where the lemma's weights `{0, −1}` are compared
     with the eigenform's; applied in C8 below (it is rv-h-c8's R1).
 - *Shorter route (rv-h-c3 §3.2; STANDARD, SPECULATIVE as a recommendation).* `r_ℓ|G_F` is a
@@ -488,19 +502,35 @@ L10939-11000).
   variety), with weights `{0, k−1}`. The two differ by duality, and `U^∨ ≅ U ⊗ det(U)^{−1}` for
   2-dimensional `U`, so bringing Pan's conclusion to the Tate-module normalization changes only
   the twisting character (h-a011 §4).
-- *Content.* `r₅ ≅ ρ_g ⊗ ψ` with `ψ` continuous (Pan's "up to twist"). The twisting character is
-  Hodge–Tate (N5 says de Rham, which is true but more than needed) and unramified almost
-  everywhere, hence a finite character times an integral power of the cyclotomic character.
-  Comparing `{0, −1}` with `{n, n+1−k}` gives `k = 2`, `n = 0`. The finite part is absorbed into
-  `f`.
+- *Content.* `r₅ ≅ ρ_g ⊗ ψ` with `ψ` continuous (Pan's "up to twist"). The `ψ`-line in
+  `Hom(ρ_g, r₅)` is Hodge–Tate (N5 says de Rham, which is true but more than needed), of some
+  integer weight `n`. Comparing `{0, −1}` with `{n, n+1−k}` gives `k = 2`, `n = 0`.
+- *Finiteness of `ψ`: the determinant argument* (task h-v16-adopt, after up-h §4 item 1; it
+  replaces N5's appeal to local algebraicity of Hodge–Tate characters at L760-761). This is
+  Version 14's argument, kept in Version 16 at V16 L660-667; the wording here is ours.
+  1. Choose `F/ℚ` finite Galois with `A`, its geometric endomorphisms and a polarization defined
+     over `F` (C3). The Weil pairing of that polarization is `G_F`-equivariant with values in
+     `ℚ₅(1)`, so `G_F` acts on `V₅(A)` through `GSp₄` with multiplier `χ`, and
+     `det V₅(A) = χ²` on `G_F`.
+  2. `V₅(A) ⊗ E ≅ r₅|G_F ⊕ r₅|G_F` (C1), so `(det r₅)² = χ²` on `G_F`. The character
+     `α := det r₅ · χ^{−1}` of `G_ℚ` therefore satisfies `α² = 1` on the finite-index subgroup
+     `G_F`, and has finite image.
+  3. `det r₅ = det ρ_g · ψ² = ε_g χ^{k−1} ψ²`, and `k = 2` by the weight comparison, so
+     `ψ² = α ε_g^{−1}`, which has finite image. Each value of `ψ` is a square root of one of
+     finitely many scalars, so `ψ` has finite image.
+  4. The fixed field of `ker ψ` is finite abelian over `ℚ`, hence cyclotomic (Kronecker–Weber),
+     so `ψ` is a Dirichlet character, absorbed into `f` (C9).
+
+  The argument needs `k = 2`, which still comes from the Hodge–Tate comparison, so (HT) stays a
+  supplier; it removes only the local-algebraicity step (rv-up §2.3).
 - *Suppliers.*
   - **(HT) For every cuspidal eigenform `g` (every weight `k ≥ 1`, every level `N`, including
     `5 | N`, every nebentypus), `ρ_g|G_{ℚ₅}` is Hodge–Tate, with weights `{0, 1−k}` in the
     normalization above** (normalization-free form: its two weights differ by `k − 1`;
     rv-h-c8 §3.1). N5 uses this twice without a citation: the twisting character is "a de Rham
     subrepresentation of the Hom representation", and N5 compares `{0, −1}` with "the modular
-    weights `{0, 1−k}`" (rv-h-trust §1.2 item 1). Hodge–Tate suffices for both uses (Tate's local
-    algebraicity needs only Hodge–Tate, and Hodge–Tate is closed under Hom and subobjects). The
+    weights `{0, 1−k}`" (rv-h-trust §1.2 item 1). Hodge–Tate suffices for both uses (the weight
+    comparison needs only Hodge–Tate, which is closed under Hom and subobjects). The
     eigenform of Pan's theorem can have level divisible by 5 (`T` depends on `u`, and nothing in
     N5 excludes bad reduction above 5; rv-h-c8 §3.3), so the supplier must cover all levels.
     Refereed sources (locators UNVERIFIED):
@@ -508,7 +538,13 @@ L10939-11000).
       theory*, Invent. Math. 129 (1997) (pst at `p` for every level; weights `0, k−1` in the
       cohomological normalization); or Scholl, *Motives for modular forms*, Invent. Math. 100
       (1990), with Scholze 2013, Cor. 1.8 and Fontaine's closure under subquotients, both already
-      leaves of C3;
+      leaves of C3; or Kato, *p-adic Hodge theory and values of zeta functions of modular
+      forms*, Astérisque 295 (2004), 117-290: §9.4, p. 188 (the realization `V` of `f` is de
+      Rham, with Hodge filtration jumps at `0` and `k`), §6.3, pp. 161-162, §§5.4 and 8.3,
+      pp. 155 and 181 (all levels, including `5 | N`), and (14.10.2)-(14.10.3), p. 240
+      (`det V = χ^{1−k}ε_g^{−1}`, Hecke polynomial on inverse arithmetic Frobenius, so `V^∨` is
+      `ρ_g` in the normalization above). These are the locators Version 14 and Version 16 use
+      (V16 L618-650; up-h §2 row 4);
     - **only for `5 ∤ N`:** Scholl 1990 with Faltings 1989 (crystalline comparison); Scholl 1990
       with Tsuji 1999 covers `5 | N` only together with de Jong's alterations (Publ. IHÉS 83,
       1996);
@@ -519,11 +555,15 @@ L10939-11000).
       has all Hodge–Tate weights 0 (STANDARD). Then `ρ_g ⊗ ψ` has equal weights, which C3
       excludes. (Alternatively Pan's body produces regular algebraic automorphic
       representations, hence `k ≥ 2`; UNVERIFIED reading.)
-    - Version 14 used Kato 2004 here (h-a011 §4).
-  - Local algebraicity of Hodge–Tate characters: N5 cites Conrad's preprint (2011), App. B,
-    pp. 32-33, which is [P]. Replacement: Serre, *Abelian ℓ-adic representations and elliptic
-    curves* (1968), Ch. III (Tate's theorem on Hodge–Tate characters), or Tate, *p-divisible
-    groups* (1967), §3.3, Thm 2. Locator UNVERIFIED; check III-§1 and the appendix.
+    - Version 14 also excludes `k = 1` this way (Deligne–Serre Thm 4.1, V16 L604-616; h-a011
+      §4).
+  - The determinant argument: the Weil pairing of a polarization, `e(σx, σy) = χ(σ)e(x, y)`
+    (Mumford, *Abelian varieties*, §20 and §23; STANDARD, locator UNVERIFIED), and
+    Kronecker–Weber, Washington, *Introduction to cyclotomic fields* (2nd ed. 1997), Thm 14.1,
+    p. 321 (the locator V16 L669-670 uses; UNVERIFIED).
+  - No longer used: local algebraicity of Hodge–Tate characters (N5 L760-761, Conrad's preprint
+    (2011), App. B, pp. 32-33, with its replacement Serre 1968 Ch. III or Tate 1967 §3.3). The
+    determinant argument makes it unnecessary.
 - *Check here.* In the Tate-module normalization, `{n, n+1−k} = {0, −1}` with `k ≥ 1` forces
   `n = 0`, `k = 2`; the other matching gives `k = 0` (VERIFIED as an argument). In Pan's
   cohomological normalization the comparison forces `k = 2` and twist `χ¹`, not "power zero"
@@ -531,16 +571,20 @@ L10939-11000).
   for `k = 2`, `ρ_g^coh ⊗ χ = (ρ_g^Tate)^∨ ⊗ χ = ρ_g^Tate ⊗ ε_g^{−1}`, a finite twist, absorbed
   into `f` (rv-h-c8 §5; rv-h-c3 §3.4). So `k = 2` is normalization-free and "power zero" holds
   in the Tate-module normalization, which is the one C9 needs (Tate module of `A_f`).
-- *Uncited but elementary (rv-h-c8 R4, §4 items 3-4).* Finiteness of `ψ` on inertia at `ℓ ≠ 5`
-  (`ψ(I_ℓ)` is the image of `ℤ_ℓ^×`, and `O_E^×` is virtually pro-5), and Kronecker–Weber for
-  "finite ray-class character".
+- *Elementary steps (rv-h-c8 R4, §4 items 3-4).* rv-h-c8 R4's finiteness of `ψ` on inertia at
+  `ℓ ≠ 5` is no longer needed: the determinant argument gives finiteness of `ψ` globally.
+  Kronecker–Weber, which turns `ψ` into a Dirichlet character, is now cited (Washington, above).
 - *Status:* **[M] (Astra "descent" on the identical 11/4 text, and rv-h-c8 on N5: two model
   reviews).** Astra (ADDENDUM item 5) accepted the argument without naming the eigenform input;
   its AUDIT item 6 warned against mixing the pairs `{0, k−1}` and `{0, 1−k}`. rv-h-c8 names the
   input, checks it against the N5 text, and finds that C8 holds after the repairs above
   (normalization, weight one, levels divisible by 5). The supplier (HT) is **[R]** with those
   corrections. rv-h-a011 checked Version 14's different twist argument (Deligne–Serre / Kato),
-  and rv-h-novel left this paragraph out of scope.
+  and rv-h-novel left this paragraph out of scope. The determinant argument for the finiteness
+  of `ψ`, which replaces N5's local-algebraicity sentence, is Version 14's (V16 L660-667). It was
+  checked by rv-up §2.3 (sound; it removes local algebraicity but neither (HT) nor
+  Kronecker–Weber) and by up-h §4 item 1; its first half, `det r₅ = α χ` with `α² = 1` on `G_F`,
+  is also h-a011 §3.6, checked in rv-h-a011 §3.3.
 
 **C9. Newform and `A_f`** (N5 L768-774).
 - *Suppliers.*
@@ -684,6 +728,13 @@ L10939-11000).
   - Faltings 1983, Lemma 5. Alternative: Raynaud, Astérisque 127 (1985), Exp. VII,
     Cor. 2.1.3.
   - Bost's lower bound `h_F ≥ −(3/2)·dim`, through GR14 §9 (ASTRA-READ: height AUDIT).
+  - Second locator for all three (task h-v16-adopt, after up-h §3 and §4 item 4):
+    Gaudron–Rémond, *Théorème des périodes et degrés minimaux d'isogénies*, Comment. Math.
+    Helv. 89 (2014), 343-403, §2.3 (pp. 351-352) and Cor. 8.4 (p. 400). Version 16 cites it for
+    Bost's bound `h_F ≥ −log(π√2)·dim > −(3/2)·dim` and for `h_F(A) ≤ h_F(B) + ½·log deg` in
+    its five-contact section (V16 L30661-30677); upstream keeps the Duke §9 locator in the
+    height section on purpose. Read by upstream's V16 reviewer (a model) only; read by no one
+    here. `log(π√2) = 1.4913 < 3/2` (up-h `checks.py` §5).
   - The Faltings and Raynaud locators are UNVERIFIED.
 - *Status:* **[R]**. The arithmetic is [M] (rv-h-novel step 9) and [S].
 
@@ -802,14 +853,14 @@ and rv-up's `endo24.py` and `theta24.py`.
 | N5 key | Used at | Replacement | Statement change |
 | --- | --- | --- | --- |
 | `milne-av` (course notes v2.00, 2008) | A9 (L564, Part I Thms 2.8-2.9), C3 (L10968, Part I Thm 12.1(a)) | Mumford, *Abelian varieties* (1970), §§1-3 with GAGA (A9), §§19-20 (C3); Milne in Cornell–Silverman (1986), §1 (A9), §15 (C3) | none; the bibliography entry (N5 L11024-11026) names only Thm 12.1(a), so the A9 locator must be added there (rv-h-a9c9 R-A9-1) |
-| `brinon-conrad` (CMI notes, 2009) | C3 | Fontaine, Astérisque 223 (1994); exposé numbers to check (rv-h-c3 R2: the admissibility formalism is probably Exp. III, and Exp. VIII, named here before, is on potentially semistable representations; SPECULATIVE) | none |
-| `conrad-local-characters` (preprint, 2011) | C8 | Serre 1968, Ch. III, or Tate 1967, §3.3 | none |
+| `brinon-conrad` (CMI notes, 2009) | C3 | Fontaine, *Représentations p-adiques semi-stables*, Astérisque 223 (1994), 113-184, Thm 3.8, p. 142 (V16's citation; content UNVERIFIED) | none |
 | `babagranath` (MPI preprint, 2005) | A2, A7 | Canad. J. Math. 60 (2008) | numbering to compare; the "local index slip" of Lemma 3.1 is not used (A3 is proved in N5) |
 | `linyang` (arXiv v1, 2018) | A1, A2, A7, F1 | Math. Z. 295 (2020) | equation and example numbers to compare |
 | `buzzard` (author version, 2002) | N5 L444 | deleted by B1 | — |
 
-Conrad's appendix and Serre 1968 III both state Tate's theorem for Hodge–Tate characters, which is
-all C8 uses beyond the eigenform input (rv-h-trust §4).
+The row `conrad-local-characters` (preprint, 2011; C8, replacement Serre 1968 Ch. III or Tate
+1967 §3.3) is gone: C8's determinant argument (task h-v16-adopt, V16 L660-667) no longer uses
+local algebraicity of Hodge–Tate characters.
 
 ### 2.5 Locators not read, and where to check them
 
