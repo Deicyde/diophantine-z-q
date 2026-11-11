@@ -41,3 +41,9 @@ rs-pole §2.2, cr3-map-literature R3). Φ(B) with multiplier m ⇔ X_{β_m,θ_m}
   §4.2(i) (one-curve quartic, hence X, everywhere locally soluble) only transcendental BM or
   no obstruction remains; Skorobogatov's conjecture (BM is the only obstruction on K3s,
   SPECULATIVE/open) would give X(ℚ) ≠ ∅ up to transcendental classes. Not a proof route.
+
+### S3. E1 toy pairs, naive search (`e1_points.py 1 3 10 100000`; VERIFIED computation)
+- Toy (β, θ) with (θ1)-(θ4); search s₀ ∈ {∞} ∪ {height ≤ 10}, t of height ≤ 10⁵
+  (hyperellratpoints on w² = c(β²t⁴ − 1), c = sqf(θ f(s₀))). Sanity: planted point found.
+- (199, 257): smallest point H = 74 (s = −7, t = −11/74). (3791, 1889), (−260287, 11953): none.
+- Even 3-4 digit θ need points of height ≳ 10²; naive search is useless beyond toys.
