@@ -72,3 +72,20 @@ Target: docs/research/cr3-trust.md (base of that note: 14b28b23; this worktree: 
   (numerical in the L-value only).
 - Note: Sel2 enters only the non-Rk forms; their derivation from TYZClRk is Lean-proved relative to Lean's
   own Sel2, so the Sel2 definitional match affects how they read, not whether TYZClRk justifies them.
+
+## Step 5: further checks (reading)
+- ellrank on d=10293 (one of cr3-trust's 6 pointless curves): output [1,1,0,[]]: lower bound r=1 with NO point
+  listed. So on those 6 curves ellrank's "r = 1" is not witnessed by a point (it rests on a parity/Cassels–Tate
+  step, i.e. on finiteness assumptions on Sha). cr3-trust A6 says "ellrank gives the bounds [1,1]" for all 30;
+  for the 6 it should say that the lower bound is not certified. Minor.
+- rv-cr3-rank (A5, E3 supplier) is still not an ancestor of HEAD (origin/wip/rv-cr3-rank aec3b570). Its
+  verdict (read via git show): no blocker; 38/38 axioms standard; Point instance = Mathlib's
+  instAddCommGroup. A trust statement that cites it should have it merged.
+- rv-prop-n §1 also checks gCl = TYZ's g and T5bCl = T_5b by reading -> A1 now has two model reviews, A2 three.
+- rv-prop-n §6: I1's inclusion H'_{d0} ⊂ H'_n is a quoted fact; cr3-trust B5 calls B5 "a definition, not a
+  theorem" while listing that inclusion in it. Repair: mark the inclusion as a TYZ fact (ARXIV-READ).
+- rv-prop-n: one lift β' serves all Z(e) at once; cr3-trust B8 says "any lift β'". Repair wording.
+- Group law: cr3-trust A5 does not say why GZ's (classical) non-torsion point is non-torsion for Mathlib's
+  Point group. STANDARD: Mathlib's addition is the chord-tangent law (Silverman III.2.3 formulas); and the Inf
+  form avoids the group law entirely (Lean-proved equivalence). Add one sentence.
+- Form count: with the DLAdmRk variant there are now 14 forms with main-theorem variants (cr3-trust: 13).
