@@ -52,3 +52,11 @@ rv-nt-tyz.md NOT read until own verdicts are written.
 - So (a) reading B (T5a+g(n)+T5b even) fails on 7 values (nt-tyz had 26565, 33117); (b) a recursion with an
   even coefficient in place of L(d1) (which would give c_n(e)≡0 for e≠n, i.e. "rank>=2 => g(n) even") is
   refuted: indirect numerical support that the quoted recursion coefficient is L(d1) without a factor 2.
+
+## Step 7. Sensitivity of Lemma N2 to the eps-classification (abstract_eps_variants.py, seed 3, r<=7, 420 trials)
+- IPAIRS = set of class pairs (d0,d1) with eps ≡ i (mod 2):
+  {(5,3)} (TYZ Thm 3.3): 0 mismatches;  {} (all eps ≡ 1): 0 mismatches;
+  {(7,3)}: 1929; {(5,3),(7,3)}: 1929; {(5,1)}: 3007; {(7,1)}: 1100 mismatches.
+- So N2 needs eps ≡ ±1 at (5,1), (7,1), (7,3), and is insensitive to eps at (5,3) (the s>=2 terms cancel by
+  the involution whatever their weight). The only part of I1's eps-input actually used is "eps(d0,d1) = ±1
+  unless (d0,d1) ≡ (5,3)".
