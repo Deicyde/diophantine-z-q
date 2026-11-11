@@ -77,3 +77,10 @@ Verdict item 1: CONFIRMED (with locator correction for the constants block; cons
   integer matrices). Commutant of iota(O) in End(A): rank 2, discriminant -24 (basis 1, w with w^2+4w+10=0), i.e. the
   maximal order Z[sqrt(-6)]. So A is the QM point P_-24 (CM by the maximal order of disc -24) for N5's datum.
   With theta24.py: F1's formula gives j(P_-24) = -16/27, with no use of BG 3.7/3.9, LY eq.(2) or LY's Y'5 claims.
+- Consistency at a third CM point: theta24.py 5 1 1 81 64 (theta19.output.txt): at z=(-1+sqrt(-19))/10, x=36 and F1's theta
+  expression = 81/64 to 3e-39; endo24.py 2 5 1 1 (endo19.output.txt): same O-embedding with mu-Rosati exists, commutant
+  disc -19. Agrees with LY's / BG's j(P_-19)=81/64 (a consistency check only; the global shape on X still needs LY Ex.30's
+  divisor statements).
+- h-trust dependence: only F1 (l.691) and l.797 name LY eq.(2); no step names BG Props 3.7-3.10. A2 (l.185-188) cites BG
+  "§2.1 (Thm 2.1) and §3" (locator broad enough to include 3.7-3.9); A5 (l.252) BG for W=(Z/2)^2; A7 (l.286-293) BG Thm 2.1
+  + LY (13)-(14), Ex. 29-30 via igusa_check.py; l.89, l.928 general. h-v14.md l.335 (A017) also cites LY (2).

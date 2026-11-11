@@ -5,6 +5,7 @@ Here: (1) evaluate x at the Heegner points of discriminant -24 on X_0(5) (forms 
 (2) evaluate F1's theta expression  j = 3779136 (prod theta_m)^4 / (sum theta_m^8)^5  (ten even characteristics)
 directly at Omega(z), and compare with -16/27.  Uses only eta/theta series (no Lin-Yang polynomial, no Baba-Granath).
 This checks Lin-Yang's x-value and, given that Omega(z) is the QM point P_-24 (see endo24.py), F1's value at P_-24."""
+import sys
 import mpmath as mp
 mp.mp.dps = 40
 def eta(z, terms=400):
@@ -26,14 +27,19 @@ def theta(a, b, Om, N=30):
     return s
 even = [(a, b) for a in [(0,0),(0,1),(1,0),(1,1)] for b in [(0,0),(0,1),(1,0),(1,1)] if (a[0]*b[0]+a[1]*b[1]) % 2 == 0]
 assert len(even) == 10
-target = -6 + 6*mp.sqrt(-3)
-for (A, B, C) in [(5, 4, 2), (5, -4, 2), (10, 4, 1), (10, -4, 1)]:
-    assert B*B - 4*A*C == -24 and A % 5 == 0
-    z = (-B + mp.sqrt(-24))/(2*A)
+# optional: argv = A B C jtarget_num jtarget_den for one more Heegner form (consistency check at another CM point)
+forms = [(5, 4, 2), (5, -4, 2), (10, 4, 1), (10, -4, 1)]
+jt = mp.mpf(-16)/27
+if len(sys.argv) > 5:
+    forms = [tuple(int(x) for x in sys.argv[1:4])]; jt = mp.mpf(int(sys.argv[4]))/int(sys.argv[5])
+for (A, B, C) in forms:
+    D = B*B - 4*A*C
+    assert A % 5 == 0 and D < 0
+    z = (-B + mp.sqrt(D))/(2*A)
     xv = xval(z)
     Om = [[3*z, 5*z], [5*z, 10*z]]
     th = [theta(a, b, Om) for a, b in even]
     P = mp.fprod(th); S = mp.fsum([t**8 for t in th])
     jv = 3779136 * P**4 / S**5
     print(f"form [{A},{B},{C}]: x = {mp.nstr(xv, 20)}; x^2+12x+144 = {mp.nstr(abs(xv**2+12*xv+144), 5)};"
-          f" j_theta = {mp.nstr(jv, 25)}; |j_theta + 16/27| = {mp.nstr(abs(jv + mp.mpf(16)/27), 5)}")
+          f" j_theta = {mp.nstr(jv, 25)}; |j_theta - target| = {mp.nstr(abs(jv - jt), 5)} (target {mp.nstr(jt, 12)})")
