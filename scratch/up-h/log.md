@@ -13,3 +13,11 @@
 ## Step 2 (statement and constants of thm:height)
 - VERIFIED (diff of the block "Set ... \end{align*}" plus the theorem statement): identical in N5 (L378-409), V13 (L454-475, L480-485), V14 (L454-475, L682-687), V15 (L479-500, L707-712), V16 (L479-500, L707-712). C={0,-15,-20,-24,-30,-60}, M_S, F_0=324!, D, G_0, E_0, Q_R, B_cm, C_cm, H_6(S;R); h(u) ≤ H_6(S;R) M_S(u)^24.
 - V15/V16 add after the align block: "The constants in the displayed definition of H_6(S;R) are unchanged" (V16 L503-504).
+
+## Step 3 (where the height estimates are used in V16)
+- V16 thm:target (L113, 292890231905 variables) proof: "Theorem thm:height proves H for each of the two sets of constants used below" (L219). So the target the fork formalizes still uses the six-contact estimate, unchanged.
+- V16 other height estimates (all for the quartic constructions, not for thm:target):
+  - hyp:o8-height "The five-contact height estimate" L7651: S_*={p≤76176}, D={0,1,2401,-343/32}, contacts ∞,0,1,2401,-343/32; h(a) ≤ H_* M_5(a)^24, H_*=2(4608^165888+6^100)(∏_{p≤76176}p)^24+128 (L7640-7650), log2 H_*<4783227. Proof starts from the Shimura curve of the disc-210 quaternion algebra, genus 5, González–Rotger 2006 Thm 4.2/Table 2 models (L7660-7680). L7622: "Theorem thm:height uses a different contact set".
+  - thm:quartic-height19 L10005: h(a) ≤ H_19 M_5(a)^19, A_19=2^109 210^1800, H_19=2A_19 B_*^19+128, log2 H_19<2093966; reuses the construction of hyp:o8-height.
+  - v15:height:thm:contactheight L30758ff (section v15:height L30186): h(a) ≤ C_3 M_5^3(1+log M_5), C_3=19 D_0 B_*^3 log B_* < 2^330770, D_0=4608·210^300; h(a)<2^330789 M_5^{7/2}. Input: Lemma "Modular realization" v15:height:def:input (L30710ff; proof L30730-30732 points to thm:quartic-height19): CM alternative h_F(A)<854R, else A_{L'} isogeny factor of Jac(X_1(N)/ker ε), [L':Q]≤2304φ(R), N≤210^300 R^2, rad N | R.
+- V16 abstract (L58-70): featured objects are the 292890231905-variable polynomial, the 314-variable quartic (thm:v15-decimal L100) and the 222-variable family with ineffective N_0 (thm:v15-main L104).
