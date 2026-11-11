@@ -84,3 +84,16 @@ Manuscript: diophantine_zq.tex in this worktree (last touched 97cec7fd, "Novembe
   Robust to the Baba-Granath labelling: any pair of branch points works (order-4 point:
   g_0^2 maps to 1, so pairing it with either other point also gives a contradiction).
 - F1 (R5) has I_0 = I_{-16/27} = Z/2: the W-step is exactly what fails there. Consistent.
+
+## 6. Independent check on the W-layer (rv_checks.py R7; 30 samples, p in [5,400), < 1 s)
+- Source of the model: docs/research/rv-h-cm.md §2 (Elkies §3.1-3.2 constants c0 = -1, c1 = 3,
+  rederived there by reciprocity): with t = 1 + 27j/16, Q(X^6) = Q(j)(sqrt(-(27j+16)), sqrt(j)).
+  Constants are {-1,3}: X_6 -> P^1_j has no vertical ramification at p >= 5. This is independent
+  confirmation of NV's conclusion on the W-quotient (Elkies fixes c0,c1 by conductors of X_0^*(l)).
+- R7: for 30 (j0,p) (meet 0 / meet -16/27 / meet ∞ / generic, multiplicity 1-4), nfdisc of the
+  actual biquadratic fibre field vs Prop. TS prediction (ramified iff odd contact multiplicity,
+  e = 2 on this layer): 30/30 agree.
+- Limitation: on the 144-layer (full Y_3) no explicit model is available here, so NV's conclusion
+  above the W-layer rests on the proof alone (reviewed in §5, holds).
+- rv-h-cm §1.3 also confirms the labelling j = 0, ∞, -16/27 <-> D = -4, -3, -24 with W-stabilisers
+  w2, w3, w6, matching R2.

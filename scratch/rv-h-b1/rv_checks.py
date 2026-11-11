@@ -142,3 +142,35 @@ for key, (c, D, f, Do, k, normal, w) in sorted(types.items()):
         if in_QK3(y) and not (y[1] == y[2] == y[3] == 0): bad.append((key, e))
         y = mul(y, x)
 print(" violations:", bad, "-> ramification index of Y_3 -> P^1_j at an elliptic point = its order in B^*/Q^*")
+
+print("\n== R7. Prop. TS tested on the W-layer X_6 -> P^1_j with real fields (30 samples)")
+# Elkies' model as checked in docs/research/rv-h-cm.md §2: t = 1 + 27j/16, Q(X^6) = Q(t)(sqrt(-t), sqrt(3(t-1)))
+#   = Q(j)(sqrt(-(27j+16)), sqrt(j)) up to rational squares. Constants -1, 3: p-units for p >= 5 (no vertical
+#   ramification on this layer, independently of Lemma NV). Prop. TS predicts: p >= 5 ramifies in the fibre field
+#   iff j0 meets 0 (e=2 on this layer) with odd v_p(j0), or -16/27 with odd v_p(j0+16/27), or oo with odd v_p(1/j0).
+import random
+random.seed(1111)
+plist = list(sympy.primerange(5, 400))
+def vpq(q, p):
+    q = Fr(q); return sympy.multiplicity(p, q.numerator) - sympy.multiplicity(p, q.denominator)
+allok = True
+for k in range(30):
+    p = random.choice(plist); kind = k % 4; m = random.randint(1, 4)
+    if kind == 0:   j0 = Fr(p**m * random.randint(1, 30), random.randint(1, 30))           # meets 0
+    elif kind == 1: j0 = Fr(-16, 27) + Fr(p**m * random.randint(1, 30), random.randint(1, 30))   # meets -16/27
+    elif kind == 2: j0 = Fr(random.randint(1, 30), p**m)                                    # meets oo
+    else:           j0 = Fr(random.randint(-500, 500), random.randint(1, 50))              # generic
+    if j0 == 0 or j0 == Fr(-16, 27): j0 += 1
+    a1 = j0.numerator * j0.denominator                         # sqrt(j0) ~ sqrt(num*den)
+    q2 = -(27*j0 + 16); a2 = q2.numerator * q2.denominator
+    pol = pari('polcompositum(x^2-(%d), x^2-(%d))[1]' % (a1, a2)) if not (sympy.sqrt(sympy.Integer(a1)).is_rational or sympy.sqrt(sympy.Integer(a2)).is_rational) else None
+    if pol is None:
+        a = a2 if sympy.sqrt(sympy.Integer(a1)).is_rational else a1
+        pol = pari('x^2-(%d)' % a) if not sympy.sqrt(sympy.Integer(a)).is_rational else pari('x')
+    disc = pari.nfdisc(pol) if pari.poldegree(pol) > 1 else 1
+    ram = int(disc) % p == 0
+    v0, v2 = vpq(j0, p), vpq(j0 + Fr(16, 27), p)
+    pred = (v0 > 0 and v0 % 2 == 1) or (v0 < 0 and (-v0) % 2 == 1) or (v2 > 0 and v2 % 2 == 1)
+    ok = ram == pred; allok = allok and ok
+    print(" p=%d j0=%s v_p(j0)=%d v_p(j0+16/27)=%d: p ramified in fibre: %s, Prop. TS predicts: %s %s" % (p, j0, v0, v2, ram, pred, "ok" if ok else "MISMATCH"))
+print(" all 30 agree:", allok)

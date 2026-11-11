@@ -45,3 +45,36 @@ degree of a component over X_6: |(O/3O)^1/{+-1}| = 18 ; over P^1_j: 4*18 = 72
 
 == R6. neatness: elliptic x with x^k in Q^* K_3 only if x^k central
  violations: [] -> ramification index of Y_3 -> P^1_j at an elliptic point = its order in B^*/Q^*
+
+== R7. Prop. TS tested on the W-layer X_6 -> P^1_j with real fields (30 samples)
+ p=113 j0=153228/25 v_p(j0)=2 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=73 j0=52517279/27 v_p(j0)=0 v_p(j0+16/27)=3: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=331 j0=3/109561 v_p(j0)=-2 v_p(j0+16/27)=-2: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=199 j0=-51/10 v_p(j0)=0 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=379 j0=1292769/28 v_p(j0)=2 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=19 j0=1481464/135 v_p(j0)=0 v_p(j0+16/27)=3: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=211 j0=7/9393931 v_p(j0)=-3 v_p(j0+16/27)=-3: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=67 j0=490/23 v_p(j0)=0 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=271 j0=1084/5 v_p(j0)=1 v_p(j0+16/27)=0: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=71 j0=5719/54 v_p(j0)=0 v_p(j0+16/27)=1: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=127 j0=15/16129 v_p(j0)=-2 v_p(j0+16/27)=-2: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=139 j0=94 v_p(j0)=0 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=89 j0=102973/30 v_p(j0)=2 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=197 j0=3143449/135 v_p(j0)=0 v_p(j0+16/27)=2: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=337 j0=21/113569 v_p(j0)=-2 v_p(j0+16/27)=-2: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=101 j0=-43/4 v_p(j0)=0 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=293 j0=95810660413/7 v_p(j0)=4 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=283 j0=19461563/108 v_p(j0)=0 v_p(j0+16/27)=2: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=233 j0=5/54289 v_p(j0)=-2 v_p(j0+16/27)=-2: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=137 j0=-193/40 v_p(j0)=0 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=79 j0=156025/6 v_p(j0)=2 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=79 j0=42388/459 v_p(j0)=0 v_p(j0+16/27)=1: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=223 j0=17/11089567 v_p(j0)=-3 v_p(j0+16/27)=-3: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=37 j0=407/21 v_p(j0)=1 v_p(j0+16/27)=0: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=97 j0=15515441/16 v_p(j0)=3 v_p(j0+16/27)=0: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=383 j0=3431/27 v_p(j0)=0 v_p(j0+16/27)=1: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=353 j0=9/43986977 v_p(j0)=-3 v_p(j0+16/27)=-3: p ramified in fibre: True, Prop. TS predicts: True ok
+ p=101 j0=-280/33 v_p(j0)=0 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=383 j0=3373847/7 v_p(j0)=2 v_p(j0+16/27)=0: p ramified in fibre: False, Prop. TS predicts: False ok
+ p=167 j0=35704/621 v_p(j0)=0 v_p(j0+16/27)=1: p ramified in fibre: True, Prop. TS predicts: True ok
+ all 30 agree: True
