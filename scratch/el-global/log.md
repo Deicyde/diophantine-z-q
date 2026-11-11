@@ -55,3 +55,16 @@ Input: t = n integer (n = 271..332), kappa' = 1 (not deep), h = 2, s0 = 2n, eta 
 first 30 pairs (n, p) with p > 324, v_p(F(n)) odd. p-adic arithmetic in K0 (x) Q_p, precision p^400.
 Outcome: v_p(B) = -11 in 30/30 cases (v_p(F) = 1 in all). So data honest in every coordinate except the
 depth of kappa is bad at every odd contact prime > 324. This is the "kappa-deformation" used in GG-B.
+
+## Step 5: E2 (VERIFIED, `e2_mw_sieve.py`)
+
+Input: all primes pi of K0 of norm < 20000, pi not over 2 or 7 (2258 primes: 2240 of degree 1, 18 of
+degree 2); m_pi = order of P0 mod pi (PARI nfmodpr + ellorder).
+Outcome: fraction with gcd(m_pi, M) = 1: M=2: 0.588; 3: 0.753; 6: 0.446; 30: 0.307; 210: 0.285.
+Depth identity v_p(x([k m]P0)) = -2(v_p(k) + r) checked p-adically (precision p^80) at 10 (p, embedding)
+pairs, p in {17,23,31,41,47}, k in {1, p, 2p, p^2}: 10/10.
+Use (Lemma MW): an obstruction that uses L in Z P0 + T only through local conditions at a fixed finite set
+of auxiliary places is a congruence condition on the index k mod a fixed M; depth at a bad pi needs only
+m_pi | k (and a p-power), which is compatible by CRT whenever gcd(m_pi, M) = 1, a set of primes of positive
+density (Chebotarev in K0(E[l]) for odd l; empirical 0.59 for l = 2). So such soundness is not uniform in
+p (rv-barrier N3).
