@@ -1,0 +1,30 @@
+def ZInQ.RouteK.Rank.CertifiedRankRk : Prop :=
+∀ (d : ℕ),
+  d % 8 = 5 →
+    Squarefree d →
+      (ZInQ.RouteK.Selmer.Sel2 d).ncard = 8 →
+        (∃ ab ∈ ZInQ.RouteK.Selmer.Sel2 d, ab.1.natAbs % 8 = 7) →
+          ∃ (P : (ZInQ.shortCurve (-↑d ^ 2)).toAffine.Point), ¬IsOfFinAddOrder P
+def ZInQ.RouteK.Rank.CertifiedRankTYZRk : Prop :=
+∀ (d : ℕ),
+  d % 8 = 5 →
+    Squarefree d → ZInQ.RouteK.Rank5b.T5b d = 1 → ∃ (P : (ZInQ.shortCurve (-↑d ^ 2)).toAffine.Point), ¬IsOfFinAddOrder P
+def ZInQ.RouteK.Rank.CertifiedRankTYZClRk : Prop :=
+∀ (d : ℕ),
+  d % 8 = 5 →
+    Squarefree d →
+      ZInQ.RouteK.Rank5b.T5bCl d = 1 → ∃ (P : (ZInQ.shortCurve (-↑d ^ 2)).toAffine.Point), ¬IsOfFinAddOrder P
+ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankRk : ZInQ.SixContactMin →
+  ZInQ.RouteK.Rank.CertifiedRankRk → ZInQ.FrozenTarget
+ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZRk : ZInQ.SixContactMin →
+  ZInQ.RouteK.Rank.CertifiedRankTYZRk → ZInQ.FrozenTarget
+ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk : ZInQ.SixContactMin →
+  ZInQ.RouteK.Rank.CertifiedRankTYZClRk → ZInQ.RouteK.Rank5b.RedeiFormula → ZInQ.FrozenTarget
+@ZInQ.RouteK.Rank.loc_of_mem_sel2_of_infinite_order : ∀ {d : ℕ},
+  d ≠ 0 →
+    AddGroup.FG (ZInQ.shortCurve (-↑d ^ 2)).toAffine.Point →
+      (∃ (P : (ZInQ.shortCurve (-↑d ^ 2)).toAffine.Point), ¬IsOfFinAddOrder P) →
+        (ZInQ.RouteK.Selmer.Sel2 d).ncard = 8 →
+          ∀ ab ∈ ZInQ.RouteK.Selmer.Sel2 d, ZInQ.RouteK.Selmer.Loc ℚ ↑d ↑ab.1 ↑ab.2
+ZInQ.RouteK.Rank.fg_points : ∀ (d : ℕ), d ≠ 0 → AddGroup.FG (ZInQ.shortCurve (-↑d ^ 2)).toAffine.Point
+WeierstrassCurve.Affine.Point.instAddCommGroup
