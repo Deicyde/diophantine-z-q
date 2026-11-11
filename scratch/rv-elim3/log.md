@@ -35,3 +35,17 @@ Outcome: (R0/p) = -1 at 32 of 70 such primes (no bias toward +1). Obstruction pr
 8,4,16,8,16,0,8,32,32,16,32,2 of 64 (upper bounds). One instance (n=2,h=3,s0=5) already kills all 64.
 Conclusion: the el-cert local obstruction is real on genuine data even at kappa = 1; X3b's model is
 consistent with it. No refutation.
+
+## Step 5. el-cert M1 soundness vs the Lean proofs — VERIFIED (by reading)
+Test site (TestDivisibility.lean:300-345, prime_dvd_of_test): uses pole_step on (R, Theta), trace_val
+(-v_pi(W) <= v_p(Theta)), tests_small with the SAME R inside W, then 4vF - 3v(R) with v(R) = vF + 2b, b <= 0.
+M1: numerator R0 a0^2, W0 = poleW(R0, C). pole_step on (R0 a0^2, Theta0): 2v(Theta0) < vF + 2b <= vF.
+With trace_val: -v(R0) < 2 v_pi(W0), i.e. hypothesis hlam of tests_small with R := R0; conclusion
+vF < 4 v_pi(D), so v_pi(D) >= 1. Same as the original at q = 0.
+Slope site (CommonGroup.lean:40-160, common_group_of): hex derives a contradiction from
+"2 v_pi(W_g^-1) >= r for all g, pi" via pole_obstruction on R/Theta^2; final step uses r <= k.
+M1: r_W = v(l^2 R0) = k (v(l) = 0); contradiction hypothesis gives v(Theta0) >= (k+1)/2, so
+v(l^2 a^2 R0 / Theta0^2) <= 2v(a) - 1, negative odd (v(a) <= 0 since v(R0) odd) -> obstruction. Then r_W = k <= k.
+Every use of the pole step has v(R0) odd, so v(a) <= 0 holds wherever needed.
+Repair (minor): the Lean change is not a pure substitution; pole_step/hex must be restated with a
+numerator R_num = R_W a^2 different from the W argument (one extra inequality 2v(a) <= 0).
