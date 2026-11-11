@@ -11,7 +11,7 @@ lean: ZInQ.RouteK.Rank.CertifiedRankRk
 The hypothesis CR₃^Rk is the following assertion. Let $d$ be a squarefree positive integer with
 $d\equiv5\pmod8$. Suppose that the 2-Selmer group $\mathrm{Sel}_2(C_d)$ has exactly $8$ elements and
 contains a pair $(a,b)$ with $|a|\equiv7\pmod8$. Then $C_d(\mathbb Q)$ has a point of infinite
-order; that is, $d$ is a congruent number.
+order.
 
 The premises are those of [CR₃^Sel](../selmer/certified-rank-sel.md); only the conclusion changes,
 from "every Selmer class comes from a rational point" to $\operatorname{rank}C_d(\mathbb Q)\ge1$,

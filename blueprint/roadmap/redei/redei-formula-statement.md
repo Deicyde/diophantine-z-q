@@ -18,7 +18,7 @@ bits $a_{pq}$, $y_p$, $z_p$ of the primes of $d$:
 $$g_d(B)=\sum_{\rho\in B}y_\rho\,\kappa_\rho(B)\ \text{ if }y(B)=1,\qquad
 g_d(B)=\sum_{\rho\in B}z_\rho\,\kappa_\rho(B)\ \text{ if }y(B)=0.$$
 
-The blocks allowed are exactly those that occur in the genus sum $T_{5b}(d)$: the blocks of a set
+The blocks allowed include every block that occurs in the genus sum $T_{5b}(d)$: the blocks of a set
 partition are nonempty, and the partitions counted by the genus sum have only blocks with
 $d_B\equiv7$, $3$ or $1\pmod8$. Blocks with $d_B\equiv5\pmod8$ never occur. The empty set is
 excluded because $g(1)=1$ (the class group of $\mathbb Q(i)$ is classically trivial), while Rédei's

@@ -24,9 +24,10 @@ The twenty-two-prime pattern enters only through the
 [slope representation](../multiplication/completeness/slope-representation.md); since the
 [two-slope pattern](two-slope-pattern.md) also gives the slope representation, the theorem
 holds, with the same polynomial, under the two-slope pattern in place of the twenty-two-prime
-pattern. The manuscript's fourth input, the catalogue bound, is a theorem here
-([the catalogue bound holds](../progressions/catalogue-instance.md)): every unit class modulo
-$W$ contains twenty-two primes $p$ with $324<p<2^{W^8}$, by an effective Dirichlet theorem.
+pattern. The manuscript's fourth input, the catalogue bound, is replaced by a theorem with a
+larger cutoff ([the catalogue bound holds](../progressions/catalogue-instance.md)): every unit
+class modulo $W$ contains twenty-two primes $p$ with $324<p<2^{W^8}$, by an effective Dirichlet
+theorem, where the manuscript has the cutoff $2^{W^3}$.
 The bound on the addition and multiplication nodes of the universal halting circuit, and the
 circuit's exact node statistics, are finite checks proved in the compiler chapter; the theorem
 holds as well with either one added as a hypothesis.

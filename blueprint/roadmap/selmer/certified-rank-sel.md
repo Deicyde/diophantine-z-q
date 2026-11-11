@@ -19,8 +19,8 @@ $\mathbb Q$ and the identification of the Kummer map with the connecting map of 
 2-descent (Silverman X.1.4), the conclusion says that every Selmer class comes from a rational
 point, that is $Ш(C_d)[2]=0$. Since $C_d(\mathbb Q)[2]$ has order $4$, the image of
 $C_d(\mathbb Q)$ has dimension $2+\operatorname{rank}C_d(\mathbb Q)$, so when $\mathrm{Sel}_2(C_d)$ has
-$8$ elements the conclusion is equivalent to $\operatorname{rank}C_d(\mathbb Q)\ge1$. It rests on
-either of:
+$8$ elements, $\operatorname{rank}C_d(\mathbb Q)\ge1$ gives the conclusion (with Mordell–Weil); the
+converse is not formalized here. It rests on either of:
 
 - Kriz's 2-converse theorem (Theorem 10.13, an unrefereed preprint) for $C_d$ at $p=2$, whose
   standing assumption holds since $d\ge21$ (by Proposition 0 the class $a$ is a signed divisor of

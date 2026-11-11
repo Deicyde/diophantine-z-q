@@ -13,8 +13,7 @@ complete 2-descent. The descent map $\delta_d$ has kernel $2C_d(\mathbb Q)$ and 
 $\mathrm{Sel}_2(C_d)$, and $C_d(\mathbb Q)[2]$ has order $4$. So when $C_d(\mathbb Q)$ is finitely
 generated, a point of infinite order gives $|C_d(\mathbb Q)/2C_d(\mathbb Q)|\ge8$, and when
 $\mathrm{Sel}_2(C_d)$ has order $8$ the image is all of it. So CR₃^Sel, CR₃^TYZ and CR₃^TYZ_Cl have
-positive-rank forms that ask only for a point of infinite order on $C_d$, that is, that $d$ is a
-congruent number. With Mordell–Weil for every $C_d$, proved in its own section, the positive-rank
+positive-rank forms that ask only for a point of infinite order on $C_d$. With Mordell–Weil for every $C_d$, proved in its own section, the positive-rank
 forms imply the original ones, and the positive-rank form of CR₃^Sel implies CR₃. The proof of pole completeness applies the hypothesis at only two curves, those of
 a slot choice, and a last section states the positive-rank hypothesis for exactly those curves.
 
@@ -40,7 +39,7 @@ theorem with the naive height prove it for every $d\ne0$.
 
 ## The hypotheses in positive-rank form
 
-Three positive-rank hypotheses: CR₃^Rk keeps the premises of CR₃^Sel, CR₃^TYZ,Rk asks only for an
+Three positive-rank hypotheses: CR₃^Rk keeps the premises of CR₃^Sel, CR₃^TYZ,Rk asks, for squarefree $d\equiv5\pmod 8$, only for an
 odd genus sum of Rédei's bits, and CR₃^TYZ_Cl,Rk for an odd genus sum of class numbers, as in Tian,
 Yuan and Zhang's own statement. CR₃^TYZ_Cl,Rk implies CR₃^TYZ,Rk by Rédei's formula, and
 CR₃^TYZ,Rk implies CR₃^Rk by Corollary 4.4 and Theorem 3.6.

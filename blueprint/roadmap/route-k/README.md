@@ -29,8 +29,9 @@ not.
 - [Configurations](configuration.md)
 - [The Selmer system of a configuration](selmer-system.md)
 
-Two operations shrink a configuration without changing its solution set: removing a glue prime
-with a single partner, and gluing a set of primes into one virtual prime through glue primes.
+Two operations shrink a configuration and carry its solutions bijectively onto those of the
+smaller one, keeping $a_0,a_1,b_0,b_1$: removing a glue prime with a single partner, and gluing
+a set of primes into one virtual prime through glue primes.
 At the end of the reduction stands a configuration of two primes, whose system is computed
 directly.
 
@@ -80,7 +81,8 @@ witnesses of the pole polynomial. With CR₃ applied to the two certified curves
 completeness, which the main theorem therefore no longer assumes. The proof applies CR₃ to these
 two curves only; the [two-curves section](../rank/two-curves/README.md) proves pole completeness
 from positive rank on curves of the same kind: the two curves of some slot choice, for every
-triple $\beta,\theta,p_0$ that admissible inputs produce.
+triple $\beta,\theta,p_0$ satisfying the hypotheses of the realization (CR₃^DL,Rk), or, for each
+admissible input, for some multiplier, prime $p_0\mid\beta$ and slot choice (CR₃^DL,Adm,Rk).
 
 - [Points on two congruent number curves give pole solubility](points-pole-solubility.md)
 - [Pole completeness from the certified rank hypothesis](pole-completeness-from-cr3.md)

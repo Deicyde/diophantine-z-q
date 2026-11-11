@@ -41,7 +41,8 @@ hypothesis in the terms of Smith's row-5b determinant, CR₃^5b, and CR₃^5b fr
 Zhang's terms, CR₃^TYZ ([the row-5b chapter](../rank-5b/README.md)); by Rédei's formula, CR₃^TYZ is
 equivalent to its form CR₃^TYZ_Cl with their class numbers ([the Rédei chapter](../redei/README.md)).
 Each of CR₃^Sel, CR₃^5b, CR₃^TYZ and CR₃^TYZ_Cl concludes that every Selmer class comes from a
-rational point; CR₃ itself concludes this for one given class. CR₃^Sel, CR₃^TYZ and CR₃^TYZ_Cl also
+rational point; CR₃ itself concludes only that $C_d$ has a rational point $(x,y)$ with $x\ne0$ and
+$x/a$ a square, for the one given $a$. CR₃^Sel, CR₃^TYZ and CR₃^TYZ_Cl also
 have forms that conclude only that the curve has positive rank. These imply narrower hypotheses
 still, which ask for positive rank only on the two curves of a slot choice
 ([the positive-rank chapter](../rank/README.md)).
@@ -75,8 +76,9 @@ of the good slope primes, [Proposition D](../density/README.md).
 The catalogue bound is no longer an assumption of substance: the
 [progressions chapter](../progressions/README.md) proves it from an effective Dirichlet
 theorem. Under the remaining hypotheses (the minimal form of the height estimate, the certified
-rank hypothesis CR₃, or pole completeness in its place, and the twenty-two-prime pattern, or the
-two-slope pattern in its place) the target holds.
+rank hypothesis CR₃ and the twenty-two-prime pattern) the target holds; it also holds with pole
+completeness in place of CR₃, or with the two-slope pattern in place of the twenty-two-prime
+pattern.
 
 - [The main theorem](main-theorem.md)
 

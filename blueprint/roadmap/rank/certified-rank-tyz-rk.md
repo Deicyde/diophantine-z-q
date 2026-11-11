@@ -19,7 +19,7 @@ imaginary quadratic field, which gives $\operatorname{rank}C_d(\mathbb Q)\ge1$. 
 identifies $T_{5b}(d)$ with Tian, Yuan and Zhang's genus sum of class numbers. The deep theorems are
 not proved here, so CR₃^TYZ,Rk is a hypothesis. It is the
 [Tian–Yuan–Zhang form CR₃^TYZ](../rank-5b/certified-rank-tyz.md) with the premise
-$|\mathrm{Sel}_2(C_d)|=8$ dropped and the conclusion weakened to positive rank.
+$|\mathrm{Sel}_2(C_d)|=8$ dropped and the conclusion replaced by positive rank.
 
 ## Depends on
 
