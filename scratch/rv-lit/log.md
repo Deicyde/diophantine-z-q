@@ -48,3 +48,12 @@
   = JHeightBound at R = D (heightX D = max 1 (max C_cm (Q_D^17)), Q_R = R^(R E0)), S = S_mul. Exact; nothing beyond A1-F3.
 - twelve_mul_ratHeight_le: Lean proof does not use u ∉ 𝒞 (true for all u); sample check scratch/rv-lit/f4_check.py:
   30 u (6 contact values, 24 others), max 12h(u)-h(J(u)) = 49.1 ≤ 450, every gcd(57600F_h^2, G_h^6) divides C0. VERIFIED (sample).
+
+## Step 6: Lean runs (load < 21)
+- lake build ZInQKernel.RouteK.RankVariants ZInQKernel.Hypotheses.HeightMin: success (9841 jobs).
+- lake env lean scratch/wk-cr3/Literature.lean: compiles; all five #print axioms = [propext, Classical.choice, Quot.sound].
+- lake env lean scratch/wk-h/BackToU.lean: compiles; sixContactMin_of_jHeightBound axioms standard three.
+  (twelve_mul_ratHeight_le is thus a Lean theorem.) SixContactMinAt S_mul = SixContactMin not checked there (scratch does
+  not import Mult.S_mul); the adoption must prove it (rfl claimed).
+- scratch/rv-lit/Probe.lean compiles: (shortCurve (-(d:ℚ)^2)).a₄ = -(d^2) by rfl; Complex.Gamma 0 = 0;
+  analyticOrderAt f z = 0 when f not analytic at z.
