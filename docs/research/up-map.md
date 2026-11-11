@@ -246,7 +246,7 @@ V2–V13 use N5's numbers: 1.1, 4.1, 5.2, 5.3, 6.2, 12.1.
   - "Scope of the modularity input" (l.694–705): the lemma does not claim that every input to
     Pan's proof has been reproved. It cites the project supplement
     `direct-p5-modularity-project` (bib l.39140).
-  - Integral model (l.829 to about l.1141): six phases, with full proofs in §`v15:marking-descent`
+  - Integral model (l.829–1141, the replaced hunk): six phases, with full proofs in §`v15:marking-descent`
     (l.30109) and §`v15:tate-polarized` (l.30096). Bib `b11-integral-model-project` (l.39281)
     points to `research/version14/proofs/b11-integral-model-v1`; it is listed but not cited in
     the text.
@@ -283,9 +283,12 @@ V2–V13 use N5's numbers: 1.1, 4.1, 5.2, 5.3, 6.2, 12.1.
   - `lem:forward-rank` uses BCDT via Silverman Thm C.13.6, Kolyvagin Thm 1 (pp. 430–431), an
     explicit J₁(N) → A via a Picard norm (§`v15:picard-norm` l.30124), and Kato Cor. 14.3.
 - No version replaces the template x + 3ℓ. The fork's Route K (x − ℓ, x + ℓ, congruent number
-  curves) has no upstream counterpart in any version. (VERIFIED for V16 §5.)
-- **SPECULATIVE:** the congruent-number route of slot-k.md appears nowhere upstream. This was
-  checked only for the §5 pole template, not by a full-text search.
+  curves) has no upstream counterpart in any version. (VERIFIED for every version's `hyp:PC` statement, which is byte-identical.)
+- **VERIFIED by grep:** the phrase "congruent number" does not occur in V16.
+  - In `~/upstream/research`, `docs` and the p214 proposal it occurs only in the retained copy of
+    OpenAI's pointwise 2-converse preprint (`research/version14/retained-sources/parity-frozen-4eaee875.tex`
+    l.291), in a literature remark on π/3- and 2π/3-congruent numbers.
+  - The fork's congruent-number route (slot-k.md) and CR3 have no upstream counterpart.
 
 ### 3.3 Theorem 5.3, restricted converse (RC)
 
@@ -341,7 +344,8 @@ V2–V13 use N5's numbers: 1.1, 4.1, 5.2, 5.3, 6.2, 12.1.
   - It gives simultaneous Gaussian primes p_j = u + c_j w² with congruence conditions and coprime
     adjacent norms.
   - Its strategy follows \[Sun, 86 unknowns, arXiv:2610.20691v2\].
-  - Its inputs are Mitsui, Green–Tao and transference; from V16 also adapted Tao–Ziegler (§4).
+  - Its inputs are Mitsui, Green–Tao, transference and the Tao–Ziegler dense model. V15 applies
+    Tao–Ziegler literally; V16 calls it an adaptation of their proofs (§4).
 
 ## 4. V15 → V16: the three corrections (VERIFIED, full diff)
 

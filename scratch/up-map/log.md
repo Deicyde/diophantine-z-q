@@ -91,3 +91,7 @@
 ## Step 17 (research/version15)
 - README.md (18 lines), RELEASE-NOTES.md (19 lines): V15 adds the 222-variable family (196 quadratic residuals, 2277 monomials, A_N=149^(2N+1), ineffective N0; RELEASE-NOTES l.3-5); the original construction and the 314 decimal quartic "remain available" (l.7); change vs 223/224/233 predecessors: two trace helpers replaced by one quotient coordinate (l.9). Published from merge 2b34f71 after PR 26 (l.~15).
 - protocol/README.md: current222 records: 193 ordinary applications, 1187 source uses, 1167 connections, 32 formal findings. current222/FINDINGS.proposed.json: 32 findings, 30 "repaired", 2 "out_of_scope" (PKG-01/02); height-related: HEIGHT-MODULAR-CLAUSE6 and SF11-SOURCE-ROUTE (applications V15-HEIGHT-MODULAR, SF11 = 222-family height/modularity), unpublished-foundation-closure-1..5 (GI proof and theta transport kept internal). None is about the statements of thm:height, PC, RC or 22P. CONNECTIONS.json / DOSSIER.json still list the six-contact connections of the original construction (e.g. "The six-contact height theorem gives the stated H6(S;R) times M_S(u)^24 upper bound ..."). VERIFIED (python -I json read).
+
+## Step 21 (checks for up-map.md)
+- grep -i "congruent number" V16: 0 hits; in ~/upstream/research, docs, p214 proposal: only research/version14/retained-sources/parity-frozen-4eaee875.tex (+ a copy under evidence/release-completion-017), l.291 (pi/3-congruent numbers remark). VERIFIED.
+- V16 bib kato (l.39470) = Asterisque 295 (2004). V2 prop:cutoff l.6296. V10 Issue 2 paragraph l.122-126.
