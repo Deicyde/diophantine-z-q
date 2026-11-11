@@ -66,7 +66,7 @@ Proposition 3.2, Lemmas 2.8, 3.16, 3.18, 3.21 and Proposition 2.3, as completed 
 `docs/research/rv-prop-n.md`; not refereed): if `T5bCl d` is odd, TYZ's `𝓛(d) ≠ 0`, and with the
 root number `−1` (Birch–Stephens) `ord_{s=1} L(C_d, s) = 1`. Then Gross–Zagier (Invent. Math. 84
 (1986)), with an auxiliary imaginary quadratic field (Bump–Friedberg–Hoffstein), gives a point of
-infinite order. `T5bCl d` is TYZ's `(7, 3)` genus sum with `g(d_B) = #Cl(ℚ(√−d_B))²`, so no Rédei
+infinite order. `T5bCl d` is TYZ's `(7, 3)` genus sum with `g(d_B) = #2Cl(ℚ(√−d_B))`, so no Rédei
 formula is needed; TYZ's Theorem 1.2 is not cited (false as printed). Lean derives every other
 form of CR₃ from it (the forms with the premise `#Sel₂ = 8` through RK9 and Mordell–Weil,
 `certifiedRankTYZ_of_certifiedRankTYZRk'`, `certifiedRankTYZCl_of_certifiedRankTYZClRk'`).
