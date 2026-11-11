@@ -23,3 +23,20 @@
 - JHeightBound docstring rewritten as specified; module docstring rewritten (no Tier 2).
 - Three proof lines rewrapped to ≤ 100 characters.
 - `lake build ZInQKernel.Hypotheses.JHeight`: success, no warnings in the new file.
+
+## Step 3: ZInQKernel/MainLiterature.lean, imports, print_axioms
+- Three variants (sixContactMin_tyzRow5b_functionalEquation5_grossZagier,
+  jHeightBound_certifiedRankTYZClRk, jHeightBound_tyzRow5b_functionalEquation5_grossZagier),
+  each proved directly from ..._of_sixContactMin_certifiedRankTYZClRk.
+- ZInQKernel.lean: imports CR3Literature, JHeight, MainLiterature appended.
+- scripts/print_axioms.lean: 3 variants (new comment section after the variants) and 5
+  reductions (new section at the end).
+- Two lines over 100 characters: the `theorem` lines of the two variants whose prescribed names
+  are 109 and 108 characters long (unavoidable).
+
+## Step 4: checks
+- `lake build ZInQKernel`: success (9922 jobs).
+- `lake env lean scripts/print_axioms.lean`: 69 entries (61 before + 8), all
+  [propext, Classical.choice, Quot.sound].
+- `python3 scripts/check_target.py`: FrozenTarget matches lean/Frozen/BoundedIntegerPolynomial.lean.
+- No sorry / native_decide / implemented_by / extern / axiom in the new files.
