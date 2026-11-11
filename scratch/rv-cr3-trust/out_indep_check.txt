@@ -16,3 +16,4 @@ sample: [1365, 2397, 3765, 5253, 6293, 7189, 8029, 9085, 9741, 10621, 11973, 126
 13821 [3, 17, 271] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=-47 OK
 15045 [3, 5, 17, 59] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=-191 OK
 16037 [7, 29, 79] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=-199 OK
+16885 [5, 11, 307] dimSel2=3 rootno=-1 N==32d^2:True HeegnerD=-239 OK

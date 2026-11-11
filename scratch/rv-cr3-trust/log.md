@@ -57,3 +57,18 @@ Target: docs/research/cr3-trust.md (base of that note: 14b28b23; this worktree: 
   only of the last step D; the overall route uses Kolyvagin (published, refereed). Wording must keep that.
 - Consequence of B9: once L(n) != 0 is meaningful, TYZ's framework already presupposes rank = ord in rank one;
   D is therefore logically redundant given B9 but harmless; it makes the final step independent of Kolyvagin.
+
+## Step 4: independent recheck of A6 (scratch/rv-cr3-trust/indep_check.py)
+- Inputs: squarefree d = 5 mod 8, d < 30000, 3..5 primes. T5bCl from its Lean definition (set partitions,
+  one block =7, one =3, rest =1 mod 8; product of #Cl^2 mod 2), with exact class numbers by counting reduced
+  forms (no PARI) and genus theory #Cl^2 = h / 2^(t-1).
+- Outcome: 386 values with T5bCl = 1 (matches cr3-trust's 386 with T5b = 1: consistent with T5bCl_eq_T5b').
+- Sample of 30 (L[6::13], disjoint from cr3-trust's sample): dim Sel2 by PARI ell2cover (independent of
+  mirror.py; calibrated: d=1 ->2, 5 ->3, 34 ->4, 1254 ->5) = 3 on all 30; ellrootno = -1 on all 30; conductor
+  (ellglobalred) = 32 d^2 on all 30. Outputs out_indep_check.txt (first 16, killed by the 10-min cap after
+  16885) and out_indep_check_part2.txt (indices 16-29, run with 'noheegner'). failures: 0.
+- Heegner field (first 16 values): a fundamental D < 0, D = 1 mod 8, all p | d split, with ellanalyticrank of
+  C_d^D equal to 0 (numerical) exists, smallest |D| <= 455. So the premise of D2/D3 is met on these 16
+  (numerical in the L-value only).
+- Note: Sel2 enters only the non-Rk forms; their derivation from TYZClRk is Lean-proved relative to Lean's
+  own Sel2, so the Sel2 definitional match affects how they read, not whether TYZClRk justifies them.

@@ -58,6 +58,9 @@ for d in range(5, 30000, 8):
     if T5bCl(sorted(f)) == 1: L.append(d)
 print("T5bCl=1 count (3..5 primes, d<30000):", len(L), flush=True)
 sample = L[6::13][:30]
+START = int(sys.argv[1]) if len(sys.argv) > 1 else 0
+sample = sample[START:]
+HEEGNER = not (len(sys.argv) > 2 and sys.argv[2] == 'noheegner')
 print("sample:", sample, flush=True)
 bad = 0
 for d in sample:
@@ -66,7 +69,7 @@ for d in sample:
     rn = int(pari.ellrootno(E)); N = int(pari.ellglobalred(E)[0])
     ps = list(factorint(d))
     D = None
-    for k in range(1, 2000):
+    for k in (range(1, 2000) if HEEGNER else []):
         Dc = 1 - 8*k
         if not pari.isfundamental(Dc): continue
         if any(pari.kronecker(Dc, p) != 1 for p in ps): continue
@@ -74,7 +77,7 @@ for d in sample:
         r = int(pari.ellanalyticrank(ED)[0])
         if r == 0:
             D = Dc; break
-    ok = sel == 3 and rn == -1 and N == 32*d*d and D is not None
+    ok = sel == 3 and rn == -1 and N == 32*d*d and (D is not None or not HEEGNER)
     bad += not ok
     print(d, ps, "dimSel2=%d rootno=%d N==32d^2:%s HeegnerD=%s" % (sel, rn, N == 32*d*d, D), "OK" if ok else "FAIL", flush=True)
 print("failures:", bad)
