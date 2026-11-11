@@ -40,11 +40,12 @@ most are UNVERIFIED or ASTRA-READ). **SPECULATIVE** means an assessment or a pro
    inputs: the theorems are about Faltings heights and Galois representations, and their content
    is not expressible in rationals (§3.3).
 4. **Drafts (§4; all compile with `lake env lean`, VERIFIED).**
-   - **Tier 1**, `scratch/wk-h/BackToU.lean`: the residual `JHeightBound` (the `j`-form of H:
-     `h(J(u)) ≤ (40·10⁴·2²⁴+22)·max(1,C_cm,Q¹⁷)·M²⁴`) and the theorem
-     `sixContactMin_of_jHeightBound`, **proved** from F4. The Nullstellensatz certificates for
-     F4 are proved by `ring`. One `sorry` is left: F4 itself, `12h(u) ≤ h(J(u)) + 300`, which is
-     stronger than N5's `h(u) < h(j) + 74`, with a written proof plan.
+   - **Tier 1, complete**, `scratch/wk-h/BackToU.lean` (no `sorry`). It has the residual
+     `JHeightBound` (the `j`-form of H: `h(J(u)) ≤ (40·10⁴·2²⁴+22)·max(1,C_cm,Q¹⁷)·M²⁴`) and the
+     theorem `sixContactMin_of_jHeightBound`, whose axioms are `propext`, `Classical.choice` and
+     `Quot.sound` (`#print axioms`). It includes F4 in the form `12h(u) ≤ h(J(u)) + 450`, which is
+     stronger than N5's `h(u) < h(j) + 74` for large `h(u)`, proved from two Nullstellensatz
+     certificates.
    - **Tier 2**, `scratch/wk-h/Arakelov.lean`: a signature `ArakelovSig` with one Prop field per
      published theorem of the Arakelov half, the residual `ModularLevelBound`, and the reduction
      `jHeightBound_of_sig` (`sorry`, with an outline). Glazer's transfer arithmetic (E3-E4,
@@ -54,8 +55,8 @@ most are UNVERIFIED or ASTRA-READ). **SPECULATIVE** means an assessment or a pro
    modular forms, with their p-adic Hodge theory and conductors (for I3 and I4, and needed even to
    *state* Glazer's descent and conductor bound), and the Faltings height (for all of I5).
    Recommended partial reduction, in tiers:
-   - **cheap win:** Tier 1, finishing F4. This removes F4 and the final numerics from the trust
-     base. It does not change what kind of statement is assumed (`JHeightBound` is still a
+   - **cheap win:** Tier 1, now complete in scratch (F4 proved). Adopting it removes F4 and the
+     final numerics from the trust base. It does not change what kind of statement is assumed (`JHeightBound` is still a
      project statement).
    - **medium:** Tier 2. It machine-checks Glazer's E and F bookkeeping and makes each Arakelov
      theorem a separately readable field. Its weakness is decisive for this wave's goal: over
@@ -246,18 +247,20 @@ Both files import `ZInQKernel.Hypotheses.Height` only (Mathlib-only). The upstre
 `SixContactMinAt S`, which is `SixContactMin` at `S = Mult.S_mul` by `rfl`. Checked with
 `lake env lean <file>`, one file at a time (log Steps 4-5).
 
-### 4.1 Tier 1: `BackToU.lean` (compiles; one `sorry`)
+### 4.1 Tier 1: `BackToU.lean` (compiles; no `sorry`; standard axioms)
 
 - `Jmap u = −57600 F(u)²/G(u)⁶`; `Fh`, `Gh` as binary forms over `ℤ`.
 - `cert_x`, `cert_y`: `3a⁷ = A₁F_h + B₁G_h` and `2¹⁰3⁸5⁶ b⁷ = A₂F_h + B₂G_h` with integer
   forms (from `scratch/wk-h/f4_cert.py`, output saved; `Res(F, G) = 2¹⁸3¹³5¹⁰`). **Proved**
   (`ring`).
-- `twelve_mul_ratHeight_le`: `12 h(u) ≤ h(J(u)) + 300` for `u ∉ 𝒞`. **`sorry`.** Plan in the
-  docstring: for coprime `a, b`, the certificates give `gcd(F_h, G_h) ∣ 3·2¹⁰3⁸5⁶`, hence
-  `gcd(57600F_h², G_h⁶) ∣ 57600(3·2¹⁰3⁸5⁶)⁶`. They also give
-  `max(|a|,b)¹² ≤ (4·10⁸)⁶ max(57600F_h², G_h⁶)`. Size: about 200-300 lines (SPECULATIVE),
-  using `Rat.num_div_eq_of_coprime`-type normalization or Mathlib's
-  `Height.mulHeight_eq_max_abs_of_gcd_eq_one` with `logHeight_smul_eq_logHeight`.
+- `dvd_C0`: for coprime `a, b`, every common divisor of `57600F_h²` and `G_h⁶` divides
+  `C₀ = 57600²·3⁷·(2¹⁰3⁸5⁶)⁷`. **Proved**: raise the certificates to the 7th power and split
+  `57600(x + y)⁷ = 57600x²(…) + y⁶(…)`.
+- `lower_bound`: `max(|a|,|b|)¹² ≤ 10⁴⁸·max(57600F_h², G_h⁶)`. **Proved** (triangle
+  inequality on the certificates).
+- `twelve_mul_ratHeight_le`: `12 h(u) ≤ h(J(u)) + 450`. **Proved**, using
+  `Rat.exists_eq_mul_div_num_and_eq_mul_div_den` and `log(10¹³⁹) < 450`. The hypothesis
+  `u ∉ 𝒞` is not needed. The whole file is 263 lines.
 - `JHeightBound S`, the residual, and `sixContactMin_of_jHeightBound`. **Proved** (`nlinarith`
   from F4, `X ≥ 1`, `M ≥ 1`).
 
@@ -299,7 +302,7 @@ SPECULATIVE):
 | D1-D4 conductor bound | upper numbering, Herbrand function, Artin–Swan conductor | 3-5k lines of theory; Glazer's own inequalities about 300 lines |
 | D4-D5 product `N ≤ QM²` | factorization only | about 100 lines, possible today |
 | A3, A7, A8 geometric bookkeeping | Shimura curves; A8 needs only finite subgroups of `GL_r(ℤ)` | A8's group theory about 300 lines, possible today |
-| E, F arithmetic | heights (Mathlib) | E done (`transfer_numerics`); F2, F3 about 200 lines; F4 200-300 lines |
+| E, F arithmetic | heights (Mathlib) | E done (`transfer_numerics`); F4 done (`twelve_mul_ratHeight_le`); F2, F3 about 200 lines |
 
 **What the Tier-2 hypothesis says as a Lean Prop (SPECULATIVE: argument sketched, not in
 Lean).** (⇒) `jHeightBound_of_sig` gives `JHeightBound`. (⇐, partial) A model can be built from a
@@ -336,7 +339,7 @@ attribution and checked bookkeeping, not a reduction of trust.
    `h_F`. Defining it needs Néron models and metrized invariant differentials.
 3. **Shimura curves** (I1): the canonical model and moduli interpretation.
 
-**Cheapest partial reduction.** Tier 1 (prove F4; `JHeightBound` becomes the hypothesis), then
+**Cheapest partial reduction.** Tier 1 (F4 proved; `JHeightBound` becomes the hypothesis), then
 Tier 2's checked bookkeeping as a second layer of documentation. Additionally, the numerics of
 Glazer's new arguments can be checked today as standalone lemmas whose hypotheses are the numeric
 outputs of the deep theorems: D4-D5's product, B3's constants and D1's inequality. They do not
@@ -356,7 +359,7 @@ Lin–Yang/Igusa (six fields).
 
 | Tier | Work | Lean cost (SPECULATIVE) | Effect on what is assumed |
 | --- | --- | --- | --- |
-| cheap win | finish `twelve_mul_ratHeight_le`; adopt `JHeightBound` with `sixContactMin_of_jHeightBound` | 200-300 lines, days | F4 and the final numerics leave the trust base; the hypothesis is still a project statement |
+| cheap win (**done in scratch**) | `JHeightBound` with `sixContactMin_of_jHeightBound`, F4 proved; to adopt, move it under `ZInQKernel/Hypotheses/` | 263 lines, written | F4 and the final numerics leave the trust base; the hypothesis is still a project statement |
 | cheap win | D4-D5 product, B3 constants, D1 inequality as standalone lemmas | 300-500 lines | Glazer's arithmetic is checked; the hypothesis is unchanged |
 | medium | finish `jHeightBound_of_sig` (F2 via Mathlib, height invariance under extension, assembly) | 300-500 lines, 1-2 weeks | the Arakelov half becomes six readable theorem fields plus checked bookkeeping; as a Lean Prop the hypothesis is still a `j`-height bound in disguise (§4.3) |
 | bigger | concrete abelian varieties over number fields with Tate modules; Galois representations of newforms; p-adic Hodge conditions; Faltings height; Shimura curves | tens of thousands of lines, years | only this makes the interface statements faithful and lets Glazer's descent and conductor bound be stated and proved |
@@ -368,5 +371,9 @@ Shimura-curve geometry (h-trust A1-E1), and the six Arakelov-half theorem fields
 the signature. Compared with today, F4, E's arithmetic and F's arithmetic would be machine-checked.
 The modularity half, which holds every new argument, would be unchanged.
 
-**Single next step:** prove `twelve_mul_ratHeight_le` in `scratch/wk-h/BackToU.lean`. That
-completes Tier 1 with no `sorry`, and is a prerequisite for adopting `JHeightBound`.
+**Single next step:** a task allowed to edit `ZInQKernel/` adopts Tier 1. It moves
+`scratch/wk-h/BackToU.lean` to `ZInQKernel/Hypotheses/`, imports `HeightMin` so that
+`SixContactMinAt Mult.S_mul` is `SixContactMin`, and makes the main theorems take
+`JHeightBound Mult.S_mul`, with H's docstring and trust statement moved to it. Then it runs a
+full build and `print_axioms`. That task should first ask the owner whether the `j`-form, a
+statement about the Hauptmodul value rather than about `u`, is the preferred hypothesis.

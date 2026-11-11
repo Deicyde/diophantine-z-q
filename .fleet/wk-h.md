@@ -13,10 +13,10 @@ Carayol), Arakelov (Javanpeykar, Gaudron–Rémond, Faltings Lemma 5, Bost, Pazu
 arithmetic of `ℚ`.
 
 **Recommended reduction (tiers).**
-- *Cheap win:* `SixContactMin ⇐ JHeightBound`, a bound on `h(J(u))` with
-  `J(u) = −57600F²/G⁶`. Drafted in `BackToU.lean`, which compiles. The reduction and the
-  Nullstellensatz certificates are proved. One `sorry` remains: F4 in the stronger form
-  `12h(u) ≤ h(J(u)) + 300`.
+- *Cheap win, done in scratch:* `SixContactMin ⇐ JHeightBound`, a bound on `h(J(u))` with
+  `J(u) = −57600F²/G⁶`. `BackToU.lean` compiles with **no `sorry`**, and its axioms are
+  `propext`, `Classical.choice` and `Quot.sound`. It proves F4 in the stronger form
+  `12h(u) ≤ h(J(u)) + 450`, from two Nullstellensatz certificates.
 - *Medium:* `JHeightBound ⇐ ArakelovSig.Literature ∧ ModularLevelBound`, a signature with one
   field per published Arakelov theorem. Drafted in `Arakelov.lean`, which compiles. Glazer's
   E3-E4 arithmetic is proved (`transfer_numerics`). The assembly is still `sorry`. Over abstract
@@ -37,5 +37,8 @@ neither can Glazer's own new argument. The Faltings height, needed for every Ara
 also absent. The deep inputs have no faithful elementary form like CR3's Proposition 0; the
 theta step, for example, is vacuous when stated about rationals (§3.3).
 
-**Single next step.** Prove `twelve_mul_ratHeight_le` in `scratch/wk-h/BackToU.lean` (about
-200-300 lines; plan in its docstring). That finishes Tier 1 with no `sorry`.
+**Single next step.** Ask the owner whether the `j`-form `JHeightBound` should replace
+`SixContactMin` as the assumed statement. If yes, a task allowed to edit `ZInQKernel/` moves
+`BackToU.lean` under `ZInQKernel/Hypotheses/`, importing `HeightMin` so that
+`SixContactMinAt Mult.S_mul` is `SixContactMin`. It then rethreads the main theorems and runs a
+full build and `print_axioms`.

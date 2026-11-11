@@ -250,3 +250,5 @@ theorem jHeightBound_of_sig (W : ArakelovSig) (S : Finset ℕ) (hlit : W.Literat
   sorry
 
 end ZInQ.WkH
+
+#print axioms ZInQ.WkH.transfer_numerics

@@ -152,9 +152,74 @@ theorem lower_bound {a b m : ℤ} (ha : |a| ≤ m) (hb : |b| ≤ m) (hm : 0 < m)
     linarith
 
 /-- **F4, strengthened.** `12 h(u) ≤ h(J(u)) + 450` for `u ∉ 𝒞` (N5: `h(u) < h(J(u)) + 74`). -/
-theorem twelve_mul_ratHeight_le (u : ℚ) (hu : u ∉ contactSet) :
+theorem twelve_mul_ratHeight_le (u : ℚ) (_hu : u ∉ contactSet) :
     12 * ratHeight u ≤ ratHeight (Jmap u) + 450 := by
-  sorry
+  set a : ℤ := u.num with ha_def
+  set b : ℤ := (u.den : ℤ) with hb_def
+  have hb : 0 < b := by rw [hb_def]; exact_mod_cast u.den_pos
+  have hbq : (b : ℚ) ≠ 0 := by exact_mod_cast hb.ne'
+  have hcop : IsCoprime a b := by
+    rw [Int.isCoprime_iff_gcd_eq_one]; exact u.reduced
+  have hu_eq : u = (a : ℚ) / (b : ℚ) := by rw [ha_def, hb_def]; push_cast; exact (Rat.num_div_den u).symm
+  have hFq : u * (u + 15) * (u + 20) * (u + 24) * (u + 30) * (u + 60) = (Fh a b : ℚ) / (b : ℚ) ^ 6 := by
+    rw [hu_eq]; unfold Fh; push_cast; field_simp
+  have hGq : 7 * u ^ 2 + 300 * u + 3600 = (Gh a b : ℚ) / (b : ℚ) ^ 2 := by
+    rw [hu_eq]; unfold Gh; push_cast; field_simp
+  have hG0 : 0 < Gh a b := by unfold Gh; nlinarith [sq_nonneg (7 * a + 150 * b), mul_pos hb hb]
+  set n : ℤ := -(57600 * Fh a b ^ 2) with hn_def
+  set d : ℤ := Gh a b ^ 6 with hd_def
+  have hdpos : 0 < d := by positivity
+  have hJ : Jmap u = (n : ℚ) / (d : ℚ) := by
+    have hGq0 : (Gh a b : ℚ) ≠ 0 := by exact_mod_cast hG0.ne'
+    unfold Jmap; rw [hFq, hGq, hn_def, hd_def]; push_cast; field_simp
+  obtain ⟨c, hn, hd⟩ := Rat.exists_eq_mul_div_num_and_eq_mul_div_den n hdpos.ne'
+  rw [← hJ] at hn hd
+  set J := Jmap u with hJdef
+  have hden : (0 : ℤ) < (J.den : ℤ) := by exact_mod_cast J.den_pos
+  have hcpos : 0 < c := by
+    by_contra h; push Not at h; rw [hd] at hdpos; nlinarith
+  have hcdvd : c ∣ C0 := dvd_C0 hcop (dvd_neg.mp (Dvd.intro _ hn.symm)) (Dvd.intro _ hd.symm)
+  have hcle : c ≤ C0 := Int.le_of_dvd (by norm_num [C0]) hcdvd
+  have hmaxeq : max (57600 * Fh a b ^ 2) d = c * max |J.num| (J.den : ℤ) := by
+    have h1 : 57600 * Fh a b ^ 2 = |n| := by
+      rw [hn_def, abs_neg, abs_of_nonneg (by positivity)]
+    rw [h1, hn, hd, abs_mul, abs_of_pos hcpos, mul_max_of_nonneg _ _ hcpos.le]
+  set m := max |a| b with hm_def
+  have hm : 0 < m := lt_of_lt_of_le hb (le_max_right _ _)
+  have hlow := lower_bound (a := a) (b := b) (le_max_left |a| b)
+    (by rw [abs_of_pos hb]; exact le_max_right _ _) hm
+    (by rcases max_choice |a| b with h | h
+        · left; exact h
+        · right; rw [abs_of_pos hb]; exact h)
+  rw [hmaxeq] at hlow
+  set H := max |J.num| (J.den : ℤ) with hH_def
+  have hH : 1 ≤ H := le_max_of_le_right (by exact_mod_cast J.den_pos)
+  have hlow2 : m ^ 12 ≤ 10 ^ 139 * H := by
+    have hC : 10 ^ 48 * C0 ≤ 10 ^ 139 := by norm_num [C0]
+    calc m ^ 12 ≤ 10 ^ 48 * (c * H) := hlow
+      _ ≤ 10 ^ 48 * (C0 * H) := by gcongr
+      _ = (10 ^ 48 * C0) * H := by ring
+      _ ≤ 10 ^ 139 * H := by gcongr
+  have hu_h : ratHeight u = Real.log (m : ℝ) := by
+    unfold ratHeight; rw [hm_def]; push_cast [ha_def, hb_def]; rfl
+  have hJ_h : ratHeight J = Real.log (H : ℝ) := by
+    unfold ratHeight; rw [hH_def]; push_cast; rfl
+  have hmR : (0 : ℝ) < m := by exact_mod_cast hm
+  have hHR : (1 : ℝ) ≤ H := by exact_mod_cast hH
+  have hlowR : (m : ℝ) ^ 12 ≤ 10 ^ 139 * (H : ℝ) := by exact_mod_cast hlow2
+  have hlog10 : Real.log 10 < 3 := by
+    rw [Real.log_lt_iff_lt_exp (by norm_num)]
+    have h1 := Real.exp_one_gt_d9
+    have : Real.exp 3 = Real.exp 1 ^ 3 := by rw [← Real.exp_nat_mul]; norm_num
+    have h2 : (2.7 : ℝ) ^ 3 < Real.exp 1 ^ 3 := pow_lt_pow_left₀ (by linarith) (by norm_num) (by norm_num)
+    rw [this]; norm_num at h2 ⊢; linarith
+  have key : 12 * Real.log (m : ℝ) ≤ 139 * Real.log 10 + Real.log (H : ℝ) := by
+    have := Real.log_le_log (by positivity) hlowR
+    rw [Real.log_pow, Real.log_mul (by positivity) (by positivity), Real.log_pow] at this
+    push_cast at this
+    linarith
+  rw [hu_h, hJ_h]
+  linarith
 
 /-- `SixContactMin` for a general prime set `S` (`ZInQ.SixContactMin` is `SixContactMinAt
 Mult.S_mul` by `rfl`; this scratch file imports only `Hypotheses/Height.lean`, because the
@@ -194,3 +259,5 @@ theorem sixContactMin_of_jHeightBound {S : Finset ℕ} (hJ : JHeightBound S) :
   nlinarith
 
 end ZInQ.WkH
+
+#print axioms ZInQ.WkH.sixContactMin_of_jHeightBound

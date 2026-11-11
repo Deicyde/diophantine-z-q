@@ -57,3 +57,10 @@
   coprime a,b), abs_monomial_le, lower_bound (m¹² ≤ 10⁴⁸ max(57600F_h², G_h⁶), m = max(|a|,|b|)).
 - F4 constant changed 300 → 450 (log(10⁴⁸C0) ≈ 318; crude log 10 < 3 gives 139·3 = 417).
 - Remaining sorry: twelve_mul_ratHeight_le (assembly). Compiles, ~6 s.
+
+## Step 9: Tier 1 complete
+- twelve_mul_ratHeight_le PROVED (no sorry); hypothesis u ∉ 𝒞 unused (renamed _hu).
+- `#print axioms ZInQ.WkH.sixContactMin_of_jHeightBound`: [propext, Classical.choice, Quot.sound].
+- `#print axioms ZInQ.WkH.transfer_numerics`: [propext, Classical.choice, Quot.sound].
+- BackToU.lean: 263 lines, compiles in ~8 s. Arakelov.lean: one sorry (jHeightBound_of_sig).
+- docs/research/wk-h.md and .fleet/wk-h.md updated (Tier 1 done; next step = adoption decision).
