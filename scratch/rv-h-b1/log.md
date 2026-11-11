@@ -97,3 +97,9 @@ Manuscript: diophantine_zq.tex in this worktree (last touched 97cec7fd, "Novembe
   above the W-layer rests on the proof alone (reviewed in §5, holds).
 - rv-h-cm §1.3 also confirms the labelling j = 0, ∞, -16/27 <-> D = -4, -3, -24 with W-stabilisers
   w2, w3, w6, matching R2.
+
+## 7. Deliverables
+- docs/research/rv-h-b1.md (verdict table, sections 1-9, repairs list §8); N5 locators in it
+  rechecked by grep (L414-416 matrix, L423-424 K_3, L434-435, L454-459, L466-470, L476-477,
+  L557-558, L753, L781, L849).
+- .fleet/rv-h-b1.md. Task complete; no Lean run was needed.
