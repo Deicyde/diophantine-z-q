@@ -105,3 +105,5 @@ T_l E) and compare with the coefficients of the eigenforms in mfinit([N,2],0).
 Outcome: for each curve some rational newform matches at all 45-46 primes (True x4).
 5077a1 dropped: mfeigenbasis overflowed the stack at 2 GB (first run, ~10 min).
 => Tate normalization (weights {0,-1} for weight 2) <-> trace(arith Frob) = a_p, as used in §3.4.
+
+## Step 7. Deliverables written: docs/research/rv-h-c3.md, .fleet/rv-h-c3.md. Done.
