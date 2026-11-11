@@ -113,3 +113,11 @@ Verdict item 4: CONFIRMED.
   assumptions", V16 13064-13069). The S12/S18/S29/S30/S32 *-frozen-4eaee875.tex rows are already in N5 L6627-6647.
   So: no logical premise per the manuscript; textual provenance of RC sections. up-cr3 does not mention the catalogue.
 Verdict item 5: CONFIRMED with two minor corrections.
+
+## Step 6 — item 6 (quoting)
+- scratch/rv-up/quotes.py: 8-token shingle match of the four notes + all scratch/up-*/ files against an upstream corpus
+  (scratch/rv-up/quotes.corpus.txt: 7307 files, 362 MB: every manuscripts/*.tex, the V15 snapshot tex, research/version14-16,
+  collaborator notes, docs/, p214 research/quartic214, top-level READMEs; files > 5 MB and other snapshots excluded).
+  Runs >= 25 words: none (quotes.output.txt empty). With 6-token shingles and >= 12 words (quotes12.output.txt): 21 runs,
+  longest 21 words (up-map l.162-164, the V16 l.155-159 sentence), then 16, 15 words; all bibliographic titles or one-sentence
+  quotations. No passage longer than about 1.5 lines. Verdict item 6: CONFIRMED.
