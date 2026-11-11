@@ -37,3 +37,10 @@
 - a001 = (form correction: reproduced by scratch/h-v14/form_check.py) + (coarse-moduli application: NOT reproduced; BG "local index slip" in Lemma 3.1).
 - ly-d6, igusa-theta: reproduced by scratch/h-v14/igusa_check.py from LY arXiv v1 + Igusa normalization.
 - Uncited in V14/N5: free-quotient, effective descent, stable-model uniqueness (A078; removed by B1), I2, l-independence, Faltings Hom, Skolem-Noether, Chebotarev.
+
+## Step 5 (rv-h-cm read)
+- NoCM verdict "correct after repairs" R1-R5 (rv-h-cm §7.1). Corrected proof §7.2: (1) BG coordinate t=1+27j/16; (2) model
+  Q(t)(sqrt(-t),sqrt(3(t-1))) from W-action + Shimura reciprocity at elliptic pts (Elkies = cross-check, R3);
+  (3) fibre over t(u) has residue field Q(i), free W-orbit (scratch/rv-h-cm/check.py). Then GR(Gonzalez-Rotger JMSJ 58 2006) Thm5.12, Prop5.6
+  (only under (f,6)=1), Thm5.8 (reciprocity), Lemma5.9; Vigneras (Emb). Removes Fowler, cmheight, GR14 CM use.
+  Replace N5 L578-631, keep L564-577. H6 unchanged.
