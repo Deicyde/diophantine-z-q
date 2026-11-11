@@ -98,7 +98,7 @@ All files are under `~/upstream` unless noted. Dates are the `\date` lines (VERI
 | V7 | `manuscripts/archive/quartic_v7.tex` | Nov 6 (l.41) | 4973 + 962-var quartic (55409 monomials; l.11217). "Degree at least four" section |
 | V8 | `manuscripts/archive/quartic_v8.tex` | Nov 6 (l.41) | Same polynomials. Abstract states that the minimum degree is 4 (l.44) |
 | V9 | `manuscripts/quartic_v9.tex` | Nov 7 (l.41) | quartics in 540 vars (coeff < 2^3247) and 523 vars (64·3^(2^27)) (`thm:v9-quartics` l.18807) |
-| V10 | `manuscripts/quartic_v10.tex` | Nov 7 (l.41) | Same tables. Issue 2 response (V10 l.~120–126; V16 l.155–159) |
+| V10 | `manuscripts/quartic_v10.tex` | Nov 7 (l.41) | Same tables. Issue 2 response (V10 l.122–126; V16 l.155–159) |
 | V11 | `manuscripts/quartic_v11.tex` | Nov 7 (l.41) | Same tables. Kato index-set repair in App "Fixed-form arithmetic" |
 | V12 | `manuscripts/quartic_v12.tex` | Nov 7 (l.41) | quartics in 514 vars (< 2^3247) and 498 vars (16·3^(2^26)) |
 | V13 | `manuscripts/quartic_v13.tex` | Nov 7 (l.41) | quartics in 411 vars (6388 monomials) and 394 vars |
@@ -126,7 +126,7 @@ variables, deg < 2↑↑7, coeffs < 2↑↑8. Every version V2–V16 restates it
 | Version | thm:target | thm:height (H) | hyp:PC | hyp:RC | prop:fixed-prime-pattern (22P) | prop:cutoff |
 | --- | --- | --- | --- | --- | --- | --- |
 | N5 | 60 (1.1) | 404 (4.1) | 1001 (5.2) | 1005 (5.3) | 1267 (6.2) | 6285 (12.1) |
-| V2 | 63 | 415 | 1012 | 1016 | 1278 | (6296) |
+| V2 | 63 | 415 | 1012 | 1016 | 1278 | 6296 |
 | V3 | 63 | 415 | 1012 | 1016 | 1278 | 6296 |
 | V4 | 72 | 424 | 1021 | 1025 | 1287 | 6305 |
 | V5 | 76 | 432 | 1029 | 1033 | 1295 | 6313 |
@@ -151,7 +151,8 @@ V2–V13 use N5's numbers: 1.1, 4.1, 5.2, 5.3, 6.2, 12.1.
   - Two sections are added: "The base residual compiler" (l.6602) and "An explicit quartic
     definition of the integers" (l.8679).
   - Core §§2–13 are unchanged.
-- **V2→V9.** Only §1 and the quartic sections change. The de Rham appendix shrinks from 397
+- **V2→V9.** Only §1, the de Rham appendix and the quartic sections change. The appendix gains
+  12 lines at V2→V3 and 7 at V3→V4, then shrinks from 397
   to 75 lines at V4→V5 (V5 l.15755). The "Simultaneous primes" appendix is new in V5 and grows
   in V7 and V9.
 - **V9→V10 (Issue 2).** Small additions throughout:
@@ -171,8 +172,10 @@ V2–V13 use N5's numbers: 1.1, 4.1, 5.2, 5.3, 6.2, 12.1.
   - App odd theta: −96/+59.
   - The de Rham appendix is GONE; its role passes to the new Lemma 4.1.
   - "Simultaneous primes": −71/+248.
-- **V14→V15.** One-line changes in the core. The new parts are GI (l.23831–30083) and the
-  222 family (l.30185–39914).
+- **V14→V15.** One-line citation changes in the core:
+  - §4: five cites of the b11 supplement become internal sections;
+  - §6: `local-gi` becomes `v15:gi-full`.
+  The new parts are GI (l.23831–30083) and the 222 family (l.30185–39914).
 - **V15→V16.** See §4.
 - §§9–12 (two limits, compiler, bridge, cutoff/size) are byte-identical from N5 to V16.
 
