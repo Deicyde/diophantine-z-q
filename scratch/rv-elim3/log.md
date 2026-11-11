@@ -69,3 +69,10 @@ s_b swaps both, s_i swaps 3,4) give exactly O1..O6; Gamma.L_c = b - sum_d m_cd (
 parity of Gamma.L_c = parity of the number of odd branches on L_c; two odd branches on one line are
 impossible (a Galois-stable pair on L_1 would be moved to L_2 by s_b; lines are disjoint in Y);
 no Q-point lies on B; branch locus misses E_cd. So the enumeration covers every case.
+
+## Step 8. el-qfree E3 rerun (q2_e3.py) — partial results (run auto-backgrounded by the 120 s tool timeout; waiting, no second job)
+Controls: y^2 = x^3 - x (p=19) and y^2 = x^4 - 1 (p=23) give cyclotomic factor [y+1] (detected);
+y^2 = x^5 - x (p=19) gives [] (its Jacobian is ~ E^2 with CM by Z[sqrt-2], ordinary at 19: not a C1 control).
+Instances (n,h,s0,eta,m), genus 33: (1,2,2,1,1) p=19: [], p=43 (new): []; (1,2,2,1,-1) p=19: []; p=47 singular.
+Validity of the test (derivation): a Qbar-factor ~ C1 of Jac Y has good reduction at p (good for Jac)
+and CM by Z[i] with p inert, so it is supersingular over F_{p^f}; then (alpha^2/p)^f is a root of unity.
