@@ -51,4 +51,4 @@ of `redeiG` already uses `Σ y_ρ κ_ρ`.
 ## Suggestions
 
 - In step 8 (Bridge), apply `kernel_trivial_iff_redeiG` with `a = aBit d`, `y = yBit d`,
-  `z = zBit d`, restricted to `B`. `Recip` for these bits should already exist in the Rank5b files.
+  `z = zBit d`, restricted to `B`. The reciprocity hypothesis is `Sec3.recip_bits` (`RouteK/Rank5b/Sec3/TYZ.lean`).
