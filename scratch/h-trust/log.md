@@ -52,3 +52,9 @@
 - Raynaud criterion: SGA7 IX Prop 4.7 alternative to SZ95 Thm3.5 (UNCHECKED).
 - §4.4 published replacements for unrefereed sources: Milne course notes -> Mumford 1970 / Milne 1986 (Cornell-Silverman);
   Brinon-Conrad -> Fontaine Astérisque 223; Conrad preprint App B -> Serre 1968 Ch III; Stacks -> SGA1/DM69 (moot after B1).
+
+## Step 7 (N5 bibliography L11010-11209)
+- Unrefereed sources cited in N5's H proof: brinon-conrad (CMI notes 2009), milne-av (course notes v2.00), babagranath (2005 MPI preprint),
+  buzzard (author version 1996/2002), linyang (arXiv v1), conrad-local-characters (preprint 2011), milne ADT (book, 2nd ed 2006 = published).
+  pan2022 cited as arXiv v2 with JAMS 35 (2022) 1031-1169.
+- carayol bibitem = Ann. Sci. ENS 19 (1986) 409-468, Thm A: in N5 bib but not cited in H proof.
