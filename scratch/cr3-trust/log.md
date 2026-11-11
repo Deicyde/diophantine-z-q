@@ -62,3 +62,10 @@ So on this range the premise #Sel2 = 8 of the TYZ forms is implied by T5b = 1 (e
 - Final tyzcl_check: ok = (T5bCl=1, rootno=-1, anrank=1, #tors=4, ellrank lower ≥ 1); explicit point
   reported separately (ellrank, else 2-cover search to 10^5). Rerun started.
 - Draft note docs/research/cr3-trust.md written (RESULT_A6 placeholder).
+
+## Step 6 (final)
+- tyzcl_check final: 0 failures (T5bCl=1, rootno -1, anrank 1, ellrank [1,1] on 30/30); explicit
+  non-torsion point on 24/30 (23 ellrank, 1 ell2cover); none found for 10293, 15565, 18309, 21909,
+  26285, 27213.
+- Note completed (A6 filled, summary step counts 26); docstring code blocks max 99 chars.
+- .fleet/cr3-trust.md written.
