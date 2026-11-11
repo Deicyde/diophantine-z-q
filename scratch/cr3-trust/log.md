@@ -53,3 +53,12 @@ So on this range the premise #Sel2 = 8 of the TYZ forms is implied by T5b = 1 (e
 - pc-audit RK4 (TYZ def of 𝓛(n) uses regulator of generator: needs GZ+Kolyvagin inside TYZ), RK7.
 - First tyzcl_check run: 23/30 ok, 7 "FAIL" only because ellrank returned [1,1,0,[]] (no point);
   script patched to fall back to ellheegner; rerun in progress.
+
+## Step 5 (tyzcl_check reruns)
+- ellheegner fallback too slow at conductor 32·10293² (killed at the 10-min background limit).
+- ellrank(E, effort 2/4/8) on d = 10293, 15565: still [1,1,0,[]] (no point listed).
+- cover_point.py (ell2cover + hyperellratpoints, nontrivial images only): d = 165 fine; 10293, 15565
+  no point up to height 10^6 (85 s each): generators too large for 2-covers.
+- Final tyzcl_check: ok = (T5bCl=1, rootno=-1, anrank=1, #tors=4, ellrank lower ≥ 1); explicit point
+  reported separately (ellrank, else 2-cover search to 10^5). Rerun started.
+- Draft note docs/research/cr3-trust.md written (RESULT_A6 placeholder).
