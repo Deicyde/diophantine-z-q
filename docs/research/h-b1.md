@@ -26,7 +26,11 @@ Marks:
    distinct mod every `p ≥ 5`, and its fibre at `j = 1` is `ℚ(√(43p))`, which is ramified at `p`
    (checked for five primes `p > 324`, section D of the script). Beckmann's theorem lists "no
    vertical ramification" as a separate hypothesis. It holds only outside an unspecified finite
-   set of primes. So route B1 needs one more input.
+   set of primes. So route B1 needs one more input. F1 shows a little more (VERIFIED,
+   `scratch/rv-h-b1/rv_checks.py` R5): its residue fields over the branch points are `ℚ`,
+   unramified at `p`, and still `p` is vertically ramified, with `I₀ = I_{−16/27} = ℤ/2`. So
+   unramified branch fibres (step 2 of Lemma NV) do not exclude vertical ramification by
+   themselves, and the `W`-step of NV (step 4) is essential.
 2. **That input is supplied here (Lemma NV, PROVED HERE).** For the cover `Y₃ → P¹_j`, vertical
    ramification at `p ≥ 5` is ruled out as follows. The fibres over the branch points are CM
    points. Shimura reciprocity makes them unramified at `p`. Abhyankar's lemma then forces the
@@ -48,8 +52,8 @@ Marks:
 
    The specialization step is the special case of Beckmann's theorem (Prop. TS) that we need,
    and §1.2 proves it directly from SGA 1. Beckmann is therefore cited only for attribution.
-4. **Replacements (§5).** Every use of the integral model in N5 L441-534, L529-530, L563-566
-   and L847-850 has an exact replacement. L814 (at `v | 3`) uses only Raynaud's criterion, so it
+4. **Replacements (§5).** Every use of the integral model in N5 L441-530, L557-558, L752-753,
+   L781 and L847-850 has an exact replacement. L814 (at `v | 3`) uses only Raynaud's criterion, so it
    never needed b11.
 5. **Verdict.** B1 removes `b11`, Buzzard 1997 (A002) and the stable-model and tame-quotient
    scheme theory (A078) from H's justification. In their place come published theorems plus one
@@ -113,6 +117,13 @@ finite Galois extension with group `Γ_M`. Assume:
 
 Write `D = ∪ D_i` for the closures of the `b_i`. Then:
 
+- `Z → P¹_R` is finite: `R = ℤ_(p)^{sh}` is excellent (a henselization of an excellent ring
+  is excellent; EGA IV 7.8.3 and 18.7.6, UNVERIFIED locators), so `P¹_R` is excellent and
+  normalization in a finite extension of the function field is finite.
+- `Z → P¹_R` is flat: `Z` is normal of dimension 2, hence Cohen–Macaulay (Serre's `S₂`), and a
+  finite morphism from a Cohen–Macaulay scheme to a regular scheme of the same dimension is
+  flat (miracle flatness, EGA IV 6.1.5 / Matsumura, *Commutative Ring Theory*, Thm 23.1;
+  UNVERIFIED locators). So "unramified at a codimension-one point" upgrades to "étale" there.
 - `Z → P¹_R` is étale outside `D` (by (P)). The only codimension-one points of `P¹_R` are the
   generic points of horizontal divisors, where the cover is étale off `D`, and the generic point
   of `V(p)`.
