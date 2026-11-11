@@ -66,3 +66,13 @@ Group-theory side (argument, SPECULATIVE until checked): Γ(3) ⊲ Γ* = N(O)^+/
 order 72 = 2^3 3^2 (component genus 4 by χ = 72·(-1/12)). Tame for p ≥ 5.
 Good reduction: Morita (Hokkaido Math. J. 10 (1981)) QM ⇒ potentially good everywhere; full level 3 over K, v∤3 ⇒ inertia finite and ≡1 mod 3 ⇒ trivial
 (Serre's lemma) ⇒ good (Serre–Tate 1968 Thm 1). So A/K good at all v∤3 regardless of K; parity is used only for "K unramified at p".
+
+## Step 8. o3_units.py (exact enumeration; output o3_units.output.txt)
+O = Z<1,i,(1+j)/2,(i+ij)/2>, i^2=2, j^2=-3: closed under products, det(trace form)=36 (disc 6). |O/3O|=81, units 72, nrd≡1 mod 3: 36.
+⇒ [Γ*:±Γ(3)] = 4·18 = 72 (given strong approximation and Atkin–Lehner index 4). Prime factors {2,3}. Independently, deg ≤ 324 ⇒
+monodromy ⊆ S_324 ⇒ p ∤ |G| for p > 324 — enough for S ⊇ primes ≤ 324.
+
+## Step 9. Other facts gathered
+- docs/reviews/height-replacement/REPORT.md: the 11/5 proof of Thm 4.1 (post von Känel–Kret replacement) had 4 scoped Astra AI reviews,
+  "not independent human peer review". So the manuscript link of the chain is unrefereed.
+- V14 source not available on this host (not in ~/dzq/scratch); V14 facts taken from h-v14/h-a011/rv-h-a011.
