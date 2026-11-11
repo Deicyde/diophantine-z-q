@@ -82,3 +82,6 @@ For p odd, p not | m R0 (f = m(m Th0^2 - R0 a^2), a = 1 - R0 q^2):
 - 6 decided non-hit curves (n = 8, Th0 = 5235/8234, m in {1,-2,-3,3,-5,-6}): brute-force p-adic points at all
   primes < 200 dividing 2 m R1 disc: soluble at all. ellrank(E_J) = [1,3,0],[1,1,4],[1,1,2],[0,0,2],[1,1,2],[1,1,2]:
   5/6 show unconditional Sha(E_J)[2] != 0 (s = 2 or 4).
+- Correction: s6 read the first (buggy) s5_out.json, so its rank-1 sample curves were not really decided;
+  only m = 3 (rank 0) is a decided non-hit there. s6 thus confirms local solubility (brute force) and
+  Sha(E_J)[2] != 0 on these Jacobians, not that each listed C_m lies in Sha.
