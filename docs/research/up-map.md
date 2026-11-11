@@ -58,7 +58,7 @@ Scripts (all in `scratch/up-map/`):
      - a *five-contact* height estimate (contacts ∞, 0, 1, 2401, −343/32, via a
        discriminant-210 Shimura curve);
      - a seven-variable pole lemma proved from RC;
-     - Sun's simultaneous-prime theorem for ℤ[i];
+     - a simultaneous-prime theorem for ℤ[i], proved in an appendix following Sun's strategy;
      - GI.
    - The 222-variable family adds Von Buhren's semi-effective height bound, which makes its
      threshold N₀ ineffective.
@@ -70,7 +70,17 @@ Scripts (all in `scratch/up-map/`):
      simultaneous-primes appendix.
    - Exact horizontal identities were added in GI §9–11.
    - A Gaudron–Rémond citation in the 222-family height section was corrected.
-   - None touches §§1–13 of the N5 core.
+   - None touches a line of §§1–13 of the N5 core.
+   - The GI correction does sit inside the inverse theorem that the 22P proof consumes (V16
+     l.2217). It does not affect the fork, whose route AP uses neither GTZ nor upstream's GI.
+5. **One new upstream record bears on the fork's H leaves (VERIFIED).**
+   - `research/version14/proofs/a001-moduli-current-v1/ADVERSE-CASE.md` records a defect in the
+     proof of Baba–Granath (CJM 2008) Prop. 3.7, with a counterexample to a printed sentence.
+     The weighted-Igusa formula of Lin–Yang eq. (2) descends from Baba–Granath Prop. 3.9.
+   - The fork's h-trust.md cites Baba–Granath 2008 and Lin–Yang 2020 directly (l.89). up-h
+     should check this ancestry; see §5.1.
+   - Otherwise H's proof is the same in V14, V15 and V16, apart from the inlined integral model.
+     The fork's `h-v14.md` therefore carries over to V16 (§3.1).
 
 ## 1. Version table
 
