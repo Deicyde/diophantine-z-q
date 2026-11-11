@@ -40,3 +40,16 @@ rv-cr5b-sec3/mirror.py), #Sel2 by mirror.sel2 (local Kummer images, Lean's Loc c
 Outcome: 386 d with T5b = 1; ALL have #Sel2 = 8; none with #Sel2 > 8.
 So on this range the premise #Sel2 = 8 of the TYZ forms is implied by T5b = 1 (empirical; rv-cr5b-sec3
 §1.6 left this open). SPECULATIVE that it is a theorem (det M5b = 1 forcing minimal Selmer).
+
+## Step 4 (reviews located)
+- rv-cr3-rank (branch origin/wip/rv-cr3-rank, aec3b570; NOT in this base) reviewed the three Rk
+  statements (faithful, shortCurve(-d^2), Mathlib AddCommGroup instance) and RK9/MW; remarks R1-R4.
+- rv-cr3-dl.md reviewed CertifiedRankDLRk (in base). d2-check.md: numerical guard on DLRk curves.
+- Inf forms (RankInf.lean): no model review found (only blueprint pages + .fleet/cr3-inf.md on branch).
+  Checked here by reading: InfinitelyManyPoints d = Set.Infinite {(x,y) ∈ ℚ² | y² = x³ − d²x};
+  four ↔ theorems proved via exists_infinite_order_iff_infinitelyManyPoints (fg_points).
+- rv-redei §1.1 (gCl = #Cl² of full ring of integers = TYZ g), §1.4 (T5bCl = Prop N's T_5b).
+- rv-cr5b-sec3 §1.4-1.7 (T5b = TYZ (7,3) bracket mod Redei; premises; chain), §2.2 (GZ + aux).
+- pc-audit RK4 (TYZ def of 𝓛(n) uses regulator of generator: needs GZ+Kolyvagin inside TYZ), RK7.
+- First tyzcl_check run: 23/30 ok, 7 "FAIL" only because ellrank returned [1,1,0,[]] (no point);
+  script patched to fall back to ellheegner; rerun in progress.

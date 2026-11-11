@@ -1,0 +1,11 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+sample size 30
+165 [3, 5, 11] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
+2093 [7, 13, 23] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
+2877 [3, 7, 137] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
+4893 [3, 7, 233] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
+5901 [3, 7, 281] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
+6693 [3, 23, 97] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
+7701 [3, 17, 151] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
+8589 [3, 7, 409] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
+9373 [7, 13, 103] T5bCl=1 rootno=-1 anrank=1 #tors=4 ellrank=[1,1] nontorsion_point=True(ellrank) ok
