@@ -12,3 +12,7 @@
 ## 4. Edit: NV step 3 → rv §3.3 argument (A' local finite over R, Frac=k_p ⇒ strictly henselian unibranch, residue degree 1 = [I_P:I_Q]; going-down via flatness; I_q ⊂ I_P).
 ## 5. Edits: W-layer remark (R7, Elkies constants -1,3) + labelling robustness after NV; §5 table L563-566→L557-558, rows L752-753, L778-781 added; downstream paragraph names them, L848-849 note, L814 confirmed.
 ## 6. Edits: new §4A (one Q-structure; inputs 1-4 STANDARD/UNVERIFIED with where-to-check; consequence); pointers from PR(ii) step 1, §6 items 2 and 5, §7 verdict; §7 line range fixed.
+## 7. Script reruns (load 4.5)
+- scratch/h-b1/b1_checks.py (cwd scratch/h-b1, ~/pyenv/bin/python): 0.85 s; output byte-identical (cmp) to b1_checks.output.txt.
+- scratch/rv-h-b1/rv_checks.py (cwd scratch/rv-h-b1): 1.26 s; output byte-identical to rv_checks.output.txt.
+- Copies saved in scratch/h-b1-fix/*.rerun.output.txt.
