@@ -93,3 +93,11 @@
 - Independent implementation of T5bCl / T5aCl (set partitions, g = h/#Cl[2] via quadclassunit) and ellanalyticrank on 30 d:
   26565, 33117 (rank 3: T5a = T5b = 0) and the first 28 squarefree d ≡ 5 (8) with ≥ 2 primes ≡ 3,7 (8) (21..645).
   T5b odd on 26 of them, all analytic rank 1; no rank ≥ 2 case with T5a or T5b odd. 0 violations of TYZRow5b / ReadingA.
+
+## Step 11: lit-adopt final (9367dfa6, .fleet/lit-adopt.md present)
+- MainLiterature.lean: three variants, each a one-line composition through
+  exists_..._of_sixContactMin_certifiedRankTYZClRk; hypotheses exactly (SixContactMin | JHeightBound Mult.S_mul) and
+  (CertifiedRankTYZClRk | TYZRow5b ∧ FunctionalEquation5 ∧ GrossZagier). No changes to CR3Literature/JHeight after b32c3f36.
+- /tmp concatenation of CR3Literature + JHeight + MainLiterature (from git show) compiled with lake env lean in this worktree
+  (load 3, 138 GB free): the three variants depend on [propext, Classical.choice, Quot.sound].
+- Deviations listed in .fleet/lit-adopt.md match Step 9's diff; nothing else changed.
