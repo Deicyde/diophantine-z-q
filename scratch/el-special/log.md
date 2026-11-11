@@ -52,3 +52,40 @@ cannot create points. Any prime-structured choice of `N` only matters as a proof
 - **Budget.** Even an integral `k` would have size about `δG` (unbounded in the instance), while
   multiplier bits give `k < 2^L` for a fixed `L`. An unbounded integer inside the pole call
   needs an existential definition of integers, which is the target itself (circular).
+
+## S3. Barrier lemma: rationally connected witness families contradict Lemma 5.1 (argument; STANDARD inputs)
+**Setting.** `P` = instance parameter space (test site: `(n, q)` and the four test points as
+coordinates on `E/K₀`; slope site similarly), `B : P → 𝔸¹` the pole input, `Y → P` the pole
+witness variety (Route K `polePoly` with guards, multiplier bits included). Local soundness
+(rs-pole §4.3, the proof of Lemma 5.1 is `p`-adic): for `p > 324`, `y ∈ P(ℚ_p)`,
+`v_p(B(y)) < 0` odd ⇒ `Y_y(ℚ_p) = ∅`.
+
+**Lemma G.** Let `Γ ⊂ P` be a geometrically integral curve over `ℚ` with a smooth rational point
+`γ₀` where `B|_Γ` has a pole of odd order `r`. Then `Y_Γ → Γ` has no section over `ℚ̄(Γ)` meeting
+the guarded open part.
+*Proof.* A section is defined over a number field `K`. Let `t` be a uniformizer at `γ₀` over `ℚ`,
+`B = u·t^{−r}` with `u(γ₀) ∈ ℚ*`. For the (infinitely many) `p > 324` split in `K` and prime to
+`u(γ₀)` and to the bad primes of the models, Hensel gives `γ ∈ Γ(ℚ_p)` with `t(γ) = p`, so
+`v_p(B(γ)) = −r`, negative odd, and the section gives a point of `Y_γ(ℚ_p)` (outside the finitely
+many `γ` where it meets the guard locus). Contradiction. ∎
+
+**Corollaries.**
+1. Over such `Γ`, the generic fibre of `Y_Γ` contains no geometrically rationally connected
+   subvariety dominating `Γ` (Graber–Harris–Starr, JAMS 16 (2003): RC fibrations over curves have
+   sections over `ℂ`; for conic and quadric bundles Tsen's theorem suffices).
+2. Such curves exist and cover `P`: test site `n = c + λ` (`c ∈ 𝒞`), `q = q₀λ^{−M}`, points fixed
+   with `D_j(λ=0) ≠ 0`: `R ~ λ^{3−4M}`, `RC_j² ~ λ^{1−4M}`, `Θ ~ λ^{24M−6}`, `B ~ λ^{15−52M}`
+   (odd, negative for `M ≥ 1`; same exponent count as rs-pole §4.3). Varying `(c, q₀, M,
+   points)` these curves pass through every point of a dense open of `P`.
+3. Hence no witness construction that is uniform over the instances (they are Zariski dense in `P`)
+   and given by formulas whose free parameters satisfy only rationally connected conditions
+   (rational parametrizations, conics, quadrics via Hasse–Minkowski, Châtelet surfaces, any
+   unirational family) can exist for the current `Φ` or for any redesign with a local soundness
+   proof. C3 is an instance: its rational family yields `v_p(m) ≤ −2` exactly at the bad primes.
+4. Prime tools (Dirichlet, Green–Tao, sieves) certify local or density conditions; points they
+   "produce" are formulas in prime data, i.e. algebraic families in which the primes are
+   parameters, so they fall under 3 unless the parameter conditions are of genus ≥ 1, where
+   existence is again a rank/Sha question.
+**Scope.** Not excluded: per-instance constructions not given by one algebraic family over a
+dense subset of `P` (e.g. existence theorems such as CR₃, or infinitely many families indexed by
+arithmetic data each covering a thin set).
