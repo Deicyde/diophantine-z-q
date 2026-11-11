@@ -29,11 +29,15 @@ namespace ZInQ.RouteK.Redei
 open Finset ZInQ.RouteK.Rank5b ZInQ.RouteK.Rank5b.Sec3
 
 /-- **The 4-rank statement** (`scratch/redei-plan/Probe.lean` §3.6, `odd_gCl_iff`; Rédei's theorem
-in its 4-rank-0 form): for odd squarefree `n`, `g(n) = #2Cl(ℚ(√−n))` is odd iff every vector
+in its 4-rank-0 form): for odd squarefree `n > 1`, `g(n) = #2Cl(ℚ(√−n))` is odd iff every vector
 `e ∈ 𝔽₂^{ramSet n}` killed by the Rédei matrix is `0` or the vector `e_n` of `(√−n)` (`1` on the
-primes of `n`, `0` at `2`). -/
+primes of `n`, `0` at `2`).
+
+The hypothesis `1 < n` is needed: for `n = 1` (`ℚ(i)`, trivial class group) `g(1) = 1` is odd,
+while `e_1 = 0` and the nonzero vector supported at `2 ∈ ramSet 1` is killed by the (empty) Rédei
+matrix. The plan only uses `n = d_B ≥ 3`. -/
 def OddGClStatement : Prop :=
-  ∀ (n : ℕ) [NeZero n], Odd n → Squarefree n →
+  ∀ (n : ℕ) [NeZero n], Odd n → Squarefree n → 1 < n →
     (Odd (gCl n) ↔ ∀ e : ramSet n → ZMod 2, (∀ q, ∑ p, redeiEntry n q p * e p = 0) →
       e = 0 ∨ e = fun p : ramSet n => if (p : ℕ) ∈ n.primeFactors then (1 : ZMod 2) else 0)
 
@@ -116,6 +120,12 @@ theorem redeiB_mod4_iff (hd : Odd d) (B : Finset d.primeFactors) :
   have h8 := Nat.mod_lt (dProd B) (show 8 > 0 by norm_num)
   generalize dProd B % 8 = m at h8 ⊢
   interval_cases m <;> decide
+
+/-- `d_B > 1` for nonempty `B`. -/
+theorem redeiB_one_lt {B : Finset d.primeFactors} (hB : B.Nonempty) : 1 < dProd B := by
+  obtain ⟨q, hq⟩ := hB
+  have h := redeiB_mem_primeFactors hq
+  exact (Nat.prime_of_mem_primeFactors h).one_lt.trans_le (Nat.le_of_mem_primeFactors h)
 
 /-- `d_B / q = Π_{k ∈ B, k ≠ q} k`. -/
 theorem redeiB_div_eq {B : Finset d.primeFactors} {q : d.primeFactors} (hq : q ∈ B) :
@@ -257,7 +267,8 @@ theorem redeiB_kernel_iff (hd : Odd d) (B : Finset d.primeFactors) :
 theorem gCl_dProd_eq_gBit (h : OddGClStatement) (hd : Odd d) {B : Finset d.primeFactors}
     (hB : B.Nonempty) : ((gCl (dProd B) : ℕ) : ZMod 2) = gBit d B := by
   have key : Odd (gCl (dProd B)) ↔ gBit d B = 1 := by
-    rw [h (dProd B) (redeiB_odd hd B) (redeiB_squarefree B), redeiB_kernel_iff hd B,
+    rw [h (dProd B) (redeiB_odd hd B) (redeiB_squarefree B) (redeiB_one_lt hB),
+      redeiB_kernel_iff hd B,
       kernel_trivial_iff_redeiG (recip_bits hd) hB]
     rfl
   rcases Nat.even_or_odd (gCl (dProd B)) with he | ho
