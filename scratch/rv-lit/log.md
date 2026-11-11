@@ -27,3 +27,14 @@
 - d = 5, 13, 21: |Λ(2-s)+Λ(s)| < 2e-17 at s = 0.3+0.7i, 1.2-2i, 0.9 with Λ = N^{s/2}(2π)^{-s}Γ(s)L(s) (PARI lfun).
 - L(C_d, 2) = 0.911, 1.024, 0.904 ≠ 0: the unrestricted FunctionalEquation5 at s = 0 (Mathlib Γ(0) = 0 so Λ(0) = 0,
   Λ(2) ≠ 0) is false; confirms the lit-adopt restriction is needed.
+
+## Step 4: CR3 Props vs definitions and nt-tyz (by reading)
+- shortCurve A = [0,0,0,A,0]; argument -(d:ℚ)^2 = -(d^2) (Literature.lean proves ≠ 0 by neg_ne_zero.mpr (pow_ne_zero ..)),
+  so the curve is C_d: y^2 = x^3 - d^2 x (the curve of an_check.py). E_n : n y^2 = x^3 - x ≅ C_n over ℚ, same L.
+- gCl n = Nat.card (range of squaring on ClassGroup (𝓞 ℚ(√-n))) = #2Cl = TYZ g (nt-tyz Notation). T5bCl = Σ over set
+  partitions with one block ≡7, one ≡3, rest ≡1 of Π gCl(d_B) = nt-tyz T_5b. T5aCl (draft) = nt-tyz T_5a.
+- nt-tyz Prop N: 𝓛(n)=0 ⇒ T_5a, T_5b even; "in particular T_5b odd ⇒ 𝓛(n) ≠ 0 and ord = 1". I7: 𝓛(n) = 0 iff ord > 1.
+  TYZRow5b (ord ≤ 1, ∃F) = contrapositive of Prop N's T_5b half + I7 + Hecke continuation; weaker than Prop N (≤1 not =1).
+  TYZThm35ReadingA (∀F, 2 ≤ ord ⇒ T5aCl = 0 ∧ T5bCl = 0) = Prop N first sentence with 𝓛(n)=0 read as ord ≥ 2. Exact.
+- Quantifiers: ∃F in TYZRow5b/HeckeContinuation, ∀F elsewhere; harmless by IsLContinuation.eq (F unique).
+- lit-adopt: no origin/wip/lit-adopt ref yet.
