@@ -132,8 +132,42 @@ theorem tyzRow5b_of_readingA (hA : TYZThm35ReadingA) (hH : HeckeContinuation) : 
   rw [h0] at h5b
   exact zero_ne_one h5b
 
+/-! ### The functional equation with root number `−1` -/
+
+/-- The completed L-function `Λ(s) = N^{s/2} (2π)^{−s} Γ(s) F(s)` for conductor `N`. -/
+noncomputable def completedL (N : ℕ) (F : ℂ → ℂ) (s : ℂ) : ℂ :=
+  (N : ℂ) ^ (s / 2) * (2 * Real.pi : ℂ) ^ (-s) * Complex.Gamma s * F s
+
+/-- **Functional equation of `L(C_d, s)` for `d ≡ 5 (mod 8)`**: `Λ(2 − s) = −Λ(s)` with conductor
+`N = 32 d²`. Literature: Deuring (CM, Hecke L-function of `ℚ(i)`) for the functional equation;
+conductor `32 d²` for odd squarefree `d`; root number `−1` for `d ≡ 5, 6, 7 (mod 8)`
+(Birch–Stephens, Topology 5 (1966)). -/
+def FunctionalEquation5 : Prop :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → ∀ F : ℂ → ℂ,
+    IsLContinuation (shortCurve (-(d : ℚ) ^ 2)) F →
+      ∀ s : ℂ, completedL (32 * d ^ 2) F (2 - s) = -completedL (32 * d ^ 2) F s
+
+theorem rootNumberVanishing_of_functionalEquation (h : FunctionalEquation5) :
+    RootNumberVanishing := by
+  intro d hd hsq F hF
+  have h1 := h d hd hsq F hF 1
+  norm_num only at h1
+  have h2 : completedL (32 * d ^ 2) F 1 = 0 := by linear_combination h1 / 2
+  simp only [completedL, Complex.Gamma_one, mul_one] at h2
+  have hN : ((32 * d ^ 2 : ℕ) : ℂ) ≠ 0 := by
+    have : d ≠ 0 := by omega
+    exact_mod_cast (by positivity : 32 * d ^ 2 ≠ 0)
+  have hpi : (2 * Real.pi : ℂ) ≠ 0 := by
+    exact_mod_cast (by positivity : (2 * Real.pi : ℝ) ≠ 0)
+  rcases mul_eq_zero.mp h2 with h3 | h3
+  · rcases mul_eq_zero.mp h3 with h4 | h4
+    · exact absurd h4 (Complex.cpow_ne_zero_iff_of_exponent_ne_zero (by norm_num) |>.mpr hN)
+    · exact absurd h4 (Complex.cpow_ne_zero_iff_of_exponent_ne_zero (by norm_num) |>.mpr hpi)
+  · exact h3
+
 end ZInQ.WkCR3
 
 #print axioms ZInQ.WkCR3.IsLContinuation.eq
 #print axioms ZInQ.WkCR3.certifiedRankTYZClRk_of_literature
 #print axioms ZInQ.WkCR3.tyzRow5b_of_readingA
+#print axioms ZInQ.WkCR3.rootNumberVanishing_of_functionalEquation

@@ -26,3 +26,12 @@
 - Theorems: `IsLContinuation.eq` (uniqueness, identity theorem), `analyticOrder_eq_one`,
   `certifiedRankTYZClRk_of_literature : TYZRow5b → RootNumberVanishing → GrossZagierKolyvagin →
   CertifiedRankTYZClRk`, `tyzRow5b_of_readingA : TYZThm35ReadingA → HeckeContinuation → TYZRow5b`.
+
+## Step 3 (functional equation; conventions check)
+- Added `completedL N F s = N^{s/2}(2π)^{−s}Γ(s)F(s)`, Prop `FunctionalEquation5`
+  (d ≡ 5 sqfree, N = 32d²: Λ(2−s) = −Λ(s)) and `rootNumberVanishing_of_functionalEquation`.
+  Compiles; standard axioms (out_literature.txt).
+- `conventions_check.py` (PARI, 20 squarefree d ≡ 5 (8), d < 4000): conductor 32d², root number −1,
+  model y² = x³ − d²x globally minimal, Kodaira III at 2 and I0* at p | d (additive: Mathlib local
+  factor 1, ellap = 0), ellap(p) = p + 1 − #C_d(F_p) for good p < 40. 0 failures
+  (out_conventions_check.txt).
