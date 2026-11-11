@@ -16,3 +16,7 @@ Base: 81bb5d8f (wip/cr3-adopt from origin/wip/integrate-w19).
   Lean derivation); RankVariants.lean module doc; Rank5b.lean variant doc; Main.lean (two
   passages); RankInf.lean, RankDL.lean (same literature). Pole.lean left alone (it describes the
   manuscript's own RC proof). Build pending (step 4).
+- Step 3: KERNEL_PLAN.md CR₃ passages: PC row of the table and the CR₃ paragraph lead with
+  TYZ + Proposition N + Gross–Zagier with an auxiliary field (Kriz an alternative, not needed),
+  pointer to cr3-trust.md / rv-cr3-trust.md; the 5b and DLAdmRk SixContactMin variants added;
+  sentence that TYZClRk implies all 14 forms. Rest unchanged.
