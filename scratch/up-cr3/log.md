@@ -22,3 +22,7 @@
 - V16 Prop "Linear-unit ordinary pole" 10671-10700: new module, soundness by valuation parity; completeness "under the same inherited realization and rank hypotheses" (10680-10682), i.e. RC again.
 - 214 proposal (~/upstream-p214 110cf72, research/quartic214/): PROOF.md:25 source-carry; proofs/source-carry.md C04 (lines 11-17) retains RC verbatim for E_l, l=11 mod 12, applied to n_pole and n_pole*theta (V15:8870-8970 descent), points via finite Sha; proofs/existence.md:86 pole input squareclasses at 2,3,17 unchanged. No new pole route.
 - grep Tian|Kriz|Smith|congruent number in V13-V16: no hits on the pole side (only Yuan2024 = integral moduli, and the Q(sqrt2) congruent-type curve y^2=x^3-d^2x with d=75-53sqrt2 of sec:model, V16 353).
+
+## Step 4: computation (scratch/up-cr3/local2.py, out_local2.txt)
+- Upstream analog of Proposition 0 is prose: V16 8925-8961 (also V13 7845ff, V14 8904ff, V15 8928ff) local images of E_l in coordinates (x+3l, x-l); 2-adic claim V16 8931-8936.
+- Check: 30 squarefree l = 11 mod 12 (11..371), x = a*2^k (a odd |a|<256, |k|<=6), 11833 Q_2-points: 0 violations of "both v2(x+3l), v2(x-l) even"; j = 35152/9 for all 30. VERIFIED (sample).
