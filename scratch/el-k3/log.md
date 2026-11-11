@@ -32,3 +32,12 @@ rs-pole §2.2, cr3-map-literature R3). Φ(B) with multiplier m ⇔ X_{β_m,θ_m}
   3. Every curve defined over ℚ has odd arithmetic genus (C² ≡ 0 mod 4).
   4. Pic is independent of θ (σ_θ has no fixed anti-invariant class): any construction read off
      the Picard lattice is uniform in θ.
+
+### S2. Algebraic Brauer group (`ns_h1.py`; VERIFIED, exact)
+- H¹(Gal(K/ℚ), NS(X̄)) via cocycles on the generators of (ℤ/2)³ and SNF (PARI matkerint,
+  matinverseimage, matsnf); Z¹ rank checked equal to B¹ rank.
+- θ generic (every admissible θ ≠ 1): H¹ = 0. θ = 1, −1, β: H¹ = ℤ/2.
+- So Br₁(X)/Br₀ = 0: no algebraic Brauer–Manin obstruction on X_{β,θ}. With descent-alt
+  §4.2(i) (one-curve quartic, hence X, everywhere locally soluble) only transcendental BM or
+  no obstruction remains; Skorobogatov's conjecture (BM is the only obstruction on K3s,
+  SPECULATIVE/open) would give X(ℚ) ≠ ∅ up to transcendental classes. Not a proof route.
