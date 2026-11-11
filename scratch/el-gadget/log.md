@@ -120,3 +120,7 @@ CR₃; no free points. (Soundness of the redesign itself not checked: SPECULATIV
 - Pell / integral-point gadgets (`m = m₀k²`, `k` integral): `k` is bit-encoded, hence bounded by `2^{#bits}`;
   Pell solutions grow exponentially, so no uniform completeness; integrality of `k` from elsewhere would be
   circular (it is what the construction defines).
+
+## Status
+
+Deliverables written: docs/research/el-gadget.md, .fleet/el-gadget.md. Verdict: very low (Theorem G + column property).
