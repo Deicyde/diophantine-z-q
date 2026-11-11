@@ -33,9 +33,9 @@ by either of:
   Theorem 3.5 and the argument of the proof of Theorem 3.5(2), §3.3, as completed in
   `docs/research/nt-tyz.md` §4, Proposition N), which gives `ord_{s=1} L(C_d, s) = 1`, and
   Gross–Zagier (`docs/research/pc-audit.md` RK7), which gives `rank C_d(ℚ) ≥ 1`. Tian–Yuan–Zhang's
-  hypothesis is reached through Corollary 4.4 and Theorem 3.6 of `docs/research/tyz-5b.md` (proved
-  in Lean: `certifiedRankRk_of_certifiedRankTYZRk`) and Rédei's formula (the Prop
-  `Rank5b.RedeiFormula`).
+  hypothesis is reached through Corollary 4.4 and Theorem 3.6 of `docs/research/tyz-5b.md`
+  (`certifiedRankRk_of_certifiedRankTYZRk`) and Rédei's formula (`RouteK.Redei.redeiFormula`), all
+  proved in Lean.
 
 The step from positive rank to "every Selmer class comes from a rational point"
 (`docs/research/pc-audit.md` RK9) is proved in Lean (`loc_of_mem_sel2_of_infinite_order`), from
@@ -48,11 +48,12 @@ def CertifiedRankRk : Prop :=
 `d ≡ 5 (mod 8)` with odd genus sum `T5b d` (`Rank5b.T5b`, Rédei bits), `C_d(ℚ)` has a point of
 infinite order.
 
-**Trust statement.** Not proved in Lean. It is provided by Rédei's formula (identifying `T5b d`
-with the genus sum of class numbers; `Rank5b.RedeiFormula`), Tian–Yuan–Zhang (Theorem 3.5 and the
+**Trust statement.** Not proved in Lean. It is provided by Tian–Yuan–Zhang (Theorem 3.5 and the
 argument of the proof of Theorem 3.5(2), §3.3, completed in `docs/research/nt-tyz.md` §4,
 Proposition N: `ord_{s=1} L(C_d, s) = 1`) and Gross–Zagier (`docs/research/pc-audit.md` RK7:
 analytic rank one gives `rank C_d(ℚ) ≥ 1`); see `Rank5b.CertifiedRankTYZ` for the precise citations.
+Rédei's formula, which identifies `T5b d` with the genus sum of class numbers in Tian–Yuan–Zhang's
+hypothesis, is proved in Lean (`RouteK.Redei.redeiFormula`; see `CertifiedRankTYZClRk`).
 Neither `#Sel₂(C_d) = 8` nor RK9 is part of this statement: RK9 is proved in Lean
 (`loc_of_mem_sel2_of_infinite_order`). -/
 def CertifiedRankTYZRk : Prop :=

@@ -57,6 +57,7 @@ Each declaration should depend on `[propext, Classical.choice, Quot.sound]` only
 #print axioms ZInQ.RouteK.Rank.certifiedRankRk_of_certifiedRankTYZRk
 #print axioms ZInQ.RouteK.Rank.sel_of_selmerCertified
 #print axioms ZInQ.RouteK.Rank.certifiedRankDLRk_of_certifiedRankTYZRk
+#print axioms ZInQ.RouteK.Rank.certifiedRankDLRk_of_certifiedRankRk
 #print axioms ZInQ.RouteK.Rank.poleCompleteness_of_certifiedRankDLRk
 #print axioms ZInQ.RouteK.Rank.poleCompleteness_of_certifiedRankDLAdmRk
 #print axioms ZInQ.RouteK.Rank.certifiedRankDLAdmRk_of_certifiedRankDLRk

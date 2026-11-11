@@ -106,7 +106,7 @@ none of them formalized here, together with Theorem 3.6 (`det_M5b_eq_T5b`, prove
 * **Rédei's formula** (genus theory; L. Rédei, J. Reine Angew. Math. 171 (1934), 55–60; the `κ`
   forms are derived in `docs/research/tyz-5b.md` Proposition 2.3): for every set `B` of primes of
   `d` with `d_B ≢ 5 (mod 8)`, `gBit d B = #2Cl(ℚ(√−d_B)) mod 2`. So `T5b d` is the `(7, 3)` genus
-  sum above for `n = d`.
+  sum above for `n = d`. This step is proved in Lean (`RouteK.Redei.redeiFormula`).
 * **Gross–Zagier** (Invent. Math. 84 (1986), 225–320), over an imaginary quadratic field `K` that
   satisfies the Heegner hypothesis and has `L(C_d^K, 1) ≠ 0` (Bump–Friedberg–Hoffstein;
   Murty–Murty); `C_d` is modular because it has CM by `ℤ[i]` (Deuring, Shimura). This gives

@@ -374,8 +374,8 @@ that every Selmer class comes from a rational point. Since `C_d(ℚ)[2] = C_d[2]
   `ord_{s=1} L(C_d, s) = 1`, and Gross–Zagier–Kolyvagin, which gives `rank C_d(ℚ) = 1` and
   `Ш(C_d)` finite (`docs/research/tyz-5b.md`); then `dim Sel₂ = 3 = 2 + 1` forces `Ш[2] = 0`.
   Tian–Yuan–Zhang's hypothesis is reached through Corollary 4.4 and Theorem 3.6 of
-  `docs/research/tyz-5b.md` (proved in Lean: `RouteK.Rank5b.det_M5b_eq_one`,
-  `RouteK.Rank5b.det_M5b_eq_T5b`) and Rédei's formula (the Prop `RouteK.Rank5b.RedeiFormula`).
+  `docs/research/tyz-5b.md` (`RouteK.Rank5b.det_M5b_eq_one`, `RouteK.Rank5b.det_M5b_eq_T5b`) and
+  Rédei's formula (`RouteK.Redei.redeiFormula`), all proved in Lean.
 
 Compared with `ZInQ.CertifiedRank`, the explicit system `Σ(𝒞_d)`, the Legendre symbols and
 Monsky's matrix are not part of the hypothesis: they enter only through Proposition 0

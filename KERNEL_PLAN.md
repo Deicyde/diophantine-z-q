@@ -131,13 +131,16 @@ Selmer class comes from a rational point) is the hypothesis in their own terms; 
 `exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZ`. Its trust
 statement names Tian–Yuan–Zhang (Proposition N of `docs/research/nt-tyz.md`), Rédei's formula and
 Gross–Zagier; one model review found it faithful after docstring repairs, with a numerical check
-against PARI on 30 values of `d` (`docs/research/rv-cr5b-sec3.md`). Rédei's formula itself is not
-formalized (`docs/research/redei-plan.md` plans it: about 2,650 lines), but it is stated exactly as
-the Prop `ZInQ.RouteK.Rank5b.RedeiFormula`. With it, `CertifiedRankTYZCl`, the hypothesis with
-Tian–Yuan–Zhang's own `g(d) = #2Cl(ℚ(√−d))` (class groups of `ℚ(√−d)` from Mathlib), is equivalent to
-`CertifiedRankTYZ` (`certifiedRankTYZ_iff_of_redeiFormula`), and
-`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZCl` takes
-SixContactMin, `CertifiedRankTYZCl` and `RedeiFormula`.
+against PARI on 30 values of `d` (`docs/research/rv-cr5b-sec3.md`). Rédei's formula is proved in
+Lean: the Prop `ZInQ.RouteK.Rank5b.RedeiFormula` is the theorem `ZInQ.RouteK.Redei.redeiFormula`
+(`ZInQKernel/RouteK/Redei/`, the eight modules of `docs/research/redei-plan.md` §3.2: ambiguous
+classes, genus characters and their surjectivity by Dirichlet's theorem, genus theory
+`Cl² = ⋂ ker χ_q` by counting, the 4-rank statement, and the 𝔽₂ linear algebra that matches
+Rédei's matrix with the bits). So `CertifiedRankTYZCl`, the hypothesis with Tian–Yuan–Zhang's own
+`g(d) = #2Cl(ℚ(√−d))` (class groups of `ℚ(√−d)` from Mathlib), is equivalent to `CertifiedRankTYZ`
+(`certifiedRankTYZ_iff'`), and
+`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZCl` takes only
+SixContactMin and `CertifiedRankTYZCl`.
 
 These hypotheses all conclude that every 2-Selmer class of `C_d` comes from a rational point, while
 the published theorems give only that `C_d(ℚ)` has positive rank. The step between them
@@ -149,21 +152,24 @@ class (`loc_of_mem_sel2_of_infinite_order`). Each hypothesis therefore has a pos
 "`C_d(ℚ)` has a point of infinite order" (equivalently, `d` is a congruent number):
 `CertifiedRankRk`, `CertifiedRankTYZRk` (squarefree `d ≡ 5 (mod 8)` with `T_5b(d)` odd; no
 condition on `Sel₂`) and `CertifiedRankTYZClRk`, with main-theorem variants in
-`RouteK/RankVariants.lean`. `CertifiedRankTYZRk` implies `CertifiedRankRk`
-(`certifiedRankRk_of_certifiedRankTYZRk`, by Corollary 4.4 and Theorem 3.6), so
+`RouteK/RankVariants.lean`. `CertifiedRankTYZClRk` implies `CertifiedRankTYZRk`
+(`certifiedRankTYZRk_of_certifiedRankTYZClRk`, by Rédei's formula), which implies `CertifiedRankRk`
+(`certifiedRankRk_of_certifiedRankTYZRk`, by Corollary 4.4 and Theorem 3.6), so of these three
 `exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankRk` assumes the
-least. `CertifiedRankTYZRk` is the form whose content is literally Tian–Yuan–Zhang's argument,
-Rédei's formula and Gross–Zagier, with no condition on `Sel₂`.
+least. `CertifiedRankTYZClRk` is the form whose content is literally Tian–Yuan–Zhang's
+Proposition N and Gross–Zagier, with no condition on `Sel₂`; its main-theorem variant
+(`…_sixContactMin_certifiedRankTYZClRk`) takes only SixContactMin and `CertifiedRankTYZClRk`.
 
 The proof applies CR₃ at only two curves, `C_{d₁}` and `C_{d₁|θ|}`, where `d₁ = D.d₁` comes from a
 slot choice `D : RouteK.Slots β θ p₀` (`RouteK/RankDL.lean`). `RouteK.Rank.CertifiedRankDLRk` says
 that for all `β, θ, p₀` with `RouteK.Inputs β θ p₀` some slot choice gives two curves with rational
-points of infinite order. Lean proves `CertifiedRankTYZRk → CertifiedRankDLRk` and
-`CertifiedRankDLRk → PoleCompleteness`, hence the main theorem from SixContactMin and
+points of infinite order. Lean proves `CertifiedRankRk → CertifiedRankDLRk`
+(`certifiedRankDLRk_of_certifiedRankRk`), so this variant assumes no more than the `CertifiedRankRk`
+one, and `CertifiedRankDLRk → PoleCompleteness`, hence the main theorem from SixContactMin and
 `CertifiedRankDLRk`
 (`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLRk`);
 `CertifiedRankDLAdmRk` quantifies only over admissible `B`. These forms rest on the same literature
-as `CertifiedRankTYZRk`. What they add is a smaller target for partial results, such as explicit
+as `CertifiedRankRk`. What they add is a smaller target for partial results, such as explicit
 points on the curves of some slot choice (`poleSoluble_of_slots_infinite_order`). They depend on the
 internal definitions `Inputs` and `Slots`, so a change to the slot construction changes their
 meaning.

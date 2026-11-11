@@ -11,7 +11,8 @@ the positive-rank hypothesis for exactly these curves, `RouteK.Rank.CertifiedRan
 
 * `RouteK.Rank.sel_of_selmerCertified`: a certificate of Selmer type (`SelmerCertified d a`) gives
   `#Sel₂(C_d) = 8` and a Selmer class `(a, b)` (Proposition 0);
-* `RouteK.Rank.certifiedRankDLRk_of_certifiedRankTYZRk`: CR₃^TYZ,Rk implies CR₃^DL,Rk;
+* `RouteK.Rank.certifiedRankDLRk_of_certifiedRankTYZRk` and
+  `RouteK.Rank.certifiedRankDLRk_of_certifiedRankRk`: CR₃^TYZ,Rk and CR₃^Rk imply CR₃^DL,Rk;
 * `RouteK.Rank.poleCompleteness_of_certifiedRankDLRk`: CR₃^DL,Rk implies pole completeness, by RK9
   (`loc_of_mem_sel2_of_infinite_order`) with Mordell–Weil (`fg_points`);
 * `exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLRk`:
@@ -65,11 +66,12 @@ For all `β`, `θ`, `p₀` satisfying the slot inputs `RouteK.Inputs β θ p₀`
 
 These are the two curves to which pole completeness applies CR₃ (`d₂ = D.d₂ = D.d₁ |θ|`,
 `Slots.d₂_eq`). The slot choice is existential, so a family of explicit points on the curves of some
-slot choice suffices. CR₃^DL,Rk is implied in Lean by CR₃^TYZ,Rk
-(`certifiedRankDLRk_of_certifiedRankTYZRk`), and so rests on the same literature (Tian–Yuan–Zhang
-with Gross–Zagier, or Kriz's 2-converse); any statement Lean derives from CR₃^TYZ,Rk, down to
-`PoleCompleteness` itself, is equally justified by that literature. What this form adds is a
-smaller target for partial results.
+slot choice suffices. CR₃^DL,Rk is implied in Lean by CR₃^Rk
+(`certifiedRankDLRk_of_certifiedRankRk`) and by CR₃^TYZ,Rk
+(`certifiedRankDLRk_of_certifiedRankTYZRk`), and so rests on the same literature (Kriz's 2-converse
+with the corank lemma, or Tian–Yuan–Zhang with Gross–Zagier); any statement Lean derives from these
+hypotheses, down to `PoleCompleteness` itself, is equally justified by that literature. What this
+form adds is a smaller target for partial results.
 
 The statement depends on the internal definitions `RouteK.Inputs` and `RouteK.Slots` (and on
 `Slots.d₁`), so a change to the slot construction changes its meaning. -/
@@ -111,6 +113,19 @@ theorem certifiedRankDLRk_of_certifiedRankTYZRk (h : CertifiedRankTYZRk) : Certi
       (D.squarefree_d₁ hI) hI.sqf_β (D.β_dvd_d₁ hI) hI.mod_β (D.selmerCertified_d₁ hI),
     exists_infinite_order_of_certifiedRankTYZRk_of_selmerCertified h h₂5 h₂sq hI.sqf_β h₂β
       hI.mod_β h₂c⟩
+
+/-- **CR₃^DL,Rk from CR₃^Rk**: take any slot choice (`exists_slots`); on both curves Proposition 0
+(`sel_of_selmerCertified`) gives `#Sel₂ = 8` and a Selmer class `(β, b)` with `|β| ≡ 7 (mod 8)`. -/
+theorem certifiedRankDLRk_of_certifiedRankRk (h : CertifiedRankRk) : CertifiedRankDLRk := by
+  intro β θ p₀ hI
+  obtain ⟨D⟩ := exists_slots hI.odd_β hI.odd_θ hI.coprime hI.p₀_mem
+  obtain ⟨h₂5, h₂sq, h₂β, h₂c⟩ := slots_d₂_facts D hI
+  refine ⟨D, ?_, ?_⟩
+  · obtain ⟨h8, b, hb⟩ := sel_of_selmerCertified (D.d₁_mod hI) (D.squarefree_d₁ hI) hI.sqf_β
+      (D.β_dvd_d₁ hI) (D.selmerCertified_d₁ hI)
+    exact h _ (D.d₁_mod hI) (D.squarefree_d₁ hI) h8 ⟨(β, b), hb, hI.mod_β⟩
+  · obtain ⟨h8, b, hb⟩ := sel_of_selmerCertified h₂5 h₂sq hI.sqf_β h₂β h₂c
+    exact h _ h₂5 h₂sq h8 ⟨(β, b), hb, hI.mod_β⟩
 
 /-- The conclusion of CR₃ at one curve, from a certificate of Selmer type and a point of infinite
 order: Proposition 0 (`sel_of_selmerCertified`), RK9 (`loc_of_mem_sel2_of_infinite_order`) with
