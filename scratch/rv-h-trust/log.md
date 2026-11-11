@@ -106,3 +106,8 @@ the cited theorems are the same in N5):
   over a non-branch point (used implicitly by A5/M8). VERIFIED.
 - rv-h-novel step 4's second range "L797-818" is also ~+21 off (N5 C10 is L776-795); h-trust Summary 6
   names only steps 5-8.
+
+## Step 8. Deliverables
+- docs/research/rv-h-trust.md written (verdict: adopt after repairs; repairs by section in §6).
+- .fleet/rv-h-trust.md written.
+- No Lean run was needed (only Python/sympy/PARI scripts, each < 1 s).
