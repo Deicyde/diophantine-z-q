@@ -97,3 +97,11 @@ route (pst directly) that needs neither the descent paragraph nor Berger.
   (d) h-trust C3 proposes Fontaine Ast. 223 "Exp. VIII" as the replacement for BC 5.2.1/6.3.3/6.3.8.
       From memory (SPECULATIVE, unverified): Exp. VIII is Fontaine's l-adic pst exposé; the de Rham
       formalism is Exp. III (§§1.4-1.5 admissibility; §3 de Rham). Flag for a locator check.
+
+## Step 6. Computation: normalization check (scratch/rv-h-c3/frob_norm.py)
+Input: 11a1 [0,-1,1,-10,-20], 37a1 [0,0,1,-1,0], 43a1 [0,1,1,0,0], 389a1 [0,1,1,-2,0]; good p < 200.
+Compute p+1-#E(F_p) by brute-force count (trace of the Frobenius endomorphism = arithmetic Frob on
+T_l E) and compare with the coefficients of the eigenforms in mfinit([N,2],0).
+Outcome: for each curve some rational newform matches at all 45-46 primes (True x4).
+5077a1 dropped: mfeigenbasis overflowed the stack at 2 GB (first run, ~10 min).
+=> Tate normalization (weights {0,-1} for weight 2) <-> trace(arith Frob) = a_p, as used in §3.4.

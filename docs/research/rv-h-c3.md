@@ -107,9 +107,12 @@ Write `r_5 ≅ ρ_g ⊗ ψ` with `ψ|_{I_5} = ε^n · (finite)`. With `ε` of we
   `ρ^coh ⊗ ε = ρ^Tate ⊗ χ⁻¹`, a finite twist. That twist is absorbed into `f` as N5 does.
 - **Repair R3:** say "normalize `ρ_g` to have weights `{0, 1−k}` (trace of arithmetic Frobenius
   `a_p`)".
-- PARI check of the Tate normalization: for five elliptic curves, the trace of the Frobenius
+- PARI check of the Tate normalization: for four elliptic curves, the trace of the Frobenius
   endomorphism (= arithmetic Frobenius on `T_ℓ E`), computed as `p + 1 − #E(𝔽_p)` by brute-force
-  point counting, equals the newform's `a_p` for every good prime `p < 200`. RESULT_PLACEHOLDER
+  point counting, equals the newform's `a_p` for every good prime `p < 200`. Result: equality
+  holds for 11a1, 37a1, 43a1 and 389a1 (45-46 primes each; script
+  `scratch/rv-h-c3/frob_norm.py`). VERIFIED for these samples; in general it is Eichler–Shimura
+  (STANDARD). Level 5077 was dropped because PARI's `mfeigenbasis` overflowed a 2 GB stack.
 
 ## 4. Repairs
 
