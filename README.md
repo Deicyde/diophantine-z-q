@@ -7,10 +7,33 @@ statements it depends on, its Lean declarations with links into the source, and 
 proved. The site is rebuilt from `main` after each passing verification run.
 
 > **This fork** proves the 11/5 manuscript's Theorem 1.1 in Lean from two explicit
-> hypotheses: the six-contact height estimate and a certified-rank statement CR₃ for congruent
-> number curves. They enter the theorem as `Prop`s, not axioms. Three more inputs started as
-> hypotheses and are proved: Mordell–Weil for the generator curve; the catalogue bound, by an
-> effective Dirichlet theorem
+> hypotheses. The first is the six-contact height estimate (the manuscript's Theorem 4.1), in the
+> one instance `SixContactMin` from which both of the proof's uses follow. The second is positive
+> rank for congruent number curves `C_d : y² = x³ − d²x`, which can be stated in Tian–Yuan–Zhang's
+> terms (`CertifiedRankTYZClRk`): for squarefree `d ≡ 5 (mod 8)` whose genus sum `T5bCl d` (built
+> from the orders of the squared class groups `2Cl(ℚ(√−d_B))` of the divisors `d_B` of `d`) is
+> odd, `C_d` has a rational point of infinite order. That is what Tian–Yuan–Zhang's argument for
+> their Theorem 3.5(2) gives, as completed in [docs/research/nt-tyz.md](docs/research/nt-tyz.md)
+> (Proposition N, a new argument with two model reviews and no referee), followed by
+> Gross–Zagier. Both hypotheses enter the theorem as `Prop`s, not axioms:
+> `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk`
+> (`ZInQKernel/RouteK/RankVariants.lean`) has no `sorry`, uses no `native_decide`, and depends only
+> on the axioms `propext`, `Classical.choice` and `Quot.sound`. Each hypothesis has a trust
+> statement that lists every step of its proof, published or not, with its source and how it was
+> checked: [docs/research/h-trust.md](docs/research/h-trust.md) and
+> [docs/research/cr3-trust.md](docs/research/cr3-trust.md). Weaker forms of the second hypothesis
+> also suffice, down to positive rank on the two curves per input that the proof uses
+> ([KERNEL_PLAN.md](KERNEL_PLAN.md)).
+>
+> Everything else is proved in Lean, and every finite computation is checked by the kernel. That
+> includes every step from `CertifiedRankTYZClRk` to the certified-rank statement CR₃ that the
+> construction uses (`ZInQ.CertifiedRank`: when the explicit 2-Selmer system of `C_d` has 8
+> elements and contains a class `a` with `|a| ≡ 7 (mod 8)`, `C_d` has a rational point with
+> `x ∈ aℚ*²`): Rédei's formula, Theorem 3.6 and Corollary 4.4 of
+> [docs/research/tyz-5b.md](docs/research/tyz-5b.md), Proposition 0
+> ([docs/research/descent-alt.md](docs/research/descent-alt.md) §4.1), the complete 2-descent and
+> Mordell–Weil for the curves `C_d`. Three more inputs started as hypotheses and are proved:
+> Mordell–Weil for the generator curve; the catalogue bound, by an effective Dirichlet theorem
 > ([docs/effective-dirichlet-plan.md](docs/effective-dirichlet-plan.md)); and pole completeness,
 > by an explicit 2-descent from CR₃ ([docs/research/slot-k.md](docs/research/slot-k.md)). For
 > that step the polynomial's pole template uses the congruent number curves
@@ -20,26 +43,14 @@ proved. The site is rebuilt from `main` after each passing verification run.
 > uses long progressions of good primes instead, which come from Szemerédi's theorem in the primes
 > (Vasily Ilin's Lean proof of the Green–Tao theorem, vendored in `ThirdParty/GreenTao/` and
 > extended to dense sets of primes) and a density theorem for those primes
-> ([docs/research/pd-paper.md](docs/research/pd-paper.md)). Everything else is
-> proved in Lean, and every finite computation is checked by the kernel:
-> `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRank`
-> (`ZInQKernel/MainGreenTao.lean`) has no `sorry`, uses no `native_decide`, and depends only on
-> the axioms `propext`, `Classical.choice` and `Quot.sound`. So does the three-hypothesis version
-> that keeps the manuscript's prime pattern and none of the vendored code,
-> `ZInQ.exists_bounded_integer_polynomial_defining_integers_of` (`ZInQKernel/Main.lean`). CR₃ can
-> also be stated in Tian–Yuan–Zhang's own terms: `CertifiedRankTYZClRk` says that for squarefree
-> `d ≡ 5 (mod 8)` whose genus sum of class numbers is odd, `C_d(ℚ)` has a point of infinite order,
-> which is Tian–Yuan–Zhang's argument for their Theorem 3.5(2), as completed in
-> [docs/research/nt-tyz.md](docs/research/nt-tyz.md) (Proposition N), followed by Gross–Zagier.
-> Everything between that statement and CR₃ is proved in Lean (Proposition 0, Theorem 3.6 and
-> Corollary 4.4 of [docs/research/tyz-5b.md](docs/research/tyz-5b.md), Rédei's formula, the
-> complete 2-descent and Mordell–Weil for the curves `C_d`), so the theorem also follows from the
-> six-contact height estimate and `CertifiedRankTYZClRk` alone
-> (`ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk`,
-> `ZInQKernel/RouteK/RankVariants.lean`). See
-> [KERNEL_PLAN.md](KERNEL_PLAN.md), the
-> [final audit](docs/kernel-audits/final-audit-2026-11-07.md), the
-> [blueprint site](https://deicyde.github.io/diophantine-z-q/) and its sources in
+> ([docs/research/pd-paper.md](docs/research/pd-paper.md)). The theorem from `SixContactMin` and
+> CR₃ itself is `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRank`
+> (`ZInQKernel/MainGreenTao.lean`), and the three-hypothesis version that keeps the manuscript's
+> prime pattern and none of the vendored code is
+> `ZInQ.exists_bounded_integer_polynomial_defining_integers_of` (`ZInQKernel/Main.lean`); both have
+> the same axioms. See [KERNEL_PLAN.md](KERNEL_PLAN.md), the
+> [final audit](docs/kernel-audits/final-audit-2026-11-07.md) of the earlier four-hypothesis
+> version, the [blueprint site](https://deicyde.github.io/diophantine-z-q/) and its sources in
 > [blueprint/](blueprint/README.md). The rest of this README is upstream's.
 
 This repository contains the November 5, 2026 manuscript **Z is Diophantine in Q**, the October 11, 2026 manuscript **A conditional Diophantine definition of Z in Q from four arithmetic inputs**, and comparison notes. A research archive preserves the constructions, computations, proof drafts, reviews, and partial Lean formalization developed for the 11/5 manuscript.

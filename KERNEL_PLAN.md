@@ -49,6 +49,24 @@ in `ZInQKernel/MainGreenTao.lean`. Apart from the root module `ZInQKernel.lean`,
 it is the only module that combines the vendored Green–Tao library or the vendored sieve with the
 main construction.
 
+CR₃ itself follows in Lean from a positive-rank statement in Tian–Yuan–Zhang's terms, so the form
+of the theorem whose hypotheses are closest to the literature is
+
+```lean
+theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk
+    (hH : SixContactMin) (hCR : RouteK.Rank.CertifiedRankTYZClRk) : FrozenTarget
+```
+
+in `ZInQKernel/RouteK/RankVariants.lean`. `CertifiedRankTYZClRk` says that for squarefree
+`d ≡ 5 (mod 8)` with odd genus sum `T5bCl d`, `C_d(ℚ)` has a point of infinite order: what
+Tian–Yuan–Zhang's argument for their Theorem 3.5(2) gives, as completed by Proposition N (a new
+argument with two model reviews and no referee), followed by Gross–Zagier. Its premise has no
+Selmer condition, and in Lean it implies every other form of CR₃. The forms that assume least are
+`CertifiedRankRk` and, for the two curves per input that the proof uses, `CertifiedRankDLRk` and
+`CertifiedRankDLAdmRk` (the paragraphs on CR₃'s forms below).
+The two hypotheses' trust statements, which list every step with its supplier, published or not,
+are `docs/research/h-trust.md` and `docs/research/cr3-trust.md`.
+
 H enters in its minimal form `SixContactMin` (`ZInQKernel/Hypotheses/HeightMin.lean`): the one
 inequality `h(u) ≤ H₆(D) M_{S_mul}(u)²⁴` for `u ∈ ℚ \ 𝒞` that the proof uses, the instance
 `S = S_mul`, `R = D` of Theorem 4.1. The manuscript's form `SixContactEstimate` implies it
