@@ -131483,36 +131483,6 @@
           "start_line": 26822,
           "end_line": 26931,
           "excerpt_sha256": "848eec4de67d8ed1360e58ee1e77e3ee02a3ef36086f2b2a74e496a162c807be"
-        },
-        {
-          "pin": {
-            "side": "head",
-            "path": "manuscripts/quartic_v16.tex",
-            "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
-          },
-          "start_line": 26933,
-          "end_line": 27095,
-          "excerpt_sha256": "6c8149c876c7231f888cbf64a72c182ba1d99dfb8690e72cde77c0b4dbbee04f"
-        },
-        {
-          "pin": {
-            "side": "head",
-            "path": "manuscripts/quartic_v16.tex",
-            "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
-          },
-          "start_line": 27541,
-          "end_line": 27596,
-          "excerpt_sha256": "e0a29848a74af74c110ceb37db626d9ba8c1388d7bdfab996d1c54ec171eb114"
-        },
-        {
-          "pin": {
-            "side": "head",
-            "path": "manuscripts/quartic_v16.tex",
-            "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
-          },
-          "start_line": 27651,
-          "end_line": 27701,
-          "excerpt_sha256": "098747593ebfb8949afd16c82a847d1e8b6ebef487e7a21760b6eea334383a17"
         }
       ],
       "scope_reason": "The bounded review follows the altered assertion to its recorded direct inputs and consumers. The correction reviewer report supplies the mathematical disposition; independent native-record acceptance is separately required.",
@@ -131890,26 +131860,6 @@
           "start_line": 30632,
           "end_line": 30687,
           "excerpt_sha256": "506c3f30de5d0c1134a8994412099d41188522c0a2d4eaba2d66d79f39e2e925"
-        },
-        {
-          "pin": {
-            "side": "head",
-            "path": "manuscripts/quartic_v16.tex",
-            "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
-          },
-          "start_line": 30774,
-          "end_line": 30845,
-          "excerpt_sha256": "92af94a395ab4ae3da3b5e2997ed559a54825c73b136db1857de58911ec1ab3c"
-        },
-        {
-          "pin": {
-            "side": "head",
-            "path": "manuscripts/quartic_v16.tex",
-            "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
-          },
-          "start_line": 30849,
-          "end_line": 30906,
-          "excerpt_sha256": "2563c9a926b6dc855979bde62817a54741e706c83c86bdb5297fa42c013d26df"
         }
       ],
       "scope_reason": "The bounded review follows the altered assertion to its recorded direct inputs and consumers. The correction reviewer report supplies the mathematical disposition; independent native-record acceptance is separately required.",
@@ -132389,26 +132339,6 @@
           "start_line": 20060,
           "end_line": 20123,
           "excerpt_sha256": "a4a2d39237e8b7fc6e3a5961c39ce801c8742db01f87aa911bc224549abebdbb"
-        },
-        {
-          "pin": {
-            "side": "head",
-            "path": "manuscripts/quartic_v16.tex",
-            "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
-          },
-          "start_line": 20322,
-          "end_line": 20354,
-          "excerpt_sha256": "d4b97038d42f7605a056cca49847c91bdf5606278b2cc0c7e3e5ab49ab6fb54a"
-        },
-        {
-          "pin": {
-            "side": "head",
-            "path": "manuscripts/quartic_v16.tex",
-            "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
-          },
-          "start_line": 31958,
-          "end_line": 32000,
-          "excerpt_sha256": "3792acc37f02bb59f76cc8b658039de57b0c8d60cd915035da53b3fe5cd4bae9"
         }
       ],
       "scope_reason": "The bounded review follows the altered assertion to its recorded direct inputs and consumers. The correction reviewer report supplies the mathematical disposition; independent native-record acceptance is separately required.",
@@ -132838,16 +132768,6 @@
           "start_line": 19,
           "end_line": 19,
           "excerpt_sha256": "8672f82fed8fa3f9d15aff370707d6b5ff5471b438dc47b7e1ad32d8b38af699"
-        },
-        {
-          "pin": {
-            "side": "head",
-            "path": "research/version16/protocol/CURRENT-CORRECTIONS.md",
-            "sha256": "3b4dbaa5e80d3ed02c5fd4daeb31607de05c7fdfd07ec16168f56e9fd3ea5608"
-          },
-          "start_line": 19,
-          "end_line": 19,
-          "excerpt_sha256": "8672f82fed8fa3f9d15aff370707d6b5ff5471b438dc47b7e1ad32d8b38af699"
         }
       ],
       "scope_reason": "The bounded review follows the altered assertion to its recorded direct inputs and consumers. The correction reviewer report supplies the mathematical disposition; independent native-record acceptance is separately required.",
@@ -133055,16 +132975,6 @@
       "classification": "not_substantive_failure",
       "mechanism": "Do not claim new direct inspection of every classical source, indirect2017/2022 source, final version, or illegible scan formula. No newly unresolved prerequisite of the three affected interfaces was identified.",
       "search_scope": [
-        {
-          "pin": {
-            "side": "head",
-            "path": "research/version16/protocol/CURRENT-CORRECTIONS.md",
-            "sha256": "3b4dbaa5e80d3ed02c5fd4daeb31607de05c7fdfd07ec16168f56e9fd3ea5608"
-          },
-          "start_line": 25,
-          "end_line": 25,
-          "excerpt_sha256": "c95dfc1d90efaffbcdc6098c64133770ac7d1c9bbae7d6c7034995ca56ead1a4"
-        },
         {
           "pin": {
             "side": "head",
@@ -133459,26 +133369,6 @@
           "start_line": 19989,
           "end_line": 20169,
           "excerpt_sha256": "97c76b377f3f46b317a15d69990e09f63b3771aa939ff875e4ce6379f448108b"
-        },
-        {
-          "pin": {
-            "side": "head",
-            "path": "manuscripts/quartic_v16.tex",
-            "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
-          },
-          "start_line": 20322,
-          "end_line": 20354,
-          "excerpt_sha256": "d4b97038d42f7605a056cca49847c91bdf5606278b2cc0c7e3e5ab49ab6fb54a"
-        },
-        {
-          "pin": {
-            "side": "head",
-            "path": "manuscripts/quartic_v16.tex",
-            "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
-          },
-          "start_line": 31958,
-          "end_line": 32000,
-          "excerpt_sha256": "3792acc37f02bb59f76cc8b658039de57b0c8d60cd915035da53b3fe5cd4bae9"
         }
       ],
       "scope_reason": "The bounded review follows the altered assertion to its recorded direct inputs and consumers. The correction reviewer report supplies the mathematical disposition; independent native-record acceptance is separately required.",

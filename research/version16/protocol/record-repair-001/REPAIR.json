@@ -1,0 +1,222 @@
+{
+  "schema": "v16-record-format-repair/v1",
+  "stage": "Before corrected local candidate freeze",
+  "original_head": "39182bffc48c0412b2888d9d28f1ca138a2004e7",
+  "original_connection_sha256": "da5f3fe704cf2774e86f327b78fe422be773623ec373186942c903f7a3889411",
+  "corrected_connection_sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+  "observed_failure": {
+    "checker": "unchanged native connections_gate.validate",
+    "error": "duplicate-connection-location",
+    "field": "finding search_scope",
+    "failed_fullcore_result_sha256": "cabbcb106ecef1c244b4b320f423e8b0082a10a3d30520c3eeeb454ad1e61cd0",
+    "private_result_retained": true
+  },
+  "repair": "Keep the first copy of each identical location object in six search_scope arrays. Preserve every distinct location in order and all other connection-record fields.",
+  "removed_duplicate_count": 11,
+  "changes": [
+    {
+      "finding_id": "V16-HORIZONTAL-OMISSION",
+      "row": 32,
+      "before": 11,
+      "after": 8,
+      "removed": [
+        {
+          "old_index": 8,
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+            },
+            "start_line": 26933,
+            "end_line": 27095,
+            "excerpt_sha256": "6c8149c876c7231f888cbf64a72c182ba1d99dfb8690e72cde77c0b4dbbee04f"
+          }
+        },
+        {
+          "old_index": 9,
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+            },
+            "start_line": 27541,
+            "end_line": 27596,
+            "excerpt_sha256": "e0a29848a74af74c110ceb37db626d9ba8c1388d7bdfab996d1c54ec171eb114"
+          }
+        },
+        {
+          "old_index": 10,
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+            },
+            "start_line": 27651,
+            "end_line": 27701,
+            "excerpt_sha256": "098747593ebfb8949afd16c82a847d1e8b6ebef487e7a21760b6eea334383a17"
+          }
+        }
+      ]
+    },
+    {
+      "finding_id": "V16-GR-WRONG-PAPER",
+      "row": 33,
+      "before": 6,
+      "after": 4,
+      "removed": [
+        {
+          "old_index": 4,
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+            },
+            "start_line": 30774,
+            "end_line": 30845,
+            "excerpt_sha256": "92af94a395ab4ae3da3b5e2997ed559a54825c73b136db1857de58911ec1ab3c"
+          }
+        },
+        {
+          "old_index": 5,
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+            },
+            "start_line": 30849,
+            "end_line": 30906,
+            "excerpt_sha256": "2563c9a926b6dc855979bde62817a54741e706c83c86bdb5297fa42c013d26df"
+          }
+        }
+      ]
+    },
+    {
+      "finding_id": "V16-TZ-DIRECT-APPLICATION-WORDING",
+      "row": 34,
+      "before": 8,
+      "after": 6,
+      "removed": [
+        {
+          "old_index": 6,
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+            },
+            "start_line": 20322,
+            "end_line": 20354,
+            "excerpt_sha256": "d4b97038d42f7605a056cca49847c91bdf5606278b2cc0c7e3e5ab49ab6fb54a"
+          }
+        },
+        {
+          "old_index": 7,
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+            },
+            "start_line": 31958,
+            "end_line": 32000,
+            "excerpt_sha256": "3792acc37f02bb59f76cc8b658039de57b0c8d60cd915035da53b3fe5cd4bae9"
+          }
+        }
+      ]
+    },
+    {
+      "finding_id": "V16-BOGOLYUBOV-NUMBER",
+      "row": 35,
+      "before": 2,
+      "after": 1,
+      "removed": [
+        {
+          "old_index": 1,
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "research/version16/protocol/CURRENT-CORRECTIONS.md",
+              "sha256": "3b4dbaa5e80d3ed02c5fd4daeb31607de05c7fdfd07ec16168f56e9fd3ea5608"
+            },
+            "start_line": 19,
+            "end_line": 19,
+            "excerpt_sha256": "8672f82fed8fa3f9d15aff370707d6b5ff5471b438dc47b7e1ad32d8b38af699"
+          }
+        }
+      ]
+    },
+    {
+      "finding_id": "V16-OTHER-SOURCE-QUALIFICATIONS",
+      "row": 37,
+      "before": 2,
+      "after": 1,
+      "removed": [
+        {
+          "old_index": 1,
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "research/version16/protocol/CURRENT-CORRECTIONS.md",
+              "sha256": "3b4dbaa5e80d3ed02c5fd4daeb31607de05c7fdfd07ec16168f56e9fd3ea5608"
+            },
+            "start_line": 25,
+            "end_line": 25,
+            "excerpt_sha256": "c95dfc1d90efaffbcdc6098c64133770ac7d1c9bbae7d6c7034995ca56ead1a4"
+          }
+        }
+      ]
+    },
+    {
+      "finding_id": "V16-TZ-LOCAL-FACTOR-PRECISION",
+      "row": 39,
+      "before": 7,
+      "after": 5,
+      "removed": [
+        {
+          "old_index": 5,
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+            },
+            "start_line": 20322,
+            "end_line": 20354,
+            "excerpt_sha256": "d4b97038d42f7605a056cca49847c91bdf5606278b2cc0c7e3e5ab49ab6fb54a"
+          }
+        },
+        {
+          "old_index": 6,
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "manuscripts/quartic_v16.tex",
+              "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+            },
+            "start_line": 31958,
+            "end_line": 32000,
+            "excerpt_sha256": "3792acc37f02bb59f76cc8b658039de57b0c8d60cd915035da53b3fe5cd4bae9"
+          }
+        }
+      ]
+    }
+  ],
+  "independent_review": {
+    "path": "research/version16/review/coverage/record-repair-001/REVIEW.json",
+    "sha256": "ba7b54afa94cf4583d9c20167b333656ae16c80c866bee82b555ae6a682b310b"
+  },
+  "observed_precommit_validation": {
+    "checker": "unchanged native coverage_gate.validate and connections_gate.validate",
+    "coverage_passages": 126,
+    "source_uses": 1190,
+    "connections": 1170,
+    "finding_reviews": 40,
+    "result": "Data and genuine offside review-record consistency checks passed. Full outer candidate checks require the corrected local commit and genuine target-bound acknowledgments."
+  },
+  "limits": "This is a record-serialization correction, not a new mathematical finding or a change to the manuscript, PDF, source uses, mathematical assertions, or finding dispositions. The old failed native result, frozen packet and actual acknowledgments remain historical evidence. No live App success or publication authorization is claimed."
+}
