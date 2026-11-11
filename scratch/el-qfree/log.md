@@ -77,3 +77,16 @@ Outcome: 0 hits on 30/30 inputs. N has 356-4000+ digits, D 210-2000+ digits; red
 square (for free q the admissibility condition IsSquare(B.den) is not automatic), so by S3(b) even
 unbounded S-integral k fails unless the prime-to-S part of D is a square. D has prime factors
 > 324 (e.g. 593, 8273, 81611), none in S. Runtime ≈ 50 min.
+
+## E3. No CM factor in Jac(Y_θ) (VERIFIED, `e3_cmfactor.py`, `e3b.py`, outputs `e3_out.txt`, `e3b_out.txt`)
+Y_θ : w² = m(m T(R)² − R N_W(R)²), R = R₀(1 − R₀q²)² (q-uniform route with N constant, S4).
+Test: if Jac(Y_θ) had a factor ℚ̄-isogenous to C₁ (CM by ℤ[i]), then at every good p ≡ 3 (mod 4)
+(inert in ℚ(i)) that factor is supersingular, so some Frobenius root α has α²/p a root of unity.
+Computed hyperellcharpoly mod p, resultant to roots α²/p, polcyclofactors.
+- (n,h,s₀,η,m) = (1,2,2,1,1): genus 33, p = 19: no cyclotomic factor.
+- (1,2,2,1,−1): genus 33, p = 19: none.   (1,2,2,−1,3): genus 33, p = 67: none.
+- (2,2,4,1,1): deg 100 but f not squarefree over ℚ (deg gcd(f,f′) = 8): singular mod every p tried;
+  not tested.
+Conclusion (for these instances): Hom(Jac Y_θ, C₁) = 0 over ℚ̄, so C_{Nθ(q)}(ℚ(q)) is torsion for
+every constant N, and no q-uniform Φ-witness with a constant twist exists. Turns cr3-map-literature
+R6's SPECULATIVE assessment into an exact statement on three real instances.

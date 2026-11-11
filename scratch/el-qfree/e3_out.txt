@@ -1,0 +1,7 @@
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+(1, 2, 2, 1, 1) deg 68
+   {'p': 19, 'genus': 33, 'cyclo_factors': '[]'}
+   ('singular mod', 23)
+(2, 2, 4, 1, 1) deg 100
+   ('singular mod', 19)
+   ('singular mod', 23)
