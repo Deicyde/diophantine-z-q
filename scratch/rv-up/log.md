@@ -65,3 +65,7 @@ Verdict item 1: CONFIRMED (with locator correction for the constants block; cons
   deg phi = 4 from phi phi^dagger = diag([2],[2]) (STANDARD; Frey-Kani 1991 / Kani: J ~ (E1xE2)/graph of E1[2]->E2[2]).
   The record's numbers for C(-24) (disc f = 442368 = 2^14*3^3, f(0)=1-sqrt 2) NOT checked: BG's curve not available here.
   The printed BG sentence itself NOT read (no copy of CJM 60 here); verdict on "printed sentence" rests on upstream's quotation.
+- scratch/rv-up/theta24.py (mpmath, 40 digits; output theta24.output.txt): at the four disc -24 Heegner points of X_0(5)
+  (forms [5,+-4,2],[10,+-4,1]) x(z) = -6 +- 6 sqrt(-3) (|x^2+12x+144| < 2e-37), and F1's theta expression
+  3779136 (prod theta)^4/(sum theta^8)^5 at Omega = z[[3,5],[5,10]] equals -16/27 to < 2e-39. Independent of LY's
+  polynomials, LY eq.(2) and BG. Remaining input: Omega(z) is the QM point P_-24 (next: endo24.py).
