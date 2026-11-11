@@ -3,7 +3,8 @@
 Status: research note (task h-trust, 2026-11-11; task T3 of `docs/research/h-map.md`), repaired
 by task h-adopt (2026-11-11) after its review `docs/research/rv-h-trust.md` (verdict: adopt after
 the repairs of its §6; changelog at the end), and by task h-c38 (2026-11-11) after the reviews
-`docs/research/rv-h-c3.md` (step C3) and `docs/research/rv-h-c8.md` (step C8). It turns the
+`docs/research/rv-h-c3.md` (step C3) and `docs/research/rv-h-c8.md` (step C8), and by task
+h-a9c9-fix (2026-11-11) after the review `docs/research/rv-h-a9c9.md` (steps A9 and C9). It turns the
 routes of h-map §3.2 (B1-B5), the review rv-h-novel and the earlier H notes into one numbered
 outline of the proof of Theorem 4.1, in the form `ZInQ.SixContactEstimate` states it. For each
 step it names the supplier and gives the status. It then lists what remains outside refereed
@@ -27,6 +28,10 @@ repository could be read (there is no network).
 - `docs/research/rv-h-c3.md`, a second, independent model review of C3's lemma (holds as stated;
   repairs R1-R3), and `docs/research/rv-h-c8.md`, a focused model review of C8 on the N5 text
   (holds after repairs R1-R3: normalization of `ρ_g`, weight one, levels divisible by 5).
+- `docs/research/rv-h-a9c9.md`, a second model review of A9's Milne paragraph (holds as stated;
+  citation repairs R-A9-1, R-A9-2) and of C9's Li–Shimura sentence (holds after R-C9-1 to
+  R-C9-3; R-C9-1 replaces the Euler-factor inference by the `K_f`-linear Eichler–Shimura
+  relation).
 - The Lean files `ZInQKernel/Hypotheses/Height.lean` and `ZInQKernel/Hypotheses/HeightMin.lean`.
 
 Marks:
@@ -37,6 +42,10 @@ Marks:
 - **ASTRA-READ** (after a locator): the Astra records (`docs/reviews/height-replacement/`) say
   that the reviewer opened the primary source at that place. This is a model's reading, not a
   human's (rv-h-trust §4 item 2).
+- **AUDIT-READ** (after a locator): the upstream theorem-application audit
+  (`docs/theorem-application-audit/evidence/`) reports reading the page scan at that place; no
+  copy of the source was available in this repository (mark of rv-h-a9c9). Like ASTRA-READ, a
+  model's reading, not a human's.
 - **UNVERIFIED** (after a locator): no one in this repository, model or human, has read the
   source at that place. The text says where to check it.
 - **SPECULATIVE**: an assessment.
@@ -54,7 +63,8 @@ A8, C6 and D4 use A5 and A6); since no step is [U] any more, inheritance changes
   with the model review named. "Astra" means the four scoped Astra reviews of the **11/4** text
   (sha256 `bfc4192d…`, not N5; rv-h-novel, Provenance). Inside the proof the two texts differ
   only in a few passages (rv-h-trust §2.1); three of them (C3's lemma, A9's Milne paragraph,
-  C9's Li–Shimura sentence) were first read by rv-h-trust, and C3's lemma also by rv-h-c3.
+  C9's Li–Shimura sentence) were first read by rv-h-trust, and each has a second model review:
+  C3's lemma by rv-h-c3, the other two by rv-h-a9c9.
 - **[U] unchecked**: a repository argument that no independent review has read.
 - **[S] script**: an exact computation in the repository with its output saved. "rerun" means
   it was rerun here and gave identical output (log, Step 9).
@@ -69,7 +79,7 @@ A8, C6 and D4 use A5 and A6); since no step is [U] any more, inheritance changes
    - 24 steps are N5 or repository arguments reviewed by models only. They are covered by
      rv-h-novel (N5 text), Astra (11/4 text), rv-h-a011 (Version 14 text), rv-h-cm, rv-h-b1
      (A4-A6), rv-h-trust (the three N5-only passages in A9, C3 and C9), rv-h-c3 (C3, a second
-     review) or rv-h-c8 (C8 on the N5 text).
+     review), rv-h-a9c9 (A9 and C9, a second review) or rv-h-c8 (C8 on the N5 text).
    - No step is unchecked. A4-A6 (the identification of N5's level-three curve with the moduli
      scheme, and h-b1's Lemma PR (i) and (ii), which replace the integral model) are
      model-reviewed by rv-h-b1, whose repairs 1-6 are applied in h-b1.
@@ -106,8 +116,8 @@ A8, C6 and D4 use A5 and A6); since no step is [U] any more, inheritance changes
      model-reviewed (rv-h-b1 §7) and is a citation task: the four inputs of h-b1 §4A.
    - (d) Nine exact scripts in eight rows of §2.3, plus `scratch/rv-h-b1/rv_checks.py`.
    - (e) Five unrefereed editions cited by N5, each with a refereed replacement named.
-   - (f) About 40 locators that are UNVERIFIED, with places to check them, and about ten read by
-     a model only (ASTRA-READ) (§2.5).
+   - (f) About 40 locators that are UNVERIFIED, with places to check them, about ten read by
+     a model only (ASTRA-READ), and a few reported by the upstream audit (AUDIT-READ) (§2.5).
    - (g) The policy that the works cited inside Pan's proof are not leaves.
 5. **Drafts (§3).** The replacement module docstring and hypothesis docstring for
    `Hypotheses/Height.lean` (`SixContactEstimate`) and `Hypotheses/HeightMin.lean`
@@ -138,7 +148,7 @@ admissible because `S_mul` consists of primes, contains the primes `≤ 324`, `m
 | L531-577, conjugates, Hom field, dichotomy | N5 text | — |
 | L578-631, CM branch | NoCM (rv-h-cm §7.2), route B5 | Fowler, Barquero-Sanchez et al., the CM use of GR14 |
 | L632-716, scalar descent | N5 text, with rv-h-novel repair R1 | — |
-| L719-795, modularity | N5 text: Pan Thm 1.0.4, Scholze + Berger (D1), Faltings (D2); hypothesis check by Astra "descent" and "whole" on the N5 text, and rv-h-a011 §3.1; citations per rv-h-a011 R1-R2; eigenform p-adic Hodge theory for the twist, in the Tate-module normalization, for all levels and with Deligne–Serre for weight one (C8, rv-h-c8); route B2 | `direct-p5` (never in N5); Conrad's preprint replaced by Serre 1968 |
+| L719-795, modularity | N5 text: Pan Thm 1.0.4, Scholze + Berger (D1), Faltings (D2); hypothesis check by Astra "descent" and "whole" on the N5 text, and rv-h-a011 §3.1; citations per rv-h-a011 R1-R2; eigenform p-adic Hodge theory for the twist, in the Tate-module normalization, for all levels and with Deligne–Serre for weight one (C8, rv-h-c8); the `K_f`-linear Eichler–Shimura relation for `r₅ ⊂ V₅(A_f)` (C9, rv-h-a9c9); route B2 | `direct-p5` (never in N5); Conrad's preprint replaced by Serre 1968 |
 | L796-857, conductor | N5 text, with rv-h-novel repairs R2-R3; Carayol 1986 for I1 (B4) | — |
 | L860-905, transfer | N5 text; GR14 for the explicit bound only (D2) | the W4 dependency |
 | L908-964, back to `u` | N5 text, with LY, LNY, Igusa, Pazuki, through `igusa_check.py`; route B3 | `ly-d6`, `igusa-theta` |
@@ -304,13 +314,31 @@ L781 and L849-850).
 
 **A9. The dichotomy** (N5 L564-577).
 - *Content.* `End⁰(A_ℚ̄)` is `B` or `M₂(k)`.
-- *Supplier.* Polarizable tori are abelian varieties and Hodge endomorphisms are algebraic.
-  N5 cites Milne's course notes (Part I, Thms 2.8-2.9), which are [P]. A refereed replacement is
-  Mumford 1970, §§1-3, or Milne, *Abelian varieties*, in Cornell–Silverman (eds.), *Arithmetic
-  Geometry* (1986), §1. Locators UNVERIFIED.
+- *Suppliers.*
+  - Polarizable complex tori are abelian varieties (Riemann), and analytic homomorphisms between
+    them are algebraic (GAGA, or Chow), so `End⁰(A_ℂ)` is the commutant of the complex structure
+    on `H₁(A,ℚ)`. N5 cites Milne's course notes (Part I, Thms 2.8-2.9; the upstream audit reports
+    that printed p. 14 states exactly this, AUDIT-READ), which are [P]. Refereed replacement
+    (rv-h-a9c9 R-A9-1): Mumford, *Abelian varieties* (1970), §§1-3, with Serre, GAGA, Ann. Inst.
+    Fourier 6 (1956); or Milne, *Abelian varieties*, in Cornell–Silverman (eds.), *Arithmetic
+    Geometry* (1986), §1. Locators UNVERIFIED. N5's bibliography entry `milne-av` names only
+    "Part I, Theorem 12.1(a)" (N5 L11024-11026), the locator of its other use (C3); the in-text
+    locator at L564 (Thms 2.8-2.9) is the one to keep (cosmetic; §2.4).
+  - Descent `ℂ → ℚ̄` (rv-h-a9c9 R-A9-2). N5 shows that `ᵗφ = φ` for `τ ∈ Aut(ℂ/ℚ̄)` (agreement
+    on torsion, which is Zariski dense) and leaves implicit the fact that a `ℂ`-morphism between
+    `ℚ̄`-varieties fixed by `Aut(ℂ/ℚ̄)` is defined over `ℚ̄` (`ℚ̄` is the fixed field and is
+    perfect; descent of the graph). Equivalently, and cleaner: for abelian varieties over an
+    algebraically closed `k` and any extension `K/k`, `Hom(A,B) → Hom(A_K,B_K)` is bijective
+    (rigidity; e.g. Conrad, *Chow's K/k-image and K/k-trace*, Enseign. Math. 52 (2006), §3).
+    Locator UNVERIFIED. STANDARD.
+  - The centralizer `B ⊗ Z_B(J)^op`, with `Z_B(J)` equal to `ℚ` or an imaginary quadratic `k`
+    (so `End⁰(A_ℚ̄) ∈ {B, M₂(k)}`, with equality, as A8 and A10 use): VERIFIED by rv-h-a9c9
+    §1.2 item 1 (full argument; exact computation `scratch/rv-h-a9c9/a9_centralizer.py` for
+    three `J` in the discriminant-6 algebra).
 - *Status:* **[M]**. The centralizer step is as in 11/4 (Astra "whole"). The Milne paragraph
   (N5 L564-570: polarizable tori, Hodge endomorphisms algebraic and defined over `ℚ̄`) is new
-  in N5 and has been reviewed only by rv-h-trust §2.1 (one model). The citation is [P] until it
+  in N5 and has two model reviews that agree: rv-h-trust §2.1 and rv-h-a9c9 §1 (holds as stated;
+  repairs R-A9-1 and R-A9-2, both citation-level, applied above). The citation is [P] until it
   is swapped (§2.4).
 
 **A10. NoCM: `End⁰(A_ℚ̄) = B` for every rational `u ∉ 𝒞`** (replaces N5 L578-631; rv-h-cm §7.2).
@@ -512,21 +540,53 @@ L10939-11000).
 
 **C9. Newform and `A_f`** (N5 L768-774).
 - *Suppliers.*
-  - Twisting an eigenform by a Dirichlet character gives an eigenform: Shimura, *Introduction to
-    the arithmetic theory of automorphic functions* (1971), §3.6, or Atkin–Li, Invent. Math. 48
-    (1978).
-  - Li, *Newforms and functional equations*, Math. Ann. 212 (1975): the main theorem (passage
-    to the primitive newform), and the Fricke formula, p. 296, before Lemma 6.
+  - Twisting an eigenform by a Dirichlet character gives an eigenform, of level dividing `Mm²`
+    with coefficients `ψ(n)a_n`: Shimura, *Introduction to the arithmetic theory of automorphic
+    functions* (1971), §3.6 (Prop. 3.64), Shimura 1973 §4, (4.1) (AUDIT-READ), or Atkin–Li,
+    Invent. Math. 48 (1978). The eigenform `g` of C8 is normalized (`a₁ = 1`), so the twist is
+    nonzero.
+  - Li, *Newforms and functional equations*, Math. Ann. 212 (1975), main theorem (Thm 5; or
+    Miyake, *Modular forms*, Thm 4.6.19): strong multiplicity one gives a unique newform `f` with
+    the eigenvalues of the twist. "Primitive newform" means a normalized newform in Li's sense,
+    not a twist-minimal one in the sense of Atkin–Li; with the twist-minimal reading `r₅` would
+    only be a twist of `ρ_f` (rv-h-a9c9 R-C9-3).
+  - Galois conjugation preserves newness: every `f^σ` is a newform of level `N` (Shimura 1971,
+    Thm 3.52, rationality of the old/new decomposition, with strong multiplicity one; rv-h-a9c9
+    R-C9-2). Needed to apply Li's Fricke formula to every conjugate.
   - Shimura, *On the factors of the jacobian variety of a modular function field*, J. Math. Soc.
-    Japan 25 (1973), Thm 1. To check: that its hypothesis is exactly a Hecke- and
-    Fricke-stable span, which is what Li's formula supplies.
-  - Then Eichler–Shimura, Chebotarev and Faltings' semisimplicity place `r₅` in `V₅(A_f)`.
+    Japan 25 (1973), Thm 1: the quotient `A_f` of `J₁(N)` attached to the conjugate span
+    `V_f = span{f^σ}`, with its `K_f`-action `θ(T_n) = a_n` (unconditional part, AUDIT-READ).
+    Its hypothesis on the span is met whatever its exact form: `V_f` is Hecke-, diamond-,
+    `Aut(ℂ)`- and Fricke-stable. The Fricke form (the upstream audit reports it on p. 526) is
+    AUDIT-READ, and Li's Fricke formula (p. 296, paragraph before Lemma 6, AUDIT-READ; also
+    Atkin–Li 1978 Thm 1.1) gives `f^σ|H_N = γ_σ f^{cσ}` with `γ_σ ≠ 0` for any nebentypus
+    (rv-h-a9c9 §2.2 item 2, with a 30-sample numerical check of Li's formula,
+    `scratch/rv-h-a9c9/c9_li_fricke.py`). On the `K_f`-linear route below the Fricke condition is
+    not needed at all.
+  - `r₅` is a constituent of `V₅(A_f)` (rv-h-a9c9 R-C9-1). The Euler-factor identity
+    `L(A_f, s) ≐ Π_σ L(f^σ, s)` alone does not give this: divisibility of characteristic
+    polynomials at every element does not make a representation a constituent (for
+    `G = ℤ/2 × ℤ/2`, `U = ab` and `V = 1 ⊕ a ⊕ b`; rv-h-a9c9 §2.2 item 3,
+    `scratch/rv-h-a9c9/c9_charpoly_divisibility.py`). The supplier is the `K_f`-linear
+    Eichler–Shimura relation: `V_ℓ(A_f)` is free of rank 2 over `K_f ⊗ ℚ_ℓ` (Shimura 1971 §7;
+    Ribet 1977; Diamond–Im 1995 §12.5), and `T_p = Frob_p + p⟨p⟩Frob_p⁻¹` on `J₁(N)` (Shimura
+    1971, Thm 7.9; Diamond–Shurman, GTM 228, Thm 8.7.2 and §9.5) gives `tr(Frob_p | V_λ) = a_p`
+    over `K_{f,λ}` for `p ∤ Nℓ`. So `V₅(A_f) ⊗ E = ⊕_τ V_τ` over the embeddings `τ: K_f → E`,
+    and `V_{ι₅|K_f}` has the Frobenius traces of `r₅` at almost all `p`. Both are semisimple
+    (Faltings 1983 Satz 3 for `A_f`; `r₅` is irreducible), so Chebotarev and Brauer–Nesbitt
+    (§1 C10) give `r₅ ≅ V_{ι₅}`. (Alternative: the zeta identity, with the existence of every
+    `ρ_{f^σ, ι}` and Brauer–Nesbitt, the upstream audit's route.) If the convention gives traces
+    `\bar a_p` instead of `a_p`, nothing changes: `\bar f = f^c` is in the orbit. The side is
+    right: `V₅(A_f)` and `r₅` (C8's Tate normalization) both have Hodge–Tate weights `{0, −1}`.
   - L774, "this duality preserves the conductor": the Artin / Weil–Deligne conductor of `V^∨`
-    equals that of `V` (Serre, *Local fields* VI; Deligne 1973, §8), uncited in N5 (rv-h-c8 §6).
-  - Locators UNVERIFIED.
+    equals that of `V` (Serre, *Corps locaux* VI §2; Deligne 1973, §8), uncited in N5 (rv-h-c8
+    §6; rv-h-a9c9 R-C9-2, which writes out the argument: the Swan part via the finite wild
+    inertia image, the tame part via `N^∨ = −N^t`).
+  - Locators UNVERIFIED unless marked AUDIT-READ.
 - *Status:* **[R]**. The application is [M]: the part present in 11/4 by Astra "descent"; the
-  Li–Shimura sentence (N5 L768-772) is new in N5 and has been reviewed only by rv-h-trust §2.1
-  (one model).
+  Li–Shimura sentence (N5 L768-772) is new in N5 and has two model reviews that agree:
+  rv-h-trust §2.1 and rv-h-a9c9 §2 (holds after R-C9-1 to R-C9-3, all applied above; R-C9-1
+  replaces N5's stated reason, not its conclusion).
 
 **C10. One compatible system at 3 and 5** (N5 L776-795).
 - *Content.* The relative Frobenius composed with `μ̄_σ` is an endomorphism of the reduction.
@@ -665,14 +725,18 @@ in §1 (this includes the eigenform input added to C8 after rv-h-trust §1.2 ite
    - E1 and E4 (rv-h-novel);
    - F2-F4 (Astra "height").
 
-   **Three passages are new in N5** (Astra read the 11/4 text, which lacks them). Two have a
-   single model review, rv-h-trust §2.1:
-   - A9, the Milne paragraph (N5 L564-570);
-   - C9, the Li–Shimura sentence (N5 L768-772).
+   **Three passages are new in N5** (Astra read the 11/4 text, which lacks them). Each has two
+   model reviews that agree:
+   - A9, the Milne paragraph (N5 L564-570): rv-h-trust §2.1 and rv-h-a9c9 §1 (holds as stated;
+     repairs R-A9-1, R-A9-2, citation-level);
+   - C9, the Li–Shimura sentence (N5 L768-772): rv-h-trust §2.1 and rv-h-a9c9 §2 (holds after
+     R-C9-1 to R-C9-3; R-C9-1 replaces the Euler-factor inference by the `K_f`-linear
+     Eichler–Shimura relation);
+   - C3's Lemma `lem:de-rham-descent` (N5 L734-737 and L10938-11000): rv-h-trust §2.1 and
+     rv-h-c3 (holds as stated; repairs R1-R3, wording and citations).
 
-   The third, C3's Lemma `lem:de-rham-descent` (N5 L734-737 and L10938-11000), has two
-   independent model reviews that agree: rv-h-trust §2.1 and rv-h-c3 (holds as stated; repairs
-   R1-R3, wording and citations).
+   So every passage new in the 11/5 text has two model reviews (with C8 below). These remain
+   model reviews, not human refereeing.
 
    **C8** (twist and weight) has two model reviews: Astra's of the 11/4 text, which did not name
    the eigenform input, and rv-h-c8 on N5, which names it and finds that C8 holds after its
@@ -691,8 +755,9 @@ in §1 (this includes the eigenform input added to C8 after rv-h-trust §1.2 ite
 
 ### 2.2 Repository arguments with no independent review
 
-None, after rv-h-b1 and rv-h-trust. C3's lemma now has a second model review (rv-h-c3), and C8
-a review on the N5 text (rv-h-c8).
+None, after rv-h-b1 and rv-h-trust. C3's lemma now has a second model review (rv-h-c3), A9's
+Milne paragraph and C9's Li–Shimura sentence one each (rv-h-a9c9), and C8 a review on the N5
+text (rv-h-c8).
 
 ### 2.3 Repository scripts (exact computations)
 
@@ -715,7 +780,7 @@ That is the nine scripts of the original eight rows, plus `rv_checks.py` and `br
 
 | N5 key | Used at | Replacement | Statement change |
 | --- | --- | --- | --- |
-| `milne-av` (course notes v2.00, 2008) | A9 (L564), C3 (L10968) | Mumford, *Abelian varieties* (1970), §§1-3, 19-20; Milne in Cornell–Silverman (1986), §15 | none |
+| `milne-av` (course notes v2.00, 2008) | A9 (L564, Part I Thms 2.8-2.9), C3 (L10968, Part I Thm 12.1(a)) | Mumford, *Abelian varieties* (1970), §§1-3 with GAGA (A9), §§19-20 (C3); Milne in Cornell–Silverman (1986), §1 (A9), §15 (C3) | none; the bibliography entry (N5 L11024-11026) names only Thm 12.1(a), so the A9 locator must be added there (rv-h-a9c9 R-A9-1) |
 | `brinon-conrad` (CMI notes, 2009) | C3 | Fontaine, Astérisque 223 (1994); exposé numbers to check (rv-h-c3 R2: the admissibility formalism is probably Exp. III, and Exp. VIII, named here before, is on potentially semistable representations; SPECULATIVE) | none |
 | `conrad-local-characters` (preprint, 2011) | C8 | Serre 1968, Ch. III, or Tate 1967, §3.3 | none |
 | `babagranath` (MPI preprint, 2005) | A2, A7 | Canad. J. Math. 60 (2008) | numbering to compare; the "local index slip" of Lemma 3.1 is not used (A3 is proved in N5) |
@@ -747,6 +812,13 @@ UNVERIFIED in the sense above, but no human has read them:
 | Milne ADT | Ch. I | descent/AUDIT, whole/REPORT |
 | Buzzard (N5's fallback route for A5-A6 only) | Thm 2.1, Cor. 2.3 | whole/REPORT |
 
+**AUDIT-READ** (the upstream theorem-application audit reports reading the page scan; recorded
+by rv-h-a9c9, which had no copy): Milne's course notes, Part I Thms 2.8-2.9, printed p. 14 (A9;
+`parallel-geometry-report.md`); Shimura 1973, Thm 1, p. 526 (the Fricke hypothesis and the
+`K_f`-action) and §4, (4.1), p. 531 (twists) (C9; `parallel-galois-height-report.md`); Li 1975,
+p. 296, paragraph before Lemma 6 (the Fricke formula) (C9; `parallel-geometry-a011-fricke-review.md`).
+No one in this repository has read these places.
+
 **UNVERIFIED** checks, in order of weight:
 
 1. **Pan, JAMS 35 (2022)**: that Theorem 1.0.4 is numbered and worded as in arXiv v2 (the arXiv
@@ -761,7 +833,10 @@ UNVERIFIED in the sense above, but no human has read them:
    including `p | N`** (rv-h-c8 R3). Faltings, Math. Ann. 278 (1987): whether it covers `p | N`.
    Scholl with Faltings 1989 covers only `p ∤ N`, and Scholl with Tsuji 1999 needs de Jong 1996.
    For `k = 1`: Deligne–Serre 1974, Thm 4.1 (rv-h-c8 R2).
-4. **Shimura 1973, Thm 1**: that its hypothesis is exactly a Hecke- and Fricke-stable span (C9).
+4. **Shimura 1973, Thm 1** (C9): its hypothesis on the span. No longer decisive (rv-h-a9c9
+   §2.2): the conjugate span meets it whatever its exact form (Hecke, `Aut(ℂ)` or Fricke
+   stability); the Fricke form, p. 526, is AUDIT-READ; and the `K_f`-linear Eichler–Shimura route
+   of §1 C9 does not need it. Check p. 526 to turn AUDIT-READ into a read locator.
 5. **SGA 1 X 3.1, XIII 5.3; SGA 7 IX 3.6, IX 4.7**, and **Serre–Tate 1968, Thms 1-2**: for
    Lemma PR. These are classical, and the numbering is the risk.
 6. **Deligne 1971 (Bourbaki 389) §§3-6; Deligne 1979 §2.7, §5; Shimura 1967; Kottwitz 1992 §§5,
@@ -771,8 +846,10 @@ UNVERIFIED in the sense above, but no human has read them:
    Korollar 1, Lemma 5).
 8. **Scholze, Forum Math. Pi 1 (2013), Cor. 1.8 and Thms 9.1, 9.3**, and the corrigendum (C3,
    and C8 on the Scholl route).
-9. **Li 1975** (main theorem; p. 296); **Shimura 1971 §3.6 / Atkin–Li 1978** (twists of
-   eigenforms).
+9. **Li 1975** (main theorem, Thm 5; p. 296, AUDIT-READ); **Shimura 1971 §3.6 / Atkin–Li 1978**
+   (twists of eigenforms); **Shimura 1971 Thm 3.52, §7 and Thm 7.9, Ribet 1977, Diamond–Im 1995
+   §12.5, Diamond–Shurman Thm 8.7.2** (newness Galois-stable; the `K_f`-linear Eichler–Shimura
+   relation, C9); **Mumford §§1-3, Serre GAGA, Milne 1986 §1, Conrad 2006 §3** (A9).
 10. **Baba–Granath 2008** and **Lin–Yang 2020**: compare the journal numbering with the preprint
     numbering N5 uses.
 11. **Vignéras LNM 800** (local normalizers, embedding condition); **Reiner** (Skolem–Noether);
@@ -807,9 +884,10 @@ Outside refereed sources, H rests on:
 - (iv) nine exact scripts (§2.3), plus `rv-h-b1/rv_checks.py` and `rv-h-trust/branch_check.py`;
 - (v) five citation swaps (§2.4);
 - (vi) the locator checks of §2.5 (the ASTRA-READ ones read by a model only);
-- (vii) two N5 passages with a single model review (rv-h-trust): A9's Milne paragraph and C9's
-  Li–Shimura sentence. C3's lemma (rv-h-trust, rv-h-c3) and C8 (Astra on 11/4, rv-h-c8 on N5)
-  each have two model reviews, with their repairs applied in §1.
+- (vii) closed (task h-a9c9-fix): no N5 passage has a single model review. A9's Milne paragraph
+  and C9's Li–Shimura sentence (rv-h-trust, rv-h-a9c9), C3's lemma (rv-h-trust, rv-h-c3) and C8
+  (Astra on 11/4, rv-h-c8 on N5) each have two model reviews, with their repairs applied in §1.
+  They stay in item (i): model reviews, not human refereeing.
 
 No unpublished upstream proof supplement is used.
 
