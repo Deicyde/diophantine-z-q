@@ -1,6 +1,7 @@
 import ZInQKernel.RouteK.Redei.Field
 import ZInQKernel.RouteK.Redei.Primes
 import ZInQKernel.RouteK.Redei.Entry
+import ZInQKernel.RouteK.Redei.Ambiguous
 
 /-!
 # Rédei's formula (`docs/research/redei-plan.md` §3.2), root module
