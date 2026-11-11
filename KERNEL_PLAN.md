@@ -152,7 +152,11 @@ class (`loc_of_mem_sel2_of_infinite_order`). Each hypothesis therefore has a pos
 "`C_d(ℚ)` has a point of infinite order" (equivalently, `d` is a congruent number):
 `CertifiedRankRk`, `CertifiedRankTYZRk` (squarefree `d ≡ 5 (mod 8)` with `T_5b(d)` odd; no
 condition on `Sel₂`) and `CertifiedRankTYZClRk`, with main-theorem variants in
-`RouteK/RankVariants.lean`. `CertifiedRankTYZClRk` implies `CertifiedRankTYZRk`
+`RouteK/RankVariants.lean`. `RouteK/RankInf.lean` states the same four hypotheses (with
+`CertifiedRankDLRk` below) with the conclusion "`C_d` has infinitely many rational points", the
+classical statement that `d` is a congruent number, and proves each equivalent to its positive-rank
+form (`exists_infinite_order_iff_infinitelyManyPoints`, from `fg_points`), so the trusted text can
+be read without Mathlib's group law. `CertifiedRankTYZClRk` implies `CertifiedRankTYZRk`
 (`certifiedRankTYZRk_of_certifiedRankTYZClRk`, by Rédei's formula), which implies `CertifiedRankRk`
 (`certifiedRankRk_of_certifiedRankTYZRk`, by Corollary 4.4 and Theorem 3.6), so of these three
 `exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankRk` assumes the
