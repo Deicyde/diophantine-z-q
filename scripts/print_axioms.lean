@@ -27,6 +27,8 @@ Each declaration should depend on `[propext, Classical.choice, Quot.sound]` only
 #print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_greenTaoDense
 #print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_certifiedRankSel_greenTaoDense
 #print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_certifiedRank5b
+#print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZ
+#print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZCl
 
 -- Theorems that replace former hypotheses, and the vendored Green–Tao theorem.
 #print axioms ZInQ.greenTaoDense
@@ -35,6 +37,9 @@ Each declaration should depend on `[propext, Classical.choice, Quot.sound]` only
 #print axioms Submission.green_tao
 #print axioms ZInQ.RouteK.Selmer.certifiedRank_of_certifiedRankSel
 #print axioms ZInQ.RouteK.Rank5b.certifiedRankSel_of_certifiedRank5b
+#print axioms ZInQ.RouteK.Rank5b.det_M5b_eq_T5b
+#print axioms ZInQ.RouteK.Rank5b.certifiedRank5b_of_certifiedRankTYZ
+#print axioms ZInQ.RouteK.Rank5b.certifiedRankTYZ_iff_of_redeiFormula
 #print axioms ZInQ.poleCompleteness_of_certifiedRank
 #print axioms ZInQ.mordellWeilE
 #print axioms ZInQ.catalogueBound8
