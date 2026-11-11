@@ -32,3 +32,33 @@
   C_m(Q_p) != empty (q = 0 disc: f(q) = m^2 Theta0^2 (1 - B(q)/m), v_p(B(q)) > 0 for v(q) >= 0).
 - Slope site under M1: B = l^2 a^2 R0 / Theta0^2, a = 1 - R0 q^2: curve h^2 = m(m Theta0^2 - l^2 R0 a^2)
   is C_m with Theta0 -> Theta0 / l (same family).
+
+## Step 3b. Local lemmas (proofs) used to decide primes >= 13
+For p odd, p not | m R0 (f = m(m Th0^2 - R0 a^2), a = 1 - R0 q^2):
+- L2: v_p(Th0) < 0 => soluble (q = 0 disc, f = m^2 Th0^2 (1 + O(p))).
+- L3: v_p(Th0) = 0, p >= 13 => soluble. f mod p = -m R0^3 (q^2 - r1)(q^2 - r2), r1 != r2. If squarefree: Weil,
+  #smooth affine pts >= p + 1 - 2 sqrt p - 6 > 0 for p >= 13. If r_i = 0 (p | m Th0^2 - R0): f = c q^2 (q^2 - r),
+  conic y'^2 = c(q^2 - r) has >= p - 5 > 0 points with q, y' != 0 (p >= 7). Hensel.
+- L4 (el-cert lemma; rv-elim3 VERIFIED): v_p(Th0) >= 1 => soluble iff (R0/p) = 1 or (-m/p) = -1.
+- L5: C_{m0 k^2}(Th0, R0) = C_{m0}(k Th0, R0) (h -> h/k); C_m(Th0, s^2 R1) = C_m(Th0/s, R1) (q -> q/s).
+  So only the square class m0 matters, and k only adds primes p | k to num Th0: k never removes an obstruction.
+- Remaining: p <= 11, p | m, p | R0 with even valuation: decided by locsol.
+
+## Step 3c. Real-instance proxies (s3_real_local.py, final; s3_out.json, s3_out.txt)
+- Odd-valuation contact primes skipped (proxy is dishonest there; honest => L1 soluble when v_p(B) > v_p(m),
+  +2 at p = 2). Obs = {p | num Th0 found (trial div 1e7), p not | 2R0, (R0/p) = -1}.
+- Obs sizes 0..7 (median 3); cofactors of 195-1449 digits unfactored (so survivor counts are UPPER bounds).
+- m in signed divisors of 2730 (64) locally soluble at all decided primes: per instance
+  8,4,16,4,16,8, 16,0,8,32,64,4, 32,16,32,2,32,16, 8,0,8,0,8,8, 2,8,8,2,8,0.
+  4/30 have 0 survivors already; extra failures at p = 2 (even v_2(R0), n = 4) in 4 instances.
+  Expected ~5 further prime factors per cofactor (log log heuristic), half obstructing => most instances
+  locally insoluble for all 64 m. Matches el-cert X3b and rv-elim3 c2.
+
+## Step 4. L7 group G = <-1, p <= 324> (s4_l7_linear.py)
+- Affine F2 system (-m0/p) = -1 on Obs, m0 in G avoiding Obs: solvable 30/30 proxies.
+- Random r obstruction primes > 400: solvable 30/30 for r <= 60; 26/30 r=65; 13/30 r=68; 4/30 r=70; 0/30 r=80.
+  So any FIXED finite multiplier group of F2-rank g fails once num Th0 has > ~g obstruction primes;
+  omega(num Th0) is unbounded over instances (heuristic), so no fixed group is locally complete for every
+  choice; completeness must use the per-instance freedom (kappa, h, s0) -- no theorem controls the prime
+  factors of Th0 (an elliptic-net value). L7 also costs ~61 bits per pole call (el-cert) and needs v_p(m)
+  even at p > 324 only, i.e. Lemma 5.1 at 17 <= p <= 324 must be supplied otherwise at the test site.

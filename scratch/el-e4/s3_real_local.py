@@ -33,16 +33,17 @@ for n in range(1, 6):
         obs = [p for p in sN if p > 2 and p not in Rp and pari.kronecker(R0.numerator, p) == -1]
         # contact primes with v_p(R0) odd are skipped: for honest data (2v(Th0) < v(R0)) they are soluble
         # by lemma L1 (q = 0 disc); kappa = 1 data is not honest there (deep multiples are out of reach).
-        contact_odd = [p for p, e in Rp.items() if e % 2 == 1 and p > 13]
-        bad = sorted((set([2, 3, 5, 7, 11, 13]) | set(Rp) | set(sD) | set(p for p in sN if p not in obs)) - set(contact_odd))
-        bad = [p for p in bad if p < 10**6]
+        contact_odd = [p for p, e in Rp.items() if e % 2 == 1]
+        # primes >= 17 not dividing 2 m R0 are decided by proven lemmas: L2 (v_p(Th0) < 0) soluble,
+        # L3 (v_p(Th0) = 0, Weil bound, p >= 13) soluble, L4 (v_p(Th0) > 0): soluble iff (R0/p) = 1 or (-m/p) = -1.
+        bad = sorted((set([2, 3, 5, 7, 11, 13]) | set(p for p, e in Rp.items() if e % 2 == 0)) - set(contact_odd))
         surv = []; fails = {}
         nobs = sum(1 for m in divs if all(pari.kronecker(-m, p) == -1 for p in obs if m % p))
         for m in divs:
             f = quartic(m, Th, R0)
             if not all(pari.kronecker(-m, p) == -1 for p in obs if m % p): continue
             ok = True; failp = None
-            for p in sorted(set(bad) | set(q for q in (2, 3, 5, 7, 13) if m % q == 0)):
+            for p in sorted(set(bad) | (set(q for q in (2, 3, 5, 7, 13) if m % q == 0) - set(contact_odd))):
                 r = locsol(f, p, depth=30)
                 if r is not True: ok = False; failp = (p, r); break
             if ok: surv.append(m)
