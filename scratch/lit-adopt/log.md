@@ -12,3 +12,14 @@
 - Deviation: IsLContinuation.eq's last step split into two `have`s (100-char line limit).
 - `lake build ZInQKernel.Hypotheses.CR3Literature`: success (only "module system" import
   warnings from Mathlib's per-module imports).
+
+## Step 2: ZInQKernel/Hypotheses/JHeight.lean
+- From scratch/wk-h/BackToU.lean, namespace ZInQ.JHeight, imports Hypotheses.HeightMin; #print
+  axioms line dropped. Kept Fh, Gh, Jmap, cert_x, cert_y, G_ne_zero, C0, dvd_C0,
+  abs_monomial_le, lower_bound, twelve_mul_ratHeight_le, heightX, JHeightBound, heightH6_eq.
+- sixContactMin_of_jHeightBound : JHeightBound Mult.S_mul → SixContactMin (proof as drafted).
+- Dropped SixContactMinAt (no general-S form of SixContactMin exists in Height/HeightMin;
+  SixContactMin is stated directly) and contactSupport_pos' (HeightMin's contactSupport_pos).
+- JHeightBound docstring rewritten as specified; module docstring rewritten (no Tier 2).
+- Three proof lines rewrapped to ≤ 100 characters.
+- `lake build ZInQKernel.Hypotheses.JHeight`: success, no warnings in the new file.
