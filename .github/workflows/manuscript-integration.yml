@@ -38,6 +38,8 @@ jobs:
       - run: python -B docs/manuscript-revisions/version13/portability/test_portability.py
       - run: python -B scripts/check_quartic394_portable.py
       - run: python -B docs/manuscript-revisions/version13/validate-applications.py --repo . --self-test
+      - run: python -B quartics/quartic-299-314/verify_lineage.py
+      - run: python -B docs/manuscript-revisions/version14/validate-applications.py --repo . --self-test
       - run: python -B scripts/check_audit_history.py --self-test
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
@@ -114,18 +116,18 @@ jobs:
         with:
           path: .cache/tectonic
           key: tectonic-${{ runner.os }}-0.17.0-6ffe055852f8faf66
-      - name: Compile the exact Version 13 manuscript
+      - name: Compile the exact Version 14 manuscript
         run: python scripts/build_paper.py
       - name: Render changed pages for visual review
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y poppler-utils
           ulimit -v 2097152
-          python scripts/render_quartic_review.py --pdf build/paper/quartic_v13.pdf --edition v13 --pages 1,276-288 --expected-pages 296
+          python scripts/render_quartic_review.py --pdf build/paper/quartic_v14.pdf --edition v14 --pages 1-4,21,24,110-111,301-314 --expected-pages 323
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
-          name: quartic-v13-paper
+          name: quartic-v14-paper
           path: |
             build/paper/
             build/pdf-review/

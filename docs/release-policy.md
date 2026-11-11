@@ -2,7 +2,7 @@
 
 The project owner requested a new manuscript version whenever a verified quartic construction crosses below the next multiple of 100 total variables. The input variable is included in this count.
 
-Version 12 records the below-500 milestone with 498 total variables. Version 13 records the below-400 milestone with 394 total variables. The next thresholds are strictly below 300, 200, then 100. A candidate exactly at a threshold has not crossed it. A single verified improvement that crosses several thresholds needs one release of that best construction, not artificial intermediate editions.
+Version 12 records the below-500 milestone with 498 total variables. Version 13 records the below-400 milestone with 394 total variables. Version 14 records the below-300 milestone with 299 total variables. The next thresholds are strictly below 200, then 100. A candidate exactly at a threshold has not crossed it. A single verified improvement that crosses several thresholds needs one release of that best construction, not artificial intermediate editions.
 
 Starting with Version 13, the manuscript's version subtitle has no trailing period.
 

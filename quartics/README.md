@@ -9,6 +9,8 @@ All variable counts include the input. Each download below is a byte-identical c
 
 | Variables | Polynomial table | Coefficient format | Verification package |
 | ---: | --- | --- | --- |
+| 299 | [quartic-299-symbolic-coefficients.json](quartic-299-symbolic-coefficients.json), [text](quartic-299-symbolic-coefficients.txt) | Exact coefficients, `C=3^(2^25)` | [Version 14 guide](../docs/manuscript-revisions/version14/GUIDE.md) |
+| 314 | [quartic-314-fully-expanded.txt](quartic-314-fully-expanded.txt) | Fully written decimal integers | [Version 14 guide](../docs/manuscript-revisions/version14/GUIDE.md) |
 | 394 | [quartic-394-symbolic-coefficients.json](quartic-394-symbolic-coefficients.json), [text](quartic-394-symbolic-coefficients.txt) | Exact coefficients, `C=3^(2^25)` | [Version 13 guide](../docs/manuscript-revisions/version13/GUIDE.md) |
 | 411 | [quartic-411-fully-expanded.txt](quartic-411-fully-expanded.txt) | Fully written decimal integers | [Version 13 guide](../docs/manuscript-revisions/version13/GUIDE.md) |
 | 498 | [quartic-498-symbolic-coefficients.json](quartic-498-symbolic-coefficients.json), [text](quartic-498-symbolic-coefficients.txt) | Exact coefficients, `C=3^(2^25)` | [Version 12 guide](../docs/manuscript-revisions/version12/README.md) |
@@ -21,7 +23,9 @@ All variable counts include the input. Each download below is a byte-identical c
 | 9,625 | [quartic-9625-fully-expanded.txt](quartic-9625-fully-expanded.txt) | Fully written decimal integers | [Version 3 package](quartic-9625/) |
 | 12,504 | [quartic-12504-fully-expanded.txt](quartic-12504-fully-expanded.txt) | Fully written decimal integers | [Version 2 package](quartic-12504/) |
 
-The 411-variable quartic is the smallest here with every coefficient written out in decimal. Its text table occupies 214,957 bytes and has 6,388 monomials, with coefficient magnitudes below `2^3247`. The 394-variable symbolic table has 6,338 monomials. The current manuscript gives both defining properties while retaining the original construction and earlier proof baselines. The new text downloads are lossless reformattings of their package JSON tables; the reproduction command compares every coefficient.
+The 314-variable decimal table has 6,672 monomials, occupies 264,430 bytes and has coefficient magnitudes below `2^6496`. The 299-variable symbolic table has 6,630 monomials.
+
+The 411-variable quartic is the Version 13 decimal companion. Its text table occupies 214,957 bytes and has 6,388 monomials, with coefficient magnitudes below `2^3247`. The 394-variable symbolic table has 6,338 monomials. The current manuscript gives both defining properties while retaining the original construction and earlier proof baselines. The new text downloads are lossless reformattings of their package JSON tables; the reproduction command compares every coefficient.
 
 The Version 13 tables number all coordinates consecutively from 1, with `x1` the input. Their rows use `coefficient | C exponent | variable indices`: `-6 | 0 | 1,3,3` denotes `-6 x1 x3^2`. The middle field is zero throughout the 411-variable decimal table. The [package](quartic-394-411/README.md) includes exact maps from the source coordinate IDs.
 
