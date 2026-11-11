@@ -33,3 +33,10 @@
 ## Step 6 (§7 RC, N5 1760-2717 vs V16 2570-3651)
 - Added attribution: organisation follows [openaipointwise] (ring-class interpolation, determinant transfer, coefficient systems), broader converse in [openaigoldfeld] (V16 l.2571-2577).
 - Non-CM: explicit invariants + Fowler class polynomial (V16 l.2582-2600). Modularity: BCDT via Silverman C.13.6/C.16.4, newform via [amirhong Thm 3.1], Shimura Thm 1, Faltings 1983 isogeny (l.2612-2677, was BCDT+Milne MF). Parity: [ddselmer Thm 1.4] replaces [dd Thm 1.8] (l.2686-2689). At 2: [kato1999 Thm 0.8] (l.2781-2785). New paragraph "native genus lattice" (l.3317-3342). Cornut-Jetchev Thm 3.1 replaced by §v15:cm-oriented (l.3448-3449). VERIFIED (diff).
+
+## Step 7 (quartic constructions and their inputs, V16)
+- scratch/up-map/refmatrix.py: per-section \ref matrix of key labels in V16 (output recorded in up-map.md). VERIFIED.
+- Base residual compiler §(V16 l.7587, label sec:degree8-original): prop:o8-finite F_8 in 15672 vars, degree 8, 129497 monomials, coeff < 2^80 (l.7598-7610); thm:o8-conditional (l.7612-7619); inputs: hyp:o8-height five-contact estimate (l.7651-7656: contacts {inf,0,1,2401,-343/32}, S_* = primes <= 76176, h(a) <= H_* M_5(a)^24, via Shimura curve disc 210, Gonzalez-Rotger 2006), hyp:o8-pole seven-variable pole lemma (l.8803) proved from hyp:RC (l.8870), not from PC (l.7622-7626 says thm:height has a different contact set and is not used).
+- Quartic thm:quartic (l.9957), sharper five-contact thm:quartic-height19 (l.10005), uses GI (l.10406). 962-var quartic (l.11789, thm l.12479) uses thm:v5-simultaneous-primes (App l.17544-, Sun arXiv:2610.20691v2 [v5sun bib l.39185], Mitsui, Green-Tao, GI) + hyp:o8-pole + hyp:o8-height. 523/540 (sec:v9 l.20357): thm:quartic-height19 + hyp:o8-pole + simultaneous primes. 498 (l.20981) refs hyp:o8-pole.
+- 222 family (Part l.30185): v15:height (l.30186) refs thm:quartic-height19 (l.30731); amplification, selection, dependencies ref thm:v5-simultaneous-primes.
+- None of the quartic/222 sections references thm:height (H), hyp:PC or prop:fixed-prime-pattern. RC is used by hyp:o8-pole (quartic route). VERIFIED (refmatrix).
