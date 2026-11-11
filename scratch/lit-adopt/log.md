@@ -40,3 +40,5 @@
   [propext, Classical.choice, Quot.sound].
 - `python3 scripts/check_target.py`: FrozenTarget matches lean/Frozen/BoundedIntegerPolynomial.lean.
 - No sorry / native_decide / implemented_by / extern / axiom in the new files.
+
+## Step 5: .fleet/lit-adopt.md written
