@@ -11,3 +11,4 @@
 ## 3. Edits: M9 row → full R2 enumeration (6 types, W-images, (0,2) absent); NV step 2 → 'conductor prime to p' + orders disc -4,-3,-24 maximal with W-images.
 ## 4. Edit: NV step 3 → rv §3.3 argument (A' local finite over R, Frac=k_p ⇒ strictly henselian unibranch, residue degree 1 = [I_P:I_Q]; going-down via flatness; I_q ⊂ I_P).
 ## 5. Edits: W-layer remark (R7, Elkies constants -1,3) + labelling robustness after NV; §5 table L563-566→L557-558, rows L752-753, L778-781 added; downstream paragraph names them, L848-849 note, L814 confirmed.
+## 6. Edits: new §4A (one Q-structure; inputs 1-4 STANDARD/UNVERIFIED with where-to-check; consequence); pointers from PR(ii) step 1, §6 items 2 and 5, §7 verdict; §7 line range fixed.

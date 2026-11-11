@@ -301,6 +301,9 @@ Then:
      Locators UNVERIFIED.
    - N5 needs this already over `ℚ` ("choose a fibre `A/K`", L528). Only its integral extension
      came from b11.
+   - The four inputs behind this identification (canonical model = moduli, uniqueness of the
+     `μ`-principal polarization, Weil-pairing compatibility, level-3 rigidity), and the fact
+     that NV, PR(ii) and Baba–Granath's `j` use one `ℚ`-structure, are listed in §4A.
    - So `x ∈ Y₃(K)` gives `ι` defined over `K` and `η` defined over `K`, that is,
      `A[3] ⊂ A(K)`.
 2. **Potentially good reduction (Morita, PROVED HERE from STANDARD inputs).**
@@ -323,6 +326,64 @@ Then:
 
 At `v | 3` the same argument with `ℓ = 5` gives good reduction over `K_v(A[5])`. This is not
 needed: see L814 below.
+
+## 4A. The one `ℚ`-structure on `Y₃ = Sh_{K₃}`
+
+Three parts of the argument use a rational structure on `Y₃`, and they must use the same one:
+
+- **Lemma NV** (step 2, and M1) uses the *canonical model* `Sh_{K₃}(B^*, H^±)` over `ℚ`: Shimura
+  reciprocity at CM points and the Hecke action of `Γ'` over `ℚ`.
+- **Lemma PR(ii)** (step 1) uses the *moduli problem*: a `K`-point gives `(A, ι, λ, η)` over
+  `K`, so `A[3] ⊂ A(K)`.
+- **N5** uses *Baba–Granath's `j`* on `X₆/W = P¹_j` (L418-419), whose `ℚ`-structure comes from
+  their work on the QM moduli, and defines `Y₃` only as "the level-three curve with all its
+  determinant components" (L434-435). Its only identification of `Y₃` with the full-three moduli
+  problem is b11's sentence at L476-477, which B1 deletes.
+
+So the identification must be cited directly. It follows from four STANDARD inputs. None could
+be read in this task; each is **UNVERIFIED**, with the place to check it.
+
+1. **Canonical model = moduli scheme.** The moduli scheme over `ℚ` of QM abelian
+   surfaces `(A, ι, λ, η)` with `K`-level structure is the canonical model `Sh_K(B^*, H^±)`, and
+   there are no extra copies since `ker¹(ℚ, B^*) = 1` (Hasse principle for `B^*`).
+   - Shimura, *Construction of class fields and zeta functions of algebraic curves*, Ann. of
+     Math. 85 (1967), 58–159: the QM moduli give the canonical model (check the sections on
+     "models over `ℚ`" of curves attached to quaternion algebras, §§2-3 and the main theorem).
+   - Deligne, *Travaux de Shimura*, Sém. Bourbaki 389 (1971), §4–6: PEL moduli and the canonical
+     model; check §4.13–4.21 and §6.
+   - Milne, *Introduction to Shimura varieties*, §8 (PEL Shimura varieties as moduli) and §14
+     (canonical models of PEL type); Kottwitz, JAMS 5 (1992), §5 and §8 (the `ker¹` count).
+2. **The polarization adds no data.** For the maximal order `𝒪` and `μ² = −6`, a QM surface
+   `(A, ι)` carries a unique principal polarization whose Rosati involution is `x ↦ μ^{-1} x̄ μ`.
+   - Rotger, *Quaternions, polarizations and class numbers*, J. reine angew. Math. 561 (2003),
+     and *Modular Shimura varieties and forgetful maps*, Trans. AMS 356 (2004): check the
+     statement counting principal polarizations of a given Rosati type on a QM surface with
+     maximal order (expected: exactly one for discriminant 6 and this `μ`). Also Milne, *Introduction*, §8 (uniqueness up to the
+     similitude).
+   - VERIFIED (`scratch/rv-h-b1/rv_checks.py` R1): N5's form `Trd(μ^{-1} x ȳ)` has the matrix
+     printed at N5 L414-416 and determinant 1, so it is the principal polarization of that type.
+3. **The level structure is the `K₃`-structure, compatibly with the Weil pairing.**
+   - A `K₃`-structure is an `𝒪`-linear `η: 𝒪/3𝒪 ≅ A[3]`. This uses that `T_ℓA` is free of rank
+     one over `𝒪_ℓ`: at `ℓ = 3` by N5 L454-459, at `ℓ ∤ 6` because `𝒪_ℓ = M₂(ℤ_ℓ)` (Morita
+     equivalence; check Milne §8 or Deligne §4 on lattices).
+   - Compatibility of `η` with the Weil pairing up to a scalar is automatic: the `λ`-Weil pairing
+     is `ψ(x, y) = Trd(μ^{-1} x ȳ)` up to a unit, and `ψ(xu, yu) = nrd(u)·ψ(x, y)`. So the PEL
+     similitude condition imposes nothing beyond `𝒪`-linearity (check Milne §8, the PEL datum
+     with `G = B^*`, `ν = nrd`).
+4. **Representability (level-3 rigidity).** `K₃` is neat: an automorphism of a polarized abelian
+   variety acting trivially on `A[n]`, `n ≥ 3`, is the identity (Serre's lemma; Mumford, *Abelian
+   varieties*, §21, Thm 5, or Milne, *Abelian varieties*, Prop. 17.5; also N5 L466-470,
+   `1 + 3M₄(ℤ₃)` torsion-free; neatness VERIFIED in `rv_checks.py` R6). So the moduli problem is
+   fine, a `K`-point gives `(A, ι, λ, η)` over `K`, and the fibre of the universal family over
+   `x` is N5's "fibre `A/K`" (L528).
+
+**Consequence.** By 1-4 the moduli scheme, the canonical model and N5's `Y₃ = Sh_{K₃}` are one
+`ℚ`-scheme with one `Γ'`-action (the Hecke action of Deligne is the action by change of level
+structure, `η ↦ η∘g`). Baba–Granath's `j` is a coordinate on the quotient of this same
+`ℚ`-scheme by `N` (they compute on the QM moduli, i.e. on input 1's canonical model at level
+`K₀`; check Baba–Granath, Canad. J. Math. 60 (2008), §2-3 for the model over `ℚ` they use). So
+NV, PR(ii) and N5 use one and the same `ℚ`-structure. This is a citation task, not a gap
+(SPECULATIVE); it is the main remaining risk of B1 (rv-h-b1, "most serious issue").
 
 ## 5. Exact replacements in the manuscript
 
@@ -362,7 +423,9 @@ L814 never used b11 (confirmed by rv-h-b1 §6 and re-read here): it adjoins `A[3
    - SGA 7 IX 3.6 and the toric functoriality;
    - Serre–Tate Thms 1-2 and the torsion lemma;
    - Deligne 1971 and 1979 (reciprocity, `π₀`, Hecke action);
-   - Shimura 1967 and Kottwitz 1992 (moduli);
+   - Shimura 1967 and Kottwitz 1992 (moduli), and the other §4A inputs: Rotger 2003/2004
+     (polarization), Mumford §21 (rigidity), Baba–Granath §2-3 (their `ℚ`-model);
+   - EGA IV 7.8.3/18.7.6 (excellence) and miracle flatness (§1.2);
    - Vignéras (local normalizers, class number one);
    - Morita 1981.
 
@@ -377,8 +440,10 @@ L814 never used b11 (confirmed by rv-h-b1 §6 and re-read here): it adjoins `A[3
    - W4, GR14 non-circularity;
    - the identification of N5's "level-three curve with all determinant components" with the
      moduli problem of §4(ii) step 1. That identification is standard but is stated in N5 only
-     through b11's construction. It should be checked that N5's `Y₃` (defined as `Sh_{K₃}`)
-     and the moduli scheme agree, including the polarization type.
+     through b11's construction. **Repaired:** §4A now lists the four STANDARD inputs that give
+     the agreement of N5's `Y₃` (defined as `Sh_{K₃}`) with the moduli scheme, including the
+     polarization type; their locators remain UNVERIFIED (Shimura 1967, Deligne 1971 §4-6,
+     Milne §8/§14, Kottwitz 1992, Rotger 2003/2004, Mumford §21, Baba–Granath §2-3).
 6. **Scripts:** `scratch/h-b1/b1_checks.py`, with output `b1_checks.output.txt`, covering
    sections A-E. Each was run once, in about 1 minute of CPU.
 
@@ -386,11 +451,11 @@ L814 never used b11 (confirmed by rv-h-b1 §6 and re-read here): it adjoins `A[3
 
 B1, as amended here, removes `b11-integral-model` from the justification of H, together with
 Buzzard 1997 (A002) and the stable-model and tame-quotient theory (A078). After the amendment,
-Theorem 4.1's good-reduction step (N5 L441-566, L847-850) rests on:
+Theorem 4.1's good-reduction step (N5 L441-530, L557-558, L752-753, L781, L847-850) rests on:
 
 - SGA 1 (purity and Abhyankar);
 - the canonical model with Shimura reciprocity (Deligne);
-- the classical moduli interpretation over `ℚ`;
+- the classical moduli interpretation over `ℚ`, with the one `ℚ`-structure of §4A;
 - SGA 7 semistable reduction, or Morita;
 - Serre–Tate;
 - Baba–Granath and Lin–Yang;
