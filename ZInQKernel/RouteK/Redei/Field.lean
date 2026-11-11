@@ -171,16 +171,19 @@ theorem conj_omegaO (σ : K ≃ₐ[ℚ] K) (hσ : σ ≠ 1) : σ • omegaO n = 
 
 /-! ### Norms -/
 
+variable (n) in
 /-- `Algebra.norm` is Mathlib's explicit quadratic norm. -/
 theorem algNorm_eq (x : K) : Algebra.norm ℚ x = QuadraticAlgebra.norm x := by
   rw [Algebra.norm_apply]
   exact QuadraticAlgebra.det_toLinearMap_eq_norm x
 
+variable (n) in
 /-- The norm of `ℚ(√−n)/ℚ` is `x σ(x)`. -/
 theorem norm_eq_mul_conj (σ : K ≃ₐ[ℚ] K) (hσ : σ ≠ 1) (x : K) :
     algebraMap ℚ K (Algebra.norm ℚ x) = x * σ x := by
-  rw [algNorm_eq, QuadraticAlgebra.algebraMap_norm_eq_mul_star, conj_apply σ hσ]
+  rw [algNorm_eq n, QuadraticAlgebra.algebraMap_norm_eq_mul_star, conj_apply σ hσ]
 
+variable (n) in
 theorem norm_nonneg (x : K) : 0 ≤ Algebra.norm ℚ x := by
   rw [algNorm_eq, QuadraticAlgebra.norm_def]
   have h0 : (0 : ℚ) ≤ n := Nat.cast_nonneg n
@@ -191,7 +194,7 @@ theorem algNorm_coe (x : O) : Algebra.norm ℚ (x : K) = (Algebra.norm ℤ x : �
   (Algebra.coe_norm_int x).symm
 
 theorem normZ_nonneg (x : O) : 0 ≤ Algebra.norm ℤ x := by
-  have := norm_nonneg (n := n) (x : K)
+  have := norm_nonneg n (x : K)
   rw [algNorm_coe] at this
   exact_mod_cast this
 
@@ -199,7 +202,7 @@ theorem normZ_nonneg (x : O) : 0 ≤ Algebra.norm ℤ x := by
 theorem normZ_eq_mul_conj (σ : K ≃ₐ[ℚ] K) (hσ : σ ≠ 1) (x : O) :
     ((Algebra.norm ℤ x : ℤ) : O) = x * σ • x := by
   apply RingOfIntegers.ext
-  have h := norm_eq_mul_conj σ hσ (x : K)
+  have h := norm_eq_mul_conj n σ hσ (x : K)
   rw [algNorm_coe] at h
   simp only [RingOfIntegers.coe_eq_algebraMap, map_mul, algebraMap_smul, map_intCast] at h ⊢
   rw [← h]
@@ -218,8 +221,16 @@ theorem normZ_natCast (m : ℕ) : Algebra.norm ℤ (m : O) = (m : ℤ) ^ 2 := by
 
 theorem normZ_omega : Algebra.norm ℤ (omegaO n) = n := by
   have h := algNorm_coe (n := n) (omegaO n)
-  rw [coe_omegaO, algNorm_eq, QuadraticAlgebra.norm_def] at h
+  rw [coe_omegaO, algNorm_eq n, QuadraticAlgebra.norm_def] at h
   simp [QuadraticAlgebra.re_omega, QuadraticAlgebra.im_omega] at h
+  exact_mod_cast h.symm
+
+theorem normZ_one_add_omega : Algebra.norm ℤ (1 + omegaO n) = 1 + n := by
+  have h := algNorm_coe (n := n) (1 + omegaO n)
+  have e : ((1 + omegaO n : O) : K) = 1 + ω := by simp [RingOfIntegers.coe_eq_algebraMap]
+  rw [e, algNorm_eq n, QuadraticAlgebra.norm_def] at h
+  simp [QuadraticAlgebra.re_omega, QuadraticAlgebra.im_omega, QuadraticAlgebra.re_one,
+    QuadraticAlgebra.im_one] at h
   exact_mod_cast h.symm
 
 /-! ### `O ∩ ℚ = ℤ` and the rational units -/
