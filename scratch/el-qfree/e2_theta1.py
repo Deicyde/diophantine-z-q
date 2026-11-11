@@ -18,7 +18,12 @@ def vp(x, p):
     while x % p == 0: x //= p; e += 1
     return e
 
-def issq(x): return x >= 0 and math.isqrt(x)**2 == x
+_mods = [(m, set((i*i) % m for i in range(m))) for m in (64, 63, 65, 11, 17, 19, 23, 29, 31, 37)]
+def issq(x):
+    if x < 0: return False
+    for m, r in _mods:
+        if x % m not in r: return False
+    return math.isqrt(x)**2 == x
 
 def run(n, h, s0, eta, q):
     C = k0.testC(n, 1, Fr(n), h, s0)
