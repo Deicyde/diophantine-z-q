@@ -46,3 +46,29 @@ Notation: D_E(W) = (B_dR (x)_{Q_l} W)^{G_E}; W de Rham over E iff dim_E D_E(W) =
   2-dim r with r|G_F de Rham and r not de Rham exists. No counterexample possible; none sought by
   computation (no finite computation bears on P1-P6).
 Outcome: proof correct as written; one unstated routine step (restriction F -> F').
+
+## Step 3. Use of the conclusion in N5 (L733-768)
+- U1 (L733-737): "the representation is de Rham at l, weights 0,-1" = lemma with K = Q_l,
+  F = L'_lambda, r = r_l|G_{Q_l}. Exactly the lemma's conclusion. OK.
+- U2 (L739-741): Berger, de Rham => pst. OK (C4, [R]). Simplification available: pst over Q_l is by
+  definition a property of r|G_E for some finite E; r|G_F is a summand of V_l(A_F)(x)C_l, which is
+  pst by semistable reduction (SGA 7 IX) + C_st (Tsuji 1999) [or Breuil/Coleman-Iovita for abelian
+  varieties]. So pst follows without the descent paragraph and without Berger. STANDARD.
+- U3 (Pan 1.0.4 hypotheses, statement as quoted in h-a011 §1.1, FM.tex L167-177, L226-233):
+  needs pst at p (U2) and distinct HT weights at p: {0,-1} distinct. Pan's convention: eps has
+  weight -1 = N5's. OK. Coefficients: Pan has GL_2(Qbar_p); r_5 over C_5 subset Qbar_5. OK.
+- U4 (C8, L757-768): r_5 = rho_g (x) psi. psi is a de Rham subrep of Hom(rho_g, r_5): needs rho_g
+  de Rham at 5 (C8 supplier, not C3) and r_5 de Rham (lemma). Then psi|I_5 = eps^n x finite
+  (Tate/Serre). Weights: with eps of weight -1, rho_g (x) eps^n has weights {w - n : w in wt(rho_g)}.
+  * If rho_g is in the Tate/arithmetic normalization (trace of arithmetic Frob_p = a_p,
+    det = eps^{k-1} x finite), wt(rho_g) = {0, 1-k}; {-n, 1-k-n} = {0,-1} => (n,k) = (0,2) or
+    (1,0); k >= 2 => k = 2, n = 0. This is N5's "k=2 and power zero".
+  * Pan fixes Frob_v geometric (h-a011 §1.1). If "comes from a cuspidal eigenform" is read in the
+    cohomological normalization (trace of geometric Frob = a_v), wt(rho_g) = {0, k-1}; then
+    {-n, k-1-n} = {0,-1} => k = 2, n = 1, not "power zero". Harmless: for k = 2,
+    rho^coh = (rho^Tate)^dual = rho^Tate (x) eps^{-1} chi^{-1} (chi = nebentypus), so
+    rho^coh (x) eps = rho^Tate (x) finite. Conclusion (k = 2; r_5 = rho_f^Tate (x) finite, absorbed
+    into f) unchanged. Repair (wording): fix the normalization of rho_g (or say "power zero after
+    normalizing rho_g to weights {0,1-k}").
+- Only the multiset {0,-1} at the single embedding of K = Q_5 is used downstream. The lemma's
+  per-embedding statement for general K is more than needed.
