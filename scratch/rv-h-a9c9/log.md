@@ -18,3 +18,15 @@ diophantine_zq.tex at commit 97cec7fd (11/5 text). rv-h-trust.md not read until 
   Sum b_i(x)[c_i,J]=0 in B_R(x)B_R^op = End_R(B_R) iff all [c_i,J]=0. Z_{B_R}(J)=R[J]=C, so
   Z_B(J) is a field of degree <=2; c=a+bJ (b!=0) has min. poly x^2-2ax+a^2+b^2, disc -4b^2<0:
   imaginary. k subset B splits B, so B(x)k = M_2(k).
+
+## Step 3: C9 Li's Fricke formula on samples (c9_li_fricke.py, PARI, ~2 min; output c9_li_fricke.out)
+- Inputs: first 30 (newform, complex embedding) pairs of weight 2, nontrivial even character,
+  N=13..29 (orders 2..14). Direct evaluation of q-expansions (500 terms) at 3 points:
+  ratio (f|_2 W_N)(z) / fbar(z), fbar = sum conj(a_n) q^n.
+- Outcome: ratio constant (spread <= 1.5e-95), |lambda|=1 (defect <= 2e-96), equal to PARI's
+  mfatkineigenvalues. So f|W_N = lambda * c(f), c = complex conjugation in Aut(C): the span of the
+  Aut(C)-conjugates of f is W_N-stable (numerically VERIFIED on 30 samples; theorem STANDARD:
+  Li 1975 / Atkin-Li 1978 Thm 1.1).
+- Remark (by reasoning): the twist of a non-normalized eigenform can vanish: g(z)=f(3z), f=11a,
+  psi mod 3 -> sum psi(n)a_n(g)q^n = 0. Harmless if one twists the newform of g (a_1=1) or works
+  with Hecke eigenvalue systems at p not dividing N*cond(psi).
