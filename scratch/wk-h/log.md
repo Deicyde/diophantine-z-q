@@ -25,3 +25,10 @@
   degrees 1, 5 (ℓ¹ norms 20333129, 184047851). VERIFIED (sympy expand = 0).
 - Consequence (argument, to be checked in Lean): for coprime a,b, gcd(F_h(a,b),G_h(a,b)) divides
   3·2^10 3^8 5^6, and 12 h(u) ≤ h(J(u)) + c with c ≈ 300 (N5 F4: h(u) < h(j) + 74).
+
+## Step 4: Tier-1 draft scratch/wk-h/BackToU.lean
+- Imports ZInQKernel.Hypotheses.Height only (upstream package lean/ not built here, so
+  HeightMin cannot be imported); states SixContactMinAt S (SixContactMin = SixContactMinAt
+  Mult.S_mul by rfl).
+- `lake env lean scratch/wk-h/BackToU.lean`: compiles, 9 s; one sorry (twelve_mul_ratHeight_le,
+  F4). Proved: cert_x, cert_y (ring), G_ne_zero, sixContactMin_of_jHeightBound (nlinarith).
