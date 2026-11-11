@@ -33,3 +33,10 @@ Main-theorem variants: MainGreenTao.lean:38 (CertifiedRank), :45 (Sel); Rank5b.l
   FixedPrimePattern hypothesis!); Rank5bSec3.lean:54 (TYZ), :67 (TYZCl); RankVariants:52,59,67 (Rk forms);
   RankDL:220 (DLRk); RankInf:176-197 (Inf). No main-theorem variant takes DLAdmRk directly (only PC).
 Observation: CertifiedRank docstring still lists Kriz first route and "Gross–Zagier–Kolyvagin"; TYZ.lean cites GZ only.
+
+## Step 3 (selection scan, select.py -> out_select.txt)
+Input: squarefree d ≡ 5 mod 8, d < 30000, 3-5 primes. T5b by Redei bits (mirror of Lean T5b,
+rv-cr5b-sec3/mirror.py), #Sel2 by mirror.sel2 (local Kummer images, Lean's Loc conditions).
+Outcome: 386 d with T5b = 1; ALL have #Sel2 = 8; none with #Sel2 > 8.
+So on this range the premise #Sel2 = 8 of the TYZ forms is implied by T5b = 1 (empirical; rv-cr5b-sec3
+§1.6 left this open). SPECULATIVE that it is a theorem (det M5b = 1 forcing minimal Selmer).

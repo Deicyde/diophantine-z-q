@@ -1,0 +1,2 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+T5b=1 count: 386  with #Sel2=8: 386  with #Sel2>8: 0
