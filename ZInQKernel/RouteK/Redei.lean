@@ -2,6 +2,8 @@ import ZInQKernel.RouteK.Redei.Field
 import ZInQKernel.RouteK.Redei.Primes
 import ZInQKernel.RouteK.Redei.Entry
 import ZInQKernel.RouteK.Redei.Ambiguous
+import ZInQKernel.RouteK.Redei.Genus
+import ZInQKernel.RouteK.Redei.Dirichlet
 
 /-!
 # Rédei's formula (`docs/research/redei-plan.md` §3.2), root module
@@ -11,5 +13,8 @@ import ZInQKernel.RouteK.Redei.Ambiguous
   `𝔞 σ(𝔞) = (N𝔞)`;
 * `Redei/Entry.lean`: the entries `R_{qp}` of the Rédei matrix (`redeiEntry`);
 * `Redei/Ambiguous.lean`: Hilbert 90 for ideals, `psi`, `range_psi : im ψ = Cl[2]`,
-  `card_ker_sq_le : #Cl[2] ≤ 2^{t−1}`.
+  `card_ker_sq_le : #Cl[2] ≤ 2^{t−1}`;
+* `Redei/Genus.lean`: the genus characters `chi n q` (`χ_q([𝔞]) = [N𝔞/q]`), `chi_ramIdeal`;
+* `Redei/Dirichlet.lean`: split primes and the surjectivity of the genus characters
+  (`exists_chi_eq`).
 -/
