@@ -23,3 +23,10 @@
 7. Faltings Hom ⇒ A ⊂ J_1(N) up to isogeny over L'; Javanpeykar h_F(J_1(N)) ≤ 1.3e7 N^12; GR isogeny ⇒ h_F(A) ≤ Q^17 M^24.
 8. Theta/Igusa (Lin–Yang, Pazuki) ⇒ h(j) ≤ 40 h(theta)+22, h(u) ≤ h(j)+74 ⇒ h(u) ≤ 10^13 max(1,h_F(A)).
 Exponent 24 = 2 (N ≤ QM^2) × 12 (h_F(J_1(N)) ≪ N^12).
+
+## Step 3. rs-height.md re-checked against current Lean
+- Precision constant is an NExpr (Compiler/Precision/CappedTest.lean: NExpr lit/add/mul/max/pow/fact; eA.eval = A0): VERIFIED.
+  So use P tolerates any NExpr-computable bound Φ(M) (rs-height §2.2) — change of program + decision proof only.
+- Use M: h ≤ A M^e, M^k | f, needs e < k (now k=25, e=24); constant budget log2log2log2 T < 65536 (rs-height §2.3; not re-derived here).
+- rs-height routes: R1 (H_min, now DONE in Lean as SixContactMin), R2 Baker very low, R3 per-curve very low, R4 elliptic very low,
+  R5 citation swaps (R5.3 CM branch → now h-cm.md), R6 shape freedom, R7 contact set.
