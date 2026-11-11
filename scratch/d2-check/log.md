@@ -24,3 +24,7 @@
   Points found on 6 curves (all d₁: 23749, 9741 (twice), 374821, 34013, 2877, 7701); β ∈ π₁(span) on 6/6, never in the torsion span alone.
   No point at effort 3 on 14 curves (all 10 d₂ ≥ 5.4·10^8, d₁ = 359053, 12549, 12419789); r1=1 there comes from PARI's parity/Cassels–Tate step, not a point.
 - Verdict so far: PASS. Output curves.json, out_curves_raw.txt.
+
+## Step 4 (supplement, table)
+- ellheegner on C_12549 (no point at effort 3): killed at the 10 min timeout; supplement dropped (heegner.py kept, no output).
+- table.py → out_table.txt (one line per curve): 20 curves, 0 failures. PARI dim Sel₂ = 2 + r2 + s = 3 on all 20 agrees with sel2cong.
