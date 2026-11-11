@@ -18,3 +18,10 @@ Then m(m-B) = (mc)^2, trivial witness e = A, r1 = r2 = 0, z = sqrt(H) solves the
 Outcome: 9/9 solved with v_p(B) = -1. So any m with v_p(m) odd or negative at p > 324 breaks
 SC1 globally (not just "for this proof"). el-qfree S2 window (v_p(m) even >= 0) is necessary and
 sufficient. Completeness constraint v_p(m) = 0 at b = 1: VERIFIED by Step 1 derivation.
+
+## Step 3. el-cert local lemma rerun (c1_local.py) — VERIFIED
+Inputs: 26 random (p, m, R0, T), p in {7,29,31,37,41,43}, seed 7, (R0/p) = -1, v_p(T) in {1,2}.
+Outcome: el-cert's brute-force locsol (mod p^3) agrees with "(−m/p) = −1" in 26/26 (10 soluble, 16 not).
+Proof (independent): v(a(q)) = min(0, 2v(q)) <= 0 since x^2 - R0 y^2 is anisotropic mod p, so
+f(q) = -m R0 a^2 (1 + O(p^{2v(T) - 2v(a)})) has even valuation and unit class -mR0; the point at
+infinity has the same class (-mR0^3). Hypothesis p | num Theta0 only needs v_p(Theta0) >= 1.
