@@ -20,7 +20,8 @@ $(x,y)\in\mathbb Q^2$.
 The premises are those of [CR₃^TYZ_Cl,Rk](../certified-rank-tyz-cl-rk.md); only the conclusion
 changes, from a point of infinite order to infinitely many rational solutions, which mentions no
 group law. The two hypotheses are equivalent, so CR₃^TYZ_Cl,Inf rests on Tian–Yuan–Zhang with their
-own genus class numbers, followed by Gross–Zagier. No Rédei formula and no condition on
+own genus class numbers, as completed by Proposition N, which is not refereed, followed by
+Gross–Zagier with an auxiliary field. No Rédei formula and no condition on
 $\mathrm{Sel}_2(C_d)$ enter. It is a hypothesis, not proved here.
 
 **Remark (classical meaning).** For the squarefree $d$ here, infinitely many rational solutions is
@@ -38,3 +39,4 @@ not used.
 - [The positive-rank form](../../../sources/rank-locators.md#the-positive-rank-form)
 - [Tian-Yuan-Zhang](../../../sources/rank-locators.md#tian-yuan-zhang)
 - [Gross-Zagier](../../../sources/rank-locators.md#gross-zagier)
+- [The trust statement for CR3](../../../sources/route-k-locators.md#the-trust-statement-for-cr3)

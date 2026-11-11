@@ -15,8 +15,9 @@ $y^2=x^3-d^2x$ has infinitely many rational solutions $(x,y)\in\mathbb Q^2$.
 No condition on $\mathrm{Sel}_2(C_d)$ enters. The premises are those of
 [CR₃^TYZ,Rk](../certified-rank-tyz-rk.md); only the conclusion changes, from a point of infinite
 order to infinitely many rational solutions, which mentions no group law. The two hypotheses are
-equivalent, so CR₃^TYZ,Inf rests on Tian–Yuan–Zhang with Gross–Zagier, as CR₃^TYZ,Rk does. It is a
-hypothesis, not proved here.
+equivalent, so CR₃^TYZ,Inf rests on Tian–Yuan–Zhang as completed by Proposition N, which is not
+refereed, and Gross–Zagier with an auxiliary field, as CR₃^TYZ,Rk does. It is a hypothesis, not
+proved here.
 
 **Remark (classical meaning).** For the squarefree $d$ here, infinitely many rational solutions is
 the classical statement that $d$ is a congruent number. This is not part of the hypothesis and is
@@ -34,3 +35,4 @@ not used.
 - [Tian-Yuan-Zhang](../../../sources/rank-locators.md#tian-yuan-zhang)
 - [Gross-Zagier](../../../sources/rank-locators.md#gross-zagier)
 - [Row 5b and Rédei](../../../sources/rank-locators.md#row-5b-and-redei)
+- [The trust statement for CR3](../../../sources/route-k-locators.md#the-trust-statement-for-cr3)

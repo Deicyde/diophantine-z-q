@@ -35,8 +35,11 @@ theorems here, the middle two are not:
   number is $-1$ for $n\equiv5\pmod8$). The form used is the one their proof gives; it rests on
   their Proposition 3.4, whose proof is a sketch, and nt-tyz §4 proves it directly. Their statement
   groups this sum with another (tyz-5b §1.2).
-- *Gross–Zagier and Kolyvagin*: then $\operatorname{rank}C_n(\mathbb Q)=1$.
-- Then $\dim C_n(\mathbb Q)/2C_n(\mathbb Q)=2+1=3=\dim\mathrm{Sel}_2(C_n)$, so the Kummer map is onto
+- *Gross–Zagier*, over an auxiliary imaginary quadratic field $K$ that satisfies the Heegner
+  hypothesis and has $L(C_n^K,1)\ne0$ (Bump–Friedberg–Hoffstein): then
+  $\operatorname{rank}C_n(\mathbb Q)\ge1$.
+- Then $\dim C_n(\mathbb Q)/2C_n(\mathbb Q)=2+\operatorname{rank}C_n(\mathbb Q)\ge3=\dim\mathrm{Sel}_2(C_n)$,
+  so the Kummer map is onto
   $\mathrm{Sel}_2(C_n)$ and every Selmer class comes from a rational point
   ([RK9](../rank/two-descent/every-selmer-class.md), with [Mordell–Weil for
   $C_n$](../rank/mordell-weil/finite-generation.md)).
@@ -55,5 +58,7 @@ Zhang's own statement.
 
 - [Row 5b of Smith's table](../../sources/rank-5b-locators.md#row-5b-of-smiths-table)
 - [Tian-Yuan-Zhang](../../sources/rank-5b-locators.md#tian-yuan-zhang)
-- [Gross-Zagier-Kolyvagin](../../sources/rank-5b-locators.md#gross-zagier-kolyvagin)
+- [Proposition N](../../sources/rank-5b-locators.md#proposition-n)
+- [Gross-Zagier over an auxiliary field](../../sources/rank-5b-locators.md#gross-zagier-over-an-auxiliary-field)
+- [The trust statement for CR3](../../sources/route-k-locators.md#the-trust-statement-for-cr3)
 - [Smith](../../sources/rank-5b-locators.md#smith)

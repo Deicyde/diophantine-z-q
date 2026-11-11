@@ -6,8 +6,9 @@ article_id: af_c38e410c645b4cd568ed5d2b
 
 The certified rank hypothesis CR₃ rests, through Proposition 0, on the Selmer form CR₃^Sel:
 for squarefree $n\equiv5\pmod8$ with $|\mathrm{Sel}_2(C_n)|=8$ and a Selmer class with
-$|a|\equiv7\pmod8$, every 2-Selmer class of $C_n$ comes from a rational point. One published route
-to CR₃^Sel goes through Tian, Yuan and Zhang, whose criterion for analytic rank one is a genus sum
+$|a|\equiv7\pmod8$, every 2-Selmer class of $C_n$ comes from a rational point. The route
+to CR₃^Sel used here goes through Tian, Yuan and Zhang (as completed by Proposition N, which is not
+refereed), whose criterion for analytic rank one is a genus sum
 $T_{5b}(n)$ of 4-ranks of class groups; row 5b of Smith's Table 2 writes that sum as the
 determinant of an explicit matrix $M_{5b}$ in Legendre symbols. This chapter proves the
 elementary step between the Selmer group and that determinant (tyz-5b §4), and the identity of the

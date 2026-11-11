@@ -4,7 +4,7 @@ declaration: theorem
 origin: bridged
 statement: formalized
 proof: formalized
-lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLRk
+lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLRk, ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLAdmRk
 ---
 
 # The main theorem from positive rank on the two curves of a slot choice
@@ -25,6 +25,13 @@ the rank hypothesis. CR₃^DL,Rk follows from [CR₃^Rk](../rank/two-curves/cert
 and from [CR₃^TYZ,Rk](../rank/two-curves/certified-rank-dl-rk-of-tyz-rk.md), so this form assumes no
 more than [the main theorem from the positive-rank forms](main-theorem-positive-rank.md).
 
+The theorem also holds under the minimal height hypothesis and
+[CR₃^DL,Adm,Rk](../rank/two-curves/certified-rank-dl-adm-rk.md), which asks only that for every
+admissible $B$ there be a signed divisor $m$ of $2730$ with $\beta=\mathrm{sqf}(mB)$ odd and
+$|\beta|\equiv7\pmod8$, a prime $p_0\mid\beta$ and slot data whose two curves have points of
+infinite order; CR₃^DL,Adm,Rk
+[follows from CR₃^DL,Rk](../rank/two-curves/certified-rank-dl-adm-rk-of-dl-rk.md).
+
 **Proof sketch.** The proof does not pass through CR₃.
 
 1. CR₃^DL,Rk implies pole completeness. For an admissible input, the multiplier lemma and the
@@ -33,6 +40,9 @@ more than [the main theorem from the positive-rank forms](main-theorem-positive-
    Proposition 0, a Selmer group of order $8$ containing a class $(\beta,b)$; with the point of
    infinite order and Mordell–Weil, RK9 makes that class come from a rational point $(x,y)$ with
    $x/\beta$ a square, and the two points give a zero of the pole polynomial.
+   Under CR₃^DL,Adm,Rk, which supplies for each admissible input a multiplier, a prime $p_0$
+   and slot data whose two curves have points of infinite order, the same argument at those curves
+   gives pole completeness directly.
 2. Szemerédi's theorem in the primes and Proposition D give 22P_AP, and Proposition AP turns 22P_AP
    into the slope representation under field 2′.
 3. The bound on the addition and multiplication nodes of the universal halting circuit holds.
@@ -45,10 +55,12 @@ more than [the main theorem from the positive-rank forms](main-theorem-positive-
 - [The minimal height hypothesis](six-contact-min.md)
 - [The slot conditions](../route-k/slot-conditions.md)
 - [The positive-rank hypothesis on the two curves of a slot choice](../rank/two-curves/certified-rank-dl-rk.md)
+- [The positive-rank hypothesis at the inputs of admissible numbers](../rank/two-curves/certified-rank-dl-adm-rk.md)
 
 ## Proof depends on
 
 - [Pole completeness from CR₃^DL,Rk](../rank/two-curves/pole-completeness-from-dl-rk.md)
+- [Pole completeness from CR₃^DL,Adm,Rk](../rank/two-curves/pole-completeness-from-dl-adm-rk.md)
 - [The assembly lemma under field 2′](../route-ap/assembly-ap.md)
 - [Proposition AP: progressions of good slope primes give the slope representation](../route-ap/proposition-ap.md)
 - [22P_AP from Green–Tao and Proposition D](../route-ap/good-prime-ap-from-green-tao.md)
