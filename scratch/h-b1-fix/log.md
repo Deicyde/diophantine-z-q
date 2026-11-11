@@ -7,3 +7,4 @@
 - L778-781: p ∉ T ∪ {3,5}, L_v/Q_p unramified and A has good reduction → Frobenius comparison. CONFIRMED (T2b).
 - L814-816: p=3 adjoin A[3] (A[5] if p=3), Raynaud via Silverberg-Zarhin Thm 3.5. No model. CONFIRMED.
 - L476-477: b11's sentence "represents exactly the full-three moduli problem, so its generic fiber is Y_3". CONFIRMED.
+## 2. Edits: Summary item 1 (F1 remark, R5), Summary item 4 locators, §1.2 finiteness (excellence) + flatness (normal dim 2 → CM → miracle flatness).
