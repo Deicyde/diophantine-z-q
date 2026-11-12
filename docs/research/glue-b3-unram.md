@@ -2,16 +2,18 @@
 
 Status: research note (task glue-b3-unram, 2026-11-11). Scope: B3 (v) of
 `docs/research/glue-descent.md`, which is N5 = `diophantine_zq.tex` L702-712. Lean file:
-`scratch/glue-b3-unram/Unram.lean` (511 lines, self-contained, `import Mathlib`). Log:
+`scratch/glue-b3-unram/Unram.lean` (609 lines, self-contained, `import Mathlib`). Log:
 `scratch/glue-b3-unram/log.md`. No file under `ZInQKernel/`, `blueprint/` or other tasks' notes was
 edited.
 
 ## 1. Main result
 
 **(VERIFIED, compiled; axioms `propext`, `Classical.choice`, `Quot.sound`.)**
-`GlueB3Unram.unramified_outside` proves B3 (v) in Lean from four leaves stated over Mathlib
-objects. The input is the output of glue-descent's `b2_of_leaves` and `inflatedNormalized_of`:
-- a finite Galois `L ⊆ ℚ̄` unramified outside a finite set `T` with `2 ∈ T`;
+`GlueB3Unram.unramified_outside_of_unramifiedAt` proves B3 (v) in Lean from four leaves stated
+over Mathlib objects. The input is the output of glue-descent's `b2_of_leaves` and
+`inflatedNormalized_of`, with glue-descent's own hypothesis forms:
+- a finite Galois `L ⊆ ℚ̄` with `UnramifiedAt L p` (`e(P|p) = 1` at every prime of `𝓞 L` over
+  `p`) for every prime `p ∉ T`, where `2 ∈ T`;
 - a sign 2-cocycle `ε` that equals 1 as soon as one argument lies in `G_L`;
 - a Dirichlet character `χ` mod `N` whose prime divisors lie in `T`;
 - a locally constant `β : G_ℚ → ℂ^×` with `β² = χ` (through the cyclotomic character) and
@@ -78,6 +80,9 @@ the set of primes below 325 (`ZInQKernel/Compiler/Precision/HeightConstant.lean:
 | `kerSub`, `beta_mul_left`, `beta_one`, `beta_conj` | `K = {σ ∈ G_L : β σ = 1}` is a subgroup, open, and normal in `G_ℚ` (it uses only `ε = 1` on `G_L`-arguments and `G_L ⊴ G_ℚ`) |
 | `unramified_outside_of_leaves` | the twist argument at a place `w` over `p ∉ T` (proof sketch below) |
 | `unramified_outside` | the same theorem with `cycUnram` discharged: four leaves only |
+| `emb_mem`, `embW` | `𝓞 L ⊂ w` for every valuation subring `w` of `ℚ̄` (integrality; `w` is integrally closed) |
+| `inertia_le_of_unramifiedAt` | **bridge**: `UnramifiedAt L p ⇒ inertiaGQ w ≤ G_L` for `w` over `p`. Proof: `P = 𝓞 L ∩ 𝔪_w` is a prime over `p`; `s|_L ∈ P.inertia Gal(L/ℚ)` because `s` acts trivially on the residue field of `w`; and `|P.inertia| = e(P|p) = 1` by Mathlib's `Ideal.card_inertia_eq_ramificationIdxIn` and `ramificationIdxIn_eq_ramificationIdx` |
+| `unramified_outside_of_unramifiedAt` | the main theorem with glue-descent's hypothesis `∀ p ∉ T, UnramifiedAt L p` |
 
 Proof sketch of `unramified_outside_of_leaves`, at a place `w` over `p ∉ T`:
 - `I_w ≤ G_L`, so `β|_{I_w}` is a homomorphism. It is quadratic because `β² = χ` and `p ∤ N`.
@@ -88,20 +93,20 @@ Proof sketch of `unramified_outside_of_leaves`, at a place `w` over `p ∉ T`:
 
 ## 5. What remains
 
-- **Bridge between the two notions of unramified (glue, not formalized).** glue-descent states
-  "L unramified at `p`" ideal-theoretically (`UnramifiedAt`: `e(P|p) = 1` for all `P | p` in
-  `𝓞 L`). This note uses the Galois form `GalUnramifiedOutside`. Integration needs both
-  directions:
-  - `UnramifiedAt L p ⇒ I_w ≤ G_L`, to feed `L` in;
-  - the converse for `L'`, if downstream steps want `UnramifiedAt L' p`.
-
-  Both are the standard equality `|I(P|p)| = e(P|p)` for Galois extensions of number fields
-  (Mathlib has inertia groups of Dedekind extensions), plus the restriction of `inertiaGQ w` to
-  the inertia group of `P = w ∩ 𝓞 L`. Cost estimate 150-300 lines (SPECULATIVE).
+- **Bridge between the two notions of unramified: one direction proved, one not.**
+  - *Proved:* `inertia_le_of_unramifiedAt`, `UnramifiedAt L p ⇒ I_w ≤ G_L` for every `w` over
+    `p`. That is how `L` enters the main theorem.
+  - *Not formalized:* the converse, `GalUnramifiedOutside L' T ⇒ UnramifiedAt L' p`. It is
+    needed only if a downstream step wants `L'` in ideal form. pkg-I2's leaves state inertia
+    through valuation subrings (`IsInertia`), so the Galois form may be what C-steps consume
+    (SPECULATIVE; not checked step by step).
+  - The converse needs the surjection `I_w ↠ I(P|p)` for `P = w ∩ 𝓞 L'`. That means lifting
+    inertia from a finite level to `ℚ̄`, plus the existence of a `w` over each `P`. Cost
+    estimate 200-400 lines (SPECULATIVE).
 - **Integration with `b3_of_leaves` (restructuring, easy).** `b3_of_leaves` takes `η` before
   calling `b2_of_leaves`. Here `η` depends on `β₁`, the output of B2. The integrated proof must:
   1. call `b2_of_leaves`;
-  2. apply `unramified_outside` to `β₁`;
+  2. apply `unramified_outside_of_unramifiedAt` to `β₁`;
   3. build `L'` as in `b3_of_leaves`, with `β = β₁η`. The characterization
      `G_{L'} = {σ ∈ G_L : β σ = 1}` is exactly the hypothesis on `L'` here.
 - **L-B3b is not proved.** It is classical, but a proof over this API needs:

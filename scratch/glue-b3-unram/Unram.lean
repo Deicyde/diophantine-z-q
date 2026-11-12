@@ -600,6 +600,68 @@ theorem unramified_outside_of_unramifiedAt (hA : LeafB3a) (hB : LeafB3b) (hConj 
     (fun p hp hpT w hw => inertia_le_of_unramifiedAt L p hp (hram ⟨p, hp⟩ hpT) w hw)
     ε hεN χ hN β hβl hβs hβe
 
+
+/-! ## `LeafFinRam` from the bridge and Mathlib's discriminant theorem -/
+
+section FinRam
+
+open NumberField
+
+theorem unramifiedAt_of_not_dvd_discr (L : IntermediateField ℚ Qbar) [NumberField L]
+    (p : ℕ) (hp : p.Prime) (hd : ¬ (p : ℤ) ∣ discr L) : UnramifiedAt L p := by
+  intro P hP hpP
+  have h := (NumberField.not_dvd_discr_iff_forall_mem L (𝓞 L)
+    (Nat.prime_iff_prime_int.mp hp)).mp hd P hP hpP
+  exact P.ramificationIdx_eq_one ℤ
+
+theorem finRam : LeafFinRam := by
+  intro H hH
+  have hHc : IsClosed (H : Set GQ) := Subgroup.isClosed_of_isOpen H hH
+  let Hc : ClosedSubgroup (Qbar ≃ₐ[ℚ] Qbar) := { toSubgroup := H, isClosed' := hHc }
+  let K : IntermediateField ℚ Qbar := IntermediateField.fixedField Hc.toSubgroup
+  have hfix : K.fixingSubgroup = H := InfiniteGalois.fixingSubgroup_fixedField Hc
+  haveI : FiniteDimensional ℚ K :=
+    (InfiniteGalois.isOpen_iff_finite K).mp (by rw [hfix]; exact hH)
+  let L : IntermediateField ℚ Qbar := IntermediateField.normalClosure ℚ K Qbar
+  haveI : FiniteDimensional ℚ L := normalClosure.is_finiteDimensional ℚ K Qbar
+  haveI : IsGalois ℚ L := IsGalois.normalClosure ℚ K Qbar
+  have hKL : K ≤ L := IntermediateField.le_normalClosure K
+  have hLH : L.fixingSubgroup ≤ H := by
+    rw [← hfix]; exact IntermediateField.fixingSubgroup_le hKL
+  haveI : NumberField L := { to_charZero := inferInstance, to_finiteDimensional := inferInstance }
+  have hd : discr L ≠ 0 := discr_ne_zero L
+  apply ((discr L).natAbs.primeFactors.finite_toSet).subset
+  rintro p ⟨hp, w, hw, hnot⟩
+  simp only [Finset.mem_coe, Nat.mem_primeFactors]
+  refine ⟨hp, ?_, Int.natAbs_ne_zero.mpr hd⟩
+  by_contra hdvd
+  apply hnot
+  have hd' : ¬ (p : ℤ) ∣ discr L := fun h => hdvd (Int.natCast_dvd.mp h)
+  exact (inertia_le_of_unramifiedAt L p hp (unramifiedAt_of_not_dvd_discr L p hp hd') w hw).trans
+    hLH
+
+end FinRam
+
+/-- **B3 (v) from three leaves** (L-B3a, L-B3b, conjugacy of places; finite ramification and
+the unramifiedness of Dirichlet characters at primes not dividing the modulus are proved glue),
+with glue-descent's hypothesis form on `L`: the twisted kernel field `L'` is unramified outside
+`T` (Galois form). -/
+theorem unramified_outside_final (hA : LeafB3a) (hB : LeafB3b) (hConj : LeafConj)
+    (L : IntermediateField ℚ Qbar) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (T : Finset ℕ) (h2 : 2 ∈ T) (hram : ∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p)
+    (ε : GQ → GQ → ℂˣ)
+    (hεN : ∀ σ τ, σ ∈ L.fixingSubgroup ∨ τ ∈ L.fixingSubgroup → ε σ τ = 1)
+    {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) (hN : ∀ q, q.Prime → q ∣ N → q ∈ T)
+    (β : GQ → ℂˣ) (hβl : IsLocallyConstant β) (hβs : ∀ x, β x ^ 2 = galChar χ x)
+    (hβe : ∀ x y, β x * β y = ε x y * β (x * y)) :
+    ∃ Q : Finset ℕ, (∀ q ∈ Q, q.Prime ∧ q ∉ T) ∧
+      (∀ x, (∏ q ∈ Q, etaP q) x ^ 2 = 1) ∧ IsLocallyConstant ⇑(∏ q ∈ Q, etaP q) ∧
+      ∀ L' : IntermediateField ℚ Qbar,
+        (∀ σ, σ ∈ L'.fixingSubgroup ↔
+          σ ∈ L.fixingSubgroup ∧ β σ * (∏ q ∈ Q, etaP q) σ = 1) →
+        GalUnramifiedOutside L' T :=
+  unramified_outside_of_unramifiedAt hA hB hConj finRam L T h2 hram ε hεN χ hN β hβl hβs hβe
+
 end GlueB3Unram
 
 #print axioms GlueB3Unram.unramified_outside_of_leaves
@@ -607,3 +669,5 @@ end GlueB3Unram
 #print axioms GlueB3Unram.unramified_outside
 #print axioms GlueB3Unram.inertia_le_of_unramifiedAt
 #print axioms GlueB3Unram.unramified_outside_of_unramifiedAt
+#print axioms GlueB3Unram.finRam
+#print axioms GlueB3Unram.unramified_outside_final
