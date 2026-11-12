@@ -750,6 +750,32 @@ theorem isDiscreteValuationRing_BDeRhamPlus : IsDiscreteValuationRing (BDeRhamPl
     obtain ⟨n, u, hu, rfl⟩ := eq_xi_pow_mul_unit p x hx
     exact ⟨n, ⟨hu.unit, rfl⟩⟩
 
+/-! ### `B_dR(𝓞_ℂ_p)` is the fraction field of the DVR `B_dR^+`, hence a field. -/
+
+/-- `B_dR^+[1/ξ]` is the fraction field of `B_dR^+`. -/
+instance isFractionRing_away_xi :
+    IsFractionRing (BDeRhamPlus O p) (Localization.Away (ofPlus O p (xi' p))) := by
+  refine IsLocalization.of_le_of_exists_dvd (Submonoid.powers (ofPlus O p (xi' p)))
+    (nonZeroDivisors _)
+    (powers_le_nonZeroDivisors_of_noZeroDivisors (by simpa using ofPlus_xi'_pow_ne_zero p 1)) ?_
+  intro n hn
+  obtain ⟨k, u, hu, rfl⟩ := eq_xi_pow_mul_unit p n (nonZeroDivisors.ne_zero hn)
+  exact ⟨_, ⟨k, rfl⟩, hu.mul_right_dvd.mpr (dvd_refl _)⟩
+
+/-- **`BDeRham 𝓞_ℂ_[p] p` is a field**: it is isomorphic to the fraction field `B_dR^+[1/ξ]` of the
+discrete valuation ring `BDeRhamPlus 𝓞_ℂ_[p] p`. -/
+theorem isField_BDeRham : IsField (BdR O p) := by
+  have hF : IsField (Localization.Away (ofPlus O p (xi' p))) :=
+    (IsFractionRing.toField (BDeRhamPlus O p)).toIsField
+  exact MulEquiv.isField hF (bdREquivAway p).toMulEquiv
+
+/-- `BDeRham 𝓞_ℂ_[p] p` is a fraction field of `BDeRhamPlus 𝓞_ℂ_[p] p` (Mathlib's own structure map). -/
+theorem isFractionRing_BDeRham : IsFractionRing (BDeRhamPlus O p) (BdR O p) := by
+  have : IsLocalization (genMonoid O p) (Localization.Away (ofPlus O p (xi' p))) :=
+    isLocalization_away_xi (p_regular p) (xi p) (ker_fontaineTheta_Cp p)
+  exact (IsLocalization.isLocalization_iff_of_algEquiv (nonZeroDivisors _)
+    (bdREquivAway p)).mpr inferInstance
+
 end BdrKer.Cp
 
 #print axioms BdrKer.Cp.ker_fontaineTheta_Cp
@@ -761,6 +787,8 @@ end BdrKer.Cp
 #print axioms BdrKer.Cp.nontrivial_BDeRham
 #print axioms BdrKer.Cp.isDiscreteValuationRing_BDeRhamPlus
 #print axioms BdrKer.Cp.maximalIdeal_BDeRhamPlus
+#print axioms BdrKer.Cp.isField_BDeRham
+#print axioms BdrKer.Cp.isFractionRing_BDeRham
 
 #print axioms BdrKer.ker_fontaineTheta_eq_span
 #print axioms BdrKer.isUnit_xi_BDeRham

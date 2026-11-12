@@ -25,3 +25,9 @@
   **`nontrivial_BDeRham : Nontrivial (BDeRham 𝓞_ℂ_[p] p)`**: COMPILE, standard axioms (VERIFIED).
 - Final check: `lake env lean scratch/bdr-kertheta/KerTheta.lean` — no errors, no warnings except none
   reported; all #print axioms = [propext, Classical.choice, Quot.sound] (VERIFIED).
+- `isAdicComplete_BDeRhamPlus` (B_dR^+ is (ξ)-adically complete; from Mathlib `isAdicComplete_self`),
+  `isLocalRing_BDeRhamPlus`, `maximalIdeal_BDeRhamPlus : maximalIdeal = (ξ)`, `eq_xi_pow_mul_unit`,
+  `isDomain_BDeRhamPlus`, **`isDiscreteValuationRing_BDeRhamPlus`**, `isFractionRing_away_xi`,
+  **`isField_BDeRham : IsField (BDeRham 𝓞_ℂ_[p] p)`**, **`isFractionRing_BDeRham`** (BDeRham is a fraction
+  field of BDeRhamPlus via Mathlib's algebraMap): ALL COMPILE, axioms [propext, Classical.choice,
+  Quot.sound] (VERIFIED, 23:50). The earlier "NOT PROVED: DVR / field" line is superseded.
