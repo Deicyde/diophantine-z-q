@@ -25,3 +25,13 @@
   QMDichotomy, I3Leaves: each `_iff` proved.
 - I3 glue restated & proved: homT_galT, range_tateHomZl_subset, exists_hom_ne_one_of_equivariant
   (conclusion: ∃ f : A ⟶ B, f.hom.hom ≠ 1), equivEnd, finrank_equivEnd.
+
+## Step 3: base change and functoriality — VERIFIED (compiled)
+- `isAbelianVariety_baseChange`: I2's `baseChange` (mapGrp of Over.pullback) of an abelian variety
+  is one (fields taken from I3's `AbVar.baseChange`).
+- `ofGrp_baseChange : ofGrp (PkgI2.baseChange A L) = (ofGrp A).baseChange L := rfl`.
+- `ptMap_homOfGrp` (rfl), `homT_comp`, `homT_id` (T_ℓ is a functor on the shared objects).
+- `rw` fails on goals mixing `(ofGrp A).X` and `A.X` (motive not type correct); `exact congrArg ..`
+  works.
+- Final compile: `lake env lean scratch/obj-bridge/Objects.lean`: no errors; every audited
+  declaration depends only on propext, Classical.choice, Quot.sound. File has no sorry/axiom.

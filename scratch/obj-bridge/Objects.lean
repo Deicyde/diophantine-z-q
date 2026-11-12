@@ -1713,6 +1713,59 @@ theorem finrank_equivEnd (hF : FaltingsTate) (hT : TateModuleFree) (hH : HomFree
 
 end ObjBridge
 
+/-! # §E. Base change and functoriality on the shared layer -/
+
+namespace ObjBridge
+
+open CategoryTheory AlgebraicGeometry Limits MonObj
+open PkgI2 (IsAbelianVariety)
+
+section BaseChange
+
+variable {K : Type} [Field K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+  (L : Type) [Field L] [Algebra K L]
+
+/-- I2's base change (`Functor.mapGrp` of `Over.pullback`) of an abelian variety is an abelian
+variety; the three properties are those of I3's `AbVar.baseChange`. -/
+instance isAbelianVariety_baseChange : IsAbelianVariety (PkgI2.baseChange A L) :=
+  ⟨((ofGrp A).baseChange L).proper, ((ofGrp A).baseChange L).smooth,
+    ((ofGrp A).baseChange L).geomInt⟩
+
+/-- **I2's and I3's base changes agree** (definitionally): the bridge commutes with base change. -/
+theorem ofGrp_baseChange : ofGrp (PkgI2.baseChange A L) = (ofGrp A).baseChange L := rfl
+
+end BaseChange
+
+section Functoriality
+
+variable {K : Type} [Field K] {A B C : Grp (Over (Spec (.of K)))} [IsAbelianVariety A]
+  [IsAbelianVariety B] [IsAbelianVariety C]
+
+/-- A morphism of group objects acts on `L`-points by composition. -/
+theorem ptMap_homOfGrp (L : Type) [Field L] [Algebra K L] (f : A ⟶ B) (x : PkgI2.Pts A L) :
+    PkgI3.AbVar.ptMap (L := L) (homOfGrp f) x = x ≫ f.hom.hom := rfl
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- `T_ℓ` is a functor on the shared objects: composition. -/
+theorem homT_comp (f : A ⟶ B) (g : B ⟶ C) :
+    PkgI3.AbVar.homT (ℓ := ℓ) (homOfGrp (f ≫ g)) =
+      PkgI3.AbVar.homT (ℓ := ℓ) (homOfGrp g) ∘ₗ PkgI3.AbVar.homT (ℓ := ℓ) (homOfGrp f) := by
+  apply LinearMap.ext; intro x; apply Subtype.ext; funext n
+  change Additive.ofMul (Additive.toMul (x.1 n) ≫ (f ≫ g).hom.hom) =
+    Additive.ofMul ((Additive.toMul (x.1 n) ≫ f.hom.hom) ≫ g.hom.hom)
+  exact congrArg Additive.ofMul (Category.assoc _ _ _).symm
+
+/-- `T_ℓ` is a functor on the shared objects: identities. -/
+theorem homT_id : PkgI3.AbVar.homT (ℓ := ℓ) (homOfGrp (𝟙 A)) = LinearMap.id := by
+  apply LinearMap.ext; intro x; apply Subtype.ext; funext n
+  change Additive.ofMul (Additive.toMul (x.1 n) ≫ (𝟙 A : A ⟶ A).hom.hom) = x.1 n
+  exact congrArg Additive.ofMul (Category.comp_id (Additive.toMul (x.1 n)))
+
+end Functoriality
+
+end ObjBridge
+
 /-! ## Axiom audit -/
 #print axioms ObjBridge.homEquiv
 #print axioms ObjBridge.endMulEquiv
@@ -1723,3 +1776,6 @@ end ObjBridge
 #print axioms ObjBridge.charPolyIndepOfEll_iff_grp
 #print axioms ObjBridge.exists_hom_ne_one_of_equivariant
 #print axioms ObjBridge.finrank_equivEnd
+#print axioms ObjBridge.ofGrp_baseChange
+#print axioms ObjBridge.homT_comp
+#print axioms ObjBridge.homT_id
