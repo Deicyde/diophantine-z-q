@@ -3,10 +3,9 @@ import Mathlib
 /-!
 # glue-descent: the Dirichlet character `χ` of B2 (N5 L671-677)
 
-"Let `T_-` be the finite primes where its invariant is `1/2`. For each odd `p ∈ T_-` choose an
-odd character of `(ℤ/pℤ)^×`; at `2 ∈ T_-` use the nontrivial character modulo four. Their
-product is a Dirichlet character `χ`, unramified outside `T`, whose order `m` satisfies
-`m ≤ 2 ∏_{p∈T, p≠2} (p-1)`." (N5, paraphrased.)
+N5 takes `T₋` to be the finite primes where the invariant of `[ε]` is `1/2`, picks an odd
+character of `(ℤ/p)^×` at each odd `p ∈ T₋` and the nontrivial character mod `4` if `2 ∈ T₋`,
+multiplies them to `χ`, and bounds the order `m ≤ 2 ∏_{p∈T, p≠2}(p-1)` (paraphrase).
 
 Proved here over Mathlib's `DirichletCharacter` (genuine definitions), for any finite set `T`
 of primes and any subset `T₋ ⊆ T`:
