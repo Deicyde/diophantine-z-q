@@ -45,3 +45,11 @@ Ramification data as the sequence g i = |G_i| (lower numbering). Proved:
   (w = 2u, u² + u = z/4 by Hensel, Mathlib `IsAdicComplete.henselianRing`).
 - `exists_fourth_root` (D3, U^{3e+1} ⊆ (U^{e+1})⁴), `fourth_pow_mem` (D3, (U^{e+1})⁴ ⊆ U^{3e+1}).
   Replaces the use of Silverman AEC IV.6.4 (formal logarithm) in N5 L828-832 by a Lean proof.
+
+## Step 6. c3_breaks.py rerun — VERIFIED: 15/15 fields ok, "ALL OK: True" (saved: c3_breaks.out)
+
+## Step 7. Report docs/research/glue-conductor.md written
+- D1-D5 as lemmas with leaves L1-L10 (L1, L2 stated in Lean over Mathlib; L3, L7 statable for
+  finite towers; L4-L6, L8-L10 not statable in Mathlib v4.35).
+- Findings: no error in N5 L796-857; D2 lemma must bear on the image of β; at p = 2 F = L_v;
+  given A6, Raynaud needed only at p = 3 (SPECULATIVE simplification).
