@@ -156,4 +156,90 @@ theorem nrd_dvd_six (x : Bˣ) (n : Fin 4 → ℤ) (hxn : (x : B) = comb n)
     | exact dvd_mul_of_dvd_right h22 _
     | exact dvd_mul_of_dvd_right h23 _
     | exact dvd_mul_of_dvd_right h33 _
+
+/-! ## The global index `[N_B(𝒪) : ℚ^×𝒪^×] = 4` -/
+
+/-- Structure constants of `𝒪` (copied from glue-repo). -/
+def combMul (n m : Fin 4 → ℤ) : Fin 4 → ℤ :=
+  ![m 0 * n 0 + 2 * m 1 * n 1 + 2 * m 1 * n 3 - m 2 * n 2 + 2 * m 3 * n 3,
+    m 0 * n 1 + m 1 * n 0 + m 1 * n 2 - m 2 * n 3 + m 3 * n 2,
+    m 0 * n 2 - 2 * m 1 * n 3 + m 2 * n 0 + m 2 * n 2 + 2 * m 3 * n 1,
+    m 0 * n 3 - m 1 * n 2 + m 2 * n 1 + m 2 * n 3 + m 3 * n 0]
+
+theorem comb_mul (n m : Fin 4 → ℤ) : comb n * comb m = comb (combMul n m) := by
+  ext <;> simp [comb, combMul] <;> push_cast <;> ring
+
+theorem O_mul {x y : B} (hx : x ∈ O) (hy : y ∈ O) : x * y ∈ O := by
+  obtain ⟨n, rfl⟩ := hx; obtain ⟨m, rfl⟩ := hy; exact ⟨_, (comb_mul n m).symm⟩
+
+theorem star_comb (n : Fin 4 → ℤ) : star (comb n) = comb ![n 0 + n 2, -n 1, -n 2, -n 3] := by
+  ext <;> simp [comb] <;> ring
+
+theorem O_star {x : B} (hx : x ∈ O) : star x ∈ O := by
+  obtain ⟨n, rfl⟩ := hx; exact ⟨_, (star_comb n).symm⟩
+
+theorem O_smul_int {x : B} (hx : x ∈ O) (c : ℤ) : (c : ℚ) • x ∈ O := by
+  obtain ⟨n, rfl⟩ := hx; exact ⟨c • n, by ext <;> simp [comb] <;> ring⟩
+
+theorem nrd_mul (x y : B) : nrd (x * y) = nrd x * nrd y := by
+  simp [nrd]; ring
+
+theorem nrd_one : nrd 1 = 1 := by simp [nrd]
+
+theorem nrd_smul (c : ℚ) (x : B) : nrd (c • x) = c ^ 2 * nrd x := by
+  simp [nrd]; ring
+
+/-- `nrd` as a monoid hom. -/
+def nrdHom : B →* ℚ where
+  toFun := nrd
+  map_one' := nrd_one
+  map_mul' := nrd_mul
+
+/-- The normalizer `N_B(𝒪) = {x ∈ B^× : x 𝒪 x⁻¹ = 𝒪}`. -/
+def N : Subgroup Bˣ where
+  carrier := {x | ∀ y : B, y ∈ O ↔ (x : B) * y * ((x⁻¹ : Bˣ) : B) ∈ O}
+  one_mem' := by intro y; simp
+  mul_mem' := by
+    intro a b ha hb y
+    rw [hb y, ha]
+    simp only [Units.val_mul, mul_inv_rev, mul_assoc]
+  inv_mem' := by
+    intro a ha y
+    rw [ha ((((a⁻¹ : Bˣ) : B) * y * (((a⁻¹)⁻¹ : Bˣ) : B)))]
+    simp only [inv_inv, mul_assoc, Units.mul_inv_cancel_left]
+    simp [mul_assoc]
+
+/-- `𝒪^×`. -/
+def OUnits : Set Bˣ := {u | (u : B) ∈ O ∧ ((u⁻¹ : Bˣ) : B) ∈ O}
+
+/-- `ℚ^× 𝒪^×`. -/
+def S : Set Bˣ := {x | ∃ c : ℚˣ, ∃ u ∈ OUnits, (x : B) = (c : ℚ) • (u : B)}
+
+def iU : Bˣ := ⟨⟨0, 1, 0, 0⟩, ⟨0, 1/2, 0, 0⟩, by ext <;> simp <;> norm_num, by ext <;> simp <;> norm_num⟩
+def jU : Bˣ := ⟨⟨0, 0, 1, 0⟩, ⟨0, 0, -1/3, 0⟩, by ext <;> simp <;> norm_num, by ext <;> simp <;> norm_num⟩
+
+theorem conj_mem_N (x : Bˣ) (L : (Fin 4 → ℤ) → (Fin 4 → ℤ))
+    (h1 : ∀ n, (x : B) * comb n * ((x⁻¹ : Bˣ) : B) = comb (L n))
+    (h2 : ∀ n, ((x⁻¹ : Bˣ) : B) * comb n * (x : B) = comb (L n)) : x ∈ N := by
+  intro y
+  constructor
+  · rintro ⟨n, rfl⟩; exact ⟨_, (h1 n).symm⟩
+  · rintro ⟨m, hm⟩
+    have : y = ((x⁻¹ : Bˣ) : B) * ((x : B) * y * ((x⁻¹ : Bˣ) : B)) * (x : B) := by
+      simp [mul_assoc]
+    rw [this, ← hm, h2]; exact ⟨_, rfl⟩
+
+theorem iU_mem : iU ∈ N := by
+  apply conj_mem_N iU (fun n => ![n 0 + n 2, n 1 + n 3, -n 2, -n 3])
+  · intro n; ext <;> simp [iU, comb] <;> ring
+  · intro n; ext <;> simp [iU, comb] <;> ring
+
+theorem jU_mem : jU ∈ N := by
+  apply conj_mem_N jU (fun n => ![n 0, -n 1, n 2, -n 3])
+  · intro n; ext <;> simp [jU, comb] <;> ring
+  · intro n; ext <;> simp [jU, comb] <;> ring
+
+theorem nrd_iU : nrd (iU : B) = -2 := by simp [nrd, iU]
+theorem nrd_jU : nrd (jU : B) = 3 := by simp [nrd, jU]
+
 end GlueVigneras.Global
