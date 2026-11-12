@@ -150,4 +150,219 @@ def BrauerNesbittChar0 : Prop :=
 
 end BrauerNesbitt
 
+/-! ## Part II. Local fields: ramification groups, the different, conductors, local CFT
+
+Setting (Serre, *Corps locaux*, Ch. III–IV): `A → B` a finite extension of discrete valuation
+rings, `A` complete with perfect residue field, fraction fields separable (and Galois where
+stated).  Then `B` is the integral closure of `A` in `Frac B`, and `B ≃ₐ[A] B` is `Gal(L/K)`.
+The definitions below are Serre's, written over Mathlib's `IsLocalRing.maximalIdeal`. -/
+
+section Ramification
+
+open IsLocalRing
+
+variable (A B : Type) [CommRing A] [CommRing B] [Algebra A B] [IsLocalRing B]
+
+lemma map_mem_maximalIdeal_pow (σ : B ≃ₐ[A] B) {n : ℕ} {x : B}
+    (hx : x ∈ maximalIdeal B ^ n) : σ x ∈ maximalIdeal B ^ n := by
+  have h1 : Ideal.map σ (maximalIdeal B) ≤ maximalIdeal B := by
+    rw [Ideal.map_le_iff_le_comap]
+    intro y hy
+    rw [Ideal.mem_comap, mem_maximalIdeal, mem_nonunits_iff]
+    rw [mem_maximalIdeal, mem_nonunits_iff] at hy
+    intro h
+    exact hy ((isUnit_map_iff σ y).mp h)
+  have h2 : Ideal.map σ (maximalIdeal B ^ n) ≤ maximalIdeal B ^ n := by
+    rw [Ideal.map_pow]
+    exact Ideal.pow_right_mono h1 n
+  exact h2 (Ideal.mem_map_of_mem _ hx)
+
+/-- **Definition (Serre IV §1).** The lower ramification group `G_i` (`i ≥ 0`) of `B/A`:
+the `σ` with `v_B(σ b − b) ≥ i + 1` for all `b ∈ B`. -/
+def lowerRam (i : ℕ) : Subgroup (B ≃ₐ[A] B) where
+  carrier := {σ | ∀ b : B, σ b - b ∈ maximalIdeal B ^ (i + 1)}
+  one_mem' := by intro b; simp
+  mul_mem' := by
+    intro σ τ hσ hτ b
+    have : (σ * τ) b - b = σ (τ b - b) + (σ b - b) := by
+      simp only [AlgEquiv.mul_apply, map_sub]; ring
+    rw [this]
+    exact Ideal.add_mem _ (map_mem_maximalIdeal_pow A B σ (hτ b)) (hσ b)
+  inv_mem' := by
+    intro σ hσ b
+    have : σ⁻¹ b - b = -(σ (σ⁻¹ b) - σ⁻¹ b) := by
+      have h : σ (σ⁻¹ b) = b := by
+        change σ (σ.symm b) = b
+        exact σ.apply_symm_apply b
+      rw [h]; ring
+    rw [this]
+    exact neg_mem (hσ _)
+
+/-- Lower numbering for a real index `u ≥ -1` (Serre IV §3): `G_u = G_{⌈u⌉}`, `G_{-1} = G`. -/
+noncomputable def lowerRamR (u : ℝ) : Subgroup (B ≃ₐ[A] B) :=
+  if u ≤ -1 then ⊤ else lowerRam A B (⌈u⌉.toNat)
+
+/-- **Definition (Serre IV §3).** Herbrand's function
+`φ_{B/A}(u) = ∫₀ᵘ dt / (G₀ : G_t)`. -/
+noncomputable def herbrandPhi (u : ℝ) : ℝ :=
+  ∫ t in (0 : ℝ)..u, (Nat.card (lowerRamR A B t) : ℝ) / (Nat.card (lowerRamR A B 0) : ℝ)
+
+/-- **Definition (Serre IV §3).** Upper numbering `G^v = G_{ψ(v)}`, `ψ = φ⁻¹`; here `ψ(v)` is
+written `sInf {u ≥ -1 | v ≤ φ(u)}` (`φ` is a continuous increasing bijection of `[-1, ∞)`). -/
+noncomputable def upperRam (v : ℝ) : Subgroup (B ≃ₐ[A] B) :=
+  lowerRamR A B (sInf {u : ℝ | -1 ≤ u ∧ v ≤ herbrandPhi A B u})
+
+/-- The subgroup rule for lower numbering (Serre IV §1 Prop. 2): for an intermediate ring `C`,
+`(B/C)_i = (B/A)_i ∩ Gal(B/C)`.  GLUE: immediate from the definition (proved). -/
+theorem lowerRam_tower (C : Type) [CommRing C] [Algebra A C] [Algebra C B] [IsScalarTower A C B]
+    (i : ℕ) :
+    lowerRam C B i = (lowerRam A B i).comap (AlgEquiv.restrictScalarsHom A) := by
+  ext σ; rfl
+
+end Ramification
+
+section LocalLeaves
+
+open IsLocalRing
+
+attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
+/-- **Leaf I6.6 (Serre's bound for the different).** For a finite separable extension of
+complete discrete valuation rings with perfect residue field, `v_B(𝔇_{B/A}) ≤ e − 1 + v_B(e)`,
+where `e` is the ramification index.  Serre, *Corps locaux*, III §6, remark after Prop. 13
+(UNVERIFIED locator).  Written `𝔇 ∣ 𝔪_B^{e-1}·(e)` (ideals of a DVR are ordered by divisibility;
+if `e = 0` in `B` the right side is `⊥` and the statement is empty).  Mathlib has only the lower
+bound `pow_sub_one_dvd_differentIdeal`. -/
+def DifferentBound : Prop :=
+  ∀ (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    [IsAdicComplete (maximalIdeal A) A] [PerfectField (ResidueField A)]
+    [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+    [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)],
+    differentIdeal A B ∣
+      maximalIdeal B ^ (Ideal.ramificationIdx (maximalIdeal B) A - 1) *
+        Ideal.span {((Ideal.ramificationIdx (maximalIdeal B) A : ℕ) : B)}
+
+/-- **Leaf I6.7 (Hilbert's formula for the different).** For `B/A` as above and Galois,
+`v_B(𝔇_{B/A}) = ∑_{i ≥ 0} (|G_i| − 1)`.  Serre, *Corps locaux*, IV §1, Prop. 4 (UNVERIFIED
+locator). -/
+def HilbertDifferentFormula : Prop :=
+  ∀ (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    [IsAdicComplete (maximalIdeal A) A] [PerfectField (ResidueField A)]
+    [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+    [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)]
+    [IsGalois (FractionRing A) (FractionRing B)],
+    ∃ N : ℕ, lowerRam A B N = ⊥ ∧
+      differentIdeal A B =
+        maximalIdeal B ^ (∑ i ∈ Finset.range N, (Nat.card (lowerRam A B i) - 1))
+
+/-- **Leaf I6.8 (Herbrand's theorem).** For a tower `A → C → B` with `B/A` and `C/A` Galois and
+`r : Gal(B/A) → Gal(C/A)` the restriction, `Gal(C/A)^v = r(Gal(B/A)^v)` for all `v`.
+Serre, *Corps locaux*, IV §3, Prop. 14 (UNVERIFIED locator).  (`r` is determined by `hr`.) -/
+def HerbrandQuotient : Prop :=
+  ∀ (A C B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    [IsAdicComplete (maximalIdeal A) A] [PerfectField (ResidueField A)]
+    [CommRing C] [IsDomain C] [IsDiscreteValuationRing C] [Algebra A C] [Module.Finite A C]
+    [Module.IsTorsionFree A C] [Algebra.IsSeparable (FractionRing A) (FractionRing C)]
+    [IsGalois (FractionRing A) (FractionRing C)]
+    [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+    [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)]
+    [IsGalois (FractionRing A) (FractionRing B)]
+    [Algebra C B] [IsScalarTower A C B] [Module.IsTorsionFree C B]
+    (r : (B ≃ₐ[A] B) →* (C ≃ₐ[A] C))
+    (_hr : ∀ σ c, algebraMap C B (r σ c) = σ (algebraMap C B c)) (v : ℝ),
+    upperRam A C v = (upperRam A B v).map r
+
+/-- **Leaf I6.9 (transitivity of Herbrand's function).** For a tower `A → C → B` with `B/A`
+Galois (hence `B/C` Galois) and `C/A` Galois, `φ_{B/A} = φ_{C/A} ∘ φ_{B/C}`.
+Serre, *Corps locaux*, IV §3, Prop. 15 (UNVERIFIED locator). -/
+def HerbrandTransitivity : Prop :=
+  ∀ (A C B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    [IsAdicComplete (maximalIdeal A) A] [PerfectField (ResidueField A)]
+    [CommRing C] [IsDomain C] [IsDiscreteValuationRing C] [Algebra A C] [Module.Finite A C]
+    [Module.IsTorsionFree A C] [Algebra.IsSeparable (FractionRing A) (FractionRing C)]
+    [IsGalois (FractionRing A) (FractionRing C)]
+    [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+    [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)]
+    [IsGalois (FractionRing A) (FractionRing B)]
+    [Algebra C B] [IsScalarTower A C B] [Module.Finite C B] [Module.IsTorsionFree C B],
+    ∀ u : ℝ, -1 ≤ u → herbrandPhi A B u = herbrandPhi A C (herbrandPhi C B u)
+
+/-- The principal units `U^{(n)} = 1 + 𝔪^n` (`n ≥ 1`) and `U^{(0)} = A^×`, inside `K^×`. -/
+def unitFiltration (A : Type) [CommRing A] [IsDomain A] [IsLocalRing A] (n : ℕ) :
+    Set (FractionRing A)ˣ :=
+  {x | ∃ a : A, (x : FractionRing A) = algebraMap A (FractionRing A) a ∧
+    (if n = 0 then IsUnit a else a - 1 ∈ maximalIdeal A ^ n)}
+
+/-- **Leaf I6.10 (local class field theory, finite abelian level, with the upper numbering
+theorem).** For `B/A` as above, abelian Galois, with finite residue field `𝔽_q`, there is a
+surjective homomorphism `θ : K^× → Gal(L/K)` whose kernel is the norm group `N_{L/K}(L^×)`,
+which maps `π` (any element of valuation one) to an element acting on the residue field of `B`
+by `x ↦ x^q`, and which maps `U^{(n)}` onto `G^n` for every integer `n ≥ 0`.
+Serre, *Corps locaux*, XIII §4 Prop. 13 and XV §2 Thm 1, Cor. 3; Serre, *Local class field
+theory* in Cassels–Fröhlich, §§2.8, 4.? (UNVERIFIED locators).  The canonical reciprocity map
+is one such `θ`, so this ∃-form is a consequence of the published theorem. -/
+def LocalReciprocityUpper : Prop :=
+  ∀ (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    [IsAdicComplete (maximalIdeal A) A] [Finite (ResidueField A)]
+    [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+    [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)]
+    [IsGalois (FractionRing A) (FractionRing B)],
+    (∀ σ τ : B ≃ₐ[A] B, σ * τ = τ * σ) →
+    ∃ θ : (FractionRing A)ˣ →* (B ≃ₐ[A] B), Function.Surjective θ ∧
+      (∀ x, θ x = 1 ↔ ∃ y : FractionRing B,
+          Algebra.norm (FractionRing A) y = (x : FractionRing A)) ∧
+      (∀ (π : A), Irreducible π → ∀ hπ : IsUnit (algebraMap A (FractionRing A) π),
+          ∀ b : B, θ hπ.unit b - b ^ Nat.card (ResidueField A) ∈ maximalIdeal B) ∧
+      (∀ n : ℕ, θ '' unitFiltration A n = (upperRam A B n : Set (B ≃ₐ[A] B)))
+
+end LocalLeaves
+
+section Conductor
+
+variable (A B : Type) [CommRing A] [CommRing B] [Algebra A B] [IsLocalRing B]
+
+/-- `codim V^H` for a subgroup `H` acting through `ρ`. -/
+noncomputable def codimInv {k V : Type} [Field k] [AddCommGroup V] [Module k V]
+    (ρ : Representation k (B ≃ₐ[A] B) V) (H : Subgroup (B ≃ₐ[A] B)) : ℕ :=
+  Module.finrank k V - Module.finrank k (Representation.invariants (ρ.comp H.subtype : Representation k H V))
+
+/-- **Definition (Serre, *Corps locaux*, VI §2).** The Artin conductor exponent of a
+representation `V` of `Gal(L/K)`: `f(V) = ∑_{i ≥ 0} (|G_i|/|G_0|) · codim V^{G_i}`. -/
+noncomputable def artinConductor {k V : Type} [Field k] [AddCommGroup V] [Module k V]
+    (ρ : Representation k (B ≃ₐ[A] B) V) : ℚ :=
+  ∑ᶠ i : ℕ, ((Nat.card (lowerRam A B i) : ℚ) / Nat.card (lowerRam A B 0)) *
+    (codimInv A B ρ (lowerRam A B i) : ℚ)
+
+/-- **D4, the conductor bound used by Glazer (GLUE, to be proved from the definitions).**
+If every upper ramification group `G^v` with `v > U ≥ 0` acts trivially, then
+`f(V) ≤ dim V · (1 + U)`.  It is the change of variables `f(V) = ∫_{-1}^∞ codim V^{G^v} dv`
+(Serre VI §2, exercise / IV §3) with `codim ≤ dim V`. -/
+theorem artinConductor_le_of_upper {k V : Type} [Field k] [AddCommGroup V] [Module k V]
+    [FiniteDimensional k V] [Finite (B ≃ₐ[A] B)] [IsDomain B] [IsDiscreteValuationRing B]
+    (ρ : Representation k (B ≃ₐ[A] B) V) (U : ℝ) (hU : 0 ≤ U)
+    (h : ∀ v : ℝ, U < v → ∀ σ ∈ upperRam A B v, ρ σ = 1) :
+    (artinConductor A B ρ : ℝ) ≤ Module.finrank k V * (1 + U) := by
+  sorry
+
+end Conductor
+
+section PrincipalUnits
+
+open IsLocalRing
+
+/-- **D3, squaring on principal units at `p = 2` (GLUE; elementary).**  If `B` is a complete DVR
+with `2·B = 𝔪^e`, `e ≥ 1`, then for `r > e` every element of `1 + 𝔪^{r+e}` is the square of an
+element of `1 + 𝔪^r`.  Applied twice: `(U^{e+1})⁴ = U^{3e+1}` (N5 L835-838).  N5 cites
+Silverman, AEC IV.6.4 (formal logarithm of `Ĝ_m`); it is also Newton's form of Hensel's lemma for
+`x² + 2x − y` (`v(f(0)) ≥ r + e > 2e = 2 v(f'(0))`).  Mathlib's general Hensel lemma needs a unit
+derivative, so this one is not immediate. -/
+theorem sq_principalUnits (B : Type) [CommRing B] [IsDomain B] [IsDiscreteValuationRing B]
+    [IsAdicComplete (maximalIdeal B) B] (e : ℕ) (he1 : 1 ≤ e)
+    (he : Ideal.span {(2 : B)} = maximalIdeal B ^ e) (r : ℕ) (hr : e < r)
+    (y : B) (hy : y ∈ maximalIdeal B ^ (r + e)) :
+    ∃ x ∈ maximalIdeal B ^ r, (1 + x) ^ 2 = 1 + y := by
+  sorry
+
+end PrincipalUnits
+
 end PkgI6

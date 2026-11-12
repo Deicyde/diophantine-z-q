@@ -28,3 +28,17 @@ Package I6 (h-trust steps B1, B2, C10, D1, D3, D4). Lean drafts: `scratch/pkg-I6
   - `LocalKroneckerWeber p` (I6.3) over `PadicAlgCl p`.
   - `ChebotarevExists` (I6.4) with Mathlib's `IsArithFrobAt ℤ σ Q`, `Algebra.IsUnramifiedAt`.
   - `BrauerNesbittChar0` (I6.5) for `Representation k G V`, semisimple `asModule`.
+
+## Step 3 (Part II drafts: local fields)
+- `I6.lean` compiles (VERIFIED, `lake env lean`): only warnings are `sorry` in two GLUE theorems
+  (`artinConductor_le_of_upper`, `sq_principalUnits`) and an overlapping-instance lint.
+- Definitions (Serre, Corps locaux), proved to be subgroups: `lowerRam A B i` (G_i:
+  `σ b − b ∈ 𝔪_B^{i+1}` ∀ b), helper `map_mem_maximalIdeal_pow` (proved), `lowerRamR` (real index),
+  `herbrandPhi` (interval integral of |G_t|/|G_0|), `upperRam` (G_{ψ(v)}, ψ via sInf),
+  `unitFiltration`, `codimInv`, `artinConductor` (Serre VI §2, finsum).
+- `lowerRam_tower` (subgroup rule for lower numbering) PROVED by `rfl`.
+- Leaves: `DifferentBound` (I6.6, 𝔇 ∣ 𝔪^{e-1}(e)), `HilbertDifferentFormula` (I6.7),
+  `HerbrandQuotient` (I6.8), `HerbrandTransitivity` (I6.9), `LocalReciprocityUpper` (I6.10:
+  ∃ θ : K^× ↠ Gal, ker = norms, θ(π) = Frobenius on residue field, θ(U^n) = G^n).
+- GLUE statements (sorry): `artinConductor_le_of_upper` (G^v trivial for v > U ⇒ f(V) ≤ dim V (1+U)),
+  `sq_principalUnits` (2B = 𝔪^e, r > e ⇒ 1+𝔪^{r+e} ⊆ (1+𝔪^r)²).
