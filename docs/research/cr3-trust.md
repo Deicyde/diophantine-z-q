@@ -11,6 +11,17 @@ Base: commit `14b28b23` (`wip/bp-catchup`). Adopted by task cr3-adopt after the 
 review `docs/research/rv-cr3-trust.md` (changelog at the end); Lean names and line numbers were
 rechecked at commit `81bb5d8f` (`wip/cr3-adopt`).
 
+> **Locator correction (2026-11-12, loc-adopt).** TYZ's convolution lemma (L1062–1077), cited
+> below as input I2, was called "Lemma 2.8"; it is printed as **Lemma 2.9**, and Lemma 2.8 is the
+> symmetry lemma (`lem2.6`). The earlier count of TYZ's shared §2 counter skipped Definition 2.7
+> (L842). VERIFIED for arXiv v1 by recounting `Period7.tex`; for the journal text, per the locator
+> audit `docs/research/locators.md` (AI agents, 2026-11-12). The same audit read the author-hosted
+> typeset journal text (Asian J. Math. 21 (2017)): arXiv Theorem 1.2 is journal **Theorem 1.4**,
+> which keeps "all `d_i > 1`", so the counterexamples `n = 26565, 33117` refute it too; journal
+> Theorem 1.2 is a different result. Line numbers still refer to arXiv v1 (`Period7.tex`). No step,
+> status or argument below changed; the remarks that the journal was never read are kept as
+> written, with dated notes.
+
 Sources used. All are in the repository or on fleet branches. No source outside the repository
 could be read (there is no network).
 
@@ -88,7 +99,9 @@ step's own argument.
    - (b) The match of the Lean definitions with TYZ's quantities: model reviews (rv-redei §1,
      rv-cr5b-sec3 §1, rv-cr3-rank §1), plus the check of this task (§1 A1-A5).
    - (c) The journal text of TYZ: never read. Theorem 1.2 is false as printed in arXiv v1 (nt-tyz
-     §1.4), so whether the journal corrected it is open (§2.3).
+     §1.4), so whether the journal corrected it is open (§2.3). (2026-11-12: the AI locator audit
+     `locators.md` read the journal text: it is Theorem 1.4 there, with the restriction kept, so
+     it was not corrected; not re-read here.)
    - (d) About 25 locators UNVERIFIED (§2.4), and the TYZ locators ARXIV-READ only.
    - (e) Exact scripts (§2.5).
 4. **New computation (§1 A6).** On 30 values of `d` (3 to 5 primes, `d < 30000`) with
@@ -333,11 +346,11 @@ Their status is [R] under the journal assumption of §2.3.
   Theorem 2.1; the GZ formula for Theorem 3.3).
 - *Status:* **[R]**.
 
-**B2. Genus periods: Theorem 2.1, Lemma 2.8 and Proposition 2.3 (input I2).**
+**B2. Genus periods: Theorem 2.1, Lemma 2.9 and Proposition 2.3 (input I2).**
 - *Content.* For odd squarefree `m ≡ 1, 3 (mod 8)`: `Σ ε 𝓛(d₁)𝓛(d₂) ≡ Q(m) ≡ g(m) (mod 2)` over
   non-ordered `m = d₁d₂` with `d₂ ≡ 1`, and `𝓛(1) = 1`.
-- *Suppliers.* TYZ Lemma 2.8 (L1062-1077), Proposition 2.3 (L580-586), L1082, Theorem 2.1
-  (L554-560), all ARXIV-READ. rv-nt-tyz B1: at `m = 3` Lemma 2.8 and Theorem 2.1 differ by the odd
+- *Suppliers.* TYZ Lemma 2.9 (L1062-1077), Proposition 2.3 (L580-586), L1082, Theorem 2.1
+  (L554-560), all ARXIV-READ. rv-nt-tyz B1: at `m = 3` Lemma 2.9 and Theorem 2.1 differ by the odd
   factor `w_K = 3`, so I2 is to be quoted as a congruence; the congruence holds under either.
 - *Status:* **[R]** (as a congruence).
 
@@ -368,7 +381,8 @@ Their status is [R] under the journal assumption of §2.3.
 - *Content.* `P(n)` represents `𝒫(n) = 2^{−1−ρ(n)} 𝓛(n) α_n` in `A(ℍ'_n) ⊗ ℚ`; and `𝒫(n) = 0` if
   `𝓛(n) = 0` (L1295). This is the deep step.
 - *Suppliers.* TYZ Thm 3.5 (label `m3`), L1353-1356, proof L2343-2380, ARXIV-READ. Not the
-  part (2) and not Theorem 1.2: those are not cited (nt-tyz §1.4: Theorem 1.2 is false as printed).
+  part (2) and not Theorem 1.2 (journal Theorem 1.4): those are not cited (nt-tyz §1.4: Theorem 1.2
+  is false as printed).
 - *Status:* **[R]**.
 
 **B7. Torsion: Lemmas 3.16 and 3.18 (input I4).**
@@ -530,13 +544,15 @@ comparison matter:
 
 - Theorem 1.2 of arXiv v1, read literally ("all `d_i > 1`"), is false (`n = 26565, 33117`; nt-tyz
   §1.4, confirmed by rv-nt-tyz §5). It is not cited. Whether the journal corrected it is unknown.
+  (2026-11-12: per the AI locator audit `locators.md`, which read the journal text, it is journal
+  Theorem 1.4 and keeps "all `d_i > 1`", so the same values refute it; not re-read here.)
 - Zhang (arXiv:2111.11618) cites the journal version as "Corollary 1.3" for what is Corollary 1.4
   in arXiv v1, so the journal numbering may differ (nt-tyz §3, warning).
 - Every TYZ locator of Part B is an arXiv v1 locator (ARXIV-READ). Citations should give the arXiv
   version with the label (e.g. "Theorem 3.5 (`m3`) of arXiv:1411.4728v1").
 
 Status [R] for B1-B9 assumes that the journal text proves the same statements (Theorem 3.5 first
-assertion, Lemmas 2.8, 3.16, 3.18, 3.21, Proposition 2.3, 3.2, Theorem 3.3, the recursion). If it
+assertion, Lemmas 2.9, 3.16, 3.18, 3.21, Proposition 2.3, 3.2, Theorem 3.3, the recursion). If it
 differs, those steps become [P] (arXiv preprint) until compared. Check: the journal text of
 Theorems 1.2, 3.3, 3.5 and Lemmas 3.16-3.21; Tian's ICM 2022 article (Proc. ICM 2022, Vol. 3,
 1990–2010, open access) for an authoritative restatement (nt-tyz §6, routes 3 and 4).
@@ -622,9 +638,9 @@ argument, and the match of the Lean definitions with TYZ's quantities (model rev
 
 * *Tian–Yuan–Zhang* (Y. Tian, X. Yuan, S.-W. Zhang, *Genus periods, genus points and congruent
   number problem*, Asian J. Math. 21 (2017), 721–774; read in arXiv:1411.4728v1 only):
-  Theorem 3.5 (first assertion), Theorem 3.3, Proposition 3.2, Lemmas 2.8, 3.16, 3.18, 3.21,
+  Theorem 3.5 (first assertion), Theorem 3.3, Proposition 3.2, Lemmas 2.9, 3.16, 3.18, 3.21,
   Proposition 2.3 and the recursion of §3.1. Their proofs use Waldspurger's formula and the
-  Gross–Zagier formula of Yuan–Zhang–Zhang. TYZ's Theorem 1.2 is not cited: as printed (all
+  Gross–Zagier formula of Yuan–Zhang–Zhang. TYZ's Theorem 1.2 (journal Theorem 1.4) is not cited: as printed (all
   `d_i > 1`) it is false (`docs/research/nt-tyz.md` §1.4).
 * *Proposition N* (`docs/research/nt-tyz.md` §4; model reviews `docs/research/rv-nt-tyz.md` and
   `docs/research/rv-prop-n.md`): from these inputs, if the `(7, 3)` genus sum `T_5b(d)` is odd
@@ -655,7 +671,7 @@ paragraph.
 ```lean
 **Trust statement.** Not proved in Lean. It is Tian–Yuan–Zhang (Asian J. Math. 21 (2017),
 721–774, read as arXiv:1411.4728v1): Theorem 3.5 (first assertion) with Theorem 3.3,
-Proposition 3.2, Lemmas 2.8, 3.16, 3.18, 3.21 and Proposition 2.3, as completed by Proposition N
+Proposition 3.2, Lemmas 2.9, 3.16, 3.18, 3.21 and Proposition 2.3, as completed by Proposition N
 (`docs/research/nt-tyz.md` §4, model reviews `docs/research/rv-nt-tyz.md` and
 `docs/research/rv-prop-n.md`; not refereed): if `T5bCl d` is odd, TYZ's `𝓛(d) ≠ 0`, and with the
 root number `−1` (Birch–Stephens) `ord_{s=1} L(C_d, s) = 1`. Then Gross–Zagier (Invent. Math. 84

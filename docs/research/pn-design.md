@@ -10,10 +10,19 @@ Line numbers `Lnnnn` refer to the TYZ arXiv source `Period7.tex` (arXiv:1411.472
 **VERIFIED** (checked against the source, proved here or in Lean, or exact computation with a
 script), **STANDARD** (published theorem, with reference), **SPECULATIVE** (not proved).
 
+> **Locator correction (2026-11-12, loc-adopt).** The convolution lemma (L1062–1066) that
+> `LemmaTwoEight` encodes was called "Lemma 2.8" here; it is printed as **Lemma 2.9**, and Lemma
+> 2.8 is the symmetry lemma (`lem2.6`, L1009, formerly called "Lemma 2.7"). The earlier count of
+> TYZ's shared §2 counter skipped Definition 2.7 (L842). VERIFIED for arXiv v1 by recounting
+> `Period7.tex`; the journal has the same numbers per the locator audit `docs/research/locators.md`
+> (AI agents, 2026-11-12). The Lean name `LemmaTwoEight` is kept (historical); its docstring now
+> says that it encodes Lemma 2.9. The same audit reports that arXiv Theorem 1.2 is journal
+> Theorem 1.4, with "all `d_i > 1`" kept. Line numbers and the encoding are unchanged.
+
 ## Summary
 
 1. **Encoding** (§2). `TYZInputs` is one Prop: there is `L : ℕ → ℤ` (TYZ's `𝓛`) with `L 1 = 1`,
-   Lemma 2.8 with Proposition 2.3 modulo 2 (`LemmaTwoEight L`), the link I7 to the L-series
+   Lemma 2.9 with Proposition 2.3 modulo 2 (`LemmaTwoEight L`), the link I7 to the L-series
    (`L n ≠ 0 → ∃ F, IsLContinuation (shortCurve (−n²)) F ∧ analyticOrderAt F 1 ≤ 1` for squarefree
    `n ≡ 5 (mod 8)`), and, for each such `n`, a structure `GenusData L n`. That structure holds an
    abstract `ℤ[i]`-module `M` (the role of `A(ℍ'_n)`), the points `Z, P`, the units `ε` with
@@ -31,7 +40,7 @@ script), **STANDARD** (published theorem, with reference), **SPECULATIVE** (not 
    It shows that the fields of `GenusData` are not jointly contradictory (VERIFIED).
 3. **New observation** (§4). Lemma N2 in the form `c_n(e) ≡ 𝓛(n/e) (mod 2ℤ[i])` holds for an
    *arbitrary* integer function `𝓛`. Its proof is a pairing `q ↔ (d/e)/q` of divisors, with no
-   use of Lemma 2.8 or N1 (VERIFIED by hand; `n2_check.py`: 190 trials, 0 mismatches). N1 is
+   use of Lemma 2.9 or N1 (VERIFIED by hand; `n2_check.py`: 190 trials, 0 mismatches). N1 is
    needed only to pass from `𝓛` to `Λ` at the matching step. The induction does need the
    `ε`-classes of Theorem 3.3 *including the uniformity at `(5, 3)`*. With mixed classes there,
    154 coefficients mismatch. rv-prop-n §4.3's "the value at `(5, 3)` is irrelevant" is
@@ -57,7 +66,7 @@ script), **STANDARD** (published theorem, with reference), **SPECULATIVE** (not 
   `(5,1)`, `(7,1)`, `(7,3)`; and one common class of `ε` modulo 2 on `(5,3)` (§4).
   `Z(d) ∈ A(ℍ'_n)` for `d ∣ n`: for `d ≡ 5` because `H'_d` is a factor of `ℍ'_n`, and for `d ≡ 7`
   because `Z(d)` is defined over `L_d` (L2558).
-- **I2** (Lemma 2.8, L1062–1066; Proposition 2.3, L580–586; §2 assumes `n ≡ 1, 2, 3` positive and
+- **I2** (Lemma 2.9, L1062–1066; Proposition 2.3, L580–586; §2 assumes `n ≡ 1, 2, 3` positive and
   squarefree, L499; `𝓛(1) = 1`, L1082). The lemma reads `Σ ε(d₁, d₂)𝓛(d₁)𝓛(d₂) = Q(n)` over the
   non-ordered `n = d₁d₂` with `d₂ ≡ 1 (mod 8)`, `ε = ±1`. Proposition 2.3 gives
   `Q(n) ≡ g(n) (mod 2)`. *Used:* the identity modulo 2, for odd `m ≡ 1, 3`. For `m ≡ 1` the pairs
@@ -84,7 +93,7 @@ script), **STANDARD** (published theorem, with reference), **SPECULATIVE** (not 
   `C_n` by `(x, y) ↦ (nx, n²y)` (VERIFIED, rv-prop-n §1). *Used:* `𝓛(n) ≠ 0 ⟹` the continuation of
   `L(C_n, s)` has order `≤ 1` at `s = 1`. The root number is not used here: it is the separate
   hypothesis `FunctionalEquation5` of `CR3Literature`.
-- **Not used:** Proposition 3.4, Theorem 1.2, the "i.e." of Theorem 3.5(2), `ρ(n)`, the action of
+- **Not used:** Proposition 3.4, Theorem 1.2 (journal Theorem 1.4), the "i.e." of Theorem 3.5(2), `ρ(n)`, the action of
   `β` on `K_n`, and F4 (rv-prop-n §4.2).
 
 ## 2. The encoding, field by field
@@ -97,7 +106,7 @@ for no more than the cited statement.
 |---|---|---|---|
 | `L : ℕ → ℤ` | `𝓛`, L337–345, L361; integral by Thm 1.1 (L371–380), Thm 3.5(1) (L1357) | `L(n)` is `𝓛(n)` with one choice of its sign (TYZ: "defined up to a sign", L361) for squarefree `n`, and `0` otherwise. Each field is invariant under changing the sign of any `L(m)`: `LemmaTwoEight` is mod 2; in the recursion the sign is absorbed into `ε` (`±1 ↦ ∓1`, `±i ↦ ∓i`), and each pair `(d₀, d₁)` occurs in one recursion only; I3 and I7 see only `L n = 0`. | VERIFIED |
 | `L 1 = 1` | L1082 | stated ("Since 𝓛(1) = 1"); sign chosen `+` | VERIFIED |
-| `LemmaTwoEight L`, `m ≡ 1` | Lemma 2.8 + Prop 2.3, §2 (L499) | for squarefree `1 < m ≡ 1`: `Σ_{d∣m, d≡1, d²<m} L(d)L(m/d) ≡ gNat m`. The non-ordered pairs `{d, m/d}` (`d ≠ m/d`) are each counted once, through the member with `d² < m`. `d ≡ 1` is TYZ's `d₂ ≡ 1`, and then `m/d ≡ 1`. Signs vanish mod 2. Restricted to `m > 1`. | VERIFIED |
+| `LemmaTwoEight L`, `m ≡ 1` | Lemma 2.9 + Prop 2.3, §2 (L499) | for squarefree `1 < m ≡ 1`: `Σ_{d∣m, d≡1, d²<m} L(d)L(m/d) ≡ gNat m`. The non-ordered pairs `{d, m/d}` (`d ≠ m/d`) are each counted once, through the member with `d² < m`. `d ≡ 1` is TYZ's `d₂ ≡ 1`, and then `m/d ≡ 1`. Signs vanish mod 2. Restricted to `m > 1`. | VERIFIED |
 | `LemmaTwoEight L`, `m ≡ 3` | same | `Σ_{d∣m, d≡1} L(m/d)L(d) ≡ gNat m`: `d₂ = d ≡ 1` and `d₁ = m/d ≡ 3` are told apart by their classes | VERIFIED |
 | I7: `L n ≠ 0 → ∃ F, IsLContinuation (shortCurve (−n²)) F ∧ analyticOrderAt F 1 ≤ 1` | L337–345 | contrapositive of "`𝓛(n) = 0` if `ord > 1`", with `L(E_n,s) = L(C_n,s)` and the existence of the entire continuation (Hecke/Deuring: CM; STANDARD; TYZ presuppose it when writing `ord_{s=1}`). Mathlib's `LSeries` is taken as `L(C_n, s)`, the convention of `CR3Literature`. | VERIFIED (reading) + STANDARD (continuation) |
 | `GenusData.M : Type`, `[AddCommGroup M] [Module ℤ[i] M]` | L1324 | `A(ℍ'_n)` with `[i]` | VERIFIED |
@@ -120,7 +129,7 @@ Notes.
   `TYZInputs` are `gCl` (class groups, already used by `T5bCl`) and the L-series in I7, which is
   the same object `TYZRow5b` already uses.
 - **What was dropped as unneeded** (making the Prop weaker, hence safer): the `ℤ[i]`-linearity of
-  `τ` and `β` (F4), the action of `β` on `K_n`, `Q(m)` itself, the exact signs in Lemma 2.8, the
+  `τ` and `β` (F4), the action of `β` on `K_n`, `Q(m)` itself, the exact signs in Lemma 2.9, the
   value `ε ∈ μ₄` beyond its class, `𝓛(n) ∈ ℤ` for `n ≢ 1, 3, 5`, and everything about `n ≡ 6, 7`.
 - **Universe.** `M : Type`, and `GenusData L n : Type 1`. `Nonempty (GenusData L n)` is a `Prop`.
 
@@ -198,7 +207,9 @@ partition combinatorics.
 3. **I3 and I5 rest on TYZ's proofs**: Theorem 3.5 (first assertion, via the Gross–Zagier formula
    of Yuan–Zhang–Zhang, Theorem 3.3) and Lemma 3.21 (via Theorem 3.6). These are TYZ theorems with
    proofs, read in arXiv v1 only. The journal version (Asian J. Math. 21 (2017)) was not compared
-   (nt-tyz §1.1).
+   (nt-tyz §1.1). (2026-11-12: the AI locator audit `locators.md` read the journal text and gives
+   journal locators for Theorem 3.5(2), p. 740, and the proof of Proposition 3.4, pp. 751–753; it
+   did not compare Theorem 3.5's first assertion or Lemma 3.21 with arXiv v1.)
 4. **I7 bundles the continuation** (Hecke). The order is that of Mathlib's
    `WeierstrassCurve.LSeries (shortCurve (−n²))`, the convention already used by `TYZRow5b`,
    `GrossZagier` and `FunctionalEquation5`. If preferred, I7 can be split into

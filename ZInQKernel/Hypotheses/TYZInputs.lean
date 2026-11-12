@@ -8,13 +8,16 @@ import ZInQKernel.Hypotheses.CR3Literature
 (Proposition N of `docs/research/nt-tyz.md` §4). It encodes the results I1–I5 and I7 of
 Tian–Yuan–Zhang that Proposition N uses (nt-tyz §4.2), as printed in arXiv:1411.4728v1 (cited as
 TYZ; line numbers `Lnnnn` refer to its source `Period7.tex`). The journal version (Asian J. Math. 21
-(2017)) was not compared. It is a conjunction of consequences of statements printed in TYZ,
+(2017)) was not compared here; the locator audit `docs/research/locators.md` (AI agents, 2026-11-12)
+read it and reports the convolution as Lemma 2.9 there too, and arXiv Theorem 1.2 (not used here)
+as journal Theorem 1.4. It is a conjunction of consequences of statements printed in TYZ,
 together with two standard facts that TYZ use without printing: Hecke's continuation of
 `L(C_n, s)` (CM; the I7 conjunct) and F4, that `[i]` is defined over `ℚ(i)` (used only to justify
 the type of `GenusData.β`). The parts are:
 
-* an integer function `L` (TYZ's `𝓛`, §1, L338–345) with `L 1 = 1` (L1082) and Lemma 2.8 with
-  Proposition 2.3 modulo 2 (L1062–1066, L580–586): `LemmaTwoEight L` (I2);
+* an integer function `L` (TYZ's `𝓛`, §1, L338–345) with `L 1 = 1` (L1082) and Lemma 2.9 with
+  Proposition 2.3 modulo 2 (L1062–1066, L580–586): `LemmaTwoEight L` (I2; the name is historical:
+  earlier notes miscounted the lemma as 2.8, corrected 2026-11-12, see `LemmaTwoEight`);
 * the defining property of `𝓛` for `n ≡ 5 (mod 8)` (L338–345), with Hecke's continuation of
   `L(C_n, s)` (CM; TYZ assume it when they write `ord_{s=1}` and do not prove it):
   `L n ≠ 0 → ∃ F, IsLContinuation … F ∧ analyticOrderAt F 1 ≤ 1` (I7);
@@ -78,9 +81,13 @@ def twoTwoI : GaussianInt := ⟨2, 2⟩
 
 /-! ### The inputs -/
 
-/-- **Lemma 2.8 with Proposition 2.3, modulo 2** (TYZ L1062–1066, L580–586; §2 assumes `n ≡ 1, 2, 3`
-positive squarefree, L499): `Σ ε(d₁, d₂) 𝓛(d₁)𝓛(d₂) ≡ Q(m) ≡ g(m) (mod 2)` over the non-ordered
-decompositions `m = d₁d₂` with `d₂ ≡ 1 (mod 8)`. (At `m = 3`, Lemma 2.8 and Theorem 2.1 differ by
+/-- **Lemma 2.9 with Proposition 2.3, modulo 2** (TYZ L1062–1066, L580–586; §2 assumes `n ≡ 1, 2, 3`
+positive squarefree, L499). The name `LemmaTwoEight` is historical: this encodes TYZ's convolution
+**Lemma 2.9** (numbered so in arXiv v1, by the shared §2 counter of `Period7.tex`, and in the journal
+text per the locator audit `docs/research/locators.md`); TYZ's Lemma 2.8 (label `lem2.6`, L1009) is
+the symmetry lemma `P(d₁, d₂) = P(d₂, d₁)`. Corrected 2026-11-12 (loc-adopt); the statement is
+unchanged. The encoded content: `Σ ε(d₁, d₂) 𝓛(d₁)𝓛(d₂) ≡ Q(m) ≡ g(m) (mod 2)` over the non-ordered
+decompositions `m = d₁d₂` with `d₂ ≡ 1 (mod 8)`. (At `m = 3`, Lemma 2.9 and Theorem 2.1 differ by
 the odd factor `w_K = 3` (`rv-nt-tyz` B1); the congruence holds under either, and `𝓛(3) = ±1` by
 direct computation.)
 
@@ -166,7 +173,7 @@ attribute [instance] GenusData.addCommGroup GenusData.module
 /-- **The TYZ inputs of Proposition N.** There is an integer function `L` (TYZ's `𝓛`, with a
 choice of the sign of each value, L361; integer-valued on classes 1 and 3 by Theorem 1.1, L371–380,
 L1329; on class 5 only whether `𝓛(n) = 0` matters, so a model may take values in `{0, 1}` there)
-such that `L 1 = 1` (L1082), Lemma 2.8 with Proposition 2.3 holds modulo 2, `L n ≠ 0` gives
+such that `L 1 = 1` (L1082), Lemma 2.9 with Proposition 2.3 holds modulo 2, `L n ≠ 0` gives
 analytic rank at most one for `n ≡ 5 (mod 8)` (the definition of `𝓛`, L338–345, `𝓛(n) = 0` if
 `ord_{s=1} > 1`, together with Hecke's continuation of `L(C_n, s)` (CM; assumed, not proved, in
 TYZ); `E_n ≅ C_n` over `ℚ`), and every squarefree `n ≡ 5 (mod 8)` carries the genus-point data of

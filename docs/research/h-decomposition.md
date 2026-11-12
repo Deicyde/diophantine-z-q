@@ -50,37 +50,61 @@ Research-level theorems ("read by a model": a repository note records an AI mode
 the published text; no human has checked it):
 
 1. Shimura 1967 / Deligne 1971 (Thm 4.21): canonical model and moduli interpretation of the
-   level-3 Shimura curve of discriminant 6, with Shimura reciprocity. UNVERIFIED.
-2. Baba–Granath 2008 (Thm 2.1, Lemma 3.1): the Atkin–Lehner quotient and its branch points. Preprint read by
-   a model; journal numbering UNVERIFIED.
-3. Lin–Yang 2020 (Example 30): Igusa invariants on the quaternionic locus. arXiv v1 VERIFIED;
-   journal numbering UNVERIFIED.
+   level-3 Shimura curve of discriminant 6, with Shimura reciprocity. UNVERIFIED (audit: Deligne's
+   §§4.9-4.17, Thm 4.21, Cor. 5.7, Ex. 5.8 read, a qualified consequence; Shimura 1967 and
+   Kottwitz unread).
+2. Baba–Granath 2008 (Thm 2.1, p. 737; Lemma 3.1, pp. 739-740): the Atkin–Lehner quotient
+   `V/W ≅ P¹_ℚ` and its three rational branch values `0, ∞, −16/27`. Journal text read by the audit.
+   Corrected 2026-11-12: the degree-4 map `V → V/W` has ramification index 2 at each branch
+   value; `4, 6, 2` are the elliptic (orbifold) orders of the uniformization, not indices of
+   this cover.
+3. Lin–Yang 2020 (arXiv v1 **Example 29**, pp. 20-21, discriminant 6; corrected 2026-11-12: v1's
+   Example 30 treats discriminant 14): Igusa invariants on the quaternionic locus. Journal
+   numbering UNVERIFIED. Alternative supplier of the invariant tuple: Baba–Granath Prop. 3.6,
+   p. 742 (read by the audit).
 4. Igusa 1962/1967: the Siegel modular forms ψ₄, χ₁₀ in theta constants. UNVERIFIED (form
    checked numerically).
-5. González–Rotger 2006 (Thm 5.12, Prop. 5.6): fields of definition of CM points. arXiv VERIFIED;
-   journal numbering UNVERIFIED.
+5. González–Rotger 2006 (Thm 5.8, Thm 5.12, Prop. 5.6; journal pp. 943-946): number and fields
+   of definition of CM points on `X₀(D,N)`. Read by the audit in arXiv v1, v2 and the journal.
+   Corrected 2026-11-12: Prop. 5.6 counts `2^{#{p | D(R)N(R)}}·h(R)` CM points, not `h(R)`.
 6. Raynaud (SGA 7 IX, Prop. 4.7): semistable reduction when the m-torsion is rational, m ≥ 3.
-   UNVERIFIED (Silverberg–Zarhin's form read by a model).
+   UNVERIFIED (Silverberg–Zarhin Thm 3.5, p. 406, read by models; the audit could not confirm
+   from the display that the printed bound includes `m = 3`, the case used).
 7. Serre–Tate 1968 (Thms 1, 2): Néron–Ogg–Shafarevich and potential good reduction. UNVERIFIED.
-8. Grothendieck (SGA 7 IX, Thm 3.6): semistable reduction theorem. UNVERIFIED.
+8. Grothendieck (SGA 7 IX, Thm 3.6; Silverberg–Zarhin call it Prop. 3.6): semistable reduction
+   theorem. UNVERIFIED.
 9. Faltings 1983 (Satz 3, Satz 4): semisimplicity and the Tate conjecture for abelian varieties. Read
-   by a model.
-10. de Rham comparison (Scholze 2013 Cor. 1.8; or Faltings 1989, Tsuji 1999). UNVERIFIED.
-11. Berger 2002 (Thm 0.7): de Rham implies potentially semistable. arXiv VERIFIED; journal
-   read by a model.
-12. Pan 2022 (JAMS, Thm 1.0.4): Fontaine–Mazur for GL₂ over ℚ, p odd. arXiv v2 statement
-   VERIFIED; JAMS numbering UNVERIFIED.
-13. Hodge–Tate weights of eigenform representations at every level (Saito 1997, or Kato 2004). UNVERIFIED.
-14. Galois representations of eigenforms (Eichler–Shimura, Deligne 1971). UNVERIFIED.
-15. Deligne–Serre 1974 (Thm 4.1): weight one gives finite image. UNVERIFIED.
-16. Eichler–Shimura in J₁(N) (Shimura 1971 Thm 7.9; Shimura 1973 Thm 1). UNVERIFIED.
-17. Carayol 1986 (Théorème A): local–global compatibility of the conductor. UNVERIFIED.
-18. Javanpeykar 2014 (Thm 1.1.1): Faltings height of Jacobians of Belyi curves. Read by a model.
-19. Gaudron–Rémond 2014 (Duke, Thm 1.4): explicit isogeny theorem. Read by a model.
+   by a model; the audit could not open the original (only the 1984 erratum).
+10. de Rham comparison (Scholze 2013 Thm 1.6, Cor. 1.8, Thms 9.1, 9.3, and the corrigendum; or
+   Faltings 1989, Tsuji 1999). Read by the audit in arXiv v2 and the journal (filtered comparison
+   as printed; Tate weights a consequence).
+11. Berger 2002 (published Thm 0.7, Cor. 5.22; arXiv v3 Thm 0.6, Thm 5.19): de Rham implies
+   potentially semistable. Both texts read by the audit (published version in an author-hosted
+   copy; Springer pagination unread).
+12. Pan 2022 (JAMS, Thm 1.0.4): Fontaine–Mazur for GL₂ over ℚ, p odd (at `p = 3` with a local
+   residual exception; none at `p = 5`, the prime used). arXiv v2 statement VERIFIED; JAMS
+   numbering UNVERIFIED.
+13. Hodge–Tate weights of eigenform representations at every level: Kato 2004 (§§9.2-9.4,
+   pp. 187-188), read by the audit, covers cusp forms of every level, `p | N` and `p = 2`
+   included (a consequence after dualization); Saito 1997 UNVERIFIED.
+14. Galois representations of eigenforms (Eichler–Shimura, Deligne 1971). Partly read by the audit
+   (Deligne exp. 355 §§3.9-3.12, Prop. 4.8, Thm 4.9); Shimura 1971 Thm 7.14 UNVERIFIED.
+15. Deligne–Serre 1974 (Thm 4.1, pp. 513-514, with Lemma 3.2): weight one gives finite image.
+   Read by the audit (a consequence; semisimplicity needed).
+16. Eichler–Shimura in J₁(N) (Shimura 1971 Thm 7.9, UNVERIFIED; Shimura 1973 Thm 1,
+   pp. 526-527, read by the audit).
+17. Carayol 1986 (Théorème A, pp. 409-411): local–global compatibility of the conductor. Read by
+   the audit: covers `p | N` and coefficient characteristic `ℓ = 2` (`p ≠ ℓ`) for `F = ℚ`.
+18. Javanpeykar 2014 (Thm 1.1.1, p. 90): Faltings height of Jacobians of Belyi curves. Read by the
+    audit.
+19. Gaudron–Rémond 2014 (Duke, Thm 1.4, p. 2060; `κ`, `α(g) = 1024g³` on p. 2058): explicit
+    isogeny theorem. Read by the audit (author copy of the journal text).
 20. Faltings 1983 (Lemma 5): variation of the Faltings height under isogeny. UNVERIFIED.
-21. Bost 1996: lower bound for the Faltings height. Read by a model (as recorded by
-    Gaudron–Rémond).
-22. Pazuki 2012 (Cor. 1.3): theta height against Faltings height. Read by a model.
+21. Bost 1996: lower bound for the Faltings height. UNVERIFIED in Bost (display unreadable); its
+    use by Gaudron–Rémond §9 (p. 2098) read by the audit.
+22. Pazuki 2012 (Cor. 1.3(2)): theta height against Faltings height. Read by the audit: a
+    consequence, with Deligne's metric, `h_D = h_F + log π` for surfaces, so `X_D` must
+    dominate `max(1, h_D)`; the hardened `X_D = max(1, h_F + 3)` does.
 
 Textbook foundations: (a) purity of the branch locus and Abhyankar's lemma (SGA 1); (b) abelian
 varieties: structure of torsion and of the Tate module, rank of Hom, ℓ-independence, Poincaré
@@ -93,6 +117,25 @@ square-root criterion, vanishing of unramified local classes, tame quadratic cha
 (d) ramification theory: Hilbert's different formula, the different bound, Herbrand's theorems; (e) Fontaine's
 closure properties of de Rham representations; (f) modular forms and invariants: twists,
 newforms, the Clebsch–Bolza–Igusa separation of binary sextics.
+
+**Locator audit (loc-adopt, 2026-11-12).** The locator audit (`docs/research/locators.md`, 2026-11-12, AI agents with web access; not a human review) read the primary texts of most
+research-level leaves; its corrections are applied in this list, in §1 (route K), in §2 and in
+§6. What it changed: (i) **R2** is restated: `(4, 6, 2)` are the elliptic orders of the orbifold
+uniformization; the degree-4 cover `V → V/W` has index 2 at each branch value (a degree-4 cover
+cannot have index 6); (ii) **R3**'s locator is Lin–Yang arXiv v1 Example 29 (discriminant 6), not
+Example 30 (discriminant 14); the journal numbering is unread; Baba–Granath Prop. 3.6 is an
+alternative supplier of the tuple; (iii) **R5**: González–Rotger Prop. 5.6 has the orientation
+factor `2^{#{p | D(R)N(R)}}`, so `#CM(R) = h(R)` holds only on one orientation branch (example:
+`R` maximal of discriminant −19 gives four CM points with `h(R) = 1`); (iv) locators and
+qualifications for R1, R6-R22, K1-K4 and T27 (Berger 0.6/0.7, Pan's `p = 3` exception and
+Frobenius conventions, Kato as the all-level supplier of R13, Carayol covering `p | N` and
+`ℓ = 2`, Gaudron–Rémond's constants, Pazuki's Deligne metric, Kisin 2009 Cor. 0.3 as a published
+alternative to Ribet, Chia-Fu Yu 2013 Thm 1.1 for T27 with "indefinite" kept). "Read by the
+audit" below means an AI agent read the primary text; it is not a human check, and the audit's
+UNVERIFIED marks are kept. No leaf was added or removed and no count changed; the uses of R2's
+branch data (A2, A5) and of R5's count (A10, NoCM) in the glue are being checked by a separate
+review and are not changed here (h-trust, notes of 2026-11-12). The corrections are not yet
+reflected in `Leaves.lean` docstrings (outside this task).
 
 **What is in Lean today** (VERIFIED: `scratch/h-decomposition/Leaves.lean` compiles, no
 `axiom`; counts updated by hsyn-fold, 2026-11-12). 11 research-level leaves (items 4, 6, 7, 8, 9,
@@ -167,12 +210,15 @@ statements to the main theorem is kernel-checked (no `sorry`, axioms `propext`,
 - Tian–Yuan–Zhang, either as `Literature.TYZRow5b`, or as the pair
   `Literature.TYZThm35ReadingA` + `Literature.HeckeContinuation`, which `tyzRow5b_of_readingA`
   turns into `TYZRow5b`. **Neither TYZ form is a printed statement.** No refereed text that we
-  have read states `TYZRow5b`. Theorem 1.2 of TYZ (arXiv:1411.4728v1), read literally, is false
-  (d = 26565, 33117). `TYZThm35ReadingA` is the intended reading of their Theorem 3.5(2), used only in the case
+  have read states `TYZRow5b`. Theorem 1.2 of TYZ (arXiv:1411.4728v1; Theorem 1.4 of the journal
+  version, which keeps the same restriction, per the locator audit of 2026-11-12), read literally,
+  is false (d = 26565, 33117). `TYZThm35ReadingA` is the intended reading of their Theorem 3.5(2), used only in the case
   `𝓛(n) = 0`. That case is a special case of the printed hypothesis "`2^{−ρ(n)}𝓛(n)` even", and
   it does not depend on the unproved "i.e." of Theorem 3.5(2) (`docs/research/nt-tyz.md` §2.2, F6); its proof in the paper passes through a proposition
-  whose proof is only sketched, and the journal version (Asian J. Math. 21 (2017)) has not been
-  checked. `TYZRow5b` is proved from unambiguous results of the arXiv version, with Hecke's
+  whose proof is only sketched. The journal version (Asian J. Math. 21 (2017)) was read by the
+  locator audit (2026-11-12, AI): it renumbers Theorem 1.2 as Theorem 1.4 and keeps the
+  all-factors-greater-than-one restriction, and the convolution used by Proposition N is its
+  Lemma 2.9 (the notes formerly said Lemma 2.8). `TYZRow5b` is proved from unambiguous results of the arXiv version, with Hecke's
   continuation, by Proposition N (`docs/research/nt-tyz.md` §4), a new argument reviewed twice by
   AI models and never by a human. `HeckeContinuation` is textbook (Deuring, Hecke).
 
@@ -273,8 +319,27 @@ whether Ribet 1992 and Pyle 2004 (proceedings volumes, reprinted in Progr. Math.
 - K3. Ribet: the abelian variety `A_f` is `ℚ`-simple (Ribet 1975/1980, UNVERIFIED).
 - K4. Grothendieck: the conductor exponent of an abelian variety at `p` is independent of
   `ℓ ≠ p` (SGA 7 I, Exp. IX, UNVERIFIED), unless Carayol's Théorème (A) is checked at `ℓ = 2`.
+- Locator audit (2026-11-12, `locators.md`). **K1**: Khare–Wintenberger I, Thm 1.2 read (journal
+  p. 486; author copy Thm 1.2 p. 2, Hypothesis (H) and Thm 9.1 p. 18); it covers odd `p` with odd
+  `N` and `p = 2`, `k = 2`, not all of Serre's cases: full coverage needs Thm 9.1, part II (which
+  supplies the proofs of I's Thms 4.1 and 5.1, §10, journal pp. 581 ff.) and Kisin, Invent. Math.
+  178 (2009), Thm 0.1 (pp. 587-588, read: YES for the lifting statement). CONSEQUENCE as a bundle.
+  **K2**: Ribet 1992 is **(4.4)** of arXiv alg-geom/9208002v1 (p. 8; proof p. 9), the same number
+  in the author copy; reprint pagination (Progr. Math. 224, pp. 241-261) confirmed, the reprint's
+  theorem page unread; a CONSEQUENCE for a `ℚ`-simple `B₀` (§3 of Ribet restricts to primitive,
+  `ℚ`-simple varieties; no optimality or connected-kernel conclusion). Whether the 1992 paper
+  was refereed remains UNVERIFIED. **Published alternative: Kisin 2009, Cor. 0.3 (p. 588, read
+  by the audit)**: a `g`-dimensional `A/ℚ` with a degree-`g` field in `End⁰_ℚ(A)` is a quotient of
+  `J₁(N)^m` for some `N, m ≥ 1`; for `ℚ`-simple `B₀` some component map is nonzero, hence
+  surjective, giving a quotient of `J₁(N)`. This removes the refereeing question for K2, not the
+  deep Serre dependencies. **K3**: Ribet 1975/1980 original (Cor. 4.2) unread, UNVERIFIED; a
+  CONSEQUENCE of the readable 1992 exposition (`ℚ`-simplicity, not absolute simplicity).
+  **K4**: UNVERIFIED (SGA 7 IX §4 unread; Cor. 4.6 is the candidate cited by Ribet 1992 Lemma
+  4.1). The audit read Carayol's Théorème A as covering `ℓ = 2` (R17), so K4 can be dropped on
+  this route: 19 research leaves.
 - Textbook: Milne, Invent. Math. 17 (1972) §1 (`V_ℓ(Res A) ≅ Ind V_ℓ(A)`), Mackey's formula.
-- Count: 22 − 6 (R10-R15) + 4 = **20 research leaves** (19 if Carayol covers `ℓ = 2`). Glue:
+- Count: 22 − 6 (R10-R15) + 4 = **20 research leaves** (19 if Carayol covers `ℓ = 2`, which the
+  locator audit of 2026-11-12 read: so 19, with K2 citable through Kisin 2009 Cor. 0.3). Glue:
   G9, G10, G12, G14 replaced by GK1 (Lemma GL₂) and GK2 (Lemma Ind), with repairs 1-4.
 
 **Recommendation: route P** for the announced decomposition, **route K as the fallback.**
@@ -317,15 +382,44 @@ C (PEL theorem specialized; assembled from several statements, §6 R2). Objects:
 PEL moduli, CM points. Lean: **no** (very large; pkg-I1's I1-a). It must be stated so that it
 produces the fibre surface `A` as a Lean object (§6 R6). Formalized: none (Anthropic FLT has QM
 fake elliptic curves for Čerednik–Drinfeld; use for `Y₃/ℚ` unchecked). Steps A3-A6, A10.
+Locator audit (2026-11-12, `locators.md`): Deligne's §§4.9-4.17, Thm 4.21, Cor. 5.7, Ex. 5.8 (and §1.8, §§3.7-3.13,
+Thm 4.19 for the action and reciprocity) were read; printed page mapping not recovered. Verdict:
+UNVERIFIED as the full literal leaf, a qualified consequence. Thm 4.21 is the Siegel canonical
+model and Ex. 5.8 a PEL model over the reflex field `E(G,h)`; (a) still needs the lattice, the
+polarization-compatible level structure, the PEL conditions, the component convention and
+`E(G,h) = ℚ` checked (neatness alone does not give them). (c) holds on the tower: at fixed level
+only the subgroup preserving the level and the datum acts. (d) keeps the reflex-field
+qualifications. Shimura 1967 (Main Thms I-II) and Kottwitz 1992 (§5) were not read: UNVERIFIED.
 
-**R2. Baba–Granath.** `X₆/W ≅ P¹_j`, branched at `0, ∞, −16/27` with indices 4, 6, 2 at CM
-discriminants −4, −3, −24; equal polarized moduli points iff `W`-conjugate. Ref: Canad. J. Math.
-60 (2008), Thm 2.1, Lemma 3.1 (2005 preprint read by a model). E. Lean: **no** (via R1). Steps
-A2, A7.
+**R2. Baba–Granath** (restated by loc-adopt, 2026-11-12, after the locator audit). For the
+discriminant-6 curve `V = X₆` with the fixed principally polarized maximal-order datum and its
+Atkin–Lehner group `W ≅ (ℤ/2)²`: the forgetful polarized moduli space is `V/W`, and `V/W ≅ P¹_ℚ`
+with the three distinguished images rational; two points of `V` give the same polarized moduli
+point iff they are `W`-conjugate. The three branch values of the degree-4 map `V → V/W` are
+`0, ∞, −16/27` (CM discriminants −4, −3, −24), and the **ramification index of `V → V/W` is 2 at
+each of them**. The numbers `4, 6, 2` are the elliptic orders of the orbifold uniformization
+`Γ_W\ℍ → V/W` (the normalizer group), not ramification indices of the degree-4 cover. Ref:
+Canad. J. Math. 60 (2008), Thm 2.1 (p. 737), Lemma 3.1 (pp. 739-740), §3 (p. 739), the
+elliptic-order table of §3.1 (p. 740), Prop. 3.9 and Thm 3.10 (p. 744), Cor. 3.11 (p. 745), all
+read by the audit in the journal text; the 2005 preprint was not located by the audit (it had been
+read by a model earlier). Audit verdict: YES for the polarized quotient identification (a
+geometric moduli identification, not an equality of arbitrary forms over their fields of
+definition); NO for the former statement "branched with indices 4, 6, 2". Thm 2.1 and Lemma 3.1
+alone do not fix the numerical normalization of `j` (that comes from R3/R4 and the checks of F1).
+E (for the restated form). Lean: **no** (via R1). Steps A2, A7 (and A5, which uses the branch
+data of `Y₃ → P¹_j`: h-trust A5 note of 2026-11-12).
 
 **R3. Lin–Yang.** On the finite nonzero `j`-locus, the QM surface over `j` is a genus-2 Jacobian
 with `[J₂:J₄:J₆:J₁₀] = [12(j+1) : 6(j²+j+1) : 4(j³−2j²+1) : j³]`. Ref: Math. Z. 295 (2020),
-Example 30, eqs. (13)-(14) (VERIFIED in arXiv v1 by h-v14; journal numbering UNVERIFIED). E.
+775-819; arXiv:1807.00466v1 **Example 29** (pp. 20-21, discriminant 6), eqs. (13)-(14).
+Corrected 2026-11-12 (locator audit): the former locator "Example 30" is v1's example for
+discriminant 14 (p. 21 onward); h-v14 had verified the content in arXiv v1 but not the number
+(h-v14 row L719: "the published number 30 was not compared"). Journal numbering UNVERIFIED (the
+audit did not read the journal body). Alternative supplier of the tuple and of the
+finite-nonzero-`j` Jacobian assertion: Baba–Granath, Canad. J. Math. 60 (2008), Prop. 3.6, p. 742
+(read by the audit; an alternative source, not a verification of the Lin–Yang citation). The
+bracket is weighted-projective: fix the `J`/Igusa–Clebsch convention before using
+ordinary-coordinate identities. E.
 Lean: **no** (QM locus). Steps A7, F1. (The Igusa-invariant side is cheap; hdec-elementary
 proves in Lean the algebraic identity `j = 3779136·I₁₀²/I₄⁵` on its Igusa–Clebsch form of the
 locus, `HDec.j_eq_of_onQMLocus`.)
@@ -342,31 +436,54 @@ not adopted: it merges two publications.)
 *Statable consequence of R2 + R3 + R4 together* (pkg-I1's I1-b, not counted as a leaf because it
 combines three publications; rv-leaves-a: FAITHFUL but COMPOSITE, printed nowhere as one theorem,
 and its Baba–Granath citation is narrowed to Thm 2.1 and the datum of §3, not Props. 3.7-3.10;
-values, Atkin–Lehner invariance and local orders 4, 6, 2 re-checked numerically): `PkgI1.QMHauptmodul`, "`3779136·Πθ⁴/(Σθ⁸)⁵ ∘ Ω(τ)` is a Hauptmodul of
+values, Atkin–Lehner invariance and local orders 4, 6, 2 re-checked numerically; these are orbifold
+orders of `Γ*\ℍ`, consistent with the corrected R2; its Lin–Yang input is v1 Example 29, 2026-11-12): `PkgI1.QMHauptmodul`, "`3779136·Πθ⁴/(Σθ⁸)⁵ ∘ Ω(τ)` is a Hauptmodul of
 `Γ*\ℍ` with values `0, ∞, −16/27` at the CM points of discriminants −4, −3, −24", for pkg-I1's
 explicit period matrix `Ω(τ)` (numerically VERIFIED to 20-30 digits by pkg-I1). It says nothing
 about the `ℚ`-structure, which is R1.
 
-**R5. González–Rotger.** For orders `R` of conductor `f`, `(f,6)=1`, embeddable in `𝒪`:
-`#CM(R) = h(R)` and `ℚ(x)` is `H_R` or of index 2 in it. Ref: J. Math. Soc. Japan 58 (2006),
-Thm 5.12, Prop. 5.6 (VERIFIED in arXiv:math/0612732 by rv-h-cm). E (restricted to `(f,6)=1`).
-Lean: **no** (via R1). Step A10 (NoCM).
+**R5. González–Rotger** (corrected by loc-adopt, 2026-11-12, after the locator audit). On the
+Shimura curve `X₀(D,N)` of the paper (here `D = 6`, `N = 1`), for orders `R` of conductor `f`,
+`(f,6)=1`, embeddable in `𝒪`: `#CM(R) = 2^{#{p | D(R)N(R)}}·h(R)` (Prop. 5.6); a single
+specified orientation branch has `h(R)` points, the whole CM set in general does not
+(`(f,6) = 1` does not remove the factor: for `R` maximal of discriminant −19, `h(R) = 1`, 2 and 3
+are inert, and there are four CM points). Fields: `ℚ(x) = H_R` if `D(R)N*(R) ≠ 1`, otherwise
+the specified index-2 subfield of `H_R` (Thms 5.8, 5.12). Ref: J. Math. Soc. Japan 58 (2006),
+Prop. 5.6 (p. 943; arXiv v1/v2 p. 15), Thm 5.8 (pp. 943-944; v1/v2 p. 16), Thm 5.12 (p. 946;
+v1/v2 pp. 18-19), read by the audit in v1, v2 and the journal (rv-h-cm had read the arXiv text).
+These statements concern `X₀(D,N)`; they do not apply automatically to `Y₃` or to the image in the
+full Atkin–Lehner quotient (audit example: at discriminant −24 the quotient coordinate −16/27 is
+rational while the ring class field has degree 4). The former statement "`#CM(R) = h(R)`" is
+contradicted by Prop. 5.6 (audit verdict NO). The NoCM argument of h-cm (§5; rv-h-cm §3)
+already uses the count `2^b·h(𝔬)`, `b` the number of `p | 6` inert in `K`, which appears to be
+this corrected count (read in h-cm.md, not re-derived), so the error was in this leaf's statement;
+whether h-cm applies it to the right curve is for the separate review. E (in the corrected form). Lean: **no** (via R1).
+Step A10 (NoCM), whose use of the count is under separate review (h-trust A10 note of
+2026-11-12).
 
 **R6. Raynaud's criterion, Galois form.** `K` with a DVR `O`, `A/K` abelian, `m ≥ 3` invertible
 in `O`, `A[m]` rational over `K` ⇒ every inertia element satisfies `(σ−1)² = 0` on `A(K̄)[ℓⁿ]`
 for every prime `ℓ` invertible in `O`. Ref: SGA 7 I, Exp. IX, Prop. 4.7 with Prop. 3.5;
 Silverberg–Zarhin, Ann. Inst. Fourier 45 (1995), Thm 3.5 (read by a model). C (the Galois
 consequence). Lean: **yes**, `PkgI2.RaynaudCriterion`. Formalized: none. Steps D2 and A6 (Raynaud route, rv-a6-route: with SGA 7 IX 3.5).
+Locator audit (2026-11-12, `locators.md`): Silverberg–Zarhin Thm 3.5 (p. 406, citing SGA 7 IX Prop. 4.7) and Thm 3.3
+(p. 405) read; the threshold at the boundary `m = 3` (the case A6 uses) could not be confirmed
+from the display, and SGA 7 was not read: UNVERIFIED at `m = 3`. The square-zero consequence is
+conditional on it and must be quantified over every inertia element, every `ℓ ≠ p` and every `n`
+(as stated here).
 
 **R7. Serre–Tate.** (a) Néron–Ogg–Shafarevich: good reduction ⟺ inertia fixes `A(K̄)[m]` for all
 `m` invertible in `O` ⟺ for infinitely many such `m`. (b) Potential good reduction ⟺ an open
 subgroup of inertia fixes all `A(K̄)[ℓⁿ]`. Ref: Ann. of Math. 88 (1968), Thms 1, 2. E (finite-level
 forms, equivalent to the Tate-module forms). Lean: **yes**, `PkgI2.NeronOggShafarevich`,
 `PkgI2.SerreTatePotentialGood`. Formalized: elliptic curves only (Tau Ceti). Steps A6, A8, C6.
+Locator audit (2026-11-12, `locators.md`): the original was not read (UNVERIFIED). In (b) one common open subgroup of inertia
+must fix all `ℓⁿ`-torsion; a subgroup depending on `n` is much weaker.
 
 **R8. Grothendieck's semistable reduction theorem.** Abelian varieties over the fraction field of a
 henselian DVR acquire semistable reduction over a finite extension. Ref: SGA 7 I, Exp. IX,
-Thm 3.6. E. Objects: Néron models. Lean: **new defs** (Néron models, large); its Galois
+Thm 3.6 (UNVERIFIED; Silverberg–Zarhin Thm 3.4, pp. 405-406, cite it as **Prop.** 3.6: the
+number needs the SGA text, locator audit 2026-11-12). E. Objects: Néron models. Lean: **new defs** (Néron models, large); its Galois
 consequence is `PkgI2.GrothendieckMonodromy` (compiles). Needed only on h-b1's reviewed route for
 A6; pkg-I2's Raynaud route avoids it (§3 G3). That route is now reviewed (rv-a6-route: sound
 after two wording repairs) and proved in Lean (hsyn-fold: `QuatUnipotentTrivial` is now proved,
@@ -383,7 +500,9 @@ Invent. Math. 73 (1983), Satz 3, Satz 4, Korollar 1, pp. 360-361 (read by a mode
 pkg-I3 on Mathlib's group schemes (`PkgI3.AbVar`, `AbVar.T`, `AbVar.galRep`). Lean: **yes**,
 `PkgI3.FaltingsSemisimple`, `PkgI3.FaltingsTate` (the easy inclusion of (b) is proved,
 `PkgI3.range_tateHomZl_subset`, so the leaf asserts exactly the published content). Steps C2, C10,
-E1.
+E1. Locator audit (2026-11-12, `locators.md`): the original was not opened (only the erratum, Invent. Math. 75 (1984), p. 381,
+which corrects Satz 2): UNVERIFIED. The integral statement `Hom_F(A,B) ⊗ ℤ_ℓ` must not be replaced
+by the rational one.
 
 **R10. de Rham comparison.** For `F/ℚ_ℓ` finite and `A/F`, `H¹_et(A_F̄, ℚ_ℓ)` is de Rham with
 `D_dR ≅ H¹_dR(A/F)`; `V_ℓ(A)` has HT weights `0, −1`, each with multiplicity `dim A`. Ref: Scholze,
@@ -391,24 +510,49 @@ Forum Math. Pi 1 (2013), Cor. 1.8, Thms 9.1, 9.3 + corrigendum; or Faltings 1989
 (first clause); the Tate-module form stated in Lean is a consequence with T10. Lean: **yes**,
 `PkgI4.DeRhamComparison`, over pkg-I3's Tate modules (copied as `PkgI4.I3`) and pkg-I4's de Rham
 predicate (`G_F`-action on Mathlib's `BDeRham 𝓞_ℂ_p`, `D_dR`, `IsDeRhamOver`) and Hodge–Tate
-weights. Step C3.
+weights. Step C3. Locator audit (2026-11-12, `locators.md`): read in arXiv v2 (Thm 1.6, Cor. 1.8, p. 4; Thm 8.4, p. 48;
+Thms 9.1, 9.3, pp. 53-54), the journal (Thm 1.6, p. 5; Cor. 1.8, pp. 5-6; Thm 8.4, pp. 67-69;
+Thms 9.1, 9.3, pp. 74-75) and the corrigendum: YES for the filtered comparison (proper smooth
+rigid spaces over a complete discretely valued extension of `ℚ_p` with perfect residue field; no
+good-reduction or odd-`p` hypothesis); the Tate weights `0, −1` are a consequence (duality and
+Hodge dimensions).
 
-**R11. Berger.** de Rham ⇒ potentially semistable. Ref: Invent. Math. 148 (2002), Thm 0.7 (read
-by a model; arXiv v3 Thm 0.6 VERIFIED by rv-h-a011). E. Lean: alone, **new defs** (`B_st`;
+**R11. Berger.** de Rham ⇒ potentially semistable. Ref: Invent. Math. 148 (2002), Thm 0.7
+(p. 6) and Cor. 5.22 (p. 52) in the published version (read by the audit in an author-hosted copy;
+Springer pagination unread); arXiv math/0102179v3 Thm **0.6** (p. 6) and Thm 5.19 (pp. 56-57)
+(VERIFIED by rv-h-a011, read again by the audit). Theorem 0.7 of arXiv v3 is a different
+statement: cite 0.6 for v3 and 0.7 for the published text. No dimension, oddness, residual or
+odd-`p` hypothesis; the conclusion is potential semistability, not semistability over the
+original field (locator audit, 2026-11-12). E. Lean: alone, **new defs** (`B_st`;
 very large; template `PkgI4.BergerDR IsPst`); jointly with R12, **yes** (below). Step C4.
 
 **R12. Pan.** `p` odd, `ρ : G_ℚ → GL₂(ℚ̄_p)` continuous irreducible, finitely ramified,
 potentially semistable at `p`, odd, distinct HT weights (residual clause at `p = 3`) ⇒ there are a
 normalized eigenform `g` and a continuous character `ψ` with `tr ρ(Frob_v) = ψ(Frob_v)·ι(a_v(g))`
 for almost all `v`. Ref: JAMS 35 (2022), Thm 1.0.4 (arXiv v2 statement VERIFIED by h-a011). C
-(the trace reading; every reading in the literature implies it; §6 R2). Lean: alone, template
+(the trace reading; every reading in the literature implies it; §6 R2). Locator audit
+(2026-11-12): arXiv v2 Thm 1.0.4 (p. 5) with Conj. 1.0.1 (p. 2) and the conventions (pp. 6-7)
+read; the JAMS number and page are UNVERIFIED. At `p = 3` the hypothesis must keep Pan's local
+residual exception (the semisimplified local residual representation is not `η ⊕ ηω`); there is
+no such proviso at `p = 5`, the prime C7 uses. Pan uses geometric Frobenius and cyclotomic HT
+weight −1, so the arithmetic-Frobenius trace form stated here is a consequence after dualization
+and an adjusted twist; the printed conclusion is a cuspidal eigenform up to twist, and the trace
+form needs the attached representation (R14). CONSEQUENCE of v2, not a check of the journal
+number. Lean: alone, template
 `PkgI4.PanFor IsPst` (missing only `IsPst`); jointly with R11, **yes**: `PkgI4.PanBerger`, Pan's
 theorem with "de Rham at `p`" in place of "potentially semistable at `p`", the form N5 uses
 (a consequence of R11 + R12, not a merged leaf: both are counted). Step C7.
 
 **R13. Hodge–Tate weights of eigenforms, every level.** `ρ_{g,ι}` for a weight-`k ≥ 2` eigenform
-of any level is HT at `ℓ` with weights `{0, 1−k}` (Tate normalization). Ref: Saito, Invent. Math.
-129 (1997); or Kato, Astérisque 295 (2004), §9.4; or Faltings 1987. C (normalization; rv-h-c8 R1).
+of any level is HT at `ℓ` with weights `{0, 1−k}` (Tate normalization). Ref: Kato, Astérisque 295
+(2004), §§9.2-9.4, especially (9.2.2), pp. 187-188, with §§6.3, 8.3 (pp. 161-162, 181-182),
+§§11.3-11.4 (pp. 205-207), §14.10.2-3 (p. 240), read by the audit: the **all-level supplier**
+for cusp forms and newforms (no `p ∤ N` restriction; bad reduction through semistable models over
+finite extensions, `p = 2` included), with the cohomological realization dualized to the Tate
+weights `{0, 1−k}`. General cuspidal eigenforms need the reduction from old to new eigensystems;
+Eisenstein series need their two-character construction or must be excluded; weight one is
+outside R13. Saito, Invent. Math. 129 (1997): body unread, UNVERIFIED (locator audit,
+2026-11-12); Faltings 1987 not audited. C (normalization; rv-h-c8 R1).
 Lean: **yes**, `PkgI4.EigenformHT` (Hodge–Tate multiplicities by Tate–Sen, `PkgI4.HasHTWeights`,
 cyclotomic weight −1). Step C8.
 
@@ -417,16 +561,35 @@ every `ℓ` and embeddings, a continuous semisimple `ρ : G_ℚ → GL₂(ℚ̄_
 with `tr ρ(Frob_p) = a_p` for `p ∤ Nℓ`. Ref: Shimura 1971, Thm 7.14 (`k=2`); Deligne, Sém.
 Bourbaki 355 (1971) (`k ≥ 2`); Deligne–Serre 1974 (`k=1`). C. Lean: **yes**,
 `HSyn.EigenformRepExists`. Formalized: none (Anthropic FLT has mod-p versions). Steps C8, C10.
+Locator audit (2026-11-12, `locators.md`): Deligne exp. 355 §§3.9-3.12, Prop. 4.8, Thm 4.9 and Deligne–Serre Thm 4.1
+(pp. 513-514) read; Shimura 1971 Thm 7.14 unread. CONSEQUENCE, citation chain partly UNVERIFIED:
+the semisimple 2-dimensional form needs eigen-isotypic extraction, algebraicity, scalar extension
+and semisimplification; geometric versus arithmetic Frobenius must be explicit; no `ℓ = 2`
+exclusion was found. For Eisenstein series "every normalized eigenform" needs the reducible
+construction, or the leaf must be restricted to cusp forms (a statement check, WP13; the Lean
+statement is not changed here).
 
 **R15. Deligne–Serre, finite image.** A semisimple `ρ` attached to a weight-1 eigenform has finite
 image. Ref: Ann. Sci. ÉNS 7 (1974), Thm 4.1 (with T25 to pass from an eigenform to a newform, and T18, T19 for "every semisimple `ρ`
 with these traces"; if the printed Thm 4.1 covers every eigenform of the `T_p`, `p ∤ N`, T25 is
-not needed: UNVERIFIED). C. Lean: **yes**, `HSyn.DeligneSerreConseq`. Step C8.
+not needed: UNVERIFIED). C. Lean: **yes**, `HSyn.DeligneSerreConseq`. Step C8. Locator audit (2026-11-12, `locators.md`):
+Thm 4.1 (pp. 513-514), §3.1 with Lemma 3.2 and Remark 3.4 (p. 513), Remark 4.3 (p. 514) read.
+Thm 4.1 starts from a nonzero weight-one eigenform with odd nebentypus (cuspidality not needed
+for existence) and gives finite image with arithmetic Frobenius explicit; the transfer to every
+semisimple `ℓ`-adic representation with these traces uses Lemma 3.2 (Chebotarev and
+Brauer–Nesbitt). Semisimplicity cannot be dropped. CONSEQUENCE.
 
 **R16. Eichler–Shimura in `J₁(N)`.** For a weight-2 newform `f` of level `N`, `V_ℓ(J₁(N)) ⊗ ℚ̄_ℓ`
 has a `G_ℚ`-stable 2-dimensional subquotient with `tr Frob_p = ι(a_p(f))`, `p ∤ Nℓ`. Ref: Shimura
 1971, Thm 7.9, §7; Shimura 1973, Thm 1. C. Lean: **no** (`X₁(N)`, `J₁(N)` over `ℚ`). Formalized:
-Lean Pool has Eichler–Shimura for `Γ₀(N)` (cohomological form). Step C9.
+Lean Pool has Eichler–Shimura for `Γ₀(N)` (cohomological form). Step C9. Locator audit (2026-11-12, `locators.md`):
+Shimura 1973 Thm 1 (pp. 526-527), §0 and Thm 2 read; Shimura 1971 Thm 7.9 unread. Thm 1 gives the
+`ℚ`-rational quotient `A_f`, its coefficient-field action and dimension for
+`Γ₁(N) ⊂ Γ ⊂ Γ₀(N)`; its total Euler-factor clause has an extra `Γ₀`/Fricke-stability condition,
+which must not be attached to the unconditional clauses nor dropped when that clause is used.
+The rank-2 realization for an individual embedding and the Frobenius–Hecke relation must still be
+supplied (divisibility of the total characteristic polynomial is not enough). CONSEQUENCE with an
+incompletely sourced realization bridge.
 
 **R17. Carayol.** For a weight-2 newform of level `N` and `p ≠ ℓ`, the Artin conductor exponent
 of `ρ_{f,λ}|G_{ℚ_p}` is `v_p(N)`. Ref: Ann. Sci. ÉNS 19 (1986), Théorème (A). C. Lean: **new
@@ -434,28 +597,60 @@ defs** (conductor of an ℓ-adic representation; medium; template `PkgI4.Carayol
 unramified case is stated, `PkgI4.CarayolUnramified`, but D5 needs `p | N`. Step D5. Update
 (hsyn-fold): def-ladic-cond defines the conductor exponent over `G_{ℚ_p}` and states R17 as
 `CarayolR17` in `scratch/def-ladic-cond/LadicCond.lean` (compiles; not yet in `Leaves.lean`, where
-R17 is still a placeholder).
+R17 is still a placeholder). Locator audit (2026-11-12, `locators.md`): §§0.3-0.8 and Théorème A (pp. 409-411) read. Coverage
+YES for `p | N` and for coefficient characteristic `ℓ = 2` (every finite `p` and every
+coefficient place of different residue characteristic); the extra discrete-series hypothesis is
+only for totally real `F` of even degree, not `ℚ`. Combine with the newform conductor
+`a(π_p) = v_p(N)` and identify the realization; contragredient and norm twists do not change the
+conductor. Do not replace Théorème A by Théorème B or by the `Γ₀` elliptic corollary.
+CONSEQUENCE.
 
 **R18. Javanpeykar.** `h_F(Jac X) ≤ 13·10⁶·g·d⁵` for `X/ℚ̄` of genus `g ≥ 1` with a Belyi map of
-degree `d`. Ref: Algebra Number Theory 8 (2014), Thm 1.1.1 (read by a model). E. Lean: **no**
+degree `d`. Ref: Algebra Number Theory 8 (2014), Thm 1.1.1 (p. 90; arXiv v1 p. 1) with the
+height identification (p. 98; arXiv §2.3, p. 9), read by the audit: stable Jacobian height, no
+field-degree factor, no semistability over the original field; any Belyi map of degree `d`
+bounds the minimal Belyi degree. CONSEQUENCE (audit) of the printed bound; the inequality itself
+is as printed. Lean: **no**
 (Faltings height). Step E2.
 
 **R19. Gaudron–Rémond.** Isogeny of degree `≤ ((14g)^{64g²}[K:ℚ]max(h_F(A), log[K:ℚ], 1)²)^{1024g³}`.
-Ref: Duke Math. J. 163 (2014), Thm 1.4 (read by a model). E. Lean: **no**. Step E3.
+Ref: Duke Math. J. 163 (2014), Thm 1.4 (p. 2060), with `κ` and `α(g) = 1024g³` (p. 2058) and the
+pair convention (p. 2059), read by the audit in a typeset author copy of the journal text: YES
+with the number-field hypotheses. `κ(A) = ((14g)^{64g²}[k:ℚ]max(h_F(A), log[k:ℚ], 1)²)^{1024g³}`;
+the theorem gives a `K`-isogeny in each direction, each of degree `≤ κ(A)` (for a pair, the
+maximum, not the product); specialize `k = K`; stable original-Faltings normalization; no
+principal polarization or simplicity hypothesis. E. Lean: **no**. Step E3.
 
 **R20. Faltings' height lemma.** `|h_F(A) − h_F(B)| ≤ ½ log deg φ`. Ref: Faltings 1983, Lemma 5;
-Raynaud, Astérisque 127 (1985), VII Cor. 2.1.3. E. Lean: **no**. Step E4. (Additivity and
+Raynaud, Astérisque 127 (1985), VII Cor. 2.1.3. E. Lean: **no**. Step E4. Locator audit
+(2026-11-12): Lemma 5 unread (Pazuki's Remark 2.3 points to p. 358, a secondary locator):
+UNVERIFIED, including the direction and the stable/semistable hypotheses. (Additivity and
 invariance under base change of the stable height follow from the definition: glue.)
 
 **R21. Bost.** `h_F(A) ≥ −(3/2)dim A`. Ref: Bost, Sém. Bourbaki 795 (1996), via Gaudron–Rémond
-2014 §9 (read by a model). C (weaker constant). Lean: **no**. Step E4.
+2014 §9 (read by a model). C (weaker constant). Lean: **no**. Step E4. Locator audit
+(2026-11-12): Bost's §2.1.3, Thm 2.1(i), Prop. C.2 identified but the decisive displays were
+unreadable: UNVERIFIED from Bost. Gaudron–Rémond §9 (proof of Lemma 9.1, p. 2098) uses
+`−(3/2)dim A` (read), which verifies their published use, not Bost's constant. Conditional on a
+Deligne-normalized bound `h_D ≥ −(g/2)log(2π)`, one gets `h_F ≥ −(g/2)log(2π²) > −(3/2)g`.
 
 **R22. Pazuki.** `h_Θ(A) ≤ ½X_D + C₂ log(X_D+2)` for principally polarized abelian surfaces,
 `C₂ = 1000·2⁴(log 2⁴)⁵`, used in the hardened form `X_D = max(1, h_F(A) + 3)` (rv-leaves-a §3.3: the
 `log π` shift of Deligne's normalization is UNVERIFIED for Pazuki; `+3` covers every shift `≤ 3`,
 and the final constant is unchanged, proved in Lean, `GlueAssembly.pazuki_numerics`). Ref: Bull.
 SMF 140 (2012), Cor. 1.3(2) (read by a model). C (hardened). Lean:
-**no** (Faltings height, theta constants). Step F3.
+**no** (Faltings height, theta constants). Step F3. Locator audit (2026-11-12): read in arXiv v2
+(Cor. 1.3(2), p. 3; metric, Def. 2.1, pp. 6-7; theta height, Def. 2.6, p. 9; Lemma 5.7, p. 20)
+and in the journal (Cor. 1.3, pp. 21-22; metric p. 26; theta height p. 30; Lemma 5.7 p. 43).
+CONSEQUENCE, not the literal corollary: the corollary bounds the truncated heights,
+`|max(1,h_Θ) − max(1,h_D)/2| ≤ C₂ log(min(max(1,h_Θ), max(1,h_D)) + 2)`, with
+`C₂(g,r) = 1000r^{2g}(log r^{2g})⁵` (`g = r = 2` gives the constant above), for the paper's
+theta (Fubini–Study) height and **Deligne's metric**, for which `h_D = h_F + (g/2)log π`, i.e.
+`h_D = h_F + log π` for surfaces. So `X_D` must satisfy `X_D ≥ max(1, h_D(A))`; an unshifted
+bound on `h_F` cannot be substituted. The hardened `X_D = max(1, h_F(A) + 3)` satisfies this
+(`log π < 1.15 < 3`), so the `+3` now covers a shift that the audit identified, not only a
+hypothetical one. The theta height must be identified with the project's coordinate height
+(glue).
 
 ### §2.2 Textbook foundations (route P)
 
@@ -476,7 +671,7 @@ SMF 140 (2012), Cor. 1.3(2) (read by a model). C (hardened). Lean:
 | T11 | Riemann/GAGA/rigidity: `End⁰(A_ℂ)` = Hodge endomorphisms, `Hom_ℚ̄ = Hom_ℂ` | Mumford §§1-3; Serre 1956; Conrad 2006 | E | new defs (analytification; large) | Tau Ceti: Riemann forms |
 | T12 | Artin comparison with complex conjugation | SGA 4 XI 4.4 | E | new defs (as T11) | none |
 | T26 | `T_ℓ(A)` free of rank `2 dim A` over `ℤ_ℓ`, `ℓ ≠ char` | Mumford §§4, 18-19 | E | yes, `PkgI3.TateModuleFree` | none |
-| T27 | QM dichotomy: a quaternion division algebra in `End⁰` of an abelian surface over `k = k̄`, char 0, forces `End⁰ ≅ B` or `M₂(ℚ(√d))`, `d < 0` | no single locator (rv-leaves-b): Mumford §19 Thm 1, Cor. 2, §21 (`[D:ℚ] ∣ 2g`, char 0), §22 (Albert), with Silverman AEC III.9.4 | C | yes, `PkgI3.QMDichotomy` | none |
+| T27 | QM dichotomy: an **indefinite** quaternion division algebra `B` in `End⁰` of an abelian surface over `k = k̄`, char 0, forces `End⁰ ≅ B` (`A` simple) or `M₂(ℚ(√d))`, `d < 0`, `ℚ(√d)` splitting `B` (`A` not simple) | **Chia-Fu Yu, *Endomorphism algebras of QM abelian surfaces*, J. Pure Appl. Algebra (2013), Thm 1.1 (journal p. 907; arXiv:1210.1125 v1/v2 p. 1; proof Props 2.4-2.5, pp. 4-5), read by the locator audit (2026-11-12): a refereed single locator; the hypothesis "indefinite quaternion division algebra" must be kept (the broader wording "a quaternion division algebra" is not what Yu proves; whether `PkgI3.QMDichotomy` carries it is a statement check, WP13). The journal volume (217 from memory) is UNVERIFIED.** Earlier assembly (rv-leaves-b): Mumford §19 Thm 1, Cor. 2, §21 (`[D:ℚ] ∣ 2g`, char 0), §22 (Albert), with Silverman AEC III.9.4 | C | yes, `PkgI3.QMDichotomy` | none |
 | **(c) Arithmetic of ℚ** | | | | | |
 | T13 | Skolem–Noether | Reiner Thm 7.21 | E | yes, `HSyn.SkolemNoether` (also `PkgI6.SkolemNoether`) | Tau Ceti `skolemNoether` |
 | T14 | ABHN and reciprocity for `H²(G_ℚ, ℤ/2)`: injective into `∏_v H²(G_{ℚ_v}, ℤ/2)`, finite even support | Milne ADT I; Tate in C–F VII §11 | C | yes; announced in the cochain forms I6.2a′-b′ `PkgI6.BrauerHasse2C`, `BrauerReciprocity2C` (rv-leaves-b: literally Serre's definition; Mathlib does not yet compare its `continuousCohomology` with inhomogeneous cochains), which the bundle now uses; also `PkgI6.BrauerHasse2`, `PkgI6.BrauerReciprocity2`; the finite-places cochain form used by glue-descent, `GlueDescent.B2Q.LeafHasse`, is a consequence (with T15 at `∞`); algebra form `HSyn.HasseBrauerQ` also compiles | Tau Ceti (Br forms `brLocalization_injective`, `sumLocalInv_brLocalization_eq_zero`); the `H²` bridge not located |
@@ -512,7 +707,8 @@ SMF 140 (2012), Cor. 1.3(2) (read by a model). C (hardened). Lean:
   Outside `Leaves.lean`: R17 has a concrete statement in `scratch/def-ladic-cond/` (would make 41).
 - New definitions needed: medium for R17 (done in def-ladic-cond, not folded in); large for T10,
   T11, T12; very large for R1-R3, R5 (QM moduli), R16, R18 (`J₁(N)`), R18-R22 (Faltings height).
-- Route K (§1): 20 research leaves.
+- Route K (§1): 20 research leaves (19 if K4 is dropped, since the locator audit of 2026-11-12
+  read Carayol's Théorème A as covering `ℓ = 2`).
 - Not leaves: one named glue Prop that proved theorems take as hypothesis,
   `GlueI3.SemisimpleBaseChange` (C2, E1), elementary algebra (WP3); `PkgI2.QuatUnipotentTrivial` is
   now the theorem `PkgI2.quatUnipotentTrivial`. In the merged reports outside `Leaves.lean`:
@@ -647,6 +843,21 @@ G15), both new (hdec-elementary §2.2), verified as arguments by one adversarial
   Lemma 5 in inequality form (all model readings only), and T27, the QM dichotomy, which has no single
   locator: cite Mumford §19 Thm 1, Cor. 2, §21, §22 and Silverman AEC III.9.4 together
   (rv-leaves-b), or announce it as glue over them.
+  *Update (locator audit, 2026-11-12, `locators.md`; AI agents with web access).* Read in the
+  primary texts: Baba–Granath (journal; R2 restated: index 2 at each branch value of `V → V/W`,
+  `4, 6, 2` are orbifold orders), Lin–Yang arXiv v1 (R3 is **Example 29**, not 30; journal still
+  unread), González–Rotger (R5 corrected: orientation factor `2^{#{p | D(R)N(R)}}`), Carayol
+  (covers `p | N` and `ℓ = 2`), Javanpeykar, Gaudron–Rémond (constants as stated, pair degree
+  the maximum), Pazuki (a consequence; Deligne's metric, `h_D = h_F + log π` for surfaces,
+  `X_D ≥ max(1, h_D)`; the hardened `+3` covers it), Berger (v3 Thm 0.6, published Thm 0.7), Kato
+  (R13, all levels), Deligne–Serre, Shimura 1973, Scholze, and T27 (**Chia-Fu Yu 2013, Thm 1.1**,
+  a single refereed locator, with "indefinite" kept). Still UNVERIFIED after the audit: Pan's
+  JAMS number (arXiv v2 read, with the `p = 3` exception), Lin–Yang's journal number, Igusa's
+  signs and conversion (R4), the `m = 3` boundary of Raynaud's criterion (R6), Serre–Tate (R7),
+  SGA 7 (R8, K4), Faltings 1983 (R9, R20), Bost's constant (R21), Shimura 1967, Kottwitz,
+  Saito 1997, Shimura 1971, Ribet's refereeing (K2, now avoidable through Kisin 2009 Cor. 0.3)
+  and Ribet 1975/1980 (K3). Two leaves were wrong as stated (R2, R5) and are corrected in §2;
+  the uses in the glue are under a separate review.
   Refereed sources for R14 (`k ≥ 2`), R21 and the SGA-cited leaves, or an explicit policy that
   Séminaire Bourbaki and SGA count as refereed.
 - **R2. Leaves at risk of being stronger than published.** Pan's conclusion "comes from a cuspidal
@@ -656,6 +867,13 @@ G15), both new (hdec-elementary §2.2), verified as arguments by one adversarial
   published statements (pkg-I2's derivations), T27 is a consequence assembled from Mumford §§19,
   21-22, and R4 is stated as the transformation law, not as Igusa's identity; each derivation must
   be recorded with its proof. R1 is assembled from several statements of Shimura and Deligne.
+  *Update (locator audit, 2026-11-12).* Two leaves were stronger than (indeed contradicted by)
+  the published text and are corrected in §2: R2 (the indices `4, 6, 2` are orbifold orders; the
+  degree-4 cover has index 2) and R5 (the CM count carries the orientation factor). Further
+  qualifications to keep in the statements: T27 needs "indefinite" (Yu 2013); R14 "every
+  eigenform" needs the Eisenstein (reducible) case or a cusp-form restriction; R12 needs Pan's
+  `p = 3` exception and the Frobenius/dualization conventions; R16 must not inherit the Fricke
+  condition of Shimura 1973's zeta clause; R22 is a consequence for `X_D ≥ max(1, h_D)`.
 - **R3. Unreviewed new lemmas.** In route P: pkg-I2's Raynaud route for G3 (drops R8, R7b, T3)
   now has one adversarial model review (rv-a6-route: sound after repairs) and a complete Lean
   proof from its three leaves (`QuatUnipotentTrivial` proved by glue-a6-alg, 2026-11-12), and no

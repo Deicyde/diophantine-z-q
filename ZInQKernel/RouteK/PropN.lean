@@ -22,13 +22,16 @@ Design: `docs/research/pn-design.md`. Main steps:
 
 * `lemmaN1_core`, `lemmaN1` — Lemma N1: `𝓛(m) ≡ Λ(m) (mod 2)` for squarefree `m ≡ 1, 3`, where
   `Λ` (`Lam`, nt-tyz §4.3) is a sum over set partitions of the primes of `m`; `lemmaN1_core` is
-  the combinatorial identity, `lemmaN1` the uniqueness induction from Lemma 2.8;
+  the combinatorial identity, `lemmaN1` the uniqueness induction from Lemma 2.9 (the hypothesis
+  `LemmaTwoEight`, whose name is historical: it encodes TYZ's convolution Lemma 2.9, and TYZ's
+  Lemma 2.8 is the symmetry lemma; locator corrected 2026-11-12 after
+  `docs/research/locators.md`);
 * `lemmaN2` — Lemma N2 in its `𝓛`-form: `P(n) = Σ_e 𝓛(n/e) Z(e) + 2X`;
 * `finalStep` — §4.4: if `𝓛(n) = 0`, the integers `Σ_{e≡5} 𝓛(n/e) g(e)` and
   `Σ_{e≡7} 𝓛(n/e) g(e)` are even;
 * `matching` — `Σ_{e≡5} Λ(n/e) g(e) = T5aCl n` and `Σ_{e≡7} Λ(n/e) g(e) = T5bCl n` in `𝔽₂`;
 * `genusSums_eq_zero`, `tyzRow5b_of_tyzInputs`, `tyzThm35ReadingA_of_tyzInputs` (reading A of
-  TYZ Theorem 3.5(2), both rows), and `Witness.genusData_nonempty`,
+  TYZ Theorem 3.5(2), both rows; TYZ's Theorem 1.2, journal Theorem 1.4, is not used), and `Witness.genusData_nonempty`,
   `Witness.genusData_nonempty_iff_parities` (consistency of `GenusData`: for `L n ≠ 0` it is always
   inhabited; for `L n = 0` exactly when the two parities of `finalStep` hold).
 -/
@@ -1031,7 +1034,7 @@ theorem n2_c_mod {L : ℕ → ℤ} {n : ℕ} (G : GenusData L n) (hsq : Squarefr
 /-- **Lemma N2** (`𝓛`-form): for squarefree `n ≡ 5 (mod 8)`, unwinding the recursion gives
 `P(n) = Σ_{e ∣ n, e ≡ 5, 7} 𝓛(n/e) Z(e) + 2X` with `X ∈ M` (the span of `A[(1+i)³]` and the
 `Z(e)` in `A(ℍ'_n)`, so finalStep needs no action of `β'` beyond `M`). Uses only `recursion`,
-`eps_53`, `eps_pm1` and `L 1 = 1`; no Lemma 2.8. (Inductive identity: for `d ∣ n`, `d ≡ 5, 7`,
+`eps_53`, `eps_pm1` and `L 1 = 1`; no Lemma 2.9. (Inductive identity: for `d ∣ n`, `d ≡ 5, 7`,
 `P(d) ≡ Σ_e φ(d, e) 𝓛(d/e) Z(e)` mod `2M`, with `φ = i` for `(d, e) ≡ (7, 5)` and `1` otherwise;
 the induction step pairs `d₁ ↔ (d/e)/d₁`.) -/
 theorem lemmaN2 {L : ℕ → ℤ} {n : ℕ} (G : GenusData L n) (hn : n % 8 = 5) (hsq : Squarefree n)
@@ -1384,7 +1387,8 @@ theorem div_mod8_of {m d a b : ℕ} (hd : d ∣ m) (hm : m % 8 = a) (hdb : d % 8
   rcases hb with hb | hb | hb | hb <;> rw [hb] at h ⊢ <;>
     interval_cases hq : m / d % 8 <;> omega
 
-/-- **Lemma N1**: `𝓛(m) ≡ Λ(m) (mod 2)` for squarefree `m ≡ 1, 3 (mod 8)`. -/
+/-- **Lemma N1**: `𝓛(m) ≡ Λ(m) (mod 2)` for squarefree `m ≡ 1, 3 (mod 8)`, from `L 1 = 1` and
+`LemmaTwoEight` (TYZ Lemma 2.9 with Proposition 2.3, modulo 2). -/
 theorem lemmaN1 {L : ℕ → ℤ} (h1 : L 1 = 1) (h2 : LemmaTwoEight L) :
     ∀ m : ℕ, Squarefree m → (m % 8 = 1 ∨ m % 8 = 3) → ((L m : ℤ) : ZMod 2) = Lam m := by
   obtain ⟨c1, c2, c3⟩ := lemmaN1_core
