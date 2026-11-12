@@ -21,3 +21,7 @@
 - `isDomain_tilt` (from Mathlib `PreTilt.isDomain` with `(PadicComplex.valued p).v`), `isDomain_away`
   (W(𝓞_ℂ_p♭)[1/p] domain), `xi_ne_zero`, `xi'_mem_nonZeroDivisors`: COMPILE, standard axioms (VERIFIED).
 - NOT PROVED: BDeRhamPlus is a DVR with uniformizer ξ; BDeRham is its fraction field / a field.
+- `ofPlus_xi'_pow_ne_zero` (ξ not nilpotent in BDeRhamPlus, via `evalₐ (n+1)`), `nontrivial_away_xi`,
+  **`nontrivial_BDeRham : Nontrivial (BDeRham 𝓞_ℂ_[p] p)`**: COMPILE, standard axioms (VERIFIED).
+- Final check: `lake env lean scratch/bdr-kertheta/KerTheta.lean` — no errors, no warnings except none
+  reported; all #print axioms = [propext, Classical.choice, Quot.sound] (VERIFIED).

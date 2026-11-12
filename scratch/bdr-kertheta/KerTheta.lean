@@ -623,6 +623,41 @@ theorem xi'_mem_nonZeroDivisors :
     xi' p ∈ nonZeroDivisors (Localization.Away (p : WittVector p (PreTilt O p))) :=
   mem_nonZeroDivisors_of_ne_zero (xi'_ne_zero p)
 
+/-! ### Non-triviality: `ξ` is not nilpotent in `B_dR^+`, so `B_dR = B_dR^+[1/ξ] ≠ 0`. -/
+
+theorem ofPlus_xi'_pow_ne_zero (n : ℕ) : ofPlus O p (xi' p) ^ n ≠ 0 := by
+  intro h
+  set I := RingHom.ker (fontaineThetaInvertP O p)
+  have h1 : AdicCompletion.evalₐ I (n + 1) (AdicCompletion.of I _ (xi' p ^ n)) = 0 := by
+    have e : AdicCompletion.of I _ (xi' p ^ n) = ofPlus O p (xi' p) ^ n :=
+      show algebraMap _ (AdicCompletion I _) (xi' p ^ n) = _ from map_pow _ _ _
+    rw [e]; exact (congrArg _ h).trans (map_zero _)
+  have hI : I = span {xi' p} := ker_fontaineThetaInvertP_Cp p
+  rw [AdicCompletion.evalₐ_of, Ideal.Quotient.eq_zero_iff_mem, hI,
+    Ideal.span_singleton_pow, Ideal.mem_span_singleton'] at h1
+  obtain ⟨c, hc⟩ := h1
+  have hx := xi'_ne_zero p
+  have h2 : c * xi' p = 1 := by
+    have : xi' p ^ n * (c * xi' p - 1) = 0 := by linear_combination hc
+    rcases mul_eq_zero.mp this with h | h
+    · exact absurd (pow_eq_zero_iff'.mp h).1 hx
+    · exact sub_eq_zero.mp h
+  have h3 : RingHom.ker (fontaineThetaInvertP O p) = ⊤ := by
+    rw [ker_fontaineThetaInvertP_Cp, Ideal.span_singleton_eq_top]
+    exact isUnit_iff_exists_inv.mpr ⟨c, by rw [mul_comm]; exact h2⟩
+  exact (ker_fontaineThetaInvertP_isMaximal p).ne_top h3
+
+instance nontrivial_away_xi : Nontrivial (Localization.Away (ofPlus O p (xi' p))) := by
+  refine ⟨0, 1, fun h => ?_⟩
+  have h' : algebraMap (BDeRhamPlus O p) (Localization.Away (ofPlus O p (xi' p))) 1 = 0 := by
+    rw [map_one]; exact h.symm
+  obtain ⟨⟨_, k, rfl⟩, hk⟩ := (IsLocalization.map_eq_zero_iff (Submonoid.powers (ofPlus O p (xi' p))) _ _).mp h'
+  exact ofPlus_xi'_pow_ne_zero p k (by simpa using hk)
+
+/-- **`BDeRham 𝓞_ℂ_[p] p` is not the zero ring.** -/
+theorem nontrivial_BDeRham : Nontrivial (BdR O p) :=
+  (bdREquivAway p).symm.injective.nontrivial
+
 end BdrKer.Cp
 
 #print axioms BdrKer.Cp.ker_fontaineTheta_Cp
@@ -631,6 +666,7 @@ end BdrKer.Cp
 #print axioms BdrKer.Cp.bdREquivAway
 #print axioms BdrKer.Cp.ker_fontaineThetaInvertP_isMaximal
 #print axioms BdrKer.Cp.xi'_mem_nonZeroDivisors
+#print axioms BdrKer.Cp.nontrivial_BDeRham
 
 #print axioms BdrKer.ker_fontaineTheta_eq_span
 #print axioms BdrKer.isUnit_xi_BDeRham
