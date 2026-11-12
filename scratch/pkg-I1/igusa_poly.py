@@ -20,10 +20,13 @@ def rand_sextic():
     while True:
         c = [random.randint(-9, 9) for _ in range(7)]
         f = sum(ci*x**i for i, ci in enumerate(c))
-        if sp.degree(f, x) >= 5 and sp.discriminant(f, x) != 0: return c
+        if (c[6] != 0 or c[5] != 0) and pari("poldisc(" + sp.sstr(f).replace("**", "^") + ")") != 0: return c
 polys = {}
 idx = {2: 0, 4: 1, 6: 2, 10: 4}
-for k in (1, 2, 3, 5):
+gen6 = sum(a[i]*x**i for i in range(7))
+polys[10] = sp.expand(256*sp.discriminant(gen6, x))   # J10 = 2^8 disc (binary-form disc; PARI normalizes via 4f)
+print(f"J10 := 2^8 * disc(generic sextic): {len(sp.Poly(polys[10], *a).terms())} terms")
+for k in (1, 2, 3):
     B = mons(2*k, 6*k)
     rows, rhs = [], []
     while len(rows) < len(B) + 15:
@@ -58,3 +61,20 @@ with open('scratch/pkg-I1/igusa_polys.txt', 'w') as fh:
     for w in (2, 4, 6, 10):
         fh.write(f"J{w} = {sp.sstr(polys[w])}\n")
 print("written igusa_polys.txt")
+# degree-5 check: y^2 = x^5 - 1 gives J10 = 800000 = 2^8 * 5^5 in PARI
+assert polys[10].subs({a[0]: -1, a[1]: 0, a[2]: 0, a[3]: 0, a[4]: 0, a[5]: 1, a[6]: 0}) == 800000
+assert igusa([-1, 0, 0, 0, 0, 1, 0])[4] == 800000
+print("degree-5 example x^5 - 1: J10 = 800000 (PARI agrees)")
+# Lean code
+def lean_expr(P):
+    terms = []
+    for mon, cf in sp.Poly(P, *a).terms():
+        m = " * ".join(f"a {i}" + (f" ^ {e}" if e > 1 else "") for i, e in enumerate(mon) if e > 0)
+        cf = sp.Rational(cf)
+        assert cf.q == 1
+        terms.append(f"({cf.p} : K) * {m}")
+    return " +\n    ".join(terms)
+with open('scratch/pkg-I1/igusa_lean.txt', 'w') as fh:
+    for w in (2, 4, 6, 10):
+        fh.write(f"def J{w} (a : Fin 7 → K) : K :=\n    {lean_expr(polys[w])}\n\n")
+print("written igusa_lean.txt")

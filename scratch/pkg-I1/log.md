@@ -46,3 +46,21 @@ SPECULATIVE. Locators from memory: UNVERIFIED.
   `Ju_ne_branch` (J(u) ≠ −16/27 for all u ∈ ℚ), `cm4`, `cm3`, `cm24` (i+j, (1+j)/2, μ ∈ 𝒪 with
   x² = −1, x² − x + 1 = 0, x² = −6), `elkies_t` (1 + 27J/16 = H²/G⁶), `elkies_t_sub_one`
   (27J/16 = −3(180F/G³)²).
+
+## Step 4 (Igusa invariants; script `igusa_poly.py`, outputs `igusa_polys.txt`, `igusa_lean.txt`)
+- J2, J4, J6 of y² = Σaᵢxⁱ in PARI's `genus2igusa` normalization: exact interpolation on isobaric
+  monomials (4, 18, 58 monomials; 4, 18, 53 nonzero terms). J10 := 2⁸·disc(generic sextic), 246
+  terms. All four agree with PARI on 10 fresh random sextics; x⁵ − 1 gives J10 = 800000 in both;
+  the law J_{2k}(e·f|M) = (e·det³M)^{2k}J_{2k}(f) holds on one sample (VERIFIED).
+- Recalled "Baba–Granath family" y² = (−4+3s)x⁶ + 6tx⁵ + 3t(28+9s)x⁴ − 40t²x³ + 3t²(28−9s)x² +
+  6t³x − t³(4+3s): its Igusa invariants J2 = 192t³(144s² + 115t − 1216), … The resultants
+  eliminating j from the Lin–Yang relations have common factor only (144s² + 115t − 1216)², i.e.
+  J2 = 0. So the recalled formula is not a QM family in this form (recollection wrong; not used).
+- I1.lean §9: J2, J4, J6 explicit; J10 via `j10Data` (a list of 246 monomials; the direct expression
+  hit max recursion depth); `sexticAct`; LEAF `IgusaClebschSeparation`; `lyVec`; glue
+  `equiv_of_lyVec` (proved). Spot checks against PARI: `norm_num` (J2-J6), `decide +kernel` (J10).
+- Whole file: no errors, no sorry, ~20 s. `#print axioms` for gram_det, thetaRatio_invariant,
+  f1_algebra, Ju_ne_branch, elkies_t_sub_one, equiv_of_lyVec: [propext, Classical.choice, Quot.sound].
+
+## Step 5
+- docs/research/pkg-I1.md written (leaves I1-a … I1-g, glue table, assessment).
