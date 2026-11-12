@@ -2,7 +2,7 @@
 
 Status: research note (task glue-I6-rest, 2026-11-11). Lean files: `scratch/glue-I6-rest/I6Base.lean`
 (pkg-I6's `I6.lean` copied, plus glue), `scratch/glue-I6-rest/Conductor.lean` (D4) and
-`scratch/glue-I6-rest/SqrtChar.lean`. Results log:
+`scratch/glue-I6-rest/SqrtChar.lean` and `scratch/glue-I6-rest/Inflation.lean`. Results log:
 `scratch/glue-I6-rest/log.md`. No file under `ZInQKernel/`, `blueprint/`, or another task's
 notes or scratch directory was edited.
 
@@ -12,11 +12,13 @@ Marks: **VERIFIED** means compiled or read in a source. **STANDARD** means a pub
 ## Verdict
 
 **Three of the six glue items are proved in Lean: D3, D4 and the Galois theory for `e ≤ a!`.
-A fourth, the square-root criterion, is proved in its group-theoretic core.** The proofs have no
-`sorry`, and `#print axioms` shows only `propext`, `Classical.choice` and `Quot.sound` (VERIFIED:
-`lake env lean` on the three files, 22:28, 22:31 and 22:34 PST, no errors). Two items remain
-open: cyclic inflation and Frobenius density. So does the local-field part of the square-root
-criterion.
+Two more are proved in their finite-group cores: the square-root criterion and cyclic
+inflation.** The proofs have no `sorry`, and `#print axioms` shows only `propext`,
+`Classical.choice` and `Quot.sound` (VERIFIED: `lake env lean` on the four files, 22:28-22:37 PST,
+no errors). What remains open:
+- Frobenius density.
+- The local-field parts of the square-root criterion and of `[ε]_p = 0`: cyclotomic and
+  unramified extensions of `ℚ_p` and their Galois groups. Mathlib has neither.
 
 | Item | Status | Lean |
 | --- | --- | --- |
@@ -24,7 +26,7 @@ criterion.
 | D1 (a), Galois theory for `e ≤ a!` | **proved**, global form (see caveat 2) | `PkgI6.finrank_splittingField_le_factorial`, `finrank_isSplittingField_le_factorial`, `ramificationIdx_le_finrank_of_numberField`, `ramificationIdx_le_factorial` |
 | B2 square-root criterion from I6.3 | **group-theoretic core proved**; the local-field part is open | `GlueI6Rest.exists_half_iff` |
 | D4 `artinConductor_le_of_upper` | **proved**, pkg-I6's statement with fewer hypotheses | `PkgI6.artinConductor_le_of_upper` (`Conductor.lean`) |
-| B2 `[ε]_p = 0` at unramified `p` (cyclic inflation) | open | — |
+| B2 `[ε]_p = 0` at unramified `p` (cyclic inflation) | **finite-group core proved** (inflation `ℤ/f → ℤ/2f` kills `H²(−, M)` when `2M = 0`, on cochains); the local-field part is open | `GlueI6Rest.inflation_two_eq_coboundary` |
 | C10 Frobenius density in `G_ℚ` from I6.4 | open | — |
 
 ## 1. What is proved
@@ -76,6 +78,17 @@ All statements are over pkg-I6's definitions or over Mathlib objects. The leaf h
 
    (VERIFIED)
 
+7. **`inflation_two_eq_coboundary` (B2, `[ε]_p = 0`, finite part), in `Inflation.lean`.**
+   - Let `M` be abelian with `2M = 0`, and let `c` be an inhomogeneous 2-cocycle of `ℤ/f` with
+     trivial action.
+   - Then its pullback along `ZMod.castHom : ℤ/2f → ℤ/f` is the coboundary of
+     `h(x) = c(0,0) − Σ_{j<x.val} c(1,j)`.
+   - The proof needs no normal form for `H²(ℤ/f)`. The cocycle identity gives
+     `c(a,b) = c(0,0) − S(a) − S(b) + S(a+b)` for natural `a, b`, where `S(m) = Σ_{j<m} c(1,j)`.
+     Hence `S(m+f) = S(m) + S(f)`, and `S(m+2f) = S(m)`.
+
+   (VERIFIED)
+
 ## 2. Caveats
 
 1. In `I6Base.lean`, `artinConductor_le_of_upper` (a `theorem … := sorry` in pkg-I6) appears as
@@ -100,21 +113,17 @@ All statements are over pkg-I6's definitions or over Mathlib objects. The leaf h
 ## 3. What remains, with the reason
 
 1. D4: done (§1, item 6).
-2. **`[ε]_p = 0` at `p ∉ T` (cyclic inflation). About 200-400 lines (SPECULATIVE). Not done.**
-   On cochains (pkg-I6's `IsCocycle2`), the statement is that a 2-cocycle on the procyclic
-   quotient `G_{ℚ_p} → Gal(L_v/ℚ_p) ≅ ℤ/f` with values in `ℤ/2` becomes a coboundary on
-   `ℤ/2f`. This needs:
-   - (a) Every 2-cocycle of `ℤ/f` with trivial coefficients `ℤ/2` is cohomologous to
-     `x·carry_f(a,b)`. That is the finite-cyclic `H²`, available abstractly in Mathlib's
-     `GroupCohomology/FiniteCyclic.lean` but not on explicit inhomogeneous cochains.
-   - (b) `carry_f(a mod f, b mod f)` is a coboundary on `ℤ/2f`. Take representatives
-     `a, b ∈ [0, 2f)` and `h(a) = ⌊a/f⌋`. From `a = f·h(a) + ā` and
-     `(a+b mod 2f) = a + b − 2f·carry_{2f}(a,b)`, one gets
-     `carry_f(ā,b̄) ≡ h(a) + h(b) − h(a+b mod 2f) (mod 2)`. (VERIFIED by brute force for f = 1..12, all a, b; log.md.)
-   - (c) Continuity: the cocycle factors through a finite quotient.
+2. **`[ε]_p = 0` at `p ∉ T`: the local part.** The finite-group step is proved (§1, item 7). What
+   remains (SPECULATIVE, 200-500 lines, mostly local-field infrastructure):
+   - (a) The restriction of `ε` to `G_{ℚ_p}` factors through `Gal(L_v/ℚ_p) ≅ ℤ/f`, with an
+     identification sending Frobenius to `1`. That needs the cyclicity of unramified Galois
+     groups.
+   - (b) `G_{ℚ_p} → ℤ/f` factors through `ℤ/2f`. That needs the unramified extension of
+     degree `2f`, which Mathlib does not construct.
+   - (c) Translating between pkg-I6's `IsCocycle2` on `G_{ℚ_p}` and `IsCocycleTriv` on
+     `ZMod f` is a pullback of cochains along continuous surjections. Easy.
 
-   Part (a) is the cost. The comparison between Mathlib's homogeneous `H²` and inhomogeneous
-   cochains is not in Mathlib (pkg-I6 §2, B2, item 4).
+   The step-(b) formula checked by brute force (log.md) is subsumed by the Lean proof.
 3. **The square-root criterion beyond its core.** Two inputs remain, and both are about local
    fields. Size per pkg-I6: 500-1000 lines (SPECULATIVE).
    - (i) From I6.3: a finite-order character of `G_{ℚ_p}` factors through
@@ -151,9 +160,11 @@ All statements are over pkg-I6's definitions or over Mathlib objects. The leaf h
 | `scratch/glue-I6-rest/I6Base.lean` | Mathlib | pkg-I6 `I6.lean` (leaves, definitions, its proved glue), `exists_sq_eq_one_add` (from glue-conductor), `sq_principalUnits`, the `e ≤ a!` chain, `ArtinConductorLeOfUpper` as a Prop | none |
 | `scratch/glue-I6-rest/Conductor.lean` | Mathlib | pkg-I6 Part II definitions (copied), `artinConductor_le_of_upper` and its lemmas | none |
 | `scratch/glue-I6-rest/SqrtChar.lean` | Mathlib | `exists_half_iff` | none |
+| `scratch/glue-I6-rest/Inflation.lean` | Mathlib | `IsCocycleTriv`, `cocycle_eq`, `inflation_two_eq_coboundary` | none |
 
 `#print axioms` (VERIFIED) for the following: `eq_of_same_finite_support`, `skolemNoether_aut`,
 `lowerRam_tower`, `cob_of_same_finite_support`, `sq_principalUnits`,
 `finrank_splittingField_le_factorial`, `ramificationIdx_le_factorial`, `exists_half_iff`,
-`upperRam_phi_nat`, `sum_hInt_le` and `artinConductor_le_of_upper`.
+`upperRam_phi_nat`, `sum_hInt_le`, `artinConductor_le_of_upper` and
+`inflation_two_eq_coboundary`.
 Each prints `[propext, Classical.choice, Quot.sound]`.
