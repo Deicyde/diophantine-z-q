@@ -1,11 +1,12 @@
-import ZInQKernel.HDecomp.Objects
+import ZInQKernel.HDecomp.A6.A6
 import Mathlib.Algebra.Module.RingHom
 import Mathlib.Tactic
 
 /-!
 # bp-qmmoduli, layer 2: QM structures and level-3 structures on abelian varieties
 
-Over the kernel's object layer `ZInQKernel/HDecomp/Objects.lean` (`PkgI3.AbVar K`: a group object
+Over the kernel's object layer `ZInQKernel/HDecomp/Objects.lean` (imported through
+`ZInQKernel/HDecomp/A6/A6.lean`; run `lake build ZInQKernel.HDecomp.A6.A6` first) (`PkgI3.AbVar K`: a group object
 of `Over (Spec K)`, proper, smooth, geometrically integral; `End`, points `A(L)`, Galois action).
 Blueprint `docs/research/bp-qmmoduli.md` §3, nodes N5-N8.
 
@@ -21,6 +22,11 @@ Blueprint `docs/research/bp-qmmoduli.md` §3, nodes N5-N8.
 * The action of `Aut(𝒪)` (`twist`) and of `𝒪^×` (`rightMul`) on `(ι, η)` with `A` fixed: the
   group `Γ'` of A3, and the proof that units `≡ 1 mod 3𝒪` act trivially on level structures.
 * Sanity: the zero abelian variety has no QM structure.
+* **Glue A6 on the moduli objects** (`QML3.goodReduction`): every `QML3` object over `K` has good
+  reduction at every DVR of `K` in which 3 is a unit, from the kernel's A6 theorem
+  (`GlueA6Alg.goodReduction_of_QM_rational3'`, leaves `NeronOggShafarevich`, `RaynaudCriterion`,
+  `TorsionStructure`), with `I = ι(i)`, `J = ι(j)` and the level structure supplying its
+  hypotheses.
 
 The quaternion datum is copied from `QMOrder.lean` (scratch files cannot import each other).
 No `sorry`, no `axiom`.
@@ -293,6 +299,113 @@ def QML3.rightMul (P : QML3 K) (u : Oˣ) : QML3 K :=
 
 theorem QML3.rightMul_A (P : QML3 K) (u : Oˣ) : (P.rightMul u).A = P.A := rfl
 
+/-! ## §5 Glue: step A6 (good reduction away from 3) holds for every object of the moduli problem
+
+The kernel's A6 theorem `GlueA6Alg.goodReduction_of_QM_rational3'`
+(`ZInQKernel/HDecomp/A6/A6.lean`, from the leaves `NeronOggShafarevich`, `RaynaudCriterion`,
+`TorsionStructure`) takes endomorphisms `I, J` with `I² = 2`, `J² = −3`, `IJ + JI = 0` on points and
+a `Gal(K̄/K)`-fixed 3-torsion. A `QML3` object supplies them: `I = ι(i)`, `J = ι(j)`, and the
+level structure. So A6 applies to every abelian surface with QM by `𝒪` and level-3 structure over
+any field with a DVR in which 3 is a unit (h-decomposition: "the instantiation on N5's `A` (which
+needs A4 and the moduli objects) is not in Lean"; this is that instantiation, for every object). -/
+
+section A6
+
+open ObjBridge
+
+/-- `i ∈ 𝒪`. -/
+def oi : O := ⟨ofInt ![0, 1, 0, 0], ⟨_, rfl⟩⟩
+/-- `j = −1 + 2·(1+j)/2 ∈ 𝒪`. -/
+def oj : O := ⟨ofInt ![-1, 0, 2, 0], ⟨_, rfl⟩⟩
+
+theorem oi_mul_oi : oi * oi = 2 := by
+  apply Subtype.ext
+  change ofInt ![0, 1, 0, 0] * ofInt ![0, 1, 0, 0] = (2 : B)
+  ext <;> simp [ofInt, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+    QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num
+
+theorem oj_mul_oj : oj * oj = -3 := by
+  apply Subtype.ext
+  change ofInt ![-1, 0, 2, 0] * ofInt ![-1, 0, 2, 0] = -(3 : B)
+  ext <;> simp [ofInt, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+    QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num
+
+theorem oj_mul_oi_add : oj * oi + oi * oj = 0 := by
+  apply Subtype.ext
+  change ofInt ![-1, 0, 2, 0] * ofInt ![0, 1, 0, 0] + ofInt ![0, 1, 0, 0] * ofInt ![-1, 0, 2, 0]
+    = (0 : B)
+  ext <;> simp [ofInt] <;> norm_num
+
+variable (P : QML3 K)
+
+/-- Composition with `ι(a)` on points is the `𝒪`-action. -/
+theorem ofMul_comp_iota (a : O) (x : P.A.Pt (Kbar K)) :
+    Additive.ofMul (x ≫ (P.q.iota a).hom) = qmAct P.q (Kbar K) a (Additive.ofMul x) := rfl
+
+theorem act_mul_apply (a b : O) (y : Additive (P.A.Pt (Kbar K))) :
+    qmAct P.q (Kbar K) (a * b) y = qmAct P.q (Kbar K) a (qmAct P.q (Kbar K) b y) := by
+  rw [map_mul]; rfl
+
+theorem hI (x : PkgI2.Pts (toGrp P.A) (Kbar K)) :
+    (x ≫ (grpOfHom (A := toGrp P.A) (B := toGrp P.A) (P.q.iota oi)).hom.hom) ≫
+      (grpOfHom (A := toGrp P.A) (B := toGrp P.A) (P.q.iota oi)).hom.hom = x ^ 2 := by
+  apply Additive.ofMul.injective
+  rw [ofMul_pow]
+  change qmAct P.q (Kbar K) oi (qmAct P.q (Kbar K) oi (Additive.ofMul x)) = _
+  rw [← act_mul_apply, oi_mul_oi, map_ofNat]
+  rfl
+
+theorem hJ (x : PkgI2.Pts (toGrp P.A) (Kbar K)) :
+    (x ≫ (grpOfHom (A := toGrp P.A) (B := toGrp P.A) (P.q.iota oj)).hom.hom) ≫
+      (grpOfHom (A := toGrp P.A) (B := toGrp P.A) (P.q.iota oj)).hom.hom * x ^ 3 = 1 := by
+  apply Additive.ofMul.injective
+  rw [ofMul_mul, ofMul_pow, ofMul_one]
+  have h : qmAct P.q (Kbar K) (oj * oj) (Additive.ofMul x : Additive (P.A.Pt (Kbar K)))
+      = -((3 : ℕ) • (Additive.ofMul x : Additive (P.A.Pt (Kbar K)))) := by
+    rw [oj_mul_oj, map_neg, map_ofNat]; rfl
+  rw [act_mul_apply] at h
+  exact (congrArg (· + (3 : ℕ) • (Additive.ofMul x : Additive (P.A.Pt (Kbar K)))) h).trans
+    (neg_add_cancel _)
+
+theorem hIJ (x : PkgI2.Pts (toGrp P.A) (Kbar K)) :
+    (x ≫ (grpOfHom (A := toGrp P.A) (B := toGrp P.A) (P.q.iota oi)).hom.hom) ≫
+        (grpOfHom (A := toGrp P.A) (B := toGrp P.A) (P.q.iota oj)).hom.hom *
+      (x ≫ (grpOfHom (A := toGrp P.A) (B := toGrp P.A) (P.q.iota oj)).hom.hom) ≫
+        (grpOfHom (A := toGrp P.A) (B := toGrp P.A) (P.q.iota oi)).hom.hom = 1 := by
+  apply Additive.ofMul.injective
+  rw [ofMul_mul, ofMul_one]
+  have h : qmAct P.q (Kbar K) (oj * oi + oi * oj)
+      (Additive.ofMul x : Additive (P.A.Pt (Kbar K))) = 0 := by
+    rw [oj_mul_oi_add, map_zero]; rfl
+  rw [map_add] at h
+  have h2 : qmAct P.q (Kbar K) (oj * oi) (Additive.ofMul x : Additive (P.A.Pt (Kbar K))) +
+      qmAct P.q (Kbar K) (oi * oj) (Additive.ofMul x : Additive (P.A.Pt (Kbar K))) = 0 := h
+  rw [act_mul_apply, act_mul_apply] at h2
+  exact h2
+
+theorem hrat (σ : Kbar K ≃ₐ[K] Kbar K) (x : PkgI2.Pts (toGrp P.A) (Kbar K))
+    (hx : x ∈ PkgI2.torsion (toGrp P.A) (Kbar K) 3) :
+    PkgI2.galAct (toGrp P.A) σ x = x := by
+  have h3 : (3 : ℕ) • Additive.ofMul x = 0 := by
+    rw [← ofMul_pow]; exact congrArg Additive.ofMul hx
+  obtain ⟨a, ha⟩ := P.e.onto (Additive.ofMul x) h3
+  have := P.e.rational σ a
+  rw [ha] at this
+  exact Additive.ofMul.injective this
+
+/-- **A6 for every QM surface with level-3 structure**: good reduction at every DVR of `K` in
+which 3 is a unit, from the kernel's leaves `NeronOggShafarevich`, `RaynaudCriterion`,
+`TorsionStructure`. -/
+theorem QML3.goodReduction (hNOS : PkgI2.NeronOggShafarevich.{0})
+    (hRay : PkgI2.RaynaudCriterion.{0}) (hTors : PkgI2.TorsionStructure.{0})
+    (Ov : ValuationSubring K) [IsDiscreteValuationRing Ov] (h3 : IsUnit (3 : Ov)) :
+    PkgI2.HasGoodReduction (toGrp P.A) Ov := by
+  have hdim : topologicalKrullDim (toGrp P.A).X.left = ((2 : ℕ) : WithBot ℕ∞) := P.surface
+  exact GlueA6Alg.goodReduction_of_QM_rational3' hNOS hRay hTors Ov (toGrp P.A) hdim
+    (grpOfHom (P.q.iota oi)) (grpOfHom (P.q.iota oj)) (hI P) (hJ P) (hIJ P) h3 (hrat P)
+
+end A6
+
 end AV
 
 end BPQM
@@ -301,3 +414,4 @@ end BPQM
 #print axioms BPQM.AV.Level3.rightMul_eq_self
 #print axioms BPQM.AV.Level3.twist
 #print axioms BPQM.AV.QML3.Iso.refl
+#print axioms BPQM.AV.QML3.goodReduction

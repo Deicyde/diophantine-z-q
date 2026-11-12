@@ -41,3 +41,10 @@ Task: blueprint for the Shimura-curve objects of leaves R1-R3, R5 (docs/research
 - Mathlib has `Functor.map.instIsMonHom` (monoidal functors map monoid homs to monoid homs,
   `CategoryTheory/Monoidal/Mon.lean:845`): base change of `End` along `Over.pullback` is
   definable (VERIFIED, grep; not built here).
+- `QMAbVar.lean` now imports `ZInQKernel.HDecomp.A6.A6` (built: `lake build
+  ZInQKernel.HDecomp.A6.A6`, 68 s). New §5: **`QML3.goodReduction`**: for every `P : QML3 K` and
+  every DVR `Ov` of `K` with `3` a unit, `HasGoodReduction (toGrp P.A) Ov`, from
+  `NeronOggShafarevich.{0}`, `RaynaudCriterion.{0}`, `TorsionStructure.{0}` through the kernel's
+  `GlueA6Alg.goodReduction_of_QM_rational3'` (`I = ι(i)`, `J = ι(j)`, `i² = 2`, `j² = −3`,
+  `ji + ij = 0` proved in `𝒪`; `hrat` from `Level3.onto` + `Level3.rational`). Compiles, axioms
+  propext, Classical.choice, Quot.sound (VERIFIED).
