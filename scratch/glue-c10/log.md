@@ -15,3 +15,4 @@
 - 23:46 Lift.lean: frobExistsAt_of_finite (FrobExistsAt from FrobExistsFinite by compactness of G_ℚ: FrobOn sets closed, directed by F₁ ⊔ F₂, nonempty via normal closure; every x ∈ Zbar lies in ℚ(x)) compiles, axioms standard (VERIFIED).
 - 23:45 Lift.lean: frobExistsFinite (finite layer from Mathlib: IsArithFrobAt.exists_of_isInvariant with Algebra.isInvariant_of_isGalois, liftNormal) and frobLift : FrobLift compile, axioms standard (VERIFIED). FrobLift is now PROVED, no leaf needed.
 - 23:47 C10.lean now self-contained: Lift.lean merged; frobDense (from ChebotarevExists alone) and c10 (= iso_three_of_five with FrobDense discharged; hypotheses ChebotarevExists, BrauerNesbittChar0) compile, axioms standard, 0 errors (VERIFIED).
+- 23:50 Report docs/research/glue-c10.md and .fleet/glue-c10.md written.
