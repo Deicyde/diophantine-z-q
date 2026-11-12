@@ -21,3 +21,17 @@ so the new witness for L n = 0 will be sorry-free (the review's caveat 3 no long
   needs it (nit F4); beta_seven notes exact form needs integer g (g-beta7-mod4/TB-4/F3); LemmaTwoEight
   docstring is a congruence with the m = 3 w_K remark (i2-b1).
 - strip_compare vs HEAD: code identical. lake build ZInQKernel.Hypotheses.TYZInputs: OK.
+
+## Step 2 (F1: witness for L n = 0)
+- Added to Witness (PropN.lean): Pw_congr, Pw_fst, Sw, Pw_eq_sub, Sw_fst, Φw (= λ ∘ pr₂), Φw_Zw,
+  Φw_Sw (the key identity), witnessData₀ (Z := update Zw n (Sw L n), P := update (Pw L) n 0),
+  genusData_nonempty_iff_parities (for L 1 = 1, L n = 0: Nonempty (GenusData L n) ↔ the two parities;
+  → is lemmaN2 + finalStep) and genusData_nonempty_of_parities (the task's theorem, via the iff).
+- The review's construction worked as stated. One adjustment: k = −N/2 − x.re + x.im (2i ≡ −2 mod 2+2i);
+  the review's −x.im differs by a multiple of mk 4 = 0, so either works. The (2+2i)-multiple is
+  ⟨−x.im, a/2⟩. Not sorry-dependent: lemmaN2 is proved on this base.
+- tyzInputs_iff (review fix item 5) not added (outside step 2's list); the docstring says so.
+- Witness section docstring rewritten; module docstring lists the new theorems.
+- print_axioms.lean: +3 lines (genusData_nonempty_iff_parities, genusData_nonempty_of_parities,
+  Pw_congr) → 91 entries, all [propext, Classical.choice, Quot.sound] (scratch/pn-fix/print_axioms.txt).
+- lake build ZInQKernel: OK (9925 jobs), no warnings in the new code.

@@ -111,3 +111,6 @@ Each declaration should depend on `[propext, Classical.choice, Quot.sound]` only
 #print axioms ZInQ.PropN.finalStep
 #print axioms ZInQ.PropN.matching
 #print axioms ZInQ.PropN.Witness.genusData_nonempty
+#print axioms ZInQ.PropN.Witness.genusData_nonempty_iff_parities
+#print axioms ZInQ.PropN.Witness.genusData_nonempty_of_parities
+#print axioms ZInQ.PropN.Witness.Pw_congr
