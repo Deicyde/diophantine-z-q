@@ -1,0 +1,2735 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../templates/index.html">
+      
+      
+        <link rel="next" href="../../model/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Recipes and witness accounting - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Recipes and witness accounting
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The finite specification of the polynomial
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formulas, gadgets and witness scope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../constants/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fixed constants and the guard product
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../templates/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The other templates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recipes and witness accounting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="syntax/recipes" data-page-title="Recipes and witness accounting">
+<h1 id="recipes-and-witness-accounting">Recipes and witness accounting</h1>
+<p>A natural circuit is translated into a model-evaluation recipe: every variable and node
+gets a point code, natural variables get the natural template, constants get fixed-scalar
+templates, and additions, multiplications and power calls get the corresponding templates.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="syntax/recipes/model-evaluation-translation">
+<h4 class="bp-thmheading" id="model-evaluation-translation">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">Translation of a natural circuit into a model-evaluation recipe</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Translate.lean#L152" aria-label="View ZInQ.Syntax.translate in Lean source" title="View ZInQ.Syntax.translate in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Translate.lean#L292" aria-label="View ZInQ.Syntax.translate_variableCount in Lean source" title="View ZInQ.Syntax.translate_variableCount in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/syntax/recipes/model-evaluation-translation.md" aria-label="Edit the Markdown source for Translation of a natural circuit into a model-evaluation recipe" title="Edit the Markdown source for Translation of a natural circuit into a model-evaluation recipe"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#model-evaluation-translation" aria-label="Link to Translation of a natural circuit into a model-evaluation recipe" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Syntax.translate ZInQ.Syntax.translate_variableCount</div>
+<div class="bp-thmcontent">
+<p><strong>Natural circuits.</strong> A natural circuit has <span class="arithmatex">\(k\)</span> inputs, a list of explicit variables
+<span class="arithmatex">\((i_0,\kappa_0),(i_1,\kappa_1),\dots\)</span> (variable index and kind, the inputs first with indices
+<span class="arithmatex">\(0,\dots,k-1\)</span>), a node list whose nodes are <span class="arithmatex">\(\mathrm{const}\ c\)</span>, <span class="arithmatex">\(\mathrm{var}\ i\)</span>,
+<span class="arithmatex">\(\mathrm{add}\ j\ j'\)</span>, <span class="arithmatex">\(\mathrm{mul}\ j\ j'\)</span> or <span class="arithmatex">\(\mathrm{call}\ (a,b,c)\ w\)</span> (a call of the power
+template on three earlier nodes with a private block of <span class="arithmatex">\(79\)</span> variables at <span class="arithmatex">\(w\)</span>), and a root
+node. The power template is itself a natural circuit with <span class="arithmatex">\(3\)</span> inputs, <span class="arithmatex">\(79\)</span> witnesses, no
+calls, and explicit variables <span class="arithmatex">\(0,\dots,81\)</span>.</p>
+<p><strong>Translation.</strong> Fix the operation templates <span class="arithmatex">\(\nu=\mathtt{natural}\)</span>, <span class="arithmatex">\(\alpha=\mathtt{raw\_add}\)</span>,
+<span class="arithmatex">\(\mu=\mathtt{multiply}\)</span> with witness counts <span class="arithmatex">\(140604\)</span>, <span class="arithmatex">\(6\)</span>, <span class="arithmatex">\(35134\)</span>. The translation of a
+natural circuit with <span class="arithmatex">\(k\)</span> inputs, in mode <span class="arithmatex">\(\mathrm{value}\)</span> or <span class="arithmatex">\(\mathrm{zero}\)</span>, with or without
+natural constraints on the inputs, and with an optional power recipe <span class="arithmatex">\(\pi\)</span>, is the
+model-evaluation recipe with <span class="arithmatex">\(p=5(k+[\mathrm{value}])\)</span> parameters built by one allocation
+counter starting at <span class="arithmatex">\(p\)</span>:</p>
+<ol>
+<li>the generator indices <span class="arithmatex">\(g_0,g_1,g_2\)</span> take the next three variables;</li>
+<li>for each explicit variable in list order: an input <span class="arithmatex">\(i\)</span> gets the point reference <span class="arithmatex">\(5i\)</span>
+   (inside the parameters), any other variable gets a fresh point (five variables); then,
+   unless it is an input and inputs are unconstrained, a natural block of <span class="arithmatex">\(140604\)</span> variables
+   is taken; the row records the reference and the natural start (or none);</li>
+<li>each node <span class="arithmatex">\(j\)</span> in order gets a point reference <span class="arithmatex">\(\mathrm{pt}(j)\)</span>: <span class="arithmatex">\(\mathrm{var}\ i\)</span> the reference of <span class="arithmatex">\(i\)</span>;
+   <span class="arithmatex">\(\mathrm{const}\ 0\)</span>, <span class="arithmatex">\(1\)</span>, <span class="arithmatex">\(-1\)</span> the references <span class="arithmatex">\(-1\)</span>, <span class="arithmatex">\(-2\)</span>, <span class="arithmatex">\(-3\)</span>; any other constant <span class="arithmatex">\(c\)</span> (the
+   translation is defined only when every such constant is an integer <span class="arithmatex">\(c\ge2\)</span>, which holds
+   for both circuits translated here), at its first occurrence in this circuit, a fresh point followed by a block of <span class="arithmatex">\(1\)</span>, recording
+   the constant definition <span class="arithmatex">\((S_{\mathrm{integer\_constant}_h},\text{point},\text{start})\)</span> where
+   <span class="arithmatex">\(\mathrm{integer\_constant}_h=c\)</span> (a new index <span class="arithmatex">\(h\)</span> is created when <span class="arithmatex">\(c\)</span> has not occurred in
+   any earlier translation), and later occurrences reuse that point; <span class="arithmatex">\(\mathrm{add}\ j_1\ j_2\)</span> and
+   <span class="arithmatex">\(\mathrm{mul}\ j_1\ j_2\)</span> nodes a fresh point followed by a block of <span class="arithmatex">\(6\)</span> or <span class="arithmatex">\(35134\)</span>, recording the
+   operation <span class="arithmatex">\((0\text{ or }1,\ \mathrm{pt}(j_1),\ \mathrm{pt}(j_2),\ \text{point},\ \text{start})\)</span>; a
+   <span class="arithmatex">\(\mathrm{call}\ (a,b,c)\ w\)</span> a fresh point followed by a block of the witness count of <span class="arithmatex">\(\pi\)</span>,
+   recording <span class="arithmatex">\((2,\mathrm{pt}(a),\mathrm{pt}(b),\mathrm{pt}(c),\text{point},\text{start})\)</span>; the
+   source block at <span class="arithmatex">\(w\)</span> is not used;</li>
+<li>the root equality is <span class="arithmatex">\((\mathrm{pt}(\mathrm{root}),5k)\)</span> in value mode and
+   <span class="arithmatex">\((\mathrm{pt}(\mathrm{root}),-1)\)</span> in zero mode;</li>
+<li>the variable count is the final counter.</li>
+</ol>
+<p>The polynomial of the result is given by the semantics of model-evaluation recipes: the
+three generator constraints, the natural calls, the constant definitions (each a
+fixed-scalar template on <span class="arithmatex">\((\mathrm{ref}(-2),\text{point})\)</span>), the operation calls and the five
+root differences, squared and summed.</p>
+<p>Equivalently, the translation takes the table of nontrivial constants as an argument, listed
+in order of first occurrence across the translations: <span class="arithmatex">\((4,2,3)\)</span> for power_value and
+<span class="arithmatex">\((4,2,3,c_3,1399)\)</span> for precision, a constant <span class="arithmatex">\(c\)</span> using the fixed-scalar template of its
+position in the table.</p>
+<p>This is a definition. The arithmetic meaning (every node point is the code of the node's
+signed integer value) is the compiler chapter's rational translation statement.</p>
+</div>
+<div class="bp-lean-source">
+<details class="bp-lean-fold">
+<summary><code>ZInQ.Syntax.translate</code> · 18 lines</summary>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> translate (consts : List ℤ) (N : <a class="bp-lean-ref" href="../../compiler/natural/formulas/index.html#natural-circuit-semantics" data-lean-name="ZInQ.Compiler.Natural.NatCircuit">NatCircuit</a>) (mode : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Translate.lean#L45" data-lean-name="ZInQ.Syntax.OutputMode">OutputMode</a>) (natInputs : Bool)
+    (power : Option (ℕ × ℕ)) : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L206" data-lean-name="ZInQ.Syntax.ModelRecipe">ModelRecipe</a> :=
+  <span class="bp-lean-keyword">let</span> p := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Translate.lean#L134" data-lean-name="ZInQ.Syntax.trParams">trParams</a> N.inputCount mode
+  <span class="bp-lean-keyword">let</span> s := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Translate.lean#L145" data-lean-name="ZInQ.Syntax.trState">trState</a> consts N mode natInputs power
+  { parameterCount := p
+    variableCount := s.next
+    generator := ![p, p + 1, p + 2]
+    sources := s.sources
+    constants := s.constants
+    operations := s.operations
+    rootEq := (s.nodePts.getD N.root (-4),
+      <span class="bp-lean-keyword">match</span> mode <span class="bp-lean-keyword">with</span>
+      | .value =&gt; ((5 * N.inputCount : ℕ) : ℤ)
+      | .zero =&gt; -1)
+    natural := 12
+    addition := 1
+    multiplication := 11
+    power := power.map Prod.fst }</code></pre>
+</details>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> translate_variableCount (consts : List ℤ) (N : <a class="bp-lean-ref" href="../../compiler/natural/formulas/index.html#natural-circuit-semantics" data-lean-name="ZInQ.Compiler.Natural.NatCircuit">NatCircuit</a>) (mode : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Translate.lean#L45" data-lean-name="ZInQ.Syntax.OutputMode">OutputMode</a>)
+    (natInputs : Bool) (power : Option (ℕ × ℕ)) :
+    (<a class="bp-lean-ref" href="#model-evaluation-translation" data-lean-name="ZInQ.Syntax.translate">translate</a> consts N mode natInputs power).variableCount =
+      <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Translate.lean#L134" data-lean-name="ZInQ.Syntax.trParams">trParams</a> N.inputCount mode + 3 +
+        (N.explicitVars.map (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Translate.lean#L175" data-lean-name="ZInQ.Syntax.varCost">varCost</a> N.inputCount natInputs)).sum +
+        (N.nodes.map (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Translate.lean#L179" data-lean-name="ZInQ.Syntax.nodeCost">nodeCost</a> ((power.map Prod.snd).getD 0))).sum +
+        6 * (N.nodes.filterMap <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Translate.lean#L186" data-lean-name="ZInQ.Syntax.nontrivialConst">nontrivialConst</a>).toFinset.card</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Compiler.Natural.NatCircuit">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> NatCircuit <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The number `k` of inputs. -/</span>
+  inputCount : ℕ
+  <span class="bp-lean-comment">/-- The explicit variables (index and kind), the inputs first. -/</span>
+  explicitVars : List (ℕ × VarKind)
+  <span class="bp-lean-comment">/-- The node list. -/</span>
+  nodes : List NatNode
+  <span class="bp-lean-comment">/-- The root node. -/</span>
+  root : ℕ
+  <span class="bp-lean-comment">/-- The variable count `V`. -/</span>
+  varCount : ℕ</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Circuit.lean:33</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.OutputMode">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">inductive</span> OutputMode
+  <span class="bp-lean-comment">/-- The root value is equated with an output code (parameters `5k, …, 5k+4`). -/</span>
+  | value
+  <span class="bp-lean-comment">/-- The root value is equated with the code of `O`. -/</span>
+  | zero
+  <span class="bp-lean-keyword">deriving</span> DecidableEq</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Translate.lean:45</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.ModelRecipe">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> ModelRecipe <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The parameter count. -/</span>
+  parameterCount : ℕ
+  <span class="bp-lean-comment">/-- The variable count. -/</span>
+  variableCount : ℕ
+  <span class="bp-lean-comment">/-- The generator variable indices `g₀, g₁, g₂`. -/</span>
+  generator : Fin 3 → ℕ
+  <span class="bp-lean-comment">/-- Source variable rows `(r, s)`: a point reference and a natural start or none. -/</span>
+  sources : List (ℤ × Option ℕ)
+  <span class="bp-lean-comment">/-- Constant definitions `(σ, r, s)`: a scalar template, a point reference, a start. -/</span>
+  constants : List (ℕ × ℤ × ℕ)
+  <span class="bp-lean-comment">/-- The operations. -/</span>
+  ⋯</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Nodes.lean:206</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.trParams">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> trParams (k : ℕ) (mode : OutputMode) : ℕ :=
+  <span class="bp-lean-keyword">match</span> mode <span class="bp-lean-keyword">with</span>
+  | .value =&gt; 5 * (k + 1)
+  | .zero =&gt; 5 * k</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Translate.lean:134</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.trState">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> trState (consts : List ℤ) (N : NatCircuit) (mode : OutputMode) (natInputs : Bool)
+    (power : Option (ℕ × ℕ)) : TrState :=
+  N.nodes.foldl (trNode consts ((power.map Prod.snd).getD 0)) (trVarsState N mode natInputs)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Translate.lean:145</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.translate">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> translate (consts : List ℤ) (N : NatCircuit) (mode : OutputMode) (natInputs : Bool)
+    (power : Option (ℕ × ℕ)) : ModelRecipe :=
+  <span class="bp-lean-keyword">let</span> p := trParams N.inputCount mode
+  <span class="bp-lean-keyword">let</span> s := trState consts N mode natInputs power
+  { parameterCount := p
+    variableCount := s.next
+    generator := ![p, p + 1, p + 2]
+    sources := s.sources
+    constants := s.constants
+    operations := s.operations
+    rootEq := (s.nodePts.getD N.root (-4),
+      <span class="bp-lean-keyword">match</span> mode <span class="bp-lean-keyword">with</span>
+  ⋯</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Translate.lean:152</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.varCost">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> varCost (k : ℕ) (natInputs : Bool) (v : ℕ × VarKind) : ℕ :=
+  <span class="bp-lean-keyword">if</span> IsInputVar k v <span class="bp-lean-keyword">then</span> (<span class="bp-lean-keyword">if</span> natInputs <span class="bp-lean-keyword">then</span> 140604 <span class="bp-lean-keyword">else</span> 0) <span class="bp-lean-keyword">else</span> 5 + 140604</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Translate.lean:175</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.nodeCost">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> nodeCost (powerW : ℕ) : NatNode → ℕ
+  | .add _ _ =&gt; 5 + 6
+  | .mul _ _ =&gt; 5 + 35134
+  | .call _ _ _ _ =&gt; 5 + powerW
+  | _ =&gt; 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Translate.lean:179</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.nontrivialConst">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> nontrivialConst : NatNode → Option ℤ
+  | .const c =&gt; <span class="bp-lean-keyword">if</span> IsNontrivial c <span class="bp-lean-keyword">then</span> some c <span class="bp-lean-keyword">else</span> none
+  | _ =&gt; none</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Translate.lean:186</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/syntax-locators.html#section-10-translation">Section 10.4</a></li>
+<li><a href="../../../sources/syntax-locators.html#appendix-c2-recipes-and-counts">Appendix C.2</a></li>
+<li><a href="../../../sources/syntax-locators.html#saved-specification">Saved specification</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 6 · Used by 10</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#template-semantics">Semantics of templates and recipes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../language/index.html#point-references">Point references</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../templates/index.html#template-fixed-scalar">The fixed-scalar templates</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../templates/index.html#template-natural">The natural-code template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#template-raw-add">The raw addition template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../templates/index.html#template-multiply">The multiplication template</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/natural/formulas/index.html#natural-circuit-semantics">Natural semantics of a natural circuit</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/translation/index.html#model-evaluation-semantics">Semantics of the model-evaluation translation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/translation/index.html#model-recipe-relation">Relational form of a model-evaluation recipe</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/translation/index.html#natural-circuit-values">Values and polynomial of a natural circuit</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/translation/index.html#natural-circuit-well-formed">Well-formed natural circuits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../size/majorants/index.html#recipe-heights">Recipe heights</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../language/index.html#builder-well-formed">Witness scope of constructed templates and recipes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#recipe-power-value">The power-value recipe</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#recipe-precision">The precision recipe</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../templates/index.html#template-library">The template library</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="syntax/recipes/recipe-power-value">
+<h4 class="bp-thmheading" id="recipe-power-value">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The power-value recipe</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/PowerValue.lean#L28" aria-label="View ZInQ.Syntax.powerValueRecipe in Lean source" title="View ZInQ.Syntax.powerValueRecipe in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/PowerValue.lean#L45" aria-label="View ZInQ.Syntax.powerValueRecipe_variableCount in Lean source" title="View ZInQ.Syntax.powerValueRecipe_variableCount in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/syntax/recipes/recipe-power-value.md" aria-label="Edit the Markdown source for The power-value recipe" title="Edit the Markdown source for The power-value recipe"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#recipe-power-value" aria-label="Link to The power-value recipe" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Syntax.powerValueRecipe ZInQ.Syntax.powerValueRecipe_variableCount</div>
+<div class="bp-thmcontent">
+<p>The recipe <span class="arithmatex">\(\mathtt{power\_value}\)</span> is the translation of the power template of the natural
+precision polynomial (<span class="arithmatex">\(3\)</span> inputs, <span class="arithmatex">\(79\)</span> witnesses) in value mode, without natural
+constraints on the inputs and without a power recipe. It has <span class="arithmatex">\(20\)</span> parameters (three signed
+input codes at <span class="arithmatex">\(X_0,\dots,X_{14}\)</span> and the output code at <span class="arithmatex">\(X_{15},\dots,X_{19}\)</span>), generator
+indices <span class="arithmatex">\(20,21,22\)</span>, and every one of the <span class="arithmatex">\(79\)</span> witnesses of the power template receives a
+fresh point and a natural block. Its constants are <span class="arithmatex">\(4,2,3\)</span>, which become
+<span class="arithmatex">\(\mathrm{integer\_constant}_0,\mathrm{integer\_constant}_1,\mathrm{integer\_constant}_2\)</span>.
+Its root equality equates the point of the root node with the output code; the value of the
+power-template polynomial is not required to vanish here.</p>
+<p>This is a definition. With the natural circuit statistics it has <span class="arithmatex">\(17{,}786{,}698\)</span> witnesses
+and <span class="arithmatex">\(17{,}786{,}718\)</span> variables.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> powerValueRecipe : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L206" data-lean-name="ZInQ.Syntax.ModelRecipe">ModelRecipe</a> :=
+  <a class="bp-lean-ref" href="#model-evaluation-translation" data-lean-name="ZInQ.Syntax.translate">translate</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/PowerValue.lean#L25" data-lean-name="ZInQ.Syntax.powerConstants">powerConstants</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/PowerTemplate.lean#L31" data-lean-name="ZInQ.Compiler.Natural.powerTemplateCircuit">powerTemplateCircuit</a> .value false none</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> powerValueRecipe_variableCount : <a class="bp-lean-ref" href="#recipe-power-value" data-lean-name="ZInQ.Syntax.powerValueRecipe">powerValueRecipe</a>.variableCount = 17786718</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Syntax.ModelRecipe">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> ModelRecipe <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The parameter count. -/</span>
+  parameterCount : ℕ
+  <span class="bp-lean-comment">/-- The variable count. -/</span>
+  variableCount : ℕ
+  <span class="bp-lean-comment">/-- The generator variable indices `g₀, g₁, g₂`. -/</span>
+  generator : Fin 3 → ℕ
+  <span class="bp-lean-comment">/-- Source variable rows `(r, s)`: a point reference and a natural start or none. -/</span>
+  sources : List (ℤ × Option ℕ)
+  <span class="bp-lean-comment">/-- Constant definitions `(σ, r, s)`: a scalar template, a point reference, a start. -/</span>
+  constants : List (ℕ × ℤ × ℕ)
+  <span class="bp-lean-comment">/-- The operations. -/</span>
+  ⋯</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Nodes.lean:206</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.translate">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> translate (consts : List ℤ) (N : NatCircuit) (mode : OutputMode) (natInputs : Bool)
+    (power : Option (ℕ × ℕ)) : ModelRecipe :=
+  <span class="bp-lean-keyword">let</span> p := trParams N.inputCount mode
+  <span class="bp-lean-keyword">let</span> s := trState consts N mode natInputs power
+  { parameterCount := p
+    variableCount := s.next
+    generator := ![p, p + 1, p + 2]
+    sources := s.sources
+    constants := s.constants
+    operations := s.operations
+    rootEq := (s.nodePts.getD N.root (-4),
+      <span class="bp-lean-keyword">match</span> mode <span class="bp-lean-keyword">with</span>
+  ⋯</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Translate.lean:152</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.powerConstants">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> powerConstants : List ℤ := [4, 2, 3]</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/PowerValue.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.powerTemplateCircuit">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> powerTemplateCircuit : NatCircuit := powerTemplateConstruction.toCircuit 3</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/PowerTemplate.lean:31</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.powerValueRecipe">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> powerValueRecipe : ModelRecipe :=
+  translate powerConstants powerTemplateCircuit .value false none</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/PowerValue.lean:28</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/syntax-locators.html#section-10-translation">Section 10.4</a></li>
+<li><a href="../../../sources/syntax-locators.html#appendix-c2-recipes-and-counts">Appendix C.2</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 5</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#model-evaluation-translation">Translation of a natural circuit into a model-evaluation recipe</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/natural/index.html#natural-polynomial-semantics">Semantics of the natural precision polynomial</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/translation/index.html#power-value-semantics">Semantics of the power-value recipe</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/translation/index.html#rational-translation">Semantics of the rational translation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../size/majorants/index.html#recipe-heights">Recipe heights</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#recipe-precision">The precision recipe</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#witness-accounting">Witness accounting of the specified polynomial</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="syntax/recipes/recipe-precision">
+<h4 class="bp-thmheading" id="recipe-precision">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The precision recipe</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Precision.lean#L27" aria-label="View ZInQ.Syntax.precisionRecipe in Lean source" title="View ZInQ.Syntax.precisionRecipe in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Precision.lean#L87" aria-label="View ZInQ.Syntax.precisionRecipe_variableCount_le in Lean source" title="View ZInQ.Syntax.precisionRecipe_variableCount_le in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/syntax/recipes/recipe-precision.md" aria-label="Edit the Markdown source for The precision recipe" title="Edit the Markdown source for The precision recipe"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#recipe-precision" aria-label="Link to The precision recipe" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Syntax.precisionRecipe ZInQ.Syntax.precisionRecipe_variableCount_le</div>
+<div class="bp-thmcontent">
+<p>The recipe <span class="arithmatex">\(\mathtt{precision}\)</span> is the translation of the five-input natural precision
+polynomial in zero mode, with natural constraints on the inputs and with power recipe
+<span class="arithmatex">\(\mathtt{power\_value}\)</span>, performed after the translation of the power template (so the
+constants <span class="arithmatex">\(4,2,3\)</span> keep their indices <span class="arithmatex">\(0,1,2\)</span>). It has <span class="arithmatex">\(25\)</span> parameters (the five input codes
+<span class="arithmatex">\(X_{5i},\dots,X_{5i+4}\)</span>, <span class="arithmatex">\(i=0,\dots,4\)</span>, in the input order <span class="arithmatex">\((n,\kappa,a,l,j)\)</span>), generator indices
+<span class="arithmatex">\(25,26,27\)</span>, a natural block for every explicit variable including the inputs, and its root
+equality equates the point of the root node with <span class="arithmatex">\(\mathrm{ref}(-1)\)</span>, the code of <span class="arithmatex">\(O\)</span>. Its
+nontrivial constants, in order of first occurrence, are <span class="arithmatex">\(c_3\)</span>, <span class="arithmatex">\(2\)</span>, <span class="arithmatex">\(4\)</span>, <span class="arithmatex">\(1399\)</span>; <span class="arithmatex">\(c_3\)</span> and
+<span class="arithmatex">\(1399\)</span> become <span class="arithmatex">\(\mathrm{integer\_constant}_3\)</span> and <span class="arithmatex">\(\mathrm{integer\_constant}_4\)</span>.</p>
+<p>This is a definition. If the natural circuit has <span class="arithmatex">\(5\)</span> inputs, listed first among at most
+<span class="arithmatex">\(54056\)</span> explicit variables, at most <span class="arithmatex">\(125327\)</span> addition, <span class="arithmatex">\(98382\)</span> multiplication and <span class="arithmatex">\(15845\)</span> call
+nodes, and nontrivial constants among <span class="arithmatex">\(c_3,2,4,1399\)</span> (the shape given by the natural circuit
+statistics), then <span class="arithmatex">\(\mathtt{precision}\)</span> has at most <span class="arithmatex">\(292{,}889{,}492{,}836\)</span> witnesses and at most
+<span class="arithmatex">\(292{,}889{,}492{,}861\)</span> variables.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> precisionRecipe (N : <a class="bp-lean-ref" href="../../compiler/natural/formulas/index.html#natural-circuit-semantics" data-lean-name="ZInQ.Compiler.Natural.NatCircuit">NatCircuit</a>) (c3 : ℤ) : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L206" data-lean-name="ZInQ.Syntax.ModelRecipe">ModelRecipe</a> :=
+  <a class="bp-lean-ref" href="#model-evaluation-translation" data-lean-name="ZInQ.Syntax.translate">translate</a> (<a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.integerConstants">integerConstants</a> c3) N .zero true
+    (some (0, <a class="bp-lean-ref" href="#recipe-power-value" data-lean-name="ZInQ.Syntax.powerValueRecipe">powerValueRecipe</a>.variableCount - <a class="bp-lean-ref" href="#recipe-power-value" data-lean-name="ZInQ.Syntax.powerValueRecipe">powerValueRecipe</a>.parameterCount))</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> precisionRecipe_variableCount_le {N : <a class="bp-lean-ref" href="../../compiler/natural/formulas/index.html#natural-circuit-semantics" data-lean-name="ZInQ.Compiler.Natural.NatCircuit">NatCircuit</a>} {c3 : ℤ} (hN : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Precision.lean#L46" data-lean-name="ZInQ.Syntax.PrecisionShape">PrecisionShape</a> N c3) :
+    (<a class="bp-lean-ref" href="#recipe-precision" data-lean-name="ZInQ.Syntax.precisionRecipe">precisionRecipe</a> N c3).variableCount ≤ 292889492861</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Compiler.Natural.NatCircuit">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> NatCircuit <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The number `k` of inputs. -/</span>
+  inputCount : ℕ
+  <span class="bp-lean-comment">/-- The explicit variables (index and kind), the inputs first. -/</span>
+  explicitVars : List (ℕ × VarKind)
+  <span class="bp-lean-comment">/-- The node list. -/</span>
+  nodes : List NatNode
+  <span class="bp-lean-comment">/-- The root node. -/</span>
+  root : ℕ
+  <span class="bp-lean-comment">/-- The variable count `V`. -/</span>
+  varCount : ℕ</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Circuit.lean:33</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.ModelRecipe">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> ModelRecipe <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The parameter count. -/</span>
+  parameterCount : ℕ
+  <span class="bp-lean-comment">/-- The variable count. -/</span>
+  variableCount : ℕ
+  <span class="bp-lean-comment">/-- The generator variable indices `g₀, g₁, g₂`. -/</span>
+  generator : Fin 3 → ℕ
+  <span class="bp-lean-comment">/-- Source variable rows `(r, s)`: a point reference and a natural start or none. -/</span>
+  sources : List (ℤ × Option ℕ)
+  <span class="bp-lean-comment">/-- Constant definitions `(σ, r, s)`: a scalar template, a point reference, a start. -/</span>
+  constants : List (ℕ × ℤ × ℕ)
+  <span class="bp-lean-comment">/-- The operations. -/</span>
+  ⋯</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Nodes.lean:206</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.translate">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> translate (consts : List ℤ) (N : NatCircuit) (mode : OutputMode) (natInputs : Bool)
+    (power : Option (ℕ × ℕ)) : ModelRecipe :=
+  <span class="bp-lean-keyword">let</span> p := trParams N.inputCount mode
+  <span class="bp-lean-keyword">let</span> s := trState consts N mode natInputs power
+  { parameterCount := p
+    variableCount := s.next
+    generator := ![p, p + 1, p + 2]
+    sources := s.sources
+    constants := s.constants
+    operations := s.operations
+    rootEq := (s.nodePts.getD N.root (-4),
+      <span class="bp-lean-keyword">match</span> mode <span class="bp-lean-keyword">with</span>
+  ⋯</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Translate.lean:152</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.integerConstants">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> integerConstants (c3 : ℤ) : List ℤ := [4, 2, 3, c3, 1399]</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Templates/Library.lean:18</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.powerValueRecipe">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> powerValueRecipe : ModelRecipe :=
+  translate powerConstants powerTemplateCircuit .value false none</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/PowerValue.lean:28</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.PrecisionShape">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> PrecisionShape (N : NatCircuit) (c3 : ℤ) : <span class="bp-lean-keyword">Prop</span> <span class="bp-lean-keyword">where</span>
+  inputCount : N.inputCount = 5
+  explicitVars_length : N.explicitVars.length ≤ 54056
+  inputs : 5 ≤ N.explicitVars.countP <span class="bp-lean-keyword">fun</span> v =&gt; decide (IsInputVar 5 v)
+  adds : N.nodes.countP NatNode.isAdd ≤ 125327
+  muls : N.nodes.countP NatNode.isMul ≤ 98382
+  calls : N.nodes.countP NatNode.isCall ≤ 15845
+  consts : ∀ c ∈ N.nodes.filterMap nontrivialConst, c = c3 ∨ c = 2 ∨ c = 4 ∨ c = 1399</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Precision.lean:46</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.precisionRecipe">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> precisionRecipe (N : NatCircuit) (c3 : ℤ) : ModelRecipe :=
+  translate (integerConstants c3) N .zero true
+    (some (0, powerValueRecipe.variableCount - powerValueRecipe.parameterCount))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Precision.lean:27</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/syntax-locators.html#section-10-translation">Section 10.4</a></li>
+<li><a href="../../../sources/syntax-locators.html#appendix-c2-recipes-and-counts">Appendix C.2</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#model-evaluation-translation">Translation of a natural circuit into a model-evaluation recipe</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#recipe-power-value">The power-value recipe</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/natural/index.html#natural-polynomial-semantics">Semantics of the natural precision polynomial</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/translation/index.html#rational-translation">Semantics of the rational translation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../size/majorants/index.html#recipe-heights">Recipe heights</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#outer-recipes">The outer composition recipes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#witness-accounting">Witness accounting of the specified polynomial</a></span></div>
+</div>
+</details>
+</div>
+<p>Five composition recipes assemble the value relation and the root.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="syntax/recipes/outer-recipes">
+<h4 class="bp-thmheading" id="outer-recipes">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The outer composition recipes</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L67" aria-label="View ZInQ.Syntax.closeRecipe in Lean source" title="View ZInQ.Syntax.closeRecipe in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L86" aria-label="View ZInQ.Syntax.mainRecipe in Lean source" title="View ZInQ.Syntax.mainRecipe in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L93" aria-label="View ZInQ.Syntax.valueUnionRecipe in Lean source" title="View ZInQ.Syntax.valueUnionRecipe in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L99" aria-label="View ZInQ.Syntax.valueRecipe in Lean source" title="View ZInQ.Syntax.valueRecipe in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L105" aria-label="View ZInQ.Syntax.integersRecipe in Lean source" title="View ZInQ.Syntax.integersRecipe in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/syntax/recipes/outer-recipes.md" aria-label="Edit the Markdown source for The outer composition recipes" title="Edit the Markdown source for The outer composition recipes"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#outer-recipes" aria-label="Link to The outer composition recipes" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Syntax.closeRecipe ZInQ.Syntax.mainRecipe ZInQ.Syntax.valueUnionRecipe ZInQ.Syntax.valueRecipe ZInQ.Syntax.integersRecipe</div>
+<div class="bp-thmcontent">
+<p>Five composition recipes assemble the ordinary-value relation; each is built with one
+allocation counter starting at its parameter count, fresh ranges first, then the calls in
+order. Write <span class="arithmatex">\(\mathbf X_a=(X_a,\dots,X_{a+4})\)</span>.</p>
+<ol>
+<li><span class="arithmatex">\(\mathtt{close}\)</span> (sum of squares), parameters <span class="arithmatex">\(N=\mathbf X_0\)</span>, <span class="arithmatex">\(K=\mathbf X_5\)</span>, <span class="arithmatex">\(t=X_{10}\)</span>.
+   Fresh points <span class="arithmatex">\(A=\mathbf X_{11}\)</span>, <span class="arithmatex">\(L=\mathbf X_{16}\)</span>, <span class="arithmatex">\(J=\mathbf X_{21}\)</span> and
+   <span class="arithmatex">\(E_0,\dots,E_4=\mathbf X_{26},\mathbf X_{31},\dots,\mathbf X_{46}\)</span>. Calls:
+   <span class="arithmatex">\(\mathtt{value.signed\_encode}[\Sigma_i,E_i]\)</span> for <span class="arithmatex">\((\Sigma_0,\dots,\Sigma_4)=(N,K,A,L,J)\)</span> (starts
+   <span class="arithmatex">\(51+140654i\)</span>); <span class="arithmatex">\(\mathtt{precision}[E_0,\dots,E_4]\)</span> (start <span class="arithmatex">\(703321\)</span>);
+   <span class="arithmatex">\(\mathtt{value.close\_coordinates}[A,L,J,t]\)</span> (start <span class="arithmatex">\(292890196157\)</span>). <span class="arithmatex">\(11\)</span> parameters,
+   <span class="arithmatex">\(292890196199\)</span> witnesses.</li>
+<li><span class="arithmatex">\(\mathtt{main}\)</span> (sum of squares), parameters <span class="arithmatex">\(N=\mathbf X_0\)</span>, <span class="arithmatex">\(t=X_5\)</span>. Fresh point
+   <span class="arithmatex">\(K=\mathbf X_6\)</span>. Calls: <span class="arithmatex">\(\mathtt{close}[N,K,t]\)</span> (start <span class="arithmatex">\(11\)</span>) and
+   <span class="arithmatex">\(\mathtt{value.test}[N,K,t]\)</span> (start <span class="arithmatex">\(292890196210\)</span>). <span class="arithmatex">\(6\)</span> parameters, <span class="arithmatex">\(292890231486\)</span>
+   witnesses.</li>
+<li><span class="arithmatex">\(\mathtt{value\_union}\)</span> (product), parameters <span class="arithmatex">\(N=\mathbf X_0\)</span>, <span class="arithmatex">\(t=X_5\)</span>. Calls:
+   <span class="arithmatex">\(\mathtt{value.exceptions}[N,t]\)</span> (start <span class="arithmatex">\(6\)</span>) and <span class="arithmatex">\(\mathtt{main}[N,t]\)</span> (start <span class="arithmatex">\(412\)</span>). <span class="arithmatex">\(6\)</span>
+   parameters, <span class="arithmatex">\(292890231892\)</span> witnesses.</li>
+<li><span class="arithmatex">\(\mathtt{value}\)</span> (sum of squares), parameters <span class="arithmatex">\(N=\mathbf X_0\)</span>, <span class="arithmatex">\(t=X_5\)</span>. Calls:
+   <span class="arithmatex">\(\mathtt{member}[N]\)</span> (start <span class="arithmatex">\(6\)</span>) and <span class="arithmatex">\(\mathtt{value\_union}[N,t]\)</span> (start <span class="arithmatex">\(13\)</span>). <span class="arithmatex">\(6\)</span> parameters,
+   <span class="arithmatex">\(292890231899\)</span> witnesses.</li>
+<li><span class="arithmatex">\(\mathtt{integers}\)</span> (sum of squares), parameter <span class="arithmatex">\(t=X_0\)</span>. Fresh point <span class="arithmatex">\(N=\mathbf X_1\)</span>. Call:
+   <span class="arithmatex">\(\mathtt{value}[N,t]\)</span> (start <span class="arithmatex">\(6\)</span>). <span class="arithmatex">\(1\)</span> parameter, <span class="arithmatex">\(292890231904\)</span> witnesses.</li>
+</ol>
+<p>Thus, with call polynomials as in the semantics of recipes,
+$<span class="arithmatex">\([\![\mathtt{integers}]\!]=\mathtt{value}[X_1,\dots,X_5,X_0;6]^2,\qquad
+[\![\mathtt{value}]\!]=\mathtt{member}[\mathbf X_0;6]^2+\mathtt{value\_union}[\mathbf X_0,X_5;13]^2,\)</span>$
+$<span class="arithmatex">\([\![\mathtt{value\_union}]\!]=\mathtt{value.exceptions}[\mathbf X_0,X_5;6]\cdot\mathtt{main}[\mathbf X_0,X_5;412],\)</span>$
+and similarly for <span class="arithmatex">\(\mathtt{main}\)</span> and <span class="arithmatex">\(\mathtt{close}\)</span>. The same coordinates of <span class="arithmatex">\(K\)</span> occur in
+<span class="arithmatex">\(\mathtt{close}\)</span> and <span class="arithmatex">\(\mathtt{value.test}\)</span>; the exceptional branch and the main branch have
+disjoint private blocks.</p>
+<p>The starts and witness counts from the precision call on are those for a precision recipe
+with <span class="arithmatex">\(292{,}889{,}492{,}836\)</span> witnesses, the bound of the precision recipe; in general each of
+them shifts with the witness count of the recipe called (for instance <span class="arithmatex">\(\mathtt{close}\)</span> has
+<span class="arithmatex">\(703310+w+53\)</span> witnesses when precision has <span class="arithmatex">\(w\)</span>), so the displayed values are upper bounds.</p>
+<p>This is a definition.</p>
+</div>
+<div class="bp-lean-source">
+<details class="bp-lean-fold">
+<summary><code>ZInQ.Syntax.closeRecipe</code> · 16 lines</summary>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> closeRecipe (wPrec : ℕ) : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L184" data-lean-name="ZInQ.Syntax.CompositionRecipe">CompositionRecipe</a> := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L55" data-lean-name="ZInQ.Syntax.CompM.run">CompM.run</a> .sumSq 11 <span class="bp-lean-keyword">do</span>
+  <span class="bp-lean-keyword">let</span> A ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L48" data-lean-name="ZInQ.Syntax.CompM.fresh">CompM.fresh</a> 5
+  <span class="bp-lean-keyword">let</span> L ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L48" data-lean-name="ZInQ.Syntax.CompM.fresh">CompM.fresh</a> 5
+  <span class="bp-lean-keyword">let</span> J ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L48" data-lean-name="ZInQ.Syntax.CompM.fresh">CompM.fresh</a> 5
+  <span class="bp-lean-keyword">let</span> E0 ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L48" data-lean-name="ZInQ.Syntax.CompM.fresh">CompM.fresh</a> 5
+  <span class="bp-lean-keyword">let</span> E1 ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L48" data-lean-name="ZInQ.Syntax.CompM.fresh">CompM.fresh</a> 5
+  <span class="bp-lean-keyword">let</span> E2 ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L48" data-lean-name="ZInQ.Syntax.CompM.fresh">CompM.fresh</a> 5
+  <span class="bp-lean-keyword">let</span> E3 ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L48" data-lean-name="ZInQ.Syntax.CompM.fresh">CompM.fresh</a> 5
+  <span class="bp-lean-keyword">let</span> E4 ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L48" data-lean-name="ZInQ.Syntax.CompM.fresh">CompM.fresh</a> 5
+  <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L51" data-lean-name="ZInQ.Syntax.CompM.call">CompM.call</a> (.template 13) (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> 0 ++ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> E0) 140654
+  <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L51" data-lean-name="ZInQ.Syntax.CompM.call">CompM.call</a> (.template 13) (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> 5 ++ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> E1) 140654
+  <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L51" data-lean-name="ZInQ.Syntax.CompM.call">CompM.call</a> (.template 13) (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> A ++ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> E2) 140654
+  <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L51" data-lean-name="ZInQ.Syntax.CompM.call">CompM.call</a> (.template 13) (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> L ++ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> E3) 140654
+  <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L51" data-lean-name="ZInQ.Syntax.CompM.call">CompM.call</a> (.template 13) (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> J ++ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> E4) 140654
+  <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L51" data-lean-name="ZInQ.Syntax.CompM.call">CompM.call</a> (.recipe 1) (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> E0 ++ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> E1 ++ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> E2 ++ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> E3 ++ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> E4) wPrec
+  <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L51" data-lean-name="ZInQ.Syntax.CompM.call">CompM.call</a> (.template 15) (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> A ++ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> L ++ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> J ++ [10]) 53</code></pre>
+</details>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> mainRecipe (wClose : ℕ) : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L184" data-lean-name="ZInQ.Syntax.CompositionRecipe">CompositionRecipe</a> := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L55" data-lean-name="ZInQ.Syntax.CompM.run">CompM.run</a> .sumSq 6 <span class="bp-lean-keyword">do</span>
+  <span class="bp-lean-keyword">let</span> K ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L48" data-lean-name="ZInQ.Syntax.CompM.fresh">CompM.fresh</a> 5
+  <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L51" data-lean-name="ZInQ.Syntax.CompM.call">CompM.call</a> (.recipe 2) (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> 0 ++ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> K ++ [5]) wClose
+  <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L51" data-lean-name="ZInQ.Syntax.CompM.call">CompM.call</a> (.template 16) (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> 0 ++ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> K ++ [5]) 35282</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> valueUnionRecipe (wMain : ℕ) : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L184" data-lean-name="ZInQ.Syntax.CompositionRecipe">CompositionRecipe</a> := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L55" data-lean-name="ZInQ.Syntax.CompM.run">CompM.run</a> .prod 6 <span class="bp-lean-keyword">do</span>
+  <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L51" data-lean-name="ZInQ.Syntax.CompM.call">CompM.call</a> (.template 17) (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> 0 ++ [5]) 406
+  <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L51" data-lean-name="ZInQ.Syntax.CompM.call">CompM.call</a> (.recipe 3) (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Outer.lean#L62" data-lean-name="ZInQ.Syntax.point">point</a> 0 ++ [5]) wMain</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Syntax.CompositionRecipe">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> CompositionRecipe <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- Sum of squares or product. -/</span>
+  connective : Connective
+  <span class="bp-lean-comment">/-- The parameter count. -/</span>
+  parameterCount : ℕ
+  <span class="bp-lean-comment">/-- The variable count. -/</span>
+  variableCount : ℕ
+  <span class="bp-lean-comment">/-- The calls. -/</span>
+  calls : List RecipeCall
+  <span class="bp-lean-comment">/-- Ranges `(start, length)` of fresh variables; they add no constraint. -/</span>
+  fresh : List (ℕ × ℕ)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Nodes.lean:184</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.CompM.run">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> run (k : Connective) (p : ℕ) (b : CompM Unit) : CompositionRecipe :=
+  <span class="bp-lean-keyword">let</span> s := (b ⟨p, [], []⟩).2
+  ⟨k, p, s.next, s.calls, s.fresh⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Outer.lean:55</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.CompM.fresh">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> fresh (n : ℕ) : CompM ℕ := <span class="bp-lean-keyword">fun</span> s =&gt; (s.next, ⟨s.next + n, s.calls, s.fresh ++ [(s.next, n)]⟩)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Outer.lean:48</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.CompM.call">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> call (target : CallTarget) (args : List ℕ) (m : ℕ) : CompM Unit := <span class="bp-lean-keyword">fun</span> s =&gt;
+  ((), ⟨s.next + m, s.calls ++ [⟨target, args, s.next⟩], s.fresh⟩)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Outer.lean:51</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.point">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> point (a : ℕ) : List ℕ := List.range&#x27; a 5</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Outer.lean:62</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/syntax-locators.html#appendix-c2-recipes-and-counts">Appendix C.2</a></li>
+<li><a href="../../../sources/syntax-locators.html#saved-specification">Saved specification</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 7 · Used by 10</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#template-semantics">Semantics of templates and recipes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#recipe-precision">The precision recipe</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../templates/index.html#template-signed-encode">The signed-encoding template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../templates/index.html#template-close-coordinates">The coordinate-window template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../templates/index.html#template-value-test">The value-test template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../templates/index.html#template-exceptions">The exceptional-values template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#template-member">The membership template</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../assembly/approximation/index.html#close-completeness">Completeness of Close for every fixed shift</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../assembly/approximation/index.html#close-relation">The relation Close</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../assembly/approximation/index.html#close-soundness">Soundness of Close</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../assembly/index.html#main-branch-exactness">An accepting main branch forces the exact value</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../assembly/index.html#ordinary-value-relation">The exact ordinary-value relation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../assembly/value-templates/index.html#outer-recipe-relations">Relations of the outer recipes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../size/majorants/index.html#recipe-heights">Recipe heights</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#literal-polynomial">The specified polynomial</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#fin-variable-form">The rational zero projection of the specified polynomial</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#witness-accounting">Witness accounting of the specified polynomial</a></span></div>
+</div>
+</details>
+</div>
+<p>The witness counts follow from the template counts, the shape of the natural circuit
+(proved in the compiler chapter:
+<a href="../../compiler/natural/universal/index.html#circuit-node-counts">shape of the natural precision circuit</a>)
+and explicit arithmetic; the root has one input and <span class="arithmatex">\(292{,}890{,}231{,}904\)</span> witnesses.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="syntax/recipes/template-witness-counts">
+<h4 class="bp-thmheading" id="template-witness-counts">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Parameter and witness counts of the templates</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Templates/Library.lean#L38" aria-label="View ZInQ.Syntax.templateLibrary_params in Lean source" title="View ZInQ.Syntax.templateLibrary_params in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Templates/Library.lean#L42" aria-label="View ZInQ.Syntax.templateLibrary_witnesses in Lean source" title="View ZInQ.Syntax.templateLibrary_witnesses in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/syntax/recipes/template-witness-counts.md" aria-label="Edit the Markdown source for Parameter and witness counts of the templates" title="Edit the Markdown source for Parameter and witness counts of the templates"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#template-witness-counts" aria-label="Link to Parameter and witness counts of the templates" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Syntax.templateLibrary_params ZInQ.Syntax.templateLibrary_witnesses</div>
+<div class="bp-thmcontent">
+<p>The <span class="arithmatex">\(23\)</span> templates of the library, as constructed, have the parameter and witness counts
+of the library table: <span class="arithmatex">\(\mathtt{member}\)</span> <span class="arithmatex">\((5,7)\)</span>, <span class="arithmatex">\(\mathtt{raw\_add}\)</span> <span class="arithmatex">\((15,6)\)</span>, <span class="arithmatex">\(\mathtt{raw\_z}\)</span>
+<span class="arithmatex">\((7,1)\)</span>, <span class="arithmatex">\(\mathtt{raw\_inverse\_x}\)</span> <span class="arithmatex">\((7,0)\)</span>, <span class="arithmatex">\(\mathtt{log25}\)</span> <span class="arithmatex">\((4,0)\)</span>, <span class="arithmatex">\(\mathtt{pole}\)</span> <span class="arithmatex">\((1,11)\)</span>,
+<span class="arithmatex">\(\mathtt{test\_group}\)</span> <span class="arithmatex">\((44,162)\)</span>, <span class="arithmatex">\(\mathtt{slope}\)</span> <span class="arithmatex">\((22,1298)\)</span>, <span class="arithmatex">\(\mathtt{height\_certificate}\)</span>
+<span class="arithmatex">\((36,35106)\)</span>, <span class="arithmatex">\(\mathtt{multiply.scalar}\)</span> <span class="arithmatex">\((10,1)\)</span>, <span class="arithmatex">\(\mathtt{multiply.guard}\)</span> <span class="arithmatex">\((15,1)\)</span>,
+<span class="arithmatex">\(\mathtt{multiply}\)</span> <span class="arithmatex">\((15,35134)\)</span>, <span class="arithmatex">\(\mathtt{natural}\)</span> <span class="arithmatex">\((5,140604)\)</span>, <span class="arithmatex">\(\mathtt{value.signed\_encode}\)</span>
+<span class="arithmatex">\((10,140654)\)</span>, <span class="arithmatex">\(\mathtt{value.abs}\)</span> <span class="arithmatex">\((2,4)\)</span>, <span class="arithmatex">\(\mathtt{value.close\_coordinates}\)</span> <span class="arithmatex">\((16,53)\)</span>,
+<span class="arithmatex">\(\mathtt{value.test}\)</span> <span class="arithmatex">\((11,35282)\)</span>, <span class="arithmatex">\(\mathtt{value.exceptions}\)</span> <span class="arithmatex">\((6,406)\)</span> and
+<span class="arithmatex">\(\mathtt{scalar.integer\_constant}_k\)</span> <span class="arithmatex">\((10,1)\)</span> for <span class="arithmatex">\(k=0,\dots,4\)</span>.</p>
+<p>This is a closed decidable statement about the constructed templates: run each
+construction's allocation counter. The counts do not depend on any fixed constant. By
+hand: <span class="arithmatex">\(162=40+4(7+6)+8\cdot7+2+12\)</span>; <span class="arithmatex">\(1298=7+6(24+162+24+3)+2+11\)</span>;
+<span class="arithmatex">\(35106=3\cdot11+9(3+3\cdot1298)\)</span>; <span class="arithmatex">\(35134=3+4\cdot6+35106+1\)</span>; <span class="arithmatex">\(140604=40+4\cdot35134+10+18\)</span>;
+<span class="arithmatex">\(140654=15+7+7+140604+6+3+6+6\)</span>; <span class="arithmatex">\(53=16+21+3+8+1+4\)</span>;
+<span class="arithmatex">\(35282=25+49+35134+12+20+6+5+2+12+3+2+1+11\)</span>; <span class="arithmatex">\(406=3+36\cdot11+7\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> templateLibrary_params : (<a class="bp-lean-ref" href="../templates/index.html#template-library" data-lean-name="ZInQ.Syntax.templateLibrary">templateLibrary</a> I cstar ell T c3).map <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L174" data-lean-name="ZInQ.Syntax.ExPoly.params">ExPoly.params</a> =
+    [5, 15, 7, 7, 4, 1, 44, 22, 36, 10, 15, 15, 5, 10, 2, 16, 11, 6, 10, 10, 10, 10, 10]</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> templateLibrary_witnesses : (<a class="bp-lean-ref" href="../templates/index.html#template-library" data-lean-name="ZInQ.Syntax.templateLibrary">templateLibrary</a> I cstar ell T c3).map <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L176" data-lean-name="ZInQ.Syntax.ExPoly.witnesses">ExPoly.witnesses</a> =
+    [7, 6, 1, 0, 0, 11, 162, 1298, 35106, 1, 1, 35134, 140604, 140654, 4, 53, 35282, 406,
+      1, 1, 1, 1, 1]</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Syntax.templateLibrary">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> templateLibrary (I : Constructors E) (cstar ell T c3 : ℤ) : List ExPoly :=
+  [memberTemplate, rawAddTemplate, rawZTemplate, rawInverseXTemplate, log25Template, poleTemplate,
+    testGroupTemplate, slopeTemplate, heightTemplate, scalarTemplate I cstar, guardTemplate I T,
+    multiplyTemplate I cstar ell T, naturalTemplate I cstar ell T,
+    signedEncodeTemplate I cstar ell T, absTemplate, closeTemplate,
+    valueTestTemplate I cstar ell T, exceptionsTemplate] ++
+  (integerConstants c3).map (scalarTemplate I)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Templates/Library.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.ExPoly.params">
+<pre class="bp-lean"><code>  params : ℕ</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Basic.lean:174</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.ExPoly.witnesses">
+<pre class="bp-lean"><code>  witnesses : ℕ</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Basic.lean:176</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/syntax-locators.html#appendix-c2-recipes-and-counts">Appendix C.2</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../templates/index.html#template-library">The template library</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../language/index.html#builder-soundness">Template construction from formulas</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#witness-accounting">Witness accounting of the specified polynomial</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="syntax/recipes/witness-count-identity">
+<h4 class="bp-thmheading" id="witness-count-identity">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The witness-count arithmetic</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Arith.lean#L15" aria-label="View ZInQ.Syntax.witness_count_arith in Lean source" title="View ZInQ.Syntax.witness_count_arith in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Arith.lean#L25" aria-label="View ZInQ.Syntax.variable_count_arith in Lean source" title="View ZInQ.Syntax.variable_count_arith in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/syntax/recipes/witness-count-identity.md" aria-label="Edit the Markdown source for The witness-count arithmetic" title="Edit the Markdown source for The witness-count arithmetic"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#witness-count-identity" aria-label="Link to The witness-count arithmetic" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Syntax.witness_count_arith ZInQ.Syntax.variable_count_arith</div>
+<div class="bp-thmcontent">
+<p>The following identities between explicit natural numbers hold:
+$<span class="arithmatex">\(3+79\,(5+140604)+3\,(5+1)+196\,(5+6)+190\,(5+35134)=17786698,\)</span>$
+$<span class="arithmatex">\(3+5\cdot140604+54051\,(5+140604)+4\,(5+1)+125327\,(5+6)+98382\,(5+35134)+15845\,(5+17786698)=292889492836,\)</span>$
+$<span class="arithmatex">\(8\cdot5+5\cdot140654+292889492836+53=292890196199,\)</span>$
+$<span class="arithmatex">\(5+292890196199+35282=292890231486,\qquad 406+292890231486=292890231892,\)</span>$
+$<span class="arithmatex">\(7+292890231892=292890231899,\qquad 5+292890231899=292890231904 .\)</span>$
+Adding the parameter counts gives the total variable counts <span class="arithmatex">\(17786718\)</span>, <span class="arithmatex">\(292889492861\)</span>,
+<span class="arithmatex">\(292890196210\)</span>, <span class="arithmatex">\(292890231492\)</span>, <span class="arithmatex">\(292890231898\)</span>, <span class="arithmatex">\(292890231905\)</span> and <span class="arithmatex">\(292890231905\)</span>.</p>
+<p>This is a closed decidable statement (integer arithmetic).</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> witness_count_arith :
+    3 + 79 * (5 + 140604) + 3 * (5 + 1) + 196 * (5 + 6) + 190 * (5 + 35134) = 17786698 ∧
+      3 + 5 * 140604 + 54051 * (5 + 140604) + 4 * (5 + 1) + 125327 * (5 + 6) +
+        98382 * (5 + 35134) + 15845 * (5 + 17786698) = 292889492836 ∧
+      8 * 5 + 5 * 140654 + 292889492836 + 53 = 292890196199 ∧
+      5 + 292890196199 + 35282 = 292890231486 ∧ 406 + 292890231486 = 292890231892 ∧
+      7 + 292890231892 = 292890231899 ∧ 5 + 292890231899 = 292890231904</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> variable_count_arith :
+    17786698 + 20 = 17786718 ∧ 292889492836 + 25 = 292889492861 ∧
+      292890196199 + 11 = 292890196210 ∧ 292890231486 + 6 = 292890231492 ∧
+      292890231892 + 6 = 292890231898 ∧ 292890231899 + 6 = 292890231905 ∧
+      292890231904 + 1 = 292890231905</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/syntax-locators.html#appendix-c2-recipes-and-counts">Appendix C.2</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#witness-accounting">Witness accounting of the specified polynomial</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="syntax/recipes/witness-accounting">
+<h4 class="bp-thmheading" id="witness-accounting">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Witness accounting of the specified polynomial</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L70" aria-label="View ZInQ.Syntax.specRecipes in Lean source" title="View ZInQ.Syntax.specRecipes in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L275" aria-label="View ZInQ.Syntax.specLib in Lean source" title="View ZInQ.Syntax.specLib in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L384" aria-label="View ZInQ.Syntax.specLib_wf in Lean source" title="View ZInQ.Syntax.specLib_wf in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/PowerValue.lean#L45" aria-label="View ZInQ.Syntax.powerValueRecipe_variableCount in Lean source" title="View ZInQ.Syntax.powerValueRecipe_variableCount in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Precision.lean#L87" aria-label="View ZInQ.Syntax.precisionRecipe_variableCount_le in Lean source" title="View ZInQ.Syntax.precisionRecipe_variableCount_le in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L110" aria-label="View ZInQ.Syntax.specClose_witnessCount in Lean source" title="View ZInQ.Syntax.specClose_witnessCount in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L117" aria-label="View ZInQ.Syntax.specMain_witnessCount in Lean source" title="View ZInQ.Syntax.specMain_witnessCount in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L124" aria-label="View ZInQ.Syntax.specValueUnion_witnessCount in Lean source" title="View ZInQ.Syntax.specValueUnion_witnessCount in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L131" aria-label="View ZInQ.Syntax.specValue_witnessCount in Lean source" title="View ZInQ.Syntax.specValue_witnessCount in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L100" aria-label="View ZInQ.Syntax.specIntegers_variableCount in Lean source" title="View ZInQ.Syntax.specIntegers_variableCount in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L139" aria-label="View ZInQ.Syntax.specIntegers_variableCount_eq in Lean source" title="View ZInQ.Syntax.specIntegers_variableCount_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L148" aria-label="View ZInQ.Syntax.specIntegers_variableCount_le in Lean source" title="View ZInQ.Syntax.specIntegers_variableCount_le in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L412" aria-label="View ZInQ.Syntax.vars_integers_lt in Lean source" title="View ZInQ.Syntax.vars_integers_lt in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/syntax/recipes/witness-accounting.md" aria-label="Edit the Markdown source for Witness accounting of the specified polynomial" title="Edit the Markdown source for Witness accounting of the specified polynomial"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#witness-accounting" aria-label="Link to Witness accounting of the specified polynomial" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Syntax.specRecipes ZInQ.Syntax.specLib ZInQ.Syntax.specLib_wf ZInQ.Syntax.powerValueRecipe_variableCount ZInQ.Syntax.precisionRecipe_variableCount_le ZInQ.Syntax.specClose_witnessCount ZInQ.Syntax.specMain_witnessCount ZInQ.Syntax.specValueUnion_witnessCount ZInQ.Syntax.specValue_witnessCount ZInQ.Syntax.specIntegers_variableCount ZInQ.Syntax.specIntegers_variableCount_eq ZInQ.Syntax.specIntegers_variableCount_le ZInQ.Syntax.vars_integers_lt</div>
+<div class="bp-thmcontent">
+<p>The seven recipes have the following parameter counts, and at most the following witness
+and variable counts:</p>
+<table>
+<thead>
+<tr>
+<th>Recipe</th>
+<th style="text-align: right;">Parameters</th>
+<th style="text-align: right;">Witnesses</th>
+<th style="text-align: right;">Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>power_value</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">17,786,698</td>
+<td style="text-align: right;">17,786,718</td>
+</tr>
+<tr>
+<td>precision</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">292,889,492,836</td>
+<td style="text-align: right;">292,889,492,861</td>
+</tr>
+<tr>
+<td>close</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">292,890,196,199</td>
+<td style="text-align: right;">292,890,196,210</td>
+</tr>
+<tr>
+<td>main</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">292,890,231,486</td>
+<td style="text-align: right;">292,890,231,492</td>
+</tr>
+<tr>
+<td>value_union</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">292,890,231,892</td>
+<td style="text-align: right;">292,890,231,898</td>
+</tr>
+<tr>
+<td>value</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">292,890,231,899</td>
+<td style="text-align: right;">292,890,231,905</td>
+</tr>
+<tr>
+<td>integers</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">292,890,231,904</td>
+<td style="text-align: right;">292,890,231,905</td>
+</tr>
+</tbody>
+</table>
+<p>The row of power_value is exact, and so are the differences between consecutive rows from
+precision on; in particular integers has exactly <span class="arithmatex">\(739{,}069\)</span> variables more than precision
+has witnesses.</p>
+<p>Every variable occurring in the polynomial of a template or recipe has index below its
+variable count. In particular every variable of <span class="arithmatex">\([\![\mathtt{integers}]\!]\)</span> is among
+<span class="arithmatex">\(X_0,\dots,X_{292890231904}\)</span>, so <span class="arithmatex">\(P_*\)</span>, which is <span class="arithmatex">\([\![\mathtt{integers}]\!]\)</span> read in these
+variables, has input <span class="arithmatex">\(X_0\)</span> and its witness variables among <span class="arithmatex">\(X_1,\dots,X_{292890231904}\)</span>, the
+variables allowed by the target statement, which need not all occur.</p>
+<p>The manuscript states the table as exact counts, and the private blocks of every template
+and recipe as pairwise disjoint and disjoint from the variables used outside them. The exact
+counts follow in the same way from the exact node statistics. The variable format of the
+target needs neither; the relational statements of the compiler and assembly chapters prove
+the separation of blocks they use.</p>
+<p><strong>Proof sketch.</strong> For the composition recipes the witness count is the sum of the fresh
+ranges and the callee witness counts, read off the recipe definitions. For a
+model-evaluation translation it is <span class="arithmatex">\(3\)</span> (generator) plus, for each explicit witness variable,
+<span class="arithmatex">\(5+140604\)</span>; for each constrained input, <span class="arithmatex">\(140604\)</span>; for each distinct nontrivial constant,
+<span class="arithmatex">\(5+1\)</span>; for each addition, multiplication and call node, <span class="arithmatex">\(5+6\)</span>, <span class="arithmatex">\(5+35134\)</span> and
+<span class="arithmatex">\(5+17786698\)</span>. Inserting the template counts and the bounds of the circuit shape gives the
+table, through the witness-count arithmetic. The variable bounds are the witness-scope
+theorem applied to every template and recipe, by induction along the library and recipe
+order.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> specRecipes : List <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L231" data-lean-name="ZInQ.Syntax.Recipe">Recipe</a> :=
+  [.model <a class="bp-lean-ref" href="#recipe-power-value" data-lean-name="ZInQ.Syntax.powerValueRecipe">powerValueRecipe</a>, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L50" data-lean-name="ZInQ.Syntax.specPrecision">specPrecision</a> N c3, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L53" data-lean-name="ZInQ.Syntax.specClose">specClose</a> N c3, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L56" data-lean-name="ZInQ.Syntax.specMain">specMain</a> N c3,
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L59" data-lean-name="ZInQ.Syntax.specValueUnion">specValueUnion</a> N c3, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L63" data-lean-name="ZInQ.Syntax.specValue">specValue</a> N c3, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Accounting.lean#L66" data-lean-name="ZInQ.Syntax.specIntegers">specIntegers</a> N c3]</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> specLib : List <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L172" data-lean-name="ZInQ.Syntax.ExPoly">ExPoly</a> :=
+  <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L325" data-lean-name="ZInQ.Syntax.denoteRecipes">denoteRecipes</a> (<a class="bp-lean-ref" href="../templates/index.html#template-library" data-lean-name="ZInQ.Syntax.templateLibrary">templateLibrary</a> I cstar ell T c3) (<a class="bp-lean-ref" href="#witness-accounting" data-lean-name="ZInQ.Syntax.specRecipes">specRecipes</a> N c3)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> specLib_wf : ∀ τ ∈ <a class="bp-lean-ref" href="#witness-accounting" data-lean-name="ZInQ.Syntax.specLib">specLib</a> I cstar ell T c3 N, τ.WF</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Syntax.Recipe">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">inductive</span> Recipe
+  <span class="bp-lean-comment">/-- A composition recipe. -/</span>
+  | composition (r : CompositionRecipe)
+  <span class="bp-lean-comment">/-- A model-evaluation recipe. -/</span>
+  | model (r : ModelRecipe)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Nodes.lean:231</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.powerValueRecipe">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> powerValueRecipe : ModelRecipe :=
+  translate powerConstants powerTemplateCircuit .value false none</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/PowerValue.lean:28</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.specPrecision">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> specPrecision : Recipe := .model (precisionRecipe N c3)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Accounting.lean:50</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.specClose">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> specClose : Recipe := .composition (closeRecipe (specPrecision N c3).witnessCount)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Accounting.lean:53</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.specMain">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> specMain : Recipe := .composition (mainRecipe (specClose N c3).witnessCount)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Accounting.lean:56</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.specValueUnion">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> specValueUnion : Recipe :=
+  .composition (valueUnionRecipe (specMain N c3).witnessCount)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Accounting.lean:59</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.specValue">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> specValue : Recipe := .composition (valueRecipe (specValueUnion N c3).witnessCount)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Accounting.lean:63</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.specIntegers">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> specIntegers : Recipe :=
+  .composition (integersRecipe (specValue N c3).witnessCount)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Accounting.lean:66</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.ExPoly">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> ExPoly <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The parameter count `p`; the parameters are `X_0, …, X_{p-1}`. -/</span>
+  params : ℕ
+  <span class="bp-lean-comment">/-- The witness count `m`; the witnesses are `X_p, …, X_{p+m-1}`. -/</span>
+  witnesses : ℕ
+  <span class="bp-lean-comment">/-- The polynomial. -/</span>
+  poly : Poly</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Basic.lean:172</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.denoteRecipes">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> denoteRecipes (templates : List ExPoly) (rs : List Recipe) : List ExPoly :=
+  rs.foldl (<span class="bp-lean-keyword">fun</span> recipes ρ =&gt; recipes ++ [ρ.denote templates recipes]) []</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Nodes.lean:325</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.templateLibrary">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> templateLibrary (I : Constructors E) (cstar ell T c3 : ℤ) : List ExPoly :=
+  [memberTemplate, rawAddTemplate, rawZTemplate, rawInverseXTemplate, log25Template, poleTemplate,
+    testGroupTemplate, slopeTemplate, heightTemplate, scalarTemplate I cstar, guardTemplate I T,
+    multiplyTemplate I cstar ell T, naturalTemplate I cstar ell T,
+    signedEncodeTemplate I cstar ell T, absTemplate, closeTemplate,
+    valueTestTemplate I cstar ell T, exceptionsTemplate] ++
+  (integerConstants c3).map (scalarTemplate I)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Templates/Library.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.specRecipes">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> specRecipes : List Recipe :=
+  [.model powerValueRecipe, specPrecision N c3, specClose N c3, specMain N c3,
+    specValueUnion N c3, specValue N c3, specIntegers N c3]</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Accounting.lean:70</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.specLib">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> specLib : List ExPoly :=
+  denoteRecipes (templateLibrary I cstar ell T c3) (specRecipes N c3)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Accounting.lean:275</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/syntax-locators.html#appendix-c2-recipes-and-counts">Appendix C.2</a></li>
+<li><a href="../../../sources/syntax-locators.html#section-122-syntax-bounds">Section 12.2</a></li>
+<li><a href="../../../sources/syntax-locators.html#appendix-c-opening">Appendix C opening</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 8 · Used by 5</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#literal-polynomial">The specified polynomial</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#outer-recipes">The outer composition recipes</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#template-witness-counts">Parameter and witness counts of the templates</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../compiler/natural/universal/index.html#circuit-node-counts">Shape of the natural precision circuit</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#witness-count-identity">The witness-count arithmetic</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../language/index.html#builder-well-formed">Witness scope of constructed templates and recipes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#recipe-precision">The precision recipe</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#recipe-power-value">The power-value recipe</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../assembly/index.html#assembly-lemma">The assembly lemma</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../assembly/value-templates/index.html#outer-recipe-relations">Relations of the outer recipes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../size/majorants/index.html#degree-coefficient-bound">Degree and coefficient bounds for the specified polynomial</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../size/index.html#syntax-bounds">Variable, degree and coefficient bounds</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#fin-variable-form">The rational zero projection of the specified polynomial</a></span></div>
+</div>
+</details>
+</div>
+<p>In the variable format of the target statement, the rational zero projection of <span class="arithmatex">\(P_*\)</span> is
+the set of <span class="arithmatex">\(q\)</span> for which the value relation has a code.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="syntax/recipes/fin-variable-form">
+<h4 class="bp-thmheading" id="fin-variable-form">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The rational zero projection of the specified polynomial</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Polynomial.lean#L169" aria-label="View ZInQ.Syntax.PstarOf_spec in Lean source" title="View ZInQ.Syntax.PstarOf_spec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Polynomial.lean#L208" aria-label="View ZInQ.Syntax.PstarOf_zero_projection in Lean source" title="View ZInQ.Syntax.PstarOf_zero_projection in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Literal.lean#L97" aria-label="View ZInQ.Syntax.specPstar_spec in Lean source" title="View ZInQ.Syntax.specPstar_spec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Literal.lean#L107" aria-label="View ZInQ.Syntax.specPstar_zero_projection in Lean source" title="View ZInQ.Syntax.specPstar_zero_projection in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/syntax/recipes/fin-variable-form.md" aria-label="Edit the Markdown source for The rational zero projection of the specified polynomial" title="Edit the Markdown source for The rational zero projection of the specified polynomial"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#fin-variable-form" aria-label="Link to The rational zero projection of the specified polynomial" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Syntax.PstarOf_spec ZInQ.Syntax.PstarOf_zero_projection ZInQ.Syntax.specPstar_spec ZInQ.Syntax.specPstar_zero_projection</div>
+<div class="bp-thmcontent">
+<p>For every <span class="arithmatex">\(q\in\mathbb Q\)</span> the following are equivalent:</p>
+<ol>
+<li>there is <span class="arithmatex">\(w=(w_1,\dots,w_{292890231904})\in\mathbb Q^{292890231904}\)</span> with <span class="arithmatex">\(P_*(q,w_1,\dots,w_{292890231904})=0\)</span>;</li>
+<li><span class="arithmatex">\(\mathrm{Rel}_{\mathtt{integers}}(q)\)</span>;</li>
+<li>there is <span class="arithmatex">\(x:\mathbb N\to\mathbb Q\)</span> with <span class="arithmatex">\(x_0=q\)</span> and <span class="arithmatex">\([\![\mathtt{integers}]\!]\,(x)=0\)</span>;</li>
+<li>there are <span class="arithmatex">\(N\in\mathbb Q^5\)</span> and rational values of the witnesses of <span class="arithmatex">\(\mathtt{value}\)</span> making
+   <span class="arithmatex">\([\![\mathtt{value}]\!]\)</span> vanish at <span class="arithmatex">\((N,q)\)</span>, that is, <span class="arithmatex">\(\mathrm{Rel}_{\mathtt{value}}(N,q)\)</span> for
+   some <span class="arithmatex">\(N\in\mathbb Q^5\)</span>.</li>
+</ol>
+<p>Moreover <span class="arithmatex">\(P_*\)</span> is <span class="arithmatex">\([\![\mathtt{integers}]\!]\)</span> read in the variables indexed by
+<span class="arithmatex">\(\{0,\dots,292890231904\}\)</span>: <span class="arithmatex">\(\mathrm{rename}(\iota)\,P_*=[\![\mathtt{integers}]\!]\)</span> for the
+inclusion <span class="arithmatex">\(\iota\)</span> of the indices into <span class="arithmatex">\(\mathbb N\)</span>. Hence <span class="arithmatex">\(P_*\)</span> has total degree at most that of
+<span class="arithmatex">\([\![\mathtt{integers}]\!]\)</span> and the same coefficients,
+<span class="arithmatex">\(\mathrm{coeff}_d(P_*)=\mathrm{coeff}_{\iota_*d}([\![\mathtt{integers}]\!])\)</span> for every exponent
+vector <span class="arithmatex">\(d\)</span>, and <span class="arithmatex">\(P_*(v)=[\![\mathtt{integers}]\!](\bar v)\)</span> for every
+<span class="arithmatex">\(v\in\mathbb Q^{292890231905}\)</span>, where <span class="arithmatex">\(\bar v\)</span> extends <span class="arithmatex">\(v\)</span> by zeros.</p>
+<p>So the rational zero projection of <span class="arithmatex">\(P_*\)</span> to its first variable is
+<span class="arithmatex">\(\{q:\exists N,\ \mathrm{Rel}_{\mathtt{value}}(N,q)\}\)</span>, which the assembly chapter identifies with
+<span class="arithmatex">\(\mathbb Z\)</span>.</p>
+<p><strong>Proof sketch.</strong> By the witness accounting, <span class="arithmatex">\([\![\mathtt{integers}]\!]\)</span> involves only
+<span class="arithmatex">\(X_0,\dots,X_{292890231904}\)</span>, so its value at <span class="arithmatex">\(x\)</span> depends only on <span class="arithmatex">\(x_0,\dots,x_{292890231904}\)</span> and
+equals <span class="arithmatex">\(P_*(x_0,\dots,x_{292890231904})\)</span>; this gives <span class="arithmatex">\(1\iff2\iff3\)</span> (unused variables take
+arbitrary values, for instance <span class="arithmatex">\(0\)</span>). For <span class="arithmatex">\(3\iff4\)</span>: <span class="arithmatex">\([\![\mathtt{integers}]\!]\)</span> is the square
+of one call of <span class="arithmatex">\(\mathtt{value}\)</span> with parameters <span class="arithmatex">\(X_1,\dots,X_5,X_0\)</span> and block
+<span class="arithmatex">\([6,292890231905)\)</span>, which is disjoint from <span class="arithmatex">\(X_0,\dots,X_5\)</span>; apply the evaluation of a call and
+the compilation theorem.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> PstarOf_spec (hN : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Precision.lean#L46" data-lean-name="ZInQ.Syntax.PrecisionShape">PrecisionShape</a> N c3) :
+    rename Fin.val (<a class="bp-lean-ref" href="../index.html#literal-polynomial" data-lean-name="ZInQ.Syntax.PstarOf">PstarOf</a> I <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">ell</a> T c3 N) = <a class="bp-lean-ref" href="../index.html#literal-polynomial" data-lean-name="ZInQ.Syntax.PstarNatOf">PstarNatOf</a> I <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">ell</a> T c3 N ∧
+      (∀ d, (<a class="bp-lean-ref" href="../index.html#literal-polynomial" data-lean-name="ZInQ.Syntax.PstarOf">PstarOf</a> I <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">ell</a> T c3 N).coeff d =
+        (<a class="bp-lean-ref" href="../index.html#literal-polynomial" data-lean-name="ZInQ.Syntax.PstarNatOf">PstarNatOf</a> I <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">ell</a> T c3 N).coeff (d.mapDomain Fin.val)) ∧
+      (<a class="bp-lean-ref" href="../index.html#literal-polynomial" data-lean-name="ZInQ.Syntax.PstarOf">PstarOf</a> I <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">ell</a> T c3 N).totalDegree ≤ (<a class="bp-lean-ref" href="../index.html#literal-polynomial" data-lean-name="ZInQ.Syntax.PstarNatOf">PstarNatOf</a> I <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">ell</a> T c3 N).totalDegree ∧
+      ∀ v : Fin 292890231905 → ℚ, eval₂ (Int.castRingHom ℚ) v (<a class="bp-lean-ref" href="../index.html#literal-polynomial" data-lean-name="ZInQ.Syntax.PstarOf">PstarOf</a> I <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">ell</a> T c3 N) =
+        <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L30" data-lean-name="ZInQ.Syntax.ev">ev</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L351" data-lean-name="ZInQ.Syntax.extendFin">extendFin</a> v) (<a class="bp-lean-ref" href="../index.html#literal-polynomial" data-lean-name="ZInQ.Syntax.PstarNatOf">PstarNatOf</a> I <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">ell</a> T c3 N)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> PstarOf_zero_projection (hN : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Precision.lean#L46" data-lean-name="ZInQ.Syntax.PrecisionShape">PrecisionShape</a> N c3) (q : ℚ) :
+    ((∃ w : Fin 292890231904 → ℚ,
+        eval₂ (Int.castRingHom ℚ) (Fin.cons q w) (<a class="bp-lean-ref" href="../index.html#literal-polynomial" data-lean-name="ZInQ.Syntax.PstarOf">PstarOf</a> I <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">ell</a> T c3 N) = 0) ↔
+      (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Polynomial.lean#L57" data-lean-name="ZInQ.Syntax.integersExPoly">integersExPoly</a> I <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">ell</a> T c3 N).Rel (<span class="bp-lean-keyword">fun</span> _ =&gt; q)) ∧
+    ((<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Polynomial.lean#L57" data-lean-name="ZInQ.Syntax.integersExPoly">integersExPoly</a> I <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">ell</a> T c3 N).Rel (<span class="bp-lean-keyword">fun</span> _ =&gt; q) ↔
+      ∃ x : ℕ → ℚ, x 0 = q ∧ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L30" data-lean-name="ZInQ.Syntax.ev">ev</a> x (<a class="bp-lean-ref" href="../index.html#literal-polynomial" data-lean-name="ZInQ.Syntax.PstarNatOf">PstarNatOf</a> I <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">ell</a> T c3 N) = 0) ∧
+    ((∃ x : ℕ → ℚ, x 0 = q ∧ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L30" data-lean-name="ZInQ.Syntax.ev">ev</a> x (<a class="bp-lean-ref" href="../index.html#literal-polynomial" data-lean-name="ZInQ.Syntax.PstarNatOf">PstarNatOf</a> I <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">ell</a> T c3 N) = 0) ↔
+      ∃ M : Fin 5 → ℚ, (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Polynomial.lean#L54" data-lean-name="ZInQ.Syntax.valueExPoly">valueExPoly</a> I <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">ell</a> T c3 N).Rel
+        (<span class="bp-lean-keyword">fun</span> i =&gt; Fin.append M ![q] (Fin.cast (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Polynomial.lean#L59" data-lean-name="ZInQ.Syntax.valueExPoly_params">valueExPoly_params</a> I <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> <a class="bp-lean-ref" href="../constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">ell</a> T c3 N) i)))</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> specPstar_spec (hB : <a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#halting-node-check" data-lean-name="ZInQ.Compiler.NodeCheck.HaltingAddMulBound">Compiler.NodeCheck.HaltingAddMulBound</a>) :
+    MvPolynomial.rename Fin.val (<a class="bp-lean-ref" href="../index.html#literal-polynomial" data-lean-name="ZInQ.Syntax.specPstar">specPstar</a> <a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#wrapper-code-size" data-lean-name="ZInQ.Compiler.Universal.c3">c3</a>) = <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Polynomial.lean#L237" data-lean-name="ZInQ.Syntax.PstarNat">PstarNat</a> (<a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#precision-circuit" data-lean-name="ZInQ.Compiler.Universal.precisionCircuitOf">precisionCircuitOf</a> <a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#wrapper-code-size" data-lean-name="ZInQ.Compiler.Universal.c3">c3</a>) <a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#wrapper-code-size" data-lean-name="ZInQ.Compiler.Universal.c3">c3</a> ∧
+      (∀ d, (<a class="bp-lean-ref" href="../index.html#literal-polynomial" data-lean-name="ZInQ.Syntax.specPstar">specPstar</a> <a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#wrapper-code-size" data-lean-name="ZInQ.Compiler.Universal.c3">c3</a>).coeff d =
+        (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Polynomial.lean#L237" data-lean-name="ZInQ.Syntax.PstarNat">PstarNat</a> (<a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#precision-circuit" data-lean-name="ZInQ.Compiler.Universal.precisionCircuitOf">precisionCircuitOf</a> <a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#wrapper-code-size" data-lean-name="ZInQ.Compiler.Universal.c3">c3</a>) <a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#wrapper-code-size" data-lean-name="ZInQ.Compiler.Universal.c3">c3</a>).coeff (d.mapDomain Fin.val)) ∧
+      (<a class="bp-lean-ref" href="../index.html#literal-polynomial" data-lean-name="ZInQ.Syntax.specPstar">specPstar</a> <a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#wrapper-code-size" data-lean-name="ZInQ.Compiler.Universal.c3">c3</a>).totalDegree ≤ (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Polynomial.lean#L237" data-lean-name="ZInQ.Syntax.PstarNat">PstarNat</a> (<a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#precision-circuit" data-lean-name="ZInQ.Compiler.Universal.precisionCircuitOf">precisionCircuitOf</a> <a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#wrapper-code-size" data-lean-name="ZInQ.Compiler.Universal.c3">c3</a>) <a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#wrapper-code-size" data-lean-name="ZInQ.Compiler.Universal.c3">c3</a>).totalDegree ∧
+      ∀ v : Fin 292890231905 → ℚ, MvPolynomial.eval₂ (Int.castRingHom ℚ) v (<a class="bp-lean-ref" href="../index.html#literal-polynomial" data-lean-name="ZInQ.Syntax.specPstar">specPstar</a> <a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#wrapper-code-size" data-lean-name="ZInQ.Compiler.Universal.c3">c3</a>) =
+        <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L30" data-lean-name="ZInQ.Syntax.ev">ev</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L351" data-lean-name="ZInQ.Syntax.extendFin">extendFin</a> v) (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Polynomial.lean#L237" data-lean-name="ZInQ.Syntax.PstarNat">PstarNat</a> (<a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#precision-circuit" data-lean-name="ZInQ.Compiler.Universal.precisionCircuitOf">precisionCircuitOf</a> <a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#wrapper-code-size" data-lean-name="ZInQ.Compiler.Universal.c3">c3</a>) <a class="bp-lean-ref" href="../../compiler/natural/universal/index.html#wrapper-code-size" data-lean-name="ZInQ.Compiler.Universal.c3">c3</a>)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Syntax.PrecisionShape">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> PrecisionShape (N : NatCircuit) (c3 : ℤ) : <span class="bp-lean-keyword">Prop</span> <span class="bp-lean-keyword">where</span>
+  inputCount : N.inputCount = 5
+  explicitVars_length : N.explicitVars.length ≤ 54056
+  inputs : 5 ≤ N.explicitVars.countP <span class="bp-lean-keyword">fun</span> v =&gt; decide (IsInputVar 5 v)
+  adds : N.nodes.countP NatNode.isAdd ≤ 125327
+  muls : N.nodes.countP NatNode.isMul ≤ 98382
+  calls : N.nodes.countP NatNode.isCall ≤ 15845
+  consts : ∀ c ∈ N.nodes.filterMap nontrivialConst, c = c3 ∨ c = 2 ∨ c = 4 ∨ c = 1399</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Precision.lean:46</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.PstarOf">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> PstarOf : MvPolynomial (Fin 292890231905) ℤ :=
+  killCompl Fin.val_injective (PstarNatOf I cstar ell T c3 N)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Polynomial.lean:50</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.cstar">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> cstar : ℕ := FixedFormula.cstar M0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:96</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.ell">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> ell : ℕ := FixedFormula.ell Ps Hcat</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:98</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.PstarNatOf">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> PstarNatOf : Poly := (getEx (specLib I cstar ell T c3 N) 6).poly</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Polynomial.lean:46</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.ev">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> ev (x : ℕ → ℚ) : Poly →+* ℚ := eval₂Hom (Int.castRingHom ℚ) x</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Basic.lean:30</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.extendFin">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> extendFin {N : ℕ} (v : Fin N → ℚ) (i : ℕ) : ℚ := <span class="bp-lean-keyword">if</span> h : i &lt; N <span class="bp-lean-keyword">then</span> v ⟨i, h⟩ <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Basic.lean:351</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.integersExPoly">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> integersExPoly : ExPoly := getEx (specLib I cstar ell T c3 N) 6</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Polynomial.lean:57</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.valueExPoly">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> valueExPoly : ExPoly := getEx (specLib I cstar ell T c3 N) 5</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Polynomial.lean:54</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.valueExPoly_params">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> valueExPoly_params : (valueExPoly I cstar ell T c3 N).params = 6</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Polynomial.lean:59</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.NodeCheck.HaltingAddMulBound">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HaltingAddMulBound : <span class="bp-lean-keyword">Prop</span> :=
+  countKind .add haltingCircuit.nodes ≤ 125307 ∧ countKind .mul haltingCircuit.nodes ≤ 98361</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/NodeBound/Defs.lean:19</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.specPstar">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> specPstar : MvPolynomial (Fin 292890231905) ℤ := Pstar (precisionCircuitOf c3) c3</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Literal.lean:93</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Universal.c3">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">irreducible_def</span> c3 : ℕ := code wrapper</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Universal/WrapperCode.lean:27</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.PstarNat">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> PstarNat : Poly :=
+  PstarNatOf specConstructors FixedConst.cstar.value FixedConst.ell.value FixedConst.T.value c3 N</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Polynomial.lean:237</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Universal.precisionCircuitOf">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> precisionCircuitOf (code : ℤ) : NatCircuit := specialize haltingCircuit code</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Universal/PrecisionCircuit.lean:33</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_7">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/syntax-locators.html#appendix-c-opening">Appendix C opening</a></li>
+<li><a href="../../../sources/syntax-locators.html#section-2-opening">Section 2 opening</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#literal-polynomial">The specified polynomial</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#outer-recipes">The outer composition recipes</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#witness-accounting">Witness accounting of the specified polynomial</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../language/index.html#call-semantics">Evaluation of a template call</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#sum-of-squares-semantics">Sums of squares and products over the rationals</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../assembly/index.html#assembly-lemma">The assembly lemma</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>8</strong> fully proved</span></div>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../../dependencies/index.json" data-graph-src="../../../dependencies/scopes/syntax/recipes.json" data-page-href="index.html" data-scope-id="syntax/recipes">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

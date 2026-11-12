@@ -1,0 +1,2369 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../rank-5b/genus-sum/index.html">
+      
+      
+        <link rel="next" href="field/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Rédei's formula for the 4-rank of class groups - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-genus-class-number-and-redeis-formula" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Rédei's formula for the 4-rank of class groups
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_16" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link md-nav__link--active">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link md-nav__link--active" for="__nav_2_1_16" id="__nav_2_1_16_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_16_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="field/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The field ℚ(√(-n)) and its primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="genus/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ambiguous classes and genus characters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="four-rank/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The 4-rank
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bits/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    From the Rédei matrix to Rédei&#39;s bits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-genus-class-number-and-redeis-formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The genus class number and Rédei's formula
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-redei-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Rédei matrix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-field-and-its-primes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The field and its primes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ambiguous-classes-and-genus-characters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ambiguous classes and genus characters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-4-rank" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 4-rank
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-the-redei-matrix-to-redeis-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From the Rédei matrix to Rédei's bits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences-for-the-certified-rank-hypothesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consequences for the certified rank hypothesis
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="redei" data-page-title="Rédei's formula for the 4-rank of class groups">
+<h1 id="redeis-formula-for-the-4-rank-of-class-groups">Rédei's formula for the 4-rank of class groups</h1>
+<p>For a set <span class="arithmatex">\(B\)</span> of primes of an odd number <span class="arithmatex">\(d\)</span>, the genus sum <span class="arithmatex">\(T_{5b}(d)\)</span> of the
+<a href="../rank-5b/index.html">row-5b chapter</a> uses Rédei's <span class="arithmatex">\(g_d(B)\)</span>, a determinant in the residue bits of
+the primes. Tian, Yuan and Zhang state their criterion for analytic rank one with the genus class
+numbers <span class="arithmatex">\(g(d_B)=|\mathrm{Cl}(\mathbb Q(\sqrt{-d_B}))^2|\)</span> instead, where <span class="arithmatex">\(d_B=\prod_{p\in B}p\)</span>. This
+chapter proves Rédei's formula, <span class="arithmatex">\(g(d_B)\equiv g_d(B)\pmod2\)</span> for every block of a genus sum. So the
+certified rank hypothesis stated with Tian, Yuan and Zhang's own class numbers is equivalent to the
+one stated with Rédei's <span class="arithmatex">\(g\)</span>.</p>
+<p>The proof is genus theory in the ring of integers of <span class="arithmatex">\(K=\mathbb Q(\sqrt{-n})\)</span>, <span class="arithmatex">\(n\)</span> odd and
+squarefree, with Dirichlet's theorem on primes in progressions in place of the Hasse–Minkowski
+theorem:</p>
+<ul>
+<li>the classes of the ramified primes fill <span class="arithmatex">\(\mathrm{Cl}[2]\)</span>;</li>
+<li>the genus characters <span class="arithmatex">\(\chi_q([\mathfrak a])=[N\mathfrak a/q]\)</span>, one for each prime <span class="arithmatex">\(q\mid n\)</span>,
+  together take at least <span class="arithmatex">\(2^{t-1}\)</span> values;</li>
+<li>counting then gives the principal genus theorem <span class="arithmatex">\(\mathrm{Cl}^2=\bigcap_q\ker\chi_q\)</span>, and Rédei's
+  theorem: <span class="arithmatex">\(g(n)\)</span> is odd if and only if the kernel of the Rédei matrix is spanned by the exponent
+  vector of <span class="arithmatex">\((\sqrt{-n})\)</span>;</li>
+<li>linear algebra over <span class="arithmatex">\(\mathbb F_2\)</span> turns that kernel condition into <span class="arithmatex">\(g_d(B)=1\)</span>.</li>
+</ul>
+<p>Throughout, <span class="arithmatex">\(n\ge1\)</span> is an integer and <span class="arithmatex">\(K=\mathbb Q(\omega)\)</span> with <span class="arithmatex">\(\omega^2=-n\)</span>. We write
+<span class="arithmatex">\(\mathcal O\)</span> for its ring of integers, <span class="arithmatex">\(\sigma\)</span> for its nontrivial automorphism and <span class="arithmatex">\(\mathrm{Cl}\)</span> for
+the class group of <span class="arithmatex">\(\mathcal O\)</span>. <span class="arithmatex">\(N\)</span> is the absolute norm of elements and ideals, and
+<span class="arithmatex">\([a/p]\in\mathbb F_2\)</span> is the <a href="../route-k/index.html#residue-bits">residue bit</a>. The set <span class="arithmatex">\(T_n\)</span> of ramified
+primes, <span class="arithmatex">\(t=|T_n|\)</span>, and the prime ideals <span class="arithmatex">\(\mathfrak p_p\)</span> are defined in
+<a href="field/index.html#ramified-primes">the ramified primes</a>.</p>
+<p>On notation: the letter <span class="arithmatex">\(n\)</span> is reserved for the field <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span>, while <span class="arithmatex">\(d\)</span> is the odd
+number whose primes carry the bits <span class="arithmatex">\(a_{pq}\)</span>, <span class="arithmatex">\(y_p\)</span>, <span class="arithmatex">\(z_p\)</span>, and <span class="arithmatex">\(g_d(B)\)</span> is Rédei's <span class="arithmatex">\(g\)</span> of a set <span class="arithmatex">\(B\)</span>
+of its primes. The row-5b chapter writes <span class="arithmatex">\(n\)</span> and <span class="arithmatex">\(C_n\)</span> for that number; here, as in the Selmer
+chapter, the congruent number curve is <span class="arithmatex">\(C_d\)</span>.</p>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>8</strong> fully proved</span></div>
+</div>
+<h2 id="the-genus-class-number-and-redeis-formula">The genus class number and Rédei's formula</h2>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="redei/genus-class-number">
+<h4 class="bp-thmheading" id="genus-class-number">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The genus class number</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean#L49" aria-label="View ZInQ.RouteK.Rank5b.gCl in Lean source" title="View ZInQ.RouteK.Rank5b.gCl in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean#L33" aria-label="View ZInQ.RouteK.Rank5b.QNeg in Lean source" title="View ZInQ.RouteK.Rank5b.QNeg in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean#L36" aria-label="View ZInQ.RouteK.Rank5b.QNeg.factNotIsSquare in Lean source" title="View ZInQ.RouteK.Rank5b.QNeg.factNotIsSquare in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean#L41" aria-label="View ZInQ.RouteK.Rank5b.QNeg.numberField in Lean source" title="View ZInQ.RouteK.Rank5b.QNeg.numberField in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/genus-class-number.md" aria-label="Edit the Markdown source for The genus class number" title="Edit the Markdown source for The genus class number"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#genus-class-number" aria-label="Link to The genus class number" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank5b.gCl ZInQ.RouteK.Rank5b.QNeg ZInQ.RouteK.Rank5b.QNeg.factNotIsSquare ZInQ.RouteK.Rank5b.QNeg.numberField</div>
+<div class="bp-thmcontent">
+<p>For a natural number <span class="arithmatex">\(n\)</span> let <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span> be the quadratic algebra
+<span class="arithmatex">\(\mathbb Q[\omega]/(\omega^2+n)\)</span>. For <span class="arithmatex">\(n\ge1\)</span> the number <span class="arithmatex">\(-n\)</span> is not a square in <span class="arithmatex">\(\mathbb Q\)</span>, so
+<span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span> is a field, and a number field. For <span class="arithmatex">\(n\ge1\)</span> let <span class="arithmatex">\(\mathrm{Cl}\)</span> be the class
+group of the ring of integers of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span>. The <em>genus class number</em> of <span class="arithmatex">\(n\)</span> is
+$<span class="arithmatex">\(g(n)=\bigl|\mathrm{Cl}^2\bigr|,\)</span>$
+the order of the subgroup of squares <span class="arithmatex">\(\mathrm{Cl}^2=\{c^2:c\in\mathrm{Cl}\}\)</span> of the class group.</p>
+<p>This is the number <span class="arithmatex">\(g(n)=\#2\mathrm{Cl}(\mathbb Q(\sqrt{-n}))\)</span> of Tian, Yuan and Zhang, who write
+the class group additively; it is the order of the subgroup of squares, not of the 2-torsion. A
+finite commutative group has a subgroup of squares of odd order exactly when that subgroup has no
+element of order <span class="arithmatex">\(2\)</span> (<a href="four-rank/index.html#odd-square-subgroup">when the subgroup of squares has odd order</a>),
+so <span class="arithmatex">\(g(n)\)</span> is odd exactly when no element of order <span class="arithmatex">\(2\)</span> of <span class="arithmatex">\(\mathrm{Cl}\)</span> is a square, that is, when
+<span class="arithmatex">\(\mathrm{Cl}[2]\cap\mathrm{Cl}^2=1\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> gCl (n : ℕ) [NeZero n] : ℕ :=
+  Nat.card (powMonoidHom 2 : ClassGroup (𝓞 (<a class="bp-lean-ref" href="#genus-class-number" data-lean-name="ZInQ.RouteK.Rank5b.QNeg">QNeg</a> n)) →* ClassGroup (𝓞 (<a class="bp-lean-ref" href="#genus-class-number" data-lean-name="ZInQ.RouteK.Rank5b.QNeg">QNeg</a> n))).range</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> QNeg (n : ℕ) : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ (-(n : ℚ)) 0</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">instance</span> QNeg.factNotIsSquare (n : ℕ) [NeZero n] : Fact (¬ IsSquare (-(n : ℚ))) := <span class="bp-lean-keyword">by</span>
+  refine ⟨<span class="bp-lean-keyword">fun</span> ⟨r, hr⟩ =&gt; ?_⟩
+  <span class="bp-lean-keyword">have</span> h0 : (0 : ℚ) &lt; n := <span class="bp-lean-keyword">by</span> exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne n)
+  nlinarith [mul_self_nonneg r]</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank5b.QNeg">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> QNeg (n : ℕ) : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ (-(n : ℚ)) 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean:33</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/redei-locators.html#the-target">The target</a></li>
+<li><a href="../../sources/redei-locators.html#tian-yuan-zhang">Tian-Yuan-Zhang</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 14</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="bits/index.html#formula-from-four-rank">Rédei&#x27;s formula from the 4-rank statement</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#class-number-genus-sum">The genus sum of class numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="field/index.html#conjugation">The conjugation of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="field/index.html#ramified-primes">The ramified primes and the ideals <span class="arithmatex">\(\mathfrak p_p\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="field/index.html#ramified-primes-divide">Ramified primes divide the discriminant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="field/index.html#rational-integers">Rational integers in the ring of integers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="four-rank/index.html#four-rank-statement">The 4-rank statement</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="four-rank/index.html#principal-genus">The principal genus theorem</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="genus/index.html#ambiguous-class-map">The ambiguous class map <span class="arithmatex">\(\psi\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="genus/index.html#coprime-representatives">Every class has a representative of norm prime to <span class="arithmatex">\(q\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="genus/index.html#norm-bit-class-invariant">The norm residue bit depends only on the class</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="genus/index.html#split-primes">Split primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="genus/index.html#two-torsion-bound">A bound for the 2-torsion of the class group</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#redei-formula-statement">The statement of Rédei&#x27;s formula</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="redei/redei-formula-statement">
+<h4 class="bp-thmheading" id="redei-formula-statement">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The statement of Rédei&#x27;s formula</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean#L74" aria-label="View ZInQ.RouteK.Rank5b.RedeiFormula in Lean source" title="View ZInQ.RouteK.Rank5b.RedeiFormula in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/redei-formula-statement.md" aria-label="Edit the Markdown source for The statement of Rédei&#x27;s formula" title="Edit the Markdown source for The statement of Rédei&#x27;s formula"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#redei-formula-statement" aria-label="Link to The statement of Rédei&#x27;s formula" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank5b.RedeiFormula</div>
+<div class="bp-thmcontent">
+<p><em>Rédei's formula</em> is the following assertion. Let <span class="arithmatex">\(d\)</span> be odd and squarefree, and let <span class="arithmatex">\(B\)</span> be a
+nonempty set of primes of <span class="arithmatex">\(d\)</span> whose product <span class="arithmatex">\(d_B=\prod_{p\in B}p\)</span> satisfies
+<span class="arithmatex">\(d_B\equiv7\)</span>, <span class="arithmatex">\(3\)</span> or <span class="arithmatex">\(1\pmod8\)</span>. Then
+$<span class="arithmatex">\(g(d_B)\equiv g_d(B)\pmod 2,\)</span>$
+where <span class="arithmatex">\(g(d_B)\)</span> is the genus class number of <span class="arithmatex">\(d_B\)</span>, the order of the subgroup of squares of the
+class group of <span class="arithmatex">\(\mathbb Q(\sqrt{-d_B})\)</span>, and <span class="arithmatex">\(g_d(B)\in\mathbb F_2\)</span> is Rédei's <span class="arithmatex">\(g\)</span> of <span class="arithmatex">\(B\)</span> for the
+bits <span class="arithmatex">\(a_{pq}\)</span>, <span class="arithmatex">\(y_p\)</span>, <span class="arithmatex">\(z_p\)</span> of the primes of <span class="arithmatex">\(d\)</span>:
+$<span class="arithmatex">\(g_d(B)=\sum_{\rho\in B}y_\rho\,\kappa_\rho(B)\ \text{ if }y(B)=1,\qquad
+g_d(B)=\sum_{\rho\in B}z_\rho\,\kappa_\rho(B)\ \text{ if }y(B)=0.\)</span>$</p>
+<p>The blocks allowed include every block that occurs in the genus sum <span class="arithmatex">\(T_{5b}(d)\)</span>: the blocks of a set
+partition are nonempty, and the partitions counted by the genus sum have only blocks with
+<span class="arithmatex">\(d_B\equiv7\)</span>, <span class="arithmatex">\(3\)</span> or <span class="arithmatex">\(1\pmod8\)</span>. Blocks with <span class="arithmatex">\(d_B\equiv5\pmod8\)</span> never occur. The empty set is
+excluded because <span class="arithmatex">\(g(1)=1\)</span> (the class group of <span class="arithmatex">\(\mathbb Q(i)\)</span> is classically trivial), while Rédei's
+<span class="arithmatex">\(g\)</span> of the empty set is <span class="arithmatex">\(0\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> RedeiFormula : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, Odd d → Squarefree d → ∀ B : Finset d.primeFactors, B.Nonempty →
+    (<a class="bp-lean-ref" href="../rank-5b/genus-sum/index.html#genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.dProd">dProd</a> B % 8 = 7 ∨ <a class="bp-lean-ref" href="../rank-5b/genus-sum/index.html#genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.dProd">dProd</a> B % 8 = 3 ∨ <a class="bp-lean-ref" href="../rank-5b/genus-sum/index.html#genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.dProd">dProd</a> B % 8 = 1) →
+      ((<a class="bp-lean-ref" href="#genus-class-number" data-lean-name="ZInQ.RouteK.Rank5b.gCl">gCl</a> (<a class="bp-lean-ref" href="../rank-5b/genus-sum/index.html#genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.dProd">dProd</a> B) : ℕ) : ZMod 2) = <a class="bp-lean-ref" href="../rank-5b/genus-sum/index.html#redei-g" data-lean-name="ZInQ.RouteK.Rank5b.gBit">gBit</a> d B</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank5b.dProd">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> dProd {d : ℕ} (B : Finset d.primeFactors) : ℕ := ∏ p ∈ B, (p : ℕ)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/Defs.lean:81</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.gCl">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> gCl (n : ℕ) [NeZero n] : ℕ :=
+  Nat.card (powMonoidHom 2 : ClassGroup (𝓞 (QNeg n)) →* ClassGroup (𝓞 (QNeg n))).range</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean:49</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.gBit">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> gBit (d : ℕ) (B : Finset d.primeFactors) : ZMod 2 :=
+  redeiG (aBit d) (yBit d) (zBit d) B</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/Defs.lean:77</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/redei-locators.html#the-target">The target</a></li>
+<li><a href="../../sources/redei-locators.html#redeis-formulas">Rédei's formulas</a></li>
+<li><a href="../../sources/redei-locators.html#redei-1934">Rédei 1934</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#genus-class-number">The genus class number</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank-5b/genus-sum/index.html#redei-g">Rédei&#x27;s <span class="arithmatex">\(g\)</span> from the bits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank-5b/genus-sum/index.html#genus-sum">The genus sum <span class="arithmatex">\(T_{5b}\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="bits/index.html#formula-from-four-rank">Rédei&#x27;s formula from the 4-rank statement</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#class-number-hypothesis">CR₃ with class numbers is CR₃^TYZ</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#genus-sums-agree">The genus sum of class numbers is the genus sum of Rédei bits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#redei-formula">Rédei&#x27;s formula</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="redei/redei-formula">
+<h4 class="bp-thmheading" id="redei-formula">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Rédei&#x27;s formula</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/FourRank.lean#L356" aria-label="View ZInQ.RouteK.Redei.redeiFormula in Lean source" title="View ZInQ.RouteK.Redei.redeiFormula in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/redei-formula.md" aria-label="Edit the Markdown source for Rédei&#x27;s formula" title="Edit the Markdown source for Rédei&#x27;s formula"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#redei-formula" aria-label="Link to Rédei&#x27;s formula" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Redei.redeiFormula</div>
+<div class="bp-thmcontent">
+<p>Rédei's formula holds. Let <span class="arithmatex">\(d\)</span> be odd and squarefree, and let <span class="arithmatex">\(B\)</span> be a nonempty set of primes of
+<span class="arithmatex">\(d\)</span> with <span class="arithmatex">\(d_B=\prod_{p\in B}p\equiv7\)</span>, <span class="arithmatex">\(3\)</span> or <span class="arithmatex">\(1\pmod8\)</span>. Then
+$<span class="arithmatex">\(g(d_B)\equiv g_d(B)\pmod 2:\)</span>$
+the parity of the order of the subgroup of squares of the class group of <span class="arithmatex">\(\mathbb Q(\sqrt{-d_B})\)</span>
+is Rédei's <span class="arithmatex">\(g\)</span> of <span class="arithmatex">\(B\)</span>, computed from the residue bits of the primes of <span class="arithmatex">\(d\)</span>.</p>
+<p><strong>Proof sketch.</strong> Rédei's theorem on the 4-rank proves the 4-rank statement: for odd squarefree
+<span class="arithmatex">\(n&gt;1\)</span>, <span class="arithmatex">\(g(n)\)</span> is odd if and only if the kernel of the Rédei matrix of <span class="arithmatex">\(n\)</span> is <span class="arithmatex">\(\{0,e_n\}\)</span>. From the
+4-rank statement, <span class="arithmatex">\(g(d_B)\equiv g_d(B)\pmod2\)</span> follows for every odd <span class="arithmatex">\(d\)</span> and every nonempty set <span class="arithmatex">\(B\)</span>
+of primes of <span class="arithmatex">\(d\)</span>. The number <span class="arithmatex">\(d_B\)</span> is odd, squarefree and greater than <span class="arithmatex">\(1\)</span>, and its primes are the
+elements of <span class="arithmatex">\(B\)</span>. The Rédei matrix of <span class="arithmatex">\(d_B\)</span> is the Laplacian <span class="arithmatex">\(L_B\)</span> of the bits of <span class="arithmatex">\(d\)</span>, bordered by
+the column <span class="arithmatex">\(z_B\)</span> exactly when <span class="arithmatex">\(y(B)=0\)</span>. Its kernel is <span class="arithmatex">\(\{0,e_{d_B}\}\)</span> if and only if the kernel of
+<span class="arithmatex">\((L_B\mid z_B)\)</span> is trivial, and that holds if and only if <span class="arithmatex">\(g_d(B)=1\)</span>. The argument uses neither the
+squarefreeness of <span class="arithmatex">\(d\)</span> nor the congruence of <span class="arithmatex">\(d_B\)</span> modulo <span class="arithmatex">\(8\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> redeiFormula : <a class="bp-lean-ref" href="#redei-formula-statement" data-lean-name="ZInQ.RouteK.Rank5b.RedeiFormula">RedeiFormula</a></code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank5b.RedeiFormula">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> RedeiFormula : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, Odd d → Squarefree d → ∀ B : Finset d.primeFactors, B.Nonempty →
+    (dProd B % 8 = 7 ∨ dProd B % 8 = 3 ∨ dProd B % 8 = 1) →
+      ((gCl (dProd B) : ℕ) : ZMod 2) = gBit d B</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean:74</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/redei-locators.html#the-chosen-route">The chosen route</a></li>
+<li><a href="../../sources/redei-locators.html#redeis-formulas">Rédei's formulas</a></li>
+<li><a href="../../sources/redei-locators.html#redei-1934">Rédei 1934</a></li>
+<li><a href="../../sources/redei-locators.html#step-6-the-4-rank">Step 6: the 4-rank</a></li>
+<li><a href="../../sources/redei-locators.html#step-8-the-bridge">Step 8: the bridge</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#redei-formula-statement">The statement of Rédei&#x27;s formula</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="four-rank/index.html#redei-theorem">Rédei&#x27;s theorem on the 4-rank</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="bits/index.html#formula-from-four-rank">Rédei&#x27;s formula from the 4-rank statement</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../main/index.html#main-theorem-tyz">The main theorem from the Tian–Yuan–Zhang forms of the rank hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#class-number-hypothesis">CR₃ with class numbers is CR₃^TYZ</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#genus-sums-agree">The genus sum of class numbers is the genus sum of Rédei bits</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-redei-matrix">The Rédei matrix</h2>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="redei/redei-matrix">
+<h4 class="bp-thmheading" id="redei-matrix">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The Rédei matrix</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Entry.lean#L19" aria-label="View ZInQ.RouteK.Redei.redeiEntry in Lean source" title="View ZInQ.RouteK.Redei.redeiEntry in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/redei-matrix.md" aria-label="Edit the Markdown source for The Rédei matrix" title="Edit the Markdown source for The Rédei matrix"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#redei-matrix" aria-label="Link to The Rédei matrix" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Redei.redeiEntry</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(n\)</span> be a natural number and <span class="arithmatex">\(T_n\)</span> its set of ramified primes: the primes of <span class="arithmatex">\(n\)</span>, together with
+<span class="arithmatex">\(2\)</span> unless <span class="arithmatex">\(n\equiv3\pmod4\)</span>. The <em>Rédei matrix</em> <span class="arithmatex">\(R\)</span> of <span class="arithmatex">\(n\)</span> is the matrix over <span class="arithmatex">\(\mathbb F_2\)</span> with
+rows indexed by the primes <span class="arithmatex">\(q\mid n\)</span> and columns by <span class="arithmatex">\(T_n\)</span>, with entries
+$<span class="arithmatex">\(R_{q2}=[2/q],\qquad R_{qq}=\Bigl[\frac{n/q}{q}\Bigr]\quad(q\ne2),\qquad R_{qp}=[p/q]\quad(p\ne q,\ p\ne2),\)</span>$
+where <span class="arithmatex">\([a/q]\in\mathbb F_2\)</span> is the residue bit. A vector <span class="arithmatex">\(e\in\mathbb F_2^{T_n}\)</span> is <em>killed</em> by <span class="arithmatex">\(R\)</span>
+when <span class="arithmatex">\(\sum_{p\in T_n}R_{qp}e_p=0\)</span> for every prime <span class="arithmatex">\(q\mid n\)</span>.</p>
+<p>For odd squarefree <span class="arithmatex">\(n\)</span>, <span class="arithmatex">\(R\)</span> is the matrix of the genus characters on the ambiguous classes:
+<span class="arithmatex">\(\chi_q(\psi(e))=\sum_{p\in T_n}R_{qp}e_p\)</span>
+(<a href="genus/index.html#characters-on-ambiguous-classes">the genus characters on the ambiguous classes</a>).</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> redeiEntry (n : ℕ) (q : n.primeFactors) (p : <a class="bp-lean-ref" href="field/index.html#ramified-primes" data-lean-name="ZInQ.RouteK.Redei.ramSet">ramSet</a> n) : ZMod 2 :=
+  <span class="bp-lean-keyword">if</span> (p : ℕ) = 2 <span class="bp-lean-keyword">then</span> <a class="bp-lean-ref" href="../route-k/index.html#residue-bits" data-lean-name="ZInQ.RouteK.legBit">legBit</a> q 2
+  <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> (p : ℕ) = q <span class="bp-lean-keyword">then</span> <a class="bp-lean-ref" href="../route-k/index.html#residue-bits" data-lean-name="ZInQ.RouteK.legBit">legBit</a> q ((n / q : ℕ) : ℤ) <span class="bp-lean-keyword">else</span> <a class="bp-lean-ref" href="../route-k/index.html#residue-bits" data-lean-name="ZInQ.RouteK.legBit">legBit</a> q (p : ℤ)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Redei.ramSet">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ramSet : Finset ℕ := <span class="bp-lean-keyword">if</span> n % 4 = 3 <span class="bp-lean-keyword">then</span> n.primeFactors <span class="bp-lean-keyword">else</span> insert 2 n.primeFactors</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Redei/Primes.lean:335</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.legBit">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> legBit (p : ℕ) (a : ℤ) : ZMod 2 := <span class="bp-lean-keyword">if</span> IsSquare (a : ZMod p) <span class="bp-lean-keyword">then</span> 0 <span class="bp-lean-keyword">else</span> 1</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Slots/Symbols.lean:17</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/redei-locators.html#step-4-genus-characters">Step 4: genus characters</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="field/index.html#ramified-primes">The ramified primes and the ideals <span class="arithmatex">\(\mathfrak p_p\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../route-k/index.html#residue-bits">Residue bits</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="bits/index.html#kernel-conditions">The two kernel conditions agree</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="bits/index.html#matrix-in-bits">The Rédei matrix of <span class="arithmatex">\(\mathbb Q(\sqrt{-d_B})\)</span> in the bits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="four-rank/index.html#four-rank-statement">The 4-rank statement</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="genus/index.html#characters-on-ambiguous-classes">The genus characters on the ambiguous classes</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-field-and-its-primes">The field and its primes</h2>
+<p>The field <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span>, its conjugation and norms, and the splitting of rational primes,
+decided by norms of ideals and residue fields without an explicit integral basis.</p>
+<ul>
+<li><a href="field/index.html">The field <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span> and its primes</a></li>
+</ul>
+<h2 id="ambiguous-classes-and-genus-characters">Ambiguous classes and genus characters</h2>
+<ul>
+<li><a href="genus/index.html">Ambiguous classes and genus characters</a></li>
+</ul>
+<h2 id="the-4-rank">The 4-rank</h2>
+<ul>
+<li><a href="four-rank/index.html">The 4-rank</a></li>
+</ul>
+<h2 id="from-the-redei-matrix-to-redeis-bits">From the Rédei matrix to Rédei's bits</h2>
+<ul>
+<li><a href="bits/index.html">From the Rédei matrix to Rédei's bits</a></li>
+</ul>
+<h2 id="consequences-for-the-certified-rank-hypothesis">Consequences for the certified rank hypothesis</h2>
+<p>By Rédei's formula, the genus sum of class numbers equals the genus sum of Rédei bits, so the
+class-number form CR₃^TYZ_Cl of the certified rank hypothesis is equivalent to CR₃^TYZ.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="redei/class-number-genus-sum">
+<h4 class="bp-thmheading" id="class-number-genus-sum">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The genus sum of class numbers</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean#L55" aria-label="View ZInQ.RouteK.Rank5b.T5bCl in Lean source" title="View ZInQ.RouteK.Rank5b.T5bCl in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean#L44" aria-label="View ZInQ.RouteK.Rank5b.neZero_dProd in Lean source" title="View ZInQ.RouteK.Rank5b.neZero_dProd in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/class-number-genus-sum.md" aria-label="Edit the Markdown source for The genus sum of class numbers" title="Edit the Markdown source for The genus sum of class numbers"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#class-number-genus-sum" aria-label="Link to The genus sum of class numbers" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank5b.T5bCl ZInQ.RouteK.Rank5b.neZero_dProd</div>
+<div class="bp-thmcontent">
+<p>For a natural number <span class="arithmatex">\(d\)</span> and a set <span class="arithmatex">\(B\)</span> of primes of <span class="arithmatex">\(d\)</span>, the product <span class="arithmatex">\(d_B=\prod_{p\in B}p\)</span> is a
+positive integer, so its genus class number <span class="arithmatex">\(g(d_B)\)</span> is defined. The <em>genus sum of class numbers</em>
+of row 5b is
+$<span class="arithmatex">\(T^{\rm Cl}_{5b}(d)=\sum_{\pi}\prod_{B\in\pi}g(d_B)\pmod 2,\)</span>$
+the sum over the set partitions <span class="arithmatex">\(\pi\)</span> of the primes of <span class="arithmatex">\(d\)</span> with exactly one block <span class="arithmatex">\(B\)</span> having
+<span class="arithmatex">\(d_B\equiv7\pmod8\)</span>, exactly one having <span class="arithmatex">\(d_B\equiv3\pmod8\)</span>, and every block having
+<span class="arithmatex">\(d_B\equiv7\)</span>, <span class="arithmatex">\(3\)</span> or <span class="arithmatex">\(1\pmod8\)</span>. These are the set partitions of the genus sum <span class="arithmatex">\(T_{5b}(d)\)</span>; the
+sum <span class="arithmatex">\(T^{\rm Cl}_{5b}(d)\)</span> has Tian, Yuan and Zhang's genus class numbers <span class="arithmatex">\(g(d_B)\)</span> in place of
+Rédei's <span class="arithmatex">\(g_d(B)\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> T5bCl (d : ℕ) : ZMod 2 :=
+  ∑ P : Finpartition (Finset.univ : Finset d.primeFactors),
+    <span class="bp-lean-keyword">if</span> <a class="bp-lean-ref" href="../rank-5b/genus-sum/index.html#genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.Admissible5bNat">Admissible5bNat</a> d P <span class="bp-lean-keyword">then</span> ∏ B ∈ P.parts, ((<a class="bp-lean-ref" href="#genus-class-number" data-lean-name="ZInQ.RouteK.Rank5b.gCl">gCl</a> (<a class="bp-lean-ref" href="../rank-5b/genus-sum/index.html#genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.dProd">dProd</a> B) : ℕ) : ZMod 2) <span class="bp-lean-keyword">else</span> 0</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">instance</span> neZero_dProd {d : ℕ} (B : Finset d.primeFactors) : NeZero (<a class="bp-lean-ref" href="../rank-5b/genus-sum/index.html#genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.dProd">dProd</a> B) :=
+  ⟨Finset.prod_ne_zero_iff.mpr <span class="bp-lean-keyword">fun</span> p _ =&gt; (Nat.prime_of_mem_primeFactors p.2).ne_zero⟩</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank5b.Admissible5bNat">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Admissible5bNat (d : ℕ) (P : Finpartition (Finset.univ : Finset d.primeFactors)) : <span class="bp-lean-keyword">Prop</span> :=
+  (P.parts.filter <span class="bp-lean-keyword">fun</span> B =&gt; dProd B % 8 = 7).card = 1 ∧
+  (P.parts.filter <span class="bp-lean-keyword">fun</span> B =&gt; dProd B % 8 = 3).card = 1 ∧
+  ∀ B ∈ P.parts, dProd B % 8 = 7 ∨ dProd B % 8 = 3 ∨ dProd B % 8 = 1</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/Defs.lean:85</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.gCl">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> gCl (n : ℕ) [NeZero n] : ℕ :=
+  Nat.card (powMonoidHom 2 : ClassGroup (𝓞 (QNeg n)) →* ClassGroup (𝓞 (QNeg n))).range</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean:49</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.dProd">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> dProd {d : ℕ} (B : Finset d.primeFactors) : ℕ := ∏ p ∈ B, (p : ℕ)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/Defs.lean:81</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/redei-locators.html#the-hypothesis-in-class-number-form">The hypothesis in class-number form</a></li>
+<li><a href="../../sources/redei-locators.html#tian-yuan-zhang">Tian-Yuan-Zhang</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#genus-class-number">The genus class number</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank-5b/genus-sum/index.html#genus-sum">The genus sum <span class="arithmatex">\(T_{5b}\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank/index.html#certified-rank-tyz-cl-rk">The class-number hypothesis in positive-rank form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank/infinitely-many-points/index.html#certified-rank-tyz-cl-inf">The class-number hypothesis in infinitely-many-points form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-tyz-cl">The certified rank hypothesis with class numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#genus-sums-agree">The genus sum of class numbers is the genus sum of Rédei bits</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="redei/certified-rank-tyz-cl">
+<h4 class="bp-thmheading" id="certified-rank-tyz-cl">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The certified rank hypothesis with class numbers</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean#L99" aria-label="View ZInQ.RouteK.Rank5b.CertifiedRankTYZCl in Lean source" title="View ZInQ.RouteK.Rank5b.CertifiedRankTYZCl in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/certified-rank-tyz-cl.md" aria-label="Edit the Markdown source for The certified rank hypothesis with class numbers" title="Edit the Markdown source for The certified rank hypothesis with class numbers"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#certified-rank-tyz-cl" aria-label="Link to The certified rank hypothesis with class numbers" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank5b.CertifiedRankTYZCl</div>
+<div class="bp-thmcontent">
+<p>The hypothesis CR₃^TYZ_Cl is the following assertion. Let <span class="arithmatex">\(d\)</span> be squarefree with
+<span class="arithmatex">\(d\equiv5\pmod8\)</span>. If <span class="arithmatex">\(|\mathrm{Sel}_2(C_d)|=8\)</span> and the genus sum of class numbers
+<span class="arithmatex">\(T^{\rm Cl}_{5b}(d)\)</span> is <span class="arithmatex">\(1\)</span>, then for every <span class="arithmatex">\((a,b)\in\mathrm{Sel}_2(C_d)\)</span> the 2-covering <span class="arithmatex">\(D_{a,b}\)</span>
+of <span class="arithmatex">\(C_d\)</span> has a rational point; that is, every 2-Selmer class of <span class="arithmatex">\(C_d\)</span> comes from a rational point.</p>
+<p>CR₃^TYZ_Cl is not proved here; it is a hypothesis, stated in Tian, Yuan and Zhang's own terms,
+with their genus class numbers <span class="arithmatex">\(g(d_B)\)</span>, so that no Rédei formula enters its justification. It
+rests on the following:</p>
+<ul>
+<li><em>Tian–Yuan–Zhang</em>, Theorem 3.5 and the argument of the proof of their Theorem 3.5(2) (§3.3), as
+  completed in nt-tyz §4 (Proposition N): for squarefree <span class="arithmatex">\(d\equiv5\pmod8\)</span>, if the genus sum
+  <span class="arithmatex">\(\sum_{d_0\equiv7,\,d_1\equiv3\,(8)}g(d_0)g(d_1)\mathcal L_1(d/d_0d_1)\)</span>, which is
+  <span class="arithmatex">\(T^{\rm Cl}_{5b}(d)\)</span> modulo <span class="arithmatex">\(2\)</span>, is odd, then <span class="arithmatex">\(L(C_d,s)\)</span> vanishes to order exactly one at <span class="arithmatex">\(s=1\)</span>.
+  Here <span class="arithmatex">\(\mathcal L_1(m)\)</span> is the sum, over the set partitions of the primes of <span class="arithmatex">\(m\)</span> into blocks <span class="arithmatex">\(B\)</span>
+  with <span class="arithmatex">\(d_B\equiv1\pmod8\)</span>, of <span class="arithmatex">\(\prod_B g(d_B)\)</span>.</li>
+<li><em>Gross–Zagier</em>, over an auxiliary imaginary quadratic field satisfying the Heegner hypothesis
+  with <span class="arithmatex">\(L(C_d^K,1)\ne0\)</span>: analytic rank one gives <span class="arithmatex">\(\operatorname{rank}C_d(\mathbb Q)\ge1\)</span>.</li>
+<li>The step from positive rank to every Selmer class: when <span class="arithmatex">\(|\mathrm{Sel}_2(C_d)|=8\)</span> and <span class="arithmatex">\(C_d\)</span> has
+  a rational point of infinite order, every 2-Selmer class of <span class="arithmatex">\(C_d\)</span> comes from a rational point.
+  This step is proved
+  (<a href="../rank/two-descent/index.html#every-selmer-class">positive rank and a Selmer group of order eight give every Selmer class</a>),
+  with <a href="../rank/mordell-weil/index.html#finite-generation">Mordell–Weil for the congruent number curves</a>.</li>
+</ul>
+<p>By <a href="#redei-formula">Rédei's formula</a>, CR₃^TYZ_Cl is equivalent to the hypothesis CR₃^TYZ stated
+with Rédei's <span class="arithmatex">\(g\)</span> (<a href="#class-number-hypothesis">CR₃ with class numbers is CR₃^TYZ</a>).</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankTYZCl : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → (<a class="bp-lean-ref" href="../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d).ncard = 8 → <a class="bp-lean-ref" href="#class-number-genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.T5bCl">T5bCl</a> d = 1 →
+    ∀ ab ∈ <a class="bp-lean-ref" href="../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d, <a class="bp-lean-ref" href="../selmer/index.html#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℚ d ab.1 ab.2</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.Sel2">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Sel2 (d : ℕ) : Set (ℤ × ℤ) :=
+  {ab | Squarefree ab.1 ∧ Squarefree ab.2 ∧ Loc ℝ d ab.1 ab.2 ∧
+    ∀ (p : ℕ) [Fact p.Prime], Loc ℚ_[p] d ab.1 ab.2}</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:346</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.T5bCl">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> T5bCl (d : ℕ) : ZMod 2 :=
+  ∑ P : Finpartition (Finset.univ : Finset d.primeFactors),
+    <span class="bp-lean-keyword">if</span> Admissible5bNat d P <span class="bp-lean-keyword">then</span> ∏ B ∈ P.parts, ((gCl (dProd B) : ℕ) : ZMod 2) <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean:55</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.Loc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:89</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/redei-locators.html#the-hypothesis-in-class-number-form">The hypothesis in class-number form</a></li>
+<li><a href="../../sources/redei-locators.html#tian-yuan-zhang">Tian-Yuan-Zhang</a></li>
+<li><a href="../../sources/rank-5b-locators.html#proposition-n">Proposition N</a></li>
+<li><a href="../../sources/rank-5b-locators.html#gross-zagier-over-an-auxiliary-field">Gross-Zagier over an auxiliary field</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#class-number-genus-sum">The genus sum of class numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../selmer/index.html#selmer-group">The 2-Selmer group of a congruent number curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../selmer/index.html#coverings">The 2-coverings of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../main/index.html#main-theorem-tyz">The main theorem from the Tian–Yuan–Zhang forms of the rank hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank/index.html#certified-rank-tyz-cl-of-rk">CR₃^TYZ_Cl from CR₃^TYZ_Cl,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#class-number-hypothesis">CR₃ with class numbers is CR₃^TYZ</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="redei/genus-sums-agree">
+<h4 class="bp-thmheading" id="genus-sums-agree">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The genus sum of class numbers is the genus sum of Rédei bits</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/FourRank.lean#L359" aria-label="View ZInQ.RouteK.Redei.T5bCl_eq_T5b&#x27; in Lean source" title="View ZInQ.RouteK.Redei.T5bCl_eq_T5b&#x27; in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean#L105" aria-label="View ZInQ.RouteK.Rank5b.T5bCl_eq_T5b in Lean source" title="View ZInQ.RouteK.Rank5b.T5bCl_eq_T5b in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/genus-sums-agree.md" aria-label="Edit the Markdown source for The genus sum of class numbers is the genus sum of Rédei bits" title="Edit the Markdown source for The genus sum of class numbers is the genus sum of Rédei bits"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#genus-sums-agree" aria-label="Link to The genus sum of class numbers is the genus sum of Rédei bits" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Redei.T5bCl_eq_T5b&#x27; ZInQ.RouteK.Rank5b.T5bCl_eq_T5b</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d\)</span> be odd and squarefree. Then
+$<span class="arithmatex">\(T^{\rm Cl}_{5b}(d)=T_{5b}(d):\)</span>$
+the genus sum of row 5b with the genus class numbers <span class="arithmatex">\(g(d_B)\)</span> equals the genus sum with Rédei's
+<span class="arithmatex">\(g_d(B)\)</span>. Along the way, the same identity is proved for every odd squarefree <span class="arithmatex">\(d\)</span> from Rédei's
+formula taken as an assumption.</p>
+<p><strong>Proof sketch.</strong> Both sums run over the same set partitions of the primes of <span class="arithmatex">\(d\)</span>. Every block <span class="arithmatex">\(B\)</span>
+of such a partition is nonempty and has <span class="arithmatex">\(d_B\equiv7\)</span>, <span class="arithmatex">\(3\)</span> or <span class="arithmatex">\(1\pmod8\)</span>, so Rédei's formula, taken
+as an assumption, gives <span class="arithmatex">\(g(d_B)\equiv g_d(B)\pmod2\)</span> factor by factor, and the two sums agree term
+by term. By <a href="#redei-formula">Rédei's formula</a>, its hypothesis holds, so
+<span class="arithmatex">\(T^{\rm Cl}_{5b}(d)=T_{5b}(d)\)</span> for every odd squarefree <span class="arithmatex">\(d\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> T5bCl_eq_T5b&#x27; {d : ℕ} (hd : Odd d) (hsq : Squarefree d) : <a class="bp-lean-ref" href="#class-number-genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.T5bCl">T5bCl</a> d = <a class="bp-lean-ref" href="../rank-5b/genus-sum/index.html#genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.T5b">T5b</a> d</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> T5bCl_eq_T5b (hR : <a class="bp-lean-ref" href="#redei-formula-statement" data-lean-name="ZInQ.RouteK.Rank5b.RedeiFormula">RedeiFormula</a>) {d : ℕ} (hd : Odd d) (hsq : Squarefree d) :
+    <a class="bp-lean-ref" href="#class-number-genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.T5bCl">T5bCl</a> d = <a class="bp-lean-ref" href="../rank-5b/genus-sum/index.html#genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.T5b">T5b</a> d</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank5b.T5bCl">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> T5bCl (d : ℕ) : ZMod 2 :=
+  ∑ P : Finpartition (Finset.univ : Finset d.primeFactors),
+    <span class="bp-lean-keyword">if</span> Admissible5bNat d P <span class="bp-lean-keyword">then</span> ∏ B ∈ P.parts, ((gCl (dProd B) : ℕ) : ZMod 2) <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean:55</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.T5b">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> T5b (d : ℕ) : ZMod 2 :=
+  ∑ P : Finpartition (Finset.univ : Finset d.primeFactors),
+    <span class="bp-lean-keyword">if</span> Admissible5bNat d P <span class="bp-lean-keyword">then</span> ∏ B ∈ P.parts, gBit d B <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/Defs.lean:98</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.RedeiFormula">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> RedeiFormula : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, Odd d → Squarefree d → ∀ B : Finset d.primeFactors, B.Nonempty →
+    (dProd B % 8 = 7 ∨ dProd B % 8 = 3 ∨ dProd B % 8 = 1) →
+      ((gCl (dProd B) : ℕ) : ZMod 2) = gBit d B</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean:74</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/redei-locators.html#the-hypothesis-in-class-number-form">The hypothesis in class-number form</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#class-number-genus-sum">The genus sum of class numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank-5b/genus-sum/index.html#genus-sum">The genus sum <span class="arithmatex">\(T_{5b}\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#redei-formula-statement">The statement of Rédei&#x27;s formula</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#redei-formula">Rédei&#x27;s formula</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../rank/index.html#certified-rank-tyz-rk-of-cl-rk">CR₃^TYZ_Cl,Rk implies CR₃^TYZ,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#class-number-hypothesis">CR₃ with class numbers is CR₃^TYZ</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="redei/class-number-hypothesis">
+<h4 class="bp-thmheading" id="class-number-hypothesis">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">CR₃ with class numbers is CR₃^TYZ</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/FourRank.lean#L363" aria-label="View ZInQ.RouteK.Redei.certifiedRankTYZ_iff&#x27; in Lean source" title="View ZInQ.RouteK.Redei.certifiedRankTYZ_iff&#x27; in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean#L115" aria-label="View ZInQ.RouteK.Rank5b.certifiedRankTYZ_iff_of_redeiFormula in Lean source" title="View ZInQ.RouteK.Rank5b.certifiedRankTYZ_iff_of_redeiFormula in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Bridge.lean#L286" aria-label="View ZInQ.RouteK.Redei.certifiedRankTYZ_iff_of_oddGClStatement in Lean source" title="View ZInQ.RouteK.Redei.certifiedRankTYZ_iff_of_oddGClStatement in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/class-number-hypothesis.md" aria-label="Edit the Markdown source for CR₃ with class numbers is CR₃^TYZ" title="Edit the Markdown source for CR₃ with class numbers is CR₃^TYZ"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#class-number-hypothesis" aria-label="Link to CR₃ with class numbers is CR₃^TYZ" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Redei.certifiedRankTYZ_iff&#x27; ZInQ.RouteK.Rank5b.certifiedRankTYZ_iff_of_redeiFormula ZInQ.RouteK.Redei.certifiedRankTYZ_iff_of_oddGClStatement</div>
+<div class="bp-thmcontent">
+<p>The hypothesis CR₃^TYZ_Cl, stated with Tian, Yuan and Zhang's genus class numbers <span class="arithmatex">\(g(d_B)\)</span>, holds
+if and only if the hypothesis CR₃^TYZ, stated with Rédei's <span class="arithmatex">\(g_d(B)\)</span>, holds. Along the way, the
+same equivalence is proved from Rédei's formula taken as an assumption, and from the 4-rank
+statement taken as an assumption.</p>
+<p><strong>Proof sketch.</strong> The two hypotheses have the same premises and conclusion except for their genus
+sums: CR₃^TYZ_Cl asks <span class="arithmatex">\(T^{\rm Cl}_{5b}(d)=1\)</span> where CR₃^TYZ asks <span class="arithmatex">\(T_{5b}(d)=1\)</span>, for squarefree
+<span class="arithmatex">\(d\equiv5\pmod8\)</span>. Such <span class="arithmatex">\(d\)</span> is odd, so under Rédei's formula the two genus sums agree, and the two
+hypotheses are equivalent. The 4-rank statement implies Rédei's formula, which gives the second
+conditional form. Since <a href="#redei-formula">Rédei's formula</a> holds, the two hypotheses are
+equivalent.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> certifiedRankTYZ_iff&#x27; : <a class="bp-lean-ref" href="#certified-rank-tyz-cl" data-lean-name="ZInQ.RouteK.Rank5b.CertifiedRankTYZCl">CertifiedRankTYZCl</a> ↔ <a class="bp-lean-ref" href="../rank-5b/index.html#certified-rank-tyz" data-lean-name="ZInQ.RouteK.Rank5b.CertifiedRankTYZ">CertifiedRankTYZ</a></code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> certifiedRankTYZ_iff_of_redeiFormula (hR : <a class="bp-lean-ref" href="#redei-formula-statement" data-lean-name="ZInQ.RouteK.Rank5b.RedeiFormula">RedeiFormula</a>) :
+    <a class="bp-lean-ref" href="#certified-rank-tyz-cl" data-lean-name="ZInQ.RouteK.Rank5b.CertifiedRankTYZCl">CertifiedRankTYZCl</a> ↔ <a class="bp-lean-ref" href="../rank-5b/index.html#certified-rank-tyz" data-lean-name="ZInQ.RouteK.Rank5b.CertifiedRankTYZ">CertifiedRankTYZ</a></code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> certifiedRankTYZ_iff_of_oddGClStatement (h : <a class="bp-lean-ref" href="four-rank/index.html#four-rank-statement" data-lean-name="ZInQ.RouteK.Redei.OddGClStatement">OddGClStatement</a>) :
+    <a class="bp-lean-ref" href="#certified-rank-tyz-cl" data-lean-name="ZInQ.RouteK.Rank5b.CertifiedRankTYZCl">CertifiedRankTYZCl</a> ↔ <a class="bp-lean-ref" href="../rank-5b/index.html#certified-rank-tyz" data-lean-name="ZInQ.RouteK.Rank5b.CertifiedRankTYZ">CertifiedRankTYZ</a></code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank5b.CertifiedRankTYZCl">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankTYZCl : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → (Sel2 d).ncard = 8 → T5bCl d = 1 →
+    ∀ ab ∈ Sel2 d, Loc ℚ d ab.1 ab.2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean:99</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.CertifiedRankTYZ">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankTYZ : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → (Sel2 d).ncard = 8 → T5b d = 1 →
+    ∀ ab ∈ Sel2 d, Loc ℚ d ab.1 ab.2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/TYZ.lean:128</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.RedeiFormula">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> RedeiFormula : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, Odd d → Squarefree d → ∀ B : Finset d.primeFactors, B.Nonempty →
+    (dProd B % 8 = 7 ∨ dProd B % 8 = 3 ∨ dProd B % 8 = 1) →
+      ((gCl (dProd B) : ℕ) : ZMod 2) = gBit d B</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean:74</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Redei.OddGClStatement">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> OddGClStatement : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ (n : ℕ) [NeZero n], Odd n → Squarefree n → 1 &lt; n →
+    (Odd (gCl n) ↔ ∀ e : ramSet n → ZMod 2, (∀ q, ∑ p, redeiEntry n q p * e p = 0) →
+      e = 0 ∨ e = <span class="bp-lean-keyword">fun</span> p : ramSet n =&gt; <span class="bp-lean-keyword">if</span> (p : ℕ) ∈ n.primeFactors <span class="bp-lean-keyword">then</span> (1 : ZMod 2) <span class="bp-lean-keyword">else</span> 0)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Redei/Bridge.lean:39</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_7">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/redei-locators.html#the-hypothesis-in-class-number-form">The hypothesis in class-number form</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 7 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-tyz-cl">The certified rank hypothesis with class numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank-5b/index.html#certified-rank-tyz">The certified rank hypothesis in Tian–Yuan–Zhang form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#redei-formula-statement">The statement of Rédei&#x27;s formula</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="four-rank/index.html#four-rank-statement">The 4-rank statement</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#genus-sums-agree">The genus sum of class numbers is the genus sum of Rédei bits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#redei-formula">Rédei&#x27;s formula</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="bits/index.html#formula-from-four-rank">Rédei&#x27;s formula from the 4-rank statement</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../main/index.html#main-theorem-tyz">The main theorem from the Tian–Yuan–Zhang forms of the rank hypothesis</a></span></div>
+</div>
+</details>
+</div>
+<p>The same comparison of genus sums shows that the positive-rank form of CR₃^TYZ_Cl implies the
+positive-rank form of CR₃^TYZ; that implication is stated in the positive-rank chapter
+(<a href="../rank/index.html#certified-rank-tyz-rk-of-cl-rk">CR₃^TYZ_Cl,Rk implies CR₃^TYZ,Rk</a>).</p>
+</div>
+<p><link rel="stylesheet" href="../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../dependencies/index.json" data-graph-src="../../dependencies/chapters/redei.json" data-page-href="index.html" data-scope-id="redei">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

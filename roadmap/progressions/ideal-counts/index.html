@@ -1,0 +1,2110 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../quadratic-fields/index.html">
+      
+      
+        <link rel="next" href="../real-characters/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Ideal counts in quadratic fields - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ideal counts in quadratic fields
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_9" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_9" id="__nav_2_1_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Primes in arithmetic progressions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lseries/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Character sums and L-values near s=1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quadratic-fields/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quadratic fields
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ideal counts in quadratic fields
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../real-characters/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real characters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../counting/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Counting primes in a residue class
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="progressions/ideal-counts" data-page-title="Ideal counts in quadratic fields">
+<h1 id="ideal-counts-in-quadratic-fields">Ideal counts in quadratic fields</h1>
+<p>The Dedekind zeta function is the Dirichlet series of the number <span class="arithmatex">\(a_K(n)\)</span> of ideals of norm
+<span class="arithmatex">\(n\)</span>. These counts are multiplicative. In a quadratic field, at a prime power <span class="arithmatex">\(p^k\)</span> they are
+the partial sums of the powers of a sign <span class="arithmatex">\(\varepsilon_p\in\{-1,0,1\}\)</span>, and if
+<span class="arithmatex">\(\mathcal O_K\)</span> contains a square root of a non-square integer <span class="arithmatex">\(d\)</span>, then for odd <span class="arithmatex">\(p\nmid d\)</span>
+that sign is the Legendre symbol <span class="arithmatex">\((d/p)\)</span>. Comparing Euler products then factors <span class="arithmatex">\(\zeta_K\)</span> as
+<span class="arithmatex">\(\zeta\)</span> times an <span class="arithmatex">\(L\)</span>-function, up to finitely many local factors.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="progressions/ideal-counts/ideal-count">
+<h4 class="bp-thmheading" id="ideal-count">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The ideal counting function</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/Basic.lean#L19" aria-label="View ZInQ.Progressions.idealCount in Lean source" title="View ZInQ.Progressions.idealCount in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/Basic.lean#L22" aria-label="View ZInQ.Progressions.dedekindZeta_eq_LSeries_idealCount in Lean source" title="View ZInQ.Progressions.dedekindZeta_eq_LSeries_idealCount in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/ZetaFactor.lean#L42" aria-label="View ZInQ.Progressions.IdealCount.LSeriesSummable_idealCount in Lean source" title="View ZInQ.Progressions.IdealCount.LSeriesSummable_idealCount in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/progressions/ideal-counts/ideal-count.md" aria-label="Edit the Markdown source for The ideal counting function" title="Edit the Markdown source for The ideal counting function"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#ideal-count" aria-label="Link to The ideal counting function" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Progressions.idealCount ZInQ.Progressions.dedekindZeta_eq_LSeries_idealCount ZInQ.Progressions.IdealCount.LSeriesSummable_idealCount</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a number field with ring of integers <span class="arithmatex">\(\mathcal O_K\)</span>. For <span class="arithmatex">\(n\ge0\)</span> let <span class="arithmatex">\(a_K(n)\)</span> be
+the number of ideals <span class="arithmatex">\(I\subseteq\mathcal O_K\)</span> of absolute norm <span class="arithmatex">\(N(I)=|\mathcal O_K/I|=n\)</span>.
+This number is finite, and the Dedekind zeta function is the Dirichlet series
+$<span class="arithmatex">\(\zeta_K(s)=\sum_{n\ge1}a_K(n)\,n^{-s},\)</span>$
+absolutely convergent for <span class="arithmatex">\(\mathrm{Re}\,s&gt;1\)</span>.</p>
+<p><strong>Proof sketch.</strong> There are finitely many ideals of norm at most <span class="arithmatex">\(n\)</span>, because
+<span class="arithmatex">\(\mathcal O_K\)</span> has finite quotients. The Dirichlet series is the definition of <span class="arithmatex">\(\zeta_K\)</span>.
+Absolute convergence for <span class="arithmatex">\(\mathrm{Re}\,s&gt;1\)</span> follows from the asymptotic count of ideals of
+norm at most <span class="arithmatex">\(t\)</span>, which is <span class="arithmatex">\(O(t)\)</span> (it is <span class="arithmatex">\(\kappa_Kt+o(t)\)</span>, the input to the class number
+formula), by partial summation.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> idealCount (n : ℕ) : ℕ :=
+  Nat.card {I : Ideal (𝓞 K) // absNorm I = n}</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> dedekindZeta_eq_LSeries_idealCount (s : ℂ) :
+    dedekindZeta K s = LSeries (<span class="bp-lean-keyword">fun</span> n ↦ (idealCount K n : ℂ)) s</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> LSeriesSummable_idealCount {s : ℂ} (hs : 1 &lt; s.re) :
+    LSeriesSummable (<span class="bp-lean-keyword">fun</span> n ↦ (idealCount K n : ℂ)) s</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/progressions-locators.html#marcus-chapter-7">Marcus, Chapter 7</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#local-factors">Ideal counts at prime powers in a quadratic field</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#multiplicative">Ideal counts are multiplicative</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#splitting-law">The splitting law in <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#zeta-factorization">The factorization of <span class="arithmatex">\(\zeta_K\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="progressions/ideal-counts/multiplicative">
+<h4 class="bp-thmheading" id="multiplicative">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Ideal counts are multiplicative</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/Basic.lean#L143" aria-label="View ZInQ.Progressions.idealCount_mul in Lean source" title="View ZInQ.Progressions.idealCount_mul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/Basic.lean#L26" aria-label="View ZInQ.Progressions.idealCount_one in Lean source" title="View ZInQ.Progressions.idealCount_one in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/Basic.lean#L109" aria-label="View ZInQ.Progressions.idealCountMulEquiv in Lean source" title="View ZInQ.Progressions.idealCountMulEquiv in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/progressions/ideal-counts/multiplicative.md" aria-label="Edit the Markdown source for Ideal counts are multiplicative" title="Edit the Markdown source for Ideal counts are multiplicative"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#multiplicative" aria-label="Link to Ideal counts are multiplicative" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Progressions.idealCount_mul ZInQ.Progressions.idealCount_one ZInQ.Progressions.idealCountMulEquiv</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a number field. For coprime natural numbers <span class="arithmatex">\(m,n\)</span>,
+$<span class="arithmatex">\(a_K(mn)=a_K(m)\,a_K(n),\)</span>$
+and <span class="arithmatex">\(a_K(1)=1\)</span>.</p>
+<p><strong>Proof sketch.</strong> The only ideal of norm <span class="arithmatex">\(1\)</span> is <span class="arithmatex">\(\mathcal O_K\)</span>. The map
+<span class="arithmatex">\((J,J')\mapsto JJ'\)</span> sends pairs of ideals of norms <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(n\)</span> to ideals of norm <span class="arithmatex">\(mn\)</span>, since
+the norm is multiplicative. It is a bijection, with inverse
+<span class="arithmatex">\(I\mapsto(I+m\mathcal O_K,\,I+n\mathcal O_K)\)</span>: since <span class="arithmatex">\((m)+(n)=\mathcal O_K\)</span>, one has
+<span class="arithmatex">\((I+(m))(I+(n))=I\)</span> when <span class="arithmatex">\(mn\in I\)</span>, and <span class="arithmatex">\(JJ'+(m)=J\)</span> when <span class="arithmatex">\(m\in J\)</span> and <span class="arithmatex">\(J'+(m)=\mathcal O_K\)</span>. The
+norm of <span class="arithmatex">\(I+(m)\)</span> divides both <span class="arithmatex">\(m^{[K:\mathbb Q]}\)</span> and <span class="arithmatex">\(mn\)</span>, hence divides <span class="arithmatex">\(m\)</span>; likewise for
+<span class="arithmatex">\(n\)</span>, and the product of the two norms is <span class="arithmatex">\(mn\)</span>, so they are exactly <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(n\)</span>. No prime
+factorization is used.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> idealCount_mul {m n : ℕ} (h : m.Coprime n) :
+    <a class="bp-lean-ref" href="#ideal-count" data-lean-name="ZInQ.Progressions.idealCount">idealCount</a> K (m * n) = <a class="bp-lean-ref" href="#ideal-count" data-lean-name="ZInQ.Progressions.idealCount">idealCount</a> K m * <a class="bp-lean-ref" href="#ideal-count" data-lean-name="ZInQ.Progressions.idealCount">idealCount</a> K n</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> idealCount_one : <a class="bp-lean-ref" href="#ideal-count" data-lean-name="ZInQ.Progressions.idealCount">idealCount</a> K 1 = 1</code></pre>
+<details class="bp-lean-fold">
+<summary><code>ZInQ.Progressions.idealCountMulEquiv</code> · 31 lines</summary>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> idealCountMulEquiv {m n : ℕ} (h : m.Coprime n) :
+    {I : Ideal (𝓞 K) // absNorm I = m} × {J : Ideal (𝓞 K) // absNorm J = n} ≃
+      {L : Ideal (𝓞 K) // absNorm L = m * n} <span class="bp-lean-keyword">where</span>
+  toFun IJ := ⟨IJ.1.1 * IJ.2.1, <span class="bp-lean-keyword">by</span> rw [map_mul, IJ.1.2, IJ.2.2]⟩
+  invFun L := (⟨L.1 ⊔ span {(m : 𝓞 K)}, idealCount_absNorm_sup_eq L.2 h⟩,
+    ⟨L.1 ⊔ span {(n : 𝓞 K)}, idealCount_absNorm_sup_eq (<span class="bp-lean-keyword">by</span> rw [L.2, mul_comm]) h.symm⟩)
+  left_inv := <span class="bp-lean-keyword">by</span>
+    rintro ⟨⟨I, hI⟩, ⟨J, hJ⟩⟩
+    <span class="bp-lean-keyword">have</span> hmI : (m : 𝓞 K) ∈ I := <span class="bp-lean-keyword">by</span> simpa [hI] using absNorm_mem I
+    <span class="bp-lean-keyword">have</span> hnJ : (n : 𝓞 K) ∈ J := <span class="bp-lean-keyword">by</span> simpa [hJ] using absNorm_mem J
+    <span class="bp-lean-keyword">have</span> hcop := idealCount_span_sup_span_eq_top (K := K) h
+    <span class="bp-lean-keyword">have</span> hJm : J ⊔ span {(m : 𝓞 K)} = ⊤ := <span class="bp-lean-keyword">by</span>
+      rw [eq_top_iff, ← hcop]
+      exact sup_le le_sup_right ((span_singleton_le_iff_mem _).mpr (mem_sup_left hnJ))
+    <span class="bp-lean-keyword">have</span> hIn : I ⊔ span {(n : 𝓞 K)} = ⊤ := <span class="bp-lean-keyword">by</span>
+      rw [eq_top_iff, ← hcop]
+      exact sup_le ((span_singleton_le_iff_mem _).mpr (mem_sup_left hmI)) le_sup_right
+    ext1
+    · exact Subtype.ext (idealCount_sup_span_eq hmI hJm)
+    · refine Subtype.ext ?_
+      change I * J ⊔ span {(n : 𝓞 K)} = J
+      rw [mul_comm]
+      exact idealCount_sup_span_eq hnJ hIn
+  right_inv := <span class="bp-lean-keyword">by</span>
+    rintro ⟨L, hL⟩
+    refine Subtype.ext ?_
+    change (L ⊔ span {(m : 𝓞 K)}) * (L ⊔ span {(n : 𝓞 K)}) = L
+    refine idealCount_sup_mul_sup_eq ?_ (idealCount_span_sup_span_eq_top h)
+    <span class="bp-lean-keyword">have</span> := absNorm_mem L
+    rw [hL] <span class="bp-lean-keyword">at</span> this
+    exact_mod_cast this</code></pre>
+</details>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Progressions.idealCount">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> idealCount (n : ℕ) : ℕ :=
+  Nat.card {I : Ideal (𝓞 K) // absNorm I = n}</code></pre>
+<p class="bp-lean-where">ZInQKernel/Progressions/IdealCount/Basic.lean:19</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/progressions-locators.html#marcus-chapter-3">Marcus, Chapter 3</a></li>
+<li><a href="../../../sources/progressions-locators.html#marcus-chapter-7">Marcus, Chapter 7</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#ideal-count">The ideal counting function</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#zeta-factorization">The factorization of <span class="arithmatex">\(\zeta_K\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="progressions/ideal-counts/local-factors">
+<h4 class="bp-thmheading" id="local-factors">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Ideal counts at prime powers in a quadratic field</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/PrimePower.lean#L245" aria-label="View ZInQ.Progressions.localEps in Lean source" title="View ZInQ.Progressions.localEps in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/PrimePower.lean#L266" aria-label="View ZInQ.Progressions.localEps_mem in Lean source" title="View ZInQ.Progressions.localEps_mem in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/PrimePower.lean#L270" aria-label="View ZInQ.Progressions.idealCount_prime_pow in Lean source" title="View ZInQ.Progressions.idealCount_prime_pow in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/PrimePower.lean#L275" aria-label="View ZInQ.Progressions.exists_localFactor in Lean source" title="View ZInQ.Progressions.exists_localFactor in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/PrimePower.lean#L281" aria-label="View ZInQ.Progressions.eq_localEps_of_idealCount_prime_pow in Lean source" title="View ZInQ.Progressions.eq_localEps_of_idealCount_prime_pow in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/PrimePower.lean#L212" aria-label="View ZInQ.Progressions.idealCount_prime_pow_cases in Lean source" title="View ZInQ.Progressions.idealCount_prime_pow_cases in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/ZetaFactor.lean#L105" aria-label="View ZInQ.Progressions.IdealCount.tsum_term_idealCount_prime_pow in Lean source" title="View ZInQ.Progressions.IdealCount.tsum_term_idealCount_prime_pow in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/ZetaFactor.lean#L100" aria-label="View ZInQ.Progressions.IdealCount.norm_localEps_le_one in Lean source" title="View ZInQ.Progressions.IdealCount.norm_localEps_le_one in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/progressions/ideal-counts/local-factors.md" aria-label="Edit the Markdown source for Ideal counts at prime powers in a quadratic field" title="Edit the Markdown source for Ideal counts at prime powers in a quadratic field"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#local-factors" aria-label="Link to Ideal counts at prime powers in a quadratic field" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Progressions.localEps ZInQ.Progressions.localEps_mem ZInQ.Progressions.idealCount_prime_pow ZInQ.Progressions.exists_localFactor ZInQ.Progressions.eq_localEps_of_idealCount_prime_pow ZInQ.Progressions.idealCount_prime_pow_cases ZInQ.Progressions.IdealCount.tsum_term_idealCount_prime_pow ZInQ.Progressions.IdealCount.norm_localEps_le_one</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a number field of degree <span class="arithmatex">\(2\)</span> and <span class="arithmatex">\(p\)</span> a prime. Put <span class="arithmatex">\(\varepsilon_p=a_K(p)-1\)</span>. Then
+<span class="arithmatex">\(\varepsilon_p\in\{-1,0,1\}\)</span>, and for every <span class="arithmatex">\(k\ge0\)</span>
+$<span class="arithmatex">\(a_K(p^k)=\sum_{j=0}^k\varepsilon_p^{\,j} ;\)</span>$
+conversely, <span class="arithmatex">\(\varepsilon_p\)</span> is the only integer with this property. Equivalently, for every
+complex <span class="arithmatex">\(s\)</span> with <span class="arithmatex">\(\mathrm{Re}\,s&gt;0\)</span>,
+$<span class="arithmatex">\(\sum_{k\ge0}a_K(p^k)p^{-ks}=(1-p^{-s})^{-1}(1-\varepsilon_pp^{-s})^{-1}.\)</span>$</p>
+<p><strong>Proof sketch.</strong> The ideals of norm <span class="arithmatex">\(p^k\)</span> are the products <span class="arithmatex">\(\prod_i\mathfrak p_i^{a_i}\)</span> of the
+primes <span class="arithmatex">\(\mathfrak p_i\)</span> above <span class="arithmatex">\(p\)</span> with <span class="arithmatex">\(\sum_ia_if_i=k\)</span>, where <span class="arithmatex">\(f_i\)</span> is the residue degree:
+unique factorization gives a bijection with these exponent vectors. Write
+<span class="arithmatex">\(p\mathcal O_K=\prod_i\mathfrak p_i^{e_i}\)</span>; then <span class="arithmatex">\(\sum_ie_if_i=2\)</span>. Three cases remain. Split:
+two primes of norm <span class="arithmatex">\(p\)</span>, so <span class="arithmatex">\(a_K(p^k)=k+1\)</span> and <span class="arithmatex">\(\varepsilon_p=1\)</span>. Inert: one prime of norm
+<span class="arithmatex">\(p^2\)</span>, so <span class="arithmatex">\(a_K(p^k)\)</span> is <span class="arithmatex">\(1\)</span> for even <span class="arithmatex">\(k\)</span> and <span class="arithmatex">\(0\)</span> for odd <span class="arithmatex">\(k\)</span>, and <span class="arithmatex">\(\varepsilon_p=-1\)</span>.
+Ramified: one prime of norm <span class="arithmatex">\(p\)</span>, so <span class="arithmatex">\(a_K(p^k)=1\)</span> and <span class="arithmatex">\(\varepsilon_p=0\)</span>. In each case the
+formula holds; the case <span class="arithmatex">\(k=1\)</span> shows that <span class="arithmatex">\(\varepsilon_p\)</span> is determined. Since
+<span class="arithmatex">\(|\varepsilon_p|\le1\)</span> and <span class="arithmatex">\(|p^{-s}|&lt;1\)</span>, the Euler factor is the Cauchy product of two
+geometric series.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> localEps (p : ℕ) : ℤ := <a class="bp-lean-ref" href="#ideal-count" data-lean-name="ZInQ.Progressions.idealCount">idealCount</a> K p - 1</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> localEps_mem (h2 : finrank ℚ K = 2) {p : ℕ} (hp : p.Prime) :
+    <a class="bp-lean-ref" href="#local-factors" data-lean-name="ZInQ.Progressions.localEps">localEps</a> K p = -1 ∨ <a class="bp-lean-ref" href="#local-factors" data-lean-name="ZInQ.Progressions.localEps">localEps</a> K p = 0 ∨ <a class="bp-lean-ref" href="#local-factors" data-lean-name="ZInQ.Progressions.localEps">localEps</a> K p = 1</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> idealCount_prime_pow (h2 : finrank ℚ K = 2) {p : ℕ} (hp : p.Prime) (k : ℕ) :
+    (<a class="bp-lean-ref" href="#ideal-count" data-lean-name="ZInQ.Progressions.idealCount">idealCount</a> K (p ^ k) : ℤ) = ∑ j ∈ Finset.range (k + 1), <a class="bp-lean-ref" href="#local-factors" data-lean-name="ZInQ.Progressions.localEps">localEps</a> K p ^ j</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Progressions.idealCount">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> idealCount (n : ℕ) : ℕ :=
+  Nat.card {I : Ideal (𝓞 K) // absNorm I = n}</code></pre>
+<p class="bp-lean-where">ZInQKernel/Progressions/IdealCount/Basic.lean:19</p>
+</div>
+<div data-lean-name="ZInQ.Progressions.localEps">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> localEps (p : ℕ) : ℤ := idealCount K p - 1</code></pre>
+<p class="bp-lean-where">ZInQKernel/Progressions/IdealCount/PrimePower.lean:245</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/progressions-locators.html#marcus-chapter-3">Marcus, Chapter 3</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/progressions-locators.html#marcus-chapter-3"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#ideal-count">The ideal counting function</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#splitting-law">The splitting law in <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#zeta-factorization">The factorization of <span class="arithmatex">\(\zeta_K\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../real-characters/index.html#real-lower-bound">A lower bound for <span class="arithmatex">\(L(1,\chi)\)</span> at real characters</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="progressions/ideal-counts/splitting-law">
+<h4 class="bp-thmheading" id="splitting-law">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The splitting law in <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/Splitting.lean#L267" aria-label="View ZInQ.Progressions.localEps_eq_legendreSym in Lean source" title="View ZInQ.Progressions.localEps_eq_legendreSym in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/Splitting.lean#L254" aria-label="View ZInQ.Progressions.idealCount_prime_eq_legendreSym in Lean source" title="View ZInQ.Progressions.idealCount_prime_eq_legendreSym in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/Splitting.lean#L273" aria-label="View ZInQ.Progressions.idealCount_prime_pow_eq_legendreSym in Lean source" title="View ZInQ.Progressions.idealCount_prime_pow_eq_legendreSym in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/Splitting.lean#L33" aria-label="View ZInQ.Progressions.IdealCount.idealCount_prime_eq_card_ringHom in Lean source" title="View ZInQ.Progressions.IdealCount.idealCount_prime_eq_card_ringHom in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/Splitting.lean#L234" aria-label="View ZInQ.Progressions.IdealCount.card_ringHom_eq_card_sqrt in Lean source" title="View ZInQ.Progressions.IdealCount.card_ringHom_eq_card_sqrt in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/progressions/ideal-counts/splitting-law.md" aria-label="Edit the Markdown source for The splitting law in $\mathbb Q(\sqrt d)$" title="Edit the Markdown source for The splitting law in $\mathbb Q(\sqrt d)$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#splitting-law" aria-label="Link to The splitting law in ℚ(√d)" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Progressions.localEps_eq_legendreSym ZInQ.Progressions.idealCount_prime_eq_legendreSym ZInQ.Progressions.idealCount_prime_pow_eq_legendreSym ZInQ.Progressions.IdealCount.idealCount_prime_eq_card_ringHom ZInQ.Progressions.IdealCount.card_ringHom_eq_card_sqrt</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a number field of degree <span class="arithmatex">\(2\)</span> and <span class="arithmatex">\(d\)</span> an integer that is not a square, such that
+<span class="arithmatex">\(\mathcal O_K\)</span> contains an element <span class="arithmatex">\(\alpha\)</span> with <span class="arithmatex">\(\alpha^2=d\)</span>; for instance
+<span class="arithmatex">\(K=\mathbb Q(\sqrt d)\)</span> and <span class="arithmatex">\(\alpha=\sqrt d\)</span>. Let <span class="arithmatex">\(p\)</span> be an odd prime with <span class="arithmatex">\(p\nmid d\)</span>. Then
+the local sign <span class="arithmatex">\(\varepsilon_p=a_K(p)-1\)</span> is the Legendre symbol:
+$<span class="arithmatex">\(\varepsilon_p=\Bigl(\frac dp\Bigr),\)</span>$
+so <span class="arithmatex">\(a_K(p)=1+(d/p)\)</span> and <span class="arithmatex">\(a_K(p^k)=\sum_{j=0}^k(d/p)^j\)</span> for every <span class="arithmatex">\(k\ge0\)</span>.</p>
+<p>The hypothesis that <span class="arithmatex">\(d\)</span> is not a square cannot be dropped: in <span class="arithmatex">\(K=\mathbb Q(i)\)</span> with
+<span class="arithmatex">\(\alpha=1\)</span>, <span class="arithmatex">\(d=1\)</span> and <span class="arithmatex">\(p=3\)</span>, the prime <span class="arithmatex">\(3\)</span> is inert, so <span class="arithmatex">\(\varepsilon_3=-1\ne(1/3)\)</span>.</p>
+<p><strong>Proof sketch.</strong> Ideals of norm <span class="arithmatex">\(p\)</span> are the kernels of ring homomorphisms
+<span class="arithmatex">\(\mathcal O_K\to\mathbb Z/p\)</span>, and distinct homomorphisms have distinct kernels, so <span class="arithmatex">\(a_K(p)\)</span> is
+the number of such homomorphisms. With <span class="arithmatex">\(t\)</span> the trace from <span class="arithmatex">\(\mathcal O_K\)</span> to <span class="arithmatex">\(\mathbb Z\)</span>, every
+<span class="arithmatex">\(x\in\mathcal O_K\)</span> satisfies <span class="arithmatex">\(2dx=d\,t(x)+t(\alpha x)\,\alpha\)</span>, as one checks in the basis
+<span class="arithmatex">\(1,\alpha\)</span> of <span class="arithmatex">\(K\)</span>, using <span class="arithmatex">\(t(\alpha)=0\)</span>. Since <span class="arithmatex">\(2d\)</span> is invertible modulo <span class="arithmatex">\(p\)</span>, a homomorphism
+<span class="arithmatex">\(\varphi\)</span> is determined by <span class="arithmatex">\(r=\varphi(\alpha)\)</span>, which satisfies <span class="arithmatex">\(r^2=d\)</span>; conversely, for each
+<span class="arithmatex">\(r\)</span> with <span class="arithmatex">\(r^2=d\)</span>, the map <span class="arithmatex">\(x\mapsto(d\,t(x)+t(\alpha x)r)/(2d)\)</span> is a ring homomorphism, by two
+trace identities obtained by comparing coefficients in the basis <span class="arithmatex">\(1,\alpha\)</span>. Hence
+<span class="arithmatex">\(a_K(p)=\#\{r\in\mathbb Z/p:r^2=d\}=1+(d/p)\)</span>. No Kummer–Dedekind theorem and no index
+computation are needed. The formula for <span class="arithmatex">\(a_K(p^k)\)</span> then follows from the prime-power formula.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> localEps_eq_legendreSym (h2 : finrank ℚ K = 2) {α : 𝓞 K} {d : ℤ}
+    (hα : α ^ 2 = d) (hd : ¬ IsSquare d) (p : ℕ) [Fact p.Prime] (hp2 : p ≠ 2)
+    (hpd : ¬ (p : ℤ) ∣ d) : <a class="bp-lean-ref" href="#local-factors" data-lean-name="ZInQ.Progressions.localEps">localEps</a> K p = legendreSym p d</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> idealCount_prime_eq_legendreSym (h2 : finrank ℚ K = 2) {α : 𝓞 K} {d : ℤ}
+    (hα : α ^ 2 = d) (hd : ¬ IsSquare d) (p : ℕ) [Fact p.Prime] (hp2 : p ≠ 2)
+    (hpd : ¬ (p : ℤ) ∣ d) : (idealCount K p : ℤ) = legendreSym p d + 1</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> idealCount_prime_pow_eq_legendreSym (h2 : finrank ℚ K = 2) {α : 𝓞 K} {d : ℤ}
+    (hα : α ^ 2 = d) (hd : ¬ IsSquare d) (p : ℕ) [Fact p.Prime] (hp2 : p ≠ 2)
+    (hpd : ¬ (p : ℤ) ∣ d) (k : ℕ) :
+    (<a class="bp-lean-ref" href="#ideal-count" data-lean-name="ZInQ.Progressions.idealCount">idealCount</a> K (p ^ k) : ℤ) = ∑ j ∈ Finset.range (k + 1), legendreSym p d ^ j</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Progressions.localEps">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> localEps (p : ℕ) : ℤ := idealCount K p - 1</code></pre>
+<p class="bp-lean-where">ZInQKernel/Progressions/IdealCount/PrimePower.lean:245</p>
+</div>
+<div data-lean-name="ZInQ.Progressions.idealCount">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> idealCount (n : ℕ) : ℕ :=
+  Nat.card {I : Ideal (𝓞 K) // absNorm I = n}</code></pre>
+<p class="bp-lean-where">ZInQKernel/Progressions/IdealCount/Basic.lean:19</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/progressions-locators.html#marcus-chapter-3">Marcus, Chapter 3</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../quadratic-fields/index.html#quadratic-field">The quadratic field <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#ideal-count">The ideal counting function</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#local-factors">Ideal counts at prime powers in a quadratic field</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#zeta-factorization">The factorization of <span class="arithmatex">\(\zeta_K\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="progressions/ideal-counts/zeta-factorization">
+<h4 class="bp-thmheading" id="zeta-factorization">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The factorization of <span class="arithmatex">\(\zeta_K\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/ZetaFactor.lean#L163" aria-label="View ZInQ.Progressions.dedekindZeta_eq_riemannZeta_mul_LSeries_mul_prod in Lean source" title="View ZInQ.Progressions.dedekindZeta_eq_riemannZeta_mul_LSeries_mul_prod in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/ZetaFactor.lean#L176" aria-label="View ZInQ.Progressions.dedekindZeta_eq_riemannZeta_mul_LSeries_mul_prod_of_legendreSym in Lean source" title="View ZInQ.Progressions.dedekindZeta_eq_riemannZeta_mul_LSeries_mul_prod_of_legendreSym in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/ZetaFactor.lean#L123" aria-label="View ZInQ.Progressions.dedekindZeta_eq_mul_prod_of_localEps_eq in Lean source" title="View ZInQ.Progressions.dedekindZeta_eq_mul_prod_of_localEps_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/IdealCount/ZetaFactor.lean#L65" aria-label="View ZInQ.Progressions.IdealCount.hasProd_dedekindZeta in Lean source" title="View ZInQ.Progressions.IdealCount.hasProd_dedekindZeta in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/progressions/ideal-counts/zeta-factorization.md" aria-label="Edit the Markdown source for The factorization of $\zeta_K$" title="Edit the Markdown source for The factorization of $\zeta_K$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#zeta-factorization" aria-label="Link to The factorization of ζ_K" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Progressions.dedekindZeta_eq_riemannZeta_mul_LSeries_mul_prod ZInQ.Progressions.dedekindZeta_eq_riemannZeta_mul_LSeries_mul_prod_of_legendreSym ZInQ.Progressions.dedekindZeta_eq_mul_prod_of_localEps_eq ZInQ.Progressions.IdealCount.hasProd_dedekindZeta</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a number field of degree <span class="arithmatex">\(2\)</span>, with <span class="arithmatex">\(\varepsilon_p=a_K(p)-1\)</span>, let <span class="arithmatex">\(q\ge1\)</span>, and let
+<span class="arithmatex">\(\chi\)</span> be a Dirichlet character modulo <span class="arithmatex">\(q\)</span> with <span class="arithmatex">\(\varepsilon_p=\chi(p)\)</span> for every prime
+<span class="arithmatex">\(p\nmid2q\)</span>. Then for every real <span class="arithmatex">\(s&gt;1\)</span>,
+$<span class="arithmatex">\(\zeta_K(s)=\zeta(s)\,L(s,\chi)\prod_{p\mid2q}\frac{1-\chi(p)p^{-s}}{1-\varepsilon_pp^{-s}},\)</span>$
+the product running over the primes dividing <span class="arithmatex">\(2q\)</span>, and <span class="arithmatex">\(L(s,\chi)=\sum_{n\ge1}\chi(n)n^{-s}\)</span>.
+More generally, for any finite set <span class="arithmatex">\(P\)</span> of primes with <span class="arithmatex">\(\varepsilon_p=\chi(p)\)</span> for every prime
+<span class="arithmatex">\(p\notin P\)</span>, the same identity holds for every complex <span class="arithmatex">\(s\)</span> with <span class="arithmatex">\(\mathrm{Re}\,s&gt;1\)</span>, with the
+product over <span class="arithmatex">\(p\in P\)</span>.</p>
+<p>The hypothesis on <span class="arithmatex">\(\varepsilon_p\)</span> holds in the following situation: <span class="arithmatex">\(d\)</span> is an integer that is
+not a square, <span class="arithmatex">\(\mathcal O_K\)</span> contains an element <span class="arithmatex">\(\alpha\)</span> with <span class="arithmatex">\(\alpha^2=d\)</span> (for instance
+<span class="arithmatex">\(K=\mathbb Q(\sqrt d)\)</span>), no prime <span class="arithmatex">\(p\nmid2q\)</span> divides <span class="arithmatex">\(d\)</span>, and <span class="arithmatex">\(\chi(p)=\bigl(\frac dp\bigr)\)</span>
+for every prime <span class="arithmatex">\(p\nmid2q\)</span>.</p>
+<p><strong>Proof sketch.</strong> For <span class="arithmatex">\(\mathrm{Re}\,s&gt;1\)</span> all three Dirichlet series converge absolutely and
+have Euler products: the coefficients <span class="arithmatex">\(a_K\)</span> are multiplicative with the local factors
+<span class="arithmatex">\((1-p^{-s})^{-1}(1-\varepsilon_pp^{-s})^{-1}\)</span>, and <span class="arithmatex">\(\zeta(s)L(s,\chi)\)</span> has the local factors
+<span class="arithmatex">\((1-p^{-s})^{-1}(1-\chi(p)p^{-s})^{-1}\)</span>. For <span class="arithmatex">\(p\notin P\)</span> the local factors agree. The
+quotient of the two Euler products is therefore the finite product over <span class="arithmatex">\(p\in P\)</span>. In the
+situation of the last paragraph, a prime <span class="arithmatex">\(p\nmid2q\)</span> is odd and does not divide <span class="arithmatex">\(d\)</span>, so
+<span class="arithmatex">\(\varepsilon_p=(d/p)=\chi(p)\)</span> by the splitting law. (Here <span class="arithmatex">\(\chi(p)=0\)</span> for <span class="arithmatex">\(p\mid q\)</span>, so only
+<span class="arithmatex">\(p=2\nmid q\)</span> contributes a nontrivial numerator.) The hypothesis <span class="arithmatex">\(q\ge1\)</span> matters: for <span class="arithmatex">\(q=0\)</span>
+every prime divides <span class="arithmatex">\(2q\)</span> but the product would be empty.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> dedekindZeta_eq_riemannZeta_mul_LSeries_mul_prod (h2 : finrank ℚ K = 2) {q : ℕ}
+    (hq : q ≠ 0) (χ : DirichletCharacter ℂ q)
+    (hχ : ∀ p : ℕ, p.Prime → ¬ p ∣ 2 * q → (localEps K p : ℂ) = χ p) {s : ℝ} (hs : 1 &lt; s) :
+    dedekindZeta K s = riemannZeta s * LSeries (<span class="bp-lean-keyword">fun</span> n ↦ χ n) s *
+      ∏ p ∈ (2 * q).primeFactors,
+        (1 - χ p * (p : ℂ) ^ (-(s : ℂ))) * (1 - localEps K p * (p : ℂ) ^ (-(s : ℂ)))⁻¹</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> dedekindZeta_eq_riemannZeta_mul_LSeries_mul_prod_of_legendreSym
+    (h2 : finrank ℚ K = 2) {α : 𝓞 K} {d : ℤ} (hα : α ^ 2 = d) (hd : ¬ IsSquare d) {q : ℕ}
+    (hq : q ≠ 0) (χ : DirichletCharacter ℂ q)
+    (hdq : ∀ p : ℕ, p.Prime → ¬ p ∣ 2 * q → ¬ (p : ℤ) ∣ d)
+    (hχ : ∀ (p : ℕ) [Fact p.Prime], ¬ p ∣ 2 * q → χ p = legendreSym p d) {s : ℝ} (hs : 1 &lt; s) :
+    dedekindZeta K s = riemannZeta s * LSeries (<span class="bp-lean-keyword">fun</span> n ↦ χ n) s *
+      ∏ p ∈ (2 * q).primeFactors,
+        (1 - χ p * (p : ℂ) ^ (-(s : ℂ))) * (1 - <a class="bp-lean-ref" href="#local-factors" data-lean-name="ZInQ.Progressions.localEps">localEps</a> K p * (p : ℂ) ^ (-(s : ℂ)))⁻¹</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> dedekindZeta_eq_mul_prod_of_localEps_eq (h2 : finrank ℚ K = 2) {q : ℕ}
+    (χ : DirichletCharacter ℂ q) (P : Finset ℕ) (hP : ∀ p ∈ P, p.Prime)
+    (hχ : ∀ p : ℕ, p.Prime → p ∉ P → (localEps K p : ℂ) = χ p) {s : ℂ} (hs : 1 &lt; s.re) :
+    dedekindZeta K s = riemannZeta s * LSeries (<span class="bp-lean-keyword">fun</span> n ↦ χ n) s *
+      ∏ p ∈ P, (1 - χ p * (p : ℂ) ^ (-s)) * (1 - localEps K p * (p : ℂ) ^ (-s))⁻¹</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Progressions.localEps">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> localEps (p : ℕ) : ℤ := idealCount K p - 1</code></pre>
+<p class="bp-lean-where">ZInQKernel/Progressions/IdealCount/PrimePower.lean:245</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/progressions-locators.html#marcus-chapter-7">Marcus, Chapter 7</a></li>
+<li><a href="../../../sources/progressions-locators.html#davenport-chapter-6">Davenport, Chapter 6</a></li>
+<li><a href="../../../sources/progressions-locators.html#apostol-chapter-11">Apostol, Chapter 11</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../quadratic-fields/index.html#quadratic-field">The quadratic field <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#ideal-count">The ideal counting function</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#multiplicative">Ideal counts are multiplicative</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#local-factors">Ideal counts at prime powers in a quadratic field</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#splitting-law">The splitting law in <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../real-characters/index.html#real-lower-bound">A lower bound for <span class="arithmatex">\(L(1,\chi)\)</span> at real characters</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>5</strong> fully proved</span></div>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../../dependencies/index.json" data-graph-src="../../../dependencies/scopes/progressions/ideal-counts.json" data-page-href="index.html" data-scope-id="progressions/ideal-counts">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

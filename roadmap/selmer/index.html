@@ -1,0 +1,2773 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../density/index.html">
+      
+      
+        <link rel="next" href="../rank-5b/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Proposition 0: the explicit system is the 2-Selmer group - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#coverings_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Proposition 0: the explicit system is the 2-Selmer group
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#coverings_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coverings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-solubility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local solubility
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-selmer-group-and-proposition-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Selmer group and Proposition 0
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-certified-rank-hypothesis-in-selmer-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The certified rank hypothesis in Selmer form
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#coverings_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coverings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-solubility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local solubility
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-selmer-group-and-proposition-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Selmer group and Proposition 0
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-certified-rank-hypothesis-in-selmer-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The certified rank hypothesis in Selmer form
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="selmer" data-page-title="Proposition 0: the explicit system is the 2-Selmer group">
+<h1 id="proposition-0-the-explicit-system-is-the-2-selmer-group">Proposition 0: the explicit system is the 2-Selmer group</h1>
+<p>The certified rank hypothesis CR₃ of the main theorem is stated on the explicit linear system
+<span class="arithmatex">\(\Sigma(\mathcal C_d)\)</span> of the <a href="../route-k/index.html">Route K chapter</a>, built from classes modulo
+<span class="arithmatex">\(8\)</span> and Legendre symbols. Proposition 0 says that for squarefree <span class="arithmatex">\(d\equiv5\pmod8\)</span> the solutions of
+this system are, in coordinates, the 2-Selmer group of the congruent number curve
+<span class="arithmatex">\(C_d:y^2=x^3-d^2x\)</span>, defined by the local solubility of its 2-coverings. This chapter proves it, and
+so replaces CR₃ by the narrower hypothesis CR₃^Sel, stated on the Selmer group itself: when
+<span class="arithmatex">\(\mathrm{Sel}_2(C_d)\)</span> has dimension <span class="arithmatex">\(3\)</span> and contains a class with <span class="arithmatex">\(|a|\equiv7\pmod8\)</span>, every Selmer
+class comes from a rational point.</p>
+<p>Throughout, <span class="arithmatex">\(C_d\)</span> is <span class="arithmatex">\(y^2=x(x-d)(x+d)\)</span>, and <span class="arithmatex">\(u\equiv v\)</span> means that <span class="arithmatex">\(u/v\)</span> is a nonzero square.</p>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../route-k/index.html"> </a></p>
+</div>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>15</strong> fully proved</span></div>
+</div>
+<h2 id="coverings_1">Coverings</h2>
+<p>The 2-coverings <span class="arithmatex">\(D_{a,b}\)</span> of <span class="arithmatex">\(C_d\)</span> are written in an x-form, which depends only on the square
+classes of <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span>; over any field of characteristic not <span class="arithmatex">\(2\)</span> a covering is soluble exactly when
+<span class="arithmatex">\((a,b)\)</span> is a Kummer image of a point.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="selmer/coverings">
+<h4 class="bp-thmheading" id="coverings">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The 2-coverings of a congruent number curve</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L204" aria-label="View ZInQ.RouteK.Selmer.Cov in Lean source" title="View ZInQ.RouteK.Selmer.Cov in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L89" aria-label="View ZInQ.RouteK.Selmer.Loc in Lean source" title="View ZInQ.RouteK.Selmer.Loc in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L35" aria-label="View ZInQ.RouteK.Selmer.SqEq in Lean source" title="View ZInQ.RouteK.Selmer.SqEq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L37" aria-label="View ZInQ.RouteK.Selmer.SqEq.refl in Lean source" title="View ZInQ.RouteK.Selmer.SqEq.refl in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L39" aria-label="View ZInQ.RouteK.Selmer.SqEq.symm in Lean source" title="View ZInQ.RouteK.Selmer.SqEq.symm in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L43" aria-label="View ZInQ.RouteK.Selmer.SqEq.trans in Lean source" title="View ZInQ.RouteK.Selmer.SqEq.trans in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L48" aria-label="View ZInQ.RouteK.Selmer.SqEq.mul in Lean source" title="View ZInQ.RouteK.Selmer.SqEq.mul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L63" aria-label="View ZInQ.RouteK.Selmer.sqEq_iff_isSquare_mul in Lean source" title="View ZInQ.RouteK.Selmer.sqEq_iff_isSquare_mul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/selmer/coverings.md" aria-label="Edit the Markdown source for The 2-coverings of a congruent number curve" title="Edit the Markdown source for The 2-coverings of a congruent number curve"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#coverings" aria-label="Link to The 2-coverings of a congruent number curve" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Selmer.Cov ZInQ.RouteK.Selmer.Loc ZInQ.RouteK.Selmer.SqEq ZInQ.RouteK.Selmer.SqEq.refl ZInQ.RouteK.Selmer.SqEq.symm ZInQ.RouteK.Selmer.SqEq.trans ZInQ.RouteK.Selmer.SqEq.mul ZInQ.RouteK.Selmer.sqEq_iff_isSquare_mul</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a field and <span class="arithmatex">\(d,a,b\in K\)</span>. The <em>2-covering</em> of <span class="arithmatex">\(C_d:y^2=x^3-d^2x\)</span> attached to <span class="arithmatex">\((a,b)\)</span>
+is the curve in <span class="arithmatex">\(\mathbb P^3\)</span>
+$<span class="arithmatex">\(D_{a,b}:\qquad az_1^2-bz_2^2=dw^2,\qquad az_1^2-abz_3^2=-dw^2 .\)</span>$
+Say that <span class="arithmatex">\(D_{a,b}\)</span> is <em>soluble over <span class="arithmatex">\(K\)</span></em> when it has a <span class="arithmatex">\(K\)</span>-point, that is a solution
+<span class="arithmatex">\((z_1,z_2,z_3,w)\ne(0,0,0,0)\)</span> in <span class="arithmatex">\(K\)</span>.</p>
+<p>Its <em>x-form</em> is the condition that either <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> are squares in <span class="arithmatex">\(K\)</span>, or there is <span class="arithmatex">\(x\in K\)</span>
+such that <span class="arithmatex">\(x/a\)</span>, <span class="arithmatex">\((x-d)/b\)</span> and <span class="arithmatex">\((x+d)/(ab)\)</span> are squares in <span class="arithmatex">\(K\)</span> (zero counts as a square).</p>
+<p>For <span class="arithmatex">\(u,v\in K\)</span> write <span class="arithmatex">\(u\equiv v\)</span> when <span class="arithmatex">\(u=vs^2\)</span> for some nonzero <span class="arithmatex">\(s\in K\)</span>. This is an equivalence
+relation compatible with products, and for nonzero <span class="arithmatex">\(u,v\)</span> it says that <span class="arithmatex">\(uv\)</span> is a square.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Cov (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ z₁ z₂ z₃ w : K, ¬(z₁ = 0 ∧ z₂ = 0 ∧ z₃ = 0 ∧ w = 0) ∧
+    a * z₁ ^ 2 - b * z₂ ^ 2 = d * w ^ 2 ∧ a * z₁ ^ 2 - a * b * z₃ ^ 2 = -d * w ^ 2</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SqEq (u v : K) : <span class="bp-lean-keyword">Prop</span> := ∃ s : K, s ≠ 0 ∧ u = v * s ^ 2</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/selmer-locators.html#coverings">Coverings</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 13</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank/two-descent/index.html#descent-image">The image of the descent map lies in the 2-Selmer group</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank/two-descent/index.html#every-selmer-class">Positive rank and a Selmer group of order eight give every Selmer class (RK9)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank/two-descent/index.html#squarefree-representatives">Squarefree representatives of rational square classes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../redei/index.html#certified-rank-tyz-cl">The certified rank hypothesis with class numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#bad-odd-primes">Local solubility at odd primes dividing d</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#covering-classes">Square classes and torsion witnesses of a covering</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#covering-x-form">The x-form of a covering</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#good-primes">Local solubility at odd primes not dividing d</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#kummer-map">Coverings and the Kummer map</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#padic-squares">Squares in the p-adic numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#place-two">Local solubility at the place 2</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#real-place">Local solubility at the real place</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#selmer-group">The 2-Selmer group of a congruent number curve</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="selmer/covering-x-form">
+<h4 class="bp-thmheading" id="covering-x-form">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The x-form of a covering</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L209" aria-label="View ZInQ.RouteK.Selmer.cov_iff_loc in Lean source" title="View ZInQ.RouteK.Selmer.cov_iff_loc in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/selmer/covering-x-form.md" aria-label="Edit the Markdown source for The x-form of a covering" title="Edit the Markdown source for The x-form of a covering"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#covering-x-form" aria-label="Link to The x-form of a covering" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Selmer.cov_iff_loc</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a field and <span class="arithmatex">\(d,a,b\in K\)</span> with <span class="arithmatex">\(a,b\ne0\)</span>. Then the 2-covering <span class="arithmatex">\(D_{a,b}\)</span> of <span class="arithmatex">\(C_d\)</span> is
+soluble over <span class="arithmatex">\(K\)</span> if and only if its x-form holds: <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> are squares, or some <span class="arithmatex">\(x\in K\)</span> makes
+<span class="arithmatex">\(x/a\)</span>, <span class="arithmatex">\((x-d)/b\)</span> and <span class="arithmatex">\((x+d)/(ab)\)</span> squares.</p>
+<p><strong>Proof sketch.</strong> Let <span class="arithmatex">\((z_1,z_2,z_3,w)\)</span> be a point. If <span class="arithmatex">\(w=0\)</span>, then <span class="arithmatex">\(az_1^2=bz_2^2\)</span> and
+<span class="arithmatex">\(z_1^2=bz_3^2\)</span>; here <span class="arithmatex">\(z_1\ne0\)</span>, since otherwise every coordinate vanishes, so <span class="arithmatex">\(z_3\ne0\)</span>,
+<span class="arithmatex">\(b=(z_1/z_3)^2\)</span> and <span class="arithmatex">\(a=(z_2/z_3)^2\)</span>. If <span class="arithmatex">\(w\ne0\)</span>, put <span class="arithmatex">\(x=a(z_1/w)^2\)</span>; then <span class="arithmatex">\((x-d)/b=(z_2/w)^2\)</span> and
+<span class="arithmatex">\((x+d)/(ab)=(z_3/w)^2\)</span>. Conversely, if <span class="arithmatex">\(a=s^2\)</span> and <span class="arithmatex">\(b=t^2\)</span> then <span class="arithmatex">\((1/s,1/t,1/(st),0)\)</span> is a point,
+and if <span class="arithmatex">\(x/a=r_1^2\)</span>, <span class="arithmatex">\((x-d)/b=r_2^2\)</span>, <span class="arithmatex">\((x+d)/(ab)=r_3^2\)</span> then <span class="arithmatex">\((r_1,r_2,r_3,1)\)</span> is a point, because
+<span class="arithmatex">\(ar_1^2-br_2^2=x-(x-d)\)</span> and <span class="arithmatex">\(ar_1^2-abr_3^2=x-(x+d)\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> cov_iff_loc {d a b : K} (ha : a ≠ 0) (hb : b ≠ 0) : <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Cov">Cov</a> K d a b ↔ <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> K d a b</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.Cov">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Cov (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ z₁ z₂ z₃ w : K, ¬(z₁ = 0 ∧ z₂ = 0 ∧ z₃ = 0 ∧ w = 0) ∧
+    a * z₁ ^ 2 - b * z₂ ^ 2 = d * w ^ 2 ∧ a * z₁ ^ 2 - a * b * z₃ ^ 2 = -d * w ^ 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:204</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.Loc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:89</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/selmer-locators.html#coverings">Coverings</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#coverings">The 2-coverings of a congruent number curve</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="selmer/covering-classes">
+<h4 class="bp-thmheading" id="covering-classes">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Square classes and torsion witnesses of a covering</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L113" aria-label="View ZInQ.RouteK.Selmer.loc_torsion in Lean source" title="View ZInQ.RouteK.Selmer.loc_torsion in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L94" aria-label="View ZInQ.RouteK.Selmer.loc_mul_sq_iff in Lean source" title="View ZInQ.RouteK.Selmer.loc_mul_sq_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L104" aria-label="View ZInQ.RouteK.Selmer.loc_congr_sq in Lean source" title="View ZInQ.RouteK.Selmer.loc_congr_sq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L189" aria-label="View ZInQ.RouteK.Selmer.loc_of_sqEq_torsion in Lean source" title="View ZInQ.RouteK.Selmer.loc_of_sqEq_torsion in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/selmer/covering-classes.md" aria-label="Edit the Markdown source for Square classes and torsion witnesses of a covering" title="Edit the Markdown source for Square classes and torsion witnesses of a covering"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#covering-classes" aria-label="Link to Square classes and torsion witnesses of a covering" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Selmer.loc_torsion ZInQ.RouteK.Selmer.loc_mul_sq_iff ZInQ.RouteK.Selmer.loc_congr_sq ZInQ.RouteK.Selmer.loc_of_sqEq_torsion</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a field with <span class="arithmatex">\(2\ne0\)</span> and <span class="arithmatex">\(d,a,b\in K\)</span>, <span class="arithmatex">\(d,a,b\ne0\)</span>.</p>
+<ol>
+<li><em>(Inv)</em> The x-form of <span class="arithmatex">\(D_{a,b}\)</span> depends only on the classes of <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> modulo nonzero
+   squares: if <span class="arithmatex">\(a\equiv a'\)</span> and <span class="arithmatex">\(b\equiv b'\)</span>, it holds for <span class="arithmatex">\((a,b)\)</span> if and only if it holds for
+   <span class="arithmatex">\((a',b')\)</span>.</li>
+<li><em>(Tor)</em> If <span class="arithmatex">\(x/a\)</span>, <span class="arithmatex">\((x-d)/b\)</span> and <span class="arithmatex">\((x+d)/(ab)\)</span> are squares, then either <span class="arithmatex">\(x=0\)</span>, <span class="arithmatex">\(a\equiv-1\)</span>,
+   <span class="arithmatex">\(b\equiv-d\)</span>; or <span class="arithmatex">\(x=d\)</span>, <span class="arithmatex">\(a\equiv d\)</span>, <span class="arithmatex">\(b\equiv2\)</span>; or <span class="arithmatex">\(x=-d\)</span>, <span class="arithmatex">\(a\equiv-d\)</span>, <span class="arithmatex">\(b\equiv-2d\)</span>; or
+   <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(x-d\)</span>, <span class="arithmatex">\(x+d\)</span> are all nonzero, <span class="arithmatex">\(x\equiv a\)</span>, <span class="arithmatex">\(x-d\equiv b\)</span>, <span class="arithmatex">\(x+d\equiv ab\)</span> and
+   <span class="arithmatex">\(x(x-d)(x+d)\)</span> is a square.</li>
+<li>For <span class="arithmatex">\(i,j\in\{0,1\}\)</span>, if <span class="arithmatex">\(a\equiv d^i(-1)^j\)</span> and <span class="arithmatex">\(b\equiv2^i(-d)^j\)</span> (one of the four torsion
+   classes <span class="arithmatex">\((1,1)\)</span>, <span class="arithmatex">\((-1,-d)\)</span>, <span class="arithmatex">\((d,2)\)</span>, <span class="arithmatex">\((-d,-2d)\)</span>), the x-form of <span class="arithmatex">\(D_{a,b}\)</span> holds.</li>
+</ol>
+<p><strong>Proof sketch.</strong> (1) Divide the three squares by <span class="arithmatex">\(s^2\)</span>, <span class="arithmatex">\(t^2\)</span> and <span class="arithmatex">\((st)^2\)</span>; the witness <span class="arithmatex">\(x\)</span>
+is the same. (2) If <span class="arithmatex">\(x=0\)</span> then <span class="arithmatex">\(-d/b\)</span> and <span class="arithmatex">\(d/(ab)\)</span> are nonzero squares, so <span class="arithmatex">\(b\equiv-d\)</span> and
+<span class="arithmatex">\(a\equiv-1\)</span>; the cases <span class="arithmatex">\(x=\pm d\)</span> are alike; otherwise the three quotients are nonzero squares
+and their product is <span class="arithmatex">\(x(x-d)(x+d)/(ab)^2\)</span>. (3) By (1) take the class representatives; the
+witnesses are the first alternative for <span class="arithmatex">\((1,1)\)</span> and <span class="arithmatex">\(x=0\)</span>, <span class="arithmatex">\(d\)</span>, <span class="arithmatex">\(-d\)</span> for the others.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_torsion {d a b x : K} (h2 : (2 : K) ≠ 0) (hd : d ≠ 0) (ha : a ≠ 0) (hb : b ≠ 0)
+    (h₁ : IsSquare (x / a)) (h₂ : IsSquare ((x - d) / b)) (h₃ : IsSquare ((x + d) / (a * b))) :
+    (x = 0 ∧ <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.SqEq">SqEq</a> a (-1) ∧ <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.SqEq">SqEq</a> b (-d)) ∨ (x = d ∧ <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.SqEq">SqEq</a> a d ∧ <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.SqEq">SqEq</a> b 2) ∨
+      (x = -d ∧ <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.SqEq">SqEq</a> a (-d) ∧ <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.SqEq">SqEq</a> b (-2 * d)) ∨
+      (x ≠ 0 ∧ x - d ≠ 0 ∧ x + d ≠ 0 ∧ <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.SqEq">SqEq</a> x a ∧ <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.SqEq">SqEq</a> (x - d) b ∧ <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.SqEq">SqEq</a> (x + d) (a * b) ∧
+        IsSquare (x * (x - d) * (x + d)))</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_mul_sq_iff {d a b s t : K} (hs : s ≠ 0) (ht : t ≠ 0) :
+    <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> K d (a * s ^ 2) (b * t ^ 2) ↔ <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> K d a b</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_congr_sq {d a b a&#x27; b&#x27; : K} (ha : <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.SqEq">SqEq</a> a a&#x27;) (hb : <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.SqEq">SqEq</a> b b&#x27;) :
+    <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> K d a b ↔ <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> K d a&#x27; b&#x27;</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.SqEq">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SqEq (u v : K) : <span class="bp-lean-keyword">Prop</span> := ∃ s : K, s ≠ 0 ∧ u = v * s ^ 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:35</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.Loc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:89</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/selmer-locators.html#coverings">Coverings</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#coverings">The 2-coverings of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#bad-odd-primes">Local solubility at odd primes dividing d</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#good-primes">Local solubility at odd primes not dividing d</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#kummer-map">Coverings and the Kummer map</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#place-two">Local solubility at the place 2</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="selmer/kummer-map">
+<h4 class="bp-thmheading" id="kummer-map">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Coverings and the Kummer map</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L273" aria-label="View ZInQ.RouteK.Selmer.loc_iff_kummer in Lean source" title="View ZInQ.RouteK.Selmer.loc_iff_kummer in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L265" aria-label="View ZInQ.RouteK.Selmer.kummer in Lean source" title="View ZInQ.RouteK.Selmer.kummer in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/selmer/kummer-map.md" aria-label="Edit the Markdown source for Coverings and the Kummer map" title="Edit the Markdown source for Coverings and the Kummer map"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#kummer-map" aria-label="Link to Coverings and the Kummer map" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Selmer.loc_iff_kummer ZInQ.RouteK.Selmer.kummer</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a field with <span class="arithmatex">\(2\ne0\)</span> and <span class="arithmatex">\(d\ne0\)</span> in <span class="arithmatex">\(K\)</span>. The <em>Kummer map</em> of the complete 2-descent
+on <span class="arithmatex">\(C_d:y^2=x^3-d^2x\)</span> sends the point at infinity to <span class="arithmatex">\((1,1)\)</span>, the 2-torsion points <span class="arithmatex">\((0,0)\)</span>,
+<span class="arithmatex">\((d,0)\)</span>, <span class="arithmatex">\((-d,0)\)</span> to <span class="arithmatex">\((-1,-d)\)</span>, <span class="arithmatex">\((d,2)\)</span>, <span class="arithmatex">\((-d,-2d)\)</span>, and every other point <span class="arithmatex">\((x,y)\)</span> to
+<span class="arithmatex">\((x,x-d)\)</span>; its values are read modulo squares. Then for <span class="arithmatex">\(a,b\ne0\)</span> the x-form of <span class="arithmatex">\(D_{a,b}\)</span> holds
+if and only if there is a point <span class="arithmatex">\(P\in C_d(K)\)</span> whose Kummer image <span class="arithmatex">\((\alpha,\beta)\)</span> has
+<span class="arithmatex">\(a\equiv\alpha\)</span> and <span class="arithmatex">\(b\equiv\beta\)</span>.</p>
+<p><strong>Proof sketch.</strong> (⇐) By the invariance under squares it suffices to treat the image of <span class="arithmatex">\(P\)</span>
+itself: the point at infinity and the torsion points give the torsion classes; for
+<span class="arithmatex">\(P=(x,y)\)</span> with <span class="arithmatex">\(x\notin\{0,\pm d\}\)</span> the witness is <span class="arithmatex">\(x\)</span>, since <span class="arithmatex">\(x/x=1\)</span>, <span class="arithmatex">\((x-d)/(x-d)=1\)</span> and
+<span class="arithmatex">\((x+d)/(x(x-d))=(y/(x(x-d)))^2\)</span>. (⇒) If <span class="arithmatex">\(a,b\)</span> are squares take the point at infinity.
+Otherwise, with <span class="arithmatex">\(x=ar_1^2\)</span>, <span class="arithmatex">\(x-d=br_2^2\)</span>, <span class="arithmatex">\(x+d=abr_3^2\)</span>, the point <span class="arithmatex">\((x,abr_1r_2r_3)\)</span> lies on
+<span class="arithmatex">\(C_d\)</span>; by the torsion analysis, either <span class="arithmatex">\(x\in\{0,\pm d\}\)</span> and <span class="arithmatex">\((a,b)\)</span> is the image of the
+corresponding 2-torsion point, or <span class="arithmatex">\((a,b)\equiv(x,x-d)\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_iff_kummer [DecidableEq K] {d a b : K} (h2 : (2 : K) ≠ 0) (hd : d ≠ 0) (ha : a ≠ 0)
+    (hb : b ≠ 0) :
+    <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> K d a b ↔ ∃ P, <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.SqEq">SqEq</a> a (<a class="bp-lean-ref" href="#kummer-map" data-lean-name="ZInQ.RouteK.Selmer.kummer">kummer</a> d P).1 ∧ <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.SqEq">SqEq</a> b (<a class="bp-lean-ref" href="#kummer-map" data-lean-name="ZInQ.RouteK.Selmer.kummer">kummer</a> d P).2</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> kummer [DecidableEq K] (d : K) : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-d ^ 2)).toAffine.Point → K × K
+  | .zero =&gt; (1, 1)
+  | .some x _ _ =&gt;
+    <span class="bp-lean-keyword">if</span> x = 0 <span class="bp-lean-keyword">then</span> (-1, -d) <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> x = d <span class="bp-lean-keyword">then</span> (d, 2) <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> x = -d <span class="bp-lean-keyword">then</span> (-d, -2 * d)
+    <span class="bp-lean-keyword">else</span> (x, x - d)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.Loc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:89</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.SqEq">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SqEq (u v : K) : <span class="bp-lean-keyword">Prop</span> := ∃ s : K, s ≠ 0 ∧ u = v * s ^ 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:35</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.kummer">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> kummer [DecidableEq K] (d : K) : (shortCurve (-d ^ 2)).toAffine.Point → K × K
+  | .zero =&gt; (1, 1)
+  | .some x _ _ =&gt;
+    <span class="bp-lean-keyword">if</span> x = 0 <span class="bp-lean-keyword">then</span> (-1, -d) <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> x = d <span class="bp-lean-keyword">then</span> (d, 2) <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> x = -d <span class="bp-lean-keyword">then</span> (-d, -2 * d)
+    <span class="bp-lean-keyword">else</span> (x, x - d)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:265</p>
+</div>
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/selmer-locators.html#the-kummer-map">The Kummer map</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#coverings">The 2-coverings of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#covering-classes">Square classes and torsion witnesses of a covering</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../rank/two-descent/index.html#descent-image">The image of the descent map lies in the 2-Selmer group</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank/two-descent/index.html#descent-map-kummer">The descent map is the Kummer map of the coverings</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="local-solubility">Local solubility</h2>
+<p>At each place the soluble classes are computed: by sign at the real place, by Hensel's lemma and
+square classes at the finite places. At odd primes not dividing <span class="arithmatex">\(d\)</span> every unit pair is soluble,
+through a residue witness over <span class="arithmatex">\(\mathbb F_p\)</span> found with Jacobsthal's bound on cubic character sums
+(and a kernel check for <span class="arithmatex">\(p&lt;29\)</span>); at odd primes dividing <span class="arithmatex">\(d\)</span> only the four torsion classes are
+soluble; at <span class="arithmatex">\(2\)</span>, for odd <span class="arithmatex">\(d\)</span>, the torsion classes and their products with <span class="arithmatex">\((1,5)\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="selmer/padic-squares">
+<h4 class="bp-thmheading" id="padic-squares">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Squares in the p-adic numbers</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/PadicSquare.lean#L223" aria-label="View ZInQ.RouteK.Selmer.isSquare_padic_iff in Lean source" title="View ZInQ.RouteK.Selmer.isSquare_padic_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/PadicSquare.lean#L229" aria-label="View ZInQ.RouteK.Selmer.isSquare_two_adic_iff in Lean source" title="View ZInQ.RouteK.Selmer.isSquare_two_adic_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/PadicSquare.lean#L116" aria-label="View ZInQ.RouteK.Selmer.unitPart in Lean source" title="View ZInQ.RouteK.Selmer.unitPart in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/PadicSquare.lean#L119" aria-label="View ZInQ.RouteK.Selmer.unitPart_spec in Lean source" title="View ZInQ.RouteK.Selmer.unitPart_spec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/PadicSquare.lean#L41" aria-label="View ZInQ.RouteK.Selmer.isSquare_of_norm_sub_one_lt in Lean source" title="View ZInQ.RouteK.Selmer.isSquare_of_norm_sub_one_lt in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/PadicSquare.lean#L86" aria-label="View ZInQ.RouteK.Selmer.sqEq_add_of_norm_lt in Lean source" title="View ZInQ.RouteK.Selmer.sqEq_add_of_norm_lt in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/PadicSquare.lean#L90" aria-label="View ZInQ.RouteK.Selmer.sqEq_add_of_norm_le_two_adic in Lean source" title="View ZInQ.RouteK.Selmer.sqEq_add_of_norm_le_two_adic in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/PadicSquare.lean#L249" aria-label="View ZInQ.RouteK.Selmer.isSquare_intCast_div_of_residue in Lean source" title="View ZInQ.RouteK.Selmer.isSquare_intCast_div_of_residue in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/PadicSquare.lean#L262" aria-label="View ZInQ.RouteK.Selmer.isSquare_ratCast_of_residue in Lean source" title="View ZInQ.RouteK.Selmer.isSquare_ratCast_of_residue in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/PadicSquare.lean#L273" aria-label="View ZInQ.RouteK.Selmer.isSquare_intCast_div_two_adic in Lean source" title="View ZInQ.RouteK.Selmer.isSquare_intCast_div_two_adic in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/PadicSquare.lean#L291" aria-label="View ZInQ.RouteK.Selmer.isSquare_ratCast_two_adic in Lean source" title="View ZInQ.RouteK.Selmer.isSquare_ratCast_two_adic in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/selmer/padic-squares.md" aria-label="Edit the Markdown source for Squares in the p-adic numbers" title="Edit the Markdown source for Squares in the p-adic numbers"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#padic-squares" aria-label="Link to Squares in the p-adic numbers" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Selmer.isSquare_padic_iff ZInQ.RouteK.Selmer.isSquare_two_adic_iff ZInQ.RouteK.Selmer.unitPart ZInQ.RouteK.Selmer.unitPart_spec ZInQ.RouteK.Selmer.isSquare_of_norm_sub_one_lt ZInQ.RouteK.Selmer.sqEq_add_of_norm_lt ZInQ.RouteK.Selmer.sqEq_add_of_norm_le_two_adic ZInQ.RouteK.Selmer.isSquare_intCast_div_of_residue ZInQ.RouteK.Selmer.isSquare_ratCast_of_residue ZInQ.RouteK.Selmer.isSquare_intCast_div_two_adic ZInQ.RouteK.Selmer.isSquare_ratCast_two_adic</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(p\)</span> be a prime and <span class="arithmatex">\(x\in\mathbb Q_p\)</span> nonzero, <span class="arithmatex">\(x=p^ku\)</span> with <span class="arithmatex">\(u\)</span> a unit of <span class="arithmatex">\(\mathbb Z_p\)</span>.</p>
+<ol>
+<li><em>(SQ)</em> For odd <span class="arithmatex">\(p\)</span>, <span class="arithmatex">\(x\)</span> is a square if and only if <span class="arithmatex">\(k\)</span> is even and the residue of <span class="arithmatex">\(u\)</span> in
+   <span class="arithmatex">\(\mathbb F_p\)</span> is a square. For <span class="arithmatex">\(p=2\)</span>, <span class="arithmatex">\(x\)</span> is a square if and only if <span class="arithmatex">\(k\)</span> is even and
+   <span class="arithmatex">\(u\equiv1\pmod8\)</span>.</li>
+<li><em>(Hensel)</em> Every <span class="arithmatex">\(u\in\mathbb Q_p\)</span> with <span class="arithmatex">\(|u-1|&lt;|2|^2\)</span> is a square.</li>
+<li><em>(P)</em> For odd <span class="arithmatex">\(p\)</span> and <span class="arithmatex">\(|y|&lt;|x|\)</span>, <span class="arithmatex">\(x+y\equiv x\)</span> modulo nonzero squares; for <span class="arithmatex">\(p=2\)</span> the same holds
+   when <span class="arithmatex">\(|y|\le|x|/8\)</span>.</li>
+<li><em>(RT)</em> For odd <span class="arithmatex">\(p\)</span>, a quotient <span class="arithmatex">\(m/n\)</span> of integers prime to <span class="arithmatex">\(p\)</span> with <span class="arithmatex">\(mn\)</span> a square modulo <span class="arithmatex">\(p\)</span> is
+   a square in <span class="arithmatex">\(\mathbb Q_p\)</span>, and so is a rational number whose numerator and denominator are prime
+   to <span class="arithmatex">\(p\)</span> and whose product is a square modulo <span class="arithmatex">\(p\)</span>. For <span class="arithmatex">\(p=2\)</span>, <span class="arithmatex">\(m/n\)</span> with <span class="arithmatex">\(n\)</span> odd and
+   <span class="arithmatex">\(m\equiv n\pmod8\)</span> is a square in <span class="arithmatex">\(\mathbb Q_2\)</span>, and so is a rational number with odd denominator
+   and numerator congruent to the denominator modulo <span class="arithmatex">\(8\)</span>.</li>
+</ol>
+<p><strong>Proof sketch.</strong> (2) is Hensel's lemma for <span class="arithmatex">\(X^2-u\)</span> at <span class="arithmatex">\(1\)</span>: <span class="arithmatex">\(|F(1)|=|u-1|&lt;|F'(1)|^2=|2|^2\)</span>. A square
+has even valuation; a unit square root of a unit reduces modulo <span class="arithmatex">\(p\)</span>, resp. an odd square is
+<span class="arithmatex">\(\equiv1\pmod8\)</span>; conversely a unit with square residue is a square by Hensel's lemma at a lift of
+the residue square root (odd <span class="arithmatex">\(p\)</span>), resp. by (2) at <span class="arithmatex">\(1\)</span> (<span class="arithmatex">\(p=2\)</span>, since <span class="arithmatex">\(|u-1|\le2^{-3}&lt;2^{-2}\)</span>). This
+gives (1). (3) applies (2) to <span class="arithmatex">\(1+y/x\)</span>. (4) applies (1) to the unit <span class="arithmatex">\(m/n\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> isSquare_padic_iff (hp2 : p ≠ 2) {x : ℚ_[p]} (hx : x ≠ 0) :
+    IsSquare x ↔ Even x.valuation ∧ IsSquare (toZMod (<a class="bp-lean-ref" href="#padic-squares" data-lean-name="ZInQ.RouteK.Selmer.unitPart">unitPart</a> x))</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> isSquare_two_adic_iff {x : ℚ_[2]} (hx : x ≠ 0) :
+    IsSquare x ↔ Even x.valuation ∧ toZModPow 3 (<a class="bp-lean-ref" href="#padic-squares" data-lean-name="ZInQ.RouteK.Selmer.unitPart">unitPart</a> x) = 1</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> unitPart (x : ℚ_[p]) : ℤ_[p] :=
+  ⟨x * (p : ℚ_[p]) ^ (-x.valuation), <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/PadicSquare.lean#L109" data-lean-name="ZInQ.RouteK.Selmer.norm_unitPart_le">norm_unitPart_le</a> x⟩</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.unitPart">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> unitPart (x : ℚ_[p]) : ℤ_[p] :=
+  ⟨x * (p : ℚ_[p]) ^ (-x.valuation), norm_unitPart_le x⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/PadicSquare.lean:116</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.norm_unitPart_le">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> norm_unitPart_le (x : ℚ_[p]) : ‖x * (p : ℚ_[p]) ^ (-x.valuation)‖ ≤ 1</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/PadicSquare.lean:109</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/selmer-locators.html#squares-in-the-p-adic-numbers">Squares in the p-adic numbers</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../sources/selmer-locators.html#squares-in-the-p-adic-numbers"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#coverings">The 2-coverings of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#bad-odd-primes">Local solubility at odd primes dividing d</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#good-primes">Local solubility at odd primes not dividing d</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#local-rows">The local conditions are the rows of the Selmer system</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#place-two">Local solubility at the place 2</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="selmer/real-place">
+<h4 class="bp-thmheading" id="real-place">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Local solubility at the real place</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Real.lean#L13" aria-label="View ZInQ.RouteK.Selmer.loc_real_iff in Lean source" title="View ZInQ.RouteK.Selmer.loc_real_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Real.lean#L47" aria-label="View ZInQ.RouteK.Selmer.loc_real_iff_int in Lean source" title="View ZInQ.RouteK.Selmer.loc_real_iff_int in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/selmer/real-place.md" aria-label="Edit the Markdown source for Local solubility at the real place" title="Edit the Markdown source for Local solubility at the real place"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#real-place" aria-label="Link to Local solubility at the real place" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Selmer.loc_real_iff ZInQ.RouteK.Selmer.loc_real_iff_int</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d&gt;0\)</span> and <span class="arithmatex">\(a,b\ne0\)</span> be real numbers. Then the covering <span class="arithmatex">\(D_{a,b}\)</span> of <span class="arithmatex">\(C_d\)</span> is soluble over
+<span class="arithmatex">\(\mathbb R\)</span> (in its x-form) if and only if <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> have the same sign. In particular this holds
+for integers <span class="arithmatex">\(d&gt;0\)</span> and <span class="arithmatex">\(a,b\ne0\)</span>.</p>
+<p><strong>Proof sketch.</strong> If <span class="arithmatex">\(a,b&gt;0\)</span> take <span class="arithmatex">\(x=d\)</span>; if <span class="arithmatex">\(a,b&lt;0\)</span> take <span class="arithmatex">\(x=0\)</span>. If <span class="arithmatex">\(a&gt;0&gt;b\)</span>, a witness would have
+<span class="arithmatex">\(x\ge0\)</span>, <span class="arithmatex">\(x-d\le0\)</span> and <span class="arithmatex">\(x+d\le0\)</span>, impossible; if <span class="arithmatex">\(a&lt;0&lt;b\)</span>, it would have <span class="arithmatex">\(x\le0\)</span> and <span class="arithmatex">\(x-d\ge0\)</span>,
+impossible as <span class="arithmatex">\(d&gt;0\)</span>. The first alternative forces <span class="arithmatex">\(a,b&gt;0\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_real_iff {d a b : ℝ} (hd : 0 &lt; d) (ha : a ≠ 0) (hb : b ≠ 0) :
+    <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℝ d a b ↔ (0 &lt; a ↔ 0 &lt; b)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_real_iff_int {d : ℕ} (hd : d ≠ 0) {a b : ℤ} (ha : a ≠ 0) (hb : b ≠ 0) :
+    <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℝ d a b ↔ (0 &lt; a ↔ 0 &lt; b)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.Loc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:89</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/selmer-locators.html#the-real-place">The real place</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../sources/selmer-locators.html#the-real-place"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#coverings">The 2-coverings of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#local-rows">The local conditions are the rows of the Selmer system</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="selmer/character-sums">
+<h4 class="bp-thmheading" id="character-sums">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">A residue witness for the coverings over a finite field</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/CharSum.lean#L436" aria-label="View ZInQ.RouteK.Selmer.exists_xi in Lean source" title="View ZInQ.RouteK.Selmer.exists_xi in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/CharSum.lean#L35" aria-label="View ZInQ.RouteK.Selmer.sum_quadraticChar_mul_sub in Lean source" title="View ZInQ.RouteK.Selmer.sum_quadraticChar_mul_sub in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/CharSum.lean#L77" aria-label="View ZInQ.RouteK.Selmer.cubicCharSum in Lean source" title="View ZInQ.RouteK.Selmer.cubicCharSum in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/CharSum.lean#L169" aria-label="View ZInQ.RouteK.Selmer.cubicCharSum_one_sq_le in Lean source" title="View ZInQ.RouteK.Selmer.cubicCharSum_one_sq_le in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/CharSum.lean#L195" aria-label="View ZInQ.RouteK.Selmer.cubicCharSum_sq_le in Lean source" title="View ZInQ.RouteK.Selmer.cubicCharSum_sq_le in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/CharSum.lean#L220" aria-label="View ZInQ.RouteK.Selmer.fibreCard in Lean source" title="View ZInQ.RouteK.Selmer.fibreCard in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/CharSum.lean#L225" aria-label="View ZInQ.RouteK.Selmer.eight_mul_fibreCard_ge in Lean source" title="View ZInQ.RouteK.Selmer.eight_mul_fibreCard_ge in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/CharSum.lean#L325" aria-label="View ZInQ.RouteK.Selmer.exists_xi_of_card in Lean source" title="View ZInQ.RouteK.Selmer.exists_xi_of_card in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/CharSum.lean#L351" aria-label="View ZInQ.RouteK.Selmer.xiCheckPrime in Lean source" title="View ZInQ.RouteK.Selmer.xiCheckPrime in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/CharSum.lean#L359" aria-label="View ZInQ.RouteK.Selmer.xiCheck_small in Lean source" title="View ZInQ.RouteK.Selmer.xiCheck_small in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/selmer/character-sums.md" aria-label="Edit the Markdown source for A residue witness for the coverings over a finite field" title="Edit the Markdown source for A residue witness for the coverings over a finite field"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#character-sums" aria-label="Link to A residue witness for the coverings over a finite field" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Selmer.exists_xi ZInQ.RouteK.Selmer.sum_quadraticChar_mul_sub ZInQ.RouteK.Selmer.cubicCharSum ZInQ.RouteK.Selmer.cubicCharSum_one_sq_le ZInQ.RouteK.Selmer.cubicCharSum_sq_le ZInQ.RouteK.Selmer.fibreCard ZInQ.RouteK.Selmer.eight_mul_fibreCard_ge ZInQ.RouteK.Selmer.exists_xi_of_card ZInQ.RouteK.Selmer.xiCheckPrime ZInQ.RouteK.Selmer.xiCheck_small</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(p\)</span> be an odd prime and <span class="arithmatex">\(d,a,b\)</span> nonzero elements of <span class="arithmatex">\(\mathbb F_p\)</span>. Then either <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> are
+squares in <span class="arithmatex">\(\mathbb F_p\)</span>, or there is <span class="arithmatex">\(\xi\in\mathbb F_p\)</span> such that <span class="arithmatex">\(\xi/a\)</span>, <span class="arithmatex">\((\xi-d)/b\)</span> and
+<span class="arithmatex">\((\xi+d)/(ab)\)</span> are squares (zero allowed).</p>
+<p>Over any finite field <span class="arithmatex">\(F\)</span> of odd characteristic with <span class="arithmatex">\(q\)</span> elements and quadratic character
+<span class="arithmatex">\(\chi\)</span>, the proof uses:</p>
+<ul>
+<li><em>(Lemma Q)</em> <span class="arithmatex">\(\sum_\xi\chi((\xi-e)(\xi-e'))=-1\)</span> for <span class="arithmatex">\(e\ne e'\)</span>;</li>
+<li><em>(Jacobsthal)</em> with <span class="arithmatex">\(S(n)=\sum_\xi\chi(\xi^3-n\xi)\)</span>, <span class="arithmatex">\(S(1)^2\le4q\)</span>, and <span class="arithmatex">\(S(n)^2\le4q\)</span> for every
+  nonzero square <span class="arithmatex">\(n\)</span>;</li>
+<li><em>(the count)</em> for <span class="arithmatex">\(d\ne0\)</span> and signs <span class="arithmatex">\(\alpha,\beta\in\{\pm1\}\)</span>, the number <span class="arithmatex">\(N\)</span> of
+  <span class="arithmatex">\(\xi\notin\{0,\pm d\}\)</span> with <span class="arithmatex">\(\chi(\xi)=\alpha\)</span>, <span class="arithmatex">\(\chi(\xi-d)=\beta\)</span>, <span class="arithmatex">\(\chi(\xi+d)=\alpha\beta\)</span>
+  satisfies <span class="arithmatex">\(8N\ge q-15-|S(d^2)|\)</span>; so <span class="arithmatex">\(N\ge1\)</span> once <span class="arithmatex">\(q\ge26\)</span>.</li>
+</ul>
+<p><strong>Proof sketch.</strong> Lemma Q is the Jacobi sum <span class="arithmatex">\(J(\chi,\chi^{-1})=-\chi(-1)\)</span> after the substitution
+<span class="arithmatex">\(\xi=e+(e'-e)t\)</span>. Jacobsthal: <span class="arithmatex">\(S(nt^2)=\chi(t)S(n)\)</span>, <span class="arithmatex">\(S(0)=0\)</span> and
+<span class="arithmatex">\(\sum_nS(n)^2=q(q-1)(1+\chi(-1))\)</span> (by Lemma Q), which bounds <span class="arithmatex">\(S(1)^2\)</span> by <span class="arithmatex">\(4q\)</span>. The count expands
+<span class="arithmatex">\(8N=\sum'(1+\alpha\chi(\xi))(1+\beta\chi(\xi-d))(1+\alpha\beta\chi(\xi+d))\)</span>: the constant term is
+<span class="arithmatex">\(q-3\)</span>, the linear and quadratic sums are bounded by Lemma Q, and the cubic term is <span class="arithmatex">\(S(d^2)\)</span>. Since
+<span class="arithmatex">\((q-15)^2&gt;4q\)</span> for <span class="arithmatex">\(q\ge26\)</span>, <span class="arithmatex">\(N\ge1\)</span>, and with <span class="arithmatex">\(\alpha=\chi(a)\)</span>, <span class="arithmatex">\(\beta=\chi(b)\)</span> such a <span class="arithmatex">\(\xi\)</span> is the
+witness. For the primes <span class="arithmatex">\(3\le p\le23\)</span> the statement is a finite check over all <span class="arithmatex">\(d,a,b\)</span>, done by
+the kernel.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_xi (hp2 : p ≠ 2) {d a b : ZMod p} (hd : d ≠ 0) (ha : a ≠ 0) (hb : b ≠ 0) :
+    (IsSquare a ∧ IsSquare b) ∨
+      ∃ ξ : ZMod p, IsSquare (ξ / a) ∧ IsSquare ((ξ - d) / b) ∧ IsSquare ((ξ + d) / (a * b))</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> sum_quadraticChar_mul_sub (hF : ringChar F ≠ 2) {e e&#x27; : F} (h : e ≠ e&#x27;) :
+    ∑ ξ : F, χ ((ξ - e) * (ξ - e&#x27;)) = -1</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> cubicCharSum (n : F) : ℤ := ∑ ξ : F, χ (ξ ^ 3 - n * ξ)</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/selmer-locators.html#odd-primes-not-dividing-d">Odd primes not dividing d</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#good-primes">Local solubility at odd primes not dividing d</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="selmer/good-primes">
+<h4 class="bp-thmheading" id="good-primes">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Local solubility at odd primes not dividing d</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Good.lean#L178" aria-label="View ZInQ.RouteK.Selmer.loc_padic_good_iff in Lean source" title="View ZInQ.RouteK.Selmer.loc_padic_good_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Good.lean#L39" aria-label="View ZInQ.RouteK.Selmer.loc_padic_good_even in Lean source" title="View ZInQ.RouteK.Selmer.loc_padic_good_even in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Good.lean#L131" aria-label="View ZInQ.RouteK.Selmer.loc_padic_good_of_units in Lean source" title="View ZInQ.RouteK.Selmer.loc_padic_good_of_units in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/selmer/good-primes.md" aria-label="Edit the Markdown source for Local solubility at odd primes not dividing d" title="Edit the Markdown source for Local solubility at odd primes not dividing d"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#good-primes" aria-label="Link to Local solubility at odd primes not dividing d" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Selmer.loc_padic_good_iff ZInQ.RouteK.Selmer.loc_padic_good_even ZInQ.RouteK.Selmer.loc_padic_good_of_units</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(p\)</span> be an odd prime, <span class="arithmatex">\(d\)</span> a natural number with <span class="arithmatex">\(p\nmid d\)</span>, and <span class="arithmatex">\(a,b\)</span> integers.</p>
+<ol>
+<li><em>(Lemma G1)</em> If <span class="arithmatex">\(a,b\ne0\)</span> and <span class="arithmatex">\(D_{a,b}\)</span> is soluble over <span class="arithmatex">\(\mathbb Q_p\)</span>, then <span class="arithmatex">\(v_p(a)\)</span> and
+   <span class="arithmatex">\(v_p(b)\)</span> are even.</li>
+<li><em>(Lemma G2)</em> If <span class="arithmatex">\(p\nmid a\)</span> and <span class="arithmatex">\(p\nmid b\)</span>, then <span class="arithmatex">\(D_{a,b}\)</span> is soluble over <span class="arithmatex">\(\mathbb Q_p\)</span>.</li>
+<li>Consequently, for squarefree <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span>, <span class="arithmatex">\(D_{a,b}\)</span> is soluble over <span class="arithmatex">\(\mathbb Q_p\)</span> if and only if
+   <span class="arithmatex">\(p\nmid a\)</span> and <span class="arithmatex">\(p\nmid b\)</span>.</li>
+</ol>
+<p>(Solubility is meant in the x-form.)</p>
+<p><strong>Proof sketch.</strong> (1) The first alternative and the torsion witnesses give unit classes. Otherwise
+<span class="arithmatex">\(x\equiv a\)</span>, <span class="arithmatex">\(x-d\equiv b\)</span>, <span class="arithmatex">\(x+d\equiv ab\)</span>; compare <span class="arithmatex">\(|x|\)</span> with <span class="arithmatex">\(|d|=1\)</span>: for <span class="arithmatex">\(|x|&gt;1\)</span> all three have
+valuation <span class="arithmatex">\(v(x)\)</span>, for <span class="arithmatex">\(|x|&lt;1\)</span> both <span class="arithmatex">\(x\mp d\)</span> are units, and for <span class="arithmatex">\(|x|=1\)</span> at most one of <span class="arithmatex">\(x\mp d\)</span> is a
+non-unit since their difference <span class="arithmatex">\(2d\)</span> is a unit; in each case <span class="arithmatex">\(v(a)\)</span> and <span class="arithmatex">\(v(b)\)</span> are even. (2) Take
+the residue witness <span class="arithmatex">\(\xi\)</span> over <span class="arithmatex">\(\mathbb F_p\)</span> for the residues of <span class="arithmatex">\(d,a,b\)</span>; lift it to an integer
+<span class="arithmatex">\(x\)</span>, taken to be exactly <span class="arithmatex">\(0\)</span>, <span class="arithmatex">\(d\)</span> or <span class="arithmatex">\(-d\)</span> when <span class="arithmatex">\(\xi\in\{0,\pm\bar d\}\)</span>; the nonzero quotients are
+units with square residues, hence squares in <span class="arithmatex">\(\mathbb Q_p\)</span>. If <span class="arithmatex">\(\bar a,\bar b\)</span> are squares, so are
+<span class="arithmatex">\(a,b\)</span>. (3) A squarefree integer with even <span class="arithmatex">\(v_p\)</span> is prime to <span class="arithmatex">\(p\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_padic_good_iff (hp2 : p ≠ 2) {d : ℕ} (hpd : ¬p ∣ d) {a b : ℤ} (ha : Squarefree a)
+    (hb : Squarefree b) : <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℚ_[p] d a b ↔ ¬(p : ℤ) ∣ a ∧ ¬(p : ℤ) ∣ b</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_padic_good_even (hp2 : p ≠ 2) {d : ℕ} (hpd : ¬p ∣ d) {a b : ℤ} (ha : a ≠ 0)
+    (hb : b ≠ 0) (h : <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℚ_[p] d a b) : Even (padicValInt p a) ∧ Even (padicValInt p b)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_padic_good_of_units (hp2 : p ≠ 2) {d : ℕ} (hpd : ¬p ∣ d) {a b : ℤ}
+    (ha : ¬(p : ℤ) ∣ a) (hb : ¬(p : ℤ) ∣ b) : <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℚ_[p] d a b</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.Loc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:89</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_7">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/selmer-locators.html#odd-primes-not-dividing-d">Odd primes not dividing d</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../sources/selmer-locators.html#odd-primes-not-dividing-d"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#coverings">The 2-coverings of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#padic-squares">Squares in the p-adic numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#covering-classes">Square classes and torsion witnesses of a covering</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#character-sums">A residue witness for the coverings over a finite field</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#proposition-0">Proposition 0</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="selmer/bad-odd-primes">
+<h4 class="bp-thmheading" id="bad-odd-primes">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Local solubility at odd primes dividing d</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/BadOdd.lean#L46" aria-label="View ZInQ.RouteK.Selmer.loc_padic_dvd_iff in Lean source" title="View ZInQ.RouteK.Selmer.loc_padic_dvd_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/BadOdd.lean#L23" aria-label="View ZInQ.RouteK.Selmer.padic_norm_natCast_of_squarefree in Lean source" title="View ZInQ.RouteK.Selmer.padic_norm_natCast_of_squarefree in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/BadOdd.lean#L36" aria-label="View ZInQ.RouteK.Selmer.padic_norm_ne_zpow_odd in Lean source" title="View ZInQ.RouteK.Selmer.padic_norm_ne_zpow_odd in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/selmer/bad-odd-primes.md" aria-label="Edit the Markdown source for Local solubility at odd primes dividing d" title="Edit the Markdown source for Local solubility at odd primes dividing d"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#bad-odd-primes" aria-label="Link to Local solubility at odd primes dividing d" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Selmer.loc_padic_dvd_iff ZInQ.RouteK.Selmer.padic_norm_natCast_of_squarefree ZInQ.RouteK.Selmer.padic_norm_ne_zpow_odd</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(p\)</span> be an odd prime, <span class="arithmatex">\(d\)</span> a squarefree natural number divisible by <span class="arithmatex">\(p\)</span>, and <span class="arithmatex">\(a,b\)</span> nonzero
+integers. Then <span class="arithmatex">\(D_{a,b}\)</span> is soluble over <span class="arithmatex">\(\mathbb Q_p\)</span> (in its x-form) if and only if there are
+<span class="arithmatex">\(i,j\in\{0,1\}\)</span> such that <span class="arithmatex">\(ad^i(-1)^j\)</span> and <span class="arithmatex">\(b\,2^i(-d)^j\)</span> are squares in <span class="arithmatex">\(\mathbb Q_p\)</span>; that is,
+<span class="arithmatex">\((a,b)\)</span> is one of the four torsion classes <span class="arithmatex">\((1,1)\)</span>, <span class="arithmatex">\((d,2)\)</span>, <span class="arithmatex">\((-1,-d)\)</span>, <span class="arithmatex">\((-d,-2d)\)</span>.</p>
+<p><strong>Proof sketch.</strong> (⇐) The torsion classes are soluble. (⇒) After the torsion analysis, compare <span class="arithmatex">\(|x|\)</span>
+with <span class="arithmatex">\(|d|=p^{-1}\)</span>. If <span class="arithmatex">\(|x|&gt;|d|\)</span>, (P) gives <span class="arithmatex">\(x\pm d\equiv x\)</span> and <span class="arithmatex">\((a,b)\equiv(1,1)\)</span>; if <span class="arithmatex">\(|x|&lt;|d|\)</span>,
+<span class="arithmatex">\(x-d\equiv-d\)</span>, <span class="arithmatex">\(x+d\equiv d\)</span> and <span class="arithmatex">\((a,b)\equiv(-1,-d)\)</span>. If <span class="arithmatex">\(|x|=|d|\)</span>, write <span class="arithmatex">\(x=dt\)</span> with <span class="arithmatex">\(t\)</span> a unit: <span class="arithmatex">\(t-1\)</span>
+and <span class="arithmatex">\(t+1\)</span> are not both non-units (their difference is <span class="arithmatex">\(2\)</span>) and not both units (then
+<span class="arithmatex">\(|x(x-d)(x+d)|=p^{-3}\)</span> is not the norm of a square); <span class="arithmatex">\(p\mid t-1\)</span> gives <span class="arithmatex">\((d,2)\)</span> and <span class="arithmatex">\(p\mid t+1\)</span>
+gives <span class="arithmatex">\((-d,-2d)\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_padic_dvd_iff (hp2 : p ≠ 2) {d : ℕ} (hpd : p ∣ d) (hd : Squarefree d) (a b : ℤ)
+    (ha : a ≠ 0) (hb : b ≠ 0) :
+    <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℚ_[p] d a b ↔ ∃ i j : ℕ, i &lt; 2 ∧ j &lt; 2 ∧
+      IsSquare ((a * d ^ i * (-1) ^ j : ℤ) : ℚ_[p]) ∧
+      IsSquare ((b * 2 ^ i * (-d) ^ j : ℤ) : ℚ_[p])</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> padic_norm_natCast_of_squarefree {d : ℕ} (hpd : p ∣ d) (hd : Squarefree d) :
+    ‖(d : ℚ_[p])‖ = (p : ℝ)⁻¹</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> padic_norm_ne_zpow_odd {z : ℚ_[p]} (hz : z ≠ 0) (h : IsSquare z) (k : ℤ) :
+    ‖z‖ ≠ (p : ℝ) ^ (2 * k + 1)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.Loc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:89</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_8">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/selmer-locators.html#odd-primes-dividing-d">Odd primes dividing d</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../sources/selmer-locators.html#odd-primes-dividing-d"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#coverings">The 2-coverings of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#padic-squares">Squares in the p-adic numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#covering-classes">Square classes and torsion witnesses of a covering</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#local-rows">The local conditions are the rows of the Selmer system</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="selmer/place-two">
+<h4 class="bp-thmheading" id="place-two">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Local solubility at the place 2</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Two.lean#L395" aria-label="View ZInQ.RouteK.Selmer.loc_two_adic_iff in Lean source" title="View ZInQ.RouteK.Selmer.loc_two_adic_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Two.lean#L162" aria-label="View ZInQ.RouteK.Selmer.loc_two_adic_iff_of_odd in Lean source" title="View ZInQ.RouteK.Selmer.loc_two_adic_iff_of_odd in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Two.lean#L115" aria-label="View ZInQ.RouteK.Selmer.loc_two_adic_five in Lean source" title="View ZInQ.RouteK.Selmer.loc_two_adic_five in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/selmer/place-two.md" aria-label="Edit the Markdown source for Local solubility at the place 2" title="Edit the Markdown source for Local solubility at the place 2"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#place-two" aria-label="Link to Local solubility at the place 2" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Selmer.loc_two_adic_iff ZInQ.RouteK.Selmer.loc_two_adic_iff_of_odd ZInQ.RouteK.Selmer.loc_two_adic_five</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d\)</span> be an odd natural number (in particular <span class="arithmatex">\(d\equiv5\pmod8\)</span>) and <span class="arithmatex">\(a,b\)</span> nonzero integers. Then
+<span class="arithmatex">\(D_{a,b}\)</span> is soluble over <span class="arithmatex">\(\mathbb Q_2\)</span> (in its x-form) if and only if there are <span class="arithmatex">\(i,j,k\in\{0,1\}\)</span>
+such that <span class="arithmatex">\(ad^i(-1)^j\)</span> and <span class="arithmatex">\(b\,2^i(-d)^j5^k\)</span> are squares in <span class="arithmatex">\(\mathbb Q_2\)</span>: the four torsion classes
+and their products with <span class="arithmatex">\((1,5)\)</span>.</p>
+<p><strong>Proof sketch.</strong> (⇐) The torsion classes are soluble; the classes with <span class="arithmatex">\(k=1\)</span> have the rational
+witnesses <span class="arithmatex">\(x=1/4\)</span>, <span class="arithmatex">\(d(1+4d)/(1-4d)\)</span>, <span class="arithmatex">\(-4d^2\)</span>, <span class="arithmatex">\(-d(1-4d)/(1+4d)\)</span>, for which the three quotients
+are even powers of <span class="arithmatex">\(2\)</span> times rationals <span class="arithmatex">\(\equiv1\pmod8\)</span>, hence squares by the rational test. (⇒)
+After the torsion analysis, split on <span class="arithmatex">\(v=v_2(x)\)</span>. For <span class="arithmatex">\(v\le-3\)</span> and <span class="arithmatex">\(v\ge3\)</span>, (P) gives <span class="arithmatex">\((1,1)\)</span> and
+<span class="arithmatex">\((-1,-d)\)</span>. For <span class="arithmatex">\(v=\pm1\)</span> the norm of <span class="arithmatex">\(x(x-d)(x+d)\)</span> is an odd power of <span class="arithmatex">\(2\)</span>. For <span class="arithmatex">\(v=-2\)</span>, <span class="arithmatex">\(x\mp d\equiv5x\)</span>,
+giving <span class="arithmatex">\((1,5)\)</span>; for <span class="arithmatex">\(v=2\)</span>, <span class="arithmatex">\(x-d\equiv-5d\)</span>, <span class="arithmatex">\(x+d\equiv5d\)</span>, giving <span class="arithmatex">\((-1,-5d)\)</span>. For <span class="arithmatex">\(v=0\)</span> one of
+<span class="arithmatex">\(x\mp d\)</span> has norm <span class="arithmatex">\(1/2\)</span> and the other norm at most <span class="arithmatex">\(1/8\)</span>, which gives <span class="arithmatex">\(x\equiv\pm d\)</span> and
+<span class="arithmatex">\(x\mp d\equiv\mp2d\)</span> or <span class="arithmatex">\(\mp10d\)</span>. Only "two 2-adic numbers of equal norm have a sum of smaller norm",
+the discreteness of the norm and (P) are used.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_two_adic_iff {d : ℕ} (hd8 : d % 8 = 5) (a b : ℤ) (ha : a ≠ 0) (hb : b ≠ 0) :
+    <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℚ_[2] d a b ↔ ∃ i j k : ℕ, i &lt; 2 ∧ j &lt; 2 ∧ k &lt; 2 ∧
+      IsSquare ((a * d ^ i * (-1) ^ j : ℤ) : ℚ_[2]) ∧
+      IsSquare ((b * 2 ^ i * (-d) ^ j * 5 ^ k : ℤ) : ℚ_[2])</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_two_adic_iff_of_odd {d : ℕ} (hd : Odd d) (a b : ℤ) (ha : a ≠ 0) (hb : b ≠ 0) :
+    <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℚ_[2] d a b ↔ ∃ i j k : ℕ, i &lt; 2 ∧ j &lt; 2 ∧ k &lt; 2 ∧
+      IsSquare ((a * d ^ i * (-1) ^ j : ℤ) : ℚ_[2]) ∧
+      IsSquare ((b * 2 ^ i * (-d) ^ j * 5 ^ k : ℤ) : ℚ_[2])</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_two_adic_five {d : ℕ} (hd : Odd d) {i j : ℕ} (hi : i &lt; 2) (hj : j &lt; 2) :
+    <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℚ_[2] d ((d : ℚ_[2]) ^ i * (-1) ^ j) (2 ^ i * (-(d : ℚ_[2])) ^ j * 5)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.Loc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:89</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_9">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/selmer-locators.html#the-place-2">The place 2</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#coverings">The 2-coverings of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#padic-squares">Squares in the p-adic numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#covering-classes">Square classes and torsion witnesses of a covering</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#local-rows">The local conditions are the rows of the Selmer system</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-selmer-group-and-proposition-0">The Selmer group and Proposition 0</h2>
+<p>The 2-Selmer group is the set of pairs of squarefree integers whose covering is soluble at every
+place. Reading the local classes off in residue bits turns the local conditions into the rows of
+<span class="arithmatex">\(\Sigma(\mathcal C_d)\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="selmer/selmer-group">
+<h4 class="bp-thmheading" id="selmer-group">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The 2-Selmer group of a congruent number curve</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L346" aria-label="View ZInQ.RouteK.Selmer.Sel2 in Lean source" title="View ZInQ.RouteK.Selmer.Sel2 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L396" aria-label="View ZInQ.RouteK.Selmer.classInt in Lean source" title="View ZInQ.RouteK.Selmer.classInt in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L400" aria-label="View ZInQ.RouteK.Selmer.selPair in Lean source" title="View ZInQ.RouteK.Selmer.selPair in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L472" aria-label="View ZInQ.RouteK.Selmer.selPair_injective in Lean source" title="View ZInQ.RouteK.Selmer.selPair_injective in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Bits.lean#L454" aria-label="View ZInQ.RouteK.Selmer.squarefree_classInt in Lean source" title="View ZInQ.RouteK.Selmer.squarefree_classInt in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/selmer/selmer-group.md" aria-label="Edit the Markdown source for The 2-Selmer group of a congruent number curve" title="Edit the Markdown source for The 2-Selmer group of a congruent number curve"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#selmer-group" aria-label="Link to The 2-Selmer group of a congruent number curve" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Selmer.Sel2 ZInQ.RouteK.Selmer.classInt ZInQ.RouteK.Selmer.selPair ZInQ.RouteK.Selmer.selPair_injective ZInQ.RouteK.Selmer.squarefree_classInt</div>
+<div class="bp-thmcontent">
+<p>For a natural number <span class="arithmatex">\(d\)</span>, the <em>2-Selmer group</em> <span class="arithmatex">\(\mathrm{Sel}_2(C_d)\)</span> is the set of pairs <span class="arithmatex">\((a,b)\)</span> of
+squarefree integers (signs allowed) such that the 2-covering <span class="arithmatex">\(D_{a,b}\)</span> of <span class="arithmatex">\(C_d:y^2=x^3-d^2x\)</span> is
+soluble (in its x-form) over <span class="arithmatex">\(\mathbb R\)</span> and over <span class="arithmatex">\(\mathbb Q_p\)</span> for every prime <span class="arithmatex">\(p\)</span>, <span class="arithmatex">\(p=2\)</span> included.</p>
+<p>For odd <span class="arithmatex">\(d\)</span> and unknowns <span class="arithmatex">\(\sigma=(a_0,a_1,b_0,b_1,u,v)\)</span> of the Selmer system on the primes of <span class="arithmatex">\(d\)</span>,
+put
+$<span class="arithmatex">\(a(\sigma)=(-1)^{a_0}2^{a_1}\prod_{p\mid d}p^{u_p},\qquad b(\sigma)=(-1)^{b_0}2^{b_1}\prod_{p\mid d}p^{v_p}.\)</span>$
+These integers are squarefree, and <span class="arithmatex">\(\sigma\mapsto(a(\sigma),b(\sigma))\)</span> is injective: the sign, <span class="arithmatex">\(v_2\)</span>
+and the <span class="arithmatex">\(v_p\)</span> recover the unknowns.</p>
+<p>By the Kummer-map lemma over each completion, <span class="arithmatex">\((a,b)\in\mathrm{Sel}_2(C_d)\)</span> says that the class of
+<span class="arithmatex">\((a,b)\)</span> in <span class="arithmatex">\((\mathbb Q^*/\mathbb Q^{*2})^2\)</span> lies locally everywhere in the image of the Kummer map.
+With the standard identification of <span class="arithmatex">\(H^1(\mathbb Q,C_d[2])\)</span> with <span class="arithmatex">\((\mathbb Q^*/\mathbb Q^{*2})^2\)</span>, under
+which the connecting map of the complete 2-descent is the Kummer map (Silverman, Proposition
+X.1.4), and with each square class written by its squarefree integer representative, this is the
+textbook 2-Selmer group. That identification is used to read the definition, not formalized.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Sel2 (d : ℕ) : Set (ℤ × ℤ) :=
+  {ab | Squarefree ab.1 ∧ Squarefree ab.2 ∧ <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℝ d ab.1 ab.2 ∧
+    ∀ (p : ℕ) [Fact p.Prime], <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℚ_[p] d ab.1 ab.2}</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> classInt (d : ℕ) (e₀ e₁ : ZMod 2) (w : d.primeFactors → ZMod 2) : ℤ :=
+  (-1) ^ e₀.val * 2 ^ e₁.val * ∏ p : d.primeFactors, (p : ℤ) ^ (w p).val</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> selPair (d : ℕ) (σ : <a class="bp-lean-ref" href="../route-k/index.html#selmer-system" data-lean-name="ZInQ.RouteK.Unknowns">Unknowns</a> d.primeFactors) : ℤ × ℤ :=
+  (<a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.classInt">classInt</a> d σ.a0 σ.a1 σ.u, <a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.classInt">classInt</a> d σ.b0 σ.b1 σ.v)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.Loc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:89</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Unknowns">
+<pre class="bp-lean"><code>@[ext]
+<span class="bp-lean-keyword">structure</span> Unknowns (ι : <span class="bp-lean-keyword">Type</span>*) <span class="bp-lean-keyword">where</span>
+  a0 : ZMod 2
+  a1 : ZMod 2
+  b0 : ZMod 2
+  b1 : ZMod 2
+  u : ι → ZMod 2
+  v : ι → ZMod 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/System/Selmer.lean:24</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.classInt">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> classInt (d : ℕ) (e₀ e₁ : ZMod 2) (w : d.primeFactors → ZMod 2) : ℤ :=
+  (-1) ^ e₀.val * 2 ^ e₁.val * ∏ p : d.primeFactors, (p : ℤ) ^ (w p).val</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:396</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_10">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/selmer-locators.html#the-selmer-group">The Selmer group</a></li>
+<li><a href="../../sources/selmer-locators.html#silverman">Silverman</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 11</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#coverings">The 2-coverings of a congruent number curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../route-k/index.html#selmer-system">The Selmer system of a configuration</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank-5b/index.html#certified-rank-tyz">The certified rank hypothesis in Tian–Yuan–Zhang form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank/index.html#certified-rank-rk">The certified rank hypothesis in positive-rank form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank/infinitely-many-points/index.html#certified-rank-inf">The certified rank hypothesis in infinitely-many-points form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank/two-curves/index.html#selmer-group-of-a-certificate">The 2-Selmer group of a certified curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank/two-descent/index.html#descent-image">The image of the descent map lies in the 2-Selmer group</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank/two-descent/index.html#every-selmer-class">Positive rank and a Selmer group of order eight give every Selmer class (RK9)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../redei/index.html#certified-rank-tyz-cl">The certified rank hypothesis with class numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#certified-rank-of-sel">The certified rank hypothesis from its Selmer form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-sel">The certified rank hypothesis in Selmer form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#local-rows">The local conditions are the rows of the Selmer system</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#proposition-0">Proposition 0</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="selmer/local-rows">
+<h4 class="bp-thmheading" id="local-rows">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The local conditions are the rows of the Selmer system</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Bits.lean#L243" aria-label="View ZInQ.RouteK.Selmer.loc_padic_selPair_iff_rows in Lean source" title="View ZInQ.RouteK.Selmer.loc_padic_selPair_iff_rows in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Bits.lean#L199" aria-label="View ZInQ.RouteK.Selmer.classCond_dvd_iff_rows in Lean source" title="View ZInQ.RouteK.Selmer.classCond_dvd_iff_rows in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Bits.lean#L443" aria-label="View ZInQ.RouteK.Selmer.loc_real_selPair_iff in Lean source" title="View ZInQ.RouteK.Selmer.loc_real_selPair_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Bits.lean#L431" aria-label="View ZInQ.RouteK.Selmer.loc_two_selPair_iff_D in Lean source" title="View ZInQ.RouteK.Selmer.loc_two_selPair_iff_D in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Bits.lean#L419" aria-label="View ZInQ.RouteK.Selmer.loc_two_selPair_iff in Lean source" title="View ZInQ.RouteK.Selmer.loc_two_selPair_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Bits.lean#L397" aria-label="View ZInQ.RouteK.Selmer.classCond_two_iff_D in Lean source" title="View ZInQ.RouteK.Selmer.classCond_two_iff_D in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Bits.lean#L495" aria-label="View ZInQ.RouteK.Selmer.not_dvd_selPair in Lean source" title="View ZInQ.RouteK.Selmer.not_dvd_selPair in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Bits.lean#L505" aria-label="View ZInQ.RouteK.Selmer.isSol_iff_selPair_mem_of_local in Lean source" title="View ZInQ.RouteK.Selmer.isSol_iff_selPair_mem_of_local in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Bits.lean#L540" aria-label="View ZInQ.RouteK.Selmer.isSol_iff_selPair_mem_of_G2 in Lean source" title="View ZInQ.RouteK.Selmer.isSol_iff_selPair_mem_of_G2 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/selmer/local-rows.md" aria-label="Edit the Markdown source for The local conditions are the rows of the Selmer system" title="Edit the Markdown source for The local conditions are the rows of the Selmer system"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#local-rows" aria-label="Link to The local conditions are the rows of the Selmer system" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Selmer.loc_padic_selPair_iff_rows ZInQ.RouteK.Selmer.classCond_dvd_iff_rows ZInQ.RouteK.Selmer.loc_real_selPair_iff ZInQ.RouteK.Selmer.loc_two_selPair_iff_D ZInQ.RouteK.Selmer.loc_two_selPair_iff ZInQ.RouteK.Selmer.classCond_two_iff_D ZInQ.RouteK.Selmer.not_dvd_selPair ZInQ.RouteK.Selmer.isSol_iff_selPair_mem_of_local ZInQ.RouteK.Selmer.isSol_iff_selPair_mem_of_G2</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d\)</span> be an odd squarefree natural number, <span class="arithmatex">\(\mathcal C_d\)</span> the configuration of its primes, and
+<span class="arithmatex">\(\sigma\)</span> unknowns of <span class="arithmatex">\(\Sigma(\mathcal C_d)\)</span>, with the pair <span class="arithmatex">\((a(\sigma),b(\sigma))\)</span>.</p>
+<ol>
+<li>At an odd prime <span class="arithmatex">\(p\mid d\)</span>: <span class="arithmatex">\(D_{a(\sigma),b(\sigma)}\)</span> is soluble over <span class="arithmatex">\(\mathbb Q_p\)</span> if and only if
+   <span class="arithmatex">\(\sigma\)</span> satisfies the rows <span class="arithmatex">\(\mathrm E1_p\)</span> and <span class="arithmatex">\(\mathrm E2_p\)</span>.</li>
+<li>At the real place (<span class="arithmatex">\(d\ne0\)</span>): it is soluble over <span class="arithmatex">\(\mathbb R\)</span> if and only if <span class="arithmatex">\(a_0=b_0\)</span>, the row (R).</li>
+<li>At <span class="arithmatex">\(2\)</span>, for <span class="arithmatex">\(d\equiv5\pmod8\)</span>: it is soluble over <span class="arithmatex">\(\mathbb Q_2\)</span> if and only if <span class="arithmatex">\(a_1=0\)</span>,
+   <span class="arithmatex">\(b_1=\mu\cdot u\)</span> and <span class="arithmatex">\(a_0+\lambda\cdot u=b_0+\lambda\cdot v\)</span>; given (R) this is the pair of rows (D)
+   for the product class <span class="arithmatex">\(5\)</span>.</li>
+<li>At an odd prime <span class="arithmatex">\(p\nmid d\)</span>, <span class="arithmatex">\(p\)</span> divides neither <span class="arithmatex">\(a(\sigma)\)</span> nor <span class="arithmatex">\(b(\sigma)\)</span>.</li>
+</ol>
+<p>Consequently, for <span class="arithmatex">\(d\equiv5\pmod8\)</span> squarefree, <span class="arithmatex">\(\sigma\)</span> solves <span class="arithmatex">\(\Sigma(\mathcal C_d)\)</span> if and only if
+<span class="arithmatex">\((a(\sigma),b(\sigma))\in\mathrm{Sel}_2(C_d)\)</span>, provided every pair of integers prime to <span class="arithmatex">\(p\)</span> is soluble
+over <span class="arithmatex">\(\mathbb Q_p\)</span> at the odd primes <span class="arithmatex">\(p\nmid d\)</span> (Lemma G2).</p>
+<p><strong>Proof sketch.</strong> Write <span class="arithmatex">\(a(\sigma)d^i(-1)^j\)</span> and <span class="arithmatex">\(b(\sigma)2^i(-d)^j\)</span> as <span class="arithmatex">\((-1)^s2^t\prod_{q\mid d}q^{e_q}\)</span>
+and read the square class off the exponents. At <span class="arithmatex">\(p\mid d\)</span> the valuation forces <span class="arithmatex">\(i=u_p\)</span>, <span class="arithmatex">\(j=v_p\)</span> and
+the residue bit <span class="arithmatex">\(s\lambda_p+t\mu_p+\sum_{q\ne p}e_q[q/p]\)</span> must vanish; by multiplicativity of the
+residue bits the two conditions are <span class="arithmatex">\(\mathrm E1_p\)</span> and <span class="arithmatex">\(\mathrm E2_p\)</span>. At <span class="arithmatex">\(2\)</span> the conditions on
+<span class="arithmatex">\(v_2\)</span> and on the characters <span class="arithmatex">\(\lambda,\mu\)</span> modulo <span class="arithmatex">\(8\)</span> of the odd parts give <span class="arithmatex">\(a_1=0\)</span>, <span class="arithmatex">\(b_1=i\)</span>,
+<span class="arithmatex">\(\mu\cdot u=i\)</span>, <span class="arithmatex">\(j=a_0+\lambda\cdot u=b_0+\lambda\cdot v\)</span>, with <span class="arithmatex">\(k\)</span> free. The real place is the
+sign lemma. Assembling the places gives the equivalence.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_padic_selPair_iff_rows {d : ℕ} (hd : Odd d) (hsq : Squarefree d)
+    (σ : <a class="bp-lean-ref" href="../route-k/index.html#selmer-system" data-lean-name="ZInQ.RouteK.Unknowns">Unknowns</a> d.primeFactors) (hpd : p ∈ d.primeFactors) :
+    <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℚ_[p] d (<a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.selPair">selPair</a> d σ).1 (<a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.selPair">selPair</a> d σ).2 ↔
+      (<a class="bp-lean-ref" href="../route-k/index.html#prime-configuration" data-lean-name="ZInQ.RouteK.natConfig">natConfig</a> d hd).E1 σ ⟨p, hpd⟩ ∧ (<a class="bp-lean-ref" href="../route-k/index.html#prime-configuration" data-lean-name="ZInQ.RouteK.natConfig">natConfig</a> d hd).E2 σ ⟨p, hpd⟩</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> classCond_dvd_iff_rows {d : ℕ} (hd : Odd d) (hsq : Squarefree d)
+    (σ : <a class="bp-lean-ref" href="../route-k/index.html#selmer-system" data-lean-name="ZInQ.RouteK.Unknowns">Unknowns</a> d.primeFactors) (hpd : p ∈ d.primeFactors) :
+    (∃ i j : ℕ, i &lt; 2 ∧ j &lt; 2 ∧
+      IsSquare (((<a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.selPair">selPair</a> d σ).1 * d ^ i * (-1) ^ j : ℤ) : ℚ_[p]) ∧
+      IsSquare (((<a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.selPair">selPair</a> d σ).2 * 2 ^ i * (-d) ^ j : ℤ) : ℚ_[p])) ↔
+      (<a class="bp-lean-ref" href="../route-k/index.html#prime-configuration" data-lean-name="ZInQ.RouteK.natConfig">natConfig</a> d hd).E1 σ ⟨p, hpd⟩ ∧ (<a class="bp-lean-ref" href="../route-k/index.html#prime-configuration" data-lean-name="ZInQ.RouteK.natConfig">natConfig</a> d hd).E2 σ ⟨p, hpd⟩</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_real_selPair_iff {d : ℕ} (hd0 : d ≠ 0) (σ : <a class="bp-lean-ref" href="../route-k/index.html#selmer-system" data-lean-name="ZInQ.RouteK.Unknowns">Unknowns</a> d.primeFactors) :
+    <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℝ d (<a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.selPair">selPair</a> d σ).1 (<a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.selPair">selPair</a> d σ).2 ↔ σ.a0 = σ.b0</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Unknowns">
+<pre class="bp-lean"><code>@[ext]
+<span class="bp-lean-keyword">structure</span> Unknowns (ι : <span class="bp-lean-keyword">Type</span>*) <span class="bp-lean-keyword">where</span>
+  a0 : ZMod 2
+  a1 : ZMod 2
+  b0 : ZMod 2
+  b1 : ZMod 2
+  u : ι → ZMod 2
+  v : ι → ZMod 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/System/Selmer.lean:24</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.Loc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:89</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.selPair">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> selPair (d : ℕ) (σ : Unknowns d.primeFactors) : ℤ × ℤ :=
+  (classInt d σ.a0 σ.a1 σ.u, classInt d σ.b0 σ.b1 σ.v)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:400</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.natConfig">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> natConfig (d : ℕ) (hd : Odd d) : Config d.primeFactors :=
+  primeCfg (<span class="bp-lean-keyword">fun</span> p =&gt; p.1) Subtype.val_injective <span class="bp-lean-keyword">fun</span> p =&gt; prime_ne_two_of_mem_primeFactors hd p.2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Assembly/Realize.lean:105</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_11">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/selmer-locators.html#from-classes-to-the-system">From classes to the system</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 7 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#selmer-group">The 2-Selmer group of a congruent number curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../route-k/index.html#prime-configuration">The configuration of an odd number and Selmer certificates</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#padic-squares">Squares in the p-adic numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#real-place">Local solubility at the real place</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#bad-odd-primes">Local solubility at odd primes dividing d</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#place-two">Local solubility at the place 2</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../route-k/index.html#reciprocity-bits">Quadratic reciprocity in residue bits</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#proposition-0">Proposition 0</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="selmer/proposition-0">
+<h4 class="bp-thmheading" id="proposition-0">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Proposition 0</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Prop0.lean#L94" aria-label="View ZInQ.RouteK.Selmer.prop0Statement in Lean source" title="View ZInQ.RouteK.Selmer.prop0Statement in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L407" aria-label="View ZInQ.RouteK.Selmer.Prop0Statement in Lean source" title="View ZInQ.RouteK.Selmer.Prop0Statement in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Prop0.lean#L25" aria-label="View ZInQ.RouteK.Selmer.prop0 in Lean source" title="View ZInQ.RouteK.Selmer.prop0 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Prop0.lean#L83" aria-label="View ZInQ.RouteK.Selmer.sel2_subset_range_selPair in Lean source" title="View ZInQ.RouteK.Selmer.sel2_subset_range_selPair in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Prop0.lean#L48" aria-label="View ZInQ.RouteK.Selmer.exists_classInt_eq in Lean source" title="View ZInQ.RouteK.Selmer.exists_classInt_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/selmer/proposition-0.md" aria-label="Edit the Markdown source for Proposition 0" title="Edit the Markdown source for Proposition 0"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#proposition-0" aria-label="Link to Proposition 0" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Selmer.prop0Statement ZInQ.RouteK.Selmer.Prop0Statement ZInQ.RouteK.Selmer.prop0 ZInQ.RouteK.Selmer.sel2_subset_range_selPair ZInQ.RouteK.Selmer.exists_classInt_eq</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d\)</span> be a squarefree natural number with <span class="arithmatex">\(d\equiv5\pmod8\)</span>, and <span class="arithmatex">\(\mathcal C_d\)</span> the configuration of
+its primes. Then:</p>
+<ol>
+<li>unknowns <span class="arithmatex">\(\sigma\)</span> solve the Selmer system <span class="arithmatex">\(\Sigma(\mathcal C_d)\)</span> if and only if
+   <span class="arithmatex">\((a(\sigma),b(\sigma))\in\mathrm{Sel}_2(C_d)\)</span>;</li>
+<li>every element of <span class="arithmatex">\(\mathrm{Sel}_2(C_d)\)</span> is <span class="arithmatex">\((a(\sigma),b(\sigma))\)</span> for some unknowns <span class="arithmatex">\(\sigma\)</span>.</li>
+</ol>
+<p>With the injectivity of <span class="arithmatex">\(\sigma\mapsto(a(\sigma),b(\sigma))\)</span>, the map is a bijection from the solutions
+of <span class="arithmatex">\(\Sigma(\mathcal C_d)\)</span> onto <span class="arithmatex">\(\mathrm{Sel}_2(C_d)\)</span>; in particular <span class="arithmatex">\(\mathrm{Sel}_2(C_d)\)</span> has as many
+elements as <span class="arithmatex">\(\Sigma(\mathcal C_d)\)</span> has solutions. The second part needs only <span class="arithmatex">\(d\)</span> odd.</p>
+<p><strong>Proof sketch.</strong> (1) The local conditions are the rows of the system, at <span class="arithmatex">\(\infty\)</span>, at <span class="arithmatex">\(2\)</span> and at the
+primes of <span class="arithmatex">\(d\)</span>; at the remaining odd primes <span class="arithmatex">\(a(\sigma)\)</span> and <span class="arithmatex">\(b(\sigma)\)</span> are prime to <span class="arithmatex">\(p\)</span> and Lemma G2
+gives solubility. (2) For <span class="arithmatex">\((a,b)\in\mathrm{Sel}_2(C_d)\)</span>, Lemma G1 at the odd primes <span class="arithmatex">\(p\nmid d\)</span> shows
+that <span class="arithmatex">\(p\)</span> divides neither <span class="arithmatex">\(a\)</span> nor <span class="arithmatex">\(b\)</span>; being squarefree, <span class="arithmatex">\(a=\pm2^{a_1}\prod_{p\mid d}p^{u_p}\)</span> and
+<span class="arithmatex">\(b=\pm2^{b_1}\prod_{p\mid d}p^{v_p}\)</span> with exponents in <span class="arithmatex">\(\{0,1\}\)</span>, which defines <span class="arithmatex">\(\sigma\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> prop0Statement : <a class="bp-lean-ref" href="#proposition-0" data-lean-name="ZInQ.RouteK.Selmer.Prop0Statement">Prop0Statement</a></code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Prop0Statement : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ (d : ℕ) (hd : d % 8 = 5), Squarefree d →
+    (∀ σ : <a class="bp-lean-ref" href="../route-k/index.html#selmer-system" data-lean-name="ZInQ.RouteK.Unknowns">Unknowns</a> d.primeFactors,
+      (<a class="bp-lean-ref" href="../route-k/index.html#prime-configuration" data-lean-name="ZInQ.RouteK.natConfig">natConfig</a> d (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Assembly/Realize.lean#L119" data-lean-name="ZInQ.RouteK.odd_of_mod_eight_eq_five">odd_of_mod_eight_eq_five</a> hd)).IsSol σ ↔ <a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.selPair">selPair</a> d σ ∈ <a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d) ∧
+    <a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d ⊆ Set.range (<a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.selPair">selPair</a> d)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> prop0 {d : ℕ} (hd5 : d % 8 = 5) (hsq : Squarefree d) (σ : <a class="bp-lean-ref" href="../route-k/index.html#selmer-system" data-lean-name="ZInQ.RouteK.Unknowns">Unknowns</a> d.primeFactors) :
+    (<a class="bp-lean-ref" href="../route-k/index.html#prime-configuration" data-lean-name="ZInQ.RouteK.natConfig">natConfig</a> d (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Assembly/Realize.lean#L119" data-lean-name="ZInQ.RouteK.odd_of_mod_eight_eq_five">odd_of_mod_eight_eq_five</a> hd5)).IsSol σ ↔ <a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.selPair">selPair</a> d σ ∈ <a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.Prop0Statement">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Prop0Statement : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ (d : ℕ) (hd : d % 8 = 5), Squarefree d →
+    (∀ σ : Unknowns d.primeFactors,
+      (natConfig d (odd_of_mod_eight_eq_five hd)).IsSol σ ↔ selPair d σ ∈ Sel2 d) ∧
+    Sel2 d ⊆ Set.range (selPair d)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:407</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Unknowns">
+<pre class="bp-lean"><code>@[ext]
+<span class="bp-lean-keyword">structure</span> Unknowns (ι : <span class="bp-lean-keyword">Type</span>*) <span class="bp-lean-keyword">where</span>
+  a0 : ZMod 2
+  a1 : ZMod 2
+  b0 : ZMod 2
+  b1 : ZMod 2
+  u : ι → ZMod 2
+  v : ι → ZMod 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/System/Selmer.lean:24</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.natConfig">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> natConfig (d : ℕ) (hd : Odd d) : Config d.primeFactors :=
+  primeCfg (<span class="bp-lean-keyword">fun</span> p =&gt; p.1) Subtype.val_injective <span class="bp-lean-keyword">fun</span> p =&gt; prime_ne_two_of_mem_primeFactors hd p.2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Assembly/Realize.lean:105</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.odd_of_mod_eight_eq_five">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> odd_of_mod_eight_eq_five {d : ℕ} (h : d % 8 = 5) : Odd d</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Assembly/Realize.lean:119</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.selPair">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> selPair (d : ℕ) (σ : Unknowns d.primeFactors) : ℤ × ℤ :=
+  (classInt d σ.a0 σ.a1 σ.u, classInt d σ.b0 σ.b1 σ.v)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:400</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.Sel2">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Sel2 (d : ℕ) : Set (ℤ × ℤ) :=
+  {ab | Squarefree ab.1 ∧ Squarefree ab.2 ∧ Loc ℝ d ab.1 ab.2 ∧
+    ∀ (p : ℕ) [Fact p.Prime], Loc ℚ_[p] d ab.1 ab.2}</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:346</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_12">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/selmer-locators.html#proposition-0">Proposition 0</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 5</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#selmer-group">The 2-Selmer group of a congruent number curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../route-k/index.html#selmer-system">The Selmer system of a configuration</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../route-k/index.html#prime-configuration">The configuration of an odd number and Selmer certificates</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#local-rows">The local conditions are the rows of the Selmer system</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#good-primes">Local solubility at odd primes not dividing d</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank-5b/index.html#corollary-4-4">A first coordinate congruent to 7 forces <span class="arithmatex">\(\det M_{5b}=1\)</span> (Corollary 4.4)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank-5b/index.html#lemma-4-1">The 2-Selmer group and the kernel of <span class="arithmatex">\(M_1\)</span> (Lemma 4.1)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank-5b/index.html#theorem-4-3">The rule of row 5b (Theorem 4.3)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../rank/two-curves/index.html#selmer-group-of-a-certificate">The 2-Selmer group of a certified curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#certified-rank-of-sel">The certified rank hypothesis from its Selmer form</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-certified-rank-hypothesis-in-selmer-form">The certified rank hypothesis in Selmer form</h2>
+<p>CR₃^Sel also follows from its positive-rank form CR₃^Rk, which under the same premises asks only
+that <span class="arithmatex">\(C_d(\mathbb Q)\)</span> have a point of infinite order, by RK9 and Mordell–Weil for <span class="arithmatex">\(C_d\)</span>, both proved
+(<a href="../rank/index.html">the positive-rank chapter</a>).</p>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../rank/index.html"> </a></p>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="selmer/certified-rank-sel">
+<h4 class="bp-thmheading" id="certified-rank-sel">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The certified rank hypothesis in Selmer form</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L390" aria-label="View ZInQ.RouteK.Selmer.CertifiedRankSel in Lean source" title="View ZInQ.RouteK.Selmer.CertifiedRankSel in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/selmer/certified-rank-sel.md" aria-label="Edit the Markdown source for The certified rank hypothesis in Selmer form" title="Edit the Markdown source for The certified rank hypothesis in Selmer form"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#certified-rank-sel" aria-label="Link to The certified rank hypothesis in Selmer form" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Selmer.CertifiedRankSel</div>
+<div class="bp-thmcontent">
+<p>The hypothesis CR₃^Sel is the following assertion. Let <span class="arithmatex">\(d\)</span> be a squarefree positive integer with
+<span class="arithmatex">\(d\equiv5\pmod8\)</span>. Suppose that the 2-Selmer group <span class="arithmatex">\(\mathrm{Sel}_2(C_d)\)</span> has exactly <span class="arithmatex">\(8\)</span> elements and
+contains a pair <span class="arithmatex">\((a,b)\)</span> with <span class="arithmatex">\(|a|\equiv7\pmod8\)</span>. Then for every <span class="arithmatex">\((a',b')\in\mathrm{Sel}_2(C_d)\)</span> the
+2-covering <span class="arithmatex">\(D_{a',b'}\)</span> is soluble over <span class="arithmatex">\(\mathbb Q\)</span> (in its x-form).</p>
+<p>Unlike CR₃, it mentions no Legendre symbols, configurations or linear system: those enter only
+through Proposition 0, which is proved. In the literature's terms, by the Kummer-map lemma over
+<span class="arithmatex">\(\mathbb Q\)</span> and the identification of the Kummer map with the connecting map of the complete
+2-descent (Silverman X.1.4), the conclusion says that every Selmer class comes from a rational
+point, that is <span class="arithmatex">\(Ш(C_d)[2]=0\)</span>. Since <span class="arithmatex">\(C_d(\mathbb Q)[2]\)</span> has order <span class="arithmatex">\(4\)</span>, the image of
+<span class="arithmatex">\(C_d(\mathbb Q)\)</span> has dimension <span class="arithmatex">\(2+\operatorname{rank}C_d(\mathbb Q)\)</span>, so when <span class="arithmatex">\(\mathrm{Sel}_2(C_d)\)</span> has
+<span class="arithmatex">\(8\)</span> elements, <span class="arithmatex">\(\operatorname{rank}C_d(\mathbb Q)\ge1\)</span> gives the conclusion (with Mordell–Weil); the
+converse is not formalized here. It rests on:</p>
+<ul>
+<li>for exactly the shape <span class="arithmatex">\(d\equiv5\)</span>, <span class="arithmatex">\(|a|\equiv7\pmod8\)</span>, Tian–Yuan–Zhang (Theorem 3.5 and the
+  argument of the proof of Theorem 3.5(2), as completed by Proposition N), which gives that
+  <span class="arithmatex">\(L(C_d,s)\)</span> vanishes to order one at <span class="arithmatex">\(s=1\)</span> (their hypothesis, an odd genus sum, follows from the
+  premises by Corollary 4.4, Theorem 3.6 and Rédei's formula), and Gross–Zagier over an auxiliary
+  imaginary quadratic field (Bump–Friedberg–Hoffstein), which gives
+  <span class="arithmatex">\(\operatorname{rank}C_d(\mathbb Q)\ge1\)</span>; then the image of <span class="arithmatex">\(C_d(\mathbb Q)\)</span> has dimension at
+  least <span class="arithmatex">\(3=\dim\mathrm{Sel}_2\)</span>, which forces <span class="arithmatex">\(Ш(C_d)[2]=0\)</span>;</li>
+<li>as an alternative that is not needed, Kriz's 2-converse theorem (Theorem 10.13, an unrefereed
+  preprint) for <span class="arithmatex">\(C_d\)</span> at <span class="arithmatex">\(p=2\)</span>, whose standing assumption holds since <span class="arithmatex">\(d\ge21\)</span> (by Proposition 0
+  the class <span class="arithmatex">\(a\)</span> is a signed divisor of <span class="arithmatex">\(d\)</span>, so <span class="arithmatex">\(d=|a|m\)</span> with <span class="arithmatex">\(m\equiv3\pmod8\)</span>), together with the
+  corank lemma (Cassels–Tate: the pairing on <span class="arithmatex">\(Ш/Ш_{\rm div}\)</span> is nondegenerate and alternating, so
+  <span class="arithmatex">\(\dim(Ш/Ш_{\rm div})[2]\)</span> is even, with no finiteness of <span class="arithmatex">\(Ш\)</span> assumed), giving rank one and
+  <span class="arithmatex">\(Ш(C_d)[2]=0\)</span>.</li>
+</ul>
+<p>Neither rank theorem is formalized here, so CR₃^Sel is a hypothesis, not proved; the step
+from positive rank to every Selmer class is a theorem
+(<a href="../rank/two-descent/index.html#every-selmer-class">RK9</a>). CR₃^Sel implies CR₃ by Proposition 0, so the
+main theorem holds with CR₃^Sel in place of CR₃. A sufficient condition in the terms of Smith's
+matrices is the <a href="../rank-5b/index.html#certified-rank-5b">row-5b hypothesis</a>. With Mordell–Weil for <span class="arithmatex">\(C_d\)</span>,
+which is proved, CR₃^Sel also follows from its positive-rank form
+<a href="../rank/index.html#certified-rank-rk">CR₃^Rk</a>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankSel : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → (<a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d).ncard = 8 →
+    (∃ ab ∈ <a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d, ab.1.natAbs % 8 = 7) → ∀ ab ∈ <a class="bp-lean-ref" href="#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d, <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℚ d ab.1 ab.2</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.Sel2">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Sel2 (d : ℕ) : Set (ℤ × ℤ) :=
+  {ab | Squarefree ab.1 ∧ Squarefree ab.2 ∧ Loc ℝ d ab.1 ab.2 ∧
+    ∀ (p : ℕ) [Fact p.Prime], Loc ℚ_[p] d ab.1 ab.2}</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:346</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.Loc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:89</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_13">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/selmer-locators.html#the-hypothesis-in-the-literatures-form">The hypothesis in the literature's form</a></li>
+<li><a href="../../sources/selmer-locators.html#deep-inputs-of-cr3sel">Deep inputs of CR3Sel</a></li>
+<li><a href="../../sources/route-k-locators.html#the-trust-statement-for-cr3">The trust statement for CR3</a></li>
+<li><a href="../../sources/rank-5b-locators.html#proposition-n">Proposition N</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 5</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#selmer-group">The 2-Selmer group of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../main/index.html#main-theorem-selmer">The main theorem from the Selmer form of the rank hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank-5b/index.html#certified-rank-5b">The certified rank hypothesis in row-5b form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank-5b/index.html#certified-rank-sel-of-5b">CR₃^5b implies CR₃^Sel</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank/index.html#certified-rank-sel-of-rk">CR₃^Sel from CR₃^Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-of-sel">The certified rank hypothesis from its Selmer form</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="selmer/certified-rank-of-sel">
+<h4 class="bp-thmheading" id="certified-rank-of-sel">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The certified rank hypothesis from its Selmer form</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Prop0.lean#L100" aria-label="View ZInQ.RouteK.Selmer.certifiedRank_of_certifiedRankSel in Lean source" title="View ZInQ.RouteK.Selmer.certifiedRank_of_certifiedRankSel in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L552" aria-label="View ZInQ.RouteK.Selmer.certifiedRank_of_sel in Lean source" title="View ZInQ.RouteK.Selmer.certifiedRank_of_sel in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L525" aria-label="View ZInQ.RouteK.Selmer.exists_point_of_loc in Lean source" title="View ZInQ.RouteK.Selmer.exists_point_of_loc in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L494" aria-label="View ZInQ.RouteK.Selmer.classInt_natClass in Lean source" title="View ZInQ.RouteK.Selmer.classInt_natClass in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Selmer/Covering.lean#L518" aria-label="View ZInQ.RouteK.Selmer.eq_one_of_squarefree_of_isSquare in Lean source" title="View ZInQ.RouteK.Selmer.eq_one_of_squarefree_of_isSquare in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/selmer/certified-rank-of-sel.md" aria-label="Edit the Markdown source for The certified rank hypothesis from its Selmer form" title="Edit the Markdown source for The certified rank hypothesis from its Selmer form"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#certified-rank-of-sel" aria-label="Link to The certified rank hypothesis from its Selmer form" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Selmer.certifiedRank_of_certifiedRankSel ZInQ.RouteK.Selmer.certifiedRank_of_sel ZInQ.RouteK.Selmer.exists_point_of_loc ZInQ.RouteK.Selmer.classInt_natClass ZInQ.RouteK.Selmer.eq_one_of_squarefree_of_isSquare</div>
+<div class="bp-thmcontent">
+<p>The hypothesis CR₃^Sel implies the certified rank hypothesis CR₃.</p>
+<p><strong>Proof sketch.</strong> Let <span class="arithmatex">\(d\equiv5\pmod8\)</span> be squarefree, <span class="arithmatex">\(a\)</span> a squarefree divisor of <span class="arithmatex">\(d\)</span> with
+<span class="arithmatex">\(|a|\equiv7\pmod8\)</span>, and suppose <span class="arithmatex">\(\Sigma(\mathcal C_d)\)</span> has <span class="arithmatex">\(8\)</span> solutions, one of them <span class="arithmatex">\(\sigma\)</span> with
+first coordinate the class of <span class="arithmatex">\(a\)</span>.</p>
+<ol>
+<li>By Proposition 0 and the injectivity of <span class="arithmatex">\(\sigma\mapsto(a(\sigma),b(\sigma))\)</span>, <span class="arithmatex">\(\mathrm{Sel}_2(C_d)\)</span>
+   is the image of the solutions, so it has <span class="arithmatex">\(8\)</span> elements.</li>
+<li>Since <span class="arithmatex">\(a\)</span> is a squarefree divisor of <span class="arithmatex">\(d\)</span>, its class gives <span class="arithmatex">\(a(\sigma)=a\)</span>; so
+   <span class="arithmatex">\((a,b(\sigma))\in\mathrm{Sel}_2(C_d)\)</span> with <span class="arithmatex">\(|a|\equiv7\pmod8\)</span>.</li>
+<li>CR₃^Sel gives the x-form of <span class="arithmatex">\(D_{a,b(\sigma)}\)</span> over <span class="arithmatex">\(\mathbb Q\)</span>. The first alternative would make
+   the squarefree <span class="arithmatex">\(a\)</span> a square, so <span class="arithmatex">\(a=1\)</span>, against <span class="arithmatex">\(|a|\equiv7\)</span>. So there is <span class="arithmatex">\(x\)</span> with <span class="arithmatex">\(x=ar_1^2\)</span>,
+   <span class="arithmatex">\(x-d=b r_2^2\)</span>, <span class="arithmatex">\(x+d=abr_3^2\)</span>.</li>
+<li><span class="arithmatex">\(x\ne0\)</span>: otherwise <span class="arithmatex">\(-d/b\)</span> and <span class="arithmatex">\(d/(ab)\)</span> are nonzero squares, which forces <span class="arithmatex">\(a=-1\)</span>.</li>
+<li><span class="arithmatex">\(y=abr_1r_2r_3\)</span> satisfies <span class="arithmatex">\(y^2=x^3-d^2x\)</span>, and <span class="arithmatex">\(x/a=r_1^2\)</span> is a square.</li>
+</ol>
+<p>This is the conclusion of CR₃.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> certifiedRank_of_certifiedRankSel (hCRS : <a class="bp-lean-ref" href="#certified-rank-sel" data-lean-name="ZInQ.RouteK.Selmer.CertifiedRankSel">CertifiedRankSel</a>) : <a class="bp-lean-ref" href="../main/index.html#certified-rank" data-lean-name="ZInQ.CertifiedRank">CertifiedRank</a></code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> certifiedRank_of_sel (hsel : <a class="bp-lean-ref" href="#certified-rank-sel" data-lean-name="ZInQ.RouteK.Selmer.CertifiedRankSel">CertifiedRankSel</a>) (h0 : <a class="bp-lean-ref" href="#proposition-0" data-lean-name="ZInQ.RouteK.Selmer.Prop0Statement">Prop0Statement</a>) : <a class="bp-lean-ref" href="../main/index.html#certified-rank" data-lean-name="ZInQ.CertifiedRank">CertifiedRank</a></code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_point_of_loc {d : ℕ} (hd : d ≠ 0) {a b : ℤ} (hsq : Squarefree a)
+    (ha7 : a.natAbs % 8 = 7) (hb : b ≠ 0) (h : <a class="bp-lean-ref" href="#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℚ d a b) :
+    ∃ x y : ℚ, y ^ 2 = x ^ 3 - (d : ℚ) ^ 2 * x ∧ x ≠ 0 ∧ IsSquare (x / a)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.CertifiedRankSel">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankSel : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → (Sel2 d).ncard = 8 →
+    (∃ ab ∈ Sel2 d, ab.1.natAbs % 8 = 7) → ∀ ab ∈ Sel2 d, Loc ℚ d ab.1 ab.2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:390</p>
+</div>
+<div data-lean-name="ZInQ.CertifiedRank">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRank : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ (d : ℕ) (a : ℤ) (hd : d % 8 = 5), Squarefree d → Squarefree a → a ∣ (d : ℤ) →
+    a.natAbs % 8 = 7 →
+    (RouteK.natConfig d (RouteK.odd_of_mod_eight_eq_five hd)).sols.card = 8 →
+    (∃ σ ∈ (RouteK.natConfig d (RouteK.odd_of_mod_eight_eq_five hd)).sols,
+      σ.first = RouteK.natClass d a) →
+    ∃ x y : ℚ, y ^ 2 = x ^ 3 - (d : ℚ) ^ 2 * x ∧ x ≠ 0 ∧ IsSquare (x / a)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CertifiedRank.lean:56</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.Prop0Statement">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Prop0Statement : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ (d : ℕ) (hd : d % 8 = 5), Squarefree d →
+    (∀ σ : Unknowns d.primeFactors,
+      (natConfig d (odd_of_mod_eight_eq_five hd)).IsSol σ ↔ selPair d σ ∈ Sel2 d) ∧
+    Sel2 d ⊆ Set.range (selPair d)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:407</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.Loc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:89</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_14">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/selmer-locators.html#the-hypothesis-in-the-literatures-form">The hypothesis in the literature's form</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4 · Used by 5</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-sel">The certified rank hypothesis in Selmer form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../main/index.html#certified-rank">The certified rank hypothesis</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#proposition-0">Proposition 0</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#selmer-group">The 2-Selmer group of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../main/index.html#main-theorem-selmer">The main theorem from the Selmer form of the rank hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../rank/index.html#certified-rank-of-rk">CR₃ from CR₃^Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../rank/two-curves/index.html#point-of-infinite-order">A point of infinite order on a certified curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../rank/two-curves/index.html#selmer-group-of-a-certificate">The 2-Selmer group of a certified curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../rank/two-descent/index.html#descent-kernel">The kernel of the descent map over the rationals</a></span></div>
+</div>
+</details>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../dependencies/index.json" data-graph-src="../../dependencies/chapters/selmer.json" data-page-href="index.html" data-scope-id="selmer">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

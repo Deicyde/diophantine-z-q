@@ -1,0 +1,2697 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../selmer/index.html">
+      
+      
+        <link rel="next" href="forests/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>The row-5b determinant - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-matrices" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              The row-5b determinant
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_15" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link md-nav__link--active">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link md-nav__link--active" for="__nav_2_1_15" id="__nav_2_1_15_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_15_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_15">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The row-5b determinant
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="forests/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forests and minors over 𝔽₂
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="genus-sum/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Row 5b of Smith&#39;s table
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-matrices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The matrices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-selmer-group-and-the-kernel-of-m_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Selmer group and the kernel of \(M_1\)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-determinant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The determinant
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#row-5b-of-smiths-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Row 5b of Smith's table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-hypothesis-in-row-5b-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The hypothesis in row-5b form
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-hypothesis-in-tianyuanzhang-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The hypothesis in Tian–Yuan–Zhang form
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="rank-5b" data-page-title="The row-5b determinant">
+<h1 id="the-row-5b-determinant">The row-5b determinant</h1>
+<p>The certified rank hypothesis CR₃ rests, through Proposition 0, on the Selmer form CR₃^Sel:
+for squarefree <span class="arithmatex">\(n\equiv5\pmod8\)</span> with <span class="arithmatex">\(|\mathrm{Sel}_2(C_n)|=8\)</span> and a Selmer class with
+<span class="arithmatex">\(|a|\equiv7\pmod8\)</span>, every 2-Selmer class of <span class="arithmatex">\(C_n\)</span> comes from a rational point. The route
+to CR₃^Sel used here goes through Tian, Yuan and Zhang (as completed by Proposition N, which is not
+refereed), whose criterion for analytic rank one is a genus sum
+<span class="arithmatex">\(T_{5b}(n)\)</span> of 4-ranks of class groups; row 5b of Smith's Table 2 writes that sum as the
+determinant of an explicit matrix <span class="arithmatex">\(M_{5b}\)</span> in Legendre symbols. This chapter proves the
+elementary step between the Selmer group and that determinant (tyz-5b §4), and the identity of the
+determinant with the genus sum (tyz-5b §§2–3). By the first, on a Selmer-minimal
+curve, <span class="arithmatex">\(\det M_{5b}\)</span> is the parity of the number of primes <span class="arithmatex">\(\equiv3\pmod4\)</span> dividing the first
+coordinate of a non-torsion Selmer class. So CR₃^Sel follows from CR₃^5b, the same hypothesis with
+the 2-adic condition replaced by <span class="arithmatex">\(\det M_{5b}=1\)</span>; CR₃^5b is a hypothesis, not proved here. By the
+second, <span class="arithmatex">\(T_{5b}(n)=\det M_{5b}\)</span> for squarefree <span class="arithmatex">\(n\equiv5\pmod8\)</span>, with Rédei's <span class="arithmatex">\(g\)</span> in Legendre symbols
+(Smith's row 5b, proved below by forest expansions of both sides), so CR₃^5b follows from CR₃^TYZ,
+the same hypothesis with the genus sum <span class="arithmatex">\(T_{5b}(n)\)</span> in place of the determinant. By Rédei's formula
+the genus sum is the same with the class numbers of Tian, Yuan and Zhang; that form of the
+hypothesis is in the <a href="../redei/index.html">Rédei chapter</a>.</p>
+<p>Throughout, <span class="arithmatex">\(C_n\)</span> is the congruent number curve <span class="arithmatex">\(y^2=x^3-n^2x\)</span>, and the Selmer system and the
+configuration of <span class="arithmatex">\(n\)</span> are those of the <a href="../route-k/index.html">Route K chapter</a>; the Selmer group is
+that of the <a href="../selmer/index.html">Proposition 0 chapter</a>. The <a href="../redei/index.html">Rédei chapter</a> and
+the <a href="../rank/index.html">positive-rank chapter</a>, outside its Mordell–Weil section, write <span class="arithmatex">\(d\)</span> and <span class="arithmatex">\(C_d\)</span>
+for the same number and curve.</p>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>11</strong> fully proved</span></div>
+</div>
+<h2 id="the-matrices">The matrices</h2>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank-5b/smith-matrices">
+<h4 class="bp-thmheading" id="smith-matrices">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">Smith&#x27;s matrices <span class="arithmatex">\(L\)</span>, <span class="arithmatex">\(M_1\)</span> and <span class="arithmatex">\(M_{5b}\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L74" aria-label="View ZInQ.RouteK.Rank5b.M5b in Lean source" title="View ZInQ.RouteK.Rank5b.M5b in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L68" aria-label="View ZInQ.RouteK.Rank5b.M1 in Lean source" title="View ZInQ.RouteK.Rank5b.M1 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L64" aria-label="View ZInQ.RouteK.Rank5b.Lmat in Lean source" title="View ZInQ.RouteK.Rank5b.Lmat in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L54" aria-label="View ZInQ.RouteK.Rank5b.aBit in Lean source" title="View ZInQ.RouteK.Rank5b.aBit in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L57" aria-label="View ZInQ.RouteK.Rank5b.yBit in Lean source" title="View ZInQ.RouteK.Rank5b.yBit in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L60" aria-label="View ZInQ.RouteK.Rank5b.zBit in Lean source" title="View ZInQ.RouteK.Rank5b.zBit in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Bordered.lean#L21" aria-label="View ZInQ.RouteK.Rank5b.border in Lean source" title="View ZInQ.RouteK.Rank5b.border in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L80" aria-label="View ZInQ.RouteK.Rank5b.M1_transpose in Lean source" title="View ZInQ.RouteK.Rank5b.M1_transpose in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L34" aria-label="View ZInQ.RouteK.Rank5b.Config.Lc in Lean source" title="View ZInQ.RouteK.Rank5b.Config.Lc in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L38" aria-label="View ZInQ.RouteK.Rank5b.Config.M1c in Lean source" title="View ZInQ.RouteK.Rank5b.Config.M1c in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L42" aria-label="View ZInQ.RouteK.Rank5b.Config.M5bc in Lean source" title="View ZInQ.RouteK.Rank5b.Config.M5bc in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L45" aria-label="View ZInQ.RouteK.Rank5b.Config.M1c_transpose in Lean source" title="View ZInQ.RouteK.Rank5b.Config.M1c_transpose in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L90" aria-label="View ZInQ.RouteK.Rank5b.natConfig_bit_eq_aBit in Lean source" title="View ZInQ.RouteK.Rank5b.natConfig_bit_eq_aBit in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L94" aria-label="View ZInQ.RouteK.Rank5b.natConfig_lam_eq_yBit in Lean source" title="View ZInQ.RouteK.Rank5b.natConfig_lam_eq_yBit in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L98" aria-label="View ZInQ.RouteK.Rank5b.natConfig_mu_eq_zBit in Lean source" title="View ZInQ.RouteK.Rank5b.natConfig_mu_eq_zBit in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L101" aria-label="View ZInQ.RouteK.Rank5b.Lmat_eq_Lc in Lean source" title="View ZInQ.RouteK.Rank5b.Lmat_eq_Lc in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L103" aria-label="View ZInQ.RouteK.Rank5b.M1_eq_M1c in Lean source" title="View ZInQ.RouteK.Rank5b.M1_eq_M1c in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L109" aria-label="View ZInQ.RouteK.Rank5b.M5b_eq_M5bc in Lean source" title="View ZInQ.RouteK.Rank5b.M5b_eq_M5bc in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L117" aria-label="View ZInQ.RouteK.Rank5b.aBit_add_aBit in Lean source" title="View ZInQ.RouteK.Rank5b.aBit_add_aBit in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Matrices.lean#L125" aria-label="View ZInQ.RouteK.Rank5b.Lmat_add_transpose_apply in Lean source" title="View ZInQ.RouteK.Rank5b.Lmat_add_transpose_apply in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank-5b/smith-matrices.md" aria-label="Edit the Markdown source for Smith&#x27;s matrices $L$, $M_1$ and $M_{5b}$" title="Edit the Markdown source for Smith&#x27;s matrices $L$, $M_1$ and $M_{5b}$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#smith-matrices" aria-label="Link to Smith&#x27;s matrices L, M₁ and M_5b" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank5b.M5b ZInQ.RouteK.Rank5b.M1 ZInQ.RouteK.Rank5b.Lmat ZInQ.RouteK.Rank5b.aBit ZInQ.RouteK.Rank5b.yBit ZInQ.RouteK.Rank5b.zBit ZInQ.RouteK.Rank5b.border ZInQ.RouteK.Rank5b.M1_transpose ZInQ.RouteK.Rank5b.Config.Lc ZInQ.RouteK.Rank5b.Config.M1c ZInQ.RouteK.Rank5b.Config.M5bc ZInQ.RouteK.Rank5b.Config.M1c_transpose ZInQ.RouteK.Rank5b.natConfig_bit_eq_aBit ZInQ.RouteK.Rank5b.natConfig_lam_eq_yBit ZInQ.RouteK.Rank5b.natConfig_mu_eq_zBit ZInQ.RouteK.Rank5b.Lmat_eq_Lc ZInQ.RouteK.Rank5b.M1_eq_M1c ZInQ.RouteK.Rank5b.M5b_eq_M5bc ZInQ.RouteK.Rank5b.aBit_add_aBit ZInQ.RouteK.Rank5b.Lmat_add_transpose_apply</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(n&gt;0\)</span> be odd and squarefree with prime set <span class="arithmatex">\(P\)</span>. For <span class="arithmatex">\(p\ne q\)</span> in <span class="arithmatex">\(P\)</span> put
+<span class="arithmatex">\(a_{pq}=(q/p)_+\in\mathbb F_2\)</span>, which is <span class="arithmatex">\(0\)</span> if <span class="arithmatex">\(q\)</span> is a square modulo <span class="arithmatex">\(p\)</span> and <span class="arithmatex">\(1\)</span> otherwise, and
+put <span class="arithmatex">\(y_p=(-1/p)_+=[p\equiv3\pmod4]\)</span> and <span class="arithmatex">\(z_p=(2/p)_+=[p\equiv\pm3\pmod8]\)</span>. Smith's matrix <span class="arithmatex">\(L\)</span>
+(Smith's <span class="arithmatex">\(A\)</span>) is the <span class="arithmatex">\(P\times P\)</span> matrix over <span class="arithmatex">\(\mathbb F_2\)</span> with <span class="arithmatex">\(L_{pq}=a_{pq}\)</span> for <span class="arithmatex">\(p\ne q\)</span> and
+<span class="arithmatex">\(L_{pp}=\sum_{q\ne p}a_{pq}\)</span>, so its rows sum to zero. With <span class="arithmatex">\(D_z\)</span> the diagonal matrix of the
+<span class="arithmatex">\(z_p\)</span>, define the <span class="arithmatex">\((P\sqcup P)\)</span>-square matrix <span class="arithmatex">\(M_1\)</span> and its bordering <span class="arithmatex">\(M_{5b}\)</span>:
+$<span class="arithmatex">\(M_1=\begin{pmatrix}L+L^{\mathsf T}&amp;L^{\mathsf T}\\ L&amp;D_z\end{pmatrix},\qquad
+M_{5b}=\begin{pmatrix}L+L^{\mathsf T}&amp;L^{\mathsf T}&amp;0\\ L&amp;D_z&amp;y\\ 0&amp;y^{\mathsf T}&amp;0\end{pmatrix},\)</span>$
+that is, <span class="arithmatex">\(M_{5b}\)</span> is <span class="arithmatex">\(M_1\)</span> bordered by the column <span class="arithmatex">\((0,y)\)</span>, the row <span class="arithmatex">\((0,y)^{\mathsf T}\)</span> and a zero
+corner. The same matrices are defined for any configuration, with <span class="arithmatex">\([q/p]\)</span>, <span class="arithmatex">\(\lambda\)</span>, <span class="arithmatex">\(\mu\)</span> in
+place of <span class="arithmatex">\(a_{pq}\)</span>, <span class="arithmatex">\(y\)</span>, <span class="arithmatex">\(z\)</span>, and for <span class="arithmatex">\(n\)</span> they are those of the configuration of <span class="arithmatex">\(n\)</span>:
+<span class="arithmatex">\(a_{pq}=[q/p]\)</span>, <span class="arithmatex">\(y=\lambda\)</span>, <span class="arithmatex">\(z=\mu\)</span>.</p>
+<p><span class="arithmatex">\(M_1\)</span> is symmetric, and by quadratic reciprocity <span class="arithmatex">\(a_{pq}+a_{qp}=y_py_q\)</span> for <span class="arithmatex">\(p\ne q\)</span>, so
+<span class="arithmatex">\(L+L^{\mathsf T}\)</span> has entries <span class="arithmatex">\(y_py_q\)</span> off the diagonal and <span class="arithmatex">\(0\)</span> on it.</p>
+<p>These are the matrices of row 5b of Smith's Table 2; row 5b says that for <span class="arithmatex">\(n\equiv5\pmod8\)</span> the
+determinant of <span class="arithmatex">\(M_{5b}\)</span> is the genus sum <span class="arithmatex">\(T_{5b}(n)\)</span> of Tian, Yuan and Zhang (<a href="genus-sum/index.html#theorem-3-6">Theorem 3.6</a>
+for Rédei's <span class="arithmatex">\(g\)</span> in Legendre symbols, and with their class numbers through <a href="../redei/index.html#genus-sums-agree">the agreement of the two
+genus sums</a>, by Rédei's formula).</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> M5b (d : ℕ) :
+    Matrix ((d.primeFactors ⊕ d.primeFactors) ⊕ Unit)
+      ((d.primeFactors ⊕ d.primeFactors) ⊕ Unit) (ZMod 2) :=
+  <a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.border">border</a> (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.M1">M1</a> d) (Sum.elim 0 (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.yBit">yBit</a> d))</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> M1 (d : ℕ) :
+    Matrix (d.primeFactors ⊕ d.primeFactors) (d.primeFactors ⊕ d.primeFactors) (ZMod 2) :=
+  fromBlocks (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.Lmat">Lmat</a> d + (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.Lmat">Lmat</a> d)ᵀ) (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.Lmat">Lmat</a> d)ᵀ (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.Lmat">Lmat</a> d) (diagonal (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.zBit">zBit</a> d))</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> Lmat (d : ℕ) : Matrix d.primeFactors d.primeFactors (ZMod 2) := <span class="bp-lean-keyword">fun</span> i j =&gt;
+  <span class="bp-lean-keyword">if</span> i = j <span class="bp-lean-keyword">then</span> ∑ k ∈ Finset.univ.erase i, <a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.aBit">aBit</a> d i k <span class="bp-lean-keyword">else</span> <a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.aBit">aBit</a> d i j</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank5b.border">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> border {R : <span class="bp-lean-keyword">Type</span>*} [Zero R] (M : Matrix ι ι R) (v : ι → R) : Matrix (ι ⊕ Unit) (ι ⊕ Unit) R :=
+  Matrix.fromBlocks M (replicateCol Unit v) (replicateRow Unit v) 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Bordered.lean:21</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.M1">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> M1 (d : ℕ) :
+    Matrix (d.primeFactors ⊕ d.primeFactors) (d.primeFactors ⊕ d.primeFactors) (ZMod 2) :=
+  fromBlocks (Lmat d + (Lmat d)ᵀ) (Lmat d)ᵀ (Lmat d) (diagonal (zBit d))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Matrices.lean:68</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.yBit">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> yBit (d : ℕ) (i : d.primeFactors) : ZMod 2 := lamBit (i : ℕ)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Matrices.lean:57</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.Lmat">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> Lmat (d : ℕ) : Matrix d.primeFactors d.primeFactors (ZMod 2) := <span class="bp-lean-keyword">fun</span> i j =&gt;
+  <span class="bp-lean-keyword">if</span> i = j <span class="bp-lean-keyword">then</span> ∑ k ∈ Finset.univ.erase i, aBit d i k <span class="bp-lean-keyword">else</span> aBit d i j</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Matrices.lean:64</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.zBit">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> zBit (d : ℕ) (i : d.primeFactors) : ZMod 2 := muBit (i : ℕ)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Matrices.lean:60</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.aBit">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> aBit (d : ℕ) (i j : d.primeFactors) : ZMod 2 := legBit (i : ℕ) ((j : ℕ) : ℤ)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Matrices.lean:54</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/rank-5b-locators.html#notation">Notation</a></li>
+<li><a href="../../sources/rank-5b-locators.html#smith">Smith</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 12</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../route-k/index.html#prime-configuration">The configuration of an odd number and Selmer certificates</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../route-k/index.html#configuration">Configurations</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-5b">The certified rank hypothesis in row-5b form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#corollary-4-4">A first coordinate congruent to 7 forces <span class="arithmatex">\(\det M_{5b}=1\)</span> (Corollary 4.4)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#cross-checks">Two values of the row-5b determinant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="genus-sum/index.html#det-m5b-forests">The row-5b determinant as a forest sum</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="genus-sum/index.html#genus-sum-bits">The genus sum of an odd number from its bits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="genus-sum/index.html#redei-g">Rédei&#x27;s <span class="arithmatex">\(g\)</span> from the bits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="genus-sum/index.html#theorem-3-6">Row 5b of Smith&#x27;s table (Theorem 3.6)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#kernel-class-five">The Selmer system of a class-5 configuration and the kernel of <span class="arithmatex">\(M_1\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#lemma-4-1">The 2-Selmer group and the kernel of <span class="arithmatex">\(M_1\)</span> (Lemma 4.1)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#theorem-4-3">The rule of row 5b (Theorem 4.3)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../redei/bits/index.html#matrix-in-bits">The Rédei matrix of <span class="arithmatex">\(\mathbb Q(\sqrt{-d_B})\)</span> in the bits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../redei/bits/index.html#primes-of-d-b">The primes of <span class="arithmatex">\(d_B\)</span></a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-selmer-group-and-the-kernel-of-m_1">The Selmer group and the kernel of <span class="arithmatex">\(M_1\)</span></h2>
+<p>For product class <span class="arithmatex">\(5\)</span>, the solutions of the Selmer system split into four torsion classes and a
+subspace isomorphic to the kernel of <span class="arithmatex">\(M_1\)</span>; through Proposition 0 this is a statement about
+<span class="arithmatex">\(\mathrm{Sel}_2(C_n)\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank-5b/kernel-class-five">
+<h4 class="bp-thmheading" id="kernel-class-five">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The Selmer system of a class-5 configuration and the kernel of <span class="arithmatex">\(M_1\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L310" aria-label="View ZInQ.RouteK.Rank5b.Config.card_sols_eq in Lean source" title="View ZInQ.RouteK.Rank5b.Config.card_sols_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L275" aria-label="View ZInQ.RouteK.Rank5b.Config.hEquivKer in Lean source" title="View ZInQ.RouteK.Rank5b.Config.hEquivKer in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L294" aria-label="View ZInQ.RouteK.Rank5b.Config.solEquivTorsH in Lean source" title="View ZInQ.RouteK.Rank5b.Config.solEquivTorsH in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L179" aria-label="View ZInQ.RouteK.Rank5b.Config.IsH in Lean source" title="View ZInQ.RouteK.Rank5b.Config.IsH in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L184" aria-label="View ZInQ.RouteK.Rank5b.Config.kvec in Lean source" title="View ZInQ.RouteK.Rank5b.Config.kvec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L187" aria-label="View ZInQ.RouteK.Rank5b.Config.ofKer in Lean source" title="View ZInQ.RouteK.Rank5b.Config.ofKer in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L192" aria-label="View ZInQ.RouteK.Rank5b.Config.M1c_mulVec_kvec in Lean source" title="View ZInQ.RouteK.Rank5b.Config.M1c_mulVec_kvec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L217" aria-label="View ZInQ.RouteK.Rank5b.Config.isH_ofKer in Lean source" title="View ZInQ.RouteK.Rank5b.Config.isH_ofKer in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L254" aria-label="View ZInQ.RouteK.Rank5b.Config.kvec_ofKer in Lean source" title="View ZInQ.RouteK.Rank5b.Config.kvec_ofKer in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L261" aria-label="View ZInQ.RouteK.Rank5b.Config.ofKer_kvec in Lean source" title="View ZInQ.RouteK.Rank5b.Config.ofKer_kvec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L169" aria-label="View ZInQ.RouteK.Rank5b.Config.isSol_uadd_tors in Lean source" title="View ZInQ.RouteK.Rank5b.Config.isSol_uadd_tors in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L282" aria-label="View ZInQ.RouteK.Rank5b.Config.torsCoord in Lean source" title="View ZInQ.RouteK.Rank5b.Config.torsCoord in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L284" aria-label="View ZInQ.RouteK.Rank5b.Config.isH_uadd_torsCoord in Lean source" title="View ZInQ.RouteK.Rank5b.Config.isH_uadd_torsCoord in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L158" aria-label="View ZInQ.RouteK.Rank5b.tors in Lean source" title="View ZInQ.RouteK.Rank5b.tors in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L153" aria-label="View ZInQ.RouteK.Rank5b.uadd in Lean source" title="View ZInQ.RouteK.Rank5b.uadd in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L160" aria-label="View ZInQ.RouteK.Rank5b.uadd_tors_tors in Lean source" title="View ZInQ.RouteK.Rank5b.uadd_tors_tors in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L141" aria-label="View ZInQ.RouteK.Rank5b.Config.D_iff_of_five in Lean source" title="View ZInQ.RouteK.Rank5b.Config.D_iff_of_five in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L30" aria-label="View ZInQ.RouteK.Rank5b.Config.sum_lam in Lean source" title="View ZInQ.RouteK.Rank5b.Config.sum_lam in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L33" aria-label="View ZInQ.RouteK.Rank5b.Config.sum_mu in Lean source" title="View ZInQ.RouteK.Rank5b.Config.sum_mu in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L91" aria-label="View ZInQ.RouteK.Rank5b.Config.lam_sum_of_five in Lean source" title="View ZInQ.RouteK.Rank5b.Config.lam_sum_of_five in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L94" aria-label="View ZInQ.RouteK.Rank5b.Config.mu_sum_of_five in Lean source" title="View ZInQ.RouteK.Rank5b.Config.mu_sum_of_five in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L38" aria-label="View ZInQ.RouteK.Rank5b.Config.bit_eq_bit_add in Lean source" title="View ZInQ.RouteK.Rank5b.Config.bit_eq_bit_add in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L44" aria-label="View ZInQ.RouteK.Rank5b.Config.Lc_mulVec in Lean source" title="View ZInQ.RouteK.Rank5b.Config.Lc_mulVec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L54" aria-label="View ZInQ.RouteK.Rank5b.Config.LcT_mulVec in Lean source" title="View ZInQ.RouteK.Rank5b.Config.LcT_mulVec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L74" aria-label="View ZInQ.RouteK.Rank5b.Config.M1c_mulVec_inl in Lean source" title="View ZInQ.RouteK.Rank5b.Config.M1c_mulVec_inl in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L84" aria-label="View ZInQ.RouteK.Rank5b.Config.M1c_mulVec_inr in Lean source" title="View ZInQ.RouteK.Rank5b.Config.M1c_mulVec_inr in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L97" aria-label="View ZInQ.RouteK.Rank5b.Config.monsky_add in Lean source" title="View ZInQ.RouteK.Rank5b.Config.monsky_add in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L102" aria-label="View ZInQ.RouteK.Rank5b.Config.monsky_const in Lean source" title="View ZInQ.RouteK.Rank5b.Config.monsky_const in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L106" aria-label="View ZInQ.RouteK.Rank5b.Config.dot_add_right in Lean source" title="View ZInQ.RouteK.Rank5b.Config.dot_add_right in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L110" aria-label="View ZInQ.RouteK.Rank5b.Config.dot_const in Lean source" title="View ZInQ.RouteK.Rank5b.Config.dot_const in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L114" aria-label="View ZInQ.RouteK.Rank5b.Config.sum_monsky in Lean source" title="View ZInQ.RouteK.Rank5b.Config.sum_monsky in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Kernel.lean#L21" aria-label="View ZInQ.RouteK.Rank5b.zmod2_mul_self in Lean source" title="View ZInQ.RouteK.Rank5b.zmod2_mul_self in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank-5b/kernel-class-five.md" aria-label="Edit the Markdown source for The Selmer system of a class-5 configuration and the kernel of $M_1$" title="Edit the Markdown source for The Selmer system of a class-5 configuration and the kernel of $M_1$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#kernel-class-five" aria-label="Link to The Selmer system of a class-5 configuration and the kernel of M₁" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank5b.Config.card_sols_eq ZInQ.RouteK.Rank5b.Config.hEquivKer ZInQ.RouteK.Rank5b.Config.solEquivTorsH ZInQ.RouteK.Rank5b.Config.IsH ZInQ.RouteK.Rank5b.Config.kvec ZInQ.RouteK.Rank5b.Config.ofKer ZInQ.RouteK.Rank5b.Config.M1c_mulVec_kvec ZInQ.RouteK.Rank5b.Config.isH_ofKer ZInQ.RouteK.Rank5b.Config.kvec_ofKer ZInQ.RouteK.Rank5b.Config.ofKer_kvec ZInQ.RouteK.Rank5b.Config.isSol_uadd_tors ZInQ.RouteK.Rank5b.Config.torsCoord ZInQ.RouteK.Rank5b.Config.isH_uadd_torsCoord ZInQ.RouteK.Rank5b.tors ZInQ.RouteK.Rank5b.uadd ZInQ.RouteK.Rank5b.uadd_tors_tors ZInQ.RouteK.Rank5b.Config.D_iff_of_five ZInQ.RouteK.Rank5b.Config.sum_lam ZInQ.RouteK.Rank5b.Config.sum_mu ZInQ.RouteK.Rank5b.Config.lam_sum_of_five ZInQ.RouteK.Rank5b.Config.mu_sum_of_five ZInQ.RouteK.Rank5b.Config.bit_eq_bit_add ZInQ.RouteK.Rank5b.Config.Lc_mulVec ZInQ.RouteK.Rank5b.Config.LcT_mulVec ZInQ.RouteK.Rank5b.Config.M1c_mulVec_inl ZInQ.RouteK.Rank5b.Config.M1c_mulVec_inr ZInQ.RouteK.Rank5b.Config.monsky_add ZInQ.RouteK.Rank5b.Config.monsky_const ZInQ.RouteK.Rank5b.Config.dot_add_right ZInQ.RouteK.Rank5b.Config.dot_const ZInQ.RouteK.Rank5b.Config.sum_monsky ZInQ.RouteK.Rank5b.zmod2_mul_self</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(\mathcal C\)</span> be a configuration on <span class="arithmatex">\(S\)</span> of product class <span class="arithmatex">\(c(\mathcal C)=5\)</span>, and let <span class="arithmatex">\(M_1\)</span> be
+its matrix. For <span class="arithmatex">\(e,f\in\mathbb F_2\)</span> let <span class="arithmatex">\(\tau_{e,f}\)</span> be the tuple with <span class="arithmatex">\(a_0=b_0=e\)</span>, <span class="arithmatex">\(a_1=0\)</span>,
+<span class="arithmatex">\(b_1=f\)</span>, <span class="arithmatex">\(u=f\mathbf 1\)</span>, <span class="arithmatex">\(v=e\mathbf 1\)</span> (for a number <span class="arithmatex">\(n\)</span>, the class of <span class="arithmatex">\((-1,-n)^e(n,2)^f\)</span>). Let
+<span class="arithmatex">\(H\)</span> be the set of solutions of <span class="arithmatex">\(\Sigma(\mathcal C)\)</span> with <span class="arithmatex">\(b_1=0\)</span> and <span class="arithmatex">\(a_0=\lambda\cdot u\)</span>. Then:</p>
+<ol>
+<li>adding <span class="arithmatex">\(\tau_{e,f}\)</span> coordinatewise maps solutions to solutions, and every solution is
+   uniquely <span class="arithmatex">\(h+\tau_{e,f}\)</span> with <span class="arithmatex">\(h\in H\)</span>, namely with <span class="arithmatex">\((e,f)=(a_0+\lambda\cdot u,\,b_1)\)</span>;</li>
+<li>the map <span class="arithmatex">\(h\mapsto(u+v,\,u)\)</span> is a bijection from <span class="arithmatex">\(H\)</span> onto <span class="arithmatex">\(\ker M_1\)</span>, with inverse
+   <span class="arithmatex">\((s,t)\mapsto(u,v)=(t,s+t)\)</span>, <span class="arithmatex">\(a_0=b_0=\lambda\cdot t\)</span>, <span class="arithmatex">\(a_1=b_1=0\)</span>;</li>
+<li>consequently <span class="arithmatex">\(\Sigma(\mathcal C)\)</span> has exactly <span class="arithmatex">\(4\,|\ker M_1|\)</span> solutions.</li>
+</ol>
+<p><strong>Proof sketch.</strong> For class <span class="arithmatex">\(5\)</span>, <span class="arithmatex">\(\sum_x\lambda_x=0\)</span>, <span class="arithmatex">\(\sum_x\mu_x=1\)</span>, and the rows (D) read
+<span class="arithmatex">\(a_1=0\)</span>, <span class="arithmatex">\(b_1=\mu\cdot u\)</span>, <span class="arithmatex">\(\lambda\cdot v=\lambda\cdot u\)</span>. Monsky's matrix <span class="arithmatex">\(K\)</span> kills constant
+vectors, so adding <span class="arithmatex">\(\tau_{e,f}\)</span> preserves every row, and it changes
+<span class="arithmatex">\((a_0+\lambda\cdot u,\,b_1)\)</span> by <span class="arithmatex">\((e,f)\)</span>; this gives 1. By reciprocity <span class="arithmatex">\((Ls)_x=(Ks)_x\)</span> and
+<span class="arithmatex">\((L^{\mathsf T}t)_x=(Kt)_x+\lambda_x(\lambda\cdot t+t_x)\)</span>, so <span class="arithmatex">\(M_1(s,t)=0\)</span> reads
+<span class="arithmatex">\(Kt+\lambda*(s+t)=(\lambda\cdot s+\lambda\cdot t)\lambda\)</span> and <span class="arithmatex">\(Ks+\mu*t=0\)</span>; summing the rows
+gives <span class="arithmatex">\(\lambda\cdot s=0\)</span> and <span class="arithmatex">\(\mu\cdot t=0\)</span>. With these, the rows E1, E2, (R) and (D) for the
+tuple built from <span class="arithmatex">\((s,t)\)</span> are the two kernel equations, and conversely; the two maps are inverse
+on <span class="arithmatex">\(H\)</span> because <span class="arithmatex">\(a_1=0\)</span> and <span class="arithmatex">\(a_0=b_0\)</span> on solutions. Part 3 counts <span class="arithmatex">\(4\cdot|H|\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> card_sols_eq (h5 : 𝒞.prodClass = 5) :
+    𝒞.sols.card = 4 * Fintype.card {w // <a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.Config.M1c">M1c</a> 𝒞 *ᵥ w = 0}</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> hEquivKer (h5 : 𝒞.prodClass = 5) : {σ // <a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.Config.IsH">IsH</a> 𝒞 σ} ≃ {w // <a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.Config.M1c">M1c</a> 𝒞 *ᵥ w = 0} <span class="bp-lean-keyword">where</span>
+  toFun σ := ⟨<a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.Config.kvec">kvec</a> σ.1, <a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.Config.M1c_mulVec_kvec">M1c_mulVec_kvec</a> 𝒞 h5 σ.2⟩
+  invFun w := ⟨<a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.Config.ofKer">ofKer</a> 𝒞 w.1, <a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.Config.isH_ofKer">isH_ofKer</a> 𝒞 h5 w.2⟩
+  left_inv σ := Subtype.ext (<a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.Config.ofKer_kvec">ofKer_kvec</a> 𝒞 σ.2)
+  right_inv w := Subtype.ext (<a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.Config.kvec_ofKer">kvec_ofKer</a> 𝒞 w.1)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> solEquivTorsH (h5 : 𝒞.prodClass = 5) :
+    {σ // 𝒞.IsSol σ} ≃ (ZMod 2 × ZMod 2) × {σ // <a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.Config.IsH">IsH</a> 𝒞 σ} <span class="bp-lean-keyword">where</span>
+  toFun σ := (<a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.Config.torsCoord">torsCoord</a> 𝒞 σ.1, ⟨_, <a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.Config.isH_uadd_torsCoord">isH_uadd_torsCoord</a> 𝒞 h5 σ.2⟩)
+  invFun p := ⟨<a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.uadd">uadd</a> p.2.1 (<a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.tors">tors</a> p.1.1 p.1.2), (<a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.Config.isSol_uadd_tors">isSol_uadd_tors</a> 𝒞 h5 _ _ _).2 p.2.2.1⟩
+  left_inv σ := Subtype.ext (<a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.uadd_tors_tors">uadd_tors_tors</a> _ _ _)
+  right_inv p := <span class="bp-lean-keyword">by</span>
+    obtain ⟨⟨e, f⟩, h, hh⟩ := p
+    <span class="bp-lean-keyword">have</span> hl := lam_sum_of_five 𝒞 h5
+    <span class="bp-lean-keyword">have</span> hc : torsCoord 𝒞 (uadd h (tors e f)) = (e, f) := <span class="bp-lean-keyword">by</span>
+      <span class="bp-lean-keyword">have</span> hb := hh.2.1
+      simp only [torsCoord, uadd, tors, dot_add_right, dot_const, hl, ← hh.2.2, hb]
+      ext &lt;;&gt; simp only &lt;;&gt; grind
+    simp only [hc]
+    exact Prod.ext rfl (Subtype.ext (uadd_tors_tors _ _ _))</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank5b.Config.M1c">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> M1c : Matrix (ι ⊕ ι) (ι ⊕ ι) (ZMod 2) :=
+  fromBlocks (Lc 𝒞 + (Lc 𝒞)ᵀ) (Lc 𝒞)ᵀ (Lc 𝒞) (diagonal 𝒞.mu)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Matrices.lean:38</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.Config.IsH">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> IsH (σ : Unknowns ι) : <span class="bp-lean-keyword">Prop</span> := 𝒞.IsSol σ ∧ σ.b1 = 0 ∧ σ.a0 = dot 𝒞.lam σ.u</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Kernel.lean:179</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.Config.kvec">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> kvec (σ : Unknowns ι) : ι ⊕ ι → ZMod 2 := Sum.elim (σ.u + σ.v) σ.u</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Kernel.lean:184</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.Config.M1c_mulVec_kvec">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> M1c_mulVec_kvec (h5 : 𝒞.prodClass = 5) {σ : Unknowns ι} (hσ : IsH 𝒞 σ) :
+    M1c 𝒞 *ᵥ kvec σ = 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Kernel.lean:192</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.Config.ofKer">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ofKer (w : ι ⊕ ι → ZMod 2) : Unknowns ι :=
+  ⟨dot 𝒞.lam (w ∘ Sum.inr), 0, dot 𝒞.lam (w ∘ Sum.inr), 0, w ∘ Sum.inr,
+    w ∘ Sum.inl + w ∘ Sum.inr⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Kernel.lean:187</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.Config.isH_ofKer">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> isH_ofKer (h5 : 𝒞.prodClass = 5) {w : ι ⊕ ι → ZMod 2} (hw : M1c 𝒞 *ᵥ w = 0) :
+    IsH 𝒞 (ofKer 𝒞 w)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Kernel.lean:217</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.Config.ofKer_kvec">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> ofKer_kvec {σ : Unknowns ι} (hσ : IsH 𝒞 σ) : ofKer 𝒞 (kvec σ) = σ</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Kernel.lean:261</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.Config.kvec_ofKer">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> kvec_ofKer (w : ι ⊕ ι → ZMod 2) : kvec (ofKer 𝒞 w) = w</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Kernel.lean:254</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.Config.torsCoord">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> torsCoord (σ : Unknowns ι) : ZMod 2 × ZMod 2 := (σ.a0 + dot 𝒞.lam σ.u, σ.b1)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Kernel.lean:282</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.Config.isH_uadd_torsCoord">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> isH_uadd_torsCoord (h5 : 𝒞.prodClass = 5) {σ : Unknowns ι} (hσ : 𝒞.IsSol σ) :
+    IsH 𝒞 (uadd σ (tors (torsCoord 𝒞 σ).1 (torsCoord 𝒞 σ).2))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Kernel.lean:284</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.uadd">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> uadd {ι : <span class="bp-lean-keyword">Type</span>*} (σ τ : Unknowns ι) : Unknowns ι :=
+  ⟨σ.a0 + τ.a0, σ.a1 + τ.a1, σ.b0 + τ.b0, σ.b1 + τ.b1, σ.u + τ.u, σ.v + τ.v⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Kernel.lean:153</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.tors">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> tors {ι : <span class="bp-lean-keyword">Type</span>*} (e f : ZMod 2) : Unknowns ι := ⟨e, 0, e, f, <span class="bp-lean-keyword">fun</span> _ =&gt; f, <span class="bp-lean-keyword">fun</span> _ =&gt; e⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Kernel.lean:158</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.Config.isSol_uadd_tors">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> isSol_uadd_tors (h5 : 𝒞.prodClass = 5) (σ : Unknowns ι) (e f : ZMod 2) :
+    𝒞.IsSol (uadd σ (tors e f)) ↔ 𝒞.IsSol σ</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Kernel.lean:169</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.uadd_tors_tors">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> uadd_tors_tors {ι : <span class="bp-lean-keyword">Type</span>*} (σ : Unknowns ι) (e f : ZMod 2) :
+    uadd (uadd σ (tors e f)) (tors e f) = σ</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Kernel.lean:160</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/rank-5b-locators.html#lemma-41">Lemma 4.1</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../route-k/index.html#selmer-system">The Selmer system of a configuration</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#smith-matrices">Smith&#x27;s matrices <span class="arithmatex">\(L\)</span>, <span class="arithmatex">\(M_1\)</span> and <span class="arithmatex">\(M_{5b}\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#lemma-4-1">The 2-Selmer group and the kernel of <span class="arithmatex">\(M_1\)</span> (Lemma 4.1)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#theorem-4-3">The rule of row 5b (Theorem 4.3)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank-5b/lemma-4-1">
+<h4 class="bp-thmheading" id="lemma-4-1">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The 2-Selmer group and the kernel of <span class="arithmatex">\(M_1\)</span> (Lemma 4.1)</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Row5b.lean#L98" aria-label="View ZInQ.RouteK.Rank5b.sel2_ncard_eq_four_mul in Lean source" title="View ZInQ.RouteK.Rank5b.sel2_ncard_eq_four_mul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Row5b.lean#L108" aria-label="View ZInQ.RouteK.Rank5b.sel2HEquivKer in Lean source" title="View ZInQ.RouteK.Rank5b.sel2HEquivKer in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Row5b.lean#L121" aria-label="View ZInQ.RouteK.Rank5b.sel2HEquivKer_apply in Lean source" title="View ZInQ.RouteK.Rank5b.sel2HEquivKer_apply in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Row5b.lean#L90" aria-label="View ZInQ.RouteK.Rank5b.sel2_ncard_eq_card_sols in Lean source" title="View ZInQ.RouteK.Rank5b.sel2_ncard_eq_card_sols in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Row5b.lean#L78" aria-label="View ZInQ.RouteK.Rank5b.sel2_eq_image in Lean source" title="View ZInQ.RouteK.Rank5b.sel2_eq_image in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank-5b/lemma-4-1.md" aria-label="Edit the Markdown source for The 2-Selmer group and the kernel of $M_1$ (Lemma 4.1)" title="Edit the Markdown source for The 2-Selmer group and the kernel of $M_1$ (Lemma 4.1)"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#lemma-4-1" aria-label="Link to The 2-Selmer group and the kernel of M₁ (Lemma 4.1)" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank5b.sel2_ncard_eq_four_mul ZInQ.RouteK.Rank5b.sel2HEquivKer ZInQ.RouteK.Rank5b.sel2HEquivKer_apply ZInQ.RouteK.Rank5b.sel2_ncard_eq_card_sols ZInQ.RouteK.Rank5b.sel2_eq_image</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(n&gt;0\)</span> be squarefree with <span class="arithmatex">\(n\equiv5\pmod8\)</span>. To a tuple <span class="arithmatex">\((a_0,a_1,b_0,b_1,u,v)\)</span> over the
+primes of <span class="arithmatex">\(n\)</span> attach the pair <span class="arithmatex">\(a=(-1)^{a_0}2^{a_1}\prod_pp^{u_p}\)</span>,
+<span class="arithmatex">\(b=(-1)^{b_0}2^{b_1}\prod_pp^{v_p}\)</span>. Then <span class="arithmatex">\(\mathrm{Sel}_2(C_n)\)</span> is exactly the set of pairs of the
+solutions of <span class="arithmatex">\(\Sigma(\mathcal C_n)\)</span>, and
+$<span class="arithmatex">\(|\mathrm{Sel}_2(C_n)|=4\,|\ker M_1|,\qquad\text{that is}\qquad
+\dim\mathrm{Sel}_2(C_n)=2+\operatorname{corank}M_1 .\)</span>$
+Moreover the tuples whose pair lies in <span class="arithmatex">\(\mathrm{Sel}_2(C_n)\)</span> and which have <span class="arithmatex">\(b_1=0\)</span> (<span class="arithmatex">\(b\)</span> odd) and
+<span class="arithmatex">\(a_0=y\cdot u\)</span> (<span class="arithmatex">\(a\equiv1\pmod4\)</span>) form a subspace <span class="arithmatex">\(H\)</span>, and <span class="arithmatex">\((u,v)\mapsto(u+v,\,u)\)</span> is a bijection
+from <span class="arithmatex">\(H\)</span> onto <span class="arithmatex">\(\ker M_1\)</span>; here <span class="arithmatex">\(u+v\)</span> and <span class="arithmatex">\(u\)</span> are the indicator vectors of the primes dividing <span class="arithmatex">\(ab\)</span>
+and <span class="arithmatex">\(a\)</span>.</p>
+<p><strong>Proof sketch.</strong> By Proposition 0 a tuple solves <span class="arithmatex">\(\Sigma(\mathcal C_n)\)</span> exactly when its pair
+lies in <span class="arithmatex">\(\mathrm{Sel}_2(C_n)\)</span>, every Selmer class is such a pair, and distinct tuples give distinct
+pairs. The configuration of <span class="arithmatex">\(n\)</span> has product class <span class="arithmatex">\(5\)</span>, and its matrix <span class="arithmatex">\(M_1\)</span> is that of <span class="arithmatex">\(n\)</span>; the
+statement is the class-5 statement for the configuration of <span class="arithmatex">\(n\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> sel2_ncard_eq_four_mul (hd5 : d % 8 = 5) (hsq : Squarefree d) :
+    (<a class="bp-lean-ref" href="../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d).ncard = 4 * Fintype.card {w // <a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.M1">M1</a> d *ᵥ w = 0}</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> sel2HEquivKer (hd5 : d % 8 = 5) (hsq : Squarefree d) :
+    {σ : <a class="bp-lean-ref" href="../route-k/index.html#selmer-system" data-lean-name="ZInQ.RouteK.Unknowns">Unknowns</a> d.primeFactors //
+      <a class="bp-lean-ref" href="../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.selPair">selPair</a> d σ ∈ <a class="bp-lean-ref" href="../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d ∧ σ.b1 = 0 ∧ σ.a0 = <a class="bp-lean-ref" href="../route-k/index.html#selmer-system" data-lean-name="ZInQ.RouteK.dot">dot</a> (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.yBit">yBit</a> d) σ.u} ≃
+      {w // <a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.M1">M1</a> d *ᵥ w = 0} := <span class="bp-lean-keyword">by</span>
+  <span class="bp-lean-keyword">have</span> hd := odd_of_mod_eight_eq_five hd5
+  <span class="bp-lean-keyword">have</span> h5 : (natConfig d hd).prodClass = 5 := <span class="bp-lean-keyword">by</span>
+    rw [natConfig_prodClass hd hsq, natCast_zmod8_of_mod hd5]; rfl
+  <span class="bp-lean-keyword">have</span> hy : (natConfig d hd).lam = yBit d := funext (natConfig_lam_eq_yBit hd)
+  refine (Equiv.subtypeEquivRight <span class="bp-lean-keyword">fun</span> σ =&gt; ?_).trans
+    ((Config.hEquivKer _ h5).trans (Equiv.subtypeEquivRight <span class="bp-lean-keyword">fun</span> w =&gt; ?_))
+  · rw [Config.IsH, prop0 hd5 hsq, hy]
+  · rw [M1_eq_M1c hd]</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> sel2HEquivKer_apply (hd5 : d % 8 = 5) (hsq : Squarefree d) (σ) :
+    (<a class="bp-lean-ref" href="#lemma-4-1" data-lean-name="ZInQ.RouteK.Rank5b.sel2HEquivKer">sel2HEquivKer</a> hd5 hsq σ).1 = Sum.elim (σ.1.u + σ.1.v) σ.1.u</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.Sel2">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Sel2 (d : ℕ) : Set (ℤ × ℤ) :=
+  {ab | Squarefree ab.1 ∧ Squarefree ab.2 ∧ Loc ℝ d ab.1 ab.2 ∧
+    ∀ (p : ℕ) [Fact p.Prime], Loc ℚ_[p] d ab.1 ab.2}</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:346</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.M1">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> M1 (d : ℕ) :
+    Matrix (d.primeFactors ⊕ d.primeFactors) (d.primeFactors ⊕ d.primeFactors) (ZMod 2) :=
+  fromBlocks (Lmat d + (Lmat d)ᵀ) (Lmat d)ᵀ (Lmat d) (diagonal (zBit d))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Matrices.lean:68</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Unknowns">
+<pre class="bp-lean"><code>@[ext]
+<span class="bp-lean-keyword">structure</span> Unknowns (ι : <span class="bp-lean-keyword">Type</span>*) <span class="bp-lean-keyword">where</span>
+  a0 : ZMod 2
+  a1 : ZMod 2
+  b0 : ZMod 2
+  b1 : ZMod 2
+  u : ι → ZMod 2
+  v : ι → ZMod 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/System/Selmer.lean:24</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.selPair">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> selPair (d : ℕ) (σ : Unknowns d.primeFactors) : ℤ × ℤ :=
+  (classInt d σ.a0 σ.a1 σ.u, classInt d σ.b0 σ.b1 σ.v)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:400</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.dot">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> dot {ι : <span class="bp-lean-keyword">Type</span>*} [Fintype ι] (f g : ι → ZMod 2) : ZMod 2 := ∑ x, f x * g x</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/System/Selmer.lean:78</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.yBit">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> yBit (d : ℕ) (i : d.primeFactors) : ZMod 2 := lamBit (i : ℕ)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Matrices.lean:57</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.sel2HEquivKer">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> sel2HEquivKer (hd5 : d % 8 = 5) (hsq : Squarefree d) :
+    {σ : Unknowns d.primeFactors //
+      selPair d σ ∈ Sel2 d ∧ σ.b1 = 0 ∧ σ.a0 = dot (yBit d) σ.u} ≃
+      {w // M1 d *ᵥ w = 0} := <span class="bp-lean-keyword">by</span>
+  <span class="bp-lean-keyword">have</span> hd := odd_of_mod_eight_eq_five hd5
+  <span class="bp-lean-keyword">have</span> h5 : (natConfig d hd).prodClass = 5 := <span class="bp-lean-keyword">by</span>
+    rw [natConfig_prodClass hd hsq, natCast_zmod8_of_mod hd5]; rfl
+  <span class="bp-lean-keyword">have</span> hy : (natConfig d hd).lam = yBit d := funext (natConfig_lam_eq_yBit hd)
+  refine (Equiv.subtypeEquivRight <span class="bp-lean-keyword">fun</span> σ =&gt; ?_).trans
+    ((Config.hEquivKer _ h5).trans (Equiv.subtypeEquivRight <span class="bp-lean-keyword">fun</span> w =&gt; ?_))
+  · rw [Config.IsH, prop0 hd5 hsq, hy]
+  · rw [M1_eq_M1c hd]</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Row5b.lean:108</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/rank-5b-locators.html#lemma-41">Lemma 4.1</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#smith-matrices">Smith&#x27;s matrices <span class="arithmatex">\(L\)</span>, <span class="arithmatex">\(M_1\)</span> and <span class="arithmatex">\(M_{5b}\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../selmer/index.html#proposition-0">Proposition 0</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#kernel-class-five">The Selmer system of a class-5 configuration and the kernel of <span class="arithmatex">\(M_1\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#theorem-4-3">The rule of row 5b (Theorem 4.3)</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-determinant">The determinant</h2>
+<p>On a Selmer-minimal curve <span class="arithmatex">\(M_1\)</span> has corank one, and <span class="arithmatex">\(M_{5b}\)</span> is <span class="arithmatex">\(M_1\)</span> bordered by <span class="arithmatex">\((0,y)\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank-5b/lemma-4-2">
+<h4 class="bp-thmheading" id="lemma-4-2">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The bordered determinant (Lemma 4.2)</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Bordered.lean#L37" aria-label="View ZInQ.RouteK.Rank5b.det_border_eq_dotProduct in Lean source" title="View ZInQ.RouteK.Rank5b.det_border_eq_dotProduct in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Bordered.lean#L27" aria-label="View ZInQ.RouteK.Rank5b.border_mulVec_inl in Lean source" title="View ZInQ.RouteK.Rank5b.border_mulVec_inl in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Bordered.lean#L31" aria-label="View ZInQ.RouteK.Rank5b.border_mulVec_inr in Lean source" title="View ZInQ.RouteK.Rank5b.border_mulVec_inr in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Bordered.lean#L24" aria-label="View ZInQ.RouteK.Rank5b.zmod2_eq_zero_or_one&#x27; in Lean source" title="View ZInQ.RouteK.Rank5b.zmod2_eq_zero_or_one&#x27; in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank-5b/lemma-4-2.md" aria-label="Edit the Markdown source for The bordered determinant (Lemma 4.2)" title="Edit the Markdown source for The bordered determinant (Lemma 4.2)"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#lemma-4-2" aria-label="Link to The bordered determinant (Lemma 4.2)" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank5b.det_border_eq_dotProduct ZInQ.RouteK.Rank5b.border_mulVec_inl ZInQ.RouteK.Rank5b.border_mulVec_inr ZInQ.RouteK.Rank5b.zmod2_eq_zero_or_one&#x27;</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(M\)</span> be a symmetric square matrix over <span class="arithmatex">\(\mathbb F_2\)</span> of corank one, whose kernel is
+<span class="arithmatex">\(\{0,k\}\)</span> with <span class="arithmatex">\(k\ne0\)</span>. Then for every vector <span class="arithmatex">\(v\)</span>,
+$<span class="arithmatex">\(\det\begin{pmatrix}M&amp;v\\ v^{\mathsf T}&amp;0\end{pmatrix}=v\cdot k .\)</span>$</p>
+<p><strong>Proof sketch.</strong> If <span class="arithmatex">\(v\cdot k=0\)</span>, the vector <span class="arithmatex">\((k,0)\)</span> is a nonzero kernel vector of the bordered
+matrix, whose determinant is therefore <span class="arithmatex">\(0\)</span>. If <span class="arithmatex">\(v\cdot k=1\)</span>, let <span class="arithmatex">\((w,t)\)</span> be in the kernel:
+<span class="arithmatex">\(Mw+tv=0\)</span> and <span class="arithmatex">\(v\cdot w=0\)</span>. Pairing the first equation with <span class="arithmatex">\(k\)</span> and using
+<span class="arithmatex">\(k^{\mathsf T}M=(Mk)^{\mathsf T}=0\)</span> gives <span class="arithmatex">\(t(v\cdot k)=t=0\)</span>; then <span class="arithmatex">\(Mw=0\)</span>, so <span class="arithmatex">\(w\in\{0,k\}\)</span>, and
+<span class="arithmatex">\(v\cdot w=0\ne v\cdot k\)</span> forces <span class="arithmatex">\(w=0\)</span>. The kernel is trivial, so the determinant is the nonzero
+element <span class="arithmatex">\(1\)</span> of <span class="arithmatex">\(\mathbb F_2\)</span>. (The note's proof uses <span class="arithmatex">\(\operatorname{adj}M=kk^{\mathsf T}\)</span> instead.)</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> det_border_eq_dotProduct [DecidableEq ι] (M : Matrix ι ι (ZMod 2)) (hM : Mᵀ = M) (k : ι → ZMod 2)
+    (hk0 : k ≠ 0) (hk : M *ᵥ k = 0) (hker : ∀ w, M *ᵥ w = 0 → w = 0 ∨ w = k)
+    (v : ι → ZMod 2) : (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.border">border</a> M v).det = v ⬝ᵥ k</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> border_mulVec_inl (M : Matrix ι ι (ZMod 2)) (v : ι → ZMod 2) (x : ι ⊕ Unit → ZMod 2)
+    (i : ι) : (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.border">border</a> M v *ᵥ x) (Sum.inl i) = (M *ᵥ (x ∘ Sum.inl)) i + v i * x (Sum.inr ())</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> border_mulVec_inr (M : Matrix ι ι (ZMod 2)) (v : ι → ZMod 2) (x : ι ⊕ Unit → ZMod 2) :
+    (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.border">border</a> M v *ᵥ x) (Sum.inr ()) = v ⬝ᵥ (x ∘ Sum.inl)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank5b.border">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> border {R : <span class="bp-lean-keyword">Type</span>*} [Zero R] (M : Matrix ι ι R) (v : ι → R) : Matrix (ι ⊕ Unit) (ι ⊕ Unit) R :=
+  Matrix.fromBlocks M (replicateCol Unit v) (replicateRow Unit v) 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Bordered.lean:21</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/rank-5b-locators.html#lemma-42">Lemma 4.2</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#theorem-4-3">The rule of row 5b (Theorem 4.3)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank-5b/theorem-4-3">
+<h4 class="bp-thmheading" id="theorem-4-3">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The rule of row 5b (Theorem 4.3)</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Row5b.lean#L129" aria-label="View ZInQ.RouteK.Rank5b.det_M5b_eq_dot in Lean source" title="View ZInQ.RouteK.Rank5b.det_M5b_eq_dot in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Row5b.lean#L37" aria-label="View ZInQ.RouteK.Rank5b.Config.det_M5bc_eq in Lean source" title="View ZInQ.RouteK.Rank5b.Config.det_M5bc_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Row5b.lean#L28" aria-label="View ZInQ.RouteK.Rank5b.Config.ofKer_zero in Lean source" title="View ZInQ.RouteK.Rank5b.Config.ofKer_zero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Row5b.lean#L32" aria-label="View ZInQ.RouteK.Rank5b.Config.uadd_tors_zero_zero in Lean source" title="View ZInQ.RouteK.Rank5b.Config.uadd_tors_zero_zero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank-5b/theorem-4-3.md" aria-label="Edit the Markdown source for The rule of row 5b (Theorem 4.3)" title="Edit the Markdown source for The rule of row 5b (Theorem 4.3)"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#theorem-4-3" aria-label="Link to The rule of row 5b (Theorem 4.3)" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank5b.det_M5b_eq_dot ZInQ.RouteK.Rank5b.Config.det_M5bc_eq ZInQ.RouteK.Rank5b.Config.ofKer_zero ZInQ.RouteK.Rank5b.Config.uadd_tors_zero_zero</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(n&gt;0\)</span> be squarefree with <span class="arithmatex">\(n\equiv5\pmod8\)</span> and <span class="arithmatex">\(|\mathrm{Sel}_2(C_n)|=8\)</span>. Let
+<span class="arithmatex">\((a_0,a_1,b_0,b_1,u,v)\)</span> be a tuple over the primes of <span class="arithmatex">\(n\)</span> whose pair <span class="arithmatex">\((a,b)\)</span> lies in
+<span class="arithmatex">\(\mathrm{Sel}_2(C_n)\)</span> and which is not one of the four torsion tuples <span class="arithmatex">\(\tau_{e,f}\)</span> (the classes of
+<span class="arithmatex">\((-1,-n)^e(n,2)^f\)</span>). Then
+$<span class="arithmatex">\(\det M_{5b}=y\cdot u=\sum_{p\mid a}y_p ,\)</span>$
+the parity of the number of primes <span class="arithmatex">\(p\equiv3\pmod4\)</span> dividing <span class="arithmatex">\(a\)</span>.</p>
+<p><strong>Proof sketch.</strong> By Proposition 0 the tuple solves <span class="arithmatex">\(\Sigma(\mathcal C_n)\)</span>, which has <span class="arithmatex">\(8\)</span>
+solutions, so by Lemma 4.1 <span class="arithmatex">\(|\ker M_1|=2\)</span>. Subtracting from the tuple its torsion part
+<span class="arithmatex">\(\tau_{e,f}\)</span> with <span class="arithmatex">\((e,f)=(a_0+y\cdot u,\,b_1)\)</span> gives an element <span class="arithmatex">\(h\)</span> of <span class="arithmatex">\(H\)</span>, and
+<span class="arithmatex">\(k=(u_h+v_h,\,u_h)\)</span> is a nonzero element of <span class="arithmatex">\(\ker M_1\)</span> (it is nonzero because the tuple is not
+torsion), so <span class="arithmatex">\(\ker M_1=\{0,k\}\)</span>. <span class="arithmatex">\(M_1\)</span> is symmetric and <span class="arithmatex">\(M_{5b}\)</span> is <span class="arithmatex">\(M_1\)</span> bordered by <span class="arithmatex">\((0,y)\)</span>, so
+Lemma 4.2 gives <span class="arithmatex">\(\det M_{5b}=(0,y)\cdot k=y\cdot u_h\)</span>. Finally <span class="arithmatex">\(u_h=u+f\mathbf 1\)</span> and
+<span class="arithmatex">\(y\cdot\mathbf 1=0\)</span> since <span class="arithmatex">\(n\equiv1\pmod4\)</span>, so <span class="arithmatex">\(y\cdot u_h=y\cdot u\)</span>. The proof does this for any
+configuration of class <span class="arithmatex">\(5\)</span> whose system has <span class="arithmatex">\(8\)</span> solutions, and specializes to the configuration
+of <span class="arithmatex">\(n\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> det_M5b_eq_dot (hd5 : d % 8 = 5) (hsq : Squarefree d) (h8 : (<a class="bp-lean-ref" href="../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d).ncard = 8)
+    {σ : <a class="bp-lean-ref" href="../route-k/index.html#selmer-system" data-lean-name="ZInQ.RouteK.Unknowns">Unknowns</a> d.primeFactors} (hσ : <a class="bp-lean-ref" href="../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.selPair">selPair</a> d σ ∈ <a class="bp-lean-ref" href="../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d) (hnt : ∀ e f, σ ≠ <a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.tors">tors</a> e f) :
+    (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.M5b">M5b</a> d).det = <a class="bp-lean-ref" href="../route-k/index.html#selmer-system" data-lean-name="ZInQ.RouteK.dot">dot</a> (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.yBit">yBit</a> d) σ.u</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> det_M5bc_eq (h5 : 𝒞.prodClass = 5) (h8 : 𝒞.sols.card = 8) {σ : <a class="bp-lean-ref" href="../route-k/index.html#selmer-system" data-lean-name="ZInQ.RouteK.Unknowns">Unknowns</a> ι}
+    (hσ : 𝒞.IsSol σ) (hnt : ∀ e f, σ ≠ <a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.tors">tors</a> e f) : (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.Config.M5bc">M5bc</a> 𝒞).det = <a class="bp-lean-ref" href="../route-k/index.html#selmer-system" data-lean-name="ZInQ.RouteK.dot">dot</a> 𝒞.lam σ.u</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> ofKer_zero : <a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.Config.ofKer">ofKer</a> 𝒞 0 = <a class="bp-lean-ref" href="#kernel-class-five" data-lean-name="ZInQ.RouteK.Rank5b.tors">tors</a> 0 0</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.Sel2">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Sel2 (d : ℕ) : Set (ℤ × ℤ) :=
+  {ab | Squarefree ab.1 ∧ Squarefree ab.2 ∧ Loc ℝ d ab.1 ab.2 ∧
+    ∀ (p : ℕ) [Fact p.Prime], Loc ℚ_[p] d ab.1 ab.2}</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:346</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Unknowns">
+<pre class="bp-lean"><code>@[ext]
+<span class="bp-lean-keyword">structure</span> Unknowns (ι : <span class="bp-lean-keyword">Type</span>*) <span class="bp-lean-keyword">where</span>
+  a0 : ZMod 2
+  a1 : ZMod 2
+  b0 : ZMod 2
+  b1 : ZMod 2
+  u : ι → ZMod 2
+  v : ι → ZMod 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/System/Selmer.lean:24</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.selPair">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> selPair (d : ℕ) (σ : Unknowns d.primeFactors) : ℤ × ℤ :=
+  (classInt d σ.a0 σ.a1 σ.u, classInt d σ.b0 σ.b1 σ.v)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:400</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.tors">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> tors {ι : <span class="bp-lean-keyword">Type</span>*} (e f : ZMod 2) : Unknowns ι := ⟨e, 0, e, f, <span class="bp-lean-keyword">fun</span> _ =&gt; f, <span class="bp-lean-keyword">fun</span> _ =&gt; e⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Kernel.lean:158</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.M5b">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> M5b (d : ℕ) :
+    Matrix ((d.primeFactors ⊕ d.primeFactors) ⊕ Unit)
+      ((d.primeFactors ⊕ d.primeFactors) ⊕ Unit) (ZMod 2) :=
+  border (M1 d) (Sum.elim 0 (yBit d))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Matrices.lean:74</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.dot">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> dot {ι : <span class="bp-lean-keyword">Type</span>*} [Fintype ι] (f g : ι → ZMod 2) : ZMod 2 := ∑ x, f x * g x</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/System/Selmer.lean:78</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.yBit">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> yBit (d : ℕ) (i : d.primeFactors) : ZMod 2 := lamBit (i : ℕ)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Matrices.lean:57</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.Config.M5bc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> M5bc : Matrix ((ι ⊕ ι) ⊕ Unit) ((ι ⊕ ι) ⊕ Unit) (ZMod 2) :=
+  border (M1c 𝒞) (Sum.elim 0 𝒞.lam)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Matrices.lean:42</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.Config.ofKer">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ofKer (w : ι ⊕ ι → ZMod 2) : Unknowns ι :=
+  ⟨dot 𝒞.lam (w ∘ Sum.inr), 0, dot 𝒞.lam (w ∘ Sum.inr), 0, w ∘ Sum.inr,
+    w ∘ Sum.inl + w ∘ Sum.inr⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Kernel.lean:187</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/rank-5b-locators.html#theorem-43">Theorem 4.3</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#smith-matrices">Smith&#x27;s matrices <span class="arithmatex">\(L\)</span>, <span class="arithmatex">\(M_1\)</span> and <span class="arithmatex">\(M_{5b}\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../selmer/index.html#proposition-0">Proposition 0</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#lemma-4-1">The 2-Selmer group and the kernel of <span class="arithmatex">\(M_1\)</span> (Lemma 4.1)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#kernel-class-five">The Selmer system of a class-5 configuration and the kernel of <span class="arithmatex">\(M_1\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#lemma-4-2">The bordered determinant (Lemma 4.2)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#corollary-4-4">A first coordinate congruent to 7 forces <span class="arithmatex">\(\det M_{5b}=1\)</span> (Corollary 4.4)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank-5b/corollary-4-4">
+<h4 class="bp-thmheading" id="corollary-4-4">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">A first coordinate congruent to 7 forces <span class="arithmatex">\(\det M_{5b}=1\)</span> (Corollary 4.4)</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Row5b.lean#L160" aria-label="View ZInQ.RouteK.Rank5b.det_M5b_eq_one in Lean source" title="View ZInQ.RouteK.Rank5b.det_M5b_eq_one in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Row5b.lean#L140" aria-label="View ZInQ.RouteK.Rank5b.natAbs_classInt_zero in Lean source" title="View ZInQ.RouteK.Rank5b.natAbs_classInt_zero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Row5b.lean#L148" aria-label="View ZInQ.RouteK.Rank5b.lam8_prod_pow in Lean source" title="View ZInQ.RouteK.Rank5b.lam8_prod_pow in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank-5b/corollary-4-4.md" aria-label="Edit the Markdown source for A first coordinate congruent to 7 forces $\det M_{5b}=1$ (Corollary 4.4)" title="Edit the Markdown source for A first coordinate congruent to 7 forces $\det M_{5b}=1$ (Corollary 4.4)"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#corollary-4-4" aria-label="Link to A first coordinate congruent to 7 forces det M_5b=1 (Corollary 4.4)" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank5b.det_M5b_eq_one ZInQ.RouteK.Rank5b.natAbs_classInt_zero ZInQ.RouteK.Rank5b.lam8_prod_pow</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(n&gt;0\)</span> be squarefree with <span class="arithmatex">\(n\equiv5\pmod8\)</span> and <span class="arithmatex">\(|\mathrm{Sel}_2(C_n)|=8\)</span>. If some
+<span class="arithmatex">\((a,b)\in\mathrm{Sel}_2(C_n)\)</span> has <span class="arithmatex">\(|a|\equiv7\pmod8\)</span>, then <span class="arithmatex">\(\det M_{5b}=1\)</span>.</p>
+<p><strong>Proof sketch.</strong> Write <span class="arithmatex">\((a,b)\)</span> as the pair of a solution of <span class="arithmatex">\(\Sigma(\mathcal C_n)\)</span> (Proposition 0).
+For class <span class="arithmatex">\(5\)</span> the solution has <span class="arithmatex">\(a_1=0\)</span>, so <span class="arithmatex">\(|a|=\prod_pp^{u_p}\)</span>, and its class modulo <span class="arithmatex">\(4\)</span> gives
+<span class="arithmatex">\(y\cdot u=[\,|a|\equiv3\pmod4\,]=1\)</span>. The solution is not torsion: the torsion first coordinates
+have absolute value <span class="arithmatex">\(1\)</span> or <span class="arithmatex">\(n\)</span>, both <span class="arithmatex">\(\equiv1\pmod4\)</span>. Theorem 4.3 gives <span class="arithmatex">\(\det M_{5b}=y\cdot u=1\)</span>.</p>
+<p>The note states the corollary for a first coordinate with odd part <span class="arithmatex">\(\equiv3\pmod4\)</span>; the
+statement here takes the shape <span class="arithmatex">\(|a|\equiv7\pmod8\)</span> of the hypothesis CR₃^Sel, a special case.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> det_M5b_eq_one (hd5 : d % 8 = 5) (hsq : Squarefree d) (h8 : (<a class="bp-lean-ref" href="../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d).ncard = 8)
+    {ab : ℤ × ℤ} (hab : ab ∈ <a class="bp-lean-ref" href="../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d) (h7 : ab.1.natAbs % 8 = 7) : (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.M5b">M5b</a> d).det = 1</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> natAbs_classInt_zero (e₀ : ZMod 2) (w : d.primeFactors → ZMod 2) :
+    (<a class="bp-lean-ref" href="../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.classInt">classInt</a> d e₀ 0 w).natAbs = ∏ p : d.primeFactors, (p : ℕ) ^ (w p).val</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> lam8_prod_pow (hd : Odd d) (w : d.primeFactors → ZMod 2) :
+    <a class="bp-lean-ref" href="../route-k/index.html#configuration" data-lean-name="ZInQ.RouteK.lam8">lam8</a> ((∏ p : d.primeFactors, (p : ℕ) ^ (w p).val : ℕ) : ZMod 8) = <a class="bp-lean-ref" href="../route-k/index.html#selmer-system" data-lean-name="ZInQ.RouteK.dot">dot</a> (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.yBit">yBit</a> d) w</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.Sel2">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Sel2 (d : ℕ) : Set (ℤ × ℤ) :=
+  {ab | Squarefree ab.1 ∧ Squarefree ab.2 ∧ Loc ℝ d ab.1 ab.2 ∧
+    ∀ (p : ℕ) [Fact p.Prime], Loc ℚ_[p] d ab.1 ab.2}</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:346</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.M5b">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> M5b (d : ℕ) :
+    Matrix ((d.primeFactors ⊕ d.primeFactors) ⊕ Unit)
+      ((d.primeFactors ⊕ d.primeFactors) ⊕ Unit) (ZMod 2) :=
+  border (M1 d) (Sum.elim 0 (yBit d))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Matrices.lean:74</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.classInt">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> classInt (d : ℕ) (e₀ e₁ : ZMod 2) (w : d.primeFactors → ZMod 2) : ℤ :=
+  (-1) ^ e₀.val * 2 ^ e₁.val * ∏ p : d.primeFactors, (p : ℤ) ^ (w p).val</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:396</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.lam8">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> lam8 (c : ZMod 8) : ZMod 2 := <span class="bp-lean-keyword">if</span> c = 3 ∨ c = 7 <span class="bp-lean-keyword">then</span> 1 <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/System/Config.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.dot">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> dot {ι : <span class="bp-lean-keyword">Type</span>*} [Fintype ι] (f g : ι → ZMod 2) : ZMod 2 := ∑ x, f x * g x</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/System/Selmer.lean:78</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.yBit">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> yBit (d : ℕ) (i : d.primeFactors) : ZMod 2 := lamBit (i : ℕ)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Matrices.lean:57</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/rank-5b-locators.html#corollary-44">Corollary 4.4</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#smith-matrices">Smith&#x27;s matrices <span class="arithmatex">\(L\)</span>, <span class="arithmatex">\(M_1\)</span> and <span class="arithmatex">\(M_{5b}\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../selmer/index.html#proposition-0">Proposition 0</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#theorem-4-3">The rule of row 5b (Theorem 4.3)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#certified-rank-sel-of-5b">CR₃^5b implies CR₃^Sel</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../rank/index.html#certified-rank-rk-of-tyz-rk">CR₃^TYZ,Rk implies CR₃^Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../rank/two-curves/index.html#certified-rank-dl-rk-of-tyz-rk">CR₃^DL,Rk from CR₃^TYZ,Rk</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank-5b/cross-checks">
+<h4 class="bp-thmheading" id="cross-checks">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Two values of the row-5b determinant</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Check.lean#L127" aria-label="View ZInQ.RouteK.Rank5b.det_M5b_21 in Lean source" title="View ZInQ.RouteK.Rank5b.det_M5b_21 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Check.lean#L138" aria-label="View ZInQ.RouteK.Rank5b.det_M5b_5 in Lean source" title="View ZInQ.RouteK.Rank5b.det_M5b_5 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Check.lean#L22" aria-label="View ZInQ.RouteK.Rank5b.Config.M5bc_of_iso in Lean source" title="View ZInQ.RouteK.Rank5b.Config.M5bc_of_iso in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Check.lean#L48" aria-label="View ZInQ.RouteK.Rank5b.Config.det_M5bc_of_iso in Lean source" title="View ZInQ.RouteK.Rank5b.Config.det_M5bc_of_iso in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Check.lean#L58" aria-label="View ZInQ.RouteK.Rank5b.primeFactors_21 in Lean source" title="View ZInQ.RouteK.Rank5b.primeFactors_21 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Check.lean#L63" aria-label="View ZInQ.RouteK.Rank5b.legBit_3_7 in Lean source" title="View ZInQ.RouteK.Rank5b.legBit_3_7 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Check.lean#L66" aria-label="View ZInQ.RouteK.Rank5b.legBit_7_3 in Lean source" title="View ZInQ.RouteK.Rank5b.legBit_7_3 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Check.lean#L72" aria-label="View ZInQ.RouteK.Rank5b.enum21 in Lean source" title="View ZInQ.RouteK.Rank5b.enum21 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Check.lean#L74" aria-label="View ZInQ.RouteK.Rank5b.enum21_inj in Lean source" title="View ZInQ.RouteK.Rank5b.enum21_inj in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Check.lean#L77" aria-label="View ZInQ.RouteK.Rank5b.enum21_prime in Lean source" title="View ZInQ.RouteK.Rank5b.enum21_prime in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Check.lean#L80" aria-label="View ZInQ.RouteK.Rank5b.enum21_mem in Lean source" title="View ZInQ.RouteK.Rank5b.enum21_mem in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Check.lean#L84" aria-label="View ZInQ.RouteK.Rank5b.equiv21 in Lean source" title="View ZInQ.RouteK.Rank5b.equiv21 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Check.lean#L93" aria-label="View ZInQ.RouteK.Rank5b.idx5 in Lean source" title="View ZInQ.RouteK.Rank5b.idx5 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Check.lean#L103" aria-label="View ZInQ.RouteK.Rank5b.M5bc_primeCfg_21 in Lean source" title="View ZInQ.RouteK.Rank5b.M5bc_primeCfg_21 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Check.lean#L135" aria-label="View ZInQ.RouteK.Rank5b.primeFactors_5 in Lean source" title="View ZInQ.RouteK.Rank5b.primeFactors_5 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank-5b/cross-checks.md" aria-label="Edit the Markdown source for Two values of the row-5b determinant" title="Edit the Markdown source for Two values of the row-5b determinant"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#cross-checks" aria-label="Link to Two values of the row-5b determinant" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank5b.det_M5b_21 ZInQ.RouteK.Rank5b.det_M5b_5 ZInQ.RouteK.Rank5b.Config.M5bc_of_iso ZInQ.RouteK.Rank5b.Config.det_M5bc_of_iso ZInQ.RouteK.Rank5b.primeFactors_21 ZInQ.RouteK.Rank5b.legBit_3_7 ZInQ.RouteK.Rank5b.legBit_7_3 ZInQ.RouteK.Rank5b.enum21 ZInQ.RouteK.Rank5b.enum21_inj ZInQ.RouteK.Rank5b.enum21_prime ZInQ.RouteK.Rank5b.enum21_mem ZInQ.RouteK.Rank5b.equiv21 ZInQ.RouteK.Rank5b.idx5 ZInQ.RouteK.Rank5b.M5bc_primeCfg_21 ZInQ.RouteK.Rank5b.primeFactors_5</div>
+<div class="bp-thmcontent">
+<p>For <span class="arithmatex">\(n=21=3\cdot7\)</span>, <span class="arithmatex">\(\det M_{5b}=1\)</span>; for <span class="arithmatex">\(n=5\)</span>, <span class="arithmatex">\(\det M_{5b}=0\)</span>.</p>
+<p>For <span class="arithmatex">\(n=21\)</span> this agrees with Corollary 4.4: by the note's computations, which are not part of
+this statement, <span class="arithmatex">\(C_{21}\)</span> has a Selmer group with <span class="arithmatex">\(8\)</span> elements and <span class="arithmatex">\(7\)</span> is a first coordinate.</p>
+<p><strong>Proof sketch.</strong> The determinant is unchanged when the primes are relabelled. For <span class="arithmatex">\(21\)</span>, with
+the primes listed as <span class="arithmatex">\((3,7)\)</span>, the bits are <span class="arithmatex">\((7/3)_+=0\)</span> and <span class="arithmatex">\((3/7)_+=1\)</span>, <span class="arithmatex">\(y_3=y_7=1\)</span>, <span class="arithmatex">\(z_3=1\)</span>,
+<span class="arithmatex">\(z_7=0\)</span>, and the <span class="arithmatex">\(5\times5\)</span> determinant over <span class="arithmatex">\(\mathbb F_2\)</span> is expanded along rows, a finite
+computation. For <span class="arithmatex">\(5\)</span>, <span class="arithmatex">\(y_5=0\)</span>, so the bordering row of <span class="arithmatex">\(M_{5b}\)</span> vanishes.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> det_M5b_21 : (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.M5b">M5b</a> 21).det = 1</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> det_M5b_5 : (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.M5b">M5b</a> 5).det = 0</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> M5bc_of_iso (𝒞 : <a class="bp-lean-ref" href="../route-k/index.html#configuration" data-lean-name="ZInQ.RouteK.Config">RouteK.Config</a> ι) (𝒞&#x27; : <a class="bp-lean-ref" href="../route-k/index.html#configuration" data-lean-name="ZInQ.RouteK.Config">RouteK.Config</a> κ) (e : κ ≃ ι)
+    (hc : ∀ x, 𝒞&#x27;.cls x = 𝒞.cls (e x)) (hb : ∀ x y, x ≠ y → 𝒞&#x27;.bit x y = 𝒞.bit (e x) (e y)) :
+    <a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.Config.M5bc">M5bc</a> 𝒞&#x27; = (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.Config.M5bc">M5bc</a> 𝒞).submatrix (Sum.map (Sum.map e e) id) (Sum.map (Sum.map e e) id)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank5b.M5b">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> M5b (d : ℕ) :
+    Matrix ((d.primeFactors ⊕ d.primeFactors) ⊕ Unit)
+      ((d.primeFactors ⊕ d.primeFactors) ⊕ Unit) (ZMod 2) :=
+  border (M1 d) (Sum.elim 0 (yBit d))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Matrices.lean:74</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Config">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> Config (ι : <span class="bp-lean-keyword">Type</span>*) <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The class `c_x` mod 8. -/</span>
+  cls : ι → ZMod 8
+  cls_mem : ∀ x, cls x ∈ oddClasses
+  <span class="bp-lean-comment">/-- `bit y x = [y/x]`, the symbol of `y` at `x`. Only its off-diagonal values matter. -/</span>
+  bit : ι → ι → ZMod 2
+  recip : ∀ x y, x ≠ y → bit x y + bit y x = lam8 (cls x) * lam8 (cls y)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/System/Config.lean:70</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.Config.M5bc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> M5bc : Matrix ((ι ⊕ ι) ⊕ Unit) ((ι ⊕ ι) ⊕ Unit) (ZMod 2) :=
+  border (M1c 𝒞) (Sum.elim 0 𝒞.lam)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Matrices.lean:42</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/rank-5b-locators.html#validation">Validation</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#smith-matrices">Smith&#x27;s matrices <span class="arithmatex">\(L\)</span>, <span class="arithmatex">\(M_1\)</span> and <span class="arithmatex">\(M_{5b}\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="genus-sum/index.html#genus-sum-values">Two values of the genus sum</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="row-5b-of-smiths-table">Row 5b of Smith's table</h2>
+<p>Minors of a Laplacian over <span class="arithmatex">\(\mathbb F_2\)</span> count forests. With Rédei's <span class="arithmatex">\(g\)</span> written through the cofactors
+of the Laplacian of a block, this turns both <span class="arithmatex">\(\det M_{5b}\)</span> and <span class="arithmatex">\(T_{5b}(n)\)</span> into the same forest sum.</p>
+<ul>
+<li><a href="forests/index.html">Forests and minors over <span class="arithmatex">\(\mathbb F_2\)</span></a></li>
+<li><a href="genus-sum/index.html">Row 5b of Smith's table</a></li>
+</ul>
+<h2 id="the-hypothesis-in-row-5b-form">The hypothesis in row-5b form</h2>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank-5b/certified-rank-5b">
+<h4 class="bp-thmheading" id="certified-rank-5b">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The certified rank hypothesis in row-5b form</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Row5b.lean#L214" aria-label="View ZInQ.RouteK.Rank5b.CertifiedRank5b in Lean source" title="View ZInQ.RouteK.Rank5b.CertifiedRank5b in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank-5b/certified-rank-5b.md" aria-label="Edit the Markdown source for The certified rank hypothesis in row-5b form" title="Edit the Markdown source for The certified rank hypothesis in row-5b form"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#certified-rank-5b" aria-label="Link to The certified rank hypothesis in row-5b form" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank5b.CertifiedRank5b</div>
+<div class="bp-thmcontent">
+<p>The hypothesis CR₃^5b is the following assertion. Let <span class="arithmatex">\(n&gt;0\)</span> be squarefree with
+<span class="arithmatex">\(n\equiv5\pmod8\)</span>. If <span class="arithmatex">\(|\mathrm{Sel}_2(C_n)|=8\)</span> and the determinant of Smith's row-5b matrix
+<span class="arithmatex">\(M_{5b}\)</span>, built from the Legendre symbols of the primes of <span class="arithmatex">\(n\)</span>, is <span class="arithmatex">\(1\)</span>, then for every
+<span class="arithmatex">\((a,b)\in\mathrm{Sel}_2(C_n)\)</span> the 2-covering <span class="arithmatex">\(D_{a,b}\)</span> of <span class="arithmatex">\(C_n\)</span> has a rational point; that is, every
+2-Selmer class of <span class="arithmatex">\(C_n\)</span> comes from a rational point.</p>
+<p>CR₃^5b is not proved here; it is a hypothesis, used only through CR₃^Sel, which it implies. It
+follows from the hypothesis CR₃^TYZ in the terms of Tian, Yuan and Zhang (<a href="#certified-rank-5b-of-tyz">CR₃^TYZ implies
+CR₃^5b</a>). It rests on the following. The first and the last are
+theorems here, the middle two are not:</p>
+<ul>
+<li><em>Row 5b of Smith's table</em> (elementary, reproved in tyz-5b §§2–3 by a forest expansion of
+  determinants and Rédei's formulas for the 4-ranks of class groups; here
+  <a href="genus-sum/index.html#theorem-3-6">Theorem 3.6</a> and <a href="../redei/index.html#redei-formula">Rédei's formula</a> through
+  <a href="../redei/index.html#genus-sums-agree">the agreement of the two genus sums</a>): for squarefree
+  <span class="arithmatex">\(n\equiv5\pmod8\)</span>,
+  <span class="arithmatex">\(\det M_{5b}\)</span> equals the genus sum
+  <span class="arithmatex">\(T_{5b}(n)=\sum_{d_0\equiv7,\,d_1\equiv3\,(8)}g(d_0)g(d_1)\mathcal L_1(n/d_0d_1)\)</span> modulo <span class="arithmatex">\(2\)</span>, where
+  <span class="arithmatex">\(g(d)\)</span> is the parity of <span class="arithmatex">\(\#2\mathrm{Cl}(\mathbb Q(\sqrt{-d}))\)</span> and <span class="arithmatex">\(\mathcal L_1(m)\)</span> is the sum,
+  over the set partitions of the primes of <span class="arithmatex">\(m\)</span> into blocks <span class="arithmatex">\(B\)</span> with <span class="arithmatex">\(d_B\equiv1\pmod8\)</span> (<span class="arithmatex">\(d_B\)</span> the
+  product of the primes in <span class="arithmatex">\(B\)</span>), of <span class="arithmatex">\(\prod_B g(d_B)\)</span>.</li>
+<li><em>Tian–Yuan–Zhang</em>, Theorem 3.5 and the argument of the proof of their Theorem 3.5(2) (§3.3), as
+  completed in nt-tyz §4 (Proposition N): if <span class="arithmatex">\(T_{5b}(n)\)</span> is odd, then their invariant
+  <span class="arithmatex">\(\mathcal L(n)\)</span> is nonzero, so <span class="arithmatex">\(L(C_n,s)\)</span> vanishes to order exactly one at <span class="arithmatex">\(s=1\)</span> (the root
+  number is <span class="arithmatex">\(-1\)</span> for <span class="arithmatex">\(n\equiv5\pmod8\)</span>). The form used is the one their proof gives; it rests on
+  their Proposition 3.4, whose proof is a sketch, and nt-tyz §4 proves it directly. Their statement
+  groups this sum with another (tyz-5b §1.2).</li>
+<li><em>Gross–Zagier</em>, over an auxiliary imaginary quadratic field <span class="arithmatex">\(K\)</span> that satisfies the Heegner
+  hypothesis and has <span class="arithmatex">\(L(C_n^K,1)\ne0\)</span> (Bump–Friedberg–Hoffstein): then
+  <span class="arithmatex">\(\operatorname{rank}C_n(\mathbb Q)\ge1\)</span>.</li>
+<li>Then <span class="arithmatex">\(\dim C_n(\mathbb Q)/2C_n(\mathbb Q)=2+\operatorname{rank}C_n(\mathbb Q)\ge3=\dim\mathrm{Sel}_2(C_n)\)</span>,
+  so the Kummer map is onto
+  <span class="arithmatex">\(\mathrm{Sel}_2(C_n)\)</span> and every Selmer class comes from a rational point
+  (<a href="../rank/two-descent/index.html#every-selmer-class">RK9</a>, with <a href="../rank/mordell-weil/index.html#finite-generation">Mordell–Weil for
+  <span class="arithmatex">\(C_n\)</span></a>).</li>
+</ul>
+<p>Compared with CR₃^Sel, only the 2-adic condition changes: "some Selmer class has
+<span class="arithmatex">\(|a|\equiv7\pmod8\)</span>" becomes "<span class="arithmatex">\(\det M_{5b}=1\)</span>", which it implies. So CR₃^5b is logically stronger
+than CR₃^Sel, but it is stated in the terms of Smith's table, one step closer to Tian, Yuan and
+Zhang's own statement.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRank5b : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → (<a class="bp-lean-ref" href="../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d).ncard = 8 → (<a class="bp-lean-ref" href="#smith-matrices" data-lean-name="ZInQ.RouteK.Rank5b.M5b">M5b</a> d).det = 1 →
+    ∀ ab ∈ <a class="bp-lean-ref" href="../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d, <a class="bp-lean-ref" href="../selmer/index.html#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℚ d ab.1 ab.2</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.Sel2">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Sel2 (d : ℕ) : Set (ℤ × ℤ) :=
+  {ab | Squarefree ab.1 ∧ Squarefree ab.2 ∧ Loc ℝ d ab.1 ab.2 ∧
+    ∀ (p : ℕ) [Fact p.Prime], Loc ℚ_[p] d ab.1 ab.2}</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:346</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.M5b">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> M5b (d : ℕ) :
+    Matrix ((d.primeFactors ⊕ d.primeFactors) ⊕ Unit)
+      ((d.primeFactors ⊕ d.primeFactors) ⊕ Unit) (ZMod 2) :=
+  border (M1 d) (Sum.elim 0 (yBit d))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Matrices.lean:74</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.Loc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:89</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_7">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/rank-5b-locators.html#row-5b-of-smiths-table">Row 5b of Smith's table</a></li>
+<li><a href="../../sources/rank-5b-locators.html#tian-yuan-zhang">Tian-Yuan-Zhang</a></li>
+<li><a href="../../sources/rank-5b-locators.html#proposition-n">Proposition N</a></li>
+<li><a href="../../sources/rank-5b-locators.html#gross-zagier-over-an-auxiliary-field">Gross-Zagier over an auxiliary field</a></li>
+<li><a href="../../sources/route-k-locators.html#the-trust-statement-for-cr3">The trust statement for CR3</a></li>
+<li><a href="../../sources/rank-5b-locators.html#smith">Smith</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#smith-matrices">Smith&#x27;s matrices <span class="arithmatex">\(L\)</span>, <span class="arithmatex">\(M_1\)</span> and <span class="arithmatex">\(M_{5b}\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../selmer/index.html#certified-rank-sel">The certified rank hypothesis in Selmer form</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../main/index.html#main-theorem-selmer">The main theorem from the Selmer form of the rank hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-5b-of-tyz">CR₃^TYZ implies CR₃^5b</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-sel-of-5b">CR₃^5b implies CR₃^Sel</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank-5b/certified-rank-sel-of-5b">
+<h4 class="bp-thmheading" id="certified-rank-sel-of-5b">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">CR₃^5b implies CR₃^Sel</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Row5b.lean#L219" aria-label="View ZInQ.RouteK.Rank5b.certifiedRankSel_of_certifiedRank5b in Lean source" title="View ZInQ.RouteK.Rank5b.certifiedRankSel_of_certifiedRank5b in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank-5b/certified-rank-sel-of-5b.md" aria-label="Edit the Markdown source for CR₃^5b implies CR₃^Sel" title="Edit the Markdown source for CR₃^5b implies CR₃^Sel"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#certified-rank-sel-of-5b" aria-label="Link to CR₃^5b implies CR₃^Sel" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank5b.certifiedRankSel_of_certifiedRank5b</div>
+<div class="bp-thmcontent">
+<p>Assume the certified rank hypothesis in row-5b form CR₃^5b. Then the certified rank
+hypothesis in Selmer form CR₃^Sel holds: for every squarefree <span class="arithmatex">\(n&gt;0\)</span> with <span class="arithmatex">\(n\equiv5\pmod8\)</span> and
+<span class="arithmatex">\(|\mathrm{Sel}_2(C_n)|=8\)</span> such that some Selmer class has <span class="arithmatex">\(|a|\equiv7\pmod8\)</span>, every Selmer class
+of <span class="arithmatex">\(C_n\)</span> comes from a rational point.</p>
+<p><strong>Proof sketch.</strong> Under the hypotheses of CR₃^Sel, Corollary 4.4 gives <span class="arithmatex">\(\det M_{5b}=1\)</span>, and CR₃^5b
+applies.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> certifiedRankSel_of_certifiedRank5b (h : <a class="bp-lean-ref" href="#certified-rank-5b" data-lean-name="ZInQ.RouteK.Rank5b.CertifiedRank5b">CertifiedRank5b</a>) : <a class="bp-lean-ref" href="../selmer/index.html#certified-rank-sel" data-lean-name="ZInQ.RouteK.Selmer.CertifiedRankSel">CertifiedRankSel</a></code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank5b.CertifiedRank5b">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRank5b : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → (Sel2 d).ncard = 8 → (M5b d).det = 1 →
+    ∀ ab ∈ Sel2 d, Loc ℚ d ab.1 ab.2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Row5b.lean:214</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.CertifiedRankSel">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankSel : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → (Sel2 d).ncard = 8 →
+    (∃ ab ∈ Sel2 d, ab.1.natAbs % 8 = 7) → ∀ ab ∈ Sel2 d, Loc ℚ d ab.1 ab.2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:390</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_8">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/rank-5b-locators.html#corollary-44">Corollary 4.4</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-5b">The certified rank hypothesis in row-5b form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../selmer/index.html#certified-rank-sel">The certified rank hypothesis in Selmer form</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#corollary-4-4">A first coordinate congruent to 7 forces <span class="arithmatex">\(\det M_{5b}=1\)</span> (Corollary 4.4)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../main/index.html#main-theorem-selmer">The main theorem from the Selmer form of the rank hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../main/index.html#main-theorem-tyz">The main theorem from the Tian–Yuan–Zhang forms of the rank hypothesis</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-hypothesis-in-tianyuanzhang-form">The hypothesis in Tian–Yuan–Zhang form</h2>
+<p>CR₃^TYZ is CR₃^5b with the condition <span class="arithmatex">\(\det M_{5b}=1\)</span> replaced by <span class="arithmatex">\(T_{5b}(n)=1\)</span>, where Rédei's <span class="arithmatex">\(g\)</span> is
+written in Legendre symbols; by Theorem 3.6 it implies CR₃^5b. Its form with the class numbers of
+imaginary quadratic fields is in the <a href="../redei/index.html">Rédei chapter</a>.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank-5b/certified-rank-tyz">
+<h4 class="bp-thmheading" id="certified-rank-tyz">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The certified rank hypothesis in Tian–Yuan–Zhang form</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Sec3/TYZ.lean#L128" aria-label="View ZInQ.RouteK.Rank5b.CertifiedRankTYZ in Lean source" title="View ZInQ.RouteK.Rank5b.CertifiedRankTYZ in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank-5b/certified-rank-tyz.md" aria-label="Edit the Markdown source for The certified rank hypothesis in Tian–Yuan–Zhang form" title="Edit the Markdown source for The certified rank hypothesis in Tian–Yuan–Zhang form"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#certified-rank-tyz" aria-label="Link to The certified rank hypothesis in Tian–Yuan–Zhang form" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank5b.CertifiedRankTYZ</div>
+<div class="bp-thmcontent">
+<p>The hypothesis CR₃^TYZ is the following assertion. Let <span class="arithmatex">\(n\)</span> be squarefree with <span class="arithmatex">\(n\equiv5\pmod8\)</span>. If
+<span class="arithmatex">\(|\mathrm{Sel}_2(C_n)|=8\)</span> and the genus sum <span class="arithmatex">\(T_{5b}(n)\)</span> is <span class="arithmatex">\(1\)</span>, then for every
+<span class="arithmatex">\((a,b)\in\mathrm{Sel}_2(C_n)\)</span> the 2-covering <span class="arithmatex">\(D_{a,b}\)</span> of <span class="arithmatex">\(C_n\)</span> has a rational point; that is, every
+2-Selmer class of <span class="arithmatex">\(C_n\)</span> comes from a rational point.</p>
+<p>CR₃^TYZ is not proved here; it is a hypothesis. It rests on the following. The second and the last
+are theorems here, the other two are not:</p>
+<ul>
+<li><em>Tian–Yuan–Zhang</em>, Theorem 3.5 (first assertion) and the argument of the proof of their Theorem
+  3.5(2) (§3.3), as completed in nt-tyz §4 (Proposition N): for squarefree <span class="arithmatex">\(n\equiv5\pmod8\)</span>, if
+  <span class="arithmatex">\(\sum_{d_0\equiv7,\,d_1\equiv3\,(8)}g(d_0)g(d_1)\mathcal L_1(n/d_0d_1)\)</span> is odd, then <span class="arithmatex">\(L(C_n,s)\)</span>
+  vanishes to order exactly one at <span class="arithmatex">\(s=1\)</span> (the root number is <span class="arithmatex">\(-1\)</span>). Here <span class="arithmatex">\(g(d)\)</span> is the parity of
+  <span class="arithmatex">\(\#2\mathrm{Cl}(\mathbb Q(\sqrt{-d}))\)</span> and <span class="arithmatex">\(\mathcal L_1(m)\)</span> is the sum of <span class="arithmatex">\(\prod g\)</span> over the
+  partitions of the primes of <span class="arithmatex">\(m\)</span> into blocks <span class="arithmatex">\(\equiv1\pmod8\)</span>. Their Theorem 1.2 is not cited in its
+  literal form.</li>
+<li><em>Rédei's formula</em>: for odd squarefree <span class="arithmatex">\(n\)</span> and every nonempty set <span class="arithmatex">\(B\)</span> of primes of <span class="arithmatex">\(n\)</span> with
+  <span class="arithmatex">\(d_B\equiv7,3\)</span> or <span class="arithmatex">\(1\pmod8\)</span>, <span class="arithmatex">\(g_n(B)\)</span> is the parity of <span class="arithmatex">\(\#2\mathrm{Cl}(\mathbb Q(\sqrt{-d_B}))\)</span>. So
+  <span class="arithmatex">\(T_{5b}(n)\)</span> is the genus sum of the previous item. This is a theorem here: <a href="../redei/index.html#redei-formula">Rédei's
+  formula</a>.</li>
+<li><em>Gross–Zagier</em>, over an auxiliary imaginary quadratic field <span class="arithmatex">\(K\)</span> that satisfies the Heegner
+  hypothesis and has <span class="arithmatex">\(L(C_n^K,1)\ne0\)</span> (Bump–Friedberg–Hoffstein), for the curve
+  <span class="arithmatex">\(C_n\)</span>, which is modular because it has complex multiplication by <span class="arithmatex">\(\mathbb Z[i]\)</span>: analytic rank one
+  gives <span class="arithmatex">\(\operatorname{rank}C_n(\mathbb Q)\ge1\)</span>.</li>
+<li>Then, as <span class="arithmatex">\(C_n(\mathbb Q)[2]\)</span> has order <span class="arithmatex">\(4\)</span>, <span class="arithmatex">\(\dim C_n(\mathbb Q)/2C_n(\mathbb Q)\ge3=\dim\mathrm{Sel}_2(C_n)\)</span>,
+  so the Kummer map is onto <span class="arithmatex">\(\mathrm{Sel}_2(C_n)\)</span> and every Selmer class comes from a rational point.
+  This is a theorem here: <a href="../rank/two-descent/index.html#every-selmer-class">Positive rank and a Selmer group of order eight give every Selmer class
+  (RK9)</a>, with <a href="../rank/mordell-weil/index.html#finite-generation">Mordell–Weil for the congruent number
+  curves</a>.</li>
+</ul>
+<p>CR₃^TYZ differs from the row-5b form only in its last condition: <span class="arithmatex">\(\det M_{5b}=1\)</span> becomes
+<span class="arithmatex">\(T_{5b}(n)=1\)</span>. By <a href="genus-sum/index.html#theorem-3-6">Theorem 3.6</a> the two conditions coincide for these <span class="arithmatex">\(n\)</span>,
+so CR₃^TYZ implies <a href="#certified-rank-5b">CR₃^5b</a> (<a href="#certified-rank-5b-of-tyz">CR₃^TYZ implies
+CR₃^5b</a>). The form of the hypothesis with the class numbers
+<span class="arithmatex">\(\#2\mathrm{Cl}(\mathbb Q(\sqrt{-d_B}))\)</span> in place of <span class="arithmatex">\(g_n(B)\)</span> is in the <a href="../redei/index.html">Rédei chapter</a>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankTYZ : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → (<a class="bp-lean-ref" href="../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d).ncard = 8 → <a class="bp-lean-ref" href="genus-sum/index.html#genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.T5b">T5b</a> d = 1 →
+    ∀ ab ∈ <a class="bp-lean-ref" href="../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d, <a class="bp-lean-ref" href="../selmer/index.html#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℚ d ab.1 ab.2</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Selmer.Sel2">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Sel2 (d : ℕ) : Set (ℤ × ℤ) :=
+  {ab | Squarefree ab.1 ∧ Squarefree ab.2 ∧ Loc ℝ d ab.1 ab.2 ∧
+    ∀ (p : ℕ) [Fact p.Prime], Loc ℚ_[p] d ab.1 ab.2}</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:346</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.T5b">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> T5b (d : ℕ) : ZMod 2 :=
+  ∑ P : Finpartition (Finset.univ : Finset d.primeFactors),
+    <span class="bp-lean-keyword">if</span> Admissible5bNat d P <span class="bp-lean-keyword">then</span> ∏ B ∈ P.parts, gBit d B <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/Defs.lean:98</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.Loc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:89</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_9">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/rank-5b-locators.html#the-hypothesis-in-tian-yuan-zhang-form">The hypothesis in Tian-Yuan-Zhang form</a></li>
+<li><a href="../../sources/rank-5b-locators.html#proposition-n">Proposition N</a></li>
+<li><a href="../../sources/rank-5b-locators.html#tian-yuan-zhang">Tian-Yuan-Zhang</a></li>
+<li><a href="../../sources/rank-5b-locators.html#gross-zagier-over-an-auxiliary-field">Gross-Zagier over an auxiliary field</a></li>
+<li><a href="../../sources/route-k-locators.html#the-trust-statement-for-cr3">The trust statement for CR3</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="genus-sum/index.html#genus-sum">The genus sum <span class="arithmatex">\(T_{5b}\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../selmer/index.html#selmer-group">The 2-Selmer group of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../main/index.html#main-theorem-tyz">The main theorem from the Tian–Yuan–Zhang forms of the rank hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-5b-of-tyz">CR₃^TYZ implies CR₃^5b</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../rank/index.html#certified-rank-tyz-of-rk">CR₃^TYZ from CR₃^TYZ,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../redei/index.html#class-number-hypothesis">CR₃ with class numbers is CR₃^TYZ</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank-5b/certified-rank-5b-of-tyz">
+<h4 class="bp-thmheading" id="certified-rank-5b-of-tyz">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">CR₃^TYZ implies CR₃^5b</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank5b/Sec3/TYZ.lean#L133" aria-label="View ZInQ.RouteK.Rank5b.certifiedRank5b_of_certifiedRankTYZ in Lean source" title="View ZInQ.RouteK.Rank5b.certifiedRank5b_of_certifiedRankTYZ in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank-5b/certified-rank-5b-of-tyz.md" aria-label="Edit the Markdown source for CR₃^TYZ implies CR₃^5b" title="Edit the Markdown source for CR₃^TYZ implies CR₃^5b"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#certified-rank-5b-of-tyz" aria-label="Link to CR₃^TYZ implies CR₃^5b" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank5b.certifiedRank5b_of_certifiedRankTYZ</div>
+<div class="bp-thmcontent">
+<p>Assume the certified rank hypothesis in Tian–Yuan–Zhang form CR₃^TYZ. Then the certified rank
+hypothesis in row-5b form CR₃^5b holds: for every squarefree <span class="arithmatex">\(n\equiv5\pmod8\)</span> with
+<span class="arithmatex">\(|\mathrm{Sel}_2(C_n)|=8\)</span> and <span class="arithmatex">\(\det M_{5b}=1\)</span>, every 2-Selmer class of <span class="arithmatex">\(C_n\)</span> comes from a rational
+point.</p>
+<p><strong>Proof sketch.</strong> Under the hypotheses of CR₃^5b, Theorem 3.6 gives
+<span class="arithmatex">\(T_{5b}(n)=\det M_{5b}=1\)</span>, and CR₃^TYZ applies.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> certifiedRank5b_of_certifiedRankTYZ (h : <a class="bp-lean-ref" href="#certified-rank-tyz" data-lean-name="ZInQ.RouteK.Rank5b.CertifiedRankTYZ">CertifiedRankTYZ</a>) : <a class="bp-lean-ref" href="#certified-rank-5b" data-lean-name="ZInQ.RouteK.Rank5b.CertifiedRank5b">CertifiedRank5b</a></code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank5b.CertifiedRankTYZ">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankTYZ : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → (Sel2 d).ncard = 8 → T5b d = 1 →
+    ∀ ab ∈ Sel2 d, Loc ℚ d ab.1 ab.2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/TYZ.lean:128</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.CertifiedRank5b">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRank5b : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → (Sel2 d).ncard = 8 → (M5b d).det = 1 →
+    ∀ ab ∈ Sel2 d, Loc ℚ d ab.1 ab.2</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Row5b.lean:214</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_10">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/rank-5b-locators.html#the-hypothesis-in-tian-yuan-zhang-form">The hypothesis in Tian-Yuan-Zhang form</a></li>
+<li><a href="../../sources/rank-5b-locators.html#theorem-36">Theorem 3.6</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-tyz">The certified rank hypothesis in Tian–Yuan–Zhang form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-5b">The certified rank hypothesis in row-5b form</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="genus-sum/index.html#theorem-3-6">Row 5b of Smith&#x27;s table (Theorem 3.6)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../main/index.html#main-theorem-tyz">The main theorem from the Tian–Yuan–Zhang forms of the rank hypothesis</a></span></div>
+</div>
+</details>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../dependencies/index.json" data-graph-src="../../dependencies/chapters/rank-5b.json" data-page-href="index.html" data-scope-id="rank-5b">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

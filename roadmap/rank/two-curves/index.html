@@ -1,0 +1,2656 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../mordell-weil/index.html">
+      
+      
+        <link rel="next" href="../infinitely-many-points/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>The rank hypothesis on the two curves of a slot choice - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#certificates-and-the-2-selmer-group" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              The rank hypothesis on the two curves of a slot choice
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_17" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_17" id="__nav_2_1_17_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_17_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_17">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The rank hypothesis as positive rank
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../two-descent/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The complete 2-descent on a congruent number curve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mordell-weil/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mordell–Weil by two-isogeny descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis on the two curves of a slot choice
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis on the two curves of a slot choice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#certificates-and-the-2-selmer-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Certificates and the 2-Selmer group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-hypothesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The hypothesis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-hypothesis-from-its-forms-on-all-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The hypothesis from its forms on all curves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pole-completeness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pole completeness
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../infinitely-many-points/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypotheses as infinitely many rational points
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#certificates-and-the-2-selmer-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Certificates and the 2-Selmer group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-hypothesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The hypothesis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-hypothesis-from-its-forms-on-all-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The hypothesis from its forms on all curves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pole-completeness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pole completeness
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="rank/two-curves" data-page-title="The rank hypothesis on the two curves of a slot choice">
+<h1 id="the-rank-hypothesis-on-the-two-curves-of-a-slot-choice">The rank hypothesis on the two curves of a slot choice</h1>
+<p>Pole completeness uses the rank hypothesis at two curves only. For an admissible input <span class="arithmatex">\(B\)</span>, a
+multiplier <span class="arithmatex">\(m\)</span>, a prime <span class="arithmatex">\(p_0\mid\beta\)</span> and slot data for <span class="arithmatex">\(\beta,\theta,p_0\)</span>, these are <span class="arithmatex">\(C_{d_1}\)</span>
+and <span class="arithmatex">\(C_{d_1|\theta|}=C_{d_2}\)</span>, with <span class="arithmatex">\(d_1=|\beta|\,q_0\prod r_p\prod r_\ell\)</span> as in
+<a href="../../route-k/index.html#realization">the realization</a>. Both carry Selmer certificates for <span class="arithmatex">\(\beta\)</span>, so
+through Proposition 0 their 2-Selmer groups have order <span class="arithmatex">\(8\)</span> and contain a class with first
+coordinate <span class="arithmatex">\(\beta\)</span>. This section states the positive-rank hypothesis for exactly these curves,
+CR₃^DL,Rk: for every triple <span class="arithmatex">\(\beta,\theta,p_0\)</span> satisfying the hypotheses of the realization, some
+slot choice gives two curves with rational points of infinite order. CR₃^DL,Rk follows from the
+positive-rank forms CR₃^Rk and CR₃^TYZ,Rk of <a href="../index.html">the positive-rank chapter</a>, and it
+implies pole completeness: on a certified curve, a point of infinite order makes every Selmer
+class come from a rational point, and this gives the points with abscissas in
+<span class="arithmatex">\(\beta\mathbb Q^{*2}\)</span> that the pole polynomial needs. The same holds for CR₃^DL,Adm,Rk, which asks
+only that for every admissible <span class="arithmatex">\(B\)</span> some multiplier, prime <span class="arithmatex">\(p_0\)</span> and slot choice give two curves
+with points of infinite order.</p>
+<p>Throughout, <span class="arithmatex">\(C_d\)</span> is the curve <span class="arithmatex">\(y^2=x^3-d^2x\)</span>, as in the rest of the positive-rank chapter.</p>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>9</strong> fully proved</span></div>
+</div>
+<h2 id="certificates-and-the-2-selmer-group">Certificates and the 2-Selmer group</h2>
+<p>Through Proposition 0, a Selmer certificate for <span class="arithmatex">\((d,a)\)</span> says that <span class="arithmatex">\(\mathrm{Sel}_2(C_d)\)</span> has order
+<span class="arithmatex">\(8\)</span> and contains a class with first coordinate <span class="arithmatex">\(a\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/two-curves/selmer-group-of-a-certificate">
+<h4 class="bp-thmheading" id="selmer-group-of-a-certificate">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The 2-Selmer group of a certified curve</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/RankDL.lean#L35" aria-label="View ZInQ.RouteK.Rank.sel_of_selmerCertified in Lean source" title="View ZInQ.RouteK.Rank.sel_of_selmerCertified in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-curves/selmer-group-of-a-certificate.md" aria-label="Edit the Markdown source for The 2-Selmer group of a certified curve" title="Edit the Markdown source for The 2-Selmer group of a certified curve"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#selmer-group-of-a-certificate" aria-label="Link to The 2-Selmer group of a certified curve" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.sel_of_selmerCertified</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d\)</span> be a squarefree natural number with <span class="arithmatex">\(d\equiv5\pmod8\)</span>, and let <span class="arithmatex">\(a\)</span> be a squarefree integer
+dividing <span class="arithmatex">\(d\)</span> such that <span class="arithmatex">\((d,a)\)</span> carries a Selmer certificate: the system <span class="arithmatex">\(\Sigma(\mathcal C_d)\)</span> has
+exactly <span class="arithmatex">\(8\)</span> solutions, and one of them has first coordinate the class of <span class="arithmatex">\(a\)</span>. Then
+<span class="arithmatex">\(|\mathrm{Sel}_2(C_d)|=8\)</span>, and <span class="arithmatex">\((a,b)\in\mathrm{Sel}_2(C_d)\)</span> for some integer <span class="arithmatex">\(b\)</span>.</p>
+<p><strong>Proof sketch.</strong> By Proposition 0, unknowns <span class="arithmatex">\(\sigma\)</span> solve <span class="arithmatex">\(\Sigma(\mathcal C_d)\)</span> if and only if
+<span class="arithmatex">\((a(\sigma),b(\sigma))\in\mathrm{Sel}_2(C_d)\)</span>, and every element of <span class="arithmatex">\(\mathrm{Sel}_2(C_d)\)</span> has this
+form. So <span class="arithmatex">\(\mathrm{Sel}_2(C_d)\)</span> is the image of the solution set under
+<span class="arithmatex">\(\sigma\mapsto(a(\sigma),b(\sigma))\)</span>. This map is injective for odd <span class="arithmatex">\(d\)</span>, so
+<span class="arithmatex">\(|\mathrm{Sel}_2(C_d)|=8\)</span>. Let <span class="arithmatex">\(\sigma\)</span> be the solution whose first coordinate is the class of <span class="arithmatex">\(a\)</span>,
+that is <span class="arithmatex">\(a_0=[a&lt;0]\)</span>, <span class="arithmatex">\(a_1=0\)</span> and <span class="arithmatex">\(u_p=[p\mid a]\)</span>. Since <span class="arithmatex">\(a\)</span> is a squarefree divisor of <span class="arithmatex">\(d\)</span>,
+<span class="arithmatex">\(a(\sigma)=(-1)^{[a&lt;0]}\prod_{p\mid a}p=a\)</span>, so <span class="arithmatex">\((a,b(\sigma))\in\mathrm{Sel}_2(C_d)\)</span>. These are
+steps 1 and 2 of the proof of CR₃ from its Selmer form, at a single certificate.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> sel_of_selmerCertified {d : ℕ} (hd : d % 8 = 5) (hsqd : Squarefree d) {a : ℤ}
+    (hsqa : Squarefree a) (had : a ∣ (d : ℤ)) (hc : <a class="bp-lean-ref" href="../../route-k/index.html#prime-configuration" data-lean-name="ZInQ.RouteK.SelmerCertified">SelmerCertified</a> d a) :
+    (<a class="bp-lean-ref" href="../../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d).ncard = 8 ∧ ∃ b : ℤ, (a, b) ∈ <a class="bp-lean-ref" href="../../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.SelmerCertified">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SelmerCertified (d : ℕ) (a : ℤ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ hd : Odd d, (natConfig d hd).sols.card = 8 ∧
+    ∃ σ ∈ (natConfig d hd).sols, σ.first = natClass d a</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Assembly/Realize.lean:115</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.Sel2">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Sel2 (d : ℕ) : Set (ℤ × ℤ) :=
+  {ab | Squarefree ab.1 ∧ Squarefree ab.2 ∧ Loc ℝ d ab.1 ab.2 ∧
+    ∀ (p : ℕ) [Fact p.Prime], Loc ℚ_[p] d ab.1 ab.2}</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:346</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#positive-rank-on-the-two-curves">Positive rank on the two curves</a></li>
+<li><a href="../../../sources/selmer-locators.html#proposition-0">Proposition 0</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/rank-locators.html#positive-rank-on-the-two-curves"> </a></p>
+<p><a href="../../../sources/selmer-locators.html#proposition-0"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-k/index.html#prime-configuration">The configuration of an odd number and Selmer certificates</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../selmer/index.html#selmer-group">The 2-Selmer group of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../selmer/index.html#proposition-0">Proposition 0</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../selmer/index.html#certified-rank-of-sel">The certified rank hypothesis from its Selmer form</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#certified-rank-dl-rk-of-rk">CR₃^DL,Rk from CR₃^Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#certified-rank-dl-rk-of-tyz-rk">CR₃^DL,Rk from CR₃^TYZ,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#point-of-infinite-order">A point of infinite order on a certified curve</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-hypothesis">The hypothesis</h2>
+<p>The slot data are existential, so the curves of any one slot choice suffice. Both forms depend
+on the slot construction: a change to the slot conditions changes what they assert. CR₃^DL,Rk
+implies CR₃^DL,Adm,Rk, since the inputs that an admissible number produces satisfy the hypotheses
+of CR₃^DL,Rk.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/two-curves/certified-rank-dl-rk">
+<h4 class="bp-thmheading" id="certified-rank-dl-rk">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The positive-rank hypothesis on the two curves of a slot choice</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/RankDL.lean#L79" aria-label="View ZInQ.RouteK.Rank.CertifiedRankDLRk in Lean source" title="View ZInQ.RouteK.Rank.CertifiedRankDLRk in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-curves/certified-rank-dl-rk.md" aria-label="Edit the Markdown source for The positive-rank hypothesis on the two curves of a slot choice" title="Edit the Markdown source for The positive-rank hypothesis on the two curves of a slot choice"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#certified-rank-dl-rk" aria-label="Link to The positive-rank hypothesis on the two curves of a slot choice" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.CertifiedRankDLRk</div>
+<div class="bp-thmcontent">
+<p>The hypothesis CR₃^DL,Rk is the following assertion. Let <span class="arithmatex">\(\beta,\theta\)</span> be integers and <span class="arithmatex">\(p_0\)</span> a
+natural number such that:</p>
+<ul>
+<li><span class="arithmatex">\(\beta\)</span> is odd and squarefree with <span class="arithmatex">\(|\beta|\equiv7\pmod8\)</span>, and <span class="arithmatex">\(p_0\)</span> is a prime dividing
+  <span class="arithmatex">\(\beta\)</span>;</li>
+<li><span class="arithmatex">\(\theta&gt;0\)</span> is squarefree with <span class="arithmatex">\(\theta\equiv1\pmod8\)</span>;</li>
+<li><span class="arithmatex">\(\beta\)</span> and <span class="arithmatex">\(\theta\)</span> are coprime;</li>
+<li><span class="arithmatex">\([\beta/\ell]=0\)</span> for every prime <span class="arithmatex">\(\ell\mid\theta\)</span>, and <span class="arithmatex">\([\theta/p]=0\)</span> for every prime
+  <span class="arithmatex">\(p\mid\beta\)</span>.</li>
+</ul>
+<p>Then there are slot data <span class="arithmatex">\(q_0\)</span>, <span class="arithmatex">\(r_p\)</span> (<span class="arithmatex">\(p\in P(\beta)\setminus\{p_0\}\)</span>) and <span class="arithmatex">\(r_\ell\)</span>
+(<span class="arithmatex">\(\ell\in P(\theta)\)</span>) for <span class="arithmatex">\(\beta,\theta,p_0\)</span>, satisfying <a href="../../route-k/index.html#slot-conditions">the slot conditions</a>,
+such that, with
+$<span class="arithmatex">\(d_1=|\beta|\,q_0\prod_{p}r_p\prod_{\ell}r_\ell ,\)</span>$
+both <span class="arithmatex">\(C_{d_1}(\mathbb Q)\)</span> and <span class="arithmatex">\(C_{d_1|\theta|}(\mathbb Q)\)</span> contain a point of infinite order. Here
+<span class="arithmatex">\(C_d\)</span> is the curve <span class="arithmatex">\(y^2=x^3-d^2x\)</span>.</p>
+<p>The hypotheses on <span class="arithmatex">\(\beta,\theta,p_0\)</span> are those of <a href="../../route-k/index.html#realization">the realization</a>,
+which the multiplier lemma and (θ1)–(θ4) give for an admissible input. By the realization,
+<span class="arithmatex">\(d_1\)</span> and <span class="arithmatex">\(d_1|\theta|=d_1\theta=d_2\)</span> are squarefree and <span class="arithmatex">\(\equiv5\pmod8\)</span>, <span class="arithmatex">\(\beta\)</span> divides both,
+and both <span class="arithmatex">\((d_1,\beta)\)</span> and <span class="arithmatex">\((d_2,\beta)\)</span> carry Selmer certificates. So these are the two curves at
+which the proof of pole completeness applies the rank hypothesis, and both have 2-Selmer groups
+of order <span class="arithmatex">\(8\)</span>. The slot data are existential: points of infinite order on the two curves of any
+one slot choice suffice. The assertion depends on the slot conditions, so a change to the slot
+construction changes what it asserts.</p>
+<p>CR₃^DL,Rk is not proved here; it is a hypothesis. It follows from CR₃^Rk and from CR₃^TYZ,Rk, so
+it rests on the same theorems: Tian–Yuan–Zhang as completed by Proposition N, which is not
+refereed, and Gross–Zagier with an auxiliary field.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankDLRk : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ (β θ : ℤ) (p₀ : ℕ), <a class="bp-lean-ref" href="../../route-k/index.html#realization" data-lean-name="ZInQ.RouteK.Inputs">Inputs</a> β θ p₀ → ∃ D : <a class="bp-lean-ref" href="../../route-k/index.html#slot-conditions" data-lean-name="ZInQ.RouteK.Slots">Slots</a> β θ p₀,
+    (∃ P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-((D.d₁ : ℕ) : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P) ∧
+    (∃ P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-((D.d₁ * θ.natAbs : ℕ) : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Inputs">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> Inputs (β θ : ℤ) (p₀ : ℕ) : <span class="bp-lean-keyword">Prop</span> <span class="bp-lean-keyword">where</span>
+  sqf_β : Squarefree β
+  odd_β : Odd β
+  mod_β : β.natAbs % 8 = 7
+  p₀_mem : p₀ ∈ primesOf β
+  pos_θ : 0 &lt; θ
+  mod_θ : θ % 8 = 1
+  sqf_θ : Squarefree θ
+  coprime : IsCoprime β θ
+  θ3 : ∀ ℓ ∈ primesOf θ, legBit ℓ β = 0
+  θ4 : ∀ p ∈ primesOf β, legBit p θ = 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Assembly/Data.lean:30</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Slots">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> Slots (β θ : ℤ) (p₀ : ℕ) <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The symmetry-breaking slot `q₀`. -/</span>
+  q₀ : ℕ
+  <span class="bp-lean-comment">/-- The glue slots `r_p`, `p ∈ P ∖ {p₀}`. -/</span>
+  rP : ℕ → ℕ
+  <span class="bp-lean-comment">/-- The glue slots `r_ℓ`, `ℓ ∈ T`. -/</span>
+  rT : ℕ → ℕ
+  q₀_prime : q₀.Prime
+  q₀_mod_eight : q₀ % 8 = 3
+  q₀_not_dvd : ¬ (q₀ : ℤ) ∣ 2 * β * θ
+  q₀_sym_P : ∀ p ∈ primesOf β \ {p₀}, legBit p q₀ = 1 + lamBit p * (signBit β + 1)
+  q₀_sym_p₀ : legBit p₀ q₀ =
+  ⋯</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Slots/Construction.lean:38</p>
+</div>
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-two-curves-of-a-slot-choice">The two curves of a slot choice</a></li>
+<li><a href="../../../sources/rank-locators.html#tian-yuan-zhang">Tian-Yuan-Zhang</a></li>
+<li><a href="../../../sources/rank-locators.html#gross-zagier">Gross-Zagier</a></li>
+<li><a href="../../../sources/route-k-locators.html#the-trust-statement-for-cr3">The trust statement for CR3</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 6</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-k/index.html#realization">The realization: both curves reduce to the base configuration</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-k/index.html#slot-conditions">The slot conditions</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-k/index.html#residue-bits">Residue bits</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#main-theorem-two-curves">The main theorem from positive rank on the two curves of a slot choice</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../infinitely-many-points/index.html#inf-iff-rk">The infinitely-many-points forms are equivalent to the positive-rank forms</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-dl-adm-rk-of-dl-rk">CR₃^DL,Adm,Rk from CR₃^DL,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-dl-rk-of-rk">CR₃^DL,Rk from CR₃^Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-dl-rk-of-tyz-rk">CR₃^DL,Rk from CR₃^TYZ,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#pole-completeness-from-dl-rk">Pole completeness from CR₃^DL,Rk</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/two-curves/certified-rank-dl-adm-rk">
+<h4 class="bp-thmheading" id="certified-rank-dl-adm-rk">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The positive-rank hypothesis at the inputs of admissible numbers</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/RankDL.lean#L191" aria-label="View ZInQ.RouteK.Rank.CertifiedRankDLAdmRk in Lean source" title="View ZInQ.RouteK.Rank.CertifiedRankDLAdmRk in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-curves/certified-rank-dl-adm-rk.md" aria-label="Edit the Markdown source for The positive-rank hypothesis at the inputs of admissible numbers" title="Edit the Markdown source for The positive-rank hypothesis at the inputs of admissible numbers"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#certified-rank-dl-adm-rk" aria-label="Link to The positive-rank hypothesis at the inputs of admissible numbers" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.CertifiedRankDLAdmRk</div>
+<div class="bp-thmcontent">
+<p>The hypothesis CR₃^DL,Adm,Rk is the following assertion. For every admissible <span class="arithmatex">\(B\)</span> there are:</p>
+<ul>
+<li>a signed divisor <span class="arithmatex">\(m\)</span> of <span class="arithmatex">\(2730\)</span> such that <span class="arithmatex">\(\beta=\mathrm{sqf}(mB)\)</span> is odd with
+  <span class="arithmatex">\(|\beta|\equiv7\pmod8\)</span>;</li>
+<li>a prime <span class="arithmatex">\(p_0\)</span> dividing <span class="arithmatex">\(\beta\)</span>;</li>
+<li>slot data <span class="arithmatex">\(q_0\)</span>, <span class="arithmatex">\(r_p\)</span> (<span class="arithmatex">\(p\in P(\beta)\setminus\{p_0\}\)</span>) and <span class="arithmatex">\(r_\ell\)</span> (<span class="arithmatex">\(\ell\in P(\theta)\)</span>) for
+  <span class="arithmatex">\(\beta\)</span>, <span class="arithmatex">\(\theta=\mathrm{sqf}(m(m-B))\)</span> and <span class="arithmatex">\(p_0\)</span>, satisfying
+  <a href="../../route-k/index.html#slot-conditions">the slot conditions</a>;</li>
+</ul>
+<p>such that, with <span class="arithmatex">\(d_1=|\beta|\,q_0\prod_pr_p\prod_\ell r_\ell\)</span>, both <span class="arithmatex">\(C_{d_1}(\mathbb Q)\)</span> and
+<span class="arithmatex">\(C_{d_1|\theta|}(\mathbb Q)\)</span> contain a point of infinite order. Here <span class="arithmatex">\(C_d\)</span> is the curve
+<span class="arithmatex">\(y^2=x^3-d^2x\)</span>.</p>
+<p>These are the data that the multiplier lemma and the existence of the slots produce for an
+admissible input. So CR₃^DL,Adm,Rk asks for the points only at the inputs that admissible numbers
+produce, while CR₃^DL,Rk asks for them at every triple <span class="arithmatex">\(\beta,\theta,p_0\)</span> satisfying the hypotheses
+of the realization. Like CR₃^DL,Rk, it depends on the slot conditions and on the definitions of
+admissibility, <span class="arithmatex">\(\beta\)</span> and <span class="arithmatex">\(\theta\)</span>.</p>
+<p>CR₃^DL,Adm,Rk is not proved here; it is a hypothesis, implied by CR₃^DL,Rk.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankDLAdmRk : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ B : ℚ, <a class="bp-lean-ref" href="../../route-k/index.html#squarefree-part" data-lean-name="ZInQ.RouteK.Admissible">Admissible</a> B → ∃ m : ℤ, m ∣ 2730 ∧ Odd (<a class="bp-lean-ref" href="../../route-k/index.html#squarefree-part" data-lean-name="ZInQ.RouteK.betaOf">betaOf</a> B m) ∧ (<a class="bp-lean-ref" href="../../route-k/index.html#squarefree-part" data-lean-name="ZInQ.RouteK.betaOf">betaOf</a> B m).natAbs % 8 = 7 ∧
+    ∃ p₀ ∈ <a class="bp-lean-ref" href="../../route-k/index.html#residue-bits" data-lean-name="ZInQ.RouteK.primesOf">primesOf</a> (<a class="bp-lean-ref" href="../../route-k/index.html#squarefree-part" data-lean-name="ZInQ.RouteK.betaOf">betaOf</a> B m), ∃ D : <a class="bp-lean-ref" href="../../route-k/index.html#slot-conditions" data-lean-name="ZInQ.RouteK.Slots">Slots</a> (<a class="bp-lean-ref" href="../../route-k/index.html#squarefree-part" data-lean-name="ZInQ.RouteK.betaOf">betaOf</a> B m) (<a class="bp-lean-ref" href="../../route-k/index.html#squarefree-part" data-lean-name="ZInQ.RouteK.thetaOf">thetaOf</a> B m) p₀,
+      (∃ P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-((D.d₁ : ℕ) : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P) ∧
+      (∃ P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-((D.d₁ * (<a class="bp-lean-ref" href="../../route-k/index.html#squarefree-part" data-lean-name="ZInQ.RouteK.thetaOf">thetaOf</a> B m).natAbs : ℕ) : ℚ) ^ 2)).toAffine.Point,
+        ¬IsOfFinAddOrder P)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Admissible">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Admissible (B : ℚ) : <span class="bp-lean-keyword">Prop</span> :=
+  IsSquare B.den ∧ 0 &lt; B ∧ B &lt; 1 / 2 ∧ ∀ p ∈ poleS0, 4 ≤ padicValRat p B</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Slots/Basic.lean:20</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.betaOf">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> betaOf (B : ℚ) (m : ℤ) : ℤ := sqf (m * B)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Slots/Basic.lean:39</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.primesOf">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> primesOf (β : ℤ) : Finset ℕ := β.natAbs.primeFactors</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Slots/Construction.lean:31</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Slots">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> Slots (β θ : ℤ) (p₀ : ℕ) <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The symmetry-breaking slot `q₀`. -/</span>
+  q₀ : ℕ
+  <span class="bp-lean-comment">/-- The glue slots `r_p`, `p ∈ P ∖ {p₀}`. -/</span>
+  rP : ℕ → ℕ
+  <span class="bp-lean-comment">/-- The glue slots `r_ℓ`, `ℓ ∈ T`. -/</span>
+  rT : ℕ → ℕ
+  q₀_prime : q₀.Prime
+  q₀_mod_eight : q₀ % 8 = 3
+  q₀_not_dvd : ¬ (q₀ : ℤ) ∣ 2 * β * θ
+  q₀_sym_P : ∀ p ∈ primesOf β \ {p₀}, legBit p q₀ = 1 + lamBit p * (signBit β + 1)
+  q₀_sym_p₀ : legBit p₀ q₀ =
+  ⋯</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Slots/Construction.lean:38</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.thetaOf">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> thetaOf (B : ℚ) (m : ℤ) : ℤ := sqf (m * (m - B))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Slots/Basic.lean:42</p>
+</div>
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-two-curves-of-a-slot-choice">The two curves of a slot choice</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-k/index.html#squarefree-part">Admissible inputs, the squarefree part, <span class="arithmatex">\(\beta\)</span> and <span class="arithmatex">\(\theta\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-k/index.html#slot-conditions">The slot conditions</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-k/index.html#realization">The realization: both curves reduce to the base configuration</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-k/index.html#residue-bits">Residue bits</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#main-theorem-two-curves">The main theorem from positive rank on the two curves of a slot choice</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-dl-adm-rk-of-dl-rk">CR₃^DL,Adm,Rk from CR₃^DL,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#pole-completeness-from-dl-adm-rk">Pole completeness from CR₃^DL,Adm,Rk</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/two-curves/certified-rank-dl-adm-rk-of-dl-rk">
+<h4 class="bp-thmheading" id="certified-rank-dl-adm-rk-of-dl-rk">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">CR₃^DL,Adm,Rk from CR₃^DL,Rk</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/RankDL.lean#L199" aria-label="View ZInQ.RouteK.Rank.certifiedRankDLAdmRk_of_certifiedRankDLRk in Lean source" title="View ZInQ.RouteK.Rank.certifiedRankDLAdmRk_of_certifiedRankDLRk in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-curves/certified-rank-dl-adm-rk-of-dl-rk.md" aria-label="Edit the Markdown source for CR₃^DL,Adm,Rk from CR₃^DL,Rk" title="Edit the Markdown source for CR₃^DL,Adm,Rk from CR₃^DL,Rk"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#certified-rank-dl-adm-rk-of-dl-rk" aria-label="Link to CR₃^DL,Adm,Rk from CR₃^DL,Rk" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.certifiedRankDLAdmRk_of_certifiedRankDLRk</div>
+<div class="bp-thmcontent">
+<p>The hypothesis CR₃^DL,Rk implies CR₃^DL,Adm,Rk.</p>
+<p><strong>Proof sketch.</strong> Let <span class="arithmatex">\(B\)</span> be admissible. By the multiplier lemma in its combined form with the
+existence of the slots, of which only the multiplier part is used here, there is a signed divisor
+<span class="arithmatex">\(m\)</span> of <span class="arithmatex">\(2730\)</span> with <span class="arithmatex">\(\beta=\mathrm{sqf}(mB)\)</span> odd and <span class="arithmatex">\(|\beta|\equiv7\pmod8\)</span>, and <span class="arithmatex">\(\beta\)</span> has a
+prime factor <span class="arithmatex">\(p_0\)</span>. With <span class="arithmatex">\(\theta=\mathrm{sqf}(m(m-B))\)</span>, the descent lemma's facts about admissible
+inputs, which rest on (θ1)–(θ4), show that <span class="arithmatex">\(\beta,\theta,p_0\)</span> satisfy the hypotheses of
+CR₃^DL,Rk. CR₃^DL,Rk at <span class="arithmatex">\(\beta,\theta,p_0\)</span> gives slot data whose two curves have points of
+infinite order; with <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(p_0\)</span> these are the data CR₃^DL,Adm,Rk asks for.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> certifiedRankDLAdmRk_of_certifiedRankDLRk (hDL : <a class="bp-lean-ref" href="#certified-rank-dl-rk" data-lean-name="ZInQ.RouteK.Rank.CertifiedRankDLRk">CertifiedRankDLRk</a>) :
+    <a class="bp-lean-ref" href="#certified-rank-dl-adm-rk" data-lean-name="ZInQ.RouteK.Rank.CertifiedRankDLAdmRk">CertifiedRankDLAdmRk</a></code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank.CertifiedRankDLRk">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankDLRk : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ (β θ : ℤ) (p₀ : ℕ), Inputs β θ p₀ → ∃ D : Slots β θ p₀,
+    (∃ P : (shortCurve (-((D.d₁ : ℕ) : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P) ∧
+    (∃ P : (shortCurve (-((D.d₁ * θ.natAbs : ℕ) : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/RankDL.lean:79</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.CertifiedRankDLAdmRk">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankDLAdmRk : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ B : ℚ, Admissible B → ∃ m : ℤ, m ∣ 2730 ∧ Odd (betaOf B m) ∧ (betaOf B m).natAbs % 8 = 7 ∧
+    ∃ p₀ ∈ primesOf (betaOf B m), ∃ D : Slots (betaOf B m) (thetaOf B m) p₀,
+      (∃ P : (shortCurve (-((D.d₁ : ℕ) : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P) ∧
+      (∃ P : (shortCurve (-((D.d₁ * (thetaOf B m).natAbs : ℕ) : ℚ) ^ 2)).toAffine.Point,
+        ¬IsOfFinAddOrder P)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/RankDL.lean:191</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-two-curves-of-a-slot-choice">The two curves of a slot choice</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-dl-rk">The positive-rank hypothesis on the two curves of a slot choice</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-dl-adm-rk">The positive-rank hypothesis at the inputs of admissible numbers</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../route-k/index.html#slots">The slots exist</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../route-k/index.html#descent-lemma">The descent lemma</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-hypothesis-from-its-forms-on-all-curves">The hypothesis from its forms on all curves</h2>
+<p>On each of the two curves, the certificate gives the premises of CR₃^Rk through Proposition 0,
+and those of CR₃^TYZ,Rk through Proposition 0, Corollary 4.4 and Theorem 3.6.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/two-curves/certified-rank-dl-rk-of-rk">
+<h4 class="bp-thmheading" id="certified-rank-dl-rk-of-rk">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">CR₃^DL,Rk from CR₃^Rk</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/RankDL.lean#L120" aria-label="View ZInQ.RouteK.Rank.certifiedRankDLRk_of_certifiedRankRk in Lean source" title="View ZInQ.RouteK.Rank.certifiedRankDLRk_of_certifiedRankRk in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/RankDL.lean#L86" aria-label="View ZInQ.RouteK.Rank.slots_d₂_facts in Lean source" title="View ZInQ.RouteK.Rank.slots_d₂_facts in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-curves/certified-rank-dl-rk-of-rk.md" aria-label="Edit the Markdown source for CR₃^DL,Rk from CR₃^Rk" title="Edit the Markdown source for CR₃^DL,Rk from CR₃^Rk"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#certified-rank-dl-rk-of-rk" aria-label="Link to CR₃^DL,Rk from CR₃^Rk" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.certifiedRankDLRk_of_certifiedRankRk ZInQ.RouteK.Rank.slots_d₂_facts</div>
+<div class="bp-thmcontent">
+<p>The hypothesis CR₃^Rk implies CR₃^DL,Rk.</p>
+<p>Along the way: let <span class="arithmatex">\(\beta,\theta,p_0\)</span> satisfy the hypotheses of CR₃^DL,Rk, let <span class="arithmatex">\(q_0\)</span>, <span class="arithmatex">\(r_p\)</span>,
+<span class="arithmatex">\(r_\ell\)</span> be any slot data for <span class="arithmatex">\(\beta,\theta,p_0\)</span>, and let
+<span class="arithmatex">\(d_1=|\beta|\,q_0\prod_pr_p\prod_\ell r_\ell\)</span>. Then <span class="arithmatex">\(d_1|\theta|\)</span> is squarefree,
+<span class="arithmatex">\(d_1|\theta|\equiv5\pmod8\)</span>, <span class="arithmatex">\(\beta\)</span> divides <span class="arithmatex">\(d_1|\theta|\)</span>, and <span class="arithmatex">\((d_1|\theta|,\beta)\)</span> carries a
+Selmer certificate.</p>
+<p><strong>Proof sketch.</strong> <em>Along the way.</em> By the realization, <span class="arithmatex">\(d_2=d_1\theta=d_1|\theta|\)</span> is squarefree
+and <span class="arithmatex">\((d_2,\beta)\)</span> carries a Selmer certificate. Also <span class="arithmatex">\(d_1\equiv5\)</span> and <span class="arithmatex">\(\theta\equiv1\pmod8\)</span>, so
+<span class="arithmatex">\(d_1|\theta|\equiv5\pmod8\)</span>; and <span class="arithmatex">\(\beta\mid d_1\)</span>, so <span class="arithmatex">\(\beta\mid d_1|\theta|\)</span>.</p>
+<p><em>The implication.</em> Let <span class="arithmatex">\(\beta,\theta,p_0\)</span> satisfy the hypotheses of CR₃^DL,Rk. Then <span class="arithmatex">\(\beta\)</span> is
+odd, <span class="arithmatex">\(\theta\)</span> is odd (because <span class="arithmatex">\(\theta\equiv1\pmod8\)</span>), they are coprime and <span class="arithmatex">\(p_0\in P(\beta)\)</span>, so
+slot data exist; take any. By the realization, <span class="arithmatex">\(d_1\)</span> is squarefree with <span class="arithmatex">\(d_1\equiv5\pmod8\)</span>,
+<span class="arithmatex">\(\beta\mid d_1\)</span>, and <span class="arithmatex">\((d_1,\beta)\)</span> carries a Selmer certificate; the statement along the way gives
+the same for <span class="arithmatex">\(d_1|\theta|\)</span>. Since <span class="arithmatex">\(\beta\)</span> is squarefree, the lemma on the 2-Selmer group of a
+certified curve, with <span class="arithmatex">\(a=\beta\)</span>, gives on each of the two curves <span class="arithmatex">\(|\mathrm{Sel}_2|=8\)</span> and a class
+<span class="arithmatex">\((\beta,b)\in\mathrm{Sel}_2\)</span>, with <span class="arithmatex">\(|\beta|\equiv7\pmod8\)</span>. CR₃^Rk then gives a point of infinite
+order on each curve.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> certifiedRankDLRk_of_certifiedRankRk (h : <a class="bp-lean-ref" href="../index.html#certified-rank-rk" data-lean-name="ZInQ.RouteK.Rank.CertifiedRankRk">CertifiedRankRk</a>) : <a class="bp-lean-ref" href="#certified-rank-dl-rk" data-lean-name="ZInQ.RouteK.Rank.CertifiedRankDLRk">CertifiedRankDLRk</a></code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> slots_d₂_facts {β θ : ℤ} {p₀ : ℕ} (D : <a class="bp-lean-ref" href="../../route-k/index.html#slot-conditions" data-lean-name="ZInQ.RouteK.Slots">Slots</a> β θ p₀) (hI : <a class="bp-lean-ref" href="../../route-k/index.html#realization" data-lean-name="ZInQ.RouteK.Inputs">Inputs</a> β θ p₀) :
+    (D.d₁ * θ.natAbs) % 8 = 5 ∧ Squarefree (D.d₁ * θ.natAbs) ∧ β ∣ ((D.d₁ * θ.natAbs : ℕ) : ℤ) ∧
+      <a class="bp-lean-ref" href="../../route-k/index.html#prime-configuration" data-lean-name="ZInQ.RouteK.SelmerCertified">SelmerCertified</a> (D.d₁ * θ.natAbs) β</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank.CertifiedRankRk">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankRk : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → (Sel2 d).ncard = 8 → (∃ ab ∈ Sel2 d, ab.1.natAbs % 8 = 7) →
+    ∃ P : (shortCurve (-(d : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Statements.lean:37</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.CertifiedRankDLRk">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankDLRk : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ (β θ : ℤ) (p₀ : ℕ), Inputs β θ p₀ → ∃ D : Slots β θ p₀,
+    (∃ P : (shortCurve (-((D.d₁ : ℕ) : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P) ∧
+    (∃ P : (shortCurve (-((D.d₁ * θ.natAbs : ℕ) : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/RankDL.lean:79</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Slots">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> Slots (β θ : ℤ) (p₀ : ℕ) <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The symmetry-breaking slot `q₀`. -/</span>
+  q₀ : ℕ
+  <span class="bp-lean-comment">/-- The glue slots `r_p`, `p ∈ P ∖ {p₀}`. -/</span>
+  rP : ℕ → ℕ
+  <span class="bp-lean-comment">/-- The glue slots `r_ℓ`, `ℓ ∈ T`. -/</span>
+  rT : ℕ → ℕ
+  q₀_prime : q₀.Prime
+  q₀_mod_eight : q₀ % 8 = 3
+  q₀_not_dvd : ¬ (q₀ : ℤ) ∣ 2 * β * θ
+  q₀_sym_P : ∀ p ∈ primesOf β \ {p₀}, legBit p q₀ = 1 + lamBit p * (signBit β + 1)
+  q₀_sym_p₀ : legBit p₀ q₀ =
+  ⋯</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Slots/Construction.lean:38</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Inputs">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> Inputs (β θ : ℤ) (p₀ : ℕ) : <span class="bp-lean-keyword">Prop</span> <span class="bp-lean-keyword">where</span>
+  sqf_β : Squarefree β
+  odd_β : Odd β
+  mod_β : β.natAbs % 8 = 7
+  p₀_mem : p₀ ∈ primesOf β
+  pos_θ : 0 &lt; θ
+  mod_θ : θ % 8 = 1
+  sqf_θ : Squarefree θ
+  coprime : IsCoprime β θ
+  θ3 : ∀ ℓ ∈ primesOf θ, legBit ℓ β = 0
+  θ4 : ∀ p ∈ primesOf β, legBit p θ = 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Assembly/Data.lean:30</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.SelmerCertified">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SelmerCertified (d : ℕ) (a : ℤ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ hd : Odd d, (natConfig d hd).sols.card = 8 ∧
+    ∃ σ ∈ (natConfig d hd).sols, σ.first = natClass d a</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Assembly/Realize.lean:115</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#positive-rank-on-the-two-curves">Positive rank on the two curves</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 7 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-dl-rk">The positive-rank hypothesis on the two curves of a slot choice</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#certified-rank-rk">The certified rank hypothesis in positive-rank form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-k/index.html#prime-configuration">The configuration of an odd number and Selmer certificates</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-k/index.html#slot-conditions">The slot conditions</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-k/index.html#realization">The realization: both curves reduce to the base configuration</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#selmer-group-of-a-certificate">The 2-Selmer group of a certified curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../route-k/index.html#slots">The slots exist</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../infinitely-many-points/index.html#inf-iff-rk">The infinitely-many-points forms are equivalent to the positive-rank forms</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#certified-rank-dl-rk-of-tyz-rk">CR₃^DL,Rk from CR₃^TYZ,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#pole-completeness-from-dl-rk">Pole completeness from CR₃^DL,Rk</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/two-curves/certified-rank-dl-rk-of-tyz-rk">
+<h4 class="bp-thmheading" id="certified-rank-dl-rk-of-tyz-rk">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">CR₃^DL,Rk from CR₃^TYZ,Rk</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/RankDL.lean#L109" aria-label="View ZInQ.RouteK.Rank.certifiedRankDLRk_of_certifiedRankTYZRk in Lean source" title="View ZInQ.RouteK.Rank.certifiedRankDLRk_of_certifiedRankTYZRk in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/RankDL.lean#L98" aria-label="View ZInQ.RouteK.Rank.exists_infinite_order_of_certifiedRankTYZRk_of_selmerCertified in Lean source" title="View ZInQ.RouteK.Rank.exists_infinite_order_of_certifiedRankTYZRk_of_selmerCertified in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-curves/certified-rank-dl-rk-of-tyz-rk.md" aria-label="Edit the Markdown source for CR₃^DL,Rk from CR₃^TYZ,Rk" title="Edit the Markdown source for CR₃^DL,Rk from CR₃^TYZ,Rk"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#certified-rank-dl-rk-of-tyz-rk" aria-label="Link to CR₃^DL,Rk from CR₃^TYZ,Rk" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.certifiedRankDLRk_of_certifiedRankTYZRk ZInQ.RouteK.Rank.exists_infinite_order_of_certifiedRankTYZRk_of_selmerCertified</div>
+<div class="bp-thmcontent">
+<p>The hypothesis CR₃^TYZ,Rk implies CR₃^DL,Rk.</p>
+<p>For a single curve: assume CR₃^TYZ,Rk, let <span class="arithmatex">\(d\)</span> be a squarefree natural number with
+<span class="arithmatex">\(d\equiv5\pmod8\)</span>, and let <span class="arithmatex">\(a\)</span> be a squarefree integer dividing <span class="arithmatex">\(d\)</span> with <span class="arithmatex">\(|a|\equiv7\pmod8\)</span> such
+that <span class="arithmatex">\((d,a)\)</span> carries a Selmer certificate. Then <span class="arithmatex">\(C_d(\mathbb Q)\)</span> has a point of infinite order.</p>
+<p><strong>Proof sketch.</strong> <em>One curve.</em> The lemma on the 2-Selmer group of a certified curve gives
+<span class="arithmatex">\(|\mathrm{Sel}_2(C_d)|=8\)</span> and some <span class="arithmatex">\((a,b)\in\mathrm{Sel}_2(C_d)\)</span>. Since <span class="arithmatex">\(|a|\equiv7\pmod8\)</span>,
+Corollary 4.4 gives <span class="arithmatex">\(\det M_{5b}=1\)</span>. By Theorem 3.6, <span class="arithmatex">\(\det M_{5b}=T_{5b}(d)\)</span>, so <span class="arithmatex">\(T_{5b}(d)=1\)</span>,
+and CR₃^TYZ,Rk gives the point.</p>
+<p><em>The two curves.</em> Let <span class="arithmatex">\(\beta,\theta,p_0\)</span> satisfy the hypotheses of CR₃^DL,Rk. Then <span class="arithmatex">\(\beta,\theta\)</span>
+are odd and coprime and <span class="arithmatex">\(p_0\in P(\beta)\)</span>, so slot data exist; take any. By the realization,
+<span class="arithmatex">\(d_1\)</span> is squarefree with <span class="arithmatex">\(d_1\equiv5\pmod8\)</span>, <span class="arithmatex">\(\beta\mid d_1\)</span>, and <span class="arithmatex">\((d_1,\beta)\)</span> carries a Selmer
+certificate; by the facts proved along the way to CR₃^DL,Rk from CR₃^Rk, the same holds for
+<span class="arithmatex">\(d_1|\theta|\)</span>. Since <span class="arithmatex">\(\beta\)</span> is squarefree with <span class="arithmatex">\(|\beta|\equiv7\pmod8\)</span>, the one-curve statement
+with <span class="arithmatex">\(a=\beta\)</span> applies to both curves.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> certifiedRankDLRk_of_certifiedRankTYZRk (h : <a class="bp-lean-ref" href="../index.html#certified-rank-tyz-rk" data-lean-name="ZInQ.RouteK.Rank.CertifiedRankTYZRk">CertifiedRankTYZRk</a>) : <a class="bp-lean-ref" href="#certified-rank-dl-rk" data-lean-name="ZInQ.RouteK.Rank.CertifiedRankDLRk">CertifiedRankDLRk</a></code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_infinite_order_of_certifiedRankTYZRk_of_selmerCertified (h : <a class="bp-lean-ref" href="../index.html#certified-rank-tyz-rk" data-lean-name="ZInQ.RouteK.Rank.CertifiedRankTYZRk">CertifiedRankTYZRk</a>)
+    {d : ℕ} (hd : d % 8 = 5) (hsqd : Squarefree d) {a : ℤ} (hsqa : Squarefree a)
+    (had : a ∣ (d : ℤ)) (h7 : a.natAbs % 8 = 7) (hc : <a class="bp-lean-ref" href="../../route-k/index.html#prime-configuration" data-lean-name="ZInQ.RouteK.SelmerCertified">SelmerCertified</a> d a) :
+    ∃ P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank.CertifiedRankTYZRk">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankTYZRk : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → T5b d = 1 →
+    ∃ P : (shortCurve (-(d : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Statements.lean:54</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.CertifiedRankDLRk">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankDLRk : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ (β θ : ℤ) (p₀ : ℕ), Inputs β θ p₀ → ∃ D : Slots β θ p₀,
+    (∃ P : (shortCurve (-((D.d₁ : ℕ) : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P) ∧
+    (∃ P : (shortCurve (-((D.d₁ * θ.natAbs : ℕ) : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/RankDL.lean:79</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.SelmerCertified">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SelmerCertified (d : ℕ) (a : ℤ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ hd : Odd d, (natConfig d hd).sols.card = 8 ∧
+    ∃ σ ∈ (natConfig d hd).sols, σ.first = natClass d a</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Assembly/Realize.lean:115</p>
+</div>
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#positive-rank-on-the-two-curves">Positive rank on the two curves</a></li>
+<li><a href="../../../sources/rank-5b-locators.html#corollary-44">Corollary 4.4</a></li>
+<li><a href="../../../sources/rank-5b-locators.html#theorem-36">Theorem 3.6</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 9</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-dl-rk">The positive-rank hypothesis on the two curves of a slot choice</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#certified-rank-tyz-rk">The Tian–Yuan–Zhang hypothesis in positive-rank form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-k/index.html#prime-configuration">The configuration of an odd number and Selmer certificates</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#selmer-group-of-a-certificate">The 2-Selmer group of a certified curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#certified-rank-dl-rk-of-rk">CR₃^DL,Rk from CR₃^Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../rank-5b/index.html#corollary-4-4">A first coordinate congruent to 7 forces <span class="arithmatex">\(\det M_{5b}=1\)</span> (Corollary 4.4)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../rank-5b/genus-sum/index.html#theorem-3-6">Row 5b of Smith&#x27;s table (Theorem 3.6)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../route-k/index.html#slots">The slots exist</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../route-k/index.html#realization">The realization: both curves reduce to the base configuration</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="pole-completeness">Pole completeness</h2>
+<p>With CR₃^DL,Rk or CR₃^DL,Adm,Rk in place of CR₃, the main theorem holds under the minimal height
+hypothesis and either of them alone:
+<a href="../../main/index.html#main-theorem-two-curves">the main theorem from positive rank on the two curves of a slot choice</a>.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/two-curves/point-of-infinite-order">
+<h4 class="bp-thmheading" id="point-of-infinite-order">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">A point of infinite order on a certified curve</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/RankDL.lean#L134" aria-label="View ZInQ.RouteK.Rank.exists_point_of_selmerCertified_of_infinite_order in Lean source" title="View ZInQ.RouteK.Rank.exists_point_of_selmerCertified_of_infinite_order in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-curves/point-of-infinite-order.md" aria-label="Edit the Markdown source for A point of infinite order on a certified curve" title="Edit the Markdown source for A point of infinite order on a certified curve"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#point-of-infinite-order" aria-label="Link to A point of infinite order on a certified curve" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.exists_point_of_selmerCertified_of_infinite_order</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d\)</span> be a squarefree natural number with <span class="arithmatex">\(d\equiv5\pmod8\)</span>, and let <span class="arithmatex">\(a\)</span> be a squarefree integer
+dividing <span class="arithmatex">\(d\)</span> with <span class="arithmatex">\(|a|\equiv7\pmod8\)</span> such that <span class="arithmatex">\((d,a)\)</span> carries a Selmer certificate. If
+<span class="arithmatex">\(C_d(\mathbb Q)\)</span> has a point of infinite order, then there are <span class="arithmatex">\(x,y\in\mathbb Q\)</span> with
+<span class="arithmatex">\(y^2=x^3-d^2x\)</span>, <span class="arithmatex">\(x\ne0\)</span> and <span class="arithmatex">\(x/a\)</span> a square in <span class="arithmatex">\(\mathbb Q\)</span>.</p>
+<p>The conclusion is that of the certified rank hypothesis CR₃ at <span class="arithmatex">\((d,a)\)</span>: on a certified curve,
+positive rank gives the point that CR₃ asks for.</p>
+<p><strong>Proof sketch.</strong> The lemma on the 2-Selmer group of a certified curve gives
+<span class="arithmatex">\(|\mathrm{Sel}_2(C_d)|=8\)</span> and some <span class="arithmatex">\((a,b)\in\mathrm{Sel}_2(C_d)\)</span>. Since <span class="arithmatex">\(d\ne0\)</span>, the group
+<span class="arithmatex">\(C_d(\mathbb Q)\)</span> is finitely generated by Mordell–Weil for the congruent number curves. It has a
+point of infinite order and <span class="arithmatex">\(|\mathrm{Sel}_2(C_d)|=8\)</span>, so by RK9 every Selmer class comes from a
+rational point; in particular the x-form of the 2-covering <span class="arithmatex">\(D_{a,b}\)</span> holds over <span class="arithmatex">\(\mathbb Q\)</span>. Here
+<span class="arithmatex">\(b\ne0\)</span>, since <span class="arithmatex">\(b\)</span> is squarefree. The squarefree <span class="arithmatex">\(a\)</span> with <span class="arithmatex">\(|a|\equiv7\pmod8\)</span> is not a square, so
+the first alternative of the x-form is excluded, and there is <span class="arithmatex">\(x\)</span> with <span class="arithmatex">\(x/a\)</span>, <span class="arithmatex">\((x-d)/b\)</span> and
+<span class="arithmatex">\((x+d)/(ab)\)</span> squares. As in steps 3–5 of the proof of CR₃ from its Selmer form, <span class="arithmatex">\(x\ne0\)</span>, and
+<span class="arithmatex">\(y=abr_1r_2r_3\)</span> gives the point.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_point_of_selmerCertified_of_infinite_order {d : ℕ} (hd : d % 8 = 5)
+    (hsqd : Squarefree d) {a : ℤ} (hsqa : Squarefree a) (had : a ∣ (d : ℤ))
+    (h7 : a.natAbs % 8 = 7) (hc : <a class="bp-lean-ref" href="../../route-k/index.html#prime-configuration" data-lean-name="ZInQ.RouteK.SelmerCertified">SelmerCertified</a> d a)
+    (hinf : ∃ P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P) :
+    ∃ x y : ℚ, y ^ 2 = x ^ 3 - (d : ℚ) ^ 2 * x ∧ x ≠ 0 ∧ IsSquare (x / a)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.SelmerCertified">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SelmerCertified (d : ℕ) (a : ℤ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ hd : Odd d, (natConfig d hd).sols.card = 8 ∧
+    ∃ σ ∈ (natConfig d hd).sols, σ.first = natClass d a</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Assembly/Realize.lean:115</p>
+</div>
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#positive-rank-on-the-two-curves">Positive rank on the two curves</a></li>
+<li><a href="../../../sources/rank-locators.html#rk9">RK9</a></li>
+<li><a href="../../../sources/selmer-locators.html#the-hypothesis-in-the-literatures-form">The hypothesis in the literature's form</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-k/index.html#prime-configuration">The configuration of an odd number and Selmer certificates</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#selmer-group-of-a-certificate">The 2-Selmer group of a certified curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../two-descent/index.html#every-selmer-class">Positive rank and a Selmer group of order eight give every Selmer class (RK9)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../mordell-weil/index.html#finite-generation">Mordell–Weil for the congruent number curves</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../selmer/index.html#certified-rank-of-sel">The certified rank hypothesis from its Selmer form</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#pole-completeness-from-dl-rk">Pole completeness from CR₃^DL,Rk</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/two-curves/pole-completeness-from-dl-rk">
+<h4 class="bp-thmheading" id="pole-completeness-from-dl-rk">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Pole completeness from CR₃^DL,Rk</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/RankDL.lean#L175" aria-label="View ZInQ.RouteK.Rank.poleCompleteness_of_certifiedRankDLRk in Lean source" title="View ZInQ.RouteK.Rank.poleCompleteness_of_certifiedRankDLRk in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/RankDL.lean#L148" aria-label="View ZInQ.RouteK.Rank.poleSoluble_of_slots_infinite_order in Lean source" title="View ZInQ.RouteK.Rank.poleSoluble_of_slots_infinite_order in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-curves/pole-completeness-from-dl-rk.md" aria-label="Edit the Markdown source for Pole completeness from CR₃^DL,Rk" title="Edit the Markdown source for Pole completeness from CR₃^DL,Rk"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#pole-completeness-from-dl-rk" aria-label="Link to Pole completeness from CR₃^DL,Rk" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.poleCompleteness_of_certifiedRankDLRk ZInQ.RouteK.Rank.poleSoluble_of_slots_infinite_order</div>
+<div class="bp-thmcontent">
+<p>Assume CR₃^DL,Rk. Then pole completeness holds: every admissible <span class="arithmatex">\(B\)</span> satisfies <span class="arithmatex">\(\Phi(B)\)</span>.</p>
+<p>For a single input: let <span class="arithmatex">\(B\)</span> be admissible, <span class="arithmatex">\(m\)</span> a signed divisor of <span class="arithmatex">\(2730\)</span>,
+<span class="arithmatex">\(\beta=\mathrm{sqf}(mB)\)</span> and <span class="arithmatex">\(\theta=\mathrm{sqf}(m(m-B))\)</span>, and let <span class="arithmatex">\(p_0\)</span> be a natural number such
+that <span class="arithmatex">\(\beta,\theta,p_0\)</span> satisfy the hypotheses of CR₃^DL,Rk. If for some slot data
+<span class="arithmatex">\(q_0\)</span>, <span class="arithmatex">\(r_p\)</span>, <span class="arithmatex">\(r_\ell\)</span> for <span class="arithmatex">\(\beta,\theta,p_0\)</span>, with <span class="arithmatex">\(d_1=|\beta|\,q_0\prod_pr_p\prod_\ell r_\ell\)</span>,
+both <span class="arithmatex">\(C_{d_1}(\mathbb Q)\)</span> and <span class="arithmatex">\(C_{d_1|\theta|}(\mathbb Q)\)</span> have points of infinite order, then
+<span class="arithmatex">\(\Phi(B)\)</span> holds.</p>
+<p><strong>Proof sketch.</strong> <em>One input.</em> By the realization, <span class="arithmatex">\(d_1\)</span> is squarefree with <span class="arithmatex">\(d_1\equiv5\pmod8\)</span>,
+<span class="arithmatex">\(\beta\mid d_1\)</span>, and <span class="arithmatex">\((d_1,\beta)\)</span> carries a Selmer certificate; by the facts proved along the way
+to CR₃^DL,Rk from CR₃^Rk, the same holds for <span class="arithmatex">\(d_1|\theta|\)</span>. Also <span class="arithmatex">\(\beta\)</span> is squarefree with
+<span class="arithmatex">\(|\beta|\equiv7\pmod8\)</span>. The lemma on a point of infinite order on a certified curve, with
+<span class="arithmatex">\(a=\beta\)</span>, gives a point <span class="arithmatex">\((x_1,y_1)\)</span> on <span class="arithmatex">\(C_{d_1}\)</span> and a point <span class="arithmatex">\((x_2,y_2)\)</span> on <span class="arithmatex">\(C_{d_1|\theta|}\)</span>,
+with <span class="arithmatex">\(x_i\ne0\)</span> and <span class="arithmatex">\(x_i/\beta\)</span> squares. Since <span class="arithmatex">\(0&lt;B&lt;1/2\)</span>, the integer <span class="arithmatex">\(m\)</span> is not <span class="arithmatex">\(B\)</span>. Take
+<span class="arithmatex">\(N=d_1\ne0\)</span>. Then <span class="arithmatex">\(C_{N\theta}\)</span> is <span class="arithmatex">\(C_{d_1|\theta|}\)</span>, since <span class="arithmatex">\((d_1|\theta|)^2=(d_1\theta)^2\)</span>, and
+the lemma on points and pole solubility gives <span class="arithmatex">\(\Phi(B)\)</span>.</p>
+<p><em>Pole completeness.</em> By the reformulation through admissible inputs, it suffices to treat an
+admissible <span class="arithmatex">\(B\)</span>. The multiplier lemma in its combined form with the existence of the slots, of
+which only the multiplier part is used here, gives a signed divisor <span class="arithmatex">\(m\)</span> of <span class="arithmatex">\(2730\)</span> with <span class="arithmatex">\(\beta\)</span> odd
+and <span class="arithmatex">\(|\beta|\equiv7\pmod8\)</span>, and a prime factor <span class="arithmatex">\(p_0\)</span> of <span class="arithmatex">\(\beta\)</span>. By the descent lemma's facts
+about admissible inputs, which rest on (θ1)–(θ4), the triple <span class="arithmatex">\(\beta,\theta,p_0\)</span> satisfies the
+hypotheses of CR₃^DL,Rk. CR₃^DL,Rk gives slot data whose two curves have points of infinite order, and the
+first part gives <span class="arithmatex">\(\Phi(B)\)</span>. Unlike the proof from CR₃, the slot data come from the hypothesis,
+not from the descent lemma; of the descent lemma only the facts about admissible inputs are used.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> poleCompleteness_of_certifiedRankDLRk (hDL : <a class="bp-lean-ref" href="#certified-rank-dl-rk" data-lean-name="ZInQ.RouteK.Rank.CertifiedRankDLRk">CertifiedRankDLRk</a>) : <a class="bp-lean-ref" href="../../main/index.html#pole-completeness" data-lean-name="ZInQ.PoleCompleteness">PoleCompleteness</a></code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> poleSoluble_of_slots_infinite_order {B : ℚ} (hB : <a class="bp-lean-ref" href="../../route-k/index.html#squarefree-part" data-lean-name="ZInQ.RouteK.Admissible">Admissible</a> B) {m : ℤ} (hm : m ∣ 2730)
+    {p₀ : ℕ} (hI : <a class="bp-lean-ref" href="../../route-k/index.html#realization" data-lean-name="ZInQ.RouteK.Inputs">Inputs</a> (<a class="bp-lean-ref" href="../../route-k/index.html#squarefree-part" data-lean-name="ZInQ.RouteK.betaOf">betaOf</a> B m) (<a class="bp-lean-ref" href="../../route-k/index.html#squarefree-part" data-lean-name="ZInQ.RouteK.thetaOf">thetaOf</a> B m) p₀) (D : <a class="bp-lean-ref" href="../../route-k/index.html#slot-conditions" data-lean-name="ZInQ.RouteK.Slots">Slots</a> (<a class="bp-lean-ref" href="../../route-k/index.html#squarefree-part" data-lean-name="ZInQ.RouteK.betaOf">betaOf</a> B m) (<a class="bp-lean-ref" href="../../route-k/index.html#squarefree-part" data-lean-name="ZInQ.RouteK.thetaOf">thetaOf</a> B m) p₀)
+    (hP₁ : ∃ P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-((D.d₁ : ℕ) : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P)
+    (hP₂ : ∃ P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-((D.d₁ * (<a class="bp-lean-ref" href="../../route-k/index.html#squarefree-part" data-lean-name="ZInQ.RouteK.thetaOf">thetaOf</a> B m).natAbs : ℕ) : ℚ) ^ 2)).toAffine.Point,
+      ¬IsOfFinAddOrder P) : <a class="bp-lean-ref" href="../../main/index.html#pole-completeness" data-lean-name="ZInQ.PoleSoluble">PoleSoluble</a> B</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank.CertifiedRankDLRk">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankDLRk : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ (β θ : ℤ) (p₀ : ℕ), Inputs β θ p₀ → ∃ D : Slots β θ p₀,
+    (∃ P : (shortCurve (-((D.d₁ : ℕ) : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P) ∧
+    (∃ P : (shortCurve (-((D.d₁ * θ.natAbs : ℕ) : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/RankDL.lean:79</p>
+</div>
+<div data-lean-name="ZInQ.PoleCompleteness">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> PoleCompleteness : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ B : ℚ, IsSquare B.den → 0 &lt; B → B &lt; 1 / 2 → (∀ p ∈ poleS0, 4 ≤ padicValRat p B) →
+    PoleSoluble B</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/Pole.lean:62</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Admissible">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Admissible (B : ℚ) : <span class="bp-lean-keyword">Prop</span> :=
+  IsSquare B.den ∧ 0 &lt; B ∧ B &lt; 1 / 2 ∧ ∀ p ∈ poleS0, 4 ≤ padicValRat p B</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Slots/Basic.lean:20</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Inputs">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> Inputs (β θ : ℤ) (p₀ : ℕ) : <span class="bp-lean-keyword">Prop</span> <span class="bp-lean-keyword">where</span>
+  sqf_β : Squarefree β
+  odd_β : Odd β
+  mod_β : β.natAbs % 8 = 7
+  p₀_mem : p₀ ∈ primesOf β
+  pos_θ : 0 &lt; θ
+  mod_θ : θ % 8 = 1
+  sqf_θ : Squarefree θ
+  coprime : IsCoprime β θ
+  θ3 : ∀ ℓ ∈ primesOf θ, legBit ℓ β = 0
+  θ4 : ∀ p ∈ primesOf β, legBit p θ = 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Assembly/Data.lean:30</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.betaOf">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> betaOf (B : ℚ) (m : ℤ) : ℤ := sqf (m * B)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Slots/Basic.lean:39</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.thetaOf">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> thetaOf (B : ℚ) (m : ℤ) : ℤ := sqf (m * (m - B))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Slots/Basic.lean:42</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Slots">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> Slots (β θ : ℤ) (p₀ : ℕ) <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The symmetry-breaking slot `q₀`. -/</span>
+  q₀ : ℕ
+  <span class="bp-lean-comment">/-- The glue slots `r_p`, `p ∈ P ∖ {p₀}`. -/</span>
+  rP : ℕ → ℕ
+  <span class="bp-lean-comment">/-- The glue slots `r_ℓ`, `ℓ ∈ T`. -/</span>
+  rT : ℕ → ℕ
+  q₀_prime : q₀.Prime
+  q₀_mod_eight : q₀ % 8 = 3
+  q₀_not_dvd : ¬ (q₀ : ℤ) ∣ 2 * β * θ
+  q₀_sym_P : ∀ p ∈ primesOf β \ {p₀}, legBit p q₀ = 1 + lamBit p * (signBit β + 1)
+  q₀_sym_p₀ : legBit p₀ q₀ =
+  ⋯</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Slots/Construction.lean:38</p>
+</div>
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.PoleSoluble">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> PoleSoluble (B : ℚ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ (b : Fin 6 → ℚ) (e z r₁ r₂ w : ℚ), polePoly B b e z r₁ r₂ w = 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/Pole.lean:52</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_7">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-two-curves-of-a-slot-choice">The two curves of a slot choice</a></li>
+<li><a href="../../../sources/rank-locators.html#positive-rank-on-the-two-curves">Positive rank on the two curves</a></li>
+<li><a href="../../../sources/route-k-locators.html#points-and-the-pole-polynomial">Points and the pole polynomial</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/rank-locators.html#the-two-curves-of-a-slot-choice"> </a></p>
+<p><a href="../../../sources/rank-locators.html#positive-rank-on-the-two-curves"> </a></p>
+<p><a href="../../../sources/route-k-locators.html#points-and-the-pole-polynomial"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 10 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-dl-rk">The positive-rank hypothesis on the two curves of a slot choice</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#pole-completeness">Pole completeness</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-k/index.html#squarefree-part">Admissible inputs, the squarefree part, <span class="arithmatex">\(\beta\)</span> and <span class="arithmatex">\(\theta\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-k/index.html#slot-conditions">The slot conditions</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-k/index.html#realization">The realization: both curves reduce to the base configuration</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#point-of-infinite-order">A point of infinite order on a certified curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#certified-rank-dl-rk-of-rk">CR₃^DL,Rk from CR₃^Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../route-k/index.html#points-pole-solubility">Points on two congruent number curves give pole solubility</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../route-k/index.html#slots">The slots exist</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../route-k/index.html#descent-lemma">The descent lemma</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../main/index.html#main-theorem-two-curves">The main theorem from positive rank on the two curves of a slot choice</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#pole-completeness-from-dl-adm-rk">Pole completeness from CR₃^DL,Adm,Rk</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/two-curves/pole-completeness-from-dl-adm-rk">
+<h4 class="bp-thmheading" id="pole-completeness-from-dl-adm-rk">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Pole completeness from CR₃^DL,Adm,Rk</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/RankDL.lean#L207" aria-label="View ZInQ.RouteK.Rank.poleCompleteness_of_certifiedRankDLAdmRk in Lean source" title="View ZInQ.RouteK.Rank.poleCompleteness_of_certifiedRankDLAdmRk in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-curves/pole-completeness-from-dl-adm-rk.md" aria-label="Edit the Markdown source for Pole completeness from CR₃^DL,Adm,Rk" title="Edit the Markdown source for Pole completeness from CR₃^DL,Adm,Rk"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#pole-completeness-from-dl-adm-rk" aria-label="Link to Pole completeness from CR₃^DL,Adm,Rk" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.poleCompleteness_of_certifiedRankDLAdmRk</div>
+<div class="bp-thmcontent">
+<p>Assume CR₃^DL,Adm,Rk. Then pole completeness holds: every admissible <span class="arithmatex">\(B\)</span> satisfies <span class="arithmatex">\(\Phi(B)\)</span>.</p>
+<p><strong>Proof sketch.</strong> By the reformulation through admissible inputs, it suffices to treat an
+admissible <span class="arithmatex">\(B\)</span>. Take <span class="arithmatex">\(m\)</span>, <span class="arithmatex">\(p_0\)</span> and the slot data from the hypothesis, and put
+<span class="arithmatex">\(\beta=\mathrm{sqf}(mB)\)</span>, <span class="arithmatex">\(\theta=\mathrm{sqf}(m(m-B))\)</span>. Since <span class="arithmatex">\(\beta\)</span> is odd with
+<span class="arithmatex">\(|\beta|\equiv7\pmod8\)</span> and <span class="arithmatex">\(p_0\mid\beta\)</span>, (θ1)–(θ4) show, as in the descent lemma, that
+<span class="arithmatex">\(\beta,\theta,p_0\)</span> satisfy the hypotheses of CR₃^DL,Rk. The one-input form of pole completeness
+from CR₃^DL,Rk, applied to the two points of infinite order, then gives <span class="arithmatex">\(\Phi(B)\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> poleCompleteness_of_certifiedRankDLAdmRk (h : <a class="bp-lean-ref" href="#certified-rank-dl-adm-rk" data-lean-name="ZInQ.RouteK.Rank.CertifiedRankDLAdmRk">CertifiedRankDLAdmRk</a>) : <a class="bp-lean-ref" href="../../main/index.html#pole-completeness" data-lean-name="ZInQ.PoleCompleteness">PoleCompleteness</a></code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank.CertifiedRankDLAdmRk">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankDLAdmRk : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ B : ℚ, Admissible B → ∃ m : ℤ, m ∣ 2730 ∧ Odd (betaOf B m) ∧ (betaOf B m).natAbs % 8 = 7 ∧
+    ∃ p₀ ∈ primesOf (betaOf B m), ∃ D : Slots (betaOf B m) (thetaOf B m) p₀,
+      (∃ P : (shortCurve (-((D.d₁ : ℕ) : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P) ∧
+      (∃ P : (shortCurve (-((D.d₁ * (thetaOf B m).natAbs : ℕ) : ℚ) ^ 2)).toAffine.Point,
+        ¬IsOfFinAddOrder P)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/RankDL.lean:191</p>
+</div>
+<div data-lean-name="ZInQ.PoleCompleteness">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> PoleCompleteness : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ B : ℚ, IsSquare B.den → 0 &lt; B → B &lt; 1 / 2 → (∀ p ∈ poleS0, 4 ≤ padicValRat p B) →
+    PoleSoluble B</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/Pole.lean:62</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_8">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-two-curves-of-a-slot-choice">The two curves of a slot choice</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-dl-adm-rk">The positive-rank hypothesis at the inputs of admissible numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#pole-completeness">Pole completeness</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#pole-completeness-from-dl-rk">Pole completeness from CR₃^DL,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../route-k/index.html#descent-lemma">The descent lemma</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../route-k/index.html#squarefree-part">Admissible inputs, the squarefree part, <span class="arithmatex">\(\beta\)</span> and <span class="arithmatex">\(\theta\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../main/index.html#main-theorem-two-curves">The main theorem from positive rank on the two curves of a slot choice</a></span></div>
+</div>
+</details>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../../dependencies/index.json" data-graph-src="../../../dependencies/scopes/rank/two-curves.json" data-page-href="index.html" data-scope-id="rank/two-curves">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

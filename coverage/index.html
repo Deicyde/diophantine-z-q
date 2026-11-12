@@ -1,0 +1,1838 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../roadmap/rank/infinitely-many-points/index.html">
+      
+      
+        <link rel="next" href="../sources/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Coverage contract - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#coverage-decomposed" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Coverage contract
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../roadmap/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../roadmap/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../roadmap/syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../roadmap/model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../roadmap/multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../roadmap/compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../roadmap/assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../roadmap/size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../roadmap/progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../roadmap/rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../roadmap/redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../roadmap/rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#coverage-decomposed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decomposed (16)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coverage-deferred" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deferred (1)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coverage-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope (3)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#coverage-decomposed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decomposed (16)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coverage-deferred" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deferred (1)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coverage-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope (3)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-page-title="Coverage contract">
+<h1 id="coverage-contract">Coverage contract</h1>
+<h2 id="coverage-decomposed">Decomposed (16)</h2>
+<p><strong>Section 1: main theorem and assembly</strong></p>
+<p>The <a href="../roadmap/main/index.html">first chapter</a> states the target and the conditional main theorem; the <a href="../roadmap/assembly/index.html">assembly chapter</a> decomposes Lemma 1.2.</p>
+<details class="bp-dependencies">
+<summary>40 statements · 40 fully proved</summary>
+<div class="bp-dependency-body"><a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#frozen-target">The target statement</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#six-contact-estimate">The six-contact height estimate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#six-contact-min">The minimal height hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#six-contact-min-of-estimate">The six-contact estimate implies its minimal form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#pole-completeness">Pole completeness</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#certified-rank">The certified rank hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#mordell-weil">Mordell–Weil for the generator curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#prime-pattern">The twenty-two-prime pattern</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#catalogue-bound">The catalogue bound</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#two-slope-pattern">The two-slope prime pattern</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#main-theorem">The main theorem</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#main-theorem-two-hypotheses">The main theorem from two hypotheses</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#main-theorem-selmer">The main theorem from the Selmer form of the rank hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#main-theorem-tyz">The main theorem from the Tian–Yuan–Zhang forms of the rank hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#main-theorem-positive-rank">The main theorem from the positive-rank forms of the rank hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#main-theorem-two-curves">The main theorem from positive rank on the two curves of a slot choice</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#main-theorem-infinitely-many-points">The main theorem from the infinitely-many-points forms of the rank hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/index.html#main-branch-exactness">An accepting main branch forces the exact value</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/index.html#ordinary-value-relation">The exact ordinary-value relation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/index.html#assembly-lemma">The assembly lemma</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/value-templates/index.html#signed-encoding-semantics">Semantics of the signed encoding</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/value-templates/index.html#close-coordinates-semantics">Semantics of the coordinate window</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/value-templates/index.html#double-and-add-chains">Double-and-add chains</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/value-templates/index.html#exceptions-semantics">Semantics of the exceptional values</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/value-templates/index.html#six-local-tests">The six local tests</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/value-templates/index.html#value-test-semantics">Semantics of the value-test template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/value-templates/index.html#outer-recipe-relations">Relations of the outer recipes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/approximation/index.html#close-relation">The relation Close</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/approximation/index.html#close-soundness">Soundness of Close</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/approximation/index.html#real-subtraction">Compactness and continuity of subtraction on a real curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/approximation/index.html#real-accumulation">Multiples of the generator approach the identity at both real places</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/approximation/index.html#real-derivative">The derivative of multiplication at a real place</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/approximation/index.html#close-completeness">Completeness of Close for every fixed shift</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/local-tests/index.html#dyadic-trace">Valuation and trace at the prime <span class="arithmatex">\((s)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/local-tests/index.html#formal-multiplication">Multiplication in a formal neighbourhood</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/local-tests/index.html#test-divisibility">Divisibility from the six local tests</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/local-tests/index.html#deep-multiples">Deep multiples of the generator</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/local-tests/index.html#pole-input-local">Local conditions on the pole input</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/local-tests/index.html#pole-input-real">Real conditions on the pole input</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/local-tests/index.html#test-completeness">One suitable shift</a></div>
+</details>
+<p><strong>Section 2 and Appendix C: literal finite specification</strong></p>
+<p>The <a href="../roadmap/syntax/index.html">specification chapter</a> defines the expression language, every template, constant, constructor and recipe, and the polynomial; correctness of each template is assigned to the chapter that uses it.</p>
+<details class="bp-dependencies">
+<summary>56 statements · 56 fully proved</summary>
+<div class="bp-dependency-body"><a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/index.html#template-semantics">Semantics of templates and recipes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/index.html#sum-of-squares-semantics">Sums of squares and products over the rationals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/index.html#nonzero-gadgets">Inverse witnesses</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/index.html#field-pair-arithmetic">Pair arithmetic represents the quadratic field</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/index.html#division-polynomials">Normalized division polynomials and their components</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/index.html#division-polynomials-classical">Agreement with the classical division polynomials</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/index.html#division-polynomial-multiplication">The multiplication-by-n formulas</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/index.html#fixed-scalar-semantics">Semantics of the fixed-scalar templates</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/index.html#template-member">The membership template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/index.html#template-raw-add">The raw addition template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/index.html#literal-polynomial">The specified polynomial</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/language/index.html#formula-compilation">Formulas and their polynomial compilation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/language/index.html#builder-soundness">Template construction from formulas</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/language/index.html#builder-well-formed">Witness scope of constructed templates and recipes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/language/index.html#call-semantics">Evaluation of a template call</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/language/index.html#existential-lifting">Private witness blocks</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/language/index.html#rational-constants">Rational constants by global equations</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/language/index.html#positivity-gadget">Strict positivity by four squares</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/language/index.html#absolute-value-gadget">Absolute value by four squares</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/language/index.html#field-pair-gadgets">Quadratic-field pairs and point-code formulas</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/language/index.html#point-references">Point references</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/language/index.html#generator-references">Values of the point references</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/constants/index.html#prime-catalogue">The prime catalogue</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/constants/index.html#least-formal-multiple">The least formal multiple</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/constants/index.html#fixed-integer-expressions">Fixed integer expressions</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/constants/index.html#fixed-constants">The prescribed fixed constants</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/constants/index.html#primorial-literal">Decimal values of the primorial constants</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/constants/index.html#guard-product">The finite false-triple product</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-raw-z">The local parameter template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-raw-inverse-x">The inverse abscissa template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-log25">The truncated logarithm template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#log25-coefficients">The coefficients of the truncated logarithm</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-pole">The pole template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#pole-semantics">Semantics of the pole template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-test-group">The test-group template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-slope">The slope template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-height-certificate">The height certificate template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-fixed-scalar">The fixed-scalar templates</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-guard">The guard template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#guard-semantics">Semantics of the guard template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-multiply">The multiplication template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-natural">The natural-code template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-signed-encode">The signed-encoding template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-abs">The absolute-value template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-close-coordinates">The coordinate-window template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-value-test">The value-test template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-exceptions">The exceptional-values template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/templates/index.html#template-library">The template library</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/recipes/index.html#model-evaluation-translation">Translation of a natural circuit into a model-evaluation recipe</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/syntax/recipes/index.html#recipe-power-value">The power-value recipe</a> <span class="bp-ref-sep">·</span> and 6 more</div>
+</details>
+<p><strong>Section 3: elliptic model, generator and addition</strong></p>
+<p>The <a href="../roadmap/model/index.html">elliptic model chapter</a> covers the field, the descent, the heights and the finite search, membership and raw addition.</p>
+<details class="bp-dependencies">
+<summary>51 statements · 51 fully proved</summary>
+<div class="bp-dependency-body"><a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/index.html#point-codes">Point codes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/index.html#generator">The generator certificate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/index.html#membership">Polynomial membership in the doubled group</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/index.html#membership-indices">Accepted inputs have unique indices</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/index.html#raw-addition-points">Raw addition on canonical codes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/index.html#raw-addition">Raw addition</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/field/index.html#quadratic-field">The field <span class="arithmatex">\(K_0=\mathbb Q(\sqrt2)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/field/index.html#explicit-identities">Explicit identities in <span class="arithmatex">\(K_0\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/field/index.html#generator-curve">The generator curve <span class="arithmatex">\(E\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/field/index.html#generator-point-equation">The coordinates of <span class="arithmatex">\(P_0\)</span> satisfy the curve equation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/field/index.html#generator-point">The point <span class="arithmatex">\(P_0\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/field/index.html#point-code-properties">Elementary properties of codes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/field/index.html#division-polynomial-multiples">Division polynomials compute multiples</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/field/index.html#fixed-point-codes">Fixed point codes by division polynomials</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/field/index.html#integers-pid"><span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span> is a principal ideal domain</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/field/index.html#units">Units of <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/field/index.html#residue-checks">Residue computations modulo seven</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/field/index.html#special-primes">The primes <span class="arithmatex">\((s)\)</span> and <span class="arithmatex">\((d)\)</span> of <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/field/index.html#dyadic-valuation">A dyadic valuation computation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/descent/index.html#kummer-map">Two-isogenies and the Kummer map</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/descent/index.html#kummer-homomorphism">The Kummer map is a homomorphism</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/descent/index.html#kummer-kernel">The image of a two-isogeny is the kernel of the Kummer map</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/descent/index.html#isogeny-doubling">The composite of the two-isogenies is doubling</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/descent/index.html#coordinate-change">The change of variables to <span class="arithmatex">\(C\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/descent/index.html#point-r-certificate">The certificate for the point <span class="arithmatex">\(R\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/descent/index.html#first-descent-image">The first descent image has order eight</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/descent/index.html#second-descent-image">The second descent image is trivial</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/descent/index.html#descent-index">The index <span class="arithmatex">\([E(K_0):2E(K_0)]=8\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/descent/index.html#reduction-torsion">Reduction is injective on prime-to-<span class="arithmatex">\(p\)</span> torsion</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/descent/index.html#reduction-point-counts">Point counts at <span class="arithmatex">\((17,s-6)\)</span> and <span class="arithmatex">\((23,s-5)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/descent/index.html#torsion">The torsion of <span class="arithmatex">\(E(K_0)\)</span> is the full two-torsion</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/descent/index.html#nonzero-multiples">Nonzero multiples of the generator</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/descent/index.html#rank-one"><span class="arithmatex">\(E(K_0)\)</span> has rank one</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/descent/index.html#odd-free-index">The free index of <span class="arithmatex">\(R\)</span> is odd</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/descent/index.html#mordell-weil-from-descent">Mordell-Weil for <span class="arithmatex">\(E/K_0\)</span> from the descent</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/heights/index.html#x-height">The <span class="arithmatex">\(x\)</span>-height on <span class="arithmatex">\(C(K_0)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/heights/index.html#x-height-formula">The height of a fraction in <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/heights/index.html#duplication-forms">The duplication forms on <span class="arithmatex">\(C\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/heights/index.html#duplication-archimedean">Archimedean bounds for the duplication forms</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/heights/index.html#duplication-common-divisor">The common divisor of the duplication forms</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/heights/index.html#duplication-height-bounds">Height bounds for doubling on <span class="arithmatex">\(C\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/heights/index.html#canonical-height">The canonical height on <span class="arithmatex">\(C(K_0)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/heights/index.html#canonical-height-bounds">Basic properties of the canonical height</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/heights/index.html#canonical-height-quadratic">The canonical height is quadratic</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/heights/index.html#height-of-2r">The height of <span class="arithmatex">\(2R\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/heights/index.html#height-comparisons">Two explicit integer comparisons</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/heights/index.html#small-height-bound">A multiple of a small point</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/heights/index.html#search-box">The search box for small heights</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/heights/index.html#square-test">An exact square test in <span class="arithmatex">\(K_0\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/model/heights/index.html#small-height-search">The finite search for small points on <span class="arithmatex">\(C\)</span></a> <span class="bp-ref-sep">·</span> and 1 more</div>
+</details>
+<p><strong>Section 5: pole predicate</strong></p>
+<p>Lemma 5.1 is the <a href="../roadmap/multiplication/index.html#pole-obstruction">pole obstruction</a> of the multiplication chapter and Theorem 5.2 is <a href="../roadmap/main/index.html#pole-completeness">pole completeness</a> in the first chapter, both for the Route K pole polynomial (curves <span class="arithmatex">\(x+\ell\)</span> instead of <span class="arithmatex">\(x+3\ell\)</span>); PC is proved in the <a href="../roadmap/route-k/index.html">Route K chapter</a> from the hypothesis CR₃.</p>
+<details class="bp-dependencies">
+<summary>20 statements · 20 fully proved</summary>
+<div class="bp-dependency-body"><a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#pole-completeness">Pole completeness</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/index.html#pole-obstruction">The one-sided pole obstruction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#configuration">Configurations</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#selmer-system">The Selmer system of a configuration</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#partner-lemma">The partner lemma</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#gluing-lemma">The gluing lemma</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#base-configuration">The base configuration</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#residue-bits">Residue bits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#reciprocity-bits">Quadratic reciprocity in residue bits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#prime-configuration">The configuration of an odd number and Selmer certificates</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#squarefree-part">Admissible inputs, the squarefree part, <span class="arithmatex">\(\beta\)</span> and <span class="arithmatex">\(\theta\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#multiplier-lemma">The multiplier lemma</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#theta-properties">The properties (θ1)–(θ4)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#slot-lemma">The slot lemma</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#slot-conditions">The slot conditions</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#slots">The slots exist</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#realization">The realization: both curves reduce to the base configuration</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#descent-lemma">The descent lemma</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#points-pole-solubility">Points on two congruent number curves give pole solubility</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-k/index.html#pole-completeness-from-cr3">Pole completeness from the certified rank hypothesis</a></div>
+</details>
+<p><strong>Section 6: multiplication and the false-triple guard</strong></p>
+<p>The <a href="../roadmap/multiplication/index.html">multiplication chapter</a> covers the template, soundness through the height estimate and the guard, and completeness; Proposition 6.2 is the hypothesis 22P in the first chapter, used only by the three-hypothesis form of the main theorem.</p>
+<details class="bp-dependencies">
+<summary>53 statements · 53 fully proved</summary>
+<div class="bp-dependency-body"><a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/index.html#abscissa-parity">Parity of the abscissa on <span class="arithmatex">\(y^2=x(x-\ell)(x+\ell)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/index.html#pole-obstruction">The one-sided pole obstruction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/index.html#multiplication-template">Correctness of the multiplication template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/local/index.html#primes-above-p">The primes of <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span> above an odd prime</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/local/index.html#formal-group">The formal neighbourhood of <span class="arithmatex">\(y^2=x^3+Ax\)</span> and its filtration</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/local/index.html#chord-estimate">The chord estimate in a formal neighbourhood</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/local/index.html#formal-group-law">The formal group law of <span class="arithmatex">\(y^2=x^3+Ax\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/local/index.html#formal-logarithm">The formal logarithm</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/local/index.html#logarithm-isometry">The isometry range of the formal logarithm</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/local/index.html#logarithm-series">The formal logarithm of <span class="arithmatex">\(E\)</span> is a binomial series</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/local/index.html#logarithm-coefficients">The coefficients of the truncated logarithm</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/local/index.html#truncation-unit">The truncated logarithm is <span class="arithmatex">\(16575z\)</span> times a unit</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/local/index.html#truncation-error">The truncation error at a large prime</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/local/index.html#generator-dyadic-numerals">The <span class="arithmatex">\(2\)</span>-adic valuations of the coordinates of <span class="arithmatex">\(P_0\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/local/index.html#dyadic-generator">The generator lies in the dyadic formal group</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/local/index.html#logarithm-nonvanishing">The truncated logarithm does not vanish on nonzero multiples of <span class="arithmatex">\(P_0\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/local/index.html#logarithm-ratio">Full-logarithm ratios of multiples of <span class="arithmatex">\(P_0\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/certificate/index.html#constants">Prime sets and clearing exponents of the multiplication certificate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/certificate/index.html#clearing-arithmetic">The clearing inequalities</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/certificate/index.html#constants-properties">Properties of the multiplication constants</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/certificate/index.html#local-templates">Semantics of the local-parameter, inverse-abscissa and logarithm templates</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/certificate/index.html#twelve-tests">The twelve local tests</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/certificate/index.html#test-group-semantics">Semantics of the test-group template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/certificate/index.html#slope-predicate">The slope predicate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/certificate/index.html#slope-semantics">Semantics of the slope template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/certificate/index.html#height-certificate-semantics">Semantics of the height certificate template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/certificate/index.html#multiply-unfolding">Unfolding the multiplication template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/certificate/index.html#guard-true-triples">The guard passes true triples and rejects false triples in the box</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/soundness/index.html#contact-valuations">Valuations of the normalization at an odd contact prime</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/soundness/index.html#common-group">The trace forces one common group and place</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/soundness/index.html#tests-to-congruence">From the local tests to the congruence</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/soundness/index.html#local-congruence">The congruence at an odd contact prime</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/soundness/index.html#contact-support">The height of an accepted slope</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/soundness/index.html#rational-height-bounds">Sum and quotient bounds for rational heights</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/soundness/index.html#field-height-bounds">Height bounds in <span class="arithmatex">\(K_0\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/soundness/index.html#height-constant-integers">The integer inequalities behind the height constants</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/soundness/index.html#height-constants">Explicit height constants</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/soundness/index.html#generator-height">The canonical height of multiples of <span class="arithmatex">\(P_0\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/soundness/index.html#box-inequality">The final inequality of the finite-box deduction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/soundness/index.html#finite-box">The finite-box deduction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/soundness/index.html#soundness">Soundness of the multiplication template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/completeness/index.html#pattern-slopes">Slopes of an integer from the prime pattern</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/completeness/index.html#slope-representation">The slope representation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/completeness/index.html#slope-representation-from-pattern">The twenty-two-prime pattern gives the slope representation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/completeness/index.html#slope-representation-from-two-slope">The two-slope pattern gives the slope representation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/completeness/index.html#shift-choice">Choice of the shift at a selected prime</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/completeness/index.html#selected-prime-precision">Precision of the tests at a selected prime</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/completeness/index.html#sb-integrality">Integrality of the tests at the old primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/completeness/index.html#weak-approximation">Weak approximation for the parameter <span class="arithmatex">\(q\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/multiplication/completeness/index.html#pole-input-positivity">Positivity and smallness of the pole input</a> <span class="bp-ref-sep">·</span> and 3 more</div>
+</details>
+<p><strong>Proposition 6.2 replaced: route AP (project note nt-22p §3)</strong></p>
+<p>The <a href="../roadmap/route-ap/index.html">route AP chapter</a> covers Lemma P, the completeness of the multiplication template under the weakened slope representation, Proposition AP and the statement 22P_AP, and derives 22P_AP from Szemerédi's theorem in the primes and Proposition D; the <a href="../roadmap/main/index.html#main-theorem-two-hypotheses">main theorem from two hypotheses</a> no longer assumes 22P.</p>
+<details class="bp-dependencies">
+<summary>18 statements · 18 fully proved</summary>
+<div class="bp-dependency-body"><a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#main-theorem-two-hypotheses">The main theorem from two hypotheses</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#pole-absorption-hypotheses">The hypotheses of Lemma P</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#lemma-p">Lemma P: a pole at an old prime is absorbed by the parameter <span class="arithmatex">\(q\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#lemma-p-valuation">Lemma P, part (3): the valuation of the pole input</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#good-slope-ap">Slopes with poles at the old primes: field 2′</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#slope-representation-ap">The slope representation under field 2′</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#slope-representation-ap-of-slope-representation">The slope representation implies its form under field 2′</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#weak-approximation-targets">Weak approximation with residue targets</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#pole-input-valuations-ap">Valuations of the pole input under field 2′</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#slope-completeness-ap">Completeness of the slope certificate under field 2′</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#completeness-ap">Completeness of the multiplication template under field 2′</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#multiplication-exact-ap">Correctness of the multiplication template under field 2′</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#value-relation-ap">The ordinary-value relation under field 2′</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#assembly-ap">The assembly lemma under field 2′</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#good-prime-ap">The statement 22P_AP: long progressions of good slope primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#progression-slope">A slope with prime numerators satisfies field 2′</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#proposition-ap">Proposition AP: progressions of good slope primes give the slope representation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/route-ap/index.html#good-prime-ap-from-green-tao">22P_AP from Green–Tao and Proposition D</a></div>
+</details>
+<p><strong>Szemerédi's theorem in the primes (Green–Tao 2008, Theorems 1.1 and 1.2; project note gt-dense)</strong></p>
+<p>The <a href="../roadmap/green-tao/index.html">Green–Tao chapter</a> records the vendored Lean proof of Theorem 1.1 for all primes and its extension to sets of primes of positive relative upper density.</p>
+<details class="bp-dependencies">
+<summary>10 statements · 10 fully proved</summary>
+<div class="bp-dependency-body"><a class="bp-ref bp-ref-fully_proved" href="../roadmap/green-tao/index.html#dense-form">Szemerédi&#x27;s theorem in the primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/green-tao/index.html#primes">The Green–Tao theorem</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/green-tao/index.html#window-lemma">The window lemma</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/green-tao/index.html#modulus-selection">Choosing the prime modulus</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/green-tao/index.html#set-weight">The W-tricked weight of a set of primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/green-tao/index.html#extraction">Extraction of a progression in the set</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/green-tao/index.html#residue-pigeonhole">The residue pigeonhole for a set of primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/green-tao/index.html#prime-modulus-transference">Transference for every large prime modulus</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/green-tao/index.html#window-progressions">Progressions in a set of primes with mass in dyadic windows</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/green-tao/index.html#dense-theorem">Szemerédi&#x27;s theorem in the primes holds</a></div>
+</details>
+<p><strong>Proposition D: density of good slope primes (project note pd-paper)</strong></p>
+<p>The <a href="../roadmap/density/index.html">Proposition D chapter</a> covers the character sums, the description of good primes, the residue set, the sieve bound with the vendored Selberg sieve, Theorem D and Proposition 5.3.</p>
+<details class="bp-dependencies">
+<summary>23 statements · 23 fully proved</summary>
+<div class="bp-dependency-body"><a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#good-prime-density">The density statement for good slope primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#character-sums">Character sums for the curves <span class="arithmatex">\(y^2=x^3+ax\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#jacobsthal">Jacobsthal&#x27;s identity</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#four-divides-point-count">Four divides the point count of <span class="arithmatex">\(y^2=x^3-D^2x\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#description">The description of the good slope primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#residue-set">The residue set <span class="arithmatex">\(A_L\)</span> and the primes <span class="arithmatex">\(C_L\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#main-term">The main term: the Dirichlet series of <span class="arithmatex">\(C_L\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#good-subset">A subset of good slope primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#lattice-count">The primes bad at a large <span class="arithmatex">\(\ell\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#selberg-sieve">The Selberg sieve bound</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#local-densities">Local densities of <span class="arithmatex">\((\ell U)^2+(b+\ell V)^2\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#box-count">Counting a box with a divisibility condition</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#selberg-sum">A lower bound for the Selberg sum</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#sieve-instance">The sieve for the primes bad at <span class="arithmatex">\(\ell\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#gauss-bad-count">The count of primes <span class="arithmatex">\(c^2+e^2\)</span> with <span class="arithmatex">\(\ell\mid c\)</span> and <span class="arithmatex">\(\ell\mid p+1\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#uniform-bad-bound">The uniform bound for the primes bad at a medium <span class="arithmatex">\(\ell\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#proposition-4-2">The uniform bound holds</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#prime-tail">The prime tail <span class="arithmatex">\(\sum_{\ell&gt;L}\ell^{-2}\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#abel-summation">Abel summation for <span class="arithmatex">\(\Phi_S\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#dirichlet-density">Dirichlet density gives relative upper density</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#theorem-d">Theorem D: the density statement from the uniform bound</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#proposition-d">Proposition D: the good slope primes have positive relative density</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/density/index.html#good-prime-ap-from-dense-form">Progressions of good slope primes from Szemerédi&#x27;s theorem in the primes alone</a></div>
+</details>
+<p><strong>Proposition 0: the explicit system is the 2-Selmer group (project note nt-prop0)</strong></p>
+<p>The <a href="../roadmap/selmer/index.html">Proposition 0 chapter</a> covers the 2-coverings, local solubility at every place, the Selmer group, Proposition 0, and CR₃ from its Selmer form CR₃^Sel, which is <a href="../roadmap/main/index.html#main-theorem-selmer">a hypothesis of a variant</a> of the main theorem and is not proved here.</p>
+<details class="bp-dependencies">
+<summary>16 statements · 16 fully proved</summary>
+<div class="bp-dependency-body"><a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#main-theorem-selmer">The main theorem from the Selmer form of the rank hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/selmer/index.html#coverings">The 2-coverings of a congruent number curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/selmer/index.html#covering-x-form">The x-form of a covering</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/selmer/index.html#covering-classes">Square classes and torsion witnesses of a covering</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/selmer/index.html#kummer-map">Coverings and the Kummer map</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/selmer/index.html#padic-squares">Squares in the p-adic numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/selmer/index.html#real-place">Local solubility at the real place</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/selmer/index.html#character-sums">A residue witness for the coverings over a finite field</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/selmer/index.html#good-primes">Local solubility at odd primes not dividing d</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/selmer/index.html#bad-odd-primes">Local solubility at odd primes dividing d</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/selmer/index.html#place-two">Local solubility at the place 2</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/selmer/index.html#selmer-group">The 2-Selmer group of a congruent number curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/selmer/index.html#local-rows">The local conditions are the rows of the Selmer system</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/selmer/index.html#proposition-0">Proposition 0</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/selmer/index.html#certified-rank-sel">The certified rank hypothesis in Selmer form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/selmer/index.html#certified-rank-of-sel">The certified rank hypothesis from its Selmer form</a></div>
+</details>
+<p><strong>Row-5b determinant (project note tyz-5b §§2–4)</strong></p>
+<p>The <a href="../roadmap/rank-5b/index.html">row-5b chapter</a> covers Smith's matrices, Lemmas 4.1 and 4.2, Theorem 4.3 and Corollary 4.4. It also covers the forest lemma and the forest expansion of determinants (<a href="../roadmap/rank-5b/forests/index.html">forests section</a>), and Rédei's <span class="arithmatex">\(g\)</span>, Lemma 2.2, Propositions 3.3–3.5 and Theorem 3.6, <span class="arithmatex">\(\det M_{5b}=T_{5b}(n)\)</span> (<a href="../roadmap/rank-5b/genus-sum/index.html">genus-sum section</a>). It derives CR₃^Sel from the hypothesis CR₃^5b, which follows from the hypothesis <a href="../roadmap/rank-5b/index.html#certified-rank-tyz">CR₃^TYZ</a> in Tian–Yuan–Zhang's terms; with the minimal height hypothesis alone, CR₃^5b gives <a href="../roadmap/main/index.html#main-theorem-selmer">the main theorem</a>. Neither hypothesis is proved here; they rest on Tian–Yuan–Zhang with Proposition N, and Gross–Zagier with an auxiliary field.</p>
+<details class="bp-dependencies">
+<summary>43 statements · 43 fully proved</summary>
+<div class="bp-dependency-body"><a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#main-theorem-selmer">The main theorem from the Selmer form of the rank hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/index.html#smith-matrices">Smith&#x27;s matrices <span class="arithmatex">\(L\)</span>, <span class="arithmatex">\(M_1\)</span> and <span class="arithmatex">\(M_{5b}\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/index.html#kernel-class-five">The Selmer system of a class-5 configuration and the kernel of <span class="arithmatex">\(M_1\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/index.html#lemma-4-1">The 2-Selmer group and the kernel of <span class="arithmatex">\(M_1\)</span> (Lemma 4.1)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/index.html#lemma-4-2">The bordered determinant (Lemma 4.2)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/index.html#theorem-4-3">The rule of row 5b (Theorem 4.3)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/index.html#corollary-4-4">A first coordinate congruent to 7 forces <span class="arithmatex">\(\det M_{5b}=1\)</span> (Corollary 4.4)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/index.html#cross-checks">Two values of the row-5b determinant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/index.html#certified-rank-5b">The certified rank hypothesis in row-5b form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/index.html#certified-rank-sel-of-5b">CR₃^5b implies CR₃^Sel</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/index.html#certified-rank-tyz">The certified rank hypothesis in Tian–Yuan–Zhang form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/index.html#certified-rank-5b-of-tyz">CR₃^TYZ implies CR₃^5b</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/forests/index.html#permanent-minors">Minors over <span class="arithmatex">\(\mathbb F_2\)</span> as permanents</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/forests/index.html#row-operations">Row operations on minors over <span class="arithmatex">\(\mathbb F_2\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/forests/index.html#rank-one-updates">Rank-one updates and bordered determinants</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/forests/index.html#laplacian">The Laplacian of a family of bits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/forests/index.html#forests">Forests on a finite set</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/forests/index.html#diagonal-expansion">Expanding the diagonal of a Laplacian</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/forests/index.html#cycles-cancel">Maps with a cycle contribute an even number</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/forests/index.html#transversal-criterion">The map <span class="arithmatex">\(\sigma_W\)</span> and the transversal criterion</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/forests/index.html#forest-bijection">A forest has at most one compatible bijection</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/forests/index.html#forest-lemma">The forest lemma (Lemma 2.1)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/forests/index.html#block-minors">Minors of anti-diagonal block matrices and of diagonal shifts</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/forests/index.html#det-p-forests">The determinant of <span class="arithmatex">\(P(c,d)\)</span> as a forest sum</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/forests/index.html#gluing">Gluing forests along a set partition</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/forests/index.html#pairings">Pairings are odd in number exactly on sets of even size</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/forests/index.html#compatible-partitions">Set partitions compatible with a forest</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/genus-sum/index.html#redei-g">Rédei&#x27;s <span class="arithmatex">\(g\)</span> from the bits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/genus-sum/index.html#lemma-2-2">The cofactors of the Laplacian (Lemma 2.2)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/genus-sum/index.html#redei-g-cofactors">Rédei&#x27;s <span class="arithmatex">\(g\)</span> through the cofactors (2.1), (2.2)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/genus-sum/index.html#genus-sum">The genus sum <span class="arithmatex">\(T_{5b}\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/genus-sum/index.html#det-m5b-forests">The row-5b determinant as a forest sum</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/genus-sum/index.html#block-weights">Block weights as forest sums</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/genus-sum/index.html#marked-sums">Partition sums with marked blocks</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/genus-sum/index.html#marked-roots">The root factors of a marked partition</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/genus-sum/index.html#genus-sum-forests">The genus sum as a forest sum</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/genus-sum/index.html#genus-sum-bits">The genus sum of an odd number from its bits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/genus-sum/index.html#theorem-3-6">Row 5b of Smith&#x27;s table (Theorem 3.6)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/genus-sum/index.html#genus-sum-values">Two values of the genus sum</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/genus-sum/index.html#roots-per-block">Compatible partitions with one or two roots per block</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/genus-sum/index.html#proposition-3-3"><span class="arithmatex">\(\det M_1\)</span> as a sum over partitions into class-3 blocks (Proposition 3.3)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/genus-sum/index.html#proposition-3-4"><span class="arithmatex">\(\det M_{5b}\)</span> as a sum over partitions into class-7 and class-3 blocks (Proposition 3.4)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank-5b/genus-sum/index.html#proposition-3-5">From class-1 blocks to class-3 blocks (Proposition 3.5)</a></div>
+</details>
+<p><strong>Rédei's formula (project note redei-plan §3.2; tyz-5b Proposition 2.3)</strong></p>
+<p>The <a href="../roadmap/redei/index.html">Rédei chapter</a> covers the field <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span> and its primes, ambiguous classes, genus characters and their surjectivity by Dirichlet's theorem, the principal genus theorem, Rédei's theorem on the 4-rank, and the translation of the Rédei matrix into the bits. It ends with <a href="../roadmap/redei/index.html#redei-formula">Rédei's formula</a>, which makes the class-number form CR₃^TYZ_Cl of the hypothesis equivalent to CR₃^TYZ.</p>
+<details class="bp-dependencies">
+<summary>42 statements · 42 fully proved</summary>
+<div class="bp-dependency-body"><a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/index.html#genus-class-number">The genus class number</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/index.html#redei-formula-statement">The statement of Rédei&#x27;s formula</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/index.html#redei-formula">Rédei&#x27;s formula</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/index.html#redei-matrix">The Rédei matrix</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/index.html#class-number-genus-sum">The genus sum of class numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/index.html#certified-rank-tyz-cl">The certified rank hypothesis with class numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/index.html#genus-sums-agree">The genus sum of class numbers is the genus sum of Rédei bits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/index.html#class-number-hypothesis">CR₃ with class numbers is CR₃^TYZ</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/field/index.html#conjugation">The conjugation of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/field/index.html#integers-and-norms">Integers and norms of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/field/index.html#rational-integers">Rational integers in the ring of integers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/field/index.html#prime-trichotomy">Split, inert and ramified primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/field/index.html#ramified-primes-divide">Ramified primes divide the discriminant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/field/index.html#ramified-primes">The ramified primes and the ideals <span class="arithmatex">\(\mathfrak p_p\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/field/index.html#ramified-prime-ideals">The primes of the discriminant ramify</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/field/index.html#ideal-of-omega">The ideal <span class="arithmatex">\((\sqrt{-n})\)</span> is the product of the ramified odd primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/field/index.html#ideal-times-conjugate">An ideal times its conjugate is generated by its norm</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/genus/index.html#hilbert-90">Hilbert 90 for ideals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/genus/index.html#ambiguous-class-map">The ambiguous class map <span class="arithmatex">\(\psi\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/genus/index.html#ramified-classes">The classes of the ramified primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/genus/index.html#invariant-ideals">Classes of invariant ideals are ambiguous</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/genus/index.html#two-torsion">The ambiguous classes fill <span class="arithmatex">\(\mathrm{Cl}[2]\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/genus/index.html#two-torsion-bound">A bound for the 2-torsion of the class group</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/genus/index.html#coprime-representatives">Every class has a representative of norm prime to <span class="arithmatex">\(q\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/genus/index.html#norms-are-squares">Norms are squares modulo the primes of <span class="arithmatex">\(n\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/genus/index.html#norm-bit-class-invariant">The norm residue bit depends only on the class</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/genus/index.html#genus-characters">The genus characters</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/genus/index.html#characters-on-ambiguous-classes">The genus characters on the ambiguous classes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/genus/index.html#split-primes">Split primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/genus/index.html#surjectivity">The genus characters take all allowed values</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/four-rank/index.html#odd-square-subgroup">When the subgroup of squares has odd order</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/four-rank/index.html#number-of-genera">There are at least <span class="arithmatex">\(2^{t-1}\)</span> genera</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/four-rank/index.html#principal-genus">The principal genus theorem</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/four-rank/index.html#two-rank">The 2-rank of the class group</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/four-rank/index.html#four-rank-statement">The 4-rank statement</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/four-rank/index.html#redei-theorem">Rédei&#x27;s theorem on the 4-rank</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/bits/index.html#kernel-square-matrix">The kernel of <span class="arithmatex">\((L_B\mid z_B)\)</span> through a square matrix</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/bits/index.html#kernel-and-g">Rédei&#x27;s bit as the triviality of a kernel</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/bits/index.html#primes-of-d-b">The primes of <span class="arithmatex">\(d_B\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/bits/index.html#matrix-in-bits">The Rédei matrix of <span class="arithmatex">\(\mathbb Q(\sqrt{-d_B})\)</span> in the bits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/bits/index.html#kernel-conditions">The two kernel conditions agree</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/redei/bits/index.html#formula-from-four-rank">Rédei&#x27;s formula from the 4-rank statement</a></div>
+</details>
+<p><strong>Positive rank gives every Selmer class (project note pc-audit RK9), Mordell–Weil for <span class="arithmatex">\(C_d\)</span>, and the positive-rank forms of CR₃ (project note cr3-map-literature §8 N2)</strong></p>
+<p>The <a href="../roadmap/rank/index.html">positive-rank chapter</a> covers the complete 2-descent on <span class="arithmatex">\(C_d\)</span> and <a href="../roadmap/rank/two-descent/index.html#every-selmer-class">RK9</a>, and <a href="../roadmap/rank/mordell-weil/index.html#finite-generation">Mordell–Weil for <span class="arithmatex">\(C_d\)</span></a> by the two-isogeny descent and heights. It states the hypotheses CR₃^Rk, CR₃^TYZ,Rk and CR₃^TYZ_Cl,Rk, proves CR₃^TYZ_Cl,Rk ⇒ CR₃^TYZ,Rk ⇒ CR₃^Rk, and derives CR₃^Sel and CR₃ from CR₃^Rk, CR₃^TYZ from CR₃^TYZ,Rk, and CR₃^TYZ_Cl from CR₃^TYZ_Cl,Rk. These hypotheses are not proved here; they rest on Tian–Yuan–Zhang with Proposition N, and Gross–Zagier with an auxiliary field, with Kriz's 2-converse as an alternative that is not needed. They are the hypotheses of <a href="../roadmap/main/index.html#main-theorem-positive-rank">variants</a> of the main theorem. The <a href="../roadmap/rank/infinitely-many-points/index.html">infinitely-many-points section</a> restates CR₃^Rk, CR₃^TYZ,Rk, CR₃^TYZ_Cl,Rk and CR₃^DL,Rk with the conclusion that <span class="arithmatex">\(y^2=x^3-d^2x\)</span> has infinitely many rational solutions, proves each equivalent to its positive-rank form, and gives the <a href="../roadmap/main/index.html#main-theorem-infinitely-many-points">main theorem from each of them</a>.</p>
+<details class="bp-dependencies">
+<summary>48 statements · 48 fully proved</summary>
+<div class="bp-dependency-body"><a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#main-theorem-positive-rank">The main theorem from the positive-rank forms of the rank hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#main-theorem-infinitely-many-points">The main theorem from the infinitely-many-points forms of the rank hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/index.html#certified-rank-rk">The certified rank hypothesis in positive-rank form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/index.html#certified-rank-tyz-rk">The Tian–Yuan–Zhang hypothesis in positive-rank form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/index.html#certified-rank-tyz-cl-rk">The class-number hypothesis in positive-rank form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/index.html#certified-rank-rk-of-tyz-rk">CR₃^TYZ,Rk implies CR₃^Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/index.html#certified-rank-tyz-rk-of-cl-rk">CR₃^TYZ_Cl,Rk implies CR₃^TYZ,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/index.html#certified-rank-sel-of-rk">CR₃^Sel from CR₃^Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/index.html#certified-rank-of-rk">CR₃ from CR₃^Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/index.html#certified-rank-tyz-of-rk">CR₃^TYZ from CR₃^TYZ,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/index.html#certified-rank-tyz-cl-of-rk">CR₃^TYZ_Cl from CR₃^TYZ_Cl,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-descent/index.html#kummer-map-at-root">The Kummer map at a root of the cubic</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-descent/index.html#kummer-map-at-root-homomorphism">The Kummer map at a root is a homomorphism</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-descent/index.html#descent-map">The complete 2-descent map of a congruent number curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-descent/index.html#descent-map-homomorphism">The complete 2-descent map is a homomorphism</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-descent/index.html#descent-map-kummer">The descent map is the Kummer map of the coverings</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-descent/index.html#halving">The halving lemma</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-descent/index.html#two-torsion">The two-torsion of a congruent number curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-descent/index.html#squarefree-representatives">Squarefree representatives of rational square classes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-descent/index.html#descent-kernel">The kernel of the descent map over the rationals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-descent/index.html#descent-image">The image of the descent map lies in the 2-Selmer group</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-descent/index.html#counting">Counting <span class="arithmatex">\(A/2A\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-descent/index.html#every-selmer-class">Positive rank and a Selmer group of order eight give every Selmer class (RK9)</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/mordell-weil/index.html#two-torsion">The two-torsion of <span class="arithmatex">\(C_n(\mathbb Q)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/mordell-weil/index.html#isogeny-chords">The two-isogeny maps a chord to a chord</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/mordell-weil/index.html#addition-along-a-line">Addition along a line on <span class="arithmatex">\(E_c\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/mordell-weil/index.html#isogeny-chord-sums">The two-isogeny on chord sums and doubles</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/mordell-weil/index.html#isogeny-homomorphism">The two-isogeny is a homomorphism</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/mordell-weil/index.html#index-from-kummer-images">The index of <span class="arithmatex">\(2E_b(K)\)</span> from the two Kummer images</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/mordell-weil/index.html#kummer-image-finite">The Kummer image over <span class="arithmatex">\(\mathbb Q\)</span> is finite</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/mordell-weil/index.html#weak-mordell-weil">The weak Mordell–Weil theorem for <span class="arithmatex">\(C_n\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/mordell-weil/index.html#finite-generation">Mordell–Weil for the congruent number curves</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#selmer-group-of-a-certificate">The 2-Selmer group of a certified curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#certified-rank-dl-rk">The positive-rank hypothesis on the two curves of a slot choice</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#certified-rank-dl-adm-rk">The positive-rank hypothesis at the inputs of admissible numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#certified-rank-dl-adm-rk-of-dl-rk">CR₃^DL,Adm,Rk from CR₃^DL,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#certified-rank-dl-rk-of-rk">CR₃^DL,Rk from CR₃^Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#certified-rank-dl-rk-of-tyz-rk">CR₃^DL,Rk from CR₃^TYZ,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#point-of-infinite-order">A point of infinite order on a certified curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#pole-completeness-from-dl-rk">Pole completeness from CR₃^DL,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#pole-completeness-from-dl-adm-rk">Pole completeness from CR₃^DL,Adm,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/infinitely-many-points/index.html#infinitely-many-points">Infinitely many rational solutions of <span class="arithmatex">\(y^2=x^3-d^2x\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/infinitely-many-points/index.html#infinite-order-iff">A point of infinite order exists iff there are infinitely many rational points</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/infinitely-many-points/index.html#certified-rank-inf">The certified rank hypothesis in infinitely-many-points form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/infinitely-many-points/index.html#certified-rank-tyz-inf">The Tian–Yuan–Zhang hypothesis in infinitely-many-points form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/infinitely-many-points/index.html#certified-rank-tyz-cl-inf">The class-number hypothesis in infinitely-many-points form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/infinitely-many-points/index.html#certified-rank-dl-inf">The infinitely-many-points hypothesis on the two curves of a slot choice</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/infinitely-many-points/index.html#inf-iff-rk">The infinitely-many-points forms are equivalent to the positive-rank forms</a></div>
+</details>
+<p><strong>CR₃ on the two curves of a slot choice (project notes rv-cr3-dl §1, cr3-map-needs §2)</strong></p>
+<p>The <a href="../roadmap/rank/two-curves/index.html">two-curves section</a> states CR₃^DL,Rk and CR₃^DL,Adm,Rk, derives CR₃^DL,Rk from CR₃^Rk and from CR₃^TYZ,Rk, and proves pole completeness from each of the two. The <a href="../roadmap/main/index.html#main-theorem-two-curves">main theorem from positive rank on the two curves</a> assumes only the minimal height hypothesis and CR₃^DL,Rk, or the minimal height hypothesis and CR₃^DL,Adm,Rk; neither is proved here.</p>
+<details class="bp-dependencies">
+<summary>10 statements · 10 fully proved</summary>
+<div class="bp-dependency-body"><a class="bp-ref bp-ref-fully_proved" href="../roadmap/main/index.html#main-theorem-two-curves">The main theorem from positive rank on the two curves of a slot choice</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#selmer-group-of-a-certificate">The 2-Selmer group of a certified curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#certified-rank-dl-rk">The positive-rank hypothesis on the two curves of a slot choice</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#certified-rank-dl-adm-rk">The positive-rank hypothesis at the inputs of admissible numbers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#certified-rank-dl-adm-rk-of-dl-rk">CR₃^DL,Adm,Rk from CR₃^DL,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#certified-rank-dl-rk-of-rk">CR₃^DL,Rk from CR₃^Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#certified-rank-dl-rk-of-tyz-rk">CR₃^DL,Rk from CR₃^TYZ,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#point-of-infinite-order">A point of infinite order on a certified curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#pole-completeness-from-dl-rk">Pole completeness from CR₃^DL,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/rank/two-curves/index.html#pole-completeness-from-dl-adm-rk">Pole completeness from CR₃^DL,Adm,Rk</a></div>
+</details>
+<p><strong>Section 10: precision computation and compilation</strong></p>
+<p>The <a href="../roadmap/compiler/natural/index.html">natural compiler chapter</a> covers the alpha and power formulas, the packed-history compiler, the universal interpreter and the natural precision polynomial (Sections 10.1–10.3); the <a href="../roadmap/compiler/translation/index.html">translation chapter</a> covers the rational translation (Section 10.4).</p>
+<details class="bp-dependencies">
+<summary>97 statements · 97 fully proved</summary>
+<div class="bp-dependency-body"><a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/index.html#natural-polynomial-semantics">Semantics of the natural precision polynomial</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#signed-encoding">The signed encoding of integers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#signed-encoding-bijection">The signed encoding is a bijection</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#z-coordinate">The local parameter z on multiples of the generator</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#precision-height-constant">The precision height constant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#precision-height-constant-value">The precision constant is the six-contact constant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#precision-relation">The precision relation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#precision-guards">Admissibility of nonzero indices</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#precision-threshold">The precision threshold as an integer comparison</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#saturated-arithmetic">Saturated arithmetic</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#capped-power">Capped multiplication and binary exponentiation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#capped-height-test">The capped precision test</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#norm-zero">Elements of norm zero</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#jacobian-formulas">Jacobian formulas on the weighted model</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#jacobian-generator">The fixed Jacobian point</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#jacobian-scalar-multiplication">Scalar multiplication by halving</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#decision-program">The exact decision program</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/precision/index.html#decision-program-correct">Correctness of the decision program</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/exponential/index.html#alpha-sequence">The alpha sequence</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/exponential/index.html#alpha-growth">Growth of the alpha sequence</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/exponential/index.html#alpha-matrix">Matrix powers and the quadratic identity</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/exponential/index.html#alpha-parameter-congruence">Parameter congruence of the alpha sequence</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/exponential/index.html#alpha-pell">Natural solutions of the alpha Pell equation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/exponential/index.html#alpha-divisibility">Divisibility of alpha values</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/exponential/index.html#alpha-period">Period and reflection modulo the companion</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/exponential/index.html#alpha-large-odd">Odd alpha values are unbounded</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/exponential/index.html#alpha-equations">The alpha formula</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/exponential/index.html#alpha-equations-sound">Soundness of the alpha formula</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/exponential/index.html#alpha-equations-complete">Completeness of the alpha formula</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/exponential/index.html#power-equations">The power formula</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/exponential/index.html#power-equations-correct">The power formula expresses exponentiation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/exponential/index.html#binomial-digit">Binomial coefficients as base-B digits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/exponential/index.html#lucas-bits">Lucas&#x27;s criterion for bit inclusion and disjointness</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/exponential/index.html#bit-and">The bitwise AND gadget</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/formulas/index.html#natural-constructions">Natural constructions and their macros</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/formulas/index.html#natural-atom-gadgets">The equational gadgets over the naturals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/formulas/index.html#natural-compilation">Compilation and private witnesses over the naturals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/formulas/index.html#power-template">The power template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/formulas/index.html#power-template-semantics">Semantics of the power template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/formulas/index.html#macro-semantics">Semantics of the natural macros</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/formulas/index.html#natural-circuit-semantics">Natural semantics of a natural circuit</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/formulas/index.html#hierarchical-calls">Circuits of hierarchical constructions</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/packed/index.html#packed-compiler">The packed-history construction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/packed/index.html#packed-masks">Digits of masked histories</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/packed/index.html#packed-state-selection">One active state per time slot</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/packed/index.html#packed-nonzero-indicator">The packed nonzero indicator</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/packed/index.html#packed-branches">Branch histories and indicator digits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/packed/index.html#packed-transitions">Decoding the transition equations</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/packed/index.html#packed-sound">Soundness of the packed-history construction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/compiler/natural/packed/index.html#packed-complete">Completeness of the packed-history construction</a> <span class="bp-ref-sep">·</span> and 47 more</div>
+</details>
+<p><strong>Section 11: variable-shift relation</strong></p>
+<p>The <a href="../roadmap/assembly/index.html">assembly chapter</a> covers Close, the six local tests, Lemmas 11.1 and 11.2 and the ordinary-value relation.</p>
+<details class="bp-dependencies">
+<summary>23 statements · 23 fully proved</summary>
+<div class="bp-dependency-body"><a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/index.html#main-branch-exactness">An accepting main branch forces the exact value</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/index.html#ordinary-value-relation">The exact ordinary-value relation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/index.html#assembly-lemma">The assembly lemma</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/value-templates/index.html#signed-encoding-semantics">Semantics of the signed encoding</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/value-templates/index.html#close-coordinates-semantics">Semantics of the coordinate window</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/value-templates/index.html#double-and-add-chains">Double-and-add chains</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/value-templates/index.html#exceptions-semantics">Semantics of the exceptional values</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/value-templates/index.html#six-local-tests">The six local tests</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/value-templates/index.html#value-test-semantics">Semantics of the value-test template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/value-templates/index.html#outer-recipe-relations">Relations of the outer recipes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/approximation/index.html#close-relation">The relation Close</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/approximation/index.html#close-soundness">Soundness of Close</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/approximation/index.html#real-subtraction">Compactness and continuity of subtraction on a real curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/approximation/index.html#real-accumulation">Multiples of the generator approach the identity at both real places</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/approximation/index.html#real-derivative">The derivative of multiplication at a real place</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/approximation/index.html#close-completeness">Completeness of Close for every fixed shift</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/local-tests/index.html#dyadic-trace">Valuation and trace at the prime <span class="arithmatex">\((s)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/local-tests/index.html#formal-multiplication">Multiplication in a formal neighbourhood</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/local-tests/index.html#test-divisibility">Divisibility from the six local tests</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/local-tests/index.html#deep-multiples">Deep multiples of the generator</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/local-tests/index.html#pole-input-local">Local conditions on the pole input</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/local-tests/index.html#pole-input-real">Real conditions on the pole input</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/assembly/local-tests/index.html#test-completeness">One suitable shift</a></div>
+</details>
+<p><strong>Section 12: cutoff and polynomial size</strong></p>
+<p>The <a href="../roadmap/size/index.html">size chapter</a> bounds the fixed constants, identifies the cutoff and bounds the degree and coefficients of the polynomial; the progression estimate is replaced by the catalogue bound with cutoff <span class="arithmatex">\(2^{W^8}\)</span>, which the <a href="../roadmap/progressions/index.html">progressions chapter</a> proves from an effective Dirichlet theorem.</p>
+<details class="bp-dependencies">
+<summary>68 statements · 68 fully proved</summary>
+<div class="bp-dependency-body"><a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/index.html#cutoff">The literal cutoff</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/index.html#syntax-bounds">Variable, degree and coefficient bounds</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/constants/index.html#small-constant-bounds">Small explicit bounds</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/constants/index.html#closed-comparisons">Closed numerical comparisons</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/constants/index.html#catalogue-bounds">The catalogue below the progression cutoff</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/constants/index.html#catalogue-size">Size of <span class="arithmatex">\(N_s\)</span> and <span class="arithmatex">\(\ell\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/constants/index.html#formal-multiple-size">Size of the formal multiple constant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/constants/index.html#d-bounds">Bounds for <span class="arithmatex">\(D\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/constants/index.html#r-equals-d">The parameter <span class="arithmatex">\(R\)</span> equals <span class="arithmatex">\(D\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/constants/index.html#t-identity">The closed form of <span class="arithmatex">\(T\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/constants/index.html#t-bound">The cutoff is below a triple tower</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/formal-multiple/index.html#odd-coefficient-extraction">Rational coordinates at odd primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/formal-multiple/index.html#reduction-homomorphism">Reduction on the nonsingular part</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/formal-multiple/index.html#trivial-point-count">The trivial point count</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/formal-multiple/index.html#bad-place-congruences">Congruences for <span class="arithmatex">\(P_0\)</span> modulo seven</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/formal-multiple/index.html#bad-place-reduction">Reduction of <span class="arithmatex">\(P_0\)</span> at the bad place</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/formal-multiple/index.html#reduction-orders">Reduction orders of <span class="arithmatex">\(P_0\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/formal-multiple/index.html#formal-multiple-existence">A successful formal multiple</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/norms/index.html#l1-norm">Coefficient norms and degrees</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/norms/index.html#l1-norm-estimates">Elementary estimates for the coefficient norm</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/norms/index.html#substitution-bounds">Substitution and renaming bounds</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/norms/index.html#pair-norm">The weighted pair norm</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/norms/index.html#division-polynomial-size">Size of the division polynomials</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/norms/index.html#quadratic-heights">Sizes under quadratic-field operations</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/norms/index.html#coordinate-heights">Heights of the codes in the guard box</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/norms/index.html#guard-size">Size of the guard polynomial</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/norms/index.html#constructor-bounds">Uniform bounds for the finite constructors</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/majorants/index.html#syntax-height">Syntax heights</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/majorants/index.html#majorant-rules">Closure rules for the height majorant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/majorants/index.html#node-majorant">Templates satisfy the height majorant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/majorants/index.html#recipe-majorant">Recipes satisfy the height majorant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/majorants/index.html#template-heights">Template heights</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/majorants/index.html#recipe-heights">Recipe heights</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/majorants/index.html#admissible-cutoff">The cutoff is an admissible bound</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/majorants/index.html#degree-coefficient-bound">Degree and coefficient bounds for the specified polynomial</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/size/majorants/index.html#tower-comparison">Comparison with the towers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/progressions/index.html#effective-dirichlet">An effective Dirichlet theorem</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/progressions/index.html#catalogue-instance">The catalogue bound holds</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/progressions/lseries/index.html#character-sums">Character sums are bounded by the modulus</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/progressions/lseries/index.html#tails">Tails of the twisted harmonic sums</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/progressions/lseries/index.html#l-value-bound">A bound for <span class="arithmatex">\(L(\sigma,\chi)\)</span> near <span class="arithmatex">\(1\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/progressions/lseries/index.html#log-partial-sums">Partial sums of <span class="arithmatex">\(\chi(n)\log n/n\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/progressions/lseries/index.html#derivative-bound">A bound for <span class="arithmatex">\(L&#x27;(\sigma,\chi)\)</span> to the right of <span class="arithmatex">\(1\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/progressions/lseries/index.html#l-value-variation">Variation of <span class="arithmatex">\(L(\sigma,\chi)\)</span> near <span class="arithmatex">\(1\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/progressions/lseries/index.html#partial-sums">Partial sums of <span class="arithmatex">\(\chi(n)/n\)</span> approximate <span class="arithmatex">\(L(1,\chi)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/progressions/lseries/index.html#trivial-character">The principal <span class="arithmatex">\(L\)</span>-function to the right of <span class="arithmatex">\(1\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/progressions/lseries/index.html#complex-lower-bound">A lower bound for <span class="arithmatex">\(|L(1,\chi)|\)</span> at complex characters</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/progressions/quadratic-fields/index.html#quadratic-field">The quadratic field <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/progressions/quadratic-fields/index.html#discriminant-bound">The discriminant of <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" href="../roadmap/progressions/quadratic-fields/index.html#signature">The signature of <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a> <span class="bp-ref-sep">·</span> and 18 more</div>
+</details>
+<h2 id="coverage-deferred">Deferred (1)</h2>
+<p><strong>Section 13: consequences</strong></p>
+<p>The three corollaries follow the main theorem and are scheduled after it.</p>
+<h2 id="coverage-out">Out of scope (3)</h2>
+<p><strong>Section 4: proof of the six-contact estimate</strong></p>
+<p>Needs Shimura curves, modularity and Arakelov geometry, which are not formalizable here; its conclusion is the hypothesis H in the first chapter.</p>
+<p><strong>Section 5.1 and Sections 7–9, Appendices E–G: restricted converse</strong></p>
+<p>Uses Kato, Waldspurger, Bump–Friedberg–Hoffstein, Nekovář and Gross–Zagier–Kolyvagin; replaced by Route K: the <a href="../roadmap/route-k/index.html#descent-lemma">descent lemma</a> is proved, and the deep input is the <a href="../roadmap/main/index.html#certified-rank">certified rank hypothesis</a> CR₃, which rests on Proposition 0 (now <a href="../roadmap/selmer/index.html#proposition-0">proved</a>) and on Tian–Yuan–Zhang with Proposition N, and Gross–Zagier with an auxiliary field (Bump–Friedberg–Hoffstein), with Kriz's 2-converse as an alternative that is not needed (<a href="../sources/route-k-locators.html#the-trust-statement-for-cr3">the trust statement for CR₃</a>); the <a href="../roadmap/main/index.html#main-theorem-two-curves">main theorem from positive rank on the two curves</a> replaces the restricted converse by the hypothesis that, for every input of the descent, the two curves of some slot choice have positive rank.</p>
+<p><strong>Appendix H: de Rham comparison in the height argument</strong></p>
+<p>Part of the proof of the six-contact estimate, replaced by the hypothesis H.</p>
+</div>
+<p><link rel="stylesheet" href="../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../dependencies/index.json" data-graph-src="../dependencies.json" data-page-href="index.html" data-scope-id="roadmap">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

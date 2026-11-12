@@ -1,0 +1,2793 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../index.html">
+      
+      
+        <link rel="next" href="../mordell-weil/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>The complete 2-descent on a congruent number curve - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-kummer-map-at-a-root" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              The complete 2-descent on a congruent number curve
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_17" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_17" id="__nav_2_1_17_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_17_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_17">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The rank hypothesis as positive rank
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The complete 2-descent on a congruent number curve
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The complete 2-descent on a congruent number curve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-kummer-map-at-a-root" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Kummer map at a root
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-descent-map-of-c_d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The descent map of \(C_d\)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#halving-and-two-torsion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Halving and two-torsion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-and-image-over-the-rationals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel and image over the rationals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#positive-rank-gives-every-selmer-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Positive rank gives every Selmer class
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mordell-weil/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mordell–Weil by two-isogeny descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../two-curves/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis on the two curves of a slot choice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../infinitely-many-points/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypotheses as infinitely many rational points
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-kummer-map-at-a-root" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Kummer map at a root
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-descent-map-of-c_d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The descent map of \(C_d\)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#halving-and-two-torsion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Halving and two-torsion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-and-image-over-the-rationals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel and image over the rationals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#positive-rank-gives-every-selmer-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Positive rank gives every Selmer class
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="rank/two-descent" data-page-title="The complete 2-descent on a congruent number curve">
+<h1 id="the-complete-2-descent-on-a-congruent-number-curve">The complete 2-descent on a congruent number curve</h1>
+<p>For a field <span class="arithmatex">\(K\)</span> with <span class="arithmatex">\(2\ne0\)</span> and <span class="arithmatex">\(d\in K^\times\)</span>, the curve <span class="arithmatex">\(C_d:y^2=x(x-d)(x+d)\)</span> has full
+rational two-torsion. Its complete 2-descent map <span class="arithmatex">\(\delta_d\)</span> sends a point to the pair of Kummer
+classes at the roots <span class="arithmatex">\(0\)</span> and <span class="arithmatex">\(d\)</span>: <span class="arithmatex">\((x,y)\mapsto(x,x-d)\)</span> in <span class="arithmatex">\((K^\times/K^{\times2})^2\)</span>, with the
+usual values at the torsion points (Silverman, Proposition X.1.4). At the root <span class="arithmatex">\(0\)</span> the formulas are
+those of the Kummer map <span class="arithmatex">\(\alpha_b\)</span> of the <a href="../../model/descent/index.html#kummer-map">two-isogeny descent</a>.
+The Kummer map <span class="arithmatex">\(\kappa_{b,e}\)</span> at a general root <span class="arithmatex">\(e\)</span> is a homomorphism by the chord argument.
+Over <span class="arithmatex">\(\mathbb Q\)</span> the descent map has kernel exactly <span class="arithmatex">\(2C_d(\mathbb Q)\)</span>, by an explicit halving
+formula. Read in square classes, it agrees with the
+<a href="../../selmer/index.html#kummer-map">Kummer map of the coverings</a>, so over <span class="arithmatex">\(\mathbb Q\)</span> the pairs <span class="arithmatex">\(s(P)\)</span> of
+squarefree representatives <span class="arithmatex">\(r(c)\)</span> of its values lie in <span class="arithmatex">\(\mathrm{Sel}_2(C_d)\)</span>. A count in finitely generated abelian groups then gives RK9: positive rank
+and a Selmer group of order <span class="arithmatex">\(8\)</span> make every Selmer class come from a rational point.</p>
+<p>Over a general field <span class="arithmatex">\(K\)</span>, <span class="arithmatex">\(d\)</span> is a nonzero element of <span class="arithmatex">\(K\)</span> and <span class="arithmatex">\(C_d:y^2=x^3-d^2x\)</span> is the curve
+<span class="arithmatex">\(E_{-d^2}\)</span>; over <span class="arithmatex">\(\mathbb Q\)</span>, <span class="arithmatex">\(d\)</span> is a positive integer, and <span class="arithmatex">\(C_d\)</span> and <span class="arithmatex">\(\mathrm{Sel}_2(C_d)\)</span> are those
+of the <a href="../../selmer/index.html">Proposition 0 chapter</a>. Throughout, <span class="arithmatex">\(u\equiv v\)</span> means that <span class="arithmatex">\(u/v\)</span> is a
+nonzero square.</p>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>12</strong> fully proved</span></div>
+</div>
+<h2 id="the-kummer-map-at-a-root">The Kummer map at a root</h2>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/two-descent/kummer-map-at-root">
+<h4 class="bp-thmheading" id="kummer-map-at-root">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The Kummer map at a root of the cubic</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L26" aria-label="View ZInQ.RouteK.Rank.kummerAt in Lean source" title="View ZInQ.RouteK.Rank.kummerAt in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L32" aria-label="View ZInQ.RouteK.Rank.kummerAt_zero in Lean source" title="View ZInQ.RouteK.Rank.kummerAt_zero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L34" aria-label="View ZInQ.RouteK.Rank.kummerAt_some in Lean source" title="View ZInQ.RouteK.Rank.kummerAt_some in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L37" aria-label="View ZInQ.RouteK.Rank.kummerAt_some_of_ne in Lean source" title="View ZInQ.RouteK.Rank.kummerAt_some_of_ne in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L41" aria-label="View ZInQ.RouteK.Rank.kummerAt_some_eq in Lean source" title="View ZInQ.RouteK.Rank.kummerAt_some_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L79" aria-label="View ZInQ.RouteK.Rank.tRootPt in Lean source" title="View ZInQ.RouteK.Rank.tRootPt in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L86" aria-label="View ZInQ.RouteK.Rank.tRootPt_def in Lean source" title="View ZInQ.RouteK.Rank.tRootPt_def in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L71" aria-label="View ZInQ.RouteK.Rank.kummerAt_tRoot_equation in Lean source" title="View ZInQ.RouteK.Rank.kummerAt_tRoot_equation in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L64" aria-label="View ZInQ.RouteK.Rank.kummerAt_y_eq_zero in Lean source" title="View ZInQ.RouteK.Rank.kummerAt_y_eq_zero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L90" aria-label="View ZInQ.RouteK.Rank.some_eq_tRootPt in Lean source" title="View ZInQ.RouteK.Rank.some_eq_tRootPt in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L96" aria-label="View ZInQ.RouteK.Rank.kummerAt_tRootPt in Lean source" title="View ZInQ.RouteK.Rank.kummerAt_tRootPt in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-descent/kummer-map-at-root.md" aria-label="Edit the Markdown source for The Kummer map at a root of the cubic" title="Edit the Markdown source for The Kummer map at a root of the cubic"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#kummer-map-at-root" aria-label="Link to The Kummer map at a root of the cubic" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.kummerAt ZInQ.RouteK.Rank.kummerAt_zero ZInQ.RouteK.Rank.kummerAt_some ZInQ.RouteK.Rank.kummerAt_some_of_ne ZInQ.RouteK.Rank.kummerAt_some_eq ZInQ.RouteK.Rank.tRootPt ZInQ.RouteK.Rank.tRootPt_def ZInQ.RouteK.Rank.kummerAt_tRoot_equation ZInQ.RouteK.Rank.kummerAt_y_eq_zero ZInQ.RouteK.Rank.some_eq_tRootPt ZInQ.RouteK.Rank.kummerAt_tRootPt</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a field, <span class="arithmatex">\(b,e\in K\)</span>, and <span class="arithmatex">\(E_b:y^2=x^3+bx\)</span>. Write <span class="arithmatex">\(K^\times/K^{\times2}\)</span>
+multiplicatively, and let the class of <span class="arithmatex">\(0\)</span> be <span class="arithmatex">\(1\)</span>. The <em>Kummer map at <span class="arithmatex">\(e\)</span></em> is the map
+<span class="arithmatex">\(\kappa_{b,e}:E_b(K)\to K^\times/K^{\times2}\)</span> given by
+$<span class="arithmatex">\(\kappa_{b,e}(O)=1,\qquad
+\kappa_{b,e}\bigl((x,y)\bigr)=\begin{cases}3e^2+b, &amp; x=e,\\ x-e, &amp; x\ne e,\end{cases}\)</span>$
+with the values read modulo squares.</p>
+<p>Suppose that <span class="arithmatex">\(e\)</span> is a root of the cubic, <span class="arithmatex">\(e^3+be=0\)</span>. Then <span class="arithmatex">\((e,0)\)</span> satisfies the equation of <span class="arithmatex">\(E_b\)</span>,
+and every point <span class="arithmatex">\((x,y)\in E_b(K)\)</span> with <span class="arithmatex">\(x=e\)</span> has <span class="arithmatex">\(y=0\)</span>. If moreover <span class="arithmatex">\(2\ne0\)</span> and <span class="arithmatex">\(b\ne0\)</span>, then
+<span class="arithmatex">\((e,0)\)</span> is a point <span class="arithmatex">\(T_e\in E_b(K)\)</span>, every point <span class="arithmatex">\((x,y)\in E_b(K)\)</span> with <span class="arithmatex">\(x=e\)</span> equals <span class="arithmatex">\(T_e\)</span>, and
+<span class="arithmatex">\(\kappa_{b,e}(T_e)\)</span> is the class of <span class="arithmatex">\(3e^2+b\)</span>.</p>
+<p><strong>Proof sketch.</strong> The equation at <span class="arithmatex">\((e,0)\)</span> reads <span class="arithmatex">\(0=e^3+be\)</span>. A point <span class="arithmatex">\((e,y)\)</span> on <span class="arithmatex">\(E_b\)</span> has
+<span class="arithmatex">\(y^2=e^3+be=0\)</span>, so <span class="arithmatex">\(y=0\)</span>, and the point is <span class="arithmatex">\(T_e\)</span>. The value at <span class="arithmatex">\(T_e\)</span> is the first case of the
+definition.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> kummerAt (b e : K) : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> b).toAffine.Point → <a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.SqClass">SqClass</a> K
+  | 0 =&gt; 1
+  | .some x _ _ =&gt; <span class="bp-lean-keyword">if</span> x = e <span class="bp-lean-keyword">then</span> <a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.sqc">sqc</a> (3 * e ^ 2 + b) <span class="bp-lean-keyword">else</span> <a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.sqc">sqc</a> (x - e)</code></pre>
+<pre class="bp-lean"><code>@[simp] <span class="bp-lean-keyword">theorem</span> kummerAt_zero : <a class="bp-lean-ref" href="#kummer-map-at-root" data-lean-name="ZInQ.RouteK.Rank.kummerAt">kummerAt</a> b e 0 = 1</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> kummerAt_some {x y : K} (h : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> b).toAffine.Nonsingular x y) :
+    <a class="bp-lean-ref" href="#kummer-map-at-root" data-lean-name="ZInQ.RouteK.Rank.kummerAt">kummerAt</a> b e (.some x y h) = <span class="bp-lean-keyword">if</span> x = e <span class="bp-lean-keyword">then</span> <a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.sqc">sqc</a> (3 * e ^ 2 + b) <span class="bp-lean-keyword">else</span> <a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.sqc">sqc</a> (x - e)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.Descent.SqClass">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SqClass (K : <span class="bp-lean-keyword">Type</span>*) [Field K] : <span class="bp-lean-keyword">Type</span> _ := Kˣ ⧸ (powMonoidHom 2 : Kˣ →* Kˣ).range</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Descent/Kummer.lean:38</p>
+</div>
+<div data-lean-name="ZInQ.Descent.sqc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> sqc (x : K) : SqClass K :=
+  <span class="bp-lean-keyword">if</span> hx : x = 0 <span class="bp-lean-keyword">then</span> 1 <span class="bp-lean-keyword">else</span> SqClass.mk (Units.mk0 x hx)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Descent/Kummer.lean:59</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.kummerAt">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> kummerAt (b e : K) : (shortCurve b).toAffine.Point → SqClass K
+  | 0 =&gt; 1
+  | .some x _ _ =&gt; <span class="bp-lean-keyword">if</span> x = e <span class="bp-lean-keyword">then</span> sqc (3 * e ^ 2 + b) <span class="bp-lean-keyword">else</span> sqc (x - e)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/KummerAt.lean:26</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-complete-2-descent-map">The complete 2-descent map</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/descent/index.html#kummer-map">Two-isogenies and the Kummer map</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#descent-map">The complete 2-descent map of a congruent number curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#descent-map-kummer">The descent map is the Kummer map of the coverings</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#kummer-map-at-root-homomorphism">The Kummer map at a root is a homomorphism</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#two-torsion">The two-torsion of a congruent number curve</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/two-descent/kummer-map-at-root-homomorphism">
+<h4 class="bp-thmheading" id="kummer-map-at-root-homomorphism">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The Kummer map at a root is a homomorphism</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L186" aria-label="View ZInQ.RouteK.Rank.kummerAt_add in Lean source" title="View ZInQ.RouteK.Rank.kummerAt_add in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L231" aria-label="View ZInQ.RouteK.Rank.kummerAtHom in Lean source" title="View ZInQ.RouteK.Rank.kummerAtHom in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L45" aria-label="View ZInQ.RouteK.Rank.kummerAt_neg in Lean source" title="View ZInQ.RouteK.Rank.kummerAt_neg in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L52" aria-label="View ZInQ.RouteK.Rank.kummerAt_root_ne_zero in Lean source" title="View ZInQ.RouteK.Rank.kummerAt_root_ne_zero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L102" aria-label="View ZInQ.RouteK.Rank.add_tRootPt_x in Lean source" title="View ZInQ.RouteK.Rank.add_tRootPt_x in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L120" aria-label="View ZInQ.RouteK.Rank.kummerAt_add_tRootPt in Lean source" title="View ZInQ.RouteK.Rank.kummerAt_add_tRootPt in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/KummerAt.lean#L144" aria-label="View ZInQ.RouteK.Rank.mul_addX_sub_eq in Lean source" title="View ZInQ.RouteK.Rank.mul_addX_sub_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-descent/kummer-map-at-root-homomorphism.md" aria-label="Edit the Markdown source for The Kummer map at a root is a homomorphism" title="Edit the Markdown source for The Kummer map at a root is a homomorphism"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#kummer-map-at-root-homomorphism" aria-label="Link to The Kummer map at a root is a homomorphism" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.kummerAt_add ZInQ.RouteK.Rank.kummerAtHom ZInQ.RouteK.Rank.kummerAt_neg ZInQ.RouteK.Rank.kummerAt_root_ne_zero ZInQ.RouteK.Rank.add_tRootPt_x ZInQ.RouteK.Rank.kummerAt_add_tRootPt ZInQ.RouteK.Rank.mul_addX_sub_eq</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a field with <span class="arithmatex">\(2\ne0\)</span>, let <span class="arithmatex">\(b\in K^\times\)</span>, and let <span class="arithmatex">\(e\in K\)</span> be a root of <span class="arithmatex">\(x^3+bx\)</span>. Then
+for all <span class="arithmatex">\(P,Q\in E_b(K)\)</span>
+$<span class="arithmatex">\(\kappa_{b,e}(P+Q)=\kappa_{b,e}(P)\,\kappa_{b,e}(Q),\)</span>$
+so <span class="arithmatex">\(\kappa_{b,e}\)</span> is a group homomorphism <span class="arithmatex">\(E_b(K)\to K^\times/K^{\times2}\)</span>.</p>
+<p>Along the way:</p>
+<ul>
+<li><span class="arithmatex">\(\kappa_{b,e}(-P)=\kappa_{b,e}(P)\)</span> for every <span class="arithmatex">\(P\)</span> (for any field and any <span class="arithmatex">\(b,e\)</span>);</li>
+<li>the root is simple: <span class="arithmatex">\(3e^2+b\ne0\)</span>;</li>
+<li>for <span class="arithmatex">\((x,y)\in E_b(K)\)</span> with <span class="arithmatex">\(x\ne e\)</span>, the point <span class="arithmatex">\((x,y)+T_e\)</span> has abscissa <span class="arithmatex">\(e+(3e^2+b)/(x-e)\)</span>;</li>
+<li><span class="arithmatex">\(\kappa_{b,e}(P+T_e)=\kappa_{b,e}(P)\cdot(3e^2+b)\)</span> for every <span class="arithmatex">\(P\)</span>;</li>
+<li>(here <span class="arithmatex">\(b=0\)</span> is allowed) if <span class="arithmatex">\((x_1,y_1)\)</span> and <span class="arithmatex">\((x_2,y_2)\)</span> are points of <span class="arithmatex">\(E_b(K)\)</span> whose sum is affine,
+  <span class="arithmatex">\(\ell\)</span> is the slope of the chord or tangent through them and <span class="arithmatex">\(x_3\)</span> is the abscissa of the sum,
+  then <span class="arithmatex">\((x_1-e)(x_2-e)(x_3-e)=\bigl(y_1-\ell(x_1-e)\bigr)^2\)</span>.</li>
+</ul>
+<p><strong>Proof sketch.</strong> (Silverman, Proposition X.1.4.) <span class="arithmatex">\(\kappa_{b,e}(-P)=\kappa_{b,e}(P)\)</span> because negation
+keeps the abscissa. Write <span class="arithmatex">\(\kappa=\kappa_{b,e}\)</span>.</p>
+<ol>
+<li><em>Simple root.</em> If <span class="arithmatex">\(3e^2+b=0\)</span>, then <span class="arithmatex">\(e(e^2+b)=0\)</span>; <span class="arithmatex">\(e=0\)</span> gives <span class="arithmatex">\(b=0\)</span>, and <span class="arithmatex">\(e^2=-b\)</span> gives <span class="arithmatex">\(2b=0\)</span>,
+   so <span class="arithmatex">\(b=0\)</span> either way.</li>
+<li><em>Translation by <span class="arithmatex">\(T_e\)</span>.</em> For <span class="arithmatex">\(x\ne e\)</span> the chord through <span class="arithmatex">\((x,y)\)</span> and <span class="arithmatex">\((e,0)\)</span> gives the abscissa
+   <span class="arithmatex">\(e+(3e^2+b)/(x-e)\)</span>, which is not <span class="arithmatex">\(e\)</span> by step 1, so <span class="arithmatex">\(\kappa(P+T_e)\)</span> is the class of
+   <span class="arithmatex">\((3e^2+b)/(x-e)\)</span>, that is of <span class="arithmatex">\((3e^2+b)(x-e)\)</span>. For <span class="arithmatex">\(P=O\)</span> the claim is <span class="arithmatex">\(\kappa(T_e)=3e^2+b\)</span>. For
+   <span class="arithmatex">\(P=T_e\)</span>, <span class="arithmatex">\(P+T_e=O\)</span> and <span class="arithmatex">\((3e^2+b)^2\)</span> is a square.</li>
+<li><em>Chord identity.</em> Expand the addition formulas, using the curve equations at the two points
+   and <span class="arithmatex">\(e^3+be=0\)</span>, in the chord case and in the tangent case.</li>
+<li><em>General case.</em> If <span class="arithmatex">\(P\)</span> or <span class="arithmatex">\(Q\)</span> is <span class="arithmatex">\(O\)</span> there is nothing to prove; if one of them is <span class="arithmatex">\(T_e\)</span>, use
+   step 2. If <span class="arithmatex">\(Q=-P\)</span>, both sides are <span class="arithmatex">\(1\)</span>. If <span class="arithmatex">\(P+Q=T_e\)</span>, write <span class="arithmatex">\(Q=-P+T_e\)</span>; step 2 and
+   <span class="arithmatex">\(\kappa(-P)=\kappa(P)\)</span> give <span class="arithmatex">\(\kappa(P)\kappa(Q)=\kappa(P)^2(3e^2+b)=\kappa(T_e)\)</span>. Otherwise the
+   three abscissas differ from <span class="arithmatex">\(e\)</span>, so <span class="arithmatex">\(\nu=y_1-\ell(x_1-e)\ne0\)</span> by step 3, and
+   <span class="arithmatex">\(x_3-e=(x_1-e)(x_2-e)\bigl(\nu/((x_1-e)(x_2-e))\bigr)^2\)</span>.</li>
+</ol>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> kummerAt_add (P Q : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> b).toAffine.Point) :
+    <a class="bp-lean-ref" href="#kummer-map-at-root" data-lean-name="ZInQ.RouteK.Rank.kummerAt">kummerAt</a> b e (P + Q) = <a class="bp-lean-ref" href="#kummer-map-at-root" data-lean-name="ZInQ.RouteK.Rank.kummerAt">kummerAt</a> b e P * <a class="bp-lean-ref" href="#kummer-map-at-root" data-lean-name="ZInQ.RouteK.Rank.kummerAt">kummerAt</a> b e Q</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> kummerAtHom : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> b).toAffine.Point →+ Additive (<a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.SqClass">SqClass</a> K) <span class="bp-lean-keyword">where</span>
+  toFun P := Additive.ofMul (<a class="bp-lean-ref" href="#kummer-map-at-root" data-lean-name="ZInQ.RouteK.Rank.kummerAt">kummerAt</a> b e P)
+  map_zero&#x27; := rfl
+  map_add&#x27; P Q := <span class="bp-lean-keyword">by</span> rw [kummerAt_add h2 hb he]; rfl</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> kummerAt_neg (P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> b).toAffine.Point) : <a class="bp-lean-ref" href="#kummer-map-at-root" data-lean-name="ZInQ.RouteK.Rank.kummerAt">kummerAt</a> b e (-P) = <a class="bp-lean-ref" href="#kummer-map-at-root" data-lean-name="ZInQ.RouteK.Rank.kummerAt">kummerAt</a> b e P</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.kummerAt">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> kummerAt (b e : K) : (shortCurve b).toAffine.Point → SqClass K
+  | 0 =&gt; 1
+  | .some x _ _ =&gt; <span class="bp-lean-keyword">if</span> x = e <span class="bp-lean-keyword">then</span> sqc (3 * e ^ 2 + b) <span class="bp-lean-keyword">else</span> sqc (x - e)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/KummerAt.lean:26</p>
+</div>
+<div data-lean-name="ZInQ.Descent.SqClass">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SqClass (K : <span class="bp-lean-keyword">Type</span>*) [Field K] : <span class="bp-lean-keyword">Type</span> _ := Kˣ ⧸ (powMonoidHom 2 : Kˣ →* Kˣ).range</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Descent/Kummer.lean:38</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-complete-2-descent-map">The complete 2-descent map</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#kummer-map-at-root">The Kummer map at a root of the cubic</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#descent-map-homomorphism">The complete 2-descent map is a homomorphism</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-descent-map-of-c_d">The descent map of <span class="arithmatex">\(C_d\)</span></h2>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/two-descent/descent-map">
+<h4 class="bp-thmheading" id="descent-map">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The complete 2-descent map of a congruent number curve</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Delta.lean#L28" aria-label="View ZInQ.RouteK.Rank.delta in Lean source" title="View ZInQ.RouteK.Rank.delta in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Delta.lean#L33" aria-label="View ZInQ.RouteK.Rank.delta_root_zero in Lean source" title="View ZInQ.RouteK.Rank.delta_root_zero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Delta.lean#L36" aria-label="View ZInQ.RouteK.Rank.delta_root_d in Lean source" title="View ZInQ.RouteK.Rank.delta_root_d in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Delta.lean#L41" aria-label="View ZInQ.RouteK.Rank.delta_b_ne_zero in Lean source" title="View ZInQ.RouteK.Rank.delta_b_ne_zero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-descent/descent-map.md" aria-label="Edit the Markdown source for The complete 2-descent map of a congruent number curve" title="Edit the Markdown source for The complete 2-descent map of a congruent number curve"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#descent-map" aria-label="Link to The complete 2-descent map of a congruent number curve" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.delta ZInQ.RouteK.Rank.delta_root_zero ZInQ.RouteK.Rank.delta_root_d ZInQ.RouteK.Rank.delta_b_ne_zero</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a field, <span class="arithmatex">\(d\in K\)</span>, and <span class="arithmatex">\(C_d:y^2=x^3-d^2x\)</span>, the curve <span class="arithmatex">\(E_{-d^2}\)</span>. The numbers <span class="arithmatex">\(0\)</span> and
+<span class="arithmatex">\(d\)</span> are roots of <span class="arithmatex">\(x^3-d^2x\)</span>, and <span class="arithmatex">\(-d^2\ne0\)</span> when <span class="arithmatex">\(d\ne0\)</span>. The <em>complete 2-descent map</em> of <span class="arithmatex">\(C_d\)</span> is
+$<span class="arithmatex">\(\delta_d:C_d(K)\to(K^\times/K^{\times2})^2,\qquad
+\delta_d(P)=\bigl(\kappa_{-d^2,0}(P),\ \kappa_{-d^2,d}(P)\bigr).\)</span>$
+Explicitly, for <span class="arithmatex">\(d\ne0\)</span>: <span class="arithmatex">\(\delta_d(O)=(1,1)\)</span>, <span class="arithmatex">\(\delta_d((0,0))=(-d^2,-d)\)</span>,
+<span class="arithmatex">\(\delta_d((d,0))=(d,2d^2)\)</span>, and <span class="arithmatex">\(\delta_d((x,y))=(x,x-d)\)</span> for <span class="arithmatex">\(x\notin\{0,d\}\)</span>, with the values
+read modulo squares.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> delta (d : K) (P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-d ^ 2)).toAffine.Point) :
+    <a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.SqClass">SqClass</a> K × <a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.SqClass">SqClass</a> K :=
+  (<a class="bp-lean-ref" href="#kummer-map-at-root" data-lean-name="ZInQ.RouteK.Rank.kummerAt">kummerAt</a> (-d ^ 2) 0 P, <a class="bp-lean-ref" href="#kummer-map-at-root" data-lean-name="ZInQ.RouteK.Rank.kummerAt">kummerAt</a> (-d ^ 2) d P)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> delta_root_zero (d : K) : (0 : K) ^ 3 + -d ^ 2 * 0 = 0</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> delta_root_d (d : K) : d ^ 3 + -d ^ 2 * d = 0</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.Descent.SqClass">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SqClass (K : <span class="bp-lean-keyword">Type</span>*) [Field K] : <span class="bp-lean-keyword">Type</span> _ := Kˣ ⧸ (powMonoidHom 2 : Kˣ →* Kˣ).range</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Descent/Kummer.lean:38</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.kummerAt">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> kummerAt (b e : K) : (shortCurve b).toAffine.Point → SqClass K
+  | 0 =&gt; 1
+  | .some x _ _ =&gt; <span class="bp-lean-keyword">if</span> x = e <span class="bp-lean-keyword">then</span> sqc (3 * e ^ 2 + b) <span class="bp-lean-keyword">else</span> sqc (x - e)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/KummerAt.lean:26</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-complete-2-descent-map">The complete 2-descent map</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 6</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#kummer-map-at-root">The Kummer map at a root of the cubic</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#descent-image">The image of the descent map lies in the 2-Selmer group</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#descent-kernel">The kernel of the descent map over the rationals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#descent-map-homomorphism">The complete 2-descent map is a homomorphism</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#descent-map-kummer">The descent map is the Kummer map of the coverings</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#halving">The halving lemma</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#two-torsion">The two-torsion of a congruent number curve</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/two-descent/descent-map-homomorphism">
+<h4 class="bp-thmheading" id="descent-map-homomorphism">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The complete 2-descent map is a homomorphism</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Delta.lean#L47" aria-label="View ZInQ.RouteK.Rank.delta_add in Lean source" title="View ZInQ.RouteK.Rank.delta_add in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Delta.lean#L53" aria-label="View ZInQ.RouteK.Rank.deltaHom in Lean source" title="View ZInQ.RouteK.Rank.deltaHom in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Delta.lean#L59" aria-label="View ZInQ.RouteK.Rank.deltaHom_apply in Lean source" title="View ZInQ.RouteK.Rank.deltaHom_apply in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Delta.lean#L86" aria-label="View ZInQ.RouteK.Rank.delta_two_nsmul in Lean source" title="View ZInQ.RouteK.Rank.delta_two_nsmul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-descent/descent-map-homomorphism.md" aria-label="Edit the Markdown source for The complete 2-descent map is a homomorphism" title="Edit the Markdown source for The complete 2-descent map is a homomorphism"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#descent-map-homomorphism" aria-label="Link to The complete 2-descent map is a homomorphism" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.delta_add ZInQ.RouteK.Rank.deltaHom ZInQ.RouteK.Rank.deltaHom_apply ZInQ.RouteK.Rank.delta_two_nsmul</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a field with <span class="arithmatex">\(2\ne0\)</span> and <span class="arithmatex">\(d\in K^\times\)</span>. Then <span class="arithmatex">\(\delta_d(P+Q)=\delta_d(P)\,\delta_d(Q)\)</span>
+for all <span class="arithmatex">\(P,Q\in C_d(K)\)</span>, so <span class="arithmatex">\(\delta_d\)</span> is a group homomorphism <span class="arithmatex">\(C_d(K)\to(K^\times/K^{\times2})^2\)</span>.
+Moreover <span class="arithmatex">\(\delta_d(2P)=1\)</span> for every <span class="arithmatex">\(P\in C_d(K)\)</span>, so <span class="arithmatex">\(2C_d(K)\)</span> lies in its kernel.</p>
+<p><strong>Proof sketch.</strong> Each coordinate of <span class="arithmatex">\(\delta_d\)</span> is a Kummer map at a root (<span class="arithmatex">\(0\)</span>, respectively <span class="arithmatex">\(d\)</span>)
+of <span class="arithmatex">\(x^3-d^2x\)</span> on <span class="arithmatex">\(E_{-d^2}\)</span>, with <span class="arithmatex">\(-d^2\ne0\)</span>, so each coordinate is a homomorphism, and so is the
+pair. Then <span class="arithmatex">\(\delta_d(2P)=\delta_d(P)^2=1\)</span>, since every square class has order dividing <span class="arithmatex">\(2\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> delta_add (P Q : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-d ^ 2)).toAffine.Point) :
+    <a class="bp-lean-ref" href="#descent-map" data-lean-name="ZInQ.RouteK.Rank.delta">delta</a> d (P + Q) = <a class="bp-lean-ref" href="#descent-map" data-lean-name="ZInQ.RouteK.Rank.delta">delta</a> d P * <a class="bp-lean-ref" href="#descent-map" data-lean-name="ZInQ.RouteK.Rank.delta">delta</a> d Q</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> deltaHom :
+    (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-d ^ 2)).toAffine.Point →+ Additive (<a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.SqClass">SqClass</a> K × <a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.SqClass">SqClass</a> K) <span class="bp-lean-keyword">where</span>
+  toFun P := Additive.ofMul (<a class="bp-lean-ref" href="#descent-map" data-lean-name="ZInQ.RouteK.Rank.delta">delta</a> d P)
+  map_zero&#x27; := rfl
+  map_add&#x27; P Q := <span class="bp-lean-keyword">by</span> rw [delta_add h2 hd]; rfl</code></pre>
+<pre class="bp-lean"><code>@[simp] <span class="bp-lean-keyword">theorem</span> deltaHom_apply (P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-d ^ 2)).toAffine.Point) :
+    Additive.toMul (<a class="bp-lean-ref" href="#descent-map-homomorphism" data-lean-name="ZInQ.RouteK.Rank.deltaHom">deltaHom</a> h2 hd P) = <a class="bp-lean-ref" href="#descent-map" data-lean-name="ZInQ.RouteK.Rank.delta">delta</a> d P</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.delta">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> delta (d : K) (P : (shortCurve (-d ^ 2)).toAffine.Point) :
+    SqClass K × SqClass K :=
+  (kummerAt (-d ^ 2) 0 P, kummerAt (-d ^ 2) d P)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Delta.lean:28</p>
+</div>
+<div data-lean-name="ZInQ.Descent.SqClass">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SqClass (K : <span class="bp-lean-keyword">Type</span>*) [Field K] : <span class="bp-lean-keyword">Type</span> _ := Kˣ ⧸ (powMonoidHom 2 : Kˣ →* Kˣ).range</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Descent/Kummer.lean:38</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.deltaHom">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> deltaHom :
+    (shortCurve (-d ^ 2)).toAffine.Point →+ Additive (SqClass K × SqClass K) <span class="bp-lean-keyword">where</span>
+  toFun P := Additive.ofMul (delta d P)
+  map_zero&#x27; := rfl
+  map_add&#x27; P Q := <span class="bp-lean-keyword">by</span> rw [delta_add h2 hd]; rfl</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Delta.lean:53</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-complete-2-descent-map">The complete 2-descent map</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#descent-map">The complete 2-descent map of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#kummer-map-at-root-homomorphism">The Kummer map at a root is a homomorphism</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#descent-kernel">The kernel of the descent map over the rationals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#every-selmer-class">Positive rank and a Selmer group of order eight give every Selmer class (RK9)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/two-descent/descent-map-kummer">
+<h4 class="bp-thmheading" id="descent-map-kummer">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The descent map is the Kummer map of the coverings</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Delta.lean#L63" aria-label="View ZInQ.RouteK.Rank.delta_eq_sqc_kummer in Lean source" title="View ZInQ.RouteK.Rank.delta_eq_sqc_kummer in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L153" aria-label="View ZInQ.RouteK.Rank.kummer_fst_ne_zero in Lean source" title="View ZInQ.RouteK.Rank.kummer_fst_ne_zero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L160" aria-label="View ZInQ.RouteK.Rank.kummer_snd_ne_zero in Lean source" title="View ZInQ.RouteK.Rank.kummer_snd_ne_zero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-descent/descent-map-kummer.md" aria-label="Edit the Markdown source for The descent map is the Kummer map of the coverings" title="Edit the Markdown source for The descent map is the Kummer map of the coverings"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#descent-map-kummer" aria-label="Link to The descent map is the Kummer map of the coverings" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.delta_eq_sqc_kummer ZInQ.RouteK.Rank.kummer_fst_ne_zero ZInQ.RouteK.Rank.kummer_snd_ne_zero</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a field with <span class="arithmatex">\(2\ne0\)</span> and <span class="arithmatex">\(d\in K^\times\)</span>, and let
+<span class="arithmatex">\(k(P)=(k_1(P),k_2(P))\in K\times K\)</span> be the Kummer map of the coverings of <span class="arithmatex">\(C_d\)</span>: <span class="arithmatex">\((1,1)\)</span> at <span class="arithmatex">\(O\)</span>;
+<span class="arithmatex">\((-1,-d)\)</span>, <span class="arithmatex">\((d,2)\)</span>, <span class="arithmatex">\((-d,-2d)\)</span> at <span class="arithmatex">\((0,0)\)</span>, <span class="arithmatex">\((d,0)\)</span>, <span class="arithmatex">\((-d,0)\)</span>; and <span class="arithmatex">\((x,x-d)\)</span> at every other point
+<span class="arithmatex">\((x,y)\)</span>. Then for every <span class="arithmatex">\(P\in C_d(K)\)</span> both <span class="arithmatex">\(k_1(P)\)</span> and <span class="arithmatex">\(k_2(P)\)</span> are nonzero, and <span class="arithmatex">\(\delta_d(P)\)</span> is
+the pair of their square classes.</p>
+<p><strong>Proof sketch.</strong> Compare the two maps point by point. At <span class="arithmatex">\(O\)</span> both give <span class="arithmatex">\((1,1)\)</span>. At <span class="arithmatex">\((0,0)\)</span>,
+<span class="arithmatex">\(\delta_d\)</span> gives <span class="arithmatex">\((-d^2,-d)\)</span>, and <span class="arithmatex">\(-d^2=(-1)\,d^2\equiv-1\)</span>. At <span class="arithmatex">\((d,0)\)</span> it gives
+<span class="arithmatex">\((d,3d^2-d^2)=(d,2d^2)\equiv(d,2)\)</span>. The point <span class="arithmatex">\((-d,0)\)</span> has abscissa outside <span class="arithmatex">\(\{0,d\}\)</span> because
+<span class="arithmatex">\(d\ne0\)</span> and <span class="arithmatex">\(2d\ne0\)</span>, so <span class="arithmatex">\(\delta_d\)</span> gives <span class="arithmatex">\((-d,-d-d)=(-d,-2d)\)</span>. At every other point both maps give
+<span class="arithmatex">\((x,x-d)\)</span>. The values <span class="arithmatex">\(-1,-d,d,2,-2d\)</span> are nonzero since <span class="arithmatex">\(2\ne0\)</span> and <span class="arithmatex">\(d\ne0\)</span>, and <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(x-d\)</span> are
+nonzero off the torsion abscissas.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> delta_eq_sqc_kummer (P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-d ^ 2)).toAffine.Point) :
+    <a class="bp-lean-ref" href="#descent-map" data-lean-name="ZInQ.RouteK.Rank.delta">delta</a> d P = (<a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.sqc">sqc</a> (<a class="bp-lean-ref" href="../../selmer/index.html#kummer-map" data-lean-name="ZInQ.RouteK.Selmer.kummer">Selmer.kummer</a> d P).1, <a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.sqc">sqc</a> (<a class="bp-lean-ref" href="../../selmer/index.html#kummer-map" data-lean-name="ZInQ.RouteK.Selmer.kummer">Selmer.kummer</a> d P).2)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> kummer_fst_ne_zero {K : <span class="bp-lean-keyword">Type</span>*} [Field K] [DecidableEq K] {d : K} (_h2 : (2 : K) ≠ 0)
+    (hd : d ≠ 0) (P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-d ^ 2)).toAffine.Point) : (<a class="bp-lean-ref" href="../../selmer/index.html#kummer-map" data-lean-name="ZInQ.RouteK.Selmer.kummer">Selmer.kummer</a> d P).1 ≠ 0</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> kummer_snd_ne_zero {K : <span class="bp-lean-keyword">Type</span>*} [Field K] [DecidableEq K] {d : K} (h2 : (2 : K) ≠ 0)
+    (hd : d ≠ 0) (P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-d ^ 2)).toAffine.Point) : (<a class="bp-lean-ref" href="../../selmer/index.html#kummer-map" data-lean-name="ZInQ.RouteK.Selmer.kummer">Selmer.kummer</a> d P).2 ≠ 0</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.delta">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> delta (d : K) (P : (shortCurve (-d ^ 2)).toAffine.Point) :
+    SqClass K × SqClass K :=
+  (kummerAt (-d ^ 2) 0 P, kummerAt (-d ^ 2) d P)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Delta.lean:28</p>
+</div>
+<div data-lean-name="ZInQ.Descent.sqc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> sqc (x : K) : SqClass K :=
+  <span class="bp-lean-keyword">if</span> hx : x = 0 <span class="bp-lean-keyword">then</span> 1 <span class="bp-lean-keyword">else</span> SqClass.mk (Units.mk0 x hx)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Descent/Kummer.lean:59</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.kummer">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> kummer [DecidableEq K] (d : K) : (shortCurve (-d ^ 2)).toAffine.Point → K × K
+  | .zero =&gt; (1, 1)
+  | .some x _ _ =&gt;
+    <span class="bp-lean-keyword">if</span> x = 0 <span class="bp-lean-keyword">then</span> (-1, -d) <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> x = d <span class="bp-lean-keyword">then</span> (d, 2) <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> x = -d <span class="bp-lean-keyword">then</span> (-d, -2 * d)
+    <span class="bp-lean-keyword">else</span> (x, x - d)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:265</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-complete-2-descent-map">The complete 2-descent map</a></li>
+<li><a href="../../../sources/selmer-locators.html#the-kummer-map">The Kummer map</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#descent-map">The complete 2-descent map of a congruent number curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../selmer/index.html#kummer-map">Coverings and the Kummer map</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#kummer-map-at-root">The Kummer map at a root of the cubic</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#descent-image">The image of the descent map lies in the 2-Selmer group</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="halving-and-two-torsion">Halving and two-torsion</h2>
+<p>If <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(x-d\)</span> and <span class="arithmatex">\(x+d\)</span> are squares, then <span class="arithmatex">\((x,y)\)</span> is twice a point, by an explicit formula for the
+half. The points of order dividing <span class="arithmatex">\(2\)</span> are <span class="arithmatex">\(O\)</span> and the three points <span class="arithmatex">\((e,0)\)</span> at the roots.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/two-descent/halving">
+<h4 class="bp-thmheading" id="halving">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The halving lemma</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Delta.lean#L127" aria-label="View ZInQ.RouteK.Rank.exists_two_nsmul_eq_of_squares in Lean source" title="View ZInQ.RouteK.Rank.exists_two_nsmul_eq_of_squares in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Delta.lean#L92" aria-label="View ZInQ.RouteK.Rank.halve_identities in Lean source" title="View ZInQ.RouteK.Rank.halve_identities in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Delta.lean#L113" aria-label="View ZInQ.RouteK.Rank.some_eq_or_eq_neg in Lean source" title="View ZInQ.RouteK.Rank.some_eq_or_eq_neg in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-descent/halving.md" aria-label="Edit the Markdown source for The halving lemma" title="Edit the Markdown source for The halving lemma"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#halving" aria-label="Link to The halving lemma" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.exists_two_nsmul_eq_of_squares ZInQ.RouteK.Rank.halve_identities ZInQ.RouteK.Rank.some_eq_or_eq_neg</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a field with <span class="arithmatex">\(2\ne0\)</span> and <span class="arithmatex">\(d\in K^\times\)</span>, and let <span class="arithmatex">\((x,y)\in C_d(K)\)</span>. If <span class="arithmatex">\(x=r_1^2\)</span>,
+<span class="arithmatex">\(x-d=r_2^2\)</span> and <span class="arithmatex">\(x+d=r_3^2\)</span> for some <span class="arithmatex">\(r_1,r_2,r_3\in K\)</span>, then <span class="arithmatex">\((x,y)=2Q\)</span> for some <span class="arithmatex">\(Q\in C_d(K)\)</span>.</p>
+<p>Along the way, over any field and for any <span class="arithmatex">\(d\)</span>: two affine points of <span class="arithmatex">\(C_d(K)\)</span> with the same
+abscissa are equal or opposite; and for <span class="arithmatex">\(r_1,r_2,r_3\in K\)</span> with <span class="arithmatex">\(r_1^2+D=r_3^2\)</span>, where
+<span class="arithmatex">\(D=r_1^2-r_2^2\)</span>, and for <span class="arithmatex">\(x'=r_1^2+r_1r_2+r_1r_3+r_2r_3\)</span> and <span class="arithmatex">\(y'=(r_1+r_2)(r_1+r_3)(r_2+r_3)\)</span>:
+<span class="arithmatex">\(y'^2=x'^3-D^2x'\)</span> and <span class="arithmatex">\((3x'^2-D^2)^2=(r_1^2+2x')(2y')^2\)</span>.</p>
+<p><strong>Proof sketch.</strong> Take <span class="arithmatex">\(x',y'\)</span> as in the statement. Here <span class="arithmatex">\(d=r_1^2-r_2^2\)</span> and <span class="arithmatex">\(r_1^2+d=r_3^2\)</span>, so the two polynomial identities hold with <span class="arithmatex">\(D=d\)</span>. The first puts
+<span class="arithmatex">\(Q=(x',y')\)</span> on <span class="arithmatex">\(C_d\)</span>. Next, <span class="arithmatex">\(y'\ne0\)</span>: <span class="arithmatex">\(r_1+r_2=0\)</span> would give <span class="arithmatex">\(d=r_1^2-r_2^2=0\)</span>, <span class="arithmatex">\(r_1+r_3=0\)</span> would
+give <span class="arithmatex">\(d=r_3^2-r_1^2=0\)</span>, and <span class="arithmatex">\(r_2+r_3=0\)</span> would give <span class="arithmatex">\(2d=r_3^2-r_2^2=0\)</span>. So <span class="arithmatex">\(Q\)</span> is not
+<span class="arithmatex">\(2\)</span>-torsion, <span class="arithmatex">\(2Q\)</span> is affine, and by the second identity its abscissa <span class="arithmatex">\(\lambda^2-2x'\)</span>, with
+<span class="arithmatex">\(\lambda=(3x'^2-d^2)/(2y')\)</span>, equals <span class="arithmatex">\(r_1^2=x\)</span>. Two points with the same abscissa have the same
+<span class="arithmatex">\(y^2\)</span>, so they are equal or opposite. Hence <span class="arithmatex">\((x,y)=2Q\)</span> or <span class="arithmatex">\((x,y)=2(-Q)\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_two_nsmul_eq_of_squares {x y : K} (h : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-d ^ 2)).toAffine.Nonsingular x y)
+    {r₁ r₂ r₃ : K} (h₁ : x = r₁ ^ 2) (h₂ : x - d = r₂ ^ 2) (h₃ : x + d = r₃ ^ 2) :
+    ∃ Q : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-d ^ 2)).toAffine.Point, 2 • Q = .some x y h</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> halve_identities (r₁ r₂ r₃ : K) (h3 : r₁ ^ 2 + (r₁ ^ 2 - r₂ ^ 2) = r₃ ^ 2) :
+    ((r₁ + r₂) * (r₁ + r₃) * (r₂ + r₃)) ^ 2 =
+        (r₁ ^ 2 + r₁ * r₂ + r₁ * r₃ + r₂ * r₃) ^ 3 +
+          -(r₁ ^ 2 - r₂ ^ 2) ^ 2 * (r₁ ^ 2 + r₁ * r₂ + r₁ * r₃ + r₂ * r₃) ∧
+      (3 * (r₁ ^ 2 + r₁ * r₂ + r₁ * r₃ + r₂ * r₃) ^ 2 + -(r₁ ^ 2 - r₂ ^ 2) ^ 2) ^ 2 =
+        (r₁ ^ 2 + 2 * (r₁ ^ 2 + r₁ * r₂ + r₁ * r₃ + r₂ * r₃)) *
+          (2 * ((r₁ + r₂) * (r₁ + r₃) * (r₂ + r₃))) ^ 2</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> some_eq_or_eq_neg {x y X Y : K} (h : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-d ^ 2)).toAffine.Nonsingular x y)
+    (h&#x27; : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-d ^ 2)).toAffine.Nonsingular X Y) (hX : X = x) :
+    Point.some x y h = .some X Y h&#x27; ∨ Point.some x y h = -Point.some X Y h&#x27;</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#halving">Halving</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/descent/index.html#kummer-map">Two-isogenies and the Kummer map</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#descent-map">The complete 2-descent map of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#descent-kernel">The kernel of the descent map over the rationals</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/two-descent/two-torsion">
+<h4 class="bp-thmheading" id="two-torsion">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The two-torsion of a congruent number curve</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Torsion2.lean#L59" aria-label="View ZInQ.RouteK.Rank.card_ker_two_nsmul_eq_four in Lean source" title="View ZInQ.RouteK.Rank.card_ker_two_nsmul_eq_four in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Torsion2.lean#L24" aria-label="View ZInQ.RouteK.Rank.ker_two_nsmul_eq in Lean source" title="View ZInQ.RouteK.Rank.ker_two_nsmul_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Torsion2.lean#L18" aria-label="View ZInQ.RouteK.Rank.delta_root_neg_d in Lean source" title="View ZInQ.RouteK.Rank.delta_root_neg_d in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-descent/two-torsion.md" aria-label="Edit the Markdown source for The two-torsion of a congruent number curve" title="Edit the Markdown source for The two-torsion of a congruent number curve"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#two-torsion" aria-label="Link to The two-torsion of a congruent number curve" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.card_ker_two_nsmul_eq_four ZInQ.RouteK.Rank.ker_two_nsmul_eq ZInQ.RouteK.Rank.delta_root_neg_d</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a field with <span class="arithmatex">\(2\ne0\)</span> and <span class="arithmatex">\(d\in K^\times\)</span>. The points <span class="arithmatex">\(P\in C_d(K)\)</span> with <span class="arithmatex">\(2P=O\)</span> are
+exactly <span class="arithmatex">\(O\)</span>, <span class="arithmatex">\((0,0)\)</span>, <span class="arithmatex">\((d,0)\)</span> and <span class="arithmatex">\((-d,0)\)</span>, and these are four distinct points; so <span class="arithmatex">\(C_d(K)[2]\)</span> has
+exactly <span class="arithmatex">\(4\)</span> elements.</p>
+<p><strong>Proof sketch.</strong> The numbers <span class="arithmatex">\(0\)</span>, <span class="arithmatex">\(d\)</span>, <span class="arithmatex">\(-d\)</span> are roots of <span class="arithmatex">\(x^3-d^2x\)</span>. An affine point satisfies
+<span class="arithmatex">\(2(x,y)=O\)</span> exactly when <span class="arithmatex">\(y=0\)</span>, which on <span class="arithmatex">\(C_d\)</span> means <span class="arithmatex">\(x(x-d)(x+d)=0\)</span>, and a point whose abscissa is
+a root is the corresponding torsion point <span class="arithmatex">\(T_e\)</span>. The three affine points are distinct because
+<span class="arithmatex">\(d\ne0\)</span> and <span class="arithmatex">\(d\ne-d\)</span> (as <span class="arithmatex">\(2d\ne0\)</span>), and none of them is <span class="arithmatex">\(O\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> card_ker_two_nsmul_eq_four :
+    Nat.card (nsmulAddMonoidHom 2 : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-d ^ 2)).toAffine.Point →+ _).ker = 4</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> ker_two_nsmul_eq :
+    (((nsmulAddMonoidHom 2 : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-d ^ 2)).toAffine.Point →+ _).ker :
+        AddSubgroup _) : Set (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-d ^ 2)).toAffine.Point) =
+      {0, <a class="bp-lean-ref" href="#kummer-map-at-root" data-lean-name="ZInQ.RouteK.Rank.tRootPt">tRootPt</a> h2 (<a class="bp-lean-ref" href="#descent-map" data-lean-name="ZInQ.RouteK.Rank.delta_b_ne_zero">delta_b_ne_zero</a> hd) (<a class="bp-lean-ref" href="#descent-map" data-lean-name="ZInQ.RouteK.Rank.delta_root_zero">delta_root_zero</a> d),
+        <a class="bp-lean-ref" href="#kummer-map-at-root" data-lean-name="ZInQ.RouteK.Rank.tRootPt">tRootPt</a> h2 (<a class="bp-lean-ref" href="#descent-map" data-lean-name="ZInQ.RouteK.Rank.delta_b_ne_zero">delta_b_ne_zero</a> hd) (<a class="bp-lean-ref" href="#descent-map" data-lean-name="ZInQ.RouteK.Rank.delta_root_d">delta_root_d</a> d),
+        <a class="bp-lean-ref" href="#kummer-map-at-root" data-lean-name="ZInQ.RouteK.Rank.tRootPt">tRootPt</a> h2 (<a class="bp-lean-ref" href="#descent-map" data-lean-name="ZInQ.RouteK.Rank.delta_b_ne_zero">delta_b_ne_zero</a> hd) (<a class="bp-lean-ref" href="#two-torsion" data-lean-name="ZInQ.RouteK.Rank.delta_root_neg_d">delta_root_neg_d</a> d)}</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> delta_root_neg_d (d : K) : (-d) ^ 3 + -d ^ 2 * (-d) = 0</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.tRootPt">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> tRootPt : (shortCurve b).toAffine.Point :=
+  <span class="bp-lean-keyword">have</span> : NeZero (2 : K) := ⟨h2⟩
+  <span class="bp-lean-keyword">have</span> : (shortCurve b).IsElliptic := shortCurve_isElliptic hb
+  Point.mk (kummerAt_tRoot_equation he)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/KummerAt.lean:79</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.delta_b_ne_zero">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> delta_b_ne_zero (hd : d ≠ 0) : -d ^ 2 ≠ 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Delta.lean:41</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.delta_root_zero">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> delta_root_zero (d : K) : (0 : K) ^ 3 + -d ^ 2 * 0 = 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Delta.lean:33</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.delta_root_d">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> delta_root_d (d : K) : d ^ 3 + -d ^ 2 * d = 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Delta.lean:36</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.delta_root_neg_d">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> delta_root_neg_d (d : K) : (-d) ^ 3 + -d ^ 2 * (-d) = 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Torsion2.lean:18</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#two-torsion-of-the-congruent-number-curves">Two-torsion of the congruent number curves</a></li>
+<li><a href="../../../sources/rank-locators.html#rk9">RK9</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/descent/index.html#kummer-map">Two-isogenies and the Kummer map</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#kummer-map-at-root">The Kummer map at a root of the cubic</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#descent-map">The complete 2-descent map of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#every-selmer-class">Positive rank and a Selmer group of order eight give every Selmer class (RK9)</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="kernel-and-image-over-the-rationals">Kernel and image over the rationals</h2>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/two-descent/squarefree-representatives">
+<h4 class="bp-thmheading" id="squarefree-representatives">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">Squarefree representatives of rational square classes</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L60" aria-label="View ZInQ.RouteK.Rank.sqfRep in Lean source" title="View ZInQ.RouteK.Rank.sqfRep in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L62" aria-label="View ZInQ.RouteK.Rank.sqfRep_squarefree in Lean source" title="View ZInQ.RouteK.Rank.sqfRep_squarefree in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L65" aria-label="View ZInQ.RouteK.Rank.sqc_sqfRep in Lean source" title="View ZInQ.RouteK.Rank.sqc_sqfRep in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L68" aria-label="View ZInQ.RouteK.Rank.sqfRep_ne_zero in Lean source" title="View ZInQ.RouteK.Rank.sqfRep_ne_zero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L71" aria-label="View ZInQ.RouteK.Rank.sqfRep_injective in Lean source" title="View ZInQ.RouteK.Rank.sqfRep_injective in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L55" aria-label="View ZInQ.RouteK.Rank.exists_squarefree_sqc_class in Lean source" title="View ZInQ.RouteK.Rank.exists_squarefree_sqc_class in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L40" aria-label="View ZInQ.RouteK.Rank.exists_squarefree_sqc in Lean source" title="View ZInQ.RouteK.Rank.exists_squarefree_sqc in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L24" aria-label="View ZInQ.RouteK.Rank.exists_squarefree_sqc_int in Lean source" title="View ZInQ.RouteK.Rank.exists_squarefree_sqc_int in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L175" aria-label="View ZInQ.RouteK.Rank.sqEq_sqfRep in Lean source" title="View ZInQ.RouteK.Rank.sqEq_sqfRep in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-descent/squarefree-representatives.md" aria-label="Edit the Markdown source for Squarefree representatives of rational square classes" title="Edit the Markdown source for Squarefree representatives of rational square classes"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#squarefree-representatives" aria-label="Link to Squarefree representatives of rational square classes" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.sqfRep ZInQ.RouteK.Rank.sqfRep_squarefree ZInQ.RouteK.Rank.sqc_sqfRep ZInQ.RouteK.Rank.sqfRep_ne_zero ZInQ.RouteK.Rank.sqfRep_injective ZInQ.RouteK.Rank.exists_squarefree_sqc_class ZInQ.RouteK.Rank.exists_squarefree_sqc ZInQ.RouteK.Rank.exists_squarefree_sqc_int ZInQ.RouteK.Rank.sqEq_sqfRep</div>
+<div class="bp-thmcontent">
+<p>Every nonzero integer, and every nonzero rational number, has the square class of a squarefree
+integer (signs allowed); so every class in <span class="arithmatex">\(\mathbb Q^\times/\mathbb Q^{\times2}\)</span> is the class of a
+squarefree integer. For a square class <span class="arithmatex">\(c\)</span> fix such an integer <span class="arithmatex">\(r(c)\)</span>, its <em>squarefree
+representative</em>. Then <span class="arithmatex">\(r(c)\)</span> is squarefree and nonzero, its square class is <span class="arithmatex">\(c\)</span>, and
+<span class="arithmatex">\(c\mapsto r(c)\)</span> is injective. If <span class="arithmatex">\(c\)</span> is the class of a rational <span class="arithmatex">\(q\ne0\)</span>, then <span class="arithmatex">\(r(c)\equiv q\)</span>, that is
+<span class="arithmatex">\(r(c)=qs^2\)</span> for some nonzero <span class="arithmatex">\(s\in\mathbb Q\)</span>.</p>
+<p><strong>Proof sketch.</strong> Write <span class="arithmatex">\(|n|=b^2a\)</span> with <span class="arithmatex">\(a\)</span> squarefree and <span class="arithmatex">\(b&gt;0\)</span>; then
+<span class="arithmatex">\(n=\operatorname{sign}(n)\,a\cdot b^2\)</span>, and <span class="arithmatex">\(\operatorname{sign}(n)\,a\)</span> is squarefree. A nonzero
+rational <span class="arithmatex">\(q\)</span> with numerator <span class="arithmatex">\(u\)</span> and denominator <span class="arithmatex">\(v\)</span> is <span class="arithmatex">\((uv)\cdot(1/v)^2\)</span>, so it has the class of
+the nonzero integer <span class="arithmatex">\(uv\)</span>. Injectivity holds because <span class="arithmatex">\(r(c)\)</span> determines its class <span class="arithmatex">\(c\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> sqfRep (c : <a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.SqClass">SqClass</a> ℚ) : ℤ := (<a class="bp-lean-ref" href="#squarefree-representatives" data-lean-name="ZInQ.RouteK.Rank.exists_squarefree_sqc_class">exists_squarefree_sqc_class</a> c).choose</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> sqfRep_squarefree (c : <a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.SqClass">SqClass</a> ℚ) : Squarefree (<a class="bp-lean-ref" href="#squarefree-representatives" data-lean-name="ZInQ.RouteK.Rank.sqfRep">sqfRep</a> c)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> sqc_sqfRep (c : <a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.SqClass">SqClass</a> ℚ) : <a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.sqc">sqc</a> (sqfRep c : ℚ) = c</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Descent.SqClass">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SqClass (K : <span class="bp-lean-keyword">Type</span>*) [Field K] : <span class="bp-lean-keyword">Type</span> _ := Kˣ ⧸ (powMonoidHom 2 : Kˣ →* Kˣ).range</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Descent/Kummer.lean:38</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.exists_squarefree_sqc_class">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_squarefree_sqc_class (c : SqClass ℚ) : ∃ a : ℤ, Squarefree a ∧ sqc (a : ℚ) = c</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Image.lean:55</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.sqfRep">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> sqfRep (c : SqClass ℚ) : ℤ := (exists_squarefree_sqc_class c).choose</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Image.lean:60</p>
+</div>
+<div data-lean-name="ZInQ.Descent.sqc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> sqc (x : K) : SqClass K :=
+  <span class="bp-lean-keyword">if</span> hx : x = 0 <span class="bp-lean-keyword">then</span> 1 <span class="bp-lean-keyword">else</span> SqClass.mk (Units.mk0 x hx)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Descent/Kummer.lean:59</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_7">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#rk9">RK9</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/descent/index.html#kummer-map">Two-isogenies and the Kummer map</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../selmer/index.html#coverings">The 2-coverings of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#descent-image">The image of the descent map lies in the 2-Selmer group</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#every-selmer-class">Positive rank and a Selmer group of order eight give every Selmer class (RK9)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/two-descent/descent-kernel">
+<h4 class="bp-thmheading" id="descent-kernel">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The kernel of the descent map over the rationals</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L104" aria-label="View ZInQ.RouteK.Rank.delta_eq_one_iff in Lean source" title="View ZInQ.RouteK.Rank.delta_eq_one_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/RK9.lean#L24" aria-label="View ZInQ.RouteK.Rank.deltaHom_ker_eq in Lean source" title="View ZInQ.RouteK.Rank.deltaHom_ker_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L98" aria-label="View ZInQ.RouteK.Rank.not_isSquare_two_rat in Lean source" title="View ZInQ.RouteK.Rank.not_isSquare_two_rat in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L94" aria-label="View ZInQ.RouteK.Rank.rat_two_ne_zero in Lean source" title="View ZInQ.RouteK.Rank.rat_two_ne_zero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L96" aria-label="View ZInQ.RouteK.Rank.rat_d_ne_zero in Lean source" title="View ZInQ.RouteK.Rank.rat_d_ne_zero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-descent/descent-kernel.md" aria-label="Edit the Markdown source for The kernel of the descent map over the rationals" title="Edit the Markdown source for The kernel of the descent map over the rationals"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#descent-kernel" aria-label="Link to The kernel of the descent map over the rationals" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.delta_eq_one_iff ZInQ.RouteK.Rank.deltaHom_ker_eq ZInQ.RouteK.Rank.not_isSquare_two_rat ZInQ.RouteK.Rank.rat_two_ne_zero ZInQ.RouteK.Rank.rat_d_ne_zero</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d\)</span> be a positive integer. For <span class="arithmatex">\(P\in C_d(\mathbb Q)\)</span>,
+$<span class="arithmatex">\(\delta_d(P)=1\iff P=2Q\text{ for some }Q\in C_d(\mathbb Q).\)</span>$
+So the kernel of the homomorphism <span class="arithmatex">\(\delta_d\)</span> on <span class="arithmatex">\(C_d(\mathbb Q)\)</span> is <span class="arithmatex">\(2C_d(\mathbb Q)\)</span>. Along the
+way: <span class="arithmatex">\(2\ne0\)</span> and <span class="arithmatex">\(d\ne0\)</span> in <span class="arithmatex">\(\mathbb Q\)</span>, and <span class="arithmatex">\(2\)</span> is not a square in <span class="arithmatex">\(\mathbb Q\)</span>.</p>
+<p><strong>Proof sketch.</strong> (⇐) is the last part of the homomorphism theorem. (⇒) Take <span class="arithmatex">\(P=O\)</span> to <span class="arithmatex">\(Q=O\)</span>. At
+<span class="arithmatex">\((0,0)\)</span> the first coordinate is the class of <span class="arithmatex">\(-d^2&lt;0\)</span>, not a square. At <span class="arithmatex">\((d,0)\)</span> the second is the
+class of <span class="arithmatex">\(2d^2\)</span>, not a square since <span class="arithmatex">\(2\)</span> is not a rational square (a squarefree integer that is a
+rational square is <span class="arithmatex">\(1\)</span>). At any other point <span class="arithmatex">\((x,y)\)</span>, <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(x-d\)</span> are squares, <span class="arithmatex">\(x=r_1^2\)</span> and
+<span class="arithmatex">\(x-d=r_2^2\)</span>. Then <span class="arithmatex">\(x+d\ne0\)</span>, since otherwise <span class="arithmatex">\(x=-d&lt;0\)</span>. Also <span class="arithmatex">\(r_1r_2\ne0\)</span>, as <span class="arithmatex">\(x(x-d)\ne0\)</span>. Put
+<span class="arithmatex">\(r_3=y/(r_1r_2)\)</span>; then <span class="arithmatex">\(r_3^2=y^2/(x(x-d))=x+d\)</span>, and the halving lemma gives <span class="arithmatex">\(Q\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> delta_eq_one_iff (hd : d ≠ 0) (P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)).toAffine.Point) :
+    <a class="bp-lean-ref" href="#descent-map" data-lean-name="ZInQ.RouteK.Rank.delta">delta</a> (d : ℚ) P = 1 ↔ ∃ Q, 2 • Q = P</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> deltaHom_ker_eq (hd : d ≠ 0) :
+    (<a class="bp-lean-ref" href="#descent-map-homomorphism" data-lean-name="ZInQ.RouteK.Rank.deltaHom">deltaHom</a> <a class="bp-lean-ref" href="#descent-kernel" data-lean-name="ZInQ.RouteK.Rank.rat_two_ne_zero">rat_two_ne_zero</a> (<a class="bp-lean-ref" href="#descent-kernel" data-lean-name="ZInQ.RouteK.Rank.rat_d_ne_zero">rat_d_ne_zero</a> hd)).ker =
+      (nsmulAddMonoidHom 2 : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)).toAffine.Point →+ _).range</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> not_isSquare_two_rat : ¬IsSquare (2 : ℚ)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.delta">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> delta (d : K) (P : (shortCurve (-d ^ 2)).toAffine.Point) :
+    SqClass K × SqClass K :=
+  (kummerAt (-d ^ 2) 0 P, kummerAt (-d ^ 2) d P)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Delta.lean:28</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.deltaHom">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> deltaHom :
+    (shortCurve (-d ^ 2)).toAffine.Point →+ Additive (SqClass K × SqClass K) <span class="bp-lean-keyword">where</span>
+  toFun P := Additive.ofMul (delta d P)
+  map_zero&#x27; := rfl
+  map_add&#x27; P Q := <span class="bp-lean-keyword">by</span> rw [delta_add h2 hd]; rfl</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Delta.lean:53</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.rat_two_ne_zero">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> rat_two_ne_zero : (2 : ℚ) ≠ 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Image.lean:94</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.rat_d_ne_zero">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> rat_d_ne_zero (hd : d ≠ 0) : (d : ℚ) ≠ 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Image.lean:96</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_8">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-complete-2-descent-map">The complete 2-descent map</a></li>
+<li><a href="../../../sources/rank-locators.html#halving">Halving</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/rank-locators.html#the-complete-2-descent-map"> </a></p>
+<p><a href="../../../sources/rank-locators.html#halving"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#descent-map">The complete 2-descent map of a congruent number curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#descent-map-homomorphism">The complete 2-descent map is a homomorphism</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#halving">The halving lemma</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../selmer/index.html#certified-rank-of-sel">The certified rank hypothesis from its Selmer form</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#descent-image">The image of the descent map lies in the 2-Selmer group</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#every-selmer-class">Positive rank and a Selmer group of order eight give every Selmer class (RK9)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/two-descent/descent-image">
+<h4 class="bp-thmheading" id="descent-image">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The image of the descent map lies in the 2-Selmer group</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L192" aria-label="View ZInQ.RouteK.Rank.selRep_mem_sel2 in Lean source" title="View ZInQ.RouteK.Rank.selRep_mem_sel2 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L172" aria-label="View ZInQ.RouteK.Rank.selRep in Lean source" title="View ZInQ.RouteK.Rank.selRep in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L182" aria-label="View ZInQ.RouteK.Rank.loc_selRep in Lean source" title="View ZInQ.RouteK.Rank.loc_selRep in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L198" aria-label="View ZInQ.RouteK.Rank.selRep_eq_iff in Lean source" title="View ZInQ.RouteK.Rank.selRep_eq_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L76" aria-label="View ZInQ.RouteK.Rank.loc_map in Lean source" title="View ZInQ.RouteK.Rank.loc_map in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Image.lean#L85" aria-label="View ZInQ.RouteK.Rank.loc_cast_of_loc_rat in Lean source" title="View ZInQ.RouteK.Rank.loc_cast_of_loc_rat in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-descent/descent-image.md" aria-label="Edit the Markdown source for The image of the descent map lies in the 2-Selmer group" title="Edit the Markdown source for The image of the descent map lies in the 2-Selmer group"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#descent-image" aria-label="Link to The image of the descent map lies in the 2-Selmer group" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.selRep_mem_sel2 ZInQ.RouteK.Rank.selRep ZInQ.RouteK.Rank.loc_selRep ZInQ.RouteK.Rank.selRep_eq_iff ZInQ.RouteK.Rank.loc_map ZInQ.RouteK.Rank.loc_cast_of_loc_rat</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d\)</span> be a positive integer. For <span class="arithmatex">\(P\in C_d(\mathbb Q)\)</span> with <span class="arithmatex">\(\delta_d(P)=(\alpha,\beta)\)</span>, let
+<span class="arithmatex">\(s(P)=(r(\alpha),r(\beta))\in\mathbb Z^2\)</span> be the pair of squarefree representatives. Then the
+x-form of the covering <span class="arithmatex">\(D_{s(P)}\)</span> holds over <span class="arithmatex">\(\mathbb Q\)</span>, and <span class="arithmatex">\(s(P)\in\mathrm{Sel}_2(C_d)\)</span>. For
+<span class="arithmatex">\(P,Q\in C_d(\mathbb Q)\)</span> (and any natural number <span class="arithmatex">\(d\)</span>), <span class="arithmatex">\(s(P)=s(Q)\)</span> if and only if
+<span class="arithmatex">\(\delta_d(P)=\delta_d(Q)\)</span>.</p>
+<p>Along the way: if <span class="arithmatex">\(f:K\to L\)</span> is a homomorphism of fields and the x-form of <span class="arithmatex">\(D_{a,b}\)</span> for <span class="arithmatex">\(d\)</span> holds
+over <span class="arithmatex">\(K\)</span>, then the x-form of <span class="arithmatex">\(D_{f(a),f(b)}\)</span> for <span class="arithmatex">\(f(d)\)</span> holds over <span class="arithmatex">\(L\)</span>. In particular, for a natural
+number <span class="arithmatex">\(d\)</span> and integers <span class="arithmatex">\(a,b\)</span>, the x-form of <span class="arithmatex">\(D_{a,b}\)</span> over <span class="arithmatex">\(\mathbb Q\)</span> gives the x-form of <span class="arithmatex">\(D_{a,b}\)</span>
+over every field of characteristic zero.</p>
+<p><strong>Proof sketch.</strong> By the comparison with the Kummer map of the coverings,
+<span class="arithmatex">\(r(\alpha)\equiv k_1(P)\)</span> and <span class="arithmatex">\(r(\beta)\equiv k_2(P)\)</span>, and <span class="arithmatex">\(k_1(P)\)</span>, <span class="arithmatex">\(k_2(P)\)</span> are nonzero. So by the
+Kummer-map lemma over <span class="arithmatex">\(\mathbb Q\)</span> the x-form of <span class="arithmatex">\(D_{s(P)}\)</span> holds over <span class="arithmatex">\(\mathbb Q\)</span>. A field
+homomorphism sends squares to squares, so the x-form is carried to <span class="arithmatex">\(\mathbb R\)</span> and to every
+<span class="arithmatex">\(\mathbb Q_p\)</span>. Both representatives are squarefree, so <span class="arithmatex">\(s(P)\in\mathrm{Sel}_2(C_d)\)</span>. The last claim
+holds because <span class="arithmatex">\(r\)</span> is injective.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> selRep_mem_sel2 {d : ℕ} (hd : d ≠ 0) (P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)).toAffine.Point) :
+    <a class="bp-lean-ref" href="#descent-image" data-lean-name="ZInQ.RouteK.Rank.selRep">selRep</a> P ∈ <a class="bp-lean-ref" href="../../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> selRep {d : ℕ} (P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)).toAffine.Point) : ℤ × ℤ :=
+  (<a class="bp-lean-ref" href="#squarefree-representatives" data-lean-name="ZInQ.RouteK.Rank.sqfRep">sqfRep</a> (<a class="bp-lean-ref" href="#descent-map" data-lean-name="ZInQ.RouteK.Rank.delta">delta</a> (d : ℚ) P).1, <a class="bp-lean-ref" href="#squarefree-representatives" data-lean-name="ZInQ.RouteK.Rank.sqfRep">sqfRep</a> (<a class="bp-lean-ref" href="#descent-map" data-lean-name="ZInQ.RouteK.Rank.delta">delta</a> (d : ℚ) P).2)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_selRep {d : ℕ} (hd : d ≠ 0) (P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)).toAffine.Point) :
+    <a class="bp-lean-ref" href="../../selmer/index.html#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℚ (d : ℚ) ((<a class="bp-lean-ref" href="#descent-image" data-lean-name="ZInQ.RouteK.Rank.selRep">selRep</a> P).1 : ℚ) ((<a class="bp-lean-ref" href="#descent-image" data-lean-name="ZInQ.RouteK.Rank.selRep">selRep</a> P).2 : ℚ)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.selRep">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> selRep {d : ℕ} (P : (shortCurve (-(d : ℚ) ^ 2)).toAffine.Point) : ℤ × ℤ :=
+  (sqfRep (delta (d : ℚ) P).1, sqfRep (delta (d : ℚ) P).2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Image.lean:172</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.Sel2">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Sel2 (d : ℕ) : Set (ℤ × ℤ) :=
+  {ab | Squarefree ab.1 ∧ Squarefree ab.2 ∧ Loc ℝ d ab.1 ab.2 ∧
+    ∀ (p : ℕ) [Fact p.Prime], Loc ℚ_[p] d ab.1 ab.2}</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:346</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.sqfRep">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> sqfRep (c : SqClass ℚ) : ℤ := (exists_squarefree_sqc_class c).choose</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Image.lean:60</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.delta">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> delta (d : K) (P : (shortCurve (-d ^ 2)).toAffine.Point) :
+    SqClass K × SqClass K :=
+  (kummerAt (-d ^ 2) 0 P, kummerAt (-d ^ 2) d P)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Delta.lean:28</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.Loc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:89</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_9">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#rk9">RK9</a></li>
+<li><a href="../../../sources/selmer-locators.html#the-kummer-map">The Kummer map</a></li>
+<li><a href="../../../sources/selmer-locators.html#the-selmer-group">The Selmer group</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 7 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#descent-map">The complete 2-descent map of a congruent number curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#squarefree-representatives">Squarefree representatives of rational square classes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../selmer/index.html#selmer-group">The 2-Selmer group of a congruent number curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../selmer/index.html#coverings">The 2-coverings of a congruent number curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#descent-map-kummer">The descent map is the Kummer map of the coverings</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../selmer/index.html#kummer-map">Coverings and the Kummer map</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#descent-kernel">The kernel of the descent map over the rationals</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#every-selmer-class">Positive rank and a Selmer group of order eight give every Selmer class (RK9)</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="positive-rank-gives-every-selmer-class">Positive rank gives every Selmer class</h2>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/two-descent/counting">
+<h4 class="bp-thmheading" id="counting">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Counting <span class="arithmatex">\(A/2A\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Counting.lean#L45" aria-label="View ZInQ.RouteK.Rank.eight_le_card_quotient_two in Lean source" title="View ZInQ.RouteK.Rank.eight_le_card_quotient_two in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Counting.lean#L20" aria-label="View ZInQ.RouteK.Rank.card_quotient_two_eq_card_ker in Lean source" title="View ZInQ.RouteK.Rank.card_quotient_two_eq_card_ker in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Counting.lean#L32" aria-label="View ZInQ.RouteK.Rank.nsmul_two_eq_zero_of_zmod_two in Lean source" title="View ZInQ.RouteK.Rank.nsmul_two_eq_zero_of_zmod_two in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/Counting.lean#L36" aria-label="View ZInQ.RouteK.Rank.finsupp_int_eq_zero_of_two_nsmul in Lean source" title="View ZInQ.RouteK.Rank.finsupp_int_eq_zero_of_two_nsmul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-descent/counting.md" aria-label="Edit the Markdown source for Counting $A/2A$" title="Edit the Markdown source for Counting $A/2A$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#counting" aria-label="Link to Counting A/2A" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.eight_le_card_quotient_two ZInQ.RouteK.Rank.card_quotient_two_eq_card_ker ZInQ.RouteK.Rank.nsmul_two_eq_zero_of_zmod_two ZInQ.RouteK.Rank.finsupp_int_eq_zero_of_two_nsmul</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(A\)</span> be a finitely generated abelian group whose <span class="arithmatex">\(2\)</span>-torsion <span class="arithmatex">\(A[2]\)</span> has exactly <span class="arithmatex">\(4\)</span> elements
+and which has an element of infinite order, and suppose that <span class="arithmatex">\(A/2A\)</span> is finite. Then <span class="arithmatex">\(A/2A\)</span> has at
+least <span class="arithmatex">\(8\)</span> elements.</p>
+<p>Along the way: for a finite abelian group <span class="arithmatex">\(T\)</span>, <span class="arithmatex">\(\#(T/2T)=\#T[2]\)</span>; <span class="arithmatex">\(2z=0\)</span> for every
+<span class="arithmatex">\(z\in\mathbb Z/2\)</span>; and <span class="arithmatex">\(\mathbb Z^n\)</span> has no nonzero element <span class="arithmatex">\(v\)</span> with <span class="arithmatex">\(2v=0\)</span>.</p>
+<p><strong>Proof sketch.</strong> By the structure theorem <span class="arithmatex">\(A\cong\mathbb Z^n\times T\)</span> with <span class="arithmatex">\(T\)</span> finite, and
+<span class="arithmatex">\(n\ge1\)</span> because <span class="arithmatex">\(A\)</span> has an element of infinite order. The map
+<span class="arithmatex">\(\rho:A\to\mathbb Z/2\times T/2T\)</span>, <span class="arithmatex">\((v,t)\mapsto(v_0\bmod2,\ t\bmod2T)\)</span>, is onto and kills <span class="arithmatex">\(2A\)</span>, so
+<span class="arithmatex">\(\#(A/2A)\ge2\,\#(T/2T)\)</span>. For finite <span class="arithmatex">\(T\)</span>, doubling has kernel and cokernel of the same size, so
+<span class="arithmatex">\(\#(T/2T)=\#T[2]\)</span>. Since <span class="arithmatex">\(\mathbb Z^n\)</span> is torsion-free, <span class="arithmatex">\(A[2]\)</span> injects into <span class="arithmatex">\(T[2]\)</span>. Hence
+<span class="arithmatex">\(\#(A/2A)\ge2\cdot4=8\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> eight_le_card_quotient_two {A : <span class="bp-lean-keyword">Type</span>*} [AddCommGroup A] [AddGroup.FG A]
+    (h4 : Nat.card (nsmulAddMonoidHom 2 : A →+ A).ker = 4) (hinf : ∃ a : A, ¬IsOfFinAddOrder a)
+    [Finite (A ⧸ (nsmulAddMonoidHom 2 : A →+ A).range)] :
+    8 ≤ Nat.card (A ⧸ (nsmulAddMonoidHom 2 : A →+ A).range)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> card_quotient_two_eq_card_ker {T : <span class="bp-lean-keyword">Type</span>*} [AddCommGroup T] [Finite T] :
+    Nat.card (T ⧸ (nsmulAddMonoidHom 2 : T →+ T).range) =
+      Nat.card (nsmulAddMonoidHom 2 : T →+ T).ker</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> nsmul_two_eq_zero_of_zmod_two (z : ZMod 2) : 2 • z = 0</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_10">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#rk9">RK9</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#every-selmer-class">Positive rank and a Selmer group of order eight give every Selmer class (RK9)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/two-descent/every-selmer-class">
+<h4 class="bp-thmheading" id="every-selmer-class">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Positive rank and a Selmer group of order eight give every Selmer class (RK9)</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/RK9.lean#L58" aria-label="View ZInQ.RouteK.Rank.loc_of_mem_sel2_of_infinite_order in Lean source" title="View ZInQ.RouteK.Rank.loc_of_mem_sel2_of_infinite_order in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/RK9.lean#L45" aria-label="View ZInQ.RouteK.Rank.card_quotient_two_eq_ncard_range_selRep in Lean source" title="View ZInQ.RouteK.Rank.card_quotient_two_eq_ncard_range_selRep in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/RK9.lean#L36" aria-label="View ZInQ.RouteK.Rank.repPair in Lean source" title="View ZInQ.RouteK.Rank.repPair in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Rank/RK9.lean#L39" aria-label="View ZInQ.RouteK.Rank.repPair_injective in Lean source" title="View ZInQ.RouteK.Rank.repPair_injective in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/rank/two-descent/every-selmer-class.md" aria-label="Edit the Markdown source for Positive rank and a Selmer group of order eight give every Selmer class (RK9)" title="Edit the Markdown source for Positive rank and a Selmer group of order eight give every Selmer class (RK9)"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#every-selmer-class" aria-label="Link to Positive rank and a Selmer group of order eight give every Selmer class (RK9)" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Rank.loc_of_mem_sel2_of_infinite_order ZInQ.RouteK.Rank.card_quotient_two_eq_ncard_range_selRep ZInQ.RouteK.Rank.repPair ZInQ.RouteK.Rank.repPair_injective</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d\)</span> be a positive integer. Suppose that <span class="arithmatex">\(C_d(\mathbb Q)\)</span> is finitely generated, that it has a
+point of infinite order, and that <span class="arithmatex">\(\mathrm{Sel}_2(C_d)\)</span> has exactly <span class="arithmatex">\(8\)</span> elements. Then for every
+<span class="arithmatex">\((a,b)\in\mathrm{Sel}_2(C_d)\)</span> the x-form of the covering <span class="arithmatex">\(D_{a,b}\)</span> holds over <span class="arithmatex">\(\mathbb Q\)</span>.</p>
+<p>Along the way: the pair of squarefree representatives
+<span class="arithmatex">\((\alpha,\beta)\mapsto(r(\alpha),r(\beta))\)</span> is injective on <span class="arithmatex">\((\mathbb Q^\times/\mathbb Q^{\times2})^2\)</span>,
+and <span class="arithmatex">\(C_d(\mathbb Q)/2C_d(\mathbb Q)\)</span> has as many elements as the set of pairs <span class="arithmatex">\(s(P)\)</span>,
+<span class="arithmatex">\(P\in C_d(\mathbb Q)\)</span>.</p>
+<p><strong>Proof sketch.</strong> Since the kernel of <span class="arithmatex">\(\delta_d\)</span> is <span class="arithmatex">\(2C_d(\mathbb Q)\)</span>,
+<span class="arithmatex">\(C_d(\mathbb Q)/2C_d(\mathbb Q)\)</span> is in bijection with the image of <span class="arithmatex">\(\delta_d\)</span>, and through the
+injective pair of representatives with the set <span class="arithmatex">\(S=\{s(P)\}\)</span>. The image theorem gives
+<span class="arithmatex">\(S\subseteq\mathrm{Sel}_2(C_d)\)</span>. The Selmer group has <span class="arithmatex">\(8\)</span> elements, so <span class="arithmatex">\(S\)</span> is finite, and it is
+nonempty since it contains <span class="arithmatex">\(s(O)\)</span>; hence <span class="arithmatex">\(C_d(\mathbb Q)/2C_d(\mathbb Q)\)</span> is finite. Over
+<span class="arithmatex">\(\mathbb Q\)</span> the <span class="arithmatex">\(2\)</span>-torsion of <span class="arithmatex">\(C_d\)</span> has exactly <span class="arithmatex">\(4\)</span> elements, so the counting theorem gives
+<span class="arithmatex">\(\#S\ge8=\#\mathrm{Sel}_2(C_d)\)</span>, and <span class="arithmatex">\(S=\mathrm{Sel}_2(C_d)\)</span>. Every element of <span class="arithmatex">\(S\)</span> is some <span class="arithmatex">\(s(P)\)</span>,
+and the x-form of its covering holds over <span class="arithmatex">\(\mathbb Q\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> loc_of_mem_sel2_of_infinite_order (hd : d ≠ 0)
+    (hfg : AddGroup.FG (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)).toAffine.Point)
+    (hinf : ∃ P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P)
+    (h8 : (<a class="bp-lean-ref" href="../../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d).ncard = 8) : ∀ ab ∈ <a class="bp-lean-ref" href="../../selmer/index.html#selmer-group" data-lean-name="ZInQ.RouteK.Selmer.Sel2">Sel2</a> d, <a class="bp-lean-ref" href="../../selmer/index.html#coverings" data-lean-name="ZInQ.RouteK.Selmer.Loc">Loc</a> ℚ d ab.1 ab.2</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> card_quotient_two_eq_ncard_range_selRep (hd : d ≠ 0) :
+    Nat.card ((<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)).toAffine.Point ⧸
+        (nsmulAddMonoidHom 2 : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)).toAffine.Point →+ _).range) =
+      (Set.range (<a class="bp-lean-ref" href="#descent-image" data-lean-name="ZInQ.RouteK.Rank.selRep">selRep</a> (d := d))).ncard</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> repPair (c : Additive (<a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.SqClass">SqClass</a> ℚ × <a class="bp-lean-ref" href="../../model/descent/index.html#kummer-map" data-lean-name="ZInQ.Descent.SqClass">SqClass</a> ℚ)) : ℤ × ℤ :=
+  (<a class="bp-lean-ref" href="#squarefree-representatives" data-lean-name="ZInQ.RouteK.Rank.sqfRep">sqfRep</a> (Additive.toMul c).1, <a class="bp-lean-ref" href="#squarefree-representatives" data-lean-name="ZInQ.RouteK.Rank.sqfRep">sqfRep</a> (Additive.toMul c).2)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.Sel2">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Sel2 (d : ℕ) : Set (ℤ × ℤ) :=
+  {ab | Squarefree ab.1 ∧ Squarefree ab.2 ∧ Loc ℝ d ab.1 ab.2 ∧
+    ∀ (p : ℕ) [Fact p.Prime], Loc ℚ_[p] d ab.1 ab.2}</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:346</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Selmer.Loc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Loc (K : <span class="bp-lean-keyword">Type</span>*) [Field K] (d a b : K) : <span class="bp-lean-keyword">Prop</span> :=
+  (IsSquare a ∧ IsSquare b) ∨
+    ∃ x : K, IsSquare (x / a) ∧ IsSquare ((x - d) / b) ∧ IsSquare ((x + d) / (a * b))</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Selmer/Covering.lean:89</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.selRep">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> selRep {d : ℕ} (P : (shortCurve (-(d : ℚ) ^ 2)).toAffine.Point) : ℤ × ℤ :=
+  (sqfRep (delta (d : ℚ) P).1, sqfRep (delta (d : ℚ) P).2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Image.lean:172</p>
+</div>
+<div data-lean-name="ZInQ.Descent.SqClass">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SqClass (K : <span class="bp-lean-keyword">Type</span>*) [Field K] : <span class="bp-lean-keyword">Type</span> _ := Kˣ ⧸ (powMonoidHom 2 : Kˣ →* Kˣ).range</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Descent/Kummer.lean:38</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.sqfRep">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> sqfRep (c : SqClass ℚ) : ℤ := (exists_squarefree_sqc_class c).choose</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Image.lean:60</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_11">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#rk9">RK9</a></li>
+<li><a href="../../../sources/rank-locators.html#the-positive-rank-form">The positive-rank form</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 8 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../selmer/index.html#selmer-group">The 2-Selmer group of a congruent number curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../selmer/index.html#coverings">The 2-coverings of a congruent number curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#squarefree-representatives">Squarefree representatives of rational square classes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#descent-image">The image of the descent map lies in the 2-Selmer group</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#descent-kernel">The kernel of the descent map over the rationals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#two-torsion">The two-torsion of a congruent number curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#counting">Counting <span class="arithmatex">\(A/2A\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#descent-map-homomorphism">The complete 2-descent map is a homomorphism</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#certified-rank-sel-of-rk">CR₃^Sel from CR₃^Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#certified-rank-tyz-cl-of-rk">CR₃^TYZ_Cl from CR₃^TYZ_Cl,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#certified-rank-tyz-of-rk">CR₃^TYZ from CR₃^TYZ,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../two-curves/index.html#point-of-infinite-order">A point of infinite order on a certified curve</a></span></div>
+</div>
+</details>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../../dependencies/index.json" data-graph-src="../../../dependencies/scopes/rank/two-descent.json" data-page-href="index.html" data-scope-id="rank/two-descent">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

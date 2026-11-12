@@ -1,0 +1,2796 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../descent/index.html">
+      
+      
+        <link rel="next" href="../../multiplication/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Heights and the finite search - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-canonical-height" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Heights and the finite search
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_4" id="__nav_2_1_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The elliptic model of integer indices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../field/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The field, the curve and division polynomials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../descent/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Descent, torsion and rank
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heights and the finite search
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heights and the finite search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-canonical-height" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The canonical height
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#small-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Small points
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-canonical-height" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The canonical height
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#small-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Small points
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="model/heights" data-page-title="Heights and the finite search">
+<h1 id="heights-and-the-finite-search">Heights and the finite search</h1>
+<p>The <span class="arithmatex">\(x\)</span>-height on <span class="arithmatex">\(C\)</span> changes under doubling by a factor four up to the explicit constants
+<span class="arithmatex">\(\log392\)</span> and <span class="arithmatex">\(\log676\)</span>, coming from the duplication forms, their archimedean sizes and their
+common divisor at <span class="arithmatex">\((s)\)</span> and <span class="arithmatex">\((\delta)\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="model/heights/x-height">
+<h4 class="bp-thmheading" id="x-height">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The <span class="arithmatex">\(x\)</span>-height on <span class="arithmatex">\(C(K_0)\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/XHeight.lean#L21" aria-label="View ZInQ.hK0 in Lean source" title="View ZInQ.hK0 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/XHeight.lean#L24" aria-label="View ZInQ.hx in Lean source" title="View ZInQ.hx in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/model/heights/x-height.md" aria-label="Edit the Markdown source for The $x$-height on $C(K_0)$" title="Edit the Markdown source for The $x$-height on $C(K_0)$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#x-height" aria-label="Link to The x-height on C(K₀)" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.hK0 ZInQ.hx</div>
+<div class="bp-thmcontent">
+<p>For <span class="arithmatex">\(x\in K_0\)</span> let <span class="arithmatex">\(h(x)\)</span> be the absolute logarithmic Weil height,
+$<span class="arithmatex">\(h(x)=\frac1{[K_0:\mathbb Q]}\sum_{v}n_v\log\max(1,|x|_v)
+=\frac12\sum_v n_v\log\max(1,|x|_v),\)</span>$
+the sum over the places <span class="arithmatex">\(v\)</span> of <span class="arithmatex">\(K_0\)</span> (the two real places and the finite places), with
+<span class="arithmatex">\(|\cdot|_v\)</span> extending the usual absolute value of <span class="arithmatex">\(\mathbb Q\)</span> and local degrees <span class="arithmatex">\(n_v\)</span>. For a
+point <span class="arithmatex">\(T\in C(K_0)\)</span> put
+$<span class="arithmatex">\(h_x(T)=h(x(T))\ \ (T\ne O),\qquad h_x(O)=0 .\)</span>$
+For <span class="arithmatex">\(x\in\mathbb Q\)</span> this is the height <span class="arithmatex">\(\log\max(|a|,b)\)</span> of a reduced fraction <span class="arithmatex">\(a/b\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> hK0 (x : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>) : ℝ := logHeight₁ x / 2</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> hx (T : <a class="bp-lean-ref" href="../descent/index.html#coordinate-change" data-lean-name="ZInQ.curveC">curveC</a>.toAffine.Point) : ℝ := T.naiveHeight / 2</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.K0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> K0 : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.curveC">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> curveC : WeierstrassCurve K0 := shortCurve (-delta ^ 2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/CurveC.lean:62</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/model-locators.html#duplication-bounds">Duplication bounds</a></li>
+<li><a href="../../../sources/model-locators.html#height-comparison">Height comparison</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 6</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../field/index.html#quadratic-field">The field <span class="arithmatex">\(K_0=\mathbb Q(\sqrt2)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../descent/index.html#coordinate-change">The change of variables to <span class="arithmatex">\(C\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#canonical-height">The canonical height on <span class="arithmatex">\(C(K_0)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#duplication-height-bounds">Height bounds for doubling on <span class="arithmatex">\(C\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#height-of-2r">The height of <span class="arithmatex">\(2R\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#search-box">The search box for small heights</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#x-height-formula">The height of a fraction in <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../multiplication/soundness/index.html#field-height-bounds">Height bounds in <span class="arithmatex">\(K_0\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="model/heights/x-height-formula">
+<h4 class="bp-thmheading" id="x-height-formula">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">The height of a fraction in <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Formula.lean#L166" aria-label="View ZInQ.hK0_div in Lean source" title="View ZInQ.hK0_div in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Formula.lean#L208" aria-label="View ZInQ.hK0_div_of_isCoprime in Lean source" title="View ZInQ.hK0_div_of_isCoprime in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Formula.lean#L216" aria-label="View ZInQ.hK0_ratCast in Lean source" title="View ZInQ.hK0_ratCast in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/model/heights/x-height-formula.md" aria-label="Edit the Markdown source for The height of a fraction in $\mathbb Z[\sqrt2]$" title="Edit the Markdown source for The height of a fraction in $\mathbb Z[\sqrt2]$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#x-height-formula" aria-label="Link to The height of a fraction in ℤ[√2]" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.hK0_div ZInQ.hK0_div_of_isCoprime ZInQ.hK0_ratCast</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(a,b\in\mathbb Z[s]\)</span> with <span class="arithmatex">\(b\ne0\)</span>, and let <span class="arithmatex">\(g\)</span> be a greatest common divisor
+of <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> in <span class="arithmatex">\(\mathbb Z[s]\)</span>. Then
+$<span class="arithmatex">\(h(a/b)=\frac12\Bigl(\log\max(|\sigma_+a|,|\sigma_+b|)+\log\max(|\sigma_-a|,|\sigma_-b|)
+-\log|\operatorname N(g)|\Bigr).\)</span>$
+In particular, for coprime <span class="arithmatex">\(a,b\)</span>,
+<span class="arithmatex">\(\exp(2h(a/b))=\max(|\sigma_+a|,|\sigma_+b|)\cdot\max(|\sigma_-a|,|\sigma_-b|)\)</span>; for a rational
+<span class="arithmatex">\(p/q\)</span> in lowest terms with <span class="arithmatex">\(q&gt;0\)</span>, <span class="arithmatex">\(h(p/q)=\log\max(|p|,q)\)</span>; and <span class="arithmatex">\(h\ge0\)</span>.</p>
+<p><strong>Proof sketch.</strong> Write <span class="arithmatex">\(a=ga'\)</span>, <span class="arithmatex">\(b=gb'\)</span> with <span class="arithmatex">\(a',b'\)</span> coprime; the right side is unchanged
+because <span class="arithmatex">\(\prod_\sigma|\sigma g|=|\operatorname N(g)|\)</span>. For coprime <span class="arithmatex">\(a',b'\)</span> and <span class="arithmatex">\(x=a'/b'\)</span>,
+<span class="arithmatex">\(\sum_v n_v\log\max(1,|x|_v)=\sum_v n_v\log\max(|a'|_v,|b'|_v)-\sum_vn_v\log|b'|_v\)</span>; the last sum
+vanishes by the product formula, and at every finite place <span class="arithmatex">\(\max(|a'|_v,|b'|_v)=1\)</span> by
+coprimality, leaving the two real places. Integers <span class="arithmatex">\(p,q\)</span> coprime in <span class="arithmatex">\(\mathbb Z\)</span> are coprime in
+<span class="arithmatex">\(\mathbb Z[s]\)</span>, and then both real places give <span class="arithmatex">\(\max(|p|,q)\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> hK0_div (a b : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.Zs">Zs</a>) (hb : b ≠ 0) (g : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.Zs">Zs</a>) (hga : g ∣ a) (hgb : g ∣ b)
+    (hg : ∀ d, d ∣ a → d ∣ b → d ∣ g) :
+    <a class="bp-lean-ref" href="#x-height" data-lean-name="ZInQ.hK0">hK0</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> a / <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> b) =
+      (Real.log (max |<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L81" data-lean-name="ZInQ.K0.embPlus">K0.embPlus</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> a)| |<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L81" data-lean-name="ZInQ.K0.embPlus">K0.embPlus</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> b)|) +
+        Real.log (max |<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L85" data-lean-name="ZInQ.K0.embMinus">K0.embMinus</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> a)| |<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L85" data-lean-name="ZInQ.K0.embMinus">K0.embMinus</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> b)|) -
+        Real.log |((QuadraticAlgebra.norm g : ℤ) : ℝ)|) / 2</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> hK0_div_of_isCoprime {a b : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.Zs">Zs</a>} (hab : IsCoprime a b) :
+    <a class="bp-lean-ref" href="#x-height" data-lean-name="ZInQ.hK0">hK0</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> a / <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> b) =
+      (Real.log (max |<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L81" data-lean-name="ZInQ.K0.embPlus">K0.embPlus</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> a)| |<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L81" data-lean-name="ZInQ.K0.embPlus">K0.embPlus</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> b)|) +
+        Real.log (max |<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L85" data-lean-name="ZInQ.K0.embMinus">K0.embMinus</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> a)| |<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L85" data-lean-name="ZInQ.K0.embMinus">K0.embMinus</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> b)|)) / 2</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> hK0_ratCast (r : ℚ) : <a class="bp-lean-ref" href="#x-height" data-lean-name="ZInQ.hK0">hK0</a> (r : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>) = Real.log (max |(r.num : ℝ)| (r.den : ℝ))</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Zs">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Zs : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℤ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Basic.lean:148</p>
+</div>
+<div data-lean-name="ZInQ.hK0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> hK0 (x : K0) : ℝ := logHeight₁ x / 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/XHeight.lean:21</p>
+</div>
+<div data-lean-name="ZInQ.Zs.toK0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">abbrev</span> Zs.toK0 : Zs →+* K0 := algebraMap Zs K0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Basic.lean:162</p>
+</div>
+<div data-lean-name="ZInQ.K0.embPlus">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> embPlus : K0 →+* ℝ :=
+  (QuadraticAlgebra.lift ⟨Real.sqrt 2, real_sqrt_two_mul_self⟩).toRingHom</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Basic.lean:81</p>
+</div>
+<div data-lean-name="ZInQ.K0.embMinus">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> embMinus : K0 →+* ℝ :=
+  (QuadraticAlgebra.lift ⟨-Real.sqrt 2, real_neg_sqrt_two_mul_self⟩).toRingHom</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Basic.lean:85</p>
+</div>
+<div data-lean-name="ZInQ.K0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> K0 : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:25</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/model-locators.html#duplication-bounds">Duplication bounds</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 5</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#x-height">The <span class="arithmatex">\(x\)</span>-height on <span class="arithmatex">\(C(K_0)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../field/index.html#integers-pid"><span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span> is a principal ideal domain</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#canonical-height-bounds">Basic properties of the canonical height</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#duplication-height-bounds">Height bounds for doubling on <span class="arithmatex">\(C\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#height-of-2r">The height of <span class="arithmatex">\(2R\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#search-box">The search box for small heights</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../multiplication/soundness/index.html#field-height-bounds">Height bounds in <span class="arithmatex">\(K_0\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="model/heights/duplication-forms">
+<h4 class="bp-thmheading" id="duplication-forms">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">The duplication forms on <span class="arithmatex">\(C\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/DuplicationForms.lean#L33" aria-label="View ZInQ.F2 in Lean source" title="View ZInQ.F2 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/DuplicationForms.lean#L36" aria-label="View ZInQ.G2 in Lean source" title="View ZInQ.G2 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/DuplicationForms.lean#L91" aria-label="View ZInQ.x_two_smul_C in Lean source" title="View ZInQ.x_two_smul_C in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/model/heights/duplication-forms.md" aria-label="Edit the Markdown source for The duplication forms on $C$" title="Edit the Markdown source for The duplication forms on $C$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#duplication-forms" aria-label="Link to The duplication forms on C" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.F2 ZInQ.G2 ZInQ.x_two_smul_C</div>
+<div class="bp-thmcontent">
+<p>Put
+$<span class="arithmatex">\(F_2(a,b)=(a^2+\delta^2b^2)^2,\qquad G_2(a,b)=4ab(a^2-\delta^2b^2).\)</span>$
+Let <span class="arithmatex">\(T=(x,y)\in C(K_0)\)</span> with <span class="arithmatex">\(y\ne0\)</span>, and let <span class="arithmatex">\(a,b\in\mathbb Z[s]\)</span> with <span class="arithmatex">\(b\ne0\)</span> and <span class="arithmatex">\(x=a/b\)</span>. Then
+<span class="arithmatex">\(G_2(a,b)\ne0\)</span>, <span class="arithmatex">\([2]T\ne O\)</span> and
+$<span class="arithmatex">\(x([2]T)=\frac{F_2(a,b)}{G_2(a,b)} .\)</span>$
+If instead <span class="arithmatex">\(y=0\)</span>, then <span class="arithmatex">\([2]T=O\)</span>.</p>
+<p><strong>Proof sketch.</strong> With the tangent slope <span class="arithmatex">\(\lambda=(3x^2-\delta^2)/(2y)\)</span>,
+<span class="arithmatex">\(x([2]T)=\lambda^2-2x=\frac{(3x^2-\delta^2)^2-8x(x^3-\delta^2x)}{4y^2}=\frac{(x^2+\delta^2)^2}{4x(x^2-\delta^2)}\)</span>,
+using <span class="arithmatex">\(y^2=x(x^2-\delta^2)\)</span>; homogenize with <span class="arithmatex">\(x=a/b\)</span>. Since <span class="arithmatex">\(y\ne0\)</span>, <span class="arithmatex">\(x\notin\{0,\delta,-\delta\}\)</span>,
+so <span class="arithmatex">\(a\ne0\)</span> and <span class="arithmatex">\(a^2\ne\delta^2b^2\)</span>, hence <span class="arithmatex">\(G_2(a,b)\ne0\)</span>. A point with <span class="arithmatex">\(y=0\)</span> equals its own
+negative.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> F2 (a b : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.Zs">Zs</a>) : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.Zs">Zs</a> := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/DuplicationForms.lean#L20" data-lean-name="ZInQ.dupF">dupF</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L183" data-lean-name="ZInQ.deltaZ">deltaZ</a> a b</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> G2 (a b : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.Zs">Zs</a>) : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.Zs">Zs</a> := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/DuplicationForms.lean#L23" data-lean-name="ZInQ.dupG">dupG</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L183" data-lean-name="ZInQ.deltaZ">deltaZ</a> a b</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> x_two_smul_C {x y : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>} (h : <a class="bp-lean-ref" href="../descent/index.html#coordinate-change" data-lean-name="ZInQ.curveC">curveC</a>.toAffine.Nonsingular x y) (hy : y ≠ 0)
+    {a b : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.Zs">Zs</a>} (hb : b ≠ 0) (hx : x = <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> a / <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> b) :
+    <a class="bp-lean-ref" href="#duplication-forms" data-lean-name="ZInQ.G2">G2</a> a b ≠ 0 ∧ ∃ y&#x27; h&#x27;, 2 • Point.some x y h =
+      Point.some (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> (<a class="bp-lean-ref" href="#duplication-forms" data-lean-name="ZInQ.F2">F2</a> a b) / <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> (<a class="bp-lean-ref" href="#duplication-forms" data-lean-name="ZInQ.G2">G2</a> a b)) y&#x27; h&#x27;</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Zs">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Zs : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℤ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Basic.lean:148</p>
+</div>
+<div data-lean-name="ZInQ.dupF">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> dupF {R : <span class="bp-lean-keyword">Type</span>*} [CommRing R] (d a b : R) : R := (a ^ 2 + d ^ 2 * b ^ 2) ^ 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/DuplicationForms.lean:20</p>
+</div>
+<div data-lean-name="ZInQ.deltaZ">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> deltaZ : Zs := ⟨3, -1⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Basic.lean:183</p>
+</div>
+<div data-lean-name="ZInQ.dupG">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> dupG {R : <span class="bp-lean-keyword">Type</span>*} [CommRing R] (d a b : R) : R := 4 * a * b * (a ^ 2 - d ^ 2 * b ^ 2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/DuplicationForms.lean:23</p>
+</div>
+<div data-lean-name="ZInQ.K0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> K0 : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.curveC">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> curveC : WeierstrassCurve K0 := shortCurve (-delta ^ 2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/CurveC.lean:62</p>
+</div>
+<div data-lean-name="ZInQ.Zs.toK0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">abbrev</span> Zs.toK0 : Zs →+* K0 := algebraMap Zs K0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Basic.lean:162</p>
+</div>
+<div data-lean-name="ZInQ.G2">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> G2 (a b : Zs) : Zs := dupG deltaZ a b</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/DuplicationForms.lean:36</p>
+</div>
+<div data-lean-name="ZInQ.F2">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> F2 (a b : Zs) : Zs := dupF deltaZ a b</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/DuplicationForms.lean:33</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/model-locators.html#duplication-bounds">Duplication bounds</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../descent/index.html#coordinate-change">The change of variables to <span class="arithmatex">\(C\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#duplication-archimedean">Archimedean bounds for the duplication forms</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#duplication-common-divisor">The common divisor of the duplication forms</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#duplication-height-bounds">Height bounds for doubling on <span class="arithmatex">\(C\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="model/heights/duplication-archimedean">
+<h4 class="bp-thmheading" id="duplication-archimedean">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">Archimedean bounds for the duplication forms</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/DuplicationForms.lean#L126" aria-label="View ZInQ.duplication_archimedean in Lean source" title="View ZInQ.duplication_archimedean in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/model/heights/duplication-archimedean.md" aria-label="Edit the Markdown source for Archimedean bounds for the duplication forms" title="Edit the Markdown source for Archimedean bounds for the duplication forms"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#duplication-archimedean" aria-label="Link to Archimedean bounds for the duplication forms" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.duplication_archimedean</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(\Delta\)</span> be a real number with <span class="arithmatex">\(1\le\Delta\le5\)</span>, let <span class="arithmatex">\(a,b\in\mathbb R\)</span>, <span class="arithmatex">\(M=\max(|a|,|b|)\)</span>,
+<span class="arithmatex">\(F=(a^2+\Delta^2b^2)^2\)</span> and <span class="arithmatex">\(G=4ab(a^2-\Delta^2b^2)\)</span>. Then
+$<span class="arithmatex">\(M^4\le\max(|F|,|G|)\le676\,M^4 .\)</span>$
+Since <span class="arithmatex">\(\sigma_\pm(\delta)=3\mp\sqrt2\in[1,5]\)</span>, at either real embedding of <span class="arithmatex">\(K_0\)</span> the values of the
+duplication forms satisfy
+<span class="arithmatex">\(\max(|\sigma a|,|\sigma b|)^4\le\max(|\sigma F_2(a,b)|,|\sigma G_2(a,b)|)\le676\max(|\sigma a|,|\sigma b|)^4\)</span>.</p>
+<p><strong>Proof sketch.</strong> <span class="arithmatex">\(a^2+\Delta^2b^2\ge a^2+b^2\ge M^2\)</span> gives the lower bound from <span class="arithmatex">\(F\)</span> alone.
+<span class="arithmatex">\(a^2+\Delta^2b^2\le26M^2\)</span> gives <span class="arithmatex">\(F\le676M^4\)</span>, and
+<span class="arithmatex">\(|G|\le4|a||b|(a^2+\Delta^2b^2)\le104M^4\)</span>. The constant <span class="arithmatex">\(676=26^2\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> duplication_archimedean (Δ a b : ℝ) (h1 : 1 ≤ Δ) (h5 : Δ ≤ 5) :
+    max |a| |b| ^ 4 ≤ max |<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/DuplicationForms.lean#L20" data-lean-name="ZInQ.dupF">dupF</a> Δ a b| |<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/DuplicationForms.lean#L23" data-lean-name="ZInQ.dupG">dupG</a> Δ a b| ∧
+      max |<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/DuplicationForms.lean#L20" data-lean-name="ZInQ.dupF">dupF</a> Δ a b| |<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/DuplicationForms.lean#L23" data-lean-name="ZInQ.dupG">dupG</a> Δ a b| ≤ 676 * max |a| |b| ^ 4</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.dupF">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> dupF {R : <span class="bp-lean-keyword">Type</span>*} [CommRing R] (d a b : R) : R := (a ^ 2 + d ^ 2 * b ^ 2) ^ 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/DuplicationForms.lean:20</p>
+</div>
+<div data-lean-name="ZInQ.dupG">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> dupG {R : <span class="bp-lean-keyword">Type</span>*} [CommRing R] (d a b : R) : R := 4 * a * b * (a ^ 2 - d ^ 2 * b ^ 2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/DuplicationForms.lean:23</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/model-locators.html#duplication-bounds">Duplication bounds</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../field/index.html#quadratic-field">The field <span class="arithmatex">\(K_0=\mathbb Q(\sqrt2)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#duplication-forms">The duplication forms on <span class="arithmatex">\(C\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../field/index.html#explicit-identities">Explicit identities in <span class="arithmatex">\(K_0\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#duplication-height-bounds">Height bounds for doubling on <span class="arithmatex">\(C\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="model/heights/duplication-common-divisor">
+<h4 class="bp-thmheading" id="duplication-common-divisor">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">The common divisor of the duplication forms</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/CommonDivisor.lean#L204" aria-label="View ZInQ.duplication_common_divisor in Lean source" title="View ZInQ.duplication_common_divisor in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/model/heights/duplication-common-divisor.md" aria-label="Edit the Markdown source for The common divisor of the duplication forms" title="Edit the Markdown source for The common divisor of the duplication forms"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#duplication-common-divisor" aria-label="Link to The common divisor of the duplication forms" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.duplication_common_divisor</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(a,b\in\mathbb Z[s]\)</span> be coprime and let <span class="arithmatex">\(g\)</span> be a greatest common divisor of <span class="arithmatex">\(F_2(a,b)\)</span> and
+<span class="arithmatex">\(G_2(a,b)\)</span> (assume they are not both zero). Then <span class="arithmatex">\(v_\pi(g)=0\)</span> for every prime <span class="arithmatex">\(\pi\)</span> associate
+to neither <span class="arithmatex">\(s\)</span> nor <span class="arithmatex">\(\delta\)</span>, <span class="arithmatex">\(v_s(g)\le6\)</span> and <span class="arithmatex">\(v_\delta(g)\le4\)</span>. Consequently
+$<span class="arithmatex">\(|\operatorname N(g)|\le2^6\cdot7^4=392^2 .\)</span>$</p>
+<p><strong>Proof sketch.</strong> It suffices to bound <span class="arithmatex">\(v_\pi(F_2(a,b))\)</span> whenever <span class="arithmatex">\(\pi\)</span> divides both forms.
+<em>Primes <span class="arithmatex">\(\pi\nmid2\delta\)</span>.</em> If <span class="arithmatex">\(\pi\mid a\)</span> then <span class="arithmatex">\(\pi\mid a^2+\delta^2b^2\)</span> forces <span class="arithmatex">\(\pi\mid b\)</span>; similarly
+<span class="arithmatex">\(\pi\mid b\)</span> forces <span class="arithmatex">\(\pi\mid a\)</span>; and <span class="arithmatex">\(\pi\mid a^2-\delta^2b^2\)</span> together with
+<span class="arithmatex">\(\pi\mid a^2+\delta^2b^2\)</span> gives <span class="arithmatex">\(\pi\mid2a^2\)</span>. All contradict coprimality. <em>At <span class="arithmatex">\(\delta\)</span>.</em> If
+<span class="arithmatex">\(\delta\nmid a\)</span>, <span class="arithmatex">\(F_2\equiv a^4\not\equiv0\)</span>. If <span class="arithmatex">\(\delta\mid a\)</span>, then <span class="arithmatex">\(\delta\nmid b\)</span> and with
+<span class="arithmatex">\(a=\delta a'\)</span>, <span class="arithmatex">\(F_2=\delta^4(a'^2+b^2)^2\)</span>; since <span class="arithmatex">\(-1\)</span> is not a square modulo <span class="arithmatex">\(\delta\)</span> (residue field
+<span class="arithmatex">\(\mathbb F_7\)</span>), <span class="arithmatex">\(\delta\nmid a'^2+b^2\)</span>, so <span class="arithmatex">\(v_\delta(F_2)=4\)</span>. <em>At <span class="arithmatex">\(s\)</span>.</em> If exactly one of <span class="arithmatex">\(a,b\)</span> is
+divisible by <span class="arithmatex">\(s\)</span>, <span class="arithmatex">\(a^2+\delta^2b^2\)</span> is prime to <span class="arithmatex">\(s\)</span> and <span class="arithmatex">\(v_s(F_2)=0\)</span>. If neither is, the dyadic
+valuation computation gives <span class="arithmatex">\(v_s(a^2+\delta^2b^2)\in\{2,3\}\)</span>, so <span class="arithmatex">\(v_s(F_2)\le6\)</span>. Finally
+<span class="arithmatex">\(|\operatorname N(s)|=2\)</span>, <span class="arithmatex">\(|\operatorname N(\delta)|=7\)</span> and <span class="arithmatex">\(2^6\cdot7^4=153664=392^2\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> duplication_common_divisor {a b : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.Zs">Zs</a>} (hab : IsCoprime a b) {g : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.Zs">Zs</a>}
+    (hgF : g ∣ <a class="bp-lean-ref" href="#duplication-forms" data-lean-name="ZInQ.F2">F2</a> a b) (hgG : g ∣ <a class="bp-lean-ref" href="#duplication-forms" data-lean-name="ZInQ.G2">G2</a> a b) (_hg : ∀ d, d ∣ <a class="bp-lean-ref" href="#duplication-forms" data-lean-name="ZInQ.F2">F2</a> a b → d ∣ <a class="bp-lean-ref" href="#duplication-forms" data-lean-name="ZInQ.G2">G2</a> a b → d ∣ g)
+    (hF0 : <a class="bp-lean-ref" href="#duplication-forms" data-lean-name="ZInQ.F2">F2</a> a b ≠ 0 ∨ <a class="bp-lean-ref" href="#duplication-forms" data-lean-name="ZInQ.G2">G2</a> a b ≠ 0) :
+    (∀ π, Prime π → ¬ Associated π <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L177" data-lean-name="ZInQ.sqrt2Z">sqrt2Z</a> → ¬ Associated π <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L183" data-lean-name="ZInQ.deltaZ">deltaZ</a> → <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Valuation.lean#L28" data-lean-name="ZInQ.vp">vp</a> π (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> g) = 0) ∧
+      <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Valuation.lean#L28" data-lean-name="ZInQ.vp">vp</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L177" data-lean-name="ZInQ.sqrt2Z">sqrt2Z</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> g) ≤ 6 ∧ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Valuation.lean#L28" data-lean-name="ZInQ.vp">vp</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L183" data-lean-name="ZInQ.deltaZ">deltaZ</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L162" data-lean-name="ZInQ.Zs.toK0">Zs.toK0</a> g) ≤ 4 ∧
+      (QuadraticAlgebra.norm g).natAbs ≤ 392 ^ 2</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Zs">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Zs : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℤ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Basic.lean:148</p>
+</div>
+<div data-lean-name="ZInQ.F2">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> F2 (a b : Zs) : Zs := dupF deltaZ a b</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/DuplicationForms.lean:33</p>
+</div>
+<div data-lean-name="ZInQ.G2">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> G2 (a b : Zs) : Zs := dupG deltaZ a b</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/DuplicationForms.lean:36</p>
+</div>
+<div data-lean-name="ZInQ.sqrt2Z">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> sqrt2Z : Zs := ⟨0, 1⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Basic.lean:177</p>
+</div>
+<div data-lean-name="ZInQ.deltaZ">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> deltaZ : Zs := ⟨3, -1⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Basic.lean:183</p>
+</div>
+<div data-lean-name="ZInQ.vp">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> vp (π : Zs) (z : K0) : ℤ :=
+  <span class="bp-lean-keyword">if</span> hπ : Prime π <span class="bp-lean-keyword">then</span> -log ((primeSpec π hπ).valuation K0 z) <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Valuation.lean:28</p>
+</div>
+<div data-lean-name="ZInQ.Zs.toK0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">abbrev</span> Zs.toK0 : Zs →+* K0 := algebraMap Zs K0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Basic.lean:162</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/model-locators.html#duplication-bounds">Duplication bounds</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#duplication-forms">The duplication forms on <span class="arithmatex">\(C\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../field/index.html#integers-pid"><span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span> is a principal ideal domain</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../field/index.html#special-primes">The primes <span class="arithmatex">\((s)\)</span> and <span class="arithmatex">\((d)\)</span> of <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../field/index.html#dyadic-valuation">A dyadic valuation computation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../field/index.html#explicit-identities">Explicit identities in <span class="arithmatex">\(K_0\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#duplication-height-bounds">Height bounds for doubling on <span class="arithmatex">\(C\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="model/heights/duplication-height-bounds">
+<h4 class="bp-thmheading" id="duplication-height-bounds">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Height bounds for doubling on <span class="arithmatex">\(C\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/DuplicationBounds.lean#L51" aria-label="View ZInQ.hx_two_smul_bounds in Lean source" title="View ZInQ.hx_two_smul_bounds in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/model/heights/duplication-height-bounds.md" aria-label="Edit the Markdown source for Height bounds for doubling on $C$" title="Edit the Markdown source for Height bounds for doubling on $C$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#duplication-height-bounds" aria-label="Link to Height bounds for doubling on C" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.hx_two_smul_bounds</div>
+<div class="bp-thmcontent">
+<p>For every <span class="arithmatex">\(T\in C(K_0)\)</span>,
+$<span class="arithmatex">\(4h_x(T)-\log392\ \le\ h_x([2]T)\ \le\ 4h_x(T)+\log676 .\)</span>$</p>
+<p><strong>Proof sketch.</strong> If <span class="arithmatex">\(T=O\)</span> both sides are trivial. If <span class="arithmatex">\(T=(x,0)\)</span>, then <span class="arithmatex">\([2]T=O\)</span> and
+<span class="arithmatex">\(x\in\{0,\pm\delta\}\)</span> with <span class="arithmatex">\(h(0)=0\)</span> and <span class="arithmatex">\(h(\pm\delta)=\tfrac12\log7\)</span> (since
+<span class="arithmatex">\(\operatorname N(\delta)=7\)</span> and both embeddings of <span class="arithmatex">\(\delta\)</span> exceed <span class="arithmatex">\(1\)</span>); then
+<span class="arithmatex">\(4h_x(T)-\log392\le2\log7-\log392&lt;0\)</span> and the upper bound is trivial. Otherwise write
+<span class="arithmatex">\(x(T)=a/b\)</span> with <span class="arithmatex">\(a,b\in\mathbb Z[s]\)</span> coprime, so
+<span class="arithmatex">\(h_x(T)=\frac12\sum_\sigma\log M_\sigma\)</span> with <span class="arithmatex">\(M_\sigma=\max(|\sigma a|,|\sigma b|)\)</span>. By the
+duplication forms <span class="arithmatex">\(x([2]T)=F_2(a,b)/G_2(a,b)\)</span>, and by the height of a fraction with
+<span class="arithmatex">\(g=\gcd(F_2,G_2)\)</span>,
+$<span class="arithmatex">\(h_x([2]T)=\tfrac12\Bigl(\sum_\sigma\log\max(|\sigma F_2|,|\sigma G_2|)-\log|\operatorname N(g)|\Bigr).\)</span>$
+The archimedean bounds give <span class="arithmatex">\(4\log M_\sigma\le\log\max(|\sigma F_2|,|\sigma G_2|)\le\log676+4\log M_\sigma\)</span>,
+and <span class="arithmatex">\(0\le\log|\operatorname N(g)|\le2\log392\)</span> by the common-divisor lemma. Combining yields both
+inequalities.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> hx_two_smul_bounds (T : <a class="bp-lean-ref" href="../descent/index.html#coordinate-change" data-lean-name="ZInQ.curveC">curveC</a>.toAffine.Point) :
+    4 * <a class="bp-lean-ref" href="#x-height" data-lean-name="ZInQ.hx">hx</a> T - Real.log 392 ≤ <a class="bp-lean-ref" href="#x-height" data-lean-name="ZInQ.hx">hx</a> (2 • T) ∧ <a class="bp-lean-ref" href="#x-height" data-lean-name="ZInQ.hx">hx</a> (2 • T) ≤ 4 * <a class="bp-lean-ref" href="#x-height" data-lean-name="ZInQ.hx">hx</a> T + Real.log 676</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.curveC">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> curveC : WeierstrassCurve K0 := shortCurve (-delta ^ 2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/CurveC.lean:62</p>
+</div>
+<div data-lean-name="ZInQ.hx">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> hx (T : curveC.toAffine.Point) : ℝ := T.naiveHeight / 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/XHeight.lean:24</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/model-locators.html#duplication-bounds">Duplication bounds</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/model-locators.html#duplication-bounds"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 6 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#x-height">The <span class="arithmatex">\(x\)</span>-height on <span class="arithmatex">\(C(K_0)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#duplication-forms">The duplication forms on <span class="arithmatex">\(C\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#duplication-archimedean">Archimedean bounds for the duplication forms</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#duplication-common-divisor">The common divisor of the duplication forms</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#x-height-formula">The height of a fraction in <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../field/index.html#explicit-identities">Explicit identities in <span class="arithmatex">\(K_0\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#canonical-height-bounds">Basic properties of the canonical height</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>16</strong> fully proved</span></div>
+</div>
+<h2 id="the-canonical-height">The canonical height</h2>
+<p>The canonical height is the limit of <span class="arithmatex">\(4^{-m}h_x([2^m]T)\)</span>; it differs from <span class="arithmatex">\(h_x\)</span> by bounded
+amounts and is a quadratic form.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="model/heights/canonical-height">
+<h4 class="bp-thmheading" id="canonical-height">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The canonical height on <span class="arithmatex">\(C(K_0)\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Canonical.lean#L23" aria-label="View ZInQ.canonHeight in Lean source" title="View ZInQ.canonHeight in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/model/heights/canonical-height.md" aria-label="Edit the Markdown source for The canonical height on $C(K_0)$" title="Edit the Markdown source for The canonical height on $C(K_0)$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#canonical-height" aria-label="Link to The canonical height on C(K₀)" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.canonHeight</div>
+<div class="bp-thmcontent">
+<p>For <span class="arithmatex">\(T\in C(K_0)\)</span> the canonical height <span class="arithmatex">\(\widehat h(T)\)</span> is defined by
+$<span class="arithmatex">\(2\,\widehat h(T)=\lim_{m\to\infty}4^{-m}\,h_x\bigl([2^m]T\bigr).\)</span>$
+Formally, <span class="arithmatex">\(\widehat h(T)\)</span> is half the limit of the real sequence <span class="arithmatex">\(4^{-m}h_x([2^m]T)\)</span>; that the
+sequence converges for every <span class="arithmatex">\(T\)</span> is proved, from the duplication height bounds, with the
+basic properties of <span class="arithmatex">\(\widehat h\)</span>. The factor <span class="arithmatex">\(2\)</span>
+is the manuscript's normalization, under which <span class="arithmatex">\(2\widehat h\)</span> is comparable with <span class="arithmatex">\(h_x\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> canonHeight (T : <a class="bp-lean-ref" href="../descent/index.html#coordinate-change" data-lean-name="ZInQ.curveC">curveC</a>.toAffine.Point) : ℝ :=
+  (limUnder atTop <span class="bp-lean-keyword">fun</span> m : ℕ =&gt; <a class="bp-lean-ref" href="#x-height" data-lean-name="ZInQ.hx">hx</a> ((2 ^ m) • T) / 4 ^ m) / 2</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.curveC">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> curveC : WeierstrassCurve K0 := shortCurve (-delta ^ 2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/CurveC.lean:62</p>
+</div>
+<div data-lean-name="ZInQ.hx">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> hx (T : curveC.toAffine.Point) : ℝ := T.naiveHeight / 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/XHeight.lean:24</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/model-locators.html#height-comparison">Height comparison</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#x-height">The <span class="arithmatex">\(x\)</span>-height on <span class="arithmatex">\(C(K_0)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#canonical-height-bounds">Basic properties of the canonical height</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#canonical-height-quadratic">The canonical height is quadratic</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#small-height-bound">A multiple of a small point</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../multiplication/soundness/index.html#generator-height">The canonical height of multiples of <span class="arithmatex">\(P_0\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="model/heights/canonical-height-bounds">
+<h4 class="bp-thmheading" id="canonical-height-bounds">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Basic properties of the canonical height</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Canonical.lean#L66" aria-label="View ZInQ.canonHeight_tendsto in Lean source" title="View ZInQ.canonHeight_tendsto in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Canonical.lean#L100" aria-label="View ZInQ.two_canonHeight_le in Lean source" title="View ZInQ.two_canonHeight_le in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Canonical.lean#L105" aria-label="View ZInQ.hx_le_two_canonHeight in Lean source" title="View ZInQ.hx_le_two_canonHeight in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Canonical.lean#L111" aria-label="View ZInQ.canonHeight_two_smul in Lean source" title="View ZInQ.canonHeight_two_smul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Canonical.lean#L132" aria-label="View ZInQ.canonHeight_add_twoTorsion in Lean source" title="View ZInQ.canonHeight_add_twoTorsion in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/model/heights/canonical-height-bounds.md" aria-label="Edit the Markdown source for Basic properties of the canonical height" title="Edit the Markdown source for Basic properties of the canonical height"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#canonical-height-bounds" aria-label="Link to Basic properties of the canonical height" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.canonHeight_tendsto ZInQ.two_canonHeight_le ZInQ.hx_le_two_canonHeight ZInQ.canonHeight_two_smul ZInQ.canonHeight_add_twoTorsion</div>
+<div class="bp-thmcontent">
+<p>For every <span class="arithmatex">\(T\in C(K_0)\)</span> the limit defining <span class="arithmatex">\(\widehat h(T)\)</span> exists, and:</p>
+<ol>
+<li>
+<div class="arithmatex">\[2\widehat h(T)\le h_x(T)+\frac{\log676}{3}\qquad\text{and}\qquad
+   h_x(T)\le2\widehat h(T)+\frac{\log392}{3};\]</div>
+</li>
+<li><span class="arithmatex">\(\widehat h([2]T)=4\widehat h(T)\)</span>;</li>
+<li><span class="arithmatex">\(\widehat h(-T)=\widehat h(T)\)</span>, and <span class="arithmatex">\(\widehat h(T+T')=\widehat h(T)\)</span> for every <span class="arithmatex">\(T'\in C(K_0)[2]\)</span>;</li>
+<li><span class="arithmatex">\(\widehat h(T)\ge0\)</span>.</li>
+</ol>
+<p><strong>Proof sketch.</strong> Put <span class="arithmatex">\(c_m=4^{-m}h_x([2^m]T)\)</span>. The duplication height bounds give
+<span class="arithmatex">\(-4^{-m-1}\log392\le c_{m+1}-c_m\le4^{-m-1}\log676\)</span>, so <span class="arithmatex">\((c_m)\)</span> is Cauchy, and summing the
+geometric series from <span class="arithmatex">\(m=0\)</span> gives <span class="arithmatex">\(-\frac{\log392}3\le\lim c_m-h_x(T)\le\frac{\log676}3\)</span>, which is
+(1). (2) is a shift of the index. (3): <span class="arithmatex">\(x(-P)=x(P)\)</span> and <span class="arithmatex">\([2^m](-T)=-[2^m]T\)</span>; and
+<span class="arithmatex">\([2](T+T')=[2]T\)</span>, so by (2) <span class="arithmatex">\(\widehat h(T+T')=\widehat h([2]T)/4=\widehat h(T)\)</span>. (4) holds since
+<span class="arithmatex">\(h_x\ge0\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> canonHeight_tendsto (T : <a class="bp-lean-ref" href="../descent/index.html#coordinate-change" data-lean-name="ZInQ.curveC">curveC</a>.toAffine.Point) :
+    Tendsto (<span class="bp-lean-keyword">fun</span> m : ℕ =&gt; <a class="bp-lean-ref" href="#x-height" data-lean-name="ZInQ.hx">hx</a> ((2 ^ m) • T) / 4 ^ m) atTop (𝓝 (2 * <a class="bp-lean-ref" href="#canonical-height" data-lean-name="ZInQ.canonHeight">canonHeight</a> T))</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> two_canonHeight_le (T : <a class="bp-lean-ref" href="../descent/index.html#coordinate-change" data-lean-name="ZInQ.curveC">curveC</a>.toAffine.Point) :
+    2 * <a class="bp-lean-ref" href="#canonical-height" data-lean-name="ZInQ.canonHeight">canonHeight</a> T ≤ <a class="bp-lean-ref" href="#x-height" data-lean-name="ZInQ.hx">hx</a> T + Real.log 676 / 3</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> hx_le_two_canonHeight (T : <a class="bp-lean-ref" href="../descent/index.html#coordinate-change" data-lean-name="ZInQ.curveC">curveC</a>.toAffine.Point) :
+    <a class="bp-lean-ref" href="#x-height" data-lean-name="ZInQ.hx">hx</a> T ≤ 2 * <a class="bp-lean-ref" href="#canonical-height" data-lean-name="ZInQ.canonHeight">canonHeight</a> T + Real.log 392 / 3</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.curveC">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> curveC : WeierstrassCurve K0 := shortCurve (-delta ^ 2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/CurveC.lean:62</p>
+</div>
+<div data-lean-name="ZInQ.hx">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> hx (T : curveC.toAffine.Point) : ℝ := T.naiveHeight / 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/XHeight.lean:24</p>
+</div>
+<div data-lean-name="ZInQ.canonHeight">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> canonHeight (T : curveC.toAffine.Point) : ℝ :=
+  (limUnder atTop <span class="bp-lean-keyword">fun</span> m : ℕ =&gt; hx ((2 ^ m) • T) / 4 ^ m) / 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/Canonical.lean:23</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_7">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/model-locators.html#height-comparison">Height comparison</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#canonical-height">The canonical height on <span class="arithmatex">\(C(K_0)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#duplication-height-bounds">Height bounds for doubling on <span class="arithmatex">\(C\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#x-height-formula">The height of a fraction in <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#generator">The generator certificate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#canonical-height-quadratic">The canonical height is quadratic</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#small-height-bound">A multiple of a small point</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../multiplication/soundness/index.html#generator-height">The canonical height of multiples of <span class="arithmatex">\(P_0\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="model/heights/canonical-height-quadratic">
+<h4 class="bp-thmheading" id="canonical-height-quadratic">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The canonical height is quadratic</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Canonical.lean#L159" aria-label="View ZInQ.canonHeight_parallelogram in Lean source" title="View ZInQ.canonHeight_parallelogram in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Canonical.lean#L206" aria-label="View ZInQ.canonHeight_zsmul in Lean source" title="View ZInQ.canonHeight_zsmul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/model/heights/canonical-height-quadratic.md" aria-label="Edit the Markdown source for The canonical height is quadratic" title="Edit the Markdown source for The canonical height is quadratic"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#canonical-height-quadratic" aria-label="Link to The canonical height is quadratic" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.canonHeight_parallelogram ZInQ.canonHeight_zsmul</div>
+<div class="bp-thmcontent">
+<p>For all <span class="arithmatex">\(P,Q\in C(K_0)\)</span> and <span class="arithmatex">\(m\in\mathbb Z\)</span>,
+$<span class="arithmatex">\(\widehat h(P+Q)+\widehat h(P-Q)=2\widehat h(P)+2\widehat h(Q),\qquad
+\widehat h([m]P)=m^2\,\widehat h(P).\)</span>$</p>
+<p><strong>Proof sketch.</strong> (Silverman, Theorem VIII.9.3; Néron-Tate.) The naive height satisfies the
+approximate parallelogram law: there is a constant <span class="arithmatex">\(c\)</span> with
+<span class="arithmatex">\(|h_x(P+Q)+h_x(P-Q)-2h_x(P)-2h_x(Q)|\le c\)</span> for all <span class="arithmatex">\(P,Q\)</span> (Silverman, Theorem VIII.6.2).
+Apply it to <span class="arithmatex">\([2^n]P,[2^n]Q\)</span>, divide by <span class="arithmatex">\(4^n\)</span> and let <span class="arithmatex">\(n\to\infty\)</span>: since
+<span class="arithmatex">\([2^n](P\pm Q)=[2^n]P\pm[2^n]Q\)</span>, the error <span class="arithmatex">\(c/4^n\)</span> tends to <span class="arithmatex">\(0\)</span> and the exact parallelogram law
+follows. Taking <span class="arithmatex">\(Q=P\)</span> gives <span class="arithmatex">\(\widehat h(O)=0\)</span> and the case <span class="arithmatex">\(m=2\)</span>; induction on <span class="arithmatex">\(m\ge1\)</span> with
+<span class="arithmatex">\(\widehat h((m+1)P)=2\widehat h(mP)+2\widehat h(P)-\widehat h((m-1)P)\)</span> gives <span class="arithmatex">\(m^2\widehat h(P)\)</span>, and
+<span class="arithmatex">\(\widehat h(-P)=\widehat h(P)\)</span> gives negative <span class="arithmatex">\(m\)</span>. The constant <span class="arithmatex">\(c\)</span> is not needed explicitly.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> canonHeight_parallelogram (P Q : <a class="bp-lean-ref" href="../descent/index.html#coordinate-change" data-lean-name="ZInQ.curveC">curveC</a>.toAffine.Point) :
+    <a class="bp-lean-ref" href="#canonical-height" data-lean-name="ZInQ.canonHeight">canonHeight</a> (P + Q) + <a class="bp-lean-ref" href="#canonical-height" data-lean-name="ZInQ.canonHeight">canonHeight</a> (P - Q) = 2 * <a class="bp-lean-ref" href="#canonical-height" data-lean-name="ZInQ.canonHeight">canonHeight</a> P + 2 * <a class="bp-lean-ref" href="#canonical-height" data-lean-name="ZInQ.canonHeight">canonHeight</a> Q</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> canonHeight_zsmul (m : ℤ) (P : <a class="bp-lean-ref" href="../descent/index.html#coordinate-change" data-lean-name="ZInQ.curveC">curveC</a>.toAffine.Point) :
+    <a class="bp-lean-ref" href="#canonical-height" data-lean-name="ZInQ.canonHeight">canonHeight</a> (m • P) = (m : ℝ) ^ 2 * <a class="bp-lean-ref" href="#canonical-height" data-lean-name="ZInQ.canonHeight">canonHeight</a> P</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.curveC">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> curveC : WeierstrassCurve K0 := shortCurve (-delta ^ 2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/CurveC.lean:62</p>
+</div>
+<div data-lean-name="ZInQ.canonHeight">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> canonHeight (T : curveC.toAffine.Point) : ℝ :=
+  (limUnder atTop <span class="bp-lean-keyword">fun</span> m : ℕ =&gt; hx ((2 ^ m) • T) / 4 ^ m) / 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/Canonical.lean:23</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_8">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/model-locators.html#height-comparison">Height comparison</a></li>
+<li><a href="../../../sources/model-locators.html#silverman">Silverman</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#canonical-height">The canonical height on <span class="arithmatex">\(C(K_0)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#canonical-height-bounds">Basic properties of the canonical height</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#generator">The generator certificate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#small-height-bound">A multiple of a small point</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../multiplication/soundness/index.html#generator-height">The canonical height of multiples of <span class="arithmatex">\(P_0\)</span></a></span></div>
+</div>
+</details>
+</div>
+<h2 id="small-points">Small points</h2>
+<p>If <span class="arithmatex">\(R\)</span> were <span class="arithmatex">\([m]S+T\)</span> with <span class="arithmatex">\(|m|\ge3\)</span>, the generator <span class="arithmatex">\(S\)</span> would have <span class="arithmatex">\(h_x(S)&lt;\log9\)</span>, by
+<span class="arithmatex">\(h_x(2R)=\log41\)</span> and one explicit integer comparison.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="model/heights/height-of-2r">
+<h4 class="bp-thmheading" id="height-of-2r">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">The height of <span class="arithmatex">\(2R\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/SmallPoints.lean#L37" aria-label="View ZInQ.hx_two_R in Lean source" title="View ZInQ.hx_two_R in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/model/heights/height-of-2r.md" aria-label="Edit the Markdown source for The height of $2R$" title="Edit the Markdown source for The height of $2R$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#height-of-2r" aria-label="Link to The height of 2R" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.hx_two_R</div>
+<div class="bp-thmcontent">
+<p><span class="arithmatex">\(h_x([2]R)=h\bigl(\tfrac{57-28s}{8}\bigr)=\log41\)</span>.</p>
+<p>The proof reduces to three closed integer facts, a finite computation:
+$<span class="arithmatex">\(57^2-2\cdot28^2=41^2\ (=1681),\qquad 49^2&gt;2\cdot28^2\ (2401&gt;1568),\qquad 57\text{ is odd}.\)</span>$</p>
+<p><strong>Proof sketch.</strong> By the certificate for <span class="arithmatex">\(R\)</span>, <span class="arithmatex">\(x([2]R)=a/b\)</span> with <span class="arithmatex">\(a=57-28s\)</span> and <span class="arithmatex">\(b=8=s^6\)</span>. The
+only prime dividing <span class="arithmatex">\(b\)</span> is <span class="arithmatex">\(s\)</span>, and <span class="arithmatex">\(s\nmid a\)</span> because <span class="arithmatex">\(57\)</span> is odd, so <span class="arithmatex">\(a,b\)</span> are coprime. Both
+embeddings of <span class="arithmatex">\(a\)</span> exceed <span class="arithmatex">\(8\)</span>: <span class="arithmatex">\(57+28\sqrt2&gt;8\)</span> trivially, and <span class="arithmatex">\(57-28\sqrt2&gt;8\)</span> because
+<span class="arithmatex">\(49&gt;28\sqrt2\)</span>, i.e. <span class="arithmatex">\(49^2&gt;2\cdot28^2\)</span>. By the height of a fraction,
+<span class="arithmatex">\(h=\tfrac12\log(\sigma_+(a)\sigma_-(a))=\tfrac12\log\operatorname N(a)=\tfrac12\log41^2\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> hx_two_R : <a class="bp-lean-ref" href="#x-height" data-lean-name="ZInQ.hx">hx</a> (2 • <a class="bp-lean-ref" href="../descent/index.html#point-r-certificate" data-lean-name="ZInQ.pointR">pointR</a>) = Real.log 41</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.hx">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> hx (T : curveC.toAffine.Point) : ℝ := T.naiveHeight / 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/XHeight.lean:24</p>
+</div>
+<div data-lean-name="ZInQ.pointR">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> pointR : curveC.toAffine.Point := Point.mk pointR_equation</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/CurveC.lean:169</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_9">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/model-locators.html#height-comparison">Height comparison</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#x-height">The <span class="arithmatex">\(x\)</span>-height on <span class="arithmatex">\(C(K_0)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../descent/index.html#point-r-certificate">The certificate for the point <span class="arithmatex">\(R\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#x-height-formula">The height of a fraction in <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../field/index.html#special-primes">The primes <span class="arithmatex">\((s)\)</span> and <span class="arithmatex">\((d)\)</span> of <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#small-height-bound">A multiple of a small point</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../multiplication/soundness/index.html#generator-height">The canonical height of multiples of <span class="arithmatex">\(P_0\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="model/heights/height-comparisons">
+<h4 class="bp-thmheading" id="height-comparisons">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">Two explicit integer comparisons</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Comparisons.lean#L15" aria-label="View ZInQ.height_comparisons in Lean source" title="View ZInQ.height_comparisons in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/model/heights/height-comparisons.md" aria-label="Edit the Markdown source for Two explicit integer comparisons" title="Edit the Markdown source for Two explicit integer comparisons"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#height-comparisons" aria-label="Link to Two explicit integer comparisons" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.height_comparisons</div>
+<div class="bp-thmcontent">
+<p>The following inequalities between natural numbers hold:
+$<span class="arithmatex">\(41^3\cdot676\cdot392^{36}&lt;9^{108},\qquad 392&lt;41^3 .\)</span>$
+Equivalently <span class="arithmatex">\(\frac{\log(41^3\cdot676)}{108}+\frac{\log392}{3}&lt;\log9\)</span> and
+<span class="arithmatex">\(\log41&gt;\frac{\log392}{3}\)</span>. This is a finite computation: the two sides of the first
+inequality have <span class="arithmatex">\(102\)</span> and <span class="arithmatex">\(104\)</span> decimal digits.</p>
+<p><strong>Proof sketch.</strong> Evaluate both sides; <span class="arithmatex">\(41^3=68921\)</span>. The logarithmic forms follow by
+monotonicity of <span class="arithmatex">\(\log\)</span> after multiplying the first by <span class="arithmatex">\(108\)</span> and the second by <span class="arithmatex">\(3\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> height_comparisons : 41 ^ 3 * 676 * 392 ^ 36 &lt; 9 ^ 108 ∧ 392 &lt; 41 ^ 3</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_10">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/model-locators.html#height-comparison">Height comparison</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/model-locators.html#height-comparison"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#small-height-bound">A multiple of a small point</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="model/heights/small-height-bound">
+<h4 class="bp-thmheading" id="small-height-bound">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">A multiple of a small point</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/SmallPoints.lean#L66" aria-label="View ZInQ.canonHeight_R_pos in Lean source" title="View ZInQ.canonHeight_R_pos in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/SmallPoints.lean#L78" aria-label="View ZInQ.hx_lt_log_nine_of_multiple in Lean source" title="View ZInQ.hx_lt_log_nine_of_multiple in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/model/heights/small-height-bound.md" aria-label="Edit the Markdown source for A multiple of a small point" title="Edit the Markdown source for A multiple of a small point"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#small-height-bound" aria-label="Link to A multiple of a small point" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.canonHeight_R_pos ZInQ.hx_lt_log_nine_of_multiple</div>
+<div class="bp-thmcontent">
+<ol>
+<li><span class="arithmatex">\(\widehat h(R)&gt;0\)</span>; more precisely <span class="arithmatex">\(8\widehat h(R)=2\widehat h([2]R)\ge\log41-\frac{\log392}{3}&gt;0\)</span>.</li>
+<li>If <span class="arithmatex">\(R=[m]S+T\)</span> with <span class="arithmatex">\(S\in C(K_0)\)</span>, <span class="arithmatex">\(T\in C(K_0)[2]\)</span> and <span class="arithmatex">\(m\in\mathbb Z\)</span>, <span class="arithmatex">\(|m|\ge3\)</span>, then
+   $<span class="arithmatex">\(h_x(S)\le\frac{\log(41^3\cdot676)}{108}+\frac{\log392}{3}&lt;\log9 .\)</span>$</li>
+</ol>
+<p><strong>Proof sketch.</strong> By the basic properties and the height of <span class="arithmatex">\(2R\)</span>,
+<span class="arithmatex">\(2\widehat h([2]R)\ge h_x([2]R)-\frac{\log392}3=\log41-\frac{\log392}3\)</span>, positive by the comparison
+<span class="arithmatex">\(392&lt;41^3\)</span>, and <span class="arithmatex">\(\widehat h([2]R)=4\widehat h(R)\)</span>; this is (1). For (2),
+<span class="arithmatex">\(2\widehat h([2]R)\le h_x([2]R)+\frac{\log676}{3}=\log41+\frac{\log676}{3}\)</span>, so
+<span class="arithmatex">\(2\widehat h(R)\le\frac{3\log41+\log676}{12}=\frac{\log(41^3\cdot676)}{12}\)</span>. Since <span class="arithmatex">\(T\)</span> is two-torsion and
+<span class="arithmatex">\(\widehat h\)</span> is quadratic, <span class="arithmatex">\(\widehat h(R)=\widehat h([m]S)=m^2\widehat h(S)\ge9\widehat h(S)\)</span>, so
+<span class="arithmatex">\(2\widehat h(S)\le\frac{\log(41^3\cdot676)}{108}\)</span>. Then
+<span class="arithmatex">\(h_x(S)\le2\widehat h(S)+\frac{\log392}{3}\)</span>, and the final strict inequality is the comparison
+<span class="arithmatex">\(41^3\cdot676\cdot392^{36}&lt;9^{108}\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> canonHeight_R_pos :
+    8 * <a class="bp-lean-ref" href="#canonical-height" data-lean-name="ZInQ.canonHeight">canonHeight</a> <a class="bp-lean-ref" href="../descent/index.html#point-r-certificate" data-lean-name="ZInQ.pointR">pointR</a> = 2 * <a class="bp-lean-ref" href="#canonical-height" data-lean-name="ZInQ.canonHeight">canonHeight</a> (2 • <a class="bp-lean-ref" href="../descent/index.html#point-r-certificate" data-lean-name="ZInQ.pointR">pointR</a>) ∧
+      Real.log 41 - Real.log 392 / 3 ≤ 2 * <a class="bp-lean-ref" href="#canonical-height" data-lean-name="ZInQ.canonHeight">canonHeight</a> (2 • <a class="bp-lean-ref" href="../descent/index.html#point-r-certificate" data-lean-name="ZInQ.pointR">pointR</a>) ∧
+      0 &lt; Real.log 41 - Real.log 392 / 3 ∧ 0 &lt; <a class="bp-lean-ref" href="#canonical-height" data-lean-name="ZInQ.canonHeight">canonHeight</a> <a class="bp-lean-ref" href="../descent/index.html#point-r-certificate" data-lean-name="ZInQ.pointR">pointR</a></code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> hx_lt_log_nine_of_multiple (S T : <a class="bp-lean-ref" href="../descent/index.html#coordinate-change" data-lean-name="ZInQ.curveC">curveC</a>.toAffine.Point) (m : ℤ)
+    (hR : <a class="bp-lean-ref" href="../descent/index.html#point-r-certificate" data-lean-name="ZInQ.pointR">pointR</a> = m • S + T) (hT : 2 • T = 0) (hm : 3 ≤ |m|) :
+    <a class="bp-lean-ref" href="#x-height" data-lean-name="ZInQ.hx">hx</a> S ≤ Real.log (41 ^ 3 * 676) / 108 + Real.log 392 / 3 ∧ <a class="bp-lean-ref" href="#x-height" data-lean-name="ZInQ.hx">hx</a> S &lt; Real.log 9</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.canonHeight">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> canonHeight (T : curveC.toAffine.Point) : ℝ :=
+  (limUnder atTop <span class="bp-lean-keyword">fun</span> m : ℕ =&gt; hx ((2 ^ m) • T) / 4 ^ m) / 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/Canonical.lean:23</p>
+</div>
+<div data-lean-name="ZInQ.pointR">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> pointR : curveC.toAffine.Point := Point.mk pointR_equation</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/CurveC.lean:169</p>
+</div>
+<div data-lean-name="ZInQ.curveC">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> curveC : WeierstrassCurve K0 := shortCurve (-delta ^ 2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/CurveC.lean:62</p>
+</div>
+<div data-lean-name="ZInQ.hx">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> hx (T : curveC.toAffine.Point) : ℝ := T.naiveHeight / 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/XHeight.lean:24</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_11">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/model-locators.html#height-comparison">Height comparison</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/model-locators.html#height-comparison"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 6 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#canonical-height">The canonical height on <span class="arithmatex">\(C(K_0)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../descent/index.html#point-r-certificate">The certificate for the point <span class="arithmatex">\(R\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#canonical-height-bounds">Basic properties of the canonical height</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#canonical-height-quadratic">The canonical height is quadratic</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#height-of-2r">The height of <span class="arithmatex">\(2R\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#height-comparisons">Two explicit integer comparisons</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#generator">The generator certificate</a></span></div>
+</div>
+</details>
+</div>
+<p>A point of such small height has its abscissa in an explicit finite set: <span class="arithmatex">\(14{,}008\)</span> roots of
+<span class="arithmatex">\(7{,}004\)</span> primitive quadratics and <span class="arithmatex">\(111\)</span> rationals. An exact square test leaves only the
+two-torsion abscissas and the four translates of <span class="arithmatex">\(R\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="model/heights/search-box">
+<h4 class="bp-thmheading" id="search-box">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">The search box for small heights</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/SearchBox.lean#L91" aria-label="View ZInQ.search_box in Lean source" title="View ZInQ.search_box in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/model/heights/search-box.md" aria-label="Edit the Markdown source for The search box for small heights" title="Edit the Markdown source for The search box for small heights"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#search-box" aria-label="Link to The search box for small heights" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.search_box</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(x\in K_0\)</span> with <span class="arithmatex">\(h(x)&lt;\log9\)</span>.</p>
+<ol>
+<li>If <span class="arithmatex">\(x\in\mathbb Q\)</span>, then <span class="arithmatex">\(x=p/q\)</span> with <span class="arithmatex">\(p,q\in\mathbb Z\)</span> coprime, <span class="arithmatex">\(|p|\le9\)</span> and <span class="arithmatex">\(1\le q\le9\)</span>
+   (in fact <span class="arithmatex">\(|p|,q\le8\)</span>).</li>
+<li>If <span class="arithmatex">\(x\notin\mathbb Q\)</span>, then there are integers <span class="arithmatex">\(a,b,c,k\)</span> with
+   $<span class="arithmatex">\(1\le a\le81,\quad|b|\le162,\quad|c|\le81,\quad\gcd(a,b,c)=1,\quad b^2-4ac=2k^2,\quad
+   1\le k\le162,\)</span>$
+   such that <span class="arithmatex">\(x=\frac{-b+ks}{2a}\)</span> or <span class="arithmatex">\(x=\frac{-b-ks}{2a}\)</span>; then <span class="arithmatex">\(aX^2+bX+c\)</span> is the primitive
+   minimal polynomial of <span class="arithmatex">\(x\)</span> and both its roots lie in <span class="arithmatex">\(K_0\)</span>.</li>
+</ol>
+<p><strong>Proof sketch.</strong> (1) <span class="arithmatex">\(h(p/q)=\log\max(|p|,q)&lt;\log9\)</span>. (2) Write <span class="arithmatex">\(x=u+vs\)</span> with <span class="arithmatex">\(v\ne0\)</span> and
+<span class="arithmatex">\(x=\alpha/\beta\)</span> with <span class="arithmatex">\(\alpha,\beta\in\mathbb Z[s]\)</span> coprime. The integer polynomial
+<span class="arithmatex">\(f(X)=\operatorname N(\beta X-\alpha)=\operatorname N(\beta)X^2-\operatorname{Tr}(\alpha\bar\beta)X+\operatorname N(\alpha)\)</span>
+has the real roots <span class="arithmatex">\(r_\pm=\sigma_\pm(x)\)</span>, and
+<span class="arithmatex">\(|\operatorname N(\beta)|\max(1,|r_+|)\max(1,|r_-|)=\prod_\sigma\max(|\sigma\alpha|,|\sigma\beta|)=e^{2h(x)}&lt;81\)</span>.
+Divide <span class="arithmatex">\(f\)</span> by its content and fix the sign to get <span class="arithmatex">\(aX^2+bX+c\)</span> with <span class="arithmatex">\(a\ge1\)</span> and
+<span class="arithmatex">\(a\max(1,|r_+|)\max(1,|r_-|)&lt;81\)</span>. Then <span class="arithmatex">\(a&lt;81\)</span>, <span class="arithmatex">\(|b|=a|r_++r_-|&lt;162\)</span> and <span class="arithmatex">\(|c|=a|r_+r_-|&lt;81\)</span>.
+The discriminant is <span class="arithmatex">\(a^2(r_+-r_-)^2=8a^2v^2=2k^2\)</span> with <span class="arithmatex">\(k=2a|v|&gt;0\)</span>; as <span class="arithmatex">\(2k^2\in\mathbb Z\)</span> and
+<span class="arithmatex">\(k\in\mathbb Q\)</span>, <span class="arithmatex">\(k\in\mathbb Z\)</span>, and <span class="arithmatex">\(2k^2&lt;162^2+4\cdot81^2=2\cdot162^2\)</span> gives <span class="arithmatex">\(k&lt;162\)</span>. Finally
+<span class="arithmatex">\(2au=-b\)</span> and <span class="arithmatex">\(2av=\pm k\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> search_box (x : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>) (hx : <a class="bp-lean-ref" href="#x-height" data-lean-name="ZInQ.hK0">hK0</a> x &lt; Real.log 9) :
+    (x.im = 0 → ∃ p q : ℤ, Int.gcd p q = 1 ∧ |p| ≤ 8 ∧ 1 ≤ q ∧ q ≤ 8 ∧
+      x = (((p : ℚ) / q : ℚ) : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>)) ∧
+    (x.im ≠ 0 → ∃ a b c k : ℤ, 1 ≤ a ∧ a ≤ 81 ∧ |b| ≤ 162 ∧ |c| ≤ 81 ∧
+      Int.gcd (Int.gcd a b) c = 1 ∧ b ^ 2 - 4 * a * c = 2 * k ^ 2 ∧ 1 ≤ k ∧ k ≤ 162 ∧
+      (x = ⟨((-b : ℤ) : ℚ) / (2 * (a : ℚ)), (k : ℚ) / (2 * (a : ℚ))⟩ ∨
+        x = ⟨((-b : ℤ) : ℚ) / (2 * (a : ℚ)), ((-k : ℤ) : ℚ) / (2 * (a : ℚ))⟩) ∧
+      (a : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>) * x ^ 2 + (b : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>) * x + (c : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>) = 0)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.K0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> K0 : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.hK0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> hK0 (x : K0) : ℝ := logHeight₁ x / 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/XHeight.lean:21</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_12">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/model-locators.html#finite-search">Finite search</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/model-locators.html#finite-search"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#x-height">The <span class="arithmatex">\(x\)</span>-height on <span class="arithmatex">\(C(K_0)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#x-height-formula">The height of a fraction in <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../field/index.html#integers-pid"><span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span> is a principal ideal domain</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#generator">The generator certificate</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="model/heights/square-test">
+<h4 class="bp-thmheading" id="square-test">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">An exact square test in <span class="arithmatex">\(K_0\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/SquareTest.lean#L17" aria-label="View ZInQ.SqTest in Lean source" title="View ZInQ.SqTest in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/SquareTest.lean#L27" aria-label="View ZInQ.isSquare_iff_sqTest in Lean source" title="View ZInQ.isSquare_iff_sqTest in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/model/heights/square-test.md" aria-label="Edit the Markdown source for An exact square test in $K_0$" title="Edit the Markdown source for An exact square test in $K_0$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#square-test" aria-label="Link to An exact square test in K₀" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.SqTest ZInQ.isSquare_iff_sqTest</div>
+<div class="bp-thmcontent">
+<p>For <span class="arithmatex">\(u,v\in\mathbb Q\)</span> say that <span class="arithmatex">\(\mathrm{Sq}(u,v)\)</span> holds if there are a sign <span class="arithmatex">\(\eta\in\{1,-1\}\)</span> and
+rationals <span class="arithmatex">\(t,y_0\)</span> with
+$<span class="arithmatex">\(t^2=u^2-2v^2,\qquad y_0^2=\frac{u+\eta t}{2},\)</span>$
+such that either <span class="arithmatex">\(y_0\ne0\)</span> and <span class="arithmatex">\(\bigl(y_0+\tfrac{v}{2y_0}s\bigr)^2=u+vs\)</span>, or <span class="arithmatex">\(y_0=0\)</span>, <span class="arithmatex">\(v=0\)</span> and
+<span class="arithmatex">\(u/2=y_1^2\)</span> for some <span class="arithmatex">\(y_1\in\mathbb Q\)</span>. Then
+$<span class="arithmatex">\(u+vs\ \text{is a square in }K_0\iff\mathrm{Sq}(u,v),\)</span>$
+including the case <span class="arithmatex">\(u+vs=0\)</span>. Since a rational number has a rational square root exactly when
+its reduced numerator and denominator are perfect squares (and it is nonnegative),
+<span class="arithmatex">\(\mathrm{Sq}\)</span> is decidable by finitely many integer square-root extractions.</p>
+<p><strong>Proof sketch.</strong> (<span class="arithmatex">\(\Leftarrow\)</span>) In the first case the square is exhibited; in the second
+<span class="arithmatex">\((y_1s)^2=2y_1^2=u=u+vs\)</span>. (<span class="arithmatex">\(\Rightarrow\)</span>) If <span class="arithmatex">\(u+vs=(y_0+y_1s)^2\)</span>, then <span class="arithmatex">\(u=y_0^2+2y_1^2\)</span>,
+<span class="arithmatex">\(v=2y_0y_1\)</span> and <span class="arithmatex">\(u^2-2v^2=(y_0^2-2y_1^2)^2\)</span>. Take <span class="arithmatex">\(t=|y_0^2-2y_1^2|\)</span> and <span class="arithmatex">\(\eta\)</span> with
+<span class="arithmatex">\(\eta t=y_0^2-2y_1^2\)</span>; then <span class="arithmatex">\((u+\eta t)/2=y_0^2\)</span>. If <span class="arithmatex">\(y_0\ne0\)</span>, <span class="arithmatex">\(y_1=v/(2y_0)\)</span>; if <span class="arithmatex">\(y_0=0\)</span>, then
+<span class="arithmatex">\(v=0\)</span> and <span class="arithmatex">\(u=2y_1^2\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SqTest (u v : ℚ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ η : ℚ, (η = 1 ∨ η = -1) ∧ ∃ t y₀ : ℚ, t ^ 2 = u ^ 2 - 2 * v ^ 2 ∧ y₀ ^ 2 = (u + η * t) / 2 ∧
+    ((y₀ ≠ 0 ∧ (⟨y₀, v / (2 * y₀)⟩ : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>) ^ 2 = ⟨u, v⟩) ∨
+      (y₀ = 0 ∧ v = 0 ∧ ∃ y₁ : ℚ, u / 2 = y₁ ^ 2))</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> isSquare_iff_sqTest (u v : ℚ) : IsSquare (⟨u, v⟩ : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>) ↔ <a class="bp-lean-ref" href="#square-test" data-lean-name="ZInQ.SqTest">SqTest</a> u v</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.K0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> K0 : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.SqTest">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SqTest (u v : ℚ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ η : ℚ, (η = 1 ∨ η = -1) ∧ ∃ t y₀ : ℚ, t ^ 2 = u ^ 2 - 2 * v ^ 2 ∧ y₀ ^ 2 = (u + η * t) / 2 ∧
+    ((y₀ ≠ 0 ∧ (⟨y₀, v / (2 * y₀)⟩ : K0) ^ 2 = ⟨u, v⟩) ∨
+      (y₀ = 0 ∧ v = 0 ∧ ∃ y₁ : ℚ, u / 2 = y₁ ^ 2))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/SquareTest.lean:17</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_13">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/model-locators.html#finite-search">Finite search</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../field/index.html#quadratic-field">The field <span class="arithmatex">\(K_0=\mathbb Q(\sqrt2)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#small-height-search">The finite search for small points on <span class="arithmatex">\(C\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="model/heights/small-height-search">
+<h4 class="bp-thmheading" id="small-height-search">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">The finite search for small points on <span class="arithmatex">\(C\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Search.lean#L411" aria-label="View ZInQ.smallHeight_search in Lean source" title="View ZInQ.smallHeight_search in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/model/heights/small-height-search.md" aria-label="Edit the Markdown source for The finite search for small points on $C$" title="Edit the Markdown source for The finite search for small points on $C$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#small-height-search" aria-label="Link to The finite search for small points on C" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.smallHeight_search</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(f(x)=x^3-\delta^2x\)</span> with <span class="arithmatex">\(\delta^2=11-6s\)</span>. Let <span class="arithmatex">\(\mathcal Q\)</span> be the set of integer triples
+<span class="arithmatex">\((a,b,c)\)</span> with <span class="arithmatex">\(1\le a\le81\)</span>, <span class="arithmatex">\(|b|\le162\)</span>, <span class="arithmatex">\(|c|\le81\)</span>, <span class="arithmatex">\(\gcd(a,b,c)=1\)</span> and <span class="arithmatex">\(b^2-4ac=2k^2\)</span> for an
+integer <span class="arithmatex">\(1\le k\le162\)</span>; let <span class="arithmatex">\(\mathcal X_2\)</span> be the set of the numbers
+<span class="arithmatex">\(x=\frac{-b\pm ks}{2a}\in K_0\)</span> for <span class="arithmatex">\((a,b,c)\in\mathcal Q\)</span> and both signs; and let <span class="arithmatex">\(\mathcal X_1\)</span> be
+the set of rationals <span class="arithmatex">\(p/q\)</span> with <span class="arithmatex">\(\gcd(p,q)=1\)</span>, <span class="arithmatex">\(|p|\le9\)</span>, <span class="arithmatex">\(1\le q\le9\)</span>. Then:</p>
+<ol>
+<li><span class="arithmatex">\(|\mathcal Q|=7004\)</span>, the roots counted with their sign number <span class="arithmatex">\(14008\)</span>, and
+   <span class="arithmatex">\(|\mathcal X_1|=111\)</span>;</li>
+<li>for <span class="arithmatex">\(x\in\mathcal X_1\cup\mathcal X_2\)</span>, <span class="arithmatex">\(f(x)\)</span> is a square in <span class="arithmatex">\(K_0\)</span> if and only if
+   $<span class="arithmatex">\(x\in\Bigl\{0,\ \delta,\ -\delta,\ 1+s,\ 23-17s,\ 2+4s,\ \tfrac{5-4s}{2}\Bigr\}.\)</span>$</li>
+</ol>
+<p>Each membership test is the exact square test applied to the two rational components of
+<span class="arithmatex">\(f(x)\)</span>. This is a finite computation over explicit finite sets.</p>
+<p><strong>Proof sketch.</strong> Enumerate the box: for each <span class="arithmatex">\((a,b,c)\)</span> check primitivity and whether
+<span class="arithmatex">\((b^2-4ac)/2\)</span> is a positive perfect square <span class="arithmatex">\(k^2\)</span> with <span class="arithmatex">\(k\le162\)</span>; for each resulting <span class="arithmatex">\(x\)</span> and each
+rational candidate compute the components of <span class="arithmatex">\(f(x)\)</span> exactly and run the square test. An
+independent replay of exactly this computation gives the stated counts and survivors.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> smallHeight_search :
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Search.lean#L28" data-lean-name="ZInQ.searchQ">searchQ</a>.card = 7004 ∧ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Search.lean#L42" data-lean-name="ZInQ.searchX2">searchX2</a>.card = 14008 ∧ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Search.lean#L45" data-lean-name="ZInQ.searchX1">searchX1</a>.card = 111 ∧
+      ∀ x ∈ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Search.lean#L45" data-lean-name="ZInQ.searchX1">searchX1</a>.image (<span class="bp-lean-keyword">fun</span> r : ℚ =&gt; (r : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>)) ∪ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Search.lean#L42" data-lean-name="ZInQ.searchX2">searchX2</a>,
+        (IsSquare (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Search.lean#L25" data-lean-name="ZInQ.fC">fC</a> x) ↔ x ∈ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Search.lean#L50" data-lean-name="ZInQ.smallSurvivors">smallSurvivors</a>)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.searchQ">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> searchQ : Finset (ℤ × ℤ × ℤ) :=
+  (Finset.Icc (1 : ℤ) 81 ×ˢ Finset.Icc (-162 : ℤ) 162 ×ˢ Finset.Icc (-81 : ℤ) 81).filter
+    <span class="bp-lean-keyword">fun</span> t =&gt; Int.gcd (Int.gcd t.1 t.2.1) t.2.2 = 1 ∧
+      ∃ k ∈ Finset.Icc (1 : ℤ) 162, t.2.1 ^ 2 - 4 * t.1 * t.2.2 = 2 * k ^ 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/Search.lean:28</p>
+</div>
+<div data-lean-name="ZInQ.searchX2">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> searchX2 : Finset K0 := (searchQ ×ˢ ({1, -1} : Finset ℤ)).image <span class="bp-lean-keyword">fun</span> p =&gt; qRoot p.1 p.2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/Search.lean:42</p>
+</div>
+<div data-lean-name="ZInQ.searchX1">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> searchX1 : Finset ℚ :=
+  ((Finset.Icc (-9 : ℤ) 9 ×ˢ Finset.Icc (1 : ℤ) 9).filter <span class="bp-lean-keyword">fun</span> p =&gt; Int.gcd p.1 p.2 = 1).image
+    <span class="bp-lean-keyword">fun</span> p =&gt; (p.1 : ℚ) / p.2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/Search.lean:45</p>
+</div>
+<div data-lean-name="ZInQ.K0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> K0 : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.fC">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> fC (x : K0) : K0 := x ^ 3 - delta ^ 2 * x</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/Search.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.smallSurvivors">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> smallSurvivors : Finset K0 := {0, delta, -delta, ⟨1, 1⟩, ⟨23, -17⟩, ⟨2, 4⟩, ⟨5 / 2, -2⟩}</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Heights/Search.lean:50</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_14">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/model-locators.html#finite-search">Finite search</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#square-test">An exact square test in <span class="arithmatex">\(K_0\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../descent/index.html#coordinate-change">The change of variables to <span class="arithmatex">\(C\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#generator">The generator certificate</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="model/heights/r-torsion-translates">
+<h4 class="bp-thmheading" id="r-torsion-translates">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">The translates of <span class="arithmatex">\(R\)</span> by two-torsion</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Translates.lean#L34" aria-label="View ZInQ.x_pointR_add_cT0 in Lean source" title="View ZInQ.x_pointR_add_cT0 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Translates.lean#L44" aria-label="View ZInQ.x_pointR_add_cTdelta in Lean source" title="View ZInQ.x_pointR_add_cTdelta in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Heights/Translates.lean#L54" aria-label="View ZInQ.x_pointR_add_cTnegdelta in Lean source" title="View ZInQ.x_pointR_add_cTnegdelta in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/model/heights/r-torsion-translates.md" aria-label="Edit the Markdown source for The translates of $R$ by two-torsion" title="Edit the Markdown source for The translates of $R$ by two-torsion"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#r-torsion-translates" aria-label="Link to The translates of R by two-torsion" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.x_pointR_add_cT0 ZInQ.x_pointR_add_cTdelta ZInQ.x_pointR_add_cTnegdelta</div>
+<div class="bp-thmcontent">
+<p>On <span class="arithmatex">\(C:y^2=x^3-\delta^2x\)</span> with <span class="arithmatex">\(R=(1+s,2s)\)</span>:
+$<span class="arithmatex">\(x(R)=1+s,\quad x\bigl(R+(0,0)\bigr)=23-17s,\quad x\bigl(R+(\delta,0)\bigr)=2+4s,\quad
+x\bigl(R+(-\delta,0)\bigr)=\frac{5-4s}{2}.\)</span>$
+Each sum is computed by the chord rule with distinct abscissas. These are closed identities
+in <span class="arithmatex">\(K_0\)</span>: a finite computation.</p>
+<p><strong>Proof sketch.</strong> The chord slopes are <span class="arithmatex">\(2s/(1+s)=4-2s\)</span>, <span class="arithmatex">\(2s/(2s-2)=2+s\)</span> and <span class="arithmatex">\(2s/4=s/2\)</span>; then
+<span class="arithmatex">\(x_3=\lambda^2-x_1-x_2\)</span> gives <span class="arithmatex">\((24-16s)-(1+s)=23-17s\)</span>, <span class="arithmatex">\((6+4s)-(1+s)-(3-s)=2+4s\)</span> and
+<span class="arithmatex">\(\tfrac12-(1+s)+(3-s)=\tfrac52-2s\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> x_pointR_add_cT0 :
+    ∃ y h, <a class="bp-lean-ref" href="../descent/index.html#point-r-certificate" data-lean-name="ZInQ.pointR">pointR</a> + <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/CurveC.lean#L84" data-lean-name="ZInQ.cT0">cT0</a> = Point.some (⟨23, -17⟩ : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>) y h</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> x_pointR_add_cTdelta :
+    ∃ y h, <a class="bp-lean-ref" href="../descent/index.html#point-r-certificate" data-lean-name="ZInQ.pointR">pointR</a> + <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/CurveC.lean#L86" data-lean-name="ZInQ.cTdelta">cTdelta</a> = Point.some (⟨2, 4⟩ : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>) y h</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> x_pointR_add_cTnegdelta :
+    ∃ y h, <a class="bp-lean-ref" href="../descent/index.html#point-r-certificate" data-lean-name="ZInQ.pointR">pointR</a> + <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/CurveC.lean#L88" data-lean-name="ZInQ.cTnegdelta">cTnegdelta</a> = Point.some (⟨5 / 2, -2⟩ : <a class="bp-lean-ref" href="../field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>) y h</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.pointR">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> pointR : curveC.toAffine.Point := Point.mk pointR_equation</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/CurveC.lean:169</p>
+</div>
+<div data-lean-name="ZInQ.cT0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> cT0 : curveC.toAffine.Point := Point.mk curveC_equation_zero</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/CurveC.lean:84</p>
+</div>
+<div data-lean-name="ZInQ.K0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> K0 : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.cTdelta">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> cTdelta : curveC.toAffine.Point := Point.mk curveC_equation_delta</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/CurveC.lean:86</p>
+</div>
+<div data-lean-name="ZInQ.cTnegdelta">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> cTnegdelta : curveC.toAffine.Point := Point.mk curveC_equation_neg_delta</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/CurveC.lean:88</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_15">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/model-locators.html#finite-search">Finite search</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../descent/index.html#point-r-certificate">The certificate for the point <span class="arithmatex">\(R\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#generator">The generator certificate</a></span></div>
+</div>
+</details>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../../dependencies/index.json" data-graph-src="../../../dependencies/scopes/model/heights.json" data-page-href="index.html" data-scope-id="model/heights">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

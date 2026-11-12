@@ -1,0 +1,2504 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../constants/index.html">
+      
+      
+        <link rel="next" href="../norms/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>The least formal multiple - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#places-of-k_0" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              The least formal multiple
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_8" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_8" id="__nav_2_1_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The cutoff and polynomial size
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../constants/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bounds for the fixed constants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The least formal multiple
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The least formal multiple
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#places-of-k_0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Places of \(K_0\)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reduction-and-the-filtration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reduction and the filtration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-point-p_0-at-the-special-places" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The point \(P_0\) at the special places
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-successful-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The successful index
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../norms/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Norms, division polynomials and the finite constructors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../majorants/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Syntax heights and the final comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#places-of-k_0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Places of \(K_0\)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reduction-and-the-filtration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reduction and the filtration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-point-p_0-at-the-special-places" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The point \(P_0\) at the special places
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-successful-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The successful index
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="size/formal-multiple" data-page-title="The least formal multiple">
+<h1 id="the-least-formal-multiple">The least formal multiple</h1>
+<p>The constant <span class="arithmatex">\(M_0=\mathrm{LFM}(N_s)\)</span> is the least <span class="arithmatex">\(m\ge1\)</span> for which the normalized
+representation <span class="arithmatex">\((a+bs)/c\)</span> of <span class="arithmatex">\(1/x([m]P_0)\)</span> has <span class="arithmatex">\(N_s^4\mid a\)</span>, <span class="arithmatex">\(N_s^4\mid b\)</span> and
+<span class="arithmatex">\(\gcd(c,N_s)=1\)</span>, with inverse abscissa <span class="arithmatex">\(0\)</span> at the identity. The specification only defines
+it; this section shows that the search succeeds at an index at most <span class="arithmatex">\(N_s^{10}\)</span>. The
+argument works for every integer <span class="arithmatex">\(N\ge1\)</span> in place of <span class="arithmatex">\(N_s\)</span> and does not use the catalogue
+bound.</p>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>7</strong> fully proved</span></div>
+</div>
+<h2 id="places-of-k_0">Places of <span class="arithmatex">\(K_0\)</span></h2>
+<p>Above an odd prime <span class="arithmatex">\(p\)</span> there are one or two primes of <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span>, each unramified
+with residue field of at most <span class="arithmatex">\(p^2\)</span> elements, and conjugation permutes them
+(<a href="../../multiplication/local/index.html#primes-above-p">the primes above an odd prime</a>, in the
+multiplication chapter). This lets one read off <span class="arithmatex">\(p\)</span>-adic valuations of the two rational
+coordinates of an element from its valuations at these primes. At the prime <span class="arithmatex">\((s)\)</span> above <span class="arithmatex">\(2\)</span>
+the model chapter's formula <span class="arithmatex">\(v_s(c_0+c_1s)=\min(2v_2(c_0),2v_2(c_1)+1)\)</span> does the same.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="size/formal-multiple/odd-coefficient-extraction">
+<h4 class="bp-thmheading" id="odd-coefficient-extraction">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">Rational coordinates at odd primes</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/OddCoefficients.lean#L49" aria-label="View ZInQ.Size.padicValRat_coords_ge in Lean source" title="View ZInQ.Size.padicValRat_coords_ge in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/size/formal-multiple/odd-coefficient-extraction.md" aria-label="Edit the Markdown source for Rational coordinates at odd primes" title="Edit the Markdown source for Rational coordinates at odd primes"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#odd-coefficient-extraction" aria-label="Link to Rational coordinates at odd primes" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Size.padicValRat_coords_ge</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(p\)</span> be an odd prime, <span class="arithmatex">\(k\in\mathbb Z\)</span>, and <span class="arithmatex">\(u=u_0+u_1s\in K_0\)</span> with <span class="arithmatex">\(u_0,u_1\in\mathbb Q\)</span>.
+If <span class="arithmatex">\(v_{\mathfrak p}(u)\ge k\)</span> for every prime <span class="arithmatex">\(\mathfrak p\)</span> of <span class="arithmatex">\(\mathbb Z[s]\)</span> containing <span class="arithmatex">\(p\)</span>
+(with <span class="arithmatex">\(v_{\mathfrak p}(0)=+\infty\)</span>), then
+$<span class="arithmatex">\(v_p(u_0)\ge k\qquad\text{and}\qquad v_p(u_1)\ge k\)</span>$
+(with <span class="arithmatex">\(v_p(0)=+\infty\)</span>).</p>
+<p><strong>Proof sketch.</strong> Let <span class="arithmatex">\(\bar u=u_0-u_1s\)</span>. Conjugation permutes the primes above <span class="arithmatex">\(p\)</span>, so
+<span class="arithmatex">\(v_{\mathfrak p}(\bar u)=v_{\bar{\mathfrak p}}(u)\ge k\)</span> for every <span class="arithmatex">\(\mathfrak p\mid p\)</span>. Then
+<span class="arithmatex">\(u_0=(u+\bar u)/2\)</span> and <span class="arithmatex">\(u_1=(u-\bar u)/(2s)\)</span>, and <span class="arithmatex">\(v_{\mathfrak p}(2)=v_{\mathfrak p}(s)=0\)</span> since
+<span class="arithmatex">\(p\)</span> is odd, so <span class="arithmatex">\(v_{\mathfrak p}(u_0),v_{\mathfrak p}(u_1)\ge k\)</span> for any one prime
+<span class="arithmatex">\(\mathfrak p\mid p\)</span>. For a rational number <span class="arithmatex">\(c\)</span>, <span class="arithmatex">\(v_{\mathfrak p}(c)=v_{\mathfrak p}(p)\,v_p(c)=v_p(c)\)</span>
+because <span class="arithmatex">\(v_{\mathfrak p}(p)=1\)</span>.</p>
+<p>The manuscript performs the same extraction ("both rational coefficients lie in
+<span class="arithmatex">\(N_s^4\mathbb Z_{(N_s)}\)</span>") without spelling it out.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> padicValRat_coords_ge (hp2 : p ≠ 2) (k : ℤ) (u : <a class="bp-lean-ref" href="../../model/field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>)
+    (hu : ∀ π : <a class="bp-lean-ref" href="../../model/field/index.html#quadratic-field" data-lean-name="ZInQ.Zs">Zs</a>, ∀ hπ : Prime π, π ∣ (p : <a class="bp-lean-ref" href="../../model/field/index.html#quadratic-field" data-lean-name="ZInQ.Zs">Zs</a>) → (k : WithTop ℤ) ≤ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Local/Valuations.lean#L72" data-lean-name="ZInQ.Mult.vP">Mult.vP</a> π hπ u) :
+    (u.re ≠ 0 → k ≤ padicValRat p u.re) ∧ (u.im ≠ 0 → k ≤ padicValRat p u.im)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.K0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> K0 : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.Zs">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Zs : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℤ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Basic.lean:148</p>
+</div>
+<div data-lean-name="ZInQ.Mult.vP">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> vP (π : Zs) (hπ : Prime π) : AddValuation K0 (WithTop ℤ) :=
+  ordOf ((primeSpec π hπ).valuation K0)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Local/Valuations.lean:72</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-formal-multiple">Proof of Proposition 12.1, formal multiple</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/field/index.html#quadratic-field">The field <span class="arithmatex">\(K_0=\mathbb Q(\sqrt2)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../multiplication/local/index.html#primes-above-p">The primes of <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span> above an odd prime</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#formal-multiple-existence">A successful formal multiple</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="reduction-and-the-filtration">Reduction and the filtration</h2>
+<p>Reduction modulo a prime not above <span class="arithmatex">\(2\)</span> is a homomorphism from the points with nonsingular
+reduction onto the nonsingular points of the reduced curve, with kernel the points of
+negative abscissa valuation. Over a finite field of odd characteristic the reduced curve has
+at most <span class="arithmatex">\(2|k|+1\)</span> points, which replaces Hasse's bound used in the manuscript.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="size/formal-multiple/reduction-homomorphism">
+<h4 class="bp-thmheading" id="reduction-homomorphism">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Reduction on the nonsingular part</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Reduction.lean#L470" aria-label="View ZInQ.Size.E0sub in Lean source" title="View ZInQ.Size.E0sub in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Reduction.lean#L201" aria-label="View ZInQ.Size.E1sub in Lean source" title="View ZInQ.Size.E1sub in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Reduction.lean#L58" aria-label="View ZInQ.Size.redK in Lean source" title="View ZInQ.Size.redK in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Reduction.lean#L484" aria-label="View ZInQ.Size.reductionHom in Lean source" title="View ZInQ.Size.reductionHom in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Reduction.lean#L495" aria-label="View ZInQ.Size.ker_reductionHom in Lean source" title="View ZInQ.Size.ker_reductionHom in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Reduction.lean#L516" aria-label="View ZInQ.Size.E0_eq_top_of_good in Lean source" title="View ZInQ.Size.E0_eq_top_of_good in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Reduction.lean#L523" aria-label="View ZInQ.Size.zsmul_addOrderOf_mem_E1 in Lean source" title="View ZInQ.Size.zsmul_addOrderOf_mem_E1 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/size/formal-multiple/reduction-homomorphism.md" aria-label="Edit the Markdown source for Reduction on the nonsingular part" title="Edit the Markdown source for Reduction on the nonsingular part"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#reduction-homomorphism" aria-label="Link to Reduction on the nonsingular part" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Size.E0sub ZInQ.Size.E1sub ZInQ.Size.redK ZInQ.Size.reductionHom ZInQ.Size.ker_reductionHom ZInQ.Size.E0_eq_top_of_good ZInQ.Size.zsmul_addOrderOf_mem_E1</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(\mathfrak p\)</span> be a nonzero prime of <span class="arithmatex">\(\mathbb Z[s]\)</span> with <span class="arithmatex">\(2\notin\mathfrak p\)</span>, <span class="arithmatex">\(k=\mathbb Z[s]/\mathfrak p\)</span>
+its (finite, odd characteristic) residue field, <span class="arithmatex">\(\mathcal O_{\mathfrak p}=\mathbb Z[s]_{\mathfrak p}\subset K_0\)</span>
+the local ring and <span class="arithmatex">\(\rho:\mathcal O_{\mathfrak p}\to k\)</span> the residue map. Let <span class="arithmatex">\(A\in\mathbb Z[s]\)</span>,
+<span class="arithmatex">\(W:y^2=x^3+Ax\)</span> over <span class="arithmatex">\(K_0\)</span> and <span class="arithmatex">\(\widetilde W:y^2=x^3+\rho(A)x\)</span> over <span class="arithmatex">\(k\)</span>. Let
+<span class="arithmatex">\(\widetilde W_{\rm ns}(k)\)</span> be the group of nonsingular points of <span class="arithmatex">\(\widetilde W\)</span> over <span class="arithmatex">\(k\)</span>
+together with <span class="arithmatex">\(O\)</span>, under the chord-and-tangent law. Put
+$<span class="arithmatex">\(W_1(\mathfrak p)=\{O\}\cup\{(x,y)\in W(K_0):x\notin\mathcal O_{\mathfrak p}\},\)</span>$
+$<span class="arithmatex">\(W_0(\mathfrak p)=W_1(\mathfrak p)\cup\{(x,y)\in W(K_0):x\in\mathcal O_{\mathfrak p},\ (\rho(x),\rho(y))\text{ is a nonsingular point of }\widetilde W\}.\)</span>$
+(If <span class="arithmatex">\(x\in\mathcal O_{\mathfrak p}\)</span> then <span class="arithmatex">\(y\in\mathcal O_{\mathfrak p}\)</span>, since <span class="arithmatex">\(y^2=x^3+Ax\)</span>.) Define
+<span class="arithmatex">\(\operatorname{red}:W_0(\mathfrak p)\to\widetilde W_{\rm ns}(k)\)</span> by <span class="arithmatex">\(\operatorname{red}(Q)=O\)</span> for
+<span class="arithmatex">\(Q\in W_1(\mathfrak p)\)</span> and <span class="arithmatex">\(\operatorname{red}(x,y)=(\rho(x),\rho(y))\)</span> otherwise. Then:</p>
+<ol>
+<li><span class="arithmatex">\(W_0(\mathfrak p)\)</span> is a subgroup of <span class="arithmatex">\(W(K_0)\)</span> and <span class="arithmatex">\(\operatorname{red}\)</span> is a group
+   homomorphism with kernel <span class="arithmatex">\(W_1(\mathfrak p)\)</span>;</li>
+<li>if <span class="arithmatex">\(\rho(A)\ne0\)</span>, then <span class="arithmatex">\(\widetilde W\)</span> is nonsingular and <span class="arithmatex">\(W_0(\mathfrak p)=W(K_0)\)</span>.</li>
+</ol>
+<p>Consequently, if <span class="arithmatex">\(Q\in W_0(\mathfrak p)\)</span> and <span class="arithmatex">\(n\ge1\)</span> is the order of <span class="arithmatex">\(\operatorname{red}(Q)\)</span> in
+the finite group <span class="arithmatex">\(\widetilde W_{\rm ns}(k)\)</span>, then <span class="arithmatex">\([n]Q\in W_1(\mathfrak p)\)</span>, and so
+<span class="arithmatex">\([mn]Q\in W_1(\mathfrak p)\)</span> for every integer <span class="arithmatex">\(m\)</span>.</p>
+<p><strong>Proof sketch.</strong> This is Silverman, Proposition VII.2.1, applied after embedding <span class="arithmatex">\(K_0\)</span>
+in its completion at <span class="arithmatex">\(\mathfrak p\)</span> (the local ring <span class="arithmatex">\(\mathcal O_{\mathfrak p}\)</span> is the
+intersection of <span class="arithmatex">\(K_0\)</span> with the completed valuation ring, and the residue fields agree). The
+model is integral at <span class="arithmatex">\(\mathfrak p\)</span>, and the proof of VII.2.1 uses only integrality: the
+group law is given by the chord-and-tangent construction, a line through points of
+<span class="arithmatex">\(W_0(\mathfrak p)\)</span> reduces to the line through their reductions, and the third intersection
+point reduces accordingly; points with <span class="arithmatex">\(x\notin\mathcal O_{\mathfrak p}\)</span> reduce to <span class="arithmatex">\(O\)</span>. For
+(2), the discriminant of <span class="arithmatex">\(y^2=x^3+ax\)</span> is <span class="arithmatex">\(-64a^3\)</span>, nonzero in odd characteristic when
+<span class="arithmatex">\(a\ne0\)</span>; then every point with integral coordinates has nonsingular reduction. The final
+statement follows from (1) since <span class="arithmatex">\(W_1(\mathfrak p)\)</span> is a subgroup.</p>
+<p>The manuscript cites VII.2.1 for the nonsingular reduction group at the bad place and uses
+the same homomorphism at the good places. The model chapter's reduction statement for split
+primes of good reduction is the special case of (1) with residue degree one.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> E0sub : AddSubgroup (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> A).toAffine.Point <span class="bp-lean-keyword">where</span>
+  carrier := {P | <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Reduction.lean#L50" data-lean-name="ZInQ.Size.InE0">InE0</a> π ρ A Ab P}
+  zero_mem&#x27; := trivial
+  add_mem&#x27; hP hQ :=
+    (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Reduction.lean#L419" data-lean-name="ZInQ.Size.inE0_add_redK_add">inE0_add_redK_add</a> hπ ρ hρ hA hAb (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Reduction.lean#L107" data-lean-name="ZInQ.Size.two_ne_zero_of_not_dvd">two_ne_zero_of_not_dvd</a> ρ hρ h2) hP hQ).1
+  neg_mem&#x27; hP := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Reduction.lean#L130" data-lean-name="ZInQ.Size.inE0_neg">inE0_neg</a> hπ ρ hρ hA hP</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> E1sub : AddSubgroup (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> A).toAffine.Point <span class="bp-lean-keyword">where</span>
+  carrier := {P | <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Reduction.lean#L44" data-lean-name="ZInQ.Size.InE1">InE1</a> π A P}
+  zero_mem&#x27; := trivial
+  add_mem&#x27; hP hQ := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Reduction.lean#L186" data-lean-name="ZInQ.Size.inE1_add">inE1_add</a> hπ hA hP hQ
+  neg_mem&#x27; hP := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Reduction.lean#L194" data-lean-name="ZInQ.Size.inE1_neg">inE1_neg</a> hπ hA hP</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> redK : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> A).toAffine.Point → (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> Ab).toAffine.Point
+  | 0 =&gt; 0
+  | .some x y _ =&gt;
+    <span class="bp-lean-keyword">if</span> h : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Descent/Residue.lean#L24" data-lean-name="ZInQ.VGe">VGe</a> π 0 x ∧ (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> Ab).toAffine.Nonsingular (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Residue.lean#L24" data-lean-name="ZInQ.Size.resK">resK</a> π ρ x) (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Residue.lean#L24" data-lean-name="ZInQ.Size.resK">resK</a> π ρ y) <span class="bp-lean-keyword">then</span>
+      .some _ _ h.2
+    <span class="bp-lean-keyword">else</span> 0</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.Size.InE0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> InE0 : (shortCurve A).toAffine.Point → <span class="bp-lean-keyword">Prop</span>
+  | 0 =&gt; True
+  | .some x y _ =&gt; ¬VGe π 0 x ∨
+      (VGe π 0 x ∧ (shortCurve Ab).toAffine.Nonsingular (resK π ρ x) (resK π ρ y))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/Reduction.lean:50</p>
+</div>
+<div data-lean-name="ZInQ.Size.inE0_add_redK_add">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> inE0_add_redK_add (h2 : (2 : k) ≠ 0) {P Q : (shortCurve A).toAffine.Point}
+    (hP : InE0 π ρ A Ab P) (hQ : InE0 π ρ A Ab Q) :
+    InE0 π ρ A Ab (P + Q) ∧ redK π ρ A Ab (P + Q) = redK π ρ A Ab P + redK π ρ A Ab Q</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/Reduction.lean:419</p>
+</div>
+<div data-lean-name="ZInQ.Size.two_ne_zero_of_not_dvd">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> two_ne_zero_of_not_dvd (h2 : ¬π ∣ 2) : (2 : k) ≠ 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/Reduction.lean:107</p>
+</div>
+<div data-lean-name="ZInQ.Size.inE0_neg">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> inE0_neg {P : (shortCurve A).toAffine.Point} (hP : InE0 π ρ A Ab P) :
+    InE0 π ρ A Ab (-P)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/Reduction.lean:130</p>
+</div>
+<div data-lean-name="ZInQ.Size.InE1">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> InE1 : (shortCurve A).toAffine.Point → <span class="bp-lean-keyword">Prop</span>
+  | 0 =&gt; True
+  | .some x _ _ =&gt; ¬VGe π 0 x</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/Reduction.lean:44</p>
+</div>
+<div data-lean-name="ZInQ.Size.inE1_add">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> inE1_add {P Q : (shortCurve A).toAffine.Point} (hP : InE1 π A P) (hQ : InE1 π A Q) :
+    InE1 π A (P + Q)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/Reduction.lean:186</p>
+</div>
+<div data-lean-name="ZInQ.Size.inE1_neg">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> inE1_neg {P : (shortCurve A).toAffine.Point} (hP : InE1 π A P) : InE1 π A (-P)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/Reduction.lean:194</p>
+</div>
+<div data-lean-name="ZInQ.VGe">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> VGe (π : Zs) (k : ℤ) (x : K0) : <span class="bp-lean-keyword">Prop</span> := x = 0 ∨ k ≤ vp π x</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Descent/Residue.lean:24</p>
+</div>
+<div data-lean-name="ZInQ.Size.resK">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> resK (π : Zs) (ρ : Zs →+* k) (x : K0) : k :=
+  <span class="bp-lean-keyword">if</span> h : ∃ ab : Zs × Zs, ¬π ∣ ab.2 ∧ x * Zs.toK0 ab.2 = Zs.toK0 ab.1 <span class="bp-lean-keyword">then</span>
+    ρ h.choose.1 / ρ h.choose.2
+  <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/Residue.lean:24</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="informally-uses">Informally uses</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Informally uses</div>
+<ul>
+<li><a href="../../model/descent/index.html#reduction-torsion">Reduction is injective on prime-to-<span class="arithmatex">\(p\)</span> torsion</a></li>
+</ul>
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-formal-multiple">Proof of Proposition 12.1, formal multiple</a></li>
+<li><a href="../../../sources/size-locators.html#silverman">Silverman</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/field/index.html#quadratic-field">The field <span class="arithmatex">\(K_0=\mathbb Q(\sqrt2)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../multiplication/local/index.html#primes-above-p">The primes of <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span> above an odd prime</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#bad-place-reduction">Reduction of <span class="arithmatex">\(P_0\)</span> at the bad place</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#reduction-orders">Reduction orders of <span class="arithmatex">\(P_0\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="size/formal-multiple/trivial-point-count">
+<h4 class="bp-thmheading" id="trivial-point-count">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">The trivial point count</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/PointCount.lean#L28" aria-label="View ZInQ.Size.card_affineSolutions_le in Lean source" title="View ZInQ.Size.card_affineSolutions_le in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/PointCount.lean#L66" aria-label="View ZInQ.Size.card_points_le in Lean source" title="View ZInQ.Size.card_points_le in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/PointCount.lean#L73" aria-label="View ZInQ.Size.addOrderOf_le_two_card_add_one in Lean source" title="View ZInQ.Size.addOrderOf_le_two_card_add_one in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/PointCount.lean#L86" aria-label="View ZInQ.Size.odd_prime_count_bounds in Lean source" title="View ZInQ.Size.odd_prime_count_bounds in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/size/formal-multiple/trivial-point-count.md" aria-label="Edit the Markdown source for The trivial point count" title="Edit the Markdown source for The trivial point count"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#trivial-point-count" aria-label="Link to The trivial point count" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Size.card_affineSolutions_le ZInQ.Size.card_points_le ZInQ.Size.addOrderOf_le_two_card_add_one ZInQ.Size.odd_prime_count_bounds</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(k\)</span> be a finite field of odd characteristic and <span class="arithmatex">\(a\in k\)</span>. Then
+$<span class="arithmatex">\(\#\{(x,y)\in k^2:y^2=x^3+ax\}+1\le2|k|+1,\)</span>$
+so every element of the nonsingular group <span class="arithmatex">\(\widetilde W_{\rm ns}(k)\)</span> of <span class="arithmatex">\(y^2=x^3+ax\)</span> has order
+at most <span class="arithmatex">\(2|k|+1\)</span>. Moreover, for every odd prime <span class="arithmatex">\(p\)</span>,
+$<span class="arithmatex">\(2p^2+1\le p^6\qquad\text{and}\qquad(2p+1)^2\le p^6 .\)</span>$</p>
+<p><strong>Proof sketch.</strong> For each <span class="arithmatex">\(x\in k\)</span> the equation <span class="arithmatex">\(y^2=c\)</span> has at most two solutions in a
+field, so there are at most <span class="arithmatex">\(2|k|\)</span> affine points. The nonsingular group is a subset of the
+affine points together with <span class="arithmatex">\(O\)</span>, and the order of an element of a finite group is at most
+the order of the group. For <span class="arithmatex">\(p\ge3\)</span>: <span class="arithmatex">\(2p^2+1\le3p^2\le p^6\)</span> and <span class="arithmatex">\(2p+1\le p^3\)</span>.</p>
+<p>This replaces Hasse's bound <span class="arithmatex">\((p+1)^2&lt;p^3\)</span> in the manuscript: with at most two primes above
+<span class="arithmatex">\(p\)</span>, a residue field of <span class="arithmatex">\(p\)</span> elements at each of two split primes contributes at most
+<span class="arithmatex">\((2p+1)^2\le p^6\)</span>, and the single inert prime with <span class="arithmatex">\(p^2\)</span> elements at most
+<span class="arithmatex">\(2p^2+1\le p^6\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> card_affineSolutions_le (a : k) : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/PointCount.lean#L24" data-lean-name="ZInQ.Size.affineSolutions">affineSolutions</a> a).card ≤ 2 * Fintype.card k</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> card_points_le (a : k) :
+    Nat.card (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> a).toAffine.Point ≤ 2 * Fintype.card k + 1</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> addOrderOf_le_two_card_add_one (a : k) (P : (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> a).toAffine.Point) :
+    addOrderOf P ≤ 2 * Fintype.card k + 1</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Size.affineSolutions">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> affineSolutions (a : k) : Finset (k × k) :=
+  Finset.univ.filter <span class="bp-lean-keyword">fun</span> xy =&gt; xy.2 ^ 2 = xy.1 ^ 3 + a * xy.1</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/PointCount.lean:24</p>
+</div>
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-formal-multiple">Proof of Proposition 12.1, formal multiple</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/size-locators.html#proof-of-proposition-121-formal-multiple"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#reduction-orders">Reduction orders of <span class="arithmatex">\(P_0\)</span></a></span></div>
+</div>
+</details>
+</div>
+<p>The points with <span class="arithmatex">\(v(x)\le-2r\)</span> form subgroups <span class="arithmatex">\(W_r\)</span>
+(<a href="../../multiplication/local/index.html#formal-group">the formal neighbourhood and its filtration</a>), and
+multiplication by <span class="arithmatex">\(n\)</span> moves <span class="arithmatex">\(W_r\)</span> into <span class="arithmatex">\(W_{r+v(n)}\)</span> as long as the residue characteristic has
+valuation at most four
+(<a href="../../assembly/local-tests/index.html#formal-multiplication">multiplication in a formal neighbourhood</a>).
+This replaces the manuscript's formal group and logarithm isometry by elementary statements
+about valuations on <span class="arithmatex">\(K_0\)</span> itself.</p>
+<h2 id="the-point-p_0-at-the-special-places">The point <span class="arithmatex">\(P_0\)</span> at the special places</h2>
+<p>At the prime <span class="arithmatex">\((d)\)</span> above <span class="arithmatex">\(7\)</span> the curve has a cusp, and <span class="arithmatex">\(P_0\)</span> reduces to the nonsingular
+point <span class="arithmatex">\((2,6)\)</span> of <span class="arithmatex">\(y^2=x^3\)</span>; at every other prime not above <span class="arithmatex">\(2\)</span> the reduction is good. At the
+prime <span class="arithmatex">\((s)\)</span>, <span class="arithmatex">\(v_s(x(P_0))=-6\)</span> and <span class="arithmatex">\(v_s(y(P_0))=-9\)</span>, so <span class="arithmatex">\(P_0\)</span> lies in <span class="arithmatex">\(W_3\)</span>
+(<a href="../../multiplication/local/index.html#dyadic-generator">the generator in the dyadic formal group</a>).</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="size/formal-multiple/bad-place-congruences">
+<h4 class="bp-thmheading" id="bad-place-congruences">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">Congruences for <span class="arithmatex">\(P_0\)</span> modulo seven</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Congruences.lean#L17" aria-label="View ZInQ.Size.bad_place_congruences in Lean source" title="View ZInQ.Size.bad_place_congruences in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Congruences.lean#L24" aria-label="View ZInQ.Size.bad_place_congruences_zmod in Lean source" title="View ZInQ.Size.bad_place_congruences_zmod in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/size/formal-multiple/bad-place-congruences.md" aria-label="Edit the Markdown source for Congruences for $P_0$ modulo seven" title="Edit the Markdown source for Congruences for $P_0$ modulo seven"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#bad-place-congruences" aria-label="Link to Congruences for P₀ modulo seven" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Size.bad_place_congruences ZInQ.Size.bad_place_congruences_zmod</div>
+<div class="bp-thmcontent">
+<p>The following closed statements about integers hold:
+$<span class="arithmatex">\(1641-1160\cdot3-2\cdot8\equiv0,\qquad -123720+87483\cdot3-6\cdot32\equiv0,\qquad
+-11243+7950\cdot3\equiv0,\qquad 6^2-2^3\equiv0\pmod 7,\)</span>$
+$<span class="arithmatex">\(2\cdot6\not\equiv0,\qquad 3\cdot2^2\not\equiv0,\qquad 8\not\equiv0,\qquad 32\not\equiv0\pmod 7 .\)</span>$</p>
+<p>This is a finite computation on integers below <span class="arithmatex">\(3\cdot10^5\)</span>.</p>
+<p><strong>Proof sketch.</strong> Direct evaluation: the four left-hand sides are <span class="arithmatex">\(-1855=-7\cdot265\)</span>,
+<span class="arithmatex">\(138537=7\cdot19791\)</span>, <span class="arithmatex">\(12607=7\cdot1801\)</span> and <span class="arithmatex">\(28=7\cdot4\)</span>, while <span class="arithmatex">\(12\)</span>, <span class="arithmatex">\(12\)</span>, <span class="arithmatex">\(8\)</span> and <span class="arithmatex">\(32\)</span> are
+congruent to <span class="arithmatex">\(5\)</span>, <span class="arithmatex">\(5\)</span>, <span class="arithmatex">\(1\)</span> and <span class="arithmatex">\(4\)</span> modulo <span class="arithmatex">\(7\)</span>.</p>
+<p>The manuscript records the outcome (the reduction of <span class="arithmatex">\(P_0\)</span> at the bad place is <span class="arithmatex">\((2,6)\)</span> on
+<span class="arithmatex">\(y^2=x^3\)</span> and is nonsingular) without listing the congruences.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> bad_place_congruences :
+    (1641 - 1160 * 3 - 2 * 8 : ℤ) % 7 = 0 ∧ (-123720 + 87483 * 3 - 6 * 32 : ℤ) % 7 = 0 ∧
+      (-11243 + 7950 * 3 : ℤ) % 7 = 0 ∧ (6 ^ 2 - 2 ^ 3 : ℤ) % 7 = 0 ∧
+      (2 * 6 : ℤ) % 7 ≠ 0 ∧ (3 * 2 ^ 2 : ℤ) % 7 ≠ 0 ∧ (8 : ℤ) % 7 ≠ 0 ∧ (32 : ℤ) % 7 ≠ 0</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> bad_place_congruences_zmod :
+    ((1641 : ℤ) : ZMod 7) + ((-1160 : ℤ) : ZMod 7) * 3 = 8 * 2 ∧
+      ((-123720 : ℤ) : ZMod 7) + ((87483 : ℤ) : ZMod 7) * 3 = 32 * 6 ∧
+      ((-11243 : ℤ) : ZMod 7) + ((7950 : ℤ) : ZMod 7) * 3 = 0 ∧ (6 : ZMod 7) ^ 2 = 2 ^ 3 ∧
+      (2 * 6 : ZMod 7) ≠ 0 ∧ (3 * 2 ^ 2 : ZMod 7) ≠ 0 ∧ (8 : ZMod 7) ≠ 0 ∧ (32 : ZMod 7) ≠ 0</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-formal-multiple">Proof of Proposition 12.1, formal multiple</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#bad-place-reduction">Reduction of <span class="arithmatex">\(P_0\)</span> at the bad place</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="size/formal-multiple/bad-place-reduction">
+<h4 class="bp-thmheading" id="bad-place-reduction">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">Reduction of <span class="arithmatex">\(P_0\)</span> at the bad place</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/BadPlace.lean#L87" aria-label="View ZInQ.Size.genP0_mem_E0_d in Lean source" title="View ZInQ.Size.genP0_mem_E0_d in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/BadPlace.lean#L97" aria-label="View ZInQ.Size.redK_genP0_d in Lean source" title="View ZInQ.Size.redK_genP0_d in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/BadPlace.lean#L33" aria-label="View ZInQ.Size.resK_genA_d in Lean source" title="View ZInQ.Size.resK_genA_d in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/BadPlace.lean#L116" aria-label="View ZInQ.Size.E0_eq_top_of_ne_d in Lean source" title="View ZInQ.Size.E0_eq_top_of_ne_d in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/size/formal-multiple/bad-place-reduction.md" aria-label="Edit the Markdown source for Reduction of $P_0$ at the bad place" title="Edit the Markdown source for Reduction of $P_0$ at the bad place"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#bad-place-reduction" aria-label="Link to Reduction of P₀ at the bad place" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Size.genP0_mem_E0_d ZInQ.Size.redK_genP0_d ZInQ.Size.resK_genA_d ZInQ.Size.E0_eq_top_of_ne_d</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(E:y^2=x^3-d^2x\)</span> with <span class="arithmatex">\(d=75-53s\)</span>, <span class="arithmatex">\(A=-d^2=-11243+7950s\)</span>, and
+<span class="arithmatex">\(P_0=\bigl(\frac{1641-1160s}{8},\frac{-123720+87483s}{32}\bigr)\)</span>.</p>
+<ol>
+<li>At the prime <span class="arithmatex">\((d)\)</span>, with residue map <span class="arithmatex">\(\rho:a+bs\mapsto a+3b\bmod7\)</span> onto <span class="arithmatex">\(\mathbb F_7\)</span>:
+   <span class="arithmatex">\(\rho(A)=0\)</span>, so the reduced curve is <span class="arithmatex">\(y^2=x^3\)</span>; the coordinates of <span class="arithmatex">\(P_0\)</span> lie in
+   <span class="arithmatex">\(\mathbb Z[s]_{(d)}\)</span> (their denominators are powers of <span class="arithmatex">\(2\)</span>) and reduce to <span class="arithmatex">\((2,6)\)</span>; and
+   <span class="arithmatex">\((2,6)\)</span> is a nonsingular point of <span class="arithmatex">\(y^2=x^3\)</span> over <span class="arithmatex">\(\mathbb F_7\)</span>. Hence <span class="arithmatex">\(P_0\in E_0((d))\)</span>.</li>
+<li>For every other prime <span class="arithmatex">\(\mathfrak p\)</span> of <span class="arithmatex">\(\mathbb Z[s]\)</span> with <span class="arithmatex">\(2\notin\mathfrak p\)</span>, <span class="arithmatex">\(A\notin\mathfrak p\)</span>,
+   so <span class="arithmatex">\(E\)</span> has good reduction at <span class="arithmatex">\(\mathfrak p\)</span> and <span class="arithmatex">\(E_0(\mathfrak p)=E(K_0)\)</span>.</li>
+</ol>
+<p><strong>Proof sketch.</strong> (1) <span class="arithmatex">\(\rho\)</span> is the residue map of <span class="arithmatex">\((d)\)</span> (model chapter). The congruences
+modulo seven (a separate finite computation) give <span class="arithmatex">\(\rho(8x(P_0))=\rho(8)\cdot2\)</span> and
+<span class="arithmatex">\(\rho(32y(P_0))=\rho(32)\cdot6\)</span> with <span class="arithmatex">\(\rho(8),\rho(32)\ne0\)</span>, so <span class="arithmatex">\(8,32\notin(d)\)</span>, the coordinates
+lie in <span class="arithmatex">\(\mathbb Z[s]_{(d)}\)</span>, and <span class="arithmatex">\(\rho(x(P_0))=2\)</span>, <span class="arithmatex">\(\rho(y(P_0))=6\)</span>; also <span class="arithmatex">\(\rho(A)=0\)</span> and <span class="arithmatex">\(6^2=2^3\)</span> in <span class="arithmatex">\(\mathbb F_7\)</span>.
+A point of <span class="arithmatex">\(y^2=x^3\)</span> is singular exactly when <span class="arithmatex">\(2y=0\)</span> and <span class="arithmatex">\(3x^2=0\)</span>; here <span class="arithmatex">\(2\cdot6=12\not\equiv0\)</span>.
+(2) <span class="arithmatex">\(d\)</span> is a prime element and <span class="arithmatex">\(A=-d^2\)</span>, so <span class="arithmatex">\(A\in\mathfrak p\)</span> only for <span class="arithmatex">\(\mathfrak p=(d)\)</span>; then
+apply the good-reduction case of reduction on the nonsingular part.</p>
+<p>The manuscript records the reduction to <span class="arithmatex">\((2,6)\)</span>, its nonsingularity, and good reduction at
+the other place <span class="arithmatex">\(s\equiv4\pmod7\)</span> above <span class="arithmatex">\(7\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> genP0_mem_E0_d :
+    <a class="bp-lean-ref" href="../../model/field/index.html#generator-point" data-lean-name="ZInQ.genP0">genP0</a> ∈ <a class="bp-lean-ref" href="#reduction-homomorphism" data-lean-name="ZInQ.Size.E0sub">E0sub</a> <a class="bp-lean-ref" href="../../model/field/index.html#special-primes" data-lean-name="ZInQ.prime_genDZ">prime_genDZ</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/SpecialPrimes.lean#L177" data-lean-name="ZInQ.residueSeven">residueSeven</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/BadPlace.lean#L27" data-lean-name="ZInQ.Size.residueSeven_ker">residueSeven_ker</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Descent/OddTorsion.lean#L82" data-lean-name="ZInQ.vge_neg_genD_sq">vge_neg_genD_sq</a> _ <a class="bp-lean-ref" href="../../model/field/index.html#special-primes" data-lean-name="ZInQ.prime_genDZ">prime_genDZ</a>) <a class="bp-lean-ref" href="#bad-place-reduction" data-lean-name="ZInQ.Size.resK_genA_d">resK_genA_d</a>
+      <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/BadPlace.lean#L29" data-lean-name="ZInQ.Size.not_genDZ_dvd_two">not_genDZ_dvd_two</a></code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> redK_genP0_d :
+    <a class="bp-lean-ref" href="#reduction-homomorphism" data-lean-name="ZInQ.Size.redK">redK</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L179" data-lean-name="ZInQ.genDZ">genDZ</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/SpecialPrimes.lean#L177" data-lean-name="ZInQ.residueSeven">residueSeven</a> (-<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Hypotheses/MordellWeil.lean#L31" data-lean-name="ZInQ.genD">genD</a> ^ 2) 0 <a class="bp-lean-ref" href="../../model/field/index.html#generator-point" data-lean-name="ZInQ.genP0">genP0</a> = .some 2 6 <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/BadPlace.lean#L78" data-lean-name="ZInQ.Size.nonsingular_two_six">nonsingular_two_six</a></code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> resK_genA_d : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Residue.lean#L24" data-lean-name="ZInQ.Size.resK">resK</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L179" data-lean-name="ZInQ.genDZ">genDZ</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/SpecialPrimes.lean#L177" data-lean-name="ZInQ.residueSeven">residueSeven</a> (-<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Hypotheses/MordellWeil.lean#L31" data-lean-name="ZInQ.genD">genD</a> ^ 2) = 0</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.genP0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> genP0 : genCurve.toAffine.Point := Point.mk genP0_equation</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Curve.lean:118</p>
+</div>
+<div data-lean-name="ZInQ.Size.E0sub">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> E0sub : AddSubgroup (shortCurve A).toAffine.Point <span class="bp-lean-keyword">where</span>
+  carrier := {P | InE0 π ρ A Ab P}
+  zero_mem&#x27; := trivial
+  add_mem&#x27; hP hQ :=
+    (inE0_add_redK_add hπ ρ hρ hA hAb (two_ne_zero_of_not_dvd ρ hρ h2) hP hQ).1
+  neg_mem&#x27; hP := inE0_neg hπ ρ hρ hA hP</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/Reduction.lean:470</p>
+</div>
+<div data-lean-name="ZInQ.prime_genDZ">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> prime_genDZ : Prime genDZ</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/SpecialPrimes.lean:171</p>
+</div>
+<div data-lean-name="ZInQ.residueSeven">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> residueSeven : Zs →+* ZMod 7 :=
+  (QuadraticAlgebra.lift ⟨3, three_mul_three_ZMod7⟩).toRingHom</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/SpecialPrimes.lean:177</p>
+</div>
+<div data-lean-name="ZInQ.Size.residueSeven_ker">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> residueSeven_ker (a : Zs) : residueSeven a = 0 ↔ genDZ ∣ a</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/BadPlace.lean:27</p>
+</div>
+<div data-lean-name="ZInQ.vge_neg_genD_sq">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> vge_neg_genD_sq (π : Zs) (hπ : Prime π) : VGe π 0 (-genD ^ 2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Descent/OddTorsion.lean:82</p>
+</div>
+<div data-lean-name="ZInQ.Size.resK_genA_d">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> resK_genA_d : resK genDZ residueSeven (-genD ^ 2) = 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/BadPlace.lean:33</p>
+</div>
+<div data-lean-name="ZInQ.Size.not_genDZ_dvd_two">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> not_genDZ_dvd_two : ¬genDZ ∣ 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/BadPlace.lean:29</p>
+</div>
+<div data-lean-name="ZInQ.Size.redK">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> redK : (shortCurve A).toAffine.Point → (shortCurve Ab).toAffine.Point
+  | 0 =&gt; 0
+  | .some x y _ =&gt;
+    <span class="bp-lean-keyword">if</span> h : VGe π 0 x ∧ (shortCurve Ab).toAffine.Nonsingular (resK π ρ x) (resK π ρ y) <span class="bp-lean-keyword">then</span>
+      .some _ _ h.2
+    <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/Reduction.lean:58</p>
+</div>
+<div data-lean-name="ZInQ.genDZ">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> genDZ : Zs := ⟨75, -53⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Basic.lean:179</p>
+</div>
+<div data-lean-name="ZInQ.genD">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> genD : K0 := ⟨75, -53⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:31</p>
+</div>
+<div data-lean-name="ZInQ.Size.nonsingular_two_six">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> nonsingular_two_six : (shortCurve (0 : ZMod 7)).toAffine.Nonsingular 2 6</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/BadPlace.lean:78</p>
+</div>
+<div data-lean-name="ZInQ.Size.resK">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> resK (π : Zs) (ρ : Zs →+* k) (x : K0) : k :=
+  <span class="bp-lean-keyword">if</span> h : ∃ ab : Zs × Zs, ¬π ∣ ab.2 ∧ x * Zs.toK0 ab.2 = Zs.toK0 ab.1 <span class="bp-lean-keyword">then</span>
+    ρ h.choose.1 / ρ h.choose.2
+  <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/Residue.lean:24</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-formal-multiple">Proof of Proposition 12.1, formal multiple</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/field/index.html#generator-point">The point <span class="arithmatex">\(P_0\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/field/index.html#special-primes">The primes <span class="arithmatex">\((s)\)</span> and <span class="arithmatex">\((d)\)</span> of <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#reduction-homomorphism">Reduction on the nonsingular part</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#bad-place-congruences">Congruences for <span class="arithmatex">\(P_0\)</span> modulo seven</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#reduction-orders">Reduction orders of <span class="arithmatex">\(P_0\)</span></a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-successful-index">The successful index</h2>
+<p>Let <span class="arithmatex">\(m_0\)</span> be the product of the orders of the reductions of <span class="arithmatex">\(P_0\)</span> at the primes above the
+odd prime divisors of <span class="arithmatex">\(N\)</span>. Each order is at most <span class="arithmatex">\(2|k|+1\)</span>, so <span class="arithmatex">\(m_0\le N^6\)</span>, and <span class="arithmatex">\([m_0]P_0\)</span>
+lies in the kernel of reduction at every such prime. Multiplying further by <span class="arithmatex">\(N^4\)</span> gives
+<span class="arithmatex">\(v(1/x)\ge2+8v_p(N)\)</span> at those primes and <span class="arithmatex">\(v_s(1/x)\ge6+16v_2(N)\)</span> at <span class="arithmatex">\((s)\)</span>, which is the
+required divisibility.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="size/formal-multiple/reduction-orders">
+<h4 class="bp-thmheading" id="reduction-orders">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">Reduction orders of <span class="arithmatex">\(P_0\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/ReductionOrders.lean#L201" aria-label="View ZInQ.Size.exists_reduction_multiple in Lean source" title="View ZInQ.Size.exists_reduction_multiple in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/size/formal-multiple/reduction-orders.md" aria-label="Edit the Markdown source for Reduction orders of $P_0$" title="Edit the Markdown source for Reduction orders of $P_0$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#reduction-orders" aria-label="Link to Reduction orders of P₀" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Size.exists_reduction_multiple</div>
+<div class="bp-thmcontent">
+<p>For every integer <span class="arithmatex">\(N\ge1\)</span> there is an integer <span class="arithmatex">\(m_0\)</span> with <span class="arithmatex">\(1\le m_0\le N^6\)</span> such that for
+every odd prime <span class="arithmatex">\(p\mid N\)</span> and every prime <span class="arithmatex">\(\mathfrak p\)</span> of <span class="arithmatex">\(\mathbb Z[s]\)</span> containing <span class="arithmatex">\(p\)</span>,
+$<span class="arithmatex">\([m_0]P_0\in E_1(\mathfrak p),\quad\text{that is, }[m_0]P_0=O\text{ or }v_{\mathfrak p}\bigl(x([m_0]P_0)\bigr)&lt;0 .\)</span>$</p>
+<p><strong>Proof sketch.</strong> For each such <span class="arithmatex">\(\mathfrak p\)</span>, <span class="arithmatex">\(P_0\in E_0(\mathfrak p)\)</span>: at <span class="arithmatex">\((d)\)</span> by the
+bad-place computation, elsewhere by good reduction. Let <span class="arithmatex">\(n_{\mathfrak p}\ge1\)</span> be the order of
+<span class="arithmatex">\(\operatorname{red}_{\mathfrak p}(P_0)\)</span> in the finite group <span class="arithmatex">\(\widetilde E_{\rm ns}(k_{\mathfrak p})\)</span>;
+by the trivial point count <span class="arithmatex">\(n_{\mathfrak p}\le2|k_{\mathfrak p}|+1\)</span>. Put
+$<span class="arithmatex">\(m_0=\prod_{p\mid N,\ p\text{ odd}}\ \prod_{\mathfrak p\ni p}n_{\mathfrak p}.\)</span>$
+Since <span class="arithmatex">\(n_{\mathfrak p}\mid m_0\)</span>, reduction on the nonsingular part gives
+<span class="arithmatex">\([m_0]P_0\in E_1(\mathfrak p)\)</span> for every <span class="arithmatex">\(\mathfrak p\)</span> in the product. For a fixed odd <span class="arithmatex">\(p\)</span> there
+are either two primes with residue fields of <span class="arithmatex">\(p\)</span> elements or one with <span class="arithmatex">\(p^2\)</span> elements, so the
+inner product is at most <span class="arithmatex">\((2p+1)^2\le p^6\)</span> or <span class="arithmatex">\(2p^2+1\le p^6\)</span>. Hence
+<span class="arithmatex">\(m_0\le\prod_{p\mid N}p^6\le N^6\)</span>, the last step because the product of the distinct prime
+divisors of <span class="arithmatex">\(N\)</span> divides <span class="arithmatex">\(N\)</span>. For <span class="arithmatex">\(N=1\)</span>, or <span class="arithmatex">\(N\)</span> a power of <span class="arithmatex">\(2\)</span>, the product is empty and
+<span class="arithmatex">\(m_0=1\)</span>.</p>
+<p>The manuscript takes the same product of actual reduction orders, bounds the orders at good
+places by Hasse (<span class="arithmatex">\((p+1)^2&lt;p^3\)</span>) and the order at <span class="arithmatex">\((d)\)</span> by the order seven of the nonsingular
+group of the cusp over <span class="arithmatex">\(\mathbb F_7\)</span>; the trivial count suffices for <span class="arithmatex">\(m_0\le N^6\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_reduction_multiple (N : ℕ) (hN : 1 ≤ N) :
+    ∃ m₀ : ℕ, 1 ≤ m₀ ∧ m₀ ≤ N ^ 6 ∧
+      ∀ p ∈ N.primeFactors, p ≠ 2 → ∀ π : <a class="bp-lean-ref" href="../../model/field/index.html#quadratic-field" data-lean-name="ZInQ.Zs">Zs</a>, ∀ hπ : Prime π, π ∣ (p : <a class="bp-lean-ref" href="../../model/field/index.html#quadratic-field" data-lean-name="ZInQ.Zs">Zs</a>) →
+        (m₀ : ℤ) • <a class="bp-lean-ref" href="../../model/field/index.html#generator-point" data-lean-name="ZInQ.genP0">genP0</a> ∈ <a class="bp-lean-ref" href="#reduction-homomorphism" data-lean-name="ZInQ.Size.E1sub">E1sub</a> hπ (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Descent/OddTorsion.lean#L82" data-lean-name="ZInQ.vge_neg_genD_sq">vge_neg_genD_sq</a> _ hπ)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Zs">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Zs : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℤ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Basic.lean:148</p>
+</div>
+<div data-lean-name="ZInQ.genP0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> genP0 : genCurve.toAffine.Point := Point.mk genP0_equation</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Curve.lean:118</p>
+</div>
+<div data-lean-name="ZInQ.Size.E1sub">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> E1sub : AddSubgroup (shortCurve A).toAffine.Point <span class="bp-lean-keyword">where</span>
+  carrier := {P | InE1 π A P}
+  zero_mem&#x27; := trivial
+  add_mem&#x27; hP hQ := inE1_add hπ hA hP hQ
+  neg_mem&#x27; hP := inE1_neg hπ hA hP</code></pre>
+<p class="bp-lean-where">ZInQKernel/Size/FormalMultiple/Reduction.lean:201</p>
+</div>
+<div data-lean-name="ZInQ.vge_neg_genD_sq">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> vge_neg_genD_sq (π : Zs) (hπ : Prime π) : VGe π 0 (-genD ^ 2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Descent/OddTorsion.lean:82</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-formal-multiple">Proof of Proposition 12.1, formal multiple</a></li>
+<li><a href="../../../sources/size-locators.html#silverman">Silverman</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/size-locators.html#proof-of-proposition-121-formal-multiple"> </a></p>
+<p><a href="../../../sources/size-locators.html#silverman"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/field/index.html#generator-point">The point <span class="arithmatex">\(P_0\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#reduction-homomorphism">Reduction on the nonsingular part</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../multiplication/local/index.html#primes-above-p">The primes of <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span> above an odd prime</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#trivial-point-count">The trivial point count</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#bad-place-reduction">Reduction of <span class="arithmatex">\(P_0\)</span> at the bad place</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../assembly/local-tests/index.html#deep-multiples">Deep multiples of the generator</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#formal-multiple-existence">A successful formal multiple</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="size/formal-multiple/formal-multiple-existence">
+<h4 class="bp-thmheading" id="formal-multiple-existence">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">A successful formal multiple</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Existence.lean#L158" aria-label="View ZInQ.Size.exists_formal_multiple in Lean source" title="View ZInQ.Size.exists_formal_multiple in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Existence.lean#L224" aria-label="View ZInQ.Size.leastFormalMultiple_bounds in Lean source" title="View ZInQ.Size.leastFormalMultiple_bounds in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Existence.lean#L231" aria-label="View ZInQ.Size.leastFormalMultiple_formalCondition in Lean source" title="View ZInQ.Size.leastFormalMultiple_formalCondition in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/FormalMultiple/Existence.lean#L238" aria-label="View ZInQ.Size.M0_bounds in Lean source" title="View ZInQ.Size.M0_bounds in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/size/formal-multiple/formal-multiple-existence.md" aria-label="Edit the Markdown source for A successful formal multiple" title="Edit the Markdown source for A successful formal multiple"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#formal-multiple-existence" aria-label="Link to A successful formal multiple" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Size.exists_formal_multiple ZInQ.Size.leastFormalMultiple_bounds ZInQ.Size.leastFormalMultiple_formalCondition ZInQ.Size.M0_bounds</div>
+<div class="bp-thmcontent">
+<p>For a point <span class="arithmatex">\(Q\in E(K_0)\)</span> let <span class="arithmatex">\(\xi(Q)=1/x(Q)\)</span> if <span class="arithmatex">\(Q\ne O\)</span> and <span class="arithmatex">\(x(Q)\ne0\)</span>, and <span class="arithmatex">\(\xi(Q)=0\)</span>
+otherwise. For every integer <span class="arithmatex">\(N\ge1\)</span> there is an integer <span class="arithmatex">\(m\)</span> with <span class="arithmatex">\(1\le m\le N^{10}\)</span> such
+that the normalized representation <span class="arithmatex">\(\xi([m]P_0)=(a+bs)/c\)</span> (<span class="arithmatex">\(a,b,c\in\mathbb Z\)</span>, <span class="arithmatex">\(c&gt;0\)</span>,
+<span class="arithmatex">\(\gcd(a,b,c)=1\)</span>) satisfies
+$<span class="arithmatex">\(N^4\mid a,\qquad N^4\mid b,\qquad \gcd(c,N)=1 .\)</span>$
+Consequently <span class="arithmatex">\(1\le\mathrm{LFM}(N)\le N^{10}\)</span> and <span class="arithmatex">\(\mathrm{LFM}(N)\)</span> itself satisfies these three
+conditions. In particular, whenever <span class="arithmatex">\(N_s\ge1\)</span> (which holds under the catalogue bound, and also by
+Dirichlet's theorem, since every catalogue entry is then a prime), <span class="arithmatex">\(1\le M_0\le N_s^{10}\)</span> and <span class="arithmatex">\(M_0\)</span>
+is a successful index. The positivity of <span class="arithmatex">\(N_s\)</span> is needed: for <span class="arithmatex">\(N=0\)</span> the conditions force
+<span class="arithmatex">\(a=b=0\)</span> and <span class="arithmatex">\(c=1\)</span>, that is <span class="arithmatex">\(\xi([m]P_0)=0\)</span>.</p>
+<p><strong>Proof sketch.</strong> Take <span class="arithmatex">\(m_0\)</span> from the reduction orders and <span class="arithmatex">\(m=N^4m_0\)</span>, so <span class="arithmatex">\(1\le m\le N^{10}\)</span>.
+If <span class="arithmatex">\([m]P_0=O\)</span> or <span class="arithmatex">\(x([m]P_0)=0\)</span>, then <span class="arithmatex">\(\xi=0=(0+0s)/1\)</span> and the conditions hold. Otherwise
+write <span class="arithmatex">\(u=\xi([m]P_0)=u_0+u_1s\)</span> with <span class="arithmatex">\(u_0,u_1\in\mathbb Q\)</span>.</p>
+<p><em>Odd <span class="arithmatex">\(p\mid N\)</span>.</em> At every prime <span class="arithmatex">\(\mathfrak p\ni p\)</span>, <span class="arithmatex">\([m_0]P_0\in E_1(\mathfrak p)=W_1\)</span> and
+<span class="arithmatex">\(v_{\mathfrak p}(N^4)=4v_p(N)\)</span>, so multiplication in the formal neighbourhood (item 3) gives <span class="arithmatex">\([m]P_0\in W_{1+4v_p(N)}\)</span>, that is
+<span class="arithmatex">\(v_{\mathfrak p}(u)=-v_{\mathfrak p}(x)\ge2+8v_p(N)\)</span>. By the extraction at odd primes,
+<span class="arithmatex">\(v_p(u_0),v_p(u_1)\ge2+8v_p(N)\ge4v_p(N)\)</span>.</p>
+<p><em><span class="arithmatex">\(p=2\)</span>, if <span class="arithmatex">\(N\)</span> is even.</em> <span class="arithmatex">\(P_0\in W_3\)</span> at <span class="arithmatex">\((s)\)</span>, and <span class="arithmatex">\(v_s(m)=2v_2(m)\ge8v_2(N)\)</span>, so
+<span class="arithmatex">\([m]P_0\in W_{3+8v_2(N)}\)</span> and <span class="arithmatex">\(v_s(u)\ge6+16v_2(N)\)</span>. By
+<span class="arithmatex">\(v_s(u_0+u_1s)=\min(2v_2(u_0),2v_2(u_1)+1)\)</span>, <span class="arithmatex">\(v_2(u_0)\ge3+8v_2(N)\)</span> and
+<span class="arithmatex">\(v_2(u_1)\ge3+8v_2(N)\)</span>, both at least <span class="arithmatex">\(4v_2(N)\)</span>.</p>
+<p><em>Normalization.</em> The normalized representation has <span class="arithmatex">\(c=\operatorname{lcm}(\operatorname{den}u_0,\operatorname{den}u_1)\)</span>,
+<span class="arithmatex">\(a=u_0c\)</span>, <span class="arithmatex">\(b=u_1c\)</span>. For <span class="arithmatex">\(p\mid N\)</span>, <span class="arithmatex">\(v_p(u_i)\ge0\)</span>, so <span class="arithmatex">\(p\nmid c\)</span>; thus <span class="arithmatex">\(\gcd(c,N)=1\)</span> and
+<span class="arithmatex">\(v_p(a)=v_p(u_0)\ge4v_p(N)\)</span>, <span class="arithmatex">\(v_p(b)=v_p(u_1)\ge4v_p(N)\)</span> for every <span class="arithmatex">\(p\mid N\)</span>, i.e.
+<span class="arithmatex">\(N^4\mid a\)</span> and <span class="arithmatex">\(N^4\mid b\)</span>. The set of successful indices is therefore nonempty, so its least
+element <span class="arithmatex">\(\mathrm{LFM}(N)\)</span> is successful and at most <span class="arithmatex">\(m\)</span>.</p>
+<p>No property of <span class="arithmatex">\(P_0\)</span> beyond those cited is needed; in particular the argument does not use
+that <span class="arithmatex">\(P_0\)</span> has infinite order (the conventions for <span class="arithmatex">\(\xi\)</span> cover the identity). The manuscript
+loses up to three units of <span class="arithmatex">\(v_s\)</span> when extracting <span class="arithmatex">\(u_0,u_1\)</span>; the exact valuation formula at
+<span class="arithmatex">\((s)\)</span> avoids this.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_formal_multiple (N : ℕ) (hN : 1 ≤ N) :
+    ∃ m, 1 ≤ m ∧ m ≤ N ^ 10 ∧ <a class="bp-lean-ref" href="../../syntax/constants/index.html#least-formal-multiple" data-lean-name="ZInQ.Syntax.FormalCondition">FormalCondition</a> N m</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> leastFormalMultiple_bounds (N : ℕ) (hN : 1 ≤ N) :
+    1 ≤ <a class="bp-lean-ref" href="../../syntax/constants/index.html#least-formal-multiple" data-lean-name="ZInQ.Syntax.leastFormalMultiple">leastFormalMultiple</a> N ∧ <a class="bp-lean-ref" href="../../syntax/constants/index.html#least-formal-multiple" data-lean-name="ZInQ.Syntax.leastFormalMultiple">leastFormalMultiple</a> N ≤ N ^ 10</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> leastFormalMultiple_formalCondition (N : ℕ) (hN : 1 ≤ N) :
+    <a class="bp-lean-ref" href="../../syntax/constants/index.html#least-formal-multiple" data-lean-name="ZInQ.Syntax.FormalCondition">FormalCondition</a> N (<a class="bp-lean-ref" href="../../syntax/constants/index.html#least-formal-multiple" data-lean-name="ZInQ.Syntax.leastFormalMultiple">leastFormalMultiple</a> N)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Syntax.FormalCondition">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> FormalCondition (N m : ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  (N : ℤ) ^ 4 ∣ (normalizedRep (xi (m • genP0))).1 ∧
+    (N : ℤ) ^ 4 ∣ (normalizedRep (xi (m • genP0))).2.1 ∧
+    Nat.Coprime (normalizedRep (xi (m • genP0))).2.2 N</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/FormalMultiple.lean:158</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.leastFormalMultiple">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> leastFormalMultiple (N : ℕ) : ℕ :=
+  sInf {m : ℕ | 1 ≤ m ∧ FormalCondition N m}</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/FormalMultiple.lean:164</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-formal-multiple">Proof of Proposition 12.1, formal multiple</a></li>
+<li><a href="../../../sources/size-locators.html#section-22-catalogue-and-formal-multiple">Section 2.2 catalogue and formal multiple</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 9 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/constants/index.html#least-formal-multiple">The least formal multiple</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/field/index.html#generator-point">The point <span class="arithmatex">\(P_0\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#reduction-orders">Reduction orders of <span class="arithmatex">\(P_0\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../multiplication/local/index.html#formal-group">The formal neighbourhood of <span class="arithmatex">\(y^2=x^3+Ax\)</span> and its filtration</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../assembly/local-tests/index.html#formal-multiplication">Multiplication in a formal neighbourhood</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../multiplication/local/index.html#dyadic-generator">The generator lies in the dyadic formal group</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#odd-coefficient-extraction">Rational coordinates at odd primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../multiplication/local/index.html#primes-above-p">The primes of <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span> above an odd prime</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/field/index.html#special-primes">The primes <span class="arithmatex">\((s)\)</span> and <span class="arithmatex">\((d)\)</span> of <span class="arithmatex">\(\mathbb Z[\sqrt2]\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../multiplication/certificate/index.html#constants-properties">Properties of the multiplication constants</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../constants/index.html#formal-multiple-size">Size of the formal multiple constant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#cutoff">The literal cutoff</a></span></div>
+</div>
+</details>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../../dependencies/index.json" data-graph-src="../../../dependencies/scopes/size/formal-multiple.json" data-page-href="index.html" data-scope-id="size/formal-multiple">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

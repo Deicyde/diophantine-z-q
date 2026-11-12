@@ -1,0 +1,2327 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../index.html">
+      
+      
+        <link rel="next" href="../formal-multiple/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Bounds for the fixed constants - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Bounds for the fixed constants
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_8" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_8" id="__nav_2_1_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The cutoff and polynomial size
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bounds for the fixed constants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formal-multiple/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The least formal multiple
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../norms/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Norms, division polynomials and the finite constructors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../majorants/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Syntax heights and the final comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="size/constants" data-page-title="Bounds for the fixed constants">
+<h1 id="bounds-for-the-fixed-constants">Bounds for the fixed constants</h1>
+<p>Only a few small facts are computed: the size of the primorial, the factorial <span class="arithmatex">\(324!\)</span> to
+within its binary length, and <span class="arithmatex">\(G_0&lt;2^{37}\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="size/constants/small-constant-bounds">
+<h4 class="bp-thmheading" id="small-constant-bounds">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">Small explicit bounds</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/Constants/Small.lean#L44" aria-label="View ZInQ.Size.small_constant_bounds in Lean source" title="View ZInQ.Size.small_constant_bounds in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/size/constants/small-constant-bounds.md" aria-label="Edit the Markdown source for Small explicit bounds" title="Edit the Markdown source for Small explicit bounds"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#small-constant-bounds" aria-label="Link to Small explicit bounds" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Size.small_constant_bounds</div>
+<div class="bp-thmcontent">
+<p>The following closed inequalities between explicit natural numbers hold, where
+<span class="arithmatex">\(P_s=\prod_{p\le324,\ p\text{ prime}}p\)</span> and <span class="arithmatex">\(W=4P_s\)</span>:</p>
+<ol>
+<li><span class="arithmatex">\(P_s&lt;2^{433}\)</span> and <span class="arithmatex">\(10^5&lt;W&lt;2^{435}&lt;2^{512}\)</span>;</li>
+<li><span class="arithmatex">\(2^{2000}&lt;324!&lt;2^{2250}\)</span>;</li>
+<li><span class="arithmatex">\(G_0=116064000000&lt;2^{37}\)</span>.</li>
+</ol>
+<p>This is a finite computation. The manuscript states <span class="arithmatex">\(10^5&lt;W&lt;2^{512}\)</span> and
+<span class="arithmatex">\(2^{2000}&lt;F_0&lt;2^{2250}\)</span>; the sharper <span class="arithmatex">\(P_s&lt;2^{433}\)</span> is used for <span class="arithmatex">\(N_s\)</span> and <span class="arithmatex">\(\ell\)</span>. The lower
+bound on <span class="arithmatex">\(W\)</span> is used to apply the effective Dirichlet theorem at <span class="arithmatex">\(q=W\)</span>, which needs
+<span class="arithmatex">\(W\ge2^{16}\)</span>.</p>
+<p><strong>Proof sketch.</strong> Direct evaluation: <span class="arithmatex">\(P_s\)</span> and <span class="arithmatex">\(W\)</span> have the decimal values of the
+primorial literal, with <span class="arithmatex">\(433\)</span> and <span class="arithmatex">\(435\)</span> binary digits; <span class="arithmatex">\(324!\)</span> has <span class="arithmatex">\(2241\)</span> binary digits
+(<span class="arithmatex">\(2^{2240}&lt;324!&lt;2^{2241}\)</span>); and <span class="arithmatex">\(2^{37}=137438953472\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> small_constant_bounds :
+    <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.Ps">Ps</a> &lt; 2 ^ 433 ∧ 10 ^ 5 &lt; W ∧ W &lt; 2 ^ 435 ∧ (2 : ℕ) ^ 435 &lt; 2 ^ 512 ∧
+      2 ^ 2000 &lt; F ∧ F &lt; 2 ^ 2250 ∧ <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.G0">G0</a> &lt; 2 ^ 37</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Syntax.Ps">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Ps : ℕ := primorial 324</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:84</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.G0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> G0 : ℕ := 116064000000</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:104</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-catalogue">Proof of Proposition 12.1, catalogue</a></li>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-cutoff">Proof of Proposition 12.1, cutoff</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/size-locators.html#proof-of-proposition-121-catalogue"> </a></p>
+<p><a href="../../../sources/size-locators.html#proof-of-proposition-121-cutoff"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 5</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/constants/index.html#fixed-constants">The prescribed fixed constants</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/constants/index.html#primorial-literal">Decimal values of the primorial constants</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../progressions/index.html#catalogue-instance">The catalogue bound holds</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#catalogue-size">Size of <span class="arithmatex">\(N_s\)</span> and <span class="arithmatex">\(\ell\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#d-bounds">Bounds for <span class="arithmatex">\(D\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#r-equals-d">The parameter <span class="arithmatex">\(R\)</span> equals <span class="arithmatex">\(D\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#t-bound">The cutoff is below a triple tower</a></span></div>
+</div>
+</details>
+</div>
+<p>The symbolic estimates of the whole chapter also use a handful of closed comparisons between
+explicit numbers of at most a few thousand binary digits; they are collected in one place.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="size/constants/closed-comparisons">
+<h4 class="bp-thmheading" id="closed-comparisons">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">Closed numerical comparisons</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/Constants/Closed.lean#L60" aria-label="View ZInQ.Size.closed_comparisons in Lean source" title="View ZInQ.Size.closed_comparisons in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/size/constants/closed-comparisons.md" aria-label="Edit the Markdown source for Closed numerical comparisons" title="Edit the Markdown source for Closed numerical comparisons"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#closed-comparisons" aria-label="Link to Closed numerical comparisons" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Size.closed_comparisons</div>
+<div class="bp-thmcontent">
+<p>The following inequalities between explicit natural numbers hold:</p>
+<ol>
+<li><span class="arithmatex">\(433+22\cdot2^{4608}&lt;2^{4613}\)</span> and <span class="arithmatex">\(4+1262628+16104\cdot2^{4608}&lt;2^{4623}\)</span>, where
+   <span class="arithmatex">\(1262628=433\cdot2916\)</span> and <span class="arithmatex">\(16104=22\cdot732\)</span>;</li>
+<li><span class="arithmatex">\(2+10\cdot2^{4613}&lt;2^{4617}\)</span>;</li>
+<li><span class="arithmatex">\(10^{12}&lt;2^{40}\)</span> and <span class="arithmatex">\(2250+2^{9009}&lt;2^{9010}\)</span>;</li>
+<li><span class="arithmatex">\(4096\cdot85033&lt;2^{29}\)</span>;</li>
+<li><span class="arithmatex">\((96\cdot10^{13})^{13}&lt;2^{650}\)</span> and <span class="arithmatex">\(2210\cdot116064000000^2&lt;2^{86}\)</span>;</li>
+<li><span class="arithmatex">\(11243+2\cdot7950=27143\)</span>, <span class="arithmatex">\(3\cdot3^4+6\cdot27143\cdot3^2+27143^2&lt;2^{30}\)</span>,
+   <span class="arithmatex">\(2\,(3^6+5\cdot27143\cdot3^4+5\cdot27143^2\cdot3^2+27143^3)&lt;2^{46}\)</span> and
+   <span class="arithmatex">\(16\,(3^3+27143\cdot3)^2&lt;2^{38}\)</span>;</li>
+<li><span class="arithmatex">\(\max(6564,4640,123720,87483)&lt;2^{17}\)</span> and <span class="arithmatex">\(65536\cdot1281&lt;2^{27}\)</span>.</li>
+</ol>
+<p>This is a finite computation. Every number involved has at most <span class="arithmatex">\(9011\)</span> binary digits; none of
+the constants <span class="arithmatex">\(D\)</span>, <span class="arithmatex">\(T\)</span>, <span class="arithmatex">\(H_{\rm cat}\)</span>, <span class="arithmatex">\(N_s\)</span>, <span class="arithmatex">\(M_0\)</span>, <span class="arithmatex">\(c_*\)</span>, <span class="arithmatex">\(\ell\)</span> or <span class="arithmatex">\(c_3\)</span> occurs. These are the
+closed comparisons used by the symbolic estimates of this chapter: (1) for <span class="arithmatex">\(N_s\)</span> and <span class="arithmatex">\(\ell\)</span>,
+(2) for <span class="arithmatex">\(c_*\)</span>, (3) for <span class="arithmatex">\(R=D\)</span> and the upper bound on <span class="arithmatex">\(D\)</span>, (4) for <span class="arithmatex">\(C_{\rm cm}\)</span>, (5) for the
+bound on <span class="arithmatex">\(T\)</span>, (6) for the base cases of the division polynomials and (7) for the code heights.
+The program literal is bounded in the compiler chapter, not here.</p>
+<p><strong>Proof sketch.</strong> Direct evaluation. For instance <span class="arithmatex">\(4096\cdot85033=348295168&lt;536870912=2^{29}\)</span>,
+<span class="arithmatex">\(65536\cdot1281=83951616&lt;134217728=2^{27}\)</span>, and
+<span class="arithmatex">\(22\cdot2^{4608}+433&lt;32\cdot2^{4608}=2^{4613}\)</span> because <span class="arithmatex">\(433&lt;10\cdot2^{4608}\)</span>. Items 1 and 2
+are those of the cutoff <span class="arithmatex">\(2^{W^8}\)</span>; the manuscript's cutoff <span class="arithmatex">\(2^{W^3}\)</span> used the exponents
+<span class="arithmatex">\(2048\)</span>, <span class="arithmatex">\(2053\)</span>, <span class="arithmatex">\(2054\)</span>, <span class="arithmatex">\(2059\)</span> and <span class="arithmatex">\(2063\)</span> instead.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> closed_comparisons :
+    (433 + 22 * 2 ^ 4608 &lt; 2 ^ 4613 ∧ 4 + 1262628 + 16104 * 2 ^ 4608 &lt; 2 ^ 4623 ∧
+      1262628 = 433 * 2916 ∧ 16104 = 22 * 732) ∧
+    2 + 10 * 2 ^ 4613 &lt; 2 ^ 4617 ∧
+    (10 ^ 12 &lt; 2 ^ 40 ∧ 2250 + 2 ^ 9009 &lt; 2 ^ 9010) ∧
+    4096 * 85033 &lt; 2 ^ 29 ∧
+    ((96 * 10 ^ 13) ^ 13 &lt; 2 ^ 650 ∧ 2210 * 116064000000 ^ 2 &lt; 2 ^ 86) ∧
+    (11243 + 2 * 7950 = 27143 ∧
+      3 * 3 ^ 4 + 6 * 27143 * 3 ^ 2 + 27143 ^ 2 &lt; 2 ^ 30 ∧
+      2 * (3 ^ 6 + 5 * 27143 * 3 ^ 4 + 5 * 27143 ^ 2 * 3 ^ 2 + 27143 ^ 3) &lt; 2 ^ 46 ∧
+      16 * (3 ^ 3 + 27143 * 3) ^ 2 &lt; 2 ^ 38) ∧
+    (max (max (max 6564 4640) 123720) 87483 &lt; 2 ^ 17 ∧ 65536 * 1281 &lt; 2 ^ 27)</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-catalogue">Proof of Proposition 12.1, catalogue</a></li>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-cutoff">Proof of Proposition 12.1, cutoff</a></li>
+<li><a href="../../../sources/size-locators.html#section-121-norms-and-division-polynomials">Section 12.1 norms and division polynomials</a></li>
+<li><a href="../../../sources/size-locators.html#section-121-constructor-bounds">Section 12.1 constructor bounds</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/size-locators.html#proof-of-proposition-121-catalogue"> </a></p>
+<p><a href="../../../sources/size-locators.html#proof-of-proposition-121-cutoff"> </a></p>
+<p><a href="../../../sources/size-locators.html#section-121-norms-and-division-polynomials"> </a></p>
+<p><a href="../../../sources/size-locators.html#section-121-constructor-bounds"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 9</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#catalogue-size">Size of <span class="arithmatex">\(N_s\)</span> and <span class="arithmatex">\(\ell\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#d-bounds">Bounds for <span class="arithmatex">\(D\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#formal-multiple-size">Size of the formal multiple constant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#r-equals-d">The parameter <span class="arithmatex">\(R\)</span> equals <span class="arithmatex">\(D\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#t-bound">The cutoff is below a triple tower</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#t-identity">The closed form of <span class="arithmatex">\(T\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../majorants/index.html#admissible-cutoff">The cutoff is an admissible bound</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../norms/index.html#coordinate-heights">Heights of the codes in the guard box</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../norms/index.html#division-polynomial-size">Size of the division polynomials</a></span></div>
+</div>
+</details>
+</div>
+<p>The catalogue bound puts every catalogue prime below <span class="arithmatex">\(X=2^{W^8}\)</span>. This bounds the catalogue
+maximum and product, hence <span class="arithmatex">\(N_s\)</span> and the pole clearing constant <span class="arithmatex">\(\ell\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="size/constants/catalogue-bounds">
+<h4 class="bp-thmheading" id="catalogue-bounds">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The catalogue below the progression cutoff</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/Constants/Catalogue.lean#L50" aria-label="View ZInQ.Size.catalogue_bounds in Lean source" title="View ZInQ.Size.catalogue_bounds in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/size/constants/catalogue-bounds.md" aria-label="Edit the Markdown source for The catalogue below the progression cutoff" title="Edit the Markdown source for The catalogue below the progression cutoff"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#catalogue-bounds" aria-label="Link to The catalogue below the progression cutoff" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Size.catalogue_bounds</div>
+<div class="bp-thmcontent">
+<p>Assume the catalogue bound. Let <span class="arithmatex">\(W=4P_s\)</span> and <span class="arithmatex">\(X=2^{W^8}\)</span>. For every residue <span class="arithmatex">\(r\)</span> with
+<span class="arithmatex">\(1\le r&lt;W\)</span> and <span class="arithmatex">\(\gcd(r,W)=1\)</span> and every <span class="arithmatex">\(j\)</span> with <span class="arithmatex">\(1\le j\le22\)</span>, the catalogue prime
+<span class="arithmatex">\(p_{r,j}\)</span> (the <span class="arithmatex">\(j\)</span>-th prime <span class="arithmatex">\(p&gt;324\)</span> with <span class="arithmatex">\(p\equiv r\pmod W\)</span>) satisfies
+$<span class="arithmatex">\(324&lt;p_{r,j}&lt;X .\)</span>$
+Consequently
+$<span class="arithmatex">\(H_{\max}=\mathrm{catalogue\_max}(W,22,324)&lt;X,\qquad
+1\le H_{\rm cat}=\mathrm{catalogue\_product}(W,22,324)\le X^{22W}.\)</span>$</p>
+<p><strong>Proof sketch.</strong> Fix such <span class="arithmatex">\(r\)</span>. The hypothesis gives at least <span class="arithmatex">\(22\)</span> primes <span class="arithmatex">\(p\)</span> with
+<span class="arithmatex">\(324&lt;p&lt;X\)</span> and <span class="arithmatex">\(p\bmod W=r\)</span>; these are exactly the elements below <span class="arithmatex">\(X\)</span> of the set
+<span class="arithmatex">\(S_r=\{p\text{ prime}:p&gt;324,\ p\equiv r\pmod W\}\)</span>, whose elements in increasing order are
+<span class="arithmatex">\(p_{r,1}&lt;p_{r,2}&lt;\cdots\)</span>. So at least <span class="arithmatex">\(22\)</span> elements of <span class="arithmatex">\(S_r\)</span> are below <span class="arithmatex">\(X\)</span>, and the
+<span class="arithmatex">\(j\)</span>-th element for <span class="arithmatex">\(j\le22\)</span> is below <span class="arithmatex">\(X\)</span> (if <span class="arithmatex">\(\#(S_r\cap[0,X))\ge22&gt;j-1\)</span>, then the element
+of index <span class="arithmatex">\(j-1\)</span>, counting from <span class="arithmatex">\(0\)</span>, is below <span class="arithmatex">\(X\)</span>). It is above <span class="arithmatex">\(324\)</span> by definition of <span class="arithmatex">\(S_r\)</span>.
+The maximum of finitely many numbers below <span class="arithmatex">\(X\)</span> is below <span class="arithmatex">\(X\)</span> (an empty maximum is <span class="arithmatex">\(0&lt;X\)</span>).
+The product has <span class="arithmatex">\(22\,\varphi(W)\le22W\)</span> factors, each in <span class="arithmatex">\([1,X)\)</span>, so it lies in
+<span class="arithmatex">\([1,X^{22W}]\)</span>.</p>
+<p>The manuscript reaches the same conclusion at the smaller cutoff <span class="arithmatex">\(2^{W^3}\)</span> through the
+progression estimate, which gives more than <span class="arithmatex">\(X/(2W^4)&gt;22\)</span> primes in each unit class and notes
+that no prime at most <span class="arithmatex">\(324\)</span> lies in a unit class. Here the cutoff is <span class="arithmatex">\(X=2^{W^8}\)</span>, the range of
+the effective Dirichlet theorem, and the catalogue bound states the needed count directly.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> catalogue_bounds (hCAT : <a class="bp-lean-ref" href="../../main/index.html#catalogue-bound" data-lean-name="ZInQ.CatalogueBound8">CatalogueBound8</a>) :
+    (∀ r j : ℕ, 1 ≤ r → r &lt; W → r.Coprime W → j &lt; 22 →
+      324 &lt; <a class="bp-lean-ref" href="../../syntax/constants/index.html#prime-catalogue" data-lean-name="ZInQ.Syntax.cataloguePrime">Syntax.cataloguePrime</a> W 324 r j ∧ <a class="bp-lean-ref" href="../../syntax/constants/index.html#prime-catalogue" data-lean-name="ZInQ.Syntax.cataloguePrime">Syntax.cataloguePrime</a> W 324 r j &lt; 2 ^ W ^ 8) ∧
+    <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.Hmax">Hmax</a> &lt; 2 ^ W ^ 8 ∧ 1 ≤ <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.Hcat">Hcat</a> ∧ <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.Hcat">Hcat</a> ≤ (2 ^ W ^ 8) ^ (22 * W)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.CatalogueBound8">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CatalogueBound8 : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ r : ℕ, r &lt; catalogueModulus → Nat.Coprime r catalogueModulus →
+    22 ≤ ({p ∈ Finset.Ioo 324 (2 ^ catalogueModulus ^ 8) |
+      p.Prime ∧ p % catalogueModulus = r}).card</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/PrimePattern.lean:190</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.cataloguePrime">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> cataloguePrime (W B r j : ℕ) : ℕ :=
+  Nat.nth (<span class="bp-lean-keyword">fun</span> p =&gt; p.Prime ∧ B &lt; p ∧ p % W = r) j</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Catalogue.lean:43</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.Hmax">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> Hmax : ℕ := catalogueMax W 22 324</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:90</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.Hcat">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> Hcat : ℕ := catalogueProduct W 22 324</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:88</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-catalogue">Proof of Proposition 12.1, catalogue</a></li>
+<li><a href="../../../sources/size-locators.html#bennett-martin-obryant-rechnitzer">Bennett-Martin-O'Bryant-Rechnitzer</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/size-locators.html#proof-of-proposition-121-catalogue"> </a></p>
+<p><a href="../../../sources/size-locators.html#bennett-martin-obryant-rechnitzer"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#catalogue-bound">The catalogue bound</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/constants/index.html#prime-catalogue">The prime catalogue</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/constants/index.html#fixed-constants">The prescribed fixed constants</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#catalogue-size">Size of <span class="arithmatex">\(N_s\)</span> and <span class="arithmatex">\(\ell\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#r-equals-d">The parameter <span class="arithmatex">\(R\)</span> equals <span class="arithmatex">\(D\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="size/constants/catalogue-size">
+<h4 class="bp-thmheading" id="catalogue-size">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Size of <span class="arithmatex">\(N_s\)</span> and <span class="arithmatex">\(\ell\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/Constants/Catalogue.lean#L117" aria-label="View ZInQ.Size.catalogue_size in Lean source" title="View ZInQ.Size.catalogue_size in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/size/constants/catalogue-size.md" aria-label="Edit the Markdown source for Size of $N_s$ and $\ell$" title="Edit the Markdown source for Size of $N_s$ and $\ell$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#catalogue-size" aria-label="Link to Size of Nₛ and ℓ" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Size.catalogue_size</div>
+<div class="bp-thmcontent">
+<p>Assume the catalogue bound. Then
+$<span class="arithmatex">\(1\le N_s=P_sH_{\rm cat}&lt;2^{2^{4613}}\qquad\text{(that is, }\log_2N_s&lt;2^{4613}\text{)},\)</span>$
+and the pole clearing constant satisfies
+$<span class="arithmatex">\(\ell=12\,P_s^{2916}H_{\rm cat}^{732}&lt;2^{2^{4623}} .\)</span>$</p>
+<p><strong>Proof sketch.</strong> All quantities are natural numbers; work with exponents of <span class="arithmatex">\(2\)</span>. With
+<span class="arithmatex">\(X=2^{W^8}\)</span>, <span class="arithmatex">\(H_{\rm cat}\le X^{22W}=2^{22W^9}\)</span> and <span class="arithmatex">\(P_s&lt;2^{433}\)</span>, so
+<span class="arithmatex">\(N_s&lt;2^{433+22W^9}\)</span>. From <span class="arithmatex">\(W&lt;2^{512}\)</span>, <span class="arithmatex">\(W^9&lt;2^{4608}\)</span>, so
+<span class="arithmatex">\(433+22W^9&lt;433+22\cdot2^{4608}&lt;32\cdot2^{4608}=2^{4613}\)</span>, whence <span class="arithmatex">\(N_s&lt;2^{2^{4613}}\)</span>. For
+<span class="arithmatex">\(\ell\)</span>: <span class="arithmatex">\(12&lt;2^4\)</span>, <span class="arithmatex">\(P_s^{2916}&lt;2^{433\cdot2916}=2^{1262628}\)</span> and
+<span class="arithmatex">\(H_{\rm cat}^{732}\le2^{16104W^9}\)</span>, with <span class="arithmatex">\(16104&lt;2^{14}\)</span>, so
+<span class="arithmatex">\(\ell&lt;2^{4+1262628+16104\cdot2^{4608}}&lt;2^{2^{4623}}\)</span>. Positivity: <span class="arithmatex">\(P_s\ge1\)</span> and
+<span class="arithmatex">\(H_{\rm cat}\ge1\)</span>.</p>
+<p>The manuscript, with the cutoff <span class="arithmatex">\(2^{W^3}\)</span>, states <span class="arithmatex">\(\log_2N_s&lt;2^{2054}\)</span>; the cutoff <span class="arithmatex">\(2^{W^8}\)</span>
+of the effective Dirichlet theorem changes the numerals. The bound on <span class="arithmatex">\(\ell\)</span> is the
+companion proof's estimate <span class="arithmatex">\(\ell&lt;T\)</span>, made explicit, and is used for the size of the fixed
+constructor.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> catalogue_size (hCAT : <a class="bp-lean-ref" href="../../main/index.html#catalogue-bound" data-lean-name="ZInQ.CatalogueBound8">CatalogueBound8</a>) :
+    1 ≤ <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.Ns">Ns</a> ∧ <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.Ns">Ns</a> &lt; 2 ^ 2 ^ 4613 ∧ <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">ell</a> &lt; 2 ^ 2 ^ 4623</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.CatalogueBound8">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CatalogueBound8 : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ r : ℕ, r &lt; catalogueModulus → Nat.Coprime r catalogueModulus →
+    22 ≤ ({p ∈ Finset.Ioo 324 (2 ^ catalogueModulus ^ 8) |
+      p.Prime ∧ p % catalogueModulus = r}).card</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/PrimePattern.lean:190</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.Ns">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> Ns : ℕ := FixedFormula.Ns Ps Hcat</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:92</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.ell">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> ell : ℕ := FixedFormula.ell Ps Hcat</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:98</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-catalogue">Proof of Proposition 12.1, catalogue</a></li>
+<li><a href="../../../sources/size-locators.html#section-12-opening">Section 12 opening</a></li>
+<li><a href="../../../sources/size-locators.html#companion-size-proof">Companion size proof</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/size-locators.html#proof-of-proposition-121-catalogue"> </a></p>
+<p><a href="../../../sources/size-locators.html#section-12-opening"> </a></p>
+<p><a href="../../../sources/size-locators.html#companion-size-proof"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/constants/index.html#fixed-constants">The prescribed fixed constants</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#catalogue-bound">The catalogue bound</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#closed-comparisons">Closed numerical comparisons</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#small-constant-bounds">Small explicit bounds</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#catalogue-bounds">The catalogue below the progression cutoff</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#formal-multiple-size">Size of the formal multiple constant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#cutoff">The literal cutoff</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../majorants/index.html#admissible-cutoff">The cutoff is an admissible bound</a></span></div>
+</div>
+</details>
+</div>
+<p>The least formal multiple is at most <span class="arithmatex">\(N_s^{10}\)</span> (proved in the next section), so
+<span class="arithmatex">\(c_*=4M_0\)</span> is below <span class="arithmatex">\(2^{2^{4617}}\)</span>, far below <span class="arithmatex">\(D\)</span>, whose double logarithm lies between
+<span class="arithmatex">\(8008\)</span> and <span class="arithmatex">\(9010\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="size/constants/formal-multiple-size">
+<h4 class="bp-thmheading" id="formal-multiple-size">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Size of the formal multiple constant</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/Constants/FormalMultiple.lean#L39" aria-label="View ZInQ.Size.formal_multiple_size in Lean source" title="View ZInQ.Size.formal_multiple_size in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/size/constants/formal-multiple-size.md" aria-label="Edit the Markdown source for Size of the formal multiple constant" title="Edit the Markdown source for Size of the formal multiple constant"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#formal-multiple-size" aria-label="Link to Size of the formal multiple constant" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Size.formal_multiple_size</div>
+<div class="bp-thmcontent">
+<p>Assume the catalogue bound. Then <span class="arithmatex">\(1\le M_0\le N_s^{10}\)</span> and
+$<span class="arithmatex">\(c_*=4M_0&lt;2^{2^{4617}} .\)</span>$</p>
+<p><strong>Proof sketch.</strong> The existence of a successful formal multiple, applied to <span class="arithmatex">\(N=N_s\ge1\)</span>,
+gives <span class="arithmatex">\(1\le M_0=\mathrm{LFM}(N_s)\le N_s^{10}\)</span>. With <span class="arithmatex">\(N_s&lt;2^{2^{4613}}\)</span>,
+<span class="arithmatex">\(c_*\le4N_s^{10}&lt;2^{2+10\cdot2^{4613}}\)</span>, and <span class="arithmatex">\(2+10\cdot2^{4613}&lt;16\cdot2^{4613}=2^{4617}\)</span>.</p>
+<p>The manuscript, with the cutoff <span class="arithmatex">\(2^{W^3}\)</span>, has <span class="arithmatex">\(c_*&lt;2^{2^{2059}}\)</span>; the cutoff <span class="arithmatex">\(2^{W^8}\)</span> of
+the effective Dirichlet theorem changes the numeral.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> formal_multiple_size (hCAT : <a class="bp-lean-ref" href="../../main/index.html#catalogue-bound" data-lean-name="ZInQ.CatalogueBound8">CatalogueBound8</a>) :
+    1 ≤ <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.M0">M0</a> ∧ <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.M0">M0</a> ≤ <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.Ns">Ns</a> ^ 10 ∧ <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> &lt; 2 ^ 2 ^ 4617</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.CatalogueBound8">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CatalogueBound8 : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ r : ℕ, r &lt; catalogueModulus → Nat.Coprime r catalogueModulus →
+    22 ≤ ({p ∈ Finset.Ioo 324 (2 ^ catalogueModulus ^ 8) |
+      p.Prime ∧ p % catalogueModulus = r}).card</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/PrimePattern.lean:190</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.M0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> M0 : ℕ := leastFormalMultiple Ns</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:94</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.Ns">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> Ns : ℕ := FixedFormula.Ns Ps Hcat</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:92</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.cstar">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> cstar : ℕ := FixedFormula.cstar M0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:96</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-formal-multiple">Proof of Proposition 12.1, formal multiple</a></li>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-cutoff">Proof of Proposition 12.1, cutoff</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/size-locators.html#proof-of-proposition-121-formal-multiple"> </a></p>
+<p><a href="../../../sources/size-locators.html#proof-of-proposition-121-cutoff"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/constants/index.html#fixed-constants">The prescribed fixed constants</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#catalogue-bound">The catalogue bound</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#closed-comparisons">Closed numerical comparisons</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../formal-multiple/index.html#formal-multiple-existence">A successful formal multiple</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#catalogue-size">Size of <span class="arithmatex">\(N_s\)</span> and <span class="arithmatex">\(\ell\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#r-equals-d">The parameter <span class="arithmatex">\(R\)</span> equals <span class="arithmatex">\(D\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#cutoff">The literal cutoff</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../majorants/index.html#admissible-cutoff">The cutoff is an admissible bound</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="size/constants/d-bounds">
+<h4 class="bp-thmheading" id="d-bounds">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Bounds for <span class="arithmatex">\(D\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/Constants/D.lean#L48" aria-label="View ZInQ.Size.D_bounds in Lean source" title="View ZInQ.Size.D_bounds in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/size/constants/d-bounds.md" aria-label="Edit the Markdown source for Bounds for $D$" title="Edit the Markdown source for Bounds for $D$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#d-bounds" aria-label="Link to Bounds for D" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Size.D_bounds</div>
+<div class="bp-thmcontent">
+<p>With <span class="arithmatex">\(F_0=324!\)</span> and <span class="arithmatex">\(D=F_0\,3^{256F_0^4}\)</span>,
+$<span class="arithmatex">\(2^{2^{8008}}&lt;D&lt;2^{2^{9010}} .\)</span>$</p>
+<p><strong>Proof sketch.</strong> From <span class="arithmatex">\(2^{2000}&lt;F_0&lt;2^{2250}\)</span>. Lower bound: <span class="arithmatex">\(256F_0^4&gt;2^8\cdot2^{8000}=2^{8008}\)</span>
+and <span class="arithmatex">\(3^k&gt;2^k\)</span> for <span class="arithmatex">\(k\ge1\)</span>, so <span class="arithmatex">\(D\ge3^{256F_0^4}&gt;2^{256F_0^4}&gt;2^{2^{8008}}\)</span>. Upper bound:
+<span class="arithmatex">\(3&lt;2^2\)</span> gives <span class="arithmatex">\(3^{256F_0^4}&lt;2^{512F_0^4}&lt;2^{2^9\cdot2^{9000}}=2^{2^{9009}}\)</span>, so
+<span class="arithmatex">\(D&lt;2^{2250}\cdot2^{2^{9009}}=2^{2250+2^{9009}}\)</span>, and <span class="arithmatex">\(2250+2^{9009}&lt;2^{9010}\)</span>. Only monotonicity
+of <span class="arithmatex">\(k\mapsto2^k\)</span>, <span class="arithmatex">\(k\mapsto k^4\)</span> and <span class="arithmatex">\(k\mapsto3^k\)</span> is used; <span class="arithmatex">\(D\)</span> is not evaluated.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> D_bounds : 2 ^ 2 ^ 8008 &lt; D ∧ D &lt; 2 ^ 2 ^ 9010</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-cutoff">Proof of Proposition 12.1, cutoff</a></li>
+<li><a href="../../../sources/size-locators.html#section-4-constants">Section 4 constants</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/size-locators.html#proof-of-proposition-121-cutoff"> </a></p>
+<p><a href="../../../sources/size-locators.html#section-4-constants"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/constants/index.html#fixed-constants">The prescribed fixed constants</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#closed-comparisons">Closed numerical comparisons</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#small-constant-bounds">Small explicit bounds</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#r-equals-d">The parameter <span class="arithmatex">\(R\)</span> equals <span class="arithmatex">\(D\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#t-bound">The cutoff is below a triple tower</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#t-identity">The closed form of <span class="arithmatex">\(T\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../majorants/index.html#admissible-cutoff">The cutoff is an admissible bound</a></span></div>
+</div>
+</details>
+</div>
+<p>Hence <span class="arithmatex">\(D\)</span> dominates the other entries of <span class="arithmatex">\(R\)</span>, and with <span class="arithmatex">\(R=D\)</span> the maximum defining
+<span class="arithmatex">\(A_{\rm ht}\)</span> is attained by <span class="arithmatex">\(Q^{17}\)</span>. This identifies <span class="arithmatex">\(T\)</span> with a closed expression in <span class="arithmatex">\(D\)</span> and
+<span class="arithmatex">\(G_0\)</span>, which is bounded by monotonicity alone.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="size/constants/r-equals-d">
+<h4 class="bp-thmheading" id="r-equals-d">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The parameter <span class="arithmatex">\(R\)</span> equals <span class="arithmatex">\(D\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/Constants/T.lean#L60" aria-label="View ZInQ.Size.r_equals_d in Lean source" title="View ZInQ.Size.r_equals_d in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/Constants/T.lean#L55" aria-label="View ZInQ.Size.R_eq_D in Lean source" title="View ZInQ.Size.R_eq_D in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/size/constants/r-equals-d.md" aria-label="Edit the Markdown source for The parameter $R$ equals $D$" title="Edit the Markdown source for The parameter $R$ equals $D$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#r-equals-d" aria-label="Link to The parameter R equals D" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Size.r_equals_d ZInQ.Size.R_eq_D</div>
+<div class="bp-thmcontent">
+<p>Assume the catalogue bound. Then <span class="arithmatex">\(H_{\max}&lt;D\)</span>, <span class="arithmatex">\(c_*&lt;D\)</span> and <span class="arithmatex">\(10^{12}&lt;D\)</span>; consequently
+$<span class="arithmatex">\(R=\max(D,H_{\max},c_*,10^{12})=D .\)</span>$</p>
+<p><strong>Proof sketch.</strong> <span class="arithmatex">\(H_{\max}&lt;2^{W^8}\)</span> and <span class="arithmatex">\(W^8&lt;2^{8\cdot512}=2^{4096}\)</span>, so
+<span class="arithmatex">\(H_{\max}&lt;2^{2^{4096}}&lt;2^{2^{8008}}&lt;D\)</span>. Next <span class="arithmatex">\(c_*&lt;2^{2^{4617}}&lt;2^{2^{8008}}&lt;D\)</span>, and
+<span class="arithmatex">\(10^{12}&lt;2^{40}&lt;D\)</span>. A maximum whose first entry dominates the others equals that entry.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> r_equals_d (hCAT : <a class="bp-lean-ref" href="../../main/index.html#catalogue-bound" data-lean-name="ZInQ.CatalogueBound8">CatalogueBound8</a>) :
+    <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.Hmax">Hmax</a> &lt; D ∧ <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">cstar</a> &lt; D ∧ 10 ^ 12 &lt; D ∧ R = D</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> R_eq_D (hCAT : <a class="bp-lean-ref" href="../../main/index.html#catalogue-bound" data-lean-name="ZInQ.CatalogueBound8">CatalogueBound8</a>) : R = D</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.CatalogueBound8">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CatalogueBound8 : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ r : ℕ, r &lt; catalogueModulus → Nat.Coprime r catalogueModulus →
+    22 ≤ ({p ∈ Finset.Ioo 324 (2 ^ catalogueModulus ^ 8) |
+      p.Prime ∧ p % catalogueModulus = r}).card</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/PrimePattern.lean:190</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.Hmax">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> Hmax : ℕ := catalogueMax W 22 324</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:90</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.cstar">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> cstar : ℕ := FixedFormula.cstar M0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:96</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-cutoff">Proof of Proposition 12.1, cutoff</a></li>
+<li><a href="../../../sources/size-locators.html#proposition-121">Proposition 12.1</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/size-locators.html#proof-of-proposition-121-cutoff"> </a></p>
+<p><a href="../../../sources/size-locators.html#proposition-121"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 7 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/constants/index.html#fixed-constants">The prescribed fixed constants</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#catalogue-bound">The catalogue bound</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#closed-comparisons">Closed numerical comparisons</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#small-constant-bounds">Small explicit bounds</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#catalogue-bounds">The catalogue below the progression cutoff</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#formal-multiple-size">Size of the formal multiple constant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#d-bounds">Bounds for <span class="arithmatex">\(D\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../main/index.html#six-contact-min-of-estimate">The six-contact estimate implies its minimal form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#t-identity">The closed form of <span class="arithmatex">\(T\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#cutoff">The literal cutoff</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="size/constants/t-identity">
+<h4 class="bp-thmheading" id="t-identity">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The closed form of <span class="arithmatex">\(T\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/Constants/T.lean#L158" aria-label="View ZInQ.Size.t_identity in Lean source" title="View ZInQ.Size.t_identity in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/size/constants/t-identity.md" aria-label="Edit the Markdown source for The closed form of $T$" title="Edit the Markdown source for The closed form of $T$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#t-identity" aria-label="Link to The closed form of T" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Size.t_identity</div>
+<div class="bp-thmcontent">
+<p>Assume the catalogue bound. Then:</p>
+<ol>
+<li><span class="arithmatex">\(Q=R^{RE_0}=D^{10G_0^2D^3}\)</span>;</li>
+<li><span class="arithmatex">\(C_{\rm cm}&lt;2^{50000D^2}&lt;Q^{17}\)</span>, so <span class="arithmatex">\(\max(1,C_{\rm cm},Q^{17})=Q^{17}\)</span>;</li>
+<li><span class="arithmatex">\(A_{\rm ht}=2\cdot10^{13}\,D^{170G_0^2D^3}\)</span> and
+$<span class="arithmatex">\(T=(48A_{\rm ht})^{13}=(96\cdot10^{13})^{13}\,D^{2210G_0^2D^3}.\)</span>$</li>
+</ol>
+<p><strong>Proof sketch.</strong> By <span class="arithmatex">\(R=D\)</span> and <span class="arithmatex">\(E_0=10D^2G_0^2\)</span>, <span class="arithmatex">\(RE_0=10G_0^2D^3\)</span>, which is (1). For (2):
+<span class="arithmatex">\(D^2&lt;2^{D^2}\)</span> and <span class="arithmatex">\(3^{21000D^2}&lt;4^{21000D^2}=2^{42000D^2}\)</span> give <span class="arithmatex">\(B_{\rm cm}\le2^{42001D^2}\)</span>, and
+<span class="arithmatex">\(4096(1028+5D+84000D^2)\le4096\cdot85033\,D^2&lt;2^{29}D^2&lt;2^{42001D^2}\)</span> (using <span class="arithmatex">\(1\le D\le D^2\)</span>), so
+<span class="arithmatex">\(C_{\rm cm}&lt;3\cdot2^{42001D^2}&lt;2^{50000D^2}\)</span>. On the other side <span class="arithmatex">\(D\ge2\)</span> gives
+<span class="arithmatex">\(Q^{17}=D^{170G_0^2D^3}\ge2^{170G_0^2D^3}\)</span>, and <span class="arithmatex">\(170G_0^2D^3&gt;50000D^2\)</span> because <span class="arithmatex">\(170G_0^2D&gt;50000\)</span>
+(already <span class="arithmatex">\(D&gt;300\)</span>). Also <span class="arithmatex">\(Q^{17}\ge1\)</span>. For (3), <span class="arithmatex">\(A_{\rm ht}=2\cdot10^{13}Q^{17}\)</span>, so
+<span class="arithmatex">\(48A_{\rm ht}=96\cdot10^{13}Q^{17}\)</span> and <span class="arithmatex">\(T=(96\cdot10^{13})^{13}Q^{221}\)</span> with
+<span class="arithmatex">\(Q^{221}=D^{221\cdot10G_0^2D^3}=D^{2210G_0^2D^3}\)</span>.</p>
+<p>The manuscript compares <span class="arithmatex">\(\log_2Q_D^{17}=170G_0^2D^3\log_2D\)</span> with <span class="arithmatex">\(50000D^2\)</span>; the proof here
+uses only <span class="arithmatex">\(\log_2D\ge1\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> t_identity (hCAT : <a class="bp-lean-ref" href="../../main/index.html#catalogue-bound" data-lean-name="ZInQ.CatalogueBound8">CatalogueBound8</a>) :
+    Q = D ^ (10 * <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.G0">G0</a> ^ 2 * D ^ 3) ∧
+    (<a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.Ccm">Ccm</a> &lt; 2 ^ (50000 * D ^ 2) ∧ 2 ^ (50000 * D ^ 2) &lt; Q ^ 17 ∧
+      max (max 1 <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.Ccm">Ccm</a>) (Q ^ 17) = Q ^ 17) ∧
+    <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.Aht">Aht</a> = 2 * 10 ^ 13 * D ^ (170 * <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.G0">G0</a> ^ 2 * D ^ 3) ∧
+    T = (96 * 10 ^ 13) ^ 13 * D ^ (2210 * <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.G0">G0</a> ^ 2 * D ^ 3)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.CatalogueBound8">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CatalogueBound8 : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ r : ℕ, r &lt; catalogueModulus → Nat.Coprime r catalogueModulus →
+    22 ≤ ({p ∈ Finset.Ioo 324 (2 ^ catalogueModulus ^ 8) |
+      p.Prime ∧ p % catalogueModulus = r}).card</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/PrimePattern.lean:190</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.G0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> G0 : ℕ := 116064000000</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:104</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.Ccm">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Ccm : ℕ := FixedFormula.Ccm Bcm D</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:114</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.Aht">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> Aht : ℕ := FixedFormula.Aht Ccm Q</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:116</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_7">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-cutoff">Proof of Proposition 12.1, cutoff</a></li>
+<li><a href="../../../sources/size-locators.html#section-12-opening">Section 12 opening</a></li>
+<li><a href="../../../sources/size-locators.html#section-4-constants">Section 4 constants</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/size-locators.html#proof-of-proposition-121-cutoff"> </a></p>
+<p><a href="../../../sources/size-locators.html#section-12-opening"> </a></p>
+<p><a href="../../../sources/size-locators.html#section-4-constants"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/constants/index.html#fixed-constants">The prescribed fixed constants</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#catalogue-bound">The catalogue bound</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#closed-comparisons">Closed numerical comparisons</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#r-equals-d">The parameter <span class="arithmatex">\(R\)</span> equals <span class="arithmatex">\(D\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#d-bounds">Bounds for <span class="arithmatex">\(D\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#cutoff">The literal cutoff</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../majorants/index.html#admissible-cutoff">The cutoff is an admissible bound</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="size/constants/t-bound">
+<h4 class="bp-thmheading" id="t-bound">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The cutoff is below a triple tower</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Size/Constants/T.lean#L211" aria-label="View ZInQ.Size.closedT_lt in Lean source" title="View ZInQ.Size.closedT_lt in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/size/constants/t-bound.md" aria-label="Edit the Markdown source for The cutoff is below a triple tower" title="Edit the Markdown source for The cutoff is below a triple tower"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#t-bound" aria-label="Link to The cutoff is below a triple tower" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Size.closedT_lt</div>
+<div class="bp-thmcontent">
+<p>With <span class="arithmatex">\(D\)</span> and <span class="arithmatex">\(G_0\)</span> as defined,
+$<span class="arithmatex">\((96\cdot10^{13})^{13}\,D^{2210G_0^2D^3}&lt;2^{D^8}&lt;2^{2^{2^{9013}}} .\)</span>$
+With the closed form of <span class="arithmatex">\(T\)</span> this is the bound on <span class="arithmatex">\(T\)</span> in the literal cutoff.</p>
+<p><strong>Proof sketch.</strong> Write <span class="arithmatex">\(D\)</span> symbolically and use <span class="arithmatex">\(2^{2^{8008}}&lt;D&lt;2^{2^{9010}}\)</span> and
+<span class="arithmatex">\(G_0&lt;2^{37}\)</span>. First <span class="arithmatex">\((96\cdot10^{13})^{13}&lt;2^{650}\)</span> and <span class="arithmatex">\(2210G_0^2&lt;2^{86}&lt;D\)</span> (closed
+comparisons), so <span class="arithmatex">\(2210G_0^2D^3&lt;D^4\)</span>. With <span class="arithmatex">\(D&lt;2^D\)</span>,
+<span class="arithmatex">\(D^{2210G_0^2D^3}&lt;(2^D)^{D^4}=2^{D^5}\)</span>. Then <span class="arithmatex">\(650+D^5&lt;D^8\)</span> since <span class="arithmatex">\(D&gt;650\)</span>, giving the first
+inequality. Finally <span class="arithmatex">\(D^8&lt;\bigl(2^{2^{9010}}\bigr)^8=2^{2^{9013}}\)</span>, giving the second.</p>
+<p>The manuscript's chain is <span class="arithmatex">\(G_0&lt;2^{37}\)</span>, <span class="arithmatex">\(E_0&lt;D^3\)</span>, <span class="arithmatex">\(\log_2Q_D&lt;D^5\)</span>, <span class="arithmatex">\(\log_2A_{\rm ht}&lt;D^7\)</span> and
+<span class="arithmatex">\(\log_2T&lt;D^8&lt;2^{2^{9013}}\)</span>; the route above bounds the closed form directly and reaches the
+same <span class="arithmatex">\(\log_2T&lt;D^8\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> closedT_lt :
+    (96 * 10 ^ 13) ^ 13 * D ^ (2210 * <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.G0">G0</a> ^ 2 * D ^ 3) &lt; 2 ^ D ^ 8 ∧
+      2 ^ D ^ 8 &lt; 2 ^ 2 ^ 2 ^ 9013</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Syntax.G0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> G0 : ℕ := 116064000000</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:104</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_8">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/size-locators.html#proof-of-proposition-121-cutoff">Proof of Proposition 12.1, cutoff</a></li>
+<li><a href="../../../sources/size-locators.html#proposition-121">Proposition 12.1</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/size-locators.html#proof-of-proposition-121-cutoff"> </a></p>
+<p><a href="../../../sources/size-locators.html#proposition-121"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/constants/index.html#fixed-constants">The prescribed fixed constants</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#closed-comparisons">Closed numerical comparisons</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#small-constant-bounds">Small explicit bounds</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#d-bounds">Bounds for <span class="arithmatex">\(D\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#cutoff">The literal cutoff</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>9</strong> fully proved</span></div>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../../dependencies/index.json" data-graph-src="../../../dependencies/scopes/size/constants.json" data-page-href="index.html" data-scope-id="size/constants">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

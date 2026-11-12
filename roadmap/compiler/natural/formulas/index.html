@@ -1,0 +1,2991 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../exponential/index.html">
+      
+      
+        <link rel="next" href="../packed/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Natural constructions and the power interface - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Natural constructions and the power interface
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_6" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_6" id="__nav_2_1_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Exact precision computation and polynomial compilation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_6_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The natural precision polynomial
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_6_2" id="__nav_2_1_6_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_1_6_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The natural precision polynomial
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../precision/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The exact precision computation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exponential/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The alpha and power formulas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Natural constructions and the power interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packed/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The packed-history compiler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../programs/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programs, lowering and the wrapper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../universal/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The universal interpreter and the five-input circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../translation/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Translation to rational point codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="compiler/natural/formulas" data-page-title="Natural constructions and the power interface">
+<h1 id="natural-constructions-and-the-power-interface">Natural constructions and the power interface</h1>
+<p>The compiler writes its conditions as formulas over integer polynomials with fresh
+natural witnesses: equality is a difference, conjunction a sum of squares, disjunction a
+product, and strict inequality, divisibility, congruence and oddness are single equations
+with fresh witnesses.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="compiler/natural/formulas/natural-constructions">
+<h4 class="bp-thmheading" id="natural-constructions">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">Natural constructions and their macros</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L65" aria-label="View ZInQ.Compiler.Natural.NForm in Lean source" title="View ZInQ.Compiler.Natural.NForm in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L118" aria-label="View ZInQ.Compiler.Natural.NM in Lean source" title="View ZInQ.Compiler.Natural.NM in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L248" aria-label="View ZInQ.Compiler.Natural.alpha in Lean source" title="View ZInQ.Compiler.Natural.alpha in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L309" aria-label="View ZInQ.Compiler.Natural.power in Lean source" title="View ZInQ.Compiler.Natural.power in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L317" aria-label="View ZInQ.Compiler.Natural.binomial in Lean source" title="View ZInQ.Compiler.Natural.binomial in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L333" aria-label="View ZInQ.Compiler.Natural.orthogonal in Lean source" title="View ZInQ.Compiler.Natural.orthogonal in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L339" aria-label="View ZInQ.Compiler.Natural.mask in Lean source" title="View ZInQ.Compiler.Natural.mask in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L345" aria-label="View ZInQ.Compiler.Natural.bitAnd in Lean source" title="View ZInQ.Compiler.Natural.bitAnd in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/formulas/natural-constructions.md" aria-label="Edit the Markdown source for Natural constructions and their macros" title="Edit the Markdown source for Natural constructions and their macros"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#natural-constructions" aria-label="Link to Natural constructions and their macros" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Natural.NForm ZInQ.Compiler.Natural.NM ZInQ.Compiler.Natural.alpha ZInQ.Compiler.Natural.power ZInQ.Compiler.Natural.binomial ZInQ.Compiler.Natural.orthogonal ZInQ.Compiler.Natural.mask ZInQ.Compiler.Natural.bitAnd</div>
+<div class="bp-thmcontent">
+<p>Polynomials live in <span class="arithmatex">\(\mathbb Z[X_i:i\in\mathbb N]\)</span> and formulas are those of the
+specification chapter: atoms <span class="arithmatex">\(a\doteq b\)</span> and <span class="arithmatex">\(\langle f\rangle\)</span>, conjunctions and disjunctions,
+with the compilation <span class="arithmatex">\(\kappa\)</span> (difference, sum of squares, product; empty conjunction <span class="arithmatex">\(0\)</span>,
+empty disjunction <span class="arithmatex">\(1\)</span>). A formula <em>holds naturally</em> at <span class="arithmatex">\(x:\mathbb N\to\mathbb N\)</span> when it holds
+at the integer point <span class="arithmatex">\((x_i)_i\)</span>, atoms being read in <span class="arithmatex">\(\mathbb Z\)</span>.</p>
+<p><strong>Constructions.</strong> A <em>natural construction with <span class="arithmatex">\(k\)</span> inputs</em> keeps a variable counter <span class="arithmatex">\(c\)</span>,
+initially <span class="arithmatex">\(k\)</span> (the inputs are <span class="arithmatex">\(X_0,\dots,X_{k-1}\)</span>), and a list of <em>explicit variables</em>
+(index and kind, the inputs first). It may</p>
+<ol>
+<li>take a <em>fresh variable</em>: record <span class="arithmatex">\(X_c\)</span> as an explicit witness and increase <span class="arithmatex">\(c\)</span> by one;</li>
+<li>in <em>hierarchical mode</em> over a fixed template <span class="arithmatex">\(\mathcal P\)</span> with three parameters and <span class="arithmatex">\(79\)</span>
+   witnesses (in this chapter always the power template), <em>call</em> <span class="arithmatex">\(\mathcal P\)</span> on
+   polynomials <span class="arithmatex">\(P,Q,R\)</span>: take the block <span class="arithmatex">\(X_c,\dots,X_{c+78}\)</span>, increase <span class="arithmatex">\(c\)</span> by <span class="arithmatex">\(79\)</span>, and
+   return the atom <span class="arithmatex">\(\langle\mathcal P[P,Q,R;c]\rangle\)</span> (block variables are not explicit
+   variables).</li>
+</ol>
+<p>The result of a construction is a formula <span class="arithmatex">\(\varphi\)</span> and the final counter <span class="arithmatex">\(v\)</span>; its
+<em>polynomial</em> is <span class="arithmatex">\(\kappa(\varphi)\)</span>, with no further squaring, and its node list is the
+hash-consed node encoding of the specification chapter (an atom <span class="arithmatex">\(a\doteq b\)</span> becomes
+<span class="arithmatex">\(a+(-1)\cdot b\)</span>, sums and products of lists are left-nested, the empty sum is the constant
+<span class="arithmatex">\(0\)</span> and the empty product the constant <span class="arithmatex">\(1\)</span>, <span class="arithmatex">\(n\cdot x\)</span> is the product node of the constant
+<span class="arithmatex">\(n\)</span> and <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(x^2\)</span> is the product node <span class="arithmatex">\(x\cdot x\)</span>, and structurally equal nodes and formulas
+are created once).</p>
+<p><strong>Gadgets and macros.</strong> Each of the following is a construction step sequence returning a
+formula; fresh variables are taken in the order listed, and the witnesses of inner gadgets
+are taken when those gadgets are created, in the order in which they occur in the formula.</p>
+<ul>
+<li><span class="arithmatex">\(\mathrm{lt}(a,b)\)</span>: fresh <span class="arithmatex">\(d\)</span>; the atom <span class="arithmatex">\(b\doteq a+1+d\)</span>.</li>
+<li><span class="arithmatex">\(\mathrm{divides}(a,b)\)</span>: fresh <span class="arithmatex">\(d\)</span>; the atom <span class="arithmatex">\(b\doteq a\cdot d\)</span>.</li>
+<li><span class="arithmatex">\(\mathrm{congruent}(a,M,b)\)</span>: fresh <span class="arithmatex">\(u,v\)</span>; the atom <span class="arithmatex">\(a+Mu\doteq b+Mv\)</span>.</li>
+<li><span class="arithmatex">\(\mathrm{odd}(x)\)</span>: fresh <span class="arithmatex">\(h\)</span>; the atom <span class="arithmatex">\(x\doteq2h+1\)</span>.</li>
+<li><span class="arithmatex">\(\mathrm{alpha}(X,b,N)\)</span>: fresh <span class="arithmatex">\(r,s,t,u,v,w,x,y\)</span>; the conjunction, in this order, of
+  <span class="arithmatex">\(\mathrm{lt}(3,b)\)</span>, <span class="arithmatex">\(1+b\,u\,t\doteq u^2+t^2\)</span>, <span class="arithmatex">\(1+b\,s\,r\doteq s^2+r^2\)</span>, <span class="arithmatex">\(\mathrm{lt}(r,s)\)</span>,
+  <span class="arithmatex">\(\mathrm{divides}(u^2,s)\)</span>, <span class="arithmatex">\(v+2r\doteq bs\)</span>, <span class="arithmatex">\(\mathrm{congruent}(b,v,w)\)</span>,
+  <span class="arithmatex">\(\mathrm{congruent}(2,u,w)\)</span>, <span class="arithmatex">\(\mathrm{lt}(2,w)\)</span>, <span class="arithmatex">\(1+w\,x\,y\doteq x^2+y^2\)</span>,
+  <span class="arithmatex">\(\mathrm{lt}(2X,u)\)</span>, <span class="arithmatex">\(\mathrm{lt}(2X,v)\)</span>, <span class="arithmatex">\(\mathrm{congruent}(x,v,X)\)</span>, <span class="arithmatex">\(\mathrm{lt}(2N,u)\)</span>,
+  <span class="arithmatex">\(\mathrm{congruent}(x,u,N)\)</span>.</li>
+<li><span class="arithmatex">\(\mathrm{power}(P,Q,R)\)</span> in <em>flat mode</em>: fresh <span class="arithmatex">\(b,m,a_0,a_1,a_2\)</span>; the disjunction of
+  <span class="arithmatex">\(\bigwedge(Q\doteq0,\ R\doteq0,\ P\doteq1)\)</span>, <span class="arithmatex">\(\bigwedge(Q\doteq0,\ \mathrm{lt}(0,R),\ P\doteq0)\)</span>
+  and <span class="arithmatex">\(\bigwedge\bigl(\mathrm{lt}(0,Q),\ \mathrm{alpha}(a_0,Q+4,R+1),\ b\doteq a_0+Q^2+2,\
+  m+Q^2+1\doteq bQ,\ \mathrm{lt}(P,m),\ \mathrm{alpha}(a_1,b,R),\ \mathrm{alpha}(a_2,b,R+1),\
+  \mathrm{congruent}(P+ba_1,m,Qa_1+a_2)\bigr)\)</span>. In hierarchical mode, <span class="arithmatex">\(\mathrm{power}(P,Q,R)\)</span>
+  is the call of step 2.</li>
+<li><span class="arithmatex">\(\mathrm{binomial}(C,N,K)\)</span>: fresh <span class="arithmatex">\(\beta,\tau,\pi,q,r\)</span>; the conjunction of
+  <span class="arithmatex">\(\mathrm{power}(\beta,2,N+1)\)</span>, <span class="arithmatex">\(\mathrm{power}(\tau,\beta+1,N)\)</span>, <span class="arithmatex">\(\mathrm{power}(\pi,\beta,K)\)</span>,
+  <span class="arithmatex">\(\mathrm{lt}(C,\beta)\)</span>, <span class="arithmatex">\(\mathrm{lt}(r,\pi)\)</span>, <span class="arithmatex">\(\tau\doteq\pi(\beta q+C)+r\)</span>.</li>
+<li><span class="arithmatex">\(\mathrm{orthogonal}(a,b)\)</span>: fresh <span class="arithmatex">\(c\)</span>; <span class="arithmatex">\(\bigwedge(\mathrm{binomial}(c,a+b,a),\mathrm{odd}(c))\)</span>.</li>
+<li><span class="arithmatex">\(\mathrm{mask}(a,b)\)</span>: fresh <span class="arithmatex">\(c\)</span>; <span class="arithmatex">\(\bigwedge(\mathrm{binomial}(c,b,a),\mathrm{odd}(c))\)</span>.</li>
+<li><span class="arithmatex">\(\mathrm{bitAnd}(z,x,y)\)</span>: fresh <span class="arithmatex">\(a,b\)</span>; the conjunction of <span class="arithmatex">\(x\doteq z+a\)</span>, <span class="arithmatex">\(y\doteq z+b\)</span>,
+  <span class="arithmatex">\(\mathrm{orthogonal}(z,a)\)</span>, <span class="arithmatex">\(\mathrm{orthogonal}(z,b)\)</span>, <span class="arithmatex">\(\mathrm{orthogonal}(a,b)\)</span>.</li>
+</ul>
+<p>This is a definition, a transcription of the compiler's builder. The intended meanings
+are proved in the macro semantics; the arguments are always polynomials in variables
+allocated before the macro, so a macro's own variables occur only inside its formula.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">inductive</span> NForm
+  <span class="bp-lean-comment">/-- The atom `a ≐ b`. -/</span>
+  | eq (a b : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L58" data-lean-name="ZInQ.Compiler.Natural.Ex">Ex</a>)
+  <span class="bp-lean-comment">/-- The atom `⟨f⟩`. -/</span>
+  | atom (f : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L58" data-lean-name="ZInQ.Compiler.Natural.Ex">Ex</a>)
+  <span class="bp-lean-comment">/-- The call atom `⟨𝒫[P, Q, R; w]⟩`, with the index of its call node. -/</span>
+  | call (P Q R : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L58" data-lean-name="ZInQ.Compiler.Natural.Ex">Ex</a>) (w : ℕ) (node : ℕ)
+  <span class="bp-lean-comment">/-- The conjunction. -/</span>
+  | and (fs : List NForm)
+  <span class="bp-lean-comment">/-- The disjunction. -/</span>
+  | or (fs : List NForm)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> NM (α : <span class="bp-lean-keyword">Type</span>) : <span class="bp-lean-keyword">Type</span> := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L105" data-lean-name="ZInQ.Compiler.Natural.State">State</a> → α × <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L105" data-lean-name="ZInQ.Compiler.Natural.State">State</a></code></pre>
+<details class="bp-lean-fold">
+<summary><code>ZInQ.Compiler.Natural.alpha</code> · 28 lines</summary>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> alpha (X b N : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L58" data-lean-name="ZInQ.Compiler.Natural.Ex">Ex</a>) : <a class="bp-lean-ref" href="#natural-constructions" data-lean-name="ZInQ.Compiler.Natural.NM">NM</a> <a class="bp-lean-ref" href="#natural-constructions" data-lean-name="ZInQ.Compiler.Natural.NForm">NForm</a> := <span class="bp-lean-keyword">do</span>
+  <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L145" data-lean-name="ZInQ.Compiler.Natural.note">note</a> .alpha
+  <span class="bp-lean-keyword">let</span> r ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L153" data-lean-name="ZInQ.Compiler.Natural.fresh">fresh</a>
+  <span class="bp-lean-keyword">let</span> s ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L153" data-lean-name="ZInQ.Compiler.Natural.fresh">fresh</a>
+  <span class="bp-lean-keyword">let</span> t ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L153" data-lean-name="ZInQ.Compiler.Natural.fresh">fresh</a>
+  <span class="bp-lean-keyword">let</span> u ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L153" data-lean-name="ZInQ.Compiler.Natural.fresh">fresh</a>
+  <span class="bp-lean-keyword">let</span> v ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L153" data-lean-name="ZInQ.Compiler.Natural.fresh">fresh</a>
+  <span class="bp-lean-keyword">let</span> w ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L153" data-lean-name="ZInQ.Compiler.Natural.fresh">fresh</a>
+  <span class="bp-lean-keyword">let</span> x ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L153" data-lean-name="ZInQ.Compiler.Natural.fresh">fresh</a>
+  <span class="bp-lean-keyword">let</span> y ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L153" data-lean-name="ZInQ.Compiler.Natural.fresh">fresh</a>
+  <span class="bp-lean-keyword">let</span> one ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L148" data-lean-name="ZInQ.Compiler.Natural.constant">constant</a> 1
+  <span class="bp-lean-keyword">let</span> two ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L148" data-lean-name="ZInQ.Compiler.Natural.constant">constant</a> 2
+  <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L206" data-lean-name="ZInQ.Compiler.Natural.andM">andM</a> [
+    <span class="bp-lean-keyword">do</span> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L218" data-lean-name="ZInQ.Compiler.Natural.lt">lt</a> (← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L148" data-lean-name="ZInQ.Compiler.Natural.constant">constant</a> 3) b,
+    <span class="bp-lean-keyword">do</span> pure (.eq (← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L173" data-lean-name="ZInQ.Compiler.Natural.addL">addL</a> [one, ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L178" data-lean-name="ZInQ.Compiler.Natural.mulL">mulL</a> [b, u, t]]) (← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L173" data-lean-name="ZInQ.Compiler.Natural.addL">addL</a> [← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L183" data-lean-name="ZInQ.Compiler.Natural.square">square</a> u, ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L183" data-lean-name="ZInQ.Compiler.Natural.square">square</a> t])),
+    <span class="bp-lean-keyword">do</span> pure (.eq (← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L173" data-lean-name="ZInQ.Compiler.Natural.addL">addL</a> [one, ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L178" data-lean-name="ZInQ.Compiler.Natural.mulL">mulL</a> [b, s, r]]) (← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L173" data-lean-name="ZInQ.Compiler.Natural.addL">addL</a> [← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L183" data-lean-name="ZInQ.Compiler.Natural.square">square</a> s, ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L183" data-lean-name="ZInQ.Compiler.Natural.square">square</a> r])),
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L218" data-lean-name="ZInQ.Compiler.Natural.lt">lt</a> r s,
+    <span class="bp-lean-keyword">do</span> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L225" data-lean-name="ZInQ.Compiler.Natural.divides">divides</a> (← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L183" data-lean-name="ZInQ.Compiler.Natural.square">square</a> u) s,
+    <span class="bp-lean-keyword">do</span> pure (.eq (← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L173" data-lean-name="ZInQ.Compiler.Natural.addL">addL</a> [v, ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L186" data-lean-name="ZInQ.Compiler.Natural.scale">scale</a> 2 r]) (← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L178" data-lean-name="ZInQ.Compiler.Natural.mulL">mulL</a> [b, s])),
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L232" data-lean-name="ZInQ.Compiler.Natural.congruent">congruent</a> b v w,
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L232" data-lean-name="ZInQ.Compiler.Natural.congruent">congruent</a> two u w,
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L218" data-lean-name="ZInQ.Compiler.Natural.lt">lt</a> two w,
+    <span class="bp-lean-keyword">do</span> pure (.eq (← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L173" data-lean-name="ZInQ.Compiler.Natural.addL">addL</a> [one, ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L178" data-lean-name="ZInQ.Compiler.Natural.mulL">mulL</a> [w, x, y]]) (← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L173" data-lean-name="ZInQ.Compiler.Natural.addL">addL</a> [← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L183" data-lean-name="ZInQ.Compiler.Natural.square">square</a> x, ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L183" data-lean-name="ZInQ.Compiler.Natural.square">square</a> y])),
+    <span class="bp-lean-keyword">do</span> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L218" data-lean-name="ZInQ.Compiler.Natural.lt">lt</a> (← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L186" data-lean-name="ZInQ.Compiler.Natural.scale">scale</a> 2 X) u,
+    <span class="bp-lean-keyword">do</span> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L218" data-lean-name="ZInQ.Compiler.Natural.lt">lt</a> (← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L186" data-lean-name="ZInQ.Compiler.Natural.scale">scale</a> 2 X) v,
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L232" data-lean-name="ZInQ.Compiler.Natural.congruent">congruent</a> x v X,
+    <span class="bp-lean-keyword">do</span> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L218" data-lean-name="ZInQ.Compiler.Natural.lt">lt</a> (← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L186" data-lean-name="ZInQ.Compiler.Natural.scale">scale</a> 2 N) u,
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L232" data-lean-name="ZInQ.Compiler.Natural.congruent">congruent</a> x u N]</code></pre>
+</details>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Compiler.Natural.Ex">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> Ex <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The node index. -/</span>
+  node : ℕ
+  <span class="bp-lean-comment">/-- The polynomial. -/</span>
+  poly : Poly</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:58</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.State">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> State <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The variable counter. -/</span>
+  next : ℕ
+  <span class="bp-lean-comment">/-- The explicit variables, in allocation order. -/</span>
+  vars : List (ℕ × VarKind)
+  <span class="bp-lean-comment">/-- The hash-consed node list. -/</span>
+  nodes : List NatNode
+  <span class="bp-lean-comment">/-- The block starts of the power calls, in allocation order. -/</span>
+  blocks : List ℕ
+  <span class="bp-lean-comment">/-- The gadgets and macros run so far, in order. -/</span>
+  log : List MacroKind := []</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:105</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.NM">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> NM (α : <span class="bp-lean-keyword">Type</span>) : <span class="bp-lean-keyword">Type</span> := State → α × State</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:118</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.NForm">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">inductive</span> NForm
+  <span class="bp-lean-comment">/-- The atom `a ≐ b`. -/</span>
+  | eq (a b : Ex)
+  <span class="bp-lean-comment">/-- The atom `⟨f⟩`. -/</span>
+  | atom (f : Ex)
+  <span class="bp-lean-comment">/-- The call atom `⟨𝒫[P, Q, R; w]⟩`, with the index of its call node. -/</span>
+  | call (P Q R : Ex) (w : ℕ) (node : ℕ)
+  <span class="bp-lean-comment">/-- The conjunction. -/</span>
+  | and (fs : List NForm)
+  <span class="bp-lean-comment">/-- The disjunction. -/</span>
+  | or (fs : List NForm)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:65</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.note">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> note (k : MacroKind) : NM Unit := <span class="bp-lean-keyword">fun</span> s =&gt; ((), { s <span class="bp-lean-keyword">with</span> log := s.log ++ [k] })</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:145</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.fresh">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> fresh : NM Ex := <span class="bp-lean-keyword">fun</span> s =&gt;
+  <span class="bp-lean-keyword">let</span> r := node (.var s.next)
+    { s <span class="bp-lean-keyword">with</span> next := s.next + 1, vars := s.vars ++ [(s.next, .witness)] }
+  (⟨r.1, X s.next⟩, r.2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:153</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.constant">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> constant (c : ℤ) : NM Ex := <span class="bp-lean-keyword">do</span>
+  <span class="bp-lean-keyword">let</span> i ← node (.const c)
+  pure ⟨i, C c⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:148</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.andM">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> andM (ms : List (NM NForm)) : NM NForm := <span class="bp-lean-keyword">do</span>
+  <span class="bp-lean-keyword">let</span> fs ← seqM ms
+  pure (.and fs)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:206</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.lt">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> lt (a b : Ex) : NM NForm := <span class="bp-lean-keyword">do</span>
+  note .lt
+  <span class="bp-lean-keyword">let</span> d ← fresh
+  <span class="bp-lean-keyword">let</span> e ← addL [a, ← constant 1, d]
+  pure (.eq b e)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:218</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.addL">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> addL : List Ex → NM Ex
+  | [] =&gt; constant 0
+  | x :: xs =&gt; addFrom x xs</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:173</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.mulL">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> mulL : List Ex → NM Ex
+  | [] =&gt; constant 1
+  | x :: xs =&gt; mulFrom x xs</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:178</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.square">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> square (x : Ex) : NM Ex := mulL [x, x]</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:183</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.divides">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> divides (a b : Ex) : NM NForm := <span class="bp-lean-keyword">do</span>
+  note .divides
+  <span class="bp-lean-keyword">let</span> d ← fresh
+  <span class="bp-lean-keyword">let</span> e ← mulL [a, d]
+  pure (.eq b e)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:225</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.scale">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> scale (n : ℤ) (x : Ex) : NM Ex := <span class="bp-lean-keyword">do</span>
+  <span class="bp-lean-keyword">let</span> c ← constant n
+  mulL [c, x]</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:186</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.congruent">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> congruent (a M b : Ex) : NM NForm := <span class="bp-lean-keyword">do</span>
+  note .congruent
+  <span class="bp-lean-keyword">let</span> u ← fresh
+  <span class="bp-lean-keyword">let</span> v ← fresh
+  <span class="bp-lean-keyword">let</span> l ← addL [a, ← mulL [M, u]]
+  <span class="bp-lean-keyword">let</span> r ← addL [b, ← mulL [M, v]]
+  pure (.eq l r)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:232</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#compiler-specification">Compiler specification</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#compiler-source">Compiler source</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-102-alpha-formula">Section 10.2 alpha formula</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 5</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../../syntax/language/index.html#formula-compilation">Formulas and their polynomial compilation</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hierarchical-calls">Circuits of hierarchical constructions</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#macro-semantics">Semantics of the natural macros</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#natural-compilation">Compilation and private witnesses over the naturals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#power-template">The power template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../packed/index.html#packed-compiler">The packed-history construction</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="compiler/natural/formulas/natural-atom-gadgets">
+<h4 class="bp-thmheading" id="natural-atom-gadgets">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The equational gadgets over the naturals</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Gadgets.lean#L18" aria-label="View ZInQ.Compiler.Natural.lt_gadget_iff in Lean source" title="View ZInQ.Compiler.Natural.lt_gadget_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Gadgets.lean#L23" aria-label="View ZInQ.Compiler.Natural.dvd_gadget_iff in Lean source" title="View ZInQ.Compiler.Natural.dvd_gadget_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Gadgets.lean#L25" aria-label="View ZInQ.Compiler.Natural.congr_gadget_iff in Lean source" title="View ZInQ.Compiler.Natural.congr_gadget_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Gadgets.lean#L41" aria-label="View ZInQ.Compiler.Natural.odd_gadget_iff in Lean source" title="View ZInQ.Compiler.Natural.odd_gadget_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/formulas/natural-atom-gadgets.md" aria-label="Edit the Markdown source for The equational gadgets over the naturals" title="Edit the Markdown source for The equational gadgets over the naturals"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#natural-atom-gadgets" aria-label="Link to The equational gadgets over the naturals" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Natural.lt_gadget_iff ZInQ.Compiler.Natural.dvd_gadget_iff ZInQ.Compiler.Natural.congr_gadget_iff ZInQ.Compiler.Natural.odd_gadget_iff</div>
+<div class="bp-thmcontent">
+<p>For all natural numbers <span class="arithmatex">\(a,b,M,x\)</span>:</p>
+<ol>
+<li><span class="arithmatex">\((\exists d\in\mathbb N,\ b=a+1+d)\iff a&lt;b\)</span>;</li>
+<li><span class="arithmatex">\((\exists d\in\mathbb N,\ b=ad)\iff a\mid b\)</span>;</li>
+<li><span class="arithmatex">\((\exists u,v\in\mathbb N,\ a+Mu=b+Mv)\iff a\equiv b\pmod M\)</span>, where for <span class="arithmatex">\(M=0\)</span> the right
+   side means <span class="arithmatex">\(a=b\)</span>;</li>
+<li><span class="arithmatex">\((\exists h\in\mathbb N,\ x=2h+1)\iff x\)</span> is odd.</li>
+</ol>
+<p>There is no exception at zero modulus: for <span class="arithmatex">\(M=0\)</span> the equation in item 3 says <span class="arithmatex">\(a=b\)</span>.</p>
+<p><strong>Proof sketch.</strong> Items 1, 2 and 4 are the definitions of <span class="arithmatex">\(&lt;\)</span>, <span class="arithmatex">\(\mid\)</span> and oddness in
+<span class="arithmatex">\(\mathbb N\)</span>. Item 3: if <span class="arithmatex">\(a\equiv b\pmod M\)</span> with <span class="arithmatex">\(M&gt;0\)</span>, say <span class="arithmatex">\(a\le b\)</span>, then <span class="arithmatex">\(M\mid b-a\)</span>; take
+<span class="arithmatex">\(u=(b-a)/M\)</span>, <span class="arithmatex">\(v=0\)</span> (symmetrically if <span class="arithmatex">\(b&lt;a\)</span>). Conversely <span class="arithmatex">\(a+Mu=b+Mv\)</span> gives
+<span class="arithmatex">\(a\bmod M=b\bmod M\)</span>. For <span class="arithmatex">\(M=0\)</span> both sides say <span class="arithmatex">\(a=b\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> lt_gadget_iff (a b : ℕ) : (∃ d : ℕ, b = a + 1 + d) ↔ a &lt; b</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> dvd_gadget_iff (a b : ℕ) : (∃ d : ℕ, b = a * d) ↔ a ∣ b</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> congr_gadget_iff (a M b : ℕ) : (∃ u v : ℕ, a + M * u = b + M * v) ↔ a ≡ b [MOD M]</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-102-alpha-formula">Section 10.2 alpha formula</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#compiler-specification">Compiler specification</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../../sources/compiler-natural-locators.html#section-102-alpha-formula"> </a></p>
+<p><a href="../../../../sources/compiler-natural-locators.html#compiler-specification"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#macro-semantics">Semantics of the natural macros</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#power-template-semantics">Semantics of the power template</a></span></div>
+</div>
+</details>
+</div>
+<p>Over the naturals a compiled formula vanishes exactly where it holds, and the existential
+quantifiers over the witnesses of different conjuncts separate.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="compiler/natural/formulas/natural-compilation">
+<h4 class="bp-thmheading" id="natural-compilation">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Compilation and private witnesses over the naturals</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L169" aria-label="View ZInQ.Compiler.Natural.compile_zv_eq_zero_iff in Lean source" title="View ZInQ.Compiler.Natural.compile_zv_eq_zero_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L199" aria-label="View ZInQ.Compiler.Natural.exists_agree_congr in Lean source" title="View ZInQ.Compiler.Natural.exists_agree_congr in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L562" aria-label="View ZInQ.Compiler.Natural.callPower_spec in Lean source" title="View ZInQ.Compiler.Natural.callPower_spec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/formulas/natural-compilation.md" aria-label="Edit the Markdown source for Compilation and private witnesses over the naturals" title="Edit the Markdown source for Compilation and private witnesses over the naturals"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#natural-compilation" aria-label="Link to Compilation and private witnesses over the naturals" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Natural.compile_zv_eq_zero_iff ZInQ.Compiler.Natural.exists_agree_congr ZInQ.Compiler.Natural.callPower_spec</div>
+<div class="bp-thmcontent">
+<ol>
+<li>For every formula <span class="arithmatex">\(\varphi\)</span> and every <span class="arithmatex">\(x:\mathbb N\to\mathbb N\)</span>,
+   <span class="arithmatex">\(\kappa(\varphi)(x)=0\iff\varphi\)</span> holds naturally at <span class="arithmatex">\(x\)</span>.</li>
+<li>Let a natural construction run from counter <span class="arithmatex">\(c_0\)</span> to counter <span class="arithmatex">\(c_1\)</span> and produce
+   <span class="arithmatex">\(\varphi\)</span>, with all argument polynomials in variables below <span class="arithmatex">\(c_0\)</span>. For <span class="arithmatex">\(x:\mathbb N\to\mathbb N\)</span>
+   and <span class="arithmatex">\(y:[c_0,c_1)\to\mathbb N\)</span> write <span class="arithmatex">\(x[y]\)</span> for the assignment equal to <span class="arithmatex">\(y\)</span> on <span class="arithmatex">\([c_0,c_1)\)</span>
+   and to <span class="arithmatex">\(x\)</span> elsewhere. Then the statement
+   $<span class="arithmatex">\(\exists y:[c_0,c_1)\to\mathbb N,\ \ \varphi\text{ holds naturally at }x[y]\)</span>$
+   depends only on <span class="arithmatex">\(x\)</span> below <span class="arithmatex">\(c_0\)</span>. If <span class="arithmatex">\(\varphi=\bigwedge_i\varphi_i\)</span> where <span class="arithmatex">\(\varphi_i\)</span> is
+   produced on the subinterval <span class="arithmatex">\([c_{i-1},c_i)\)</span>, it is equivalent to the conjunction of the
+   corresponding statements for the <span class="arithmatex">\(\varphi_i\)</span>; if <span class="arithmatex">\(\varphi=\bigvee_i\varphi_i\)</span>, to their
+   disjunction, the variables of inactive disjuncts being set to <span class="arithmatex">\(0\)</span>.</li>
+<li>The same holds when some atoms are power-template calls
+   <span class="arithmatex">\(\langle\mathcal P[P,Q,R;w]\rangle\)</span> with blocks inside <span class="arithmatex">\([c_0,c_1)\)</span>, pairwise disjoint and
+   not occurring in any other atom or argument: the call atom may then be replaced by the
+   statement that some values of its block make <span class="arithmatex">\(\mathcal P\)</span> vanish, quantified inside its
+   conjunct.</li>
+</ol>
+<p><strong>Proof sketch.</strong> (1) For integers, a sum of squares vanishes iff every term does and a
+product vanishes iff some factor does; induct on <span class="arithmatex">\(\varphi\)</span> (this is the specification
+chapter's statement over <span class="arithmatex">\(\mathbb Q\)</span> restricted to integer points). (2) Induct on the
+construction: atoms and fresh variables are immediate; for a conjunction the intervals of
+the conjuncts are disjoint, so witnesses for the conjuncts glue to one <span class="arithmatex">\(y\)</span> and a common <span class="arithmatex">\(y\)</span>
+restricts to each; for a disjunction a witness for the true disjunct is extended by <span class="arithmatex">\(0\)</span> on
+the other intervals, which do not occur in the true disjunct. Nonemptiness of <span class="arithmatex">\(\mathbb N\)</span> is
+what allows existential quantifiers to be pulled across the connectives. (3) is (2) with the
+block of each call treated as the interval of a one-atom construction.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> compile_zv_eq_zero_iff (φ : <a class="bp-lean-ref" href="../../../syntax/language/index.html#formula-compilation" data-lean-name="ZInQ.Syntax.Formula">Formula</a>) (x : ℕ → ℕ) : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L35" data-lean-name="ZInQ.Compiler.Natural.zv">zv</a> x φ.compile = 0 ↔ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L146" data-lean-name="ZInQ.Compiler.Natural.NHolds">NHolds</a> x φ</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_agree_congr {φ : <a class="bp-lean-ref" href="../../../syntax/language/index.html#formula-compilation" data-lean-name="ZInQ.Syntax.Formula">Formula</a>} {c₀ c₁ : ℕ} (hφ : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L125" data-lean-name="ZInQ.Syntax.VarsLT">VarsLT</a> φ.compile c₁) {x x&#x27; : ℕ → ℕ}
+    (h : ∀ i &lt; c₀, x i = x&#x27; i) :
+    (∃ y, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L180" data-lean-name="ZInQ.Compiler.Natural.Agree">Agree</a> x y c₀ c₁ ∧ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L146" data-lean-name="ZInQ.Compiler.Natural.NHolds">NHolds</a> y φ) ↔ (∃ y, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L180" data-lean-name="ZInQ.Compiler.Natural.Agree">Agree</a> x&#x27; y c₀ c₁ ∧ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L146" data-lean-name="ZInQ.Compiler.Natural.NHolds">NHolds</a> y φ)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> callPower_spec {τ : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L172" data-lean-name="ZInQ.Syntax.ExPoly">ExPoly</a>} (hτ : τ.WF) (hw : τ.witnesses = <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L136" data-lean-name="ZInQ.Compiler.Natural.powerWitnesses">powerWitnesses</a>)
+    {P Q R : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L58" data-lean-name="ZInQ.Compiler.Natural.Ex">Ex</a>} {U : Set ℕ} (hP : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L50" data-lean-name="ZInQ.Syntax.VarsIn">VarsIn</a> P.poly (· ∈ U)) (hQ : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L50" data-lean-name="ZInQ.Syntax.VarsIn">VarsIn</a> Q.poly (· ∈ U))
+    (hR : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L50" data-lean-name="ZInQ.Syntax.VarsIn">VarsIn</a> R.poly (· ∈ U)) :
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L375" data-lean-name="ZInQ.Compiler.Natural.MSpec">MSpec</a> τ (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L191" data-lean-name="ZInQ.Compiler.Natural.callPower">callPower</a> P Q R) U <span class="bp-lean-keyword">fun</span> x =&gt; <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L541" data-lean-name="ZInQ.Compiler.Natural.ExNatRel">ExNatRel</a> τ (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L546" data-lean-name="ZInQ.Compiler.Natural.callVals">callVals</a> x P.poly Q.poly R.poly τ.params)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Syntax.Formula">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">inductive</span> Formula
+  <span class="bp-lean-comment">/-- The atom `a ≐ b`. -/</span>
+  | eq (a b : Poly)
+  <span class="bp-lean-comment">/-- The atom `⟨f⟩`, read as `f = 0`. -/</span>
+  | atom (f : Poly)
+  <span class="bp-lean-comment">/-- The call atom `⟨τ[g; w]⟩`. -/</span>
+  | call (τ : ExPoly) (g : Fin τ.params → Poly) (w : ℕ)
+  <span class="bp-lean-comment">/-- The conjunction `⋀ (φ_1, …, φ_k)`. -/</span>
+  | and (fs : List Formula)
+  <span class="bp-lean-comment">/-- The disjunction `⋁ (φ_1, …, φ_k)`. -/</span>
+  | or (fs : List Formula)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Formula.lean:23</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.zv">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> zv (x : ℕ → ℕ) (f : Poly) : ℤ := MvPolynomial.eval (<span class="bp-lean-keyword">fun</span> i =&gt; (x i : ℤ)) f</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Compilation.lean:35</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.NHolds">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> NHolds (x : ℕ → ℕ) (φ : Formula) : <span class="bp-lean-keyword">Prop</span> := φ.Holds (qa x)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Compilation.lean:146</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.VarsLT">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> VarsLT (f : Poly) (n : ℕ) : <span class="bp-lean-keyword">Prop</span> := VarsIn f (· &lt; n)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Basic.lean:125</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.Agree">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Agree (x y : ℕ → ℕ) (c₀ c₁ : ℕ) : <span class="bp-lean-keyword">Prop</span> := ∀ i, ¬ (c₀ ≤ i ∧ i &lt; c₁) → y i = x i</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Compilation.lean:180</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.ExPoly">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> ExPoly <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The parameter count `p`; the parameters are `X_0, …, X_{p-1}`. -/</span>
+  params : ℕ
+  <span class="bp-lean-comment">/-- The witness count `m`; the witnesses are `X_p, …, X_{p+m-1}`. -/</span>
+  witnesses : ℕ
+  <span class="bp-lean-comment">/-- The polynomial. -/</span>
+  poly : Poly</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Basic.lean:172</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.powerWitnesses">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> powerWitnesses : ℕ := 79</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:136</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.Ex">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> Ex <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The node index. -/</span>
+  node : ℕ
+  <span class="bp-lean-comment">/-- The polynomial. -/</span>
+  poly : Poly</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:58</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.VarsIn">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> VarsIn (f : Poly) (P : ℕ → <span class="bp-lean-keyword">Prop</span>) : <span class="bp-lean-keyword">Prop</span> := ∀ i ∈ f.vars, P i</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Basic.lean:50</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.MSpec">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> MSpec (τ : ExPoly) (m : NM NForm) (U : Set ℕ) (R : (ℕ → ℕ) → <span class="bp-lean-keyword">Prop</span>) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ s : State, (∀ i ∈ U, i &lt; s.next) → Spec ((m s).1.toFormula τ) U s.next (m s).2.next R</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Compilation.lean:375</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.callPower">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> callPower (P Q R : Ex) : NM NForm := <span class="bp-lean-keyword">fun</span> s =&gt;
+  (.call P Q R s.next s.nodes.length,
+    { s <span class="bp-lean-keyword">with</span> next := s.next + powerWitnesses,
+             nodes := s.nodes ++ [.call P.node Q.node R.node s.next],
+             blocks := s.blocks ++ [s.next] })</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:191</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.ExNatRel">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ExNatRel (τ : ExPoly) (a : Fin τ.params → ℤ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ y : Fin τ.witnesses → ℕ,
+    ev (assign τ.params τ.witnesses (<span class="bp-lean-keyword">fun</span> i =&gt; (a i : ℚ)) (<span class="bp-lean-keyword">fun</span> j =&gt; (y j : ℚ))) τ.poly = 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Compilation.lean:541</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.callVals">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> callVals (x : ℕ → ℕ) (P Q R : Poly) (p : ℕ) : Fin p → ℤ :=
+  <span class="bp-lean-keyword">fun</span> i =&gt; zv x (callArgs P Q R p i)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Compilation.lean:546</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="informally-uses">Informally uses</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Informally uses</div>
+<ul>
+<li><a href="../../../syntax/language/index.html#existential-lifting">Private witness blocks</a></li>
+</ul>
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#compiler-specification">Compiler specification</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#halting-correctness-proof">Halting correctness proof</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#natural-constructions">Natural constructions and their macros</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../../syntax/index.html#sum-of-squares-semantics">Sums of squares and products over the rationals</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hierarchical-calls">Circuits of hierarchical constructions</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#macro-semantics">Semantics of the natural macros</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#power-template-semantics">Semantics of the power template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../universal/index.html#precision-circuit-specialization">The precision circuit is a specialization</a></span></div>
+</div>
+</details>
+</div>
+<p>The power template is the compiled power macro: three parameters, <span class="arithmatex">\(79\)</span> witnesses, <span class="arithmatex">\(474\)</span>
+nodes. Its natural zeros are exactly the triples with <span class="arithmatex">\(P=Q^R\)</span>. With it, every macro means
+what it should.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="compiler/natural/formulas/power-template">
+<h4 class="bp-thmheading" id="power-template">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The power template</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/PowerTemplate.lean#L40" aria-label="View ZInQ.Compiler.Natural.powerTemplate in Lean source" title="View ZInQ.Compiler.Natural.powerTemplate in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/PowerTemplate.lean#L78" aria-label="View ZInQ.Compiler.Natural.powerTemplate_poly in Lean source" title="View ZInQ.Compiler.Natural.powerTemplate_poly in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/PowerTemplateNodes.lean#L15" aria-label="View ZInQ.Compiler.Natural.powerTemplateCircuit_stats in Lean source" title="View ZInQ.Compiler.Natural.powerTemplateCircuit_stats in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/formulas/power-template.md" aria-label="Edit the Markdown source for The power template" title="Edit the Markdown source for The power template"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#power-template" aria-label="Link to The power template" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Natural.powerTemplate ZInQ.Compiler.Natural.powerTemplate_poly ZInQ.Compiler.Natural.powerTemplateCircuit_stats</div>
+<div class="bp-thmcontent">
+<p>The <em>power template</em> <span class="arithmatex">\(\mathcal P\)</span> is the template obtained from the natural construction
+with <span class="arithmatex">\(3\)</span> inputs <span class="arithmatex">\(P=X_0\)</span>, <span class="arithmatex">\(Q=X_1\)</span>, <span class="arithmatex">\(R=X_2\)</span> consisting of the single flat macro
+<span class="arithmatex">\(\mathrm{power}(P,Q,R)\)</span>: it has parameter count <span class="arithmatex">\(3\)</span>, variable count <span class="arithmatex">\(82\)</span> (so <span class="arithmatex">\(79\)</span>
+witnesses <span class="arithmatex">\(X_3,\dots,X_{81}\)</span>, all explicit), and polynomial
+$<span class="arithmatex">\(\mathcal P(P,Q,R,w)=\kappa(\mathrm{power}(P,Q,R)),\)</span>$
+the product of the three branch polynomials (each a sum of squares); it is not squared
+again. Its witnesses are, in order: <span class="arithmatex">\(b,m,a_0,a_1,a_2\)</span>; the strict-difference witness of
+<span class="arithmatex">\(0&lt;R\)</span>; that of <span class="arithmatex">\(0&lt;Q\)</span>; the <span class="arithmatex">\(23\)</span> witnesses of <span class="arithmatex">\(\mathrm{alpha}(a_0,Q+4,R+1)\)</span> (its eight
+variables <span class="arithmatex">\(r,s,t,u,v,w,x,y\)</span> followed by the fifteen gadget witnesses: one each for
+<span class="arithmatex">\(3&lt;b\)</span>, <span class="arithmatex">\(r&lt;s\)</span>, <span class="arithmatex">\(u^2\mid s\)</span>, two for each of the four congruences, one each for <span class="arithmatex">\(2&lt;w\)</span>,
+<span class="arithmatex">\(2X&lt;u\)</span>, <span class="arithmatex">\(2X&lt;v\)</span>, <span class="arithmatex">\(2N&lt;u\)</span>, in formula order); the witness of <span class="arithmatex">\(P&lt;m\)</span>; the <span class="arithmatex">\(23\)</span> witnesses of
+<span class="arithmatex">\(\mathrm{alpha}(a_1,b,R)\)</span>; the <span class="arithmatex">\(23\)</span> of <span class="arithmatex">\(\mathrm{alpha}(a_2,b,R+1)\)</span>; the two of the final
+congruence. Its node list is the hash-consed node encoding of the construction; its node
+statistics (<span class="arithmatex">\(474\)</span> nodes, constants <span class="arithmatex">\(0,1,4,2,3,-1\)</span> in order of first occurrence, no calls) are
+a finite check of the universal-circuit section.</p>
+<p>This is a definition. A <em>power call</em> <span class="arithmatex">\(\mathcal P[g_P,g_Q,g_R;w]\)</span> substitutes the three
+parameter polynomials and moves the <span class="arithmatex">\(79\)</span> witnesses to the block <span class="arithmatex">\(X_w,\dots,X_{w+78}\)</span>, as in
+the call semantics of the specification chapter; this is the power interface between the
+natural circuit and the power-value recipe.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> powerTemplate : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L172" data-lean-name="ZInQ.Syntax.ExPoly">ExPoly</a> := ⟨3, 79, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/PowerTemplate.lean#L35" data-lean-name="ZInQ.Compiler.Natural.powerTemplatePoly">powerTemplatePoly</a>⟩</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> powerTemplate_poly : <a class="bp-lean-ref" href="#power-template" data-lean-name="ZInQ.Compiler.Natural.powerTemplate">powerTemplate</a>.poly = <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/PowerTemplate.lean#L43" data-lean-name="ZInQ.Compiler.Natural.powerTemplateFormula">powerTemplateFormula</a>.compile</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> powerTemplateCircuit_stats :
+    (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/PowerTemplate.lean#L31" data-lean-name="ZInQ.Compiler.Natural.powerTemplateCircuit">powerTemplateCircuit</a>.nodes.length, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/PowerTemplate.lean#L31" data-lean-name="ZInQ.Compiler.Natural.powerTemplateCircuit">powerTemplateCircuit</a>.root, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/PowerTemplate.lean#L31" data-lean-name="ZInQ.Compiler.Natural.powerTemplateCircuit">powerTemplateCircuit</a>.varCount)
+      = (474, 473, 82)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Syntax.ExPoly">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> ExPoly <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The parameter count `p`; the parameters are `X_0, …, X_{p-1}`. -/</span>
+  params : ℕ
+  <span class="bp-lean-comment">/-- The witness count `m`; the witnesses are `X_p, …, X_{p+m-1}`. -/</span>
+  witnesses : ℕ
+  <span class="bp-lean-comment">/-- The polynomial. -/</span>
+  poly : Poly</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Basic.lean:172</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.powerTemplatePoly">
+<pre class="bp-lean"><code>@[irreducible] <span class="bp-lean-keyword">def</span> powerTemplatePoly : Poly := powerTemplateCircuit.poly ExPoly.empty</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/PowerTemplate.lean:35</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.powerTemplate">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> powerTemplate : ExPoly := ⟨3, 79, powerTemplatePoly⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/PowerTemplate.lean:40</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.powerTemplateFormula">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> powerTemplateFormula : Formula := powerTemplateConstruction.formula ExPoly.empty 3</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/PowerTemplate.lean:43</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.powerTemplateCircuit">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> powerTemplateCircuit : NatCircuit := powerTemplateConstruction.toCircuit 3</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/PowerTemplate.lean:31</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-101-saved-polynomial">Section 10.1 saved polynomial</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-104-power-blocks">Section 10.4 power blocks</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#halting-correctness-proof">Halting correctness proof</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#saved-precision-polynomial">Saved precision polynomial</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../../sources/compiler-natural-locators.html#section-101-saved-polynomial"> </a></p>
+<p><a href="../../../../sources/compiler-natural-locators.html#section-104-power-blocks"> </a></p>
+<p><a href="../../../../sources/compiler-natural-locators.html#halting-correctness-proof"> </a></p>
+<p><a href="../../../../sources/compiler-natural-locators.html#saved-precision-polynomial"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 5</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#natural-constructions">Natural constructions and their macros</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../../syntax/index.html#template-semantics">Semantics of templates and recipes</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#natural-circuit-semantics">Natural semantics of a natural circuit</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#power-template-semantics">Semantics of the power template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../universal/index.html#halting-node-check">Node statistics of the halting circuit and the power template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../universal/index.html#precision-circuit">The five-input natural precision circuit</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../translation/index.html#precision-circuit-scope">Scope conditions of the natural precision circuit</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="compiler/natural/formulas/power-template-semantics">
+<h4 class="bp-thmheading" id="power-template-semantics">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Semantics of the power template</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/PowerTemplate.lean#L109" aria-label="View ZInQ.Compiler.Natural.powerTemplate_natRel in Lean source" title="View ZInQ.Compiler.Natural.powerTemplate_natRel in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/PowerTemplate.lean#L164" aria-label="View ZInQ.Compiler.Natural.powerSpec_hierarchical_powerTemplate in Lean source" title="View ZInQ.Compiler.Natural.powerSpec_hierarchical_powerTemplate in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/formulas/power-template-semantics.md" aria-label="Edit the Markdown source for Semantics of the power template" title="Edit the Markdown source for Semantics of the power template"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#power-template-semantics" aria-label="Link to Semantics of the power template" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Natural.powerTemplate_natRel ZInQ.Compiler.Natural.powerSpec_hierarchical_powerTemplate</div>
+<div class="bp-thmcontent">
+<p>For all natural numbers <span class="arithmatex">\(P,Q,R\)</span>:
+$<span class="arithmatex">\(\bigl(\exists w\in\mathbb N^{79},\ \mathcal P(P,Q,R,w)=0\bigr)\iff P=Q^R,\)</span>$
+with <span class="arithmatex">\(0^0=1\)</span>. Consequently, in any natural construction in hierarchical mode, a power call
+whose argument polynomials take natural values at every natural point and whose block is
+private (pairwise disjoint from the other blocks and occurring in no other atom or argument)
+may be replaced by the relation <span class="arithmatex">\(g_P=g_Q^{\,g_R}\)</span> of its argument values.</p>
+<p><strong>Proof sketch.</strong> By the compilation statement, <span class="arithmatex">\(\mathcal P(P,Q,R,w)=0\)</span> iff the flat power
+formula holds naturally at <span class="arithmatex">\((P,Q,R,w)\)</span>; by item 2 of that statement the existential over
+the <span class="arithmatex">\(79\)</span> witnesses distributes over the three branches and over the conjuncts of each
+branch, the witnesses of the two inactive branches being set to <span class="arithmatex">\(0\)</span>. The branch conditions
+are those of the power formula once the gadgets and the three alpha macros are replaced by
+their relations (equational gadgets, alpha soundness and completeness). The power formula
+expresses exponentiation.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> powerTemplate_natRel (P Q R : ℕ) :
+    (∃ w : Fin 79 → ℕ, MvPolynomial.eval
+        (<span class="bp-lean-keyword">fun</span> i =&gt; (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Circuit.lean#L64" data-lean-name="ZInQ.Compiler.Natural.NatCircuit.natPoint">NatCircuit.natPoint</a> 3 79 ![P, Q, R] w i : ℤ)) <a class="bp-lean-ref" href="#power-template" data-lean-name="ZInQ.Compiler.Natural.powerTemplate">powerTemplate</a>.poly = 0) ↔
+      P = Q ^ R</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> powerSpec_hierarchical_powerTemplate : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/MacroSemantics.lean#L500" data-lean-name="ZInQ.Compiler.Natural.PowerSpec">PowerSpec</a> <a class="bp-lean-ref" href="#power-template" data-lean-name="ZInQ.Compiler.Natural.powerTemplate">powerTemplate</a> .hierarchical</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Compiler.Natural.NatCircuit.natPoint">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> natPoint (k m : ℕ) (c : Fin k → ℕ) (z : Fin m → ℕ) (i : ℕ) : ℕ :=
+  <span class="bp-lean-keyword">if</span> h : i &lt; k <span class="bp-lean-keyword">then</span> c ⟨i, h⟩ <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> h&#x27; : i - k &lt; m <span class="bp-lean-keyword">then</span> z ⟨i - k, h&#x27;⟩ <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Circuit.lean:64</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.powerTemplate">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> powerTemplate : ExPoly := ⟨3, 79, powerTemplatePoly⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/PowerTemplate.lean:40</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.PowerSpec">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> PowerSpec (τ : ExPoly) (mode : PowerMode) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ (U : Set ℕ) (PP QP RP : Poly), VarsIn PP (· ∈ U) → VarsIn QP (· ∈ U) → VarsIn RP (· ∈ U) →
+    IsNat PP → IsNat QP → IsNat RP → ∀ P Q R : Ex, P.poly = PP → Q.poly = QP → R.poly = RP →
+      MSpec τ (power mode P Q R) U <span class="bp-lean-keyword">fun</span> x =&gt; nv x PP = nv x QP ^ nv x RP</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/MacroSemantics.lean:500</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-102-power-formula">Section 10.2 power formula</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-104-power-blocks">Section 10.4 power blocks</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 6 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#power-template">The power template</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#natural-compilation">Compilation and private witnesses over the naturals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#natural-atom-gadgets">The equational gadgets over the naturals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../exponential/index.html#alpha-equations-sound">Soundness of the alpha formula</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../exponential/index.html#alpha-equations-complete">Completeness of the alpha formula</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../exponential/index.html#power-equations-correct">The power formula expresses exponentiation</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hierarchical-calls">Circuits of hierarchical constructions</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#macro-semantics">Semantics of the natural macros</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="compiler/natural/formulas/macro-semantics">
+<h4 class="bp-thmheading" id="macro-semantics">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Semantics of the natural macros</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/MacroSemantics.lean#L167" aria-label="View ZInQ.Compiler.Natural.lt_spec in Lean source" title="View ZInQ.Compiler.Natural.lt_spec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/MacroSemantics.lean#L188" aria-label="View ZInQ.Compiler.Natural.divides_spec in Lean source" title="View ZInQ.Compiler.Natural.divides_spec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/MacroSemantics.lean#L272" aria-label="View ZInQ.Compiler.Natural.alpha_spec in Lean source" title="View ZInQ.Compiler.Natural.alpha_spec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/MacroSemantics.lean#L532" aria-label="View ZInQ.Compiler.Natural.powerSpec_hierarchical in Lean source" title="View ZInQ.Compiler.Natural.powerSpec_hierarchical in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/MacroSemantics.lean#L543" aria-label="View ZInQ.Compiler.Natural.binomial_spec in Lean source" title="View ZInQ.Compiler.Natural.binomial_spec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/MacroSemantics.lean#L605" aria-label="View ZInQ.Compiler.Natural.orthogonal_spec in Lean source" title="View ZInQ.Compiler.Natural.orthogonal_spec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/MacroSemantics.lean#L631" aria-label="View ZInQ.Compiler.Natural.mask_spec in Lean source" title="View ZInQ.Compiler.Natural.mask_spec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/MacroSemantics.lean#L655" aria-label="View ZInQ.Compiler.Natural.bitAnd_spec in Lean source" title="View ZInQ.Compiler.Natural.bitAnd_spec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/formulas/macro-semantics.md" aria-label="Edit the Markdown source for Semantics of the natural macros" title="Edit the Markdown source for Semantics of the natural macros"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#macro-semantics" aria-label="Link to Semantics of the natural macros" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Natural.lt_spec ZInQ.Compiler.Natural.divides_spec ZInQ.Compiler.Natural.alpha_spec ZInQ.Compiler.Natural.powerSpec_hierarchical ZInQ.Compiler.Natural.binomial_spec ZInQ.Compiler.Natural.orthogonal_spec ZInQ.Compiler.Natural.mask_spec ZInQ.Compiler.Natural.bitAnd_spec</div>
+<div class="bp-thmcontent">
+<p>Let a gadget or macro of the natural constructions be run from counter <span class="arithmatex">\(c_0\)</span> to <span class="arithmatex">\(c_1\)</span> on
+argument polynomials in variables below <span class="arithmatex">\(c_0\)</span> that take natural values at every natural
+point, producing <span class="arithmatex">\(\varphi\)</span>. For every
+<span class="arithmatex">\(x:\mathbb N\to\mathbb N\)</span>, writing <span class="arithmatex">\(a,b,\dots\)</span> for the values of the arguments at <span class="arithmatex">\(x\)</span>,
+$<span class="arithmatex">\(\exists y:[c_0,c_1)\to\mathbb N,\ \ \varphi\text{ holds naturally at }x[y]\)</span>$
+is equivalent to the following relation (in hierarchical mode, the template is the power
+template and its calls are read as in item 3 of the compilation statement):</p>
+<table>
+<thead>
+<tr>
+<th>Macro</th>
+<th>Relation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\mathrm{lt}(a,b)\)</span></td>
+<td><span class="arithmatex">\(a&lt;b\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathrm{divides}(a,b)\)</span></td>
+<td><span class="arithmatex">\(a\mid b\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathrm{congruent}(a,M,b)\)</span></td>
+<td><span class="arithmatex">\(a\equiv b\pmod M\)</span> (<span class="arithmatex">\(a=b\)</span> if <span class="arithmatex">\(M=0\)</span>)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathrm{odd}(x)\)</span></td>
+<td><span class="arithmatex">\(x\)</span> odd</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathrm{alpha}(X,b,N)\)</span></td>
+<td><span class="arithmatex">\(b&gt;3\)</span> and <span class="arithmatex">\(X=\alpha_b(N)\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathrm{power}(P,Q,R)\)</span>, flat or hierarchical</td>
+<td><span class="arithmatex">\(P=Q^R\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathrm{binomial}(C,N,K)\)</span></td>
+<td><span class="arithmatex">\(C=\binom NK\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathrm{orthogonal}(a,b)\)</span></td>
+<td><span class="arithmatex">\(a\mathbin{\mathrm{AND}}b=0\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathrm{mask}(a,b)\)</span></td>
+<td><span class="arithmatex">\(a\mathbin{\mathrm{AND}}b=a\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathrm{bitAnd}(z,x,y)\)</span></td>
+<td><span class="arithmatex">\(z=x\mathbin{\mathrm{AND}}y\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The hypothesis on the arguments holds whenever the argument polynomials have nonnegative
+coefficients, as all arguments in this chapter do (<span class="arithmatex">\(Q+4\)</span>, <span class="arithmatex">\(R+1\)</span>, <span class="arithmatex">\(2X\)</span>, <span class="arithmatex">\(a+b\)</span>,
+<span class="arithmatex">\(K\cdot N_j\)</span>, <span class="arithmatex">\(R_j+D\)</span> and so on).</p>
+<p><strong>Proof sketch.</strong> By the compilation statement each conjunction splits along the
+intervals of its conjuncts, so each macro reduces to its listed conditions with the inner
+macros replaced by their relations (induction in the order lt, divides, congruent, odd;
+alpha; power; binomial; orthogonal, mask; bitAnd). Then: the four equational gadgets; alpha
+is the alpha formula with its strict inequalities, divisibility and congruences replaced by
+the gadgets, so soundness and completeness of the alpha formula apply; power is the power
+formula, whose correctness gives <span class="arithmatex">\(P=Q^R\)</span> (hierarchical mode: the power-template semantics);
+binomial is the binomial-digit statement; orthogonal and mask are Lucas's criterion with
+the odd gadget; bitAnd is the AND gadget with orthogonality.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> lt_spec {U : Set ℕ} {A B : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L25" data-lean-name="ZInQ.Syntax.Poly">Poly</a>} (hA : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L50" data-lean-name="ZInQ.Syntax.VarsIn">VarsIn</a> A (· ∈ U)) (hB : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L50" data-lean-name="ZInQ.Syntax.VarsIn">VarsIn</a> B (· ∈ U))
+    (hAn : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L89" data-lean-name="ZInQ.Compiler.Natural.IsNat">IsNat</a> A) (hBn : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L89" data-lean-name="ZInQ.Compiler.Natural.IsNat">IsNat</a> B) {a b : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L58" data-lean-name="ZInQ.Compiler.Natural.Ex">Ex</a>} (ha : a.poly = A) (hb : b.poly = B) :
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L375" data-lean-name="ZInQ.Compiler.Natural.MSpec">MSpec</a> τ (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L218" data-lean-name="ZInQ.Compiler.Natural.lt">lt</a> a b) U <span class="bp-lean-keyword">fun</span> x =&gt; <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L86" data-lean-name="ZInQ.Compiler.Natural.nv">nv</a> x A &lt; <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L86" data-lean-name="ZInQ.Compiler.Natural.nv">nv</a> x B</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> divides_spec {U : Set ℕ} {A B : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L25" data-lean-name="ZInQ.Syntax.Poly">Poly</a>} (hA : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L50" data-lean-name="ZInQ.Syntax.VarsIn">VarsIn</a> A (· ∈ U)) (hB : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L50" data-lean-name="ZInQ.Syntax.VarsIn">VarsIn</a> B (· ∈ U))
+    (hAn : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L89" data-lean-name="ZInQ.Compiler.Natural.IsNat">IsNat</a> A) (hBn : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L89" data-lean-name="ZInQ.Compiler.Natural.IsNat">IsNat</a> B) {a b : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L58" data-lean-name="ZInQ.Compiler.Natural.Ex">Ex</a>} (ha : a.poly = A) (hb : b.poly = B) :
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L375" data-lean-name="ZInQ.Compiler.Natural.MSpec">MSpec</a> τ (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L225" data-lean-name="ZInQ.Compiler.Natural.divides">divides</a> a b) U <span class="bp-lean-keyword">fun</span> x =&gt; <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L86" data-lean-name="ZInQ.Compiler.Natural.nv">nv</a> x A ∣ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L86" data-lean-name="ZInQ.Compiler.Natural.nv">nv</a> x B</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> alpha_spec {U : Set ℕ} {XP BP NP : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L25" data-lean-name="ZInQ.Syntax.Poly">Poly</a>} (hX : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L50" data-lean-name="ZInQ.Syntax.VarsIn">VarsIn</a> XP (· ∈ U)) (hB : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L50" data-lean-name="ZInQ.Syntax.VarsIn">VarsIn</a> BP (· ∈ U))
+    (hN : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L50" data-lean-name="ZInQ.Syntax.VarsIn">VarsIn</a> NP (· ∈ U)) (hXn : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L89" data-lean-name="ZInQ.Compiler.Natural.IsNat">IsNat</a> XP) (hBn : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L89" data-lean-name="ZInQ.Compiler.Natural.IsNat">IsNat</a> BP) (hNn : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L89" data-lean-name="ZInQ.Compiler.Natural.IsNat">IsNat</a> NP) {X b N : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L58" data-lean-name="ZInQ.Compiler.Natural.Ex">Ex</a>}
+    (hXe : X.poly = XP) (hbe : b.poly = BP) (hNe : N.poly = NP) :
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L375" data-lean-name="ZInQ.Compiler.Natural.MSpec">MSpec</a> τ (<a class="bp-lean-ref" href="#natural-constructions" data-lean-name="ZInQ.Compiler.Natural.alpha">alpha</a> X b N) U <span class="bp-lean-keyword">fun</span> x =&gt; <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/MacroSemantics.lean#L260" data-lean-name="ZInQ.Compiler.Natural.AlphaFormula">AlphaFormula</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L86" data-lean-name="ZInQ.Compiler.Natural.nv">nv</a> x XP) (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L86" data-lean-name="ZInQ.Compiler.Natural.nv">nv</a> x BP) (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L86" data-lean-name="ZInQ.Compiler.Natural.nv">nv</a> x NP)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Syntax.Poly">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Poly : <span class="bp-lean-keyword">Type</span> := MvPolynomial ℕ ℤ</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Basic.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.VarsIn">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> VarsIn (f : Poly) (P : ℕ → <span class="bp-lean-keyword">Prop</span>) : <span class="bp-lean-keyword">Prop</span> := ∀ i ∈ f.vars, P i</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Basic.lean:50</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.IsNat">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> IsNat (f : Poly) : <span class="bp-lean-keyword">Prop</span> := ∀ x, 0 ≤ zv x f</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Compilation.lean:89</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.Ex">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> Ex <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The node index. -/</span>
+  node : ℕ
+  <span class="bp-lean-comment">/-- The polynomial. -/</span>
+  poly : Poly</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:58</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.MSpec">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> MSpec (τ : ExPoly) (m : NM NForm) (U : Set ℕ) (R : (ℕ → ℕ) → <span class="bp-lean-keyword">Prop</span>) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ s : State, (∀ i ∈ U, i &lt; s.next) → Spec ((m s).1.toFormula τ) U s.next (m s).2.next R</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Compilation.lean:375</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.lt">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> lt (a b : Ex) : NM NForm := <span class="bp-lean-keyword">do</span>
+  note .lt
+  <span class="bp-lean-keyword">let</span> d ← fresh
+  <span class="bp-lean-keyword">let</span> e ← addL [a, ← constant 1, d]
+  pure (.eq b e)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:218</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.nv">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> nv (x : ℕ → ℕ) (f : Poly) : ℕ := (zv x f).toNat</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Compilation.lean:86</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.divides">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> divides (a b : Ex) : NM NForm := <span class="bp-lean-keyword">do</span>
+  note .divides
+  <span class="bp-lean-keyword">let</span> d ← fresh
+  <span class="bp-lean-keyword">let</span> e ← mulL [a, d]
+  pure (.eq b e)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:225</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.alpha">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> alpha (X b N : Ex) : NM NForm := <span class="bp-lean-keyword">do</span>
+  note .alpha
+  <span class="bp-lean-keyword">let</span> r ← fresh
+  <span class="bp-lean-keyword">let</span> s ← fresh
+  <span class="bp-lean-keyword">let</span> t ← fresh
+  <span class="bp-lean-keyword">let</span> u ← fresh
+  <span class="bp-lean-keyword">let</span> v ← fresh
+  <span class="bp-lean-keyword">let</span> w ← fresh
+  <span class="bp-lean-keyword">let</span> x ← fresh
+  <span class="bp-lean-keyword">let</span> y ← fresh
+  <span class="bp-lean-keyword">let</span> one ← constant 1
+  <span class="bp-lean-keyword">let</span> two ← constant 2
+  ⋯</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:248</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.AlphaFormula">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> AlphaFormula (X b N : ℕ) : <span class="bp-lean-keyword">Prop</span> := AlphaPower.AlphaEqns X b N</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/MacroSemantics.lean:260</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-102-binomial-and-bits">Section 10.2 binomial and bits</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#halting-correctness-proof">Halting correctness proof</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../../sources/compiler-natural-locators.html#section-102-binomial-and-bits"> </a></p>
+<p><a href="../../../../sources/compiler-natural-locators.html#halting-correctness-proof"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 11 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#natural-constructions">Natural constructions and their macros</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../exponential/index.html#alpha-sequence">The alpha sequence</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#natural-compilation">Compilation and private witnesses over the naturals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#natural-atom-gadgets">The equational gadgets over the naturals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../exponential/index.html#alpha-equations-sound">Soundness of the alpha formula</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../exponential/index.html#alpha-equations-complete">Completeness of the alpha formula</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../exponential/index.html#power-equations-correct">The power formula expresses exponentiation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../exponential/index.html#binomial-digit">Binomial coefficients as base-B digits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../exponential/index.html#lucas-bits">Lucas&#x27;s criterion for bit inclusion and disjointness</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../exponential/index.html#bit-and">The bitwise AND gadget</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#power-template-semantics">Semantics of the power template</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#hierarchical-calls">Circuits of hierarchical constructions</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../packed/index.html#register-machine-polynomial">The compiled circuit of a register machine</a></span></div>
+</div>
+</details>
+</div>
+<p>A natural circuit denotes a polynomial, a call node denoting literal substitution into the
+power template on a private block; its natural relation quantifies over natural witnesses.
+A hierarchical construction yields a well-scoped circuit whose relation is the conjunction
+of its macro relations.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="compiler/natural/formulas/natural-circuit-semantics">
+<h4 class="bp-thmheading" id="natural-circuit-semantics">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">Natural semantics of a natural circuit</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Circuit.lean#L33" aria-label="View ZInQ.Compiler.Natural.NatCircuit in Lean source" title="View ZInQ.Compiler.Natural.NatCircuit in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Circuit.lean#L61" aria-label="View ZInQ.Compiler.Natural.NatCircuit.poly in Lean source" title="View ZInQ.Compiler.Natural.NatCircuit.poly in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Circuit.lean#L69" aria-label="View ZInQ.Compiler.Natural.NatCircuit.NatRel in Lean source" title="View ZInQ.Compiler.Natural.NatCircuit.NatRel in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Circuit.lean#L84" aria-label="View ZInQ.Compiler.Natural.NatCircuit.WellScoped in Lean source" title="View ZInQ.Compiler.Natural.NatCircuit.WellScoped in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/formulas/natural-circuit-semantics.md" aria-label="Edit the Markdown source for Natural semantics of a natural circuit" title="Edit the Markdown source for Natural semantics of a natural circuit"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#natural-circuit-semantics" aria-label="Link to Natural semantics of a natural circuit" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Natural.NatCircuit ZInQ.Compiler.Natural.NatCircuit.poly ZInQ.Compiler.Natural.NatCircuit.NatRel ZInQ.Compiler.Natural.NatCircuit.WellScoped</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(\mathcal C\)</span> be a natural circuit in the format of the specification chapter: <span class="arithmatex">\(k\)</span>
+inputs, a list of explicit variables (inputs first, with indices <span class="arithmatex">\(0,\dots,k-1\)</span>), a node list
+of constants, variables, additions, multiplications and calls <span class="arithmatex">\(\mathrm{call}\,(a,b,c)\,w\)</span> of
+the power template on three earlier nodes with block start <span class="arithmatex">\(w\)</span>, a root node, and a variable
+count <span class="arithmatex">\(V\)</span> (the number of explicit variables plus <span class="arithmatex">\(79\)</span> times the number of calls, when the
+blocks and explicit variables tile <span class="arithmatex">\([0,V)\)</span>).</p>
+<ol>
+<li>The <em>polynomial</em> <span class="arithmatex">\([\![\mathcal C]\!]\in\mathbb Z[X_i:i\in\mathbb N]\)</span> is the denotation of
+   the root under the template semantics of the specification chapter, a call node
+   denoting the power call <span class="arithmatex">\(\mathcal P\bigl[[\![a]\!],[\![b]\!],[\![c]\!];w\bigr]\)</span> (literal
+   substitution).</li>
+<li>The <em>natural relation</em> of <span class="arithmatex">\(\mathcal C\)</span> is the predicate on <span class="arithmatex">\(\mathbb N^k\)</span>
+   $<span class="arithmatex">\(Z_{\mathcal C}(c_0,\dots,c_{k-1})\iff\exists z\in\mathbb N^{V-k},\ \
+   [\![\mathcal C]\!](c_0,\dots,c_{k-1},z)=0 ,\)</span>$
+   the variables of index at least <span class="arithmatex">\(V\)</span>, if any occur, being set to <span class="arithmatex">\(0\)</span>.</li>
+<li><span class="arithmatex">\(\mathcal C\)</span> is <em>well scoped</em> if every block <span class="arithmatex">\([w,w+79)\)</span> lies in <span class="arithmatex">\([k,V)\)</span>, the blocks are
+   pairwise disjoint and disjoint from the explicit variables, the explicit variables and
+   blocks together cover <span class="arithmatex">\([0,V)\)</span>, and every variable node refers to an explicit variable.</li>
+</ol>
+<p>This is a definition. Item 2 quantifies over natural witnesses only; replacing
+<span class="arithmatex">\(\mathbb N\)</span> by <span class="arithmatex">\(\mathbb Q\)</span> here is not justified, and the translation to rational point codes is
+the subject of the next section.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> NatCircuit <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The number `k` of inputs. -/</span>
+  inputCount : ℕ
+  <span class="bp-lean-comment">/-- The explicit variables (index and kind), the inputs first. -/</span>
+  explicitVars : List (ℕ × <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L52" data-lean-name="ZInQ.Compiler.Natural.VarKind">VarKind</a>)
+  <span class="bp-lean-comment">/-- The node list. -/</span>
+  nodes : List <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L43" data-lean-name="ZInQ.Compiler.Natural.NatNode">NatNode</a>
+  <span class="bp-lean-comment">/-- The root node. -/</span>
+  root : ℕ
+  <span class="bp-lean-comment">/-- The variable count `V`. -/</span>
+  varCount : ℕ</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> poly (T : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L172" data-lean-name="ZInQ.Syntax.ExPoly">ExPoly</a>) (C : <a class="bp-lean-ref" href="#natural-circuit-semantics" data-lean-name="ZInQ.Compiler.Natural.NatCircuit">NatCircuit</a>) : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L25" data-lean-name="ZInQ.Syntax.Poly">Poly</a> := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L71" data-lean-name="ZInQ.Syntax.getPoly">getPoly</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Circuit.lean#L55" data-lean-name="ZInQ.Compiler.Natural.denoteNatNodes">denoteNatNodes</a> T C.nodes) C.root</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> NatRel (T : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L172" data-lean-name="ZInQ.Syntax.ExPoly">ExPoly</a>) (C : <a class="bp-lean-ref" href="#natural-circuit-semantics" data-lean-name="ZInQ.Compiler.Natural.NatCircuit">NatCircuit</a>) (c : Fin C.inputCount → ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ z : Fin (C.varCount - C.inputCount) → ℕ,
+    MvPolynomial.eval (<span class="bp-lean-keyword">fun</span> i =&gt; (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Circuit.lean#L64" data-lean-name="ZInQ.Compiler.Natural.NatCircuit.natPoint">natPoint</a> C.inputCount (C.varCount - C.inputCount) c z i : ℤ))
+      (C.poly T) = 0</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Compiler.Natural.VarKind">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">inductive</span> VarKind
+  | input
+  | witness
+  <span class="bp-lean-keyword">deriving</span> DecidableEq, Repr</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:52</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.NatNode">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">inductive</span> NatNode
+  | const (c : ℤ)
+  | var (i : ℕ)
+  | add (j k : ℕ)
+  | mul (j k : ℕ)
+  | call (a b c w : ℕ)
+  <span class="bp-lean-keyword">deriving</span> DecidableEq, Repr</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:43</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.ExPoly">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> ExPoly <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The parameter count `p`; the parameters are `X_0, …, X_{p-1}`. -/</span>
+  params : ℕ
+  <span class="bp-lean-comment">/-- The witness count `m`; the witnesses are `X_p, …, X_{p+m-1}`. -/</span>
+  witnesses : ℕ
+  <span class="bp-lean-comment">/-- The polynomial. -/</span>
+  poly : Poly</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Basic.lean:172</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.NatCircuit">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> NatCircuit <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The number `k` of inputs. -/</span>
+  inputCount : ℕ
+  <span class="bp-lean-comment">/-- The explicit variables (index and kind), the inputs first. -/</span>
+  explicitVars : List (ℕ × VarKind)
+  <span class="bp-lean-comment">/-- The node list. -/</span>
+  nodes : List NatNode
+  <span class="bp-lean-comment">/-- The root node. -/</span>
+  root : ℕ
+  <span class="bp-lean-comment">/-- The variable count `V`. -/</span>
+  varCount : ℕ</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Circuit.lean:33</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.Poly">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Poly : <span class="bp-lean-keyword">Type</span> := MvPolynomial ℕ ℤ</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Basic.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.getPoly">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> getPoly (vals : List Poly) (j : ℕ) : Poly := vals.getD j 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Nodes.lean:71</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.denoteNatNodes">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> denoteNatNodes (T : ExPoly) (nodes : List NatNode) : List Poly :=
+  nodes.foldl (<span class="bp-lean-keyword">fun</span> vals n =&gt; vals ++ [n.denote T vals]) []</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Circuit.lean:55</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.NatCircuit.natPoint">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> natPoint (k m : ℕ) (c : Fin k → ℕ) (z : Fin m → ℕ) (i : ℕ) : ℕ :=
+  <span class="bp-lean-keyword">if</span> h : i &lt; k <span class="bp-lean-keyword">then</span> c ⟨i, h⟩ <span class="bp-lean-keyword">else</span> <span class="bp-lean-keyword">if</span> h&#x27; : i - k &lt; m <span class="bp-lean-keyword">then</span> z ⟨i - k, h&#x27;⟩ <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Circuit.lean:64</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-104-power-blocks">Section 10.4 power blocks</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#halting-correctness-proof">Halting correctness proof</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 10</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../../syntax/recipes/index.html#model-evaluation-translation">Translation of a natural circuit into a model-evaluation recipe</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../../syntax/index.html#template-semantics">Semantics of templates and recipes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#power-template">The power template</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hierarchical-calls">Circuits of hierarchical constructions</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#natural-polynomial-semantics">Semantics of the natural precision polynomial</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../packed/index.html#packed-compiler">The packed-history construction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../packed/index.html#register-machine-polynomial">The compiled circuit of a register machine</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../universal/index.html#circuit-node-counts">Shape of the natural precision circuit</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../universal/index.html#halting-circuit-counts">Counts of the universal halting circuit</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../universal/index.html#halting-polynomial-semantics">Semantics of the universal halting circuit</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../universal/index.html#precision-circuit">The five-input natural precision circuit</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../universal/index.html#precision-circuit-specialization">The precision circuit is a specialization</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../translation/index.html#natural-circuit-values">Values and polynomial of a natural circuit</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="compiler/natural/formulas/hierarchical-calls">
+<h4 class="bp-thmheading" id="hierarchical-calls">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Circuits of hierarchical constructions</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Hierarchical.lean#L202" aria-label="View ZInQ.Compiler.Natural.toCircuit_item1 in Lean source" title="View ZInQ.Compiler.Natural.toCircuit_item1 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Hierarchical.lean#L213" aria-label="View ZInQ.Compiler.Natural.toCircuit_natRel_iff in Lean source" title="View ZInQ.Compiler.Natural.toCircuit_natRel_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Cleanup/HierarchicalCalls.lean#L62" aria-label="View ZInQ.Compiler.Natural.toCircuit_natRel_iff_of_mspec in Lean source" title="View ZInQ.Compiler.Natural.toCircuit_natRel_iff_of_mspec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Cleanup/HierarchicalCalls.lean#L71" aria-label="View ZInQ.Compiler.Natural.toCircuit_andM_natRel_iff in Lean source" title="View ZInQ.Compiler.Natural.toCircuit_andM_natRel_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Scope.lean#L267" aria-label="View ZInQ.Compiler.Natural.toCircuit_wellScoped in Lean source" title="View ZInQ.Compiler.Natural.toCircuit_wellScoped in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Builder.lean#L689" aria-label="View ZInQ.Compiler.Natural.toCircuit_poly in Lean source" title="View ZInQ.Compiler.Natural.toCircuit_poly in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/formulas/hierarchical-calls.md" aria-label="Edit the Markdown source for Circuits of hierarchical constructions" title="Edit the Markdown source for Circuits of hierarchical constructions"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#hierarchical-calls" aria-label="Link to Circuits of hierarchical constructions" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Natural.toCircuit_item1 ZInQ.Compiler.Natural.toCircuit_natRel_iff ZInQ.Compiler.Natural.toCircuit_natRel_iff_of_mspec ZInQ.Compiler.Natural.toCircuit_andM_natRel_iff ZInQ.Compiler.Natural.toCircuit_wellScoped ZInQ.Compiler.Natural.toCircuit_poly</div>
+<div class="bp-thmcontent">
+<p>Let a natural construction with <span class="arithmatex">\(k\)</span> inputs in hierarchical mode end with formula <span class="arithmatex">\(\varphi\)</span>
+and counter <span class="arithmatex">\(V\)</span>, and let <span class="arithmatex">\(\mathcal C\)</span> be its natural circuit: its explicit variables are the
+inputs and fresh variables in allocation order, its node list is the node encoding of
+<span class="arithmatex">\(\varphi\)</span> with root the encoding of <span class="arithmatex">\(\kappa(\varphi)\)</span>, and its call nodes are the power calls
+with their blocks. Assume every macro argument is a polynomial in variables allocated
+before the macro. Then:</p>
+<ol>
+<li><span class="arithmatex">\(\mathcal C\)</span> is well scoped, its variable count is <span class="arithmatex">\(V\)</span>, and
+   <span class="arithmatex">\([\![\mathcal C]\!]=\kappa(\varphi)\)</span>;</li>
+<li>if moreover <span class="arithmatex">\(k\le V\)</span>, the variables of <span class="arithmatex">\(\kappa(\varphi)\)</span> are below <span class="arithmatex">\(V\)</span>, and the call blocks
+   of <span class="arithmatex">\(\varphi\)</span> are private (they lie in <span class="arithmatex">\([k,\infty)\)</span>, are pairwise disjoint, and contain no
+   variable of an atom or of a call argument of <span class="arithmatex">\(\varphi\)</span>), then for every <span class="arithmatex">\(c\in\mathbb N^k\)</span>,
+   <span class="arithmatex">\(Z_{\mathcal C}(c)\)</span> holds if and only if there are natural values of the variables, equal
+   to <span class="arithmatex">\(c\)</span> on the inputs, for which <span class="arithmatex">\(\varphi^\natural\)</span> holds, where <span class="arithmatex">\(\varphi^\natural\)</span> is
+   <span class="arithmatex">\(\varphi\)</span> with every power call atom replaced by the statement that some natural values of
+   the <span class="arithmatex">\(79\)</span> witnesses make <span class="arithmatex">\(\mathcal P\)</span> vanish at the values of its arguments; when these
+   values are natural, this is the relation <span class="arithmatex">\(g_P=g_Q^{\,g_R}\)</span> of its arguments;</li>
+<li>consequently, if the construction has a macro specification <span class="arithmatex">\(R\)</span> over its inputs (built
+   from the macro semantics by the composition rules: conjunction, disjunction, and an
+   existential over each fresh variable), then <span class="arithmatex">\(Z_{\mathcal C}(c)\iff R(c)\)</span>; that is,
+   <span class="arithmatex">\(Z_{\mathcal C}(c)\)</span> is equivalent to the conjunction of the relations of the macros of the
+   construction, quantified over the remaining fresh variables.</li>
+</ol>
+<p>The flat construction gives the same relation: replacing each power call by the flat
+power macro changes the polynomial and the variable numbering but not the relation.</p>
+<p><strong>Proof sketch.</strong> (1) Induction over construction steps as in the specification
+chapter's construction theorem: every node handed out denotes the polynomial of the
+expression it was created for (hash-consing returns only structurally equal nodes), the
+counter only grows, blocks are taken from it consecutively, and a block index is passed only
+as a call's witness start, so no variable node refers to a block and the explicit variables
+and blocks tile <span class="arithmatex">\([0,V)\)</span>. (2) By the compilation statement (items 1 and 3), applied to the
+private blocks, together with the power-template semantics for natural argument values. (3)
+is (2) with the macro semantics. The flat/hierarchical remark follows because both readings of a power call have
+relation <span class="arithmatex">\(P=Q^R\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> toCircuit_item1 {k : ℕ} {m : <a class="bp-lean-ref" href="#natural-constructions" data-lean-name="ZInQ.Compiler.Natural.NM">NM</a> <a class="bp-lean-ref" href="#natural-constructions" data-lean-name="ZInQ.Compiler.Natural.NForm">NForm</a>} (T : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L172" data-lean-name="ZInQ.Syntax.ExPoly">ExPoly</a>) (hpres : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Scope.lean#L37" data-lean-name="ZInQ.Compiler.Natural.Pres">Pres</a> k m)
+    {P : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L105" data-lean-name="ZInQ.Compiler.Natural.State">State</a> → <span class="bp-lean-keyword">Prop</span>} (hP : P (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Circuit.lean#L100" data-lean-name="ZInQ.Compiler.Natural.State.init">State.init</a> k)) (hm : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Builder.lean#L110" data-lean-name="ZInQ.Compiler.Natural.Triple">Triple</a> P m <span class="bp-lean-keyword">fun</span> φ s =&gt; φ.Valid T s) :
+    (m.toCircuit k).WellScoped ∧ (m.toCircuit k).varCount = (m (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Circuit.lean#L100" data-lean-name="ZInQ.Compiler.Natural.State.init">State.init</a> k)).2.next ∧
+      (m.toCircuit k).poly T = (m.formula T k).compile</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> toCircuit_natRel_iff {k : ℕ} {m : <a class="bp-lean-ref" href="#natural-constructions" data-lean-name="ZInQ.Compiler.Natural.NM">NM</a> <a class="bp-lean-ref" href="#natural-constructions" data-lean-name="ZInQ.Compiler.Natural.NForm">NForm</a>} {T : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L172" data-lean-name="ZInQ.Syntax.ExPoly">ExPoly</a>} {P : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L105" data-lean-name="ZInQ.Compiler.Natural.State">State</a> → <span class="bp-lean-keyword">Prop</span>}
+    (hP : P (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Circuit.lean#L100" data-lean-name="ZInQ.Compiler.Natural.State.init">State.init</a> k)) (hm : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Builder.lean#L110" data-lean-name="ZInQ.Compiler.Natural.Triple">Triple</a> P m <span class="bp-lean-keyword">fun</span> φ s =&gt; φ.Valid T s)
+    (hk : k ≤ (m.toCircuit k).varCount) (hscoped : (m.formula T k).Scoped)
+    (hblocks : ∀ b ∈ (m.formula T k).blocks, k ≤ b.1)
+    (hvars : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L125" data-lean-name="ZInQ.Syntax.VarsLT">VarsLT</a> (m.formula T k).compile (m.toCircuit k).varCount) (c : Fin k → ℕ) :
+    (m.toCircuit k).NatRel T c ↔
+      ∃ y : ℕ → ℕ, (∀ i : Fin k, y i = c i) ∧ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Hierarchical.lean#L29" data-lean-name="ZInQ.Compiler.Natural.NLift">NLift</a> y (m.formula T k)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> toCircuit_natRel_iff_of_mspec {k : ℕ} {m : <a class="bp-lean-ref" href="#natural-constructions" data-lean-name="ZInQ.Compiler.Natural.NM">NM</a> <a class="bp-lean-ref" href="#natural-constructions" data-lean-name="ZInQ.Compiler.Natural.NForm">NForm</a>} {T : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Basic.lean#L172" data-lean-name="ZInQ.Syntax.ExPoly">ExPoly</a>} {P : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L105" data-lean-name="ZInQ.Compiler.Natural.State">State</a> → <span class="bp-lean-keyword">Prop</span>}
+    (hP : P (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Circuit.lean#L100" data-lean-name="ZInQ.Compiler.Natural.State.init">State.init</a> k)) (hm : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Builder.lean#L110" data-lean-name="ZInQ.Compiler.Natural.Triple">Triple</a> P m <span class="bp-lean-keyword">fun</span> φ s =&gt; φ.Valid T s) {R : (ℕ → ℕ) → <span class="bp-lean-keyword">Prop</span>}
+    (hspec : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Compilation.lean#L375" data-lean-name="ZInQ.Compiler.Natural.MSpec">MSpec</a> T m {i | i &lt; k} R) (c : Fin k → ℕ) (x : ℕ → ℕ) (hx : ∀ i : Fin k, x i = c i) :
+    (m.toCircuit k).NatRel T c ↔ R x</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Compiler.Natural.NM">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> NM (α : <span class="bp-lean-keyword">Type</span>) : <span class="bp-lean-keyword">Type</span> := State → α × State</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:118</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.NForm">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">inductive</span> NForm
+  <span class="bp-lean-comment">/-- The atom `a ≐ b`. -/</span>
+  | eq (a b : Ex)
+  <span class="bp-lean-comment">/-- The atom `⟨f⟩`. -/</span>
+  | atom (f : Ex)
+  <span class="bp-lean-comment">/-- The call atom `⟨𝒫[P, Q, R; w]⟩`, with the index of its call node. -/</span>
+  | call (P Q R : Ex) (w : ℕ) (node : ℕ)
+  <span class="bp-lean-comment">/-- The conjunction. -/</span>
+  | and (fs : List NForm)
+  <span class="bp-lean-comment">/-- The disjunction. -/</span>
+  | or (fs : List NForm)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:65</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.ExPoly">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> ExPoly <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The parameter count `p`; the parameters are `X_0, …, X_{p-1}`. -/</span>
+  params : ℕ
+  <span class="bp-lean-comment">/-- The witness count `m`; the witnesses are `X_p, …, X_{p+m-1}`. -/</span>
+  witnesses : ℕ
+  <span class="bp-lean-comment">/-- The polynomial. -/</span>
+  poly : Poly</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Basic.lean:172</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.Pres">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Pres {α : <span class="bp-lean-keyword">Type</span>} (k : ℕ) (m : NM α) : <span class="bp-lean-keyword">Prop</span> := ∀ s, ScopeInv k s → ScopeInv k (m s).2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Scope.lean:37</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.State">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> State <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The variable counter. -/</span>
+  next : ℕ
+  <span class="bp-lean-comment">/-- The explicit variables, in allocation order. -/</span>
+  vars : List (ℕ × VarKind)
+  <span class="bp-lean-comment">/-- The hash-consed node list. -/</span>
+  nodes : List NatNode
+  <span class="bp-lean-comment">/-- The block starts of the power calls, in allocation order. -/</span>
+  blocks : List ℕ
+  <span class="bp-lean-comment">/-- The gadgets and macros run so far, in order. -/</span>
+  log : List MacroKind := []</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:105</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.State.init">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> State.init (k : ℕ) : State :=
+  ⟨k, (List.range k).map <span class="bp-lean-keyword">fun</span> i =&gt; (i, .input), (List.range k).map .var, [], []⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Circuit.lean:100</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.Triple">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Triple {α : <span class="bp-lean-keyword">Type</span>} (P : State → <span class="bp-lean-keyword">Prop</span>) (m : NM α) (Q : α → State → <span class="bp-lean-keyword">Prop</span>) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ s, NodesWF s.nodes → P s → NodesWF (m s).2.nodes ∧ s.nodes &lt;+: (m s).2.nodes ∧ Q (m s).1 (m s).2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Builder.lean:110</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.VarsLT">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> VarsLT (f : Poly) (n : ℕ) : <span class="bp-lean-keyword">Prop</span> := VarsIn f (· &lt; n)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Basic.lean:125</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.NLift">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> NLift (x : ℕ → ℕ) : Formula → <span class="bp-lean-keyword">Prop</span>
+  | .eq a b =&gt; zv x a = zv x b
+  | .atom f =&gt; zv x f = 0
+  | .call τ g _ =&gt; ExNatRel τ <span class="bp-lean-keyword">fun</span> j =&gt; zv x (g j)
+  | .and fs =&gt; ∀ φ, (_ : φ ∈ fs) → NLift x φ
+  | .or fs =&gt; ∃ φ, ∃ (_ : φ ∈ fs), NLift x φ
+<span class="bp-lean-keyword">decreasing_by</span> all_goals (<span class="bp-lean-keyword">have</span> := List.sizeOf_lt_of_mem ‹_ ∈ fs›; simp; omega)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Hierarchical.lean:29</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.MSpec">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> MSpec (τ : ExPoly) (m : NM NForm) (U : Set ℕ) (R : (ℕ → ℕ) → <span class="bp-lean-keyword">Prop</span>) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ s : State, (∀ i ∈ U, i &lt; s.next) → Spec ((m s).1.toFormula τ) U s.next (m s).2.next R</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Compilation.lean:375</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="informally-uses_1">Informally uses</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Informally uses</div>
+<ul>
+<li><a href="../../../syntax/language/index.html#builder-soundness">Template construction from formulas</a></li>
+</ul>
+<div class="bp-notes-heading">
+<h6 id="sources_7">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#halting-correctness-proof">Halting correctness proof</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-104-power-blocks">Section 10.4 power blocks</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#natural-constructions">Natural constructions and their macros</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#natural-circuit-semantics">Natural semantics of a natural circuit</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#natural-compilation">Compilation and private witnesses over the naturals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#power-template-semantics">Semantics of the power template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#macro-semantics">Semantics of the natural macros</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../packed/index.html#register-machine-polynomial">The compiled circuit of a register machine</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../universal/index.html#halting-circuit-counts">Counts of the universal halting circuit</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>8</strong> fully proved</span></div>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../../../dependencies/index.json" data-graph-src="../../../../dependencies/scopes/compiler/natural/formulas.json" data-page-href="index.html" data-scope-id="compiler/natural/formulas">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

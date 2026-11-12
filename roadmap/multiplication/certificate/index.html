@@ -1,0 +1,2860 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../local/index.html">
+      
+      
+        <link rel="next" href="../soundness/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>The certificate and its semantics - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#constants_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              The certificate and its semantics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_5" id="__nav_2_1_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Multiplication and the finite false-triple guard
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../local/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local conventions: the formal group and the truncated logarithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The certificate and its semantics
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The certificate and its semantics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#constants_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-local-templates-and-the-twelve-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The local templates and the twelve tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-slope-predicate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The slope predicate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-height-certificate-and-the-multiplication-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The height certificate and the multiplication template
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../soundness/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Soundness: accepted triples are true
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../completeness/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Completeness: true triples are accepted
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#constants_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-local-templates-and-the-twelve-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The local templates and the twelve tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-slope-predicate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The slope predicate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-height-certificate-and-the-multiplication-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The height certificate and the multiplication template
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="multiplication/certificate" data-page-title="The certificate and its semantics">
+<h1 id="the-certificate-and-its-semantics">The certificate and its semantics</h1>
+<p>This section fixes the constants of the multiplication certificate and translates each of
+its templates into a mathematical predicate. All statements here are exact equivalences
+for the constructed templates, proved from the semantics of the expression language; the
+arithmetic happens in the soundness and completeness sections.</p>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>11</strong> fully proved</span></div>
+</div>
+<h2 id="constants_1">Constants</h2>
+<p>The certificate uses the prescribed constants <span class="arithmatex">\(c_*=4M_0\)</span>, <span class="arithmatex">\(\ell_0=12P_s^{2916}H_{\rm cat}^{732}\)</span>,
+<span class="arithmatex">\(R\)</span>, <span class="arithmatex">\(A_{\rm ht}\)</span> and <span class="arithmatex">\(T\)</span> of the specification. The sound direction works outside
+<span class="arithmatex">\(S_{\rm mul}=S_{\rm ht}\cup\mathcal H\cup\operatorname{supp}(c_*)\)</span>; the complete direction
+clears denominators at the old primes <span class="arithmatex">\(S_b=S_{\rm ht}\cup\mathcal H\)</span> with the exponents
+<span class="arithmatex">\(B_p\)</span>, <span class="arithmatex">\(C_p=14B_p\)</span>, <span class="arithmatex">\(D_p=51C_p\)</span>, <span class="arithmatex">\(E_p=52C_p+v_p(12)+4\)</span>. No constant is evaluated; the only
+numerical facts are a handful of small identities.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="multiplication/certificate/constants">
+<h4 class="bp-thmheading" id="constants">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">Prime sets and clearing exponents of the multiplication certificate</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Constants.lean#L30" aria-label="View ZInQ.Mult.S_ht in Lean source" title="View ZInQ.Mult.S_ht in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Constants.lean#L34" aria-label="View ZInQ.Mult.catalogue in Lean source" title="View ZInQ.Mult.catalogue in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Constants.lean#L37" aria-label="View ZInQ.Mult.S_b in Lean source" title="View ZInQ.Mult.S_b in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Constants.lean#L40" aria-label="View ZInQ.Mult.S_mul in Lean source" title="View ZInQ.Mult.S_mul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Constants.lean#L67" aria-label="View ZInQ.Mult.Bp in Lean source" title="View ZInQ.Mult.Bp in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Constants.lean#L70" aria-label="View ZInQ.Mult.Cp in Lean source" title="View ZInQ.Mult.Cp in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Constants.lean#L73" aria-label="View ZInQ.Mult.Dp in Lean source" title="View ZInQ.Mult.Dp in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Constants.lean#L76" aria-label="View ZInQ.Mult.Ep in Lean source" title="View ZInQ.Mult.Ep in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Constants.lean#L81" aria-label="View ZInQ.Mult.contactPoly in Lean source" title="View ZInQ.Mult.contactPoly in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Constants.lean#L85" aria-label="View ZInQ.Mult.IsOddContactPrime in Lean source" title="View ZInQ.Mult.IsOddContactPrime in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Constants.lean#L90" aria-label="View ZInQ.Mult.prec in Lean source" title="View ZInQ.Mult.prec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/multiplication/certificate/constants.md" aria-label="Edit the Markdown source for Prime sets and clearing exponents of the multiplication certificate" title="Edit the Markdown source for Prime sets and clearing exponents of the multiplication certificate"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#constants" aria-label="Link to Prime sets and clearing exponents of the multiplication certificate" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Mult.S_ht ZInQ.Mult.catalogue ZInQ.Mult.S_b ZInQ.Mult.S_mul ZInQ.Mult.Bp ZInQ.Mult.Cp ZInQ.Mult.Dp ZInQ.Mult.Ep ZInQ.Mult.contactPoly ZInQ.Mult.IsOddContactPrime ZInQ.Mult.prec</div>
+<div class="bp-thmcontent">
+<p>The constants <span class="arithmatex">\(M_0\)</span>, <span class="arithmatex">\(c_*=4M_0\)</span>, <span class="arithmatex">\(\ell_0\)</span> (the constant <span class="arithmatex">\(\ell=12P_s^{2916}H_{\rm cat}^{732}\)</span>),
+<span class="arithmatex">\(R=\max(D,H_{\max},c_*,10^{12})\)</span>, <span class="arithmatex">\(A_{\rm ht}=2\cdot10^{13}\max(1,C_{\rm cm},Q^{17})\)</span> with
+<span class="arithmatex">\(Q=R^{RE_0}\)</span>, and <span class="arithmatex">\(T=(48A_{\rm ht})^{13}\)</span> are the prescribed fixed constants. In terms of
+them define:</p>
+<ul>
+<li><span class="arithmatex">\(S_{\rm ht}=\{p\text{ prime}:p\le324\}\)</span>; <span class="arithmatex">\(\mathcal H\)</span> the fixed prime catalogue (the first
+  twenty-two primes greater than <span class="arithmatex">\(324\)</span> in each unit class modulo <span class="arithmatex">\(W=4P_s\)</span>);
+  <span class="arithmatex">\(S_b=S_{\rm ht}\cup\mathcal H\)</span>; and
+  $<span class="arithmatex">\(S_{\rm mul}=S_{\rm ht}\cup\mathcal H\cup\{p\text{ prime}:p\mid c_*\};\)</span>$</li>
+<li>for <span class="arithmatex">\(p\in S_b\)</span>: <span class="arithmatex">\(B_p=4\)</span> if <span class="arithmatex">\(p\in S_{\rm ht}\)</span> and <span class="arithmatex">\(B_p=1\)</span> if <span class="arithmatex">\(p\in\mathcal H\)</span>;
+  <span class="arithmatex">\(C_p=14B_p\)</span>, <span class="arithmatex">\(D_p=51C_p\)</span> and <span class="arithmatex">\(E_p=52C_p+v_p(12)+4\)</span>;</li>
+<li>the contact set <span class="arithmatex">\(\mathcal C=\{0,-15,-20,-24,-30,-60\}\)</span> and
+  <span class="arithmatex">\(F(t)=t(t+15)(t+20)(t+24)(t+30)(t+60)=\prod_{c\in\mathcal C}(t-c)\)</span>;</li>
+<li>for <span class="arithmatex">\(t\in\mathbb Q\)</span>, a prime <span class="arithmatex">\(p\)</span> is an <em>odd contact prime</em> of <span class="arithmatex">\(t\)</span> if <span class="arithmatex">\(v_p(t-c)\)</span> is positive
+  and odd for some <span class="arithmatex">\(c\in\mathcal C\)</span>; for a finite set <span class="arithmatex">\(S\)</span> of primes, <span class="arithmatex">\(M_S(t)\)</span> is the product of
+  the odd contact primes of <span class="arithmatex">\(t\)</span> outside <span class="arithmatex">\(S\)</span>, as in the six-contact estimate;</li>
+<li>the test precisions <span class="arithmatex">\(k_j=1\)</span> for <span class="arithmatex">\(1\le j\le8\)</span> and <span class="arithmatex">\(k_j=25\)</span> for <span class="arithmatex">\(9\le j\le12\)</span>.</li>
+</ul>
+<p>These are definitions; none of the constants is evaluated. The manuscript writes
+<span class="arithmatex">\(S_{\rm mul}=S_{\rm ht}\cup\mathcal H\cup\operatorname{supp}(c_*)\)</span> and uses <span class="arithmatex">\(S_b\)</span> for the old
+primes at which the fixed normalization <span class="arithmatex">\(\ell_0\)</span> clears denominators.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> S_ht : Finset ℕ := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Precision/HeightConstant.lean#L116" data-lean-name="ZInQ.Compiler.Precision.heightPrimes">Compiler.Precision.heightPrimes</a></code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> catalogue : Finset ℕ := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Constants/Catalogue.lean#L152" data-lean-name="ZInQ.Syntax.catalogueFinset">Syntax.catalogueFinset</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Hypotheses/PrimePattern.lean#L33" data-lean-name="ZInQ.catalogueModulus">catalogueModulus</a> 22 324</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> S_b : Finset ℕ := <a class="bp-lean-ref" href="#constants" data-lean-name="ZInQ.Mult.S_ht">S_ht</a> ∪ <a class="bp-lean-ref" href="#constants" data-lean-name="ZInQ.Mult.catalogue">catalogue</a></code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Compiler.Precision.heightPrimes">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> heightPrimes : Finset ℕ := (Finset.range 325).filter Nat.Prime</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Precision/HeightConstant.lean:116</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.catalogueFinset">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> catalogueFinset (W k B : ℕ) : Finset ℕ :=
+  (unitResidues W ×ˢ Finset.range k).image <span class="bp-lean-keyword">fun</span> rj =&gt; cataloguePrime W B rj.1 rj.2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Catalogue.lean:152</p>
+</div>
+<div data-lean-name="ZInQ.catalogueModulus">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> catalogueModulus : ℕ := 4 * primorial 324</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/PrimePattern.lean:33</p>
+</div>
+<div data-lean-name="ZInQ.Mult.S_ht">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> S_ht : Finset ℕ := Compiler.Precision.heightPrimes</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/Constants.lean:30</p>
+</div>
+<div data-lean-name="ZInQ.Mult.catalogue">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> catalogue : Finset ℕ := Syntax.catalogueFinset catalogueModulus 22 324</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/Constants.lean:34</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/multiplication-locators.html#contact-prime-sets">Contact prime sets</a></li>
+<li><a href="../../../sources/multiplication-locators.html#fixed-local-clearing">Fixed local clearing</a></li>
+<li><a href="../../../sources/multiplication-locators.html#fixed-constants">Fixed constants</a></li>
+<li><a href="../../../sources/multiplication-locators.html#slope-predicate">Slope predicate</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 19</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/constants/index.html#fixed-constants">The prescribed fixed constants</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/constants/index.html#prime-catalogue">The prime catalogue</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#six-contact-estimate">The six-contact height estimate</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#six-contact-min">The minimal height hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#six-contact-min-of-estimate">The six-contact estimate implies its minimal form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#constants-properties">Properties of the multiplication constants</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#guard-true-triples">The guard passes true triples and rejects false triples in the box</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#multiply-unfolding">Unfolding the multiplication template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#slope-predicate">The slope predicate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../completeness/index.html#pattern-slopes">Slopes of an integer from the prime pattern</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../completeness/index.html#pole-input-valuations">Valuations of the pole input of a completed slope</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../completeness/index.html#sb-integrality">Integrality of the tests at the old primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../completeness/index.html#slope-completeness">Completeness of the slope certificate for a true triple</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../completeness/index.html#slope-representation">The slope representation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../soundness/index.html#common-group">The trace forces one common group and place</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../soundness/index.html#contact-support">The height of an accepted slope</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../soundness/index.html#contact-valuations">Valuations of the normalization at an odd contact prime</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../soundness/index.html#finite-box">The finite-box deduction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../soundness/index.html#local-congruence">The congruence at an odd contact prime</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-ap/index.html#good-prime-ap">The statement 22P_AP: long progressions of good slope primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-ap/index.html#pole-absorption-hypotheses">The hypotheses of Lemma P</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-ap/index.html#pole-input-valuations-ap">Valuations of the pole input under field 2′</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="multiplication/certificate/clearing-arithmetic">
+<h4 class="bp-thmheading" id="clearing-arithmetic">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">The clearing inequalities</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/ClearingArithmetic.lean#L55" aria-label="View ZInQ.Mult.clearing_arithmetic in Lean source" title="View ZInQ.Mult.clearing_arithmetic in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/ClearingArithmetic.lean#L19" aria-label="View ZInQ.Mult.clearing_identities in Lean source" title="View ZInQ.Mult.clearing_identities in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/multiplication/certificate/clearing-arithmetic.md" aria-label="Edit the Markdown source for The clearing inequalities" title="Edit the Markdown source for The clearing inequalities"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#clearing-arithmetic" aria-label="Link to The clearing inequalities" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Mult.clearing_arithmetic ZInQ.Mult.clearing_identities</div>
+<div class="bp-thmcontent">
+<p>For every <span class="arithmatex">\(B\in\{1,4\}\)</span> and every <span class="arithmatex">\(v\in\{0,1,2\}\)</span>, with <span class="arithmatex">\(C=14B\)</span>, <span class="arithmatex">\(D=51C\)</span> and <span class="arithmatex">\(E=52C+v+4\)</span>,
+$<span class="arithmatex">\(2E-C-2D&gt;v\qquad\text{and}\qquad 2E-C-2v=103C+8\ge4 .\)</span>$
+Moreover <span class="arithmatex">\(52\cdot56+4=2916\)</span>, <span class="arithmatex">\(52\cdot14+4=732\)</span>, <span class="arithmatex">\(v_2(12)=2\)</span>, <span class="arithmatex">\(v_3(12)=1\)</span> and <span class="arithmatex">\(v_p(12)=0\)</span> for
+every prime <span class="arithmatex">\(p\ge5\)</span>.</p>
+<p>This is a finite computation (six cases of linear integer arithmetic). With <span class="arithmatex">\(B=B_p\)</span> and
+<span class="arithmatex">\(v=v_p(12)\)</span> it gives, for every <span class="arithmatex">\(p\in S_b\)</span>, <span class="arithmatex">\(2E_p-C_p-2D_p&gt;v_p(12)\)</span> and
+<span class="arithmatex">\(2E_p-C_p-2v_p(12)=103C_p+8\ge4\)</span>, and identifies <span class="arithmatex">\(E_p\)</span> with the exponent of <span class="arithmatex">\(p\)</span> in <span class="arithmatex">\(\ell_0\)</span>.</p>
+<p><strong>Proof sketch.</strong> <span class="arithmatex">\(2E-C-2D=104C+2v+8-C-102C=C+2v+8&gt;v\)</span>, and <span class="arithmatex">\(2E-C-2v=103C+8\ge111\)</span>. The
+remaining items are evaluations.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> clearing_arithmetic :
+    (∀ B ∈ ({1, 4} : Finset ℕ), ∀ v ∈ ({0, 1, 2} : Finset ℕ),
+      v &lt; 2 * (52 * (14 * B) + v + 4) - 14 * B - 2 * (51 * (14 * B)) ∧
+        2 * (52 * (14 * B) + v + 4) - 14 * B - 2 * v = 103 * (14 * B) + 8 ∧
+        4 ≤ 103 * (14 * B) + 8) ∧
+      52 * 56 + 4 = 2916 ∧ 52 * 14 + 4 = 732 ∧
+      padicValNat 2 12 = 2 ∧ padicValNat 3 12 = 1 ∧
+      ∀ p : ℕ, p.Prime → 5 ≤ p → padicValNat p 12 = 0</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> clearing_identities (B v : ℕ) :
+    2 * (52 * (14 * B) + v + 4) - 14 * B - 2 * (51 * (14 * B)) = 14 * B + 2 * v + 8 ∧
+      2 * (52 * (14 * B) + v + 4) - 14 * B - 2 * v = 103 * (14 * B) + 8</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/multiplication-locators.html#fixed-local-clearing">Fixed local clearing</a></li>
+<li><a href="../../../sources/multiplication-locators.html#pole-input-of-a-completed-slope">Pole input of a completed slope</a></li>
+<li><a href="../../../sources/multiplication-locators.html#six-contact-finite-checks">Six-contact finite checks</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#constants-properties">Properties of the multiplication constants</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../completeness/index.html#pole-input-valuations">Valuations of the pole input of a completed slope</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="multiplication/certificate/constants-properties">
+<h4 class="bp-thmheading" id="constants-properties">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">Properties of the multiplication constants</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/ConstantsProperties.lean#L75" aria-label="View ZInQ.Mult.one_le_M0 in Lean source" title="View ZInQ.Mult.one_le_M0 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/ConstantsProperties.lean#L79" aria-label="View ZInQ.Mult.one_le_M0_spec in Lean source" title="View ZInQ.Mult.one_le_M0_spec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/ConstantsProperties.lean#L81" aria-label="View ZInQ.Mult.four_le_cstar in Lean source" title="View ZInQ.Mult.four_le_cstar in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/ConstantsProperties.lean#L88" aria-label="View ZInQ.Mult.one_le_ell in Lean source" title="View ZInQ.Mult.one_le_ell in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/ConstantsProperties.lean#L124" aria-label="View ZInQ.Mult.S_mul_admissible in Lean source" title="View ZInQ.Mult.S_mul_admissible in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/ConstantsProperties.lean#L69" aria-label="View ZInQ.Mult.Aht_eq_heightH6 in Lean source" title="View ZInQ.Mult.Aht_eq_heightH6 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/ConstantsProperties.lean#L135" aria-label="View ZInQ.Mult.sixContact_at_Smul in Lean source" title="View ZInQ.Mult.sixContact_at_Smul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/ConstantsProperties.lean#L148" aria-label="View ZInQ.Mult.four_lt_T in Lean source" title="View ZInQ.Mult.four_lt_T in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/ConstantsProperties.lean#L92" aria-label="View ZInQ.Mult.prime_of_mem_catalogue in Lean source" title="View ZInQ.Mult.prime_of_mem_catalogue in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/ConstantsProperties.lean#L189" aria-label="View ZInQ.Mult.catalogue_injective in Lean source" title="View ZInQ.Mult.catalogue_injective in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/ConstantsProperties.lean#L198" aria-label="View ZInQ.Mult.Hcat_squarefree in Lean source" title="View ZInQ.Mult.Hcat_squarefree in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/ConstantsProperties.lean#L228" aria-label="View ZInQ.Mult.padicValNat_ell in Lean source" title="View ZInQ.Mult.padicValNat_ell in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/ConstantsProperties.lean#L258" aria-label="View ZInQ.Mult.not_mem_S_mul in Lean source" title="View ZInQ.Mult.not_mem_S_mul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/multiplication/certificate/constants-properties.md" aria-label="Edit the Markdown source for Properties of the multiplication constants" title="Edit the Markdown source for Properties of the multiplication constants"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#constants-properties" aria-label="Link to Properties of the multiplication constants" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Mult.one_le_M0 ZInQ.Mult.one_le_M0_spec ZInQ.Mult.four_le_cstar ZInQ.Mult.one_le_ell ZInQ.Mult.S_mul_admissible ZInQ.Mult.Aht_eq_heightH6 ZInQ.Mult.sixContact_at_Smul ZInQ.Mult.four_lt_T ZInQ.Mult.prime_of_mem_catalogue ZInQ.Mult.catalogue_injective ZInQ.Mult.Hcat_squarefree ZInQ.Mult.padicValNat_ell ZInQ.Mult.not_mem_S_mul</div>
+<div class="bp-thmcontent">
+<ol>
+<li><span class="arithmatex">\(M_0\ge1\)</span>, so <span class="arithmatex">\(c_*=4M_0\ge4\)</span>, and <span class="arithmatex">\(\ell_0\ge1\)</span>.</li>
+<li><span class="arithmatex">\(S_{\rm mul}\)</span> is a finite set of primes containing every prime <span class="arithmatex">\(p\le324\)</span>; every
+   <span class="arithmatex">\(p\in S_{\rm mul}\)</span> satisfies <span class="arithmatex">\(p\le R\)</span>; and <span class="arithmatex">\(R\ge D\)</span>, <span class="arithmatex">\(R\ge10^{12}\)</span>. Hence the six-contact
+   estimate applies with <span class="arithmatex">\(S=S_{\rm mul}\)</span> and this <span class="arithmatex">\(R\)</span>, and its constant is
+   <span class="arithmatex">\(H_6(S_{\rm mul};R)=A_{\rm ht}\)</span> (as real numbers, <span class="arithmatex">\(Q=R^{RE_0}\)</span> being an integer power). Under
+   the minimal height hypothesis, <span class="arithmatex">\(h(u)\le A_{\rm ht}M_{S_{\rm mul}}(u)^{24}\)</span> for every
+   <span class="arithmatex">\(u\in\mathbb Q\setminus\mathcal C\)</span>, since <span class="arithmatex">\(H_6(D)\le H_6(S_{\rm mul};R)\)</span>.</li>
+<li><span class="arithmatex">\(A_{\rm ht}\ge2\cdot10^{13}\)</span>; in particular <span class="arithmatex">\(48A_{\rm ht}\ge1\)</span> and <span class="arithmatex">\(T=(48A_{\rm ht})^{13}&gt;4\)</span>.</li>
+<li>The catalogue primes exceed <span class="arithmatex">\(324\)</span> and are pairwise distinct, so <span class="arithmatex">\(H_{\rm cat}\)</span> is squarefree
+   with set of prime factors <span class="arithmatex">\(\mathcal H\)</span>. Consequently <span class="arithmatex">\(v_p(\ell_0)=E_p\)</span> for <span class="arithmatex">\(p\in S_b\)</span> and
+   <span class="arithmatex">\(v_p(\ell_0)=0\)</span> for every prime <span class="arithmatex">\(p\notin S_b\)</span>.</li>
+<li>Every prime <span class="arithmatex">\(p\notin S_{\rm mul}\)</span> satisfies <span class="arithmatex">\(p&gt;324\)</span>, <span class="arithmatex">\(p\nmid c_*\)</span>, <span class="arithmatex">\(p\nmid\ell_0\)</span> and
+   <span class="arithmatex">\(p\notin S_0=\{2,3,5,7,13\}\)</span>.</li>
+</ol>
+<p>No constant is evaluated: every item follows from the defining expressions.</p>
+<p><strong>Proof sketch.</strong> (1) The search defining <span class="arithmatex">\(M_0\)</span> succeeds at an index at most <span class="arithmatex">\(N_s^{10}\)</span> (the
+successful formal multiple of the size chapter, with <span class="arithmatex">\(N_s\ge1\)</span>), so <span class="arithmatex">\(M_0\ge1\)</span>. (2) Primes of <span class="arithmatex">\(S_{\rm ht}\)</span> are at
+most <span class="arithmatex">\(324\le10^{12}\le R\)</span>; catalogue primes are at most <span class="arithmatex">\(H_{\max}\le R\)</span> by the definition of the
+catalogue maximum; a prime dividing <span class="arithmatex">\(c_*\ge1\)</span> is at most <span class="arithmatex">\(c_*\le R\)</span>. <span class="arithmatex">\(S_{\rm mul}\)</span> is finite
+because the catalogue is finite and <span class="arithmatex">\(c_*\ne0\)</span>. The six-contact constant at <span class="arithmatex">\(R\)</span> is
+<span class="arithmatex">\(2\cdot10^{13}\max(1,C_{\rm cm},Q_R^{17})\)</span> with <span class="arithmatex">\(Q_R=R^{RE_0}\)</span>, literally <span class="arithmatex">\(A_{\rm ht}\)</span>; it is increasing in <span class="arithmatex">\(R\ge1\)</span>, and <span class="arithmatex">\(R\ge D\)</span>. (3) is
+immediate from the maximum with <span class="arithmatex">\(1\)</span>. (4) Distinct residue classes, or distinct positions in
+one class, give distinct primes. Then <span class="arithmatex">\(v_p(\ell_0)=v_p(12)+2916\)</span> for <span class="arithmatex">\(p\le324\)</span> and
+<span class="arithmatex">\(v_p(\ell_0)=732\)</span> for <span class="arithmatex">\(p\in\mathcal H\)</span>, which equal <span class="arithmatex">\(E_p\)</span> by the clearing arithmetic
+(<span class="arithmatex">\(C_p=56\)</span>, resp. <span class="arithmatex">\(C_p=14\)</span> and <span class="arithmatex">\(v_p(12)=0\)</span>). (5) <span class="arithmatex">\(S_{\rm mul}\)</span> contains all primes at most <span class="arithmatex">\(324\)</span>
+and all prime divisors of <span class="arithmatex">\(c_*\)</span> and of <span class="arithmatex">\(\ell_0\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> one_le_M0 (h : ∃ m, 1 ≤ m ∧ <a class="bp-lean-ref" href="../../syntax/constants/index.html#least-formal-multiple" data-lean-name="ZInQ.Syntax.FormalCondition">Syntax.FormalCondition</a> <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.Ns">Syntax.Ns</a> m) : 1 ≤ <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.M0">Syntax.M0</a></code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> one_le_M0_spec : 1 ≤ <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.M0">Syntax.M0</a></code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> four_le_cstar : 4 ≤ <a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">Syntax.cstar</a></code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Syntax.FormalCondition">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> FormalCondition (N m : ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  (N : ℤ) ^ 4 ∣ (normalizedRep (xi (m • genP0))).1 ∧
+    (N : ℤ) ^ 4 ∣ (normalizedRep (xi (m • genP0))).2.1 ∧
+    Nat.Coprime (normalizedRep (xi (m • genP0))).2.2 N</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/FormalMultiple.lean:158</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.Ns">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> Ns : ℕ := FixedFormula.Ns Ps Hcat</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:92</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.M0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> M0 : ℕ := leastFormalMultiple Ns</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:94</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.cstar">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> cstar : ℕ := FixedFormula.cstar M0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:96</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/multiplication-locators.html#fixed-constants">Fixed constants</a></li>
+<li><a href="../../../sources/multiplication-locators.html#least-formal-multiple-exists">Least formal multiple exists</a></li>
+<li><a href="../../../sources/multiplication-locators.html#contact-prime-sets">Contact prime sets</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 6 · Used by 13</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#constants">Prime sets and clearing exponents of the multiplication certificate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#six-contact-estimate">The six-contact height estimate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#six-contact-min">The minimal height hypothesis</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../size/formal-multiple/index.html#formal-multiple-existence">A successful formal multiple</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#clearing-arithmetic">The clearing inequalities</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/constants/index.html#least-formal-multiple">The least formal multiple</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../main/index.html#six-contact-min-of-estimate">The six-contact estimate implies its minimal form</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#multiply-unfolding">Unfolding the multiplication template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../completeness/index.html#pattern-slopes">Slopes of an integer from the prime pattern</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../completeness/index.html#pole-input-valuations">Valuations of the pole input of a completed slope</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../completeness/index.html#sb-integrality">Integrality of the tests at the old primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../completeness/index.html#slope-completeness">Completeness of the slope certificate for a true triple</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../completeness/index.html#slope-representation-from-two-slope">The two-slope pattern gives the slope representation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../soundness/index.html#common-group">The trace forces one common group and place</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../soundness/index.html#contact-support">The height of an accepted slope</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../soundness/index.html#contact-valuations">Valuations of the normalization at an odd contact prime</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../soundness/index.html#finite-box">The finite-box deduction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../soundness/index.html#local-congruence">The congruence at an odd contact prime</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../route-ap/index.html#slope-completeness-ap">Completeness of the slope certificate under field 2′</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-local-templates-and-the-twelve-tests">The local templates and the twelve tests</h2>
+<p>The templates <span class="arithmatex">\(\mathtt{raw\_z}\)</span>, <span class="arithmatex">\(\mathtt{raw\_inverse\_x}\)</span> and <span class="arithmatex">\(\mathtt{log25}\)</span> compute
+<span class="arithmatex">\(z=-x/y\)</span>, <span class="arithmatex">\(1/x\)</span> and the truncated logarithm <span class="arithmatex">\(L\)</span> on codes of <span class="arithmatex">\(2E(K_0)\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="multiplication/certificate/local-templates">
+<h4 class="bp-thmheading" id="local-templates">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Semantics of the local-parameter, inverse-abscissa and logarithm templates</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/LocalTemplates.lean#L75" aria-label="View ZInQ.Mult.rawZ_rel_iff_of in Lean source" title="View ZInQ.Mult.rawZ_rel_iff_of in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/LocalTemplates.lean#L93" aria-label="View ZInQ.Mult.rawZ_not_rel in Lean source" title="View ZInQ.Mult.rawZ_not_rel in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/LocalTemplates.lean#L136" aria-label="View ZInQ.Mult.rawInverseX_rel_iff_of in Lean source" title="View ZInQ.Mult.rawInverseX_rel_iff_of in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/LocalTemplates.lean#L156" aria-label="View ZInQ.Mult.rawInverseX_not_rel in Lean source" title="View ZInQ.Mult.rawInverseX_not_rel in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/LocalTemplates.lean#L182" aria-label="View ZInQ.Mult.log25_rel_iff in Lean source" title="View ZInQ.Mult.log25_rel_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/LocalTemplates.lean#L216" aria-label="View ZInQ.Mult.rawZ_rel_iota in Lean source" title="View ZInQ.Mult.rawZ_rel_iota in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/LocalTemplates.lean#L221" aria-label="View ZInQ.Mult.rawInverseX_rel_iota in Lean source" title="View ZInQ.Mult.rawInverseX_rel_iota in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/multiplication/certificate/local-templates.md" aria-label="Edit the Markdown source for Semantics of the local-parameter, inverse-abscissa and logarithm templates" title="Edit the Markdown source for Semantics of the local-parameter, inverse-abscissa and logarithm templates"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#local-templates" aria-label="Link to Semantics of the local-parameter, inverse-abscissa and logarithm templates" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Mult.rawZ_rel_iff_of ZInQ.Mult.rawZ_not_rel ZInQ.Mult.rawInverseX_rel_iff_of ZInQ.Mult.rawInverseX_not_rel ZInQ.Mult.log25_rel_iff ZInQ.Mult.rawZ_rel_iota ZInQ.Mult.rawInverseX_rel_iota</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(Q\in E(K_0)\)</span> with code <span class="arithmatex">\(p=\operatorname{code}(Q)\)</span>, and let <span class="arithmatex">\(\zeta,v,\lambda\)</span> be rational
+pairs, <span class="arithmatex">\([u]=u_0+u_1s\)</span>.</p>
+<ol>
+<li>If <span class="arithmatex">\(Q=O\)</span> or <span class="arithmatex">\(y(Q)\ne0\)</span>, then <span class="arithmatex">\(\mathrm{Rel}_{\mathtt{raw\_z}}(p,\zeta)\iff[\zeta]=z(Q)\)</span>, where
+   <span class="arithmatex">\(z(O)=0\)</span> and <span class="arithmatex">\(z(Q)=-x(Q)/y(Q)\)</span>. If <span class="arithmatex">\(Q\)</span> is affine with <span class="arithmatex">\(y(Q)=0\)</span>, the relation fails for
+   every <span class="arithmatex">\(\zeta\)</span>.</li>
+<li>If <span class="arithmatex">\(Q=O\)</span> or <span class="arithmatex">\(x(Q)\ne0\)</span>, then <span class="arithmatex">\(\mathrm{Rel}_{\mathtt{raw\_inverse\_x}}(p,v)\iff[v]=1/x(Q)\)</span>,
+   with value <span class="arithmatex">\(0\)</span> at <span class="arithmatex">\(O\)</span>. If <span class="arithmatex">\(Q\)</span> is affine with <span class="arithmatex">\(x(Q)=0\)</span>, the relation fails for every <span class="arithmatex">\(v\)</span>.</li>
+<li>For all pairs <span class="arithmatex">\(\zeta,\lambda\)</span>: <span class="arithmatex">\(\mathrm{Rel}_{\mathtt{log25}}(\zeta,\lambda)\iff[\lambda]=L([\zeta])\)</span>.</li>
+</ol>
+<p>In particular, for <span class="arithmatex">\(Q\in\mathbb ZP_0\)</span> (assuming the generator certificate, so that a
+nonidentity multiple of <span class="arithmatex">\(P_0\)</span> has <span class="arithmatex">\(x,y\ne0\)</span>) the three templates compute <span class="arithmatex">\(z(Q)\)</span>, <span class="arithmatex">\(1/x(Q)\)</span>
+and <span class="arithmatex">\(L(z(Q))\)</span>.</p>
+<p><strong>Proof sketch.</strong> Each template polynomial is the square of the compilation of its formula
+(<span class="arithmatex">\(Z(p,\zeta)\)</span> with one fresh variable, <span class="arithmatex">\(I\!X(p,v)\)</span>, and the pair equation <span class="arithmatex">\(L(\zeta)\doteq\lambda\)</span>),
+so it vanishes exactly when the formula holds. The pair-arithmetic theorem describes
+<span class="arithmatex">\(Z(p,\zeta)\)</span> and <span class="arithmatex">\(I\!X(p,v)\)</span> exactly: the identity branch applies iff <span class="arithmatex">\(p=O\)</span>, and the affine
+branch requires <span class="arithmatex">\([y(p)]\ne0\)</span>, resp. <span class="arithmatex">\([x(p)][v]=1\)</span>. For (3), pair arithmetic represents the
+field operations, so the two components of <span class="arithmatex">\(L(\zeta)-\lambda\)</span> vanish iff <span class="arithmatex">\([\lambda]=L([\zeta])\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> rawZ_rel_iff_of (Q : <a class="bp-lean-ref" href="../../model/field/index.html#generator-curve" data-lean-name="ZInQ.genCurve">genCurve</a>.toAffine.Point)
+    (hQ : ∀ x y h, Q = Point.some x y h → y ≠ 0) (ζ : Fin 2 → ℚ) :
+    <a class="bp-lean-ref" href="../../syntax/templates/index.html#template-raw-z" data-lean-name="ZInQ.Syntax.rawZTemplate">rawZTemplate</a>.Rel (Fin.append (<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.pointCode">pointCode</a> Q) ζ) ↔ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/LocalTemplates.lean#L28" data-lean-name="ZInQ.Mult.pairK">pairK</a> ζ = <a class="bp-lean-ref" href="#twelve-tests" data-lean-name="ZInQ.Mult.zOf">zOf</a> Q</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> rawZ_not_rel {x y : <a class="bp-lean-ref" href="../../model/field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>} (h : <a class="bp-lean-ref" href="../../model/field/index.html#generator-curve" data-lean-name="ZInQ.genCurve">genCurve</a>.toAffine.Nonsingular x y) (hy : y = 0)
+    (ζ : Fin 2 → ℚ) : ¬ <a class="bp-lean-ref" href="../../syntax/templates/index.html#template-raw-z" data-lean-name="ZInQ.Syntax.rawZTemplate">rawZTemplate</a>.Rel (Fin.append (<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.pointCode">pointCode</a> (Point.some x y h)) ζ)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> rawInverseX_rel_iff_of (Q : <a class="bp-lean-ref" href="../../model/field/index.html#generator-curve" data-lean-name="ZInQ.genCurve">genCurve</a>.toAffine.Point)
+    (hQ : ∀ x y h, Q = Point.some x y h → x ≠ 0) (v : Fin 2 → ℚ) :
+    <a class="bp-lean-ref" href="../../syntax/templates/index.html#template-raw-inverse-x" data-lean-name="ZInQ.Syntax.rawInverseXTemplate">rawInverseXTemplate</a>.Rel (Fin.append (<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.pointCode">pointCode</a> Q) v) ↔ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/LocalTemplates.lean#L28" data-lean-name="ZInQ.Mult.pairK">pairK</a> v = <a class="bp-lean-ref" href="#twelve-tests" data-lean-name="ZInQ.Mult.invX">invX</a> Q</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.genCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> genCurve : WeierstrassCurve K0 <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := -genD ^ 2
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:34</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.rawZTemplate">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> rawZTemplate : ExPoly := Build.template 7 (rawZBuild (varPoint 0) (varPair 5))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Templates/Core.lean:24</p>
+</div>
+<div data-lean-name="ZInQ.pointCode">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> pointCode : genCurve.toAffine.Point → Fin 5 → ℚ
+  | .zero =&gt; ![1, 0, 0, 0, 0]
+  | .some x y _ =&gt; ![0, x.re, x.im, y.re, y.im]</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Codes.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.Mult.pairK">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> pairK (u : Fin 2 → ℚ) : K0 := ⟨u 0, u 1⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/LocalTemplates.lean:28</p>
+</div>
+<div data-lean-name="ZInQ.Mult.zOf">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> zOf : genCurve.toAffine.Point → K0
+  | .zero =&gt; 0
+  | .some x y _ =&gt; -x / y</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/Tests.lean:30</p>
+</div>
+<div data-lean-name="ZInQ.K0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> K0 : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.rawInverseXTemplate">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> rawInverseXTemplate : ExPoly :=
+  Build.template 7 (rawInverseXBuild (varPoint 0) (varPair 5))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Templates/Core.lean:61</p>
+</div>
+<div data-lean-name="ZInQ.Mult.invX">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> invX : genCurve.toAffine.Point → K0
+  | .zero =&gt; 0
+  | .some x _ _ =&gt; x⁻¹</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/Tests.lean:25</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/multiplication-locators.html#twelve-tests">Twelve tests</a></li>
+<li><a href="../../../sources/multiplication-locators.html#multiplication-certificate-generator">Multiplication certificate generator</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 8 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/templates/index.html#template-raw-z">The local parameter template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/templates/index.html#template-raw-inverse-x">The inverse abscissa template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/templates/index.html#template-log25">The truncated logarithm template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/index.html#point-codes">Point codes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/index.html#template-semantics">Semantics of templates and recipes</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/index.html#field-pair-arithmetic">Pair arithmetic represents the quadratic field</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/index.html#sum-of-squares-semantics">Sums of squares and products over the rationals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/field/index.html#point-code-properties">Elementary properties of codes</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#test-group-semantics">Semantics of the test-group template</a></span></div>
+</div>
+</details>
+</div>
+<p>For indices <span class="arithmatex">\(n_1,n_2,n_3\)</span>, a test group chooses <span class="arithmatex">\(H=[h]P_0\)</span> and <span class="arithmatex">\(U_i=[z_i]P_0\)</span> and sets
+<span class="arithmatex">\(V_0=H-[c_*]P_0\)</span>, <span class="arithmatex">\(V_i=U_i-[c_*n_i]P_0\)</span>. Its twelve tests are the four inverse abscissas at
+<span class="arithmatex">\(H,U_i\)</span>, their conjugate counterparts at <span class="arithmatex">\(V_0,V_i\)</span>, three differences of <span class="arithmatex">\(L\)</span>-ratios and one
+product test. Identity inverse abscissas are zero, and the two guarded denominators are
+nonzero once <span class="arithmatex">\(H\)</span> and <span class="arithmatex">\(V_0\)</span> are not the identity.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="multiplication/certificate/twelve-tests">
+<h4 class="bp-thmheading" id="twelve-tests">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The twelve local tests</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Tests.lean#L25" aria-label="View ZInQ.Mult.invX in Lean source" title="View ZInQ.Mult.invX in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Tests.lean#L30" aria-label="View ZInQ.Mult.zOf in Lean source" title="View ZInQ.Mult.zOf in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Tests.lean#L35" aria-label="View ZInQ.Mult.Lam in Lean source" title="View ZInQ.Mult.Lam in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Tests.lean#L40" aria-label="View ZInQ.Mult.testValues in Lean source" title="View ZInQ.Mult.testValues in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Tests.lean#L66" aria-label="View ZInQ.Mult.testValues_eq in Lean source" title="View ZInQ.Mult.testValues_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/multiplication/certificate/twelve-tests.md" aria-label="Edit the Markdown source for The twelve local tests" title="Edit the Markdown source for The twelve local tests"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#twelve-tests" aria-label="Link to The twelve local tests" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Mult.invX ZInQ.Mult.zOf ZInQ.Mult.Lam ZInQ.Mult.testValues ZInQ.Mult.testValues_eq</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(h,z_1,z_2,z_3,c_0,c_1,c_2,c_3\in\mathbb Z\)</span> with <span class="arithmatex">\(h\ne0\)</span> and <span class="arithmatex">\(h\ne c_0\)</span>. Put
+$<span class="arithmatex">\(H=[h]P_0,\quad U_i=[z_i]P_0,\quad V_0=[h-c_0]P_0,\quad V_i=[z_i-c_i]P_0\qquad(i=1,2,3),\)</span>$
+so that <span class="arithmatex">\(V_0=H-[c_0]P_0\)</span> and <span class="arithmatex">\(V_i=U_i-[c_i]P_0\)</span>. For <span class="arithmatex">\(Q\in\mathbb ZP_0\)</span> let <span class="arithmatex">\(\rho(Q)=1/x(Q)\)</span> with
+<span class="arithmatex">\(\rho(O)=0\)</span>, and <span class="arithmatex">\(\Lambda(Q)=L(z(Q))\)</span> with <span class="arithmatex">\(\Lambda(O)=L(0)=0\)</span>, where <span class="arithmatex">\(L\)</span> is the truncated
+logarithm. Put
+$<span class="arithmatex">\(A_i=\frac{\Lambda(U_i)}{\Lambda(H)},\qquad B_i=\frac{\Lambda(V_i)}{\Lambda(V_0)}\qquad(i=1,2,3).\)</span>$
+With <span class="arithmatex">\(\sigma\)</span> the conjugation of <span class="arithmatex">\(K_0\)</span>, the twelve test values
+<span class="arithmatex">\(\tau(h,z;c)=(\tau_1,\dots,\tau_{12})\in K_0^{12}\)</span> are
+$<span class="arithmatex">\(\begin{aligned}
+&amp;\tau_1=\rho(H),\quad \tau_{1+i}=\rho(U_i),\quad \tau_5=\sigma\rho(V_0),\quad \tau_{5+i}=\sigma\rho(V_i),\\
+&amp;\tau_{8+i}=A_i-\sigma B_i\quad(i=1,2,3),\qquad \tau_{12}=A_1A_2-A_3 .
+\end{aligned}\)</span>$
+That is: four inverse abscissas at <span class="arithmatex">\(H,U_i\)</span>, their four conjugate counterparts at <span class="arithmatex">\(V_0,V_i\)</span>,
+three differences of the corresponding <span class="arithmatex">\(L\)</span>-ratios, and the product of the first two
+unprimed ratios minus the third. Identity inverse abscissas are zero.</p>
+<p>In the multiplication certificate <span class="arithmatex">\(c_0=c_*\)</span> and <span class="arithmatex">\(c_i=c_*n_i\)</span>, where <span class="arithmatex">\(n_1,n_2,n_3\)</span> are the
+indices of the three inputs; then <span class="arithmatex">\(V_0=H-[c_*]P_0\)</span> and <span class="arithmatex">\(V_i=U_i-[c_*n_i]P_0\)</span>.</p>
+<p>This is a definition. The quantities <span class="arithmatex">\(\rho(Q)\)</span> and <span class="arithmatex">\(\Lambda(Q)\)</span> are well defined because a
+nonidentity multiple of <span class="arithmatex">\(P_0\)</span> has <span class="arithmatex">\(x,y\ne0\)</span>, and the denominators <span class="arithmatex">\(\Lambda(H),\Lambda(V_0)\)</span>
+are nonzero because <span class="arithmatex">\(H,V_0\ne O\)</span> (the nonvanishing lemma); as a formal definition any
+convention for a zero denominator may be used.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> invX : <a class="bp-lean-ref" href="../../model/field/index.html#generator-curve" data-lean-name="ZInQ.genCurve">genCurve</a>.toAffine.Point → <a class="bp-lean-ref" href="../../model/field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>
+  | .zero =&gt; 0
+  | .some x _ _ =&gt; x⁻¹</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> zOf : <a class="bp-lean-ref" href="../../model/field/index.html#generator-curve" data-lean-name="ZInQ.genCurve">genCurve</a>.toAffine.Point → <a class="bp-lean-ref" href="../../model/field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>
+  | .zero =&gt; 0
+  | .some x y _ =&gt; -x / y</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> Lam (Q : <a class="bp-lean-ref" href="../../model/field/index.html#generator-curve" data-lean-name="ZInQ.genCurve">genCurve</a>.toAffine.Point) : <a class="bp-lean-ref" href="../../model/field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a> := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Local/LogCoefficients.lean#L59" data-lean-name="ZInQ.Mult.truncLog">truncLog</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Hypotheses/MordellWeil.lean#L31" data-lean-name="ZInQ.genD">genD</a> ^ 2) (<a class="bp-lean-ref" href="#twelve-tests" data-lean-name="ZInQ.Mult.zOf">zOf</a> Q)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.genCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> genCurve : WeierstrassCurve K0 <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := -genD ^ 2
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:34</p>
+</div>
+<div data-lean-name="ZInQ.K0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> K0 : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.Mult.truncLog">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> truncLog {R : <span class="bp-lean-keyword">Type</span>*} [CommRing R] (δ z : R) : R :=
+  ∑ j ∈ range 7, (log25Coeff j : R) * δ ^ j * z ^ (4 * j + 1)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Local/LogCoefficients.lean:59</p>
+</div>
+<div data-lean-name="ZInQ.genD">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> genD : K0 := ⟨75, -53⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:31</p>
+</div>
+<div data-lean-name="ZInQ.Mult.zOf">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> zOf : genCurve.toAffine.Point → K0
+  | .zero =&gt; 0
+  | .some x y _ =&gt; -x / y</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/Tests.lean:30</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/multiplication-locators.html#twelve-tests">Twelve tests</a></li>
+<li><a href="../../../sources/multiplication-locators.html#multiplication-certificate-generator">Multiplication certificate generator</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 5</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/field/index.html#generator-point">The point <span class="arithmatex">\(P_0\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/templates/index.html#template-log25">The truncated logarithm template</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#slope-predicate">The slope predicate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#test-group-semantics">Semantics of the test-group template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../completeness/index.html#sb-integrality">Integrality of the tests at the old primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../completeness/index.html#selected-prime-precision">Precision of the tests at a selected prime</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../soundness/index.html#tests-to-congruence">From the local tests to the congruence</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="multiplication/certificate/test-group-semantics">
+<h4 class="bp-thmheading" id="test-group-semantics">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Semantics of the test-group template</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/TestGroup.lean#L262" aria-label="View ZInQ.Mult.testGroup_rel_iff in Lean source" title="View ZInQ.Mult.testGroup_rel_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/TestGroup.lean#L430" aria-label="View ZInQ.Mult.testGroup_rel_iff_codes in Lean source" title="View ZInQ.Mult.testGroup_rel_iff_codes in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/multiplication/certificate/test-group-semantics.md" aria-label="Edit the Markdown source for Semantics of the test-group template" title="Edit the Markdown source for Semantics of the test-group template"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#test-group-semantics" aria-label="Link to Semantics of the test-group template" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Mult.testGroup_rel_iff ZInQ.Mult.testGroup_rel_iff_codes</div>
+<div class="bp-thmcontent">
+<p>For all <span class="arithmatex">\(c_0,c_1,c_2,c_3\in\mathbb Z\)</span> and all
+rational pairs <span class="arithmatex">\(D_1,\dots,D_{12}\)</span>,
+$<span class="arithmatex">\(\mathrm{Rel}_{\mathtt{test\_group}}\bigl(\iota(c_0),\iota(c_1),\iota(c_2),\iota(c_3),D_1,\dots,D_{12}\bigr)
+\iff\exists\,h,z_1,z_2,z_3\in\mathbb Z:\ h\ne0,\ h\ne c_0,\ [D_j]=\tau_j(h,z;c)\ (1\le j\le12).\)</span>$
+(The template's output pairs <span class="arithmatex">\(D_0,\dots,D_{11}\)</span> are <span class="arithmatex">\(D_1,\dots,D_{12}\)</span> here.) The four
+inputs must be canonical codes, as they are in every use: the raw addition contract is only
+valid on canonical codes.</p>
+<p><strong>Proof sketch.</strong> By the evaluation of calls and the lifting of private blocks, the relation
+holds iff there are values of the <span class="arithmatex">\(162\)</span> witnesses satisfying every conjunct. (<span class="arithmatex">\(\Rightarrow\)</span>)
+The membership calls make each <span class="arithmatex">\(F_i\)</span> a code <span class="arithmatex">\(\iota(f_i)\)</span> (accepted inputs have unique
+indices). Since <span class="arithmatex">\(\operatorname{neg}(\iota(c_i))=\iota(-c_i)\)</span> is canonical, raw addition gives
+<span class="arithmatex">\(V_i=\iota(f_i-c_i)\)</span>. The atoms <span class="arithmatex">\(\operatorname{fin}(F_0)\)</span> and <span class="arithmatex">\(\operatorname{fin}(V_0)\)</span> say
+<span class="arithmatex">\(f_0\ne0\)</span> and <span class="arithmatex">\(f_0\ne c_0\)</span>. By the local-template semantics the three calls on each of the
+eight points give <span class="arithmatex">\(\zeta_i=z(\Pi_i)\)</span>, <span class="arithmatex">\(\lambda_i=L(\zeta_i)\)</span> and <span class="arithmatex">\(\rho_i=1/x(\Pi_i)\)</span>; the
+inverse atoms give <span class="arithmatex">\(\lambda_0,\lambda_4\ne0\)</span>; the ratio equations give
+<span class="arithmatex">\(q_{\sigma,i}=\lambda_{4\sigma+i}/\lambda_{4\sigma}\)</span>; and the final pair equations say
+<span class="arithmatex">\([D_j]=\tau_j\)</span>. Take <span class="arithmatex">\(h=f_0\)</span>, <span class="arithmatex">\(z_i=f_i\)</span>. (<span class="arithmatex">\(\Leftarrow\)</span>) Put <span class="arithmatex">\(F_0=\iota(h)\)</span>, <span class="arithmatex">\(F_i=\iota(z_i)\)</span>,
+<span class="arithmatex">\(V_0=\iota(h-c_0)\)</span>, <span class="arithmatex">\(V_i=\iota(z_i-c_i)\)</span>, choose the member and raw-addition blocks by
+completeness of those templates, <span class="arithmatex">\(\zeta,\lambda,\rho\)</span> as computed, the inverse witnesses
+<span class="arithmatex">\(1/N(\lambda_0)\)</span> and <span class="arithmatex">\(1/N(\lambda_4)\)</span>, which exist by the nonvanishing lemma, and the ratios.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> testGroup_rel_iff (c : Fin 4 → ℤ) (a : Fin 44 → ℚ)
+    (ha : ∀ (i : Fin 4) (k : Fin 5), a ⟨5 * i + k, <span class="bp-lean-keyword">by</span> omega⟩ = iota (c i) k) :
+    testGroupTemplate.Rel a ↔ ∃ (h : ℤ) (z : Fin 3 → ℤ), h ≠ 0 ∧ h ≠ c 0 ∧
+      ∀ j : Fin 12, (⟨a ⟨20 + 2 * j, <span class="bp-lean-keyword">by</span> omega⟩, a ⟨21 + 2 * j, <span class="bp-lean-keyword">by</span> omega⟩⟩ : K0) =
+        testValues h z c j</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> testGroup_rel_iff_codes (c : Fin 4 → ℤ) (D : Fin 12 → Fin 2 → ℚ) :
+    <a class="bp-lean-ref" href="../../syntax/templates/index.html#template-test-group" data-lean-name="ZInQ.Syntax.testGroupTemplate">testGroupTemplate</a>.Rel (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/TestGroup.lean#L423" data-lean-name="ZInQ.Mult.testGroupVec">testGroupVec</a> c D) ↔
+      ∃ (h : ℤ) (z : Fin 3 → ℤ), h ≠ 0 ∧ h ≠ c 0 ∧
+        ∀ j : Fin 12, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/LocalTemplates.lean#L28" data-lean-name="ZInQ.Mult.pairK">pairK</a> (D j) = <a class="bp-lean-ref" href="#twelve-tests" data-lean-name="ZInQ.Mult.testValues">testValues</a> h z c j</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Syntax.testGroupTemplate">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> testGroupTemplate : ExPoly :=
+  Build.template 44 (testGroupBuild testGroupC testGroupD)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Templates/Certificate.lean:73</p>
+</div>
+<div data-lean-name="ZInQ.Mult.testGroupVec">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> testGroupVec (c : Fin 4 → ℤ) (D : Fin 12 → Fin 2 → ℚ) : Fin 44 → ℚ := <span class="bp-lean-keyword">fun</span> k =&gt;
+  <span class="bp-lean-keyword">if</span> h : k.val &lt; 20 <span class="bp-lean-keyword">then</span> iota (c ⟨k / 5, <span class="bp-lean-keyword">by</span> omega⟩) ⟨k % 5, <span class="bp-lean-keyword">by</span> omega⟩
+  <span class="bp-lean-keyword">else</span> D ⟨(k - 20) / 2, <span class="bp-lean-keyword">by</span> omega⟩ ⟨(k - 20) % 2, <span class="bp-lean-keyword">by</span> omega⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/TestGroup.lean:423</p>
+</div>
+<div data-lean-name="ZInQ.Mult.pairK">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> pairK (u : Fin 2 → ℚ) : K0 := ⟨u 0, u 1⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/LocalTemplates.lean:28</p>
+</div>
+<div data-lean-name="ZInQ.Mult.testValues">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> testValues (h : ℤ) (z : Fin 3 → ℤ) (c : Fin 4 → ℤ) : Fin 12 → K0 :=
+  <span class="bp-lean-keyword">let</span> H := h • genP0
+  <span class="bp-lean-keyword">let</span> U : Fin 3 → genCurve.toAffine.Point := <span class="bp-lean-keyword">fun</span> i =&gt; z i • genP0
+  <span class="bp-lean-keyword">let</span> V0 := (h - c 0) • genP0
+  <span class="bp-lean-keyword">let</span> V : Fin 3 → genCurve.toAffine.Point := <span class="bp-lean-keyword">fun</span> i =&gt; (z i - c i.succ) • genP0
+  <span class="bp-lean-keyword">let</span> A : Fin 3 → K0 := <span class="bp-lean-keyword">fun</span> i =&gt; Lam (U i) / Lam H
+  <span class="bp-lean-keyword">let</span> B : Fin 3 → K0 := <span class="bp-lean-keyword">fun</span> i =&gt; Lam (V i) / Lam V0
+  ![invX H, invX (U 0), invX (U 1), invX (U 2),
+    star (invX V0), star (invX (V 0)), star (invX (V 1)), star (invX (V 2)),
+    A 0 - star (B 0), A 1 - star (B 1), A 2 - star (B 2), A 0 * A 1 - A 2]</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/Tests.lean:40</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/multiplication-locators.html#twelve-tests">Twelve tests</a></li>
+<li><a href="../../../sources/multiplication-locators.html#multiplication-certificate-generator">Multiplication certificate generator</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 14 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/templates/index.html#template-test-group">The test-group template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#twelve-tests">The twelve local tests</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/index.html#point-codes">Point codes</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/index.html#membership-indices">Accepted inputs have unique indices</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/index.html#membership">Polynomial membership in the doubled group</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/index.html#raw-addition">Raw addition</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#local-templates">Semantics of the local-parameter, inverse-abscissa and logarithm templates</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../local/index.html#logarithm-nonvanishing">The truncated logarithm does not vanish on nonzero multiples of <span class="arithmatex">\(P_0\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/index.html#field-pair-arithmetic">Pair arithmetic represents the quadratic field</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/language/index.html#call-semantics">Evaluation of a template call</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/language/index.html#existential-lifting">Private witness blocks</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/field/index.html#point-code-properties">Elementary properties of codes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/index.html#generator">The generator certificate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/descent/index.html#mordell-weil-from-descent">Mordell-Weil for <span class="arithmatex">\(E/K_0\)</span> from the descent</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#slope-semantics">Semantics of the slope template</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-slope-predicate">The slope predicate</h2>
+<p>For a slope <span class="arithmatex">\(t\notin\mathcal C\cup\{1\}\)</span> the certificate normalizes the twelve tests of each
+of six groups by powers of <span class="arithmatex">\(R_0=\eta F(t)/(t-1)^8\)</span> and <span class="arithmatex">\(t-1\)</span>, forms
+<span class="arithmatex">\(W_g=\prod_j(1+RC_{gj}^2)\)</span> with <span class="arithmatex">\(R=\ell_0^2a^2R_0\)</span>, <span class="arithmatex">\(a=1-R_0q^2\ne0\)</span>, takes the trace
+<span class="arithmatex">\(\Theta=\operatorname{Tr}\sum_gW_g^{-1}\)</span>, and imposes the pole predicate <span class="arithmatex">\(\Phi(R/\Theta^2)\)</span> on a
+nonzero input.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="multiplication/certificate/slope-predicate">
+<h4 class="bp-thmheading" id="slope-predicate">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The slope predicate</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/SlopePredicate.lean#L52" aria-label="View ZInQ.Mult.SlopePred in Lean source" title="View ZInQ.Mult.SlopePred in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/SlopePredicate.lean#L27" aria-label="View ZInQ.Mult.slopeR0 in Lean source" title="View ZInQ.Mult.slopeR0 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/SlopePredicate.lean#L30" aria-label="View ZInQ.Mult.slopeA in Lean source" title="View ZInQ.Mult.slopeA in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/SlopePredicate.lean#L33" aria-label="View ZInQ.Mult.slopeR in Lean source" title="View ZInQ.Mult.slopeR in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/SlopePredicate.lean#L36" aria-label="View ZInQ.Mult.normTests in Lean source" title="View ZInQ.Mult.normTests in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/SlopePredicate.lean#L40" aria-label="View ZInQ.Mult.groupW in Lean source" title="View ZInQ.Mult.groupW in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/SlopePredicate.lean#L43" aria-label="View ZInQ.Mult.traceTheta in Lean source" title="View ZInQ.Mult.traceTheta in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/SlopePredicate.lean#L65" aria-label="View ZInQ.Mult.certShifts in Lean source" title="View ZInQ.Mult.certShifts in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/multiplication/certificate/slope-predicate.md" aria-label="Edit the Markdown source for The slope predicate" title="Edit the Markdown source for The slope predicate"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#slope-predicate" aria-label="Link to The slope predicate" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Mult.SlopePred ZInQ.Mult.slopeR0 ZInQ.Mult.slopeA ZInQ.Mult.slopeR ZInQ.Mult.normTests ZInQ.Mult.groupW ZInQ.Mult.traceTheta ZInQ.Mult.certShifts</div>
+<div class="bp-thmcontent">
+<p>For <span class="arithmatex">\(t,\ell\in\mathbb Q\)</span> and <span class="arithmatex">\(c=(c_0,c_1,c_2,c_3)\in\mathbb Z^4\)</span>, the slope predicate
+<span class="arithmatex">\(\mathrm{Slope}(t,\ell;c)\)</span> holds when all of the following hold:</p>
+<ol>
+<li><span class="arithmatex">\(t\notin\mathcal C\cup\{1\}\)</span> and <span class="arithmatex">\(\ell\ne0\)</span>;</li>
+<li>there are <span class="arithmatex">\(\eta\in\{1,-1\}\)</span> and <span class="arithmatex">\(q\in\mathbb Q\)</span> such that, with
+   $<span class="arithmatex">\(R_0=\frac{\eta F(t)}{(t-1)^8},\qquad a=1-R_0q^2,\qquad R=\ell^2a^2R_0,\)</span>$
+   one has <span class="arithmatex">\(a\ne0\)</span>;</li>
+<li>there are, for <span class="arithmatex">\(g=1,\dots,6\)</span>, integers <span class="arithmatex">\(h_g,z_{g,1},z_{g,2},z_{g,3}\)</span> with <span class="arithmatex">\(h_g\ne0\)</span> and
+   <span class="arithmatex">\(h_g\ne c_0\)</span> such that, with the test values <span class="arithmatex">\(D_{gj}=\tau_j(h_g,z_g;c)\in K_0\)</span> and the
+   normalized values
+   $<span class="arithmatex">\(C_{gj}=\frac{D_{gj}}{R_0^{k_j}(t-1)^{k_j+1}}\qquad(k_j=1\text{ for }j\le8,\ k_j=25\text{ for }j\ge9),\)</span>$
+   the elements <span class="arithmatex">\(W_g=\prod_{j=1}^{12}\bigl(1+RC_{gj}^2\bigr)\)</span> of <span class="arithmatex">\(K_0\)</span> and
+   <span class="arithmatex">\(\Theta=\operatorname{Tr}\sum_{g=1}^6W_g^{-1}\in\mathbb Q\)</span> satisfy <span class="arithmatex">\(W_g\ne0\)</span> for every <span class="arithmatex">\(g\)</span>,
+   <span class="arithmatex">\(\Theta\ne0\)</span>, and
+   $<span class="arithmatex">\(\Phi\bigl(R/\Theta^2\bigr).\)</span>$</li>
+</ol>
+<p>Here <span class="arithmatex">\(F(t)=t(t+15)(t+20)(t+24)(t+30)(t+60)\)</span>, <span class="arithmatex">\(\Phi\)</span> is the rational solubility of the pole
+polynomial, and <span class="arithmatex">\(\operatorname{Tr}(u+vs)=2u\)</span>. Since <span class="arithmatex">\(F(t)\ne0\)</span>, <span class="arithmatex">\(\ell\ne0\)</span> and <span class="arithmatex">\(a\ne0\)</span>, the pole
+input <span class="arithmatex">\(R/\Theta^2\)</span> is nonzero, so the prefactor <span class="arithmatex">\(B\)</span> of <span class="arithmatex">\(Q_{\rm pole}\)</span> cannot make the pole
+constraint vacuous. In the certificate <span class="arithmatex">\(\ell=\ell_0\)</span> and <span class="arithmatex">\(c=(c_*,c_*n_1,c_*n_2,c_*n_3)\)</span>.</p>
+<p>This is a definition.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SlopePred (t ℓ : ℚ) (c : Fin 4 → ℤ) : <span class="bp-lean-keyword">Prop</span> :=
+  t ∉ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Hypotheses/Height.lean#L84" data-lean-name="ZInQ.contactSet">contactSet</a> ∧ t ≠ 1 ∧ ℓ ≠ 0 ∧
+    ∃ (η q : ℚ) (h : Fin 6 → ℤ) (z : Fin 6 → Fin 3 → ℤ),
+      (η = 1 ∨ η = -1) ∧ <a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeA">slopeA</a> (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeR0">slopeR0</a> η t) q ≠ 0 ∧ (∀ g, h g ≠ 0 ∧ h g ≠ c 0) ∧
+      (∀ g, <a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.groupW">groupW</a> (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeR">slopeR</a> ℓ (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeA">slopeA</a> (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeR0">slopeR0</a> η t) q) (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeR0">slopeR0</a> η t))
+          (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.normTests">normTests</a> (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeR0">slopeR0</a> η t) t (<a class="bp-lean-ref" href="#twelve-tests" data-lean-name="ZInQ.Mult.testValues">testValues</a> (h g) (z g) c)) ≠ 0) ∧
+      <a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.traceTheta">traceTheta</a> (<span class="bp-lean-keyword">fun</span> g =&gt; <a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.groupW">groupW</a> (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeR">slopeR</a> ℓ (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeA">slopeA</a> (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeR0">slopeR0</a> η t) q) (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeR0">slopeR0</a> η t))
+          (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.normTests">normTests</a> (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeR0">slopeR0</a> η t) t (<a class="bp-lean-ref" href="#twelve-tests" data-lean-name="ZInQ.Mult.testValues">testValues</a> (h g) (z g) c))) ≠ 0 ∧
+      <a class="bp-lean-ref" href="../../main/index.html#pole-completeness" data-lean-name="ZInQ.PoleSoluble">PoleSoluble</a> (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeR">slopeR</a> ℓ (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeA">slopeA</a> (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeR0">slopeR0</a> η t) q) (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeR0">slopeR0</a> η t) /
+        <a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.traceTheta">traceTheta</a> (<span class="bp-lean-keyword">fun</span> g =&gt; <a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.groupW">groupW</a> (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeR">slopeR</a> ℓ (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeA">slopeA</a> (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeR0">slopeR0</a> η t) q) (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeR0">slopeR0</a> η t))
+          (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.normTests">normTests</a> (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.slopeR0">slopeR0</a> η t) t (<a class="bp-lean-ref" href="#twelve-tests" data-lean-name="ZInQ.Mult.testValues">testValues</a> (h g) (z g) c))) ^ 2)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> slopeR0 (η t : ℚ) : ℚ := η * <a class="bp-lean-ref" href="#constants" data-lean-name="ZInQ.Mult.contactPoly">contactPoly</a> t / (t - 1) ^ 8</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> slopeA (R0 q : ℚ) : ℚ := 1 - R0 * q ^ 2</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.contactSet">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> contactSet : Finset ℚ := {0, -15, -20, -24, -30, -60}</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/Height.lean:84</p>
+</div>
+<div data-lean-name="ZInQ.Mult.slopeA">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> slopeA (R0 q : ℚ) : ℚ := 1 - R0 * q ^ 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/SlopePredicate.lean:30</p>
+</div>
+<div data-lean-name="ZInQ.Mult.slopeR0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> slopeR0 (η t : ℚ) : ℚ := η * contactPoly t / (t - 1) ^ 8</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/SlopePredicate.lean:27</p>
+</div>
+<div data-lean-name="ZInQ.Mult.groupW">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> groupW (R : ℚ) (C : Fin 12 → K0) : K0 := ∏ j, (1 + (R : K0) * C j ^ 2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/SlopePredicate.lean:40</p>
+</div>
+<div data-lean-name="ZInQ.Mult.slopeR">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> slopeR (ℓ a R0 : ℚ) : ℚ := ℓ ^ 2 * a ^ 2 * R0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/SlopePredicate.lean:33</p>
+</div>
+<div data-lean-name="ZInQ.Mult.normTests">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> normTests (R0 t : ℚ) (D : Fin 12 → K0) (j : Fin 12) : K0 :=
+  D j / ((R0 : K0) ^ prec j * ((t - 1 : ℚ) : K0) ^ (prec j + 1))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/SlopePredicate.lean:36</p>
+</div>
+<div data-lean-name="ZInQ.Mult.testValues">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> testValues (h : ℤ) (z : Fin 3 → ℤ) (c : Fin 4 → ℤ) : Fin 12 → K0 :=
+  <span class="bp-lean-keyword">let</span> H := h • genP0
+  <span class="bp-lean-keyword">let</span> U : Fin 3 → genCurve.toAffine.Point := <span class="bp-lean-keyword">fun</span> i =&gt; z i • genP0
+  <span class="bp-lean-keyword">let</span> V0 := (h - c 0) • genP0
+  <span class="bp-lean-keyword">let</span> V : Fin 3 → genCurve.toAffine.Point := <span class="bp-lean-keyword">fun</span> i =&gt; (z i - c i.succ) • genP0
+  <span class="bp-lean-keyword">let</span> A : Fin 3 → K0 := <span class="bp-lean-keyword">fun</span> i =&gt; Lam (U i) / Lam H
+  <span class="bp-lean-keyword">let</span> B : Fin 3 → K0 := <span class="bp-lean-keyword">fun</span> i =&gt; Lam (V i) / Lam V0
+  ![invX H, invX (U 0), invX (U 1), invX (U 2),
+    star (invX V0), star (invX (V 0)), star (invX (V 1)), star (invX (V 2)),
+    A 0 - star (B 0), A 1 - star (B 1), A 2 - star (B 2), A 0 * A 1 - A 2]</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/Tests.lean:40</p>
+</div>
+<div data-lean-name="ZInQ.Mult.traceTheta">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> traceTheta (W : Fin 6 → K0) : ℚ := QuadraticAlgebra.trace (∑ g, (W g)⁻¹)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/SlopePredicate.lean:43</p>
+</div>
+<div data-lean-name="ZInQ.PoleSoluble">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> PoleSoluble (B : ℚ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ (b : Fin 6 → ℚ) (e z r₁ r₂ w : ℚ), polePoly B b e z r₁ r₂ w = 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/Pole.lean:52</p>
+</div>
+<div data-lean-name="ZInQ.Mult.contactPoly">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> contactPoly (t : ℚ) : ℚ := t * (t + 15) * (t + 20) * (t + 24) * (t + 30) * (t + 60)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/Constants.lean:81</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/multiplication-locators.html#slope-predicate">Slope predicate</a></li>
+<li><a href="../../../sources/multiplication-locators.html#multiplication-certificate-generator">Multiplication certificate generator</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 11</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#twelve-tests">The twelve local tests</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#constants">Prime sets and clearing exponents of the multiplication certificate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#pole-completeness">Pole completeness</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#height-certificate-semantics">Semantics of the height certificate template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#slope-semantics">Semantics of the slope template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../completeness/index.html#pole-input-valuations">Valuations of the pole input of a completed slope</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../completeness/index.html#slope-completeness">Completeness of the slope certificate for a true triple</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../soundness/index.html#common-group">The trace forces one common group and place</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../soundness/index.html#contact-support">The height of an accepted slope</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../soundness/index.html#local-congruence">The congruence at an odd contact prime</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-ap/index.html#lemma-p">Lemma P: a pole at an old prime is absorbed by the parameter <span class="arithmatex">\(q\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-ap/index.html#lemma-p-valuation">Lemma P, part (3): the valuation of the pole input</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-ap/index.html#pole-input-valuations-ap">Valuations of the pole input under field 2′</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../route-ap/index.html#slope-completeness-ap">Completeness of the slope certificate under field 2′</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="multiplication/certificate/slope-semantics">
+<h4 class="bp-thmheading" id="slope-semantics">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Semantics of the slope template</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Slope.lean#L267" aria-label="View ZInQ.Mult.slope_rel_iff in Lean source" title="View ZInQ.Mult.slope_rel_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/multiplication/certificate/slope-semantics.md" aria-label="Edit the Markdown source for Semantics of the slope template" title="Edit the Markdown source for Semantics of the slope template"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#slope-semantics" aria-label="Link to Semantics of the slope template" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Mult.slope_rel_iff</div>
+<div class="bp-thmcontent">
+<p>For all <span class="arithmatex">\(t,\ell\in\mathbb Q\)</span> and
+<span class="arithmatex">\(c=(c_0,c_1,c_2,c_3)\in\mathbb Z^4\)</span>,
+$<span class="arithmatex">\(\mathrm{Rel}_{\mathtt{slope}}\bigl(t,\ell,\iota(c_0),\iota(c_1),\iota(c_2),\iota(c_3)\bigr)\iff\mathrm{Slope}(t,\ell;c).\)</span>$</p>
+<p><strong>Proof sketch.</strong> The slope template polynomial is the square of the compilation of its
+conjunction, so the relation holds iff some witness values satisfy every conjunct. The six
+atoms of the first item say <span class="arithmatex">\(\eta^2=1\)</span>, <span class="arithmatex">\(t\ne1\)</span>, <span class="arithmatex">\(F(t)\ne0\)</span> (that is, <span class="arithmatex">\(t\notin\mathcal C\)</span>),
+<span class="arithmatex">\(\ell\ne0\)</span>, <span class="arithmatex">\(R_0(t-1)^8=\eta F(t)\)</span> and <span class="arithmatex">\(a\ne0\)</span>, which determine <span class="arithmatex">\(R_0\)</span>. For each group the
+test-group semantics turns the call into the existence of <span class="arithmatex">\((h_g,z_g)\)</span> with
+<span class="arithmatex">\([D_{g,j}]=\tau_j(h_g,z_g;c)\)</span>; since the denominators <span class="arithmatex">\(R_0(t-1)^2\)</span> and <span class="arithmatex">\(R_0^{25}(t-1)^{26}\)</span> are
+nonzero, the pair equations <span class="arithmatex">\(\mathrm{den}_j\,C'_{g,j}\doteq D_{g,j}\)</span> say <span class="arithmatex">\([C'_{g,j}]=C_{gj}\)</span>; the
+inverse gadget with <span class="arithmatex">\(W_g\cdot\omega_g\doteq1\)</span> says <span class="arithmatex">\(W_g\ne0\)</span> and <span class="arithmatex">\([\omega_g]=W_g^{-1}\)</span>, so
+<span class="arithmatex">\(\theta=2\sum_g(\omega_g)_0=\Theta\)</span>. Finally <span class="arithmatex">\(\theta u_\theta\doteq1\)</span> says <span class="arithmatex">\(\Theta\ne0\)</span>,
+<span class="arithmatex">\(B\theta^2\doteq R\)</span> says <span class="arithmatex">\(B=R/\Theta^2\)</span>, and the pole call holds iff <span class="arithmatex">\(\Phi(B)\)</span>, because the
+pole template polynomial is <span class="arithmatex">\(Q_{\rm pole}^2\)</span>. Conversely all witnesses can be chosen from
+these values.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> slope_rel_iff (t ℓ : ℚ) (c : Fin 4 → ℤ) (a : Fin 22 → ℚ) (ht : a 0 = t) (hℓ : a 1 = ℓ)
+    (hc : ∀ (i : Fin 4) (k : Fin 5), a ⟨2 + (5 * i + k), <span class="bp-lean-keyword">by</span> omega⟩ = iota (c i) k) :
+    slopeTemplate.Rel a ↔ SlopePred t ℓ c</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_7">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/multiplication-locators.html#slope-predicate">Slope predicate</a></li>
+<li><a href="../../../sources/multiplication-locators.html#multiplication-certificate-generator">Multiplication certificate generator</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 10 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/templates/index.html#template-slope">The slope template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#slope-predicate">The slope predicate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/index.html#point-codes">Point codes</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#test-group-semantics">Semantics of the test-group template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/templates/index.html#template-pole">The pole template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/index.html#nonzero-gadgets">Inverse witnesses</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/index.html#field-pair-arithmetic">Pair arithmetic represents the quadratic field</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/index.html#sum-of-squares-semantics">Sums of squares and products over the rationals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/language/index.html#call-semantics">Evaluation of a template call</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/language/index.html#existential-lifting">Private witness blocks</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#height-certificate-semantics">Semantics of the height certificate template</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-height-certificate-and-the-multiplication-template">The height certificate and the multiplication template</h2>
+<p>The height certificate imposes membership on the three inputs, writes each abscissa as
+<span class="arithmatex">\((a_{i0}+a_{i1}s)/b_i\)</span>, expresses each of the nine rational quantities as a sum of three
+slopes, and imposes the slope predicate on all <span class="arithmatex">\(27\)</span> slopes. The multiplication template
+conjoins it with the four fixed scalar graphs, which supply the shift points
+<span class="arithmatex">\(\iota(c_*),\iota(c_*n_i)\)</span>, and with the inverse of the finite guard.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="multiplication/certificate/height-certificate-semantics">
+<h4 class="bp-thmheading" id="height-certificate-semantics">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Semantics of the height certificate template</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/HeightCertificate.lean#L114" aria-label="View ZInQ.Mult.heightCertificate_rel_iff in Lean source" title="View ZInQ.Mult.heightCertificate_rel_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/HeightCertificate.lean#L33" aria-label="View ZInQ.Mult.HeightCert in Lean source" title="View ZInQ.Mult.HeightCert in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/multiplication/certificate/height-certificate-semantics.md" aria-label="Edit the Markdown source for Semantics of the height certificate template" title="Edit the Markdown source for Semantics of the height certificate template"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#height-certificate-semantics" aria-label="Link to Semantics of the height certificate template" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Mult.heightCertificate_rel_iff ZInQ.Mult.HeightCert</div>
+<div class="bp-thmcontent">
+<p>For all <span class="arithmatex">\(Y_1,Y_2,Y_3\in\mathbb Q^5\)</span>,
+<span class="arithmatex">\(\ell\in\mathbb Q\)</span> and <span class="arithmatex">\(c\in\mathbb Z^4\)</span>, the relation
+<span class="arithmatex">\(\mathrm{Rel}_{\mathtt{height\_certificate}}(Y_1,Y_2,Y_3,\ell,\iota(c_0),\iota(c_1),\iota(c_2),\iota(c_3))\)</span>
+holds if and only if:</p>
+<ol>
+<li>there are <span class="arithmatex">\(n_1,n_2,n_3\in\mathbb Z\)</span> with <span class="arithmatex">\(Y_i=\iota(n_i)\)</span>; write
+   <span class="arithmatex">\(x([n_i]P_0)=x_{i0}+x_{i1}s\)</span> with <span class="arithmatex">\(x_{i0},x_{i1}\in\mathbb Q\)</span>, where <span class="arithmatex">\(x_{i0}=x_{i1}=0\)</span> if
+   <span class="arithmatex">\(n_i=0\)</span> (these are the coordinates <span class="arithmatex">\((Y_i)_1,(Y_i)_2\)</span>);</li>
+<li>there are <span class="arithmatex">\(a_{i0},a_{i1},b_i\in\mathbb Q\)</span> (<span class="arithmatex">\(i=1,2,3\)</span>) with <span class="arithmatex">\(b_i\ne0\)</span> and
+   <span class="arithmatex">\(b_ix_{ij}=a_{ij}\)</span>;</li>
+<li>for each of the nine quantities
+   <span class="arithmatex">\((Q_1,\dots,Q_9)=(a_{10},a_{11},b_1,a_{20},a_{21},b_2,a_{30},a_{31},b_3)\)</span> there are
+   rationals <span class="arithmatex">\(t_{k,1},t_{k,2},t_{k,3}\)</span> with <span class="arithmatex">\(t_{k,1}+t_{k,2}+t_{k,3}=Q_k\)</span> and
+   <span class="arithmatex">\(\mathrm{Slope}(t_{k,l},\ell;c)\)</span> for <span class="arithmatex">\(l=1,2,3\)</span>.</li>
+</ol>
+<p>Thus the certificate first forces all three inputs to be members of <span class="arithmatex">\(2E(K_0)\)</span>: membership
+is a conjunct inside the certificate, not a precondition, so even untyped rational inputs,
+if accepted, have unique indices.</p>
+<p><strong>Proof sketch.</strong> Unfold the conjunction of the <span class="arithmatex">\(35{,}106\)</span>-witness template. The three
+membership calls give <span class="arithmatex">\(Y_i=\iota(n_i)\)</span> by membership and the generator certificate. The atoms
+<span class="arithmatex">\(b_iu_i\doteq1\)</span>, <span class="arithmatex">\(b_i(Y_i)_1\doteq a_{i0}\)</span>, <span class="arithmatex">\(b_i(Y_i)_2\doteq a_{i1}\)</span> are item 2. Each of the nine
+sum atoms and twenty-seven slope calls gives item 3 through the slope semantics, the four
+shift points being the canonical codes <span class="arithmatex">\(\iota(c_k)\)</span>. The converse chooses the same witnesses.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> heightCertificate_rel_iff (ℓ : ℚ) (c : Fin 4 → ℤ) (a : Fin 36 → ℚ) (hℓ : a 15 = ℓ)
+    (hc : ∀ (i : Fin 4) (k : Fin 5), a ⟨16 + (5 * i + k), <span class="bp-lean-keyword">by</span> omega⟩ = iota (c i) k) :
+    heightTemplate.Rel a ↔
+      (∃ n : Fin 3 → ℤ, ∀ (i : Fin 3) (k : Fin 5), a ⟨5 * i + k, <span class="bp-lean-keyword">by</span> omega⟩ = iota (n i) k) ∧
+        HeightCert (<span class="bp-lean-keyword">fun</span> i k =&gt; a ⟨5 * i + k, <span class="bp-lean-keyword">by</span> omega⟩) ℓ c</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HeightCert (Y : Fin 3 → Fin 5 → ℚ) (ℓ : ℚ) (c : Fin 4 → ℤ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ (A : Fin 3 → Fin 2 → ℚ) (b : Fin 3 → ℚ),
+    (∀ i, b i ≠ 0 ∧ b i * Y i 1 = A i 0 ∧ b i * Y i 2 = A i 1) ∧
+    ∀ k : Fin 9, ∃ s : Fin 3 → ℚ, s 0 + s 1 + s 2 = <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/HeightCertificate.lean#L27" data-lean-name="ZInQ.Mult.nineQ">nineQ</a> A b k ∧ ∀ l, <a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.SlopePred">SlopePred</a> (s l) ℓ c</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Mult.nineQ">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> nineQ (A : Fin 3 → Fin 2 → ℚ) (b : Fin 3 → ℚ) : Fin 9 → ℚ :=
+  ![A 0 0, A 0 1, b 0, A 1 0, A 1 1, b 1, A 2 0, A 2 1, b 2]</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/HeightCertificate.lean:27</p>
+</div>
+<div data-lean-name="ZInQ.Mult.SlopePred">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SlopePred (t ℓ : ℚ) (c : Fin 4 → ℤ) : <span class="bp-lean-keyword">Prop</span> :=
+  t ∉ contactSet ∧ t ≠ 1 ∧ ℓ ≠ 0 ∧
+    ∃ (η q : ℚ) (h : Fin 6 → ℤ) (z : Fin 6 → Fin 3 → ℤ),
+      (η = 1 ∨ η = -1) ∧ slopeA (slopeR0 η t) q ≠ 0 ∧ (∀ g, h g ≠ 0 ∧ h g ≠ c 0) ∧
+      (∀ g, groupW (slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t))
+          (normTests (slopeR0 η t) t (testValues (h g) (z g) c)) ≠ 0) ∧
+      traceTheta (<span class="bp-lean-keyword">fun</span> g =&gt; groupW (slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t))
+          (normTests (slopeR0 η t) t (testValues (h g) (z g) c))) ≠ 0 ∧
+      PoleSoluble (slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t) /
+        traceTheta (<span class="bp-lean-keyword">fun</span> g =&gt; groupW (slopeR ℓ (slopeA (slopeR0 η t) q) (slopeR0 η t))
+          (normTests (slopeR0 η t) t (testValues (h g) (z g) c))) ^ 2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/SlopePredicate.lean:52</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_8">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/multiplication-locators.html#height-certificate">Height certificate</a></li>
+<li><a href="../../../sources/multiplication-locators.html#section-6-opening">Section 6 opening</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 10 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/templates/index.html#template-height-certificate">The height certificate template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#slope-predicate">The slope predicate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/index.html#point-codes">Point codes</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/index.html#membership-indices">Accepted inputs have unique indices</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#slope-semantics">Semantics of the slope template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/index.html#nonzero-gadgets">Inverse witnesses</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/index.html#sum-of-squares-semantics">Sums of squares and products over the rationals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/language/index.html#call-semantics">Evaluation of a template call</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/language/index.html#existential-lifting">Private witness blocks</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/descent/index.html#mordell-weil-from-descent">Mordell-Weil for <span class="arithmatex">\(E/K_0\)</span> from the descent</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#multiply-unfolding">Unfolding the multiplication template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../completeness/index.html#completeness">Completeness of the multiplication template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../soundness/index.html#finite-box">The finite-box deduction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../route-ap/index.html#completeness-ap">Completeness of the multiplication template under field 2′</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="multiplication/certificate/multiply-unfolding">
+<h4 class="bp-thmheading" id="multiply-unfolding">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Unfolding the multiplication template</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Multiply.lean#L123" aria-label="View ZInQ.Mult.multiply_rel_iff_unguarded in Lean source" title="View ZInQ.Mult.multiply_rel_iff_unguarded in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Multiply.lean#L224" aria-label="View ZInQ.Mult.multiply_rel_iff in Lean source" title="View ZInQ.Mult.multiply_rel_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Multiply.lean#L263" aria-label="View ZInQ.Mult.multiply_rel_iff_cert in Lean source" title="View ZInQ.Mult.multiply_rel_iff_cert in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/multiplication/certificate/multiply-unfolding.md" aria-label="Edit the Markdown source for Unfolding the multiplication template" title="Edit the Markdown source for Unfolding the multiplication template"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#multiply-unfolding" aria-label="Link to Unfolding the multiplication template" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Mult.multiply_rel_iff_unguarded ZInQ.Mult.multiply_rel_iff ZInQ.Mult.multiply_rel_iff_cert</div>
+<div class="bp-thmcontent">
+<p>For all <span class="arithmatex">\(Y_1,Y_2,Y_3\in\mathbb Q^5\)</span>,
+<span class="arithmatex">\(\mathrm{Rel}_{\mathtt{multiply}}(Y_1,Y_2,Y_3)\)</span> holds if and only if there are
+<span class="arithmatex">\(n_1,n_2,n_3\in\mathbb Z\)</span> with <span class="arithmatex">\(Y_i=\iota(n_i)\)</span> such that
+$<span class="arithmatex">\(\mathrm{Rel}_{\mathtt{height\_certificate}}\bigl(Y_1,Y_2,Y_3,\ell_0,\iota(c_*),\iota(c_*n_1),\iota(c_*n_2),\iota(c_*n_3)\bigr)
+\quad\text{and}\quad\mathrm{Rel}_{\mathtt{multiply.guard}}(Y_1,Y_2,Y_3).\)</span>$
+The part without the guard is the <em>unguarded certificate</em>.</p>
+<p><strong>Proof sketch.</strong> The template polynomial is the sum of the three squared generator
+equations and the square of the compilation of <span class="arithmatex">\(\varphi_{\rm mul}\)</span>, so a zero forces
+<span class="arithmatex">\(c_1=1641/8\)</span>, <span class="arithmatex">\(c_2=-15465/4\)</span>, <span class="arithmatex">\(c_3=87483/32\)</span> and makes <span class="arithmatex">\(G=(0,c_1,-145,c_2,c_3)=\iota(1)\)</span>, the
+code of <span class="arithmatex">\(P_0\)</span>. The three membership calls inside the height-certificate conjunct do not
+involve the shift points and force <span class="arithmatex">\(Y_i=\iota(n_i)\)</span> (accepted inputs have unique indices). The
+four scalar conjuncts <span class="arithmatex">\(S_{c_*}[\Pi_k,S_k]\)</span> then concern codes of points of <span class="arithmatex">\(2E(K_0)\)</span>, and since
+<span class="arithmatex">\(c_*\ge1\)</span> the fixed-scalar semantics gives <span class="arithmatex">\(S_0=\iota(c_*)\)</span> and <span class="arithmatex">\(S_i=\iota(c_*n_i)\)</span>; only now
+are the shift points known to be canonical, so that the semantics of the height certificate
+applies. The node
+<span class="arithmatex">\(\mathrm{fixed}\ \ell\)</span> has value <span class="arithmatex">\(\ell_0\)</span>. Conversely, given the right side, take these
+values for the constants and shift points and the witnesses supplied by the scalar,
+certificate and guard relations, in disjoint private blocks.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> multiply_rel_iff_unguarded (I : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L29" data-lean-name="ZInQ.Syntax.Constructors">Constructors</a> E) (cs ℓ T : ℤ)
+    (hS : ∀ (m : ℤ) (r : Fin 5 → ℚ),
+      (<a class="bp-lean-ref" href="../../syntax/templates/index.html#template-fixed-scalar" data-lean-name="ZInQ.Syntax.scalarTemplate">scalarTemplate</a> I cs).Rel (Fin.append (<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> m) r) ↔ r = <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (cs * m))
+    (P Q R : Fin 5 → ℚ) :
+    (<a class="bp-lean-ref" href="../../syntax/templates/index.html#template-multiply" data-lean-name="ZInQ.Syntax.multiplyTemplate">multiplyTemplate</a> I cs ℓ T).Rel (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Templates/Multiply.lean#L151" data-lean-name="ZInQ.Syntax.codes3">codes3</a> P Q R) ↔
+      ∃ n : Fin 3 → ℤ, P = <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (n 0) ∧ Q = <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (n 1) ∧ R = <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (n 2) ∧
+        <a class="bp-lean-ref" href="../../syntax/templates/index.html#template-height-certificate" data-lean-name="ZInQ.Syntax.heightTemplate">heightTemplate</a>.Rel (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Multiply.lean#L34" data-lean-name="ZInQ.Mult.heightVec">heightVec</a> P Q R ℓ
+          ![<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> cs, <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (cs * n 0), <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (cs * n 1), <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (cs * n 2)]) ∧
+        (<a class="bp-lean-ref" href="../../syntax/templates/index.html#template-guard" data-lean-name="ZInQ.Syntax.guardTemplate">guardTemplate</a> I T).Rel (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Templates/Multiply.lean#L151" data-lean-name="ZInQ.Syntax.codes3">codes3</a> P Q R)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> multiply_rel_iff (I : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L29" data-lean-name="ZInQ.Syntax.Constructors">Constructors</a> E) (cs ℓ T : ℤ)
+    (hS : ∀ (m : ℤ) (r : Fin 5 → ℚ),
+      (<a class="bp-lean-ref" href="../../syntax/templates/index.html#template-fixed-scalar" data-lean-name="ZInQ.Syntax.scalarTemplate">scalarTemplate</a> I cs).Rel (Fin.append (<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> m) r) ↔ r = <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (cs * m))
+    (P Q R : Fin 5 → ℚ) :
+    (<a class="bp-lean-ref" href="../../syntax/templates/index.html#template-multiply" data-lean-name="ZInQ.Syntax.multiplyTemplate">multiplyTemplate</a> I cs ℓ T).Rel (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Templates/Multiply.lean#L151" data-lean-name="ZInQ.Syntax.codes3">codes3</a> P Q R) ↔
+      ∃ n : Fin 3 → ℤ, P = <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (n 0) ∧ Q = <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (n 1) ∧ R = <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (n 2) ∧
+        <a class="bp-lean-ref" href="#height-certificate-semantics" data-lean-name="ZInQ.Mult.HeightCert">HeightCert</a> ![P, Q, R] ℓ ![cs, cs * n 0, cs * n 1, cs * n 2] ∧
+        (<a class="bp-lean-ref" href="../../syntax/templates/index.html#template-guard" data-lean-name="ZInQ.Syntax.guardTemplate">guardTemplate</a> I T).Rel (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Templates/Multiply.lean#L151" data-lean-name="ZInQ.Syntax.codes3">codes3</a> P Q R)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> multiply_rel_iff_cert (I : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L29" data-lean-name="ZInQ.Syntax.Constructors">Constructors</a> E) (T : ℤ)
+    (hS : ∀ (m : ℤ) (r : Fin 5 → ℚ),
+      (<a class="bp-lean-ref" href="../../syntax/templates/index.html#template-fixed-scalar" data-lean-name="ZInQ.Syntax.scalarTemplate">scalarTemplate</a> I (<a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">Syntax.cstar</a> : ℤ)).Rel (Fin.append (<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> m) r) ↔
+        r = <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> ((<a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">Syntax.cstar</a> : ℤ) * m))
+    (P Q R : Fin 5 → ℚ) :
+    (<a class="bp-lean-ref" href="../../syntax/templates/index.html#template-multiply" data-lean-name="ZInQ.Syntax.multiplyTemplate">multiplyTemplate</a> I (<a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.cstar">Syntax.cstar</a> : ℤ) (<a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">Syntax.ell</a> : ℤ) T).Rel (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Templates/Multiply.lean#L151" data-lean-name="ZInQ.Syntax.codes3">codes3</a> P Q R) ↔
+      ∃ n : Fin 3 → ℤ, P = <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (n 0) ∧ Q = <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (n 1) ∧ R = <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (n 2) ∧
+        <a class="bp-lean-ref" href="#height-certificate-semantics" data-lean-name="ZInQ.Mult.HeightCert">HeightCert</a> ![P, Q, R] (<a class="bp-lean-ref" href="../../syntax/constants/index.html#fixed-constants" data-lean-name="ZInQ.Syntax.ell">Syntax.ell</a> : ℚ) (<a class="bp-lean-ref" href="#slope-predicate" data-lean-name="ZInQ.Mult.certShifts">certShifts</a> n) ∧
+        (<a class="bp-lean-ref" href="../../syntax/templates/index.html#template-guard" data-lean-name="ZInQ.Syntax.guardTemplate">guardTemplate</a> I T).Rel (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Templates/Multiply.lean#L151" data-lean-name="ZInQ.Syntax.codes3">codes3</a> P Q R)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Syntax.Constructors">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> Constructors (E : <span class="bp-lean-keyword">Type</span>) <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The value `val(e)` of a fixed integer expression. -/</span>
+  val : E → ℤ
+  <span class="bp-lean-comment">/-- The component polynomial `Ψ_{n,c}` in the four variables `x₀, x₁, y₀, y₁`. -/</span>
+  psi : ℤ → Fin 2 → MvPolynomial (Fin 4) ℤ
+  <span class="bp-lean-comment">/-- The guard polynomial `G_T` in fifteen variables (point-major order). -/</span>
+  guard : ℤ → MvPolynomial (Fin 15) ℤ</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Nodes.lean:29</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.scalarTemplate">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> scalarTemplate (I : Constructors E) (n : ℤ) : ExPoly :=
+  Build.template 10 (scalarBuild I n (varPoint 0) (varPoint 5))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Templates/Multiply.lean:53</p>
+</div>
+<div data-lean-name="ZInQ.iota">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> iota (n : ℤ) : Fin 5 → ℚ := pointCode (n • genP0)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Codes.lean:27</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.multiplyTemplate">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> multiplyTemplate (I : Constructors E) (cstar ell T : ℤ) : ExPoly :=
+  Build.template 15 (multiplyBuild I cstar ell T (varPoint 0) (varPoint 5) (varPoint 10))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Templates/Multiply.lean:209</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.codes3">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> codes3 (P Q R : Fin 5 → ℚ) : Fin 15 → ℚ := Fin.append (Fin.append P Q) R</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Templates/Multiply.lean:151</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.heightTemplate">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> heightTemplate : ExPoly :=
+  Build.template 36 (heightBuild (varPoint 0) (varPoint 5) (varPoint 10) (X 15) (varArgs 16 20))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Templates/Certificate.lean:339</p>
+</div>
+<div data-lean-name="ZInQ.Mult.heightVec">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> heightVec (P Q R : Fin 5 → ℚ) (ℓ : ℚ) (S : Fin 4 → Fin 5 → ℚ) : Fin 36 → ℚ :=
+  Fin.append (Fin.append (Fin.append (Fin.append (Fin.append P Q) R) ![ℓ])
+    (Fin.append (Fin.append (S 0) (S 1)) (S 2))) (S 3)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/Multiply.lean:34</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.guardTemplate">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> guardTemplate (I : Constructors E) (T : ℤ) : ExPoly :=
+  Build.template 15 (guardBuild I T (varArgs 0 15))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Templates/Multiply.lean:97</p>
+</div>
+<div data-lean-name="ZInQ.Mult.HeightCert">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HeightCert (Y : Fin 3 → Fin 5 → ℚ) (ℓ : ℚ) (c : Fin 4 → ℤ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ (A : Fin 3 → Fin 2 → ℚ) (b : Fin 3 → ℚ),
+    (∀ i, b i ≠ 0 ∧ b i * Y i 1 = A i 0 ∧ b i * Y i 2 = A i 1) ∧
+    ∀ k : Fin 9, ∃ s : Fin 3 → ℚ, s 0 + s 1 + s 2 = nineQ A b k ∧ ∀ l, SlopePred (s l) ℓ c</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/HeightCertificate.lean:33</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.cstar">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> cstar : ℕ := FixedFormula.cstar M0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:96</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.ell">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> ell : ℕ := FixedFormula.ell Ps Hcat</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:98</p>
+</div>
+<div data-lean-name="ZInQ.Mult.certShifts">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> certShifts (n : Fin 3 → ℤ) : Fin 4 → ℤ :=
+  ![(Syntax.cstar : ℤ), Syntax.cstar * n 0, Syntax.cstar * n 1, Syntax.cstar * n 2]</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/SlopePredicate.lean:65</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_9">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/multiplication-locators.html#height-certificate">Height certificate</a></li>
+<li><a href="../../../sources/multiplication-locators.html#section-6-opening">Section 6 opening</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 15 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/templates/index.html#template-multiply">The multiplication template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/templates/index.html#template-height-certificate">The height certificate template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/templates/index.html#template-guard">The guard template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#constants">Prime sets and clearing exponents of the multiplication certificate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/index.html#point-codes">Point codes</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#height-certificate-semantics">Semantics of the height certificate template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/index.html#membership-indices">Accepted inputs have unique indices</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/index.html#fixed-scalar-semantics">Semantics of the fixed-scalar templates</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#constants-properties">Properties of the multiplication constants</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/language/index.html#rational-constants">Rational constants by global equations</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/field/index.html#point-code-properties">Elementary properties of codes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/language/index.html#call-semantics">Evaluation of a template call</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/language/index.html#existential-lifting">Private witness blocks</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/index.html#sum-of-squares-semantics">Sums of squares and products over the rationals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/descent/index.html#mordell-weil-from-descent">Mordell-Weil for <span class="arithmatex">\(E/K_0\)</span> from the descent</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../completeness/index.html#completeness">Completeness of the multiplication template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../soundness/index.html#soundness">Soundness of the multiplication template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../route-ap/index.html#completeness-ap">Completeness of the multiplication template under field 2′</a></span></div>
+</div>
+</details>
+</div>
+<p>The guard is a product, over the false triples <span class="arithmatex">\((a,b,c)\in[-T,T]^3\)</span>, of denominator-cleared
+squared distances to <span class="arithmatex">\((\iota(a),\iota(b),\iota(c))\)</span>; its semantics is proved in the
+specification chapter (<a href="../../syntax/templates/index.html#guard-semantics">semantics of the guard template</a>).
+By injectivity of codes it passes every true triple and rejects every false triple in the
+box.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="multiplication/certificate/guard-true-triples">
+<h4 class="bp-thmheading" id="guard-true-triples">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">The guard passes true triples and rejects false triples in the box</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Guard.lean#L46" aria-label="View ZInQ.Mult.guard_true_triple in Lean source" title="View ZInQ.Mult.guard_true_triple in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Guard.lean#L62" aria-label="View ZInQ.Mult.guard_false_triple in Lean source" title="View ZInQ.Mult.guard_false_triple in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Guard.lean#L41" aria-label="View ZInQ.Mult.guard_rel_iff in Lean source" title="View ZInQ.Mult.guard_rel_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Multiplication/Certificate/Guard.lean#L36" aria-label="View ZInQ.Mult.guardPoly_zero_set in Lean source" title="View ZInQ.Mult.guardPoly_zero_set in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/multiplication/certificate/guard-true-triples.md" aria-label="Edit the Markdown source for The guard passes true triples and rejects false triples in the box" title="Edit the Markdown source for The guard passes true triples and rejects false triples in the box"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#guard-true-triples" aria-label="Link to The guard passes true triples and rejects false triples in the box" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Mult.guard_true_triple ZInQ.Mult.guard_false_triple ZInQ.Mult.guard_rel_iff ZInQ.Mult.guardPoly_zero_set</div>
+<div class="bp-thmcontent">
+<ol>
+<li>For all <span class="arithmatex">\(a,b\in\mathbb Z\)</span>, <span class="arithmatex">\(\mathrm{Rel}_{\mathtt{multiply.guard}}(\iota(a),\iota(b),\iota(ab))\)</span>.</li>
+<li>For all <span class="arithmatex">\(n_1,n_2,n_3\in\mathbb Z\)</span> with <span class="arithmatex">\(|n_i|\le T\)</span> and <span class="arithmatex">\(n_1n_2\ne n_3\)</span>,
+   <span class="arithmatex">\(\mathrm{Rel}_{\mathtt{multiply.guard}}(\iota(n_1),\iota(n_2),\iota(n_3))\)</span> fails.</li>
+</ol>
+<p>That is: a false accepted triple in the box would make its own guard factor zero, while at a
+true triple every factor is positive by injectivity of codes, so the inverse exists. The
+cutoff <span class="arithmatex">\(T\)</span> is used symbolically.</p>
+<p><strong>Proof sketch.</strong> By the guard semantics, the guard holds exactly when the input triple is
+not <span class="arithmatex">\((\iota(a'),\iota(b'),\iota(c'))\)</span> for a false triple <span class="arithmatex">\((a',b',c')\in[-T,T]^3\)</span>. (1) If
+<span class="arithmatex">\((\iota(a),\iota(b),\iota(ab))=(\iota(a'),\iota(b'),\iota(c'))\)</span>, injectivity of <span class="arithmatex">\(\iota\)</span> gives
+<span class="arithmatex">\(a=a'\)</span>, <span class="arithmatex">\(b=b'\)</span>, <span class="arithmatex">\(ab=c'\)</span>, so <span class="arithmatex">\(a'b'=c'\)</span> and the triple is not false. (2) The triple itself is
+such a false triple.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> guard_true_triple (I : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L29" data-lean-name="ZInQ.Syntax.Constructors">Constructors</a> E) (T : ℤ) (hI : I.guard T = <a class="bp-lean-ref" href="../../syntax/constants/index.html#guard-product" data-lean-name="ZInQ.Syntax.guardPoly">guardPoly</a> T)
+    (a b : ℤ) : (<a class="bp-lean-ref" href="../../syntax/templates/index.html#template-guard" data-lean-name="ZInQ.Syntax.guardTemplate">guardTemplate</a> I T).Rel (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Templates/Multiply.lean#L151" data-lean-name="ZInQ.Syntax.codes3">codes3</a> (<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> a) (<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> b) (<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (a * b)))</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> guard_false_triple (I : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L29" data-lean-name="ZInQ.Syntax.Constructors">Constructors</a> E) (T : ℤ) (hI : I.guard T = <a class="bp-lean-ref" href="../../syntax/constants/index.html#guard-product" data-lean-name="ZInQ.Syntax.guardPoly">guardPoly</a> T)
+    (n : Fin 3 → ℤ) (hn : ∀ i, |n i| ≤ T) (hf : n 0 * n 1 ≠ n 2) :
+    ¬ (<a class="bp-lean-ref" href="../../syntax/templates/index.html#template-guard" data-lean-name="ZInQ.Syntax.guardTemplate">guardTemplate</a> I T).Rel (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Templates/Multiply.lean#L151" data-lean-name="ZInQ.Syntax.codes3">codes3</a> (<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (n 0)) (<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (n 1)) (<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> (n 2)))</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> guard_rel_iff (I : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L29" data-lean-name="ZInQ.Syntax.Constructors">Constructors</a> E) (T : ℤ) (hI : I.guard T = <a class="bp-lean-ref" href="../../syntax/constants/index.html#guard-product" data-lean-name="ZInQ.Syntax.guardPoly">guardPoly</a> T)
+    (a : Fin 15 → ℚ) : (<a class="bp-lean-ref" href="../../syntax/templates/index.html#template-guard" data-lean-name="ZInQ.Syntax.guardTemplate">guardTemplate</a> I T).Rel a ↔ ¬ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Templates/Multiply.lean#L154" data-lean-name="ZInQ.Syntax.FalseTripleCodes">FalseTripleCodes</a> T a</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Syntax.Constructors">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> Constructors (E : <span class="bp-lean-keyword">Type</span>) <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The value `val(e)` of a fixed integer expression. -/</span>
+  val : E → ℤ
+  <span class="bp-lean-comment">/-- The component polynomial `Ψ_{n,c}` in the four variables `x₀, x₁, y₀, y₁`. -/</span>
+  psi : ℤ → Fin 2 → MvPolynomial (Fin 4) ℤ
+  <span class="bp-lean-comment">/-- The guard polynomial `G_T` in fifteen variables (point-major order). -/</span>
+  guard : ℤ → MvPolynomial (Fin 15) ℤ</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Nodes.lean:29</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.guardPoly">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> guardPoly (T : ℤ) : MvPolynomial (Fin 15) ℤ :=
+  ∏ t ∈ falseTriples T, guardFactor t</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Guard.lean:79</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.guardTemplate">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> guardTemplate (I : Constructors E) (T : ℤ) : ExPoly :=
+  Build.template 15 (guardBuild I T (varArgs 0 15))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Templates/Multiply.lean:97</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.codes3">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> codes3 (P Q R : Fin 5 → ℚ) : Fin 15 → ℚ := Fin.append (Fin.append P Q) R</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Templates/Multiply.lean:151</p>
+</div>
+<div data-lean-name="ZInQ.iota">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> iota (n : ℤ) : Fin 5 → ℚ := pointCode (n • genP0)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Codes.lean:27</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.FalseTripleCodes">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> FalseTripleCodes (T : ℤ) (P : Fin 15 → ℚ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ a b c : ℤ, |a| ≤ T ∧ |b| ≤ T ∧ |c| ≤ T ∧ a * b ≠ c ∧ P = codes3 (iota a) (iota b) (iota c)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Templates/Multiply.lean:154</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_10">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/multiplication-locators.html#finite-guard">Finite guard</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 6 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/templates/index.html#template-guard">The guard template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/index.html#point-codes">Point codes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#constants">Prime sets and clearing exponents of the multiplication certificate</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/templates/index.html#guard-semantics">Semantics of the guard template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/index.html#generator">The generator certificate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/descent/index.html#mordell-weil-from-descent">Mordell-Weil for <span class="arithmatex">\(E/K_0\)</span> from the descent</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../completeness/index.html#completeness">Completeness of the multiplication template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../soundness/index.html#soundness">Soundness of the multiplication template</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../route-ap/index.html#completeness-ap">Completeness of the multiplication template under field 2′</a></span></div>
+</div>
+</details>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../../dependencies/index.json" data-graph-src="../../../dependencies/scopes/multiplication/certificate.json" data-page-href="index.html" data-scope-id="multiplication/certificate">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

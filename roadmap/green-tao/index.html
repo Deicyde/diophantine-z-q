@@ -1,0 +1,2580 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../route-ap/index.html">
+      
+      
+        <link rel="next" href="../density/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Szemerédi's theorem in the primes (Green–Tao) - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-statements" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Szemerédi's theorem in the primes (Green–Tao)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The statements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-density-to-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From density to windows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-weight-of-a-set-of-primes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The weight of a set of primes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assembly
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The statements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-density-to-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From density to windows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-weight-of-a-set-of-primes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The weight of a set of primes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assembly
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="green-tao" data-page-title="Szemerédi's theorem in the primes (Green–Tao)">
+<h1 id="szemeredis-theorem-in-the-primes-greentao">Szemerédi's theorem in the primes (Green–Tao)</h1>
+<p>Route AP replaces the twenty-two-prime pattern by long arithmetic progressions of good slope
+primes. They come from two theorems: the good slope primes have positive relative density
+(Proposition D), and every set of primes of positive relative upper density contains arithmetic
+progressions of every finite length (Green and Tao, Theorem 1.2). This chapter proves the second in
+Lean. It is the only part of the formalization that rests on code not written in this project: the
+Lean proof of the Green–Tao theorem for the set of all primes by Vasily Ilin, from the repository
+Vilin97/Autoformalization (directory <code>green-tao/</code>), distributed under the Apache License 2.0 and
+vendored in this repository with its license and a notice of the changes made to port it. The
+chapter extends that proof to dense sets of primes without changing any vendored file.</p>
+<p>Notation: <span class="arithmatex">\(\lambda_{\alpha,W,b}\)</span> is the W-tricked prime weight on <span class="arithmatex">\(\mathbb Z/N\)</span> and
+<span class="arithmatex">\(\lambda^A_{\alpha,W,b}\)</span> its restriction to a set <span class="arithmatex">\(A\)</span>; <span class="arithmatex">\(\Lambda_k(f)\)</span> is the normalized count of
+<span class="arithmatex">\(k\)</span>-term progressions in <span class="arithmatex">\(\mathbb Z/N\)</span> weighted by <span class="arithmatex">\(f\)</span>.</p>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>10</strong> fully proved</span></div>
+</div>
+<h2 id="the-statements">The statements</h2>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="green-tao/dense-form">
+<h4 class="bp-thmheading" id="dense-form">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">Szemerédi&#x27;s theorem in the primes</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Hypotheses/GreenTao.lean#L51" aria-label="View ZInQ.GreenTaoDense in Lean source" title="View ZInQ.GreenTaoDense in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Hypotheses/GreenTao.lean#L26" aria-label="View ZInQ.ContainsArbitraryAPs in Lean source" title="View ZInQ.ContainsArbitraryAPs in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Hypotheses/GreenTao.lean#L33" aria-label="View ZInQ.PrimesRelUpperDensityPos in Lean source" title="View ZInQ.PrimesRelUpperDensityPos in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/green-tao/dense-form.md" aria-label="Edit the Markdown source for Szemerédi&#x27;s theorem in the primes" title="Edit the Markdown source for Szemerédi&#x27;s theorem in the primes"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#dense-form" aria-label="Link to Szemerédi&#x27;s theorem in the primes" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.GreenTaoDense ZInQ.ContainsArbitraryAPs ZInQ.PrimesRelUpperDensityPos</div>
+<div class="bp-thmcontent">
+<p>A set <span class="arithmatex">\(A\)</span> of natural numbers <em>contains arithmetic progressions of every finite length</em> if for every
+<span class="arithmatex">\(k\)</span> there are natural numbers <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\ge1\)</span> with <span class="arithmatex">\(a+bj\in A\)</span> for every <span class="arithmatex">\(j&lt;k\)</span>. A set <span class="arithmatex">\(A\)</span> has
+<em>positive relative upper density in the primes</em> if there is a real <span class="arithmatex">\(c&gt;0\)</span> such that
+$<span class="arithmatex">\(c\,\pi(N)\le\#\bigl(A\cap[0,N]\bigr)\)</span>$
+for infinitely many <span class="arithmatex">\(N\)</span>, where <span class="arithmatex">\(\pi\)</span> is the prime counting function; for a set of primes this says
+<span class="arithmatex">\(\limsup_{N\to\infty}\#(A\cap[1,N])/\pi(N)&gt;0\)</span>.</p>
+<p>Szemerédi's theorem in the primes, in its dense form, is the assertion that every set of primes of
+positive relative upper density contains arithmetic progressions of every finite length.</p>
+<p>This is Theorem 1.2 of Green and Tao, with "infinitely many progressions" weakened to "one".
+Green and Tao prove it in outline; Tao and Ziegler give a complete proof. Route AP needs it for the
+good slope primes above <span class="arithmatex">\(\max S_b\)</span>. It was first a hypothesis of the route AP variants of the main
+theorem; it is proved in this chapter
+(<a href="#dense-theorem">Szemerédi's theorem in the primes holds</a>).</p>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="#dense-theorem"> </a></p>
+</div>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> GreenTaoDense : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ A : Set ℕ, A ⊆ {p | p.Prime} → <a class="bp-lean-ref" href="#dense-form" data-lean-name="ZInQ.PrimesRelUpperDensityPos">PrimesRelUpperDensityPos</a> A → <a class="bp-lean-ref" href="#dense-form" data-lean-name="ZInQ.ContainsArbitraryAPs">ContainsArbitraryAPs</a> A</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ContainsArbitraryAPs (A : Set ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ k : ℕ, ∃ a b : ℕ, 1 ≤ b ∧ ∀ j : ℕ, j &lt; k → a + b * j ∈ A</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> PrimesRelUpperDensityPos (A : Set ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ c : ℝ, 0 &lt; c ∧ ∃ᶠ N <span class="bp-lean-keyword">in</span> atTop,
+    c * (Nat.primeCounting N : ℝ) ≤ (((Finset.range (N + 1)).filter (· ∈ A)).card : ℝ)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.PrimesRelUpperDensityPos">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> PrimesRelUpperDensityPos (A : Set ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ c : ℝ, 0 &lt; c ∧ ∃ᶠ N <span class="bp-lean-keyword">in</span> atTop,
+    c * (Nat.primeCounting N : ℝ) ≤ (((Finset.range (N + 1)).filter (· ∈ A)).card : ℝ)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/GreenTao.lean:33</p>
+</div>
+<div data-lean-name="ZInQ.ContainsArbitraryAPs">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ContainsArbitraryAPs (A : Set ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ k : ℕ, ∃ a b : ℕ, 1 ≤ b ∧ ∀ j : ℕ, j &lt; k → a + b * j ∈ A</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/GreenTao.lean:26</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/green-tao-locators.html#green-and-tao">Green and Tao</a></li>
+<li><a href="../../sources/green-tao-locators.html#tao-and-ziegler">Tao and Ziegler</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../sources/green-tao-locators.html#green-and-tao"> </a></p>
+<p><a href="../../sources/green-tao-locators.html#tao-and-ziegler"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 7</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../density/index.html#dirichlet-density">Dirichlet density gives relative upper density</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../density/index.html#good-prime-ap-from-dense-form">Progressions of good slope primes from Szemerédi&#x27;s theorem in the primes alone</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../density/index.html#good-prime-density">The density statement for good slope primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#dense-theorem">Szemerédi&#x27;s theorem in the primes holds</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#primes">The Green–Tao theorem</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#window-lemma">The window lemma</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../route-ap/index.html#good-prime-ap-from-green-tao">22P_AP from Green–Tao and Proposition D</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="green-tao/primes">
+<h4 class="bp-thmheading" id="primes">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The Green–Tao theorem</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoPrimes.lean#L17" aria-label="View ZInQ.greenTao_primes in Lean source" title="View ZInQ.greenTao_primes in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission.lean#L8" aria-label="View Submission.green_tao in Lean source" title="View Submission.green_tao in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/green-tao/primes.md" aria-label="Edit the Markdown source for The Green–Tao theorem" title="Edit the Markdown source for The Green–Tao theorem"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#primes" aria-label="Link to The Green–Tao theorem" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.greenTao_primes Submission.green_tao</div>
+<div class="bp-thmcontent">
+<p>The set of primes contains arithmetic progressions of every finite length: for every <span class="arithmatex">\(k\)</span> there are
+natural numbers <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\ge1\)</span> such that <span class="arithmatex">\(a+bj\)</span> is prime for every <span class="arithmatex">\(j&lt;k\)</span>.</p>
+<p>This is Theorem 1.1 of Green and Tao. Its Lean proof is not written in this project: it is
+Vasily Ilin's proof from the repository Vilin97/Autoformalization (directory <code>green-tao/</code>, commit
+<code>0dc67d87416c19690dd641a178ada32cca95c651</code>), produced under Ilin's direction as a submission to the
+<code>green_tao</code> target of the lean-eval benchmark and distributed under the Apache License 2.0. It is
+vendored in this repository with its license and a notice, and ported to the project's Lean and
+Mathlib versions with proof edits only; its statement is unchanged, and it is the statement here,
+since the two definitions of "contains arithmetic progressions of every finite length" agree word
+for word.</p>
+<p><strong>Proof sketch.</strong> The vendored proof follows Green and Tao. After the W-trick (restricting to a
+reduced residue class <span class="arithmatex">\(b\)</span> modulo <span class="arithmatex">\(W=\prod_{p\le w}p\)</span> and weighting the primes <span class="arithmatex">\(Wn+b\)</span> by
+<span class="arithmatex">\(\log(Wn+b)\)</span>), the weighted primes in a cyclic group <span class="arithmatex">\(\mathbb Z/N\)</span> of prime order are bounded by a
+Selberg-sieve majorant <span class="arithmatex">\(\nu\)</span> that satisfies the linear forms condition. The relative Szemerédi
+theorem (transference: a weight <span class="arithmatex">\(0\le f\le\nu\)</span> of positive mean has a dense model) and the dense
+Szemerédi theorem, from the hypergraph removal lemma, give a positive count of <span class="arithmatex">\(k\)</span>-term
+progressions weighted by <span class="arithmatex">\(f\)</span>; the diagonal progressions are negligible, so some progression with
+nonzero difference has positive weight at every term, and a short-interval lift turns it into a
+progression of primes. Lengths <span class="arithmatex">\(k\le2\)</span> come from the progression <span class="arithmatex">\(2,3\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> greenTao_primes : <a class="bp-lean-ref" href="#dense-form" data-lean-name="ZInQ.ContainsArbitraryAPs">ContainsArbitraryAPs</a> {p : ℕ | p.Prime}</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> green_tao : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/ChallengeDeps.lean#L23" data-lean-name="LeanEval.NumberTheory.ContainsArbitraryAPs">ContainsArbitraryAPs</a> {p : ℕ | Nat.Prime p}</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.ContainsArbitraryAPs">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ContainsArbitraryAPs (A : Set ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ k : ℕ, ∃ a b : ℕ, 1 ≤ b ∧ ∀ j : ℕ, j &lt; k → a + b * j ∈ A</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/GreenTao.lean:26</p>
+</div>
+<div data-lean-name="LeanEval.NumberTheory.ContainsArbitraryAPs">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ContainsArbitraryAPs (A : Set ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ k : ℕ, ∃ a b : ℕ, 1 ≤ b ∧ ∀ j : ℕ, j &lt; k → a + b * j ∈ A</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/ChallengeDeps.lean:23</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/green-tao-locators.html#the-vendored-proof">The vendored proof</a></li>
+<li><a href="../../sources/green-tao-locators.html#green-and-tao">Green and Tao</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../sources/green-tao-locators.html#the-vendored-proof"> </a></p>
+<p><a href="../../sources/green-tao-locators.html#green-and-tao"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#dense-form">Szemerédi&#x27;s theorem in the primes</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="from-density-to-windows">From density to windows</h2>
+<p>The density hypothesis counts all of <span class="arithmatex">\([0,N]\)</span> at infinitely many <span class="arithmatex">\(N\)</span>; the W-trick samples a window
+<span class="arithmatex">\((X/4,X]\)</span> at a scale tied to the cyclic modulus. A dyadic decomposition and Chebyshev's lower bound
+put a fixed share of the mass into some window of ratio <span class="arithmatex">\(2\)</span>, and Bertrand's postulate chooses a prime
+modulus whose sampled window contains most of it.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="green-tao/window-lemma">
+<h4 class="bp-thmheading" id="window-lemma">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The window lemma</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense.lean#L20" aria-label="View ZInQ.GreenTaoDense.frequently_window in Lean source" title="View ZInQ.GreenTaoDense.frequently_window in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/Window.lean#L90" aria-label="View ZInQ.GreenTaoDense.frequently_window_of in Lean source" title="View ZInQ.GreenTaoDense.frequently_window_of in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/Window.lean#L30" aria-label="View ZInQ.GreenTaoDense.card_filter_range_le_add_Ioc in Lean source" title="View ZInQ.GreenTaoDense.card_filter_range_le_add_Ioc in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/Window.lean#L41" aria-label="View ZInQ.GreenTaoDense.card_filter_range_le_sum_windows in Lean source" title="View ZInQ.GreenTaoDense.card_filter_range_le_sum_windows in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/Window.lean#L56" aria-label="View ZInQ.GreenTaoDense.isLittleO_sqrt_mul_log in Lean source" title="View ZInQ.GreenTaoDense.isLittleO_sqrt_mul_log in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/Window.lean#L66" aria-label="View ZInQ.GreenTaoDense.eventually_window_error in Lean source" title="View ZInQ.GreenTaoDense.eventually_window_error in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/green-tao/window-lemma.md" aria-label="Edit the Markdown source for The window lemma" title="Edit the Markdown source for The window lemma"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#window-lemma" aria-label="Link to The window lemma" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.GreenTaoDense.frequently_window ZInQ.GreenTaoDense.frequently_window_of ZInQ.GreenTaoDense.card_filter_range_le_add_Ioc ZInQ.GreenTaoDense.card_filter_range_le_sum_windows ZInQ.GreenTaoDense.isLittleO_sqrt_mul_log ZInQ.GreenTaoDense.eventually_window_error</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(A\)</span> be a set of natural numbers of positive relative upper density in the primes, with
+<span class="arithmatex">\(c\,\pi(N)\le\#(A\cap[0,N])\)</span> for infinitely many <span class="arithmatex">\(N\)</span>, where <span class="arithmatex">\(c&gt;0\)</span>. Put <span class="arithmatex">\(c_1=c\log2/24\)</span>. Then for
+infinitely many <span class="arithmatex">\(Z\)</span>,
+$<span class="arithmatex">\(\#\bigl(A\cap(\lfloor Z/2\rfloor,Z]\bigr)\ge\frac{c_1Z}{\log Z}.\)</span>$
+In particular some <span class="arithmatex">\(c_1&gt;0\)</span> has this property.</p>
+<p>The set <span class="arithmatex">\(A\)</span> need not consist of primes. The point is that the density hypothesis, which counts all
+of <span class="arithmatex">\([0,N]\)</span>, yields mass in a window of ratio <span class="arithmatex">\(2\)</span>, which is what the sampling of the W-trick sees.</p>
+<p><strong>Proof sketch.</strong> Let <span class="arithmatex">\(N\)</span> be large with <span class="arithmatex">\(c\,\pi(N)\le\#(A\cap[0,N])\)</span>, and let <span class="arithmatex">\(J\)</span> be the largest
+integer with <span class="arithmatex">\(2^J\le\lfloor\sqrt N\rfloor\)</span>. Cut <span class="arithmatex">\([0,N]\)</span> into the tail <span class="arithmatex">\([0,\lfloor N/2^J\rfloor]\)</span> and
+the windows <span class="arithmatex">\((\lfloor N/2^{j+1}\rfloor,\lfloor N/2^j\rfloor]\)</span> for <span class="arithmatex">\(j&lt;J\)</span>. The tail has at most
+<span class="arithmatex">\(2\sqrt N+1\)</span> elements. Every window has <span class="arithmatex">\(Z_j=\lfloor N/2^j\rfloor\ge\lfloor\sqrt N\rfloor\)</span>, so
+<span class="arithmatex">\(\log Z_j\ge\frac13\log N\)</span> for large <span class="arithmatex">\(N\)</span>, and <span class="arithmatex">\(Z_j\)</span> tends to infinity with <span class="arithmatex">\(N\)</span>. If every
+window had fewer than <span class="arithmatex">\(c_1Z_j/\log Z_j\)</span> elements of <span class="arithmatex">\(A\)</span>, the windows together would hold fewer than
+<span class="arithmatex">\(\sum_j 3c_1Z_j/\log N\le6c_1N/\log N=\frac c4\log2\cdot N/\log N\)</span> elements. Chebyshev's lower bound
+<span class="arithmatex">\(\pi(N)\log N\ge N\log2-\log(N+1)\)</span> then gives
+<span class="arithmatex">\(c\,\pi(N)&gt;\#(A\cap[0,N])\)</span> once the error terms <span class="arithmatex">\((2\sqrt N+2)\log N+c\log(N+1)\)</span> are below
+<span class="arithmatex">\(\frac34c\log2\cdot N\)</span>, which holds for large <span class="arithmatex">\(N\)</span> because <span class="arithmatex">\(\sqrt x\log x=o(x)\)</span>. So for every large
+such <span class="arithmatex">\(N\)</span> some window, with <span class="arithmatex">\(Z_j\ge\lfloor\sqrt N\rfloor\)</span>, is good. Only the lower bound for <span class="arithmatex">\(\pi\)</span> is used.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> frequently_window {A : Set ℕ} (h : <a class="bp-lean-ref" href="#dense-form" data-lean-name="ZInQ.PrimesRelUpperDensityPos">ZInQ.PrimesRelUpperDensityPos</a> A) :
+    ∃ c₁ : ℝ, 0 &lt; c₁ ∧ ∃ᶠ Z : ℕ <span class="bp-lean-keyword">in</span> atTop, c₁ * Z / Real.log Z ≤
+      (((Ioc (Z / 2) Z).filter (· ∈ A)).card : ℝ)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> frequently_window_of {A : Set ℕ} [DecidablePred (· ∈ A)] {c : ℝ} (hc : 0 &lt; c)
+    (h : ∃ᶠ N <span class="bp-lean-keyword">in</span> atTop, c * (Nat.primeCounting N : ℝ) ≤
+      (((range (N + 1)).filter (· ∈ A)).card : ℝ)) :
+    ∃ᶠ Z : ℕ <span class="bp-lean-keyword">in</span> atTop, c * Real.log 2 / 24 * Z / Real.log Z ≤
+      (((Ioc (Z / 2) Z).filter (· ∈ A)).card : ℝ)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> card_filter_range_le_add_Ioc (A : Set ℕ) [DecidablePred (· ∈ A)] {a b : ℕ} (_hab : a ≤ b) :
+    ((range (b + 1)).filter (· ∈ A)).card ≤
+      ((range (a + 1)).filter (· ∈ A)).card + ((Ioc a b).filter (· ∈ A)).card</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.PrimesRelUpperDensityPos">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> PrimesRelUpperDensityPos (A : Set ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ c : ℝ, 0 &lt; c ∧ ∃ᶠ N <span class="bp-lean-keyword">in</span> atTop,
+    c * (Nat.primeCounting N : ℝ) ≤ (((Finset.range (N + 1)).filter (· ∈ A)).card : ℝ)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/GreenTao.lean:33</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/green-tao-locators.html#the-proof-for-a-dense-set">The proof for a dense set</a></li>
+<li><a href="../../sources/green-tao-locators.html#the-lean-statements">The Lean statements</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../sources/green-tao-locators.html#the-proof-for-a-dense-set"> </a></p>
+<p><a href="../../sources/green-tao-locators.html#the-lean-statements"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#dense-form">Szemerédi&#x27;s theorem in the primes</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#dense-theorem">Szemerédi&#x27;s theorem in the primes holds</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="green-tao/modulus-selection">
+<h4 class="bp-thmheading" id="modulus-selection">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Choosing the prime modulus</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/Window.lean#L233" aria-label="View ZInQ.GreenTaoDense.exists_prime_modulus_of_frequently_window in Lean source" title="View ZInQ.GreenTaoDense.exists_prime_modulus_of_frequently_window in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/Window.lean#L202" aria-label="View ZInQ.GreenTaoDense.exists_prime_scale_near in Lean source" title="View ZInQ.GreenTaoDense.exists_prime_scale_near in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/Window.lean#L217" aria-label="View ZInQ.GreenTaoDense.card_window_le_card_quarter in Lean source" title="View ZInQ.GreenTaoDense.card_window_le_card_quarter in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/green-tao/modulus-selection.md" aria-label="Edit the Markdown source for Choosing the prime modulus" title="Edit the Markdown source for Choosing the prime modulus"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#modulus-selection" aria-label="Link to Choosing the prime modulus" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.GreenTaoDense.exists_prime_modulus_of_frequently_window ZInQ.GreenTaoDense.exists_prime_scale_near ZInQ.GreenTaoDense.card_window_le_card_quarter</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(A\)</span> be a set of natural numbers and <span class="arithmatex">\(c_1&gt;0\)</span> such that
+<span class="arithmatex">\(\#(A\cap(\lfloor Z/2\rfloor,Z])\ge c_1Z/\log Z\)</span> for infinitely many <span class="arithmatex">\(Z\)</span>. Then for every <span class="arithmatex">\(W&gt;0\)</span> and
+every bound <span class="arithmatex">\(Q_0\)</span> there is a prime <span class="arithmatex">\(q\ge Q_0\)</span> such that <span class="arithmatex">\(X=W\lfloor q/8\rfloor\)</span> satisfies <span class="arithmatex">\(X\ge Q_0\)</span>
+and
+$<span class="arithmatex">\(\#\bigl(A\cap(\lfloor X/4\rfloor,X]\bigr)\ge\frac{c_1}{6}\cdot\frac{X}{\log X}.\)</span>$</p>
+<p>The scale <span class="arithmatex">\(X=W\lfloor q/8\rfloor\)</span> and the window <span class="arithmatex">\((X/4,X]\)</span> are those that the W-trick of the
+Green–Tao proof samples in the cyclic group of order <span class="arithmatex">\(q\)</span>.</p>
+<p><strong>Proof sketch.</strong> <em>Bertrand.</em> For any <span class="arithmatex">\(Z\)</span> put <span class="arithmatex">\(m=\lfloor Z/W\rfloor+1\)</span>; Bertrand's postulate gives a
+prime <span class="arithmatex">\(q\)</span> with <span class="arithmatex">\(8m&lt;q\le16m\)</span>, so <span class="arithmatex">\(m\le\lfloor q/8\rfloor\le2m\)</span>, hence <span class="arithmatex">\(q&gt;8\lfloor Z/W\rfloor\)</span> and
+<span class="arithmatex">\(Z\le W\lfloor q/8\rfloor\le2Z+2W\)</span>. <em>Window transfer.</em> For <span class="arithmatex">\(Z\le X\le2Z+2W\)</span>, the window
+<span class="arithmatex">\((\lfloor Z/2\rfloor,Z]\)</span> lies in <span class="arithmatex">\((\lfloor X/4\rfloor,X]\)</span> up to the at most <span class="arithmatex">\(W/2+1\)</span> integers of
+<span class="arithmatex">\((\lfloor Z/2\rfloor,\lfloor X/4\rfloor]\)</span>. Now take a good <span class="arithmatex">\(Z\)</span> so large that
+<span class="arithmatex">\(\log Z\le c_1Z/(2(W+1))\)</span> and <span class="arithmatex">\(Z\ge Q_0W+2W+Q_0+3\)</span>. Then <span class="arithmatex">\(q\ge Q_0\)</span>, <span class="arithmatex">\(X\ge Z\ge Q_0\)</span>, <span class="arithmatex">\(X\le3Z\)</span>, and
+<span class="arithmatex">\(c_1Z/\log Z\ge2(W+1)\)</span>, so <span class="arithmatex">\(A\)</span> has at least <span class="arithmatex">\(\frac12c_1Z/\log Z\ge\frac{c_1}6X/\log X\)</span> elements in
+<span class="arithmatex">\((\lfloor X/4\rfloor,X]\)</span>, using <span class="arithmatex">\(X\le3Z\)</span> and <span class="arithmatex">\(\log Z\le\log X\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_prime_modulus_of_frequently_window {A : Set ℕ} [DecidablePred (· ∈ A)] {c₁ : ℝ}
+    (hc₁ : 0 &lt; c₁)
+    (h : ∃ᶠ Z : ℕ <span class="bp-lean-keyword">in</span> atTop, c₁ * Z / Real.log Z ≤ (((Ioc (Z / 2) Z).filter (· ∈ A)).card : ℝ))
+    {W : ℕ} (hW : 0 &lt; W) (Q₀ : ℕ) :
+    ∃ q : ℕ, q.Prime ∧ Q₀ ≤ q ∧ Q₀ ≤ W * (q / 8) ∧
+      c₁ / 6 * ((W * (q / 8) : ℕ) : ℝ) / Real.log ((W * (q / 8) : ℕ) : ℝ) ≤
+        (((Ioc (W * (q / 8) / 4) (W * (q / 8))).filter (· ∈ A)).card : ℝ)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_prime_scale_near (W Z : ℕ) (hW : 0 &lt; W) :
+    ∃ q : ℕ, q.Prime ∧ 8 * (Z / W) &lt; q ∧ Z ≤ W * (q / 8) ∧ W * (q / 8) ≤ 2 * Z + 2 * W</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> card_window_le_card_quarter (A : Set ℕ) [DecidablePred (· ∈ A)] {W Z X : ℕ}
+    (hZX : Z ≤ X) (hX : X ≤ 2 * Z + 2 * W) :
+    ((Ioc (Z / 2) Z).filter (· ∈ A)).card ≤ ((Ioc (X / 4) X).filter (· ∈ A)).card + (W / 2 + 1)</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/green-tao-locators.html#the-proof-for-a-dense-set">The proof for a dense set</a></li>
+<li><a href="../../sources/green-tao-locators.html#the-lean-statements">The Lean statements</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../sources/green-tao-locators.html#the-proof-for-a-dense-set"> </a></p>
+<p><a href="../../sources/green-tao-locators.html#the-lean-statements"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#window-progressions">Progressions in a set of primes with mass in dyadic windows</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-weight-of-a-set-of-primes">The weight of a set of primes</h2>
+<p>The weight of <span class="arithmatex">\(A\)</span> is the prime weight times the indicator of <span class="arithmatex">\(A\)</span>. It lies below the prime weight, so
+majorization and the height bound carry over; positivity now means membership in <span class="arithmatex">\(A\)</span>, and the
+residue pigeonhole runs over the elements of <span class="arithmatex">\(A\)</span> only.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="green-tao/set-weight">
+<h4 class="bp-thmheading" id="set-weight">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The W-tricked weight of a set of primes</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/SetWeight.lean#L30" aria-label="View ZInQ.GreenTaoDense.wTrickedSetWeight in Lean source" title="View ZInQ.GreenTaoDense.wTrickedSetWeight in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/SetWeight.lean#L38" aria-label="View ZInQ.GreenTaoDense.wTrickedSetWeight_nonneg in Lean source" title="View ZInQ.GreenTaoDense.wTrickedSetWeight_nonneg in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/SetWeight.lean#L45" aria-label="View ZInQ.GreenTaoDense.wTrickedSetWeight_le in Lean source" title="View ZInQ.GreenTaoDense.wTrickedSetWeight_le in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/SetWeight.lean#L52" aria-label="View ZInQ.GreenTaoDense.wTrickedSetWeight_pos_iff in Lean source" title="View ZInQ.GreenTaoDense.wTrickedSetWeight_pos_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/green-tao/set-weight.md" aria-label="Edit the Markdown source for The W-tricked weight of a set of primes" title="Edit the Markdown source for The W-tricked weight of a set of primes"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#set-weight" aria-label="Link to The W-tricked weight of a set of primes" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.GreenTaoDense.wTrickedSetWeight ZInQ.GreenTaoDense.wTrickedSetWeight_nonneg ZInQ.GreenTaoDense.wTrickedSetWeight_le ZInQ.GreenTaoDense.wTrickedSetWeight_pos_iff</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(N\ge1\)</span>, let <span class="arithmatex">\(\alpha\)</span> be real and <span class="arithmatex">\(W,b\)</span> natural numbers, and for <span class="arithmatex">\(n\in\mathbb Z/N\)</span> let <span class="arithmatex">\(\bar n\)</span> be
+its representative in <span class="arithmatex">\([0,N)\)</span>. The <em>W-tricked prime weight</em> of the Green–Tao proof is
+$<span class="arithmatex">\(\lambda_{\alpha,W,b}(n)=\begin{cases}\alpha\,\dfrac{\varphi(W)}{W}\log(W\bar n+b)&amp;\text{if }
+\lfloor N/64\rfloor\le\bar n\le\lfloor N/4\rfloor\text{ and }W\bar n+b\text{ is prime},\\[1ex]
+0&amp;\text{otherwise.}\end{cases}\)</span>$
+For a set <span class="arithmatex">\(A\)</span> of natural numbers, the <em>W-tricked weight of <span class="arithmatex">\(A\)</span></em> is
+<span class="arithmatex">\(\lambda^A_{\alpha,W,b}(n)=\lambda_{\alpha,W,b}(n)\)</span> if <span class="arithmatex">\(W\bar n+b\in A\)</span> and <span class="arithmatex">\(0\)</span> otherwise. If
+<span class="arithmatex">\(\alpha\ge0\)</span>, then <span class="arithmatex">\(0\le\lambda^A_{\alpha,W,b}\le\lambda_{\alpha,W,b}\)</span>; if <span class="arithmatex">\(\alpha&gt;0\)</span> and <span class="arithmatex">\(W&gt;0\)</span>, then
+<span class="arithmatex">\(\lambda^A_{\alpha,W,b}(n)&gt;0\)</span> exactly when <span class="arithmatex">\(\lfloor N/64\rfloor\le\bar n\le\lfloor N/4\rfloor\)</span> and
+<span class="arithmatex">\(W\bar n+b\)</span> is a prime in <span class="arithmatex">\(A\)</span>.</p>
+<p>The bound <span class="arithmatex">\(\lambda^A\le\lambda\)</span> is what lets the weight of <span class="arithmatex">\(A\)</span> inherit, unchanged, the majorization
+of the prime weight by the Selberg-sieve majorant and its pointwise height bound.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> wTrickedSetWeight {N : ℕ} [NeZero N] (A : Set ℕ) (α : ℝ) (W b : ℕ)
+    (n : ZMod N) : ℝ :=
+  <span class="bp-lean-keyword">if</span> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/Primes/WTrick.lean#L41" data-lean-name="Submission.GreenTao.wTrickedValue">wTrickedValue</a> W b n ∈ A <span class="bp-lean-keyword">then</span> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/Primes/WTrick.lean#L46" data-lean-name="Submission.GreenTao.wTrickedPrimeWeight">wTrickedPrimeWeight</a> α W b n <span class="bp-lean-keyword">else</span> 0</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> wTrickedSetWeight_nonneg (hα : 0 ≤ α) (W b : ℕ) (n : ZMod N) :
+    0 ≤ <a class="bp-lean-ref" href="#set-weight" data-lean-name="ZInQ.GreenTaoDense.wTrickedSetWeight">wTrickedSetWeight</a> A α W b n</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> wTrickedSetWeight_le (hα : 0 ≤ α) (W b : ℕ) (n : ZMod N) :
+    <a class="bp-lean-ref" href="#set-weight" data-lean-name="ZInQ.GreenTaoDense.wTrickedSetWeight">wTrickedSetWeight</a> A α W b n ≤ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/Primes/WTrick.lean#L46" data-lean-name="Submission.GreenTao.wTrickedPrimeWeight">wTrickedPrimeWeight</a> α W b n</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="Submission.GreenTao.wTrickedValue">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> wTrickedValue {N : ℕ} [NeZero N]
+    (W b : ℕ) (n : ZMod N) : ℕ :=
+  W * n.val + b</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/Primes/WTrick.lean:41</p>
+</div>
+<div data-lean-name="Submission.GreenTao.wTrickedPrimeWeight">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> wTrickedPrimeWeight {N : ℕ} [NeZero N]
+    (α : ℝ) (W b : ℕ) (n : ZMod N) : ℝ :=
+  <span class="bp-lean-keyword">if</span> n.val ∈ greenTaoInterval N ∧ Nat.Prime (wTrickedValue W b n) <span class="bp-lean-keyword">then</span>
+    α * ((W.totient : ℝ) / W) * Real.log (wTrickedValue W b n)
+  <span class="bp-lean-keyword">else</span>
+    0</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/Primes/WTrick.lean:46</p>
+</div>
+<div data-lean-name="ZInQ.GreenTaoDense.wTrickedSetWeight">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> wTrickedSetWeight {N : ℕ} [NeZero N] (A : Set ℕ) (α : ℝ) (W b : ℕ)
+    (n : ZMod N) : ℝ :=
+  <span class="bp-lean-keyword">if</span> wTrickedValue W b n ∈ A <span class="bp-lean-keyword">then</span> wTrickedPrimeWeight α W b n <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/External/GreenTaoDense/SetWeight.lean:30</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/green-tao-locators.html#where-the-primes-enter">Where the primes enter</a></li>
+<li><a href="../../sources/green-tao-locators.html#the-lean-statements">The Lean statements</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#extraction">Extraction of a progression in the set</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#prime-modulus-transference">Transference for every large prime modulus</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#residue-pigeonhole">The residue pigeonhole for a set of primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#window-progressions">Progressions in a set of primes with mass in dyadic windows</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="green-tao/extraction">
+<h4 class="bp-thmheading" id="extraction">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Extraction of a progression in the set</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/SetWeight.lean#L66" aria-label="View ZInQ.GreenTaoDense.containsAP_of_wTrickedSetWeight_offDiagMass_pos in Lean source" title="View ZInQ.GreenTaoDense.containsAP_of_wTrickedSetWeight_offDiagMass_pos in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/green-tao/extraction.md" aria-label="Edit the Markdown source for Extraction of a progression in the set" title="Edit the Markdown source for Extraction of a progression in the set"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#extraction" aria-label="Link to Extraction of a progression in the set" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.GreenTaoDense.containsAP_of_wTrickedSetWeight_offDiagMass_pos</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(A\)</span> be a set of natural numbers, <span class="arithmatex">\(k\ge2\)</span>, <span class="arithmatex">\(N\ge1\)</span>, <span class="arithmatex">\(\alpha&gt;0\)</span>, <span class="arithmatex">\(W&gt;0\)</span> and <span class="arithmatex">\(b\)</span> natural. If the
+off-diagonal mass of the weight of <span class="arithmatex">\(A\)</span> is positive,
+$<span class="arithmatex">\(\sum_{a\in\mathbb Z/N}\ \sum_{d\in\mathbb Z/N,\ d\ne0}\ \prod_{j&lt;k}\lambda^A_{\alpha,W,b}(a+jd)&gt;0,\)</span>$
+then <span class="arithmatex">\(A\)</span> contains a <span class="arithmatex">\(k\)</span>-term arithmetic progression: there are natural numbers <span class="arithmatex">\(a'\)</span> and <span class="arithmatex">\(d'&gt;0\)</span> with
+<span class="arithmatex">\(a'+jd'\in A\)</span> for every <span class="arithmatex">\(j&lt;k\)</span>.</p>
+<p><strong>Proof sketch.</strong> Some <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(d\ne0\)</span> have <span class="arithmatex">\(\lambda^A(a+jd)&gt;0\)</span> for every <span class="arithmatex">\(j&lt;k\)</span>. By the
+positivity criterion of the weight, every representative <span class="arithmatex">\(\overline{a+jd}\)</span> lies in
+<span class="arithmatex">\([\lfloor N/64\rfloor,\lfloor N/4\rfloor]\)</span>, an interval of less than half the length of <span class="arithmatex">\(\mathbb Z/N\)</span>,
+and <span class="arithmatex">\(W\overline{a+jd}+b\in A\)</span>. The short-interval lift of the vendored proof turns a cyclic
+progression inside such an interval into an integer progression with positive difference in
+<span class="arithmatex">\(\{n:Wn+b\in A\}\)</span>, and the affine map <span class="arithmatex">\(n\mapsto Wn+b\)</span> carries it into <span class="arithmatex">\(A\)</span>. This is the vendored
+extraction for the primes, with the positivity criterion of the weight of <span class="arithmatex">\(A\)</span> in place of that of
+the prime weight.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> containsAP_of_wTrickedSetWeight_offDiagMass_pos {A : Set ℕ} {k N : ℕ} [NeZero N]
+    (hk : 2 ≤ k) {α : ℝ} (hα : 0 &lt; α) {W : ℕ} (hW : 0 &lt; W) (b : ℕ)
+    (hmass : 0 &lt; <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/ArithmeticProgression/CountExtraction.lean#L29" data-lean-name="Submission.GreenTao.cyclicAPOffDiagMass">cyclicAPOffDiagMass</a> k N (<a class="bp-lean-ref" href="#set-weight" data-lean-name="ZInQ.GreenTaoDense.wTrickedSetWeight">wTrickedSetWeight</a> A α W b)) :
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/ArithmeticProgression/Basic.lean#L12" data-lean-name="Submission.GreenTao.ContainsAP">ContainsAP</a> A k</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="Submission.GreenTao.cyclicAPOffDiagMass">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> cyclicAPOffDiagMass (k N : ℕ) [NeZero N]
+    (f : ZMod N → ℝ) : ℝ :=
+  ∑ a : ZMod N,
+    ∑ d ∈ (Finset.univ.filter <span class="bp-lean-keyword">fun</span> d : ZMod N =&gt; d ≠ 0),
+      cyclicAPProduct k N f a d</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/ArithmeticProgression/CountExtraction.lean:29</p>
+</div>
+<div data-lean-name="ZInQ.GreenTaoDense.wTrickedSetWeight">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> wTrickedSetWeight {N : ℕ} [NeZero N] (A : Set ℕ) (α : ℝ) (W b : ℕ)
+    (n : ZMod N) : ℝ :=
+  <span class="bp-lean-keyword">if</span> wTrickedValue W b n ∈ A <span class="bp-lean-keyword">then</span> wTrickedPrimeWeight α W b n <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/External/GreenTaoDense/SetWeight.lean:30</p>
+</div>
+<div data-lean-name="Submission.GreenTao.ContainsAP">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ContainsAP (A : Set ℕ) (k : ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ a d : ℕ, IsAPIn A k a d</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/ArithmeticProgression/Basic.lean:12</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/green-tao-locators.html#where-the-primes-enter">Where the primes enter</a></li>
+<li><a href="../../sources/green-tao-locators.html#the-lean-statements">The Lean statements</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../sources/green-tao-locators.html#where-the-primes-enter"> </a></p>
+<p><a href="../../sources/green-tao-locators.html#the-lean-statements"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#set-weight">The W-tricked weight of a set of primes</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#window-progressions">Progressions in a set of primes with mass in dyadic windows</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="green-tao/residue-pigeonhole">
+<h4 class="bp-thmheading" id="residue-pigeonhole">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The residue pigeonhole for a set of primes</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/SetWeight.lean#L148" aria-label="View ZInQ.GreenTaoDense.exists_reducedResidue_setWeight_mean_lower_bound in Lean source" title="View ZInQ.GreenTaoDense.exists_reducedResidue_setWeight_mean_lower_bound in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/SetWeight.lean#L104" aria-label="View ZInQ.GreenTaoDense.quarterIntervalSetClass in Lean source" title="View ZInQ.GreenTaoDense.quarterIntervalSetClass in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/SetWeight.lean#L109" aria-label="View ZInQ.GreenTaoDense.wTrickedSetWeight_untrickPrimeZMod in Lean source" title="View ZInQ.GreenTaoDense.wTrickedSetWeight_untrickPrimeZMod in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/SetWeight.lean#L120" aria-label="View ZInQ.GreenTaoDense.setClass_log_mass_div_card_le_mean in Lean source" title="View ZInQ.GreenTaoDense.setClass_log_mass_div_card_le_mean in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/SetWeight.lean#L135" aria-label="View ZInQ.GreenTaoDense.card_mul_log_cutoff_le_setClass_log_mass in Lean source" title="View ZInQ.GreenTaoDense.card_mul_log_cutoff_le_setClass_log_mass in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/green-tao/residue-pigeonhole.md" aria-label="Edit the Markdown source for The residue pigeonhole for a set of primes" title="Edit the Markdown source for The residue pigeonhole for a set of primes"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#residue-pigeonhole" aria-label="Link to The residue pigeonhole for a set of primes" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.GreenTaoDense.exists_reducedResidue_setWeight_mean_lower_bound ZInQ.GreenTaoDense.quarterIntervalSetClass ZInQ.GreenTaoDense.wTrickedSetWeight_untrickPrimeZMod ZInQ.GreenTaoDense.setClass_log_mass_div_card_le_mean ZInQ.GreenTaoDense.card_mul_log_cutoff_le_setClass_log_mass</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(A\)</span> be a set of natural numbers, <span class="arithmatex">\(w\)</span> and <span class="arithmatex">\(N\ge1\)</span> natural numbers, <span class="arithmatex">\(\alpha\ge0\)</span>, <span class="arithmatex">\(W=\prod_{p\le w}p\)</span>
+and <span class="arithmatex">\(X=W\lfloor N/8\rfloor\)</span>, and suppose <span class="arithmatex">\(w\le\lfloor X/4\rfloor\)</span>. Let <span class="arithmatex">\(S\)</span> be the set of primes
+<span class="arithmatex">\(p\in A\)</span> with <span class="arithmatex">\(\lfloor X/4\rfloor&lt;p\le X\)</span>. Then there is a residue <span class="arithmatex">\(0\le b&lt;W\)</span> coprime to <span class="arithmatex">\(W\)</span> such
+that the mean of the W-tricked weight of <span class="arithmatex">\(A\)</span> over <span class="arithmatex">\(\mathbb Z/N\)</span> satisfies
+$<span class="arithmatex">\(\frac1N\sum_{n\in\mathbb Z/N}\lambda^A_{\alpha,W,b}(n)\ \ge\
+\frac{\alpha}{W}\cdot\frac{\#S\cdot\log(\lfloor X/4\rfloor+1)}{N}.\)</span>$</p>
+<p><strong>Proof sketch.</strong> Every <span class="arithmatex">\(p\in S\)</span> exceeds <span class="arithmatex">\(w\)</span>, so it is coprime to <span class="arithmatex">\(W\)</span>; pigeonholing <span class="arithmatex">\(S\)</span> over the
+<span class="arithmatex">\(\varphi(W)\)</span> reduced classes gives a class <span class="arithmatex">\(b\)</span> with <span class="arithmatex">\(\#S\le\varphi(W)\,\#S_b\)</span>, where <span class="arithmatex">\(S_b\)</span> is the set
+of <span class="arithmatex">\(p\in S\)</span> with <span class="arithmatex">\(p\equiv b\pmod W\)</span>. Each <span class="arithmatex">\(p\in S_b\)</span> is <span class="arithmatex">\(W\bar n+b\)</span> for the residue <span class="arithmatex">\(n\)</span> of <span class="arithmatex">\((p-b)/W\)</span>,
+which lies in <span class="arithmatex">\([\lfloor N/64\rfloor,\lfloor N/4\rfloor]\)</span>, and these <span class="arithmatex">\(n\)</span> are distinct; at each,
+<span class="arithmatex">\(\lambda^A(n)=\alpha\frac{\varphi(W)}W\log p\ge\alpha\frac{\varphi(W)}W\log(\lfloor X/4\rfloor+1)\)</span>.
+Summing over <span class="arithmatex">\(S_b\)</span> and dividing by <span class="arithmatex">\(N\)</span> gives the bound. This is the vendored density selection with
+the primes of <span class="arithmatex">\((\lfloor X/4\rfloor,X]\)</span> replaced by the elements of <span class="arithmatex">\(A\)</span> among them; the original
+pigeonhole is already stated for an arbitrary finite set of primes above <span class="arithmatex">\(w\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_reducedResidue_setWeight_mean_lower_bound (A : Set ℕ) {w N : ℕ} [NeZero N]
+    {α : ℝ} (hα : 0 ≤ α) (hw : w ≤ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/Primes/WTrickDensity.lean#L22" data-lean-name="Submission.GreenTao.wTrickPrimeScale">wTrickPrimeScale</a> (primorial w) N / 4) :
+    ∃ b ∈ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/Primes/ReducedResidues.lean#L12" data-lean-name="Submission.GreenTao.reducedResidues">reducedResidues</a> (primorial w),
+      (((α / (primorial w : ℝ)) *
+          (#((<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/Primes/Chebyshev.lean#L10" data-lean-name="Submission.GreenTao.primesInQuarterInterval">primesInQuarterInterval</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/Primes/WTrickDensity.lean#L22" data-lean-name="Submission.GreenTao.wTrickPrimeScale">wTrickPrimeScale</a> (primorial w) N)).filter (· ∈ A)) : ℝ) *
+          log (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/Primes/WTrickDensity.lean#L22" data-lean-name="Submission.GreenTao.wTrickPrimeScale">wTrickPrimeScale</a> (primorial w) N / 4 + 1 : ℕ)) / N) ≤
+        <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/Finite/Mean.lean#L19" data-lean-name="Submission.GreenTao.mean">mean</a> (<a class="bp-lean-ref" href="#set-weight" data-lean-name="ZInQ.GreenTaoDense.wTrickedSetWeight">wTrickedSetWeight</a> A α (primorial w) b : ZMod N → ℝ)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> quarterIntervalSetClass (A : Set ℕ) (W N b : ℕ) : Finset ℕ :=
+  (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/Primes/WTrickDensity.lean#L27" data-lean-name="Submission.GreenTao.quarterIntervalResidueClass">quarterIntervalResidueClass</a> W N b).filter (· ∈ A)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> wTrickedSetWeight_untrickPrimeZMod (α : ℝ) (hW : 0 &lt; W) {p : ℕ}
+    (hp : p ∈ <a class="bp-lean-ref" href="#residue-pigeonhole" data-lean-name="ZInQ.GreenTaoDense.quarterIntervalSetClass">quarterIntervalSetClass</a> A W N b) :
+    <a class="bp-lean-ref" href="#set-weight" data-lean-name="ZInQ.GreenTaoDense.wTrickedSetWeight">wTrickedSetWeight</a> A α W b (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/Primes/WTrickDensity.lean#L46" data-lean-name="Submission.GreenTao.untrickPrimeZMod">untrickPrimeZMod</a> N W b p) =
+      α * ((W.totient : ℝ) / W) * log p</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="Submission.GreenTao.wTrickPrimeScale">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> wTrickPrimeScale (W N : ℕ) : ℕ :=
+  W * (N / 8)</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/Primes/WTrickDensity.lean:22</p>
+</div>
+<div data-lean-name="Submission.GreenTao.reducedResidues">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> reducedResidues (W : ℕ) : Finset ℕ :=
+  {b ∈ Finset.range W | W.Coprime b}</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/Primes/ReducedResidues.lean:12</p>
+</div>
+<div data-lean-name="Submission.GreenTao.primesInQuarterInterval">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> primesInQuarterInterval (X : ℕ) : Finset ℕ :=
+  {p ∈ Finset.range (X + 1) | p.Prime ∧ X / 4 &lt; p}</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/Primes/Chebyshev.lean:10</p>
+</div>
+<div data-lean-name="Submission.GreenTao.mean">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> mean {α : <span class="bp-lean-keyword">Type</span>*} [Fintype α] (f : α → ℝ) : ℝ :=
+  𝔼 x, f x</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/Finite/Mean.lean:19</p>
+</div>
+<div data-lean-name="ZInQ.GreenTaoDense.wTrickedSetWeight">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> wTrickedSetWeight {N : ℕ} [NeZero N] (A : Set ℕ) (α : ℝ) (W b : ℕ)
+    (n : ZMod N) : ℝ :=
+  <span class="bp-lean-keyword">if</span> wTrickedValue W b n ∈ A <span class="bp-lean-keyword">then</span> wTrickedPrimeWeight α W b n <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/External/GreenTaoDense/SetWeight.lean:30</p>
+</div>
+<div data-lean-name="Submission.GreenTao.quarterIntervalResidueClass">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> quarterIntervalResidueClass (W N b : ℕ) : Finset ℕ :=
+  residueFiber (primesInQuarterInterval (wTrickPrimeScale W N)) W b</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/Primes/WTrickDensity.lean:27</p>
+</div>
+<div data-lean-name="ZInQ.GreenTaoDense.quarterIntervalSetClass">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> quarterIntervalSetClass (A : Set ℕ) (W N b : ℕ) : Finset ℕ :=
+  (quarterIntervalResidueClass W N b).filter (· ∈ A)</code></pre>
+<p class="bp-lean-where">ZInQKernel/External/GreenTaoDense/SetWeight.lean:104</p>
+</div>
+<div data-lean-name="Submission.GreenTao.untrickPrimeZMod">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> untrickPrimeZMod (N W b p : ℕ) : ZMod N :=
+  (untrickPrime W b p : ℕ)</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/Primes/WTrickDensity.lean:46</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/green-tao-locators.html#where-the-primes-enter">Where the primes enter</a></li>
+<li><a href="../../sources/green-tao-locators.html#the-lean-statements">The Lean statements</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../sources/green-tao-locators.html#where-the-primes-enter"> </a></p>
+<p><a href="../../sources/green-tao-locators.html#the-lean-statements"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#set-weight">The W-tricked weight of a set of primes</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#window-progressions">Progressions in a set of primes with mass in dyadic windows</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="transference">Transference</h2>
+<p>The relative Szemerédi theorem of the vendored proof holds for every weight below the sieve
+majorant; restated for every large prime modulus and every density, it applies to the weight of <span class="arithmatex">\(A\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="green-tao/prime-modulus-transference">
+<h4 class="bp-thmheading" id="prime-modulus-transference">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Transference for every large prime modulus</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/PrimeModulusTransference.lean#L81" aria-label="View ZInQ.GreenTaoDense.hasPrimeModulusSubweightCounts in Lean source" title="View ZInQ.GreenTaoDense.hasPrimeModulusSubweightCounts in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/PrimeModulusTransference.lean#L30" aria-label="View ZInQ.GreenTaoDense.HasPrimeModulusSubweightCounts in Lean source" title="View ZInQ.GreenTaoDense.HasPrimeModulusSubweightCounts in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/PrimeModulusTransference.lean#L40" aria-label="View ZInQ.GreenTaoDense.hasPrimeModulusSubweightCounts_of_orderedRemoval_of_linearForms in Lean source" title="View ZInQ.GreenTaoDense.hasPrimeModulusSubweightCounts_of_orderedRemoval_of_linearForms in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/green-tao/prime-modulus-transference.md" aria-label="Edit the Markdown source for Transference for every large prime modulus" title="Edit the Markdown source for Transference for every large prime modulus"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#prime-modulus-transference" aria-label="Link to Transference for every large prime modulus" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.GreenTaoDense.hasPrimeModulusSubweightCounts ZInQ.GreenTaoDense.HasPrimeModulusSubweightCounts ZInQ.GreenTaoDense.hasPrimeModulusSubweightCounts_of_orderedRemoval_of_linearForms</div>
+<div class="bp-thmcontent">
+<p>For <span class="arithmatex">\(k\ge3\)</span> let <span class="arithmatex">\(\alpha_k&gt;0\)</span> be the scale of the W-tricked prime weight in the Green–Tao proof (the
+constant fixed there from <span class="arithmatex">\(k\)</span> and the normalizer of the smooth sieve cutoff, small enough that the
+weight lies below the sieve majorant). For <span class="arithmatex">\(f:\mathbb Z/N\to\mathbb R\)</span> write
+<span class="arithmatex">\(\mathbb E f=\frac1N\sum_nf(n)\)</span> and
+<span class="arithmatex">\(\Lambda_k(f)=\mathbb E_{a,d\in\mathbb Z/N}\prod_{j&lt;k}f(a+jd)\)</span>.</p>
+<p>For every <span class="arithmatex">\(k\ge3\)</span> and every <span class="arithmatex">\(\delta&gt;0\)</span> there are a natural number <span class="arithmatex">\(w\)</span> and a real <span class="arithmatex">\(c&gt;0\)</span> such that,
+with <span class="arithmatex">\(W=\prod_{p\le w}p\)</span>, for every sufficiently large <span class="arithmatex">\(M\)</span> with <span class="arithmatex">\(N=M+1\)</span> prime, every residue
+<span class="arithmatex">\(0\le b&lt;W\)</span> coprime to <span class="arithmatex">\(W\)</span> and every <span class="arithmatex">\(f:\mathbb Z/N\to\mathbb R\)</span> with
+$<span class="arithmatex">\(0\le f\le\lambda_{\alpha_k,W,b}\qquad\text{and}\qquad\mathbb Ef\ge\delta,\)</span>$
+the count satisfies <span class="arithmatex">\(\Lambda_k(f)\ge c\)</span>.</p>
+<p>The Green–Tao proof for the set of all primes shows this only for the prime weight itself, at one
+prime modulus beyond each bound, and for one fixed density. The proof never uses more: the change
+is in the quantifiers.</p>
+<p><strong>Proof sketch.</strong> Write <span class="arithmatex">\(k=r+2\)</span>. The dense Szemerédi theorem, from the ordered hypergraph removal of
+the vendored proof, gives for density <span class="arithmatex">\(\delta/2\)</span> a count <span class="arithmatex">\(\Lambda_k(g)\ge c_0&gt;0\)</span> for every
+<span class="arithmatex">\(g:\mathbb Z/N\to[0,1]\)</span> with <span class="arithmatex">\(\mathbb Eg\ge\delta/2\)</span>, uniformly in <span class="arithmatex">\(N\)</span>. The parameter package of the
+relative counting step, chosen for the reserves <span class="arithmatex">\(\delta/2\)</span> and <span class="arithmatex">\(c_0/2\)</span>, and the linear forms
+condition of the Selberg-sieve majorant <span class="arithmatex">\(\nu_b\)</span>, uniform over the reduced classes <span class="arithmatex">\(b\)</span>, fix <span class="arithmatex">\(w\)</span> and
+a threshold. For <span class="arithmatex">\(N=M+1\)</span> prime and large, <span class="arithmatex">\(N\)</span> is coprime to <span class="arithmatex">\((r+1)!\)</span>, the prime weight lies below
+<span class="arithmatex">\(\nu_b\)</span> for every <span class="arithmatex">\(b&lt;W\)</span> at once, and so does every <span class="arithmatex">\(f\le\lambda\)</span>. The relative Szemerédi theorem,
+which holds for every <span class="arithmatex">\(0\le f\le\nu\)</span>, then gives <span class="arithmatex">\(\Lambda_k(f)\ge c_0-c_0/2=c\)</span>. The deep inputs, the
+hypergraph removal lemma and the linear forms estimate for the majorant, are those of the vendored
+proof, used unchanged.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> hasPrimeModulusSubweightCounts : <a class="bp-lean-ref" href="#prime-modulus-transference" data-lean-name="ZInQ.GreenTaoDense.HasPrimeModulusSubweightCounts">HasPrimeModulusSubweightCounts</a></code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HasPrimeModulusSubweightCounts : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ k : ℕ, 3 ≤ k → ∀ δ : ℝ, 0 &lt; δ →
+    ∃ (w : ℕ) (c : ℝ), 0 &lt; c ∧
+      ∀ᶠ M : ℕ <span class="bp-lean-keyword">in</span> atTop, Nat.Prime (M + 1) →
+        ∀ b ∈ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/Primes/ReducedResidues.lean#L12" data-lean-name="Submission.GreenTao.reducedResidues">reducedResidues</a> (primorial w), ∀ f : ZMod (M + 1) → ℝ,
+          (∀ x, 0 ≤ f x) →
+          (∀ x, f x ≤ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/Primes/WTrick.lean#L46" data-lean-name="Submission.GreenTao.wTrickedPrimeWeight">wTrickedPrimeWeight</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/GreenTao/Parameters.lean#L39" data-lean-name="Submission.GreenTao.primeScale">primeScale</a> k <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/Sieve/SmoothCutoff.lean#L139" data-lean-name="Submission.GreenTao.standardSmoothSieveCutoff">standardSmoothSieveCutoff</a>.normalizer)
+            (primorial w) b x) →
+          δ ≤ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/Finite/Mean.lean#L19" data-lean-name="Submission.GreenTao.mean">mean</a> f → c ≤ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/ArithmeticProgression/Count.lean#L31" data-lean-name="Submission.GreenTao.cyclicAPCount">cyclicAPCount</a> k (M + 1) f</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> hasPrimeModulusSubweightCounts_of_orderedRemoval_of_linearForms
+    (hremoval : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/GreenTao/FinalTransferenceAssembly.lean#L30" data-lean-name="Submission.GreenTao.HasOrderedRemovalForAllAPLengths">HasOrderedRemovalForAllAPLengths</a>)
+    (hsieve : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/GreenTao/FinalTransferenceAssembly.lean#L40" data-lean-name="Submission.GreenTao.HasStandardCyclicMajorantLinearForms">HasStandardCyclicMajorantLinearForms</a>) :
+    <a class="bp-lean-ref" href="#prime-modulus-transference" data-lean-name="ZInQ.GreenTaoDense.HasPrimeModulusSubweightCounts">HasPrimeModulusSubweightCounts</a></code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.GreenTaoDense.HasPrimeModulusSubweightCounts">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HasPrimeModulusSubweightCounts : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ k : ℕ, 3 ≤ k → ∀ δ : ℝ, 0 &lt; δ →
+    ∃ (w : ℕ) (c : ℝ), 0 &lt; c ∧
+      ∀ᶠ M : ℕ <span class="bp-lean-keyword">in</span> atTop, Nat.Prime (M + 1) →
+        ∀ b ∈ reducedResidues (primorial w), ∀ f : ZMod (M + 1) → ℝ,
+          (∀ x, 0 ≤ f x) →
+          (∀ x, f x ≤ wTrickedPrimeWeight (primeScale k standardSmoothSieveCutoff.normalizer)
+            (primorial w) b x) →
+          δ ≤ mean f → c ≤ cyclicAPCount k (M + 1) f</code></pre>
+<p class="bp-lean-where">ZInQKernel/External/GreenTaoDense/PrimeModulusTransference.lean:30</p>
+</div>
+<div data-lean-name="Submission.GreenTao.reducedResidues">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> reducedResidues (W : ℕ) : Finset ℕ :=
+  {b ∈ Finset.range W | W.Coprime b}</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/Primes/ReducedResidues.lean:12</p>
+</div>
+<div data-lean-name="Submission.GreenTao.wTrickedPrimeWeight">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> wTrickedPrimeWeight {N : ℕ} [NeZero N]
+    (α : ℝ) (W b : ℕ) (n : ZMod N) : ℝ :=
+  <span class="bp-lean-keyword">if</span> n.val ∈ greenTaoInterval N ∧ Nat.Prime (wTrickedValue W b n) <span class="bp-lean-keyword">then</span>
+    α * ((W.totient : ℝ) / W) * Real.log (wTrickedValue W b n)
+  <span class="bp-lean-keyword">else</span>
+    0</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/Primes/WTrick.lean:46</p>
+</div>
+<div data-lean-name="Submission.GreenTao.primeScale">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> primeScale (k : ℕ)
+    (cutoffNormalizer : ℝ) : ℝ :=
+  min (1 / 2)
+    (sieveExponent k / (8 * cutoffNormalizer))</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/GreenTao/Parameters.lean:39</p>
+</div>
+<div data-lean-name="Submission.GreenTao.standardSmoothSieveCutoff">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> standardSmoothSieveCutoff : SmoothSieveCutoff <span class="bp-lean-keyword">where</span>
+  toFun := standardSmoothSieveBump
+  smooth := ContDiffBump.contDiff standardSmoothSieveBump
+  nonneg := <span class="bp-lean-keyword">fun</span> x ↦ ContDiffBump.nonneg&#x27; standardSmoothSieveBump x
+  le_one := <span class="bp-lean-keyword">fun</span> _ ↦ ContDiffBump.le_one standardSmoothSieveBump
+  support_subset := <span class="bp-lean-keyword">by</span>
+    rw [ContDiffBump.support_eq]
+    intro x hx
+    <span class="bp-lean-keyword">have</span> habs : |x| &lt; 1 := <span class="bp-lean-keyword">by</span>
+      simpa [standardSmoothSieveBump, Metric.mem_ball, Real.dist_eq] using hx
+    exact ⟨(abs_lt.mp habs).1.le, (abs_lt.mp habs).2.le⟩
+  zero_of_one_le := <span class="bp-lean-keyword">by</span>
+  ⋯</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/Sieve/SmoothCutoff.lean:139</p>
+</div>
+<div data-lean-name="Submission.GreenTao.mean">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> mean {α : <span class="bp-lean-keyword">Type</span>*} [Fintype α] (f : α → ℝ) : ℝ :=
+  𝔼 x, f x</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/Finite/Mean.lean:19</p>
+</div>
+<div data-lean-name="Submission.GreenTao.cyclicAPCount">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> cyclicAPCount (k N : ℕ) [NeZero N]
+    (f : ZMod N → ℝ) : ℝ :=
+  mean₂ (<span class="bp-lean-keyword">fun</span> a d =&gt; cyclicAPProduct k N f a d)</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/ArithmeticProgression/Count.lean:31</p>
+</div>
+<div data-lean-name="Submission.GreenTao.HasOrderedRemovalForAllAPLengths">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HasOrderedRemovalForAllAPLengths : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ k : ℕ, 3 ≤ k →
+    HasUniformOrderedPatternRemoval k (k - 1)</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/GreenTao/FinalTransferenceAssembly.lean:30</p>
+</div>
+<div data-lean-name="Submission.GreenTao.HasStandardCyclicMajorantLinearForms">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HasStandardCyclicMajorantLinearForms : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ k : ℕ, 3 ≤ k →
+    ∀ η : ℝ, 0 &lt; η →
+      ∃ w : ℕ,
+        exceptionalPrimeBound
+            (<span class="bp-lean-keyword">fun</span> q : CFZFormIndex k =&gt; cfzAffineForm q) ≤ w ∧
+          ∀ᶠ M : ℕ <span class="bp-lean-keyword">in</span> atTop,
+            ∀ b : ℕ, b ∈ reducedResidues (primorial w) →
+              HasLinearFormsCondition k (M + 1)
+                (standardSmoothSieveCutoff.cyclicMajorant
+                  (sieveLevel k (M + 1))
+                  (primorial w) b)
+  ⋯</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/GreenTao/FinalTransferenceAssembly.lean:40</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_7">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/green-tao-locators.html#where-the-primes-enter">Where the primes enter</a></li>
+<li><a href="../../sources/green-tao-locators.html#the-lean-statements">The Lean statements</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../sources/green-tao-locators.html#where-the-primes-enter"> </a></p>
+<p><a href="../../sources/green-tao-locators.html#the-lean-statements"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#set-weight">The W-tricked weight of a set of primes</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#dense-theorem">Szemerédi&#x27;s theorem in the primes holds</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#window-progressions">Progressions in a set of primes with mass in dyadic windows</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="assembly">Assembly</h2>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="green-tao/window-progressions">
+<h4 class="bp-thmheading" id="window-progressions">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Progressions in a set of primes with mass in dyadic windows</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense/Assembly.lean#L22" aria-label="View ZInQ.GreenTaoDense.containsAP_of_frequently_window in Lean source" title="View ZInQ.GreenTaoDense.containsAP_of_frequently_window in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/green-tao/window-progressions.md" aria-label="Edit the Markdown source for Progressions in a set of primes with mass in dyadic windows" title="Edit the Markdown source for Progressions in a set of primes with mass in dyadic windows"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#window-progressions" aria-label="Link to Progressions in a set of primes with mass in dyadic windows" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.GreenTaoDense.containsAP_of_frequently_window</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(A\)</span> be a set of primes and <span class="arithmatex">\(c_1&gt;0\)</span> such that
+<span class="arithmatex">\(\#(A\cap(\lfloor Z/2\rfloor,Z])\ge c_1Z/\log Z\)</span> for infinitely many <span class="arithmatex">\(Z\)</span>. Then for every <span class="arithmatex">\(k\)</span> the set
+<span class="arithmatex">\(A\)</span> contains a <span class="arithmatex">\(k\)</span>-term arithmetic progression: there are natural numbers <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(d&gt;0\)</span> with
+<span class="arithmatex">\(a+jd\in A\)</span> for every <span class="arithmatex">\(j&lt;k\)</span>.</p>
+<p><strong>Proof sketch.</strong> For <span class="arithmatex">\(k\le2\)</span> truncate a progression of length <span class="arithmatex">\(3\)</span>; so let <span class="arithmatex">\(k\ge3\)</span> and
+<span class="arithmatex">\(\alpha=\alpha_k\)</span>. Put <span class="arithmatex">\(c_2=c_1/6\)</span> and <span class="arithmatex">\(\delta=\alpha c_2/32\)</span>, fixed before <span class="arithmatex">\(w\)</span>. Transference for
+every large prime modulus gives <span class="arithmatex">\(w\)</span>, <span class="arithmatex">\(c&gt;0\)</span> and a threshold; put <span class="arithmatex">\(W=\prod_{p\le w}p\)</span>. The modulus
+selection gives a prime <span class="arithmatex">\(q=M+1\)</span> beyond the transference threshold, the threshold of the height bound
+<span class="arithmatex">\((2\alpha\log q)^k&lt;qc\)</span> and <span class="arithmatex">\(2W+4w+16\)</span>, such that <span class="arithmatex">\(A\)</span> has at least <span class="arithmatex">\(c_2X/\log X\)</span> elements in
+<span class="arithmatex">\((\lfloor X/4\rfloor,X]\)</span>, <span class="arithmatex">\(X=W\lfloor q/8\rfloor\)</span>; these are primes, so they form the set <span class="arithmatex">\(S\)</span> of the
+residue pigeonhole. The pigeonhole gives a reduced class <span class="arithmatex">\(b\)</span> with
+<span class="arithmatex">\(\mathbb E\lambda^A\ge\frac\alpha W\#S\log(\lfloor X/4\rfloor+1)/q\)</span>, and the vendored Chebyshev
+arithmetic, with the constant <span class="arithmatex">\(\log2/4\)</span> replaced by <span class="arithmatex">\(c_2\)</span>, bounds this below by <span class="arithmatex">\(\alpha c_2/32=\delta\)</span>.
+Since <span class="arithmatex">\(0\le\lambda^A\le\lambda\)</span>, transference gives <span class="arithmatex">\(\Lambda_k(\lambda^A)\ge c\)</span>. The weight is at most
+<span class="arithmatex">\(2\alpha\log q\)</span>, so the diagonal progressions (<span class="arithmatex">\(d=0\)</span>) carry less than the count, and the off-diagonal
+mass is positive. Extraction gives the progression in <span class="arithmatex">\(A\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> containsAP_of_frequently_window (hT : <a class="bp-lean-ref" href="#prime-modulus-transference" data-lean-name="ZInQ.GreenTaoDense.HasPrimeModulusSubweightCounts">HasPrimeModulusSubweightCounts</a>) {A : Set ℕ}
+    (hA : A ⊆ {p | p.Prime}) {c₁ : ℝ} (hc₁ : 0 &lt; c₁)
+    (hwin : ∃ᶠ Z : ℕ <span class="bp-lean-keyword">in</span> atTop, c₁ * Z / Real.log Z ≤
+      (((Ioc (Z / 2) Z).filter (· ∈ A)).card : ℝ)) (k : ℕ) :
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ThirdParty/GreenTao/Submission/ArithmeticProgression/Basic.lean#L12" data-lean-name="Submission.GreenTao.ContainsAP">ContainsAP</a> A k</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.GreenTaoDense.HasPrimeModulusSubweightCounts">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HasPrimeModulusSubweightCounts : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ k : ℕ, 3 ≤ k → ∀ δ : ℝ, 0 &lt; δ →
+    ∃ (w : ℕ) (c : ℝ), 0 &lt; c ∧
+      ∀ᶠ M : ℕ <span class="bp-lean-keyword">in</span> atTop, Nat.Prime (M + 1) →
+        ∀ b ∈ reducedResidues (primorial w), ∀ f : ZMod (M + 1) → ℝ,
+          (∀ x, 0 ≤ f x) →
+          (∀ x, f x ≤ wTrickedPrimeWeight (primeScale k standardSmoothSieveCutoff.normalizer)
+            (primorial w) b x) →
+          δ ≤ mean f → c ≤ cyclicAPCount k (M + 1) f</code></pre>
+<p class="bp-lean-where">ZInQKernel/External/GreenTaoDense/PrimeModulusTransference.lean:30</p>
+</div>
+<div data-lean-name="Submission.GreenTao.ContainsAP">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ContainsAP (A : Set ℕ) (k : ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∃ a d : ℕ, IsAPIn A k a d</code></pre>
+<p class="bp-lean-where">ThirdParty/GreenTao/Submission/ArithmeticProgression/Basic.lean:12</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_8">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/green-tao-locators.html#the-proof-for-a-dense-set">The proof for a dense set</a></li>
+<li><a href="../../sources/green-tao-locators.html#the-lean-statements">The Lean statements</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../sources/green-tao-locators.html#the-proof-for-a-dense-set"> </a></p>
+<p><a href="../../sources/green-tao-locators.html#the-lean-statements"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#modulus-selection">Choosing the prime modulus</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#prime-modulus-transference">Transference for every large prime modulus</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#residue-pigeonhole">The residue pigeonhole for a set of primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#extraction">Extraction of a progression in the set</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#set-weight">The W-tricked weight of a set of primes</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#dense-theorem">Szemerédi&#x27;s theorem in the primes holds</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="green-tao/dense-theorem">
+<h4 class="bp-thmheading" id="dense-theorem">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Szemerédi&#x27;s theorem in the primes holds</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/External/GreenTaoDense.lean#L28" aria-label="View ZInQ.greenTaoDense in Lean source" title="View ZInQ.greenTaoDense in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/green-tao/dense-theorem.md" aria-label="Edit the Markdown source for Szemerédi&#x27;s theorem in the primes holds" title="Edit the Markdown source for Szemerédi&#x27;s theorem in the primes holds"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#dense-theorem" aria-label="Link to Szemerédi&#x27;s theorem in the primes holds" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.greenTaoDense</div>
+<div class="bp-thmcontent">
+<p>Every set of primes of positive relative upper density contains arithmetic progressions of every
+finite length.</p>
+<p>This is Theorem 1.2 of Green and Tao (in the weakened form of
+<a href="#dense-form">Szemerédi's theorem in the primes</a>), proved here by extending the vendored Lean
+proof of <a href="#primes">the Green–Tao theorem</a> from the set of all primes to dense subsets. No vendored
+file is changed: the steps that use a property of the set of all primes are redone for the subset in
+new files, those adapted from vendored proofs under the vendored proof's Apache License.</p>
+<p><strong>Proof sketch.</strong> Let <span class="arithmatex">\(A\)</span> be a set of primes of positive relative upper density and <span class="arithmatex">\(k\)</span> a length.
+The window lemma gives <span class="arithmatex">\(c_1&gt;0\)</span> with <span class="arithmatex">\(\#(A\cap(\lfloor Z/2\rfloor,Z])\ge c_1Z/\log Z\)</span> for infinitely
+many <span class="arithmatex">\(Z\)</span>. Transference holds for every large prime modulus and every weight below the W-tricked
+prime weight, so the theorem on progressions in a set with mass in dyadic windows applies and gives
+a <span class="arithmatex">\(k\)</span>-term progression in <span class="arithmatex">\(A\)</span> with positive difference.</p>
+<p>The proof for all primes uses three properties that a dense set lacks: Chebyshev's lower bound in
+the fixed window <span class="arithmatex">\((X/4,X]\)</span> at every large scale, a modulus chosen freely after the density, and the
+progression <span class="arithmatex">\(2,3\)</span> for the small lengths. They are replaced by the window lemma, the Bertrand modulus
+selection with transference at every large prime modulus, and truncation of a progression of
+length <span class="arithmatex">\(3\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> _root_.ZInQ.greenTaoDense : <a class="bp-lean-ref" href="#dense-form" data-lean-name="ZInQ.GreenTaoDense">ZInQ.GreenTaoDense</a></code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.GreenTaoDense">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> GreenTaoDense : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ A : Set ℕ, A ⊆ {p | p.Prime} → PrimesRelUpperDensityPos A → ContainsArbitraryAPs A</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/GreenTao.lean:51</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="informally-uses">Informally uses</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Informally uses</div>
+<ul>
+<li><a href="#primes">The Green–Tao theorem</a></li>
+</ul>
+<div class="bp-notes-heading">
+<h6 id="sources_9">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../sources/green-tao-locators.html#the-proof-for-a-dense-set">The proof for a dense set</a></li>
+<li><a href="../../sources/green-tao-locators.html#green-and-tao">Green and Tao</a></li>
+<li><a href="../../sources/green-tao-locators.html#tao-and-ziegler">Tao and Ziegler</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#dense-form">Szemerédi&#x27;s theorem in the primes</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#window-lemma">The window lemma</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#prime-modulus-transference">Transference for every large prime modulus</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#window-progressions">Progressions in a set of primes with mass in dyadic windows</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../main/index.html#main-theorem-two-curves">The main theorem from positive rank on the two curves of a slot choice</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../main/index.html#main-theorem-two-hypotheses">The main theorem from two hypotheses</a></span></div>
+</div>
+</details>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../dependencies/index.json" data-graph-src="../../dependencies/chapters/green-tao.json" data-page-href="index.html" data-scope-id="green-tao">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

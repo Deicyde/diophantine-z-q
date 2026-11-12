@@ -1,0 +1,2749 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../formulas/index.html">
+      
+      
+        <link rel="next" href="../programs/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>The packed-history compiler - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              The packed-history compiler
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_6" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_6" id="__nav_2_1_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Exact precision computation and polynomial compilation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_6_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The natural precision polynomial
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_6_2" id="__nav_2_1_6_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_1_6_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The natural precision polynomial
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../precision/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The exact precision computation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exponential/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The alpha and power formulas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formulas/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Natural constructions and the power interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The packed-history compiler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../programs/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programs, lowering and the wrapper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../universal/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The universal interpreter and the five-input circuit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../translation/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Translation to rational point codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="compiler/natural/packed" data-page-title="The packed-history compiler">
+<h1 id="the-packed-history-compiler">The packed-history compiler</h1>
+<p>A primitive program with <span class="arithmatex">\(m\)</span> instructions over <span class="arithmatex">\(r\)</span> registers is compiled by packing a run of
+length <span class="arithmatex">\(q\)</span> into base-<span class="arithmatex">\(B\)</span> integers, with <span class="arithmatex">\(K=2^c\)</span>, <span class="arithmatex">\(B=4K&gt;m\)</span>, <span class="arithmatex">\(T=B^q\)</span>, <span class="arithmatex">\(F_q=1+B+\dots+B^q\)</span> and
+<span class="arithmatex">\(D=(K-1)F_q\)</span>, every input being below <span class="arithmatex">\(K\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="compiler/natural/packed/packed-compiler">
+<h4 class="bp-thmheading" id="packed-compiler">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The packed-history construction</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Construction.lean#L165" aria-label="View ZInQ.Compiler.Packed.construction in Lean source" title="View ZInQ.Compiler.Packed.construction in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Construction.lean#L184" aria-label="View ZInQ.Compiler.Packed.compiled in Lean source" title="View ZInQ.Compiler.Packed.compiled in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/packed/packed-compiler.md" aria-label="Edit the Markdown source for The packed-history construction" title="Edit the Markdown source for The packed-history construction"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#packed-compiler" aria-label="Link to The packed-history construction" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Packed.construction ZInQ.Compiler.Packed.compiled</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(p=(p_0,\dots,p_{m-1})\)</span> be a primitive program valid for <span class="arithmatex">\(r\)</span> registers and let
+<span class="arithmatex">\(1\le k\le r\)</span>. The <em>packed-history construction</em> of <span class="arithmatex">\(p\)</span> is the natural construction in
+hierarchical mode with <span class="arithmatex">\(k\)</span> inputs <span class="arithmatex">\(a_0,\dots,a_{k-1}\)</span> (<span class="arithmatex">\(=X_0,\dots,X_{k-1}\)</span>) which takes the
+fresh variables
+$<span class="arithmatex">\(q,\ c,\ K,\ B,\ T,\ F,\ D,\qquad R_0,\dots,R_{r-1},\qquad N_0,\dots,N_{r-1},\qquad
+S_0,\dots,S_{m-1}\)</span>$
+in this order and returns the conjunction of the following formulas, in this order:</p>
+<ol>
+<li><span class="arithmatex">\(\mathrm{lt}(0,c)\)</span>, <span class="arithmatex">\(\mathrm{power}(K,2,c)\)</span>, <span class="arithmatex">\(B\doteq4K\)</span>, <span class="arithmatex">\(\mathrm{lt}(m,B)\)</span>,
+   <span class="arithmatex">\(\mathrm{power}(T,B,q)\)</span>, then <span class="arithmatex">\(\mathrm{lt}(a_i,K)\)</span> for <span class="arithmatex">\(i&lt;k\)</span>;</li>
+<li><span class="arithmatex">\(BF+1\doteq F+BT\)</span>, <span class="arithmatex">\(D+F\doteq KF\)</span>, <span class="arithmatex">\(S_0+\dots+S_{m-1}\doteq F\)</span>, <span class="arithmatex">\(S_{m-1}\doteq T\)</span>;</li>
+<li><span class="arithmatex">\(\mathrm{mask}(S_i,F)\)</span> for <span class="arithmatex">\(i&lt;m\)</span>;</li>
+<li>for each <span class="arithmatex">\(j&lt;r\)</span>: <span class="arithmatex">\(\mathrm{mask}(R_j,D)\)</span>, <span class="arithmatex">\(\mathrm{lt}(R_j,T)\)</span>,
+   <span class="arithmatex">\(\mathrm{bitAnd}(K\cdot N_j,\ R_j+D,\ K\cdot F)\)</span>;</li>
+<li>for each sub instruction <span class="arithmatex">\(p_i=\mathrm{dec}(j,x,y)\)</span>, in increasing <span class="arithmatex">\(i\)</span>: fresh <span class="arithmatex">\(V_i,W_i\)</span>, then
+   <span class="arithmatex">\(\mathrm{bitAnd}(V_i,S_i,N_j)\)</span> and <span class="arithmatex">\(S_i\doteq V_i+W_i\)</span>;</li>
+<li>for each <span class="arithmatex">\(j&lt;r\)</span>: <span class="arithmatex">\(R_j+B\cdot C_j\doteq\iota_j+B\cdot R_j+B\cdot A_j\)</span>, where <span class="arithmatex">\(\iota_j=a_j\)</span> for
+   <span class="arithmatex">\(j&lt;k\)</span> and <span class="arithmatex">\(0\)</span> otherwise, <span class="arithmatex">\(A_j=\sum_{i:\,p_i=\mathrm{inc}(j,\cdot)}S_i\)</span> and
+   <span class="arithmatex">\(C_j=\sum_{i:\,p_i=\mathrm{dec}(j,\cdot,\cdot)}V_i\)</span>;</li>
+<li>for each <span class="arithmatex">\(i&lt;m\)</span>: <span class="arithmatex">\(S_i\doteq[i=0]+B\cdot I_i\)</span>, where <span class="arithmatex">\(I_i\)</span> is the sum, in program order, of
+   <span class="arithmatex">\(S_{i'}\)</span> for <span class="arithmatex">\(p_{i'}=\mathrm{inc}(\cdot,i)\)</span>, of <span class="arithmatex">\(V_{i'}\)</span> for <span class="arithmatex">\(p_{i'}=\mathrm{dec}(\cdot,i,\cdot)\)</span>
+   and of <span class="arithmatex">\(W_{i'}\)</span> for <span class="arithmatex">\(p_{i'}=\mathrm{dec}(\cdot,\cdot,i)\)</span> (for a sub instruction its nonzero
+   target is listed before its zero target).</li>
+</ol>
+<p>Empty sums are the constant <span class="arithmatex">\(0\)</span>. The <em>compiled circuit</em> <span class="arithmatex">\(\mathcal C_{p,k}\)</span> is the natural
+circuit of this construction. Here <span class="arithmatex">\(R_j\)</span> is the packed history of register <span class="arithmatex">\(j\)</span>, <span class="arithmatex">\(S_i\)</span> that
+of state <span class="arithmatex">\(i\)</span>, <span class="arithmatex">\(N_j\)</span> the packed nonzero indicator, <span class="arithmatex">\(V_i,W_i\)</span> the nonzero and zero branch
+histories, and <span class="arithmatex">\(F=F_q=1+B+\dots+B^q\)</span>, <span class="arithmatex">\(D=(K-1)F_q\)</span> by item 2.</p>
+<p>This is a definition. No equation is repeated <span class="arithmatex">\(q\)</span> times: <span class="arithmatex">\(q\)</span> is one variable and the
+number of conjuncts depends only on <span class="arithmatex">\(p\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<details class="bp-lean-fold">
+<summary><code>ZInQ.Compiler.Packed.construction</code> · 16 lines</summary>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> construction (p : <a class="bp-lean-ref" href="../programs/index.html#register-machine" data-lean-name="ZInQ.Compiler.RM.Program">Program</a>) (r k : ℕ) : <a class="bp-lean-ref" href="../formulas/index.html#natural-constructions" data-lean-name="ZInQ.Compiler.Natural.NM">NM</a> <a class="bp-lean-ref" href="../formulas/index.html#natural-constructions" data-lean-name="ZInQ.Compiler.Natural.NForm">NForm</a> := <span class="bp-lean-keyword">do</span>
+  <span class="bp-lean-keyword">let</span> a := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Circuit.lean#L104" data-lean-name="ZInQ.Compiler.Natural.inputs">inputs</a> k
+  <span class="bp-lean-keyword">let</span> zero ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L148" data-lean-name="ZInQ.Compiler.Natural.constant">constant</a> 0
+  <span class="bp-lean-keyword">let</span> one ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L148" data-lean-name="ZInQ.Compiler.Natural.constant">constant</a> 1
+  <span class="bp-lean-keyword">let</span> q ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L153" data-lean-name="ZInQ.Compiler.Natural.fresh">fresh</a>
+  <span class="bp-lean-keyword">let</span> c ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L153" data-lean-name="ZInQ.Compiler.Natural.fresh">fresh</a>
+  <span class="bp-lean-keyword">let</span> K ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L153" data-lean-name="ZInQ.Compiler.Natural.fresh">fresh</a>
+  <span class="bp-lean-keyword">let</span> B ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L153" data-lean-name="ZInQ.Compiler.Natural.fresh">fresh</a>
+  <span class="bp-lean-keyword">let</span> T ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L153" data-lean-name="ZInQ.Compiler.Natural.fresh">fresh</a>
+  <span class="bp-lean-keyword">let</span> F ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L153" data-lean-name="ZInQ.Compiler.Natural.fresh">fresh</a>
+  <span class="bp-lean-keyword">let</span> D ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Construction.lean#L153" data-lean-name="ZInQ.Compiler.Natural.fresh">fresh</a>
+  <span class="bp-lean-keyword">let</span> R ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Construction.lean#L39" data-lean-name="ZInQ.Compiler.Packed.freshN">freshN</a> r
+  <span class="bp-lean-keyword">let</span> N ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Construction.lean#L39" data-lean-name="ZInQ.Compiler.Packed.freshN">freshN</a> r
+  <span class="bp-lean-keyword">let</span> S ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Construction.lean#L39" data-lean-name="ZInQ.Compiler.Packed.freshN">freshN</a> p.length
+  <span class="bp-lean-keyword">let</span> φs ← <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Construction.lean#L154" data-lean-name="ZInQ.Compiler.Packed.packedFormulas">packedFormulas</a> p r a zero one q c K B T F D R N S
+  pure (.and φs)</code></pre>
+</details>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> compiled (p : <a class="bp-lean-ref" href="../programs/index.html#register-machine" data-lean-name="ZInQ.Compiler.RM.Program">Program</a>) (r k : ℕ) : <a class="bp-lean-ref" href="../formulas/index.html#natural-circuit-semantics" data-lean-name="ZInQ.Compiler.Natural.NatCircuit">NatCircuit</a> := (<a class="bp-lean-ref" href="#packed-compiler" data-lean-name="ZInQ.Compiler.Packed.construction">construction</a> p r k).toCircuit k</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Compiler.RM.Program">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Program : <span class="bp-lean-keyword">Type</span> := List Instr</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/RegisterMachine.lean:60</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.NM">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> NM (α : <span class="bp-lean-keyword">Type</span>) : <span class="bp-lean-keyword">Type</span> := State → α × State</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:118</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.NForm">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">inductive</span> NForm
+  <span class="bp-lean-comment">/-- The atom `a ≐ b`. -/</span>
+  | eq (a b : Ex)
+  <span class="bp-lean-comment">/-- The atom `⟨f⟩`. -/</span>
+  | atom (f : Ex)
+  <span class="bp-lean-comment">/-- The call atom `⟨𝒫[P, Q, R; w]⟩`, with the index of its call node. -/</span>
+  | call (P Q R : Ex) (w : ℕ) (node : ℕ)
+  <span class="bp-lean-comment">/-- The conjunction. -/</span>
+  | and (fs : List NForm)
+  <span class="bp-lean-comment">/-- The disjunction. -/</span>
+  | or (fs : List NForm)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:65</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.inputs">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> inputs (k : ℕ) : List Ex := (List.range k).map <span class="bp-lean-keyword">fun</span> i =&gt; ⟨i, X i⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Circuit.lean:104</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.constant">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> constant (c : ℤ) : NM Ex := <span class="bp-lean-keyword">do</span>
+  <span class="bp-lean-keyword">let</span> i ← node (.const c)
+  pure ⟨i, C c⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:148</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.fresh">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> fresh : NM Ex := <span class="bp-lean-keyword">fun</span> s =&gt;
+  <span class="bp-lean-keyword">let</span> r := node (.var s.next)
+    { s <span class="bp-lean-keyword">with</span> next := s.next + 1, vars := s.vars ++ [(s.next, .witness)] }
+  (⟨r.1, X s.next⟩, r.2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Construction.lean:153</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Packed.freshN">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> freshN : ℕ → NM (List Ex)
+  | 0 =&gt; pure []
+  | n + 1 =&gt; <span class="bp-lean-keyword">do</span>
+    <span class="bp-lean-keyword">let</span> h ← fresh
+    <span class="bp-lean-keyword">let</span> hs ← freshN n
+    pure (h :: hs)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Packed/Construction.lean:39</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Packed.packedFormulas">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> packedFormulas (p : Program) (r : ℕ) (a : List Ex) (zero one q c K B T F D : Ex)
+    (R N S : List Ex) : NM (List NForm) :=
+  appendM (items1 p a zero q c K B T) &lt;|
+  appendM (items2 zero one K B T F D S) &lt;|
+  appendM (items3 F S) &lt;|
+  appendM (items4 r zero K D T F R N) <span class="bp-lean-keyword">do</span>
+    <span class="bp-lean-keyword">let</span> sb ← subBranches zero S N 0 p
+    appendM (pure sb.1) &lt;|
+    appendM (items6 p r a zero B R S sb.2) (items7 p zero one B S sb.2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Packed/Construction.lean:154</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.NatCircuit">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> NatCircuit <span class="bp-lean-keyword">where</span>
+  <span class="bp-lean-comment">/-- The number `k` of inputs. -/</span>
+  inputCount : ℕ
+  <span class="bp-lean-comment">/-- The explicit variables (index and kind), the inputs first. -/</span>
+  explicitVars : List (ℕ × VarKind)
+  <span class="bp-lean-comment">/-- The node list. -/</span>
+  nodes : List NatNode
+  <span class="bp-lean-comment">/-- The root node. -/</span>
+  root : ℕ
+  <span class="bp-lean-comment">/-- The variable count `V`. -/</span>
+  varCount : ℕ</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Circuit.lean:33</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Packed.construction">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> construction (p : Program) (r k : ℕ) : NM NForm := <span class="bp-lean-keyword">do</span>
+  <span class="bp-lean-keyword">let</span> a := inputs k
+  <span class="bp-lean-keyword">let</span> zero ← constant 0
+  <span class="bp-lean-keyword">let</span> one ← constant 1
+  <span class="bp-lean-keyword">let</span> q ← fresh
+  <span class="bp-lean-keyword">let</span> c ← fresh
+  <span class="bp-lean-keyword">let</span> K ← fresh
+  <span class="bp-lean-keyword">let</span> B ← fresh
+  <span class="bp-lean-keyword">let</span> T ← fresh
+  <span class="bp-lean-keyword">let</span> F ← fresh
+  <span class="bp-lean-keyword">let</span> D ← fresh
+  <span class="bp-lean-keyword">let</span> R ← freshN r
+  ⋯</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Packed/Construction.lean:165</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-101-packed-histories">Section 10.1 packed histories</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-101-nonzero-and-branch-masks">Section 10.1 nonzero and branch masks</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-101-transition-equations">Section 10.1 transition equations</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#compiler-specification">Compiler specification</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#compiler-source">Compiler source</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../../sources/compiler-natural-locators.html#section-101-packed-histories"> </a></p>
+<p><a href="../../../../sources/compiler-natural-locators.html#section-101-nonzero-and-branch-masks"> </a></p>
+<p><a href="../../../../sources/compiler-natural-locators.html#section-101-transition-equations"> </a></p>
+<p><a href="../../../../sources/compiler-natural-locators.html#compiler-specification"> </a></p>
+<p><a href="../../../../sources/compiler-natural-locators.html#compiler-source"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 6</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../programs/index.html#register-machine">Register machines</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../formulas/index.html#natural-constructions">Natural constructions and their macros</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../formulas/index.html#natural-circuit-semantics">Natural semantics of a natural circuit</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#packed-branches">Branch histories and indicator digits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#packed-complete">Completeness of the packed-history construction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#packed-counts">Variable and gadget counts of the packed construction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#packed-sound">Soundness of the packed-history construction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#register-machine-polynomial">The compiled circuit of a register machine</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../universal/index.html#halting-polynomial">The universal halting circuit</a></span></div>
+</div>
+</details>
+</div>
+<p>Masks by <span class="arithmatex">\(D\)</span> and <span class="arithmatex">\(F_q\)</span> and the bound <span class="arithmatex">\(R_j&lt;T\)</span> make register digits smaller than <span class="arithmatex">\(K\)</span> with a zero
+final digit, and state digits zero or one; since <span class="arithmatex">\(B&gt;m\)</span> the state sum selects exactly one
+state at each time.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="compiler/natural/packed/packed-masks">
+<h4 class="bp-thmheading" id="packed-masks">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Digits of masked histories</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Masks.lean#L52" aria-label="View ZInQ.Compiler.Packed.packed_masks in Lean source" title="View ZInQ.Compiler.Packed.packed_masks in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/packed/packed-masks.md" aria-label="Edit the Markdown source for Digits of masked histories" title="Edit the Markdown source for Digits of masked histories"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#packed-masks" aria-label="Link to Digits of masked histories" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Packed.packed_masks</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(c&gt;0\)</span>, <span class="arithmatex">\(K=2^c\)</span>, <span class="arithmatex">\(B=4K\)</span>, <span class="arithmatex">\(q\in\mathbb N\)</span>, <span class="arithmatex">\(T=B^q\)</span>, and let <span class="arithmatex">\(F,D\in\mathbb N\)</span> satisfy
+<span class="arithmatex">\(BF+1=F+BT\)</span> and <span class="arithmatex">\(D+F=KF\)</span>. Then:</p>
+<ol>
+<li><span class="arithmatex">\(F=F_q=\sum_{t=0}^qB^t\)</span> and <span class="arithmatex">\(D=(K-1)F_q=\sum_{t=0}^q(K-1)B^t\)</span>;</li>
+<li>a natural number <span class="arithmatex">\(R\)</span> is masked by <span class="arithmatex">\(D\)</span> and satisfies <span class="arithmatex">\(R&lt;T\)</span> if and only if
+   <span class="arithmatex">\(R=\sum_{t=0}^q\rho_tB^t\)</span> with <span class="arithmatex">\(\rho_t&lt;K\)</span> for all <span class="arithmatex">\(t\)</span> and <span class="arithmatex">\(\rho_q=0\)</span>;</li>
+<li>a natural number <span class="arithmatex">\(S\)</span> is masked by <span class="arithmatex">\(F_q\)</span> if and only if <span class="arithmatex">\(S=\sum_{t=0}^q\sigma_tB^t\)</span> with
+   <span class="arithmatex">\(\sigma_t\in\{0,1\}\)</span>.</li>
+</ol>
+<p>In words: register digits are below <span class="arithmatex">\(K\)</span>, the terminal register digit is zero, and state
+digits are zero or one. The digit sequences are unique.</p>
+<p><strong>Proof sketch.</strong> (1) <span class="arithmatex">\(B\ge8\)</span>, so <span class="arithmatex">\(BF+1=F+BT\)</span> gives <span class="arithmatex">\((B-1)F=B^{q+1}-1\)</span>, hence
+<span class="arithmatex">\(F=\sum_{t\le q}B^t\)</span>; then <span class="arithmatex">\(D=KF-F\)</span>. (2), (3) <span class="arithmatex">\(B=2^{c+2}\)</span>, so the binary expansion of a
+number splits into base-<span class="arithmatex">\(B\)</span> slots of <span class="arithmatex">\(c+2\)</span> bits. <span class="arithmatex">\(D\)</span> has, in each slot <span class="arithmatex">\(t\le q\)</span>, the bits
+<span class="arithmatex">\(0,\dots,c-1\)</span> set (value <span class="arithmatex">\(K-1\)</span>) and nothing above slot <span class="arithmatex">\(q\)</span>; <span class="arithmatex">\(F_q\)</span> has bit <span class="arithmatex">\(0\)</span> of each slot
+<span class="arithmatex">\(t\le q\)</span>. Masking by <span class="arithmatex">\(D\)</span> (resp. <span class="arithmatex">\(F_q\)</span>) therefore says exactly that every slot digit is below
+<span class="arithmatex">\(K\)</span> (resp. at most <span class="arithmatex">\(1\)</span>) and that the slots above <span class="arithmatex">\(q\)</span> vanish. Finally <span class="arithmatex">\(R&lt;B^q\)</span> is equivalent
+to <span class="arithmatex">\(\rho_q=0\)</span> given the other slots vanish.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> packed_masks {c q K B T F D : ℕ} (_hc : 0 &lt; c) (hK : K = 2 ^ c) (hB : B = 4 * K)
+    (hT : T = B ^ q) (hF : B * F + 1 = F + B * T) (hD : D + F = K * F) :
+    (F = ∑ t ∈ range (q + 1), B ^ t ∧ D = ∑ t ∈ range (q + 1), (K - 1) * B ^ t) ∧
+    (∀ R, (Nat.land R D = R ∧ R &lt; T) ↔
+      ∃ ρ : ℕ → ℕ, (∀ t ≤ q, ρ t &lt; K) ∧ ρ q = 0 ∧ R = ∑ t ∈ range (q + 1), ρ t * B ^ t) ∧
+    (∀ S, Nat.land S F = S ↔
+      ∃ σ : ℕ → ℕ, (∀ t ≤ q, σ t ≤ 1) ∧ S = ∑ t ∈ range (q + 1), σ t * B ^ t)</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-101-packed-histories">Section 10.1 packed histories</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#compiler-specification">Compiler specification</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../../sources/compiler-natural-locators.html#section-101-packed-histories"> </a></p>
+<p><a href="../../../../sources/compiler-natural-locators.html#compiler-specification"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 5</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../exponential/index.html#lucas-bits">Lucas&#x27;s criterion for bit inclusion and disjointness</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-branches">Branch histories and indicator digits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-complete">Completeness of the packed-history construction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#packed-nonzero-indicator">The packed nonzero indicator</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-sound">Soundness of the packed-history construction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#packed-state-selection">One active state per time slot</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="compiler/natural/packed/packed-state-selection">
+<h4 class="bp-thmheading" id="packed-state-selection">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">One active state per time slot</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/StateSelection.lean#L53" aria-label="View ZInQ.Compiler.Packed.one_active_state in Lean source" title="View ZInQ.Compiler.Packed.one_active_state in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/packed/packed-state-selection.md" aria-label="Edit the Markdown source for One active state per time slot" title="Edit the Markdown source for One active state per time slot"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#packed-state-selection" aria-label="Link to One active state per time slot" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Packed.one_active_state</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(B,q,T=B^q,F_q\)</span> be as in the masked-digit statement, let <span class="arithmatex">\(1\le m&lt;B\)</span>, and let
+<span class="arithmatex">\(S_0,\dots,S_{m-1}\)</span> be masked by <span class="arithmatex">\(F_q\)</span>, with digits <span class="arithmatex">\(\sigma_i(t)\in\{0,1\}\)</span> (<span class="arithmatex">\(t\le q\)</span>). If
+$<span class="arithmatex">\(S_0+\dots+S_{m-1}=F_q\qquad\text{and}\qquad S_{m-1}=T,\)</span>$
+then for every <span class="arithmatex">\(t\le q\)</span> there is exactly one <span class="arithmatex">\(i&lt;m\)</span> with <span class="arithmatex">\(\sigma_i(t)=1\)</span>, and
+<span class="arithmatex">\(\sigma_{m-1}(t)=1\)</span> if and only if <span class="arithmatex">\(t=q\)</span>. Conversely, if exactly one state digit is <span class="arithmatex">\(1\)</span> in
+each slot <span class="arithmatex">\(t\le q\)</span> and the last state's digit is <span class="arithmatex">\(1\)</span> exactly at <span class="arithmatex">\(t=q\)</span>, both equations hold.</p>
+<p><strong>Proof sketch.</strong> In slot <span class="arithmatex">\(t\)</span> the digits sum to <span class="arithmatex">\(\sum_i\sigma_i(t)\le m&lt;B\)</span>, so the sum of the
+<span class="arithmatex">\(S_i\)</span> is computed without carries and its slot-<span class="arithmatex">\(t\)</span> digit is <span class="arithmatex">\(\sum_i\sigma_i(t)\)</span>; comparing
+with the digit <span class="arithmatex">\(1\)</span> of <span class="arithmatex">\(F_q\)</span> gives exactly one active state. <span class="arithmatex">\(S_{m-1}=B^q\)</span> says the last
+state's digits are <span class="arithmatex">\(0\)</span> except at <span class="arithmatex">\(t=q\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> one_active_state {B q m : ℕ} (hm : m &lt; B) (hm0 : 0 &lt; m) (σ : ℕ → ℕ → ℕ)
+    (hσ : ∀ i &lt; m, ∀ t ≤ q, σ i t ≤ 1) :
+    (∑ i ∈ range m, ∑ t ∈ range (q + 1), σ i t * B ^ t = ∑ t ∈ range (q + 1), B ^ t ∧
+      ∑ t ∈ range (q + 1), σ (m - 1) t * B ^ t = B ^ q) ↔
+    (∀ t ≤ q, ∃! i, i &lt; m ∧ σ i t = 1) ∧ (∀ t ≤ q, σ (m - 1) t = 1 ↔ t = q)</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-101-packed-histories">Section 10.1 packed histories</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../../sources/compiler-natural-locators.html#section-101-packed-histories"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#packed-masks">Digits of masked histories</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-complete">Completeness of the packed-history construction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-sound">Soundness of the packed-history construction</a></span></div>
+</div>
+</details>
+</div>
+<p>The nonzero indicator is read off one bit per slot of <span class="arithmatex">\(R_j+D\)</span>, and a sub instruction splits
+its state history into nonzero and zero branch histories; the increment, decrement and
+incoming indicators then have zero-one digits.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="compiler/natural/packed/packed-nonzero-indicator">
+<h4 class="bp-thmheading" id="packed-nonzero-indicator">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The packed nonzero indicator</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/NonzeroIndicator.lean#L44" aria-label="View ZInQ.Compiler.Packed.nonzero_indicator in Lean source" title="View ZInQ.Compiler.Packed.nonzero_indicator in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/packed/packed-nonzero-indicator.md" aria-label="Edit the Markdown source for The packed nonzero indicator" title="Edit the Markdown source for The packed nonzero indicator"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#packed-nonzero-indicator" aria-label="Link to The packed nonzero indicator" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Packed.nonzero_indicator</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(c&gt;0\)</span>, <span class="arithmatex">\(K=2^c\)</span>, <span class="arithmatex">\(B=4K\)</span>, <span class="arithmatex">\(F_q\)</span>, <span class="arithmatex">\(D=(K-1)F_q\)</span> be as in the masked-digit statement and
+<span class="arithmatex">\(R=\sum_{t=0}^q\rho_tB^t\)</span> with all <span class="arithmatex">\(\rho_t&lt;K\)</span>. Then
+$<span class="arithmatex">\((R+D)\mathbin{\mathrm{AND}}(KF_q)=K\cdot\sum_{t=0}^q[\rho_t&gt;0]\,B^t .\)</span>$
+Consequently, for <span class="arithmatex">\(N\in\mathbb N\)</span>, <span class="arithmatex">\(KN=(R+D)\mathbin{\mathrm{AND}}(KF_q)\)</span> holds if and only if
+<span class="arithmatex">\(N=\sum_{t\le q}[\rho_t&gt;0]B^t\)</span>, the packed nonzero indicator of <span class="arithmatex">\(R\)</span>; no separate mask
+condition on <span class="arithmatex">\(N\)</span> is needed.</p>
+<p><strong>Proof sketch.</strong> <span class="arithmatex">\(R+D=\sum_t(\rho_t+K-1)B^t\)</span>, and each slot digit satisfies
+<span class="arithmatex">\(\rho_t+K-1\le2K-2&lt;2K&lt;B\)</span>, so the sum has no carries. <span class="arithmatex">\(KF_q\)</span> has exactly bit <span class="arithmatex">\(c\)</span> of each slot
+<span class="arithmatex">\(t\le q\)</span>. The bit <span class="arithmatex">\(c\)</span> (value <span class="arithmatex">\(K\)</span>) of the slot digit <span class="arithmatex">\(\rho_t+K-1\in[K-1,2K-2]\)</span> is set
+exactly when <span class="arithmatex">\(\rho_t+K-1\ge K\)</span>, that is when <span class="arithmatex">\(\rho_t&gt;0\)</span>. Cancel the factor <span class="arithmatex">\(K=2^c\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> nonzero_indicator {c q K B F D : ℕ} (_hc : 0 &lt; c) (hK : K = 2 ^ c) (hB : B = 4 * K)
+    (hF : F = ∑ t ∈ range (q + 1), B ^ t) (hD : D = (K - 1) * F) (ρ : ℕ → ℕ)
+    (hρ : ∀ t ≤ q, ρ t &lt; K) :
+    Nat.land (∑ t ∈ range (q + 1), ρ t * B ^ t + D) (K * F) =
+        K * ∑ t ∈ range (q + 1), (<span class="bp-lean-keyword">if</span> 0 &lt; ρ t <span class="bp-lean-keyword">then</span> 1 <span class="bp-lean-keyword">else</span> 0) * B ^ t ∧
+      ∀ N, K * N = Nat.land (∑ t ∈ range (q + 1), ρ t * B ^ t + D) (K * F) ↔
+        N = ∑ t ∈ range (q + 1), (<span class="bp-lean-keyword">if</span> 0 &lt; ρ t <span class="bp-lean-keyword">then</span> 1 <span class="bp-lean-keyword">else</span> 0) * B ^ t</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-101-nonzero-and-branch-masks">Section 10.1 nonzero and branch masks</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../../sources/compiler-natural-locators.html#section-101-nonzero-and-branch-masks"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#packed-masks">Digits of masked histories</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-complete">Completeness of the packed-history construction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-sound">Soundness of the packed-history construction</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="compiler/natural/packed/packed-branches">
+<h4 class="bp-thmheading" id="packed-branches">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Branch histories and indicator digits</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Branches.lean#L24" aria-label="View ZInQ.Compiler.Packed.branch_split in Lean source" title="View ZInQ.Compiler.Packed.branch_split in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Branches.lean#L171" aria-label="View ZInQ.Compiler.Packed.indicator_digits in Lean source" title="View ZInQ.Compiler.Packed.indicator_digits in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/packed/packed-branches.md" aria-label="Edit the Markdown source for Branch histories and indicator digits" title="Edit the Markdown source for Branch histories and indicator digits"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#packed-branches" aria-label="Link to Branch histories and indicator digits" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Packed.branch_split ZInQ.Compiler.Packed.indicator_digits</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(B\ge2\)</span>, <span class="arithmatex">\(q\in\mathbb N\)</span>, <span class="arithmatex">\(S=\sum_{t\le q}\sigma_tB^t\)</span> and <span class="arithmatex">\(N=\sum_{t\le q}\nu_tB^t\)</span> with
+<span class="arithmatex">\(\sigma_t,\nu_t\in\{0,1\}\)</span>, <span class="arithmatex">\(B\)</span> a power of two.</p>
+<ol>
+<li><span class="arithmatex">\(V=S\mathbin{\mathrm{AND}}N\)</span> and <span class="arithmatex">\(S=V+W\)</span> hold (for natural <span class="arithmatex">\(V,W\)</span>) if and only if
+   <span class="arithmatex">\(V=\sum_t\sigma_t\nu_tB^t\)</span> and <span class="arithmatex">\(W=\sum_t\sigma_t(1-\nu_t)B^t\)</span>.</li>
+<li>In the setting of the packed-history construction, suppose that in every slot <span class="arithmatex">\(t\le q\)</span>
+   exactly one state digit <span class="arithmatex">\(\sigma_i(t)\)</span> is <span class="arithmatex">\(1\)</span> and that the halt state has no outgoing
+   instruction. Then the packed indicators <span class="arithmatex">\(A_j\)</span>, <span class="arithmatex">\(C_j\)</span> and <span class="arithmatex">\(I_i\)</span> of items 6 and 7 of the
+   construction have all slot digits in <span class="arithmatex">\(\{0,1\}\)</span>; precisely, writing <span class="arithmatex">\(i_t\)</span> for the active
+   state at time <span class="arithmatex">\(t\)</span>, the slot-<span class="arithmatex">\(t\)</span> digit of <span class="arithmatex">\(A_j\)</span> is <span class="arithmatex">\([p_{i_t}=\mathrm{inc}(j,\cdot)]\)</span>, that of
+   <span class="arithmatex">\(C_j\)</span> is <span class="arithmatex">\([p_{i_t}=\mathrm{dec}(j,\cdot,\cdot)]\,\nu_j(t)\)</span>, and that of <span class="arithmatex">\(I_i\)</span> is <span class="arithmatex">\(1\)</span> exactly when
+   the instruction at <span class="arithmatex">\(i_t\)</span> takes, at time <span class="arithmatex">\(t\)</span>, a branch to <span class="arithmatex">\(i\)</span> (the nonzero branch of a
+   sub instruction if <span class="arithmatex">\(\nu_j(t)=1\)</span>, its zero branch otherwise).</li>
+</ol>
+<p><strong>Proof sketch.</strong> (1) Both <span class="arithmatex">\(S\)</span> and <span class="arithmatex">\(N\)</span> have zero-one digits in distinct bit positions, so
+<span class="arithmatex">\(S\mathbin{\mathrm{AND}}N\)</span> is computed slotwise; <span class="arithmatex">\(W=S-V\)</span> slotwise. (2) A sum of packed numbers
+with zero-one digits is computed slotwise as long as the slot sums stay below <span class="arithmatex">\(B\)</span>; at time
+<span class="arithmatex">\(t\)</span> only the instruction at <span class="arithmatex">\(i_t\)</span> contributes, through <span class="arithmatex">\(S_{i_t}\)</span>, <span class="arithmatex">\(V_{i_t}\)</span> or <span class="arithmatex">\(W_{i_t}\)</span>, and
+for a sub instruction exactly one of <span class="arithmatex">\(V_{i_t},W_{i_t}\)</span> has digit <span class="arithmatex">\(1\)</span> by (1); this holds even
+if two branches of the program have the same target, since only one branch is taken at a
+time.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> branch_split {b q : ℕ} (σ ν : ℕ → ℕ) (hσ : ∀ t ≤ q, σ t ≤ 1) (hν : ∀ t ≤ q, ν t ≤ 1)
+    (hb : 1 ≤ b) (V W : ℕ) :
+    (V = Nat.land (∑ t ∈ range (q + 1), σ t * (2 ^ b) ^ t) (∑ t ∈ range (q + 1), ν t * (2 ^ b) ^ t) ∧
+        ∑ t ∈ range (q + 1), σ t * (2 ^ b) ^ t = V + W) ↔
+      (V = ∑ t ∈ range (q + 1), σ t * ν t * (2 ^ b) ^ t ∧
+        W = ∑ t ∈ range (q + 1), σ t * (1 - ν t) * (2 ^ b) ^ t)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> indicator_digits {B q : ℕ} (p : <a class="bp-lean-ref" href="../programs/index.html#register-machine" data-lean-name="ZInQ.Compiler.RM.Program">Program</a>) (act : ℕ → ℕ) (ν : ℕ → ℕ → ℕ)
+    (hact : ∀ t ≤ q, act t &lt; p.length) (S V W : ℕ → ℕ)
+    (hS : ∀ i &lt; p.length, S i = ∑ t ∈ range (q + 1), (<span class="bp-lean-keyword">if</span> act t = i <span class="bp-lean-keyword">then</span> 1 <span class="bp-lean-keyword">else</span> 0) * B ^ t)
+    (hV : ∀ i &lt; p.length, ∀ j, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Branches.lean#L61" data-lean-name="ZInQ.Compiler.Packed.decOn">decOn</a> p j i →
+      V i = ∑ t ∈ range (q + 1), (<span class="bp-lean-keyword">if</span> act t = i <span class="bp-lean-keyword">then</span> 1 <span class="bp-lean-keyword">else</span> 0) * ν j t * B ^ t)
+    (hW : ∀ i &lt; p.length, ∀ j, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Branches.lean#L61" data-lean-name="ZInQ.Compiler.Packed.decOn">decOn</a> p j i →
+      W i = ∑ t ∈ range (q + 1), (<span class="bp-lean-keyword">if</span> act t = i <span class="bp-lean-keyword">then</span> 1 <span class="bp-lean-keyword">else</span> 0) * (1 - ν j t) * B ^ t) :
+    (∀ j, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Branches.lean#L122" data-lean-name="ZInQ.Compiler.Packed.incSum">incSum</a> p S j = ∑ t ∈ range (q + 1), (<span class="bp-lean-keyword">if</span> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Branches.lean#L58" data-lean-name="ZInQ.Compiler.Packed.incOn">incOn</a> p j (act t) <span class="bp-lean-keyword">then</span> 1 <span class="bp-lean-keyword">else</span> 0) * B ^ t) ∧
+    (∀ j, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Branches.lean#L126" data-lean-name="ZInQ.Compiler.Packed.decSum">decSum</a> p V j = ∑ t ∈ range (q + 1), (<span class="bp-lean-keyword">if</span> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Branches.lean#L61" data-lean-name="ZInQ.Compiler.Packed.decOn">decOn</a> p j (act t) <span class="bp-lean-keyword">then</span> ν j t <span class="bp-lean-keyword">else</span> 0) * B ^ t) ∧
+    (∀ i, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Branches.lean#L131" data-lean-name="ZInQ.Compiler.Packed.inSum">inSum</a> p S V W i =
+      ∑ t ∈ range (q + 1), <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Branches.lean#L138" data-lean-name="ZInQ.Compiler.Packed.inDigit">inDigit</a> p (act t) i (ν (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Branches.lean#L73" data-lean-name="ZInQ.Compiler.Packed.decReg">decReg</a> p (act t)) t) * B ^ t)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Compiler.RM.Program">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Program : <span class="bp-lean-keyword">Type</span> := List Instr</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/RegisterMachine.lean:60</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Packed.decOn">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> decOn (p : Program) (j i : ℕ) : <span class="bp-lean-keyword">Prop</span> := ∃ x y, p[i]? = some (.dec j x y)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Packed/Branches.lean:61</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Packed.incSum">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> incSum (p : Program) (S : ℕ → ℕ) (j : ℕ) : ℕ :=
+  ∑ i ∈ range p.length, <span class="bp-lean-keyword">if</span> incOn p j i <span class="bp-lean-keyword">then</span> S i <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Packed/Branches.lean:122</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Packed.incOn">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> incOn (p : Program) (j i : ℕ) : <span class="bp-lean-keyword">Prop</span> := ∃ x, p[i]? = some (.inc j x)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Packed/Branches.lean:58</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Packed.decSum">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> decSum (p : Program) (V : ℕ → ℕ) (j : ℕ) : ℕ :=
+  ∑ i ∈ range p.length, <span class="bp-lean-keyword">if</span> decOn p j i <span class="bp-lean-keyword">then</span> V i <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Packed/Branches.lean:126</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Packed.inSum">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> inSum (p : Program) (S V W : ℕ → ℕ) (i : ℕ) : ℕ :=
+  ∑ i&#x27; ∈ range p.length,
+    ((<span class="bp-lean-keyword">if</span> incTo p i&#x27; i <span class="bp-lean-keyword">then</span> S i&#x27; <span class="bp-lean-keyword">else</span> 0) + (<span class="bp-lean-keyword">if</span> nzTo p i&#x27; i <span class="bp-lean-keyword">then</span> V i&#x27; <span class="bp-lean-keyword">else</span> 0) +
+      (<span class="bp-lean-keyword">if</span> zTo p i&#x27; i <span class="bp-lean-keyword">then</span> W i&#x27; <span class="bp-lean-keyword">else</span> 0))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Packed/Branches.lean:131</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Packed.inDigit">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> inDigit (p : Program) (a i n : ℕ) : ℕ :=
+  (<span class="bp-lean-keyword">if</span> incTo p a i <span class="bp-lean-keyword">then</span> 1 <span class="bp-lean-keyword">else</span> 0) + (<span class="bp-lean-keyword">if</span> nzTo p a i <span class="bp-lean-keyword">then</span> n <span class="bp-lean-keyword">else</span> 0) + (<span class="bp-lean-keyword">if</span> zTo p a i <span class="bp-lean-keyword">then</span> 1 - n <span class="bp-lean-keyword">else</span> 0)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Packed/Branches.lean:138</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Packed.decReg">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> decReg (p : Program) (i : ℕ) : ℕ :=
+  <span class="bp-lean-keyword">match</span> p[i]? <span class="bp-lean-keyword">with</span>
+  | some (.dec j _ _) =&gt; j
+  | _ =&gt; 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Packed/Branches.lean:73</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-101-nonzero-and-branch-masks">Section 10.1 nonzero and branch masks</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#halting-correctness-proof">Halting correctness proof</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#packed-compiler">The packed-history construction</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-masks">Digits of masked histories</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-complete">Completeness of the packed-history construction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-sound">Soundness of the packed-history construction</a></span></div>
+</div>
+</details>
+</div>
+<p>The register and state equations have all coefficients below <span class="arithmatex">\(B\)</span>, so uniqueness of base-<span class="arithmatex">\(B\)</span>
+digits turns them into the initial conditions and the exact transitions, the extra final
+slot vanishing.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="compiler/natural/packed/packed-transitions">
+<h4 class="bp-thmheading" id="packed-transitions">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Decoding the transition equations</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Transitions.lean#L34" aria-label="View ZInQ.Compiler.Packed.packed_register_iff in Lean source" title="View ZInQ.Compiler.Packed.packed_register_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Transitions.lean#L86" aria-label="View ZInQ.Compiler.Packed.packed_state_iff in Lean source" title="View ZInQ.Compiler.Packed.packed_state_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/packed/packed-transitions.md" aria-label="Edit the Markdown source for Decoding the transition equations" title="Edit the Markdown source for Decoding the transition equations"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#packed-transitions" aria-label="Link to Decoding the transition equations" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Packed.packed_register_iff ZInQ.Compiler.Packed.packed_state_iff</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K&lt;B\)</span> be natural numbers and <span class="arithmatex">\(q\in\mathbb N\)</span>.</p>
+<ol>
+<li>(Registers) Let <span class="arithmatex">\(\rho_t&lt;K\)</span>, <span class="arithmatex">\(\alpha_t\le1\)</span>, <span class="arithmatex">\(\gamma_t\le1\)</span> for <span class="arithmatex">\(t\le q\)</span>, let <span class="arithmatex">\(\iota&lt;K\)</span>, and
+   put <span class="arithmatex">\(R=\sum_{t\le q}\rho_tB^t\)</span>, <span class="arithmatex">\(A=\sum_{t\le q}\alpha_tB^t\)</span>, <span class="arithmatex">\(C=\sum_{t\le q}\gamma_tB^t\)</span>. Then
+   $<span class="arithmatex">\(R+BC=\iota+BR+BA\)</span>$
+   holds if and only if <span class="arithmatex">\(\rho_0=\iota\)</span>, <span class="arithmatex">\(\rho_{t+1}+\gamma_t=\rho_t+\alpha_t\)</span> for all <span class="arithmatex">\(t&lt;q\)</span>, and
+   <span class="arithmatex">\(\gamma_q=\rho_q+\alpha_q\)</span>.</li>
+<li>(States) Suppose <span class="arithmatex">\(B\ge2\)</span>. Let <span class="arithmatex">\(\sigma_t\le1\)</span> and <span class="arithmatex">\(\eta_t\le1\)</span> for <span class="arithmatex">\(t\le q\)</span>,
+   <span class="arithmatex">\(S=\sum_{t\le q}\sigma_tB^t\)</span>, <span class="arithmatex">\(I=\sum_{t\le q}\eta_tB^t\)</span> and <span class="arithmatex">\(e\in\{0,1\}\)</span>. Then <span class="arithmatex">\(S=e+BI\)</span>
+   holds if and only if <span class="arithmatex">\(\sigma_0=e\)</span>, <span class="arithmatex">\(\sigma_{t+1}=\eta_t\)</span> for <span class="arithmatex">\(t&lt;q\)</span>, and <span class="arithmatex">\(\eta_q=0\)</span>.</li>
+</ol>
+<p><strong>Proof sketch.</strong> Compare base-<span class="arithmatex">\(B\)</span> digits. In item 1 the slot-<span class="arithmatex">\(0\)</span> digits are <span class="arithmatex">\(\rho_0\)</span> and
+<span class="arithmatex">\(\iota\)</span>, the slot-<span class="arithmatex">\((t+1)\)</span> digits are <span class="arithmatex">\(\rho_{t+1}+\gamma_t\le K\)</span> and <span class="arithmatex">\(\rho_t+\alpha_t\le K\)</span> for
+<span class="arithmatex">\(t&lt;q\)</span>, and the slot-<span class="arithmatex">\((q+1)\)</span> digits are <span class="arithmatex">\(\gamma_q\)</span> and <span class="arithmatex">\(\rho_q+\alpha_q\le K\)</span>; every digit on
+either side is at most <span class="arithmatex">\(K&lt;B\)</span>, so uniqueness of base-<span class="arithmatex">\(B\)</span> expansions (with an unbounded top
+part) gives digitwise equality, and conversely. Item 2 is the same with digits at most
+<span class="arithmatex">\(1&lt;B\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> packed_register_iff {B K q ι : ℕ} (hKB : K &lt; B) (ρ α γ : ℕ → ℕ)
+    (hρ : ∀ t ≤ q, ρ t &lt; K) (hα : ∀ t ≤ q, α t ≤ 1) (hγ : ∀ t ≤ q, γ t ≤ 1) (hι : ι &lt; K) :
+    (∑ t ∈ range (q + 1), ρ t * B ^ t) + B * (∑ t ∈ range (q + 1), γ t * B ^ t) =
+        ι + B * (∑ t ∈ range (q + 1), ρ t * B ^ t) + B * (∑ t ∈ range (q + 1), α t * B ^ t) ↔
+      ρ 0 = ι ∧ (∀ t &lt; q, ρ (t + 1) + γ t = ρ t + α t) ∧ γ q = ρ q + α q</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> packed_state_iff {B q e : ℕ} (hB : 1 &lt; B) (σ η : ℕ → ℕ) (hσ : ∀ t ≤ q, σ t ≤ 1)
+    (hη : ∀ t ≤ q, η t ≤ 1) (he : e ≤ 1) :
+    (∑ t ∈ range (q + 1), σ t * B ^ t) = e + B * (∑ t ∈ range (q + 1), η t * B ^ t) ↔
+      σ 0 = e ∧ (∀ t &lt; q, σ (t + 1) = η t) ∧ η q = 0</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-101-transition-equations">Section 10.1 transition equations</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#halting-correctness-proof">Halting correctness proof</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../../sources/compiler-natural-locators.html#section-101-transition-equations"> </a></p>
+<p><a href="../../../../sources/compiler-natural-locators.html#halting-correctness-proof"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-complete">Completeness of the packed-history construction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-sound">Soundness of the packed-history construction</a></span></div>
+</div>
+</details>
+</div>
+<p>Every solution decodes to an accepting run, and every accepting run fits once <span class="arithmatex">\(c\)</span> is large.
+The compiled circuit therefore has a natural zero exactly at the accepted inputs.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="compiler/natural/packed/packed-sound">
+<h4 class="bp-thmheading" id="packed-sound">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Soundness of the packed-history construction</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Sound.lean#L236" aria-label="View ZInQ.Compiler.Packed.packed_sound in Lean source" title="View ZInQ.Compiler.Packed.packed_sound in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Sound.lean#L244" aria-label="View ZInQ.Compiler.Packed.packed_sound_accepts in Lean source" title="View ZInQ.Compiler.Packed.packed_sound_accepts in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/packed/packed-sound.md" aria-label="Edit the Markdown source for Soundness of the packed-history construction" title="Edit the Markdown source for Soundness of the packed-history construction"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#packed-sound" aria-label="Link to Soundness of the packed-history construction" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Packed.packed_sound ZInQ.Compiler.Packed.packed_sound_accepts</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(p\)</span> be valid for <span class="arithmatex">\(r\)</span> registers with <span class="arithmatex">\(m\)</span> instructions, <span class="arithmatex">\(1\le k\le r\)</span> and
+<span class="arithmatex">\(a\in\mathbb N^k\)</span>. If the formula of the packed-history construction of <span class="arithmatex">\(p\)</span> holds for some
+natural values of its fresh variables, with every macro read as its relation (masks as bit
+inclusion, bitAnd as bitwise conjunction, power as exponentiation, lt as strict
+inequality), then <span class="arithmatex">\(p\)</span> accepts <span class="arithmatex">\(a\)</span>, and its accepting run has exactly <span class="arithmatex">\(q\)</span> steps.</p>
+<p><strong>Proof sketch.</strong> From <span class="arithmatex">\(c&gt;0\)</span>, <span class="arithmatex">\(K=2^c\)</span>, <span class="arithmatex">\(B=4K\)</span>, <span class="arithmatex">\(T=B^q\)</span> and the two equations for <span class="arithmatex">\(F,D\)</span>, the
+masked-digit statement decodes <span class="arithmatex">\(R_j=\sum_{t\le q}\rho_j(t)B^t\)</span> with <span class="arithmatex">\(\rho_j(t)&lt;K\)</span>,
+<span class="arithmatex">\(\rho_j(q)=0\)</span>, and <span class="arithmatex">\(S_i=\sum_{t\le q}\sigma_i(t)B^t\)</span> with zero-one digits; <span class="arithmatex">\(m&lt;B\)</span> and the state
+equations give one active state <span class="arithmatex">\(i_t\)</span> per slot with the halt state <span class="arithmatex">\(m-1\)</span> active exactly at
+<span class="arithmatex">\(t=q\)</span>. The nonzero indicator gives <span class="arithmatex">\(N_j\)</span> with digits <span class="arithmatex">\(\nu_j(t)=[\rho_j(t)&gt;0]\)</span>, and the branch
+statement gives <span class="arithmatex">\(V_i,W_i\)</span> and the indicator digits. Define the configuration at time
+<span class="arithmatex">\(t\le q\)</span> as <span class="arithmatex">\((i_t,\rho(t))\)</span>. The state equations (decoded with <span class="arithmatex">\(e=[i=0]\)</span>) give <span class="arithmatex">\(i_0=0\)</span> and
+<span class="arithmatex">\(i_{t+1}=\)</span> the branch target taken at time <span class="arithmatex">\(t\)</span>; the register equations (decoded with
+<span class="arithmatex">\(\iota_j=a_j&lt;K\)</span> or <span class="arithmatex">\(0\)</span>) give <span class="arithmatex">\(\rho_j(0)=\iota_j\)</span> and <span class="arithmatex">\(\rho_j(t+1)=\rho_j(t)+\alpha_j(t)-\gamma_j(t)\)</span>,
+which is exactly the effect of the instruction at <span class="arithmatex">\(i_t\)</span> (a decrement happens only when
+<span class="arithmatex">\(\nu_j(t)=1\)</span>, that is when <span class="arithmatex">\(\rho_j(t)&gt;0\)</span>). Since the halt state is active only at <span class="arithmatex">\(t=q\)</span>, the
+configurations form the run of <span class="arithmatex">\(p\)</span> from the initial file, it reaches the final state at
+time <span class="arithmatex">\(q\)</span>, and there <span class="arithmatex">\(\rho_j(q)=0\)</span> for all <span class="arithmatex">\(j\)</span>. The extra slot <span class="arithmatex">\(q+1\)</span> of the register equation,
+<span class="arithmatex">\(\gamma_j(q)=\rho_j(q)+\alpha_j(q)\)</span>, is <span class="arithmatex">\(0=0\)</span> because halt has no outgoing instruction, and the
+extra slot of the state equation says <span class="arithmatex">\(\eta_i(q)=0\)</span> for the same reason. If <span class="arithmatex">\(q=0\)</span> the state
+<span class="arithmatex">\(0\)</span> is the halt state (so <span class="arithmatex">\(m=1\)</span>) and every input vanishes.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> packed_sound {p : <a class="bp-lean-ref" href="../programs/index.html#register-machine" data-lean-name="ZInQ.Compiler.RM.Program">Program</a>} {r k : ℕ} (hp : p.Valid r) (hk1 : 1 ≤ k) (hkr : k ≤ r)
+    {a : Fin k → ℕ} {q c K B T F D : ℕ} {R N S V W : ℕ → ℕ}
+    (h : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Sound.lean#L23" data-lean-name="ZInQ.Compiler.Packed.PackedConditions">PackedConditions</a> p r k a q c K B T F D R N S V W) :
+    ∃ cfg, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/RegisterMachine.lean#L51" data-lean-name="ZInQ.Compiler.RM.stepN">RM.stepN</a> p.toMachine q ⟨0, <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/RegisterMachine.lean#L81" data-lean-name="ZInQ.Compiler.RM.initFile">initFile</a> a⟩ = some cfg ∧ cfg.state = p.length - 1 ∧
+      ∀ j, cfg.regs j = 0</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> packed_sound_accepts {p : <a class="bp-lean-ref" href="../programs/index.html#register-machine" data-lean-name="ZInQ.Compiler.RM.Program">Program</a>} {r k : ℕ} (hp : p.Valid r) (hk1 : 1 ≤ k)
+    (hkr : k ≤ r) {a : Fin k → ℕ} {q c K B T F D : ℕ} {R N S V W : ℕ → ℕ}
+    (h : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Sound.lean#L23" data-lean-name="ZInQ.Compiler.Packed.PackedConditions">PackedConditions</a> p r k a q c K B T F D R N S V W) : p.Accepts a</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Compiler.RM.Program">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Program : <span class="bp-lean-keyword">Type</span> := List Instr</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/RegisterMachine.lean:60</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Packed.PackedConditions">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> PackedConditions (p : Program) (r k : ℕ) (a : Fin k → ℕ) (q c K B T F D : ℕ)
+    (R N S V W : ℕ → ℕ) : <span class="bp-lean-keyword">Prop</span> <span class="bp-lean-keyword">where</span>
+  c_pos : 0 &lt; c
+  hK : K = 2 ^ c
+  hB : B = 4 * K
+  m_lt : p.length &lt; B
+  hT : T = B ^ q
+  inputs_lt : ∀ i : Fin k, a i &lt; K
+  hF : B * F + 1 = F + B * T
+  hD : D + F = K * F
+  sumS : ∑ i ∈ range p.length, S i = F
+  lastS : S (p.length - 1) = T
+  ⋯</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Packed/Sound.lean:23</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.RM.stepN">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> stepN (μ : Machine) : ℕ → Config → Option Config
+  | 0, c =&gt; some c
+  | n + 1, c =&gt; (step μ c).bind (stepN μ n)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/RegisterMachine.lean:51</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.RM.initFile">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> initFile {k : ℕ} (a : Fin k → ℕ) : ℕ → ℕ := <span class="bp-lean-keyword">fun</span> i =&gt; <span class="bp-lean-keyword">if</span> h : i &lt; k <span class="bp-lean-keyword">then</span> a ⟨i, h⟩ <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/RegisterMachine.lean:81</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-101-packed-histories">Section 10.1 packed histories</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-101-transition-equations">Section 10.1 transition equations</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#halting-correctness-proof">Halting correctness proof</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../../sources/compiler-natural-locators.html#section-101-packed-histories"> </a></p>
+<p><a href="../../../../sources/compiler-natural-locators.html#section-101-transition-equations"> </a></p>
+<p><a href="../../../../sources/compiler-natural-locators.html#halting-correctness-proof"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 7 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#packed-compiler">The packed-history construction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../programs/index.html#register-machine">Register machines</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-masks">Digits of masked histories</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-state-selection">One active state per time slot</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-nonzero-indicator">The packed nonzero indicator</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-branches">Branch histories and indicator digits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-transitions">Decoding the transition equations</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#register-machine-polynomial">The compiled circuit of a register machine</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="compiler/natural/packed/packed-complete">
+<h4 class="bp-thmheading" id="packed-complete">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Completeness of the packed-history construction</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Complete.lean#L84" aria-label="View ZInQ.Compiler.Packed.packed_complete in Lean source" title="View ZInQ.Compiler.Packed.packed_complete in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/packed/packed-complete.md" aria-label="Edit the Markdown source for Completeness of the packed-history construction" title="Edit the Markdown source for Completeness of the packed-history construction"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#packed-complete" aria-label="Link to Completeness of the packed-history construction" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Packed.packed_complete</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(p\)</span> be valid for <span class="arithmatex">\(r\)</span> registers with <span class="arithmatex">\(m\)</span> instructions, <span class="arithmatex">\(1\le k\le r\)</span> and
+<span class="arithmatex">\(a\in\mathbb N^k\)</span>. If <span class="arithmatex">\(p\)</span> accepts <span class="arithmatex">\(a\)</span>, then the formula of the packed-history construction
+of <span class="arithmatex">\(p\)</span> holds for some natural values of its fresh variables, with every macro read as its
+relation.</p>
+<p><strong>Proof sketch.</strong> Let the accepting run have <span class="arithmatex">\(q\)</span> steps, configurations <span class="arithmatex">\((i_t,\rho(t))\)</span> for
+<span class="arithmatex">\(t\le q\)</span>, with <span class="arithmatex">\(i_q=m-1\)</span> and <span class="arithmatex">\(\rho(q)=0\)</span>. Choose <span class="arithmatex">\(c\ge1\)</span> with <span class="arithmatex">\(2^c\)</span> larger than every input,
+every register value <span class="arithmatex">\(\rho_j(t)\)</span>, and with <span class="arithmatex">\(4\cdot2^c&gt;m\)</span>; put <span class="arithmatex">\(K=2^c\)</span>, <span class="arithmatex">\(B=4K\)</span>, <span class="arithmatex">\(T=B^q\)</span>,
+<span class="arithmatex">\(F=\sum_{t\le q}B^t\)</span>, <span class="arithmatex">\(D=(K-1)F\)</span>, <span class="arithmatex">\(R_j=\sum_t\rho_j(t)B^t\)</span>, <span class="arithmatex">\(S_i=\sum_t[i_t=i]B^t\)</span>,
+<span class="arithmatex">\(N_j=\sum_t[\rho_j(t)&gt;0]B^t\)</span>, and for each sub instruction <span class="arithmatex">\(i\)</span> on register <span class="arithmatex">\(j\)</span>,
+<span class="arithmatex">\(V_i=\sum_t[i_t=i][\rho_j(t)&gt;0]B^t\)</span>, <span class="arithmatex">\(W_i=S_i-V_i\)</span>. Every equation of items 1, 2 holds by
+construction; the masks, the bounds <span class="arithmatex">\(R_j&lt;T\)</span> and the bitAnd conditions hold by the
+masked-digit, nonzero-indicator and branch statements read backwards; the register and
+state equations hold by the transition statement read backwards, since consecutive
+configurations obey the one-step rule, the run starts at state <span class="arithmatex">\(0\)</span> with the initial file,
+halt has no outgoing branch and <span class="arithmatex">\(\rho(q)=0\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> packed_complete {p : <a class="bp-lean-ref" href="../programs/index.html#register-machine" data-lean-name="ZInQ.Compiler.RM.Program">Program</a>} {r k : ℕ} (hp : p.Valid r) (_hk1 : 1 ≤ k) (hkr : k ≤ r)
+    {a : Fin k → ℕ} (h : p.Accepts a) :
+    ∃ q c K B T F D : ℕ, ∃ R N S V W : ℕ → ℕ,
+      <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Sound.lean#L23" data-lean-name="ZInQ.Compiler.Packed.PackedConditions">PackedConditions</a> p r k a q c K B T F D R N S V W</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Compiler.RM.Program">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Program : <span class="bp-lean-keyword">Type</span> := List Instr</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/RegisterMachine.lean:60</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Packed.PackedConditions">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">structure</span> PackedConditions (p : Program) (r k : ℕ) (a : Fin k → ℕ) (q c K B T F D : ℕ)
+    (R N S V W : ℕ → ℕ) : <span class="bp-lean-keyword">Prop</span> <span class="bp-lean-keyword">where</span>
+  c_pos : 0 &lt; c
+  hK : K = 2 ^ c
+  hB : B = 4 * K
+  m_lt : p.length &lt; B
+  hT : T = B ^ q
+  inputs_lt : ∀ i : Fin k, a i &lt; K
+  hF : B * F + 1 = F + B * T
+  hD : D + F = K * F
+  sumS : ∑ i ∈ range p.length, S i = F
+  lastS : S (p.length - 1) = T
+  ⋯</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Packed/Sound.lean:23</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_7">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-101-transition-equations">Section 10.1 transition equations</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#halting-correctness-proof">Halting correctness proof</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../../sources/compiler-natural-locators.html#section-101-transition-equations"> </a></p>
+<p><a href="../../../../sources/compiler-natural-locators.html#halting-correctness-proof"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 7 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#packed-compiler">The packed-history construction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../programs/index.html#register-machine">Register machines</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-masks">Digits of masked histories</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-state-selection">One active state per time slot</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-nonzero-indicator">The packed nonzero indicator</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-branches">Branch histories and indicator digits</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-transitions">Decoding the transition equations</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#register-machine-polynomial">The compiled circuit of a register machine</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="compiler/natural/packed/register-machine-polynomial">
+<h4 class="bp-thmheading" id="register-machine-polynomial">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The compiled circuit of a register machine</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Polynomial.lean#L684" aria-label="View ZInQ.Compiler.Packed.compiled_natRel_iff in Lean source" title="View ZInQ.Compiler.Packed.compiled_natRel_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/packed/register-machine-polynomial.md" aria-label="Edit the Markdown source for The compiled circuit of a register machine" title="Edit the Markdown source for The compiled circuit of a register machine"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#register-machine-polynomial" aria-label="Link to The compiled circuit of a register machine" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Packed.compiled_natRel_iff</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(p\)</span> be a primitive program valid for <span class="arithmatex">\(r\)</span> registers and <span class="arithmatex">\(1\le k\le r\)</span>. For every
+<span class="arithmatex">\(a\in\mathbb N^k\)</span>,
+$<span class="arithmatex">\(Z_{\mathcal C_{p,k}}(a)\iff p\text{ accepts }a,\)</span>$
+where <span class="arithmatex">\(\mathcal C_{p,k}\)</span> is the compiled circuit of the packed-history construction. In
+particular the compiled polynomial has a natural zero with inputs <span class="arithmatex">\(a\)</span> exactly when <span class="arithmatex">\(p\)</span>
+reaches its final halt from the initial file with all registers zero. This holds for every
+run length, every size of the register values and every number of inputs.</p>
+<p><strong>Proof sketch.</strong> All macro arguments of the construction are polynomials in previously
+allocated variables, so the hierarchical-construction statement applies: <span class="arithmatex">\(Z_{\mathcal C}(a)\)</span>
+is equivalent to the existence of natural values of the fresh variables satisfying the
+conjunction with every macro replaced by its relation. Soundness and completeness of the
+packed-history construction give the two implications.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> compiled_natRel_iff (p : <a class="bp-lean-ref" href="../programs/index.html#register-machine" data-lean-name="ZInQ.Compiler.RM.Program">Program</a>) (r k : ℕ) (hp : p.Valid r) (hk1 : 1 ≤ k)
+    (hkr : k ≤ r) (a : Fin k → ℕ) :
+    (<a class="bp-lean-ref" href="#packed-compiler" data-lean-name="ZInQ.Compiler.Packed.compiled">compiled</a> p r k).NatRel <a class="bp-lean-ref" href="../formulas/index.html#power-template" data-lean-name="ZInQ.Compiler.Natural.powerTemplate">powerTemplate</a> a ↔ p.Accepts a</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Compiler.RM.Program">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Program : <span class="bp-lean-keyword">Type</span> := List Instr</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/RegisterMachine.lean:60</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Packed.compiled">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> compiled (p : Program) (r k : ℕ) : NatCircuit := (construction p r k).toCircuit k</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Packed/Construction.lean:184</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.powerTemplate">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> powerTemplate : ExPoly := ⟨3, 79, powerTemplatePoly⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/PowerTemplate.lean:40</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_8">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#section-101-transition-equations">Section 10.1 transition equations</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#halting-correctness-proof">Halting correctness proof</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 7 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#packed-compiler">The packed-history construction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../programs/index.html#register-machine">Register machines</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../formulas/index.html#natural-circuit-semantics">Natural semantics of a natural circuit</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../formulas/index.html#hierarchical-calls">Circuits of hierarchical constructions</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../formulas/index.html#macro-semantics">Semantics of the natural macros</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-sound">Soundness of the packed-history construction</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#packed-complete">Completeness of the packed-history construction</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../universal/index.html#halting-polynomial-semantics">Semantics of the universal halting circuit</a></span></div>
+</div>
+</details>
+</div>
+<p>The numbers of explicit variables and power calls are linear in <span class="arithmatex">\(m\)</span>, <span class="arithmatex">\(r\)</span>, the number of sub
+instructions and the number of inputs.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="compiler/natural/packed/packed-counts">
+<h4 class="bp-thmheading" id="packed-counts">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Variable and gadget counts of the packed construction</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Packed/Counts.lean#L217" aria-label="View ZInQ.Compiler.Packed.packed_counts in Lean source" title="View ZInQ.Compiler.Packed.packed_counts in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/compiler/natural/packed/packed-counts.md" aria-label="Edit the Markdown source for Variable and gadget counts of the packed construction" title="Edit the Markdown source for Variable and gadget counts of the packed construction"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#packed-counts" aria-label="Link to Variable and gadget counts of the packed construction" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Compiler.Packed.packed_counts</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(p\)</span> be valid for <span class="arithmatex">\(r\)</span> registers with <span class="arithmatex">\(m\)</span> instructions, of which <span class="arithmatex">\(s\)</span> are sub
+instructions, and <span class="arithmatex">\(1\le k\le r\)</span>. The packed-history construction of <span class="arithmatex">\(p\)</span> creates</p>
+<ul>
+<li><span class="arithmatex">\(m+r\)</span> mask macros, <span class="arithmatex">\(r+s\)</span> bitAnd macros, <span class="arithmatex">\(3(r+s)\)</span> orthogonal macros, <span class="arithmatex">\(m+4r+3s\)</span> binomial
+  macros, <span class="arithmatex">\(m+4r+3s\)</span> odd gadgets and <span class="arithmatex">\(2+k+r+2(m+4r+3s)\)</span> strict-inequality gadgets (<span class="arithmatex">\(2+k+r\)</span>
+  outside the binomials and two in each binomial);</li>
+<li><span class="arithmatex">\(2+3(m+4r+3s)=2+3m+12r+9s\)</span> power calls, each with a private block of <span class="arithmatex">\(79\)</span> variables;</li>
+<li><span class="arithmatex">\(2k+9+41r+10m+31s\)</span> explicit variables, the <span class="arithmatex">\(k\)</span> inputs included.</li>
+</ul>
+<p>Hence the compiled circuit <span class="arithmatex">\(\mathcal C_{p,k}\)</span> has variable count
+$<span class="arithmatex">\(V=(2k+9+41r+10m+31s)+79\,(2+3m+12r+9s).\)</span>$
+These counts are independent of the order of the instructions and of the jump targets.
+The numbers of addition and multiplication nodes depend on hash-consing and on the
+targets, and are not given in closed form here.</p>
+<p><strong>Proof sketch.</strong> Count the allocations of each step of the construction: seven fresh
+variables <span class="arithmatex">\(q,\dots,D\)</span>, <span class="arithmatex">\(2r\)</span> for <span class="arithmatex">\(R_j,N_j\)</span>, <span class="arithmatex">\(m\)</span> for <span class="arithmatex">\(S_i\)</span>, <span class="arithmatex">\(2s\)</span> for <span class="arithmatex">\(V_i,W_i\)</span>; each lt, divides and
+odd gadget takes one variable and each congruent two (only lt and odd occur outside the
+power template); a binomial takes <span class="arithmatex">\(5\)</span> fresh variables, three power calls and two lt
+gadgets; a mask or orthogonal macro takes one fresh variable, one binomial and one odd
+gadget; a bitAnd takes two fresh variables and three orthogonals. Summing:
+<span class="arithmatex">\(k+7+2r+m+2s+(2+k+r)+2(m+4r+3s)+5(m+4r+3s)+(m+r)+3(r+s)+(m+4r+3s)+2(r+s)
+=2k+9+41r+10m+31s\)</span>, and the power calls are the two of item 1 plus three per binomial.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> packed_counts (p : <a class="bp-lean-ref" href="../programs/index.html#register-machine" data-lean-name="ZInQ.Compiler.RM.Program">Program</a>) (r k : ℕ) :
+    <span class="bp-lean-keyword">let</span> m := p.length
+    <span class="bp-lean-keyword">let</span> s := p.subCount
+    <span class="bp-lean-keyword">let</span> L := (<a class="bp-lean-ref" href="#packed-compiler" data-lean-name="ZInQ.Compiler.Packed.construction">construction</a> p r k (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Compiler/Circuits/Circuit.lean#L100" data-lean-name="ZInQ.Compiler.Natural.State.init">State.init</a> k)).2.log
+    L.count .mask = m + r ∧ L.count .bitAnd = r + s ∧ L.count .orthogonal = 3 * (r + s) ∧
+    L.count .binomial = m + 4 * r + 3 * s ∧ L.count .odd = m + 4 * r + 3 * s ∧
+    L.count .lt = 2 + k + r + 2 * (m + 4 * r + 3 * s) ∧
+    L.count .power = 2 + 3 * (m + 4 * r + 3 * s) ∧
+    (<a class="bp-lean-ref" href="#packed-compiler" data-lean-name="ZInQ.Compiler.Packed.compiled">compiled</a> p r k).blocks.length = 2 + 3 * m + 12 * r + 9 * s ∧
+    (<a class="bp-lean-ref" href="#packed-compiler" data-lean-name="ZInQ.Compiler.Packed.compiled">compiled</a> p r k).explicitVars.length = 2 * k + 9 + 41 * r + 10 * m + 31 * s ∧
+    (<a class="bp-lean-ref" href="#packed-compiler" data-lean-name="ZInQ.Compiler.Packed.compiled">compiled</a> p r k).varCount =
+      (2 * k + 9 + 41 * r + 10 * m + 31 * s) + 79 * (2 + 3 * m + 12 * r + 9 * s)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Compiler.RM.Program">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Program : <span class="bp-lean-keyword">Type</span> := List Instr</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/RegisterMachine.lean:60</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Packed.construction">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> construction (p : Program) (r k : ℕ) : NM NForm := <span class="bp-lean-keyword">do</span>
+  <span class="bp-lean-keyword">let</span> a := inputs k
+  <span class="bp-lean-keyword">let</span> zero ← constant 0
+  <span class="bp-lean-keyword">let</span> one ← constant 1
+  <span class="bp-lean-keyword">let</span> q ← fresh
+  <span class="bp-lean-keyword">let</span> c ← fresh
+  <span class="bp-lean-keyword">let</span> K ← fresh
+  <span class="bp-lean-keyword">let</span> B ← fresh
+  <span class="bp-lean-keyword">let</span> T ← fresh
+  <span class="bp-lean-keyword">let</span> F ← fresh
+  <span class="bp-lean-keyword">let</span> D ← fresh
+  <span class="bp-lean-keyword">let</span> R ← freshN r
+  ⋯</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Packed/Construction.lean:165</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Natural.State.init">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> State.init (k : ℕ) : State :=
+  ⟨k, (List.range k).map <span class="bp-lean-keyword">fun</span> i =&gt; (i, .input), (List.range k).map .var, [], []⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Circuit.lean:100</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Packed.compiled">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> compiled (p : Program) (r k : ℕ) : NatCircuit := (construction p r k).toCircuit k</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Circuits/Packed/Construction.lean:184</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_9">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../../sources/compiler-natural-locators.html#halting-correctness-proof">Halting correctness proof</a></li>
+<li><a href="../../../../sources/compiler-natural-locators.html#compiler-source">Compiler source</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#packed-compiler">The packed-history construction</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../universal/index.html#halting-circuit-counts">Counts of the universal halting circuit</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>10</strong> fully proved</span></div>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../../../dependencies/index.json" data-graph-src="../../../../dependencies/scopes/compiler/natural/packed.json" data-page-href="index.html" data-scope-id="compiler/natural/packed">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

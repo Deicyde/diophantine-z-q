@@ -1,0 +1,2116 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lseries/index.html">
+      
+      
+        <link rel="next" href="../ideal-counts/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Quadratic fields - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quadratic fields
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_9" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_9" id="__nav_2_1_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Primes in arithmetic progressions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lseries/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Character sums and L-values near s=1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quadratic fields
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ideal-counts/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ideal counts in quadratic fields
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../real-characters/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Real characters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../counting/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Counting primes in a residue class
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="progressions/quadratic-fields" data-page-title="Quadratic fields">
+<h1 id="quadratic-fields">Quadratic fields</h1>
+<p>For an integer <span class="arithmatex">\(d\)</span> that is not the square of a rational number (for instance a squarefree
+<span class="arithmatex">\(d\ne1\)</span>), the field <span class="arithmatex">\(K=\mathbb Q(\sqrt d)\)</span> is a number field of degree <span class="arithmatex">\(2\)</span>. The residue of
+its Dedekind zeta function at <span class="arithmatex">\(s=1\)</span> is given by the class number formula, and this section
+bounds each ingredient of that formula so as to bound the residue from below by
+<span class="arithmatex">\(\log\frac{1+\sqrt5}2/(6\sqrt{|d|})\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="progressions/quadratic-fields/quadratic-field">
+<h4 class="bp-thmheading" id="quadratic-field">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The quadratic field <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Basic.lean#L12" aria-label="View ZInQ.Progressions.Qsqrt in Lean source" title="View ZInQ.Progressions.Qsqrt in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Basic.lean#L34" aria-label="View ZInQ.Progressions.Qsqrt.instNumberField in Lean source" title="View ZInQ.Progressions.Qsqrt.instNumberField in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Basic.lean#L31" aria-label="View ZInQ.Progressions.Qsqrt.instCharZero in Lean source" title="View ZInQ.Progressions.Qsqrt.instCharZero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Basic.lean#L39" aria-label="View ZInQ.Progressions.Qsqrt.finrank in Lean source" title="View ZInQ.Progressions.Qsqrt.finrank in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Basic.lean#L15" aria-label="View ZInQ.Progressions.Qsqrt.not_isSquare_of_squarefree in Lean source" title="View ZInQ.Progressions.Qsqrt.not_isSquare_of_squarefree in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Basic.lean#L23" aria-label="View ZInQ.Progressions.Qsqrt.fact_not_isSquare in Lean source" title="View ZInQ.Progressions.Qsqrt.fact_not_isSquare in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Discriminant.lean#L35" aria-label="View ZInQ.Progressions.Qsqrt.sqrtInt in Lean source" title="View ZInQ.Progressions.Qsqrt.sqrtInt in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Discriminant.lean#L40" aria-label="View ZInQ.Progressions.Qsqrt.sqrtInt_sq in Lean source" title="View ZInQ.Progressions.Qsqrt.sqrtInt_sq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/progressions/quadratic-fields/quadratic-field.md" aria-label="Edit the Markdown source for The quadratic field $\mathbb Q(\sqrt d)$" title="Edit the Markdown source for The quadratic field $\mathbb Q(\sqrt d)$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#quadratic-field" aria-label="Link to The quadratic field ℚ(√d)" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Progressions.Qsqrt ZInQ.Progressions.Qsqrt.instNumberField ZInQ.Progressions.Qsqrt.instCharZero ZInQ.Progressions.Qsqrt.finrank ZInQ.Progressions.Qsqrt.not_isSquare_of_squarefree ZInQ.Progressions.Qsqrt.fact_not_isSquare ZInQ.Progressions.Qsqrt.sqrtInt ZInQ.Progressions.Qsqrt.sqrtInt_sq</div>
+<div class="bp-thmcontent">
+<p>For an integer <span class="arithmatex">\(d\)</span>, let <span class="arithmatex">\(K_d=\mathbb Q(\sqrt d)=\mathbb Q[X]/(X^2-d)\)</span> be the <span class="arithmatex">\(\mathbb Q\)</span>-algebra
+with basis <span class="arithmatex">\(1,\sqrt d\)</span> and <span class="arithmatex">\((\sqrt d)^2=d\)</span>. If <span class="arithmatex">\(d\)</span> is not the square of a rational number,
+then <span class="arithmatex">\(K_d\)</span> is a number field of degree <span class="arithmatex">\([K_d:\mathbb Q]=2\)</span>, and <span class="arithmatex">\(\sqrt d\)</span> is an algebraic
+integer of <span class="arithmatex">\(K_d\)</span> with square <span class="arithmatex">\(d\)</span>. Every squarefree integer <span class="arithmatex">\(d\ne1\)</span> satisfies this hypothesis.</p>
+<p><strong>Proof sketch.</strong> If <span class="arithmatex">\(d\)</span> is not a rational square, <span class="arithmatex">\(X^2-d\)</span> is irreducible over <span class="arithmatex">\(\mathbb Q\)</span>, so
+the algebra is a field; it has characteristic <span class="arithmatex">\(0\)</span> and dimension <span class="arithmatex">\(2\)</span> over <span class="arithmatex">\(\mathbb Q\)</span>, and
+<span class="arithmatex">\(\sqrt d\)</span> is a root of the monic integer polynomial <span class="arithmatex">\(X^2-d\)</span>. A squarefree <span class="arithmatex">\(d\ne1\)</span> is not the
+square of a rational number (<span class="arithmatex">\(d\ne0\)</span>, and <span class="arithmatex">\(d=a^2/b^2\)</span> in lowest terms forces <span class="arithmatex">\(b=1\)</span> and
+<span class="arithmatex">\(d=a^2\)</span>, so <span class="arithmatex">\(d=1\)</span>).</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Qsqrt (d : ℤ) : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ (d : ℚ) 0</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">instance</span> Qsqrt.instNumberField : NumberField (<a class="bp-lean-ref" href="#quadratic-field" data-lean-name="ZInQ.Progressions.Qsqrt">Qsqrt</a> d) <span class="bp-lean-keyword">where</span>
+  to_finiteDimensional := inferInstance</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">instance</span> Qsqrt.instCharZero : CharZero (<a class="bp-lean-ref" href="#quadratic-field" data-lean-name="ZInQ.Progressions.Qsqrt">Qsqrt</a> d) :=
+  charZero_of_injective_algebraMap (algebraMap ℚ (<a class="bp-lean-ref" href="#quadratic-field" data-lean-name="ZInQ.Progressions.Qsqrt">Qsqrt</a> d)).injective</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Progressions.Qsqrt">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Qsqrt (d : ℤ) : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ (d : ℚ) 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Progressions/QuadField/Basic.lean:12</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/progressions-locators.html#marcus-chapter-2">Marcus, Chapter 2</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 8</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../ideal-counts/index.html#splitting-law">The splitting law in <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../ideal-counts/index.html#zeta-factorization">The factorization of <span class="arithmatex">\(\zeta_K\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#discriminant-bound">The discriminant of <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#imaginary-regulator">The regulator of an imaginary quadratic field</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#real-regulator">The regulator of a real quadratic field</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#residue-bound">A lower bound for the residue of <span class="arithmatex">\(\zeta_K\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#roots-of-unity">Roots of unity in a quadratic field</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#signature">The signature of <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a></span></div>
+</div>
+</details>
+</div>
+<p>The basis <span class="arithmatex">\(1,\sqrt d\)</span> bounds the discriminant; the real embeddings decide the signature;
+roots of unity have order at most <span class="arithmatex">\(6\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="progressions/quadratic-fields/discriminant-bound">
+<h4 class="bp-thmheading" id="discriminant-bound">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The discriminant of <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Discriminant.lean#L82" aria-label="View ZInQ.Progressions.Qsqrt.abs_discr_le in Lean source" title="View ZInQ.Progressions.Qsqrt.abs_discr_le in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Discriminant.lean#L53" aria-label="View ZInQ.Progressions.Qsqrt.exists_four_mul_eq_sq_mul_discr in Lean source" title="View ZInQ.Progressions.Qsqrt.exists_four_mul_eq_sq_mul_discr in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Discriminant.lean#L27" aria-label="View ZInQ.Progressions.Qsqrt.discr_basis in Lean source" title="View ZInQ.Progressions.Qsqrt.discr_basis in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/progressions/quadratic-fields/discriminant-bound.md" aria-label="Edit the Markdown source for The discriminant of $\mathbb Q(\sqrt d)$" title="Edit the Markdown source for The discriminant of $\mathbb Q(\sqrt d)$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#discriminant-bound" aria-label="Link to The discriminant of ℚ(√d)" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Progressions.Qsqrt.abs_discr_le ZInQ.Progressions.Qsqrt.exists_four_mul_eq_sq_mul_discr ZInQ.Progressions.Qsqrt.discr_basis</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d\)</span> be an integer that is not the square of a rational number, and let <span class="arithmatex">\(D_K\)</span> be the
+discriminant of the ring of integers of <span class="arithmatex">\(K=\mathbb Q(\sqrt d)\)</span>. Then
+$<span class="arithmatex">\(|D_K|\le4|d| .\)</span>$</p>
+<p><strong>Proof sketch.</strong> The trace of <span class="arithmatex">\(x+y\sqrt d\)</span> is <span class="arithmatex">\(2x\)</span>, so the basis <span class="arithmatex">\(1,\sqrt d\)</span> has
+discriminant <span class="arithmatex">\(\det\begin{pmatrix}2&amp;0\\0&amp;2d\end{pmatrix}=4d\)</span>. Since <span class="arithmatex">\(\sqrt d\)</span> is integral, the
+matrix expressing <span class="arithmatex">\(1,\sqrt d\)</span> in an integral basis of <span class="arithmatex">\(\mathcal O_K\)</span> has integer entries, so
+<span class="arithmatex">\(4d=m^2D_K\)</span> with <span class="arithmatex">\(m\)</span> its determinant, a nonzero integer. Hence <span class="arithmatex">\(|D_K|\le4|d|\)</span>. The ring of
+integers is never computed. (In fact, for squarefree <span class="arithmatex">\(d\)</span>, <span class="arithmatex">\(D_K=d\)</span> if <span class="arithmatex">\(d\equiv1\pmod4\)</span> and
+<span class="arithmatex">\(4d\)</span> otherwise.)</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> Qsqrt.abs_discr_le : |discr (<a class="bp-lean-ref" href="#quadratic-field" data-lean-name="ZInQ.Progressions.Qsqrt">Qsqrt</a> d)| ≤ 4 * |d|</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> Qsqrt.exists_four_mul_eq_sq_mul_discr :
+    ∃ m : ℤ, 4 * d = m ^ 2 * discr (<a class="bp-lean-ref" href="#quadratic-field" data-lean-name="ZInQ.Progressions.Qsqrt">Qsqrt</a> d)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> Qsqrt.discr_basis : Algebra.discr ℚ (QuadraticAlgebra.basis (d : ℚ) 0) = 4 * d</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Progressions.Qsqrt">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Qsqrt (d : ℤ) : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ (d : ℚ) 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Progressions/QuadField/Basic.lean:12</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/progressions-locators.html#marcus-chapter-2">Marcus, Chapter 2</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#quadratic-field">The quadratic field <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#residue-bound">A lower bound for the residue of <span class="arithmatex">\(\zeta_K\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="progressions/quadratic-fields/signature">
+<h4 class="bp-thmheading" id="signature">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The signature of <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Signature.lean#L85" aria-label="View ZInQ.Progressions.Qsqrt.nrRealPlaces_of_neg in Lean source" title="View ZInQ.Progressions.Qsqrt.nrRealPlaces_of_neg in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Signature.lean#L88" aria-label="View ZInQ.Progressions.Qsqrt.nrComplexPlaces_of_neg in Lean source" title="View ZInQ.Progressions.Qsqrt.nrComplexPlaces_of_neg in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Signature.lean#L74" aria-label="View ZInQ.Progressions.Qsqrt.nrRealPlaces_of_pos in Lean source" title="View ZInQ.Progressions.Qsqrt.nrRealPlaces_of_pos in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Signature.lean#L81" aria-label="View ZInQ.Progressions.Qsqrt.nrComplexPlaces_of_pos in Lean source" title="View ZInQ.Progressions.Qsqrt.nrComplexPlaces_of_pos in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Signature.lean#L33" aria-label="View ZInQ.Progressions.Qsqrt.isTotallyReal in Lean source" title="View ZInQ.Progressions.Qsqrt.isTotallyReal in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Signature.lean#L58" aria-label="View ZInQ.Progressions.Qsqrt.isTotallyComplex in Lean source" title="View ZInQ.Progressions.Qsqrt.isTotallyComplex in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/progressions/quadratic-fields/signature.md" aria-label="Edit the Markdown source for The signature of $\mathbb Q(\sqrt d)$" title="Edit the Markdown source for The signature of $\mathbb Q(\sqrt d)$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#signature" aria-label="Link to The signature of ℚ(√d)" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Progressions.Qsqrt.nrRealPlaces_of_neg ZInQ.Progressions.Qsqrt.nrComplexPlaces_of_neg ZInQ.Progressions.Qsqrt.nrRealPlaces_of_pos ZInQ.Progressions.Qsqrt.nrComplexPlaces_of_pos ZInQ.Progressions.Qsqrt.isTotallyReal ZInQ.Progressions.Qsqrt.isTotallyComplex</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d\)</span> be an integer that is not the square of a rational number and <span class="arithmatex">\(K=\mathbb Q(\sqrt d)\)</span>,
+with <span class="arithmatex">\(r_1\)</span> real and <span class="arithmatex">\(r_2\)</span> complex places. If <span class="arithmatex">\(d&lt;0\)</span>, then <span class="arithmatex">\(r_1=0\)</span> and <span class="arithmatex">\(r_2=1\)</span>, and <span class="arithmatex">\(K\)</span> is
+totally complex; if <span class="arithmatex">\(d&gt;0\)</span>, then <span class="arithmatex">\(r_1=2\)</span> and <span class="arithmatex">\(r_2=0\)</span>, and <span class="arithmatex">\(K\)</span> is totally real.</p>
+<p><strong>Proof sketch.</strong> Every embedding of <span class="arithmatex">\(K\)</span> into <span class="arithmatex">\(\mathbb C\)</span> sends <span class="arithmatex">\(x+y\sqrt d\)</span> to <span class="arithmatex">\(x+y\beta\)</span> with
+<span class="arithmatex">\(\beta^2=d\)</span>. The embeddings are real exactly when <span class="arithmatex">\(d&gt;0\)</span>; when <span class="arithmatex">\(d&lt;0\)</span> none is real, and the two
+complex conjugate embeddings form one complex place. In both cases <span class="arithmatex">\(r_1+2r_2=2\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> Qsqrt.nrRealPlaces_of_neg (hd : d &lt; 0) : nrRealPlaces (<a class="bp-lean-ref" href="#quadratic-field" data-lean-name="ZInQ.Progressions.Qsqrt">Qsqrt</a> d) = 0</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> Qsqrt.nrComplexPlaces_of_neg (hd : d &lt; 0) : nrComplexPlaces (<a class="bp-lean-ref" href="#quadratic-field" data-lean-name="ZInQ.Progressions.Qsqrt">Qsqrt</a> d) = 1</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> Qsqrt.nrRealPlaces_of_pos (hd : 0 &lt; d) : nrRealPlaces (<a class="bp-lean-ref" href="#quadratic-field" data-lean-name="ZInQ.Progressions.Qsqrt">Qsqrt</a> d) = 2</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Progressions.Qsqrt">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Qsqrt (d : ℤ) : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ (d : ℚ) 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Progressions/QuadField/Basic.lean:12</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/progressions-locators.html#marcus-chapter-2">Marcus, Chapter 2</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/progressions-locators.html#marcus-chapter-2"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#quadratic-field">The quadratic field <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#imaginary-regulator">The regulator of an imaginary quadratic field</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#real-regulator">The regulator of a real quadratic field</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#residue-bound">A lower bound for the residue of <span class="arithmatex">\(\zeta_K\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="progressions/quadratic-fields/roots-of-unity">
+<h4 class="bp-thmheading" id="roots-of-unity">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Roots of unity in a quadratic field</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Torsion.lean#L75" aria-label="View ZInQ.Progressions.Qsqrt.torsionOrder_le_six in Lean source" title="View ZInQ.Progressions.Qsqrt.torsionOrder_le_six in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Torsion.lean#L60" aria-label="View ZInQ.Progressions.torsionOrder_le_six_of_finrank_eq_two in Lean source" title="View ZInQ.Progressions.torsionOrder_le_six_of_finrank_eq_two in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Torsion.lean#L51" aria-label="View ZInQ.Progressions.le_six_of_totient_le_two in Lean source" title="View ZInQ.Progressions.le_six_of_totient_le_two in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/progressions/quadratic-fields/roots-of-unity.md" aria-label="Edit the Markdown source for Roots of unity in a quadratic field" title="Edit the Markdown source for Roots of unity in a quadratic field"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#roots-of-unity" aria-label="Link to Roots of unity in a quadratic field" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Progressions.Qsqrt.torsionOrder_le_six ZInQ.Progressions.torsionOrder_le_six_of_finrank_eq_two ZInQ.Progressions.le_six_of_totient_le_two</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(K\)</span> be a number field of degree <span class="arithmatex">\(2\)</span>, for example <span class="arithmatex">\(K=\mathbb Q(\sqrt d)\)</span> with <span class="arithmatex">\(d\)</span> an integer
+that is not the square of a rational number. The group of roots of unity of <span class="arithmatex">\(K\)</span> has order
+<span class="arithmatex">\(w_K\le6\)</span>.</p>
+<p><strong>Proof sketch.</strong> The roots of unity of <span class="arithmatex">\(K\)</span> form a finite cyclic group, so <span class="arithmatex">\(K\)</span> contains a
+primitive root of unity <span class="arithmatex">\(\zeta\)</span> of order <span class="arithmatex">\(w_K\)</span>. Then <span class="arithmatex">\(\mathbb Q(\zeta)\subseteq K\)</span> has degree
+<span class="arithmatex">\(\varphi(w_K)\le2\)</span>. By induction over prime powers and coprime products, <span class="arithmatex">\(\varphi(n)\le2\)</span>
+forces <span class="arithmatex">\(n\mid12\)</span>, and then <span class="arithmatex">\(n\in\{1,2,3,4,6\}\)</span>, so <span class="arithmatex">\(w_K\le6\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> Qsqrt.torsionOrder_le_six : torsionOrder (<a class="bp-lean-ref" href="#quadratic-field" data-lean-name="ZInQ.Progressions.Qsqrt">Qsqrt</a> d) ≤ 6</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> torsionOrder_le_six_of_finrank_eq_two {K : <span class="bp-lean-keyword">Type</span>*} [Field K] [NumberField K]
+    (h : Module.finrank ℚ K = 2) : torsionOrder K ≤ 6</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> le_six_of_totient_le_two {n : ℕ} (h : n.totient ≤ 2) : n ≤ 6</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Progressions.Qsqrt">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Qsqrt (d : ℤ) : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ (d : ℚ) 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Progressions/QuadField/Basic.lean:12</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/progressions-locators.html#marcus-chapter-5">Marcus, Chapter 5</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#quadratic-field">The quadratic field <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#residue-bound">A lower bound for the residue of <span class="arithmatex">\(\zeta_K\)</span></a></span></div>
+</div>
+</details>
+</div>
+<p>An imaginary quadratic field has unit rank <span class="arithmatex">\(0\)</span> and regulator <span class="arithmatex">\(1\)</span>; in a real quadratic field
+every unit above <span class="arithmatex">\(1\)</span> is at least the golden ratio.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="progressions/quadratic-fields/imaginary-regulator">
+<h4 class="bp-thmheading" id="imaginary-regulator">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The regulator of an imaginary quadratic field</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Regulator.lean#L129" aria-label="View ZInQ.Progressions.Qsqrt.regulator_of_neg in Lean source" title="View ZInQ.Progressions.Qsqrt.regulator_of_neg in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/progressions/quadratic-fields/imaginary-regulator.md" aria-label="Edit the Markdown source for The regulator of an imaginary quadratic field" title="Edit the Markdown source for The regulator of an imaginary quadratic field"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#imaginary-regulator" aria-label="Link to The regulator of an imaginary quadratic field" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Progressions.Qsqrt.regulator_of_neg</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d&lt;0\)</span> be an integer (so <span class="arithmatex">\(d\)</span> is not the square of a rational number) and
+<span class="arithmatex">\(K=\mathbb Q(\sqrt d)\)</span>. Then the regulator of <span class="arithmatex">\(K\)</span> is <span class="arithmatex">\(R_K=1\)</span>.</p>
+<p><strong>Proof sketch.</strong> By the signature, <span class="arithmatex">\(r_1+r_2-1=0\)</span>. So the unit group of <span class="arithmatex">\(\mathcal O_K\)</span> has
+rank <span class="arithmatex">\(0\)</span>, and the regulator is the determinant of an empty matrix, which is <span class="arithmatex">\(1\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> Qsqrt.regulator_of_neg (hd : d &lt; 0) : regulator (<a class="bp-lean-ref" href="#quadratic-field" data-lean-name="ZInQ.Progressions.Qsqrt">Qsqrt</a> d) = 1</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Progressions.Qsqrt">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Qsqrt (d : ℤ) : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ (d : ℚ) 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Progressions/QuadField/Basic.lean:12</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/progressions-locators.html#marcus-chapter-5">Marcus, Chapter 5</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/progressions-locators.html#marcus-chapter-5"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#quadratic-field">The quadratic field <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#signature">The signature of <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#residue-bound">A lower bound for the residue of <span class="arithmatex">\(\zeta_K\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="progressions/quadratic-fields/real-regulator">
+<h4 class="bp-thmheading" id="real-regulator">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The regulator of a real quadratic field</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Regulator.lean#L143" aria-label="View ZInQ.Progressions.Qsqrt.regulator_ge_of_pos in Lean source" title="View ZInQ.Progressions.Qsqrt.regulator_ge_of_pos in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Regulator.lean#L110" aria-label="View ZInQ.Progressions.Qsqrt.unit_quadratic in Lean source" title="View ZInQ.Progressions.Qsqrt.unit_quadratic in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Regulator.lean#L13" aria-label="View ZInQ.Progressions.golden_le_of_quadratic in Lean source" title="View ZInQ.Progressions.golden_le_of_quadratic in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Regulator.lean#L58" aria-label="View ZInQ.Progressions.log_golden_le_abs_log in Lean source" title="View ZInQ.Progressions.log_golden_le_abs_log in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/progressions/quadratic-fields/real-regulator.md" aria-label="Edit the Markdown source for The regulator of a real quadratic field" title="Edit the Markdown source for The regulator of a real quadratic field"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#real-regulator" aria-label="Link to The regulator of a real quadratic field" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Progressions.Qsqrt.regulator_ge_of_pos ZInQ.Progressions.Qsqrt.unit_quadratic ZInQ.Progressions.golden_le_of_quadratic ZInQ.Progressions.log_golden_le_abs_log</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d&gt;0\)</span> be an integer that is not the square of a rational number and
+<span class="arithmatex">\(K=\mathbb Q(\sqrt d)\)</span>. The regulator of <span class="arithmatex">\(K\)</span> satisfies
+$<span class="arithmatex">\(R_K\ge\log\frac{1+\sqrt5}{2}.\)</span>$</p>
+<p><strong>Proof sketch.</strong> By the signature, the unit rank is <span class="arithmatex">\(1\)</span>, and <span class="arithmatex">\(R_K=|\log|\sigma(\varepsilon_0)||\)</span>
+for a fundamental unit <span class="arithmatex">\(\varepsilon_0\)</span> and a real embedding <span class="arithmatex">\(\sigma\)</span>, with
+<span class="arithmatex">\(|\sigma(\varepsilon_0)|\ne1\)</span> because <span class="arithmatex">\(R_K&gt;0\)</span>. For a unit <span class="arithmatex">\(u\)</span>, the trace <span class="arithmatex">\(t=u+u'\)</span> and the norm
+<span class="arithmatex">\(n=uu'\)</span> are rational integers, with <span class="arithmatex">\(n=\pm1\)</span>, so <span class="arithmatex">\(y=\sigma(u)\)</span> satisfies <span class="arithmatex">\(y^2-ty+n=0\)</span>.
+Suppose <span class="arithmatex">\(|y|&gt;1\)</span>. If <span class="arithmatex">\(n=-1\)</span>, then <span class="arithmatex">\(|t|=|y-1/y|&gt;0\)</span>, so <span class="arithmatex">\(|t|\ge1\)</span>; since <span class="arithmatex">\(t\mapsto t-1/t\)</span> is
+increasing and equals <span class="arithmatex">\(1\)</span> at <span class="arithmatex">\(\phi=(1+\sqrt5)/2\)</span>, <span class="arithmatex">\(|y|\ge\phi\)</span>. If <span class="arithmatex">\(n=1\)</span>, then
+<span class="arithmatex">\(|t|=|y+1/y|&gt;2\)</span>, so <span class="arithmatex">\(|t|\ge3\)</span> and <span class="arithmatex">\(|y|\ge(3+\sqrt5)/2=\phi^2&gt;\phi\)</span>. If <span class="arithmatex">\(|y|&lt;1\)</span>, the same
+argument applies to <span class="arithmatex">\(1/y\)</span>. In all cases <span class="arithmatex">\(|\log|y||\ge\log\phi\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> Qsqrt.regulator_ge_of_pos (hd : 0 &lt; d) :
+    Real.log ((1 + √5) / 2) ≤ regulator (<a class="bp-lean-ref" href="#quadratic-field" data-lean-name="ZInQ.Progressions.Qsqrt">Qsqrt</a> d)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> Qsqrt.unit_quadratic (u : (𝓞 (<a class="bp-lean-ref" href="#quadratic-field" data-lean-name="ZInQ.Progressions.Qsqrt">Qsqrt</a> d))ˣ) :
+    ∃ t n : ℤ, (n = 1 ∨ n = -1) ∧ ∀ ψ : <a class="bp-lean-ref" href="#quadratic-field" data-lean-name="ZInQ.Progressions.Qsqrt">Qsqrt</a> d →+* ℝ,
+      ψ (u : <a class="bp-lean-ref" href="#quadratic-field" data-lean-name="ZInQ.Progressions.Qsqrt">Qsqrt</a> d) ^ 2 - t * ψ (u : <a class="bp-lean-ref" href="#quadratic-field" data-lean-name="ZInQ.Progressions.Qsqrt">Qsqrt</a> d) + n = 0</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> golden_le_of_quadratic {y : ℝ} {t n : ℤ} (hn : n = 1 ∨ n = -1)
+    (hy : y ^ 2 - t * y + n = 0) (h1 : 1 &lt; |y|) : (1 + √5) / 2 ≤ |y|</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Progressions.Qsqrt">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Qsqrt (d : ℤ) : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ (d : ℚ) 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Progressions/QuadField/Basic.lean:12</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/progressions-locators.html#marcus-chapter-5">Marcus, Chapter 5</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/progressions-locators.html#marcus-chapter-5"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#quadratic-field">The quadratic field <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#signature">The signature of <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#residue-bound">A lower bound for the residue of <span class="arithmatex">\(\zeta_K\)</span></a></span></div>
+</div>
+</details>
+</div>
+<p>With the class number at least <span class="arithmatex">\(1\)</span> this bounds the residue.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="progressions/quadratic-fields/residue-bound">
+<h4 class="bp-thmheading" id="residue-bound">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">A lower bound for the residue of <span class="arithmatex">\(\zeta_K\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Residue.lean#L32" aria-label="View ZInQ.Progressions.dedekindZeta_residue_ge in Lean source" title="View ZInQ.Progressions.dedekindZeta_residue_ge in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Residue.lean#L23" aria-label="View ZInQ.Progressions.log_golden_pos in Lean source" title="View ZInQ.Progressions.log_golden_pos in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Progressions/QuadField/Residue.lean#L16" aria-label="View ZInQ.Progressions.log_golden_lt_one in Lean source" title="View ZInQ.Progressions.log_golden_lt_one in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/progressions/quadratic-fields/residue-bound.md" aria-label="Edit the Markdown source for A lower bound for the residue of $\zeta_K$" title="Edit the Markdown source for A lower bound for the residue of $\zeta_K$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#residue-bound" aria-label="Link to A lower bound for the residue of ζ_K" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Progressions.dedekindZeta_residue_ge ZInQ.Progressions.log_golden_pos ZInQ.Progressions.log_golden_lt_one</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d\)</span> be an integer that is not the square of a rational number, <span class="arithmatex">\(K=\mathbb Q(\sqrt d)\)</span>, and
+let
+$<span class="arithmatex">\(\kappa_K=\frac{2^{r_1}(2\pi)^{r_2}h_KR_K}{w_K\sqrt{|D_K|}}\)</span>$
+be the residue at <span class="arithmatex">\(s=1\)</span> of the Dedekind zeta function <span class="arithmatex">\(\zeta_K(s)\)</span> (the class number
+formula), where <span class="arithmatex">\(h_K\)</span> is the class number, <span class="arithmatex">\(R_K\)</span> the regulator, <span class="arithmatex">\(w_K\)</span> the number of roots of
+unity and <span class="arithmatex">\(D_K\)</span> the discriminant. Then
+$<span class="arithmatex">\(\kappa_K\ge\frac{\log\frac{1+\sqrt5}{2}}{6\sqrt{|d|}} .\)</span>$</p>
+<p><strong>Proof sketch.</strong> Note <span class="arithmatex">\(0&lt;\log\frac{1+\sqrt5}2&lt;1\)</span>. Use <span class="arithmatex">\(h_K\ge1\)</span>, <span class="arithmatex">\(w_K\le6\)</span> and
+<span class="arithmatex">\(\sqrt{|D_K|}\le2\sqrt{|d|}\)</span>, so the denominator is at most <span class="arithmatex">\(12\sqrt{|d|}\)</span>. If <span class="arithmatex">\(d&lt;0\)</span>, then
+<span class="arithmatex">\(r_1=0\)</span>, <span class="arithmatex">\(r_2=1\)</span> and <span class="arithmatex">\(R_K=1\)</span>, so the numerator is at least <span class="arithmatex">\(2\pi&gt;2\log\frac{1+\sqrt5}2\)</span> and
+<span class="arithmatex">\(\kappa_K\ge\pi/(6\sqrt{|d|})\)</span>. If <span class="arithmatex">\(d&gt;0\)</span>, then <span class="arithmatex">\(r_1=2\)</span>, <span class="arithmatex">\(r_2=0\)</span> and
+<span class="arithmatex">\(R_K\ge\log\frac{1+\sqrt5}2\)</span>, so the numerator is at least <span class="arithmatex">\(4\log\frac{1+\sqrt5}2\)</span> and
+<span class="arithmatex">\(\kappa_K\ge\log\frac{1+\sqrt5}2/(3\sqrt d)\)</span>. Both are at least the claimed bound.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> dedekindZeta_residue_ge :
+    Real.log ((1 + √5) / 2) / (6 * √|(d : ℝ)|) ≤ dedekindZeta_residue (<a class="bp-lean-ref" href="#quadratic-field" data-lean-name="ZInQ.Progressions.Qsqrt">Qsqrt</a> d)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> log_golden_pos : 0 &lt; Real.log ((1 + √5) / 2)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> log_golden_lt_one : Real.log ((1 + √5) / 2) &lt; 1</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Progressions.Qsqrt">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> Qsqrt (d : ℤ) : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ (d : ℚ) 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Progressions/QuadField/Basic.lean:12</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/progressions-locators.html#marcus-chapter-7">Marcus, Chapter 7</a></li>
+<li><a href="../../../sources/progressions-locators.html#davenport-chapter-6">Davenport, Chapter 6</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/progressions-locators.html#marcus-chapter-7"> </a></p>
+<p><a href="../../../sources/progressions-locators.html#davenport-chapter-6"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 6 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#quadratic-field">The quadratic field <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#discriminant-bound">The discriminant of <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#signature">The signature of <span class="arithmatex">\(\mathbb Q(\sqrt d)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#roots-of-unity">Roots of unity in a quadratic field</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#imaginary-regulator">The regulator of an imaginary quadratic field</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#real-regulator">The regulator of a real quadratic field</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../real-characters/index.html#real-lower-bound">A lower bound for <span class="arithmatex">\(L(1,\chi)\)</span> at real characters</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>7</strong> fully proved</span></div>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../../dependencies/index.json" data-graph-src="../../../dependencies/scopes/progressions/quadratic-fields.json" data-page-href="index.html" data-scope-id="progressions/quadratic-fields">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

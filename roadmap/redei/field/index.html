@@ -1,0 +1,2356 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../index.html">
+      
+      
+        <link rel="next" href="../genus/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>The field ℚ(√(-n)) and its primes - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-field" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              The field ℚ(√(-n)) and its primes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_16" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_16" id="__nav_2_1_16_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_16_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The field ℚ(√(-n)) and its primes
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The field ℚ(√(-n)) and its primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The field
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#primes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Primes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../genus/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ambiguous classes and genus characters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../four-rank/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The 4-rank
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bits/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    From the Rédei matrix to Rédei&#39;s bits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The field
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#primes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Primes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="redei/field" data-page-title="The field ℚ(√(-n)) and its primes">
+<h1 id="the-field-mathbb-qsqrt-n-and-its-primes">The field <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span> and its primes</h1>
+<p>As in the rest of the chapter, <span class="arithmatex">\(n\ge1\)</span> is an integer and <span class="arithmatex">\(K=\mathbb Q(\omega)\)</span> with
+<span class="arithmatex">\(\omega^2=-n\)</span>; <span class="arithmatex">\(\mathcal O\)</span> is its ring of integers, <span class="arithmatex">\(\sigma\)</span> its nontrivial automorphism and <span class="arithmatex">\(N\)</span>
+the norm of elements and of ideals. This section collects what the genus theory of the next
+section needs about <span class="arithmatex">\(K\)</span>:</p>
+<ul>
+<li>its conjugation and norms;</li>
+<li>the rational integers in <span class="arithmatex">\(\mathcal O\)</span>;</li>
+<li>the splitting of a rational prime into split, inert and ramified primes;</li>
+<li>the set <span class="arithmatex">\(T_n\)</span> of primes of the discriminant and the prime ideals <span class="arithmatex">\(\mathfrak p_p\)</span> over them,
+  with <span class="arithmatex">\((\omega)=\prod_{p\mid n}\mathfrak p_p\)</span>;</li>
+<li>the identity <span class="arithmatex">\(I\cdot\sigma(I)=(N(I))\)</span> for ideals <span class="arithmatex">\(I\)</span> of <span class="arithmatex">\(\mathcal O\)</span>.</li>
+</ul>
+<p>The hypotheses vary from fact to fact: the field, its primes and <span class="arithmatex">\(I\cdot\sigma(I)=(N(I))\)</span> need
+only <span class="arithmatex">\(n\ge1\)</span>; that the primes of <span class="arithmatex">\(n\)</span> ramify needs <span class="arithmatex">\(n\)</span> squarefree; the description of
+<span class="arithmatex">\(\mathfrak p_p\)</span> for every <span class="arithmatex">\(p\in T_n\)</span> and of <span class="arithmatex">\((\omega)\)</span> needs <span class="arithmatex">\(n\)</span> odd and squarefree. Ramification
+is decided by norms of ideals and residue fields, so no integral basis of <span class="arithmatex">\(\mathcal O\)</span> is needed.</p>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>9</strong> fully proved</span></div>
+</div>
+<h2 id="the-field">The field</h2>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="redei/field/conjugation">
+<h4 class="bp-thmheading" id="conjugation">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The conjugation of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L133" aria-label="View ZInQ.RouteK.Redei.conj_apply in Lean source" title="View ZInQ.RouteK.Redei.conj_apply in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L42" aria-label="View ZInQ.RouteK.Redei.card_gal in Lean source" title="View ZInQ.RouteK.Redei.card_gal in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L45" aria-label="View ZInQ.RouteK.Redei.omega_sq in Lean source" title="View ZInQ.RouteK.Redei.omega_sq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L103" aria-label="View ZInQ.RouteK.Redei.conj_omega in Lean source" title="View ZInQ.RouteK.Redei.conj_omega in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L140" aria-label="View ZInQ.RouteK.Redei.conj_unique in Lean source" title="View ZInQ.RouteK.Redei.conj_unique in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L143" aria-label="View ZInQ.RouteK.Redei.conj_conj in Lean source" title="View ZInQ.RouteK.Redei.conj_conj in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L146" aria-label="View ZInQ.RouteK.Redei.conj_mul_self in Lean source" title="View ZInQ.RouteK.Redei.conj_mul_self in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L150" aria-label="View ZInQ.RouteK.Redei.eq_one_or_eq_conj in Lean source" title="View ZInQ.RouteK.Redei.eq_one_or_eq_conj in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L156" aria-label="View ZInQ.RouteK.Redei.exists_conj_ne_one in Lean source" title="View ZInQ.RouteK.Redei.exists_conj_ne_one in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L164" aria-label="View ZInQ.RouteK.Redei.algebraMap_smul in Lean source" title="View ZInQ.RouteK.Redei.algebraMap_smul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/field/conjugation.md" aria-label="Edit the Markdown source for The conjugation of $\mathbb Q(\sqrt{-n})$" title="Edit the Markdown source for The conjugation of $\mathbb Q(\sqrt{-n})$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#conjugation" aria-label="Link to The conjugation of ℚ(√(-n))" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Redei.conj_apply ZInQ.RouteK.Redei.card_gal ZInQ.RouteK.Redei.omega_sq ZInQ.RouteK.Redei.conj_omega ZInQ.RouteK.Redei.conj_unique ZInQ.RouteK.Redei.conj_conj ZInQ.RouteK.Redei.conj_mul_self ZInQ.RouteK.Redei.eq_one_or_eq_conj ZInQ.RouteK.Redei.exists_conj_ne_one ZInQ.RouteK.Redei.algebraMap_smul</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(n\ge1\)</span> and let <span class="arithmatex">\(K=\mathbb Q(\omega)=\mathbb Q[\omega]/(\omega^2+n)\)</span>, so that <span class="arithmatex">\(\omega^2=-n\)</span>.
+Then <span class="arithmatex">\(K\)</span> has exactly two automorphisms over <span class="arithmatex">\(\mathbb Q\)</span>, and a nontrivial one exists. Every
+nontrivial automorphism <span class="arithmatex">\(\sigma\)</span> satisfies <span class="arithmatex">\(\sigma(\omega)=-\omega\)</span> and is the conjugation
+$<span class="arithmatex">\(\sigma(a+b\omega)=a-b\omega\qquad(a,b\in\mathbb Q).\)</span>$
+Hence the nontrivial automorphism <span class="arithmatex">\(\sigma\)</span> is unique, <span class="arithmatex">\(\sigma\circ\sigma=1\)</span>, and every
+automorphism of <span class="arithmatex">\(K\)</span> is <span class="arithmatex">\(1\)</span> or <span class="arithmatex">\(\sigma\)</span>. The automorphisms of <span class="arithmatex">\(K\)</span> act on its ring of integers
+<span class="arithmatex">\(\mathcal O\)</span> compatibly with the inclusion <span class="arithmatex">\(\mathcal O\subset K\)</span>.</p>
+<p><strong>Proof sketch.</strong> <span class="arithmatex">\(K/\mathbb Q\)</span> is Galois of degree <span class="arithmatex">\(2\)</span>, so it has two automorphisms, and one of
+them is not the identity. Let <span class="arithmatex">\(\sigma\ne1\)</span>. The image <span class="arithmatex">\(z=\sigma(\omega)\)</span> is again a root of
+<span class="arithmatex">\(X^2+n\)</span>, so it has trace <span class="arithmatex">\(0\)</span> and norm <span class="arithmatex">\(n\)</span>; writing <span class="arithmatex">\(z=a+b\omega\)</span>, this gives <span class="arithmatex">\(a=0\)</span> and <span class="arithmatex">\(b^2=1\)</span>.
+If <span class="arithmatex">\(b=1\)</span>, then <span class="arithmatex">\(\sigma\)</span> fixes the generator <span class="arithmatex">\(\omega\)</span>, so <span class="arithmatex">\(\sigma=1\)</span>. Hence <span class="arithmatex">\(b=-1\)</span>, that is,
+<span class="arithmatex">\(\sigma(\omega)=-\omega\)</span>, and writing <span class="arithmatex">\(x=a+b\omega\)</span> gives <span class="arithmatex">\(\sigma(x)=a-b\omega\)</span>. So any two
+nontrivial automorphisms agree, and applying the conjugation twice gives the identity.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> conj_apply (σ : K ≃ₐ[ℚ] K) (hσ : σ ≠ 1) (x : K) : σ x = star x</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> card_gal : Nat.card (K ≃ₐ[ℚ] K) = 2</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> omega_sq : ω * ω = algebraMap ℚ K (-(n : ℚ))</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/redei-locators.html#step-1-the-field">Step 1: the field</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 10</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#genus-class-number">The genus class number</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#ideal-times-conjugate">An ideal times its conjugate is generated by its norm</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#integers-and-norms">Integers and norms of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#prime-trichotomy">Split, inert and ramified primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#ramified-prime-ideals">The primes of the discriminant ramify</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#ramified-primes-divide">Ramified primes divide the discriminant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../genus/index.html#hilbert-90">Hilbert 90 for ideals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../genus/index.html#invariant-ideals">Classes of invariant ideals are ambiguous</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#norms-are-squares">Norms are squares modulo the primes of <span class="arithmatex">\(n\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#split-primes">Split primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#two-torsion">The ambiguous classes fill <span class="arithmatex">\(\mathrm{Cl}[2]\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="redei/field/integers-and-norms">
+<h4 class="bp-thmheading" id="integers-and-norms">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Integers and norms of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L202" aria-label="View ZInQ.RouteK.Redei.normZ_eq_mul_conj in Lean source" title="View ZInQ.RouteK.Redei.normZ_eq_mul_conj in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L49" aria-label="View ZInQ.RouteK.Redei.isIntegral_omega in Lean source" title="View ZInQ.RouteK.Redei.isIntegral_omega in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L58" aria-label="View ZInQ.RouteK.Redei.omegaO in Lean source" title="View ZInQ.RouteK.Redei.omegaO in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L60" aria-label="View ZInQ.RouteK.Redei.algebraMap_omegaO in Lean source" title="View ZInQ.RouteK.Redei.algebraMap_omegaO in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L62" aria-label="View ZInQ.RouteK.Redei.coe_omegaO in Lean source" title="View ZInQ.RouteK.Redei.coe_omegaO in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L64" aria-label="View ZInQ.RouteK.Redei.omegaO_sq in Lean source" title="View ZInQ.RouteK.Redei.omegaO_sq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L167" aria-label="View ZInQ.RouteK.Redei.conj_omegaO in Lean source" title="View ZInQ.RouteK.Redei.conj_omegaO in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L67" aria-label="View ZInQ.RouteK.Redei.theta_eq in Lean source" title="View ZInQ.RouteK.Redei.theta_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L73" aria-label="View ZInQ.RouteK.Redei.isIntegral_theta in Lean source" title="View ZInQ.RouteK.Redei.isIntegral_theta in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L89" aria-label="View ZInQ.RouteK.Redei.thetaO in Lean source" title="View ZInQ.RouteK.Redei.thetaO in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L91" aria-label="View ZInQ.RouteK.Redei.algebraMap_thetaO in Lean source" title="View ZInQ.RouteK.Redei.algebraMap_thetaO in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L94" aria-label="View ZInQ.RouteK.Redei.two_mul_thetaO in Lean source" title="View ZInQ.RouteK.Redei.two_mul_thetaO in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L176" aria-label="View ZInQ.RouteK.Redei.algNorm_eq in Lean source" title="View ZInQ.RouteK.Redei.algNorm_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L182" aria-label="View ZInQ.RouteK.Redei.norm_eq_mul_conj in Lean source" title="View ZInQ.RouteK.Redei.norm_eq_mul_conj in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L187" aria-label="View ZInQ.RouteK.Redei.norm_nonneg in Lean source" title="View ZInQ.RouteK.Redei.norm_nonneg in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L193" aria-label="View ZInQ.RouteK.Redei.algNorm_coe in Lean source" title="View ZInQ.RouteK.Redei.algNorm_coe in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L196" aria-label="View ZInQ.RouteK.Redei.normZ_nonneg in Lean source" title="View ZInQ.RouteK.Redei.normZ_nonneg in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L210" aria-label="View ZInQ.RouteK.Redei.finrank_int in Lean source" title="View ZInQ.RouteK.Redei.finrank_int in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L213" aria-label="View ZInQ.RouteK.Redei.normZ_intCast in Lean source" title="View ZInQ.RouteK.Redei.normZ_intCast in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L218" aria-label="View ZInQ.RouteK.Redei.normZ_natCast in Lean source" title="View ZInQ.RouteK.Redei.normZ_natCast in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L222" aria-label="View ZInQ.RouteK.Redei.normZ_omega in Lean source" title="View ZInQ.RouteK.Redei.normZ_omega in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L228" aria-label="View ZInQ.RouteK.Redei.normZ_one_add_omega in Lean source" title="View ZInQ.RouteK.Redei.normZ_one_add_omega in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/field/integers-and-norms.md" aria-label="Edit the Markdown source for Integers and norms of $\mathbb Q(\sqrt{-n})$" title="Edit the Markdown source for Integers and norms of $\mathbb Q(\sqrt{-n})$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#integers-and-norms" aria-label="Link to Integers and norms of ℚ(√(-n))" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Redei.normZ_eq_mul_conj ZInQ.RouteK.Redei.isIntegral_omega ZInQ.RouteK.Redei.omegaO ZInQ.RouteK.Redei.algebraMap_omegaO ZInQ.RouteK.Redei.coe_omegaO ZInQ.RouteK.Redei.omegaO_sq ZInQ.RouteK.Redei.conj_omegaO ZInQ.RouteK.Redei.theta_eq ZInQ.RouteK.Redei.isIntegral_theta ZInQ.RouteK.Redei.thetaO ZInQ.RouteK.Redei.algebraMap_thetaO ZInQ.RouteK.Redei.two_mul_thetaO ZInQ.RouteK.Redei.algNorm_eq ZInQ.RouteK.Redei.norm_eq_mul_conj ZInQ.RouteK.Redei.norm_nonneg ZInQ.RouteK.Redei.algNorm_coe ZInQ.RouteK.Redei.normZ_nonneg ZInQ.RouteK.Redei.finrank_int ZInQ.RouteK.Redei.normZ_intCast ZInQ.RouteK.Redei.normZ_natCast ZInQ.RouteK.Redei.normZ_omega ZInQ.RouteK.Redei.normZ_one_add_omega</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(n\ge1\)</span>, <span class="arithmatex">\(K=\mathbb Q(\omega)\)</span> with <span class="arithmatex">\(\omega^2=-n\)</span>, <span class="arithmatex">\(\mathcal O\)</span> its ring of integers and
+<span class="arithmatex">\(\sigma\)</span> its nontrivial automorphism.</p>
+<ul>
+<li><span class="arithmatex">\(\omega\)</span> lies in <span class="arithmatex">\(\mathcal O\)</span>, with <span class="arithmatex">\(\omega^2=-n\)</span> and <span class="arithmatex">\(\sigma(\omega)=-\omega\)</span> there. Put
+  <span class="arithmatex">\(\theta=(1+\omega)/2=\tfrac12+\tfrac12\omega\)</span>. If <span class="arithmatex">\(n\equiv3\pmod4\)</span>, then <span class="arithmatex">\(\theta\)</span> lies in
+  <span class="arithmatex">\(\mathcal O\)</span>, and <span class="arithmatex">\(2\theta=1+\omega\)</span>.</li>
+<li>The norm of <span class="arithmatex">\(K/\mathbb Q\)</span> is <span class="arithmatex">\(N(a+b\omega)=a^2+nb^2\)</span>. For every <span class="arithmatex">\(x\in K\)</span>, <span class="arithmatex">\(N(x)=x\,\sigma(x)\)</span>
+  and <span class="arithmatex">\(N(x)\ge0\)</span>.</li>
+<li><span class="arithmatex">\(\mathcal O\)</span> has rank <span class="arithmatex">\(2\)</span> over <span class="arithmatex">\(\mathbb Z\)</span>. For <span class="arithmatex">\(x\in\mathcal O\)</span>, the norm <span class="arithmatex">\(N(x)\)</span> is an integer,
+  the norm of <span class="arithmatex">\(x\)</span> over <span class="arithmatex">\(\mathbb Z\)</span>; it satisfies <span class="arithmatex">\(N(x)\ge0\)</span> and <span class="arithmatex">\(N(x)=x\,\sigma(x)\)</span> in <span class="arithmatex">\(\mathcal O\)</span>.
+  Moreover <span class="arithmatex">\(N(m)=m^2\)</span> for <span class="arithmatex">\(m\in\mathbb Z\)</span>, <span class="arithmatex">\(N(\omega)=n\)</span> and <span class="arithmatex">\(N(1+\omega)=1+n\)</span>.</li>
+</ul>
+<p><strong>Proof sketch.</strong> <span class="arithmatex">\(\omega\)</span> is a root of <span class="arithmatex">\(X^2+n\)</span>, and <span class="arithmatex">\(\sigma(\omega)=-\omega\)</span> in <span class="arithmatex">\(\mathcal O\)</span>
+because it holds in <span class="arithmatex">\(K\)</span>. For <span class="arithmatex">\(n+1=4m\)</span>, <span class="arithmatex">\(\theta\)</span> is a root of <span class="arithmatex">\(X^2-X+m\)</span>. The norm is the
+determinant of multiplication by <span class="arithmatex">\(x=a+b\omega\)</span> on the basis <span class="arithmatex">\(1,\omega\)</span>, which is <span class="arithmatex">\(a^2+nb^2\ge0\)</span>. It
+equals <span class="arithmatex">\((a+b\omega)(a-b\omega)=x\,\sigma(x)\)</span> because <span class="arithmatex">\(\sigma\)</span> is the conjugation. For <span class="arithmatex">\(x\in\mathcal O\)</span> the norm of <span class="arithmatex">\(K/\mathbb Q\)</span> is the norm of
+<span class="arithmatex">\(\mathcal O/\mathbb Z\)</span>, so it is an integer; since <span class="arithmatex">\(\mathcal O\)</span> has rank <span class="arithmatex">\([K:\mathbb Q]=2\)</span> over
+<span class="arithmatex">\(\mathbb Z\)</span>, <span class="arithmatex">\(N(m)=m^2\)</span>. The values <span class="arithmatex">\(N(\omega)=n\)</span> and <span class="arithmatex">\(N(1+\omega)=1+n\)</span> are the formula
+<span class="arithmatex">\(a^2+nb^2\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> normZ_eq_mul_conj (σ : K ≃ₐ[ℚ] K) (hσ : σ ≠ 1) (x : O) :
+    ((Algebra.norm ℤ x : ℤ) : O) = x * σ • x</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> isIntegral_omega : IsIntegral ℤ ω</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> omegaO : O := ⟨ω, <a class="bp-lean-ref" href="#integers-and-norms" data-lean-name="ZInQ.RouteK.Redei.isIntegral_omega">isIntegral_omega</a> n⟩</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Redei.isIntegral_omega">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> isIntegral_omega : IsIntegral ℤ ω</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Redei/Field.lean:49</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/redei-locators.html#step-1-the-field">Step 1: the field</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 7</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#conjugation">The conjugation of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#ideal-of-omega">The ideal <span class="arithmatex">\((\sqrt{-n})\)</span> is the product of the ramified odd primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#prime-trichotomy">Split, inert and ramified primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#ramified-prime-ideals">The primes of the discriminant ramify</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#ramified-primes-divide">Ramified primes divide the discriminant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../genus/index.html#hilbert-90">Hilbert 90 for ideals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../genus/index.html#norms-are-squares">Norms are squares modulo the primes of <span class="arithmatex">\(n\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#split-primes">Split primes</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="redei/field/rational-integers">
+<h4 class="bp-thmheading" id="rational-integers">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Rational integers in the ring of integers</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L239" aria-label="View ZInQ.RouteK.Redei.exists_int_of_coe_eq_algebraMap in Lean source" title="View ZInQ.RouteK.Redei.exists_int_of_coe_eq_algebraMap in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L248" aria-label="View ZInQ.RouteK.Redei.intCast_injective in Lean source" title="View ZInQ.RouteK.Redei.intCast_injective in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L253" aria-label="View ZInQ.RouteK.Redei.intCast_dvd_intCast_iff in Lean source" title="View ZInQ.RouteK.Redei.intCast_dvd_intCast_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L273" aria-label="View ZInQ.RouteK.Redei.isUnit_intCast_iff in Lean source" title="View ZInQ.RouteK.Redei.isUnit_intCast_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L278" aria-label="View ZInQ.RouteK.Redei.rat_unit_eq in Lean source" title="View ZInQ.RouteK.Redei.rat_unit_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L285" aria-label="View ZInQ.RouteK.Redei.natCast_dvd_natCast_iff in Lean source" title="View ZInQ.RouteK.Redei.natCast_dvd_natCast_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Field.lean#L289" aria-label="View ZInQ.RouteK.Redei.span_natCast_eq_span_natCast_iff in Lean source" title="View ZInQ.RouteK.Redei.span_natCast_eq_span_natCast_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/field/rational-integers.md" aria-label="Edit the Markdown source for Rational integers in the ring of integers" title="Edit the Markdown source for Rational integers in the ring of integers"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#rational-integers" aria-label="Link to Rational integers in the ring of integers" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Redei.exists_int_of_coe_eq_algebraMap ZInQ.RouteK.Redei.intCast_injective ZInQ.RouteK.Redei.intCast_dvd_intCast_iff ZInQ.RouteK.Redei.isUnit_intCast_iff ZInQ.RouteK.Redei.rat_unit_eq ZInQ.RouteK.Redei.natCast_dvd_natCast_iff ZInQ.RouteK.Redei.span_natCast_eq_span_natCast_iff</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(n\ge1\)</span> and let <span class="arithmatex">\(\mathcal O\)</span> be the ring of integers of <span class="arithmatex">\(K=\mathbb Q(\sqrt{-n})\)</span>. Then
+<span class="arithmatex">\(\mathcal O\cap\mathbb Q=\mathbb Z\)</span>: a rational number that lies in <span class="arithmatex">\(\mathcal O\)</span> is an integer.
+The map <span class="arithmatex">\(\mathbb Z\to\mathcal O\)</span> is injective, and:</p>
+<ul>
+<li>for integers <span class="arithmatex">\(a,b\)</span>, <span class="arithmatex">\(a\)</span> divides <span class="arithmatex">\(b\)</span> in <span class="arithmatex">\(\mathcal O\)</span> if and only if <span class="arithmatex">\(a\)</span> divides <span class="arithmatex">\(b\)</span> in
+  <span class="arithmatex">\(\mathbb Z\)</span>, and likewise for natural numbers;</li>
+<li>an integer <span class="arithmatex">\(m\)</span> is a unit of <span class="arithmatex">\(\mathcal O\)</span> if and only if <span class="arithmatex">\(m=\pm1\)</span>, and a unit of <span class="arithmatex">\(\mathcal O\)</span>
+  that is a rational number is <span class="arithmatex">\(\pm1\)</span>;</li>
+<li>for natural numbers <span class="arithmatex">\(a,b\)</span>, <span class="arithmatex">\(a\mathcal O=b\mathcal O\)</span> if and only if <span class="arithmatex">\(a=b\)</span>.</li>
+</ul>
+<p><strong>Proof sketch.</strong> A rational number that is integral over <span class="arithmatex">\(\mathbb Z\)</span> is an integer, because
+<span class="arithmatex">\(\mathbb Z\)</span> is integrally closed. If <span class="arithmatex">\(b=ay\)</span> in <span class="arithmatex">\(\mathcal O\)</span> with <span class="arithmatex">\(a\ne0\)</span>, then <span class="arithmatex">\(y=b/a\)</span> is a
+rational number in <span class="arithmatex">\(\mathcal O\)</span>, hence an integer; if <span class="arithmatex">\(a=0\)</span>, then <span class="arithmatex">\(b=0\)</span> by injectivity. An
+integer <span class="arithmatex">\(m\)</span> is a unit exactly when <span class="arithmatex">\(m\mid1\)</span> in <span class="arithmatex">\(\mathcal O\)</span>, that is, in <span class="arithmatex">\(\mathbb Z\)</span>. Finally
+<span class="arithmatex">\(a\mathcal O=b\mathcal O\)</span> means <span class="arithmatex">\(a\mid b\)</span> and <span class="arithmatex">\(b\mid a\)</span> in <span class="arithmatex">\(\mathcal O\)</span>, hence in <span class="arithmatex">\(\mathbb N\)</span>, so
+<span class="arithmatex">\(a=b\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_int_of_coe_eq_algebraMap (x : O) (q : ℚ) (h : (x : K) = algebraMap ℚ K q) :
+    ∃ m : ℤ, q = m</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> intCast_injective : Function.Injective (<span class="bp-lean-keyword">fun</span> m : ℤ =&gt; (m : O))</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> intCast_dvd_intCast_iff (a b : ℤ) : (a : O) ∣ (b : O) ↔ a ∣ b</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/redei-locators.html#step-1-the-field">Step 1: the field</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#genus-class-number">The genus class number</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#coprime-representatives">Every class has a representative of norm prime to <span class="arithmatex">\(q\)</span></a></span></div>
+</div>
+</details>
+</div>
+<h2 id="primes">Primes</h2>
+<p>A prime of <span class="arithmatex">\(\mathcal O\)</span> over <span class="arithmatex">\(p\)</span> is split, inert or ramified according to its norm and to whether
+<span class="arithmatex">\(\sigma\)</span> fixes it. The ramified ones lie over the primes of <span class="arithmatex">\(T_n\)</span>, and for odd squarefree <span class="arithmatex">\(n\)</span>
+every prime of <span class="arithmatex">\(T_n\)</span> ramifies.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="redei/field/prime-trichotomy">
+<h4 class="bp-thmheading" id="prime-trichotomy">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Split, inert and ramified primes</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L136" aria-label="View ZInQ.RouteK.Redei.prime_trichotomy in Lean source" title="View ZInQ.RouteK.Redei.prime_trichotomy in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L43" aria-label="View ZInQ.RouteK.Redei.absNorm_span_natCast_eq in Lean source" title="View ZInQ.RouteK.Redei.absNorm_span_natCast_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L46" aria-label="View ZInQ.RouteK.Redei.span_natCast_isPrime in Lean source" title="View ZInQ.RouteK.Redei.span_natCast_isPrime in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L49" aria-label="View ZInQ.RouteK.Redei.natCast_mem_of_liesOver in Lean source" title="View ZInQ.RouteK.Redei.natCast_mem_of_liesOver in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L55" aria-label="View ZInQ.RouteK.Redei.span_le_of_liesOver in Lean source" title="View ZInQ.RouteK.Redei.span_le_of_liesOver in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L59" aria-label="View ZInQ.RouteK.Redei.intCast_mem_iff_of_liesOver in Lean source" title="View ZInQ.RouteK.Redei.intCast_mem_iff_of_liesOver in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L64" aria-label="View ZInQ.RouteK.Redei.liesOver_of_natCast_mem in Lean source" title="View ZInQ.RouteK.Redei.liesOver_of_natCast_mem in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L72" aria-label="View ZInQ.RouteK.Redei.exists_prime_liesOver in Lean source" title="View ZInQ.RouteK.Redei.exists_prime_liesOver in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L77" aria-label="View ZInQ.RouteK.Redei.natCast_ne_zero_O in Lean source" title="View ZInQ.RouteK.Redei.natCast_ne_zero_O in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L80" aria-label="View ZInQ.RouteK.Redei.ne_bot_of_liesOver in Lean source" title="View ZInQ.RouteK.Redei.ne_bot_of_liesOver in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L87" aria-label="View ZInQ.RouteK.Redei.smul_natCast_O in Lean source" title="View ZInQ.RouteK.Redei.smul_natCast_O in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L90" aria-label="View ZInQ.RouteK.Redei.smul_intCast_O in Lean source" title="View ZInQ.RouteK.Redei.smul_intCast_O in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L93" aria-label="View ZInQ.RouteK.Redei.smul_span_natCast in Lean source" title="View ZInQ.RouteK.Redei.smul_span_natCast in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L99" aria-label="View ZInQ.RouteK.Redei.span_le_smul_of_liesOver in Lean source" title="View ZInQ.RouteK.Redei.span_le_smul_of_liesOver in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L104" aria-label="View ZInQ.RouteK.Redei.smul_ne_bot in Lean source" title="View ZInQ.RouteK.Redei.smul_ne_bot in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L110" aria-label="View ZInQ.RouteK.Redei.smul_isMaximal in Lean source" title="View ZInQ.RouteK.Redei.smul_isMaximal in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L115" aria-label="View ZInQ.RouteK.Redei.smul_eq_of_pow_le in Lean source" title="View ZInQ.RouteK.Redei.smul_eq_of_pow_le in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L121" aria-label="View ZInQ.RouteK.Redei.eq_of_dvd_of_absNorm_eq in Lean source" title="View ZInQ.RouteK.Redei.eq_of_dvd_of_absNorm_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/field/prime-trichotomy.md" aria-label="Edit the Markdown source for Split, inert and ramified primes" title="Edit the Markdown source for Split, inert and ramified primes"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#prime-trichotomy" aria-label="Link to Split, inert and ramified primes" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Redei.prime_trichotomy ZInQ.RouteK.Redei.absNorm_span_natCast_eq ZInQ.RouteK.Redei.span_natCast_isPrime ZInQ.RouteK.Redei.natCast_mem_of_liesOver ZInQ.RouteK.Redei.span_le_of_liesOver ZInQ.RouteK.Redei.intCast_mem_iff_of_liesOver ZInQ.RouteK.Redei.liesOver_of_natCast_mem ZInQ.RouteK.Redei.exists_prime_liesOver ZInQ.RouteK.Redei.natCast_ne_zero_O ZInQ.RouteK.Redei.ne_bot_of_liesOver ZInQ.RouteK.Redei.smul_natCast_O ZInQ.RouteK.Redei.smul_intCast_O ZInQ.RouteK.Redei.smul_span_natCast ZInQ.RouteK.Redei.span_le_smul_of_liesOver ZInQ.RouteK.Redei.smul_ne_bot ZInQ.RouteK.Redei.smul_isMaximal ZInQ.RouteK.Redei.smul_eq_of_pow_le ZInQ.RouteK.Redei.eq_of_dvd_of_absNorm_eq</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(n\ge1\)</span>, <span class="arithmatex">\(\mathcal O\)</span> the ring of integers of <span class="arithmatex">\(K=\mathbb Q(\sqrt{-n})\)</span> and <span class="arithmatex">\(\sigma\)</span> the
+nontrivial automorphism. An ideal <span class="arithmatex">\(P\)</span> of <span class="arithmatex">\(\mathcal O\)</span> <em>lies over</em> <span class="arithmatex">\(p\)</span> if
+<span class="arithmatex">\(P\cap\mathbb Z=p\mathbb Z\)</span>. Let <span class="arithmatex">\(p\)</span> be a prime and <span class="arithmatex">\(P\)</span> a maximal ideal of <span class="arithmatex">\(\mathcal O\)</span> lying over
+<span class="arithmatex">\(p\)</span>. Then one of the following holds:</p>
+<ul>
+<li><em>split</em>: <span class="arithmatex">\(\sigma P\ne P\)</span>, <span class="arithmatex">\(P\cdot\sigma P=p\mathcal O\)</span> and <span class="arithmatex">\(N(P)=p\)</span>;</li>
+<li><em>inert</em>: <span class="arithmatex">\(\sigma P=P\)</span>, <span class="arithmatex">\(P=p\mathcal O\)</span> and <span class="arithmatex">\(N(P)=p^2\)</span>;</li>
+<li><em>ramified</em>: <span class="arithmatex">\(\sigma P=P\)</span>, <span class="arithmatex">\(P^2=p\mathcal O\)</span> and <span class="arithmatex">\(N(P)=p\)</span>.</li>
+</ul>
+<p>Along the way, with <span class="arithmatex">\(\tau\)</span> any automorphism of <span class="arithmatex">\(K\)</span> acting on the ideals of <span class="arithmatex">\(\mathcal O\)</span>:</p>
+<ul>
+<li><span class="arithmatex">\(N(m\mathcal O)=m^2\)</span> for every natural number <span class="arithmatex">\(m\)</span>, and <span class="arithmatex">\(m\ne0\)</span> in <span class="arithmatex">\(\mathcal O\)</span> for <span class="arithmatex">\(m\ne0\)</span>;</li>
+<li>an ideal <span class="arithmatex">\(P\)</span> over <span class="arithmatex">\(p\)</span> contains <span class="arithmatex">\(p\)</span>, so <span class="arithmatex">\(p\mathcal O\subseteq P\)</span> and <span class="arithmatex">\(p\mathcal O\subseteq\tau P\)</span>;
+  an integer lies in <span class="arithmatex">\(P\)</span> if and only if <span class="arithmatex">\(p\)</span> divides it; and for <span class="arithmatex">\(p\)</span> prime, <span class="arithmatex">\(P\ne0\)</span>;</li>
+<li><span class="arithmatex">\(p\mathbb Z\)</span> is a prime ideal of <span class="arithmatex">\(\mathbb Z\)</span>, a prime ideal of <span class="arithmatex">\(\mathcal O\)</span> containing <span class="arithmatex">\(p\)</span> lies
+  over <span class="arithmatex">\(p\)</span>, and every nonzero prime ideal of <span class="arithmatex">\(\mathcal O\)</span> lies over some prime;</li>
+<li><span class="arithmatex">\(\tau\)</span> fixes every integer and every ideal <span class="arithmatex">\(m\mathcal O\)</span>, and sends nonzero ideals to nonzero
+  ideals and maximal ideals to maximal ideals;</li>
+<li>a maximal ideal <span class="arithmatex">\(P\)</span> with <span class="arithmatex">\(P^k\subseteq\tau P\)</span> for some <span class="arithmatex">\(k\)</span> satisfies <span class="arithmatex">\(\tau P=P\)</span>;</li>
+<li>if <span class="arithmatex">\(I\)</span> divides <span class="arithmatex">\(J\)</span> and <span class="arithmatex">\(N(I)=N(J)\ne0\)</span>, then <span class="arithmatex">\(I=J\)</span>.</li>
+</ul>
+<p><strong>Proof sketch.</strong> Since <span class="arithmatex">\(p\mathcal O\subseteq P\)</span>, write <span class="arithmatex">\(p\mathcal O=PM\)</span>. Then
+<span class="arithmatex">\(N(P)N(M)=N(p\mathcal O)=p^2\)</span>, and <span class="arithmatex">\(N(P)\ne1\)</span> because <span class="arithmatex">\(P\ne\mathcal O\)</span>.</p>
+<ul>
+<li>If <span class="arithmatex">\(N(P)=p^2\)</span>, then <span class="arithmatex">\(N(M)=1\)</span>, so <span class="arithmatex">\(M=\mathcal O\)</span> and <span class="arithmatex">\(P=p\mathcal O\)</span>. As
+  <span class="arithmatex">\(p\mathcal O\subseteq\sigma P\)</span>, the maximal ideal <span class="arithmatex">\(P\)</span> is contained in <span class="arithmatex">\(\sigma P\)</span>, so
+  <span class="arithmatex">\(\sigma P=P\)</span>: inert.</li>
+<li>If <span class="arithmatex">\(N(P)=p\)</span>, then <span class="arithmatex">\(N(M)=p\)</span> is prime, so <span class="arithmatex">\(M\)</span> is a prime ideal; it contains <span class="arithmatex">\(p\)</span>, so it lies over
+  <span class="arithmatex">\(p\)</span>. The automorphisms act transitively on the primes over <span class="arithmatex">\(p\)</span>, so <span class="arithmatex">\(M=\tau P\)</span> with <span class="arithmatex">\(\tau=1\)</span> or
+  <span class="arithmatex">\(\tau=\sigma\)</span>.</li>
+<li>If <span class="arithmatex">\(M=P\)</span>, then <span class="arithmatex">\(P^2=p\mathcal O\subseteq\sigma P\)</span>, so <span class="arithmatex">\(\sigma P=P\)</span>: ramified.</li>
+<li>If <span class="arithmatex">\(M=\sigma P\)</span>, the case <span class="arithmatex">\(\sigma P=P\)</span> is ramified and the case <span class="arithmatex">\(\sigma P\ne P\)</span> is split.</li>
+</ul>
+<p>Only norms of ideals and the transitivity of the Galois action are used, not ramification
+indices.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> prime_trichotomy (σ : K ≃ₐ[ℚ] K) (hσ : σ ≠ 1) {p : ℕ} (hp : p.Prime)
+    (P : Ideal O) [P.IsMaximal] [P.LiesOver (Ideal.span {(p : ℤ)})] :
+    (σ • P ≠ P ∧ P * (σ • P) = Ideal.span {(p : O)} ∧ Ideal.absNorm P = p) ∨
+    (σ • P = P ∧ P = Ideal.span {(p : O)} ∧ Ideal.absNorm P = p ^ 2) ∨
+    (σ • P = P ∧ P ^ 2 = Ideal.span {(p : O)} ∧ Ideal.absNorm P = p)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> absNorm_span_natCast_eq (m : ℕ) : Ideal.absNorm (Ideal.span {(m : O)}) = m ^ 2</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> span_natCast_isPrime {p : ℕ} (hp : p.Prime) : (Ideal.span {(p : ℤ)}).IsPrime</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/redei-locators.html#step-2-primes">Step 2: primes</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 9</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#conjugation">The conjugation of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#integers-and-norms">Integers and norms of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#ideal-of-omega">The ideal <span class="arithmatex">\((\sqrt{-n})\)</span> is the product of the ramified odd primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#ideal-times-conjugate">An ideal times its conjugate is generated by its norm</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#ramified-prime-ideals">The primes of the discriminant ramify</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#ramified-primes">The ramified primes and the ideals <span class="arithmatex">\(\mathfrak p_p\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#ramified-primes-divide">Ramified primes divide the discriminant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#coprime-representatives">Every class has a representative of norm prime to <span class="arithmatex">\(q\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#invariant-ideals">Classes of invariant ideals are ambiguous</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#norms-are-squares">Norms are squares modulo the primes of <span class="arithmatex">\(n\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#split-primes">Split primes</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="redei/field/ramified-primes-divide">
+<h4 class="bp-thmheading" id="ramified-primes-divide">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Ramified primes divide the discriminant</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L229" aria-label="View ZInQ.RouteK.Redei.dvd_of_ramified in Lean source" title="View ZInQ.RouteK.Redei.dvd_of_ramified in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L185" aria-label="View ZInQ.RouteK.Redei.absNorm_of_ramified in Lean source" title="View ZInQ.RouteK.Redei.absNorm_of_ramified in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L191" aria-label="View ZInQ.RouteK.Redei.exists_int_sub_mem_of_absNorm in Lean source" title="View ZInQ.RouteK.Redei.exists_int_sub_mem_of_absNorm in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L211" aria-label="View ZInQ.RouteK.Redei.sub_conj_mem in Lean source" title="View ZInQ.RouteK.Redei.sub_conj_mem in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L220" aria-label="View ZInQ.RouteK.Redei.conj_thetaO in Lean source" title="View ZInQ.RouteK.Redei.conj_thetaO in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/field/ramified-primes-divide.md" aria-label="Edit the Markdown source for Ramified primes divide the discriminant" title="Edit the Markdown source for Ramified primes divide the discriminant"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#ramified-primes-divide" aria-label="Link to Ramified primes divide the discriminant" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Redei.dvd_of_ramified ZInQ.RouteK.Redei.absNorm_of_ramified ZInQ.RouteK.Redei.exists_int_sub_mem_of_absNorm ZInQ.RouteK.Redei.sub_conj_mem ZInQ.RouteK.Redei.conj_thetaO</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(n\ge1\)</span>, <span class="arithmatex">\(\mathcal O\)</span> the ring of integers of <span class="arithmatex">\(K=\mathbb Q(\sqrt{-n})\)</span>, <span class="arithmatex">\(p\)</span> a prime and <span class="arithmatex">\(P\)</span>
+a maximal ideal of <span class="arithmatex">\(\mathcal O\)</span> lying over <span class="arithmatex">\(p\)</span> with <span class="arithmatex">\(P^2=p\mathcal O\)</span>. Then <span class="arithmatex">\(p\mid n\)</span>, or <span class="arithmatex">\(p=2\)</span>
+and <span class="arithmatex">\(n\equiv1\pmod4\)</span>.</p>
+<p>Along the way:</p>
+<ul>
+<li>an ideal <span class="arithmatex">\(P\)</span> with <span class="arithmatex">\(P^2=p\mathcal O\)</span> has <span class="arithmatex">\(N(P)=p\)</span>;</li>
+<li>if <span class="arithmatex">\(P\)</span> is maximal and <span class="arithmatex">\(N(P)=p\)</span> is prime, every element of <span class="arithmatex">\(\mathcal O\)</span> is congruent modulo <span class="arithmatex">\(P\)</span>
+  to an integer;</li>
+<li>if moreover <span class="arithmatex">\(\tau P=P\)</span> for an automorphism <span class="arithmatex">\(\tau\)</span> of <span class="arithmatex">\(K\)</span>, then <span class="arithmatex">\(x-\tau(x)\in P\)</span> for every
+  <span class="arithmatex">\(x\in\mathcal O\)</span>;</li>
+<li>for <span class="arithmatex">\(n\equiv3\pmod4\)</span>, the element <span class="arithmatex">\(\theta=(1+\omega)/2\)</span> of <span class="arithmatex">\(\mathcal O\)</span> satisfies <span class="arithmatex">\(\sigma(\theta)=1-\theta\)</span>,
+  where <span class="arithmatex">\(\sigma\)</span> is the nontrivial automorphism.</li>
+</ul>
+<p><strong>Proof sketch.</strong> <span class="arithmatex">\(P^2=p\mathcal O\subseteq\sigma P\)</span>, so <span class="arithmatex">\(\sigma P=P\)</span>; and <span class="arithmatex">\(N(P)^2=N(p\mathcal O)=p^2\)</span>,
+so <span class="arithmatex">\(N(P)=p\)</span>. Then <span class="arithmatex">\(\mathcal O/P\)</span> has <span class="arithmatex">\(p\)</span> elements, so <span class="arithmatex">\(\mathbb Z\to\mathcal O/P\)</span> is onto: every
+<span class="arithmatex">\(x\)</span> is congruent to an integer <span class="arithmatex">\(m\)</span> modulo <span class="arithmatex">\(P\)</span>, and so is <span class="arithmatex">\(\sigma(x)\)</span>, since <span class="arithmatex">\(\sigma\)</span> fixes <span class="arithmatex">\(m\)</span> and
+<span class="arithmatex">\(P\)</span>. Hence <span class="arithmatex">\(x-\sigma(x)\in P\)</span>.</p>
+<ul>
+<li>With <span class="arithmatex">\(x=\omega\)</span>: <span class="arithmatex">\(2\omega\in P\)</span>, so <span class="arithmatex">\(-4n=(2\omega)^2\in P\cap\mathbb Z=p\mathbb Z\)</span> and <span class="arithmatex">\(p\mid4n\)</span>.
+  If <span class="arithmatex">\(p\nmid n\)</span>, then <span class="arithmatex">\(p=2\)</span> and <span class="arithmatex">\(n\)</span> is odd.</li>
+<li>If <span class="arithmatex">\(p=2\nmid n\)</span> and <span class="arithmatex">\(n\equiv3\pmod4\)</span>, take <span class="arithmatex">\(x=\theta\)</span>: <span class="arithmatex">\(\theta-(1-\theta)=2\theta-1=\omega\in P\)</span>.
+  Then <span class="arithmatex">\(-n=\omega^2\in P\cap\mathbb Z=2\mathbb Z\)</span>, a contradiction. So <span class="arithmatex">\(n\equiv1\pmod4\)</span>.</li>
+</ul>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> dvd_of_ramified {p : ℕ} (hp : p.Prime) (P : Ideal O) [P.IsMaximal]
+    [P.LiesOver (Ideal.span {(p : ℤ)})] (hram : P ^ 2 = Ideal.span {(p : O)}) :
+    p ∣ n ∨ (p = 2 ∧ n % 4 = 1)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> absNorm_of_ramified {p : ℕ} (P : Ideal O) (hram : P ^ 2 = Ideal.span {(p : O)}) :
+    Ideal.absNorm P = p</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_int_sub_mem_of_absNorm (P : Ideal O) [P.IsMaximal] {p : ℕ} (hp : p.Prime)
+    (hN : Ideal.absNorm P = p) (x : O) : ∃ m : ℤ, x - m ∈ P</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/redei-locators.html#step-2-primes">Step 2: primes</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#genus-class-number">The genus class number</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#conjugation">The conjugation of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#integers-and-norms">Integers and norms of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#prime-trichotomy">Split, inert and ramified primes</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#ramified-prime-ideals">The primes of the discriminant ramify</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#invariant-ideals">Classes of invariant ideals are ambiguous</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#norms-are-squares">Norms are squares modulo the primes of <span class="arithmatex">\(n\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#split-primes">Split primes</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="redei/field/ramified-primes">
+<h4 class="bp-thmheading" id="ramified-primes">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The ramified primes and the ideals <span class="arithmatex">\(\mathfrak p_p\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L335" aria-label="View ZInQ.RouteK.Redei.ramSet in Lean source" title="View ZInQ.RouteK.Redei.ramSet in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L345" aria-label="View ZInQ.RouteK.Redei.ramIdeal in Lean source" title="View ZInQ.RouteK.Redei.ramIdeal in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L337" aria-label="View ZInQ.RouteK.Redei.exists_maximal_liesOver in Lean source" title="View ZInQ.RouteK.Redei.exists_maximal_liesOver in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L348" aria-label="View ZInQ.RouteK.Redei.ramIdeal_isMaximal in Lean source" title="View ZInQ.RouteK.Redei.ramIdeal_isMaximal in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L352" aria-label="View ZInQ.RouteK.Redei.ramIdeal_liesOver in Lean source" title="View ZInQ.RouteK.Redei.ramIdeal_liesOver in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L358" aria-label="View ZInQ.RouteK.Redei.prime_of_mem_ramSet in Lean source" title="View ZInQ.RouteK.Redei.prime_of_mem_ramSet in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L386" aria-label="View ZInQ.RouteK.Redei.ramIdeal_ne_bot in Lean source" title="View ZInQ.RouteK.Redei.ramIdeal_ne_bot in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L393" aria-label="View ZInQ.RouteK.Redei.ramIdeal_mem in Lean source" title="View ZInQ.RouteK.Redei.ramIdeal_mem in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L412" aria-label="View ZInQ.RouteK.Redei.mem_ramSet_of_mem_primeFactors in Lean source" title="View ZInQ.RouteK.Redei.mem_ramSet_of_mem_primeFactors in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/field/ramified-primes.md" aria-label="Edit the Markdown source for The ramified primes and the ideals $\mathfrak p_p$" title="Edit the Markdown source for The ramified primes and the ideals $\mathfrak p_p$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#ramified-primes" aria-label="Link to The ramified primes and the ideals pₚ" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Redei.ramSet ZInQ.RouteK.Redei.ramIdeal ZInQ.RouteK.Redei.exists_maximal_liesOver ZInQ.RouteK.Redei.ramIdeal_isMaximal ZInQ.RouteK.Redei.ramIdeal_liesOver ZInQ.RouteK.Redei.prime_of_mem_ramSet ZInQ.RouteK.Redei.ramIdeal_ne_bot ZInQ.RouteK.Redei.ramIdeal_mem ZInQ.RouteK.Redei.mem_ramSet_of_mem_primeFactors</div>
+<div class="bp-thmcontent">
+<p>For a natural number <span class="arithmatex">\(n\)</span>, let <span class="arithmatex">\(T_n\)</span> be the set of prime factors of <span class="arithmatex">\(n\)</span> (empty for <span class="arithmatex">\(n=0\)</span>) if
+<span class="arithmatex">\(n\equiv3\pmod4\)</span>, and that set together with <span class="arithmatex">\(2\)</span> otherwise; write <span class="arithmatex">\(t=|T_n|\)</span>. Every element of
+<span class="arithmatex">\(T_n\)</span> is prime, and every prime factor of <span class="arithmatex">\(n\)</span> lies in <span class="arithmatex">\(T_n\)</span>. Motivation: for odd squarefree <span class="arithmatex">\(n\)</span>,
+<span class="arithmatex">\(T_n\)</span> is the set of primes dividing the discriminant of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span>, and these are
+exactly the primes that ramify there.</p>
+<p>Now let <span class="arithmatex">\(n\ge1\)</span> and let <span class="arithmatex">\(\mathcal O\)</span> be the ring of integers of <span class="arithmatex">\(K=\mathbb Q(\sqrt{-n})\)</span>. Every
+prime <span class="arithmatex">\(p\)</span> has a maximal ideal of <span class="arithmatex">\(\mathcal O\)</span> lying over it, since <span class="arithmatex">\(\mathcal O\)</span> is integral over
+<span class="arithmatex">\(\mathbb Z\)</span>. For a prime <span class="arithmatex">\(p\)</span>, <span class="arithmatex">\(\mathfrak p_p\)</span> denotes a fixed choice of a maximal ideal of
+<span class="arithmatex">\(\mathcal O\)</span> lying over <span class="arithmatex">\(p\)</span>; for <span class="arithmatex">\(p\)</span> not prime, <span class="arithmatex">\(\mathfrak p_p=\mathcal O\)</span>. Thus for every prime
+<span class="arithmatex">\(p\)</span> the ideal <span class="arithmatex">\(\mathfrak p_p\)</span> is maximal and lies over <span class="arithmatex">\(p\)</span>, and <span class="arithmatex">\(\mathfrak p_p\ne0\)</span> for every
+natural number <span class="arithmatex">\(p\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ramSet : Finset ℕ := <span class="bp-lean-keyword">if</span> n % 4 = 3 <span class="bp-lean-keyword">then</span> n.primeFactors <span class="bp-lean-keyword">else</span> insert 2 n.primeFactors</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ramIdeal (p : ℕ) : Ideal O :=
+  <span class="bp-lean-keyword">if</span> hp : p.Prime <span class="bp-lean-keyword">then</span> Classical.choose (<a class="bp-lean-ref" href="#ramified-primes" data-lean-name="ZInQ.RouteK.Redei.exists_maximal_liesOver">exists_maximal_liesOver</a> (n := n) hp) <span class="bp-lean-keyword">else</span> ⊤</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_maximal_liesOver {p : ℕ} (hp : p.Prime) :
+    ∃ P : Ideal O, P.IsMaximal ∧ P.LiesOver (Ideal.span {(p : ℤ)})</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Redei.exists_maximal_liesOver">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_maximal_liesOver {p : ℕ} (hp : p.Prime) :
+    ∃ P : Ideal O, P.IsMaximal ∧ P.LiesOver (Ideal.span {(p : ℤ)})</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Redei/Primes.lean:337</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/redei-locators.html#step-2-primes">Step 2: primes</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 12</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#genus-class-number">The genus class number</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#prime-trichotomy">Split, inert and ramified primes</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../bits/index.html#kernel-conditions">The two kernel conditions agree</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../bits/index.html#primes-of-d-b">The primes of <span class="arithmatex">\(d_B\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#ideal-of-omega">The ideal <span class="arithmatex">\((\sqrt{-n})\)</span> is the product of the ramified odd primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#ramified-prime-ideals">The primes of the discriminant ramify</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../four-rank/index.html#four-rank-statement">The 4-rank statement</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../four-rank/index.html#number-of-genera">There are at least <span class="arithmatex">\(2^{t-1}\)</span> genera</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../four-rank/index.html#principal-genus">The principal genus theorem</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../four-rank/index.html#two-rank">The 2-rank of the class group</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../genus/index.html#ambiguous-class-map">The ambiguous class map <span class="arithmatex">\(\psi\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#split-primes">Split primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../genus/index.html#two-torsion-bound">A bound for the 2-torsion of the class group</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#redei-matrix">The Rédei matrix</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="redei/field/ramified-prime-ideals">
+<h4 class="bp-thmheading" id="ramified-prime-ideals">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The primes of the discriminant ramify</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L380" aria-label="View ZInQ.RouteK.Redei.ramIdeal_spec in Lean source" title="View ZInQ.RouteK.Redei.ramIdeal_spec in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L274" aria-label="View ZInQ.RouteK.Redei.mem_span_of_mul_self_mem in Lean source" title="View ZInQ.RouteK.Redei.mem_span_of_mul_self_mem in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L292" aria-label="View ZInQ.RouteK.Redei.ramified_of_dvd in Lean source" title="View ZInQ.RouteK.Redei.ramified_of_dvd in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L311" aria-label="View ZInQ.RouteK.Redei.ramified_two in Lean source" title="View ZInQ.RouteK.Redei.ramified_two in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L366" aria-label="View ZInQ.RouteK.Redei.ramIdeal_sq in Lean source" title="View ZInQ.RouteK.Redei.ramIdeal_sq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L397" aria-label="View ZInQ.RouteK.Redei.eq_ramIdeal_of_liesOver in Lean source" title="View ZInQ.RouteK.Redei.eq_ramIdeal_of_liesOver in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L404" aria-label="View ZInQ.RouteK.Redei.smul_ramIdeal in Lean source" title="View ZInQ.RouteK.Redei.smul_ramIdeal in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/field/ramified-prime-ideals.md" aria-label="Edit the Markdown source for The primes of the discriminant ramify" title="Edit the Markdown source for The primes of the discriminant ramify"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#ramified-prime-ideals" aria-label="Link to The primes of the discriminant ramify" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Redei.ramIdeal_spec ZInQ.RouteK.Redei.mem_span_of_mul_self_mem ZInQ.RouteK.Redei.ramified_of_dvd ZInQ.RouteK.Redei.ramified_two ZInQ.RouteK.Redei.ramIdeal_sq ZInQ.RouteK.Redei.eq_ramIdeal_of_liesOver ZInQ.RouteK.Redei.smul_ramIdeal</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(n\)</span> be odd and squarefree and <span class="arithmatex">\(p\in T_n\)</span>. Then <span class="arithmatex">\(\mathfrak p_p\)</span> is maximal,
+<span class="arithmatex">\(\mathfrak p_p^2=p\mathcal O\)</span> and <span class="arithmatex">\(N(\mathfrak p_p)=p\)</span>. Moreover <span class="arithmatex">\(\mathfrak p_p\)</span> is the only prime
+ideal of <span class="arithmatex">\(\mathcal O\)</span> lying over <span class="arithmatex">\(p\)</span>, and every automorphism of <span class="arithmatex">\(K\)</span> fixes <span class="arithmatex">\(\mathfrak p_p\)</span>.</p>
+<p>These rest on the following, for <span class="arithmatex">\(n\ge1\)</span>:</p>
+<ul>
+<li>if <span class="arithmatex">\(n\)</span> is squarefree and <span class="arithmatex">\(p\)</span> is a prime dividing <span class="arithmatex">\(n\)</span>, every maximal ideal <span class="arithmatex">\(P\)</span> over <span class="arithmatex">\(p\)</span> has
+  <span class="arithmatex">\(P^2=p\mathcal O\)</span>;</li>
+<li>if <span class="arithmatex">\(n\equiv1\pmod4\)</span>, every maximal ideal <span class="arithmatex">\(P\)</span> over <span class="arithmatex">\(2\)</span> has <span class="arithmatex">\(P^2=2\mathcal O\)</span>;</li>
+<li>if <span class="arithmatex">\(P\)</span> is a maximal ideal over a prime <span class="arithmatex">\(p\)</span> with <span class="arithmatex">\(P^2\ne p\mathcal O\)</span>, then for <span class="arithmatex">\(x\in\mathcal O\)</span>,
+  <span class="arithmatex">\(x^2\in p\mathcal O\)</span> implies <span class="arithmatex">\(x\in p\mathcal O\)</span>.</li>
+</ul>
+<p><strong>Proof sketch.</strong> For the last item, <span class="arithmatex">\(P\)</span> is split or inert. If it is split, <span class="arithmatex">\(x\)</span> lies in the prime
+ideals <span class="arithmatex">\(P\)</span> and <span class="arithmatex">\(\sigma P\)</span>, which both contain <span class="arithmatex">\(p\mathcal O\)</span>; they are distinct maximal ideals, so
+coprime, and <span class="arithmatex">\(x\in P\cap\sigma P=P\cdot\sigma P=p\mathcal O\)</span>. If it is inert, <span class="arithmatex">\(p\mathcal O=P\)</span> is
+prime.</p>
+<ul>
+<li>For <span class="arithmatex">\(p\mid n\)</span>: <span class="arithmatex">\(\omega^2=-n\in p\mathcal O\)</span>. If <span class="arithmatex">\(P^2\ne p\mathcal O\)</span>, then <span class="arithmatex">\(\omega=py\)</span>, and taking
+  norms gives <span class="arithmatex">\(n=p^2N(y)\)</span>, contradicting squarefreeness.</li>
+<li>For <span class="arithmatex">\(n=4c+1\)</span>: <span class="arithmatex">\((1+\omega)^2=2(\omega-2c)\in2\mathcal O\)</span>. If <span class="arithmatex">\(P^2\ne2\mathcal O\)</span>, then
+  <span class="arithmatex">\(1+\omega=2y\)</span>, and taking norms gives <span class="arithmatex">\(1+n=4N(y)\)</span>, but <span class="arithmatex">\(1+n=4c+2\)</span>.</li>
+</ul>
+<p>An element <span class="arithmatex">\(p\in T_n\)</span> divides <span class="arithmatex">\(n\)</span>, or is <span class="arithmatex">\(2\)</span> with <span class="arithmatex">\(n\not\equiv3\pmod4\)</span>, that is, with
+<span class="arithmatex">\(n\equiv1\pmod4\)</span> as <span class="arithmatex">\(n\)</span> is odd. So <span class="arithmatex">\(\mathfrak p_p^2=p\mathcal O\)</span>, and then <span class="arithmatex">\(N(\mathfrak p_p)=p\)</span>. A
+prime ideal <span class="arithmatex">\(Q\)</span> over <span class="arithmatex">\(p\)</span> contains <span class="arithmatex">\(p\mathcal O=\mathfrak p_p^2\)</span>, so it contains the maximal ideal
+<span class="arithmatex">\(\mathfrak p_p\)</span> and equals it. For an automorphism <span class="arithmatex">\(\tau\)</span>,
+<span class="arithmatex">\(\mathfrak p_p^2=p\mathcal O\subseteq\tau\mathfrak p_p\)</span>, so <span class="arithmatex">\(\tau\mathfrak p_p=\mathfrak p_p\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> ramIdeal_spec (hn : Odd n) (hsq : Squarefree n) {p : ℕ} (hp : p ∈ <a class="bp-lean-ref" href="#ramified-primes" data-lean-name="ZInQ.RouteK.Redei.ramSet">ramSet</a> n) :
+    (<a class="bp-lean-ref" href="#ramified-primes" data-lean-name="ZInQ.RouteK.Redei.ramIdeal">ramIdeal</a> n p).IsMaximal ∧ <a class="bp-lean-ref" href="#ramified-primes" data-lean-name="ZInQ.RouteK.Redei.ramIdeal">ramIdeal</a> n p ^ 2 = Ideal.span {(p : O)} ∧
+      Ideal.absNorm (<a class="bp-lean-ref" href="#ramified-primes" data-lean-name="ZInQ.RouteK.Redei.ramIdeal">ramIdeal</a> n p) = p</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> mem_span_of_mul_self_mem (σ : K ≃ₐ[ℚ] K) (hσ : σ ≠ 1) {p : ℕ} (hp : p.Prime)
+    (P : Ideal O) [P.IsMaximal] [P.LiesOver (Ideal.span {(p : ℤ)})]
+    (hnr : ¬ P ^ 2 = Ideal.span {(p : O)}) {x : O} (hx : x * x ∈ Ideal.span {(p : O)}) :
+    x ∈ Ideal.span {(p : O)}</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> ramified_of_dvd (hsq : Squarefree n) {p : ℕ} (hp : p.Prime) (hpn : p ∣ n)
+    (P : Ideal O) [P.IsMaximal] [P.LiesOver (Ideal.span {(p : ℤ)})] :
+    P ^ 2 = Ideal.span {(p : O)}</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Redei.ramSet">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ramSet : Finset ℕ := <span class="bp-lean-keyword">if</span> n % 4 = 3 <span class="bp-lean-keyword">then</span> n.primeFactors <span class="bp-lean-keyword">else</span> insert 2 n.primeFactors</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Redei/Primes.lean:335</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Redei.ramIdeal">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ramIdeal (p : ℕ) : Ideal O :=
+  <span class="bp-lean-keyword">if</span> hp : p.Prime <span class="bp-lean-keyword">then</span> Classical.choose (exists_maximal_liesOver (n := n) hp) <span class="bp-lean-keyword">else</span> ⊤</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Redei/Primes.lean:345</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/redei-locators.html#step-2-primes">Step 2: primes</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 5</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#ramified-primes">The ramified primes and the ideals <span class="arithmatex">\(\mathfrak p_p\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#conjugation">The conjugation of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#prime-trichotomy">Split, inert and ramified primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#ramified-primes-divide">Ramified primes divide the discriminant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#integers-and-norms">Integers and norms of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#ideal-of-omega">The ideal <span class="arithmatex">\((\sqrt{-n})\)</span> is the product of the ramified odd primes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#characters-on-ambiguous-classes">The genus characters on the ambiguous classes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#invariant-ideals">Classes of invariant ideals are ambiguous</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#norms-are-squares">Norms are squares modulo the primes of <span class="arithmatex">\(n\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#ramified-classes">The classes of the ramified primes</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="redei/field/ideal-of-omega">
+<h4 class="bp-thmheading" id="ideal-of-omega">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The ideal <span class="arithmatex">\((\sqrt{-n})\)</span> is the product of the ramified odd primes</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L434" aria-label="View ZInQ.RouteK.Redei.span_omega in Lean source" title="View ZInQ.RouteK.Redei.span_omega in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L419" aria-label="View ZInQ.RouteK.Redei.omegaO_mem_ramIdeal in Lean source" title="View ZInQ.RouteK.Redei.omegaO_mem_ramIdeal in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/field/ideal-of-omega.md" aria-label="Edit the Markdown source for The ideal $(\sqrt{-n})$ is the product of the ramified odd primes" title="Edit the Markdown source for The ideal $(\sqrt{-n})$ is the product of the ramified odd primes"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#ideal-of-omega" aria-label="Link to The ideal (√(-n)) is the product of the ramified odd primes" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Redei.span_omega ZInQ.RouteK.Redei.omegaO_mem_ramIdeal</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(n\)</span> be odd and squarefree. Then
+$<span class="arithmatex">\((\omega)=\prod_{p\mid n}\mathfrak p_p\)</span>$
+in <span class="arithmatex">\(\mathcal O\)</span>, the product over the primes <span class="arithmatex">\(p\)</span> dividing <span class="arithmatex">\(n\)</span>. This rests on the following, for
+every <span class="arithmatex">\(n\ge1\)</span>: if <span class="arithmatex">\(p\)</span> is a prime dividing <span class="arithmatex">\(n\)</span>, then <span class="arithmatex">\(\omega\in\mathfrak p_p\)</span>.</p>
+<p><strong>Proof sketch.</strong> For a prime <span class="arithmatex">\(p\mid n\)</span>, <span class="arithmatex">\(\omega^2=-n\)</span> lies in <span class="arithmatex">\(\mathfrak p_p\)</span>, which contains <span class="arithmatex">\(p\)</span>,
+and <span class="arithmatex">\(\mathfrak p_p\)</span> is prime, so <span class="arithmatex">\(\omega\in\mathfrak p_p\)</span>; that is, <span class="arithmatex">\(\mathfrak p_p\)</span> divides
+<span class="arithmatex">\((\omega)\)</span>. For distinct primes <span class="arithmatex">\(p,q\mid n\)</span> the maximal ideals <span class="arithmatex">\(\mathfrak p_p\)</span> and <span class="arithmatex">\(\mathfrak p_q\)</span>
+are distinct (if they were equal, <span class="arithmatex">\(q\in\mathfrak p_p\)</span> would give <span class="arithmatex">\(p\mid q\)</span>), so they are pairwise
+coprime, and their product divides <span class="arithmatex">\((\omega)\)</span>. The norms agree:
+<span class="arithmatex">\(\prod_{p\mid n}N(\mathfrak p_p)=\prod_{p\mid n}p=n=N(\omega)\ne0\)</span>, as <span class="arithmatex">\(n\)</span> is squarefree. An ideal
+dividing an ideal of the same nonzero norm equals it.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> span_omega (hn : Odd n) (hsq : Squarefree n) :
+    Ideal.span {(⟨QuadraticAlgebra.omega, <a class="bp-lean-ref" href="#integers-and-norms" data-lean-name="ZInQ.RouteK.Redei.isIntegral_omega">isIntegral_omega</a> n⟩ : O)} =
+      ∏ p ∈ n.primeFactors, <a class="bp-lean-ref" href="#ramified-primes" data-lean-name="ZInQ.RouteK.Redei.ramIdeal">ramIdeal</a> n p</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> omegaO_mem_ramIdeal {p : ℕ} (hp : p ∈ n.primeFactors) : <a class="bp-lean-ref" href="#integers-and-norms" data-lean-name="ZInQ.RouteK.Redei.omegaO">omegaO</a> n ∈ <a class="bp-lean-ref" href="#ramified-primes" data-lean-name="ZInQ.RouteK.Redei.ramIdeal">ramIdeal</a> n p</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Redei.isIntegral_omega">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> isIntegral_omega : IsIntegral ℤ ω</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Redei/Field.lean:49</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Redei.ramIdeal">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ramIdeal (p : ℕ) : Ideal O :=
+  <span class="bp-lean-keyword">if</span> hp : p.Prime <span class="bp-lean-keyword">then</span> Classical.choose (exists_maximal_liesOver (n := n) hp) <span class="bp-lean-keyword">else</span> ⊤</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Redei/Primes.lean:345</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Redei.omegaO">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> omegaO : O := ⟨ω, isIntegral_omega n⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Redei/Field.lean:58</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_7">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/redei-locators.html#step-2-primes">Step 2: primes</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#ramified-primes">The ramified primes and the ideals <span class="arithmatex">\(\mathfrak p_p\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#integers-and-norms">Integers and norms of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#ramified-prime-ideals">The primes of the discriminant ramify</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#prime-trichotomy">Split, inert and ramified primes</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#characters-on-ambiguous-classes">The genus characters on the ambiguous classes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#ramified-classes">The classes of the ramified primes</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="redei/field/ideal-times-conjugate">
+<h4 class="bp-thmheading" id="ideal-times-conjugate">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">An ideal times its conjugate is generated by its norm</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L481" aria-label="View ZInQ.RouteK.Redei.mul_conj_ideal in Lean source" title="View ZInQ.RouteK.Redei.mul_conj_ideal in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L470" aria-label="View ZInQ.RouteK.Redei.mul_conj_prime in Lean source" title="View ZInQ.RouteK.Redei.mul_conj_prime in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/RouteK/Redei/Primes.lean#L501" aria-label="View ZInQ.RouteK.Redei.absNorm_smul in Lean source" title="View ZInQ.RouteK.Redei.absNorm_smul in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/redei/field/ideal-times-conjugate.md" aria-label="Edit the Markdown source for An ideal times its conjugate is generated by its norm" title="Edit the Markdown source for An ideal times its conjugate is generated by its norm"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#ideal-times-conjugate" aria-label="Link to An ideal times its conjugate is generated by its norm" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.RouteK.Redei.mul_conj_ideal ZInQ.RouteK.Redei.mul_conj_prime ZInQ.RouteK.Redei.absNorm_smul</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(n\ge1\)</span>, <span class="arithmatex">\(\mathcal O\)</span> the ring of integers of <span class="arithmatex">\(K=\mathbb Q(\sqrt{-n})\)</span> and <span class="arithmatex">\(\sigma\)</span> the
+nontrivial automorphism. Every ideal <span class="arithmatex">\(I\)</span> of <span class="arithmatex">\(\mathcal O\)</span> satisfies
+$<span class="arithmatex">\(I\cdot\sigma(I)=\bigl(N(I)\bigr),\)</span>$
+the principal ideal generated by the natural number <span class="arithmatex">\(N(I)\)</span>. Consequently <span class="arithmatex">\(N(\tau I)=N(I)\)</span> for
+every automorphism <span class="arithmatex">\(\tau\)</span> of <span class="arithmatex">\(K\)</span> and every ideal <span class="arithmatex">\(I\)</span>.</p>
+<p><strong>Proof sketch.</strong> Induction on the factorization of <span class="arithmatex">\(I\)</span> into prime ideals. For <span class="arithmatex">\(I=0\)</span> both sides
+are <span class="arithmatex">\(0\)</span>, and for <span class="arithmatex">\(I=\mathcal O\)</span> both are <span class="arithmatex">\(\mathcal O\)</span>. For a nonzero prime <span class="arithmatex">\(P\)</span>, lying over a prime
+<span class="arithmatex">\(p\)</span>, the trichotomy gives <span class="arithmatex">\(P\cdot\sigma P=p\mathcal O=(N(P))\)</span> when <span class="arithmatex">\(P\)</span> is split or ramified, and
+<span class="arithmatex">\(P\cdot\sigma P=P^2=p^2\mathcal O=(N(P))\)</span> when it is inert. Both sides are multiplicative in <span class="arithmatex">\(I\)</span>.
+For the norms, the case <span class="arithmatex">\(\tau=1\)</span> is clear, and <span class="arithmatex">\(N(I)=0\)</span> means <span class="arithmatex">\(I=0=\tau I\)</span>. Otherwise
+<span class="arithmatex">\(\tau=\sigma\)</span> and <span class="arithmatex">\(N(I)N(\sigma I)=N(N(I)\mathcal O)=N(I)^2\)</span>, and <span class="arithmatex">\(N(I)\ne0\)</span> can be cancelled.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> mul_conj_ideal (σ : K ≃ₐ[ℚ] K) (hσ : σ ≠ 1) (I : Ideal O) :
+    I * (σ • I) = Ideal.span {((Ideal.absNorm I : ℕ) : O)}</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> mul_conj_prime (σ : K ≃ₐ[ℚ] K) (hσ : σ ≠ 1) (P : Ideal O) [P.IsPrime] (hP : P ≠ ⊥) :
+    P * (σ • P) = Ideal.span {((Ideal.absNorm P : ℕ) : O)}</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> absNorm_smul (σ : K ≃ₐ[ℚ] K) (I : Ideal O) :
+    Ideal.absNorm (σ • I) = Ideal.absNorm I</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_8">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/redei-locators.html#step-2-primes">Step 2: primes</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#conjugation">The conjugation of <span class="arithmatex">\(\mathbb Q(\sqrt{-n})\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#prime-trichotomy">Split, inert and ramified primes</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#hilbert-90">Hilbert 90 for ideals</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../genus/index.html#two-torsion">The ambiguous classes fill <span class="arithmatex">\(\mathrm{Cl}[2]\)</span></a></span></div>
+</div>
+</details>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../../dependencies/index.json" data-graph-src="../../../dependencies/scopes/redei/field.json" data-page-href="index.html" data-scope-id="redei/field">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

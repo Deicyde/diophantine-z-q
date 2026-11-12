@@ -1,0 +1,2346 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../value-templates/index.html">
+      
+      
+        <link rel="next" href="../local-tests/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Approximation for every fixed shift - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Approximation for every fixed shift
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../main/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_7" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_7" id="__nav_2_1_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Assembly and the ordinary-value relation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../value-templates/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The value templates and their relations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Approximation for every fixed shift
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../local-tests/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The six local tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="assembly/approximation" data-page-title="Approximation for every fixed shift">
+<h1 id="approximation-for-every-fixed-shift">Approximation for every fixed shift</h1>
+<p>The precision computation of the compiler chapter decides, for five integers
+<span class="arithmatex">\((n,\kappa,a,l,j)\)</span> given by their signed encodings, whether <span class="arithmatex">\(n\notin\mathcal C\)</span>, <span class="arithmatex">\(\kappa\ne0\)</span>, <span class="arithmatex">\(a,l\ge1\)</span>,
+<span class="arithmatex">\(j=na\)</span> and the two strict tests <span class="arithmatex">\(|r(a,j)-n|&lt;\epsilon_l\)</span> and <span class="arithmatex">\(4\epsilon_l&lt;4^{-B(n,\kappa)}\)</span> hold. All
+quantities are exact rationals and integers. The compiler chapter defines the
+<a href="../../compiler/natural/precision/index.html#precision-relation">precision relation</a>, the
+<a href="../../compiler/natural/precision/index.html#z-coordinate">local parameter and the window quantities</a>,
+the <a href="../../compiler/natural/precision/index.html#signed-encoding">signed encoding</a> and the
+<a href="../../compiler/natural/precision/index.html#precision-height-constant">precision height constant</a>, and
+proves that this constant is the six-contact constant <span class="arithmatex">\(H_6(S_{\rm ht})\)</span>, so that its bound is the
+<span class="arithmatex">\(B(n,\kappa)\)</span> of the ordinary-value relation
+(<a href="../../compiler/natural/precision/index.html#precision-height-constant-value">identification</a>).
+Its admissibility clause is automatic for nonzero indices, by the
+<a href="../../model/descent/index.html#nonzero-multiples">nonzero-multiples lemma</a>.</p>
+<p>Close chooses codes <span class="arithmatex">\(A,L,J\)</span>, links the five signed codes to the precision inputs in the order
+<span class="arithmatex">\((n,\kappa,a,l,j)\)</span> and imposes <span class="arithmatex">\(|t-r(a,j)|&lt;\epsilon_l\)</span> on the same coordinates.</p>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../compiler/natural/precision/index.html#precision-relation"> </a></p>
+<p><a href="../../compiler/natural/precision/index.html#z-coordinate"> </a></p>
+<p><a href="../../compiler/natural/precision/index.html#signed-encoding"> </a></p>
+<p><a href="../../compiler/natural/precision/index.html#precision-height-constant"> </a></p>
+<p><a href="../../compiler/natural/precision/index.html#precision-height-constant-value"> </a></p>
+<p><a href="../../model/descent/index.html#nonzero-multiples"> </a></p>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="assembly/approximation/close-relation">
+<h4 class="bp-thmheading" id="close-relation">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The relation Close</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Close/Relation.lean#L74" aria-label="View ZInQ.Assembly.close_relation_iff in Lean source" title="View ZInQ.Assembly.close_relation_iff in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/assembly/approximation/close-relation.md" aria-label="Edit the Markdown source for The relation Close" title="Edit the Markdown source for The relation Close"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#close-relation" aria-label="Link to The relation Close" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Assembly.close_relation_iff</div>
+<div class="bp-thmcontent">
+<p>Assume the six-contact estimate, pole completeness and the twenty-two-prime
+pattern. Then for all <span class="arithmatex">\(N,K\in\mathbb Q^5\)</span> and <span class="arithmatex">\(t\in\mathbb Q\)</span>,
+<span class="arithmatex">\(\mathrm{Rel}_{\mathtt{close}}(N,K,t)\)</span> holds exactly when there are <span class="arithmatex">\(n,\kappa,a,l\in\mathbb Z\)</span> with
+$<span class="arithmatex">\(N=\iota(n),\quad K=\iota(\kappa),\quad\operatorname{Prec}(n,\kappa,a,l,na),\quad |t-r(a,na)|&lt;\epsilon_l ,\)</span>$
+where, for integers <span class="arithmatex">\(n,\kappa,a,l,j\)</span>, <span class="arithmatex">\(\operatorname{Prec}(n,\kappa,a,l,j)\)</span> abbreviates the precision
+relation <span class="arithmatex">\(\operatorname{accepts}(\operatorname{enc}n,\operatorname{enc}\kappa,\operatorname{enc}a,\operatorname{enc}l,\operatorname{enc}j)\)</span>
+at the signed encodings, and <span class="arithmatex">\(r(a,j)\)</span> and <span class="arithmatex">\(\epsilon_l\)</span> are the quantities of the local parameter
+<span class="arithmatex">\(z\)</span>, defined because <span class="arithmatex">\(\operatorname{Prec}\)</span> includes the admissibility of <span class="arithmatex">\(l,a,j\)</span>.
+This is the manuscript's <span class="arithmatex">\(\operatorname{Close}(N,\mathcal K,t)\)</span>: choose <span class="arithmatex">\(A,L,J\)</span>, link the five
+signed codes <span class="arithmatex">\(N,\mathcal K,A,L,J\)</span> to the precision inputs in the order <span class="arithmatex">\((n,\kappa,a,l,j)\)</span>, and
+impose <span class="arithmatex">\(|t-r(a,j)|&lt;\epsilon_l\)</span> on the same coordinates.</p>
+<p><strong>Proof sketch.</strong> By the relations of the outer recipes, <span class="arithmatex">\(\mathrm{Rel}_{\mathtt{close}}(N,K,t)\)</span>
+holds exactly when there are <span class="arithmatex">\(A,L,J,E_0,\dots,E_4\)</span> with five signed-encoding relations, the
+precision relation and the coordinate window. Input C is used as a chain of three
+equivalences. Let <span class="arithmatex">\(C\)</span> be the natural precision polynomial. For all <span class="arithmatex">\(E_0,\dots,E_4\in\mathbb Q^5\)</span>:</p>
+<ul>
+<li>by the semantics of the rational translation (which uses the multiplication
+  statement M and so the three hypotheses of M), <span class="arithmatex">\(\mathrm{Rel}_{\mathtt{precision}}(E_0,\dots,E_4)\)</span> holds
+  exactly when there is <span class="arithmatex">\(c\in\mathbb N^5\)</span> with <span class="arithmatex">\(E_i=\iota(c_i)\)</span> for <span class="arithmatex">\(0\le i\le4\)</span> and
+  <span class="arithmatex">\(C(c,\mathbf z)=0\)</span> for some <span class="arithmatex">\(\mathbf z\in\mathbb N^{1305806}\)</span>;</li>
+<li>by the semantics of the natural precision polynomial, the existence of such <span class="arithmatex">\(\mathbf z\)</span> is
+  <span class="arithmatex">\(\operatorname{accepts}(c)\)</span>;</li>
+<li>since <span class="arithmatex">\(\operatorname{enc}\circ\operatorname{dec}\)</span> is the identity, <span class="arithmatex">\(\operatorname{accepts}(c)\)</span> is
+  <span class="arithmatex">\(\operatorname{Prec}(\operatorname{dec}c_0,\dots,\operatorname{dec}c_4)\)</span>.</li>
+</ul>
+<p>Hence
+$<span class="arithmatex">\(\mathrm{Rel}_{\mathtt{precision}}(E_0,\dots,E_4)\iff\exists\,c\in\mathbb N^5:\ E_i=\iota(c_i)\ (0\le i\le4)\ \text{and}\
+\operatorname{Prec}(\operatorname{dec}c_0,\dots,\operatorname{dec}c_4).\)</span>$</p>
+<p>(<span class="arithmatex">\(\Rightarrow\)</span>) The signed encodings give <span class="arithmatex">\(\Sigma_i=\iota(m_i)\)</span> and <span class="arithmatex">\(E_i=\iota(\operatorname{enc}m_i)\)</span> with
+<span class="arithmatex">\((m_0,\dots,m_4)=(n,\kappa,a,l,j)\)</span>. By input C and injectivity of <span class="arithmatex">\(\iota\)</span>, <span class="arithmatex">\(c_i=\operatorname{enc}m_i\)</span>, so
+<span class="arithmatex">\(\operatorname{Prec}(n,\kappa,a,l,j)\)</span>, in particular <span class="arithmatex">\(j=na\)</span>. The coordinate window gives indices
+<span class="arithmatex">\(a',l',j'\)</span> with <span class="arithmatex">\(A=\iota(a')\)</span> etc. and <span class="arithmatex">\(|t-r(a',j')|&lt;\epsilon_{l'}\)</span>; injectivity gives
+<span class="arithmatex">\((a',l',j')=(a,l,j)\)</span>.</p>
+<p>(<span class="arithmatex">\(\Leftarrow\)</span>) Put <span class="arithmatex">\(j=na\)</span>, <span class="arithmatex">\(A=\iota(a)\)</span>, <span class="arithmatex">\(L=\iota(l)\)</span>, <span class="arithmatex">\(J=\iota(j)\)</span> and <span class="arithmatex">\(E_i=\iota(\operatorname{enc}m_i)\)</span>. The
+signed encodings hold, the precision relation holds by input C since <span class="arithmatex">\(\operatorname{dec}\circ\operatorname{enc}\)</span>
+is the identity, and the coordinate window holds because <span class="arithmatex">\(a,l\ge1\)</span> are nonzero.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> close_relation_iff
+    (hM : <a class="bp-lean-ref" href="../../compiler/translation/index.html#natural-code-semantics" data-lean-name="ZInQ.Translation.MultiplicationExact">MultiplicationExact</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Polynomial.lean#L35" data-lean-name="ZInQ.Syntax.specConstructors">specConstructors</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Constants/Fixed.lean#L149" data-lean-name="ZInQ.Syntax.FixedConst">FixedConst</a>.cstar.value <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Constants/Fixed.lean#L149" data-lean-name="ZInQ.Syntax.FixedConst">FixedConst</a>.ell.value
+      <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Constants/Fixed.lean#L149" data-lean-name="ZInQ.Syntax.FixedConst">FixedConst</a>.T.value)
+    (N K : Fin 5 → ℚ) (t : ℚ) :
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Values/Outer.lean#L28" data-lean-name="ZInQ.Assembly.ValRel">ValRel</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L74" data-lean-name="ZInQ.Syntax.getEx">getEx</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Close/Relation.lean#L34" data-lean-name="ZInQ.Assembly.closeSpecLib">closeSpecLib</a> 2) (List.ofFn N ++ (List.ofFn K ++ [t])) ↔
+      ∃ n κ a l : ℤ, N = <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> n ∧ K = <a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> κ ∧
+        <a class="bp-lean-ref" href="../../compiler/natural/precision/index.html#precision-relation" data-lean-name="ZInQ.Compiler.Precision.accepts">accepts</a> ![<a class="bp-lean-ref" href="../../compiler/natural/precision/index.html#signed-encoding" data-lean-name="ZInQ.Compiler.Precision.enc">enc</a> n, <a class="bp-lean-ref" href="../../compiler/natural/precision/index.html#signed-encoding" data-lean-name="ZInQ.Compiler.Precision.enc">enc</a> κ, <a class="bp-lean-ref" href="../../compiler/natural/precision/index.html#signed-encoding" data-lean-name="ZInQ.Compiler.Precision.enc">enc</a> a, <a class="bp-lean-ref" href="../../compiler/natural/precision/index.html#signed-encoding" data-lean-name="ZInQ.Compiler.Precision.enc">enc</a> l, <a class="bp-lean-ref" href="../../compiler/natural/precision/index.html#signed-encoding" data-lean-name="ZInQ.Compiler.Precision.enc">enc</a> (n * a)] ∧
+        |t - <a class="bp-lean-ref" href="../../compiler/natural/precision/index.html#z-coordinate" data-lean-name="ZInQ.Compiler.Precision.rRatio">rRatio</a> a (n * a)| &lt; <a class="bp-lean-ref" href="../../compiler/natural/precision/index.html#z-coordinate" data-lean-name="ZInQ.Compiler.Precision.epsIdx">epsIdx</a> l</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Translation.MultiplicationExact">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> MultiplicationExact (I : Constructors E) (cstar ell T : ℤ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ p q r : Fin 5 → ℚ, (multiplyTemplate I cstar ell T).Rel (Fin.append (Fin.append p q) r) ↔
+    ∃ a b : ℤ, p = iota a ∧ q = iota b ∧ r = iota (a * b)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Translation/NaturalCode.lean:30</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.specConstructors">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> specConstructors : Constructors (FixedExpr FixedConst) :=
+  ⟨FixedConst.fixedVal, psiComponent, guardPoly⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Polynomial.lean:35</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.FixedConst">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">inductive</span> FixedConst
+  | P0 | W | Hproduct | Hmax | Ns | M | cstar | ell | F | D | G0 | E0 | R | Q | Bcm | Ccm
+  | Aheight | T
+  <span class="bp-lean-keyword">deriving</span> DecidableEq, Repr</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:149</p>
+</div>
+<div data-lean-name="ZInQ.Assembly.ValRel">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ValRel (τ : ExPoly) (l : List ℚ) : <span class="bp-lean-keyword">Prop</span> := τ.Rel <span class="bp-lean-keyword">fun</span> k =&gt; l.getD k 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Assembly/Values/Outer.lean:28</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.getEx">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> getEx (lib : List ExPoly) (t : ℕ) : ExPoly := lib.getD t ExPoly.empty</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Nodes.lean:74</p>
+</div>
+<div data-lean-name="ZInQ.Assembly.closeSpecLib">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">abbrev</span> closeSpecLib : List ExPoly :=
+  specLib specConstructors FixedConst.cstar.value FixedConst.ell.value FixedConst.T.value
+    (Compiler.Universal.c3 : ℤ) (precisionCircuitOf (Compiler.Universal.c3 : ℤ))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Assembly/Close/Relation.lean:34</p>
+</div>
+<div data-lean-name="ZInQ.iota">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> iota (n : ℤ) : Fin 5 → ℚ := pointCode (n • genP0)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Codes.lean:27</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Precision.accepts">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> accepts (c : Fin 5 → ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  acceptsInt (dec (c 0)) (dec (c 1)) (dec (c 2)) (dec (c 3)) (dec (c 4))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Precision/Relation.lean:44</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Precision.enc">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> enc (n : ℤ) : ℕ := <span class="bp-lean-keyword">if</span> 0 ≤ n <span class="bp-lean-keyword">then</span> 2 * n.toNat <span class="bp-lean-keyword">else</span> 2 * (-n).toNat - 1</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Precision/Encoding.lean:16</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Precision.rRatio">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> rRatio (a j : ℤ) : ℚ := (zIdx j / zIdx a).re</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Precision/ZCoordinate.lean:66</p>
+</div>
+<div data-lean-name="ZInQ.Compiler.Precision.epsIdx">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> epsIdx (k : ℤ) : ℚ := |(zIdx k).re| + |(zIdx k).im|</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Precision/ZCoordinate.lean:63</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/assembly-locators.html#section-111-approximation">Section 11.1 approximation</a></li>
+<li><a href="../../../sources/assembly-locators.html#section-10-precision-predicate">Section 10 precision predicate</a></li>
+<li><a href="../../../sources/assembly-locators.html#saved-specification-outer-recipes">Saved specification outer recipes</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/assembly-locators.html#section-111-approximation"> </a></p>
+<p><a href="../../../sources/assembly-locators.html#section-10-precision-predicate"> </a></p>
+<p><a href="../../../sources/assembly-locators.html#saved-specification-outer-recipes"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 15 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/natural/precision/index.html#precision-relation">The precision relation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/natural/precision/index.html#signed-encoding">The signed encoding of integers</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/natural/precision/index.html#z-coordinate">The local parameter z on multiples of the generator</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/recipes/index.html#outer-recipes">The outer composition recipes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/index.html#point-codes">Point codes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#six-contact-estimate">The six-contact height estimate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#pole-completeness">Pole completeness</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#prime-pattern">The twenty-two-prime pattern</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../value-templates/index.html#outer-recipe-relations">Relations of the outer recipes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../value-templates/index.html#signed-encoding-semantics">Semantics of the signed encoding</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../value-templates/index.html#close-coordinates-semantics">Semantics of the coordinate window</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../compiler/translation/index.html#rational-translation">Semantics of the rational translation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../compiler/natural/index.html#natural-polynomial-semantics">Semantics of the natural precision polynomial</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../compiler/natural/precision/index.html#signed-encoding-bijection">The signed encoding is a bijection</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/descent/index.html#nonzero-multiples">Nonzero multiples of the generator</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#close-completeness">Completeness of Close for every fixed shift</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#close-soundness">Soundness of Close</a></span></div>
+</div>
+</details>
+</div>
+<p>Soundness is the triangle inequality: <span class="arithmatex">\(|t-n|&lt;2\epsilon_l&lt;4^{-B}/2&lt;e^{-B}\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="assembly/approximation/close-soundness">
+<h4 class="bp-thmheading" id="close-soundness">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Soundness of Close</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Close/Soundness.lean#L50" aria-label="View ZInQ.Assembly.close_sound in Lean source" title="View ZInQ.Assembly.close_sound in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/assembly/approximation/close-soundness.md" aria-label="Edit the Markdown source for Soundness of Close" title="Edit the Markdown source for Soundness of Close"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#close-soundness" aria-label="Link to Soundness of Close" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Assembly.close_sound</div>
+<div class="bp-thmcontent">
+<p>Assume the six-contact estimate, pole completeness and the twenty-two-prime
+pattern. Let <span class="arithmatex">\(n,\kappa\in\mathbb Z\)</span> and <span class="arithmatex">\(t\in\mathbb Q\)</span>. If
+<span class="arithmatex">\(\mathrm{Rel}_{\mathtt{close}}(\iota(n),\iota(\kappa),t)\)</span>, then <span class="arithmatex">\(n\notin\mathcal C\)</span>, <span class="arithmatex">\(\kappa\ne0\)</span> and, in
+<span class="arithmatex">\(\mathbb R\)</span>,
+$<span class="arithmatex">\(|t-n|&lt;e^{-B(n,\kappa)} .\)</span>$</p>
+<p><strong>Proof sketch.</strong> The Close relation gives <span class="arithmatex">\(n',\kappa',a,l\)</span> with <span class="arithmatex">\(\iota(n')=\iota(n)\)</span>,
+<span class="arithmatex">\(\iota(\kappa')=\iota(\kappa)\)</span>, <span class="arithmatex">\(\operatorname{Prec}(n',\kappa',a,l,n'a)\)</span> and <span class="arithmatex">\(|t-r(a,n'a)|&lt;\epsilon_l\)</span>;
+injectivity of <span class="arithmatex">\(\iota\)</span> gives <span class="arithmatex">\(n'=n\)</span>, <span class="arithmatex">\(\kappa'=\kappa\)</span>. The precision relation contains
+<span class="arithmatex">\(n\notin\mathcal C\)</span>, <span class="arithmatex">\(\kappa\ne0\)</span>, <span class="arithmatex">\(|r(a,na)-n|&lt;\epsilon_l\)</span> and <span class="arithmatex">\(4\epsilon_l\cdot4^{B}&lt;1\)</span> with <span class="arithmatex">\(B=B(n,\kappa)\ge0\)</span>.
+By the triangle inequality,
+$<span class="arithmatex">\(|t-n|&lt;2\epsilon_l&lt;\tfrac12\,4^{-B}&lt;e^{-B},\)</span>$
+the last step because <span class="arithmatex">\((e/4)^B\le1&lt;2\)</span>. No height input is used here.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> close_sound
+    (hM : <a class="bp-lean-ref" href="../../compiler/translation/index.html#natural-code-semantics" data-lean-name="ZInQ.Translation.MultiplicationExact">MultiplicationExact</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Polynomial.lean#L35" data-lean-name="ZInQ.Syntax.specConstructors">specConstructors</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Constants/Fixed.lean#L149" data-lean-name="ZInQ.Syntax.FixedConst">FixedConst</a>.cstar.value <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Constants/Fixed.lean#L149" data-lean-name="ZInQ.Syntax.FixedConst">FixedConst</a>.ell.value
+      <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Constants/Fixed.lean#L149" data-lean-name="ZInQ.Syntax.FixedConst">FixedConst</a>.T.value)
+    (n κ : ℤ) (t : ℚ)
+    (h : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Values/Outer.lean#L28" data-lean-name="ZInQ.Assembly.ValRel">ValRel</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L74" data-lean-name="ZInQ.Syntax.getEx">getEx</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Close/Relation.lean#L34" data-lean-name="ZInQ.Assembly.closeSpecLib">closeSpecLib</a> 2) (List.ofFn (<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> n) ++ (List.ofFn (<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> κ) ++ [t]))) :
+    (n : ℚ) ∉ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Hypotheses/Height.lean#L84" data-lean-name="ZInQ.contactSet">contactSet</a> ∧ κ ≠ 0 ∧ |(t : ℝ) - n| &lt; Real.exp (-(bound n κ : ℝ))</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Translation.MultiplicationExact">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> MultiplicationExact (I : Constructors E) (cstar ell T : ℤ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ p q r : Fin 5 → ℚ, (multiplyTemplate I cstar ell T).Rel (Fin.append (Fin.append p q) r) ↔
+    ∃ a b : ℤ, p = iota a ∧ q = iota b ∧ r = iota (a * b)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Translation/NaturalCode.lean:30</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.specConstructors">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> specConstructors : Constructors (FixedExpr FixedConst) :=
+  ⟨FixedConst.fixedVal, psiComponent, guardPoly⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Polynomial.lean:35</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.FixedConst">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">inductive</span> FixedConst
+  | P0 | W | Hproduct | Hmax | Ns | M | cstar | ell | F | D | G0 | E0 | R | Q | Bcm | Ccm
+  | Aheight | T
+  <span class="bp-lean-keyword">deriving</span> DecidableEq, Repr</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:149</p>
+</div>
+<div data-lean-name="ZInQ.Assembly.ValRel">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ValRel (τ : ExPoly) (l : List ℚ) : <span class="bp-lean-keyword">Prop</span> := τ.Rel <span class="bp-lean-keyword">fun</span> k =&gt; l.getD k 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Assembly/Values/Outer.lean:28</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.getEx">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> getEx (lib : List ExPoly) (t : ℕ) : ExPoly := lib.getD t ExPoly.empty</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Nodes.lean:74</p>
+</div>
+<div data-lean-name="ZInQ.Assembly.closeSpecLib">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">abbrev</span> closeSpecLib : List ExPoly :=
+  specLib specConstructors FixedConst.cstar.value FixedConst.ell.value FixedConst.T.value
+    (Compiler.Universal.c3 : ℤ) (precisionCircuitOf (Compiler.Universal.c3 : ℤ))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Assembly/Close/Relation.lean:34</p>
+</div>
+<div data-lean-name="ZInQ.iota">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> iota (n : ℤ) : Fin 5 → ℚ := pointCode (n • genP0)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Codes.lean:27</p>
+</div>
+<div data-lean-name="ZInQ.contactSet">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> contactSet : Finset ℚ := {0, -15, -20, -24, -30, -60}</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/Height.lean:84</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/assembly-locators.html#section-111-approximation">Section 11.1 approximation</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/assembly-locators.html#section-111-approximation"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 9 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/natural/precision/index.html#precision-relation">The precision relation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/natural/precision/index.html#precision-height-constant-value">The precision constant is the six-contact constant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/recipes/index.html#outer-recipes">The outer composition recipes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/index.html#point-codes">Point codes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#six-contact-estimate">The six-contact height estimate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#pole-completeness">Pole completeness</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#prime-pattern">The twenty-two-prime pattern</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#close-relation">The relation Close</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/descent/index.html#nonzero-multiples">Nonzero multiples of the generator</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#main-branch-exactness">An accepting main branch forces the exact value</a></span></div>
+</div>
+</details>
+</div>
+<p>For completeness, positive multiples of <span class="arithmatex">\(P_0\)</span> approach the identity simultaneously at both real
+places. The manuscript cites compactness of <span class="arithmatex">\(E(\mathbf R)\times E(\mathbf R)\)</span>; here the needed
+compactness and continuity of subtraction are proved by hand for real curves
+<span class="arithmatex">\(y^2=x^3-e^2x\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="assembly/approximation/real-subtraction">
+<h4 class="bp-thmheading" id="real-subtraction">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">Compactness and continuity of subtraction on a real curve</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Real/Subtraction.lean#L22" aria-label="View ZInQ.Assembly.realCurve in Lean source" title="View ZInQ.Assembly.realCurve in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Real/Subtraction.lean#L50" aria-label="View ZInQ.Assembly.RealCurve.TendstoPt in Lean source" title="View ZInQ.Assembly.RealCurve.TendstoPt in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Real/Subtraction.lean#L335" aria-label="View ZInQ.Assembly.RealCurve.exists_subseq_tendstoPt in Lean source" title="View ZInQ.Assembly.RealCurve.exists_subseq_tendstoPt in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Real/Subtraction.lean#L324" aria-label="View ZInQ.Assembly.RealCurve.tendstoPt_sub_zero in Lean source" title="View ZInQ.Assembly.RealCurve.tendstoPt_sub_zero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/assembly/approximation/real-subtraction.md" aria-label="Edit the Markdown source for Compactness and continuity of subtraction on a real curve" title="Edit the Markdown source for Compactness and continuity of subtraction on a real curve"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#real-subtraction" aria-label="Link to Compactness and continuity of subtraction on a real curve" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Assembly.realCurve ZInQ.Assembly.RealCurve.TendstoPt ZInQ.Assembly.RealCurve.exists_subseq_tendstoPt ZInQ.Assembly.RealCurve.tendstoPt_sub_zero</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(e\in\mathbb R\)</span>, <span class="arithmatex">\(e\ne0\)</span>, and let <span class="arithmatex">\(E_e(\mathbb R)\)</span> be the group of real points of
+<span class="arithmatex">\(y^2=x^3-e^2x\)</span> (chord-and-tangent law, identity <span class="arithmatex">\(O\)</span>). For a sequence <span class="arithmatex">\((P_m)\)</span> in <span class="arithmatex">\(E_e(\mathbb R)\)</span>
+and <span class="arithmatex">\(Q\in E_e(\mathbb R)\)</span> write <span class="arithmatex">\(P_m\to Q\)</span> when</p>
+<ul>
+<li><span class="arithmatex">\(Q=(x_Q,y_Q)\)</span> is affine, <span class="arithmatex">\(P_m\)</span> is affine for all large <span class="arithmatex">\(m\)</span>, and <span class="arithmatex">\(x(P_m)\to x_Q\)</span>,
+  <span class="arithmatex">\(y(P_m)\to y_Q\)</span>; or</li>
+<li><span class="arithmatex">\(Q=O\)</span> and for every <span class="arithmatex">\(M\in\mathbb R\)</span>, for all large <span class="arithmatex">\(m\)</span>, either <span class="arithmatex">\(P_m=O\)</span> or <span class="arithmatex">\(P_m\)</span> is affine with
+  <span class="arithmatex">\(x(P_m)&gt;M\)</span>.</li>
+</ul>
+<p>Then:</p>
+<ol>
+<li>every sequence in <span class="arithmatex">\(E_e(\mathbb R)\)</span> has a subsequence converging to some point of
+   <span class="arithmatex">\(E_e(\mathbb R)\)</span>;</li>
+<li>if <span class="arithmatex">\(P_m\to Q\)</span> and <span class="arithmatex">\(P'_m\to Q\)</span> for the same <span class="arithmatex">\(Q\)</span>, then <span class="arithmatex">\(P'_m-P_m\to O\)</span>.</li>
+</ol>
+<p><strong>Proof sketch.</strong> Write <span class="arithmatex">\(f(x)=x^3-e^2x=(x+e)x(x-e)\)</span>; its roots <span class="arithmatex">\(0,\pm e\)</span> are simple, with
+<span class="arithmatex">\(f'(c)=3c^2-e^2\ne0\)</span> at each root. Real points have <span class="arithmatex">\(f(x)\ge0\)</span>, so <span class="arithmatex">\(x\ge-|e|\)</span>.</p>
+<p>(1) If infinitely many terms are <span class="arithmatex">\(O\)</span>, or the abscissas of the affine terms are unbounded
+above, a subsequence converges to <span class="arithmatex">\(O\)</span>. Otherwise the affine terms eventually lie in
+<span class="arithmatex">\([-|e|,M]\times[-\sqrt{\max f},\sqrt{\max f}]\)</span>, and Bolzano–Weierstrass gives a convergent
+subsequence; its limit satisfies <span class="arithmatex">\(y^2=f(x)\)</span> by continuity.</p>
+<p>(2) Discard the indices with <span class="arithmatex">\(P'_m=P_m\)</span>, where the difference is <span class="arithmatex">\(O\)</span>. Case <span class="arithmatex">\(Q\)</span> affine with
+<span class="arithmatex">\(y_Q\ne0\)</span>: eventually <span class="arithmatex">\(y'+y\to2y_Q\ne0\)</span>, so <span class="arithmatex">\(P'\ne-P\)</span>; if <span class="arithmatex">\(x'=x\)</span> then <span class="arithmatex">\(P'=P\)</span>; otherwise
+<span class="arithmatex">\(P'-P=P'+(-P)\)</span> has abscissa <span class="arithmatex">\(\lambda^2-x-x'\)</span> with chord slope <span class="arithmatex">\(\lambda=(y'+y)/(x'-x)\)</span>, and
+<span class="arithmatex">\(|\lambda|\to\infty\)</span>. Case <span class="arithmatex">\(Q=(c,0)\)</span> with <span class="arithmatex">\(f(c)=0\)</span>: if <span class="arithmatex">\(x'=x\)</span> then <span class="arithmatex">\(P'=-P\)</span> and
+<span class="arithmatex">\(P'-P=-[2]P\)</span> has abscissa <span class="arithmatex">\(\bigl(f'(x)/(2y)\bigr)^2-2x\to\infty\)</span> since <span class="arithmatex">\(f'(x)\to f'(c)\ne0\)</span> and
+<span class="arithmatex">\(y\to0\)</span>; otherwise <span class="arithmatex">\(y'^2-y^2=(x'-x)\,g\)</span> with <span class="arithmatex">\(g=x'^2+xx'+x^2-e^2\to f'(c)\ne0\)</span>, so
+eventually <span class="arithmatex">\(y'\ne y\)</span> and <span class="arithmatex">\(\lambda=(y'+y)/(x'-x)=g/(y'-y)\)</span> has <span class="arithmatex">\(|\lambda|\to\infty\)</span>. Case <span class="arithmatex">\(Q=O\)</span>:
+translate by <span class="arithmatex">\(T=(0,0)\)</span>. For affine <span class="arithmatex">\(P=(x,y)\)</span> with <span class="arithmatex">\(x\ne0\)</span>, <span class="arithmatex">\(P+T=(-e^2/x,\ e^2y/x^2)\)</span>, and
+<span class="arithmatex">\(|e^2y/x^2|^2=e^4f(x)/x^4\to0\)</span> as <span class="arithmatex">\(x\to\infty\)</span>, while <span class="arithmatex">\(O+T=T\)</span>; hence <span class="arithmatex">\(P_m+T\to T\)</span> and
+<span class="arithmatex">\(P'_m+T\to T\)</span>, and <span class="arithmatex">\((P'_m+T)-(P_m+T)=P'_m-P_m\to O\)</span> by the previous case. In every case the
+abscissa of <span class="arithmatex">\(P'_m-P_m\)</span> tends to <span class="arithmatex">\(+\infty\)</span> (or the difference is <span class="arithmatex">\(O\)</span>).</p>
+<p>This is the elementary content of "<span class="arithmatex">\(E(\mathbb R)\)</span> is a compact topological group"; the
+manuscript uses compactness of <span class="arithmatex">\(E(\mathbb R)\times E(\mathbb R)\)</span> directly.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">abbrev</span> realCurve (e : ℝ) : WeierstrassCurve ℝ := <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-e ^ 2)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> TendstoPt (P : ℕ → W.toAffine.Point) : W.toAffine.Point → <span class="bp-lean-keyword">Prop</span>
+  | .zero =&gt; ∀ M : ℝ, ∀ᶠ m <span class="bp-lean-keyword">in</span> atTop, P m = 0 ∨ M &lt; <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Real/Subtraction.lean#L31" data-lean-name="ZInQ.Assembly.RealCurve.ptX">ptX</a> (P m)
+  | .some x₀ y₀ _ =&gt; (∀ᶠ m <span class="bp-lean-keyword">in</span> atTop, P m ≠ 0) ∧
+      Tendsto (<span class="bp-lean-keyword">fun</span> m =&gt; <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Real/Subtraction.lean#L31" data-lean-name="ZInQ.Assembly.RealCurve.ptX">ptX</a> (P m)) atTop (𝓝 x₀) ∧ Tendsto (<span class="bp-lean-keyword">fun</span> m =&gt; <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Real/Subtraction.lean#L36" data-lean-name="ZInQ.Assembly.RealCurve.ptY">ptY</a> (P m)) atTop (𝓝 y₀)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_subseq_tendstoPt (he : e ≠ 0) (P : ℕ → (<a class="bp-lean-ref" href="#real-subtraction" data-lean-name="ZInQ.Assembly.realCurve">realCurve</a> e).toAffine.Point) :
+    ∃ φ : ℕ → ℕ, StrictMono φ ∧ ∃ Q, <a class="bp-lean-ref" href="#real-subtraction" data-lean-name="ZInQ.Assembly.RealCurve.TendstoPt">TendstoPt</a> (P ∘ φ) Q</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.Assembly.RealCurve.ptX">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ptX : W.toAffine.Point → ℝ
+  | .zero =&gt; 0
+  | .some x _ _ =&gt; x</code></pre>
+<p class="bp-lean-where">ZInQKernel/Assembly/Real/Subtraction.lean:31</p>
+</div>
+<div data-lean-name="ZInQ.Assembly.RealCurve.ptY">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ptY : W.toAffine.Point → ℝ
+  | .zero =&gt; 0
+  | .some _ y _ =&gt; y</code></pre>
+<p class="bp-lean-where">ZInQKernel/Assembly/Real/Subtraction.lean:36</p>
+</div>
+<div data-lean-name="ZInQ.Assembly.realCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">abbrev</span> realCurve (e : ℝ) : WeierstrassCurve ℝ := shortCurve (-e ^ 2)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Assembly/Real/Subtraction.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.Assembly.RealCurve.TendstoPt">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> TendstoPt (P : ℕ → W.toAffine.Point) : W.toAffine.Point → <span class="bp-lean-keyword">Prop</span>
+  | .zero =&gt; ∀ M : ℝ, ∀ᶠ m <span class="bp-lean-keyword">in</span> atTop, P m = 0 ∨ M &lt; ptX (P m)
+  | .some x₀ y₀ _ =&gt; (∀ᶠ m <span class="bp-lean-keyword">in</span> atTop, P m ≠ 0) ∧
+      Tendsto (<span class="bp-lean-keyword">fun</span> m =&gt; ptX (P m)) atTop (𝓝 x₀) ∧ Tendsto (<span class="bp-lean-keyword">fun</span> m =&gt; ptY (P m)) atTop (𝓝 y₀)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Assembly/Real/Subtraction.lean:50</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/assembly-locators.html#section-111-approximation">Section 11.1 approximation</a></li>
+<li><a href="../../../sources/assembly-locators.html#silverman">Silverman</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#real-accumulation">Multiples of the generator approach the identity at both real places</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="assembly/approximation/real-accumulation">
+<h4 class="bp-thmheading" id="real-accumulation">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Multiples of the generator approach the identity at both real places</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Cleanup/FixedPointCodes.lean#L31" aria-label="View ZInQ.Assembly.exists_multiple_large_unconditional in Lean source" title="View ZInQ.Assembly.exists_multiple_large_unconditional in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/assembly/approximation/real-accumulation.md" aria-label="Edit the Markdown source for Multiples of the generator approach the identity at both real places" title="Edit the Markdown source for Multiples of the generator approach the identity at both real places"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#real-accumulation" aria-label="Link to Multiples of the generator approach the identity at both real places" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Assembly.exists_multiple_large_unconditional</div>
+<div class="bp-thmcontent">
+<p>For every <span class="arithmatex">\(M\in\mathbb R\)</span> there is an integer <span class="arithmatex">\(k\ge1\)</span> such that <span class="arithmatex">\([k]P_0=(x_k,y_k)\)</span> is affine and
+$<span class="arithmatex">\(\sigma_+(x_k)&gt;M\qquad\text{and}\qquad\sigma_-(x_k)&gt;M .\)</span>$
+That is, positive multiples of <span class="arithmatex">\(P_0\)</span> approach the identity simultaneously in the two real
+embeddings.</p>
+<p><strong>Proof sketch.</strong> Each real embedding <span class="arithmatex">\(\sigma_\pm\)</span> maps <span class="arithmatex">\(E\)</span> to the real curve
+<span class="arithmatex">\(y^2=x^3-e_\pm^2x\)</span> with <span class="arithmatex">\(e_\pm=\sigma_\pm(d)=75\mp53\sqrt2\ne0\)</span>, and induces a group homomorphism
+<span class="arithmatex">\(E(K_0)\to E_{e_\pm}(\mathbb R)\)</span>, <span class="arithmatex">\((x,y)\mapsto(\sigma_\pm x,\sigma_\pm y)\)</span>, <span class="arithmatex">\(O\mapsto O\)</span> (the
+chord-and-tangent formulas are rational and commute with ring homomorphisms). Apply the
+compactness statement to the sequence <span class="arithmatex">\(\sigma_+([k]P_0)\)</span>, <span class="arithmatex">\(k\ge1\)</span>, and then to
+<span class="arithmatex">\(\sigma_-([k]P_0)\)</span> along the resulting subsequence: there are <span class="arithmatex">\(k_1&lt;k_2&lt;\cdots\)</span> and points
+<span class="arithmatex">\(Q_\pm\)</span> with <span class="arithmatex">\(\sigma_\pm([k_i]P_0)\to Q_\pm\)</span>. By continuity of subtraction,
+<span class="arithmatex">\(\sigma_\pm([k_{i+1}-k_i]P_0)=\sigma_\pm([k_{i+1}]P_0)-\sigma_\pm([k_i]P_0)\to O\)</span> in both embeddings.
+For <span class="arithmatex">\(i\)</span> large, <span class="arithmatex">\(k=k_{i+1}-k_i\ge1\)</span> has both embedded points equal to <span class="arithmatex">\(O\)</span> or with abscissa
+<span class="arithmatex">\(&gt;M\)</span>; since <span class="arithmatex">\(P_0\)</span> has infinite order, <span class="arithmatex">\([k]P_0\)</span> is affine, so both abscissas exceed <span class="arithmatex">\(M\)</span>.</p>
+<p>The manuscript's argument (partition the compact closure of the cyclic subgroup into small
+neighbourhoods and subtract two close multiples) is the same pigeonhole principle.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> exists_multiple_large_unconditional (M : ℝ) :
+    ∃ k : ℕ, 1 ≤ k ∧ ∃ (x y : <a class="bp-lean-ref" href="../../model/field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>) (h : <a class="bp-lean-ref" href="../../model/field/index.html#generator-curve" data-lean-name="ZInQ.genCurve">genCurve</a>.toAffine.Nonsingular x y),
+      (k : ℤ) • <a class="bp-lean-ref" href="../../model/field/index.html#generator-point" data-lean-name="ZInQ.genP0">genP0</a> = .some x y h ∧ M &lt; <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L81" data-lean-name="ZInQ.K0.embPlus">K0.embPlus</a> x ∧ M &lt; <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Model/Field/Basic.lean#L85" data-lean-name="ZInQ.K0.embMinus">K0.embMinus</a> x</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.K0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> K0 : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.genCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> genCurve : WeierstrassCurve K0 <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := -genD ^ 2
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:34</p>
+</div>
+<div data-lean-name="ZInQ.genP0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> genP0 : genCurve.toAffine.Point := Point.mk genP0_equation</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Curve.lean:118</p>
+</div>
+<div data-lean-name="ZInQ.K0.embPlus">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> embPlus : K0 →+* ℝ :=
+  (QuadraticAlgebra.lift ⟨Real.sqrt 2, real_sqrt_two_mul_self⟩).toRingHom</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Basic.lean:81</p>
+</div>
+<div data-lean-name="ZInQ.K0.embMinus">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> embMinus : K0 →+* ℝ :=
+  (QuadraticAlgebra.lift ⟨-Real.sqrt 2, real_neg_sqrt_two_mul_self⟩).toRingHom</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Basic.lean:85</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/assembly-locators.html#section-111-approximation">Section 11.1 approximation</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/assembly-locators.html#section-111-approximation"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/field/index.html#generator-point">The point <span class="arithmatex">\(P_0\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/field/index.html#quadratic-field">The field <span class="arithmatex">\(K_0=\mathbb Q(\sqrt2)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#real-subtraction">Compactness and continuity of subtraction on a real curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/descent/index.html#nonzero-multiples">Nonzero multiples of the generator</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#close-completeness">Completeness of Close for every fixed shift</a></span></div>
+</div>
+</details>
+</div>
+<p>Near the identity, <span class="arithmatex">\(z([n]Q)/z(Q)\)</span> tends to <span class="arithmatex">\(n\)</span>; with the division-polynomial formulas this is
+a limit of rational functions at infinity.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="assembly/approximation/real-derivative">
+<h4 class="bp-thmheading" id="real-derivative">
+<span class="bp-thmcaption" data-search-exclude>Lemma</span><span class="bp-thmtitle">The derivative of multiplication at a real place</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Real/Derivative.lean#L26" aria-label="View ZInQ.Assembly.zCoord in Lean source" title="View ZInQ.Assembly.zCoord in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Real/Derivative.lean#L218" aria-label="View ZInQ.Assembly.z_ratio_tendsto in Lean source" title="View ZInQ.Assembly.z_ratio_tendsto in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/assembly/approximation/real-derivative.md" aria-label="Edit the Markdown source for The derivative of multiplication at a real place" title="Edit the Markdown source for The derivative of multiplication at a real place"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#real-derivative" aria-label="Link to The derivative of multiplication at a real place" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Assembly.zCoord ZInQ.Assembly.z_ratio_tendsto</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(\tau\in\{\sigma_+,\sigma_-\}\)</span> be a real embedding of <span class="arithmatex">\(K_0\)</span> and <span class="arithmatex">\(n\)</span> a nonzero integer. For every
+<span class="arithmatex">\(\eta&gt;0\)</span> there is <span class="arithmatex">\(M\in\mathbb R\)</span> such that for every affine point <span class="arithmatex">\(Q=(x,y)\in E(K_0)\)</span> with
+<span class="arithmatex">\(\tau(x)&gt;M\)</span>:</p>
+<ol>
+<li><span class="arithmatex">\(x\ne0\)</span>, <span class="arithmatex">\(y\ne0\)</span>, and <span class="arithmatex">\([n]Q\)</span> is affine with nonzero abscissa and ordinate;</li>
+<li><span class="arithmatex">\(\bigl|\tau\bigl(z([n]Q)/z(Q)\bigr)-n\bigr|&lt;\eta\)</span>.</li>
+</ol>
+<p>This is the statement that the derivative of <span class="arithmatex">\([n]\)</span> at the identity is <span class="arithmatex">\(n\)</span>, read in the
+coordinate <span class="arithmatex">\(z=-x/y\)</span> near <span class="arithmatex">\(O\)</span> at the real place <span class="arithmatex">\(\tau\)</span>.</p>
+<p><strong>Proof sketch.</strong> Write <span class="arithmatex">\(f_m\)</span> for the normalized division polynomials of <span class="arithmatex">\(y^2=x^3+Ax\)</span>,
+<span class="arithmatex">\(A=-d^2\)</span>, and <span class="arithmatex">\(\psi_m\)</span> for the division polynomials. Since <span class="arithmatex">\(z(-P)=-z(P)\)</span>, it suffices to treat
+<span class="arithmatex">\(n\ge1\)</span>. By the multiplication-by-<span class="arithmatex">\(n\)</span> formulas, if <span class="arithmatex">\(\psi_n(Q)\ne0\)</span> then <span class="arithmatex">\([n]Q\)</span> is affine with
+$<span class="arithmatex">\(\frac{x([n]Q)}{x}=\frac{\phi_n(x)}{x\,\psi_n^2(x)},\qquad
+\frac{y([n]Q)}{y}=\frac{f_{2n}(x)}{\psi_n^4(x)},\)</span>$
+where <span class="arithmatex">\(\phi_n=x\psi_n^2-\psi_{n+1}\psi_{n-1}\)</span>, and <span class="arithmatex">\(\psi_n^2\)</span>, <span class="arithmatex">\(\psi_n^4\)</span> and <span class="arithmatex">\(\phi_n\)</span> are polynomials in <span class="arithmatex">\(x\)</span>
+after substituting <span class="arithmatex">\(y^2=x^3+Ax\)</span> (the second identity is <span class="arithmatex">\(y([n]Q)=\psi_{2n}/(2\psi_n^4)\)</span> with
+<span class="arithmatex">\(\psi_{2n}=2yf_{2n}\)</span>). By the agreement with the classical division polynomials, the degrees
+and leading coefficients are: <span class="arithmatex">\(\phi_n\)</span> degree <span class="arithmatex">\(n^2\)</span>, leading coefficient <span class="arithmatex">\(1\)</span>; <span class="arithmatex">\(\psi_n^2\)</span> degree
+<span class="arithmatex">\(n^2-1\)</span>, leading coefficient <span class="arithmatex">\(n^2\)</span>; <span class="arithmatex">\(f_{2n}\)</span> degree <span class="arithmatex">\(2n^2-2\)</span>, leading coefficient <span class="arithmatex">\(n\)</span>; <span class="arithmatex">\(\psi_n^4\)</span>
+degree <span class="arithmatex">\(2n^2-2\)</span>, leading coefficient <span class="arithmatex">\(n^4\)</span> (for odd <span class="arithmatex">\(n\)</span> it is <span class="arithmatex">\(f_n^4\)</span>, for even <span class="arithmatex">\(n\)</span> it is
+<span class="arithmatex">\(16(x^3+Ax)^2f_n^4\)</span>, and <span class="arithmatex">\(f_n\)</span> has leading coefficient <span class="arithmatex">\(n\)</span> or <span class="arithmatex">\(n/2\)</span>). Apply <span class="arithmatex">\(\tau\)</span> to the
+coefficients: as <span class="arithmatex">\(\tau(x)\to+\infty\)</span> the two quotients tend to <span class="arithmatex">\(1/n^2\)</span> and <span class="arithmatex">\(1/n^3\)</span>, and
+<span class="arithmatex">\(\tau(\psi_n(x)^2)\ne0\)</span>, <span class="arithmatex">\(\tau(y^2)=\tau(x)(\tau(x)^2-\tau(d)^2)&gt;0\)</span> for <span class="arithmatex">\(\tau(x)\)</span> large. Hence for
+<span class="arithmatex">\(\tau(x)&gt;M\)</span> all quantities are nonzero, and
+$<span class="arithmatex">\(\tau\Bigl(\frac{z([n]Q)}{z(Q)}\Bigr)=\tau\Bigl(\frac{x([n]Q)}{x}\Bigr)\Big/\tau\Bigl(\frac{y([n]Q)}{y}\Bigr)\longrightarrow\frac{n^3}{n^2}=n .\)</span>$
+The polynomials depend only on <span class="arithmatex">\(n\)</span> and <span class="arithmatex">\(A\)</span>, so <span class="arithmatex">\(M\)</span> depends only on <span class="arithmatex">\(n\)</span>, <span class="arithmatex">\(\tau\)</span> and <span class="arithmatex">\(\eta\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> zCoord : <a class="bp-lean-ref" href="../../model/field/index.html#generator-curve" data-lean-name="ZInQ.genCurve">genCurve</a>.toAffine.Point → <a class="bp-lean-ref" href="../../model/field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>
+  | .zero =&gt; 0
+  | .some x y _ =&gt; -x / y</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> z_ratio_tendsto (τ : <a class="bp-lean-ref" href="../../model/field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a> →+* ℝ) {n : ℤ} (hn : n ≠ 0) {η : ℝ} (hη : 0 &lt; η) :
+    ∃ M : ℝ, ∀ (x y : <a class="bp-lean-ref" href="../../model/field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>) (h : <a class="bp-lean-ref" href="../../model/field/index.html#generator-curve" data-lean-name="ZInQ.genCurve">genCurve</a>.toAffine.Nonsingular x y), M &lt; τ x →
+      x ≠ 0 ∧ y ≠ 0 ∧
+      (∃ (x&#x27; y&#x27; : <a class="bp-lean-ref" href="../../model/field/index.html#quadratic-field" data-lean-name="ZInQ.K0">K0</a>) (h&#x27; : <a class="bp-lean-ref" href="../../model/field/index.html#generator-curve" data-lean-name="ZInQ.genCurve">genCurve</a>.toAffine.Nonsingular x&#x27; y&#x27;),
+        n • Point.some x y h = .some x&#x27; y&#x27; h&#x27; ∧ x&#x27; ≠ 0 ∧ y&#x27; ≠ 0) ∧
+      |τ (<a class="bp-lean-ref" href="#real-derivative" data-lean-name="ZInQ.Assembly.zCoord">zCoord</a> (n • Point.some x y h) / <a class="bp-lean-ref" href="#real-derivative" data-lean-name="ZInQ.Assembly.zCoord">zCoord</a> (.some x y h)) - n| &lt; η</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.genCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> genCurve : WeierstrassCurve K0 <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := -genD ^ 2
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:34</p>
+</div>
+<div data-lean-name="ZInQ.K0">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">abbrev</span> K0 : <span class="bp-lean-keyword">Type</span> := QuadraticAlgebra ℚ 2 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/MordellWeil.lean:25</p>
+</div>
+<div data-lean-name="ZInQ.Assembly.zCoord">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> zCoord : genCurve.toAffine.Point → K0
+  | .zero =&gt; 0
+  | .some x y _ =&gt; -x / y</code></pre>
+<p class="bp-lean-where">ZInQKernel/Assembly/Real/Derivative.lean:26</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/assembly-locators.html#section-111-approximation">Section 11.1 approximation</a></li>
+<li><a href="../../../sources/assembly-locators.html#silverman">Silverman</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/assembly-locators.html#section-111-approximation"> </a></p>
+<p><a href="../../../sources/assembly-locators.html#silverman"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 6 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/field/index.html#quadratic-field">The field <span class="arithmatex">\(K_0=\mathbb Q(\sqrt2)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/natural/precision/index.html#z-coordinate">The local parameter z on multiples of the generator</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/field/index.html#generator-curve">The generator curve <span class="arithmatex">\(E\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/field/index.html#division-polynomial-multiples">Division polynomials compute multiples</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/index.html#division-polynomials">Normalized division polynomials and their components</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../syntax/index.html#division-polynomials-classical">Agreement with the classical division polynomials</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#close-completeness">Completeness of Close for every fixed shift</a></span></div>
+</div>
+</details>
+</div>
+<p>Choosing <span class="arithmatex">\(l\)</span> first so that <span class="arithmatex">\(\epsilon_l\)</span> is small enough, and then <span class="arithmatex">\(a\)</span> with <span class="arithmatex">\(r(a,na)\)</span> within
+<span class="arithmatex">\(\epsilon_l\)</span> of <span class="arithmatex">\(n\)</span>, gives Close for every fixed nonzero shift.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="assembly/approximation/close-completeness">
+<h4 class="bp-thmheading" id="close-completeness">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Completeness of Close for every fixed shift</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Close/Completeness.lean#L121" aria-label="View ZInQ.Assembly.close_complete in Lean source" title="View ZInQ.Assembly.close_complete in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/blueprint/roadmap/assembly/approximation/close-completeness.md" aria-label="Edit the Markdown source for Completeness of Close for every fixed shift" title="Edit the Markdown source for Completeness of Close for every fixed shift"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#close-completeness" aria-label="Link to Completeness of Close for every fixed shift" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Assembly.close_complete</div>
+<div class="bp-thmcontent">
+<p>Assume the six-contact estimate, pole completeness and the twenty-two-prime
+pattern. For every <span class="arithmatex">\(n\in\mathbb Z\setminus\mathcal C\)</span> and every nonzero
+<span class="arithmatex">\(\kappa\in\mathbb Z\)</span>,
+$<span class="arithmatex">\(\mathrm{Rel}_{\mathtt{close}}\bigl(\iota(n),\iota(\kappa),n\bigr).\)</span>$
+The shift <span class="arithmatex">\(\kappa\)</span> is arbitrary: this holds for every already fixed nonzero <span class="arithmatex">\(\kappa\)</span>, whatever its
+size.</p>
+<p><strong>Proof sketch.</strong> Put <span class="arithmatex">\(B=B(n,\kappa)\in\mathbb N\)</span> and <span class="arithmatex">\(\theta=4^{-B}/4&gt;0\)</span>. By the Close relation it
+suffices to find <span class="arithmatex">\(a,l\ge1\)</span> with <span class="arithmatex">\(\operatorname{Prec}(n,\kappa,a,l,na)\)</span> and <span class="arithmatex">\(|n-r(a,na)|&lt;\epsilon_l\)</span>; the
+latter is one of the conditions of <span class="arithmatex">\(\operatorname{Prec}\)</span>.</p>
+<p><em>Choice of <span class="arithmatex">\(l\)</span>.</em> For an affine point with abscissa <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(\tau(x)&gt;|\tau(d)|\)</span> in a real
+embedding <span class="arithmatex">\(\tau\)</span>, <span class="arithmatex">\(\tau(z)^2=\tau(x)/(\tau(x)^2-\tau(d)^2)\)</span>, which tends to <span class="arithmatex">\(0\)</span> as <span class="arithmatex">\(\tau(x)\to\infty\)</span>.
+Choose <span class="arithmatex">\(M_1\)</span> such that <span class="arithmatex">\(\tau(x)&gt;M_1\)</span> gives <span class="arithmatex">\(|\tau(z)|&lt;\theta/2\)</span> for both <span class="arithmatex">\(\tau=\sigma_\pm\)</span>, and by the
+accumulation statement choose <span class="arithmatex">\(l\ge1\)</span> with <span class="arithmatex">\(\sigma_\pm(x([l]P_0))&gt;M_1\)</span>. Since
+<span class="arithmatex">\(u_l=(\sigma_+z_l+\sigma_-z_l)/2\)</span> and <span class="arithmatex">\(v_l=(\sigma_+z_l-\sigma_-z_l)/(2\sqrt2)\)</span>,
+$<span class="arithmatex">\(0&lt;\epsilon_l=|u_l|+|v_l|\le|\sigma_+z_l|+|\sigma_-z_l|&lt;\theta,\)</span>$
+positivity because <span class="arithmatex">\(z_l\ne0\)</span>. Hence <span class="arithmatex">\(4\epsilon_l\cdot4^{B}&lt;1\)</span>.</p>
+<p><em>Choice of <span class="arithmatex">\(a\)</span>.</em> Apply the real derivative statement to <span class="arithmatex">\(n\)</span> with <span class="arithmatex">\(\eta=\epsilon_l\)</span> in both
+embeddings, obtaining <span class="arithmatex">\(M_2\)</span>, and choose <span class="arithmatex">\(a\ge1\)</span> by accumulation with
+<span class="arithmatex">\(\sigma_\pm(x([a]P_0))&gt;M_2\)</span>. With <span class="arithmatex">\(Q=[a]P_0\)</span> and <span class="arithmatex">\([n]Q=[na]P_0\)</span>,
+$<span class="arithmatex">\(|r(a,na)-n|=\Bigl|\tfrac12\sum_\pm\bigl(\sigma_\pm(z_{na}/z_a)-n\bigr)\Bigr|&lt;\epsilon_l .\)</span>$</p>
+<p>With <span class="arithmatex">\(j=na\)</span> all conditions of <span class="arithmatex">\(\operatorname{Prec}(n,\kappa,a,l,j)\)</span> hold (<span class="arithmatex">\(n\notin\mathcal C\)</span>,
+<span class="arithmatex">\(\kappa\ne0\)</span>, <span class="arithmatex">\(a,l\ge1\)</span>, and <span class="arithmatex">\(l,a,j\)</span> are admissible because they are nonzero), and the window
+<span class="arithmatex">\(|t-r(a,j)|&lt;\epsilon_l\)</span> holds for <span class="arithmatex">\(t=n\)</span>. The order of choices matters: <span class="arithmatex">\(l\)</span> is fixed first, then
+<span class="arithmatex">\(a\)</span> depending on <span class="arithmatex">\(\epsilon_l\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> close_complete
+    (hM : <a class="bp-lean-ref" href="../../compiler/translation/index.html#natural-code-semantics" data-lean-name="ZInQ.Translation.MultiplicationExact">MultiplicationExact</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Recipes/Polynomial.lean#L35" data-lean-name="ZInQ.Syntax.specConstructors">specConstructors</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Constants/Fixed.lean#L149" data-lean-name="ZInQ.Syntax.FixedConst">FixedConst</a>.cstar.value <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Constants/Fixed.lean#L149" data-lean-name="ZInQ.Syntax.FixedConst">FixedConst</a>.ell.value
+      <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Constants/Fixed.lean#L149" data-lean-name="ZInQ.Syntax.FixedConst">FixedConst</a>.T.value)
+    (n κ : ℤ) (hn : (n : ℚ) ∉ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Hypotheses/Height.lean#L84" data-lean-name="ZInQ.contactSet">contactSet</a>) (hκ : κ ≠ 0) :
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Values/Outer.lean#L28" data-lean-name="ZInQ.Assembly.ValRel">ValRel</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Syntax/Language/Nodes.lean#L74" data-lean-name="ZInQ.Syntax.getEx">getEx</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/22406e0e1af6bc5101e5d847a4745c7e072a1a2f/ZInQKernel/Assembly/Close/Relation.lean#L34" data-lean-name="ZInQ.Assembly.closeSpecLib">closeSpecLib</a> 2) (List.ofFn (<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> n) ++ (List.ofFn (<a class="bp-lean-ref" href="../../model/index.html#point-codes" data-lean-name="ZInQ.iota">iota</a> κ) ++ [(n : ℚ)]))</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Translation.MultiplicationExact">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> MultiplicationExact (I : Constructors E) (cstar ell T : ℤ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ p q r : Fin 5 → ℚ, (multiplyTemplate I cstar ell T).Rel (Fin.append (Fin.append p q) r) ↔
+    ∃ a b : ℤ, p = iota a ∧ q = iota b ∧ r = iota (a * b)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Compiler/Translation/NaturalCode.lean:30</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.specConstructors">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> specConstructors : Constructors (FixedExpr FixedConst) :=
+  ⟨FixedConst.fixedVal, psiComponent, guardPoly⟩</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Recipes/Polynomial.lean:35</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.FixedConst">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">inductive</span> FixedConst
+  | P0 | W | Hproduct | Hmax | Ns | M | cstar | ell | F | D | G0 | E0 | R | Q | Bcm | Ccm
+  | Aheight | T
+  <span class="bp-lean-keyword">deriving</span> DecidableEq, Repr</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Constants/Fixed.lean:149</p>
+</div>
+<div data-lean-name="ZInQ.contactSet">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> contactSet : Finset ℚ := {0, -15, -20, -24, -30, -60}</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/Height.lean:84</p>
+</div>
+<div data-lean-name="ZInQ.Assembly.ValRel">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> ValRel (τ : ExPoly) (l : List ℚ) : <span class="bp-lean-keyword">Prop</span> := τ.Rel <span class="bp-lean-keyword">fun</span> k =&gt; l.getD k 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Assembly/Values/Outer.lean:28</p>
+</div>
+<div data-lean-name="ZInQ.Syntax.getEx">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> getEx (lib : List ExPoly) (t : ℕ) : ExPoly := lib.getD t ExPoly.empty</code></pre>
+<p class="bp-lean-where">ZInQKernel/Syntax/Language/Nodes.lean:74</p>
+</div>
+<div data-lean-name="ZInQ.Assembly.closeSpecLib">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">abbrev</span> closeSpecLib : List ExPoly :=
+  specLib specConstructors FixedConst.cstar.value FixedConst.ell.value FixedConst.T.value
+    (Compiler.Universal.c3 : ℤ) (precisionCircuitOf (Compiler.Universal.c3 : ℤ))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Assembly/Close/Relation.lean:34</p>
+</div>
+<div data-lean-name="ZInQ.iota">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> iota (n : ℤ) : Fin 5 → ℚ := pointCode (n • genP0)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/Codes.lean:27</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/assembly-locators.html#section-111-approximation">Section 11.1 approximation</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/assembly-locators.html#section-111-approximation"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 13 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/natural/precision/index.html#precision-relation">The precision relation</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/natural/precision/index.html#z-coordinate">The local parameter z on multiples of the generator</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../compiler/natural/precision/index.html#precision-height-constant-value">The precision constant is the six-contact constant</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/field/index.html#quadratic-field">The field <span class="arithmatex">\(K_0=\mathbb Q(\sqrt2)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../syntax/recipes/index.html#outer-recipes">The outer composition recipes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../model/index.html#point-codes">Point codes</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#six-contact-estimate">The six-contact height estimate</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#pole-completeness">Pole completeness</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#prime-pattern">The twenty-two-prime pattern</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#close-relation">The relation Close</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#real-accumulation">Multiples of the generator approach the identity at both real places</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#real-derivative">The derivative of multiplication at a real place</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../model/descent/index.html#nonzero-multiples">Nonzero multiples of the generator</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#ordinary-value-relation">The exact ordinary-value relation</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>6</strong> fully proved</span></div>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../../dependencies/index.json" data-graph-src="../../../dependencies/scopes/assembly/approximation.json" data-page-href="index.html" data-scope-id="assembly/approximation">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>
