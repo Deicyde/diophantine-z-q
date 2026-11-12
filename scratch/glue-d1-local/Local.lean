@@ -603,6 +603,35 @@ theorem D1_krasner (hH : HilbertDifferentFormula) (hS : SerreDifferentBound)
   D1_genuine hH hS L p P a ha (ramificationIdx_le_factorial_of_unique L p P K hclos hunique a hdeg)
     b hb
 
+/-- Galois correspondence: if `L` is the normal closure of `K` over `ℚ`, then
+`core_G(Gal(L/K)) = ⊥`. -/
+theorem normalCore_fixingSubgroup_eq_bot (K : IntermediateField ℚ L)
+    (h : IntermediateField.normalClosure ℚ K L = ⊤) : K.fixingSubgroup.normalCore = ⊥ := by
+  set N := K.fixingSubgroup.normalCore
+  have : N.Normal := Subgroup.normalCore_normal _
+  have hK : K ≤ IntermediateField.fixedField N := by
+    intro x hx
+    rw [IntermediateField.mem_fixedField_iff]
+    intro σ hσ
+    exact (IntermediateField.mem_fixingSubgroup_iff K σ).mp
+      (Subgroup.normalCore_le _ hσ) x hx
+  have htop : IntermediateField.fixedField N = ⊤ := by
+    rw [eq_top_iff, ← h]
+    exact (IntermediateField.normalClosure_le_iff_of_normal).mpr hK
+  rw [← IntermediateField.fixingSubgroup_fixedField N, htop, IntermediateField.fixingSubgroup_top]
+
+/-- `D1_krasner` with "`L` is the normal closure of `K`" as a field-theoretic hypothesis. -/
+theorem D1_krasner' (hH : HilbertDifferentFormula) (hS : SerreDifferentBound)
+    (p : ℕ) [Fact p.Prime] (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})]
+    (K : IntermediateField ℚ L) (hclos : IntermediateField.normalClosure ℚ K L = ⊤)
+    (hunique : ∀ v : Ideal (𝓞 K), v.IsPrime → v.LiesOver (Ideal.span {(p : ℤ)}) →
+      v = P.under (𝓞 K))
+    (a : ℕ) (ha : 1 ≤ a)
+    (hdeg : (P.under (𝓞 K)).ramificationIdx ℤ * (P.under (𝓞 K)).inertiaDeg ℤ ≤ a)
+    (b : ℕ) (hb : ramGroup L P b ≠ ⊥) :
+    phi (ramCard L P) b ≤ 4 * a ^ 2 :=
+  D1_krasner L hH hS p P K (normalCore_fixingSubgroup_eq_bot L K hclos) hunique a ha hdeg b hb
+
 end GlueD1Local
 
 #print axioms GlueD1Local.ramificationIdx_le_factorial_local
@@ -611,3 +640,4 @@ end GlueD1Local
 #print axioms GlueD1Local.D1_local'
 #print axioms GlueD1Local.ramificationIdx_le_factorial_of_unique
 #print axioms GlueD1Local.D1_krasner
+#print axioms GlueD1Local.D1_krasner'
