@@ -301,4 +301,99 @@ theorem two_add_two_U0_le_E0 (D G0 : ℕ) (hD : 1 ≤ D) (hG : 1 ≤ G0) :
   have : 1 ≤ (D * G0) ^ 2 := Nat.one_le_pow _ _ (Nat.mul_pos hD hG)
   omega
 
+
+/-! ## D1 over genuine definitions (Mathlib's rings of integers, inertia and different)
+
+For a Galois number field `L/ℚ` and a prime `P` of `𝓞 L`, the lower ramification groups are
+`G_i = {σ ∈ Gal(L/ℚ) | ∀ x ∈ 𝓞 L, σ x - x ∈ P^(i+1)}`, i.e. Mathlib's `Ideal.inertia` of
+`P^(i+1)`; `G_0` is Mathlib's inertia group. (Serre, *Corps locaux*, IV §1 defines them for the
+completion; they agree with these, Serre I §7 and IV §1, UNVERIFIED locators.) The two leaves
+below are published theorems (local statements transported to number fields by completion). -/
+
+open NumberField
+
+/-- The lower ramification group `G_i` of `P` in `Gal(L/ℚ)`. -/
+abbrev ramGroup (L : Type*) [Field L] [NumberField L] (P : Ideal (𝓞 L)) (i : ℕ) :
+    Subgroup Gal(L/ℚ) :=
+  (P ^ (i + 1)).inertia Gal(L/ℚ)
+
+/-- `|G_i|`. -/
+noncomputable abbrev ramCard (L : Type*) [Field L] [NumberField L] (P : Ideal (𝓞 L)) (i : ℕ) : ℕ :=
+  Nat.card (ramGroup L P i)
+
+/-- **Leaf (Hilbert's different formula; Serre, *Corps locaux*, IV §1, Prop. 4, with `G_i = 1`
+for large `i`, IV §1; UNVERIFIED numbering).** For a Galois number field `L` and a nonzero prime
+`P` of `𝓞 L`, some `G_n` is trivial and the exact power of `P` in the different of `𝓞 L/ℤ` is
+`∑_{i<n} (|G_i| - 1)`. -/
+def HilbertDifferentFormula : Prop :=
+  ∀ (L : Type) [Field L] [NumberField L] [IsGalois ℚ L] (P : Ideal (𝓞 L)) [P.IsPrime], P ≠ ⊥ →
+    ∃ n, ramGroup L P n = ⊥ ∧
+      P ^ (∑ i ∈ range n, (ramCard L P i - 1)) ∣ differentIdeal ℤ (𝓞 L) ∧
+      ¬ P ^ (∑ i ∈ range n, (ramCard L P i - 1) + 1) ∣ differentIdeal ℤ (𝓞 L)
+
+/-- **Leaf (Serre's bound for the different; Serre, *Corps locaux*, III §6, remark after
+Prop. 13: `v_L(𝔇_{L/K}) ≤ e - 1 + v_L(e)`; UNVERIFIED numbering).** At `K = ℚ_p`,
+`v_L(e) = e·v_p(e)`. Stated for any number field `L` and prime `P | p` of `𝓞 L`. -/
+def SerreDifferentBound : Prop :=
+  ∀ (L : Type) [Field L] [NumberField L] (p : ℕ), p.Prime → ∀ (P : Ideal (𝓞 L)) [P.IsPrime],
+    P.LiesOver (Ideal.span {(p : ℤ)}) →
+    ¬ P ^ (P.ramificationIdx ℤ - 1 + P.ramificationIdx ℤ * padicValNat p (P.ramificationIdx ℤ) + 1)
+      ∣ differentIdeal ℤ (𝓞 L)
+
+instance spanNatPrime_isPrime (p : ℕ) [hp : Fact p.Prime] : (Ideal.span {(p : ℤ)}).IsPrime :=
+  (Ideal.span_singleton_prime (by exact_mod_cast hp.out.ne_zero)).mpr
+    (Nat.prime_iff_prime_int.mp hp.out)
+
+/-- **D1 over genuine definitions.** From the two leaves: for a Galois number field `L`, a prime
+`P | p` with ramification index `e ≤ a!` and a lower index `b` with `G_b ≠ 1`, the upper index
+`φ(b)` (Herbrand's function of the genuine `|G_i|`) is at most `4a²`. -/
+theorem D1_genuine (hH : HilbertDifferentFormula) (hS : SerreDifferentBound)
+    (L : Type) [Field L] [NumberField L] [IsGalois ℚ L] (p : ℕ) [hpF : Fact p.Prime]
+    (P : Ideal (𝓞 L)) [P.IsPrime] [hPl : P.LiesOver (Ideal.span {(p : ℤ)})]
+    [Algebra.HasSeparableResidueFieldsAt ℤ (𝓞 L) (Ideal.span {(p : ℤ)})]
+    (a : ℕ) (ha : 1 ≤ a) (hea : P.ramificationIdx ℤ ≤ a.factorial)
+    (b : ℕ) (hb : ramGroup L P b ≠ ⊥) :
+    phi (ramCard L P) b ≤ 4 * a ^ 2 := by
+  have hp : p.Prime := hpF.out
+  have hP0 : P ≠ ⊥ := by
+    intro h
+    have := hPl.over
+    rw [h, Ideal.under_bot] at this
+    have h2 := Ideal.span_singleton_eq_bot.mp this
+    simp [hp.ne_zero] at h2
+  set g := ramCard L P with hg_def
+  have hanti : Antitone g := by
+    intro i j hij
+    apply Subgroup.card_le_of_le
+    intro σ hσ x
+    exact Ideal.pow_le_pow_right (by omega) (hσ x)
+  have hg1 : ∀ i, 1 ≤ g i := fun i => Nat.card_pos
+  have hgb : 2 ≤ g b := by
+    have h1 := hg1 b
+    have h2 : g b ≠ 1 := fun h => hb (Subgroup.card_eq_one.mp h)
+    omega
+  obtain ⟨n, hn, hdvd, -⟩ := hH L P hP0
+  have hbn : b < n := by
+    by_contra h
+    apply hb
+    rw [eq_bot_iff, ← hn]
+    intro σ hσ x
+    exact Ideal.pow_le_pow_right (by omega) (hσ x)
+  have he : g 0 = P.ramificationIdx ℤ := by
+    show Nat.card ((P ^ (0 + 1)).inertia Gal(L/ℚ)) = _
+    rw [zero_add, pow_one, Ideal.card_inertia_eq_ramificationIdxIn (Ideal.span {(p : ℤ)}) P,
+      Ideal.ramificationIdxIn_eq_ramificationIdx (Ideal.span {(p : ℤ)}) P Gal(L/ℚ)]
+  have hSer := hS L p hp P hPl
+  have hsum : ∑ i ∈ range n, (g i - 1) ≤ g 0 - 1 + g 0 * padicValNat p (g 0) := by
+    rw [he]
+    by_contra hlt
+    push Not at hlt
+    exact hSer (dvd_trans (pow_dvd_pow P hlt) hdvd)
+  exact upper_break_le p a hp ha g hanti hg1 b n hgb hbn (he ▸ hea) hsum
+
 end GlueConductor
+
+#print axioms GlueConductor.upper_break_le
+#print axioms GlueConductor.D1_genuine
+#print axioms GlueConductor.card_GL4_F5
+

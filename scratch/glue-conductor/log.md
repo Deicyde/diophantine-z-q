@@ -22,3 +22,15 @@ Ramification data as the sequence g i = |G_i| (lower numbering). Proved:
   p | N ⇒ p ∈ S ∨ p | M_S(u)  ⟹  (N:ℝ) ≤ heightQ R · (contactSupport S u)².
   `#print axioms`: propext, Classical.choice, Quot.sound.
 - `prod_small_le`: ∏_{p∈s} p^E ≤ R^(R·E) for a finset s of primes ≤ R (R real ≥ 1).
+
+## Step 3. D1 over genuine definitions (appended to Breaks.lean) — COMPILES, no sorry (VERIFIED)
+- `ramGroup L P i := (P^(i+1)).inertia Gal(L/ℚ)` (Mathlib `Ideal.inertia`; lower ramification
+  group G_i of a Galois number field, global form), `ramCard = Nat.card`.
+- Leaves (`def … : Prop`): `HilbertDifferentFormula` (∃ n, G_n = ⊥ and the exact power of P in
+  `differentIdeal ℤ (𝓞 L)` is Σ_{i<n}(|G_i|−1); Serre CL IV §1 Prop 4, UNVERIFIED numbering);
+  `SerreDifferentBound` (¬ P^(e−1+e·v_p(e)+1) ∣ differentIdeal ℤ (𝓞 L), e = `P.ramificationIdx ℤ`;
+  Serre CL III §6 remark after Prop 13, UNVERIFIED numbering).
+- `D1_genuine`: leaves + Galois L, P over (p), e ≤ a!, G_b ≠ ⊥ ⇒ φ(b) ≤ 4a² (φ = Herbrand φ of the
+  genuine |G_i|). Uses Mathlib `Ideal.card_inertia_eq_ramificationIdxIn` for |G_0| = e.
+  Extra instance hypothesis `Algebra.HasSeparableResidueFieldsAt ℤ (𝓞 L) (p)` (true: finite residue fields).
+- `#print axioms` for `upper_break_le`, `D1_genuine`, `card_GL4_F5`: propext, Classical.choice, Quot.sound.
