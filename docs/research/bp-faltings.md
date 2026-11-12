@@ -29,7 +29,7 @@ proposal. **UNVERIFIED** marks a locator recalled from memory; there was no netw
    provably means the published one, and the acceptance tests AT1/AT2 check that in the two cases
    that have closed formulas.
 2. **The first concrete layer is built (VERIFIED: compiled; axioms `propext`, `Classical.choice`,
-   `Quot.sound`; no `sorry`).** `Hodge.lean`, about 1 000 lines, Mathlib only:
+   `Quot.sound`; no `sorry`).** `Hodge.lean`, about 1 100 lines, Mathlib only:
    - `HermitianLattice`, the Arakelov degree `arakelovDegree`, and its independence of the
      section, `degreeAt_eq_arakelovDegree`. The proof uses the product formula and the index
      identity `secIndex_smul`: `#(M/𝓞·as) = |N(a)|·#(M/𝓞·s)`.
