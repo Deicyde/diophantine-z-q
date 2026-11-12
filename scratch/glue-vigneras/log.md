@@ -22,3 +22,8 @@
 - 00:01 chunk 6 COMPILES: `ek`, `Ent`, `cert0..cert3` (ring identities in B_p, any p), `eq_of_coord`, `coord_smul`,
   `star_mem`, `small_*`, `norm_int_eq_one`, `unramified_normalizer`: for p ≠ 2, 3, x ∈ B_p^× with x 𝒪_p x⁻¹ ⊆ 𝒪_p
   ⇒ x ∈ ℚ_p^×𝒪_p^× (directly on N5's order, no splitting B_p ≅ M₂). Axioms: [propext, Classical.choice, Quot.sound]. VERIFIED.
+- 00:03 cert.py extended: all 10 monomials n_a n_b have certificates with denominators dividing 6 (VERIFIED, computed;
+  cert.output.txt "mon" lines). `gen_global.py` generates `Eint` and `cert_ab` for Global.lean.
+- 00:04 Global.lean COMPILES (no sorry): over ℚ, `B`, `comb`, `O`, `coordQ`, `nrd`, `nrdInt`, `Eint`, `cert_ab` (10),
+  `Eint_eq`, `nrd_dvd_Eint`, `nrd_dvd_six`: x = comb n ∈ 𝒪 primitive (∑ sₖnₖ = 1) normalizing 𝒪 ⇒ nrd x ∣ 6.
+  Axioms [propext, Classical.choice, Quot.sound]. VERIFIED.

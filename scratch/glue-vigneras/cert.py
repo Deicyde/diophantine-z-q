@@ -63,3 +63,9 @@ for i in range(4):
     sol, rk = solve(target)
     D = lcm(*[s.denominator for s in sol])
     print("i", i, "rank", rk, "D", D, [int(s * D) for s in sol])
+# all 10 monomials n_a n_b
+for m in mons:
+    target = [F(1) if mm == m else F(0) for mm in mons]
+    sol, rk = solve(target)
+    D = lcm(*[s.denominator for s in sol])
+    print("mon", m, "D", D, [(r, int(s * D)) for r, s in enumerate(sol) if s != 0])
