@@ -776,6 +776,62 @@ theorem isFractionRing_BDeRham : IsFractionRing (BDeRhamPlus O p) (BdR O p) := b
   exact (IsLocalization.isLocalization_iff_of_algEquiv (nonZeroDivisors _)
     (bdREquivAway p)).mpr inferInstance
 
+/-! ### The residue map `θ⁺ : B_dR^+ → 𝓞_ℂ_p[1/p] ≅ ℂ_p` (Mathlib's TODO 1), with kernel `(ξ)`. -/
+
+/-- `θ⁺ : B_dR^+ → 𝓞_ℂ_p[1/p]`: reduction modulo `ker θ[1/p]` followed by `θ[1/p]`. -/
+noncomputable def thetaPlus : BDeRhamPlus O p →+* Localization.Away (p : O) :=
+  (RingHom.quotientKerEquivOfSurjective (fontaineThetaInvertP_surjective p)).toRingHom.comp
+    (AdicCompletion.evalOneₐ (RingHom.ker (fontaineThetaInvertP O p))).toRingHom
+
+theorem thetaPlus_ofPlus (x : Localization.Away (p : WittVector p (PreTilt O p))) :
+    thetaPlus p (ofPlus O p x) = fontaineThetaInvertP O p x := rfl
+
+theorem thetaPlus_surjective : Function.Surjective (thetaPlus p) := fun y => by
+  obtain ⟨x, rfl⟩ := fontaineThetaInvertP_surjective p y
+  exact ⟨ofPlus O p x, rfl⟩
+
+/-- **`ker θ⁺ = (ξ)`**, the maximal ideal of the DVR `B_dR^+`. -/
+theorem ker_thetaPlus : RingHom.ker (thetaPlus p) = span {ofPlus O p (xi' p)} := by
+  have h1 : RingHom.ker (thetaPlus p) =
+      RingHom.ker (AdicCompletion.evalOneₐ (RingHom.ker (fontaineThetaInvertP O p))).toRingHom := by
+    ext x
+    exact map_eq_zero_iff (RingHom.quotientKerEquivOfSurjective (fontaineThetaInvertP_surjective p))
+      (RingEquiv.injective _)
+  rw [h1, AdicCompletion.ker_evalOneₐ_eq_map _ (ker_fg p)]
+  exact map_ker_eq p
+
+/-- `𝓞_ℂ_p[1/p]` is the fraction field of `𝓞_ℂ_p`. -/
+instance isFractionRing_away_p : IsFractionRing O (Localization.Away (p : O)) := by
+  refine IsLocalization.of_le_of_exists_dvd (Submonoid.powers (p : O)) (nonZeroDivisors _)
+    (powers_le_nonZeroDivisors_of_noZeroDivisors (p_ne_zero p)) ?_
+  intro x hx
+  have hx0 : (x : ℂ_[p]) ≠ 0 := fun h0 => nonZeroDivisors.ne_zero hx (Subtype.ext h0)
+  obtain ⟨m, hm⟩ := exists_pow_lt_of_lt_one (norm_pos_iff.mpr hx0) (norm_p_lt_one p)
+  have hc : ‖(p : ℂ_[p]) ^ m / (x : ℂ_[p])‖ ≤ 1 := by
+    rw [norm_div, norm_pow]; exact div_le_one_of_le₀ hm.le (norm_nonneg _)
+  refine ⟨(p : O) ^ m, ⟨m, rfl⟩, ⟨⟨(p : ℂ_[p]) ^ m / (x : ℂ_[p]), (mem_O_iff p _).mpr hc⟩, ?_⟩⟩
+  apply Subtype.ext
+  simp only [MulMemClass.coe_mul, SubmonoidClass.coe_pow]
+  field_simp
+  rfl
+
+/-- **`𝓞_ℂ_p[1/p] ≅ ℂ_p`**, so `θ⁺` takes values in `ℂ_p`. -/
+noncomputable def awayEquivCp : Localization.Away (p : O) ≃ₐ[O] ℂ_[p] :=
+  IsLocalization.algEquiv (nonZeroDivisors O) _ _
+
+/-- The residue map `B_dR^+ → ℂ_p`, surjective with kernel `(ξ)`. -/
+noncomputable def thetaPlusCp : BDeRhamPlus O p →+* ℂ_[p] :=
+  (awayEquivCp p).toRingEquiv.toRingHom.comp (thetaPlus p)
+
+theorem thetaPlusCp_surjective : Function.Surjective (thetaPlusCp p) :=
+  (awayEquivCp p).surjective.comp (thetaPlus_surjective p)
+
+theorem ker_thetaPlusCp : RingHom.ker (thetaPlusCp p) = span {ofPlus O p (xi' p)} := by
+  rw [← ker_thetaPlus p]
+  ext x
+  rw [RingHom.mem_ker, RingHom.mem_ker]
+  exact map_eq_zero_iff (awayEquivCp p) (AlgEquiv.injective _)
+
 end BdrKer.Cp
 
 #print axioms BdrKer.Cp.ker_fontaineTheta_Cp
@@ -789,6 +845,8 @@ end BdrKer.Cp
 #print axioms BdrKer.Cp.maximalIdeal_BDeRhamPlus
 #print axioms BdrKer.Cp.isField_BDeRham
 #print axioms BdrKer.Cp.isFractionRing_BDeRham
+#print axioms BdrKer.Cp.ker_thetaPlusCp
+#print axioms BdrKer.Cp.thetaPlusCp_surjective
 
 #print axioms BdrKer.ker_fontaineTheta_eq_span
 #print axioms BdrKer.isUnit_xi_BDeRham
