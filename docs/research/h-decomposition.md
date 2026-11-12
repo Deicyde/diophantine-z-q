@@ -657,8 +657,9 @@ G15), both new (hdec-elementary §2.2), verified as arguments by one adversarial
   21-22, and R4 is stated as the transformation law, not as Igusa's identity; each derivation must
   be recorded with its proof. R1 is assembled from several statements of Shimura and Deligne.
 - **R3. Unreviewed new lemmas.** In route P: pkg-I2's Raynaud route for G3 (drops R8, R7b, T3)
-  now has one adversarial model review (rv-a6-route: sound after repairs) and a Lean proof modulo
-  `QuatUnipotentTrivial`, and no human review;
+  now has one adversarial model review (rv-a6-route: sound after repairs) and a complete Lean
+  proof from its three leaves (`QuatUnipotentTrivial` proved by glue-a6-alg, 2026-11-12), and no
+  human review;
   pkg-I6's B2 through local Kronecker–Weber and D3 without norm functoriality (both SPECULATIVE
   until written). In route K: GK1, GK2, verified as arguments by one adversarial model review
   (rv-routek) with five repairs pending. All of Glazer's glue (G7, G9, G12,
@@ -718,7 +719,8 @@ G15), both new (hdec-elementary §2.2), verified as arguments by one adversarial
   repairs (freeness of `A[3ⁿ]` needs the full group structure; `c² ≡ 0` forces `c ∈ 3ᵏΛ` because
   `B ⊗ ℚ₃` is a division algebra, not because the norm form is anisotropic mod 3), and it is proved
   in Lean from R6, R7(a), T5 and `QuatUnipotentTrivial`. R8 can be dropped once that algebra
-  statement is proved.
+  statement is proved. Update (hsyn-fold, 2026-11-12): it is proved (glue-a6-alg), so R8 is
+  droppable now; the counts keep it listed.
 - *A9 (G5).* hdec-faithful: Riemann's theorem (T11) and a centralizer computation; pkg-I3: the QM
   dichotomy T27 as a textbook consequence. Resolution: T27, with its locator as a first check;
   T11 remains for oddness (G10).

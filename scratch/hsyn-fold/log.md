@@ -30,3 +30,5 @@ Leaves.lean (cited in the note only).
 - run 5 (00:25, 1m31s): exit 0, no errors; 1 `sorry` warning (HSyn.glueOutputs_of_leaves);
   81 `#print axioms`, all [propext, Classical.choice, Quot.sound] except HSyn.sixContactMin_of_leaves
   (sorryAx). 14 opaque, 0 axiom, 12404 lines.
+- run 6 (00:29, final file, after header/note edits): exit 0, 0 errors, 1 `sorry` warning, 81
+  `#print axioms`, all [propext, Classical.choice, Quot.sound] except HSyn.sixContactMin_of_leaves.
