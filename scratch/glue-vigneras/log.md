@@ -16,3 +16,9 @@
   `IntMat`, `mul_single_mul_apply`, `intMat_single`, `split_normalizer` (x M_n(ℤ_p) x⁻¹ ⊆ M_n(ℤ_p) ⇒ x ∈ ℚ_p^× GL_n(ℤ_p);
   proof: scale by the largest entry x_{ki}, conjugate E_{ij}: (u E_ij u⁻¹)_{kl} = (u⁻¹)_{jl}), `intMat_mul`,
   `split_normalizer_converse`, `split_normalizer_iff`. VERIFIED (compiled).
+- 00:00 `cert.py` (pure Python, Fractions; output `cert.output.txt`): the 16 coordinates E_kl of x e_k x̄ in N5's
+  basis are integer quadratic forms spanning all 10 quadratic monomials (rank 10); certificates
+  3n0² = 2E00+E11+E13−2E20−E31, 6n1² = −E11−2E20+E31+E33, 3n2² = 2E00−E11−2E20−E33, 6n3² = E11+E13−2E20−E33. VERIFIED (computed).
+- 00:01 chunk 6 COMPILES: `ek`, `Ent`, `cert0..cert3` (ring identities in B_p, any p), `eq_of_coord`, `coord_smul`,
+  `star_mem`, `small_*`, `norm_int_eq_one`, `unramified_normalizer`: for p ≠ 2, 3, x ∈ B_p^× with x 𝒪_p x⁻¹ ⊆ 𝒪_p
+  ⇒ x ∈ ℚ_p^×𝒪_p^× (directly on N5's order, no splitting B_p ≅ M₂). Axioms: [propext, Classical.choice, Quot.sound]. VERIFIED.

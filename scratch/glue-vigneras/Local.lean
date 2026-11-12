@@ -513,4 +513,178 @@ theorem split_normalizer_iff [Nonempty n] (x : (Matrix n n ℚ_[p])ˣ) :
 
 end Split
 
+/-! ## Unramified primes `p ∤ 6`, directly on N5's order (no explicit splitting)
+
+Certificate (`cert.py`, `cert.output.txt`): writing `E k l` for coordinate `l` of `x eₖ x̄`,
+`3 n₀² = 2E₀₀ + E₁₁ + E₁₃ − 2E₂₀ − E₃₁`, `6 n₁² = −E₁₁ − 2E₂₀ + E₃₁ + E₃₃`,
+`3 n₂² = 2E₀₀ − E₁₁ − 2E₂₀ − E₃₃`, `6 n₃² = E₁₁ + E₁₃ − 2E₂₀ − E₃₃`. -/
+
+section Unramified
+variable (p : ℕ) [hp : Fact p.Prime]
+
+/-- N5's basis in `B_p`. -/
+noncomputable def ek (k : Fin 4) : Bp p :=
+  combp p (fun l => if l = k then 1 else 0)
+
+theorem ek_mem (k : Fin 4) : ek p k ∈ Op p := ⟨_, rfl⟩
+
+/-- `E k l`: coordinate `l` of `x eₖ x̄`. -/
+noncomputable def Ent (x : Bp p) (k l : Fin 4) : ℚ_[p] := coord p (x * ek p k * star x) l
+
+theorem cert0 (x : Bp p) : 3 * coord p x 0 ^ 2 =
+    2 * Ent p x 0 0 + Ent p x 1 1 + Ent p x 1 3 - 2 * Ent p x 2 0 - Ent p x 3 1 := by
+  simp [Ent, ek, combp, coord]; ring
+theorem cert1 (x : Bp p) : 6 * coord p x 1 ^ 2 =
+    - Ent p x 1 1 - 2 * Ent p x 2 0 + Ent p x 3 1 + Ent p x 3 3 := by
+  simp [Ent, ek, combp, coord]; ring
+theorem cert2 (x : Bp p) : 3 * coord p x 2 ^ 2 =
+    2 * Ent p x 0 0 - Ent p x 1 1 - 2 * Ent p x 2 0 - Ent p x 3 3 := by
+  simp [Ent, ek, combp, coord]; ring
+theorem cert3 (x : Bp p) : 6 * coord p x 3 ^ 2 =
+    Ent p x 1 1 + Ent p x 1 3 - 2 * Ent p x 2 0 - Ent p x 3 3 := by
+  simp [Ent, ek, combp, coord]; ring
+
+theorem eq_of_coord (x : Bp p) : x = ⟨coord p x 0 + coord p x 2 / 2, coord p x 1 + coord p x 3 / 2,
+    coord p x 2 / 2, coord p x 3 / 2⟩ := by
+  ext <;> simp [coord] <;> ring
+
+theorem coord_smul (c : ℚ_[p]) (x : Bp p) (k : Fin 4) : coord p (c • x) k = c * coord p x k := by
+  fin_cases k <;> simp [coord] <;> ring
+
+theorem star_mem {x : Bp p} (hx : x ∈ Op p) : star x ∈ Op p := by
+  rw [mem_Op_iff_coord] at hx ⊢
+  intro k
+  have e : coord p (star x) = ![coord p x 0 + coord p x 2, - coord p x 1, - coord p x 2, - coord p x 3] := by
+    funext k; fin_cases k <;> simp [coord] <;> ring
+  rw [e]
+  fin_cases k
+  · exact norm_le_one_of_eq_coe (lift _ (hx 0) + lift _ (hx 2)) (by simp [coe_lift])
+  · simpa using hx 1
+  · simpa using hx 2
+  · simpa using hx 3
+
+/-- Small elements (`‖z‖ < 1`, i.e. `z ∈ pℤ_p`) are closed under the operations used. -/
+theorem small_add {a b : ℚ_[p]} (ha : ‖a‖ < 1) (hb : ‖b‖ < 1) : ‖a + b‖ < 1 :=
+  lt_of_le_of_lt (Padic.nonarchimedean a b) (max_lt ha hb)
+theorem small_neg {a : ℚ_[p]} (ha : ‖a‖ < 1) : ‖-a‖ < 1 := by rwa [norm_neg]
+theorem small_sub {a b : ℚ_[p]} (ha : ‖a‖ < 1) (hb : ‖b‖ < 1) : ‖a - b‖ < 1 := by
+  rw [sub_eq_add_neg]; exact small_add p ha (small_neg p hb)
+theorem small_two_mul {a : ℚ_[p]} (ha : ‖a‖ < 1) : ‖2 * a‖ < 1 := by
+  rw [norm_mul]
+  have h2 : ‖(2 : ℚ_[p])‖ ≤ 1 := by simpa using Padic.norm_int_le_one (p := p) 2
+  calc ‖(2 : ℚ_[p])‖ * ‖a‖ ≤ 1 * ‖a‖ := mul_le_mul_of_nonneg_right h2 (norm_nonneg _)
+    _ < 1 := by rw [one_mul]; exact ha
+
+theorem norm_int_eq_one {k : ℤ} (hk : ¬ (p : ℤ) ∣ k) : ‖(k : ℚ_[p])‖ = 1 := by
+  rcases lt_or_eq_of_le (Padic.norm_int_le_one (p := p) k) with h | h
+  · exact absurd (Padic.norm_intCast_lt_one_iff.mp h) hk
+  · exact h
+
+/-- **Vignéras' local normalizer fact at `p ∤ 6`, on N5's order.** If `x ∈ B_p^×` normalizes
+`𝒪_p` (`x 𝒪_p x⁻¹ ⊆ 𝒪_p` suffices), then `x ∈ ℚ_p^× 𝒪_p^×`. -/
+theorem unramified_normalizer (h2 : p ≠ 2) (h3 : p ≠ 3) (x : (Bp p)ˣ)
+    (hx : ∀ y ∈ Op p, (x : Bp p) * y * ((x⁻¹ : (Bp p)ˣ) : Bp p) ∈ Op p) : x ∈ scalOpUnits p := by
+  obtain ⟨i, hmax⟩ := Finite.exists_max (fun k : Fin 4 => ‖coord p (x : Bp p) k‖)
+  have hc : coord p (x : Bp p) i ≠ 0 := by
+    intro h0
+    have hz : ∀ k, coord p (x : Bp p) k = 0 := fun k => by
+      have := hmax k; rw [h0, norm_zero] at this; exact norm_le_zero_iff.mp this
+    apply x.ne_zero
+    rw [eq_of_coord p (x : Bp p)]; simp [hz]; rfl
+  let c : ℚ_[p]ˣ := Units.mk0 _ hc
+  let u : (Bp p)ˣ := Units.map (algebraMap ℚ_[p] (Bp p)).toMonoidHom c⁻¹ * x
+  have hu : (u : Bp p) = ((c⁻¹ : ℚ_[p]ˣ) : ℚ_[p]) • (x : Bp p) := by
+    simp [u, Algebra.smul_def]
+  have huinv : ((u⁻¹ : (Bp p)ˣ) : Bp p) = (c : ℚ_[p]) • ((x⁻¹ : (Bp p)ˣ) : Bp p) := by
+    apply Units.inv_eq_of_mul_eq_one_right
+    rw [hu, smul_mul_smul_comm, Units.mul_inv, Units.inv_mul, one_smul]
+  have hcn : 0 < ‖(c : ℚ_[p])‖ := by simpa [c] using hc
+  have hcu : ∀ k, coord p (u : Bp p) k = (coord p (x : Bp p) i)⁻¹ * coord p (x : Bp p) k := by
+    intro k; rw [hu, coord_smul]; simp [c]
+  have huO : (u : Bp p) ∈ Op p := by
+    rw [mem_Op_iff_coord]; intro k
+    rw [hcu, norm_mul, norm_inv, inv_mul_le_iff₀ (by simpa [c] using hcn), mul_one]
+    exact hmax k
+  have hui : ‖coord p (u : Bp p) i‖ = 1 := by
+    rw [hcu, inv_mul_cancel₀ hc, norm_one]
+  have hun : ∀ y ∈ Op p, (u : Bp p) * y * ((u⁻¹ : (Bp p)ˣ) : Bp p) ∈ Op p := by
+    intro y hy
+    have e : (u : Bp p) * y * ((u⁻¹ : (Bp p)ˣ) : Bp p) =
+        (x : Bp p) * y * ((x⁻¹ : (Bp p)ˣ) : Bp p) := by
+      rw [hu, huinv, smul_mul_assoc, smul_mul_assoc, mul_smul_comm, smul_smul, Units.inv_mul,
+        one_smul]
+    rw [e]; exact hx y hy
+  -- `ū = nrd(u) u⁻¹`
+  have hstar : star (u : Bp p) = nrd p u • ((u⁻¹ : (Bp p)ˣ) : Bp p) := by
+    have : ((u⁻¹ : (Bp p)ˣ) : Bp p) * ((u : Bp p) * star (u : Bp p)) = star (u : Bp p) := by
+      rw [← mul_assoc, Units.inv_mul, one_mul]
+    rw [← this, mul_star_eq, Algebra.smul_def, ← Algebra.commutes]
+  have hnrd1 : ‖nrd p u‖ = 1 := by
+    rcases lt_or_eq_of_le (norm_nrd_le_one_of_mem p huO) with hlt | heq
+    · exfalso
+      have hE : ∀ k l, ‖Ent p u k l‖ < 1 := by
+        intro k l
+        have hm := hun _ (ek_mem p k)
+        rw [mem_Op_iff_coord] at hm
+        have e : Ent p u k l = nrd p u * coord p ((u : Bp p) * ek p k * ((u⁻¹ : (Bp p)ˣ) : Bp p)) l := by
+          rw [Ent, hstar, mul_smul_comm, coord_smul]
+        rw [e, norm_mul]
+        calc ‖nrd p u‖ * _ ≤ ‖nrd p u‖ * 1 := mul_le_mul_of_nonneg_left (hm l) (norm_nonneg _)
+          _ < 1 := by rw [mul_one]; exact hlt
+      have hsq : ‖coord p (u : Bp p) i ^ 2‖ < 1 := by
+        have h3' : ‖(3 : ℚ_[p])‖ = 1 := by
+          have := norm_int_eq_one p (k := 3) (by
+            intro hd; have := (Nat.prime_dvd_prime_iff_eq hp.out Nat.prime_three).mp (by exact_mod_cast hd)
+            exact h3 this)
+          simpa using this
+        have h6' : ‖(6 : ℚ_[p])‖ = 1 := by
+          have := norm_int_eq_one p (k := 6) (by
+            intro hd
+            have hd' : p ∣ 2 * 3 := by exact_mod_cast hd
+            rcases (Nat.Prime.dvd_mul hp.out).mp hd' with h | h
+            · exact h2 ((Nat.prime_dvd_prime_iff_eq hp.out Nat.prime_two).mp h)
+            · exact h3 ((Nat.prime_dvd_prime_iff_eq hp.out Nat.prime_three).mp h))
+          simpa using this
+        fin_cases i
+        · have := cert0 p (u : Bp p)
+          have hs : ‖3 * coord p (u : Bp p) 0 ^ 2‖ < 1 := by
+            rw [this]
+            exact small_sub p (small_sub p (small_add p (small_add p (small_two_mul p (hE 0 0))
+              (hE 1 1)) (hE 1 3)) (small_two_mul p (hE 2 0))) (hE 3 1)
+          rwa [norm_mul, h3', one_mul] at hs
+        · have := cert1 p (u : Bp p)
+          have hs : ‖6 * coord p (u : Bp p) 1 ^ 2‖ < 1 := by
+            rw [this]
+            exact small_add p (small_add p (small_sub p (small_neg p (hE 1 1))
+              (small_two_mul p (hE 2 0))) (hE 3 1)) (hE 3 3)
+          rwa [norm_mul, h6', one_mul] at hs
+        · have := cert2 p (u : Bp p)
+          have hs : ‖3 * coord p (u : Bp p) 2 ^ 2‖ < 1 := by
+            rw [this]
+            exact small_sub p (small_sub p (small_sub p (small_two_mul p (hE 0 0)) (hE 1 1))
+              (small_two_mul p (hE 2 0))) (hE 3 3)
+          rwa [norm_mul, h3', one_mul] at hs
+        · have := cert3 p (u : Bp p)
+          have hs : ‖6 * coord p (u : Bp p) 3 ^ 2‖ < 1 := by
+            rw [this]
+            exact small_sub p (small_sub p (small_add p (hE 1 1) (hE 1 3))
+              (small_two_mul p (hE 2 0))) (hE 3 3)
+          rwa [norm_mul, h6', one_mul] at hs
+      rw [norm_pow, hui, one_pow] at hsq
+      exact lt_irrefl _ hsq
+    · exact heq
+  refine ⟨c, u, ⟨huO, ?_⟩, ?_⟩
+  · -- `u⁻¹ = nrd(u)⁻¹ ū ∈ 𝒪_p`
+    have hn0 : nrd p u ≠ 0 := nrd_unit_ne_zero p u
+    have e : ((u⁻¹ : (Bp p)ˣ) : Bp p) = (nrd p u)⁻¹ • star (u : Bp p) := by
+      rw [hstar, smul_smul, inv_mul_cancel₀ hn0, one_smul]
+    have hs := star_mem p huO
+    rw [e, mem_Op_iff_coord]; rw [mem_Op_iff_coord] at hs
+    intro k
+    rw [coord_smul, norm_mul, norm_inv, hnrd1, inv_one, one_mul]
+    exact hs k
+  · rw [hu, smul_smul, Units.mul_inv, one_smul]
+
+end Unramified
+
 end GlueVigneras
