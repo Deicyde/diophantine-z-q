@@ -29,6 +29,9 @@
   `finrank End_G(V ⊕ V) ≤ 4` ⇒ `repBaseChange F ρ` irreducible for every field `F ⊇ k`.
   VERIFIED (compiled 22:31 PST); axioms [propext, Classical.choice, Quot.sound]. File has no `sorry`.
 
+- `GlueI3.exists_equivariant_ne_zero_of_common` (E1, first arrow): `ρ` semisimple, `U ≠ ⊥` a
+  subrepresentation of `ρ`, `U'` a subrepresentation of `σ`, `e : U ≃ₗ U'` equivariant ⇒ a nonzero
+  `G`-equivariant `φ : V →ₗ W`. VERIFIED (compiled 22:36 PST); axioms [propext, Classical.choice, Quot.sound].
 - `TateBC.lean` (§1 copied verbatim from pkg-I3's `I3.lean`, Tate module of an abelian group):
   `PkgI3.Tate.map_injective`, `ell_smul_succ` (`(ℓ•x)ₙ₊₁ = xₙ`), `mem_range_of_ell_smul`
   (saturation), `mem_range_of_smul` (cokernel torsion-free, via `PadicInt.unitCoeff_spec`),

@@ -244,8 +244,57 @@ theorem absolutelyIrreducible_of_finrank_commOf_prod_le_four
   exact isIrreducible_of_commutant_scalar _ (hSS k F G V ρ hss)
     (fun φ hφ => scalar_of_finrank_commOf_eq_one _ hF1 φ hφ)
 
+/-! ### E1: a common constituent gives a nonzero equivariant map -/
+
+/-- **E1, first arrow (GLUE, proved).** If `ρ` is semisimple and a nonzero subrepresentation `U`
+of `ρ` is equivariantly isomorphic to a subrepresentation `U'` of `σ`, there is a nonzero
+`G`-equivariant linear map `V → W`. (Project onto `U` along an invariant complement, transport,
+include.) -/
+theorem exists_equivariant_ne_zero_of_common {W : Type*} [AddCommGroup W] [Module k W]
+    (ρ : Representation k G V) (σ : Representation k G W) (hss : ρ.IsSemisimpleRepresentation)
+    (U : Subrepresentation ρ) (U' : Subrepresentation σ) (hU : U ≠ ⊥)
+    (e : U.toSubmodule ≃ₗ[k] U'.toSubmodule)
+    (he : ∀ g (u : U.toSubmodule), (e ⟨ρ g u, U.apply_mem_toSubmodule g u.2⟩ : W) = σ g (e u)) :
+    ∃ φ : V →ₗ[k] W, φ ≠ 0 ∧ ∀ g, φ ∘ₗ ρ g = σ g ∘ₗ φ := by
+  obtain ⟨U'', hU''⟩ := hss.exists_isCompl U
+  have h : IsCompl U.toSubmodule U''.toSubmodule := by
+    constructor
+    · rw [disjoint_iff]
+      have := congrArg Subrepresentation.toSubmodule hU''.inf_eq_bot
+      simp only [Subrepresentation.toSubmodule_inf] at this
+      exact this
+    · rw [codisjoint_iff]
+      have := congrArg Subrepresentation.toSubmodule hU''.sup_eq_top
+      simp only [Subrepresentation.toSubmodule_sup] at this
+      exact this
+  let p := Submodule.projectionOnto U.toSubmodule U''.toSubmodule h
+  refine ⟨U'.toSubmodule.subtype ∘ₗ e.toLinearMap ∘ₗ p, ?_, ?_⟩
+  · intro h0
+    apply hU
+    apply Subrepresentation.toSubmodule_injective
+    change U.toSubmodule = ⊥
+    rw [eq_bot_iff]
+    intro u hu
+    have := congrArg (fun f => f u) h0
+    simp only [LinearMap.coe_comp, Function.comp_apply, LinearMap.zero_apply,
+      Submodule.coe_subtype, LinearEquiv.coe_coe, p] at this
+    rw [Submodule.projectionOnto_apply_left h ⟨u, hu⟩] at this
+    have h2 : e ⟨u, hu⟩ = 0 := Subtype.ext this
+    have h3 : (⟨u, hu⟩ : U.toSubmodule) = 0 := by simpa using h2
+    exact (Submodule.mem_bot k).mpr (congrArg Subtype.val h3)
+  · intro g
+    apply LinearMap.ext
+    intro v
+    have hpv : (p (ρ g v)) = ⟨ρ g (p v), U.apply_mem_toSubmodule g (p v).2⟩ := by
+      apply Subtype.ext
+      exact congrArg (fun f => f v) (projection_comm U U'' h g)
+    simp only [LinearMap.coe_comp, Function.comp_apply, Submodule.coe_subtype,
+      LinearEquiv.coe_coe]
+    rw [hpv, he]
+
 end GlueI3
 
 #print axioms GlueI3.isIrreducible_of_commutant_scalar
 #print axioms GlueI3.isIrreducible_of_finrank_commOf_prod_le_four
 #print axioms GlueI3.absolutelyIrreducible_of_finrank_commOf_prod_le_four
+#print axioms GlueI3.exists_equivariant_ne_zero_of_common

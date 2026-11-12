@@ -23,6 +23,7 @@ L731-734 needs.
 | `repBaseChange E ρ` | `ρ_E(g) = ρ(g) ⊗ E` on `E ⊗_k V`, a Mathlib `Representation` (laws proved) | definition |
 | `InvariantsBaseChange` | `V` finite-dimensional ⇒ `dim_E End_G(V ⊗ E) = dim_k End_G(V)` | **stated, not proved** |
 | `SemisimpleBaseChange` | `char k = 0`, `V` finite-dimensional, `ρ` semisimple ⇒ `ρ_E` semisimple | **stated, not proved** |
+| `exists_equivariant_ne_zero_of_common` | E1's first arrow: `ρ` semisimple, a nonzero subrepresentation `U` of `ρ` equivariantly isomorphic to a subrepresentation `U'` of `σ` ⇒ a nonzero `G`-equivariant linear map `V → W` | proved |
 | `PkgI3.Tate.map_bijective` (`TateBC.lean`) | `φ : M →+ N` injective, `T_ℓ M` free and finite, `T_ℓ N` finite, equal ranks ⇒ `T_ℓ(φ)` bijective (the algebraic core of `T_ℓ` under base change) | proved |
 | `absolutelyIrreducible_of_finrank_commOf_prod_le_four` | from the two Props above: `char k = 0`, `V ≠ 0` finite-dimensional, `ρ` semisimple, `dim End_G(V ⊕ V) ≤ 4` ⇒ `ρ_F` irreducible for **every** field `F ⊇ k` | proved (conditional on the two Props) |
 
@@ -55,13 +56,14 @@ inequality `4 · dim End_G(r) ≤ dim End_G(r ⊕ r) ≤ 4`, through the injecti
 
 - *Common constituent → nonzero equivariant `ℚ_ℓ`-map → nonzero `Hom`.* The last arrow is pkg-I3's
   `exists_hom_ne_zero_of_equivariant` (proved). The first arrow needs two facts:
-  - a common constituent over `E` of two semisimple representations gives a nonzero `E`-linear equivariant
-    map (compose the projection onto the summand with the inclusion; `projection_comm` here proves that the
-    projection is equivariant);
+  - a common constituent over `E` gives a nonzero `E`-linear equivariant map: **proved here**
+    (`exists_equivariant_ne_zero_of_common`). Only the source needs to be semisimple, which is
+    `FaltingsSemisimple` + `SemisimpleBaseChange` for `V_ℓ(A) ⊗ E`; N5 invokes the semisimplicity of `V(J)`,
+    but either side suffices;
   - descent of a nonzero `E`-equivariant map `V_A ⊗ E → V_J ⊗ E` to a nonzero `ℚ_ℓ`-equivariant map. This is
     the `Hom` version of `InvariantsBaseChange`: the commutant computation applies verbatim to `Hom_G(V, W)`.
 
-  Not formalized.
+  The descent is not formalized.
 - *Application of `PoincareReducibility`.* That leaf needs `EndDivision A` over `L'` (every nonzero
   `f ∈ End_{L'}(A)` finite and surjective). N5 gets it from `End⁰(A_{ℚ̄}) = B` (a division algebra). Lean
   would need:
