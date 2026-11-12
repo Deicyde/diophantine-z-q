@@ -1,5 +1,6 @@
 import Mathlib
 import ZInQKernel.Hypotheses.JHeight
+import ZInQKernel.Compiler.Precision.HeightConstant
 
 /-!
 # H = `ZInQ.SixContactMin` decomposed into literature leaves and glue (synthesis)

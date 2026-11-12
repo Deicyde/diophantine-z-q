@@ -28,12 +28,6 @@ Math. Z. 295 (2020), Example 30, eqs. (13)-(14) (VERIFIED in arXiv v1 by a repos
 journal numbering UNVERIFIED). Exact. Missing: the QM locus (very large). -/
 opaque R03_LinYang : Prop
 
-/-- **R4. Igusa: `ψ₄`, `χ₁₀` in theta constants.** `ψ₄ = 2⁻² Σ_{m even} θ_m⁸`,
-`χ₁₀ = −2⁻¹⁴ Π_{m even} θ_m²`, with the conversion to `J₂, …, J₁₀`. Amer. J. Math. 89 (1967),
-pp. 833-834, 848 (UNVERIFIED). Exact. Missing: theta constants with characteristics on `𝔥₂`,
-Siegel modular forms of degree 2 (large). -/
-opaque R04_IgusaTheta : Prop
-
 /-- **R5. González–Rotger.** For an order `R` of conductor `f`, `(f,6) = 1`, in an imaginary
 quadratic `k` embeddable in `𝒪`, `#CM(R) = h(R)` on `X₆` and `ℚ(x)` is the ring class field `H_R`
 or has index 2 in it (according as some prime dividing 6 is inert in `k` or not). J. Math. Soc.
@@ -47,12 +41,6 @@ I, Exp. IX, Thm 3.6 (UNVERIFIED). Exact. Needed only on the reviewed route for A
 the Raynaud route of the reduction-theory report avoids it. Missing: Néron models (large). The
 Galois consequence is stated as `PkgI2.GrothendieckMonodromy`. -/
 opaque R08_SemistableReduction : Prop
-
-/-- **R9. Faltings 1983, Satz 3, Satz 4, Korollar 1.** For abelian varieties `A, B` over a number
-field `F`: `V_ℓ(A)` is a semisimple `G_F`-module and
-`Hom_F(A, B) ⊗ ℚ_ℓ ≅ Hom_{G_F}(V_ℓA, V_ℓB)`. Invent. Math. 73 (1983), pp. 360-361 (read by a
-model). Exact. Missing: Tate modules `V_ℓ` with Galois action, Hom groups (medium). -/
-opaque R09_FaltingsTate : Prop
 
 /-- **R10. de Rham comparison.** For `F/ℚ_ℓ` finite and `A/F` an abelian variety of dimension `g`,
 `H¹_et(A_F̄, ℚ_ℓ)` is de Rham with `D_dR ≅ H¹_dR(A/F)`; hence `V_ℓ(A)` is de Rham with Hodge–Tate
@@ -122,10 +110,6 @@ opaque R21_Bost : Prop
 (read by a model). Exact. Missing: Faltings height, theta constants. -/
 opaque R22_Pazuki : Prop
 
-/-- **T8. Poincaré reducibility** (Mumford, *Abelian varieties*, §19 Thm 1, UNVERIFIED). Missing:
-abelian subvarieties and isogenies (medium). -/
-opaque T08_Poincare : Prop
-
 /-- **T9. Weil pairing.** The Weil pairing of a polarization is Galois-equivariant with values in
 `ℤ_ℓ(1)`, so `G_K` acts on `V_ℓ(A)` through `GSp` with cyclotomic multiplier (Mumford §§20, 23,
 UNVERIFIED). Missing: polarizations, Tate modules (medium). -/
@@ -143,22 +127,6 @@ opaque T11_RiemannGAGA : Prop
 /-- **T12. Artin comparison.** `V_ℓ(A) ≅ H₁(A(ℂ), ℚ) ⊗ ℚ_ℓ`, compatibly with complex conjugation
 (SGA 4 XI 4.4, UNVERIFIED; elementary for abelian varieties via `ℂ²/Λ`). Missing: as T11. -/
 opaque T12_ArtinComparison : Prop
-
-/-- **T15. `H²(G_ℚ, ±1) ≅ Br(ℚ)[2]`**, compatibly with restriction to `G_{ℚ_v}` (Milne, *ADT*,
-Ch. I; Tate in Cassels–Fröhlich VII; UNVERIFIED). Missing: crossed products, local invariants
-(medium; Tau Ceti has the local-global sequence). -/
-opaque T15_BrauerCohomology : Prop
-
-/-- **T16. Local class field theory** for finite extensions of `ℚ_p`: the local Artin map, its
-compatibility with norms, the upper numbering theorem (Serre, *Local fields*; UNVERIFIED). Missing:
-local Artin map (medium; Tau Ceti). -/
-opaque T16_LocalCFT : Prop
-
-/-- **T22. Upper numbering and conductors.** Herbrand's theorem, the subgroup formula
-`G^u ∩ H = H^{ψ(u)}` for absolute groups, Artin and Swan conductors of a representation with
-finite wild image (Serre, *Corps locaux*, IV §§1-3, VI §2; UNVERIFIED). Missing: upper numbering
-on `G_{ℚ_p}`, conductors of ℓ-adic representations (medium; Tau Ceti has finite levels). -/
-opaque T22_UpperNumbering : Prop
 
 /-- **T23. Fontaine's closure properties.** de Rham representations are closed under duals,
 tensor products, sums and subquotients (Astérisque 223 (1994), Thm 3.8, UNVERIFIED). Missing: as
@@ -178,19 +146,21 @@ theorem weight_match (n k : ℤ) (hk : 1 ≤ k)
     (h : (n = 0 ∧ n + 1 - k = -1) ∨ (n = -1 ∧ n + 1 - k = 0)) : n = 0 ∧ k = 2 := by
   omega
 
-/-- **The research-level leaves of route P** (note §2.1), bundled. Placeholders are uninterpreted.
-`R6`, `R7` are the reduction-theory report's genuine statements; `R14`, `R15` are stated over §0. -/
+/-- **The research-level leaves of route P** (note §2.1), bundled. Placeholders are
+uninterpreted. Genuine statements: `R4` (pkg-I1), `R6`, `R7` (pkg-I2), `R9` (pkg-I3), `R14`,
+`R15` (§1 here). -/
 structure ResearchLeaves : Prop where
   r1 : R01_ShimuraDeligne
   r2 : R02_BabaGranath
   r3 : R03_LinYang
-  r4 : R04_IgusaTheta
+  r4 : PkgI1.ThetaModularity
   r5 : R05_GonzalezRotger
   r6 : PkgI2.RaynaudCriterion.{0}
   r7a : PkgI2.NeronOggShafarevich.{0}
   r7b : PkgI2.SerreTatePotentialGood.{0}
   r8 : R08_SemistableReduction
-  r9 : R09_FaltingsTate
+  r9a : PkgI3.FaltingsSemisimple
+  r9b : PkgI3.FaltingsTate
   r10 : R10_DeRhamComparison
   r11 : R11_Berger
   r12 : R12_Pan
@@ -212,39 +182,63 @@ structure TextbookLeaves : Prop where
   t3 : PkgI2.NeronMappingAbelianScheme.{0}
   t4 : PkgI2.ReductionTorsionBijective.{0}
   t5 : PkgI2.TorsionStructure.{0}
-  t6 : PkgI2.HomRankBound.{0}
-  t7 : PkgI2.CharpolyIndependentOfEll.{0}
-  t8 : T08_Poincare
+  t6 : PkgI3.HomFreeFinite
+  t7 : PkgI3.CharPolyIndepOfEll
+  t8 : PkgI3.PoincareReducibility
   t9 : T09_WeilPairing
   t10 : T10_TateDuality
   t11 : T11_RiemannGAGA
   t12 : T12_ArtinComparison
   t13 : SkolemNoether
   t14 : HasseBrauerQ
-  t15 : T15_BrauerCohomology
-  t16 : T16_LocalCFT
+  t15a : PkgI6.BrauerHasse2
+  t15b : PkgI6.BrauerReciprocity2
+  t15c : PkgI6.LocalH2Card
+  t16a : ∀ (p : ℕ) [Fact p.Prime], PkgI6.LocalKroneckerWeber p
+  t16b : PkgI6.LocalReciprocityUpper
   t17 : KroneckerWeber
   t18 : FrobeniusDense
   t19 : BrauerNesbitt
   t20 : GlueConductor.HilbertDifferentFormula
   t21 : GlueConductor.SerreDifferentBound
-  t22 : T22_UpperNumbering
+  t22a : PkgI6.HerbrandQuotient
+  t22b : PkgI6.HerbrandTransitivity
   t23 : T23_FontaineClosure
   t24 : EigenformTwist
   t25 : T25_Newforms
+  t26 : PkgI3.TateModuleFree
+  t27 : PkgI3.QMDichotomy
+  t28 : PkgI1.IgusaClebschSeparation
 
-/-- **G0 without G20: the glue G1-G19.** The leaves imply the `j`-form of H,
-`JHeightBound Mult.S_mul` (steps A1-F3). Not proved: the glue needs the definitions of §4 of the
-note, and most leaves are placeholders. -/
-theorem jHeightBound_of_leaves (_r : ResearchLeaves) (_t : TextbookLeaves) :
-    ZInQ.JHeight.JHeightBound ZInQ.Mult.S_mul := by
+/-- **The glue G1-G17 and G19 (non-Arakelov part).** The leaves give glue-assembly's interface
+`GlueOutputs` at `S = Mult.S_mul`: for each `u ∉ 𝒞`, the theta point `z` of the QM surface over
+`J(u)`, a real `h_A` (the Faltings height of `A`) with Pazuki's bound, and the numerical outputs of
+the non-CM transfer. Not proved: the glue needs the definitions of §4 of the note, and most leaves
+are placeholders. `GlueOutputs` is an intermediate contract, not a leaf. -/
+theorem glueOutputs_of_leaves (_r : ResearchLeaves) (_t : TextbookLeaves) :
+    GlueAssembly.GlueOutputs ZInQ.Mult.S_mul := by
   sorry
 
-/-- **G0. The leaves imply `SixContactMin`**, through G20, the existing Lean proof
-`ZInQ.JHeight.sixContactMin_of_jHeightBound` (`ZInQKernel/Hypotheses/JHeight.lean`). -/
+/-- **G18-G20, proved** (glue-assembly): `GlueOutputs Mult.S_mul → SixContactMin`, through F2
+over Mathlib's Weil heights, the E2-E4 and F3 arithmetic, the final constant, and F4.
+`GlueAssembly.SixContactMinAt Mult.S_mul` is `ZInQ.SixContactMin` by definition. -/
+theorem sixContactMin_of_glueOutputs (h : GlueAssembly.GlueOutputs ZInQ.Mult.S_mul) :
+    ZInQ.SixContactMin :=
+  GlueAssembly.sixContactMinAt_of_glueOutputs h
+
+/-- The scratch copy of `JHeightBound` in glue-assembly is the repository's. -/
+theorem jHeightBound_copy_iff :
+    GlueAssembly.JHeightBound ZInQ.Mult.S_mul ↔ ZInQ.JHeight.JHeightBound ZInQ.Mult.S_mul :=
+  Iff.rfl
+
+/-- **G0. The leaves imply `SixContactMin`**: G1-G17, G19 (`sorry`) then G18-G20 (proved). -/
 theorem sixContactMin_of_leaves (r : ResearchLeaves) (t : TextbookLeaves) :
     ZInQ.SixContactMin :=
-  ZInQ.JHeight.sixContactMin_of_jHeightBound (jHeightBound_of_leaves r t)
+  sixContactMin_of_glueOutputs (glueOutputs_of_leaves r t)
+
+/-- **G20 alone** (the existing proof in `ZInQKernel`), for reference. -/
+example (h : ZInQ.JHeight.JHeightBound ZInQ.Mult.S_mul) : ZInQ.SixContactMin :=
+  ZInQ.JHeight.sixContactMin_of_jHeightBound h
 
 end HSyn
 
@@ -256,4 +250,10 @@ end
 #print axioms GlueConductor.D1_genuine
 #print axioms GlueConductor.level_le
 #print axioms GlueConductor.fourth_pow_mem
+#print axioms HSyn.sixContactMin_of_glueOutputs
+#print axioms PkgI1.f1_algebra
+#print axioms PkgI1.equiv_of_lyVec
+#print axioms PkgI3.exists_hom_ne_zero_of_equivariant
+#print axioms PkgI3.finrank_equivEnd
+#print axioms PkgI6.eq_of_same_finite_support
 #print axioms HSyn.sixContactMin_of_leaves
