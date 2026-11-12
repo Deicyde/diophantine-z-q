@@ -1,0 +1,33 @@
+# glue-I3-linalg results log
+
+## Files
+- `I3.lean`: verbatim copy of `scratch/pkg-I3/I3.lean` (object layer and leaves; not modified, not recompiled here).
+- `Commutant.lean`: new glue, imports only Mathlib (RepresentationTheory.Semisimple, .Irreducible,
+  LinearAlgebra.Projection, LinearAlgebra.FiniteDimensional.Basic).
+
+## Statements and compile outcomes (`lake env lean scratch/glue-I3-linalg/Commutant.lean`, 2026-11-11 22:29 PST)
+- `GlueI3.projection_comm`: the projection onto a subrepresentation along an invariant complement
+  commutes with every `ρ g`. VERIFIED (compiled).
+- `GlueI3.isIrreducible_of_commutant_scalar`: `ρ : Representation k G V`, `V` nontrivial,
+  `ρ.IsSemisimpleRepresentation`, every `φ` with `φ ∘ ρ g = ρ g ∘ φ` for all `g` is a scalar
+  ⇒ `ρ.IsIrreducible`. VERIFIED (compiled); axioms [propext, Classical.choice, Quot.sound].
+- `GlueI3.commOf r`: commutant of a family `r : G → End_k W`, as a `k`-submodule.
+- `GlueI3.blockMap ρ`, `blockMap_injective`: `(a,b,c,d) ↦ [[a,b],[c,d]]`, injective `k`-linear map
+  `End_G(V)⁴ → End_G(V ⊕ V)`. VERIFIED (compiled).
+- `GlueI3.isIrreducible_of_finrank_commOf_prod_le_four`: `V` finite-dimensional and nontrivial,
+  `ρ` semisimple, `finrank_k End_G(V ⊕ V) ≤ 4` ⇒ `ρ` irreducible and `End_G(V) = k`.
+  VERIFIED (compiled); axioms [propext, Classical.choice, Quot.sound].
+
+## Findings
+- Mathlib v4.35.0 has `Representation.IsIrreducible` (`IsSimpleOrder (Subrepresentation ρ)`) and
+  `IsSemisimpleRepresentation` (`ComplementedLattice`), so the commutant argument is statable over
+  genuine definitions. VERIFIED (read Mathlib/RepresentationTheory/{Semisimple,Irreducible}.lean).
+- Lean 4.35 pitfall: `FiniteDimensional.of_injective` / `IsNoetherian` instances on a `Submodule`
+  of `W →ₗ W` (W = V × V) fail to unify (`Submodule.addCommMonoid` vs
+  `AddCommGroup.toAddCommMonoid`) even with `backward.isDefEq.respectTransparency false`; worked
+  around by assuming `[FiniteDimensional k V]` so that instances come from the ambient space.
+
+## Not done (see docs/research/glue-I3-linalg.md §3)
+- invariants under extension of coefficients; semisimplicity under extension (char 0);
+  `V_ℓ ⊗ E ≅ r ⊕ r` from `B ⊗ E ≅ M₂(E)`; `T_ℓ` under base change of the field;
+  the application of `PoincareReducibility` in E1.
