@@ -179,7 +179,7 @@ be stated, not proved.
           │                    MC3a  #E[N](K̄) ≤ N² (char 0)  ◄──── Tau Ceti / FLT (E[n] ≅ (ℤ/n)²) or ψ_N
           │                       │                                               │
           │                       ▼                                               ▼
-          │            MC1  K_N = ℚ(j)(x(P)) [def done], [K_N:ℚ(j)] ≤ N²/2 ◄──────── MC2c  Y₁(N)(K) ≅ {(b,c): Δ≠0, ord(0,0)=N}
+          │            MC1  K_N = ℚ(j)(x(P)) [def done], [K_N:ℚ(j)] ≤ N²/2 ◄──────── MC2c [done] Y₁(N)(K) ≃ {(b,c): Δ≠0, ord(0,0)=N}
           │                       │   (MC1' [leaf] Igusa/Shimura: Φ_N abs. irreducible ⇒ ℚ̄∩K_N = ℚ, = μ)
           │                       ▼
           │            MC4  X₁(N) := normalization of ℙ¹_j in K_N [affine chart def done]: proper, smooth, geom. connected curve /ℚ
@@ -215,7 +215,7 @@ VERIFIED.
 | MC0c | `nuInf Γ = #CuspOrbits Γ` (Mathlib's `Γ\ℙ¹(ℚ)`); `ν∞(Γ₁(N)) = ½Σ_{d|N}φ(d)φ(N/d)` for `N ≥ 5` | Mathlib `cosetToCuspOrbit` | medium | the stabilizer of `∞` is `±⟨T⟩`; double cosets | open (formula VERIFIED numerically, `N ≤ 30`) |
 | **MC2a** | Tate normal form: `(E,P)` with `2P, 3P ≠ 0` ⇒ `∃ C, C•E = E(b,c)`, `C` sends `P ↦ (0,0)`; uniqueness; `Δ(b,c)` | Mathlib `VariableChange` | small | explicit `u = d/A₂`, `r = x₀`, `s = ℓ`, `t = y₀` | **done** (`TateNormalForm.lean`) |
 | **MC2b** | the hypotheses of MC2a from `P+P ≠ 0`, `P+P+P ≠ 0` in `Affine.Point` | Mathlib `add_self_of_Y_eq`, `X_eq_iff` | small | — | **done** |
-| MC2c | for `N ≥ 4`: `Y₁(N)(K) := {(E,P), ord P = N}/≅ ≃ {(b,c) : Δ(b,c) ≠ 0, ord_{E(b,c)}(0,0) = N}` | MC2a, MC2b, `addOrderOf`; a change of variables acting on `Affine.Point` as an injective additive map (absent from Mathlib, which has only `equation_iff_variableChange` and `nonsingular_iff_variableChange` for translations) | small-medium | point transport `(x,y) ↦ ((x−r)/u², (y−s(x−r)−t)/u³)` and its additivity (slope identities) | **done** (`PointTransport.lean`): `mapPt_add`, `addOrderOf_mapPt`, `exists_tateNF_order`, `tx_mul`/`ty_mul` (composition), `y1PointsEquivTate` |
+| **MC2c** | for `N ≥ 4`: `Y₁(N)(K) := {(E,P), ord P = N}/≅ ≃ {(b,c) : Δ(b,c) ≠ 0, ord_{E(b,c)}(0,0) = N}` | MC2a, MC2b, `addOrderOf`; a change of variables acting on `Affine.Point` as an injective additive map (absent from Mathlib, which has only `equation_iff_variableChange` and `nonsingular_iff_variableChange` for translations) | small-medium | point transport `(x,y) ↦ ((x−r)/u², (y−s(x−r)−t)/u³)` and its additivity (slope identities) | **done** (`PointTransport.lean`): `mapPt_add`, `addOrderOf_mapPt`, `exists_tateNF_order`, `tx_mul`/`ty_mul` (composition), `y1PointsEquivTate` |
 | **MC2d** | over `ℂ`: `(ℂ/Λ_{τ'}, 1/N) ≅ (ℂ/Λ_τ, 1/N)` by a homothety iff `τ' ∈ Γ₁(N)τ`; every primitive level-`N` point is equivalent to `1/N` (so pairs `(ℂ/Λ_τ, P)` up to homothety are `Γ₁(N)\ℍ`) | Mathlib `UpperHalfPlane`, `coe_specialLinearGroup_apply`, `Gamma1_mem`; Weierstrass model via `PeriodPair.derivWeierstrassP_sq` | small | lattices `ℤτ + ℤ` as sets, automorphy factor `cτ + d`, orientation from imaginary parts | **done** (`AnalyticModuli.lean`); "every lattice is some `αΛ_τ`" and "`(cτ+d)/N` has exact order `N` iff primitive" open, small |
 | MC3a | `E[N](K̄)` has at most `N²` points for `E/K`, `char K = 0` (and exactly `N²`) | Silverman III.6.4 (UNVERIFIED) | medium-large | via Tau Ceti/FLT `E[n] ≅ (ℤ/n)²` if proved there; else `x(E[N]) ⊆ roots of ψ_N` (multiplication formula, absent from Mathlib) | open |
 | MC1 | `K_N := ℚ(j)⟮x(P)⟯ ⊆ \overline{ℚ(j)}` for `P ∈ E_j(\overline{ℚ(j)})` of exact order `N`; `[K_N:ℚ(j)] ≤ N²/2` | MC3a; `E_j` from `ModelsWithJ`; `minpoly` | medium | `x(P)` is a root of `∏_{Q of order N}(X − x(Q))`, which has `≤ J₂(N)/2` distinct roots, and that polynomial has coefficients in `ℚ(j)` (Galois-stable) | **definition done** (`fieldX1`, `Ej_j`); bound open (`FieldX1DegreeLe`) |
@@ -236,15 +236,19 @@ Notes on the table:
   MC3a's existence of a point of exact order `N`). The pair `(E,±P)` is the right moduli problem
   for `X₁(N)`: `−1 ∈ Aut(E)` identifies `(E,P)` with `(E,−P)`, and `ℚ(j, x(P))` is the field of
   the stabilizer of `±e₁` in `GL₂(ℤ/N)`, whose determinant is surjective. So `ℚ` is algebraically
-  closed in `K_N`. This is the standard `ℚ`-model of `X₁(N)` in which the cusp `∞` is rational
-  (Shimura 1971 §6.1-6.2 and Diamond–Im §7, UNVERIFIED). STANDARD.
-- **Which `ℚ`-model.** Two `ℚ`-models of `X₁(N)` are in use: `(E, P)` with `P` of order `N`,
-  and `(E, μ_N ↪ E)`. They differ by the Atkin–Lehner twist. Both have rational cusps, and the
-  Albanese base point `P₀` must be a rational cusp of the chosen model. R16 must be stated for the
-  same model as `J₁(N)` (`h-decomposition.md` §6 warns that R16 must not inherit the Fricke
-  convention). Shimura's `A_f` is defined over `ℚ` in either model, and the two `J₁(N)` are
-  `ℚ`-isomorphic via `w_N` composed with a Galois twist. The constituent statement G13 is
-  insensitive to this. SPECULATIVE in the details; flag for the R16 statement writer.
+  closed in `K_N`. This is the function field of the `ℚ`-model of `X₁(N)` that parametrizes
+  `(E, P)` with `P` a point of exact order `N`. For `N ≥ 4` this is a fine moduli problem, so
+  the field of moduli is a field of definition. The generic pair lives on a quadratic twist of
+  `E_j` over `K_N`, and `x` restricted to `E_j` is a Weber function for `j ≠ 0, 1728`
+  (`Aut E = ±1`). (Shimura 1971 Ch. 6; Diamond–Im §7; UNVERIFIED locators.) STANDARD.
+- **Which `ℚ`-model.** Two `ℚ`-models of `X₁(N)` are in use: `(E, ℤ/N ↪ E)` and
+  `(E, μ_N ↪ E)`, exchanged over `ℚ(ζ_N)` by `w_N` (UNVERIFIED details). Which of the cusps `0`,
+  `∞` is rational depends on the model (not checked here). Each model has a rational cusp
+  (STANDARD), and MC6's base point `P₀` may be any `ℚ`-point. R16 must be stated for the same
+  model as `J₁(N)`: `h-decomposition.md` §6 warns that R16 must not inherit the Fricke
+  convention. Shimura's `A_f` is defined over `ℚ` in either model. The constituent statement G13
+  is insensitive to the choice, since the two Jacobians have isomorphic `V_ℓ` up to a twist that
+  G13 tracks anyway. SPECULATIVE in the details; flag for the R16 statement writer.
 - **Geometric connectedness (MC1') is needed only for R18.** Javanpeykar assumes `X` connected.
   Without MC1', `X₁(N)_ℚ̄` would be a disjoint union of conjugate components, and R18 would have
   to be applied componentwise with a product Jacobian. MC1' is a classical theorem, and stating
