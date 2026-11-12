@@ -74,8 +74,87 @@ theorem fontaineTheta_naturality (f : R →+* S) :
         WittVector.fontaineTheta_teichmuller, untilt_preTiltMap]
   exact congrArg (fun g => g x) key
 
+
+/-! ### Functoriality of adic completions of rings -/
+
+section AdicMap
+
+variable {A B : Type*} [CommRing A] [CommRing B] (J : Ideal A) (J' : Ideal B) (g : A →+* B)
+  (hg : J ≤ J'.comap g)
+
+include hg in
+theorem pow_le_comap (n : ℕ) : J ^ n ≤ (J' ^ n).comap g := by
+  rw [← Ideal.map_le_iff_le_comap, Ideal.map_pow]
+  exact Ideal.pow_right_mono (Ideal.map_le_iff_le_comap.mpr hg) n
+
+theorem factorPow_evalₐ {m n : ℕ} (hle : m ≤ n) (x : AdicCompletion J A) :
+    Ideal.Quotient.factorPow J hle (AdicCompletion.evalₐ J n x) = AdicCompletion.evalₐ J m x := by
+  obtain ⟨s, rfl⟩ := AdicCompletion.mk_surjective J A x
+  rw [AdicCompletion.evalₐ_mk, AdicCompletion.evalₐ_mk, ← AdicCompletion.Ideal.mk_eq_mk J hle]
+  rfl
+
+/-- `A ⧸ J^n`-components of the map `Â_J → B̂_{J'}`. -/
+def adicMapAux (n : ℕ) : AdicCompletion J A →+* B ⧸ J' ^ n :=
+  (Ideal.quotientMap (J' ^ n) g (pow_le_comap J J' g hg n)).comp
+    (AdicCompletion.evalₐ J n : AdicCompletion J A →+* A ⧸ J ^ n)
+
+/-- The ring map `Â_J → B̂_{J'}` induced by `g` with `g(J) ⊆ J'`. -/
+def adicMap : AdicCompletion J A →+* AdicCompletion J' B :=
+  AdicCompletion.liftRingHom J' (adicMapAux J J' g hg) fun {m n} hle => by
+    ext x
+    simp only [RingHom.comp_apply, adicMapAux]
+    erw [← factorPow_evalₐ J hle x]
+    obtain ⟨a, ha⟩ := Ideal.Quotient.mk_surjective (AdicCompletion.evalₐ J n x)
+    erw [← ha]
+    rfl
+
+end AdicMap
+
+/-! ### Functoriality of `B_dR^+` -/
+
+section BdR
+
+/-- `W(R♭)[1/p] → W(S♭)[1/p]`. -/
+def locMap (f : R →+* S) :
+    Localization.Away (p : WittVector p (PreTilt R p)) →+*
+      Localization.Away (p : WittVector p (PreTilt S p)) :=
+  Localization.awayLift ((algebraMap _ _).comp (WittVector.map (preTiltMap p f))) _ (by
+    rw [RingHom.comp_apply, map_natCast]
+    exact IsLocalization.Away.algebraMap_isUnit _)
+
+/-- `R[1/p] → S[1/p]`. -/
+def locMapBase (f : R →+* S) : Localization.Away (p : R) →+* Localization.Away (p : S) :=
+  Localization.awayLift ((algebraMap _ _).comp f) _ (by
+    rw [RingHom.comp_apply, map_natCast]
+    exact IsLocalization.Away.algebraMap_isUnit _)
+
+/-- Naturality of `θ[1/p]`. -/
+theorem fontaineThetaInvertP_naturality (f : R →+* S) :
+    (fontaineThetaInvertP S p).comp (locMap p f) =
+      (locMapBase p f).comp (fontaineThetaInvertP R p) := by
+  apply IsLocalization.ringHom_ext (Submonoid.powers (p : WittVector p (PreTilt R p)))
+  ext w
+  simp only [RingHom.comp_apply, locMap, locMapBase, fontaineThetaInvertP,
+    Localization.awayLift, IsLocalization.Away.lift, IsLocalization.lift_eq]
+  rw [← RingHom.comp_apply (WittVector.fontaineTheta S p), fontaineTheta_naturality]
+  rfl
+
+theorem ker_le_comap_locMap (f : R →+* S) :
+    RingHom.ker (fontaineThetaInvertP R p) ≤
+      (RingHom.ker (fontaineThetaInvertP S p)).comap (locMap p f) := by
+  intro x hx
+  rw [Ideal.mem_comap, RingHom.mem_ker, ← RingHom.comp_apply,
+    fontaineThetaInvertP_naturality, RingHom.comp_apply, RingHom.mem_ker.mp hx, map_zero]
+
+/-- **Functoriality of `B_dR^+`**: `B_dR^+(R) → B_dR^+(S)` for `f : R →+* S`. -/
+def bdrPlusMap (f : R →+* S) : BDeRhamPlus R p →+* BDeRhamPlus S p :=
+  adicMap _ _ (locMap p f) (ker_le_comap_locMap p f)
+
+end BdR
+
 end PkgI4.DR
 
 end
 
 #print axioms PkgI4.DR.fontaineTheta_naturality
+#print axioms PkgI4.DR.bdrPlusMap
