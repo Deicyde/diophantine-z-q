@@ -1,0 +1,153 @@
+{
+  "schema": "q214-complete-receiving-revision2-manifest/v1",
+  "role": "author artifact manifest; no independent approval",
+  "source_commit": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "operative_manuscript": "research/quartic214-manuscript-revision2/quartic214.tex",
+  "status": "Complete receiving source and matching finalPDF/build; new independent receiving-review binding required",
+  "files": [
+    {
+      "path": "ADAPTATION.json",
+      "sha256": "8108c3178ff927cc090f1b43c906fd47deba53b6f52a2b6aee2211b622a83c2a",
+      "bytes": 9911
+    },
+    {
+      "path": "BUILD.json",
+      "sha256": "ab232da2e66d0a7bcaaf02f7fc23b1e5a7f7b829ce996332e0a730afd0ab9482",
+      "bytes": 39446
+    },
+    {
+      "path": "F7_APPLICATION.json",
+      "sha256": "7243ecdaa8f948b556840d5fc40ca6dbedb376d3980f7d67b2eb1efb5ee52359",
+      "bytes": 6921
+    },
+    {
+      "path": "F8_F11_APPLICATION.json",
+      "sha256": "ee929a6e4f6ff0813a5203aa887db28b5fd31f29eabc9bc328c501cb22ed06cf",
+      "bytes": 43356
+    },
+    {
+      "path": "README.md",
+      "sha256": "6d342eabd2eb9c1dded5ecdf9bcf3645a47d6269e59b685e632b9ce38838294f",
+      "bytes": 3220
+    },
+    {
+      "path": "RECEIVING_OVERLAY.json",
+      "sha256": "006f032f2935ee0d73ecaa1a5e992329a114a434bd1c2a173223150e81625468",
+      "bytes": 40170
+    },
+    {
+      "path": "SOURCE_SPANS.json",
+      "sha256": "e1b6f466573269008f10e06db106b15841545663a1de8b3ebe5203a8f188de55",
+      "bytes": 439656
+    },
+    {
+      "path": "VALIDATION.json",
+      "sha256": "f96d9823e607fc78a0b7f5096b417f6537c6cc28e731cef32774e60e4586cd9e",
+      "bytes": 2682
+    },
+    {
+      "path": "assemble.py",
+      "sha256": "57af2333b570d6ac751a60c47cd01b35de66096633cc7ed5209520aba531b7ef",
+      "bytes": 9027
+    },
+    {
+      "path": "author-evidence/ALL-PART-I-STAR-OCCURRENCES.json",
+      "sha256": "1eb8b5a25ffbee7532be1014c8a0ce442f9787b8b1b4b4ce5cfc5fd017df5f69",
+      "bytes": 379024
+    },
+    {
+      "path": "author-evidence/CATALOGUE-RELATED-USE-CHECK.json",
+      "sha256": "b12e120c7c84d2424cde222d5303ce34aebdde98b54ac855113dc489d84931d1",
+      "bytes": 8921
+    },
+    {
+      "path": "author-evidence/FINDINGS_F8_F11.json",
+      "sha256": "b9dfd12e052df760c9a46d235098dcc299611870bbaaace26a9785a58754e653",
+      "bytes": 27297
+    },
+    {
+      "path": "author-evidence/STAR-RETENTION-CHECKS.json",
+      "sha256": "d7a7edf06c53c9c08bf57390e52eafb004a29036eb13b5cf7e0f6927568eb912",
+      "bytes": 51214
+    },
+    {
+      "path": "build_pdf.py",
+      "sha256": "b84fc0105e54e5ff5c96ea4b6fec5c665b040718c8815ebfce22cd540560e52b",
+      "bytes": 489
+    },
+    {
+      "path": "check_records.py",
+      "sha256": "bc9c7cfca2421501b524d93e67cecf8e29dde5ec57fe31cf620ce93e2a65c820",
+      "bytes": 11453
+    },
+    {
+      "path": "quartic214.pdf",
+      "sha256": "77e6e30515e317ad8bb4fee6ba111037be64a4c325f2a683e5c8edf03884ea88",
+      "bytes": 3943008
+    },
+    {
+      "path": "quartic214.tex",
+      "sha256": "b03b39d2e0f5593be29d3d2838cd33e7449b4b5b1ccb0b7dee8a9a6d2af4767f",
+      "bytes": 2339106
+    },
+    {
+      "path": "refresh_manifest.py",
+      "sha256": "e11353e6d58fed869d6a6c67a089c194b391f18b2b9f16829571ee3ac96b47f2",
+      "bytes": 2137
+    }
+  ],
+  "external_bindings": [
+    {
+      "path": "research/quartic214-manuscript/quartic214.tex",
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+      "bytes": 2337533
+    },
+    {
+      "path": "research/quartic214-manuscript/quartic214.pdf",
+      "sha256": "8c22312ce54d3f2709eddc28c1045b1785d44ce0d7d47957639c0322a9d0a498",
+      "bytes": 3940738
+    },
+    {
+      "path": "research/quartic214-manuscript/SOURCE_SPANS.json",
+      "sha256": "c98fc0d5860fb1d17a1d1ec7f23e266015f26e37d72443b796a782006c371391",
+      "bytes": 399870
+    },
+    {
+      "path": "research/quartic214-manuscript/assemble.py",
+      "sha256": "c82053474d9ce627640862ce309bb1cd931d615276920fd4df2186eb3ae2f549",
+      "bytes": 47054
+    },
+    {
+      "path": "research/quartic214-manuscript/build_pdf.py",
+      "sha256": "9330fb6dfa4c1e4821062df9f6a5b76dacfbc4767bbd878709cba0f39ebe1e07",
+      "bytes": 9382
+    },
+    {
+      "path": "research/quartic214-manuscript/SOURCE_CORRECTIONS_V1.json",
+      "sha256": "e6ab282776e1181d5095930ba640dc1109d2f5f067483614c6f6485869ca6c0b",
+      "bytes": 17111
+    },
+    {
+      "path": "research/quartic214-protocol-d-progress/CURRENT_NATIVE_PRIMITIVE_APPLICATION.json",
+      "sha256": "f48bd1e36bb3c39eab9e217a3b76907748bdc067f4f8040df4564353829ffd87",
+      "bytes": 15265
+    },
+    {
+      "path": "research/quartic214-protocol-d-progress/PACKET_MANIFEST.json",
+      "sha256": "392d81fca5b286b2a19b63ecf992ae9d343b84fd238e2eac45783151518322bc",
+      "bytes": 17530
+    },
+    {
+      "path": "CURRENT_214_REVIEW.md",
+      "sha256": "1eef297805266a83d37503d383320e0bf2f4972754ab9993633426bebf2f0c09",
+      "bytes": 1339
+    },
+    {
+      "path": ".github/workflows/quartic214-manuscript-revision2.yml",
+      "sha256": "55ff3e5952a9344f185fa0d8b58a0f5047c7150c9b4ad2fbb3041a3be69725b1",
+      "bytes": 1818
+    }
+  ],
+  "self_hash": "Report manifest SHA256 outside this manifest; not embedded",
+  "limits": "Original source/artifacts/reports remain frozen historical evidence. This manifest does not renew or manufacture any reviewer acceptance."
+}

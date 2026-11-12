@@ -1,0 +1,594 @@
+{
+  "basis": "Actual displayed source and receiving passages, not automatic acceptance of the skeleton.",
+  "candidates": [
+    {
+      "source": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "source_lines": [
+        13,
+        13
+      ],
+      "tex_lines": [
+        2008,
+        2008
+      ],
+      "disposition": "Opening/closing quotation mark normalization; actual prose meaning and referenced source retained."
+    },
+    {
+      "source": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "source_lines": [
+        23,
+        23
+      ],
+      "tex_lines": [
+        2018,
+        2018
+      ],
+      "disposition": "Opening/closing quotation mark normalization; actual prose meaning and referenced source retained."
+    },
+    {
+      "source": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "source_lines": [
+        27,
+        27
+      ],
+      "tex_lines": [
+        2022,
+        2022
+      ],
+      "disposition": "Opening/closing quotation mark normalization; actual prose meaning and referenced source retained."
+    },
+    {
+      "source": "research/quartic214/PROOF.md",
+      "source_lines": [
+        3,
+        3
+      ],
+      "tex_lines": [
+        2048,
+        2048
+      ],
+      "disposition": "Nested hyperlink wrappers or exists/forall Unicode not normalized by comparator. Actual labels/quantifiers and order retained."
+    },
+    {
+      "source": "research/quartic214/PROOF.md",
+      "source_lines": [
+        17,
+        25
+      ],
+      "tex_lines": [
+        2062,
+        2075
+      ],
+      "disposition": "Table separators and nested linked labels are removed differently by the comparator. All cell text and literal mathematical pipes inspected; no loss established."
+    },
+    {
+      "source": "research/quartic214/PROOF.md",
+      "source_lines": [
+        27,
+        27
+      ],
+      "tex_lines": [
+        2077,
+        2077
+      ],
+      "disposition": "Nested hyperlink wrappers or exists/forall Unicode not normalized by comparator. Actual labels/quantifiers and order retained."
+    },
+    {
+      "source": "research/quartic214/PROOF.md",
+      "source_lines": [
+        31,
+        31
+      ],
+      "tex_lines": [
+        2081,
+        2081
+      ],
+      "disposition": "Nested hyperlink wrappers or exists/forall Unicode not normalized by comparator. Actual labels/quantifiers and order retained."
+    },
+    {
+      "source": "research/quartic214/PROOF.md",
+      "source_lines": [
+        41,
+        41
+      ],
+      "tex_lines": [
+        2093,
+        2093
+      ],
+      "disposition": "Nested hyperlink wrappers or exists/forall Unicode not normalized by comparator. Actual labels/quantifiers and order retained."
+    },
+    {
+      "source": "research/quartic214/PROOF.md",
+      "source_lines": [
+        43,
+        43
+      ],
+      "tex_lines": [
+        2095,
+        2095
+      ],
+      "disposition": "Nested hyperlink wrappers or exists/forall Unicode not normalized by comparator. Actual labels/quantifiers and order retained."
+    },
+    {
+      "source": "research/quartic214/proofs/existence.md",
+      "source_lines": [
+        68,
+        68
+      ],
+      "tex_lines": [
+        2180,
+        2182
+      ],
+      "disposition": "Comparator incorrectly treats multiplication stars as emphasis; target preserves both actual multiplication signs."
+    },
+    {
+      "source": "research/quartic214/proofs/uniform-existence.md",
+      "source_lines": [
+        28,
+        28
+      ],
+      "tex_lines": [
+        2244,
+        2244
+      ],
+      "disposition": "Explicit mathfrak-b / widehat-h notation conversion; target inspected and decoration retained."
+    },
+    {
+      "source": "research/quartic214/proofs/uniform-existence.md",
+      "source_lines": [
+        30,
+        30
+      ],
+      "tex_lines": [
+        2246,
+        2246
+      ],
+      "disposition": "Comparator mistakes bracketed group multiplication followed by (H-P) for a Markdown link. Actual target retains (H-P)."
+    },
+    {
+      "source": "research/quartic214/proofs/uniform-existence.md",
+      "source_lines": [
+        38,
+        38
+      ],
+      "tex_lines": [
+        2256,
+        2256
+      ],
+      "disposition": "Explicit mathfrak-b / widehat-h notation conversion; target inspected and decoration retained."
+    },
+    {
+      "source": "research/quartic214/proofs/uniform-existence.md",
+      "source_lines": [
+        73,
+        73
+      ],
+      "tex_lines": [
+        2299,
+        2299
+      ],
+      "disposition": "Explicit mathfrak-b / widehat-h notation conversion; target inspected and decoration retained."
+    },
+    {
+      "source": "research/quartic214/proofs/uniform-existence.md",
+      "source_lines": [
+        80,
+        80
+      ],
+      "tex_lines": [
+        2308,
+        2308
+      ],
+      "disposition": "Explicit mathfrak-b / widehat-h notation conversion; target inspected and decoration retained."
+    },
+    {
+      "source": "research/quartic214/proofs/uniform-existence.md",
+      "source_lines": [
+        82,
+        82
+      ],
+      "tex_lines": [
+        2310,
+        2310
+      ],
+      "disposition": "Explicit mathfrak-b / widehat-h notation conversion; target inspected and decoration retained."
+    },
+    {
+      "source": "research/quartic214/proofs/geometry-carry.md",
+      "source_lines": [
+        41,
+        41
+      ],
+      "tex_lines": [
+        2358,
+        2360
+      ],
+      "disposition": "Comparator strips leading - as a list marker; actual negative first determinant is retained."
+    },
+    {
+      "source": "research/quartic214/proofs/provider-scope-carry.md",
+      "source_lines": [
+        9,
+        26
+      ],
+      "tex_lines": [
+        2420,
+        2442
+      ],
+      "disposition": "Table separators and nested linked labels are removed differently by the comparator. All cell text and literal mathematical pipes inspected; no loss established."
+    },
+    {
+      "source": "research/quartic214/proofs/modularity.md",
+      "source_lines": [
+        37,
+        37
+      ],
+      "tex_lines": [
+        2532,
+        2532
+      ],
+      "disposition": "Direct-sum prose, composed/circ convention or retained unit stars in F6 line; diagnostic normalization difference. Actual F6 unit groups reviewed; F8-F11 separately record scope/shorthand defects not detectable by skeleton comparison."
+    },
+    {
+      "source": "research/quartic214/proofs/modularity.md",
+      "source_lines": [
+        57,
+        57
+      ],
+      "tex_lines": [
+        2552,
+        2552
+      ],
+      "disposition": "Direct-sum prose, composed/circ convention or retained unit stars in F6 line; diagnostic normalization difference. Actual F6 unit groups reviewed; F8-F11 separately record scope/shorthand defects not detectable by skeleton comparison."
+    },
+    {
+      "source": "research/quartic214/proofs/modularity.md",
+      "source_lines": [
+        69,
+        69
+      ],
+      "tex_lines": [
+        2564,
+        2566
+      ],
+      "disposition": "Direct-sum prose, composed/circ convention or retained unit stars in F6 line; diagnostic normalization difference. Actual F6 unit groups reviewed; F8-F11 separately record scope/shorthand defects not detectable by skeleton comparison."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        8,
+        8
+      ],
+      "tex_lines": [
+        2645,
+        2645
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        13,
+        13
+      ],
+      "tex_lines": [
+        2650,
+        2650
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        34,
+        34
+      ],
+      "tex_lines": [
+        2671,
+        2671
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        37,
+        37
+      ],
+      "tex_lines": [
+        2674,
+        2674
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        45,
+        45
+      ],
+      "tex_lines": [
+        2682,
+        2682
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        57,
+        57
+      ],
+      "tex_lines": [
+        2694,
+        2694
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        65,
+        65
+      ],
+      "tex_lines": [
+        2702,
+        2702
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        66,
+        66
+      ],
+      "tex_lines": [
+        2703,
+        2703
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        90,
+        90
+      ],
+      "tex_lines": [
+        2727,
+        2727
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        91,
+        91
+      ],
+      "tex_lines": [
+        2728,
+        2728
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        92,
+        92
+      ],
+      "tex_lines": [
+        2729,
+        2729
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        97,
+        97
+      ],
+      "tex_lines": [
+        2734,
+        2734
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        100,
+        100
+      ],
+      "tex_lines": [
+        2737,
+        2737
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        103,
+        103
+      ],
+      "tex_lines": [
+        2740,
+        2740
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        111,
+        111
+      ],
+      "tex_lines": [
+        2748,
+        2748
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        119,
+        119
+      ],
+      "tex_lines": [
+        2756,
+        2756
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_lines": [
+        120,
+        120
+      ],
+      "tex_lines": [
+        2757,
+        2757
+      ],
+      "disposition": "Authored TeX comparison is asymmetric in this diagnostic. Actual controls/arrows/duals/bar/hat/tag retained (including ** references). The independently identified P1/A1 shorthand issues are separately F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-different.md",
+      "source_lines": [
+        129,
+        129
+      ],
+      "tex_lines": [
+        2898,
+        2898
+      ],
+      "disposition": "Opening/closing quotation mark normalization; actual prose meaning and referenced source retained."
+    },
+    {
+      "source": "research/quartic214/proofs/height-metric.md",
+      "source_lines": [
+        7,
+        7
+      ],
+      "tex_lines": [
+        2910,
+        2910
+      ],
+      "disposition": "Declared overline-bar/differential and sum/uparrow translation; actual conjugations and increasing-radius arrow retained. Separately identified metric point/form indices are F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-metric.md",
+      "source_lines": [
+        33,
+        33
+      ],
+      "tex_lines": [
+        2936,
+        2936
+      ],
+      "disposition": "Declared overline-bar/differential and sum/uparrow translation; actual conjugations and increasing-radius arrow retained. Separately identified metric point/form indices are F9."
+    },
+    {
+      "source": "research/quartic214/proofs/height-supplier.md",
+      "source_lines": [
+        53,
+        53
+      ],
+      "tex_lines": [
+        3079,
+        3079
+      ],
+      "disposition": "Word divides translated to mathematical divisibility symbol; operands and direction retained."
+    },
+    {
+      "source": "research/quartic214/proofs/primary-source-bridges.md",
+      "source_lines": [
+        7,
+        7
+      ],
+      "tex_lines": [
+        3247,
+        3247
+      ],
+      "disposition": "Opening/closing quotation mark normalization; actual prose meaning and referenced source retained."
+    },
+    {
+      "source": "research/quartic214/proofs/primary-source-bridges.md",
+      "source_lines": [
+        13,
+        13
+      ],
+      "tex_lines": [
+        3253,
+        3253
+      ],
+      "disposition": "Opening/closing quotation mark normalization; actual prose meaning and referenced source retained."
+    },
+    {
+      "source": "research/quartic214/proofs/primary-source-bridges.md",
+      "source_lines": [
+        17,
+        17
+      ],
+      "tex_lines": [
+        3257,
+        3257
+      ],
+      "disposition": "Opening/closing quotation mark normalization; actual prose meaning and referenced source retained."
+    },
+    {
+      "source": "research/quartic214/proofs/primary-source-bridges.md",
+      "source_lines": [
+        23,
+        33
+      ],
+      "tex_lines": [
+        3263,
+        3278
+      ],
+      "disposition": "Table separators and nested linked labels are removed differently by the comparator. All cell text and literal mathematical pipes inspected; no loss established."
+    },
+    {
+      "source": "research/quartic214/proofs/primary-source-bridges.md",
+      "source_lines": [
+        37,
+        37
+      ],
+      "tex_lines": [
+        3282,
+        3282
+      ],
+      "disposition": "Opening/closing quotation mark normalization; actual prose meaning and referenced source retained."
+    },
+    {
+      "source": "research/quartic214/proofs/primary-source-bridges.md",
+      "source_lines": [
+        45,
+        45
+      ],
+      "tex_lines": [
+        3290,
+        3290
+      ],
+      "disposition": "Opening/closing quotation mark normalization; actual prose meaning and referenced source retained."
+    },
+    {
+      "source": "research/quartic214/sources/conductor-sections1-3.md",
+      "source_lines": [
+        32,
+        32
+      ],
+      "tex_lines": [
+        3454,
+        3456
+      ],
+      "disposition": "Word divides translated to mathematical divisibility symbol; operands and direction retained."
+    }
+  ],
+  "count": 49
+}

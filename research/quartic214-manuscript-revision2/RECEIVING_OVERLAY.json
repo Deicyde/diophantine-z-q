@@ -1,0 +1,307 @@
+{
+  "schema": "q214-receiving-overlay/v1",
+  "role": "author receiving repair; independent exact new-revision decision pending",
+  "source_commit": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "f6": {
+    "source": "research/quartic214/proofs/modularity.md",
+    "source_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+    "source_line": 57,
+    "original_source_line": "To obtain a Dirichlet twist one may use the inherited Washington Theorem14.1; its final page was not reacquired here. The following replacement uses the final published Milne ADT already inspected: I.1.3 and1.6(c), pp.18–19, give global reciprocity for the idele class group, compatible with the local maps. Composing the finite character delta with reciprocity gives a finite continuous idele-class character. The connected positive real component acts trivially. Every rational idele class has a representative whose finite components lie in product Z_p*, unique after choosing positive real component; this follows by multiplying by the rational product of its finite uniformizer powers. A finite continuous character of that compact product factors through (Z/rZ)* for some r. Write lambda for this idele-class character. In the decomposition C_Q=R_>0 times product Z_p*, the idele which is a uniformizer q at q and1 elsewhere is represented, after multiplication by q^-1, by positive real component1/q and finite units q^-1 at every p!=q and1 at q. Therefore, with arithmetic reciprocity, define eta on (Z/rZ)* to be the inverse of lambda restricted to the finite units; then eta(q)=delta(Frob_q) for q prime to r. If the published reciprocity convention is inverse arithmetic, invert that reciprocity map first. This retains the necessary inverse on the finite-unit character rather than silently reversing the twist. This derivation uses neither Washington's unreacquired page nor an unpublished theorem.",
+    "corrected_source_line": "To obtain a Dirichlet twist one may use the inherited Washington Theorem14.1; its final page was not reacquired here. The following replacement uses the final published Milne ADT already inspected: I.1.3 and1.6(c), pp.18–19, give global reciprocity for the idele class group, compatible with the local maps. Composing the finite character delta with reciprocity gives a finite continuous idele-class character. The connected positive real component acts trivially. Every rational idele class has a representative whose finite components lie in `product Z_p^{*}`, unique after choosing positive real component; this follows by multiplying by the rational product of its finite uniformizer powers. A finite continuous character of that compact product factors through `(Z/rZ)^{*}` for some r. Take r to be the least such modulus; the Dirichlet character eta defined below is then primitive of conductor r. This choice changes neither delta nor the controlled field L'. Write lambda for this idele-class character. In the decomposition `C_Q=R_{>0}` times `product Z_p^{*}`, the idele which is a uniformizer q at q and1 elsewhere is represented, after multiplication by q^-1, by positive real component1/q and finite units q^-1 at every p!=q and1 at q. Therefore, with arithmetic reciprocity, define eta on `(Z/rZ)^{*}` to be the inverse of lambda restricted to the finite units; then eta(q)=delta(Frob_q) for q prime to r. If the published reciprocity convention is inverse arithmetic, invert that reciprocity map first. This retains the necessary inverse on the finite-unit character rather than silently reversing the twist. This derivation uses neither Washington's unreacquired page nor an unpublished theorem.",
+    "old_receiving_lines": [
+      2552,
+      2552
+    ],
+    "meaning": "Preserve unit groups (Z/rZ)^* and product Z_p^*, group positive real R_{>0}; choose least conductor for the same character before the nonzero Gauss-sum input. No new arithmetic representation or controlled field."
+  },
+  "native_operative_note": "\\paragraph{Operative primitive-form supplier for this receiving revision.}\nFor the current $214$ application, the existence assertion in the next\nhistorical Li attribution is supplied instead by the explicit\nDeligne--Serre extraction in Part~I, M3\n(Section~\\ref{q214:modularity}), using \\cite[\\S\\S1.6--1.9, pp.~509--510]{deligne-serre1974}.\nThe nonzero cusp eigenform $h$ has a nonzero primitive constituent;\ngood-prime Hecke operators commute with its oldform degeneracy maps,\nand uniqueness of that decomposition passes the same eigenvalues to it.\nNormalize its first coefficient to $1$. Here the twisting character is\nprimitive of conductor $r$ as chosen above; in the Part~I Milne route,\ntake $r=\\operatorname{cond}(\\eta)$, the least modulus, with the same\nGalois character and controlled field. The application is bound explicitly\nin \\nolinkurl{research/quartic214-protocol-d-progress/CURRENT_NATIVE_PRIMITIVE_APPLICATION.json}.\nLi's uniqueness and Fricke uses remain separate. The following original\nwording is retained as historical source evidence, qualified by this\noperative supplier; no existence claim rests on Li's Theorem~5 alone.",
+  "date": {
+    "original": "\\date{12 November 2026; frozen 214 source \\texttt{110cf72565be}}",
+    "current": "\\date{12 November 2026; operative receiving revision 2; source \\texttt{110cf72565be}}"
+  },
+  "limits": "Frozen original sources and old receiving artifacts remain unchanged. This is the complete new receiving TeX, not an errata-only release. Mathematical/scoped source decisions remain separately attributable; new receiving review and matching PDF build pending.",
+  "f7": {
+    "id": "F7-CERTIFICATE-CATALOGUE",
+    "old_tex_line": 4253,
+    "old_description": "The ten primitive contact lines and their exact determinant support; the geometric proof, rather than these determinants, constructs the cover and its tame charts.",
+    "current_description": "The four quotient-quartic invariant checks and all $36$ cross-ratio candidate pairs used to recover the branch parameters $(2401,-343/32)$. The separate small-support certificate lists the five primitive forms and their ten pair determinants; the geometric proof supplies the cover and its tame charts.",
+    "sources": [
+      {
+        "path": "research/quartic214/sources/contact-line-certificate.json",
+        "sha256": "64896dfbb8661e04c044a68aa8679ee5dc20c0da36cc9a57640a885b7ca46614"
+      },
+      {
+        "path": "research/quartic214/sources/small-support-certificate.json",
+        "sha256": "0e7280479d5ace418b4383c814361812863cb097f424916b801c17ddbc8eb51e"
+      }
+    ],
+    "scope": "Correct catalogue description only. No certificate, arithmetic assertion or numerical table changed."
+  },
+  "additional_source_lines": [
+    {
+      "id": "F9c-L18",
+      "finding_ids": [
+        "F9c"
+      ],
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "source_line": 18,
+      "original_source_line": "Let F=K(t), L=K(X), A=R[t]. The smooth geometrically connected curve X/K and its finite map to P1 have degree d. Characteristic zero makes L/F separable. Let Y be the normalization of P1_R in L, and B its algebra over Spec A. The generic fibre of Y is the original X: a smooth curve is normal, and the finite map X→P1_K has the defining normalization property. The chosen t=2 fibre is unramified and split into the distinct K-points P_1,…,P_d. These are the hypotheses actually supplied by v17:79–98.",
+      "corrected_source_line": "Let F=K(t), L=K(X), A=R[t]. The smooth geometrically connected curve X/K and its finite map to P^{1} have degree d. Characteristic zero makes L/F separable. Let Y be the normalization of P^{1}_R in L, and B its algebra over Spec A. The generic fibre of Y is the original X: a smooth curve is normal, and the finite map X→P^{1}_K has the defining normalization property. The chosen t=2 fibre is unramified and split into the distinct K-points P_1,…,P_d. These are the hypotheses actually supplied by v17:79–98.",
+      "reason": "Projective line P^{1} over R,K,kappa(x),T and affine line A^{1}_R, including the entire omega_{P^{1}_R/R} relative-sheaf index.",
+      "original_effective_source_line": "Let F=K(t), L=K(X), A=R[t]. The smooth geometrically connected curve X/K and its finite map to P1 have degree d. Characteristic zero makes L/F separable. Let Y be the normalization of P1_R in L, and B its algebra over Spec A. The generic fibre of Y is the original X: a smooth curve is normal, and the finite map X→P1_K has the defining normalization property. The chosen t=2 fibre is unramified and split into the distinct K-points P_1,…,P_d. These are the hypotheses actually supplied by v17:79–98."
+    },
+    {
+      "id": "F9c-L28",
+      "finding_ids": [
+        "F9c"
+      ],
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "source_line": 28,
+      "original_source_line": "All three hypotheses of miracle flatness 00R4 are now checked, including its dimension equality. Hence B_q is A_p-flat at every q. Flatness is local, so B is finite flat, consequently finite projective, of rank d. The same holds on the second target chart. Y is an integral normal proper flat arithmetic surface, finite over P1_R. No smoothness of its special fibres and no Gorenstein property of Y is asserted.",
+      "corrected_source_line": "All three hypotheses of miracle flatness 00R4 are now checked, including its dimension equality. Hence B_q is A_p-flat at every q. Flatness is local, so B is finite flat, consequently finite projective, of rank d. The same holds on the second target chart. Y is an integral normal proper flat arithmetic surface, finite over P^{1}_R. No smoothness of its special fibres and no Gorenstein property of Y is asserted.",
+      "reason": "Projective line P^{1} over R,K,kappa(x),T and affine line A^{1}_R, including the entire omega_{P^{1}_R/R} relative-sheaf index.",
+      "original_effective_source_line": "All three hypotheses of miracle flatness 00R4 are now checked, including its dimension equality. Hence B_q is A_p-flat at every q. Flatness is local, so B is finite flat, consequently finite projective, of rank d. The same holds on the second target chart. Y is an integral normal proper flat arithmetic surface, finite over P1_R. No smoothness of its special fibres and no Gorenstein property of Y is asserted."
+    },
+    {
+      "id": "F9c-L40",
+      "finding_ids": [
+        "F9c"
+      ],
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "source_line": 40,
+      "original_source_line": "dominating Γ. Blowing up a closed regular point of a regular surface is regular: for regular parameters u,v its charts are T[v/u] and T[u/v], and at an exceptional point u and a lift of a uniformizer of the local ring of P1_{κ(x)} form regular parameters. This also covers non-rational closed centres. The resulting Z is integral, proper over R and R-flat (its coordinate rings have no R-torsion); the generic fibre is X, because every centre lies over a finite prime. Indeed Γ→M was already an isomorphism on the entire generic fibre. The two maps are α:Z→M and β:Z→Y, both proper birational, with identity on X.",
+      "corrected_source_line": "dominating Γ. Blowing up a closed regular point of a regular surface is regular: for regular parameters u,v its charts are T[v/u] and T[u/v], and at an exceptional point u and a lift of a uniformizer of the local ring of P^{1}_{κ(x)} form regular parameters. This also covers non-rational closed centres. The resulting Z is integral, proper over R and R-flat (its coordinate rings have no R-torsion); the generic fibre is X, because every centre lies over a finite prime. Indeed Γ→M was already an isomorphism on the entire generic fibre. The two maps are α:Z→M and β:Z→Y, both proper birational, with identity on X.",
+      "reason": "Projective line P^{1} over R,K,kappa(x),T and affine line A^{1}_R, including the entire omega_{P^{1}_R/R} relative-sheaf index.",
+      "original_effective_source_line": "dominating Γ. Blowing up a closed regular point of a regular surface is regular: for regular parameters u,v its charts are T[v/u] and T[u/v], and at an exceptional point u and a lift of a uniformizer of the local ring of P1_{κ(x)} form regular parameters. This also covers non-rational closed centres. The resulting Z is integral, proper over R and R-flat (its coordinate rings have no R-torsion); the generic fibre is X, because every centre lies over a finite prime. Indeed Γ→M was already an isomorphism on the entire generic fibre. The two maps are α:Z→M and β:Z→Y, both proper birational, with identity on X."
+    },
+    {
+      "id": "F9c-L48",
+      "finding_ids": [
+        "F9c"
+      ],
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "source_line": 48,
+      "original_source_line": "This is used from the **proof**, rather than confusing the lemma's point-height conclusion with the required sheaf statement. Since E_i is effective, pullback of a section of ω_{M_{i−1}/R} is a section of ω_{M_i/R}; iterate to get α^*E⊂H^0(Z,ω_{Z/R}). The formula is identified by the generic differential, so this operation does not multiply a differential by a rational function. Equivalently the local calculation is the Cartier hypersurface uV−vU=0 in P1_T; adjunction gives the exceptional twist +E.",
+      "corrected_source_line": "This is used from the **proof**, rather than confusing the lemma's point-height conclusion with the required sheaf statement. Since E_i is effective, pullback of a section of ω_{M_{i−1}/R} is a section of ω_{M_i/R}; iterate to get α^*E⊂H^0(Z,ω_{Z/R}). The formula is identified by the generic differential, so this operation does not multiply a differential by a rational function. Equivalently the local calculation is the Cartier hypersurface uV−vU=0 in P^{1}_T; adjunction gives the exceptional twist +E.",
+      "reason": "Projective line P^{1} over R,K,kappa(x),T and affine line A^{1}_R, including the entire omega_{P^{1}_R/R} relative-sheaf index.",
+      "original_effective_source_line": "This is used from the **proof**, rather than confusing the lemma's point-height conclusion with the required sheaf statement. Since E_i is effective, pullback of a section of ω_{M_{i−1}/R} is a section of ω_{M_i/R}; iterate to get α^*E⊂H^0(Z,ω_{Z/R}). The formula is identified by the generic differential, so this operation does not multiply a differential by a rational function. Equivalently the local calculation is the Cartier hypersurface uV−vU=0 in P1_T; adjunction gives the exceptional twist +E."
+    },
+    {
+      "id": "F9c-L54",
+      "finding_ids": [
+        "F9c"
+      ],
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "source_line": 54,
+      "original_source_line": "Use relative dualizing complexes normalized over R, with ω_{P1_R/R}[1] the relative dualizing complex of P1_R. Transitivity (0ATX) and finite duality (0BUL, whose proof identifies the finite pushforward with Hom) identify the relative canonical module on the affine target chart with",
+      "corrected_source_line": "Use relative dualizing complexes normalized over R, with ω_{P^{1}_R/R}[1] the relative dualizing complex of P^{1}_R. Transitivity (0ATX) and finite duality (0BUL, whose proof identifies the finite pushforward with Hom) identify the relative canonical module on the affine target chart with",
+      "reason": "Projective line P^{1} over R,K,kappa(x),T and affine line A^{1}_R, including the entire omega_{P^{1}_R/R} relative-sheaf index.",
+      "original_effective_source_line": "Use relative dualizing complexes normalized over R, with ω_{P1_R/R}[1] the relative dualizing complex of P1_R. Transitivity (0ATX) and finite duality (0BUL, whose proof identifies the finite pushforward with Hom) identify the relative canonical module on the affine target chart with"
+    },
+    {
+      "id": "F9c-L60",
+      "finding_ids": [
+        "F9c"
+      ],
+      "source": "research/quartic214/proofs/height-evaluation.md",
+      "source_sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "source_line": 60,
+      "original_source_line": "B is projective, so higher Ext_A(B,A) vanish; there is only the indicated sheaf in relative degree −1. The dt is the usual smooth differential generator on A1_R. The construction respects restrictions to affine opens, as explicitly required in 0BUL, so these local modules are one global ω_{Y/R}. One may also use the Cohen–Macaulay canonical-module statement in 0AWQ. The more general algebraic assertion 0C0I is **nonunique** and is insufficient by itself to choose the generic trace normalization; it is not used to choose that map.",
+      "corrected_source_line": "B is projective, so higher Ext_A(B,A) vanish; there is only the indicated sheaf in relative degree −1. The dt is the usual smooth differential generator on A^{1}_R. The construction respects restrictions to affine opens, as explicitly required in 0BUL, so these local modules are one global ω_{Y/R}. One may also use the Cohen–Macaulay canonical-module statement in 0AWQ. The more general algebraic assertion 0C0I is **nonunique** and is insufficient by itself to choose the generic trace normalization; it is not used to choose that map.",
+      "reason": "Projective line P^{1} over R,K,kappa(x),T and affine line A^{1}_R, including the entire omega_{P^{1}_R/R} relative-sheaf index.",
+      "original_effective_source_line": "B is projective, so higher Ext_A(B,A) vanish; there is only the indicated sheaf in relative degree −1. The dt is the usual smooth differential generator on A1_R. The construction respects restrictions to affine opens, as explicitly required in 0BUL, so these local modules are one global ω_{Y/R}. One may also use the Cohen–Macaulay canonical-module statement in 0AWQ. The more general algebraic assertion 0C0I is **nonunique** and is insufficient by itself to choose the generic trace normalization; it is not used to choose that map."
+    },
+    {
+      "id": "F9a-L15",
+      "finding_ids": [
+        "F9a"
+      ],
+      "source": "research/quartic214/proofs/height-metric.md",
+      "source_sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "source_line": 15,
+      "original_source_line": "For an explicit check of the archimedean determinant scalar, choose symplectic integral cycles and normalized holomorphic forms `ω1,…,ωg`; write their period matrix `(1,τ)`. Riemann's bilinear identity gives their Gram matrix `Im τ`. The analytic Jacobian is `C^g/(Z^g+τZ^g)` and Abel–Jacobi pulls `dz_i` to `ω_i`. The positive volume of its fundamental parallelepiped is `det Im τ`, so the squared norm of `dz1∧…∧dzg` in the positive top-form convention is exactly `det Im τ`, also the squared determinant norm of the `ω_i`. The top-form integral uses the usual positive ordering of real pairs; changing between block and interleaved complex wedges accounts for the orientation sign, not a positive metric scalar. No `g!`, `π^g`, polarization degree, or isogeny degree occurs. A Kähler form raised to its gth power would require a factorial, but that is not this norm.",
+      "corrected_source_line": "For an explicit check of the archimedean determinant scalar, choose symplectic integral cycles and normalized holomorphic forms `ω_{1},…,ω_{g}`; write their period matrix `(1,τ)`. Riemann's bilinear identity gives their Gram matrix `Im τ`. The analytic Jacobian is `C^g/(Z^g+τZ^g)` and Abel–Jacobi pulls `dz_i` to `ω_i`. The positive volume of its fundamental parallelepiped is `det Im τ`, so the squared norm of `dz_{1}∧…∧dz_{g}` in the positive top-form convention is exactly `det Im τ`, also the squared determinant norm of the `ω_i`. The top-form integral uses the usual positive ordering of real pairs; changing between block and interleaved complex wedges accounts for the orientation sign, not a positive metric scalar. No `g!`, `π^g`, polarization degree, or isogeny degree occurs. A Kähler form raised to its gth power would require a factorial, but that is not this norm.",
+      "reason": "Indexed forms omega_1,...,omega_g and dz_1 wedge ... wedge dz_g.",
+      "original_effective_source_line": "For an explicit check of the archimedean determinant scalar, choose symplectic integral cycles and normalized holomorphic forms `ω1,…,ωg`; write their period matrix `(1,τ)`. Riemann's bilinear identity gives their Gram matrix `Im τ`. The analytic Jacobian is `C^g/(Z^g+τZ^g)` and Abel–Jacobi pulls `dz_i` to `ω_i`. The positive volume of its fundamental parallelepiped is `det Im τ`, so the squared norm of `dz1∧…∧dzg` in the positive top-form convention is exactly `det Im τ`, also the squared determinant norm of the `ω_i`. The top-form integral uses the usual positive ordering of real pairs; changing between block and interleaved complex wedges accounts for the orientation sign, not a positive metric scalar. No `g!`, `π^g`, polarization degree, or isogeny degree occurs. A Kähler form raised to its gth power would require a factorial, but that is not this norm."
+    },
+    {
+      "id": "F9b-L21",
+      "finding_ids": [
+        "F9b"
+      ],
+      "source": "research/quartic214/proofs/height-metric.md",
+      "source_sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "source_line": 21,
+      "original_source_line": "Let `π:X→P1_t` be the same degree-d Belyi cover and let its split fibre over2 be `P1,…,Pd`. Characteristic zero implies separability. Riemann–Hurwitz gives `2g−2=−2d+Σ(e_P−1)≤−2d+3(d−1)=d−3`; over each of the three possible branch values the contribution is d minus the nonzero number of geometric points in that fibre. Hence `d>2g−2`. A nonzero regular differential has zero divisor of degree `2g−2`, including g=1 where it has no zeros. Since every `Pj` is unramified, `ω/dt(Pj)=0` is precisely vanishing there. Thus",
+      "corrected_source_line": "Let `π:X→P^{1}_{t}` be the same degree-d Belyi cover and let its split fibre over2 be `P_{1},…,P_{d}`. Characteristic zero implies separability. Riemann–Hurwitz gives `2g−2=−2d+∑(e_P−1)≤−2d+3(d−1)=d−3`; over each of the three possible branch values the contribution is d minus the nonzero number of geometric points in that fibre. Hence `d>2g−2`. A nonzero regular differential has zero divisor of degree `2g−2`, including g=1 where it has no zeros. Since every `P_{j}` is unramified, `ω/dt(P_{j})=0` is precisely vanishing there. Thus",
+      "reason": "Projective line P^{1}_{t}, fibre points P_1,...,P_d, evaluations at P_j, and tuple indexed by j.",
+      "original_effective_source_line": "Let `π:X→P1_t` be the same degree-d Belyi cover and let its split fibre over2 be `P1,…,Pd`. Characteristic zero implies separability. Riemann–Hurwitz gives `2g−2=−2d+Σ(e_P−1)≤−2d+3(d−1)=d−3`; over each of the three possible branch values the contribution is d minus the nonzero number of geometric points in that fibre. Hence `d>2g−2`. A nonzero regular differential has zero divisor of degree `2g−2`, including g=1 where it has no zeros. Since every `Pj` is unramified, `ω/dt(Pj)=0` is precisely vanishing there. Thus"
+    },
+    {
+      "id": "F9b-L23",
+      "finding_ids": [
+        "F9b"
+      ],
+      "source": "research/quartic214/proofs/height-metric.md",
+      "source_sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "source_line": 23,
+      "original_source_line": "`ev:E⊗K→K^d`, `ω↦(ω/dt(Pj))j`",
+      "corrected_source_line": "`ev:E⊗K→K^d`, `ω↦(ω/dt(P_{j}))_{j}`",
+      "reason": "Projective line P^{1}_{t}, fibre points P_1,...,P_d, evaluations at P_j, and tuple indexed by j.",
+      "original_effective_source_line": "`ev:E⊗K→K^d`, `ω↦(ω/dt(Pj))j`"
+    },
+    {
+      "id": "F9b-L29",
+      "finding_ids": [
+        "F9b"
+      ],
+      "source": "research/quartic214/proofs/height-metric.md",
+      "source_sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "source_line": 29,
+      "original_source_line": "At every complex embedding the open disc `D={|t−2|<1/2}` avoids `0,1,∞`. The inverse image consists of d disjoint sheets isomorphic to D. On the sheet through `Pj`, write `ω=f_j(t)dt`. The power-series identity, or the mean-value inequality, gives",
+      "corrected_source_line": "At every complex embedding the open disc `D={|t−2|<1/2}` avoids `0,1,∞`. The inverse image consists of d disjoint sheets isomorphic to D. On the sheet through `P_{j}`, write `ω=f_j(t)dt`. The power-series identity, or the mean-value inequality, gives",
+      "reason": "Projective line P^{1}_{t}, fibre points P_1,...,P_d, evaluations at P_j, and tuple indexed by j.",
+      "original_effective_source_line": "At every complex embedding the open disc `D={|t−2|<1/2}` avoids `0,1,∞`. The inverse image consists of d disjoint sheets isomorphic to D. On the sheet through `Pj`, write `ω=f_j(t)dt`. The power-series identity, or the mean-value inequality, gives"
+    },
+    {
+      "id": "F11a-L47",
+      "finding_ids": [
+        "F11a"
+      ],
+      "source": "research/quartic214/proofs/height-supplier.md",
+      "source_sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "source_line": 47,
+      "original_source_line": "`rho_l(sigma)=b(sigma)^(-1) a_sigma mu_sigma o sigma`",
+      "corrected_source_line": "`rho_l(sigma)=b(sigma)^(-1) a_sigma mu_sigma \\circ sigma`",
+      "reason": "rho_l(sigma)=b(sigma)^{-1} a_sigma (mu_sigma composed with sigma).",
+      "original_effective_source_line": "`rho_l(sigma)=b(sigma)^(-1) a_sigma mu_sigma o sigma`"
+    },
+    {
+      "id": "F9d-L23",
+      "finding_ids": [
+        "F9d"
+      ],
+      "source": "research/quartic214/proofs/modularity.md",
+      "source_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "source_line": 23,
+      "original_source_line": "Here is the complete local/global obstruction check. Use the constant-module squaring sequence 1 -> {±1} -> mu_infinity -> mu_infinity -> 1. By local reciprocity, a finite character of G_Qp has a character square root exactly when its character on Qp* does. The torsion factor of Qp* is cyclic of even order; its only obstruction is the value at -1. The valuation Z factor admits a finite-order square root. For odd p, squaring on the pro-p principal units is an automorphism; for p=2 the torsion-free factor 1+4Z_2 is procyclic and its generator's image may be given a square root of twice the order. Thus the criterion holds also at 2, with no omitted principal-unit obstruction. Local H²(G_Qp,{±1}) has two elements, by Kummer and the local Brauer invariant. The boundary of chi equals the sign class at every finite prime. The latter is zero outside T because its class inflates from the unramified local quotient, which has cohomological dimension one. The global Brauer injection and invariant-sum exact sequence determine the real invariant as well. See the final Milne ADT second edition, I.1.3/I.1.6(b,c), and the proof of II.2.1, printed 164, for the reciprocity and Brauer statements.",
+      "corrected_source_line": "Here is the complete local/global obstruction check. Use the constant-module squaring sequence 1 -> {±1} -> mu_infinity -> mu_infinity -> 1. By local reciprocity, a finite character of G_{Q_p} has a character square root exactly when its character on `Q_p^{*}` does. The torsion factor of `Q_p^{*}` is cyclic of even order; its only obstruction is the value at -1. The valuation Z factor admits a finite-order square root. For odd p, squaring on the pro-p principal units is an automorphism; for p=2 the torsion-free factor 1+4Z_2 is procyclic and its generator's image may be given a square root of twice the order. Thus the criterion holds also at 2, with no omitted principal-unit obstruction. Local H²(G_{Q_p},{±1}) has two elements, by Kummer and the local Brauer invariant. The boundary of chi equals the sign class at every finite prime. The latter is zero outside T because its class inflates from the unramified local quotient, which has cohomological dimension one. The global Brauer injection and invariant-sum exact sequence determine the real invariant as well. See the final Milne ADT second edition, I.1.3/I.1.6(b,c), and the proof of II.2.1, printed 164, for the reciprocity and Brauer statements.",
+      "reason": "Local field Q_p, absolute Galois group G_{Q_p}, and multiplicative group Q_p^{*}.",
+      "original_effective_source_line": "Here is the complete local/global obstruction check. Use the constant-module squaring sequence 1 -> {±1} -> mu_infinity -> mu_infinity -> 1. By local reciprocity, a finite character of G_Qp has a character square root exactly when its character on Qp* does. The torsion factor of Qp* is cyclic of even order; its only obstruction is the value at -1. The valuation Z factor admits a finite-order square root. For odd p, squaring on the pro-p principal units is an automorphism; for p=2 the torsion-free factor 1+4Z_2 is procyclic and its generator's image may be given a square root of twice the order. Thus the criterion holds also at 2, with no omitted principal-unit obstruction. Local H²(G_Qp,{±1}) has two elements, by Kummer and the local Brauer invariant. The boundary of chi equals the sign class at every finite prime. The latter is zero outside T because its class inflates from the unramified local quotient, which has cohomological dimension one. The global Brauer injection and invariant-sum exact sequence determine the real invariant as well. See the final Milne ADT second edition, I.1.3/I.1.6(b,c), and the proof of II.2.1, printed 164, for the reciprocity and Brauer statements."
+    },
+    {
+      "id": "F10-L25",
+      "finding_ids": [
+        "F10"
+      ],
+      "source": "research/quartic214/proofs/modularity.md",
+      "source_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "source_line": 25,
+      "original_source_line": "A continuous pointwise square root b_0 of chi has values in mu_(2m). Equality of cohomology classes means delta(b_0)/epsilon_sign is the coboundary of a continuous sign cochain; correcting b_0 supplies b²=chi and delta b=epsilon_sign. Normalize b(1)=1. On G_L, the cocycle is 1, so b is a character. For h in G_L and g in G_Q, the identities epsilon_sign(g,h)=epsilon_sign(h,g)=1 show b(gh)=b(g)b(h)=b(h)b(g), and then b(ghg^-1)=b(h). Its kernel in G_L is therefore normal in G_Q.",
+      "corrected_source_line": "A continuous pointwise square root b_0 of chi has values in mu_(2m). Equality of cohomology classes means delta(b_0)/epsilon_sign is the coboundary of a continuous sign cochain; correcting b_0 supplies b²=chi and delta b=epsilon_sign. Normalize b(1)=1. On G_L, the cocycle is 1, so b is a character. For h in G_L and g in G_Q, the identities epsilon_sign(g,h)=epsilon_sign(h,g)=1 show b(gh)=b(g)b(h)=b(h)b(g), and then b(g h g^{-1})=b(h). Its kernel in G_L is therefore normal in G_Q.",
+      "reason": "b(g h g^{-1})=b(h). Only the final g is inverted.",
+      "original_effective_source_line": "A continuous pointwise square root b_0 of chi has values in mu_(2m). Equality of cohomology classes means delta(b_0)/epsilon_sign is the coboundary of a continuous sign cochain; correcting b_0 supplies b²=chi and delta b=epsilon_sign. Normalize b(1)=1. On G_L, the cocycle is 1, so b is a character. For h in G_L and g in G_Q, the identities epsilon_sign(g,h)=epsilon_sign(h,g)=1 show b(gh)=b(g)b(h)=b(h)b(g), and then b(ghg^-1)=b(h). Its kernel in G_L is therefore normal in G_Q."
+    },
+    {
+      "id": "F8b-related-L66",
+      "finding_ids": [
+        "F8b-related"
+      ],
+      "source": "research/quartic214/proofs/provider-scope-carry.md",
+      "source_sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+      "source_line": 66,
+      "original_source_line": "The new input to that unchanged theorem is the same kind of local finite Galois extension F'/Q_p with better wild-part valuations. Q(chi) is the kernel field; it is tame at oddp and its dyadic inertia has order<=2. On F=E Q(chi), b is a quadratic conjugation-invariant character and its kernel gives F'/F of degree<=2. At oddp this addition is tame, at2 it adds at most one factor2. Thus the actual constructed extensions satisfy all source hypotheses with v_p(e)<=(17,4,4,1). A/E is already good at2,3,5,7, and on G_F' all scalar/isogeny corrections are1, so the actual r_ell is trivial on its local inertia for ell!=p. The upper-numbering quotient map is therefore the one used to bound **this** representation's Swan conductor. The derivative/Hilbert/Herbrand calculation is explicitly derived in M5, retaining the tame term and allowing arbitrarily large tame index. The resulting conductor exponents(70,18,18,6) are a fresh numerical consequence; the public274<300 conclusion itself is not carried as proof of them.",
+      "corrected_source_line": "The new input to that unchanged theorem is the same kind of local finite Galois extension F'/Q_p with better wild-part valuations. Q(chi) is the kernel field; it is tame at oddp and its dyadic inertia has order<=2. On F=E Q(chi), b is a quadratic conjugation-invariant character and its kernel gives F'/F of degree<=2. At oddp this addition is tame, at2 it adds at most one factor2. Thus the actual constructed extensions satisfy all source hypotheses with v_p(e)<=(17,4,4,1). A/E is already good at2,3,5,7, and on G_{F'} all scalar/isogeny corrections are1, so the actual r_ell is trivial on its local inertia for ell!=p. The upper-numbering quotient map is therefore the one used to bound **this** representation's Swan conductor. The derivative/Hilbert/Herbrand calculation is explicitly derived in M5, retaining the tame term and allowing arbitrarily large tame index. The resulting conductor exponents(70,18,18,6) are a fresh numerical consequence; the public274<300 conclusion itself is not carried as proof of them.",
+      "reason": "G_{F'} for that same field.",
+      "original_effective_source_line": "The new input to that unchanged theorem is the same kind of local finite Galois extension F'/Q_p with better wild-part valuations. Q(chi) is the kernel field; it is tame at oddp and its dyadic inertia has order<=2. On F=E Q(chi), b is a quadratic conjugation-invariant character and its kernel gives F'/F of degree<=2. At oddp this addition is tame, at2 it adds at most one factor2. Thus the actual constructed extensions satisfy all source hypotheses with v_p(e)<=(17,4,4,1). A/E is already good at2,3,5,7, and on G_F' all scalar/isogeny corrections are1, so the actual r_ell is trivial on its local inertia for ell!=p. The upper-numbering quotient map is therefore the one used to bound **this** representation's Swan conductor. The derivative/Hilbert/Herbrand calculation is explicitly derived in M5, retaining the tame term and allowing arbitrarily large tame index. The resulting conductor exponents(70,18,18,6) are a fresh numerical consequence; the public274<300 conclusion itself is not carried as proof of them."
+    },
+    {
+      "id": "F8a-L105",
+      "finding_ids": [
+        "F8a"
+      ],
+      "source": "research/quartic214/sources/conductor-sections1-3.md",
+      "source_sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+      "source_line": 105,
+      "original_source_line": "Use G_t=G_ceiling(t) for real t>0 and define the Herbrand function",
+      "corrected_source_line": "Use G_t=G_{\\lceil t\\rceil} for real t>0 and define the Herbrand function",
+      "reason": "G_t=G_{ceil(t)}; G^u=G_{phi^{-1}(u)}. Whole evaluated function value is the index.",
+      "original_effective_source_line": "Use G_t=G_ceiling(t) for real t>0 and define the Herbrand function"
+    },
+    {
+      "id": "F8a-L106",
+      "finding_ids": [
+        "F8a"
+      ],
+      "source": "research/quartic214/sources/conductor-sections1-3.md",
+      "source_sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+      "source_line": 106,
+      "original_source_line": "phi(t)=integral_0^t |G_s|/e ds. Its inverse defines G^u=G_phi^-1(u).",
+      "corrected_source_line": "phi(t)=integral_0^t |G_s|/e ds. Its inverse defines G^u=G_{phi^{-1}(u)}.",
+      "reason": "G_t=G_{ceil(t)}; G^u=G_{phi^{-1}(u)}. Whole evaluated function value is the index.",
+      "original_effective_source_line": "phi(t)=integral_0^t |G_s|/e ds. Its inverse defines G^u=G_phi^-1(u)."
+    },
+    {
+      "id": "F11b-L132",
+      "finding_ids": [
+        "F11b"
+      ],
+      "source": "research/quartic214/sources/conductor-sections1-3.md",
+      "source_sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+      "source_line": 132,
+      "original_source_line": "    rho_ell_c(sigma)=b(sigma)^(-1) a_sigma mu_sigma o sigma,",
+      "corrected_source_line": "    rho_ell_c(sigma)=b(sigma)^(-1) a_sigma mu_sigma \\circ sigma,",
+      "reason": "The identical composition convention for rho_{ell_c}.",
+      "original_effective_source_line": "    rho_ell_c(sigma)=b(sigma)^(-1) a_sigma mu_sigma o sigma,"
+    },
+    {
+      "id": "F8b-L135",
+      "finding_ids": [
+        "F8b"
+      ],
+      "source": "research/quartic214/sources/conductor-sections1-3.md",
+      "source_sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+      "source_line": 135,
+      "original_source_line": "On G_F' all three scalar/isogeny corrections are trivial: F' contains",
+      "corrected_source_line": "On G_{F'} all three scalar/isogeny corrections are trivial: F' contains",
+      "reason": "G_{F'} for the absolute Galois group of the quadratic kernel field F'.",
+      "original_effective_source_line": "On G_F' all three scalar/isogeny corrections are trivial: F' contains"
+    },
+    {
+      "id": "F8b-L136",
+      "finding_ids": [
+        "F8b"
+      ],
+      "source": "research/quartic214/sources/conductor-sections1-3.md",
+      "source_sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+      "source_line": 136,
+      "original_source_line": "L, mu_1=a_1=1, and b is killed. Thus rho_ell_c restricted to G_F' is",
+      "corrected_source_line": "L, mu_1=a_1=1, and b is killed. Thus rho_ell_c restricted to G_{F'} is",
+      "reason": "G_{F'} for the absolute Galois group of the quadratic kernel field F'.",
+      "original_effective_source_line": "L, mu_1=a_1=1, and b is killed. Thus rho_ell_c restricted to G_F' is"
+    },
+    {
+      "id": "F8b-L138",
+      "finding_ids": [
+        "F8b"
+      ],
+      "source": "research/quartic214/sources/conductor-sections1-3.md",
+      "source_sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+      "source_line": 138,
+      "original_source_line": "reduction over F' by §1. For ell_c!=p, the local inertia in G_F' acts",
+      "corrected_source_line": "reduction over F' by §1. For ell_c!=p, the local inertia in G_{F'} acts",
+      "reason": "G_{F'} for the absolute Galois group of the quadratic kernel field F'.",
+      "original_effective_source_line": "reduction over F' by §1. For ell_c!=p, the local inertia in G_F' acts"
+    }
+  ],
+  "additional_findings_evidence": {
+    "path": "author-evidence/FINDINGS_F8_F11.json",
+    "sha256": "b9dfd12e052df760c9a46d235098dcc299611870bbaaace26a9785a58754e653",
+    "authorship": "independent reviewer record copied verbatim; author supplies only corrections"
+  }
+}

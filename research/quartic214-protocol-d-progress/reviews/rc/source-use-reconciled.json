@@ -1,0 +1,393 @@
+{
+  "reviewer": "/root/d214_rc_source_closure",
+  "type": "Exposed reconciliation of immutable initial partial reconstruction, not a replacement initial freeze",
+  "commit": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "manuscript_sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+  "prior_exposure": "Parent task scope and statement that prior lane incomplete; no declared inventories/contracts/history verdicts read before this freeze.",
+  "status": "Accepted within scopes stated in REVIEW.md; no full fresh recursive RC review claimed",
+  "rows": [
+    {
+      "id": "RC01",
+      "range": [
+        2570,
+        2720
+      ],
+      "required": "Modularity; Shimura quotient; Faltings isogeny; odd parity; fixed non-CM representation",
+      "supplier": "Published sources listed in passage; actual applications not yet primary-checked",
+      "excerpt_sha256": "4407f985bfcb855f7bfac88fded829bfaa171e7eb57b36550869b976884a940c",
+      "status": "reconstructed; primary checks pending where external",
+      "fresh_status": "inspected internal passage; unchanged prerequisites reused at native scope; see REVIEW.md for primary-reading boundary",
+      "native_binding": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
+      },
+      "comparison": "No changed supplier object, normalization or stronger 214 RC demand identified; receiving application separately checked.",
+      "selected_connection_ids": []
+    },
+    {
+      "id": "RC02",
+      "range": [
+        2721,
+        2866
+      ],
+      "required": "Uniform even scalar and central valuation",
+      "supplier": "ex:app-kato-system; ex:app-even-scalar; ex:app-central-calibration",
+      "excerpt_sha256": "ffeb07272db378f8169bf8b3a9f29e6bab6b3229c0250d14732a08399e61cdc8",
+      "status": "reconstructed; primary checks pending where external",
+      "fresh_status": "inspected internal passage; unchanged prerequisites reused at native scope; see REVIEW.md for primary-reading boundary",
+      "native_binding": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
+      },
+      "comparison": "No changed supplier object, normalization or stronger 214 RC demand identified; receiving application separately checked.",
+      "selected_connection_ids": []
+    },
+    {
+      "id": "RC03",
+      "range": [
+        13339,
+        13735
+      ],
+      "required": "Integral retained classes, j-star condition, twisting, coefficient push, central reciprocity",
+      "supplier": "Kato 2004 6.6,8.1.3,8.2,8.9–8.12,9.7; Stacks 03Q9/03QA; Nekovar 4.1.3",
+      "excerpt_sha256": "ecf2d460de9aadc730661cb0c2eac98943caedbe84ef0a5dc92f6a6b9f709f0d",
+      "status": "reconstructed; primary checks pending where external",
+      "fresh_status": "accepted within scoped fresh Kato/control application; published theorem statements checked as recorded; open-image and other unchanged prerequisites reused",
+      "native_binding": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
+      },
+      "comparison": "No changed supplier object, normalization or stronger 214 RC demand identified; receiving application separately checked.",
+      "selected_connection_ids": [
+        "V15-INHERITED--ACTIVE-KATO-RETAINED-CLASS-INTERFACE",
+        "V15-INHERITED--ACTIVE-THETA-KATO1999-INDEX-CLASS",
+        "V15-INHERITED--ACTIVE-THETA-KATO1999-ELLIPTIC-HYPOTHESES",
+        "V15-INHERITED--ACTIVE-THETA-KATO1999-RATIONAL-BOUND",
+        "V15-INHERITED--ACTIVE-THETA-KATO-CORESTRICTION-TRANSITIVITY",
+        "V15-INHERITED--ACTIVE-THETA-KATO-JSTAR-SUPPORT"
+      ]
+    },
+    {
+      "id": "RC04",
+      "range": [
+        13736,
+        13903
+      ],
+      "required": "Prime-two rational divisibility of the actual retained class",
+      "supplier": "Kato 1999 0.1,0.6,0.7,0.8; Kato 2004 13.4(2),13.5(2); open image",
+      "excerpt_sha256": "2f0ac2d8cc4479af24f5f7704e2505e7f4ebe1944b25a523ccb85013237a5708",
+      "status": "reconstructed; primary checks pending where external",
+      "fresh_status": "accepted within scoped fresh Kato/control application; published theorem statements checked as recorded; open-image and other unchanged prerequisites reused",
+      "native_binding": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
+      },
+      "comparison": "No changed supplier object, normalization or stronger 214 RC demand identified; receiving application separately checked.",
+      "selected_connection_ids": [
+        "V15-INHERITED--ACTIVE-KATO-RETAINED-CLASS-INTERFACE",
+        "V15-INHERITED--ACTIVE-THETA-KATO1999-INDEX-CLASS",
+        "V15-INHERITED--ACTIVE-THETA-KATO1999-ELLIPTIC-HYPOTHESES",
+        "V15-INHERITED--ACTIVE-THETA-KATO1999-RATIONAL-BOUND",
+        "V15-INHERITED--ACTIVE-THETA-KATO-CORESTRICTION-TRANSITIVITY",
+        "V15-INHERITED--ACTIVE-THETA-KATO-JSTAR-SUPPORT"
+      ]
+    },
+    {
+      "id": "RC05",
+      "range": [
+        13904,
+        14004
+      ],
+      "required": "From subscript-zero bound to full global H2 with fixed central-nonzero corrections",
+      "supplier": "Local cohomology cone K16; local Tate duality; derived control; exact length sum",
+      "excerpt_sha256": "4043a68f33aa67d144e354bbd7747b08cdeae606d3b92307887272a49bebd73d",
+      "status": "reconstructed; primary checks pending where external",
+      "fresh_status": "accepted within scoped fresh Kato/control application; published theorem statements checked as recorded; open-image and other unchanged prerequisites reused",
+      "native_binding": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
+      },
+      "comparison": "No changed supplier object, normalization or stronger 214 RC demand identified; receiving application separately checked.",
+      "selected_connection_ids": [
+        "V15-INHERITED--ACTIVE-KATO-RETAINED-CLASS-INTERFACE",
+        "V15-INHERITED--ACTIVE-RC-NEKOVAR-SUPPORT-EXCISION",
+        "V15-INHERITED--ACTIVE-THETA-KATO1999-INDEX-CLASS",
+        "V15-INHERITED--ACTIVE-THETA-KATO1999-ELLIPTIC-HYPOTHESES",
+        "V15-INHERITED--ACTIVE-THETA-KATO1999-RATIONAL-BOUND",
+        "V15-INHERITED--ACTIVE-THETA-KATO-CORESTRICTION-TRANSITIVITY",
+        "V15-INHERITED--ACTIVE-THETA-KATO-JSTAR-SUPPORT"
+      ]
+    },
+    {
+      "id": "RC06",
+      "range": [
+        14005,
+        14250
+      ],
+      "required": "Integral positive complex, free rank2 over O[G], one determinant scalar with uniform denominator",
+      "supplier": "Finite free models; class-group/signature calculation; K2; E4a; intersection A cap O",
+      "excerpt_sha256": "5d92b89abfce49d5718c170896707bd8c72dee7cab09ea7c8e92e3e16039e8ee",
+      "status": "reconstructed; primary checks pending where external",
+      "fresh_status": "accepted within scoped fresh Kato/control application; published theorem statements checked as recorded; open-image and other unchanged prerequisites reused",
+      "native_binding": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
+      },
+      "comparison": "No changed supplier object, normalization or stronger 214 RC demand identified; receiving application separately checked.",
+      "selected_connection_ids": []
+    },
+    {
+      "id": "RC07",
+      "range": [
+        14251,
+        14428
+      ],
+      "required": "Same scalar central valuation including saturation, real terms, torsion",
+      "supplier": "Nekovar 5.7.1.4–5.7.1.7; internal E6–E9; K3; forward-rank lemma",
+      "excerpt_sha256": "c2e5bef8c0564e03d056e64775b235c545702d8bfdc1d9287f5df3d9c8cbf063",
+      "status": "reconstructed; primary checks pending where external",
+      "fresh_status": "accepted within scoped fresh Kato/control application; published theorem statements checked as recorded; open-image and other unchanged prerequisites reused",
+      "native_binding": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
+      },
+      "comparison": "No changed supplier object, normalization or stronger 214 RC demand identified; receiving application separately checked.",
+      "selected_connection_ids": []
+    },
+    {
+      "id": "RC08",
+      "range": [
+        6630,
+        6727
+      ],
+      "required": "Final finite transfer contradiction",
+      "supplier": "fixed-field clearing; Boolean degree/count; common coordinate; base-zero; final family",
+      "excerpt_sha256": "a58cb7437ea89ec7f37d4f06d17e5f8aa0f896199d6863ad848802472b7b9acf",
+      "status": "reconstructed; primary checks pending where external",
+      "fresh_status": "inspected internal passage; unchanged prerequisites reused at native scope; see REVIEW.md for primary-reading boundary",
+      "native_binding": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
+      },
+      "comparison": "No changed supplier object, normalization or stronger 214 RC demand identified; receiving application separately checked.",
+      "selected_connection_ids": [
+        "V15-INHERITED--ACTIVE-RC-UNKNOWN-BASE-ZERO"
+      ]
+    },
+    {
+      "id": "RC09",
+      "range": [
+        17465,
+        17543
+      ],
+      "required": "Final coordinate and exact choice order",
+      "supplier": "F8, fixed-field clearing and finite transfer; final-family; Rankin factorization",
+      "excerpt_sha256": "4246bb2b6d22a084c72806fb43247b67b743d0122f93cbc030ffa25e15fe79d6",
+      "status": "reconstructed; primary checks pending where external",
+      "fresh_status": "inspected internal passage; unchanged prerequisites reused at native scope; see REVIEW.md for primary-reading boundary",
+      "native_binding": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
+      },
+      "comparison": "No changed supplier object, normalization or stronger 214 RC demand identified; receiving application separately checked.",
+      "selected_connection_ids": []
+    },
+    {
+      "id": "RC10",
+      "range": [
+        1705,
+        1898
+      ],
+      "required": "RC-to-pole via dimension3 Selmer and actual rational points",
+      "supplier": "Internal simultaneous descent; Poonen–Stoll; RC; Kolyvagin forward theorem",
+      "excerpt_sha256": "622c3890ea3fdc72c9feaf315a9baeea6d488fa42578e0b1fcbe15e4f301b3d9",
+      "status": "reconstructed; primary checks pending where external",
+      "fresh_status": "inspected internal passage; unchanged prerequisites reused at native scope; see REVIEW.md for primary-reading boundary",
+      "native_binding": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
+      },
+      "comparison": "No changed supplier object, normalization or stronger 214 RC demand identified; receiving application separately checked.",
+      "selected_connection_ids": [
+        "V15-INHERITED--ACTIVE-FORWARD-KOLYVAGIN",
+        "V15-INHERITED--ACTIVE-POLE-SEL2-TO-FULL-CORANK"
+      ]
+    },
+    {
+      "id": "RC11",
+      "range": [
+        8803,
+        9076
+      ],
+      "required": "Seven-witness pole, simultaneous realization, degenerate cases",
+      "supplier": "RC; corank; forward rank; explicit local descent and Kummer identities",
+      "excerpt_sha256": "148334e4e9e363b43e037da409da60faa7927ab85c6a9802a97795c51dae9c6b",
+      "status": "reconstructed; primary checks pending where external",
+      "fresh_status": "inspected internal passage; unchanged prerequisites reused at native scope; see REVIEW.md for primary-reading boundary",
+      "native_binding": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
+      },
+      "comparison": "No changed supplier object, normalization or stronger 214 RC demand identified; receiving application separately checked.",
+      "selected_connection_ids": []
+    },
+    {
+      "id": "RC12",
+      "range": [
+        32300,
+        32373
+      ],
+      "required": "Zero-preparation pole consumed by four finite-algebra inputs",
+      "supplier": "v5:preparation-zero-bridge; simultaneous-realization and RC; independent conic witnesses",
+      "excerpt_sha256": "adb7ee2b36a932cc570a1c5c1f93d70bca56cea540cc9b313fefd5f6b44e8fdf",
+      "status": "reconstructed; primary checks pending where external",
+      "fresh_status": "inspected internal passage; unchanged prerequisites reused at native scope; see REVIEW.md for primary-reading boundary",
+      "native_binding": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
+      },
+      "comparison": "No changed supplier object, normalization or stronger 214 RC demand identified; receiving application separately checked.",
+      "selected_connection_ids": [
+        "SF45-S1--V15-BASE248--V15-FOUNDATION",
+        "SF45-S2--V15-BASE248--local"
+      ]
+    }
+  ],
+  "initial_record_sha256": "d3361545257d7bf822c50fee569872ad05ac195b41a056f73f189bb3a4023cd8",
+  "fresh_read_ranges": [
+    [
+      1705,
+      1898
+    ],
+    [
+      2570,
+      2900
+    ],
+    [
+      3302,
+      3384
+    ],
+    [
+      3479,
+      6727
+    ],
+    [
+      8803,
+      9076
+    ],
+    [
+      11590,
+      11765
+    ],
+    [
+      13339,
+      14428
+    ],
+    [
+      17465,
+      17543
+    ],
+    [
+      32300,
+      32373
+    ]
+  ],
+  "fresh_unread_ancestor_ranges": [
+    [
+      2901,
+      3301
+    ],
+    [
+      3385,
+      3478
+    ],
+    [
+      14429,
+      17464
+    ]
+  ],
+  "reading_limit_not_mathematical_defect": "Unread fresh ancestors are covered only by exact unchanged native reuse at its prior accepted scope. No new unresolved mathematical obligation identified in the specific receiving RC/pole application.",
+  "receiving_uses": [
+    {
+      "id": "RC13",
+      "required": "Pole soundness on arbitrary rational witnesses including degenerate branches",
+      "constructed": "Actual b=gamma² R/Tr(W^-1)² in changed214 factors; outside Sigma, its valuation is odd",
+      "supplier": {
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+        "start_line": 8826,
+        "end_line": 8870,
+        "excerpt_sha256": "12f391c97127f8a1691ad7268fd7ef81c468a3b3e033519fd67787f4ce848f7b"
+      },
+      "consumer": [
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "start_line": 18,
+          "end_line": 28,
+          "excerpt_sha256": "ec809d646b7f349ce454b20157469fe2c00819d69c898a0d02e71ac83966517a"
+        },
+        {
+          "path": "research/quartic214/proofs/existence.md",
+          "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+          "start_line": 31,
+          "end_line": 45,
+          "excerpt_sha256": "4577f7d8d2b1a5e470d39c0b17204e2a1f86f34287680cc955f1851d78a688c1"
+        }
+      ],
+      "decision": "accepted within scope; only one-sided pole obstruction consumed"
+    },
+    {
+      "id": "RC14",
+      "required": "Fresh independent zero-preparation certificates for actual comparison inputs",
+      "constructed": "P17/P18 b has square reduced denominator,0<b<17,local squares and depths4,2,2",
+      "supplier": [
+        {
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+          "start_line": 8871,
+          "end_line": 8990,
+          "excerpt_sha256": "f157cc85ba2c957b53ab16473a02afd83d572c2941ea7e2c8fc664eeb07c6cf0"
+        },
+        {
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+          "start_line": 11657,
+          "end_line": 11739,
+          "excerpt_sha256": "c870a4836607eb4249a908cff74a0a75cf9634a96c2844e9aee2953b3e1ad048"
+        },
+        {
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+          "start_line": 32300,
+          "end_line": 32373,
+          "excerpt_sha256": "adb7ee2b36a932cc570a1c5c1f93d70bca56cea540cc9b313fefd5f6b44e8fdf"
+        }
+      ],
+      "consumer": [
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "start_line": 60,
+          "end_line": 84,
+          "excerpt_sha256": "e7e5ab6f72942bb14249f89693639e1fc9c61077f9ed3180faa337b924b58eb8"
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "start_line": 11,
+          "end_line": 28,
+          "excerpt_sha256": "d8ef93330fa69d32c2209dd4a02b680e9c87a85f88617d75510f407cdd080a14"
+        },
+        {
+          "path": "research/quartic214/proofs/existence.md",
+          "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+          "start_line": 82,
+          "end_line": 88,
+          "excerpt_sha256": "98b9c539f6373f4057cbf3e839dbe8d1bf3099b5b50b5d49a370b106e7243204"
+        }
+      ],
+      "decision": "accepted within scope by fresh receiving comparison and exact unchanged native supplier reuse"
+    }
+  ]
+}

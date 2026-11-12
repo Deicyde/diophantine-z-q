@@ -1,0 +1,233 @@
+{
+  "commit": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "files": [
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "bytes": 1926498
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "bytes": 15072
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "bytes": 15185
+    },
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "bytes": 10582
+    },
+    {
+      "path": "research/version16/protocol/DOSSIER.json",
+      "sha256": "45c3864dc588d23c6c797e783c23f88c5b00473ccd7956548734380ccb04f9c5",
+      "bytes": 6201368
+    },
+    {
+      "path": "research/version16/protocol/CONNECTIONS.json",
+      "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+      "bytes": 9510085
+    },
+    {
+      "path": "research/version16/review/coverage/REVIEW.md",
+      "sha256": "cb6c566b3802310efd66eda255850b66763519501042b8d64826b803a97665fe",
+      "bytes": 10392
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/REVIEW.md",
+      "sha256": "52bb8ba0ada9cbdb70b2b711cd05517b9532d36927b5fb55daa1b7c4cea3dff9",
+      "bytes": 4039
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/REVIEW.json",
+      "sha256": "ba7b54afa94cf4583d9c20167b333656ae16c80c866bee82b555ae6a682b310b",
+      "bytes": 3104
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/ASSEMBLY-REVIEW.json",
+      "sha256": "667f8007a2af8d96a845cbf505ca001bf6a04dbb69d5a0667dd2e76d12a32957",
+      "bytes": 6187
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "7f7e0544d324b4ba19d5cb70151c98b31ae2a2a429483df7416d07812267b497",
+      "bytes": 2096814
+    },
+    {
+      "path": "research/version14/evidence/gaussian-external-source-cards-002/SOURCES.md",
+      "sha256": "e03d57e7b99f977de154be384560ad1fc589de7ca8e8629fdcc656c48d1b788b",
+      "bytes": 52447
+    },
+    {
+      "path": "research/version14/evidence/final-source-bhb/BHB-FINAL-STATEMENT-DISPOSITION.md",
+      "sha256": "6e0e3a23f929e55550460d6c8dbf5cecba592b8811ff0af94ee7ab6a97fc9643",
+      "bytes": 2792
+    },
+    {
+      "path": "research/version14/evidence/final-source-bhb/FINAL-COMPARISON.md",
+      "sha256": "5d2d09134f745dffb9de0bc96c0b00a88698e37b962ddbfc1e92b8c347c2b44d",
+      "bytes": 8015
+    },
+    {
+      "path": "docs/manuscript-revisions/version14/baseline-coverage/published-version-checks/bl-bhb/REVIEW.md",
+      "sha256": "4b6b6180fdd2f4133b3ce0970e83ac02dfff9eebe70c8eaba09a15b6e61b71c6",
+      "bytes": 8043
+    },
+    {
+      "path": "docs/manuscript-revisions/version14/baseline-coverage/published-version-checks/bl-bhb/RETRIEVAL-network.json",
+      "sha256": "65f0ffabb52afbba6234cc91a3ba2eaab7caacad2fec34b1cb790a822a148f50",
+      "bytes": 3723
+    },
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+      "bytes": 13149
+    },
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_APPLICATION.json",
+      "sha256": "7777952dbd0611d17338154168dc80d1169416c93f6b12a92d60d2b2f427341e",
+      "bytes": 66633
+    },
+    {
+      "path": "research/quartic214-manuscript/quartic214.tex",
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+      "bytes": 2337533
+    },
+    {
+      "path": "research/quartic214-manuscript/SOURCE_SPANS.json",
+      "sha256": "c98fc0d5860fb1d17a1d1ec7f23e266015f26e37d72443b796a782006c371391",
+      "bytes": 399870
+    },
+    {
+      "path": "research/version16/review/current/REVIEW.md",
+      "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2",
+      "bytes": 15431
+    },
+    {
+      "path": "research/version16/review/current/TZ-PRECISION-ADDENDUM.md",
+      "sha256": "e2c57cc9d635289f9ddee5f51c07a2f533cc1624a5204440d25647ef2766bdd5",
+      "bytes": 2255
+    },
+    {
+      "path": "research/quartic214/contracts/uniform-existence.json",
+      "sha256": "832900c2f480bce3eb77bef6c8b408a7ca16229b8414104e3938849a3b3bc011",
+      "bytes": 87619
+    },
+    {
+      "path": "research/quartic214/contracts/source-carry.json",
+      "sha256": "0ccb359a72c0c0215ab2d4bad7a5a2a49ca2a2cddaa9254eb698a6e69c39688e",
+      "bytes": 79000
+    },
+    {
+      "path": "research/quartic214/contracts/source-carry-sources.json",
+      "sha256": "f286c8ac793e44c4f74db702afb7f8cbf3acb89f13c631a8275b7ecdec80c243",
+      "bytes": 23473
+    }
+  ],
+  "initial_excerpt_checks": [
+    {
+      "id": "A01",
+      "excerpt_sha256": "6ced1761cafa8c24fddb426646770f4183683170f04fe92dea39d6dfe7320cc3",
+      "matches_initial": true
+    },
+    {
+      "id": "A02",
+      "excerpt_sha256": "669d44743d984adeed2a3f1ed31756ea5c34a98fa7a79e362ccc8e2a49a6ba78",
+      "matches_initial": true
+    },
+    {
+      "id": "A03",
+      "excerpt_sha256": "f9c43b4e118507ea06aa09008100ade43c8786811ae1d4b3c1c92414ebc42a61",
+      "matches_initial": true
+    },
+    {
+      "id": "A04",
+      "excerpt_sha256": "5f443b8fa5b60a93270ca4b75f6489e3c068340592f0279603cd9e12e51f5a5d",
+      "matches_initial": true
+    },
+    {
+      "id": "A05",
+      "excerpt_sha256": "b70e33aa36669744adda79a5f933793aee6865fcee4bf7e40fc7098708405ee7",
+      "matches_initial": true
+    },
+    {
+      "id": "A06",
+      "excerpt_sha256": "83067a2946bce79201c1f82e83d2f41caf875a1916e5e83b013ec48b528cd448",
+      "matches_initial": true
+    },
+    {
+      "id": "A07",
+      "excerpt_sha256": "d7a685b593ce69675a2aa6f0cf3518fef9b219606f291904e8c7f77191d5cf29",
+      "matches_initial": true
+    },
+    {
+      "id": "A08",
+      "excerpt_sha256": "50a838241a5ede661d95256828abe08b303f9ce901eb119fb166ea5f8e0e107c",
+      "matches_initial": true
+    },
+    {
+      "id": "A09",
+      "excerpt_sha256": "76f16226163f1e5415f802aa2878fa5e72f53ea8b8b09944172c2df1e0ff4de9",
+      "matches_initial": true
+    },
+    {
+      "id": "A10",
+      "excerpt_sha256": "637ade3d838aecb25ff819628b627a7111af905b0a6ea51327ab589b35107e25",
+      "matches_initial": true
+    },
+    {
+      "id": "A11",
+      "excerpt_sha256": "7f31d710a45a7db8feb45201a344e116628f847619b101dc1176ae0f664a9667",
+      "matches_initial": true
+    },
+    {
+      "id": "A12",
+      "excerpt_sha256": "04582e7f9375a1cbdb3747b7bce21caf819bb259cd43a30dce701aa37ac5b381",
+      "matches_initial": true
+    },
+    {
+      "id": "A13",
+      "excerpt_sha256": "4cc286a0f4f104005e12a1b2e3f282ea99f07692235b1d8b11fffe38efb1178b",
+      "matches_initial": true
+    },
+    {
+      "id": "A14",
+      "excerpt_sha256": "a3ebf68c6611c54d530e084810576f717a1a2260a0cb4293bff8c2755699f299",
+      "matches_initial": true
+    },
+    {
+      "id": "A15",
+      "excerpt_sha256": "77747884d50cdcb1a86e23a86f421a9a8a3c31e31186e27aa9b4712555b40e88",
+      "matches_initial": true
+    },
+    {
+      "id": "A16",
+      "excerpt_sha256": "7cfb433b3806c11d008d9afb3b18841db6d68b5752d18ab3e724d4ed97a515d1",
+      "matches_initial": true
+    },
+    {
+      "id": "G00",
+      "excerpt_sha256": "6450a0f7f5910d4c7b4f09dc9e927ecc40e7fef815e511a00c1859408170fe89",
+      "matches_initial": true
+    },
+    {
+      "id": "G01",
+      "excerpt_sha256": "912f2811f29e6ee27cf95a9bcc8cc673f03f80300f67060067f6cc27d4113a64",
+      "matches_initial": true
+    },
+    {
+      "id": "C01",
+      "excerpt_sha256": "c0e7282d310f92fff00b66cc45055bd1aa9934d30565804f8334ca09eda9728b",
+      "matches_initial": true
+    }
+  ],
+  "note": "Binding checks establish identity only, not proof correctness or controller eligibility."
+}

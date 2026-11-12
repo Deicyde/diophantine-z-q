@@ -1,0 +1,56 @@
+[
+  {
+    "path": "manuscripts/quartic_v16.tex",
+    "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+    "lines": [
+      4918,
+      4992
+    ],
+    "excerpt_sha256": "3e4c3860498fd539592a599b8bd1e9f437475a21ca24f5b37879a322f7933607"
+  },
+  {
+    "path": "manuscripts/quartic_v16.tex",
+    "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+    "lines": [
+      13775,
+      13859
+    ],
+    "excerpt_sha256": "af9a26d78c132de1c8ddc9796b283fbfa34093454753b9f6e4a7d27890834d6f"
+  },
+  {
+    "path": "manuscripts/quartic_v16.tex",
+    "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+    "lines": [
+      3554,
+      3592
+    ],
+    "excerpt_sha256": "65cee79012431052bdd01a25d5f9b885b9f6bb2f7c58bc5f1cc6e71346f6f8ca"
+  },
+  {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+    "lines": [
+      2499,
+      2517
+    ],
+    "excerpt_sha256": "983e656a07b0533fa177b4efaf3d778222a72199b38131f37451f2719f5c4e43"
+  },
+  {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+    "lines": [
+      2806,
+      2816
+    ],
+    "excerpt_sha256": "0ba33e3b53e17df8dd38ff118453d85503d00cbcdf88a30c853b143cbedfaa83"
+  },
+  {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+    "lines": [
+      2826,
+      2834
+    ],
+    "excerpt_sha256": "a8ec347dc56891d803ebba5cb2f3c41940f2047e94fa72525861d31a89e5a7b9"
+  }
+]

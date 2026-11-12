@@ -1,0 +1,72 @@
+{
+  "schema": "q214-independent-mathematical-review-manifest/v1",
+  "reviewer": "/root/d214_current_closure_review",
+  "scope": "Source-level mathematical reviews and exact reconciliation; excludes final receiving/artifact/controller decision. No third-party sources bundled.",
+  "files": [
+    {
+      "path": "SOURCE_USE_INITIAL.json",
+      "sha256": "0c05a4d28a8e3057fd0bdc02095916a1961c1e361f9a48213f270c14e2b94179",
+      "bytes": 16096
+    },
+    {
+      "path": "SOURCE_USE_INITIAL.sha256",
+      "sha256": "66c82b47c4e3861cfe6b55e95990f703336ad68b1fd3d656c91478a4b15e10c2",
+      "bytes": 90
+    },
+    {
+      "path": "SOURCE_USE_RECONCILED.json",
+      "sha256": "3fb2219efe4204ac1b1dea2ba15a3d9d7cabafb0cacc56f1c38d95de8a7bbfc2",
+      "bytes": 15776
+    },
+    {
+      "path": "CURRENT_SECTION_COVERAGE.json",
+      "sha256": "50a620b322fde1060290fef74ceed56d7093881b759eede78251418bda11f890",
+      "bytes": 79418
+    },
+    {
+      "path": "M1_REVIEW.md",
+      "sha256": "9c124543c1368ab6252bd136135ab20ff6df6e9b77dc4721534e767b2de5585e",
+      "bytes": 5458
+    },
+    {
+      "path": "M1_BINDINGS.json",
+      "sha256": "2781557c51bc8dd202be76b7e441fa923bc9bec0f4bbf1ef61923055942d03cc",
+      "bytes": 1604
+    },
+    {
+      "path": "NATIVE_PRIMITIVE_REVIEW.json",
+      "sha256": "1501c678b401bec7fcb1e7a7773b2b1e8af53c24e58a21323b29e08adb098d4d",
+      "bytes": 2827
+    },
+    {
+      "path": "F6_LOCATOR_CLARIFICATION.md",
+      "sha256": "4be980d00845e68a36f86b2ff406ff3c8c2fdec1b191f7e00c4be68e4e9b1747",
+      "bytes": 371
+    },
+    {
+      "path": "M3_M6_REVIEW.md",
+      "sha256": "98cf64a31782e9106e3608ab4cad50a62e28d2721e4f57e3b62dfff5740c807f",
+      "bytes": 14168
+    },
+    {
+      "path": "M3_M6_BINDINGS.json",
+      "sha256": "21bc863f1f358786273bbc3f3d431a39177d72ca7abef6142ac455b3a835f93a",
+      "bytes": 4105
+    },
+    {
+      "path": "ASSEMBLY_REVIEW.md",
+      "sha256": "06e2753b0a5cf3c8b1d9a6bf3e6b43e048cefab24de029f368228ba1832b2bd1",
+      "bytes": 14265
+    },
+    {
+      "path": "PRIMARY_READING.json",
+      "sha256": "61d9ea98dc5e25f81ce9a3c338ffe652c4b6c1fae9ebdc5819b09dfe54415d69",
+      "bytes": 3053
+    },
+    {
+      "path": "FROZEN_ARTIFACT_IDENTITY.json",
+      "sha256": "2bb912ca9c194d23ef894af62eedef0f33554053dc430a397330664d0c77938c",
+      "bytes": 4229
+    }
+  ]
+}

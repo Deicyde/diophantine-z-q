@@ -1,0 +1,13 @@
+{
+  "schema": "q214-independent-coverage-continuation-manifest/v1",
+  "reviewer": "/root/d214_current_closure_review",
+  "prior_mathematical_manifest_sha256": "e31c67ad5c36417dd3a245d3b3712d2450d69f311c4fd08d3e7622a3451839d9",
+  "files": [
+    {
+      "path": "CURRENT_SECTION_USE_LINKS.json",
+      "sha256": "48659e36005b9942c9cf94f48c369d3a0c361aa14584f4d07df5f553a987245b",
+      "bytes": 184751
+    }
+  ],
+  "scope": "Add explicit reviewed source-use IDs and machine-readable consumption edges to all118 frozen source section entries; original sources/reports/initial freeze unchanged."
+}

@@ -1,0 +1,1318 @@
+[
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-CANONICAL-NORMALIZER-ACTION",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "Every finite-adelic normalizer element of the actual maximal D210 order induces a Q-defined same-level automorphism of the entire canonical U(3) curve, with inverse given by the inverse element.",
+      "objects": "The actual Shimura datum of reflex fieldQ, full canonical levelU(3) curve and order normalizer N.",
+      "hypotheses": "The datum, polarized symplectic embedding and entire canonical model are supplied. Each normalizer element preserves3 times the maximal order and hence U(3).",
+      "quantifiers": "Every normalizer element, on every component of the full curve.",
+      "parameter_range": "Right finite-adelic action for the D210 principal level3 model.",
+      "uniformity": "Action and inverse are over the same reflex fieldQ; no component-specific field extension.",
+      "constants": "No degree576 conclusion is supplied by this action alone.",
+      "normalizations": "Right action, whole level scheme and reflex fieldQ; central quotient and regular torsor are separate deductions.",
+      "exceptional_cases": "Does not infer canonical-model existence from the action statement or restrict to one complex component.",
+      "limit_order": "Construct the entire canonical model and verify normalization of U; use canonical right action, then separately form the central quotient and fiber torsor."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-CANONICAL-NORMALIZER-ACTION. Original scope: Every finite-adelic normalizer element of the actual maximal D210 order induces a Q-defined same-level automorphism of the entire canonical U(3) curve, with inverse given by the inverse element.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "internal",
+      "application_id": "CURRENT-DELIGNE-CANONICAL-ACTION",
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v14.tex",
+          "sha256": "5882a77003b9772b5b572a5ab2c2b2f8ce9fc53e1e368a3b69851c8a9b3bfcac"
+        },
+        "start_line": 7956,
+        "end_line": 7964,
+        "excerpt_sha256": "7fdfa2f90db95788e209f6c26fa058de6506607433ce09fdf008df1c40a76456"
+      },
+      "statement": "Every finite-adelic normalizer element of the actual maximal D210 order induces a Q-defined same-level automorphism of the entire canonical U(3) curve, with inverse given by the inverse element.",
+      "publication": null
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7990,
+      "end_line": 8004,
+      "excerpt_sha256": "c6f8b98eee907a481d447c657039785e5aa0525759a52a53d2fac37d2108dd49"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-D210-FIBER-FIELD",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-16"
+    ],
+    "assertion": {
+      "statement": "For the unbranched rational contact-line point s, the entire principal-level-three D210 fiber has a normal splitting field L/Q with [L:Q] dividing576. Its abelian surfaces and all geometric homomorphisms between them are defined over L, and rad(D_L N_bad) divides B_* M_5(s).",
+      "objects": "The entire canonical principal-level-three scheme Y of the maximal quaternion order of discriminant210, its fiber over s, the constant normalizer group Gamma, the actual normal splitting field L, and the universal fiber surfaces with full three-torsion markings.",
+      "hypotheses": "The full fine-cover construction, canonical rational normalizer action and five-section contact-line identification are supplied. The selected rational s avoids the branch/contact set. The smooth tame quotient models away from210 and their local equations are supplied.",
+      "quantifiers": "For every such rational s and every pair of fiber surfaces over the same full fiber splitting field.",
+      "parameter_range": "Quaternion discriminant210; level3 is ramified in the quaternion algebra; all arithmetic components of the cover are included.",
+      "uniformity": "The degree bound576 and the ramification support bound hold for every permitted s without choosing or adjoining a further field for geometric homomorphisms.",
+      "constants": "Degree over stack72, generic coarse degree36; |W|=16; |Gamma|=576; B_*=product of primes at most76176.",
+      "normalizations": "Use the whole canonical model and its regular action, not one complex component. The Galois image lies in the regular centralizer. Hom is the integral geometric Hom lattice; congruence modulo3 applies after all fiber3-torsion markings are defined.",
+      "exceptional_cases": "No application of a prime-to-discriminant level theorem at3. The height calculation at bad primes uses the maximal stack separately. This does not construct Lprime, normalize the modular representation, or prove a numerical Faltings-height bound.",
+      "limit_order": "Construct the whole fine cover and canonical action; choose s; split its finite fiber; descend all Hom using the same L; apply tame local contact equations to the ramification and reduction support."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-D210-FIBER-FIELD. Original scope: For the unbranched rational contact-line point s, the entire principal-level-three D210 fiber has a normal splitting field L/Q with [L:Q] dividing576. Its abelian surfaces and all geometric homomorphisms between them are defined over L, and rad(D_L N_bad) divides B_* M_5(s).",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "inline",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v14.tex",
+          "sha256": "5882a77003b9772b5b572a5ab2c2b2f8ce9fc53e1e368a3b69851c8a9b3bfcac"
+        },
+        "start_line": 7956,
+        "end_line": 8002,
+        "excerpt_sha256": "6769b28a2a552881fd5e871a9dd3d890e85d15c7e0149420de4a8b782d278fc9"
+      },
+      "statement": "For the unbranched rational contact-line point s, the entire principal-level-three D210 fiber has a normal splitting field L/Q with [L:Q] dividing576. Its abelian surfaces and all geometric homomorphisms between them are defined over L, and rad(D_L N_bad) divides B_* M_5(s).",
+      "publication": null
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 10019,
+      "end_line": 10021,
+      "excerpt_sha256": "8671caaa48f021d8da4bbb91979a601c8753a9a4c7c9adab0ac44d9c4465f9fb"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-D210-GEOMETRIC-ISOGENIES",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "For the actual non-CM conjugate D210 fiber surfaces A and A_sigma, the normalizer action gives a geometric isogeny; the full geometric endomorphism algebra is B. For prescribed embeddings of the same quadratic field F, an isogeny intertwining those embeddings exists over the same fiber field L.",
+      "objects": "Actual conjugate fiber surfaces of the entire principal-level-three curve, their rank-one left-B rational Hodge objects, geometric Hom lattices, and the prescribed two embeddings of F.",
+      "hypotheses": "The full PEL/normalizer comparison and same-L Hom descent are supplied. A is non-CM. The rational Hodge equivalence and Skolem-Noether for the simple subalgebra embeddings are retained at their actual scopes.",
+      "quantifiers": "Each conjugate surface in the same normalizer orbit and each pair of the prescribed embeddings of F.",
+      "parameter_range": "Dimension-two quaternionic surfaces with B the rational division algebra of discriminant210.",
+      "uniformity": "One and the same L defines all resulting geometric homomorphisms; no new field-degree cost.",
+      "constants": "No quantitative isogeny-degree estimate or coherent cocycle bound is asserted.",
+      "normalizations": "A finite-adelic move changes only a commensurable integral lattice in the same rational Hodge object. Use torsion density and invariant graph descent to obtain the geometric map, then clear rational Hom denominators after inner conjugation.",
+      "exceptional_cases": "The F-linear isogenies need not be chosen coherently. This does not construct the later B-linear scalar-normalizer maps, sign splitting, compatible family, or bounded descent to a rational GL2-type variety.",
+      "limit_order": "Construct the complex isogeny by finite torsion quotient; descend its graph geometrically; identify End^0=B in the non-CM case; apply Skolem-Noether, clear denominators and use the already fixed Hom field L."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-D210-GEOMETRIC-ISOGENIES. Original scope: For the actual non-CM conjugate D210 fiber surfaces A and A_sigma, the normalizer action gives a geometric isogeny; the full geometric endomorphism algebra is B. For prescribed embeddings of the same quadratic field F, an isogeny intertwining those embeddings exists over the same fiber field L.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "inline",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v14.tex",
+          "sha256": "5882a77003b9772b5b572a5ab2c2b2f8ce9fc53e1e368a3b69851c8a9b3bfcac"
+        },
+        "start_line": 8006,
+        "end_line": 8053,
+        "excerpt_sha256": "635b3918137f506a8eaf17f2cac9f539d4afc8bb1c1cd68d73883001e95fe2b2"
+      },
+      "statement": "For the actual non-CM conjugate D210 fiber surfaces A and A_sigma, the normalizer action gives a geometric isogeny; the full geometric endomorphism algebra is B. For prescribed embeddings of the same quadratic field F, an isogeny intertwining those embeddings exists over the same fiber field L.",
+      "publication": null
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 8161,
+      "end_line": 8172,
+      "excerpt_sha256": "1ed5f5bc3660c8cb2bc3253f05fcdaf7f2e887bdb366f1f97ab19076053b2309"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-ENTIRE-CANONICAL-MODEL",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "The same full-marking scheme Y_Q is the entire canonical principal-level U(3) Shimura curve, with maximal-level forgetful map and canonical normalizer action; its generic coarse degree is36.",
+      "objects": "All arithmetic components of Y_Q, the quaternionic type-C1 rational Hodge datum and full finite-adelic U(3) marking orbit.",
+      "hypotheses": "The full representable marking scheme and its universal surface are supplied; the exact Milne Hodge-orbit, algebraic family, canonical-model and uniqueness criteria and the integral principal-polarization assertion are retained.",
+      "quantifiers": "Every component and every marked geometric object of the full functor, compatibly with all automorphisms of C/Q.",
+      "parameter_range": "Discriminant210, principal full level3, reflex fieldQ; both real half-planes and all unit marking multipliers.",
+      "uniformity": "The comparison is for the entire Q-model and commutes with level forgetting and normalizer action.",
+      "constants": "Stack degree72 and generic coarse degree36 after quotienting central signs; no extra field or level introduced.",
+      "normalizations": "Compatible alternating forms have a full Q-times similitude class. The actual positive polarization representative is chosen only at the integral-object stage. Galois comparison uses algebraic torsion data, not rational Betti cohomology.",
+      "exceptional_cases": "No uncorrected general implication from Milne8.14/8.17; verify the type-C1 full Hodge orbit directly. No positive-multiplier subgroup or fixed mod3 pairing value is substituted. CM and reciprocity ancestry of the canonical criterion remains a source input.",
+      "limit_order": "Verify compatible forms and full Hodge orbit; match integral Tate lattices through finite torsion quotients; construct algebraic families and markings on every component; apply the exact canonical Q-model criterion and uniqueness."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-ENTIRE-CANONICAL-MODEL. Original scope: The same full-marking scheme Y_Q is the entire canonical principal-level U(3) Shimura curve, with maximal-level forgetful map and canonical normalizer action; its generic coarse degree is36.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "inline",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v14.tex",
+          "sha256": "5882a77003b9772b5b572a5ab2c2b2f8ce9fc53e1e368a3b69851c8a9b3bfcac"
+        },
+        "start_line": 7812,
+        "end_line": 7940,
+        "excerpt_sha256": "5d7b249518fc2be15bec23e9ab54e306ed97ebcaf6d314a67ef56799330fe161"
+      },
+      "statement": "The same full-marking scheme Y_Q is the entire canonical principal-level U(3) Shimura curve, with maximal-level forgetful map and canonical normalizer action; its generic coarse degree is36.",
+      "publication": null
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7980,
+      "end_line": 7996,
+      "excerpt_sha256": "49ba4f14561aa7ec0cd540546654b2d5262f8573b26c9737cc9cbd9980e94274"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-FULL-COVER-ALGEBRAIC-FAMILY",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "On each arithmetic component the stabilizer multiplier is positive and a unit everywhere, hence1. Realize the integral variation and O action; the flat marking is algebraic in its finite etale Isom cover.",
+      "objects": "The same B210, maximal order O, fixed positive involution, maximal stack Xscr and full O-linear isomorphism marking eta:O/3O\u2192A[3] over R=Z[1/210].",
+      "hypotheses": "Theorem14.8 realizes the relevant integral polarizable variation algebraically as an abelian scheme, with full faithfulness for its morphisms. The preceding stage hypotheses in the pinned proof are retained; this source import does not itself discharge them.",
+      "quantifiers": "For the actual full-cover construction, at every geometric fiber or component specified in this stage; no restriction to one multiplier or one complex component.",
+      "parameter_range": "R=Z[1/210]; characteristic-zero PEL comparison only where stated; 3 is invertible on R although B is ramified at3.",
+      "uniformity": "Same full marking functor, same integral model and subsequent normalizer fiber; no auxiliary level or replacement surface.",
+      "constants": "No new quantitative bound is asserted by this source import.",
+      "normalizations": "6.8\u20136.9 pp319;7.3\u20137.4 pp321\u2013322;8.6\u20138.7 p325;8.16 p327;14.8 p352;13.6\u201313.7 p349; type-A/C paragraph354\u2013355 Original Clay2005. General8.14/8.17 error disclosed; full7.4 Hodge condition checked directly for C1.",
+      "exceptional_cases": "The exact lattice and integral polarization are checked first; all components are used. Point classification alone is not the algebraic comparison.",
+      "limit_order": "On each arithmetic component the stabilizer multiplier is positive and a unit everywhere, hence1. Realize the integral variation and O action; the flat marking is algebraic in its finite etale Isom cover. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-FULL-COVER-ALGEBRAIC-FAMILY. Original scope: On each arithmetic component the stabilizer multiplier is positive and a unit everywhere, hence1. Realize the integral variation and O action; the flat marking is algebraic in its finite etale Isom cover. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+          "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+        },
+        "start_line": 65,
+        "end_line": 71,
+        "excerpt_sha256": "3590c6aed39607b5c5439b1020cbc80cfbb74c6b3a31d2d347fd10cf9132eadb"
+      },
+      "statement": "Theorem14.8 realizes the relevant integral polarizable variation algebraically as an abelian scheme, with full faithfulness for its morphisms.",
+      "publication": {
+        "title": "Introduction to Shimura varieties",
+        "authors": "J. S. Milne",
+        "venue": "Clay Mathematics Proceedings4 (2005),265\u2013378",
+        "authoritative_version": "Original Clay2005. General8.14/8.17 error disclosed; full7.4 Hodge condition checked directly for C1. Source SHA256 6336f0a23084dc0bf815a901c61a0f925dbc8dc1c395af8864c1d90bea69c4a1",
+        "locator": "6.8\u20136.9 pp319;7.3\u20137.4 pp321\u2013322;8.6\u20138.7 p325;8.16 p327;14.8 p352;13.6\u201313.7 p349; type-A/C paragraph354\u2013355",
+        "corrections": "The exact lattice and integral polarization are checked first; all components are used. Point classification alone is not the algebraic comparison."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7927,
+      "end_line": 7941,
+      "excerpt_sha256": "94dcfd6b997010371158356816577975c0592199a11b0f9562b979682351125d"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-FULL-COVER-CANONICAL-MODEL",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "The same Q model transports algebraic order action, polarization, torsion quotients and full marking through Galois. Apply the criterion to all components and identify the normalizer and forgetful maps.",
+      "objects": "The same B210, maximal order O, fixed positive involution, maximal stack Xscr and full O-linear isomorphism marking eta:O/3O\u2192A[3] over R=Z[1/210].",
+      "hypotheses": "The published type-A/C criterion identifies a reflex-field model with the canonical model from its natural action on PEL quadruples;13.6\u201313.7 supply uniqueness and Hecke-map compatibility. The preceding stage hypotheses in the pinned proof are retained; this source import does not itself discharge them.",
+      "quantifiers": "For the actual full-cover construction, at every geometric fiber or component specified in this stage; no restriction to one multiplier or one complex component.",
+      "parameter_range": "R=Z[1/210]; characteristic-zero PEL comparison only where stated; 3 is invertible on R although B is ramified at3.",
+      "uniformity": "Same full marking functor, same integral model and subsequent normalizer fiber; no auxiliary level or replacement surface.",
+      "constants": "No new quantitative bound is asserted by this source import.",
+      "normalizations": "6.8\u20136.9 pp319;7.3\u20137.4 pp321\u2013322;8.6\u20138.7 p325;8.16 p327;14.8 p352;13.6\u201313.7 p349; type-A/C paragraph354\u2013355 Original Clay2005. General8.14/8.17 error disclosed; full7.4 Hodge condition checked directly for C1.",
+      "exceptional_cases": "Transport is via finite torsion, not a Galois action on rational Betti homology. CM and reciprocity ancestry remains imported; no corrected5.22/11.2 proof intermediates are asserted.",
+      "limit_order": "The same Q model transports algebraic order action, polarization, torsion quotients and full marking through Galois. Apply the criterion to all components and identify the normalizer and forgetful maps. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-FULL-COVER-CANONICAL-MODEL. Original scope: The same Q model transports algebraic order action, polarization, torsion quotients and full marking through Galois. Apply the criterion to all components and identify the normalizer and forgetful maps. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+          "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+        },
+        "start_line": 75,
+        "end_line": 79,
+        "excerpt_sha256": "bbd2acc1ed1a2201e88a194f531ed3fc37c9dded4793c55ec8578b409af9b816"
+      },
+      "statement": "The published type-A/C criterion identifies a reflex-field model with the canonical model from its natural action on PEL quadruples;13.6\u201313.7 supply uniqueness and Hecke-map compatibility.",
+      "publication": {
+        "title": "Introduction to Shimura varieties",
+        "authors": "J. S. Milne",
+        "venue": "Clay Mathematics Proceedings4 (2005),265\u2013378",
+        "authoritative_version": "Original Clay2005. General8.14/8.17 error disclosed; full7.4 Hodge condition checked directly for C1. Source SHA256 6336f0a23084dc0bf815a901c61a0f925dbc8dc1c395af8864c1d90bea69c4a1",
+        "locator": "6.8\u20136.9 pp319;7.3\u20137.4 pp321\u2013322;8.6\u20138.7 p325;8.16 p327;14.8 p352;13.6\u201313.7 p349; type-A/C paragraph354\u2013355",
+        "corrections": "Transport is via finite torsion, not a Galois action on rational Betti homology. CM and reciprocity ancestry remains imported; no corrected5.22/11.2 proof intermediates are asserted."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7943,
+      "end_line": 7964,
+      "excerpt_sha256": "223a18dc049c5486b200bd28c862a3f8c5dde8d38208e25cbda6b3205b25ce05"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-FULL-COVER-COMPONENT-BASE",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "Apply to the proper smooth Y/R; each component of the finite etale factor meets the generic fiber.",
+      "objects": "The same B210, maximal order O, fixed positive involution, maximal stack Xscr and full O-linear isomorphism marking eta:O/3O\u2192A[3] over R=Z[1/210].",
+      "hypotheses": "Stein factorization for a proper flat algebraic space with geometrically reduced fibers gives a finite etale component factor and geometrically connected fibers over it. The preceding stage hypotheses in the pinned proof are retained; this source import does not itself discharge them.",
+      "quantifiers": "For the actual full-cover construction, at every geometric fiber or component specified in this stage; no restriction to one multiplier or one complex component.",
+      "parameter_range": "R=Z[1/210]; characteristic-zero PEL comparison only where stated; 3 is invertible on R although B is ramified at3.",
+      "uniformity": "Same full marking functor, same integral model and subsequent normalizer fiber; no auxiliary level or replacement surface.",
+      "constants": "No new quantitative bound is asserted by this source import.",
+      "normalizations": "Theorem76.36.5 and Lemma76.36.9 Official current online reference, retrieved2026-11-08; exact HTML bytes pinned. No print-edition claim.",
+      "exceptional_cases": "The hypotheses include properness, flatness and geometrically reduced fibers; no choice of only one complex component.",
+      "limit_order": "Apply to the proper smooth Y/R; each component of the finite etale factor meets the generic fiber. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-FULL-COVER-COMPONENT-BASE. Original scope: Apply to the proper smooth Y/R; each component of the finite etale factor meets the generic fiber. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+          "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+        },
+        "start_line": 41,
+        "end_line": 45,
+        "excerpt_sha256": "56d92d5bd177b850abd36862cfc52af54eee01216e9207b903708746d07a5dcc"
+      },
+      "statement": "Stein factorization for a proper flat algebraic space with geometrically reduced fibers gives a finite etale component factor and geometrically connected fibers over it.",
+      "publication": {
+        "title": "Stacks Project, Tag 0A18",
+        "authors": "The Stacks Project Authors",
+        "venue": "Official online Stacks Project",
+        "authoritative_version": "Official current online reference, retrieved2026-11-08; exact HTML bytes pinned. No print-edition claim. Source SHA256 e7df43c19ca267cf212fb4f12125da0b9f26ce3fc122a4ca4041cff452551690",
+        "locator": "Theorem76.36.5 and Lemma76.36.9",
+        "corrections": "The hypotheses include properness, flatness and geometrically reduced fibers; no choice of only one complex component."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7820,
+      "end_line": 7827,
+      "excerpt_sha256": "74b3d066e756fef6bd4d1686d2286e2d7a0727b38c3f97814ea5e565fa45a34e"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-FULL-COVER-CURVE-FIBERS",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "Apply to each proper smooth geometric fiber of Y/R before invoking the smooth-curve genus statement.",
+      "objects": "The same B210, maximal order O, fixed positive involution, maximal stack Xscr and full O-linear isomorphism marking eta:O/3O\u2192A[3] over R=Z[1/210].",
+      "hypotheses": "Regular algebraic spaces of dimension at most one have schematic neighborhoods, giving schemes for the smooth geometric curve fibers. The preceding stage hypotheses in the pinned proof are retained; this source import does not itself discharge them.",
+      "quantifiers": "For the actual full-cover construction, at every geometric fiber or component specified in this stage; no restriction to one multiplier or one complex component.",
+      "parameter_range": "R=Z[1/210]; characteristic-zero PEL comparison only where stated; 3 is invertible on R although B is ramified at3.",
+      "uniformity": "Same full marking functor, same integral model and subsequent normalizer fiber; no auxiliary level or replacement surface.",
+      "constants": "No new quantitative bound is asserted by this source import.",
+      "normalizations": "Lemma72.9.3 Official current online reference, retrieved2026-11-08; exact HTML bytes pinned. No print-edition claim.",
+      "exceptional_cases": "This only identifies the fibers as schemes; it does not infer the total space is a scheme from properness.",
+      "limit_order": "Apply to each proper smooth geometric fiber of Y/R before invoking the smooth-curve genus statement. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-FULL-COVER-CURVE-FIBERS. Original scope: Apply to each proper smooth geometric fiber of Y/R before invoking the smooth-curve genus statement. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+          "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+        },
+        "start_line": 41,
+        "end_line": 45,
+        "excerpt_sha256": "56d92d5bd177b850abd36862cfc52af54eee01216e9207b903708746d07a5dcc"
+      },
+      "statement": "Regular algebraic spaces of dimension at most one have schematic neighborhoods, giving schemes for the smooth geometric curve fibers.",
+      "publication": {
+        "title": "Stacks Project, Tag 0ADD",
+        "authors": "The Stacks Project Authors",
+        "venue": "Official online Stacks Project",
+        "authoritative_version": "Official current online reference, retrieved2026-11-08; exact HTML bytes pinned. No print-edition claim. Source SHA256 f067c166ff8284956e79d171e25fe73b5a9b7c577fb9c0146c9e5d0936826c89",
+        "locator": "Lemma72.9.3",
+        "corrections": "This only identifies the fibers as schemes; it does not infer the total space is a scheme from properness."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7814,
+      "end_line": 7817,
+      "excerpt_sha256": "911f46a6b5d369b2ec9d2dcac805053f3ab89c4a1a63cffc47aba25a1b945b41"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-FULL-COVER-DIVISION-LATTICE",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "Choose a least-valuation element of the stable lattice to prove it is O3 x; reduction gives the regular module and counts81-9=72 units.",
+      "objects": "The same B210, maximal order O, fixed positive involution, maximal stack Xscr and full O-linear isomorphism marking eta:O/3O\u2192A[3] over R=Z[1/210].",
+      "hypotheses": "The ramified quaternion maximal order is the nonnegative valuation ring, with valuation ord3(nrd)/2, residue field F9 and radical square3O3 up to a unit. The preceding stage hypotheses in the pinned proof are retained; this source import does not itself discharge them.",
+      "quantifiers": "For the actual full-cover construction, at every geometric fiber or component specified in this stage; no restriction to one multiplier or one complex component.",
+      "parameter_range": "R=Z[1/210]; characteristic-zero PEL comparison only where stated; 3 is invertible on R although B is ramified at3.",
+      "uniformity": "Same full marking functor, same integral model and subsequent normalizer fiber; no auxiliary level or replacement surface.",
+      "constants": "|O/3O|=81; radical size9; stack marking degree72; coarse36 and normalizer576 are later deductions.",
+      "normalizations": "13.3.4 and13.3.11, pp206\u2013207 Final chapter; valuation is ord_3(nrd)/2. The omitted1/n proof intermediates are not copied.",
+      "exceptional_cases": "O3 is not M2(Z3); stack degree72 is not the coarse degree36.",
+      "limit_order": "Choose a least-valuation element of the stable lattice to prove it is O3 x; reduction gives the regular module and counts81-9=72 units. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-FULL-COVER-DIVISION-LATTICE. Original scope: Choose a least-valuation element of the stable lattice to prove it is O3 x; reduction gives the regular module and counts81-9=72 units. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+          "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+        },
+        "start_line": 19,
+        "end_line": 25,
+        "excerpt_sha256": "19157b4646e94dc07659f6d18b252ae2583bc5d54682b755d0ec2c36c5be54c0"
+      },
+      "statement": "The ramified quaternion maximal order is the nonnegative valuation ring, with valuation ord3(nrd)/2, residue field F9 and radical square3O3 up to a unit.",
+      "publication": {
+        "title": "Quaternion Algebras, Chapter13",
+        "authors": "J. Voight",
+        "venue": "Published final chapter",
+        "authoritative_version": "Final chapter; valuation is ord_3(nrd)/2. The omitted1/n proof intermediates are not copied. Source SHA256 8f8089860649fa19b8467fd76d0959950d01fdee977b92fced25db5078f2e9f7",
+        "locator": "13.3.4 and13.3.11, pp206\u2013207",
+        "corrections": "O3 is not M2(Z3); stack degree72 is not the coarse degree36."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7763,
+      "end_line": 7790,
+      "excerpt_sha256": "bc0082e16d9f55fbd3b5d80509541f7d5dfafdb9a24de8f8127084232235adcc"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-FULL-COVER-GENUS-CONSTANCY",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "Apply after the finite etale component factor; the generic lower bound implies genus at least2 on every geometric fiber component.",
+      "objects": "The same B210, maximal order O, fixed positive involution, maximal stack Xscr and full O-linear isomorphism marking eta:O/3O\u2192A[3] over R=Z[1/210].",
+      "hypotheses": "In a smooth proper family of geometrically connected curves the genus is locally constant. The preceding stage hypotheses in the pinned proof are retained; this source import does not itself discharge them.",
+      "quantifiers": "For the actual full-cover construction, at every geometric fiber or component specified in this stage; no restriction to one multiplier or one complex component.",
+      "parameter_range": "R=Z[1/210]; characteristic-zero PEL comparison only where stated; 3 is invertible on R although B is ramified at3.",
+      "uniformity": "Same full marking functor, same integral model and subsequent normalizer fiber; no auxiliary level or replacement surface.",
+      "constants": "Selected coarse genus5; generic covering components genus at least5; every fiber component genus at least2.",
+      "normalizations": "Lemma109.16.5 Official current online reference, retrieved2026-11-08; exact HTML bytes pinned. No print-edition claim.",
+      "exceptional_cases": "Applied after schematic geometric fibers and connected component factor, not by assuming the total space already a scheme.",
+      "limit_order": "Apply after the finite etale component factor; the generic lower bound implies genus at least2 on every geometric fiber component. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-FULL-COVER-GENUS-CONSTANCY. Original scope: Apply after the finite etale component factor; the generic lower bound implies genus at least2 on every geometric fiber component. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+          "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+        },
+        "start_line": 41,
+        "end_line": 45,
+        "excerpt_sha256": "56d92d5bd177b850abd36862cfc52af54eee01216e9207b903708746d07a5dcc"
+      },
+      "statement": "In a smooth proper family of geometrically connected curves the genus is locally constant.",
+      "publication": {
+        "title": "Stacks Project, Tag 0E83",
+        "authors": "The Stacks Project Authors",
+        "venue": "Official online Stacks Project",
+        "authoritative_version": "Official current online reference, retrieved2026-11-08; exact HTML bytes pinned. No print-edition claim. Source SHA256 3cac1b5dff92a649ca7b8230179d5c8393f75ef7ad0c5fd77b4e70b292cacf38",
+        "locator": "Lemma109.16.5",
+        "corrections": "Applied after schematic geometric fibers and connected component factor, not by assuming the total space already a scheme."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7823,
+      "end_line": 7827,
+      "excerpt_sha256": "8829506e506a706eb2ab63727bdcb087a350dd22979f14c5f6b046a41ae91669"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-FULL-COVER-GENUS-INPUT",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "Every generic component of the finite marking cover maps nonconstantly to that curve; Riemann\u2013Hurwitz yields genus at least5.",
+      "objects": "The same B210, maximal order O, fixed positive involution, maximal stack Xscr and full O-linear isomorphism marking eta:O/3O\u2192A[3] over R=Z[1/210].",
+      "hypotheses": "The selected maximal coarse curve of discriminant210 has genus5. The preceding stage hypotheses in the pinned proof are retained; this source import does not itself discharge them.",
+      "quantifiers": "For the actual full-cover construction, at every geometric fiber or component specified in this stage; no restriction to one multiplier or one complex component.",
+      "parameter_range": "R=Z[1/210]; characteristic-zero PEL comparison only where stated; 3 is invertible on R although B is ramified at3.",
+      "uniformity": "Same full marking functor, same integral model and subsequent normalizer fiber; no auxiliary level or replacement surface.",
+      "constants": "Selected coarse genus5; generic covering components genus at least5; every fiber component genus at least2.",
+      "normalizations": "D210 curve/genus and quotient data pp937\u2013941 Final publication; actual selected genus-five curve is the incoming H5 object.",
+      "exceptional_cases": "Genus is an independent input from the identified curve, not a consequence of the marking degree.",
+      "limit_order": "Every generic component of the finite marking cover maps nonconstantly to that curve; Riemann\u2013Hurwitz yields genus at least5. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-FULL-COVER-GENUS-INPUT. Original scope: Every generic component of the finite marking cover maps nonconstantly to that curve; Riemann\u2013Hurwitz yields genus at least5. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+          "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+        },
+        "start_line": 41,
+        "end_line": 45,
+        "excerpt_sha256": "56d92d5bd177b850abd36862cfc52af54eee01216e9207b903708746d07a5dcc"
+      },
+      "statement": "The selected maximal coarse curve of discriminant210 has genus5.",
+      "publication": {
+        "title": "Non-elliptic Shimura curves of genus one",
+        "authors": "J. Gonzalez and V. Rotger",
+        "venue": "Journal of the Mathematical Society of Japan58 (2006),927\u2013948",
+        "authoritative_version": "Final publication; actual selected genus-five curve is the incoming H5 object. Source SHA256 e595d1a428f20e1c6b3695bc37be658ca12c517fb6600171f531fe931b796c3a",
+        "locator": "D210 curve/genus and quotient data pp937\u2013941",
+        "corrections": "Genus is an independent input from the identified curve, not a consequence of the marking degree."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7817,
+      "end_line": 7820,
+      "excerpt_sha256": "9c3491379620018f6cc376ff191418ff3f595d7c8305b1c899b84b586adb5392"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-FULL-COVER-MAXIMAL-STACK",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "Apply the maximal-stack assertion to the specified B210, O and positive involution; define full level by an actual isomorphism separately.",
+      "objects": "The same B210, maximal order O, fixed positive involution, maximal stack Xscr and full O-linear isomorphism marking eta:O/3O\u2192A[3] over R=Z[1/210].",
+      "hypotheses": "The maximal N=1 moduli stack is proper smooth Deligne\u2013Mumford over Z[1/210], with its universal abelian surface and determinant condition. The preceding stage hypotheses in the pinned proof are retained; this source import does not itself discharge them.",
+      "quantifiers": "For the actual full-cover construction, at every geometric fiber or component specified in this stage; no restriction to one multiplier or one complex component.",
+      "parameter_range": "R=Z[1/210]; characteristic-zero PEL comparison only where stated; 3 is invertible on R although B is ramified at3.",
+      "uniformity": "Same full marking functor, same integral model and subsequent normalizer fiber; no auxiliary level or replacement surface.",
+      "constants": "No new quantitative bound is asserted by this source import.",
+      "normalizations": "printed230\u2013231, maximal N=1 stack only Final Chinese publication. The O-linear map wording is not used to define the full marking.",
+      "exceptional_cases": "N=1 only; no literal level-map theorem at ramified quaternion prime3 and no smooth fine model at bad primes.",
+      "limit_order": "Apply the maximal-stack assertion to the specified B210, O and positive involution; define full level by an actual isomorphism separately. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-FULL-COVER-MAXIMAL-STACK. Original scope: Apply the maximal-stack assertion to the specified B210, O and positive involution; define full level by an actual isomorphism separately. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+          "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+        },
+        "start_line": 7,
+        "end_line": 15,
+        "excerpt_sha256": "317d5d4d2fdac3bc671bae7b3fa9018073173697606a7015ca6de73931ac56bf"
+      },
+      "statement": "The maximal N=1 moduli stack is proper smooth Deligne\u2013Mumford over Z[1/210], with its universal abelian surface and determinant condition.",
+      "publication": {
+        "title": "Explicit Kodaira\u2013Spencer maps over Shimura curves",
+        "authors": "X. Yuan",
+        "venue": "Acta Mathematica Sinica, Chinese Series67 (2024),227\u2013249",
+        "authoritative_version": "Final Chinese publication. The O-linear map wording is not used to define the full marking. Source SHA256 aee74126d6374c22d7907fb6682dea0df4636f38cfc4992053dafea177f1d167",
+        "locator": "printed230\u2013231, maximal N=1 stack only",
+        "corrections": "N=1 only; no literal level-map theorem at ramified quaternion prime3 and no smooth fine model at bad primes."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7737,
+      "end_line": 7750,
+      "excerpt_sha256": "3a592355f0211ea295a8d7ca0a6ff6dff158b98b2eb7b091d3368447f4199803"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-FULL-COVER-PEL-CLASSIFICATION",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "The regular rank-one left B module has one-dimensional compatible alternating forms. The explicit J-basis calculation conjugates the full Hodge map into X and keeps both half-planes and all level multipliers.",
+      "objects": "The same B210, maximal order O, fixed positive involution, maximal stack Xscr and full O-linear isomorphism marking eta:O/3O\u2192A[3] over R=Z[1/210].",
+      "hypotheses": "Theorem7.4 identifies the PEL complex points subject to its full Hodge-orbit condition;8.6\u20138.7 classify the connected type-C similitude group and8.16 encodes the action by tensors. The preceding stage hypotheses in the pinned proof are retained; this source import does not itself discharge them.",
+      "quantifiers": "For the actual full-cover construction, at every geometric fiber or component specified in this stage; no restriction to one multiplier or one complex component.",
+      "parameter_range": "R=Z[1/210]; characteristic-zero PEL comparison only where stated; 3 is invertible on R although B is ramified at3.",
+      "uniformity": "Same full marking functor, same integral model and subsequent normalizer fiber; no auxiliary level or replacement surface.",
+      "constants": "No new quantitative bound is asserted by this source import.",
+      "normalizations": "6.8\u20136.9 pp319;7.3\u20137.4 pp321\u2013322;8.6\u20138.7 p325;8.16 p327;14.8 p352;13.6\u201313.7 p349; type-A/C paragraph354\u2013355 Original Clay2005. General8.14/8.17 error disclosed; full7.4 Hodge condition checked directly for C1.",
+      "exceptional_cases": "Do not use the erroneous general8.14/8.17 implication, a revised2017 substitute, a positive-multiplier subgroup, or a fixed Weil-pairing value.",
+      "limit_order": "The regular rank-one left B module has one-dimensional compatible alternating forms. The explicit J-basis calculation conjugates the full Hodge map into X and keeps both half-planes and all level multipliers. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-FULL-COVER-PEL-CLASSIFICATION. Original scope: The regular rank-one left B module has one-dimensional compatible alternating forms. The explicit J-basis calculation conjugates the full Hodge map into X and keeps both half-planes and all level multipliers. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+          "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+        },
+        "start_line": 49,
+        "end_line": 61,
+        "excerpt_sha256": "42da3923e45f73f20766ec768ba7fea0ce960a9b0bd9e2a7b91d7b03f5195dd9"
+      },
+      "statement": "Theorem7.4 identifies the PEL complex points subject to its full Hodge-orbit condition;8.6\u20138.7 classify the connected type-C similitude group and8.16 encodes the action by tensors.",
+      "publication": {
+        "title": "Introduction to Shimura varieties",
+        "authors": "J. S. Milne",
+        "venue": "Clay Mathematics Proceedings4 (2005),265\u2013378",
+        "authoritative_version": "Original Clay2005. General8.14/8.17 error disclosed; full7.4 Hodge condition checked directly for C1. Source SHA256 6336f0a23084dc0bf815a901c61a0f925dbc8dc1c395af8864c1d90bea69c4a1",
+        "locator": "6.8\u20136.9 pp319;7.3\u20137.4 pp321\u2013322;8.6\u20138.7 p325;8.16 p327;14.8 p352;13.6\u201313.7 p349; type-A/C paragraph354\u2013355",
+        "corrections": "Do not use the erroneous general8.14/8.17 implication, a revised2017 substitute, a positive-multiplier subgroup, or a fixed Weil-pairing value."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7836,
+      "end_line": 7895,
+      "excerpt_sha256": "e4afaa7bb22af10381e0c8f70021e397ccf75454570d3f86bd781cfa09bbae1e"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-FULL-COVER-PRINCIPAL-POLARIZATION",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "After recovering the full O-stable Tate lattice, restore its unique positive perfect representative without rescaling the marking or restricting its unit multiplier.",
+      "objects": "The same B210, maximal order O, fixed positive involution, maximal stack Xscr and full O-linear isomorphism marking eta:O/3O\u2192A[3] over R=Z[1/210].",
+      "hypotheses": "The integral O action and fixed positive involution determine the compatible principal polarization in the maximal moduli problem. The preceding stage hypotheses in the pinned proof are retained; this source import does not itself discharge them.",
+      "quantifiers": "For the actual full-cover construction, at every geometric fiber or component specified in this stage; no restriction to one multiplier or one complex component.",
+      "parameter_range": "R=Z[1/210]; characteristic-zero PEL comparison only where stated; 3 is invertible on R although B is ramified at3.",
+      "uniformity": "Same full marking functor, same integral model and subsequent normalizer fiber; no auxiliary level or replacement surface.",
+      "constants": "No new quantitative bound is asserted by this source import.",
+      "normalizations": "printed592, canonical principal polarization;594 limitation only Final publication. Section2 level representability is NOT imported at ramified3.",
+      "exceptional_cases": "Use printed592 before the level restriction; Buzzard Section2 representability is not used at ramified3. Its stated ancestry is retained.",
+      "limit_order": "After recovering the full O-stable Tate lattice, restore its unique positive perfect representative without rescaling the marking or restricting its unit multiplier. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-FULL-COVER-PRINCIPAL-POLARIZATION. Original scope: After recovering the full O-stable Tate lattice, restore its unique positive perfect representative without rescaling the marking or restricting its unit multiplier. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+          "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+        },
+        "start_line": 65,
+        "end_line": 71,
+        "excerpt_sha256": "3590c6aed39607b5c5439b1020cbc80cfbb74c6b3a31d2d347fd10cf9132eadb"
+      },
+      "statement": "The integral O action and fixed positive involution determine the compatible principal polarization in the maximal moduli problem.",
+      "publication": {
+        "title": "Integral models of certain Shimura curves",
+        "authors": "K. Buzzard",
+        "venue": "Duke Mathematical Journal87 (1997),591\u2013612",
+        "authoritative_version": "Final publication. Section2 level representability is NOT imported at ramified3. Source SHA256 ed34a072898d0e6ef6526c877159fbe627ae695265d4f5b2f2a1d6e35c9bac65",
+        "locator": "printed592, canonical principal polarization;594 limitation only",
+        "corrections": "Use printed592 before the level restriction; Buzzard Section2 representability is not used at ramified3. Its stated ancestry is retained."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7911,
+      "end_line": 7925,
+      "excerpt_sha256": "efca6113a24a01b9eaede9607817f1ead74e242d2db1a74e2688ddfac392bf9e"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-FULL-COVER-PROJECTIVITY",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "The base Spec Z[1/210] is affine and has an ample line; apply implication(6) to(1) to the established proper scheme Y.",
+      "objects": "The same B210, maximal order O, fixed positive involution, maximal stack Xscr and full O-linear isomorphism marking eta:O/3O\u2192A[3] over R=Z[1/210].",
+      "hypotheses": "For a proper morphism with a relatively ample invertible sheaf over a base having an ample invertible sheaf, the morphism is projective. The preceding stage hypotheses in the pinned proof are retained; this source import does not itself discharge them.",
+      "quantifiers": "For the actual full-cover construction, at every geometric fiber or component specified in this stage; no restriction to one multiplier or one complex component.",
+      "parameter_range": "R=Z[1/210]; characteristic-zero PEL comparison only where stated; 3 is invertible on R although B is ramified at3.",
+      "uniformity": "Same full marking functor, same integral model and subsequent normalizer fiber; no auxiliary level or replacement surface.",
+      "constants": "No new quantitative bound is asserted by this source import.",
+      "normalizations": "Lemma37.50.1, (6) implies (1) Official current online reference, retrieved2026-11-08; exact HTML bytes pinned. No print-edition claim.",
+      "exceptional_cases": "The affine-base hypothesis is retained explicitly.",
+      "limit_order": "The base Spec Z[1/210] is affine and has an ample line; apply implication(6) to(1) to the established proper scheme Y. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-FULL-COVER-PROJECTIVITY. Original scope: The base Spec Z[1/210] is affine and has an ample line; apply implication(6) to(1) to the established proper scheme Y. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+          "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+        },
+        "start_line": 41,
+        "end_line": 45,
+        "excerpt_sha256": "56d92d5bd177b850abd36862cfc52af54eee01216e9207b903708746d07a5dcc"
+      },
+      "statement": "For a proper morphism with a relatively ample invertible sheaf over a base having an ample invertible sheaf, the morphism is projective.",
+      "publication": {
+        "title": "Stacks Project, Tag 0B45",
+        "authors": "The Stacks Project Authors",
+        "venue": "Official online Stacks Project",
+        "authoritative_version": "Official current online reference, retrieved2026-11-08; exact HTML bytes pinned. No print-edition claim. Source SHA256 d3057d3998eeec4460af5c5f4cac7be7e9d3f8683ffde265108cb76d3f2523f2",
+        "locator": "Lemma37.50.1, (6) implies (1)",
+        "corrections": "The affine-base hypothesis is retained explicitly."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7830,
+      "end_line": 7834,
+      "excerpt_sha256": "3d745f288e924252213ddbee4925e69051520236fae428fdb44f51744191d55e"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-FULL-COVER-RELATIVE-AMPLENESS",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "The relative canonical line has degree2g-2>0 on each smooth fiber component, hence is ample on the disjoint fiber; apply at every base point.",
+      "objects": "The same B210, maximal order O, fixed positive involution, maximal stack Xscr and full O-linear isomorphism marking eta:O/3O\u2192A[3] over R=Z[1/210].",
+      "hypotheses": "For a proper algebraic space over a Noetherian scheme, fiber ampleness of a line bundle gives relative ampleness near the base point. The preceding stage hypotheses in the pinned proof are retained; this source import does not itself discharge them.",
+      "quantifiers": "For the actual full-cover construction, at every geometric fiber or component specified in this stage; no restriction to one multiplier or one complex component.",
+      "parameter_range": "R=Z[1/210]; characteristic-zero PEL comparison only where stated; 3 is invertible on R although B is ramified at3.",
+      "uniformity": "Same full marking functor, same integral model and subsequent normalizer fiber; no auxiliary level or replacement surface.",
+      "constants": "No new quantitative bound is asserted by this source import.",
+      "normalizations": "Lemma71.15.3 Official current online reference, retrieved2026-11-08; exact HTML bytes pinned. No print-edition claim.",
+      "exceptional_cases": "The genus bound and properness are prior inputs; this is not a general proper-implies-projective claim.",
+      "limit_order": "The relative canonical line has degree2g-2>0 on each smooth fiber component, hence is ample on the disjoint fiber; apply at every base point. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-FULL-COVER-RELATIVE-AMPLENESS. Original scope: The relative canonical line has degree2g-2>0 on each smooth fiber component, hence is ample on the disjoint fiber; apply at every base point. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+          "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+        },
+        "start_line": 41,
+        "end_line": 45,
+        "excerpt_sha256": "56d92d5bd177b850abd36862cfc52af54eee01216e9207b903708746d07a5dcc"
+      },
+      "statement": "For a proper algebraic space over a Noetherian scheme, fiber ampleness of a line bundle gives relative ampleness near the base point.",
+      "publication": {
+        "title": "Stacks Project, Tag 0D3A",
+        "authors": "The Stacks Project Authors",
+        "venue": "Official online Stacks Project",
+        "authoritative_version": "Official current online reference, retrieved2026-11-08; exact HTML bytes pinned. No print-edition claim. Source SHA256 99f65961f087b77df3844af7d92fbbda9c682037936dc1d8c6a12d546bd2e6eb",
+        "locator": "Lemma71.15.3",
+        "corrections": "The genus bound and properness are prior inputs; this is not a general proper-implies-projective claim."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7827,
+      "end_line": 7830,
+      "excerpt_sha256": "a5916a48a5bb137cf904bbca4a0c4cff1a1dd8279ef42f7000b2a146e5071a12"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-FULL-COVER-SCHEME-FROM-AMPLE",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "Use the relative canonical line established fiberwise and locally relatively ample to conclude Y is a scheme.",
+      "objects": "The same B210, maximal order O, fixed positive involution, maximal stack Xscr and full O-linear isomorphism marking eta:O/3O\u2192A[3] over R=Z[1/210].",
+      "hypotheses": "An algebraic space carrying the relative ample line bundle in the stated setting is a scheme, with that line relatively ample in the scheme sense. The preceding stage hypotheses in the pinned proof are retained; this source import does not itself discharge them.",
+      "quantifiers": "For the actual full-cover construction, at every geometric fiber or component specified in this stage; no restriction to one multiplier or one complex component.",
+      "parameter_range": "R=Z[1/210]; characteristic-zero PEL comparison only where stated; 3 is invertible on R although B is ramified at3.",
+      "uniformity": "Same full marking functor, same integral model and subsequent normalizer fiber; no auxiliary level or replacement surface.",
+      "constants": "No new quantitative bound is asserted by this source import.",
+      "normalizations": "Lemma71.14.2 Official current online reference, retrieved2026-11-08; exact HTML bytes pinned. No print-edition claim.",
+      "exceptional_cases": "This step follows relative ampleness; it is not supplied by trivial inertia alone.",
+      "limit_order": "Use the relative canonical line established fiberwise and locally relatively ample to conclude Y is a scheme. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-FULL-COVER-SCHEME-FROM-AMPLE. Original scope: Use the relative canonical line established fiberwise and locally relatively ample to conclude Y is a scheme. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+          "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+        },
+        "start_line": 41,
+        "end_line": 45,
+        "excerpt_sha256": "56d92d5bd177b850abd36862cfc52af54eee01216e9207b903708746d07a5dcc"
+      },
+      "statement": "An algebraic space carrying the relative ample line bundle in the stated setting is a scheme, with that line relatively ample in the scheme sense.",
+      "publication": {
+        "title": "Stacks Project, Tag 0D32",
+        "authors": "The Stacks Project Authors",
+        "venue": "Official online Stacks Project",
+        "authoritative_version": "Official current online reference, retrieved2026-11-08; exact HTML bytes pinned. No print-edition claim. Source SHA256 a525102d507de64cc961ac1d253060188c61e82cb0defb8f1729b9693d7e7669",
+        "locator": "Lemma71.14.2",
+        "corrections": "This step follows relative ampleness; it is not supplied by trivial inertia alone."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7830,
+      "end_line": 7834,
+      "excerpt_sha256": "3d745f288e924252213ddbee4925e69051520236fae428fdb44f51744191d55e"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-FULL-COVER-TATE-FAITHFULNESS",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "Inject each finite geometric stabilizer into GL4(Z3); the written prime-order binomial argument excludes nonidentity elements congruent to1 modulo3.",
+      "objects": "The same B210, maximal order O, fixed positive involution, maximal stack Xscr and full O-linear isomorphism marking eta:O/3O\u2192A[3] over R=Z[1/210].",
+      "hypotheses": "Homomorphisms of abelian varieties act faithfully on a prime-to-characteristic Tate module. The preceding stage hypotheses in the pinned proof are retained; this source import does not itself discharge them.",
+      "quantifiers": "For the actual full-cover construction, at every geometric fiber or component specified in this stage; no restriction to one multiplier or one complex component.",
+      "parameter_range": "R=Z[1/210]; characteristic-zero PEL comparison only where stated; 3 is invertible on R although B is ramified at3.",
+      "uniformity": "Same full marking functor, same integral model and subsequent normalizer fiber; no auxiliary level or replacement surface.",
+      "constants": "No new quantitative bound is asserted by this source import.",
+      "normalizations": "Theorem8.2/Remark8.4 pp115\u2013116; Lemma12.2 p122; Lemma12.6 p124 Published chapter. No use of problematic finite-generation proof12.5.",
+      "exceptional_cases": "Torsion-freeness is the local inline argument, not attributed to the rank theorem or problematic finite-generation proof12.5.",
+      "limit_order": "Inject each finite geometric stabilizer into GL4(Z3); the written prime-order binomial argument excludes nonidentity elements congruent to1 modulo3. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-FULL-COVER-TATE-FAITHFULNESS. Original scope: Inject each finite geometric stabilizer into GL4(Z3); the written prime-order binomial argument excludes nonidentity elements congruent to1 modulo3. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+          "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+        },
+        "start_line": 29,
+        "end_line": 37,
+        "excerpt_sha256": "a8faf5c15f9ff2be9db210b55f00e647169d2fbc068c1491886b34e6d7251e02"
+      },
+      "statement": "Homomorphisms of abelian varieties act faithfully on a prime-to-characteristic Tate module.",
+      "publication": {
+        "title": "Abelian Varieties",
+        "authors": "J. S. Milne",
+        "venue": "Arithmetic Geometry (1986), chapter",
+        "authoritative_version": "Published chapter. No use of problematic finite-generation proof12.5. Source SHA256 86259344a576e4ef75a9d81e9bf43143f872a72b14cf8fcc2703f3aea6349136",
+        "locator": "Theorem8.2/Remark8.4 pp115\u2013116; Lemma12.2 p122; Lemma12.6 p124",
+        "corrections": "Torsion-freeness is the local inline argument, not attributed to the rank theorem or problematic finite-generation proof12.5."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7794,
+      "end_line": 7806,
+      "excerpt_sha256": "58fabfe345a51deb172727723aa11b18d9febdab0e7242af78459e82feb72026"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-FULL-COVER-THREE-TORSION",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "Apply to every geometric fiber over R and identify T3/3 with A[3]; the separate division-lattice argument supplies the O/3 module identification.",
+      "objects": "The same B210, maximal order O, fixed positive involution, maximal stack Xscr and full O-linear isomorphism marking eta:O/3O\u2192A[3] over R=Z[1/210].",
+      "hypotheses": "Multiplication by3 is an isogeny of degree3^4 on the abelian surface and is etale in characteristic different from3; its Tate module has rank4. The preceding stage hypotheses in the pinned proof are retained; this source import does not itself discharge them.",
+      "quantifiers": "For the actual full-cover construction, at every geometric fiber or component specified in this stage; no restriction to one multiplier or one complex component.",
+      "parameter_range": "R=Z[1/210]; characteristic-zero PEL comparison only where stated; 3 is invertible on R although B is ramified at3.",
+      "uniformity": "Same full marking functor, same integral model and subsequent normalizer fiber; no auxiliary level or replacement surface.",
+      "constants": "No new quantitative bound is asserted by this source import.",
+      "normalizations": "Theorem8.2/Remark8.4 pp115\u2013116; Lemma12.2 p122; Lemma12.6 p124 Published chapter. No use of problematic finite-generation proof12.5.",
+      "exceptional_cases": "All residue characteristics of R exclude3; rank4 alone is not a proof of the regular O/3 module.",
+      "limit_order": "Apply to every geometric fiber over R and identify T3/3 with A[3]; the separate division-lattice argument supplies the O/3 module identification. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-FULL-COVER-THREE-TORSION. Original scope: Apply to every geometric fiber over R and identify T3/3 with A[3]; the separate division-lattice argument supplies the O/3 module identification. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+          "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+        },
+        "start_line": 19,
+        "end_line": 25,
+        "excerpt_sha256": "19157b4646e94dc07659f6d18b252ae2583bc5d54682b755d0ec2c36c5be54c0"
+      },
+      "statement": "Multiplication by3 is an isogeny of degree3^4 on the abelian surface and is etale in characteristic different from3; its Tate module has rank4.",
+      "publication": {
+        "title": "Abelian Varieties",
+        "authors": "J. S. Milne",
+        "venue": "Arithmetic Geometry (1986), chapter",
+        "authoritative_version": "Published chapter. No use of problematic finite-generation proof12.5. Source SHA256 86259344a576e4ef75a9d81e9bf43143f872a72b14cf8fcc2703f3aea6349136",
+        "locator": "Theorem8.2/Remark8.4 pp115\u2013116; Lemma12.2 p122; Lemma12.6 p124",
+        "corrections": "All residue characteristics of R exclude3; rank4 alone is not a proof of the regular O/3 module."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7761,
+      "end_line": 7778,
+      "excerpt_sha256": "9a13979bd9c9b23b8f6c58feab4c44b3751826de0a9c0cba7966db318cb8b99e"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-FULL-COVER-TRIVIAL-INERTIA",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "Finite unramified inertia has an open-and-closed identity section; its complement has no geometric points, so inertia is trivial on arbitrary bases.",
+      "objects": "The same B210, maximal order O, fixed positive involution, maximal stack Xscr and full O-linear isomorphism marking eta:O/3O\u2192A[3] over R=Z[1/210].",
+      "hypotheses": "A Deligne\u2013Mumford stack in setoids is an algebraic space. The preceding stage hypotheses in the pinned proof are retained; this source import does not itself discharge them.",
+      "quantifiers": "For the actual full-cover construction, at every geometric fiber or component specified in this stage; no restriction to one multiplier or one complex component.",
+      "parameter_range": "R=Z[1/210]; characteristic-zero PEL comparison only where stated; 3 is invertible on R although B is ramified at3.",
+      "uniformity": "Same full marking functor, same integral model and subsequent normalizer fiber; no auxiliary level or replacement surface.",
+      "constants": "No new quantitative bound is asserted by this source import.",
+      "normalizations": "Lemma94.13.2 Official current online reference, retrieved2026-11-08; exact HTML bytes pinned. No print-edition claim.",
+      "exceptional_cases": "Geometric point rigidity alone is not asserted to construct a coarse universal family; the universal abelian scheme descends on the same space.",
+      "limit_order": "Finite unramified inertia has an open-and-closed identity section; its complement has no geometric points, so inertia is trivial on arbitrary bases. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-FULL-COVER-TRIVIAL-INERTIA. Original scope: Finite unramified inertia has an open-and-closed identity section; its complement has no geometric points, so inertia is trivial on arbitrary bases. The current H19 invocation at main9969\u20139971 consumes the resulting H5 construction only after the other stages.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+          "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+        },
+        "start_line": 29,
+        "end_line": 37,
+        "excerpt_sha256": "a8faf5c15f9ff2be9db210b55f00e647169d2fbc068c1491886b34e6d7251e02"
+      },
+      "statement": "A Deligne\u2013Mumford stack in setoids is an algebraic space.",
+      "publication": {
+        "title": "Stacks Project, Tag 03YR",
+        "authors": "The Stacks Project Authors",
+        "venue": "Official online Stacks Project",
+        "authoritative_version": "Official current online reference, retrieved2026-11-08; exact HTML bytes pinned. No print-edition claim. Source SHA256 82246ff78db8f703ff6e98cb3843881cdb752eaa839850fa4e2cb8c241d63ea7",
+        "locator": "Lemma94.13.2",
+        "corrections": "Geometric point rigidity alone is not asserted to construct a coarse universal family; the universal abelian scheme descends on the same space."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7807,
+      "end_line": 7812,
+      "excerpt_sha256": "2940cad2e355285bb9335d883ca511ec3a973d2f24abd23fe1c66eeb26ed15a5"
+    }
+  },
+  {
+    "id": "V15-INHERITED--ACTIVE-H19-GEOMETRIC-HODGE-EQUIVALENCE",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "The covariant rational Hodge equivalence identifies the full rational Hodge endomorphisms of the actual complex surface with its full complex algebraic endomorphisms; with the separately supplied centralizer calculation and geometric descent this yields End^0_Qbar(A)=B in the non-CM branch.",
+      "objects": "The actual D210 surface A, its covariant H1(A(C),Q), rank-one left B action and right complex structure J; likewise its conjugate A_sigma.",
+      "hypotheses": "A is a complex abelian surface with polarizable weight-minus-one homology. The rank-one B centralizer calculation, the non-CM choice K0=Q, and descent of complex homomorphisms to Qbar are separate retained inputs.",
+      "quantifiers": "For each actual surface and every rational Hodge endomorphism; all endomorphisms, not just those preserving the chosen polarization.",
+      "parameter_range": "Complex abelian varieties up to isogeny, Hodge types (-1,0),(0,-1); the current application is the non-CM D210 surface.",
+      "uniformity": "No varying-field or effective uniform bound is supplied.",
+      "constants": "No degree, conductor or height constant.",
+      "normalizations": "Covariant H1 and Hom tensored with Q; a polarization is an existence condition on objects, not a restriction to polarization-preserving morphisms.",
+      "exceptional_cases": "The imaginary-quadratic centralizer is the CM branch and is excluded here. Hodge equivalence alone supplies neither Qbar descent nor End=B without the centralizer calculation.",
+      "limit_order": "First compute the rational Hodge centralizer, select the non-CM branch, then use algebraicity and the separate geometric descent."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-GEOMETRIC-HODGE-EQUIVALENCE. Original scope: First compute the rational Hodge centralizer, select the non-CM branch, then use algebraicity and the separate geometric descent.",
+    "shared_contract_justification": null,
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version14/source-adoption-ordinary-v1/source-statements/MILNE.md",
+          "sha256": "2c35465cd4cac7468eea1793e25a8b450486a034eb5009a13431c8dca9aad293"
+        },
+        "start_line": 12,
+        "end_line": 20,
+        "excerpt_sha256": "91b93e519a0cc900d59402bbf05b00a34c18cfa5ee1777bcdca1e8e538ee1347"
+      },
+      "statement": "Covariant H1 is fully faithful on complex abelian varieties up to isogeny and identifies rational algebraic Hom with morphisms of polarizable rational Hodge structures of types (-1,0),(0,-1).",
+      "publication": {
+        "title": "Introduction to Shimura varieties",
+        "authors": "J. S. Milne",
+        "venue": "Clay Mathematics Proceedings 4 (2005), 265\u2013378",
+        "authoritative_version": "Original published layout SHA256 6336f0a23084dc0bf815a901c61a0f925dbc8dc1c395af8864c1d90bea69c4a1",
+        "locator": "Proposition 6.5 p318; Theorems 6.7\u20136.8 and Corollary 6.9 p319; retained source card lines12\u201320",
+        "corrections": "2017 revision is separate. No adjacent 6.10 or unrelated 5.22/8.17 claim is consumed; Chow/projectivity remain named inputs."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 8045,
+      "end_line": 8052,
+      "excerpt_sha256": "130de420ce3e0e6fb0088710f87998c055520bef1f4ba06fa898cea85ef32ab7"
+    }
+  },
+  {
+    "id": "V15-INHERITED--RESTORED-MIDDLE-D210-GENUS",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "For D=210,N=1 the genus is5.",
+      "objects": "The maximal-order Shimura curve X_0(210,1) and its labelled Atkin\u2013Lehner quotients.",
+      "hypotheses": "D=210, N=1; same maximal-level curve, squarefree N coprime to D.",
+      "quantifiers": "For the fixed D=210,N=1 curve and stated divisor labels.",
+      "parameter_range": "Characteristic zero over Q; fixed maximal level.",
+      "uniformity": "Only the stated current objects and source specialization.",
+      "constants": "D=210, N=1; exact displayed coefficient rows and labels are retained.",
+      "normalizations": "Source notation X_D=X_0(D,1), X_D^(m)=X_D/<omega_m>; divisor squareclass labels.",
+      "exceptional_cases": "This only determines the coarse maximal curve genus, not a level-three marking scheme.",
+      "limit_order": "Establish the separately retained object hypotheses, apply the source statement, then the recorded specialization."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use RESTORED-MIDDLE-D210-GENUS. Original scope: Restoration of an independently accepted incoming source role omitted from the runtime use inventory. The e4 factor vanishes because5 splits in Q(i); the e3 factor vanishes because7 splits in Q(sqrt(-3)). Phi(210)=48. Hence genus1+48/12=5.",
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v14.tex",
+          "sha256": "5882a77003b9772b5b572a5ab2c2b2f8ce9fc53e1e368a3b69851c8a9b3bfcac"
+        },
+        "start_line": 7641,
+        "end_line": 7650,
+        "excerpt_sha256": "644d85fe8303d47be40dbe7144d0ca252a6862b470bc28aea82855cf0b63e323"
+      },
+      "statement": "For D>1, the genus is1+DN/12 product(p|D)(1\u22121/p) product(p|N)(1+1/p)\u2212e3/3\u2212e4/4 with the displayed Kronecker-symbol factors.",
+      "publication": {
+        "title": "Non-elliptic Shimura curves of genus one",
+        "authors": "J. Gonzalez and V. Rotger",
+        "venue": "J. Math. Soc. Japan 58(4) (2006), 927\u2013948",
+        "authoritative_version": "Final published paper, retained PDF e595d1a428f20e1c6b3695bc37be658ca12c517fb6600171f531fe931b796c3a",
+        "locator": "Proposition5.2 pp940\u2013941",
+        "corrections": "Retained root review checked the paper correction note; it does not alter the four D210 rows."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7665,
+      "end_line": 7674,
+      "excerpt_sha256": "5d3ac42584490b350a16456c994be0e9f71de2dd69e07a2978ce11528ccc8397"
+    },
+    "shared_contract_justification": null
+  },
+  {
+    "id": "V15-INHERITED--RESTORED-MIDDLE-D210-QUOTIENT-MODELS",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "The four exact genus-one quotient models displayed in the manuscript.",
+      "objects": "The maximal-order Shimura curve X_0(210,1) and its labelled Atkin\u2013Lehner quotients.",
+      "hypotheses": "D=210, N=1; same maximal-level curve, squarefree N coprime to D.",
+      "quantifiers": "For the fixed D=210,N=1 curve and stated divisor labels.",
+      "parameter_range": "Characteristic zero over Q; fixed maximal level.",
+      "uniformity": "Only the stated current objects and source specialization.",
+      "constants": "D=210, N=1; exact displayed coefficient rows and labels are retained.",
+      "normalizations": "Source notation X_D=X_0(D,1), X_D^(m)=X_D/<omega_m>; divisor squareclass labels.",
+      "exceptional_cases": "The quotient curves are genus one and need not have rational points. The later branch reconstruction and cross-ratio arithmetic are local arguments, not source-table assertions.",
+      "limit_order": "Establish the separately retained object hypotheses, apply the source statement, then the recorded specialization."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use RESTORED-MIDDLE-D210-QUOTIENT-MODELS. Original scope: Restoration of an independently accepted incoming source role omitted from the runtime use inventory. Identify X_0(210,1) with the selected maximal curve and retain the four exact table rows, including signs and all coefficients.",
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v14.tex",
+          "sha256": "5882a77003b9772b5b572a5ab2c2b2f8ce9fc53e1e368a3b69851c8a9b3bfcac"
+        },
+        "start_line": 7653,
+        "end_line": 7668,
+        "excerpt_sha256": "6d54b06f4b7cd61692661d0e2dcda98f282e0ee83e7bec617567510167a8da30"
+      },
+      "statement": "The four D210 quotients by w30,w42,w70,w105 are the genus-one curves with coefficient rows(-43,-686,-2915,-1372,-172),(-43,600,-986,-600,-43),(-43,256,-130,-768,-387),(-43,2,505,12,-1548).",
+      "publication": {
+        "title": "Non-elliptic Shimura curves of genus one",
+        "authors": "J. Gonzalez and V. Rotger",
+        "venue": "J. Math. Soc. Japan 58(4) (2006), 927\u2013948",
+        "authoritative_version": "Final published paper, retained PDF e595d1a428f20e1c6b3695bc37be658ca12c517fb6600171f531fe931b796c3a",
+        "locator": "Lemma4.1 and Theorem4.2 p938; Table2 p939",
+        "corrections": "Retained root review checked the paper correction note; it does not alter the four D210 rows."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7677,
+      "end_line": 7691,
+      "excerpt_sha256": "72b7ded81e281da4f87d95e36e0e2c86ef751c0833f84ce346b97859712f3d1b"
+    },
+    "shared_contract_justification": null
+  },
+  {
+    "id": "V15-INHERITED--RESTORED-MIDDLE-D210-ATKIN-LEHNER-GROUP",
+    "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+    "passages": [
+      "CURRENT-SECTION-15"
+    ],
+    "assertion": {
+      "statement": "The D210,N1 group has rank4; the four classes30,42,70,105 are independent and their product is210.",
+      "objects": "The maximal-order Shimura curve X_0(210,1) and its labelled Atkin\u2013Lehner quotients.",
+      "hypotheses": "D=210, N=1; same maximal-level curve, squarefree N coprime to D.",
+      "quantifiers": "For the fixed D=210,N=1 curve and stated divisor labels.",
+      "parameter_range": "Characteristic zero over Q; fixed maximal level.",
+      "uniformity": "Only the stated current objects and source specialization.",
+      "constants": "D=210, N=1; exact displayed coefficient rows and labels are retained.",
+      "normalizations": "Source notation X_D=X_0(D,1), X_D^(m)=X_D/<omega_m>; divisor squareclass labels.",
+      "exceptional_cases": "Cyclic stabilizers, Riemann\u2013Hurwitz, rational branch points and explicit cross-ratio reconstruction remain local downstream deductions.",
+      "limit_order": "Establish the separately retained object hypotheses, apply the source statement, then the recorded specialization."
+    },
+    "classification": "dependency",
+    "reason": "Current exact direct/module transport proposal of retained use RESTORED-MIDDLE-D210-ATKIN-LEHNER-GROUP. Original scope: Restoration of an independently accepted incoming source role omitted from the runtime use inventory. Use squareclasses of2,3,5,7. The four label vectors each omit one coordinate and have three entries1; the resulting4x4 binary matrix is invertible, and their sum is(1,1,1,1).",
+    "supplier": {
+      "kind": "published_external",
+      "application_id": null,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v14.tex",
+          "sha256": "5882a77003b9772b5b572a5ab2c2b2f8ce9fc53e1e368a3b69851c8a9b3bfcac"
+        },
+        "start_line": 7649,
+        "end_line": 7685,
+        "excerpt_sha256": "70d86d080cbbc23805541644f9fe2c6739da6bd1bd9be49d49218da70c64b4f5"
+      },
+      "statement": "For squarefree N coprime to D, the Q-defined Atkin\u2013Lehner involutions form (Z/2)^#{p|DN}, labelled by divisors, with w_m w_n=w_(mn/gcd(m,n)^2).",
+      "publication": {
+        "title": "Non-elliptic Shimura curves of genus one",
+        "authors": "J. Gonzalez and V. Rotger",
+        "venue": "J. Math. Soc. Japan 58(4) (2006), 927\u2013948",
+        "authoritative_version": "Final published paper, retained PDF e595d1a428f20e1c6b3695bc37be658ca12c517fb6600171f531fe931b796c3a",
+        "locator": "Paragraph after Proposition5.3 p941",
+        "corrections": "Retained root review checked the paper correction note; it does not alter the four D210 rows."
+      }
+    },
+    "application_id": null,
+    "inline_argument": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 7673,
+      "end_line": 7709,
+      "excerpt_sha256": "39984b9193c131db10fd6b6d0afcdfc8fb318eef1104e4f1165338d3009275b8"
+    },
+    "shared_contract_justification": null
+  }
+]

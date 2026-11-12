@@ -1,0 +1,41 @@
+{
+  "role": "author comparison for legitimate exact reuse, no new acceptance",
+  "controller_observation": {
+    "source": "/tmp/q214-d-next-20261112/root/V16-PROTECTED-CHECK.json",
+    "provided_by": "parent root public GitHub readback",
+    "head": "78b94cdacfd872c9151fecd1093ed45e9607bd47",
+    "check_id": 130837506357,
+    "app_id": 5663093,
+    "audit_identity": "ed2045e97a89e640100f3d0d21f6f25f092d17e267c581973515a8bb3ca7b5d0"
+  },
+  "local_bindings": [
+    {
+      "path": "research/version16/review/coverage/REVIEW.json",
+      "sha256": "175710ddbd885fee6782dd878da9a77b14522d5e3a7e280a0e8322cfc5af0f66"
+    },
+    {
+      "path": "research/version16/review/coverage/ASSEMBLY-REVIEW.json",
+      "sha256": "f0cfb52df5e2153987fa2125fc002f85194e8cddd09d1407b35cce86535bda88"
+    },
+    {
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    {
+      "path": "research/version16/protocol/DOSSIER.json",
+      "sha256": "45c3864dc588d23c6c797e783c23f88c5b00473ccd7956548734380ccb04f9c5"
+    },
+    {
+      "path": "research/version16/protocol/CONNECTIONS.json",
+      "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
+    }
+  ],
+  "review_binding_checks": {
+    "manuscript": true,
+    "dossier": false,
+    "connections": false,
+    "coverage_report": true,
+    "assembly_report": true
+  },
+  "limitations": "Root must compare files at actual protected-check head to current local versions and exact native final acceptance records. Older standalone coverage REVIEW hash may predate later source extensions; do not rewrite hashes. Scope-limited reused assertions need fresh match to revised214 consumers; no PR30 protected acceptance follows."
+}

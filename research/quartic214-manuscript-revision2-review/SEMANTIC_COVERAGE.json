@@ -1,0 +1,219 @@
+{
+  "reviewer": "/root/d214_geometry_source_closure",
+  "sources": [
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+      "source_lines": 47,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 24,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "source_lines": 49,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 21,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "source_lines": 92,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 43,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "source_lines": 81,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 40,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/proofs/height-assembly.md",
+      "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+      "source_lines": 57,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 29,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "source_lines": 60,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 24,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "source_lines": 131,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 66,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "source_lines": 129,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 80,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/proofs/height-metric.md",
+      "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "source_lines": 59,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 30,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "source_lines": 134,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 66,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "source_lines": 125,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 63,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+      "source_lines": 55,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 23,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/proofs/provider-scope-carry.md",
+      "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+      "source_lines": 68,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 24,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "source_lines": 40,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 19,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "source_lines": 84,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 38,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/sources/aggregate-bridge.md",
+      "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5",
+      "source_lines": 19,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 6,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/sources/conductor-sections1-3.md",
+      "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+      "source_lines": 182,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 137,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/quartic214/sources/support-section1.md",
+      "sha256": "bb3e2cc7a102ba317ed984f463762cddc52576b3d7416e7a981093243cb16940",
+      "source_lines": 58,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 47,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    },
+    {
+      "path": "research/version15/quartics/quartic-222/provenance/shared-T-redundancy224-006/PROOF.md",
+      "sha256": "7b39db664ba3884897eda4e4e6550ec552ee8ef916509681e69b04b7990e0732",
+      "source_lines": 16,
+      "all_lines_mapped_exactly_once": true,
+      "nonblank_mapped_spans": 9,
+      "source_body_read": true,
+      "all_content_spans_compared": true,
+      "mathematical_scope_and_notation_reviewed": true,
+      "review_basis": "Actual source/receiver semantic pass, supported by content diagnostics and all distinct script-operand inventory; final changed sites read separately."
+    }
+  ],
+  "source_count": 19,
+  "nonblank_span_count": 789,
+  "scope_complete": true,
+  "scope": "All converted proof-source transformations; not a new whole arithmetic theorem proof or all703PDFpagevisualread.",
+  "final_queue": "All20F8\u2013F11source-line sites corrected and independently inspected; F6/F7/nativeoperative note separately inspected."
+}

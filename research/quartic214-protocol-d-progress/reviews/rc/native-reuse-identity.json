@@ -1,0 +1,49 @@
+{
+  "scope": "Independent artifact identity check, not arithmetic inference",
+  "accepted_head": "78b94cdacfd872c9151fecd1093ed45e9607bd47",
+  "receiving_head": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "rows": [
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "accepted_blob": "b703122bbe71e2c6641703d522841dc1548bb92a",
+      "current_blob": "b703122bbe71e2c6641703d522841dc1548bb92a",
+      "equal": true,
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+    },
+    {
+      "path": "research/version16/protocol/DOSSIER.json",
+      "accepted_blob": "1d5480322aa3ff5b9d34d6527f10bffac9f5eb9c",
+      "current_blob": "1d5480322aa3ff5b9d34d6527f10bffac9f5eb9c",
+      "equal": true,
+      "sha256": "45c3864dc588d23c6c797e783c23f88c5b00473ccd7956548734380ccb04f9c5"
+    },
+    {
+      "path": "research/version16/protocol/CONNECTIONS.json",
+      "accepted_blob": "c88c2c7ba12b7dff637fff90665f41cab1c70d57",
+      "current_blob": "c88c2c7ba12b7dff637fff90665f41cab1c70d57",
+      "equal": true,
+      "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/REVIEW.md",
+      "accepted_blob": "190333d7cf695fef948a0bc33faf6ea596897b5b",
+      "current_blob": "190333d7cf695fef948a0bc33faf6ea596897b5b",
+      "equal": true,
+      "sha256": "52bb8ba0ada9cbdb70b2b711cd05517b9532d36927b5fb55daa1b7c4cea3dff9"
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/PROTOCOL14-COVERAGE-REVIEW.json",
+      "accepted_blob": "aa0fef37dac5abcc21a361ea5cfd87abd6844870",
+      "current_blob": "aa0fef37dac5abcc21a361ea5cfd87abd6844870",
+      "equal": true,
+      "sha256": "7f7e0544d324b4ba19d5cb70151c98b31ae2a2a429483df7416d07812267b497"
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/ASSEMBLY-REVIEW.json",
+      "accepted_blob": "d7db90a4945da5c0335aeeb20c72c19e6e486d13",
+      "current_blob": "d7db90a4945da5c0335aeeb20c72c19e6e486d13",
+      "equal": true,
+      "sha256": "667f8007a2af8d96a845cbf505ca001bf6a04dbb69d5a0667dd2e76d12a32957"
+    }
+  ]
+}

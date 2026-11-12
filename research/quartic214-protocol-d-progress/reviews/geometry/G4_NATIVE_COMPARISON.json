@@ -1,0 +1,468 @@
+{
+  "uses": [
+    {
+      "id": "V15-INHERITED--ACTIVE-CURRENT-YUAN-METRIC-USE-YUAN-METRIC",
+      "consumer": "CURRENT-YUAN-METRIC",
+      "passages": [
+        "CURRENT-SECTION-15"
+      ],
+      "assertion": {
+        "statement": "The canonical square-line map is an isometry for the stated Faltings and Petersson metrics.",
+        "objects": "The square Hodge line, image in the square dualizing line, and their norms.",
+        "hypotheses": "The same canonical map and metrics of Theorem1.1 and pp228-229.",
+        "quantifiers": "At every complex point of the stated stack.",
+        "parameter_range": "Abelian dimension two.",
+        "uniformity": "The assertion applies to each object satisfying the stated hypotheses; no uniform effective bound is used.",
+        "constants": "The factors2 and(2pi)^-2 are exact; the source is not a curvature or additive-budget theorem.",
+        "normalizations": "Petersson ||d tau||=2 Im(tau); the squared Hodge norm uses(2pi)^-2 times the integral.",
+        "exceptional_cases": "Conversion to original stable Faltings height and the sign of the sublattice term require the separate displayed manuscript calculation.",
+        "limit_order": "No limiting operation is used."
+      },
+      "classification": "dependency",
+      "reason": "Current exact direct/module transport proposal of retained use ACTIVE-CURRENT-YUAN-METRIC-USE-YUAN-METRIC. Original scope: Exact scoped source import used within the independently reviewed current application CURRENT-YUAN-METRIC. Actual-object construction and subsequent use remain governed by that application's nine obligations; this import is not the whole outer claim.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "published_external",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/version14/source-adoption-ordinary-v1/source-statements/YUAN-METRIC.md",
+            "sha256": "d5a3210fc837df529e25ec85e88c8691be70e578b73c70f611bd3014637ad2bb"
+          },
+          "start_line": 1,
+          "end_line": 21,
+          "excerpt_sha256": "d5a3210fc837df529e25ec85e88c8691be70e578b73c70f611bd3014637ad2bb"
+        },
+        "statement": "The canonical square-line map is an isometry for the stated Faltings and Petersson metrics.",
+        "publication": {
+          "title": "Explicit Kodaira-Spencer maps over Shimura curves",
+          "authors": "Xinyi Yuan",
+          "venue": "Acta Mathematica Sinica, Chinese Series 67 (2024), 227-249",
+          "authoritative_version": "Published Chinese final; DOI10.12386/A20220154; SHA256 aee74126d6374c22d7907fb6682dea0df4636f38cfc4992053dafea177f1d167",
+          "locator": "Metric definitions pp228-229; Theorem1.1 p229; integral moduli Section2.1 pp230-231",
+          "corrections": "SOURCE-YUAN-LEMMA21-SEPARABILITY is retained. The direct stack argument does not use coarse Lemma2.1 or Theorem2.2; the earlier source review checked Theorem1.1 has no such dependency. No complete Chinese/English proof equivalence is claimed."
+        }
+      },
+      "application_id": null,
+      "inline_argument": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+        },
+        "start_line": 8121,
+        "end_line": 8139,
+        "excerpt_sha256": "b6ab10feb4e0a0f51208c033f4b3fdfd4cc317e7b0fe8cdb4d2521c762efd779"
+      }
+    },
+    {
+      "id": "V15-INHERITED--ACTIVE-H19-CM-ELLIPTIC-DISCRIMINANT",
+      "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+      "passages": [
+        "CURRENT-SECTION-15"
+      ],
+      "assertion": {
+        "statement": "The same-field maximal-order CM factor Eprime has original stable height equal to the average of -log(2pi)-2log|eta(tau)|-(1/2)log Im(tau) after a good-reduction extension.",
+        "objects": "The actual Eprime/L from the maximal-order quotient, with fundamental discriminant Delta_F; its individual complex embeddings.",
+        "hypotheses": "Eprime is a CM elliptic curve, hence potentially everywhere good; the analytic discriminant formula applies to each embedding and the finite discriminant term vanishes on the good-reduction extension.",
+        "quantifiers": "Every embedding of a field where Eprime has everywhere good reduction; average with division by its absolute degree.",
+        "parameter_range": "CM elliptic curves over number fields, with reduced imaginary-quadratic periods.",
+        "uniformity": "Stable height is unchanged by the auxiliary good-reduction extension, whose degree never enters the later isogeny bound.",
+        "constants": "Analytic discriminant (2pi)^12 eta(tau)^24; sqrt(3)/2<=Im(tau)<=sqrt(|Delta_F|)/2.",
+        "normalizations": "Original stable Faltings metric; individual-embedding equation6.2, not the class-average Proposition6.1.",
+        "exceptional_cases": "No Weierstrass-coefficient condition over Q(j) is imported from Proposition6.1; the auxiliary good-reduction field is not the isogeny field L.",
+        "limit_order": "Construct Eprime over L, pass to a good-reduction extension only to evaluate stable height, apply the individual formula, and return to the same L for the isogeny estimate."
+      },
+      "classification": "dependency",
+      "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-CM-ELLIPTIC-DISCRIMINANT. Original scope: Construct Eprime over L, pass to a good-reduction extension only to evaluate stable height, apply the individual formula, and return to the same L for the isogeny estimate.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "published_external",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "manuscripts/quartic_v14.tex",
+            "sha256": "5882a77003b9772b5b572a5ab2c2b2f8ce9fc53e1e368a3b69851c8a9b3bfcac"
+          },
+          "start_line": 8663,
+          "end_line": 8698,
+          "excerpt_sha256": "bef46fd6aae59a295f3e0ad8d6da27086a399756bd1a8bc2e8e1077854814fa0"
+        },
+        "statement": "The elliptic discriminant formula expresses original stable height as the normalized sum of analytic embedding terms plus the finite discriminant term.",
+        "publication": {
+          "title": "Faltings heights of CM elliptic curves and special Gamma values",
+          "authors": "Barquero-Sanchez, Cadwallader, Cannon, Genao and Masri",
+          "venue": "Research in Number Theory3 (2017),article13",
+          "authoritative_version": "Published article, source PDF f91cc2017dcc82dbc55d641d397c8b2bb5fc15205b1377cdaae8bdbbd7fc14a6",
+          "locator": "Section6,equation6.2; potential good reduction in Theorem1.3 proof",
+          "corrections": "No Weierstrass-coefficient condition over Q(j) is imported from Proposition6.1; the auxiliary good-reduction field is not the isogeny field L."
+        }
+      },
+      "application_id": null,
+      "inline_argument": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+        },
+        "start_line": 8687,
+        "end_line": 8722,
+        "excerpt_sha256": "86c4be4d0ace4883dd889ed6bc936eb54009d93c2214d3725f2342b493340c22"
+      }
+    },
+    {
+      "id": "V15-INHERITED--ACTIVE-H19-CM-GR2023",
+      "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+      "passages": [
+        "CURRENT-SECTION-15"
+      ],
+      "assertion": {
+        "statement": "Over the unchanged L, there is an isogeny (Eprime)^2\u2192A of degree at most Xi((Eprime)^2)^2, where Xi=(14^32 d max(1,log d,h_F((Eprime)^2)))^8.",
+        "objects": "The same A/L, source Aprime=(Eprime)^2/L, d=[L:Q]<=576.",
+        "hypotheses": "Aprime and A are L-isogenous by the preceding geometric construction; dim Aprime=2; the general isogeny theorem applies over L.",
+        "quantifiers": "The actual CM fiber and its same-field maximal-order factor, with every allowed d<=576.",
+        "parameter_range": "Characteristic-zero number field L; surface dimension2; R>=1.",
+        "uniformity": "Only d and the source stable height enter Xi; no auxiliary good-reduction field degree enters.",
+        "constants": "Xi exponent8; squaring and taking half-log gives coefficient8 in the height variation bound.",
+        "normalizations": "Original stable Faltings height; source is Aprime, target A; use general Theorem1.9(1).",
+        "exceptional_cases": "Do not identify CM type with the paper\u2019s separate MM condition; no bounded degree of the preliminary factor isogeny is assumed.",
+        "limit_order": "First bound h_F(Aprime)<6R, then apply the general theorem over L and the separate correct-direction half-log height variation to A."
+      },
+      "classification": "dependency",
+      "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-CM-GR2023. Original scope: First bound h_F(Aprime)<6R, then apply the general theorem over L and the separate correct-direction half-log height variation to A.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "published_external",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "manuscripts/quartic_v14.tex",
+            "sha256": "5882a77003b9772b5b572a5ab2c2b2f8ce9fc53e1e368a3b69851c8a9b3bfcac"
+          },
+          "start_line": 8700,
+          "end_line": 8718,
+          "excerpt_sha256": "c07d406ea15896214feaa676bc3580a74a9317fd7f2fe02d0e43fdeb3f812cab"
+        },
+        "statement": "The general source-dependent isogeny theorem supplies both directions with degree at most Xi(source)^2.",
+        "publication": {
+          "title": "Nouveaux th\u00e9or\u00e8mes d\u2019isog\u00e9nie",
+          "authors": "\u00c9ric Gaudron and Ga\u00ebl R\u00e9mond",
+          "venue": "M\u00e9moires de la Soci\u00e9t\u00e9 Math\u00e9matique de France176 (2023)",
+          "authoritative_version": "Published theorem as retained in the source reviews",
+          "locator": "Section1.5 and Theorem1.9(1),pp7\u20138",
+          "corrections": "Do not identify CM type with the paper\u2019s separate MM condition; no bounded degree of the preliminary factor isogeny is assumed."
+        }
+      },
+      "application_id": null,
+      "inline_argument": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+        },
+        "start_line": 8724,
+        "end_line": 8742,
+        "excerpt_sha256": "ca4932d9ffa94dba3db627ba685951a50a872fbcd591bb687ee67753b7732ea3"
+      }
+    },
+    {
+      "id": "V15-INHERITED--ACTIVE-H19-CM-HEIGHT",
+      "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+      "passages": [
+        "CURRENT-SECTION-16"
+      ],
+      "assertion": {
+        "statement": "For the actual abelian surface A/L of CM type with a quaternion division algebra acting and all geometric endomorphisms over L, [L:Q]\u2264576 and rad|D_L|\u2264R, R\u22651, the original stable Faltings height satisfies h_F(A)<854R.",
+        "objects": "The same abelian surface A/L, its rational idempotent elliptic factors, a maximal-order CM elliptic quotient Eprime/L and Aambient=(Eprime)^2 over the same L.",
+        "hypotheses": "A is an abelian surface of CM type with a quaternion division algebra embedded in its geometric rational endomorphism algebra; all geometric endomorphisms are defined over L; [L:Q]\u2264576 and rad|D_L|\u2264R with R\u22651. The individual CM embedding height formula, potential good reduction, and GR2023 Theorem1.9(1) are supplied separately.",
+        "quantifiers": "For every such actual CM surface and field, with the same R used by the geometric construction.",
+        "parameter_range": "Dimension two, elliptic CM factors, field degree at most576; no bound on CM order conductor is assumed.",
+        "uniformity": "The resulting coefficient854 is independent of the CM order and the particular L or surface, subject to the stated field and ramification bounds.",
+        "constants": "|Delta_F|\u22644R; h_F(Eprime)<3R; h_F((Eprime)^2)<6R; Xi=(14^32 [L:Q] max(1,log[L:Q],h_F((Eprime)^2)))^8; degree\u2264Xi^2; h_F(A)<854R.",
+        "normalizations": "Original stable Faltings metric. The quotient to maximal CM order is constructed over the existing L; temporary semistable extensions evaluate stable height only. Apply the general dimension-two isogeny estimate, not a specialized product-isogenous-over-Q case.",
+        "exceptional_cases": "Does not construct A or L, prove the full endomorphism-field property, or handle the non-CM branch. No enlargement of the field-degree576 budget. Uses an individual complex-embedding formula, not a class average or a Q(j) Weierstrass assumption.",
+        "limit_order": "Fix the CM surface A/L and R; use the endomorphism-algebra dimension argument to prove A is geometrically isogenous to the square of a CM elliptic curve; construct factors and the maximal-order quotient over L; bound its original stable height; apply the isogeny estimate over L and absorb elementary logarithms."
+      },
+      "classification": "dependency",
+      "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-CM-HEIGHT. Original scope: For the actual abelian surface A/L of CM type with a quaternion division algebra acting and all geometric endomorphisms over L, [L:Q]\u2264576 and rad|D_L|\u2264R, R\u22651, the original stable Faltings height satisfies h_F(A)<854R.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "inline",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "manuscripts/quartic_v14.tex",
+            "sha256": "5882a77003b9772b5b572a5ab2c2b2f8ce9fc53e1e368a3b69851c8a9b3bfcac"
+          },
+          "start_line": 8594,
+          "end_line": 8729,
+          "excerpt_sha256": "9abb3c65609362383a43ccbb463b2fc7dd4a6487c38be4c413f20bb1ed1fb02b"
+        },
+        "statement": "For the actual abelian surface A/L of CM type with a quaternion division algebra acting and all geometric endomorphisms over L, [L:Q]\u2264576 and rad|D_L|\u2264R, R\u22651, the original stable Faltings height satisfies h_F(A)<854R.",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+        },
+        "start_line": 10026,
+        "end_line": 10027,
+        "excerpt_sha256": "425a281cb7aff91b29b8caf4ec6b3b4ebc2ccaebedc1e67a75569dfadada2637"
+      }
+    },
+    {
+      "id": "V15-INHERITED--ACTIVE-H19-GEOMETRIC-HEIGHT-COMPARISON",
+      "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+      "passages": [
+        "CURRENT-SECTION-16"
+      ],
+      "assertion": {
+        "statement": "For the actual D210 fiber A_y over the chosen point y above rational s, the same integral and archimedean comparison gives h(s)<=2max(0,hF(A_y))+128 in the original stable Faltings metric.",
+        "objects": "The proper maximal regular stack, t=32s, P(t)=product(t-a_i), (a_i)=(0,32,76832,-343), and bicanonical sections q0=(dt)^2/P(t),q1=tq0.",
+        "hypotheses": "The preceding full marked fiber construction and maximal-stack geometry are supplied. Yuan gives the canonical metric isometry at this same point, and the universal abelian scheme computes stable height after an extension where y extends.",
+        "quantifiers": "Every point of the actual family used in the five-contact height proof; every nonarchimedean and archimedean place in the normalized height.",
+        "parameter_range": "Discriminant210 maximal stack, not a coarse-model arithmetic intersection formula.",
+        "uniformity": "The constantsJ andC_met depend only on the fixed four branch values, nots or its fiber field.",
+        "constants": "J=2765952000; C_met=12540153541944538512; additive term2log(pi)+log210+2logJ+log(4C_met)+log32<120<128.",
+        "normalizations": "Petersson norm ||d tau||=2Im(tau); h_(omega^2)=2hF+2log(pi)+log210. The sublattice210omega^2 lowers height bylog210, so the final formula has positive log210.",
+        "exceptional_cases": "Treat finite branch points and infinity by local coordinates; vertical extension uses valuations plus regularity, not coarse pullback from YuanLemma2.1 orTheorem2.2. Replace negativehF bymax(0,hF) only at the final inequality.",
+        "limit_order": "Extend J\u00b2q_i over the maximal stack; bound their archimedean norms through the explicit curvature metric; apply the same-point Yuan isometry; then combine normalized local heights and the exact additive budget."
+      },
+      "classification": "dependency",
+      "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-GEOMETRIC-HEIGHT-COMPARISON. Original scope: For the actual D210 fiber A_y over the chosen point y above rational s, the same integral and archimedean comparison gives h(s)<=2max(0,hF(A_y))+128 in the original stable Faltings metric.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "inline",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "manuscripts/quartic_v14.tex",
+            "sha256": "5882a77003b9772b5b572a5ab2c2b2f8ce9fc53e1e368a3b69851c8a9b3bfcac"
+          },
+          "start_line": 8055,
+          "end_line": 8126,
+          "excerpt_sha256": "51c6f63a51045227e3732469d79ba4c316749df61a473e664307207de6f327b2"
+        },
+        "statement": "For the actual D210 fiber A_y over the chosen point y above rational s, the same integral and archimedean comparison gives h(s)<=2max(0,hF(A_y))+128 in the original stable Faltings metric.",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+        },
+        "start_line": 10021,
+        "end_line": 10026,
+        "excerpt_sha256": "529285fdcffeb5e68f6ee7a721280b797f9912c1e8c139cd4e8377adc67709ff"
+      }
+    },
+    {
+      "id": "V15-INHERITED--ACTIVE-H19-YUAN-METRIC",
+      "consumer": "CURRENT-FIVE-CONTACT-HEIGHT-NINETEEN",
+      "passages": [
+        "CURRENT-SECTION-15"
+      ],
+      "assertion": {
+        "statement": "For the actual maximal-stack D210 point y, the canonical Kodaira-Spencer image and specified metrics give h_(omega squared)(y)=2h_F(A_y)+2log(pi)+log210 in the original stable Faltings convention.",
+        "objects": "The same Hodge determinant line, dualizing square, canonical injection with image210 omega squared and actual fiber A_y.",
+        "hypotheses": "The maximal-stack model, integral injection and Yuan isometry are supplied with their specified norms.",
+        "quantifiers": "At every complex embedding of the same arithmetic point y.",
+        "parameter_range": "D210 maximal stack, including the bad-prime integral image; original stable Faltings metric.",
+        "uniformity": "The same equality is compatible with normalized arithmetic degree and temporary base extension for height evaluation.",
+        "constants": "Petersson norm ||d tau||=2 Im(tau); Hodge squared norm factor(2pi)^\u22122; shifts2logpi and log210.",
+        "normalizations": "The sublattice210 omega squared has height h_(omega squared)\u2212log210. Distinguish norm from squared norm.",
+        "exceptional_cases": "No coarse intersection theorem or asserted smooth fine model at bad primes. This equality alone does not prove vertical section regularity or the final128 bound.",
+        "limit_order": "Apply the integral image and metric isometry to the same line and point; convert to original stable Faltings normalization before the section inequality."
+      },
+      "classification": "dependency",
+      "reason": "Current exact direct/module transport proposal of retained use ACTIVE-H19-YUAN-METRIC. Original scope: For the actual maximal-stack D210 point y, the canonical Kodaira-Spencer image and specified metrics give h_(omega squared)(y)=2h_F(A_y)+2log(pi)+log210 in the original stable Faltings convention.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "internal",
+        "application_id": "CURRENT-YUAN-METRIC",
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "manuscripts/quartic_v14.tex",
+            "sha256": "5882a77003b9772b5b572a5ab2c2b2f8ce9fc53e1e368a3b69851c8a9b3bfcac"
+          },
+          "start_line": 8097,
+          "end_line": 8115,
+          "excerpt_sha256": "935242ca288dfcf9c0d6399fa29818e2da42babaea8af8fa5a992794c488ca2e"
+        },
+        "statement": "For the actual maximal-stack D210 point y, the canonical Kodaira-Spencer image and specified metrics give h_(omega squared)(y)=2h_F(A_y)+2log(pi)+log210 in the original stable Faltings convention.",
+        "publication": null
+      },
+      "application_id": null,
+      "inline_argument": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+        },
+        "start_line": 8140,
+        "end_line": 8150,
+        "excerpt_sha256": "58e76b71887146abc6621d1126b91831438af47f375ef2a4f4a9bc4157a9f494"
+      }
+    },
+    {
+      "id": "V15-INHERITED--ACTIVE-YUAN-CODIMENSION-TWO-EXTENSION",
+      "consumer": "CURRENT-YUAN-INTEGRAL",
+      "passages": [
+        "CURRENT-SECTION-15"
+      ],
+      "assertion": {
+        "statement": "The actual sections J^2 q_i, already regular at every codimension-one point, extend uniquely across codimension two on the maximal stack.",
+        "objects": "The regular Noetherian maximal D210 Deligne-Mumford stack and its invertible square-dualizing line with rational sections J^2 q0,J^2 q1.",
+        "hypotheses": "The stack is regular and flat over the base. The line is invertible, the sections are regular on the generic fibre, and the separately proved vertical valuation bounds give regularity at vertical codimension-one points.",
+        "quantifiers": "Both displayed sections, on every regular etale chart and every codimension-one point.",
+        "parameter_range": "The actual maximal stack, including primes dividing210; no tame coarse quotient is assumed there.",
+        "uniformity": "The same rational sections and line extend; no rescaling beyond the already fixed J^2.",
+        "constants": "J remains2765952000; no new height constant.",
+        "normalizations": "Trivialize the line on affine regular etale charts; apply the source with M=R, a free rank-one and hence reflexive module.",
+        "exceptional_cases": "This does not construct a coarse-model line bundle, supply the valuation bounds, or extend a general nonreflexive sheaf.",
+        "limit_order": "Choose an etale scheme atlas of the regular Noetherian Deligne-Mumford maximal stack and trivialize the invertible square-dualizing line on affine open charts. Each connected regular chart is a normal domain. The generic bicanonical section is regular at horizontal height-one primes; the separate vertical valuation calculation proves it at vertical height-one primes. Apply Tag0AVB with the free rank-one module, which is reflexive, to obtain a unique regular section on each chart. The extensions agree on etale overlaps because they agree on the dense generic fibre and the line is locally free on a reduced flat atlas. Descent for sections gives the unique section on the stack. No coarse-model pullback or tame argument at bad primes is used."
+      },
+      "classification": "dependency",
+      "reason": "Current exact direct/module transport proposal of retained use ACTIVE-YUAN-CODIMENSION-TWO-EXTENSION. Original scope: Choose an etale scheme atlas of the regular Noetherian Deligne-Mumford maximal stack and trivialize the invertible square-dualizing line on affine open charts. Each connected regular chart is a normal domain. The generic bicanonical section is regular at horizontal height-one primes; the separate vertical valuation calculation proves it at vertical height-one primes. Apply Tag0AVB with the free rank-one module, which is reflexive, to obtain a unique regular section on each chart. The extensions agree on etale overlaps because they agree on the dense generic fibre and the line is locally free on a reduced flat atlas. Descent for sections gives the unique section on the stack. No coarse-model pullback or tame argument at bad primes is used.",
+      "shared_contract_justification": null,
+      "supplier": {
+        "kind": "published_external",
+        "application_id": null,
+        "location": {
+          "pin": {
+            "side": "head",
+            "path": "research/version14/source-adoption-ordinary-v1/source-statements/STACKS-0AVB.md",
+            "sha256": "57049123c6f253a19b618319e61399853c292b6794b878ce570d05b4690a1b2e"
+          },
+          "start_line": 5,
+          "end_line": 5,
+          "excerpt_sha256": "587bcf0a32b5059a82220199b7dfe2ee82f75d474d000bd4fc0da0c242f7abdf"
+        },
+        "statement": "A finite reflexive module over a Noetherian normal domain is the intersection of its height-one localizations inside its generic fibre.",
+        "publication": {
+          "title": "Reflexive modules",
+          "authors": "The Stacks Project Authors",
+          "venue": "The Stacks Project",
+          "authoritative_version": "Tag0AVB HTML retrieved2026-11-09T08:44:25.999192Z",
+          "locator": "Lemma15.24.18, Tag0AVB",
+          "corrections": "Exact retrieved HTML pin retained; only implication reflexive to height-one intersection is used."
+        }
+      },
+      "application_id": null,
+      "inline_argument": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+        },
+        "start_line": 8093,
+        "end_line": 8103,
+        "excerpt_sha256": "7f74a3fc0e744c32ca3b47ec5a8ab597042fa73f349b8ba91a0cb570d7d67aff"
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "subject": "connection:V15-INHERITED--ACTIVE-CURRENT-YUAN-METRIC-USE-YUAN-METRIC",
+      "subject_sha256": "b95192797bbfe58a16f421e676d23bab80f77c17767c22abc8903800d53b8733",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+        "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+      },
+      "scope": "The complete connection object, supplier/consumer assertions, source-use identity and exact derivation are unchanged. I reuse the prior reviewed derivation at precisely its recorded scope. Reuse the exact accepted Version 15 connection for V15-INHERITED--ACTIVE-CURRENT-YUAN-METRIC-USE-YUAN-METRIC. Available: The canonical square-line map is an isometry for the stated Faltings and Petersson metrics. Required: The canonical square-line map is an isometry for the stated Faltings and Petersson metrics. Supplier, domain, normalization, constants, exceptions and consumer strength are unchanged. Source pins and excerpts were transported through the complete verified delta. Where an upstream correction is relevant, its reviewed output is the same interface consumed here.",
+      "limitations": "Informal mathematical review with exact reuse of identified prior derivations. No claim that this reviewer freshly reproved each unchanged external theorem or that a structural hash check proves mathematics. The independent current precision-wording review is recorded in REVIEW.md."
+    },
+    {
+      "subject": "connection:V15-INHERITED--ACTIVE-H19-CM-ELLIPTIC-DISCRIMINANT",
+      "subject_sha256": "5c64a6cba64fc3736e8ce6b2d032009013e007a643057e9c5064c2b7f122d2d0",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+        "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+      },
+      "scope": "The complete connection object, supplier/consumer assertions, source-use identity and exact derivation are unchanged. I reuse the prior reviewed derivation at precisely its recorded scope. Reuse the exact accepted Version 15 connection for V15-INHERITED--ACTIVE-H19-CM-ELLIPTIC-DISCRIMINANT. Available: The elliptic discriminant formula expresses original stable height as the normalized sum of analytic embedding terms plus the finite discriminant term. Required: The same-field maximal-order CM factor Eprime has original stable height equal to the average of -log(2pi)-2log|eta(tau)|-(1/2)log Im(tau) after a good-reduction extension. Supplier, domain, normalization, constants, exceptions and consumer strength are unchanged. Source pins and excerpts were transported through the complete verified delta. Where an upstream correction is relevant, its reviewed output is the same interface consumed here.",
+      "limitations": "Informal mathematical review with exact reuse of identified prior derivations. No claim that this reviewer freshly reproved each unchanged external theorem or that a structural hash check proves mathematics. The independent current precision-wording review is recorded in REVIEW.md."
+    },
+    {
+      "subject": "connection:V15-INHERITED--ACTIVE-H19-CM-GR2023",
+      "subject_sha256": "9a9db286fb38b48154f5d67e0870583888e77fc0633dc0adffe96d53a5b172e5",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+        "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+      },
+      "scope": "The complete connection object, supplier/consumer assertions, source-use identity and exact derivation are unchanged. I reuse the prior reviewed derivation at precisely its recorded scope. Reuse the exact accepted Version 15 connection for V15-INHERITED--ACTIVE-H19-CM-GR2023. Available: The general source-dependent isogeny theorem supplies both directions with degree at most Xi(source)^2. Required: Over the unchanged L, there is an isogeny (Eprime)^2\u2192A of degree at most Xi((Eprime)^2)^2, where Xi=(14^32 d max(1,log d,h_F((Eprime)^2)))^8. Supplier, domain, normalization, constants, exceptions and consumer strength are unchanged. Source pins and excerpts were transported through the complete verified delta. Where an upstream correction is relevant, its reviewed output is the same interface consumed here.",
+      "limitations": "Informal mathematical review with exact reuse of identified prior derivations. No claim that this reviewer freshly reproved each unchanged external theorem or that a structural hash check proves mathematics. The independent current precision-wording review is recorded in REVIEW.md."
+    },
+    {
+      "subject": "connection:V15-INHERITED--ACTIVE-H19-CM-HEIGHT",
+      "subject_sha256": "ccf628b23a939aa9ac001eef274a56c13659491f95512f21bcb2f1cee6b50411",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+        "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+      },
+      "scope": "The complete connection object, supplier/consumer assertions, source-use identity and exact derivation are unchanged. I reuse the prior reviewed derivation at precisely its recorded scope. Reuse the exact accepted Version 15 connection for V15-INHERITED--ACTIVE-H19-CM-HEIGHT. Available: For the actual abelian surface A/L of CM type with a quaternion division algebra acting and all geometric endomorphisms over L, [L:Q]\u2264576 and rad|D_L|\u2264R, R\u22651, the original stable Faltings height satisfies h_F(A)<854R. Required: For the actual abelian surface A/L of CM type with a quaternion division algebra acting and all geometric endomorphisms over L, [L:Q]\u2264576 and rad|D_L|\u2264R, R\u22651, the original stable Faltings height satisfies h_F(A)<854R. Supplier, domain, normalization, constants, exceptions and consumer strength are unchanged. Source pins and excerpts were transported through the complete verified delta. Where an upstream correction is relevant, its reviewed output is the same interface consumed here.",
+      "limitations": "Informal mathematical review with exact reuse of identified prior derivations. No claim that this reviewer freshly reproved each unchanged external theorem or that a structural hash check proves mathematics. The independent current precision-wording review is recorded in REVIEW.md."
+    },
+    {
+      "subject": "connection:V15-INHERITED--ACTIVE-H19-GEOMETRIC-HEIGHT-COMPARISON",
+      "subject_sha256": "2db2c62fe572c3f727209d05874e09f73b656a313e578a17ad6eecf91af66ece",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+        "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+      },
+      "scope": "The complete connection object, supplier/consumer assertions, source-use identity and exact derivation are unchanged. I reuse the prior reviewed derivation at precisely its recorded scope. Reuse the exact accepted Version 15 connection for V15-INHERITED--ACTIVE-H19-GEOMETRIC-HEIGHT-COMPARISON. Available: For the actual D210 fiber A_y over the chosen point y above rational s, the same integral and archimedean comparison gives h(s)<=2max(0,hF(A_y))+128 in the original stable Faltings metric. Required: For the actual D210 fiber A_y over the chosen point y above rational s, the same integral and archimedean comparison gives h(s)<=2max(0,hF(A_y))+128 in the original stable Faltings metric. Supplier, domain, normalization, constants, exceptions and consumer strength are unchanged. Source pins and excerpts were transported through the complete verified delta. Where an upstream correction is relevant, its reviewed output is the same interface consumed here.",
+      "limitations": "Informal mathematical review with exact reuse of identified prior derivations. No claim that this reviewer freshly reproved each unchanged external theorem or that a structural hash check proves mathematics. The independent current precision-wording review is recorded in REVIEW.md."
+    },
+    {
+      "subject": "connection:V15-INHERITED--ACTIVE-H19-YUAN-METRIC",
+      "subject_sha256": "2845c328331b5a3c95a26b2b2c2689def05282134855312764cd81f501c9cb80",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+        "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+      },
+      "scope": "The complete connection object, supplier/consumer assertions, source-use identity and exact derivation are unchanged. I reuse the prior reviewed derivation at precisely its recorded scope. Reuse the exact accepted Version 15 connection for V15-INHERITED--ACTIVE-H19-YUAN-METRIC. Available: For the actual maximal-stack D210 point y, the canonical Kodaira-Spencer image and specified metrics give h_(omega squared)(y)=2h_F(A_y)+2log(pi)+log210 in the original stable Faltings convention. Required: For the actual maximal-stack D210 point y, the canonical Kodaira-Spencer image and specified metrics give h_(omega squared)(y)=2h_F(A_y)+2log(pi)+log210 in the original stable Faltings convention. Supplier, domain, normalization, constants, exceptions and consumer strength are unchanged. Source pins and excerpts were transported through the complete verified delta. Where an upstream correction is relevant, its reviewed output is the same interface consumed here.",
+      "limitations": "Informal mathematical review with exact reuse of identified prior derivations. No claim that this reviewer freshly reproved each unchanged external theorem or that a structural hash check proves mathematics. The independent current precision-wording review is recorded in REVIEW.md."
+    },
+    {
+      "subject": "connection:V15-INHERITED--ACTIVE-YUAN-CODIMENSION-TWO-EXTENSION",
+      "subject_sha256": "5444dcac1a146a36b27604a5dee7bd111aa15290740f1de452a528ba5393a2e3",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reused_exact_derivation",
+      "prior_review": {
+        "side": "head",
+        "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+        "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+      },
+      "scope": "The complete connection object, supplier/consumer assertions, source-use identity and exact derivation are unchanged. I reuse the prior reviewed derivation at precisely its recorded scope. Reuse the exact accepted Version 15 connection for V15-INHERITED--ACTIVE-YUAN-CODIMENSION-TWO-EXTENSION. Available: A finite reflexive module over a Noetherian normal domain is the intersection of its height-one localizations inside its generic fibre. Required: The actual sections J^2 q_i, already regular at every codimension-one point, extend uniquely across codimension two on the maximal stack. Supplier, domain, normalization, constants, exceptions and consumer strength are unchanged. Source pins and excerpts were transported through the complete verified delta. Where an upstream correction is relevant, its reviewed output is the same interface consumed here.",
+      "limitations": "Informal mathematical review with exact reuse of identified prior derivations. No claim that this reviewer freshly reproved each unchanged external theorem or that a structural hash check proves mathematics. The independent current precision-wording review is recorded in REVIEW.md."
+    }
+  ]
+}

@@ -1,0 +1,221 @@
+{
+  "schema": "q214-source-first-reconciliation/v1",
+  "reviewer": "/root/d214_current_closure_review",
+  "initial_sha256": "0c05a4d28a8e3057fd0bdc02095916a1961c1e361f9a48213f270c14e2b94179",
+  "assembly_report_sha256": "06e2753b0a5cf3c8b1d9a6bf3e6b43e048cefab24de029f368228ba1832b2bd1",
+  "uses": [
+    {
+      "id": "U01",
+      "consuming_passage": "PROOF.md; existence.md algebraic transport",
+      "required_assertion": "214 rows encode the changed physical system on q0*q1 != 0; no all-old-witness bijection; N>=53 coefficient bound is separate",
+      "proposed_supplier": "Exact raw224 inverse maps, removed fourth powers, Laurent row identities and primitive quartic coefficient certificate",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Exact unchanged algebra and inverse maps; prior independent Laurent replay/row parse plus present domain comparison.",
+      "direct_consumption": "PROOF exact family; existence algebraic transport; raw224 and current construction/check_exact.py"
+    },
+    {
+      "id": "U02",
+      "consuming_passage": "uniform-existence.md P03-P07",
+      "required_assertion": "All nonzero labels, zero test numerators, split/inert places; relative errors made absolute only after integrality; M_j^3 divides Delta and M_j divides J",
+      "proposed_supplier": "Normalized rank-one curve, actual subgroup generator, forced149 recovery, formal-logarithm precision and preparation-zero obstruction",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Exact native rank/formal/scalar supplier reuse; changed finite valuation and logarithm ratio applications freshly checked.",
+      "direct_consumption": "uniform P03-P07 -> P11/P12"
+    },
+    {
+      "id": "U03",
+      "consuming_passage": "uniform-existence.md P08-P09",
+      "required_assertion": "Actual sum, all labels, graph boundary, embedding surjectivity, fixed finite-rank group and ineffective additive constant; B^2 <= M1 h(T)+M2",
+      "proposed_supplier": "Published von Buhren graph-fibre theorem and pointed CM curve identification",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Fresh published Von Buhren1.1 and reconstructed sum graph hypotheses, all nonzero labels.",
+      "direct_consumption": "uniform P08-P09 -> P10"
+    },
+    {
+      "id": "U04",
+      "consuming_passage": "uniform-existence.md P10-P12",
+      "required_assertion": "Both transformed arguments, exact contacts, squarefree discarded support, exponent 7/6, separate divisibilities, single N_S uniform in rational x",
+      "proposed_supplier": "Full-family H4 height and scalar/parity/four-contact and Lucas interfaces",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Current full-family height and reflected maps checked, same Delta/J and separate detector divisibility.",
+      "direct_consumption": "uniform P10-P12; H4 -> physical transformed arguments"
+    },
+    {
+      "id": "U05",
+      "consuming_passage": "uniform-existence.md P13-P18",
+      "required_assertion": "N_C independent of integer x; all later data fixed before X_sel; merged repeated coefficients retain incidences; CRT compatible; fresh actual pole inputs",
+      "proposed_supplier": "Scalar preparation, real recurrence, fixed-data Gaussian theorem and CM reduction orders",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Uniform scalar preparation and fixed-data CRT application compared with analytic lane, exact native scalar reuse.",
+      "direct_consumption": "uniform P13-P18 -> P19/P20"
+    },
+    {
+      "id": "U06",
+      "consuming_passage": "uniform-existence.md P19-P20; source-carry C04-C07",
+      "required_assertion": "Actual E_l non-CM, l positive squarefree 11 mod12, both n and n theta including theta=1; full Selmer corank precedes finite Sha; independent detector certificates",
+      "proposed_supplier": "Restricted converse and forward rank-one/finite-Sha and Kummer theorem",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Independent RC review actual full-index/class/control and new pole inputs; exact native unchanged remainder.",
+      "direct_consumption": "source-carry C04-C07; uniform P19/P20"
+    },
+    {
+      "id": "U07",
+      "consuming_passage": "geometry-carry.md G1-G4; provider-scope-carry P1-P3",
+      "required_assertion": "All rational primitive pairs including infinity, deep even contacts and M=1; degree divides576; all Hom over same L; no D6 substitution",
+      "proposed_supplier": "Whole D210 full-three canonical fine cover, Hom and maximal-stack metric, CM854R",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Independent geometry report/direct-edge acceptance, complete current G1-G4/P1-P4 and exact D210 source.",
+      "direct_consumption": "G2/G3 -> M0/M2 and H0; G4 -> H4"
+    },
+    {
+      "id": "U08",
+      "consuming_passage": "modularity.md M1",
+      "required_assertion": "Changed minimal2-primary chi, finite sign cochain, unwanted inertia removal and normal controlled Lprime; exact same original rho restricts to V(A)",
+      "proposed_supplier": "Local reciprocity, constant squaring sequence, global Brauer injection/invariant sum",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Independent M1_REVIEW/M1_BINDINGS.",
+      "direct_consumption": "M1 -> M2/M5/M6 and H1"
+    },
+    {
+      "id": "U09",
+      "consuming_passage": "modularity.md M2",
+      "required_assertion": "Original r5 continuous absolutely irreducible geometric odd, de Rham weights {0,-1}, finite ramification; modular up to twist",
+      "proposed_supplier": "Faltings, Scholze corrected comparison, Fontaine closure, Kato descent, complex comparison, published Calegari theorem",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Geometry independent M2 comparison including corrected Scholze comparison, exact native source reuse.",
+      "direct_consumption": "M2 -> M3/M4/M6"
+    },
+    {
+      "id": "U10",
+      "consuming_passage": "modularity.md M3",
+      "required_assertion": "Final primitive weight2 f realizes original r5; dual/Frobenius/HT convention and inverse finite-unit character; finite twist absorbed",
+      "proposed_supplier": "Deligne-Serre primitive extraction and weight-one realization, Kato realization, reciprocity and Shimura twist",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "M3_M6_REVIEW and NATIVE_PRIMITIVE_REVIEW; exact new author conductor/current-native clarification.",
+      "direct_consumption": "M3 -> M4/M6 and H1/H2"
+    },
+    {
+      "id": "U11",
+      "consuming_passage": "modularity.md M4",
+      "required_assertion": "Same algebraic tau_p and same final f at3, actual global isomorphism, pair3/5 covers every residue prime; coefficient comparison field not Lprime",
+      "proposed_supplier": "Milne endomorphism degree polynomial, specialization transitions, Serre density/trace uniqueness",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "M3_M6_REVIEW: same algebraic trace across fixed embeddings, actual relative Frobenius; full GQ comparison.",
+      "direct_consumption": "M4 -> M5 full prime coverage"
+    },
+    {
+      "id": "U12",
+      "consuming_passage": "modularity.md M5; provider-scope-carry P4",
+      "required_assertion": "Original local representation including monodromy; changed lift tame/wild indices, exponents70,18,18,6, radN divides R and CN R^2",
+      "proposed_supplier": "Carayol full local theorem, full11 semistability, division-B torus, Serre upper numbering",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "M3_M6_REVIEW: direct final Carayol and current wild bounds.",
+      "direct_consumption": "M5 -> H0.2/H4 actual level"
+    },
+    {
+      "id": "U13",
+      "consuming_passage": "modularity.md M6; height-supplier H1-H2; primary-source-bridges",
+      "required_assertion": "All e embeddings over actual Lprime; Af~A^r, r=e/2, s/r<=4, exact J=Jac(X1(N)/ker epsilon) has Lprime-subvariety A^r",
+      "proposed_supplier": "Top determinant, Li Fricke, Shimura quotient, all coefficient conjugates, Faltings Hom, Poincare",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "M3_M6_REVIEW: all conjugates, determinant, rational Hom descent, same-field invariant quotient.",
+      "direct_consumption": "M6 -> H1/H2 -> height averaging"
+    },
+    {
+      "id": "U14",
+      "consuming_passage": "height-evaluation.md \u00a7\u00a71-5",
+      "required_assertion": "Same nonmaximal C=B/(t-2), integral global differentials ev into Cdual and projected lattice bound; all primes and one global subset I",
+      "proposed_supplier": "Finite normalization/flatness, common regular model, canonical finite duality and literal trace specialization",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Whole source read; actual earlier nonauthor integral proof/source reconstruction reused at exact unchanged scope; current object comparison.",
+      "direct_consumption": "height-evaluation1-5 -> height-assemblyB/C"
+    },
+    {
+      "id": "U15",
+      "consuming_passage": "height-different.md \u00a7\u00a71-5",
+      "required_assertion": "Every component full residue degree, differential n not n^2, actual primitive-point H quotient, primes dividing N retained, normalized logdisc <= d(log12+logN+2logd)",
+      "proposed_supplier": "Full trace-discriminant sum, imperfect-residue Lenstra, finite flat LCI torsion different and intermediate fields",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Whole source read; all component sum/torsion/model/maps checked with exact earlier published-source review.",
+      "direct_consumption": "height-different1-5 -> height-assemblyC"
+    },
+    {
+      "id": "U16",
+      "consuming_passage": "height-metric.md \u00a7\u00a71-3; height-assembly.md A-D",
+      "required_assertion": "Same curve/order/lattice/trace/global I, determinant sign and scalar, auxiliary K cancels; H0.3 for same J and g>=2",
+      "proposed_supplier": "Published original stable metric identity, Riemann-Hurwitz, evaluation rank and disc mean value/Hadamard",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Whole source read; same lattice/order/metric/global minor and original J; exact earlier source comparison.",
+      "direct_consumption": "height-metric1-3 -> assemblyA-D -> H0.3/H4"
+    },
+    {
+      "id": "U17",
+      "consuming_passage": "height-averaging.md; height-supplier H3-H4",
+      "required_assertion": "r separate simple occurrences over same Lprime; negative heights and zero complement; selected dimension2 C_i -> A; H3.1 unchanged; historical quotient route superseded",
+      "proposed_supplier": "Published GR2023 Lemma16.2(1) proof product construction, GR2014 lower/change bounds, GR2023 Theorem1.9(1)",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Exact published product application reviewed with actual prior primary-source reconstruction and current M6 input.",
+      "direct_consumption": "height-averaging -> H3.1 -> H4"
+    },
+    {
+      "id": "U18",
+      "consuming_passage": "height-supplier H4",
+      "required_assertion": "C2<2^(7557/32), alpha2103/1024, all M>=1, CM and non-CM branches; no numerical N0",
+      "proposed_supplier": "Explicit rational log certificate and elementary monotonicity",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Proof and monotonicity checked; exact unchanged finite rational certificate uses prior independent replay.",
+      "direct_consumption": "H4 -> uniformP10"
+    },
+    {
+      "id": "U19",
+      "consuming_passage": "source-carry C08-C10; FOUNDATION_TRANSITION.md",
+      "required_assertion": "Exact lifts before smaller lattice; same uniform estimates not numerical local-factor identity; fixed data before cutoff/field/X_sel, same GI/prime output consumed",
+      "proposed_supplier": "Current V16 GI finite-cover normalization and fixed-extra-factor Tao-Ziegler proof adaptation",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Analytic reviewer exact fixed-E/GI/Gaussian receiving comparison plus accepted native source.",
+      "direct_consumption": "FOUNDATION_TRANSITION -> source-carryC08-C10 -> uniformP16"
+    },
+    {
+      "id": "U20",
+      "consuming_passage": "FOUNDATION_TRANSITION.md; source-carry C01-C13",
+      "required_assertion": "Whole current foundation replaces historical V15 receive statements; three changed joins reviewed; historical acceptance separate from current consumer acceptance",
+      "proposed_supplier": "Exact V16 receiving foundation and retained source proofs",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Exact native record-repair reuse, actual transition and new independent RC/analytic/geometry/history comparisons.",
+      "direct_consumption": "FOUNDATION_TRANSITION -> all current source-carry interfaces"
+    },
+    {
+      "id": "U21",
+      "consuming_passage": "existence.md 218 control",
+      "required_assertion": "Separate control claim on nonzero weights; no new height bound needed; outside primary214 claimed theorem but present and must be scoped",
+      "proposed_supplier": "Original exponents and same raw224 maps",
+      "status": "accepted mathematical application within named scope; receiving typography separate",
+      "classification": "substantive",
+      "review_basis": "Exact original-exponent transport on nonzero-weight domain; completeness supplies positive q.",
+      "direct_consumption": "existence218 control, excluded from214 premise set"
+    }
+  ],
+  "source_level_assembly": "accepted at bound scope",
+  "complete_receiving_inventory": "pending final receiving revision and semantic transport review",
+  "controller_approval": false
+}

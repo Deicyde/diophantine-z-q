@@ -1,0 +1,1422 @@
+{
+  "reviewer": "/root/d214_current_closure_review",
+  "sections": [
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "lines": [
+        1,
+        4
+      ],
+      "excerpt_sha256": "03750ec706dad7d24a10c662fe13cbed872fc805425823a3dcce3c5e41c438f3",
+      "heading": "# Assembly of the selected 214 construction",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "lines": [
+        5,
+        12
+      ],
+      "excerpt_sha256": "121754909648effce751e5877910d548c0b2e2be9a6277745f3bc196ef595fe7",
+      "heading": "## Exact family and domains",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "lines": [
+        13,
+        28
+      ],
+      "excerpt_sha256": "b62c7d2e6031c49aaa44c202e3d7a519f8ff3e41ae50e2c817bbce4c3c931c47",
+      "heading": "## Source objects and changed applications",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "lines": [
+        29,
+        38
+      ],
+      "excerpt_sha256": "6e65dfeb73c7a0681090c423f84d31cb78944693d02f52287d77d87b7d0afe34",
+      "heading": "## Soundness with one fixed threshold",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "lines": [
+        39,
+        44
+      ],
+      "excerpt_sha256": "54c2502fc15a033bc5182a97f2ee7a348f20732ffe372a8c2eedb4891588d3f2",
+      "heading": "## Completeness and quantifiers",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "lines": [
+        45,
+        49
+      ],
+      "excerpt_sha256": "6e1455a4c0aad1263172fca330ad5b7afcb140ab752a15ce1be9a1f6f533c317",
+      "heading": "## Review boundary",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "lines": [
+        1,
+        4
+      ],
+      "excerpt_sha256": "1dd68fbaed75cdec37698cc9c9c5f23b130e749a22a4d6e07a07b35b26c4b3d5",
+      "heading": "# Reciprocal clearing on the 224-coordinate predecessor: 214 and 218",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "lines": [
+        5,
+        14
+      ],
+      "excerpt_sha256": "c969bf6fe5136af105c6eebe3e09976b7ef5f9f625f99ee9dc81a00b2f265219",
+      "heading": "## Statement and exact objects",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "lines": [
+        15,
+        26
+      ],
+      "excerpt_sha256": "328207628c4a1495c1dab04a823db956bd5e9079be22faf33b1c6533174f5ed1",
+      "heading": "## Algebraic transport, domains and source-interface recovery",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "lines": [
+        27,
+        51
+      ],
+      "excerpt_sha256": "faf1c14722025af70ea113cbcae75a16e5e9e5645d4c934a53c398aedc342114",
+      "heading": "## New local factors and soundness for214",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "lines": [
+        52,
+        79
+      ],
+      "excerpt_sha256": "021376f7a7d7bc97f3124614dea6135070f11788db66814c765a55c430dc04b9",
+      "heading": "## Height supplier and global consumers",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "lines": [
+        80,
+        89
+      ],
+      "excerpt_sha256": "99b6913bfda6c69c606eb8ccc715772188a9beed926ed97dc1a1eafe681d148b",
+      "heading": "## Fresh completeness and the218 control",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "lines": [
+        90,
+        92
+      ],
+      "excerpt_sha256": "fc0f6a2e7b8e1025c0df573b19370c3635442edb7b6a0615058ab1af42a7d950",
+      "heading": "## Scope and evidence",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "lines": [
+        1,
+        4
+      ],
+      "excerpt_sha256": "98c1b63835163c28f22cf13d5ed9d3a23c283b3a4da3a1bb43e4be1d21469d16",
+      "heading": "# H01: the actual D210 geometry and the small S10 application",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "lines": [
+        5,
+        12
+      ],
+      "excerpt_sha256": "6c1d1ad538daaa4e7abfc28582ec607812034b7ae134b77657002490b8258b48",
+      "heading": "## G0. Locator correction and exact scope",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "lines": [
+        13,
+        24
+      ],
+      "excerpt_sha256": "3bc4f9a1dc06937c1274e8afc597e32f03da554b2d1f9b1c2f42a741b521fe62",
+      "heading": "## G1. Exact text and retained public scopes",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "lines": [
+        25,
+        32
+      ],
+      "excerpt_sha256": "fc03d911267a4dd2863908aaba7a1839aa8493b335c82e5e6ef6d021221b71c9",
+      "heading": "## G2. Same cover, field, Hom and surface for every allowed a",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "lines": [
+        33,
+        56
+      ],
+      "excerpt_sha256": "a8f7e15152e5e83bbb14e961dc310ea25ec066228f5cf20798c62dff686cd290",
+      "heading": "## G3. Fresh support extension to S10, with all contact cases",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "lines": [
+        57,
+        76
+      ],
+      "excerpt_sha256": "95792554b943c51321553925093703ff4bacbddfcd46f875bd9ede0331deeaa1",
+      "heading": "## G4. Metric and CM consumers of that exact field",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "lines": [
+        77,
+        81
+      ],
+      "excerpt_sha256": "8085c0dc62cca48abf6c118113f447262b7b0bfcd26dd428ddf5015bcc10f7ac",
+      "heading": "## G5. Dispositions and acceptance boundary",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-assembly.md",
+      "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+      "lines": [
+        1,
+        4
+      ],
+      "excerpt_sha256": "472dbbe88cd5768529580c96ba08bb2731bbd3253be94dcb8b69dc4a462f9aa8",
+      "heading": "# Assembly at the actual modular-Jacobian consumer",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-assembly.md",
+      "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+      "lines": [
+        5,
+        16
+      ],
+      "excerpt_sha256": "111e1cc69151e76014c3b4cb1754a68ad981907314eca5cc8c4dca2bb877e9d9",
+      "heading": "## A. The scoped theorem",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-assembly.md",
+      "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+      "lines": [
+        17,
+        36
+      ],
+      "excerpt_sha256": "4730d44f1dbb1b3fdfe1fc3832d41190db2361f1197819b01a73bd9fe859d3a9",
+      "heading": "## B. Same curve, order, lattice and maps",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-assembly.md",
+      "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+      "lines": [
+        37,
+        44
+      ],
+      "excerpt_sha256": "c8e48de7744c180e1a9bd5472660e0203351aa9266a866751081dd47f9b8a575",
+      "heading": "## C. Same discriminant and constant",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-assembly.md",
+      "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+      "lines": [
+        45,
+        52
+      ],
+      "excerpt_sha256": "f16c1fa9634093fdd61cb06fcb77094afb4fabaedc12b0f5e14cc14bae5534ef",
+      "heading": "## D. Actual H0.3 and the two downstream families",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-assembly.md",
+      "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+      "lines": [
+        53,
+        57
+      ],
+      "excerpt_sha256": "2c2c2ff372fc42ff00bbb5c31526b5522debdc39389b4be6e91c8eb28abeea81",
+      "heading": "## E. History and remaining closure",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "lines": [
+        1,
+        4
+      ],
+      "excerpt_sha256": "91486e82e9b5272caecd98602840f03b92fd61251fe1b35943eb0762cb645187",
+      "heading": "# Published product route for the multiplicity saving",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "lines": [
+        5,
+        12
+      ],
+      "excerpt_sha256": "d56f53793b2969a43c6e03ef65d0f2b2b8176f6f1065ebc2ae7cb62a4d4e84cf",
+      "heading": "## Sources and historical disposition",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "lines": [
+        13,
+        26
+      ],
+      "excerpt_sha256": "e782243317084b125de842154ba63c2bb1cbab33e960ce331cf46954f5946b82",
+      "heading": "## Fixed-field product and multiplicity",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "lines": [
+        27,
+        47
+      ],
+      "excerpt_sha256": "44886c8a265b8a765d4e2b80b9c2254b96089151358e1aac2d912b97ddc50bbb",
+      "heading": "## Height average and transfer",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "lines": [
+        48,
+        60
+      ],
+      "excerpt_sha256": "a1db3288da8892b0dccbd2a9221376e3954df9103a2bcf1ac55ebc60bb2c78b4",
+      "heading": "## Nine application obligations",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "lines": [
+        1,
+        10
+      ],
+      "excerpt_sha256": "727fab4dfafea03beb77e6cc2ea28ca8722ae6a9bc819a5efccf00d949485ad7",
+      "heading": "# Different and modular-model bridge for the retained height bound",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "lines": [
+        11,
+        26
+      ],
+      "excerpt_sha256": "77cba9e0a293291607ed31a49bf1330727c8fa280b2ed7728395990fc1b327f6",
+      "heading": "## 1. Fixed objects and the trace-discriminant identity",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "lines": [
+        27,
+        56
+      ],
+      "excerpt_sha256": "57f2bd0a37f3d61345b3a1052c30119fb0636119be51c4443bce0ea061a15043",
+      "heading": "## 2. Lenstra's estimate really covers the vertical DVR",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "lines": [
+        57,
+        86
+      ],
+      "excerpt_sha256": "0ea22f7ba6ecff82fb4d010ac1c9641bb41c57d22a1fee853eac614e193c5ae1",
+      "heading": "## 3. Torsion different as an identity of fractional ideals",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "lines": [
+        87,
+        108
+      ],
+      "excerpt_sha256": "1401e680c0ee9f3c000547f451aaaeb54f1b670de9fee3c1d4d73b5441bf90aa",
+      "heading": "## 4. The actual primitive torsion quotient",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "lines": [
+        109,
+        126
+      ],
+      "excerpt_sha256": "6578cd19517c3f0f781ff641d8fea0794e77c98f9db4e1b82a3c6349554c8cca",
+      "heading": "## 5. Same constant at every prime",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "lines": [
+        127,
+        131
+      ],
+      "excerpt_sha256": "e9b5351a18f865568e8ee46c4abccda54fe32b09dbf4bc7677df10d5e009870b",
+      "heading": "## 6. History, incorporation and limits",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "lines": [
+        1,
+        15
+      ],
+      "excerpt_sha256": "d253defe97e64eef2a0dabcf67b67495d1c1a02fbfbe9e345a13ce51e5325c4d",
+      "heading": "# Integral evaluation and the trace-dual lattice",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "lines": [
+        16,
+        31
+      ],
+      "excerpt_sha256": "5895b02911992e7bd7df54219234f84d0d003a66d74d89b307321dcca59c3950",
+      "heading": "## 1. Objects and finite flatness",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "lines": [
+        32,
+        51
+      ],
+      "excerpt_sha256": "28f943b84c5eb7eb86876ad68ec86f9e856a21fba948ee054c9d0187a8d4ca12",
+      "heading": "## 2. A common regular model with the required direction",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "lines": [
+        52,
+        72
+      ],
+      "excerpt_sha256": "df805dea8337211dfba4f46a83cc7861f20bdb6e75a3c8e4601b718d6aa5f648",
+      "heading": "## 3. The canonical module and its extension",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "lines": [
+        73,
+        104
+      ],
+      "excerpt_sha256": "e663066549e3b005c91f7adeac2cafa88c7d6c1e4b334ed5d47e68a867b48083",
+      "heading": "## 4. Trace normalization and specialization are the actual evaluation",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "lines": [
+        105,
+        124
+      ],
+      "excerpt_sha256": "c13784f0fe855e8f6ba77e433db65cf94fb07fb27da8d49f032e39323ab57a89",
+      "heading": "## 5. Trace-dual projection and arithmetic degree",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "lines": [
+        125,
+        129
+      ],
+      "excerpt_sha256": "778c466de496c18fa24efbc804286dcdd75f8981b71eca8e8b244f4df1da3174",
+      "heading": "## 6. Exact consumer and bounded status",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-metric.md",
+      "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "lines": [
+        1,
+        4
+      ],
+      "excerpt_sha256": "c4003939ec44506e2550337a71c2b8584846e6960f2e3931373ea320105b41cf",
+      "heading": "# Metric and archimedean evaluation bridge",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-metric.md",
+      "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "lines": [
+        5,
+        18
+      ],
+      "excerpt_sha256": "b89c16a8d1f9925caac788ffcc3a7bec7e042b4d3ccad9ba383b0486e6ef6f60",
+      "heading": "## 1. Published normalization and actual Jacobian",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-metric.md",
+      "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "lines": [
+        19,
+        40
+      ],
+      "excerpt_sha256": "24153782b70933055ffb84bd0401f59ab4a99ec20cf4494d691564b744d706e5",
+      "heading": "## 2. One global coordinate choice and its analytic bound",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-metric.md",
+      "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "lines": [
+        41,
+        56
+      ],
+      "excerpt_sha256": "3c242d27b828b098e42732a7271396702428ecbba8ad4c0e14ba3de168ea28b8",
+      "heading": "## 3. Arithmetic degree, signs and consumer",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-metric.md",
+      "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "lines": [
+        57,
+        59
+      ],
+      "excerpt_sha256": "e3cebb4ee2fb04d14d95d970e74902ae5613cb8551216e9bfd2d7da106201d86",
+      "heading": "## 4. Scope and incorporation",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "lines": [
+        1,
+        6
+      ],
+      "excerpt_sha256": "89b288a645f4cdedd6d642461c5b36780ef2c1281ed2fc4cabce8344548409dd",
+      "heading": "# Quadratic S10 contact supplier and its reflected effective consumers",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "lines": [
+        7,
+        32
+      ],
+      "excerpt_sha256": "3c61de9b62e636063cf74beddc40dd6b10ce7bada0c182b8a10432bd6bc34850",
+      "heading": "## H0. Exact inherited interfaces and domain",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "lines": [
+        33,
+        61
+      ],
+      "excerpt_sha256": "6d034b817da3428e7d8eb8df1414f41e2616ae6b4726f8b3c9c18efaa6c2b4ea",
+      "heading": "## H1. Minimal two-primary characters and the actual normalized field",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "lines": [
+        62,
+        77
+      ],
+      "excerpt_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+      "heading": "## H2. Multiplicity over L', not only geometric multiplicity",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "lines": [
+        78,
+        96
+      ],
+      "excerpt_sha256": "0da22946b7baf5e4390ea64606b6b2d2889be808a3d7d4c08fdd6da52742c8ad",
+      "heading": "## H3. Historical averaging route (superseded in this public application by height-averaging.md)",
+      "scope": "explicitly superseded quotient route; excluded from operative214 premises",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "lines": [
+        97,
+        134
+      ],
+      "excerpt_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+      "heading": "## H4. S10 quadratic constant, all M>=1",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "lines": [
+        1,
+        4
+      ],
+      "excerpt_sha256": "3fa303cf2b689dff5be033229025e31b57ddb21b0959c46dc9aa975ddf091d9c",
+      "heading": "# Original normalized modularity for the private 214 construction",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "lines": [
+        5,
+        12
+      ],
+      "excerpt_sha256": "6b729fa5b2f7c9c9334cbe2864b04457bcf66e75aaee18f1861d38800e94707a",
+      "heading": "## M0. Exact input and conclusion",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "lines": [
+        13,
+        34
+      ],
+      "excerpt_sha256": "1fbb7e7b322d7ff98ffafe33cd15773b4e99f3eaaf323465c84f83bfb8cf95ae",
+      "heading": "## M1. The changed two-primary lift",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "lines": [
+        35,
+        46
+      ],
+      "excerpt_sha256": "51339241dd0f243dde66dde9cd9a50bd70dc2ec70f0099b136bd6c903dfceda2",
+      "heading": "## M2. Modularity hypotheses for the actual original r_5",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "lines": [
+        47,
+        62
+      ],
+      "excerpt_sha256": "431fb576c5f3ddc2111464d36970e02d618dcb2ef9de2b0f5c0bec9b0567ca1e",
+      "heading": "## M3. Weight, finite twist and final primitive form",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "lines": [
+        63,
+        78
+      ],
+      "excerpt_sha256": "a01c7d071bbbfccacfba052ee4385a8e6d760eb3e2c4db13d75f83a8d4f1b20c",
+      "heading": "## M4. Original companion r_3 and full prime coverage",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "lines": [
+        79,
+        98
+      ],
+      "excerpt_sha256": "f46b2da7ac1a8d80bc47d8c041d02854a7a4fde9259b17f08543e522be91120d",
+      "heading": "## M5. Final level and changed-lift conductor bound",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "lines": [
+        99,
+        120
+      ],
+      "excerpt_sha256": "651952496261b576100089654ea265a22ecfddf8e9e0f174bfa21d4f9eca1c7e",
+      "heading": "## M6. Determinant, multiplicity and the exact modular quotient",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "lines": [
+        121,
+        125
+      ],
+      "excerpt_sha256": "0da3da13a34a486fd82d263546512d9e007fed87c9c2f0611541de9cf3c9967c",
+      "heading": "## M7. Historical and current dispositions",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+      "lines": [
+        1,
+        4
+      ],
+      "excerpt_sha256": "a159179827f30cbd7e12b3f4979a073ba948d170f8dd840cb205f016b112bc37",
+      "heading": "# Published-source bridges for the inherited multiplicity argument",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+      "lines": [
+        5,
+        14
+      ],
+      "excerpt_sha256": "4a58e6850a292413d271a57ec8633cb549748bfb0b82ff11956b3c7b98f5407c",
+      "heading": "## Faltings: the actual field and Tate objects",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+      "lines": [
+        15,
+        20
+      ],
+      "excerpt_sha256": "05deebb745294c876d4e4c4e29314b7eca674cef6699a7f2f51111dd0769dc19",
+      "heading": "## Poincare reducibility over the stated ground field",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+      "lines": [
+        21,
+        34
+      ],
+      "excerpt_sha256": "04153ac9de359fe20d17179018d4c7d431784cb67239f4bd3f36306309a639f5",
+      "heading": "## Nine application obligations",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+      "lines": [
+        35,
+        42
+      ],
+      "excerpt_sha256": "498c4ff99aafea25bf31d81ae5209d5500a80e43f1edd9907283371e3a20b612",
+      "heading": "## Li's Fricke condition for the modular quotient",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+      "lines": [
+        43,
+        50
+      ],
+      "excerpt_sha256": "d76bf5075dd7ea71c03d43db8a6b46e0d4476330aa1e6eb1cb402c938f9a421b",
+      "heading": "## Original-normalization lower bound used in H3",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+      "lines": [
+        51,
+        55
+      ],
+      "excerpt_sha256": "b33985f19d8cfe5dfb0ff655f250011fc71dca65b6149d4a205ee80f4e9ff235",
+      "heading": "## R\u00e9mond publication-version check remains open",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/provider-scope-carry.md",
+      "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+      "lines": [
+        1,
+        4
+      ],
+      "excerpt_sha256": "7ad0a6312034eef1acf9ab85b8761209f467eb9f483aa86262cb4d66d46a6ba5",
+      "heading": "# Exact retained D210 provider and conductor scope",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/provider-scope-carry.md",
+      "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+      "lines": [
+        5,
+        31
+      ],
+      "excerpt_sha256": "4c67aa3cf464607015d69cf6aaafccffd8b5cd17bb6a45741191de2773bfb556",
+      "heading": "## P1. Full D210 provider: sixteen actual applications",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/provider-scope-carry.md",
+      "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+      "lines": [
+        32,
+        43
+      ],
+      "excerpt_sha256": "4b149f9ee5969ab78d663032c8c543fa09f01bc1ea382de942b00e573bcf6c75",
+      "heading": "## P2. The five old pending bundles, and what is retained",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/provider-scope-carry.md",
+      "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+      "lines": [
+        44,
+        51
+      ],
+      "excerpt_sha256": "0e64947db134bfc06a2d6563a4e54ad964fddeb11d071eb93ae64be1291dadc3",
+      "heading": "## P3. Contact-line identity and tame branch composition",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/provider-scope-carry.md",
+      "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+      "lines": [
+        52,
+        68
+      ],
+      "excerpt_sha256": "90d49bd28f7c110371c5688eb28fc4a780c34c6652fb1cea9ce485b0dbec1514",
+      "heading": "## P4. Full11 semistability, torus rank and exact retained ramification source",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "lines": [
+        1,
+        4
+      ],
+      "excerpt_sha256": "7c1c14452d5cdb4540ea8d2d0c6760843f425c82e309fe69d3d66f3dc28fba28",
+      "heading": "# Exact retained analytic and restricted-converse carry to existing214",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "lines": [
+        5,
+        6
+      ],
+      "excerpt_sha256": "cb95d0dfbbc8bf046314587c75994f5969b958887c28d316d6f05dc6e5b76455",
+      "heading": "[C01: carry rule and exact source] Both the latest public manuscript and the entire frozen214 `existence/sources/quartic_v15.tex` are the same1924438 raw bytes, SHA25644ba3a8ec8521",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "lines": [
+        7,
+        8
+      ],
+      "excerpt_sha256": "a64bddd5155ee36bd11879cffe2d0e54798c7f899cccaf350b8f0f058879a1eb",
+      "heading": "[C02: restricted statements selected from broad targets] The relevant public targets are V15-FOUNDATION, V15-PROJECT-CLOSURE, V15-GAUSSIAN, KATO-1999-INDEX-AND-CLASS, GI-00-ASSEMBL",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "lines": [
+        9,
+        10
+      ],
+      "excerpt_sha256": "716612557070707ca5ebb7de644913a0582fd9c35bc013543f80b941efd3a9ac",
+      "heading": "[C03: exact rank and normalization] Read the actual generator proof at V15:347\u2013443: two-isogeny descent, local squareclasses, torsion reductions, duplication-height comparison and ",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "lines": [
+        11,
+        18
+      ],
+      "excerpt_sha256": "ac1ec2f28004645eca77b3d586e13b900418ebf6274ddaec60b8aa0030356169",
+      "heading": "[C04: exact RC input/output at the pole consumer] The retained restricted converse is",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "lines": [
+        19,
+        20
+      ],
+      "excerpt_sha256": "60ef262a10629deba2b35a6e5c249162d2e7f4e2add7d0b3be63452aa5e9434d",
+      "heading": "[C05: Kato required full index set] Read the actual current proof at13347\u201313946 and the actual earlier v11 `norms.md` and `interface.md` arguments. For a fixed constituent with pri",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "lines": [
+        21,
+        27
+      ],
+      "excerpt_sha256": "2062604cfbac11e34bd3713ca14e770060dd5280b9ded21c6fe4765378da7d8a",
+      "heading": "[C06: Kato transitions and actual limiting class] For every prime q not dividing Nprime, if q|m then S_Dmq=S_Dm and Proposition8.12 contributes the empty product, factor1. If q doe",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "lines": [
+        28,
+        29
+      ],
+      "excerpt_sha256": "879db43fac6ae24d7808f8a31dd2c289a59489c68856a97c2d1a2a0239a82f3b",
+      "heading": "[C07: RC assembly object preserved] The even bound uses one fixed-form, retained-smoothed class over one group ring, not separate varying-newform lattices. Smoothing has v2(s_F)=2e",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "lines": [
+        30,
+        31
+      ],
+      "excerpt_sha256": "a116615b618f66eb105aafef17452c7133df8b24b05c9360ff2258b60de05fda",
+      "heading": "[C08: internal GI has the required output] Read the actual current assembled target at23826ff and the earlier standalone00-assembly argument, including its replacement joins. For f",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "lines": [
+        32,
+        33
+      ],
+      "excerpt_sha256": "e49b24b87eb8d9d14e2fa674df64c3ff3a96446613c2f3e52fa9c1e8076d8a3a",
+      "heading": "[C09: GI to Gaussian relative input] Read the actual current Gaussian join at19660\u201319746. For a required norm order s>=2 it sets r=max(s,4), k=r-1>=3, fixes pseudorandom complexity",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "lines": [
+        34,
+        35
+      ],
+      "excerpt_sha256": "754e26d4fd45715a3c998346fd1bbdfdecc076fe2e772ab9cce6dbc65b5e0a26",
+      "heading": "[C10: Gaussian finite-field and tail scope] The actual proof at17545\u201320359 uses fixed E=Q(i) ray fields, arithmetic Frobenius, Mitsui fixed-field Hecke estimates, ordinary prime ma",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "lines": [
+        36,
+        37
+      ],
+      "excerpt_sha256": "1f7c6a079912e8b19f4363cad35a8fa3ce0206d44074c3012c84d3111a783949",
+      "heading": "[C11: source-profile arithmetic replacements selected exactly] The two final source-profile files have raw hashes3668753afd46bff7e3a1bc3bed63d2f102009d5bd3d379fa67411c55b2aaa2d2 an",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "lines": [
+        38,
+        39
+      ],
+      "excerpt_sha256": "d5d733ec7bd727190b56cd954760cee691e4ae1dd64a4246158db57757809940",
+      "heading": "[C12: changes that are freshly checked, not carried by their conclusions] SF28's old reflected exponent7/4 is replaced in214 by the new full-family height transfer giving7/6; its a",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "lines": [
+        40,
+        40
+      ],
+      "excerpt_sha256": "1d01d255dec4a33b359455b425c013b37311d7e7b7f159746c77fbd66f3941c3",
+      "heading": "[C13: exact disposition] Within the inspected source-to214 analytic/RC/rank/prime/scalar/pole joins, no unmatched mathematical required input remains after the frozen supplement is",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        1,
+        4
+      ],
+      "excerpt_sha256": "5c98612f0eb9a75fa16e28864d609f1cd32d1285b9cb32237fb06a088b535759",
+      "heading": "# Existing 214: uniform existence and actual completeness interfaces",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        5,
+        11
+      ],
+      "excerpt_sha256": "cac4ef0c21ba83314e59ffa0579adf0f51a8c2e818f4cec623a185f5a3dd7687",
+      "heading": "[P01: exact theorem] Let the 214 family be exactly the family with 188 primitive integral quadratic residuals in `research/quadratic-ten-contact-integration/existence/artifacts/can",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        12,
+        13
+      ],
+      "excerpt_sha256": "cf80e8c1487f3652f496a45f2061e034755f5e13d5605e773713e774268268e8",
+      "heading": "[P02: scope of source carry] The entire latest PR26 manuscript at public checkout HEAD 1a49013b5683f58d2f88bb018a07d13770354157 and the old 214 frozen `existence/sources/quartic_v1",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        14,
+        15
+      ],
+      "excerpt_sha256": "d3253d2174b1bd295a9d4619d1789ddb70c389bbd6322d31976b228baa189c2f",
+      "heading": "[P03: exact retained inputs] Use K=Q(sqrt2), d=3-sqrt2, E:y^2=x^3-d^2 x, and the same P=2(1+sqrt2,2sqrt2). The four nonzero integer labels are (n,a,t,b), c=|a| and B=max(|n|,|a|,|t",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        16,
+        17
+      ],
+      "excerpt_sha256": "29188371577dc399828ac0dabf5ad7a393c89a37e218cf2986189377f9b51d6b",
+      "heading": "[P04: restored objects and branches] The old existence proof's exact Laurent clearing and raw224 inverse maps reconstruct the physical reference/scalar/root system before any ratio",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        18,
+        27
+      ],
+      "excerpt_sha256": "b70bd6cb7d0d2097d023c5bea0d360109ee7aa687300ed1848e20bbfa6c0f67f",
+      "heading": "[P05: changed local factors] At a consumed p outside Sigma and either place above p, normalize v(p)=1. Exactly one contact factor has positive odd valuation nu, delta_j is a unit a",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        28,
+        29
+      ],
+      "excerpt_sha256": "9e23c54304e33cd931ddb6c32136f107d2c26ebbecd106d724ace02358ab60f6",
+      "heading": "[P06: trace/pole extraction] Write W for the product and ell=max_{v|p}v(W)<=0. The literal cleared trace equation w0^2-2w0*tau-2w1^2=0, with W=w0+sqrt2*w1, forces w0!=0 since W!=0,",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        30,
+        35
+      ],
+      "excerpt_sha256": "06a47e7d0b2840e0e32e61aa4edb302b9f445ddbce521a40201450c90936e0df",
+      "heading": "[P07: exact integer consumers] Positive reciprocal valuations put H,U_i in the primary formal group and H-P,V_i in its conjugate formal group, with the identity convention at zero ",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        36,
+        37
+      ],
+      "excerpt_sha256": "6f01da126da1b4379ae0ee4b20ad0db063dff200d7dd07ee1209e033392b025f",
+      "heading": "[P08: aggregate source application] The actual aggregate input is the **sum** theorem, not the odd-label product theorem. On E0:Y^2=X^3-X let P1,P2 be the pointed-isomorphism image",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        38,
+        39
+      ],
+      "excerpt_sha256": "4c855cdfd1b2c6c38c0f3a62d9f5f8ac2e73791f1cd9a07cc473a5176d675103",
+      "heading": "[P09: family/normalization join] Apply final published Von Buhren2017 Theorem1.1, printed308, to A=E0^8, parameter P^1, and the integral projective graph closure of F+=(d/2)sum X_i",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        40,
+        45
+      ],
+      "excerpt_sha256": "ec1d73015e71b840bad438043a2423d88398b870efcb51117d5f185b5674c451",
+      "heading": "[P10: height domain and maps] Retain the sibling full-family supplier h(u)<=C2 M_S10(u)^alpha, alpha=2103/1024<7/3, on every rational argument avoiding its four finite contacts; th",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        46,
+        47
+      ],
+      "excerpt_sha256": "0f25cf01d2440fd92863219bf273040a1d8142237f021c0991966f67f9787d66",
+      "heading": "[P11: a single soundness threshold] The actual scalar-S/four-contact argument gives c>0, c>=149^L_N and h(beta)<=C3*149^-L_N*c(1+log(c)/3), C3=2^330770, L_N=floor(9(2N-1)/4)+1. Thi",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        48,
+        59
+      ],
+      "excerpt_sha256": "c5bc7767632a89ff1936193960863e8686d10a37488005c7b22a379cedeeadba",
+      "heading": "[P12: Lucas lower bound and input threshold] With Delta=0 and a,t,b nonzero, set A0=|a|=c and w=sign(a)(a-2)b. Then t^2-c*t*w+w^2=1. The elementary norm-one unit reduction in Z[(c+",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        60,
+        66
+      ],
+      "excerpt_sha256": "8ea0a0565fba3bc25e804e1ce29d3d792ca14026309333a3caeb31c6189f967b",
+      "heading": "[P13: uniform scalar completeness threshold] For integer x, the retained four-factor scalar r4=beta(beta-1)(beta-2401)(32beta+343) is an integer>=1. With R_s=A_N r4/(1+149^2 r4), o",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        67,
+        68
+      ],
+      "excerpt_sha256": "75309fb18a5de7c52de87fbf2d0902c9f9352c380feb5431afeeae624417718b",
+      "heading": "[P14: scalar finite preparation in correct order] For a particular x,N, put D_s=1+149^2 r4. Both gcd(A_N r4,D_s) and gcd(A_N r4+9792D_s,D_s) equal1; thus R_s(R_s+9792) has square r",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        69,
+        70
+      ],
+      "excerpt_sha256": "493a36c877e53621aa3542fa8a48f824eda6177d5889bb0dd60963a2c86146e3",
+      "heading": "[P15: root labels, coefficients and incidences] Put n=beta. For the chosen positive a>=3 choose j>0 divisible by a-2; with the same Lucas recurrence put b=U_j/(a-2) and t=U_{j+1}. ",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        71,
+        72
+      ],
+      "excerpt_sha256": "d4444d396c0e97bfa799ce8fb7a771cc588960c200f8b18e20b3220be4604701",
+      "heading": "[P16: prime theorem quantifiers and CRT] Apply the actual V15 simultaneous-prime theorem to this fixed list, prescribed divisibility q|w, fixed avoidance modulus M=rad_odd(3*17*L) ",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        73,
+        74
+      ],
+      "excerpt_sha256": "90c6d91fe87ef628affd1b8c62c3e020d279671fd474ee7da529eb7a93cc183d",
+      "heading": "[P17: changed factors at the actual fresh witnesses] At any selected contact p, the slope and prime cutoff make p avoid D,w and both scale supports; selected primes are distinct an",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        75,
+        81
+      ],
+      "excerpt_sha256": "164a092b93189d13b4fd7f812f43bc78e614f84eedba17ee1f7ff6c61140b53f",
+      "heading": "[P18: all other primes and completions] For each physical scale a_*, the exact identity is",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        82,
+        83
+      ],
+      "excerpt_sha256": "d6a8bdbdff3744b70becebf04dc13868154836f381b6ca5e339886dc9d2deef3",
+      "heading": "[P19: actual pole theorem and its curve domain] The input just constructed has square reduced denominator,0<mathfrak_b<17, local squares at2,3,17 and depths4,2,2, meeting the exact",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": [
+        84,
+        84
+      ],
+      "excerpt_sha256": "2ef064324d6b4998acb95450946310eefab309878bc9b742fb6473a4dbc78e98",
+      "heading": "[P20: final quantifiers and limitations] For every N>=N_C and every integer x, P14-P19 construct rational witnesses (existentially) in the original physical system, with the change",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+      "lines": [
+        1,
+        4
+      ],
+      "excerpt_sha256": "2db9b2dcc3197e2a06f737816a11eaaa3d651b8f9ea63a033d819217a947963b",
+      "heading": "# Current Version 16 foundation and the 214 consumers",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+      "lines": [
+        5,
+        10
+      ],
+      "excerpt_sha256": "0c6d5c5fa950272a8f5eb96bb1fc5d5e0a67b772aa3073a3fea7eb1039ce893b",
+      "heading": "## Current source rule",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+      "lines": [
+        11,
+        20
+      ],
+      "excerpt_sha256": "bfd25e2cbbee62eead0335d8df390159742aa1d6bfcb08e5b288116ef1120340",
+      "heading": "## Exact horizontal identities before the GI finite cover",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+      "lines": [
+        21,
+        34
+      ],
+      "excerpt_sha256": "d0610f5003362cdc76e3fa7745c697f10b5355767bc6196e0e10d62f524fadbf",
+      "heading": "## Tao\u2013Ziegler at the actual fixed modulus",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+      "lines": [
+        35,
+        40
+      ],
+      "excerpt_sha256": "2013d2bf5b63a965c65142a139e355a1711988c47d15f3cfa1e4c9d9c42afd9a",
+      "heading": "## Height citations and the same-field product route",
+      "scope": "mathematical source/application, see corresponding reconciled U group",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    },
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+      "lines": [
+        41,
+        47
+      ],
+      "excerpt_sha256": "4bca0d8b80d33628a16ddb9ec56f4e8faf31ef215539561bc31c0fa46dc5b42c",
+      "heading": "## Related uses and remaining acceptance",
+      "scope": "historical/source-scope assertion; accepted only at stated historical/source boundary, not a fresh theorem premise",
+      "basis": "actual complete source read before initial freeze; subsequent exact component/current application reconciliation; not automatic range-overlap acceptance"
+    }
+  ],
+  "limitations": "Section records organize actual reading; source-use granularity remains specified by the mathematical reports and 21 input-group reconciliation, not by section counts."
+}

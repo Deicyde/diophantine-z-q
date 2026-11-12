@@ -1,0 +1,112 @@
+{
+  "initial_table_sha256": "0a8e17f069e0efbe93c5b6a4531b9559bf7e1c2e94af17243b2f482a9a0c6a4a",
+  "initial_table_unchanged": true,
+  "native_id_note": "Suffixes expand against exact IDs in NATIVE_SELECTED_USES.json. G4 exact IDs and decisions in G4_NATIVE_COMPARISON.json. No acceptance of omitted native inventory implied.",
+  "records": [
+    {
+      "initial_id": "G01",
+      "status": "retained exact native source scope; no fresh final-body read",
+      "native_use_suffixes": [
+        "FULL-COVER-MAXIMAL-STACK",
+        "FULL-COVER-PRINCIPAL-POLARIZATION"
+      ],
+      "comparison": "Buzzard fixed order/principal polarization and Yuan maximal N1 stack. New downstream inputs do not change their fixed datum."
+    },
+    {
+      "initial_id": "G02",
+      "status": "checked primary statements and internal derivation",
+      "native_use_suffixes": [
+        "FULL-COVER-THREE-TORSION",
+        "FULL-COVER-DIVISION-LATTICE"
+      ],
+      "comparison": "Whole ramified-3 marking, all components; actual transitions and finite-etale Isom."
+    },
+    {
+      "initial_id": "G03",
+      "status": "checked primary statements and internal derivation",
+      "native_use_suffixes": [
+        "FULL-COVER-TATE-FAITHFULNESS",
+        "FULL-COVER-TRIVIAL-INERTIA",
+        "FULL-COVER-CURVE-FIBERS",
+        "FULL-COVER-COMPONENT-BASE",
+        "FULL-COVER-GENUS-CONSTANCY",
+        "FULL-COVER-GENUS-INPUT",
+        "FULL-COVER-RELATIVE-AMPLENESS",
+        "FULL-COVER-SCHEME-FROM-AMPLE",
+        "FULL-COVER-PROJECTIVITY"
+      ],
+      "comparison": "Same universal projective scheme; no early schematicity assumption."
+    },
+    {
+      "initial_id": "G04",
+      "status": "checked published statements/corrections and internal all-component joins; principal polarization reused",
+      "native_use_suffixes": [
+        "ENTIRE-CANONICAL-MODEL",
+        "FULL-COVER-PEL-CLASSIFICATION",
+        "FULL-COVER-ALGEBRAIC-FAMILY",
+        "FULL-COVER-CANONICAL-MODEL",
+        "CANONICAL-NORMALIZER-ACTION"
+      ],
+      "comparison": "Full Hodge orbit and actual order/polarization/marking Galois action; separate printed8.6/8.7 not freshly reread."
+    },
+    {
+      "initial_id": "G05",
+      "status": "checked published quotient inputs and integral internal bridge",
+      "native_use_suffixes": [
+        "RESTORED-MIDDLE-D210-GENUS",
+        "RESTORED-MIDDLE-D210-QUOTIENT-MODELS",
+        "RESTORED-MIDDLE-D210-ATKIN-LEHNER-GROUP"
+      ],
+      "comparison": "Provider P1-P3 read; local tame charts and stable extension, beyond determinant arithmetic."
+    },
+    {
+      "initial_id": "G06",
+      "status": "checked same-field and all-pair Hom proof",
+      "native_use_suffixes": [
+        "D210-FIBER-FIELD"
+      ],
+      "comparison": "Uses actual whole canonical action; regular centralizer order576. Published Milne13.6-7 directly supplies the canonical action; no fresh separate Deligne1979 source-body reading is claimed."
+    },
+    {
+      "initial_id": "G07",
+      "status": "fresh changed-application comparison accepted at mathematical scope",
+      "native_use_suffixes": [],
+      "comparison": "All five forms incl denominator; new R rad bound and same A good reduction. Original contract6 scope is not wholly accepted."
+    },
+    {
+      "initial_id": "G08",
+      "status": "checked internal B-linear and End bridges; explicit direct consumer binding accepted",
+      "native_use_suffixes": [
+        "D210-GEOMETRIC-ISOGENIES",
+        "GEOMETRIC-HODGE-EQUIVALENCE"
+      ],
+      "comparison": "Actual V16 scalar normalizer proof, not merely F-linear Skolem-Noether. DIRECT_EDGE_REVIEW.json binds additive author contract."
+    },
+    {
+      "initial_id": "G09",
+      "status": "checked M2 identity and Faltings application conditional on separately supplied M1",
+      "native_use_suffixes": [],
+      "comparison": "No M1 cochain theorem acceptance. Same V_l(A), split commutant, semisimplicity and absolute irreducibility."
+    },
+    {
+      "initial_id": "G10",
+      "status": "checked published primary statements/corrections and transition maps",
+      "native_use_suffixes": [],
+      "comparison": "Proper smooth at5; all coefficient moduli; dual without twist; direct-factor closure and finite local descent; HT0,-1."
+    },
+    {
+      "initial_id": "G11",
+      "status": "checked published Hodge equivalence and internal Betti-to-Tate join",
+      "native_use_suffixes": [],
+      "comparison": "Complex conjugation trace0 and genuine involution. Published Calegari theorem checked only through modularity up to twist, not M3."
+    },
+    {
+      "initial_id": "G12",
+      "status": "expanded scope: fresh new-input comparison to exact unchanged accepted native internal supplier",
+      "native_use_suffixes": [],
+      "comparison": "G4_REUSE_ADDENDUM.md: full internal metric8079-8151 and CM8618-8753 read. Final Yuan/CM-height/GR2023 bodies retained, not freshly audited."
+    }
+  ],
+  "current_contract": "research/quartic214/contracts/modularity-6.json; exact frozen bytes preserved",
+  "additive_contract_decision": "DIRECT_EDGE_REVIEW.json"
+}

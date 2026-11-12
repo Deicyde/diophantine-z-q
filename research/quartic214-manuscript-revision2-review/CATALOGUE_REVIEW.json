@@ -1,0 +1,108 @@
+{
+  "reviewer": "/root/d214_geometry_source_closure",
+  "decision": "F7 corrected; all11 descriptions match actual artifact/code purpose at stated scope",
+  "entries": [
+    {
+      "path": "research/quartic214/sources/contact-line-certificate.json",
+      "sha256": "64896dfbb8661e04c044a68aa8679ee5dc20c0da36cc9a57640a885b7ca46614",
+      "receiving_lines": [
+        4252,
+        4255
+      ],
+      "description_compared_with_actual_artifact_or_code_interface": true
+    },
+    {
+      "path": "research/quartic214/sources/small-support-certificate.json",
+      "sha256": "0e7280479d5ace418b4383c814361812863cb097f424916b801c17ddbc8eb51e",
+      "receiving_lines": [
+        4256,
+        4259
+      ],
+      "description_compared_with_actual_artifact_or_code_interface": true
+    },
+    {
+      "path": "research/quartic214/sources/public-provider-scopes.json",
+      "sha256": "4b20650915af34d33413425c17131136be22698f09a0f125b011423b87df3654",
+      "receiving_lines": [
+        4260,
+        4263
+      ],
+      "description_compared_with_actual_artifact_or_code_interface": true
+    },
+    {
+      "path": "research/quartic214/height/NUMERIC_CERTIFICATE_H4.json",
+      "sha256": "cd4afb85267aad1a22c0e6a765f86551d2c83a94fcece93939547fe7c06d0962",
+      "receiving_lines": [
+        4264,
+        4267
+      ],
+      "description_compared_with_actual_artifact_or_code_interface": true
+    },
+    {
+      "path": "research/quartic214/height/numeric_certificate.py",
+      "sha256": "2d6b1426b497b197782285280845ce4663936d4dee00f2ce3c5173bc58d39a1e",
+      "receiving_lines": [
+        4268,
+        4271
+      ],
+      "description_compared_with_actual_artifact_or_code_interface": true
+    },
+    {
+      "path": "research/quartic214/construction/EXACT-CHECKS.json",
+      "sha256": "0a160c8a7d0519621b4ebc27fb6e8cb2b8df2a9d25191b8daa2170db461a12b0",
+      "receiving_lines": [
+        4272,
+        4275
+      ],
+      "description_compared_with_actual_artifact_or_code_interface": true
+    },
+    {
+      "path": "research/quartic214/construction/check_exact.py",
+      "sha256": "07527831694fc6be9373e2dac92d292520fbb8c79128e4d51a1ae0128c96e214",
+      "receiving_lines": [
+        4276,
+        4279
+      ],
+      "description_compared_with_actual_artifact_or_code_interface": true
+    },
+    {
+      "path": "research/quartic214/construction/build.py",
+      "sha256": "09d958a38e5815a03b474033d439e84fec40b8a55f4109e95adb87b179fb8c17",
+      "receiving_lines": [
+        4280,
+        4283
+      ],
+      "description_compared_with_actual_artifact_or_code_interface": true
+    },
+    {
+      "path": "research/quartic214/construction/artifacts/candidate214-brox/candidate214-ir.json",
+      "sha256": "b15d6477439c3e4be1e98723b69053244debce59e8715683c28fee82aa847ca4",
+      "receiving_lines": [
+        4284,
+        4287
+      ],
+      "description_compared_with_actual_artifact_or_code_interface": true
+    },
+    {
+      "path": "research/quartic214/construction/artifacts/candidate214-brox/candidate214-polynomial.json",
+      "sha256": "9f461531df52ac73e02cf7a4ce270422715642c0d3112952cad4968d9a7e24ea",
+      "receiving_lines": [
+        4288,
+        4291
+      ],
+      "description_compared_with_actual_artifact_or_code_interface": true
+    },
+    {
+      "path": "research/quartic214/construction/artifacts/candidate214-brox/STATISTICS.json",
+      "sha256": "585635dab6320049320bffd5c1652c89db760d9f4e2ef19a10119011f70b5a68",
+      "receiving_lines": [
+        4292,
+        4295
+      ],
+      "description_compared_with_actual_artifact_or_code_interface": true
+    }
+  ],
+  "reading_aliases_preserved": 19,
+  "source_comparison": "Actual4quartic invariant records,36pair domain/unique survivor;5forms/10determinants;H4 exactbounds/status;construction report,IR,polynomial structure,statistics;numeric log_interval/verify/control implementation and construction/checker interfaces read. No expansion run and no arithmetic existence inferred from finite certificates.",
+  "primary_metadata": "All696scalar keys/values checked in order separately. Dated inspection claims remain original authors statements."
+}

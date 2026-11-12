@@ -1,0 +1,121 @@
+{
+  "reviewer": "/root/d214_geometry_source_closure",
+  "pdf": {
+    "path": "research/quartic214-manuscript-revision2/quartic214.pdf",
+    "sha256": "77e6e30515e317ad8bb4fee6ba111037be64a4c325f2a683e5c8edf03884ea88",
+    "bytes": 3943008,
+    "pages": 703
+  },
+  "method": "pdftoppm at85dpi, actualpageimages inspected via view_image; pdftotext-layout used only for page location",
+  "selected_pages": [
+    1,
+    18,
+    57,
+    84,
+    85,
+    86,
+    88,
+    92,
+    93,
+    94,
+    102,
+    103,
+    108,
+    109,
+    126,
+    127,
+    140,
+    174,
+    450,
+    469,
+    673
+  ],
+  "image_pins": [
+    {
+      "page": 1,
+      "sha256": "12be7791e29ba099831123d646b2645cf323dc76470346b6b76ba28536af4957"
+    },
+    {
+      "page": 18,
+      "sha256": "dea07922896e9dc2c5d8ac7a53fd711656bd6d16296f544246023125bee2165f"
+    },
+    {
+      "page": 57,
+      "sha256": "f996ccfef6b08d5ce326ec861188a0cfd2227c41bbdea3155d6ce0124957c610"
+    },
+    {
+      "page": 84,
+      "sha256": "1ee54b89c187bf642012ccfbca9c1403f88417f8aad4b7762c6a0dd31e391df6"
+    },
+    {
+      "page": 85,
+      "sha256": "45f3df7457cdca6cb98b384ab8e48d9055fca36385d18d412f2143c96f8f0534"
+    },
+    {
+      "page": 86,
+      "sha256": "5b398d2bb070abd8544c6b8e1f7a9a1abc10a4fa4dbdb91c3d0dfaf38f3fa221"
+    },
+    {
+      "page": 88,
+      "sha256": "c41ed8924fb0f6ba7f53c0a4409c49479995a1debcabcbe9e5b797c10375e20a"
+    },
+    {
+      "page": 92,
+      "sha256": "b0bf31ac5a87362b75cd1f9c327aa8921bb9a9fc01e00790c43816763d56c696"
+    },
+    {
+      "page": 93,
+      "sha256": "46c8edccf77acee93486eb8501b35f7c8ba35471be0666699d4a551ebeb68efe"
+    },
+    {
+      "page": 94,
+      "sha256": "3f2cafe61aab9fe9ec7220b6775b5d28a10b3d5ff4b141bfb9234a5eb56e8a87"
+    },
+    {
+      "page": 102,
+      "sha256": "2aad6b5e85038c5a3a7617f5c3b238ab9040cf2c11511a0b456a3e383cb92c35"
+    },
+    {
+      "page": 103,
+      "sha256": "8139068b53c7130dea86ec181b3dc02502aba1c795c029db7553fc47773c0c48"
+    },
+    {
+      "page": 108,
+      "sha256": "e6f18d5efe27d139d2084148c125d244bf37fd3d5bb3896fb21bee5448e8a0e0"
+    },
+    {
+      "page": 109,
+      "sha256": "639cfe5c6d182243c97ffeb159b4228ff215b267c87d08896e3c5266c626e400"
+    },
+    {
+      "page": 126,
+      "sha256": "92372fc4f6564876de012c379cd92d2f103071e6e6f6deb80ba3045666973c57"
+    },
+    {
+      "page": 127,
+      "sha256": "2b9c6e55972e3c55fffac0f84dea49d03713c5addd0030b4f104b8eac835dad0"
+    },
+    {
+      "page": 140,
+      "sha256": "0b61dc50ab42c65b5c50153498aa24bd94b8d939382547ea412eaf1924571c66"
+    },
+    {
+      "page": 174,
+      "sha256": "50334b4731f53c44a8193e8e619a64bbb1b1a616f6309b6101b8818bf7de2370"
+    },
+    {
+      "page": 450,
+      "sha256": "d0208132476891e00a4d723b5fd39931fe5a1b1e15659bfd8c53a9867ca4b794"
+    },
+    {
+      "page": 469,
+      "sha256": "8e03a26dacca4852dda5632a8e112775e1d8fb103de9397b590719f36f4fa395"
+    },
+    {
+      "page": 673,
+      "sha256": "d1b0f8c7af14006105e18f7f1644e8a4ca9a01fa65cb8553445b254cc1eae263"
+    }
+  ],
+  "decision": "No further receiving defect established in inspected pages. Repaired groups,fullindices,unitstars,composition,conjugation,scheme/form/pointindices,DSoperative note and catalogue render as intended. First/lastrow samples legible. Both inheritedoverfull diagnostics remain visible/readable without lostsymbols.",
+  "limits": "This is21selectedrenderedpages, not703pagevisualinspection. Complete convertedproof semanticcoverage comes from actualsources,allmappedtext/scriptcomparison and exact retainedbody/IR/fragments transport, not these samples. No controllerclaim."
+}

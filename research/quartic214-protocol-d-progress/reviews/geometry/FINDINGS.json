@@ -1,0 +1,35 @@
+{
+  "mathematical_defects_established": [],
+  "findings": [
+    {
+      "id": "F-GEO-01",
+      "kind": "coverage-binding omission",
+      "status": "resolved at scoped direct geometric-input level",
+      "original_contract_sha256": "3b61613f34a5f8746804ab2e6aa24aa787cc5fb6485ac2c5aa2a1a1cc4da9ab9",
+      "issue": "Original consumer_passages omit concrete M0/M2 despite obligation prose naming them.",
+      "resolution": "Additive author contract SHA256 5e20a611a004c586875300fa207e33fc28fd1cd8a2eb072bd8e79855b8374a90 and separate DIRECT_EDGE_REVIEW.json. Existing derivation, no new mathematical repair."
+    }
+  ],
+  "limits": [
+    {
+      "id": "L-GEO-01",
+      "status": "declared primary-source reuse boundary",
+      "detail": "Buzzard1997 fixed datum/principal polarization and Yuan2024 maximal stack final pages not freshly inspected. Native application assertions and selected final decisions read; parent verified native byte/acceptance chain."
+    },
+    {
+      "id": "L-GEO-02",
+      "status": "declared expanded G4 reuse boundary",
+      "detail": "Actual metric and CM internal proofs and all changed inputs read. Yuan metric, individual CM height formula and GR2023 published bodies not freshly audited. Positive changed-input decision uses their unchanged exact native scope."
+    },
+    {
+      "id": "L-GEO-03",
+      "status": "historical-copy limit",
+      "detail": "Absent historical H5 parent cb24b176 file not claimed identical. Current integrated proof and complete retained h5-full-three-v1 proof actually read."
+    },
+    {
+      "id": "L-GEO-04",
+      "status": "scope and eligibility limit",
+      "detail": "No controller eligibility attestation, App verification, full original modularity-6, M1, M3-M6 or whole214 acceptance."
+    }
+  ]
+}

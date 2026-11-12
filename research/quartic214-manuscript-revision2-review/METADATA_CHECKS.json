@@ -1,0 +1,8 @@
+{
+  "source": "research/quartic214/PRIMARY_SOURCES.json",
+  "source_sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+  "metadata_scalar_entries_in_original_order": 696,
+  "all_keys_values_preserved": true,
+  "normalization": "TeX text escapes, invisible allowbreak, Unicode math glyphs; en-dash/minus/hyphen normalized for displayed-text comparison",
+  "scope": "Literal metadata transport only; old inspection statements remain attributed historical evidence, not fresh reviewer reading of publications."
+}

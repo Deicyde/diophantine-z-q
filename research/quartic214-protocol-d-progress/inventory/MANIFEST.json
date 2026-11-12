@@ -1,0 +1,80 @@
+{
+  "role": "author scratch packet, no acceptance",
+  "files": [
+    {
+      "path": "CORPUS-AND-ACTION-REPORT.md",
+      "sha256": "845df6266c148a82503a9d02a8b45009b2247048cd59db182473888f93b867cf",
+      "bytes": 14583
+    },
+    {
+      "path": "FABLE-AUDIT-TEXT.txt",
+      "sha256": "9be8ee3e135b868f4e216cf5e53823bcd097bc3d9356e45c41872b0b8e4914a8",
+      "bytes": 274596
+    },
+    {
+      "path": "HISTORICAL-FINDING-QUEUE.json",
+      "sha256": "e0e00e133b61249521cd7add9af6ccfbc925fbe5de5f9fd0226bb3419a8e0f58",
+      "bytes": 789958
+    },
+    {
+      "path": "INHERITED-APPLICATION-QUEUE.json",
+      "sha256": "c34d51e84c29e8ac2187c8b483dd869b3639bd67ca3f58a1d1565b75b622c7bc",
+      "bytes": 10342686
+    },
+    {
+      "path": "INITIAL-FREEZE.sha256",
+      "sha256": "33ac3164be3c6911ea043954edcffa29d5b8c5bc75363d59a0c2e6b04bb1140c",
+      "bytes": 92
+    },
+    {
+      "path": "INITIAL-SOURCE-FIRST.json",
+      "sha256": "26416ccecc485b164b26be6584fb9d143021f9dedcf4eebd000f08dfa7e36b71",
+      "bytes": 4138916
+    },
+    {
+      "path": "PASSAGE-CLOSURE-LEDGER.json",
+      "sha256": "db2388ade78be1f63e9f87005755dd98d2b406e50f1b2ace006436d3f215debb",
+      "bytes": 13676263
+    },
+    {
+      "path": "PR30-COMMENTS.json",
+      "sha256": "d7392c98a12a54a23c57f669feefc29a238fa513de79768fd56c5fbc5dae4f67",
+      "bytes": 57207
+    },
+    {
+      "path": "PRIMARY-SOURCE-STATUS-RECONCILIATION.json",
+      "sha256": "3b0155e001651cf914eb4194cf1e89f5aaf8648f794b171fb66d4395c2ac151a",
+      "bytes": 50597
+    },
+    {
+      "path": "PUBLIC-CORPUS-PATHS.txt",
+      "sha256": "852b3b85d1da2494160ed65a51e94b19ef482a49c21d7ff507a77714f1069051",
+      "bytes": 12383
+    },
+    {
+      "path": "PUBLIC-INVENTORY-CANDIDATES.txt",
+      "sha256": "eb2a44eed3915936b6f3ee4621c13eaa58fe1c2b7da3ed86623f4d3f5c0d40fb",
+      "bytes": 21735
+    },
+    {
+      "path": "PUBLIC-OBJECTION-AND-INVENTORY-DISCOVERY.json",
+      "sha256": "357b7548cd50a3a070c38060686c67316a61ebe14bb291dba1684038b2da55c0",
+      "bytes": 283517
+    },
+    {
+      "path": "RECONCILIATION-SUMMARY.json",
+      "sha256": "b5091d1a407288a7db9754232e0a7dcd89a0889c926b51be636f03183bd13859",
+      "bytes": 95620
+    },
+    {
+      "path": "V16-EXACT-REUSE-CANDIDATE.json",
+      "sha256": "db4c6eb8dd2771772c3a5cb26d8530cf69899664d74964d13704cda29d51a823",
+      "bytes": 1807
+    },
+    {
+      "path": "build_ledger.py",
+      "sha256": "3a41f4307487c30fd425766f80e1a0c197c4099a6aea5765da202d482f84222c",
+      "bytes": 9412
+    }
+  ]
+}

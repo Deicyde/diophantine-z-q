@@ -1,0 +1,42 @@
+{
+  "contracts": [
+    {
+      "contract": {
+        "path": "research/quartic214-manuscript-revision2/ADAPTATION.json",
+        "sha256": "8108c3178ff927cc090f1b43c906fd47deba53b6f52a2b6aee2211b622a83c2a",
+        "bytes": 9911
+      },
+      "whole_and_excerpt_pins_checked": 12,
+      "nine_obligations_read": true
+    },
+    {
+      "contract": {
+        "path": "research/quartic214-manuscript-revision2/F7_APPLICATION.json",
+        "sha256": "7243ecdaa8f948b556840d5fc40ca6dbedb376d3980f7d67b2eb1efb5ee52359",
+        "bytes": 6921
+      },
+      "whole_and_excerpt_pins_checked": 10,
+      "nine_obligations_read": true
+    },
+    {
+      "contract": {
+        "path": "research/quartic214-manuscript-revision2/F8_F11_APPLICATION.json",
+        "sha256": "ee929a6e4f6ff0813a5203aa887db28b5fd31f29eabc9bc328c501cb22ed06cf",
+        "bytes": 43356
+      },
+      "whole_and_excerpt_pins_checked": 47,
+      "nine_obligations_read": true
+    }
+  ],
+  "manifest": {
+    "path": "research/quartic214-manuscript-revision2/MANIFEST.json",
+    "sha256": "899edad018881cb161d7b3e329d46f636dcefd8dbb343d096e6bb57b49c47d01",
+    "bytes": 5363
+  },
+  "manifest_files_checked": 18,
+  "external_bindings_checked": 10,
+  "frozen_finding_sites": 20,
+  "author_corrected_sites": 20,
+  "site_sets_equal": true,
+  "excerpt_convention": "Original raw bytes splitlines(keepends=True), including native CRLF; receiving exact LF."
+}

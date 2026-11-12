@@ -1,0 +1,681 @@
+{
+  "original_queue_sha256": "e0e00e133b61249521cd7add9af6ccfbc925fbe5de5f9fd0226bb3419a8e0f58",
+  "rows": [
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/0",
+      "id": "component-typing-1",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/1",
+      "id": "component-typing-2",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/2",
+      "id": "component-typing-3",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/3",
+      "id": "component-typing-4",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/4",
+      "id": "component-typing-5",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/5",
+      "id": "233-domain/index-1",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/6",
+      "id": "unpublished-foundation-closure-1",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/7",
+      "id": "unpublished-foundation-closure-2",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/8",
+      "id": "unpublished-foundation-closure-3",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/9",
+      "id": "unpublished-foundation-closure-4",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/10",
+      "id": "unpublished-foundation-closure-5",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/11",
+      "id": "SF34-typed-baseline",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/12",
+      "id": "adoption036-named-corrections",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/13",
+      "id": "SOURCE-MAPPING-SCALAR245-TO-PARITY237",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/14",
+      "id": "SOURCE-MAPPING-SF16",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/15",
+      "id": "SOURCE-MAPPING-SF20",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/16",
+      "id": "SOURCE-MAPPING-SF23",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/17",
+      "id": "SOURCE-MAPPING-SF24",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/18",
+      "id": "SOURCE-MAPPING-SF45",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/19",
+      "id": "INVERSE-ORDER-029",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/20",
+      "id": "SF46-LATER-DISCOVERY",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/21",
+      "id": "SF11-SOURCE-ROUTE",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/22",
+      "id": "GRAPH-missing-route-endpoints",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/23",
+      "id": "GRAPH-retained-supplier-join",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/24",
+      "id": "GRAPH-SF46-consumer-edge",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/25",
+      "id": "GRAPH-current-window-transport",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/26",
+      "id": "NORMALIZATION-DIMENSIONS-001",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/27",
+      "id": "HEIGHT-MODULAR-CLAUSE6",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/28",
+      "id": "PKG-01",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/29",
+      "id": "PKG-02",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/30",
+      "id": "COROLLARY-REVIEW-AUTHOR-CONFLICT",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/31",
+      "id": "V222-REF-01",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/32",
+      "id": "V16-HORIZONTAL-OMISSION",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/33",
+      "id": "V16-GR-WRONG-PAPER",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/34",
+      "id": "V16-TZ-DIRECT-APPLICATION-WORDING",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/35",
+      "id": "V16-BOGOLYUBOV-NUMBER",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/36",
+      "id": "V16-FABLE-KATO-RIBET-UNREAD",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/37",
+      "id": "V16-OTHER-SOURCE-QUALIFICATIONS",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/38",
+      "id": "V16-PACKET-LOCAL-FACTOR-WORDING",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/version16/protocol/CONNECTIONS.json",
+        "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+        "bytes": 9510085
+      },
+      "json_pointer": "/findings/39",
+      "id": "V16-TZ-LOCAL-FACTOR-PRECISION",
+      "current_history_disposition": "retain exact accepted native disposition at recorded related-use scope; no new whole-corpus or changed214 application acceptance"
+    },
+    {
+      "origin": {
+        "path": "docs/audit-history/issue2/register.json",
+        "sha256": "d88946d4187c670eb8278a686726af21c4d6394325d0d417702dc85422e6bfd3",
+        "bytes": 12742
+      },
+      "json_pointer": "/items/0",
+      "id": "1",
+      "current_history_disposition": "historical argument comparison accepted as described in REPORT; point4 must include later adverse index/class follow-up and current corrected route"
+    },
+    {
+      "origin": {
+        "path": "docs/audit-history/issue2/register.json",
+        "sha256": "d88946d4187c670eb8278a686726af21c4d6394325d0d417702dc85422e6bfd3",
+        "bytes": 12742
+      },
+      "json_pointer": "/items/1",
+      "id": "2",
+      "current_history_disposition": "historical argument comparison accepted as described in REPORT; point4 must include later adverse index/class follow-up and current corrected route"
+    },
+    {
+      "origin": {
+        "path": "docs/audit-history/issue2/register.json",
+        "sha256": "d88946d4187c670eb8278a686726af21c4d6394325d0d417702dc85422e6bfd3",
+        "bytes": 12742
+      },
+      "json_pointer": "/items/2",
+      "id": "3",
+      "current_history_disposition": "historical argument comparison accepted as described in REPORT; point4 must include later adverse index/class follow-up and current corrected route"
+    },
+    {
+      "origin": {
+        "path": "docs/audit-history/issue2/register.json",
+        "sha256": "d88946d4187c670eb8278a686726af21c4d6394325d0d417702dc85422e6bfd3",
+        "bytes": 12742
+      },
+      "json_pointer": "/items/3",
+      "id": "4",
+      "current_history_disposition": "historical argument comparison accepted as described in REPORT; point4 must include later adverse index/class follow-up and current corrected route"
+    },
+    {
+      "origin": {
+        "path": "docs/audit-history/issue2/register.json",
+        "sha256": "d88946d4187c670eb8278a686726af21c4d6394325d0d417702dc85422e6bfd3",
+        "bytes": 12742
+      },
+      "json_pointer": "/items/4",
+      "id": "5",
+      "current_history_disposition": "historical argument comparison accepted as described in REPORT; point4 must include later adverse index/class follow-up and current corrected route"
+    },
+    {
+      "origin": {
+        "path": "docs/audit-history/issue2/register.json",
+        "sha256": "d88946d4187c670eb8278a686726af21c4d6394325d0d417702dc85422e6bfd3",
+        "bytes": 12742
+      },
+      "json_pointer": "/items/5",
+      "id": "6",
+      "current_history_disposition": "historical argument comparison accepted as described in REPORT; point4 must include later adverse index/class follow-up and current corrected route"
+    },
+    {
+      "origin": {
+        "path": "docs/audit-history/issue2/register.json",
+        "sha256": "d88946d4187c670eb8278a686726af21c4d6394325d0d417702dc85422e6bfd3",
+        "bytes": 12742
+      },
+      "json_pointer": "/items/6",
+      "id": "7",
+      "current_history_disposition": "historical argument comparison accepted as described in REPORT; point4 must include later adverse index/class follow-up and current corrected route"
+    },
+    {
+      "origin": {
+        "path": "docs/audit-history/issue2/register.json",
+        "sha256": "d88946d4187c670eb8278a686726af21c4d6394325d0d417702dc85422e6bfd3",
+        "bytes": 12742
+      },
+      "json_pointer": "/items/7",
+      "id": "8",
+      "current_history_disposition": "historical argument comparison accepted as described in REPORT; point4 must include later adverse index/class follow-up and current corrected route"
+    },
+    {
+      "origin": {
+        "path": "docs/audit-history/issue2/register.json",
+        "sha256": "d88946d4187c670eb8278a686726af21c4d6394325d0d417702dc85422e6bfd3",
+        "bytes": 12742
+      },
+      "json_pointer": "/items/8",
+      "id": "9",
+      "current_history_disposition": "historical argument comparison accepted as described in REPORT; point4 must include later adverse index/class follow-up and current corrected route"
+    },
+    {
+      "origin": {
+        "path": "research/version16/FINDINGS.json",
+        "sha256": "d79b673514ece1cde430bce88fa5a68535d4f05ae3f4df7bdc270a4ec923d187",
+        "bytes": 1741
+      },
+      "json_pointer": "/findings/0",
+      "id": "horizontal-normalization",
+      "current_history_disposition": "duplicate named Fable family reconciled to native V16 finding and exact correction/withdrawal scope"
+    },
+    {
+      "origin": {
+        "path": "research/version16/FINDINGS.json",
+        "sha256": "d79b673514ece1cde430bce88fa5a68535d4f05ae3f4df7bdc270a4ec923d187",
+        "bytes": 1741
+      },
+      "json_pointer": "/findings/1",
+      "id": "GR-citations",
+      "current_history_disposition": "duplicate named Fable family reconciled to native V16 finding and exact correction/withdrawal scope"
+    },
+    {
+      "origin": {
+        "path": "research/version16/FINDINGS.json",
+        "sha256": "d79b673514ece1cde430bce88fa5a68535d4f05ae3f4df7bdc270a4ec923d187",
+        "bytes": 1741
+      },
+      "json_pointer": "/findings/2",
+      "id": "TZ-extra-factor",
+      "current_history_disposition": "duplicate named Fable family reconciled to native V16 finding and exact correction/withdrawal scope"
+    },
+    {
+      "origin": {
+        "path": "research/version16/FINDINGS.json",
+        "sha256": "d79b673514ece1cde430bce88fa5a68535d4f05ae3f4df7bdc270a4ec923d187",
+        "bytes": 1741
+      },
+      "json_pointer": "/findings/3",
+      "id": "Bogolyubov-number",
+      "current_history_disposition": "duplicate named Fable family reconciled to native V16 finding and exact correction/withdrawal scope"
+    },
+    {
+      "origin": {
+        "path": "research/quartic214-manuscript-review/FINDINGS.json",
+        "sha256": "26e633790c4a5d5a5f48cc584896dcd79b1da67e334c6e6ffc3b430c7cff72d5",
+        "bytes": 28227
+      },
+      "json_pointer": "/findings/0",
+      "id": "TEX-F01",
+      "current_history_disposition": "current assembly/editorial finding retains exact source-to-receiver and artifact-review scope; not arithmetic global acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/quartic214-manuscript-review/FINDINGS.json",
+        "sha256": "26e633790c4a5d5a5f48cc584896dcd79b1da67e334c6e6ffc3b430c7cff72d5",
+        "bytes": 28227
+      },
+      "json_pointer": "/findings/1",
+      "id": "TEX-F02",
+      "current_history_disposition": "current assembly/editorial finding retains exact source-to-receiver and artifact-review scope; not arithmetic global acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/quartic214-manuscript-review/FINDINGS.json",
+        "sha256": "26e633790c4a5d5a5f48cc584896dcd79b1da67e334c6e6ffc3b430c7cff72d5",
+        "bytes": 28227
+      },
+      "json_pointer": "/findings/2",
+      "id": "TEX-F03",
+      "current_history_disposition": "current assembly/editorial finding retains exact source-to-receiver and artifact-review scope; not arithmetic global acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/quartic214-manuscript-review/FINDINGS.json",
+        "sha256": "26e633790c4a5d5a5f48cc584896dcd79b1da67e334c6e6ffc3b430c7cff72d5",
+        "bytes": 28227
+      },
+      "json_pointer": "/findings/3",
+      "id": "TEX-F04",
+      "current_history_disposition": "current assembly/editorial finding retains exact source-to-receiver and artifact-review scope; not arithmetic global acceptance"
+    },
+    {
+      "origin": {
+        "path": "research/quartic214-manuscript-review/FINDINGS.json",
+        "sha256": "26e633790c4a5d5a5f48cc584896dcd79b1da67e334c6e6ffc3b430c7cff72d5",
+        "bytes": 28227
+      },
+      "json_pointer": "/findings/4",
+      "id": "PR30-F1",
+      "current_history_disposition": "F1-F5 current bounded receiving resolution retained; duplicate earlier adverse state preserved; new F6 remains separate"
+    },
+    {
+      "origin": {
+        "path": "research/quartic214-manuscript-review/FINDINGS.json",
+        "sha256": "26e633790c4a5d5a5f48cc584896dcd79b1da67e334c6e6ffc3b430c7cff72d5",
+        "bytes": 28227
+      },
+      "json_pointer": "/findings/5",
+      "id": "PR30-F2",
+      "current_history_disposition": "F1-F5 current bounded receiving resolution retained; duplicate earlier adverse state preserved; new F6 remains separate"
+    },
+    {
+      "origin": {
+        "path": "research/quartic214-manuscript-review/FINDINGS.json",
+        "sha256": "26e633790c4a5d5a5f48cc584896dcd79b1da67e334c6e6ffc3b430c7cff72d5",
+        "bytes": 28227
+      },
+      "json_pointer": "/findings/6",
+      "id": "PR30-F3",
+      "current_history_disposition": "F1-F5 current bounded receiving resolution retained; duplicate earlier adverse state preserved; new F6 remains separate"
+    },
+    {
+      "origin": {
+        "path": "research/quartic214-manuscript-review/FINDINGS.json",
+        "sha256": "26e633790c4a5d5a5f48cc584896dcd79b1da67e334c6e6ffc3b430c7cff72d5",
+        "bytes": 28227
+      },
+      "json_pointer": "/findings/7",
+      "id": "PR30-F4",
+      "current_history_disposition": "F1-F5 current bounded receiving resolution retained; duplicate earlier adverse state preserved; new F6 remains separate"
+    },
+    {
+      "origin": {
+        "path": "research/quartic214-manuscript-review/FINDINGS.json",
+        "sha256": "26e633790c4a5d5a5f48cc584896dcd79b1da67e334c6e6ffc3b430c7cff72d5",
+        "bytes": 28227
+      },
+      "json_pointer": "/findings/8",
+      "id": "PR30-F5",
+      "current_history_disposition": "F1-F5 current bounded receiving resolution retained; duplicate earlier adverse state preserved; new F6 remains separate"
+    },
+    {
+      "origin": {
+        "path": "research/quartic214-manuscript-review/current-astra-20261112/FINDINGS.json",
+        "sha256": "1e1c54f027af7aef963e6ae7fc9981ff536793addafa91a2e647f918ac0c9999",
+        "bytes": 5141
+      },
+      "json_pointer": "/findings/0",
+      "id": "F1",
+      "current_history_disposition": "F1-F5 current bounded receiving resolution retained; duplicate earlier adverse state preserved; new F6 remains separate"
+    },
+    {
+      "origin": {
+        "path": "research/quartic214-manuscript-review/current-astra-20261112/FINDINGS.json",
+        "sha256": "1e1c54f027af7aef963e6ae7fc9981ff536793addafa91a2e647f918ac0c9999",
+        "bytes": 5141
+      },
+      "json_pointer": "/findings/1",
+      "id": "F2",
+      "current_history_disposition": "F1-F5 current bounded receiving resolution retained; duplicate earlier adverse state preserved; new F6 remains separate"
+    },
+    {
+      "origin": {
+        "path": "research/quartic214-manuscript-review/current-astra-20261112/FINDINGS.json",
+        "sha256": "1e1c54f027af7aef963e6ae7fc9981ff536793addafa91a2e647f918ac0c9999",
+        "bytes": 5141
+      },
+      "json_pointer": "/findings/2",
+      "id": "F3",
+      "current_history_disposition": "F1-F5 current bounded receiving resolution retained; duplicate earlier adverse state preserved; new F6 remains separate"
+    },
+    {
+      "origin": {
+        "path": "research/quartic214-manuscript-review/current-astra-20261112/FINDINGS.json",
+        "sha256": "1e1c54f027af7aef963e6ae7fc9981ff536793addafa91a2e647f918ac0c9999",
+        "bytes": 5141
+      },
+      "json_pointer": "/findings/3",
+      "id": "F4",
+      "current_history_disposition": "F1-F5 current bounded receiving resolution retained; duplicate earlier adverse state preserved; new F6 remains separate"
+    },
+    {
+      "origin": {
+        "path": "research/quartic214-manuscript-review/current-astra-20261112/FINDINGS.json",
+        "sha256": "1e1c54f027af7aef963e6ae7fc9981ff536793addafa91a2e647f918ac0c9999",
+        "bytes": 5141
+      },
+      "json_pointer": "/findings/4",
+      "id": "F5",
+      "current_history_disposition": "F1-F5 current bounded receiving resolution retained; duplicate earlier adverse state preserved; new F6 remains separate"
+    }
+  ],
+  "additional_findings": [
+    "Issue2 comment6714388221 is an actual later index-set/class-identity finding, separately inspected; not omitted merely because the first register has9 rows.",
+    "HIST-LI-CURRENT-NATIVE-BINDING now resolved at additive overlay scope.",
+    "PR30-F6-UNIT-GROUP-STARS open at frozen e362; no contradiction with earlier bounded F5 resolution."
+  ],
+  "limits": "This is a reconciliation of exact known public registered/named scopes, not a claim to freshly read every candidate body or authenticate all received/private/off-repository objections."
+}

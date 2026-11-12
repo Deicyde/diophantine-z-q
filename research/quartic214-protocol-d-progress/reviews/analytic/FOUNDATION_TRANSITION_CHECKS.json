@@ -1,0 +1,182 @@
+[
+  {
+    "path": "manuscripts/quartic_v16.tex",
+    "full_match": true,
+    "lines": [
+      26819,
+      26929
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "full_match": true,
+    "lines": [
+      31903,
+      32015
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214/proofs/source-carry.md",
+    "full_match": true,
+    "lines": [
+      30,
+      34
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "full_match": true,
+    "lines": [
+      3338,
+      3342
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214/proofs/uniform-existence.md",
+    "full_match": true,
+    "lines": [
+      69,
+      71
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "full_match": true,
+    "lines": [
+      2295,
+      2297
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+    "full_match": true,
+    "lines": [
+      11,
+      20
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "full_match": true,
+    "lines": [
+      2006,
+      2015
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214/proofs/uniform-existence.md",
+    "full_match": true,
+    "lines": [
+      71,
+      84
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "full_match": true,
+    "lines": [
+      2297,
+      2312
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "manuscripts/quartic_v16.tex",
+    "full_match": true,
+    "lines": [
+      19989,
+      20169
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "full_match": true,
+    "lines": [
+      25072,
+      25253
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214/proofs/uniform-existence.md",
+    "full_match": true,
+    "lines": [
+      69,
+      71
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "full_match": true,
+    "lines": [
+      2295,
+      2297
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+    "full_match": true,
+    "lines": [
+      21,
+      34
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "full_match": true,
+    "lines": [
+      2016,
+      2029
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214/proofs/source-carry.md",
+    "full_match": true,
+    "lines": [
+      32,
+      34
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "full_match": true,
+    "lines": [
+      3340,
+      3342
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214/proofs/uniform-existence.md",
+    "full_match": true,
+    "lines": [
+      71,
+      84
+    ],
+    "passage_match": true
+  },
+  {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "full_match": true,
+    "lines": [
+      2297,
+      2312
+    ],
+    "passage_match": true
+  }
+]

@@ -1,0 +1,88 @@
+{
+  "schema": "q214-geometry-review-artifacts/v1",
+  "frozen_at_utc": "2026-11-12T15:38:47.429515+00:00",
+  "root": "/tmp/q214-d-next-20261112/geometry",
+  "artifact_boundary": "Reviewer-authored reports and selected public native review excerpts only; excludes third-party source PDF/text/image reproductions.",
+  "files": [
+    {
+      "path": "INITIAL_SOURCE_USES.json",
+      "bytes": 6812,
+      "sha256": "0a8e17f069e0efbe93c5b6a4531b9559bf7e1c2e94af17243b2f482a9a0c6a4a"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 12597,
+      "sha256": "765356ac35530792140ce2a7a8dccbe08dc95c667a048af5e8258f14d49faa7e"
+    },
+    {
+      "path": "SOURCE_READING.json",
+      "bytes": 8890,
+      "sha256": "39532688da007cb3849987f9143aeb299db4bb21b3a124f85d15ac959825d31f"
+    },
+    {
+      "path": "REVIEWED_FILE_PINS.json",
+      "bytes": 2104,
+      "sha256": "dc4c7d49b013c09c724e1dc7ae31dec09a5198553428263307db22c38e729ed6"
+    },
+    {
+      "path": "NATIVE_SELECTED_USES.json",
+      "bytes": 93698,
+      "sha256": "a6aee245539314e7470267ecbaba8164b1442f4e88bf18be76eb912a0d011d60"
+    },
+    {
+      "path": "NATIVE_SELECTED_DECISIONS.json",
+      "bytes": 7277,
+      "sha256": "b99b6b4cb749b76905b365aaea1e27bf62ed3663c5e739ddcad0ee79179a2ed5"
+    },
+    {
+      "path": "FINITE_REPRODUCTION.json",
+      "bytes": 3573,
+      "sha256": "1bb44b65cdcb2298c4944bc6c745c7a35949fba4d7be00fe8bf7681d97574e75"
+    },
+    {
+      "path": "DIRECT_EDGE_REQUEST.json",
+      "bytes": 2671,
+      "sha256": "f293441c5cf15b43ed7d7111a2232d09f93ed3762adca7cf47f4d6cb1e7d99d9"
+    },
+    {
+      "path": "DIRECT_EDGE_PIN_CHECKS.json",
+      "bytes": 754,
+      "sha256": "87741e9bf18995ea04ef3308fb540b38de61b0bfd996839dffe9385aa7e46296"
+    },
+    {
+      "path": "DIRECT_EDGE_REVIEW.json",
+      "bytes": 9697,
+      "sha256": "fa26a6f4f2d3344440113a9a865c3a6964e61d67387549ff5080d2340a5ee6b9"
+    },
+    {
+      "path": "G4_NATIVE_COMPARISON.json",
+      "bytes": 38738,
+      "sha256": "5dda007b92129ddbb86c947ad3dd8c2452d9d9bdece45089fc0a9ced7df2ed9f"
+    },
+    {
+      "path": "G4_REUSE_ADDENDUM.md",
+      "bytes": 4145,
+      "sha256": "e8fe086e90660b8758e0b21f82739fa007214d45abc3c4617e781a359d975032"
+    },
+    {
+      "path": "G4_REVIEWED_PASSAGES.json",
+      "bytes": 1363,
+      "sha256": "3bf449b88f36fa11b8a479733fbb5752ffeaa71c5d22972b5b9c3be676d223ff"
+    },
+    {
+      "path": "RECONCILIATION.json",
+      "bytes": 5109,
+      "sha256": "4e439e01efaece94318fba983ebc1cb057e67a72d8659b9160301c4405fcb1a6"
+    },
+    {
+      "path": "FINDINGS.json",
+      "bytes": 1781,
+      "sha256": "184753216b938b14d47ac3c712b2d3d79dcc76a931580840a70db4482a281b38"
+    },
+    {
+      "path": "STATUS.json",
+      "bytes": 1787,
+      "sha256": "34bdc5c4ff9ecf1ddf7019d6b6241b55fe0cbead13ceea6ee69e70384c47fabb"
+    }
+  ]
+}

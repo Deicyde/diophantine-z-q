@@ -1,0 +1,96 @@
+{
+  "status": "PASS",
+  "scope": "exact declared complete-receiving transformation, source/span/application/artifact byte bindings, explicit notation guards and intended-reason corruption controls; not mathematical validity, independent review, complete semantic coverage or ProtocolD acceptance",
+  "PDF_scope": "matching source/PDF/build byte binding checked",
+  "negative_controls": [
+    {
+      "name": "lost-unit-group",
+      "rejected": true,
+      "reason": "lost-unit-group-markers"
+    },
+    {
+      "name": "lost-positive-real-index",
+      "rejected": true,
+      "reason": "lost-positive-real-index"
+    },
+    {
+      "name": "omitted-minimal-conductor",
+      "rejected": true,
+      "reason": "missing-minimal-conductor"
+    },
+    {
+      "name": "missing-operative-note",
+      "rejected": true,
+      "reason": "missing-operative-native-note"
+    },
+    {
+      "name": "stale-catalogue",
+      "rejected": true,
+      "reason": "stale-catalogue-description"
+    },
+    {
+      "name": "stale-mapped-output",
+      "rejected": true,
+      "reason": "stale-source-map-output"
+    },
+    {
+      "name": "missing-operative-span",
+      "rejected": true,
+      "reason": "missing-operative-map-span"
+    },
+    {
+      "name": "stale-application",
+      "rejected": true,
+      "reason": "stale-application-binding"
+    },
+    {
+      "name": "missing-obligation",
+      "rejected": true,
+      "reason": "missing-obligation"
+    },
+    {
+      "name": "stale-PDF-source",
+      "rejected": true,
+      "reason": "stale-build-source-binding"
+    },
+    {
+      "name": "lost-field-prime",
+      "rejected": true,
+      "reason": "lost-field-prime-scope"
+    },
+    {
+      "name": "lost-group-index",
+      "rejected": true,
+      "reason": "lost-evaluated-group-index"
+    },
+    {
+      "name": "lost-projective-index",
+      "rejected": true,
+      "reason": "lost-projective-index"
+    },
+    {
+      "name": "lost-form-index",
+      "rejected": true,
+      "reason": "lost-form-index"
+    },
+    {
+      "name": "lost-conjugation",
+      "rejected": true,
+      "reason": "lost-conjugation-inverse-scope"
+    },
+    {
+      "name": "lost-composition",
+      "rejected": true,
+      "reason": "lost-composition-map"
+    }
+  ],
+  "maximum_rss_kib": 50496,
+  "address_space_limit_bytes": 536870912,
+  "role": "Author structural/byte verification, before external independent receipt; no self-approval",
+  "audit_history_self_test": {
+    "status": "PASS",
+    "historical_rejection_controls": 7,
+    "application_rejection_controls": 29,
+    "scope": "Existing checker actual retained bindings only; not arithmetic acceptance of the new receiving edition"
+  }
+}

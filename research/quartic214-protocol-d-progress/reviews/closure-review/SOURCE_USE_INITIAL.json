@@ -1,0 +1,271 @@
+{
+  "reviewer": "/root/d214_current_closure_review",
+  "model": "gpt-6-astra (task designation; controller authentication remains separate)",
+  "frozen_math_head": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "created_utc": "2026-11-12T15:35:38.727034+00:00",
+  "prior_exposure": "Parent task named remaining lanes and past incomplete closure, RC/analytic/geometry reviews and V16 identity assertion; policy files and filenames seen. No earlier inventory/verdict/report read before this freeze. Proof texts themselves contain historical verdict references, disclosed as source text exposure.",
+  "review_conditions": "Local public checkout and read-only sources; no private access; no builders; no subagents. Primary statements not all newly inspected. Source text first; truncated initial concatenation followed by bounded complete per-file reads.",
+  "coverage": [
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "lines": 49,
+      "status": "read for source-first reconstruction; not blanket primary-application acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "lines": 92,
+      "status": "read for source-first reconstruction; not blanket primary-application acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "lines": 81,
+      "status": "read for source-first reconstruction; not blanket primary-application acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-assembly.md",
+      "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+      "lines": 57,
+      "status": "read for source-first reconstruction; not blanket primary-application acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "lines": 60,
+      "status": "read for source-first reconstruction; not blanket primary-application acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "lines": 131,
+      "status": "read for source-first reconstruction; not blanket primary-application acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "lines": 129,
+      "status": "read for source-first reconstruction; not blanket primary-application acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-metric.md",
+      "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "lines": 59,
+      "status": "read for source-first reconstruction; not blanket primary-application acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "lines": 134,
+      "status": "read for source-first reconstruction; not blanket primary-application acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "lines": 125,
+      "status": "read for source-first reconstruction; not blanket primary-application acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+      "lines": 55,
+      "status": "read for source-first reconstruction; not blanket primary-application acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/provider-scope-carry.md",
+      "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+      "lines": 68,
+      "status": "read for source-first reconstruction; not blanket primary-application acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "lines": 40,
+      "status": "read for source-first reconstruction; not blanket primary-application acceptance"
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "lines": 84,
+      "status": "read for source-first reconstruction; not blanket primary-application acceptance"
+    },
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+      "lines": 47,
+      "status": "read for source-first reconstruction; not blanket primary-application acceptance"
+    }
+  ],
+  "uses": [
+    {
+      "id": "U01",
+      "consuming_passage": "PROOF.md; existence.md algebraic transport",
+      "required_assertion": "214 rows encode the changed physical system on q0*q1 != 0; no all-old-witness bijection; N>=53 coefficient bound is separate",
+      "proposed_supplier": "Exact raw224 inverse maps, removed fourth powers, Laurent row identities and primitive quartic coefficient certificate",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U02",
+      "consuming_passage": "uniform-existence.md P03-P07",
+      "required_assertion": "All nonzero labels, zero test numerators, split/inert places; relative errors made absolute only after integrality; M_j^3 divides Delta and M_j divides J",
+      "proposed_supplier": "Normalized rank-one curve, actual subgroup generator, forced149 recovery, formal-logarithm precision and preparation-zero obstruction",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U03",
+      "consuming_passage": "uniform-existence.md P08-P09",
+      "required_assertion": "Actual sum, all labels, graph boundary, embedding surjectivity, fixed finite-rank group and ineffective additive constant; B^2 <= M1 h(T)+M2",
+      "proposed_supplier": "Published von Buhren graph-fibre theorem and pointed CM curve identification",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U04",
+      "consuming_passage": "uniform-existence.md P10-P12",
+      "required_assertion": "Both transformed arguments, exact contacts, squarefree discarded support, exponent 7/6, separate divisibilities, single N_S uniform in rational x",
+      "proposed_supplier": "Full-family H4 height and scalar/parity/four-contact and Lucas interfaces",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U05",
+      "consuming_passage": "uniform-existence.md P13-P18",
+      "required_assertion": "N_C independent of integer x; all later data fixed before X_sel; merged repeated coefficients retain incidences; CRT compatible; fresh actual pole inputs",
+      "proposed_supplier": "Scalar preparation, real recurrence, fixed-data Gaussian theorem and CM reduction orders",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U06",
+      "consuming_passage": "uniform-existence.md P19-P20; source-carry C04-C07",
+      "required_assertion": "Actual E_l non-CM, l positive squarefree 11 mod12, both n and n theta including theta=1; full Selmer corank precedes finite Sha; independent detector certificates",
+      "proposed_supplier": "Restricted converse and forward rank-one/finite-Sha and Kummer theorem",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U07",
+      "consuming_passage": "geometry-carry.md G1-G4; provider-scope-carry P1-P3",
+      "required_assertion": "All rational primitive pairs including infinity, deep even contacts and M=1; degree divides576; all Hom over same L; no D6 substitution",
+      "proposed_supplier": "Whole D210 full-three canonical fine cover, Hom and maximal-stack metric, CM854R",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U08",
+      "consuming_passage": "modularity.md M1",
+      "required_assertion": "Changed minimal2-primary chi, finite sign cochain, unwanted inertia removal and normal controlled Lprime; exact same original rho restricts to V(A)",
+      "proposed_supplier": "Local reciprocity, constant squaring sequence, global Brauer injection/invariant sum",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U09",
+      "consuming_passage": "modularity.md M2",
+      "required_assertion": "Original r5 continuous absolutely irreducible geometric odd, de Rham weights {0,-1}, finite ramification; modular up to twist",
+      "proposed_supplier": "Faltings, Scholze corrected comparison, Fontaine closure, Kato descent, complex comparison, published Calegari theorem",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U10",
+      "consuming_passage": "modularity.md M3",
+      "required_assertion": "Final primitive weight2 f realizes original r5; dual/Frobenius/HT convention and inverse finite-unit character; finite twist absorbed",
+      "proposed_supplier": "Deligne-Serre primitive extraction and weight-one realization, Kato realization, reciprocity and Shimura twist",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U11",
+      "consuming_passage": "modularity.md M4",
+      "required_assertion": "Same algebraic tau_p and same final f at3, actual global isomorphism, pair3/5 covers every residue prime; coefficient comparison field not Lprime",
+      "proposed_supplier": "Milne endomorphism degree polynomial, specialization transitions, Serre density/trace uniqueness",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U12",
+      "consuming_passage": "modularity.md M5; provider-scope-carry P4",
+      "required_assertion": "Original local representation including monodromy; changed lift tame/wild indices, exponents70,18,18,6, radN divides R and CN R^2",
+      "proposed_supplier": "Carayol full local theorem, full11 semistability, division-B torus, Serre upper numbering",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U13",
+      "consuming_passage": "modularity.md M6; height-supplier H1-H2; primary-source-bridges",
+      "required_assertion": "All e embeddings over actual Lprime; Af~A^r, r=e/2, s/r<=4, exact J=Jac(X1(N)/ker epsilon) has Lprime-subvariety A^r",
+      "proposed_supplier": "Top determinant, Li Fricke, Shimura quotient, all coefficient conjugates, Faltings Hom, Poincare",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U14",
+      "consuming_passage": "height-evaluation.md \u00a7\u00a71-5",
+      "required_assertion": "Same nonmaximal C=B/(t-2), integral global differentials ev into Cdual and projected lattice bound; all primes and one global subset I",
+      "proposed_supplier": "Finite normalization/flatness, common regular model, canonical finite duality and literal trace specialization",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U15",
+      "consuming_passage": "height-different.md \u00a7\u00a71-5",
+      "required_assertion": "Every component full residue degree, differential n not n^2, actual primitive-point H quotient, primes dividing N retained, normalized logdisc <= d(log12+logN+2logd)",
+      "proposed_supplier": "Full trace-discriminant sum, imperfect-residue Lenstra, finite flat LCI torsion different and intermediate fields",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U16",
+      "consuming_passage": "height-metric.md \u00a7\u00a71-3; height-assembly.md A-D",
+      "required_assertion": "Same curve/order/lattice/trace/global I, determinant sign and scalar, auxiliary K cancels; H0.3 for same J and g>=2",
+      "proposed_supplier": "Published original stable metric identity, Riemann-Hurwitz, evaluation rank and disc mean value/Hadamard",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U17",
+      "consuming_passage": "height-averaging.md; height-supplier H3-H4",
+      "required_assertion": "r separate simple occurrences over same Lprime; negative heights and zero complement; selected dimension2 C_i -> A; H3.1 unchanged; historical quotient route superseded",
+      "proposed_supplier": "Published GR2023 Lemma16.2(1) proof product construction, GR2014 lower/change bounds, GR2023 Theorem1.9(1)",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U18",
+      "consuming_passage": "height-supplier H4",
+      "required_assertion": "C2<2^(7557/32), alpha2103/1024, all M>=1, CM and non-CM branches; no numerical N0",
+      "proposed_supplier": "Explicit rational log certificate and elementary monotonicity",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U19",
+      "consuming_passage": "source-carry C08-C10; FOUNDATION_TRANSITION.md",
+      "required_assertion": "Exact lifts before smaller lattice; same uniform estimates not numerical local-factor identity; fixed data before cutoff/field/X_sel, same GI/prime output consumed",
+      "proposed_supplier": "Current V16 GI finite-cover normalization and fixed-extra-factor Tao-Ziegler proof adaptation",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U20",
+      "consuming_passage": "FOUNDATION_TRANSITION.md; source-carry C01-C13",
+      "required_assertion": "Whole current foundation replaces historical V15 receive statements; three changed joins reviewed; historical acceptance separate from current consumer acceptance",
+      "proposed_supplier": "Exact V16 receiving foundation and retained source proofs",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    },
+    {
+      "id": "U21",
+      "consuming_passage": "existence.md 218 control",
+      "required_assertion": "Separate control claim on nonzero weights; no new height bound needed; outside primary214 claimed theorem but present and must be scoped",
+      "proposed_supplier": "Original exponents and same raw224 maps",
+      "status": "reconstructed from proof; application acceptance not yet reconciled",
+      "classification": "substantive"
+    }
+  ],
+  "scope": "Current214 proof and receiving foundation transition; full703-page foundation is a separately exact-bound inherited interface pending reconciliation, not claimed freshly read."
+}

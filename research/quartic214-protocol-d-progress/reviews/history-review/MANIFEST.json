@@ -1,0 +1,66 @@
+{
+  "frozen_at_utc": "2026-11-12T15:50:27.658847+00:00",
+  "scope": "History continuation reports and public issue snapshot; no third-party paper body copied. Native excerpts remain exact selected public review data.",
+  "files": [
+    {
+      "path": "CURRENT_REMAINING_QUEUE.json",
+      "bytes": 4308,
+      "sha256": "4577f1ed5665281e10fc4d20c7ee298ebf2ae4ace07f91900ac183ced93e4733"
+    },
+    {
+      "path": "DECISION.json",
+      "bytes": 1906,
+      "sha256": "ea6781f939c5414bcb39a4017df1916786363c45a547da140f2a09c54718d85c"
+    },
+    {
+      "path": "DISCOVERY_BOUNDARY.json",
+      "bytes": 524679,
+      "sha256": "ab0ba6cafcff7025a8862d6aefd737456185fcd8c34e5bd8e5d23f770a2efd84"
+    },
+    {
+      "path": "HISTORY_RECONCILIATION.json",
+      "bytes": 31007,
+      "sha256": "deaa723f5159fd6758c3b87be6b3a351d387e4a9665aa99fb8338397f0378a6c"
+    },
+    {
+      "path": "ISSUE2-SNAPSHOT.json",
+      "bytes": 21805,
+      "sha256": "0fac4fe87ed7eca72591628c8d7ef024e5eb75119aa356c6b0fddfcf3fd8e590"
+    },
+    {
+      "path": "NATIVE_FINDING_DECISIONS.json",
+      "bytes": 48909,
+      "sha256": "99d736995dc046867c917c0ae8416b980f100d3fe2bc01112f92e348af2cb285"
+    },
+    {
+      "path": "NATIVE_FINDING_SCOPES.json",
+      "bytes": 319845,
+      "sha256": "fb5558efe2c0b23d76d606ba85633541a6d9cb51e6f433fdf6e4b4aca0cf1773"
+    },
+    {
+      "path": "NATIVE_PRIMITIVE_RESOLUTION.json",
+      "bytes": 1429,
+      "sha256": "6daa486a6e60cb41391e759f01874bd6f23a15eb269b38813c075db38b4e43d6"
+    },
+    {
+      "path": "NATIVE_RECEIVING_TRANSPORT.json",
+      "bytes": 144091,
+      "sha256": "d12f541808125af8dc87ad0978c1d702a53f121e2b7cdfb4ba69844b2cfdf0e3"
+    },
+    {
+      "path": "READ_PASSAGES.json",
+      "bytes": 1667,
+      "sha256": "738ef0ce78865908a60a70e606d0e5735ff2996e0c96e82f659ff2b43cac47cc"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 14926,
+      "sha256": "debdb545155a99eb0ddf8b6ea587a34b053633aaa68b6b7697dd71a4574c1c60"
+    },
+    {
+      "path": "SOURCE_PINS.json",
+      "bytes": 5083,
+      "sha256": "829ac4548ba25a9b0a60acc0ba7fc1740f8adf8d0ef0269e2bfc2b26a246c915"
+    }
+  ]
+}

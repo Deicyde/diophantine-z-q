@@ -1,0 +1,49 @@
+{
+  "reviewer": "/root/d214_current_closure_review",
+  "decision": "accepted-within-M1-scope",
+  "controller_eligibility_attested": false,
+  "full_closure": false,
+  "pins": [
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "bytes": 25777,
+      "lines": [
+        5,
+        125
+      ],
+      "excerpt_sha256": "382150cb5a3d8ad647405e3fd2c7c5dd2d7a976a1f50e0eb36887e4453314974"
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498,
+      "lines": [
+        7,
+        77
+      ],
+      "excerpt_sha256": "b73de8ac495d7ec4a04cfc6b1f46d65d10d8bb4f91e581d8f0f8e171b39b98cf"
+    },
+    {
+      "path": "research/quartic214-manuscript/quartic214.tex",
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+      "bytes": 2337533,
+      "lines": [
+        2489,
+        2544
+      ],
+      "excerpt_sha256": "19aafdbed3d8a6fedf57d96ca640e8df9b45adb70acc620cba31a7bdb1a67b9a"
+    },
+    {
+      "path": "research/quartic214/contracts/modularity-1.json",
+      "sha256": "677d87aa2fdd08d4025a8fcdf2be03ec9b0185faf408ae82f463b8910797ab88",
+      "bytes": 44549
+    },
+    {
+      "path": "research/quartic214/sources/conductor-sections1-3.md",
+      "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+      "bytes": 9028
+    }
+  ],
+  "report_sha256": "9c124543c1368ab6252bd136135ab20ff6df6e9b77dc4721534e767b2de5585e"
+}

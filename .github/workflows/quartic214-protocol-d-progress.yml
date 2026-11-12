@@ -1,0 +1,30 @@
+name: Quartic 214 protocol progress records
+
+on:
+  pull_request:
+  push:
+    branches:
+      - 'proposal/quartic-214-protocol-d'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  review-evidence:
+    name: Protocol progress evidence and rejection controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+      - name: Check frozen proof bindings and scoped review evidence
+        run: |
+          ulimit -v 524288
+          python -B research/quartic214-protocol-d-progress/check_packet.py --self-test
+      - name: Check retained audit history
+        run: python -B scripts/check_audit_history.py --self-test
+      - name: Require checks to preserve committed artifacts
+        run: git diff --exit-code -- research/quartic214-protocol-d-progress

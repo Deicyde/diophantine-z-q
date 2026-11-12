@@ -1,0 +1,122 @@
+[
+  {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+    "bytes": 2337533,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214-manuscript/quartic214.pdf",
+    "sha256": "8c22312ce54d3f2709eddc28c1045b1785d44ce0d7d47957639c0322a9d0a498",
+    "bytes": 3940738,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214-manuscript/RELEASE_MANIFEST.json",
+    "sha256": "f0aa633ae5e88aa49a5966bcd6152663b723cbef11925a0c76e5f9b77701f539",
+    "bytes": 28556,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214-manuscript/BUILD.json",
+    "sha256": "dab965bf5fd4d86fcb4ba4f8c215309b49979ccadbf41ed529cb38acb376eabd",
+    "bytes": 39529,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214-manuscript/SOURCE_SPANS.json",
+    "sha256": "c98fc0d5860fb1d17a1d1ec7f23e266015f26e37d72443b796a782006c371391",
+    "bytes": 399870,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "manuscripts/quartic_v16.tex",
+    "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+    "bytes": 1926498,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214/contracts/uniform-existence.json",
+    "sha256": "832900c2f480bce3eb77bef6c8b408a7ca16229b8414104e3938849a3b3bc011",
+    "bytes": 87619,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214/contracts/source-carry.json",
+    "sha256": "0ccb359a72c0c0215ab2d4bad7a5a2a49ca2a2cddaa9254eb698a6e69c39688e",
+    "bytes": 79000,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214/contracts/modularity-1.json",
+    "sha256": "677d87aa2fdd08d4025a8fcdf2be03ec9b0185faf408ae82f463b8910797ab88",
+    "bytes": 44549,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214/contracts/modularity-2.json",
+    "sha256": "bf0032fd58169d79f84fe6587a1902ad0fda12da895147eed4bc0bf01e08809e",
+    "bytes": 51288,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214/contracts/modularity-3.json",
+    "sha256": "3852c1fcb2d79e2a14a271c010d5dbf57665699187cfb0b22cca069f09096195",
+    "bytes": 44484,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214/contracts/modularity-4.json",
+    "sha256": "8634c90335f48b12c74f8612fd6b67e5da085f6beb6e3ca56235eaf4d90c4392",
+    "bytes": 44458,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214/contracts/modularity-5.json",
+    "sha256": "a908b6093393a4e13dd3fd57f33b2f3ab30f1619dbbaf4d99971ffe66f4f68f2",
+    "bytes": 45056,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214/contracts/modularity-6.json",
+    "sha256": "3b61613f34a5f8746804ab2e6aa24aa787cc5fb6485ac2c5aa2a1a1cc4da9ab9",
+    "bytes": 75345,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214/contracts/height-evaluation.json",
+    "sha256": "0f524e806c2b3d3fa62fa3479a561ab069d84ab1be6f24c46ddaa5095a117474",
+    "bytes": 70016,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214/contracts/height-different.json",
+    "sha256": "51628e37c28208b3c62be6a4d1899d650bd7b8d0e80fe236ce7a2fe6485ef5a6",
+    "bytes": 68382,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214/contracts/height-metric.json",
+    "sha256": "05edb1fa2ce8e02dfcfb0623db7b0c56a73e3e9df9e82eee0f7bc2ca4e438c1b",
+    "bytes": 56810,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214/contracts/height-averaging.json",
+    "sha256": "e5c2281d8f4cc6f0a0c8234c0fad9f909021cbd95943c0c11fd94ce68441895f",
+    "bytes": 34671,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214/contracts/height-assembly.json",
+    "sha256": "a13a2c2209d28728b9f76d301bcf2c36cdf0eca8820b91ab0f2f567477972a0d",
+    "bytes": 43118,
+    "identical_to_frozen_head": true
+  },
+  {
+    "path": "research/quartic214/contracts/H4-reflection.json",
+    "sha256": "350fba85a5d6820a835d4fe0e16b59b09b6e579939d0fcd23b66c8a2c4302edf",
+    "bytes": 45404,
+    "identical_to_frozen_head": true
+  }
+]

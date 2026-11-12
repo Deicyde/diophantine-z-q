@@ -1,0 +1,56 @@
+{
+  "pdfs": [
+    {
+      "local_path": "/tmp/q214-d-next-20261112/rc/kato1999.pdf",
+      "sha256": "483dc18c56b2fe9cfac4e37f2e6594399625c3f0ea98a05bb69116377c67fc06",
+      "bytes": 4319206,
+      "url": "https://www.jstage.jst.go.jp/article/kodaimath1978/22/3/22_3_313/_pdf/-char/en",
+      "scope": "Published final; pp314–318 inspected"
+    },
+    {
+      "local_path": "/tmp/q214-d-next-20261112/rc/kato2004.pdf",
+      "sha256": "3c6e14b11fa60262db8aff782ce3cf4d83e9100c0be83621a7e4ce502cec605d",
+      "bytes": 18010813,
+      "url": "https://www.numdam.org/article/AST_2004__295__117_0.pdf",
+      "scope": "Published final; sections/pages in REVIEW.md"
+    },
+    {
+      "local_path": "/tmp/q214-d-next-20261112/rc/PoonenStoll-corrected2014.pdf",
+      "sha256": "cc5860e3db126b8b4fb00e37b5db6f7accab3122759e2150889ee30474546d36",
+      "bytes": 509001,
+      "url": "https://www.mathe2.uni-bayreuth.de/stoll/papers/sha.pdf",
+      "scope": "Author corrected2014 text of published Annals1999 paper; definitions and Cor4,7,Thm8,Cor9 inspected"
+    },
+    {
+      "local_path": "/tmp/q214-d-next-20261112/primary/Nekovar2006.pdf",
+      "sha256": "61c84e5ad3252a2e520747215ac57a282addc2b58c824a3637bcd77bbe02153f",
+      "bytes": 42932456,
+      "url": "https://www.numdam.org/item/AST_2006__310__R1_0.pdf",
+      "scope": "Published final; sections in REVIEW.md"
+    },
+    {
+      "local_path": "/tmp/q214-d-next-20261112/primary/MilneADT2006.pdf",
+      "sha256": "2c6195ec76a974f3f336c77cb71cc3845b018aad2d43136716b3477a3bc5fb31",
+      "bytes": 2136045,
+      "url": "https://www.jmilne.org/math/Books/ADTnot.pdf",
+      "scope": "Published second edition; selected statements in REVIEW.md"
+    }
+  ],
+  "web_statements": [
+    {
+      "url": "https://stacks.math.columbia.edu/tag/03Q9",
+      "scope": "Theorem59.53.1 qcqs stalk base change",
+      "accessed": "2026-11-12"
+    },
+    {
+      "url": "https://stacks.math.columbia.edu/tag/03QA",
+      "scope": "Proposition59.54.2 Leray",
+      "accessed": "2026-11-12"
+    },
+    {
+      "url": "https://annals.math.princeton.edu/1999/150-3/p10",
+      "scope": "Published Poonen–Stoll identity;150(1999)1109–1149;DOI10.2307/121064",
+      "accessed": "2026-11-12"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "sources": [
+    {
+      "file": "sources/GTZ2012.pdf",
+      "url": "https://annals.math.princeton.edu/wp-content/uploads/annals-v176-n2-p11-p.pdf",
+      "sha256": "cd320f5c1217df9bb41395e847ae2a924e70521021ca1b01c7abc20550123be1",
+      "bytes": 1300898,
+      "version": "published journal PDF or author-hosted journal scan"
+    },
+    {
+      "file": "sources/GTOrbits2012.pdf",
+      "url": "https://annals.math.princeton.edu/wp-content/uploads/annals-v175-n2-p02-p.pdf",
+      "sha256": "8c7ea5eced84dc5da97508f4eda39fa84c958d3e659a797ab402645c1c207c8f",
+      "bytes": 861456,
+      "version": "published journal PDF or author-hosted journal scan"
+    },
+    {
+      "file": "sources/GTOrbitsErratum2014.pdf",
+      "url": "https://annals.math.princeton.edu/wp-content/uploads/annals-v179-n3-p08-p.pdf",
+      "sha256": "f710f09ca6c8ecc1837e26fbdd5d331b75e6876868d018ca34c34d84ffe4d28d",
+      "bytes": 364726,
+      "version": "published journal PDF or author-hosted journal scan"
+    },
+    {
+      "file": "sources/GTZErratum2024.pdf",
+      "url": "https://people.maths.ox.ac.uk/greenbj/papers/GI(s)-erratum.pdf",
+      "sha256": "9d66017c15fc99bbae83726ef27bcc16d73128c13166916f00714c84c8523383",
+      "bytes": 266792,
+      "version": "author erratum, not claimed published"
+    },
+    {
+      "file": "sources/GTLinear2010.pdf",
+      "url": "https://annals.math.princeton.edu/wp-content/uploads/annals-v171-n3-p08-p.pdf",
+      "sha256": "ec126f9c9e189cc0308b83fb4f9f93c29a47d11ad875391aff4ce4c42aef1001",
+      "bytes": 1213124,
+      "version": "published journal PDF or author-hosted journal scan"
+    },
+    {
+      "file": "sources/GTMobius2012.pdf",
+      "url": "https://annals.math.princeton.edu/wp-content/uploads/annals-v175-n2-p03-p.pdf",
+      "sha256": "5259dbc9ee73df46edd765ca27c8b3c0ec466f6b78abafa5f54237b11d44a314",
+      "bytes": 502447,
+      "version": "published journal PDF or author-hosted journal scan"
+    },
+    {
+      "file": "sources/TZ2018.pdf",
+      "url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/B46C46EEC613F34152B7904E83EA0E3F/S2050508617000038a.pdf/polynomial-patterns-in-the-primes.pdf",
+      "sha256": "ba1645db9857dd621e8ea6a280927c1e4b7cef5f6df04a4f19e7ac7782220f43",
+      "bytes": 559406,
+      "version": "published journal PDF or author-hosted journal scan"
+    },
+    {
+      "file": "sources/Mitsui1956.pdf",
+      "url": "https://www.jstage.jst.go.jp/article/jjm1924/26/0/26_0_1/_pdf",
+      "sha256": "b71fbd5ae9443991479a73a4e7bde68165b0c0e90b290cd0bd94fd9da416f963",
+      "bytes": 2823723,
+      "version": "published journal PDF or author-hosted journal scan"
+    },
+    {
+      "file": "sources/KoppLagarias2025.pdf",
+      "url": "https://msp.org/ent/2025/4-1/ent-v4-n1-p01-p.pdf",
+      "sha256": "60ea81ac86b2168031e46be0a8ce0b06eab016a58d442b1b3639a35bb86e8273",
+      "bytes": 3626641,
+      "version": "published journal PDF or author-hosted journal scan"
+    },
+    {
+      "file": "sources/BrowningHeathBrown2021.pdf",
+      "url": "https://ora.ox.ac.uk/objects/uuid:029537a5-f3a1-4ec7-a96f-07533accd494/files/sbc386j37h",
+      "sha256": "1e2a4d3d3f731c0ee67599cfa50f899fe499e51d4a452455a04f2d0a35e7191c",
+      "bytes": 405739,
+      "version": "accepted author manuscript"
+    },
+    {
+      "file": "sources/Bienvenu2017.pdf",
+      "url": "https://www.impan.pl/shop/en/publication/transaction/download/product/92171",
+      "sha256": "9634fad788ff65298c361d0d0b596eb89fc097bda1eaa2031ee9ea13cd4c6130",
+      "bytes": 387687,
+      "version": "published journal PDF or author-hosted journal scan"
+    },
+    {
+      "file": "sources/Williams1974.pdf",
+      "url": "https://people.math.carleton.ca/~williams/papers/pdf/057.pdf",
+      "sha256": "9e78492d928f8af5654388db11d9d253749fe7c1e1b627effd0f20d1baafc8c0",
+      "bytes": 218607,
+      "version": "published journal PDF or author-hosted journal scan"
+    }
+  ],
+  "excluded": "WRONG-IMPAN-ID-Stokolos2006.pdf/txt is an initially misidentified retrieval, explicitly excluded from source evidence. BL final403 and institutional direct-download403; accepted statement inspected using browser text, final-version visual comparison reused from pinned historical report."
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "path": "manuscripts/quartic_v16.tex",
+    "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+    "lines": [
+      8079,
+      8151
+    ],
+    "excerpt_sha256": "befcc155d8bf3ad54d097281a796529bc7d789fb269eeb073a357579e0c719de",
+    "scope": "complete metric internal proof"
+  },
+  {
+    "path": "manuscripts/quartic_v16.tex",
+    "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+    "lines": [
+      8618,
+      8753
+    ],
+    "excerpt_sha256": "42732844c948b234ba3820d2915b205aa0f909b1bdd0bd3d4fe8959fb0575412",
+    "scope": "complete CM854R internal proof"
+  },
+  {
+    "path": "research/quartic214/proofs/geometry-carry.md",
+    "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+    "lines": [
+      57,
+      75
+    ],
+    "excerpt_sha256": "0a8566568942f8690631317d6c21d06d011c401190e7c7a7f2ed2a7ca8d762de",
+    "scope": "complete G4 metric and CM consumer"
+  },
+  {
+    "path": "research/quartic214/proofs/height-supplier.md",
+    "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+    "lines": [
+      7,
+      17
+    ],
+    "excerpt_sha256": "eebac0d247089f724f58c5a0203b52b944134b70e76dfeea44fa016d578816bb",
+    "scope": "H0 geometric, metric and CM input interface; modularity assertions in line17 excluded from G4 review"
+  }
+]

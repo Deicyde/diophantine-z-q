@@ -1,0 +1,72 @@
+{
+  "frozen_commit": "e3626cac202cdbcdfedc2bff1978dcd3ea3fd3ab",
+  "scope": "Concrete current historical-related-use and serialization items established in this continuation, not all remaining mathematical/control work.",
+  "items": [
+    {
+      "id": "HIST-LI-CURRENT-NATIVE-BINDING",
+      "classification": "current source/application and related-use binding",
+      "state_at_frozen_head": "needs explicit author substitution binding and independent application decision",
+      "actual_old_use": {
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+        "lines": [
+          685,
+          691
+        ],
+        "excerpt_sha256": "2c0b0b9c245df7e2f17d34e8d41550b91b94344c6b8baa70b5024bd26690cdd7"
+      },
+      "receiving_old_use": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "lines": [
+          5768,
+          5774
+        ],
+        "excerpt_sha256": "3e35c33f49ccf8ded9094bef45f9ce5612cd031f70b355300816778d6a7660c3"
+      },
+      "actual_new_derivation": {
+        "path": "research/quartic214/proofs/modularity.md",
+        "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+        "lines": [
+          47,
+          61
+        ],
+        "excerpt_sha256": "fd0ef97abd15b38b7ec2843e6a0efd18c000499555505ce0b60cc9bb99d2845e"
+      },
+      "issue": "M3 explicitly replaces the primitive-existence inference by Deligne\u2013Serre decomposition, while its precision note names V15 and the operative complete foundation is V16. The retained V16 generic lemma still prints the old Li p294/Theorem5 existence attribution. Exact prior native acceptance cannot itself authorize the revised supplier.",
+      "required_next_step": "Author an additive binding from the existing M3 extraction to the actual V16 generic primitive-existence use and printed receiver, preserving historical bytes. Independent closure reviewer checks that the same extraction covers its positive-integral-weight and weight-two twist instances. No manuscript mathematical rewrite required.",
+      "related_use_exclusions": "Li Fricke-span assertions at modularity:111, primary-source-bridges:37\u201341 and native1467/receiving6550 concern a different published statement; they are not existence applications.",
+      "state_after_additive_review": "resolved by exact author overlay plus independent current-closure decision",
+      "resolution": "NATIVE_PRIMITIVE_RESOLUTION.json"
+    },
+    {
+      "id": "PR30-F6-UNIT-GROUP-STARS",
+      "classification": "receiving mathematical serialization; same mechanism as earlier F5 outside demonstrated bounded closure",
+      "state_at_frozen_head": "open receiving correction",
+      "source": {
+        "path": "research/quartic214/proofs/modularity.md",
+        "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+        "lines": [
+          57,
+          57
+        ],
+        "excerpt_sha256": "34d1f013adda38ff9a00e2ab747521efe9ee146a311a59c70b226a89eaee64c4"
+      },
+      "receiver": {
+        "path": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "lines": [
+          2552,
+          2552
+        ],
+        "excerpt_sha256": "b1daf919e0fbe55e9c76cecc492deea00c66609f18bafa2cf24bbdf1fd9e3de6"
+      },
+      "issue": "Markdown emphasis consumes the unit-group stars after (Z/rZ) and the second product Z_p, printing an emphasis run between them. The actual source still denotes unit groups.",
+      "required_next_step": "Author minimal protected mathematical-star serialization and full related-star inventory; independent receiving comparison of exact corrected TeX/PDF plus same-object class-field/twist consumer. New source and PDF pins required after rebuild.",
+      "history": "Parent/Sol discovered this during current continuation. I independently read the actual source57 and TeX2552. Earlier F5 correctly warned that its located-star comparisons did not establish exhaustive serialization; preserve that original bounded resolution."
+    }
+  ],
+  "open_item_ids": [
+    "PR30-F6-UNIT-GROUP-STARS"
+  ]
+}
