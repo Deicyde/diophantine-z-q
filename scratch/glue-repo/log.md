@@ -74,3 +74,7 @@ Jmap copied verbatim from JHeight.lean (not importable in worktrees).
   "kernel refused to evaluate Nat.pow" when stated with the constants directly).
 - PRArith: div_gcd_eq_one_iff (e/gcd(e,m) = 1 ↔ e ∣ m), inertia_orders_eq_one_iff (Prop. TS's
   orders 4/gcd(4,m₀), 6/gcd(6,m_∞), 2/gcd(2,m_{−16/27}) all 1 ↔ p ∤ M_S(u)). COMPILED.
+
+## Final check (2026-11-11)
+All four files recompiled one after another: no errors, no `sorry` declarations; every
+#print axioms = [propext, Classical.choice, Quot.sound]. Report: docs/research/glue-repo.md.
