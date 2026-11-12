@@ -70,3 +70,18 @@ Result: 0 mismatches. 38 contributing comparisons (incl. P_1(d0) torsion for d0 
 L(d1) = 0 cases) and 48 non-contributing torsion checks.
 Totals over 30 n: 73 contributing (d0,d1) comparisons, 102 non-contributing characters, all as predicted.
 m = +-16 2^{h2(n)-h2(d0)} L(d1) with L(d1) in {0,...,7}, 2^{h2(n)-h2(d0)} in {2,4,8,16,32}.
+
+## Step 5: absolute constant (d1 = 1) and the global normalisation (tabs.py, out_tabs.txt, petersson.py, out_petersson.txt)
+
+tabs.py: index of 4P_1(n) over a generator alpha_n of A(K_n)^- (via A_n ~ Y^2 = X^3 + 4n^2X, mapped into 32a1(C) by
+X = -X''/n, Y = sqrt(-n) Y''/n^2, compared by elliptic logs mod Lambda, scan m in [-512,512]); rho(n) from
+4^rho = 2 h(alpha_n)/h(g_n) (phi_n(alpha) = +-2^rho g mod E[2], h(phi P) = 2 h(P)); L(n)^2 = L'(E_n,1)/(2^{2k-3} Om_n h(g_n)) (integer, asserted).
+Prediction from Thm 3.3 as printed: index = 2^{h2(n)+1-rho(n)} |L(n)|.
+20 values: n = 5 mod 8: 5 13 21 29 37 53 61 85 93 101 109 165; n = 7 mod 8: 7 15 23 31 39 47 55 71.  All 20 as predicted
+(rho = 1 at 21, 93, 165; index 2, 4, 8). (First attempt via bestappr of x-coordinates failed for large heights; replaced by elliptic logs.)
+So Thm 3.3 holds exactly as printed (global factor gamma0 = 1) on these.
+Global inputs: Om^2 = 32 pi^2 (phi,phi) VERIFIED (petersson.py: Om1^2 / covol(Lambda_{32a1}) = 8, covol = 4 pi^2 (phi,phi) with PARI mfpetersson * index 48).
+In PARI (BSD) height h_P, Thm 3.3 <=> h_P,A(P_chi) = 2^{2h2-2k+3} L'L/(Om_{d0}Om_{d1}) = 8 (n=5), 2 (n=7), using R_n = h_P(g_n) and
+h_P(alpha) = 4^rho R/2; this is exactly the A.9 value of step 1 when the YZZ height is h_P.
+TYZ misprint (harmless): Thm 2.1 proof intermediate |P|^2 = w^2/(2^5 3^b pi^3) (f,f)/(f',f') L L omits sqrt|D| (from |Dd^2|_A^{-1/2});
+their final 2^{4+c} needs it.

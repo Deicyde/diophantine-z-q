@@ -1,0 +1,24 @@
+n=5    h2=1 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [4]  predicted 2^(h2+1-rho) L = 4  True
+n=13   h2=1 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [-4]  predicted 2^(h2+1-rho) L = 4  True
+n=21   h2=2 rho=1 L(n)=1  index[4P_1(n) : alpha_n] = [4]  predicted 2^(h2+1-rho) L = 4  True
+n=29   h2=1 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [-4]  predicted 2^(h2+1-rho) L = 4  True
+n=37   h2=1 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [4]  predicted 2^(h2+1-rho) L = 4  True
+n=53   h2=1 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [-4]  predicted 2^(h2+1-rho) L = 4  True
+n=61   h2=1 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [4]  predicted 2^(h2+1-rho) L = 4  True
+n=85   h2=2 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [8]  predicted 2^(h2+1-rho) L = 8  True
+n=93   h2=2 rho=1 L(n)=1  index[4P_1(n) : alpha_n] = [4]  predicted 2^(h2+1-rho) L = 4  True
+n=101  h2=1 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [4]  predicted 2^(h2+1-rho) L = 4  True
+n=109  h2=1 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [4]  predicted 2^(h2+1-rho) L = 4  True
+n=165  h2=3 rho=1 L(n)=1  index[4P_1(n) : alpha_n] = [-8]  predicted 2^(h2+1-rho) L = 8  True
+n=7    h2=0 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [-2]  predicted 2^(h2+1-rho) L = 2  True
+n=15   h2=1 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [4]  predicted 2^(h2+1-rho) L = 4  True
+n=23   h2=0 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [2]  predicted 2^(h2+1-rho) L = 2  True
+n=31   h2=0 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [-2]  predicted 2^(h2+1-rho) L = 2  True
+n=39   h2=1 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [-4]  predicted 2^(h2+1-rho) L = 4  True
+n=47   h2=0 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [-2]  predicted 2^(h2+1-rho) L = 2  True
+n=55   h2=1 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [-4]  predicted 2^(h2+1-rho) L = 4  True
+n=71   h2=0 rho=0 L(n)=1  index[4P_1(n) : alpha_n] = [2]  predicted 2^(h2+1-rho) L = 2  True
+
+real	0m2.503s
+user	0m2.412s
+sys	0m0.065s
