@@ -84,3 +84,10 @@ are UNVERIFIED.
   Note: Mathlib's `Matrix.SpecialLinearGroup.coe_mul`/`coe_inv` do not `rw` against
   `(x : Matrix (Fin 2) (Fin 2) ℤ)` written in a client file (instance-path mismatch); they are
   `rfl`, so state the needed equation with `:= rfl` and rewrite with that.
+
+## Step 5: E1's linear algebra (VERIFIED: compiled)
+
+- `E1Lin.lean`: `coord_lTensor` (coordinates of `E ⊗_F W` in an `F`-basis of `E` are natural in
+  `W`), `baseChange_invariant_eq_zero` (`W^G = 0` ⇒ invariants of `E ⊗_F W` vanish),
+  `invariants_ne_bot_of_baseChange`. Compiled, no `sorry`. The `Hom`-space identification
+  `E ⊗ Hom(V,V') ≅ Hom_E(E⊗V, E⊗V')` is not written.

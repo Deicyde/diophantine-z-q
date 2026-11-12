@@ -65,9 +65,9 @@ means a published theorem with a reference; locators recalled from memory are ma
 4. **Verdict on the six steps.**
    - **F2**, and the E3, E4 and CM arithmetic, are now proved in Lean. F2 is proved as a
      statement about genuine Weil heights.
-   - **E1** splits into a linear-algebra lemma (invariants commute with extension of the
-     coefficient field), provable in Mathlib today but not written, and Faltings' Hom theorem
-     with Poincaré reducibility. Those two cannot be stated without Tate modules of abelian
+   - **E1** splits into a linear-algebra lemma, now proved (invariants commute with extension
+     of the coefficient field, `E1Lin.lean`), and Faltings' Hom theorem with Poincaré
+     reducibility. Those two cannot be stated without Tate modules of abelian
      varieties.
    - **C8** keeps three leaves that cannot be stated today: (HT) for eigenforms, Deligne–Serre,
      and the Weil pairing. Kronecker–Weber can be stated and is proved in Tau Ceti. Its glue is
@@ -258,13 +258,13 @@ constituent of `V₅(A_f)`: there are an abelian variety `Z/L'` and an `L'`-isog
   reducibility … not found").
 
 **Glue.**
-- Step 2. Provable in Mathlib today (SPECULATIVE: about 150 lines):
-  - `V^G` is a finite intersection of kernels `ker(g − 1)` (finite dimension);
-  - kernels commute with the flat base change `E ⊗_F –` (`LinearMap.tensorKerEquiv` in
-    `Mathlib/RingTheory/Flat/Equalizer.lean`);
-  - finite products commute with `⊗`.
-
-  Not written.
+- Step 2. **Proved** (`E1Lin.lean`): `baseChange_invariant_eq_zero` and
+  `invariants_ne_bot_of_baseChange`. For a representation `W` of a group `G` over a field `F` and
+  a field extension `E/F`: if `W^G = 0`, every `G`-invariant vector of `E ⊗_F W` is `0`. The proof
+  takes coordinates in an `F`-basis of `E` (`finsuppScalarLeft`), which are natural in `W`; no
+  finiteness is needed. To apply it to `Hom_{G_{L'}}(V₅A ⊗ E, V₅J ⊗ E)`, one still needs the
+  identification `E ⊗ Hom_F(V, V') ≅ Hom_E(E ⊗ V, E ⊗ V')` for finite-dimensional `V`, which is
+  standard Mathlib linear algebra; not written.
 - Steps 1, 4 and 5 as stated need abelian varieties with Tate modules. **Blocked.**
 - E1 is also where `g = dim J₁(N) ≥ 2` comes from. `GlueOutputs` assumes `2 ≤ g`. The bound
   `g ≤ N²` comes from E2: genus and Belyi degree are at most `[PSL₂(ℤ) : ±Γ₁(N)] ≤ N²`. The
@@ -390,7 +390,7 @@ Rows 1-2, 5 and 12-15 are shared with other packages (I2, I3, I4). Rows 4-7 and 
 | finite-image character of `G_ℚ` is Dirichlet (from Kronecker–Weber) | C8 | statable and provable over Mathlib's infinite Galois theory; not written |
 | trace bookkeeping `tr(r ⊕ r) = 2 tr r`, scalars | C10 | elementary; not written |
 | equal traces on dense Frobenii ⇒ isomorphic | C10 | blocked (ℓ-adic representations of `G_ℚ`) |
-| invariants commute with extension of coefficients | E1 | provable today (Mathlib flat base change); not written |
+| invariants commute with extension of coefficients | E1 | **proved** (`baseChange_invariant_eq_zero`); the `Hom`-space identification is not written |
 | simplicity + Hom theorem + Poincaré ⇒ isogeny | E1 | blocked (abelian varieties) |
 | `[SL₂(ℤ) : Γ₁(N)] ≤ N²` | E2 | **proved** (`index_Gamma1_le`) |
 | genus, Belyi degree `≤` index | E2 | blocked (modular curves) |
@@ -411,9 +411,9 @@ Rows 1-2, 5 and 12-15 are shared with other packages (I2, I3, I4). Rows 4-7 and 
 2. For the crowdsourcing announcement, the cluster contributes:
    - two leaves that can be stated now, `KroneckerWeber` (already proved in Tau Ceti; a port)
      and `BrauerNesbittCharZero`;
-   - two small, self-contained Mathlib-level tasks: invariants and field extension (E1), and
-     the "finite-image character is Dirichlet" lemma (C8). The third such task, the index of
-     `Γ₁(N)` (E2), is done here.
+   - one small, self-contained Mathlib-level task: the "finite-image character is Dirichlet"
+     lemma (C8). Two others are done here: the index of `Γ₁(N)` (E2), and invariants under
+     field extension (E1).
 
    Everything else in the cluster waits on the object layer (abelian varieties with Tate
    modules and Faltings heights; ℓ-adic representations of `G_ℚ`).
@@ -434,4 +434,5 @@ Rows 1-2, 5 and 12-15 are shared with other packages (I2, I3, I4). Rows 4-7 and 
 - `scratch/glue-assembly/F3Glue.lean`: F3 normalizations.
 - `scratch/glue-assembly/Leaves.lean`: the two statable leaves.
 - `scratch/glue-assembly/E2Index.lean`: `[SL₂(ℤ) : Γ₁(N)] ≤ N²`.
+- `scratch/glue-assembly/E1Lin.lean`: invariants and extension of scalars.
 - `scratch/glue-assembly/log.md`: results log.
