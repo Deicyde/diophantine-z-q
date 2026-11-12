@@ -34,3 +34,17 @@
   a cuspidal eigenform up to twist" is undefined in Pan's intro (risk: Lean reading must be fixed).
 - Leaf list: L1-L35 with L11a-f (40 statements): 21 research-level, 19 textbook; 8 packages.
 - Glue list: G0 (top) + G1-G20; G20 (F4) already proved in ZInQKernel/Hypotheses/JHeight.lean.
+
+## Step 5 (Leaves.lean compiles)
+- `lake build ZInQKernel.Hypotheses.JHeight` first (rebuilt ZInQ.NumericalTowerBounds,
+  ZInQ.ExplicitCutoffBounds from the upstream `lean/` package; 5 s), then
+  `lake env lean scratch/hdec-faithful/Leaves.lean`: no errors, 36 `sorry` warnings
+  (35 placeholder leaves + `jHeightBound_of_leaves`), VERIFIED.
+- Stated (concrete): SkolemNoether, HasseBrauerQ, KroneckerWeber, FrobeniusDense, BrauerNesbitt,
+  EigenformRepExists, DeligneSerreConseq, EigenformTwist (8 statements).
+- Proved glue: `weight_match` (G12 weight arithmetic), `prod_primes_pow_le` (G16), axioms
+  propext, Classical.choice, Quot.sound. `sixContactMin_of_leaves` routes through the proved
+  `ZInQ.JHeight.sixContactMin_of_jHeightBound` (G20).
+- Defs0.lean removed (superseded by Leaves.lean §0-§1).
+- Note fix needed: statement count is 40 leaves = 43 statements when L15, L27, L28 are split;
+  placeholders 35, stated 8.
