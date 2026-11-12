@@ -160,15 +160,19 @@ theorem trd_mul_ros_pos (a : B) (ha : a ≠ 0) : 0 < trd (a * ros a) := by
   rw [key]
   by_contra h
   push Not at h
-  have h0 : a.re = 0 := by nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 *
-      a.imK), sq_nonneg a.imK]
-  have h1 : a.imI = 0 := by nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 *
-      a.imK), sq_nonneg a.imK]
-  have h3 : a.imK = 0 := by nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 *
-      a.imK), sq_nonneg a.imK]
+  have h0 : a.re = 0 := by
+      nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 * a.imK), sq_nonneg
+          a.imK]
+  have h1 : a.imI = 0 := by
+      nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 * a.imK), sq_nonneg
+          a.imK]
+  have h3 : a.imK = 0 := by
+      nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 * a.imK), sq_nonneg
+          a.imK]
   have h2 : a.imJ = 0 := by
-    have : (3 * a.imJ - 4 * a.imK) = 0 := by nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg
-        (3 * a.imJ - 4 * a.imK), sq_nonneg a.imK]
+    have : (3 * a.imJ - 4 * a.imK) = 0 := by
+        nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 * a.imK), sq_nonneg
+            a.imK]
     rw [h3] at this; linarith
   exact ha (by ext <;> simp [h0, h1, h2, h3])
 

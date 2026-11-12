@@ -208,8 +208,8 @@ theorem artinConductor_le_of_upper {k V : Type} [Field k] [AddCommGroup V] [Modu
         refine Finset.sum_le_sum (fun i _ => ?_)
         exact mul_le_mul_of_nonneg_left (Nat.cast_le.mpr (codimInv_le A B ρ _) :
           ((codimInv A B ρ (lowerRam A B i) : ℕ) : ℝ) ≤ (Module.finrank k V : ℝ)) (hInt_nn i)
-    _ = d * ∑ i ∈ T, hInt A B i := by rw [Finset.mul_sum]; exact Finset.sum_congr rfl (fun _ _ => by
-        ring)
+    _ = d * ∑ i ∈ T, hInt A B i := by
+        rw [Finset.mul_sum]; exact Finset.sum_congr rfl (fun _ _ => by ring)
     _ ≤ d * (1 + U) := mul_le_mul_of_nonneg_left hT (Nat.cast_nonneg _)
 
 end Proof

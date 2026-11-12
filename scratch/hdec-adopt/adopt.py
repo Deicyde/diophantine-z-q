@@ -49,7 +49,15 @@ emit('Conductor/ArtinUpper.lean', 'glue-I6-rest/Conductor.lean', body, [H + 'Con
 L = rd('glue-d1-local/Local.lean')
 emit('Conductor/D1Local.lean', 'glue-d1-local/Local.lean', L[402:], [H + 'Conductor.Breaks'])
 # A6
-plain('A6/A6.lean', 'glue-a6-alg/A6.lean'); plain('A6/Extend.lean', 'glue-a6-alg/Extend.lean')
+L = rd('glue-a6-alg/A6.lean')
+a = next(i for i, l in enumerate(L) if l.rstrip() == 'namespace GlueA6Alg')
+b = next(i for i, l in enumerate(L) if l.startswith('/-! ## 10. rv-a6-route'))
+mid = ['namespace GlueA6Alg\n\n',
+       "/-! §1-§9 (pkg-I2's definitions, leaves and proved glue, copied verbatim in the scratch\n",
+       'draft) are imported from `ZInQKernel.HDecomp.Objects` (§B, namespace `PkgI2`). -/\n\n',
+       'open PkgI2\n\n', 'section Glue\n\n', 'variable {K : Type u} [Field K]\n\n']
+emit('A6/A6.lean', 'glue-a6-alg/A6.lean', L[:a] + mid + L[b:], imps(L) + [H + 'Objects'])
+plain('A6/Extend.lean', 'glue-a6-alg/Extend.lean')
 # C10
 plain('C10/C10.lean', 'glue-c10/C10.lean')
 L = rd('glue-c10/Trace.lean')

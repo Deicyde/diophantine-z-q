@@ -54,8 +54,8 @@ theorem prod_S_le (S : Finset ℕ) (hS : ∀ p ∈ S, p.Prime) (R : ℝ) (hR1 : 
     rw [Nat.card_Icc, Nat.add_sub_cancel] at this
     calc (S.card : ℝ) ≤ ⌊R⌋₊ := by exact_mod_cast this
       _ ≤ R := Nat.floor_le (by linarith)
-  calc ((∏ p ∈ S, (p - 1) : ℕ) : ℝ) = ∏ p ∈ S, (((p - 1 : ℕ)) : ℝ) := by push_cast [Nat.cast_prod];
-      rfl
+  calc ((∏ p ∈ S, (p - 1) : ℕ) : ℝ) = ∏ p ∈ S, (((p - 1 : ℕ)) : ℝ) := by
+      push_cast [Nat.cast_prod]; rfl
     _ ≤ ∏ _p ∈ S, R := by
         apply Finset.prod_le_prod₀ (fun _ _ => by positivity)
         intro p hp
