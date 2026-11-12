@@ -57,7 +57,8 @@ the published text; no human has checked it):
    `V/W ≅ P¹_ℚ` and its three rational branch values `0, ∞, −16/27`. Journal text read by the audit.
    Corrected 2026-11-12: the degree-4 map `V → V/W` has ramification index 2 at each branch
    value; `4, 6, 2` are the elliptic (orbifold) orders of the uniformization, not indices of
-   this cover.
+   this cover. They are the indices of the level-three cover `Y₃ → P¹_j` (glue: `Γ₃` is
+   torsion-free and normal in `Γ*`; rv-nocm §2.2, added 2026-11-12 by loc-fix).
 3. Lin–Yang 2020 (arXiv v1 **Example 29**, pp. 20-21, discriminant 6; corrected 2026-11-12: v1's
    Example 30 treats discriminant 14): Igusa invariants on the quaternionic locus. Journal
    numbering UNVERIFIED. Alternative supplier of the invariant tuple: Baba–Granath Prop. 3.6,
@@ -67,6 +68,7 @@ the published text; no human has checked it):
 5. González–Rotger 2006 (Thm 5.8, Thm 5.12, Prop. 5.6; journal pp. 943-946): number and fields
    of definition of CM points on `X₀(D,N)`. Read by the audit in arXiv v1, v2 and the journal.
    Corrected 2026-11-12: Prop. 5.6 counts `2^{#{p | D(R)N(R)}}·h(R)` CM points, not `h(R)`.
+   At `N = 1` this is `2^{b(R)} h(R)`, `b(R) = #{p | 6 inert in k}` (rv-nocm §3.1; loc-fix 2026-11-12).
 6. Raynaud (SGA 7 IX, Prop. 4.7): semistable reduction when the m-torsion is rational, m ≥ 3.
    UNVERIFIED (Silverberg–Zarhin Thm 3.5, p. 406, read by models; the audit could not confirm
    from the display that the printed bound includes `m = 3`, the case used).
@@ -391,23 +393,25 @@ polarization-compatible level structure, the PEL conditions, the component conve
 only the subgroup preserving the level and the datum acts. (d) keeps the reflex-field
 qualifications. Shimura 1967 (Main Thms I-II) and Kottwitz 1992 (§5) were not read: UNVERIFIED.
 
-**R2. Baba–Granath** (restated by loc-adopt, 2026-11-12, after the locator audit). For the
-discriminant-6 curve `V = X₆` with the fixed principally polarized maximal-order datum and its
-Atkin–Lehner group `W ≅ (ℤ/2)²`: the forgetful polarized moduli space is `V/W`, and `V/W ≅ P¹_ℚ`
-with the three distinguished images rational; two points of `V` give the same polarized moduli
-point iff they are `W`-conjugate. The three branch values of the degree-4 map `V → V/W` are
-`0, ∞, −16/27` (CM discriminants −4, −3, −24), and the **ramification index of `V → V/W` is 2 at
-each of them**. The numbers `4, 6, 2` are the elliptic orders of the orbifold uniformization
-`Γ_W\ℍ → V/W` (the normalizer group), not ramification indices of the degree-4 cover. Ref:
-Canad. J. Math. 60 (2008), Thm 2.1 (p. 737), Lemma 3.1 (pp. 739-740), §3 (p. 739), the
-elliptic-order table of §3.1 (p. 740), Prop. 3.9 and Thm 3.10 (p. 744), Cor. 3.11 (p. 745), all
-read by the audit in the journal text; the 2005 preprint was not located by the audit (it had been
-read by a model earlier). Audit verdict: YES for the polarized quotient identification (a
-geometric moduli identification, not an equality of arbitrary forms over their fields of
-definition); NO for the former statement "branched with indices 4, 6, 2". Thm 2.1 and Lemma 3.1
-alone do not fix the numerical normalization of `j` (that comes from R3/R4 and the checks of F1).
-E (for the restated form). Lean: **no** (via R1). Steps A2, A7 (and A5, which uses the branch
-data of `Y₃ → P¹_j`: h-trust A5 note of 2026-11-12).
+**R2. Baba–Granath** (restated by loc-adopt, 2026-11-12, after the locator audit; the statement
+replaced 2026-11-12 by loc-fix with the exact text of rv-nocm §3.2). `X₆/W ≅ P¹_j` over `ℚ`. The
+orbifold `Γ*\ℍ` (`Γ* = Γ_W`, the normalizer group) has exactly three elliptic points, at
+`j = 0, ∞, −16/27`, of orders 4, 6, 2, the CM points of discriminants −4, −3, −24. Two QM surfaces
+with principal polarization of the fixed type have the same polarized moduli point iff their
+points of `X₆` are `W`-conjugate. Ref: Canad. J. Math. 60 (2008), Thm 2.1, Lemma 3.1, §3.1
+elliptic-order table (p. 740 per locators.md); the numerical `j`-normalization of the labels needs
+Prop. 3.6/3.9-Cor. 3.11 or R3 (locators.md). The ramification indices are glue, not part of the
+leaf: `X₆ → X₆/W` has index 2 over each of the three values (stabilizers of order 4/2, 6/3, 2/1 in
+`W`). The level-three cover `Y₃ → P¹_j` has indices 4, 6, 2 there and is unramified elsewhere,
+because `Γ₃` is torsion-free and normal in `Γ*` (`RvNocm.ramification_eq_orbifold_order`).
+(Audit details kept from loc-adopt: Thm 2.1 p. 737, Lemma 3.1 pp. 739-740, §3 p. 739, Prop. 3.9
+and Thm 3.10 p. 744, Cor. 3.11 p. 745, all read by the audit in the journal text; the 2005
+preprint was not located by the audit. Audit verdict: YES for the polarized quotient
+identification, a geometric moduli identification, not an equality of arbitrary forms over their
+fields of definition; NO for the former statement "branched with indices 4, 6, 2".) E (for the
+restated form). Lean: **no** (via R1). Steps A2, A7, and A5, which uses the indices `4, 6, 2` of
+`Y₃ → P¹_j` as glue: rv-nocm §2 checked that A5 holds with them (the argument is unchanged; only
+the supplier's wording was wrong).
 
 **R3. Lin–Yang.** On the finite nonzero `j`-locus, the QM surface over `j` is a genus-2 Jacobian
 with `[J₂:J₄:J₆:J₁₀] = [12(j+1) : 6(j²+j+1) : 4(j³−2j²+1) : j³]`. Ref: Math. Z. 295 (2020),
@@ -442,22 +446,24 @@ orders of `Γ*\ℍ`, consistent with the corrected R2; its Lin–Yang input is v
 explicit period matrix `Ω(τ)` (numerically VERIFIED to 20-30 digits by pkg-I1). It says nothing
 about the `ℚ`-structure, which is R1.
 
-**R5. González–Rotger** (corrected by loc-adopt, 2026-11-12, after the locator audit). On the
-Shimura curve `X₀(D,N)` of the paper (here `D = 6`, `N = 1`), for orders `R` of conductor `f`,
-`(f,6)=1`, embeddable in `𝒪`: `#CM(R) = 2^{#{p | D(R)N(R)}}·h(R)` (Prop. 5.6); a single
-specified orientation branch has `h(R)` points, the whole CM set in general does not
-(`(f,6) = 1` does not remove the factor: for `R` maximal of discriminant −19, `h(R) = 1`, 2 and 3
-are inert, and there are four CM points). Fields: `ℚ(x) = H_R` if `D(R)N*(R) ≠ 1`, otherwise
-the specified index-2 subfield of `H_R` (Thms 5.8, 5.12). Ref: J. Math. Soc. Japan 58 (2006),
-Prop. 5.6 (p. 943; arXiv v1/v2 p. 15), Thm 5.8 (pp. 943-944; v1/v2 p. 16), Thm 5.12 (p. 946;
-v1/v2 pp. 18-19), read by the audit in v1, v2 and the journal (rv-h-cm had read the arXiv text).
-These statements concern `X₀(D,N)`; they do not apply automatically to `Y₃` or to the image in the
-full Atkin–Lehner quotient (audit example: at discriminant −24 the quotient coordinate −16/27 is
-rational while the ring class field has degree 4). The former statement "`#CM(R) = h(R)`" is
-contradicted by Prop. 5.6 (audit verdict NO). The NoCM argument of h-cm (§5; rv-h-cm §3)
-already uses the count `2^b·h(𝔬)`, `b` the number of `p | 6` inert in `K`, which appears to be
-this corrected count (read in h-cm.md, not re-derived), so the error was in this leaf's statement;
-whether h-cm applies it to the right curve is for the separate review. E (in the corrected form). Lean: **no** (via R1).
+**R5. González–Rotger** (corrected by loc-adopt, 2026-11-12, after the locator audit; replaced
+2026-11-12 by loc-fix with the exact text of rv-nocm §3.1). Let `R` be an order of conductor `f`,
+`(f, 6) = 1`, in an imaginary quadratic field `k` in which neither 2 nor 3 splits. Let
+`CM(R) ⊂ X₆(ℚ̄)` be the points of `X₆ = X₀(6,1)` with CM by `R`, let `D(R)` be the product of the
+primes `p | 6` inert in `k`, and `b(R) = #{p | D(R)}`. Then (i) `#CM(R) = 2^{b(R)} h(R)`, and
+`⟨w_p : p | D(R)⟩ × Gal(H_R/k)` acts simply transitively on `CM(R)`; (ii) for `x ∈ CM(R)`,
+`ℚ(x) = H_R` if `D(R) ≠ 1`, and `[H_R : ℚ(x)] = 2` if `D(R) = 1`. Both parts concern points
+of `X₆` itself, not their images in `X₆/W` or points of `Y₃`. For example, `R = ℤ[√−6]` maps
+to the rational point `j = −16/27` of `X₆/W`, of index 4 in `H_R`. Ref: J. Math. Soc. Japan 58
+(2006), Prop. 5.6, Thm 5.12 (arXiv:math/0612732 numbering VERIFIED by rv-h-cm; journal
+pp. 943, 946 per locators.md). E (restricted to `(f,6) = 1`, `N = 1`). Lean: **no** (via R1).
+Step A10 (NoCM), which uses (i) only when `D(R) = 1`, where it reads `#CM(R) = h(R)`.
+(History: the statement before 2026-11-12 read "`#CM(R) = h(R)`", which is false: for `R`
+maximal of discriminant −19, `h(R) = 1`, 2 and 3 are inert, and there are four CM points; 15 of
+the 24 non-elliptic rows of Elkies' table contradict it, and so does `ℤ[i]`, with `h = 1` and two
+points (rv-nocm §1.2). The audit read Prop. 5.6 (p. 943; arXiv v1/v2 p. 15), Thm 5.8
+(pp. 943-944) and Thm 5.12 (p. 946) in v1, v2 and the journal. rv-nocm §1 checked that both
+proofs of NoCM use only the corrected count, on `X₆`, so the argument is unchanged.)
 Step A10 (NoCM), whose use of the count is under separate review (h-trust A10 note of
 2026-11-12).
 
@@ -589,7 +595,13 @@ Shimura 1973 Thm 1 (pp. 526-527), §0 and Thm 2 read; Shimura 1971 Thm 7.9 unrea
 which must not be attached to the unconditional clauses nor dropped when that clause is used.
 The rank-2 realization for an individual embedding and the Frobenius–Hecke relation must still be
 supplied (divisibility of the total characteristic polynomial is not enough). CONSEQUENCE with an
-incompletely sourced realization bridge.
+incompletely sourced realization bridge. *rv-loc-leaves (j), adopted 2026-11-12 by loc-fix:* the
+leaf does not use the zeta clause, so the Fricke condition is neither needed nor silently dropped;
+it is a consequence of three suppliers: (i) Thm 1's unconditional clauses; (ii) `V_ℓ(A_f)` free of
+rank 2 over `K_f ⊗ ℚ_ℓ` (Shimura 1971 §7.4 / Ribet 1977, UNVERIFIED locator); (iii) the
+Eichler–Shimura congruence relation on `J₁(N)` (Shimura 1971 Thm 7.9, UNVERIFIED). Under the other
+Hecke convention on `J₁(N)` the trace is `ι(conj a_p)`, the case of `f^ρ`, so the statement over
+all newforms is unaffected. The `R16_EichlerShimuraJ1` docstring in Leaves.lean carries this text.
 
 **R17. Carayol.** For a weight-2 newform of level `N` and `p ≠ ℓ`, the Artin conductor exponent
 of `ρ_{f,λ}|G_{ℚ_p}` is `v_p(N)`. Ref: Ann. Sci. ÉNS 19 (1986), Théorème (A). C. Lean: **new
@@ -603,7 +615,12 @@ coefficient place of different residue characteristic); the extra discrete-serie
 only for totally real `F` of even degree, not `ℚ`. Combine with the newform conductor
 `a(π_p) = v_p(N)` and identify the realization; contragredient and norm twists do not change the
 conductor. Do not replace Théorème A by Théorème B or by the `Γ₀` elliptic corollary.
-CONSEQUENCE.
+CONSEQUENCE. *rv-loc-leaves (f), adopted 2026-11-12 by loc-fix:* `LadicCond.CarayolR17'`
+quantifies over every `ℓ` and every `p ≠ ℓ`, with no `p ∤ N` or `ℓ ≠ 2` restriction, so it is
+FAITHFUL to this coverage; `CarayolR17` (every adapted level) is its consequence through the glue
+`SwanIndependent`. The docstrings of `CarayolR17`, `CarayolR17'` (LadicCond.lean),
+`PkgI4.CarayolUnramified` and the `R17_Carayol` placeholder (Leaves.lean) now say "coverage read
+by the audit" instead of "UNVERIFIED / open".
 
 **R18. Javanpeykar.** `h_F(Jac X) ≤ 13·10⁶·g·d⁵` for `X/ℚ̄` of genus `g ≥ 1` with a Belyi map of
 degree `d`. Ref: Algebra Number Theory 8 (2014), Thm 1.1.1 (p. 90; arXiv v1 p. 1) with the
@@ -650,7 +667,11 @@ theta (Fubini–Study) height and **Deligne's metric**, for which `h_D = h_F + (
 bound on `h_F` cannot be substituted. The hardened `X_D = max(1, h_F(A) + 3)` satisfies this
 (`log π < 1.15 < 3`), so the `+3` now covers a shift that the audit identified, not only a
 hypothetical one. The theta height must be identified with the project's coordinate height
-(glue).
+(glue). *rv-loc-leaves (c), adopted 2026-11-12 by loc-fix:* the three consequence steps (from the
+literal truncated form with `h_D = h_F + log π` to `h_Θ ≤ X/2 + C₂ log(X + 2)` for any
+`X ≥ max(1, h_F + log π)`) are proved in Lean (`pazuki_upper_of_literal`, `pazuki_plus3_of_literal`,
+`pazukiGoodGenus2'_of_literal` in scratch/rv-loc-leaves/PazukiR22.lean); the `R22_Pazuki`
+placeholder docstring in Leaves.lean states the literal corollary and this consequence.
 
 ### §2.2 Textbook foundations (route P)
 
@@ -671,7 +692,7 @@ hypothetical one. The theta height must be identified with the project's coordin
 | T11 | Riemann/GAGA/rigidity: `End⁰(A_ℂ)` = Hodge endomorphisms, `Hom_ℚ̄ = Hom_ℂ` | Mumford §§1-3; Serre 1956; Conrad 2006 | E | new defs (analytification; large) | Tau Ceti: Riemann forms |
 | T12 | Artin comparison with complex conjugation | SGA 4 XI 4.4 | E | new defs (as T11) | none |
 | T26 | `T_ℓ(A)` free of rank `2 dim A` over `ℤ_ℓ`, `ℓ ≠ char` | Mumford §§4, 18-19 | E | yes, `PkgI3.TateModuleFree` | none |
-| T27 | QM dichotomy: an **indefinite** quaternion division algebra `B` in `End⁰` of an abelian surface over `k = k̄`, char 0, forces `End⁰ ≅ B` (`A` simple) or `M₂(ℚ(√d))`, `d < 0`, `ℚ(√d)` splitting `B` (`A` not simple) | **Chia-Fu Yu, *Endomorphism algebras of QM abelian surfaces*, J. Pure Appl. Algebra (2013), Thm 1.1 (journal p. 907; arXiv:1210.1125 v1/v2 p. 1; proof Props 2.4-2.5, pp. 4-5), read by the locator audit (2026-11-12): a refereed single locator; the hypothesis "indefinite quaternion division algebra" must be kept (the broader wording "a quaternion division algebra" is not what Yu proves; whether `PkgI3.QMDichotomy` carries it is a statement check, WP13). The journal volume (217 from memory) is UNVERIFIED.** Earlier assembly (rv-leaves-b): Mumford §19 Thm 1, Cor. 2, §21 (`[D:ℚ] ∣ 2g`, char 0), §22 (Albert), with Silverman AEC III.9.4 | C | yes, `PkgI3.QMDichotomy` | none |
+| T27 | QM dichotomy: an **indefinite** quaternion division algebra `B` in `End⁰` of an abelian surface over `k = k̄`, char 0, forces `End⁰ ≅ B` (`A` simple) or `M₂(ℚ(√d))`, `d < 0`, `ℚ(√d)` splitting `B` (`A` not simple) | **Chia-Fu Yu, *Endomorphism algebras of QM abelian surfaces*, J. Pure Appl. Algebra (2013), Thm 1.1 (journal p. 907; arXiv:1210.1125 v1/v2 p. 1; proof Props 2.4-2.5, pp. 4-5), read by the locator audit (2026-11-12): a refereed single locator; the hypothesis "indefinite quaternion division algebra" must be kept (the broader wording "a quaternion division algebra" is not what Yu proves; rv-loc-leaves (i) found that the former Lean leaf `PkgI3.QMDichotomy` did not carry it, so it was stronger than Yu's theorem; replaced 2026-11-12 by loc-fix with `PkgI3.QMDichotomyYu`, which has the hypothesis `QuatIndefinite a b`; the project's `B = (2,−3)` satisfies it, `quatIndefinite_two_neg_three`, and the old conclusion at `B` is the lemma `qmDichotomy_B6`). The journal volume (217 from memory) is UNVERIFIED.** Earlier assembly (rv-leaves-b): Mumford §19 Thm 1, Cor. 2, §21 (`[D:ℚ] ∣ 2g`, char 0), §22 (Albert), with Silverman AEC III.9.4 | C | yes, `PkgI3.QMDichotomyYu` (ZInQKernel/HDecomp/Objects.lean, Leaves.lean; loc-fix 2026-11-12) | none |
 | **(c) Arithmetic of ℚ** | | | | | |
 | T13 | Skolem–Noether | Reiner Thm 7.21 | E | yes, `HSyn.SkolemNoether` (also `PkgI6.SkolemNoether`) | Tau Ceti `skolemNoether` |
 | T14 | ABHN and reciprocity for `H²(G_ℚ, ℤ/2)`: injective into `∏_v H²(G_{ℚ_v}, ℤ/2)`, finite even support | Milne ADT I; Tate in C–F VII §11 | C | yes; announced in the cochain forms I6.2a′-b′ `PkgI6.BrauerHasse2C`, `BrauerReciprocity2C` (rv-leaves-b: literally Serre's definition; Mathlib does not yet compare its `continuousCohomology` with inhomogeneous cochains), which the bundle now uses; also `PkgI6.BrauerHasse2`, `PkgI6.BrauerReciprocity2`; the finite-places cochain form used by glue-descent, `GlueDescent.B2Q.LeafHasse`, is a consequence (with T15 at `∞`); algebra form `HSyn.HasseBrauerQ` also compiles | Tau Ceti (Br forms `brLocalization_injective`, `sumLocalInv_brLocalization_eq_zero`); the `H²` bridge not located |
@@ -858,6 +879,11 @@ G15), both new (hdec-elementary §2.2), verified as arguments by one adversarial
   Saito 1997, Shimura 1971, Ribet's refereeing (K2, now avoidable through Kisin 2009 Cor. 0.3)
   and Ribet 1975/1980 (K3). Two leaves were wrong as stated (R2, R5) and are corrected in §2;
   the uses in the glue are under a separate review.
+  *Update (loc-fix, 2026-11-12).* The separate reviews are done: rv-nocm found that NoCM (A10)
+  and A5 hold, with only the suppliers' wording to repair (applied in §2, R2 and R5, with its
+  exact texts), and rv-loc-leaves found the Lean leaf T27 stronger than Yu's theorem (now
+  `PkgI3.QMDichotomyYu`, with "indefinite") and the R02, R05, R16, R17, R22 docstrings out of
+  date (repaired in Leaves.lean). See docs/research/loc-fix.md.
   Refereed sources for R14 (`k ≥ 2`), R21 and the SGA-cited leaves, or an explicit policy that
   Séminaire Bourbaki and SGA count as refereed.
 - **R2. Leaves at risk of being stronger than published.** Pan's conclusion "comes from a cuspidal
@@ -870,7 +896,8 @@ G15), both new (hdec-elementary §2.2), verified as arguments by one adversarial
   *Update (locator audit, 2026-11-12).* Two leaves were stronger than (indeed contradicted by)
   the published text and are corrected in §2: R2 (the indices `4, 6, 2` are orbifold orders; the
   degree-4 cover has index 2) and R5 (the CM count carries the orientation factor). Further
-  qualifications to keep in the statements: T27 needs "indefinite" (Yu 2013); R14 "every
+  qualifications to keep in the statements: T27 needs "indefinite" (Yu 2013; in the Lean leaf
+  since 2026-11-12, `PkgI3.QMDichotomyYu`); R14 "every
   eigenform" needs the Eisenstein (reducible) case or a cusp-form restriction; R12 needs Pan's
   `p = 3` exception and the Frobenius/dualization conventions; R16 must not inherit the Fricke
   condition of Shimura 1973's zeta clause; R22 is a consequence for `X_D ≥ max(1, h_D)`.

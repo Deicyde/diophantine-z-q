@@ -471,7 +471,7 @@ def PoincareReducibility : Prop :=
 def QuatIndefinite (a b : ℚ) : Prop := 0 < a ∨ 0 < b
 
 /-- **I3.Q / T27 — the QM dichotomy (step A9), with Yu's hypothesis.** Chia-Fu Yu,
-*Endomorphism algebras of QM abelian surfaces*, J. Pure Appl. Algebra 217 (2013), Thm 1.1
+*Endomorphism algebras of QM abelian surfaces*, J. Pure Appl. Algebra (2013; volume 217 from memory, UNVERIFIED), Thm 1.1
 (journal p. 907; arXiv:1210.1125 Thm 1.1; checked by the locator audit): over an algebraically
 closed field of characteristic `0`, if an **indefinite** quaternion division algebra `B = (a, b)_ℚ`
 embeds in `End⁰(A)` for an abelian surface `A`, then `End⁰(A) ≅ B` or `End⁰(A) ≅ M₂(ℚ(√d))`,
