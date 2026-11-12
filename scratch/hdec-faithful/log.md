@@ -17,3 +17,13 @@
     (perfectoid; no Galois action, no filtration API).
   - absent: AbelianVariety, TateModule, Chebotarev, Kronecker–Weber, Brauer–Nesbitt, Skolem–Noether,
     Hilbert symbol, Hecke operators.
+
+## Step 3 (Lean: cheap definitions + statable leaves), scratch/hdec-faithful/Defs0.lean
+- Compiles with `lake env lean` (no errors), VERIFIED. Contents: Qbar, GQ (Krull topology),
+  LiesOver (valuation subring of Qbar above p), IsArithFrob, GaloisRep ℓ n (continuous
+  GQ →* GL_n(PadicAlgCl ℓ)), UnramifiedAt (Mathlib inertiaSubgroup), FrobTrace, IsComplexConj,
+  IsOdd, IsIrreducible (Burnside form), IsSemisimple, CF N k (CuspForm on Gamma1 N), coeff (qExpansion 1),
+  HasNebentypus, IsNormalizedEigenform (Hecke recursion on q-coefficients), AttachedTo.
+- Leaves stated: FrobeniusDense (Chebotarev consequence), KroneckerWeber, SkolemNoether,
+  HasseBrauerQ (CSA split at all p ⇒ split), BrauerNesbitt, DeligneSerreConseq.
+- Pitfalls: `ι∞` is not an identifier (use ιC); slash notation needs `open scoped ModularForm`.
