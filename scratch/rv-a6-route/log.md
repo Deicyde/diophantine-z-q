@@ -9,3 +9,17 @@
   => FINDING F1: pkg-I2 §4.2 step 2 "cardinality 3^{4n} with exponent 3^n forces A[3^n] ≅ Lambda/3^n" is FALSE as stated
      (Lambda/Pi^{2n-1} ⊕ Lambda/Pi has order 3^{4n}, exponent 3^n). Repair: use the full group structure (Z/3^n)^4 (I2-Tors gives it): for n ≥ 2 it forces freeness; for n=1, F_9^2 = Lambda/Pi ⊕ Lambda/Pi is group-isomorphic to (Z/3)^4, so freeness at n=1 is NOT forced by counting (the route only needs n=2k ≥ 2).
 - Split contrast: in M2(Z/9), [[0,1],[0,0]] squares to 0 and is not divisible by 3: the division property at 3 is essential.
+
+## Lean (scratch/rv-a6-route/A6.lean) — VERIFIED: compiles with `lake env lean`, no sorry
+- Copy of scratch/pkg-I2/I2.lean lines 1-443 (namespace renamed RvA6) + §10.
+- New glue statement `QuatUnipotentTrivial` (pure algebra over a CommGroup; NOT proved, enters as a hypothesis).
+- `RvA6.goodReduction_of_QM_rational3` (same statement as PkgI2's, plus hypothesis hAlg : QuatUnipotentTrivial):
+  PROVED from NeronOggShafarevich, RaynaudCriterion, TorsionStructure, QuatUnipotentTrivial.
+  `#print axioms`: [propext, Classical.choice, Quot.sound].
+- Helper defs `galHomPts`, `endPts` (Galois action / endomorphism as MonoidHom on points; uses MonObj.one_comp, MonObj.mul_comp).
+
+## Findings
+- F1 (wording, repaired): see computation above; freeness of A[3^n] needs the group structure (Z/3^n)^4 and n ≥ 2.
+- F2 (wording, repaired): pkg-I2's "nrd = x²-2y²+3z²-6w² is anisotropic mod 3" is false for the quaternary form ((0,0,1,0) is a zero mod 3);
+  the correct input is that v_Π is a valuation on Λ⊗Z_3 (B⊗Q_3 division; nrd anisotropic over Q_3), or the finite check c²≡0 mod 9 ⇒ c∈3Λ (VERIFIED above).
+- Route verdict: SOUND AFTER REPAIRS (F1, F2 wording; the algebra lemma is glue with a complete proof in the report).
