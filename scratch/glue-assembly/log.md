@@ -34,3 +34,26 @@ are UNVERIFIED.
   for a number field `K` and `q : ℚ`, `logHeight₁ (algebraMap ℚ K q) = [K:ℚ] · log max(|num q|, den q)`
   (via the coprime pair `[num : den]`: finite places give `1`, infinite places give `max(|a|,|b|)`,
   `∑ mult = [K:ℚ]`). This is the invariance under extension that wk-h §4.2 found missing.
+
+## Step 2: E-arithmetic, CM arithmetic, F3 arithmetic, assembly (VERIFIED: compiled)
+
+- `scratch/wk-h/Arakelov.lean`'s `transfer_numerics` re-proved in `Transfer.lean`; new:
+  `transfer_of_level` (from `N ≤ QM²`, Javanpeykar's `1.3·10⁷N¹²`, `2 ≤ g ≤ N²`, `d ≤ QM`, GR14,
+  variation+additivity, Bost `h_F(Z) ≥ −(3/2)g` ⇒ `h_F(A) ≤ Q¹⁷M²⁴`); `cm_numerics` and
+  `log_two_mul_bcm_le` (N5 L606-628: `h_F(A) ≤ 2B_cm + 4096(1028 + 5D + 84000D²) = C_cm`, with
+  `log 28 ≤ 4`, `log 3, log 4 ≤ 2`); `pazuki_numerics` (N5 L934-947:
+  `h ≤ X_D/2 + C₂ log(X_D+2)` ⇒ `h ≤ 10⁴·2²⁴·max(1, h_F(A))`, with `log π ≤ 2`, `log 16 ≤ 3`).
+- Scratch cannot import `ZInQKernel.Hypotheses.JHeight` after all (VERIFIED: "unknown module prefix
+  'ZInQ'": its import chain reaches the unbuilt upstream `lean/`). `F4Copy.lean` copies JHeight's
+  F4 part verbatim and states `SixContactMinAt S` (`= SixContactMin` at `S = Mult.S_mul` by `rfl`).
+  `ZInQKernel.Compiler.Precision.HeightConstant` (imports only `Hypotheses.Height`) is importable.
+- `Assembly.lean`: `GlueOutputs S` (per `u ∉ 𝒞`: number field `K`, theta point `z : Fin 10 → K`
+  with `Φ(z) = J(u)` in `K`, Pazuki's bound for `h_K(z)/[K:ℚ]`, and the numerical outputs of either
+  the non-CM transfer at `Q = Q_D`, `M = M_S(u)` or the CM branch);
+  `sixContactMinAt_of_glueOutputs : GlueOutputs S → SixContactMinAt S`.
+- `build.sh` concatenates F2, Ext, Transfer, F4Copy, Assembly into `GlueAssembly.lean`
+  (≈ 900 lines). `lake env lean scratch/glue-assembly/GlueAssembly.lean`: no errors, no `sorry`;
+  `#print axioms sixContactMinAt_of_glueOutputs`: `[propext, Classical.choice, Quot.sound]`.
+- Kernel trap met (VERIFIED): `rw [heightCcm_eq_ccmFn, ccmFn_eq]` under a cast to `ℝ` makes the
+  kernel evaluate `Nat.pow` ("does not fit in a 32-bit unsigned integer"); fixed by proving the CM
+  bound over variables (`cm_branch_nat`) and applying it to `heightBcm_eq`, `heightCcm_eq`.
