@@ -63,13 +63,15 @@ theorem orderOf_pos_dirichlet {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ 
   · rw [h0, zero_dvd_iff] at h; omega
   · exact h0
 
-/-- **B3 over `G_ℚ`** (N5 L701-716). -/
+/-- **B3 over `G_ℚ`** (N5 L701-716). `η` is any continuous quadratic character (N5's twist
+killing inertia outside `T`; take `η = 1` for the untwisted cochain): `β = β_{B2} · η`. -/
 theorem b3_of_leaves (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit)
     (hUnr : LeafUnramified)
     (L : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ L] [IsGalois ℚ L]
     (ε : GQ → GQ → ℂˣ) (hε : IsSignCocycle ε) (hinf : InflatedFrom L ε) (h11 : ε 1 1 = 1)
     (T : Finset ℕ) (hT : ∀ p ∈ T, p.Prime)
-    (hram : ∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p) :
+    (hram : ∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p)
+    (η : GQ →* ℂˣ) (hη : ∀ x, η x ^ 2 = 1) (hηl : IsLocallyConstant η) :
     ∃ (N : ℕ) (hN : NeZero N) (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ)
       (L' : IntermediateField ℚ (AlgebraicClosure ℚ)),
       (∀ q : ℕ, q.Prime → q ∣ N → q ∈ T) ∧
@@ -80,8 +82,13 @@ theorem b3_of_leaves (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtC
       (∀ σ : GQ, σ ∈ GQL L' ↔ σ ∈ GQL L ∧ β σ = 1) ∧
       (∀ σ k : GQ, k ∈ GQL L' → β (σ * k) = β σ) ∧
       Module.finrank ℚ L' ≤ 2 * orderOf χ * Module.finrank ℚ L := by
-  obtain ⟨N, hN, χ, β, hsupp, hord, hβl, hβs, hβe⟩ :=
+  obtain ⟨N, hN, χ, β₁, hsupp, hord, hβl₁, hβs₁, hβe₁⟩ :=
     b2_of_leaves hHasse hTwo hSq hUnr L ε hε hinf T hT hram
+  -- the twist `β = β₁ η` (N5 L707-709; `η = 1` gives the untwisted cochain)
+  let β : GQ → ℂˣ := fun x => β₁ x * η x
+  have hβl : IsLocallyConstant β := hβl₁.mul hηl
+  have hβs : ∀ x, β x ^ 2 = galChar χ x := twist_sq (galChar χ) hβs₁ η hη
+  have hβe : ∀ x y, β x * β y = ε x y * β (x * y) := twist hβe₁ η
   have hεN := inflatedNormalized_of L ε hε hinf h11
   have hβ : IsCochainFor ε β := hβe
   let K' : Subgroup GQ := kernelSubgroup hβ hεN
@@ -138,7 +145,8 @@ theorem b3_degree_le_QM (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSq
     (L : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ L] [IsGalois ℚ L]
     (hLD : Module.finrank ℚ L ≤ ZInQ.heightD)
     (ε : GQ → GQ → ℂˣ) (hε : IsSignCocycle ε) (hinf : InflatedFrom L ε) (h11 : ε 1 1 = 1)
-    (hram : ∀ p : Nat.Primes, (p : ℕ) ∉ ramSet S u → UnramifiedAt L p) :
+    (hram : ∀ p : Nat.Primes, (p : ℕ) ∉ ramSet S u → UnramifiedAt L p)
+    (η : GQ →* ℂˣ) (hη : ∀ x, η x ^ 2 = 1) (hηl : IsLocallyConstant η) :
     ∃ (N : ℕ) (hN : NeZero N) (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ)
       (L' : IntermediateField ℚ (AlgebraicClosure ℚ)),
       IsLocallyConstant β ∧ (∀ x, β x ^ 2 = galChar χ x) ∧
@@ -152,7 +160,7 @@ theorem b3_degree_le_QM (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSq
     · exact hS p h
     · exact Nat.prime_of_mem_primeFactors h
   obtain ⟨N, hN, χ, β, L', _, hord, hβl, hβs, hβe, hle, hfd, hgal, hGL', _, hdeg⟩ :=
-    b3_of_leaves hHasse hTwo hSq hUnr L ε hε hinf h11 (ramSet S u) hT hram
+    b3_of_leaves hHasse hTwo hSq hUnr L ε hε hinf h11 (ramSet S u) hT hram η hη hηl
   refine ⟨N, hN, χ, β, L', hβl, hβs, hβe, hle, hfd, hgal, hGL', ?_⟩
   have h := degree_le_QM S hS R hRD hRS hR12 u (Module.finrank ℚ L) (orderOf χ) hLD hord
   calc (Module.finrank ℚ L' : ℝ) ≤ ((2 * orderOf χ * Module.finrank ℚ L : ℕ) : ℝ) := by

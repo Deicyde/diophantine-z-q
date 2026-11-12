@@ -92,3 +92,4 @@ B6 := ℍ[ℚ, 2, -3] (N5's B = (2,-3)).
 - LeafSkolemNoether (L-B1, def Prop over Mathlib's central simple algebras); B6_inner: from it,
   every ℚ-automorphism of B6 is inner.
 - ProjRep: commute_adjoin (commuting with B ⇒ with the E-algebra B⊗E it generates); axioms of splitEquiv_intertwines, rho_map_mul, sign_normalization, commute_adjoin: propext, Classical.choice, Quot.sound (VERIFIED)
+- B3Assembly: b3_of_leaves / b3_degree_le_QM now take a continuous quadratic twist η (β = β_B2·η); recompiled, axioms unchanged (VERIFIED)
