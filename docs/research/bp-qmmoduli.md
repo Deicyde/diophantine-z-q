@@ -39,8 +39,8 @@ Main findings:
 
 1. **No representability, no abelian schemes over a base, no finite flat group schemes.**
    - Prop. TS (h-b1 §1.2, which replaced N5's integral model) uses only the Galois extension
-     `M = ℚ(Y₃)` of `ℚ(j)` and the normalization of `P¹_R` in `M` (VERIFIED, read in h-b1 §1.2:
-     "No integral model of `Y₃` is used").
+     `M = ℚ(Y₃)` of `ℚ(j)` and the normalization of `P¹_R` in `M` (VERIFIED, read in h-b1 §1.2;
+     h-b1's summary, item 2, says "No integral model of `Y₃` is used").
    - Everything else uses objects over fields (§1).
    - The leaf "`Y₃` represents the functor on `Sch/ℚ`" can be weakened to "`Y₃(K)` is in
      bijection with the set of objects over `K`, naturally in the field `K`", together with the
@@ -54,9 +54,12 @@ Main findings:
    - The lattice core of this argument is **proved in Lean** (`BPQM.eq_smul_E0`,
      `BPQM.eq_pm_E0_of_principal`): every alternating form on `B` for which `𝒪` acts with
      adjoint `†` is `r·E₀`, and a principal one is `±E₀`.
-   - Buzzard (Duke Math. J. 87 (1997), Thm 2.1; UNVERIFIED locator; it is N5's own citation at
-     L444) states the moduli problem of "false elliptic curves" `(A, ι)` with level structure
-     *without* a polarization. So the field-point leaf can be stated with no polarization at all.
+   - Buzzard, *Integral models of certain Shimura curves*, states the moduli problem of "false
+     elliptic curves" `(A, ι)` with level structure *without* a polarization (recalled,
+     UNVERIFIED). N5 cites it at L444 as "Theorem 2.1 and Corollary 2.3", in the author's
+     corrected preprint (N5 L11031-11033). The refereed version is Duke Math. J. 87 (1997)
+     (recalled, UNVERIFIED). If confirmed, the field-point leaf can be stated with no polarization
+     at all.
    - The dual abelian variety (Picard scheme), which Mathlib lacks, therefore leaves the
      critical path of R1, R2, R5. It stays on the paths of R22 and T9.
 3. **The analytic link is the expensive node.** QMHauptmodul (statable now) works on `ℍ` with
@@ -91,6 +94,8 @@ Main findings:
    - base change of QM structures along any field extension (`endBC`, `endBC_injective`,
      `QMStr.baseChange`), using Mathlib's faithfulness of `Over.pullback` along flat surjective
      quasi-compact morphisms;
+   - fields of moduli of QM pairs over `ℚ̄` (`fieldOfModuli`), and **R5 stated as a Lean
+     `def … : Prop`** in degree form (`R5fp`);
    - **step A6 instantiated on every object of the moduli problem** (`QML3.goodReduction`):
      good reduction at every DVR in which 3 is a unit, from the kernel's leaves
      `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure`. h-decomposition §2 R1 and
@@ -215,9 +220,9 @@ without a polarization. So R1fp can be supplied either way:
 Notation (existing or built here):
 - `PkgI3.AbVar K` and `End`, `Pt`, `galAct`, `baseChange` (kernel);
 - `BPQM.O`, `BPQM.AV.QMStr`, `Level3`, `QML3`, `M3`, `QML3.twist`, `QML3.rightMul` (built here);
-- `QML3.baseChange` (N8, to build);
-- `fieldOfModuli` (N9);
-- `commutant` (N10);
+- `QML3.baseChange` (N8; `QMStr.baseChange` is built, the level part is not);
+- `fieldOfModuli` (N9; built for QM pairs, needed for level-3 objects in R1rec);
+- `com` (N10; built), written `com(P)` below;
 - `P1` with `P1pt : (Spec K ⟶ P1) ≃ OnePoint K` (N11).
 
 Statements:
