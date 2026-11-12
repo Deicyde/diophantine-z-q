@@ -520,3 +520,141 @@ theorem exists_openSubgroup_galAct_eq (A : AbVar K) (P : A.Pt Kbar) :
   rw [← Spec.map_comp_assoc, key, Scheme.Spec_stalkClosedPointTo_fromSpecStalk]
 
 end PkgI3.RhoCont
+
+/-! ### 3d. Continuity of `ρ_ℓ` on `T_ℓ(A)` and on `V_ℓ(A)` -/
+
+namespace PkgI3.RhoCont
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj AbVar
+open scoped TensorProduct
+
+universe u
+
+variable {K : Type u} [Field K]
+
+local notation "Kbar" => AlgebraicClosure K
+
+/-- `A(K̄)` with the discrete topology (so `A[ℓⁿ](K̄)` is discrete and `T_ℓ(A)` carries the
+inverse-limit topology of section 3b). -/
+instance instTopologicalSpacePt (A : AbVar K) : TopologicalSpace (Additive (A.Pt Kbar)) := ⊥
+
+instance (A : AbVar K) : DiscreteTopology (Additive (A.Pt Kbar)) := ⟨rfl⟩
+
+lemma galAct_mul (A : AbVar K) (σ τ : Field.absoluteGaloisGroup K) (P : A.Pt Kbar) :
+    A.galAct (σ * τ) P = A.galAct σ (A.galAct τ P) := by
+  have h := galHom_mul (K := K) (L := Kbar) σ τ
+  exact (congrArg (· ≫ P) h).trans (Category.assoc _ _ _)
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- **`ρ_ℓ` is continuous on `T_ℓ(A)`**: the action map `G_K × T_ℓ(A) → T_ℓ(A)` is continuous
+for the Krull topology on `G_K` and the inverse-limit topology on `T_ℓ(A)`. Unconditional. -/
+theorem continuous_galT (A : AbVar K) :
+    Continuous (fun p : Field.absoluteGaloisGroup K × A.T ℓ => A.galT p.1 p.2) := by
+  apply Tate.continuous_map_action (act := fun σ => MonoidHom.toAdditive (A.galAct (L := Kbar) σ))
+  exact continuous_act (fun σ (m : Additive (A.Pt Kbar)) => MonoidHom.toAdditive (A.galAct (L := Kbar) σ) m)
+    (fun σ τ m => galAct_mul A σ τ (Additive.toMul m))
+    (fun m => exists_openSubgroup_galAct_eq A (Additive.toMul m))
+
+/-- The `ℓ`-adic topology on `V_ℓ(A)`: the module topology over `ℚ_ℓ` (when `T_ℓ(A) ≅ ℤ_ℓ^r`,
+this is the product topology of `ℚ_ℓ^r`, see `continuous_galRep`). -/
+instance instTopologicalSpaceV (A : AbVar K) : TopologicalSpace (A.V ℓ) :=
+  moduleTopology ℚ_[ℓ] (A.V ℓ)
+
+instance (A : AbVar K) : IsModuleTopology ℚ_[ℓ] (A.V ℓ) := ⟨rfl⟩
+
+/-- `T_ℓ(A) → V_ℓ(A)`, `x ↦ 1 ⊗ x`, is continuous when `T_ℓ(A)` is free of finite rank. -/
+theorem continuous_one_tmul (A : AbVar K) [Module.Free ℤ_[ℓ] (A.T ℓ)]
+    [Module.Finite ℤ_[ℓ] (A.T ℓ)] :
+    Continuous (fun x : A.T ℓ => (1 : ℚ_[ℓ]) ⊗ₜ[ℤ_[ℓ]] x) := by
+  have := IsModuleTopology.toContinuousAdd ℚ_[ℓ] (A.V ℓ)
+  let b := Module.Free.chooseBasis ℤ_[ℓ] (A.T ℓ)
+  have h : (fun x : A.T ℓ => (1 : ℚ_[ℓ]) ⊗ₜ[ℤ_[ℓ]] x) = fun x =>
+      ∑ i, ((b.coord i x : ℤ_[ℓ]) : ℚ_[ℓ]) • (b.baseChange ℚ_[ℓ] i) := by
+    funext x
+    conv_lhs => rw [← b.sum_repr x]
+    rw [TensorProduct.tmul_sum]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [TensorProduct.tmul_smul, Module.Basis.baseChange_apply, Module.Basis.coord_apply,
+      ← algebraMap_smul ℚ_[ℓ] (b.repr x i)]
+    rfl
+  rw [h]
+  refine continuous_finsetSum _ fun i _ => ?_
+  exact continuous_smul.comp ((continuous_subtype_val.comp
+    (Tate.continuous_of_linearMap_padicInt (b.coord i))).prodMk continuous_const)
+
+/-- **`ρ_ℓ` is continuous on `V_ℓ(A)`**: if `T_ℓ(A)` is free of finite rank over `ℤ_ℓ` (Mumford,
+leaf I3.M0 `TateModuleFree`), the action map `G_K × V_ℓ(A) → V_ℓ(A)` is continuous for the Krull
+topology and the `ℓ`-adic topology. -/
+theorem continuous_galRep (A : AbVar K) [Module.Free ℤ_[ℓ] (A.T ℓ)]
+    [Module.Finite ℤ_[ℓ] (A.T ℓ)] :
+    Continuous (fun p : Field.absoluteGaloisGroup K × A.V ℓ => A.galRep ℓ p.1 p.2) := by
+  have := IsModuleTopology.toContinuousAdd ℚ_[ℓ] (A.V ℓ)
+  let b := Module.Free.chooseBasis ℤ_[ℓ] (A.T ℓ)
+  let bV := b.baseChange ℚ_[ℓ]
+  have h : (fun p : Field.absoluteGaloisGroup K × A.V ℓ => A.galRep ℓ p.1 p.2) = fun p =>
+      ∑ j, bV.coord j p.2 • ((1 : ℚ_[ℓ]) ⊗ₜ[ℤ_[ℓ]] A.galT p.1 (b j)) := by
+    funext ⟨σ, v⟩
+    conv_lhs => rw [← bV.sum_repr v]
+    rw [map_sum]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    rw [map_smul, Module.Basis.coord_apply]
+    congr 1
+    change (A.galT σ).baseChange ℚ_[ℓ] (bV j) = _
+    rw [Module.Basis.baseChange_apply, LinearMap.baseChange_tmul]
+  rw [h]
+  refine continuous_finsetSum _ fun j _ => ?_
+  exact continuous_smul.comp
+    (((IsModuleTopology.continuous_of_linearMap (bV.coord j)).comp continuous_snd).prodMk
+      ((continuous_one_tmul ℓ A).comp
+        ((continuous_galT ℓ A).comp (continuous_fst.prodMk continuous_const))))
+
+/-- **Continuous traces** (the input C10 needs: Chebotarev density with Brauer–Nesbitt):
+`σ ↦ tr ρ_ℓ(σ)` is continuous `G_K → ℚ_ℓ`. -/
+theorem continuous_trace_galRep (A : AbVar K) [Module.Free ℤ_[ℓ] (A.T ℓ)]
+    [Module.Finite ℤ_[ℓ] (A.T ℓ)] :
+    Continuous (fun σ : Field.absoluteGaloisGroup K =>
+      LinearMap.trace ℚ_[ℓ] (A.V ℓ) (A.galRep ℓ σ)) := by
+  classical
+  let bV := (Module.Free.chooseBasis ℤ_[ℓ] (A.T ℓ)).baseChange ℚ_[ℓ]
+  have h : (fun σ : Field.absoluteGaloisGroup K =>
+      LinearMap.trace ℚ_[ℓ] (A.V ℓ) (A.galRep ℓ σ)) =
+      fun σ => ∑ i, bV.coord i (A.galRep ℓ σ (bV i)) := by
+    funext σ
+    sorry
+  sorry
+  /-rw [h]
+  refine continuous_finsetSum _ fun i _ => ?_
+  exact (IsModuleTopology.continuous_of_linearMap (bV.coord i)).comp
+    ((continuous_galRep ℓ A).comp (continuous_id.prodMk continuous_const))-/
+
+end PkgI3.RhoCont
+
+/-! ### 3e. With pkg-I3's leaf I3.M0 -/
+
+namespace PkgI3
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj AbVar
+
+/-- Copied verbatim from scratch/pkg-I3/I3.lean (leaf I3.M0, Mumford §4, §18-19). -/
+def TateModuleFree : Prop :=
+  ∀ (k : Type) [Field k] (A : AbVar k) (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : k) ≠ 0 →
+    Module.Free ℤ_[ℓ] (A.T ℓ) ∧ Module.Finite ℤ_[ℓ] (A.T ℓ) ∧
+      ((Module.finrank ℤ_[ℓ] (A.T ℓ) : ℕ∞) : WithBot ℕ∞) = 2 * A.dim
+
+/-- **Continuity of `ρ_ℓ` from leaf I3.M0.** For `ℓ ≠ char K` (every `ℓ` for a number field),
+`ρ_ℓ : G_K × V_ℓ(A) → V_ℓ(A)` is continuous and `σ ↦ tr ρ_ℓ(σ)` is continuous. -/
+theorem continuous_galRep_of_tateModuleFree (hT : TateModuleFree) {K : Type} [Field K]
+    (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] (hℓ : (ℓ : K) ≠ 0) :
+    Continuous (fun p : Field.absoluteGaloisGroup K × A.V ℓ => A.galRep ℓ p.1 p.2) ∧
+      Continuous (fun σ : Field.absoluteGaloisGroup K =>
+        LinearMap.trace ℚ_[ℓ] (A.V ℓ) (A.galRep ℓ σ)) := by
+  obtain ⟨h1, h2, -⟩ := hT K A ℓ hℓ
+  exact ⟨RhoCont.continuous_galRep ℓ A, RhoCont.continuous_trace_galRep ℓ A⟩
+
+end PkgI3
+
+#print axioms PkgI3.RhoCont.exists_openSubgroup_galAct_eq
+#print axioms PkgI3.RhoCont.continuous_galT
+#print axioms PkgI3.Tate.continuous_of_linearMap_padicInt
+#print axioms PkgI3.continuous_galRep_of_tateModuleFree
