@@ -1,99 +1,108 @@
-# glue-vigneras: Vignéras' local normalizer facts for A3, proved in Lean
+# glue-vigneras: Vignéras' normalizer facts for A3, proved in Lean
 
-Status: research note (task glue-vigneras, 2026-11-11). Lean: `scratch/glue-vigneras/Local.lean`
-(one file, imports only `Mathlib`). Log: `scratch/glue-vigneras/log.md`.
+Status: research note (task glue-vigneras, 2026-11-11/12). Lean: `scratch/glue-vigneras/Local.lean`
+(local normalizers over `ℚ_p`) and `scratch/glue-vigneras/Global.lean` (the global index over
+`ℚ`); each imports only `Mathlib`. Scripts: `cert.py` (certificate, output `cert.output.txt`),
+`gen_global.py` (generates the certificate section of `Global.lean`). Log: `log.md`.
 
 ## 1. Main result
 
-**The local half of A3(a) is now a Lean proof, not a leaf** (VERIFIED: compiled with
-`lake env lean scratch/glue-vigneras/Local.lean`, no `sorry`, `#print axioms` of the main
-theorems = `[propext, Classical.choice, Quot.sound]`).
+**Every normalizer fact that A3(a) uses is now a Lean proof, not a leaf** (VERIFIED: both files
+compile with `lake env lean`, no `sorry`, and `#print axioms` of the main theorems is
+`[propext, Classical.choice, Quot.sound]`). All statements are over N5's concrete order
+`𝒪 = ℤ⟨1, i, (1+j)/2, (i+ij)/2⟩` in `B = (2,−3) = ℍ[ℚ, 2, 0, -3]` (Mathlib's quaternion algebra,
+`i² = 2`, `j² = −3`, `k = ij`; the same `B`, `comb` and `𝒪` as glue-repo's `GlueRepo.A1`).
 
-Let `B_p = B ⊗ ℚ_p = ℍ[ℚ_[p], 2, 0, -3]` (Mathlib's quaternion algebra, `i² = 2`, `j² = −3`,
-`k = ij`; the same `B` as glue-repo's `GlueRepo.A1.B`) and let `𝒪_p = 𝒪 ⊗ ℤ_p` be the
-`ℤ_p`-span of N5's basis `(1, i, (1+j)/2, (i+ij)/2)` (`GlueVigneras.Op p := Set.range (combp p)`,
-`combp` = glue-repo's `comb` with `ℤ_[p]` coefficients). Proved:
+**Global** (`Global.lean`, namespace `GlueVigneras.Global`):
 
-| Lean theorem | Statement | Kind |
-| --- | --- | --- |
-| `mem_Op_iff_nrd_two`, `mem_Op_iff_nrd_three` | for `p = 2, 3`: `x ∈ 𝒪_p ↔ ‖nrd x‖ ≤ 1`, i.e. `𝒪_p = {x ∈ B_p : nrd x ∈ ℤ_p}` (the valuation ring of the division algebra `B_p`) | GLUE-proved |
-| `normalizerOp_eq_univ` | for `p = 2, 3`: `{x ∈ B_p^× : ∀ y, y ∈ 𝒪_p ↔ x y x⁻¹ ∈ 𝒪_p} = B_p^×` | GLUE-proved |
-| `mem_OpUnits_iff` | `u ∈ 𝒪_p^×` (`u, u⁻¹ ∈ 𝒪_p`) `↔ ‖nrd u‖ = 1` | GLUE-proved |
-| `mem_scalOpUnits_iff` | `x ∈ ℚ_p^× 𝒪_p^× ↔ ‖nrd x‖ ∈ p^{2ℤ}` (`v_p(nrd x)` even) | GLUE-proved |
-| `index_scalOpUnits` | `[B_p^× : ℚ_p^× 𝒪_p^×] = 2` (`Subgroup.index`), uniformizer `π = i` at 2 (`nrd = −2`), `π = j` at 3 (`nrd = 3`) | GLUE-proved |
-| `vigneras_local` | the three facts together, for `p = 2 ∨ p = 3` | GLUE-proved |
-| `unramified_normalizer` | every prime `p ≠ 2, 3`: if `x ∈ B_p^×` and `x 𝒪_p x⁻¹ ⊆ 𝒪_p` then `x ∈ ℚ_p^× 𝒪_p^×` (on N5's order itself, no splitting `B_p ≅ M₂(ℚ_p)` needed) | GLUE-proved |
-| `split_normalizer_iff` | any prime `p`, any finite nonempty `n`: `x ∈ GL_n(ℚ_p)` normalizes `M_n(ℤ_p)` iff `x ∈ ℚ_p^× GL_n(ℤ_p)` | GLUE-proved |
+| Lean theorem | Statement |
+| --- | --- |
+| `normalizer_index_four` | `ℚ^×𝒪^× ⊆ N_B(𝒪)`, it is the kernel of the surjection `φ : N_B(𝒪) → (ℤ/2)²`, `x ↦ (v₂(nrd x), v₃(nrd x)) mod 2`, and `[N_B(𝒪) : ℚ^×𝒪^×] = 4` (`Subgroup.index`) |
+| `nrd_dvd_six` | the finite computation: if `x = comb n ∈ 𝒪` is primitive (`∑ sₖnₖ = 1`) and `x𝒪x⁻¹ ⊆ 𝒪`, then `nrd x ∣ 6` |
+| `primitive_scaling` | every `x ∈ B ∖ 0` is `c · comb a` with `c ∈ ℚ^×`, `a` primitive |
+| `phi_eq_one_iff`, `phi_surjective`, `iU_mem`, `jU_mem` | kernel and image of `φ`; coset representatives `1, i, j, ij` |
 
-So `[N(𝒪_p) : ℚ_p^×𝒪_p^×] = 2` at `p = 2, 3` and `= 1` at every `p ∤ 6`, all on N5's concrete
-order; with the product formula of §4 this is A3(a)'s `|N/(𝔸_f^*K₀)| = 2·2 = 4`.
+Here `N_B(𝒪) = {x ∈ B^× : ∀ y, y ∈ 𝒪 ↔ x y x⁻¹ ∈ 𝒪}` (`N`, a `Subgroup Bˣ`) and
+`ℚ^×𝒪^× = {c·u : c ∈ ℚ^×, u, u⁻¹ ∈ 𝒪}` (`S`).
+
+**Local** (`Local.lean`, namespace `GlueVigneras`), with `B_p = ℍ[ℚ_[p], 2, 0, -3]` and
+`𝒪_p = 𝒪 ⊗ ℤ_p` = the `ℤ_p`-span of N5's basis (`Op p := Set.range (combp p)`):
+
+| Lean theorem | Statement |
+| --- | --- |
+| `mem_Op_iff_nrd_two`, `mem_Op_iff_nrd_three` | `p = 2, 3`: `𝒪_p = {x ∈ B_p : nrd x ∈ ℤ_p}` (so N5's `𝒪` is the valuation ring, maximal at 2 and 3) |
+| `normalizerOp_eq_univ` | `p = 2, 3`: the normalizer of `𝒪_p` is all of `B_p^×` |
+| `mem_scalOpUnits_iff`, `index_scalOpUnits`, `vigneras_local` | `p = 2, 3`: `x ∈ ℚ_p^×𝒪_p^× ↔ v_p(nrd x)` even; `[B_p^× : ℚ_p^×𝒪_p^×] = 2` |
+| `unramified_normalizer` | every prime `p ≠ 2, 3`: `x ∈ B_p^×`, `x𝒪_px⁻¹ ⊆ 𝒪_p` ⇒ `x ∈ ℚ_p^×𝒪_p^×` (on N5's order; no splitting `B_p ≅ M₂(ℚ_p)` needed) |
+| `split_normalizer_iff` | every prime `p`, every finite `n`: `x ∈ GL_n(ℚ_p)` normalizes `M_n(ℤ_p)` iff `x ∈ ℚ_p^×GL_n(ℤ_p)` |
+
+So the local indices of N5's order are `2, 2, 1, 1, …`: their product is 4 = A3(a)'s
+`|N/(𝔸_f^*K₀)|`, and the global index is 4, both proved.
 
 ## 2. Published form (the leaf this replaces)
 
-Vignéras, *Arithmétique des algèbres de quaternions*, LNM 800 (1980), Ch. II, §1 (local
-quaternion fields) and §2 (matrix algebras); theorem/lemma numbers UNVERIFIED. Also Voight,
-*Quaternion Algebras*, GTM 288 (2021), Ch. 13 (§13.3, the valuation ring of a local division
-quaternion algebra is its unique maximal order) and Ch. 23 (normalizers); numbers UNVERIFIED.
-Statement (STANDARD):
+Vignéras, *Arithmétique des algèbres de quaternions*, LNM 800 (1980): Ch. II §1 (local quaternion
+fields), Ch. II §2 (matrix algebras), Ch. III §5 (normalizers of Eichler orders / the Atkin–Lehner
+group); theorem and lemma numbers UNVERIFIED. Also Voight, *Quaternion Algebras*, GTM 288 (2021),
+Ch. 13 (§13.3: the valuation ring of a local division quaternion algebra is its unique maximal
+order) and Ch. 23 (normalizers, Atkin–Lehner groups); numbers UNVERIFIED. Statements (STANDARD):
 
-- (R) Let `K` be a nonarchimedean local field with valuation ring `R` and `H` the quaternion
-  division algebra over `K`. Then `𝒪_H = {x ∈ H : nrd x ∈ R}` is the unique maximal order of `H`;
-  hence `N(𝒪_H) = H^×`, and `v ∘ nrd` induces `H^×/K^×𝒪_H^× ≅ ℤ/2ℤ`.
-- (S) `N_{GL₂(K)}(M₂(R)) = K^× GL₂(R)`; every maximal order of `M₂(K)` is conjugate to `M₂(R)`.
+- (R) `K` nonarchimedean local, `R` its valuation ring, `H` the quaternion division algebra over
+  `K`: `𝒪_H = {x : nrd x ∈ R}` is the unique maximal order; `N(𝒪_H) = H^×`; `v ∘ nrd` gives
+  `H^×/K^×𝒪_H^× ≅ ℤ/2ℤ`.
+- (S) `N_{GL₂(K)}(M₂(R)) = K^×GL₂(R)`.
+- (G) For a maximal order `𝒪` in an indefinite quaternion algebra over `ℚ` of discriminant `D`,
+  `N_B(𝒪)/ℚ^×𝒪^× ≅ (ℤ/2ℤ)^{ω(D)}` (the Atkin–Lehner group, generated by elements of reduced norm
+  dividing `D`); here `D = 6` and the group has order 4.
 
-What is proved here is the instance `K = ℚ_2, ℚ_3`, `H = B_p`, **with the extra content that
-N5's lattice `𝒪_p` equals `{nrd ∈ ℤ_p}`** (so N5's `𝒪` is maximal at 2 and 3, a fact glue-repo
-only cited), and (S) for every `p` and every `n` (not only `n = 2`). The published uniqueness
-clause of (R) ("every order is contained in `𝒪_H`") is not needed by A3 and was not proved.
+What is proved: the instances of (R) at `K = ℚ_2, ℚ_3`, `H = B_p` (with the extra content that N5's
+lattice is `{nrd ∈ ℤ_p}`; the uniqueness clause of (R) is not needed and not proved), (S) for every
+`p` and every `n`, the instance of (S) transported to N5's order at `p ∤ 6`
+(`unramified_normalizer`), and (G) for N5's order.
 
-## 3. Proofs (all elementary; as formalized)
+## 3. Proofs (elementary; as formalized)
 
-- **Anisotropic binary forms** (`norm_binary`, `norm_form2`, `norm_form3`). If `Q` is a binary
-  quadratic form over `ℤ` with no nontrivial zero mod `p`, then `‖Q(x,y)‖ = max(‖x‖,‖y‖)²` on
-  `ℚ_p²` (divide by the larger coordinate; the dehomogenized value is a unit because its image in
-  `ZMod p` is nonzero, checked by `decide`). Used with `x² − 2y²` at 3 and `x² + xy + y²` at 2.
-- **Splitting the norm form.** At 3: `nrd = (a² − 2b²) + 3(c² − 2d²)` in the coordinates
-  `x = a + bi + cj + dk`. At 2: `nrd = N(n₀,n₂) − 2 N(n₁,n₃)` with `N = x² + xy + y²` in N5's basis
-  coordinates `nᵢ` (`nrd_coord`, valid for every `p`). In both cases the two summands have norms
-  an even and an odd power of `p` (`key`), so they cannot cancel, and `‖nrd‖ ≤ 1` forces every
-  coordinate into `ℤ_p`. At 3 the passage from `(a,b,c,d)` to N5's coordinates
-  `(a−c, b−d, 2c, 2d)` uses only that `2 ∈ ℤ_3`. The converse (`norm_nrd_le_one_of_mem`) holds for
-  every `p` since `nrd` is an integral form in N5's coordinates.
-- **Normalizer and index.** `nrd` is multiplicative, so conjugation preserves `‖nrd‖`, so every
-  unit normalizes `𝒪_p = {‖nrd‖ ≤ 1}`. Units of `𝒪_p` are `{‖nrd‖ = 1}`, and `x = c·u` with
-  `c = p^{−m}` whenever `‖nrd x‖ = p^{2m}`; parity of `v_p(nrd)` gives index 2 via
-  `Subgroup.index_eq_two_iff`.
-- **`p ∤ 6` on N5's order** (`unramified_normalizer`, certificate `scratch/glue-vigneras/cert.py`,
-  output `cert.output.txt`). Let `E_kl(x)` be coordinate `l` (N5's basis) of `x eₖ x̄`; these are 16
-  integral quadratic forms in N5's coordinates `nᵢ` of `x`, and they span all 10 quadratic monomials
-  over `ℤ[1/6]`: `3n₀² = 2E₀₀+E₁₁+E₁₃−2E₂₀−E₃₁`, `6n₁² = −E₁₁−2E₂₀+E₃₁+E₃₃`,
-  `3n₂² = 2E₀₀−E₁₁−2E₂₀−E₃₃`, `6n₃² = E₁₁+E₁₃−2E₂₀−E₃₃` (`cert0`-`cert3`, ring identities in `B_p`).
-  (This is the Azumaya property `𝒪⊗𝒪^op ≅ End(𝒪)` over `ℤ[1/6]`, made explicit.) Scale `x` by its
-  largest coordinate, so `x ∈ 𝒪_p` with some `‖nᵢ‖ = 1`. Since `x eₖ x̄ = nrd(x)·x eₖ x⁻¹` and
-  `x eₖ x⁻¹ ∈ 𝒪_p`, `‖E_kl‖ ≤ ‖nrd x‖`; if `‖nrd x‖ < 1` the certificate gives `‖nᵢ‖ < 1` (3 and 6
-  are units at `p`), a contradiction. So `nrd x ∈ ℤ_p^×` and `x⁻¹ = x̄/nrd x ∈ 𝒪_p`.
-- **Split primes, matrix form** (`split_normalizer`). Scale `x` by its largest entry `x_{ki}`, so `u = x/x_{ki}`
-  is integral with `u_{ki} = 1`. For every `j`, `u E_{ij} u⁻¹ ∈ M_n(ℤ_p)` and its `(k,l)` entry is
-  `u_{ki}(u⁻¹)_{jl} = (u⁻¹)_{jl}`; so `u⁻¹` is integral and `u ∈ GL_n(ℤ_p)`. (No elementary divisor
-  theory is needed.)
+- **Anisotropic binary forms** (`norm_binary`, `norm_form2`, `norm_form3`): if `Q ∈ ℤ[x,y]` has no
+  nontrivial zero mod `p` then `‖Q(x,y)‖ = max(‖x‖,‖y‖)²` on `ℚ_p²` (dehomogenize; the value is a
+  unit since its image in `ZMod p` is nonzero, by `decide`). Used for `x² − 2y²` at 3 and
+  `x² + xy + y²` at 2.
+- **`p = 2, 3`.** At 3, `nrd = (a² − 2b²) + 3(c² − 2d²)` (`x = a + bi + cj + dk`); at 2,
+  `nrd = N(n₀,n₂) − 2N(n₁,n₃)`, `N = x² + xy + y²`, in N5's coordinates `nᵢ` (`nrd_coord`). The two
+  summands have norms an even and an odd power of `p` (`key`), so `‖nrd‖ ≤ 1` forces all
+  coordinates into `ℤ_p`. Then conjugation preserves `‖nrd‖`, so every unit normalizes; units of
+  `𝒪_p` are `{‖nrd‖ = 1}`; the parity of `v_p(nrd)` gives index 2 (`Subgroup.index_eq_two_iff`,
+  uniformizers `i` with `nrd = −2` and `j` with `nrd = 3`).
+- **Certificate** (`cert.py`): let `E_kl(x)` be coordinate `l` of `x eₖ x̄`; these 16 integral
+  quadratic forms in N5's coordinates span all 10 quadratic monomials, with denominators dividing
+  6: `6 nₐ n_b ∈ ℤ⟨E_kl⟩` for all `a ≤ b` (`cert_ab` in `Global.lean`, `cert0`-`cert3` in
+  `Local.lean`). This is the Azumaya property `𝒪 ⊗ 𝒪^op ≅ End(𝒪)` over `ℤ[1/6]`, made explicit.
+  Since `x eₖ x̄ = nrd(x) · x eₖ x⁻¹`, if `x` normalizes `𝒪` then `nrd x ∣ E_kl(x)`, hence
+  `nrd x ∣ 6 nₐ n_b`, hence `nrd x ∣ 6 (∑ sₖnₖ)² = 6` for primitive `x` (`nrd_dvd_six`). The same
+  certificate with `‖·‖_p` gives `unramified_normalizer`.
+- **Global index.** `x ∈ N` is `c · x₀` with `x₀ ∈ 𝒪` primitive (`primitive_scaling`, Bezout), so
+  `nrd x = c² · nrd x₀` with `nrd x₀ ∈ {±1, ±2, ±3, ±6}`. If `v₂, v₃` of `nrd x` are even then
+  `nrd x₀ = ±1` and `x₀⁻¹ = ±x̄₀ ∈ 𝒪`, so `x ∈ ℚ^×𝒪^×`; conversely `nrd(c·u) = ±c²`. `i, j ∈ N`
+  (explicit conjugation formulas) map to the generators of `(ℤ/2)²`. `Subgroup.index_ker` gives 4.
+  No class number, strong approximation or local–global principle is used.
+- **Split primes, matrix form** (`split_normalizer`): scale `x` by its largest entry `x_{ki}`;
+  for every `j`, `(u E_ij u⁻¹)_{kl} = (u⁻¹)_{jl}`, so `u⁻¹` is integral.
 
-## 4. What remains for A3(a) (open glue, precisely)
+## 4. What remains for A3
 
-1. (Done by `unramified_normalizer`; the identification `𝒪_p ≅ M₂(ℤ_p)` is not needed.)
-2. **The product formula** `N/(𝔸_f^*K₀) = ∏_p N(𝒪_p)/ℚ_p^×𝒪_p^×` over the restricted product
-   (Mathlib's `FiniteAdeleRing ℤ ℚ` exists, but the adelic quaternion algebra and `𝒪̂^×` are not
-   set up). glue-repo §A3 notes the finite group theory `|Γ'| = |N/𝔸_f^*K₀|·|K₀/ℤ̂^*K₃|` is also
-   unformalized.
-3. The global index `[N_B(𝒪) : ℚ^×𝒪^×] = 4` (Atkin–Lehner group `W ≅ (ℤ/2)²`, generated by `i`
-   and `j`) follows from 1, the local results here, strong approximation / class number one; A3
-   itself uses only the adelic index, so this is not on the critical path.
+1. **Adelic bookkeeping** (open glue): A3 is phrased adelically, `Γ' = N/(𝔸_f^*K₃)` with `N` the
+   normalizer of `𝒪̂` in `(B ⊗ 𝔸_f)^×`. The local results give each factor; the identification
+   `N/(𝔸_f^*K₀) = ∏_p N(𝒪_p)/ℚ_p^×𝒪_p^×` over the restricted product, and glue-repo's finite group
+   theory `|Γ'| = |N/𝔸_f^*K₀| · |K₀/ℤ̂^*K₃|`, are not formalized (Mathlib has `FiniteAdeleRing ℤ ℚ`,
+   but no adelic quaternion algebra). Alternatively A3 can be rephrased with the global group:
+   `N_B(𝒪)/ℚ^×𝒪^×` has order 4 (proved here), and with class number one the adelic and global
+   quotients agree (STANDARD; not formalized).
+2. A3(b)-(d) (central ideles, the Hecke action, `deg ≤ |Γ'|`) are outside this task (glue-repo §A3).
 
 ## 5. Changes to classifications
 
-- glue-repo A3 row (a) and pkg-I1's I1-f: the ramified-prime part and the matrix part of the
-  split-prime statement move from "GLUE-open / LEAF L3" to **GLUE-proved**
-  (`scratch/glue-vigneras/Local.lean`). L3 is no longer needed as a leaf, provided item 4.1 is
-  proved (it is elementary) or cited as the standard maximality fact.
-- The maximality of N5's `𝒪` at 2 and 3 (glue-repo A1, "cited, not formalized") is now proved
-  locally: `𝒪_p = {nrd ∈ ℤ_p}` is the valuation ring, hence the unique maximal order (uniqueness
-  being the published clause of (R); the inclusion `𝒪_p ⊆ {nrd ∈ ℤ_p}` and its equality are proved).
+- glue-repo A3 row (a) and pkg-I1's I1-f: GLUE-open / LEAF L3 → **GLUE-proved** (both local
+  statements at every prime, on N5's order, and the global index 4). L3 is no longer needed as a
+  leaf. Remaining glue is the adelic bookkeeping of §4.1.
+- glue-repo A1 "`𝒪` maximal: cited, not formalized": the local maximality content at 2 and 3
+  (`𝒪_p = {nrd ∈ ℤ_p}`) is now proved. Maximality at `p ∤ 6` is not formalized and is not needed:
+  the normalizer statements there are proved directly (`unramified_normalizer`, `nrd_dvd_six`).
