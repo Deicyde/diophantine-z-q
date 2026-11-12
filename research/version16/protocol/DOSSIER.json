@@ -18,7 +18,7 @@
   "protocol14_record": {
     "side": "head",
     "path": "research/version16/protocol/CONNECTIONS.json",
-    "sha256": "da5f3fe704cf2774e86f327b78fe422be773623ec373186942c903f7a3889411"
+    "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
   },
   "coverage_index": [
     {
@@ -3973,7 +3973,8 @@
       "schema": "protocol-review-continuation/v1",
       "run_ids": [
         "01a1cc35-b64c-7b33-a4a3-5aca1a2d7403",
-        "01a1cc40-9b55-7df3-b7f8-493d8634f2ed"
+        "01a1cc40-9b55-7df3-b7f8-493d8634f2ed",
+        "01a1cc8c-a858-7c32-89c2-1534fe72a025"
       ],
       "initial": {
         "side": "head",
@@ -3981,7 +3982,7 @@
         "sha256": "45259bf15f538f76c7f86741ba358e03638f3ab05b6ec81c2b8887e01ec2d334"
       },
       "sources_sha256": "8d230a652674da5aa97b510d25c8e669b3c29b5e9b02850fb51a14515b0fbec7",
-      "attestation": "I am the same independent reviewer /root/v16_coverage_acceptance, agent/session 01a1cc35-b545-7242-bea9-bdee4b93e694, continuing the actual initial run 01a1cc35-b64c-7b33-a4a3-5aca1a2d7403 in current run 01a1cc40-9b55-7df3-b7f8-493d8634f2ed after the parent resumed the task. I retain the original source-first Markdown freeze, later native serialization and completed comparisons. This attestation preserves their actual chronology and disclosed exposure; it does not claim a new blind pass, change the source set, or impersonate any Version15 reviewer. Trusted host observations establish the run/model binding separately."
+      "attestation": "I am the same independent reviewer /root/v16_coverage_acceptance, agent/session 01a1cc35-b545-7242-bea9-bdee4b93e694, continuing the actual initial run 01a1cc35-b64c-7b33-a4a3-5aca1a2d7403 in current run 01a1cc40-9b55-7df3-b7f8-493d8634f2ed after the parent resumed the task. I retain the original source-first Markdown freeze, later native serialization and completed comparisons. This attestation preserves their actual chronology and disclosed exposure; it does not claim a new blind pass, change the source set, or impersonate any Version15 reviewer. Trusted host observations establish the run/model binding separately.\n\nI am the same independent source-first reviewer, agent/session 01a1cc35-b545-7242-bea9-bdee4b93e694, continuing this reconstruction in actual current run 01a1cc8c-a858-7c32-89c2-1534fe72a025. I preserve the original freeze times, source sets, initial artifacts, disclosed exposure and earlier review. I independently compared the corrected connection record with its prior exact version: only eleven repeated search_scope location objects were removed, every distinct location and its order is preserved, and every other field is unchanged. I checked the current source/excerpt bindings and connection-to-use identities. I adopt the unchanged original and precision-source reconstructions and their mathematical derivations at the same scope. This is an exposed continuation and exact metadata review, not a new blind reconstruction or a claim that old signed acknowledgments bind a new Git head. Trusted host records establish run identity separately."
     }
   },
   "reconciled_uses": [
@@ -92888,7 +92889,21 @@
         "compared_at": "2026-11-11T20:20:46.020Z",
         "method": "Independently read the complete installed a9cb-to-aeb2 source diff, confirm exactly two lines changed and the remaining source blocks are byte-identical, and freeze PRECISION-INITIAL and PRECISION-PASSAGES before consulting the rebound inventory. The before/after source blocks in PRECISION-PASSAGES cover every line by exact unchanged-byte reuse or the changed two-line assertion.",
         "prior_exposure": "I identified the ambiguity in the old source and asked the mathematical reviewer for a diagnosis. I saw that reviewer proposed this exact wording and have read its unchanged proof argument. This is exposed source-first review, not blind review. I did not author the wording or modify the manuscript. New inventory rebinding has not yet been inspected.",
-        "limitations": "This is a deliberately narrow exposed review of a precision correction with exact prior source and proof reuse. It is not a new blind reconstruction of the full manuscript. I did not author the replacement wording or modify the manuscript."
+        "limitations": "This is a deliberately narrow exposed review of a precision correction with exact prior source and proof reuse. It is not a new blind reconstruction of the full manuscript. I did not author the replacement wording or modify the manuscript.",
+        "continuation": {
+          "schema": "protocol-review-continuation/v1",
+          "run_ids": [
+            "01a1cc40-9b55-7df3-b7f8-493d8634f2ed",
+            "01a1cc8c-a858-7c32-89c2-1534fe72a025"
+          ],
+          "initial": {
+            "side": "head",
+            "path": "research/version16/protocol/PRECISION-INITIAL.json",
+            "sha256": "ebf7e86f09b445f462a571f14b1dce6552324941106969f6a1f2668ecafc64f0"
+          },
+          "sources_sha256": "87af28374e14c7b654039971af53a0d6aa2b557db8c67900485fac5676975980",
+          "attestation": "I am the same independent source-first reviewer, agent/session 01a1cc35-b545-7242-bea9-bdee4b93e694, continuing this reconstruction in actual current run 01a1cc8c-a858-7c32-89c2-1534fe72a025. I preserve the original freeze times, source sets, initial artifacts, disclosed exposure and earlier review. I independently compared the corrected connection record with its prior exact version: only eleven repeated search_scope location objects were removed, every distinct location and its order is preserved, and every other field is unchanged. I checked the current source/excerpt bindings and connection-to-use identities. I adopt the unchanged original and precision-source reconstructions and their mathematical derivations at the same scope. This is an exposed continuation and exact metadata review, not a new blind reconstruction or a claim that old signed acknowledgments bind a new Git head. Trusted host records establish run identity separately."
+        }
       }
     }
   ]

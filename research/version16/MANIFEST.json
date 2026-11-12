@@ -103,8 +103,8 @@
     },
     {
       "path": "research/version16/protocol/CONNECTIONS.json",
-      "sha256": "da5f3fe704cf2774e86f327b78fe422be773623ec373186942c903f7a3889411",
-      "bytes": 9514255
+      "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+      "bytes": 9510085
     },
     {
       "path": "research/version16/protocol/CURRENT-CORRECTIONS.md",
@@ -113,8 +113,8 @@
     },
     {
       "path": "research/version16/protocol/DOSSIER.json",
-      "sha256": "597687d48ba0b82833c36e8e987e31f406a516d43ab98dfd28429abed79131d3",
-      "bytes": 6105920
+      "sha256": "45c3864dc588d23c6c797e783c23f88c5b00473ccd7956548734380ccb04f9c5",
+      "bytes": 6201368
     },
     {
       "path": "research/version16/protocol/INITIAL.json",
@@ -145,6 +145,11 @@
       "path": "research/version16/protocol/PROFILE.json",
       "sha256": "cd6e94cbeb44bb91cb72ed47242daadff6d5b92013b669c0c55aa927a4d338cc",
       "bytes": 1313
+    },
+    {
+      "path": "research/version16/protocol/record-repair-001/REPAIR.json",
+      "sha256": "b203363489d54642041c00f94dee346dde3f6a736335255f81f88591b96eec95",
+      "bytes": 7982
     },
     {
       "path": "research/version16/review/INITIAL-RECONSTRUCTION.md",
@@ -195,6 +200,31 @@
       "path": "research/version16/review/coverage/mapping-checks.json",
       "sha256": "4c745e1d1ba0f825bfac067bb2a8c9a15e111b2601debb6f80b7831f859ccab0",
       "bytes": 4053
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/ASSEMBLY-REVIEW.json",
+      "sha256": "667f8007a2af8d96a845cbf505ca001bf6a04dbb69d5a0667dd2e76d12a32957",
+      "bytes": 6187
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/CHECKS.json",
+      "sha256": "5b44570c4fd717738e9eb166c221b9d6584b8941aeff31e35cc031468b87763d",
+      "bytes": 6496
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "7f7e0544d324b4ba19d5cb70151c98b31ae2a2a429483df7416d07812267b497",
+      "bytes": 2096814
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/REVIEW.json",
+      "sha256": "ba7b54afa94cf4583d9c20167b333656ae16c80c866bee82b555ae6a682b310b",
+      "bytes": 3104
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/REVIEW.md",
+      "sha256": "52bb8ba0ada9cbdb70b2b711cd05517b9532d36927b5fb55daa1b7c4cea3dff9",
+      "bytes": 4039
     },
     {
       "path": "research/version16/review/current/CANDIDATE-BINDING-CHECK.json",
@@ -250,6 +280,11 @@
       "path": "research/version16/review/gate/FINAL-STRUCTURAL-CHECK.json",
       "sha256": "f2065552adc2edb8d34411e042b1fe2e38ea8591cffd71a0a9c1bcf807db7a38",
       "bytes": 752
+    },
+    {
+      "path": "research/version16/review/gate/record-repair-001/SUPPORT-ADDENDUM.json",
+      "sha256": "c2ce1e88d88a7c13d93e5b1c4020da60de3ab42e068a889ebab241800be3ae2a",
+      "bytes": 4994
     },
     {
       "path": "research/version16/snapshots/pre-precision/quartic_v16.tex",
