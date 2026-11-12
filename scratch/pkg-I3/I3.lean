@@ -333,3 +333,91 @@ def tateHomZl (A B : AbVar K) :
 end AbVar
 
 end PkgI3
+
+/-! ## 3. The leaves of package I3
+
+Each leaf is a `Prop` quantified over all fields (resp. number fields) and all abelian varieties
+in the sense of `AbVar`; universe `0`. Locators: see `docs/research/pkg-I3.md`. -/
+
+namespace PkgI3
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open AbVar Polynomial
+open scoped Quaternion TensorProduct
+
+/-- Every nonzero endomorphism is an isogeny (equivalently `End⁰(A)` is a division algebra);
+in characteristic `0` this is equivalent to `A` being simple (Mumford §19, Thm 1 and Cor. 2). -/
+def EndDivision {k : Type} [Field k] (A : AbVar k) : Prop :=
+  ∀ f : End A, f ≠ 0 → IsIsogenyMor f.hom
+
+/-- **I3.F1 — Faltings 1983, Satz 3 (semisimplicity).** For an abelian variety `A` over a number
+field `K` and a prime `ℓ`, the representation of `G_K` on `V_ℓ(A)` is semisimple. -/
+def FaltingsSemisimple : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime],
+    (A.galRep ℓ).IsSemisimpleRepresentation
+
+/-- **I3.F2 — Faltings 1983, Satz 4 (`A = B`) and Korollar 1 (Tate's conjecture).** For abelian
+varieties `A, B` over a number field `K` and a prime `ℓ`, the natural map
+`Hom_K(A, B) ⊗ ℤ_ℓ → Hom_{ℤ_ℓ}(T_ℓ A, T_ℓ B)` is injective with image the `G_K`-equivariant maps. -/
+def FaltingsTate : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A B : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime],
+    Function.Injective (tateHomZl ℓ A B) ∧
+      Set.range (tateHomZl ℓ A B) = {φ | IsGalEquivariant φ}
+
+/-- **I3.M0 — structure of the Tate module (Mumford §4, `A[n] ≅ (ℤ/n)^{2g}` for `char k ∤ n`;
+§18-19).** For `ℓ ≠ char k`, `T_ℓ(A)` is free of rank `2 dim A` over `ℤ_ℓ`. -/
+def TateModuleFree : Prop :=
+  ∀ (k : Type) [Field k] (A : AbVar k) (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : k) ≠ 0 →
+    Module.Free ℤ_[ℓ] (A.T ℓ) ∧ Module.Finite ℤ_[ℓ] (A.T ℓ) ∧
+      ((Module.finrank ℤ_[ℓ] (A.T ℓ) : ℕ∞) : WithBot ℕ∞) = 2 * A.dim
+
+/-- **I3.M1 — Mumford §19, Thm 3.** `Hom(A, B)` is a free `ℤ`-module of finite rank
+`≤ 4 dim A dim B`, and for `ℓ ≠ char k` the map `Hom(A, B) ⊗ ℤ_ℓ → Hom(T_ℓ A, T_ℓ B)` is injective. -/
+def HomFreeFinite : Prop :=
+  ∀ (k : Type) [Field k] (A B : AbVar k),
+    Module.Free ℤ (Hom A B) ∧ Module.Finite ℤ (Hom A B) ∧
+      ((Module.finrank ℤ (Hom A B) : ℕ∞) : WithBot ℕ∞) ≤ 4 * A.dim * B.dim ∧
+      ∀ (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : k) ≠ 0 → Function.Injective (tateHomZl ℓ A B)
+
+/-- **I3.M2 — Mumford §19, Thm 4 (independence of `ℓ`).** For `φ ∈ End(A)` there is a monic
+`P ∈ ℤ[X]` that is the characteristic polynomial of `V_ℓ(φ)` for every prime `ℓ ≠ char k`
+(computed in any finite basis). -/
+def CharPolyIndepOfEll : Prop :=
+  ∀ (k : Type) [Field k] (A : AbVar k) (φ : End A), ∃ P : ℤ[X], P.Monic ∧
+    ∀ (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : k) ≠ 0 →
+      ∀ (I : Type) [Fintype I] [DecidableEq I] (b : Module.Basis I ℚ_[ℓ] (A.V ℓ)),
+        (LinearMap.toMatrix b b ((homT (ℓ := ℓ) φ).baseChange ℚ_[ℓ])).charpoly =
+          P.map (Int.castRingHom ℚ_[ℓ])
+
+/-- **I3.M3 — Poincaré complete reducibility (Mumford §19, Thm 1), in the form used at E1.**
+Over a field of characteristic `0`, if `End⁰(A)` is a division algebra and `f : A → J` is a
+nonzero homomorphism, there are an abelian variety `Z` and a homomorphism `g : Z → J` such that
+`(f, g) : A × Z → J`, `(a, z) ↦ f(a) + g(z)`, is an isogeny. -/
+def PoincareReducibility : Prop :=
+  ∀ (k : Type) [Field k] [CharZero k] (A J : AbVar k), EndDivision A →
+    ∀ f : Hom A J, f ≠ 0 → ∃ (Z : AbVar k) (g : Hom Z J),
+      IsIsogenyMor (fst A.X Z.X ≫ f.hom * snd A.X Z.X ≫ g.hom)
+
+/-- **I3.Q — the QM dichotomy (step A9).** Over an algebraically closed field of characteristic
+`0`, if a quaternion division algebra `B = (a, b)_ℚ` embeds in `End⁰(A)` for an abelian surface
+`A`, then `End⁰(A) ≅ B` or `End⁰(A) ≅ M₂(ℚ(√d))` with `d < 0`. (Consequence of Mumford §19
+Thm 1, Cor. 2, §21 (Albert, `[D:ℚ] ∣ 2g` in characteristic `0`) and §22; see the note.) -/
+def QMDichotomy : Prop :=
+  ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (A : AbVar k), A.dim = 2 →
+    ∀ a b : ℚ, (∀ x : ℍ[ℚ, a, b], x ≠ 0 → IsUnit x) →
+      Nonempty (ℍ[ℚ, a, b] →ₐ[ℚ] End0 A) →
+        Nonempty (End0 A ≃ₐ[ℚ] ℍ[ℚ, a, b]) ∨
+          ∃ d : ℚ, d < 0 ∧
+            Nonempty (End0 A ≃ₐ[ℚ] Matrix (Fin 2) (Fin 2) (AdjoinRoot (Polynomial.X ^ 2 - Polynomial.C d)))
+
+/-- The package as one hypothesis. -/
+structure I3Leaves : Prop where
+  faltingsSemisimple : FaltingsSemisimple
+  faltingsTate : FaltingsTate
+  tateModuleFree : TateModuleFree
+  homFreeFinite : HomFreeFinite
+  charPolyIndepOfEll : CharPolyIndepOfEll
+  poincare : PoincareReducibility
+  qmDichotomy : QMDichotomy
+
+end PkgI3
