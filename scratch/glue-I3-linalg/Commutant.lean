@@ -301,6 +301,58 @@ theorem exists_equivariant_ne_zero_of_common {W : Type*} [AddCommGroup W] [Modul
       LinearEquiv.coe_coe]
     rw [hpv, he]
 
+/-- **Equivariant descent (GLUE, proved).** A nonzero `G`-equivariant `E`-linear map
+`E ⊗ V → E ⊗ W` gives a nonzero `G`-equivariant `k`-linear map `V → W`: expand in a `k`-basis of
+`E` and take a nonzero coordinate. -/
+theorem exists_equivariant_ne_zero_of_baseChange {W : Type*} [AddCommGroup W] [Module k W]
+    (E : Type*) [Field E] [Algebra k E] (ρ : Representation k G V) (σ : Representation k G W)
+    (φ : TensorProduct k E V →ₗ[E] TensorProduct k E W) (hφ0 : φ ≠ 0)
+    (hφ : ∀ g, φ ∘ₗ repBaseChange E ρ g = repBaseChange E σ g ∘ₗ φ) :
+    ∃ ψ : V →ₗ[k] W, ψ ≠ 0 ∧ ∀ g, ψ ∘ₗ ρ g = σ g ∘ₗ ψ := by
+  classical
+  let b := Module.Free.chooseBasis k E
+  let c : TensorProduct k E W ≃ₗ[k] (Module.Free.ChooseBasisIndex k E →₀ W) :=
+    (TensorProduct.congr b.repr (LinearEquiv.refl k W)).trans
+      (TensorProduct.finsuppScalarLeft k W _)
+  have hc : ∀ (x : TensorProduct k E W) g j, c (repBaseChange E σ g x) j = σ g (c x j) := by
+    intro x g j
+    induction x using TensorProduct.induction_on with
+    | zero => simp
+    | tmul a w =>
+      simp [c, repBaseChange, LinearMap.baseChange_tmul]
+    | add x y hx hy =>
+      rw [map_add, map_add, Finsupp.add_apply, hx, hy, map_add, Finsupp.add_apply, map_add]
+  let ψ : Module.Free.ChooseBasisIndex k E → V →ₗ[k] W := fun j =>
+    (Finsupp.lapply j) ∘ₗ c.toLinearMap ∘ₗ (φ.restrictScalars k) ∘ₗ (TensorProduct.mk k E V 1)
+  have hψ : ∀ j v, ψ j v = c (φ (1 ⊗ₜ[k] v)) j := fun j v => rfl
+  have heq : ∀ j g, ψ j ∘ₗ ρ g = σ g ∘ₗ ψ j := by
+    intro j g
+    apply LinearMap.ext; intro v
+    show c (φ ((1 : E) ⊗ₜ[k] ρ g v)) j = σ g (c (φ ((1 : E) ⊗ₜ[k] v)) j)
+    have h1 : (1 : E) ⊗ₜ[k] ρ g v = repBaseChange E ρ g (1 ⊗ₜ v) := by
+      simp [repBaseChange, LinearMap.baseChange_tmul]
+    have h2 := congrArg (fun f => f ((1 : E) ⊗ₜ[k] v)) (hφ g)
+    simp only [LinearMap.coe_comp, Function.comp_apply] at h2
+    rw [h1, h2, hc]
+  have hne : ∃ j, ψ j ≠ 0 := by
+    by_contra h
+    simp only [not_exists, not_not] at h
+    apply hφ0
+    have h1 : ∀ v, φ (1 ⊗ₜ[k] v) = 0 := fun v => by
+      apply c.injective
+      ext j
+      rw [map_zero, Finsupp.zero_apply, ← hψ, h j, LinearMap.zero_apply]
+    apply LinearMap.ext; intro x
+    induction x using TensorProduct.induction_on with
+    | zero => simp
+    | tmul a v =>
+      have : a ⊗ₜ[k] v = a • ((1 : E) ⊗ₜ[k] v) := by
+        rw [TensorProduct.smul_tmul', smul_eq_mul, mul_one]
+      rw [this, map_smul, h1, smul_zero, LinearMap.zero_apply]
+    | add x y hx hy => rw [map_add, hx, hy]; simp
+  obtain ⟨j, hj⟩ := hne
+  exact ⟨ψ j, hj, heq j⟩
+
 end GlueI3
 
 #print axioms GlueI3.isIrreducible_of_commutant_scalar
@@ -308,3 +360,4 @@ end GlueI3
 #print axioms GlueI3.absolutelyIrreducible_of_finrank_commOf_prod_le_four
 #print axioms GlueI3.exists_equivariant_ne_zero_of_common
 #print axioms GlueI3.isSemisimple_of_surjective
+#print axioms GlueI3.exists_equivariant_ne_zero_of_baseChange

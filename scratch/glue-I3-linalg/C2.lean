@@ -274,8 +274,8 @@ def SemisimpleBaseChange : Prop :=
     [Module k V] [FiniteDimensional k V] (ρ : Representation k G V),
     ρ.IsSemisimpleRepresentation → (repBaseChange E ρ).IsSemisimpleRepresentation
 
-/-- **GLUE, not proved here (linear algebra; STANDARD; the `Hom` form of
-`InvariantsBaseChange`, weakened to what E1 uses).** A nonzero `G`-equivariant `E`-linear map
+/-- **GLUE (linear algebra; the `Hom` form of `InvariantsBaseChange`, weakened to what E1 uses;
+proved below as `equivariantDescent`).** A nonzero `G`-equivariant `E`-linear map
 `V ⊗ E → W ⊗ E` forces a nonzero `G`-equivariant `k`-linear map `V → W` (`V`, `W`
 finite-dimensional): `Hom_G(V ⊗ E, W ⊗ E) = Hom_G(V, W) ⊗ E`. -/
 def EquivariantDescent : Prop :=
@@ -285,6 +285,62 @@ def EquivariantDescent : Prop :=
     (∃ φ : TensorProduct k E V →ₗ[E] TensorProduct k E W, φ ≠ 0 ∧
       ∀ g, φ ∘ₗ repBaseChange E ρ g = repBaseChange E σ g ∘ₗ φ) →
     ∃ ψ : V →ₗ[k] W, ψ ≠ 0 ∧ ∀ g, ψ ∘ₗ ρ g = σ g ∘ₗ ψ
+
+/-- **Equivariant descent (GLUE, proved).** A nonzero `G`-equivariant `E`-linear map
+`E ⊗ V → E ⊗ W` gives a nonzero `G`-equivariant `k`-linear map `V → W`: expand in a `k`-basis of
+`E` and take a nonzero coordinate. -/
+theorem exists_equivariant_ne_zero_of_baseChange {W : Type*} [AddCommGroup W] [Module k W]
+    (E : Type*) [Field E] [Algebra k E] (ρ : Representation k G V) (σ : Representation k G W)
+    (φ : TensorProduct k E V →ₗ[E] TensorProduct k E W) (hφ0 : φ ≠ 0)
+    (hφ : ∀ g, φ ∘ₗ repBaseChange E ρ g = repBaseChange E σ g ∘ₗ φ) :
+    ∃ ψ : V →ₗ[k] W, ψ ≠ 0 ∧ ∀ g, ψ ∘ₗ ρ g = σ g ∘ₗ ψ := by
+  classical
+  let b := Module.Free.chooseBasis k E
+  let c : TensorProduct k E W ≃ₗ[k] (Module.Free.ChooseBasisIndex k E →₀ W) :=
+    (TensorProduct.congr b.repr (LinearEquiv.refl k W)).trans
+      (TensorProduct.finsuppScalarLeft k W _)
+  have hc : ∀ (x : TensorProduct k E W) g j, c (repBaseChange E σ g x) j = σ g (c x j) := by
+    intro x g j
+    induction x using TensorProduct.induction_on with
+    | zero => simp
+    | tmul a w =>
+      simp [c, repBaseChange, LinearMap.baseChange_tmul]
+    | add x y hx hy =>
+      rw [map_add, map_add, Finsupp.add_apply, hx, hy, map_add, Finsupp.add_apply, map_add]
+  let ψ : Module.Free.ChooseBasisIndex k E → V →ₗ[k] W := fun j =>
+    (Finsupp.lapply j) ∘ₗ c.toLinearMap ∘ₗ (φ.restrictScalars k) ∘ₗ (TensorProduct.mk k E V 1)
+  have hψ : ∀ j v, ψ j v = c (φ (1 ⊗ₜ[k] v)) j := fun j v => rfl
+  have heq : ∀ j g, ψ j ∘ₗ ρ g = σ g ∘ₗ ψ j := by
+    intro j g
+    apply LinearMap.ext; intro v
+    show c (φ ((1 : E) ⊗ₜ[k] ρ g v)) j = σ g (c (φ ((1 : E) ⊗ₜ[k] v)) j)
+    have h1 : (1 : E) ⊗ₜ[k] ρ g v = repBaseChange E ρ g (1 ⊗ₜ v) := by
+      simp [repBaseChange, LinearMap.baseChange_tmul]
+    have h2 := congrArg (fun f => f ((1 : E) ⊗ₜ[k] v)) (hφ g)
+    simp only [LinearMap.coe_comp, Function.comp_apply] at h2
+    rw [h1, h2, hc]
+  have hne : ∃ j, ψ j ≠ 0 := by
+    by_contra h
+    simp only [not_exists, not_not] at h
+    apply hφ0
+    have h1 : ∀ v, φ (1 ⊗ₜ[k] v) = 0 := fun v => by
+      apply c.injective
+      ext j
+      rw [map_zero, Finsupp.zero_apply, ← hψ, h j, LinearMap.zero_apply]
+    apply LinearMap.ext; intro x
+    induction x using TensorProduct.induction_on with
+    | zero => simp
+    | tmul a v =>
+      have : a ⊗ₜ[k] v = a • ((1 : E) ⊗ₜ[k] v) := by
+        rw [TensorProduct.smul_tmul', smul_eq_mul, mul_one]
+      rw [this, map_smul, h1, smul_zero, LinearMap.zero_apply]
+    | add x y hx hy => rw [map_add, hx, hy]; simp
+  obtain ⟨j, hj⟩ := hne
+  exact ⟨ψ j, hj, heq j⟩
+
+theorem equivariantDescent : EquivariantDescent := by
+  intro k E G V W _ _ _ _ _ _ _ _ _ _ ρ σ ⟨φ, h0, h⟩
+  exact exists_equivariant_ne_zero_of_baseChange E ρ σ φ h0 h
 
 /-- **C2, absolute irreducibility (GLUE, proved from the two linear-algebra statements above).**
 If `r` is a nonzero semisimple representation over a field of characteristic `0` with
@@ -1078,11 +1134,11 @@ theorem C2_absolutelyIrreducible (hS : FaltingsSemisimple) (hF : FaltingsTate) (
   exact absolutelyIrreducible_of_finrank_commOf_prod_le_four hInv hSS r hr h4 F
 
 /-- **E1, from a common constituent to a nonzero homomorphism (GLUE, proved from I3's leaves and
-two linear-algebra statements).** N5 L861-867: if `V_ℓ(A) ⊗ E` and `V_ℓ(J) ⊗ E` have a common
+`SemisimpleBaseChange`).** N5 L861-867: if `V_ℓ(A) ⊗ E` and `V_ℓ(J) ⊗ E` have a common
 constituent (a nonzero subrepresentation `U` of the first, equivariantly isomorphic to a
 subrepresentation `U'` of the second), then there is a nonzero homomorphism `A → J` over `K`. -/
 theorem E1_exists_hom_ne_zero (hS : FaltingsSemisimple) (hF : FaltingsTate) (hT : TateModuleFree)
-    (hSS : SemisimpleBaseChange) (hD : EquivariantDescent)
+    (hSS : SemisimpleBaseChange)
     {K : Type} [Field K] [NumberField K] (A J : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
     (E : Type) [Field E] [Algebra ℚ_[ℓ] E]
     (U : Subrepresentation (repBaseChange E (A.galRep ℓ)))
@@ -1099,7 +1155,7 @@ theorem E1_exists_hom_ne_zero (hS : FaltingsSemisimple) (hF : FaltingsTate) (hT 
   have : FiniteDimensional ℚ_[ℓ] (J.V ℓ) := inferInstance
   have hVE := hSS ℚ_[ℓ] E _ _ (A.galRep ℓ) (hS K A ℓ)
   obtain ⟨φ, hφ0, hφ⟩ := exists_equivariant_ne_zero_of_common _ _ hVE U U' hU e he
-  obtain ⟨ψ, hψ0, hψ⟩ := hD ℚ_[ℓ] E _ _ _ (A.galRep ℓ) (J.galRep ℓ) ⟨φ, hφ0, hφ⟩
+  obtain ⟨ψ, hψ0, hψ⟩ := equivariantDescent ℚ_[ℓ] E _ _ _ (A.galRep ℓ) (J.galRep ℓ) ⟨φ, hφ0, hφ⟩
   exact exists_hom_ne_zero_of_equivariant hF hT A J ℓ ψ hψ0 hψ
 
 end PkgI3
@@ -1107,3 +1163,4 @@ end PkgI3
 
 #print axioms PkgI3.C2_absolutelyIrreducible
 #print axioms PkgI3.E1_exists_hom_ne_zero
+#print axioms GlueI3.equivariantDescent
