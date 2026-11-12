@@ -353,6 +353,86 @@ theorem exists_equivariant_ne_zero_of_baseChange {W : Type*} [AddCommGroup W] [M
   obtain ⟨j, hj⟩ := hne
   exact ⟨ψ j, hj, heq j⟩
 
+/-- **Invariants under extension of coefficients, `≤` (GLUE, proved).**
+`dim_E End_G(E ⊗ V) ≤ dim_k End_G(V)` for finite-dimensional `V`: every equivariant `E`-linear
+endomorphism is `∑ⱼ bⱼ • ψⱼ ⊗ E` with `ψⱼ ∈ End_G(V)` (coordinates in a `k`-basis `(bⱼ)` of `E`). -/
+theorem finrank_commOf_baseChange_le (E : Type*) [Field E] [Algebra k E]
+    (ρ : Representation k G V) [FiniteDimensional k V] :
+    Module.finrank E (commOf (k := E) (fun g => repBaseChange E ρ g)) ≤
+      Module.finrank k (commOf (k := k) (fun g => ρ g)) := by
+  classical
+  let C := commOf (k := k) (fun g => ρ g)
+  let L : C →ₗ[k] (TensorProduct k E V →ₗ[E] TensorProduct k E V) :=
+    (LinearMap.baseChangeHom k E V V) ∘ₗ C.subtype
+  let Φ := L.liftBaseChange E
+  have hsub : commOf (k := E) (fun g => repBaseChange E ρ g) ≤ LinearMap.range Φ := by
+    intro φ hφ
+    let b := Module.Free.chooseBasis k E
+    let c : TensorProduct k E V ≃ₗ[k] (Module.Free.ChooseBasisIndex k E →₀ V) :=
+      (TensorProduct.congr b.repr (LinearEquiv.refl k V)).trans
+        (TensorProduct.finsuppScalarLeft k V _)
+    have hc : ∀ (x : TensorProduct k E V) g j, c (repBaseChange E ρ g x) j = ρ g (c x j) := by
+      intro x g j
+      induction x using TensorProduct.induction_on with
+      | zero => simp
+      | tmul a w =>
+        simp [c, repBaseChange, LinearMap.baseChange_tmul]
+      | add x y hx hy =>
+        rw [map_add, map_add, Finsupp.add_apply, hx, hy, map_add, Finsupp.add_apply, map_add]
+    have hcb : ∀ j (w : V) j', c (b j ⊗ₜ[k] w) j' = if j = j' then w else 0 := by
+      intro j w j'
+      simp [c, Finsupp.single_apply]
+    let ψ : Module.Free.ChooseBasisIndex k E → V →ₗ[k] V := fun j =>
+      (Finsupp.lapply j) ∘ₗ c.toLinearMap ∘ₗ (φ.restrictScalars k) ∘ₗ (TensorProduct.mk k E V 1)
+    have hψ : ∀ j v, ψ j v = c (φ (1 ⊗ₜ[k] v)) j := fun j v => rfl
+    have hψC : ∀ j, ψ j ∈ C := by
+      intro j g
+      apply LinearMap.ext; intro v
+      show c (φ ((1 : E) ⊗ₜ[k] ρ g v)) j = ρ g (c (φ ((1 : E) ⊗ₜ[k] v)) j)
+      have h1 : (1 : E) ⊗ₜ[k] ρ g v = repBaseChange E ρ g (1 ⊗ₜ v) := by
+        simp [repBaseChange, LinearMap.baseChange_tmul]
+      have h2 := congrArg (fun f => f ((1 : E) ⊗ₜ[k] v)) (hφ g)
+      simp only [LinearMap.coe_comp, Function.comp_apply] at h2
+      rw [h1, h2, hc]
+    let bV := Module.finBasis k V
+    let S : Finset (Module.Free.ChooseBasisIndex k E) :=
+      Finset.univ.biUnion (fun i => (c (φ (1 ⊗ₜ[k] bV i))).support)
+    have hS : ∀ j, j ∉ S → ψ j = 0 := by
+      intro j hj
+      apply bV.ext; intro i
+      rw [hψ, LinearMap.zero_apply]
+      by_contra h
+      apply hj
+      simp only [S, Finset.mem_biUnion, Finset.mem_univ, true_and, Finsupp.mem_support_iff]
+      exact ⟨i, h⟩
+    refine ⟨∑ j ∈ S, b j ⊗ₜ[k] (⟨ψ j, hψC j⟩ : C), ?_⟩
+    have key : ∀ v, (Φ (∑ j ∈ S, b j ⊗ₜ[k] (⟨ψ j, hψC j⟩ : C))) (1 ⊗ₜ[k] v) =
+        ∑ j ∈ S, b j ⊗ₜ[k] ψ j v := by
+      intro v
+      simp [Φ, L, map_sum, LinearMap.sum_apply, LinearMap.baseChange_tmul,
+        TensorProduct.smul_tmul']
+    apply LinearMap.ext; intro x
+    induction x using TensorProduct.induction_on with
+    | zero => simp
+    | add x y hx hy => rw [map_add, map_add, hx, hy]
+    | tmul a v =>
+      have hav : a ⊗ₜ[k] v = a • ((1 : E) ⊗ₜ[k] v) := by
+        rw [TensorProduct.smul_tmul', smul_eq_mul, mul_one]
+      rw [hav, map_smul, map_smul, key]
+      congr 1
+      apply c.injective
+      ext j'
+      rw [map_sum, Finsupp.finsetSum_apply, ← hψ]
+      simp only [hcb]
+      rw [Finset.sum_ite_eq']
+      split_ifs with hj'
+      · rfl
+      · rw [hS j' hj', LinearMap.zero_apply]
+  calc Module.finrank E (commOf (k := E) (fun g => repBaseChange E ρ g))
+      ≤ Module.finrank E (LinearMap.range Φ) := Submodule.finrank_mono hsub
+    _ ≤ Module.finrank E (TensorProduct k E C) := LinearMap.finrank_range_le Φ
+    _ = Module.finrank k C := Module.finrank_baseChange
+
 end GlueI3
 
 #print axioms GlueI3.isIrreducible_of_commutant_scalar
@@ -361,3 +441,4 @@ end GlueI3
 #print axioms GlueI3.exists_equivariant_ne_zero_of_common
 #print axioms GlueI3.isSemisimple_of_surjective
 #print axioms GlueI3.exists_equivariant_ne_zero_of_baseChange
+#print axioms GlueI3.finrank_commOf_baseChange_le
