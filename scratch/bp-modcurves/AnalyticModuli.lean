@@ -152,8 +152,106 @@ theorem exactOrder (N : ℕ) [NeZero N] (τ : ℍ) (k : ℤ) :
     field_simp
     ring
 
+/-- **Every homothety between the lattices `Λ_{τ'}` and `Λ_τ` comes from `SL₂(ℤ)`.** -/
+theorem exists_SL2_of_homothety (τ τ' : ℍ) (α : ℂ)
+    (h : (fun z => α * z) '' lat (τ' : ℂ) = lat τ) :
+    ∃ γ : SL(2, ℤ), (τ' : ℂ) = ((γ • τ : ℍ) : ℂ) ∧ α = jfac γ τ := by
+  have hmem : ∀ w ∈ lat (τ : ℂ), ∃ m n : ℤ, w = α * (m * τ' + n) := by
+    intro w hw
+    rw [← h] at hw
+    obtain ⟨z, ⟨m, n, rfl⟩, rfl⟩ := hw
+    exact ⟨m, n, rfl⟩
+  have himg : ∀ m n : ℤ, ∃ p q : ℤ, α * ((m : ℂ) * τ' + n) = (p : ℂ) * τ + q := by
+    intro m n
+    have : α * ((m : ℂ) * τ' + n) ∈ lat (τ : ℂ) := by
+      rw [← h]; exact ⟨_, ⟨m, n, rfl⟩, rfl⟩
+    obtain ⟨p, q, e⟩ := this
+    exact ⟨p, q, e⟩
+  obtain ⟨p, q, hpq⟩ := himg 1 0
+  obtain ⟨r, s, hrs⟩ := himg 0 1
+  simp only [Int.cast_one, one_mul, Int.cast_zero, add_zero, zero_mul, zero_add, mul_one] at hpq hrs
+  -- `α τ' = pτ + q`, `α = rτ + s`
+  obtain ⟨m₁, n₁, e₁⟩ := hmem τ ⟨1, 0, by simp⟩
+  obtain ⟨m₂, n₂, e₂⟩ := hmem 1 ⟨0, 1, by simp⟩
+  have e₁' : ((1 : ℤ) : ℂ) * τ + ((0 : ℤ) : ℂ) =
+      ((m₁ * p + n₁ * r : ℤ) : ℂ) * τ + ((m₁ * q + n₁ * s : ℤ) : ℂ) := by
+    push_cast; linear_combination e₁ + m₁ * hpq + n₁ * hrs
+  have e₂' : ((0 : ℤ) : ℂ) * τ + ((1 : ℤ) : ℂ) =
+      ((m₂ * p + n₂ * r : ℤ) : ℂ) * τ + ((m₂ * q + n₂ * s : ℤ) : ℂ) := by
+    push_cast; linear_combination e₂ + m₂ * hpq + n₂ * hrs
+  obtain ⟨c11, c12⟩ := lat_coeff_unique τ e₁'
+  obtain ⟨c21, c22⟩ := lat_coeff_unique τ e₂'
+  have hdet1 : (m₁ * n₂ - n₁ * m₂) * (p * s - q * r) = 1 := by
+    linear_combination (m₂ * q + n₂ * s) * c11.symm + c22.symm - (m₂ * p + n₂ * r) * c12.symm
+  -- orientation: `p s − q r > 0`
+  have hα : α ≠ 0 := by
+    rintro rfl
+    have := e₂; simp at this
+  have hτ' : (τ' : ℂ) * ((r : ℂ) * τ + s) = (p : ℂ) * τ + q := by
+    rw [← hpq, ← hrs]; ring
+  have him := congrArg Complex.im hτ'
+  have hre := congrArg Complex.re hτ'
+  simp only [Complex.mul_im, Complex.mul_re, Complex.add_im, Complex.add_re, Complex.intCast_re,
+    Complex.intCast_im, zero_mul, sub_zero, add_zero] at him hre
+  set x := (τ : ℂ).re
+  set y := (τ : ℂ).im
+  set x' := (τ' : ℂ).re
+  set y' := (τ' : ℂ).im
+  have hy : 0 < y := τ.im_pos
+  have hy' : 0 < y' := τ'.im_pos
+  have key : ((p * s - q * r : ℤ) : ℝ) * y = y' * ((r * x + s) ^ 2 + (r * y) ^ 2) := by
+    push_cast
+    linear_combination -(r * x + s) * him + (r * y) * hre
+  have hD : 0 < (r * x + s) ^ 2 + ((r : ℝ) * y) ^ 2 := by
+    rcases eq_or_ne (r : ℝ) 0 with hr | hr
+    · have hs : (s : ℝ) ≠ 0 := by
+        intro hs
+        apply hα
+        rw [hrs]
+        have hr0 : r = 0 := by exact_mod_cast hr
+        have hs0 : s = 0 := by exact_mod_cast hs
+        rw [hr0, hs0]; simp
+      rw [hr]; simp; positivity
+    · have : 0 < ((r : ℝ) * y) ^ 2 := by positivity
+      nlinarith [sq_nonneg ((r : ℝ) * x + s)]
+  have hpos : (0 : ℝ) < ((p * s - q * r : ℤ) : ℝ) := by
+    have := mul_pos hy' hD
+    rw [← key] at this
+    exact pos_of_mul_pos_left this hy.le
+  have hpos' : 0 < p * s - q * r := by exact_mod_cast hpos
+  have hdet : p * s - q * r = 1 := by
+    rcases Int.eq_one_or_neg_one_of_mul_eq_one' hdet1 with ⟨-, h2⟩ | ⟨-, h2⟩
+    · exact h2
+    · omega
+  let γ : SL(2, ℤ) := ⟨!![p, q; r, s], by rw [Matrix.det_fin_two_of]; exact hdet⟩
+  have h00 : γ 0 0 = p := rfl
+  have h01 : γ 0 1 = q := rfl
+  have h10 : γ 1 0 = r := rfl
+  have h11 : γ 1 1 = s := rfl
+  have hjf : jfac γ τ = (r : ℂ) * τ + s := by simp only [jfac, h10, h11]
+  have hD0 : (r : ℂ) * τ + s ≠ 0 := by rw [← hrs]; exact hα
+  refine ⟨γ, ?_, ?_⟩
+  · have hγ := coe_smul_eq γ τ
+    rw [hγ, hjf, h00, h01, eq_div_iff hD0]
+    exact hτ'
+  · rw [hjf, hrs]
+
+/-- **Moduli at the level of points: `(ℂ/Λ_{τ'}, 1/N) ≅ (ℂ/Λ_τ, 1/N)` by a homothety iff
+`τ' ∈ Γ₁(N)·τ`.** -/
+theorem pair_iso_iff (N : ℕ) [NeZero N] (τ τ' : ℍ) :
+    (∃ α : ℂ, (fun z => α * z) '' lat (τ' : ℂ) = lat τ ∧ α * (1 / (N : ℂ)) - 1 / (N : ℂ) ∈ lat τ) ↔
+      ∃ γ ∈ Gamma1 N, τ' = γ • τ := by
+  constructor
+  · rintro ⟨α, hα, hpt⟩
+    obtain ⟨γ, hτ', rfl⟩ := exists_SL2_of_homothety τ τ' α hα
+    exact ⟨γ, (point_preserved_iff N γ τ).1 hpt, UpperHalfPlane.ext hτ'⟩
+  · rintro ⟨γ, hγ, rfl⟩
+    exact ⟨jfac γ τ, lattice_homothety γ τ, (point_preserved_iff N γ τ).2 hγ⟩
+
 end BPModCurves
 
 #print axioms BPModCurves.lattice_homothety
 #print axioms BPModCurves.point_preserved_iff
 #print axioms BPModCurves.exactOrder
+#print axioms BPModCurves.exists_SL2_of_homothety
+#print axioms BPModCurves.pair_iso_iff
