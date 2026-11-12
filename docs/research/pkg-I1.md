@@ -1,5 +1,9 @@
 # pkg-I1: the discriminant-6 Shimura curve as literature leaves
 
+*Note (loc-fix, 2026-11-12).* Lin–Yang's discriminant-6 example is arXiv:1807.00466v1 **Example 29**
+(pp. 20-21); v1's Example 30 treats discriminant 14 (locators.md item 3, read by the locator audit).
+The mentions of "Ex. 30" / "Example 30" below are corrected in place, each marked "(formerly Ex. 30)".
+
 Status: research note (task pkg-I1, 2026-11-11). Package I1 of `docs/research/wk-h.md` §2: steps
 A2-A5, A7, A10 and F1 of `docs/research/h-trust.md`. For each literature input: the exact statement
 used, the most concrete faithful formulation, the Lean objects it needs and what exists, and a
@@ -30,7 +34,7 @@ network here). The manuscript `diophantine_zq.tex` is cited as N5 with line numb
 2. **Three leaves compile today** (`I1.lean`, `lake env lean`, no errors):
    `ThetaModularity` (Igusa: `Σθ⁸` and `∏θ²` are Siegel modular of weight 4 and 10;
    signs and weights checked numerically on five generators of `Sp₄(ℤ)`),
-   `QMHauptmodul` (Lin–Yang Ex. 30 + Igusa + Baba–Granath, analytic form), and
+   `QMHauptmodul` (Lin–Yang v1 Ex. 29 (formerly Ex. 30) + Igusa + Baba–Granath, analytic form), and
    `IgusaClebschSeparation` (Clebsch–Bolza–Igusa: Igusa invariants separate `GL₂`-orbits of
    binary sextics with nonzero discriminant). For the last one, explicit `J₂, J₄, J₆, J₁₀` were
    derived as polynomials in the seven coefficients and checked against PARI's `genus2igusa`.
@@ -71,7 +75,7 @@ B = bookkeeping):
 
 | Step | Class | What I1 must supply | Leaves (§2) | Glue (§4) |
 | --- | --- | --- | --- | --- |
-| A2 | W | `X₆/W ≅ P¹_j` over `ℚ`, branch values `0, ∞, −16/27` of indices 4, 6, 2 at discs −4, −3, −24 | I1-a (`ℚ`-structure), I1-b `QMHauptmodul` (analytic) | CM elements `cm4`, `cm3`, `cm24` |
+| A2 | W | `X₆/W ≅ P¹_j` over `ℚ`, elliptic points `0, ∞, −16/27` of orbifold orders 4, 6, 2 (indices of `Y₃ → P¹_j`; the map `X₆ → X₆/W` has indices 2, 2, 2) at discs −4, −3, −24 (wording corrected 2026-11-12 by loc-fix, rv-nocm §3.2) | I1-a (`ℚ`-structure), I1-b `QMHauptmodul` (analytic) | CM elements `cm4`, `cm3`, `cm24` |
 | A3 | B | `deg(Y₃ → P¹_j) ≤ 4·72 ≤ 324` | I1-f (local normalizers, Vignéras) | count of `(𝒪/3𝒪)^*` (not in Lean; `form_check.py`) |
 | A4 | W | `Y₃` = fine moduli scheme over `ℚ` | I1-a | — |
 | A5 | R | inputs to Lemma PR(i): branch data, Shimura reciprocity at the three elliptic points, `W ≅ (ℤ/2)²` | I1-a, I1-e | `Ju_ne_branch` (fibre is étale) |
@@ -117,7 +121,7 @@ B = bookkeeping):
 ### I1-b. The QM Hauptmodul in theta constants (A2 analytic + F1) — **statable, `QMHauptmodul`**
 
 - **Published statements.** Lin–Yang, *Quaternionic loci in Siegel's modular threefold*, Math. Z.
-  295 (2020), Example 30 (divisors of `ψ₄` and `χ₁₀` on the QM curve `X ≅ P¹`: `χ₁₀²/ψ₄⁵` is a
+  295 (2020), arXiv v1 Example 29 (formerly Ex. 30) (divisors of `ψ₄` and `χ₁₀` on the QM curve `X ≅ P¹`: `χ₁₀²/ψ₄⁵` is a
   degree-one function with zero at `P₋₄` and pole at `P₋₃`) and eqs. (13)-(14) (VERIFIED in arXiv
   v1 by task h-v14; journal numbering UNVERIFIED). Baba–Granath, Canad. J. Math. 60 (2008), Thm 2.1
   and §3 (the branch data; journal numbering UNVERIFIED). Igusa, Amer. J. Math. 89 (1967), pp.
@@ -177,7 +181,7 @@ B = bookkeeping):
 
 ### I1-d. Baba–Granath / Lin–Yang: the Igusa vector of QM Jacobians (A7, alternative F1 route) — not statable today
 
-- **Published statement.** Baba–Granath 2008, Thm 2.1 and §3, and Lin–Yang 2020, Ex. 30 with eqs.
+- **Published statement.** Baba–Granath 2008, Thm 2.1 and §3, and Lin–Yang 2020, v1 Ex. 29 (formerly Ex. 30) with eqs.
   (13)-(14) (reading of task h-v14, through `igusa_check.py`). A principally polarized abelian
   surface over `ℚ̄` with N5's QM datum (`𝒪`, Rosati `x ↦ μ⁻¹x̄μ`), not lying over `j ∈ {0, ∞}`, is
   the Jacobian of a genus-2 curve `C` with
