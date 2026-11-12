@@ -23,3 +23,22 @@ Draft scratch/pkg-I2/I2.lean, first version: defs `specOver`, `IsAbelianVariety`
 `Pts`, `torsion`, `galHom`, `galAct`, `IsInertia`, `HasGoodReduction`, `InertiaTrivialOn`, `UnipSq`;
 leaves `PurityBranchLocus` (Stacks 0BMB ring form), `NeronOggShafarevich` (Serre–Tate Thm 1).
 Compile: `lake env lean scratch/pkg-I2/I2.lean`: no errors, no warnings, 40 s (VERIFIED).
+
+## Step 2: abelian-variety leaves and Abhyankar (DVR) compile
+
+Added to scratch/pkg-I2/I2.lean: `baseChange`, `toW`, `IsReductionOf`; leaves
+`SerreTatePotentialGood` (Serre–Tate Thm 2), `GrothendieckMonodromy` (SGA 7 IX 3.6 + 3.5 ⇒),
+`RaynaudCriterion` (SGA 7 IX 4.7 + 3.5 ⇒), `NeronMappingAbelianScheme` (BLR 1.2 Prop 8),
+`ReductionTorsionBijective` (Serre–Tate §1), `TorsionStructure` (Mumford §4),
+`AbhyankarDVR` (SGA 1 X 3.6 / Stichtenoth 3.9.1).
+API facts found while compiling (VERIFIED): a morphism of `Grp C` has underlying `C`-morphism
+`f.hom.hom` (Grp → Mon → C); `Ideal.ramificationIdx` is now the length definition
+(`q.ramificationIdx R`), the older one is `ramificationIdx'`.
+Compile: no errors, no warnings (VERIFIED).
+
+Finding (SPECULATIVE until written as glue, argument below): A6 (good reduction at v ∤ 3) follows
+from Raynaud (m = 3), NOS (c) with m = 3ⁿ, TorsionStructure and the 𝒪-action, using that
+B ⊗ ℚ₃ is a division algebra: N = σ − 1 commutes with 𝒪₃, N² = 0, A[3ⁿ] free of rank one over
+𝒪/3ⁿ ⇒ N = right multiplication by c with c² ≡ 0 mod 3ⁿ ⇒ N kills A[3^k] for n = 2k. This route
+does not use SGA 7 IX 3.6, the toric-part/Néron argument (Morita), Serre–Tate Thm 2, or the
+torsion-freeness of 1 + 3M₄(ℤ₃).

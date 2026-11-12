@@ -30,6 +30,12 @@ import Mathlib.RingTheory.Unramified.Locus
 import Mathlib.RingTheory.QuasiFinite.Basic
 import Mathlib.RingTheory.DiscreteValuationRing.Basic
 import Mathlib.RingTheory.Ideal.Height
+import Mathlib.RingTheory.RamificationInertia.Ramification
+import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
+import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+import Mathlib.Topology.KrullDimension
+import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
+import Mathlib.Data.ZMod.Basic
 
 universe u
 
@@ -148,5 +154,161 @@ def NeronOggShafarevich : Prop :=
         ∀ m : ℕ, 0 < m → IsUnit (m : O) → InertiaTrivialOn A w m) ∧
       (HasGoodReduction A O ↔
         {m : ℕ | 0 < m ∧ IsUnit (m : O) ∧ InertiaTrivialOn A w m}.Infinite)
+
+
+/-- Base change `A_{K'}` of a group object along a field extension `K → K'`. -/
+noncomputable def baseChange {K : Type u} [Field K] (A : Grp (Over (Spec (.of K))))
+    (K' : Type u) [Field K'] [Algebra K K'] : Grp (Over (Spec (.of K'))) :=
+  (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K K')))).mapGrp.obj A
+
+/-- **Leaf I2-ST2 (Serre–Tate 1968, Thm 2; potential good reduction).** For a prime `ℓ`
+invertible in `O`: `A` acquires good reduction over a finite extension `K' ⊆ K̄` (at `w ∩ K'`) iff
+an open subgroup `I ∩ G_{K'}` of inertia acts trivially on every `A(K̄)[ℓⁿ]`, i.e. the image of
+inertia in `Aut(T_ℓ A)` is finite. Used only on the h-b1 route for A6 (not on the route of §5 of
+docs/research/pkg-I2.md). -/
+def SerreTatePotentialGood : Prop :=
+  ∀ (K : Type u) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K)),
+    w.comap (algebraMap K (AlgebraicClosure K)) = O →
+    ∀ (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (ℓ : ℕ), ℓ.Prime → IsUnit (ℓ : O) →
+      ((∃ K' : IntermediateField K (AlgebraicClosure K), FiniteDimensional K K' ∧
+          HasGoodReduction (baseChange A K') (w.comap (algebraMap K' (AlgebraicClosure K)))) ↔
+       (∃ K' : IntermediateField K (AlgebraicClosure K), FiniteDimensional K K' ∧
+          ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, IsInertia w σ →
+            (∀ x ∈ K', σ x = x) →
+            ∀ n : ℕ, ∀ x ∈ torsion A (AlgebraicClosure K) (ℓ ^ n), galAct A σ x = x))
+
+/-! ## 4. Semistable reduction: Grothendieck (SGA 7 IX 3.5, 3.6) and Raynaud (SGA 7 IX 4.7) -/
+
+/-- **Leaf I2-SS (Grothendieck's semistable reduction theorem, monodromy form).** Consequence of
+SGA 7 I, Exp. IX, Thm 3.6 (`A` acquires semistable reduction over a finite extension `K'`) and
+the direction "semistable ⇒ inertia acts unipotently of echelon ≤ 2" of Prop. 3.5 (numbers
+UNVERIFIED): there is a finite `K' ⊆ K̄` such that every `σ` in the inertia group of `w` fixing
+`K'` satisfies `(σ - 1)² = 0` on `A(K̄)[ℓⁿ]` for every prime `ℓ` invertible in `O` and every `n`.
+The finite-level form is equivalent to `(σ-1)² = 0` on `T_ℓ A`, since `T_ℓ A → A[ℓⁿ]` is onto. -/
+def GrothendieckMonodromy : Prop :=
+  ∀ (K : Type u) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K)),
+    w.comap (algebraMap K (AlgebraicClosure K)) = O →
+    ∀ (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A],
+      ∃ K' : IntermediateField K (AlgebraicClosure K), FiniteDimensional K K' ∧
+        ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, IsInertia w σ →
+          (∀ x ∈ K', σ x = x) →
+          ∀ ℓ : ℕ, ℓ.Prime → IsUnit (ℓ : O) →
+            ∀ n : ℕ, ∀ x ∈ torsion A (AlgebraicClosure K) (ℓ ^ n), UnipSq A σ x
+
+/-- **Leaf I2-Ray (Raynaud's criterion, Galois form).** Consequence of SGA 7 I, Exp. IX,
+Prop. 4.7 (Raynaud: if `m ≥ 3` is invertible in `O` and the points of `A[m]` are rational over
+`K`, then `A` has semistable reduction; also Silverberg–Zarhin, Ann. Inst. Fourier 45 (1995),
+Thm 3.5 per h-trust, ASTRA-READ there) and the direction "semistable ⇒ unipotent of echelon ≤ 2"
+of SGA 7 IX Prop. 3.5 (numbers UNVERIFIED): every `σ` in the inertia group of `w` satisfies
+`(σ - 1)² = 0` on `A(K̄)[ℓⁿ]` for every prime `ℓ` invertible in `O` and every `n`. -/
+def RaynaudCriterion : Prop :=
+  ∀ (K : Type u) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K)),
+    w.comap (algebraMap K (AlgebraicClosure K)) = O →
+    ∀ (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (m : ℕ), 3 ≤ m → IsUnit (m : O) →
+      (∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+          ∀ x ∈ torsion A (AlgebraicClosure K) m, galAct A σ x = x) →
+      ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, IsInertia w σ →
+        ∀ ℓ : ℕ, ℓ.Prime → IsUnit (ℓ : O) →
+          ∀ n : ℕ, ∀ x ∈ torsion A (AlgebraicClosure K) (ℓ ^ n), UnipSq A σ x
+
+/-! ## 5. Néron mapping property for abelian schemes, and reduction of torsion -/
+
+/-- **Leaf I2-NMP (Néron mapping property, abelian-scheme case).** Consequence of
+Bosch–Lütkebohmert–Raynaud, *Néron models* (1990), §1.2, Def. 1 and Prop. 8 (an abelian scheme
+over a DVR is the Néron model of its generic fibre; numbers UNVERIFIED): for abelian schemes
+`𝒜, ℬ` over the DVR `O ⊆ K`, restriction to the generic fibre is a bijection
+`Hom_O(𝒜, ℬ) → Hom_K(𝒜_K, ℬ_K)` (morphisms of schemes over the base). -/
+def NeronMappingAbelianScheme : Prop :=
+  ∀ (K : Type u) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (𝒜 ℬ : Grp (Over (Spec (.of O)))) [IsAbelianScheme 𝒜] [IsAbelianScheme ℬ],
+    Function.Bijective (fun f : 𝒜.X ⟶ ℬ.X =>
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O K)))).map f)
+
+section Reduction
+
+variable {K : Type u} [Field K]
+
+/-- The ring map `O → w` for a valuation ring `w` of `L` lying over `O`. -/
+def toW {L : Type u} [Field L] [Algebra K L] (O : ValuationSubring K) (w : ValuationSubring L)
+    (hw : w.comap (algebraMap K L) = O) : O →+* w :=
+  ((algebraMap K L).comp O.subtype).codRestrict w.toSubring (fun x => by
+    have : (x : K) ∈ w.comap (algebraMap K L) := by rw [hw]; exact x.2
+    exact this)
+
+/-- `y ∈ 𝒜(κ(w))` is the reduction of `x ∈ A(L)`: some `x̃ ∈ 𝒜(w)` restricts to `x` on the
+generic point (through `e : 𝒜_K ≅ A`) and to `y` on the closed point. -/
+def IsReductionOf {L : Type u} [Field L] [Algebra K L] {O : ValuationSubring K}
+    {A : Grp (Over (Spec (.of K)))} (𝒜 : Grp (Over (Spec (.of O))))
+    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O K)))).mapGrp.obj 𝒜 ≅ A)
+    (w : ValuationSubring L) (hw : w.comap (algebraMap K L) = O) (x : Pts A L)
+    (y : Over.mk (Spec.map (CommRingCat.ofHom
+      ((IsLocalRing.residue w).comp (toW O w hw)))) ⟶ 𝒜.X) : Prop :=
+  ∃ x' : Over.mk (Spec.map (CommRingCat.ofHom (toW O w hw))) ⟶ 𝒜.X,
+    (x ≫ (e.inv.hom.hom : A.X ⟶
+        (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O K)))).obj 𝒜.X)).left ≫
+        pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (algebraMap O K))) =
+        Spec.map (CommRingCat.ofHom w.subtype) ≫ x'.left ∧
+    y.left = Spec.map (CommRingCat.ofHom (IsLocalRing.residue w)) ≫ x'.left
+
+end Reduction
+
+/-- **Leaf I2-Red (reduction of prime-to-`p` torsion at good reduction).** Serre–Tate 1968, §1
+(proof of Thm 1, (a) ⇒ (b); locator UNVERIFIED): if `A` has good reduction with abelian scheme
+`𝒜` and `m ≥ 1` is invertible in `O`, reduction is a bijection
+`A(K̄)[m] → 𝒜(κ(w))[m]`. -/
+def ReductionTorsionBijective : Prop :=
+  ∀ (K : Type u) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K))
+    (hw : w.comap (algebraMap K (AlgebraicClosure K)) = O)
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (𝒜 : Grp (Over (Spec (.of O)))) [IsAbelianScheme 𝒜]
+    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O K)))).mapGrp.obj 𝒜 ≅ A)
+    (m : ℕ), 0 < m → IsUnit (m : O) →
+      (∀ x ∈ torsion A (AlgebraicClosure K) m,
+        ∃! y, y ^ m = 1 ∧ IsReductionOf 𝒜 e w hw x y) ∧
+      (∀ y, y ^ m = 1 → ∃! x, x ∈ torsion A (AlgebraicClosure K) m ∧ IsReductionOf 𝒜 e w hw x y)
+
+/-! ## 6. Structure of torsion (Mumford, *Abelian varieties*, §4) -/
+
+/-- **Leaf I2-Tors (structure of `A[n]`; boundary with I3).** Mumford, *Abelian varieties*
+(1970), §4, Application 2 / §6 (locator UNVERIFIED): for an abelian variety of dimension `g` over
+`K` and `n ≥ 1` invertible in `K`, `A(K̄)[n] ≅ (ℤ/n)^{2g}` as groups. The dimension is the
+topological Krull dimension of the underlying space. -/
+def TorsionStructure : Prop :=
+  ∀ (K : Type u) [Field K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (g n : ℕ),
+    topologicalKrullDim A.X.left = (g : WithBot ℕ∞) → 0 < n → (n : K) ≠ 0 →
+      ∃ e : torsion A (AlgebraicClosure K) n ≃ (Fin (2 * g) → ZMod n),
+        ∀ x y : torsion A (AlgebraicClosure K) n,
+          ∀ h : x.1 * y.1 ∈ torsion A (AlgebraicClosure K) n, e ⟨x.1 * y.1, h⟩ = e x + e y
+
+/-! ## 7. Abhyankar's lemma for discrete valuation rings -/
+
+/-- **Leaf I2-AbDVR (Abhyankar's lemma, DVR form).** SGA 1, Exp. X, Lemme 3.6 (number
+UNVERIFIED); also Stichtenoth, *Algebraic function fields and codes*, Thm 3.9.1, and Cornell,
+Gold (classical). `R` a DVR with fraction field `K`, uniformizer `π`; `L/K` finite separable, tamely
+ramified over `R` (every prime `Q` of the integral closure `S` of `R` in `L` over the maximal
+ideal has `e(Q)` invertible in `R` and separable residue extension); `n` invertible in `R` with every
+`e(Q) ∣ n`. Let `M = L(t)` with `tⁿ = π`. Then every prime of the integral closure of `R` in `M`
+over the maximal ideal has ramification index exactly `n` and separable residue extension
+(equivalently: `M/K(t)` is unramified above `R`, as `K(t)/K` is totally ramified of degree `n`). -/
+def AbhyankarDVR : Prop :=
+  ∀ (R K L M : Type u) [CommRing R] [IsDomain R] [IsDiscreteValuationRing R]
+    [Field K] [Algebra R K] [IsFractionRing R K]
+    [Field L] [Algebra K L] [Algebra R L] [IsScalarTower R K L]
+    [FiniteDimensional K L] [Algebra.IsSeparable K L]
+    [Field M] [Algebra L M] [Algebra K M] [Algebra R M]
+    [IsScalarTower K L M] [IsScalarTower R K M]
+    (π : R), Irreducible π → ∀ (n : ℕ), 0 < n → IsUnit (n : R) →
+    (∀ (Q : Ideal (integralClosure R L)) [Q.IsPrime] [Q.LiesOver (IsLocalRing.maximalIdeal R)],
+      IsUnit ((Q.ramificationIdx R : ℕ) : R) ∧ Q.ramificationIdx R ∣ n ∧
+      Algebra.IsSeparable (R ⧸ IsLocalRing.maximalIdeal R) (integralClosure R L ⧸ Q)) →
+    ∀ t : M, t ^ n = algebraMap R M π → IntermediateField.adjoin L {t} = ⊤ →
+      ∀ (Q : Ideal (integralClosure R M)) [Q.IsPrime]
+        [Q.LiesOver (IsLocalRing.maximalIdeal R)],
+        Q.ramificationIdx R = n ∧
+        Algebra.IsSeparable (R ⧸ IsLocalRing.maximalIdeal R) (integralClosure R M ⧸ Q)
 
 end PkgI2
