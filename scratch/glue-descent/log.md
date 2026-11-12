@@ -98,3 +98,5 @@ B6 := ℍ[ℚ, 2, -3] (N5's B = (2,-3)).
 no errors, no sorry in any file (grep), all printed axioms = propext, Classical.choice, Quot.sound (VERIFIED)
 
 ## Step 11: docs/research/glue-descent.md written (statements, leaves, glue table, API, findings, verdict)
+
+## Step 12: .fleet/glue-descent.md written (last commit)
