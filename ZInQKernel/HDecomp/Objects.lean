@@ -467,18 +467,41 @@ def PoincareReducibility : Prop :=
     ∀ f : Hom A J, f ≠ 0 → ∃ (Z : AbVar k) (g : Hom Z J),
       IsIsogenyMor (fst A.X Z.X ≫ f.hom * snd A.X Z.X ≫ g.hom)
 
-/-- **I3.Q — the QM dichotomy (step A9).** Over an algebraically closed field of characteristic
-`0`, if a quaternion division algebra `B = (a, b)_ℚ` embeds in `End⁰(A)` for an abelian surface
-`A`, then `End⁰(A) ≅ B` or `End⁰(A) ≅ M₂(ℚ(√d))` with `d < 0`. (Consequence of Mumford §19
-Thm 1, Cor. 2, §21 (Albert, `[D:ℚ] ∣ 2g` in characteristic `0`) and §22; see the note.) -/
-def QMDichotomy : Prop :=
+/-- `ℍ[ℚ, a, b]` is indefinite: `ℍ[ℚ, a, b] ⊗ ℝ ≅ M₂(ℝ)`, i.e. not both `a < 0` and `b < 0`. -/
+def QuatIndefinite (a b : ℚ) : Prop := 0 < a ∨ 0 < b
+
+/-- **I3.Q / T27 — the QM dichotomy (step A9), with Yu's hypothesis.** Chia-Fu Yu,
+*Endomorphism algebras of QM abelian surfaces*, J. Pure Appl. Algebra 217 (2013), Thm 1.1
+(journal p. 907; arXiv:1210.1125 Thm 1.1; checked by the locator audit): over an algebraically
+closed field of characteristic `0`, if an **indefinite** quaternion division algebra `B = (a, b)_ℚ`
+embeds in `End⁰(A)` for an abelian surface `A`, then `End⁰(A) ≅ B` or `End⁰(A) ≅ M₂(ℚ(√d))`,
+`d < 0` (Yu adds that `ℚ(√d)` splits `B`; dropped, so this is a consequence of Yu's theorem).
+*2026-11-12 (loc-fix, applying rv-loc-leaves (i)):* this replaces the earlier leaf `QMDichotomy`,
+which had no indefiniteness hypothesis and was therefore stronger than Yu's theorem (still true by
+Mumford §21, but not a consequence of the cited locator). The earlier conclusion survives only at
+the project's `B = (2, -3)`, as the lemma `qmDichotomy_B6`, proved from this leaf. -/
+def QMDichotomyYu : Prop :=
   ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (A : AbVar k), A.dim = 2 →
-    ∀ a b : ℚ, (∀ x : ℍ[ℚ, a, b], x ≠ 0 → IsUnit x) →
+    ∀ a b : ℚ, QuatIndefinite a b → (∀ x : ℍ[ℚ, a, b], x ≠ 0 → IsUnit x) →
       Nonempty (ℍ[ℚ, a, b] →ₐ[ℚ] End0 A) →
         Nonempty (End0 A ≃ₐ[ℚ] ℍ[ℚ, a, b]) ∨
           ∃ d : ℚ, d < 0 ∧
             Nonempty (End0 A ≃ₐ[ℚ] Matrix (Fin 2) (Fin 2) (AdjoinRoot (Polynomial.X ^ 2 -
                 Polynomial.C d)))
+
+/-- The project's `B = (2, -3)` is indefinite. -/
+theorem quatIndefinite_two_neg_three : QuatIndefinite 2 (-3) := Or.inl (by norm_num)
+
+/-- The use at step A9 / G5 (`B = (2, -3)`): the earlier (stronger) form of T27, at the
+project's algebra only, from the faithful leaf and indefiniteness of `B`. -/
+theorem qmDichotomy_B6 (h : QMDichotomyYu) (k : Type) [Field k] [IsAlgClosed k] [CharZero k]
+    (A : AbVar k) (hA : A.dim = 2) (hdiv : ∀ x : ℍ[ℚ, 2, -3], x ≠ 0 → IsUnit x)
+    (hemb : Nonempty (ℍ[ℚ, 2, -3] →ₐ[ℚ] End0 A)) :
+    Nonempty (End0 A ≃ₐ[ℚ] ℍ[ℚ, 2, -3]) ∨
+      ∃ d : ℚ, d < 0 ∧
+        Nonempty (End0 A ≃ₐ[ℚ] Matrix (Fin 2) (Fin 2) (AdjoinRoot (Polynomial.X ^ 2 -
+        Polynomial.C d))) :=
+  h k A hA 2 (-3) quatIndefinite_two_neg_three hdiv hemb
 
 /-- The package as one hypothesis. -/
 structure I3Leaves : Prop where
@@ -488,7 +511,7 @@ structure I3Leaves : Prop where
   homFreeFinite : HomFreeFinite
   charPolyIndepOfEll : CharPolyIndepOfEll
   poincare : PoincareReducibility
-  qmDichotomy : QMDichotomy
+  qmDichotomy : QMDichotomyYu
 
 end PkgI3
 
@@ -1656,18 +1679,19 @@ theorem poincareReducibility_iff : PoincareReducibility ↔ PkgI3.PoincareReduci
     obtain ⟨Z, g, hg⟩ := h k (ofGrp A) (ofGrp J) hE f hf
     exact ⟨toGrp Z, inferInstance, g, hg⟩
 
-/-- **I3.Q (QM dichotomy)** over the shared layer. -/
-def QMDichotomy : Prop :=
+/-- **I3.Q / T27 (QM dichotomy, Yu's form)** over the shared layer. *2026-11-12 (loc-fix):*
+replaces the earlier `QMDichotomy` (no indefiniteness hypothesis; stronger than Yu's theorem). -/
+def QMDichotomyYu : Prop :=
   ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (A : Grp (Over (Spec (.of k))))
     [IsAbelianVariety A], dim A = 2 →
-    ∀ a b : ℚ, (∀ x : ℍ[ℚ, a, b], x ≠ 0 → IsUnit x) →
+    ∀ a b : ℚ, PkgI3.QuatIndefinite a b → (∀ x : ℍ[ℚ, a, b], x ≠ 0 → IsUnit x) →
       Nonempty (ℍ[ℚ, a, b] →ₐ[ℚ] End0 A) →
         Nonempty (End0 A ≃ₐ[ℚ] ℍ[ℚ, a, b]) ∨
           ∃ d : ℚ, d < 0 ∧
             Nonempty (End0 A ≃ₐ[ℚ]
               Matrix (Fin 2) (Fin 2) (AdjoinRoot (Polynomial.X ^ 2 - Polynomial.C d)))
 
-theorem qmDichotomy_iff : QMDichotomy ↔ PkgI3.QMDichotomy :=
+theorem qmDichotomyYu_iff : QMDichotomyYu ↔ PkgI3.QMDichotomyYu :=
   ⟨fun h k _ _ _ A => h k (toGrp A), fun h k _ _ _ A _ => h k (ofGrp A)⟩
 
 /-- Package I3 over the shared layer. -/
@@ -1678,15 +1702,15 @@ structure I3Leaves : Prop where
   homFreeFinite : HomFreeFinite
   charPolyIndepOfEll : CharPolyIndepOfEll
   poincare : PoincareReducibility
-  qmDichotomy : QMDichotomy
+  qmDichotomy : QMDichotomyYu
 
 theorem i3Leaves_iff : I3Leaves ↔ PkgI3.I3Leaves :=
   ⟨fun h => ⟨faltingsSemisimple_iff.mp h.1, faltingsTate_iff.mp h.2, tateModuleFree_iff.mp h.3,
       homFreeFinite_iff.mp h.4, charPolyIndepOfEll_iff.mp h.5, poincareReducibility_iff.mp h.6,
-      qmDichotomy_iff.mp h.7⟩,
+      qmDichotomyYu_iff.mp h.7⟩,
    fun h => ⟨faltingsSemisimple_iff.mpr h.1, faltingsTate_iff.mpr h.2, tateModuleFree_iff.mpr h.3,
       homFreeFinite_iff.mpr h.4, charPolyIndepOfEll_iff.mpr h.5, poincareReducibility_iff.mpr h.6,
-      qmDichotomy_iff.mpr h.7⟩⟩
+      qmDichotomyYu_iff.mpr h.7⟩⟩
 
 /-! ## I3 glue over the shared layer (proved) -/
 
