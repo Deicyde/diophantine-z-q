@@ -6,30 +6,47 @@ Browse every statement of the formal proof there: its informal statement and pro
 statements it depends on, its Lean declarations with links into the source, and whether it is
 proved. The site is rebuilt from `main` after each passing verification run.
 
-> **This fork** proves the 11/5 manuscript's Theorem 1.1 in Lean from two explicit
-> hypotheses. The first is the six-contact height estimate (the manuscript's Theorem 4.1), in the
-> one instance `SixContactMin` from which both of the proof's uses follow. The second is positive
-> rank for congruent number curves `C_d : y² = x³ − d²x`, which can be stated in Tian–Yuan–Zhang's
-> terms (`CertifiedRankTYZClRk`): for squarefree `d ≡ 5 (mod 8)` whose genus sum `T5bCl d` (built
-> from the orders of the squared class groups `2Cl(ℚ(√−d_B))` of the divisors `d_B` of `d`) is
-> odd, `C_d` has a rational point of infinite order. That is what Tian–Yuan–Zhang's argument for
-> their Theorem 3.5(2) gives, as completed in [docs/research/nt-tyz.md](docs/research/nt-tyz.md)
-> (Proposition N, a new argument with two model reviews and no referee), followed by
-> Gross–Zagier. Both hypotheses enter the theorem as `Prop`s, not axioms:
-> `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk`
-> (`ZInQKernel/RouteK/RankVariants.lean`) has no `sorry`, uses no `native_decide`, and depends only
-> on the axioms `propext`, `Classical.choice` and `Quot.sound`. Each hypothesis has a trust
-> statement that lists every step of its proof, published or not, with its source and how it was
-> checked: [docs/research/h-trust.md](docs/research/h-trust.md) and
-> [docs/research/cr3-trust.md](docs/research/cr3-trust.md). Weaker forms of the second hypothesis
-> also suffice, down to positive rank on the two curves per input that the proof uses
-> ([KERNEL_PLAN.md](KERNEL_PLAN.md)).
+> **This fork** proves the 11/5 manuscript's Theorem 1.1 in Lean from four explicit hypotheses,
+> stated as `Prop`s, not axioms. The first is the six-contact height estimate (the manuscript's
+> Theorem 4.1), in the one instance `SixContactMin` from which both of the proof's uses follow; its
+> proof combines refereed theorems with new arguments of the manuscript that have had model
+> reviews only. The other three are statements about the L-functions of the congruent number
+> curves `C_d : y² = x³ − d²x` (Mathlib's `WeierstrassCurve.LSeries`), from which Lean derives the
+> positive-rank statement that the proof needs:
+>
+> - `Literature.GrossZagier`: if the L-function of an elliptic curve over ℚ has a simple zero at
+>   `s = 1`, the curve has a rational point of infinite order. This is Gross–Zagier (1986), with an
+>   auxiliary quadratic twist (Bump–Friedberg–Hoffstein 1990) and modularity
+>   (Breuil–Conrad–Diamond–Taylor 2001).
+> - `Literature.FunctionalEquation5`: for squarefree `d ≡ 5 (mod 8)`, the functional equation of
+>   `L(C_d, s)` with conductor `32d²` and root number `−1` (Deuring, Hecke; Birch–Stephens 1966),
+>   stated on the critical strip.
+> - `Literature.TYZRow5b`: for squarefree `d ≡ 5 (mod 8)` whose genus sum `T5bCl d` (built from the
+>   orders of the squared class groups `2Cl(ℚ(√−d_B))` of the divisors `d_B` of `d`) is odd,
+>   `L(C_d, s)` vanishes to order at most 1 at `s = 1`. **No refereed text states this.** It is what
+>   Tian–Yuan–Zhang's argument gives (Asian J. Math. 21 (2017)), but their Theorem 1.2, read
+>   literally, is false (`d = 26565` and `d = 33117` are counterexamples), and their proof of the
+>   intended reading passes through a proposition whose proof is only sketched
+>   ([docs/research/nt-tyz.md](docs/research/nt-tyz.md)). The statement used here is proved from
+>   unambiguous results of their paper by Proposition N (same note, §4), a new argument with two
+>   model reviews and no human review.
+>
+> `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzRow5b_functionalEquation5_grossZagier`
+> (`ZInQKernel/MainLiterature.lean`) has no `sorry`, uses no `native_decide`, and depends only on
+> the axioms `propext`, `Classical.choice` and `Quot.sound`. The trust statements list every step
+> of the hypotheses' proofs, published or not, with its source and how it was checked:
+> [docs/research/h-trust.md](docs/research/h-trust.md),
+> [docs/research/cr3-trust.md](docs/research/cr3-trust.md) and
+> [docs/research/wk-cr3.md](docs/research/wk-cr3.md) (reviewed in
+> [docs/research/rv-lit.md](docs/research/rv-lit.md)). The positive-rank statement itself,
+> `CertifiedRankTYZClRk`, and weaker forms, down to positive rank on the two curves per input that
+> the proof uses, give variants of the theorem ([KERNEL_PLAN.md](KERNEL_PLAN.md)).
 >
 > Everything else is proved in Lean, and every finite computation is checked by the kernel. That
-> includes every step from `CertifiedRankTYZClRk` to the certified-rank statement CR₃ that the
-> construction uses (`ZInQ.CertifiedRank`: when the explicit 2-Selmer system of `C_d` has 8
-> elements and contains a class `a` with `|a| ≡ 7 (mod 8)`, `C_d` has a rational point with
-> `x ∈ aℚ*²`): Rédei's formula, Theorem 3.6 and Corollary 4.4 of
+> includes every step from the three L-function statements, through `CertifiedRankTYZClRk`, to the
+> certified-rank statement CR₃ that the construction uses (`ZInQ.CertifiedRank`: when the explicit
+> 2-Selmer system of `C_d` has 8 elements and contains a class `a` with `|a| ≡ 7 (mod 8)`, `C_d` has
+> a rational point with `x ∈ aℚ*²`): Rédei's formula, Theorem 3.6 and Corollary 4.4 of
 > [docs/research/tyz-5b.md](docs/research/tyz-5b.md), Proposition 0
 > ([docs/research/descent-alt.md](docs/research/descent-alt.md) §4.1), the complete 2-descent and
 > Mordell–Weil for the curves `C_d`. Three more inputs started as hypotheses and are proved:

@@ -49,8 +49,28 @@ in `ZInQKernel/MainGreenTao.lean`. Apart from the root module `ZInQKernel.lean`,
 it is the only module that combines the vendored Green–Tao library or the vendored sieve with the
 main construction.
 
-CR₃ itself follows in Lean from a positive-rank statement in Tian–Yuan–Zhang's terms, so the form
-of the theorem whose hypotheses are closest to the literature is
+The form of the theorem whose hypotheses are closest to the literature, and the fork's headline,
+is
+
+```lean
+theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzRow5b_functionalEquation5_grossZagier
+    (hH : SixContactMin) (hT : Literature.TYZRow5b) (hF : Literature.FunctionalEquation5)
+    (hG : Literature.GrossZagier) : FrozenTarget
+```
+
+in `ZInQKernel/MainLiterature.lean`. Its three CR₃ hypotheses are Props over Mathlib's L-series of
+an elliptic curve (`ZInQKernel/Hypotheses/CR3Literature.lean`): `Literature.GrossZagier` (for every
+elliptic curve over ℚ, a simple zero of `L(E, s)` at `s = 1` gives a point of infinite order),
+`Literature.FunctionalEquation5` (the functional equation of `L(C_d, s)` with conductor `32d²` and
+root number `−1`, on the critical strip) and `Literature.TYZRow5b` (`L(C_d, s)` vanishes to order
+at most 1 at `s = 1` when `T5bCl d = 1`). The first two are textbook theorems. The third is printed
+in no refereed text. It is Tian–Yuan–Zhang's Theorem 3.5(2) in the reading that admits the trivial
+factor `d₁ = 1`. Their Theorem 1.2, read literally, is false (`d = 26565` and `d = 33117` are
+counterexamples), and their proof of the intended reading passes through their Proposition 3.4,
+whose proof is a sketch. Proposition N proves the statement from unambiguous results of the paper
+without Proposition 3.4 (`docs/research/nt-tyz.md` §4; two model reviews, no human review). The
+plan and its review are `docs/research/wk-cr3.md` and `docs/research/rv-lit.md`. From the three
+Props Lean derives (`Literature.certifiedRankTYZClRk_of_literature`) the positive-rank form
 
 ```lean
 theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk
@@ -58,25 +78,16 @@ theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMi
 ```
 
 in `ZInQKernel/RouteK/RankVariants.lean`. `CertifiedRankTYZClRk` says that for squarefree
-`d ≡ 5 (mod 8)` with odd genus sum `T5bCl d`, `C_d(ℚ)` has a point of infinite order: what
-Tian–Yuan–Zhang's argument for their Theorem 3.5(2) gives, as completed by Proposition N (a new
-argument with two model reviews and no referee), followed by Gross–Zagier. Its premise has no
-Selmer condition, and in Lean it implies every other form of CR₃. The forms that assume least are
-`CertifiedRankRk` and, for the two curves per input that the proof uses, `CertifiedRankDLRk` and
-`CertifiedRankDLAdmRk` (the paragraphs on CR₃'s forms below).
-The two hypotheses' trust statements, which list every step with its supplier, published or not,
-are `docs/research/h-trust.md` and `docs/research/cr3-trust.md`.
-`ZInQKernel/MainLiterature.lean` splits CR₃ further, into three Props over Mathlib's L-series of an
-elliptic curve (`ZInQKernel/Hypotheses/CR3Literature.lean`): `Literature.GrossZagier` (for every
-elliptic curve over ℚ, a simple zero of `L(E, s)` at `s = 1` gives a point of infinite order),
-`Literature.FunctionalEquation5` (the functional equation of `L(C_d, s)` with conductor `32d²` and
-root number `−1`, on the critical strip) and `Literature.TYZRow5b` (`L(C_d, s)` vanishes to order
-at most 1 at `s = 1` when `T5bCl d = 1`). The first two are textbook theorems. The third is
-Tian–Yuan–Zhang's Theorem 3.5(2) in the reading that Proposition N proves, which no refereed text
-prints (`docs/research/wk-cr3.md`, reviewed in `docs/research/rv-lit.md`). The same file has
-variants that assume H in its j-form `JHeight.JHeightBound` (`ZInQKernel/Hypotheses/JHeight.lean`),
-a bound on the height of the Hauptmodul value `J(u)`. It implies `SixContactMin` in Lean (step F4
-and the final numerics), so its trust statement is steps A1–F3 of h-trust (`docs/research/wk-h.md`).
+`d ≡ 5 (mod 8)` with odd genus sum `T5bCl d`, `C_d(ℚ)` has a point of infinite order. Its premise
+has no Selmer condition, and in Lean it implies every other form of CR₃. The forms that assume
+least are `CertifiedRankRk` and, for the two curves per input that the proof uses,
+`CertifiedRankDLRk` and `CertifiedRankDLAdmRk` (the paragraphs on CR₃'s forms below).
+`MainLiterature.lean` also has variants that assume H in its j-form `JHeight.JHeightBound`
+(`ZInQKernel/Hypotheses/JHeight.lean`), a bound on the height of the Hauptmodul value `J(u)`. It
+implies `SixContactMin` in Lean (step F4 and the final numerics), so its trust statement is steps
+A1–F3 of h-trust (`docs/research/wk-h.md`).
+The hypotheses' trust statements, which list every step with its supplier, published or not, are
+`docs/research/h-trust.md` and `docs/research/cr3-trust.md`.
 
 H enters in its minimal form `SixContactMin` (`ZInQKernel/Hypotheses/HeightMin.lean`): the one
 inequality `h(u) ≤ H₆(D) M_{S_mul}(u)²⁴` for `u ∈ ℚ \ 𝒞` that the proof uses, the instance
