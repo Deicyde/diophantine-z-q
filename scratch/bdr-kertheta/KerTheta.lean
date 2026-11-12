@@ -511,12 +511,91 @@ noncomputable def bdREquivAway :
     isLocalization_away_xi (p_regular p) (xi p) (ker_fontaineTheta_Cp p)
   IsLocalization.algEquiv (genMonoid O p) _ _
 
+/-! ### Toward the DVR property: `(ξ')` is a maximal ideal of `W(𝓞_ℂ_p♭)[1/p]`. -/
+
+theorem frobenius_surjective : Function.Surjective (frobenius (ModP O p) p) := by
+  intro x
+  obtain ⟨x', rfl⟩ := Ideal.Quotient.mk_surjective x
+  obtain ⟨y, hy⟩ := IsAlgClosed.exists_pow_nat_eq (x' : ℂ_[p]) hp.out.pos
+  have hy1 : ‖y‖ ≤ 1 := by
+    have h := norm_le_one p x'
+    rw [← hy, norm_pow] at h
+    exact (pow_le_one_iff_of_nonneg (norm_nonneg _) hp.out.ne_zero).mp h
+  refine ⟨Ideal.Quotient.mk _ ⟨y, (mem_O_iff p _).mpr hy1⟩, ?_⟩
+  rw [frobenius_def, ← map_pow]
+  congr 1
+  exact Subtype.ext (by simpa using hy)
+
+theorem fontaineTheta_surjective : Function.Surjective (fontaineTheta O p) :=
+  surjective_fontaineTheta (frobenius_surjective p)
+
+/-- `𝓞_ℂ_p[1/p]` is a field. -/
+theorem isField_away_p : IsField (Localization.Away (p : O)) := by
+  have h10 : (1 : Localization.Away (p : O)) ≠ 0 := by
+    intro h
+    rw [← map_one (algebraMap O (Localization.Away (p : O)))] at h
+    obtain ⟨⟨_, k, rfl⟩, hk⟩ :=
+      (IsLocalization.map_eq_zero_iff (Submonoid.powers (p : O)) _ _).mp h
+    exact pow_ne_zero k (p_ne_zero p) (by simpa using hk)
+  refine ⟨⟨0, 1, h10.symm⟩, mul_comm, ?_⟩
+  intro a ha
+  obtain ⟨⟨x, s⟩, rfl⟩ := IsLocalization.mk'_surjective (Submonoid.powers (p : O)) a
+  have hx : (x : ℂ_[p]) ≠ 0 := by
+    intro h0
+    apply ha
+    have : x = 0 := Subtype.ext h0
+    simp [this]
+  obtain ⟨m, hm⟩ := exists_pow_lt_of_lt_one (norm_pos_iff.mpr hx) (norm_p_lt_one p)
+  have hc : ‖(p : ℂ_[p]) ^ m / (x : ℂ_[p])‖ ≤ 1 := by
+    rw [norm_div, norm_pow]; exact div_le_one_of_le₀ hm.le (norm_nonneg _)
+  let c : O := ⟨(p : ℂ_[p]) ^ m / (x : ℂ_[p]), (mem_O_iff p _).mpr hc⟩
+  have hxc : x * c = (p : O) ^ m := by
+    apply Subtype.ext
+    simp only [c, MulMemClass.coe_mul, SubmonoidClass.coe_pow]
+    field_simp
+    rfl
+  refine ⟨IsLocalization.mk' _ (c * s) (⟨(p : O) ^ m, m, rfl⟩ : Submonoid.powers (p : O)), ?_⟩
+  rw [← IsLocalization.mk'_mul, ← mul_assoc, hxc, IsLocalization.mk'_eq_iff_eq_mul, one_mul]
+  congr 1
+  rw [Submonoid.coe_mul, mul_comm]
+
+/-- `θ[1/p] : W(𝓞_ℂ_p♭)[1/p] → 𝓞_ℂ_p[1/p]` is surjective. -/
+theorem fontaineThetaInvertP_surjective : Function.Surjective (fontaineThetaInvertP O p) := by
+  intro t
+  obtain ⟨⟨r, ⟨_, n, rfl⟩⟩, rfl⟩ := IsLocalization.mk'_surjective (Submonoid.powers (p : O)) t
+  obtain ⟨w, rfl⟩ := fontaineTheta_surjective p r
+  refine ⟨IsLocalization.mk' _ w
+    (⟨(p : WittVector p (PreTilt O p)) ^ n, n, rfl⟩ : Submonoid.powers _), ?_⟩
+  have hL : ∀ a, fontaineThetaInvertP O p (algebraMap _ _ a) =
+      algebraMap O (Localization.Away (p : O)) (fontaineTheta O p a) := fun a =>
+    IsLocalization.Away.lift_eq _ (by simpa using IsLocalization.Away.algebraMap_isUnit (p : O)) a
+  show _ = IsLocalization.mk' _ (fontaineTheta O p w) (⟨(p : O) ^ n, n, rfl⟩ : Submonoid.powers _)
+  have hu : IsUnit (algebraMap O (Localization.Away (p : O)) ((p : O) ^ n)) :=
+    IsLocalization.map_units _ (⟨(p : O) ^ n, n, rfl⟩ : Submonoid.powers (p : O))
+  apply hu.mul_right_cancel
+  have h1 := IsLocalization.mk'_spec (Localization.Away (p : WittVector p (PreTilt O p))) w
+    (⟨(p : WittVector p (PreTilt O p)) ^ n, n, rfl⟩ : Submonoid.powers _)
+  have h2 := IsLocalization.mk'_spec (Localization.Away (p : O)) (fontaineTheta O p w)
+    (⟨(p : O) ^ n, n, rfl⟩ : Submonoid.powers (p : O))
+  simp only at h1 h2
+  rw [h2]
+  have h3 := congrArg (fontaineThetaInvertP O p) h1
+  rw [map_mul, hL, hL, map_pow, map_natCast] at h3
+  exact h3
+
+/-- **`ker θ[1/p] = (ξ')` is a maximal ideal** of `W(𝓞_ℂ_p♭)[1/p]` (residue field
+`𝓞_ℂ_p[1/p]`). -/
+theorem ker_fontaineThetaInvertP_isMaximal : (RingHom.ker (fontaineThetaInvertP O p)).IsMaximal :=
+  letI := (isField_away_p p).toField
+  RingHom.ker_isMaximal_of_surjective _ (fontaineThetaInvertP_surjective p)
+
 end BdrKer.Cp
 
 #print axioms BdrKer.Cp.ker_fontaineTheta_Cp
 #print axioms BdrKer.Cp.ker_fontaineThetaInvertP_Cp
 #print axioms BdrKer.Cp.isUnit_xi_BDeRham_Cp
 #print axioms BdrKer.Cp.bdREquivAway
+#print axioms BdrKer.Cp.ker_fontaineThetaInvertP_isMaximal
 
 #print axioms BdrKer.ker_fontaineTheta_eq_span
 #print axioms BdrKer.isUnit_xi_BDeRham
