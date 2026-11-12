@@ -135,8 +135,9 @@ def HeckeContinuation : Prop :=
   ∀ d : ℕ, d ≠ 0 → ∃ F : ℂ → ℂ, IsLContinuation (shortCurve (-(d : ℚ) ^ 2)) F
 
 /-- **TYZ Theorem 3.5(2), `n ≡ 5 (mod 8)`, reading A, with `𝓛(n) = 0`**: if
-`ord_{s=1} L(C_d, s) ≥ 2` then `T_5a(d)` and `T_5b(d)` are both even. (TYZ's hypothesis
-"`2^{−ρ(n)}𝓛(n)` even" is weakened to `𝓛(n) = 0`; nt-tyz §2.2 F6, §4.1.) -/
+`ord_{s=1} L(C_d, s) ≥ 2` then `T_5a(d)` and `T_5b(d)` are both even. (Only the case
+`𝓛(n) = 0` of TYZ's hypothesis "`2^{−ρ(n)}𝓛(n)` even" is used; that case is covered without the
+unproved "i.e." of their Theorem 3.5(2): nt-tyz §2.2 F6, §4.1.) -/
 def TYZThm35ReadingA : Prop :=
   ∀ d : ℕ, d % 8 = 5 → Squarefree d → ∀ F : ℂ → ℂ,
     IsLContinuation (shortCurve (-(d : ℚ) ^ 2)) F → 2 ≤ analyticOrderAt F 1 →
