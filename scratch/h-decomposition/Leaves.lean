@@ -1910,6 +1910,1451 @@ end PkgI3
 end
 end PkgI3Sec
 
+section PkgI4Sec
+/-! ### Copied from `scratch/pkg-I4/I4.lean` (compiled there). The copy of pkg-I3 inside it is renamed `PkgI4.I3`. -/
+
+/-!
+# Package I4 (modularity): leaves statable over Mathlib today
+
+Draft for `docs/research/pkg-I4.md` (task pkg-I4, 2026-11-11). Check with
+`lake env lean scratch/pkg-I4/I4.lean`.
+
+* `PkgI4.Cp`, `PkgI4.DR` (first): `𝓞_ℂ_[p]` is `p`-adically complete (instances missing in
+  Mathlib), and Mathlib's `BDeRhamPlus`/`BDeRham` are functorial (naturality of `untilt` and of
+  Fontaine's `θ`, maps of adic completions, generators of `ker θ`). Used in §1b for the action of
+  `G_{ℚ_p}` on `B_dR` and the **de Rham predicate**.
+* §0 Galois side over `ℚ̄`: copied, with small changes, from `scratch/hdec-faithful/Leaves.lean`
+  §0 (places as valuation subrings, inertia, arithmetic Frobenius, complex conjugation,
+  continuous `GL_n(ℚ̄_ℓ)`-representations, characters).
+* §1 **new**: the local Galois group `G_{ℚ_p}`, its action on Mathlib's `ℂ_[p]`, the
+  `p`-adic cyclotomic character, and **Hodge–Tate multiplicities** (Tate–Sen definition through
+  `(ℂ_p(i) ⊗ V)^{G_{ℚ_p}}`, written as a space of equivariant `ℚ_p`-linear maps `V → ℂ_p`).
+* §2 modular side: cusp forms on `Γ₁(N)`, nebentypus, normalized eigenforms (Hecke recursion of
+  the q-coefficients, as hdec-faithful), representations attached to eigenforms (trace form),
+  and **new**: the old space and newforms.
+* §1b **new**: the action of `G_{ℚ_p}` on `B_dR = BDeRham 𝓞_ℂ_[p] p`, `ℚ_p ⊆ B_dR` fixed by it,
+  `D_dR`, and the **de Rham predicate** `IsDeRham` / `LocalIsDeRham` (genuine; no `sorry`).
+* §3 the leaves of I4 that are statable now, as `def … : Prop` (none proved).
+* §4 templates — functions of a missing predicate (`IsPst`, the conductor exponent) — and the
+  leaf **`PanBerger`** = `PanFor LocalIsDeRham`, statable now. A template is **not** a leaf:
+  `PanFor P` says nothing until `P` is the genuine potentially-semistable predicate.
+* §5 small glue facts, proved.
+
+Faithfulness caveat: `IsDeRham` and `htMult` are genuine definitions, but no theorem about them is
+proved here (e.g. `B_dR^{G_{ℚ_p}} = ℚ_p`, Tate's `ℂ_p(i)^G = 0`). A definitional slip could make a
+hypothesis unsatisfiable and a leaf vacuous; the standard non-vacuity checks are listed in
+`docs/research/pkg-I4.md` §3.4.
+-/
+
+noncomputable section
+
+set_option linter.unusedSectionVars false
+
+namespace PkgI4.Cp
+
+open Ideal
+
+variable (p : ℕ) [hp : Fact p.Prime]
+
+theorem mem_O_iff (x : ℂ_[p]) : x ∈ 𝓞_ℂ_[p] ↔ ‖x‖ ≤ 1 := by
+  rw [PadicComplex.norm_eq_norm, Valuation.norm_def]
+  change (PadicComplex.valued p).v x ≤ 1 ↔ _
+  rw [← map_one (PadicComplex.valued p).v, ← Valuation.restrict_le_iff]
+  simpa only [map_one, NNReal.coe_le_one] using
+    ((Valuation.RankOne.strictMono (PadicComplex.valued p).v).le_iff_le (b := 1)).symm
+
+theorem norm_p : ‖(p : ℂ_[p])‖ = (p : ℝ)⁻¹ := by
+  rw [← map_natCast (algebraMap ℚ_[p] ℂ_[p]),
+    IsScalarTower.algebraMap_apply ℚ_[p] (PadicAlgCl p) ℂ_[p], ← PadicComplex.coe_eq,
+    PadicComplex.norm_extends, PadicAlgCl.norm_extends, Padic.norm_p]
+
+theorem norm_p_pos : 0 < ‖(p : ℂ_[p])‖ := by
+  rw [norm_p]; exact inv_pos.mpr (by exact_mod_cast hp.1.pos)
+
+theorem norm_p_lt_one : ‖(p : ℂ_[p])‖ < 1 := by
+  rw [norm_p]; exact inv_lt_one_of_one_lt₀ (by exact_mod_cast hp.1.one_lt)
+
+/-- `x ∈ p^n 𝓞` iff `‖x‖ ≤ ‖p‖^n`. -/
+theorem mem_span_pow_iff (x : 𝓞_ℂ_[p]) (n : ℕ) :
+    x ∈ span {(p : 𝓞_ℂ_[p])} ^ n ↔ ‖(x : ℂ_[p])‖ ≤ ‖(p : ℂ_[p])‖ ^ n := by
+  rw [Ideal.span_singleton_pow, Ideal.mem_span_singleton']
+  constructor
+  · rintro ⟨z, rfl⟩
+    have hz : ‖(z : ℂ_[p])‖ ≤ 1 := (mem_O_iff p _).mp z.2
+    have e : ((z * (p : 𝓞_ℂ_[p]) ^ n : 𝓞_ℂ_[p]) : ℂ_[p]) = (z : ℂ_[p]) * (p : ℂ_[p]) ^ n := by
+      push_cast; rfl
+    rw [e, norm_mul, norm_pow]
+    calc ‖(z : ℂ_[p])‖ * ‖(p : ℂ_[p])‖ ^ n ≤ 1 * ‖(p : ℂ_[p])‖ ^ n := by gcongr
+      _ = _ := one_mul _
+  · intro h
+    have hpn : (p : ℂ_[p]) ^ n ≠ 0 := pow_ne_zero _ (norm_pos_iff.mp (norm_p_pos p))
+    refine ⟨⟨(x : ℂ_[p]) / (p : ℂ_[p]) ^ n, (mem_O_iff p _).mpr ?_⟩, ?_⟩
+    · rw [norm_div, norm_pow, div_le_one (pow_pos (norm_p_pos p) n)]
+      exact h
+    · apply Subtype.ext
+      push_cast
+      field_simp
+
+
+theorem smodEq_iff (x y : 𝓞_ℂ_[p]) (n : ℕ) :
+    x ≡ y [SMOD (span {(p : 𝓞_ℂ_[p])} ^ n • ⊤ : Submodule 𝓞_ℂ_[p] 𝓞_ℂ_[p])] ↔
+      ‖(x : ℂ_[p]) - (y : ℂ_[p])‖ ≤ ‖(p : ℂ_[p])‖ ^ n := by
+  rw [SModEq.sub_mem, smul_eq_mul, Ideal.mul_top, mem_span_pow_iff]
+  push_cast
+  rfl
+
+instance notIsUnit_p : Fact ¬IsUnit (p : 𝓞_ℂ_[p]) := ⟨fun h => by
+  obtain ⟨v, hv⟩ := isUnit_iff_exists_inv.mp h
+  have hv' : (p : ℂ_[p]) * (v : ℂ_[p]) = 1 := by
+    have := congrArg (fun z : 𝓞_ℂ_[p] => (z : ℂ_[p])) hv
+    push_cast at this
+    exact this
+  have h1 : ‖(v : ℂ_[p])‖ ≤ 1 := (mem_O_iff p _).mp v.2
+  have h2 : ‖(p : ℂ_[p])‖ * ‖(v : ℂ_[p])‖ = 1 := by rw [← norm_mul, hv', norm_one]
+  have h3 : ‖(p : ℂ_[p])‖ * ‖(v : ℂ_[p])‖ < 1 :=
+    calc ‖(p : ℂ_[p])‖ * ‖(v : ℂ_[p])‖ ≤ ‖(p : ℂ_[p])‖ * 1 := by gcongr
+      _ < 1 := by rw [mul_one]; exact norm_p_lt_one p
+  linarith⟩
+
+theorem tendsto_norm_p_pow :
+    Filter.Tendsto (fun n : ℕ => ‖(p : ℂ_[p])‖ ^ n) Filter.atTop (nhds 0) :=
+  tendsto_pow_atTop_nhds_zero_of_lt_one (norm_nonneg _) (norm_p_lt_one p)
+
+instance isHausdorff : IsHausdorff (span {(p : 𝓞_ℂ_[p])}) 𝓞_ℂ_[p] where
+  haus' x hx := by
+    have h : ∀ n : ℕ, ‖(x : ℂ_[p])‖ ≤ ‖(p : ℂ_[p])‖ ^ n := fun n => by
+      have := (smodEq_iff p x 0 n).mp (hx n)
+      simpa using this
+    have h0 : ‖(x : ℂ_[p])‖ ≤ 0 := ge_of_tendsto' (tendsto_norm_p_pow p) h
+    exact Subtype.ext (by simpa using norm_le_zero_iff.mp h0)
+
+instance isPrecomplete : IsPrecomplete (span {(p : 𝓞_ℂ_[p])}) 𝓞_ℂ_[p] where
+  prec' f hf := by
+    set g : ℕ → ℂ_[p] := fun n => (f n : ℂ_[p])
+    have hmn : ∀ m n, m ≤ n → ‖g m - g n‖ ≤ ‖(p : ℂ_[p])‖ ^ m := fun m n h =>
+      (smodEq_iff p _ _ m).mp (hf h)
+    have hcs : CauchySeq g := by
+      refine cauchySeq_of_le_tendsto_0 (fun N => 2 * ‖(p : ℂ_[p])‖ ^ N) (fun n m N hn hm => ?_) ?_
+      · rw [dist_eq_norm]
+        calc ‖g n - g m‖ = ‖(g N - g m) - (g N - g n)‖ := by congr 1; ring
+          _ ≤ ‖g N - g m‖ + ‖g N - g n‖ := norm_sub_le _ _
+          _ ≤ ‖(p : ℂ_[p])‖ ^ N + ‖(p : ℂ_[p])‖ ^ N := add_le_add (hmn N m hm) (hmn N n hn)
+          _ = 2 * ‖(p : ℂ_[p])‖ ^ N := by ring
+      · simpa using (tendsto_norm_p_pow p).const_mul 2
+    obtain ⟨L, hL⟩ := cauchySeq_tendsto_of_complete hcs
+    have hL1 : ‖L‖ ≤ 1 :=
+      le_of_tendsto' (hL.norm) fun n => (mem_O_iff p _).mp (f n).2
+    refine ⟨⟨L, (mem_O_iff p L).mpr hL1⟩, fun n => (smodEq_iff p _ _ n).mpr ?_⟩
+    have ht : Filter.Tendsto (fun k => ‖g n - g k‖) Filter.atTop (nhds ‖g n - L‖) :=
+      (tendsto_const_nhds.sub hL).norm
+    exact le_of_tendsto ht (Filter.eventually_atTop.mpr ⟨n, fun k hk => hmn n k hk⟩)
+
+instance isAdicComplete : IsAdicComplete (span {(p : 𝓞_ℂ_[p])}) 𝓞_ℂ_[p] where
+
+end PkgI4.Cp
+
+namespace PkgI4.DR
+
+open Ideal
+
+variable {R S : Type*} [CommRing R] [CommRing S] (p : ℕ) [Fact p.Prime]
+
+omit [Fact p.Prime] in
+theorem span_p_le_comap (f : R →+* S) :
+    span {(p : R)} ≤ (span {(p : S)}).comap f := by
+  rw [Ideal.span_le, Set.singleton_subset_iff, SetLike.mem_coe, Ideal.mem_comap, map_natCast]
+  exact Ideal.mem_span_singleton_self _
+
+/-- `R/p → S/p` induced by `f`. -/
+def modPMap (f : R →+* S) : ModP R p →+* ModP S p :=
+  Ideal.quotientMap _ f (span_p_le_comap p f)
+
+variable [Fact ¬IsUnit (p : R)] [Fact ¬IsUnit (p : S)]
+
+/-- The tilt is functorial: `R♭ → S♭`. -/
+def preTiltMap (f : R →+* S) : PreTilt R p →+* PreTilt S p :=
+  Perfection.map p (modPMap p f)
+
+theorem coeff_preTiltMap (f : R →+* S) (x : PreTilt R p) (n : ℕ) :
+    Perfection.coeff _ p n (preTiltMap p f x) = modPMap p f (Perfection.coeff _ p n x) :=
+  rfl
+
+variable [IsAdicComplete (span {(p : R)}) R] [IsAdicComplete (span {(p : S)}) S]
+
+/-- Naturality of `untilt`. -/
+theorem untilt_preTiltMap (f : R →+* S) (x : PreTilt R p) :
+    PreTilt.untilt (preTiltMap p f x) = f (PreTilt.untilt x) := by
+  refine Perfection.teichmuller_spec fun n => ?_
+  obtain ⟨w, hw⟩ := Ideal.Quotient.mk_surjective (Perfection.coeff _ p n x)
+  refine ⟨f w, ?_, ?_⟩
+  · rw [coeff_preTiltMap, ← hw]
+    rfl
+  · have h := Perfection.teichmuller_sModEq (p := p) (I := span {(p : R)}) (x := x) (y := w) hw
+    rw [SModEq.sub_mem] at h ⊢
+    have h' := Ideal.mem_map_of_mem f h
+    rw [Ideal.map_pow, Ideal.map_span, Set.image_singleton, map_natCast, map_sub,
+      map_pow] at h'
+    have h'' := neg_mem h'
+    rw [neg_sub] at h''
+    exact h''
+
+/-- **Naturality of Fontaine's `θ`**: `θ_S ∘ W(f♭) = f ∘ θ_R`. -/
+theorem fontaineTheta_naturality (f : R →+* S) :
+    (WittVector.fontaineTheta S p).comp (WittVector.map (preTiltMap p f)) =
+      f.comp (WittVector.fontaineTheta R p) := by
+  ext x
+  refine (IsHausdorff.eq_iff_smodEq (I := span {(p : S)})).mpr fun n => ?_
+  rw [smul_eq_mul, Ideal.mul_top, SModEq.idealQuotientMk]
+  have key : (Ideal.Quotient.mk (span {(p : S)} ^ n)).comp
+      ((WittVector.fontaineTheta S p).comp (WittVector.map (preTiltMap p f))) =
+      (Ideal.Quotient.mk (span {(p : S)} ^ n)).comp (f.comp (WittVector.fontaineTheta R p)) := by
+    refine WittVector.eq_of_apply_teichmuller_eq _ _ ⟨n, ?_⟩ fun y => ?_
+    · rw [← map_natCast (Ideal.Quotient.mk (span {(p : S)} ^ n)), ← map_pow,
+        Ideal.Quotient.eq_zero_iff_mem, Ideal.span_singleton_pow]
+      exact Ideal.mem_span_singleton_self _
+    · simp only [RingHom.comp_apply, WittVector.map_teichmuller,
+        WittVector.fontaineTheta_teichmuller, untilt_preTiltMap]
+  exact congrArg (fun g => g x) key
+
+
+/-! ### Functoriality of adic completions of rings -/
+
+section AdicMap
+
+variable {A B : Type*} [CommRing A] [CommRing B] (J : Ideal A) (J' : Ideal B) (g : A →+* B)
+  (hg : J ≤ J'.comap g)
+
+include hg in
+theorem pow_le_comap (n : ℕ) : J ^ n ≤ (J' ^ n).comap g := by
+  rw [← Ideal.map_le_iff_le_comap, Ideal.map_pow]
+  exact Ideal.pow_right_mono (Ideal.map_le_iff_le_comap.mpr hg) n
+
+theorem factorPow_evalₐ {m n : ℕ} (hle : m ≤ n) (x : AdicCompletion J A) :
+    Ideal.Quotient.factorPow J hle (AdicCompletion.evalₐ J n x) = AdicCompletion.evalₐ J m x := by
+  obtain ⟨s, rfl⟩ := AdicCompletion.mk_surjective J A x
+  rw [AdicCompletion.evalₐ_mk, AdicCompletion.evalₐ_mk, ← AdicCompletion.Ideal.mk_eq_mk J hle]
+  rfl
+
+/-- `A ⧸ J^n`-components of the map `Â_J → B̂_{J'}`. -/
+def adicMapAux (n : ℕ) : AdicCompletion J A →+* B ⧸ J' ^ n :=
+  (Ideal.quotientMap (J' ^ n) g (pow_le_comap J J' g hg n)).comp
+    (AdicCompletion.evalₐ J n : AdicCompletion J A →+* A ⧸ J ^ n)
+
+theorem adicMapAux_compat {m n : ℕ} (hle : m ≤ n) :
+    (Ideal.Quotient.factorPow J' hle).comp (adicMapAux J J' g hg n) = adicMapAux J J' g hg m := by
+  ext x
+  simp only [RingHom.comp_apply, adicMapAux]
+  erw [← factorPow_evalₐ J hle x]
+  obtain ⟨a, ha⟩ := Ideal.Quotient.mk_surjective (AdicCompletion.evalₐ J n x)
+  erw [← ha]
+  rfl
+
+/-- The ring map `Â_J → B̂_{J'}` induced by `g` with `g(J) ⊆ J'`. -/
+def adicMap : AdicCompletion J A →+* AdicCompletion J' B :=
+  AdicCompletion.liftRingHom J' (adicMapAux J J' g hg) (adicMapAux_compat J J' g hg)
+
+end AdicMap
+
+/-! ### Functoriality of `B_dR^+` -/
+
+section BdR
+
+/-- `W(R♭)[1/p] → W(S♭)[1/p]`. -/
+def locMap (f : R →+* S) :
+    Localization.Away (p : WittVector p (PreTilt R p)) →+*
+      Localization.Away (p : WittVector p (PreTilt S p)) :=
+  Localization.awayLift ((algebraMap _ _).comp (WittVector.map (preTiltMap p f))) _ (by
+    rw [RingHom.comp_apply, map_natCast]
+    exact IsLocalization.Away.algebraMap_isUnit _)
+
+/-- `R[1/p] → S[1/p]`. -/
+def locMapBase (f : R →+* S) : Localization.Away (p : R) →+* Localization.Away (p : S) :=
+  Localization.awayLift ((algebraMap _ _).comp f) _ (by
+    rw [RingHom.comp_apply, map_natCast]
+    exact IsLocalization.Away.algebraMap_isUnit _)
+
+/-- Naturality of `θ[1/p]`. -/
+theorem fontaineThetaInvertP_naturality (f : R →+* S) :
+    (fontaineThetaInvertP S p).comp (locMap p f) =
+      (locMapBase p f).comp (fontaineThetaInvertP R p) := by
+  apply IsLocalization.ringHom_ext (Submonoid.powers (p : WittVector p (PreTilt R p)))
+  ext w
+  simp only [RingHom.comp_apply, locMap, locMapBase, fontaineThetaInvertP,
+    Localization.awayLift, IsLocalization.Away.lift, IsLocalization.lift_eq]
+  rw [← RingHom.comp_apply (WittVector.fontaineTheta S p), fontaineTheta_naturality]
+  rfl
+
+theorem ker_le_comap_locMap (f : R →+* S) :
+    RingHom.ker (fontaineThetaInvertP R p) ≤
+      (RingHom.ker (fontaineThetaInvertP S p)).comap (locMap p f) := by
+  intro x hx
+  rw [Ideal.mem_comap, RingHom.mem_ker, ← RingHom.comp_apply,
+    fontaineThetaInvertP_naturality, RingHom.comp_apply, RingHom.mem_ker.mp hx, map_zero]
+
+/-- **Functoriality of `B_dR^+`**: `B_dR^+(R) → B_dR^+(S)` for `f : R →+* S`. -/
+def bdrPlusMap (f : R →+* S) : BDeRhamPlus R p →+* BDeRhamPlus S p :=
+  adicMap _ _ (locMap p f) (ker_le_comap_locMap p f)
+
+end BdR
+
+
+/-! ### Inverse pairs, generators of `ker θ`, and the map on `B_dR` -/
+
+section Inverse
+
+variable (f : R →+* S) (g : S →+* R) (hgf : ∀ x, g (f x) = x)
+
+include hgf in
+theorem modPMap_comp_eq_id (y : ModP R p) : modPMap p g (modPMap p f y) = y := by
+  obtain ⟨x, rfl⟩ := Ideal.Quotient.mk_surjective y
+  change Ideal.Quotient.mk _ (g (f x)) = _
+  rw [hgf]
+
+include hgf in
+theorem preTiltMap_comp_eq_id (y : PreTilt R p) : preTiltMap p g (preTiltMap p f y) = y :=
+  Perfection.ext fun n => by
+    rw [coeff_preTiltMap, coeff_preTiltMap, modPMap_comp_eq_id p f g hgf]
+
+include hgf in
+theorem wittMap_comp_eq_id (y : WittVector p (PreTilt R p)) :
+    WittVector.map (preTiltMap p g) (WittVector.map (preTiltMap p f) y) = y := by
+  ext n
+  rw [WittVector.map_coeff, WittVector.map_coeff, preTiltMap_comp_eq_id p f g hgf]
+
+include hgf in
+theorem locMap_comp_eq_id (y : Localization.Away (p : WittVector p (PreTilt R p))) :
+    locMap p g (locMap p f y) = y := by
+  have h : (locMap p g).comp (locMap p f) = RingHom.id _ := by
+    apply IsLocalization.ringHom_ext (Submonoid.powers (p : WittVector p (PreTilt R p)))
+    ext w
+    simp only [RingHom.comp_apply, RingHom.id_apply, locMap, Localization.awayLift,
+      IsLocalization.Away.lift, IsLocalization.lift_eq]
+    rw [wittMap_comp_eq_id p f g hgf]
+  exact congrArg (fun φ => φ y) h
+
+
+include hgf in
+/-- If `ker θ_R[1/p] = (a)`, then `ker θ_S[1/p] = (locMap f a)` (for an isomorphism `f`). -/
+theorem ker_eq_span_locMap (hfg : ∀ y, f (g y) = y)
+    (a : Localization.Away (p : WittVector p (PreTilt R p)))
+    (ha : RingHom.ker (fontaineThetaInvertP R p) = Ideal.span {a}) :
+    RingHom.ker (fontaineThetaInvertP S p) = Ideal.span {locMap p f a} := by
+  apply le_antisymm
+  · intro x hx
+    have h1 : locMap p g x ∈ RingHom.ker (fontaineThetaInvertP R p) :=
+      ker_le_comap_locMap p g hx
+    rw [ha, Ideal.mem_span_singleton'] at h1
+    obtain ⟨c, hc⟩ := h1
+    rw [Ideal.mem_span_singleton']
+    refine ⟨locMap p f c, ?_⟩
+    rw [← map_mul, hc, locMap_comp_eq_id p g f hfg]
+  · rw [Ideal.span_le, Set.singleton_subset_iff, SetLike.mem_coe]
+    refine ker_le_comap_locMap p f ?_
+    rw [ha]
+    exact Ideal.mem_span_singleton_self a
+
+end Inverse
+
+section AdicOf
+
+variable {A B : Type*} [CommRing A] [CommRing B] (J : Ideal A) (J' : Ideal B) (g : A →+* B)
+  (hg : J ≤ J'.comap g)
+
+theorem adicMap_evalₐ (n : ℕ) (x : AdicCompletion J A) :
+    AdicCompletion.evalₐ J' n (adicMap J J' g hg x) = adicMapAux J J' g hg n x := by
+  unfold adicMap
+  exact AdicCompletion.evalₐ_liftRingHom _ _ (adicMapAux_compat J J' g hg) n x
+
+theorem adicMap_of (x : A) :
+    adicMap J J' g hg (AdicCompletion.of J A x) = AdicCompletion.of J' B (g x) := by
+  refine AdicCompletion.ext_evalₐ fun n => ?_
+  rw [adicMap_evalₐ, AdicCompletion.evalₐ_of]
+  simp only [adicMapAux, RingHom.comp_apply]
+  erw [AdicCompletion.evalₐ_of]
+
+end AdicOf
+
+section BdRMap
+
+
+/-- The submonoid of `B_dR^+(R)` inverted in Mathlib's `BDeRham R p`. -/
+def genMonoid (T : Type*) [CommRing T] [Fact ¬IsUnit (p : T)]
+    [IsAdicComplete (span {(p : T)}) T] : Submonoid (BDeRhamPlus T p) :=
+  Submonoid.closure <| AdicCompletion.of (RingHom.ker (fontaineThetaInvertP T p)) _ ''
+    {a | RingHom.ker (fontaineThetaInvertP T p) = Ideal.span {a}}
+
+theorem genMonoid_le_comap (f : R →+* S) (g : S →+* R) (hgf : ∀ x, g (f x) = x)
+    (hfg : ∀ y, f (g y) = y) :
+    genMonoid p R ≤ (genMonoid p S).comap (bdrPlusMap p f) := by
+  rw [genMonoid, Submonoid.closure_le]
+  rintro _ ⟨a, ha, rfl⟩
+  apply Submonoid.subset_closure
+  refine ⟨locMap p f a, (ker_eq_span_locMap p f g hgf hfg a ha), ?_⟩
+  exact (adicMap_of _ _ _ _ a).symm
+
+/-- **The map on `B_dR`** induced by a ring isomorphism `f` (with inverse `g`). Mathlib's
+`BDeRham R p` is by definition `Localization (genMonoid p R)`. -/
+def bdrMap (f : R →+* S) (g : S →+* R) (hgf : ∀ x, g (f x) = x) (hfg : ∀ y, f (g y) = y) :
+    Localization (genMonoid p R) →+* Localization (genMonoid p S) :=
+  IsLocalization.map (M := genMonoid p R) (T := genMonoid p S) (Localization (genMonoid p S))
+    (bdrPlusMap p f) (genMonoid_le_comap p f g hgf hfg)
+
+end BdRMap
+
+end PkgI4.DR
+
+/-! ## Abelian varieties and Tate modules: copied from pkg-I3
+
+Lines 26-335 of `scratch/pkg-I3/I3.lean` on `origin/wip/pkg-I3` (commit 7406c0ae), unchanged:
+`PkgI4.I3.Tate.T`, `PkgI4.I3.AbVar`, `AbVar.Pt`, `AbVar.V`, `AbVar.galRep`. Used only by the statement
+`DeRhamComparison` (§3). -/
+
+/-! ## 1. The `ℓ`-adic Tate module of an abelian group -/
+
+namespace PkgI4.I3.Tate
+
+variable (ℓ : ℕ) [hℓ : Fact ℓ.Prime] (M : Type*) [AddCommGroup M]
+
+/-- `T_ℓ(M) = lim_n M[ℓⁿ]` (transition maps: multiplication by `ℓ`), realized as the
+sequences `(xₙ)` with `x₀ = 0` and `ℓ • xₙ₊₁ = xₙ`; then `xₙ ∈ M[ℓⁿ]`. -/
+def T : AddSubgroup (ℕ → M) where
+  carrier := {x | x 0 = 0 ∧ ∀ n, ℓ • x (n + 1) = x n}
+  add_mem' := by
+    rintro x y ⟨hx0, hx⟩ ⟨hy0, hy⟩
+    refine ⟨by simp [hx0, hy0], fun n => ?_⟩
+    simp [smul_add, hx n, hy n]
+  zero_mem' := ⟨rfl, fun n => by simp⟩
+  neg_mem' := by
+    rintro x ⟨hx0, hx⟩
+    refine ⟨by simp [hx0], fun n => ?_⟩
+    simp [hx n]
+
+variable {ℓ M}
+
+omit hℓ in
+lemma pow_smul_eq_zero {x : ℕ → M} (hx : x ∈ T ℓ M) (n : ℕ) : (ℓ ^ n) • x n = 0 := by
+  induction n with
+  | zero => simpa using hx.1
+  | succ n ih => rw [pow_succ, mul_smul, hx.2 n, ih]
+
+omit hℓ in
+lemma nsmul_congr {y : M} {n : ℕ} (hy : (ℓ ^ n) • y = 0) {c d : ℕ}
+    (h : (c : ZMod (ℓ ^ n)) = (d : ZMod (ℓ ^ n))) : c • y = d • y := by
+  rw [ZMod.natCast_eq_natCast_iff'] at h
+  rw [← Nat.mod_add_div' c (ℓ ^ n), ← Nat.mod_add_div' d (ℓ ^ n), add_smul, add_smul,
+    mul_smul, mul_smul, hy, smul_zero, smul_zero, h]
+
+instance (n : ℕ) : NeZero (ℓ ^ n) := ⟨pow_ne_zero n hℓ.out.ne_zero⟩
+
+lemma val_cast (a : ℤ_[ℓ]) (n : ℕ) :
+    (((PadicInt.toZModPow (n + 1) a).val : ℕ) : ZMod (ℓ ^ n)) = PadicInt.toZModPow n a := by
+  rw [← PadicInt.cast_toZModPow n (n + 1) (Nat.le_succ n) a, ZMod.natCast_val]
+
+/-- The `ℤ_ℓ`-action: `(a • x)ₙ = (a mod ℓⁿ) • xₙ`. -/
+def smulSeq (a : ℤ_[ℓ]) (x : ℕ → M) : ℕ → M :=
+  fun n => (PadicInt.toZModPow n a).val • x n
+
+lemma smulSeq_mem (a : ℤ_[ℓ]) {x : ℕ → M} (hx : x ∈ T ℓ M) : smulSeq a x ∈ T ℓ M := by
+  refine ⟨by simp [smulSeq, hx.1], fun n => ?_⟩
+  simp only [smulSeq]
+  rw [smul_comm, hx.2 n]
+  apply nsmul_congr (pow_smul_eq_zero hx n)
+  rw [val_cast, ZMod.natCast_zmod_val]
+
+lemma smulSeq_congr {x : ℕ → M} (hx : x ∈ T ℓ M) (n : ℕ) {a : ℤ_[ℓ]} {c : ℕ}
+    (h : (c : ZMod (ℓ ^ n)) = PadicInt.toZModPow n a) : smulSeq a x n = c • x n := by
+  simp only [smulSeq]
+  apply nsmul_congr (pow_smul_eq_zero hx n)
+  rw [ZMod.natCast_zmod_val, h]
+
+instance : Module ℤ_[ℓ] (T ℓ M) where
+  smul a x := ⟨smulSeq a x.1, smulSeq_mem a x.2⟩
+  one_smul x := Subtype.ext <| funext fun n => by
+    change smulSeq 1 x.1 n = x.1 n
+    rw [smulSeq_congr x.2 n (c := 1) (by simp), one_smul]
+  mul_smul a b x := Subtype.ext <| funext fun n => by
+    change smulSeq (a * b) x.1 n = smulSeq a (smulSeq b x.1) n
+    rw [smulSeq_congr x.2 n (c := (PadicInt.toZModPow n a).val * (PadicInt.toZModPow n b).val)
+      (by push_cast; simp), mul_smul]
+    rfl
+  smul_zero a := Subtype.ext <| funext fun n => by
+    change smulSeq a 0 n = 0
+    simp [smulSeq]
+  smul_add a x y := Subtype.ext <| funext fun n => by
+    change smulSeq a (x.1 + y.1) n = smulSeq a x.1 n + smulSeq a y.1 n
+    simp [smulSeq, smul_add]
+  add_smul a b x := Subtype.ext <| funext fun n => by
+    change smulSeq (a + b) x.1 n = smulSeq a x.1 n + smulSeq b x.1 n
+    rw [smulSeq_congr x.2 n (c := (PadicInt.toZModPow n a).val + (PadicInt.toZModPow n b).val)
+      (by push_cast; simp), add_smul]
+    rfl
+  zero_smul x := Subtype.ext <| funext fun n => by
+    change smulSeq 0 x.1 n = 0
+    simp [smulSeq]
+
+@[simp] lemma smul_apply (a : ℤ_[ℓ]) (x : T ℓ M) (n : ℕ) :
+    (a • x).1 n = (PadicInt.toZModPow n a).val • x.1 n := rfl
+
+variable {N : Type*} [AddCommGroup N]
+
+/-- Functoriality: a group homomorphism `M → N` induces a `ℤ_ℓ`-linear map `T_ℓ M → T_ℓ N`. -/
+def map (φ : M →+ N) : T ℓ M →ₗ[ℤ_[ℓ]] T ℓ N where
+  toFun x := ⟨fun n => φ (x.1 n), by simp [x.2.1], fun n => by rw [← map_nsmul, x.2.2 n]⟩
+  map_add' x y := Subtype.ext <| funext fun n => by simp
+  map_smul' a x := Subtype.ext <| funext fun n => by simp [map_nsmul]
+
+@[simp] lemma map_apply (φ : M →+ N) (x : T ℓ M) (n : ℕ) : (map φ x).1 n = φ (x.1 n) := rfl
+
+end PkgI4.I3.Tate
+
+/-! ## 2. Abelian varieties, their Hom groups, points, Tate modules -/
+
+namespace PkgI4.I3
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+
+universe u
+
+/-- An abelian variety over a field `K`: a group object in schemes over `Spec K` whose structure
+morphism is proper, smooth and geometrically integral (Mumford §4, Milne 1986 §1). -/
+structure AbVar (K : Type u) [Field K] where
+  /-- the underlying `K`-scheme -/
+  X : Over (Spec (CommRingCat.of K))
+  [grp : GrpObj X]
+  [proper : IsProper X.hom]
+  [smooth : Smooth X.hom]
+  [geomInt : GeometricallyIntegral X.hom]
+
+attribute [instance] AbVar.grp AbVar.proper AbVar.smooth AbVar.geomInt
+
+namespace AbVar
+
+variable {K : Type u} [Field K]
+
+/-- Commutativity is a Mathlib theorem (Stacks 0BFD), not an assumption. -/
+instance (A : AbVar K) : IsCommMonObj A.X :=
+  isCommMonObj_of_isProper_of_geometricallyIntegral A.X
+
+/-- The dimension of `A` (Krull dimension of the underlying space). -/
+def dim (A : AbVar K) : WithBot ℕ∞ := topologicalKrullDim A.X.left
+
+/-- The homomorphisms `A → B` of group schemes over `K`, as a subgroup of the commutative group
+of all `K`-morphisms `A → B` (pointwise product, `Hom.commGroup`). -/
+def homGroup (A B : AbVar K) : Subgroup (A.X ⟶ B.X) where
+  carrier := {f | IsMonHom f}
+  one_mem' := by
+    change IsMonHom (toUnit A.X ≫ η[B.X])
+    infer_instance
+  mul_mem' := by
+    rintro f g (hf : IsMonHom f) (hg : IsMonHom g)
+    change IsMonHom (lift f g ≫ μ[B.X])
+    infer_instance
+  inv_mem' := by
+    rintro f (hf : IsMonHom f)
+    change IsMonHom f⁻¹
+    infer_instance
+
+/-- `Hom_K(A, B)`, written additively (a `ℤ`-module). -/
+abbrev Hom (A B : AbVar K) : Type u := Additive (homGroup A B)
+
+/-- The underlying morphism of schemes. -/
+def Hom.hom {A B : AbVar K} (f : Hom A B) : A.X ⟶ B.X := (Additive.toMul f).1
+
+instance {A B : AbVar K} (f : Hom A B) : IsMonHom f.hom := (Additive.toMul f).2
+
+lemma Hom.ext' {A B : AbVar K} {f g : Hom A B} (h : f.hom = g.hom) : f = g :=
+  Additive.toMul.injective (Subtype.ext h)
+
+/-- Package a homomorphism. -/
+def Hom.mk' {A B : AbVar K} (f : A.X ⟶ B.X) [IsMonHom f] : Hom A B :=
+  Additive.ofMul ⟨f, ‹_›⟩
+
+@[simp] lemma Hom.hom_mk' {A B : AbVar K} (f : A.X ⟶ B.X) [IsMonHom f] :
+    (Hom.mk' f).hom = f := rfl
+@[simp] lemma Hom.hom_add {A B : AbVar K} (f g : Hom A B) : (f + g).hom = f.hom * g.hom := rfl
+@[simp] lemma Hom.hom_zero {A B : AbVar K} : (0 : Hom A B).hom = 1 := rfl
+
+/-- The endomorphism ring `End_K(A)`, with multiplication `f * g = f ∘ g`. -/
+abbrev End (A : AbVar K) : Type u := Hom A A
+
+instance (A : AbVar K) : Ring (End A) :=
+  { (inferInstance : AddCommGroup (End A)) with
+    mul := fun f g => Hom.mk' (g.hom ≫ f.hom)
+    one := Hom.mk' (𝟙 _)
+    mul_assoc := fun f g h => Hom.ext' (by simp [HMul.hMul, Mul.mul])
+    one_mul := fun f => Hom.ext' (by simp [HMul.hMul, Mul.mul, OfNat.ofNat, One.one])
+    mul_one := fun f => Hom.ext' (by simp [HMul.hMul, Mul.mul, OfNat.ofNat, One.one])
+    left_distrib := fun f g h => Hom.ext' (by
+      change (g + h).hom ≫ f.hom = g.hom ≫ f.hom * h.hom ≫ f.hom
+      simp [MonObj.mul_comp])
+    right_distrib := fun f g h => Hom.ext' (by
+      change h.hom ≫ (f + g).hom = h.hom ≫ f.hom * h.hom ≫ g.hom
+      simp [MonObj.comp_mul])
+    zero_mul := fun f => Hom.ext' (by
+      change f.hom ≫ (1 : A.X ⟶ A.X) = 1
+      simp)
+    mul_zero := fun f => Hom.ext' (by
+      change (1 : A.X ⟶ A.X) ≫ f.hom = 1
+      simp) }
+
+/-- The endomorphism algebra `End⁰_K(A) = ℚ ⊗ End_K(A)`. -/
+abbrev End0 (A : AbVar K) : Type u := TensorProduct ℤ ℚ (End A)
+
+/-- A morphism of `K`-schemes is an isogeny-type map: finite and surjective. -/
+def IsIsogenyMor {X Y : Over (Spec (CommRingCat.of K))} (f : X ⟶ Y) : Prop :=
+  IsFinite f.left ∧ Surjective f.left
+
+/-! ### Points over a field extension and the Galois action -/
+
+variable (L : Type u) [Field L] [Algebra K L]
+
+/-- `Spec L` as a `K`-scheme. -/
+def ptObj : Over (Spec (CommRingCat.of K)) :=
+  Over.mk (Spec.map (CommRingCat.ofHom (algebraMap K L)))
+
+/-- The group `A(L)` of `L`-points: `K`-morphisms `Spec L → A`. -/
+abbrev Pt (A : AbVar K) : Type u := ptObj (K := K) L ⟶ A.X
+
+variable {L}
+
+/-- `σ ∈ Aut_K(L)` acting on `Spec L` over `K`. -/
+def galHom (σ : L ≃ₐ[K] L) : ptObj (K := K) L ⟶ ptObj L :=
+  Over.homMk (Spec.map (CommRingCat.ofHom (σ : L →+* L))) (by
+    simp only [ptObj, Over.mk_hom, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+    congr 2
+    ext x
+    simp)
+
+lemma galHom_one : galHom (1 : L ≃ₐ[K] L) = 𝟙 _ := by
+  apply Over.OverMorphism.ext
+  change Spec.map (CommRingCat.ofHom ((1 : L ≃ₐ[K] L) : L →+* L)) = 𝟙 (Spec (CommRingCat.of L))
+  rw [show CommRingCat.ofHom ((1 : L ≃ₐ[K] L) : L →+* L) = 𝟙 _ from by ext; rfl]
+  exact Spec.map_id _
+
+lemma galHom_mul (σ τ : L ≃ₐ[K] L) : galHom (σ * τ) = galHom σ ≫ galHom τ := by
+  apply Over.OverMorphism.ext
+  change Spec.map (CommRingCat.ofHom ((σ * τ : L ≃ₐ[K] L) : L →+* L)) =
+    Spec.map (CommRingCat.ofHom (σ : L →+* L)) ≫ Spec.map (CommRingCat.ofHom (τ : L →+* L))
+  rw [← Spec.map_comp]
+  congr 1
+
+/-- The Galois action on `A(L)`: `σ • P = P ∘ Spec(σ)`, i.e. `σ` applied to coordinates. -/
+def galAct (A : AbVar K) (σ : L ≃ₐ[K] L) : A.Pt L →* A.Pt L where
+  toFun P := galHom σ ≫ P
+  map_one' := MonObj.comp_one _
+  map_mul' _ _ := MonObj.comp_mul _ _ _
+
+/-- A homomorphism `f : A → B` acting on `L`-points. -/
+def ptMap {A B : AbVar K} (f : Hom A B) : A.Pt L →* B.Pt L := IsMonHom.monoidHom f.hom _
+
+/-! ### `T_ℓ(A)`, `V_ℓ(A)` and the Galois representation -/
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- `T_ℓ(A) = lim A(K̄)[ℓⁿ]`, a `ℤ_ℓ`-module. -/
+abbrev T (A : AbVar K) : Type u := Tate.T ℓ (Additive (A.Pt (AlgebraicClosure K)))
+
+/-- `V_ℓ(A) = ℚ_ℓ ⊗_{ℤ_ℓ} T_ℓ(A)`. -/
+abbrev V (A : AbVar K) : Type u := TensorProduct ℤ_[ℓ] ℚ_[ℓ] (A.T ℓ)
+
+variable {ℓ}
+
+/-- Galois action on `T_ℓ(A)`. -/
+def galT (A : AbVar K) (σ : Field.absoluteGaloisGroup K) : A.T ℓ →ₗ[ℤ_[ℓ]] A.T ℓ :=
+  Tate.map (MonoidHom.toAdditive (A.galAct σ))
+
+/-- A homomorphism acting on Tate modules. -/
+def homT {A B : AbVar K} (f : Hom A B) : A.T ℓ →ₗ[ℤ_[ℓ]] B.T ℓ :=
+  Tate.map (MonoidHom.toAdditive (ptMap f))
+
+/-- Galois-equivariance of a `ℤ_ℓ`-linear map of Tate modules. -/
+def IsGalEquivariant {A B : AbVar K} (φ : A.T ℓ →ₗ[ℤ_[ℓ]] B.T ℓ) : Prop :=
+  ∀ (σ : Field.absoluteGaloisGroup K) (x : A.T ℓ), φ (A.galT σ x) = B.galT σ (φ x)
+
+variable (ℓ)
+
+/-- The Galois representation `ρ_ℓ : G_K → GL(V_ℓ(A))`. -/
+def galRep (A : AbVar K) : Representation ℚ_[ℓ] (Field.absoluteGaloisGroup K) (A.V ℓ) where
+  toFun σ := (A.galT (ℓ := ℓ) σ).baseChange ℚ_[ℓ]
+  map_one' := by
+    have : A.galT (ℓ := ℓ) 1 = LinearMap.id := by
+      apply LinearMap.ext; intro x; apply Subtype.ext; funext n
+      change Additive.ofMul (galHom (1 : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) ≫
+        Additive.toMul (x.1 n)) = x.1 n
+      rw [galHom_one, Category.id_comp]; rfl
+    change (A.galT (ℓ := ℓ) 1).baseChange ℚ_[ℓ] = LinearMap.id
+    rw [this, LinearMap.baseChange_id]
+  map_mul' σ τ := by
+    have : A.galT (ℓ := ℓ) (σ * τ) = A.galT σ ∘ₗ A.galT τ := by
+      apply LinearMap.ext; intro x; apply Subtype.ext; funext n
+      have h := galHom_mul (K := K) (L := AlgebraicClosure K) σ τ
+      change Additive.ofMul (galHom (σ * τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) ≫
+        Additive.toMul (x.1 n)) = Additive.ofMul (galHom σ ≫ galHom τ ≫ Additive.toMul (x.1 n))
+      exact (congrArg (fun g => Additive.ofMul (g ≫ Additive.toMul (x.1 n))) h).trans
+        (by rw [Category.assoc])
+    change (A.galT (ℓ := ℓ) (σ * τ)).baseChange ℚ_[ℓ] =
+      (A.galT σ).baseChange ℚ_[ℓ] ∘ₗ (A.galT τ).baseChange ℚ_[ℓ]
+    rw [this, LinearMap.baseChange_comp]
+
+/-- The action of `Hom(A, B)` on Tate modules, as a group homomorphism. -/
+def tateHom (A B : AbVar K) : Hom A B →+ (A.T ℓ →ₗ[ℤ_[ℓ]] B.T ℓ) where
+  toFun f := homT f
+  map_zero' := by
+    apply LinearMap.ext; intro x; apply Subtype.ext; funext n
+    simp [homT, ptMap, IsMonHom.monoidHom]
+  map_add' f g := by
+    apply LinearMap.ext; intro x; apply Subtype.ext; funext n
+    simp [homT, ptMap, IsMonHom.monoidHom, MonObj.comp_mul]
+
+/-- The `ℤ_ℓ`-linear extension `ℤ_ℓ ⊗_ℤ Hom(A, B) → Hom_{ℤ_ℓ}(T_ℓ A, T_ℓ B)`, `a ⊗ f ↦ a · T_ℓ(f)`. -/
+def tateHomZl (A B : AbVar K) :
+    TensorProduct ℤ ℤ_[ℓ] (Hom A B) →ₗ[ℤ] (A.T ℓ →ₗ[ℤ_[ℓ]] B.T ℓ) :=
+  TensorProduct.lift
+    (LinearMap.mk₂ ℤ (fun (a : ℤ_[ℓ]) (f : Hom A B) => a • tateHom ℓ A B f)
+      (fun a b f => add_smul a b _)
+      (fun n a f => by rw [smul_assoc])
+      (fun a f g => by rw [map_add, smul_add])
+      (fun n a f => by rw [map_zsmul, smul_comm]))
+
+end AbVar
+
+end PkgI4.I3
+
+namespace PkgI4
+
+open scoped MatrixGroups ModularForm
+
+/-! ## §0. Galois side over `ℚ̄` -/
+
+/-- `ℚ̄`. -/
+abbrev Qbar := AlgebraicClosure ℚ
+
+/-- `G_ℚ = Gal(ℚ̄/ℚ)`, with Mathlib's Krull topology. -/
+abbrev GQ := Qbar ≃ₐ[ℚ] Qbar
+
+/-- `v` is a place of `ℚ̄` above the prime `p`: a valuation subring of `ℚ̄` in which `p` is not a
+unit. -/
+def LiesOver (v : ValuationSubring Qbar) (p : ℕ) : Prop := (p : Qbar) ∈ v.nonunits
+
+/-- `σ` is an arithmetic Frobenius at the place `v` above `p`. -/
+def IsArithFrob (σ : GQ) (v : ValuationSubring Qbar) (p : ℕ) : Prop :=
+  σ ∈ v.decompositionSubgroup ℚ ∧ ∀ x ∈ v, σ x - x ^ p ∈ v.nonunits
+
+/-- A continuous `n`-dimensional representation of `G_ℚ` over `ℚ̄_ℓ` (`PadicAlgCl ℓ` with its
+spectral norm). As in Pan's paper, the coefficients are `ℚ̄_ℓ`. -/
+structure GaloisRep (ℓ : ℕ) [Fact ℓ.Prime] (n : ℕ) where
+  toHom : GQ →* GL (Fin n) (PadicAlgCl ℓ)
+  continuous_toHom : Continuous toHom
+
+/-- A continuous character `G_ℚ → ℚ̄_ℓ^×`. -/
+structure GaloisChar (ℓ : ℕ) [Fact ℓ.Prime] where
+  toHom : GQ →* (PadicAlgCl ℓ)ˣ
+  continuous_toHom : Continuous toHom
+
+variable {ℓ : ℕ} [Fact ℓ.Prime] {n : ℕ}
+
+/-- The matrix of `ρ(σ)`. -/
+def GaloisRep.mat (ρ : GaloisRep ℓ n) (σ : GQ) : Matrix (Fin n) (Fin n) (PadicAlgCl ℓ) :=
+  (ρ.toHom σ : Matrix (Fin n) (Fin n) (PadicAlgCl ℓ))
+
+/-- `ρ` is unramified at `p`: every inertia group above `p` acts trivially. -/
+def GaloisRep.UnramifiedAt (ρ : GaloisRep ℓ n) (p : ℕ) : Prop :=
+  ∀ v : ValuationSubring Qbar, LiesOver v p →
+    ∀ σ ∈ v.inertiaSubgroup ℚ, ρ.toHom ((σ : v.decompositionSubgroup ℚ) : GQ) = 1
+
+/-- `ρ` is ramified at only finitely many primes. -/
+def GaloisRep.FinitelyRamified (ρ : GaloisRep ℓ n) : Prop :=
+  ∃ S : Finset ℕ, ∀ p : ℕ, p.Prime → p ∉ S → ρ.UnramifiedAt p
+
+/-- `c` is a complex conjugation: it is `z ↦ z̄` through some embedding `ℚ̄ → ℂ`. -/
+def IsComplexConj (c : GQ) : Prop :=
+  ∃ ι : Qbar →ₐ[ℚ] ℂ, ∀ x, ι (c x) = starRingEnd ℂ (ι x)
+
+/-- `ρ` is odd: `det ρ(c) = −1` for every complex conjugation `c` (Pan, Conj. 1.0.1). -/
+def GaloisRep.IsOdd (ρ : GaloisRep ℓ 2) : Prop :=
+  ∀ c, IsComplexConj c → (ρ.mat c).det = -1
+
+/-- `ρ` is irreducible over the algebraically closed `ℚ̄_ℓ`, in Burnside's form: the image spans
+`M_n(ℚ̄_ℓ)`. -/
+def GaloisRep.IsIrreducible (ρ : GaloisRep ℓ n) : Prop :=
+  Algebra.adjoin (PadicAlgCl ℓ) (Set.range ρ.mat) = ⊤
+
+/-- `ρ` is semisimple: every invariant subspace has an invariant complement. -/
+def GaloisRep.IsSemisimple (ρ : GaloisRep ℓ n) : Prop :=
+  ∀ W : Submodule (PadicAlgCl ℓ) (Fin n → PadicAlgCl ℓ),
+    (∀ σ, W.map (Matrix.toLin' (ρ.mat σ)) ≤ W) →
+    ∃ W', IsCompl W W' ∧ ∀ σ, W'.map (Matrix.toLin' (ρ.mat σ)) ≤ W'
+
+/-! ## §1. The local Galois group, `ℂ_p`, and Hodge–Tate multiplicities -/
+
+section Local
+
+variable (p : ℕ) [Fact p.Prime]
+
+/-- `G_{ℚ_p} = Gal(ℚ̄_p/ℚ_p)`, with `ℚ̄_p = PadicAlgCl p`; this is Mathlib's
+`Field.absoluteGaloisGroup ℚ_[p]`. -/
+abbrev GQp := PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p
+
+/-- The decomposition map `G_{ℚ_p} → G_ℚ` (restriction along an embedding `ℚ̄ → ℚ̄_p`, Mathlib's
+`Field.absoluteGaloisGroup.map`). Its image is a decomposition group at a place above `p`; the
+choice of embedding changes it by conjugation, which no property below depends on. -/
+def decomp : GQp p →* GQ :=
+  (Field.absoluteGaloisGroup.map (algebraMap ℚ ℚ_[p]) :
+    Field.absoluteGaloisGroup ℚ_[p] →* Field.absoluteGaloisGroup ℚ)
+
+/-- `ρ|_{G_{ℚ_p}}`. -/
+def GaloisRep.restrictLocal (ρ : GaloisRep ℓ n) : GQp p →* GL (Fin n) (PadicAlgCl ℓ) :=
+  ρ.toHom.comp (decomp p)
+
+/-- Every `σ ∈ G_{ℚ_p}` is an isometry of `ℚ̄_p` (Mathlib: `spectralNorm_eq_of_equiv`). -/
+theorem norm_gqp_apply (σ : GQp p) (x : PadicAlgCl p) : ‖σ x‖ = ‖x‖ := by
+  rw [← PadicAlgCl.spectralNorm_eq, ← PadicAlgCl.spectralNorm_eq]
+  exact (spectralNorm_eq_of_equiv σ x).symm
+
+theorem continuous_gqp (σ : GQp p) : Continuous σ :=
+  (AddMonoidHomClass.isometry_of_norm σ (norm_gqp_apply p σ)).continuous
+
+/-- `σ ∈ G_{ℚ_p}` as a continuous ring endomorphism of `ℚ̄_p`. -/
+def gqpRingHom (σ : GQp p) : PadicAlgCl p →+* PadicAlgCl p := σ.toAlgHom.toRingHom
+
+theorem continuous_gqpRingHom (σ : GQp p) : Continuous (gqpRingHom p σ) :=
+  continuous_gqp p σ
+
+/-- The action of `σ ∈ G_{ℚ_p}` on `ℂ_p = ℂ_[p]`: the extension of `σ` to the completion. -/
+def cpAct (σ : GQp p) : ℂ_[p] →+* ℂ_[p] :=
+  UniformSpace.Completion.mapRingHom (gqpRingHom p σ) (continuous_gqpRingHom p σ)
+
+theorem cpAct_coe (σ : GQp p) (x : PadicAlgCl p) :
+    cpAct p σ (x : ℂ_[p]) = ((σ x : PadicAlgCl p) : ℂ_[p]) :=
+  UniformSpace.Completion.mapRingHom_coe _ x
+
+theorem cpAct_algebraMap (σ : GQp p) (c : ℚ_[p]) :
+    cpAct p σ (algebraMap ℚ_[p] ℂ_[p] c) = algebraMap ℚ_[p] ℂ_[p] c := by
+  rw [IsScalarTower.algebraMap_apply ℚ_[p] (PadicAlgCl p) ℂ_[p], ← PadicComplex.coe_eq,
+    cpAct_coe, AlgEquiv.commutes]
+
+/-- The `p`-adic cyclotomic character `χ : G_{ℚ_p} → ℤ_p^×` (Mathlib's `cyclotomicCharacter`
+on `ℚ̄_p`, which contains all `p`-power roots of unity). -/
+def cyc (σ : GQp p) : ℤ_[p]ˣ :=
+  cyclotomicCharacter (PadicAlgCl p) p σ.toRingEquiv
+
+/-- `χ(σ)^i ∈ ℚ_p` for `i ∈ ℤ`. -/
+def cycPow (σ : GQp p) (i : ℤ) : ℚ_[p] :=
+  ((((cyc p σ) ^ i : ℤ_[p]ˣ) : ℤ_[p]) : ℚ_[p])
+
+variable {E : Type*} [Field E] [Algebra ℚ_[p] E] [FiniteDimensional ℚ_[p] E]
+
+/-- For an `E`-linear representation `ρ` of `G_{ℚ_p}` on `V = E^n` (`E/ℚ_p` finite), the space
+`H_i(ρ) = { φ : V →ₗ[ℚ_p] ℂ_p | φ(ρ(σ)v) = χ(σ)^i · σ(φ(v)) }`. It is
+`(ℂ_p(i) ⊗_{ℚ_p} V^∨)^{G_{ℚ_p}}` written as equivariant maps. -/
+def htSpace (ρ : GQp p →* GL (Fin n) E) (i : ℤ) :
+    Submodule ℚ_[p] ((Fin n → E) →ₗ[ℚ_[p]] ℂ_[p]) where
+  carrier := {φ | ∀ (σ : GQp p) (v : Fin n → E),
+    φ (Matrix.mulVec (ρ σ : Matrix (Fin n) (Fin n) E) v) = cycPow p σ i • cpAct p σ (φ v)}
+  zero_mem' := by intro σ v; simp
+  add_mem' := by
+    intro φ ψ hφ hψ σ v
+    simp only [Set.mem_ofPred_eq] at hφ hψ
+    simp only [LinearMap.add_apply, hφ σ v, hψ σ v, map_add, smul_add]
+  smul_mem' := by
+    intro c φ hφ σ v
+    simp only [Set.mem_ofPred_eq] at hφ
+    simp only [LinearMap.smul_apply, hφ σ v]
+    rw [Algebra.smul_def c (φ v), map_mul, cpAct_algebraMap, ← Algebra.smul_def, smul_comm]
+
+/-- **Hodge–Tate multiplicity** of the weight `w`, in the convention of N5 and Pan: the
+cyclotomic character has weight `−1`. It is `dim_E (ℂ_p(−w) ⊗ V^∨)^{G}` =
+`dim_E (ℂ_p(w) ⊗ V)^{G}`·, computed as `dim_{ℚ_p} H_{−w}(ρ) / [E : ℚ_p]`. (Check: for `V = ℚ_p(1)`,
+`H_i ≠ 0` iff `ℂ_p(1−i)^G ≠ 0` iff `i = 1`, i.e. weight `−1`, by Tate's theorem.) -/
+def htMult (ρ : GQp p →* GL (Fin n) E) (w : ℤ) : ℕ :=
+  Module.finrank ℚ_[p] (htSpace p ρ (-w)) / Module.finrank ℚ_[p] E
+
+/-- `ρ` is Hodge–Tate with weight multiset `S` (`card S = n` makes it Hodge–Tate). -/
+def HasHTWeights (ρ : GQp p →* GL (Fin n) E) (S : Multiset ℤ) : Prop :=
+  ∀ w : ℤ, htMult p ρ w = S.count w
+
+/-- A `ℚ̄_p`-valued representation of `G_{ℚ_p}` has Hodge–Tate weights `S`: it takes values in
+`GL_n(E)` for a finite `E/ℚ_p` inside `ℚ̄_p`, and the `E`-representation has weights `S`. (The
+multiplicities do not depend on `E`, by base change; STANDARD.) -/
+def LocalHasHTWeights (ρ : GQp p →* GL (Fin n) (PadicAlgCl p)) (S : Multiset ℤ) : Prop :=
+  ∃ (E : IntermediateField ℚ_[p] (PadicAlgCl p)) (_ : FiniteDimensional ℚ_[p] E)
+    (ρE : GQp p →* GL (Fin n) E),
+    (∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E (PadicAlgCl p)) (ρE σ) = ρ σ) ∧
+    HasHTWeights p ρE S
+
+/-- `ρ|_{G_{ℚ_p}}` has Hodge–Tate weights `S` (for `ρ` with `ℚ̄_p` coefficients). -/
+def GaloisRep.HasHTWeightsAtSelf (ρ : GaloisRep p n) (S : Multiset ℤ) : Prop :=
+  LocalHasHTWeights p (ρ.restrictLocal p) S
+
+/-- `ρ|_{G_{ℚ_p}}` has distinct Hodge–Tate weights (2-dimensional case). -/
+def GaloisRep.DistinctHTWeights (ρ : GaloisRep p 2) : Prop :=
+  ∃ a b : ℤ, a ≠ b ∧ ρ.HasHTWeightsAtSelf p {a, b}
+
+
+/-! ### Sanity check of the Hodge–Tate convention (given Tate's theorem as a hypothesis) -/
+
+/-- `σ ↦ σ` as ring automorphisms, multiplicatively. -/
+def toRingEquivHom : GQp p →* (PadicAlgCl p ≃+* PadicAlgCl p) where
+  toFun σ := σ.toRingEquiv
+  map_one' := rfl
+  map_mul' _ _ := rfl
+
+/-- The cyclotomic character `ℚ_p(1)` as a one-dimensional representation over `ℚ_p`. -/
+def cycRep : GQp p →* GL (Fin 1) ℚ_[p] :=
+  (Units.map (algebraMap ℚ_[p] (Matrix (Fin 1) (Fin 1) ℚ_[p])).toMonoidHom).comp
+    ((Units.map (PadicInt.Coe.ringHom : ℤ_[p] →+* ℚ_[p]).toMonoidHom).comp
+      ((cyclotomicCharacter (PadicAlgCl p) p).comp (toRingEquivHom p)))
+
+theorem cycPow_add_one (σ : GQp p) (j : ℤ) :
+    cycPow p σ (j + 1) = cycPow p σ 1 * cycPow p σ j := by
+  simp only [cycPow, zpow_add, zpow_one, Units.val_mul, PadicInt.coe_mul]
+  ring
+
+theorem cycPow_one_ne_zero (σ : GQp p) : cycPow p σ 1 ≠ 0 := by
+  simp only [cycPow, zpow_one]
+  intro h
+  have := (cyc p σ).ne_zero
+  exact this (PadicInt.ext (by simp at h))
+
+/-- **Convention check.** If `ℂ_p(j)^{G_{ℚ_p}} = 0` for `j ≠ 0` (Tate's theorem, here a
+hypothesis), then `H_i(ℚ_p(1)) = 0` for `i ≠ 1`; so `htMult` of `ℚ_p(1)` vanishes outside the
+weight `−1`, which is N5's and Pan's convention. -/
+theorem htSpace_cycRep_eq_bot
+    (tate : ∀ j : ℤ, j ≠ 0 → ∀ c : ℂ_[p], (∀ σ : GQp p, cycPow p σ j • cpAct p σ c = c) → c = 0)
+    (i : ℤ) (hi : i ≠ 1) : htSpace p (cycRep p) i = ⊥ := by
+  rw [eq_bot_iff]
+  intro φ hφ
+  rw [Submodule.mem_bot]
+  set e : Fin 1 → ℚ_[p] := fun _ => 1
+  have hc : φ e = 0 := by
+    refine tate (i - 1) (by omega) (φ e) fun σ => ?_
+    have h := hφ σ e
+    have hmv : Matrix.mulVec ((cycRep p σ : GL (Fin 1) ℚ_[p]) : Matrix (Fin 1) (Fin 1) ℚ_[p]) e =
+        cycPow p σ 1 • e := by
+      ext k
+      fin_cases k
+      simp [cycRep, e, Matrix.mulVec, dotProduct, cycPow, toRingEquivHom, cyc,
+        Algebra.algebraMap_eq_smul_one, PadicInt.Coe.ringHom_apply]
+      rfl
+    rw [hmv, map_smul] at h
+    have h2 : cycPow p σ 1 • φ e = (cycPow p σ 1 * cycPow p σ (i - 1)) • cpAct p σ (φ e) := by
+      rw [← cycPow_add_one]; simpa using h
+    rw [mul_smul] at h2
+    exact (smul_right_injective _ (cycPow_one_ne_zero p σ) h2).symm
+  refine LinearMap.ext fun v => ?_
+  have hv : v = v 0 • e := by
+    ext k; fin_cases k; simp [e]
+  rw [LinearMap.zero_apply, hv, map_smul, hc, smul_zero]
+
+theorem htMult_cycRep_eq_zero
+    (tate : ∀ j : ℤ, j ≠ 0 → ∀ c : ℂ_[p], (∀ σ : GQp p, cycPow p σ j • cpAct p σ c = c) → c = 0)
+    (w : ℤ) (hw : w ≠ -1) : htMult p (cycRep p) w = 0 := by
+  rw [htMult, htSpace_cycRep_eq_bot p tate (-w) (by omega), finrank_bot, Nat.zero_div]
+
+end Local
+
+/-! ## §1b. The action of `G_{ℚ_p}` on `B_dR` and the de Rham predicate -/
+
+section DeRham
+
+variable (p : ℕ) [Fact p.Prime]
+
+theorem continuous_cpAct (σ : GQp p) : Continuous (cpAct p σ) :=
+  UniformSpace.Completion.continuous_map
+
+theorem norm_cpAct (σ : GQp p) (x : ℂ_[p]) : ‖cpAct p σ x‖ = ‖x‖ := by
+  induction x using UniformSpace.Completion.induction_on with
+  | hp => exact isClosed_eq (continuous_norm.comp (continuous_cpAct p σ)) continuous_norm
+  | ih a => rw [cpAct_coe, PadicComplex.norm_extends, PadicComplex.norm_extends, norm_gqp_apply]
+
+theorem cpAct_inv_apply (σ : GQp p) (x : ℂ_[p]) : cpAct p σ⁻¹ (cpAct p σ x) = x := by
+  induction x using UniformSpace.Completion.induction_on with
+  | hp => exact isClosed_eq ((continuous_cpAct p _).comp (continuous_cpAct p σ)) continuous_id
+  | ih a =>
+    rw [cpAct_coe, cpAct_coe, ← AlgEquiv.mul_apply, inv_mul_cancel, AlgEquiv.one_apply]
+
+/-- `σ` acting on `𝓞_ℂ_[p]`. -/
+def oAct (σ : GQp p) : 𝓞_ℂ_[p] →+* 𝓞_ℂ_[p] :=
+  (cpAct p σ).restrict 𝓞_ℂ_[p] 𝓞_ℂ_[p] fun x hx => by
+    rw [Cp.mem_O_iff, norm_cpAct]
+    exact (Cp.mem_O_iff p x).mp hx
+
+theorem oAct_inv_apply (σ : GQp p) (x : 𝓞_ℂ_[p]) : oAct p σ⁻¹ (oAct p σ x) = x :=
+  Subtype.ext (cpAct_inv_apply p σ x)
+
+theorem oAct_apply_inv (σ : GQp p) (x : 𝓞_ℂ_[p]) : oAct p σ (oAct p σ⁻¹ x) = x := by
+  simpa using oAct_inv_apply p σ⁻¹ x
+
+/-- `B_dR = B_dR(𝓞_ℂ_p)`: Mathlib's `BDeRham (𝓞_ℂ_[p]) p`, unfolded (see `bdR_eq`). -/
+abbrev BdR := Localization (DR.genMonoid p 𝓞_ℂ_[p])
+
+example : BdR p = BDeRham 𝓞_ℂ_[p] p := rfl
+
+/-- **The action of `G_{ℚ_p}` on `B_dR`**, by functoriality of Mathlib's construction. -/
+def bdrAct (σ : GQp p) : BdR p →+* BdR p :=
+  DR.bdrMap p (oAct p σ) (oAct p σ⁻¹) (oAct_inv_apply p σ) (oAct_apply_inv p σ)
+
+/-! ### `ℚ_p ⊆ B_dR`, fixed by `G_{ℚ_p}` -/
+
+instance isLocalization_padic : IsLocalization (Submonoid.powers (p : ℤ_[p])) ℚ_[p] where
+  map_units := by
+    rintro ⟨_, k, rfl⟩
+    exact IsUnit.mk0 _ (by simp [Fact.out (p := p.Prime) |>.ne_zero])
+  surj z := by
+    obtain ⟨k, hk⟩ := exists_pow_lt_of_lt_one (by positivity : (0 : ℝ) < 1 / (‖z‖ + 1))
+      (by simpa using (Padic.norm_p_lt_one (p := p)))
+    refine ⟨⟨⟨(p : ℚ_[p]) ^ k * z, ?_⟩, ⟨(p : ℤ_[p]) ^ k, k, rfl⟩⟩, ?_⟩
+    · change ‖(p : ℚ_[p]) ^ k * z‖ ≤ 1
+      rw [norm_mul, norm_pow, Padic.norm_p]
+      have h1 : (p : ℝ)⁻¹ ^ k * (‖z‖ + 1) < 1 := by
+        rwa [lt_div_iff₀ (by positivity)] at hk
+      nlinarith [norm_nonneg z, pow_nonneg (inv_nonneg.mpr (Nat.cast_nonneg p : (0 : ℝ) ≤ p)) k]
+    · change z * (((p : ℤ_[p]) ^ k : ℤ_[p]) : ℚ_[p]) = (p : ℚ_[p]) ^ k * z
+      push_cast
+      ring
+  exists_of_eq {x y} h := ⟨1, by
+    simp only [OneMemClass.coe_one, one_mul]
+    exact PadicInt.ext h⟩
+
+/-- `ℤ_p = W(𝔽_p) → W(𝓞_ℂ_p♭)`. -/
+def zpToW : ℤ_[p] →+* WittVector p (PreTilt 𝓞_ℂ_[p] p) :=
+  (WittVector.map (ZMod.castHom (dvd_refl p) (PreTilt 𝓞_ℂ_[p] p))).comp
+    (WittVector.equiv p).symm.toRingHom
+
+/-- `ℚ_p → W(𝓞_ℂ_p♭)[1/p]`. -/
+def qpToLoc : ℚ_[p] →+* Localization.Away (p : WittVector p (PreTilt 𝓞_ℂ_[p] p)) :=
+  IsLocalization.lift (M := Submonoid.powers (p : ℤ_[p]))
+    (g := (algebraMap _ _).comp (zpToW p)) (by
+      rintro ⟨_, k, rfl⟩
+      have := (IsLocalization.Away.algebraMap_isUnit
+        (S := Localization.Away (p : WittVector p (PreTilt 𝓞_ℂ_[p] p)))
+        (p : WittVector p (PreTilt 𝓞_ℂ_[p] p))).pow k
+      rw [map_natCast] at this
+      simpa only [RingHom.comp_apply, map_pow, map_natCast] using this)
+
+/-- `W(R♭)[1/p] → B_dR^+`. -/
+def ofLoc : Localization.Away (p : WittVector p (PreTilt 𝓞_ℂ_[p] p)) →+*
+    BDeRhamPlus 𝓞_ℂ_[p] p :=
+  algebraMap _ (AdicCompletion (RingHom.ker (fontaineThetaInvertP 𝓞_ℂ_[p] p))
+    (Localization.Away (p : WittVector p (PreTilt 𝓞_ℂ_[p] p))))
+
+/-- `ℚ_p → B_dR`. -/
+def qpToBdR : ℚ_[p] →+* BdR p :=
+  (algebraMap (BDeRhamPlus 𝓞_ℂ_[p] p) (BdR p)).comp ((ofLoc p).comp (qpToLoc p))
+
+theorem wittMap_zpToW (f : PreTilt 𝓞_ℂ_[p] p →+* PreTilt 𝓞_ℂ_[p] p) (z : ℤ_[p]) :
+    WittVector.map f (zpToW p z) = zpToW p z := by
+  ext n
+  simp only [zpToW, RingHom.comp_apply, WittVector.map_coeff]
+  exact RingHom.congr_fun (RingHom.ext_zmod (f.comp (ZMod.castHom (dvd_refl p) _))
+    (ZMod.castHom (dvd_refl p) _)) _
+
+theorem qpToLoc_algebraMap (z : ℤ_[p]) :
+    qpToLoc p (algebraMap ℤ_[p] ℚ_[p] z) = algebraMap _ _ (zpToW p z) :=
+  IsLocalization.lift_eq _ _
+
+theorem locMap_algebraMap (f : 𝓞_ℂ_[p] →+* 𝓞_ℂ_[p]) (w : WittVector p (PreTilt 𝓞_ℂ_[p] p)) :
+    DR.locMap p f (algebraMap _ (Localization.Away (p : WittVector p (PreTilt 𝓞_ℂ_[p] p))) w) =
+      algebraMap _ _ (WittVector.map (DR.preTiltMap p f) w) := by
+  unfold DR.locMap Localization.awayLift IsLocalization.Away.lift
+  rw [IsLocalization.lift_eq]
+  rfl
+
+theorem bdrPlusMap_ofLoc (f : 𝓞_ℂ_[p] →+* 𝓞_ℂ_[p])
+    (y : Localization.Away (p : WittVector p (PreTilt 𝓞_ℂ_[p] p))) :
+    DR.bdrPlusMap p f (ofLoc p y) = ofLoc p (DR.locMap p f y) := by
+  have e : ∀ y', ofLoc p y' = AdicCompletion.of _ _ y' := fun y' => by
+    rw [ofLoc]
+    erw [AdicCompletion.algebraMap_apply]
+  rw [e, e]
+  exact DR.adicMap_of _ _ _ _ y
+
+/-- `G_{ℚ_p}` fixes `ℚ_p ⊆ B_dR`. -/
+theorem bdrAct_qpToBdR (σ : GQp p) (c : ℚ_[p]) : bdrAct p σ (qpToBdR p c) = qpToBdR p c := by
+  have h : (bdrAct p σ).comp (qpToBdR p) = qpToBdR p := by
+    apply IsLocalization.ringHom_ext (Submonoid.powers (p : ℤ_[p]))
+    ext z
+    simp only [RingHom.comp_apply, qpToBdR]
+    rw [qpToLoc_algebraMap, bdrAct, DR.bdrMap, IsLocalization.map_eq, bdrPlusMap_ofLoc,
+      locMap_algebraMap, wittMap_zpToW]
+  exact congrArg (fun φ => φ c) h
+
+/-- `B_dR` as a `ℚ_p`-algebra (through `qpToBdR`). -/
+instance : Algebra ℚ_[p] (BdR p) := (qpToBdR p).toAlgebra
+
+theorem bdrAct_smul (σ : GQp p) (c : ℚ_[p]) (x : BdR p) :
+    bdrAct p σ (c • x) = c • bdrAct p σ x := by
+  rw [Algebra.smul_def, map_mul, Algebra.smul_def]
+  congr 1
+  exact bdrAct_qpToBdR p σ c
+
+variable {E : Type*} [Field E] [Algebra ℚ_[p] E] [FiniteDimensional ℚ_[p] E] {n : ℕ}
+
+/-- `D_dR(V^∨) = (B_dR ⊗_{ℚ_p} V^∨)^{G_{ℚ_p}}`, written as `G_{ℚ_p}`-equivariant `ℚ_p`-linear maps
+`V → B_dR`, for `V = E^n` with `E`-linear action `ρ`. -/
+def ddrSpace (ρ : GQp p →* GL (Fin n) E) : Submodule ℚ_[p] ((Fin n → E) →ₗ[ℚ_[p]] BdR p) where
+  carrier := {φ | ∀ (σ : GQp p) (v : Fin n → E),
+    φ (Matrix.mulVec (ρ σ : Matrix (Fin n) (Fin n) E) v) = bdrAct p σ (φ v)}
+  zero_mem' := by intro σ v; simp
+  add_mem' := by
+    intro φ ψ hφ hψ σ v
+    simp only [Set.mem_ofPred_eq] at hφ hψ
+    simp only [LinearMap.add_apply, hφ σ v, hψ σ v, map_add]
+  smul_mem' := by
+    intro c φ hφ σ v
+    simp only [Set.mem_ofPred_eq] at hφ
+    simp only [LinearMap.smul_apply, hφ σ v, bdrAct_smul]
+
+/-- **`ρ` is de Rham** (Fontaine): `dim_{ℚ_p} D_dR = dim_{ℚ_p} V`. Stated for `V^∨` (equivalent:
+`V` is de Rham iff `V^∨` is; Fontaine, Astérisque 223, Thm 3.8; STANDARD), with `K = ℚ_p`. -/
+def IsDeRham (ρ : GQp p →* GL (Fin n) E) : Prop :=
+  Module.finrank ℚ_[p] (ddrSpace p ρ) = n * Module.finrank ℚ_[p] E
+
+/-- A `ℚ̄_p`-valued representation of `G_{ℚ_p}` is de Rham: it takes values in `GL_n(E)` for a
+finite `E/ℚ_p` inside `ℚ̄_p`, and the `E`-representation is de Rham. -/
+def LocalIsDeRham (n : ℕ) (ρ : GQp p →* GL (Fin n) (PadicAlgCl p)) : Prop :=
+  ∃ (E : IntermediateField ℚ_[p] (PadicAlgCl p)) (_ : FiniteDimensional ℚ_[p] E)
+    (ρE : GQp p →* GL (Fin n) E),
+    (∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E (PadicAlgCl p)) (ρE σ) = ρ σ) ∧
+    IsDeRham p ρE
+
+
+/-! ### Sanity check of `IsDeRham` (given `B_dR^{G_{ℚ_p}} = ℚ_p` as a hypothesis) -/
+
+/-- **Normalization check.** If every `G_{ℚ_p}`-invariant of `B_dR` lies in `ℚ_p` (Fontaine's
+`B_dR^{G_{ℚ_p}} = ℚ_p`, here a hypothesis) and `ℚ_p → B_dR` is injective, then the trivial
+one-dimensional representation is de Rham in the sense of `IsDeRham`. -/
+theorem isDeRham_trivial
+    (hfix : ∀ x : BdR p, (∀ σ : GQp p, bdrAct p σ x = x) → x ∈ Set.range (qpToBdR p))
+    (hinj : Function.Injective (qpToBdR p)) :
+    IsDeRham p (1 : GQp p →* GL (Fin 1) ℚ_[p]) := by
+  set e : Fin 1 → ℚ_[p] := fun _ => 1
+  -- the evaluation-at-`0` functional, followed by `ℚ_p → B_dR`
+  set φ₀ : (Fin 1 → ℚ_[p]) →ₗ[ℚ_[p]] BdR p :=
+    (LinearMap.proj (R := ℚ_[p]) (φ := fun _ : Fin 1 => ℚ_[p]) 0).smulRight (1 : BdR p)
+  have hφ₀ : ∀ v, φ₀ v = qpToBdR p (v 0) := fun v => by
+    simp [φ₀, Algebra.smul_def, RingHom.algebraMap_toAlgebra]
+  have hmem : φ₀ ∈ ddrSpace p (1 : GQp p →* GL (Fin 1) ℚ_[p]) := by
+    intro σ v
+    simp only [MonoidHom.one_apply, Units.val_one, Matrix.one_mulVec, hφ₀, bdrAct_qpToBdR]
+  have hne : φ₀ ≠ 0 := by
+    intro h
+    have h1 := congrArg (fun ψ => ψ e) h
+    simp only [hφ₀, LinearMap.zero_apply, e] at h1
+    exact one_ne_zero (hinj (h1.trans (map_zero _).symm))
+  have hspan : ddrSpace p (1 : GQp p →* GL (Fin 1) ℚ_[p]) = ℚ_[p] ∙ φ₀ := by
+    apply le_antisymm
+    · intro φ hφ
+      obtain ⟨c, hc⟩ := hfix (φ e) fun σ => by
+        have := hφ σ e
+        simp only [MonoidHom.one_apply, Units.val_one, Matrix.one_mulVec] at this
+        exact this.symm
+      rw [Submodule.mem_span_singleton]
+      refine ⟨c, LinearMap.ext fun v => ?_⟩
+      have hv : v = v 0 • e := by ext k; fin_cases k; simp [e]
+      rw [LinearMap.smul_apply, hφ₀, hv, map_smul, ← hc]
+      simp [e, Algebra.smul_def, RingHom.algebraMap_toAlgebra, mul_comm]
+    · rw [Submodule.span_le, Set.singleton_subset_iff]
+      exact hmem
+  rw [IsDeRham, hspan, finrank_span_singleton hne, Module.finrank_self]
+
+
+/-! ### Over a finite extension `F/ℚ_p`, for any `ℚ_p`-linear representation
+
+These forms take a Mathlib `Representation` of `G_F = Field.absoluteGaloisGroup F`, which is the
+shape of pkg-I3's `AbVar.galRep` (the Galois action on `V_p(A)`); with them the comparison leaf of
+C3 can be stated over genuine definitions (note §1.2). -/
+
+section Over
+
+variable (F : Type*) [Field F] [Algebra ℚ_[p] F] [FiniteDimensional ℚ_[p] F]
+
+/-- `G_F → G_{ℚ_p}` (restriction along an embedding `ℚ̄_p → F̄`; Mathlib's
+`Field.absoluteGaloisGroup.map`). It is injective with image `G_{F'}`, `F'` the image of `F`. -/
+def gfToGqp : Field.absoluteGaloisGroup F →* GQp p :=
+  (Field.absoluteGaloisGroup.map (algebraMap ℚ_[p] F) :
+    Field.absoluteGaloisGroup F →* Field.absoluteGaloisGroup ℚ_[p])
+
+variable {F} {V : Type*} [AddCommGroup V] [Module ℚ_[p] V]
+
+/-- `D_dR,F(V^∨)` as `G_F`-equivariant `ℚ_p`-linear maps `V → B_dR`. -/
+def ddrSpaceOver (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) :
+    Submodule ℚ_[p] (V →ₗ[ℚ_[p]] BdR p) where
+  carrier := {φ | ∀ σ v, φ (ρ σ v) = bdrAct p (gfToGqp p F σ) (φ v)}
+  zero_mem' := by intro σ v; simp
+  add_mem' := by
+    intro φ ψ hφ hψ σ v
+    simp only [Set.mem_ofPred_eq] at hφ hψ
+    simp only [LinearMap.add_apply, hφ σ v, hψ σ v, map_add]
+  smul_mem' := by
+    intro c φ hφ σ v
+    simp only [Set.mem_ofPred_eq] at hφ
+    simp only [LinearMap.smul_apply, hφ σ v, bdrAct_smul]
+
+/-- `V` (finite-dimensional over `ℚ_p`) is de Rham as a `G_F`-representation:
+`dim_F D_dR,F = dim_{ℚ_p} V`, i.e. `dim_{ℚ_p} D_dR,F = [F:ℚ_p] · dim_{ℚ_p} V`. -/
+def IsDeRhamOver (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) : Prop :=
+  Module.finrank ℚ_[p] (ddrSpaceOver p ρ) = Module.finrank ℚ_[p] F * Module.finrank ℚ_[p] V
+
+/-- `H_i` over `F`: `G_F`-equivariant maps `V → ℂ_p(i)`. -/
+def htSpaceOver (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) (i : ℤ) :
+    Submodule ℚ_[p] (V →ₗ[ℚ_[p]] ℂ_[p]) where
+  carrier := {φ | ∀ σ v,
+    φ (ρ σ v) = cycPow p (gfToGqp p F σ) i • cpAct p (gfToGqp p F σ) (φ v)}
+  zero_mem' := by intro σ v; simp
+  add_mem' := by
+    intro φ ψ hφ hψ σ v
+    simp only [Set.mem_ofPred_eq] at hφ hψ
+    simp only [LinearMap.add_apply, hφ σ v, hψ σ v, map_add, smul_add]
+  smul_mem' := by
+    intro c φ hφ σ v
+    simp only [Set.mem_ofPred_eq] at hφ
+    simp only [LinearMap.smul_apply, hφ σ v]
+    rw [Algebra.smul_def c (φ v), map_mul, cpAct_algebraMap, ← Algebra.smul_def, smul_comm]
+
+/-- Hodge–Tate multiplicity of `w` for a `G_F`-representation on a `ℚ_p`-space (cyclotomic
+weight `−1`): `dim_F (ℂ_p(−w) ⊗ V^∨)^{G_F}`. For `V_p(A)`, `dim A = g`, the multiplicities are
+`g` at `0` and `g` at `−1`. -/
+def htMultOver (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) (w : ℤ) : ℕ :=
+  Module.finrank ℚ_[p] (htSpaceOver p ρ (-w)) / Module.finrank ℚ_[p] F
+
+end Over
+
+end DeRham
+
+/-! ## §2. Modular side -/
+
+/-- Cusp forms of weight `k` on `Γ₁(N)` (Mathlib). -/
+abbrev CF (N : ℕ) (k : ℤ) := CuspForm (CongruenceSubgroup.Gamma1 N : Subgroup (GL (Fin 2) ℝ)) k
+
+/-- The `m`-th q-expansion coefficient `a_m(f)` (period 1). -/
+def coeff {N : ℕ} {k : ℤ} (f : CF N k) (m : ℕ) : ℂ :=
+  (UpperHalfPlane.qExpansion 1 f).coeff m
+
+/-- `f` has nebentypus `χ`: `f|_k γ = χ(d) f` for `γ = (a b; c d) ∈ Γ₀(N)`. -/
+def HasNebentypus {N : ℕ} {k : ℤ} (f : CF N k) (χ : DirichletCharacter ℂ N) : Prop :=
+  ∀ γ ∈ CongruenceSubgroup.Gamma0 N, (⇑f ∣[k] γ) = χ (((γ : SL(2, ℤ)) 1 1 : ℤ) : ZMod N) • ⇑f
+
+/-- `f` is a normalized eigenform of all Hecke operators `T_n` with nebentypus `χ`, through its
+coefficients: `a₁ = 1` and `a_m a_n = Σ_{d ∣ (m,n)} χ(d) d^{k−1} a_{mn/d²}`. Equivalent to the
+Hecke definition for forms with nebentypus `χ` (Diamond–Shurman Prop. 5.3.1 and §5.8; locator
+UNVERIFIED). Same as hdec-faithful. -/
+def IsNormalizedEigenform {N : ℕ} {k : ℤ} (f : CF N k) (χ : DirichletCharacter ℂ N) : Prop :=
+  HasNebentypus f χ ∧ coeff f 1 = 1 ∧
+    ∀ m n : ℕ, 0 < m → 0 < n →
+      coeff f m * coeff f n =
+        ∑ d ∈ (Nat.gcd m n).divisors, χ (d : ZMod N) * (d : ℂ) ^ (k - 1) * coeff f (m * n / d ^ 2)
+
+/-- `τ ↦ dτ` on `ℍ`, for `d ≥ 1`. -/
+def scaleH (d : ℕ+) (τ : UpperHalfPlane) : UpperHalfPlane :=
+  ⟨(d : ℂ) * (τ : ℂ), by
+    have h := τ.coe_im_pos
+    simp only [Complex.mul_im, Complex.natCast_re, Complex.natCast_im, zero_mul, add_zero]
+    exact mul_pos (by exact_mod_cast d.pos) h⟩
+
+/-- The **old space** of level `N`, weight `k`: the span of the functions `τ ↦ f(dτ)` with
+`f ∈ S_k(Γ₁(M))`, `M ∣ N`, `M < N`, `d ∣ N/M` (Atkin–Lehner, Li 1975 §1). -/
+def oldSpace (N : ℕ) (k : ℤ) : Submodule ℂ (UpperHalfPlane → ℂ) :=
+  Submodule.span ℂ {F | ∃ (M : ℕ) (d : ℕ+) (f : CF M k), 0 < M ∧ M ∣ N ∧ M < N ∧
+    (d : ℕ) * M ∣ N ∧ F = fun τ => f (scaleH d τ)}
+
+/-- `f` is a **newform** of level `N`: a normalized eigenform of all `T_n` not lying in the old
+space. For an eigenform of all `T_n` this is equivalent to Li's definition (orthogonal to the
+old space for the Petersson product): the new and old spaces are stable under all `T_n` and, by
+strong multiplicity one, share no eigensystem away from `N` (Li 1975, Thms 3 and 5;
+Diamond–Shurman Thm 5.8.2; locators UNVERIFIED). The Petersson definition needs the Petersson
+integral over `Γ₁(N)\ℍ`, which Mathlib lacks (it has the integrand, `petersson`). -/
+def IsNewform {N : ℕ} {k : ℤ} (f : CF N k) (χ : DirichletCharacter ℂ N) : Prop :=
+  IsNormalizedEigenform f χ ∧ (⇑f : UpperHalfPlane → ℂ) ∉ oldSpace N k
+
+/-- `ρ` is attached to the eigenform `g` (through `ιC : ℚ̄ → ℂ`, `ιL : ℚ̄ → ℚ̄_ℓ`), in the
+Tate-module normalization (arithmetic Frobenius, `tr = a_p`): for `p ∤ Nℓ`, `ρ` is unramified at
+`p` and every arithmetic Frobenius above `p` has trace `ιL(α)` with `ιC(α) = a_p(g)`. -/
+def GaloisRep.AttachedTo (ρ : GaloisRep ℓ 2) (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    {N : ℕ} {k : ℤ} (g : CF N k) : Prop :=
+  ∀ p : ℕ, p.Prime → ¬ p ∣ N * ℓ →
+    ρ.UnramifiedAt p ∧ ∃ α : Qbar, ιC α = coeff g p ∧
+      ∀ (v : ValuationSubring Qbar) (σ : GQ), LiesOver v p → IsArithFrob σ v p →
+        (ρ.mat σ).trace = ιL α
+
+/-- `ρ` is attached to `g` **up to the twist** `ψ`, outside a finite set `S`: Pan's conclusion
+"comes from a cuspidal eigenform up to twist", in trace form (see `PanFor`). -/
+def GaloisRep.AttachedUpToTwist (ρ : GaloisRep ℓ 2) (ψ : GaloisChar ℓ) (ιC : Qbar →ₐ[ℚ] ℂ)
+    (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ) {N : ℕ} {k : ℤ} (g : CF N k) (S : Finset ℕ) : Prop :=
+  ∀ p : ℕ, p.Prime → p ∉ S →
+    ρ.UnramifiedAt p ∧ ∃ α : Qbar, ιC α = coeff g p ∧
+      ∀ (v : ValuationSubring Qbar) (σ : GQ), LiesOver v p → IsArithFrob σ v p →
+        (ρ.mat σ).trace = (ψ.toHom σ : PadicAlgCl ℓ) * ιL α
+
+/-! ## §3. Leaves of I4 statable now (statements only; none is proved) -/
+
+/-- **I4-L0. de Rham comparison for abelian varieties, with Hodge–Tate weights** (C3; Fontaine,
+LNM 1016 (1983) and Fontaine–Messing (1987) for abelian varieties; Faltings 1989; Tsuji 1999 with
+de Jong; Scholze 2013 Cor. 1.8 with Thms 9.1, 9.3 and the 2016 corrigendum; with
+`V_p(A) ≅ H¹_et(A_F̄, ℚ_p)^∨`, Mumford §§19-20 / Milne 1986 Thm 15.1(a); numbers UNVERIFIED except
+Scholze's wording, VERIFIED by h-leaves §3.1). For an abelian variety `A` of dimension `g` over a
+finite extension `F` of `ℚ_p`, `V_p(A)` (pkg-I3's `galRep`) is de Rham as a
+`G_F`-representation, with Hodge–Tate weight `0` and `−1` each of multiplicity `g`. Consequence
+form. Statable now over genuine definitions: pkg-I3's abelian varieties and Tate modules, and
+§1b's `IsDeRhamOver`, `htMultOver`. -/
+def DeRhamComparison : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (F : Type) [Field F] [Algebra ℚ_[p] F] [FiniteDimensional ℚ_[p] F]
+    (A : PkgI4.I3.AbVar F) (g : ℕ), A.dim = (g : WithBot ℕ∞) →
+    IsDeRhamOver p (A.galRep p) ∧ htMultOver p (A.galRep p) 0 = g ∧
+      htMultOver p (A.galRep p) (-1) = g
+
+/-- **I4-L1. Galois representations of eigenforms** (Eichler–Shimura and Shimura 1971 Thm 7.14
+for `k = 2`; Deligne 1971 for `k ≥ 2`; Deligne–Serre 1974 Thm 6.1 for `k = 1`; theorem numbers
+UNVERIFIED). Consequence form (the published statements also give the determinant
+`ε_g χ^{k−1}`). Same as hdec-faithful L27(a). -/
+def EigenformRepExists : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (g : CF N k),
+    0 < N → 1 ≤ k → IsNormalizedEigenform g χ →
+    ∃ ρ : GaloisRep ℓ 2, ρ.IsSemisimple ∧ ρ.AttachedTo ιC ιL g
+
+/-- **I4-L2. Hodge–Tate weights of eigenform representations, every level** (Faltings, Math.
+Ann. 278 (1987) for `k ≥ 2` (level `ℓ ∣ N` UNVERIFIED there); Saito, Invent. Math. 129 (1997)
+(pst at `ℓ`, every level); Kato, Astérisque 295 (2004) §9.4 (de Rham, every level); Scholl 1990
+with Scholze 2013 and Fontaine's closure). A semisimple `ρ` attached to a normalized eigenform of
+weight `k ≥ 2` and any level `N` (including `ℓ ∣ N`) is Hodge–Tate at `ℓ` with weights
+`{0, 1 − k}` in the Tate normalization (cyclotomic weight `−1`; h-trust C8). Consequence form
+(the published theorems give de Rham or pst, which imply Hodge–Tate with the same weights). -/
+def EigenformHT : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (g : CF N k) (ρ : GaloisRep ℓ 2),
+    0 < N → 2 ≤ k → IsNormalizedEigenform g χ → ρ.IsSemisimple → ρ.AttachedTo ιC ιL g →
+    ρ.HasHTWeightsAtSelf ℓ {0, 1 - k}
+
+/-- **I4-L3. Deligne–Serre** (Ann. Sci. ÉNS 7 (1974), Thm 4.1, with Chebotarev and
+Brauer–Nesbitt): a semisimple `ρ` attached to a weight-one eigenform has finite image.
+Consequence form. Same as hdec-faithful L27(b). -/
+def DeligneSerreFinite : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (ρ : GaloisRep ℓ 2) (N : ℕ) (χ : DirichletCharacter ℂ N) (g : CF N 1),
+    0 < N → IsNormalizedEigenform g χ → ρ.IsSemisimple → ρ.AttachedTo ιC ιL g →
+    (Set.range ρ.toHom).Finite
+
+/-- **I4-L4. Twisting an eigenform** (Shimura 1971 Prop. 3.64; Atkin–Li, Invent. Math. 48 (1978)
+Prop. 3.1; locators UNVERIFIED). Consequence form. Same as hdec-faithful L28(a). -/
+def EigenformTwist : Prop :=
+  ∀ (N m : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (ψ : DirichletCharacter ℂ m) (g : CF N k),
+    0 < N → 0 < m → IsNormalizedEigenform g χ →
+    ∃ (χ' : DirichletCharacter ℂ (N * m ^ 2)) (g' : CF (N * m ^ 2) k),
+      IsNormalizedEigenform g' χ' ∧
+      ∀ p : ℕ, p.Prime → ¬ p ∣ N * m → coeff g' p = ψ (p : ZMod m) * coeff g p
+
+/-- **I4-L5. Newform attached to an eigensystem** (Li, Math. Ann. 212 (1975), Thm 5 (strong
+multiplicity one) with the decomposition `S_k = S_k^new ⊕ S_k^old`; Miyake Thm 4.6.19; locators
+UNVERIFIED). Every normalized eigenform of level `M` has the Hecke eigenvalues away from `M` of a
+newform of level dividing `M`. Consequence form. -/
+def NewformOfEigenform : Prop :=
+  ∀ (M : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ M) (g : CF M k),
+    0 < M → IsNormalizedEigenform g χ →
+    ∃ (N : ℕ) (χ' : DirichletCharacter ℂ N) (f : CF N k), 0 < N ∧ N ∣ M ∧ IsNewform f χ' ∧
+      ∀ p : ℕ, p.Prime → ¬ p ∣ M → coeff f p = coeff g p
+
+/-- **I4-L6. Carayol at unramified primes** (Carayol, Ann. Sci. ÉNS 19 (1986), Théorème (A), the
+case "conductor exponent 0"; theorem letter VERIFIED from N5 L9778's locator, content
+UNVERIFIED). For a newform `f` of weight 2 and level `N` and a semisimple `ρ` attached to it, a
+prime `p ≠ ℓ` at which `ρ` is unramified does not divide `N`. Consequence form (Théorème (A)
+gives `v_p(N) =` the conductor exponent, which is 0 exactly when `ρ` is unramified). -/
+def CarayolUnramified : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2) (ρ : GaloisRep ℓ 2) (p : ℕ),
+    0 < N → IsNewform f χ → ρ.IsSemisimple → ρ.AttachedTo ιC ιL f →
+    p.Prime → p ≠ ℓ → ρ.UnramifiedAt p → ¬ p ∣ N
+
+/-! ## §4. Templates (not leaves) and the statable Pan∘Berger leaf
+
+`PanFor IsPst` is Pan's theorem once `IsPst` is the genuine "potentially semistable in the sense
+of Fontaine" predicate on `ℚ̄_p`-representations of `G_{ℚ_p}`; for any other argument it means
+nothing. Likewise for `BergerFor`, `CarayolFor`. -/
+
+/-- A predicate on `ℚ̄_p`-valued representations of `G_{ℚ_p}`, for every `p` and `n`. -/
+abbrev LocalPred := ∀ (p : ℕ) [Fact p.Prime] (n : ℕ), (GQp p →* GL (Fin n) (PadicAlgCl p)) → Prop
+
+/-- **Template for I4-L7, Pan's theorem** (Pan, J. Amer. Math. Soc. 35 (2022), 1031-1169,
+Thm 1.0.4 = arXiv:1901.07166v2 Thm 1.0.4 (statement VERIFIED in h-a011 §1.1 from the arXiv
+source; JAMS numbering UNVERIFIED)), for `p ≥ 5` (which drops the `p = 3` residual clause):
+a continuous irreducible `ρ : G_ℚ → GL₂(ℚ̄_p)`, ramified at finitely many primes, potentially
+semistable at `p`, odd, with distinct Hodge–Tate weights at `p`, comes from a cuspidal eigenform
+up to twist. The conclusion is in trace form: some normalized eigenform `g`, continuous `ψ` and
+embeddings with `tr ρ(Frob_q) = ψ(Frob_q) ι(a_q(g))` for almost all `q`. Every reading of
+"comes from … up to twist" implies it, in either Frobenius normalization, since
+`U^∨ ≅ U ⊗ det U⁻¹` in dimension 2 (h-trust C8; pkg-I4 note §2.1). -/
+def PanFor (IsPst : LocalPred) : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime], 5 ≤ p → ∀ ρ : GaloisRep p 2,
+    ρ.IsIrreducible → ρ.FinitelyRamified → IsPst p 2 (ρ.restrictLocal p) → ρ.IsOdd →
+    ρ.DistinctHTWeights p →
+    ∃ (N : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (g : CF N k), 0 < N ∧ 1 ≤ k ∧
+      IsNormalizedEigenform g χ ∧
+      ∃ (ψ : GaloisChar p) (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl p) (S : Finset ℕ),
+        ρ.AttachedUpToTwist ψ ιC ιL g S
+
+/-- **I4-L7′. Pan∘Berger — statable now, over genuine definitions.** Pan's Theorem 1.0.4
+(`PanFor`, `p ≥ 5`) with "de Rham at `p`" (`LocalIsDeRham`, built in §1b on Mathlib's `BDeRham`)
+in place of "potentially semistable at `p`". It is a consequence of Pan 2022 Thm 1.0.4 together
+with Berger 2002 Thm 0.7 (de Rham ⇒ pst), and it is the form N5 uses (N5 L734-741 proves de Rham
+and then applies Berger). Needs no `B_st`. -/
+def PanBerger : Prop :=
+  PanFor fun (p : ℕ) [Fact p.Prime] (n : ℕ) (ρ : GQp p →* GL (Fin n) (PadicAlgCl p)) =>
+    LocalIsDeRham p n ρ
+
+/-- **Template for I4-L8, Berger's theorem** (Invent. Math. 148 (2002), Théorème 0.7 in the
+published numbering (ASTRA-READ), = Thm 0.6 = Thm 5.19 of arXiv:math/0102179v3 (VERIFIED by
+rv-h-a011)): de Rham ⇒ potentially semistable. -/
+def BergerFor (IsDR IsPst : LocalPred) : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (n : ℕ) (ρ : GQp p →* GL (Fin n) (PadicAlgCl p)),
+    Continuous ρ → IsDR p n ρ → IsPst p n ρ
+
+/-- **I4-L8′. Berger with the genuine de Rham predicate** (template only in `IsPst`). -/
+def BergerDR (IsPst : LocalPred) : Prop :=
+  BergerFor (fun (p : ℕ) [Fact p.Prime] (n : ℕ) (ρ : GQp p →* GL (Fin n) (PadicAlgCl p)) =>
+    LocalIsDeRham p n ρ) IsPst
+
+/-- A conductor-exponent function: `a ℓ ρ p` is the Artin conductor exponent at `p ≠ ℓ` of the
+`ℓ`-adic representation `ρ` (Weil–Deligne / Serre's definition). Missing in every library. -/
+abbrev CondExp := ∀ (ℓ : ℕ) [Fact ℓ.Prime], GaloisRep ℓ 2 → ℕ → ℕ
+
+/-- **Template for I4-L9, Carayol's Théorème (A)** at `F = ℚ`, weight 2 (the case N5 uses):
+for a newform `f` of level `N` and a semisimple `ρ` attached to it, `v_p(N) = a(ρ, p)` for every
+prime `p ≠ ℓ`. -/
+def CarayolFor (a : CondExp) : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2) (ρ : GaloisRep ℓ 2) (p : ℕ),
+    0 < N → IsNewform f χ → ρ.IsSemisimple → ρ.AttachedTo ιC ιL f →
+    p.Prime → p ≠ ℓ → a ℓ ρ p = N.factorization p
+
+/-! ## §5. Glue facts, proved -/
+
+/-- **C8 weight comparison** (Tate normalization). If `ρ ≅ ρ_g ⊗ ψ` with `ψ` Hodge–Tate of
+weight `n`, the weights of `ρ` are `{n, n + 1 − k}`; if they are `{0, −1}` and `k ≥ 1`, then
+`n = 0` and `k = 2`. Stated on multisets. -/
+theorem weight_match (n k : ℤ) (hk : 1 ≤ k)
+    (h : ({n, n + 1 - k} : Multiset ℤ) = {0, -1}) : n = 0 ∧ k = 2 := by
+  have h0 : (0 : ℤ) ∈ ({n, n + 1 - k} : Multiset ℤ) := by rw [h]; simp
+  have h1 : (-1 : ℤ) ∈ ({n, n + 1 - k} : Multiset ℤ) := by rw [h]; simp
+  simp only [Multiset.insert_eq_cons, Multiset.mem_cons, Multiset.mem_singleton] at h0 h1
+  omega
+
+/-- The same comparison in Pan's cohomological normalization (weights of `ρ_g` are `{0, k−1}`):
+`{n, n + k − 1} = {0, −1}` with `k ≥ 1` forces `k = 2`, `n = −1` (twist by `χ¹`; h-trust C8,
+rv-h-c8 `weights.py`). -/
+theorem weight_match_coh (n k : ℤ) (hk : 1 ≤ k)
+    (h : ({n, n + k - 1} : Multiset ℤ) = {0, -1}) : n = -1 ∧ k = 2 := by
+  have h0 : (0 : ℤ) ∈ ({n, n + k - 1} : Multiset ℤ) := by rw [h]; simp
+  have h1 : (-1 : ℤ) ∈ ({n, n + k - 1} : Multiset ℤ) := by rw [h]; simp
+  simp only [Multiset.insert_eq_cons, Multiset.mem_cons, Multiset.mem_singleton] at h0 h1
+  omega
+
+end PkgI4
+
+end
+
+
+end PkgI4Sec
+
 section PkgI6Sec
 /-! ### Copied from `scratch/pkg-I6/I6.lean` (compiled there). -/
 
@@ -4298,6 +5743,3142 @@ end GlueAssembly
 
 end AsmF3Sec
 
+section DescProjRepSec
+/-! ### Copied from `scratch/glue-descent/ProjRep.lean` (compiled there). -/
+
+/-!
+# glue-descent: the algebraic core of B1 and C1 (N5 L632-664, L719-731)
+
+All statements are over arbitrary groups, fields, vector spaces and algebras (genuine Mathlib
+definitions). They are the steps of Glazer's scalar descent after the abelian surface has been
+replaced by its Tate realization:
+
+* `G` stands for `G_ℚ`, `E` for a finite extension of `ℚ_ℓ` containing the image of the
+  coefficient field `C`, and `V` for `V_ℓ(A) ⊗ E`;
+* `T σ = μ_σ ∘ σ ∈ GL(V)` (the Tate action of `σ` followed by the `B`-linear isogeny
+  `μ_σ : ^σA → A`), so that `T σ * T τ = c(σ,τ) • T (σ τ)` with `c(σ,τ) ∈ ℚ^×` (N5 L640-644);
+* `a σ = (deg μ_σ)^{-1/4}` and `ε = sign c` (N5 L645-664);
+* `β` the cochain of B2-B3 with `β σ β τ = ε(σ,τ) β(στ)`.
+
+The instantiation (Tate modules, the Galois action, `End⁰(A) = B`, Skolem–Noether) is not in
+Mathlib; see `docs/research/glue-descent.md`.
+-/
+
+namespace GlueDescent
+
+open scoped BigOperators
+
+section Cocycle
+
+variable {G : Type*} [Group G] {E : Type*} [Field E] {A : Type*} [Ring A] [Algebra E A]
+  [Nontrivial A]
+
+/-- **B1, cocycle identity.** A projective representation with scalar discrepancy `c`
+(`T g * T h = c(g,h) • T(gh)`, with `T` valued in units) has `c` a 2-cocycle for the trivial
+action: `c(gh,k) c(g,h) = c(h,k) c(g,hk)`. -/
+theorem cocycle_of_projective (T : G → Aˣ) (c : G → G → E)
+    (hT : ∀ g h, (T g : A) * T h = c g h • (T (g * h) : A)) (g h k : G) :
+    c (g * h) k * c g h = c h k * c g (h * k) := by
+  have h1 : ((T g : A) * T h) * T k = (c g h * c (g * h) k) • (T (g * h * k) : A) := by
+    rw [hT, smul_mul_assoc, hT, smul_smul]
+  have h2 : (T g : A) * (T h * T k) = (c h k * c g (h * k)) • (T (g * (h * k)) : A) := by
+    rw [hT, mul_smul_comm, hT, smul_smul, mul_comm (c h k)]
+  rw [mul_assoc, h2, mul_assoc g h k] at h1
+  have hu : IsUnit (T (g * (h * k)) : A) := (T _).isUnit
+  have key : ((c h k * c g (h * k)) - (c g h * c (g * h) k)) • (T (g * (h * k)) : A) = 0 := by
+    rw [sub_smul, h1, sub_self]
+  rw [smul_eq_zero] at key
+  rcases key with key | key
+  · rw [mul_comm (c (g * h) k)]; exact (sub_eq_zero.mp key).symm
+  · exact absurd key hu.ne_zero
+
+end Cocycle
+
+section Sign
+
+/-- **B1, sign normalization (real arithmetic).** If positive degrees satisfy
+`deg σ · deg τ = c⁴ · deg(στ)` (multiplicativity of degree, `deg [c] = c⁴` on an abelian
+surface) and `a = deg^{-1/4}`, then `a σ · a τ · c = sign(c) · a(στ)`. -/
+theorem sign_normalization {dσ dτ dστ c : ℝ} (hσ : 0 < dσ) (hτ : 0 < dτ) (hστ : 0 < dστ)
+    (hc : c ≠ 0) (hdeg : dσ * dτ = c ^ 4 * dστ) :
+    dσ ^ (-(1 / 4 : ℝ)) * dτ ^ (-(1 / 4 : ℝ)) * c = SignType.sign c * dστ ^ (-(1 / 4 : ℝ)) := by
+  have hc4 : (0 : ℝ) < c ^ 4 := by positivity
+  have habs : (c ^ 4) ^ (-(1 / 4 : ℝ)) = |c|⁻¹ := by
+    have h1 : c ^ 4 = |c| ^ (4 : ℝ) := by
+      rw [show (4 : ℝ) = ((4 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+      exact (Even.pow_abs ⟨2, rfl⟩ c).symm
+    rw [h1, ← Real.rpow_mul (abs_nonneg c)]
+    norm_num [Real.rpow_neg_one]
+  rw [← Real.mul_rpow hσ.le hτ.le, hdeg, Real.mul_rpow hc4.le hστ.le, habs]
+  have hsign : (SignType.sign c : ℝ) = c / |c| := by
+    rcases lt_or_gt_of_ne hc with h | h
+    · rw [sign_neg h, abs_of_neg h]; field_simp; simp
+    · rw [sign_pos h, abs_of_pos h]; field_simp; simp
+  rw [hsign]
+  have : |c| ≠ 0 := abs_ne_zero.mpr hc
+  field_simp
+
+/-- The sign of a nonzero real is `±1`. -/
+theorem sign_sq_eq_one {c : ℝ} (hc : c ≠ 0) : (SignType.sign c : ℝ) ^ 2 = 1 := by
+  rcases lt_or_gt_of_ne hc with h | h
+  · simp [sign_neg h]
+  · simp [sign_pos h]
+
+/-- **B1, `ε` is a normalized cocycle.** If `c` is a 2-cocycle with values in `ℝ^×` (trivial
+action) normalized by `c(1,·) = c(·,1) = 1`, then so is `ε = sign ∘ c`. -/
+theorem sign_cocycle {G : Type*} [Group G] (c : G → G → ℝ)
+    (hcoc : ∀ g h k, c (g * h) k * c g h = c h k * c g (h * k)) (g h k : G) :
+    (SignType.sign (c (g * h) k) : ℝ) * SignType.sign (c g h) =
+      SignType.sign (c h k) * SignType.sign (c g (h * k)) := by
+  have := congrArg (fun x : ℝ => (SignType.sign x : ℝ)) (hcoc g h k)
+  simpa [sign_mul] using this
+
+end Sign
+
+section Rho
+
+variable {G : Type*} [Group G] {E : Type*} [Field E] {V : Type*} [AddCommGroup V] [Module E V]
+
+/-- The descended operator `ρ(g) = β(g)⁻¹ a(g) T(g)`. -/
+def rho (T : G → Module.End E V) (a β : G → E) (g : G) : Module.End E V :=
+  ((β g)⁻¹ * a g) • T g
+
+/-- **C1, `ρ` is a representation.** With `T g * T h = c(g,h) • T(gh)`, scalars `a` with
+`a g · a h · c(g,h) = ε(g,h) · a(gh)` and a cochain `β` with `β g · β h = ε(g,h) · β(gh)`
+(`β` nonzero), `ρ(g) = β(g)⁻¹ a(g) T(g)` is multiplicative (N5 L723-729). -/
+theorem rho_map_mul (T : G → Module.End E V) (c ε : G → G → E) (a β : G → E)
+    (hT : ∀ g h, T g * T h = c g h • T (g * h))
+    (ha : ∀ g h, a g * a h * c g h = ε g h * a (g * h))
+    (hβ : ∀ g h, β g * β h = ε g h * β (g * h))
+    (hβ0 : ∀ g, β g ≠ 0) (g h : G) :
+    rho T a β g * rho T a β h = rho T a β (g * h) := by
+  unfold rho
+  rw [smul_mul_smul_comm, hT, smul_smul]
+  congr 1
+  have hgh : β (g * h) ≠ 0 := hβ0 _
+  have hg := hβ0 g
+  have hh := hβ0 h
+  have hε : ε g h ≠ 0 := by
+    intro h0; apply mul_ne_zero hg hh; rw [hβ, h0, zero_mul]
+  have key : (β g)⁻¹ * a g * ((β h)⁻¹ * a h) * c g h = (β g * β h)⁻¹ * (a g * a h * c g h) := by
+    field_simp
+  rw [key, ha, hβ]
+  field_simp
+
+/-- `ρ` as a group representation, given `ρ(1) = 1` (which holds when `T 1 = 1`, `a 1 = 1`,
+`β 1 = 1`). -/
+def rhoRep (T : G → Module.End E V) (c ε : G → G → E) (a β : G → E)
+    (hT : ∀ g h, T g * T h = c g h • T (g * h))
+    (ha : ∀ g h, a g * a h * c g h = ε g h * a (g * h))
+    (hβ : ∀ g h, β g * β h = ε g h * β (g * h))
+    (hβ0 : ∀ g, β g ≠ 0) (h1 : rho T a β 1 = 1) : Representation E G V where
+  toFun := rho T a β
+  map_one' := h1
+  map_mul' g h := (rho_map_mul T c ε a β hT ha hβ hβ0 g h).symm
+
+/-- **C1, `ρ` commutes with `B`.** If every `T g` commutes with an endomorphism `b` (the
+`B`-linearity of `μ_σ`), so does `ρ g`. -/
+theorem rho_commute (T : G → Module.End E V) (a β : G → E) (b : Module.End E V)
+    (hb : ∀ g, Commute (T g) b) (g : G) : Commute (rho T a β g) b :=
+  (hb g).smul_left _
+
+/-- **C1, `ρ` is the Tate action on `G_{L'}`.** On the elements where `μ_σ = 1` (so `T` is the
+Tate action `act`), `a = 1` and `β = 1` (the kernel of `β|_{G_L}`), `ρ = act`. -/
+theorem rho_eq_act (T act : G → Module.End E V) (a β : G → E) (g : G)
+    (hT : T g = act g) (ha : a g = 1) (hβ : β g = 1) : rho T a β g = act g := by
+  simp [rho, hT, ha, hβ]
+
+end Rho
+
+section Split
+
+variable {E : Type*} [Field E] {V : Type*} [AddCommGroup V] [Module E V]
+
+/-- A system of `2 × 2` matrix units in `End_E(V)` (the image of `M₂(E) ≅ B ⊗ E`). -/
+structure MatrixUnits2 (E V : Type*) [Field E] [AddCommGroup V] [Module E V] where
+  e : Fin 2 → Fin 2 → Module.End E V
+  mul_e : ∀ i j k l, e i j * e k l = if j = k then e i l else 0
+  sum_diag : e 0 0 + e 1 1 = 1
+
+namespace MatrixUnits2
+
+variable (u : MatrixUnits2 E V)
+
+/-- `W = e₀₀ V`. -/
+def W : Submodule E V := LinearMap.range (u.e 0 0)
+
+theorem e00_of_mem {w : V} (hw : w ∈ u.W) : u.e 0 0 w = w := by
+  obtain ⟨v, rfl⟩ := hw
+  have := u.mul_e 0 0 0 0
+  simp only [ite_true] at this
+  rw [← Module.End.mul_apply, this]
+
+theorem e_apply_e (i j k l : Fin 2) (v : V) :
+    u.e i j (u.e k l v) = if j = k then u.e i l v else 0 := by
+  rw [← Module.End.mul_apply, u.mul_e]
+  split_ifs <;> simp
+
+theorem mem_W_of_e0 (j : Fin 2) (v : V) : u.e 0 j v ∈ u.W :=
+  ⟨u.e 0 j v, by rw [u.e_apply_e]; simp⟩
+
+/-- The linear isomorphism `V ≃ W × W`, `v ↦ (e₀₀ v, e₀₁ v)`, inverse `(w₁, w₂) ↦ w₁ + e₁₀ w₂`. -/
+noncomputable def splitEquiv : V ≃ₗ[E] u.W × u.W :=
+  LinearEquiv.ofLinearMap
+    (LinearMap.prod ((u.e 0 0).codRestrict u.W (fun v => u.mem_W_of_e0 0 v))
+      ((u.e 0 1).codRestrict u.W (fun v => u.mem_W_of_e0 1 v)))
+    (LinearMap.coprod u.W.subtype (u.e 1 0 ∘ₗ u.W.subtype))
+    (by
+      ext ⟨w, hw⟩ <;> simp [u.e00_of_mem hw, u.e_apply_e]
+      · obtain ⟨v, rfl⟩ := hw; simp [u.e_apply_e])
+    (by
+      ext v
+      change u.e 0 0 v + u.e 1 0 (u.e 0 1 v) = v
+      rw [u.e_apply_e]
+      simp only [ite_true]
+      have := congrArg (fun f : Module.End E V => f v) u.sum_diag
+      simpa using this)
+
+/-- A representation commuting with the matrix units preserves `W`. -/
+theorem mapsTo_W {G : Type*} [Monoid G] (ρ : Representation E G V)
+    (hc : ∀ g i j, Commute (ρ g) (u.e i j)) (g : G) {w : V} (hw : w ∈ u.W) : ρ g w ∈ u.W := by
+  obtain ⟨v, rfl⟩ := hw
+  exact ⟨ρ g v, by rw [← Module.End.mul_apply, ← (hc g 0 0).eq, Module.End.mul_apply]⟩
+
+/-- **C1, `ρ ≅ r ⊕ r`.** If `ρ` commutes with the matrix units, the isomorphism `V ≃ W × W`
+intertwines `ρ g` with `ρ g|_W × ρ g|_W`. (N5 L729-730: "matrix units give
+`ρ_ℓ ≃ r_ℓ ⊕ r_ℓ`".) -/
+theorem splitEquiv_intertwines {G : Type*} [Monoid G] (ρ : Representation E G V)
+    (hc : ∀ g i j, Commute (ρ g) (u.e i j)) (g : G) (v : V) :
+    u.splitEquiv (ρ g v) =
+      (⟨ρ g (u.splitEquiv v).1, u.mapsTo_W ρ hc g (u.splitEquiv v).1.2⟩,
+       ⟨ρ g (u.splitEquiv v).2, u.mapsTo_W ρ hc g (u.splitEquiv v).2.2⟩) := by
+  ext <;> simp [splitEquiv, LinearEquiv.coe_ofLinearMap, ← Module.End.mul_apply,
+    (hc g 0 0).eq, (hc g 0 1).eq]
+
+/-- **C1, `dim r = 2`.** If `dim V = 4` then `dim W = 2`. -/
+theorem finrank_W (h4 : Module.finrank E V = 4) [FiniteDimensional E V] :
+    Module.finrank E u.W = 2 := by
+  have := u.splitEquiv.finrank_eq
+  rw [Module.finrank_prod, h4] at this
+  omega
+
+end MatrixUnits2
+
+end Split
+
+section Span
+
+variable {E : Type*} [Field E] {V : Type*} [AddCommGroup V] [Module E V]
+
+/-- **C1, from `B` to `B ⊗ E`.** An endomorphism commuting with every element of `S` (the image
+of `B`) commutes with the `E`-subalgebra generated by `S` (the image of `B ⊗_ℚ E ≅ M₂(E)`,
+which contains the matrix units). -/
+theorem commute_adjoin (f : Module.End E V) (S : Set (Module.End E V))
+    (hS : ∀ s ∈ S, Commute f s) {x : Module.End E V} (hx : x ∈ Algebra.adjoin E S) :
+    Commute f x := by
+  have hle : Algebra.adjoin E S ≤ Subalgebra.centralizer E {f} := by
+    apply Algebra.adjoin_le
+    intro s hs
+    rw [SetLike.mem_coe, Subalgebra.mem_centralizer_iff]
+    intro g hg
+    rw [Set.mem_singleton_iff] at hg
+    subst hg
+    exact (hS s hs).eq
+  have := hle hx
+  rw [Subalgebra.mem_centralizer_iff] at this
+  exact this f rfl
+
+end Span
+
+end GlueDescent
+
+
+end DescProjRepSec
+
+section DescB1QuatSec
+/-! ### Copied from `scratch/glue-descent/B1Quat.lean` (compiled there). -/
+
+/-!
+# glue-descent: the quaternion algebra of B1 (N5 L637-644)
+
+N5's `B = (2, -3)` is Mathlib's `ℍ[ℚ, 2, -3] = QuaternionAlgebra ℚ 2 0 (-3)` (`i² = 2`,
+`j² = -3`, `ij = -ji = k`).
+
+* `B6_commute_i_j`: an element commuting with `i` and `j` is a rational scalar. This is the step
+  "`c(σ,τ)` commutes with `B`, hence belongs to `ℚ^×`" (N5 L640-644), given `End⁰(A_ℚ̄) = B`.
+* `B6_isCentral`: `Algebra.IsCentral ℚ B6`.
+* `LeafSkolemNoether`: the Skolem–Noether theorem (automorphism case) over Mathlib's central
+  simple algebras, the literature input of B1 (Reiner, *Maximal orders*, Thm 7.21; formalized in
+  Tau Ceti, not in Mathlib v4.35).
+-/
+
+namespace GlueDescent
+
+open Quaternion
+
+/-- N5's quaternion algebra `B = (2, -3)` of discriminant 6. -/
+abbrev B6 := ℍ[ℚ, 2, -3]
+
+/-- `i ∈ B`. -/
+def qi : B6 := ⟨0, 1, 0, 0⟩
+/-- `j ∈ B`. -/
+def qj : B6 := ⟨0, 0, 1, 0⟩
+
+/-- **B1, the discrepancy is a scalar.** An element of `B` commuting with `i` and `j` lies in `ℚ`. -/
+theorem B6_commute_i_j (x : B6) (hi : x * qi = qi * x) (hj : x * qj = qj * x) :
+    x = algebraMap ℚ B6 x.re := by
+  have e1 := congrArg QuaternionAlgebra.imI hi
+  have e2 := congrArg QuaternionAlgebra.imJ hi
+  have e3 := congrArg QuaternionAlgebra.imK hi
+  have f1 := congrArg QuaternionAlgebra.imI hj
+  have f2 := congrArg QuaternionAlgebra.imJ hj
+  have f3 := congrArg QuaternionAlgebra.imK hj
+  simp [qi, qj, QuaternionAlgebra.imI_mul, QuaternionAlgebra.imJ_mul,
+    QuaternionAlgebra.imK_mul] at e1 e2 e3 f1 f2 f3
+  ext <;> simp [QuaternionAlgebra.algebraMap_eq] <;> linarith
+
+/-- `B` is central over `ℚ`. -/
+instance B6_isCentral : Algebra.IsCentral ℚ B6 where
+  out x hx := by
+    rw [Subalgebra.mem_center_iff] at hx
+    exact ⟨x.re, (B6_commute_i_j x (hx qi).symm (hx qj).symm).symm⟩
+
+/-- **Leaf L-B1 (Skolem–Noether, automorphism case).** Every `K`-algebra automorphism of a
+finite-dimensional central simple `K`-algebra is inner. -/
+def LeafSkolemNoether : Prop :=
+  ∀ (K : Type) [Field K] (A : Type) [Ring A] [Algebra K A] [Algebra.IsCentral K A]
+    [IsSimpleRing A] [FiniteDimensional K A] (φ : A ≃ₐ[K] A),
+    ∃ u : Aˣ, ∀ a : A, φ a = u * a * (u⁻¹ : Aˣ)
+
+/-! ### `B` is a division algebra, hence simple (so `LeafSkolemNoether` applies to it) -/
+
+theorem zmod3_aniso : ∀ x y : ZMod 3, x ^ 2 - 2 * y ^ 2 = 0 → x = 0 ∧ y = 0 := by decide
+
+theorem three_dvd_of_form {a b e : ℤ} (h : a ^ 2 - 2 * b ^ 2 + 3 * e = 0) : 3 ∣ a ∧ 3 ∣ b := by
+  have h3 : ((a : ZMod 3)) ^ 2 - 2 * (b : ZMod 3) ^ 2 = 0 := by
+    have := congrArg (fun z : ℤ => (z : ZMod 3)) h
+    push_cast at this
+    have h30 : (3 : ZMod 3) = 0 := by decide
+    rw [h30, zero_mul, add_zero] at this
+    exact this
+  obtain ⟨ha, hb⟩ := zmod3_aniso _ _ h3
+  exact ⟨(ZMod.intCast_zmod_eq_zero_iff_dvd a 3).mp ha, (ZMod.intCast_zmod_eq_zero_iff_dvd b 3).mp hb⟩
+
+/-- The norm form `a² - 2b² + 3c² - 6d²` of `B` is anisotropic over `ℤ` (descent mod 3). -/
+theorem aniso_int : ∀ (n : ℕ) (a b c d : ℤ), a.natAbs + b.natAbs + c.natAbs + d.natAbs ≤ n →
+    a ^ 2 - 2 * b ^ 2 + 3 * c ^ 2 - 6 * d ^ 2 = 0 → a = 0 ∧ b = 0 ∧ c = 0 ∧ d = 0 := by
+  intro n
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+  intro a b c d hn h
+  obtain ⟨⟨a', rfl⟩, ⟨b', rfl⟩⟩ :=
+    three_dvd_of_form (a := a) (b := b) (e := c ^ 2 - 2 * d ^ 2) (by linear_combination h)
+  have h' : c ^ 2 - 2 * d ^ 2 + 3 * (a' ^ 2 - 2 * b' ^ 2) = 0 := by
+    have : (3 : ℤ) * (c ^ 2 - 2 * d ^ 2 + 3 * (a' ^ 2 - 2 * b' ^ 2)) = 0 := by linear_combination h
+    exact (mul_eq_zero.mp this).resolve_left (by norm_num)
+  obtain ⟨⟨c', rfl⟩, ⟨d', rfl⟩⟩ := three_dvd_of_form (a := c) (b := d) h'
+  have h'' : a' ^ 2 - 2 * b' ^ 2 + 3 * c' ^ 2 - 6 * d' ^ 2 = 0 := by
+    have : (9 : ℤ) * (a' ^ 2 - 2 * b' ^ 2 + 3 * c' ^ 2 - 6 * d' ^ 2) = 0 := by linear_combination h
+    exact (mul_eq_zero.mp this).resolve_left (by norm_num)
+  by_cases hz : a' = 0 ∧ b' = 0 ∧ c' = 0 ∧ d' = 0
+  · obtain ⟨rfl, rfl, rfl, rfl⟩ := hz; simp
+  · exfalso
+    apply hz
+    have hsum : a'.natAbs + b'.natAbs + c'.natAbs + d'.natAbs < n := by
+      simp only [Int.natAbs_mul, show (3 : ℤ).natAbs = 3 from rfl] at hn
+      have : 0 < a'.natAbs + b'.natAbs + c'.natAbs + d'.natAbs := by
+        by_contra h0
+        apply hz
+        omega
+      omega
+    exact ih _ hsum a' b' c' d' le_rfl h''
+
+/-- Anisotropy over `ℚ`. -/
+theorem aniso_rat (a b c d : ℚ) (h : a ^ 2 - 2 * b ^ 2 + 3 * c ^ 2 - 6 * d ^ 2 = 0) :
+    a = 0 ∧ b = 0 ∧ c = 0 ∧ d = 0 := by
+  set D : ℚ := (a.den : ℚ) * b.den * c.den * d.den with hD
+  have hD0 : D ≠ 0 := by positivity
+  have hnum : ∀ q : ℚ, (q.num : ℚ) = q * q.den := fun q =>
+    (div_eq_iff (by positivity)).mp (Rat.num_div_den q)
+  have ha : a * D = ((a.num * (b.den * c.den * d.den) : ℤ) : ℚ) := by
+    push_cast; rw [hD, hnum a]; ring
+  have hb : b * D = ((b.num * (a.den * c.den * d.den) : ℤ) : ℚ) := by
+    push_cast; rw [hD, hnum b]; ring
+  have hc : c * D = ((c.num * (a.den * b.den * d.den) : ℤ) : ℚ) := by
+    push_cast; rw [hD, hnum c]; ring
+  have hd : d * D = ((d.num * (a.den * b.den * c.den) : ℤ) : ℚ) := by
+    push_cast; rw [hD, hnum d]; ring
+  set A := a.num * (b.den * c.den * d.den)
+  set B := b.num * (a.den * c.den * d.den)
+  set C := c.num * (a.den * b.den * d.den)
+  set E := d.num * (a.den * b.den * c.den)
+  have hint : A ^ 2 - 2 * B ^ 2 + 3 * C ^ 2 - 6 * E ^ 2 = 0 := by
+    have : ((A ^ 2 - 2 * B ^ 2 + 3 * C ^ 2 - 6 * E ^ 2 : ℤ) : ℚ) = 0 := by
+      push_cast
+      rw [← ha, ← hb, ← hc, ← hd]
+      linear_combination D ^ 2 * h
+    exact_mod_cast this
+  obtain ⟨h1, h2, h3, h4⟩ := aniso_int _ A B C E le_rfl hint
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · have := ha; rw [h1] at this; push_cast at this; exact (mul_eq_zero.mp this).resolve_right hD0
+  · have := hb; rw [h2] at this; push_cast at this; exact (mul_eq_zero.mp this).resolve_right hD0
+  · have := hc; rw [h3] at this; push_cast at this; exact (mul_eq_zero.mp this).resolve_right hD0
+  · have := hd; rw [h4] at this; push_cast at this; exact (mul_eq_zero.mp this).resolve_right hD0
+
+/-- `star x * x` is the scalar `x.re² - 2 x.imI² + 3 x.imJ² - 6 x.imK²`. -/
+theorem B6_star_mul (x : B6) :
+    star x * x = algebraMap ℚ B6 (x.re ^ 2 - 2 * x.imI ^ 2 + 3 * x.imJ ^ 2 - 6 * x.imK ^ 2) := by
+  rw [QuaternionAlgebra.star_mul_eq_coe]
+  congr 1
+  simp [QuaternionAlgebra.re_mul]
+  ring
+
+/-- **`B` is simple** (it is a division algebra: the norm form is anisotropic). -/
+instance B6_isSimpleRing : IsSimpleRing B6 := by
+  rw [isSimpleRing_iff_isTwoSided_imp]
+  refine ⟨inferInstance, fun I _ => ?_⟩
+  by_cases hI : I = ⊥
+  · exact Or.inl hI
+  · right
+    obtain ⟨x, hxI, hx0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hI
+    have hmem : star x * x ∈ I := I.mul_mem_left _ hxI
+    rw [B6_star_mul] at hmem
+    set n := x.re ^ 2 - 2 * x.imI ^ 2 + 3 * x.imJ ^ 2 - 6 * x.imK ^ 2
+    have hn : n ≠ 0 := by
+      intro h0
+      obtain ⟨h1, h2, h3, h4⟩ := aniso_rat _ _ _ _ h0
+      exact hx0 (QuaternionAlgebra.ext h1 h2 h3 h4)
+    exact Ideal.eq_top_of_isUnit_mem I hmem
+      ((IsUnit.mk0 n hn).map (algebraMap ℚ B6))
+
+/-- **B1, Skolem–Noether at `B`**: from the leaf, every `ℚ`-automorphism of `B` is inner. -/
+theorem B6_inner (hSN : LeafSkolemNoether) (φ : B6 ≃ₐ[ℚ] B6) :
+    ∃ u : B6ˣ, ∀ a : B6, φ a = u * a * (u⁻¹ : B6ˣ) :=
+  hSN ℚ B6 φ
+
+end GlueDescent
+
+
+end DescB1QuatSec
+
+section DescCochainSec
+/-! ### Copied from `scratch/glue-descent/Cochain.lean` (compiled there). -/
+
+/-!
+# glue-descent: the group theory of B2-B3 (N5 L693-716)
+
+`G` stands for `G_ℚ` (or the finite quotient `Gal(L'/ℚ)` through which everything factors),
+`H` for `G_L` (normal, of index `d = [L:ℚ]`), `ε` for the sign cocycle inflated from
+`Gal(L/ℚ) = G/H` and normalized, `U` for the coefficient group (`E^×` for a field `E`), and
+`β : G → U` for the cochain with `β σ β τ = ε(σ,τ) β(στ)`.
+
+Proved here, over arbitrary groups (genuine Mathlib definitions):
+
+* `β|_H` is a homomorphism and is invariant under conjugation by `G` (N5 L701);
+* `K' = ker β|_H` is normal in `G`, and `β` is constant on its cosets, so `β` factors
+  through `G/K' = Gal(L'/ℚ)` (implicit in N5);
+* if `β^{2m} = 1` on `H` with values in a field, `[H : K'] ≤ 2m`, hence
+  `[G : K'] ≤ 2m [G : H]` (N5 L711-714: `[L':ℚ] ≤ 2md`);
+* twisting by a character `η` with `η² = 1` changes neither `β² = χ` nor `dβ = ε`
+  (N5 L707-709);
+* the cohomological core of B2: if `ε · (dβ₀)⁻¹ = dγ` with `β₀² = χ` and `γ` valued in `±1`,
+  then `β = β₀ γ⁻¹` has `β² = χ` and `dβ = ε` (N5 L694-700).
+-/
+
+namespace GlueDescent
+
+section Basic
+
+variable {G : Type*} [Group G] {U : Type*} [CommGroup U]
+
+/-- The coboundary relation `β σ β τ = ε(σ,τ) β(στ)` (N5 L698). -/
+def IsCochainFor (ε : G → G → U) (β : G → U) : Prop :=
+  ∀ σ τ, β σ * β τ = ε σ τ * β (σ * τ)
+
+/-- `ε` is inflated from `G/H` and normalized: it is `1` as soon as one argument lies in `H`.
+(This is what "inflated from `Gal(L/ℚ)`" with `μ₁ = 1` gives: `ε(σ,τ)` depends only on the
+classes of `σ, τ` mod `H` and vanishes when one class is trivial.) -/
+def InflatedNormalized (H : Subgroup G) (ε : G → G → U) : Prop :=
+  ∀ σ τ, (σ ∈ H ∨ τ ∈ H) → ε σ τ = 1
+
+variable {H : Subgroup G} {ε : G → G → U} {β : G → U}
+
+theorem cochain_one (hβ : IsCochainFor ε β) (hε : InflatedNormalized H ε) : β 1 = 1 := by
+  have h := hβ 1 1
+  rw [hε 1 1 (Or.inl H.one_mem), one_mul, mul_one] at h
+  exact mul_eq_left.mp h
+
+theorem cochain_mul_right (hβ : IsCochainFor ε β) (hε : InflatedNormalized H ε) (σ : G)
+    {s : G} (hs : s ∈ H) : β (σ * s) = β σ * β s := by
+  rw [hβ, hε σ s (Or.inr hs), one_mul]
+
+theorem cochain_mul_left (hβ : IsCochainFor ε β) (hε : InflatedNormalized H ε) (σ : G)
+    {s : G} (hs : s ∈ H) : β (s * σ) = β s * β σ := by
+  rw [hβ, hε s σ (Or.inl hs), one_mul]
+
+/-- **B3, `β|_H` is a homomorphism** (N5 L701: "Its restriction to `G_L` is a character"). -/
+def restrictHom (hβ : IsCochainFor ε β) (hε : InflatedNormalized H ε) : H →* U where
+  toFun s := β s
+  map_one' := cochain_one hβ hε
+  map_mul' s t := cochain_mul_right hβ hε s t.2
+
+/-- **B3, invariance under `G`** (N5 L701: "invariant under `G_ℚ`"): for `s ∈ H` normal,
+`β(σ s σ⁻¹) = β(s)`. -/
+theorem cochain_conj [H.Normal] (hβ : IsCochainFor ε β) (hε : InflatedNormalized H ε) (σ : G)
+    {s : G} (hs : s ∈ H) : β (σ * s * σ⁻¹) = β s := by
+  have hc : σ * s * σ⁻¹ ∈ H := Subgroup.Normal.conj_mem inferInstance s hs σ
+  have h1 : β (σ * s) = β σ * β s := cochain_mul_right hβ hε σ hs
+  have h2 : β (σ * s) = β (σ * s * σ⁻¹) * β σ := by
+    rw [← cochain_mul_left hβ hε σ hc]; group
+  rw [h1, mul_comm (β (σ * s * σ⁻¹))] at h2
+  exact (mul_left_cancel h2).symm
+
+/-- `K' = ker(β|_H)`, as a subgroup of `G`. -/
+def kernelSubgroup (hβ : IsCochainFor ε β) (hε : InflatedNormalized H ε) : Subgroup G :=
+  (restrictHom hβ hε).ker.map H.subtype
+
+theorem mem_kernelSubgroup (hβ : IsCochainFor ε β) (hε : InflatedNormalized H ε) {g : G} :
+    g ∈ kernelSubgroup hβ hε ↔ g ∈ H ∧ β g = 1 := by
+  constructor
+  · rintro ⟨⟨s, hs⟩, hk, rfl⟩
+    exact ⟨hs, hk⟩
+  · rintro ⟨hs, hk⟩
+    exact ⟨⟨g, hs⟩, hk, rfl⟩
+
+/-- **B3, `L'/ℚ` is Galois** (N5 L712: "Conjugacy invariance shows that `L'/ℚ` is Galois"):
+`K'` is normal in `G`. -/
+theorem kernelSubgroup_normal [H.Normal] (hβ : IsCochainFor ε β) (hε : InflatedNormalized H ε) :
+    (kernelSubgroup hβ hε).Normal where
+  conj_mem g hg σ := by
+    rw [mem_kernelSubgroup] at hg ⊢
+    exact ⟨Subgroup.Normal.conj_mem inferInstance g hg.1 σ, by rw [cochain_conj hβ hε σ hg.1, hg.2]⟩
+
+/-- `β` is constant on the cosets of `K'`, so it factors through `G/K' = Gal(L'/ℚ)`. -/
+theorem cochain_mul_kernel (hβ : IsCochainFor ε β) (hε : InflatedNormalized H ε) (σ : G)
+    {k : G} (hk : k ∈ kernelSubgroup hβ hε) : β (σ * k) = β σ := by
+  rw [mem_kernelSubgroup] at hk
+  rw [cochain_mul_right hβ hε σ hk.1, hk.2, mul_one]
+
+/-- `K' ≤ H`. -/
+theorem kernelSubgroup_le (hβ : IsCochainFor ε β) (hε : InflatedNormalized H ε) :
+    kernelSubgroup hβ hε ≤ H := fun _ hg => ((mem_kernelSubgroup hβ hε).mp hg).1
+
+/-- **B3, twisting.** If `η : G →* U` and `β` is a cochain for `ε` with `β² = χ`, and
+`η² = 1`, then `β η` is a cochain for `ε` with `(β η)² = χ` (N5 L707-709: "changes neither
+displayed identity"). -/
+theorem twist (hβ : IsCochainFor ε β) (η : G →* U) :
+    IsCochainFor ε (fun σ => β σ * η σ) := by
+  intro σ τ
+  show β σ * η σ * (β τ * η τ) = ε σ τ * (β (σ * τ) * η (σ * τ))
+  calc β σ * η σ * (β τ * η τ) = (β σ * β τ) * (η σ * η τ) := by ac_rfl
+    _ = _ := by rw [hβ, ← map_mul]; ac_rfl
+
+theorem twist_sq (χ : G → U) (hχ : ∀ σ, β σ ^ 2 = χ σ) (η : G →* U) (hη : ∀ σ, η σ ^ 2 = 1)
+    (σ : G) : (β σ * η σ) ^ 2 = χ σ := by
+  rw [mul_pow, hχ, hη, mul_one]
+
+/-- **B2, the cohomological core** (N5 L694-700). `β₀` is a pointwise square root of the
+character `χ`; its coboundary `ε₀(σ,τ) = β₀ σ β₀ τ / β₀(στ)` differs from `ε` by the
+coboundary of a sign cochain `γ` (this is the global equality `δχ = [ε]` in
+`H²(G_ℚ, ±1)`). Then `β = β₀ γ⁻¹` satisfies `β² = χ` and `dβ = ε`. -/
+theorem cochain_of_boundary_eq (χ : G → U) (β₀ γ : G → U) (hβ₀ : ∀ σ, β₀ σ ^ 2 = χ σ)
+    (hγ : ∀ σ, γ σ ^ 2 = 1)
+    (hdiff : ∀ σ τ, β₀ σ * β₀ τ * (β₀ (σ * τ))⁻¹ =
+      ε σ τ * (γ σ * γ τ * (γ (σ * τ))⁻¹)) :
+    IsCochainFor ε (fun σ => β₀ σ * (γ σ)⁻¹) ∧ ∀ σ, (β₀ σ * (γ σ)⁻¹) ^ 2 = χ σ := by
+  refine ⟨fun σ τ => ?_, fun σ => ?_⟩
+  · have h := hdiff σ τ
+    have h' : β₀ σ * β₀ τ = ε σ τ * (γ σ * γ τ * (γ (σ * τ))⁻¹) * β₀ (σ * τ) := by
+      rw [← h]; group
+    calc β₀ σ * (γ σ)⁻¹ * (β₀ τ * (γ τ)⁻¹) = (β₀ σ * β₀ τ) * (γ σ * γ τ)⁻¹ := by
+          rw [mul_inv]; ac_rfl
+      _ = ε σ τ * (β₀ (σ * τ) * (γ (σ * τ))⁻¹) * ((γ σ * γ τ) * (γ σ * γ τ)⁻¹) := by
+          rw [h']; ac_rfl
+      _ = ε σ τ * (β₀ (σ * τ) * (γ (σ * τ))⁻¹) := by rw [mul_inv_cancel, mul_one]
+  · rw [mul_pow, hβ₀, inv_pow, hγ, inv_one, mul_one]
+
+/-- The coboundary of a square root of a character is a sign: if `β₀² = χ` with `χ`
+multiplicative, then `(β₀ σ β₀ τ / β₀(στ))² = 1`. -/
+theorem boundary_sq (χ : G →* U) (β₀ : G → U) (hβ₀ : ∀ σ, β₀ σ ^ 2 = χ σ) (σ τ : G) :
+    (β₀ σ * β₀ τ * (β₀ (σ * τ))⁻¹) ^ 2 = 1 := by
+  rw [mul_pow, mul_pow, inv_pow, hβ₀, hβ₀, hβ₀, map_mul, mul_inv_cancel]
+
+end Basic
+
+section Index
+
+variable {G : Type*} [Group G] {E : Type*} [Field E]
+variable {H : Subgroup G} {ε : G → G → Eˣ} {β : G → Eˣ}
+
+/-- **B3, the degree bound** (N5 L711-714). If `β^n = 1` on `H` (`n = 2m`: `β² = χ` and
+`χ^m = 1`), then `[H : K'] ≤ n`, because the image of `β|_H` lies in the `n`-th roots of unity
+of a field. -/
+theorem relindex_kernel_le (hβ : IsCochainFor ε β) (hε : InflatedNormalized H ε) (n : ℕ)
+    (hn : 0 < n) (hpow : ∀ s ∈ H, β s ^ n = 1) : (restrictHom hβ hε).ker.index ≤ n := by
+  classical
+  haveI : NeZero n := ⟨hn.ne'⟩
+  have hrange : (restrictHom hβ hε).range ≤ rootsOfUnity n E := by
+    rintro _ ⟨s, rfl⟩
+    rw [mem_rootsOfUnity]
+    exact hpow s s.2
+  rw [Subgroup.index_ker]
+  calc Nat.card (restrictHom hβ hε).range ≤ Nat.card (rootsOfUnity n E) :=
+        Subgroup.card_le_of_le hrange
+    _ ≤ n := card_rootsOfUnity E n
+
+/-- **B3, `[L':ℚ] ≤ 2m d`** in group form: `[G : K'] ≤ n [G : H]`. -/
+theorem index_kernel_le (hβ : IsCochainFor ε β) (hε : InflatedNormalized H ε) (n : ℕ)
+    (hn : 0 < n) (hpow : ∀ s ∈ H, β s ^ n = 1) :
+    (kernelSubgroup hβ hε).index ≤ n * H.index := by
+  have h := relindex_kernel_le hβ hε n hn hpow
+  have hrel : (kernelSubgroup hβ hε).relIndex H = (restrictHom hβ hε).ker.index := by
+    rw [kernelSubgroup, Subgroup.relIndex]
+    congr 1
+    exact Subgroup.comap_map_eq_self_of_injective H.subtype_injective _
+  rw [← Subgroup.relIndex_mul_index (kernelSubgroup_le hβ hε), hrel]
+  exact Nat.mul_le_mul_right _ h
+
+end Index
+
+section Inertia
+
+variable {G : Type*} [Group G] {U : Type*} [CommGroup U]
+
+/-- **B3, the twist kills inertia outside `T`** (N5 L702-709). `I v ≤ H` are the inertia groups
+at the primes `v ∉ T` (contained in `G_L` since `L` is unramified there). On each, `β` is a
+quadratic character (`β² = χ` and `χ` is unramified at `v`). `unique` is leaf L-B3a (at an
+odd prime there is a unique nontrivial quadratic character of inertia), and `hηI` says that the
+quadratic character `η` is ramified exactly where `β` is (leaf L-B3b for the Dirichlet
+character of conductor `P`). Then `βη` is trivial on every `I v`. -/
+theorem twist_kills_inertia {ι : Type*} (I : ι → Subgroup G) (β : G → U) (η : G →* U)
+    (hmul : ∀ v, ∀ s ∈ I v, ∀ t ∈ I v, β (s * t) = β s * β t)
+    (hquad : ∀ v, ∀ s ∈ I v, β s ^ 2 = 1) (hη2 : ∀ s, η s ^ 2 = 1)
+    (unique : ∀ v, ∀ φ ψ : I v →* U, (∀ s, φ s ^ 2 = 1) → (∀ s, ψ s ^ 2 = 1) →
+      φ ≠ 1 → ψ ≠ 1 → φ = ψ)
+    (hηI : ∀ v, (∃ s ∈ I v, η s ≠ 1) ↔ (∃ s ∈ I v, β s ≠ 1)) :
+    ∀ v, ∀ s ∈ I v, β s * η s = 1 := by
+  intro v s hs
+  by_cases hb : ∃ s ∈ I v, β s ≠ 1
+  · let βv : I v →* U :=
+      { toFun := fun t => β t
+        map_one' := by
+          have h := hmul v 1 (I v).one_mem 1 (I v).one_mem
+          rw [one_mul] at h
+          exact (mul_eq_left.mp h.symm)
+        map_mul' := fun t u => hmul v t t.2 u u.2 }
+    let ηv : I v →* U := η.comp (I v).subtype
+    have hβne : βv ≠ 1 := by
+      obtain ⟨t, ht, hne⟩ := hb
+      intro h; apply hne; exact congrArg (fun f : I v →* U => f ⟨t, ht⟩) h
+    have hηne : ηv ≠ 1 := by
+      obtain ⟨t, ht, hne⟩ := (hηI v).mpr hb
+      intro h; apply hne; exact congrArg (fun f : I v →* U => f ⟨t, ht⟩) h
+    have heq := unique v βv ηv (fun t => hquad v t t.2) (fun t => hη2 t) hβne hηne
+    have : β s = η s := congrArg (fun f : I v →* U => f ⟨s, hs⟩) heq
+    rw [this, ← sq, hη2]
+  · push_neg at hb
+    have hη : ∀ s ∈ I v, η s = 1 := by
+      by_contra h; push_neg at h
+      obtain ⟨t, ht, hne⟩ := (hηI v).mp h
+      exact hne (hb t ht)
+    rw [hb s hs, hη s hs, one_mul]
+
+/-- With `βη` trivial on `I v ≤ H`, the inertia group lies in `K' = ker(βη|_H)`:
+`L'` is unramified at `v`. -/
+theorem inertia_le_kernel {H : Subgroup G} {ε : G → G → U} {β : G → U}
+    (hβ : IsCochainFor ε β) (hε : InflatedNormalized H ε) (Iv : Subgroup G) (hI : Iv ≤ H)
+    (htriv : ∀ s ∈ Iv, β s = 1) : Iv ≤ kernelSubgroup hβ hε := fun s hs =>
+  (mem_kernelSubgroup hβ hε).mpr ⟨hI hs, htriv s hs⟩
+
+end Inertia
+
+end GlueDescent
+
+end DescCochainSec
+
+section DescConstantsSec
+/-! ### Copied from `scratch/glue-descent/Constants.lean` (compiled there). -/
+
+/-!
+# glue-descent: the constants of B2-B3 (N5 L674-677, L711-716)
+
+Against the repository's own definitions (`ZInQKernel/Hypotheses/Height.lean`): `heightD = D`,
+`heightE0 = E₀`, `heightQ R = Q_R = R^{R E₀}`, `contactSupport S u = M_S(u)`.
+
+* `prod_odd_le`: `∏_{p ∈ T, p ≠ 2} (p - 1) ≤ R^R · M` for `T = S ∪ supp M`
+  (N5 L676: `m ≤ 2 ∏_{p∈T, p≠2}(p-1) ≤ 2R^R M`);
+* `degree_le_QM`: if `d ≤ D` and `m ≤ 2 ∏_{p ∈ T, p ≠ 2}(p-1)` then `2md ≤ Q_R · M`
+  (N5 L713-716: `[L':ℚ] ≤ 2md ≤ 4DR^RM ≤ QM`).
+
+The huge constants are never evaluated: only `1 ≤ D ≤ R`, `10¹² ≤ R` and `10 ≤ E₀` are used.
+-/
+
+namespace GlueDescent
+
+open ZInQ
+
+/-- `T = S ∪ supp M_S(u)`, the ramification set of `L` (N5 L528). -/
+noncomputable def ramSet (S : Finset ℕ) (u : ℚ) : Finset ℕ :=
+  S ∪ (contactSupport S u).primeFactors
+
+theorem contactSupport_pos (S : Finset ℕ) (u : ℚ) : 0 < contactSupport S u := by
+  unfold contactSupport
+  apply Finset.prod_pos
+  intro p hp
+  exact (Nat.prime_of_mem_primeFactors (Finset.mem_filter.mp hp).1).pos
+
+theorem heightD_pos : 0 < heightD := by
+  rw [ZInQ.Compiler.Precision.heightD_eq]
+  exact Nat.mul_pos (Nat.factorial_pos 324) (by positivity)
+
+theorem ten_le_heightE0 : 10 ≤ heightE0 := by
+  rw [ZInQ.Compiler.Precision.heightE0_eq]
+  have h1 : 0 < heightD * heightG0 := Nat.mul_pos heightD_pos (by unfold heightG0; norm_num)
+  exact Nat.le_mul_of_pos_right 10 (pow_pos h1 2)
+
+/-- `∏_{p ∈ S} (p - 1) ≤ R^R` when `S` consists of primes `≤ R` and `R ≥ 1`. -/
+theorem prod_S_le (S : Finset ℕ) (hS : ∀ p ∈ S, p.Prime) (R : ℝ) (hR1 : 1 ≤ R)
+    (hRS : ∀ p ∈ S, (p : ℝ) ≤ R) : ((∏ p ∈ S, (p - 1) : ℕ) : ℝ) ≤ R ^ R := by
+  have hcard : (S.card : ℝ) ≤ R := by
+    have hsub : S ⊆ Finset.Icc 1 ⌊R⌋₊ := by
+      intro p hp
+      rw [Finset.mem_Icc]
+      exact ⟨(hS p hp).one_lt.le, Nat.le_floor (hRS p hp)⟩
+    have := Finset.card_le_card hsub
+    rw [Nat.card_Icc, Nat.add_sub_cancel] at this
+    calc (S.card : ℝ) ≤ ⌊R⌋₊ := by exact_mod_cast this
+      _ ≤ R := Nat.floor_le (by linarith)
+  calc ((∏ p ∈ S, (p - 1) : ℕ) : ℝ) = ∏ p ∈ S, (((p - 1 : ℕ)) : ℝ) := by push_cast [Nat.cast_prod]; rfl
+    _ ≤ ∏ _p ∈ S, R := by
+        apply Finset.prod_le_prod₀ (fun _ _ => by positivity)
+        intro p hp
+        have := hRS p hp
+        have h1 : ((p - 1 : ℕ) : ℝ) ≤ p := by exact_mod_cast Nat.sub_le p 1
+        linarith
+    _ = R ^ S.card := Finset.prod_const R
+    _ = R ^ (S.card : ℝ) := (Real.rpow_natCast R S.card).symm
+    _ ≤ R ^ R := Real.rpow_le_rpow_of_exponent_le hR1 hcard
+
+/-- Auxiliary form of `prod_odd_le` for an arbitrary positive `M`. -/
+theorem prod_odd_le_aux (S : Finset ℕ) (hS : ∀ p ∈ S, p.Prime) (R : ℝ) (hR1 : 1 ≤ R)
+    (hRS : ∀ p ∈ S, (p : ℝ) ≤ R) (M : ℕ) (hM : 0 < M) :
+    ((∏ p ∈ (S ∪ M.primeFactors).filter (· ≠ 2), (p - 1) : ℕ) : ℝ) ≤ R ^ R * M := by
+  -- drop the filter: the factors are ≥ 1 on primes
+  have hT : ∀ p ∈ S ∪ M.primeFactors, p.Prime := by
+    intro p hp
+    rcases Finset.mem_union.mp hp with h | h
+    · exact hS p h
+    · exact Nat.prime_of_mem_primeFactors h
+  have h1 : (∏ p ∈ (S ∪ M.primeFactors).filter (· ≠ 2), (p - 1)) ≤ ∏ p ∈ S ∪ M.primeFactors, (p - 1) := by
+    apply Finset.prod_le_prod_of_subset_of_one_le (Finset.filter_subset _ _)
+    intro p hp _
+    have := (hT p hp).two_le
+    omega
+  -- union bound
+  have h2 : (∏ p ∈ S ∪ M.primeFactors, (p - 1)) ≤
+      (∏ p ∈ S, (p - 1)) * ∏ p ∈ M.primeFactors, (p - 1) := by
+    rw [← Finset.prod_union_inter]
+    apply Nat.le_mul_of_pos_right
+    apply Finset.prod_pos
+    intro p hp
+    have := (hS p (Finset.mem_inter.mp hp).1).two_le
+    omega
+  have h3 : (∏ p ∈ M.primeFactors, (p - 1)) ≤ M :=
+    calc (∏ p ∈ M.primeFactors, (p - 1)) ≤ ∏ p ∈ M.primeFactors, p :=
+          Finset.prod_le_prod (fun p _ => Nat.sub_le p 1)
+      _ ≤ M := Nat.le_of_dvd hM (Nat.prod_primeFactors_dvd M)
+  have hS' := prod_S_le S hS R hR1 hRS
+  have hall : (∏ p ∈ (S ∪ M.primeFactors).filter (· ≠ 2), (p - 1)) ≤
+      (∏ p ∈ S, (p - 1)) * M := le_trans h1 (le_trans h2 (Nat.mul_le_mul_left _ h3))
+  calc ((∏ p ∈ (S ∪ M.primeFactors).filter (· ≠ 2), (p - 1) : ℕ) : ℝ)
+      ≤ (((∏ p ∈ S, (p - 1)) * M : ℕ) : ℝ) := by exact_mod_cast hall
+    _ = ((∏ p ∈ S, (p - 1) : ℕ) : ℝ) * M := by push_cast; ring
+    _ ≤ R ^ R * M := by
+        apply mul_le_mul_of_nonneg_right hS' (by positivity)
+
+/-- **B2's order bound, arithmetic part** (N5 L676): `∏_{p ∈ T, p ≠ 2} (p - 1) ≤ R^R · M`. -/
+theorem prod_odd_le (S : Finset ℕ) (hS : ∀ p ∈ S, p.Prime) (R : ℝ) (hR1 : 1 ≤ R)
+    (hRS : ∀ p ∈ S, (p : ℝ) ≤ R) (u : ℚ) :
+    ((∏ p ∈ (ramSet S u).filter (· ≠ 2), (p - 1) : ℕ) : ℝ) ≤ R ^ R * contactSupport S u :=
+  prod_odd_le_aux S hS R hR1 hRS _ (contactSupport_pos S u)
+
+/-- **B3, `[L':ℚ] ≤ QM`** (N5 L711-716). For an admissible `(S, R)` (the hypotheses of
+`SixContactEstimate`), `d ≤ D` and `m ≤ 2 ∏_{p ∈ T, p ≠ 2}(p - 1)`, one has
+`2 m d ≤ Q_R · M_S(u)`. -/
+theorem degree_le_QM (S : Finset ℕ) (hS : ∀ p ∈ S, p.Prime) (R : ℝ) (hRD : (heightD : ℝ) ≤ R)
+    (hRS : ∀ p ∈ S, (p : ℝ) ≤ R) (hR12 : (10 : ℝ) ^ 12 ≤ R) (u : ℚ) (d m : ℕ)
+    (hd : d ≤ heightD) (hm : m ≤ 2 * ∏ p ∈ (ramSet S u).filter (· ≠ 2), (p - 1)) :
+    (2 * m * d : ℝ) ≤ heightQ R * contactSupport S u := by
+  have hR4 : (4 : ℝ) ≤ R := le_trans (by norm_num) hR12
+  have hR1 : (1 : ℝ) ≤ R := by linarith
+  have hR0 : (0 : ℝ) < R := by linarith
+  have hP := prod_odd_le S hS R hR1 hRS u
+  have hM : (0 : ℝ) ≤ (contactSupport S u : ℝ) := Nat.cast_nonneg _
+  generalize (contactSupport S u : ℝ) = M at hP hM ⊢
+  have hm' : (m : ℝ) ≤ 2 * (R ^ R * M) := by
+    have : (m : ℝ) ≤ 2 * ((∏ p ∈ (ramSet S u).filter (· ≠ 2), (p - 1) : ℕ) : ℝ) := by
+      exact_mod_cast hm
+    linarith
+  have hd' : (d : ℝ) ≤ R := le_trans (by exact_mod_cast hd) hRD
+  have hRR : (0 : ℝ) ≤ R ^ R := by positivity
+  -- 2 m d ≤ 4 R^R M R ≤ R^R R^2 M = R^(R+2) M
+  have step1 : (2 * m * d : ℝ) ≤ R ^ (R + 2) * M := by
+    have hmd : (m : ℝ) * d ≤ 2 * (R ^ R * M) * R :=
+      mul_le_mul hm' hd' (by positivity) (by positivity)
+    rw [Real.rpow_add hR0, show (R ^ (2 : ℝ)) = R ^ 2 by
+      rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]]
+    have h4R : 4 * R ≤ R * R := mul_le_mul_of_nonneg_right hR4 hR0.le
+    have hX : (0 : ℝ) ≤ R ^ R * M := mul_nonneg hRR hM
+    calc (2 * m * d : ℝ) = 2 * ((m : ℝ) * d) := by ring
+      _ ≤ 2 * (2 * (R ^ R * M) * R) := by linarith
+      _ = (R ^ R * M) * (4 * R) := by ring
+      _ ≤ (R ^ R * M) * (R * R) := mul_le_mul_of_nonneg_left h4R hX
+      _ = R ^ R * R ^ 2 * M := by ring
+  -- R + 2 ≤ R E₀
+  have hE : (10 : ℝ) ≤ heightE0 := by exact_mod_cast ten_le_heightE0
+  have step2 : R ^ (R + 2) ≤ heightQ R := by
+    unfold heightQ
+    apply Real.rpow_le_rpow_of_exponent_le hR1
+    generalize (heightE0 : ℝ) = E at hE ⊢
+    have : R * 10 ≤ R * E := mul_le_mul_of_nonneg_left hE hR0.le
+    linarith
+  calc (2 * m * d : ℝ) ≤ R ^ (R + 2) * M := step1
+    _ ≤ heightQ R * M := mul_le_mul_of_nonneg_right step2 hM
+
+end GlueDescent
+
+end DescConstantsSec
+
+section DescChiSec
+/-! ### Copied from `scratch/glue-descent/Chi.lean` (compiled there). -/
+
+/-!
+# glue-descent: the Dirichlet character `χ` of B2 (N5 L671-677)
+
+N5 takes `T₋` to be the finite primes where the invariant of `[ε]` is `1/2`, picks an odd
+character of `(ℤ/p)^×` at each odd `p ∈ T₋` and the nontrivial character mod `4` if `2 ∈ T₋`,
+multiplies them to `χ`, and bounds the order `m ≤ 2 ∏_{p∈T, p≠2}(p-1)` (paraphrase).
+
+Proved here over Mathlib's `DirichletCharacter` (genuine definitions), for any finite set `T`
+of primes and any subset `T₋ ⊆ T`:
+
+* `exists_odd_char`: for `n > 2` there is a Dirichlet character mod `n` with `χ(-1) = -1`
+  (at `n = 4` it is the nontrivial character mod four);
+* `exists_chi`: the product `χ = ∏_{p ∈ T₋} χ_p` (each `χ_p` odd of level `p`, or `4` at `p = 2`,
+  raised to the level `N = ∏_{p ∈ T₋} lev p`) has level supported in `T` and
+  `orderOf χ ≤ 2 ∏_{p ∈ T, p ≠ 2} (p - 1)`.
+
+Not here: that the local invariant of `δχ` at `p` is `1/2` exactly when `χ_p(-1) = -1` (local
+class field theory; leaf L-B2c of `docs/research/glue-descent.md`).
+-/
+
+namespace GlueDescent
+
+open scoped Nat
+
+/-- The local level: `4` at `p = 2`, `p` at odd `p`. -/
+def lev (p : ℕ) : ℕ := if p = 2 then 4 else p
+
+theorem two_lt_lev {p : ℕ} (hp : p.Prime) : 2 < lev p := by
+  unfold lev
+  split_ifs with h
+  · norm_num
+  · have := hp.two_le; omega
+
+theorem totient_lev {p : ℕ} (hp : p.Prime) : φ (lev p) = if p = 2 then 2 else p - 1 := by
+  unfold lev
+  split_ifs with h
+  · decide
+  · exact Nat.totient_prime hp
+
+/-- For `n > 2` there is a Dirichlet character mod `n` that is odd: `χ(-1) = -1`. -/
+theorem exists_odd_char (n : ℕ) (hn : 2 < n) : ∃ χ : DirichletCharacter ℂ n, χ (-1) = -1 := by
+  haveI : Fact (2 < n) := ⟨hn⟩
+  haveI : NeZero n := ⟨by omega⟩
+  haveI : NeZero ((Monoid.exponent (ZMod n)ˣ : ℕ) : ℂ) :=
+    ⟨by exact_mod_cast (Monoid.exponent_ne_zero_of_finite (G := (ZMod n)ˣ))⟩
+  obtain ⟨χ, hχ⟩ :=
+    MulChar.exists_apply_ne_one_of_hasEnoughRootsOfUnity (ZMod n) ℂ (ZMod.neg_one_ne_one (n := n))
+  refine ⟨χ, ?_⟩
+  have h2 : χ (-1) * χ (-1) = 1 := by rw [← map_mul, neg_one_mul, neg_neg, map_one]
+  rcases mul_self_eq_one_iff.mp h2 with h | h
+  · exact absurd h hχ
+  · exact h
+
+/-- The order of a Dirichlet character mod `n` divides `φ(n)`. -/
+theorem orderOf_dvd_totient {n : ℕ} (χ : DirichletCharacter ℂ n) : orderOf χ ∣ φ n := by
+  apply orderOf_dvd_of_pow_eq_one
+  apply MulChar.ext
+  intro a
+  rw [MulChar.pow_apply_coe, MulChar.one_apply_coe, ← map_pow, ← Units.val_pow_eq_pow_val,
+    ZMod.pow_totient, Units.val_one, map_one]
+
+/-- In a commutative monoid, the order of a finite product divides the product of the orders. -/
+theorem orderOf_prod_dvd {M ι : Type*} [CommMonoid M] (s : Finset ι) (x : ι → M) :
+    orderOf (∏ i ∈ s, x i) ∣ ∏ i ∈ s, orderOf (x i) := by
+  apply orderOf_dvd_of_pow_eq_one
+  rw [← Finset.prod_pow]
+  apply Finset.prod_eq_one
+  intro i hi
+  obtain ⟨k, hk⟩ := Finset.dvd_prod_of_mem (fun i => orderOf (x i)) hi
+  rw [hk, pow_mul, pow_orderOf_eq_one, one_pow]
+
+/-- The chosen odd character of level `lev p`. -/
+noncomputable def oddChar (p : ℕ) : DirichletCharacter ℂ (lev p) :=
+  if h : 2 < lev p then Classical.choose (exists_odd_char _ h) else 1
+
+theorem oddChar_neg_one {p : ℕ} (hp : p.Prime) : oddChar p (-1) = -1 := by
+  unfold oddChar
+  rw [dif_pos (two_lt_lev hp)]
+  exact Classical.choose_spec (exists_odd_char _ (two_lt_lev hp))
+
+/-- The level `N = ∏_{p ∈ T₋} lev p` of `χ`. -/
+def chiLevel (Tm : Finset ℕ) : ℕ := ∏ p ∈ Tm, lev p
+
+theorem lev_dvd_chiLevel {Tm : Finset ℕ} {p : ℕ} (hp : p ∈ Tm) : lev p ∣ chiLevel Tm :=
+  Finset.dvd_prod_of_mem lev hp
+
+/-- `χ = ∏_{p ∈ T₋} χ_p`, raised to level `N`. -/
+noncomputable def chi (Tm : Finset ℕ) : DirichletCharacter ℂ (chiLevel Tm) :=
+  ∏ p ∈ Tm.attach, DirichletCharacter.changeLevel (lev_dvd_chiLevel p.2) (oddChar p.1)
+
+/-- The arithmetic of the order bound: `∏_{p ∈ T₋} φ(lev p) ≤ 2 ∏_{p ∈ T, p ≠ 2} (p - 1)`. -/
+theorem prod_totient_lev_le (T Tm : Finset ℕ) (hT : ∀ p ∈ T, p.Prime) (hTm : Tm ⊆ T) :
+    ∏ p ∈ Tm, φ (lev p) ≤ 2 * ∏ p ∈ T.filter (· ≠ 2), (p - 1) := by
+  rw [Finset.prod_congr rfl (fun p hp => totient_lev (hT p (hTm hp))),
+    ← Finset.prod_filter_mul_prod_filter_not Tm (· = 2)]
+  apply Nat.mul_le_mul
+  · -- the factor at 2 is at most 2
+    have hsub : Tm.filter (· = 2) ⊆ {2} := by
+      intro p hp; rw [Finset.mem_filter] at hp; simp [hp.2]
+    calc ∏ p ∈ Tm.filter (· = 2), (if p = 2 then 2 else p - 1)
+        = ∏ p ∈ Tm.filter (· = 2), 2 :=
+          Finset.prod_congr rfl (fun p hp => by rw [if_pos (Finset.mem_filter.mp hp).2])
+      _ ≤ ∏ p ∈ ({2} : Finset ℕ), 2 :=
+          Finset.prod_le_prod_of_subset_of_one_le hsub (fun _ _ _ => by norm_num)
+      _ = 2 := by simp
+  · calc ∏ p ∈ Tm.filter (fun p => ¬ p = 2), (if p = 2 then 2 else p - 1)
+        = ∏ p ∈ Tm.filter (fun p => ¬ p = 2), (p - 1) :=
+          Finset.prod_congr rfl (fun p hp => by rw [if_neg (Finset.mem_filter.mp hp).2])
+      _ ≤ ∏ p ∈ T.filter (· ≠ 2), (p - 1) := by
+          apply Finset.prod_le_prod_of_subset_of_one_le
+          · intro p hp
+            rw [Finset.mem_filter] at hp ⊢
+            exact ⟨hTm hp.1, hp.2⟩
+          · intro p hp _
+            have := (hT p (Finset.mem_filter.mp hp).1).two_le
+            omega
+
+/-- **B2, the character `χ`** (N5 L671-677). For a finite set `T` of primes and `T₋ ⊆ T`,
+the character `χ = ∏_{p ∈ T₋} χ_p` with each `χ_p` odd of level `lev p` has level divisible
+only by primes of `T`, and order at most `2 ∏_{p ∈ T, p ≠ 2} (p - 1)`. -/
+theorem exists_chi (T Tm : Finset ℕ) (hT : ∀ p ∈ T, p.Prime) (hTm : Tm ⊆ T) :
+    (∀ p ∈ Tm, oddChar p (-1) = -1) ∧
+    (∀ q : ℕ, q.Prime → q ∣ chiLevel Tm → q ∈ T) ∧
+    orderOf (chi Tm) ≤ 2 * ∏ p ∈ T.filter (· ≠ 2), (p - 1) := by
+  refine ⟨fun p hp => oddChar_neg_one (hT p (hTm hp)), ?_, ?_⟩
+  · intro q hq hdvd
+    obtain ⟨p, hp, hqp⟩ := (Prime.dvd_finsetProd_iff hq.prime _).mp hdvd
+    have hpT := hT p (hTm hp)
+    unfold lev at hqp
+    split_ifs at hqp with h2
+    · subst h2
+      have : q ∣ 2 := hq.prime.dvd_of_dvd_pow (show q ∣ 2 ^ 2 by norm_num at hqp ⊢; exact hqp)
+      rw [(Nat.prime_dvd_prime_iff_eq hq Nat.prime_two).mp this]
+      exact hTm hp
+    · rw [(Nat.prime_dvd_prime_iff_eq hq hpT).mp hqp]
+      exact hTm hp
+  · have hpos : 0 < ∏ p ∈ Tm, φ (lev p) := by
+      apply Finset.prod_pos
+      intro p hp
+      exact Nat.totient_pos.mpr (by have := two_lt_lev (hT p (hTm hp)); omega)
+    calc orderOf (chi Tm) ≤ ∏ p ∈ Tm, φ (lev p) := by
+          apply Nat.le_of_dvd hpos
+          refine (orderOf_prod_dvd _ _).trans ?_
+          rw [← Finset.prod_attach Tm (fun p => φ (lev p))]
+          apply Finset.prod_dvd_prod_of_dvd
+          intro p _
+          exact (orderOf_map_dvd _ _).trans (orderOf_dvd_totient _)
+      _ ≤ _ := prod_totient_lev_le T Tm hT hTm
+
+end GlueDescent
+
+
+end DescChiSec
+
+section DescB2GlueSec
+/-! ### Copied from `scratch/glue-descent/B2Glue.lean` (compiled there). -/
+
+/-!
+# glue-descent: the deduction of B2 from its literature inputs (N5 L665-700)
+
+An abstract but universally quantified form: `G` is any topological group (for the application,
+`G_ℚ` with the Krull topology), `ι` any index type (the finite primes), `Gv v` any topological
+groups with continuous homomorphisms `r v : Gv v →* G` (the decomposition groups
+`G_{ℚ_p} → G_ℚ` along a chosen embedding `ℚ̄ → ℚ̄_p`), and `U` any commutative group (`ℂ^×`).
+"Continuous with values in a discrete group" is `IsLocallyConstant`.
+
+A sign 2-cocycle `η` is *trivial* (`SignCob`) if `η = dγ` for a locally constant sign cochain
+`γ`. The hypotheses are exactly the inputs of N5's argument:
+
+* `hasse` (leaf L-B2a): a locally constant sign 2-cocycle on `G` that is trivial at every finite
+  place is trivial (injectivity of `H²(G_ℚ, ±1) → ∏_{p<∞} H²(G_{ℚ_p}, ±1)`: Kummer theory
+  with Hilbert 90, Albert–Brauer–Hasse–Noether and reciprocity, with `Br(ℝ)[2] = ℤ/2`);
+* `local_two` (leaf L-B2b): `H²(G_{ℚ_p}, ±1)` has at most two elements (`Br(ℚ_p)[2] = ℤ/2`);
+* `agree` (the local analysis of B2, leaves L-B2c, L-B2d): at every finite place, `[ε]` and
+  `δχ = [dβ₀]` are both trivial or both nontrivial.
+
+Conclusion: a locally constant `β` with `β² = χ` and `β σ β τ = ε(σ,τ) β(στ)`.
+-/
+
+namespace GlueDescent.B2
+
+variable {U : Type*} [CommGroup U]
+
+/-- `d β (σ, τ) = β σ β τ / β (στ)`. -/
+def dB {Γ : Type*} [Mul Γ] (β : Γ → U) (x y : Γ) : U := β x * β y * (β (x * y))⁻¹
+
+/-- `η` is a locally constant sign 2-cocycle (trivial action). -/
+def IsSignCocycle {Γ : Type*} [Mul Γ] [TopologicalSpace Γ] (η : Γ → Γ → U) : Prop :=
+  IsLocallyConstant (Function.uncurry η) ∧ (∀ x y, η x y ^ 2 = 1) ∧
+    ∀ x y z, η (x * y) z * η x y = η y z * η x (y * z)
+
+/-- `η` is the coboundary of a locally constant sign cochain. -/
+def SignCob {Γ : Type*} [Mul Γ] [TopologicalSpace Γ] (η : Γ → Γ → U) : Prop :=
+  ∃ γ : Γ → U, IsLocallyConstant γ ∧ (∀ x, γ x ^ 2 = 1) ∧ ∀ x y, η x y = dB γ x y
+
+section Pullback
+
+variable {Γ Δ : Type*} [Group Γ] [Group Δ] [TopologicalSpace Γ] [TopologicalSpace Δ]
+
+/-- Pull back a 2-cochain along a homomorphism. -/
+def pull (r : Δ →* Γ) (η : Γ → Γ → U) : Δ → Δ → U := fun x y => η (r x) (r y)
+
+theorem pull_dB (r : Δ →* Γ) (β : Γ → U) : pull r (dB β) = dB (β ∘ r) := by
+  funext x y; simp [pull, dB, map_mul]
+
+theorem isSignCocycle_pull (r : Δ →* Γ) (hr : Continuous r) {η : Γ → Γ → U}
+    (hη : IsSignCocycle η) : IsSignCocycle (pull r η) := by
+  refine ⟨?_, fun x y => hη.2.1 _ _, fun x y z => by simp only [pull, map_mul]; exact hη.2.2 _ _ _⟩
+  have : Function.uncurry (pull r η) = Function.uncurry η ∘ (Prod.map r r) := by
+    funext ⟨x, y⟩; rfl
+  rw [this]
+  exact hη.1.comp_continuous (hr.prodMap hr)
+
+end Pullback
+
+section Algebra
+
+variable {Γ : Type*} [Group Γ] [TopologicalSpace Γ]
+
+theorem dB_mul (β γ : Γ → U) : dB (fun x => β x * γ x) = fun x y => dB β x y * dB γ x y := by
+  funext x y; simp only [dB, mul_inv]; ac_rfl
+
+theorem dB_inv (γ : Γ → U) : dB (fun x => (γ x)⁻¹) = fun x y => (dB γ x y)⁻¹ := by
+  funext x y; simp only [dB, mul_inv, inv_inv]
+
+theorem signCob_mul {η₁ η₂ : Γ → Γ → U} (h₁ : SignCob η₁) (h₂ : SignCob η₂) :
+    SignCob (fun x y => η₁ x y * η₂ x y) := by
+  obtain ⟨γ₁, hl₁, hs₁, he₁⟩ := h₁
+  obtain ⟨γ₂, hl₂, hs₂, he₂⟩ := h₂
+  refine ⟨fun x => γ₁ x * γ₂ x, hl₁.mul hl₂, fun x => by rw [mul_pow, hs₁, hs₂, mul_one], ?_⟩
+  intro x y
+  show η₁ x y * η₂ x y = _
+  rw [he₁, he₂, dB_mul]
+
+theorem signCob_inv {η : Γ → Γ → U} (h : SignCob η) : SignCob (fun x y => (η x y)⁻¹) := by
+  obtain ⟨γ, hl, hs, he⟩ := h
+  refine ⟨fun x => (γ x)⁻¹, hl.inv, fun x => by rw [inv_pow, hs, inv_one], ?_⟩
+  intro x y
+  show (η x y)⁻¹ = _
+  rw [he, dB_inv]
+
+theorem isSignCocycle_mul {η₁ η₂ : Γ → Γ → U} (h₁ : IsSignCocycle η₁) (h₂ : IsSignCocycle η₂) :
+    IsSignCocycle (fun x y => η₁ x y * η₂ x y) := by
+  refine ⟨?_, fun x y => by rw [mul_pow, h₁.2.1, h₂.2.1, mul_one], fun x y z => ?_⟩
+  · have : Function.uncurry (fun x y => η₁ x y * η₂ x y) =
+        Function.uncurry η₁ * Function.uncurry η₂ := by funext ⟨x, y⟩; rfl
+    rw [this]; exact h₁.1.mul h₂.1
+  · have e1 := h₁.2.2 x y z
+    have e2 := h₂.2.2 x y z
+    show η₁ (x * y) z * η₂ (x * y) z * (η₁ x y * η₂ x y) =
+      η₁ y z * η₂ y z * (η₁ x (y * z) * η₂ x (y * z))
+    calc η₁ (x * y) z * η₂ (x * y) z * (η₁ x y * η₂ x y)
+        = (η₁ (x * y) z * η₁ x y) * (η₂ (x * y) z * η₂ x y) := by ac_rfl
+      _ = (η₁ y z * η₁ x (y * z)) * (η₂ y z * η₂ x (y * z)) := by rw [e1, e2]
+      _ = _ := by ac_rfl
+
+theorem isSignCocycle_inv {η : Γ → Γ → U} (h : IsSignCocycle η) :
+    IsSignCocycle (fun x y => (η x y)⁻¹) := by
+  refine ⟨?_, fun x y => by rw [inv_pow, h.2.1, inv_one], fun x y z => ?_⟩
+  · have : Function.uncurry (fun x y => (η x y)⁻¹) = (Function.uncurry η)⁻¹ := by
+      funext ⟨x, y⟩; rfl
+    rw [this]; exact h.1.inv
+  · show (η (x * y) z)⁻¹ * (η x y)⁻¹ = (η y z)⁻¹ * (η x (y * z))⁻¹
+    rw [← mul_inv, ← mul_inv, h.2.2 x y z]
+
+/-- The coboundary of a locally constant pointwise square root of a locally constant
+character is a sign 2-cocycle. -/
+theorem isSignCocycle_dB [IsTopologicalGroup Γ] (χ : Γ →* U) (β₀ : Γ → U)
+    (hβ₀ : ∀ x, β₀ x ^ 2 = χ x) (hl : IsLocallyConstant β₀) : IsSignCocycle (dB β₀) := by
+  refine ⟨?_, fun x y => ?_, fun x y z => ?_⟩
+  · have hm : Continuous (fun p : Γ × Γ => p.1 * p.2) := continuous_mul
+    have h1 : IsLocallyConstant (fun p : Γ × Γ => β₀ p.1) := hl.comp_continuous continuous_fst
+    have h2 : IsLocallyConstant (fun p : Γ × Γ => β₀ p.2) := hl.comp_continuous continuous_snd
+    have h3 : IsLocallyConstant (fun p : Γ × Γ => (β₀ (p.1 * p.2))⁻¹) :=
+      (hl.comp_continuous hm).inv
+    have : Function.uncurry (dB β₀) = ((fun p : Γ × Γ => β₀ p.1) * fun p => β₀ p.2) *
+        fun p => (β₀ (p.1 * p.2))⁻¹ := by funext ⟨x, y⟩; rfl
+    rw [this]; exact (h1.mul h2).mul h3
+  · simp only [dB, mul_pow, inv_pow, hβ₀, map_mul, mul_inv_cancel]
+  · simp only [dB]
+    apply Additive.ofMul.injective
+    simp only [ofMul_mul, ofMul_inv, mul_assoc]
+    abel
+
+end Algebra
+
+/-- **B2, the deduction** (N5 L665-700). See the module docstring for the hypotheses. -/
+theorem exists_beta {G : Type*} [Group G] [TopologicalSpace G] [IsTopologicalGroup G]
+    {ι : Type*} (Gv : ι → Type*) [∀ v, Group (Gv v)] [∀ v, TopologicalSpace (Gv v)]
+    (r : ∀ v, Gv v →* G) (hr : ∀ v, Continuous (r v))
+    (hasse : ∀ η : G → G → U, IsSignCocycle η → (∀ v, SignCob (pull (r v) η)) → SignCob η)
+    (local_two : ∀ v, ∀ η₁ η₂ : Gv v → Gv v → U, IsSignCocycle η₁ → IsSignCocycle η₂ →
+      ¬ SignCob η₁ → ¬ SignCob η₂ → SignCob (fun x y => η₁ x y * (η₂ x y)⁻¹))
+    (ε : G → G → U) (hε : IsSignCocycle ε)
+    (χ : G →* U) (β₀ : G → U) (hβ₀ : ∀ x, β₀ x ^ 2 = χ x) (hl : IsLocallyConstant β₀)
+    (agree : ∀ v, SignCob (pull (r v) ε) ↔ SignCob (pull (r v) (dB β₀))) :
+    ∃ β : G → U, IsLocallyConstant β ∧ (∀ x, β x ^ 2 = χ x) ∧
+      ∀ x y, β x * β y = ε x y * β (x * y) := by
+  have hd : IsSignCocycle (dB β₀) := isSignCocycle_dB χ β₀ hβ₀ hl
+  -- η = ε · (dβ₀)⁻¹
+  set η : G → G → U := fun x y => ε x y * (dB β₀ x y)⁻¹ with hηdef
+  have hη : IsSignCocycle η := isSignCocycle_mul hε (isSignCocycle_inv hd)
+  have hloc : ∀ v, SignCob (pull (r v) η) := by
+    intro v
+    have hpε := isSignCocycle_pull (r v) (hr v) hε
+    have hpd := isSignCocycle_pull (r v) (hr v) hd
+    have e : pull (r v) η = fun x y => pull (r v) ε x y * (pull (r v) (dB β₀) x y)⁻¹ := rfl
+    rw [e]
+    by_cases h : SignCob (pull (r v) ε)
+    · exact signCob_mul h (signCob_inv ((agree v).mp h))
+    · exact local_two v _ _ hpε hpd h (fun h' => h ((agree v).mpr h'))
+  obtain ⟨γ, hγl, hγs, hγe⟩ := hasse η hη hloc
+  -- β = β₀ γ
+  refine ⟨fun x => β₀ x * γ x, hl.mul hγl, fun x => by rw [mul_pow, hβ₀, hγs, mul_one], ?_⟩
+  intro x y
+  have hxy := hγe x y
+  simp only [hηdef, dB] at hxy
+  -- from ε · (dβ₀)⁻¹ = dγ:  β₀x γx β₀y γy = ε (β₀ (xy) γ (xy))
+  have key : ε x y = (β₀ x * β₀ y * (β₀ (x * y))⁻¹) * (γ x * γ y * (γ (x * y))⁻¹) := by
+    rw [← hxy]
+    apply Additive.ofMul.injective
+    simp only [ofMul_mul, ofMul_inv]
+    abel
+  show β₀ x * γ x * (β₀ y * γ y) = ε x y * (β₀ (x * y) * γ (x * y))
+  rw [key]
+  apply Additive.ofMul.injective
+  simp only [ofMul_mul, ofMul_inv]
+  abel
+
+
+/-- **B2, the cohomological form of the square-root criterion** (N5 L680-683, the exact sequence
+`1 → ±1 → μ_∞ → μ_∞ → 1`). For a character `ψ` with a locally constant pointwise square root
+`β₀`, the boundary `δψ = [dβ₀]` is trivial iff `ψ` has a locally constant square-root
+character. (Which characters of `G_{ℚ_p}` have square roots is local class field theory:
+leaf L-B2c.) -/
+theorem signCob_dB_iff {Γ : Type*} [Group Γ] [TopologicalSpace Γ] (ψ : Γ →* U) (β₀ : Γ → U)
+    (hβ₀ : ∀ x, β₀ x ^ 2 = ψ x) (hl : IsLocallyConstant β₀) :
+    SignCob (dB β₀) ↔ ∃ φ : Γ →* U, IsLocallyConstant φ ∧ ∀ x, φ x ^ 2 = ψ x := by
+  constructor
+  · rintro ⟨γ, hγl, hγs, hγe⟩
+    refine ⟨{ toFun := fun x => β₀ x * (γ x)⁻¹, map_one' := ?_, map_mul' := ?_ },
+      hl.mul hγl.inv, fun x => ?_⟩
+    · have h := hγe 1 1
+      simp only [dB, one_mul] at h
+      have h' : β₀ 1 * (γ 1)⁻¹ * (β₀ 1 * (γ 1)⁻¹) = β₀ 1 * (γ 1)⁻¹ := by
+        have : β₀ 1 * β₀ 1 * (β₀ 1)⁻¹ * (γ 1 * γ 1 * (γ 1)⁻¹)⁻¹ = 1 := by
+          rw [h, mul_inv_cancel]
+        apply Additive.ofMul.injective
+        have := congrArg Additive.ofMul this
+        simp only [ofMul_mul, ofMul_inv, ofMul_one] at this ⊢
+        rw [← sub_eq_zero]; rw [← this]; abel
+      exact mul_eq_left.mp h'
+    · intro x y
+      have h := hγe x y
+      simp only [dB] at h
+      have : β₀ x * β₀ y * (β₀ (x * y))⁻¹ * (γ x * γ y * (γ (x * y))⁻¹)⁻¹ = 1 := by
+        rw [h, mul_inv_cancel]
+      show β₀ (x * y) * (γ (x * y))⁻¹ = β₀ x * (γ x)⁻¹ * (β₀ y * (γ y)⁻¹)
+      apply Additive.ofMul.injective
+      have := congrArg Additive.ofMul this
+      simp only [ofMul_mul, ofMul_inv, ofMul_one] at this ⊢
+      rw [← sub_eq_zero, ← neg_eq_zero, ← this]; abel
+    · show (β₀ x * (γ x)⁻¹) ^ 2 = ψ x
+      rw [mul_pow, hβ₀, inv_pow, hγs, inv_one, mul_one]
+  · rintro ⟨φ, hφl, hφs⟩
+    refine ⟨fun x => β₀ x * (φ x)⁻¹, hl.mul hφl.inv, fun x => ?_, fun x y => ?_⟩
+    · rw [mul_pow, hβ₀, inv_pow, hφs, mul_inv_cancel]
+    · simp only [dB, map_mul]
+      apply Additive.ofMul.injective
+      simp only [ofMul_mul, ofMul_inv]
+      abel
+
+end GlueDescent.B2
+
+/-!
+## The leaves of B2 over genuine Mathlib objects
+
+`G_ℚ = Field.absoluteGaloisGroup ℚ` and `G_{ℚ_p} = Field.absoluteGaloisGroup ℚ_[p]` with their
+Krull topologies; `resp p : G_{ℚ_p} →* G_ℚ` is Mathlib's `absoluteGaloisGroup.map` along
+`ℚ → ℚ_p` (it depends on a choice of embedding `ℚ̄ → ℚ̄_p`; the vanishing of a class does not).
+Sign-valued cochains are `ℂ^×`-valued with square `1`. `cyc N : G_ℚ →* (ℤ/N)^×` is Mathlib's
+`modularCyclotomicCharacter` on `ℚ̄`.
+-/
+
+namespace GlueDescent.B2Q
+
+open GlueDescent.B2 NumberField
+
+/-- `G_ℚ`. -/
+abbrev GQ := Field.absoluteGaloisGroup ℚ
+
+instance : IsTopologicalGroup GQ :=
+  inferInstanceAs (IsTopologicalGroup (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ))
+
+local instance (p : Nat.Primes) : Fact (p : ℕ).Prime := ⟨p.2⟩
+
+/-- `G_{ℚ_p}`. -/
+abbrev GQp (p : Nat.Primes) := Field.absoluteGaloisGroup ℚ_[p]
+
+/-- The decomposition-group map `G_{ℚ_p} → G_ℚ`. -/
+noncomputable def resp (p : Nat.Primes) : GQp p →* GQ :=
+  (Field.absoluteGaloisGroup.map (algebraMap ℚ ℚ_[p])).toMonoidHom
+
+theorem resp_continuous (p : Nat.Primes) : Continuous (resp p) :=
+  (Field.absoluteGaloisGroup.map (algebraMap ℚ ℚ_[p])).continuous
+
+/-- The forgetful map `Gal(ℚ̄/ℚ) → Aut(ℚ̄)` as a monoid homomorphism. -/
+noncomputable def toRingAut : GQ →* (AlgebraicClosure ℚ ≃+* AlgebraicClosure ℚ) where
+  toFun σ := σ.toRingEquiv
+  map_one' := rfl
+  map_mul' _ _ := rfl
+
+/-- The cyclotomic character `G_ℚ → (ℤ/N)^×`. -/
+noncomputable def cyc (N : ℕ) [NeZero N] : GQ →* (ZMod N)ˣ :=
+  haveI : NeZero ((N : ℕ) : ℚ) := ⟨by exact_mod_cast NeZero.ne N⟩
+  (modularCyclotomicCharacter (AlgebraicClosure ℚ)
+    (HasEnoughRootsOfUnity.natCard_rootsOfUnity (AlgebraicClosure ℚ) N)).comp toRingAut
+
+/-- A Dirichlet character as a character of `G_ℚ`. -/
+noncomputable def galChar {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) : GQ →* ℂˣ :=
+  χ.toUnitHom.comp (cyc N)
+
+/-- **Leaf L-B2a** (Hasse principle for `H²(G_ℚ, ±1)` at the finite places). A continuous sign
+2-cocycle of `G_ℚ` whose restriction to every `G_{ℚ_p}` is a coboundary is a coboundary.
+Consequence of: `H²(G_K, μ₂) = Br(K)[2]` (Kummer theory, Hilbert 90), the
+Albert–Brauer–Hasse–Noether theorem `Br(ℚ) ↪ ⊕_v Br(ℚ_v)` with `∑_v inv_v = 0`, and
+`Br(ℝ) = ℤ/2` (so a class trivial at all finite places is trivial at `∞`). -/
+def LeafHasse : Prop :=
+  ∀ η : GQ → GQ → ℂˣ, IsSignCocycle η →
+    (∀ p : Nat.Primes, SignCob (pull (resp p) η)) → SignCob η
+
+/-- **Leaf L-B2b** (`H²(G_{ℚ_p}, ±1)` has at most two elements). Consequence of
+`H²(G_{ℚ_p}, μ₂) = Br(ℚ_p)[2] ≅ ℤ/2` (local class field theory). -/
+def LeafLocalTwo : Prop :=
+  ∀ p : Nat.Primes, ∀ η₁ η₂ : GQp p → GQp p → ℂˣ, IsSignCocycle η₁ → IsSignCocycle η₂ →
+    ¬ SignCob η₁ → ¬ SignCob η₂ → SignCob (fun x y => η₁ x y * (η₂ x y)⁻¹)
+
+/-- **Leaf L-B2c** (explicit local square-root criterion for Dirichlet characters). For a
+Dirichlet character `χ` mod `N` and a prime `p` with `N = p^k N'`, `p ∤ N'`, let `u ∈ (ℤ/N)^×`
+be `≡ -1 mod p^k` and `≡ 1 mod N'`. Then `χ|_{G_{ℚ_p}}` has a continuous square-root
+character iff `χ(u) = 1`. Consequence of local class field theory for `ℚ_p` with its explicit
+(Lubin–Tate / cyclotomic) reciprocity law — the local Artin map sends `-1 ∈ ℤ_p^×` to an element
+acting on `μ_N` through `u^{±1} = u` — together with the structure of `ℚ_p^×` (N5 L683-689: a
+finite-order character of `ℚ_p^×` has a square root iff its value at `-1` is `1`). -/
+def LeafSqrtCrit : Prop :=
+  ∀ (p : Nat.Primes) (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (u : (ZMod N)ˣ),
+    ((u : ZMod N).cast : ZMod ((p : ℕ) ^ N.factorization p)) = -1 →
+    ((u : ZMod N).cast : ZMod (N / (p : ℕ) ^ N.factorization p)) = 1 →
+    ((∃ φ : GQp p →* ℂˣ, IsLocallyConstant φ ∧ ∀ x, φ x ^ 2 = galChar χ (resp p x)) ↔
+      χ.toUnitHom u = 1)
+
+/-- An element of `G_ℚ` as an automorphism of `ℚ̄`. -/
+def act (σ : GQ) : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ := σ
+
+/-- `ε : G_ℚ × G_ℚ → ℂ^×` is inflated from `Gal(L/ℚ)`. -/
+def InflatedFrom (L : IntermediateField ℚ (AlgebraicClosure ℚ)) (ε : GQ → GQ → ℂˣ) : Prop :=
+  ∀ σ σ' τ τ' : GQ, (∀ x ∈ L, act σ x = act σ' x) → (∀ x ∈ L, act τ x = act τ' x) → ε σ τ = ε σ' τ'
+
+/-- `L` is unramified at `p`: every prime of `𝓞 L` above `p` has ramification index `1`. -/
+def UnramifiedAt (L : IntermediateField ℚ (AlgebraicClosure ℚ)) (p : ℕ) : Prop :=
+  ∀ P : Ideal (𝓞 L), P.IsPrime → ((p : ℤ) : 𝓞 L) ∈ P →
+    P.ramificationIdx ℤ = 1
+
+/-- **Leaf L-B2d** (unramified classes vanish locally). If `ε` is inflated from `Gal(L/ℚ)` for
+a finite Galois `L` unramified at `p`, its restriction to `G_{ℚ_p}` is a coboundary.
+Consequence of: the restriction is inflated from `Gal(ℚ_p^{ur}/ℚ_p) ≅ ℤ̂`, and
+`H²(ℤ̂, ℤ/2) = 0` (`cd ℤ̂ = 1`). -/
+def LeafUnramified : Prop :=
+  ∀ (L : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (ε : GQ → GQ → ℂˣ), IsSignCocycle ε → InflatedFrom L ε →
+    ∀ p : Nat.Primes, UnramifiedAt L p → SignCob (pull (resp p) ε)
+
+end GlueDescent.B2Q
+
+/-!
+## Toward the assembly of B2 over `G_ℚ`: continuity of the cyclotomic character
+-/
+
+namespace GlueDescent.B2Q
+
+open GlueDescent.B2 NumberField
+
+/-- A function on a topological group that is invariant under right translation by an open
+subgroup is locally constant. -/
+theorem isLocallyConstant_of_openSubgroup {G X : Type*} [Group G] [TopologicalSpace G]
+    [IsTopologicalGroup G] (U : Subgroup G) (hU : IsOpen (U : Set G)) (f : G → X)
+    (hf : ∀ g, ∀ k ∈ U, f (g * k) = f g) : IsLocallyConstant f := by
+  refine IsLocallyConstant.iff_isOpen_fiber.2 fun y => isOpen_iff_forall_mem_open.2 fun x hx =>
+    ⟨(x * ·) '' U, ?_, isOpenMap_mul_left x _ hU, ⟨1, U.one_mem, mul_one x⟩⟩
+  rintro _ ⟨k, hk, rfl⟩
+  simp only [Set.mem_preimage, Set.mem_singleton_iff] at hx ⊢
+  rw [hf x k hk, hx]
+
+theorem act_mul (σ τ : GQ) (x : AlgebraicClosure ℚ) : act (σ * τ) x = act σ (act τ x) := rfl
+
+/-- `cyc N σ` depends only on the action of `σ` on the `N`-th roots of unity. -/
+theorem cyc_eq_of_agree (N : ℕ) [NeZero N] (σ τ : GQ)
+    (h : ∀ t ∈ rootsOfUnity N (AlgebraicClosure ℚ),
+      act σ (t : AlgebraicClosure ℚ) = act τ (t : AlgebraicClosure ℚ)) :
+    cyc N σ = cyc N τ := by
+  haveI : NeZero ((N : ℕ) : ℚ) := ⟨by exact_mod_cast NeZero.ne N⟩
+  have hn := HasEnoughRootsOfUnity.natCard_rootsOfUnity (AlgebraicClosure ℚ) N
+  apply Units.ext
+  show ((modularCyclotomicCharacter (AlgebraicClosure ℚ) hn (toRingAut σ) : (ZMod N)ˣ) : ZMod N) =
+    ((modularCyclotomicCharacter (AlgebraicClosure ℚ) hn (toRingAut τ) : (ZMod N)ˣ) : ZMod N)
+  apply modularCyclotomicCharacter.unique _ hn
+  intro t ht
+  rw [← modularCyclotomicCharacter.spec (AlgebraicClosure ℚ) hn (toRingAut σ) ht]
+  exact (h t ht).symm
+
+/-- **The cyclotomic character is continuous** (locally constant): it is invariant under the
+open subgroup fixing `ℚ(μ_N)`. -/
+theorem cyc_isLocallyConstant (N : ℕ) [NeZero N] : IsLocallyConstant (cyc N) := by
+  let S : Set (AlgebraicClosure ℚ) :=
+    (fun t : (AlgebraicClosure ℚ)ˣ => (t : AlgebraicClosure ℚ)) ''
+      (rootsOfUnity N (AlgebraicClosure ℚ) : Set (AlgebraicClosure ℚ)ˣ)
+  have hfin : Finite (rootsOfUnity N (AlgebraicClosure ℚ) : Set (AlgebraicClosure ℚ)ˣ) :=
+    (inferInstance : Finite (rootsOfUnity N (AlgebraicClosure ℚ)))
+  haveI : Finite S := ((Set.toFinite _).image _).to_subtype
+  let K : IntermediateField ℚ (AlgebraicClosure ℚ) := IntermediateField.adjoin ℚ S
+  haveI : FiniteDimensional ℚ K :=
+    IntermediateField.finiteDimensional_adjoin (fun x _ => Algebra.IsIntegral.isIntegral x)
+  refine isLocallyConstant_of_openSubgroup (G := AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)
+    K.fixingSubgroup K.fixingSubgroup_isOpen (fun g => cyc N g) ?_
+  intro g k hk
+  apply cyc_eq_of_agree
+  intro t ht
+  have hfix : act k (t : AlgebraicClosure ℚ) = t :=
+    (IntermediateField.mem_fixingSubgroup_iff K k).mp hk _
+      (IntermediateField.subset_adjoin ℚ S ⟨t, ht, rfl⟩)
+  show g (k (t : AlgebraicClosure ℚ)) = g (t : AlgebraicClosure ℚ)
+  exact congrArg g hfix
+
+theorem galChar_isLocallyConstant {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) :
+    IsLocallyConstant (galChar χ) :=
+  show IsLocallyConstant (χ.toUnitHom ∘ cyc N) from (cyc_isLocallyConstant N).comp _
+
+/-- A square-root choice function on `ℂ^×`. -/
+noncomputable def sqrtU (z : ℂˣ) : ℂˣ :=
+  have h : ∃ w : ℂ, w ^ 2 = z := IsAlgClosed.exists_pow_nat_eq (z : ℂ) (by norm_num)
+  Units.mk0 (Classical.choose h) (by
+    intro h0
+    have := Classical.choose_spec h
+    rw [h0] at this
+    exact z.ne_zero (by rw [← this]; ring))
+
+theorem sqrtU_sq (z : ℂˣ) : sqrtU z ^ 2 = z := by
+  apply Units.ext
+  simp only [sqrtU, Units.val_pow_eq_pow_val, Units.val_mk0]
+  exact Classical.choose_spec (IsAlgClosed.exists_pow_nat_eq (z : ℂ) (by norm_num : 0 < 2))
+
+end GlueDescent.B2Q
+
+end DescB2GlueSec
+
+section DescB2AssemblySec
+/-! ### Copied from `scratch/glue-descent/B2Assembly.lean` (compiled there). -/
+
+/-!
+# glue-descent: B2 over `G_ℚ` from the four leaves L-B2a..d (N5 L665-700)
+
+`b2_of_leaves`: for a finite Galois `L ⊂ ℚ̄` unramified outside a finite set `T` of primes, and
+a continuous sign 2-cocycle `ε` of `G_ℚ` inflated from `Gal(L/ℚ)`, the four leaves give a set
+`T₋ ⊆ T`, the Dirichlet character `χ = ∏_{p ∈ T₋} χ_p` of `Chi.lean` (level supported in `T`,
+order `≤ 2 ∏_{p∈T, p≠2}(p-1)`), and a continuous `β : G_ℚ → ℂ^×` with `β² = χ` and
+`dβ = ε`. Everything is over Mathlib's genuine objects (`Field.absoluteGaloisGroup`, `ℚ_[p]`,
+`modularCyclotomicCharacter`, `DirichletCharacter`, `𝓞 L`).
+
+Compile (out of tree, one file at a time; `OUT = scratch/glue-descent/.lake/out`):
+`lake env bash -c "LEAN_PATH=$OUT:\$LEAN_PATH lean -o $OUT/GlueDescent/Chi.olean scratch/glue-descent/Chi.lean"`,
+the same for `B2Glue`, then `lake env bash -c "LEAN_PATH=$OUT:\$LEAN_PATH lean scratch/glue-descent/B2Assembly.lean"`.
+-/
+
+namespace GlueDescent.B2Q
+
+open GlueDescent GlueDescent.B2 NumberField
+
+local instance (p : Nat.Primes) : Fact (p : ℕ).Prime := ⟨p.2⟩
+
+theorem chiLevel_pos (Tm : Finset ℕ) (h : ∀ p ∈ Tm, p.Prime) : 0 < chiLevel Tm :=
+  Finset.prod_pos (fun p hp => by have := two_lt_lev (h p hp); omega)
+
+/-- The unit `u ∈ (ℤ/N)^×` with `u ≡ -1 mod p^k`, `u ≡ 1 mod N'` (`N = p^k N'`). -/
+theorem exists_crt_unit (N : ℕ) [NeZero N] (p : ℕ) (hp : p.Prime) :
+    ∃ u : (ZMod N)ˣ, ((u : ZMod N).cast : ZMod (p ^ N.factorization p)) = -1 ∧
+      ((u : ZMod N).cast : ZMod (N / p ^ N.factorization p)) = 1 := by
+  have hN : p ^ N.factorization p * (N / p ^ N.factorization p) = N :=
+    Nat.ordProj_mul_ordCompl_eq_self N p
+  have hcop : Nat.Coprime (p ^ N.factorization p) (N / p ^ N.factorization p) :=
+    (Nat.coprime_ordCompl hp (NeZero.ne N)).pow_left _
+  generalize N.factorization p = k at hN hcop ⊢
+  generalize N / p ^ k = N' at hN hcop ⊢
+  let e := ZMod.chineseRemainder hcop
+  let φ : ZMod (p ^ k * N') →+* ZMod N := ZMod.castHom (dvd_of_eq hN.symm) (ZMod N)
+  have h1 : ∀ z, (((φ z : ZMod N)).cast : ZMod (p ^ k)) = (e z).1 := by
+    intro z
+    have : (ZMod.castHom (Dvd.intro N' hN) (ZMod (p ^ k))).comp φ =
+        (RingHom.fst _ _).comp e.toRingHom := Subsingleton.elim _ _
+    simpa [ZMod.castHom_apply] using congrArg (fun f => f z) this
+  have h2 : ∀ z, (((φ z : ZMod N)).cast : ZMod N') = (e z).2 := by
+    intro z
+    have : (ZMod.castHom (Dvd.intro_left _ hN) (ZMod N')).comp φ =
+        (RingHom.snd _ _).comp e.toRingHom := Subsingleton.elim _ _
+    simpa [ZMod.castHom_apply] using congrArg (fun f => f z) this
+  let y := e.symm (-1, 1)
+  have hyy : y * y = 1 := by
+    apply e.injective
+    rw [map_mul, map_one]
+    simp [y]
+  refine ⟨⟨φ y, φ y, by rw [← map_mul, hyy, map_one], by rw [← map_mul, hyy, map_one]⟩, ?_, ?_⟩
+  · show ((φ y : ZMod N).cast : ZMod (p ^ k)) = -1
+    rw [h1]; simp [y]
+  · show ((φ y : ZMod N).cast : ZMod N') = 1
+    rw [h2]; simp [y]
+
+theorem lev_eq_pow (p : ℕ) : ∃ j, 0 < j ∧ lev p = p ^ j := by
+  unfold lev
+  split_ifs with h
+  · exact ⟨2, by norm_num, by rw [h]; norm_num⟩
+  · exact ⟨1, by norm_num, (pow_one p).symm⟩
+
+/-- Casting through an intermediate level. -/
+theorem cast_cast_of_dvd {a b c : ℕ} (hab : b ∣ a) (hbc : c ∣ b) (x : ZMod a) :
+    (((x.cast : ZMod b)).cast : ZMod c) = (x.cast : ZMod c) := by
+  have : (ZMod.castHom hbc (ZMod c)).comp (ZMod.castHom hab (ZMod b)) =
+      ZMod.castHom (hbc.trans hab) (ZMod c) := Subsingleton.elim _ _
+  have h := congrArg (fun f => f x) this
+  simp only [RingHom.comp_apply, ZMod.castHom_apply] at h
+  exact h
+
+/-- **The value of `χ` at the CRT unit**: `χ(u_p) = -1` if `p ∈ T₋` and `1` otherwise. -/
+theorem chi_toUnitHom_crt (Tm : Finset ℕ) (hTm : ∀ q ∈ Tm, q.Prime) (p : ℕ) (hp : p.Prime)
+    (u : (ZMod (chiLevel Tm))ˣ)
+    (hu1 : ((u : ZMod (chiLevel Tm)).cast :
+      ZMod (p ^ (chiLevel Tm).factorization p)) = -1)
+    (hu2 : ((u : ZMod (chiLevel Tm)).cast :
+      ZMod (chiLevel Tm / p ^ (chiLevel Tm).factorization p)) = 1) :
+    (chi Tm).toUnitHom u = if p ∈ Tm then -1 else 1 := by
+  have hN0 : chiLevel Tm ≠ 0 := (chiLevel_pos Tm hTm).ne'
+  have factor : ∀ q (hq : q ∈ Tm),
+      (DirichletCharacter.changeLevel (lev_dvd_chiLevel hq) (oddChar q)).toUnitHom u =
+        if q = p then -1 else 1 := by
+    intro q hq
+    rw [DirichletCharacter.changeLevel_toUnitHom, MonoidHom.comp_apply]
+    split_ifs with hqp
+    · subst hqp
+      -- lev q ∣ q^k
+      obtain ⟨j, hj, hlev⟩ := lev_eq_pow q
+      have hdvdN : q ^ j ∣ chiLevel Tm := hlev ▸ lev_dvd_chiLevel hq
+      have hjk : j ≤ (chiLevel Tm).factorization q :=
+        (hp.pow_dvd_iff_le_factorization hN0).mp hdvdN
+      have hlevk : lev q ∣ q ^ (chiLevel Tm).factorization q := hlev ▸ pow_dvd_pow q hjk
+      have hval : (ZMod.unitsMap (lev_dvd_chiLevel hq) u : ZMod (lev q)) = -1 := by
+        rw [ZMod.unitsMap_val, ← cast_cast_of_dvd (Nat.ordProj_dvd _ _) hlevk, hu1,
+          ← ZMod.castHom_apply (h := hlevk) (R := ZMod (lev q)), map_neg, map_one]
+      have hu : ZMod.unitsMap (lev_dvd_chiLevel hq) u = -1 := Units.ext (by rw [hval]; rfl)
+      rw [hu]
+      apply Units.ext
+      rw [MulChar.coe_toUnitHom, Units.val_neg, Units.val_one, Units.val_neg, Units.val_one]
+      exact oddChar_neg_one hp
+    · obtain ⟨j, hj, hlev⟩ := lev_eq_pow q
+      have hq' := hTm q hq
+      have hnd : ¬ p ∣ lev q := by
+        rw [hlev]
+        intro h
+        exact hqp ((Nat.prime_dvd_prime_iff_eq hp hq').mp (hp.dvd_of_dvd_pow h)).symm
+      have hlevN' : lev q ∣ chiLevel Tm / p ^ (chiLevel Tm).factorization p :=
+        Nat.dvd_ordCompl_of_dvd_not_dvd (lev_dvd_chiLevel hq) hnd
+      have hval : (ZMod.unitsMap (lev_dvd_chiLevel hq) u : ZMod (lev q)) = 1 := by
+        rw [ZMod.unitsMap_val, ← cast_cast_of_dvd (Nat.ordCompl_dvd _ _) hlevN', hu2,
+          ← ZMod.castHom_apply (h := hlevN') (R := ZMod (lev q)), map_one]
+      have hu : ZMod.unitsMap (lev_dvd_chiLevel hq) u = 1 := Units.ext hval
+      rw [hu, map_one]
+  have hprod : (chi Tm).toUnitHom =
+      ∏ q ∈ Tm.attach,
+        (DirichletCharacter.changeLevel (lev_dvd_chiLevel q.2) (oddChar q.1)).toUnitHom := by
+    have := map_prod (MulChar.mulEquivToUnitHom (R := ZMod (chiLevel Tm)) (R' := ℂ))
+      (fun q : Tm => DirichletCharacter.changeLevel (lev_dvd_chiLevel q.2) (oddChar q.1))
+      Tm.attach
+    exact this
+  rw [hprod, MonoidHom.finsetProd_apply]
+  rw [Finset.prod_congr rfl (fun q _ => factor q.1 q.2)]
+  rw [Finset.prod_attach Tm (fun q => if q = p then (-1 : ℂˣ) else 1)]
+  rw [Finset.prod_ite_eq']
+
+/-- **B2 over `G_ℚ`, from the four leaves** (N5 L665-700). -/
+theorem b2_of_leaves (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit)
+    (hUnr : LeafUnramified)
+    (L : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (ε : GQ → GQ → ℂˣ) (hε : IsSignCocycle ε) (hinf : InflatedFrom L ε)
+    (T : Finset ℕ) (hT : ∀ p ∈ T, p.Prime)
+    (hram : ∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p) :
+    ∃ (N : ℕ) (hN : NeZero N) (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ),
+      (∀ q : ℕ, q.Prime → q ∣ N → q ∈ T) ∧
+      orderOf χ ≤ 2 * ∏ p ∈ T.filter (· ≠ 2), (p - 1) ∧
+      IsLocallyConstant β ∧ (∀ x, β x ^ 2 = galChar χ x) ∧
+      ∀ x y, β x * β y = ε x y * β (x * y) := by
+  classical
+  let Tm := T.filter (fun p => ∃ hp : p.Prime, ¬ SignCob (pull (resp ⟨p, hp⟩) ε))
+  have hloc : ∀ p : Nat.Primes, ¬ SignCob (pull (resp p) ε) ↔ (p : ℕ) ∈ Tm := by
+    intro p
+    constructor
+    · intro h
+      refine Finset.mem_filter.2 ⟨?_, p.2, h⟩
+      by_contra hpT
+      exact h (hUnr L ε hε hinf p (hram p hpT))
+    · intro h
+      obtain ⟨_, hp, h'⟩ := Finset.mem_filter.1 h
+      exact h'
+  have hTmP : ∀ q ∈ Tm, q.Prime := fun q hq => hT q (Finset.filter_subset _ _ hq)
+  haveI hN : NeZero (chiLevel Tm) := ⟨(chiLevel_pos Tm hTmP).ne'⟩
+  obtain ⟨_, hsupp, hord⟩ := exists_chi T Tm hT (Finset.filter_subset _ _)
+  let χ := chi Tm
+  let β₀ : GQ → ℂˣ := fun x => sqrtU (galChar χ x)
+  have hβ₀ : ∀ x, β₀ x ^ 2 = galChar χ x := fun x => sqrtU_sq _
+  have hl : IsLocallyConstant β₀ := (galChar_isLocallyConstant χ).comp sqrtU
+  have agree : ∀ p : Nat.Primes,
+      SignCob (pull (resp p) ε) ↔ SignCob (pull (resp p) (dB β₀)) := by
+    intro p
+    rw [pull_dB, signCob_dB_iff ((galChar χ).comp (resp p)) (β₀ ∘ resp p) (fun x => hβ₀ _)
+      (hl.comp_continuous (resp_continuous p))]
+    obtain ⟨u, hu1, hu2⟩ := exists_crt_unit (chiLevel Tm) p p.2
+    have hsq := hSq p (chiLevel Tm) χ u hu1 hu2
+    have hsq' : (∃ φ : GQp p →* ℂˣ, IsLocallyConstant φ ∧
+        ∀ x, φ x ^ 2 = ((galChar χ).comp (resp p)) x) ↔ χ.toUnitHom u = 1 := hsq
+    rw [hsq', chi_toUnitHom_crt Tm hTmP p p.2 u hu1 hu2]
+    by_cases h : (p : ℕ) ∈ Tm
+    · rw [if_pos h]
+      have hne : (-1 : ℂˣ) ≠ 1 := by
+        intro h1
+        have := congrArg (fun z : ℂˣ => (z : ℂ)) h1
+        norm_num at this
+      constructor
+      · intro hc; exact absurd hc ((hloc p).mpr h)
+      · intro h1; exact absurd h1 hne
+    · rw [if_neg h]
+      simp only [iff_true]
+      by_contra hc
+      exact h ((hloc p).mp hc)
+  obtain ⟨β, hβl, hβs, hβe⟩ := exists_beta (G := GQ) GQp resp resp_continuous hHasse hTwo ε hε
+    (galChar χ) β₀ hβ₀ hl agree
+  exact ⟨chiLevel Tm, hN, χ, β, hsupp, hord, hβl, hβs, hβe⟩
+
+end GlueDescent.B2Q
+
+
+end DescB2AssemblySec
+
+section DescB3AssemblySec
+/-! ### Copied from `scratch/glue-descent/B3Assembly.lean` (compiled there). -/
+
+/-!
+# glue-descent: B3 over `G_ℚ` (N5 L701-716), from the leaves of B2
+
+`b3_of_leaves`: with the hypotheses of `b2_of_leaves` and `ε` normalized (`ε(1,1) = 1`), there
+are `χ`, `β` as in B2 and an intermediate field `L' ⊇ L` of `ℚ̄/ℚ` (the kernel field of
+`β|_{G_L}`), Galois over `ℚ`, with `G_{L'} = ker(β|_{G_L})`, `β` constant on the cosets of
+`G_{L'}`, and `[L' : ℚ] ≤ 2 · ord(χ) · [L : ℚ]`.
+
+`b3_degree_le_QM`: if moreover `[L:ℚ] ≤ D` and `T = S ∪ supp M_S(u)` for an admissible `(S, R)`,
+then `[L' : ℚ] ≤ Q_R · M_S(u)` (the repository's `heightQ`, `contactSupport`).
+
+Not here: that `L'` is unramified outside `T` after the twist of N5 L702-709. Its group theory is
+`twist_kills_inertia` and `inertia_le_kernel` (Cochain.lean); it needs inertia subgroups of
+`G_ℚ` (absent from Mathlib) and leaves L-B3a, L-B3b.
+
+Compile out of tree as in B2Assembly.lean (oleans for Cochain, Constants, Chi, B2Glue,
+B2Assembly in `scratch/glue-descent/.lake/out/GlueDescent/`).
+-/
+
+namespace GlueDescent.B3Q
+
+open GlueDescent GlueDescent.B2 GlueDescent.B2Q
+
+instance : IsGalois ℚ (AlgebraicClosure ℚ) := {}
+
+/-- `G_L ≤ G_ℚ`. -/
+noncomputable def GQL (L : IntermediateField ℚ (AlgebraicClosure ℚ)) : Subgroup GQ := L.fixingSubgroup
+
+theorem mem_GQL {L : IntermediateField ℚ (AlgebraicClosure ℚ)} {σ : GQ} :
+    σ ∈ GQL L ↔ ∀ x ∈ L, act σ x = x :=
+  IntermediateField.mem_fixingSubgroup_iff L σ
+
+/-- A normalized cocycle inflated from `Gal(L/ℚ)` is `1` as soon as one argument is in `G_L`. -/
+theorem inflatedNormalized_of (L : IntermediateField ℚ (AlgebraicClosure ℚ))
+    (ε : GQ → GQ → ℂˣ) (hε : IsSignCocycle ε) (hinf : InflatedFrom L ε) (h11 : ε 1 1 = 1) :
+    InflatedNormalized (GQL L) ε := by
+  have hc := hε.2.2
+  intro σ τ h
+  rcases h with h | h
+  · have e1 : ε σ τ = ε 1 τ :=
+      hinf σ 1 τ τ (fun x hx => (mem_GQL.mp h x hx)) (fun _ _ => rfl)
+    have e2 : ε 1 τ = ε 1 1 := by
+      have := hc 1 1 τ
+      simp only [one_mul] at this
+      exact (mul_left_cancel this).symm
+    rw [e1, e2, h11]
+  · have e1 : ε σ τ = ε σ 1 :=
+      hinf σ σ τ 1 (fun _ _ => rfl) (fun x hx => (mem_GQL.mp h x hx))
+    have e2 : ε σ 1 = ε 1 1 := by
+      have := hc σ 1 1
+      simp only [mul_one] at this
+      exact mul_right_cancel this
+    rw [e1, e2, h11]
+
+theorem orderOf_pos_dirichlet {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) : 0 < orderOf χ := by
+  have h := orderOf_dvd_totient χ
+  have hφ : 0 < Nat.totient N := Nat.totient_pos.mpr (Nat.pos_of_ne_zero (NeZero.ne N))
+  rcases Nat.eq_zero_or_pos (orderOf χ) with h0 | h0
+  · rw [h0, zero_dvd_iff] at h; omega
+  · exact h0
+
+/-- **B3 over `G_ℚ`** (N5 L701-716). `η` is any continuous quadratic character (N5's twist
+killing inertia outside `T`; take `η = 1` for the untwisted cochain): `β = β_{B2} · η`. -/
+theorem b3_of_leaves (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit)
+    (hUnr : LeafUnramified)
+    (L : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (ε : GQ → GQ → ℂˣ) (hε : IsSignCocycle ε) (hinf : InflatedFrom L ε) (h11 : ε 1 1 = 1)
+    (T : Finset ℕ) (hT : ∀ p ∈ T, p.Prime)
+    (hram : ∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p)
+    (η : GQ →* ℂˣ) (hη : ∀ x, η x ^ 2 = 1) (hηl : IsLocallyConstant η) :
+    ∃ (N : ℕ) (hN : NeZero N) (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ)
+      (L' : IntermediateField ℚ (AlgebraicClosure ℚ)),
+      (∀ q : ℕ, q.Prime → q ∣ N → q ∈ T) ∧
+      orderOf χ ≤ 2 * ∏ p ∈ T.filter (· ≠ 2), (p - 1) ∧
+      IsLocallyConstant β ∧ (∀ x, β x ^ 2 = galChar χ x) ∧
+      (∀ x y, β x * β y = ε x y * β (x * y)) ∧
+      L ≤ L' ∧ FiniteDimensional ℚ L' ∧ IsGalois ℚ L' ∧
+      (∀ σ : GQ, σ ∈ GQL L' ↔ σ ∈ GQL L ∧ β σ = 1) ∧
+      (∀ σ k : GQ, k ∈ GQL L' → β (σ * k) = β σ) ∧
+      Module.finrank ℚ L' ≤ 2 * orderOf χ * Module.finrank ℚ L := by
+  obtain ⟨N, hN, χ, β₁, hsupp, hord, hβl₁, hβs₁, hβe₁⟩ :=
+    b2_of_leaves hHasse hTwo hSq hUnr L ε hε hinf T hT hram
+  -- the twist `β = β₁ η` (N5 L707-709; `η = 1` gives the untwisted cochain)
+  let β : GQ → ℂˣ := fun x => β₁ x * η x
+  have hβl : IsLocallyConstant β := hβl₁.mul hηl
+  have hβs : ∀ x, β x ^ 2 = galChar χ x := twist_sq (galChar χ) hβs₁ η hη
+  have hβe : ∀ x y, β x * β y = ε x y * β (x * y) := twist hβe₁ η
+  have hεN := inflatedNormalized_of L ε hε hinf h11
+  have hβ : IsCochainFor ε β := hβe
+  let K' : Subgroup GQ := kernelSubgroup hβ hεN
+  -- K' is open, hence closed
+  have hHopen : IsOpen ((GQL L : Subgroup GQ) : Set GQ) := L.fixingSubgroup_isOpen
+  have hK'set : (K' : Set GQ) = (GQL L : Set GQ) ∩ β ⁻¹' {1} := by
+    ext g
+    simp only [SetLike.mem_coe, Set.mem_inter_iff, Set.mem_preimage, Set.mem_singleton_iff]
+    exact mem_kernelSubgroup hβ hεN
+  have hK'open : IsOpen (K' : Set GQ) := by
+    rw [hK'set]; exact hHopen.inter (hβl.isOpen_fiber 1)
+  have hK'closed : IsClosed (K' : Set GQ) := Subgroup.isClosed_of_isOpen K' hK'open
+  let K'c : ClosedSubgroup (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) :=
+    { toSubgroup := K', isClosed' := hK'closed }
+  let L' : IntermediateField ℚ (AlgebraicClosure ℚ) := IntermediateField.fixedField K'
+  have hfix : L'.fixingSubgroup = K' := InfiniteGalois.fixingSubgroup_fixedField K'c
+  have hGL' : ∀ σ : GQ, σ ∈ GQL L' ↔ σ ∈ GQL L ∧ β σ = 1 := by
+    intro σ
+    show σ ∈ L'.fixingSubgroup ↔ _
+    rw [hfix]
+    exact mem_kernelSubgroup hβ hεN
+  -- degree
+  have hm := orderOf_pos_dirichlet χ
+  have hpow : ∀ s ∈ GQL L, β s ^ (2 * orderOf χ) = 1 := by
+    intro s _
+    rw [pow_mul, hβs]
+    show (MulChar.mulEquivToUnitHom χ (cyc N s)) ^ orderOf χ = 1
+    rw [← MonoidHom.pow_apply, ← map_pow, pow_orderOf_eq_one, map_one, MonoidHom.one_apply]
+  haveI : (GQL L).Normal := (InfiniteGalois.normal_iff_isGalois L).mpr inferInstance
+  have hidx := index_kernel_le hβ hεN (2 * orderOf χ) (by positivity) hpow
+  have hfd : FiniteDimensional ℚ L' :=
+    (InfiniteGalois.isOpen_iff_finite L').mp (by rw [hfix]; exact hK'open)
+  have hL : Module.finrank ℚ L = (GQL L).index := IntermediateField.finrank_eq_fixingSubgroup_index (L := L)
+  have hL' : Module.finrank ℚ L' = K'.index := by
+    rw [IntermediateField.finrank_eq_fixingSubgroup_index (L := L'), hfix]
+    rfl
+  have hgal : IsGalois ℚ L' :=
+    (InfiniteGalois.normal_iff_isGalois L').mp (by rw [hfix]; exact kernelSubgroup_normal hβ hεN)
+  have hle : L ≤ L' := by
+    intro x hx
+    show x ∈ IntermediateField.fixedField K'
+    exact fun k => mem_GQL.mp (kernelSubgroup_le hβ hεN k.2) x hx
+  refine ⟨N, hN, χ, β, L', hsupp, hord, hβl, hβs, hβe, hle, hfd, hgal, hGL', ?_, ?_⟩
+  · intro σ k hk
+    exact cochain_mul_kernel hβ hεN σ (show k ∈ K' from (hGL' k).mp hk |> (mem_kernelSubgroup hβ hεN).mpr)
+  · rw [hL', hL]; exact hidx
+
+/-- **B3 with the constants** (N5 L713-716): `[L' : ℚ] ≤ Q_R · M_S(u)` when `[L:ℚ] ≤ D`,
+`T = S ∪ supp M_S(u)` and `(S, R)` is admissible. -/
+theorem b3_degree_le_QM (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit)
+    (hUnr : LeafUnramified) (S : Finset ℕ) (hS : ∀ p ∈ S, p.Prime) (R : ℝ)
+    (hRD : (ZInQ.heightD : ℝ) ≤ R) (hRS : ∀ p ∈ S, (p : ℝ) ≤ R) (hR12 : (10 : ℝ) ^ 12 ≤ R)
+    (u : ℚ)
+    (L : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (hLD : Module.finrank ℚ L ≤ ZInQ.heightD)
+    (ε : GQ → GQ → ℂˣ) (hε : IsSignCocycle ε) (hinf : InflatedFrom L ε) (h11 : ε 1 1 = 1)
+    (hram : ∀ p : Nat.Primes, (p : ℕ) ∉ ramSet S u → UnramifiedAt L p)
+    (η : GQ →* ℂˣ) (hη : ∀ x, η x ^ 2 = 1) (hηl : IsLocallyConstant η) :
+    ∃ (N : ℕ) (hN : NeZero N) (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ)
+      (L' : IntermediateField ℚ (AlgebraicClosure ℚ)),
+      IsLocallyConstant β ∧ (∀ x, β x ^ 2 = galChar χ x) ∧
+      (∀ x y, β x * β y = ε x y * β (x * y)) ∧
+      L ≤ L' ∧ FiniteDimensional ℚ L' ∧ IsGalois ℚ L' ∧
+      (∀ σ : GQ, σ ∈ GQL L' ↔ σ ∈ GQL L ∧ β σ = 1) ∧
+      (Module.finrank ℚ L' : ℝ) ≤ ZInQ.heightQ R * ZInQ.contactSupport S u := by
+  have hT : ∀ p ∈ ramSet S u, p.Prime := by
+    intro p hp
+    rcases Finset.mem_union.mp hp with h | h
+    · exact hS p h
+    · exact Nat.prime_of_mem_primeFactors h
+  obtain ⟨N, hN, χ, β, L', _, hord, hβl, hβs, hβe, hle, hfd, hgal, hGL', _, hdeg⟩ :=
+    b3_of_leaves hHasse hTwo hSq hUnr L ε hε hinf h11 (ramSet S u) hT hram η hη hηl
+  refine ⟨N, hN, χ, β, L', hβl, hβs, hβe, hle, hfd, hgal, hGL', ?_⟩
+  have h := degree_le_QM S hS R hRD hRS hR12 u (Module.finrank ℚ L) (orderOf χ) hLD hord
+  calc (Module.finrank ℚ L' : ℝ) ≤ ((2 * orderOf χ * Module.finrank ℚ L : ℕ) : ℝ) := by
+        exact_mod_cast hdeg
+    _ = 2 * (orderOf χ : ℝ) * Module.finrank ℚ L := by push_cast; ring
+    _ ≤ _ := h
+
+end GlueDescent.B3Q
+
+
+end DescB3AssemblySec
+
+section RepoA1QuaternionSec
+/-! ### Copied from `scratch/glue-repo/A1Quaternion.lean` (compiled there). -/
+
+/-!
+# glue-repo, step A1: the quaternion datum and the Riemann form (N5 L405-418)
+
+`B = (2,-3)` is Mathlib's `ℍ[ℚ, 2, 0, -3]` (`i² = 2`, `j² = -3`, `k = ij`).
+`𝒪 = ℤ⟨1, i, (1+j)/2, (i+ij)/2⟩` is a genuine `Subring B`, and `μ = 2j + ij`.
+Proved here (no `sorry`): `μ² = -6`; `𝒪` is a subring (an order) with reduced discriminant 6
+(`det Trd(eₐ e_b) = -36`); the Gram matrix of `E(x,y) = Trd(μ⁻¹ x ȳ)` in N5's basis is N5's
+matrix, with determinant 1; `E` is alternating and `E(ax, y) = E(x, a† y)` with
+`a† = μ⁻¹ ā μ`; `†` is an anti-involution; `†` is positive: `Trd(a a†) > 0` for `a ≠ 0`.
+-/
+
+open Quaternion
+
+attribute [local simp] QuaternionAlgebra.re_ofNat QuaternionAlgebra.imI_ofNat QuaternionAlgebra.imJ_ofNat QuaternionAlgebra.imK_ofNat
+
+namespace GlueRepo.A1
+
+/-- The quaternion algebra `B = (2,-3)` over `ℚ`. -/
+abbrev B := ℍ[ℚ, 2, 0, -3]
+
+/-- Reduced trace (`c₂ = 0`, so `Trd x = x + x̄ = 2 re x`). -/
+def trd (x : B) : ℚ := 2 * x.re
+
+theorem trd_eq (x : B) : ((trd x : ℚ) : B) = x + star x := by
+  ext <;> simp [trd] <;> ring
+
+/-- `μ = 2j + ij`. -/
+def μ : B := ⟨0, 0, 2, 1⟩
+/-- `μ⁻¹ = -μ/6`. -/
+def μinv : B := ⟨0, 0, -1/3, -1/6⟩
+
+theorem μ_mul_μ : μ * μ = -6 := by ext <;> simp [μ] <;> norm_num
+theorem μ_mul_μinv : μ * μinv = 1 := by ext <;> simp [μ, μinv] <;> norm_num
+theorem μinv_mul_μ : μinv * μ = 1 := by ext <;> simp [μ, μinv] <;> norm_num
+
+/-- N5's ordered basis `(1, i, (1+j)/2, (i+ij)/2)`. -/
+def e : Fin 4 → B := ![⟨1, 0, 0, 0⟩, ⟨0, 1, 0, 0⟩, ⟨1/2, 0, 1/2, 0⟩, ⟨0, 1/2, 0, 1/2⟩]
+
+/-- The `ℤ`-combination `n₀ + n₁ i + n₂ (1+j)/2 + n₃ (i+ij)/2`. -/
+def comb (n : Fin 4 → ℤ) : B :=
+  ⟨n 0 + n 2 / 2, n 1 + n 3 / 2, n 2 / 2, n 3 / 2⟩
+
+theorem comb_eq (n : Fin 4 → ℤ) : comb n = ∑ k, (n k : ℚ) • e k := by
+  ext <;> simp [comb, e, Fin.sum_univ_four] <;> ring
+
+/-- The structure constants of `𝒪` (integer polynomials; `scratch/glue-repo/compute.py` §4). -/
+def combMul (n m : Fin 4 → ℤ) : Fin 4 → ℤ :=
+  ![m 0 * n 0 + 2 * m 1 * n 1 + 2 * m 1 * n 3 - m 2 * n 2 + 2 * m 3 * n 3,
+    m 0 * n 1 + m 1 * n 0 + m 1 * n 2 - m 2 * n 3 + m 3 * n 2,
+    m 0 * n 2 - 2 * m 1 * n 3 + m 2 * n 0 + m 2 * n 2 + 2 * m 3 * n 1,
+    m 0 * n 3 - m 1 * n 2 + m 2 * n 1 + m 2 * n 3 + m 3 * n 0]
+
+theorem comb_mul (n m : Fin 4 → ℤ) : comb n * comb m = comb (combMul n m) := by
+  ext <;> simp [comb, combMul] <;> push_cast <;> ring
+
+/-- The order `𝒪 = ℤ⟨1, i, (1+j)/2, (i+ij)/2⟩` as a subring of `B`. -/
+def O : Subring B where
+  carrier := Set.range comb
+  mul_mem' := by
+    rintro _ _ ⟨n, rfl⟩ ⟨m, rfl⟩
+    exact ⟨combMul n m, (comb_mul n m).symm⟩
+  one_mem' := ⟨![1, 0, 0, 0], by ext <;> simp [comb]⟩
+  add_mem' := by
+    rintro _ _ ⟨n, rfl⟩ ⟨m, rfl⟩
+    exact ⟨n + m, by ext <;> simp [comb] <;> ring⟩
+  zero_mem' := ⟨0, by ext <;> simp [comb]⟩
+  neg_mem' := by
+    rintro _ ⟨n, rfl⟩
+    exact ⟨-n, by ext <;> simp [comb] <;> ring⟩
+
+theorem e_mem (k : Fin 4) : e k ∈ O := by
+  fin_cases k
+  · exact ⟨![1, 0, 0, 0], by ext <;> simp [comb, e]⟩
+  · exact ⟨![0, 1, 0, 0], by ext <;> simp [comb, e]⟩
+  · exact ⟨![0, 0, 1, 0], by ext <;> simp [comb, e]⟩
+  · exact ⟨![0, 0, 0, 1], by ext <;> simp [comb, e]⟩
+
+/-- `𝒪` is closed under conjugation. -/
+theorem star_mem {x : B} (hx : x ∈ O) : star x ∈ O := by
+  obtain ⟨n, rfl⟩ := hx
+  exact ⟨![n 0 + n 2, -n 1, -n 2, -n 3], by ext <;> simp [comb] <;> ring⟩
+
+/-- The trace form `Trd(eₐ e_b)` of `𝒪` has determinant `-36 = -(disc)²`: reduced discriminant 6. -/
+theorem trace_form :
+    (Matrix.of fun a b => trd (e a * e b)) = !![2, 0, 1, 0; 0, 4, 0, 2; 1, 0, -1, 0; 0, 2, 0, 4] := by
+  ext a b
+  fin_cases a <;> fin_cases b <;> simp [e, trd] <;> norm_num
+
+theorem det_trace_form :
+    (Matrix.of fun a b => trd (e a * e b)).det = -36 := by
+  rw [trace_form, Matrix.det_succ_row_zero]
+  simp [Fin.sum_univ_succ, Matrix.det_fin_three, Matrix.submatrix, Fin.succAbove]
+  norm_num
+
+/-- N5's form `E(x, y) = Trd(μ⁻¹ x ȳ)`. -/
+def E (x y : B) : ℚ := trd (μinv * x * star y)
+
+/-- The Gram matrix of `E` in N5's basis is the matrix printed at N5 L414-416. -/
+theorem gram_E :
+    (Matrix.of fun a b => E (e a) (e b)) = !![0, 0, -1, 1; 0, 0, 1, -2; 1, -1, 0, 0; -1, 2, 0, 0] := by
+  ext a b
+  fin_cases a <;> fin_cases b <;> simp [E, e, μinv, trd] <;> norm_num
+
+/-- ... with determinant one: `E` is a principal (unimodular) form on `𝒪`. -/
+theorem det_gram_E : (Matrix.of fun a b => E (e a) (e b)).det = 1 := by
+  rw [gram_E, Matrix.det_succ_row_zero]
+  simp [Fin.sum_univ_succ, Matrix.det_fin_three, Matrix.submatrix, Fin.succAbove]
+  norm_num
+
+/-- `E` is integral on `𝒪 × 𝒪`. -/
+theorem E_comb (n m : Fin 4 → ℤ) :
+    E (comb n) (comb m) = ((-n 0 * m 2 + n 0 * m 3 + n 1 * m 2 - 2 * n 1 * m 3
+      + n 2 * m 0 - n 2 * m 1 - n 3 * m 0 + 2 * n 3 * m 1 : ℤ) : ℚ) := by
+  simp [E, comb, μinv, trd]; push_cast; ring
+
+/-- `E` is alternating. -/
+theorem E_self (x : B) : E x x = 0 := by
+  simp [E, μinv, trd]; ring
+
+theorem E_antisymm (x y : B) : E y x = - E x y := by
+  simp [E, μinv, trd]; ring
+
+/-- The Rosati involution `a ↦ μ⁻¹ ā μ`. -/
+def ros (a : B) : B := μinv * star a * μ
+
+/-- `E(ax, y) = E(x, a† y)`: `†` is the Rosati involution of `E`. -/
+theorem E_ros (a x y : B) : E (a * x) y = E x (ros a * y) := by
+  simp [E, ros, μ, μinv, trd]; ring
+
+theorem ros_ros (a : B) : ros (ros a) = a := by
+  ext <;> simp [ros, μ, μinv] <;> ring
+
+theorem ros_mul (a b : B) : ros (a * b) = ros b * ros a := by
+  ext <;> simp [ros, μ, μinv] <;> ring
+
+theorem ros_add (a b : B) : ros (a + b) = ros a + ros b := by
+  ext <;> simp [ros, μ, μinv] <;> ring
+
+/-- `Trd(a a†)` for `a = x₀ + x₁ i + x₂ j + x₃ ij` (`compute.py` §1). -/
+theorem trd_mul_ros (a : B) :
+    trd (a * ros a) = 2 * a.re ^ 2 + 4 * a.imI ^ 2 + 18 * a.imJ ^ 2 - 48 * a.imJ * a.imK
+      + 36 * a.imK ^ 2 := by
+  simp [ros, μ, μinv, trd]; ring
+
+/-- The Rosati involution is positive. -/
+theorem trd_mul_ros_pos (a : B) (ha : a ≠ 0) : 0 < trd (a * ros a) := by
+  rw [trd_mul_ros]
+  have key : 2 * a.re ^ 2 + 4 * a.imI ^ 2 + 18 * a.imJ ^ 2 - 48 * a.imJ * a.imK + 36 * a.imK ^ 2
+      = 2 * a.re ^ 2 + 4 * a.imI ^ 2 + 2 * (3 * a.imJ - 4 * a.imK) ^ 2 + 4 * a.imK ^ 2 := by ring
+  rw [key]
+  by_contra h
+  push Not at h
+  have h0 : a.re = 0 := by nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 * a.imK), sq_nonneg a.imK]
+  have h1 : a.imI = 0 := by nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 * a.imK), sq_nonneg a.imK]
+  have h3 : a.imK = 0 := by nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 * a.imK), sq_nonneg a.imK]
+  have h2 : a.imJ = 0 := by
+    have : (3 * a.imJ - 4 * a.imK) = 0 := by nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 * a.imK), sq_nonneg a.imK]
+    rw [h3] at this; linarith
+  exact ha (by ext <;> simp [h0, h1, h2, h3])
+
+/-- `𝒪` is stable under the Rosati involution (`μ ∈ 𝒪` normalizes `𝒪`). -/
+theorem ros_mem {x : B} (hx : x ∈ O) : ros x ∈ O := by
+  obtain ⟨n, rfl⟩ := hx
+  exact ⟨![n 0 + 2 * n 2 - 2 * n 3, n 1 + n 2 - n 3, -3 * n 2 + 4 * n 3, -2 * n 2 + 3 * n 3],
+    by ext <;> simp [comb, ros, μ, μinv] <;> push_cast <;> ring⟩
+
+/-! ### Elliptic elements (h-b1 M9, Lemma NV step 2; rv-h-cm (Emb)) -/
+
+/-- Reduced norm `nrd x = x x̄` (a rational number). -/
+def nrd (x : B) : ℚ := (x * star x).re
+
+theorem nrd_eq (x : B) : nrd x = x.re ^ 2 - 2 * x.imI ^ 2 + 3 * x.imJ ^ 2 - 6 * x.imK ^ 2 := by
+  simp [nrd]; ring
+
+theorem mul_star_eq (x : B) : x * star x = (nrd x : B) := by
+  ext <;> simp [nrd] <;> ring
+
+theorem nrd_mul (x y : B) : nrd (x * y) = nrd x * nrd y := by
+  simp only [nrd_eq]; simp; ring
+
+/-- **Type `(0,3)`.** If `x ∈ 𝒪` has `Trd x = 0` and `nrd x = 3`, then `(1+x)/2 ∈ 𝒪`; so the CM
+order `ℚ(x) ∩ 𝒪` contains `ℤ[(1+x)/2]`, of discriminant `−3` (maximal), not `ℤ[√−3]`. -/
+theorem half_one_add_mem {x : B} (hx : x ∈ O) (ht : trd x = 0) (hn : nrd x = 3) :
+    (1 / 2 : ℚ) • (1 + x) ∈ O := by
+  obtain ⟨n, rfl⟩ := hx
+  have ht' : (2 * n 0 + n 2 : ℤ) = 0 := by
+    have := ht; simp [trd, comb] at this; exact_mod_cast (by linarith : (2 * (n 0 : ℚ) + n 2) = 0)
+  have hn' : (n 0 ^ 2 + n 0 * n 2 + n 2 ^ 2 - 2 * n 1 ^ 2 - 2 * n 1 * n 3 - 2 * n 3 ^ 2 : ℤ) = 3 := by
+    have := hn; rw [nrd_eq] at this; simp [comb] at this
+    exact_mod_cast (by linarith : ((n 0 : ℚ) ^ 2 + n 0 * n 2 + n 2 ^ 2 - 2 * n 1 ^ 2
+      - 2 * n 1 * n 3 - 2 * n 3 ^ 2) = 3)
+  have h2 : n 2 = -2 * n 0 := by linarith
+  rw [h2] at hn'
+  have h4 : ((3 * n 0 ^ 2 - 2 * (n 1 ^ 2 + n 1 * n 3 + n 3 ^ 2) : ℤ) : ZMod 4) = 3 := by
+    rw [show (3 * n 0 ^ 2 - 2 * (n 1 ^ 2 + n 1 * n 3 + n 3 ^ 2) : ℤ) = 3 by linarith]; rfl
+  push_cast at h4
+  have key : ∀ a b c : ZMod 4, 3 * a ^ 2 - 2 * (b ^ 2 + b * c + c ^ 2) = 3 →
+      (a = 1 ∨ a = 3) ∧ (b = 0 ∨ b = 2) ∧ (c = 0 ∨ c = 2) := by decide
+  obtain ⟨ha, hb, hc⟩ := key _ _ _ h4
+  have ev : ∀ z : ℤ, ((z : ZMod 4) = 0 ∨ (z : ZMod 4) = 2) → 2 ∣ z := by
+    intro z hz
+    rcases hz with hz | hz
+    · rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at hz
+      exact (dvd_trans (by norm_num) hz)
+    · have : ((z : ℤ) : ZMod 4) = ((2 : ℤ) : ZMod 4) := by rw [hz]; rfl
+      rw [ZMod.intCast_eq_intCast_iff_dvd_sub] at this
+      obtain ⟨k, hk⟩ := this
+      exact ⟨1 - 2 * k, by push_cast at hk; linarith⟩
+  have od : 2 ∣ n 0 + 1 := by
+    rcases ha with ha | ha
+    · have : ((n 0 : ℤ) : ZMod 4) = ((1 : ℤ) : ZMod 4) := by rw [ha]; rfl
+      rw [ZMod.intCast_eq_intCast_iff_dvd_sub] at this
+      obtain ⟨k, hk⟩ := this
+      exact ⟨1 - 2 * k, by push_cast at hk; linarith⟩
+    · have : ((n 0 : ℤ) : ZMod 4) = ((3 : ℤ) : ZMod 4) := by rw [ha]; rfl
+      rw [ZMod.intCast_eq_intCast_iff_dvd_sub] at this
+      obtain ⟨k, hk⟩ := this
+      exact ⟨2 - 2 * k, by push_cast at hk; linarith⟩
+  obtain ⟨a0, ha0⟩ := od
+  obtain ⟨a1, ha1⟩ := ev _ hb
+  obtain ⟨a3, ha3⟩ := ev _ hc
+  have h2q : (n 2 : ℚ) = -2 * n 0 := by exact_mod_cast h2
+  have ha0q : (n 0 : ℚ) + 1 = 2 * (a0 : ℚ) := by exact_mod_cast ha0
+  have ha1q : (n 1 : ℚ) = 2 * (a1 : ℚ) := by exact_mod_cast ha1
+  have ha3q : (n 3 : ℚ) = 2 * (a3 : ℚ) := by exact_mod_cast ha3
+  refine ⟨![a0, a1, -n 0, a3], ?_⟩
+  ext <;> simp [comb] <;> linarith
+
+/-- `3C² = 2E² + 2B² + 6D²` has no integer solution with `E ≠ 0` (3-adic descent). -/
+theorem descent : ∀ (n : ℕ) (E Bq C D : ℤ), E.natAbs = n →
+    3 * C ^ 2 = 2 * E ^ 2 + 2 * Bq ^ 2 + 6 * D ^ 2 → E = 0 := by
+  intro n
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+    intro E Bq C D hn h
+    by_contra hE
+    have k1 : ∀ e b c d : ZMod 3, 3 * c ^ 2 = 2 * e ^ 2 + 2 * b ^ 2 + 6 * d ^ 2 →
+        e = 0 ∧ b = 0 := by decide
+    have h3 := congrArg (fun z : ℤ => (z : ZMod 3)) h
+    push_cast at h3
+    obtain ⟨hE3, hB3⟩ := k1 _ _ _ _ h3
+    rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at hE3 hB3
+    obtain ⟨E', rfl⟩ := hE3
+    obtain ⟨B', rfl⟩ := hB3
+    have h' : C ^ 2 = 6 * E' ^ 2 + 6 * B' ^ 2 + 2 * D ^ 2 := by push_cast at h; linarith
+    have k2 : ∀ c d e b : ZMod 3, c ^ 2 = 6 * e ^ 2 + 6 * b ^ 2 + 2 * d ^ 2 →
+        c = 0 ∧ d = 0 := by decide
+    have h3' := congrArg (fun z : ℤ => (z : ZMod 3)) h'
+    push_cast at h3'
+    obtain ⟨hC3, hD3⟩ := k2 _ _ _ _ h3'
+    rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at hC3 hD3
+    obtain ⟨C', rfl⟩ := hC3
+    obtain ⟨D', rfl⟩ := hD3
+    have hE' : E' ≠ 0 := by rintro rfl; simp at hE
+    have := ih E'.natAbs (by rw [← hn, Int.natAbs_mul]; simp; omega) E' B' C' D' rfl
+      (by push_cast at h'; linarith)
+    exact hE' this
+
+/-- **Type `(0,2)` is absent:** no `x ∈ B` has `Trd x = 0` and `nrd x = 2`; i.e. `ℚ(√−2)` does
+not embed in `B` (3 splits in it; h-b1 M9, rv-h-cm (Emb)). -/
+theorem no_trd_zero_nrd_two (x : B) (ht : trd x = 0) (hn : nrd x = 2) : False := by
+  have hre : x.re = 0 := by simp [trd] at ht; exact ht
+  rw [nrd_eq, hre] at hn
+  set b := x.imI; set c := x.imJ; set d := x.imK
+  -- common denominator
+  set E : ℤ := ((b.den * c.den * d.den : ℕ) : ℤ)
+  have hE : E ≠ 0 := by simp [E]
+  have hb : ∃ B' : ℤ, (B' : ℚ) = b * E := ⟨b.num * (c.den * d.den : ℕ), by
+    simp only [E]; push_cast; rw [← Rat.mul_den_eq_num b]; ring⟩
+  have hc : ∃ C' : ℤ, (C' : ℚ) = c * E := ⟨c.num * (b.den * d.den : ℕ), by
+    simp only [E]; push_cast; rw [← Rat.mul_den_eq_num c]; ring⟩
+  have hd : ∃ D' : ℤ, (D' : ℚ) = d * E := ⟨d.num * (b.den * c.den : ℕ), by
+    simp only [E]; push_cast; rw [← Rat.mul_den_eq_num d]; ring⟩
+  obtain ⟨B', hB'⟩ := hb
+  obtain ⟨C', hC'⟩ := hc
+  obtain ⟨D', hD'⟩ := hd
+  have key : 3 * C' ^ 2 = 2 * E ^ 2 + 2 * B' ^ 2 + 6 * D' ^ 2 := by
+    have : (3 * C' ^ 2 : ℚ) = 2 * E ^ 2 + 2 * B' ^ 2 + 6 * D' ^ 2 := by
+      rw [hB', hC', hD']; linear_combination (E : ℚ) ^ 2 * hn
+    exact_mod_cast this
+  exact hE (descent _ E B' C' D' rfl key)
+
+/-! ### `𝒪/3𝒪` and its unit group (A3: `|(𝒪/3𝒪)^*| = 72`)
+
+`𝒪/3𝒪` is `(ZMod 3)⁴` (coordinates in N5's basis) with the reduction `mul3` of the structure
+constants `combMul`; `red3_mul` says reduction mod 3 of coordinates is multiplicative. -/
+
+/-- Multiplication of `𝒪/3𝒪` in coordinates. -/
+def mul3 (n m : Fin 4 → ZMod 3) : Fin 4 → ZMod 3 :=
+  ![m 0 * n 0 + 2 * m 1 * n 1 + 2 * m 1 * n 3 - m 2 * n 2 + 2 * m 3 * n 3,
+    m 0 * n 1 + m 1 * n 0 + m 1 * n 2 - m 2 * n 3 + m 3 * n 2,
+    m 0 * n 2 - 2 * m 1 * n 3 + m 2 * n 0 + m 2 * n 2 + 2 * m 3 * n 1,
+    m 0 * n 3 - m 1 * n 2 + m 2 * n 1 + m 2 * n 3 + m 3 * n 0]
+
+def one3 : Fin 4 → ZMod 3 := ![1, 0, 0, 0]
+
+/-- Reduction of coordinates mod 3. -/
+def red3 (n : Fin 4 → ℤ) : Fin 4 → ZMod 3 := fun k => (n k : ZMod 3)
+
+theorem red3_mul (n m : Fin 4 → ℤ) : red3 (combMul n m) = mul3 (red3 n) (red3 m) := by
+  ext k; fin_cases k <;> simp [red3, combMul, mul3]
+
+/-- Reduced norm in coordinates (`nrd (comb n)`, cf. `nrd_eq`). -/
+def nrd3 (x : Fin 4 → ZMod 3) : ZMod 3 :=
+  x 0 ^ 2 + x 0 * x 2 + x 2 ^ 2 - 2 * x 1 ^ 2 - 2 * x 1 * x 3 - 2 * x 3 ^ 2
+
+/-- Conjugation in coordinates. -/
+def conj3 (x : Fin 4 → ZMod 3) : Fin 4 → ZMod 3 := ![x 0 + x 2, -x 1, -x 2, -x 3]
+
+theorem nrd3_mul (x y : Fin 4 → ZMod 3) : nrd3 (mul3 x y) = nrd3 x * nrd3 y := by
+  simp [nrd3, mul3]; ring
+
+theorem nrd3_one : nrd3 one3 = 1 := by simp [nrd3, one3]
+
+theorem mul3_conj3 (x : Fin 4 → ZMod 3) : mul3 x (conj3 x) = fun k => nrd3 x * one3 k := by
+  ext k; fin_cases k <;> simp [mul3, conj3, nrd3, one3] <;> ring
+
+theorem conj3_mul3 (x : Fin 4 → ZMod 3) : mul3 (conj3 x) x = fun k => nrd3 x * one3 k := by
+  ext k; fin_cases k <;> simp [mul3, conj3, nrd3, one3] <;> ring
+
+theorem mul3_smul_right (x y : Fin 4 → ZMod 3) (c : ZMod 3) :
+    mul3 x (fun k => c * y k) = fun k => c * mul3 x y k := by
+  ext k; fin_cases k <;> simp [mul3] <;> ring
+
+theorem mul3_smul_left (x y : Fin 4 → ZMod 3) (c : ZMod 3) :
+    mul3 (fun k => c * x k) y = fun k => c * mul3 x y k := by
+  ext k; fin_cases k <;> simp [mul3] <;> ring
+
+/-- A residue is a unit of `𝒪/3𝒪` iff its reduced norm is nonzero mod 3. -/
+theorem isUnit3_iff (x : Fin 4 → ZMod 3) :
+    (∃ y, mul3 x y = one3 ∧ mul3 y x = one3) ↔ nrd3 x ≠ 0 := by
+  constructor
+  · rintro ⟨y, hy, -⟩ h0
+    have := nrd3_mul x y
+    rw [hy, nrd3_one, h0, zero_mul] at this
+    exact one_ne_zero this
+  · intro h
+    refine ⟨fun k => (nrd3 x)⁻¹ * conj3 x k, ?_, ?_⟩
+    · rw [mul3_smul_right, mul3_conj3]
+      ext k; simp [← mul_assoc, inv_mul_cancel₀ h]
+    · rw [mul3_smul_left, conj3_mul3]
+      ext k; simp [← mul_assoc, inv_mul_cancel₀ h]
+
+/-- **`|(𝒪/3𝒪)^*| = 72`** (`form_check.py`, `b1_checks.py` §B; N5 L440 prints `≤ 81`). -/
+theorem card_units_mod3 :
+    (Finset.univ.filter fun x : Fin 4 → ZMod 3 => ∃ y, mul3 x y = one3 ∧ mul3 y x = one3).card
+      = 72 := by
+  rw [Finset.filter_congr (fun x _ => isUnit3_iff x)]
+  decide
+
+/-! ### `B` is a division algebra; the toric part of PR(ii) step 2 vanishes -/
+
+/-- `X₀² − 2X₁² + 3X₂² − 6X₃² = 0` has only the trivial integer solution (3-adic descent). -/
+theorem norm_descent : ∀ (n : ℕ) (a b c d : ℤ), a.natAbs + b.natAbs + c.natAbs + d.natAbs = n →
+    a ^ 2 - 2 * b ^ 2 + 3 * c ^ 2 - 6 * d ^ 2 = 0 → a = 0 ∧ b = 0 ∧ c = 0 ∧ d = 0 := by
+  intro n
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+    intro a b c d hn h
+    have k1 : ∀ a b c d : ZMod 3, a ^ 2 - 2 * b ^ 2 + 3 * c ^ 2 - 6 * d ^ 2 = 0 →
+        a = 0 ∧ b = 0 := by decide
+    have h3 := congrArg (fun z : ℤ => (z : ZMod 3)) h
+    push_cast at h3
+    obtain ⟨ha, hb⟩ := k1 _ _ _ _ h3
+    rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at ha hb
+    obtain ⟨a', rfl⟩ := ha
+    obtain ⟨b', rfl⟩ := hb
+    have h' : c ^ 2 - 2 * d ^ 2 + 3 * a' ^ 2 - 6 * b' ^ 2 = 0 := by push_cast at h; linarith
+    have h3' := congrArg (fun z : ℤ => (z : ZMod 3)) h'
+    push_cast at h3'
+    obtain ⟨hc, hd⟩ := k1 _ _ _ _ h3'
+    rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at hc hd
+    obtain ⟨c', rfl⟩ := hc
+    obtain ⟨d', rfl⟩ := hd
+    by_cases h0 : a' = 0 ∧ b' = 0 ∧ c' = 0 ∧ d' = 0
+    · obtain ⟨rfl, rfl, rfl, rfl⟩ := h0; simp
+    · exfalso
+      have hpos : 0 < a'.natAbs + b'.natAbs + c'.natAbs + d'.natAbs := by
+        by_contra hz
+        apply h0
+        omega
+      have := ih (a'.natAbs + b'.natAbs + c'.natAbs + d'.natAbs)
+        (by rw [← hn]; simp only [Int.natAbs_mul]; norm_num; omega) a' b' c' d' rfl
+        (by push_cast at h'; linarith)
+      exact h0 this
+
+/-- `nrd x = 0` only for `x = 0`: `B = (2,−3)` is a division algebra. -/
+theorem nrd_ne_zero {x : B} (hx : x ≠ 0) : nrd x ≠ 0 := by
+  intro hn
+  rw [nrd_eq] at hn
+  set E : ℤ := ((x.re.den * x.imI.den * x.imJ.den * x.imK.den : ℕ) : ℤ)
+  have hE : (E : ℚ) ≠ 0 := by simp [E]
+  obtain ⟨a, ha⟩ : ∃ z : ℤ, (z : ℚ) = x.re * E :=
+    ⟨x.re.num * (x.imI.den * x.imJ.den * x.imK.den : ℕ), by
+      simp only [E]; push_cast; rw [← Rat.mul_den_eq_num x.re]; ring⟩
+  obtain ⟨b, hb⟩ : ∃ z : ℤ, (z : ℚ) = x.imI * E :=
+    ⟨x.imI.num * (x.re.den * x.imJ.den * x.imK.den : ℕ), by
+      simp only [E]; push_cast; rw [← Rat.mul_den_eq_num x.imI]; ring⟩
+  obtain ⟨c, hc⟩ : ∃ z : ℤ, (z : ℚ) = x.imJ * E :=
+    ⟨x.imJ.num * (x.re.den * x.imI.den * x.imK.den : ℕ), by
+      simp only [E]; push_cast; rw [← Rat.mul_den_eq_num x.imJ]; ring⟩
+  obtain ⟨d, hd⟩ : ∃ z : ℤ, (z : ℚ) = x.imK * E :=
+    ⟨x.imK.num * (x.re.den * x.imI.den * x.imJ.den : ℕ), by
+      simp only [E]; push_cast; rw [← Rat.mul_den_eq_num x.imK]; ring⟩
+  have key : a ^ 2 - 2 * b ^ 2 + 3 * c ^ 2 - 6 * d ^ 2 = 0 := by
+    have : ((a ^ 2 - 2 * b ^ 2 + 3 * c ^ 2 - 6 * d ^ 2 : ℤ) : ℚ) = 0 := by
+      push_cast; rw [ha, hb, hc, hd]; linear_combination (E : ℚ) ^ 2 * hn
+    exact_mod_cast this
+  obtain ⟨h0, h1, h2, h3⟩ := norm_descent _ a b c d rfl key
+  apply hx
+  have z : ∀ q : ℚ, ∀ z : ℤ, (z : ℚ) = q * E → z = 0 → q = 0 := by
+    intro q z hz h0; rw [h0, Int.cast_zero] at hz
+    exact (mul_eq_zero.mp hz.symm).resolve_right hE
+  ext
+  · exact z _ _ ha h0
+  · exact z _ _ hb h1
+  · exact z _ _ hc h2
+  · exact z _ _ hd h3
+
+/-- The inverse `x⁻¹ = x̄ / nrd x`. -/
+theorem inv_mul_self {x : B} (hx : x ≠ 0) : ((nrd x)⁻¹ • star x) * x = 1 := by
+  have hn := nrd_ne_zero hx
+  rw [smul_mul_assoc]
+  have : star x * x = (nrd x : B) := by ext <;> simp [nrd] <;> ring
+  rw [this]
+  ext <;> simp [hn]
+
+/-- **Toric step of Lemma PR(ii)** (h-b1 §4(ii) step 2): a module `V` over `B`, compatible with its
+`ℚ`-structure, of `ℚ`-dimension `< 4` is zero. Applied to `V = X(T) ⊗ ℚ` (the character group of
+the toric part, `dim T ≤ 2`) with the action of `B = End⁰(A)` through the Néron model. -/
+theorem module_eq_zero (V : Type*) [AddCommGroup V] [Module B V] [Module ℚ V]
+    [IsScalarTower ℚ B V] [FiniteDimensional ℚ V] (ht : Module.finrank ℚ V < 4) (v : V) :
+    v = 0 := by
+  by_contra hv
+  let f : B →ₗ[ℚ] V :=
+    { toFun := fun b => b • v
+      map_add' := fun b c => add_smul b c v
+      map_smul' := fun q b => smul_assoc q b v }
+  have hf : Function.Injective f := by
+    rw [← LinearMap.ker_eq_bot, LinearMap.ker_eq_bot']
+    intro b hb
+    by_contra hb0
+    apply hv
+    have : ((nrd b)⁻¹ • star b) • (b • v) = v := by rw [smul_smul, inv_mul_self hb0, one_smul]
+    rw [← this]
+    change ((nrd b)⁻¹ • star b) • f b = 0
+    rw [hb, smul_zero]
+  have := LinearMap.finrank_le_finrank_of_injective hf
+  rw [QuaternionAlgebra.finrank_eq_four] at this
+  omega
+
+end GlueRepo.A1
+
+
+end RepoA1QuaternionSec
+
+section RepoTorsionFreeSec
+/-! ### Copied from `scratch/glue-repo/TorsionFree.lean` (compiled there). -/
+
+/-!
+# glue-repo, steps A6 and A8: `1 + 3 M_r(R)` is torsion-free; Minkowski's bound
+
+* `CommCore.eq_one_of_pow_eq_one`: in a commutative ring in which `3` is a non-zero-divisor
+  and `⋂ₙ 3ⁿ C = 0`, an element `A ≡ 1 (mod 3)` of finite order is `1`.
+* `eq_one_of_pow_eq_one`: the same in any ring (applied in the commutative subalgebra `ℤ[y]`).
+* `matrix_int_eq_one`, `matrix_padic_eq_one`: the same for `M_r(ℤ)` and `M_r(ℤ₃)` (N5 L468-470;
+  h-b1 Lemma PR(ii) step 3: `ρ(I_v)` finite inside `1 + 3M₄(ℤ₃)` is trivial; A4's neatness).
+* `injective_mod_three`, `card_le_three_pow`: a finite subgroup of `GL_r(ℤ)` injects into
+  `GL_r(𝔽₃)`, so has order `≤ 3^(r²)` (N5 L551-553, step A8: `[E:ℚ] ≤ 3^{r²}`).
+-/
+
+namespace GlueRepo.TorsionFree
+
+namespace CommCore
+
+variable {C : Type*} [CommRing C]
+variable (h3 : ∀ x : C, (3 : C) * x = 0 → x = 0)
+variable (hsep : ∀ x : C, (∀ n : ℕ, ∃ y, x = (3 : C) ^ n * y) → x = 0)
+
+theorem one_add_pow_expand (N : C) (m : ℕ) :
+    ∃ Q : C, (1 + N) ^ m = 1 + (m : C) * N + N ^ 2 * Q := by
+  induction m with
+  | zero => exact ⟨0, by simp⟩
+  | succ m ih =>
+    obtain ⟨Q, hQ⟩ := ih
+    exact ⟨(m : C) + Q + Q * N, by rw [pow_succ, hQ]; push_cast; ring⟩
+
+include h3
+
+theorem cancel_three_pow {n : ℕ} {x : C} (h : (3 : C) ^ n * x = 0) : x = 0 := by
+  induction n with
+  | zero => simpa using h
+  | succ n ih => exact ih (h3 _ (by rw [← mul_assoc, ← pow_succ']; exact h))
+
+/-- Step for `3 ∤ m`. -/
+theorem step_coprime {m : ℕ} (hm : ¬ 3 ∣ m) {N : C} (hN : (1 + N) ^ m = 1) {k : ℕ} (hk : 1 ≤ k)
+    {M : C} (hM : N = (3 : C) ^ k * M) : ∃ M', N = (3 : C) ^ (k + 1) * M' := by
+  obtain ⟨Q, hQ⟩ := one_add_pow_expand N m
+  rw [hN] at hQ
+  obtain ⟨j, rfl⟩ : ∃ j, k = j + 1 := ⟨k - 1, by omega⟩
+  have h4 : (m : C) * M + 3 * ((3 : C) ^ j * M ^ 2 * Q) = 0 := by
+    apply cancel_three_pow h3 (n := j + 1)
+    rw [hM] at hQ
+    linear_combination (-1 : C) * hQ
+  obtain ⟨q, hq⟩ : ∃ q, m = 3 * q + 1 ∨ m = 3 * q + 2 := ⟨m / 3, by omega⟩
+  set Y := (3 : C) ^ j * M ^ 2 * Q
+  rcases hq with hq | hq
+  · subst hq
+    refine ⟨-Y - (q : C) * M, ?_⟩
+    rw [hM]; push_cast at h4
+    linear_combination (3 : C) ^ (j + 1) * h4
+  · subst hq
+    refine ⟨M + Y + (q : C) * M, ?_⟩
+    rw [hM]; push_cast at h4
+    linear_combination (-(3 : C) ^ (j + 1)) * h4
+
+/-- Step for `m = 3`. -/
+theorem step_three {N : C} (hN : (1 + N) ^ 3 = 1) {k : ℕ} (hk : 1 ≤ k)
+    {M : C} (hM : N = (3 : C) ^ k * M) : ∃ M', N = (3 : C) ^ (k + 1) * M' := by
+  obtain ⟨j, rfl⟩ : ∃ j, k = j + 1 := ⟨k - 1, by omega⟩
+  have h4 : M + 3 * ((3 : C) ^ j * M ^ 2 + (3 : C) ^ j * (3 : C) ^ j * M ^ 3) = 0 := by
+    apply cancel_three_pow h3 (n := j + 2)
+    rw [hM] at hN
+    linear_combination hN
+  refine ⟨-((3 : C) ^ j * M ^ 2 + (3 : C) ^ j * (3 : C) ^ j * M ^ 3), ?_⟩
+  rw [hM]
+  linear_combination (3 : C) ^ (j + 1) * h4
+
+include hsep in
+omit h3 in
+/-- If every `3^k`-divisibility of `N` (`k ≥ 1`) improves to `3^{k+1}`, and `3 ∣ N`, then `N = 0`. -/
+theorem eq_zero_of_step {N : C} (h1 : ∃ y, N = 3 * y)
+    (hstep : ∀ k, 1 ≤ k → ∀ M, N = (3 : C) ^ k * M → ∃ M', N = (3 : C) ^ (k + 1) * M') : N = 0 := by
+  apply hsep
+  intro n
+  induction n with
+  | zero => exact ⟨N, by simp⟩
+  | succ n ih =>
+    rcases n with _ | n
+    · obtain ⟨y, hy⟩ := h1; exact ⟨y, by simpa using hy⟩
+    · obtain ⟨M, hM⟩ := ih
+      exact hstep (n + 1) (by omega) M hM
+
+include hsep in
+theorem eq_one_of_pow_eq_one {A : C} (hA : ∃ y, A = 1 + 3 * y) {m : ℕ} (hm : 0 < m)
+    (hAm : A ^ m = 1) : A = 1 := by
+  obtain ⟨a, b, hb, rfl⟩ := Nat.exists_eq_pow_mul_and_not_dvd hm.ne' 3 (by norm_num)
+  induction a generalizing A with
+  | zero =>
+    simp only [pow_zero, one_mul] at hAm
+    obtain ⟨y, rfl⟩ := hA
+    have : 3 * y = 0 := eq_zero_of_step hsep ⟨y, rfl⟩
+      (fun k hk M hM => step_coprime h3 hb (by simpa using hAm) hk hM)
+    rw [this, add_zero]
+  | succ a ih =>
+    have h3' : A ^ 3 = 1 := by
+      apply ih
+      · obtain ⟨y, rfl⟩ := hA
+        exact ⟨3 * y + 9 * y ^ 2 + 9 * y ^ 3, by ring⟩
+      · exact Nat.mul_pos (pow_pos (by norm_num) _) (Nat.pos_of_ne_zero (by rintro rfl; simp at hb))
+      · rw [← pow_mul, ← hAm]; ring_nf
+    obtain ⟨y, rfl⟩ := hA
+    have : 3 * y = 0 := eq_zero_of_step hsep ⟨y, rfl⟩
+      (fun k hk M hM => step_three h3 (by simpa using h3') hk hM)
+    rw [this, add_zero]
+
+end CommCore
+
+section General
+
+variable {S : Type*} [Ring S]
+
+/-- The commutative subalgebra `ℤ[y]` of a ring. -/
+instance adjoinCommRing (y : S) : CommRing (Algebra.adjoin ℤ ({y} : Set S)) :=
+  { (inferInstance : Ring (Algebra.adjoin ℤ ({y} : Set S))) with
+    mul_comm := fun a b => Subtype.ext <|
+      (Algebra.commute_of_mem_adjoin_singleton_of_commute b.2
+        (Algebra.commute_of_mem_adjoin_self a.2).symm).eq }
+
+theorem eq_one_of_pow_eq_one
+    (h3 : ∀ x : S, (3 : S) * x = 0 → x = 0)
+    (hsep : ∀ x : S, (∀ n : ℕ, ∃ y, x = (3 : S) ^ n * y) → x = 0)
+    {A : S} (hA : ∃ y, A = 1 + 3 * y) {m : ℕ} (hm : 0 < m) (hAm : A ^ m = 1) : A = 1 := by
+  obtain ⟨y, rfl⟩ := hA
+  let C := Algebra.adjoin ℤ ({y} : Set S)
+  let y' : C := ⟨y, Algebra.self_mem_adjoin_singleton ℤ y⟩
+  have h3c : ((3 : C) : S) = 3 := rfl
+  have key : (1 + 3 * y' : C) = 1 := by
+    apply CommCore.eq_one_of_pow_eq_one (C := C)
+    · intro x hx
+      exact Subtype.ext (h3 x (by simpa [h3c] using congrArg Subtype.val hx))
+    · intro x hx
+      refine Subtype.ext (hsep x fun n => ?_)
+      obtain ⟨z, hz⟩ := hx n
+      exact ⟨z, by simpa [h3c] using congrArg Subtype.val hz⟩
+    · exact ⟨y', rfl⟩
+    · exact hm
+    · exact Subtype.ext (by simpa [y', h3c] using hAm)
+  simpa [y', h3c] using congrArg Subtype.val key
+
+end General
+
+section Matrices
+
+variable {r : ℕ} {R : Type*} [CommRing R] [IsDomain R] [IsNoetherianRing R]
+
+theorem three_pow_mul (n : ℕ) (y : Matrix (Fin r) (Fin r) R) (i j : Fin r) :
+    ((3 : Matrix (Fin r) (Fin r) R) ^ n * y) i j = (3 : R) ^ n * y i j := by
+  have : (3 : Matrix (Fin r) (Fin r) R) ^ n * y = (3 ^ n : ℕ) • y := by
+    rw [nsmul_eq_mul]; push_cast; rfl
+  rw [this, Matrix.smul_apply, nsmul_eq_mul]; push_cast; rfl
+
+/-- `M_r(R)` satisfies the hypotheses of `eq_one_of_pow_eq_one` when `R` is a Noetherian domain
+in which `3` is a nonzero nonunit (Krull's intersection theorem). -/
+theorem matrix_eq_one (hR : (3 : R) ≠ 0) (hu : ¬ IsUnit (3 : R))
+    {A : Matrix (Fin r) (Fin r) R} (hA : ∃ y, A = 1 + 3 * y) {m : ℕ} (hm : 0 < m)
+    (hAm : A ^ m = 1) : A = 1 := by
+  refine eq_one_of_pow_eq_one ?_ ?_ hA hm hAm
+  · intro x hx
+    ext i j
+    have := congrFun (congrFun hx i) j
+    rw [show (3 : Matrix (Fin r) (Fin r) R) * x = (3 : Matrix (Fin r) (Fin r) R) ^ 1 * x by
+      rw [pow_one], three_pow_mul] at this
+    simpa [hR] using this
+  · intro x hx
+    ext i j
+    have hI : Ideal.span {(3 : R)} ≠ ⊤ := by
+      rwa [Ne, Ideal.span_singleton_eq_top]
+    have hmem : x i j ∈ ⨅ n : ℕ, Ideal.span {(3 : R)} ^ n := by
+      rw [Ideal.mem_iInf]
+      intro n
+      obtain ⟨y, hy⟩ := hx n
+      rw [Ideal.span_singleton_pow, Ideal.mem_span_singleton, hy, three_pow_mul]
+      exact dvd_mul_right _ _
+    rw [Ideal.iInf_pow_eq_bot_of_isDomain (Ideal.span {(3 : R)}) hI, Ideal.mem_bot] at hmem
+    simpa using hmem
+
+/-- `1 + 3M_r(ℤ)` is torsion-free. -/
+theorem matrix_int_eq_one {A : Matrix (Fin r) (Fin r) ℤ} (hA : ∃ y, A = 1 + 3 * y) {m : ℕ}
+    (hm : 0 < m) (hAm : A ^ m = 1) : A = 1 :=
+  matrix_eq_one (by norm_num) (by rw [Int.isUnit_iff]; norm_num) hA hm hAm
+
+/-- `1 + 3M_r(ℤ₃)` is torsion-free (N5 L468-470). -/
+theorem matrix_padic_eq_one {A : Matrix (Fin r) (Fin r) ℤ_[3]} (hA : ∃ y, A = 1 + 3 * y)
+    {m : ℕ} (hm : 0 < m) (hAm : A ^ m = 1) : A = 1 := by
+  have : Fact (Nat.Prime 3) := ⟨Nat.prime_three⟩
+  refine matrix_eq_one (by norm_num) ?_ hA hm hAm
+  rw [PadicInt.isUnit_iff, show ((3 : ℤ_[3])) = ((3 : ℕ) : ℤ_[3]) by norm_cast,
+    PadicInt.norm_p]
+  norm_num
+
+/-- A subgroup of `GL_r(ℤ₃)` all of whose elements are `≡ 1 (mod 3)` and of finite order is
+trivial (h-b1 Lemma PR(ii) step 3, with `H = ρ(I_v)`). -/
+theorem padic_subgroup_trivial (H : Subgroup (GL (Fin r) ℤ_[3])) [Finite H]
+    (hH : ∀ g ∈ H, ∃ y, (g : Matrix (Fin r) (Fin r) ℤ_[3]) = 1 + 3 * y) : H = ⊥ := by
+  rw [Subgroup.eq_bot_iff_forall]
+  intro g hg
+  have hpow : (⟨g, hg⟩ : H) ^ Nat.card H = 1 := pow_card_eq_one'
+  have hm : 0 < Nat.card H := Nat.card_pos
+  have h1 : g ^ Nat.card H = 1 := by
+    simpa only [Subgroup.coe_pow, OneMemClass.coe_one] using congrArg Subtype.val hpow
+  apply Units.ext
+  refine matrix_padic_eq_one (hH g hg) hm ?_
+  simpa using congrArg Units.val h1
+
+/-- Minkowski: a finite subgroup of `GL_r(ℤ)` injects into `GL_r(𝔽₃)`. -/
+theorem injective_mod_three (G : Subgroup (GL (Fin r) ℤ)) [Finite G] :
+    Function.Injective
+      ((Matrix.GeneralLinearGroup.map (n := Fin r) (Int.castRingHom (ZMod 3))).comp G.subtype) := by
+  rw [injective_iff_map_eq_one]
+  intro g hg
+  have hdvd : ∀ i j, ∃ c : ℤ, ((g : GL (Fin r) ℤ) : Matrix (Fin r) (Fin r) ℤ) i j
+      = (1 : Matrix (Fin r) (Fin r) ℤ) i j + 3 * c := by
+    intro i j
+    have := congrArg (fun h : GL (Fin r) (ZMod 3) => (h : Matrix (Fin r) (Fin r) (ZMod 3)) i j) hg
+    simp only [MonoidHom.comp_apply, Subgroup.coe_subtype, Units.val_one] at this
+    have h2 : ((((g : GL (Fin r) ℤ) : Matrix (Fin r) (Fin r) ℤ) i j : ℤ) : ZMod 3)
+        = (((1 : Matrix (Fin r) (Fin r) ℤ) i j : ℤ) : ZMod 3) := by
+      by_cases hij : i = j <;> simpa [Matrix.GeneralLinearGroup.map, Matrix.one_apply, hij] using this
+    rw [ZMod.intCast_eq_intCast_iff_dvd_sub] at h2
+    obtain ⟨c, hc⟩ := h2
+    exact ⟨-c, by push_cast at hc; linarith⟩
+  choose c hc using hdvd
+  have hA : ∃ y, ((g : GL (Fin r) ℤ) : Matrix (Fin r) (Fin r) ℤ) = 1 + 3 * y := by
+    refine ⟨Matrix.of c, ?_⟩
+    ext i j
+    rw [Matrix.add_apply, show (3 : Matrix (Fin r) (Fin r) ℤ) * Matrix.of c
+      = (3 : Matrix (Fin r) (Fin r) ℤ) ^ 1 * Matrix.of c by rw [pow_one], three_pow_mul]
+    simpa using hc i j
+  have hpow : g ^ Nat.card G = 1 := pow_card_eq_one'
+  have h1 : (g : GL (Fin r) ℤ) ^ Nat.card G = 1 := by
+    simpa only [Subgroup.coe_pow, OneMemClass.coe_one] using congrArg Subtype.val hpow
+  apply Subtype.ext
+  apply Units.ext
+  simp only [OneMemClass.coe_one, Units.val_one]
+  refine matrix_int_eq_one hA (Nat.card_pos (α := G)) ?_
+  simpa using congrArg Units.val h1
+
+/-- Minkowski's bound used in step A8: a finite subgroup of `GL_r(ℤ)` has order `≤ 3^(r²)`. -/
+theorem card_le_three_pow (G : Subgroup (GL (Fin r) ℤ)) [Finite G] :
+    Nat.card G ≤ 3 ^ (r ^ 2) := by
+  have hinj : Function.Injective fun g : G =>
+      (((Matrix.GeneralLinearGroup.map (n := Fin r) (Int.castRingHom (ZMod 3))).comp G.subtype) g :
+        Matrix (Fin r) (Fin r) (ZMod 3)) :=
+    fun a b h => injective_mod_three G (Units.ext h)
+  calc Nat.card G ≤ Nat.card (Matrix (Fin r) (Fin r) (ZMod 3)) :=
+        Nat.card_le_card_of_injective _ hinj
+    _ = 3 ^ (r ^ 2) := by
+        show Nat.card (Fin r → Fin r → ZMod 3) = _
+        simp [Nat.card_fun, Nat.card_zmod, ← pow_mul, sq]
+
+end Matrices
+
+end GlueRepo.TorsionFree
+
+
+end RepoTorsionFreeSec
+
+section RepoPRArithSec
+/-! ### Copied from `scratch/glue-repo/PRArith.lean` (compiled there). -/
+
+/-!
+# glue-repo, steps A5 and A7: the arithmetic of Lemma PR(i) (h-b1 §4) and of the fibre point
+
+For `u ∈ ℚ ∖ 𝒞`, `j₀ = J(u) = −57600 F(u)²/G(u)⁶`. Prop. TS (h-b1 §1.2, a published theorem)
+says: at a prime `p` where the cover `Y₃ → P¹_j` is tame with no vertical ramification
+(Lemma NV, `p ≥ 5`), the inertia of the fibre field at `p` has order `e_b / gcd(e_b, m_b)`, where
+`m_b` is the intersection multiplicity of `j₀` with the branch point `b ∈ {0, ∞, −16/27}`,
+`(e₀, e_∞, e_{−16/27}) = (4, 6, 2)` (A2). Here we prove the elementary half of Lemma PR(i):
+
+* `inertia_trivial_iff` : for every prime `p ≥ 17` and `u ∈ ℚ ∖ 𝒞`,
+  `4 ∣ m₀ ∧ 6 ∣ m_∞ ∧ 2 ∣ m_{−16/27}` (i.e. all three predicted inertia orders are 1)
+  iff no `v_p(u − c)`, `c ∈ 𝒞`, is positive and odd; with `m₀ = v_p(j₀)⁺`,
+  `m_∞ = (−v_p(j₀))⁺`, `m_{−16/27} = v_p(j₀ + 16/27)⁺`.
+* `inertia_trivial_of_not_dvd` : the same in terms of `M_S(u) = ZInQ.contactSupport S u`.
+* `Hq_ne_zero`, `J_ne_zero`, `J_ne_branch` : `j₀` is finite, nonzero and `≠ −16/27`
+  (h-b1 M7; A7 "j = J(u) is rational, finite and nonzero").
+* `G6_sub_F2`, `J_add`, `t_eq`, `t_sub_one` : N5 L510-516 and rv-h-cm §1.4.
+-/
+
+open ZInQ
+
+namespace GlueRepo.PR
+
+/-- The rational functions of N5 L377-386, L510-516. -/
+def Fq (u : ℚ) : ℚ := u * (u + 15) * (u + 20) * (u + 24) * (u + 30) * (u + 60)
+def Gq (u : ℚ) : ℚ := 7 * u ^ 2 + 300 * u + 3600
+def Hq (u : ℚ) : ℚ :=
+  (u ^ 2 - 60 * u - 1800) * (13 * u ^ 2 + 480 * u + 3600) * (11 * u ^ 2 + 600 * u + 7200)
+/-- `H` in homogeneous form. -/
+def Hh (a b : ℤ) : ℤ :=
+  (a ^ 2 - 60 * a * b - 1800 * b ^ 2) * (13 * a ^ 2 + 480 * a * b + 3600 * b ^ 2) *
+    (11 * a ^ 2 + 600 * a * b + 7200 * b ^ 2)
+
+/-- `J(u)`, verbatim copy of `ZInQ.JHeight.Jmap` (`ZInQKernel/Hypotheses/JHeight.lean`, which
+scratch files cannot import in this worktree). -/
+def Jmap (u : ℚ) : ℚ :=
+  -57600 * (u * (u + 15) * (u + 20) * (u + 24) * (u + 30) * (u + 60)) ^ 2 /
+    (7 * u ^ 2 + 300 * u + 3600) ^ 6
+
+theorem Jmap_eq (u : ℚ) : Jmap u = -57600 * Fq u ^ 2 / Gq u ^ 6 := rfl
+
+/-- `G⁶ − 97200 F² = H²` (N5 L513-515). -/
+theorem G6_sub_F2 (u : ℚ) : Gq u ^ 6 - 97200 * Fq u ^ 2 = Hq u ^ 2 := by
+  unfold Gq Fq Hq; ring
+
+theorem Gq_ne_zero (u : ℚ) : Gq u ≠ 0 := by
+  unfold Gq; nlinarith [sq_nonneg (7 * u + 150)]
+
+/-- `J + 16/27 = 16 H² / (27 G⁶)` (h-b1 M7). -/
+theorem J_add (u : ℚ) : Jmap u + 16 / 27 = 16 * Hq u ^ 2 / (27 * Gq u ^ 6) := by
+  have hG := Gq_ne_zero u
+  rw [Jmap_eq]
+  field_simp
+  linear_combination (16 : ℚ) * G6_sub_F2 u
+
+/-- Elkies' coordinate `t = 1 + 27 j / 16` (rv-h-cm §1.3). -/
+def tq (u : ℚ) : ℚ := 1 + 27 * Jmap u / 16
+
+theorem t_eq (u : ℚ) : tq u = Hq u ^ 2 / Gq u ^ 6 := by
+  have hG := Gq_ne_zero u
+  unfold tq; rw [Jmap_eq]; field_simp
+  linear_combination (16 : ℚ) * G6_sub_F2 u
+
+theorem t_sub_one (u : ℚ) : tq u - 1 = -3 * (180 * Fq u / Gq u ^ 3) ^ 2 := by
+  have hG := Gq_ne_zero u
+  unfold tq; rw [Jmap_eq]; field_simp; ring
+
+/-! ### Nonvanishing -/
+
+/-- A rational square has even `3`-adic valuation. -/
+theorem not_sq_of_odd_val {x d : ℚ} (hx : x ^ 2 = d) (hd : d ≠ 0)
+    (hodd : Odd (padicValRat 3 d)) : False := by
+  have : Fact (Nat.Prime 3) := ⟨Nat.prime_three⟩
+  rw [← hx, padicValRat.pow] at hodd
+  exact (Int.not_even_iff_odd.mpr hodd) ⟨padicValRat 3 x, by push_cast; ring⟩
+
+theorem quad_ne_zero {α β γ : ℚ} (hα : α ≠ 0) (hΔ : β ^ 2 - 4 * α * γ ≠ 0)
+    (hodd : Odd (padicValRat 3 (β ^ 2 - 4 * α * γ))) (u : ℚ) : α * u ^ 2 + β * u + γ ≠ 0 := by
+  intro h
+  exact not_sq_of_odd_val (x := 2 * α * u + β) (by linear_combination 4 * α * h) hΔ hodd
+
+theorem val3_43200 : padicValRat 3 (43200 : ℚ) = 3 := by
+  have : Fact (Nat.Prime 3) := ⟨Nat.prime_three⟩
+  rw [show (43200 : ℚ) = ((3 ^ 3 * 1600 : ℕ) : ℚ) by norm_num, padicValRat.of_nat,
+    padicValNat.mul (by norm_num) (by norm_num), padicValNat.prime_pow,
+    padicValNat.eq_zero_of_not_dvd (by norm_num)]
+  rfl
+
+theorem val3_10800 : padicValRat 3 (10800 : ℚ) = 3 := by
+  have : Fact (Nat.Prime 3) := ⟨Nat.prime_three⟩
+  rw [show (10800 : ℚ) = ((3 ^ 3 * 400 : ℕ) : ℚ) by norm_num, padicValRat.of_nat,
+    padicValNat.mul (by norm_num) (by norm_num), padicValNat.prime_pow,
+    padicValNat.eq_zero_of_not_dvd (by norm_num)]
+  rfl
+
+/-- `H` has no rational root: its quadratic factors have discriminants `10800, 43200, 43200`,
+of odd `3`-adic valuation (h-b1 M7). -/
+theorem Hq_ne_zero (u : ℚ) : Hq u ≠ 0 := by
+  have h1 : (1 : ℚ) * u ^ 2 + (-60) * u + (-1800) ≠ 0 :=
+    quad_ne_zero one_ne_zero (by norm_num) (by norm_num [val3_10800]) u
+  have h2 : (13 : ℚ) * u ^ 2 + 480 * u + 3600 ≠ 0 :=
+    quad_ne_zero (by norm_num) (by norm_num) (by norm_num [val3_43200]) u
+  have h3 : (11 : ℚ) * u ^ 2 + 600 * u + 7200 ≠ 0 :=
+    quad_ne_zero (by norm_num) (by norm_num) (by norm_num [val3_43200]) u
+  unfold Hq
+  refine mul_ne_zero (mul_ne_zero ?_ h2) h3
+  intro h; apply h1; linear_combination h
+
+theorem Fq_ne_zero {u : ℚ} (hu : u ∉ contactSet) : Fq u ≠ 0 := by
+  simp only [contactSet, Finset.mem_insert, Finset.mem_singleton, not_or] at hu
+  obtain ⟨h0, h1, h2, h3, h4, h5⟩ := hu
+  unfold Fq
+  refine mul_ne_zero (mul_ne_zero (mul_ne_zero (mul_ne_zero (mul_ne_zero h0 ?_) ?_) ?_) ?_) ?_
+  all_goals intro h
+  exacts [h1 (by linarith), h2 (by linarith), h3 (by linarith), h4 (by linarith), h5 (by linarith)]
+
+/-- `j₀ = J(u)` is finite and nonzero for `u ∉ 𝒞` (A7). -/
+theorem J_ne_zero {u : ℚ} (hu : u ∉ contactSet) : Jmap u ≠ 0 := by
+  rw [Jmap_eq]
+  exact div_ne_zero (mul_ne_zero (by norm_num) (pow_ne_zero _ (Fq_ne_zero hu)))
+    (pow_ne_zero _ (Gq_ne_zero u))
+
+/-- `j₀ ≠ −16/27`: `J(u)` is not a branch value (h-b1 M7). -/
+theorem J_ne_branch (u : ℚ) : Jmap u ≠ -16 / 27 := by
+  intro h
+  have h1 := J_add u
+  rw [h] at h1
+  have hH := Hq_ne_zero u
+  have hG := Gq_ne_zero u
+  have h2 : 16 * Hq u ^ 2 / (27 * Gq u ^ 6) ≠ 0 := by positivity
+  exact h2 (by rw [← h1]; norm_num)
+
+/-! ### The valuation case analysis of Lemma PR(i) -/
+
+section Valuation
+
+variable {p : ℕ} [hp : Fact p.Prime]
+
+/-- A `{2,3,5,7,11,13}`-smooth number bound. -/
+def smoothBound : ℕ := 2 ^ 60 * 3 ^ 40 * 5 ^ 40 * 7 ^ 6 * 11 ^ 6 * 13 ^ 6
+
+theorem not_dvd_smoothBound (h17 : 17 ≤ p) : ¬ p ∣ smoothBound := by
+  have hpp := hp.out.prime
+  intro h
+  simp only [smoothBound, hpp.dvd_mul] at h
+  rcases h with (((((h | h) | h) | h) | h) | h) <;>
+    have := Nat.le_of_dvd (by norm_num) (hpp.dvd_of_dvd_pow h) <;> omega
+
+theorem smooth_ne_zero (h17 : 17 ≤ p) (N : ℕ) (hN : N ∣ smoothBound) : (N : ZMod p) ≠ 0 := by
+  rw [Ne, ZMod.natCast_eq_zero_iff]
+  exact fun h => not_dvd_smoothBound h17 (h.trans hN)
+
+theorem vpos_iff {z : ℤ} (hz : z ≠ 0) : 0 < padicValInt p z ↔ (z : ZMod p) = 0 := by
+  rw [ZMod.intCast_zmod_eq_zero_iff_dvd, ← pow_one (p : ℤ), padicValInt_dvd_iff]
+  simp [hz, Nat.one_le_iff_ne_zero, Nat.pos_iff_ne_zero]
+
+theorem pair_not {x y b : ℤ} {d : ℕ} (hd : (d : ZMod p) ≠ 0) (hb : (b : ZMod p) ≠ 0)
+    (h : y = x + d * b) : ¬ ((x : ZMod p) = 0 ∧ (y : ZMod p) = 0) := by
+  rintro ⟨hx, hy⟩
+  rw [h] at hy; push_cast at hy; rw [hx, zero_add] at hy
+  exact (mul_ne_zero hd hb) hy
+
+theorem bezout_not {x y b s t : ℤ} {N k : ℕ} (hN : (N : ZMod p) ≠ 0) (hb : (b : ZMod p) ≠ 0)
+    (h : s * x + t * y = N * b ^ k) : ¬ ((x : ZMod p) = 0 ∧ (y : ZMod p) = 0) := by
+  rintro ⟨hx, hy⟩
+  have := congrArg (fun z : ℤ => (z : ZMod p)) h
+  push_cast at this
+  rw [hx, hy, mul_zero, mul_zero, add_zero] at this
+  exact (mul_ne_zero hN (pow_ne_zero _ hb)) this.symm
+
+/-- `F`, `G` in homogeneous form (copies of `ZInQ.JHeight.Fh`, `Gh`). -/
+def Fh (a b : ℤ) : ℤ := a * (a + 15 * b) * (a + 20 * b) * (a + 24 * b) * (a + 30 * b) * (a + 60 * b)
+def Gh (a b : ℤ) : ℤ := 7 * a ^ 2 + 300 * a * b + 3600 * b ^ 2
+
+/-- Homogeneous Bezout certificates (`scratch/glue-repo/bezout.py`). -/
+theorem bez_FG (a b : ℤ) :
+    (-1001 * a - 37650 * b) * Fh a b + (143 * a ^ 5 + 20557 * a ^ 4 * b + 1026600 * a ^ 3 * b ^ 2
+      + 20691900 * a ^ 2 * b ^ 3 + 133110000 * a * b ^ 4 + 29160000 * b ^ 5) * Gh a b
+      = (104976000000 : ℕ) * b ^ 7 := by
+  unfold Fh Gh; push_cast; ring
+
+theorem bez_FH (a b : ℤ) :
+    (16823807 * a ^ 5 + 168910350 * a ^ 4 * b - 76576533600 * a ^ 3 * b ^ 2
+      - 3442684140000 * a ^ 2 * b ^ 3 - 52460404920000 * a * b ^ 4 - 259773966000000 * b ^ 5) * Fh a b
+    + (-117649 * a ^ 5 - 15008651 * a ^ 4 * b - 649710600 * a ^ 3 * b ^ 2
+      - 11566268700 * a ^ 2 * b ^ 3 - 72155790000 * a * b ^ 4 - 14580000 * b ^ 5) * Hh a b
+      = (680244480000000000 : ℕ) * b ^ 11 := by
+  unfold Fh Hh; push_cast; ring
+
+theorem bez_GH (a b : ℤ) :
+    (-858 * a ^ 5 - 5693 * a ^ 4 * b + 3924600 * a ^ 3 * b ^ 2 + 161087400 * a ^ 2 * b ^ 3
+      + 2164860000 * a * b ^ 4 + 9985680000 * b ^ 5) * Gh a b + (42 * a + 757 * b) * Hh a b
+      = (629856000000 : ℕ) * b ^ 7 := by
+  unfold Gh Hh; push_cast; ring
+
+theorem padicValRat_int_eq_zero (h17 : 17 ≤ p) {z : ℤ} (N : ℕ) (hz : z.natAbs = N)
+    (hN : N ∣ smoothBound) : padicValRat p (z : ℚ) = 0 := by
+  rw [padicValRat.of_int, padicValInt.eq_zero_of_not_dvd]
+  · rfl
+  · rw [Int.natCast_dvd, hz]
+    exact fun h => not_dvd_smoothBound h17 (h.trans hN)
+
+/-- The final case analysis of Lemma PR(i) over the naturals (`p ∤ b`). -/
+theorem final_nat {v0 v1 v2 v3 v4 v5 vF vG vH vb : ℕ}
+    (hF : (vF : ℤ) = v0 + v1 + v2 + v3 + v4 + v5) (hb : vb = 0)
+    (q01 : ¬ (0 < v0 ∧ 0 < v1))
+    (q02 : ¬ (0 < v0 ∧ 0 < v2))
+    (q03 : ¬ (0 < v0 ∧ 0 < v3))
+    (q04 : ¬ (0 < v0 ∧ 0 < v4))
+    (q05 : ¬ (0 < v0 ∧ 0 < v5))
+    (q12 : ¬ (0 < v1 ∧ 0 < v2))
+    (q13 : ¬ (0 < v1 ∧ 0 < v3))
+    (q14 : ¬ (0 < v1 ∧ 0 < v4))
+    (q15 : ¬ (0 < v1 ∧ 0 < v5))
+    (q23 : ¬ (0 < v2 ∧ 0 < v3))
+    (q24 : ¬ (0 < v2 ∧ 0 < v4))
+    (q25 : ¬ (0 < v2 ∧ 0 < v5))
+    (q34 : ¬ (0 < v3 ∧ 0 < v4))
+    (q35 : ¬ (0 < v3 ∧ 0 < v5))
+    (q45 : ¬ (0 < v4 ∧ 0 < v5))
+    (bFG : ¬ (0 < vF ∧ 0 < vG)) (bFH : ¬ (0 < vF ∧ 0 < vH)) (bGH : ¬ (0 < vG ∧ 0 < vH)) :
+    (4 ∣ (2 * (vF : ℤ) - 6 * (vG : ℤ)).toNat ∧ 6 ∣ (-(2 * (vF : ℤ) - 6 * (vG : ℤ))).toNat ∧
+      2 ∣ (2 * (vH : ℤ) - 6 * (vG : ℤ)).toNat) ↔
+      ¬ ((0 < (v0 : ℤ) - vb ∧ ((v0 : ℤ) - vb) % 2 = 1) ∨
+        (0 < (v1 : ℤ) - vb ∧ ((v1 : ℤ) - vb) % 2 = 1) ∨
+        (0 < (v2 : ℤ) - vb ∧ ((v2 : ℤ) - vb) % 2 = 1) ∨
+        (0 < (v3 : ℤ) - vb ∧ ((v3 : ℤ) - vb) % 2 = 1) ∨
+        (0 < (v4 : ℤ) - vb ∧ ((v4 : ℤ) - vb) % 2 = 1) ∨
+        (0 < (v5 : ℤ) - vb ∧ ((v5 : ℤ) - vb) % 2 = 1)) := by
+  subst hb
+  rcases Nat.eq_zero_or_pos vF with hF0 | hF0
+  · clear q01 q02 q03 q04 q05 q12 q13 q14 q15 q23 q24 q25 q34 q35 q45 bFG bFH
+    have e0 : v0 = 0 := by omega
+    have e1 : v1 = 0 := by omega
+    have e2 : v2 = 0 := by omega
+    have e3 : v3 = 0 := by omega
+    have e4 : v4 = 0 := by omega
+    have e5 : v5 = 0 := by omega
+    omega
+  · have hG0 : vG = 0 := by by_contra h; exact bFG ⟨hF0, Nat.pos_of_ne_zero h⟩
+    have hH0 : vH = 0 := by by_contra h; exact bFH ⟨hF0, Nat.pos_of_ne_zero h⟩
+    rcases Nat.eq_zero_or_pos v0 with h0 | h0
+    ·
+      rcases Nat.eq_zero_or_pos v1 with h1 | h1
+      ·
+        rcases Nat.eq_zero_or_pos v2 with h2 | h2
+        ·
+          rcases Nat.eq_zero_or_pos v3 with h3 | h3
+          ·
+            rcases Nat.eq_zero_or_pos v4 with h4 | h4
+            ·
+              rcases Nat.eq_zero_or_pos v5 with h5 | h5
+              ·
+                clear q01 q02 q03 q04 q05 q12 q13 q14 q15 q23 q24 q25 q34 q35 q45 bFG bFH bGH
+                omega
+              · have z0 : v0 = 0 := by by_contra h; exact q05 ⟨(Nat.pos_of_ne_zero h), h5⟩
+                have z1 : v1 = 0 := by by_contra h; exact q15 ⟨(Nat.pos_of_ne_zero h), h5⟩
+                have z2 : v2 = 0 := by by_contra h; exact q25 ⟨(Nat.pos_of_ne_zero h), h5⟩
+                have z3 : v3 = 0 := by by_contra h; exact q35 ⟨(Nat.pos_of_ne_zero h), h5⟩
+                have z4 : v4 = 0 := by by_contra h; exact q45 ⟨(Nat.pos_of_ne_zero h), h5⟩
+                clear q01 q02 q03 q04 q05 q12 q13 q14 q15 q23 q24 q25 q34 q35 q45 bFG bFH bGH
+                omega
+            · have z0 : v0 = 0 := by by_contra h; exact q04 ⟨(Nat.pos_of_ne_zero h), h4⟩
+              have z1 : v1 = 0 := by by_contra h; exact q14 ⟨(Nat.pos_of_ne_zero h), h4⟩
+              have z2 : v2 = 0 := by by_contra h; exact q24 ⟨(Nat.pos_of_ne_zero h), h4⟩
+              have z3 : v3 = 0 := by by_contra h; exact q34 ⟨(Nat.pos_of_ne_zero h), h4⟩
+              have z5 : v5 = 0 := by by_contra h; exact q45 ⟨h4, (Nat.pos_of_ne_zero h)⟩
+              clear q01 q02 q03 q04 q05 q12 q13 q14 q15 q23 q24 q25 q34 q35 q45 bFG bFH bGH
+              omega
+          · have z0 : v0 = 0 := by by_contra h; exact q03 ⟨(Nat.pos_of_ne_zero h), h3⟩
+            have z1 : v1 = 0 := by by_contra h; exact q13 ⟨(Nat.pos_of_ne_zero h), h3⟩
+            have z2 : v2 = 0 := by by_contra h; exact q23 ⟨(Nat.pos_of_ne_zero h), h3⟩
+            have z4 : v4 = 0 := by by_contra h; exact q34 ⟨h3, (Nat.pos_of_ne_zero h)⟩
+            have z5 : v5 = 0 := by by_contra h; exact q35 ⟨h3, (Nat.pos_of_ne_zero h)⟩
+            clear q01 q02 q03 q04 q05 q12 q13 q14 q15 q23 q24 q25 q34 q35 q45 bFG bFH bGH
+            omega
+        · have z0 : v0 = 0 := by by_contra h; exact q02 ⟨(Nat.pos_of_ne_zero h), h2⟩
+          have z1 : v1 = 0 := by by_contra h; exact q12 ⟨(Nat.pos_of_ne_zero h), h2⟩
+          have z3 : v3 = 0 := by by_contra h; exact q23 ⟨h2, (Nat.pos_of_ne_zero h)⟩
+          have z4 : v4 = 0 := by by_contra h; exact q24 ⟨h2, (Nat.pos_of_ne_zero h)⟩
+          have z5 : v5 = 0 := by by_contra h; exact q25 ⟨h2, (Nat.pos_of_ne_zero h)⟩
+          clear q01 q02 q03 q04 q05 q12 q13 q14 q15 q23 q24 q25 q34 q35 q45 bFG bFH bGH
+          omega
+      · have z0 : v0 = 0 := by by_contra h; exact q01 ⟨(Nat.pos_of_ne_zero h), h1⟩
+        have z2 : v2 = 0 := by by_contra h; exact q12 ⟨h1, (Nat.pos_of_ne_zero h)⟩
+        have z3 : v3 = 0 := by by_contra h; exact q13 ⟨h1, (Nat.pos_of_ne_zero h)⟩
+        have z4 : v4 = 0 := by by_contra h; exact q14 ⟨h1, (Nat.pos_of_ne_zero h)⟩
+        have z5 : v5 = 0 := by by_contra h; exact q15 ⟨h1, (Nat.pos_of_ne_zero h)⟩
+        clear q01 q02 q03 q04 q05 q12 q13 q14 q15 q23 q24 q25 q34 q35 q45 bFG bFH bGH
+        omega
+    · have z1 : v1 = 0 := by by_contra h; exact q01 ⟨h0, (Nat.pos_of_ne_zero h)⟩
+      have z2 : v2 = 0 := by by_contra h; exact q02 ⟨h0, (Nat.pos_of_ne_zero h)⟩
+      have z3 : v3 = 0 := by by_contra h; exact q03 ⟨h0, (Nat.pos_of_ne_zero h)⟩
+      have z4 : v4 = 0 := by by_contra h; exact q04 ⟨h0, (Nat.pos_of_ne_zero h)⟩
+      have z5 : v5 = 0 := by by_contra h; exact q05 ⟨h0, (Nat.pos_of_ne_zero h)⟩
+      clear q01 q02 q03 q04 q05 q12 q13 q14 q15 q23 q24 q25 q34 q35 q45 bFG bFH bGH
+      omega
+
+
+/-- **Lemma PR(i), elementary half.** For a prime `p ≥ 17` and `u ∈ ℚ ∖ 𝒞`, the three
+predicted inertia orders `e_b / gcd(e_b, m_b)` of Prop. TS are all `1` (equivalently
+`e_b ∣ m_b`) iff no `v_p(u − c)`, `c ∈ 𝒞`, is positive and odd. -/
+theorem inertia_trivial_iff (h17 : 17 ≤ p) {u : ℚ} (hu : u ∉ contactSet) :
+    (4 ∣ (padicValRat p (Jmap u)).toNat ∧ 6 ∣ (-padicValRat p (Jmap u)).toNat ∧
+      2 ∣ (padicValRat p (Jmap u + 16 / 27)).toNat) ↔
+    ¬ ∃ c ∈ contactSet, 0 < padicValRat p (u - c) ∧ Odd (padicValRat p (u - c)) := by
+  set a : ℤ := u.num
+  set b : ℤ := (u.den : ℤ)
+  have hbq : (b : ℚ) ≠ 0 := by simp [b]
+  have hb0 : b ≠ 0 := by simp [b]
+  have hu_eq : u = (a : ℚ) / b := by simp [a, b, Rat.num_div_den]
+  have hFq := Fq_ne_zero hu
+  have hGq := Gq_ne_zero u
+  have hHq := Hq_ne_zero u
+  -- homogeneous forms
+  have eF : Fq u = (Fh a b : ℚ) / (b : ℚ) ^ 6 := by
+    rw [hu_eq]; unfold Fq Fh; push_cast; field_simp
+  have eG : Gq u = (Gh a b : ℚ) / (b : ℚ) ^ 2 := by
+    rw [hu_eq]; unfold Gq Gh; push_cast; field_simp
+  have eH : Hq u = (Hh a b : ℚ) / (b : ℚ) ^ 6 := by
+    rw [hu_eq]; unfold Hq Hh; push_cast; field_simp
+  have hFh : (Fh a b : ℚ) ≠ 0 := by
+    intro h; apply hFq; rw [eF, h, zero_div]
+  have hGh : (Gh a b : ℚ) ≠ 0 := by
+    intro h; apply hGq; rw [eG, h, zero_div]
+  have hHh : (Hh a b : ℚ) ≠ 0 := by
+    intro h; apply hHq; rw [eH, h, zero_div]
+  have hFh' : Fh a b ≠ 0 := by exact_mod_cast hFh
+  have hGh' : Gh a b ≠ 0 := by exact_mod_cast hGh
+  have hHh' : Hh a b ≠ 0 := by exact_mod_cast hHh
+  have eJ : Jmap u = ((-57600 : ℤ) : ℚ) * (Fh a b : ℚ) ^ 2 / (Gh a b : ℚ) ^ 6 := by
+    rw [Jmap_eq, eF, eG]; push_cast; field_simp
+  have eJ' : Jmap u + 16 / 27 = ((16 : ℤ) : ℚ) * (Hh a b : ℚ) ^ 2 / (((27 : ℤ) : ℚ) * (Gh a b : ℚ) ^ 6) := by
+    rw [J_add, eH, eG]; push_cast; field_simp
+  -- valuations of J and J + 16/27
+  have v57600 : padicValRat p (((-57600 : ℤ) : ℚ)) = 0 :=
+    padicValRat_int_eq_zero h17 57600 (by norm_num) (by unfold smoothBound; norm_num)
+  have v16 : padicValRat p (((16 : ℤ) : ℚ)) = 0 :=
+    padicValRat_int_eq_zero h17 16 (by norm_num) (by unfold smoothBound; norm_num)
+  have v27 : padicValRat p (((27 : ℤ) : ℚ)) = 0 :=
+    padicValRat_int_eq_zero h17 27 (by norm_num) (by unfold smoothBound; norm_num)
+  have hJv : padicValRat p (Jmap u) = 2 * padicValInt p (Fh a b) - 6 * padicValInt p (Gh a b) := by
+    rw [eJ, padicValRat.div (mul_ne_zero (by norm_num) (pow_ne_zero _ hFh)) (pow_ne_zero _ hGh),
+      padicValRat.mul (by norm_num) (pow_ne_zero _ hFh), padicValRat.pow, padicValRat.pow,
+      v57600, padicValRat.of_int, padicValRat.of_int]
+    push_cast; ring
+  have hJv' : padicValRat p (Jmap u + 16 / 27)
+      = 2 * padicValInt p (Hh a b) - 6 * padicValInt p (Gh a b) := by
+    rw [eJ', padicValRat.div (mul_ne_zero (by norm_num) (pow_ne_zero _ hHh))
+        (mul_ne_zero (by norm_num) (pow_ne_zero _ hGh)),
+      padicValRat.mul (by norm_num) (pow_ne_zero _ hHh),
+      padicValRat.mul (by norm_num) (pow_ne_zero _ hGh), padicValRat.pow, padicValRat.pow,
+      v16, v27, padicValRat.of_int, padicValRat.of_int]
+    push_cast; ring
+  -- the six contact factors
+  have hX : ∀ c : ℤ, (c : ℚ) ∈ contactSet → ((a - c * b : ℤ) : ℚ) ≠ 0 ∧
+      u - c = ((a - c * b : ℤ) : ℚ) / b := by
+    intro c hc
+    have e : u - c = ((a - c * b : ℤ) : ℚ) / b := by rw [hu_eq]; push_cast; field_simp
+    refine ⟨fun h => ?_, e⟩
+    rw [h, zero_div, sub_eq_zero] at e
+    exact hu (e ▸ hc)
+  have vX : ∀ c : ℤ, (c : ℚ) ∈ contactSet →
+      padicValRat p (u - c) = padicValInt p (a - c * b) - padicValInt p b := by
+    intro c hc
+    rw [(hX c hc).2, padicValRat.div (hX c hc).1 hbq, padicValRat.of_int, padicValRat.of_int]
+  have m0 : ((0 : ℤ) : ℚ) ∈ contactSet := by simp [contactSet]
+  have m1 : ((-15 : ℤ) : ℚ) ∈ contactSet := by simp [contactSet]
+  have m2 : ((-20 : ℤ) : ℚ) ∈ contactSet := by simp [contactSet]
+  have m3 : ((-24 : ℤ) : ℚ) ∈ contactSet := by simp [contactSet]
+  have m4 : ((-30 : ℤ) : ℚ) ∈ contactSet := by simp [contactSet]
+  have m5 : ((-60 : ℤ) : ℚ) ∈ contactSet := by simp [contactSet]
+  have n0 := (hX 0 m0).1
+  have n1 := (hX (-15) m1).1
+  have n2 := (hX (-20) m2).1
+  have n3 := (hX (-24) m3).1
+  have n4 := (hX (-30) m4).1
+  have n5 := (hX (-60) m5).1
+  have hv0 := vX 0 m0
+  have hv1 := vX (-15) m1
+  have hv2 := vX (-20) m2
+  have hv3 := vX (-24) m3
+  have hv4 := vX (-30) m4
+  have hv5 := vX (-60) m5
+  push_cast at hv0 hv1 hv2 hv3 hv4 hv5
+  -- v(F) is the sum
+  have hFprod : Fh a b = (a - 0 * b) * (a - -15 * b) * (a - -20 * b) * (a - -24 * b)
+      * (a - -30 * b) * (a - -60 * b) := by unfold Fh; ring
+  have n0' : a - 0 * b ≠ 0 := by exact_mod_cast n0
+  have n1' : a - -15 * b ≠ 0 := by exact_mod_cast n1
+  have n2' : a - -20 * b ≠ 0 := by exact_mod_cast n2
+  have n3' : a - -24 * b ≠ 0 := by exact_mod_cast n3
+  have n4' : a - -30 * b ≠ 0 := by exact_mod_cast n4
+  have n5' : a - -60 * b ≠ 0 := by exact_mod_cast n5
+  have c0 : ((a - 0 * b : ℤ) : ℚ) ≠ 0 := Int.cast_ne_zero.mpr n0'
+  have c1 : ((a - -15 * b : ℤ) : ℚ) ≠ 0 := Int.cast_ne_zero.mpr n1'
+  have c2 : ((a - -20 * b : ℤ) : ℚ) ≠ 0 := Int.cast_ne_zero.mpr n2'
+  have c3 : ((a - -24 * b : ℤ) : ℚ) ≠ 0 := Int.cast_ne_zero.mpr n3'
+  have c4 : ((a - -30 * b : ℤ) : ℚ) ≠ 0 := Int.cast_ne_zero.mpr n4'
+  have c5 : ((a - -60 * b : ℤ) : ℚ) ≠ 0 := Int.cast_ne_zero.mpr n5'
+  have hvF : (padicValInt p (Fh a b) : ℤ) = padicValInt p (a - 0 * b) + padicValInt p (a - -15 * b)
+      + padicValInt p (a - -20 * b) + padicValInt p (a - -24 * b) + padicValInt p (a - -30 * b)
+      + padicValInt p (a - -60 * b) := by
+    simp only [← padicValRat.of_int]
+    have p1 := mul_ne_zero c0 c1
+    have p2 := mul_ne_zero p1 c2
+    have p3 := mul_ne_zero p2 c3
+    have p4 := mul_ne_zero p3 c4
+    rw [hFprod, Int.cast_mul, Int.cast_mul, Int.cast_mul, Int.cast_mul, Int.cast_mul,
+      padicValRat.mul p4 c5, padicValRat.mul p3 c4, padicValRat.mul p2 c3, padicValRat.mul p1 c2,
+      padicValRat.mul c0 c1]
+  have hv0 := vX 0 m0
+  have hv1 := vX (-15) m1
+  have hv2 := vX (-20) m2
+  have hv3 := vX (-24) m3
+  have hv4 := vX (-30) m4
+  have hv5 := vX (-60) m5
+  simp only [Int.cast_zero, Int.cast_neg, Int.cast_ofNat] at hv0 hv1 hv2 hv3 hv4 hv5
+  simp only [contactSet, Finset.mem_insert, Finset.mem_singleton, exists_eq_or_imp,
+    exists_eq_left]
+  rw [hv0, hv1, hv2, hv3, hv4, hv5, hJv, hJv']
+  simp only [Int.odd_iff]
+  by_cases hbp : (b : ZMod p) = 0
+  · -- `p ∣ b`: `u` is not `p`-integral; `j₀ ≡ J(∞)` meets no branch point
+    have ha : (a : ZMod p) ≠ 0 := by
+      intro ha
+      rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at ha hbp
+      have h1 : p ∣ u.num.natAbs := Int.natCast_dvd.mp ha
+      have h2 : p ∣ u.den := Int.natCast_dvd_natCast.mp hbp
+      have h3 := Nat.dvd_gcd h1 h2
+      rw [u.reduced] at h3
+      exact hp.out.one_lt.ne' (Nat.dvd_one.mp h3)
+    have h7 : (7 : ZMod p) ≠ 0 := by
+      simpa using smooth_ne_zero (p := p) h17 7 (by unfold smoothBound; norm_num)
+    have h11 : (11 : ZMod p) ≠ 0 := by
+      simpa using smooth_ne_zero (p := p) h17 11 (by unfold smoothBound; norm_num)
+    have h13 : (13 : ZMod p) ≠ 0 := by
+      simpa using smooth_ne_zero (p := p) h17 13 (by unfold smoothBound; norm_num)
+    have z : ∀ c : ℤ, padicValInt p (a - c * b) = 0 := by
+      intro c
+      apply padicValInt.eq_zero_of_not_dvd
+      rw [← ZMod.intCast_zmod_eq_zero_iff_dvd]
+      push_cast; rw [hbp]; simpa using ha
+    have zF : padicValInt p (Fh a b) = 0 := by
+      apply padicValInt.eq_zero_of_not_dvd
+      rw [← ZMod.intCast_zmod_eq_zero_iff_dvd]
+      unfold Fh; push_cast; rw [hbp]; simp [ha]
+    have zG : padicValInt p (Gh a b) = 0 := by
+      apply padicValInt.eq_zero_of_not_dvd
+      rw [← ZMod.intCast_zmod_eq_zero_iff_dvd]
+      unfold Gh; push_cast; rw [hbp]; simp [ha, h7]
+    have zH : padicValInt p (Hh a b) = 0 := by
+      apply padicValInt.eq_zero_of_not_dvd
+      rw [← ZMod.intCast_zmod_eq_zero_iff_dvd]
+      unfold Hh; push_cast; rw [hbp]; simp [ha, h11, h13]
+    have vb : 0 < padicValInt p b := (vpos_iff hb0).mpr hbp
+    simp only [z, zF, zG, zH]
+    omega
+  · -- `p ∤ b`
+    have vb0 : padicValInt p b = 0 := by
+      by_contra h
+      exact hbp ((vpos_iff hb0).mp (Nat.pos_of_ne_zero h))
+    have q01 := pair_not (p := p) (x := a - 0 * b) (y := a - -15 * b) (d := 15)
+      (smooth_ne_zero h17 15 (by unfold smoothBound; norm_num)) hbp (by push_cast; ring)
+    rw [← vpos_iff n0', ← vpos_iff n1'] at q01
+    have q02 := pair_not (p := p) (x := a - 0 * b) (y := a - -20 * b) (d := 20)
+      (smooth_ne_zero h17 20 (by unfold smoothBound; norm_num)) hbp (by push_cast; ring)
+    rw [← vpos_iff n0', ← vpos_iff n2'] at q02
+    have q03 := pair_not (p := p) (x := a - 0 * b) (y := a - -24 * b) (d := 24)
+      (smooth_ne_zero h17 24 (by unfold smoothBound; norm_num)) hbp (by push_cast; ring)
+    rw [← vpos_iff n0', ← vpos_iff n3'] at q03
+    have q04 := pair_not (p := p) (x := a - 0 * b) (y := a - -30 * b) (d := 30)
+      (smooth_ne_zero h17 30 (by unfold smoothBound; norm_num)) hbp (by push_cast; ring)
+    rw [← vpos_iff n0', ← vpos_iff n4'] at q04
+    have q05 := pair_not (p := p) (x := a - 0 * b) (y := a - -60 * b) (d := 60)
+      (smooth_ne_zero h17 60 (by unfold smoothBound; norm_num)) hbp (by push_cast; ring)
+    rw [← vpos_iff n0', ← vpos_iff n5'] at q05
+    have q12 := pair_not (p := p) (x := a - -15 * b) (y := a - -20 * b) (d := 5)
+      (smooth_ne_zero h17 5 (by unfold smoothBound; norm_num)) hbp (by push_cast; ring)
+    rw [← vpos_iff n1', ← vpos_iff n2'] at q12
+    have q13 := pair_not (p := p) (x := a - -15 * b) (y := a - -24 * b) (d := 9)
+      (smooth_ne_zero h17 9 (by unfold smoothBound; norm_num)) hbp (by push_cast; ring)
+    rw [← vpos_iff n1', ← vpos_iff n3'] at q13
+    have q14 := pair_not (p := p) (x := a - -15 * b) (y := a - -30 * b) (d := 15)
+      (smooth_ne_zero h17 15 (by unfold smoothBound; norm_num)) hbp (by push_cast; ring)
+    rw [← vpos_iff n1', ← vpos_iff n4'] at q14
+    have q15 := pair_not (p := p) (x := a - -15 * b) (y := a - -60 * b) (d := 45)
+      (smooth_ne_zero h17 45 (by unfold smoothBound; norm_num)) hbp (by push_cast; ring)
+    rw [← vpos_iff n1', ← vpos_iff n5'] at q15
+    have q23 := pair_not (p := p) (x := a - -20 * b) (y := a - -24 * b) (d := 4)
+      (smooth_ne_zero h17 4 (by unfold smoothBound; norm_num)) hbp (by push_cast; ring)
+    rw [← vpos_iff n2', ← vpos_iff n3'] at q23
+    have q24 := pair_not (p := p) (x := a - -20 * b) (y := a - -30 * b) (d := 10)
+      (smooth_ne_zero h17 10 (by unfold smoothBound; norm_num)) hbp (by push_cast; ring)
+    rw [← vpos_iff n2', ← vpos_iff n4'] at q24
+    have q25 := pair_not (p := p) (x := a - -20 * b) (y := a - -60 * b) (d := 40)
+      (smooth_ne_zero h17 40 (by unfold smoothBound; norm_num)) hbp (by push_cast; ring)
+    rw [← vpos_iff n2', ← vpos_iff n5'] at q25
+    have q34 := pair_not (p := p) (x := a - -24 * b) (y := a - -30 * b) (d := 6)
+      (smooth_ne_zero h17 6 (by unfold smoothBound; norm_num)) hbp (by push_cast; ring)
+    rw [← vpos_iff n3', ← vpos_iff n4'] at q34
+    have q35 := pair_not (p := p) (x := a - -24 * b) (y := a - -60 * b) (d := 36)
+      (smooth_ne_zero h17 36 (by unfold smoothBound; norm_num)) hbp (by push_cast; ring)
+    rw [← vpos_iff n3', ← vpos_iff n5'] at q35
+    have q45 := pair_not (p := p) (x := a - -30 * b) (y := a - -60 * b) (d := 30)
+      (smooth_ne_zero h17 30 (by unfold smoothBound; norm_num)) hbp (by push_cast; ring)
+    rw [← vpos_iff n4', ← vpos_iff n5'] at q45
+    have bFG := bezout_not (p := p) (smooth_ne_zero h17 104976000000
+      (by unfold smoothBound; norm_num)) hbp (bez_FG a b)
+    have bFH := bezout_not (p := p) (smooth_ne_zero h17 680244480000000000
+      (by unfold smoothBound; norm_num)) hbp (bez_FH a b)
+    have bGH := bezout_not (p := p) (smooth_ne_zero h17 629856000000
+      (by unfold smoothBound; norm_num)) hbp (bez_GH a b)
+    rw [← vpos_iff hFh', ← vpos_iff hGh'] at bFG
+    rw [← vpos_iff hFh', ← vpos_iff hHh'] at bFH
+    rw [← vpos_iff hGh', ← vpos_iff hHh'] at bGH
+    exact final_nat hvF vb0 q01 q02 q03 q04 q05 q12 q13 q14 q15 q23 q24 q25 q34 q35 q45 bFG bFH bGH
+
+/-- Lemma PR(i), elementary half, in terms of `M_S(u) = ZInQ.contactSupport S u`: for a prime
+`p ∉ S` (`S ⊇ {primes ≤ 324}`), the predicted inertia orders at `p` are all `1` iff `p ∤ M_S(u)`. -/
+theorem inertia_trivial_iff_not_dvd (S : Finset ℕ) (hS : ∀ q, q.Prime → q ≤ 324 → q ∈ S)
+    (hpS : p ∉ S) {u : ℚ} (hu : u ∉ contactSet) :
+    (4 ∣ (padicValRat p (Jmap u)).toNat ∧ 6 ∣ (-padicValRat p (Jmap u)).toNat ∧
+      2 ∣ (padicValRat p (Jmap u + 16 / 27)).toNat) ↔ ¬ p ∣ contactSupport S u := by
+  have h17 : 17 ≤ p := by
+    by_contra h
+    exact hpS (hS p hp.out (by omega))
+  rw [inertia_trivial_iff h17 hu, prime_dvd_contactSupport_iff hu hp.out]
+  simp [hpS]
+
+theorem div_gcd_eq_one_iff {e m : ℕ} (he : 0 < e) : e / Nat.gcd e m = 1 ↔ e ∣ m := by
+  constructor
+  · intro h
+    have hg : Nat.gcd e m ∣ e := Nat.gcd_dvd_left e m
+    have he' : e = Nat.gcd e m := by
+      have := Nat.div_mul_cancel hg
+      rw [h, one_mul] at this
+      exact this.symm
+    rw [he']
+    exact Nat.gcd_dvd_right e m
+  · intro h
+    rw [Nat.gcd_eq_left h, Nat.div_self he]
+
+/-- Lemma PR(i), elementary half, with Prop. TS's inertia orders `e_b / gcd(e_b, m_b)` literally. -/
+theorem inertia_orders_eq_one_iff (S : Finset ℕ) (hS : ∀ q, q.Prime → q ≤ 324 → q ∈ S)
+    (hpS : p ∉ S) {u : ℚ} (hu : u ∉ contactSet) :
+    (4 / Nat.gcd 4 (padicValRat p (Jmap u)).toNat = 1 ∧
+      6 / Nat.gcd 6 (-padicValRat p (Jmap u)).toNat = 1 ∧
+      2 / Nat.gcd 2 (padicValRat p (Jmap u + 16 / 27)).toNat = 1) ↔ ¬ p ∣ contactSupport S u := by
+  rw [div_gcd_eq_one_iff (by norm_num), div_gcd_eq_one_iff (by norm_num),
+    div_gcd_eq_one_iff (by norm_num)]
+  exact inertia_trivial_iff_not_dvd S hS hpS hu
+
+end Valuation
+
+/-! ### NoCM: the fibre of `X⁶ → X*` over `t(u)` (A10; rv-h-cm §2.4, §7.2 step 3)
+
+In Elkies' model `ℚ(X⁶) = ℚ(t)(y₁, y₂)`, `y₁² = −t`, `y₂² = 3(t − 1)` (rv-h-cm §2.3; `w₂`, `w₆`,
+`w₃` negate `y₂`, `y₁`, both). Over `t(u)` the four points are `(±i h₁, ±i h₂)` with
+`h₁ = H/G³`, `h₂ = 540F/G³`, both nonzero: a free `W`-orbit, with coordinates in `ℚ(i)`, no
+coordinate real (so the residue field is not `ℚ`), and complex conjugation acting as `w₃`. -/
+
+open Complex in
+/-- The fibre over `t(u)`: exactly the four points `(±i h₁, ±i h₂)`. -/
+theorem fibre_iff (u : ℚ) (Y₁ Y₂ : ℂ) :
+    (Y₁ ^ 2 = -((tq u : ℚ) : ℂ) ∧ Y₂ ^ 2 = 3 * (((tq u : ℚ) : ℂ) - 1)) ↔
+    (Y₁ = I * ((Hq u / Gq u ^ 3 : ℚ) : ℂ) ∨ Y₁ = -(I * ((Hq u / Gq u ^ 3 : ℚ) : ℂ))) ∧
+    (Y₂ = I * ((540 * Fq u / Gq u ^ 3 : ℚ) : ℂ) ∨ Y₂ = -(I * ((540 * Fq u / Gq u ^ 3 : ℚ) : ℂ))) := by
+  have hG := Gq_ne_zero u
+  have e1 : -((tq u : ℚ) : ℂ) = (I * ((Hq u / Gq u ^ 3 : ℚ) : ℂ)) ^ 2 := by
+    rw [t_eq]; push_cast; rw [mul_pow, I_sq]; ring
+  have e2 : 3 * (((tq u : ℚ) : ℂ) - 1) = (I * ((540 * Fq u / Gq u ^ 3 : ℚ) : ℂ)) ^ 2 := by
+    have := t_sub_one u
+    rw [show ((tq u : ℚ) : ℂ) - 1 = ((tq u - 1 : ℚ) : ℂ) by push_cast; ring, this]
+    push_cast; rw [mul_pow, I_sq]; ring
+  rw [e1, e2, sq_eq_sq_iff_eq_or_eq_neg, sq_eq_sq_iff_eq_or_eq_neg]
+
+theorem h₁_ne_zero (u : ℚ) : Hq u / Gq u ^ 3 ≠ 0 :=
+  div_ne_zero (Hq_ne_zero u) (pow_ne_zero _ (Gq_ne_zero u))
+
+theorem h₂_ne_zero {u : ℚ} (hu : u ∉ contactSet) : 540 * Fq u / Gq u ^ 3 ≠ 0 :=
+  div_ne_zero (mul_ne_zero (by norm_num) (Fq_ne_zero hu)) (pow_ne_zero _ (Gq_ne_zero u))
+
+open Complex in
+/-- The four points are pairwise distinct, `W` acts freely (no point has a zero coordinate),
+no point has a real (a fortiori rational) coordinate, and complex conjugation acts as `w₃`
+(negates both coordinates). -/
+theorem fibre_free {u : ℚ} (hu : u ∉ contactSet) (Y₁ Y₂ : ℂ)
+    (h : Y₁ ^ 2 = -((tq u : ℚ) : ℂ) ∧ Y₂ ^ 2 = 3 * (((tq u : ℚ) : ℂ) - 1)) :
+    Y₁ ≠ -Y₁ ∧ Y₂ ≠ -Y₂ ∧ Y₁.im ≠ 0 ∧ Y₂.im ≠ 0 ∧
+      (starRingEnd ℂ Y₁ = -Y₁ ∧ starRingEnd ℂ Y₂ = -Y₂) := by
+  have n1 := h₁_ne_zero u
+  have n2 := h₂_ne_zero hu
+  obtain ⟨h1, h2⟩ := (fibre_iff u Y₁ Y₂).mp h
+  have k1 : Y₁.re = 0 ∧ Y₁.im ≠ 0 := by
+    clear h h2
+    generalize Hq u / Gq u ^ 3 = r at h1 n1
+    rcases h1 with rfl | rfl <;> simp [n1]
+  have k2 : Y₂.re = 0 ∧ Y₂.im ≠ 0 := by
+    clear h h1 k1
+    generalize 540 * Fq u / Gq u ^ 3 = r at h2 n2
+    rcases h2 with rfl | rfl <;> simp [n2]
+  refine ⟨fun e => k1.2 ?_, fun e => k2.2 ?_, k1.2, k2.2, ?_, ?_⟩
+  · have := congrArg Complex.im e; simp at this; linarith
+  · have := congrArg Complex.im e; simp at this; linarith
+  · apply Complex.ext <;> simp [k1.1]
+  · apply Complex.ext <;> simp [k2.1]
+
+end GlueRepo.PR
+
+
+end RepoPRArithSec
+
+section RepoNumericsSec
+/-! ### Copied from `scratch/glue-repo/Numerics.lean` (compiled there). -/
+
+/-!
+# glue-repo, steps A3, A5 and A8: the numerical bookkeeping
+
+* `a3_numerals`: `4·|(𝒪/3𝒪)^*| = 4·72 ≤ 4·81 = 324`, and `|Γ'| = 4·72/2 = 144 = 2⁴3²`
+  (N5 L436-441; h-b1 M3). The count `|(𝒪/3𝒪)^*| = 72` is `GlueRepo.A1.card_units_mod3`.
+* `splitting_degree_le`: a separable polynomial over `ℚ` of degree `≤ 324` has splitting field of
+  degree `≤ 324! = F₀` (N5 L524-526: `[K:ℚ] ≤ F₀`).
+* `a8_rank`, `a8_degree`, `a8_field`: `r ≤ 16F₀²` and `[EK:ℚ] ≤ [K:ℚ]·[E:ℚ] ≤ F₀·3^{r²} ≤ D`
+  (N5 L544-555), for variables `F₀`, `D = F₀·3^{256F₀⁴}` (the bodies of `ZInQ.heightF0`,
+  `ZInQ.heightD`; the kernel cannot unfold those constants, see `HeightConstant.lean`).
+-/
+
+open ZInQ Module Polynomial
+
+namespace GlueRepo.Numerics
+
+theorem a3_numerals : 4 * 72 ≤ 4 * 81 ∧ 4 * 81 = 324 ∧ 4 * 72 / 2 = 144 ∧ 144 = 2 ^ 4 * 3 ^ 2 := by
+  norm_num
+
+/-- `[K:ℚ] ≤ F₀`: the Galois group of a separable polynomial of degree `≤ 324` embeds in the
+permutations of its roots. -/
+theorem splitting_degree_le (f : ℚ[X]) (hs : f.Separable) (hd : f.natDegree ≤ 324) :
+    finrank ℚ f.SplittingField ≤ Nat.factorial 324 := by
+  rw [← Polynomial.Gal.card_of_separable hs]
+  have : Fact ((f.map (algebraMap ℚ f.SplittingField)).Splits) := ⟨SplittingField.splits f⟩
+  calc Nat.card f.Gal ≤ Nat.card (Equiv.Perm (f.rootSet f.SplittingField)) :=
+        Nat.card_le_card_of_injective _ (Polynomial.Gal.galActionHom_injective f _)
+    _ = (Nat.card (f.rootSet f.SplittingField)).factorial := Nat.card_perm
+    _ ≤ Nat.factorial 324 := by
+        apply Nat.factorial_le
+        rw [Nat.card_coe_set_eq]
+        exact (Polynomial.ncard_rootSet_le f _).trans hd
+
+/-- `r ≤ 16F₀²`: `W₀ = Res_{K/ℚ} A` has `[K:ℚ]² ≤ F₀²` ordered Hom groups between conjugates,
+each of rank `≤ 4·dim·dim = 16` (Mumford §19 Thm 3). Stated for a variable `F₀` (the kernel
+must not evaluate `324!`); apply with `F₀ = ZInQ.heightF0`. -/
+theorem a8_rank {F0 d r : ℕ} (hd : d ≤ F0) (hr : r ≤ d ^ 2 * (4 * 2 * 2)) :
+    r ≤ 16 * F0 ^ 2 := by
+  calc r ≤ d ^ 2 * (4 * 2 * 2) := hr
+    _ ≤ F0 ^ 2 * 16 := Nat.mul_le_mul (Nat.pow_le_pow_left hd 2) (by norm_num)
+    _ = 16 * F0 ^ 2 := by ring
+
+/-- `F₀·3^{r²} ≤ D` when `r ≤ 16F₀²`, for `D = F₀·3^{256F₀⁴}` (`ZInQ.heightD`'s body). -/
+theorem a8_degree {F0 D k e r : ℕ} (hD : D = F0 * 3 ^ (256 * F0 ^ 4)) (hk : k ≤ F0)
+    (he : e ≤ 3 ^ (r ^ 2)) (hr : r ≤ 16 * F0 ^ 2) : k * e ≤ D := by
+  rw [hD]
+  have h2 : r ^ 2 ≤ 256 * F0 ^ 4 :=
+    calc r ^ 2 ≤ (16 * F0 ^ 2) ^ 2 := Nat.pow_le_pow_left hr 2
+      _ = 256 * F0 ^ 4 := by ring
+  calc k * e ≤ F0 * 3 ^ (r ^ 2) := Nat.mul_le_mul hk he
+    _ ≤ F0 * 3 ^ (256 * F0 ^ 4) :=
+        Nat.mul_le_mul_left _ (Nat.pow_le_pow_right (by norm_num) h2)
+
+/-- `[L:ℚ] ≤ D` for the Hom field `L = EK` (N5 L554-555). -/
+theorem a8_field {M : Type*} [Field M] [Algebra ℚ M] (E K : IntermediateField ℚ M)
+    {F0 D r : ℕ} (hD : D = F0 * 3 ^ (256 * F0 ^ 4))
+    (hK : finrank ℚ K ≤ F0) (hE : finrank ℚ E ≤ 3 ^ (r ^ 2))
+    (hr : r ≤ 16 * F0 ^ 2) : finrank ℚ ↥(E ⊔ K) ≤ D :=
+  (IntermediateField.finrank_sup_le E K).trans (by rw [mul_comm]; exact a8_degree hD hK hE hr)
+
+end GlueRepo.Numerics
+
+
+end RepoNumericsSec
+
 noncomputable section
 
 namespace HSyn
@@ -4513,35 +9094,6 @@ the Raynaud route of the reduction-theory report avoids it. Missing: Néron mode
 Galois consequence is stated as `PkgI2.GrothendieckMonodromy`. -/
 opaque R08_SemistableReduction : Prop
 
-/-- **R10. de Rham comparison.** For `F/ℚ_ℓ` finite and `A/F` an abelian variety of dimension `g`,
-`H¹_et(A_F̄, ℚ_ℓ)` is de Rham with `D_dR ≅ H¹_dR(A/F)`; hence `V_ℓ(A)` is de Rham with Hodge–Tate
-weights `0, −1`, each of multiplicity `g`. Scholze, Forum Math. Pi 1 (2013), Cor. 1.8 with
-Thms 9.1, 9.3, corrigendum 2016; or Faltings 1989, Tsuji 1999 (UNVERIFIED). Exact (first clause).
-Missing: `B_dR` with Galois action and filtration, de Rham representations (large). -/
-opaque R10_DeRhamComparison : Prop
-
-/-- **R11. Berger's p-adic monodromy theorem.** A de Rham representation of `G_K`, `K/ℚ_p` finite,
-is potentially semistable. Invent. Math. 148 (2002), Thm 0.7 = Cor. 5.22 (read by a model).
-Exact. Missing: `B_st`, potentially semistable representations (very large). -/
-opaque R11_Berger : Prop
-
-/-- **R12. Pan's Fontaine–Mazur theorem.** For an odd prime `p` and a continuous irreducible
-`ρ : G_ℚ → GL₂(ℚ̄_p)`, ramified at finitely many primes, potentially semistable at `p`, odd, with
-distinct Hodge–Tate weights (and, if `p = 3`, the residual clause): there are a normalized
-eigenform `g` and a continuous character `ψ` with `tr ρ(Frob_v) = ψ(Frob_v)·ι(a_v(g))` for almost
-all `v` (the trace reading of "comes from a cuspidal eigenform up to twist", implied by every
-reading in the literature). JAMS 35 (2022), Thm 1.0.4 (arXiv v2 statement VERIFIED by a
-repository note; JAMS numbering UNVERIFIED). Consequence. Expressible now except "potentially
-semistable" (very large) and "Hodge–Tate weights" (large). -/
-opaque R12_Pan : Prop
-
-/-- **R13. Hodge–Tate weights of eigenform representations at every level.** For a normalized
-eigenform `g` of weight `k ≥ 2`, any level and nebentypus, `ρ_{g,ι}` (Tate normalization) is
-Hodge–Tate at `ℓ` with weights `{0, 1−k}`. Saito, Invent. Math. 129 (1997); or Kato, Astérisque
-295 (2004), §9.4; or Scholl 1990 with R10 and T23 (UNVERIFIED). Consequence (normalization).
-Missing: Hodge–Tate representations (large). -/
-opaque R13_EigenformHT : Prop
-
 /-- **R16. Eichler–Shimura in `J₁(N)`.** For a weight-2 newform `f` of level `N`,
 `V_ℓ(J₁(N)) ⊗ ℚ̄_ℓ` has a `G_ℚ`-stable two-dimensional subquotient on which
 `tr(Frob_p) = ι(a_p(f))` for `p ∤ Nℓ`. Shimura 1971, Thm 7.9, §7; Shimura, J. Math. Soc. Japan 25
@@ -4604,18 +9156,19 @@ tensor products, sums and subquotients (Astérisque 223 (1994), Thm 3.8, UNVERIF
 R10 (large). -/
 opaque T23_FontaineClosure : Prop
 
-/-- **T25. Newforms** (Atkin–Lehner–Li; Li, Math. Ann. 212 (1975), Thm 5; UNVERIFIED): each system
-of Hecke eigenvalues of a normalized eigenform away from the level is that of a unique newform of
-level dividing it; Galois conjugates of newforms are newforms. Missing: old space and newforms
-(medium; Tau Ceti). -/
-opaque T25_Newforms : Prop
-
 /-- **T29. Local normalizers of maximal orders.** For a quaternion algebra `B_p` over `ℚ_p` and a
 maximal order `𝒪_p`, the group `N(𝒪_p)/ℚ_p^×𝒪_p^×` has order 2 if `B_p` is a division algebra
 (generated by a uniformizer of `B_p`) and order 1 if `B_p ≅ M₂(ℚ_p)` (`N(M₂(ℤ_p)) = ℚ_p^×GL₂(ℤ_p)`);
 for `B = (2,−3)` (ramified at 2, 3) this gives the normalizer index 4 of A3 (Vignéras, LNM 800,
 Ch. II, UNVERIFIED). Statable over Mathlib's quaternion algebras (pkg-I1 I1-f), not drafted. -/
 opaque T29_LocalNormalizers : Prop
+
+/-- **T32. Tame inertia and quadratic characters** (glue-descent L-B3a, L-B3b). (a) The tame
+inertia group of `ℚ_p`, `p` odd, has a unique continuous character of order 2; (b) a quadratic
+Dirichlet character is ramified exactly at the primes dividing its conductor (Serre, *Local fields*
+IV §2; Neukirch; UNVERIFIED). Used only for the unramifiedness of `L'`. Missing: inertia subgroups
+of `G_ℚ` as subgroups of `Field.absoluteGaloisGroup ℚ` (cheap). -/
+opaque T32_TameQuadratic : Prop
 
 /-! ## §3. Glue -/
 
@@ -4639,10 +9192,12 @@ structure ResearchLeaves : Prop where
   r8 : R08_SemistableReduction
   r9a : PkgI3.FaltingsSemisimple
   r9b : PkgI3.FaltingsTate
-  r10 : R10_DeRhamComparison
-  r11 : R11_Berger
-  r12 : R12_Pan
-  r13 : R13_EigenformHT
+  r10 : PkgI4.DeRhamComparison
+  /-- R11 (Berger) and R12 (Pan) enter through their joint consequence: Pan's theorem with "de Rham
+  at `p`" in place of "potentially semistable at `p`" (pkg-I4). `B_st` is not needed by the glue.
+  Both theorems remain separate leaves in the count. -/
+  r11r12 : PkgI4.PanBerger
+  r13 : PkgI4.EigenformHT
   r14 : EigenformRepExists
   r15 : DeligneSerreConseq
   r16 : R16_EichlerShimuraJ1
@@ -4682,11 +9237,14 @@ structure TextbookLeaves : Prop where
   t22b : PkgI6.HerbrandTransitivity
   t23 : T23_FontaineClosure
   t24 : EigenformTwist
-  t25 : T25_Newforms
+  t25 : PkgI4.NewformOfEigenform
   t26 : PkgI3.TateModuleFree
   t27 : PkgI3.QMDichotomy
   t28 : PkgI1.IgusaClebschSeparation
   t29 : T29_LocalNormalizers
+  t30 : GlueDescent.B2Q.LeafSqrtCrit
+  t31 : GlueDescent.B2Q.LeafUnramified
+  t32 : T32_TameQuadratic
 
 /-- **The glue G1-G17 and G19 (non-Arakelov part).** The leaves give glue-assembly's interface
 `GlueOutputs` at `S = Mult.S_mul`: for each `u ∉ 𝒞`, the theta point `z` of the QM surface over
@@ -4738,4 +9296,7 @@ end
 #print axioms GlueAssembly.index_Gamma1_le
 #print axioms GlueAssembly.mulHeight_le_mulHeightL2
 #print axioms GlueAssembly.invariants_ne_bot_of_baseChange
+#print axioms GlueDescent.B3Q.b3_degree_le_QM
+#print axioms GlueRepo.PR.inertia_orders_eq_one_iff
+#print axioms GlueRepo.PR.fibre_free
 #print axioms HSyn.sixContactMin_of_leaves

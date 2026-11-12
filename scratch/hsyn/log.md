@@ -11,3 +11,7 @@
 - Finding: T29 local normalizer index is 2 at ramified p, 1 at split p (N(M₂(ℤ_p)) = ℚ_p^×GL₂(ℤ_p)); index 4 for B=(2,−3) comes from p = 2, 3.
 - Counts v3: research 22 leaves (24 statements), textbook 29 (32); stated 28 leaves / 33 statements; placeholders 23.
 - h-decomposition.md v2 (all landed reports folded: pkg-I1, I2, I3, I5, I6, glue-conductor, glue-assembly).
+- 22:08 merged pkg-I4, glue-descent, glue-repo, rv-routek (all 11 reports landed by 22:08).
+- 22:12 Leaves.lean v4 (9303 lines): adds pkg-I4 (its pkg-I3 copy renamed PkgI4.I3), glue-descent (8 files in build order), glue-repo (4 files). `lake env lean`: exit 0, 0 errors, same 4 sorry warnings; 19 `#print axioms` with standard axioms only, incl. GlueDescent.B3Q.b3_degree_le_QM (B2-B3 from LeafHasse, LeafLocalTwo, LeafSqrtCrit, LeafUnramified), GlueRepo.PR.inertia_orders_eq_one_iff, GlueRepo.PR.fibre_free. VERIFIED.
+- Bundle v4: R10 := PkgI4.DeRhamComparison, R11+R12 via PkgI4.PanBerger (joint consequence; both stay leaves in the count), R13 := PkgI4.EigenformHT, T25 := PkgI4.NewformOfEigenform; new T30 LeafSqrtCrit, T31 LeafUnramified (glue-descent), T32 placeholder (tame quadratic, L-B3a/b).
+- rv-routek verdict (read): route K SOUND AFTER REPAIRS; needs KW (I),(II) + Kisin 2009 in the citation; L7 is a 4-result bundle; Ribet 1992 / Pyle 2004 are proceedings papers, refereed status UNVERIFIED; hdec-alt's "dim B₀ unbounded" retracted.
