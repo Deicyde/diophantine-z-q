@@ -1,0 +1,28 @@
+OK   n5 n=61: varpi switches components, 1+2varpi does not
+OK   n5: j^2 = 1
+OK   n5: j M5 j = -M5 (conjugation)
+FAIL n5: varpi normalises U_2 (generators; n = 5+8k, k < 32)
+FAIL n5: 1+2varpi normalises U_2 (generators; n = 5+8k, k < 32)
+FAIL n5: j normalises U_2 (generators; n = 5+8k, k < 32)
+FAIL n5: eps normalises U_2 (generators; n = 5+8k, k < 32)
+OK   n5: (Z+4O_K) lands in M_2(Z_2) with 32|c and 4|(a-d)
+OK   n7: W normalises U_0(32) (generators)
+OK   n7: [oo]^W = [0]
+OK   n7 n=7: delta=11, embedding/j/O_K ok, varpi^5=(32,1), W^-1 j varpi^5 in U_0(32)_2 (v2 entries [0, 3, 8, 0], v2 det 0)
+OK   n7 n=15: delta=25, embedding/j/O_K ok, varpi^5=(32,1), W^-1 j varpi^5 in U_0(32)_2 (v2 entries [0, 2, 7, 0], v2 det 0)
+OK   n7 n=23: delta=19, embedding/j/O_K ok, varpi^5=(32,1), W^-1 j varpi^5 in U_0(32)_2 (v2 entries [0, 1, 6, 0], v2 det 0)
+OK   n7 n=31: delta=15, embedding/j/O_K ok, varpi^5=(32,1), W^-1 j varpi^5 in U_0(32)_2 (v2 entries [0, 0, 5, 0], v2 det 0)
+OK   n7 n=39: delta=27, embedding/j/O_K ok, varpi^5=(32,1), W^-1 j varpi^5 in U_0(32)_2 (v2 entries [0, 0, 5, 0], v2 det 0)
+OK   n7 n=47: delta=9, embedding/j/O_K ok, varpi^5=(32,1), W^-1 j varpi^5 in U_0(32)_2 (v2 entries [0, 4, 9, 0], v2 det 0)
+OK   n7 n=55: delta=29, embedding/j/O_K ok, varpi^5=(32,1), W^-1 j varpi^5 in U_0(32)_2 (v2 entries [0, 1, 6, 0], v2 det 0)
+OK   n7 n=71: delta=21, embedding/j/O_K ok, varpi^5=(32,1), W^-1 j varpi^5 in U_0(32)_2 (v2 entries [0, 0, 5, 0], v2 det 0)
+OK   n7 n=79: delta=7, embedding/j/O_K ok, varpi^5=(32,1), W^-1 j varpi^5 in U_0(32)_2 (v2 entries [0, 4, 9, 0], v2 det 0)
+OK   n7 n=87: delta=13, embedding/j/O_K ok, varpi^5=(32,1), W^-1 j varpi^5 in U_0(32)_2 (v2 entries [0, 0, 5, 0], v2 det 0)
+OK   n7 n=95: delta=17, embedding/j/O_K ok, varpi^5=(32,1), W^-1 j varpi^5 in U_0(32)_2 (v2 entries [0, 1, 6, 0], v2 det 0)
+OK   n7 n=103: delta=5, embedding/j/O_K ok, varpi^5=(32,1), W^-1 j varpi^5 in U_0(32)_2 (v2 entries [0, 3, 8, 0], v2 det 0)
+OK   n7 n=111: delta=23, embedding/j/O_K ok, varpi^5=(32,1), W^-1 j varpi^5 in U_0(32)_2 (v2 entries [0, 2, 7, 0], v2 det 0)
+OK   n7 n=119: delta=3, embedding/j/O_K ok, varpi^5=(32,1), W^-1 j varpi^5 in U_0(32)_2 (v2 entries [0, 3, 8, 0], v2 det 0)
+OK   n7 n=127: delta=1, embedding/j/O_K ok, varpi^5=(32,1), W^-1 j varpi^5 in U_0(32)_2 (v2 entries [0, 6, 11, 0], v2 det 0)
+OK   n7 n=8015: delta=7, embedding/j/O_K ok, varpi^5=(32,1), W^-1 j varpi^5 in U_0(32)_2 (v2 entries [0, 1, 6, 0], v2 det 0)
+
+SUMMARY: 59 OK, 5 FAIL

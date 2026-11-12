@@ -85,3 +85,16 @@
 - External: facts (1)–(3) at L1383–1404 (uniformisation τ, CM Galois action, cusp dictionary) cited from Tian [CJM 2014].
   Consistency: the 4 Q-rational cusps of X_0(32) (denominators 1,2,16,32) ↔ τ(0),τ(1/2),τ(1),τ(-1/2) real ✓; conj pairs ✓.
 - "explicit calculations" not printed: K_2^× normalises U_2; the matrix decompositions; W^{-1}jϖ^5 ∈ U_0(32)_2 → verify by script.
+
+## Step 6: computation hecke_matrices.py (sympy, exact) → out_hecke_matrices.txt: 63 OK, 1 FAIL (a misprint)
+- n≡5 (symbolic n=5+8m): M5² = -n; ϖ matrix as printed; decompositions ϖε = D1G1R1, 1+2ϖ = D2G2R2, w0(1+2ϖ) = D4G4R4,
+  w0jε, jε exact; right factors in U (32|c, 4|a-d, unit det); middle factors in SL_2(Z); left factors upper triangular
+  with 2-power denominators. Cusps [G^{-1}∞] Γ0(32)-equivalent to the printed R=[0], S=[1/16], T=[-1/8],
+  [0]^{ϖε}=[-1/8], [0]^{1+2ϖ}=[1/2], [0]^{jε}=[0]; the 8 listed cusps pairwise inequivalent.
+- MISPRINT (NEW): w0ϖε = D3·G3·(-R3), not D3G3R3; -R3 = R1 ∈ U and -I ∈ U, so the cusp [0]^{ϖε} = [-1/8] is unaffected.
+- ϖ switches the components of X_U, 1+2ϖ does not (det map to (Z_2/4)^×), n=5..61 ✓. j² = 1, jM5j = -M5 ✓.
+- Lemma 3.7(2) (K_2^× normalises U_2): ϖ, 1+2ϖ, j, ε normalise U_2 (conjugating generators of U_2 both ways; n=5+8k, k<32) ✓.
+  (Z+4O_K) ⊂ {32|c, 4|a-d} ✓.
+- n≡7 (16 values of n, δ² ≡ -n mod 128): M7² = -n, j² = 1, jM7j = -M7, O_K ⊂ M_0(32), α=√-n∈Z_2 with 64|α-δ and 2‖α+δ,
+  ϖ^5 = (32,1), W^{-1}jϖ^5 ∈ U_0(32)_2 ✓. [∞]^W = [0] ✓.
+- Not checked by computation: facts (1)–(3) of L1383–1404 (from Tian 2014), Shimura reciprocity (STANDARD).
