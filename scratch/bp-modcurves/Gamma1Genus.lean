@@ -408,6 +408,12 @@ theorem two_mul_belyiDeg_Gamma1 (N : ℕ) (hN : 3 ≤ N) :
   rw [relIndex_pmSubgroup_Gamma1 N hN] at h
   exact h
 
+/-- **Sharper Belyi bound**: `2μ(Γ₁(N)) ≤ N²` for `N ≥ 3`. -/
+theorem two_mul_belyiDeg_Gamma1_le (N : ℕ) (hN : 3 ≤ N) : 2 * belyiDeg (Gamma1 N) ≤ N ^ 2 := by
+  have : NeZero N := ⟨by omega⟩
+  rw [two_mul_belyiDeg_Gamma1 N hN, ← index_Gamma1_eq_card]
+  exact index_Gamma1_le N
+
 end BPModCurves
 
 #print axioms BPModCurves.nu2_Gamma1
@@ -417,6 +423,7 @@ end BPModCurves
 #print axioms BPModCurves.genus_Gamma1_le
 #print axioms BPModCurves.index_Gamma1_eq_card
 #print axioms BPModCurves.two_mul_belyiDeg_Gamma1
+#print axioms BPModCurves.two_mul_belyiDeg_Gamma1_le
 
 /-- Acceptance test: `[SL₂(ℤ) : Γ₁(5)] = 24`, `μ(Γ₁(5)) = 12` (genus 0 with 4 cusps). -/
 example : (CongruenceSubgroup.Gamma1 5).index = 24 := by

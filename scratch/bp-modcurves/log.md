@@ -62,3 +62,4 @@
   (quotient), `TateData K N` ((b,c) with E(b,c) elliptic and ord(0,0) = N), `tateOf`, `tateOf_wd`,
   **`y1PointsEquivTate (hN : 4 ≤ N) : Y1Points K N ≃ TateData K N`**.
   `lake env lean`: exit 0, no warnings; standard axioms. VERIFIED.
+- 12:26 `Gamma1Genus.lean`: `two_mul_belyiDeg_Gamma1_le` (2μ(Γ₁(N)) ≤ N² for N ≥ 3). exit 0, standard axioms. VERIFIED.

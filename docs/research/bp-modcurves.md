@@ -247,8 +247,8 @@ Notes on the table:
   (STANDARD), and MC6's base point `P₀` may be any `ℚ`-point. R16 must be stated for the same
   model as `J₁(N)`: `h-decomposition.md` §6 warns that R16 must not inherit the Fricke
   convention. Shimura's `A_f` is defined over `ℚ` in either model. The constituent statement G13
-  is insensitive to the choice, since the two Jacobians have isomorphic `V_ℓ` up to a twist that
-  G13 tracks anyway. SPECULATIVE in the details; flag for the R16 statement writer.
+  only needs `ρ_{f,ℓ}` as a constituent of `V_ℓ(J₁(N))` for the model in which R16 is stated.
+  SPECULATIVE in the details; flag for the R16 statement writer.
 - **Geometric connectedness (MC1') is needed only for R18.** Javanpeykar assumes `X` connected.
   Without MC1', `X₁(N)_ℚ̄` would be a disjoint union of conjugate components, and R18 would have
   to be applied componentwise with a product Jacobian. MC1' is a classical theorem, and stating
