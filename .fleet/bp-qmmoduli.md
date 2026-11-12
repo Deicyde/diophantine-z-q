@@ -26,7 +26,8 @@ invariants" serves F1 only, not A5, A7 or A10.
   - the positive Rosati involution `†`;
   - `E₀` compatible and unimodular;
   - **every alternating `†`-compatible form is `r·E₀`, and a principal one is `±E₀`**;
-  - Atkin–Lehner elements and their relations.
+  - Atkin–Lehner elements and their relations;
+  - no `√−2` in `B` (3-adic descent).
 - `Units72.lean`: `|(𝒪/3𝒪)^×| = 72` (`decide +kernel`).
 - `QMAbVar.lean` (imports the kernel's A6):
   - `QMStr`, `Level3`, the `Γ'` action (units `≡ 1 mod 3` act trivially);
