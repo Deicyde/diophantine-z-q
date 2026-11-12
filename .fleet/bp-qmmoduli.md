@@ -33,7 +33,9 @@ invariants" serves F1 only, not A5, A7 or A10.
   - `QML3`, isomorphisms with symm/trans, the setoid, `M3`;
   - centralizer and CM predicates;
   - base change of QM structures (`endBC`, injective by faithful pullback);
-  - fields of moduli of QM pairs, and the leaf statement `R5fp` (González–Rotger, degree form);
+  - `Γ'` acting on isomorphism classes;
+  - fields of moduli of QM pairs, and the leaf statements `R5fp` and `R5fpCount`
+    (González–Rotger: degree of the field of moduli, number `2^b·#Pic R` of CM points);
   - **`QML3.goodReduction`: step A6 for every QM surface with level-3 structure**, from the
     kernel leaves NOS, Raynaud and TorsionStructure.
 
