@@ -2,7 +2,7 @@
 
 Adversarial review of two arguments that `docs/research/locators.md` (below: *the audit*) may
 affect. Labels: **VERIFIED** (read in a source named here, computed by
-`scratch/rv-nocm/nocm_check.py`, or compiled in `scratch/rv-nocm/OrbifoldIndex.lean`),
+`scratch/rv-nocm/nocm_check.py`, or compiled in `scratch/rv-nocm/OrbifoldIndex.lean` or `Neat.lean`),
 **STANDARD** (published, reference given), **SPECULATIVE**, **UNVERIFIED** (a locator from memory
 or from another note, not read here: González–Rotger, Baba–Granath and Elkies were not available
 on this host, which has no network). The manuscript is `diophantine_zq.tex`; line numbers are
