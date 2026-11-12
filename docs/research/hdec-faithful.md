@@ -24,7 +24,7 @@ marking it UNVERIFIED.
 1. **The proof of Theorem 4.1 decomposes cleanly, but not into about ten theorems (VERIFIED as a
    reading of N5 and h-trust).** Following N5 with the repository's adopted replacements (Lemma
    PR for N5 L443-530, NoCM for the CM paragraph, the determinant argument in C8), the
-   literature inputs that carry weight are **40 statements: 21 research-level theorems (from 18
+   literature inputs that carry weight are **40 leaves: 21 research-level theorems (from 18
    sources) and 19 textbook theorems** (§3). Merging them into ten would merge distinct
    theorems (for instance Pan with Berger, or Faltings' isogeny theorem with his height lemma).
    They fall into **eight packages**, which is the natural unit for crowdsourcing:
@@ -37,7 +37,7 @@ marking it UNVERIFIED.
    G3 (Lemma PR) and G6 (NoCM). G20, the return from `J(u)` to `u`, is already a Lean proof
    (`ZInQ.JHeight.sixContactMin_of_jHeightBound`). No glue step hides a deep theorem: each one
    cites its leaves.
-3. **Statability today (VERIFIED by compiling `Leaves.lean`).** Eight leaves are stated in Lean
+3. **Statability today (VERIFIED by compiling `Leaves.lean`).** Eight statements are stated in Lean
    now, as concrete `def … : Prop` over Mathlib plus cheap new definitions (absolute Galois group
    of `ℚ`, inertia and Frobenius through valuation subrings of `ℚ̄`, continuous
    representations into `GL_n(ℚ̄_ℓ)`, cusp forms on `Γ₁(N)` with nebentypus, normalized
@@ -45,16 +45,19 @@ marking it UNVERIFIED.
    Skolem–Noether (L14), the Hasse principle for central simple `ℚ`-algebras (L15),
    Kronecker–Weber (L17), Chebotarev in the density form used (L18), Brauer–Nesbitt (L19),
    existence of eigenform representations (Eichler–Shimura–Deligne–Serre, L27a), Deligne–Serre's
-   finiteness for weight one (L27b), and twisting of eigenforms (L28a). The other 32 need new
-   definitions: medium (abelian varieties with Tate modules, models with good reduction,
-   conductors of ℓ-adic representations, upper ramification groups), large (de Rham and
-   Hodge–Tate representations; Siegel modular forms and theta constants) or very large (the
-   Faltings height; the moduli scheme of QM abelian surfaces of discriminant 6; `J₁(N)` as an
-   abelian variety over `ℚ`). For them `Leaves.lean` has a named placeholder
-   `def L… : Prop := sorry` whose docstring is the exact statement, so that the top-level glue
-   theorem `sixContactMin_of_leaves` (stated, `sorry`) has every leaf as a named hypothesis.
-   Those placeholders carry no content until their definitions exist; the theorem must not be
-   cited as a reduction before then.
+   finiteness for weight one (L27b), and twisting of eigenforms (L28a). They cover five leaves
+   fully (L14, L17, L18, L19, L27) and two in part (L15, L28). The other 35 statements (43 in all
+   when L15, L27 and L28 are split into parts) need new definitions: medium (abelian varieties
+   with Tate modules, models with good reduction, conductors of ℓ-adic representations, upper
+   ramification groups), large (de Rham and Hodge–Tate representations; Siegel modular forms
+   and theta constants) or very large (the Faltings height; the moduli scheme of QM abelian
+   surfaces of discriminant 6; `J₁(N)` as an abelian variety over `ℚ`). For them `Leaves.lean`
+   has a named placeholder `def L… : Prop := sorry` whose docstring is the statement, so that
+   the top-level glue theorem `sixContactMin_of_leaves` has every leaf as a named hypothesis.
+   It is proved from `jHeightBound_of_leaves` (the glue G1-G19, `sorry`) by the existing Lean
+   proof of G20. Those placeholders carry no content until their definitions exist; the theorem
+   must not be cited as a reduction before then. Two small glue facts are proved (the weight
+   arithmetic of G12 and the prime-product bound of G16).
 4. **What this changes against wk-h (SPECULATIVE as an assessment).** wk-h concluded that no
    interface package could be stated faithfully and proposed abstract signatures. Here no leaf
    is stated over an abstract structure: the statable ones are over genuine definitions, the rest
@@ -569,7 +572,8 @@ recorded in Gaudron–Rémond, Duke 163 (2014), §9 (ASTRA-READ), and Comment. M
 
 ### 3.1 Count and statability (VERIFIED from the list above)
 
-- 40 statements: L1-L10, L11a-f, L12-L35.
+- 40 leaves: L1-L10, L11a-f, L12-L35; 43 statements when L15, L27 and L28 are split into their
+  parts (a), (b).
 - Research-level, 21: L1, L2, L3, L4, L5, L8, L9, L10, L21, L22, L24, L25, L26, L27 (a and b
   counted once), L29, L30, L31, L32, L33, L34, L35. Sources, 18: Shimura 1967 with Deligne 1971
   (L1), Baba–Granath (L2), Lin–Yang (L3), Igusa (L4), González–Rotger (L5), SGA 7 IX (L8, L9),
@@ -577,7 +581,7 @@ recorded in Gaudron–Rémond, Duke 163 (2014), §9 (ASTRA-READ), and Comment. M
   Kato (L26), Deligne 1971 with Deligne–Serre (L27), Shimura 1971/1973 (L29), Carayol (L30),
   Javanpeykar (L31), Gaudron–Rémond 2014 with Bost (L32, L34), Pazuki (L35).
 - Textbook, 19: L6, L7, L11a-f, L12, L13, L14, L15, L16, L17, L18, L19, L20, L23, L28.
-- Stated in Lean now, 8 statements in 7 leaves: L14, L15(a), L17, L18, L19, L27(a), L27(b),
+- Stated in Lean now, 8 statements (5 leaves fully, 2 in part): L14, L15(a), L17, L18, L19, L27(a), L27(b),
   L28(a).
 - With new definitions of medium cost: L6, L7, L9, L10, L11a-d, L11f, L15(b), L16, L20, L21,
   L28(b), L30. Large: L4, L8, L11e, L12, L13, L22, L23, L26. Very large: L24, L25 (through `B_st`).
@@ -796,7 +800,7 @@ in the draft, compiled), **other library** (prereq-survey), **missing**. Cost ti
   `GaloisRep.FrobTrace` quantifies over all places and all Frobenius lifts, which is right only at
   unramified primes, where `AttachedTo` uses it. A wrong definition could make a leaf vacuous or
   false; each needs a sanity lemma (§7).
-- **R7. Placeholders.** 32 leaves appear in `Leaves.lean` as `def L… : Prop := sorry`. As Lean
+- **R7. Placeholders.** 35 statements appear in `Leaves.lean` as `def L… : Prop := sorry`. As Lean
   terms they are `sorryAx Prop`, so `sixContactMin_of_leaves` says nothing until they are
   written. They are there to fix names and docstrings, not as hypotheses anyone should accept.
 - **R8. Faithfulness alternatives that would change the count** (SPECULATIVE). rv-h-c3 §3.2:
