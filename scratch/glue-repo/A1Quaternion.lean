@@ -282,6 +282,74 @@ theorem no_trd_zero_nrd_two (x : B) (ht : trd x = 0) (hn : nrd x = 2) : False :=
     exact_mod_cast this
   exact hE (descent _ E B' C' D' rfl key)
 
+/-! ### `𝒪/3𝒪` and its unit group (A3: `|(𝒪/3𝒪)^*| = 72`)
+
+`𝒪/3𝒪` is `(ZMod 3)⁴` (coordinates in N5's basis) with the reduction `mul3` of the structure
+constants `combMul`; `red3_mul` says reduction mod 3 of coordinates is multiplicative. -/
+
+/-- Multiplication of `𝒪/3𝒪` in coordinates. -/
+def mul3 (n m : Fin 4 → ZMod 3) : Fin 4 → ZMod 3 :=
+  ![m 0 * n 0 + 2 * m 1 * n 1 + 2 * m 1 * n 3 - m 2 * n 2 + 2 * m 3 * n 3,
+    m 0 * n 1 + m 1 * n 0 + m 1 * n 2 - m 2 * n 3 + m 3 * n 2,
+    m 0 * n 2 - 2 * m 1 * n 3 + m 2 * n 0 + m 2 * n 2 + 2 * m 3 * n 1,
+    m 0 * n 3 - m 1 * n 2 + m 2 * n 1 + m 2 * n 3 + m 3 * n 0]
+
+def one3 : Fin 4 → ZMod 3 := ![1, 0, 0, 0]
+
+/-- Reduction of coordinates mod 3. -/
+def red3 (n : Fin 4 → ℤ) : Fin 4 → ZMod 3 := fun k => (n k : ZMod 3)
+
+theorem red3_mul (n m : Fin 4 → ℤ) : red3 (combMul n m) = mul3 (red3 n) (red3 m) := by
+  ext k; fin_cases k <;> simp [red3, combMul, mul3]
+
+/-- Reduced norm in coordinates (`nrd (comb n)`, cf. `nrd_eq`). -/
+def nrd3 (x : Fin 4 → ZMod 3) : ZMod 3 :=
+  x 0 ^ 2 + x 0 * x 2 + x 2 ^ 2 - 2 * x 1 ^ 2 - 2 * x 1 * x 3 - 2 * x 3 ^ 2
+
+/-- Conjugation in coordinates. -/
+def conj3 (x : Fin 4 → ZMod 3) : Fin 4 → ZMod 3 := ![x 0 + x 2, -x 1, -x 2, -x 3]
+
+theorem nrd3_mul (x y : Fin 4 → ZMod 3) : nrd3 (mul3 x y) = nrd3 x * nrd3 y := by
+  simp [nrd3, mul3]; ring
+
+theorem nrd3_one : nrd3 one3 = 1 := by simp [nrd3, one3]
+
+theorem mul3_conj3 (x : Fin 4 → ZMod 3) : mul3 x (conj3 x) = fun k => nrd3 x * one3 k := by
+  ext k; fin_cases k <;> simp [mul3, conj3, nrd3, one3] <;> ring
+
+theorem conj3_mul3 (x : Fin 4 → ZMod 3) : mul3 (conj3 x) x = fun k => nrd3 x * one3 k := by
+  ext k; fin_cases k <;> simp [mul3, conj3, nrd3, one3] <;> ring
+
+theorem mul3_smul_right (x y : Fin 4 → ZMod 3) (c : ZMod 3) :
+    mul3 x (fun k => c * y k) = fun k => c * mul3 x y k := by
+  ext k; fin_cases k <;> simp [mul3] <;> ring
+
+theorem mul3_smul_left (x y : Fin 4 → ZMod 3) (c : ZMod 3) :
+    mul3 (fun k => c * x k) y = fun k => c * mul3 x y k := by
+  ext k; fin_cases k <;> simp [mul3] <;> ring
+
+/-- A residue is a unit of `𝒪/3𝒪` iff its reduced norm is nonzero mod 3. -/
+theorem isUnit3_iff (x : Fin 4 → ZMod 3) :
+    (∃ y, mul3 x y = one3 ∧ mul3 y x = one3) ↔ nrd3 x ≠ 0 := by
+  constructor
+  · rintro ⟨y, hy, -⟩ h0
+    have := nrd3_mul x y
+    rw [hy, nrd3_one, h0, zero_mul] at this
+    exact one_ne_zero this
+  · intro h
+    refine ⟨fun k => (nrd3 x)⁻¹ * conj3 x k, ?_, ?_⟩
+    · rw [mul3_smul_right, mul3_conj3]
+      ext k; simp [← mul_assoc, inv_mul_cancel₀ h]
+    · rw [mul3_smul_left, conj3_mul3]
+      ext k; simp [← mul_assoc, inv_mul_cancel₀ h]
+
+/-- **`|(𝒪/3𝒪)^*| = 72`** (`form_check.py`, `b1_checks.py` §B; N5 L440 prints `≤ 81`). -/
+theorem card_units_mod3 :
+    (Finset.univ.filter fun x : Fin 4 → ZMod 3 => ∃ y, mul3 x y = one3 ∧ mul3 y x = one3).card
+      = 72 := by
+  rw [Finset.filter_congr (fun x _ => isUnit3_iff x)]
+  decide
+
 end GlueRepo.A1
 
 #print axioms GlueRepo.A1.trd_mul_ros_pos
@@ -291,3 +359,4 @@ end GlueRepo.A1
 #print axioms GlueRepo.A1.half_one_add_mem
 #print axioms GlueRepo.A1.no_trd_zero_nrd_two
 #print axioms GlueRepo.A1.nrd_mul
+#print axioms GlueRepo.A1.card_units_mod3
