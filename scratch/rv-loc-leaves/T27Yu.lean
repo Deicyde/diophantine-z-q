@@ -707,6 +707,7 @@ applies to the project's `B = (2, -3)` (`a = 2 > 0`). -/
 namespace PkgI3
 
 open AbVar
+open scoped Quaternion
 
 /-- `ℍ[ℚ, a, b]` is indefinite: `ℍ[ℚ,a,b] ⊗ ℝ ≅ M₂(ℝ)`, i.e. not both `a < 0` and `b < 0`
 (for `a b ≠ 0`; `ℍ[ℝ,a,b]` with `a, b < 0` is Hamilton's quaternions). -/
