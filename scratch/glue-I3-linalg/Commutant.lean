@@ -353,20 +353,22 @@ theorem exists_equivariant_ne_zero_of_baseChange {W : Type*} [AddCommGroup W] [M
   obtain ⟨j, hj⟩ := hne
   exact ⟨ψ j, hj, heq j⟩
 
-/-- **Invariants under extension of coefficients, `≤` (GLUE, proved).**
-`dim_E End_G(E ⊗ V) ≤ dim_k End_G(V)` for finite-dimensional `V`: every equivariant `E`-linear
-endomorphism is `∑ⱼ bⱼ • ψⱼ ⊗ E` with `ψⱼ ∈ End_G(V)` (coordinates in a `k`-basis `(bⱼ)` of `E`). -/
-theorem finrank_commOf_baseChange_le (E : Type*) [Field E] [Algebra k E]
+/-- `E ⊗_k End_G(V) → End_E(E ⊗ V)`, `e ⊗ ψ ↦ e • (ψ ⊗ E)`. -/
+def commBaseChange (E : Type*) [Field E] [Algebra k E] (ρ : Representation k G V) :
+    TensorProduct k E (commOf (k := k) (fun g => ρ g)) →ₗ[E]
+      (TensorProduct k E V →ₗ[E] TensorProduct k E V) :=
+  ((LinearMap.baseChangeHom k E V V) ∘ₗ (commOf (k := k) (fun g => ρ g)).subtype).liftBaseChange E
+
+/-- **Every equivariant `E`-linear endomorphism of `E ⊗ V` comes from `E ⊗ End_G(V)` (GLUE,
+proved).** Coordinates in a `k`-basis `(bⱼ)` of `E`: `φ = ∑ⱼ bⱼ • (ψⱼ ⊗ E)` with `ψⱼ ∈ End_G(V)`. -/
+theorem commOf_baseChange_le_range (E : Type*) [Field E] [Algebra k E]
     (ρ : Representation k G V) [FiniteDimensional k V] :
-    Module.finrank E (commOf (k := E) (fun g => repBaseChange E ρ g)) ≤
-      Module.finrank k (commOf (k := k) (fun g => ρ g)) := by
+    commOf (k := E) (fun g => repBaseChange E ρ g) ≤ LinearMap.range (commBaseChange E ρ) := by
   classical
   let C := commOf (k := k) (fun g => ρ g)
-  let L : C →ₗ[k] (TensorProduct k E V →ₗ[E] TensorProduct k E V) :=
-    (LinearMap.baseChangeHom k E V V) ∘ₗ C.subtype
-  let Φ := L.liftBaseChange E
-  have hsub : commOf (k := E) (fun g => repBaseChange E ρ g) ≤ LinearMap.range Φ := by
-    intro φ hφ
+  let Φ := commBaseChange E ρ
+  intro φ hφ
+  have hmem : φ ∈ LinearMap.range Φ := by
     let b := Module.Free.chooseBasis k E
     let c : TensorProduct k E V ≃ₗ[k] (Module.Free.ChooseBasisIndex k E →₀ V) :=
       (TensorProduct.congr b.repr (LinearEquiv.refl k V)).trans
@@ -409,7 +411,7 @@ theorem finrank_commOf_baseChange_le (E : Type*) [Field E] [Algebra k E]
     have key : ∀ v, (Φ (∑ j ∈ S, b j ⊗ₜ[k] (⟨ψ j, hψC j⟩ : C))) (1 ⊗ₜ[k] v) =
         ∑ j ∈ S, b j ⊗ₜ[k] ψ j v := by
       intro v
-      simp [Φ, L, map_sum, LinearMap.sum_apply, LinearMap.baseChange_tmul,
+      simp [Φ, commBaseChange, map_sum, LinearMap.sum_apply, LinearMap.baseChange_tmul,
         TensorProduct.smul_tmul']
     apply LinearMap.ext; intro x
     induction x using TensorProduct.induction_on with
@@ -428,10 +430,43 @@ theorem finrank_commOf_baseChange_le (E : Type*) [Field E] [Algebra k E]
       split_ifs with hj'
       · rfl
       · rw [hS j' hj', LinearMap.zero_apply]
+  exact hmem
+
+/-- **Invariants under extension of coefficients, `≤` (GLUE, proved).**
+`dim_E End_G(E ⊗ V) ≤ dim_k End_G(V)` for finite-dimensional `V`. -/
+theorem finrank_commOf_baseChange_le (E : Type*) [Field E] [Algebra k E]
+    (ρ : Representation k G V) [FiniteDimensional k V] :
+    Module.finrank E (commOf (k := E) (fun g => repBaseChange E ρ g)) ≤
+      Module.finrank k (commOf (k := k) (fun g => ρ g)) :=
   calc Module.finrank E (commOf (k := E) (fun g => repBaseChange E ρ g))
-      ≤ Module.finrank E (LinearMap.range Φ) := Submodule.finrank_mono hsub
-    _ ≤ Module.finrank E (TensorProduct k E C) := LinearMap.finrank_range_le Φ
-    _ = Module.finrank k C := Module.finrank_baseChange
+      ≤ Module.finrank E (LinearMap.range (commBaseChange E ρ)) :=
+        Submodule.finrank_mono (commOf_baseChange_le_range E ρ)
+    _ ≤ Module.finrank E (TensorProduct k E (commOf (k := k) (fun g => ρ g))) :=
+        LinearMap.finrank_range_le _
+    _ = Module.finrank k (commOf (k := k) (fun g => ρ g)) := Module.finrank_baseChange
+
+/-- **Scalar commutants stay scalar under extension of coefficients (GLUE, proved).** -/
+theorem scalar_commOf_baseChange (E : Type*) [Field E] [Algebra k E]
+    (ρ : Representation k G V) [FiniteDimensional k V]
+    (hsc : ∀ ψ ∈ commOf (k := k) (fun g => ρ g), ∃ c : k, ψ = c • LinearMap.id) :
+    ∀ φ ∈ commOf (k := E) (fun g => repBaseChange E ρ g), ∃ μ : E, φ = μ • LinearMap.id := by
+  intro φ hφ
+  obtain ⟨t, rfl⟩ := commOf_baseChange_le_range E ρ hφ
+  clear hφ
+  induction t using TensorProduct.induction_on with
+  | zero => exact ⟨0, by simp⟩
+  | tmul e ψ =>
+    obtain ⟨c, hc⟩ := hsc ψ ψ.2
+    refine ⟨e * algebraMap k E c, ?_⟩
+    simp only [commBaseChange, LinearMap.liftBaseChange_tmul, LinearMap.coe_comp,
+      Function.comp_apply, Submodule.coe_subtype, LinearMap.baseChangeHom_apply, hc]
+    rw [LinearMap.baseChange_smul, LinearMap.baseChange_id]
+    apply LinearMap.ext; intro x
+    simp [mul_smul, algebraMap_smul]
+  | add x y hx hy =>
+    obtain ⟨a, ha⟩ := hx
+    obtain ⟨a', ha'⟩ := hy
+    exact ⟨a + a', by rw [map_add, ha, ha', add_smul]⟩
 
 end GlueI3
 
@@ -442,3 +477,4 @@ end GlueI3
 #print axioms GlueI3.isSemisimple_of_surjective
 #print axioms GlueI3.exists_equivariant_ne_zero_of_baseChange
 #print axioms GlueI3.finrank_commOf_baseChange_le
+#print axioms GlueI3.scalar_commOf_baseChange
