@@ -1,0 +1,18 @@
+# glue-conductor results log
+
+Task: glue cluster of Glazer's uniform conductor bound (h-trust D1-D4, D5's use of Carayol).
+Source: diophantine_zq.tex L796-857 (conductor paragraph), constants L385-400.
+
+## Step 1. Breaks.lean (Mathlib only) — COMPILES, no sorry (VERIFIED, `lake env lean`, 2026-11-11)
+
+Ramification data as the sequence g i = |G_i| (lower numbering). Proved:
+- `herbrand_integral`: δ_{n+1}/e = 1 − 1/e + Σ_{i=1}^n (φ(i)−φ(i−1))(1 − 1/g_i) (step-function form of N5's Herbrand integral).
+- `phi_le_self`: φ(m) ≤ m for antitone g (elementary half of ψ(u) ≥ u).
+- `phi_le_two_delta`: g_i ≥ 2 for i ≤ b ⇒ φ(b) ≤ 2δ/e.
+- `two_delta_le`: δ ≤ e−1+e·v_p(e), e ≤ a!, a ≥ 1 ⇒ 2δ ≤ 2(1+log₂ a!)e ≤ 4a²e.
+- `upper_break_le` (D1 combined): Serre bound on Hilbert's δ, e ≤ a!, G_b ≠ 1 ⇒ φ(b) ≤ 4a².
+- `swan_le`, `artin_le` (D4, p ≤ R): codim ≤ 2, trivial above upper index U ⇒ Sw ≤ 2U, a ≤ 2+2U.
+- `wild_trivial_of_tame`, `swan_eq_zero_of_tame` (D4, p > R): e < p ⇒ G_1 = 1 ⇒ Sw = 0.
+- `char_trivial_of_odd_pgroup` (D2 last sentence): β² = 1 on a group of p-power-order elements, p odd ⇒ β = 1.
+- `card_GL4_F5`: |GL₄(F₅)| = 116064000000 = G₀; `card_GL4_F3`: |GL₄(F₃)| = 24261120 (Mathlib `Matrix.card_GL_field`).
+- `max_le_U0`: e ≤ D ⇒ max(4D², 3e) ≤ 4(DG₀)²; `two_add_two_U0_le_E0`: 2 + 2·4(DG₀)² ≤ 10(DG₀)².
