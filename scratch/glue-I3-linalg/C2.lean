@@ -1,4 +1,4 @@
-/- glue-I3-linalg: pkg-I3's `I3.lean` (verbatim) + the linear-algebra glue of `Commutant.lean` + C2 in the object layer (§5). -/
+/- glue-I3-linalg: pkg-I3's `I3.lean` (verbatim) + the linear-algebra glue of `Commutant.lean` + C2 and E1 in the object layer (§5). -/
 /-
 pkg-I3: Faltings 1983 and Mumford's structure results, as Lean leaves.
 
@@ -27,7 +27,8 @@ import Mathlib.RingTheory.AdjoinRoot
 
 noncomputable section
 
-/-! ## 0. Linear-algebra glue (copied from `scratch/glue-I3-linalg/Commutant.lean`) -/
+/-! ## 0. Linear-algebra glue (copied from `scratch/glue-I3-linalg/Commutant.lean`, plus
+`finrank_commOf_le_of_equiv` and `equivariantDescent`) -/
 
 namespace GlueI3
 
@@ -210,6 +211,14 @@ theorem isIrreducible_of_finrank_commOf_prod_le_four (ρ : Representation k G V)
   have hsc := scalar_of_finrank_commOf_eq_one _ (finrank_commOf_eq_one_of_prod_le_four ρ h4)
   exact ⟨isIrreducible_of_commutant_scalar ρ hss (fun φ hφ => hsc φ hφ), hsc⟩
 
+/-- **Semisimplicity passes to equivariant quotients (GLUE, proved).** -/
+theorem isSemisimple_of_surjective {W : Type*} [AddCommGroup W] [Module k W]
+    (ρ : Representation k G V) (σ : Representation k G W) (hss : ρ.IsSemisimpleRepresentation)
+    (f : V →ₗ[k] W) (hf : Function.Surjective f) (hfeq : ∀ g v, f (ρ g v) = σ g (f v)) :
+    σ.IsSemisimpleRepresentation := by
+  rw [isSemisimpleRepresentation_iff_isSemisimpleModule_asModule] at hss ⊢
+  exact IsSemisimpleModule.of_surjective
+    (IntertwiningMap.equivLinearMapAsModule ρ σ (LinearMap.intertwiningMap_of_isIntertwiningMap ρ σ f hfeq)) hf
 
 /-- An equivariant linear isomorphism `V ≃ W` gives `dim End_G(V) ≤ dim End_G(W)`. -/
 lemma finrank_commOf_le_of_equiv {W : Type*} [AddCommGroup W] [Module k W] [FiniteDimensional k W]
@@ -233,15 +242,6 @@ lemma finrank_commOf_le_of_equiv {W : Type*} [AddCommGroup W] [Module k W] [Fini
     exact e.conj.injective (congrArg Subtype.val hxy)
   exact LinearMap.finrank_le_finrank_of_injective hf
 
-/-- **Semisimplicity passes to equivariant quotients (GLUE, proved).** -/
-theorem isSemisimple_of_surjective {W : Type*} [AddCommGroup W] [Module k W]
-    (ρ : Representation k G V) (σ : Representation k G W) (hss : ρ.IsSemisimpleRepresentation)
-    (f : V →ₗ[k] W) (hf : Function.Surjective f) (hfeq : ∀ g v, f (ρ g v) = σ g (f v)) :
-    σ.IsSemisimpleRepresentation := by
-  rw [isSemisimpleRepresentation_iff_isSemisimpleModule_asModule] at hss ⊢
-  exact IsSemisimpleModule.of_surjective
-    (IntertwiningMap.equivLinearMapAsModule ρ σ (LinearMap.intertwiningMap_of_isIntertwiningMap ρ σ f hfeq)) hf
-
 /-! ### Extension of the coefficient field -/
 
 /-- Base change `ρ_E` of a representation along a field extension `E/k`. -/
@@ -255,16 +255,6 @@ def repBaseChange (E : Type*) [Field E] [Algebra k E] (ρ : Representation k G V
     change (ρ (g * h)).baseChange E = (ρ g).baseChange E ∘ₗ (ρ h).baseChange E
     rw [map_mul, Module.End.mul_eq_comp, LinearMap.baseChange_comp]
 
-/-- **GLUE, not proved here (linear algebra; STANDARD).** Invariants commute with extension of
-the coefficient field: `dim_E End_G(V ⊗ E) = dim_k End_G(V)` for finite-dimensional `V`. (The
-commutant of `ρ(G)` is the commutant of its finite-dimensional span, i.e. the kernel of a
-`k`-linear map between finite-dimensional spaces, and kernels commute with flat base change.) -/
-def InvariantsBaseChange : Prop :=
-  ∀ (k E G V : Type) [Field k] [Field E] [Algebra k E] [Monoid G] [AddCommGroup V] [Module k V]
-    [FiniteDimensional k V] (ρ : Representation k G V),
-    Module.finrank E (commOf (k := E) (fun g => repBaseChange E ρ g)) =
-      Module.finrank k (commOf (k := k) (fun g => ρ g))
-
 /-- **GLUE, not proved here (algebra; STANDARD).** In characteristic `0`, semisimplicity of a
 finite-dimensional representation survives extension of the coefficient field. (The span of
 `ρ(G)` is a finite-dimensional algebra with a faithful semisimple module, hence semisimple, hence
@@ -274,17 +264,53 @@ def SemisimpleBaseChange : Prop :=
     [Module k V] [FiniteDimensional k V] (ρ : Representation k G V),
     ρ.IsSemisimpleRepresentation → (repBaseChange E ρ).IsSemisimpleRepresentation
 
-/-- **GLUE (linear algebra; the `Hom` form of `InvariantsBaseChange`, weakened to what E1 uses;
-proved below as `equivariantDescent`).** A nonzero `G`-equivariant `E`-linear map
-`V ⊗ E → W ⊗ E` forces a nonzero `G`-equivariant `k`-linear map `V → W` (`V`, `W`
-finite-dimensional): `Hom_G(V ⊗ E, W ⊗ E) = Hom_G(V, W) ⊗ E`. -/
-def EquivariantDescent : Prop :=
-  ∀ (k E G V W : Type) [Field k] [Field E] [Algebra k E] [Monoid G] [AddCommGroup V] [Module k V]
-    [AddCommGroup W] [Module k W] [FiniteDimensional k V] [FiniteDimensional k W]
-    (ρ : Representation k G V) (σ : Representation k G W),
-    (∃ φ : TensorProduct k E V →ₗ[E] TensorProduct k E W, φ ≠ 0 ∧
-      ∀ g, φ ∘ₗ repBaseChange E ρ g = repBaseChange E σ g ∘ₗ φ) →
-    ∃ ψ : V →ₗ[k] W, ψ ≠ 0 ∧ ∀ g, ψ ∘ₗ ρ g = σ g ∘ₗ ψ
+/-! ### E1: a common constituent gives a nonzero equivariant map -/
+
+/-- **E1, first arrow (GLUE, proved).** If `ρ` is semisimple and a nonzero subrepresentation `U`
+of `ρ` is equivariantly isomorphic to a subrepresentation `U'` of `σ`, there is a nonzero
+`G`-equivariant linear map `V → W`. (Project onto `U` along an invariant complement, transport,
+include.) -/
+theorem exists_equivariant_ne_zero_of_common {W : Type*} [AddCommGroup W] [Module k W]
+    (ρ : Representation k G V) (σ : Representation k G W) (hss : ρ.IsSemisimpleRepresentation)
+    (U : Subrepresentation ρ) (U' : Subrepresentation σ) (hU : U ≠ ⊥)
+    (e : U.toSubmodule ≃ₗ[k] U'.toSubmodule)
+    (he : ∀ g (u : U.toSubmodule), (e ⟨ρ g u, U.apply_mem_toSubmodule g u.2⟩ : W) = σ g (e u)) :
+    ∃ φ : V →ₗ[k] W, φ ≠ 0 ∧ ∀ g, φ ∘ₗ ρ g = σ g ∘ₗ φ := by
+  obtain ⟨U'', hU''⟩ := hss.exists_isCompl U
+  have h : IsCompl U.toSubmodule U''.toSubmodule := by
+    constructor
+    · rw [disjoint_iff]
+      have := congrArg Subrepresentation.toSubmodule hU''.inf_eq_bot
+      simp only [Subrepresentation.toSubmodule_inf] at this
+      exact this
+    · rw [codisjoint_iff]
+      have := congrArg Subrepresentation.toSubmodule hU''.sup_eq_top
+      simp only [Subrepresentation.toSubmodule_sup] at this
+      exact this
+  let p := Submodule.projectionOnto U.toSubmodule U''.toSubmodule h
+  refine ⟨U'.toSubmodule.subtype ∘ₗ e.toLinearMap ∘ₗ p, ?_, ?_⟩
+  · intro h0
+    apply hU
+    apply Subrepresentation.toSubmodule_injective
+    change U.toSubmodule = ⊥
+    rw [eq_bot_iff]
+    intro u hu
+    have := congrArg (fun f => f u) h0
+    simp only [LinearMap.coe_comp, Function.comp_apply, LinearMap.zero_apply,
+      Submodule.coe_subtype, LinearEquiv.coe_coe, p] at this
+    rw [Submodule.projectionOnto_apply_left h ⟨u, hu⟩] at this
+    have h2 : e ⟨u, hu⟩ = 0 := Subtype.ext this
+    have h3 : (⟨u, hu⟩ : U.toSubmodule) = 0 := by simpa using h2
+    exact (Submodule.mem_bot k).mpr (congrArg Subtype.val h3)
+  · intro g
+    apply LinearMap.ext
+    intro v
+    have hpv : (p (ρ g v)) = ⟨ρ g (p v), U.apply_mem_toSubmodule g (p v).2⟩ := by
+      apply Subtype.ext
+      exact congrArg (fun f => f v) (projection_comm U U'' h g)
+    simp only [LinearMap.coe_comp, Function.comp_apply, Submodule.coe_subtype,
+      LinearEquiv.coe_coe]
+    rw [hpv, he]
 
 /-- **Equivariant descent (GLUE, proved).** A nonzero `G`-equivariant `E`-linear map
 `E ⊗ V → E ⊗ W` gives a nonzero `G`-equivariant `k`-linear map `V → W`: expand in a `k`-basis of
@@ -338,78 +364,155 @@ theorem exists_equivariant_ne_zero_of_baseChange {W : Type*} [AddCommGroup W] [M
   obtain ⟨j, hj⟩ := hne
   exact ⟨ψ j, hj, heq j⟩
 
-theorem equivariantDescent : EquivariantDescent := by
-  intro k E G V W _ _ _ _ _ _ _ _ _ _ ρ σ ⟨φ, h0, h⟩
-  exact exists_equivariant_ne_zero_of_baseChange E ρ σ φ h0 h
+/-- `E ⊗_k End_G(V) → End_E(E ⊗ V)`, `e ⊗ ψ ↦ e • (ψ ⊗ E)`. -/
+def commBaseChange (E : Type*) [Field E] [Algebra k E] (ρ : Representation k G V) :
+    TensorProduct k E (commOf (k := k) (fun g => ρ g)) →ₗ[E]
+      (TensorProduct k E V →ₗ[E] TensorProduct k E V) :=
+  ((LinearMap.baseChangeHom k E V V) ∘ₗ (commOf (k := k) (fun g => ρ g)).subtype).liftBaseChange E
 
-/-- **C2, absolute irreducibility (GLUE, proved from the two linear-algebra statements above).**
+/-- **Every equivariant `E`-linear endomorphism of `E ⊗ V` comes from `E ⊗ End_G(V)` (GLUE,
+proved).** Coordinates in a `k`-basis `(bⱼ)` of `E`: `φ = ∑ⱼ bⱼ • (ψⱼ ⊗ E)` with `ψⱼ ∈ End_G(V)`. -/
+theorem commOf_baseChange_le_range (E : Type*) [Field E] [Algebra k E]
+    (ρ : Representation k G V) [FiniteDimensional k V] :
+    commOf (k := E) (fun g => repBaseChange E ρ g) ≤ LinearMap.range (commBaseChange E ρ) := by
+  classical
+  let C := commOf (k := k) (fun g => ρ g)
+  let Φ := commBaseChange E ρ
+  intro φ hφ
+  have hmem : φ ∈ LinearMap.range Φ := by
+    let b := Module.Free.chooseBasis k E
+    let c : TensorProduct k E V ≃ₗ[k] (Module.Free.ChooseBasisIndex k E →₀ V) :=
+      (TensorProduct.congr b.repr (LinearEquiv.refl k V)).trans
+        (TensorProduct.finsuppScalarLeft k V _)
+    have hc : ∀ (x : TensorProduct k E V) g j, c (repBaseChange E ρ g x) j = ρ g (c x j) := by
+      intro x g j
+      induction x using TensorProduct.induction_on with
+      | zero => simp
+      | tmul a w =>
+        simp [c, repBaseChange, LinearMap.baseChange_tmul]
+      | add x y hx hy =>
+        rw [map_add, map_add, Finsupp.add_apply, hx, hy, map_add, Finsupp.add_apply, map_add]
+    have hcb : ∀ j (w : V) j', c (b j ⊗ₜ[k] w) j' = if j = j' then w else 0 := by
+      intro j w j'
+      simp [c, Finsupp.single_apply]
+    let ψ : Module.Free.ChooseBasisIndex k E → V →ₗ[k] V := fun j =>
+      (Finsupp.lapply j) ∘ₗ c.toLinearMap ∘ₗ (φ.restrictScalars k) ∘ₗ (TensorProduct.mk k E V 1)
+    have hψ : ∀ j v, ψ j v = c (φ (1 ⊗ₜ[k] v)) j := fun j v => rfl
+    have hψC : ∀ j, ψ j ∈ C := by
+      intro j g
+      apply LinearMap.ext; intro v
+      show c (φ ((1 : E) ⊗ₜ[k] ρ g v)) j = ρ g (c (φ ((1 : E) ⊗ₜ[k] v)) j)
+      have h1 : (1 : E) ⊗ₜ[k] ρ g v = repBaseChange E ρ g (1 ⊗ₜ v) := by
+        simp [repBaseChange, LinearMap.baseChange_tmul]
+      have h2 := congrArg (fun f => f ((1 : E) ⊗ₜ[k] v)) (hφ g)
+      simp only [LinearMap.coe_comp, Function.comp_apply] at h2
+      rw [h1, h2, hc]
+    let bV := Module.finBasis k V
+    let S : Finset (Module.Free.ChooseBasisIndex k E) :=
+      Finset.univ.biUnion (fun i => (c (φ (1 ⊗ₜ[k] bV i))).support)
+    have hS : ∀ j, j ∉ S → ψ j = 0 := by
+      intro j hj
+      apply bV.ext; intro i
+      rw [hψ, LinearMap.zero_apply]
+      by_contra h
+      apply hj
+      simp only [S, Finset.mem_biUnion, Finset.mem_univ, true_and, Finsupp.mem_support_iff]
+      exact ⟨i, h⟩
+    refine ⟨∑ j ∈ S, b j ⊗ₜ[k] (⟨ψ j, hψC j⟩ : C), ?_⟩
+    have key : ∀ v, (Φ (∑ j ∈ S, b j ⊗ₜ[k] (⟨ψ j, hψC j⟩ : C))) (1 ⊗ₜ[k] v) =
+        ∑ j ∈ S, b j ⊗ₜ[k] ψ j v := by
+      intro v
+      simp [Φ, commBaseChange, map_sum, LinearMap.sum_apply, LinearMap.baseChange_tmul,
+        TensorProduct.smul_tmul']
+    apply LinearMap.ext; intro x
+    induction x using TensorProduct.induction_on with
+    | zero => simp
+    | add x y hx hy => rw [map_add, map_add, hx, hy]
+    | tmul a v =>
+      have hav : a ⊗ₜ[k] v = a • ((1 : E) ⊗ₜ[k] v) := by
+        rw [TensorProduct.smul_tmul', smul_eq_mul, mul_one]
+      rw [hav, map_smul, map_smul, key]
+      congr 1
+      apply c.injective
+      ext j'
+      rw [map_sum, Finsupp.finsetSum_apply, ← hψ]
+      simp only [hcb]
+      rw [Finset.sum_ite_eq']
+      split_ifs with hj'
+      · rfl
+      · rw [hS j' hj', LinearMap.zero_apply]
+  exact hmem
+
+/-- **Invariants under extension of coefficients, `≤` (GLUE, proved).**
+`dim_E End_G(E ⊗ V) ≤ dim_k End_G(V)` for finite-dimensional `V`. -/
+theorem finrank_commOf_baseChange_le (E : Type*) [Field E] [Algebra k E]
+    (ρ : Representation k G V) [FiniteDimensional k V] :
+    Module.finrank E (commOf (k := E) (fun g => repBaseChange E ρ g)) ≤
+      Module.finrank k (commOf (k := k) (fun g => ρ g)) :=
+  calc Module.finrank E (commOf (k := E) (fun g => repBaseChange E ρ g))
+      ≤ Module.finrank E (LinearMap.range (commBaseChange E ρ)) :=
+        Submodule.finrank_mono (commOf_baseChange_le_range E ρ)
+    _ ≤ Module.finrank E (TensorProduct k E (commOf (k := k) (fun g => ρ g))) :=
+        LinearMap.finrank_range_le _
+    _ = Module.finrank k (commOf (k := k) (fun g => ρ g)) := Module.finrank_baseChange
+
+/-- **Scalar commutants stay scalar under extension of coefficients (GLUE, proved).** -/
+theorem scalar_commOf_baseChange (E : Type*) [Field E] [Algebra k E]
+    (ρ : Representation k G V) [FiniteDimensional k V]
+    (hsc : ∀ ψ ∈ commOf (k := k) (fun g => ρ g), ∃ c : k, ψ = c • LinearMap.id) :
+    ∀ φ ∈ commOf (k := E) (fun g => repBaseChange E ρ g), ∃ μ : E, φ = μ • LinearMap.id := by
+  intro φ hφ
+  obtain ⟨t, rfl⟩ := commOf_baseChange_le_range E ρ hφ
+  clear hφ
+  induction t using TensorProduct.induction_on with
+  | zero => exact ⟨0, by simp⟩
+  | tmul e ψ =>
+    obtain ⟨c, hc⟩ := hsc ψ ψ.2
+    refine ⟨e * algebraMap k E c, ?_⟩
+    simp only [commBaseChange, LinearMap.liftBaseChange_tmul, LinearMap.coe_comp,
+      Function.comp_apply, Submodule.coe_subtype, LinearMap.baseChangeHom_apply, hc]
+    rw [LinearMap.baseChange_smul, LinearMap.baseChange_id]
+    apply LinearMap.ext; intro x
+    simp [mul_smul, algebraMap_smul]
+  | add x y hx hy =>
+    obtain ⟨a, ha⟩ := hx
+    obtain ⟨a', ha'⟩ := hy
+    exact ⟨a + a', by rw [map_add, ha, ha', add_smul]⟩
+
+/-- **C2, absolute irreducibility (GLUE, proved from `SemisimpleBaseChange`).**
 If `r` is a nonzero semisimple representation over a field of characteristic `0` with
 `dim End_G(r ⊕ r) ≤ 4`, then `r ⊗ F` is irreducible for every extension `F`, i.e. `r` is
 absolutely irreducible. -/
-theorem absolutelyIrreducible_of_finrank_commOf_prod_le_four
-    (hInv : InvariantsBaseChange) (hSS : SemisimpleBaseChange)
+theorem absolutelyIrreducible_of_finrank_commOf_prod_le_four (hSS : SemisimpleBaseChange)
     {k G V : Type} [Field k] [CharZero k] [Monoid G] [AddCommGroup V] [Module k V]
     [FiniteDimensional k V] [Nontrivial V] (ρ : Representation k G V)
     (hss : ρ.IsSemisimpleRepresentation)
     (h4 : Module.finrank k (commOf (k := k) (fun g => (ρ g).prodMap (ρ g))) ≤ 4)
     (F : Type) [Field F] [Algebra k F] : (repBaseChange F ρ).IsIrreducible := by
-  have h1 := finrank_commOf_eq_one_of_prod_le_four ρ h4
-  have hF1 : Module.finrank F (commOf (k := F) (fun g => repBaseChange F ρ g)) = 1 := by
-    rw [hInv k F G V ρ, h1]
+  obtain ⟨-, hsc⟩ := isIrreducible_of_finrank_commOf_prod_le_four ρ hss h4
   have : Nontrivial (TensorProduct k F V) := by
     apply Module.nontrivial_of_finrank_pos (R := F)
     rw [Module.finrank_baseChange]
     exact Module.finrank_pos
   exact isIrreducible_of_commutant_scalar _ (hSS k F G V ρ hss)
-    (fun φ hφ => scalar_of_finrank_commOf_eq_one _ hF1 φ hφ)
+    (scalar_commOf_baseChange F ρ hsc)
 
-/-! ### E1: a common constituent gives a nonzero equivariant map -/
 
-/-- **E1, first arrow (GLUE, proved).** If `ρ` is semisimple and a nonzero subrepresentation `U`
-of `ρ` is equivariantly isomorphic to a subrepresentation `U'` of `σ`, there is a nonzero
-`G`-equivariant linear map `V → W`. (Project onto `U` along an invariant complement, transport,
-include.) -/
-theorem exists_equivariant_ne_zero_of_common {W : Type*} [AddCommGroup W] [Module k W]
-    (ρ : Representation k G V) (σ : Representation k G W) (hss : ρ.IsSemisimpleRepresentation)
-    (U : Subrepresentation ρ) (U' : Subrepresentation σ) (hU : U ≠ ⊥)
-    (e : U.toSubmodule ≃ₗ[k] U'.toSubmodule)
-    (he : ∀ g (u : U.toSubmodule), (e ⟨ρ g u, U.apply_mem_toSubmodule g u.2⟩ : W) = σ g (e u)) :
-    ∃ φ : V →ₗ[k] W, φ ≠ 0 ∧ ∀ g, φ ∘ₗ ρ g = σ g ∘ₗ φ := by
-  obtain ⟨U'', hU''⟩ := hss.exists_isCompl U
-  have h : IsCompl U.toSubmodule U''.toSubmodule := by
-    constructor
-    · rw [disjoint_iff]
-      have := congrArg Subrepresentation.toSubmodule hU''.inf_eq_bot
-      simp only [Subrepresentation.toSubmodule_inf] at this
-      exact this
-    · rw [codisjoint_iff]
-      have := congrArg Subrepresentation.toSubmodule hU''.sup_eq_top
-      simp only [Subrepresentation.toSubmodule_sup] at this
-      exact this
-  let p := Submodule.projectionOnto U.toSubmodule U''.toSubmodule h
-  refine ⟨U'.toSubmodule.subtype ∘ₗ e.toLinearMap ∘ₗ p, ?_, ?_⟩
-  · intro h0
-    apply hU
-    apply Subrepresentation.toSubmodule_injective
-    change U.toSubmodule = ⊥
-    rw [eq_bot_iff]
-    intro u hu
-    have := congrArg (fun f => f u) h0
-    simp only [LinearMap.coe_comp, Function.comp_apply, LinearMap.zero_apply,
-      Submodule.coe_subtype, LinearEquiv.coe_coe, p] at this
-    rw [Submodule.projectionOnto_apply_left h ⟨u, hu⟩] at this
-    have h2 : e ⟨u, hu⟩ = 0 := Subtype.ext this
-    have h3 : (⟨u, hu⟩ : U.toSubmodule) = 0 := by simpa using h2
-    exact (Submodule.mem_bot k).mpr (congrArg Subtype.val h3)
-  · intro g
-    apply LinearMap.ext
-    intro v
-    have hpv : (p (ρ g v)) = ⟨ρ g (p v), U.apply_mem_toSubmodule g (p v).2⟩ := by
-      apply Subtype.ext
-      exact congrArg (fun f => f v) (projection_comm U U'' h g)
-    simp only [LinearMap.coe_comp, Function.comp_apply, Submodule.coe_subtype,
-      LinearEquiv.coe_coe]
-    rw [hpv, he]
+/-- **GLUE (linear algebra; the `Hom` form of invariants under extension, weakened to what E1 uses;
+proved below as `equivariantDescent`).** A nonzero `G`-equivariant `E`-linear map
+`V ⊗ E → W ⊗ E` forces a nonzero `G`-equivariant `k`-linear map `V → W` (`V`, `W`
+finite-dimensional): `Hom_G(V ⊗ E, W ⊗ E) = Hom_G(V, W) ⊗ E`. -/
+def EquivariantDescent : Prop :=
+  ∀ (k E G V W : Type) [Field k] [Field E] [Algebra k E] [Monoid G] [AddCommGroup V] [Module k V]
+    [AddCommGroup W] [Module k W] [FiniteDimensional k V] [FiniteDimensional k W]
+    (ρ : Representation k G V) (σ : Representation k G W),
+    (∃ φ : TensorProduct k E V →ₗ[E] TensorProduct k E W, φ ≠ 0 ∧
+      ∀ g, φ ∘ₗ repBaseChange E ρ g = repBaseChange E σ g ∘ₗ φ) →
+    ∃ ψ : V →ₗ[k] W, ψ ≠ 0 ∧ ∀ g, ψ ∘ₗ ρ g = σ g ∘ₗ ψ
+
+theorem equivariantDescent : EquivariantDescent := by
+  intro k E G V W _ _ _ _ _ _ _ _ _ _ ρ σ ⟨φ, h0, h⟩
+  exact exists_equivariant_ne_zero_of_baseChange E ρ σ φ h0 h
 
 end GlueI3
 
@@ -1093,14 +1196,14 @@ open GlueI3 AbVar
 lemma equivEnd_eq_commOf {K : Type} [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
     equivEnd A ℓ = commOf (k := ℚ_[ℓ]) (fun σ => A.galRep ℓ σ) := rfl
 
-/-- **C2 (GLUE, proved from I3's leaves, the two linear-algebra statements, and A9's output).**
+/-- **C2 (GLUE, proved from I3's leaves, `SemisimpleBaseChange`, and A9's output).**
 `A` over a number field `K` with `rank_ℤ End_K(A) = 4` (`End⁰_K(A) = B`, from A9, A10, A8/B3);
 `E ⊇ ℚ_ℓ` a field and `V_ℓ(A) ⊗ E ≅ r ⊕ r` as `G_K`-representations (from `B ⊗ E ≅ M₂(E)`), with `r`
 semisimple (a quotient of `V_ℓ(A) ⊗ E`, semisimple by `FaltingsSemisimple` and
 `SemisimpleBaseChange`; derived here). Then `r` is absolutely irreducible: `r ⊗ F` is irreducible
 for every field `F ⊇ E`. -/
 theorem C2_absolutelyIrreducible (hS : FaltingsSemisimple) (hF : FaltingsTate) (hT : TateModuleFree) (hH : HomFreeFinite)
-    (hInv : InvariantsBaseChange) (hSS : SemisimpleBaseChange)
+    (hSS : SemisimpleBaseChange)
     {K : Type} [Field K] [NumberField K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
     (hrank : Module.finrank ℤ (End A) = 4)
     (E : Type) [Field E] [CharZero E] [Algebra ℚ_[ℓ] E]
@@ -1112,14 +1215,15 @@ theorem C2_absolutelyIrreducible (hS : FaltingsSemisimple) (hF : FaltingsTate) (
   have hℓK : (ℓ : K) ≠ 0 := Nat.cast_ne_zero.mpr (Fact.out : ℓ.Prime).ne_zero
   obtain ⟨-, hfin, -⟩ := hT K A ℓ hℓK
   have : FiniteDimensional ℚ_[ℓ] (A.V ℓ) := inferInstance
-  have h1 : Module.finrank E (commOf (k := E) (fun σ => repBaseChange E (A.galRep ℓ) σ)) = 4 := by
-    rw [hInv ℚ_[ℓ] E _ _ (A.galRep ℓ), ← equivEnd_eq_commOf, finrank_equivEnd hF hT hH, hrank]
+  have h1 : Module.finrank E (commOf (k := E) (fun σ => repBaseChange E (A.galRep ℓ) σ)) ≤ 4 := by
+    have := finrank_commOf_baseChange_le E (A.galRep ℓ)
+    rwa [← equivEnd_eq_commOf, finrank_equivEnd hF hT hH, hrank] at this
   have he' : ∀ σ w, e.symm ((r σ).prodMap (r σ) w) = repBaseChange E (A.galRep ℓ) σ (e.symm w) := by
     intro σ w
     apply e.injective
     rw [he, LinearEquiv.apply_symm_apply, LinearEquiv.apply_symm_apply]
   have h4 := finrank_commOf_le_of_equiv (fun σ => (r σ).prodMap (r σ)) _ e.symm he'
-  rw [h1] at h4
+  replace h4 := h4.trans h1
   have hVE := hSS ℚ_[ℓ] E _ _ (A.galRep ℓ) (hS K A ℓ)
   have hr : r.IsSemisimpleRepresentation := by
     refine isSemisimple_of_surjective (repBaseChange E (A.galRep ℓ)) r hVE
@@ -1131,7 +1235,7 @@ theorem C2_absolutelyIrreducible (hS : FaltingsSemisimple) (hF : FaltingsTate) (
         LinearMap.fst_apply]
       rw [he]
       rfl
-  exact absolutelyIrreducible_of_finrank_commOf_prod_le_four hInv hSS r hr h4 F
+  exact absolutelyIrreducible_of_finrank_commOf_prod_le_four hSS r hr h4 F
 
 /-- **E1, from a common constituent to a nonzero homomorphism (GLUE, proved from I3's leaves and
 `SemisimpleBaseChange`).** N5 L861-867: if `V_ℓ(A) ⊗ E` and `V_ℓ(J) ⊗ E` have a common

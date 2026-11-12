@@ -213,16 +213,6 @@ def repBaseChange (E : Type*) [Field E] [Algebra k E] (ρ : Representation k G V
     change (ρ (g * h)).baseChange E = (ρ g).baseChange E ∘ₗ (ρ h).baseChange E
     rw [map_mul, Module.End.mul_eq_comp, LinearMap.baseChange_comp]
 
-/-- **GLUE, not proved here (linear algebra; STANDARD).** Invariants commute with extension of
-the coefficient field: `dim_E End_G(V ⊗ E) = dim_k End_G(V)` for finite-dimensional `V`. (The
-commutant of `ρ(G)` is the commutant of its finite-dimensional span, i.e. the kernel of a
-`k`-linear map between finite-dimensional spaces, and kernels commute with flat base change.) -/
-def InvariantsBaseChange : Prop :=
-  ∀ (k E G V : Type) [Field k] [Field E] [Algebra k E] [Monoid G] [AddCommGroup V] [Module k V]
-    [FiniteDimensional k V] (ρ : Representation k G V),
-    Module.finrank E (commOf (k := E) (fun g => repBaseChange E ρ g)) =
-      Module.finrank k (commOf (k := k) (fun g => ρ g))
-
 /-- **GLUE, not proved here (algebra; STANDARD).** In characteristic `0`, semisimplicity of a
 finite-dimensional representation survives extension of the coefficient field. (The span of
 `ρ(G)` is a finite-dimensional algebra with a faithful semisimple module, hence semisimple, hence
@@ -231,27 +221,6 @@ def SemisimpleBaseChange : Prop :=
   ∀ (k E G V : Type) [Field k] [CharZero k] [Field E] [Algebra k E] [Monoid G] [AddCommGroup V]
     [Module k V] [FiniteDimensional k V] (ρ : Representation k G V),
     ρ.IsSemisimpleRepresentation → (repBaseChange E ρ).IsSemisimpleRepresentation
-
-/-- **C2, absolute irreducibility (GLUE, proved from the two linear-algebra statements above).**
-If `r` is a nonzero semisimple representation over a field of characteristic `0` with
-`dim End_G(r ⊕ r) ≤ 4`, then `r ⊗ F` is irreducible for every extension `F`, i.e. `r` is
-absolutely irreducible. -/
-theorem absolutelyIrreducible_of_finrank_commOf_prod_le_four
-    (hInv : InvariantsBaseChange) (hSS : SemisimpleBaseChange)
-    {k G V : Type} [Field k] [CharZero k] [Monoid G] [AddCommGroup V] [Module k V]
-    [FiniteDimensional k V] [Nontrivial V] (ρ : Representation k G V)
-    (hss : ρ.IsSemisimpleRepresentation)
-    (h4 : Module.finrank k (commOf (k := k) (fun g => (ρ g).prodMap (ρ g))) ≤ 4)
-    (F : Type) [Field F] [Algebra k F] : (repBaseChange F ρ).IsIrreducible := by
-  have h1 := finrank_commOf_eq_one_of_prod_le_four ρ h4
-  have hF1 : Module.finrank F (commOf (k := F) (fun g => repBaseChange F ρ g)) = 1 := by
-    rw [hInv k F G V ρ, h1]
-  have : Nontrivial (TensorProduct k F V) := by
-    apply Module.nontrivial_of_finrank_pos (R := F)
-    rw [Module.finrank_baseChange]
-    exact Module.finrank_pos
-  exact isIrreducible_of_commutant_scalar _ (hSS k F G V ρ hss)
-    (fun φ hφ => scalar_of_finrank_commOf_eq_one _ hF1 φ hφ)
 
 /-! ### E1: a common constituent gives a nonzero equivariant map -/
 
@@ -467,6 +436,24 @@ theorem scalar_commOf_baseChange (E : Type*) [Field E] [Algebra k E]
     obtain ⟨a, ha⟩ := hx
     obtain ⟨a', ha'⟩ := hy
     exact ⟨a + a', by rw [map_add, ha, ha', add_smul]⟩
+
+/-- **C2, absolute irreducibility (GLUE, proved from `SemisimpleBaseChange`).**
+If `r` is a nonzero semisimple representation over a field of characteristic `0` with
+`dim End_G(r ⊕ r) ≤ 4`, then `r ⊗ F` is irreducible for every extension `F`, i.e. `r` is
+absolutely irreducible. -/
+theorem absolutelyIrreducible_of_finrank_commOf_prod_le_four (hSS : SemisimpleBaseChange)
+    {k G V : Type} [Field k] [CharZero k] [Monoid G] [AddCommGroup V] [Module k V]
+    [FiniteDimensional k V] [Nontrivial V] (ρ : Representation k G V)
+    (hss : ρ.IsSemisimpleRepresentation)
+    (h4 : Module.finrank k (commOf (k := k) (fun g => (ρ g).prodMap (ρ g))) ≤ 4)
+    (F : Type) [Field F] [Algebra k F] : (repBaseChange F ρ).IsIrreducible := by
+  obtain ⟨-, hsc⟩ := isIrreducible_of_finrank_commOf_prod_le_four ρ hss h4
+  have : Nontrivial (TensorProduct k F V) := by
+    apply Module.nontrivial_of_finrank_pos (R := F)
+    rw [Module.finrank_baseChange]
+    exact Module.finrank_pos
+  exact isIrreducible_of_commutant_scalar _ (hSS k F G V ρ hss)
+    (scalar_commOf_baseChange F ρ hsc)
 
 end GlueI3
 
