@@ -16,3 +16,9 @@ Ramification data as the sequence g i = |G_i| (lower numbering). Proved:
 - `char_trivial_of_odd_pgroup` (D2 last sentence): β² = 1 on a group of p-power-order elements, p odd ⇒ β = 1.
 - `card_GL4_F5`: |GL₄(F₅)| = 116064000000 = G₀; `card_GL4_F3`: |GL₄(F₃)| = 24261120 (Mathlib `Matrix.card_GL_field`).
 - `max_le_U0`: e ≤ D ⇒ max(4D², 3e) ≤ 4(DG₀)²; `two_add_two_U0_le_E0`: 2 + 2·4(DG₀)² ≤ 10(DG₀)².
+
+## Step 2. Level.lean (imports ZInQKernel.Hypotheses.Height) — COMPILES, no sorry (VERIFIED)
+- `level_le`: R : ℝ, R ≥ 1, max S ≤ R, N ≠ 0, v_p(N) ≤ E₀ (p ≤ R), v_p(N) ≤ 2 (p > R),
+  p | N ⇒ p ∈ S ∨ p | M_S(u)  ⟹  (N:ℝ) ≤ heightQ R · (contactSupport S u)².
+  `#print axioms`: propext, Classical.choice, Quot.sound.
+- `prod_small_le`: ∏_{p∈s} p^E ≤ R^(R·E) for a finset s of primes ≤ R (R real ≥ 1).
