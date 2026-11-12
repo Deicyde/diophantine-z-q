@@ -61,3 +61,8 @@ File `scratch/bp-faltings/Models.lean`. `lake env lean`: no errors, no warnings.
 - `HodgeData.modelHeight_ofIdeal`: h = (−log N𝔞 − ½ Σ log covol Λ_σ)/[K:ℚ]. VERIFIED.
 - `modelHeight_ofIdeal_eq_faltingsHeightEC`: PeriodAreaFormula + hP (AT1b) +
   hNeron (−12 log N𝔞 = finiteHeightPart j − Σ log|σΔ|, AT1a) ⇒ h = faltingsHeightEC W. VERIFIED.
+
+## Step 9 (12:13 PST). Base change, archimedean count
+`Hodge.lean` §9. Compiles, no sorry.
+- `card_embeddings_over`: #{τ : L → ℂ | τ|_K = σ} = [L:K] (via `AlgHom.card` with σ.toAlgebra). VERIFIED.
+- `sum_embeddings_comp`: Σ_τ f(τ|_K) = [L:K]·Σ_σ f σ. VERIFIED.

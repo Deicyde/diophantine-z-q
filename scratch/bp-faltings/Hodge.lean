@@ -867,6 +867,48 @@ theorem modelHeight_ofIdeal_eq_faltingsHeightEC (hA : PeriodAreaFormula)
 
 end AcceptanceIdeal
 
+/-! ## 9. Base change: the archimedean count (part of nodes AR3, H4)
+
+Each complex embedding `σ` of `K` has exactly `[L:K]` extensions to `L`, so sums over the
+embeddings of `L` of functions of the restriction are `[L:K]` times the sums over `K`. -/
+
+section BaseChange
+
+variable {K L : Type*} [Field K] [NumberField K] [Field L] [NumberField L] [Algebra K L]
+
+open Classical in
+theorem card_embeddings_over (σ : K →+* ℂ) :
+    (Finset.univ.filter (fun τ : L →+* ℂ => τ.comp (algebraMap K L) = σ)).card =
+      Module.finrank K L := by
+  let _ : Algebra K ℂ := σ.toAlgebra
+  have hc : ∀ τ : {τ : L →+* ℂ // τ.comp (algebraMap K L) = σ}, ∀ k : K,
+      τ.1 (algebraMap K L k) = algebraMap K ℂ k := fun τ k => by
+    have := congr_arg (fun f : K →+* ℂ => f k) τ.2
+    simpa [RingHom.algebraMap_toAlgebra] using this
+  have hc' : ∀ φ : L →ₐ[K] ℂ, (φ : L →+* ℂ).comp (algebraMap K L) = σ := fun φ => by
+    ext k
+    simp [RingHom.algebraMap_toAlgebra]
+  rw [← AlgHom.card K L ℂ, ← Fintype.card_subtype]
+  exact Fintype.card_congr
+    { toFun := fun τ => ⟨τ.1, hc τ⟩
+      invFun := fun φ => ⟨(φ : L →+* ℂ), hc' φ⟩
+      left_inv := fun τ => by ext; rfl
+      right_inv := fun φ => by ext; rfl }
+
+open Classical in
+/-- `∑_{τ : L → ℂ} f(τ|_K) = [L:K] · ∑_{σ : K → ℂ} f(σ)`. -/
+theorem sum_embeddings_comp (f : (K →+* ℂ) → ℝ) :
+    ∑ τ : L →+* ℂ, f (τ.comp (algebraMap K L)) =
+      Module.finrank K L * ∑ σ : K →+* ℂ, f σ := by
+  classical
+  rw [← Finset.sum_fiberwise Finset.univ (fun τ : L →+* ℂ => τ.comp (algebraMap K L))
+    (fun τ => f (τ.comp (algebraMap K L))), Finset.mul_sum]
+  refine Finset.sum_congr rfl fun σ _ => ?_
+  rw [Finset.sum_congr rfl (fun τ hτ => by rw [(Finset.mem_filter.mp hτ).2]),
+    Finset.sum_const, card_embeddings_over, nsmul_eq_mul]
+
+end BaseChange
+
 end ZInQ.BPFaltings
 
 #print axioms ZInQ.BPFaltings.HermitianLattice.degreeAt_eq_arakelovDegree
@@ -882,3 +924,4 @@ end ZInQ.BPFaltings
 #print axioms ZInQ.BPFaltings.secIndex_mul_absNorm
 #print axioms ZInQ.BPFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal
 #print axioms ZInQ.BPFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC
+#print axioms ZInQ.BPFaltings.sum_embeddings_comp
