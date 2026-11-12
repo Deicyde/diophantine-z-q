@@ -43,24 +43,38 @@ marked **UNVERIFIED** (this host has no network). Mathlib facts are VERIFIED by 
      Riemann–Hurwitz for a Belyi map: `2g − 2 = d − #j⁻¹{0,1728,∞} ≤ d − 3`, so `g ≤ (d−1)/2`.
      The group-theoretic version is Lean layer 0, done: `belyiDeg_Gamma1_le`, `genus_Gamma1_le`.
 
-3. **Size.** The full dependency graph (§3, §4) has 17 nodes. Done in layer 0: MC0a, MC0c,
-   MC2a, MC2b (4 nodes, about 330 Lean lines). Small or medium: 6. Large: 4. Very large: 3:
-   the Jacobian's existence (MC6, a leaf, so not built), the Faltings height (WP10, out of scope)
-   and, if wanted, Hecke correspondences on `J₁(N)` (MC8, avoidable). Without MC8 and with MC6 a
-   leaf, the critical path is MC1 → MC3 → MC4 → MC5 (large: normalization of `ℙ¹` in `K_N`,
-   smoothness, geometric connectedness, Riemann–Hurwitz). It is the same order of work as
+3. **Size.** The full dependency graph (§3, §4) has 17 nodes. Proved in layer 0: MC0a, MC0b,
+   MC2a, MC2b. Definition compiled: MC6 (`IsJacobian`, with its uniqueness glue proved), MC1 and
+   MC4 (`fieldX1`, `Y1j`, open degree statements). That is 779 Lean lines in 4 files. Small or
+   medium: 5 nodes. Large: 4. Very large: 3: the Jacobian's existence (MC6', a leaf, so not
+   built), the Faltings height (WP10, out of scope) and, if wanted, Hecke correspondences on
+   `J₁(N)` (MC8, avoidable). Without MC8 and with MC6' a leaf, the critical path is
+   MC3a → MC1 → MC4 → MC5. It is large: properness and smoothness of the normalization of `ℙ¹` in
+   `K_N`, geometric connectedness, and the Belyi property. It is the same order of work as
    Mathlib's existing curve infrastructure and needs no new cohomology theory.
 
-4. **Lean layer 0 (VERIFIED: `lake env lean`, exit 0, no warnings, axioms `propext`,
-   `Classical.choice`, `Quot.sound`):**
+4. **Lean layer 0** (VERIFIED: `lake env lean` on each file gives exit 0 with no errors, no
+   warnings and no `sorry`; `#print axioms` gives `propext`, `Classical.choice`, `Quot.sound`):
    - `scratch/bp-modcurves/Gamma1Genus.lean`. Over Mathlib's `SL(2,ℤ)`, `Gamma1`, `ModularGroup.S/T`:
      `pmSubgroup`, `belyiDeg Γ = [SL₂(ℤ):±Γ]`, `nu2`, `nu3` (fixed points of `S`, `ST` on cosets),
      `nuInf` (`⟨T⟩`-orbits), `genus Γ = 1 + μ/12 − ν₂/4 − ν₃/3 − ν∞/2`. Theorems: `nu2_Gamma1`
      (`N ≥ 3`), `nu3_Gamma1` (`N ≥ 4`), `genus_Gamma1` (`g = 1 + μ/12 − ν∞/2` for `N ≥ 4`),
      `belyiDeg_Gamma1_le` (`μ ≤ N²`), `genus_Gamma1_le` (`g ≤ N²`), `index_Gamma1_le`.
+     Also `cosetEquivPrimVec : SL(2,ℤ) ⧸ Gamma1 N ≃ PrimVec N` (primitive vectors of `(ℤ/N)²`),
+     via the lifting lemma `exists_SL2_firstColMod`; `index_Gamma1_eq_card`; and
+     `two_mul_belyiDeg_Gamma1` (`2μ = #PrimVec N` for `N ≥ 3`). A `decide` test checks
+     `[SL₂(ℤ):Γ₁(5)] = 24`.
    - `scratch/bp-modcurves/TateNormalForm.lean`. Over Mathlib's `WeierstrassCurve`,
      `VariableChange` and `Affine.Point`: `tateNF b c`; `exists_tateNF` (a point `P` with `2P ≠ 0`,
-     `3P ≠ 0` is moved to `(0,0)` on some `E(b,c)`); `tateNF_unique` (the normalization is unique).
+     `3P ≠ 0` is moved to `(0,0)` on some `E(b,c)`); `tateNF_unique`, `tateNF_unique'` (the
+     normalization is unique); `tateNF_Δ` (`Δ(b,c) = b³(16b² − 8bc² − 20bc + b + c(c−1)³)`).
+   - `scratch/bp-modcurves/Jacobian.lean`: `IsCurve`; `IsJacobian X P₀ J aj` (the Albanese property
+     over the repository's `AbVar`); `JacobianExists` (leaf statement); `IsJacobian.unique`
+     (proved); `jacobian` (a chosen Jacobian, given the leaf).
+   - `scratch/bp-modcurves/ModularCurveDefs.lean`: `Ej` (Mathlib `ofJNe0Or1728 X` over `ℚ(j)`,
+     with `Ej_j : Ej.j = X` proved); `fieldX1 P = ℚ(j)⟮x(P)⟯`; `Y1j P` (Mathlib's relative
+     normalization of `Spec ℚ[j]` in `fieldX1 P`, i.e. `X₁(N)` minus its cusps); `jMap`. The open
+     statements `TorsionCardLe`, `FieldX1DegreeLe` and `FieldX1Degree` (leaf MC1') are `Prop`s.
    - Ground truth (VERIFIED, computed): `genus_check.py` (`N = 1..30`). The genus from the
      `S, ST, T` action equals the closed forms `μ = J₂(N)/2` and `ν∞ = ½Σ_{d|N}φ(d)φ(N/d)`, and
      the reference genus table (all 30 agree). `tate_check.py`: on Kubert's families for
@@ -135,23 +149,23 @@ be stated, not proved.
                                    │                                     Affine.Point, ModelsWithJ, ψ_N
                                    ▼                                              │
  MC0a [done] belyiDeg, ν₂, ν₃, ν∞, genus of Γ₁(N); μ ≤ N², g ≤ N²                  ▼
- MC0b  cosets SL₂(ℤ)/±Γ₁(N) ≅ primitive vectors of (ℤ/N)² mod ±         MC2a [done] Tate normal form ∃!
+ MC0b [done] cosets SL₂(ℤ)/Γ₁(N) ≅ primitive vectors of (ℤ/N)²; 2μ = #         MC2a [done] Tate normal form ∃!
  MC0c  ν∞ = #Γ₁(N)\ℙ¹(ℚ) (Mathlib CuspOrbits)                        MC2b [done] point hypotheses (2P,3P ≠ 0)
           │                                                                       │
           │                    MC3a  #E[N](K̄) ≤ N² (char 0)  ◄──── Tau Ceti / FLT (E[n] ≅ (ℤ/n)²) or ψ_N
           │                       │                                               │
           │                       ▼                                               ▼
-          │            MC1  K_N = ℚ(j)(x(P)), [K_N:ℚ(j)] ≤ N²/2 ◄──────── MC2c  Y₁(N)(K) ≅ {(b,c): Δ≠0, ord(0,0)=N}
+          │            MC1  K_N = ℚ(j)(x(P)) [def done], [K_N:ℚ(j)] ≤ N²/2 ◄──────── MC2c  Y₁(N)(K) ≅ {(b,c): Δ≠0, ord(0,0)=N}
           │                       │   (MC1' [leaf] Igusa/Shimura: Φ_N abs. irreducible ⇒ ℚ̄∩K_N = ℚ, = μ)
           │                       ▼
-          │            MC4  X₁(N) := normalization of ℙ¹_j in K_N: proper, smooth, geom. connected curve /ℚ
+          │            MC4  X₁(N) := normalization of ℙ¹_j in K_N [affine chart def done]: proper, smooth, geom. connected curve /ℚ
           │                       │
           │                       ▼
           ├──────────► MC5  j : X₁(N) → ℙ¹ Belyi (étale over ℙ¹∖{0,1728,∞}), deg j = [K_N:ℚ(j)] ≤ N²
           │            MC5' [leaf] Riemann–Hurwitz (Hartshorne IV.2.4, UNVERIFIED) ⇒ g ≤ (d−1)/2 ≤ N²
           │                       │
           │                       ▼
-          │            MC6  IsJacobian X P₀ J  (Albanese predicate over PkgI3.AbVar)   MC6' [leaf] existence
+          │            MC6  IsJacobian X P₀ J [done + uniqueness] (Albanese predicate)   MC6' [leaf] existence
           │            MC6b Pic⁰(X_ℚ̄) as a G_ℚ-module (Weil divisors, Scheme.ord)       MC6'' dim J = g [leaf/glue]
           │                       │
           │                       ▼
@@ -172,19 +186,19 @@ VERIFIED.
 
 | Node | Statement | Inputs | Tier | Cheapest faithful route | Status |
 | --- | --- | --- | --- | --- | --- |
-| **MC0a** | `belyiDeg (Γ₁ N) ≤ N²`; `ν₂ = 0` (`N ≥ 3`), `ν₃ = 0` (`N ≥ 4`); `genus (Γ₁ N) ≤ N²`; `g = 1 + μ/12 − ν∞/2` (`N ≥ 4`) | Mathlib `Gamma1`, `S`, `T` | small | trace argument: a conjugate of `S` (trace 0) or `ST` (trace 1) is never `≡ ±1 mod N` | **done** (`Gamma1Genus.lean`, 224 lines) |
-| MC0b | `SL₂(ℤ) ⧸ ±Γ₁(N) ≃ {v ∈ (ℤ/N)² primitive}/±`, so `μ = J₂(N)/2` for `N ≥ 3` | MC0a's injectivity (`firstColMod_eq_iff`); lifting a primitive vector mod `N` to a coprime pair (Shimura Lemma 1.38, UNVERIFIED) | small-medium | first column; the lift by CRT on the primes dividing `c` | open |
+| **MC0a** | `belyiDeg (Γ₁ N) ≤ N²`; `ν₂ = 0` (`N ≥ 3`), `ν₃ = 0` (`N ≥ 4`); `genus (Γ₁ N) ≤ N²`; `g = 1 + μ/12 − ν∞/2` (`N ≥ 4`) | Mathlib `Gamma1`, `S`, `T` | small | trace argument: a conjugate of `S` (trace 0) or `ST` (trace 1) is never `≡ ±1 mod N` | **done** (`Gamma1Genus.lean`) |
+| **MC0b** | `SL₂(ℤ) ⧸ Γ₁(N) ≃ {v ∈ (ℤ/N)² primitive}`, and `2μ = #` primitive vectors for `N ≥ 3` | `firstColMod_eq_iff`; lifting a primitive vector mod `N` to a coprime pair (Shimura Lemma 1.38, UNVERIFIED number) | small | first column; lift `a ↦ a + tN` with `t` = product of the primes of `c` not dividing `a` | **done** (`cosetEquivPrimVec`, `two_mul_belyiDeg_Gamma1`); `#PrimVec N = J₂(N)` (Jordan totient) open, small |
 | MC0c | `nuInf Γ = #CuspOrbits Γ` (Mathlib's `Γ\ℙ¹(ℚ)`); `ν∞(Γ₁(N)) = ½Σ_{d|N}φ(d)φ(N/d)` for `N ≥ 5` | Mathlib `cosetToCuspOrbit` | medium | the stabilizer of `∞` is `±⟨T⟩`; double cosets | open (formula VERIFIED numerically, `N ≤ 30`) |
-| **MC2a** | Tate normal form: `(E,P)` with `2P, 3P ≠ 0` ⇒ `∃ C, C•E = E(b,c)`, `C` sends `P ↦ (0,0)`; uniqueness | Mathlib `VariableChange` | small | explicit `u = d/A₂`, `r = x₀`, `s = ℓ`, `t = y₀` | **done** (`TateNormalForm.lean`, 155 lines) |
+| **MC2a** | Tate normal form: `(E,P)` with `2P, 3P ≠ 0` ⇒ `∃ C, C•E = E(b,c)`, `C` sends `P ↦ (0,0)`; uniqueness; `Δ(b,c)` | Mathlib `VariableChange` | small | explicit `u = d/A₂`, `r = x₀`, `s = ℓ`, `t = y₀` | **done** (`TateNormalForm.lean`) |
 | **MC2b** | the hypotheses of MC2a from `P+P ≠ 0`, `P+P+P ≠ 0` in `Affine.Point` | Mathlib `add_self_of_Y_eq`, `X_eq_iff` | small | — | **done** |
-| MC2c | for `N ≥ 4`: `Y₁(N)(K) := {(E,P), ord P = N}/≅ ≃ {(b,c) : Δ(b,c) ≠ 0, ord_{E(b,c)}(0,0) = N}` | MC2a, MC2b, `addOrderOf` in `Affine.Point`; the iso of pairs carries orders | small | package MC2a/b as an `Equiv` of setoid quotients | open (easy) |
+| MC2c | for `N ≥ 4`: `Y₁(N)(K) := {(E,P), ord P = N}/≅ ≃ {(b,c) : Δ(b,c) ≠ 0, ord_{E(b,c)}(0,0) = N}` | MC2a, MC2b, `addOrderOf`; **a change of variables acts on `Affine.Point` as a group isomorphism**, which is absent from Mathlib (only `equation_iff_variableChange`, `nonsingular_iff_variableChange` for translations, in `Affine/Basic.lean`) | medium | first the point transport `(x,y) ↦ ((x−r)/u², (y−s(x−r)−t)/u³)` and its additivity (slope identities), then package MC2a/b as an `Equiv` of quotients | open |
 | MC3a | `E[N](K̄)` has at most `N²` points for `E/K`, `char K = 0` (and exactly `N²`) | Silverman III.6.4 (UNVERIFIED) | medium-large | via Tau Ceti/FLT `E[n] ≅ (ℤ/n)²` if proved there; else `x(E[N]) ⊆ roots of ψ_N` (multiplication formula, absent from Mathlib) | open |
-| MC1 | `K_N := ℚ(j)⟮x(P)⟯ ⊆ \overline{ℚ(j)}` for `P ∈ E_j(\overline{ℚ(j)})` of exact order `N`; `[K_N:ℚ(j)] ≤ N²/2` | MC3a; `E_j` from `ModelsWithJ`; `minpoly` | medium | `x(P)` is a root of `∏_{Q of order N}(X − x(Q))`, which has `≤ J₂(N)/2` distinct roots | open |
+| MC1 | `K_N := ℚ(j)⟮x(P)⟯ ⊆ \overline{ℚ(j)}` for `P ∈ E_j(\overline{ℚ(j)})` of exact order `N`; `[K_N:ℚ(j)] ≤ N²/2` | MC3a; `E_j` from `ModelsWithJ`; `minpoly` | medium | `x(P)` is a root of `∏_{Q of order N}(X − x(Q))`, which has `≤ J₂(N)/2` distinct roots, and that polynomial has coefficients in `ℚ(j)` (Galois-stable) | **definition done** (`fieldX1`, `Ej_j`); bound open (`FieldX1DegreeLe`) |
 | MC1' | `Φ_N` absolutely irreducible over `ℚ̄(j)`, so `ℚ` is algebraically closed in `K_N` and `[K_N:ℚ(j)] = J₂(N)/2` | Igusa 1959 or Shimura 1971 Thm 6.6 / Lang, *Elliptic Functions* Ch. 6 (all UNVERIFIED) | (leaf) | state as a leaf: `Gal(ℚ̄(j)(E[N])/ℚ̄(j)) ≅ SL₂(ℤ/N)/(±1 ∩ …)` acting transitively on order-`N` points mod `±` | leaf; or glue from monodromy (large) |
-| MC4 | `X₁(N) := (Spec K_N → ℙ¹_ℚ).normalization`; it is proper, smooth of relative dimension 1, geometrically connected over `ℚ`, with function field `K_N` | Mathlib relative normalization; finiteness of integral closure (Noether, in Mathlib for f.g. algebras over a field, UNVERIFIED name); normal + dim 1 + char 0 ⇒ smooth (regular ⇒ smooth over a perfect field, absent?); MC1' for geometric connectedness | large | relative normalization (universal property in Mathlib) instead of gluing affine charts by hand | open |
+| MC4 | `X₁(N) := (Spec K_N → ℙ¹_ℚ).normalization` (**affine chart compiled**: `Y1j P`, `jMap`); it is proper, smooth of relative dimension 1, geometrically connected over `ℚ`, with function field `K_N` | Mathlib relative normalization; finiteness of integral closure (Noether, in Mathlib for f.g. algebras over a field, UNVERIFIED name); normal + dim 1 + char 0 ⇒ smooth (regular ⇒ smooth over a perfect field, absent?); MC1' for geometric connectedness | large | relative normalization (universal property in Mathlib) instead of gluing affine charts by hand | open |
 | MC5 | `j : X₁(N) → ℙ¹` finite, `deg j = [K_N:ℚ(j)] ≤ N²`; étale over `ℙ¹ ∖ {0, 1728, ∞}`; base change to `ℚ̄` is a Belyi map after `j ↦ j/1728` | MC4; good reduction of `E_j` away from `j ∈ {0,1728,∞}` (`Δ(E_j)` explicit); `E[N]` étale in char 0 | medium-large | unramifiedness from `disc(ψ_N)` being a unit times a power of `Δ(E_j)` (STANDARD, UNVERIFIED reference) or from the moduli (`Aut E = ±1` away from `0,1728`) | open |
 | MC5' | Riemann–Hurwitz: `2g − 2 = −2d + Σ(e_P − 1)`; for a Belyi map `g ≤ (d − 1)/2` | genus of a curve (absent from Mathlib; Anthropic FLT `genusFF`) | (leaf) / large | state as a textbook leaf (Hartshorne IV, Cor. 2.4, UNVERIFIED) over a genus definition `g = dim_ℚ H⁰(X, Ω¹)` or `genusFF` | leaf |
-| MC6 | `IsJacobian X P₀ J ι`: `J : PkgI3.AbVar ℚ`, `ι : X ⟶ J.X` over `ℚ`, `ι ∘ P₀ = 0`, and every pointed `ℚ`-morphism `X → A` to an abelian variety factors uniquely through a homomorphism `J → A`; plus `dim J = g` | `PkgI3.AbVar`, `homGroup`; Tau Ceti `IsAlbanese` | small (definition) | Albanese predicate (no Picard functor, no line bundles) | open |
+| **MC6** | `IsJacobian X P₀ J aj`: `J : AbVar ℚ`, `aj : X ⟶ J.X` over `ℚ`, `P₀ ≫ aj = η`, and every pointed `ℚ`-morphism `X → A` to an abelian variety factors uniquely through a homomorphism `J → A`; plus `dim J = g` (not in the predicate) | `PkgI3.AbVar` (copied); Tau Ceti `IsAlbanese` | small | Albanese predicate (no Picard functor, no line bundles) | **definition done**, `IsJacobian.unique` proved (`Jacobian.lean`); `dim J = g` open |
 | MC6' | **existence**: every smooth projective geometrically connected curve `X/k` with `X(k) ≠ ∅` has a Jacobian (Weil 1948; Chow; Milne 1986, Thm 1.1 and Prop. 6.1, UNVERIFIED) | — | (leaf) | state as a leaf | leaf |
 | MC6b | `Pic⁰(X_ℚ̄)` := degree-0 Weil divisors mod `div(f)` with its `G_ℚ`-action; `J(ℚ̄) ≅ Pic⁰(X_ℚ̄)` equivariantly (Abel–Jacobi) | Mathlib `weilDivisors`, `degree`, `Scheme.ord` | medium (definition), leaf (iso) | only needed if one wants R16 over `Pic⁰` instead of over `J` | optional |
 | MC7 | R16, existential form (§6) | MC6, `PkgI3.AbVar.V`, `HSyn.CF` | (leaf) | Shimura 1973 Thm 1 + the realization bridge | leaf (statement small once MC4, MC6 exist) |
@@ -217,7 +231,7 @@ Notes on the table:
 
 | Route | What must be built | Tier | Verdict |
 | --- | --- | --- | --- |
-| **(A) Albanese predicate + existence leaf** | MC6 (definition over `PkgI3.AbVar`, about 60 lines); uniqueness up to unique isomorphism (glue, small: two universal properties); MC6' existence as a leaf; `dim J = g` as part of the leaf or from `T_ℓ J ≅ T_ℓ Pic⁰` and Anthropic FLT's rank `2g` | small + leaves | **recommended** |
+| **(A) Albanese predicate + existence leaf** | MC6 (definition over `PkgI3.AbVar`: **done**, `Jacobian.lean`); uniqueness up to unique isomorphism (glue: **done**, `IsJacobian.unique`); MC6' existence as a leaf; `dim J = g` as part of the leaf or from `T_ℓ J ≅ T_ℓ Pic⁰` and Anthropic FLT's rank `2g` | small + leaves | **recommended** |
 | (B) Picard functor and representability for curves | line bundles on `X ×_ℚ T` (Mathlib has `Pic` of rings only; no invertible sheaves on schemes, no tensor structure on `Scheme.Modules` found); `Pic_{X/ℚ}` as an fppf sheaf; representability by `Sym^g X` and Weil's birational group laws (Milne 1986 §§3-5) or by Hilbert/Quot schemes (Grothendieck; Kleiman, FGA explained Thm 9.4.8, UNVERIFIED) | very large | the faithful formalization of MC6'; not on the critical path |
 | (C) Analytic: `J(ℂ) = S₂(Γ₁(N))^∨ / H₁(X₁(N)(ℂ), ℤ)`, Riemann's relations, Lefschetz embedding, GAGA, descent to `ℚ` by canonical models (Shimura 1971 Ch. 6-7) | compact Riemann surface `Γ₁(N)\ℍ*` (absent), its `H₁`, period lattice, Riemann form, Tau Ceti `isRiemannForm_iff_isPolarization`, projectivity of polarized tori (absent), GAGA (absent), Shimura's canonical model over `ℚ` | very large (largest) | rejected for the variety. The analytic side survives only inside R16's statement (the `q`-expansion coefficients `a_p(f)` of a Mathlib `CuspForm`) |
 
@@ -318,11 +332,11 @@ at most `N²`" (L868-870, VERIFIED read).
 
 ## §8. Lean layer 0 (what compiles)
 
-All in namespace `BPModCurves`. Both files are checked with `lake env lean` (exit 0, no errors,
-no warnings, no `sorry`). `#print axioms` gives `propext`, `Classical.choice`, `Quot.sound` for every
-headline theorem (VERIFIED, log entries 11:45 and 11:58).
+All in namespace `BPModCurves`, 779 lines in 4 files. Each file is checked with `lake env lean`
+(exit 0, no errors, no warnings, no `sorry`). `#print axioms` gives `propext`, `Classical.choice`,
+`Quot.sound` for every headline theorem (VERIFIED, `log.md` entries 11:45-12:20).
 
-`scratch/bp-modcurves/Gamma1Genus.lean` (224 lines):
+`scratch/bp-modcurves/Gamma1Genus.lean` (424 lines):
 
 ```lean
 def pmSubgroup (Γ : Subgroup SL(2, ℤ)) : Subgroup SL(2, ℤ)          -- ±Γ
@@ -340,9 +354,16 @@ theorem belyiDeg_Gamma1_le (N : ℕ) [NeZero N] : belyiDeg (Gamma1 N) ≤ N ^ 2
 theorem genus_le (Γ) [Γ.FiniteIndex] : genus Γ ≤ 1 / 2 + belyiDeg Γ / 12
 theorem genus_Gamma1_le (N : ℕ) [NeZero N] : genus (Gamma1 N) ≤ (N : ℚ) ^ 2
 theorem index_Gamma1_le (N : ℕ) [NeZero N] : (Gamma1 N).index ≤ N ^ 2  -- copied from glue-assembly
+def PrimVec (N : ℕ) := {v : ZMod N × ZMod N // ∃ x y : ZMod N, x * v.1 + y * v.2 = 1}
+theorem exists_SL2_firstColMod (N : ℕ) [NeZero N] (v : ZMod N × ZMod N)
+    (hv : ∃ x y : ZMod N, x * v.1 + y * v.2 = 1) : ∃ γ : SL(2, ℤ), firstColMod N γ = v
+noncomputable def cosetEquivPrimVec (N : ℕ) [NeZero N] : SL(2, ℤ) ⧸ Gamma1 N ≃ PrimVec N
+theorem index_Gamma1_eq_card (N : ℕ) [NeZero N] : (Gamma1 N).index = Nat.card (PrimVec N)
+theorem two_mul_belyiDeg_Gamma1 (N : ℕ) (hN : 3 ≤ N) : 2 * belyiDeg (Gamma1 N) = Nat.card (PrimVec N)
+example : (CongruenceSubgroup.Gamma1 5).index = 24   -- by decide
 ```
 
-`scratch/bp-modcurves/TateNormalForm.lean` (155 lines):
+`scratch/bp-modcurves/TateNormalForm.lean` (162 lines):
 
 ```lean
 def tateNF (b c : K) : WeierstrassCurve K := ⟨1 - c, -b, -b, 0, 0⟩
@@ -355,53 +376,87 @@ theorem exists_tateNF [DecidableEq K] (W) (h : W.toAffine.Nonsingular x₀ y₀)
 theorem tateNF_unique (b c b' c' : K) (hb : b ≠ 0) (C : VariableChange K)
     (hC : C • tateNF b c = tateNF b' c') (hr : C.r = 0) (ht : C.t = 0) :
     C = 1 ∧ b = b' ∧ c = c'
+theorem tateNF_Δ (b c : K) : (tateNF b c).Δ =
+    b ^ 3 * (16 * b ^ 2 - 8 * b * c ^ 2 - 20 * b * c + b + c * (c - 1) ^ 3)
+theorem tateNF_unique' (b c b' c' : K) [(tateNF b c).IsElliptic] (C) (hC) (hr) (ht) : C = 1 ∧ b = b' ∧ c = c'
 ```
 
 (`C.r = x₀ ∧ C.t = y₀` says exactly that `C` sends `(x₀, y₀)` to `(0,0)`. Mathlib's change of
 variables is `x = u²x' + r`, `y = u³y' + u²sx' + t`.)
 
+`scratch/bp-modcurves/Jacobian.lean` (94 lines):
+
+```lean
+structure AbVar (K) [Field K]   -- copied from PkgI3.AbVar (proper, smooth, geometrically integral group scheme)
+class IsCurve (X : Over (Spec (CommRingCat.of K))) : Prop  -- proper, SmoothOfRelativeDimension 1, GeometricallyConnected
+structure IsJacobian (X) (P₀ : 𝟙_ (Over (Spec (CommRingCat.of K))) ⟶ X) (J : AbVar K) (aj : X ⟶ J.X) : Prop where
+  base : P₀ ≫ aj = η[J.X]
+  univ : ∀ (A : AbVar K) (f : X ⟶ A.X), P₀ ≫ f = η[A.X] → ∃! φ : J.X ⟶ A.X, IsMonHom φ ∧ aj ≫ φ = f
+def JacobianExists (K) [Field K] : Prop      -- leaf MC6' (statement only)
+theorem IsJacobian.unique (h : IsJacobian X P₀ J aj) (h' : IsJacobian X P₀ J' aj') :
+    ∃ e : J.X ≅ J'.X, IsMonHom e.hom ∧ aj ≫ e.hom = aj' ∧ ∀ φ, IsMonHom φ → aj ≫ φ = aj' → φ = e.hom
+noncomputable def jacobian (hJ : JacobianExists K) (X) [IsCurve X] (P₀) : AbVar K
+```
+
+`scratch/bp-modcurves/ModularCurveDefs.lean` (99 lines):
+
+```lean
+abbrev Qj := RatFunc ℚ
+noncomputable def Ej : WeierstrassCurve Qj := ofJNe0Or1728 (RatFunc.X : Qj)
+instance : Ej.IsElliptic
+theorem Ej_j : Ej.j = RatFunc.X
+noncomputable def EjBar : WeierstrassCurve Kbar := Ej.baseChange Kbar     -- Kbar = AlgebraicClosure Qj
+noncomputable def fieldX1 (P : EjBar.toAffine.Point) : IntermediateField Qj Kbar := Qj⟮xCoord P⟯
+noncomputable def Y1j (P) : Scheme := (Spec.map (CommRingCat.ofHom (jLineToField P))).normalization
+noncomputable def jMap (P) : Y1j P ⟶ Spec (CommRingCat.of (Polynomial ℚ))
+def TorsionCardLe : Prop      -- MC3a, open
+def FieldX1DegreeLe : Prop    -- MC1 bound, open
+def FieldX1Degree : Prop      -- MC1', leaf (2·[K_N:ℚ(j)] = #PrimVec N)
+```
+
 Faithfulness notes:
 - `genus Γ` is a **definition by formula**. It is the genus of `X_Γ` only after the monodromy
   identification of §7.4. In the project it should be used as an acceptance test, never as the
   definition of the genus of `X₁(N)` in a leaf. Its integrality is not claimed.
-- `tateNF_unique` assumes `b ≠ 0`. This holds on every nonsingular `E(b,c)`, since
-  `Δ(b,c) = b³·(…)` (STANDARD; not proved here). The hypothesis can be replaced by
-  `(tateNF b c).IsElliptic` once that factorization is proved (small).
+- `tateNF_unique` assumes `b ≠ 0`; `tateNF_unique'` derives it from `IsElliptic` through `tateNF_Δ`.
+- `IsJacobian` quantifies over all abelian varieties in the same universe. `IsJacobian.unique` is
+  its acceptance test: a universal property quantifying over too few targets would still be
+  unique, but then `JacobianExists` would be a stronger statement than Milne's, so the leaf
+  writer must check that `AbVar` is the standard notion (it is, up to the smooth/geometrically
+  integral packaging). `JacobianExists` must appear as an explicit hypothesis of the main theorem.
+- `Y1j P` depends on the choice of `P`. Different `P` of exact order `N` give `ℚ(j)`-conjugate
+  fields (by MC1'), hence isomorphic schemes over the `j`-line. `fieldX1 P` with `P = 0` is the
+  junk value `ℚ(j)`.
 
 ---
 
 ## §9. Proposed next-layer Lean statements (signatures, not compiled)
 
-These are targets for the crowd, written against Mathlib v4.35 names, and SPECULATIVE until
-compiled. `E_j` is `WeierstrassCurve (RatFunc ℚ)` with `j`-invariant `RatFunc.X` (from
-`ModelsWithJ`). `Kbar` is `AlgebraicClosure (RatFunc ℚ)`.
+These are the remaining targets, written against Mathlib v4.35 names, and SPECULATIVE until
+compiled. The compiled ones are in §8.
 
 ```lean
+-- point transport under a change of variables (needed for MC2c)
+def VariableChange.mapPoint (C : VariableChange K) : W.toAffine.Point ≃+ (C • W).toAffine.Point
+
 -- MC2c: Y₁(N) at the level of points (N ≥ 4)
 def Y1Points (K) [Field K] (N : ℕ) : Type _ :=
-  Quot (fun (p q : Σ W : WeierstrassCurve K, W.toAffine.Point) => ∃ C, C • p.1 = q.1 ∧ …)
+  Quot (fun (p q : Σ W : WeierstrassCurve K, W.toAffine.Point) =>
+    ∃ C : VariableChange K, C • p.1 = q.1 ∧ C.mapPoint p.2 = q.2)  -- restricted to IsElliptic, addOrderOf = N
 theorem Y1Points_equiv (N : ℕ) (hN : 4 ≤ N) :
     Y1Points K N ≃ {bc : K × K // (tateNF bc.1 bc.2).Δ ≠ 0 ∧ addOrderOf (origin bc) = N}
 
--- MC3a
-theorem card_torsion_le (E : WeierstrassCurve K) [E.IsElliptic] [CharZero K] [IsAlgClosed K] (N : ℕ) :
-    Nat.card {P : E.toAffine.Point // N • P = 0} ≤ N ^ 2
+-- MC0b, last step: #PrimVec N = J₂(N) = N² ∏_{p | N} (1 − p⁻²)
+theorem card_primVec (N : ℕ) [NeZero N] : Nat.card (PrimVec N) = N ^ 2 * ∏ p ∈ N.primeFactors, (1 - 1 / p ^ 2 : ℚ)
 
--- MC1
-noncomputable def fieldX1 (N : ℕ) (P : (E_j.baseChange Kbar).toAffine.Point)
-    (hP : addOrderOf P = N) : IntermediateField (RatFunc ℚ) Kbar := (RatFunc ℚ)⟮xCoord P⟯
-theorem finrank_fieldX1_le (N) (hN : 3 ≤ N) (P) (hP) : Module.finrank (RatFunc ℚ) (fieldX1 N P hP) ≤ N ^ 2 / 2
+-- MC4 proper model: glue Y1j with the chart over Spec ℚ[1/j]; then
+instance : IsProper (X1 N).hom;  instance : SmoothOfRelativeDimension 1 (X1 N).hom;  GeometricallyConnected (X1 N).hom
 
--- MC4
-noncomputable def X1 (N : ℕ) … : Scheme := (Spec.map (algebraMap (RatFunc ℚ) (fieldX1 N P hP)) ≫ genericPt).normalization
-instance : IsProper (X1 N …).toSpecQ;  instance : SmoothOfRelativeDimension 1 …;  GeometricallyConnected …
+-- MC5
+theorem finite_jMap : IsFinite (jMap P)   -- integral + finite type (Noether normalization finiteness)
+theorem jMap_etale_away : ∀ x, jMap P x ∉ {0, 1728} → IsEtaleAt …
 
--- MC6
-structure IsJacobian (X : Over (Spec (.of ℚ))) (P₀ : 𝟙_ _ ⟶ X) (J : PkgI3.AbVar ℚ) (ι : X ⟶ J.X) : Prop where
-  base : P₀ ≫ ι = η[J.X]
-  univ : ∀ (A : PkgI3.AbVar ℚ) (f : X ⟶ A.X), P₀ ≫ f = η[A.X] →
-    ∃! φ : J.homGroup A, ι ≫ φ.1 = f
--- MC6' (leaf): ∀ X smooth proper geometrically connected of dim 1 with P₀, ∃ J ι, IsJacobian X P₀ J ι
+-- MC7 (leaf, §6): over IsJacobian (X1 N) cusp J aj, HSyn.CF, PkgI3.AbVar.V
 ```
 
 ---
@@ -434,10 +489,10 @@ structure IsJacobian (X : Over (Spec (.of ℚ))) (P₀ : 𝟙_ _ ⟶ X) (J : Pkg
 
 | WP | Nodes | Depends on | Tier | Deliverable |
 | --- | --- | --- | --- | --- |
-| MC-a | MC0b, MC0c | layer 0 | small-medium | `μ = J₂(N)/2`; `nuInf = #CuspOrbits`; closed cusp formula; `decide` checks against `genus_check.py` |
-| MC-b | MC2c, `Δ(b,c)` factorization, `⟨d⟩` on `Y₁(N)` | layer 0 | small | `Y1Points_equiv`; `IsElliptic (tateNF b c) ↔ Δ(b,c) ≠ 0`, `b ∣ Δ` |
-| MC-c | MC3a, MC1 | Tau Ceti / FLT torsion or the multiplication formula | medium-large | `card_torsion_le`, `fieldX1`, `finrank_fieldX1_le` |
-| MC-d | MC4, MC5 | MC-c | large | `X1 N` proper smooth curve; `j` finite, Belyi, `deg j ≤ N²` |
-| MC-e | MC6 (+ uniqueness glue), statements of MC6', MC5', MC1' | `PkgI3.AbVar` | small (definitions) + leaf statements | `IsJacobian`, `IsJacobian.unique`; leaf Props |
+| MC-a | MC0b (last step), MC0c | layer 0 | small-medium | `#PrimVec N = J₂(N)` (the coset bijection is done); `nuInf = #CuspOrbits`; closed cusp formula; `decide` checks against `genus_check.py` |
+| MC-b | point transport under `VariableChange`, MC2c, `⟨d⟩` on `Y₁(N)` | layer 0 (`tateNF_Δ` done) | medium | `VariableChange.mapPoint` as an additive equivalence; `Y1Points_equiv` |
+| MC-c | MC3a, MC1 | Tau Ceti / FLT torsion or the multiplication formula | medium-large | proofs of `TorsionCardLe`, `FieldX1DegreeLe` (definitions `Ej`, `fieldX1` done) |
+| MC-d | MC4, MC5 | MC-c | large | from the compiled chart `Y1j`: the proper `X1 N`, smooth and geometrically connected; `j` finite, Belyi, `deg j ≤ N²` |
+| MC-e | statements of MC5' (Riemann–Hurwitz, over a genus definition) and `dim J = g`; fold `IsJacobian`, `JacobianExists`, `FieldX1Degree` into `Leaves.lean` | `Jacobian.lean`, `ModularCurveDefs.lean` (done) | small | leaf Props over genuine definitions |
 | MC-f | MC7 (R16 existential), G13 from it | MC-d, MC-e, `HSyn.CF` | small-medium | R16 stated over genuine definitions in `Leaves.lean`; G13 proved from it |
 | MC-g | MC8 (optional) | MC-d, Vélu | very large | Hecke correspondences on `J₁(N)` |
