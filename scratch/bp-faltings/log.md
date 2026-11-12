@@ -71,3 +71,11 @@ File `scratch/bp-faltings/Models.lean`. `lake env lean`: no errors, no warnings.
 `Hodge.lean` §10. Compiles, no sorry.
 - `hypGram_comp_add`, `hypVol_one_comp_add`: hypVol 1 (P(x + c)) = hypVol 1 P. VERIFIED.
 - `modelHeight_ofIdeal_eq_faltingsHeightEC'`: as §8 with P_W^σ = (4x³ − g₂x − g₃)(x + c_σ). VERIFIED.
+
+## Step 11 (12:17 PST). Base change of the Arakelov degree (fractional-ideal lines)
+`Hodge.lean` §11. Compiles; 0 errors, 0 `sorry`; axioms propext, Classical.choice, Quot.sound.
+- `finrank_ringOfIntegers`: finrank (𝓞 K) (𝓞 L) = [L:K] (Mathlib `IsFractionRing.finrank_eq`). VERIFIED.
+- `absNorm_map_ringOfIntegers`: N(I𝓞_L) = N(I)^[L:K] for integral ideals (Mathlib `Ideal.absNorm_algebraMap`). VERIFIED.
+- `norm_algebraMap_tower`: N_{L/ℚ}(x) = N_{K/ℚ}(x)^[L:K]. VERIFIED.
+- `absNorm_extendedHom`: FractionalIdeal.absNorm (extendedHom L (𝓞 L) I) = absNorm I ^ [L:K]. VERIFIED.
+- `arakelovDegree_ofFractionalIdeal_baseChange`: deg_L(I𝓞_L, ρ∘res) = [L:K]·deg_K(I, ρ). VERIFIED.

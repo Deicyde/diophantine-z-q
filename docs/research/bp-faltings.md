@@ -29,7 +29,7 @@ proposal. **UNVERIFIED** marks a locator recalled from memory; there was no netw
    provably means the published one, and the acceptance tests AT1/AT2 check that in the two cases
    that have closed formulas.
 2. **The first concrete layer is built (VERIFIED: compiled; axioms `propext`, `Classical.choice`,
-   `Quot.sound`; no `sorry`).** `Hodge.lean`, about 900 lines, Mathlib only:
+   `Quot.sound`; no `sorry`).** `Hodge.lean`, about 1 000 lines, Mathlib only:
    - `HermitianLattice`, the Arakelov degree `arakelovDegree`, and its independence of the
      section, `degreeAt_eq_arakelovDegree`. The proof uses the product formula and the index
      identity `secIndex_smul`: `#(M/𝓞·as) = |N(a)|·#(M/𝓞·s)`.
@@ -38,8 +38,11 @@ proposal. **UNVERIFIED** marks a locator recalled from memory; there was no netw
        (`secIndex_mul_absNorm`) and the closed formula
        `deg(I, ρ·|σ(·)|) = −log N(I) − ∑ log ρ_σ` (`arakelovDegree_ofFractionalIdeal`);
      - rescaling of the metrics (`arakelovDegree_rescale`);
-     - the archimedean half of base change: each embedding of `K` has exactly `[L:K]`
-       extensions to `L` (`card_embeddings_over`, `sum_embeddings_comp`).
+     - base change: each embedding of `K` has exactly `[L:K]` extensions to `L`
+       (`sum_embeddings_comp`), and `N_L(I𝓞_L) = N_K(I)^{[L:K]}` for fractional ideals
+       (`absNorm_extendedHom`). Hence `deg_L((I, ρ)_{𝓞_L}) = [L:K]·deg_K(I, ρ)`
+       (`arakelovDegree_ofFractionalIdeal_baseChange`): the normalized degree is invariant under
+       base change, which is the Arakelov half of H4.
    - `torusMetricSq`, the archimedean Faltings metric `(i/2)^g∫_{ℂ^g/Λ} η∧η̄` of an invariant top
      form, with these properties:
      - it equals an integral over any fundamental domain (`torusMetricSq_eq_setIntegral`);
@@ -161,7 +164,7 @@ theory or metrized line bundle.
 | --- | --- | --- | --- |
 | AR1 | Hermitian line on `Spec 𝓞_K`: a rank-one `𝓞_K`-lattice `M` in a `K`-line `V`, norms `‖·‖_σ` with `‖a v‖_σ = |σa|‖v‖_σ` | S | **BUILT** `HermitianLattice` (§4) |
 | AR2 | Arakelov degree `log #(M/𝓞s) − ∑_σ log‖s‖_σ`, independent of `s` | S | **BUILT** `arakelovDegree`, `degreeAt_eq_arakelovDegree`, `secIndex_smul`, `secIndex_ne_zero` |
-| AR3 | Functoriality: `deg(M̄ ⊗ N̄) = deg M̄ + deg N̄`; base change `deg(M̄_{𝓞_L}) = [L:K]·deg(M̄)`; rescaling the metrics by `c_σ` shifts `deg` by `−∑ log c_σ` | M | **partly BUILT**: rescaling (`arakelovDegree_rescale`); closed formula for fractional ideals (`secIndex_mul_absNorm`, `arakelovDegree_ofFractionalIdeal`); archimedean half of base change (`card_embeddings_over`, `sum_embeddings_comp`). Remaining: the finite half of base change, `N_L(I𝓞_L) = N_K(I)^{[L:K]}`, from Mathlib's `Ideal.absNorm_algebraMap` (`RingTheory/Ideal/Norm/RelNorm.lean`, integral ideals; VERIFIED present) plus a reduction from fractional to integral ideals and `finrank (𝓞 K) (𝓞 L) = [L:K]`; tensor products. Needed by H4 and additivity (E4b) |
+| AR3 | Functoriality: `deg(M̄ ⊗ N̄) = deg M̄ + deg N̄`; base change `deg(M̄_{𝓞_L}) = [L:K]·deg(M̄)`; rescaling the metrics by `c_σ` shifts `deg` by `−∑ log c_σ` | M | **mostly BUILT**: rescaling (`arakelovDegree_rescale`); closed formula for fractional ideals (`secIndex_mul_absNorm`, `arakelovDegree_ofFractionalIdeal`); base change (`card_embeddings_over`, `sum_embeddings_comp`, `finrank_ringOfIntegers`, `absNorm_map_ringOfIntegers`, `norm_algebraMap_tower`, `absNorm_extendedHom`, `arakelovDegree_ofFractionalIdeal_baseChange`). Remaining: tensor products, and base change stated for an abstract `HermitianLattice`; that needs `L ⊗_K V`, or a reduction to the fractional-ideal form by choosing a section. Needed by H4 and additivity (E4b) |
 | AR4 | (optional) Hermitian vector bundles of rank `g` and `deg := deg det` | M | not needed if one works with `det ω` from the start (recommended) |
 
 ### 2.3 Archimedean strand
@@ -207,7 +210,7 @@ theory or metrized line bundle.
 | H1 | `HodgeData.modelHeight = deg(ω̄)/[K:ℚ]` and Faltings' formula for every `η` | S | **BUILT** `modelHeight`, `modelHeight_eq`, `modelHeight_of_span` |
 | H2 | `GroupModel.height`: independent of every choice inside it | S | **BUILT** for the section `η` (`modelHeight_eq`), the fundamental domain (AN1), the linear coordinates on `Lie(A_σ)` (`modelHeight_recoord`); the basis of `Λ` plays no role (`Λ` is a set) |
 | H3 | `stableFaltingsHeight A : EReal := ⨅ L 𝒢, 𝒢.height` | S | signature in `Models.lean` (comment). The index type "finite extensions `L/K` with a `K`-embedding" should be a structure in one universe (e.g. intermediate fields of `AlgebraicClosure K`, or `Type` with `[Algebra K L] [FiniteDimensional K L]`) |
-| H4 | Base change of models: `𝒢 ×_{𝓞_L} 𝓞_{L'}` is a model of `A_{L'}` (Mathlib: smoothness, separatedness, quasi-compactness are stable under base change) with the same height | M | from AR3 and AV5 |
+| H4 | Base change of models: `𝒢 ×_{𝓞_L} 𝓞_{L'}` is a model of `A_{L'}` (Mathlib: smoothness, separatedness, quasi-compactness are stable under base change) with the same height | M | from AR3 (the Arakelov part is BUILT for fractional-ideal lines: `arakelovDegree_ofFractionalIdeal_baseChange`), AV5 and the compatibility of `ω_𝒢` with flat base change |
 | H5 | `stableFaltingsHeight A` is finite and equals `𝒩_L.height` for semistable `L`; independent of `K` (`h(A_L) = h(A)`) | XL | from M5-M7 and `modelHeight_le_of_le` (**BUILT**) |
 | H6 | Deligne normalization `h_D = h_F + (g/2) log π` | S | definitional |
 | H7 | Additivity `h(A × B) = h(A) + h(B)` (E4b) | M | from AV6, AR3 and the covolume of a product lattice |
@@ -267,6 +270,7 @@ report no errors and no warnings. `#print axioms` on every main theorem lists `p
 | 7 | `secIndex_mul_absNorm`, `HermitianLattice.ofFractionalIdeal`, `arakelovDegree_ofFractionalIdeal` | AR3 (fractional ideals) |
 | 8 | `embCoeff`, `HodgeData.ofIdeal`, `HodgeData.modelHeight_ofIdeal`, `modelHeight_ofIdeal_eq_faltingsHeightEC` | AT1, conditional form (any Néron lattice `𝔞·ω`) |
 | 9 | `card_embeddings_over`, `sum_embeddings_comp` | AR3 / H4 (archimedean half of base change) |
+| 11 | `finrank_ringOfIntegers`, `absNorm_map_ringOfIntegers`, `norm_algebraMap_tower`, `absNorm_extendedHom`, `arakelovDegree_ofFractionalIdeal_baseChange` | AR3 (base change: `deg_L = [L:K]·deg_K`) |
 | 10 | `hypGram_comp_add`, `hypVol_one_comp_add`, `modelHeight_ofIdeal_eq_faltingsHeightEC'` | AT1 for every Weierstrass model: `P_W^σ` need only equal `4x³ − g₂x − g₃` after a translation `x ↦ x + c_σ` (`ω ↦ dz` fixes `g₂ = c₄/12`, `g₃ = c₆/216`; `b₂` is removed by translation) |
 
 Key statements (Lean, abridged):
@@ -325,8 +329,8 @@ hypotheses are exactly the outputs of AN4, AN5 and AT1a.
 
 ## 5. Recommended order of work for the crowdsourced team
 
-1. **WP-A (S-M, can start now).** Finish AR3: the finite half of base change and tensor
-   products; the rest of AR3 is BUILT here. Also H6, and the value `covol(ℤ + ℤi) = 1` (then
+1. **WP-A (S-M, can start now).** Finish AR3: tensor products, and base change for an abstract
+   `HermitianLattice` (the fractional-ideal case is BUILT here). Also H6, and the value `covol(ℤ + ℤi) = 1` (then
    `exampleHodge` has height 0). Pure Mathlib.
 2. **WP-B (M, can start now).** AN5 (`PeriodAreaFormula`) from Mathlib's `℘`. This turns AT1's
    archimedean half into a theorem.
@@ -349,7 +353,7 @@ AT1/AT2 (WP-B, WP-E and AT1a) and, fully, from WP-F.
 1. Locators recalled from memory: BLR 1.2/1 (Néron mapping property), 1.4/3 (existence), 1.5/1,
    9.5 Thm 4; SGA 7 IX 3.3, 3.6; Silverman AEC VI 5.1 and AEC II IV.6; Deligne, Sém. Bourbaki
    616; Faltings 1983 §1.
-2. Not built: the finite half of base change and tensor products in AR3; H4, H7, AN3-AN6,
+2. Not built: tensor products and abstract base change in AR3; H4, H7, AN3-AN6,
    AV2-AV7, M2-M8, H3 (signature only), H5; the proof of `PeriodAreaFormula`; the identity
    AT1a.
 3. Library items cited from prereq-survey and not re-checked: Tau Ceti `AbelianVariety`,

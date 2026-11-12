@@ -952,6 +952,71 @@ theorem modelHeight_ofIdeal_eq_faltingsHeightEC' (hA : PeriodAreaFormula)
 
 end Translate
 
+/-! ## 11. Base change of fractional-ideal Hermitian lines (node AR3, finite half)
+
+`N_L(I𝓞_L) = N_K(I)^{[L:K]}` for fractional ideals (from Mathlib's `Ideal.absNorm_algebraMap` for
+integral ideals), hence `deg_L((I, ρ)_{𝓞_L}) = [L:K] · deg_K(I, ρ)`: the Arakelov degree divided
+by the absolute degree, i.e. the height, is invariant under base change. -/
+
+section BaseChangeNorm
+
+open scoped nonZeroDivisors
+
+variable {K L : Type*} [Field K] [NumberField K] [Field L] [NumberField L] [Algebra K L]
+
+theorem finrank_ringOfIntegers : Module.finrank (𝓞 K) (𝓞 L) = Module.finrank K L :=
+  (IsFractionRing.finrank_eq (𝓞 K) K (𝓞 L) L).symm
+
+theorem absNorm_map_ringOfIntegers (I : Ideal (𝓞 K)) :
+    Ideal.absNorm (I.map (algebraMap (𝓞 K) (𝓞 L))) = Ideal.absNorm I ^ Module.finrank K L := by
+  rw [Ideal.absNorm_algebraMap, finrank_ringOfIntegers]
+
+theorem norm_algebraMap_tower (x : K) :
+    Algebra.norm ℚ (algebraMap K L x) = Algebra.norm ℚ x ^ Module.finrank K L := by
+  rw [← Algebra.norm_norm (S := K), Algebra.norm_algebraMap, map_pow]
+
+/-- **Norm of an extended fractional ideal.** -/
+theorem absNorm_extendedHom (I : FractionalIdeal (𝓞 K)⁰ K) :
+    FractionalIdeal.absNorm (FractionalIdeal.extendedHom L (𝓞 L) I) =
+      FractionalIdeal.absNorm I ^ Module.finrank K L := by
+  have hnum := FractionalIdeal.den_mul_self_eq_num' (𝓞 K)⁰ K I
+  set d : 𝓞 K := (I.den : 𝓞 K) with hd
+  have hd0 : algebraMap (𝓞 K) K d ≠ 0 :=
+    IsFractionRing.to_map_ne_zero_of_mem_nonZeroDivisors I.den.2
+  have hK := congr_arg FractionalIdeal.absNorm hnum
+  rw [map_mul, FractionalIdeal.absNorm_span_singleton, FractionalIdeal.coeIdeal_absNorm] at hK
+  have hL := congr_arg (fun J => FractionalIdeal.absNorm (FractionalIdeal.extendedHom L (𝓞 L) J))
+    hnum
+  simp only [map_mul, FractionalIdeal.extendedHom_spanSingleton,
+    FractionalIdeal.extendedHom_coeIdeal_eq_map, FractionalIdeal.absNorm_span_singleton,
+    FractionalIdeal.coeIdeal_absNorm, absNorm_map_ringOfIntegers] at hL
+  have hmap : IsFractionRing.map (FaithfulSMul.algebraMap_injective (𝓞 K) (𝓞 L))
+      (algebraMap (𝓞 K) K d) = algebraMap K L (algebraMap (𝓞 K) K d) := by
+    simp only [IsFractionRing.map]
+    rw [IsLocalization.map_eq, ← IsScalarTower.algebraMap_apply (𝓞 K) (𝓞 L) L,
+      ← IsScalarTower.algebraMap_apply (𝓞 K) K L]
+  rw [hmap, norm_algebraMap_tower, Nat.cast_pow, ← hK, abs_pow, mul_pow] at hL
+  have hN0 : |Algebra.norm ℚ (algebraMap (𝓞 K) K d)| ^ Module.finrank K L ≠ 0 :=
+    pow_ne_zero _ (abs_ne_zero.mpr (Algebra.norm_ne_zero_iff.mpr hd0))
+  exact mul_left_cancel₀ hN0 hL
+
+/-- **Base change of the Arakelov degree** for Hermitian lines given by fractional ideals:
+`deg_L(I𝓞_L, ρ∘res) = [L:K] · deg_K(I, ρ)`. -/
+theorem arakelovDegree_ofFractionalIdeal_baseChange (I : FractionalIdeal (𝓞 K)⁰ K) (hI : I ≠ 0)
+    (ρ : (K →+* ℂ) → ℝ) (hρ : ∀ σ, 0 < ρ σ) :
+    (HermitianLattice.ofFractionalIdeal (FractionalIdeal.extendedHom L (𝓞 L) I)
+      ((FractionalIdeal.extendedHom_eq_zero_iff L (𝓞 L)).not.mpr hI)
+      (fun τ => ρ (τ.comp (algebraMap K L))) (fun _ => hρ _)).arakelovDegree =
+      Module.finrank K L * (HermitianLattice.ofFractionalIdeal I hI ρ hρ).arakelovDegree := by
+  rw [HermitianLattice.arakelovDegree_ofFractionalIdeal,
+    HermitianLattice.arakelovDegree_ofFractionalIdeal, absNorm_extendedHom,
+    sum_embeddings_comp (fun σ => Real.log (ρ σ))]
+  push_cast
+  rw [Real.log_pow]
+  ring
+
+end BaseChangeNorm
+
 end ZInQ.BPFaltings
 
 #print axioms ZInQ.BPFaltings.HermitianLattice.degreeAt_eq_arakelovDegree
@@ -969,3 +1034,5 @@ end ZInQ.BPFaltings
 #print axioms ZInQ.BPFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC
 #print axioms ZInQ.BPFaltings.sum_embeddings_comp
 #print axioms ZInQ.BPFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC'
+#print axioms ZInQ.BPFaltings.absNorm_extendedHom
+#print axioms ZInQ.BPFaltings.arakelovDegree_ofFractionalIdeal_baseChange
