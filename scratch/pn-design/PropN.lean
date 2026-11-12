@@ -297,7 +297,7 @@ def part_LamS (s : Finset ℕ) : ZMod 2 :=
   ∑ Q ∈ part_PS s, if part_LamAdm Q then part_wt Q else 0
 
 theorem part_gNat_eq (e : ℕ) [NeZero e] : gNat e = gCl e := by
-  unfold gNat; rw [dif_neg (NeZero.ne e)]
+  unfold gNat; rw [dite_eq_right (NeZero.ne e)]
 
 theorem part_prod_map {m : ℕ} (B : Finset m.primeFactors) :
     ∏ p ∈ B.map (Function.Embedding.subtype _), p = dProd B := by
@@ -444,6 +444,405 @@ theorem part_not_mem_of_ne_empty {t B : Finset ℕ} {R : Finset (Finset ℕ)}
   obtain ⟨x, hx⟩ := Finset.nonempty_iff_ne_empty.mpr hB0
   exact (Finset.mem_sdiff.mp (part_subset_of_mem hR hBR hx)).2 hx
 
+/-! ### part: lemmaN1_core -/
+
+section part_gen2
+
+variable {α : Type*} [DecidableEq α]
+
+theorem part_PS_empty : part_PS (∅ : Finset α) = {∅} := by
+  ext Q
+  rw [part_mem_PS, Finset.mem_singleton]
+  constructor
+  · intro h
+    refine Finset.eq_empty_of_forall_notMem fun B hB => h.2.2 ?_
+    have := part_subset_of_mem h hB
+    rwa [Finset.subset_empty.mp this] at hB
+  · rintro rfl
+    exact ⟨fun B hB => absurd hB (Finset.notMem_empty _), Finset.sup_empty, Finset.notMem_empty _⟩
+
+theorem part_IsP_single {s : Finset α} (hs : s ≠ ∅) : part_IsP s {s} := by
+  refine ⟨fun B hB C hC hBC => ?_, Finset.sup_singleton, fun h => hs (Finset.mem_singleton.mp h).symm⟩
+  rw [Finset.mem_singleton] at hB hC
+  exact absurd (hB.trans hC.symm) hBC
+
+theorem part_eq_single {s : Finset α} {π : Finset (Finset α)} (hπ : part_IsP s π) (hs : s ≠ ∅)
+    (hc : π.card ≤ 1) : π = {s} := by
+  have hne : π ≠ ∅ := by
+    rintro rfl; exact hs (hπ.2.1.symm.trans Finset.sup_empty)
+  obtain ⟨B, rfl⟩ := Finset.card_eq_one.mp
+    (le_antisymm hc (Finset.card_pos.mpr (Finset.nonempty_iff_ne_empty.mpr hne)))
+  rw [← hπ.2.1, Finset.sup_singleton]; rfl
+
+theorem part_disjoint_PS {s A : Finset α} {Q₁ Q₂ : Finset (Finset α)} (h₁ : part_IsP A Q₁)
+    (h₂ : part_IsP (s \ A) Q₂) : Disjoint Q₁ Q₂ := by
+  rw [Finset.disjoint_left]
+  intro B hB₁ hB₂
+  have hB : B = ∅ := by
+    ext x
+    simp only [Finset.notMem_empty, iff_false]
+    intro hx
+    exact (Finset.mem_sdiff.mp (part_subset_of_mem h₂ hB₂ hx)).2 (part_subset_of_mem h₁ hB₁ hx)
+  exact h₁.2.2 (hB ▸ hB₁)
+
+/-- **Product lemma**: pairs of partitions of `A ⊆ s` and of `s \ A` are the pairs `(π, S)` of a
+partition `π` of `s` and a subset `S ⊆ π` (with `A = ⋃ S`). -/
+theorem part_prod_lemma {M : Type*} [AddCommMonoid M] (s : Finset α)
+    (F : Finset (Finset α) → Finset (Finset α) → M) :
+    ∑ A ∈ s.powerset, ∑ Q₁ ∈ part_PS A, ∑ Q₂ ∈ part_PS (s \ A), F Q₁ Q₂ =
+      ∑ π ∈ part_PS s, ∑ S ∈ π.powerset, F S (π \ S) := by
+  simp only [← Finset.sum_product' (f := F)]
+  rw [Finset.sum_sigma', Finset.sum_sigma']
+  refine Finset.sum_nbij' (fun x => ⟨x.2.1 ∪ x.2.2, x.2.1⟩)
+    (fun y => ⟨y.2.sup id, (y.2, y.1 \ y.2)⟩) ?_ ?_ ?_ ?_ ?_
+  · rintro ⟨A, Q₁, Q₂⟩ hx
+    simp only [Finset.mem_sigma, Finset.mem_powerset, Finset.mem_product] at hx
+    obtain ⟨hA, hQ₁, hQ₂⟩ := hx
+    have h₁ := part_mem_PS.mp hQ₁
+    have h₂ := part_mem_PS.mp hQ₂
+    simp only [Finset.mem_sigma, Finset.mem_powerset]
+    refine ⟨part_mem_PS.mpr ⟨?_, ?_, ?_⟩, Finset.subset_union_left⟩
+    · intro X hX Y hY hXY
+      rw [Finset.mem_union] at hX hY
+      rcases hX with hX | hX <;> rcases hY with hY | hY
+      · exact h₁.1 X hX Y hY hXY
+      · exact Finset.disjoint_of_subset_left (part_subset_of_mem h₁ hX)
+          (Finset.disjoint_of_subset_right (part_subset_of_mem h₂ hY) Finset.disjoint_sdiff)
+      · exact Finset.disjoint_of_subset_left (part_subset_of_mem h₂ hX)
+          (Finset.disjoint_of_subset_right (part_subset_of_mem h₁ hY) Finset.sdiff_disjoint)
+      · exact h₂.1 X hX Y hY hXY
+    · rw [Finset.sup_union, h₁.2.1, h₂.2.1]; exact Finset.union_sdiff_of_subset hA
+    · rw [Finset.mem_union]; rintro (h | h)
+      · exact h₁.2.2 h
+      · exact h₂.2.2 h
+  · rintro ⟨π, S⟩ hy
+    simp only [Finset.mem_sigma, Finset.mem_powerset] at hy
+    obtain ⟨hπ, hS⟩ := hy
+    have h := part_mem_PS.mp hπ
+    simp only [Finset.mem_sigma, Finset.mem_powerset, Finset.mem_product]
+    refine ⟨?_, part_mem_PS.mpr (part_IsP_subset h hS), part_mem_PS.mpr (part_IsP_sdiff h hS)⟩
+    rw [← h.2.1]; exact Finset.sup_mono hS
+  · rintro ⟨A, Q₁, Q₂⟩ hx
+    simp only [Finset.mem_sigma, Finset.mem_powerset, Finset.mem_product] at hx
+    have h₁ := part_mem_PS.mp hx.2.1
+    have h₂ := part_mem_PS.mp hx.2.2
+    simp only
+    rw [h₁.2.1, Finset.union_sdiff_cancel_left (part_disjoint_PS h₁ h₂)]
+  · rintro ⟨π, S⟩ hy
+    simp only [Finset.mem_sigma, Finset.mem_powerset] at hy
+    simp only
+    rw [Finset.union_sdiff_of_subset hy.2]
+  · rintro ⟨A, Q₁, Q₂⟩ hx
+    simp only [Finset.mem_sigma, Finset.mem_powerset, Finset.mem_product] at hx
+    have h₁ := part_mem_PS.mp hx.2.1
+    have h₂ := part_mem_PS.mp hx.2.2
+    simp only
+    rw [Finset.union_sdiff_cancel_left (part_disjoint_PS h₁ h₂)]
+
+theorem part_two_pow_smul (k : ℕ) (c : ZMod 2) : (2 ^ k : ℕ) • c = if k = 0 then c else 0 := by
+  split_ifs with hk
+  · subst hk; simp
+  · rw [nsmul_eq_mul, Nat.cast_pow, show ((2 : ℕ) : ZMod 2) = 0 from ZMod.natCast_self 2,
+      zero_pow hk, zero_mul]
+
+theorem part_count_subset {π X : Finset (Finset α)} (hX : X ⊆ π) (c : ZMod 2) :
+    ∑ S ∈ π.powerset, (if S ⊆ X then c else 0) = if X = ∅ then c else 0 := by
+  rw [← Finset.sum_filter]
+  have : π.powerset.filter (· ⊆ X) = X.powerset := by
+    ext S
+    simp only [Finset.mem_filter, Finset.mem_powerset]
+    exact ⟨fun h => h.2, fun h => ⟨h.trans hX, h⟩⟩
+  rw [this, Finset.sum_const, Finset.card_powerset, part_two_pow_smul]
+  simp only [Finset.card_eq_zero]
+
+theorem part_count_mem {π : Finset (Finset α)} {B₀ : Finset α} (hB₀ : B₀ ∈ π) (c : ZMod 2) :
+    ∑ S ∈ π.powerset, (if B₀ ∈ S then c else 0) = if π.card = 1 then c else 0 := by
+  rw [← Finset.insert_erase hB₀, Finset.sum_powerset_insert (Finset.notMem_erase _ _),
+    Finset.card_insert_of_notMem (Finset.notMem_erase _ _)]
+  rw [Finset.sum_eq_zero fun t ht => ite_eq_right fun h =>
+    Finset.notMem_erase B₀ π (Finset.mem_powerset.mp ht h), zero_add]
+  simp only [Finset.mem_insert_self, ite_true]
+  rw [Finset.sum_const, Finset.card_powerset, part_two_pow_smul]
+  simp
+
+end part_gen2
+
+theorem part_LamS_empty : part_LamS ∅ = 1 := by
+  rw [part_LamS, part_PS_empty, Finset.sum_singleton, ite_eq_left]
+  · simp [part_wt]
+  · exact ⟨fun B hB => absurd hB (Finset.notMem_empty _), by simp⟩
+
+theorem part_Lam_one : Lam 1 = 1 := by
+  rw [part_Lam_eq, Nat.primeFactors_one, part_LamS_empty]
+
+theorem part_adm_of_all_one {R : Finset (Finset ℕ)} (h : ∀ B ∈ R, (∏ p ∈ B, p) % 8 = 1) :
+    part_LamAdm R := by
+  refine ⟨fun B hB => Or.inl (h B hB), ?_⟩
+  rw [Finset.card_eq_zero.mpr (Finset.filter_eq_empty_iff.mpr fun B hB => by rw [h B hB]; norm_num)]
+  norm_num
+
+theorem part_mod_one_of_all {t : Finset ℕ} {S : Finset (Finset ℕ)} (h : part_IsP t S)
+    (h1 : ∀ B ∈ S, (∏ p ∈ B, p) % 8 = 1) : (∏ p ∈ t, p) % 8 = 1 := by
+  rw [part_prod_IsP h, Finset.prod_nat_mod, Finset.prod_congr rfl h1, Finset.prod_const_one]
+  norm_num
+
+theorem part_wt_split {π S : Finset (Finset ℕ)} (hS : S ⊆ π) :
+    part_wt S * part_wt (π \ S) = part_wt π := by
+  rw [mul_comm]; exact Finset.prod_sdiff hS
+
+/-- The inner sum for `m ≡ 3`: only `S` made of class-1 blocks contribute. -/
+theorem part_inner3 {s : Finset ℕ} {π : Finset (Finset ℕ)} (hπ : part_IsP s π) :
+    ∑ S ∈ π.powerset, (if (∏ p ∈ S.sup id, p) % 8 = 1 ∧ part_LamAdm S ∧ part_LamAdm (π \ S)
+      then part_wt S * part_wt (π \ S) else 0) =
+    if (π.filter fun B => (∏ p ∈ B, p) % 8 = 1) = ∅ then
+      (if part_LamAdm π then part_wt π else 0) else 0 := by
+  rw [← part_count_subset (Finset.filter_subset _ π)]
+  refine Finset.sum_congr rfl fun S hS => ?_
+  rw [Finset.mem_powerset] at hS
+  have hSP := part_IsP_subset hπ hS
+  have hiff : ((∏ p ∈ S.sup id, p) % 8 = 1 ∧ part_LamAdm S ∧ part_LamAdm (π \ S)) ↔
+      (S ⊆ π.filter fun B => (∏ p ∈ B, p) % 8 = 1) ∧ part_LamAdm π := by
+    constructor
+    · rintro ⟨h1, hS', h13R, hkR⟩
+      have hS1 := (part_adm_one hSP h1).mp hS'
+      refine ⟨fun B hB => Finset.mem_filter.mpr ⟨hS hB, hS1 B hB⟩, fun B hB => ?_, ?_⟩
+      · by_cases hBS : B ∈ S
+        · exact Or.inl (hS1 B hBS)
+        · exact h13R B (Finset.mem_sdiff.mpr ⟨hB, hBS⟩)
+      · refine le_trans (Finset.card_le_card fun B hB => ?_) hkR
+        rw [Finset.mem_filter] at hB ⊢
+        refine ⟨Finset.mem_sdiff.mpr ⟨hB.1, fun hBS => ?_⟩, hB.2⟩
+        have := hS1 B hBS; omega
+    · rintro ⟨hSX, h13, hk⟩
+      have hS1 : ∀ B ∈ S, (∏ p ∈ B, p) % 8 = 1 := fun B hB => (Finset.mem_filter.mp (hSX hB)).2
+      exact ⟨part_mod_one_of_all hSP hS1, part_adm_of_all_one hS1,
+        fun B hB => h13 B (Finset.sdiff_subset hB),
+        (Finset.card_le_card (Finset.filter_subset_filter _ Finset.sdiff_subset)).trans hk⟩
+  by_cases h1 : (S ⊆ π.filter fun B => (∏ p ∈ B, p) % 8 = 1)
+  · by_cases h2 : part_LamAdm π
+    · rw [ite_eq_left (hiff.mpr ⟨h1, h2⟩), ite_eq_left h1, ite_eq_left h2, part_wt_split hS]
+    · rw [ite_eq_right fun h => h2 (hiff.mp h).2, ite_eq_left h1, ite_eq_right h2]
+  · rw [ite_eq_right fun h => h1 (hiff.mp h).1, ite_eq_right h1]
+
+/-- The inner sum for `m ≡ 1`: `S` must contain the block `B₀` of `p₀`, and all blocks are
+class 1. -/
+theorem part_inner1 {s : Finset ℕ} {π : Finset (Finset ℕ)} (hπ : part_IsP s π)
+    (hs : (∏ p ∈ s, p) % 8 = 1) {p₀ : ℕ} (hp₀ : p₀ ∈ s) :
+    ∑ S ∈ π.powerset, (if (∏ p ∈ S.sup id, p) % 8 = 1 ∧ p₀ ∈ S.sup id ∧ part_LamAdm S ∧
+      part_LamAdm (π \ S) then part_wt S * part_wt (π \ S) else 0) =
+    if π.card = 1 then (if ∀ B ∈ π, (∏ p ∈ B, p) % 8 = 1 then part_wt π else 0) else 0 := by
+  obtain ⟨B₀, hB₀, hpB₀⟩ := part_mem_sup.mp (hπ.2.1 ▸ hp₀ : p₀ ∈ π.sup id)
+  rw [← part_count_mem hB₀]
+  refine Finset.sum_congr rfl fun S hS => ?_
+  rw [Finset.mem_powerset] at hS
+  have hSP := part_IsP_subset hπ hS
+  have hp : p₀ ∈ S.sup id ↔ B₀ ∈ S := by
+    constructor
+    · intro h
+      obtain ⟨B, hB, hpB⟩ := part_mem_sup.mp h
+      by_contra hne
+      have hBB : B ≠ B₀ := fun e => hne (e ▸ hB)
+      exact Finset.disjoint_left.mp (hπ.1 B (hS hB) B₀ hB₀ hBB) hpB hpB₀
+    · intro h; exact part_mem_sup.mpr ⟨B₀, h, hpB₀⟩
+  have hiff : ((∏ p ∈ S.sup id, p) % 8 = 1 ∧ p₀ ∈ S.sup id ∧ part_LamAdm S ∧
+      part_LamAdm (π \ S)) ↔ B₀ ∈ S ∧ ∀ B ∈ π, (∏ p ∈ B, p) % 8 = 1 := by
+    rw [hp]
+    constructor
+    · rintro ⟨h1, hB, hS', hR⟩
+      refine ⟨hB, ?_⟩
+      have hS1 := (part_adm_one hSP h1).mp hS'
+      have hRP := part_IsP_sdiff hπ hS
+      have hsub : S.sup id ⊆ s := by rw [← hπ.2.1]; exact Finset.sup_mono hS
+      have ht : (∏ p ∈ s \ S.sup id, p) % 8 = 1 := by
+        have h := Nat.mul_mod (∏ p ∈ s \ S.sup id, p) (∏ p ∈ S.sup id, p) 8
+        rw [Finset.prod_sdiff hsub, hs, h1] at h
+        omega
+      have hR1 := (part_adm_one hRP ht).mp hR
+      intro B hB
+      by_cases hBS : B ∈ S
+      · exact hS1 B hBS
+      · exact hR1 B (Finset.mem_sdiff.mpr ⟨hB, hBS⟩)
+    · rintro ⟨hB, h1⟩
+      have hS1 : ∀ B ∈ S, (∏ p ∈ B, p) % 8 = 1 := fun B hB => h1 B (hS hB)
+      exact ⟨part_mod_one_of_all hSP hS1, hB, part_adm_of_all_one hS1,
+        part_adm_of_all_one fun B hB => h1 B (Finset.sdiff_subset hB)⟩
+  by_cases h1 : B₀ ∈ S
+  · by_cases h2 : ∀ B ∈ π, (∏ p ∈ B, p) % 8 = 1
+    · rw [ite_eq_left (hiff.mpr ⟨h1, h2⟩), ite_eq_left h1, ite_eq_left h2, part_wt_split hS]
+    · rw [ite_eq_right fun h => h2 (hiff.mp h).2, ite_eq_left h1, ite_eq_right h2]
+  · rw [ite_eq_right fun h => h1 (hiff.mp h).1, ite_eq_right h1]
+
+/-- `Σ_{A ⊆ s, P A} Λ(A) Λ(s \ A)` as a triple sum over `A` and partitions of `A` and `s \ A`. -/
+theorem part_expand (s : Finset ℕ) (P : Finset ℕ → Prop) [DecidablePred P] :
+    ∑ A ∈ s.powerset.filter P, part_LamS A * part_LamS (s \ A) =
+      ∑ A ∈ s.powerset, ∑ Q₁ ∈ part_PS A, ∑ Q₂ ∈ part_PS (s \ A),
+        (if P (Q₁.sup id) ∧ part_LamAdm Q₁ ∧ part_LamAdm Q₂ then part_wt Q₁ * part_wt Q₂
+          else 0) := by
+  rw [Finset.sum_filter]
+  refine Finset.sum_congr rfl fun A _ => ?_
+  by_cases hA : P A
+  · rw [ite_eq_left hA, part_LamS, part_LamS, Finset.sum_mul_sum]
+    refine Finset.sum_congr rfl fun Q₁ hQ₁ => Finset.sum_congr rfl fun Q₂ _ => ?_
+    rw [(part_mem_PS.mp hQ₁).2.1]
+    by_cases h1 : part_LamAdm Q₁ <;> by_cases h2 : part_LamAdm Q₂ <;> simp [hA, h1, h2]
+  · rw [ite_eq_right hA]
+    refine (Finset.sum_eq_zero fun Q₁ hQ₁ => Finset.sum_eq_zero fun Q₂ _ => ?_).symm
+    rw [(part_mem_PS.mp hQ₁).2.1, ite_eq_right fun h => hA h.1]
+
+theorem part_N1_three {m : ℕ} (hsq : Squarefree m) (hm : m % 8 = 3) :
+    ∑ d ∈ m.divisors.filter (fun d => d % 8 = 1), Lam (m / d) * Lam d = (gNat m : ZMod 2) := by
+  set s := m.primeFactors with hs_def
+  have hsm : ∏ p ∈ s, p = m := Nat.prod_primeFactors_of_squarefree hsq
+  have hs3 : (∏ p ∈ s, p) % 8 = 3 := hsm ▸ hm
+  have hs0 : s ≠ ∅ := part_ne_empty_of_mod (by norm_num) hs3
+  rw [part_sum_divisors hsq]
+  rw [Finset.sum_congr rfl fun A hA => by
+    rw [part_Lam_div hsq (Finset.mem_powerset.mp (Finset.mem_filter.mp hA).1),
+      part_Lam_prod (Finset.mem_powerset.mp (Finset.mem_filter.mp hA).1), mul_comm]]
+  rw [part_expand s (fun A => (∏ q ∈ A, q) % 8 = 1), part_prod_lemma]
+  rw [Finset.sum_congr rfl fun π hπ => part_inner3 (part_mem_PS.mp hπ)]
+  rw [Finset.sum_eq_single_of_mem {s} (part_mem_PS.mpr (part_IsP_single hs0))]
+  · have hf : (({s} : Finset (Finset ℕ)).filter fun B => (∏ p ∈ B, p) % 8 = 1) = ∅ :=
+      Finset.filter_eq_empty_iff.mpr fun B hB => by
+        rw [Finset.mem_singleton.mp hB, hs3]; norm_num
+    have ha : part_LamAdm {s} := ⟨fun B hB => by rw [Finset.mem_singleton.mp hB, hs3]; right; rfl,
+      (Finset.card_filter_le _ _).trans (by simp)⟩
+    rw [ite_eq_left hf, ite_eq_left ha, part_wt, Finset.prod_singleton, hsm]
+  · intro π hπ hne
+    split_ifs with hf ha
+    · exfalso; refine hne (part_eq_single (part_mem_PS.mp hπ) hs0 ?_)
+      have : π.filter (fun B => (∏ p ∈ B, p) % 8 = 3) = π := by
+        refine Finset.filter_true_of_mem fun B hB => ?_
+        rcases ha.1 B hB with h | h
+        · exact absurd (Finset.mem_filter.mpr ⟨hB, h⟩) (hf ▸ Finset.notMem_empty B)
+        · exact h
+      rw [← this]; exact ha.2
+    · rfl
+    · rfl
+
+theorem part_sum_halves {M : Type*} [AddCommMonoid M] {D : Finset ℕ} (σ : ℕ → ℕ)
+    (hσD : ∀ d ∈ D, σ d ∈ D) (hσσ : ∀ d ∈ D, σ (σ d) = d) (p q : ℕ → Prop) [DecidablePred p]
+    [DecidablePred q] (hp : ∀ d ∈ D, (p (σ d) ↔ ¬ p d)) (hq : ∀ d ∈ D, (q (σ d) ↔ ¬ q d))
+    (f : ℕ → M) (hf : ∀ d ∈ D, f (σ d) = f d) :
+    ∑ d ∈ D.filter p, f d = ∑ d ∈ D.filter q, f d := by
+  refine Finset.sum_nbij' (fun d => if q d then d else σ d) (fun d => if p d then d else σ d)
+    ?_ ?_ ?_ ?_ ?_
+  · intro d hd
+    have hd' := Finset.mem_filter.mp hd
+    by_cases h : q d
+    · simp only [ite_eq_left h]; exact Finset.mem_filter.mpr ⟨hd'.1, h⟩
+    · simp only [ite_eq_right h]; exact Finset.mem_filter.mpr ⟨hσD d hd'.1, (hq d hd'.1).mpr h⟩
+  · intro d hd
+    have hd' := Finset.mem_filter.mp hd
+    by_cases h : p d
+    · simp only [ite_eq_left h]; exact Finset.mem_filter.mpr ⟨hd'.1, h⟩
+    · simp only [ite_eq_right h]; exact Finset.mem_filter.mpr ⟨hσD d hd'.1, (hp d hd'.1).mpr h⟩
+  · intro d hd
+    have hd' := Finset.mem_filter.mp hd
+    by_cases h : q d
+    · simp only [ite_eq_left h, ite_eq_left hd'.2]
+    · have : ¬ p (σ d) := fun h' => (hp d hd'.1).mp h' hd'.2
+      simp only [ite_eq_right h, ite_eq_right this, hσσ d hd'.1]
+  · intro d hd
+    have hd' := Finset.mem_filter.mp hd
+    by_cases h : p d
+    · simp only [ite_eq_left h, ite_eq_left hd'.2]
+    · have : ¬ q (σ d) := fun h' => (hq d hd'.1).mp h' hd'.2
+      simp only [ite_eq_right h, ite_eq_right this, hσσ d hd'.1]
+  · intro d hd
+    have hd' := Finset.mem_filter.mp hd
+    by_cases h : q d
+    · simp only [ite_eq_left h]
+    · simp only [ite_eq_right h, hf d hd'.1]
+
+theorem part_N1_one {m : ℕ} (hsq : Squarefree m) (hm1 : 1 < m) (hm : m % 8 = 1) :
+    ∑ d ∈ m.divisors.filter (fun d => d % 8 = 1 ∧ d * d < m), Lam d * Lam (m / d) =
+      (gNat m : ZMod 2) := by
+  have hm0 : m ≠ 0 := by omega
+  obtain ⟨p₀, hp₀⟩ := Nat.nonempty_primeFactors.mpr hm1
+  have hp₀p : p₀.Prime := Nat.prime_of_mem_primeFactors hp₀
+  have hp₀m : p₀ ∣ m := Nat.dvd_of_mem_primeFactors hp₀
+  -- representatives `d² < m` → `p₀ ∣ d`
+  rw [← Finset.filter_filter]
+  rw [part_sum_halves (fun d => m / d) ?_ ?_ (fun d => d * d < m)
+    (fun d => p₀ ∈ d.primeFactors) ?_ ?_ (fun d => Lam d * Lam (m / d)) ?_]
+  rotate_left
+  · intro d hd
+    simp only [Finset.mem_filter, Nat.mem_divisors] at hd ⊢
+    refine ⟨⟨Nat.div_dvd_of_dvd hd.1.1, hm0⟩, ?_⟩
+    have h := Nat.mul_mod (m / d) d 8
+    rw [Nat.div_mul_cancel hd.1.1, hm, hd.2] at h
+    omega
+  · intro d hd
+    simp only [Finset.mem_filter, Nat.mem_divisors] at hd
+    exact Nat.div_div_self hd.1.1 hm0
+  · intro d hd
+    simp only [Finset.mem_filter, Nat.mem_divisors] at hd
+    have hde : d * (m / d) = m := Nat.mul_div_cancel' hd.1.1
+    have hd0 : 0 < d := Nat.pos_of_ne_zero (by rintro rfl; simp at hde; omega)
+    have he0 : 0 < m / d := Nat.pos_of_ne_zero (by intro h; rw [h] at hde; omega)
+    have hne : d ≠ m / d := by
+      intro h
+      have hdd : d * d = m := by
+        calc d * d = d * (m / d) := by rw [← h]
+          _ = m := hde
+      have hu := hsq d ⟨1, by rw [hdd, mul_one]⟩
+      rw [Nat.isUnit_iff] at hu
+      subst hu
+      omega
+    show (m / d) * (m / d) < m ↔ ¬ d * d < m
+    constructor
+    · intro h1 h2
+      rcases lt_or_gt_of_ne hne with h' | h' <;> nlinarith
+    · intro h
+      rcases lt_or_gt_of_ne hne with h' | h'
+      · exfalso; exact h (by nlinarith)
+      · nlinarith
+  · intro d hd
+    simp only [Finset.mem_filter, Nat.mem_divisors] at hd
+    have hde : d * (m / d) = m := Nat.mul_div_cancel' hd.1.1
+    have he0 : m / d ≠ 0 := by intro h; rw [h] at hde; omega
+    have hd0 : d ≠ 0 := by rintro rfl; simp at hde; omega
+    simp only [Nat.mem_primeFactors]
+    constructor
+    · rintro ⟨-, he, -⟩ ⟨-, hd', -⟩
+      have := hsq p₀ (by rw [← hde]; exact Nat.mul_dvd_mul hd' he)
+      exact hp₀p.not_isUnit this
+    · intro h
+      refine ⟨hp₀p, ?_, he0⟩
+      rcases (Nat.Prime.dvd_mul hp₀p).mp (by rw [hde]; exact hp₀m : p₀ ∣ d * (m / d)) with h' | h'
+      · exact absurd ⟨hp₀p, h', hd0⟩ h
+      · exact h'
+  · intro d hd
+    simp only [Finset.mem_filter, Nat.mem_divisors] at hd
+    show Lam (m / d) * Lam (m / (m / d)) = Lam d * Lam (m / d)
+    rw [Nat.div_div_self hd.1.1 hm0, mul_comm]
+  rw [Finset.filter_filter]
+  -- reindex by `A = d.primeFactors`
+  set s := m.primeFactors with hs_def
+  have hsm : ∏ p ∈ s, p = m := Nat.prod_primeFactors_of_squarefree hsq
+  have hs1 : (∏ p ∈ s, p) % 8 = 1 := hsm ▸ hm
+  have hs0 : s ≠ ∅ := Finset.nonempty_iff_ne_empty.mp ⟨p₀, hp₀⟩
+  rw [part_sum_divisors hsq]
+  rw [Finset.sum_congr (s₂ := s.powerset.filter fun A => (∏ q ∈ A, q) % 8 = 1 ∧ p₀ ∈ A) ?_
+    fun A hA => by
+      rw [part_Lam_div hsq (Finset.mem_powerset.mp (Finset.mem_filter.mp hA).1),
+        part_Lam_prod (Finset.mem_powerset.mp (Finset.mem_filter.mp hA).1)]]
+  swap
+  · refine Finset.filter_congr fun A hA => ?_
+    rw [Nat.primeFactors_prod fun q hq =>
+      Nat.prime_of_mem_primeFactors (Finset.mem_powerset.mp hA hq)]
+  rw [part_expand s (fun A => (∏ q ∈ A, q) % 8 = 1 ∧ p₀ ∈ A), part_prod_lemma]
+  simp only [and_assoc]
+  rw [Finset.sum_congr rfl fun π hπ => part_inner1 (part_mem_PS.mp hπ) hs1 hp₀]
+  rw [Finset.sum_eq_single_of_mem {s} (part_mem_PS.mpr (part_IsP_single hs0))]
+  · have ha : ∀ B ∈ ({s} : Finset (Finset ℕ)), (∏ p ∈ B, p) % 8 = 1 := fun B hB => by
+      rw [Finset.mem_singleton.mp hB, hs1]
+    rw [ite_eq_left (Finset.card_singleton s), ite_eq_left ha, part_wt, Finset.prod_singleton, hsm]
+  · intro π hπ hne
+    split_ifs with hc ha <;>
+      first | rfl | exact absurd (part_eq_single (part_mem_PS.mp hπ) hs0 hc.le) hne
+
 /-- **Lemma N1, combinatorial core**: `Λ(1) = 1` and `Λ` satisfies the identity of
 `LemmaTwoEight` modulo 2. (nt-tyz §4.3: a partition with `b` class-1 blocks refines
 `2^{b−1} − 1` unordered pairs; with one class-3 block and a set `S` of class-1 blocks it arises
@@ -454,8 +853,8 @@ theorem lemmaN1_core :
       ∑ d ∈ m.divisors.filter (fun d => d % 8 = 1 ∧ d * d < m), Lam d * Lam (m / d) =
         (gNat m : ZMod 2)) ∧
     (∀ m : ℕ, Squarefree m → m % 8 = 3 →
-      ∑ d ∈ m.divisors.filter (fun d => d % 8 = 1), Lam (m / d) * Lam d = (gNat m : ZMod 2)) := by
-  sorry
+      ∑ d ∈ m.divisors.filter (fun d => d % 8 = 1), Lam (m / d) * Lam d = (gNat m : ZMod 2)) :=
+  ⟨part_Lam_one, fun _ hsq hm1 hm => part_N1_one hsq hm1 hm, fun _ hsq hm => part_N1_three hsq hm⟩
 
 /-- **Lemma N2** (`𝓛`-form): for squarefree `n ≡ 5 (mod 8)`, unwinding the recursion gives
 `P(n) = Σ_{e ∣ n, e ≡ 5, 7} 𝓛(n/e) Z(e) + 2X` with `X ∈ A(ℍ'_n)`. Uses only `recursion`,
@@ -511,7 +910,7 @@ theorem part_split {M : Type*} [AddCommMonoid M] (s : Finset α) (C : Finset α 
       rintro (h0 | h0)
       · exact hB0 h0.symm
       · exact h.2.2 h0
-    · rw [Finset.filter_insert, if_pos hCB, Finset.filter_eq_empty_iff.mpr hRC]; rfl
+    · rw [Finset.filter_insert, ite_eq_left hCB, Finset.filter_eq_empty_iff.mpr hRC]; rfl
   · rintro ⟨B, R⟩ hx ⟨B', R'⟩ hx' he
     simp only [Finset.mem_sigma, Finset.mem_filter] at hx hx'
     simp only at he
@@ -611,8 +1010,8 @@ theorem part_matching5a {n : ℕ} (hn : n % 8 = 5) (hsq : Squarefree n) :
       rcases Finset.mem_insert.mp hB' with rfl | hB'
       · exact Or.inl hB5
       · exact Or.inr (h1 B' hB')
-    rw [if_pos h2, if_pos h3, if_pos (hiff.mpr h1), mul_comm]
-  · rw [if_neg (fun h => h1 (hiff.mp h)), zero_mul]
+    rw [ite_eq_left h2, ite_eq_left h3, ite_eq_left (hiff.mpr h1), mul_comm]
+  · rw [ite_eq_right (fun h => h1 (hiff.mp h)), zero_mul]
     split_ifs with h2 h3
     · exfalso; refine h1 fun B' hB' => ?_
       rcases h3 B' (Finset.mem_insert_of_mem hB') with h | h
@@ -642,7 +1041,7 @@ theorem part_matching5b {n : ℕ} (hn : n % 8 = 5) (hsq : Squarefree n) :
   rw [show part_wt (insert B R) = _ * part_wt R from Finset.prod_insert hBR]
   have hf3 : ((insert B R).filter fun B' => (∏ p ∈ B', p) % 8 = 3) =
       R.filter fun B' => (∏ p ∈ B', p) % 8 = 3 := by
-    rw [Finset.filter_insert, if_neg (by rw [hB7]; norm_num)]
+    rw [Finset.filter_insert, ite_eq_right (by rw [hB7]; norm_num)]
   rw [hf3]
   by_cases h1 : (∀ B' ∈ R, (∏ p ∈ B', p) % 8 = 1 ∨ (∏ p ∈ B', p) % 8 = 3) ∧
       (R.filter fun B => (∏ p ∈ B, p) % 8 = 3).card = 1
@@ -657,8 +1056,8 @@ theorem part_matching5b {n : ℕ} (hn : n % 8 = 5) (hsq : Squarefree n) :
       · rcases h1.1 B' hB' with h | h
         · exact Or.inr (Or.inr h)
         · exact Or.inr (Or.inl h)
-    rw [if_pos h2, if_pos h3, if_pos (hiff.mpr h1), mul_comm]
-  · rw [if_neg (fun h => h1 (hiff.mp h)), zero_mul]
+    rw [ite_eq_left h2, ite_eq_left h3, ite_eq_left (hiff.mpr h1), mul_comm]
+  · rw [ite_eq_right (fun h => h1 (hiff.mp h)), zero_mul]
     split_ifs with h2 h3
     · exfalso; refine h1 ⟨fun B' hB' => ?_, h3.1⟩
       rcases h3.2 B' (Finset.mem_insert_of_mem hB') with h | h | h

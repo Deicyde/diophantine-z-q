@@ -28,3 +28,23 @@ Task: prove `matching` and `lemmaN1_core` in scratch/pn-design/PropN.lean (prefi
   `sorry` of `matching`).
 - `lake env lean scratch/pn-design/PropN.lean`: no errors; `declaration uses sorry` at
   lemmaN1_core, lemmaN2, finalStep (3 left).
+
+## Step 3: lemmaN1_core (scratch/pn-part/Infra.lean, then PropN.lean)
+- `part_PS_empty`, `part_LamS_empty`, `part_Lam_one : Lam 1 = 1`.
+- Product lemma `part_prod_lemma`: Σ_{A ⊆ s} Σ_{Q₁ ∈ PS A} Σ_{Q₂ ∈ PS (s∖A)} F Q₁ Q₂ =
+  Σ_{π ∈ PS s} Σ_{S ⊆ π} F S (π ∖ S) (bijection (A, Q₁, Q₂) ↦ (Q₁ ∪ Q₂, Q₁)).
+- `part_expand`: Σ_{A ⊆ s, P A} Λ(A)Λ(s∖A) as the triple sum.
+- Counts mod 2: `part_two_pow_smul` (2^k • c = [k = 0] c), `part_count_subset`
+  (Σ_{S ⊆ π} [S ⊆ X] c = [X = ∅] c), `part_count_mem` (Σ_{S ⊆ π} [B₀ ∈ S] c = [|π| = 1] c).
+- `part_inner3` (m ≡ 3: S ⊆ class-1 blocks, count 2^{#class-1}), `part_inner1` (m ≡ 1: all
+  blocks class 1, S ∋ block of p₀, count 2^{b−1}); only π = {s} survives (`part_eq_single`).
+- `part_sum_halves`: representatives `d² < m` replaced by `p₀ ∈ d.primeFactors` (involution
+  d ↦ m/d, symmetric summand).
+- `part_N1_three`, `part_N1_one`; `lemmaN1_core := ⟨part_Lam_one, part_N1_one, part_N1_three⟩`.
+- Replaced deprecated `if_pos/if_neg/dif_neg/if_true` by `ite_eq_left/ite_eq_right/
+  dite_eq_right/ite_true` (same signatures) in my code.
+- `#print axioms` (on the scratch copy): matching, lemmaN1_core depend on
+  [propext, Classical.choice, Quot.sound].
+- `lake env lean scratch/pn-design/PropN.lean`: no errors, no other warnings; output:
+  `PropN.lean:864:8: warning: declaration uses 'sorry'` (lemmaN2),
+  `PropN.lean:873:8: warning: declaration uses 'sorry'` (finalStep).
