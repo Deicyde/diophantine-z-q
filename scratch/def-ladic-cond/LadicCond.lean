@@ -424,8 +424,14 @@ def AdaptedExists : Prop :=
 /-! ## Part D. The leaves -/
 
 /-- **R17 = glue-conductor's L10: Carayol, Ann. Sci. ÉNS 19 (1986), Théorème (A)** at `F = ℚ`,
-weight 2 (theorem letter VERIFIED from the manuscript's locator per pkg-I4; content and coverage
-of `p ∣ N` UNVERIFIED). For a newform `f` of weight 2, level `N`, and a semisimple `ρ` attached to
+weight 2, pp. 409-411 and §0.8 p. 411 (read by the locator audit: all finite `p` and every
+`ℓ ≠ p`, including `p ∣ N` and `ℓ = 2`; the finite discrete-series hypothesis concerns only totally
+real `F` of even degree), with `a(π_p) = v_p(N)` for newforms (Casselman 1973, locator
+UNVERIFIED). Do not replace it by Théorème (B) or by the `Γ₀` elliptic-curve corollary.
+*2026-11-12 (loc-fix, applying rv-loc-leaves (f)):* this replaces "content and coverage of
+`p ∣ N` UNVERIFIED"; the Lean statement is unchanged. This form, at every adapted level, is a
+consequence of the published form `CarayolR17'` plus the glue `SwanIndependent`
+(`carayolR17_of_R17'`); it is not a separate published statement. For a newform `f` of weight 2, level `N`, and a semisimple `ρ` attached to
 `f` (pkg-I4's trace form), and a prime `p ≠ ℓ`, the conductor exponent of `ρ|_{G_{ℚ_p}}` is
 `v_p(N)`; stated at every adapted level (equivalent to the published form by `SwanIndependent`). -/
 def CarayolR17 : Prop :=
@@ -435,7 +441,10 @@ def CarayolR17 : Prop :=
     ∀ L : Fld p, IsAdapted L (ρ.restrictLocal p) →
       condAt L (ρ.restrictLocal p) = (N.factorization p : ℚ)
 
-/-- **R17, published form**, with the canonical `condExp` (choice of level inside). -/
+/-- **R17, published form**, with the canonical `condExp` (choice of level inside): Carayol,
+Théorème (A), coverage as above (every `ℓ`, including 2; every `p ≠ ℓ`, including `p ∣ N`; read by
+the locator audit, adopted 2026-11-12 by loc-fix). `condExp` is the Serre–Tate conductor, which
+does not change under duals, so the Tate normalization of `AttachedTo` is harmless. -/
 def CarayolR17' : Prop :=
   ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
     (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2) (ρ : GaloisRep ℓ 2) (p : ℕ) [Fact p.Prime],

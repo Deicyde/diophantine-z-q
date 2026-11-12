@@ -238,7 +238,8 @@ theorem thetaRatio_invariant (h : ThetaModularity) :
 /-! ## §6 LEAF: the QM Hauptmodul (A2 and F1, analytic form) -/
 
 /-- **LEAF, COMPOSITE (rv-leaves-a: faithful, but not printed as one theorem; Baba–Granath 2008
-Thm 2.1 and the datum of §3 only, not Props. 3.7-3.10; Lin–Yang 2020 Ex. 30 with eqs. (13)-(14);
+Thm 2.1 and the datum of §3 only, not Props. 3.7-3.10; Lin–Yang 2020, arXiv v1 Example 29 (formerly
+cited as Ex. 30, v1's discriminant-14 example; corrected 2026-11-12 by loc-fix) with eqs. (13)-(14);
 Igusa 1967; Lauter–Naehrig–Yang 2015 §2.2).** On the QM locus, F1's theta expression
 `j_θ = 3779136(∏θ_m)⁴/(Σθ_m⁸)⁵ ∘ Ω` is a Hauptmodul of `Γ*\ℍ = X₆/W`, with value `0` at the
 CM points of discriminant `-4`, a pole at those of discriminant `-3`, and value `-16/27` at
@@ -2818,18 +2819,38 @@ def PoincareReducibility : Prop :=
     ∀ f : Hom A J, f ≠ 0 → ∃ (Z : AbVar k) (g : Hom Z J),
       IsIsogenyMor (fst A.X Z.X ≫ f.hom * snd A.X Z.X ≫ g.hom)
 
-/-- **I3.Q — the QM dichotomy (step A9).** Over an algebraically closed field of characteristic
-`0`, if a quaternion division algebra `B = (a, b)_ℚ` embeds in `End⁰(A)` for an abelian surface
-`A`, then `End⁰(A) ≅ B` or `End⁰(A) ≅ M₂(ℚ(√d))` with `d < 0`. (Consequence of Mumford §19
-Thm 1, Cor. 2, §21 (Albert, `[D:ℚ] ∣ 2g` in characteristic `0`) and §22, with Silverman AEC
-III.9.4; no single locator exists (rv-leaves-b repair 1); see the note.) -/
-def QMDichotomy : Prop :=
+/-- `ℍ[ℚ, a, b]` is indefinite: `ℍ[ℚ,a,b] ⊗ ℝ ≅ M₂(ℝ)`, i.e. not both `a < 0` and `b < 0`. -/
+def QuatIndefinite (a b : ℚ) : Prop := 0 < a ∨ 0 < b
+
+/-- **I3.Q / T27 — the QM dichotomy (step A9), with Yu's hypothesis.** Chia-Fu Yu,
+*Endomorphism algebras of QM abelian surfaces*, J. Pure Appl. Algebra (2013; volume 217 from memory, UNVERIFIED), Thm 1.1
+(journal p. 907; arXiv:1210.1125 Thm 1.1; checked by the locator audit): over an algebraically
+closed field of characteristic `0`, if an **indefinite** quaternion division algebra `B = (a, b)_ℚ`
+embeds in `End⁰(A)` for an abelian surface `A`, then `End⁰(A) ≅ B` or `End⁰(A) ≅ M₂(ℚ(√d))`,
+`d < 0` (Yu adds that `ℚ(√d)` splits `B`; dropped, so this is a consequence of Yu's theorem).
+*2026-11-12 (loc-fix, applying rv-loc-leaves (i)):* this replaces the earlier leaf `QMDichotomy`,
+which had no indefiniteness hypothesis and was therefore stronger than Yu's theorem (still true by
+Mumford §21, but not a consequence of the cited locator). The earlier conclusion survives only at
+the project's `B = (2, -3)`, as the lemma `qmDichotomy_B6`, proved from this leaf. -/
+def QMDichotomyYu : Prop :=
   ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (A : AbVar k), A.dim = 2 →
-    ∀ a b : ℚ, (∀ x : ℍ[ℚ, a, b], x ≠ 0 → IsUnit x) →
+    ∀ a b : ℚ, QuatIndefinite a b → (∀ x : ℍ[ℚ, a, b], x ≠ 0 → IsUnit x) →
       Nonempty (ℍ[ℚ, a, b] →ₐ[ℚ] End0 A) →
         Nonempty (End0 A ≃ₐ[ℚ] ℍ[ℚ, a, b]) ∨
           ∃ d : ℚ, d < 0 ∧
             Nonempty (End0 A ≃ₐ[ℚ] Matrix (Fin 2) (Fin 2) (AdjoinRoot (Polynomial.X ^ 2 - Polynomial.C d)))
+
+/-- The project's `B = (2, -3)` is indefinite. -/
+theorem quatIndefinite_two_neg_three : QuatIndefinite 2 (-3) := Or.inl (by norm_num)
+
+/-- The use at step A9 / G5 (`B = (2,-3)`) needs only the repaired form. -/
+theorem qmDichotomy_B6 (h : QMDichotomyYu) (k : Type) [Field k] [IsAlgClosed k] [CharZero k]
+    (A : AbVar k) (hA : A.dim = 2) (hdiv : ∀ x : ℍ[ℚ, 2, -3], x ≠ 0 → IsUnit x)
+    (hemb : Nonempty (ℍ[ℚ, 2, -3] →ₐ[ℚ] End0 A)) :
+    Nonempty (End0 A ≃ₐ[ℚ] ℍ[ℚ, 2, -3]) ∨
+      ∃ d : ℚ, d < 0 ∧
+        Nonempty (End0 A ≃ₐ[ℚ] Matrix (Fin 2) (Fin 2) (AdjoinRoot (Polynomial.X ^ 2 - Polynomial.C d))) :=
+  h k A hA 2 (-3) quatIndefinite_two_neg_three hdiv hemb
 
 /-- The package as one hypothesis. -/
 structure I3Leaves : Prop where
@@ -2839,7 +2860,7 @@ structure I3Leaves : Prop where
   homFreeFinite : HomFreeFinite
   charPolyIndepOfEll : CharPolyIndepOfEll
   poincare : PoincareReducibility
-  qmDichotomy : QMDichotomy
+  qmDichotomy : QMDichotomyYu
 
 end PkgI3
 
@@ -4494,7 +4515,9 @@ def EigenformRepExists : Prop :=
 
 /-- **I4-L2. Hodge–Tate weights of eigenform representations, every level** (Faltings, Math.
 Ann. 278 (1987) for `k ≥ 2` (level `ℓ ∣ N` UNVERIFIED there); Saito, Invent. Math. 129 (1997)
-(pst at `ℓ`, every level); Kato, Astérisque 295 (2004) §9.4 (de Rham, every level); Scholl 1990
+(pst at `ℓ`, every level; UNVERIFIED); Kato, Astérisque 295 (2004) §§9.2-9.4, (9.2.2) pp. 187-188
+(de Rham, every level, newforms; checked by the locator audit), with `NewformOfEigenform` and
+Brauer–Nesbitt for general cuspidal eigenforms (hence `ρ.IsSemisimple`); Scholl 1990
 with Scholze 2013 and Fontaine's closure). A semisimple `ρ` attached to a normalized eigenform of
 weight `k ≥ 2` and any level `N` (including `ℓ ∣ N`) is Hodge–Tate at `ℓ` with weights
 `{0, 1 − k}` in the Tate normalization (cyclotomic weight `−1`; h-trust C8). Consequence form
@@ -4506,8 +4529,9 @@ def EigenformHT : Prop :=
     ρ.HasHTWeightsAtSelf ℓ {0, 1 - k}
 
 /-- **I4-L3. Deligne–Serre** (Ann. Sci. ÉNS 7 (1974), Thm 4.1, with Chebotarev and
-Brauer–Nesbitt): a semisimple `ρ` attached to a weight-one eigenform has finite image.
-Consequence form. Same as hdec-faithful L27(b). -/
+Brauer–Nesbitt, their Lemma 3.2): a semisimple `ρ` attached to a weight-one eigenform has finite
+image. Consequence form. Semisimplicity cannot be dropped (a non-split extension can have the same
+traces; locator audit, R15). Same as hdec-faithful L27(b). -/
 def DeligneSerreFinite : Prop :=
   ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
     (ρ : GaloisRep ℓ 2) (N : ℕ) (χ : DirichletCharacter ℂ N) (g : CF N 1),
@@ -4533,9 +4557,9 @@ def NewformOfEigenform : Prop :=
     ∃ (N : ℕ) (χ' : DirichletCharacter ℂ N) (f : CF N k), 0 < N ∧ N ∣ M ∧ IsNewform f χ' ∧
       ∀ p : ℕ, p.Prime → ¬ p ∣ M → coeff f p = coeff g p
 
-/-- **I4-L6. Carayol at unramified primes** (Carayol, Ann. Sci. ÉNS 19 (1986), Théorème (A), the
-case "conductor exponent 0"; theorem letter VERIFIED from N5 L9778's locator, content
-UNVERIFIED). For a newform `f` of weight 2 and level `N` and a semisimple `ρ` attached to it, a
+/-- **I4-L6. Carayol at unramified primes** (Carayol, Ann. Sci. ÉNS 19 (1986), Théorème (A), pp. 409-411, the
+case "conductor exponent 0"; coverage of every `ℓ ≠ p`, including `p ∣ N` and `ℓ = 2`, read by the
+locator audit; newform conductor `a(π_p) = v_p(N)`, Casselman 1973, locator UNVERIFIED). For a newform `f` of weight 2 and level `N` and a semisimple `ρ` attached to it, a
 prime `p ≠ ℓ` at which `ρ` is unramified does not divide `N`. Consequence form (Théorème (A)
 gives `v_p(N) =` the conductor exponent, which is 0 exactly when `ρ` is unramified). -/
 def CarayolUnramified : Prop :=
@@ -4554,8 +4578,11 @@ nothing. Likewise for `BergerFor`, `CarayolFor`. -/
 abbrev LocalPred := ∀ (p : ℕ) [Fact p.Prime] (n : ℕ), (GQp p →* GL (Fin n) (PadicAlgCl p)) → Prop
 
 /-- **Template for I4-L7, Pan's theorem** (Pan, J. Amer. Math. Soc. 35 (2022), 1031-1169,
-Thm 1.0.4 = arXiv:1901.07166v2 Thm 1.0.4 (statement VERIFIED in h-a011 §1.1 from the arXiv
-source; JAMS numbering UNVERIFIED)), for `p ≥ 5` (which drops the `p = 3` residual clause):
+Thm 1.0.4 = arXiv:1901.07166v2 Thm 1.0.4 (statement VERIFIED in h-a011 §1.1 and by the locator
+audit from the arXiv source; JAMS numbering UNVERIFIED)), for `p ≥ 5` only: at `p = 3` Pan excludes
+`ρ̄|_{G_{ℚ₃}}^{ss} ≅ η ⊕ ηω`, and this leaf does not cover `p = 3`. Pan states the conclusion with
+geometric Frobenius (`ρ ≅ ρ_g ⊗ ψ'`); the arithmetic-Frobenius trace form below follows with the
+conjugate eigenform `g^ρ` (character `χ̄`) and `ψ = ψ'ε^{1−k}`, by `tr(M⁻¹) = tr M / det M`:
 a continuous irreducible `ρ : G_ℚ → GL₂(ℚ̄_p)`, ramified at finitely many primes, potentially
 semistable at `p`, odd, with distinct Hodge–Tate weights at `p`, comes from a cuspidal eigenform
 up to twist. The conclusion is in trace form: some normalized eigenform `g`, continuous `ψ` and
@@ -9948,7 +9975,9 @@ For `u ∈ ℚ ∖ 𝒞`, `j₀ = J(u) = −57600 F(u)²/G(u)⁶`. Prop. TS (h-b
 says: at a prime `p` where the cover `Y₃ → P¹_j` is tame with no vertical ramification
 (Lemma NV, `p ≥ 5`), the inertia of the fibre field at `p` has order `e_b / gcd(e_b, m_b)`, where
 `m_b` is the intersection multiplicity of `j₀` with the branch point `b ∈ {0, ∞, −16/27}`,
-`(e₀, e_∞, e_{−16/27}) = (4, 6, 2)` (A2). Here we prove the elementary half of Lemma PR(i):
+`(e₀, e_∞, e_{−16/27}) = (4, 6, 2)`: the orbifold orders of `Γ*` (Baba–Granath §3.1, p. 740),
+which are the indices of `Y₃ → P¹_j` because the level-3 group is torsion-free
+(`GlueRepo.TorsionFree`); they are not indices of the degree-4 map `X₆ → X₆/W` (index 2). Here we prove the elementary half of Lemma PR(i):
 
 * `inertia_trivial_iff` : for every prime `p ≥ 17` and `u ∈ ℚ ∖ 𝒞`,
   `4 ∣ m₀ ∧ 6 ∣ m_∞ ∧ 2 ∣ m_{−16/27}` (i.e. all three predicted inertia orders are 1)
@@ -11140,18 +11169,19 @@ theorem poincareReducibility_iff : PoincareReducibility ↔ PkgI3.PoincareReduci
     obtain ⟨Z, g, hg⟩ := h k (ofGrp A) (ofGrp J) hE f hf
     exact ⟨toGrp Z, inferInstance, g, hg⟩
 
-/-- **I3.Q (QM dichotomy)** over the shared layer. -/
-def QMDichotomy : Prop :=
+/-- **I3.Q / T27 (QM dichotomy, Yu's form)** over the shared layer. *2026-11-12 (loc-fix):*
+replaces the earlier `QMDichotomy` (no indefiniteness hypothesis; stronger than Yu's theorem). -/
+def QMDichotomyYu : Prop :=
   ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (A : Grp (Over (Spec (.of k))))
     [IsAbelianVariety A], dim A = 2 →
-    ∀ a b : ℚ, (∀ x : ℍ[ℚ, a, b], x ≠ 0 → IsUnit x) →
+    ∀ a b : ℚ, PkgI3.QuatIndefinite a b → (∀ x : ℍ[ℚ, a, b], x ≠ 0 → IsUnit x) →
       Nonempty (ℍ[ℚ, a, b] →ₐ[ℚ] End0 A) →
         Nonempty (End0 A ≃ₐ[ℚ] ℍ[ℚ, a, b]) ∨
           ∃ d : ℚ, d < 0 ∧
             Nonempty (End0 A ≃ₐ[ℚ]
               Matrix (Fin 2) (Fin 2) (AdjoinRoot (Polynomial.X ^ 2 - Polynomial.C d)))
 
-theorem qmDichotomy_iff : QMDichotomy ↔ PkgI3.QMDichotomy :=
+theorem qmDichotomyYu_iff : QMDichotomyYu ↔ PkgI3.QMDichotomyYu :=
   ⟨fun h k _ _ _ A => h k (toGrp A), fun h k _ _ _ A _ => h k (ofGrp A)⟩
 
 /-- Package I3 over the shared layer. -/
@@ -11162,15 +11192,15 @@ structure I3Leaves : Prop where
   homFreeFinite : HomFreeFinite
   charPolyIndepOfEll : CharPolyIndepOfEll
   poincare : PoincareReducibility
-  qmDichotomy : QMDichotomy
+  qmDichotomy : QMDichotomyYu
 
 theorem i3Leaves_iff : I3Leaves ↔ PkgI3.I3Leaves :=
   ⟨fun h => ⟨faltingsSemisimple_iff.mp h.1, faltingsTate_iff.mp h.2, tateModuleFree_iff.mp h.3,
       homFreeFinite_iff.mp h.4, charPolyIndepOfEll_iff.mp h.5, poincareReducibility_iff.mp h.6,
-      qmDichotomy_iff.mp h.7⟩,
+      qmDichotomyYu_iff.mp h.7⟩,
    fun h => ⟨faltingsSemisimple_iff.mpr h.1, faltingsTate_iff.mpr h.2, tateModuleFree_iff.mpr h.3,
       homFreeFinite_iff.mpr h.4, charPolyIndepOfEll_iff.mpr h.5, poincareReducibility_iff.mpr h.6,
-      qmDichotomy_iff.mpr h.7⟩⟩
+      qmDichotomyYu_iff.mpr h.7⟩⟩
 
 /-! ## I3 glue over the shared layer (proved) -/
 
@@ -12107,37 +12137,68 @@ theorem specialized to this datum). Missing: abelian schemes over a base with PE
 moduli functors, representability (very large). -/
 opaque R01_ShimuraDeligne : Prop
 
-/-- **R2. Baba–Granath.** `X₆/W ≅ P¹_j`, branched over `0, ∞, −16/27` with indices 4, 6, 2 at the
-CM points of discriminants −4, −3, −24; two QM surfaces with principal polarization of the fixed
-type have the same polarized moduli point iff their points of `X₆` are `W`-conjugate. Canad. J.
-Math. 60 (2008), Thm 2.1, Lemma 3.1 (journal numbering UNVERIFIED; 2005 preprint read by a model).
-Exact. Missing: `X₆` and its Atkin–Lehner group (very large, via R1). -/
+/-- **R2. Baba–Granath** (repaired after the locator audit by rv-loc-leaves; adopted 2026-11-12 by loc-fix). For the fixed principally polarized
+maximal-order datum of discriminant 6: the polarized moduli space is `X₆/W` (`W` the
+Atkin–Lehner group, `W ≅ (ℤ/2)²`), and `X₆/W ≅ P¹_ℚ` with the three distinguished images
+rational (Canad. J. Math. 60 (2008), Thm 2.1 p. 737, Lemma 3.1 pp. 739-740: YES per the audit);
+two QM surfaces with principal polarization of the fixed type have the same polarized moduli
+point iff their points of `X₆` are `W`-conjugate. **Orbifold data** (§3.1 elliptic-order table,
+p. 740; Prop. 3.9/Thm 3.10, p. 744; Cor. 3.11, p. 745): the group `Γ*` uniformizing `X₆/W` has
+exactly three elliptic classes, of orders `4, 6, 2`, at the CM points of discriminants `−4, −3, −24`,
+whose images are `j = 0, ∞, −16/27` in the normalization of Lin–Yang/N5 (the numerical
+`j`-normalization is not located by Thm 2.1/Lemma 3.1; it enters through `PkgI1.QMHauptmodul`).
+**Not** asserted: ramification indices `4, 6, 2` of the degree-4 map `X₆ → X₆/W`, which has
+index `2` at each of the three branch values (`RvLocLeaves.fibre_t_one`, `fibre_t_zero`). The
+indices `(4, 6, 2)` used by Prop. TS for `Y₃ → P¹_j` follow as glue from the orbifold orders and
+the torsion-freeness of the level-3 group (`GlueRepo.TorsionFree`). Missing: `X₆`, `Γ*` acting on
+`ℍ` as a curve over `ℚ`, the Atkin–Lehner group (very large, via R1). -/
 opaque R02_BabaGranath : Prop
 
 /-- **R3. Lin–Yang.** On the finite nonzero `j`-locus the QM surface over `j` is the Jacobian of a
 genus-2 curve with `[J₂ : J₄ : J₆ : J₁₀] = [12(j+1) : 6(j²+j+1) : 4(j³−2j²+1) : j³]`.
-Math. Z. 295 (2020), Example 30, eqs. (13)-(14) (VERIFIED in arXiv v1 by a repository note;
-journal numbering UNVERIFIED). Exact. Missing: the QM locus (very large). -/
+Math. Z. 295 (2020); arXiv:1807.00466v1 Example 29 (pp. 20-21, discriminant 6), eqs. (13)-(14)
+(read in arXiv v1 by a repository note and by the locator audit; journal numbering UNVERIFIED).
+*2026-11-12 (loc-fix):* the former locator "Example 30" is v1's example for discriminant 14
+(locators.md item 3). Exact. Missing: the QM locus (very large). -/
 opaque R03_LinYang : Prop
 
-/-- **R5. González–Rotger.** For an order `R` of conductor `f`, `(f,6) = 1`, in an imaginary
-quadratic `k` embeddable in `𝒪`, `#CM(R) = h(R)` on `X₆` and `ℚ(x)` is the ring class field `H_R`
-or has index 2 in it (according as some prime dividing 6 is inert in `k` or not). J. Math. Soc.
-Japan 58 (2006), Thm 5.12, Prop. 5.6 (VERIFIED in arXiv:math/0612732 by a repository note;
-journal numbering UNVERIFIED). Exact. Missing: as R2. -/
+/-- **R5. González–Rotger** (repaired after the locator audit by rv-loc-leaves; adopted 2026-11-12 by loc-fix). On `X₆ = X₀(6, 1)`, for an order
+`R` of conductor `f` with `(f, 6) = 1` in an imaginary quadratic field `k` that embeds optimally
+in `𝒪` (so no prime dividing 6 splits in `k`): `#CM(R) = 2^b · h(R)` with
+`b = #{p ∣ 6 : p inert in k}`, the group `W(R) × Gal(H_R/k)`, `W(R) = ⟨w_p : p ∣ 6 inert in k⟩`,
+acting simply transitively; and `ℚ(x) = H_R` if some prime dividing 6 is inert in `k`
+(`D(R) ≠ 1`), otherwise `ℚ(x)` has index 2 in `H_R`. J. Math. Soc. Japan 58 (2006), Prop. 5.6
+(p. 943), Thm 5.8 (pp. 943-944), Thm 5.12 (p. 946) (YES for `X₀(D, N)` per the audit). The old
+text "`#CM(R) = h(R)`" was wrong: the maximal order of discriminant −19 has `h = 1` and four CM
+points (`b = 2`, `cm_count_factor_disc_neg19`). These statements are about `X₆`, not about `Y₃`
+or the image in `X₆/W`. Missing: as R2. -/
 opaque R05_GonzalezRotger : Prop
 
 
-/-- **R16. Eichler–Shimura in `J₁(N)`.** For a weight-2 newform `f` of level `N`,
-`V_ℓ(J₁(N)) ⊗ ℚ̄_ℓ` has a `G_ℚ`-stable two-dimensional subquotient on which
-`tr(Frob_p) = ι(a_p(f))` for `p ∤ Nℓ`. Shimura 1971, Thm 7.9, §7; Shimura, J. Math. Soc. Japan 25
-(1973), Thm 1 (UNVERIFIED). Consequence. Missing: `X₁(N)`, `J₁(N)` over `ℚ` (very large). -/
+/-- **R16. Eichler–Shimura in `J₁(N)`** (repaired after the locator audit by rv-loc-leaves; adopted 2026-11-12 by loc-fix). For a weight-2 newform
+`f` of level `N` and character `χ`, a prime `ℓ` and embeddings `ι`: `V_ℓ(J₁(N)) ⊗ ℚ̄_ℓ` has a
+`G_ℚ`-stable two-dimensional subquotient on which every arithmetic Frobenius at `p ∤ Nℓ` has trace
+`ι(a_p(f))`. Assembled from three statements, none of which is the zeta clause: (i) Shimura,
+J. Math. Soc. Japan 25 (1973), Thm 1 (pp. 526-527), **unconditional clauses only**: the
+`ℚ`-rational quotient `A_f` of `J₁(N)` with `K_f = ℚ(a_n)` acting, `dim A_f = [K_f : ℚ]` (the
+final Euler-factor clause of Thm 1 carries an extra `Γ₀`/Fricke-stability condition and is not
+used); (ii) `V_ℓ(A_f)` free of rank 2 over `K_f ⊗ ℚ_ℓ` (Shimura 1971 §7.4 / Ribet 1977;
+UNVERIFIED locator); (iii) the Eichler–Shimura congruence relation `T_p = Frob_p + p⟨p⟩Frob_p⁻¹`
+on `J₁(N)` mod `p ∤ N` (Shimura 1971 Thm 7.9; UNVERIFIED), which gives on each
+`V_λ(A_f) = V_ℓ(A_f) ⊗_{K_f ⊗ ℚ_ℓ, ι} ℚ̄_ℓ` the characteristic polynomial `X² − ι(a_p) X + ι(χ(p)) p`.
+(With the other Hecke convention on `J₁(N)` the trace is `ι(conj a_p)`, which is the case of the
+conjugate newform `f^ρ`; the statement over all newforms is unaffected.) Missing: `X₁(N)`,
+`J₁(N)` over `ℚ`, Hecke correspondences (very large). -/
 opaque R16_EichlerShimuraJ1 : Prop
 
-/-- **R17. Carayol's local–global compatibility.** For a weight-2 newform of level `N` and `p ≠ ℓ`,
-the Artin conductor exponent of `ρ_{f,λ}|G_{ℚ_p}` is `v_p(N)`. Ann. Sci. ÉNS 19 (1986),
-Théorème (A) (UNVERIFIED; that it covers `F = ℚ` at `p | N` is an open check). Consequence.
-Missing: conductors of ℓ-adic representations, newforms (medium). -/
+/-- **R17. Carayol's local–global compatibility** (docstring repaired by rv-loc-leaves, adopted 2026-11-12 by loc-fix; the concrete statement is
+`LadicCond.CarayolR17'` of scratch/def-ladic-cond, unchanged). For a weight-2 newform of level `N`,
+any prime `ℓ` (including `ℓ = 2`) and any prime `p ≠ ℓ` (including `p ∣ N`), the Artin conductor
+exponent of `ρ_{f,λ}|G_{ℚ_p}` is `v_p(N)`. Ann. Sci. ÉNS 19 (1986), Théorème (A), pp. 409-411,
+§0.8 p. 411 (coverage of `p ∣ N` and `ℓ = 2` YES per the audit; the extra discrete-series
+hypothesis concerns only totally real `F` of even degree, not `ℚ`), with the newform conductor
+`a(π_p) = v_p(N)` (Casselman 1973; UNVERIFIED locator). Duals and unramified twists do not change
+the conductor. Do not replace by Théorème (B) or by the `Γ₀` elliptic-curve corollary. -/
 opaque R17_Carayol : Prop
 
 /-- **R18. Javanpeykar.** A smooth projective connected curve `X/ℚ̄` of genus `g ≥ 1` with a Belyi
@@ -12161,12 +12222,17 @@ Sém. Bourbaki 795 (1996), as recorded in Gaudron–Rémond 2014, §9 (read by a
 Missing: Faltings height. -/
 opaque R21_Bost : Prop
 
-/-- **R22. Pazuki.** For a principally polarized abelian surface over a number field,
-`h_Θ(A) ≤ ½X_D + C₂ log(X_D + 2)`, `C₂ = 1000·2⁴(log 2⁴)⁵`, in the hardened form
-`X_D = max(1, h_F(A) + 3)` of rv-leaves-a §3.3 (implied by the `log π` normalization; the
-constant downstream is unchanged),
-`h_Θ` the height of the level-2 theta constants. Bull. Soc. Math. France 140 (2012), Cor. 1.3(2)
-(read by a model). Exact. Missing: Faltings height, theta constants. -/
+/-- **R22. Pazuki** (repaired after the locator audit by rv-loc-leaves; adopted 2026-11-12 by loc-fix). For a principally polarized abelian
+surface `A` over a number field, with `H_Θ = max(1, h_Θ(A))` (`h_Θ` the level-2 theta height of
+the paper, Euclidean norms at infinite places) and `H_D = max(1, h_D(A))`, `h_D` the Faltings
+height in **Deligne's** metric: `|H_Θ − H_D/2| ≤ C₂ log(min(H_Θ, H_D) + 2)`, `C₂ = 1000·2⁴(log 2⁴)⁵`.
+Bull. Soc. Math. France 140 (2012), Cor. 1.3(2), p. 21-22 (`g = r = 2`), metric p. 26, theta
+height p. 30. In the original Faltings normalization `h_F`, `h_D = h_F + log π` (`g = 2`), so
+for any `X ≥ max(1, h_F + log π)` (in particular `X = max(1, h_F + 3)`):
+`h_Θ ≤ X/2 + C₂ log(X + 2)` (proved: `ZInQ.PkgI5.pazuki_upper_of_literal`,
+`pazukiGoodGenus2'_of_literal` in scratch/rv-loc-leaves/PazukiR22.lean). Consequence, not the
+literal corollary. Missing: Faltings height and theta height of abelian surfaces (very large;
+special case statable now: `ZInQ.PkgI5.PazukiGoodGenus2Literal`). -/
 opaque R22_Pazuki : Prop
 
 
@@ -12283,7 +12349,7 @@ structure TextbookLeaves : Prop where
   t24 : EigenformTwist
   t25 : PkgI4.NewformOfEigenform
   t26 : PkgI3.TateModuleFree
-  t27 : PkgI3.QMDichotomy
+  t27 : PkgI3.QMDichotomyYu
   t28 : PkgI1.IgusaClebschSeparation
   t29a : ∀ (p : ℕ) [Fact p.Prime], LeafPush.T29a_DivisionNormalizer p
   t29b : ∀ (p : ℕ) [Fact p.Prime], LeafPush.T29b_SplitNormalizer p

@@ -1,5 +1,11 @@
 # Route B1: the integral model of the Shimura curve replaced by tame specialization (audit record)
 
+*Note (loc-fix, 2026-11-12).* M4 is restated with rv-nocm §3.2's text. The numbers `4, 6, 2` at `j = 0, ∞, −16/27` are the orbifold (elliptic) orders of the normalizer
+group `Γ*` (Baba–Granath §3.1); they are the ramification indices of the level-three cover
+`Y₃ → P¹_j` (glue: `Γ₃` is torsion-free and normal in `Γ*`, rv-nocm §2.2), not of the degree-4
+map `X₆ → X₆/W`, which has indices `2, 2, 2`. Lin–Yang's
+discriminant-6 example is arXiv v1 Example 29 (v1's Example 30 is discriminant 14; locators.md item 3).
+
 Status: research note (task h-b1, 2026-11-11). This is task T1 of `docs/research/h-map.md`
 (branch `wip/h-map`), §3.2, route B1. It proves Lemma PR of h-map from published theorems and
 records the exact replacement for every place where the frozen 11/5 manuscript
@@ -169,7 +175,7 @@ Notation as in N5 L405-438:
 | M1 | cover over a number field, with group action defined over it | `Γ'` acts on `Y₃` over `ℚ` (right translation by elements of `G(𝔸_f)` normalizing `K₃`, Hecke action on the canonical model), with quotient `P¹_j` (N5 L428-438) | STANDARD (Deligne 1979, §2.7 and §5 (UNVERIFIED locators); Milne, *Introduction to Shimura varieties*, §13) |
 | M2 | Galois extension and its group | Let `Y^{(1)}` be a `ℚ`-irreducible component, `Γ₁` its stabilizer in `Γ'` and `κ₁` the kernel of `Γ₁` on it. Then `M := ℚ(Y^{(1)})` is Galois over `ℚ(j)` with group `Γ₁/κ₁` (Artin's theorem, since `Y^{(1)}/Γ₁ = P¹_j`). The points of `Y₃` over any `j₀` all have the residue field of `M` there, because `Γ'` is defined over `ℚ` | PROVED HERE |
 | M3 | order of the group | `Γ'` has order `4·72/2 = 144 = 2⁴3²`: `(𝒪/3𝒪)^*` has 72 elements, the image of `ℤ̂^*` is `{±1}`, and the local normalizer index is 2 at each of the two division primes. So the order of `Γ₁/κ₁` divides 144, and `p` does not divide the order of `Γ_M` for any `p ≥ 5`. This refines h-map's "divides 4·72" and N5's `≤ 324` | VERIFIED (script §B) for 72 and `{±1}`; STANDARD for the local index (Vignéras, LNM 800, Ch. II) |
-| M4 | branch points and indices | `(0,4)`, `(∞,6)`, `(−16/27,2)` | STANDARD (Baba–Granath, Canad. J. Math. 2008; Lin–Yang 2020; cited at N5 L418-419) |
+| M4 | branch points and indices | `(0,4)`, `(∞,6)`, `(−16/27,2)`: the orbifold orders of `Γ*` (Baba–Granath §3.1). They are the ramification indices of each geometric component `Γ₃\ℍ → Γ*\ℍ`, since `Γ₃` is torsion-free (`−1 ∉ K₃`; N5 L468-470) and normal in `Γ*` (`RvNocm.ramification_eq_orbifold_order`). They are not the indices of `X₆ → P¹_j`, which are `2, 2, 2` (used in Lemma NV step 4). (Value text replaced 2026-11-12 by loc-fix with rv-nocm §3.2.) | STANDARD (Baba–Granath, Canad. J. Math. 2008, §3.1 elliptic-order table, p. 740 per locators.md; Lin–Yang 2020, arXiv v1 Example 29; cited at N5 L418-419) plus glue (torsion-freeness, normality) |
 | M5 | branch locus étale mod `p` | the pairwise differences of `0, ∞, −16/27` are supported on `{2,3}`, so the branch points are distinct mod every `p ≥ 5`, and they are rational, so Beckmann's (c) holds | VERIFIED (§A) |
 | M6 | no vertical ramification at `p ≥ 5` | Lemma NV (§3) | PROVED HERE |
 | M7 | the specialization point | `j₀ = J(u) = −57600F²/G⁶` is never a branch value for `u ∈ ℚ∖𝒞`: `F(u) ≠ 0`, `G` has no real root, and `H` has no rational root, since the discriminants of its three quadratic factors (10800, 43200, 43200) are not squares | VERIFIED (§A) |
@@ -434,7 +440,7 @@ L814 never used b11 (confirmed by rv-h-b1 §6 and re-read here): it adjoins `A[3
    All of these are classical. The risk is in the numbering, not in the content (SPECULATIVE).
 3. **Sign and normalization conventions** for reciprocity (`r = id` or conjugation). The
    argument is insensitive to them, because the unit group used is conjugation-stable.
-4. **Branch data M4** still rests on Baba–Granath and Lin–Yang, as before. B1 adds no new
+4. **Branch data M4** still rests on Baba–Granath and Lin–Yang, as before (since 2026-11-12, loc-fix: on Baba–Granath's orbifold orders plus the torsion-freeness and normality of `Γ₃`, see M4). B1 adds no new
    dependence on them.
 5. **Not touched by B1:**
    - W1, the manuscript's scalar descent, conductor bound and transfer (task T2);

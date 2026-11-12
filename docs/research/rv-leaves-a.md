@@ -1,5 +1,12 @@
 # rv-leaves-a: adversarial review of the I1, I5 and assembly leaves
 
+*Note (loc-fix, 2026-11-12).* Lin–Yang's discriminant-6 example is arXiv:1807.00466v1 **Example 29**
+(pp. 20-21); v1's Example 30 treats discriminant 14 (locators.md item 3, read by the locator audit).
+The mentions of "Ex. 30" / "Example 30" below are corrected in place, each marked "(formerly Ex. 30)".
+The "local orders `4, 6, 2`" checked below are orbifold orders of `Γ*`, as stated; they are the ramification indices of the level-three cover
+`Y₃ → P¹_j` (glue: `Γ₃` is torsion-free and normal in `Γ*`, rv-nocm §2.2), not of the degree-4
+map `X₆ → X₆/W`, which has indices `2, 2, 2`.
+
 Task rv-leaves-a, 2026-11-11, 22:23-23:15 PST. Scope: pkg-I1's `ThetaModularity`, `QMHauptmodul`,
 `IgusaClebschSeparation` (`scratch/pkg-I1/I1.lean`); pkg-I5's `BostEC`, `BostGoodGenus2`,
 `PazukiGoodGenus2` and the definitions they use (`scratch/pkg-I5/I5.lean`); glue-assembly's
@@ -15,7 +22,7 @@ number is UNVERIFIED unless another note records it as read (ASTRA-READ).
 | Statement | Verdict | One-line reason |
 | --- | --- | --- |
 | `ThetaModularity` | **FAITHFUL** | Igusa's theta expressions for `ψ₄` and `χ₁₀` plus their modularity for `Sp₄(ℤ)`, with trivial character. It is a direct consequence of those results. Signs and weights were re-run numerically on 5 generators |
-| `QMHauptmodul` | **FAITHFUL, but COMPOSITE** (not printed anywhere as one theorem) | Lin–Yang Ex. 30 (divisors of `ψ₄`, `χ₁₀` on the QM curve), Igusa's theta expressions and the Shimura/Hashimoto modular embedding, combined by glue. It is true: an independent numerical check (below) found every value, the invariance under all three Atkin–Lehner classes, and local orders `4, 6, 2` at the three elliptic points. Its BG citation should be narrowed (see the BG 3.7 section) |
+| `QMHauptmodul` | **FAITHFUL, but COMPOSITE** (not printed anywhere as one theorem) | Lin–Yang v1 Ex. 29 (formerly Ex. 30) (divisors of `ψ₄`, `χ₁₀` on the QM curve), Igusa's theta expressions and the Shimura/Hashimoto modular embedding, combined by glue. It is true: an independent numerical check (below) found every value, the invariance under all three Atkin–Lehner classes, and local orders `4, 6, 2` at the three elliptic points. Its BG citation should be narrowed (see the BG 3.7 section) |
 | `IgusaClebschSeparation` | **FAITHFUL** | Clebsch–Bolza–Igusa: in characteristic 0, invariants separate the stable `SL₂`-orbits of binary sextics, and `J₂, J₄, J₆, J₁₀` generate the even-degree invariants up to `J₈`, with `4J₈ = J₂J₆ − J₄²` |
 | `BostEC` | **FAITHFUL** (a consequence) | In Faltings' normalization Bost's bound reads `h_F ≥ −log(π√2)·g ≈ −1.4913g`, and the leaf's `−3/2` is weaker |
 | `BostGoodGenus2` | **FAITHFUL** (a consequence), conditional on the good-model bridge | `−3 ≤ h_F`, with `faltingsHeightGood` equal to the stable Faltings height of `Jac C` (BLR 9.5, Liu, Lockhart; STANDARD). Non-vacuity is SPECULATIVE (see below) |
@@ -76,7 +83,7 @@ package. It succeeded here (9065 jobs).
 ### 2.2 `QMHauptmodul` — FAITHFUL (composite)
 
 - **What it rests on.**
-  1. Lin–Yang 2020, Ex. 30: on the disc-6 QM curve `X ≅ X₆/W`, `div ψ₄ ∝ P₋₃` and
+  1. Lin–Yang 2020, v1 Ex. 29 (formerly Ex. 30): on the disc-6 QM curve `X ≅ X₆/W`, `div ψ₄ ∝ P₋₃` and
      `div χ₁₀ ∝ P₋₄`, so `χ₁₀²/ψ₄⁵|_X` has divisor `P₋₄ − P₋₃` and degree 1 (rv-up §3.4,
      UNVERIFIED locator).
   2. Igusa's theta expressions (§2.1).
@@ -273,5 +280,5 @@ definitions, and the identification is a kernel `rfl`.
 - All published theorem numbers and constants, in particular Pazuki's `C₂` and normalization,
   and the exact printed form of Javanpeykar Thm 1.1.1. No papers were available here.
 - Satisfiability of `Genus2Eq.Good` is SPECULATIVE.
-- The Lin–Yang Ex. 30 divisor statement, which `QMHauptmodul`'s degree-1 claim rests on, was not
+- The Lin–Yang v1 Ex. 29 (formerly Ex. 30) divisor statement, which `QMHauptmodul`'s degree-1 claim rests on, was not
   read. The numerics corroborate it only locally, through the elliptic orders.
