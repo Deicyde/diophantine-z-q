@@ -29,3 +29,13 @@ Input: docs/research/locators.md (AI locator audit, 2026-11-12). Base commit 698
   comments outside string/char literals; whitespace-normalized compare with 6988c7fe):
   IDENTICAL for both Lean files (45 and 1527 code lines). Negative control (temporary rename of
   `lemmaN1`) gave DIFFERENT, exit 1.
+- Step 2: h-trust.md: header paragraph; dated notes in A2 (Lin–Yang Example 29, Baba–Granath
+  locators, branch-data caveat), A5 (h-b1 M4 applies 4, 6, 2 to Y₃ → P¹_j: possibly a supplier
+  change, SPECULATIVE; argument unchanged, separate review), A7, A10 (González–Rotger count with
+  orientation factor; argument unchanged), C4, C7, C8 (Kato all levels), D2 (m = 3 boundary), D5
+  (Carayol), E2, E3, E4, F1 (Example 29; Igusa signs UNVERIFIED), F3 (Pazuki +log π), §2.5.
+- Finding (read, not re-derived): h-cm.md §5 (L193-233, L342-350) and rv-h-cm §3 already use
+  `#CM(𝔬) = 2^b h(𝔬)`, b = #{p | 6 inert in K}; the wrong count `h(R)` was only in
+  h-decomposition's leaf R5 (and h-trust gave no count). Recorded in R5 and A10.
+- Finding (read): h-b1 M4 (table, L172) and Lemma NV step 2 (L232) use the indices 4, 6, 2 for
+  `Y₃ → P¹_j` (cyclic inertia of order e_i). Not the degree-4 cover the audit corrects.

@@ -453,7 +453,10 @@ v1/v2 pp. 18-19), read by the audit in v1, v2 and the journal (rv-h-cm had read 
 These statements concern `X₀(D,N)`; they do not apply automatically to `Y₃` or to the image in the
 full Atkin–Lehner quotient (audit example: at discriminant −24 the quotient coordinate −16/27 is
 rational while the ring class field has degree 4). The former statement "`#CM(R) = h(R)`" is
-contradicted by Prop. 5.6 (audit verdict NO). E (in the corrected form). Lean: **no** (via R1).
+contradicted by Prop. 5.6 (audit verdict NO). The NoCM argument of h-cm (§5; rv-h-cm §3)
+already uses the count `2^b·h(𝔬)`, `b` the number of `p | 6` inert in `K`, which appears to be
+this corrected count (read in h-cm.md, not re-derived), so the error was in this leaf's statement;
+whether h-cm applies it to the right curve is for the separate review. E (in the corrected form). Lean: **no** (via R1).
 Step A10 (NoCM), whose use of the count is under separate review (h-trust A10 note of
 2026-11-12).
 
