@@ -32,3 +32,19 @@
 - Normalization cross-check (by hand): Thomae theta^4 ∝ T_S with psi4 = Σθ^8/4, chi10 = -Πθ^2/2^14
   gives chi10^2/psi4^5 = ±2^-18 I10^2/I4^5; with chi10 = -J10/4, psi4 = I4/4 this forces
   J10 = ±I10/4096, consistent with the conversion used.
+
+## Step 3 (Lean draft Leaves.lean)
+- Import: JHeight.lean cannot be imported (HeightMin needs upstream `lean/` package, not built:
+  "unknown module prefix 'ZInQ'"). File imports ZInQKernel.Hypotheses.Height only; copies
+  JHeight lines 31-232 (Fh, Gh, Jmap, certificates, F4) verbatim, restates JHeightBoundAt S and
+  SixContactMinAt S (= SixContactMin at S = Mult.S_mul by rfl).
+- Contents: IC2/IC4/IC6/IC10 from roots (sums over S6 / 48, 72, 12; product), OnQMLocus,
+  thomae (10 triple-splittings), actSextic, sextic, Igusa1960 (Prop, genuine defs), absLogHeight;
+  placeholder `Objects` (AV, dim, prod, Isog, deg, hF, jac, J1) with leaves Javanpeykar,
+  GaudronRemond, FaltingsHeightVariation, BostLower, PazukiThomae; ModularityOutput S;
+  jHeightBoundAt_of_leaves (sorry); sixContactMinAt_of_jHeightBoundAt (proved);
+  sixContactMinAt_of_leaves (from the two).
+- Compile: `lake env lean scratch/hdec-elementary/Leaves.lean`: OK, one `sorry` warning (line 485,
+  jHeightBoundAt_of_leaves). #print axioms: j_eq_of_onQMLocus and
+  sixContactMinAt_of_jHeightBoundAt: [propext, Classical.choice, Quot.sound];
+  sixContactMinAt_of_leaves: adds sorryAx.
