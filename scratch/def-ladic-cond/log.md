@@ -35,3 +35,9 @@
   `Set.Finite.induction_on` over the finitely many restrictions), and `condAt_eq_artinAt''`
   (sanity (b) assuming only the two surjectivity facts). Compiles (rc 0, no errors, no `sorry`);
   14 `#print axioms`, all [propext, Classical.choice, Quot.sound]. VERIFIED.
+- 23:58 PST: proved `norm_pow_factorial` (`‖y‖^{[L:ℚ_p]!} ∈ p^ℤ` for `y ∈ L^×`, from Mathlib's
+  `spectralNorm.spectralNorm_eq_norm_coeff_zero_rpow`), `exists_isUnif` (every finite `L ⊆ ℚ̄_p`
+  has a uniformizer, via `Nat.find`), `condAt_eq_artinAt_of_surj` (sanity (b) for every finite
+  Galois `L`, hypotheses: only the two surjectivity facts). First attempt failed: the lemma lives in
+  namespace `spectralNorm`. Compiles (rc 0, no `sorry`); 16 `#print axioms`, all
+  [propext, Classical.choice, Quot.sound]. VERIFIED.

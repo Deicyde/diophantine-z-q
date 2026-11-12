@@ -681,6 +681,70 @@ theorem condAt_eq_artinAt'' {ρ : GQp p →* GL (Fin n) k} {L : Fld p} (hL : IsF
   let ⟨_, hN⟩ := eventuallyTrivial hL hϖ
   condAt_eq_artinAt' hL hϖ hfix hI hW hN
 
+/-- For `y ≠ 0` in a finite `L/ℚ_p`, `‖y‖^{[L:ℚ_p]!}` is an integral power of `p` (from Mathlib's
+`spectralNorm_eq_norm_coeff_zero_rpow`: `‖y‖ = ‖a_0‖^{1/deg}` for the minimal polynomial). -/
+theorem norm_pow_factorial {L : Fld p} (hL : FiniteDimensional ℚ_[p] L) {y : Kbar p}
+    (hy : y ∈ L) (hy0 : y ≠ 0) :
+    ∃ j : ℤ, ‖y‖ ^ (Module.finrank ℚ_[p] L).factorial = (p : ℝ) ^ j := by
+  have hint : IsIntegral ℚ_[p] y := (Algebra.IsAlgebraic.isAlgebraic y).isIntegral
+  set m := (minpoly ℚ_[p] y).natDegree with hm
+  have hm_le : m ≤ Module.finrank ℚ_[p] L := by
+    have := minpoly.natDegree_le (A := ℚ_[p]) (⟨y, hy⟩ : L)
+    rwa [IntermediateField.minpoly_eq] at this
+  have hm_pos : 0 < m := minpoly.natDegree_pos hint
+  obtain ⟨t, ht⟩ := Nat.dvd_factorial hm_pos hm_le
+  set c := (minpoly ℚ_[p] y).coeff 0 with hc
+  have hc0 : c ≠ 0 := minpoly.coeff_zero_ne_zero hint hy0
+  have hnorm : ‖y‖ = ‖c‖ ^ (1 / m : ℝ) := by
+    rw [← PadicAlgCl.spectralNorm_eq]
+    exact spectralNorm.spectralNorm_eq_norm_coeff_zero_rpow (K := ℚ_[p]) (L := Kbar p) y
+  have hym : ‖y‖ ^ m = ‖c‖ := by
+    rw [hnorm, ← Real.rpow_natCast, ← Real.rpow_mul (norm_nonneg _)]
+    have : (1 / (m : ℝ)) * (m : ℝ) = 1 := by
+      field_simp
+    rw [this, Real.rpow_one]
+  refine ⟨-c.valuation * t, ?_⟩
+  rw [ht, pow_mul, hym, Padic.norm_eq_zpow_neg_valuation hc0, ← zpow_natCast, ← zpow_mul]
+
+/-- **Every finite `L/ℚ_p` inside `ℚ̄_p` has a uniformizer (proved).** -/
+theorem exists_isUnif {L : Fld p} (hL : FiniteDimensional ℚ_[p] L) : ∃ ϖ, IsUnif L ϖ := by
+  classical
+  set D := (Module.finrank ℚ_[p] L).factorial with hDdef
+  have hD : 0 < D := Nat.factorial_pos _
+  have hp1 : (1 : ℝ) < p := by exact_mod_cast (Fact.out : p.Prime).one_lt
+  have hpL : (p : Kbar p) ∈ L := by
+    rw [← map_natCast (algebraMap ℚ_[p] (Kbar p)) p]
+    exact IntermediateField.algebraMap_mem _ _
+  have hex : ∃ n : ℕ, ∃ y ∈ L, ‖y‖ < 1 ∧ ‖y‖ ^ D = (p : ℝ) ^ (-(n : ℤ)) :=
+    ⟨D, p, hpL, isUnif_bot.2.1, by rw [norm_p_kbar, zpow_neg, zpow_natCast, inv_pow]⟩
+  obtain ⟨ϖ, hϖL, hϖ1, hϖD⟩ := Nat.find_spec hex
+  refine ⟨ϖ, hϖL, hϖ1, fun y hy hy1 => ?_⟩
+  by_cases hy0 : y = 0
+  · rw [hy0, norm_zero]; exact norm_nonneg _
+  obtain ⟨j, hj⟩ := norm_pow_factorial hL hy hy0
+  have hjneg : j < 0 := by
+    have h1 : ‖y‖ ^ D < 1 := pow_lt_one₀ (norm_nonneg _) hy1 hD.ne'
+    rw [hj] at h1
+    by_contra h
+    rw [not_lt] at h
+    exact absurd h1 (not_lt.2 (one_le_zpow₀ hp1.le h))
+  have hle : Nat.find hex ≤ (-j).toNat :=
+    Nat.find_min' hex ⟨y, hy, hy1, by rw [hj]; congr 1; omega⟩
+  have hDle : ‖y‖ ^ D ≤ ‖ϖ‖ ^ D := by
+    rw [hj, hϖD]
+    exact zpow_le_zpow_right₀ hp1.le (by omega)
+  exact (pow_le_pow_iff_left₀ (norm_nonneg _) (norm_nonneg _) hD.ne').1 hDle
+
+/-- **Sanity (b), with no structural hypotheses.** For `L/ℚ_p` finite Galois and `ρ` trivial on
+`G_L`: `codim V^I + Sw_L = ∑_{i≥0}(g_i/g_0) codim V^{G_i}`, given the two surjectivity facts. -/
+theorem condAt_eq_artinAt_of_surj {ρ : GQp p →* GL (Fin n) k} {L : Fld p} (hL : IsFinGal L)
+    (hfix : ∀ σ ∈ fixSet L, ρ σ = 1)
+    (hI : ∀ σ ∈ ramSet L 0, ∃ τ ∈ inertiaSet, ∀ x ∈ L, τ x = σ x)
+    (hW : ∀ i : ℕ, ∀ σ ∈ ramSet L (i + 1), ∃ τ ∈ ramSet L (i + 1) ∩ wildSet, ∀ x ∈ L, τ x = σ x) :
+    condAt L ρ = artinAt L ρ :=
+  let ⟨_, hϖ⟩ := exists_isUnif hL.1
+  condAt_eq_artinAt'' hL hϖ hfix hI hW
+
 end LadicCond
 
 end
@@ -699,3 +763,5 @@ end
 #print axioms LadicCond.condAt_eq_artinAt'
 #print axioms LadicCond.eventuallyTrivial
 #print axioms LadicCond.condAt_eq_artinAt''
+#print axioms LadicCond.exists_isUnif
+#print axioms LadicCond.condAt_eq_artinAt_of_surj
