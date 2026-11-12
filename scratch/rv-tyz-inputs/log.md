@@ -25,3 +25,22 @@
 - Depends on (not re-derived): Thm 2.3/2.4 (§2.2 test vectors), explicit Waldspurger Thm 4.2 (§4, from YZZ),
   Petersson-norm constants, modular degree 2 of X_0(32)→y²=x³−x. A wrong power of 2 here would break integrality
   and the parity identity → numerical test planned (Step N1).
+
+## Step 2: I1 (recursion + ε of Thm 3.3) and I3 (Thm 3.5 first assertion) read (L1163–1376, L1860–2023, L2343–2380)
+- Thm 3.3 first part (non-torsion only for χ_{d0,d1}): Lemma 3.8 (char') + Tunnell–Saito root-number condition +
+  K_2^×-invariance of f_n "up to torsion" (Prop 3.1). Lemma 3.8 case analysis checked: n≡5 → (5,1),(7,3); n≡7 → (7,1),(5,3);
+  n≡6 → (6,1),(7,2). Note: for n≡5, the class (5,3) never occurs as (d0,d1) with d0d1=n; it occurs inside P(D), D≡7 | n.
+- ε-class: Lemma 3.9 (multiples1): 4P(d0,d1) ∈ A(Q(√-d0))^- unless (5,3), where ∈ A(Q(√d0))^- = [i]A(Q(√-d0))^-.
+  Checked: fields K_{d0,d1}, actions of c, τ, cτ; [i]P Galois-equivariance computed by hand. χ(σ_ϖ) = -1 ⟺ d1≡3 (n≡7). ✓
+  Typo: d1=1 case says "(4P)^c = 4P" — should be -4P (from (2P)^c = -2P [+|Cl|τ(1)]); conclusion A(K_n)^- correct. NEW minor.
+  Then proportionality (GZ + Kolyvagin: E(K_{d0})^- rank 1 when L'≠0) + equal heights → ε = ±1 resp. ±i. ✓ (given Thm 3.6, Prop 3.2(4)).
+- Exact constant 2^{h2(n)}𝓛(d1): proof is "computations similar to that in the proof of Theorem 2.1" (L~2015) — the
+  explicit Gross–Zagier bookkeeping is NOT printed. Reduction to ĥ(R_χ)=L'(E_{K_n},χ,1)/(2^{2k-2h2-2-a}Ω_{d0}Ω_{d1}) checked by
+  hand (needs ĥ(β_{d0}) = R_{d0}/2, consistent with "R_n = twice NT height"). NEW finding (gap in exposition).
+- I3 proof: Σ_χ P_χ = 2^{h2} Z(n) (character formula, Φ0 = Φ∩2Cl'), then Thm 3.3 termwise; induction. Correct given Thm 3.3.
+  Implicit: ε(n,1)=1 (sign of α_n) and 𝓛(1)=1.
+- Robustness (VERIFIED by argument): if Thm 3.3 held with 𝒫(d0) replaced by λ(d0)𝒫(d0) (λ any nonzero rational depending
+  on d0 only), the same recursion represents λ(n)𝒫(n); Prop N unchanged. So Prop N is insensitive to the ρ-normalisation
+  of 𝒫 and to the uniform 2^{h2(n)}; it needs the d1-factor to be (2-adic unit)·𝓛(d1) with the stated ε-class.
+  The d1-dependence of the constant is the same 2-power bookkeeping as Thm 2.1 (tested numerically via I2).
+- ε when 𝓛(d1)𝒫(d0)=0: undetermined by Thm 3.3; any choice in the stated class keeps I3 (P(d0) torsion then). OK.
