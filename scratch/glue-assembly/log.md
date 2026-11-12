@@ -57,3 +57,20 @@ are UNVERIFIED.
 - Kernel trap met (VERIFIED): `rw [heightCcm_eq_ccmFn, ccmFn_eq]` under a cast to `ℝ` makes the
   kernel evaluate `Nat.pow` ("does not fit in a 32-bit unsigned integer"); fixed by proving the CM
   bound over variables (`cm_branch_nat`) and applying it to `heightBcm_eq`, `heightCcm_eq`.
+
+## Step 3: C8 glue, F3 glue, statable leaves (VERIFIED: compiled, no `sorry`)
+
+- `C8.lean`: `weight_match` (`{n, n+1−k} = {0,−1}`, `k ≥ 1` ⇒ `k = 2`, `n = 0`);
+  `weight_match_coh` (`{n, n+k−1} = {0,−1}` ⇒ `k = 2`, `n = −1`, Pan's normalization; agrees with
+  rv-h-c8 `weights.py`); `finite_range_of_finiteIndex` (a hom with finite image on a finite-index
+  subgroup has finite image); `finite_range_of_sq` (`ψ : G →* Eˣ`, `E` a field, `ψ²` of finite
+  image ⇒ `ψ` of finite image); `twist_finite` (h-trust C8 items 1-3 assembled: `r = ε χ ψ²`,
+  `r² = χ²` on a finite-index `H`, `ε` of finite image ⇒ `ψ` of finite image).
+- `F3Glue.lean`: `mulHeightL2` (projective height with the `L²` norm at archimedean places) and
+  `mulHeight_le_mulHeightL2` (N5 L938-939: the Euclidean height dominates the sup height);
+  `logHeight_sixteen_eq` (six zero odd theta constants); `mulHeight_rootsOfUnity_mul` (roots of
+  unity on coordinates). Whether `mulHeightL2` is exactly Pazuki's normalization: UNVERIFIED (Pazuki
+  2012 not readable here).
+- `Leaves.lean`: `KroneckerWeber` and `BrauerNesbittCharZero` as `def … : Prop` over Mathlib
+  objects (`CyclotomicField`, `Representation`, `IsSemisimpleRepresentation`,
+  `Representation.Equiv`). These are the only leaves of the cluster statable in Mathlib today.
