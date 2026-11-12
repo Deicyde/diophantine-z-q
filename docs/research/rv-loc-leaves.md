@@ -294,13 +294,28 @@ Shimura 1973 Thm 1.
 
 ## Paste-ready list for the integrator
 
-1. **T27.** In Leaves.lean `PkgI3`, add `QuatIndefinite`, `QMDichotomyYu`,
-   `qmDichotomyYu_of_qmDichotomy`, `quatIndefinite_two_neg_three` and `qmDichotomy_B6`, verbatim
-   from the last section of `scratch/rv-loc-leaves/T27Yu.lean`. Change the bundle field to
-   `t27 : PkgI3.QMDichotomyYu`. Change the docstring locator to "Chia-Fu Yu, JPAA 217 (2013),
-   Thm 1.1 (journal p. 907; audit: checked); without 'indefinite' the old form is a consequence of
-   Mumford §21 only". In `ObjBridge`, add the same hypothesis (or keep `qmDichotomy_iff` for the old
-   form).
+**Ready-made patch, compiled.** `scratch/rv-loc-leaves/patch_leaves.py` applies every repair
+below to Leaves.lean (16 edits). Its output, `scratch/rv-loc-leaves/LeavesPatched.lean`, compiles
+with `lake env lean` in 1m30s:
+- exit 0, 0 errors;
+- 81 `#print axioms`, all `[propext, Classical.choice, Quot.sound]` except
+  `HSyn.sixContactMin_of_leaves` (`sorryAx`, the same as in the unpatched file).
+
+The unified diff against Leaves.lean at 6988c7fe is `scratch/rv-loc-leaves/LeavesPatch.diff`. The
+integrator can apply the diff, or rerun the script if Leaves.lean has moved:
+`python3 scratch/rv-loc-leaves/patch_leaves.py <Leaves.lean> <out> scratch/rv-loc-leaves/Placeholders.lean`.
+The script asserts each anchor, so it fails loudly instead of misapplying.
+
+What the patch does:
+
+1. **T27.**
+   - In `PkgI3`, add `QuatIndefinite`, `QMDichotomyYu` (docstring with Yu's locator),
+     `qmDichotomyYu_of_qmDichotomy`, `quatIndefinite_two_neg_three` and `qmDichotomy_B6`.
+   - Switch the field `PkgI3.I3Leaves.qmDichotomy` to `QMDichotomyYu`.
+   - In `ObjBridge`, add `QMDichotomyYu` and `qmDichotomyYu_iff`, switch its `I3Leaves` field, and
+     use the new iff in `i3Leaves_iff`.
+   - Change the `HSyn` bundle field to `t27 : PkgI3.QMDichotomyYu`.
+   - The old `QMDichotomy` and `qmDichotomy_iff` stay, since they are still true.
 2. **Placeholders R02, R05, R16, R17, R22.** Replace the five docstrings in Leaves.lean `HSyn` §2
    by those of `scratch/rv-loc-leaves/Placeholders.lean` (namespace `HSyn`, same names).
 3. **R22 concrete.** Optionally fold in from `scratch/rv-loc-leaves/PazukiR22.lean`:
@@ -320,6 +335,7 @@ Shimura 1973 Thm 1.
 ## What compiles
 
 Each file was checked with `lake env lean scratch/rv-loc-leaves/<file>.lean`, one at a time.
+- `LeavesPatched.lean` (the whole patched synthesis file)
 - `T27Yu.lean`
 - `PazukiR22.lean`
 - `Conventions.lean`
@@ -333,5 +349,5 @@ All new theorems print `[propext, Classical.choice, Quot.sound]`.
   audit's or an earlier note's and is labeled so.
 - The identification of Pazuki's theta height with the Thomae point (pkg-I5) is not checked.
 - Index 2 at `j = ∞` for `X₆ → X₆/W` was not proved in Lean; only the finite branch values were.
-- Leaves.lean itself was not recompiled. The repaired texts compile in copies, and Leaves.lean's
-  versions of the same definitions are identical by `diff` (QMDichotomy, read for the rest).
+- Leaves.lean itself was not edited, since it is another task's file. Its patched copy compiles
+  (see above).
