@@ -96,3 +96,5 @@ B6 := ℍ[ℚ, 2, -3] (N5's B = (2,-3)).
 
 ## Step 10: full rebuild via build.sh (ProjRep B1Quat Cochain Constants Chi B2Glue B2Assembly B3Assembly), 45 s:
 no errors, no sorry in any file (grep), all printed axioms = propext, Classical.choice, Quot.sound (VERIFIED)
+
+## Step 11: docs/research/glue-descent.md written (statements, leaves, glue table, API, findings, verdict)
