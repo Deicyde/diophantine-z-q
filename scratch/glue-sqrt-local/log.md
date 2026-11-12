@@ -18,3 +18,8 @@
 - `finrank_eq_totient`: finrank ℚ_[p] L = φ(p^(n+1)). VERIFIED.
 - `tauNeg := galEquivUnits.symm (-1)`; `tauNeg_mul_self`: τ x · x = 1 for every x with x^(p^(n+1)) = 1; `tauNeg_sq`. VERIFIED.
 - `gal_sqrt_criterion` (p odd): χ : Additive Gal(L/ℚ_[p]) →+ AddCircle (1:ℚ) is 2ψ for some ψ iff χ(τ₋₁) = 0. VERIFIED.
+
+## Frob.lean (compiled; axioms propext, Classical.choice, Quot.sound)
+- `card_quotient_maximalIdeal`: Nat.card (ℤ_[p] ⧸ maximalIdeal) = p. VERIFIED.
+- `exists_frobenius`: L/ℚ_p finite Galois (with [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L]) → ∃ σ ∈ Gal(L/ℚ_p), ∀ m, ¬p∣m → ∀ ζ, ζ^m = 1 → σ ζ = ζ^p. VERIFIED.
+  Proof: S = integralClosure ℤ_[p] L; IsGaloisGroup.of_isFractionRing; IsIntegralClosure.finite; Q maximal over (p) (exists_maximal_ideal_liesOver_of_isIntegral); S/Q finite; IsArithFrobAt.exists_of_isInvariant; IsArithFrobAt.apply_of_pow_eq_one.
