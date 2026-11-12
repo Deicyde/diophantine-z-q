@@ -239,6 +239,133 @@ lemma red_map (hk : 1 ≤ k) (f : V k →ₗ[R k] V k) (v : V k) :
   rw [← LinearMap.toMatrix'_mulVec f v, RingHom.map_mulVec]
   rfl
 
+/-- **Core (proved).** On `V = (ℤ/3^{2k})⁴` (`k ≥ 1`), let `I, J, S` be endomorphisms with
+`I² = 2`, `J² = -3`, `JI = -IJ`, `S` commuting with `I, J` and `(S - 1)² = 0`. Then `S` is the
+identity on the `3^k`-torsion. (rv-a6-route §3 steps 1-5: `V` is cyclic over `Λ` with generator
+`x` (any `x` with `Jx ≢ 0 mod 3`), `S x - x = c·x` with `c² = 0` in `Λ/3^{2k}`, so `c ∈ 3^kΛ`.) -/
+theorem core (hk : 1 ≤ k) (I J S : V k →ₗ[R k] V k)
+    (hI : ∀ v, I (I v) = (2 : R k) • v) (hJ : ∀ v, J (J v) = (-3 : R k) • v)
+    (hIJ : ∀ v, J (I v) = -I (J v))
+    (hSI : ∀ v, S (I v) = I (S v)) (hSJ : ∀ v, S (J v) = J (S v))
+    (hS : ∀ v, S (S v) - (2 : R k) • S v + v = 0) :
+    ∀ v, (3 : R k) ^ k • v = 0 → S v = v := by
+  -- the reduced relations over `𝔽₃`
+  have hIb : ∀ y, redMap hk I (redMap hk I y) = (2 : ZMod 3) • y := by
+    intro y
+    rw [← red_lift3 hk y, ← red_map, ← red_map, hI, red_smul, map_ofNat]
+  have hJb : ∀ y, redMap hk J (redMap hk J y) = 0 := by
+    intro y
+    rw [← red_lift3 hk y, ← red_map, ← red_map, hJ, red_smul]
+    have : ZMod.castHom (three_dvd_Q hk) (ZMod 3) (-3 : R k) = 0 := by
+      rw [map_neg, map_ofNat]; decide
+    rw [this, zero_smul]
+  have hIJb : ∀ y, redMap hk J (redMap hk I y) = -redMap hk I (redMap hk J y) := by
+    intro y
+    rw [← red_lift3 hk y, ← red_map, ← red_map, ← red_map, ← red_map, hIJ, red_neg]
+  -- step 1: some `x` has `J x ≢ 0 (mod 3)`
+  have hex : ∃ x : V k, red hk (J x) ≠ 0 := by
+    by_contra h
+    push Not at h
+    obtain ⟨u, hu⟩ := eq_three_smul_of_red_eq_zero hk _ (h (Pi.single (0 : Fin 4) (1 : R k)))
+    obtain ⟨u', hu'⟩ := eq_three_smul_of_red_eq_zero hk _ (h u)
+    have e := hJ (Pi.single (0 : Fin 4) (1 : R k))
+    rw [hu, map_smul, hu', smul_smul] at e
+    have e0 := congrFun e 0
+    simp only [Pi.smul_apply, smul_eq_mul, Pi.single_eq_same, mul_one] at e0
+    have e9 := congrArg (ZMod.castHom (nine_dvd_Q hk) (ZMod 9)) e0
+    simp only [map_mul, map_neg, map_ofNat] at e9
+    have h9 : ∀ z : ZMod 9, 3 * 3 * z ≠ -3 := by decide
+    exact h9 _ e9
+  obtain ⟨x, hx⟩ := hex
+  have hx' : redMap hk J (red hk x) ≠ 0 := by rwa [← red_map]
+  -- step 2: `x, Ix, Jx, IJx` span `V/3V`
+  have hli := f3_indep (redMap hk I) (redMap hk J) hIb hJb hIJb (red hk x) hx'
+  have hspan := hli.span_eq_top_of_card_eq_finrank (by simp)
+  have mod3 : ∀ u : V k, ∃ a : Fin 4 → R k, ∃ u' : V k, u = φ I J x a + (3 : R k) • u' := by
+    intro u
+    have hu : red hk u ∈ Submodule.span (ZMod 3) (Set.range ![red hk x, redMap hk I (red hk x),
+        redMap hk J (red hk x), redMap hk I (redMap hk J (red hk x))]) := by
+      rw [hspan]; trivial
+    obtain ⟨g, hg⟩ := (Submodule.mem_span_range_iff_exists_fun _).mp hu
+    refine ⟨fun i => ((g i).val : R k), ?_⟩
+    have hred : red hk (u - φ I J x (fun i => ((g i).val : R k))) = 0 := by
+      rw [red_sub, ← hg, sub_eq_zero]
+      simp only [φ, red_add, red_smul, red_map, Fin.sum_univ_four, Matrix.cons_val_zero,
+        Matrix.cons_val_one, Matrix.cons_val_two, Matrix.cons_val_three, Matrix.head_cons,
+        Matrix.tail_cons, map_natCast, ZMod.natCast_zmod_val]
+    obtain ⟨u', hu'⟩ := eq_three_smul_of_red_eq_zero hk _ hred
+    exact ⟨u', by rw [← hu']; abel⟩
+  -- step 2': Nakayama, `V = Λ x`
+  have nak : ∀ n : ℕ, ∀ u : V k, ∃ a : Fin 4 → R k, ∃ u' : V k,
+      u = φ I J x a + (3 : R k) ^ n • u' := by
+    intro n
+    induction n with
+    | zero => intro u; exact ⟨0, u, by rw [φ_zero, pow_zero, one_smul, zero_add]⟩
+    | succ n ih =>
+      intro u
+      obtain ⟨a, u', h⟩ := ih u
+      obtain ⟨b, u'', h'⟩ := mod3 u'
+      refine ⟨a + (3 : R k) ^ n • b, u'', ?_⟩
+      rw [φ_add_smul, h, h', pow_succ]; module
+  have hsurj : Function.Surjective (φ I J x) := by
+    intro u
+    obtain ⟨a, u', h⟩ := nak (2 * k) u
+    exact ⟨a, by rw [h, three_pow_eq_zero, zero_smul, add_zero]⟩
+  have hinj : Function.Injective (φ I J x) := Finite.injective_iff_surjective.mpr hsurj
+  have hinj0 : ∀ a, φ I J x a = 0 → a = 0 := fun a ha => hinj (by rw [ha, φ_zero])
+  -- step 3: `S x - x = c x` with `c² = 0`
+  have hSφ : ∀ y a, S (φ I J y a) = φ I J (S y) a := by
+    intro y a; simp only [φ, map_add, map_smul, hSI, hSJ]
+  obtain ⟨a, ha⟩ := hsurj (S x - x)
+  have hsq : φ I J (φ I J x a) a = φ I J x ![a 0 ^ 2 + 2 * a 1 ^ 2 - 3 * a 2 ^ 2 + 6 * a 3 ^ 2,
+      2 * a 0 * a 1, 2 * a 0 * a 2, 2 * a 0 * a 3] := by
+    simp only [φ, map_add, map_smul, map_neg, hI, hJ, hIJ, smul_neg, Matrix.cons_val_zero,
+      Matrix.cons_val_one, Matrix.cons_val_two, Matrix.cons_val_three, Matrix.head_cons,
+      Matrix.tail_cons]
+    module
+  have hNN : φ I J (φ I J x a) a = 0 := by
+    rw [ha, φ_sub_left, ← hSφ, ha, map_sub]
+    linear_combination (norm := module) hS x
+  have hc := hinj0 _ (hsq ▸ hNN)
+  have c0 := congrFun hc 0
+  have c1 := congrFun hc 1
+  have c2 := congrFun hc 2
+  have c3 := congrFun hc 3
+  simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two,
+    Matrix.cons_val_three, Matrix.head_cons, Matrix.tail_cons, Pi.zero_apply] at c0 c1 c2 c3
+  -- step 4: `c ∈ 3^k Λ` (`quat_sq_dvd`)
+  have hdvd : ∀ z : ℤ, (z : R k) = 0 → (3 : ℤ) ^ (2 * k) ∣ z := by
+    intro z hz
+    have := (ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mp hz
+    simpa [Q] using this
+  obtain ⟨⟨A, hA⟩, ⟨B, hB⟩, ⟨C, hC⟩, ⟨D, hD⟩⟩ := quat_sq_dvd k ((a 0).val : ℤ) ((a 1).val : ℤ)
+    ((a 2).val : ℤ) ((a 3).val : ℤ)
+    (hdvd _ (by push_cast [ZMod.natCast_zmod_val]; exact c0))
+    (hdvd _ (by push_cast [ZMod.natCast_zmod_val]; exact c1))
+    (hdvd _ (by push_cast [ZMod.natCast_zmod_val]; exact c2))
+    (hdvd _ (by push_cast [ZMod.natCast_zmod_val]; exact c3))
+  have lift : ∀ (i : Fin 4) (E : ℤ), ((a i).val : ℤ) = 3 ^ k * E → a i = (3 : R k) ^ k * (E : R k) := by
+    intro i E h
+    have := congrArg (fun z : ℤ => (z : R k)) h
+    push_cast [ZMod.natCast_zmod_val] at this
+    exact this
+  have ha' : a = (3 : R k) ^ k • ![(A : R k), (B : R k), (C : R k), (D : R k)] := by
+    funext i
+    fin_cases i
+    · simpa using lift 0 A hA
+    · simpa using lift 1 B hB
+    · simpa using lift 2 C hC
+    · simpa using lift 3 D hD
+  -- step 5: `S - 1` kills the `3^k`-torsion
+  intro v hv
+  obtain ⟨α, rfl⟩ := hsurj v
+  have hα : (3 : R k) ^ k • α = 0 := hinj0 _ (by rw [φ_smul]; exact hv)
+  have hNv : S (φ I J x α) - φ I J x α = 0 := by
+    rw [hSφ, ← φ_sub_left, ← ha, ha', φ_smul, φ_smul_left, hα, φ_zero]
+  exact sub_eq_zero.mp hNv
+
 end Core
 
 end GlueA6Alg
+
+#print axioms GlueA6Alg.core
