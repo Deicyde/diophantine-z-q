@@ -520,6 +520,41 @@ theorem LFunction_cd_apply_prime {d : ℕ} (hd : Odd d) (hsq : Squarefree d) (p 
   · intro hv
     exact absurd (Finset.mem_insert_self v s0) hv
 
+/-- `#C_d(𝔽_p)` is the number of affine solutions plus one, for `p ∤ 2d`. -/
+theorem natCard_point_shortCurve_zmod {d : ℕ} (p : ℕ) [Fact p.Prime] (hp : ¬ p ∣ 2 * d) :
+    Nat.card (shortCurve (-(d : ZMod p) ^ 2)).toAffine.Point =
+      Nat.card {xy : ZMod p × ZMod p // xy.2 ^ 2 = xy.1 ^ 3 - (d : ZMod p) ^ 2 * xy.1} + 1 := by
+  have h2 : (2 : ZMod p) ≠ 0 := by
+    intro h
+    have : p ∣ 2 := by exact_mod_cast (ZMod.natCast_eq_zero_iff 2 p).mp (by exact_mod_cast h)
+    exact hp (this.trans (dvd_mul_right 2 d))
+  have hd : (d : ZMod p) ≠ 0 := by
+    intro h
+    exact hp (((ZMod.natCast_eq_zero_iff d p).mp h).trans (dvd_mul_left d 2))
+  have : NeZero (2 : ZMod p) := ⟨h2⟩
+  have hE := shortCurve_isElliptic (F := ZMod p) (neg_ne_zero.mpr (pow_ne_zero 2 hd))
+  rw [Nat.card_congr (pointEquivOption _), Finite.card_option]
+  congr 1
+  exact Nat.card_congr (Equiv.subtypeEquivRight fun xy => by
+    rw [shortCurve_equation_iff]; ring_nf)
+
+/-- **`a_p(C_d)` as a point count**: for odd squarefree `d` and a prime `p ∤ 2d`, the Dirichlet
+coefficient of `L(C_d, s)` at `p` is `p − #{(x, y) ∈ 𝔽_p² : y² = x³ − d² x}`. -/
+theorem LFunction_cd_apply_prime_eq_sub_card {d : ℕ} (hd : Odd d) (hsq : Squarefree d) (p : ℕ)
+    [Fact p.Prime] (hp : ¬ p ∣ 2 * d) :
+    (shortCurve (-(d : ℚ) ^ 2)).LFunction p =
+      p - Nat.card {xy : ZMod p × ZMod p // xy.2 ^ 2 = xy.1 ^ 3 - (d : ZMod p) ^ 2 * xy.1} := by
+  rw [LFunction_cd_apply_prime hd hsq p]
+  simp only [hp, ↓reduceIte]
+  rw [natCard_point_shortCurve_zmod p hp]
+  push_cast; ring
+
+/-- **Bad primes**: for odd squarefree `d` and a prime `p ∣ 2d`, the coefficient is `0`. -/
+theorem LFunction_cd_apply_prime_of_dvd {d : ℕ} (hd : Odd d) (hsq : Squarefree d) (p : ℕ)
+    [Fact p.Prime] (hp : p ∣ 2 * d) : (shortCurve (-(d : ℚ) ^ 2)).LFunction p = 0 := by
+  rw [LFunction_cd_apply_prime hd hsq p]
+  simp only [hp, ↓reduceIte]
+
 end LFunction
 
 end ZInQ.Literature
