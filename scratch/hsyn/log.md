@@ -1,0 +1,5 @@
+# hsyn results log
+
+- 21:47 start; merged pkg-I2, glue-conductor (landed). Pending: I1 I3 I4 I5 I6 glue-descent glue-assembly glue-repo rv-routek.
+- 21:52 scratch/h-decomposition/Leaves.lean assembled (scratch/hsyn/head.lean + pkg-I2 I2.lean body + glue-conductor Breaks/Dyadic/Level bodies + hdec-faithful §0-§1 renamed HSyn + scratch/hsyn/tail.lean). Needed `lake build ZInQKernel.Hypotheses.JHeight` first (rebuilt 2 upstream helpers). `lake env lean`: compiles, 2 sorry warnings (PkgI2.goodReduction_of_QM_rational3 = A6 body; HSyn.jHeightBound_of_leaves = G1-G19). VERIFIED axioms: weight_match, PkgI2.inertiaTrivial_of_goodReduction, PkgI2.D2_fixed_of_raynaud, GlueConductor.D1_genuine, level_le, fourth_pow_mem: propext/Classical.choice/Quot.sound; sixContactMin_of_leaves: + sorryAx. Placeholders are `opaque … : Prop` (no sorry, no axiom).
+- Leaf list route P: research R1-R22 (23 Props: R7 = a,b), textbook T1-T25. Statable now: R6, R7a, R7b, R14, R15 (research); T1-T7, T13, T14, T17-T21, T24 (textbook).
