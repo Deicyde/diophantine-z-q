@@ -238,7 +238,8 @@ theorem thetaRatio_invariant (h : ThetaModularity) :
 /-! ## §6 LEAF: the QM Hauptmodul (A2 and F1, analytic form) -/
 
 /-- **LEAF, COMPOSITE (rv-leaves-a: faithful, but not printed as one theorem; Baba–Granath 2008
-Thm 2.1 and the datum of §3 only, not Props. 3.7-3.10; Lin–Yang 2020 Ex. 30 with eqs. (13)-(14);
+Thm 2.1 and the datum of §3 only, not Props. 3.7-3.10; Lin–Yang 2020, arXiv v1 Example 29 (formerly
+cited as Ex. 30, v1's discriminant-14 example; corrected 2026-11-12 by loc-fix) with eqs. (13)-(14);
 Igusa 1967; Lauter–Naehrig–Yang 2015 §2.2).** On the QM locus, F1's theta expression
 `j_θ = 3779136(∏θ_m)⁴/(Σθ_m⁸)⁵ ∘ Ω` is a Hauptmodul of `Γ*\ℍ = X₆/W`, with value `0` at the
 CM points of discriminant `-4`, a pole at those of discriminant `-3`, and value `-16/27` at

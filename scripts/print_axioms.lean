@@ -124,6 +124,8 @@ hdec-adopt into `ZInQKernel/HDecomp/`; the literature leaves are hypotheses of t
 #print axioms ObjBridge.charpolyIndependentOfEll_iff
 #print axioms ObjBridge.neronOggShafarevich_iff
 #print axioms ObjBridge.i3Leaves_iff
+#print axioms ObjBridge.qmDichotomyYu_iff
+#print axioms PkgI3.qmDichotomy_B6
 #print axioms ObjBridge.charPolyIndepOfEll_iff_grp
 #print axioms ObjBridge.exists_hom_ne_one_of_equivariant
 #print axioms ObjBridge.finrank_equivEnd
