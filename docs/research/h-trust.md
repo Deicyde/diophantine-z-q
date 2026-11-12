@@ -206,7 +206,8 @@ Each step gives N5 lines, content, supplier(s) with locator, and status.
     preprint, whose §2.1 Thm 1 and §3.2 are ASTRA-READ (Astra whole REPORT); the journal
     numbering is UNVERIFIED. Version 14 records a
     "local index slip" in its Lemma 3.1 (h-v14 §2.2). Step A3 does not use that lemma.
-  - Lin–Yang 2020, Example 30. VERIFIED in arXiv v1 by h-v14; the journal number is UNVERIFIED.
+  - Lin–Yang 2020, arXiv v1 Example 29 (cited as Example 30 before 2026-11-12; see the note
+    below). Content VERIFIED in arXiv v1 by h-v14; the journal number is UNVERIFIED.
   - Independent check of the elliptic-point data: rv-h-cm §2.3 derives Elkies' twist constants
     from Shimura reciprocity at the three elliptic points.
 - *Locator audit note (loc-adopt, 2026-11-12; `docs/research/locators.md`, AI agents with web access, not a human review).*
@@ -854,8 +855,8 @@ L10939-11000).
 **F1. `j` in theta constants** (N5 L908-927).
 - *Content.* `j = 3779136·(∏ z_m)⁴/(∑ z_m⁸)⁵`.
 - *Suppliers* (rv-up §3.5 item 1).
-  - Lin–Yang 2020, Example 30 (**Example 29** in arXiv v1, pp. 20-21; v1's Example 30 is
-    discriminant 14; journal number UNVERIFIED; locator audit 2026-11-12, see the F1 note
+  - Lin–Yang 2020, arXiv v1 **Example 29** (pp. 20-21; cited as Example 30 before 2026-11-12;
+    v1's Example 30 is discriminant 14; journal number UNVERIFIED; locator audit 2026-11-12, see the F1 note
     below): the divisors of `s₂ = ψ₄` and `s₅ = 2¹²3⁵χ₁₀` on the
     quaternionic locus `X`. They make `χ₁₀²/ψ₄⁵` a degree-one function on `X ≅ P¹` with zero at
     P₋₄ and pole at P₋₃. Also eqs. (13)-(14), Igusa's conversion between `ψ₄, ψ₆, χ₁₀, χ₁₂` and
@@ -864,7 +865,7 @@ L10939-11000).
     projective invariants*, Amer. J. Math. 89 (1967), pp. 833-834 and 848: the theta
     expressions of `ψ₄` and `χ₁₀`.
   - `scratch/h-v14/igusa_check.py` (rerun, identical; again by h-v16-adopt). It derives the
-    Igusa vector from Example 30 without eq. (2).
+    Igusa vector from Example 29 (formerly cited as Example 30) without eq. (2).
   - The constant at P₋₂₄ is checked without Lin–Yang's `Y′₅` data and without Baba–Granath by
     `scratch/rv-up/endo24.py` and `scratch/rv-up/theta24.py` (both rerun by h-v16-adopt,
     identical). The first shows, exactly, that at the disc −24 Heegner point of `Y′₅` the
@@ -997,7 +998,7 @@ local algebraicity of Hodge–Tate characters.
 ### 2.5 Locators not read, and where to check them
 
 Every published locator in §1 is UNVERIFIED unless §1 says it was read. Read in arXiv, in this
-repository: Pan v2 Thm 1.0.4, Berger v3 Thm 0.6/5.19, González–Rotger §5, Lin–Yang v1 Ex. 30 and
+repository: Pan v2 Thm 1.0.4, Berger v3 Thm 0.6/5.19, González–Rotger §5, Lin–Yang v1 Ex. 29 (formerly cited as Ex. 30) and
 eqs. (2), (13), (14) (eq. (2) read but not used; see F1), and Scholze's introduction.
 
 *Locator audit (2026-11-12, `docs/research/locators.md`).* AI agents with web access read the
