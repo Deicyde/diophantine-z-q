@@ -543,6 +543,74 @@ theorem one_mem_wildSet : (1 : GQp p) ∈ wildSet := by
   simp only [AlgEquiv.one_apply, sub_self, norm_zero]
   exact norm_pos_iff.mpr hx
 
+/-- Galois conjugates of elements of a finite Galois `L ⊆ ℚ̄_p` lie in `L`. -/
+theorem apply_mem {L : Fld p} (hL : IsFinGal L) (σ : GQp p) {x : Kbar p} (hx : x ∈ L) :
+    σ x ∈ L := by
+  have : IsGalois ℚ_[p] L := hL.2
+  have hn : Normal ℚ_[p] L := inferInstance
+  exact (IntermediateField.normal_iff_forall_map_le'.1 hn σ) ⟨x, hx, rfl⟩
+
+/-- **First clause of `InertiaRestriction` (proved):** `I_p ⊆ ramSet L 0` for finite Galois `L`
+with a uniformizer. -/
+theorem inertiaSet_subset_ramSet_zero {L : Fld p} (hL : IsFinGal L) {ϖ : Kbar p}
+    (hϖ : IsUnif L ϖ) : inertiaSet ⊆ ramSet L 0 := by
+  intro σ hσ
+  refine ⟨ϖ, hϖ, fun x hx hx1 => ?_⟩
+  rw [zero_add, pow_one]
+  exact hϖ.2.2 _ (L.sub_mem (apply_mem hL σ hx) hx) (hσ x hx1)
+
+theorem norm_p_kbar : ‖(p : Kbar p)‖ = (p : ℝ)⁻¹ := by
+  have h := PadicAlgCl.norm_extends p (p : ℚ_[p])
+  have e : ((p : ℚ_[p]) : PadicAlgCl p) = (p : Kbar p) := map_natCast (algebraMap ℚ_[p] _) p
+  rw [e, Padic.norm_p] at h
+  exact h
+
+/-- **Non-vacuity of `IsUnif`:** `p` is a uniformizer of `L = ℚ_p`. -/
+theorem isUnif_bot : IsUnif (⊥ : Fld p) (p : Kbar p) := by
+  have hp1 : (1 : ℝ) < p := by exact_mod_cast (Fact.out : p.Prime).one_lt
+  refine ⟨?_, ?_, ?_⟩
+  · rw [← map_natCast (algebraMap ℚ_[p] (Kbar p)) p]
+    exact IntermediateField.algebraMap_mem _ _
+  · rw [norm_p_kbar]; exact inv_lt_one_of_one_lt₀ hp1
+  · intro y hy hy1
+    obtain ⟨q, rfl⟩ := IntermediateField.mem_bot.1 hy
+    have hq : ‖algebraMap ℚ_[p] (Kbar p) q‖ = ‖q‖ := PadicAlgCl.norm_extends p q
+    rw [hq] at hy1 ⊢
+    rw [norm_p_kbar]
+    have := (Padic.norm_le_pow_iff_norm_lt_pow_add_one q (-1)).2 (by simpa using hy1)
+    simpa [zpow_neg_one] using this
+
+/-- The restrictions to a finite `L` of elements of `G_{ℚ_p}` form a finite set. -/
+theorem finite_restr {L : Fld p} (hL : IsFinGal L) (S : Set (GQp p)) :
+    (restr L '' S).Finite := by
+  have : FiniteDimensional ℚ_[p] L := hL.1
+  refine (Set.finite_range (fun f : L →ₐ[ℚ_[p]] Kbar p => (f : L → Kbar p))).subset ?_
+  rintro _ ⟨σ, -, rfl⟩
+  exact ⟨σ.toAlgHom.comp L.val, rfl⟩
+
+/-- **`g_0 ≠ 0` (proved)** for a finite Galois `L` with a uniformizer. -/
+theorem ramCard_ne_zero {L : Fld p} (hL : IsFinGal L) {ϖ : Kbar p} (hϖ : IsUnif L ϖ) (i : ℕ) :
+    ramCard L i ≠ 0 := by
+  have hne : (restr L '' ramSet L i).Nonempty :=
+    ⟨restr L 1, 1, fixSet_subset_ramSet hϖ i (fun x _ => rfl), rfl⟩
+  have hfin := finite_restr hL (ramSet L i)
+  have : Finite (restr L '' ramSet L i) := hfin.to_subtype
+  have : Nonempty (restr L '' ramSet L i) := hne.to_subtype
+  exact Nat.card_ne_zero.2 ⟨inferInstance, inferInstance⟩
+
+/-- **Sanity (b), reduced hypotheses.** For `L` finite Galois with a uniformizer and `ρ` trivial on
+`G_L`: `codim V^I + Sw_L = ∑_{i≥0}(g_i/g_0) codim V^{G_i}`, assuming only the two surjectivity
+statements (restriction of `I_p` onto `G_0(L)`, of `P_p ∩ G_i` onto `G_i(L)` for `i ≥ 1`) and
+`G_i(L) = 1` for `i ≥ N`. -/
+theorem condAt_eq_artinAt' {ρ : GQp p →* GL (Fin n) k} {L : Fld p} (hL : IsFinGal L)
+    {ϖ : Kbar p} (hϖ : IsUnif L ϖ) (hfix : ∀ σ ∈ fixSet L, ρ σ = 1)
+    (hI : ∀ σ ∈ ramSet L 0, ∃ τ ∈ inertiaSet, ∀ x ∈ L, τ x = σ x)
+    (hW : ∀ i : ℕ, ∀ σ ∈ ramSet L (i + 1), ∃ τ ∈ ramSet L (i + 1) ∩ wildSet, ∀ x ∈ L, τ x = σ x)
+    {N : ℕ} (hN : EventuallyTrivial L N) :
+    condAt L ρ = artinAt L ρ :=
+  condAt_eq_artinAt hfix ⟨inertiaSet_subset_ramSet_zero hL hϖ, hI, hW⟩ hN
+    (ramCard_ne_zero hL hϖ 0)
+
 end LadicCond
 
 end
@@ -555,3 +623,7 @@ end
 #print axioms LadicCond.carayolR17'_of_R17
 #print axioms LadicCond.integral_codim_le
 #print axioms LadicCond.condAt_le_of_upper
+#print axioms LadicCond.inertiaSet_subset_ramSet_zero
+#print axioms LadicCond.isUnif_bot
+#print axioms LadicCond.ramCard_ne_zero
+#print axioms LadicCond.condAt_eq_artinAt'

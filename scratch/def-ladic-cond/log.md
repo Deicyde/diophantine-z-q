@@ -24,3 +24,9 @@
   (`a(ρ) ≤ n(1+U)` from `SwanIntegral`): glue-conductor D4(i) consumer. Compiles, axioms
   [propext, Classical.choice, Quot.sound]. VERIFIED.
 - 23:53 PST: added non-degeneracy checks `fixSet_subset_ramSet`, `isAdapted_one`, `condExp_one`, `one_mem_wildSet`. Compiles. VERIFIED.
+- 23:55 PST: added and proved `apply_mem` (conjugates stay in a finite Galois `L`, via
+  `IntermediateField.normal_iff_forall_map_le'`), `inertiaSet_subset_ramSet_zero` (first clause of
+  `InertiaRestriction`), `norm_p_kbar`, `isUnif_bot` (`p` is a uniformizer of `ℚ_p`: `IsUnif` is
+  satisfiable), `finite_restr`, `ramCard_ne_zero` (`g_i ≠ 0`), `condAt_eq_artinAt'` (sanity (b)
+  with only the two surjectivity clauses and eventual triviality as hypotheses). File compiles with
+  no errors and no `sorry`; 12 `#print axioms`, all [propext, Classical.choice, Quot.sound]. VERIFIED.
