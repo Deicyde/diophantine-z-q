@@ -29,5 +29,5 @@
   v(σt - t) = v(s) < 1, contradicting v(s)² = v(d) = 1; (⇐) via `exists_inertia_neg`. COMPILED.
 - Final B3b.lean (1617 lines) = all of the above. `lake env lean`: no errors, 20 s; 12
   `#print axioms` lines all [propext, Classical.choice, Quot.sound]; no `sorry`, no `axiom`. 12:04.
-- Dev pieces Sec.lean, Sec2.lean, Sec3.lean, T32Defs.lean, Prefix.lean are fragments (not
-  standalone files); B3b.lean is the checked file.
+- Dev fragments Sec.lean, Sec2.lean, Sec3.lean, T32Defs.lean, Prefix.lean removed (their
+  contents are in B3b.lean, the one checked file).
