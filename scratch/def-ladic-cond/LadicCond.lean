@@ -611,6 +611,76 @@ theorem condAt_eq_artinAt' {ρ : GQp p →* GL (Fin n) k} {L : Fld p} (hL : IsFi
   condAt_eq_artinAt hfix ⟨inertiaSet_subset_ramSet_zero hL hϖ, hI, hW⟩ hN
     (ramCard_ne_zero hL hϖ 0)
 
+/-- Two uniformizers of `L` have the same absolute value. -/
+theorem IsUnif.norm_eq {L : Fld p} {ϖ ϖ' : Kbar p} (h : IsUnif L ϖ) (h' : IsUnif L ϖ') :
+    ‖ϖ'‖ = ‖ϖ‖ :=
+  le_antisymm (h.2.2 _ h'.1 h'.2.1) (h'.2.2 _ h.1 h.2.1)
+
+/-- If `σ₀` moves `L`, then for large `i` no element of `ramSet L i` restricts to `σ₀|_L`. -/
+theorem eventually_not_restr {L : Fld p} {ϖ : Kbar p} (hϖ : IsUnif L ϖ) {σ₀ : GQp p}
+    (h₀ : σ₀ ∉ fixSet L) :
+    ∃ N : ℕ, ∀ i, N ≤ i → ∀ σ ∈ ramSet L i, restr L σ ≠ restr L σ₀ := by
+  simp only [fixSet, Set.mem_setOf_eq, not_forall] at h₀
+  obtain ⟨y, hy, hσy⟩ := h₀
+  have hpn : ‖(p : Kbar p)‖ < 1 := by
+    rw [norm_p_kbar]; exact inv_lt_one_of_one_lt₀ (by exact_mod_cast (Fact.out : p.Prime).one_lt)
+  obtain ⟨k, hk⟩ := exists_pow_lt_of_lt_one (show (0 : ℝ) < 1 / (‖y‖ + 1) by positivity) hpn
+  set x₀ : Kbar p := (p : Kbar p) ^ k * y with hx₀
+  have hpk : (p : Kbar p) ^ k = algebraMap ℚ_[p] (Kbar p) ((p : ℚ_[p]) ^ k) := by simp
+  have hx₀L : x₀ ∈ L := L.mul_mem (hpk ▸ IntermediateField.algebraMap_mem _ _) hy
+  have hx₀1 : ‖x₀‖ ≤ 1 := by
+    rw [hx₀, norm_mul, norm_pow]
+    have h1 : ‖(p : Kbar p)‖ ^ k * (‖y‖ + 1) < 1 := by
+      rwa [lt_div_iff₀ (by positivity)] at hk
+    nlinarith [norm_nonneg y, pow_nonneg (norm_nonneg (p : Kbar p)) k]
+  have hσx₀ : σ₀ x₀ - x₀ = (p : Kbar p) ^ k * (σ₀ y - y) := by
+    rw [hx₀, map_mul, map_pow, map_natCast]; ring
+  have hε : 0 < ‖σ₀ x₀ - x₀‖ := by
+    rw [hσx₀, norm_pos_iff]
+    exact mul_ne_zero (pow_ne_zero _ (Nat.cast_ne_zero.2 (Fact.out : p.Prime).ne_zero))
+      (sub_ne_zero.2 hσy)
+  obtain ⟨N, hN⟩ := exists_pow_lt_of_lt_one hε hϖ.2.1
+  refine ⟨N, fun i hi σ hσ heq => ?_⟩
+  obtain ⟨ϖ', hϖ', hb⟩ := hσ
+  have e : σ x₀ = σ₀ x₀ := congrFun heq ⟨x₀, hx₀L⟩
+  have h1 := hb x₀ hx₀L hx₀1
+  rw [e, hϖ.norm_eq hϖ'] at h1
+  have h2 : ‖ϖ‖ ^ (i + 1) ≤ ‖ϖ‖ ^ N :=
+    pow_le_pow_of_le_one (norm_nonneg _) hϖ.2.1.le (by omega)
+  linarith
+
+/-- **`G_i(L/ℚ_p) = 1` for large `i` (proved)**, for finite Galois `L` with a uniformizer. -/
+theorem eventuallyTrivial {L : Fld p} (hL : IsFinGal L) {ϖ : Kbar p} (hϖ : IsUnif L ϖ) :
+    ∃ N, EventuallyTrivial L N := by
+  have key : ∀ T : Set (L → Kbar p), T.Finite → T ⊆ restr L '' (fixSet L)ᶜ →
+      ∃ N : ℕ, ∀ i, N ≤ i → ∀ σ ∈ ramSet L i, restr L σ ∉ T := by
+    intro T hT
+    induction T, hT using Set.Finite.induction_on with
+    | empty => exact fun _ => ⟨0, fun _ _ _ _ h => h⟩
+    | @insert f T' _ _ ih =>
+      intro hsub
+      obtain ⟨N₁, hN₁⟩ := ih (fun g hg => hsub (Set.mem_insert_of_mem _ hg))
+      obtain ⟨σ₀, h₀, rfl⟩ := hsub (Set.mem_insert _ _)
+      obtain ⟨N₀, hN₀⟩ := eventually_not_restr hϖ h₀
+      refine ⟨max N₀ N₁, fun i hi σ hσ hmem => ?_⟩
+      rcases hmem with h | h
+      · exact hN₀ i (le_of_max_le_left hi) σ hσ h
+      · exact hN₁ i (le_of_max_le_right hi) σ hσ h
+  obtain ⟨N, hN⟩ := key _ (finite_restr hL _) le_rfl
+  refine ⟨N, fun i hi σ hσ => ?_⟩
+  by_contra hfix
+  exact hN i hi σ hσ ⟨σ, hfix, rfl⟩
+
+/-- **Sanity (b), final form.** For `L` finite Galois with a uniformizer and `ρ` trivial on `G_L`,
+`codim V^I + Sw_L = ∑_{i≥0}(g_i/g_0) codim V^{G_i}`, given only the two surjectivity facts. -/
+theorem condAt_eq_artinAt'' {ρ : GQp p →* GL (Fin n) k} {L : Fld p} (hL : IsFinGal L)
+    {ϖ : Kbar p} (hϖ : IsUnif L ϖ) (hfix : ∀ σ ∈ fixSet L, ρ σ = 1)
+    (hI : ∀ σ ∈ ramSet L 0, ∃ τ ∈ inertiaSet, ∀ x ∈ L, τ x = σ x)
+    (hW : ∀ i : ℕ, ∀ σ ∈ ramSet L (i + 1), ∃ τ ∈ ramSet L (i + 1) ∩ wildSet, ∀ x ∈ L, τ x = σ x) :
+    condAt L ρ = artinAt L ρ :=
+  let ⟨_, hN⟩ := eventuallyTrivial hL hϖ
+  condAt_eq_artinAt' hL hϖ hfix hI hW hN
+
 end LadicCond
 
 end
@@ -627,3 +697,5 @@ end
 #print axioms LadicCond.isUnif_bot
 #print axioms LadicCond.ramCard_ne_zero
 #print axioms LadicCond.condAt_eq_artinAt'
+#print axioms LadicCond.eventuallyTrivial
+#print axioms LadicCond.condAt_eq_artinAt''

@@ -26,10 +26,9 @@ no `sorry`; every proved theorem uses only `propext`, `Classical.choice`, `Quot.
 - **Sanity facts, proved:**
   - unramified ⇒ `a = 0`: `condExp_eq_zero_of_unramified`, `condAt_eq_zero_of_unramified`;
   - agreement with Serre's finite-level Artin conductor `∑_{i≥0}(g_i/g_0) codim V^{G_i}` (the formula
-    of pkg-I6's `artinConductor`) when `ρ` factors through `Gal(L/ℚ_p)`: `condAt_eq_artinAt'`. It
+    of pkg-I6's `artinConductor`) when `ρ` factors through `Gal(L/ℚ_p)`: `condAt_eq_artinAt''`. It
     holds for `L` finite Galois with a uniformizer, and assumes only the two standard surjectivity
-    facts (restriction of `I_p` onto `G_0(L)`, and of `P_p ∩ G_i` onto `G_i(L)`) and `G_i(L) = 1`
-    for large `i`;
+    facts (restriction of `I_p` onto `G_0(L)`, and of `P_p ∩ G_i` onto `G_i(L)`);
   - independence of the level reduces to one Prop, `SwanIndependent`: `condExp_eq_condAt`.
 - **Leaves stated:**
   - `CarayolR17` (at every adapted level) and `CarayolR17'` (canonical `condExp`). Both are proved
@@ -81,14 +80,19 @@ representations.
   The reduced form `condAt_eq_artinAt'` (for `L` finite Galois with a uniformizer) assumes only:
   - restriction of `I_p` onto `G_0(L)`;
   - restriction of `P_p ∩ ramSet L i` onto `G_i(L)` for `i ≥ 1`;
-  - `G_i(L) = 1` for `i ≥ N`.
+  - `G_i(L) = 1` for `i ≥ N`. This one is now proved too, see below.
 
   STANDARD: Serre CL I §7 Prop. 21, IV §1–2 (UNVERIFIED); not proved here. The other hypotheses
   are proved:
   - `I_p ⊆ ramSet L 0`: `inertiaSet_subset_ramSet_zero`, via `apply_mem`, conjugates stay in a
     normal `L`;
   - `g_i ≠ 0`: `ramCard_ne_zero`, via `finite_restr`: the restrictions inject into
-    `L →ₐ[ℚ_p] ℚ̄_p`, which is finite.
+    `L →ₐ[ℚ_p] ℚ̄_p`, which is finite;
+  - `G_i(L) = 1` for large `i`: `eventuallyTrivial`. If `σ` moves `y ∈ L`, then `x = p^k y ∈ 𝓞_L`
+    has `‖σx − x‖ > 0`, which exceeds `‖ϖ‖^{i+1}` for large `i`. Induction over the finitely
+    many restrictions then gives one bound for all of them.
+
+  The final form is `condAt_eq_artinAt''`. Its only hypotheses are the two surjectivity facts.
 
   The agreement is with `artinAt`, which is pkg-I6's `artinConductor` formula on `G_{ℚ_p}`. A Lean
   identification with `PkgI6.artinConductor` on `𝓞_L ≃ₐ[ℤ_p] 𝓞_L` is not done.
@@ -138,9 +142,9 @@ on `G^u` for `u > U ≥ 0`, then `a ≤ n(1+U)`. With `n = 2` and `U = U₀` thi
 1. `SwanIndependent`: Herbrand plus transitivity of `φ`; medium.
 2. `AdaptedExists`: `ρ(P_p)` is finite for `ℓ ≠ p` (pro-`p` against pro-`ℓ`), and `ρ` takes values
    in a finite `E/ℚ_ℓ` (Baire); medium.
-3. The surjectivity clauses of `InertiaRestriction L`, `EventuallyTrivial L N`, and existence of a
-   uniformizer of a general `L` (proved for `L = ℚ_p`; `I_p ⊆ ramSet L 0` and `g_i ≠ 0` are
-   proved): standard local field theory; small to medium. They will need `L` as a complete DVR. Mathlib
+3. The two surjectivity clauses of `InertiaRestriction L`, and existence of a uniformizer of a
+   general finite `L` (proved for `L = ℚ_p`). Already proved: `I_p ⊆ ramSet L 0`, `g_i ≠ 0`,
+   `G_i(L) = 1` for large `i`. Standard local field theory; small to medium. They will need `L` as a complete DVR. Mathlib
    has `IsDiscreteValuationRing` and `Valued`, but no packaged `𝓞_L` for `L ⊆ ℚ̄_p`.
 4. L8 itself (`SwanIntegral`), if it is to become glue.
 5. The bridge from `artinAt` to `PkgI6.artinConductor`:

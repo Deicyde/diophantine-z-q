@@ -30,3 +30,8 @@
   satisfiable), `finite_restr`, `ramCard_ne_zero` (`g_i ≠ 0`), `condAt_eq_artinAt'` (sanity (b)
   with only the two surjectivity clauses and eventual triviality as hypotheses). File compiles with
   no errors and no `sorry`; 12 `#print axioms`, all [propext, Classical.choice, Quot.sound]. VERIFIED.
+- 23:57 PST: proved `IsUnif.norm_eq`, `eventually_not_restr`, `eventuallyTrivial`
+  (`G_i(L/ℚ_p) = 1` for large `i`, every finite Galois `L` with a uniformizer; by
+  `Set.Finite.induction_on` over the finitely many restrictions), and `condAt_eq_artinAt''`
+  (sanity (b) assuming only the two surjectivity facts). Compiles (rc 0, no errors, no `sorry`);
+  14 `#print axioms`, all [propext, Classical.choice, Quot.sound]. VERIFIED.
