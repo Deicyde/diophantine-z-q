@@ -142,7 +142,43 @@ lemma blockMap_injective (ρ : Representation k G V) : Function.Injective (block
       (Prod.ext (Subtype.ext (LinearMap.ext fun x => (hx x).2))
         (Subtype.ext (LinearMap.ext fun y => (hy y).2))))
 
-set_option backward.isDefEq.respectTransparency false in
+omit [Monoid G] in
+lemma id_mem_commOf {W : Type*} [AddCommGroup W] [Module k W] (r : G → W →ₗ[k] W) :
+    (LinearMap.id : W →ₗ[k] W) ∈ commOf r := by
+  intro g; simp
+
+omit [Monoid G] in
+/-- A commutant of dimension `1` consists of the scalars. -/
+lemma scalar_of_finrank_commOf_eq_one {W : Type*} [AddCommGroup W] [Module k W] [Nontrivial W]
+    (r : G → W →ₗ[k] W) (h1 : Module.finrank k (commOf r) = 1) :
+    ∀ φ ∈ commOf r, ∃ c : k, φ = c • LinearMap.id := by
+  intro φ hφ
+  have hid0 : (⟨LinearMap.id, id_mem_commOf r⟩ : commOf r) ≠ 0 := by
+    intro h0
+    obtain ⟨x, hx⟩ := exists_ne (0 : W)
+    exact hx (by simpa using congrArg (fun f : commOf r => (f : W →ₗ[k] W) x) h0)
+  obtain ⟨c, hc⟩ := (finrank_eq_one_iff_of_nonzero' _ hid0).mp h1 ⟨φ, hφ⟩
+  exact ⟨c, by simpa using (congrArg Subtype.val hc).symm⟩
+
+/-- **The dimension count of C2 (GLUE, proved).** If `dim End_G(V ⊕ V) ≤ 4` and `V ≠ 0` is
+finite-dimensional, then `dim End_G(V) = 1`. -/
+theorem finrank_commOf_eq_one_of_prod_le_four (ρ : Representation k G V) [Nontrivial V]
+    [FiniteDimensional k V]
+    (h4 : Module.finrank k (commOf (k := k) (fun g => (ρ g).prodMap (ρ g))) ≤ 4) :
+    Module.finrank k (commOf (k := k) (fun g => ρ g)) = 1 := by
+  have hinj := blockMap_injective ρ
+  have hle := LinearMap.finrank_le_finrank_of_injective hinj
+  simp only [Module.finrank_prod] at hle
+  have hC1 : Module.finrank k (commOf (k := k) (fun g => ρ g)) ≤ 1 := by omega
+  have hid0 : (⟨LinearMap.id, id_mem_commOf _⟩ : commOf (k := k) (fun g => ρ g)) ≠ 0 := by
+    intro h0
+    obtain ⟨x, hx⟩ := exists_ne (0 : V)
+    have h0x := congrArg (fun f : commOf (k := k) (fun g => ρ g) => (f : V →ₗ[k] V) x) h0
+    exact hx (by simpa using h0x)
+  have hpos : 0 < Module.finrank k (commOf (k := k) (fun g => ρ g)) :=
+    Module.finrank_pos_iff_exists_ne_zero.mpr ⟨_, hid0⟩
+  omega
+
 /-- **C2 over the splitting field (GLUE, proved).** N5 L731-734: over a field `E` splitting `B`,
 `V_ℓ(A) ⊗ E ≅ r ⊕ r` and `dim_E End_G(V_ℓ A ⊗ E) = 4`. If the commutant of `r ⊕ r` has
 dimension at most `4` and `r` is semisimple and nonzero, then `r` is irreducible, and its
@@ -152,27 +188,64 @@ theorem isIrreducible_of_finrank_commOf_prod_le_four (ρ : Representation k G V)
     [FiniteDimensional k V]
     (h4 : Module.finrank k (commOf (k := k) (fun g => (ρ g).prodMap (ρ g))) ≤ 4) :
     ρ.IsIrreducible ∧ ∀ φ ∈ commOf (k := k) (fun g => ρ g), ∃ c : k, φ = c • LinearMap.id := by
-  have hinj := blockMap_injective ρ
-  have hle := LinearMap.finrank_le_finrank_of_injective hinj
-  simp only [Module.finrank_prod] at hle
-  have hC1 : Module.finrank k (commOf (k := k) (fun g => ρ g)) ≤ 1 := by omega
-  set C := commOf (k := k) (fun g => ρ g)
-  have hid : (LinearMap.id : V →ₗ[k] V) ∈ C := by intro g; simp
-  have hid0 : (⟨LinearMap.id, hid⟩ : C) ≠ 0 := by
-    intro h0
-    obtain ⟨x, hx⟩ := exists_ne (0 : V)
-    exact hx (by simpa using congrArg (fun f : C => (f : V →ₗ[k] V) x) h0)
-  have hscalar : ∀ φ ∈ C, ∃ c : k, φ = c • LinearMap.id := by
-    intro φ hφ
-    have hpos : 0 < Module.finrank k C :=
-      Module.finrank_pos_iff_exists_ne_zero.mpr ⟨_, hid0⟩
-    have h1 : Module.finrank k C = 1 := by omega
-    obtain ⟨c, hc⟩ := (finrank_eq_one_iff_of_nonzero' (⟨LinearMap.id, hid⟩ : C) hid0).mp
-      h1 ⟨φ, hφ⟩
-    exact ⟨c, by simpa using (congrArg Subtype.val hc).symm⟩
-  exact ⟨isIrreducible_of_commutant_scalar ρ hss (fun φ hφ => hscalar φ hφ), hscalar⟩
+  have hsc := scalar_of_finrank_commOf_eq_one _ (finrank_commOf_eq_one_of_prod_le_four ρ h4)
+  exact ⟨isIrreducible_of_commutant_scalar ρ hss (fun φ hφ => hsc φ hφ), hsc⟩
+
+/-! ### Extension of the coefficient field -/
+
+/-- Base change `ρ_E` of a representation along a field extension `E/k`. -/
+def repBaseChange (E : Type*) [Field E] [Algebra k E] (ρ : Representation k G V) :
+    Representation E G (TensorProduct k E V) where
+  toFun g := (ρ g).baseChange E
+  map_one' := by
+    change (ρ 1).baseChange E = LinearMap.id
+    rw [map_one, Module.End.one_eq_id, LinearMap.baseChange_id]
+  map_mul' g h := by
+    change (ρ (g * h)).baseChange E = (ρ g).baseChange E ∘ₗ (ρ h).baseChange E
+    rw [map_mul, Module.End.mul_eq_comp, LinearMap.baseChange_comp]
+
+/-- **GLUE, not proved here (linear algebra; STANDARD).** Invariants commute with extension of
+the coefficient field: `dim_E End_G(V ⊗ E) = dim_k End_G(V)` for finite-dimensional `V`. (The
+commutant of `ρ(G)` is the commutant of its finite-dimensional span, i.e. the kernel of a
+`k`-linear map between finite-dimensional spaces, and kernels commute with flat base change.) -/
+def InvariantsBaseChange : Prop :=
+  ∀ (k E G V : Type) [Field k] [Field E] [Algebra k E] [Monoid G] [AddCommGroup V] [Module k V]
+    [FiniteDimensional k V] (ρ : Representation k G V),
+    Module.finrank E (commOf (k := E) (fun g => repBaseChange E ρ g)) =
+      Module.finrank k (commOf (k := k) (fun g => ρ g))
+
+/-- **GLUE, not proved here (algebra; STANDARD).** In characteristic `0`, semisimplicity of a
+finite-dimensional representation survives extension of the coefficient field. (The span of
+`ρ(G)` is a finite-dimensional algebra with a faithful semisimple module, hence semisimple, hence
+separable since `k` is perfect, so its base change is semisimple.) -/
+def SemisimpleBaseChange : Prop :=
+  ∀ (k E G V : Type) [Field k] [CharZero k] [Field E] [Algebra k E] [Monoid G] [AddCommGroup V]
+    [Module k V] [FiniteDimensional k V] (ρ : Representation k G V),
+    ρ.IsSemisimpleRepresentation → (repBaseChange E ρ).IsSemisimpleRepresentation
+
+/-- **C2, absolute irreducibility (GLUE, proved from the two linear-algebra statements above).**
+If `r` is a nonzero semisimple representation over a field of characteristic `0` with
+`dim End_G(r ⊕ r) ≤ 4`, then `r ⊗ F` is irreducible for every extension `F`, i.e. `r` is
+absolutely irreducible. -/
+theorem absolutelyIrreducible_of_finrank_commOf_prod_le_four
+    (hInv : InvariantsBaseChange) (hSS : SemisimpleBaseChange)
+    {k G V : Type} [Field k] [CharZero k] [Monoid G] [AddCommGroup V] [Module k V]
+    [FiniteDimensional k V] [Nontrivial V] (ρ : Representation k G V)
+    (hss : ρ.IsSemisimpleRepresentation)
+    (h4 : Module.finrank k (commOf (k := k) (fun g => (ρ g).prodMap (ρ g))) ≤ 4)
+    (F : Type) [Field F] [Algebra k F] : (repBaseChange F ρ).IsIrreducible := by
+  have h1 := finrank_commOf_eq_one_of_prod_le_four ρ h4
+  have hF1 : Module.finrank F (commOf (k := F) (fun g => repBaseChange F ρ g)) = 1 := by
+    rw [hInv k F G V ρ, h1]
+  have : Nontrivial (TensorProduct k F V) := by
+    apply Module.nontrivial_of_finrank_pos (R := F)
+    rw [Module.finrank_baseChange]
+    exact Module.finrank_pos
+  exact isIrreducible_of_commutant_scalar _ (hSS k F G V ρ hss)
+    (fun φ hφ => scalar_of_finrank_commOf_eq_one _ hF1 φ hφ)
 
 end GlueI3
 
 #print axioms GlueI3.isIrreducible_of_commutant_scalar
 #print axioms GlueI3.isIrreducible_of_finrank_commOf_prod_le_four
+#print axioms GlueI3.absolutelyIrreducible_of_finrank_commOf_prod_le_four

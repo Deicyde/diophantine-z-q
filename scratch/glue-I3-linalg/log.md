@@ -18,6 +18,17 @@
   `ρ` semisimple, `finrank_k End_G(V ⊕ V) ≤ 4` ⇒ `ρ` irreducible and `End_G(V) = k`.
   VERIFIED (compiled); axioms [propext, Classical.choice, Quot.sound].
 
+- `GlueI3.id_mem_commOf`, `GlueI3.scalar_of_finrank_commOf_eq_one` (a 1-dimensional commutant on a
+  nonzero space is the scalars), `GlueI3.finrank_commOf_eq_one_of_prod_le_four`. VERIFIED (compiled).
+- `GlueI3.repBaseChange E ρ`: `ρ_E g = (ρ g).baseChange E` on `E ⊗_k V`, a Mathlib `Representation`
+  (laws proved). VERIFIED (compiled).
+- `GlueI3.InvariantsBaseChange`, `GlueI3.SemisimpleBaseChange`: statements (`def … : Prop`) of the two
+  linear-algebra glue facts; NOT proved (STANDARD linear algebra; see the report).
+- `GlueI3.absolutelyIrreducible_of_finrank_commOf_prod_le_four`: from `InvariantsBaseChange` and
+  `SemisimpleBaseChange`: char 0, `V ≠ 0` finite-dimensional, `ρ` semisimple,
+  `finrank End_G(V ⊕ V) ≤ 4` ⇒ `repBaseChange F ρ` irreducible for every field `F ⊇ k`.
+  VERIFIED (compiled 22:31 PST); axioms [propext, Classical.choice, Quot.sound]. File has no `sorry`.
+
 ## Findings
 - Mathlib v4.35.0 has `Representation.IsIrreducible` (`IsSimpleOrder (Subrepresentation ρ)`) and
   `IsSemisimpleRepresentation` (`ComplementedLattice`), so the commutant argument is statable over
