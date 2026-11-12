@@ -39,3 +39,10 @@ Pitfall: the existential `∃ t` fixes universes; mixing Type* in callers gave a
 - `frobCompare_of_squares` — from hΨ : Ψ.conj (N • Tσ) = (Vmap μ' ∘ σ_*) ⊗ E,
   hS1 : red' ∘ σ_* = Vmap F ∘ red, hS2 : red ∘ Vmap μ' = Vmap μ̄' ∘ red'  ⟹
   FrobCompare ℓ Tσ (homComp F μ̄') N.  Axioms: propext, Classical.choice, Quot.sound.
+
+## 11:58 PST — Link.lean complete (VERIFIED, `lake env lean`, no errors, no warnings)
+- `FrobSquares ℓ μ' F μ̄' Tσ N` := ∃ σ_* red red' Ψ, hS1 ∧ hS2 ∧ hΨ.
+- `frobCompare_of_frobSquares`.
+- `c10_of_squares` — c10_of_trace_link with hFrob replaced by hSq (∃ L k [CharP k p] A Aσ μ' Ā Ā'
+  F μ̄' N ≠ 0, FrobSquares at 3 and 5).
+- `#print axioms` (7 theorems): [propext, Classical.choice, Quot.sound].
