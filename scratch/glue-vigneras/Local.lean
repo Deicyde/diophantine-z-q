@@ -268,4 +268,108 @@ theorem mem_Op_iff_nrd_three (x : Bp 3) : x ∈ Op 3 ↔ ‖nrd 3 x‖ ≤ 1 := 
     · exact norm_le_one_of_eq_coe (2 * lift _ hd) (by simp [coord, coe_lift, coe_two])
   · rw [norm_mul, norm_form3, norm_three_three]; push_cast; ring
 
+section Normalizer
+variable (p : ℕ) [hp : Fact p.Prime]
+
+theorem mem_Op_iff_nrd (hp2 : p = 2 ∨ p = 3) (x : Bp p) : x ∈ Op p ↔ ‖nrd p x‖ ≤ 1 := by
+  rcases hp2 with rfl | rfl
+  · exact mem_Op_iff_nrd_two x
+  · exact mem_Op_iff_nrd_three x
+
+theorem nrd_unit_mul_inv (u : (Bp p)ˣ) : nrd p u * nrd p ((u⁻¹ : (Bp p)ˣ) : Bp p) = 1 := by
+  rw [← nrd_mul, Units.mul_inv, nrd_one]
+
+theorem norm_nrd_unit_mul_inv (u : (Bp p)ˣ) :
+    ‖nrd p u‖ * ‖nrd p ((u⁻¹ : (Bp p)ˣ) : Bp p)‖ = 1 := by
+  rw [← norm_mul, nrd_unit_mul_inv, norm_one]
+
+theorem nrd_unit_ne_zero (u : (Bp p)ˣ) : nrd p u ≠ 0 := by
+  intro h; have := nrd_unit_mul_inv p u; rw [h, zero_mul] at this; exact zero_ne_one this
+
+/-- `𝒪_p^×`: the units of `B_p` lying in `𝒪_p` together with their inverses. -/
+def OpUnits : Set (Bp p)ˣ := {u | (u : Bp p) ∈ Op p ∧ ((u⁻¹ : (Bp p)ˣ) : Bp p) ∈ Op p}
+
+/-- The normalizer of `𝒪_p` in `B_p^×`: `x 𝒪_p x⁻¹ = 𝒪_p`. -/
+def normalizerOp : Set (Bp p)ˣ :=
+  {x | ∀ y : Bp p, y ∈ Op p ↔ (x : Bp p) * y * ((x⁻¹ : (Bp p)ˣ) : Bp p) ∈ Op p}
+
+/-- `ℚ_p^× 𝒪_p^×` (as a set). -/
+def scalOpUnits : Set (Bp p)ˣ :=
+  {x | ∃ c : ℚ_[p]ˣ, ∃ u ∈ OpUnits p, (x : Bp p) = (c : ℚ_[p]) • (u : Bp p)}
+
+theorem mem_OpUnits_iff (hp2 : p = 2 ∨ p = 3) (u : (Bp p)ˣ) : u ∈ OpUnits p ↔ ‖nrd p u‖ = 1 := by
+  have h := norm_nrd_unit_mul_inv p u
+  have h0 := norm_nonneg (nrd p u)
+  have h0' := norm_nonneg (nrd p ((u⁻¹ : (Bp p)ˣ) : Bp p))
+  simp only [OpUnits, Set.mem_ofPred_eq, mem_Op_iff_nrd p hp2]
+  constructor
+  · rintro ⟨h1, h2⟩; nlinarith
+  · intro h1; rw [h1, one_mul] at h; exact ⟨h1.le, h.le⟩
+
+/-- **The normalizer of `𝒪_p` is all of `B_p^×`** (`p = 2, 3`). -/
+theorem normalizerOp_eq_univ (hp2 : p = 2 ∨ p = 3) : normalizerOp p = Set.univ := by
+  ext x
+  simp only [normalizerOp, Set.mem_ofPred_eq, Set.mem_univ, iff_true]
+  intro y
+  rw [mem_Op_iff_nrd p hp2, mem_Op_iff_nrd p hp2, nrd_mul, nrd_mul]
+  have := nrd_unit_mul_inv p x
+  have e : nrd p x * nrd p y * nrd p ((x⁻¹ : (Bp p)ˣ) : Bp p) = nrd p y := by
+    linear_combination (nrd p y) * this
+  rw [e]
+
+theorem norm_p_zpow' (m : ℤ) : ‖(p : ℚ_[p]) ^ (-m)‖ = (p : ℝ) ^ m := by
+  rw [Padic.norm_p_zpow, neg_neg]
+
+/-- `x ∈ ℚ_p^× 𝒪_p^×` iff `v_p(nrd x)` is even. -/
+theorem mem_scalOpUnits_iff (hp2 : p = 2 ∨ p = 3) (x : (Bp p)ˣ) :
+    x ∈ scalOpUnits p ↔ ∃ m : ℤ, ‖nrd p x‖ = (p : ℝ) ^ (2 * m) := by
+  have p0 : (0 : ℝ) < p := by exact_mod_cast hp.out.pos
+  constructor
+  · rintro ⟨c, u, hu, hx⟩
+    rw [mem_OpUnits_iff p hp2] at hu
+    obtain ⟨m, hm⟩ := norm_zpow (Units.ne_zero c)
+    refine ⟨m, ?_⟩
+    rw [hx, nrd_smul, norm_mul, norm_pow, hu, hm, mul_one, ← zpow_natCast, ← zpow_mul]
+    ring_nf
+  · rintro ⟨m, hm⟩
+    have hc : ((p : ℚ_[p]) ^ (-m)) ≠ 0 := by
+      apply zpow_ne_zero; exact_mod_cast hp.out.ne_zero
+    let c : ℚ_[p]ˣ := Units.mk0 _ hc
+    let u : (Bp p)ˣ := Units.map (algebraMap ℚ_[p] (Bp p)).toMonoidHom c⁻¹ * x
+    have hu : (u : Bp p) = ((c⁻¹ : ℚ_[p]ˣ) : ℚ_[p]) • (x : Bp p) := by
+      simp [u, Algebra.smul_def]
+    refine ⟨c, u, ?_, ?_⟩
+    · rw [mem_OpUnits_iff p hp2, hu, nrd_smul, norm_mul, norm_pow, hm, Units.val_inv_eq_inv_val,
+        norm_inv]
+      simp only [c, Units.val_mk0, norm_p_zpow']
+      have sq : ((p : ℝ) ^ m) ^ 2 = (p : ℝ) ^ (2 * m) := by
+        rw [← zpow_natCast, ← zpow_mul]; ring_nf
+      rw [inv_pow, sq, inv_mul_cancel₀ (zpow_pos p0 _).ne']
+    · rw [hu, smul_smul, Units.mul_inv, one_smul]
+
+/-- `ℚ_p^× 𝒪_p^×` as a subgroup of `B_p^×`. -/
+def scalOpUnitsSubgroup (hp2 : p = 2 ∨ p = 3) : Subgroup (Bp p)ˣ where
+  carrier := scalOpUnits p
+  one_mem' := by
+    rw [mem_scalOpUnits_iff p hp2]; exact ⟨0, by simp [nrd_one]⟩
+  mul_mem' := by
+    intro a b ha hb
+    rw [mem_scalOpUnits_iff p hp2] at ha hb ⊢
+    obtain ⟨m, hm⟩ := ha; obtain ⟨n, hn⟩ := hb
+    refine ⟨m + n, ?_⟩
+    have p0 : (0 : ℝ) < p := by exact_mod_cast hp.out.pos
+    rw [Units.val_mul, nrd_mul, norm_mul, hm, hn, ← zpow_add₀ p0.ne']; ring_nf
+  inv_mem' := by
+    intro a ha
+    rw [mem_scalOpUnits_iff p hp2] at ha ⊢
+    obtain ⟨m, hm⟩ := ha
+    refine ⟨-m, ?_⟩
+    have p0 : (0 : ℝ) < p := by exact_mod_cast hp.out.pos
+    have h := norm_nrd_unit_mul_inv p a
+    rw [hm] at h
+    rw [eq_comm, ← mul_left_cancel_iff_of_pos (zpow_pos p0 (2 * m)), h, ← zpow_add₀ p0.ne']
+    ring_nf; simp
+
+end Normalizer
+
 end GlueVigneras
