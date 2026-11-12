@@ -62,30 +62,30 @@ theorem gaussP_sq (p : ℕ) [hp : Fact p.Prime] (hp2 : p ≠ 2) {ζ : Qbar}
   · left; rw [h]; simp
   · right; rw [h]; simp
 
-/-- `±p` is not a square in `ℚ`, so some `σ ∈ G_ℚ` negates a square root of `±p`. -/
-theorem exists_neg_of_sq (p : ℕ) (hp : p.Prime) {α : Qbar}
-    (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar)) : ∃ σ : Gal, σ α = -α := by
+/-- If `α² = c ∈ ℤ` and `c` is not a square in `ℚ`, some `σ ∈ G_ℚ` negates `α`. -/
+theorem exists_neg_of_sq {α : Qbar} {c : ℤ} (hα : α ^ 2 = (c : Qbar))
+    (hc : ¬ IsSquare (c : ℚ)) : ∃ σ : Gal, σ α = -α := by
   by_contra hne
   push_neg at hne
   have hfix : ∀ g : Gal, g α = α := fun g => (smul_sq_cases hα g).resolve_right (hne g)
   have hbot : α ∈ (⊥ : IntermediateField ℚ Qbar) := (InfiniteGalois.mem_bot_iff_fixed α).mpr hfix
   obtain ⟨q, hq⟩ := IntermediateField.mem_bot.mp hbot
   rw [← hq] at hα
-  rcases hα with h | h
-  · have h' : q ^ 2 = (p : ℚ) := by
-      apply (algebraMap ℚ Qbar).injective; rw [map_pow, h, map_natCast]
-    have hsq : IsSquare (p : ℚ) := ⟨q, by rw [← h', sq]⟩
-    rw [Rat.isSquare_natCast_iff] at hsq
-    obtain ⟨r, hr⟩ := hsq
-    rcases hp.eq_one_or_self_of_dvd r ⟨r, hr⟩ with h1 | h1
-    · rw [h1] at hr; exact hp.one_lt.ne' (by simpa using hr)
-    · rw [h1] at hr
-      have h2 : p * 1 = p * p := by rw [mul_one]; exact hr
-      exact hp.one_lt.ne (Nat.eq_of_mul_eq_mul_left hp.pos h2)
-  · have h' : q ^ 2 = -(p : ℚ) := by
-      apply (algebraMap ℚ Qbar).injective; rw [map_pow, h, map_neg, map_natCast]
-    have : (0 : ℚ) < p := by exact_mod_cast hp.pos
-    nlinarith [sq_nonneg q]
+  have h' : q ^ 2 = (c : ℚ) := by
+    apply (algebraMap ℚ Qbar).injective; rw [map_pow, hα, map_intCast]
+  exact hc ⟨q, by rw [← h', sq]⟩
+
+/-- A squarefree integer divisible by a prime is not a square in `ℚ`. -/
+theorem not_isSquare_of_squarefree {d : ℤ} (hd : Squarefree d) {p : ℕ} (hp : p.Prime)
+    (hpd : (p : ℤ) ∣ d) : ¬ IsSquare (d : ℚ) := by
+  rw [Rat.isSquare_intCast_iff]
+  rintro ⟨r, hr⟩
+  have hu : IsUnit r := hd r ⟨1, by rw [hr, mul_one]⟩
+  have h1 : d = 1 := by
+    rcases Int.isUnit_iff.mp hu with h | h <;> rw [hr, h] <;> norm_num
+  rw [h1] at hpd
+  have := Int.eq_one_of_dvd_one (by positivity) hpd
+  exact hp.one_lt.ne' (by exact_mod_cast this)
 
 /-- **`LeafB3b` is glue** (proved from Mathlib): the Legendre character mod an odd prime `p`, as a
 character of `G_ℚ`, is nontrivial on the inertia group of every place over `p`. -/
@@ -95,8 +95,14 @@ theorem leafB3b : LeafB3b := by
   haveI : NeZero ((p : ℕ) : Qbar) := ⟨by exact_mod_cast hp.ne_zero⟩
   obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot Qbar p
   have hα := gaussP_sq p hp2 hζ
-  obtain ⟨σ, hσ⟩ := exists_neg_of_sq p hp hα
-  obtain ⟨s, hs, hsα⟩ := exists_inertia_neg p hp w hw (gaussP p hζ) hα σ hσ
+  obtain ⟨c, hαc, hc, hcp⟩ : ∃ c : ℤ, gaussP p hζ ^ 2 = (c : Qbar) ∧
+      w.valuation (c : Qbar) = w.valuation (p : Qbar) ∧ Squarefree c ∧ (p : ℤ) ∣ c := by
+    have hsf : Squarefree (p : ℤ) := Int.squarefree_natCast.mpr hp.squarefree
+    rcases hα with h | h
+    · exact ⟨p, by rw [h]; simp, by simp, hsf, dvd_rfl⟩
+    · exact ⟨-p, by rw [h]; simp, by simp [Valuation.map_neg], fun x hx => hsf x (dvd_neg.mp hx), by simp⟩
+  obtain ⟨σ, hσ⟩ := exists_neg_of_sq hαc (not_isSquare_of_squarefree hcp.1 hp hcp.2)
+  obtain ⟨s, hs, hsα⟩ := exists_inertia_neg p hp w hw (gaussP p hζ) c hαc hc σ hσ
   refine ⟨s, hs, fun h1 => ?_⟩
   have hq : quadraticChar (ZMod p) ((cyc p s : (ZMod p)ˣ) : ZMod p) = 1 := by
     unfold etaP at h1

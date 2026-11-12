@@ -5,19 +5,18 @@ open scoped Pointwise
 
 set_option synthInstance.maxHeartbeats 400000 in
 set_option maxHeartbeats 1000000 in
-/-- **The inertia element.** If `α² = ±p` and some `σ ∈ G_ℚ` negates `α`, then some element of
+/-- **The inertia element.** If `α² = c ∈ ℤ` with `v_w(c) = v_w(p)` (e.g. `c = ±p`) and some `σ ∈ G_ℚ` negates `α`, then some element of
 the inertia group of any place `w` over `p` negates `α`. -/
 theorem exists_inertia_neg (p : ℕ) (hp : p.Prime) (w : ValuationSubring Qbar) (hw : LiesOver w p)
-    (α : Qbar) (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar)) (σ : Gal) (hσ : σ α = -α) :
+    (α : Qbar) (c : ℤ) (hα : α ^ 2 = (c : Qbar))
+    (hc : w.valuation (c : Qbar) = w.valuation (p : Qbar)) (σ : Gal) (hσ : σ α = -α) :
     ∃ s : Gal, s ∈ (w.inertiaSubgroup ℚ).map (w.decompositionSubgroup ℚ).subtype ∧ s α = -α := by
   classical
   have hpint : IsIntegral ℤ (p : Qbar) := by
     simpa using isIntegral_algebraMap (R := ℤ) (A := Qbar) (x := (p : ℤ))
   have hαint : IsIntegral ℤ α := by
     refine IsIntegral.of_pow (n := 2) two_pos ?_
-    rcases hα with h | h <;> rw [h]
-    · exact hpint
-    · exact hpint.neg
+    rw [hα]; exact isIntegral_intCast c
   let H : Subgroup Gal := MulAction.stabilizer Gal α
   have hH : ∀ g : Gal, g ∈ H ↔ g α = α := fun g => Iff.rfl
   have hHopen : IsOpen (H : Set Gal) := stabilizer_isOpen_of_isIntegral (K := ℚ) (L := Qbar) α
@@ -38,7 +37,7 @@ theorem exists_inertia_neg (p : ℕ) (hp : p.Prime) (w : ValuationSubring Qbar) 
     intro a σ' hσ'
     have hai : IsIntegral ℤ ((a : B) : Qbar) := (mem_integralClosure_iff ℤ Qbar).mp (a : B).2
     obtain ⟨r, hr⟩ := exists_int_anti hα hαint hai (hAfix a) σ' hσ'
-    exact val_sub_lt_one hp hw hα (val_le_one_of_isIntegral w hai)
+    exact val_sub_lt_one hp hw hα hc (val_le_one_of_isIntegral w hai)
       (val_le_one_of_isIntegral w (hai.map ((σ' : Qbar →+* Qbar).toIntAlgHom))) r hr
   -- step 1: `σ • Q` and `Q` lie over the same prime of `A`
   have hunder : (σ • Q).under A = Q.under A := by

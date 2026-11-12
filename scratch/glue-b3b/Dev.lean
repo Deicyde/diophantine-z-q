@@ -956,21 +956,19 @@ theorem val_intCast (hp : p.Prime) (hw : LiesOver w p) (r : ℤ) :
       · rw [map_mul]; exact lt_of_le_of_lt (mul_le_of_le_one_left' (val_intCast_le_one y)) hlt
     rw [h1] at h2; exact lt_irrefl _ h2
 
-theorem val_sq_eq {α : Qbar} (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar)) :
+theorem val_sq_eq {α : Qbar} {c : ℤ} (hα : α ^ 2 = (c : Qbar))
+    (hc : w.valuation (c : Qbar) = w.valuation (p : Qbar)) :
     w.valuation α * w.valuation α = w.valuation (p : Qbar) := by
-  rw [← map_mul, ← pow_two]
-  rcases hα with h | h
-  · rw [h]
-  · rw [h, Valuation.map_neg]
+  rw [← map_mul, ← pow_two, hα, hc]
 
-/-- **The valuation input.** If `α² = ±p`, `a, b` are `w`-integral and `(a - b) α ∈ ℤ`, then
+/-- **The valuation input.** If `α² = c ∈ ℤ` with `v(c) = v(p)` (e.g. `c = ±p`), `a, b` are `w`-integral and `(a - b) α ∈ ℤ`, then
 `a ≡ b` modulo `w`: since `v(α)` lies strictly between `v(p)` and `1`, while an integer has
 valuation `1` or `≤ v(p)`. -/
-theorem val_sub_lt_one (hp : p.Prime) (hw : LiesOver w p) {α : Qbar}
-    (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar)) {a b : Qbar}
+theorem val_sub_lt_one (hp : p.Prime) (hw : LiesOver w p) {α : Qbar} {c : ℤ}
+    (hα : α ^ 2 = (c : Qbar)) (hc : w.valuation (c : Qbar) = w.valuation (p : Qbar)) {a b : Qbar}
     (ha : w.valuation a ≤ 1) (hb : w.valuation b ≤ 1) (r : ℤ) (hr : (a - b) * α = r) :
     w.valuation (a - b) < 1 := by
-  have hu := val_sq_eq (w := w) hα
+  have hu := val_sq_eq (w := w) hα hc
   have hab : w.valuation (a - b) ≤ 1 := le_trans (Valuation.map_sub _ _ _) (max_le ha hb)
   have hu0 : w.valuation α ≠ 0 := by
     intro h; rw [h, zero_mul] at hu; exact val_natCast_ne_zero hp hu.symm
@@ -990,10 +988,9 @@ theorem val_sub_lt_one (hp : p.Prime) (hw : LiesOver w p) {α : Qbar}
     rw [mul_inv_cancel_right₀ hu0, mul_inv_cancel_right₀ hu0] at h2
     exact lt_of_le_of_lt h2 hu1
 
-theorem smul_sq_cases {α : Qbar} (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar)) (g : Gal) :
+theorem smul_sq_cases {α : Qbar} {c : ℤ} (hα : α ^ 2 = (c : Qbar)) (g : Gal) :
     g α = α ∨ g α = -α := by
-  have hc : g (α ^ 2) = α ^ 2 := by
-    rcases hα with h | h <;> rw [h] <;> simp
+  have hc : g (α ^ 2) = α ^ 2 := by rw [hα, map_intCast]
   rw [map_pow] at hc
   exact sq_eq_sq_iff_eq_or_eq_neg.mp hc
 
@@ -1008,7 +1005,7 @@ theorem exists_int_of_fixed {y : Qbar} (hy : IsIntegral ℤ y) (hfix : ∀ g : G
 
 /-- **Anti-invariance.** If `a` is fixed by every `g` fixing `α` and `σ α = -α`, then
 `(a - σ a) α` is fixed by all of `G_ℚ`, hence an integer when `a` is integral. -/
-theorem exists_int_anti {α a : Qbar} (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar))
+theorem exists_int_anti {α a : Qbar} {c : ℤ} (hα : α ^ 2 = (c : Qbar))
     (hαi : IsIntegral ℤ α) (hai : IsIntegral ℤ a) (hfix : ∀ g : Gal, g α = α → g a = a)
     (σ : Gal) (hσ : σ α = -α) : ∃ r : ℤ, (a - σ a) * α = r := by
   have hσi : σ⁻¹ α = -α := by
@@ -1158,19 +1155,18 @@ open scoped Pointwise
 
 set_option synthInstance.maxHeartbeats 400000 in
 set_option maxHeartbeats 1000000 in
-/-- **The inertia element.** If `α² = ±p` and some `σ ∈ G_ℚ` negates `α`, then some element of
+/-- **The inertia element.** If `α² = c ∈ ℤ` with `v_w(c) = v_w(p)` (e.g. `c = ±p`) and some `σ ∈ G_ℚ` negates `α`, then some element of
 the inertia group of any place `w` over `p` negates `α`. -/
 theorem exists_inertia_neg (p : ℕ) (hp : p.Prime) (w : ValuationSubring Qbar) (hw : LiesOver w p)
-    (α : Qbar) (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar)) (σ : Gal) (hσ : σ α = -α) :
+    (α : Qbar) (c : ℤ) (hα : α ^ 2 = (c : Qbar))
+    (hc : w.valuation (c : Qbar) = w.valuation (p : Qbar)) (σ : Gal) (hσ : σ α = -α) :
     ∃ s : Gal, s ∈ (w.inertiaSubgroup ℚ).map (w.decompositionSubgroup ℚ).subtype ∧ s α = -α := by
   classical
   have hpint : IsIntegral ℤ (p : Qbar) := by
     simpa using isIntegral_algebraMap (R := ℤ) (A := Qbar) (x := (p : ℤ))
   have hαint : IsIntegral ℤ α := by
     refine IsIntegral.of_pow (n := 2) two_pos ?_
-    rcases hα with h | h <;> rw [h]
-    · exact hpint
-    · exact hpint.neg
+    rw [hα]; exact isIntegral_intCast c
   let H : Subgroup Gal := MulAction.stabilizer Gal α
   have hH : ∀ g : Gal, g ∈ H ↔ g α = α := fun g => Iff.rfl
   have hHopen : IsOpen (H : Set Gal) := stabilizer_isOpen_of_isIntegral (K := ℚ) (L := Qbar) α
@@ -1191,7 +1187,7 @@ theorem exists_inertia_neg (p : ℕ) (hp : p.Prime) (w : ValuationSubring Qbar) 
     intro a σ' hσ'
     have hai : IsIntegral ℤ ((a : B) : Qbar) := (mem_integralClosure_iff ℤ Qbar).mp (a : B).2
     obtain ⟨r, hr⟩ := exists_int_anti hα hαint hai (hAfix a) σ' hσ'
-    exact val_sub_lt_one hp hw hα (val_le_one_of_isIntegral w hai)
+    exact val_sub_lt_one hp hw hα hc (val_le_one_of_isIntegral w hai)
       (val_le_one_of_isIntegral w (hai.map ((σ' : Qbar →+* Qbar).toIntAlgHom))) r hr
   -- step 1: `σ • Q` and `Q` lie over the same prime of `A`
   have hunder : (σ • Q).under A = Q.under A := by
@@ -1350,30 +1346,30 @@ theorem gaussP_sq (p : ℕ) [hp : Fact p.Prime] (hp2 : p ≠ 2) {ζ : Qbar}
   · left; rw [h]; simp
   · right; rw [h]; simp
 
-/-- `±p` is not a square in `ℚ`, so some `σ ∈ G_ℚ` negates a square root of `±p`. -/
-theorem exists_neg_of_sq (p : ℕ) (hp : p.Prime) {α : Qbar}
-    (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar)) : ∃ σ : Gal, σ α = -α := by
+/-- If `α² = c ∈ ℤ` and `c` is not a square in `ℚ`, some `σ ∈ G_ℚ` negates `α`. -/
+theorem exists_neg_of_sq {α : Qbar} {c : ℤ} (hα : α ^ 2 = (c : Qbar))
+    (hc : ¬ IsSquare (c : ℚ)) : ∃ σ : Gal, σ α = -α := by
   by_contra hne
   push_neg at hne
   have hfix : ∀ g : Gal, g α = α := fun g => (smul_sq_cases hα g).resolve_right (hne g)
   have hbot : α ∈ (⊥ : IntermediateField ℚ Qbar) := (InfiniteGalois.mem_bot_iff_fixed α).mpr hfix
   obtain ⟨q, hq⟩ := IntermediateField.mem_bot.mp hbot
   rw [← hq] at hα
-  rcases hα with h | h
-  · have h' : q ^ 2 = (p : ℚ) := by
-      apply (algebraMap ℚ Qbar).injective; rw [map_pow, h, map_natCast]
-    have hsq : IsSquare (p : ℚ) := ⟨q, by rw [← h', sq]⟩
-    rw [Rat.isSquare_natCast_iff] at hsq
-    obtain ⟨r, hr⟩ := hsq
-    rcases hp.eq_one_or_self_of_dvd r ⟨r, hr⟩ with h1 | h1
-    · rw [h1] at hr; exact hp.one_lt.ne' (by simpa using hr)
-    · rw [h1] at hr
-      have h2 : p * 1 = p * p := by rw [mul_one]; exact hr
-      exact hp.one_lt.ne (Nat.eq_of_mul_eq_mul_left hp.pos h2)
-  · have h' : q ^ 2 = -(p : ℚ) := by
-      apply (algebraMap ℚ Qbar).injective; rw [map_pow, h, map_neg, map_natCast]
-    have : (0 : ℚ) < p := by exact_mod_cast hp.pos
-    nlinarith [sq_nonneg q]
+  have h' : q ^ 2 = (c : ℚ) := by
+    apply (algebraMap ℚ Qbar).injective; rw [map_pow, hα, map_intCast]
+  exact hc ⟨q, by rw [← h', sq]⟩
+
+/-- A squarefree integer divisible by a prime is not a square in `ℚ`. -/
+theorem not_isSquare_of_squarefree {d : ℤ} (hd : Squarefree d) {p : ℕ} (hp : p.Prime)
+    (hpd : (p : ℤ) ∣ d) : ¬ IsSquare (d : ℚ) := by
+  rw [Rat.isSquare_intCast_iff]
+  rintro ⟨r, hr⟩
+  have hu : IsUnit r := hd r ⟨1, by rw [hr, mul_one]⟩
+  have h1 : d = 1 := by
+    rcases Int.isUnit_iff.mp hu with h | h <;> rw [hr, h] <;> norm_num
+  rw [h1] at hpd
+  have := Int.eq_one_of_dvd_one (by positivity) hpd
+  exact hp.one_lt.ne' (by exact_mod_cast this)
 
 /-- **`LeafB3b` is glue** (proved from Mathlib): the Legendre character mod an odd prime `p`, as a
 character of `G_ℚ`, is nontrivial on the inertia group of every place over `p`. -/
@@ -1383,8 +1379,14 @@ theorem leafB3b : LeafB3b := by
   haveI : NeZero ((p : ℕ) : Qbar) := ⟨by exact_mod_cast hp.ne_zero⟩
   obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot Qbar p
   have hα := gaussP_sq p hp2 hζ
-  obtain ⟨σ, hσ⟩ := exists_neg_of_sq p hp hα
-  obtain ⟨s, hs, hsα⟩ := exists_inertia_neg p hp w hw (gaussP p hζ) hα σ hσ
+  obtain ⟨c, hαc, hc, hcp⟩ : ∃ c : ℤ, gaussP p hζ ^ 2 = (c : Qbar) ∧
+      w.valuation (c : Qbar) = w.valuation (p : Qbar) ∧ Squarefree c ∧ (p : ℤ) ∣ c := by
+    have hsf : Squarefree (p : ℤ) := Int.squarefree_natCast.mpr hp.squarefree
+    rcases hα with h | h
+    · exact ⟨p, by rw [h]; simp, by simp, hsf, dvd_rfl⟩
+    · exact ⟨-p, by rw [h]; simp, by simp [Valuation.map_neg], fun x hx => hsf x (dvd_neg.mp hx), by simp⟩
+  obtain ⟨σ, hσ⟩ := exists_neg_of_sq hαc (not_isSquare_of_squarefree hcp.1 hp hcp.2)
+  obtain ⟨s, hs, hsα⟩ := exists_inertia_neg p hp w hw (gaussP p hζ) c hαc hc σ hσ
   refine ⟨s, hs, fun h1 => ?_⟩
   have hq : quadraticChar (ZMod p) ((cyc p s : (ZMod p)ˣ) : ZMod p) = 1 := by
     unfold etaP at h1

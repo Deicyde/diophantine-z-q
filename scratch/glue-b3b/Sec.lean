@@ -46,21 +46,19 @@ theorem val_intCast (hp : p.Prime) (hw : LiesOver w p) (r : ℤ) :
       · rw [map_mul]; exact lt_of_le_of_lt (mul_le_of_le_one_left' (val_intCast_le_one y)) hlt
     rw [h1] at h2; exact lt_irrefl _ h2
 
-theorem val_sq_eq {α : Qbar} (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar)) :
+theorem val_sq_eq {α : Qbar} {c : ℤ} (hα : α ^ 2 = (c : Qbar))
+    (hc : w.valuation (c : Qbar) = w.valuation (p : Qbar)) :
     w.valuation α * w.valuation α = w.valuation (p : Qbar) := by
-  rw [← map_mul, ← pow_two]
-  rcases hα with h | h
-  · rw [h]
-  · rw [h, Valuation.map_neg]
+  rw [← map_mul, ← pow_two, hα, hc]
 
-/-- **The valuation input.** If `α² = ±p`, `a, b` are `w`-integral and `(a - b) α ∈ ℤ`, then
+/-- **The valuation input.** If `α² = c ∈ ℤ` with `v(c) = v(p)` (e.g. `c = ±p`), `a, b` are `w`-integral and `(a - b) α ∈ ℤ`, then
 `a ≡ b` modulo `w`: since `v(α)` lies strictly between `v(p)` and `1`, while an integer has
 valuation `1` or `≤ v(p)`. -/
-theorem val_sub_lt_one (hp : p.Prime) (hw : LiesOver w p) {α : Qbar}
-    (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar)) {a b : Qbar}
+theorem val_sub_lt_one (hp : p.Prime) (hw : LiesOver w p) {α : Qbar} {c : ℤ}
+    (hα : α ^ 2 = (c : Qbar)) (hc : w.valuation (c : Qbar) = w.valuation (p : Qbar)) {a b : Qbar}
     (ha : w.valuation a ≤ 1) (hb : w.valuation b ≤ 1) (r : ℤ) (hr : (a - b) * α = r) :
     w.valuation (a - b) < 1 := by
-  have hu := val_sq_eq (w := w) hα
+  have hu := val_sq_eq (w := w) hα hc
   have hab : w.valuation (a - b) ≤ 1 := le_trans (Valuation.map_sub _ _ _) (max_le ha hb)
   have hu0 : w.valuation α ≠ 0 := by
     intro h; rw [h, zero_mul] at hu; exact val_natCast_ne_zero hp hu.symm
@@ -80,10 +78,9 @@ theorem val_sub_lt_one (hp : p.Prime) (hw : LiesOver w p) {α : Qbar}
     rw [mul_inv_cancel_right₀ hu0, mul_inv_cancel_right₀ hu0] at h2
     exact lt_of_le_of_lt h2 hu1
 
-theorem smul_sq_cases {α : Qbar} (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar)) (g : Gal) :
+theorem smul_sq_cases {α : Qbar} {c : ℤ} (hα : α ^ 2 = (c : Qbar)) (g : Gal) :
     g α = α ∨ g α = -α := by
-  have hc : g (α ^ 2) = α ^ 2 := by
-    rcases hα with h | h <;> rw [h] <;> simp
+  have hc : g (α ^ 2) = α ^ 2 := by rw [hα, map_intCast]
   rw [map_pow] at hc
   exact sq_eq_sq_iff_eq_or_eq_neg.mp hc
 
@@ -98,7 +95,7 @@ theorem exists_int_of_fixed {y : Qbar} (hy : IsIntegral ℤ y) (hfix : ∀ g : G
 
 /-- **Anti-invariance.** If `a` is fixed by every `g` fixing `α` and `σ α = -α`, then
 `(a - σ a) α` is fixed by all of `G_ℚ`, hence an integer when `a` is integral. -/
-theorem exists_int_anti {α a : Qbar} (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar))
+theorem exists_int_anti {α a : Qbar} {c : ℤ} (hα : α ^ 2 = (c : Qbar))
     (hαi : IsIntegral ℤ α) (hai : IsIntegral ℤ a) (hfix : ∀ g : Gal, g α = α → g a = a)
     (σ : Gal) (hσ : σ α = -α) : ∃ r : ℤ, (a - σ a) * α = r := by
   have hσi : σ⁻¹ α = -α := by
