@@ -28,3 +28,8 @@
   Proof: τ stabilizes the maximal ideal; stabilizerHom τ ∈ Gal((S/Q)/𝔽_p) = ⟨Frob⟩ (FiniteField.bijective_frobeniusAlgEquivOfAlgebraic_pow); roots of unity separate mod Q.
 - `autToPow_eq_of_apply`: σ ζ = ζ^k (ζ primitive m-th root) → autToPow σ = k in ZMod m. VERIFIED.
 - `range_autToPow_eq_zpowers`: p ∤ m, ζ primitive m-th root in L (L/ℚ_p finite Galois), IsLocalRing (integralClosure ℤ_[p] L) → range (autToPow : Gal(L/ℚ_p) → (ZMod m)ˣ) = zpowers (p mod m). VERIFIED (locality hypothesis).
+
+## Local.lean / Unramified.lean (compiled; axioms propext, Classical.choice, Quot.sound)
+- `isIntegral_iff_spectralNorm_le_one`: y ∈ L (L/ℚ_p finite) integral over ℤ_p ↔ spectralNorm ℚ_[p] L y ≤ 1. VERIFIED.
+- `isLocalRing_integralClosure`: IsLocalRing (integralClosure ℤ_[p] L). VERIFIED. (units = norm 1; nonunits = norm < 1, closed under + by isNonarchimedean_spectralNorm; multiplicativity from spectralMulAlgNorm, ℚ_p complete.)
+- Unramified.lean = Frob.lean + Local.lean merged; adds unconditional `pow_frobenius` and `range_autToPow_eq_zpowers'`: for p ∤ m, ζ primitive m-th root in finite Galois L/ℚ_p, range(autToPow) = zpowers (p mod m). VERIFIED.
