@@ -28,7 +28,7 @@ LaTeX label is given.
 **Overall.** Proposition N depends on TYZ only through statements whose printed proofs are complete and correct
 as far as this review can judge, with one exception of exposition: the exact constant in Theorem 3.3
 (`P_χ = ε 2^{h₂(n)} 𝓛(d₁) 𝒫(d₀)`) is asserted after "computations similar to that in the proof of
-Theorem 2.1", which are not printed (L2015–2016). Proposition N is insensitive to most of that constant: any
+Theorem 2.1", which are not printed (L2014–2015). Proposition N is insensitive to most of that constant: any
 factor depending on `d₀` alone, and the uniform factor `2^{h₂(n)}`, drop out (§2.3, VERIFIED). What it needs is
 that the factor attached to `d₁` is `𝓛(d₁)` up to a 2-adic unit, and that factor comes from the same
 power-of-2 bookkeeping that Theorem 2.1 prints in full and that the numerics of I2 confirm (§3.1). Neither the
@@ -132,7 +132,7 @@ Correct given Theorem 3.3 (VERIFIED). Implicit conventions: `ε(n, 1) = 1` (choo
 
 *The gap.* Theorem 3.3's constant is proved by reducing to the height identity
 `ĥ(R_χ) = L′(E_{K_n}, χ, 1)/(2^{2k(n)−2h₂(n)−2−a(n)} Ω_{d₀}Ω_{d₁})` and then: "Apply Theorem A.9 … The proof is
-finished by computations similar to that in the proof of Theorem 2.1" (L2012–2016). The reduction itself is
+finished by computations similar to that in the proof of Theorem 2.1" (L2014–2015). The reduction itself is
 correct (VERIFIED: it needs `ĥ(β_{d₀}) = R_{d₀}/2`, consistent with "`R_n` is twice the Néron–Tate height").
 The final computation is not printed. Section 2.3 shows how much of it Proposition N needs.
 
@@ -333,7 +333,7 @@ Together with §3.2's first part, 41 samples, none inconsistent with Proposition
 
 | # | where | finding | effect on Proposition N |
 |---|---|---|---|
-| T1 | Thm 3.3 proof, L2012–2016 | the explicit Gross–Zagier constant is "computations similar to … Theorem 2.1", not printed | Proposition N needs only its `χ`-uniformity (§2.3); residual doubt, settle by writing the computation |
+| T1 | Thm 3.3 proof, L2014–2015 | the explicit Gross–Zagier constant is "computations similar to … Theorem 2.1", not printed | Proposition N needs only its `χ`-uniformity (§2.3); residual doubt, settle by writing the computation |
 | T2 | Lemma 2.8 | factor `w_K` missing (rv-nt-tyz B1, confirmed) | none modulo 2 in `ℤ_(2)` |
 | T3 | Thm 2.1 and its proof | "trivial on `K₂^×` ⟺ `d₂* ≡ 1 (mod 8)`" incomplete at `n ≡ 3`; the theorem is false for ordered pairs (`P(1,3) ≠ 0`) | none: Lemma 2.8 uses non-ordered pairs |
 | T4 | Lemma 3.9, case `d₁ = 1` | `(4P)^c = 4P` should be `−4P` | none |
