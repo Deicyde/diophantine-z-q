@@ -647,6 +647,139 @@ theorem exampleHodge_modelHeight :
 
 end Sanity
 
+/-! ## 7. Hermitian lines given by fractional ideals: the closed formula (part of node AR3)
+
+Every invertible `𝓞_K`-module with a trivialization of its generic fibre is a fractional ideal
+`I ⊆ K`. For such lines `#(I / 𝓞_K x) · N(I) = |N_{K/ℚ}(x)|` (`secIndex_mul_absNorm`), so
+`deg(I, ρ·|σ(·)|) = −log N(I) − ∑_σ log ρ_σ` (`arakelovDegree_ofFractionalIdeal`). This is the form
+in which AT1a meets a Néron lattice `𝔞 · dx/(2y + a₁x + a₃)` that is not free (class number > 1). -/
+
+section FractionalIdeal
+
+open Pointwise
+open scoped nonZeroDivisors
+
+variable {K : Type*} [Field K] [NumberField K]
+
+/-- **Index formula.** For a fractional ideal `I` and `0 ≠ x ∈ I`:
+`#(I / 𝓞_K x) · N(I) = |N_{K/ℚ}(x)|`. -/
+theorem secIndex_mul_absNorm (I : FractionalIdeal (𝓞 K)⁰ K) {x : K} (hx : x ∈ I) (hx0 : x ≠ 0) :
+    (secIndex (I : Submodule (𝓞 K) K) x : ℚ) * FractionalIdeal.absNorm I =
+      |Algebra.norm ℚ x| := by
+  classical
+  set d : 𝓞 K := (I.den : 𝓞 K) with hd
+  have hd0' : d ≠ 0 := nonZeroDivisors.ne_zero I.den.2
+  have hd0 : (d : K) ≠ 0 := by exact_mod_cast hd0'
+  let f : K →ₗ[𝓞 K] K := DistribSMul.toLinearMap (𝓞 K) K I.den
+  have hf_apply : ∀ z, f z = (d : K) * z := by
+    intro z
+    show I.den • z = (d : K) * z
+    rw [Submonoid.smul_def, ← algebraMap_smul K, smul_eq_mul]
+  have hf : Function.Injective f := fun a b h => by
+    rw [hf_apply, hf_apply] at h
+    exact mul_left_cancel₀ hd0 h
+  have hfI : Submodule.map f (I : Submodule (𝓞 K) K) =
+      Submodule.map (Algebra.linearMap (𝓞 K) K) I.num :=
+    FractionalIdeal.den_mul_self_eq_num I
+  -- `d x = y` with `y ∈ I.num`
+  have hdx : f x ∈ Submodule.map (Algebra.linearMap (𝓞 K) K) I.num :=
+    hfI ▸ Submodule.mem_map_of_mem hx
+  obtain ⟨y, hy, hyx⟩ := hdx
+  have hy0 : y ≠ 0 := by
+    rintro rfl
+    simp only [map_zero] at hyx
+    exact hx0 (hf (by rw [← hyx, map_zero]))
+  let ι : 𝓞 K →ₗ[𝓞 K] K := Algebra.linearMap (𝓞 K) K
+  have hι : Function.Injective ι := IsFractionRing.injective (𝓞 K) K
+  have hspan : Submodule.map f (Submodule.span (𝓞 K) {x}) =
+      Submodule.map ι (Ideal.span {y}) := by
+    rw [Submodule.map_span, Submodule.map_span, Set.image_singleton, Set.image_singleton]
+    simp only [ι] at hyx ⊢
+    rw [hyx]
+  -- transport the index
+  have h1 : secIndex (I : Submodule (𝓞 K) K) x =
+      (Ideal.span {y}).toAddSubgroup.relIndex I.num.toAddSubgroup := by
+    unfold secIndex
+    have e1 := AddSubgroup.relIndex_map_map_of_injective
+      (Submodule.span (𝓞 K) {x}).toAddSubgroup (I : Submodule (𝓞 K) K).toAddSubgroup
+      (f := (f : K →+ K)) hf
+    rw [← Submodule.map_toAddSubgroup, ← Submodule.map_toAddSubgroup, hspan, hfI,
+      Submodule.map_toAddSubgroup, Submodule.map_toAddSubgroup,
+      AddSubgroup.relIndex_map_map_of_injective _ _ hι] at e1
+    exact e1.symm
+  have hle : Ideal.span {y} ≤ I.num := (Ideal.span_singleton_le_iff_mem _).mpr hy
+  have h2 : (Ideal.span {y}).toAddSubgroup.relIndex I.num.toAddSubgroup *
+      Ideal.absNorm I.num = (Algebra.norm ℤ y).natAbs := by
+    rw [← Ideal.absNorm_span_singleton, Ideal.absNorm_apply, Ideal.absNorm_apply,
+      Submodule.cardQuot_apply, Submodule.cardQuot_apply]
+    exact AddSubgroup.relIndex_mul_index (Submodule.toAddSubgroup_mono hle)
+  have hnum0 : Ideal.absNorm I.num ≠ 0 := by
+    intro h0
+    rw [h0, mul_zero] at h2
+    have : Algebra.norm ℤ y ≠ 0 := (Algebra.norm_ne_zero_iff (R := ℤ)).mpr hy0
+    omega
+  -- norms
+  have hNy : (Algebra.norm ℚ (y : K)) = Algebra.norm ℚ (d : K) * Algebra.norm ℚ x := by
+    have : (y : K) = (d : K) * x := by rw [← hf_apply]; exact hyx
+    rw [this, map_mul]
+  rw [FractionalIdeal.absNorm_eq, h1]
+  have hNyz : ((Algebra.norm ℤ y).natAbs : ℚ) = |Algebra.norm ℚ (y : K)| := by
+    rw [← Algebra.coe_norm_int]; simp [Nat.cast_natAbs]
+  have hNdz : ((Algebra.norm ℤ d : ℤ) : ℚ) = Algebra.norm ℚ (d : K) := Algebra.coe_norm_int d
+  have hNd0 : Algebra.norm ℚ (d : K) ≠ 0 := by
+    rw [← hNdz]; exact_mod_cast (Algebra.norm_ne_zero_iff (R := ℤ)).mpr hd0'
+  have key : ((Ideal.span {y}).toAddSubgroup.relIndex I.num.toAddSubgroup : ℚ) *
+      (Ideal.absNorm I.num : ℚ) = |Algebra.norm ℚ (d : K)| * |Algebra.norm ℚ x| := by
+    rw [← abs_mul, ← hNy, ← hNyz]; exact_mod_cast h2
+  have hden : ((|Algebra.norm ℤ (I.den : 𝓞 K)| : ℤ) : ℚ) = |Algebra.norm ℚ (d : K)| := by
+    rw [Int.cast_abs]; exact congr_arg _ hNdz
+  rw [hden, ← mul_div_assoc, key]
+  field_simp
+
+/-- The Hermitian line `(I, ρ_σ · |σ(·)|)` on `Spec 𝓞_K`. -/
+noncomputable def HermitianLattice.ofFractionalIdeal (I : FractionalIdeal (𝓞 K)⁰ K) (hI : I ≠ 0)
+    (ρ : (K →+* ℂ) → ℝ) (hρ : ∀ σ, 0 < ρ σ) : HermitianLattice K K where
+  lattice := I
+  finrank_eq_one := Module.finrank_self K
+  isLattice := by
+    obtain ⟨x, hxI, hx0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot
+      (FractionalIdeal.coeToSubmodule_ne_bot.mpr hI)
+    refine ⟨x, hxI, hx0, fun h0 => ?_⟩
+    have := secIndex_mul_absNorm I hxI hx0
+    rw [h0, Nat.cast_zero, zero_mul] at this
+    exact (Algebra.norm_ne_zero_iff.mpr hx0) (abs_eq_zero.mp this.symm)
+  norm σ x := ρ σ * ‖σ x‖
+  norm_smul σ a x := by rw [smul_eq_mul, map_mul, norm_mul]; ring
+  norm_pos σ x hx := mul_pos (hρ σ) (by simpa using hx)
+
+/-- **Closed formula:** `deg(I, ρ·|σ(·)|) = −log N(I) − ∑_σ log ρ_σ`. -/
+theorem HermitianLattice.arakelovDegree_ofFractionalIdeal (I : FractionalIdeal (𝓞 K)⁰ K)
+    (hI : I ≠ 0) (ρ : (K →+* ℂ) → ℝ) (hρ : ∀ σ, 0 < ρ σ) :
+    (HermitianLattice.ofFractionalIdeal I hI ρ hρ).arakelovDegree =
+      -Real.log (FractionalIdeal.absNorm I : ℝ) - ∑ σ : K →+* ℂ, Real.log (ρ σ) := by
+  set L := HermitianLattice.ofFractionalIdeal I hI ρ hρ
+  obtain ⟨hxI, hx0, hi⟩ := L.isLattice.choose_spec
+  set x := L.isLattice.choose
+  have hidx := secIndex_mul_absNorm I hxI hx0
+  have hN0 : FractionalIdeal.absNorm I ≠ 0 := by
+    intro h0; rw [h0, mul_zero] at hidx
+    exact (Algebra.norm_ne_zero_iff.mpr hx0) (abs_eq_zero.mp hidx.symm)
+  unfold HermitianLattice.arakelovDegree HermitianLattice.degreeAt
+  have hsum : ∑ σ : K →+* ℂ, Real.log (L.norm σ x) =
+      ∑ σ : K →+* ℂ, Real.log (ρ σ) + Real.log |(Algebra.norm ℚ x : ℝ)| := by
+    rw [← sum_log_norm_embeddings x hx0, ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl fun σ _ => ?_
+    exact Real.log_mul (hρ σ).ne' (by simpa using hx0)
+  rw [hsum]
+  have hidxR : (secIndex L.lattice x : ℝ) * (FractionalIdeal.absNorm I : ℝ) =
+      |(Algebra.norm ℚ x : ℝ)| := by exact_mod_cast hidx
+  have hlog : Real.log (secIndex L.lattice x : ℝ) + Real.log (FractionalIdeal.absNorm I : ℝ) =
+      Real.log |(Algebra.norm ℚ x : ℝ)| := by
+    rw [← Real.log_mul (by exact_mod_cast hi) (by exact_mod_cast hN0), hidxR]
+  linarith
+
+end FractionalIdeal
+
 end ZInQ.BPFaltings
 
 #print axioms ZInQ.BPFaltings.HermitianLattice.degreeAt_eq_arakelovDegree
@@ -659,3 +792,5 @@ end ZInQ.BPFaltings
 #print axioms ZInQ.BPFaltings.modelHeight_eq_faltingsHeightEC
 #print axioms ZInQ.BPFaltings.HermitianLattice.arakelovDegree_rescale
 #print axioms ZInQ.BPFaltings.exampleHodge_modelHeight
+#print axioms ZInQ.BPFaltings.secIndex_mul_absNorm
+#print axioms ZInQ.BPFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal

@@ -41,3 +41,16 @@ File `scratch/bp-faltings/Models.lean`. `lake env lean`: no errors, no warnings.
 - `genericFibre`, `GroupModel A L` (GrpObj in Over (Spec 𝓞_L), Smooth, IsSeparated,
   QuasiCompact, generic-fibre iso `gen` that is a monoid hom for the transported structure). VERIFIED.
 - two sanity examples (generic fibre smooth, separated: Mathlib base-change instances). VERIFIED.
+
+## Step 6 (12:03 PST). Rescaling; inhabited HodgeData
+`Hodge.lean` §6. Compiles, no sorry.
+- `HermitianLattice.rescale`, `arakelovDegree_rescale`: deg(M, c·‖·‖) = deg(M, ‖·‖) − Σ log c_σ. VERIFIED.
+- `gaussianPair` (ℤ + ℤi as a PeriodPair), `ratCoeff`, `exampleHodge : HodgeData ℚ 1 ℚ`,
+  `exampleHodge_modelHeight` = −½ log covol(ℤ+ℤi). VERIFIED (non-vacuity of the structure).
+- instances `DiscreteTopology`, `IsZLattice ℝ` for `PeriodPair.lattice1`.
+
+## Step 7 (12:08 PST). Fractional-ideal Hermitian lines (closed formula)
+`Hodge.lean` §7. Compiles; axioms propext, Classical.choice, Quot.sound.
+- `secIndex_mul_absNorm`: #(I/𝓞x)·N(I) = |N_{K/ℚ}x| for a fractional ideal I, 0 ≠ x ∈ I. VERIFIED.
+- `HermitianLattice.ofFractionalIdeal`, `arakelovDegree_ofFractionalIdeal`:
+  deg(I, ρ·|σ(·)|) = −log N(I) − Σ_σ log ρ_σ. VERIFIED.
