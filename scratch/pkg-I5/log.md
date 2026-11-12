@@ -50,3 +50,11 @@ UNVERIFIED (no network).
 - proved: `thomaePoint_add_const`, `tripleProd_mul`, `card_evenTriple`, `thomaePoint_smul`,
   `f3_numerics` (Pazuki output ⇒ `h([z_m]) ≤ 10000·2²⁴ max(1, h_F)`); axioms of the three
   printed: `propext, Classical.choice, Quot.sound`.
+
+## Step 5. Report `docs/research/pkg-I5.md` written
+
+- Main finding: `h_F` of abelian varieties of dimension up to `N²` (`J₁(N)`, `Z`) is needed by
+  every E2-E4 leaf; no explicit formula or elementary replacement exists (argument in §2.2);
+  genus-1 and good-model genus-2 formulas and the Thomae theta height are concrete (§§2.3-2.5).
+- Direction analysis (§2.6): `h_F(A)` can be eliminated only by composing E with F3.
+- Recommendation: five leaves over an object layer with acceptance tests (§5).
