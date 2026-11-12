@@ -188,6 +188,52 @@ theorem isUnit_xi_BDeRham (hO : ∀ b : O, (p : O) * b = 0 → b = 0)
   IsLocalization.map_units (BdR O p) (⟨_, Submonoid.subset_closure
     ⟨_, (ker_fontaineThetaInvertP_eq_span hO ξ hker), rfl⟩⟩ : genMonoid O p)
 
+variable (O p) in
+/-- The canonical map `W(O♭)[1/p] → B_dR^+(O)`, typed into `BDeRhamPlus`. -/
+noncomputable abbrev ofPlus (x : Localization.Away (p : WittVector p (PreTilt O p))) :
+    BDeRhamPlus O p :=
+  AdicCompletion.of (RingHom.ker (fontaineThetaInvertP O p)) _ x
+
+theorem adicCompletion_of_mul {R : Type*} [CommRing R] (I : Ideal R) (x y : R) :
+    AdicCompletion.of I R (x * y) = AdicCompletion.of I R x * AdicCompletion.of I R y :=
+  show algebraMap R (AdicCompletion I R) (x * y) = algebraMap R _ x * algebraMap R _ y from
+    map_mul _ x y
+
+/-- **`B_dR = B_dR^+[1/ξ]`.** If `ker θ = (ξ)`, Mathlib's `BDeRham` (all generators of `ker θ[1/p]`
+inverted) is the localization of `BDeRhamPlus` at the powers of the single element `ξ`:
+`Localization.Away ξ` is a localization at Mathlib's submonoid. -/
+theorem isLocalization_away_xi (hO : ∀ b : O, (p : O) * b = 0 → b = 0)
+    (ξ : WittVector p (PreTilt O p)) (hker : RingHom.ker (fontaineTheta O p) = span {ξ}) :
+    IsLocalization (genMonoid O p) (Localization.Away
+      (ofPlus O p (algebraMap _ (Localization.Away (p : WittVector p (PreTilt O p))) ξ))) := by
+  have hk := ker_fontaineThetaInvertP_eq_span hO ξ hker
+  refine IsLocalization.of_le_of_exists_dvd (Submonoid.powers
+    (ofPlus O p (algebraMap _ (Localization.Away (p : WittVector p (PreTilt O p))) ξ)))
+    (genMonoid O p) ?_ ?_
+  · rw [Submonoid.powers_le]
+    exact Submonoid.subset_closure ⟨_, hk, rfl⟩
+  · intro n hn
+    induction hn using Submonoid.closure_induction with
+    | mem x hx =>
+      obtain ⟨a, ha, rfl⟩ := hx
+      have : algebraMap _ (Localization.Away (p : WittVector p (PreTilt O p))) ξ ∈ span {a} := by
+        rw [← (show _ = span {a} from ha), hk]; exact Ideal.mem_span_singleton_self _
+      obtain ⟨c, hc⟩ := Ideal.mem_span_singleton'.mp this
+      refine ⟨_, ⟨1, rfl⟩, ?_⟩
+      show ofPlus O p a ∣
+        ofPlus O p (algebraMap _ (Localization.Away (p : WittVector p (PreTilt O p))) ξ) ^ 1
+      rw [pow_one, ← hc]
+      exact ⟨ofPlus O p c, (adicCompletion_of_mul _ c a).trans (mul_comm _ _)⟩
+    | one => exact ⟨1, ⟨0, pow_zero _⟩, one_dvd _⟩
+    | mul x y _ _ hx hy =>
+      obtain ⟨_, ⟨i, rfl⟩, hi⟩ := hx
+      obtain ⟨_, ⟨j, rfl⟩, hj⟩ := hy
+      refine ⟨_, ⟨i + j, rfl⟩, ?_⟩
+      show x * y ∣
+        ofPlus O p (algebraMap _ (Localization.Away (p : WittVector p (PreTilt O p))) ξ) ^ (i + j)
+      rw [pow_add]
+      exact mul_dvd_mul hi hj
+
 end PartC
 
 end BdrKer
@@ -457,11 +503,20 @@ theorem isUnit_xi_BDeRham_Cp :
       (AdicCompletion.of (RingHom.ker (fontaineThetaInvertP O p)) _ (xi' p))) :=
   isUnit_xi_BDeRham (p_regular p) _ (ker_fontaineTheta_Cp p)
 
+/-- **`B_dR(𝓞_ℂ_p) ≅ B_dR^+[1/ξ]`**, `ξ = p − [p♭]`: Mathlib's `BDeRham 𝓞_ℂ_[p] p` is
+isomorphic, as a `BDeRhamPlus`-algebra, to the localization of `BDeRhamPlus` away from `ξ`. -/
+noncomputable def bdREquivAway :
+    BdR O p ≃ₐ[BDeRhamPlus O p] Localization.Away (ofPlus O p (xi' p)) :=
+  haveI : IsLocalization (genMonoid O p) (Localization.Away (ofPlus O p (xi' p))) :=
+    isLocalization_away_xi (p_regular p) (xi p) (ker_fontaineTheta_Cp p)
+  IsLocalization.algEquiv (genMonoid O p) _ _
+
 end BdrKer.Cp
 
 #print axioms BdrKer.Cp.ker_fontaineTheta_Cp
 #print axioms BdrKer.Cp.ker_fontaineThetaInvertP_Cp
 #print axioms BdrKer.Cp.isUnit_xi_BDeRham_Cp
+#print axioms BdrKer.Cp.bdREquivAway
 
 #print axioms BdrKer.ker_fontaineTheta_eq_span
 #print axioms BdrKer.isUnit_xi_BDeRham
