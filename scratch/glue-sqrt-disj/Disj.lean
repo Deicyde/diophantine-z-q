@@ -930,6 +930,86 @@ theorem sqrt_criterion_level (K : Type) [Field K] [Algebra ℚ_[p] K] [Algebra �
         · rw [hsnd]
       rw [this]; exact hχ
 
+
+/-! ### Level change `m ↦ p^{2f} - 1` (copied from `Level.lean`) -/
+
+/-- `p` is a unit mod `p^n - 1` (`n ≥ 1`). -/
+theorem coprime_pow_sub_one {p : ℕ} (hp : 2 ≤ p) {n : ℕ} (hn : 0 < n) : p.Coprime (p ^ n - 1) := by
+  have h1 : 1 ≤ p ^ n := Nat.one_le_pow _ _ (by omega)
+  have hd : Nat.gcd p (p ^ n - 1) ∣ p ^ n := (Nat.gcd_dvd_left _ _).trans (dvd_pow_self p hn.ne')
+  have hd' : Nat.gcd p (p ^ n - 1) ∣ p ^ n - 1 := Nat.gcd_dvd_right _ _
+  have := Nat.dvd_sub hd hd'
+  rwa [Nat.sub_sub_self h1, Nat.dvd_one] at this
+
+/-- **Level change.** The order of `p` modulo `p^n - 1` is `n` (for `p ≥ 2`, `n ≥ 1`). -/
+theorem orderOf_unit_pow_sub_one {p : ℕ} (hp : 2 ≤ p) {n : ℕ} (hn : 0 < n) :
+    orderOf (ZMod.unitOfCoprime p (coprime_pow_sub_one hp hn)) = n := by
+  have h1 : 1 ≤ p ^ n := Nat.one_le_pow _ _ (by omega)
+  have key : ∀ d, ((ZMod.unitOfCoprime p (coprime_pow_sub_one hp hn)) ^ d = 1 ↔
+      p ^ n - 1 ∣ p ^ d - 1) := by
+    intro d
+    have hd1 : 1 ≤ p ^ d := Nat.one_le_pow _ _ (by omega)
+    rw [Units.ext_iff, Units.val_pow_eq_pow_val, ZMod.coe_unitOfCoprime, Units.val_one,
+      ← Nat.cast_pow, ← ZMod.natCast_eq_zero_iff, Nat.cast_sub hd1, sub_eq_zero, Nat.cast_one,
+      Nat.cast_pow]
+  rw [orderOf_eq_iff hn]
+  refine ⟨(key n).mpr dvd_rfl, fun d hdn hd0 h => ?_⟩
+  have hdvd := (key d).mp h
+  have hlt : p ^ d < p ^ n := Nat.pow_lt_pow_right (by omega) hdn
+  have hpos : 0 < p ^ d - 1 := by
+    have : p ≤ p ^ d := Nat.le_self_pow hd0.ne' p
+    omega
+  have := Nat.le_of_dvd hpos hdvd
+  omega
+
+/-- If `f = ord_m(p)` then `m ∣ p^f - 1`, hence `m ∣ p^(2f) - 1`. -/
+theorem dvd_pow_orderOf_sub_one {p m : ℕ} (hcop : p.Coprime m) (t : ℕ) :
+    m ∣ p ^ (t * orderOf (ZMod.unitOfCoprime p hcop)) - 1 := by
+  have h := pow_orderOf_eq_one (ZMod.unitOfCoprime p hcop)
+  have h' : (ZMod.unitOfCoprime p hcop) ^ (t * orderOf (ZMod.unitOfCoprime p hcop)) = 1 := by
+    rw [mul_comm, pow_mul, h, one_pow]
+  rcases Nat.eq_zero_or_pos p with rfl | hp0
+  · have : m = 1 := by simpa using hcop
+    subst this; exact one_dvd _
+  have hd1 : 1 ≤ p ^ (t * orderOf (ZMod.unitOfCoprime p hcop)) := Nat.one_le_pow _ _ hp0
+  rw [Units.ext_iff, Units.val_pow_eq_pow_val, ZMod.coe_unitOfCoprime, Units.val_one,
+    ← Nat.cast_pow] at h'
+  rw [← ZMod.natCast_eq_zero_iff, Nat.cast_sub hd1, sub_eq_zero, Nat.cast_one]
+  exact h'
+
+
+/-- `τ₋₁` exists: some `τ ∈ Gal(ℚ_p(μ_{p^k m})/ℚ_p)` acts by `ζ ↦ ζ⁻¹` on `μ_{p^k}` and
+trivially on `μ_m`. -/
+theorem exists_tau (k m : ℕ) [NeZero m] (hcop : p.Coprime m)
+    [IsCyclotomicExtension {p ^ k * m} ℚ_[p] L] :
+    ∃ τ : Gal(L/ℚ_[p]), galToProd (p := p) (L := L) k m τ = (-1, 1) := by
+  have : ((-1 : (ZMod (p ^ k))ˣ), (1 : (ZMod m)ˣ)) ∈ (galToProd (p := p) (L := L) k m).range := by
+    rw [range_galToProd k m hcop]
+    exact ⟨Subgroup.mem_top _, Subgroup.one_mem _⟩
+  exact this
+
+/-- **`sqrt_criterion_level` at the level `m' = p^{2f} - 1`, `f = ord_m(p)`.** The hypotheses
+`m ∣ m'` and `ord_{m'}(p) = 2f` are discharged. -/
+theorem sqrt_criterion_level_pow (K : Type) [Field K] [Algebra ℚ_[p] K] [Algebra ℤ_[p] K]
+    [IsScalarTower ℤ_[p] ℚ_[p] K] [FiniteDimensional ℚ_[p] K] [IsGalois ℚ_[p] K]
+    (k m : ℕ) [NeZero m] (hcop : p.Coprime m)
+    [NeZero (p ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) - 1)]
+    [IsCyclotomicExtension {p ^ k * m} ℚ_[p] K]
+    [IsCyclotomicExtension {p ^ (k + 1) * (p ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) - 1)}
+      ℚ_[p] L]
+    [Algebra K L] [IsScalarTower ℚ_[p] K L]
+    (τ : Gal(K/ℚ_[p])) (hτ : galToProd (p := p) (L := K) k m τ = (-1, 1))
+    (χ : Additive Gal(K/ℚ_[p]) →+ AddCircle (1 : ℚ)) :
+    (∃ ψ : Additive Gal(L/ℚ_[p]) →+ AddCircle (1 : ℚ),
+        ∀ g : Gal(L/ℚ_[p]), 2 • ψ (Additive.ofMul g) = χ (Additive.ofMul (g.restrictNormal K))) ↔
+      χ (Additive.ofMul τ) = 0 := by
+  have hp2 : 2 ≤ p := hp.out.two_le
+  have hf : 0 < orderOf (ZMod.unitOfCoprime p hcop) := orderOf_pos _
+  have h2f : 0 < 2 * orderOf (ZMod.unitOfCoprime p hcop) := by omega
+  refine sqrt_criterion_level K k m _ hcop (coprime_pow_sub_one hp2 h2f) ?_ ?_ τ hτ χ
+  · exact dvd_pow_orderOf_sub_one hcop 2
+  · rw [orderOf_unit_pow_sub_one hp2 h2f]
+
 end Crit
 
 end GlueSqrtDisj
@@ -943,3 +1023,5 @@ end GlueSqrtDisj
 #print axioms GlueSqrtDisj.galToProd_snd_spec
 #print axioms GlueSqrtDisj.galToProd_restrict
 #print axioms GlueSqrtDisj.sqrt_criterion_level
+#print axioms GlueSqrtDisj.exists_tau
+#print axioms GlueSqrtDisj.sqrt_criterion_level_pow

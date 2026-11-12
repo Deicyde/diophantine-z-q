@@ -35,3 +35,6 @@ Ambient: [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensiona
   Proof: exists_half_iff on Additive Gal(L); a 2-torsion g has galToProd g = (a, b), a² = 1 ⇒ a ≡ ±1 mod p^k (redU_sq_eq_one),
   b = u'^j with 2f ∣ 2j ⇒ b ↦ 1 mod m; so g|_K ∈ {1, τ} by galToProd_restrict + injectivity; conversely g0 = galToProd⁻¹(-1,1) restricts to τ.
 - Copied verbatim into Disj.lean from glue-sqrt-local SqrtLocal.lean lines 84-242 (exists_half_iff, redU, redU_sq_eq_one and helpers), namespace GlueSqrtLocal.
+- `exists_tau`: ∃ τ ∈ Gal(ℚ_p(μ_{p^k m})/ℚ_p) with galToProd τ = (-1, 1). VERIFIED.
+- `sqrt_criterion_level_pow`: sqrt_criterion_level with m' = p^{2f} - 1, f = ord_m(p); hypotheses m ∣ m', ord_{m'}(p) = 2f discharged
+  by the Level.lean lemmas (copied into Disj.lean). Remaining instance hypotheses: [NeZero (p^{2f}-1)], cyclotomic K ⊆ L. VERIFIED (compiled 00:53 PST).
