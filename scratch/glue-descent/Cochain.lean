@@ -176,4 +176,56 @@ theorem index_kernel_le (hβ : IsCochainFor ε β) (hε : InflatedNormalized H �
 
 end Index
 
+section Inertia
+
+variable {G : Type*} [Group G] {U : Type*} [CommGroup U]
+
+/-- **B3, the twist kills inertia outside `T`** (N5 L702-709). `I v ≤ H` are the inertia groups
+at the primes `v ∉ T` (contained in `G_L` since `L` is unramified there). On each, `β` is a
+quadratic character (`β² = χ` and `χ` is unramified at `v`). `unique` is leaf L-B3a (at an
+odd prime there is a unique nontrivial quadratic character of inertia), and `hηI` says that the
+quadratic character `η` is ramified exactly where `β` is (leaf L-B3b for the Dirichlet
+character of conductor `P`). Then `βη` is trivial on every `I v`. -/
+theorem twist_kills_inertia {ι : Type*} (I : ι → Subgroup G) (β : G → U) (η : G →* U)
+    (hmul : ∀ v, ∀ s ∈ I v, ∀ t ∈ I v, β (s * t) = β s * β t)
+    (hquad : ∀ v, ∀ s ∈ I v, β s ^ 2 = 1) (hη2 : ∀ s, η s ^ 2 = 1)
+    (unique : ∀ v, ∀ φ ψ : I v →* U, (∀ s, φ s ^ 2 = 1) → (∀ s, ψ s ^ 2 = 1) →
+      φ ≠ 1 → ψ ≠ 1 → φ = ψ)
+    (hηI : ∀ v, (∃ s ∈ I v, η s ≠ 1) ↔ (∃ s ∈ I v, β s ≠ 1)) :
+    ∀ v, ∀ s ∈ I v, β s * η s = 1 := by
+  intro v s hs
+  by_cases hb : ∃ s ∈ I v, β s ≠ 1
+  · let βv : I v →* U :=
+      { toFun := fun t => β t
+        map_one' := by
+          have h := hmul v 1 (I v).one_mem 1 (I v).one_mem
+          rw [one_mul] at h
+          exact (mul_eq_left.mp h.symm)
+        map_mul' := fun t u => hmul v t t.2 u u.2 }
+    let ηv : I v →* U := η.comp (I v).subtype
+    have hβne : βv ≠ 1 := by
+      obtain ⟨t, ht, hne⟩ := hb
+      intro h; apply hne; exact congrArg (fun f : I v →* U => f ⟨t, ht⟩) h
+    have hηne : ηv ≠ 1 := by
+      obtain ⟨t, ht, hne⟩ := (hηI v).mpr hb
+      intro h; apply hne; exact congrArg (fun f : I v →* U => f ⟨t, ht⟩) h
+    have heq := unique v βv ηv (fun t => hquad v t t.2) (fun t => hη2 t) hβne hηne
+    have : β s = η s := congrArg (fun f : I v →* U => f ⟨s, hs⟩) heq
+    rw [this, ← sq, hη2]
+  · push_neg at hb
+    have hη : ∀ s ∈ I v, η s = 1 := by
+      by_contra h; push_neg at h
+      obtain ⟨t, ht, hne⟩ := (hηI v).mp h
+      exact hne (hb t ht)
+    rw [hb s hs, hη s hs, one_mul]
+
+/-- With `βη` trivial on `I v ≤ H`, the inertia group lies in `K' = ker(βη|_H)`:
+`L'` is unramified at `v`. -/
+theorem inertia_le_kernel {H : Subgroup G} {ε : G → G → U} {β : G → U}
+    (hβ : IsCochainFor ε β) (hε : InflatedNormalized H ε) (Iv : Subgroup G) (hI : Iv ≤ H)
+    (htriv : ∀ s ∈ Iv, β s = 1) : Iv ≤ kernelSubgroup hβ hε := fun s hs =>
+  (mem_kernelSubgroup hβ hε).mpr ⟨hI hs, htriv s hs⟩
+
+end Inertia
+
 end GlueDescent

@@ -38,3 +38,14 @@ Imports ZInQKernel.Compiler.Precision.HeightConstant (heightD_eq, heightE0_eq; k
 - orderOf_dvd_totient, orderOf_prod_dvd.
 - exists_chi: T primes, T₋ ⊆ T, χ = ∏_{p∈T₋} changeLevel(χ_p) at level N = ∏ lev p (lev 2 = 4):
   each χ_p odd; every prime factor of N lies in T; orderOf χ ≤ 2∏_{p∈T,p≠2}(p-1).
+
+## Step 5: B2Glue.lean (deduction of B2 from its inputs) — compiles, no sorry (VERIFIED)
+Over any topological group G, index set ι, groups Gv v with continuous r v : Gv v →* G, comm group U;
+"continuous into discrete" = IsLocallyConstant. IsSignCocycle η (loc. const, η² = 1, cocycle);
+SignCob η (η = dγ, γ loc. const sign cochain).
+- exists_beta: hasse (sign cocycle locally SignCob at all v ⇒ SignCob) + local_two (H²(Gv,±1) has
+  ≤ 2 classes) + ε sign cocycle + χ : G →* U with loc. const pointwise sqrt β₀ + agree
+  (∀ v, SignCob(ε∘r_v) ↔ SignCob(dβ₀∘r_v)) ⇒ ∃ β loc. const, β² = χ, β σ β τ = ε(σ,τ) β(στ).
+- signCob_dB_iff: SignCob(dβ₀) ↔ ψ has a loc. const square-root character (β₀² = ψ).
+- Cochain.lean additions: twist_kills_inertia (unique nontrivial quadratic char of each I_v,
+  η ramified exactly where β is ⇒ βη = 1 on every I_v); inertia_le_kernel (I_v ≤ K').
