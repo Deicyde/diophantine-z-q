@@ -375,6 +375,27 @@ def Leaf_KroneckerWeber : Prop :=
     (∀ σ τ : L ≃ₐ[ℚ] L, σ * τ = τ * σ) →
       ∃ n : ℕ+, Nonempty (L →ₐ[ℚ] CyclotomicField n ℚ)
 
+/-- **Leaf L17 (Skolem–Noether).** Every automorphism of a finite-dimensional central simple
+algebra is inner. Used in step B1 (glue G8). Reiner, *Maximal orders* (1975), Thm 7.21
+(UNVERIFIED number); proved in Tau Ceti (`TauCeti.skolemNoether`). -/
+def Leaf_SkolemNoether : Prop :=
+  ∀ (F D : Type) [Field F] [Ring D] [Algebra F D] [Algebra.IsCentral F D] [IsSimpleRing D]
+    [FiniteDimensional F D] (φ : D ≃ₐ[F] D), ∃ u : Dˣ, ∀ x : D, φ x = u * x * u⁻¹
+
+/-- `ρ ≅ σ`: an invertible intertwiner. -/
+def GalRep.Iso {K E : Type} [Field K] [Field E] [TopologicalSpace E] (ρ σ : GalRep K E) : Prop :=
+  ∃ f ∈ ρ.intertwiners σ, Function.Bijective f
+
+/-- **Leaf L28b (Brauer–Nesbitt, characteristic zero).** Two semisimple representations with the
+same characteristic polynomials are isomorphic. Curtis–Reiner (1962), (30.16) (UNVERIFIED
+number). Used in glue G14-G15 with Chebotarev (Tau Ceti). -/
+def Leaf_BrauerNesbitt : Prop :=
+  ∀ (K E : Type) [Field K] [Field E] [CharZero E] [TopologicalSpace E] (ρ σ : GalRep K E)
+    (h : ρ.n = σ.n), ρ.IsSemisimple → σ.IsSemisimple →
+      (∀ g, (ρ.ρ g : Matrix (Fin ρ.n) (Fin ρ.n) E).charpoly =
+        (Matrix.reindex (finCongr h.symm) (finCongr h.symm)
+          (σ.ρ g : Matrix (Fin σ.n) (Fin σ.n) E)).charpoly) → ρ.Iso σ
+
 /-! ## 4. Definitions still to be built (`opaque` placeholders; cost tier in each docstring)
 
 `𝓟 K` below abbreviates the finite places of a number field `K`. -/
@@ -608,13 +629,15 @@ def Leaf_IgusaLinYang : Prop :=
 
 end Leaves
 
-/-- The leaves of §§3 and 5 (seventeen Props). The Shimura-curve leaves L1-L6 and L10-L11, L17
+/-- The leaves of §§3 and 5 (twenty-one Props). The Shimura-curve leaves L1-L6 and L10-L11, L17
 of the note are not stated: they need the definitions behind `IsQMFibre` (canonical models,
 Shimura reciprocity) or schemes over `ℤ` (purity, Abhyankar), see note §3. -/
 structure StatedLeaves : Prop where
   hasse : Leaf_HasseQuaternion
   hilbert : Leaf_HilbertReciprocity
   kroneckerWeber : Leaf_KroneckerWeber
+  skolemNoether : Leaf_SkolemNoether
+  brauerNesbitt : Leaf_BrauerNesbitt
   raynaud : Leaf_RaynaudGood
   nos : Leaf_NOS
   mumfordRank : Leaf_MumfordRank
@@ -682,3 +705,6 @@ theorem sixContactMinAt_of_leaves (S : Finset ℕ) (hS : Admissible S) (hL : Sta
   sixContactMinAt_of_jHeightBoundAt S (jHeightBoundAt_of_leaves S hS hL hG)
 
 end ZInQ.HDecAlt
+
+#print axioms ZInQ.HDecAlt.sixContactMinAt_of_jHeightBoundAt
+

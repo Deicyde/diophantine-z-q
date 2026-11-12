@@ -49,3 +49,8 @@
   FaltingsTate, Ribet, KW, NewformTwist, ShimuraAf, Carayol, Javanpeykar, GR14, FaltingsIsogenyHeight,
   HeightAdditive, Bost, Pazuki, IgusaLinYang. StatedLeaves bundles 19 Props.
 - §6 GeometricInput (output of G1-G5), `jHeightBoundAt_of_leaves` (sorry), `sixContactMinAt_of_leaves`.
+
+## Step 5. Leaves.lean: + Skolem–Noether (Algebra.IsCentral + IsSimpleRing + FiniteDimensional),
+  + GalRep.Iso, + Brauer–Nesbitt (charpoly with reindex). Compiles; 21 Props in StatedLeaves; one sorry
+  (jHeightBoundAt_of_leaves). `#print axioms sixContactMinAt_of_jHeightBoundAt`:
+  [propext, Classical.choice, Quot.sound] (VERIFIED).
