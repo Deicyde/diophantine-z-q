@@ -52,7 +52,8 @@ route.
   pkg-I2's `goodReduction_of_QM_rational3`. It is **proved** from four inputs:
   - the leaves `NeronOggShafarevich`, `RaynaudCriterion` and `TorsionStructure` (copied verbatim
     from `scratch/pkg-I2/I2.lean`);
-  - one new pure-algebra glue statement, `QuatUnipotentTrivial`.
+  - one new pure-algebra glue statement, `QuatUnipotentTrivial`. Its valuation step (§3 step 4)
+    is proved separately in `scratch/rv-a6-route/QuatVal.lean` (`RvA6.quat_sq_dvd`, every `k`).
 - `QuatUnipotentTrivial` is a statement about a commutative group with three endomorphisms. It
   mentions no schemes and no Galois groups, and is **not yet proved in Lean**. Its proof (§3)
   is complete on paper. It is elementary and finite-level, and needs nothing beyond Mathlib's
@@ -194,7 +195,15 @@ on `T`. Then `N = 0` on `G[3ᵏ]`.
 
   `#print axioms`: `[propext, Classical.choice, Quot.sound]`.
 
-**Still open in Lean:** the proof of `QuatUnipotentTrivial` (§3). It is pure algebra on a finite
+`scratch/rv-a6-route/QuatVal.lean` (VERIFIED: compiles; no `sorry`; standard axioms) proves
+§3 step 4 (repair R2) for every `k`, in coordinates. `x² = (a² + 2b² − 3c² + 6d²) +
+2a(bi + cj + d·ij)` for `x = a + bi + cj + d·ij ∈ Λ`, and `RvA6.quat_sq_dvd k` says: if `3^{2k}`
+divides the four coordinates of `x²`, then `3ᵏ` divides `a, b, c, d`. The base case
+`quat_base` is a hand proof (with `decide` only over `ZMod 3`), so no exhaustive kernel
+computation is needed.
+
+**Still open in Lean:** steps 1-3 and 5 of the proof of `QuatUnipotentTrivial` (§3): `T` is free
+of rank one over `Λ/3^{2k}`, and `N` is right multiplication by some `c` with `c² = 0`. It is pure algebra on a finite
 abelian group of order `3^{8k}`. Mathlib has the ingredients: `ZMod`, `Module.End`,
 `Nat.card`, `Fintype.card` of a free module, and bijectivity from injectivity on equal finite
 cardinalities. One way to discharge §3 step 4 without valuation theory is the computation mod 9

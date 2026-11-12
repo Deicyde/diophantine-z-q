@@ -23,3 +23,9 @@
 - F2 (wording, repaired): pkg-I2's "nrd = x²-2y²+3z²-6w² is anisotropic mod 3" is false for the quaternary form ((0,0,1,0) is a zero mod 3);
   the correct input is that v_Π is a valuation on Λ⊗Z_3 (B⊗Q_3 division; nrd anisotropic over Q_3), or the finite check c²≡0 mod 9 ⇒ c∈3Λ (VERIFIED above).
 - Route verdict: SOUND AFTER REPAIRS (F1, F2 wording; the algebra lemma is glue with a complete proof in the report).
+
+## Lean (scratch/rv-a6-route/QuatVal.lean) — VERIFIED: compiles, no sorry; axioms [propext, Classical.choice, Quot.sound]
+- `RvA6.quat_base`: 9 | every coordinate of x² (x = a+bi+cj+d·ij in Z<i,j>) ⇒ 3 | a,b,c,d.
+- `RvA6.quat_sq_dvd k`: 3^{2k} | every coordinate of x² ⇒ 3^k | a,b,c,d (all k). This is §3 step 4 of the report
+  (the valuation step, repair R2) for all k, in coordinates x² = (a²+2b²-3c²+6d²) + 2a(bi+cj+d·ij).
+- Remaining unproved glue: steps 1-3, 5 of QuatUnipotentTrivial (T free of rank one over Λ/3^{2k}; N = right mult by c).
