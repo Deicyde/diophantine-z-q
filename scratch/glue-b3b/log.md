@@ -16,3 +16,7 @@
   (±p not a rational square), `leafB3b : LeafB3b` (LeafB3b text verbatim from
   glue-b3-unram / glue-conj). COMPILED; `#print axioms GlueB3Unram.leafB3b`:
   [propext, Classical.choice, Quot.sound]. 11:54.
+- B3b.lean = glue-conj UnramConj.lean (through `end Conj`) + Sec/Sec2/Sec3 + glue-conj's
+  `unramified_outside_final` + new `unramified_outside_b3a (hA : LeafB3a) ...` (same
+  conclusion, calls `unramified_outside_final hA leafB3b`). COMPILED, no errors; all 11
+  `#print axioms` lines: [propext, Classical.choice, Quot.sound]. 11:55.
