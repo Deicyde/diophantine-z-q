@@ -1,0 +1,17 @@
+# rv-leaves-a log (started 22:23 PST 11-11)
+
+## Step 1 (22:30) Assembly conclusion
+- `lake build ZInQKernel.Hypotheses.HeightMin` succeeded (9065 jobs), so the scratch CAN import HeightMin
+  (contradicts glue-assembly §1.3, which said it could not).
+- `ConclusionCheck.lean` = glue-assembly's GlueAssembly.lean + `import ZInQKernel.Hypotheses.HeightMin` +
+  `example : GlueAssembly.SixContactMinAt ZInQ.Mult.S_mul = ZInQ.SixContactMin := rfl` and
+  `rvLeavesA_sixContactMin_of_glueOutputs : GlueOutputs Mult.S_mul → ZInQ.SixContactMin`.
+  COMPILED, EXIT 0, axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## Step 2 (22:30) qm_check.py (independent of pkg-I1's qm_embed.py; coded from the Lean defs)
+- Omega(τ) symmetric, Im positive definite at 3 points. VERIFIED.
+- Atkin–Lehner elements of nrd 2, 3, 6 normalizing 𝒪 found by search; j_θ invariant (rel. err ≤ 1e-29). VERIFIED.
+- Fixed point of i+j (x²=-1): τ=√2+i, j_θ=0, local order 3.994 ≈ 4. Fixed point of (1+j)/2: τ=i√3, pole,
+  order 5.995 ≈ 6. Fixed point of μ: τ=4.1815i, j_θ = -0.592592592593 = -16/27, order of j+16/27 ≈ 2.
+  Orders (4,6,2) = elliptic orders of the (2,4,6) orbifold Γ*\ℍ: consistent with degree 1 (Hauptmodul).
+- Another x²=-1 element (−i/2 + j + ij/2) gives j_θ = 0 at its fixed point. VERIFIED.
