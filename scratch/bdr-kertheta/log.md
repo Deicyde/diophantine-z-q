@@ -30,4 +30,4 @@
   `isDomain_BDeRhamPlus`, **`isDiscreteValuationRing_BDeRhamPlus`**, `isFractionRing_away_xi`,
   **`isField_BDeRham : IsField (BDeRham 𝓞_ℂ_[p] p)`**, **`isFractionRing_BDeRham`** (BDeRham is a fraction
   field of BDeRhamPlus via Mathlib's algebraMap): ALL COMPILE, axioms [propext, Classical.choice,
-  Quot.sound] (VERIFIED, 23:50). The earlier "NOT PROVED: DVR / field" line is superseded.
+  Quot.sound] (VERIFIED, 23:49). The earlier "NOT PROVED: DVR / field" line is superseded.
