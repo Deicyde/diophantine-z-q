@@ -27,3 +27,13 @@
   (UNVERIFIED; theorem text not on host). Not adopted; recorded as the top open alternative.
 - Baker/S-unit genus-2 Shafarevich (Smart, vK 2014): excluded by nt-h §3.3 (curves C_{J(u)} have bad
   stable reduction at every positive contact valuation).
+
+## Step 3. Lean probe (scratch/hdec-alt/Probe.lean) — compiles (lake env lean, no errors)
+- `import ZInQKernel.Hypotheses.JHeight` FAILS: unknown module prefix 'ZInQ' (HeightMin → Multiplication
+  → upstream package `lean/` not built here; same as wk-h). Use `import ZInQKernel.Hypotheses.Height`
+  and restate JHeightBound at a prime set S (as wk-h did).
+- Compiles: `AbelianVariety K` (Over (Spec K) + GrpObj + IsProper + GeometricallyIntegral + Smooth);
+  `GalRep K E` (continuous G_K →* GL_n(E)); `intertwiners` as Submodule of linear maps (rectangular
+  Matrix `*` hits a CStarMatrix HMul instance clash: avoid); `homDim`; `IsSemisimple`;
+  Hasse principle for `QuaternionAlgebra ℚ a 0 b` (notation ℍ[..] is scoped; use the constant);
+  Kronecker–Weber; `absLogHeightVec := Height.logHeight x / [K:ℚ]`.
