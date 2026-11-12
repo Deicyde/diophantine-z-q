@@ -66,3 +66,8 @@ File `scratch/bp-faltings/Models.lean`. `lake env lean`: no errors, no warnings.
 `Hodge.lean` §9. Compiles, no sorry.
 - `card_embeddings_over`: #{τ : L → ℂ | τ|_K = σ} = [L:K] (via `AlgHom.card` with σ.toAlgebra). VERIFIED.
 - `sum_embeddings_comp`: Σ_τ f(τ|_K) = [L:K]·Σ_σ f σ. VERIFIED.
+
+## Step 10 (12:13 PST). AT1 for every Weierstrass model (translation)
+`Hodge.lean` §10. Compiles, no sorry.
+- `hypGram_comp_add`, `hypVol_one_comp_add`: hypVol 1 (P(x + c)) = hypVol 1 P. VERIFIED.
+- `modelHeight_ofIdeal_eq_faltingsHeightEC'`: as §8 with P_W^σ = (4x³ − g₂x − g₃)(x + c_σ). VERIFIED.

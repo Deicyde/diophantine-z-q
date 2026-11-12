@@ -909,6 +909,49 @@ theorem sum_embeddings_comp (f : (K →+* ℂ) → ℝ) :
 
 end BaseChange
 
+/-! ## 10. AT1 for every Weierstrass model: translation invariance
+
+`ω ↦ dz` forces `g₂ = c₄/12`, `g₃ = c₆/216` but `P_W = 4x³ + b₂x² + 2b₄x + b₆` equals
+`4x³ − g₂x − g₃` only after the translation `x ↦ x − b₂/12`. The archimedean term is translation
+invariant (Lebesgue measure on `ℂ`), so AT1 holds with a translation at each `σ`. -/
+
+section Translate
+
+open Polynomial
+open scoped nonZeroDivisors
+
+theorem hypGram_comp_add (P : ℂ[X]) (c : ℂ) :
+    hypGram (P.comp (X + C c)) 0 0 = hypGram P 0 0 := by
+  simp only [hypGram, pow_zero, one_mul, eval_comp, eval_add, eval_X, eval_C]
+  congr 1
+  exact integral_add_right_eq_self (fun x => 1 / ((‖P.eval x‖ : ℝ) : ℂ)) c
+
+theorem hypVol_one_comp_add (P : ℂ[X]) (c : ℂ) : hypVol 1 (P.comp (X + C c)) = hypVol 1 P := by
+  simp only [hypVol, Matrix.det_fin_one, Matrix.of_apply, Fin.val_zero, hypGram_comp_add]
+
+variable {K : Type*} [Field K] [NumberField K]
+
+/-- **Acceptance test AT1, conditional form, any Weierstrass model with semistable reduction.**
+As `modelHeight_ofIdeal_eq_faltingsHeightEC`, with the Weierstrass polynomial of `W^σ` equal to
+`4x³ − g₂(L σ)x − g₃(L σ)` after a translation `x ↦ x + c σ`. -/
+theorem modelHeight_ofIdeal_eq_faltingsHeightEC' (hA : PeriodAreaFormula)
+    (W : WeierstrassCurve K) [W.IsElliptic] (𝔞 : FractionalIdeal (𝓞 K)⁰ K) (h𝔞 : 𝔞 ≠ 0)
+    (L : (K →+* ℂ) → PeriodPair) (c : (K →+* ℂ) → ℂ)
+    (hP : ∀ σ, (4 * X ^ 3 + C W.b₂ * X ^ 2 + C (2 * W.b₄) * X + C W.b₆ : K[X]).map σ =
+      (4 * X ^ 3 - C (L σ).g₂ * X - C (L σ).g₃).comp (X + C (c σ)))
+    (hNeron : -12 * Real.log (FractionalIdeal.absNorm 𝔞 : ℝ) =
+      finiteHeightPart W.j - ∑ σ : K →+* ℂ, Real.log ‖σ W.Δ‖) :
+    (HodgeData.ofIdeal 𝔞 h𝔞 L).modelHeight = faltingsHeightEC W := by
+  rw [HodgeData.modelHeight_ofIdeal, faltingsHeightEC, ← hNeron]
+  have hterm : ∀ σ : K →+* ℂ, ZLattice.covolume (L σ).lattice =
+      hypVol 1 ((4 * X ^ 3 + C W.b₂ * X ^ 2 + C (2 * W.b₄) * X + C W.b₆ : K[X]).map σ) := by
+    intro σ; rw [hP, hypVol_one_comp_add, hA]
+  simp only [hterm]
+  have hd : (0 : ℝ) < Module.finrank ℚ K := by exact_mod_cast Module.finrank_pos
+  field_simp
+
+end Translate
+
 end ZInQ.BPFaltings
 
 #print axioms ZInQ.BPFaltings.HermitianLattice.degreeAt_eq_arakelovDegree
@@ -925,3 +968,4 @@ end ZInQ.BPFaltings
 #print axioms ZInQ.BPFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal
 #print axioms ZInQ.BPFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC
 #print axioms ZInQ.BPFaltings.sum_embeddings_comp
+#print axioms ZInQ.BPFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC'

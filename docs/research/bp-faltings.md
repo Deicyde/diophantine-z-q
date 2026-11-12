@@ -219,7 +219,7 @@ compile (pkg-I5 `faltingsHeightEC`, `faltingsHeightGood`, copied into `Hodge.lea
 
 | Test | Statement | Needs | Status |
 | --- | --- | --- | --- |
-| AT1 | `faltingsHeight (ellipticCurve W) = faltingsHeightEC W` for every elliptic `W` over a number field | AV7 (EC as `AbVar`), AN4, AN5; for the Néron lattice: AT1a below; general `W` via H5 and base change to a semistable field | **conditional form BUILT**: `modelHeight_ofIdeal_eq_faltingsHeightEC` proves `modelHeight = faltingsHeightEC` from `PeriodAreaFormula` (AN5), the Weierstrass-polynomial match (AN4) and the Néron identity (AT1a); free special case `modelHeight_eq_faltingsHeightEC` |
+| AT1 | `faltingsHeight (ellipticCurve W) = faltingsHeightEC W` for every elliptic `W` over a number field | AV7 (EC as `AbVar`), AN4, AN5; for the Néron lattice: AT1a below; general `W` via H5 and base change to a semistable field | **conditional form BUILT**: `modelHeight_ofIdeal_eq_faltingsHeightEC` proves `modelHeight = faltingsHeightEC` from `PeriodAreaFormula` (AN5), the Weierstrass-polynomial match (AN4) and the Néron identity (AT1a); free special case `modelHeight_eq_faltingsHeightEC`; any Weierstrass model (translation at each `σ`) `modelHeight_ofIdeal_eq_faltingsHeightEC'` |
 | AT1a | For `W` with semistable reduction everywhere, the Néron lattice is `𝔞·dx/(2y + a₁x + a₃)` with `ord_𝔭 𝔞 = (ord_𝔭 Δ − ord_𝔭 Δ_min)/12`, and `−12 log N(𝔞) = ∑_{v∤∞} log⁺|j|_v − ∑_σ log|σΔ|`, because `ord_𝔭 Δ_min = max(0, −ord_𝔭 j)` and by the product formula | Néron model of an elliptic curve = smooth locus of the minimal Weierstrass model (Silverman AEC II IV.6; BLR 1.5/1; UNVERIFIED locators); Mathlib's `IsMinimal`; the product-formula step is Mathlib (`NumberField/ProductFormula.lean`) | **lit** for the Néron step; the identity is the hypothesis `hNeron` of the bridge |
 | AT2 | `faltingsHeight (jacobian C) = faltingsHeightGood E` for genus-2 equations with `2⁻¹²disc₆` a unit | AV7 (Jacobians), M8, AN6 | **lit**; statement compiles in pkg-I5 |
 | AT3 | Numerical: `faltingsHeightEC` at `j = 0` gives `−1.321117`, Deligne's minimum shifted by `−½ log π`; 11a1 and 11a3 differ by `½ log 5` | — | **VERIFIED** in pkg-I5 (`ec_height_check.py`) |
@@ -267,6 +267,7 @@ report no errors and no warnings. `#print axioms` on every main theorem lists `p
 | 7 | `secIndex_mul_absNorm`, `HermitianLattice.ofFractionalIdeal`, `arakelovDegree_ofFractionalIdeal` | AR3 (fractional ideals) |
 | 8 | `embCoeff`, `HodgeData.ofIdeal`, `HodgeData.modelHeight_ofIdeal`, `modelHeight_ofIdeal_eq_faltingsHeightEC` | AT1, conditional form (any Néron lattice `𝔞·ω`) |
 | 9 | `card_embeddings_over`, `sum_embeddings_comp` | AR3 / H4 (archimedean half of base change) |
+| 10 | `hypGram_comp_add`, `hypVol_one_comp_add`, `modelHeight_ofIdeal_eq_faltingsHeightEC'` | AT1 for every Weierstrass model: `P_W^σ` need only equal `4x³ − g₂x − g₃` after a translation `x ↦ x + c_σ` (`ω ↦ dz` fixes `g₂ = c₄/12`, `g₃ = c₆/216`; `b₂` is removed by translation) |
 
 Key statements (Lean, abridged):
 
