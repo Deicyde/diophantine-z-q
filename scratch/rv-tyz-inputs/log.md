@@ -71,3 +71,17 @@
 - Minor imprecisions: (i) "Z^{β1'+1} = Z^{β2'+1}" in (1) is only shown mod Zτ(1) (only membership is used);
   (ii) for n≡7 "β_j acts on L_n(i) as σ_ϖ∘c" holds on L_n for every ϖ (what is used), on L_n(i) only for ϖ with unit part ≡ -1 mod 4. NEW, harmless.
 - So I5 ⇐ Thm 3.6(1),(3) + Prop 3.2(1) (Galois/dihedral structure). Next: read Thm 3.6 / Prop 3.2 proofs (L1433–1860).
+
+## Step 5: Thm 3.6(1),(3) and Prop 3.2(1),(4) read (L1377–1683, L1788–1859)
+- Chain: Lemma 3.7 (coset5) + Prop 3.8 (heckeaction5: explicit 2-adic matrix decompositions, cusp dictionary) →
+  Cor 3.9 (integral5: π(ϖ)f_n = f_n+τ((1+i)/2), π(1+2ϖ)f_n = f_n) → Shimura reciprocity on P_n=[h,1] → Thm 3.6(1);
+  j=[[1,0],[8,-1]] gives complex conjugation → z̄ = -z+τ(1) (re-derived by hand ✓).
+- Prop 3.2(1): Gal(H_{n,4}/H_n) ≅ (O_{K,2}/4)^×/{±1} ≅ (Z/2)², gens ϖ²/2, 1+2ϖ; z^{σ_ϖ²} = z+τ((1+i)/2)+τ((1-i)/2) = z+τ(1)
+  (σ_ϖ negates i: (n+1,-1)_2 = -1) ✓; σ_2 trivial (centre) ✓; √2 ∈ H_{n,4} (character N(x) ↦ (N x,2)_2 trivial on Z_2^×(1+4O)) ✓,
+  σ_{1+2ϖ}(√2) = -√2 (N(1+2ϖ)=1+4n ≡ 5 mod 8) ✓. (4) 2z_n fixed by both generators ✓.
+- α,β,γ ∈ μ4 determined uniquely by one cusp (checked τ(α/2) distinct for α∈μ4) ✓.
+- n≡7: W-eigenvalue -1 from root number +1 of A (ε = -w_N, weight 2) ✓; [∞]^W = [W^{-1}∞] = [0] ✓; j computes conj ✓;
+  (P̄)^{ϖ^5} = (P^{σ_{ϖ^5}})‾ ✓ → Thm 3.6(3) ✓. Choice of α with 64|α-δ possible ✓.
+- External: facts (1)–(3) at L1383–1404 (uniformisation τ, CM Galois action, cusp dictionary) cited from Tian [CJM 2014].
+  Consistency: the 4 Q-rational cusps of X_0(32) (denominators 1,2,16,32) ↔ τ(0),τ(1/2),τ(1),τ(-1/2) real ✓; conj pairs ✓.
+- "explicit calculations" not printed: K_2^× normalises U_2; the matrix decompositions; W^{-1}jϖ^5 ∈ U_0(32)_2 → verify by script.
