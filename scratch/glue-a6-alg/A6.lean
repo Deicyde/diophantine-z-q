@@ -486,6 +486,38 @@ lemma endV_E (f : G →* G) (g : G) (hg : g ^ q = 1) : endV he f (E e g) = E e (
 
 end Transport
 
+/-- Extension of valuation rings (Chevalley; Mathlib `IsLocalRing.exists_factor_valuationRing`). -/
+theorem exists_valuationSubring_comap_eq {K L : Type*} [Field K] [Field L] [Algebra K L]
+    (O : ValuationSubring K) :
+    ∃ w : ValuationSubring L, w.comap (algebraMap K L) = O := by
+  let f : O →+* L := (algebraMap K L).comp O.subtype
+  obtain ⟨B, hB, hloc⟩ := IsLocalRing.exists_factor_valuationRing f
+  refine ⟨B, ?_⟩
+  ext x
+  rw [ValuationSubring.mem_comap]
+  constructor
+  · intro hx
+    by_contra hxO
+    have hx0 : x ≠ 0 := fun h => hxO (h ▸ O.zero_mem)
+    have hinv : x⁻¹ ∈ O := (O.mem_or_inv_mem x).resolve_left hxO
+    apply hxO
+    have hu : IsUnit ((f.codRestrict B.toSubring hB) ⟨x⁻¹, hinv⟩) := by
+      refine isUnit_iff_exists_inv.mpr ⟨⟨algebraMap K L x, hx⟩, ?_⟩
+      apply Subtype.ext
+      simp only [f, RingHom.codRestrict_apply, RingHom.comp_apply, ValuationSubring.coe_subtype,
+        Subring.coe_mul, Subring.coe_one, map_inv₀]
+      exact inv_mul_cancel₀ ((map_ne_zero (algebraMap K L)).mpr hx0)
+    obtain ⟨⟨u, v, huv, hvu⟩, hu'⟩ := hloc.map_nonunit _ hu
+    have hv : (v : K) = x := by
+      have h1 : ((u : K)) * (v : K) = 1 := congrArg Subtype.val huv
+      have h2 : (u : K) = x⁻¹ := congrArg Subtype.val hu'
+      rw [h2] at h1
+      field_simp at h1
+      exact h1
+    exact hv ▸ v.2
+  · intro hx
+    exact hB ⟨x, hx⟩
+
 end GlueA6Alg.Alg
 
 
@@ -1069,6 +1101,25 @@ theorem goodReduction_of_QM_rational3 (hNOS : NeronOggShafarevich.{u})
   goodReduction_of_QM_rational3_of_alg hNOS hRay hTors quatUnipotentTrivial O w hw A hdim I J
     hI hJ hIJ h3 hrat
 
+/-- **A6 without the auxiliary `w`**: the valuation subring of `K̄` over `O` exists
+(`Alg.exists_valuationSubring_comap_eq`), so it is not a hypothesis. -/
+theorem goodReduction_of_QM_rational3' (hNOS : NeronOggShafarevich.{u})
+    (hRay : RaynaudCriterion.{u}) (hTors : TorsionStructure.{u})
+    (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (hdim : topologicalKrullDim A.X.left = ((2 : ℕ) : WithBot ℕ∞))
+    (I J : A ⟶ A)
+    (hI : ∀ x : Pts A (AlgebraicClosure K), (x ≫ I.hom.hom) ≫ I.hom.hom = x ^ 2)
+    (hJ : ∀ x : Pts A (AlgebraicClosure K), (x ≫ J.hom.hom) ≫ J.hom.hom * x ^ 3 = 1)
+    (hIJ : ∀ x : Pts A (AlgebraicClosure K),
+      (x ≫ I.hom.hom) ≫ J.hom.hom * (x ≫ J.hom.hom) ≫ I.hom.hom = 1)
+    (h3 : IsUnit (3 : O))
+    (hrat : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+      ∀ x ∈ torsion A (AlgebraicClosure K) 3, galAct A σ x = x) :
+    HasGoodReduction A O := by
+  obtain ⟨w, hw⟩ := Alg.exists_valuationSubring_comap_eq (L := AlgebraicClosure K) O
+  exact goodReduction_of_QM_rational3 hNOS hRay hTors O w hw A hdim I J hI hJ hIJ h3 hrat
+
 end A6
 
 end Glue
@@ -1077,3 +1128,4 @@ end GlueA6Alg
 
 #print axioms GlueA6Alg.quatUnipotentTrivial
 #print axioms GlueA6Alg.goodReduction_of_QM_rational3
+#print axioms GlueA6Alg.goodReduction_of_QM_rational3'

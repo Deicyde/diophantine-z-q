@@ -20,3 +20,11 @@
   + new `GlueA6Alg.goodReduction_of_QM_rational3` with hypotheses hNOS, hRay, hTors only (no hAlg), same conclusion
   HasGoodReduction A O. VERIFIED: compiles with `lake env lean` (34 s), no sorry,
   axioms [propext, Classical.choice, Quot.sound].
+
+## scratch/glue-a6-alg/Extend.lean
+- `GlueA6Alg.exists_valuationSubring_comap_eq`: for any field extension L/K and valuation subring O of K,
+  ∃ w : ValuationSubring L, w.comap (algebraMap K L) = O. VERIFIED: compiles, axioms standard.
+  Derived (≈25 lines) from Mathlib `IsLocalRing.exists_factor_valuationRing` (Mathlib/RingTheory/Valuation/LocalSubring.lean,
+  built on `LocalSubring.exists_le_valuationSubring`, tagged @[stacks 00IA]): B dominates O; B ∩ K = O because x ∈ B∖O
+  gives x⁻¹ ∈ O a nonunit whose image is a unit in B, contradicting locality.
+- Added to A6.lean: `goodReduction_of_QM_rational3'` (no w, hw hypotheses). VERIFIED: compiles (11.6 s), axioms standard.
