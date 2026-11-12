@@ -16,6 +16,8 @@ Fontaine's `θ` in `R`; this file proves it for any ring map between `p`-adicall
 
 noncomputable section
 
+set_option linter.unusedSectionVars false
+
 namespace PkgI4.Cp
 
 open Ideal
@@ -206,15 +208,18 @@ def adicMapAux (n : ℕ) : AdicCompletion J A →+* B ⧸ J' ^ n :=
   (Ideal.quotientMap (J' ^ n) g (pow_le_comap J J' g hg n)).comp
     (AdicCompletion.evalₐ J n : AdicCompletion J A →+* A ⧸ J ^ n)
 
+theorem adicMapAux_compat {m n : ℕ} (hle : m ≤ n) :
+    (Ideal.Quotient.factorPow J' hle).comp (adicMapAux J J' g hg n) = adicMapAux J J' g hg m := by
+  ext x
+  simp only [RingHom.comp_apply, adicMapAux]
+  erw [← factorPow_evalₐ J hle x]
+  obtain ⟨a, ha⟩ := Ideal.Quotient.mk_surjective (AdicCompletion.evalₐ J n x)
+  erw [← ha]
+  rfl
+
 /-- The ring map `Â_J → B̂_{J'}` induced by `g` with `g(J) ⊆ J'`. -/
 def adicMap : AdicCompletion J A →+* AdicCompletion J' B :=
-  AdicCompletion.liftRingHom J' (adicMapAux J J' g hg) fun {m n} hle => by
-    ext x
-    simp only [RingHom.comp_apply, adicMapAux]
-    erw [← factorPow_evalₐ J hle x]
-    obtain ⟨a, ha⟩ := Ideal.Quotient.mk_surjective (AdicCompletion.evalₐ J n x)
-    erw [← ha]
-    rfl
+  AdicCompletion.liftRingHom J' (adicMapAux J J' g hg) (adicMapAux_compat J J' g hg)
 
 end AdicMap
 
@@ -260,6 +265,110 @@ def bdrPlusMap (f : R →+* S) : BDeRhamPlus R p →+* BDeRhamPlus S p :=
 
 end BdR
 
+
+/-! ### Inverse pairs, generators of `ker θ`, and the map on `B_dR` -/
+
+section Inverse
+
+variable (f : R →+* S) (g : S →+* R) (hgf : ∀ x, g (f x) = x)
+
+include hgf in
+theorem modPMap_comp_eq_id (y : ModP R p) : modPMap p g (modPMap p f y) = y := by
+  obtain ⟨x, rfl⟩ := Ideal.Quotient.mk_surjective y
+  change Ideal.Quotient.mk _ (g (f x)) = _
+  rw [hgf]
+
+include hgf in
+theorem preTiltMap_comp_eq_id (y : PreTilt R p) : preTiltMap p g (preTiltMap p f y) = y :=
+  Perfection.ext fun n => by
+    rw [coeff_preTiltMap, coeff_preTiltMap, modPMap_comp_eq_id p f g hgf]
+
+include hgf in
+theorem wittMap_comp_eq_id (y : WittVector p (PreTilt R p)) :
+    WittVector.map (preTiltMap p g) (WittVector.map (preTiltMap p f) y) = y := by
+  ext n
+  rw [WittVector.map_coeff, WittVector.map_coeff, preTiltMap_comp_eq_id p f g hgf]
+
+include hgf in
+theorem locMap_comp_eq_id (y : Localization.Away (p : WittVector p (PreTilt R p))) :
+    locMap p g (locMap p f y) = y := by
+  have h : (locMap p g).comp (locMap p f) = RingHom.id _ := by
+    apply IsLocalization.ringHom_ext (Submonoid.powers (p : WittVector p (PreTilt R p)))
+    ext w
+    simp only [RingHom.comp_apply, RingHom.id_apply, locMap, Localization.awayLift,
+      IsLocalization.Away.lift, IsLocalization.lift_eq]
+    rw [wittMap_comp_eq_id p f g hgf]
+  exact congrArg (fun φ => φ y) h
+
+
+include hgf in
+/-- If `ker θ_R[1/p] = (a)`, then `ker θ_S[1/p] = (locMap f a)` (for an isomorphism `f`). -/
+theorem ker_eq_span_locMap (hfg : ∀ y, f (g y) = y)
+    (a : Localization.Away (p : WittVector p (PreTilt R p)))
+    (ha : RingHom.ker (fontaineThetaInvertP R p) = Ideal.span {a}) :
+    RingHom.ker (fontaineThetaInvertP S p) = Ideal.span {locMap p f a} := by
+  apply le_antisymm
+  · intro x hx
+    have h1 : locMap p g x ∈ RingHom.ker (fontaineThetaInvertP R p) :=
+      ker_le_comap_locMap p g hx
+    rw [ha, Ideal.mem_span_singleton'] at h1
+    obtain ⟨c, hc⟩ := h1
+    rw [Ideal.mem_span_singleton']
+    refine ⟨locMap p f c, ?_⟩
+    rw [← map_mul, hc, locMap_comp_eq_id p g f hfg]
+  · rw [Ideal.span_le, Set.singleton_subset_iff, SetLike.mem_coe]
+    refine ker_le_comap_locMap p f ?_
+    rw [ha]
+    exact Ideal.mem_span_singleton_self a
+
+end Inverse
+
+section AdicOf
+
+variable {A B : Type*} [CommRing A] [CommRing B] (J : Ideal A) (J' : Ideal B) (g : A →+* B)
+  (hg : J ≤ J'.comap g)
+
+theorem adicMap_evalₐ (n : ℕ) (x : AdicCompletion J A) :
+    AdicCompletion.evalₐ J' n (adicMap J J' g hg x) = adicMapAux J J' g hg n x := by
+  unfold adicMap
+  exact AdicCompletion.evalₐ_liftRingHom _ _ (adicMapAux_compat J J' g hg) n x
+
+theorem adicMap_of (x : A) :
+    adicMap J J' g hg (AdicCompletion.of J A x) = AdicCompletion.of J' B (g x) := by
+  refine AdicCompletion.ext_evalₐ fun n => ?_
+  rw [adicMap_evalₐ, AdicCompletion.evalₐ_of]
+  simp only [adicMapAux, RingHom.comp_apply]
+  erw [AdicCompletion.evalₐ_of]
+
+end AdicOf
+
+section BdRMap
+
+
+/-- The submonoid of `B_dR^+(R)` inverted in Mathlib's `BDeRham R p`. -/
+def genMonoid (T : Type*) [CommRing T] [Fact ¬IsUnit (p : T)]
+    [IsAdicComplete (span {(p : T)}) T] : Submonoid (BDeRhamPlus T p) :=
+  Submonoid.closure <| AdicCompletion.of (RingHom.ker (fontaineThetaInvertP T p)) _ ''
+    {a | RingHom.ker (fontaineThetaInvertP T p) = Ideal.span {a}}
+
+theorem genMonoid_le_comap (f : R →+* S) (g : S →+* R) (hgf : ∀ x, g (f x) = x)
+    (hfg : ∀ y, f (g y) = y) :
+    genMonoid p R ≤ (genMonoid p S).comap (bdrPlusMap p f) := by
+  rw [genMonoid, Submonoid.closure_le]
+  rintro _ ⟨a, ha, rfl⟩
+  apply Submonoid.subset_closure
+  refine ⟨locMap p f a, (ker_eq_span_locMap p f g hgf hfg a ha), ?_⟩
+  exact (adicMap_of _ _ _ _ a).symm
+
+/-- **The map on `B_dR`** induced by a ring isomorphism `f` (with inverse `g`). Mathlib's
+`BDeRham R p` is by definition `Localization (genMonoid p R)`. -/
+def bdrMap (f : R →+* S) (g : S →+* R) (hgf : ∀ x, g (f x) = x) (hfg : ∀ y, f (g y) = y) :
+    Localization (genMonoid p R) →+* Localization (genMonoid p S) :=
+  IsLocalization.map (M := genMonoid p R) (T := genMonoid p S) (Localization (genMonoid p S))
+    (bdrPlusMap p f) (genMonoid_le_comap p f g hgf hfg)
+
+end BdRMap
+
 end PkgI4.DR
 
 end
@@ -267,3 +376,4 @@ end
 #print axioms PkgI4.Cp.isAdicComplete
 #print axioms PkgI4.DR.fontaineTheta_naturality
 #print axioms PkgI4.DR.bdrPlusMap
+#print axioms PkgI4.DR.bdrMap
