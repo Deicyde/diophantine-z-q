@@ -99,7 +99,7 @@ theorem trace_endE_indep (hM : CharPolyIndepOfEll) {k : Type} [Field k] (A : AbV
   have : Module.Finite ℚ_[ℓ] (A.V ℓ) := finite_of_baseChange (E := E)
   classical
   let b := Module.Free.chooseBasis ℚ_[ℓ] (A.V ℓ)
-  letI : Fintype (Module.Free.ChooseBasisIndex ℚ_[ℓ] (A.V ℓ)) := Fintype.ofFinite _
+  let _ : Fintype (Module.Free.ChooseBasisIndex ℚ_[ℓ] (A.V ℓ)) := Fintype.ofFinite _
   rw [endE, LinearMap.trace_baseChange, ht ℓ hℓ _ b, map_intCast]
 
 
@@ -315,6 +315,76 @@ theorem c10_of_trace_link (hC : ChebotarevExists) (hBN : BrauerNesbittChar0)
     (hρ₅ g p hp hpS hg)))
   rw [hx₃, hxa]
 
+
+/-! ## 8. `FrobCompare` from three squares (the inputs from `A`, separated)
+
+`A, Aσ` abelian varieties over `L` (`Aσ` plays `{}^σA`), `μ' = N μ_σ : Aσ → A` (an isogeny,
+genuine `Hom`), `Ā, Ā'` abelian varieties over the residue field `k` (`Ā'` plays
+`Ā^{(p)} = \overline{{}^σA}`), `F : Ā → Ā'` (relative Frobenius) and `μ̄' : Ā' → Ā` (the
+reduction of `μ'`), all genuine `Hom`s of pkg-I3 abelian varieties. The Galois transport
+`σ_* : V_ℓ(A) → V_ℓ(Aσ)` and the reduction isomorphisms `red, red'` are abstract `ℚ_ℓ`-linear
+isomorphisms, constrained only by the squares. -/
+
+open CategoryTheory in
+/-- Composition of homomorphisms of pkg-I3 abelian varieties (`f` then `g`). -/
+def homComp {K : Type} [Field K] {A B C : AbVar K} (f : AbVar.Hom A B) (g : AbVar.Hom B C) :
+    AbVar.Hom A C :=
+  AbVar.Hom.mk' (f.hom ≫ g.hom)
+
+open CategoryTheory in
+/-- `T_ℓ` is functorial for `homComp`. -/
+theorem homT_homComp {K : Type} [Field K] {A B C : AbVar K} (ℓ : ℕ) [Fact ℓ.Prime]
+    (f : AbVar.Hom A B) (g : AbVar.Hom B C) :
+    AbVar.homT (ℓ := ℓ) (homComp f g) = AbVar.homT (ℓ := ℓ) g ∘ₗ AbVar.homT (ℓ := ℓ) f := by
+  apply LinearMap.ext; intro x; apply Subtype.ext; funext n
+  change Additive.ofMul (Additive.toMul (x.1 n) ≫ (f.hom ≫ g.hom)) =
+    Additive.ofMul ((Additive.toMul (x.1 n) ≫ f.hom) ≫ g.hom)
+  exact congrArg Additive.ofMul (Category.assoc _ _ _).symm
+
+/-- `V_ℓ(f)`: the `ℚ_ℓ`-linear map of rational Tate modules. -/
+abbrev Vmap {K : Type} [Field K] {A B : AbVar K} (ℓ : ℕ) [Fact ℓ.Prime] (f : AbVar.Hom A B) :
+    A.V ℓ →ₗ[ℚ_[ℓ]] B.V ℓ :=
+  (AbVar.homT (ℓ := ℓ) f).baseChange ℚ_[ℓ]
+
+/-- Conjugation commutes with base change. -/
+theorem conj_baseChange {R A M N : Type*} [CommRing R] [CommRing A] [Algebra R A]
+    [AddCommGroup M] [Module R M] [AddCommGroup N] [Module R N] (e : M ≃ₗ[R] N)
+    (f : Module.End R M) :
+    (e.baseChange R A M N).conj (f.baseChange A) = (e.conj f).baseChange A := by
+  apply TensorProduct.AlgebraTensorModule.ext
+  intro a m
+  simp [LinearEquiv.conj_apply]
+
+/-- **`FrobCompare` from the three inputs of the surface `A` (GLUE, proved).**
+* `hΨ` (the instantiation of the descent: `T(σ) = μ_σ ∘ σ`, i.e. `N·T(σ) = μ' ∘ σ_*` on
+  `V ≅ E ⊗ V_ℓ(A)`);
+* `hS1` (Serre–Tate reduction and Frobenius: `red' ∘ σ_* = V_ℓ(F) ∘ red`);
+* `hS2` (Néron mapping property: `red ∘ V_ℓ(μ') = V_ℓ(μ̄') ∘ red'`).
+Then `FrobCompare ℓ (T σ) α' N` with `α' = μ̄' ∘ F`. -/
+theorem frobCompare_of_squares (ℓ : ℕ) [Fact ℓ.Prime] {L k : Type} [Field L] [Field k]
+    {A Aσ : AbVar L} (mu : AbVar.Hom Aσ A) {Ab Ab' : AbVar k} (F : AbVar.Hom Ab Ab')
+    (mub : AbVar.Hom Ab' Ab) (σs : A.V ℓ ≃ₗ[ℚ_[ℓ]] Aσ.V ℓ) (red : A.V ℓ ≃ₗ[ℚ_[ℓ]] Ab.V ℓ)
+    (red' : Aσ.V ℓ ≃ₗ[ℚ_[ℓ]] Ab'.V ℓ)
+    (hS1 : red'.toLinearMap ∘ₗ σs.toLinearMap = Vmap ℓ F ∘ₗ red.toLinearMap)
+    (hS2 : red.toLinearMap ∘ₗ Vmap ℓ mu = Vmap ℓ mub ∘ₗ red'.toLinearMap)
+    {E V : Type} [Field E] [Algebra ℚ_[ℓ] E] [AddCommGroup V] [Module E V]
+    (Tσ : Module.End E V) (N : ℕ) (Ψ : V ≃ₗ[E] E ⊗[ℚ_[ℓ]] A.V ℓ)
+    (hΨ : Ψ.conj ((N : E) • Tσ) = (Vmap ℓ mu ∘ₗ σs.toLinearMap).baseChange E) :
+    FrobCompare ℓ Tσ (homComp F mub : AbVar.End Ab) N := by
+  refine ⟨Ψ.trans (red.baseChange ℚ_[ℓ] E _ _), ?_⟩
+  have hconj : red.conj (Vmap ℓ mu ∘ₗ σs.toLinearMap) = Vmap ℓ mub ∘ₗ Vmap ℓ F := by
+    apply LinearMap.ext; intro x
+    simp only [LinearEquiv.conj_apply, LinearMap.comp_apply, LinearEquiv.coe_coe]
+    have h2 := LinearMap.congr_fun hS2 (σs (red.symm x))
+    have h1 := LinearMap.congr_fun hS1 (red.symm x)
+    simp only [LinearMap.comp_apply, LinearEquiv.coe_coe, LinearEquiv.apply_symm_apply] at h1 h2
+    rw [h2, h1]
+  rw [← LinearEquiv.conj_trans]
+  change (red.baseChange ℚ_[ℓ] E _ _).conj (Ψ.conj ((N : E) • Tσ)) = _
+  rw [hΨ, conj_baseChange, hconj, endE, homT_homComp]
+  congr 1
+  exact (LinearMap.baseChange_comp _ _).symm
+
 /-! ## 7. Checks -/
 
 /-- `FrobCompare` is satisfiable (non-vacuity): `V = E ⊗ V_ℓ(Ā)`, `Tσ = V_ℓ(α')`, `N = 1`,
@@ -330,3 +400,4 @@ end GlueC10Link
 #print axioms GlueC10Link.trace_link
 #print axioms GlueC10Link.trace_link_three_five
 #print axioms GlueC10Link.c10_of_trace_link
+#print axioms GlueC10Link.frobCompare_of_squares

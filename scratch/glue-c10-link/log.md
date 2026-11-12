@@ -32,3 +32,10 @@ Imports ZInQKernel.HDecomp.{Objects, C10.C10, C10.Trace, Descent.ProjRep} (built
 - `#print axioms` on trace_eq_two_mul_trace_subRep, trace_endE_indep, trace_link,
   trace_link_three_five, c10_of_trace_link: [propext, Classical.choice, Quot.sound].
 Pitfall: the existential `∃ t` fixes universes; mixing Type* in callers gave a whnf timeout.
+
+## 11:56 PST — Link.lean §8 compiles (VERIFIED, no errors, no warnings)
+- `homComp f g` (pkg-I3 Hom composition, Hom.mk' (f.hom ≫ g.hom)); `homT_homComp`.
+- `Vmap ℓ f` := (homT f).baseChange ℚ_ℓ; `conj_baseChange`.
+- `frobCompare_of_squares` — from hΨ : Ψ.conj (N • Tσ) = (Vmap μ' ∘ σ_*) ⊗ E,
+  hS1 : red' ∘ σ_* = Vmap F ∘ red, hS2 : red ∘ Vmap μ' = Vmap μ̄' ∘ red'  ⟹
+  FrobCompare ℓ Tσ (homComp F μ̄') N.  Axioms: propext, Classical.choice, Quot.sound.
