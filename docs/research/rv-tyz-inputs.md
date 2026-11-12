@@ -210,9 +210,9 @@ the printed ones. `ϖ` switches the two components of `X_U` and `1 + 2ϖ` does n
 `M² = −n`, `O_K ⊂ M₀(32)`, `64 | α − δ`, `ϖ⁵ = (32, 1)` and `W^{−1}jϖ⁵ ∈ U₀(32)₂`. **One misprint**:
 `w₀ϖε = D₃G₃(−R₃)`, not `D₃G₃R₃`; since `−R₃ = R₁ ∈ U` and `−I ∈ U`, the cusp `[0]^{ϖε} = [−1/8]` is unchanged.
 
-*External inputs of I5:* facts (1)–(3) at L1383–1404 (the uniformisation `τ`, the CM Galois action on
-`A[2^∞]`, and the cusp dictionary), taken from Tian (Cambridge J. Math. 2 (2014)); Shimura reciprocity
-(STANDARD). The cusp dictionary is checked in §1.5a.
+*External inputs of I5:* facts (1)–(3) at L1383–1404, taken from Tian (Cambridge J. Math. 2 (2014)): the
+uniformisation `τ`, the CM Galois action on `A[2^∞]` (main theorem of CM, STANDARD) and the cusp dictionary
+(verified in §1.5a); Shimura reciprocity (STANDARD).
 
 *`d₁ = 1` / Proposition 3.4.* Not involved (I5 is about single `Z(e)`).
 
@@ -220,7 +220,18 @@ the printed ones. `ϖ` switches the two components of `X_U` and `1 + 2ϖ` does n
 
 ### 1.5a The cusp dictionary
 
-CUSP_PLACEHOLDER
+Fact (3) of L1393–1404, quoted from Tian (2014), says how `i₀ : X₀(32) → A` sends the cusps to
+`A[(1+i)³] = τ(½ℤ[i]/(1+i)ℤ[i])`. It fixes the translations `R, S, T` in Proposition 3.8, and hence the
+torsion points `τ((1±i)/2)`, `τ(1/2)`, `τ(1)` in Theorem 3.6 and in I5.
+
+*Check* (VERIFIED, `cusp_dictionary.py`, `out_cusp_dictionary.txt`). `A ≅ E = 32a1 : Y² = X³ + 4X` over `ℚ`
+(`X = 2x`, `Y = 4y`). `E` is the optimal curve, i.e. `X₀(32)` itself (Manin constant 1, STANDARD). Over `ℚ`,
+`i₀` is the modular parametrisation `φ(z) = 2πi∫_{i∞}^z f`, unique up to sign. `Λ_E = c(1+i)ℤ[i]` with
+`c = Ω⁺/2`, so `τ(x) = φ`-image of `cx`, and `R/2ℤ` maps onto `E(ℝ)`. PARI's exact modular symbols give
+`φ(a/c) = x⁺Ω⁺ + x⁻iΩ⁻`. The resulting `τ`-coordinates `2x⁺ + 2ix⁻` are `[0] ↦ 1/2`, `[1/2] ↦ −1/2`,
+`[1/16] ↦ 1`, `[±1/4] ↦ ±i/2`, `[±1/8] ↦ (1±i)/2`. This is TYZ's table exactly, with `τ` (no sign change
+needed). The images are the points `(2, ∓4)`, `(0, 0)`, `(−2, ∓4i)` and `(∓2i, 0)` of `E(ℚ(i))`. So the external
+input behind Proposition 3.8 holds.
 
 ### 1.6 I6: Proposition 3.2(1)
 
@@ -307,7 +318,11 @@ only `T_5b` odd, 6 small ones with `T_5a` odd, and 12 random ones with `k ≥ 3`
 otherwise 1). Reading A of Theorem 3.5(2), `v₂(𝓛(n)) ≤ ρ(n)` when `T_5a` or `T_5b` is odd, holds on all 25.
 This is a weak test, since `𝓛` is odd throughout.
 
-*Large `ω(n)`* (`out_propn_rank.txt`): RANK_PLACEHOLDER
+*Large `ω(n)`* (`out_propn_rank.txt`): the pure row 5b (`T_5b = 1`, `T_5a = 0`, the case CR₃
+uses): 11 random squarefree `n ≡ 5 (mod 8)` below `4·10⁷`, 6 with `ω(n) = 6` and 5 with `ω(n) = 7` (largest
+`39303381 = 3·13·19·29·31·59`; values used by rv-prop-n excluded). All 11 have `ord_{s=1} = 1` (15–350 s each).
+Together with §3.2's first part, 41 samples, none inconsistent with Proposition N. `ω(n) ≥ 8` was not tried
+(`n > 10⁸`, conductor `> 3·10¹⁷`).
 
 ## 4. Summary of findings
 
