@@ -107,3 +107,12 @@
   165 (two d0: 5, 165; degree 64) ✓; √2 ∉ ℍ'_n, i ∈ ℍ'_n ✓. Control: A(H_{d0,4})_tors = (Z/4)² (order 16) ✓
   (the method sees the extra 4-torsion when √2 is present). n = 221 stopped (degree ≥ 128). I4 VERIFIED on these cases.
 - Note: elltors over number fields in PARI is unconditional (reduction bounds + division polynomials).
+
+## Step 8: computation i2_check.py (+ tyzcalc.py) → out_i2_check.txt
+- 30 odd squarefree m ≡ 1, 3 (mod 8) (seeded random, ω = 1..6, m < 3·10^6, incl. m = 3, 11 where w_K matters).
+- calL(d)² = L(E_d,1)/(2^{2k-3}Ω_d) from PARI lfun for every divisor d ≡ 1,3 (mod 8) of each m (~200 values): all are
+  squares of integers (TYZ Thm 1.1 integrality, which fixes the power of 2 in Thm 2.1/Lemma 2.8) ✓.
+- Lemma 2.8 mod 2: Σ_{non-ordered m=d1d2, d2≡1(8)} calL(d1)calL(d2) ≡ g(m) on all 30 ✓ (pairs per m: 1–16).
+- Theorem 1.1 in set-partition form (Lemma N1): calL(m) ≡ Λ(m) on all 30 ✓.
+- g from Rédei 4-rank (own implementation, unconditional) = quadclassunit value on every argument (assert) ✓.
+- I2 (as a congruence) VERIFIED on samples. (The integer identity with Q(m) cannot be tested: Q(m) needs the test vector.)
