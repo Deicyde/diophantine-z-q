@@ -26,6 +26,9 @@ class KernelAuditTests(unittest.TestCase):
             (d / "Fixture.lean").write_text(source, encoding="utf-8")
             env = dict(os.environ)
             env["LEAN_PATH"] = str(d)
+            # Fixtures run outside the repository, so elan cannot discover its
+            # lean-toolchain file by walking parent directories.
+            env["ELAN_TOOLCHAIN"] = (ROOT / "lean-toolchain").read_text(encoding="utf-8").strip()
             build = subprocess.run([LEAN, "-o", "Fixture.olean", "Fixture.lean"],
                                    cwd=d, env=env, text=True, capture_output=True)
             self.assertEqual(build.returncode, 0, build.stdout + build.stderr)

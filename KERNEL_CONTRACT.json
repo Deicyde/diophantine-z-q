@@ -942,7 +942,7 @@
     "scripts/check_target.py": "3217b013bf839c4166dfbbfe6fb560a2d3b56bc1408addbfc08646807dfa2e25",
     "scripts/kernel_base_report.py": "994453807d588cd255edaa5b7488268f73f15f0d97b5e49b0ecc5cda8a83273c",
     "scripts/print_axioms.lean": "dda22248b496bc767c9ae88b24d84d350d8bd21585a647b2d54eb61f13e552e0",
-    "scripts/test_kernel_audit.py": "eb2096c1a6d93d8dcc3f13b14d8c0e08f35950513c621e482f2919af17d3f110",
+    "scripts/test_kernel_audit.py": "147d8bfac5ecd7eaaf42613b1cc808296f373d5f828f6165b69575ed1cf186b5",
     "scripts/test_kernel_contract.py": "1f4641c5dcd96809f9a65857384b1b0ea981b680116b6d5e9ebedfd5afca8a45"
   },
   "targets": [
