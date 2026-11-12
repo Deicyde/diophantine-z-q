@@ -126,3 +126,10 @@
   normalisation) — calL(n) = 1 on 24, calL(21885) = 3. ρ(n) computed from the 2-isogeny φ_n (TYZ L381–388): ρ=0 for 85, 365.
   Reading A of Thm 3.5(2) (v2(calL) ≤ ρ when T5a or T5b odd) holds on all 25 ✓ (weak test: calL odd everywhere).
 - 5 samples (20045, 27429, 28821, 30837, 33397): no generator within 100 s; ord = 1 only.
+
+## Step 10: computation propn_check.py rank → out_propn_rank.txt (11 samples, large ω)
+- Selection: random squarefree n ≡ 5 (mod 8), n < 4·10^7, products of 6 primes < 70 or 7 primes < 48, with T5b = 1 and
+  T5a = 0 (pure row 5b, the case CR3 uses); excluded rv-prop-n's values.
+- All 11 (6 with ω=6, 5 with ω=7; max 39303381) have ord_{s=1} L(E_n,s) = 1 ✓ (15–350 s each, < 50 MB).
+- Total for the I7 consequence in this review: 41 samples, all consistent with Prop N.
+- (Draft of docs/research/rv-tyz-inputs.md written; placeholders for §1.5a cusp check and §3.2 large-ω table.)
