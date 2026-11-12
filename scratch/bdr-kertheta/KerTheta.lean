@@ -658,6 +658,98 @@ instance nontrivial_away_xi : Nontrivial (Localization.Away (ofPlus O p (xi' p))
 theorem nontrivial_BDeRham : Nontrivial (BdR O p) :=
   (bdREquivAway p).symm.injective.nontrivial
 
+/-! ### `B_dR^+(𝓞_ℂ_p)` is a discrete valuation ring with uniformizer `ξ`. -/
+
+theorem ker_fg : (RingHom.ker (fontaineThetaInvertP O p)).FG :=
+  ⟨{xi' p}, by rw [Finset.coe_singleton, ker_fontaineThetaInvertP_Cp]⟩
+
+theorem map_ker_eq :
+    (RingHom.ker (fontaineThetaInvertP O p)).map
+      (algebraMap _ (AdicCompletion (RingHom.ker (fontaineThetaInvertP O p))
+        (Localization.Away (p : WittVector p (PreTilt O p))))) =
+      (span {ofPlus O p (xi' p)} : Ideal (BDeRhamPlus O p)) := by
+  have h1 := congrArg (Ideal.map (algebraMap _ (AdicCompletion (RingHom.ker
+    (fontaineThetaInvertP O p)) (Localization.Away (p : WittVector p (PreTilt O p))))))
+    (ker_fontaineThetaInvertP_Cp p)
+  rw [Ideal.map_span, Set.image_singleton] at h1
+  exact h1
+
+instance isAdicComplete_BDeRhamPlus :
+    IsAdicComplete (span {ofPlus O p (xi' p)} : Ideal (BDeRhamPlus O p)) (BDeRhamPlus O p) := by
+  have := AdicCompletion.isAdicComplete_self _ (ker_fg p)
+  rw [map_ker_eq] at this
+  exact this
+
+instance isMaximal_span_xi : (span {ofPlus O p (xi' p)} : Ideal (BDeRhamPlus O p)).IsMaximal := by
+  have := ker_fontaineThetaInvertP_isMaximal p
+  have := AdicCompletion.isMaximal_map_of_le _ _ le_rfl (ker_fg p)
+  rw [map_ker_eq] at this
+  exact this
+
+/-- **`B_dR^+(𝓞_ℂ_p)` is a local ring.** -/
+instance isLocalRing_BDeRhamPlus : IsLocalRing (BDeRhamPlus O p) :=
+  isLocalRing_of_isAdicComplete_maximal (span {ofPlus O p (xi' p)})
+
+/-- Its maximal ideal is `(ξ)`. -/
+theorem maximalIdeal_BDeRhamPlus :
+    IsLocalRing.maximalIdeal (BDeRhamPlus O p) = span {ofPlus O p (xi' p)} :=
+  (IsLocalRing.eq_maximalIdeal (isMaximal_span_xi p)).symm
+
+/-- Every non-zero element of `B_dR^+` is `ξⁿ · unit`. -/
+theorem eq_xi_pow_mul_unit (x : BDeRhamPlus O p) (hx : x ≠ 0) :
+    ∃ n : ℕ, ∃ u : BDeRhamPlus O p, IsUnit u ∧ x = ofPlus O p (xi' p) ^ n * u := by
+  set ϖ := ofPlus O p (xi' p)
+  have hex : ∃ n, x ∉ (span {ϖ ^ n} : Ideal (BDeRhamPlus O p)) := by
+    by_contra hcon
+    push Not at hcon
+    apply hx
+    apply IsHausdorff.haus' (I := (span {ϖ} : Ideal (BDeRhamPlus O p))) x
+    intro n
+    rw [SModEq.sub_mem, sub_zero, smul_eq_mul, Ideal.mul_top, Ideal.span_singleton_pow]
+    exact hcon n
+  classical
+  let N := Nat.find hex
+  have hN : x ∉ (span {ϖ ^ N} : Ideal (BDeRhamPlus O p)) := Nat.find_spec hex
+  have hN0 : N ≠ 0 := by
+    intro h0
+    apply hN
+    rw [h0, pow_zero, Ideal.span_singleton_one]
+    trivial
+  obtain ⟨M, hM⟩ := Nat.exists_eq_succ_of_ne_zero hN0
+  have hxM : x ∈ (span {ϖ ^ M} : Ideal (BDeRhamPlus O p)) := by
+    have := Nat.find_min hex (show M < N by omega)
+    push Not at this
+    exact this
+  obtain ⟨u, hu⟩ := Ideal.mem_span_singleton'.mp hxM
+  refine ⟨M, u, ?_, by rw [← hu, mul_comm]⟩
+  by_contra hnu
+  have : u ∈ IsLocalRing.maximalIdeal (BDeRhamPlus O p) := hnu
+  rw [maximalIdeal_BDeRhamPlus] at this
+  obtain ⟨c, hc⟩ := Ideal.mem_span_singleton'.mp this
+  apply hN
+  rw [hM, Ideal.mem_span_singleton']
+  exact ⟨c, by rw [← hu, ← hc, Nat.succ_eq_add_one, pow_succ']; simp only [ϖ, mul_assoc]⟩
+
+instance isDomain_BDeRhamPlus : IsDomain (BDeRhamPlus O p) := by
+  have : NoZeroDivisors (BDeRhamPlus O p) := ⟨fun {x y} hxy => by
+    by_contra hcon
+    push Not at hcon
+    obtain ⟨a, u, hu, rfl⟩ := eq_xi_pow_mul_unit p x hcon.1
+    obtain ⟨b, v, hv, rfl⟩ := eq_xi_pow_mul_unit p y hcon.2
+    have : ofPlus O p (xi' p) ^ (a + b) * (u * v) = 0 := by rw [← hxy]; ring
+    exact ofPlus_xi'_pow_ne_zero p (a + b) ((hu.mul hv).mul_left_eq_zero.mp this)⟩
+  exact NoZeroDivisors.to_isDomain _
+
+/-- **`B_dR^+(𝓞_ℂ_p)` (Mathlib's `BDeRhamPlus`) is a discrete valuation ring.** -/
+theorem isDiscreteValuationRing_BDeRhamPlus : IsDiscreteValuationRing (BDeRhamPlus O p) := by
+  refine IsDiscreteValuationRing.ofHasUnitMulPowIrreducibleFactorization
+    ⟨ofPlus O p (xi' p), ?_, ?_⟩
+  · exact IsDiscreteValuationRing.irreducible_of_span_eq_maximalIdeal _
+      (by simpa using ofPlus_xi'_pow_ne_zero p 1) (maximalIdeal_BDeRhamPlus p)
+  · intro x hx
+    obtain ⟨n, u, hu, rfl⟩ := eq_xi_pow_mul_unit p x hx
+    exact ⟨n, ⟨hu.unit, rfl⟩⟩
+
 end BdrKer.Cp
 
 #print axioms BdrKer.Cp.ker_fontaineTheta_Cp
@@ -667,6 +759,8 @@ end BdrKer.Cp
 #print axioms BdrKer.Cp.ker_fontaineThetaInvertP_isMaximal
 #print axioms BdrKer.Cp.xi'_mem_nonZeroDivisors
 #print axioms BdrKer.Cp.nontrivial_BDeRham
+#print axioms BdrKer.Cp.isDiscreteValuationRing_BDeRhamPlus
+#print axioms BdrKer.Cp.maximalIdeal_BDeRhamPlus
 
 #print axioms BdrKer.ker_fontaineTheta_eq_span
 #print axioms BdrKer.isUnit_xi_BDeRham
