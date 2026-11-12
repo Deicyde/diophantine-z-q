@@ -86,13 +86,24 @@ Main findings:
      level-3 structures (`Level3`), the action of `Γ'` by `Aut(𝒪)` and `𝒪^×` with `A` fixed
      (units `≡ 1 mod 3𝒪` act trivially, proved), the objects `QML3 K`, their isomorphisms, and
      the set `M3 K` of isomorphism classes;
+   - the setoid of isomorphisms (`Iso.symm`, `Iso.trans`, `isoSetoid`);
+   - the centralizer of `ι(𝒪)` and the three CM predicates;
+   - base change of QM structures along any field extension (`endBC`, `endBC_injective`,
+     `QMStr.baseChange`), using Mathlib's faithfulness of `Over.pullback` along flat surjective
+     quasi-compact morphisms;
    - **step A6 instantiated on every object of the moduli problem** (`QML3.goodReduction`):
      good reduction at every DVR in which 3 is a unit, from the kernel's leaves
      `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure`. h-decomposition §2 R1 and
      h-trust A6 record this instantiation as missing ("needs A4 and the moduli objects").
 6. **What remains unproved or unstated.**
-   - Base change of `QML3` along field extensions (N8, medium) is the next node. It is needed for
-     naturality in R1fp, for Galois conjugates (A7) and for fields of moduli (R1rec, R5fp).
+   - Base change of `QML3` along field extensions (N8, medium) is half done: base change of QM
+     structures is proved (`QMStr.baseChange`). Two parts are missing:
+     - base change of level structures, which needs `A(K̄)[3] → A_L(L̄)[3]` to be onto, a
+       consequence of the kernel leaf `TorsionStructure`, not of the definitions;
+     - `dim A_L = dim A` for the `surface` field.
+
+     N8 is needed for naturality in R1fp, for Galois conjugates (A7) and for fields of moduli
+     (R1rec, R5fp).
    - `P¹_ℚ` with `P¹(K) = K ∪ {∞}` (N11, small to medium) is needed for R2fp.
    - The statements R1fp, R2fp, R5fp and R1rec are written below in Lean syntax but **not
      compiled**, because they depend on N8 and N11.
@@ -337,11 +348,11 @@ Mathlib: Over, Proper, SmoothOfRelDim, functionField, Proj ─► N11 P¹, curve
 | N4 | normalizer elements `w₂, w₃, w₆`; relations of `W ≅ (ℤ/2)²` modulo `ℚ^×𝒪^×`; `\|(𝒪/3𝒪)^×\| = 72` | N1 | S | **done** (`w2_normalizes`, `w3_normalizes`, `mu_normalizes`, `atkinLehner_relations`, `card_units`); the full `N_B(𝒪)/ℚ^×𝒪^× ≅ (ℤ/2)²` needs T29 + class number one: M, open | A3, R2fp |
 | N5 | QM structure `ι : 𝒪 ↪ End_K(A)`, action on `A(L)` | N1, kernel `AbVar` | S | **done** (`QMStr`, `endPt`, `qmAct`, `qmModule`) | all |
 | N6 | level-3 structure; `Γ'` acting by `twist`, `rightMul`; units `≡ 1 mod 3` act trivially | N5 | S | **done** (`Level3`, `Level3.twist`, `Level3.rightMul`, `rightMul_eq_self`) | R1fp, R1hecke, R2fp |
-| N7 | objects `QML3 K`, isomorphisms, classes `M3 K` | N6 | S | **done** (`QML3`, `QML3.Iso`, `Iso.refl`, `M3`); `Iso.symm`/`trans` and the `Setoid`: S, open | R1fp |
+| N7 | objects `QML3 K`, isomorphisms, classes `M3 K` | N6 | S | **done** (`QML3`, `QML3.Iso`, `Iso.refl`, `Iso.symm`, `Iso.trans`, `isoSetoid`, `M3`, `M3'`) | R1fp |
 | — | A6 on every object | N7 + kernel A6 | S | **done** (`QML3.goodReduction`) | A6 |
-| N8 | base change of `QMStr`, `Level3`, `QML3`, `M3` along `K → L` (incl. `σ ∈ Aut(L)`) | N7, kernel `baseChange`, Mathlib `Functor.map.instIsMonHom` | M | open (§4) | R1fp naturality, A7, N9 |
+| N8 | base change of `QMStr`, `Level3`, `QML3`, `M3` along `K → L` (incl. `σ ∈ Aut(L)`) | N7, kernel `baseChange`, Mathlib `Functor.map.instIsMonHom`, `(Over.pullback f).Faithful`; leaf `TorsionStructure` for `Level3` | M | **half done**: `endBC` (ring hom `End_K A → End_L A_L`), `endBC_injective`, `QMStr.baseChange`. Open: `Level3.baseChange` (needs `A(K̄)[3] ↠ A_L(L̄)[3]`, from `TorsionStructure` and injectivity of points along the epimorphism `Spec L̄ → Spec K̄`), `dim A_L = dim A`, compatibility with composition | R1fp naturality, A7, N9 |
 | N9 | field of moduli of an object over `K̄`: fixed field of `{σ : σP ≅ P}` | N8, Mathlib `IntermediateField.fixedField` | S | open | R1rec, R5fp |
-| N10 | centralizer of `ι(𝒪)` in `End(A)`; "CM by the order `R`"; `h(R) = #CommRing.Pic R` | N5, Mathlib | S | open | R2fp, R1rec, R5fp |
+| N10 | centralizer of `ι(𝒪)` in `End(A)`; "CM by the order `R`"; `h(R) = #CommRing.Pic R` | N5, Mathlib | S | **partly done** (`com`, `HasCM4`, `HasCM3`, `HasCM24`, `intCast_mem_com`); the conductor and discriminant of `com q` as an order: open | R2fp, R1rec, R5fp |
 | N11 | `P¹_ℚ` as a scheme with `P¹(K) ≃ OnePoint K`; smooth proper curves over `ℚ` | Mathlib `Proj`/gluing, `SmoothOfRelativeDimension`, `IsProper` | S-M | open (Mathlib has `Proj` and `𝔸ⁿ`, no ready `P¹` point bijection) | R1fp, R2fp |
 | N12 | dual abelian variety, polarizations, Rosati involution of a polarization | Picard scheme | L-VL | missing everywhere | the Shimura–Deligne route of R1fp (§2.2 glue), R22, T9 |
 | N13 | abelian schemes over a base with `𝒪`-action, `A[3]` as a finite flat group scheme, representability | N12 | VL | missing | literal R1 only |
@@ -374,18 +385,26 @@ supply N12-N13 or a proof of §2.2 before building them.
 
 ## 4. The cheapest faithful route
 
-**Stage 0 (done here):** N1-N7 and A6 on the objects; 3 files, about 800 lines.
+**Stage 0 (done here):** N1-N7, half of N8, part of N10, and A6 on the objects; 3 files, about
+950 lines.
 
 **Stage 1 (statements; about M in total):**
-1. N7 completion: `QML3.Iso.symm`, `trans`, a `Setoid`, `M3` as a quotient; transport of
-   `twist`/`rightMul` to `M3`. S.
+1. N7: done (setoid). Remaining: transport of `twist`/`rightMul` to `M3'`. S.
 2. N8 base change:
-   - `QMStr.baseChange`: `End A → End A_L` by `(Over.pullback f).map`, a ring homomorphism by
-     functoriality and `Functor.map_mul` of the monoidal pullback;
+   - `QMStr.baseChange`: **done** (`endBC` by `(Over.pullback f).map`, a ring homomorphism by
+     functoriality and `Functor.map_mul` of the monoidal pullback; injective by Mathlib's
+     faithfulness of the pullback);
    - `Level3.baseChange`: choose an embedding `K̄ → L̄` over `K → L` and pull points back along
-     `Spec L̄ → Spec K̄`. Galois invariance transfers through the restriction
+     `Spec L̄ → Spec K̄`. Injectivity on points holds because `Spec L̄ → Spec K̄` is an
+     epimorphism (Mathlib `epi_of_flat_of_surjective`). Surjectivity onto `A_L(L̄)[3]` holds by
+     counting with `TorsionStructure` on both sides; this needs `dim A_L = dim A`, not in
+     Mathlib as far as checked. Galois invariance transfers through the restriction
      `Aut(L̄/L) → Aut(K̄/K)`.
-   - M. This is the main new work of Stage 1.
+   - M. This is the main new work of Stage 1. Note that it consumes a leaf (`TorsionStructure`),
+     so the naturality clause of R1fp is stated over a definition whose well-definedness is glue
+     depending on a leaf. The alternative is to define the level structure scheme-theoretically,
+     as an isomorphism of group schemes `(𝒪/3𝒪)_K ≅ A[3]`; it base-changes trivially but needs
+     the kernel `A[3]` as a group scheme (finite limits in `Over`, available in Mathlib).
 3. N9, N10. S each.
 4. N11: `P¹_ℚ` and `P¹(K) ≃ OnePoint K`. S-M.
 5. State R1fp (+ R1hecke), R2fp, R1rec, R5fp as `def … : Prop` and replace the placeholders
@@ -445,7 +464,8 @@ supply N12-N13 or a proof of §2.2 before building them.
 `𝒪/3𝒪`, modelled on `Fin 4 → ZMod 3` with the reduced structure constants, number 72
 (`decide +kernel`, no `native_decide`). This is the count of h-trust A3 and h-b1 M3.
 
-`scratch/bp-qmmoduli/QMAbVar.lean` (imports `ZInQKernel.HDecomp.A6.A6`, about 30 s; §0 copies
+`scratch/bp-qmmoduli/QMAbVar.lean` (imports `ZInQKernel.HDecomp.A6.A6` and Mathlib's
+`Morphisms/FlatDescent`, about 30 s; §0 copies
 the order from `QMOrder.lean`, because scratch files cannot import each other):
 - `endPt`: the ring homomorphism `End_K(A) → End(A(L))`.
 - **`QMStr A`**: an injective `𝒪 →+* End_K(A)`.
@@ -467,6 +487,12 @@ the order from `QMOrder.lean`, because scratch files cannot import each other):
   - The hypotheses are discharged with `I = ι(i)`, `J = ι(j)` and the products `i² = 2`,
     `j² = −3`, `ji + ij = 0` in `𝒪` (`oi_mul_oi`, `oj_mul_oj`, `oj_mul_oi_add`).
   - The rational 3-torsion comes from `Level3.onto` and `Level3.rational`.
+- §6:
+  - `QML3.Iso.symm`, `QML3.Iso.trans`, `isoSetoid`, `M3'` (the `Quotient`);
+  - `com q` (centralizer of `ι(𝒪)` in `End_K A`), `HasCM4`, `HasCM3`, `HasCM24` (the hypotheses
+    of R2fp's value clauses), `intCast_mem_com`;
+  - **`endBC`** (`End_K(A) →+* End_L(A_L)`), `specMap_flat`, `specMap_surjective`,
+    **`endBC_injective`**, **`QMStr.baseChange`**.
 
 Caveats.
 - **`QML3 K` is uninhabited in Lean today.** Mathlib cannot construct a nonzero abelian variety
@@ -474,8 +500,8 @@ Caveats.
   the sanity theorem and by A6's use, not by an example.
 - The polarization is omitted from `QML3` by design (§2.2). Deriving R1fp from Shimura–Deligne's
   PEL statement needs §2.2 as glue in Lean, hence N12. From Buzzard's statement it does not.
-- `M3` is a `Quot` by the isomorphism relation; the `Setoid` (symmetry, transitivity) is not yet
-  proved.
+- `M3` is a `Quot` by the isomorphism relation; `M3'` is the same set as a `Quotient` by the
+  proved setoid `isoSetoid`.
 - The copy of the order in `QMAbVar.lean` §0 should become one shared module at integration
   (suggested: `ZInQKernel/HDecomp/QM/Order.lean` and `QM/Structures.lean`).
 - Pitfalls met (log):
