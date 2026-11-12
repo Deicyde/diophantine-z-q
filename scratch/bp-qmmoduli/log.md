@@ -15,3 +15,11 @@ Task: blueprint for the Shimura-curve objects of leaves R1-R3, R5 (docs/research
   is positive definite; x†x has equal j- and k-coordinates (so x†x ∈ ker(z ↦ trd(μ⁻¹z̄)) =
   {z2 = z3}); w₂ = 1+i+j (nrd 2), w₃ = j (nrd 3), μ (nrd 6) normalize 𝒪; w₂w₃μ⁻¹ ∈ 𝒪, nrd 1;
   w₂² = 2(i+j), i+j ∈ 𝒪¹.
+- `QMOrder.lean` (Mathlib only): compiles, no errors, no `sorry` (VERIFIED, `lake env lean`,
+  ~15 s). Axioms of `eq_smul_E0`, `eq_pm_E0_of_principal`, `trd_mul_dag_pos`,
+  `atkinLehner_relations`, `w2_normalizes`: propext, Classical.choice, Quot.sound. Contents:
+  `O : Subring B`; `dag` (anti-involution, `dag_dag`, `dag_mul`, `dag_mem`, `dag_eq'`);
+  `trd_mul_dag_pos` (positivity); `E0_alt`, `E0_rosati`, `E0_gram`, `gram_det`, `E0_int`;
+  **`eq_smul_E0`**: every alternating ℚ-bilinear `E` on `B` with `E(ax,y) = E(x,a†y)` is `r·E₀`;
+  **`eq_pm_E0_of_principal`**: Gram determinant 1 on N5's basis ⇒ `E = ±E₀`;
+  `w2_normalizes`, `w3_normalizes`, `mu_normalizes`, `atkinLehner_relations`.
