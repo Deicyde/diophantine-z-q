@@ -69,3 +69,8 @@ Compile: no errors (VERIFIED).
   A008 (page images checked 2026-11-05: §5, Satz 3 and Satz 4, printed p. 360; erratum p. 381
   does not withdraw them); `docs/reviews/height-replacement/descent/AUDIT.md` item (Kor. 1,
   pp. 360-361). AUDIT-READ, not read here.
+
+## Step 6: report
+- `docs/research/pkg-I3.md` written: uses (N5 L564-575, L731-734, L768-795, L861-867, L545-548;
+  VERIFIED by reading), published statements with marks, the seven leaves with faithfulness
+  notes, Mathlib inventory, glue by step, the Jacobian question, obstacles.
