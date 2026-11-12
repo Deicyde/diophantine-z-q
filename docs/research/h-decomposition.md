@@ -30,8 +30,8 @@ AUDIT-READ), which is not a human check.
 
 **Claim for H** (the six-contact height estimate: the one instance of Theorem 4.1 of Glazer's
 manuscript that the proof uses). On the manuscript's own route, H follows from **22
-research-level theorems** of the literature, **32 textbook theorems** in six groups, and **21
-glue steps**: the manuscript's new arguments, the repository's replacement arguments, and
+research-level theorems** of the literature, **32 textbook theorems** in six groups, and **20
+glue steps** (G1-G20, composed in G0): the manuscript's new arguments, the repository's replacement arguments, and
 bookkeeping. The glue is **not** formalized. It has been reviewed only by AI models; in Lean,
 its last steps (from the level bound, the theta point and the height inequalities to H) and
 Glazer's Brauer and cochain steps are proved, together with elementary pieces of most other
@@ -88,19 +88,24 @@ newforms, the Clebsch–Bolza–Igusa separation of binary sextics.
 
 **What is in Lean today** (VERIFIED: `scratch/h-decomposition/Leaves.lean` compiles, no
 `axiom`). 10 research-level leaves (items 4, 6, 7, 9, 10, 13, 14, 15, and 11 + 12 through their
-joint consequence) and 25 textbook leaves, 35 of 54, are stated concretely over Mathlib, using
+joint consequence) and 25 textbook leaves, 35 of 54 (33 stated individually, R11 and R12 only through their joint
+consequence), are stated concretely over Mathlib, using
 cheap genuine definitions built in the reports: abelian varieties as group objects over `Spec K`
 with Tate modules and Galois action, good reduction as an abelian scheme over the valuation ring,
 continuous Galois representations into `GL_n(ℚ̄_ℓ)`, Hodge–Tate weights and the de Rham
 condition (on Mathlib's `ℂ_p` and `B_dR`), eigenforms and newforms through their q-expansions,
 genus-2 theta constants as lattice sums, continuous Galois cohomology. The other 12
-research-level and 7 textbook leaves are named placeholders that carry no content until their
-definitions exist. Proved in Lean (axioms
+research-level and 7 textbook leaves are `opaque` placeholders with no content. Each needs new
+definitions (cheap for T29 and T32, up to very large for R1-R3, R5, R16, R18-R22) before it can
+be stated. Proved in Lean (axioms
 `propext`, `Classical.choice`, `Quot.sound` only): the whole Arakelov end of the glue, from the
 level bound, the theta point and the transfer inequalities to H (F2 on Mathlib's Weil heights,
 E2-E4 and F3 arithmetic, the final constant, the return from `J(u)` to `u`); Glazer's Brauer and
-cochain steps B2-B3 from four textbook leaves, ending in `[L':ℚ] ≤ Q·M`; the algebra of B1 and C1;
-the whole arithmetic of the repository's Lemma PR(i) and NoCM; and elementary parts of most other
+cochain steps B2-B3, ending in `[L':ℚ] ≤ Q·M`, from four textbook statements: T30, T31 and
+glue-descent's cochain forms of T14-T15 (`LeafHasse`, `LeafLocalTwo`). Deriving those two forms
+from the T14-T15 leaves as bundled is glue that is not yet proved (WP3); the algebra of B1 and C1;
+the valuation case analysis and the identities of the repository's Lemma PR(i) (not Prop. TS or
+Lemma NV), and the explicit part of NoCM (not the count from R5); and elementary parts of most other
 steps (quaternion order, weight and twist arithmetic, conductor arithmetic, the level bound,
 consequences of Faltings' and of the reduction theorems). The top theorem "leaves ⇒ H" is
 stated in Lean; its one `sorry` is the glue from the leaves to the numerical interface of the
@@ -135,8 +140,9 @@ statements to the main theorem is kernel-checked (no `sorry`, axioms `propext`,
   `Literature.TYZThm35ReadingA` + `Literature.HeckeContinuation`, which `tyzRow5b_of_readingA`
   turns into `TYZRow5b`. **Neither TYZ form is a printed statement.** No refereed text that we
   have read states `TYZRow5b`. Theorem 1.2 of TYZ (arXiv:1411.4728v1), read literally, is false
-  (d = 26565, 33117). `TYZThm35ReadingA` is the intended reading of their Theorem 3.5(2), with
-  the hypothesis weakened to `𝓛(n) = 0`; its proof in the paper passes through a proposition
+  (d = 26565, 33117). `TYZThm35ReadingA` is the intended reading of their Theorem 3.5(2), used only in the case
+  `𝓛(n) = 0`. That case is a special case of the printed hypothesis "`2^{−ρ(n)}𝓛(n)` even", and
+  it does not depend on the unproved "i.e." of Theorem 3.5(2) (`docs/research/nt-tyz.md` §2.2, F6); its proof in the paper passes through a proposition
   whose proof is only sketched, and the journal version (Asian J. Math. 21 (2017)) has not been
   checked. `TYZRow5b` is proved from unambiguous results of the arXiv version, with Hecke's
   continuation, by Proposition N (`docs/research/nt-tyz.md` §4), a new argument reviewed twice by
@@ -145,7 +151,7 @@ statements to the main theorem is kernel-checked (no `sorry`, axioms `propext`,
 **The exact claim the project can make.** "The main theorem is proved in Lean from two
 hypotheses. The CR3 hypothesis is reduced in Lean to three statements about L-functions, with the
 caveats above on Tian–Yuan–Zhang. Hypothesis H is reduced on paper to the 22 research-level
-theorems and 32 textbook results listed, plus 21 glue steps; in Lean, 35 of these 54 leaves can
+theorems and 32 textbook results listed, plus 20 glue steps; in Lean, 35 of these 54 leaves can
 already be stated, and the last part of the glue is proved." It is **not** yet true that
 formalizing the literature theorems alone would complete the proof: most of the glue for H
 (Glazer's descent, modularity and conductor arguments, the repository's Lemma PR and NoCM) still
@@ -201,9 +207,13 @@ whether Ribet 1992 and Pyle 2004 (proceedings volumes, reprinted in Progr. Math.
   G9, G10, G12, G14 replaced by GK1 (Lemma GL₂) and GK2 (Lemma Ind), with repairs 1-4.
 
 **Recommendation: route P** for the announced decomposition, **route K as the fallback.**
-Reasons. (i) A leaf must be a refereed published theorem; K2 (Ribet 1992) and the converse
-direction of Pyle appeared in proceedings whose refereeing is UNVERIFIED, while every route-P
-modularity leaf is a journal paper (Pan in JAMS). (ii) Route K is not shorter: 20 research
+Reasons. (i) A leaf must be a refereed published theorem. K2 (Ribet 1992) and the converse
+direction of Pyle appeared in proceedings whose refereeing is UNVERIFIED. Route P's modularity
+leaves are journal papers (Pan in JAMS) except R14 for `k ≥ 2`, which cites Deligne's Bourbaki
+exposé (Sém. Bourbaki 355, 1971). Route P has the same question for R1 (Deligne, Sém. Bourbaki
+389; Shimura 1967 in Ann. of Math. is the primary source), R21 (Bost, Sém. Bourbaki 795) and the
+SGA citations (R6, R8, T1, T2). These are standard sources, but whether they count as refereed
+should be stated, not assumed. (ii) Route K is not shorter: 20 research
 leaves against 22, and its deep core (Khare–Wintenberger with Kisin) is not shallower than Pan's
 (rv-routek §1: more mature, not less deep). (iii) After pkg-I4, route P is at least as statable as
 route K: its p-adic Hodge theory no longer blocks any statement, and both routes need `J₁(N)` and
@@ -331,8 +341,9 @@ Bourbaki 355 (1971) (`k ≥ 2`); Deligne–Serre 1974 (`k=1`). C. Lean: **yes**,
 `HSyn.EigenformRepExists`. Formalized: none (Anthropic FLT has mod-p versions). Steps C8, C10.
 
 **R15. Deligne–Serre, finite image.** A semisimple `ρ` attached to a weight-1 eigenform has finite
-image. Ref: Ann. Sci. ÉNS 7 (1974), Thm 4.1 (with T18, T19 for "every semisimple `ρ` with these
-traces"). C. Lean: **yes**, `HSyn.DeligneSerreConseq`. Step C8.
+image. Ref: Ann. Sci. ÉNS 7 (1974), Thm 4.1 (with T25 to pass from an eigenform to a newform, and T18, T19 for "every semisimple `ρ`
+with these traces"; if the printed Thm 4.1 covers every eigenform of the `T_p`, `p ∤ N`, T25 is
+not needed: UNVERIFIED). C. Lean: **yes**, `HSyn.DeligneSerreConseq`. Step C8.
 
 **R16. Eichler–Shimura in `J₁(N)`.** For a weight-2 newform `f` of level `N`, `V_ℓ(J₁(N)) ⊗ ℚ̄_ℓ`
 has a `G_ℚ`-stable 2-dimensional subquotient with `tr Frob_p = ι(a_p(f))`, `p ∤ Nℓ`. Ref: Shimura
@@ -434,7 +445,7 @@ item has model reviews only, except what is marked proved.
 | G4 | Conjugates have one moduli point; Hom field `L`, `[L:ℚ] ≤ D`, unramified outside `T` | G2, G3; R2, R3, T6, R7a, T28; Minkowski's lemma | N5 L532-563 | A7's algebraic step **proved** (`PkgI1.equiv_of_lyVec`, from T28); Minkowski's bound and `[EK:ℚ] ≤ F₀·3^{r²} ≤ D` **proved** (glue-repo); Weil restriction, the Hom field unproved | medium |
 | G5 | `End⁰(A_ℚ̄) ∈ {B, M₂(k)}` | T27 (or T11 + centralizer) | N5 L564-577; pkg-I3 | immediate from T27 once `A` exists | small |
 | G6 | NoCM: no CM point over `J(u)`, so `End⁰ = B` | G5; R1(d), R2, R5 | repository, h-cm, rv-h-cm §7.2 | **proved**: Elkies identities (`PkgI1.elkies_t`, `elkies_t_sub_one`), the fibre over `t(u)` is a free `W`-orbit with no real point and complex conjugation acts as `w₃` (`GlueRepo.PR.fibre_free`), `ℚ(√−2) ⊄ B`; the counting with R5 unproved | small |
-| G7 | Scalar descent: `μ_σ`, `ε`, `χ` with `m ≤ 2R^R M`, `β`, `[L':ℚ] ≤ QM` | G4, G6; T13-T16 | N5 L632-716 (Glazer); pkg-I6 (B2 via local Kronecker–Weber, SPECULATIVE) | **B2-B3 proved** over Mathlib's `G_ℚ`, Dirichlet characters and intermediate fields from T14-T15 (glue-descent forms), T30, T31: `GlueDescent.B3Q.b3_degree_le_QM` gives `χ`, `β` with `β² = χ`, `∂β = ε`, `L'` Galois with `[L':ℚ] ≤ Q·M` against the repository's `heightQ`, `contactSupport`; B1's algebra (cocycle, sign normalization, centralizer `c ∈ ℚ^×`, `B` central simple) **proved** (glue-descent `B1Quat`, `Cochain`); B2's Brauer step also from pkg-I6's forms (`PkgI6.eq_of_same_finite_support`); unproved: unramifiedness of `L'` (needs T32), instantiation on the actual `A` | medium-large |
+| G7 | Scalar descent: `μ_σ`, `ε`, `χ` with `m ≤ 2R^R M`, `β`, `[L':ℚ] ≤ QM` | G4, G6; T13-T16 | N5 L632-716 (Glazer); pkg-I6 (B2 via local Kronecker–Weber, SPECULATIVE) | **B2-B3 proved** over Mathlib's `G_ℚ`, Dirichlet characters and intermediate fields from glue-descent's cochain forms of T14-T15 (`LeafHasse`, `LeafLocalTwo`; their derivation from `PkgI6.BrauerHasse2`, `BrauerReciprocity2`, `LocalH2Card` is unproved, WP3), T30, T31: `GlueDescent.B3Q.b3_degree_le_QM` gives `χ`, `β` with `β² = χ`, `∂β = ε`, `L'` Galois with `[L':ℚ] ≤ Q·M` against the repository's `heightQ`, `contactSupport`; B1's algebra (cocycle, sign normalization, centralizer `c ∈ ℚ^×`, `B` central simple) **proved** (glue-descent `B1Quat`, `Cochain`); B2's Brauer step also from pkg-I6's forms (`PkgI6.eq_of_same_finite_support`); unproved: unramifiedness of `L'` (needs T32), instantiation on the actual `A` | medium-large |
 | G8 | `ρ_ℓ ≅ r_ℓ ⊕ r_ℓ`, Tate action on `G_{L'}`, `r_ℓ\|G_{L'}` absolutely irreducible | G7; R9, T26, T6 | N5 L719-734 | C1's algebra **proved** (`ρ` a representation commuting with `B ⊗ E`, the Tate action on `G_{L'}`, `ρ ≅ r ⊕ r` by matrix units: glue-descent `ProjRep`); C2's Faltings part **proved** (`PkgI3.finrank_equivEnd`); instantiation on `A` unproved | medium |
 | G9 | Appendix lemma: `r_ℓ` de Rham, weights `{0,−1}` | G8; R10, T23, T10 | N5 L10939-11000 | needs `B_dR` | medium |
 | G10 | `r_ℓ` odd | G8; T11, T12 | N5 L742-751 | needs T11-T12 | medium |
@@ -462,7 +473,8 @@ what one leaf, applied to the actual varieties, must deliver.
 Route K replaces G9, G10, G12, G14 by **GK1** (Lemma GL₂: `r_ℓ` is a constituent of `V_ℓ(B₀)` for a
 GL₂-type `ℚ`-simple factor `B₀` of `Res_{L'/ℚ}A`, and `B₀,L' ∼ A^k`; inputs R9, T8, Weil
 restriction) and **GK2** (Lemma Ind: Glazer's local bounds for `V_ℓ(Res A)` via Mackey; inputs as
-G15), both NEW and unreviewed (hdec-elementary §2.2); G13 and G17 become "K2 gives
+G15), both new (hdec-elementary §2.2), verified as arguments by one adversarial model review
+(rv-routek) with repairs 1-4 of §1 pending, and with no human review; G13 and G17 become "K2 gives
 `J₁(N) → B₀`, T8 gives `J₁(N)_{L'} ∼ A × Z`".
 
 ---
@@ -530,6 +542,8 @@ G15), both NEW and unreviewed (hdec-elementary §2.2); G13 and G17 become "K2 gi
   (field and `g ≥ 1`), Gaudron–Rémond, Pazuki (`max(1, ·)` in `X_D`, the constant `C₂`), Faltings
   Lemma 5 in inequality form (all model readings only), and a refereed locator for T27, the QM
   dichotomy (pkg-I3 §7).
+  Refereed sources for R14 (`k ≥ 2`), R21 and the SGA-cited leaves, or an explicit policy that
+  Séminaire Bourbaki and SGA count as refereed.
 - **R2. Leaves at risk of being stronger than published.** Pan's conclusion "comes from a cuspidal
   eigenform up to twist" is undefined in his introduction; R12 uses the trace reading, which every
   reading implies; a reading fixing level, minimal twist or weight would be stronger. R13's
