@@ -42,3 +42,11 @@ Jmap copied verbatim from JHeight.lean (not importable in worktrees).
 - inertia_trivial_iff: prime p ≥ 17, u ∉ 𝒞: (4 ∣ v_p(J)⁺ ∧ 6 ∣ (−v_p(J))⁺ ∧ 2 ∣ v_p(J+16/27)⁺)
   ↔ ¬∃ c ∈ 𝒞, v_p(u−c) > 0 odd. (= Prop. TS's inertia orders e/gcd(e,m) all 1, (e)=(4,6,2).)
 - inertia_trivial_iff_not_dvd: same with ¬ p ∣ contactSupport S u, for p ∉ S ⊇ primes ≤ 324.
+
+## A1Quaternion.lean, elliptic elements (h-b1 M9 / Lemma NV step 2; rv-h-cm (Emb)) — COMPILED
+- nrd, nrd_eq, mul_star_eq (x x̄ = nrd x), nrd_mul.
+- half_one_add_mem: x ∈ 𝒪, Trd x = 0, nrd x = 3 ⇒ ½(1+x) ∈ 𝒪 (type (0,3): CM order of disc −3,
+  maximal; proof by residues mod 4, `decide` over (ZMod 4)³).
+- descent / no_trd_zero_nrd_two: no x ∈ B with Trd x = 0, nrd x = 2 (ℚ(√−2) does not embed in
+  B; 3-adic infinite descent on 3C² = 2E²+2B²+6D², `decide` over ZMod 3).
+- #print axioms: propext, Classical.choice, Quot.sound.

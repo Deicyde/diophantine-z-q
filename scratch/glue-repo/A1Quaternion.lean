@@ -166,9 +166,128 @@ theorem ros_mem {x : B} (hx : x ∈ O) : ros x ∈ O := by
   exact ⟨![n 0 + 2 * n 2 - 2 * n 3, n 1 + n 2 - n 3, -3 * n 2 + 4 * n 3, -2 * n 2 + 3 * n 3],
     by ext <;> simp [comb, ros, μ, μinv] <;> push_cast <;> ring⟩
 
+/-! ### Elliptic elements (h-b1 M9, Lemma NV step 2; rv-h-cm (Emb)) -/
+
+/-- Reduced norm `nrd x = x x̄` (a rational number). -/
+def nrd (x : B) : ℚ := (x * star x).re
+
+theorem nrd_eq (x : B) : nrd x = x.re ^ 2 - 2 * x.imI ^ 2 + 3 * x.imJ ^ 2 - 6 * x.imK ^ 2 := by
+  simp [nrd]; ring
+
+theorem mul_star_eq (x : B) : x * star x = (nrd x : B) := by
+  ext <;> simp [nrd] <;> ring
+
+theorem nrd_mul (x y : B) : nrd (x * y) = nrd x * nrd y := by
+  simp only [nrd_eq]; simp; ring
+
+/-- **Type `(0,3)`.** If `x ∈ 𝒪` has `Trd x = 0` and `nrd x = 3`, then `(1+x)/2 ∈ 𝒪`; so the CM
+order `ℚ(x) ∩ 𝒪` contains `ℤ[(1+x)/2]`, of discriminant `−3` (maximal), not `ℤ[√−3]`. -/
+theorem half_one_add_mem {x : B} (hx : x ∈ O) (ht : trd x = 0) (hn : nrd x = 3) :
+    (1 / 2 : ℚ) • (1 + x) ∈ O := by
+  obtain ⟨n, rfl⟩ := hx
+  have ht' : (2 * n 0 + n 2 : ℤ) = 0 := by
+    have := ht; simp [trd, comb] at this; exact_mod_cast (by linarith : (2 * (n 0 : ℚ) + n 2) = 0)
+  have hn' : (n 0 ^ 2 + n 0 * n 2 + n 2 ^ 2 - 2 * n 1 ^ 2 - 2 * n 1 * n 3 - 2 * n 3 ^ 2 : ℤ) = 3 := by
+    have := hn; rw [nrd_eq] at this; simp [comb] at this
+    exact_mod_cast (by linarith : ((n 0 : ℚ) ^ 2 + n 0 * n 2 + n 2 ^ 2 - 2 * n 1 ^ 2
+      - 2 * n 1 * n 3 - 2 * n 3 ^ 2) = 3)
+  have h2 : n 2 = -2 * n 0 := by linarith
+  rw [h2] at hn'
+  have h4 : ((3 * n 0 ^ 2 - 2 * (n 1 ^ 2 + n 1 * n 3 + n 3 ^ 2) : ℤ) : ZMod 4) = 3 := by
+    rw [show (3 * n 0 ^ 2 - 2 * (n 1 ^ 2 + n 1 * n 3 + n 3 ^ 2) : ℤ) = 3 by linarith]; rfl
+  push_cast at h4
+  have key : ∀ a b c : ZMod 4, 3 * a ^ 2 - 2 * (b ^ 2 + b * c + c ^ 2) = 3 →
+      (a = 1 ∨ a = 3) ∧ (b = 0 ∨ b = 2) ∧ (c = 0 ∨ c = 2) := by decide
+  obtain ⟨ha, hb, hc⟩ := key _ _ _ h4
+  have ev : ∀ z : ℤ, ((z : ZMod 4) = 0 ∨ (z : ZMod 4) = 2) → 2 ∣ z := by
+    intro z hz
+    rcases hz with hz | hz
+    · rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at hz
+      exact (dvd_trans (by norm_num) hz)
+    · have : ((z : ℤ) : ZMod 4) = ((2 : ℤ) : ZMod 4) := by rw [hz]; rfl
+      rw [ZMod.intCast_eq_intCast_iff_dvd_sub] at this
+      obtain ⟨k, hk⟩ := this
+      exact ⟨1 - 2 * k, by push_cast at hk; linarith⟩
+  have od : 2 ∣ n 0 + 1 := by
+    rcases ha with ha | ha
+    · have : ((n 0 : ℤ) : ZMod 4) = ((1 : ℤ) : ZMod 4) := by rw [ha]; rfl
+      rw [ZMod.intCast_eq_intCast_iff_dvd_sub] at this
+      obtain ⟨k, hk⟩ := this
+      exact ⟨1 - 2 * k, by push_cast at hk; linarith⟩
+    · have : ((n 0 : ℤ) : ZMod 4) = ((3 : ℤ) : ZMod 4) := by rw [ha]; rfl
+      rw [ZMod.intCast_eq_intCast_iff_dvd_sub] at this
+      obtain ⟨k, hk⟩ := this
+      exact ⟨2 - 2 * k, by push_cast at hk; linarith⟩
+  obtain ⟨a0, ha0⟩ := od
+  obtain ⟨a1, ha1⟩ := ev _ hb
+  obtain ⟨a3, ha3⟩ := ev _ hc
+  have h2q : (n 2 : ℚ) = -2 * n 0 := by exact_mod_cast h2
+  have ha0q : (n 0 : ℚ) + 1 = 2 * (a0 : ℚ) := by exact_mod_cast ha0
+  have ha1q : (n 1 : ℚ) = 2 * (a1 : ℚ) := by exact_mod_cast ha1
+  have ha3q : (n 3 : ℚ) = 2 * (a3 : ℚ) := by exact_mod_cast ha3
+  refine ⟨![a0, a1, -n 0, a3], ?_⟩
+  ext <;> simp [comb] <;> linarith
+
+/-- `3C² = 2E² + 2B² + 6D²` has no integer solution with `E ≠ 0` (3-adic descent). -/
+theorem descent : ∀ (n : ℕ) (E Bq C D : ℤ), E.natAbs = n →
+    3 * C ^ 2 = 2 * E ^ 2 + 2 * Bq ^ 2 + 6 * D ^ 2 → E = 0 := by
+  intro n
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+    intro E Bq C D hn h
+    by_contra hE
+    have k1 : ∀ e b c d : ZMod 3, 3 * c ^ 2 = 2 * e ^ 2 + 2 * b ^ 2 + 6 * d ^ 2 →
+        e = 0 ∧ b = 0 := by decide
+    have h3 := congrArg (fun z : ℤ => (z : ZMod 3)) h
+    push_cast at h3
+    obtain ⟨hE3, hB3⟩ := k1 _ _ _ _ h3
+    rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at hE3 hB3
+    obtain ⟨E', rfl⟩ := hE3
+    obtain ⟨B', rfl⟩ := hB3
+    have h' : C ^ 2 = 6 * E' ^ 2 + 6 * B' ^ 2 + 2 * D ^ 2 := by push_cast at h; linarith
+    have k2 : ∀ c d e b : ZMod 3, c ^ 2 = 6 * e ^ 2 + 6 * b ^ 2 + 2 * d ^ 2 →
+        c = 0 ∧ d = 0 := by decide
+    have h3' := congrArg (fun z : ℤ => (z : ZMod 3)) h'
+    push_cast at h3'
+    obtain ⟨hC3, hD3⟩ := k2 _ _ _ _ h3'
+    rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at hC3 hD3
+    obtain ⟨C', rfl⟩ := hC3
+    obtain ⟨D', rfl⟩ := hD3
+    have hE' : E' ≠ 0 := by rintro rfl; simp at hE
+    have := ih E'.natAbs (by rw [← hn, Int.natAbs_mul]; simp; omega) E' B' C' D' rfl
+      (by push_cast at h'; linarith)
+    exact hE' this
+
+/-- **Type `(0,2)` is absent:** no `x ∈ B` has `Trd x = 0` and `nrd x = 2`; i.e. `ℚ(√−2)` does
+not embed in `B` (3 splits in it; h-b1 M9, rv-h-cm (Emb)). -/
+theorem no_trd_zero_nrd_two (x : B) (ht : trd x = 0) (hn : nrd x = 2) : False := by
+  have hre : x.re = 0 := by simp [trd] at ht; exact ht
+  rw [nrd_eq, hre] at hn
+  set b := x.imI; set c := x.imJ; set d := x.imK
+  -- common denominator
+  set E : ℤ := ((b.den * c.den * d.den : ℕ) : ℤ)
+  have hE : E ≠ 0 := by simp [E]
+  have hb : ∃ B' : ℤ, (B' : ℚ) = b * E := ⟨b.num * (c.den * d.den : ℕ), by
+    simp only [E]; push_cast; rw [← Rat.mul_den_eq_num b]; ring⟩
+  have hc : ∃ C' : ℤ, (C' : ℚ) = c * E := ⟨c.num * (b.den * d.den : ℕ), by
+    simp only [E]; push_cast; rw [← Rat.mul_den_eq_num c]; ring⟩
+  have hd : ∃ D' : ℤ, (D' : ℚ) = d * E := ⟨d.num * (b.den * c.den : ℕ), by
+    simp only [E]; push_cast; rw [← Rat.mul_den_eq_num d]; ring⟩
+  obtain ⟨B', hB'⟩ := hb
+  obtain ⟨C', hC'⟩ := hc
+  obtain ⟨D', hD'⟩ := hd
+  have key : 3 * C' ^ 2 = 2 * E ^ 2 + 2 * B' ^ 2 + 6 * D' ^ 2 := by
+    have : (3 * C' ^ 2 : ℚ) = 2 * E ^ 2 + 2 * B' ^ 2 + 6 * D' ^ 2 := by
+      rw [hB', hC', hD']; linear_combination (E : ℚ) ^ 2 * hn
+    exact_mod_cast this
+  exact hE (descent _ E B' C' D' rfl key)
+
 end GlueRepo.A1
 
 #print axioms GlueRepo.A1.trd_mul_ros_pos
 #print axioms GlueRepo.A1.det_gram_E
 #print axioms GlueRepo.A1.E_ros
 #print axioms GlueRepo.A1.det_trace_form
+#print axioms GlueRepo.A1.half_one_add_mem
+#print axioms GlueRepo.A1.no_trd_zero_nrd_two
+#print axioms GlueRepo.A1.nrd_mul
