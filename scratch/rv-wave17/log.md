@@ -17,6 +17,7 @@ Outputs are in `chk/*.out` and timings in `chk/status.txt`.
 | glue-a6-alg/Quat.lean | 0 | 61 | 0 | 0 | 0 |
 | glue-a6-alg/Extend.lean | 0 | 3 | 0 | 0 | 0 |
 | glue-d1-local/Local.lean | 0 | 50 | 0 | 0 | 0 |
+| glue-c10/Lift.lean (extra) | 0 | 22 | 0 | 0 | 0 |
 
 The files' own `#print axioms` lines all print `[propext, Classical.choice, Quot.sound]`
 (c10, iso_three_of_five, frobLift, frobDense, trace_indep_of_ell, quatUnipotentTrivial,
@@ -73,3 +74,4 @@ D1_krasner(') and the rest).
   `u_last ≤ 4a²` from local degree `≤ a`). The two transports (completion, Krasner) are not in
   Lean, as the note says.
 - C10.lean's ChebotarevExists, BrauerNesbittChar0 identical to pkg-I6/I6.lean (VERIFIED, diff).
+- glue-c10/Lift.lean (extra): exit 0, 22 decls, 0 nonstandard axioms (VERIFIED, chk/glue-c10_Lift.out).
