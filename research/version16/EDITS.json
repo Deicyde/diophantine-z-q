@@ -1,0 +1,48 @@
+{
+  "baseline": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+  "baseline_sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+  "manuscript": "manuscripts/quartic_v16.tex",
+  "sha256": "2f7295c71e58df196470a1d812b594d5d4eda991a8d3daa50cc402b4133d0d05",
+  "edits": [
+    {
+      "id": "version",
+      "old": "\\large Version 15",
+      "new": "\\large Version 16"
+    },
+    {
+      "id": "date",
+      "old": "\\date{November 10, 2026}",
+      "new": "\\date{November 11, 2026}"
+    },
+    {
+      "id": "horizontal-normalization",
+      "old": "Apply the integer change-of-basis construction to the regularized frequency\r\nlists. We now remove each rational or small coordinate in turn. The",
+      "new": "Apply the integer change-of-basis construction to the regularized frequency\r\nlists. Before removing any coordinate, make the horizontal identities exact.\r\nFix internal real lifts $x_{h,i,a}$ of the regularized frequencies: the small\r\nlift for a small coordinate, a rational lift for a rational coordinate, and\r\n$\\{\\alpha h\\}\\beta$ for a linear petal. For each $i$, the difference between\r\nthe $i$th horizontal Taylor coefficient of $g_h$ and\r\n$\\sum_a x_{h,i,a}\\phi(e_{i,a})$ lies in the horizontal lattice of $\\Gamma$.\r\nChoose $\\gamma_{h,i}\\in{}^*(\\Gamma\\cap G_{(i,1)})$ mapping to this difference,\r\nand replace $g_h(n)$ by\r\n\\[\r\n g_h(n)\\prod_i\\gamma_{h,i}^{-\\binom ni}.\r\n\\]\r\nThe product is taken in a fixed order. It takes values in $\\Gamma$, so this\r\nright multiplication does not change the orbit modulo $\\Gamma$. The Taylor\r\ncriterion B.9 and the polynomial-product rule B.4 make it polynomial. The\r\nhorizontal Taylor map is a homomorphism, so the identities now hold in the\r\nhorizontal vector groups themselves. These are internal choices, as in the\r\nlattice normalization used below. In the two removals that follow, use these\r\nfixed lifts as the exponents. Each removal then subtracts the removed term\r\nexactly, preserving the identities for the remaining coordinates.\r\n\r\nWe now remove each rational or small coordinate in turn. The"
+    },
+    {
+      "id": "finite-cover-fixed-lifts",
+      "old": "$M$th power, and divide its horizontal frequency by $M$. Pull back the\r\ncharacter by the same map.",
+      "new": "$M$th power, and divide its horizontal frequency by $M$. Divide the fixed\r\nreal lift: since\r\n\\[\r\n \\sum_a (x_{h,i,a}/M)\\,M\\phi(e_{i,a})\r\n       =\\sum_a x_{h,i,a}\\phi(e_{i,a}),\r\n\\]\r\nthe vector identities are unchanged, and hence hold modulo the horizontal\r\nlattice of $\\Gamma'$. Pull back the character by the same map."
+    },
+    {
+      "id": "gr-lower-bound",
+      "old": "see \\cite[\\S2.3 and Corollary~8.4]{gr2014}.",
+      "new": "see \\cite[\\S2.3 and Corollary~8.4]{gr-periods2014}."
+    },
+    {
+      "id": "gr-isogeny-height",
+      "old": "by at most $\\frac12\\log D$; see \\cite[\\S2.3]{gr2014}.",
+      "new": "by at most $\\frac12\\log D$; see \\cite[\\S2.3]{gr-periods2014}."
+    },
+    {
+      "id": "gr-periods-bibliography",
+      "old": "\\bibitem{gr2014} \\'E. Gaudron and G. R\\'emond,",
+      "new": "\\bibitem{gr-periods2014} \\'E. Gaudron and G. R\\'emond,\r\n\\emph{Th\\'eor\\`eme des p\\'eriodes et degr\\'es minimaux d'isog\\'enies},\r\nCommentarii Mathematici Helvetici 89 (2014), no.~2, 343--403,\r\n\\S2.3 and Corollaire~8.4.\r\n\\url{https://doi.org/10.4171/CMH/322}.\r\n\\bibitem{gr2014} \\'E. Gaudron and G. R\\'emond,"
+    },
+    {
+      "id": "tao-ziegler-proof-adaptation",
+      "old": "We now use the arbitrary-function dense-model theorem of\r\nTao--Ziegler~\\cite{v5tz}. Their published Theorem~11 and Corollary~3\r\ngive a single bounded model accurate in both global Gowers norms and the\r\nlocal polynomial box norms. Their Theorem~9 is the bounded-function\r\nconcatenation statement, and their Theorem~13 bounds the polynomial\r\naverage by one of those local norms. All majorants here are the ordinary\r\nprime majorants, since $0\\leq\\Lambda'_j\\leq\\Lambda'$.\r\nThe fixed factor $D$ in $W$ is allowed in their divisor-sum construction:",
+      "new": "We now adapt the arbitrary-function dense-model argument of\r\nTao--Ziegler~\\cite{v5tz}. For their squarefree primorial modulus, the published\r\nTheorem~11 and Corollary~3 give a single bounded model accurate in both\r\nglobal Gowers norms and the local polynomial box norms. Their Theorem~9 is\r\nthe bounded-function concatenation statement, and their Theorem~13 bounds\r\nthe polynomial average by one of those local norms. All majorants here are\r\nthe ordinary prime majorants, since $0\\leq\\Lambda'_j\\leq\\Lambda'$.\r\nOur modulus can contain a fixed extra factor. Thus the uses of their\r\nmodulus-dependent results here are adaptations of their proofs, including\r\nthe polynomial-forms estimate in Theorem~15, rather than literal\r\napplications of the published statements. The bounded-function\r\nTheorem~9 does not involve this modulus. The changes in the divisor-sum\r\nconstruction are as follows:"
+    }
+  ]
+}

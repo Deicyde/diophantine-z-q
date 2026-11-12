@@ -1,0 +1,87 @@
+{
+  "schema": "v16-delivery-support-addendum/v1",
+  "reviewer": "/root/v16_gate_review",
+  "decision": "accepted_within_delivery_record_scope",
+  "application_ids": [
+    "V16-DELIVERY-POLICY",
+    "V16-REVIEW-EVIDENCE",
+    "V16-DELIVERY-ARTIFACTS"
+  ],
+  "author_of_deduplication_or_source_implementation": false,
+  "reviewed_file_pins": [
+    {
+      "side": "head",
+      "path": "research/version16/protocol/CONNECTIONS.json",
+      "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/protocol/DOSSIER.json",
+      "sha256": "45c3864dc588d23c6c797e783c23f88c5b00473ccd7956548734380ccb04f9c5"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/coverage/record-repair-001/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "7f7e0544d324b4ba19d5cb70151c98b31ae2a2a429483df7416d07812267b497"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/coverage/record-repair-001/ASSEMBLY-REVIEW.json",
+      "sha256": "667f8007a2af8d96a845cbf505ca001bf6a04dbb69d5a0667dd2e76d12a32957"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/coverage/record-repair-001/REVIEW.md",
+      "sha256": "52bb8ba0ada9cbdb70b2b711cd05517b9532d36927b5fb55daa1b7c4cea3dff9"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/coverage/record-repair-001/REVIEW.json",
+      "sha256": "ba7b54afa94cf4583d9c20167b333656ae16c80c866bee82b555ae6a682b310b"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/coverage/record-repair-001/CHECKS.json",
+      "sha256": "5b44570c4fd717738e9eb166c221b9d6584b8941aeff31e35cc031468b87763d"
+    },
+    {
+      "side": "head",
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+    },
+    {
+      "side": "head",
+      "path": "manuscripts/quartic_v16.pdf",
+      "sha256": "5634295d85bdfd2aef476ad49827b160f119e94996e1f644c3b05a96eabf6315"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/check.py",
+      "sha256": "8cf0c312006d6d7a567eef4a84c833991f6e8991ec530c1580983f06d8df403f"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/pack_handoff.py",
+      "sha256": "58840d07605e1ed683c57dd5b22e2187649ef71d57680e8fb804085dab39a308"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/gate/DELIVERY-SUPPORT-REVIEW.json",
+      "sha256": "9ef2b5c674f8c982020b5a9021df412bec8526f7db2161d351a166314465d416"
+    }
+  ],
+  "scope": "This new review accepts the exact delivery-record delta listed here and retains the prior support judgment for unchanged implementation and navigation. It is not a replacement or relabeling of the original support report.",
+  "findings": [],
+  "checks": [
+    "The real full native validation of the preceding packet failed on duplicate-connection-location. The new connection record removes exactly eleven repeated search_scope locations from six finding records, preserving every distinct location and all other connection fields.",
+    "The dossier changes only its connection-file hash and genuine same-agent continuation records. Original and precision source sets, initial records, freeze/comparison times, source uses, coverage rows and derivations are unchanged. Both continuation endpoints are the actual current reviewer run 01a1cc8c-a858-7c32-89c2-1534fe72a025 observed in original host records. Authentication remains separate.",
+    "All 1170 connection decision subjects, 40 finding subjects, the inventory subject and the assembly subject agree with the corrected record. New reports state their actual metadata review, preserved mathematical reasoning and limitations; old reports stay at their original paths with original bindings.",
+    "The manuscript and PDF are unchanged, as are the finite checker, archive packer and prior release scope. No Busy Beaver specialization is introduced. The changes do not modify protected controller code or policy."
+  ],
+  "finalization_requirements": [
+    "MANIFEST.json and SHA256SUMS must include the final added reports and updated records. Their eventual hashes are excluded here to avoid a self-reference; the exact final-target acknowledgment will verify them.",
+    "Freeze the complete local candidate, obtain genuine new target acknowledgments, and pass the full native record gate before publication. This addendum does not claim that gate already passed.",
+    "Final installation, signed ingress, App acceptance, CI results and release-asset readback remain separate operations."
+  ],
+  "limitations": "Support and evidence-delivery review only. No new mathematical proof, new whole-proof judgment, authenticated receipt, final Git-head acknowledgment or publication approval is supplied. Earlier failed results remain historical evidence."
+}

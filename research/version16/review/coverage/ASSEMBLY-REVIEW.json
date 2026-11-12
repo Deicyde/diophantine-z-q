@@ -1,0 +1,16 @@
+{
+  "schema": "protocol14-review/v1",
+  "scope": "Independent assembled-proof review for current Version 16 source aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74 and current connection inventory b7289819788825315572ce93de050f91e791be152ee117c245fc6100c70c1ed6.",
+  "limitations": "This is current informal source-coverage and assembly review with exact reuse of accepted Version 15 derivations, not a fresh reproof of every source or formal verification. Published-source and historical audit qualifications are preserved. It supplies no effective defining threshold, no certified particular member of the 222 family, no global variable-count lower bound, no authenticated Git/PR acknowledgment and no publication authorization.",
+  "decisions": [
+    {
+      "subject": "assembly",
+      "subject_sha256": "b7289819788825315572ce93de050f91e791be152ee117c245fc6100c70c1ed6",
+      "outcome": "accepted_within_scope",
+      "review_basis": "reconstructed",
+      "prior_review": null,
+      "scope": "The original quantitative polynomial P_star remains the same literal integer-coefficient recipe. Its point-code group, guarded multiplication, height and pole inputs, compiler translation and private-witness substitutions supply the same ordinary rational-value definition and bounds. The 314-variable quartic retains its distinct exact arithmetic reduction and finite decimal table. The 222-variable family retains the four-contact arithmetic soundness/completeness step, fixed input, 149-adic depth, local and real choice order, denominator exclusions, root normalization, shared trace quotient, invertible affine/row transformations and positive weighted sum. These give the same existential equivalence for every sufficiently large N with one ineffective threshold; N>=53 still concerns coefficient size alone. The Mazur, universal-polynomial, HTP and degree-four-minimality consequences consume the same ordinary-integer definition and their retained published inputs. The current horizontal correction preserves the exact orbit, filtered lattice map and unit tests needed by the GI chain. The fixed-E adaptation preserves the same uniform dense model and moment inputs needed by the Artin count, with field and complexity fixed before the cutoff/length diagonal. The corrected height source preserves the same h_F values, field and constants. The final precision amendment removes an unnecessary numerical-equality interpretation and changes none of these outputs. Together with the exact accepted unchanged derivations and complete current coverage, these connections establish the assembled proof at the stated scope. All 40 recorded findings have reviewed current dispositions; historical limitations are retained.",
+      "limitations": "This is current informal source-coverage and assembly review with exact reuse of accepted Version 15 derivations, not a fresh reproof of every source or formal verification. Published-source and historical audit qualifications are preserved. It supplies no effective defining threshold, no certified particular member of the 222 family, no global variable-count lower bound, no authenticated Git/PR acknowledgment and no publication authorization."
+    }
+  ]
+}
