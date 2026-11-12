@@ -26,10 +26,13 @@ choice of continuation.
   modularity (Breuil–Conrad–Diamond–Taylor 2001).
 * `FunctionalEquation5` is a textbook theorem: the functional equation of the Hecke L-function
   of the CM curve `C_d` (Deuring, Hecke), conductor `32 d²`, root number `−1` for
-  `d ≡ 5 (mod 8)` (Birch–Stephens, Topology 5 (1966)). It is stated on the critical strip only.
-* `TYZRow5b` is Tian–Yuan–Zhang's Theorem 3.5(2) (`n ≡ 5 (mod 8)`, row `(7, 3)`) in reading A,
-  which no refereed text prints. It is proved from unambiguous TYZ statements by Proposition N
-  (`docs/research/nt-tyz.md` §4; two model reviews, no human review). The documented route is
+  `d ≡ 5 (mod 8)` (Birch–Stephens, Topology 5 (1966)). It is stated on the strip `0 < Re s < 2`
+  only.
+* `TYZRow5b` follows, with Hecke's continuation, from Tian–Yuan–Zhang's Theorem 3.5(2)
+  (`n ≡ 5 (mod 8)`, row `(7, 3)`, contrapositive) in reading A, which no refereed text that we
+  have read prints. TYZ was read in its arXiv version 1411.4728v1 only, whose Theorem 1.2 is false
+  read literally. It is proved from unambiguous TYZ statements by Proposition N
+  (`docs/research/nt-tyz.md` §4; two reviews by AI models, none by a human). The documented route is
   `tyzRow5b_of_readingA`, from `TYZThm35ReadingA` and Hecke's continuation `HeckeContinuation`.
 -/
 
@@ -80,11 +83,12 @@ def RootNumberVanishing : Prop :=
 /-- **Tian–Yuan–Zhang, row 5b** ("`𝓛(n) ≠ 0`"): for squarefree `d ≡ 5 (mod 8)` with odd `(7, 3)`
 genus sum `T5bCl d`, `L(C_d, s)` has an entire continuation whose order at `s = 1` is at most 1.
 
-Literature: TYZ, Asian J. Math. 21 (2017), Theorem 3.5(2) for `n ≡ 5 (mod 8)` in reading A
+Literature: TYZ, arXiv:1411.4728v1 (the journal text, Asian J. Math. 21 (2017), was not
+compared), Theorem 3.5(2) for `n ≡ 5 (mod 8)` in reading A
 (`d₁ = 1` admitted; `docs/research/nt-tyz.md` §1.3), contrapositive, row `(7, 3)` only; the
-existence of the continuation is Hecke's (CM). Not a literal published sentence: reading A is
-stated in print only by Smith (arXiv:1603.08479, Theorem 2.1, unrefereed), and is proved from
-unambiguous TYZ statements by Proposition N (nt-tyz §4). -/
+existence of the continuation is Hecke's (CM). Not a literal published sentence: the only
+statement of reading A that we have found is Smith's (arXiv:1603.08479, Theorem 2.1,
+unrefereed), and it is proved from unambiguous TYZ statements by Proposition N (nt-tyz §4). -/
 def TYZRow5b : Prop :=
   ∀ d : ℕ, d % 8 = 5 → Squarefree d → T5bCl d = 1 →
     ∃ F : ℂ → ℂ, IsLContinuation (shortCurve (-(d : ℚ) ^ 2)) F ∧ analyticOrderAt F 1 ≤ 1
@@ -159,7 +163,7 @@ theorem tyzRow5b_of_readingA (hA : TYZThm35ReadingA) (hH : HeckeContinuation) : 
 noncomputable def completedL (N : ℕ) (F : ℂ → ℂ) (s : ℂ) : ℂ :=
   (N : ℂ) ^ (s / 2) * (2 * Real.pi : ℂ) ^ (-s) * Complex.Gamma s * F s
 
-/-- **Functional equation of `L(C_d, s)` for `d ≡ 5 (mod 8)`, on the critical strip**:
+/-- **Functional equation of `L(C_d, s)` for `d ≡ 5 (mod 8)`, on the strip `0 < Re s < 2`**:
 `Λ(2 − s) = −Λ(s)` for `0 < Re s < 2`, with conductor `N = 32 d²`. Literature: Deuring (CM,
 Hecke L-function of `ℚ(i)`) for the functional equation; conductor `32 d²` for odd squarefree
 `d`; root number `−1` for `d ≡ 5, 6, 7 (mod 8)` (Birch–Stephens, Topology 5 (1966)).

@@ -62,15 +62,19 @@ in `ZInQKernel/MainLiterature.lean`. Its three CR₃ hypotheses are Props over M
 an elliptic curve (`ZInQKernel/Hypotheses/CR3Literature.lean`): `Literature.GrossZagier` (for every
 elliptic curve over ℚ, a simple zero of `L(E, s)` at `s = 1` gives a point of infinite order),
 `Literature.FunctionalEquation5` (the functional equation of `L(C_d, s)` with conductor `32d²` and
-root number `−1`, on the critical strip) and `Literature.TYZRow5b` (`L(C_d, s)` vanishes to order
-at most 1 at `s = 1` when `T5bCl d = 1`). The first two are textbook theorems. The third is printed
-in no refereed text. It is Tian–Yuan–Zhang's Theorem 3.5(2) in the reading that admits the trivial
-factor `d₁ = 1`. Their Theorem 1.2, read literally, is false (`d = 26565` and `d = 33117` are
-counterexamples), and their proof of the intended reading passes through their Proposition 3.4,
-whose proof is a sketch. Proposition N proves the statement from unambiguous results of the paper
-without Proposition 3.4 (`docs/research/nt-tyz.md` §4; two model reviews, no human review). The
-plan and its review are `docs/research/wk-cr3.md` and `docs/research/rv-lit.md`. From the three
-Props Lean derives (`Literature.certifiedRankTYZClRk_of_literature`) the positive-rank form
+root number `−1`, on the strip `0 < Re s < 2`) and `Literature.TYZRow5b` (`L(C_d, s)` vanishes to
+order at most 1 at `s = 1` when `T5bCl d = 1`). The first two are textbook theorems. No refereed
+text that we have read prints the third. It follows, with Hecke's continuation, from
+Tian–Yuan–Zhang's Theorem 3.5(2) for `n ≡ 5 (mod 8)` (row `(7, 3)`, contrapositive) in reading A,
+where decompositions are set partitions of the primes, each counted once, with `d₁ = 1` allowed.
+Theorem 1.2 of arXiv:1411.4728v1, read literally, is false (`d = 26565` and `d = 33117` are
+counterexamples), and the paper's proof of reading A passes through its Proposition 3.4, whose proof
+is a sketch; the journal text (Asian J. Math. 21 (2017)) has not been compared. Proposition N proves
+the statement from unambiguous results of the arXiv version without Proposition 3.4
+(`docs/research/nt-tyz.md` §4; two reviews by AI models, none by a human). The plan and its review
+are `docs/research/wk-cr3.md` and `docs/research/rv-lit.md`. From the three Props Lean derives
+(`Literature.rootNumberVanishing_of_functionalEquation`, then
+`Literature.certifiedRankTYZClRk_of_literature`) the positive-rank form
 
 ```lean
 theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk
@@ -85,9 +89,9 @@ least are `CertifiedRankRk` and, for the two curves per input that the proof use
 `MainLiterature.lean` also has variants that assume H in its j-form `JHeight.JHeightBound`
 (`ZInQKernel/Hypotheses/JHeight.lean`), a bound on the height of the Hauptmodul value `J(u)`. It
 implies `SixContactMin` in Lean (step F4 and the final numerics), so its trust statement is steps
-A1–F3 of h-trust (`docs/research/wk-h.md`).
-The hypotheses' trust statements, which list every step with its supplier, published or not, are
-`docs/research/h-trust.md` and `docs/research/cr3-trust.md`.
+A1–F3 of `docs/research/h-trust.md` (reduction: `docs/research/wk-h.md`).
+Trust statements, which list every step with its supplier, published or not:
+`docs/research/h-trust.md` for H, and `docs/research/cr3-trust.md` for `CertifiedRankTYZClRk`.
 
 H enters in its minimal form `SixContactMin` (`ZInQKernel/Hypotheses/HeightMin.lean`): the one
 inequality `h(u) ≤ H₆(D) M_{S_mul}(u)²⁴` for `u ∈ ℚ \ 𝒞` that the proof uses, the instance

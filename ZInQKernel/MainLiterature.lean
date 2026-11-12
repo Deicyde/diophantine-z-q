@@ -23,9 +23,10 @@ namespace ZInQ
 /-- **Theorem 1.1 from `SixContactMin` and three literature statements for CR₃.** Assumes H in
 its minimal form `SixContactMin`, Tian–Yuan–Zhang's row 5b `Literature.TYZRow5b` (TYZ
 Theorem 3.5(2) in reading A, via Proposition N), the functional equation of `L(C_d, s)` with
-root number `−1` on the critical strip `Literature.FunctionalEquation5`, and the positive-rank
-half of Gross–Zagier `Literature.GrossZagier`; Lean derives `CertifiedRankTYZClRk` from the
-three (`Literature.certifiedRankTYZClRk_of_literature`). -/
+root number `−1` on the strip `0 < Re s < 2` (`Literature.FunctionalEquation5`), and the
+positive-rank half of Gross–Zagier `Literature.GrossZagier`; Lean derives `CertifiedRankTYZClRk`
+from the three (`Literature.rootNumberVanishing_of_functionalEquation`, then
+`Literature.certifiedRankTYZClRk_of_literature`). -/
 theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzRow5b_functionalEquation5_grossZagier
     (hH : SixContactMin) (hT : Literature.TYZRow5b) (hF : Literature.FunctionalEquation5)
     (hG : Literature.GrossZagier) : FrozenTarget :=
@@ -47,8 +48,8 @@ theorem exists_bounded_integer_polynomial_defining_integers_of_jHeightBound_cert
 /-- **Theorem 1.1 from the `j`-form of H and three literature statements for CR₃.** Assumes
 `JHeight.JHeightBound Mult.S_mul` (steps A1-F3 of `docs/research/h-trust.md`; not a published
 theorem), `Literature.TYZRow5b` (TYZ Theorem 3.5(2) in reading A, via Proposition N),
-`Literature.FunctionalEquation5` (functional equation with root number `−1` on the critical
-strip) and `Literature.GrossZagier` (positive-rank half of Gross–Zagier). Lean derives
+`Literature.FunctionalEquation5` (functional equation with root number `−1` on the strip
+`0 < Re s < 2`) and `Literature.GrossZagier` (positive-rank half of Gross–Zagier). Lean derives
 `SixContactMin` and `CertifiedRankTYZClRk` from them. -/
 theorem exists_bounded_integer_polynomial_defining_integers_of_jHeightBound_tyzRow5b_functionalEquation5_grossZagier
     (hJ : JHeight.JHeightBound Mult.S_mul) (hT : Literature.TYZRow5b)

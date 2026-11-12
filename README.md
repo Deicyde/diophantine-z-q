@@ -8,10 +8,11 @@ proved. The site is rebuilt from `main` after each passing verification run.
 
 > **This fork** proves the 11/5 manuscript's Theorem 1.1 in Lean from four explicit hypotheses,
 > stated as `Prop`s, not axioms. The first is the six-contact height estimate (the manuscript's
-> Theorem 4.1), in the one instance `SixContactMin` from which both of the proof's uses follow; its
-> proof combines refereed theorems with new arguments of the manuscript that have had model
-> reviews only. The other three are statements about the L-functions of the congruent number
-> curves `C_d : y² = x³ − d²x` (Mathlib's `WeierstrassCurve.LSeries`), from which Lean derives the
+> Theorem 4.1), in the one instance `SixContactMin` from which both of the proof's uses follow. Its
+> proof combines refereed theorems and exact computations with new arguments, the manuscript's and
+> this repository's, that have been reviewed only by AI models. The other three are statements
+> about L-functions of elliptic curves over ℚ (Mathlib's `WeierstrassCurve.LSeries`), two of them
+> only about the congruent number curves `C_d : y² = x³ − d²x`. From them Lean derives the
 > positive-rank statement that the proof needs:
 >
 > - `Literature.GrossZagier`: if the L-function of an elliptic curve over ℚ has a simple zero at
@@ -20,27 +21,31 @@ proved. The site is rebuilt from `main` after each passing verification run.
 >   (Breuil–Conrad–Diamond–Taylor 2001).
 > - `Literature.FunctionalEquation5`: for squarefree `d ≡ 5 (mod 8)`, the functional equation of
 >   `L(C_d, s)` with conductor `32d²` and root number `−1` (Deuring, Hecke; Birch–Stephens 1966),
->   stated on the critical strip.
-> - `Literature.TYZRow5b`: for squarefree `d ≡ 5 (mod 8)` whose genus sum `T5bCl d` (built from the
->   orders of the squared class groups `2Cl(ℚ(√−d_B))` of the divisors `d_B` of `d`) is odd,
->   `L(C_d, s)` vanishes to order at most 1 at `s = 1`. **No refereed text states this.** It is what
->   Tian–Yuan–Zhang's argument gives (Asian J. Math. 21 (2017)), but their Theorem 1.2, read
->   literally, is false (`d = 26565` and `d = 33117` are counterexamples), and their proof of the
->   intended reading passes through a proposition whose proof is only sketched
+>   stated on the strip `0 < Re s < 2`.
+> - `Literature.TYZRow5b`: for squarefree `d ≡ 5 (mod 8)` whose genus sum `T5bCl d` is odd,
+>   `L(C_d, s)` vanishes to order at most 1 at `s = 1`. (`T5bCl d` is a sum, over certain set
+>   partitions of the primes of `d`, of products of the orders of the subgroups of squares
+>   `2Cl(ℚ(√−d_B))` in the class groups, where `d_B` is the product of a block's primes.) **No
+>   refereed text that we have read states this.** It is what Tian–Yuan–Zhang's argument gives
+>   (arXiv:1411.4728v1; the journal version, Asian J. Math. 21 (2017), has not been checked).
+>   Theorem 1.2 of the arXiv version, read literally (every factor `d_i > 1`), is false: `d = 26565`
+>   and `d = 33117` are counterexamples. Their proof of the intended reading, which counts each set
+>   partition of the primes once, passes through a proposition whose proof is only sketched
 >   ([docs/research/nt-tyz.md](docs/research/nt-tyz.md)). The statement used here is proved from
->   unambiguous results of their paper by Proposition N (same note, §4), a new argument with two
->   model reviews and no human review.
+>   unambiguous results of that version, with Hecke's analytic continuation, by Proposition N (same
+>   note, §4), a new argument reviewed twice by AI models and never by a human.
 >
 > `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzRow5b_functionalEquation5_grossZagier`
 > (`ZInQKernel/MainLiterature.lean`) has no `sorry`, uses no `native_decide`, and depends only on
-> the axioms `propext`, `Classical.choice` and `Quot.sound`. The trust statements list every step
-> of the hypotheses' proofs, published or not, with its source and how it was checked:
-> [docs/research/h-trust.md](docs/research/h-trust.md),
-> [docs/research/cr3-trust.md](docs/research/cr3-trust.md) and
-> [docs/research/wk-cr3.md](docs/research/wk-cr3.md) (reviewed in
-> [docs/research/rv-lit.md](docs/research/rv-lit.md)). The positive-rank statement itself,
-> `CertifiedRankTYZClRk`, and weaker forms, down to positive rank on the two curves per input that
-> the proof uses, give variants of the theorem ([KERNEL_PLAN.md](KERNEL_PLAN.md)).
+> the axioms `propext`, `Classical.choice` and `Quot.sound`. Trust statements list every step,
+> published or not, with its source and how it was checked:
+> [docs/research/h-trust.md](docs/research/h-trust.md) for H, and
+> [docs/research/cr3-trust.md](docs/research/cr3-trust.md) for `CertifiedRankTYZClRk`, the
+> positive-rank statement that the three L-function statements split up;
+> [docs/research/wk-cr3.md](docs/research/wk-cr3.md) §3 (reviewed in
+> [docs/research/rv-lit.md](docs/research/rv-lit.md)) checks each of the three against its source.
+> `CertifiedRankTYZClRk` itself, and weaker forms down to positive rank on the two curves per input
+> that the proof uses, give variants of the theorem ([KERNEL_PLAN.md](KERNEL_PLAN.md)).
 >
 > Everything else is proved in Lean, and every finite computation is checked by the kernel. That
 > includes every step from the three L-function statements, through `CertifiedRankTYZClRk`, to the
@@ -66,8 +71,9 @@ proved. The site is rebuilt from `main` after each passing verification run.
 > prime pattern and none of the vendored code is
 > `ZInQ.exists_bounded_integer_polynomial_defining_integers_of` (`ZInQKernel/Main.lean`); both have
 > the same axioms. See [KERNEL_PLAN.md](KERNEL_PLAN.md), the
-> [final audit](docs/kernel-audits/final-audit-2026-11-07.md) of the earlier four-hypothesis
-> version, the [blueprint site](https://deicyde.github.io/diophantine-z-q/) and its sources in
+> [final audit](docs/kernel-audits/final-audit-2026-11-07.md) of the earlier version with
+> hypotheses H, PC, 22P and CAT, the [blueprint site](https://deicyde.github.io/diophantine-z-q/)
+> and its sources in
 > [blueprint/](blueprint/README.md). The rest of this README is upstream's.
 
 This repository contains the November 5, 2026 manuscript **Z is Diophantine in Q**, the October 11, 2026 manuscript **A conditional Diophantine definition of Z in Q from four arithmetic inputs**, and comparison notes. A research archive preserves the constructions, computations, proof drafts, reviews, and partial Lean formalization developed for the 11/5 manuscript.
