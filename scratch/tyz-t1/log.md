@@ -85,3 +85,6 @@ In PARI (BSD) height h_P, Thm 3.3 <=> h_P,A(P_chi) = 2^{2h2-2k+3} L'L/(Om_{d0}Om
 h_P(alpha) = 4^rho R/2; this is exactly the A.9 value of step 1 when the YZZ height is h_P.
 TYZ misprint (harmless): Thm 2.1 proof intermediate |P|^2 = w^2/(2^5 3^b pi^3) (f,f)/(f',f') L L omits sqrt|D| (from |Dd^2|_A^{-1/2});
 their final 2^{4+c} needs it.
+
+## Step 6: deliverables
+docs/research/tyz-t1.md (note) and .fleet/tyz-t1.md (report) written. Verdict: T1 closed with the explicit constant.
