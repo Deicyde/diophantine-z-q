@@ -104,7 +104,7 @@ For `u ∈ ℚ \ 𝒞`, with `M = M_S(u)`, `T = S ∪ supp M`, `Q = Q_R`, the pr
 | Node | N5 lines | Content | Kind | ⇐ (nodes; leaves) |
 | --- | --- | --- | --- | --- |
 | A1 | L410-420 | QM datum `B=(2,−3)`, `𝒪`, `μ = 2j+ij`, Gram matrix of `Trd(μ⁻¹xȳ)` with det 1 | BOOKKEEPING | script `form_check.py`; LY eq. (3) as a convention |
-| A2 | L420-422, L908-909 | `X₆/W ≅ P¹_j`, branch values `0, ∞, −16/27`, indices 4, 6, 2, at CM discriminants −4, −3, −24 | LITERATURE | L2, L3 |
+| A2 | L420-422, L908-909 | `X₆/W ≅ P¹_j`, elliptic points `0, ∞, −16/27` of orbifold orders 4, 6, 2 (indices of `Y₃ → P¹_j`; the map `X₆ → X₆/W` has indices 2, 2, 2), at CM discriminants −4, −3, −24 (wording corrected 2026-11-12 by loc-fix, rv-nocm §3.2) | LITERATURE | L2, L3 |
 | A3 | L423-441 | normalizer index 4, central ideles act trivially, `Γ'` acts on `Y₃` over `ℚ` with quotient `P¹_j`, `deg(Y₃ → P¹_j) ≤ 324` | NEW | A1, A4; L1 (Hecke action over `ℚ`); local normalizers (Vignéras; elementary, glue G1) |
 | A4 | used at L528 | `Y₃` is the fine moduli scheme over `ℚ` of `(A, ι, λ, η)`, `K₃` neat | LITERATURE | L1 (with polarization uniqueness, an elementary argument in G1) |
 | A5 | replaces L443-528 | Lemma PR(i): the fibre field `K` is Galois, `[K:ℚ] ≤ 324!`, unramified outside `T`; `J(u)` is not a branch value | NEW (repository, h-b1) | A2, A3, A4; L1 (reciprocity at CM points, Lemma NV), L6, L7; polynomial identities `G⁶ − 97200F² = H²` and supports (scripts) |
@@ -187,8 +187,11 @@ research theorem or a standard result of a monograph.
 
 **L2. Baba–Granath: the Atkin–Lehner quotient and the polarized relation** (research).
 - *Statement.* For discriminant 6, the quotient `X₆/W` (`W ≅ (ℤ/2)²` the Atkin–Lehner group) is
-  `P¹_j` with branch points `j = 0, ∞, −16/27`, of indices 4, 6, 2, at the CM points of
-  discriminants −4, −3, −24; and two QM surfaces with principal polarizations of the fixed type
+  `P¹_j` with elliptic points `j = 0, ∞, −16/27` of orbifold orders 4, 6, 2 (the orders of the
+  normalizer group `Γ*`; they are the indices of `Y₃ → P¹_j`, as glue, while the map `X₆ → X₆/W`
+  has indices 2, 2, 2), at the CM points of discriminants −4, −3, −24 (corrected 2026-11-12 by
+  loc-fix after rv-nocm §3.2 and the locator audit; the text read "branch points … of indices
+  4, 6, 2", which a degree-4 map cannot have); and two QM surfaces with principal polarizations of the fixed type
   have the same polarized moduli point iff their points of `X₆` are in one `W`-orbit
   (`V_ℤ = V/W`).
 - *Reference.* Baba–Granath, Canad. J. Math. 60 (2008), Thm 2.1, Lemma 3.1, §3 datum (p. 739)
@@ -204,10 +207,10 @@ research theorem or a standard result of a monograph.
   `[J₂ : J₄ : J₆ : J₁₀] = [12(j+1) : 6(j²+j+1) : 4(j³−2j²+1) : j³]` in weighted projective
   space; the Siegel modular forms `ψ₄` and `χ₁₀` restricted to the locus `X ≅ P¹` have divisors
   making `χ₁₀²/ψ₄⁵` a degree-one function with zero at `P₋₄` and pole at `P₋₃`.
-- *Reference.* Lin–Yang, Math. Z. 295 (2020), Example 30 and eqs. (13)-(14) (VERIFIED in arXiv
-  v1 by h-v14; journal numbering UNVERIFIED); derived without eq. (2) by
+- *Reference.* Lin–Yang, Math. Z. 295 (2020), arXiv v1 Example 29 (discriminant 6) and eqs.
+  (13)-(14) (content VERIFIED in arXiv v1 by h-v14 (the number corrected 2026-11-12 by loc-fix from "Example 30", which is v1's discriminant-14 example; locators.md item 3); journal numbering UNVERIFIED); derived without eq. (2) by
   `scratch/h-v14/igusa_check.py` (h-trust F1).
-- *Exact or consequence.* Exact (Example 30 with eqs. (13)-(14)); eq. (2) is not used.
+- *Exact or consequence.* Exact (v1 Example 29 with eqs. (13)-(14)); eq. (2) is not used.
 - *Objects.* Igusa invariants of genus-2 curves (cheap: polynomials in the sextic's
   coefficients); Siegel modular forms of degree 2 (large); the QM locus and its coordinate `j`
   (L1, L2).
@@ -227,7 +230,9 @@ research theorem or a standard result of a monograph.
 **L5. González–Rotger: CM points on `X₆`** (research).
 - *Statement.* For an order `R` of conductor `f` in an imaginary quadratic `k` with `(f, 6) = 1`
   and `R` embeddable in `𝒪` (Vignéras' criterion: neither 2 nor 3 splits in `k`), the set
-  `CM(R)` of points of `X₆` with CM by `R` has `h(R)` elements (Prop. 5.6), and the field `ℚ(x)`
+  `CM(R)` of points of `X₆` with CM by `R` has `2^{b(R)} h(R)` elements, `b(R)` the number of
+  primes dividing 6 inert in `k` (Prop. 5.6; corrected 2026-11-12 by loc-fix after rv-nocm §3.1
+  from "`h(R)` elements", which is false, e.g. `ℤ[i]` has `h = 1` and two CM points), and the field `ℚ(x)`
   of `x ∈ CM(R)` is the ring class field `H_R` if some prime dividing 6 is inert in `k`, and has
   index 2 in `H_R` otherwise (Thm 5.12).
 - *Reference.* González–Rotger, J. Math. Soc. Japan 58 (2006), Thm 5.12, Prop. 5.6 (VERIFIED in
