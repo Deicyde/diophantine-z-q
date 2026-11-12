@@ -1,0 +1,6 @@
+I2 = 96*j + 96
+I4 = 576*j
+I6 = 4608*j*(5*j + 4) = 23040*j**2 + 18432*j
+I10 = 4096*j**3
+(2) j = 3779136 I10^2/I4^5 on the Igusa vector: True
+(3) 30 random root sets: sum T^2 = B'/a^4 and prod T^2 = (D'/a^10)^4: True
