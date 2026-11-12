@@ -162,6 +162,13 @@ used here. It is valid only together with (Emb), as rv-h-cm R1(a) already noted.
 So A5 needs the indices of `Y₃ → P¹_j`, and Lemma NV in addition needs the indices `2, 2, 2` of
 `X₆ → P¹_j`.
 
+The audit's second NoCM point (field claims proved only on `X₀(D,N)`) does not affect A5 either.
+Lemma NV step 2 asserts that the points of `Y₃` over the branch values have residue fields
+unramified at `p ≥ 5`. It obtains this from Shimura–Deligne reciprocity at level `K₃` itself:
+- `s ∈ ∏_{ℓ≠3} 𝒪_{E,ℓ}^*` maps into `K₃`, so `E(y₀)/E` is unramified outside 3;
+- the step does not use González–Rotger's field theorem or any quotient.
+VERIFIED as an argument by reading h-b1 §3, step 2.
+
 ### 2.2 The indices of `Y₃ → P¹_j` are the orbifold orders (VERIFIED: compiled lemma plus the inputs below)
 
 On each geometric component, `Y₃ → P¹_j` is `Γ₃\ℍ → Γ*\ℍ`, where:
