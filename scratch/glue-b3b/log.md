@@ -2,3 +2,8 @@
 
 - Prefix.lean = scratch/glue-conj/UnramConj.lean lines 1-910 (through `end Conj`), verbatim.
   Compiles (warnings only), 1m28s wall.
+- Sec.lean part 1 (appended to Prefix as Dev.lean): `val_intCast` (integer has v=1 or ≤ v(p)),
+  `val_sub_lt_one` (α²=±p, (a-b)α ∈ ℤ ⇒ v(a-b)<1), `smul_sq_cases`, `exists_int_of_fixed`,
+  `exists_int_anti` ((a - σa)α ∈ ℤ when a fixed by Stab(α), σα=-α), `exists_frac`
+  (x ∈ w ⇒ x = n/d, n,d integral, v(d)=1), `mem_inertia_of_center` (s•𝔓_w = 𝔓_w and s
+  trivial on B/𝔓_w ⇒ s ∈ I_w). COMPILED, no errors. 11:49.
