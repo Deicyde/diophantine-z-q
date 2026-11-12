@@ -116,3 +116,13 @@
 - Theorem 1.1 in set-partition form (Lemma N1): calL(m) ≡ Λ(m) on all 30 ✓.
 - g from Rédei 4-rank (own implementation, unconditional) = quadclassunit value on every argument (assert) ✓.
 - I2 (as a congruence) VERIFIED on samples. (The integer identity with Q(m) cannot be tested: Q(m) needs the test vector.)
+
+## Step 9: computation propn_check.py full → out_propn_full.txt (30 samples, n ≡ 5 mod 8 with T5a or T5b odd)
+- Selection by the genus sums only (the hypothesis): 12 smallest with only T5b odd (69 … 741), 6 small with T5a odd,
+  12 random with k ≥ 3 in [6005, 40000).
+- All 30: ord_{s=1} L(E_n,s) = 1 (ellanalyticrank; parity forced by root number −1) ✓ (Prop N, I7 consequence).
+- 25 with a generator (ellrank/ellheegner + ellsaturation to 200): calL(n)² = L'/(2^{2k-3}Ω_n R_n) with R_n = PARI ellheight
+  is an integer square on all 25 (R = 2·ellheight gives exactly 1/2 on all, so TYZ's "twice the NT height" = PARI's BSD
+  normalisation) — calL(n) = 1 on 24, calL(21885) = 3. ρ(n) computed from the 2-isogeny φ_n (TYZ L381–388): ρ=0 for 85, 365.
+  Reading A of Thm 3.5(2) (v2(calL) ≤ ρ when T5a or T5b odd) holds on all 25 ✓ (weak test: calL odd everywhere).
+- 5 samples (20045, 27429, 28821, 30837, 33397): no generator within 100 s; ord = 1 only.
