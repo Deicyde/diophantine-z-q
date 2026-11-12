@@ -202,8 +202,13 @@ after hsyn-fix:
 - **obj-bridge**: the shared object layer for I2 and I3 is built and compiled in
   `scratch/obj-bridge/Objects.lean` (bijection on objects and morphisms, every I2/I3 leaf restated
   with a proved equivalence), and I2-Rank (`PkgI2.HomRankBound`) follows from T6
-  (`PkgI3.HomFreeFinite`). **Not** adopted in `Leaves.lean` (time); the duplicated I2/I3
-  definitions remain there (WP1).
+  (`PkgI3.HomFreeFinite`). Adopted in `Leaves.lean` in part: its §C-§E (the layer, the bijection,
+  the restated leaves with their equivalences, base change) compile there as `ObjBridge.*` on top
+  of the file's `PkgI2`, `PkgI3`. Its §F (the I2-Rank consolidation) does not compile in
+  `Leaves.lean` (instance search fails on `AddCommMonoid (ObjBridge.Hom A B)`) and stays only in
+  obj-bridge's file, so I2-Rank is still counted inside T6's group. The bundles `ResearchLeaves`,
+  `TextbookLeaves` still use the original `PkgI2`/`PkgI3` statements, and the duplicate copies
+  (`PkgI4.I3`, `LeafPush` uses `PkgI2`) remain (WP1).
 - **bdr-kertheta**: `ker θ` is principal for `𝓞_ℂ_p` and Mathlib's `BDeRham` is a complete
   discretely valued field with valuation ring `BDeRhamPlus`, so pkg-I4's `IsDeRham` (R10-R13, T23)
   is over the classical `B_dR`. Not copied into `Leaves.lean` (no leaf statement changes).
@@ -522,6 +527,8 @@ SMF 140 (2012), Cor. 1.3(2) (read by a model). C (hardened). Lean:
   scratch/h-decomposition/Leaves.lean` exits 0 (about 1.5 min); one `sorry` warning
   (`HSyn.glueOutputs_of_leaves`); 14 `opaque`, no `axiom`; 69 `#print axioms`, all `propext`,
   `Classical.choice`, `Quot.sound` except `HSyn.sixContactMin_of_leaves` (adds `sorryAx`).
+  After adding obj-bridge §C-§E (00:26 PST): exits 0, 81 `#print axioms`, same result; one
+  `sorry`; 14 `opaque`; no `axiom`.
 
 ---
 

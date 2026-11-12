@@ -17,3 +17,16 @@
 - run 2 (00:16, 1m32s): no errors; one `sorry` warning (HSyn.glueOutputs_of_leaves, line 11636).
   69 `#print axioms`: all `[propext, Classical.choice, Quot.sound]` except `HSyn.sixContactMin_of_leaves` (adds sorryAx).
   0 `axiom`, 14 `opaque`.
+
+## Merges (00:17 PST): all five extra reports had landed and merged without conflict:
+def-ladic-cond, glue-rho-cont, glue-b3-unram, glue-sqrt-local, glue-vigneras. Not folded into
+Leaves.lean (cited in the note only).
+
+## obj-bridge (fold3.py)
+- Appended Objects.lean §C-§F (lines 1129-1795) without its §A/§B copies.
+- run 3 (00:21): §F `homRankBound_of_homFreeFinite` fails: `failed to synthesize AddCommMonoid (Hom A B)`
+  at `LinearIndependent ℤ f`, then whnf heartbeat timeout; run 4 with maxHeartbeats 1e6 and
+  synthInstance.maxHeartbeats 4e5: same instance failure. §F removed (comment left in the file).
+- run 5 (00:25, 1m31s): exit 0, no errors; 1 `sorry` warning (HSyn.glueOutputs_of_leaves);
+  81 `#print axioms`, all [propext, Classical.choice, Quot.sound] except HSyn.sixContactMin_of_leaves
+  (sorryAx). 14 opaque, 0 axiom, 12404 lines.
