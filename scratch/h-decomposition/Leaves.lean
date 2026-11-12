@@ -228,7 +228,8 @@ theorem thetaRatio_invariant (h : ThetaModularity) :
 
 /-! ## §6 LEAF: the QM Hauptmodul (A2 and F1, analytic form) -/
 
-/-- **LEAF (Baba–Granath 2008 Thm 2.1 and §3; Lin–Yang 2020 Ex. 30 with eqs. (13)-(14);
+/-- **LEAF, COMPOSITE (rv-leaves-a: faithful, but not printed as one theorem; Baba–Granath 2008
+Thm 2.1 and the datum of §3 only, not Props. 3.7-3.10; Lin–Yang 2020 Ex. 30 with eqs. (13)-(14);
 Igusa 1967; Lauter–Naehrig–Yang 2015 §2.2).** On the QM locus, F1's theta expression
 `j_θ = 3779136(∏θ_m)⁴/(Σθ_m⁸)⁵ ∘ Ω` is a Hauptmodul of `Γ*\ℍ = X₆/W`, with value `0` at the
 CM points of discriminant `-4`, a pole at those of discriminant `-3`, and value `-16/27` at
@@ -2209,7 +2210,9 @@ def CharPolyIndepOfEll : Prop :=
         (LinearMap.toMatrix b b ((homT (ℓ := ℓ) φ).baseChange ℚ_[ℓ])).charpoly =
           P.map (Int.castRingHom ℚ_[ℓ])
 
-/-- **I3.M3 — Poincaré complete reducibility (Mumford §19, Thm 1), in the form used at E1.**
+/-- **I3.M3 — Poincaré complete reducibility (Mumford §19, Thm 1, over `k̄`; over any `k` of
+characteristic 0: Milne, *Abelian varieties*, in Cornell–Silverman 1986, Prop. 12.1, UNVERIFIED;
+rv-leaves-b repair 2), in the form used at E1.**
 Over a field of characteristic `0`, if `End⁰(A)` is a division algebra and `f : A → J` is a
 nonzero homomorphism, there are an abelian variety `Z` and a homomorphism `g : Z → J` such that
 `(f, g) : A × Z → J`, `(a, z) ↦ f(a) + g(z)`, is an isogeny. -/
@@ -2221,7 +2224,8 @@ def PoincareReducibility : Prop :=
 /-- **I3.Q — the QM dichotomy (step A9).** Over an algebraically closed field of characteristic
 `0`, if a quaternion division algebra `B = (a, b)_ℚ` embeds in `End⁰(A)` for an abelian surface
 `A`, then `End⁰(A) ≅ B` or `End⁰(A) ≅ M₂(ℚ(√d))` with `d < 0`. (Consequence of Mumford §19
-Thm 1, Cor. 2, §21 (Albert, `[D:ℚ] ∣ 2g` in characteristic `0`) and §22; see the note.) -/
+Thm 1, Cor. 2, §21 (Albert, `[D:ℚ] ∣ 2g` in characteristic `0`) and §22, with Silverman AEC
+III.9.4; no single locator exists (rv-leaves-b repair 1); see the note.) -/
 def QMDichotomy : Prop :=
   ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (A : AbVar k), A.dim = 2 →
     ∀ a b : ℚ, (∀ x : ℍ[ℚ, a, b], x ≠ 0 → IsUnit x) →
@@ -4981,7 +4985,11 @@ For a Galois number field `L/ℚ` and a prime `P` of `𝓞 L`, the lower ramific
 `G_i = {σ ∈ Gal(L/ℚ) | ∀ x ∈ 𝓞 L, σ x - x ∈ P^(i+1)}`, i.e. Mathlib's `Ideal.inertia` of
 `P^(i+1)`; `G_0` is Mathlib's inertia group. (Serre, *Corps locaux*, IV §1 defines them for the
 completion; they agree with these, Serre I §7 and IV §1, UNVERIFIED locators.) The two leaves
-below are published theorems (local statements transported to number fields by completion). -/
+below are published theorems (local statements transported to number fields by completion).
+Citation needed for the transport (rv-leaves-b repair 4): the different localizes, and the global
+`G_i` equals the local one by density of `𝓞_L` in `𝓞_{L_P}` (Serre, *Corps locaux*, III §4, I §7,
+UNVERIFIED); pkg-I6's local forms `PkgI6.DifferentBound`, `PkgI6.HilbertDifferentFormula` (I6.6,
+I6.7) state the same leaves without it. -/
 
 open NumberField
 
@@ -5722,26 +5730,19 @@ theorem log_sixteen_le : log (2 ^ 4 : ℝ) ≤ 3 := by
   calc log (2 ^ 4 : ℝ) ≤ log (exp 3) := log_le_log (by norm_num) this
     _ = 3 := log_exp 3
 
-/-- **F3 arithmetic.** From Pazuki's Cor. 1.3(2) for `g = 2`, `r = 2` in the Deligne metric,
-`h_Θ ≤ X_D/2 + C₂ log(X_D + 2)` with `X_D = max(1, h_F(A) + log π)` and
-`C₂ = 1000·2⁴·(log 2⁴)⁵`, conclude `h ≤ 10⁴·2²⁴·max(1, h_F(A))`. -/
+/-- **F3 arithmetic (hardened, rv-leaves-a §3.3).** From Pazuki's Cor. 1.3(2) for `g = 2`, `r = 2`,
+`h_Θ ≤ X_D/2 + C₂ log(X_D + 2)` with `X_D = max(1, h_F(A) + 3)` (covering every normalization
+shift `≤ 3`, in particular Deligne's `log π`) and `C₂ = 1000·2⁴·(log 2⁴)⁵`, conclude
+`h ≤ 10⁴·2²⁴·max(1, h_F(A))`: the final constant is unchanged. -/
 theorem pazuki_numerics {hz hA : ℝ}
-    (hP : hz ≤ max 1 (hA + log π) / 2 +
-      1000 * 2 ^ 4 * (log (2 ^ 4)) ^ 5 * log (max 1 (hA + log π) + 2)) :
+    (hP : hz ≤ max 1 (hA + 3) / 2 +
+      1000 * 2 ^ 4 * (log (2 ^ 4)) ^ 5 * log (max 1 (hA + 3) + 2)) :
     hz ≤ 10000 * 2 ^ 24 * max 1 hA := by
   set X := max 1 hA with hX
-  set XD := max 1 (hA + log π) with hXD
+  set XD := max 1 (hA + 3) with hXD
   have hX1 : 1 ≤ X := le_max_left _ _
-  have hlogpi : log π ≤ 2 := by
-    have : π ≤ exp 2 := by
-      have h2 : exp 2 = exp 1 * exp 1 := by rw [← exp_add]; norm_num
-      have he := exp_one_gt_d9
-      have hpi := pi_lt_d2
-      nlinarith
-    calc log π ≤ log (exp 2) := log_le_log pi_pos this
-      _ = 2 := log_exp 2
   have hXD1 : 1 ≤ XD := le_max_left _ _
-  have hXD3 : XD ≤ 3 * X := by
+  have hXD4 : XD ≤ 4 * X := by
     refine max_le (by linarith) ?_
     have : hA ≤ X := le_max_right _ _
     linarith
@@ -5753,12 +5754,12 @@ theorem pazuki_numerics {hz hA : ℝ}
     calc (log (2 ^ 4 : ℝ)) ^ 5 ≤ 3 ^ 5 := pow_le_pow_left₀ hC0 log_sixteen_le 5
       _ = 243 := by norm_num
   have hlog0 : 0 ≤ log (XD + 2) := log_nonneg (by linarith)
-  have h1 : 1000 * 2 ^ 4 * (log (2 ^ 4)) ^ 5 * log (XD + 2) ≤ 1000 * 2 ^ 4 * 243 * (6 * X) := by
-    have : log (XD + 2) ≤ 6 * X := by linarith
+  have h1 : 1000 * 2 ^ 4 * (log (2 ^ 4)) ^ 5 * log (XD + 2) ≤ 1000 * 2 ^ 4 * 243 * (8 * X) := by
+    have : log (XD + 2) ≤ 8 * X := by linarith
     gcongr
-  have h2 : XD / 2 ≤ 3 * X / 2 := by linarith
+  have h2 : XD / 2 ≤ 4 * X / 2 := by linarith
   have h3 := hP.trans (add_le_add h2 h1)
-  have h4 : 3 * X / 2 + 1000 * 2 ^ 4 * 243 * (6 * X) ≤ 10000 * 2 ^ 24 * X := by nlinarith
+  have h4 : 4 * X / 2 + 1000 * 2 ^ 4 * 243 * (8 * X) ≤ 10000 * 2 ^ 24 * X := by nlinarith
   exact h3.trans h4
 
 end GlueAssembly
@@ -6067,11 +6068,11 @@ def CMOutput (hA : ℝ) : Prop :=
     L ≤ 8192 * (256 * log 28 + log d + 2 * log (max (2 * hE) (max (log d) 1))) ∧
     hA ≤ 2 * hE + L / 2
 
-/-- **Output of F3 (Pazuki, Cor. 1.3(2), `g = r = 2`, Deligne metric)** for the absolute
+/-- **Output of F3 (Pazuki, Cor. 1.3(2), `g = r = 2`), hardened to `h_F + 3` (rv-leaves-a §3.3; covers Deligne's `log π`)** for the absolute
 sup-norm height `hz` of the even theta nulls. -/
 def PazukiOutput (hz hA : ℝ) : Prop :=
-  hz ≤ max 1 (hA + log π) / 2 +
-    1000 * 2 ^ 4 * (log (2 ^ 4)) ^ 5 * log (max 1 (hA + log π) + 2)
+  hz ≤ max 1 (hA + 3) / 2 +
+    1000 * 2 ^ 4 * (log (2 ^ 4)) ^ 5 * log (max 1 (hA + 3) + 2)
 
 /-- **The glue interface.** For every `u ∉ 𝒞`: a number field `K`, the ten even theta nulls
 `z ∈ K¹⁰` of the QM surface `A` over `J(u)` (F1: `Φ(z) = J(u)`), the Faltings height `hA` of
@@ -9944,7 +9945,9 @@ Missing: Faltings height. -/
 opaque R21_Bost : Prop
 
 /-- **R22. Pazuki.** For a principally polarized abelian surface over a number field,
-`h_Θ(A) ≤ ½X_D + C₂ log(X_D + 2)`, `X_D = max(1, h_F(A) + log π)`, `C₂ = 1000·2⁴(log 2⁴)⁵`,
+`h_Θ(A) ≤ ½X_D + C₂ log(X_D + 2)`, `C₂ = 1000·2⁴(log 2⁴)⁵`, in the hardened form
+`X_D = max(1, h_F(A) + 3)` of rv-leaves-a §3.3 (implied by the `log π` normalization; the
+constant downstream is unchanged),
 `h_Θ` the height of the level-2 theta constants. Bull. Soc. Math. France 140 (2012), Cor. 1.3(2)
 (read by a model). Exact. Missing: Faltings height, theta constants. -/
 opaque R22_Pazuki : Prop
@@ -10058,9 +10061,11 @@ structure TextbookLeaves : Prop where
   t11 : T11_RiemannGAGA
   t12 : T12_ArtinComparison
   t13 : SkolemNoether
-  t14a : PkgI6.BrauerHasse2
-  t14b : PkgI6.BrauerReciprocity2
-  t15 : PkgI6.LocalH2Card
+  -- hsyn-fix: the cochain forms I6.2a′-c′ (rv-leaves-b repair 3; Mathlib does not yet compare
+  -- `continuousCohomology` with inhomogeneous cochains). `PkgI6.BrauerHasse2` etc. remain in the file.
+  t14a : PkgI6.BrauerHasse2C
+  t14b : PkgI6.BrauerReciprocity2C
+  t15 : PkgI6.LocalH2CardC
   t16a : ∀ (p : ℕ) [Fact p.Prime], PkgI6.LocalKroneckerWeber p
   t16b : PkgI6.LocalReciprocityUpper
   t17 : KroneckerWeber
@@ -10144,3 +10149,21 @@ end
 #print axioms PkgI3.E1_exists_hom_ne_zero
 #print axioms GlueI3.equivariantDescent
 #print axioms GlueI3.absolutelyIrreducible_of_finrank_commOf_prod_le_four
+-- hsyn-fix: further theorems the note calls proved (rv-hsyn §B checked them in a copy)
+#print axioms PkgI1.gram_det
+#print axioms PkgI1.cm4
+#print axioms PkgI1.cm24
+#print axioms PkgI1.G6_sub_F2
+#print axioms PkgI1.Ju_ne_branch
+#print axioms PkgI1.elkies_t
+#print axioms PkgI1.elkies_t_sub_one
+#print axioms PkgI1.thetaRatio_invariant
+#print axioms GlueAssembly.logHeight_Phi_le
+#print axioms GlueAssembly.transfer_of_level
+#print axioms GlueAssembly.weight_match_coh
+#print axioms GlueAssembly.sixContactMinAt_of_glueOutputs
+#print axioms GlueAssembly.pazuki_numerics
+#print axioms PkgI3.range_tateHomZl_subset
+#print axioms GlueDescent.B2Q.b2_of_leaves
+#print axioms GlueConductor.exists_sq_eq_one_add
+#print axioms PkgI6.cob_of_same_finite_support
