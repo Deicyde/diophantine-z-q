@@ -313,4 +313,103 @@ theorem tyzThm35ReadingA_of_tyzInputs (h : TYZInputs) : TYZThm35ReadingA := by
   rw [hF'.eq hF] at hle
   exact absurd (hle.trans_lt (by norm_num)) (not_lt.mpr h2)
 
+
+/-! ### Consistency of `GenusData` (sanity check, no `sorry`)
+
+For any `L` and `n` with `L n ≠ 0` (so that `torsion_of_zero` is vacuous) and any values of `g`,
+the fields of `GenusData` are jointly satisfiable: `M = ℤ[i]/(2+2i) × (ℕ →₀ ℤ[i])`, `τ` the
+inclusion of the first factor, `Z e` the basis vectors, `β (t, v) = (t + Σ_e v_e c_e, −v)`, `P`
+defined by the recursion. So no field (τ's kernel, the torsion statement, `β_τ`, I5) contradicts
+the others; the content of `GenusData` when `L n = 0` is exactly what Proposition N extracts. -/
+
+namespace Witness
+
+/-- The torsion part `ℤ[i]/(2+2i) ≅ A[(1+i)³]`. -/
+abbrev Tq : Type := GaussianInt ⧸ Ideal.span {twoTwoI}
+
+/-- The module `ℤ[i]/(2+2i) × (ℕ →₀ ℤ[i])`. -/
+abbrev Mw : Type := Tq × (ℕ →₀ GaussianInt)
+
+/-- The values of `Z(e)^{β+1}` prescribed by I5. -/
+def cw (e : ℕ) : Tq :=
+  if e % 8 = 5 then (gNat e : ℤ) • Ideal.Quotient.mk _ (⟨1, -1⟩ : GaussianInt)
+  else (gNat e : ℤ) • Ideal.Quotient.mk _ (1 : GaussianInt)
+
+def epsW (d₀ d₁ : ℕ) : GaussianInt := if d₀ % 8 = 5 ∧ d₁ % 8 = 3 then gi else 1
+
+def Zw (e : ℕ) : Mw := (0, Finsupp.single e 1)
+
+/-- `P` defined by the recursion of TYZ §3.1. -/
+def Pw (L : ℕ → ℤ) : ℕ → Mw
+  | d => Zw d - ∑ d₁ ∈ (d.divisors.filter (fun d₁ => 1 < d₁ ∧ (d₁ % 8 = 1 ∨ d₁ % 8 = 3))).attach,
+      (epsW (d / d₁) d₁ * (L d₁ : GaussianInt)) • Pw L (d / d₁)
+decreasing_by
+  have h := d₁.2
+  simp only [Finset.mem_filter, Nat.mem_divisors] at h
+  exact Nat.div_lt_self (Nat.pos_of_ne_zero h.1.2) h.2.1
+
+theorem Pw_eq (L : ℕ → ℤ) (d : ℕ) :
+    Pw L d = Zw d - ∑ d₁ ∈ d.divisors.filter (fun d₁ => 1 < d₁ ∧ (d₁ % 8 = 1 ∨ d₁ % 8 = 3)),
+      (epsW (d / d₁) d₁ * (L d₁ : GaussianInt)) • Pw L (d / d₁) := by
+  rw [Pw]
+  congr 1
+  exact Finset.sum_attach _ (fun d₁ => (epsW (d / d₁) d₁ * (L d₁ : GaussianInt)) • Pw L (d / d₁))
+
+def τw : GaussianInt →+ Mw :=
+  (AddMonoidHom.inl Tq (ℕ →₀ GaussianInt)).comp (Ideal.Quotient.mk (Ideal.span {twoTwoI})).toAddMonoidHom
+
+def βw : Mw →+ Mw where
+  toFun x := (x.1 + Finsupp.linearCombination GaussianInt cw x.2, -x.2)
+  map_zero' := by simp
+  map_add' x y := by
+    ext <;> simp [map_add] <;> abel
+
+theorem torsionFree_finsupp {v : ℕ →₀ GaussianInt} {k : ℕ} (hk : 0 < k) (h : k • v = 0) : v = 0 := by
+  refine Finsupp.ext fun i => ?_
+  have h' := congrArg (fun w => w i) h
+  simp only [Finsupp.smul_apply, Finsupp.coe_zero, Pi.zero_apply, nsmul_eq_mul] at h'
+  rcases mul_eq_zero.mp h' with h0 | h0
+  · exact absurd h0 (by exact_mod_cast hk.ne')
+  · simpa using h0
+
+/-- The witness. -/
+def witnessData (L : ℕ → ℤ) (n : ℕ) (hL : L n ≠ 0) : GenusData L n where
+  M := Mw
+  Z := Zw
+  P := Pw L
+  ε := epsW
+  eps_53 := by intro d₀ d₁ _ h5 h3; left; simp [epsW, h5, h3]
+  eps_pm1 := by
+    intro d₀ d₁ _ h; left; simp only [epsW]; split_ifs with h'
+    · omega
+    · rfl
+  recursion := by intro d _ _; exact Pw_eq L d
+  torsion_of_zero := by intro h; exact absurd h hL
+  τ := τw
+  τ_eq_zero := by
+    intro y
+    simp only [τw, AddMonoidHom.coe_comp, Function.comp_apply, AddMonoidHom.inl_apply,
+      RingHom.toAddMonoidHom_eq_coe, AddMonoidHom.coe_ofClass, Prod.mk_eq_zero, and_true]
+    rw [Ideal.Quotient.eq_zero_iff_mem, Ideal.mem_span_singleton]
+  tors_mem_range := by
+    intro x hx
+    obtain ⟨k, hk, hkx⟩ := (isOfFinAddOrder_iff_nsmul_eq_zero).mp hx
+    have h2 : x.2 = 0 := torsionFree_finsupp hk (by simpa using congrArg Prod.snd hkx)
+    obtain ⟨y, hy⟩ := Ideal.Quotient.mk_surjective x.1
+    exact ⟨y, by ext <;> simp [τw, hy, h2]⟩
+  β := βw
+  β_τ := by intro y; ext <;> simp [τw, βw]
+  beta_five := by
+    intro e _ h5
+    refine ⟨0, ?_⟩
+    ext <;> simp [βw, Zw, τw, cw, h5]
+  beta_seven := by
+    intro e _ h7
+    have h5 : ¬ e % 8 = 5 := by omega
+    ext <;> simp [βw, Zw, τw, cw, h5]
+
+theorem genusData_nonempty (L : ℕ → ℤ) (n : ℕ) (hL : L n ≠ 0) : Nonempty (GenusData L n) :=
+  ⟨witnessData L n hL⟩
+
+end Witness
 end ZInQ.PropN

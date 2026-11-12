@@ -23,3 +23,7 @@
   `genusSums_eq_zero`, `tyzRow5b_of_tyzInputs`, `tyzThm35ReadingA_of_tyzInputs`.
 - `lake build ZInQKernel`: up to date (9922 jobs). `lake env lean scratch/pn-design/PropN.lean`:
   compiles; exactly 4 `sorry` warnings (lines 154, 168, 177, 188 = the four lemmas).
+- Added `Witness.witnessData` / `Witness.genusData_nonempty : L n ≠ 0 → Nonempty (GenusData L n)`
+  (M = ℤ[i]/(2+2i) × (ℕ →₀ ℤ[i]), P by well-founded recursion). Compiles; still exactly the 4
+  `sorry`s. `#print axioms tyzRow5b_of_tyzInputs`, `lemmaN1`, `tyzThm35ReadingA_of_tyzInputs`:
+  propext, sorryAx, Classical.choice, Quot.sound; `genusData_nonempty`: (axioms printed below).
