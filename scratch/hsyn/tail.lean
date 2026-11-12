@@ -125,6 +125,17 @@ theorem weight_match (n k : ℤ) (hk : 1 ≤ k)
     (h : (n = 0 ∧ n + 1 - k = -1) ∨ (n = -1 ∧ n + 1 - k = 0)) : n = 0 ∧ k = 2 := by
   omega
 
+/-- **G15 (D3), pkg-I6's `sq_principalUnits` proved** from glue-conductor's
+`exists_sq_eq_one_add` (same statement as `PkgI6.sq_principalUnits`, which is `sorry` there). -/
+theorem sq_principalUnits_proved (B : Type) [CommRing B] [IsDomain B] [IsDiscreteValuationRing B]
+    [IsAdicComplete (IsLocalRing.maximalIdeal B) B] (e : ℕ) (_he1 : 1 ≤ e)
+    (he : Ideal.span {(2 : B)} = IsLocalRing.maximalIdeal B ^ e) (r : ℕ) (hr : e < r)
+    (y : B) (hy : y ∈ IsLocalRing.maximalIdeal B ^ (r + e)) :
+    ∃ x ∈ IsLocalRing.maximalIdeal B ^ r, (1 + x) ^ 2 = 1 + y := by
+  obtain ⟨w, hw, h⟩ := GlueConductor.exists_sq_eq_one_add e (r - e) (by omega) he y
+    (by rwa [show 2 * e + (r - e) = r + e by omega])
+  exact ⟨w, by rwa [show e + (r - e) = r by omega] at hw, h⟩
+
 /-- **The research-level leaves of route P** (note §2.1), bundled. Placeholders are
 uninterpreted. Genuine statements: `R4` (pkg-I1), `R6`, `R7` (pkg-I2), `R9` (pkg-I3), `R10`,
 `R11`+`R12`, `R13` (pkg-I4), `R14`, `R15` (§1 here). -/
@@ -247,4 +258,5 @@ end
 #print axioms GlueDescent.B3Q.b3_degree_le_QM
 #print axioms GlueRepo.PR.inertia_orders_eq_one_iff
 #print axioms GlueRepo.PR.fibre_free
+#print axioms HSyn.sq_principalUnits_proved
 #print axioms HSyn.sixContactMin_of_leaves

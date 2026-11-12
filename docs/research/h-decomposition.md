@@ -441,7 +441,7 @@ item has model reviews only, except what is marked proved.
 | G12 | Twist finite, `k = 2` | G8-G11; R11-R15 (R11-R12 as `PanBerger`), T9, T17-T19 | N5 L757-768, V16 L660-667 | weight arithmetic in both normalizations and the determinant argument **proved** (`HSyn.weight_match`, `GlueAssembly.weight_match_coh`, `GlueAssembly.twist_finite`) | medium |
 | G13 | Newform `f` of weight 2, `r₅ ≅ ρ_{f,5}`, constituent of `V₅(J₁(N))` | G12; T24, T25, R16, R9, T18, T19 | N5 L768-774 | needs `J₁(N)` | medium |
 | G14 | `r₃`, `r₅` in one compatible system | G3, G7, G13; T7, T3, T4, T18, T19, R9 | N5 L776-795 | needs Galois representations of abelian varieties with Frobenius | medium |
-| G15 | Conductor exponents `≤ E₀` (`p ≤ R`), `≤ 2` (`R < p ∈ T`), `0` outside `T` | G3, G7, G14; R6, T16, T20-T22 | N5 L796-852 (Glazer); glue-conductor | D1 **proved** from T20-T21 over Mathlib (`GlueConductor.D1_genuine`); break, Herbrand, Swan/Artin arithmetic **proved**; `(U^{e+1})⁴ = U^{3e+1}` **proved** (`GlueConductor.fourth_pow_mem`; removes Silverman IV.6.4); D2 core **proved** (`PkgI2.D2_fixed_of_raynaud`); D4's `f(V) ≤ dim V·(1+U)` stated (`PkgI6.artinConductor_le_of_upper`, `sorry`) | large |
+| G15 | Conductor exponents `≤ E₀` (`p ≤ R`), `≤ 2` (`R < p ∈ T`), `0` outside `T` | G3, G7, G14; R6, T16, T20-T22 | N5 L796-852 (Glazer); glue-conductor | D1 **proved** from T20-T21 over Mathlib (`GlueConductor.D1_genuine`); break, Herbrand, Swan/Artin arithmetic **proved**; `(U^{e+1})⁴ = U^{3e+1}` **proved** (`GlueConductor.fourth_pow_mem`; removes Silverman IV.6.4; pkg-I6's form `HSyn.sq_principalUnits_proved`); D2 core **proved** (`PkgI2.D2_fixed_of_raynaud`); D4's `f(V) ≤ dim V·(1+U)` stated (`PkgI6.artinConductor_le_of_upper`, `sorry`) | large |
 | G16 | `N ≤ ∏_{p≤R} p^{E₀}·M² ≤ Q_R·M²` | G13, G15; R17 | N5 L852-857 | **proved** from the exponents over the repository's `heightQ`, `contactSupport` (`GlueConductor.level_le`) | small |
 | G17 | `L'`-isogeny `A × Z → J₁(N)` | G6, G13; R9, T8, T26 | N5 L861-867 | **proved**: nonzero equivariant map ⇒ nonzero homomorphism (`PkgI3.exists_hom_ne_zero_of_equivariant`) and invariants under coefficient extension (`GlueAssembly.invariants_ne_bot_of_baseChange`); the assembly with T8 unproved | small-medium |
 | G18 | `h_F(A) ≤ Q¹⁷M²⁴` | G16, G17; R18-R21 | N5 L868-905 | **proved** as arithmetic from the inequalities (`GlueAssembly.transfer_of_level`), with `[SL₂(ℤ):Γ₁(N)] ≤ N²` (`GlueAssembly.index_Gamma1_le`) | small |
@@ -506,7 +506,7 @@ G15), both NEW and unreviewed (hdec-elementary §2.2); G13 and G17 become "K2 gi
 | --- | --- | --- | --- |
 | WP1 | Review the cheap definitions of `Leaves.lean`; unify `PkgI2.IsAbelianVariety` with `PkgI3.AbVar`; prove sanity lemmas (Frobenius trace independent of place and lift at unramified primes; eigenform recursion ⇔ Hecke eigenvector; torsion finite; `T_ℓ` of `ℤ/ℓⁿ`-points) | none | trust in all 39 stated Props (35 leaves) |
 | WP2 | Prove statable textbook leaves from existing libraries: T13, T17, T18 (port Tau Ceti), T14-T15 (bridge Tau Ceti's Br forms to `H²`), T1, T2 (port Stacks/Tau Ceti), T20, T22 (Tau Ceti), and self-contained T19, T21, T29 | WP1 | 12 textbook leaves |
-| WP3 | Glue provable now: pkg-I6's forms of T14-T15 ⇒ glue-descent's `LeafHasse`, `LeafLocalTwo`; D4's `artinConductor_le_of_upper`; PkgI6's `sq_principalUnits` from `GlueConductor.exists_sq_eq_one_add`; glue-assembly's "finite-image character is Dirichlet"; T29 (elementary); Prop. TS over `RatFunc ℚ` from T1-T2 | none | glue skeleton |
+| WP3 | Glue provable now: pkg-I6's forms of T14-T15 ⇒ glue-descent's `LeafHasse`, `LeafLocalTwo`; D4's `artinConductor_le_of_upper`; glue-assembly's "finite-image character is Dirichlet"; T29 (elementary); Prop. TS over `RatFunc ℚ` from T1-T2 | none | glue skeleton |
 | WP4 | Abelian-variety layer: polarizations, isogenies, products, Weil restriction; and at least one nonzero abelian variety (Jacobians or projective group schemes) | WP1 | T9; G8, G11, G14, G17 applied to actual varieties; route K's GK1 |
 | WP5 | ℓ-adic conductors at infinite level (on `PkgI6` and Tau Ceti) | WP4 | R17; **G15 in full** (Glazer's conductor bound, the new mathematics most worth checking early) |
 | WP6 | Instantiate G7-G8 (B1, C1 algebra and B2-B3 already proved by glue-descent) on the actual abelian surface; unramifiedness of `L'` with T32 | WP4 | G7, G8 |
@@ -598,9 +598,10 @@ G15), both NEW and unreviewed (hdec-elementary §2.2); G13 and G17 become "K2 gi
   Kronecker–Weber suffices. Both are in T16; the weaker route is SPECULATIVE until written.
 - *D3's formal logarithm.* hdec-faithful lists Silverman IV.6.4; glue-conductor proves the unit
   identity in Lean, so it is not a leaf. pkg-I6 states the same lemma with `sorry` (it had not
-  seen the proof); the two statements should be matched (WP3).
+  seen the proof); `Leaves.lean` proves pkg-I6's statement from glue-conductor's
+  (`HSyn.sq_principalUnits_proved`).
 - *Route.* hdec-faithful (route P) against hdec-elementary and hdec-alt (route K). Resolution in
-  §1: P for the claim, K as fallback, pending rv-routek.
+  §1: P for the claim, K as fallback (rv-routek: sound after repairs; K2's refereed status unchecked).
 - *Scratch imports.* glue-assembly reports that scratch files cannot import `JHeight` in a fresh
   worktree; here `lake build ZInQKernel.Hypotheses.JHeight` (two upstream helper modules, seconds)
   fixes it, and `Leaves.lean` checks glue-assembly's `SixContactMinAt Mult.S_mul` against the real
