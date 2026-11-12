@@ -20,3 +20,17 @@ are UNVERIFIED.
   `logHeight₁_div_eq_logHeight`, `NumberField.mulHeight_eq`, `totalWeight_eq_finrank`,
   `Rat.logHeight₁_eq_log_max`. No lemma relating `logHeight₁ (algebraMap ℚ K q)` to the height of
   `q` over `ℚ` (the "height invariance under extension" that wk-h §4.2 flagged).
+
+## Step 1: F2 over Mathlib's Weil height (VERIFIED: compiled)
+
+- `scratch/glue-assembly/F2.lean` (`lake env lean`, no errors, no `sorry`; 6 s):
+  `GlueAssembly.logHeight_Phi_le`: for any field `K` with `Height.AdmissibleAbsValues` and
+  `z : Fin 10 → K`,
+  `logHeight ![3779136 (∏ z_i)⁴, (∑ z_i⁸)⁵] ≤ 40 logHeight z + totalWeight K · log 3779136`;
+  `logHeight₁_Phi_le`: the same for the quotient `Φ(z)`. Proof: Mathlib's `logHeight_eval_le` for
+  the two degree-40 forms (defined over `ℕ` and mapped), and `mulHeightBound ≤ 3779136^{n_K}`
+  (archimedean `ℓ¹` norms `≤` value at `1`: `3779136` and `10⁵`; nonarchimedean factors `= 1`).
+- `scratch/glue-assembly/Ext.lean` (compiled, no errors): `logHeight₁_algebraMap_rat`:
+  for a number field `K` and `q : ℚ`, `logHeight₁ (algebraMap ℚ K q) = [K:ℚ] · log max(|num q|, den q)`
+  (via the coprime pair `[num : den]`: finite places give `1`, infinite places give `max(|a|,|b|)`,
+  `∑ mult = [K:ℚ]`). This is the invariance under extension that wk-h §4.2 found missing.
