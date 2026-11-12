@@ -1,0 +1,37 @@
+{
+  "schema": "protocol-source-first/v1",
+  "sources": [
+    {
+      "side": "head",
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+    }
+  ],
+  "uses": [
+    {
+      "id": "INITIAL-V16-LOCAL-FACTOR-PRECISION",
+      "consumer": "GA-ARTIN-PATTERNS",
+      "passages": [
+        "PRECISION-CHANGED"
+      ],
+      "assertion": {
+        "statement": "The p not dividing W local factors satisfy the same uniform estimates needed by the polynomial-forms proof; numerical identity of their values is neither needed nor asserted.",
+        "objects": "Divisor-sum local factors for the actual polynomials W P_i+b_i, with W=E times the primorial.",
+        "hypotheses": "E and the polynomial data are fixed before the cutoff, residues are units, nonconstant polynomial differences and coefficient-height bounds are retained.",
+        "quantifiers": "Every permitted fixed polynomial family and all primes not dividing the chosen W, subject to the original good/bad-prime split.",
+        "parameter_range": "Exactly the fixed-data ranges of current lines19989-20169.",
+        "uniformity": "The constants retain their permitted dependence on fixed complexity and E; they do not acquire a dependence on the length or unbounded residue choice.",
+        "constants": "The final polynomial-forms error is still o(1); no unchanged numerical Euler factor is required.",
+        "normalizations": "The normalization phi(W)/W and small-prime exclusions are unchanged. For p not dividing W, W is invertible and the coefficient/root-count estimates retain their form.",
+        "exceptional_cases": "Exceptional primes are controlled by the nonzero coefficient combinations; they need not be the identical exceptional set for every choice of W and residues.",
+        "limit_order": "Fixed E and complexity, sufficiently small sieve exponent, cutoff, length, then the sufficiently slow diagonal."
+      },
+      "classification": "dependency",
+      "reason": "Independently read the installed exact two-line delta before inspecting the newly rebound inventory. It replaces an unnecessarily strong numerical reading by precisely the estimate used downstream.",
+      "shared_contract_justification": null,
+      "supplier": "The same divisor-sum, root-count and moment argument in lines19989-20169, with the derivation and primary-source comparison supplied by the current non-author mathematical review.",
+      "application_id": null,
+      "inline_argument": null
+    }
+  ]
+}

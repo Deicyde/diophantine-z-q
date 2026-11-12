@@ -1,0 +1,183 @@
+{
+  "decision": "exact_metadata_delta_verified",
+  "source_sha256": "da5f3fe704cf2774e86f327b78fe422be773623ec373186942c903f7a3889411",
+  "candidate_sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+  "candidate_canonical_sha256": "17c253598c632619c3b3b06b7a9d6bb804e6d205fc6474a5e529a45e4fe5f047",
+  "minimal_dossier_sha256": "4c82ddf92812cd1564e84c2aaf9d2b92f0a661277678d546dc2583b8a4f65c65",
+  "dossier_changed_fields": [
+    "protocol14_record.sha256"
+  ],
+  "removed_exact_repeat_count": 11,
+  "changed_finding_records": [
+    "V16-HORIZONTAL-OMISSION",
+    "V16-GR-WRONG-PAPER",
+    "V16-TZ-DIRECT-APPLICATION-WORDING",
+    "V16-BOGOLYUBOV-NUMBER",
+    "V16-OTHER-SOURCE-QUALIFICATIONS",
+    "V16-TZ-LOCAL-FACTOR-PRECISION"
+  ],
+  "all_distinct_locations_preserved_in_order": true,
+  "all_other_connection_record_fields_identical": true,
+  "all_1170_connection_objects_identical": true,
+  "all_1190_use_objects_identical": true,
+  "locations_checked": 8286,
+  "distinct_pin_versions_checked": 205,
+  "prior_review_subjects_verified": 1211,
+  "removed": [
+    {
+      "finding_id": "V16-HORIZONTAL-OMISSION",
+      "old_slot": 8,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+        },
+        "start_line": 26933,
+        "end_line": 27095,
+        "excerpt_sha256": "6c8149c876c7231f888cbf64a72c182ba1d99dfb8690e72cde77c0b4dbbee04f"
+      }
+    },
+    {
+      "finding_id": "V16-HORIZONTAL-OMISSION",
+      "old_slot": 9,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+        },
+        "start_line": 27541,
+        "end_line": 27596,
+        "excerpt_sha256": "e0a29848a74af74c110ceb37db626d9ba8c1388d7bdfab996d1c54ec171eb114"
+      }
+    },
+    {
+      "finding_id": "V16-HORIZONTAL-OMISSION",
+      "old_slot": 10,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+        },
+        "start_line": 27651,
+        "end_line": 27701,
+        "excerpt_sha256": "098747593ebfb8949afd16c82a847d1e8b6ebef487e7a21760b6eea334383a17"
+      }
+    },
+    {
+      "finding_id": "V16-GR-WRONG-PAPER",
+      "old_slot": 4,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+        },
+        "start_line": 30774,
+        "end_line": 30845,
+        "excerpt_sha256": "92af94a395ab4ae3da3b5e2997ed559a54825c73b136db1857de58911ec1ab3c"
+      }
+    },
+    {
+      "finding_id": "V16-GR-WRONG-PAPER",
+      "old_slot": 5,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+        },
+        "start_line": 30849,
+        "end_line": 30906,
+        "excerpt_sha256": "2563c9a926b6dc855979bde62817a54741e706c83c86bdb5297fa42c013d26df"
+      }
+    },
+    {
+      "finding_id": "V16-TZ-DIRECT-APPLICATION-WORDING",
+      "old_slot": 6,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+        },
+        "start_line": 20322,
+        "end_line": 20354,
+        "excerpt_sha256": "d4b97038d42f7605a056cca49847c91bdf5606278b2cc0c7e3e5ab49ab6fb54a"
+      }
+    },
+    {
+      "finding_id": "V16-TZ-DIRECT-APPLICATION-WORDING",
+      "old_slot": 7,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+        },
+        "start_line": 31958,
+        "end_line": 32000,
+        "excerpt_sha256": "3792acc37f02bb59f76cc8b658039de57b0c8d60cd915035da53b3fe5cd4bae9"
+      }
+    },
+    {
+      "finding_id": "V16-BOGOLYUBOV-NUMBER",
+      "old_slot": 1,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version16/protocol/CURRENT-CORRECTIONS.md",
+          "sha256": "3b4dbaa5e80d3ed02c5fd4daeb31607de05c7fdfd07ec16168f56e9fd3ea5608"
+        },
+        "start_line": 19,
+        "end_line": 19,
+        "excerpt_sha256": "8672f82fed8fa3f9d15aff370707d6b5ff5471b438dc47b7e1ad32d8b38af699"
+      }
+    },
+    {
+      "finding_id": "V16-OTHER-SOURCE-QUALIFICATIONS",
+      "old_slot": 1,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "research/version16/protocol/CURRENT-CORRECTIONS.md",
+          "sha256": "3b4dbaa5e80d3ed02c5fd4daeb31607de05c7fdfd07ec16168f56e9fd3ea5608"
+        },
+        "start_line": 25,
+        "end_line": 25,
+        "excerpt_sha256": "c95dfc1d90efaffbcdc6098c64133770ac7d1c9bbae7d6c7034995ca56ead1a4"
+      }
+    },
+    {
+      "finding_id": "V16-TZ-LOCAL-FACTOR-PRECISION",
+      "old_slot": 5,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+        },
+        "start_line": 20322,
+        "end_line": 20354,
+        "excerpt_sha256": "d4b97038d42f7605a056cca49847c91bdf5606278b2cc0c7e3e5ab49ab6fb54a"
+      }
+    },
+    {
+      "finding_id": "V16-TZ-LOCAL-FACTOR-PRECISION",
+      "old_slot": 6,
+      "location": {
+        "pin": {
+          "side": "head",
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+        },
+        "start_line": 31958,
+        "end_line": 32000,
+        "excerpt_sha256": "3792acc37f02bb59f76cc8b658039de57b0c8d60cd915035da53b3fe5cd4bae9"
+      }
+    }
+  ],
+  "limitations": "This independently verifies the exact offside metadata delta, source/excerpt pins and prior review bindings. New current coverage/assembly judgments and actual final Git-bound acknowledgments remain separate."
+}

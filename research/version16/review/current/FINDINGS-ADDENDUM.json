@@ -1,0 +1,24 @@
+{
+  "schema": "v16-current-math-findings-addendum/v1",
+  "reviewer": "/root/v16_correction_review",
+  "manuscript_sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+  "preserves": "FINDINGS.json",
+  "findings": [
+    {
+      "id": "V16-TZ-LOCAL-FACTOR-PRECISION",
+      "status": "resolved-in-installed-source",
+      "supersedes_current_disposition_of": "V16-PACKET-LOCAL-FACTOR-WORDING",
+      "historical": "The reviewer correctly narrowed the local-factor contract but initially requested only a packet correction. The coverage reviewer observed that the same unqualified wording occurred in the manuscript.",
+      "failure_mechanism": "An unqualified claim that the local factors are unchanged can assert numerical identity as modulus and residue data vary. The proof supplies the same uniform estimates, not such an identity.",
+      "resolution": "The installed two-line amendment says the local factors satisfy the same uniform estimates. Its reverse uniquely restores the previously reviewed source. The full existing fixed-E adaptation and its consumers remain accepted at their fixed-data scope.",
+      "application": "V16-TZ-ADAPTATION-LABEL",
+      "related_use_scope": "Manuscript19989-20169 and the five TZ majorant/model/model-corollary/polynomial-GN/boundary-moment connections; same-factor language in the selective current packet records.",
+      "related_use_result": "The source precision defect is resolved. The five candidate connections use the full context and the majorant statement uses same uniform estimates. Final packet source and excerpt pins must bind the installed manuscript.",
+      "excluded_scope": "The W-independent bounded concatenation statement, separate local-cube adaptation and separate ray-prime distribution inputs retain their existing scope and are not proved by the local-factor comparison.",
+      "manuscript_repair_required": true,
+      "manuscript_repair_completed": true,
+      "reviewer_authored_underlying_mathematical_derivation": false,
+      "reviewer_recommended_precision_wording": true
+    }
+  ]
+}

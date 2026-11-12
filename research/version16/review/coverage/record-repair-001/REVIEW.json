@@ -1,0 +1,35 @@
+{
+  "schema": "v16-metadata-repair-review/v1",
+  "decision": "accepted_within_scope",
+  "reviewer_agent": "01a1cc35-b545-7242-bea9-bdee4b93e694",
+  "actual_review_run": "01a1cc8c-a858-7c32-89c2-1534fe72a025",
+  "issued_at": "2026-11-11T21:40:30.099117+00:00",
+  "author_of_deduplication_candidate": false,
+  "authored_records": [
+    "DOSSIER.json continuation attestation",
+    "PROTOCOL14-COVERAGE-REVIEW.json",
+    "ASSEMBLY-REVIEW.json"
+  ],
+  "connection_sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+  "connection_canonical_sha256": "17c253598c632619c3b3b06b7a9d6bb804e6d205fc6474a5e529a45e4fe5f047",
+  "dossier_sha256": "45c3864dc588d23c6c797e783c23f88c5b00473ccd7956548734380ccb04f9c5",
+  "coverage_report_sha256": "7f7e0544d324b4ba19d5cb70151c98b31ae2a2a429483df7416d07812267b497",
+  "assembly_report_sha256": "667f8007a2af8d96a845cbf505ca001bf6a04dbb69d5a0667dd2e76d12a32957",
+  "prior_coverage_report": {
+    "side": "head",
+    "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+    "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+  },
+  "prior_assembly_report": {
+    "side": "head",
+    "path": "research/version16/review/coverage/ASSEMBLY-REVIEW.json",
+    "sha256": "f0cfb52df5e2153987fa2125fc002f85194e8cddd09d1407b35cce86535bda88"
+  },
+  "checks": {
+    "path": "CHECKS.json",
+    "sha256": "5b44570c4fd717738e9eb166c221b9d6584b8941aeff31e35cc031468b87763d"
+  },
+  "scope": "I independently accept current coverage and finding dispositions for connection record 979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101 (canonical 17c253598c632619c3b3b06b7a9d6bb804e6d205fc6474a5e529a45e4fe5f047) and dossier 45c3864dc588d23c6c797e783c23f88c5b00473ccd7956548734380ccb04f9c5. The manuscript remains aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74. Exact comparison establishes stable removal of eleven duplicate search-scope locations in six finding records, with every distinct searched location retained and no change to mathematical assertions, source uses, connections, dispositions or downstream consumers. The dossier changes only the connection pin and my truthful same-agent continuation records. I reuse the exact unchanged mathematical reasoning and current composition identified in the prior pinned reports; this new decision is based on that comparison and the checked current bindings, not on substituting hashes into a historical acceptance.",
+  "limitations": "This is a new scoped informal review of the exact offside records, with unchanged mathematical derivations reused from the pinned prior reports. Historical source qualifications, audit limitations, ineffective defining threshold and coefficient-only N>=53 distinction remain. No new blind source-first pass, fresh reproof of every external theorem, final Git-bound acknowledgment, authenticated gate result or release authorization is claimed.",
+  "final_head_and_acknowledgment": "Pending actual local candidate freeze and genuine target-bound acknowledgment."
+}

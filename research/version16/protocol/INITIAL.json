@@ -1,0 +1,87 @@
+{
+  "schema": "protocol-source-first/v1",
+  "sources": [
+    {
+      "side": "head",
+      "path": "research/version16/snapshots/pre-precision/quartic_v16.tex",
+      "sha256": "a9cb3d59596d80e796224e979faf764662739d74cd91cdef080c37e1c8af9fc1"
+    }
+  ],
+  "uses": [
+    {
+      "id": "INITIAL-V16-TZ",
+      "consumer": "prop:v5-artin-patterns",
+      "passages": [
+        "initial-note-item-1"
+      ],
+      "assertion": {
+        "statement": "Simultaneous global/local dense models and polynomial-forms control remain valid for W=D times the primes not dividing D, allowing fixed prime powers.",
+        "objects": "Ordinary prime majorants, Artin-restricted functions f_j,b, centered functions g_j,b, and normalized bounded models on Z/nZ.",
+        "hypotheses": "D and E are fixed, W=E times a primorial for sufficiently large v, residues are units, and the polynomial system has fixed complexity.",
+        "quantifiers": "Every allowed residue and polynomial in the stated coefficient bounds; every required finite global and local order.",
+        "parameter_range": "The source ranges M0,M1,J,A and rho in the fixed-field polynomial-count proof.",
+        "uniformity": "The same bounded model handles global and local norms; fixed model bound must not grow with v,n or the residue.",
+        "constants": "Small-prime local factors are excluded by the unit residue, other prime factors are unchanged, and fixed E is absorbed by coefficient bounds.",
+        "normalizations": "Published squarefree-primorial statements supply a proof to adapt, not a literal theorem application to this W. Theorem 9 is independent of W.",
+        "exceptional_cases": "All prime factors of E lie below v eventually. No uniformity in a growing field or growing fixed factor is asserted.",
+        "limit_order": "Fix the field and complexities first, choose the small exponent, then v, then the length; use the displayed slow diagonal."
+      },
+      "classification": "dependency",
+      "reason": "Later structured serialization of the corresponding source-derived item in initial-reconstruction.md, frozen before the declared inventory was read. This initial proposed supplier remains subject to reconciliation.",
+      "shared_contract_justification": null,
+      "supplier": "Inline adaptation at current lines 20073-20079, together with the published Tao-Ziegler proof and the displayed parameter comparisons.",
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "INITIAL-V16-HORIZONTAL",
+      "consumer": "v15:gi:7:thm:output",
+      "passages": [
+        "initial-note-item-2"
+      ],
+      "assertion": {
+        "statement": "The horizontal Taylor identities are exact in the vector groups before rational/small coordinate removal and remain exact after passage to the covering lattice.",
+        "objects": "Internal real lifts x_h,i,a, polynomial g_h, lattice Gamma, right lattice-valued corrections gamma_h,i, and finite-index lattice Gamma-prime.",
+        "hypotheses": "The old identities hold modulo the horizontal lattice; that lattice is the image of Gamma intersect G_(i,1); horizontal Taylor coefficients are homomorphisms.",
+        "quantifiers": "Every retained h and each of the finitely many weights 1 through m.",
+        "parameter_range": "The regularized representation and its finite sequence of rational and small coordinate removals.",
+        "uniformity": "Internal choices and the existing dense-subfamily bounded-choice rule retain the required common standard data.",
+        "constants": "M is a common standard positive integer with all remaining generator Mth powers in Gamma-prime. Dividing the fixed lifts by M exactly cancels this multiplication.",
+        "normalizations": "Right multiplication by the Gamma-valued polynomial preserves the same quotient orbit; a fixed product order is used without assuming commutativity.",
+        "exceptional_cases": "Small and rational coordinates use their fixed small and rational lifts; linear petals use the real bracket-linear lift. Equality merely modulo the old lattice is insufficient.",
+        "limit_order": "Normalize before removals, use the same real lifts during removals and cover scaling, and then fix finite cover/period data on a dense internal family."
+      },
+      "classification": "dependency",
+      "reason": "Later structured serialization of the corresponding source-derived item in initial-reconstruction.md, frozen before the declared inventory was read. This initial proposed supplier remains subject to reconciliation.",
+      "shared_contract_justification": null,
+      "supplier": "The inserted normalization at current lines 26822-26840, B.4, B.9, the horizontal Taylor calculation at 26741-26748, and the scaling identity at 26905-26919.",
+      "application_id": null,
+      "inline_argument": null
+    },
+    {
+      "id": "INITIAL-V16-HEIGHT",
+      "consumer": "v15:height:lem:surface",
+      "passages": [
+        "initial-note-item-3"
+      ],
+      "assertion": {
+        "statement": "The lower bound for the complementary factor and one-half logarithmic isogeny height change hold in the original stable Faltings-height normalization.",
+        "objects": "J0=B times E, an abelian surface A isogenous to B over L-prime, and the isogeny of degree D.",
+        "hypotheses": "Abelian varieties over number fields, the exact original height convention, and the same L-prime as the 2023 product and isogeny suppliers.",
+        "quantifiers": "All allowed dimensions g>=2 and each resulting B to A isogeny.",
+        "parameter_range": "dim(B)=2 and dim(E)=g-2.",
+        "uniformity": "The inequalities do not enlarge the field degree or change the downstream numerical constants.",
+        "constants": "h_F(E)>=-log(pi sqrt(2))*dim(E)>-3dim(E)/2 in positive dimension; h_F(E)=0 in dimension zero; height increase <=(1/2)log D.",
+        "normalizations": "Original stable Faltings height, additive on products, not a different shifted or unstable height.",
+        "exceptional_cases": "The zero-dimensional complement at g=2 is treated separately.",
+        "limit_order": "No asymptotic limit is used; stable height may be evaluated after semistable extension."
+      },
+      "classification": "dependency",
+      "reason": "Later structured serialization of the corresponding source-derived item in initial-reconstruction.md, frozen before the declared inventory was read. This initial proposed supplier remains subject to reconciliation.",
+      "shared_contract_justification": null,
+      "supplier": "Gaudron-Remond, Theoreme des periodes et degres minimaux isogenies, CMH 89 (2014), section 2.3 and Corollary 8.4, replacing the wrong Duke citation.",
+      "application_id": null,
+      "inline_argument": null
+    }
+  ]
+}

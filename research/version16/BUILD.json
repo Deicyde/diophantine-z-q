@@ -1,0 +1,21 @@
+{
+  "engine": "Tectonic 0.17.0",
+  "bundle": "https://data1b.fullyjustified.net/tlextras-2022.0r0.tar",
+  "cache_only": true,
+  "source": "manuscripts/quartic_v16.tex",
+  "source_sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+  "pdf": "manuscripts/quartic_v16.pdf",
+  "pdf_sha256": "5634295d85bdfd2aef476ad49827b160f119e94996e1f644c3b05a96eabf6315",
+  "pages": 549,
+  "tex_errors": 0,
+  "unresolved_references": 0,
+  "inherited_overfull_boxes": 4,
+  "new_changed_passage_overfull_boxes": 0,
+  "inherited_duplicate_equation_destinations": true,
+  "scope": "Build and visual checks, not proof verification.",
+  "editorial_amendment": "EDITORIAL-AMENDMENT.json",
+  "visually_checked_editorial_page": 549,
+  "precision_amendment": "TZ-PRECISION-AMENDMENT.json",
+  "precision_page": 265,
+  "visually_checked_precision_page": 265
+}

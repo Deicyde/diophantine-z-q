@@ -1,0 +1,14 @@
+{
+  "decision": "passed_structural_checks",
+  "manuscript_sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+  "dossier_sha256": "597687d48ba0b82833c36e8e987e31f406a516d43ab98dfd28429abed79131d3",
+  "connections_sha256": "da5f3fe704cf2774e86f327b78fe422be773623ec373186942c903f7a3889411",
+  "profile_canonical_sha256": "ca0c0c35906f349445f74bcab378d7547db2f21e6ed1b397e247698ada90f0ad",
+  "coverage_rows": 126,
+  "uses": 1190,
+  "connections": 1170,
+  "findings": 40,
+  "verified_locations": 8300,
+  "verified_distinct_pins": 205,
+  "limitations": "Native field helpers and byte/relationship checks only; no simulated receipts, authenticated identity claim, full native gate pass, or mathematical acceptance."
+}

@@ -1,0 +1,61 @@
+{
+  "version": 16,
+  "manuscript": "manuscripts/quartic_v16.tex",
+  "manuscript_sha256": "2f7295c71e58df196470a1d812b594d5d4eda991a8d3daa50cc402b4133d0d05",
+  "baseline": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+  "baseline_sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+  "scope": "Changed applications only; extend the preserved Version15 inventory without relabeling historical approvals.",
+  "applications": [
+    {
+      "id": "V16-HORIZONTAL-NORMALIZATION",
+      "lines": [
+        26822,
+        26914
+      ],
+      "source": "Internal horizontal Taylor homomorphism, Taylor criterion B.9 and product rule B.4; prior normalization in the later linearization proof.",
+      "required": "Exact vector-space horizontal Taylor identities for chosen real lifts before dividing by M into a smaller horizontal lattice.",
+      "constructed": "Right multiplication by the fixed-order product of gamma_(h,i)^(-binomial(n,i)), gamma in the internal lattice intersected with G_(i,1).",
+      "domain_coverage": "For each finitely many weights i, the existing modulo-lattice identity says the difference lies in the image of Gamma intersect G_(i,1); choose an internal preimage.",
+      "maps": "Right multiplication leaves g_h Gamma unchanged. Horizontal Taylor is additive and removes precisely the i-th difference. After removal, x/M paired with M phi(e) preserves the vector identity.",
+      "conventions": "Horizontal quotient G_(i,1)/G_(i,2) is additive; chosen real lifts rather than arbitrary torus roots; fixed product order, no commutativity assumed.",
+      "exceptions": "Rational and small coordinate removals use the fixed rational/small lifts. Linear petals use {alpha h} beta. Core and independent roots must agree with lift division.",
+      "uniformity": "Finite weights; internal choices. Standard finite covering and denominator frozen on the dense internal subfamily as before.",
+      "consumer": "Representation on the covering lattice Gamma prime and subsequent independent-frequency/coset analysis.",
+      "change": "Omitted justification at this location; prior device exists later. The quartic data and asserted theorem statements do not change."
+    },
+    {
+      "id": "V16-GR-HEIGHT-CITATIONS",
+      "lines": [
+        30664,
+        30677
+      ],
+      "source": "Gaudron–Rémond, Théorème des périodes et degrés minimaux d’isogénies, Comment. Math. Helv.89(2014),343–403, DOI10.4171/CMH/322, Section2.3 and Corollary8.4.",
+      "required": "Stable Faltings-height lower bound and the upper height change under an isogeny of degree D.",
+      "constructed": "Abelian varieties E,B,A over the indicated number fields in the existing isogeny-factor proof.",
+      "domain_coverage": "Number-field abelian varieties; stable height can be computed after a semistable extension.",
+      "maps": "B to A isogeny of degree D; retain direction and one-half logarithmic term.",
+      "conventions": "Use the manuscript stable-height normalization; source Section2.3 distinguishes height normalizations. Do not import an unstable height or reverse the inequality.",
+      "exceptions": "Dimension-zero height separately set to zero. Positive-dimensional E uses the printed lower bound.",
+      "uniformity": "No new effective constant or theorem application is added; identify the actual source of the two existing inequalities.",
+      "consumer": "Height bound for the abelian surface factor and the five-contact estimate.",
+      "change": "Bibliography correction only. Preserve gr2014 Duke key for Theorem1.4/Section9 applications."
+    },
+    {
+      "id": "V16-TZ-ADAPTATION-LABEL",
+      "lines": [
+        20060,
+        20078
+      ],
+      "source": "Tao–Ziegler, published results cited by v5tz, Theorems9,11,13,15 and Corollary3; existing local adaptation in the manuscript.",
+      "required": "Dense-model and polynomial-average estimates with W=E product_(p<=v)p for fixed E.",
+      "constructed": "Same functions and same non-squarefree W as Version15; no replacement theorem or proof route.",
+      "domain_coverage": "Unit residues; v ultimately contains all prime divisors of fixed D and E.",
+      "maps": "Fixed extra modulus factor in the divisor-sum construction. Theorem9 is a bounded-function statement independent of W.",
+      "conventions": "Published statements use the squarefree primorial. Mark the non-squarefree use as a proof adaptation, not a direct statement application.",
+      "exceptions": "Small-prime divisibility excluded by unit residues; other prime factors treated by existing divisor-sum estimates.",
+      "uniformity": "E fixed before the asymptotic limit; polynomial coefficient bounds absorb fixed E.",
+      "consumer": "Fixed Artin conditions in quadratic patterns.",
+      "change": "Scope clarification only. Fable followed but did not re-derive every modified-modulus estimate; the alternative statement-only route is not inserted."
+    }
+  ]
+}
