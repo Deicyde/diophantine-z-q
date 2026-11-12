@@ -13,10 +13,10 @@ Belyi map of degree `≤ N²`. The cheapest faithful route is algebraic:
   (`g ≤ (d−1)/2`).
 
 The Picard-scheme and complex-torus routes are compared and rejected for the critical path.
-There is a dependency graph of 18 nodes with a size tier and cheapest route for each, Mathlib v4.35
+There is a dependency graph of 20 nodes with a size tier and cheapest route for each, Mathlib v4.35
 inventory (grep-verified), and work packages.
 
-**What compiles** (`scratch/bp-modcurves/`, 6 files, about 1 700 lines; each `lake env lean` exit 0,
+**What compiles** (`scratch/bp-modcurves/`, 6 files, 1 700 lines; each `lake env lean` exit 0,
 no warnings, no `sorry`, axioms ⊆ {propext, Classical.choice, Quot.sound}):
 - `Gamma1Genus.lean`: Belyi degree `μ`, `ν₂`, `ν₃`, `ν∞`, and genus of `Γ₁(N)` over Mathlib's
   `SL(2,ℤ)`/`Gamma1`. `ν₂ = 0` (N ≥ 3), `ν₃ = 0` (N ≥ 4), `g = 1 + μ/12 − ν∞/2`, `μ ≤ N²`,
@@ -40,6 +40,12 @@ no warnings, no `sorry`, axioms ⊆ {propext, Classical.choice, Quot.sound}):
 - The proper smooth geometrically connected `X₁(N)` (MC4, large) and the Belyi property and
   degree of `j` (MC5).
 - The cusp count and `nuInf = #CuspOrbits` (MC0c), and `#PrimVec N = J₂(N)`.
+- A rational base point for the Jacobian (MC10, a rational cusp; found missing by the review).
 - Leaf statements to write: Riemann–Hurwitz (needs a genus definition; Mathlib has no `Ω¹` on
-  schemes), MC1' (Igusa/Shimura irreducibility), and R16 existential over `IsJacobian`.
+  schemes), MC1' (Igusa/Shimura irreducibility), MC9 (our `ℚ`-model of `X₁(N)` is isomorphic to
+  Shimura's canonical model), and R16 existential over `IsJacobian`. R16 must use **arithmetic**
+  Frobenius on the covariant `V_ℓ`; with geometric Frobenius the leaf is false.
 - The Faltings height (WP10) is out of scope, so R18 still cannot be stated.
+
+An independent read-only model review of the blueprint found 2 errors, 4 risks and 6 minor
+issues. All are fixed in the blueprint (`log.md`, 12:40 entry). No human review.
