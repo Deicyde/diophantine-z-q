@@ -29,3 +29,20 @@ Odd p | n (K ramified, pi_p unramified, chi_p(uniformizer) = s = +-1 varies with
 2-adic: contributing chi have chi_2 = 1 (Lemma char'), so f_n is the GP test vector for every contributing chi and L(1/2,pi_2,chi_2) is the same.
 
 What Prop N needs (sharper than rv-tyz 2.3): write P_chi = eps c(d0,d1) 2^{h2(n)} L(d1) PP(d0). The recursion represents c PP iff c(d0,d1) = c(d0,1) for all d1 > 1 with L(d1)PP(d0) != 0 (cross-n consistency, NOT only uniformity in chi for fixed n; for n=5 it compares the n=5 test vector with the n=7 one for (7,3)). A.9 gives c(d0,d1)^2 = gamma0 for all, so c = +-sqrt(gamma0), constant: suffices (sign is the eps ambiguity).
+
+## Step 2: numerical model and first test (heeg.py, t21.py, out_t21.txt)
+
+Model (derived, n=5 mod 8): TYZ embedding sqrt(-n) -> [[-1,1/4],[-4(n+1),1]] has fixed point tau of the form [16(n+1),-8,1], disc -64n:
+f0(P_n) is a Heegner point of the order Z[4 sqrt(-n)] on X0(32) (32 | A, [A/32,B,32C] primitive, B = -8 mod 64).
+X_U(C) = two copies of X0(32), components <-> embeddings iota of Q(i) (det U_2 = 1+4Z_2), f0 o [i] : (x,iota) -> [iota(i)] x.
+So z_n^{s_t} = (1 - psi(t) i0) x^{s_t}, psi = character of K(i)/K = K(sqrt n)/K (unramified, in the genus field).
+Sum over Pic(O_4) = Cl(-64n) of chi(t) z^{s_t} = 4 P_chi mod torsion (fibre of Pic(O_4) -> Cl_n = Gal(H_{n,4}/H_n) = <s_{1+2w}, s_w^2>, z fixed by the first, z^{s_w^2} = z + tau(1)).
+Hence P_chi = (S_chi - i0 S_{chi psi})/4 with S_chi = sum_{Cl(-64n)} chi(Q) phi(tau_Q), chi(Q) = genus character via a represented odd m.
+n = 7: P_1(n) = sum over Cl(-n) of phi(tau_Q), Q = [A, delta, C], 32|A, delta^2 = -n mod 128.
+phi = modular parametrisation of 32a1, z = sum a_k/k q^k. Precision: all PARI transcendental calls through GP strings (cypari2 calls default to 64 bits; first runs failed for that reason).
+Checks built in: #classes hit = h(-64n) (16 = 16 for n=21); two Gamma0(32)-forms of one SL2(Z)-class give the same point mod Lambda (3 checks).
+
+n = 21 = 7*3 (only contributing chars: trivial and chi_{7,3} = K(sqrt -7)):
+  i0 = +i: P_psi and P_{chi_-3} torsion (Lemma char': non-contributing), 16 P_{chi_{7,3}} = -64 P_1(7) exactly mod Lambda (scan m in [-3000,3000], unique hit).
+  i0 = -i: the opposite (the contributing ones torsion) -> i0 = +i is the K_2^x-invariant vector f_n of Prop 3.1.
+  So P_{chi_{7,3}}(21) = -4 P_1(7) = eps 2^{h2(21)-h2(7)} L(3) P_1(7) with h2(21)=2, h2(7)=0, L(3)=1: Thm 3.3 cross-n consistency c(7,3) = c(7,1) VERIFIED at n=21.

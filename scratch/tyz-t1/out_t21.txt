@@ -1,0 +1,9 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+n=21 classes found 16 h(-64n)= 16 rep checks 3
+d0=7 delta 11 classes 1 h 1 P_1(7) on lattice? False
+i0 = +1i: P_psi torsion True, P_{chi_-3} torsion True
+   16 P_chi torsion? False  16 P_1(21) torsion? False
+   m with 16 P_{chi_{7,3}} = m P_1(7): [-64]  -> r = [-4.0]
+i0 = -1i: P_psi torsion False, P_{chi_-3} torsion False
+   16 P_chi torsion? True  16 P_1(21) torsion? True
+   m with 16 P_{chi_{7,3}} = m P_1(7): [0]  -> r = [0.0]
