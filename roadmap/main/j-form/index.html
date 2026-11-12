@@ -1,0 +1,2270 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../index.html">
+      
+      
+        <link rel="next" href="../../syntax/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>The height hypothesis in its j-form - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-hauptmodul-value" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              The height hypothesis in its j-form
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The main theorem and its hypotheses
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The height hypothesis in its j-form
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The height hypothesis in its j-form
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-hauptmodul-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Hauptmodul value
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-j-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The \(j\)-form
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#back-from-ju-to-u" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Back from \(J(u)\) to \(u\)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-minimal-height-hypothesis-from-the-j-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The minimal height hypothesis from the \(j\)-form
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-hauptmodul-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Hauptmodul value
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-j-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The \(j\)-form
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#back-from-ju-to-u" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Back from \(J(u)\) to \(u\)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-minimal-height-hypothesis-from-the-j-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The minimal height hypothesis from the \(j\)-form
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="main/j-form" data-page-title="The height hypothesis in its j-form">
+<h1 id="the-height-hypothesis-in-its-j-form">The height hypothesis in its <span class="arithmatex">\(j\)</span>-form</h1>
+<p>The proof of the six-contact estimate passes through the Hauptmodul value
+$<span class="arithmatex">\(J(u)=-57600\,\frac{F(u)^2}{G(u)^6},\qquad F(u)=u(u+15)(u+20)(u+24)(u+30)(u+60),\quad G(u)=7u^2+300u+3600.\)</span>$
+For <span class="arithmatex">\(j=J(u)\)</span>, the manuscript bounds <span class="arithmatex">\(h(j)\)</span> through the projective height <span class="arithmatex">\(h([z_m])\)</span> of the even
+theta constants of an abelian surface <span class="arithmatex">\(A\)</span> and the Faltings height <span class="arithmatex">\(h_F(A)\)</span>. Combining three of its
+bounds, <span class="arithmatex">\(h(j)\le40h([z_m])+22\)</span>,
+<span class="arithmatex">\(h([z_m])\le10^4\cdot2^{24}\max(1,h_F(A))\)</span> and
+<span class="arithmatex">\(\max(1,h_F(A))\le\max(1,C_{\rm cm},Q_R^{17})M_S(u)^{24}\)</span>, gives, for <span class="arithmatex">\(S\)</span> and <span class="arithmatex">\(R\)</span> as in the
+six-contact estimate,
+$<span class="arithmatex">\(h(J(u))\le(40\cdot10^4\cdot2^{24}+22)\max(1,C_{\rm cm},Q_R^{17})\,M_S(u)^{24}.\)</span>$
+The manuscript does not display this combined bound; it returns from <span class="arithmatex">\(J(u)\)</span> to <span class="arithmatex">\(u\)</span> by the
+rational-root theorem. This section proves the return as a different inequality,
+<span class="arithmatex">\(12h(u)\le h(J(u))+450\)</span> for <span class="arithmatex">\(u\notin\mathcal C\)</span>, from two explicit polynomial identities that bound
+the cancellation in <span class="arithmatex">\(J(u)\)</span>; it replaces the manuscript's rational-root step.</p>
+<p>The <span class="arithmatex">\(j\)</span>-form of the height hypothesis is the bound on <span class="arithmatex">\(h(J(u))\)</span> above at <span class="arithmatex">\(R=D\)</span>, stated for every
+<span class="arithmatex">\(S\)</span>. It is not proved here and it is not a published theorem. It is what the argument of the
+six-contact estimate gives before its last step, in the form of the trust statement for H: the
+manuscript's steps, with the integral model and the CM case replaced, the finiteness of a twist
+proved by an argument from another version of the manuscript, the theta expression for <span class="arithmatex">\(j\)</span> given
+other published sources together with computations, and several steps checked by no
+referee. That argument supports the
+<span class="arithmatex">\(j\)</span>-form at <span class="arithmatex">\(S=S_{\rm mul}\)</span>, the set the main theorems use. At <span class="arithmatex">\(S=S_{\rm mul}\)</span> the <span class="arithmatex">\(j\)</span>-form implies
+the minimal height hypothesis
+(<a href="#six-contact-min-of-j-height-bound">the <span class="arithmatex">\(j\)</span>-form implies the minimal height hypothesis</a>).</p>
+<p>Notation (<span class="arithmatex">\(\mathcal C\)</span>, <span class="arithmatex">\(M_S\)</span>, <span class="arithmatex">\(D\)</span>, <span class="arithmatex">\(E_0\)</span>, <span class="arithmatex">\(Q_R\)</span>, <span class="arithmatex">\(C_{\rm cm}\)</span>) is as in
+<a href="../index.html#six-contact-estimate">the six-contact height estimate</a>, and <span class="arithmatex">\(h(a/b)=\log\max(|a|,b)\)</span> for a
+reduced fraction <span class="arithmatex">\(a/b\)</span> with <span class="arithmatex">\(b&gt;0\)</span>.</p>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>6</strong> fully proved</span></div>
+</div>
+<h2 id="the-hauptmodul-value">The Hauptmodul value</h2>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="main/j-form/hauptmodul-value">
+<h4 class="bp-thmheading" id="hauptmodul-value">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The Hauptmodul value <span class="arithmatex">\(J(u)\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/JHeight.lean#L31" aria-label="View ZInQ.JHeight.Fh in Lean source" title="View ZInQ.JHeight.Fh in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/JHeight.lean#L34" aria-label="View ZInQ.JHeight.Gh in Lean source" title="View ZInQ.JHeight.Gh in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/JHeight.lean#L37" aria-label="View ZInQ.JHeight.Jmap in Lean source" title="View ZInQ.JHeight.Jmap in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/JHeight.lean#L56" aria-label="View ZInQ.JHeight.G_ne_zero in Lean source" title="View ZInQ.JHeight.G_ne_zero in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/main/j-form/hauptmodul-value.md" aria-label="Edit the Markdown source for The Hauptmodul value $J(u)$" title="Edit the Markdown source for The Hauptmodul value $J(u)$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#hauptmodul-value" aria-label="Link to The Hauptmodul value J(u)" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.JHeight.Fh ZInQ.JHeight.Gh ZInQ.JHeight.Jmap ZInQ.JHeight.G_ne_zero</div>
+<div class="bp-thmcontent">
+<p>For integers <span class="arithmatex">\(a,b\)</span> put
+$<span class="arithmatex">\(F_h(a,b)=a(a+15b)(a+20b)(a+24b)(a+30b)(a+60b),\qquad G_h(a,b)=7a^2+300ab+3600b^2,\)</span>$
+a binary sextic and a binary quadratic form of discriminant <span class="arithmatex">\(300^2-4\cdot7\cdot3600=-10800&lt;0\)</span>.
+For <span class="arithmatex">\(u\in\mathbb Q\)</span> the Hauptmodul value is
+$<span class="arithmatex">\(J(u)=-57600\,\frac{F(u)^2}{G(u)^6},\qquad F(u)=u(u+15)(u+20)(u+24)(u+30)(u+60),\quad G(u)=7u^2+300u+3600.\)</span>$</p>
+<p>For every rational <span class="arithmatex">\(u\)</span>, <span class="arithmatex">\(G(u)\ne0\)</span>, since <span class="arithmatex">\(7G(u)=(7u+150)^2+2700&gt;0\)</span>; so the quotient defining
+<span class="arithmatex">\(J(u)\)</span> never has a zero denominator.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Fh (a b : ℤ) : ℤ := a * (a + 15 * b) * (a + 20 * b) * (a + 24 * b) * (a + 30 * b) * (a + 60 * b)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Gh (a b : ℤ) : ℤ := 7 * a ^ 2 + 300 * a * b + 3600 * b ^ 2</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Jmap (u : ℚ) : ℚ :=
+  -57600 * (u * (u + 15) * (u + 20) * (u + 24) * (u + 30) * (u + 60)) ^ 2 /
+    (7 * u ^ 2 + 300 * u + 3600) ^ 6</code></pre>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/height-locators.html#the-hauptmodul-value">The Hauptmodul value</a></li>
+<li><a href="../../../sources/height-locators.html#step-f4">Step F4</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/height-locators.html#the-hauptmodul-value"> </a></p>
+<p><a href="../../../sources/height-locators.html#step-f4"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 5</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#cancellation-bound">The cancellation in <span class="arithmatex">\(J(u)\)</span> is bounded</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#height-of-u-from-j">From the height of <span class="arithmatex">\(J(u)\)</span> to the height of <span class="arithmatex">\(u\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#j-height-bound">The <span class="arithmatex">\(j\)</span>-form of the height hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#lower-bound">A lower bound for the larger of <span class="arithmatex">\(57600F_h^2\)</span> and <span class="arithmatex">\(G_h^6\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#main-theorem-literature">The main theorem from the <span class="arithmatex">\(j\)</span>-form and the L-series statements</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-j-form">The <span class="arithmatex">\(j\)</span>-form</h2>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="main/j-form/j-height-bound">
+<h4 class="bp-thmheading" id="j-height-bound">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The <span class="arithmatex">\(j\)</span>-form of the height hypothesis</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/JHeight.lean#L235" aria-label="View ZInQ.JHeight.heightX in Lean source" title="View ZInQ.JHeight.heightX in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/JHeight.lean#L246" aria-label="View ZInQ.JHeight.JHeightBound in Lean source" title="View ZInQ.JHeight.JHeightBound in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/main/j-form/j-height-bound.md" aria-label="Edit the Markdown source for The $j$-form of the height hypothesis" title="Edit the Markdown source for The $j$-form of the height hypothesis"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#j-height-bound" aria-label="Link to The j-form of the height hypothesis" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.JHeight.heightX ZInQ.JHeight.JHeightBound</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(\mathcal C\)</span>, <span class="arithmatex">\(D\)</span>, <span class="arithmatex">\(E_0\)</span>, <span class="arithmatex">\(Q_R=R^{RE_0}\)</span> and <span class="arithmatex">\(C_{\rm cm}\)</span> be as in the six-contact height
+estimate, for a reduced fraction <span class="arithmatex">\(a/b\)</span> with <span class="arithmatex">\(b&gt;0\)</span> let <span class="arithmatex">\(h(a/b)=\log\max(|a|,b)\)</span>, and let <span class="arithmatex">\(J\)</span> be the
+Hauptmodul value. For real <span class="arithmatex">\(R\)</span> put
+$<span class="arithmatex">\(X(R)=\max\bigl(1,C_{\rm cm},Q_R^{17}\bigr).\)</span>$
+For a finite set <span class="arithmatex">\(S\)</span> of natural numbers and <span class="arithmatex">\(u\in\mathbb Q\setminus\mathcal C\)</span>, <span class="arithmatex">\(M_S(u)\)</span> is the
+product of the primes <span class="arithmatex">\(p\notin S\)</span> for which <span class="arithmatex">\(v_p(u-c)\)</span> is positive and odd for some
+<span class="arithmatex">\(c\in\mathcal C\)</span> (as in the six-contact estimate, now for any such <span class="arithmatex">\(S\)</span>).</p>
+<p>For a finite set <span class="arithmatex">\(S\)</span> of natural numbers, the <span class="arithmatex">\(j\)</span>-form of the height hypothesis at <span class="arithmatex">\(S\)</span> is the
+assertion that for every <span class="arithmatex">\(u\in\mathbb Q\setminus\mathcal C\)</span>,
+$<span class="arithmatex">\(h(J(u))\le(40\cdot10^4\cdot2^{24}+22)\,X(D)\,M_S(u)^{24}.\)</span>$</p>
+<p>The main theorems use it at <span class="arithmatex">\(S=S_{\rm mul}\)</span>.</p>
+<p>The constant comes from combining three bounds of the manuscript's proof of the six-contact
+estimate, for <span class="arithmatex">\(j=J(u)\)</span>, the projective height <span class="arithmatex">\(h([z_m])\)</span> of the even theta constants of an abelian
+surface <span class="arithmatex">\(A\)</span> and its Faltings height <span class="arithmatex">\(h_F(A)\)</span>: <span class="arithmatex">\(h(j)\le40h([z_m])+22\)</span>,
+<span class="arithmatex">\(h([z_m])\le10^4\cdot2^{24}\max(1,h_F(A))\)</span> and <span class="arithmatex">\(\max(1,h_F(A))\le X(R)\,M_S(u)^{24}\)</span>, using
+<span class="arithmatex">\(\max(1,h_F(A))\ge1\)</span>; the <span class="arithmatex">\(j\)</span>-form takes this at <span class="arithmatex">\(R=D\)</span>. The manuscript does not display the
+combination. It proves the bound on <span class="arithmatex">\(\max(1,h_F(A))\)</span> only for <span class="arithmatex">\(S\)</span> containing every prime at most
+<span class="arithmatex">\(324\)</span> and <span class="arithmatex">\(R\ge\max(D,\max S,10^{12})\)</span>. So the combination gives the <span class="arithmatex">\(j\)</span>-form at <span class="arithmatex">\(R=D\)</span> only for
+such <span class="arithmatex">\(S\)</span> with <span class="arithmatex">\(\max S\le D\)</span>, among them <span class="arithmatex">\(S=S_{\rm mul}\)</span>
+(<a href="../index.html#six-contact-min-of-estimate">every prime of <span class="arithmatex">\(S_{\rm mul}\)</span> is at most <span class="arithmatex">\(D\)</span></a>), the only set
+the main theorems use.</p>
+<p>The <span class="arithmatex">\(j\)</span>-form is not a published theorem; it rests on the steps of the trust statement for H before
+the last one, some of which replace or re-source the manuscript's steps and some of which no
+referee has checked. At <span class="arithmatex">\(S=S_{\rm mul}\)</span> it implies the minimal height hypothesis
+(<a href="#six-contact-min-of-j-height-bound">proved here</a>). Here it is a hypothesis of two variants of
+the main theorem
+(<a href="../index.html#main-theorem-literature">the main theorem from the <span class="arithmatex">\(j\)</span>-form and the L-series statements</a>).</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> heightX (R : ℝ) : ℝ := max 1 (max (heightCcm : ℝ) (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/Height.lean#L148" data-lean-name="ZInQ.heightQ">heightQ</a> R ^ 17))</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> JHeightBound (S : Finset ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ u : ℚ, u ∉ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/Height.lean#L84" data-lean-name="ZInQ.contactSet">contactSet</a> →
+    <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/Height.lean#L80" data-lean-name="ZInQ.ratHeight">ratHeight</a> (<a class="bp-lean-ref" href="#hauptmodul-value" data-lean-name="ZInQ.JHeight.Jmap">Jmap</a> u) ≤
+      (40 * 10000 * 2 ^ 24 + 22 : ℝ) * <a class="bp-lean-ref" href="#j-height-bound" data-lean-name="ZInQ.JHeight.heightX">heightX</a> <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/Height.lean#L133" data-lean-name="ZInQ.heightD">heightD</a> * (contactSupport S u : ℝ) ^ 24</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.heightQ">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> heightQ (R : ℝ) : ℝ := R ^ (R * heightE0)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/Height.lean:148</p>
+</div>
+<div data-lean-name="ZInQ.contactSet">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> contactSet : Finset ℚ := {0, -15, -20, -24, -30, -60}</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/Height.lean:84</p>
+</div>
+<div data-lean-name="ZInQ.ratHeight">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> ratHeight (u : ℚ) : ℝ :=
+  Real.log (max |(u.num : ℝ)| (u.den : ℝ))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/Height.lean:80</p>
+</div>
+<div data-lean-name="ZInQ.JHeight.Jmap">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Jmap (u : ℚ) : ℚ :=
+  -57600 * (u * (u + 15) * (u + 20) * (u + 24) * (u + 30) * (u + 60)) ^ 2 /
+    (7 * u ^ 2 + 300 * u + 3600) ^ 6</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/JHeight.lean:37</p>
+</div>
+<div data-lean-name="ZInQ.JHeight.heightX">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> heightX (R : ℝ) : ℝ := max 1 (max (heightCcm : ℝ) (heightQ R ^ 17))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/JHeight.lean:235</p>
+</div>
+<div data-lean-name="ZInQ.heightD">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> heightD : ℕ := heightF0 * 3 ^ (256 * heightF0 ^ 4)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/Height.lean:133</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/height-locators.html#the-j-form-of-h">The <span class="arithmatex">\(j\)</span>-form of H</a></li>
+<li><a href="../../../sources/height-locators.html#the-trust-statement-for-h">The trust statement for H</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hauptmodul-value">The Hauptmodul value <span class="arithmatex">\(J(u)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#six-contact-estimate">The six-contact height estimate</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#six-contact-min-of-j-height-bound">The <span class="arithmatex">\(j\)</span>-form implies the minimal height hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#main-theorem-literature">The main theorem from the <span class="arithmatex">\(j\)</span>-form and the L-series statements</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="back-from-ju-to-u">Back from <span class="arithmatex">\(J(u)\)</span> to <span class="arithmatex">\(u\)</span></h2>
+<p>Two polynomial identities express <span class="arithmatex">\(3a^7\)</span> and <span class="arithmatex">\(2^{10}3^85^6\,b^7\)</span> as combinations of the binary
+forms <span class="arithmatex">\(F_h(a,b)\)</span> and <span class="arithmatex">\(G_h(a,b)\)</span>. They bound the common factor of the numerator and denominator of
+<span class="arithmatex">\(J(a/b)\)</span>, and they bound the larger of <span class="arithmatex">\(57600F_h(a,b)^2\)</span> and <span class="arithmatex">\(G_h(a,b)^6\)</span> below in terms of
+<span class="arithmatex">\(m=\max(|a|,|b|)\)</span>: <span class="arithmatex">\(m^{12}\le10^{48}\max(57600F_h(a,b)^2,G_h(a,b)^6)\)</span> when <span class="arithmatex">\(m&gt;0\)</span>. Together these
+give the height of <span class="arithmatex">\(u\)</span> in terms of the height of <span class="arithmatex">\(J(u)\)</span>.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="main/j-form/cancellation-bound">
+<h4 class="bp-thmheading" id="cancellation-bound">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The cancellation in <span class="arithmatex">\(J(u)\)</span> is bounded</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/JHeight.lean#L42" aria-label="View ZInQ.JHeight.cert_x in Lean source" title="View ZInQ.JHeight.cert_x in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/JHeight.lean#L49" aria-label="View ZInQ.JHeight.cert_y in Lean source" title="View ZInQ.JHeight.cert_y in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/JHeight.lean#L60" aria-label="View ZInQ.JHeight.C0 in Lean source" title="View ZInQ.JHeight.C0 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/JHeight.lean#L64" aria-label="View ZInQ.JHeight.dvd_C0 in Lean source" title="View ZInQ.JHeight.dvd_C0 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/main/j-form/cancellation-bound.md" aria-label="Edit the Markdown source for The cancellation in $J(u)$ is bounded" title="Edit the Markdown source for The cancellation in $J(u)$ is bounded"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#cancellation-bound" aria-label="Link to The cancellation in J(u) is bounded" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.JHeight.cert_x ZInQ.JHeight.cert_y ZInQ.JHeight.C0 ZInQ.JHeight.dvd_C0</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(F_h\)</span> and <span class="arithmatex">\(G_h\)</span> be the binary forms of the Hauptmodul value. For all integers <span class="arithmatex">\(a,b\)</span>,
+$<span class="arithmatex">\(3a^7=(-200a-4800b)F_h(a,b)+(29a^5+3700a^4b+164400a^3b^2+2880000a^2b^3+17280000ab^4)\,G_h(a,b),\)</span>$
+$<span class="arithmatex">\(104976000000\,b^7=(-1001a-37650b)F_h(a,b)+(143a^5+20557a^4b+1026600a^3b^2+20691900a^2b^3+133110000ab^4+29160000b^5)\,G_h(a,b),\)</span>$
+where <span class="arithmatex">\(104976000000=2^{10}3^85^6\)</span>. Put
+$<span class="arithmatex">\(C_0=(57600\cdot3^7)(57600\cdot104976000000^7)=57600^2\cdot3^7\cdot(2^{10}3^85^6)^7.\)</span>$
+If <span class="arithmatex">\(a,b\)</span> are coprime integers and an integer <span class="arithmatex">\(c\)</span> divides both <span class="arithmatex">\(57600F_h(a,b)^2\)</span> and
+<span class="arithmatex">\(G_h(a,b)^6\)</span>, then <span class="arithmatex">\(c\mid C_0\)</span>.</p>
+<p><strong>Proof sketch.</strong> The two identities are polynomial identities, checked by expanding. For all
+integers <span class="arithmatex">\(x,y\)</span>,
+$<span class="arithmatex">\(57600(x+y)^7=57600x^2\,(x^5+7x^4y+21x^3y^2+35x^2y^3+35xy^4+21y^5)+y^6\cdot57600(7x+y).\)</span>$
+With <span class="arithmatex">\(x=AF_h(a,b)\)</span> and <span class="arithmatex">\(y=BG_h(a,b)\)</span>, the first term is a multiple of <span class="arithmatex">\(57600F_h(a,b)^2\)</span> and the
+second a multiple of <span class="arithmatex">\(G_h(a,b)^6\)</span>, so <span class="arithmatex">\(c\)</span> divides <span class="arithmatex">\(57600(AF_h(a,b)+BG_h(a,b))^7\)</span> for all integers
+<span class="arithmatex">\(A,B\)</span>. Raising the two identities to the seventh power gives
+<span class="arithmatex">\(c\mid57600\cdot3^7a^{49}\)</span> and <span class="arithmatex">\(c\mid57600\cdot104976000000^7b^{49}\)</span>. Since <span class="arithmatex">\(a,b\)</span> are coprime, so
+are <span class="arithmatex">\(a^{49},b^{49}\)</span>, and there are integers <span class="arithmatex">\(s,t\)</span> with <span class="arithmatex">\(sa^{49}+tb^{49}=1\)</span>. Then
+$<span class="arithmatex">\(C_0=(57600\cdot104976000000^7s)(57600\cdot3^7a^{49})+(57600\cdot3^7t)(57600\cdot104976000000^7b^{49}),\)</span>$
+a combination of two multiples of <span class="arithmatex">\(c\)</span>, so <span class="arithmatex">\(c\mid C_0\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> cert_x (a b : ℤ) :
+    3 * a ^ 7 = (-200 * a - 4800 * b) * <a class="bp-lean-ref" href="#hauptmodul-value" data-lean-name="ZInQ.JHeight.Fh">Fh</a> a b +
+      (29 * a ^ 5 + 3700 * a ^ 4 * b + 164400 * a ^ 3 * b ^ 2 + 2880000 * a ^ 2 * b ^ 3 +
+        17280000 * a * b ^ 4) * <a class="bp-lean-ref" href="#hauptmodul-value" data-lean-name="ZInQ.JHeight.Gh">Gh</a> a b</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> cert_y (a b : ℤ) :
+    104976000000 * b ^ 7 = (-1001 * a - 37650 * b) * <a class="bp-lean-ref" href="#hauptmodul-value" data-lean-name="ZInQ.JHeight.Fh">Fh</a> a b +
+      (143 * a ^ 5 + 20557 * a ^ 4 * b + 1026600 * a ^ 3 * b ^ 2 + 20691900 * a ^ 2 * b ^ 3 +
+        133110000 * a * b ^ 4 + 29160000 * b ^ 5) * <a class="bp-lean-ref" href="#hauptmodul-value" data-lean-name="ZInQ.JHeight.Gh">Gh</a> a b</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> C0 : ℤ := (57600 * 3 ^ 7) * (57600 * 104976000000 ^ 7)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.JHeight.Fh">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Fh (a b : ℤ) : ℤ := a * (a + 15 * b) * (a + 20 * b) * (a + 24 * b) * (a + 30 * b) * (a + 60 * b)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/JHeight.lean:31</p>
+</div>
+<div data-lean-name="ZInQ.JHeight.Gh">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Gh (a b : ℤ) : ℤ := 7 * a ^ 2 + 300 * a * b + 3600 * b ^ 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/JHeight.lean:34</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/height-locators.html#step-f4">Step F4</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hauptmodul-value">The Hauptmodul value <span class="arithmatex">\(J(u)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#height-of-u-from-j">From the height of <span class="arithmatex">\(J(u)\)</span> to the height of <span class="arithmatex">\(u\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#lower-bound">A lower bound for the larger of <span class="arithmatex">\(57600F_h^2\)</span> and <span class="arithmatex">\(G_h^6\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="main/j-form/lower-bound">
+<h4 class="bp-thmheading" id="lower-bound">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">A lower bound for the larger of <span class="arithmatex">\(57600F_h^2\)</span> and <span class="arithmatex">\(G_h^6\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/JHeight.lean#L91" aria-label="View ZInQ.JHeight.abs_monomial_le in Lean source" title="View ZInQ.JHeight.abs_monomial_le in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/JHeight.lean#L99" aria-label="View ZInQ.JHeight.lower_bound in Lean source" title="View ZInQ.JHeight.lower_bound in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/main/j-form/lower-bound.md" aria-label="Edit the Markdown source for A lower bound for the larger of $57600F_h^2$ and $G_h^6$" title="Edit the Markdown source for A lower bound for the larger of $57600F_h^2$ and $G_h^6$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#lower-bound" aria-label="Link to A lower bound for the larger of 57600Fₕ² and Gₕ⁶" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.JHeight.abs_monomial_le ZInQ.JHeight.lower_bound</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(F_h\)</span> and <span class="arithmatex">\(G_h\)</span> be the binary forms of the Hauptmodul value. If <span class="arithmatex">\(a,b,m\)</span> are integers with
+<span class="arithmatex">\(|a|\le m\)</span> and <span class="arithmatex">\(|b|\le m\)</span>, then <span class="arithmatex">\(|a^ib^j|\le m^{i+j}\)</span> for all natural numbers <span class="arithmatex">\(i,j\)</span>. Let <span class="arithmatex">\(a,b,m\)</span>
+be integers with
+<span class="arithmatex">\(|a|\le m\)</span>, <span class="arithmatex">\(|b|\le m\)</span>, <span class="arithmatex">\(m&gt;0\)</span>, and <span class="arithmatex">\(m=|a|\)</span> or <span class="arithmatex">\(m=|b|\)</span>. Then
+$<span class="arithmatex">\(m^{12}\le10^{48}\max\bigl(57600F_h(a,b)^2,\ G_h(a,b)^6\bigr).\)</span>$</p>
+<p><strong>Proof sketch.</strong> Suppose not. Then <span class="arithmatex">\(57600\cdot10^{48}F_h^2&lt;m^{12}\)</span> and <span class="arithmatex">\(10^{48}G_h^6&lt;m^{12}\)</span>,
+so taking square and sixth roots, <span class="arithmatex">\(240\cdot10^{24}|F_h|&lt;m^6\)</span> and <span class="arithmatex">\(10^8|G_h|&lt;m^2\)</span>; hence
+<span class="arithmatex">\(240\cdot10^{24}\,m|F_h|&lt;m^7\)</span> and <span class="arithmatex">\(10^8\,m^5|G_h|&lt;m^7\)</span>. Since <span class="arithmatex">\(|a^ib^j|\le m^{i+j}\)</span>, each
+cofactor in the two identities of the cancellation bound is at most the sum of the absolute values
+of its coefficients times the matching power of <span class="arithmatex">\(m\)</span>.</p>
+<p>If <span class="arithmatex">\(m=|a|\)</span>, the first identity and the triangle inequality give
+$<span class="arithmatex">\(3m^7\le5000\,m|F_h|+20328129\,m^5|G_h|&lt;\Bigl(\frac{5000}{240\cdot10^{24}}+\frac{20328129}{10^8}\Bigr)m^7&lt;3m^7,\)</span>$
+a contradiction. If <span class="arithmatex">\(m=|b|\)</span>, the second identity gives
+$<span class="arithmatex">\(104976000000\,m^7\le38651\,m|F_h|+184009200\,m^5|G_h|&lt;\Bigl(\frac{38651}{240\cdot10^{24}}+\frac{184009200}{10^8}\Bigr)m^7,\)</span>$
+again a contradiction.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> abs_monomial_le {a b m : ℤ} (ha : |a| ≤ m) (hb : |b| ≤ m) (i j : ℕ) :
+    |a ^ i * b ^ j| ≤ m ^ (i + j)</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> lower_bound {a b m : ℤ} (ha : |a| ≤ m) (hb : |b| ≤ m) (hm : 0 &lt; m)
+    (hmax : m = |a| ∨ m = |b|) :
+    m ^ 12 ≤ 10 ^ 48 * max (57600 * <a class="bp-lean-ref" href="#hauptmodul-value" data-lean-name="ZInQ.JHeight.Fh">Fh</a> a b ^ 2) (<a class="bp-lean-ref" href="#hauptmodul-value" data-lean-name="ZInQ.JHeight.Gh">Gh</a> a b ^ 6)</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.JHeight.Fh">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Fh (a b : ℤ) : ℤ := a * (a + 15 * b) * (a + 20 * b) * (a + 24 * b) * (a + 30 * b) * (a + 60 * b)</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/JHeight.lean:31</p>
+</div>
+<div data-lean-name="ZInQ.JHeight.Gh">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Gh (a b : ℤ) : ℤ := 7 * a ^ 2 + 300 * a * b + 3600 * b ^ 2</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/JHeight.lean:34</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/height-locators.html#step-f4">Step F4</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/height-locators.html#step-f4"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hauptmodul-value">The Hauptmodul value <span class="arithmatex">\(J(u)\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#cancellation-bound">The cancellation in <span class="arithmatex">\(J(u)\)</span> is bounded</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#height-of-u-from-j">From the height of <span class="arithmatex">\(J(u)\)</span> to the height of <span class="arithmatex">\(u\)</span></a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="main/j-form/height-of-u-from-j">
+<h4 class="bp-thmheading" id="height-of-u-from-j">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">From the height of <span class="arithmatex">\(J(u)\)</span> to the height of <span class="arithmatex">\(u\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/JHeight.lean#L162" aria-label="View ZInQ.JHeight.twelve_mul_ratHeight_le in Lean source" title="View ZInQ.JHeight.twelve_mul_ratHeight_le in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/main/j-form/height-of-u-from-j.md" aria-label="Edit the Markdown source for From the height of $J(u)$ to the height of $u$" title="Edit the Markdown source for From the height of $J(u)$ to the height of $u$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#height-of-u-from-j" aria-label="Link to From the height of J(u) to the height of u" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.JHeight.twelve_mul_ratHeight_le</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(\mathcal C\)</span> be as in the six-contact height estimate, for a reduced fraction <span class="arithmatex">\(a/b\)</span> with <span class="arithmatex">\(b&gt;0\)</span>
+let <span class="arithmatex">\(h(a/b)=\log\max(|a|,b)\)</span>, and let <span class="arithmatex">\(J\)</span> be the Hauptmodul value.
+For every <span class="arithmatex">\(u\in\mathbb Q\setminus\mathcal C\)</span>,
+$<span class="arithmatex">\(12\,h(u)\le h(J(u))+450.\)</span>$</p>
+<p>This replaces the manuscript's rational-root bound <span class="arithmatex">\(h(u)&lt;h(J(u))+74\)</span>, a different inequality.</p>
+<p><strong>Proof sketch.</strong> Write <span class="arithmatex">\(u=a/b\)</span> in lowest terms with <span class="arithmatex">\(b&gt;0\)</span>, and <span class="arithmatex">\(F_h=F_h(a,b)\)</span>, <span class="arithmatex">\(G_h=G_h(a,b)\)</span>.
+Then <span class="arithmatex">\(F(u)=F_h/b^6\)</span> and <span class="arithmatex">\(G(u)=G_h/b^2\)</span>, and <span class="arithmatex">\(G_h&gt;0\)</span> since
+<span class="arithmatex">\(7G_h=(7a+150b)^2+2700b^2\)</span>. So <span class="arithmatex">\(J(u)=n/d\)</span> with <span class="arithmatex">\(n=-57600F_h^2\)</span> and <span class="arithmatex">\(d=G_h^6&gt;0\)</span>. Writing <span class="arithmatex">\(J(u)\)</span> in
+lowest terms as <span class="arithmatex">\(\nu/\delta\)</span> with <span class="arithmatex">\(\delta&gt;0\)</span>, there is an integer <span class="arithmatex">\(c\)</span> with <span class="arithmatex">\(n=c\nu\)</span> and <span class="arithmatex">\(d=c\delta\)</span>;
+<span class="arithmatex">\(c&gt;0\)</span> because <span class="arithmatex">\(d,\delta&gt;0\)</span>. Then <span class="arithmatex">\(c\)</span> divides both <span class="arithmatex">\(57600F_h^2\)</span> and <span class="arithmatex">\(G_h^6\)</span>, so <span class="arithmatex">\(c\mid C_0\)</span> by the
+cancellation bound, and <span class="arithmatex">\(c\le C_0\)</span>. Hence
+$<span class="arithmatex">\(\max(57600F_h^2,\,G_h^6)=c\,H,\qquad H=\max(|\nu|,\delta)\ge1.\)</span>$
+Put <span class="arithmatex">\(m=\max(|a|,b)&gt;0\)</span>. The lower bound gives
+$<span class="arithmatex">\(m^{12}\le10^{48}cH\le10^{48}C_0H\le10^{139}H.\)</span>$
+Since <span class="arithmatex">\(h(u)=\log m\)</span> and <span class="arithmatex">\(h(J(u))=\log H\)</span>, taking logarithms gives
+<span class="arithmatex">\(12h(u)\le139\log10+h(J(u))\)</span>. Finally <span class="arithmatex">\(e&gt;2.7\)</span> and <span class="arithmatex">\(2.7^3&gt;10\)</span> give <span class="arithmatex">\(\log10&lt;3\)</span>, so
+<span class="arithmatex">\(139\log10&lt;417\le450\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> twelve_mul_ratHeight_le (u : ℚ) (_hu : u ∉ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/Height.lean#L84" data-lean-name="ZInQ.contactSet">contactSet</a>) :
+    12 * <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/Height.lean#L80" data-lean-name="ZInQ.ratHeight">ratHeight</a> u ≤ <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/Height.lean#L80" data-lean-name="ZInQ.ratHeight">ratHeight</a> (<a class="bp-lean-ref" href="#hauptmodul-value" data-lean-name="ZInQ.JHeight.Jmap">Jmap</a> u) + 450</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.contactSet">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> contactSet : Finset ℚ := {0, -15, -20, -24, -30, -60}</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/Height.lean:84</p>
+</div>
+<div data-lean-name="ZInQ.ratHeight">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> ratHeight (u : ℚ) : ℝ :=
+  Real.log (max |(u.num : ℝ)| (u.den : ℝ))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/Height.lean:80</p>
+</div>
+<div data-lean-name="ZInQ.JHeight.Jmap">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Jmap (u : ℚ) : ℚ :=
+  -57600 * (u * (u + 15) * (u + 20) * (u + 24) * (u + 30) * (u + 60)) ^ 2 /
+    (7 * u ^ 2 + 300 * u + 3600) ^ 6</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/JHeight.lean:37</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/height-locators.html#step-f4">Step F4</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/height-locators.html#step-f4"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hauptmodul-value">The Hauptmodul value <span class="arithmatex">\(J(u)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#six-contact-estimate">The six-contact height estimate</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#cancellation-bound">The cancellation in <span class="arithmatex">\(J(u)\)</span> is bounded</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#lower-bound">A lower bound for the larger of <span class="arithmatex">\(57600F_h^2\)</span> and <span class="arithmatex">\(G_h^6\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#six-contact-min-of-j-height-bound">The <span class="arithmatex">\(j\)</span>-form implies the minimal height hypothesis</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-minimal-height-hypothesis-from-the-j-form">The minimal height hypothesis from the <span class="arithmatex">\(j\)</span>-form</h2>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="main/j-form/six-contact-min-of-j-height-bound">
+<h4 class="bp-thmheading" id="six-contact-min-of-j-height-bound">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The <span class="arithmatex">\(j\)</span>-form implies the minimal height hypothesis</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/JHeight.lean#L251" aria-label="View ZInQ.JHeight.heightH6_eq in Lean source" title="View ZInQ.JHeight.heightH6_eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/JHeight.lean#L255" aria-label="View ZInQ.JHeight.sixContactMin_of_jHeightBound in Lean source" title="View ZInQ.JHeight.sixContactMin_of_jHeightBound in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/main/j-form/six-contact-min-of-j-height-bound.md" aria-label="Edit the Markdown source for The $j$-form implies the minimal height hypothesis" title="Edit the Markdown source for The $j$-form implies the minimal height hypothesis"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#six-contact-min-of-j-height-bound" aria-label="Link to The j-form implies the minimal height hypothesis" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.JHeight.heightH6_eq ZInQ.JHeight.sixContactMin_of_jHeightBound</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(\mathcal C\)</span>, <span class="arithmatex">\(h\)</span> and <span class="arithmatex">\(X(R)=\max(1,C_{\rm cm},Q_R^{17})\)</span> be as in the <span class="arithmatex">\(j\)</span>-form of the height
+hypothesis. For every real <span class="arithmatex">\(R\)</span>, <span class="arithmatex">\(H_6(S;R)=2\cdot10^{13}X(R)\)</span> for every <span class="arithmatex">\(S\)</span>, by the definition of
+<span class="arithmatex">\(H_6(S;R)\)</span> in the six-contact estimate (it does not depend on <span class="arithmatex">\(S\)</span>); write <span class="arithmatex">\(H_6(R)\)</span> for it. If the
+<span class="arithmatex">\(j\)</span>-form holds at
+<span class="arithmatex">\(S=S_{\rm mul}\)</span>, then the minimal height hypothesis holds: for every <span class="arithmatex">\(u\in\mathbb Q\setminus\mathcal C\)</span>,
+$<span class="arithmatex">\(h(u)\le H_6(D)\,M_{S_{\rm mul}}(u)^{24}.\)</span>$</p>
+<p><strong>Proof sketch.</strong> Let <span class="arithmatex">\(u\notin\mathcal C\)</span>, write <span class="arithmatex">\(M=M_{S_{\rm mul}}(u)\)</span> and
+<span class="arithmatex">\(K=40\cdot10^4\cdot2^{24}+22\)</span>. From the height of <span class="arithmatex">\(J(u)\)</span> to the height of <span class="arithmatex">\(u\)</span>,
+<span class="arithmatex">\(12h(u)\le h(J(u))+450\)</span>, and the <span class="arithmatex">\(j\)</span>-form gives <span class="arithmatex">\(h(J(u))\le K\,X(D)\,M^{24}\)</span>. Here <span class="arithmatex">\(X(D)\ge1\)</span>, and
+<span class="arithmatex">\(M\ge1\)</span> because it is a product of primes, so <span class="arithmatex">\(Y=X(D)M^{24}\ge1\)</span>. Then
+$<span class="arithmatex">\(h(u)\le\frac{KY+450}{12}\le2\cdot10^{13}\,Y=H_6(D)\,M^{24},\)</span>$
+since <span class="arithmatex">\(K+450&lt;2.4\cdot10^{14}\)</span> and <span class="arithmatex">\(Y\ge1\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> heightH6_eq (R : ℝ) : <a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/Height.lean#L152" data-lean-name="ZInQ.heightH6">heightH6</a> R = 2 * 10 ^ 13 * <a class="bp-lean-ref" href="#j-height-bound" data-lean-name="ZInQ.JHeight.heightX">heightX</a> R</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> sixContactMin_of_jHeightBound (hJ : <a class="bp-lean-ref" href="#j-height-bound" data-lean-name="ZInQ.JHeight.JHeightBound">JHeightBound</a> <a class="bp-lean-ref" href="../../multiplication/certificate/index.html#constants" data-lean-name="ZInQ.Mult.S_mul">Mult.S_mul</a>) : <a class="bp-lean-ref" href="../index.html#six-contact-min" data-lean-name="ZInQ.SixContactMin">SixContactMin</a></code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.heightH6">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> heightH6 (R : ℝ) : ℝ :=
+  2 * 10 ^ 13 * max 1 (max (heightCcm : ℝ) (heightQ R ^ 17))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/Height.lean:152</p>
+</div>
+<div data-lean-name="ZInQ.JHeight.heightX">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> heightX (R : ℝ) : ℝ := max 1 (max (heightCcm : ℝ) (heightQ R ^ 17))</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/JHeight.lean:235</p>
+</div>
+<div data-lean-name="ZInQ.JHeight.JHeightBound">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> JHeightBound (S : Finset ℕ) : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ u : ℚ, u ∉ contactSet →
+    ratHeight (Jmap u) ≤
+      (40 * 10000 * 2 ^ 24 + 22 : ℝ) * heightX heightD * (contactSupport S u : ℝ) ^ 24</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/JHeight.lean:246</p>
+</div>
+<div data-lean-name="ZInQ.Mult.S_mul">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> S_mul : Finset ℕ := S_ht ∪ catalogue ∪ Syntax.cstar.primeFactors</code></pre>
+<p class="bp-lean-where">ZInQKernel/Multiplication/Certificate/Constants.lean:40</p>
+</div>
+<div data-lean-name="ZInQ.SixContactMin">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> SixContactMin : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ u : ℚ, u ∉ contactSet →
+    ratHeight u ≤ heightH6 (heightD : ℝ) * (contactSupport Mult.S_mul u : ℝ) ^ 24</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/HeightMin.lean:50</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/height-locators.html#the-j-form-of-h">The <span class="arithmatex">\(j\)</span>-form of H</a></li>
+<li><a href="../../../sources/height-locators.html#step-f4">Step F4</a></li>
+<li><a href="../../../sources/manuscript.html#theorem-41">Theorem 4.1</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/height-locators.html#the-j-form-of-h"> </a></p>
+<p><a href="../../../sources/height-locators.html#step-f4"> </a></p>
+<p><a href="../../../sources/manuscript.html#theorem-41"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 4 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#j-height-bound">The <span class="arithmatex">\(j\)</span>-form of the height hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#six-contact-min">The minimal height hypothesis</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#six-contact-estimate">The six-contact height estimate</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#height-of-u-from-j">From the height of <span class="arithmatex">\(J(u)\)</span> to the height of <span class="arithmatex">\(u\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../index.html#main-theorem-literature">The main theorem from the <span class="arithmatex">\(j\)</span>-form and the L-series statements</a></span></div>
+</div>
+</details>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../../dependencies/index.json" data-graph-src="../../../dependencies/scopes/main/j-form.json" data-page-href="index.html" data-scope-id="main/j-form">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>

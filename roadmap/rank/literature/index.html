@@ -1,0 +1,2738 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../mordell-weil/index.html">
+      
+      
+        <link rel="next" href="../two-curves/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>CR₃^TYZ_Cl,Rk from three literature statements - Z is Diophantine in Q</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#entire-continuations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-header__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Z is Diophantine in Q
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CR₃^TYZ_Cl,Rk from three literature statements
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use dark theme"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Use dark theme" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Use light theme"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Use light theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Z is Diophantine in Q" class="md-nav__button md-logo" aria-label="Z is Diophantine in Q" data-md-component="logo">
+      
+  <img src="../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Z is Diophantine in Q
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Deicyde/diophantine-z-q" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z is Diophantine in Q
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Z is Diophantine in Q
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../main/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The main theorem and its hypotheses
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../syntax/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The finite specification of the polynomial
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../model/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The elliptic model of integer indices
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../multiplication/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiplication and the finite false-triple guard
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../compiler/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exact precision computation and polynomial compilation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../assembly/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly and the ordinary-value relation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../size/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The cutoff and polynomial size
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../progressions/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primes in arithmetic progressions
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-k/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pole completeness from certified rank (Route K)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../route-ap/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Route AP: progressions of good primes in place of the prime pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../green-tao/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Szemerédi&#39;s theorem in the primes (Green–Tao)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../density/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition D: the density of good slope primes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../selmer/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposition 0: the explicit system is the 2-Selmer group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../rank-5b/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The row-5b determinant
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../redei/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rédei&#39;s formula for the 4-rank of class groups
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_17" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis as positive rank
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_17" id="__nav_2_1_17_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_17_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_17">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The rank hypothesis as positive rank
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../two-descent/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The complete 2-descent on a congruent number curve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mordell-weil/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mordell–Weil by two-isogeny descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CR₃^TYZ&#95;Cl,Rk from three literature statements
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CR₃^TYZ&#95;Cl,Rk from three literature statements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entire-continuations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entire continuations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-three-literature-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The three literature statements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vanishing-at-the-centre-and-analytic-rank-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vanishing at the centre and analytic rank one
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-class-number-hypothesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The class-number hypothesis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#row-5b-from-tianyuanzhangs-own-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Row 5b from Tian–Yuan–Zhang's own statement
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../two-curves/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypothesis on the two curves of a slot choice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../infinitely-many-points/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The rank hypotheses as infinitely many rational points
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coverage/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coverage contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../sources/index.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entire-continuations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entire continuations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-three-literature-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The three literature statements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vanishing-at-the-centre-and-analytic-rank-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vanishing at the centre and analytic rank one
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-class-number-hypothesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The class-number hypothesis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#row-5b-from-tianyuanzhangs-own-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Row 5b from Tian–Yuan–Zhang's own statement
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div class="bp-explorer-page">
+<div class="bp-reading-source" data-autoform-node-id="rank/literature" data-page-title="CR₃^TYZ_Cl,Rk from three literature statements">
+<h1 id="cr3tyz_clrk-from-three-literature-statements">CR₃^TYZ_Cl,Rk from three literature statements</h1>
+<p>The positive-rank class-number hypothesis CR₃^TYZ_Cl,Rk follows from three statements about the
+L-series <span class="arithmatex">\(L(C_d,s)\)</span> of the curves <span class="arithmatex">\(C_d:y^2=x^3-d^2x\)</span> and the L-series <span class="arithmatex">\(L(E,s)\)</span> of elliptic curves
+<span class="arithmatex">\(E\)</span> over <span class="arithmatex">\(\mathbb Q\)</span>. Two of them are textbook theorems: the functional equation of <span class="arithmatex">\(L(C_d,s)\)</span>
+with root number <span class="arithmatex">\(-1\)</span>, stated on the strip <span class="arithmatex">\(0&lt;\operatorname{Re}s&lt;2\)</span> for squarefree
+<span class="arithmatex">\(d\equiv5\pmod8\)</span>, and the positive-rank half of Gross–Zagier for every elliptic curve over
+<span class="arithmatex">\(\mathbb Q\)</span>. The third is Tian–Yuan–Zhang's row 5b: when the genus sum of class numbers
+<span class="arithmatex">\(T^{\rm Cl}_{5b}(d)\)</span> is odd, the order of vanishing of <span class="arithmatex">\(L(C_d,s)\)</span> at <span class="arithmatex">\(s=1\)</span> is at most one. Row 5b
+is their theorem in a reading that no refereed text consulted here prints (the journal version of
+their paper and Tian's expository articles were not consulted); the bound on the order follows
+from their unambiguous statements by Proposition N, an unpublished argument that has not been
+refereed or checked by a human reader, and the existence of the continuation is Hecke's.</p>
+<p>The order of vanishing is read off an entire continuation of the L-series from the half-plane
+<span class="arithmatex">\(\operatorname{Re}s&gt;3/2\)</span>, and such a continuation is unique. The functional equation gives
+vanishing at the centre; with row 5b this gives an entire continuation with a simple zero at
+<span class="arithmatex">\(s=1\)</span>, and Gross–Zagier then gives a point of infinite order on <span class="arithmatex">\(C_d\)</span>. Row 5b in turn follows from
+Tian–Yuan–Zhang's Theorem 3.5(2) in reading A (both genus sums are even when the order of
+vanishing is at least two) together with Hecke's continuation of <span class="arithmatex">\(L(C_d,s)\)</span>.</p>
+<p>None of the literature statements is proved here; the reductions between them are.</p>
+<p>Throughout, <span class="arithmatex">\(C_d\)</span> is the curve <span class="arithmatex">\(y^2=x^3-d^2x\)</span> over <span class="arithmatex">\(\mathbb Q\)</span> for a natural number <span class="arithmatex">\(d\)</span>, and the
+order of vanishing of an entire function at a point is its order as an analytic function, a
+value in <span class="arithmatex">\(\{0,1,2,\dots\}\cup\{\infty\}\)</span>.</p>
+<div class="bp-progress-overview">
+<div class="bp-progress-states"><span class="bp-progress-state" title="Proved, and every prerequisite is fully proved too."><span class="bp-swatch bp-swatch-fully_proved"></span><strong>12</strong> fully proved</span></div>
+</div>
+<h2 id="entire-continuations">Entire continuations</h2>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/literature/l-series-continuation">
+<h4 class="bp-thmheading" id="l-series-continuation">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">Entire continuations of the L-series of an elliptic curve</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/CR3Literature.lean#L44" aria-label="View ZInQ.Literature.IsLContinuation in Lean source" title="View ZInQ.Literature.IsLContinuation in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/CR3Literature.lean#L49" aria-label="View ZInQ.Literature.IsLContinuation.eq in Lean source" title="View ZInQ.Literature.IsLContinuation.eq in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/rank/literature/l-series-continuation.md" aria-label="Edit the Markdown source for Entire continuations of the L-series of an elliptic curve" title="Edit the Markdown source for Entire continuations of the L-series of an elliptic curve"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#l-series-continuation" aria-label="Link to Entire continuations of the L-series of an elliptic curve" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Literature.IsLContinuation ZInQ.Literature.IsLContinuation.eq</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(E\)</span> be a Weierstrass equation over <span class="arithmatex">\(\mathbb Q\)</span>. For each prime <span class="arithmatex">\(p\)</span> let <span class="arithmatex">\(f_p(T)\)</span> be the local
+polynomial of a minimal model of <span class="arithmatex">\(E\)</span> over <span class="arithmatex">\(\mathbb Q_p\)</span>: <span class="arithmatex">\(1-a_pT+pT^2\)</span> with
+<span class="arithmatex">\(a_p=p+1-\#\tilde E(\mathbb F_p)\)</span> (the points of the reduction, the point at infinity included) if
+the reduction is good, <span class="arithmatex">\(1-T\)</span> if it is split multiplicative, <span class="arithmatex">\(1+T\)</span> if it is nonsplit
+multiplicative, and <span class="arithmatex">\(1\)</span> if it is additive. The <em>L-series</em> of <span class="arithmatex">\(E\)</span> is the Dirichlet series
+$<span class="arithmatex">\(L(E,s)=\sum_{n\ge1}a_nn^{-s},\)</span>$
+whose coefficients <span class="arithmatex">\(a_n\)</span> are those of the formal Euler product <span class="arithmatex">\(\prod_pf_p(p^{-s})^{-1}\)</span>; its value
+at <span class="arithmatex">\(s\)</span> is the sum of the series where the series converges absolutely, and <span class="arithmatex">\(0\)</span> elsewhere. The
+recipe applies to every Weierstrass equation over <span class="arithmatex">\(\mathbb Q\)</span>; the case that matters is an
+elliptic curve, where the discriminant is nonzero.</p>
+<p>A function <span class="arithmatex">\(F:\mathbb C\to\mathbb C\)</span> is an <em>entire continuation of <span class="arithmatex">\(L(E,s)\)</span></em> if <span class="arithmatex">\(F\)</span> is complex
+differentiable on all of <span class="arithmatex">\(\mathbb C\)</span> and <span class="arithmatex">\(F(s)=L(E,s)\)</span> for every complex <span class="arithmatex">\(s\)</span> with
+<span class="arithmatex">\(\operatorname{Re}s&gt;3/2\)</span>.</p>
+<p>Two entire continuations of the same <span class="arithmatex">\(L(E,s)\)</span> are equal everywhere.</p>
+<p>When <span class="arithmatex">\(E\)</span> is an elliptic curve, the series converges absolutely on the half-plane
+<span class="arithmatex">\(\operatorname{Re}s&gt;3/2\)</span>, by Hasse's bound on <span class="arithmatex">\(a_p\)</span> (a standard fact, not proved here), so there <span class="arithmatex">\(L(E,s)\)</span> is the sum of the series. By the
+uniqueness, a statement about the order of vanishing of an entire continuation at <span class="arithmatex">\(s=1\)</span> does not
+depend on which continuation is chosen.</p>
+<p><strong>Proof sketch</strong> (of the uniqueness). Let <span class="arithmatex">\(F\)</span> and <span class="arithmatex">\(G\)</span> be entire continuations of <span class="arithmatex">\(L(E,s)\)</span>. The
+half-plane <span class="arithmatex">\(\operatorname{Re}s&gt;3/2\)</span> is open and contains <span class="arithmatex">\(2\)</span>, so <span class="arithmatex">\(F\)</span> and <span class="arithmatex">\(G\)</span> agree on a
+neighbourhood of <span class="arithmatex">\(2\)</span>. Both are complex differentiable on <span class="arithmatex">\(\mathbb C\)</span>, hence analytic on the
+connected set <span class="arithmatex">\(\mathbb C\)</span>, and the identity theorem gives <span class="arithmatex">\(F=G\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> IsLContinuation (E : WeierstrassCurve ℚ) (F : ℂ → ℂ) : <span class="bp-lean-keyword">Prop</span> :=
+  Differentiable ℂ F ∧ ∀ s : ℂ, 3 / 2 &lt; s.re → F s = E.LSeries s</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> IsLContinuation.eq {E : WeierstrassCurve ℚ} {F G : ℂ → ℂ} (hF : <a class="bp-lean-ref" href="#l-series-continuation" data-lean-name="ZInQ.Literature.IsLContinuation">IsLContinuation</a> E F)
+    (hG : <a class="bp-lean-ref" href="#l-series-continuation" data-lean-name="ZInQ.Literature.IsLContinuation">IsLContinuation</a> E G) : F = G</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Literature.IsLContinuation">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> IsLContinuation (E : WeierstrassCurve ℚ) (F : ℂ → ℂ) : <span class="bp-lean-keyword">Prop</span> :=
+  Differentiable ℂ F ∧ ∀ s : ℂ, 3 / 2 &lt; s.re → F s = E.LSeries s</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:44</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-l-series-of-an-elliptic-curve">The L-series of an elliptic curve</a></li>
+<li><a href="../../../sources/rank-locators.html#entire-continuation">Entire continuation</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Used by 7</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#main-theorem-literature">The main theorem from the <span class="arithmatex">\(j\)</span>-form and the L-series statements</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#functional-equation">The functional equation of <span class="arithmatex">\(L(C_d,s)\)</span> on the strip <span class="arithmatex">\(0&lt;\operatorname{Re}s&lt;2\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#gross-zagier">Gross–Zagier: a simple zero gives a point of infinite order</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-continuation">Hecke&#x27;s continuation of <span class="arithmatex">\(L(C_d,s)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#root-number-vanishing">Vanishing at the centre for <span class="arithmatex">\(d\equiv5\pmod8\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#tyz-reading-a">Tian–Yuan–Zhang&#x27;s Theorem 3.5(2) in reading A</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#tyz-row-5b">Tian–Yuan–Zhang&#x27;s row 5b</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-three-literature-statements">The three literature statements</h2>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/literature/tyz-row-5b">
+<h4 class="bp-thmheading" id="tyz-row-5b">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">Tian–Yuan–Zhang&#x27;s row 5b</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/CR3Literature.lean#L92" aria-label="View ZInQ.Literature.TYZRow5b in Lean source" title="View ZInQ.Literature.TYZRow5b in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/rank/literature/tyz-row-5b.md" aria-label="Edit the Markdown source for Tian–Yuan–Zhang&#x27;s row 5b" title="Edit the Markdown source for Tian–Yuan–Zhang&#x27;s row 5b"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#tyz-row-5b" aria-label="Link to Tian–Yuan–Zhang&#x27;s row 5b" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Literature.TYZRow5b</div>
+<div class="bp-thmcontent">
+<p><em>Tian–Yuan–Zhang's row 5b</em> is the following assertion. For every natural number <span class="arithmatex">\(d\)</span> with
+<span class="arithmatex">\(d\equiv5\pmod8\)</span>, <span class="arithmatex">\(d\)</span> squarefree and genus sum of class numbers <span class="arithmatex">\(T^{\rm Cl}_{5b}(d)=1\)</span> in
+<span class="arithmatex">\(\mathbb Z/2\)</span>, there is an entire continuation <span class="arithmatex">\(F\)</span> of <span class="arithmatex">\(L(C_d,s)\)</span> whose order of vanishing at
+<span class="arithmatex">\(s=1\)</span> is at most <span class="arithmatex">\(1\)</span>.</p>
+<p>The assertion includes the existence of the continuation. It is Tian–Yuan–Zhang's Theorem 3.5(2)
+for <span class="arithmatex">\(n\equiv5\pmod8\)</span> in reading A (the reading in which <span class="arithmatex">\(d_1=1\)</span> is admitted), in contrapositive
+form and for the row <span class="arithmatex">\((7,3)\)</span> only, with Hecke's continuation for the existence. In their terms
+the conclusion is <span class="arithmatex">\(\mathcal L(n)\ne0\)</span>, which they identify with order of vanishing at most one
+(for order one their definition of <span class="arithmatex">\(\mathcal L(n)\)</span> uses a regulator, and so rests on the rank
+part of the Birch–Swinnerton-Dyer conjecture in analytic rank one, which they cite from
+Coates–Wiles, Rubin, Gross–Zagier and Kolyvagin). No refereed text consulted here prints this
+form (the journal version of their paper and Tian's expository articles were not consulted); the
+only printed statement found is Smith's, which is unrefereed. The bound on the order follows from
+Proposition N, an unpublished argument from unambiguous statements of Tian, Yuan and Zhang that
+has not been refereed or checked by a human reader. The existence of the continuation is
+Hecke's, which Proposition N does not supply. It is a hypothesis, not proved here.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> TYZRow5b : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → <a class="bp-lean-ref" href="../../redei/index.html#class-number-genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.T5bCl">T5bCl</a> d = 1 →
+    ∃ F : ℂ → ℂ, <a class="bp-lean-ref" href="#l-series-continuation" data-lean-name="ZInQ.Literature.IsLContinuation">IsLContinuation</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)) F ∧ analyticOrderAt F 1 ≤ 1</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank5b.T5bCl">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> T5bCl (d : ℕ) : ZMod 2 :=
+  ∑ P : Finpartition (Finset.univ : Finset d.primeFactors),
+    <span class="bp-lean-keyword">if</span> Admissible5bNat d P <span class="bp-lean-keyword">then</span> ∏ B ∈ P.parts, ((gCl (dProd B) : ℕ) : ZMod 2) <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean:55</p>
+</div>
+<div data-lean-name="ZInQ.Literature.IsLContinuation">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> IsLContinuation (E : WeierstrassCurve ℚ) (F : ℂ → ℂ) : <span class="bp-lean-keyword">Prop</span> :=
+  Differentiable ℂ F ∧ ∀ s : ℂ, 3 / 2 &lt; s.re → F s = E.LSeries s</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:44</p>
+</div>
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_1">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#tian-yuan-zhang">Tian-Yuan-Zhang</a></li>
+<li><a href="../../../sources/rank-locators.html#reading-a-of-tian-yuan-zhang">Reading A of Tian-Yuan-Zhang</a></li>
+<li><a href="../../../sources/rank-5b-locators.html#proposition-n">Proposition N</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 4</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#l-series-continuation">Entire continuations of the L-series of an elliptic curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../redei/index.html#class-number-genus-sum">The genus sum of class numbers</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#main-theorem-literature">The main theorem from the <span class="arithmatex">\(j\)</span>-form and the L-series statements</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#analytic-rank-one">Analytic rank one for the curves of row 5b</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-tyz-cl-rk-of-literature">Row 5b, vanishing at the centre and Gross–Zagier give CR₃^TYZ_Cl,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#tyz-row-5b-of-reading-a">Row 5b from reading A and Hecke&#x27;s continuation</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/literature/functional-equation">
+<h4 class="bp-thmheading" id="functional-equation">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The functional equation of <span class="arithmatex">\(L(C_d,s)\)</span> on the strip <span class="arithmatex">\(0&lt;\operatorname{Re}s&lt;2\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/CR3Literature.lean#L164" aria-label="View ZInQ.Literature.completedL in Lean source" title="View ZInQ.Literature.completedL in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/CR3Literature.lean#L178" aria-label="View ZInQ.Literature.FunctionalEquation5 in Lean source" title="View ZInQ.Literature.FunctionalEquation5 in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/rank/literature/functional-equation.md" aria-label="Edit the Markdown source for The functional equation of $L(C_d,s)$ on the strip $0&lt;\operatorname{Re}s&lt;2$" title="Edit the Markdown source for The functional equation of $L(C_d,s)$ on the strip $0&lt;\operatorname{Re}s&lt;2$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#functional-equation" aria-label="Link to The functional equation of L(C_d,s) on the strip 0&lt;Re s&lt;2" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Literature.completedL ZInQ.Literature.FunctionalEquation5</div>
+<div class="bp-thmcontent">
+<p>For a natural number <span class="arithmatex">\(N\)</span>, a function <span class="arithmatex">\(F:\mathbb C\to\mathbb C\)</span> and a complex number <span class="arithmatex">\(s\)</span>, the
+<em>completed function</em> is
+$<span class="arithmatex">\(\Lambda_N(s)=N^{s/2}\,(2\pi)^{-s}\,\Gamma(s)\,F(s),\)</span>$
+where <span class="arithmatex">\(\Gamma\)</span> is the gamma function, given the value <span class="arithmatex">\(0\)</span> at its poles <span class="arithmatex">\(0,-1,-2,\dots\)</span>;
+<span class="arithmatex">\((2\pi)^{-s}=e^{-s\log2\pi}\)</span>; <span class="arithmatex">\(N^{s/2}=e^{(s/2)\log N}\)</span> if <span class="arithmatex">\(N&gt;0\)</span>; and <span class="arithmatex">\(0^{s/2}\)</span> is <span class="arithmatex">\(0\)</span> for
+<span class="arithmatex">\(s\ne0\)</span> and <span class="arithmatex">\(1\)</span> for <span class="arithmatex">\(s=0\)</span>. Below, only <span class="arithmatex">\(N=32d^2\)</span> with <span class="arithmatex">\(d&gt;0\)</span> is used, and only at points <span class="arithmatex">\(s\)</span> and
+<span class="arithmatex">\(2-s\)</span> with <span class="arithmatex">\(0&lt;\operatorname{Re}s&lt;2\)</span>.</p>
+<p>The <em>functional equation on the critical strip</em> is the following assertion. For every natural
+number <span class="arithmatex">\(d\)</span> with <span class="arithmatex">\(d\equiv5\pmod8\)</span> and <span class="arithmatex">\(d\)</span> squarefree, every entire continuation <span class="arithmatex">\(F\)</span> of <span class="arithmatex">\(L(C_d,s)\)</span>,
+and every complex number <span class="arithmatex">\(s\)</span> with <span class="arithmatex">\(0&lt;\operatorname{Re}s&lt;2\)</span>,
+$<span class="arithmatex">\(\Lambda_{32d^2}(2-s)=-\Lambda_{32d^2}(s).\)</span>$</p>
+<p>For every <span class="arithmatex">\(s\)</span> in the strip, neither <span class="arithmatex">\(s\)</span> nor <span class="arithmatex">\(2-s\)</span> is a pole of <span class="arithmatex">\(\Gamma\)</span>, so there <span class="arithmatex">\(\Gamma(s)\)</span>
+and <span class="arithmatex">\(\Gamma(2-s)\)</span> are the true values. The textbook functional equation of <span class="arithmatex">\(L(C_d,s)\)</span>, which is
+the L-function of a Hecke character of <span class="arithmatex">\(\mathbb Q(i)\)</span> since <span class="arithmatex">\(C_d\)</span> has complex multiplication by
+<span class="arithmatex">\(\mathbb Z[i]\)</span> (Hecke, Deuring), has conductor <span class="arithmatex">\(32d^2\)</span> for odd squarefree <span class="arithmatex">\(d\)</span> and root number <span class="arithmatex">\(-1\)</span>
+for <span class="arithmatex">\(d\equiv5,6,7\pmod8\)</span> (Birch–Stephens); restricted to the strip it gives this statement. Only
+<span class="arithmatex">\(s=1\)</span> is used. The identity is not asserted off the strip; with the value <span class="arithmatex">\(0\)</span> at the poles of
+<span class="arithmatex">\(\Gamma\)</span> it would fail at <span class="arithmatex">\(s=0\)</span>, where it would say <span class="arithmatex">\(L(C_d,2)=0\)</span>. It is a hypothesis, not proved
+here.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> completedL (N : ℕ) (F : ℂ → ℂ) (s : ℂ) : ℂ :=
+  (N : ℂ) ^ (s / 2) * (2 * Real.pi : ℂ) ^ (-s) * Complex.Gamma s * F s</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> FunctionalEquation5 : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → ∀ F : ℂ → ℂ,
+    <a class="bp-lean-ref" href="#l-series-continuation" data-lean-name="ZInQ.Literature.IsLContinuation">IsLContinuation</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)) F →
+      ∀ s : ℂ, 0 &lt; s.re → s.re &lt; 2 →
+        <a class="bp-lean-ref" href="#functional-equation" data-lean-name="ZInQ.Literature.completedL">completedL</a> (32 * d ^ 2) F (2 - s) = -<a class="bp-lean-ref" href="#functional-equation" data-lean-name="ZInQ.Literature.completedL">completedL</a> (32 * d ^ 2) F s</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Literature.IsLContinuation">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> IsLContinuation (E : WeierstrassCurve ℚ) (F : ℂ → ℂ) : <span class="bp-lean-keyword">Prop</span> :=
+  Differentiable ℂ F ∧ ∀ s : ℂ, 3 / 2 &lt; s.re → F s = E.LSeries s</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:44</p>
+</div>
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.Literature.completedL">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> completedL (N : ℕ) (F : ℂ → ℂ) (s : ℂ) : ℂ :=
+  (N : ℂ) ^ (s / 2) * (2 * Real.pi : ℂ) ^ (-s) * Complex.Gamma s * F s</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:164</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_2">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-functional-equation-and-the-root-number">The functional equation and the root number</a></li>
+<li><a href="../../../sources/rank-locators.html#hecke-and-deuring">Hecke and Deuring</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/rank-locators.html#the-functional-equation-and-the-root-number"> </a></p>
+<p><a href="../../../sources/rank-locators.html#hecke-and-deuring"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#l-series-continuation">Entire continuations of the L-series of an elliptic curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#main-theorem-literature">The main theorem from the <span class="arithmatex">\(j\)</span>-form and the L-series statements</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#root-number-vanishing-of-functional-equation">The functional equation gives vanishing at the centre</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/literature/gross-zagier">
+<h4 class="bp-thmheading" id="gross-zagier">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">Gross–Zagier: a simple zero gives a point of infinite order</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/CR3Literature.lean#L70" aria-label="View ZInQ.Literature.GrossZagier in Lean source" title="View ZInQ.Literature.GrossZagier in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/rank/literature/gross-zagier.md" aria-label="Edit the Markdown source for Gross–Zagier: a simple zero gives a point of infinite order" title="Edit the Markdown source for Gross–Zagier: a simple zero gives a point of infinite order"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#gross-zagier" aria-label="Link to Gross–Zagier: a simple zero gives a point of infinite order" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Literature.GrossZagier</div>
+<div class="bp-thmcontent">
+<p>The <em>Gross–Zagier statement</em> is the following assertion. Let <span class="arithmatex">\(E\)</span> be a Weierstrass equation over
+<span class="arithmatex">\(\mathbb Q\)</span> with nonzero discriminant, that is, an elliptic curve over <span class="arithmatex">\(\mathbb Q\)</span> (the equation
+need not be minimal), and let <span class="arithmatex">\(F\)</span> be an entire continuation of <span class="arithmatex">\(L(E,s)\)</span>. If the order of
+vanishing of <span class="arithmatex">\(F\)</span> at <span class="arithmatex">\(s=1\)</span> is exactly <span class="arithmatex">\(1\)</span>, then <span class="arithmatex">\(E(\mathbb Q)\)</span> has a point of infinite order.</p>
+<p>This is the positive-rank half of the theorem of Gross and Zagier (1986), which gives a Heegner
+point of infinite order over an imaginary quadratic field <span class="arithmatex">\(K\)</span> when <span class="arithmatex">\(L'(E/K,1)\ne0\)</span>. It is applied
+with an auxiliary imaginary quadratic field <span class="arithmatex">\(K\)</span> that satisfies the Heegner hypothesis and has
+<span class="arithmatex">\(L(E^K,1)\ne0\)</span> (Bump–Friedberg–Hoffstein 1990, through Waldspurger's formula, or
+Friedberg–Hoffstein 1995), and with the modularity of <span class="arithmatex">\(E\)</span> (Breuil–Conrad–Diamond–Taylor 2001;
+Shimura 1971 for curves with complex multiplication). Since the order of vanishing of
+<span class="arithmatex">\(L(E,s)\)</span> at <span class="arithmatex">\(s=1\)</span> is odd, the root number of <span class="arithmatex">\(E\)</span> is <span class="arithmatex">\(-1\)</span>, so the Heegner point lies in
+<span class="arithmatex">\(E(\mathbb Q)\)</span> up to torsion and gives a point of infinite order there. Kolyvagin's conclusion that the rank is
+exactly one is not used. The exact theorem numbers, and the level and discriminant hypotheses of these
+results, have not been checked here. It is a hypothesis, not proved here.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> GrossZagier : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ (E : WeierstrassCurve ℚ), E.IsElliptic → ∀ F : ℂ → ℂ, <a class="bp-lean-ref" href="#l-series-continuation" data-lean-name="ZInQ.Literature.IsLContinuation">IsLContinuation</a> E F →
+    analyticOrderAt F 1 = 1 → ∃ P : E.toAffine.Point, ¬IsOfFinAddOrder P</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Literature.IsLContinuation">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> IsLContinuation (E : WeierstrassCurve ℚ) (F : ℂ → ℂ) : <span class="bp-lean-keyword">Prop</span> :=
+  Differentiable ℂ F ∧ ∀ s : ℂ, 3 / 2 &lt; s.re → F s = E.LSeries s</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:44</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_3">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#gross-zagier">Gross-Zagier</a></li>
+<li><a href="../../../sources/rank-locators.html#the-literature-form-of-cr3">The literature form of CR3</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#l-series-continuation">Entire continuations of the L-series of an elliptic curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../main/index.html#main-theorem-literature">The main theorem from the <span class="arithmatex">\(j\)</span>-form and the L-series statements</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-tyz-cl-rk-of-literature">Row 5b, vanishing at the centre and Gross–Zagier give CR₃^TYZ_Cl,Rk</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="vanishing-at-the-centre-and-analytic-rank-one">Vanishing at the centre and analytic rank one</h2>
+<p>Root number <span class="arithmatex">\(-1\)</span> makes the completed L-function vanish at the centre <span class="arithmatex">\(s=1\)</span>; with row 5b this
+makes the order of vanishing exactly one.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/literature/root-number-vanishing">
+<h4 class="bp-thmheading" id="root-number-vanishing">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">Vanishing at the centre for <span class="arithmatex">\(d\equiv5\pmod8\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/CR3Literature.lean#L79" aria-label="View ZInQ.Literature.RootNumberVanishing in Lean source" title="View ZInQ.Literature.RootNumberVanishing in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/rank/literature/root-number-vanishing.md" aria-label="Edit the Markdown source for Vanishing at the centre for $d\equiv5\pmod8$" title="Edit the Markdown source for Vanishing at the centre for $d\equiv5\pmod8$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#root-number-vanishing" aria-label="Link to Vanishing at the centre for d ≡ 5 (mod 8)" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Literature.RootNumberVanishing</div>
+<div class="bp-thmcontent">
+<p><em>Vanishing at the centre</em> is the following assertion. For every natural number <span class="arithmatex">\(d\)</span> with
+<span class="arithmatex">\(d\equiv5\pmod8\)</span> and <span class="arithmatex">\(d\)</span> squarefree, and every entire continuation <span class="arithmatex">\(F\)</span> of <span class="arithmatex">\(L(C_d,s)\)</span>,
+$<span class="arithmatex">\(F(1)=0.\)</span>$</p>
+<p>This is what root number <span class="arithmatex">\(-1\)</span> gives at the centre of the functional equation: there
+<span class="arithmatex">\(\Lambda(1)=-\Lambda(1)\)</span>, and <span class="arithmatex">\(\Gamma(1)\ne0\)</span>.
+<a href="#root-number-vanishing-of-functional-equation">The functional equation gives vanishing at the centre</a>
+derives it from the functional equation on the critical strip. As stated here it is a hypothesis, not proved here.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> RootNumberVanishing : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → ∀ F : ℂ → ℂ,
+    <a class="bp-lean-ref" href="#l-series-continuation" data-lean-name="ZInQ.Literature.IsLContinuation">IsLContinuation</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)) F → F 1 = 0</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Literature.IsLContinuation">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> IsLContinuation (E : WeierstrassCurve ℚ) (F : ℂ → ℂ) : <span class="bp-lean-keyword">Prop</span> :=
+  Differentiable ℂ F ∧ ∀ s : ℂ, 3 / 2 &lt; s.re → F s = E.LSeries s</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:44</p>
+</div>
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_4">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-functional-equation-and-the-root-number">The functional equation and the root number</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#l-series-continuation">Entire continuations of the L-series of an elliptic curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#analytic-rank-one">Analytic rank one for the curves of row 5b</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#certified-rank-tyz-cl-rk-of-literature">Row 5b, vanishing at the centre and Gross–Zagier give CR₃^TYZ_Cl,Rk</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#root-number-vanishing-of-functional-equation">The functional equation gives vanishing at the centre</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/literature/root-number-vanishing-of-functional-equation">
+<h4 class="bp-thmheading" id="root-number-vanishing-of-functional-equation">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">The functional equation gives vanishing at the centre</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/CR3Literature.lean#L185" aria-label="View ZInQ.Literature.rootNumberVanishing_of_functionalEquation in Lean source" title="View ZInQ.Literature.rootNumberVanishing_of_functionalEquation in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/rank/literature/root-number-vanishing-of-functional-equation.md" aria-label="Edit the Markdown source for The functional equation gives vanishing at the centre" title="Edit the Markdown source for The functional equation gives vanishing at the centre"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#root-number-vanishing-of-functional-equation" aria-label="Link to The functional equation gives vanishing at the centre" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Literature.rootNumberVanishing_of_functionalEquation</div>
+<div class="bp-thmcontent">
+<p>The functional equation of <span class="arithmatex">\(L(C_d,s)\)</span> on the critical strip implies vanishing at the centre: if
+for every squarefree natural number <span class="arithmatex">\(d\equiv5\pmod8\)</span>, every entire continuation <span class="arithmatex">\(F\)</span> of
+<span class="arithmatex">\(L(C_d,s)\)</span> and every <span class="arithmatex">\(s\)</span> with <span class="arithmatex">\(0&lt;\operatorname{Re}s&lt;2\)</span> one has
+<span class="arithmatex">\(\Lambda_{32d^2}(2-s)=-\Lambda_{32d^2}(s)\)</span>, then <span class="arithmatex">\(F(1)=0\)</span> for every such <span class="arithmatex">\(d\)</span> and <span class="arithmatex">\(F\)</span>.</p>
+<p><strong>Proof sketch.</strong> Let <span class="arithmatex">\(d\)</span> and <span class="arithmatex">\(F\)</span> be given and take <span class="arithmatex">\(s=1\)</span>, which lies in the strip. Since
+<span class="arithmatex">\(2-1=1\)</span>, the functional equation reads <span class="arithmatex">\(\Lambda_{32d^2}(1)=-\Lambda_{32d^2}(1)\)</span>, so
+<span class="arithmatex">\(\Lambda_{32d^2}(1)=0\)</span>. Since <span class="arithmatex">\(\Gamma(1)=1\)</span>, this says
+<span class="arithmatex">\((32d^2)^{1/2}(2\pi)^{-1}F(1)=0\)</span>. As <span class="arithmatex">\(d\equiv5\pmod8\)</span>, <span class="arithmatex">\(d\ne0\)</span>, so <span class="arithmatex">\(32d^2\ne0\)</span>; also
+<span class="arithmatex">\(2\pi\ne0\)</span>. A nonzero base raised to a nonzero exponent is nonzero, so both powers are nonzero and
+<span class="arithmatex">\(F(1)=0\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> rootNumberVanishing_of_functionalEquation (h : <a class="bp-lean-ref" href="#functional-equation" data-lean-name="ZInQ.Literature.FunctionalEquation5">FunctionalEquation5</a>) :
+    <a class="bp-lean-ref" href="#root-number-vanishing" data-lean-name="ZInQ.Literature.RootNumberVanishing">RootNumberVanishing</a></code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Literature.FunctionalEquation5">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> FunctionalEquation5 : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → ∀ F : ℂ → ℂ,
+    IsLContinuation (shortCurve (-(d : ℚ) ^ 2)) F →
+      ∀ s : ℂ, 0 &lt; s.re → s.re &lt; 2 →
+        completedL (32 * d ^ 2) F (2 - s) = -completedL (32 * d ^ 2) F s</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:178</p>
+</div>
+<div data-lean-name="ZInQ.Literature.RootNumberVanishing">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> RootNumberVanishing : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → ∀ F : ℂ → ℂ,
+    IsLContinuation (shortCurve (-(d : ℚ) ^ 2)) F → F 1 = 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:79</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_5">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-functional-equation-and-the-root-number">The functional equation and the root number</a></li>
+</ul>
+<div class="bp-body-link-validation" hidden="hidden">
+<p><a href="../../../sources/rank-locators.html#the-functional-equation-and-the-root-number"> </a></p>
+</div>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#functional-equation">The functional equation of <span class="arithmatex">\(L(C_d,s)\)</span> on the strip <span class="arithmatex">\(0&lt;\operatorname{Re}s&lt;2\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#root-number-vanishing">Vanishing at the centre for <span class="arithmatex">\(d\equiv5\pmod8\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../main/index.html#main-theorem-literature">The main theorem from the <span class="arithmatex">\(j\)</span>-form and the L-series statements</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/literature/analytic-rank-one">
+<h4 class="bp-thmheading" id="analytic-rank-one">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Analytic rank one for the curves of row 5b</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/CR3Literature.lean#L100" aria-label="View ZInQ.Literature.analyticOrder_eq_one in Lean source" title="View ZInQ.Literature.analyticOrder_eq_one in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/rank/literature/analytic-rank-one.md" aria-label="Edit the Markdown source for Analytic rank one for the curves of row 5b" title="Edit the Markdown source for Analytic rank one for the curves of row 5b"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#analytic-rank-one" aria-label="Link to Analytic rank one for the curves of row 5b" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Literature.analyticOrder_eq_one</div>
+<div class="bp-thmcontent">
+<p>Assume Tian–Yuan–Zhang's row 5b and vanishing at the centre. Let <span class="arithmatex">\(d\)</span> be a natural number with
+<span class="arithmatex">\(d\equiv5\pmod8\)</span>, <span class="arithmatex">\(d\)</span> squarefree and <span class="arithmatex">\(T^{\rm Cl}_{5b}(d)=1\)</span>. Then <span class="arithmatex">\(L(C_d,s)\)</span> has an entire
+continuation whose order of vanishing at <span class="arithmatex">\(s=1\)</span> is exactly <span class="arithmatex">\(1\)</span>.</p>
+<p><strong>Proof sketch.</strong> Row 5b gives an entire continuation <span class="arithmatex">\(F\)</span> of <span class="arithmatex">\(L(C_d,s)\)</span> whose order of vanishing
+at <span class="arithmatex">\(1\)</span> is at most <span class="arithmatex">\(1\)</span>. Since <span class="arithmatex">\(F\)</span> is entire it is analytic at <span class="arithmatex">\(1\)</span>, and <span class="arithmatex">\(F(1)=0\)</span> by vanishing at the
+centre, so its order of vanishing at <span class="arithmatex">\(1\)</span> is not <span class="arithmatex">\(0\)</span>. An order at most <span class="arithmatex">\(1\)</span> and not <span class="arithmatex">\(0\)</span> is <span class="arithmatex">\(1\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> analyticOrder_eq_one (hT : <a class="bp-lean-ref" href="#tyz-row-5b" data-lean-name="ZInQ.Literature.TYZRow5b">TYZRow5b</a>) (hW : <a class="bp-lean-ref" href="#root-number-vanishing" data-lean-name="ZInQ.Literature.RootNumberVanishing">RootNumberVanishing</a>) {d : ℕ} (hd : d % 8 = 5)
+    (hsq : Squarefree d) (h5b : <a class="bp-lean-ref" href="../../redei/index.html#class-number-genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.T5bCl">T5bCl</a> d = 1) :
+    ∃ F : ℂ → ℂ, <a class="bp-lean-ref" href="#l-series-continuation" data-lean-name="ZInQ.Literature.IsLContinuation">IsLContinuation</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)) F ∧ analyticOrderAt F 1 = 1</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Literature.TYZRow5b">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> TYZRow5b : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → T5bCl d = 1 →
+    ∃ F : ℂ → ℂ, IsLContinuation (shortCurve (-(d : ℚ) ^ 2)) F ∧ analyticOrderAt F 1 ≤ 1</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:92</p>
+</div>
+<div data-lean-name="ZInQ.Literature.RootNumberVanishing">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> RootNumberVanishing : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → ∀ F : ℂ → ℂ,
+    IsLContinuation (shortCurve (-(d : ℚ) ^ 2)) F → F 1 = 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:79</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.T5bCl">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> T5bCl (d : ℕ) : ZMod 2 :=
+  ∑ P : Finpartition (Finset.univ : Finset d.primeFactors),
+    <span class="bp-lean-keyword">if</span> Admissible5bNat d P <span class="bp-lean-keyword">then</span> ∏ B ∈ P.parts, ((gCl (dProd B) : ℕ) : ZMod 2) <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean:55</p>
+</div>
+<div data-lean-name="ZInQ.Literature.IsLContinuation">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> IsLContinuation (E : WeierstrassCurve ℚ) (F : ℂ → ℂ) : <span class="bp-lean-keyword">Prop</span> :=
+  Differentiable ℂ F ∧ ∀ s : ℂ, 3 / 2 &lt; s.re → F s = E.LSeries s</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:44</p>
+</div>
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_6">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-literature-form-of-cr3">The literature form of CR3</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 2</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#tyz-row-5b">Tian–Yuan–Zhang&#x27;s row 5b</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#root-number-vanishing">Vanishing at the centre for <span class="arithmatex">\(d\equiv5\pmod8\)</span></a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../main/index.html#main-theorem-literature">The main theorem from the <span class="arithmatex">\(j\)</span>-form and the L-series statements</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#certified-rank-tyz-cl-rk-of-literature">Row 5b, vanishing at the centre and Gross–Zagier give CR₃^TYZ_Cl,Rk</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="the-class-number-hypothesis">The class-number hypothesis</h2>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/literature/certified-rank-tyz-cl-rk-of-literature">
+<h4 class="bp-thmheading" id="certified-rank-tyz-cl-rk-of-literature">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Row 5b, vanishing at the centre and Gross–Zagier give CR₃^TYZ_Cl,Rk</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/CR3Literature.lean#L109" aria-label="View ZInQ.Literature.certifiedRankTYZClRk_of_literature in Lean source" title="View ZInQ.Literature.certifiedRankTYZClRk_of_literature in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/rank/literature/certified-rank-tyz-cl-rk-of-literature.md" aria-label="Edit the Markdown source for Row 5b, vanishing at the centre and Gross–Zagier give CR₃^TYZ_Cl,Rk" title="Edit the Markdown source for Row 5b, vanishing at the centre and Gross–Zagier give CR₃^TYZ_Cl,Rk"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#certified-rank-tyz-cl-rk-of-literature" aria-label="Link to Row 5b, vanishing at the centre and Gross–Zagier give CR₃^TYZ_Cl,Rk" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Literature.certifiedRankTYZClRk_of_literature</div>
+<div class="bp-thmcontent">
+<p>Tian–Yuan–Zhang's row 5b, vanishing at the centre and the Gross–Zagier statement together imply
+the <a href="../index.html#certified-rank-tyz-cl-rk">class-number hypothesis in positive-rank form</a>
+CR₃^TYZ_Cl,Rk: for every natural number <span class="arithmatex">\(d\)</span> with <span class="arithmatex">\(d\equiv5\pmod8\)</span>, <span class="arithmatex">\(d\)</span> squarefree and
+<span class="arithmatex">\(T^{\rm Cl}_{5b}(d)=1\)</span>, the curve <span class="arithmatex">\(C_d\)</span> has a rational point of infinite order.</p>
+<p>The hypothesis taken here is vanishing at the centre. Combined with
+<a href="#root-number-vanishing-of-functional-equation">the functional equation gives vanishing at the centre</a>,
+the functional equation on the critical strip may be assumed in its place; that combination is
+the one used by
+<a href="../../main/index.html#main-theorem-literature">the main theorem from the <span class="arithmatex">\(j\)</span>-form and the L-series statements</a>.</p>
+<p><strong>Proof sketch.</strong> Let <span class="arithmatex">\(d\)</span> be as above. Analytic rank one gives an entire continuation <span class="arithmatex">\(F\)</span> of
+<span class="arithmatex">\(L(C_d,s)\)</span> whose order of vanishing at <span class="arithmatex">\(s=1\)</span> is exactly <span class="arithmatex">\(1\)</span>. Since <span class="arithmatex">\(d\equiv5\pmod8\)</span>, <span class="arithmatex">\(d\ne0\)</span>, so
+<span class="arithmatex">\(-d^2\ne0\)</span> and the discriminant <span class="arithmatex">\(-64(-d^2)^3=64d^6\)</span> of <span class="arithmatex">\(C_d\)</span> is nonzero: <span class="arithmatex">\(C_d\)</span> is an elliptic
+curve. The Gross–Zagier statement applied to <span class="arithmatex">\(C_d\)</span> and <span class="arithmatex">\(F\)</span> gives a point of infinite order in
+<span class="arithmatex">\(C_d(\mathbb Q)\)</span>.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> certifiedRankTYZClRk_of_literature (hT : <a class="bp-lean-ref" href="#tyz-row-5b" data-lean-name="ZInQ.Literature.TYZRow5b">TYZRow5b</a>) (hW : <a class="bp-lean-ref" href="#root-number-vanishing" data-lean-name="ZInQ.Literature.RootNumberVanishing">RootNumberVanishing</a>)
+    (hG : <a class="bp-lean-ref" href="#gross-zagier" data-lean-name="ZInQ.Literature.GrossZagier">GrossZagier</a>) : <a class="bp-lean-ref" href="../index.html#certified-rank-tyz-cl-rk" data-lean-name="ZInQ.RouteK.Rank.CertifiedRankTYZClRk">RouteK.Rank.CertifiedRankTYZClRk</a></code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Literature.TYZRow5b">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> TYZRow5b : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → T5bCl d = 1 →
+    ∃ F : ℂ → ℂ, IsLContinuation (shortCurve (-(d : ℚ) ^ 2)) F ∧ analyticOrderAt F 1 ≤ 1</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:92</p>
+</div>
+<div data-lean-name="ZInQ.Literature.RootNumberVanishing">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> RootNumberVanishing : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → ∀ F : ℂ → ℂ,
+    IsLContinuation (shortCurve (-(d : ℚ) ^ 2)) F → F 1 = 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:79</p>
+</div>
+<div data-lean-name="ZInQ.Literature.GrossZagier">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> GrossZagier : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ (E : WeierstrassCurve ℚ), E.IsElliptic → ∀ F : ℂ → ℂ, IsLContinuation E F →
+    analyticOrderAt F 1 = 1 → ∃ P : E.toAffine.Point, ¬IsOfFinAddOrder P</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:70</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank.CertifiedRankTYZClRk">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> CertifiedRankTYZClRk : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → T5bCl d = 1 →
+    ∃ P : (shortCurve (-(d : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank/Statements.lean:74</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_7">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#the-literature-form-of-cr3">The literature form of CR3</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 5 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#tyz-row-5b">Tian–Yuan–Zhang&#x27;s row 5b</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#root-number-vanishing">Vanishing at the centre for <span class="arithmatex">\(d\equiv5\pmod8\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#gross-zagier">Gross–Zagier: a simple zero gives a point of infinite order</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../index.html#certified-rank-tyz-cl-rk">The class-number hypothesis in positive-rank form</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="#analytic-rank-one">Analytic rank one for the curves of row 5b</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 proof dependency" href="../../main/index.html#main-theorem-literature">The main theorem from the <span class="arithmatex">\(j\)</span>-form and the L-series statements</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="row-5b-from-tianyuanzhangs-own-statement">Row 5b from Tian–Yuan–Zhang's own statement</h2>
+<p>Tian–Yuan–Zhang's Theorem 3.5(2) for <span class="arithmatex">\(d\equiv5\pmod8\)</span> concerns two genus sums, <span class="arithmatex">\(T^{\rm Cl}_{5a}\)</span>
+and <span class="arithmatex">\(T^{\rm Cl}_{5b}\)</span>. Only the second is needed for row 5b.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/literature/genus-sum-5a">
+<h4 class="bp-thmheading" id="genus-sum-5a">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">The first genus sum <span class="arithmatex">\(T^{\rm Cl}_{5a}\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/CR3Literature.lean#L119" aria-label="View ZInQ.Literature.Admissible5aNat in Lean source" title="View ZInQ.Literature.Admissible5aNat in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/CR3Literature.lean#L128" aria-label="View ZInQ.Literature.T5aCl in Lean source" title="View ZInQ.Literature.T5aCl in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/rank/literature/genus-sum-5a.md" aria-label="Edit the Markdown source for The first genus sum $T^{\rm Cl}_{5a}$" title="Edit the Markdown source for The first genus sum $T^{\rm Cl}_{5a}$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#genus-sum-5a" aria-label="Link to The first genus sum T^rmCl₅ₐ" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Literature.Admissible5aNat ZInQ.Literature.T5aCl</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(d\)</span> be a natural number. For a set <span class="arithmatex">\(B\)</span> of primes of <span class="arithmatex">\(d\)</span> write <span class="arithmatex">\(d_B=\prod_{p\in B}p\)</span>. A set
+partition <span class="arithmatex">\(\pi\)</span> of the primes of <span class="arithmatex">\(d\)</span> is <em>admissible for row 5a</em> if exactly one block <span class="arithmatex">\(B\)</span> of <span class="arithmatex">\(\pi\)</span>
+has <span class="arithmatex">\(d_B\equiv5\pmod8\)</span> and every block <span class="arithmatex">\(B\)</span> of <span class="arithmatex">\(\pi\)</span> has <span class="arithmatex">\(d_B\equiv5\)</span> or <span class="arithmatex">\(d_B\equiv1\pmod8\)</span>. The
+<em>first genus sum of class numbers</em> is
+$<span class="arithmatex">\(T^{\rm Cl}_{5a}(d)=\sum_{\pi}\prod_{B\in\pi}g(d_B)\pmod 2,\)</span>$
+the sum over the set partitions <span class="arithmatex">\(\pi\)</span> of the primes of <span class="arithmatex">\(d\)</span> that are admissible for row 5a, where
+<span class="arithmatex">\(g\)</span> is the genus class number.</p>
+<p>This is the set-partition form of Tian–Yuan–Zhang's first sum for <span class="arithmatex">\(n\equiv5\pmod8\)</span>, including the
+one-block partition. No identity with their printed sum is proved here.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Admissible5aNat (d : ℕ) (P : Finpartition (Finset.univ : Finset d.primeFactors)) : <span class="bp-lean-keyword">Prop</span> :=
+  (P.parts.filter <span class="bp-lean-keyword">fun</span> B =&gt; <a class="bp-lean-ref" href="../../rank-5b/genus-sum/index.html#genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.dProd">dProd</a> B % 8 = 5).card = 1 ∧
+  ∀ B ∈ P.parts, <a class="bp-lean-ref" href="../../rank-5b/genus-sum/index.html#genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.dProd">dProd</a> B % 8 = 5 ∨ <a class="bp-lean-ref" href="../../rank-5b/genus-sum/index.html#genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.dProd">dProd</a> B % 8 = 1</code></pre>
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> T5aCl (d : ℕ) : ZMod 2 :=
+  ∑ P : Finpartition (Finset.univ : Finset d.primeFactors),
+    <span class="bp-lean-keyword">if</span> <a class="bp-lean-ref" href="#genus-sum-5a" data-lean-name="ZInQ.Literature.Admissible5aNat">Admissible5aNat</a> d P <span class="bp-lean-keyword">then</span> ∏ B ∈ P.parts, ((<a class="bp-lean-ref" href="../../redei/index.html#genus-class-number" data-lean-name="ZInQ.RouteK.Rank5b.gCl">gCl</a> (<a class="bp-lean-ref" href="../../rank-5b/genus-sum/index.html#genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.dProd">dProd</a> B) : ℕ) : ZMod 2) <span class="bp-lean-keyword">else</span> 0</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.RouteK.Rank5b.dProd">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> dProd {d : ℕ} (B : Finset d.primeFactors) : ℕ := ∏ p ∈ B, (p : ℕ)</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/Defs.lean:81</p>
+</div>
+<div data-lean-name="ZInQ.Literature.Admissible5aNat">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> Admissible5aNat (d : ℕ) (P : Finpartition (Finset.univ : Finset d.primeFactors)) : <span class="bp-lean-keyword">Prop</span> :=
+  (P.parts.filter <span class="bp-lean-keyword">fun</span> B =&gt; dProd B % 8 = 5).card = 1 ∧
+  ∀ B ∈ P.parts, dProd B % 8 = 5 ∨ dProd B % 8 = 1</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:119</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.gCl">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> gCl (n : ℕ) [NeZero n] : ℕ :=
+  Nat.card (powMonoidHom 2 : ClassGroup (𝓞 (QNeg n)) →* ClassGroup (𝓞 (QNeg n))).range</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean:49</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_8">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#reading-a-of-tian-yuan-zhang">Reading A of Tian-Yuan-Zhang</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 2 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../redei/index.html#genus-class-number">The genus class number</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../redei/index.html#class-number-genus-sum">The genus sum of class numbers</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#tyz-reading-a">Tian–Yuan–Zhang&#x27;s Theorem 3.5(2) in reading A</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/literature/hecke-continuation">
+<h4 class="bp-thmheading" id="hecke-continuation">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">Hecke&#x27;s continuation of <span class="arithmatex">\(L(C_d,s)\)</span></span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/CR3Literature.lean#L134" aria-label="View ZInQ.Literature.HeckeContinuation in Lean source" title="View ZInQ.Literature.HeckeContinuation in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/rank/literature/hecke-continuation.md" aria-label="Edit the Markdown source for Hecke&#x27;s continuation of $L(C_d,s)$" title="Edit the Markdown source for Hecke&#x27;s continuation of $L(C_d,s)$"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#hecke-continuation" aria-label="Link to Hecke&#x27;s continuation of L(C_d,s)" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Literature.HeckeContinuation</div>
+<div class="bp-thmcontent">
+<p><em>Hecke's continuation</em> is the following assertion. For every natural number <span class="arithmatex">\(d\ne0\)</span>, <span class="arithmatex">\(L(C_d,s)\)</span>
+has an entire continuation.</p>
+<p>The curve <span class="arithmatex">\(C_d\)</span> has complex multiplication by <span class="arithmatex">\(\mathbb Z[i]\)</span>, so <span class="arithmatex">\(L(C_d,s)\)</span> is the L-function of a
+Hecke character of <span class="arithmatex">\(\mathbb Q(i)\)</span> (Deuring, Hecke), and that L-function is entire. It is a
+hypothesis, not proved here.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HeckeContinuation : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d ≠ 0 → ∃ F : ℂ → ℂ, <a class="bp-lean-ref" href="#l-series-continuation" data-lean-name="ZInQ.Literature.IsLContinuation">IsLContinuation</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)) F</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Literature.IsLContinuation">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> IsLContinuation (E : WeierstrassCurve ℚ) (F : ℂ → ℂ) : <span class="bp-lean-keyword">Prop</span> :=
+  Differentiable ℂ F ∧ ∀ s : ℂ, 3 / 2 &lt; s.re → F s = E.LSeries s</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:44</p>
+</div>
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_9">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#hecke-and-deuring">Hecke and Deuring</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 1 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#l-series-continuation">Entire continuations of the L-series of an elliptic curve</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#tyz-row-5b-of-reading-a">Row 5b from reading A and Hecke&#x27;s continuation</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" data-autoform-node-id="rank/literature/tyz-reading-a">
+<h4 class="bp-thmheading" id="tyz-reading-a">
+<span class="bp-thmcaption" data-search-exclude>Definition</span><span class="bp-thmtitle">Tian–Yuan–Zhang&#x27;s Theorem 3.5(2) in reading A</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/CR3Literature.lean#L141" aria-label="View ZInQ.Literature.TYZThm35ReadingA in Lean source" title="View ZInQ.Literature.TYZThm35ReadingA in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/rank/literature/tyz-reading-a.md" aria-label="Edit the Markdown source for Tian–Yuan–Zhang&#x27;s Theorem 3.5(2) in reading A" title="Edit the Markdown source for Tian–Yuan–Zhang&#x27;s Theorem 3.5(2) in reading A"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#tyz-reading-a" aria-label="Link to Tian–Yuan–Zhang&#x27;s Theorem 3.5(2) in reading A" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Literature.TYZThm35ReadingA</div>
+<div class="bp-thmcontent">
+<p><em>Theorem 3.5(2) in reading A</em> is the following assertion. For every natural number <span class="arithmatex">\(d\)</span> with
+<span class="arithmatex">\(d\equiv5\pmod8\)</span> and <span class="arithmatex">\(d\)</span> squarefree, and every entire continuation <span class="arithmatex">\(F\)</span> of <span class="arithmatex">\(L(C_d,s)\)</span> whose order
+of vanishing at <span class="arithmatex">\(s=1\)</span> is at least <span class="arithmatex">\(2\)</span>, both genus sums are even:
+$<span class="arithmatex">\(T^{\rm Cl}_{5a}(d)=0\quad\text{and}\quad T^{\rm Cl}_{5b}(d)=0\quad\text{in }\mathbb Z/2.\)</span>$</p>
+<p>This is Theorem 3.5(2) of Tian, Yuan and Zhang for <span class="arithmatex">\(n\equiv5\pmod8\)</span>, in reading A (where <span class="arithmatex">\(d_1=1\)</span>
+is admitted), with their hypothesis that <span class="arithmatex">\(2^{-\rho(n)}\mathcal L(n)\)</span> is even replaced by the
+stronger hypothesis <span class="arithmatex">\(\mathcal L(n)=0\)</span>, which they identify with order of vanishing at least two;
+so the assertion is weaker than their theorem. Proposition N (first sentence), an unpublished
+argument that has not been refereed or checked by a human reader, derives it from their
+unambiguous statements; their printed Theorem 1.2 is not cited. It is a hypothesis, not proved here.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> TYZThm35ReadingA : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → ∀ F : ℂ → ℂ,
+    <a class="bp-lean-ref" href="#l-series-continuation" data-lean-name="ZInQ.Literature.IsLContinuation">IsLContinuation</a> (<a class="bp-lean-ref" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Model/Field/ShortWeierstrass.lean#L22" data-lean-name="ZInQ.shortCurve">shortCurve</a> (-(d : ℚ) ^ 2)) F → 2 ≤ analyticOrderAt F 1 →
+      <a class="bp-lean-ref" href="#genus-sum-5a" data-lean-name="ZInQ.Literature.T5aCl">T5aCl</a> d = 0 ∧ <a class="bp-lean-ref" href="../../redei/index.html#class-number-genus-sum" data-lean-name="ZInQ.RouteK.Rank5b.T5bCl">T5bCl</a> d = 0</code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Literature.IsLContinuation">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> IsLContinuation (E : WeierstrassCurve ℚ) (F : ℂ → ℂ) : <span class="bp-lean-keyword">Prop</span> :=
+  Differentiable ℂ F ∧ ∀ s : ℂ, 3 / 2 &lt; s.re → F s = E.LSeries s</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:44</p>
+</div>
+<div data-lean-name="ZInQ.shortCurve">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> shortCurve (A : F) : WeierstrassCurve F <span class="bp-lean-keyword">where</span>
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := A
+  a₆ := 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Model/Field/ShortWeierstrass.lean:22</p>
+</div>
+<div data-lean-name="ZInQ.Literature.T5aCl">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">noncomputable</span> <span class="bp-lean-keyword">def</span> T5aCl (d : ℕ) : ZMod 2 :=
+  ∑ P : Finpartition (Finset.univ : Finset d.primeFactors),
+    <span class="bp-lean-keyword">if</span> Admissible5aNat d P <span class="bp-lean-keyword">then</span> ∏ B ∈ P.parts, ((gCl (dProd B) : ℕ) : ZMod 2) <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:128</p>
+</div>
+<div data-lean-name="ZInQ.RouteK.Rank5b.T5bCl">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> T5bCl (d : ℕ) : ZMod 2 :=
+  ∑ P : Finpartition (Finset.univ : Finset d.primeFactors),
+    <span class="bp-lean-keyword">if</span> Admissible5bNat d P <span class="bp-lean-keyword">then</span> ∏ B ∈ P.parts, ((gCl (dProd B) : ℕ) : ZMod 2) <span class="bp-lean-keyword">else</span> 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/RouteK/Rank5b/Sec3/RedeiStatement.lean:55</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_10">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#reading-a-of-tian-yuan-zhang">Reading A of Tian-Yuan-Zhang</a></li>
+<li><a href="../../../sources/rank-5b-locators.html#proposition-n">Proposition N</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3 · Used by 1</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#l-series-continuation">Entire continuations of the L-series of an elliptic curve</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#genus-sum-5a">The first genus sum <span class="arithmatex">\(T^{\rm Cl}_{5a}\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="../../redei/index.html#class-number-genus-sum">The genus sum of class numbers</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#tyz-row-5b-of-reading-a">Row 5b from reading A and Hecke&#x27;s continuation</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" data-autoform-node-id="rank/literature/tyz-row-5b-of-reading-a">
+<h4 class="bp-thmheading" id="tyz-row-5b-of-reading-a">
+<span class="bp-thmcaption" data-search-exclude>Theorem</span><span class="bp-thmtitle">Row 5b from reading A and Hecke&#x27;s continuation</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/ZInQKernel/Hypotheses/CR3Literature.lean#L152" aria-label="View ZInQ.Literature.tyzRow5b_of_readingA in Lean source" title="View ZInQ.Literature.tyzRow5b_of_readingA in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-source-link" href="https://github.com/Deicyde/diophantine-z-q/blob/ad40bc7e2e6a6d3ab28f7241ec45bfa4a10de15b/blueprint/roadmap/rank/literature/tyz-row-5b-of-reading-a.md" aria-label="Edit the Markdown source for Row 5b from reading A and Hecke&#x27;s continuation" title="Edit the Markdown source for Row 5b from reading A and Hecke&#x27;s continuation"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#tyz-row-5b-of-reading-a" aria-label="Link to Row 5b from reading A and Hecke&#x27;s continuation" data-search-exclude>#</a><span class="bp-mark" title="fully proved" data-search-exclude>✓<span class="bp-mark-label">fully proved</span></span>
+</h4>
+<div class="bp-search-names" hidden="hidden">ZInQ.Literature.tyzRow5b_of_readingA</div>
+<div class="bp-thmcontent">
+<p>Tian–Yuan–Zhang's Theorem 3.5(2) in reading A and Hecke's continuation together imply
+Tian–Yuan–Zhang's row 5b.</p>
+<p><strong>Proof sketch.</strong> Let <span class="arithmatex">\(d\)</span> be a squarefree natural number with <span class="arithmatex">\(d\equiv5\pmod8\)</span> and
+<span class="arithmatex">\(T^{\rm Cl}_{5b}(d)=1\)</span>. Then <span class="arithmatex">\(d\ne0\)</span>, so Hecke's continuation gives an entire continuation <span class="arithmatex">\(F\)</span> of
+<span class="arithmatex">\(L(C_d,s)\)</span>; take it. If its order of vanishing at <span class="arithmatex">\(s=1\)</span> were not at most <span class="arithmatex">\(1\)</span>, it would be at
+least <span class="arithmatex">\(2\)</span>, and reading A would give <span class="arithmatex">\(T^{\rm Cl}_{5b}(d)=0\)</span>, contradicting <span class="arithmatex">\(T^{\rm Cl}_{5b}(d)=1\)</span>.
+Only the row-5b half of reading A is used.</p>
+</div>
+<div class="bp-lean-source">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">theorem</span> tyzRow5b_of_readingA (hA : <a class="bp-lean-ref" href="#tyz-reading-a" data-lean-name="ZInQ.Literature.TYZThm35ReadingA">TYZThm35ReadingA</a>) (hH : <a class="bp-lean-ref" href="#hecke-continuation" data-lean-name="ZInQ.Literature.HeckeContinuation">HeckeContinuation</a>) : <a class="bp-lean-ref" href="#tyz-row-5b" data-lean-name="ZInQ.Literature.TYZRow5b">TYZRow5b</a></code></pre>
+<div class="bp-lean-names" hidden="hidden">
+<div data-lean-name="ZInQ.Literature.TYZThm35ReadingA">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> TYZThm35ReadingA : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → ∀ F : ℂ → ℂ,
+    IsLContinuation (shortCurve (-(d : ℚ) ^ 2)) F → 2 ≤ analyticOrderAt F 1 →
+      T5aCl d = 0 ∧ T5bCl d = 0</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:141</p>
+</div>
+<div data-lean-name="ZInQ.Literature.HeckeContinuation">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> HeckeContinuation : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d ≠ 0 → ∃ F : ℂ → ℂ, IsLContinuation (shortCurve (-(d : ℚ) ^ 2)) F</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:134</p>
+</div>
+<div data-lean-name="ZInQ.Literature.TYZRow5b">
+<pre class="bp-lean"><code><span class="bp-lean-keyword">def</span> TYZRow5b : <span class="bp-lean-keyword">Prop</span> :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → T5bCl d = 1 →
+    ∃ F : ℂ → ℂ, IsLContinuation (shortCurve (-(d : ℚ) ^ 2)) F ∧ analyticOrderAt F 1 ≤ 1</code></pre>
+<p class="bp-lean-where">ZInQKernel/Hypotheses/CR3Literature.lean:92</p>
+</div>
+</div>
+</div>
+<div class="bp-thmnotes">
+<div class="bp-notes-heading">
+<h6 id="sources_11">Sources</h6>
+</div>
+<div class="bp-search-text" hidden="hidden">Sources</div>
+<ul>
+<li><a href="../../../sources/rank-locators.html#reading-a-of-tian-yuan-zhang">Reading A of Tian-Yuan-Zhang</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Uses 3</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#tyz-reading-a">Tian–Yuan–Zhang&#x27;s Theorem 3.5(2) in reading A</a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#hecke-continuation">Hecke&#x27;s continuation of <span class="arithmatex">\(L(C_d,s)\)</span></a> <span class="bp-ref-sep">·</span> <a class="bp-ref bp-ref-fully_proved" title="1 statement dependency" href="#tyz-row-5b">Tian–Yuan–Zhang&#x27;s row 5b</a></span></div>
+</div>
+</details>
+</div>
+</div>
+<p><link rel="stylesheet" href="../../../stylesheets/blueprint-dag.css" data-autoform-dag-style></p>
+<div class="bp-dag-viewer" data-catalog-src="../../../dependencies/index.json" data-graph-src="../../../dependencies/scopes/rank/literature.json" data-page-href="index.html" data-scope-id="rank/literature">
+<p class="bp-dag-loading" hidden="hidden" role="status">Loading dependency explorer…</p>
+<div class="bp-dag-fallback">
+    <p>The dependency explorer needs JavaScript and its graph data.</p>
+    <p><a href="../../../dependencies/index.json">Download the complete graph data</a>.</p>
+  </div>
+</div>
+<script defer="defer" src="../../../javascripts/blueprint-dag.js"></script>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/Deicyde/diophantine-z-q">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.prune", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../javascripts/blueprint-mermaid.js"></script>
+      
+        <script src="../../../javascripts/blueprint-live.js"></script>
+      
+    
+  </body>
+</html>
