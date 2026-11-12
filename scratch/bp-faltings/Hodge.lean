@@ -423,8 +423,8 @@ noncomputable def recoord (T : (K →+* ℂ) → ((Fin g → ℂ) ≃ₗ[ℂ] (F
     · exact (LinearEquiv.isUnit_det' (T σ)).ne_zero h1
     · exact D.coeff_apply_ne_zero σ hv h1
 
-/-- **Independence of the coordinates on `Lie(A_σ)`.** -/
 omit [IsScalarTower (𝓞 K) K V] in
+/-- **Independence of the coordinates on `Lie(A_σ)`.** -/
 theorem modelHeight_recoord (T : (K →+* ℂ) → ((Fin g → ℂ) ≃ₗ[ℂ] (Fin g → ℂ))) :
     (D.recoord T).modelHeight = D.modelHeight := by
   have hn : ∀ σ v, (D.recoord T).norm σ v = D.norm σ v := by
@@ -483,6 +483,97 @@ end HodgeData
 
 end Hodge
 
+/-! ## 5. Acceptance-test interface: elliptic curves
+
+The definitions `hypGram`, `hypVol`, `finiteHeightPart`, `faltingsHeightEC` are copied verbatim
+from `scratch/pkg-I5/I5.lean` (task pkg-I5), so that the acceptance test can be stated here. -/
+
+section Acceptance
+
+open Polynomial
+
+/-- (copied from pkg-I5) `2 ∫_ℂ xⁱ x̄ʲ / |P(x)| dλ`. -/
+noncomputable def hypGram (P : ℂ[X]) (i j : ℕ) : ℂ :=
+  2 * ∫ x : ℂ, x ^ i * (starRingEnd ℂ x) ^ j / ((‖P.eval x‖ : ℝ) : ℂ)
+
+/-- (copied from pkg-I5) `det` of the Gram matrix. -/
+noncomputable def hypVol (g : ℕ) (P : ℂ[X]) : ℝ :=
+  (Matrix.of fun i j : Fin g => hypGram P i j).det.re
+
+/-- (copied from pkg-I5) `∑_{v finite} log max(1, |x|_v)`. -/
+noncomputable def finiteHeightPart {K : Type*} [Field K] [NumberField K] (x : K) : ℝ :=
+  Height.logHeight₁ x - ∑ σ : K →+* ℂ, Real.log (max 1 ‖σ x‖)
+
+/-- (copied from pkg-I5) The closed formula for the stable Faltings height of an elliptic curve. -/
+noncomputable def faltingsHeightEC {K : Type*} [Field K] [NumberField K]
+    (W : WeierstrassCurve K) [W.IsElliptic] : ℝ :=
+  let d : ℝ := Module.finrank ℚ K
+  let P : K[X] := 4 * X ^ 3 + C W.b₂ * X ^ 2 + C (2 * W.b₄) * X + C W.b₆
+  (finiteHeightPart W.j - ∑ σ : K →+* ℂ, Real.log ‖σ W.Δ‖) / (12 * d) -
+    (∑ σ : K →+* ℂ, Real.log (hypVol 1 (P.map σ))) / (2 * d)
+
+variable {K : Type*} [Field K] [NumberField K]
+variable {V : Type*} [AddCommGroup V] [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V]
+
+/-- A free Hodge lattice `𝓞_K · η₀`: `h(A, 𝒢) = −(2[K:ℚ])⁻¹ ∑_σ log ‖η₀‖²_σ`. -/
+theorem HodgeData.modelHeight_of_span {g : ℕ} (D : HodgeData K g V) {η₀ : V}
+    (h : D.lattice = Submodule.span (𝓞 K) {η₀}) (hη₀ : η₀ ≠ 0) :
+    D.modelHeight = -((1 / 2) * ∑ σ : K →+* ℂ,
+      Real.log (torusMetricSq (D.periods σ) (D.coeff σ η₀))) / Module.finrank ℚ K := by
+  have hm : η₀ ∈ D.lattice := h ▸ Submodule.mem_span_singleton_self η₀
+  rw [D.modelHeight_eq hm hη₀]
+  have h1 : secIndex D.lattice η₀ = 1 := by
+    unfold secIndex; rw [h, AddSubgroup.relIndex_self]
+  rw [h1]
+  simp
+
+/-- The period lattice of a `PeriodPair` as a lattice in `ℂ¹ = Fin 1 → ℂ`. -/
+noncomputable def _root_.PeriodPair.lattice1 (L : PeriodPair) : Submodule ℤ (Fin 1 → ℂ) :=
+  ZLattice.comap ℝ L.lattice (ContinuousLinearEquiv.funUnique (Fin 1) ℝ ℂ).toLinearMap
+
+theorem _root_.PeriodPair.covolume_lattice1 (L : PeriodPair) :
+    ZLattice.covolume L.lattice1 = ZLattice.covolume L.lattice :=
+  ZLattice.covolume_comap L.lattice volume volume
+    (e := ContinuousLinearEquiv.funUnique (Fin 1) ℝ ℂ) (volume_preserving_funUnique (Fin 1) ℂ)
+
+/-- **Node AT1c (the area formula).** For the lattice `Λ` of a period pair and
+`P = 4x³ − g₂(Λ)x − g₃(Λ)`: `covol(Λ) = 2 ∫_ℂ dλ(x)/|P(x)|`. A classical theorem (the map
+`z ↦ ℘(z)` is a degree-2 cover `ℂ/Λ → ℙ¹` with `d℘ = ℘' dz` and `℘'² = P(℘)`; Mathlib has `℘` and
+`PeriodPair.derivWeierstrassP_sq`); numerically checked in pkg-I5 (`area_check.py`). Stated as a
+Prop here, unproved. -/
+def PeriodAreaFormula : Prop :=
+  ∀ L : PeriodPair, ZLattice.covolume L.lattice =
+    hypVol 1 (4 * X ^ 3 - C L.g₂ * X - C L.g₃)
+
+/-- **Acceptance test AT1, conditional form.** Let `D` be Hodge data of dimension 1 whose lattice
+is free on `η₀`, whose period lattices are those of period pairs `L σ` with `η₀ ↦ dz`
+(i.e. `η₀ = dx/(2y + a₁x + a₃)` and `L σ` the period lattice of `W^σ`: node AT1b), where the
+Weierstrass polynomial of `W^σ` is `4x³ − g₂(L σ) x − g₃(L σ)` and the finite part of
+`faltingsHeightEC` vanishes (`W` semistable and minimal at every prime, which is when `𝓞_K η₀` is
+the Néron lattice: node AT1a). Then, given the area formula AT1c, `modelHeight D` equals pkg-I5's
+`faltingsHeightEC W`. Proved. -/
+theorem modelHeight_eq_faltingsHeightEC (hA : PeriodAreaFormula)
+    (W : WeierstrassCurve K) [W.IsElliptic] (D : HodgeData K 1 V) {η₀ : V}
+    (hspan : D.lattice = Submodule.span (𝓞 K) {η₀}) (hη₀ : η₀ ≠ 0)
+    (L : (K →+* ℂ) → PeriodPair) (hper : ∀ σ, D.periods σ = (L σ).lattice1)
+    (hco : ∀ σ, D.coeff σ η₀ = 1)
+    (hP : ∀ σ, (4 * X ^ 3 + C W.b₂ * X ^ 2 + C (2 * W.b₄) * X + C W.b₆ : K[X]).map σ =
+      4 * X ^ 3 - C (L σ).g₂ * X - C (L σ).g₃)
+    (hfin : finiteHeightPart W.j = ∑ σ : K →+* ℂ, Real.log ‖σ W.Δ‖) :
+    D.modelHeight = faltingsHeightEC W := by
+  rw [D.modelHeight_of_span hspan hη₀, faltingsHeightEC]
+  rw [hfin, sub_self, zero_div, zero_sub]
+  have hterm : ∀ σ : K →+* ℂ, torusMetricSq (D.periods σ) (D.coeff σ η₀) =
+      hypVol 1 ((4 * X ^ 3 + C W.b₂ * X ^ 2 + C (2 * W.b₄) * X + C W.b₆ : K[X]).map σ) := by
+    intro σ
+    rw [hco, hper, hP, torusMetricSq, PeriodPair.covolume_lattice1, hA]
+    simp
+  simp only [hterm]
+  have hd : (0 : ℝ) < Module.finrank ℚ K := by exact_mod_cast Module.finrank_pos
+  field_simp
+
+end Acceptance
+
 end ZInQ.BPFaltings
 
 #print axioms ZInQ.BPFaltings.HermitianLattice.degreeAt_eq_arakelovDegree
@@ -492,3 +583,4 @@ end ZInQ.BPFaltings
 #print axioms ZInQ.BPFaltings.HodgeData.modelHeight_recoord
 #print axioms ZInQ.BPFaltings.HodgeData.modelHeight_eq_add_of_le
 #print axioms ZInQ.BPFaltings.HodgeData.modelHeight_le_of_le
+#print axioms ZInQ.BPFaltings.modelHeight_eq_faltingsHeightEC

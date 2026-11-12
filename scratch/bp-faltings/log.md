@@ -24,3 +24,13 @@ File `scratch/bp-faltings/Hodge.lean` §§1-2. `lake env lean`: no errors, no wa
 - `modelHeight := deg(ω̄)/[K:ℚ]`; `modelHeight_eq`: Faltings' formula for every nonzero η. VERIFIED.
 - `recoord`, `modelHeight_recoord`: independent of linear coordinates at every σ. VERIFIED.
 - `modelHeight_eq_add_of_le`: ω' ≤ ω ⇒ h(ω) = h(ω') + log[ω:ω']/[K:ℚ]; `modelHeight_le_of_le`. VERIFIED.
+
+## Step 4 (11:56 PST). Acceptance-test interface (elliptic curves)
+`Hodge.lean` §5. Compiles; `modelHeight_eq_faltingsHeightEC` axioms: propext, Classical.choice, Quot.sound.
+- copied from scratch/pkg-I5/I5.lean: `hypGram`, `hypVol`, `finiteHeightPart`, `faltingsHeightEC`.
+- `HodgeData.modelHeight_of_span`: free lattice 𝓞η₀ ⇒ h = −(2[K:ℚ])⁻¹ Σ log‖η₀‖²_σ. VERIFIED.
+- `PeriodPair.lattice1` (Mathlib's period lattice in ℂ¹), `covolume_lattice1`. VERIFIED.
+- `PeriodAreaFormula` (Prop, UNPROVED): covol(Λ) = hypVol 1 (4x³ − g₂x − g₃) for every PeriodPair.
+- `modelHeight_eq_faltingsHeightEC`: PeriodAreaFormula + (free Néron-type lattice, periods = period
+  pairs with η₀ ↦ dz, Weierstrass polynomial = 4x³−g₂x−g₃, finite part of the formula = 0)
+  ⇒ modelHeight D = faltingsHeightEC W. VERIFIED (compiled).
