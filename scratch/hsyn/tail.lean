@@ -126,8 +126,8 @@ theorem weight_match (n k : ℤ) (hk : 1 ≤ k)
   omega
 
 /-- **The research-level leaves of route P** (note §2.1), bundled. Placeholders are
-uninterpreted. Genuine statements: `R4` (pkg-I1), `R6`, `R7` (pkg-I2), `R9` (pkg-I3), `R14`,
-`R15` (§1 here). -/
+uninterpreted. Genuine statements: `R4` (pkg-I1), `R6`, `R7` (pkg-I2), `R9` (pkg-I3), `R10`,
+`R11`+`R12`, `R13` (pkg-I4), `R14`, `R15` (§1 here). -/
 structure ResearchLeaves : Prop where
   r1 : R01_ShimuraDeligne
   r2 : R02_BabaGranath
