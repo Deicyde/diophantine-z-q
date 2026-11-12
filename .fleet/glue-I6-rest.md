@@ -2,8 +2,9 @@
 
 **Main result.** Three of the six glue items left open by pkg-I6 and glue-conductor are proved in
 Lean over pkg-I6's definitions, with no `sorry`. `#print axioms` shows only `propext`,
-`Classical.choice` and `Quot.sound` (VERIFIED, `lake env lean`, 22:28-22:34 PST). A fourth item is
-proved in its group-theoretic core. Report: `docs/research/glue-I6-rest.md`.
+`Classical.choice` and `Quot.sound` (VERIFIED, `lake env lean`, 22:28-22:37 PST). A fourth item is
+proved in its group-theoretic core, and a fifth (cyclic inflation) in its finite-group core.
+Report: `docs/research/glue-I6-rest.md`.
 
 - **D4 `artinConductor_le_of_upper`** (`scratch/glue-I6-rest/Conductor.lean`). If `G^v` acts
   trivially for every `v > U ≥ 0`, then `f(V) ≤ dim V·(1+U)`. This is pkg-I6's statement, with
@@ -24,12 +25,13 @@ proved in its group-theoretic core. Report: `docs/research/glue-I6-rest.md`.
 - **The square-root criterion's local part.** It needs `Gal(ℚ_p(μ_{p^k m})/ℚ_p)`, that is, the
   irreducibility over `ℚ_p` of the cyclotomic polynomial, which Mathlib has only over `ℚ`, plus
   the 2-torsion of `ℤ_p^× × ℤ̂`. About 500-1000 lines (SPECULATIVE).
-- **`[ε]_p = 0` (cyclic inflation).** Step (b), that the inflated carry cocycle is a coboundary
-  on `ℤ/2f`, is explicit and was checked by brute force for `f ≤ 12`. Step (a) is that every
-  2-cocycle of `ℤ/f` is cohomologous to the carry cocycle; Mathlib has no inhomogeneous-cochain
-  form of it. About 200-400 lines.
+- **`[ε]_p = 0`, local part.** The finite-group step is proved (`Inflation.lean`,
+  `inflation_two_eq_coboundary`): every 2-cocycle of `ℤ/f` with values in `M`, `2M = 0`, inflated
+  to `ℤ/2f`, is an explicit coboundary. What remains is the factorization of `G_{ℚ_p}` through
+  `ℤ/2f`. That needs unramified extensions of `ℚ_p` and their cyclic Galois groups, which Mathlib
+  does not have.
 - **Frobenius density in `G_ℚ`.** Lifting Frobenius elements to `G_ℚ` needs decomposition
   groups in `\bar ℚ/ℚ`. Recommended instead: state C10 on finite quotients, where the leaf
   `ChebotarevExists` suffices.
 
-Files: `scratch/glue-I6-rest/{I6Base,Conductor,SqrtChar}.lean` and `log.md`.
+Files: `scratch/glue-I6-rest/{I6Base,Conductor,SqrtChar,Inflation}.lean` and `log.md`.
