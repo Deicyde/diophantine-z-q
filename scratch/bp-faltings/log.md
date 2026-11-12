@@ -88,3 +88,7 @@ File `scratch/bp-faltings/Models.lean`. `lake env lean`: no errors, no warnings.
 `Hodge.lean` §13. Compiles; 0 errors, 0 warnings, 0 sorry.
 - `covolume_gaussianPair`: ZLattice.covolume (span ℤ {1, i}) = 1 (Lebesgue on ℂ). VERIFIED.
 - `exampleHodge_modelHeight_eq_zero`. VERIFIED.
+
+## Step 14 (12:22 PST). Tensor products of fractional-ideal lines
+`Hodge.lean` §14. Compiles; 0 errors/warnings/sorry.
+- `arakelovDegree_ofFractionalIdeal_mul`: deg(IJ, ρρ') = deg(I, ρ) + deg(J, ρ'). VERIFIED.

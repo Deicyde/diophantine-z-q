@@ -1085,6 +1085,34 @@ theorem exampleHodge_modelHeight_eq_zero : exampleHodge.modelHeight = 0 := by
 
 end Gaussian
 
+/-! ## 14. Tensor products of fractional-ideal Hermitian lines (node AR3)
+
+For invertible `𝓞_K`-modules inside `K`, `I ⊗ J ≅ IJ`, and the tensor-product metric is the
+product metric; the degree is additive. -/
+
+section Tensor
+
+open scoped nonZeroDivisors
+
+variable {K : Type*} [Field K] [NumberField K]
+
+theorem arakelovDegree_ofFractionalIdeal_mul (I J : FractionalIdeal (𝓞 K)⁰ K) (hI : I ≠ 0)
+    (hJ : J ≠ 0) (ρ ρ' : (K →+* ℂ) → ℝ) (hρ : ∀ σ, 0 < ρ σ) (hρ' : ∀ σ, 0 < ρ' σ) :
+    (HermitianLattice.ofFractionalIdeal (I * J) (mul_ne_zero hI hJ) (fun σ => ρ σ * ρ' σ)
+      (fun σ => mul_pos (hρ σ) (hρ' σ))).arakelovDegree =
+      (HermitianLattice.ofFractionalIdeal I hI ρ hρ).arakelovDegree +
+        (HermitianLattice.ofFractionalIdeal J hJ ρ' hρ').arakelovDegree := by
+  simp only [HermitianLattice.arakelovDegree_ofFractionalIdeal, map_mul, Rat.cast_mul]
+  have hI0 : (FractionalIdeal.absNorm I : ℝ) ≠ 0 := by
+    exact_mod_cast (FractionalIdeal.absNorm_eq_zero_iff.not.mpr hI)
+  have hJ0 : (FractionalIdeal.absNorm J : ℝ) ≠ 0 := by
+    exact_mod_cast (FractionalIdeal.absNorm_eq_zero_iff.not.mpr hJ)
+  rw [Real.log_mul hI0 hJ0, Finset.sum_congr rfl fun σ _ =>
+    Real.log_mul (hρ σ).ne' (hρ' σ).ne', Finset.sum_add_distrib]
+  ring
+
+end Tensor
+
 end ZInQ.BPFaltings
 
 #print axioms ZInQ.BPFaltings.HermitianLattice.degreeAt_eq_arakelovDegree
@@ -1106,3 +1134,4 @@ end ZInQ.BPFaltings
 #print axioms ZInQ.BPFaltings.arakelovDegree_ofFractionalIdeal_baseChange
 #print axioms ZInQ.BPFaltings.HodgeData.modelHeight_ofIdeal_baseChange
 #print axioms ZInQ.BPFaltings.exampleHodge_modelHeight_eq_zero
+#print axioms ZInQ.BPFaltings.arakelovDegree_ofFractionalIdeal_mul
