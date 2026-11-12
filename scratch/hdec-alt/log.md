@@ -7,3 +7,23 @@
   stable reduction at every contact prime, even valuation too); only modularity routes give polynomial bounds.
 - docs/revision-2.md, README: 11/5 replaced an earlier "von Känel–Kret height argument" by Pan + CM argument.
   No record of the vK–Kret citation in the audit (grep: none).
+
+## Step 2. Map + alternative-route findings (reasoning; no Lean)
+- wk-h (Tier1/Tier2, vacuity §4.3), rv-lit §4 (JHeightBound = A1-F3), prereq-survey §1 read.
+- JHeight.olean, HeightMin.olean present in .lake/build: Leaves.lean can import ZInQKernel.Hypotheses.JHeight.
+- Mathlib has `AlgebraicGeometry.isCommMonObj_of_isProper_of_geometricallyIntegral` (Group/Abelian.lean):
+  GrpObj in Over (Spec K) + IsProper + GeometricallyIntegral exist → cheap genuine `AbelianVariety K`.
+- Algebra VERIFIED by hand: for j = J(u) = -57600F²/G⁶: -6j = 6·(240F/G³)² (57600·6 = 6·240²);
+  27j+16 = 16H²/G⁶ (from h-trust A5: J+16/27 = 16H²/(27G⁶)). So the classes of -6j and 27j+16 in
+  ℚ*/ℚ*² are constant (6 and 1) along the family.
+- Finding (route M-KW): Pan + C3,C4,C5,C7,C8 (Scholze/Faltings-Tsuji, Fontaine, Berger, Saito/Kato,
+  Deligne-Serre, de Rham descent lemma, determinant argument) can be replaced by Ribet's building-block
+  theorem + Khare-Wintenberger modularity of GL2-type abelian varieties over ℚ + an elementary twist
+  lemma (r|G_K ≅ ρ|G_K abs. irreducible ⇒ r ≅ ρ⊗ψ, ψ finite) + Kronecker-Weber. Building-block
+  hypotheses = A10 (End⁰ = B) + B1 (B-linear μ_σ). Weight 2 automatic; C8 disappears; C10 stays.
+- Finding (vK route): effective Shafarevich for GL2-type over ℚ needs a GL2-type B₀/ℚ ⊇ A; dim B₀ =
+  [E:ℚ] ⊇ ℚ(nebentypus), which must be odd at each p in T₋ (local invariant 1/2 of [ε]); T₋ ∩ supp M
+  not controlled ⇒ dim B₀ unbounded in M. Route viable only if vK's constant is polynomial in dim
+  (UNVERIFIED; theorem text not on host). Not adopted; recorded as the top open alternative.
+- Baker/S-unit genus-2 Shafarevich (Smart, vK 2014): excluded by nt-h §3.3 (curves C_{J(u)} have bad
+  stable reduction at every positive contact valuation).
