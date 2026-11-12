@@ -22,3 +22,9 @@
 - 12:04 `TateNormalForm.lean` extended: `tateNF_Δ` (Δ = b³(16b² − 8bc² − 20bc + b + c(c−1)³), factor
   first computed by sympy), `tateNF_b_ne_zero` (IsElliptic ⇒ b ≠ 0), `tateNF_unique'` (IsElliptic form).
   `lake env lean`: exit 0, no warnings; standard axioms. VERIFIED.
+- 12:10 `Gamma1Genus.lean` extended (MC0b): `PrimVec N`, `firstColMod_prim`, `lift_coprime`,
+  `exists_SL2_firstColMod` (every primitive vector mod N is a first column of SL₂(ℤ)),
+  `cosetEquivPrimVec : SL(2,ℤ) ⧸ Gamma1 N ≃ PrimVec N`, `index_Gamma1_eq_card`,
+  `neg_one_not_mem_Gamma1` (N ≥ 3), `relIndex_pmSubgroup_Gamma1` (= 2), `two_mul_belyiDeg_Gamma1`
+  (2μ = #PrimVec N, N ≥ 3); `example : (Gamma1 5).index = 24` by `decide`.
+  `lake env lean`: exit 0, no warnings; standard axioms. VERIFIED.

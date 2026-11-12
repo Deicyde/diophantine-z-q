@@ -269,6 +269,145 @@ theorem genus_Gamma1_le (N : ℕ) [NeZero N] : genus (Gamma1 N) ≤ (N : ℚ) ^ 
   have hN : (1 : ℚ) ≤ N := by exact_mod_cast Nat.one_le_iff_ne_zero.mpr (NeZero.ne N)
   nlinarith
 
+/-! ### MC0b: the cosets of `Γ₁(N)` are the primitive vectors of `(ℤ/N)²`
+
+Lifting (Shimura 1971, Lemma 1.38, UNVERIFIED number): a vector `(a, c)` that is primitive
+modulo `N` lifts to a coprime pair, hence to the first column of a matrix in `SL₂(ℤ)`. -/
+
+/-- Primitive vectors of `(ℤ/N)²`: those generating the unit ideal. -/
+def PrimVec (N : ℕ) := {v : ZMod N × ZMod N // ∃ x y : ZMod N, x * v.1 + y * v.2 = 1}
+
+theorem firstColMod_prim (N : ℕ) (γ : SL(2, ℤ)) :
+    ∃ x y : ZMod N, x * (firstColMod N γ).1 + y * (firstColMod N γ).2 = 1 := by
+  refine ⟨(((γ : Matrix (Fin 2) (Fin 2) ℤ) 1 1 : ℤ) : ZMod N),
+    ((-(γ : Matrix (Fin 2) (Fin 2) ℤ) 0 1 : ℤ) : ZMod N), ?_⟩
+  have hd := γ.det_coe
+  rw [Matrix.det_fin_two] at hd
+  have := congrArg (fun z : ℤ => (z : ZMod N)) hd
+  simp only [firstColMod]
+  push_cast at this ⊢
+  linear_combination this
+
+/-- Lifting a pair that is primitive modulo `N` to a coprime pair of naturals. -/
+theorem lift_coprime (N a c : ℕ) (hN : 0 < N)
+    (hprim : ∀ k, k.Prime → k ∣ N → k ∣ a → k ∣ c → False) :
+    ∃ a' c' : ℕ, (a' : ZMod N) = a ∧ (c' : ZMod N) = c ∧ Nat.Coprime a' c' := by
+  classical
+  set c' := if c = 0 then N else c with hc'
+  have hc'pos : 0 < c' := by
+    rw [hc']; split_ifs with h
+    · exact hN
+    · omega
+  have hc'mod : (c' : ZMod N) = c := by
+    rw [hc']; split_ifs with h
+    · simp [h]
+    · rfl
+  have hkc : ∀ k, k.Prime → k ∣ c' → k ∣ N → k ∣ c := by
+    intro k hk h1 h2
+    rw [hc'] at h1
+    split_ifs at h1 with h
+    · rw [h]; exact dvd_zero k
+    · exact h1
+  set t := ∏ p ∈ c'.primeFactors.filter (fun p => ¬ p ∣ a), p with ht
+  refine ⟨a + t * N, c', by simp, hc'mod, ?_⟩
+  apply Nat.coprime_of_dvd
+  intro k hk hka hkc'
+  by_cases hkA : k ∣ a
+  · have hkt : ¬ k ∣ t := by
+      intro hdvd
+      rw [ht] at hdvd
+      obtain ⟨p, hp, hkp⟩ := (Prime.dvd_finsetProd_iff hk.prime _).1 hdvd
+      rw [Finset.mem_filter] at hp
+      have : k = p := (Nat.prime_dvd_prime_iff_eq hk (Nat.prime_of_mem_primeFactors hp.1)).1 hkp
+      exact hp.2 (this ▸ hkA)
+    have hkN : ¬ k ∣ N := fun hkN => hprim k hk hkN hkA (hkc k hk hkc' hkN)
+    have : k ∣ t * N := (Nat.dvd_add_right hkA).1 hka
+    rcases (Nat.Prime.dvd_mul hk).1 this with h | h
+    · exact hkt h
+    · exact hkN h
+  · have hkt : k ∣ t := by
+      rw [ht]
+      apply Finset.dvd_prod_of_mem
+      rw [Finset.mem_filter, Nat.mem_primeFactors]
+      exact ⟨⟨hk, hkc', hc'pos.ne'⟩, hkA⟩
+    exact hkA ((Nat.dvd_add_left (dvd_mul_of_dvd_left hkt N)).1 hka)
+
+/-- **Every primitive vector mod `N` is the first column of some `γ ∈ SL₂(ℤ)`.** -/
+theorem exists_SL2_firstColMod (N : ℕ) [NeZero N] (v : ZMod N × ZMod N)
+    (hv : ∃ x y : ZMod N, x * v.1 + y * v.2 = 1) : ∃ γ : SL(2, ℤ), firstColMod N γ = v := by
+  obtain ⟨x, y, hxy⟩ := hv
+  have hprim : ∀ k, k.Prime → k ∣ N → k ∣ v.1.val → k ∣ v.2.val → False := by
+    intro k hk hkN h1 h2
+    have : Fact (1 < k) := ⟨hk.one_lt⟩
+    have h := congrArg (ZMod.castHom hkN (ZMod k)) hxy
+    rw [map_add, map_mul, map_mul, map_one] at h
+    have e1 : ZMod.castHom hkN (ZMod k) v.1 = 0 := by
+      rw [← ZMod.natCast_zmod_val v.1, map_natCast, ZMod.natCast_eq_zero_iff]; exact h1
+    have e2 : ZMod.castHom hkN (ZMod k) v.2 = 0 := by
+      rw [← ZMod.natCast_zmod_val v.2, map_natCast, ZMod.natCast_eq_zero_iff]; exact h2
+    rw [e1, e2] at h
+    simp at h
+  obtain ⟨a', c', ha', hc', hcop⟩ :=
+    lift_coprime N v.1.val v.2.val (Nat.pos_of_ne_zero (NeZero.ne N)) hprim
+  obtain ⟨u, w, huw⟩ := Nat.isCoprime_iff_coprime.mpr hcop
+  refine ⟨⟨!![(a' : ℤ), -w; (c' : ℤ), u], ?_⟩, ?_⟩
+  · rw [Matrix.det_fin_two_of]; linear_combination huw
+  · simp only [firstColMod, Matrix.of_apply, Matrix.cons_val', Matrix.cons_val_zero,
+      Matrix.cons_val_one, Matrix.empty_val', Matrix.cons_val_fin_one]
+    rw [Int.cast_natCast, Int.cast_natCast, ha', hc', ZMod.natCast_zmod_val, ZMod.natCast_zmod_val]
+
+/-- **`SL₂(ℤ) ⧸ Γ₁(N) ≃` primitive vectors of `(ℤ/N)²`** (first column mod `N`). -/
+noncomputable def cosetEquivPrimVec (N : ℕ) [NeZero N] : SL(2, ℤ) ⧸ Gamma1 N ≃ PrimVec N :=
+  Equiv.ofBijective
+    (Quotient.lift (fun γ => (⟨firstColMod N γ, firstColMod_prim N γ⟩ : PrimVec N))
+      fun a b hab => Subtype.ext ((firstColMod_eq_iff N a b).2 (QuotientGroup.leftRel_apply.mp hab)))
+    ⟨by
+      intro x y hxy
+      induction x using QuotientGroup.induction_on
+      induction y using QuotientGroup.induction_on
+      exact QuotientGroup.eq.mpr ((firstColMod_eq_iff N _ _).1 (congrArg Subtype.val hxy)),
+     by
+      rintro ⟨v, hv⟩
+      obtain ⟨γ, hγ⟩ := exists_SL2_firstColMod N v hv
+      exact ⟨QuotientGroup.mk γ, Subtype.ext hγ⟩⟩
+
+theorem index_Gamma1_eq_card (N : ℕ) [NeZero N] : (Gamma1 N).index = Nat.card (PrimVec N) := by
+  rw [Subgroup.index_eq_card]; exact Nat.card_congr (cosetEquivPrimVec N)
+
+theorem neg_one_not_mem_Gamma1 (N : ℕ) (hN : 3 ≤ N) : (-1 : SL(2, ℤ)) ∉ Gamma1 N := by
+  intro h
+  obtain ⟨h0, -, -⟩ := (Gamma1_mem N (-1)).1 h
+  simp only [Matrix.SpecialLinearGroup.coe_neg, Matrix.SpecialLinearGroup.coe_one,
+    Matrix.neg_apply, Matrix.one_apply_eq, Int.cast_neg, Int.cast_one] at h0
+  have : ((2 : ℤ) : ZMod N) = 0 := by push_cast; linear_combination -h0
+  rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at this
+  have := Int.le_of_dvd (by norm_num) this; omega
+
+theorem relIndex_pmSubgroup_Gamma1 (N : ℕ) (hN : 3 ≤ N) :
+    (Gamma1 N).relIndex (pmSubgroup (Gamma1 N)) = 2 := by
+  rw [Subgroup.relIndex, Subgroup.index_eq_two_iff]
+  refine ⟨⟨-1, neg_one_mem_pmSubgroup _⟩, ?_⟩
+  rintro ⟨b, hb⟩
+  simp only [Subgroup.mem_subgroupOf, Subgroup.coe_mul, mul_neg_one]
+  have key : ¬ (b ∈ Gamma1 N ∧ -b ∈ Gamma1 N) := by
+    rintro ⟨h1, h2⟩
+    apply neg_one_not_mem_Gamma1 N hN
+    have := (Gamma1 N).mul_mem h2 ((Gamma1 N).inv_mem h1)
+    simpa [neg_mul] using this
+  rcases hb with hb | hb
+  · exact Or.inr ⟨hb, fun h => key ⟨hb, h⟩⟩
+  · exact Or.inl ⟨hb, fun h => key ⟨h, hb⟩⟩
+
+/-- **`2μ = #` primitive vectors of `(ℤ/N)²`** for `N ≥ 3`: the Belyi degree of `X₁(N)` is
+`J₂(N)/2`. -/
+theorem two_mul_belyiDeg_Gamma1 (N : ℕ) (hN : 3 ≤ N) :
+    2 * belyiDeg (Gamma1 N) = Nat.card (PrimVec N) := by
+  have : NeZero N := ⟨by omega⟩
+  rw [← index_Gamma1_eq_card, belyiDeg]
+  have h := Subgroup.relIndex_mul_index (le_pmSubgroup (Gamma1 N))
+  rw [relIndex_pmSubgroup_Gamma1 N hN] at h
+  exact h
+
 end BPModCurves
 
 #print axioms BPModCurves.nu2_Gamma1
@@ -276,3 +415,10 @@ end BPModCurves
 #print axioms BPModCurves.genus_Gamma1
 #print axioms BPModCurves.belyiDeg_Gamma1_le
 #print axioms BPModCurves.genus_Gamma1_le
+#print axioms BPModCurves.index_Gamma1_eq_card
+#print axioms BPModCurves.two_mul_belyiDeg_Gamma1
+
+/-- Acceptance test: `[SL₂(ℤ) : Γ₁(5)] = 24`, `μ(Γ₁(5)) = 12` (genus 0 with 4 cusps). -/
+example : (CongruenceSubgroup.Gamma1 5).index = 24 := by
+  rw [BPModCurves.index_Gamma1_eq_card, BPModCurves.PrimVec, Nat.card_eq_fintype_card]
+  decide
