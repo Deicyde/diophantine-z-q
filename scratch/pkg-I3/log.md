@@ -54,3 +54,18 @@ Compile: no errors (VERIFIED).
   `Module.FinitePresentation.exists_lift_of_isLocalizedModule` (clearing denominators).
 - `#print axioms` on both and on `AbVar.galRep`: [propext, Classical.choice, Quot.sound]
   (VERIFIED). `grep -c sorry I3.lean` = 0.
+
+## Step 5: base change, inhabitant, C2 glue statement
+- `AbVar.baseChange A L : AbVar L` via `Over.pullback` + `Functor.grpObjObj` (proper, smooth,
+  geometrically integral by Mathlib base-change instances). Compiles (VERIFIED).
+- `AbVar.zero K` (`Spec K`), with a new instance `GeometricallyIntegral (𝟙 (Spec K))` (proved).
+  Mathlib v4.35.0 has no projective group scheme besides this one: `EllipticCurve/` has no
+  `Scheme`, and `GrpObj` occurs in `AlgebraicGeometry/` only in `Group/{Abelian,Affine,Smooth}`
+  and `Pullbacks` (VERIFIED by grep). So no nonzero `AbVar` can be built today.
+- `equivEnd A ℓ` (G-equivariant ℚ_ℓ-endomorphisms of V_ℓA, a submodule) and
+  `finrank_equivEnd` (GLUE for C2: dim End_G(V_ℓA) = rank End A from FaltingsTate,
+  TateModuleFree, HomFreeFinite): statement compiles, body `sorry` with outline.
+- Repository evidence for Faltings locators: `docs/theorem-application-audit/INVENTORY.md`
+  A008 (page images checked 2026-11-05: §5, Satz 3 and Satz 4, printed p. 360; erratum p. 381
+  does not withdraw them); `docs/reviews/height-replacement/descent/AUDIT.md` item (Kor. 1,
+  pp. 360-361). AUDIT-READ, not read here.

@@ -352,6 +352,25 @@ def baseChange (A : AbVar K) (L : Type) [Field L] [Algebra K L] : AbVar L :=
   haveI : GeometricallyIntegral ((Over.pullback f).obj A.X).hom := by dsimp; infer_instance
   { X := (Over.pullback f).obj A.X }
 
+instance geometricallyIntegral_id_spec (K : Type) [Field K] :
+    GeometricallyIntegral (𝟙 (Spec (CommRingCat.of K))) := by
+  constructor
+  intro L _ y Z fst snd h
+  have : IsIso snd := h.isIso_snd_of_isIso
+  have : Nonempty Z := ⟨(inv snd) (IsLocalRing.closedPoint L)⟩
+  exact isIntegral_of_isOpenImmersion snd
+
+open MonoidalCategory in
+/-- Sanity check: `AbVar K` is inhabited (by `Spec K`, the zero abelian variety). No
+nonzero abelian variety can be constructed in Mathlib v4.35.0: it has no projective group
+scheme (Weierstrass curves exist only as point sets, not as `GrpObj`s in `Over (Spec K)`). -/
+def zero (K : Type) [Field K] : AbVar K :=
+  haveI : IsProper (𝟙_ (Over (Spec (CommRingCat.of K)))).hom := by dsimp; infer_instance
+  haveI : Smooth (𝟙_ (Over (Spec (CommRingCat.of K)))).hom := by dsimp; infer_instance
+  haveI : GeometricallyIntegral (𝟙_ (Over (Spec (CommRingCat.of K)))).hom := by
+    dsimp; infer_instance
+  { X := 𝟙_ (Over (Spec (CommRingCat.of K))) }
+
 end PkgI3.AbVar
 
 /-! ## 3. The leaves of package I3
