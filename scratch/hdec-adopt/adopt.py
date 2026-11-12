@@ -35,8 +35,18 @@ open(q, 'w').write(t[:i] + 'Built in the project as `ZInQKernel.HDecomp.Descent.
 # Conductor
 for f in 'Breaks Dyadic Level'.split():
     plain(f'Conductor/{f}.lean', f'glue-conductor/{f}.lean')
-for f in 'I6Base Inflation SqrtChar'.split():
+for f in 'Inflation SqrtChar'.split():
     plain(f'Conductor/{f}.lean', f'glue-I6-rest/{f}.lean')
+# I6Base: the verbatim copy of `GlueConductor.exists_sq_eq_one_add` becomes a call to it
+L = rd('glue-I6-rest/I6Base.lean')
+a = next(i for i, l in enumerate(L) if l.startswith('theorem exists_sq_eq_one_add'))
+b = next(i for i in range(a, len(L)) if L[i].rstrip().endswith(':= by'))
+c = next(i for i in range(b + 1, len(L)) if L[i].strip() and not L[i].startswith(' '))
+while not L[c - 1].strip(): c -= 1
+L = L[:b] + [L[b].rstrip()[:-len(':= by')] + ':=\n',
+             '  GlueConductor.exists_sq_eq_one_add e s hs h2 z hz\n'] + L[c:]
+L = [l.replace('/-! Adopted verbatim from glue-conductor', '/-! Imported from glue-conductor') for l in L]
+emit('Conductor/I6Base.lean', 'glue-I6-rest/I6Base.lean', L, imps(L) + [H + 'Conductor.Dyadic'])
 L = rd('glue-I6-rest/Conductor.lean')
 i0 = next(i for i, l in enumerate(L) if l.startswith('section Ramification'))
 i1 = next(i for i, l in enumerate(L) if l.startswith('section Proof'))

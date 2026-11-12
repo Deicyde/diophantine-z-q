@@ -42,7 +42,7 @@ for f in sys.argv[1:]:
             elif '--' in s or '/-' in s:
                 new = [l]
             else:
-                new = split(l, ind + '    ', code=True)
+                new = split(l, ind + ('        ' if s.startswith('calc ') else '    '), code=True)
             if any(len(x) > LIM for x in new): print('UNWRAPPED', f, l[:70])
             res += new
         else:

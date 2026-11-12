@@ -1,4 +1,5 @@
 import Mathlib
+import ZInQKernel.HDecomp.Conductor.Dyadic
 
 /-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
 `scratch/glue-I6-rest/I6Base.lean`.
@@ -470,7 +471,7 @@ end Conductor
 
 section Dyadic
 
-/-! Adopted verbatim from glue-conductor's `scratch/glue-conductor/Dyadic.lean`
+/-! Imported from glue-conductor's `scratch/glue-conductor/Dyadic.lean`
 (`GlueConductor.exists_sq_eq_one_add`, commit 2aeeb7f2). -/
 
 open IsLocalRing Polynomial
@@ -482,48 +483,8 @@ for some `w ∈ 𝔪^{e+s}`. -/
 theorem exists_sq_eq_one_add [IsAdicComplete (maximalIdeal A) A] (e s : ℕ) (hs : 1 ≤ s)
     (h2 : Ideal.span {(2 : A)} = maximalIdeal A ^ e) (z : A)
     (hz : z ∈ maximalIdeal A ^ (2 * e + s)) :
-    ∃ w ∈ maximalIdeal A ^ (e + s), (1 + w) ^ 2 = 1 + z := by
-  set m := maximalIdeal A
-  -- z = 4c with c ∈ 𝔪^s
-  have h4 : m ^ (2 * e + s) = Ideal.span {(4 : A)} * m ^ s := by
-    rw [pow_add, two_mul, pow_add, ← h2, Ideal.span_singleton_mul_span_singleton]
-    norm_num
-  rw [h4, Ideal.mem_span_singleton_mul] at hz
-  obtain ⟨c, hc, rfl⟩ := hz
-  have hcm : c ∈ m := Ideal.pow_le_self (by omega) hc
-  -- Hensel: u² + u = c
-  let f : A[X] := X ^ 2 + (X - C c)
-  have hmon : f.Monic :=
-    (monic_X_pow 2).add_of_left (by rw [degree_X_sub_C, degree_X_pow]; norm_num)
-  have heval0 : f.eval 0 ∈ m := by
-    simp [f, hcm]
-  have hder : IsUnit (Ideal.Quotient.mk m (f.derivative.eval 0)) := by
-    simp [f]
-  obtain ⟨u, hu, hu0⟩ := HenselianRing.is_henselian f hmon 0 heval0 hder
-  rw [sub_zero] at hu0
-  have hroot : u ^ 2 + u = c := by
-    have := hu.eq_zero
-    simp only [f, eval_sub, eval_add, eval_pow, eval_X, eval_C] at this
-    linear_combination this
-  -- u ∈ 𝔪^s, since u (u + 1) = c and u + 1 is a unit
-  have hunit : IsUnit (u + 1) := by
-    by_contra h
-    have h1 : u + 1 ∈ m := (mem_maximalIdeal _).mpr h
-    have : (1 : A) ∈ m := by simpa using sub_mem h1 hu0
-    exact (maximalIdeal.isMaximal A).ne_top ((Ideal.eq_top_iff_one _).mpr this)
-  have hus : u ∈ m ^ s := by
-    obtain ⟨v, hv⟩ := hunit.exists_right_inv
-    have : u = c * v := by
-      calc u = u * ((u + 1) * v) := by rw [hv, mul_one]
-        _ = (u ^ 2 + u) * v := by ring
-        _ = c * v := by rw [hroot]
-    rw [this]
-    exact Ideal.mul_mem_right _ _ hc
-  refine ⟨2 * u, ?_, ?_⟩
-  · rw [pow_add, ← h2]
-    exact Ideal.mul_mem_mul (Ideal.mem_span_singleton_self 2) hus
-  · calc (1 + 2 * u) ^ 2 = 1 + 4 * (u ^ 2 + u) := by ring
-      _ = 1 + 4 * c := by rw [hroot]
+    ∃ w ∈ maximalIdeal A ^ (e + s), (1 + w) ^ 2 = 1 + z :=
+  GlueConductor.exists_sq_eq_one_add e s hs h2 z hz
 
 end Dyadic
 
