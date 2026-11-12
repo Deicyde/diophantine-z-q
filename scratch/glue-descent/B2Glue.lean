@@ -234,6 +234,9 @@ open GlueDescent.B2 NumberField
 /-- `G_ℚ`. -/
 abbrev GQ := Field.absoluteGaloisGroup ℚ
 
+instance : IsTopologicalGroup GQ :=
+  inferInstanceAs (IsTopologicalGroup (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ))
+
 local instance (p : Nat.Primes) : Fact (p : ℕ).Prime := ⟨p.2⟩
 
 /-- `G_{ℚ_p}`. -/
@@ -311,5 +314,84 @@ def LeafUnramified : Prop :=
   ∀ (L : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ L] [IsGalois ℚ L]
     (ε : GQ → GQ → ℂˣ), IsSignCocycle ε → InflatedFrom L ε →
     ∀ p : Nat.Primes, UnramifiedAt L p → SignCob (pull (resp p) ε)
+
+end GlueDescent.B2Q
+
+/-!
+## Toward the assembly of B2 over `G_ℚ`: continuity of the cyclotomic character
+-/
+
+namespace GlueDescent.B2Q
+
+open GlueDescent.B2 NumberField
+
+/-- A function on a topological group that is invariant under right translation by an open
+subgroup is locally constant. -/
+theorem isLocallyConstant_of_openSubgroup {G X : Type*} [Group G] [TopologicalSpace G]
+    [IsTopologicalGroup G] (U : Subgroup G) (hU : IsOpen (U : Set G)) (f : G → X)
+    (hf : ∀ g, ∀ k ∈ U, f (g * k) = f g) : IsLocallyConstant f := by
+  refine IsLocallyConstant.iff_isOpen_fiber.2 fun y => isOpen_iff_forall_mem_open.2 fun x hx =>
+    ⟨(x * ·) '' U, ?_, isOpenMap_mul_left x _ hU, ⟨1, U.one_mem, mul_one x⟩⟩
+  rintro _ ⟨k, hk, rfl⟩
+  simp only [Set.mem_preimage, Set.mem_singleton_iff] at hx ⊢
+  rw [hf x k hk, hx]
+
+theorem act_mul (σ τ : GQ) (x : AlgebraicClosure ℚ) : act (σ * τ) x = act σ (act τ x) := rfl
+
+/-- `cyc N σ` depends only on the action of `σ` on the `N`-th roots of unity. -/
+theorem cyc_eq_of_agree (N : ℕ) [NeZero N] (σ τ : GQ)
+    (h : ∀ t ∈ rootsOfUnity N (AlgebraicClosure ℚ),
+      act σ (t : AlgebraicClosure ℚ) = act τ (t : AlgebraicClosure ℚ)) :
+    cyc N σ = cyc N τ := by
+  haveI : NeZero ((N : ℕ) : ℚ) := ⟨by exact_mod_cast NeZero.ne N⟩
+  have hn := HasEnoughRootsOfUnity.natCard_rootsOfUnity (AlgebraicClosure ℚ) N
+  apply Units.ext
+  show ((modularCyclotomicCharacter (AlgebraicClosure ℚ) hn (toRingAut σ) : (ZMod N)ˣ) : ZMod N) =
+    ((modularCyclotomicCharacter (AlgebraicClosure ℚ) hn (toRingAut τ) : (ZMod N)ˣ) : ZMod N)
+  apply modularCyclotomicCharacter.unique _ hn
+  intro t ht
+  rw [← modularCyclotomicCharacter.spec (AlgebraicClosure ℚ) hn (toRingAut σ) ht]
+  exact (h t ht).symm
+
+/-- **The cyclotomic character is continuous** (locally constant): it is invariant under the
+open subgroup fixing `ℚ(μ_N)`. -/
+theorem cyc_isLocallyConstant (N : ℕ) [NeZero N] : IsLocallyConstant (cyc N) := by
+  let S : Set (AlgebraicClosure ℚ) :=
+    (fun t : (AlgebraicClosure ℚ)ˣ => (t : AlgebraicClosure ℚ)) ''
+      (rootsOfUnity N (AlgebraicClosure ℚ) : Set (AlgebraicClosure ℚ)ˣ)
+  have hfin : Finite (rootsOfUnity N (AlgebraicClosure ℚ) : Set (AlgebraicClosure ℚ)ˣ) :=
+    (inferInstance : Finite (rootsOfUnity N (AlgebraicClosure ℚ)))
+  haveI : Finite S := ((Set.toFinite _).image _).to_subtype
+  let K : IntermediateField ℚ (AlgebraicClosure ℚ) := IntermediateField.adjoin ℚ S
+  haveI : FiniteDimensional ℚ K :=
+    IntermediateField.finiteDimensional_adjoin (fun x _ => Algebra.IsIntegral.isIntegral x)
+  refine isLocallyConstant_of_openSubgroup (G := AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)
+    K.fixingSubgroup K.fixingSubgroup_isOpen (fun g => cyc N g) ?_
+  intro g k hk
+  apply cyc_eq_of_agree
+  intro t ht
+  have hfix : act k (t : AlgebraicClosure ℚ) = t :=
+    (IntermediateField.mem_fixingSubgroup_iff K k).mp hk _
+      (IntermediateField.subset_adjoin ℚ S ⟨t, ht, rfl⟩)
+  show g (k (t : AlgebraicClosure ℚ)) = g (t : AlgebraicClosure ℚ)
+  exact congrArg g hfix
+
+theorem galChar_isLocallyConstant {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) :
+    IsLocallyConstant (galChar χ) :=
+  show IsLocallyConstant (χ.toUnitHom ∘ cyc N) from (cyc_isLocallyConstant N).comp _
+
+/-- A square-root choice function on `ℂ^×`. -/
+noncomputable def sqrtU (z : ℂˣ) : ℂˣ :=
+  have h : ∃ w : ℂ, w ^ 2 = z := IsAlgClosed.exists_pow_nat_eq (z : ℂ) (by norm_num)
+  Units.mk0 (Classical.choose h) (by
+    intro h0
+    have := Classical.choose_spec h
+    rw [h0] at this
+    exact z.ne_zero (by rw [← this]; ring))
+
+theorem sqrtU_sq (z : ℂˣ) : sqrtU z ^ 2 = z := by
+  apply Units.ext
+  simp only [sqrtU, Units.val_pow_eq_pow_val, Units.val_mk0]
+  exact Classical.choose_spec (IsAlgClosed.exists_pow_nat_eq (z : ℂ) (by norm_num : 0 < 2))
 
 end GlueDescent.B2Q
