@@ -182,8 +182,9 @@ structure Objects where
   deg : {K : NF} → {A B : AV K} → Isog A B → ℕ
   /-- the stable Faltings height, original normalization -/
   hF : {K : NF} → AV K → ℝ
-  /-- the Jacobian of `y² = a ∏ (X - rᵢ)` over `K`, with its canonical principal polarization -/
-  jac : {K : NF} → K → (Fin 6 → K) → AV K
+  /-- the Jacobian of `y² = f(X)` over `K` (`f` separable of degree 6), with its canonical
+  principal polarization -/
+  jac : {K : NF} → Polynomial K → AV K
   /-- `J₁(N)` base-changed from `ℚ` to `K` -/
   J1 : (K : NF) → ℕ → AV K
 
@@ -216,13 +217,16 @@ def FaltingsHeightVariation : Prop :=
 def BostLower : Prop :=
   ∀ (K : NF) (A : O.AV K), -(3 / 2 : ℝ) * O.dim A ≤ O.hF A
 
-/-- **L12 (Pazuki 2012, Cor. 1.3(2), `g = 2`, `r = 2`, Deligne metric; with Thomae's formula).**
-For a genus-2 curve `y² = a ∏ (X - rᵢ)` over `K`, the Thomae point has absolute log height at
-most `4(½X_D + C₂ log(X_D + 2))`, `X_D = max(1, h_F(Jac) + log π)`, `C₂ = 1000·2⁴(log 2⁴)⁵`.
-(Pazuki's Euclidean height dominates the sup-norm Weil height; `h([θ⁴]) = 4h([θ])`.) -/
+/-- **L12 (Pazuki 2012, Cor. 1.3(2), `g = 2`, `r = 2`, Deligne metric; with Thomae's formula and
+the invariance of the stable Faltings height under extension of the base field).** Let
+`y² = f(X)` be a genus-2 curve over `K`, and `ι : K → K₂` an extension over which
+`f = a ∏ (X - rᵢ)`. The Thomae point has absolute log height at most `4(½X_D + C₂ log(X_D + 2))`,
+`X_D = max(1, h_F(Jac) + log π)`, `C₂ = 1000·2⁴(log 2⁴)⁵`. (Pazuki's Euclidean height dominates
+the sup-norm Weil height; `h([θ⁴]) = 4h([θ])`.) -/
 def PazukiThomae : Prop :=
-  ∀ (K : NF) (a : K) (r : Fin 6 → K), IsGenus2 a r →
-    let XD := max 1 (O.hF (O.jac a r) + Real.log Real.pi)
+  ∀ (K K₂ : NF) (ι : K →+* K₂) (f : Polynomial K) (a : K₂) (r : Fin 6 → K₂),
+    IsGenus2 a r → f.map ι = sextic a r →
+    let XD := max 1 (O.hF (O.jac f) + Real.log Real.pi)
     absLogHeight (thomae r) ≤
       4 * (XD / 2 + 1000 * 2 ^ 4 * Real.log (2 ^ 4) ^ 5 * Real.log (XD + 2))
 
@@ -465,17 +469,20 @@ def SixContactMinAt (S : Finset ℕ) : Prop :=
 def Qc : ℝ := heightQ (heightD : ℝ)
 
 /-- **What L1-L7 and the glue G1-G17 deliver** (N5 L405-867 on route K; note §4): for
-`u ∈ ℚ \ 𝒞` there are a number field `K` with `[K:ℚ] ≤ Q·M` (N5's `L'`), a genus-2 sextic over
-`K` on the QM locus over `J(u)`, and a `K`-isogeny `J₁(N) → Jac(C) × Z` with `N ≤ Q·M²`,
+`u ∈ ℚ \ 𝒞` there are a number field `K` with `[K:ℚ] ≤ Q·M` (N5's `L'`), a genus-2 curve
+`y² = f(X)` over `K` (the fibre surface is its Jacobian, foundation F-e: Weil 1957) whose roots,
+in an extension `K₂`, put it on the QM locus over `J(u)` (leaf L2), and a `K`-isogeny
+`J₁(N) → Jac(C) × Z` with `N ≤ Q·M²`,
 `M = M_S(u)` (used at `S = Mult.S_mul`). The CM alternative of N5 is excluded by NoCM (glue G8).
 It is a lemma of the decomposition, not a leaf. -/
 def ModularityOutput (S : Finset ℕ) : Prop :=
   ∀ u : ℚ, u ∉ contactSet →
-    ∃ (K : NF) (a : K) (r : Fin 6 → K), IsGenus2 a r ∧
-      OnQMLocus a r ((Jmap u : ℚ) : K) ∧
+    ∃ (K : NF) (f : Polynomial K),
       (Module.finrank ℚ K : ℝ) ≤ Qc * contactSupport S u ∧
+      (∃ (K₂ : NF) (ι : K →+* K₂) (a : K₂) (r : Fin 6 → K₂), IsGenus2 a r ∧
+        f.map ι = sextic a r ∧ OnQMLocus a r ((Jmap u : ℚ) : K₂)) ∧
       ∃ N : ℕ, 1 ≤ N ∧ (N : ℝ) ≤ Qc * (contactSupport S u : ℝ) ^ 2 ∧
-        ∃ Z : O.AV K, Nonempty (O.Isog (O.J1 K N) (O.prod (O.jac a r) Z))
+        ∃ Z : O.AV K, Nonempty (O.Isog (O.J1 K N) (O.prod (O.jac f) Z))
 
 /-- **Glue G18-G23 (E2-E4, F1-F3 with Thomae).** From the Arakelov leaves and the output of the
 modularity half, the `j`-form of H. To be proved: E's arithmetic is wk-h's `transfer_numerics`

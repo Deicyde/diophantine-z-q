@@ -48,3 +48,12 @@
   jHeightBoundAt_of_leaves). #print axioms: j_eq_of_onQMLocus and
   sixContactMinAt_of_jHeightBoundAt: [propext, Classical.choice, Quot.sound];
   sixContactMinAt_of_leaves: adds sorryAx.
+
+## Step 4 (Lean refinement)
+- `Objects.jac` now takes a sextic f ∈ K[X]; PazukiThomae quantifies over an extension ι : K → K₂
+  where f splits (stable-height invariance folded into L12); ModularityOutput gives f over K
+  ([K:Q] ≤ QM, N5's L') with roots in K₂ on the QM locus. Reason: the curve C with Jac C ≅ A is
+  defined over L' (genus-2 descent, F-e) but its Weierstrass points are not; GR14 must be applied
+  over L' with d' ≤ QM.
+- Compile OK; same axioms output; one sorry (jHeightBoundAt_of_leaves).
+- Check: |GL4(Z/4)| = 20160·2^16 = 1321205760 ≤ G0 = 116064000000 (route K uses A[4] at p = 3).
