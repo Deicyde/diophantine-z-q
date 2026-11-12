@@ -291,6 +291,171 @@ theorem isCyclic_gal {m : ℕ} [NeZero m] (hm : ¬ p ∣ m) [IsCyclotomicExtensi
 
 end GlueSqrtLocal
 
+namespace GlueSqrtLocal
+
+/-! Copied from `scratch/glue-sqrt-local/SqrtLocal.lean` (glue-sqrt-local). -/
+
+
+
+
+/-! Copied verbatim from `scratch/glue-I6-rest/SqrtChar.lean` (glue-I6-rest). -/
+/-- `χ : Γ → ℚ/ℤ` is twice a character iff `χ` vanishes on the `2`-torsion `Γ[2]`. -/
+theorem exists_half_iff {Γ : Type} [AddCommGroup Γ] (χ : Γ →+ AddCircle (1 : ℚ)) :
+    (∃ ψ : Γ →+ AddCircle (1 : ℚ), ∀ g, 2 • ψ g = χ g) ↔ ∀ g : Γ, 2 • g = 0 → χ g = 0 := by
+  constructor
+  · rintro ⟨ψ, hψ⟩ g hg
+    rw [← hψ, ← map_nsmul, hg, map_zero]
+  · intro h
+    let d : Γ →+ Γ :=
+      { toFun := fun g => 2 • g, map_zero' := smul_zero 2, map_add' := fun a b => smul_add 2 a b }
+    have hker : d.ker ≤ χ.ker := fun g hg => h g (AddMonoidHom.mem_ker.mp hg)
+    let χq := QuotientAddGroup.lift d.ker χ hker
+    let e := QuotientAddGroup.quotientKerEquivRange d
+    let χr : d.range →+ AddCircle (1 : ℚ) := χq.comp e.symm.toAddMonoidHom
+    obtain ⟨ψ, hψ⟩ := CharacterModule.dual_surjective_of_injective (R := ℤ)
+      d.range.subtype.toIntLinearMap Subtype.val_injective χr
+    refine ⟨ψ, fun g => ?_⟩
+    have hm : d g ∈ d.range := AddMonoidHom.mem_range.mpr ⟨g, rfl⟩
+    have h1 := DFunLike.congr_fun hψ ⟨d g, hm⟩
+    have h2 : e.symm ⟨d g, hm⟩ = (g : Γ ⧸ d.ker) := by
+      rw [AddEquiv.symm_apply_eq]; rfl
+    calc 2 • ψ g = ψ (d g) := (map_nsmul ψ 2 g).symm
+      _ = χr ⟨d g, hm⟩ := h1
+      _ = χ g := by
+        simp only [χr, AddMonoidHom.comp_apply, AddEquiv.coe_toAddMonoidHom, h2, χq,
+          QuotientAddGroup.lift_mk]
+
+
+/-- Odd prime powers: `p^k ∣ x² - 1` forces `p^k ∣ x - 1` or `p^k ∣ x + 1`. -/
+theorem dvd_sub_or_add_of_dvd_sq_sub_one_odd {p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) (k : ℕ)
+    {x : ℤ} (h : (p : ℤ) ^ k ∣ x ^ 2 - 1) : (p : ℤ) ^ k ∣ x - 1 ∨ (p : ℤ) ^ k ∣ x + 1 := by
+  have hpZ : Prime (p : ℤ) := Nat.prime_iff_prime_int.mp hp
+  have hfac : x ^ 2 - 1 = (x - 1) * (x + 1) := by ring
+  rw [hfac] at h
+  by_cases h1 : (p : ℤ) ∣ x + 1
+  · by_cases h2 : (p : ℤ) ∣ x - 1
+    · exfalso
+      have h3 : (p : ℤ) ∣ 2 := by
+        have := dvd_sub h1 h2
+        rwa [show x + 1 - (x - 1) = 2 by ring] at this
+      have h4 : p ∣ 2 := by exact_mod_cast h3
+      rcases (Nat.dvd_prime Nat.prime_two).mp h4 with h5 | h5
+      · exact hp.ne_one h5
+      · exact hp2 h5
+    · right
+      have hc : IsCoprime ((p : ℤ) ^ k) (x - 1) :=
+        ((Irreducible.coprime_iff_not_dvd hpZ.irreducible).mpr h2).pow_left
+      exact hc.dvd_of_dvd_mul_left h
+  · left
+    have hc : IsCoprime ((p : ℤ) ^ k) (x + 1) :=
+      ((Irreducible.coprime_iff_not_dvd hpZ.irreducible).mpr h1).pow_left
+    exact hc.dvd_of_dvd_mul_right h
+
+/-- All primes, losing one power of `p`: `p^{k+1} ∣ x² - 1` forces `p^k ∣ x ∓ 1`. -/
+theorem dvd_sub_or_add_of_dvd_sq_sub_one {p : ℕ} (hp : p.Prime) (k : ℕ)
+    {x : ℤ} (h : (p : ℤ) ^ (k + 1) ∣ x ^ 2 - 1) : (p : ℤ) ^ k ∣ x - 1 ∨ (p : ℤ) ^ k ∣ x + 1 := by
+  by_cases hp2 : p = 2
+  · subst hp2
+    rcases k with _ | j
+    · simp
+    have hfac : x ^ 2 - 1 = (x - 1) * (x + 1) := by ring
+    rw [hfac] at h
+    -- `x` is odd
+    have h2 : (2 : ℤ) ∣ (x - 1) * (x + 1) := dvd_trans (dvd_pow_self (2 : ℤ) (by omega : j + 1 + 1 ≠ 0)) (by exact_mod_cast h)
+    have hx : (2 : ℤ) ∣ x - 1 := by
+      rcases (Int.prime_two.dvd_or_dvd h2) with h3 | h3
+      · exact h3
+      · have := dvd_sub h3 (dvd_refl 2)
+        rwa [show x + 1 - 2 = x - 1 by ring] at this
+    obtain ⟨a, ha⟩ := hx
+    have hxa : x + 1 = 2 * (a + 1) := by linarith
+    rw [ha, hxa, show (2 * a) * (2 * (a + 1)) = 2 ^ 2 * (a * (a + 1)) by ring] at h
+    push_cast at h
+    rw [show j + 1 + 1 = 2 + j by ring, pow_add] at h
+    have h' : (2 : ℤ) ^ j ∣ a * (a + 1) := (mul_dvd_mul_iff_left (by norm_num)).mp h
+    by_cases hev : (2 : ℤ) ∣ a
+    · left
+      have hc : IsCoprime ((2 : ℤ) ^ j) (a + 1) := by
+        refine IsCoprime.pow_left ((Irreducible.coprime_iff_not_dvd Int.prime_two.irreducible).mpr ?_)
+        intro hd
+        have := dvd_sub hd hev
+        rw [show a + 1 - a = 1 by ring] at this
+        norm_num at this
+      have := hc.dvd_of_dvd_mul_right h'
+      push_cast
+      rw [ha, pow_succ, mul_comm]
+      exact mul_dvd_mul_left 2 this
+    · right
+      have hc : IsCoprime ((2 : ℤ) ^ j) a :=
+        ((Irreducible.coprime_iff_not_dvd Int.prime_two.irreducible).mpr hev).pow_left
+      have := hc.dvd_of_dvd_mul_left h'
+      push_cast
+      rw [hxa, pow_succ, mul_comm]
+      exact mul_dvd_mul_left 2 this
+  · exact dvd_sub_or_add_of_dvd_sq_sub_one_odd hp hp2 k
+      (dvd_trans (pow_dvd_pow _ (Nat.le_succ k)) h)
+
+
+/-- Reduction `(ℤ/p^{k+1})ˣ → (ℤ/p^k)ˣ`. -/
+noncomputable def redU (p k : ℕ) : (ZMod (p ^ (k + 1)))ˣ →* (ZMod (p ^ k))ˣ :=
+  Units.map (ZMod.castHom (pow_dvd_pow p (Nat.le_succ k)) (ZMod (p ^ k))).toMonoidHom
+
+theorem redU_val (p k : ℕ) (u : (ZMod (p ^ (k + 1)))ˣ) :
+    ((redU p k u : (ZMod (p ^ k))ˣ) : ZMod (p ^ k)) =
+      ZMod.castHom (pow_dvd_pow p (Nat.le_succ k)) (ZMod (p ^ k)) u := rfl
+
+theorem redU_neg_one (p k : ℕ) : redU p k (-1) = -1 := by
+  ext; rw [redU_val]; simp only [Units.val_neg, Units.val_one, map_neg, map_one]
+
+theorem intCast_eq_one_or_neg_one {n : ℕ} {x : ℤ} (h : (n : ℤ) ∣ x - 1 ∨ (n : ℤ) ∣ x + 1) :
+    (x : ZMod n) = 1 ∨ (x : ZMod n) = -1 := by
+  rcases h with h | h
+  · left
+    have : ((x - 1 : ℤ) : ZMod n) = 0 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mpr h
+    push_cast at this
+    exact sub_eq_zero.mp this
+  · right
+    have : ((x + 1 : ℤ) : ZMod n) = 0 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mpr h
+    push_cast at this
+    exact eq_neg_of_add_eq_zero_left this
+
+theorem dvd_of_sq_eq_one {n : ℕ} (u : (ZMod n)ˣ) (hu : u ^ 2 = 1) {x : ℤ}
+    (hx : (x : ZMod n) = u) : (n : ℤ) ∣ x ^ 2 - 1 := by
+  have : ((x ^ 2 - 1 : ℤ) : ZMod n) = 0 := by
+    push_cast
+    rw [hx, ← Units.val_pow_eq_pow_val, hu]
+    simp
+  exact (ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mp this
+
+/-- For odd `p`, the only square roots of `1` in `(ℤ/p^k)ˣ` are `±1`. -/
+theorem units_sq_eq_one_odd {p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) (k : ℕ)
+    (u : (ZMod (p ^ k))ˣ) (hu : u ^ 2 = 1) : u = 1 ∨ u = -1 := by
+  obtain ⟨x, hx⟩ := ZMod.intCast_surjective (u : ZMod (p ^ k))
+  have h := dvd_of_sq_eq_one u hu hx
+  push_cast at h
+  have h2 := intCast_eq_one_or_neg_one (n := p ^ k) (x := x)
+    (by push_cast; exact dvd_sub_or_add_of_dvd_sq_sub_one_odd hp hp2 k h)
+  rw [hx] at h2
+  rcases h2 with h2 | h2
+  · left; ext; simpa using h2
+  · right; ext; simpa using h2
+
+/-- For every prime `p`, a square root of `1` in `(ℤ/p^{k+1})ˣ` reduces to `±1` in `(ℤ/p^k)ˣ`. -/
+theorem redU_sq_eq_one {p : ℕ} (hp : p.Prime) (k : ℕ) (u : (ZMod (p ^ (k + 1)))ˣ)
+    (hu : u ^ 2 = 1) : redU p k u = 1 ∨ redU p k u = -1 := by
+  obtain ⟨x, hx⟩ := ZMod.intCast_surjective (u : ZMod (p ^ (k + 1)))
+  have h := dvd_of_sq_eq_one u hu hx
+  push_cast at h
+  have h2 := intCast_eq_one_or_neg_one (n := p ^ k) (x := x)
+    (by push_cast; exact dvd_sub_or_add_of_dvd_sq_sub_one hp k h)
+  have hred : ((redU p k u : (ZMod (p ^ k))ˣ) : ZMod (p ^ k)) = (x : ZMod (p ^ k)) := by
+    rw [redU_val, ← hx, map_intCast]
+  rcases h2 with h2 | h2
+  · left; ext; rw [hred, h2]; simp
+  · right; ext; rw [hred, h2]; simp
+
+end GlueSqrtLocal
+
 namespace GlueSqrtDisj
 
 variable (p : ℕ) [hp : Fact p.Prime] (L : Type) [Field L] [Algebra ℚ_[p] L]
@@ -637,6 +802,136 @@ theorem galToProd_restrict [NeZero m] [IsCyclotomicExtension {p ^ k * m} ℚ_[p]
 
 end Disj
 
+
+/-! ### The local square-root criterion at a finite level, with the level change -/
+
+section Crit
+
+open GlueSqrtLocal
+
+variable {p L}
+
+/-- `Gal(ℚ_p(μ_{p^k m})/ℚ_p)` is commutative (it embeds in `(ℤ/p^k)ˣ × (ℤ/m)ˣ`). -/
+noncomputable abbrev galCommGroup (k m : ℕ) [NeZero m] (hcop : p.Coprime m)
+    [IsCyclotomicExtension {p ^ k * m} ℚ_[p] L] : CommGroup Gal(L/ℚ_[p]) :=
+  { (inferInstance : Group Gal(L/ℚ_[p])) with
+    mul_comm := fun a b => galToProd_injective (p := p) (L := L) k m hcop
+      (by rw [map_mul, map_mul, mul_comm]) }
+
+/-- **Local square-root criterion, finite level, every prime `p` (including `2`).**
+`K = ℚ_p(μ_{p^k m})` and `L = ℚ_p(μ_{p^{k+1} m'})` with `p ∤ m m'`, `m ∣ m'`, `K ⊆ L`, and
+`ord_{m'}(p) = 2 ord_m(p)` (e.g. `m' = p^{2f} - 1`, see `Level.lean`). Let `τ ∈ Gal(K/ℚ_p)` act
+by `ζ ↦ ζ⁻¹` on `μ_{p^k}` and trivially on `μ_m`. A `ℚ/ℤ`-character `χ` of `Gal(K/ℚ_p)`,
+inflated to `Gal(L/ℚ_p)`, is twice a character of `Gal(L/ℚ_p)` iff `χ(τ) = 0`. -/
+theorem sqrt_criterion_level (K : Type) [Field K] [Algebra ℚ_[p] K] [Algebra ℤ_[p] K]
+    [IsScalarTower ℤ_[p] ℚ_[p] K] [FiniteDimensional ℚ_[p] K] [IsGalois ℚ_[p] K]
+    (k m m' : ℕ) [NeZero m] [NeZero m'] (hcop : p.Coprime m) (hcop' : p.Coprime m')
+    [IsCyclotomicExtension {p ^ k * m} ℚ_[p] K] [IsCyclotomicExtension {p ^ (k + 1) * m'} ℚ_[p] L]
+    [Algebra K L] [IsScalarTower ℚ_[p] K L] (hm : m ∣ m')
+    (hord : orderOf (ZMod.unitOfCoprime p hcop') = 2 * orderOf (ZMod.unitOfCoprime p hcop))
+    (τ : Gal(K/ℚ_[p])) (hτ : galToProd (p := p) (L := K) k m τ = (-1, 1))
+    (χ : Additive Gal(K/ℚ_[p]) →+ AddCircle (1 : ℚ)) :
+    (∃ ψ : Additive Gal(L/ℚ_[p]) →+ AddCircle (1 : ℚ),
+        ∀ g : Gal(L/ℚ_[p]), 2 • ψ (Additive.ofMul g) = χ (Additive.ofMul (g.restrictNormal K))) ↔
+      χ (Additive.ofMul τ) = 0 := by
+  letI := galCommGroup (p := p) (L := L) (k + 1) m' hcop'
+  have hk : k ≤ k + 1 := Nat.le_succ k
+  have hres := fun g => galToProd_restrict (p := p) (L := L) (k + 1) m' K k m hk hm g
+  have hinjK := galToProd_injective (p := p) (L := K) k m hcop
+  let φ : Additive Gal(L/ℚ_[p]) →+ AddCircle (1 : ℚ) :=
+    χ.comp (MonoidHom.toAdditive (AlgEquiv.restrictNormalHom (F := ℚ_[p]) (K₁ := L) K))
+  have hφ : ∀ g : Gal(L/ℚ_[p]), φ (Additive.ofMul g) = χ (Additive.ofMul (g.restrictNormal K)) :=
+    fun g => rfl
+  have key : (∃ ψ : Additive Gal(L/ℚ_[p]) →+ AddCircle (1 : ℚ),
+      ∀ g : Gal(L/ℚ_[p]), 2 • ψ (Additive.ofMul g) = χ (Additive.ofMul (g.restrictNormal K))) ↔
+      (∃ ψ : Additive Gal(L/ℚ_[p]) →+ AddCircle (1 : ℚ), ∀ g, 2 • ψ g = φ g) :=
+    ⟨fun ⟨ψ, h⟩ => ⟨ψ, fun g => h (Additive.toMul g)⟩, fun ⟨ψ, h⟩ => ⟨ψ, fun g => h (Additive.ofMul g)⟩⟩
+  rw [key, exists_half_iff φ]
+  constructor
+  · intro h
+    obtain ⟨g0, hg0⟩ : ((-1 : (ZMod (p ^ (k + 1)))ˣ), (1 : (ZMod m')ˣ)) ∈
+        (galToProd (p := p) (L := L) (k + 1) m').range := by
+      rw [range_galToProd (k + 1) m' hcop']
+      exact ⟨Subgroup.mem_top _, Subgroup.one_mem _⟩
+    have hsq : g0 ^ 2 = 1 := galToProd_injective (p := p) (L := L) (k + 1) m' hcop' (by
+      rw [map_pow, hg0, map_one]
+      ext <;> simp)
+    have hr : g0.restrictNormal K = τ := by
+      apply hinjK
+      rw [hτ]
+      obtain ⟨h1, h2⟩ := hres g0
+      rw [hg0] at h1 h2
+      ext
+      · rw [h1]
+        first
+          | simp [-ZMod.castHom_apply]
+          | (dsimp only; rw [Units.val_neg, Units.val_one, map_neg, map_one, Units.val_neg,
+              Units.val_one])
+      · rw [h2]
+        first
+          | simp [-ZMod.castHom_apply]
+          | (dsimp only; rw [Units.val_one, map_one, Units.val_one])
+    have := h (Additive.ofMul g0) (by
+      change Additive.ofMul (g0 ^ 2) = Additive.ofMul 1
+      rw [hsq])
+    rw [hφ, hr] at this
+    exact this
+  · intro hχ g hg
+    set g' := Additive.toMul g with hg'def
+    have hgg : g = Additive.ofMul g' := rfl
+    have hg2 : g' ^ 2 = 1 := by
+      have := congrArg Additive.toMul hg
+      simpa [toMul_nsmul] using this
+    set a := (galToProd (p := p) (L := L) (k + 1) m' g').1 with ha_def
+    set b := (galToProd (p := p) (L := L) (k + 1) m' g').2 with hb_def
+    have hsq : galToProd (p := p) (L := L) (k + 1) m' g' ^ 2 = 1 := by
+      rw [← map_pow, hg2, map_one]
+    have ha : a ^ 2 = 1 := by rw [ha_def, ← Prod.pow_fst, hsq, Prod.fst_one]
+    have hb : b ^ 2 = 1 := by rw [hb_def, ← Prod.pow_snd, hsq, Prod.snd_one]
+    have hbmem : b ∈ Subgroup.zpowers (ZMod.unitOfCoprime p hcop') := by
+      have hmem : galToProd (p := p) (L := L) (k + 1) m' g' ∈
+          (galToProd (p := p) (L := L) (k + 1) m').range := ⟨g', rfl⟩
+      rw [range_galToProd (k + 1) m' hcop'] at hmem
+      exact hmem.2
+    obtain ⟨j, hj⟩ := Subgroup.mem_zpowers_iff.mp hbmem
+    have h2j : (orderOf (ZMod.unitOfCoprime p hcop') : ℤ) ∣ j * 2 := by
+      rw [orderOf_dvd_iff_zpow_eq_one, zpow_mul, hj]
+      exact_mod_cast hb
+    rw [hord] at h2j
+    push_cast at h2j
+    have hfj : (orderOf (ZMod.unitOfCoprime p hcop) : ℤ) ∣ j := by
+      rw [mul_comm j] at h2j
+      exact (mul_dvd_mul_iff_left (by norm_num : (2 : ℤ) ≠ 0)).mp h2j
+    have hbK : ZMod.castHom hm (ZMod m) (b : ZMod m') = 1 := by
+      have hU : Units.map (ZMod.castHom hm (ZMod m)).toMonoidHom (ZMod.unitOfCoprime p hcop') =
+          ZMod.unitOfCoprime p hcop := Units.ext (by simp)
+      have := congrArg (Units.map (ZMod.castHom hm (ZMod m)).toMonoidHom) hj
+      rw [map_zpow, hU, orderOf_dvd_iff_zpow_eq_one.mp hfj] at this
+      have := congrArg Units.val this
+      simpa using this.symm
+    obtain ⟨h1, h2⟩ := hres g'
+    rw [← ha_def] at h1
+    rw [← hb_def, hbK] at h2
+    have hsnd : (galToProd (p := p) (L := K) k m (g'.restrictNormal K)).2 = 1 := Units.ext h2
+    rw [hgg, hφ]
+    rcases redU_sq_eq_one hp.out k a ha with hpos | hneg
+    · have : g'.restrictNormal K = 1 := by
+        apply hinjK
+        rw [map_one]
+        ext
+        · rw [h1, ← redU_val, hpos]; rfl
+        · rw [hsnd]; rfl
+      rw [this]; exact map_zero χ
+    · have : g'.restrictNormal K = τ := by
+        apply hinjK
+        rw [hτ]
+        ext
+        · rw [h1, ← redU_val, hneg]
+        · rw [hsnd]
+      rw [this]; exact hχ
+
+end Crit
+
 end GlueSqrtDisj
 
 #print axioms GlueSqrtDisj.totient_mul_orderOf_le_finrank
@@ -647,3 +942,4 @@ end GlueSqrtDisj
 #print axioms GlueSqrtDisj.galToProd_fst_spec
 #print axioms GlueSqrtDisj.galToProd_snd_spec
 #print axioms GlueSqrtDisj.galToProd_restrict
+#print axioms GlueSqrtDisj.sqrt_criterion_level

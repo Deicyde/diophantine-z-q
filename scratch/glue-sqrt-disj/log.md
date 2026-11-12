@@ -27,3 +27,11 @@ Ambient: [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensiona
 - `galToProd_fst_spec` / `galToProd_snd_spec`: g x = x^{a.val} for all x with x^{p^k} = 1 (a = first component); g y = y^{b.val} for y^m = 1. VERIFIED.
 - `galToProd_restrict`: K of level p^{k'} m' (own ambient instances, [Algebra K L] [IsScalarTower ℚ_[p] K L]), k' ≤ k, m' ∣ m:
   galToProd_K (g.restrictNormal K) = (castHom of first comp, castHom of second comp) of galToProd_L g. VERIFIED (compiled 00:50 PST).
+- `galCommGroup k m hcop`: CommGroup on Gal(ℚ_p(μ_{p^k m})/ℚ_p) (embeds in (ZMod p^k)ˣ × (ZMod m)ˣ).
+- **`sqrt_criterion_level`** (compiled 00:52 PST; axioms propext, Classical.choice, Quot.sound): every prime p incl. 2.
+  K level p^k m, L level p^{k+1} m' (both IsCyclotomicExtension, own ambient instances), [Algebra K L] [IsScalarTower ℚ_[p] K L],
+  p coprime m, m', m ∣ m', ord_{m'}(p) = 2·ord_m(p); τ ∈ Gal(K/ℚ_p) with galToProd τ = (-1, 1); χ : Additive Gal(K/ℚ_p) →+ ℚ/ℤ.
+  Then (∃ ψ : Additive Gal(L/ℚ_p) →+ ℚ/ℤ, ∀ g, 2•ψ(g) = χ(g|_K)) ↔ χ(τ) = 0. VERIFIED.
+  Proof: exists_half_iff on Additive Gal(L); a 2-torsion g has galToProd g = (a, b), a² = 1 ⇒ a ≡ ±1 mod p^k (redU_sq_eq_one),
+  b = u'^j with 2f ∣ 2j ⇒ b ↦ 1 mod m; so g|_K ∈ {1, τ} by galToProd_restrict + injectivity; conversely g0 = galToProd⁻¹(-1,1) restricts to τ.
+- Copied verbatim into Disj.lean from glue-sqrt-local SqrtLocal.lean lines 84-242 (exists_half_iff, redU, redU_sq_eq_one and helpers), namespace GlueSqrtLocal.
