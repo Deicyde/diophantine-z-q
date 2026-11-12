@@ -98,3 +98,12 @@
 - n≡7 (16 values of n, δ² ≡ -n mod 128): M7² = -n, j² = 1, jM7j = -M7, O_K ⊂ M_0(32), α=√-n∈Z_2 with 64|α-δ and 2‖α+δ,
   ϖ^5 = (32,1), W^{-1}jϖ^5 ∈ U_0(32)_2 ✓. [∞]^W = [0] ✓.
 - Not checked by computation: facts (1)–(3) of L1383–1404 (from Tian 2014), Shimura reciprocity (STANDARD).
+
+## Step 7: computation torsion_H.py (PARI 2.17.2) → out_torsion_H.txt
+- Built H'_d = fixed field of σ_{1+2ϖ} (Artin symbol of (−1+2√−d)) in the ring class field H_{d,4} (= ray class field mod 4
+  of Q(√−d), d ≠ 1,3), and ℍ'_n = L_n(i)·Π_{d0|n, d0≡5(8)} H'_{d0}.
+- Every d0: [H_{d0,4}:Q] = 2[H'_{d0}:Q], √2 ∈ H_{d0,4}, √2 ∉ H'_{d0} (TYZ Prop 3.2(1)) ✓.
+- A(ℍ'_n)_tors = Z/4 × Z/2 (order 8 = A[(1+i)^3]) for n = 5, 7, 13, 15, 21, 39, 85 (two d0: 5, 85; degree 32),
+  165 (two d0: 5, 165; degree 64) ✓; √2 ∉ ℍ'_n, i ∈ ℍ'_n ✓. Control: A(H_{d0,4})_tors = (Z/4)² (order 16) ✓
+  (the method sees the extra 4-torsion when √2 is present). n = 221 stopped (degree ≥ 128). I4 VERIFIED on these cases.
+- Note: elltors over number fields in PARI is unconditional (reduction bounds + division polynomials).

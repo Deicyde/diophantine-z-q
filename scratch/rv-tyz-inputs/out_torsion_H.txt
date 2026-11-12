@@ -1,0 +1,50 @@
+  d0=5: Cl_4 cyc [4, 2], [H_d4:Q]=16, [H'_d:Q]=8, sqrt2 in H_d4: True, in H'_d: False
+n=5: d0 = [5], [HH'_n:Q] = 8  (0.0s)
+  nfinit done 0.0s  sqrt2 in HH'_n: False  i in HH'_n: True
+  A(HH'_n)_tors: order 8, structure [4, 2]  (0.0s)
+  RESULT OK
+  control A(H_{5,4})_tors: order 16, structure [4, 4] OK
+n=7: d0 = [], [HH'_n:Q] = 4  (0.0s)
+  nfinit done 0.0s  sqrt2 in HH'_n: False  i in HH'_n: True
+  A(HH'_n)_tors: order 8, structure [4, 2]  (0.0s)
+  RESULT OK
+  d0=13: Cl_4 cyc [4, 2], [H_d4:Q]=16, [H'_d:Q]=8, sqrt2 in H_d4: True, in H'_d: False
+n=13: d0 = [13], [HH'_n:Q] = 8  (0.0s)
+  nfinit done 0.0s  sqrt2 in HH'_n: False  i in HH'_n: True
+  A(HH'_n)_tors: order 8, structure [4, 2]  (0.0s)
+  RESULT OK
+  control A(H_{13,4})_tors: order 16, structure [4, 4] OK
+  d0=5: Cl_4 cyc [4, 2], [H_d4:Q]=16, [H'_d:Q]=8, sqrt2 in H_d4: True, in H'_d: False
+n=15: d0 = [5], [HH'_n:Q] = 16  (0.0s)
+  nfinit done 0.1s  sqrt2 in HH'_n: False  i in HH'_n: True
+  A(HH'_n)_tors: order 8, structure [4, 2]  (0.1s)
+  RESULT OK
+  control A(H_{5,4})_tors: order 16, structure [4, 4] OK
+  d0=21: Cl_4 cyc [4, 2, 2], [H_d4:Q]=32, [H'_d:Q]=16, sqrt2 in H_d4: True, in H'_d: False
+n=21: d0 = [21], [HH'_n:Q] = 16  (0.2s)
+  nfinit done 0.2s  sqrt2 in HH'_n: False  i in HH'_n: True
+  A(HH'_n)_tors: order 8, structure [4, 2]  (0.2s)
+  RESULT OK
+  control A(H_{21,4})_tors: order 16, structure [4, 4] OK
+  d0=13: Cl_4 cyc [4, 2], [H_d4:Q]=16, [H'_d:Q]=8, sqrt2 in H_d4: True, in H'_d: False
+n=39: d0 = [13], [HH'_n:Q] = 16  (0.1s)
+  nfinit done 0.1s  sqrt2 in HH'_n: False  i in HH'_n: True
+  A(HH'_n)_tors: order 8, structure [4, 2]  (0.1s)
+  RESULT OK
+  control A(H_{13,4})_tors: order 16, structure [4, 4] OK
+  d0=5: Cl_4 cyc [4, 2], [H_d4:Q]=16, [H'_d:Q]=8, sqrt2 in H_d4: True, in H'_d: False
+  d0=85: Cl_4 cyc [4, 2, 2], [H_d4:Q]=32, [H'_d:Q]=16, sqrt2 in H_d4: True, in H'_d: False
+n=85: d0 = [5, 85], [HH'_n:Q] = 32  (0.7s)
+  nfinit done 0.9s  sqrt2 in HH'_n: False  i in HH'_n: True
+  A(HH'_n)_tors: order 8, structure [4, 2]  (0.9s)
+  RESULT OK
+  control A(H_{5,4})_tors: order 16, structure [4, 4] OK
+  d0=5: Cl_4 cyc [4, 2], [H_d4:Q]=16, [H'_d:Q]=8, sqrt2 in H_d4: True, in H'_d: False
+  d0=165: Cl_4 cyc [4, 2, 2, 2], [H_d4:Q]=64, [H'_d:Q]=32, sqrt2 in H_d4: True, in H'_d: False
+n=165: d0 = [5, 165], [HH'_n:Q] = 64  (22.4s)
+  nfinit done 30.4s  sqrt2 in HH'_n: False  i in HH'_n: True
+  A(HH'_n)_tors: order 8, structure [4, 2]  (31.1s)
+  RESULT OK
+  control A(H_{5,4})_tors: order 16, structure [4, 4] OK
+  d0=13: Cl_4 cyc [4, 2], [H_d4:Q]=16, [H'_d:Q]=8, sqrt2 in H_d4: True, in H'_d: False
+  (n=221 = 13*17 stopped after ~3 min CPU: compositum of degree >= 128 too large; not a result)
