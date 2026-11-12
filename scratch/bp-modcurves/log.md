@@ -15,3 +15,10 @@
   `lake env lean`: exit 0, no warnings; axioms propext, Classical.choice, Quot.sound. VERIFIED.
 - 12:00 `tate_check.py`: symbolic order of (0,0) on Kubert's genus-0 families for N = 4..10 is exactly N
   (families from memory; all 7 confirmed by the computation). A remembered N = 12 family failed and was dropped. VERIFIED (computed).
+- 12:02 `Jacobian.lean`: `AbVar` (copied from pkg-I3), `IsCurve`, `IsJacobian X P₀ J aj` (Albanese
+  property), `JacobianExists K` (leaf statement, a Prop), `IsJacobian.unique` (two Jacobians are
+  isomorphic by a unique homomorphism compatible with aj; proved), `jacobian`, `jacobian_spec`.
+  `lake env lean`: exit 0, no warnings; axioms propext, Classical.choice, Quot.sound. VERIFIED.
+- 12:04 `TateNormalForm.lean` extended: `tateNF_Δ` (Δ = b³(16b² − 8bc² − 20bc + b + c(c−1)³), factor
+  first computed by sympy), `tateNF_b_ne_zero` (IsElliptic ⇒ b ≠ 0), `tateNF_unique'` (IsElliptic form).
+  `lake env lean`: exit 0, no warnings; standard axioms. VERIFIED.

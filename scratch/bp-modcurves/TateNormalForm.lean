@@ -135,7 +135,28 @@ theorem tateNF_unique (b c b' c' : K) (hb : b ≠ 0) (C : VariableChange K)
   subst hr ht hs hU
   rfl
 
+/-- The discriminant of the Tate normal form: `Δ(b,c) = b³(16b² − 8bc² − 20bc + b + c(c−1)³)`. -/
+theorem tateNF_Δ (b c : K) : (tateNF b c).Δ =
+    b ^ 3 * (16 * b ^ 2 - 8 * b * c ^ 2 - 20 * b * c + b + c * (c - 1) ^ 3) := by
+  simp only [WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄, WeierstrassCurve.b₆,
+    WeierstrassCurve.b₈, tateNF]
+  ring
+
+theorem tateNF_b_ne_zero (b c : K) [(tateNF b c).IsElliptic] : b ≠ 0 := by
+  intro hb
+  have h := (tateNF b c).isUnit_Δ
+  rw [tateNF_Δ, hb] at h
+  simp at h
+
+/-- Uniqueness of the Tate normal form, for elliptic `E(b, c)`. -/
+theorem tateNF_unique' (b c b' c' : K) [(tateNF b c).IsElliptic] (C : VariableChange K)
+    (hC : C • tateNF b c = tateNF b' c') (hr : C.r = 0) (ht : C.t = 0) :
+    C = 1 ∧ b = b' ∧ c = c' :=
+  tateNF_unique b c b' c' (tateNF_b_ne_zero b c) C hC hr ht
+
 end BPModCurves
 
 #print axioms BPModCurves.exists_tateNF
 #print axioms BPModCurves.tateNF_unique
+#print axioms BPModCurves.tateNF_unique'
+#print axioms BPModCurves.tateNF_Δ
