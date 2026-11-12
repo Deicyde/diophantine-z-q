@@ -23,3 +23,6 @@
 - `card_quotient_maximalIdeal`: Nat.card (ℤ_[p] ⧸ maximalIdeal) = p. VERIFIED.
 - `exists_frobenius`: L/ℚ_p finite Galois (with [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L]) → ∃ σ ∈ Gal(L/ℚ_p), ∀ m, ¬p∣m → ∀ ζ, ζ^m = 1 → σ ζ = ζ^p. VERIFIED.
   Proof: S = integralClosure ℤ_[p] L; IsGaloisGroup.of_isFractionRing; IsIntegralClosure.finite; Q maximal over (p) (exists_maximal_ideal_liesOver_of_isIntegral); S/Q finite; IsArithFrobAt.exists_of_isInvariant; IsArithFrobAt.apply_of_pow_eq_one.
+- `eq_of_pow_eq_one_of_sub_mem`: in a domain, m-th roots of unity x, y with x - y ∈ Q, (m:R) ∉ Q are equal. VERIFIED.
+- `pow_frobenius_of_isLocalRing`: if IsLocalRing (integralClosure ℤ_[p] L), every τ ∈ Gal(L/ℚ_p) has n with τ ζ = ζ^(p^n) for all prime-to-p roots of unity ζ. VERIFIED (compiled; the locality of the integral closure is a hypothesis, STANDARD, not proved).
+  Proof: τ stabilizes the maximal ideal; stabilizerHom τ ∈ Gal((S/Q)/𝔽_p) = ⟨Frob⟩ (FiniteField.bijective_frobeniusAlgEquivOfAlgebraic_pow); roots of unity separate mod Q.
