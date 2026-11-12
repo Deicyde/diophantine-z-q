@@ -19,3 +19,7 @@
   `SwanIntegral` (L8).
 - Fix needed on first compile: `(decomp p).continuous` does not exist; used
   `(Field.absoluteGaloisGroup.map _).continuous_toFun`. VERIFIED.
+- 23:52 PST: added `codimInv_le`, `integral_codim_le` (right side of L8 `≤ n·U` when `ρ` is trivial
+  on `G^u`, `u > U`; non-integrable case via `integral_undef`), `condAt_le_of_upper`
+  (`a(ρ) ≤ n(1+U)` from `SwanIntegral`): glue-conductor D4(i) consumer. Compiles, axioms
+  [propext, Classical.choice, Quot.sound]. VERIFIED.

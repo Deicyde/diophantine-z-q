@@ -470,6 +470,55 @@ def SwanIntegral : Prop :=
     ∀ L : Fld p, IsAdapted L ρ →
       (swanAt L ρ : ℝ) = ∫ u in Set.Ioi (0 : ℝ), (codimInv ρ (upperAbs p u) : ℝ)
 
+/-! ### Consumer: glue-conductor's D4(i) from L8 (GLUE, proved) -/
+
+theorem codimInv_le (ρ : GQp p →* GL (Fin n) k) (S : Set (GQp p)) : codimInv ρ S ≤ n :=
+  Nat.sub_le _ _
+
+open MeasureTheory in
+/-- If `ρ` is trivial on `G^u` for every `u > U ≥ 0`, the right side of L8 is `≤ n·U`. (If the
+integrand is not integrable, Mathlib's integral is `0` and the bound is trivial.) -/
+theorem integral_codim_le (ρ : GQp p →* GL (Fin n) k) (U : ℝ) (hU : 0 ≤ U)
+    (h : ∀ u : ℝ, U < u → ∀ σ ∈ upperAbs p u, ρ σ = 1) :
+    ∫ u in Set.Ioi (0 : ℝ), (codimInv ρ (upperAbs p u) : ℝ) ≤ n * U := by
+  set f : ℝ → ℝ := fun u => (codimInv ρ (upperAbs p u) : ℝ) with hf
+  set g : ℝ → ℝ := (Set.Ioc 0 U).indicator (fun _ => (n : ℝ)) with hg
+  have hle : ∀ u ∈ Set.Ioi (0 : ℝ), f u ≤ g u := by
+    intro u hu
+    by_cases huU : u ≤ U
+    · have : u ∈ Set.Ioc 0 U := ⟨hu, huU⟩
+      simp only [hf, hg, Set.indicator_of_mem this]
+      exact_mod_cast codimInv_le ρ _
+    · have h0 : codimInv ρ (upperAbs p u) = 0 := codimInv_eq_zero (h u (lt_of_not_ge huU))
+      simp only [hf, h0, Nat.cast_zero]
+      exact Set.indicator_nonneg (fun _ _ => Nat.cast_nonneg n) u
+  have hgi : ∫ u in Set.Ioi (0 : ℝ), g u = n * U := by
+    rw [hg, setIntegral_indicator measurableSet_Ioc,
+      Set.inter_eq_right.mpr Set.Ioc_subset_Ioi_self, setIntegral_const]
+    simp [Real.volume_real_Ioc_of_le hU, mul_comm]
+  have hgint : IntegrableOn g (Set.Ioi (0 : ℝ)) := by
+    rw [IntegrableOn, hg, integrable_indicator_iff measurableSet_Ioc]
+    refine IntegrableOn.restrict ?_
+    exact integrableOn_const (by simp [Real.volume_Ioc])
+  by_cases hfi : IntegrableOn f (Set.Ioi (0 : ℝ))
+  · rw [← hgi]
+    exact setIntegral_mono_on hfi hgint measurableSet_Ioi hle
+  · rw [integral_undef hfi]
+    positivity
+
+/-- **D4(i) from L8 (GLUE, proved).** For continuous ℓ-adic `ρ`, `ℓ ≠ p`, trivial on `G^u` for
+`u > U ≥ 0`, and `L` adapted: `a(ρ) = codim V^I + Sw_L(ρ) ≤ n(1 + U)`. -/
+theorem condAt_le_of_upper (hL8 : SwanIntegral) (ℓ : ℕ) [Fact ℓ.Prime] (hp : p ≠ ℓ)
+    (ρ : GQp p →* GL (Fin n) (PadicAlgCl ℓ)) (hc : Continuous ρ) (L : Fld p)
+    (hL : IsAdapted L ρ) (U : ℝ) (hU : 0 ≤ U)
+    (h : ∀ u : ℝ, U < u → ∀ σ ∈ upperAbs p u, ρ σ = 1) :
+    (condAt L ρ : ℝ) ≤ n * (1 + U) := by
+  have h1 : ((codimInv ρ inertiaSet : ℕ) : ℝ) ≤ n := by exact_mod_cast codimInv_le ρ _
+  have h2 := integral_codim_le ρ U hU h
+  rw [← hL8 ℓ p hp n ρ hc L hL] at h2
+  rw [condAt, Rat.cast_add, Rat.cast_natCast]
+  linarith
+
 end LadicCond
 
 end
@@ -480,3 +529,5 @@ end
 #print axioms LadicCond.condExp_eq_condAt
 #print axioms LadicCond.carayolR17_of_R17'
 #print axioms LadicCond.carayolR17'_of_R17
+#print axioms LadicCond.integral_codim_le
+#print axioms LadicCond.condAt_le_of_upper
