@@ -19,3 +19,8 @@
 - Leaves statable now (def : Prop): EigenformRepExists, EigenformHT (new: statable thanks to htMult), DeligneSerreFinite, EigenformTwist, NewformOfEigenform (new), CarayolUnramified (new).
 - Templates (not leaves): PanFor IsPst, BergerFor IsDR IsPst, CarayolFor a.
 - Glue proved: weight_match (Tate normalization, multisets), weight_match_coh (Pan normalization).
+
+## Step 3: research note docs/research/pkg-I4.md (first version)
+- Per-input analysis §1 (10 inputs), readings §2 (Pan trace form: normalization-independence argument; pst vs dR and the merged leaf Pan∘Berger; HT convention check V=ℚ_p(1) ↦ weight −1; newforms via old space), Lean §3, coarse alternative §4, glue §5, obstacle §6.
+- Correction recorded: Pan's hypothesis is pst (h-a011 §1.1), not de Rham (task statement, wk-h §2).
+- Correction recorded: HT representations are cheap over Mathlib v4.35 (wk-h §3.1 and hdec-faithful said "large").
