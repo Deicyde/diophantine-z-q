@@ -801,6 +801,487 @@ end PkgI1
 end
 end PkgI1Sec
 
+section GlueA6AlgSec
+/-! ### Copied from `scratch/glue-a6-alg/A6.lean` lines 47-521 (compiled there; hsyn-fold). -/
+
+namespace GlueA6Alg.Alg
+
+lemma three_prime : Prime (3 : ℤ) := Int.prime_iff_natAbs_prime.mpr Nat.prime_three
+
+lemma dvd_of_dvd_two_mul {a y : ℤ} (ha : ¬ (3 : ℤ) ∣ a) (h : (3 : ℤ) ∣ 2 * a * y) : (3 : ℤ) ∣ y := by
+  rcases three_prime.dvd_or_dvd h with h' | h'
+  · rcases three_prime.dvd_or_dvd h' with h'' | h''
+    · norm_num at h''
+    · exact absurd h'' ha
+  · exact h'
+
+lemma nine_dvd_of_dvd_two_mul {a y : ℤ} (ha : ¬ (3 : ℤ) ∣ a) (h : (9 : ℤ) ∣ 2 * a * y) :
+    (9 : ℤ) ∣ y := by
+  have h3 : (3 : ℤ) ∣ y := dvd_of_dvd_two_mul ha (dvd_trans ⟨3, by norm_num⟩ h)
+  obtain ⟨y', rfl⟩ := h3
+  have h' : (3 : ℤ) ∣ 2 * a * y' := by
+    have : (3 : ℤ) * 3 ∣ 3 * (2 * a * y') := by
+      have e : (3 : ℤ) * (2 * a * y') = 2 * a * (3 * y') := by ring
+      rw [e]; simpa using h
+    exact (mul_dvd_mul_iff_left (by norm_num : (3 : ℤ) ≠ 0)).mp this
+  have := dvd_of_dvd_two_mul ha h'
+  obtain ⟨z, rfl⟩ := this
+  exact ⟨z, by ring⟩
+
+lemma zmod3_aniso : ∀ x y : ZMod 3, 2 * y ^ 2 - x ^ 2 = 0 → x = 0 ∧ y = 0 := by decide
+
+/-- Base case: `9 ∣` every coordinate of `x²` implies `3 ∣` every coordinate of `x`. -/
+lemma quat_base (a b c d : ℤ) (h1 : (9 : ℤ) ∣ a ^ 2 + 2 * b ^ 2 - 3 * c ^ 2 + 6 * d ^ 2)
+    (h2 : (9 : ℤ) ∣ 2 * a * b) (h3 : (9 : ℤ) ∣ 2 * a * c) (h4 : (9 : ℤ) ∣ 2 * a * d) :
+    (3 : ℤ) ∣ a ∧ (3 : ℤ) ∣ b ∧ (3 : ℤ) ∣ c ∧ (3 : ℤ) ∣ d := by
+  have ha : (3 : ℤ) ∣ a := by
+    by_contra ha
+    have hb := nine_dvd_of_dvd_two_mul ha h2
+    have hc := nine_dvd_of_dvd_two_mul ha h3
+    have hd := nine_dvd_of_dvd_two_mul ha h4
+    have e : a ^ 2 = (a ^ 2 + 2 * b ^ 2 - 3 * c ^ 2 + 6 * d ^ 2) - (2 * b) * b + (3 * c) * c
+        - (6 * d) * d := by ring
+    have h9 : (9 : ℤ) ∣ a ^ 2 := by
+      rw [e]
+      exact dvd_sub (dvd_add (dvd_sub h1 (Dvd.dvd.mul_left hb _)) (Dvd.dvd.mul_left hc _))
+        (Dvd.dvd.mul_left hd _)
+    exact ha (three_prime.dvd_of_dvd_pow (dvd_trans ⟨3, by norm_num⟩ h9))
+  obtain ⟨a', rfl⟩ := ha
+  have hb : (3 : ℤ) ∣ b := by
+    have e : 2 * b ^ 2 = ((3 * a') ^ 2 + 2 * b ^ 2 - 3 * c ^ 2 + 6 * d ^ 2) - 3 * (3 * a' ^ 2)
+        + 3 * (c ^ 2) - 3 * (2 * d ^ 2) := by ring
+    have h3b : (3 : ℤ) ∣ 2 * b ^ 2 := by
+      rw [e]
+      exact dvd_sub (dvd_add (dvd_sub (dvd_trans ⟨3, by norm_num⟩ h1) (dvd_mul_right _ _))
+        (dvd_mul_right _ _)) (dvd_mul_right _ _)
+    rcases three_prime.dvd_or_dvd h3b with h | h
+    · norm_num at h
+    · exact three_prime.dvd_of_dvd_pow h
+  obtain ⟨b', rfl⟩ := hb
+  have hcd : (3 : ℤ) ∣ 2 * d ^ 2 - c ^ 2 := by
+    have e : (3 : ℤ) * (2 * d ^ 2 - c ^ 2) = ((3 * a') ^ 2 + 2 * (3 * b') ^ 2 - 3 * c ^ 2
+        + 6 * d ^ 2) - 9 * (a' ^ 2 + 2 * b' ^ 2) := by ring
+    have : (3 : ℤ) * 3 ∣ 3 * (2 * d ^ 2 - c ^ 2) := by
+      rw [e]; exact dvd_sub (by simpa using h1) (dvd_mul_right _ _)
+    exact (mul_dvd_mul_iff_left (by norm_num : (3 : ℤ) ≠ 0)).mp this
+  have hz : (((2 * d ^ 2 - c ^ 2 : ℤ)) : ZMod 3) = 0 :=
+    (ZMod.intCast_zmod_eq_zero_iff_dvd _ 3).mpr (by exact_mod_cast hcd)
+  push_cast at hz
+  obtain ⟨hc0, hd0⟩ := zmod3_aniso _ _ hz
+  refine ⟨⟨a', rfl⟩, ⟨b', rfl⟩, ?_, ?_⟩
+  · exact_mod_cast (ZMod.intCast_zmod_eq_zero_iff_dvd c 3).mp hc0
+  · exact_mod_cast (ZMod.intCast_zmod_eq_zero_iff_dvd d 3).mp hd0
+
+/-- **Valuation step (proved).** If `3^{2k}` divides every coordinate of
+`(a + bi + cj + d·ij)²` in `Λ = ℤ⟨i,j⟩`, then `3^k` divides `a, b, c, d`. -/
+theorem quat_sq_dvd (k : ℕ) : ∀ a b c d : ℤ,
+    (3 : ℤ) ^ (2 * k) ∣ a ^ 2 + 2 * b ^ 2 - 3 * c ^ 2 + 6 * d ^ 2 →
+    (3 : ℤ) ^ (2 * k) ∣ 2 * a * b → (3 : ℤ) ^ (2 * k) ∣ 2 * a * c →
+    (3 : ℤ) ^ (2 * k) ∣ 2 * a * d →
+    (3 : ℤ) ^ k ∣ a ∧ (3 : ℤ) ^ k ∣ b ∧ (3 : ℤ) ^ k ∣ c ∧ (3 : ℤ) ^ k ∣ d := by
+  induction k with
+  | zero => intros; simp
+  | succ k ih =>
+    intro a b c d h1 h2 h3 h4
+    have e9 : (3 : ℤ) ^ (2 * (k + 1)) = 9 * 3 ^ (2 * k) := by
+      rw [show 2 * (k + 1) = 2 * k + 2 by ring, pow_add]; norm_num; ring
+    rw [e9] at h1 h2 h3 h4
+    obtain ⟨⟨a', rfl⟩, ⟨b', rfl⟩, ⟨c', rfl⟩, ⟨d', rfl⟩⟩ :=
+      quat_base a b c d (dvd_of_mul_right_dvd h1) (dvd_of_mul_right_dvd h2)
+        (dvd_of_mul_right_dvd h3) (dvd_of_mul_right_dvd h4)
+    have cancel : ∀ z : ℤ, 9 * 3 ^ (2 * k) ∣ 9 * z → 3 ^ (2 * k) ∣ z := fun z hz =>
+      (mul_dvd_mul_iff_left (by norm_num : (9 : ℤ) ≠ 0)).mp hz
+    have := ih a' b' c' d'
+      (cancel _ (by convert h1 using 1; ring)) (cancel _ (by convert h2 using 1; ring))
+      (cancel _ (by convert h3 using 1; ring)) (cancel _ (by convert h4 using 1; ring))
+    obtain ⟨⟨a'', rfl⟩, ⟨b'', rfl⟩, ⟨c'', rfl⟩, ⟨d'', rfl⟩⟩ := this
+    exact ⟨⟨a'', by ring⟩, ⟨b'', by ring⟩, ⟨c'', by ring⟩, ⟨d'', by ring⟩⟩
+
+
+/-! ## 2. Independence over `𝔽₃` -/
+
+lemma f3_aniso : ∀ a b : ZMod 3, a ^ 2 - 2 * b ^ 2 = 0 → a = 0 ∧ b = 0 := by decide
+
+/-- Over `𝔽₃`: if `I² = 2`, `J² = 0`, `JI = -IJ` and `Jx ≠ 0`, then `x, Ix, Jx, IJx` are
+linearly independent (because `a² - 2b²` is anisotropic mod 3). -/
+lemma f3_indep {M : Type*} [AddCommGroup M] [Module (ZMod 3) M] (I J : M →ₗ[ZMod 3] M)
+    (hI : ∀ y, I (I y) = (2 : ZMod 3) • y) (hJ : ∀ y, J (J y) = 0)
+    (hIJ : ∀ y, J (I y) = -I (J y)) (x : M) (hx : J x ≠ 0) :
+    LinearIndependent (ZMod 3) ![x, I x, J x, I (J x)] := by
+  rw [Fintype.linearIndependent_iff]
+  intro g hg
+  simp only [Fin.sum_univ_four, Matrix.cons_val_zero, Matrix.cons_val_one,
+    Matrix.cons_val_two, Matrix.cons_val_three, Matrix.head_cons, Matrix.tail_cons] at hg
+  have h1 : g 0 • J x - g 1 • I (J x) = 0 := by
+    have := congrArg J hg
+    simp only [map_add, map_smul, hJ, hIJ, map_zero, smul_neg, smul_zero,
+      add_zero] at this
+    linear_combination (norm := module) this
+  have h2 : g 0 • I (J x) - g 1 • (2 : ZMod 3) • J x = 0 := by
+    have := congrArg I h1
+    simp only [map_sub, map_smul, hI, map_zero] at this
+    exact this
+  have k1 : (g 0 ^ 2 - 2 * g 1 ^ 2) • J x = 0 := by
+    linear_combination (norm := module) g 0 • h1 + g 1 • h2
+  obtain ⟨g0, g1⟩ := f3_aniso _ _ ((smul_eq_zero.mp k1).resolve_right hx)
+  rw [g0, g1, zero_smul, zero_smul, zero_add, zero_add] at hg
+  have h3 : g 2 • I (J x) + g 3 • (2 : ZMod 3) • J x = 0 := by
+    have := congrArg I hg
+    simp only [map_add, map_smul, hI, map_zero] at this
+    exact this
+  have k2 : (g 2 ^ 2 - 2 * g 3 ^ 2) • J x = 0 := by
+    linear_combination (norm := module) g 2 • hg - g 3 • h3
+  obtain ⟨g2, g3⟩ := f3_aniso _ _ ((smul_eq_zero.mp k2).resolve_right hx)
+  intro i
+  fin_cases i <;> assumption
+
+/-! ## 3. The core: `T ≅ (ℤ/3^{2k})⁴` is cyclic over `Λ`, and `S - 1` is divisible by `3^k` -/
+
+section Core
+
+variable (k : ℕ)
+
+abbrev Q : ℕ := 3 ^ (2 * k)
+
+instance : NeZero (Q k) := ⟨by positivity⟩
+
+abbrev R := ZMod (Q k)
+
+abbrev V := Fin 4 → R k
+
+variable {k}
+
+/-- `φ y a = a₀ y + a₁ I y + a₂ J y + a₃ I J y`: the orbit map `Λ/q → T` at `y`. -/
+def φ (I J : V k →ₗ[R k] V k) (y : V k) (a : Fin 4 → R k) : V k :=
+  a 0 • y + a 1 • I y + a 2 • J y + a 3 • I (J y)
+
+lemma φ_add_smul (I J : V k →ₗ[R k] V k) (y : V k) (a b : Fin 4 → R k) (c : R k) :
+    φ I J y (a + c • b) = φ I J y a + c • φ I J y b := by
+  simp only [φ, Pi.add_apply, Pi.smul_apply, smul_eq_mul]; module
+
+lemma φ_smul (I J : V k →ₗ[R k] V k) (y : V k) (a : Fin 4 → R k) (c : R k) :
+    φ I J y (c • a) = c • φ I J y a := by
+  simp only [φ, Pi.smul_apply, smul_eq_mul]; module
+
+lemma φ_sub (I J : V k →ₗ[R k] V k) (y : V k) (a b : Fin 4 → R k) :
+    φ I J y (a - b) = φ I J y a - φ I J y b := by
+  simp only [φ, Pi.sub_apply]; module
+
+lemma φ_zero (I J : V k →ₗ[R k] V k) (y : V k) : φ I J y 0 = 0 := by
+  simp [φ]
+
+lemma φ_smul_left (I J : V k →ₗ[R k] V k) (y : V k) (a : Fin 4 → R k) (c : R k) :
+    φ I J (c • y) a = φ I J y (c • a) := by
+  simp only [φ, map_smul, Pi.smul_apply, smul_eq_mul]; module
+
+lemma φ_sub_left (I J : V k →ₗ[R k] V k) (y z : V k) (a : Fin 4 → R k) :
+    φ I J (y - z) a = φ I J y a - φ I J z a := by
+  simp only [φ, map_sub]; module
+
+lemma Q_natCast : ((Q k : ℕ) : R k) = 0 := ZMod.natCast_self _
+
+lemma three_pow_eq_zero : (3 : R k) ^ (2 * k) = 0 := by
+  have := Q_natCast (k := k); push_cast [Q] at this; exact this
+
+lemma three_dvd_Q (hk : 1 ≤ k) : 3 ∣ Q k := dvd_pow_self 3 (by omega)
+
+lemma nine_dvd_Q (hk : 1 ≤ k) : 9 ∣ Q k := by
+  have : (9 : ℕ) = 3 ^ 2 := by norm_num
+  rw [this]; exact pow_dvd_pow 3 (by omega)
+
+/-- If `z ≡ 0 (mod 3)` then `z = 3y`. -/
+lemma eq_three_mul_of_cast_eq_zero (hk : 1 ≤ k) (z : R k)
+    (hz : ZMod.castHom (three_dvd_Q hk) (ZMod 3) z = 0) : ∃ y : R k, z = 3 * y := by
+  have h0 : ((z.val : ℕ) : ZMod 3) = 0 := by
+    rw [← map_natCast (ZMod.castHom (three_dvd_Q hk) (ZMod 3)), ZMod.natCast_zmod_val]; exact hz
+  obtain ⟨m, hm⟩ := (ZMod.natCast_eq_zero_iff _ _).mp h0
+  refine ⟨(m : R k), ?_⟩
+  rw [← ZMod.natCast_zmod_val z, hm]; push_cast; ring
+
+/-- Coordinatewise reduction mod 3. -/
+def red (hk : 1 ≤ k) (v : V k) : Fin 4 → ZMod 3 := fun i => ZMod.castHom (three_dvd_Q hk) (ZMod 3) (v i)
+
+lemma red_add (hk : 1 ≤ k) (v w : V k) : red hk (v + w) = red hk v + red hk w := by
+  funext i; simp only [red, Pi.add_apply, map_add]
+
+lemma red_sub (hk : 1 ≤ k) (v w : V k) : red hk (v - w) = red hk v - red hk w := by
+  funext i; simp only [red, Pi.sub_apply, map_sub]
+
+lemma red_neg (hk : 1 ≤ k) (v : V k) : red hk (-v) = -red hk v := by
+  funext i; simp only [red, Pi.neg_apply, map_neg]
+
+lemma red_smul (hk : 1 ≤ k) (c : R k) (v : V k) :
+    red hk (c • v) = ZMod.castHom (three_dvd_Q hk) (ZMod 3) c • red hk v := by
+  funext i; simp only [red, Pi.smul_apply, smul_eq_mul, map_mul]
+
+lemma eq_three_smul_of_red_eq_zero (hk : 1 ≤ k) (v : V k) (hv : red hk v = 0) :
+    ∃ u : V k, v = (3 : R k) • u := by
+  have h := fun i => eq_three_mul_of_cast_eq_zero hk (v i) (congrFun hv i)
+  choose u hu using h
+  exact ⟨u, funext fun i => by simpa using hu i⟩
+
+/-- Lift of a vector mod 3. -/
+def lift3 (y : Fin 4 → ZMod 3) : V k := fun i => ((y i).val : R k)
+
+lemma red_lift3 (hk : 1 ≤ k) (y : Fin 4 → ZMod 3) : red hk (lift3 y) = y := by
+  funext i; simp [red, lift3]
+
+/-- The reduction of a linear map, as a matrix over `𝔽₃`. -/
+noncomputable def redMap (hk : 1 ≤ k) (f : V k →ₗ[R k] V k) :
+    (Fin 4 → ZMod 3) →ₗ[ZMod 3] (Fin 4 → ZMod 3) :=
+  Matrix.mulVecLin ((LinearMap.toMatrix' f).map (ZMod.castHom (three_dvd_Q hk) (ZMod 3)))
+
+lemma red_map (hk : 1 ≤ k) (f : V k →ₗ[R k] V k) (v : V k) :
+    red hk (f v) = redMap hk f (red hk v) := by
+  funext i
+  simp only [red, redMap, Matrix.mulVecLin_apply]
+  rw [← LinearMap.toMatrix'_mulVec f v, RingHom.map_mulVec]
+  rfl
+
+/-- **Core (proved).** On `V = (ℤ/3^{2k})⁴` (`k ≥ 1`), let `I, J, S` be endomorphisms with
+`I² = 2`, `J² = -3`, `JI = -IJ`, `S` commuting with `I, J` and `(S - 1)² = 0`. Then `S` is the
+identity on the `3^k`-torsion. (rv-a6-route §3 steps 1-5: `V` is cyclic over `Λ` with generator
+`x` (any `x` with `Jx ≢ 0 mod 3`), `S x - x = c·x` with `c² = 0` in `Λ/3^{2k}`, so `c ∈ 3^kΛ`.) -/
+theorem core (hk : 1 ≤ k) (I J S : V k →ₗ[R k] V k)
+    (hI : ∀ v, I (I v) = (2 : R k) • v) (hJ : ∀ v, J (J v) = (-3 : R k) • v)
+    (hIJ : ∀ v, J (I v) = -I (J v))
+    (hSI : ∀ v, S (I v) = I (S v)) (hSJ : ∀ v, S (J v) = J (S v))
+    (hS : ∀ v, S (S v) - (2 : R k) • S v + v = 0) :
+    ∀ v, (3 : R k) ^ k • v = 0 → S v = v := by
+  -- the reduced relations over `𝔽₃`
+  have hIb : ∀ y, redMap hk I (redMap hk I y) = (2 : ZMod 3) • y := by
+    intro y
+    rw [← red_lift3 hk y, ← red_map, ← red_map, hI, red_smul, map_ofNat]
+  have hJb : ∀ y, redMap hk J (redMap hk J y) = 0 := by
+    intro y
+    rw [← red_lift3 hk y, ← red_map, ← red_map, hJ, red_smul]
+    have : ZMod.castHom (three_dvd_Q hk) (ZMod 3) (-3 : R k) = 0 := by
+      rw [map_neg, map_ofNat]; decide
+    rw [this, zero_smul]
+  have hIJb : ∀ y, redMap hk J (redMap hk I y) = -redMap hk I (redMap hk J y) := by
+    intro y
+    rw [← red_lift3 hk y, ← red_map, ← red_map, ← red_map, ← red_map, hIJ, red_neg]
+  -- step 1: some `x` has `J x ≢ 0 (mod 3)`
+  have hex : ∃ x : V k, red hk (J x) ≠ 0 := by
+    by_contra h
+    push Not at h
+    obtain ⟨u, hu⟩ := eq_three_smul_of_red_eq_zero hk _ (h (Pi.single (0 : Fin 4) (1 : R k)))
+    obtain ⟨u', hu'⟩ := eq_three_smul_of_red_eq_zero hk _ (h u)
+    have e := hJ (Pi.single (0 : Fin 4) (1 : R k))
+    rw [hu, map_smul, hu', smul_smul] at e
+    have e0 := congrFun e 0
+    simp only [Pi.smul_apply, smul_eq_mul, Pi.single_eq_same, mul_one] at e0
+    have e9 := congrArg (ZMod.castHom (nine_dvd_Q hk) (ZMod 9)) e0
+    simp only [map_mul, map_neg, map_ofNat] at e9
+    have h9 : ∀ z : ZMod 9, 3 * 3 * z ≠ -3 := by decide
+    exact h9 _ e9
+  obtain ⟨x, hx⟩ := hex
+  have hx' : redMap hk J (red hk x) ≠ 0 := by rwa [← red_map]
+  -- step 2: `x, Ix, Jx, IJx` span `V/3V`
+  have hli := f3_indep (redMap hk I) (redMap hk J) hIb hJb hIJb (red hk x) hx'
+  have hspan := hli.span_eq_top_of_card_eq_finrank (by simp)
+  have mod3 : ∀ u : V k, ∃ a : Fin 4 → R k, ∃ u' : V k, u = φ I J x a + (3 : R k) • u' := by
+    intro u
+    have hu : red hk u ∈ Submodule.span (ZMod 3) (Set.range ![red hk x, redMap hk I (red hk x),
+        redMap hk J (red hk x), redMap hk I (redMap hk J (red hk x))]) := by
+      rw [hspan]; trivial
+    obtain ⟨g, hg⟩ := (Submodule.mem_span_range_iff_exists_fun _).mp hu
+    refine ⟨fun i => ((g i).val : R k), ?_⟩
+    have hred : red hk (u - φ I J x (fun i => ((g i).val : R k))) = 0 := by
+      rw [red_sub, ← hg, sub_eq_zero]
+      simp only [φ, red_add, red_smul, red_map, Fin.sum_univ_four, Matrix.cons_val_zero,
+        Matrix.cons_val_one, Matrix.cons_val_two, Matrix.cons_val_three, Matrix.head_cons,
+        Matrix.tail_cons, map_natCast, ZMod.natCast_zmod_val]
+    obtain ⟨u', hu'⟩ := eq_three_smul_of_red_eq_zero hk _ hred
+    exact ⟨u', by rw [← hu']; abel⟩
+  -- step 2': Nakayama, `V = Λ x`
+  have nak : ∀ n : ℕ, ∀ u : V k, ∃ a : Fin 4 → R k, ∃ u' : V k,
+      u = φ I J x a + (3 : R k) ^ n • u' := by
+    intro n
+    induction n with
+    | zero => intro u; exact ⟨0, u, by rw [φ_zero, pow_zero, one_smul, zero_add]⟩
+    | succ n ih =>
+      intro u
+      obtain ⟨a, u', h⟩ := ih u
+      obtain ⟨b, u'', h'⟩ := mod3 u'
+      refine ⟨a + (3 : R k) ^ n • b, u'', ?_⟩
+      rw [φ_add_smul, h, h', pow_succ]; module
+  have hsurj : Function.Surjective (φ I J x) := by
+    intro u
+    obtain ⟨a, u', h⟩ := nak (2 * k) u
+    exact ⟨a, by rw [h, three_pow_eq_zero, zero_smul, add_zero]⟩
+  have hinj : Function.Injective (φ I J x) := Finite.injective_iff_surjective.mpr hsurj
+  have hinj0 : ∀ a, φ I J x a = 0 → a = 0 := fun a ha => hinj (by rw [ha, φ_zero])
+  -- step 3: `S x - x = c x` with `c² = 0`
+  have hSφ : ∀ y a, S (φ I J y a) = φ I J (S y) a := by
+    intro y a; simp only [φ, map_add, map_smul, hSI, hSJ]
+  obtain ⟨a, ha⟩ := hsurj (S x - x)
+  have hsq : φ I J (φ I J x a) a = φ I J x ![a 0 ^ 2 + 2 * a 1 ^ 2 - 3 * a 2 ^ 2 + 6 * a 3 ^ 2,
+      2 * a 0 * a 1, 2 * a 0 * a 2, 2 * a 0 * a 3] := by
+    simp only [φ, map_add, map_smul, map_neg, hI, hJ, hIJ, smul_neg, Matrix.cons_val_zero,
+      Matrix.cons_val_one, Matrix.cons_val_two, Matrix.cons_val_three, Matrix.head_cons,
+      Matrix.tail_cons]
+    module
+  have hNN : φ I J (φ I J x a) a = 0 := by
+    rw [ha, φ_sub_left, ← hSφ, ha, map_sub]
+    linear_combination (norm := module) hS x
+  have hc := hinj0 _ (hsq ▸ hNN)
+  have c0 := congrFun hc 0
+  have c1 := congrFun hc 1
+  have c2 := congrFun hc 2
+  have c3 := congrFun hc 3
+  simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two,
+    Matrix.cons_val_three, Matrix.head_cons, Matrix.tail_cons, Pi.zero_apply] at c0 c1 c2 c3
+  -- step 4: `c ∈ 3^k Λ` (`quat_sq_dvd`)
+  have hdvd : ∀ z : ℤ, (z : R k) = 0 → (3 : ℤ) ^ (2 * k) ∣ z := by
+    intro z hz
+    have := (ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mp hz
+    simpa [Q] using this
+  obtain ⟨⟨A, hA⟩, ⟨B, hB⟩, ⟨C, hC⟩, ⟨D, hD⟩⟩ := quat_sq_dvd k ((a 0).val : ℤ) ((a 1).val : ℤ)
+    ((a 2).val : ℤ) ((a 3).val : ℤ)
+    (hdvd _ (by push_cast [ZMod.natCast_zmod_val]; exact c0))
+    (hdvd _ (by push_cast [ZMod.natCast_zmod_val]; exact c1))
+    (hdvd _ (by push_cast [ZMod.natCast_zmod_val]; exact c2))
+    (hdvd _ (by push_cast [ZMod.natCast_zmod_val]; exact c3))
+  have lift : ∀ (i : Fin 4) (E : ℤ), ((a i).val : ℤ) = 3 ^ k * E → a i = (3 : R k) ^ k * (E : R k) := by
+    intro i E h
+    have := congrArg (fun z : ℤ => (z : R k)) h
+    push_cast [ZMod.natCast_zmod_val] at this
+    exact this
+  have ha' : a = (3 : R k) ^ k • ![(A : R k), (B : R k), (C : R k), (D : R k)] := by
+    funext i
+    fin_cases i
+    · simpa using lift 0 A hA
+    · simpa using lift 1 B hB
+    · simpa using lift 2 C hC
+    · simpa using lift 3 D hD
+  -- step 5: `S - 1` kills the `3^k`-torsion
+  intro v hv
+  obtain ⟨α, rfl⟩ := hsurj v
+  have hα : (3 : R k) ^ k • α = 0 := hinj0 _ (by rw [φ_smul]; exact hv)
+  have hNv : S (φ I J x α) - φ I J x α = 0 := by
+    rw [hSφ, ← φ_sub_left, ← ha, ha', φ_smul, φ_smul_left, hα, φ_zero]
+  exact sub_eq_zero.mp hNv
+
+end Core
+
+
+/-! ## 4. Transport from a commutative group with `G[3^{2k}] ≅ (ℤ/3^{2k})⁴` -/
+
+section Transport
+
+variable {G : Type*} [CommGroup G] {q : ℕ} {M : Type*} [AddCommGroup M]
+  (e : {x : G | x ^ q = 1} ≃ M)
+
+open Classical in
+/-- `e` extended by `0` off the `q`-torsion. -/
+noncomputable def E (g : G) : M := if h : g ^ q = 1 then e ⟨g, h⟩ else 0
+
+lemma E_mem (g : G) (h : g ^ q = 1) : E e g = e ⟨g, h⟩ := by
+  simp only [E, h, dite_true]
+
+lemma E_symm (v : M) : E e (e.symm v).1 = v := by
+  rw [E_mem e _ (e.symm v).2]; simp
+
+lemma symm_E (g : G) (h : g ^ q = 1) : (e.symm (E e g)).1 = g := by
+  rw [E_mem e g h, Equiv.symm_apply_apply]
+
+lemma E_inj (a b : G) (ha : a ^ q = 1) (hb : b ^ q = 1) (h : E e a = E e b) : a = b := by
+  rw [E_mem e a ha, E_mem e b hb] at h
+  exact congrArg Subtype.val (e.injective h)
+
+lemma mem_map (f : G →* G) (a : G) (ha : a ^ q = 1) : (f a) ^ q = 1 := by
+  rw [← map_pow, ha, map_one]
+
+lemma mem_mul (a b : G) (ha : a ^ q = 1) (hb : b ^ q = 1) : (a * b) ^ q = 1 := by
+  rw [mul_pow, ha, hb, one_mul]
+
+lemma mem_inv (a : G) (ha : a ^ q = 1) : a⁻¹ ^ q = 1 := by
+  rw [inv_pow, ha, inv_one]
+
+lemma mem_pow (a : G) (ha : a ^ q = 1) (n : ℕ) : (a ^ n) ^ q = 1 := by
+  rw [← pow_mul, mul_comm, pow_mul, ha, one_pow]
+
+variable {e}
+variable (he : ∀ x y : {x : G | x ^ q = 1}, ∀ h : x.1 * y.1 ∈ {x : G | x ^ q = 1},
+  e ⟨x.1 * y.1, h⟩ = e x + e y)
+include he
+
+lemma E_mul (a b : G) (ha : a ^ q = 1) (hb : b ^ q = 1) : E e (a * b) = E e a + E e b := by
+  rw [E_mem e _ (mem_mul a b ha hb), E_mem e _ ha, E_mem e _ hb]
+  exact he ⟨a, ha⟩ ⟨b, hb⟩ (mem_mul a b ha hb)
+
+lemma E_one : E e (1 : G) = 0 := by
+  have h := E_mul he 1 1 (one_pow _) (one_pow _)
+  rw [mul_one] at h
+  simpa using h
+
+lemma E_inv (a : G) (ha : a ^ q = 1) : E e a⁻¹ = -E e a := by
+  have h := E_mul he a⁻¹ a (mem_inv a ha) ha
+  rw [inv_mul_cancel, E_one he] at h
+  exact eq_neg_of_add_eq_zero_left h.symm
+
+lemma E_pow (a : G) (ha : a ^ q = 1) (n : ℕ) : E e (a ^ n) = n • E e a := by
+  induction n with
+  | zero => rw [pow_zero, E_one he, zero_smul]
+  | succ n ih => rw [pow_succ, E_mul he _ _ (mem_pow a ha n) ha, ih, succ_nsmul]
+
+/-- A group endomorphism, transported to an additive endomorphism of `M`. -/
+noncomputable def endV (f : G →* G) : M →+ M where
+  toFun v := E e (f (e.symm v).1)
+  map_zero' := by
+    rw [← E_one he, symm_E e 1 (one_pow _), map_one]
+  map_add' v w := by
+    have ha := (e.symm v).2
+    have hb := (e.symm w).2
+    have h1 : v + w = E e ((e.symm v).1 * (e.symm w).1) := by
+      rw [E_mul he _ _ ha hb, E_symm, E_symm]
+    show E e (f (e.symm (v + w)).1) = E e (f (e.symm v).1) + E e (f (e.symm w).1)
+    rw [h1, symm_E e _ (mem_mul _ _ ha hb), map_mul,
+      E_mul he _ _ (mem_map f _ ha) (mem_map f _ hb)]
+
+lemma endV_E (f : G →* G) (g : G) (hg : g ^ q = 1) : endV he f (E e g) = E e (f g) := by
+  show E e (f (e.symm (E e g)).1) = _
+  rw [symm_E e g hg]
+
+end Transport
+
+/-- Extension of valuation rings (Chevalley; Mathlib `IsLocalRing.exists_factor_valuationRing`). -/
+theorem exists_valuationSubring_comap_eq {K L : Type*} [Field K] [Field L] [Algebra K L]
+    (O : ValuationSubring K) :
+    ∃ w : ValuationSubring L, w.comap (algebraMap K L) = O := by
+  let f : O →+* L := (algebraMap K L).comp O.subtype
+  obtain ⟨B, hB, hloc⟩ := IsLocalRing.exists_factor_valuationRing f
+  refine ⟨B, ?_⟩
+  ext x
+  rw [ValuationSubring.mem_comap]
+  constructor
+  · intro hx
+    by_contra hxO
+    have hx0 : x ≠ 0 := fun h => hxO (h ▸ O.zero_mem)
+    have hinv : x⁻¹ ∈ O := (O.mem_or_inv_mem x).resolve_left hxO
+    apply hxO
+    have hu : IsUnit ((f.codRestrict B.toSubring hB) ⟨x⁻¹, hinv⟩) := by
+      refine isUnit_iff_exists_inv.mpr ⟨⟨algebraMap K L x, hx⟩, ?_⟩
+      apply Subtype.ext
+      simp only [f, RingHom.codRestrict_apply, RingHom.comp_apply, ValuationSubring.coe_subtype,
+        Subring.coe_mul, Subring.coe_one, map_inv₀]
+      exact inv_mul_cancel₀ ((map_ne_zero (algebraMap K L)).mpr hx0)
+    obtain ⟨⟨u, v, huv, hvu⟩, hu'⟩ := hloc.map_nonunit _ hu
+    have hv : (v : K) = x := by
+      have h1 : ((u : K)) * (v : K) = 1 := congrArg Subtype.val huv
+      have h2 : (u : K) = x⁻¹ := congrArg Subtype.val hu'
+      rw [h2] at h1
+      field_simp at h1
+      exact h1
+    exact hv ▸ v.2
+  · intro hx
+    exact hB ⟨x, hx⟩
+
+end GlueA6Alg.Alg
+
+end GlueA6AlgSec
+
 section PkgI2Sec
 /-! ### Copied from `scratch/pkg-I2/I2.lean` (compiled there). -/
 
@@ -1232,6 +1713,69 @@ def QuatUnipotentTrivial : Prop :=
     (∀ x, x ^ (3 ^ (2 * k)) = 1 → S (S x) * (S x)⁻¹ * (S x)⁻¹ * x = 1) →
     ∀ x, x ^ (3 ^ k) = 1 → S x = x
 
+-- hsyn-fold: proved in scratch/glue-a6-alg/A6.lean (copied).
+open GlueA6Alg.Alg in
+/-- **`QuatUnipotentTrivial` (proved).** -/
+theorem quatUnipotentTrivial : QuatUnipotentTrivial.{u} := by
+  intro G _ k hk I J S hI hJ hIJ hSI hSJ ⟨e₀, he₀⟩ hS x hx
+  let e : {x : G | x ^ (Q k) = 1} ≃ V k := e₀
+  have he : ∀ x y : {x : G | x ^ (Q k) = 1}, ∀ h : x.1 * y.1 ∈ {x : G | x ^ (Q k) = 1},
+      e ⟨x.1 * y.1, h⟩ = e x + e y := he₀
+  -- every `v` is `E a` with `a ∈ G[q]`
+  have hv : ∀ v : V k, ∃ a : G, a ^ (Q k) = 1 ∧ E e a = v :=
+    fun v => ⟨_, (e.symm v).2, E_symm e v⟩
+  let IV := (endV he I).toZModLinearMap (Q k)
+  let JV := (endV he J).toZModLinearMap (Q k)
+  let SV := (endV he S).toZModLinearMap (Q k)
+  have hIV : ∀ g, g ^ (Q k) = 1 → IV (E e g) = E e (I g) := fun g hg => endV_E he I g hg
+  have hJV : ∀ g, g ^ (Q k) = 1 → JV (E e g) = E e (J g) := fun g hg => endV_E he J g hg
+  have hSV : ∀ g, g ^ (Q k) = 1 → SV (E e g) = E e (S g) := fun g hg => endV_E he S g hg
+  have mI := mem_map (q := Q k) I
+  have mJ := mem_map (q := Q k) J
+  have mS := mem_map (q := Q k) S
+  have key := core hk IV JV SV
+    (by
+      intro v; obtain ⟨a, ha, rfl⟩ := hv v
+      rw [hIV a ha, hIV _ (mI a ha), hI, E_pow he a ha, two_smul, two_smul])
+    (by
+      intro v; obtain ⟨a, ha, rfl⟩ := hv v
+      rw [hJV a ha, hJV _ (mJ a ha)]
+      have h := congrArg (E e) (hJ a)
+      rw [E_mul he _ _ (mJ _ (mJ a ha)) (mem_pow a ha 3), E_pow he a ha, E_one he] at h
+      rw [neg_smul, ofNat_smul_eq_nsmul]
+      exact eq_neg_of_add_eq_zero_left h)
+    (by
+      intro v; obtain ⟨a, ha, rfl⟩ := hv v
+      rw [hIV a ha, hJV _ (mI a ha), hJV a ha, hIV _ (mJ a ha)]
+      have h := congrArg (E e) (hIJ a)
+      rw [E_mul he _ _ (mJ _ (mI a ha)) (mI _ (mJ a ha)), E_one he] at h
+      exact eq_neg_of_add_eq_zero_left h)
+    (by
+      intro v; obtain ⟨a, ha, rfl⟩ := hv v
+      rw [hIV a ha, hSV _ (mI a ha), hSV a ha, hIV _ (mS a ha), hSI])
+    (by
+      intro v; obtain ⟨a, ha, rfl⟩ := hv v
+      rw [hJV a ha, hSV _ (mJ a ha), hSV a ha, hJV _ (mS a ha), hSJ])
+    (by
+      intro v; obtain ⟨a, ha, rfl⟩ := hv v
+      rw [hSV a ha, hSV _ (mS a ha)]
+      have h := congrArg (E e) (hS a ha)
+      have m1 := mS _ (mS a ha)
+      have m2 := mem_inv _ (mS a ha)
+      rw [E_mul he _ _ (mem_mul _ _ (mem_mul _ _ m1 m2) m2) ha,
+        E_mul he _ _ (mem_mul _ _ m1 m2) m2, E_mul he _ _ m1 m2, E_inv he _ (mS a ha),
+        E_one he] at h
+      rw [← h]; module)
+  have hxq : x ^ (Q k) = 1 := by
+    show x ^ (3 ^ (2 * k)) = 1
+    rw [two_mul, pow_add, pow_mul, hx, one_pow]
+  have h3 : (3 : R k) ^ k • E e x = 0 := by
+    have : (3 : R k) ^ k = ((3 ^ k : ℕ) : R k) := by push_cast; rfl
+    rw [this, Nat.cast_smul_eq_nsmul, ← E_pow he x hxq, hx, E_one he]
+  have := key (E e x) h3
+  rw [hSV x hxq] at this
+  exact E_inj e _ _ (mS x hxq) hxq this
+
 section A6
 
 /-- The Galois action of `σ` as a group endomorphism of `A(L)`. -/
@@ -1251,7 +1795,7 @@ noncomputable def endPts (A : Grp (Over (Spec (.of K)))) {L : Type u} [CommRing 
 /-- **Glue A6 (Lemma PR(ii), Raynaud route), proved from the leaves `NeronOggShafarevich`,
 `RaynaudCriterion`, `TorsionStructure` and the pure-algebra glue `QuatUnipotentTrivial`.**
 Same statement as `PkgI2.goodReduction_of_QM_rational3` (scratch/pkg-I2/I2.lean). -/
-theorem goodReduction_of_QM_rational3 (hNOS : NeronOggShafarevich.{u})
+theorem goodReduction_of_QM_rational3_of_alg (hNOS : NeronOggShafarevich.{u})
     (hRay : RaynaudCriterion.{u}) (hTors : TorsionStructure.{u})
     (hAlg : QuatUnipotentTrivial.{u})
     (O : ValuationSubring K) [IsDiscreteValuationRing O]
@@ -1301,7 +1845,51 @@ theorem goodReduction_of_QM_rational3 (hNOS : NeronOggShafarevich.{u})
     refine ⟨by positivity, ?_, key (k + 1) (by omega)⟩
     rw [Nat.cast_pow]; exact h3'.pow _
 
+-- hsyn-fold: from scratch/glue-a6-alg/A6.lean.
+/-- **Glue A6 (Lemma PR(ii), Raynaud route), proved from the three I2 leaves
+`NeronOggShafarevich`, `RaynaudCriterion` and `TorsionStructure` alone** (the pure-algebra glue
+`QuatUnipotentTrivial` is now a theorem). Same statement as
+`PkgI2.goodReduction_of_QM_rational3` (scratch/pkg-I2/I2.lean). -/
+theorem goodReduction_of_QM_rational3 (hNOS : NeronOggShafarevich.{u})
+    (hRay : RaynaudCriterion.{u}) (hTors : TorsionStructure.{u})
+    (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K))
+    (hw : w.comap (algebraMap K (AlgebraicClosure K)) = O)
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (hdim : topologicalKrullDim A.X.left = ((2 : ℕ) : WithBot ℕ∞))
+    (I J : A ⟶ A)
+    (hI : ∀ x : Pts A (AlgebraicClosure K), (x ≫ I.hom.hom) ≫ I.hom.hom = x ^ 2)
+    (hJ : ∀ x : Pts A (AlgebraicClosure K), (x ≫ J.hom.hom) ≫ J.hom.hom * x ^ 3 = 1)
+    (hIJ : ∀ x : Pts A (AlgebraicClosure K),
+      (x ≫ I.hom.hom) ≫ J.hom.hom * (x ≫ J.hom.hom) ≫ I.hom.hom = 1)
+    (h3 : IsUnit (3 : O))
+    (hrat : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+      ∀ x ∈ torsion A (AlgebraicClosure K) 3, galAct A σ x = x) :
+    HasGoodReduction A O :=
+  goodReduction_of_QM_rational3_of_alg hNOS hRay hTors quatUnipotentTrivial O w hw A hdim I J
+    hI hJ hIJ h3 hrat
+
+/-- **A6 without the auxiliary `w`**: the valuation subring of `K̄` over `O` exists
+(`GlueA6Alg.Alg.exists_valuationSubring_comap_eq`), so it is not a hypothesis. -/
+theorem goodReduction_of_QM_rational3' (hNOS : NeronOggShafarevich.{u})
+    (hRay : RaynaudCriterion.{u}) (hTors : TorsionStructure.{u})
+    (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (hdim : topologicalKrullDim A.X.left = ((2 : ℕ) : WithBot ℕ∞))
+    (I J : A ⟶ A)
+    (hI : ∀ x : Pts A (AlgebraicClosure K), (x ≫ I.hom.hom) ≫ I.hom.hom = x ^ 2)
+    (hJ : ∀ x : Pts A (AlgebraicClosure K), (x ≫ J.hom.hom) ≫ J.hom.hom * x ^ 3 = 1)
+    (hIJ : ∀ x : Pts A (AlgebraicClosure K),
+      (x ≫ I.hom.hom) ≫ J.hom.hom * (x ≫ J.hom.hom) ≫ I.hom.hom = 1)
+    (h3 : IsUnit (3 : O))
+    (hrat : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+      ∀ x ∈ torsion A (AlgebraicClosure K) 3, galAct A σ x = x) :
+    HasGoodReduction A O := by
+  obtain ⟨w, hw⟩ := GlueA6Alg.Alg.exists_valuationSubring_comap_eq (L := AlgebraicClosure K) O
+  exact goodReduction_of_QM_rational3 hNOS hRay hTors O w hw A hdim I J hI hJ hIJ h3 hrat
+
 end A6
+
 
 end Glue
 
@@ -2553,6 +3141,39 @@ theorem E1_exists_hom_ne_zero (hS : FaltingsSemisimple) (hF : FaltingsTate) (hT 
   obtain ⟨φ, hφ0, hφ⟩ := exists_equivariant_ne_zero_of_common _ _ hVE U U' hU e he
   obtain ⟨ψ, hψ0, hψ⟩ := equivariantDescent ℚ_[ℓ] E _ _ _ (A.galRep ℓ) (J.galRep ℓ) ⟨φ, hφ0, hφ⟩
   exact exists_hom_ne_zero_of_equivariant hF hT A J ℓ ψ hψ0 hψ
+
+end PkgI3
+
+-- hsyn-fold: C10 trace comparison, from scratch/glue-c10/Trace.lean (pkg-I3 copy dropped).
+namespace PkgI3
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open AbVar Polynomial
+open scoped TensorProduct
+
+/-- **C10, the characteristic-polynomial comparison (GLUE, proved from Mumford §19 Thm 4).**
+For an endomorphism `φ` of an abelian variety over any field `k` there is one integer `t` that is
+the trace of `V_ℓ(φ)` for every prime `ℓ ≠ char k` (N5 L788-790: "independent of the coefficient
+prime"). -/
+theorem trace_indep_of_ell (h : CharPolyIndepOfEll) (k : Type) [Field k] (A : AbVar k)
+    (φ : End A) : ∃ t : ℤ, ∀ (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : k) ≠ 0 →
+      ∀ (I : Type) [Fintype I] [DecidableEq I] (b : Module.Basis I ℚ_[ℓ] (A.V ℓ)),
+        LinearMap.trace ℚ_[ℓ] (A.V ℓ) ((homT (ℓ := ℓ) φ).baseChange ℚ_[ℓ]) = (t : ℚ_[ℓ]) := by
+  obtain ⟨P, -, hP⟩ := h k A φ
+  refine ⟨-P.nextCoeff, fun ℓ _ hℓ I _ _ b => ?_⟩
+  rw [LinearMap.trace_eq_matrix_trace ℚ_[ℓ] b, Matrix.trace_eq_neg_charpoly_nextCoeff,
+    hP ℓ hℓ I b, Polynomial.nextCoeff_map (Int.castRingHom ℚ_[ℓ]).injective_int]
+  simp
+
+/-- The same integer for two primes: the traces at `ℓ₁` and `ℓ₂` are images of one integer. -/
+theorem trace_eq_trace_of_ell (h : CharPolyIndepOfEll) (k : Type) [Field k] (A : AbVar k)
+    (φ : End A) (ℓ₁ ℓ₂ : ℕ) [Fact ℓ₁.Prime] [Fact ℓ₂.Prime] (h₁ : (ℓ₁ : k) ≠ 0) (h₂ : (ℓ₂ : k) ≠ 0)
+    (I₁ I₂ : Type) [Fintype I₁] [DecidableEq I₁] [Fintype I₂] [DecidableEq I₂]
+    (b₁ : Module.Basis I₁ ℚ_[ℓ₁] (A.V ℓ₁)) (b₂ : Module.Basis I₂ ℚ_[ℓ₂] (A.V ℓ₂)) :
+    ∃ t : ℤ, LinearMap.trace ℚ_[ℓ₁] (A.V ℓ₁) ((homT (ℓ := ℓ₁) φ).baseChange ℚ_[ℓ₁]) = t ∧
+      LinearMap.trace ℚ_[ℓ₂] (A.V ℓ₂) ((homT (ℓ := ℓ₂) φ).baseChange ℚ_[ℓ₂]) = t := by
+  obtain ⟨t, ht⟩ := trace_indep_of_ell h k A φ
+  exact ⟨t, ht ℓ₁ h₁ I₁ b₁, ht ℓ₂ h₂ I₂ b₂⟩
 
 end PkgI3
 
@@ -3997,6 +4618,62 @@ theorem weight_match_coh (n k : ℤ) (hk : 1 ≤ k)
   simp only [Multiset.insert_eq_cons, Multiset.mem_cons, Multiset.mem_singleton] at h0 h1
   omega
 
+-- hsyn-fold: copied from scratch/leaf-push/PushDR.lean.
+/-! ## leaf-push: T23, Fontaine's closure properties of de Rham representations -/
+
+section Fontaine
+
+variable (p : ℕ) [Fact p.Prime]
+
+/-- `σ ↦ ρ(σ)` is continuous for the Krull topology and the `p`-adic topology on matrices. -/
+def ContRep {n : ℕ} (ρ : GQp p →* GL (Fin n) ℚ_[p]) : Prop :=
+  Continuous fun σ => (ρ σ : Matrix (Fin n) (Fin n) ℚ_[p])
+
+/-- **T23. Fontaine's closure properties.** Published statement: Fontaine, *Représentations
+p-adiques des corps locaux I*, Astérisque 223 (1994), Exp. III, §1.5 (admissible representations
+for a regular period ring form a Tannakian subcategory: stable under subobjects, quotients, direct
+sums, tensor products, duals) applied to `B = B_dR` (regular, Exp. II §3 / Exp. III Thm 3.8;
+numbering UNVERIFIED; also Brinon–Conrad, CMI notes, Thm 5.2.1, Prop. 6.3.3, 6.3.8). Lean form,
+for continuous `ℚ_p`-linear representations of `G_{ℚ_p}` on `ℚ_pⁿ` and pkg-I4's predicate
+`IsDeRham` (`dim_{ℚ_p} D_dR = n`, `D_dR` computed on `V^∨`, which is equivalent by the dual
+clause): (i) invariance under change of basis; (ii) duals (`σ ↦ ρ(σ)⁻ᵀ`); (iii) subquotients:
+if `ρ` is block upper triangular with diagonal blocks `ρ₁, ρ₂` (`ρ₁` the subrepresentation on
+the first `a` coordinates, `ρ₂` the quotient), then `ρ` de Rham ⇒ `ρ₁, ρ₂` de Rham; (iv) direct
+sums (block diagonal); (v) tensor products (Kronecker product, reindexed by `Fin a × Fin b ≃
+Fin (a * b)`). Every clause is a special case of the published statement (matrix form of the
+same representations); (i) is the basis independence of `dim D_dR`, a triviality included so
+that the leaf is basis-free. Exact. -/
+def T23_FontaineClosure : Prop :=
+  (∀ (n : ℕ) (ρ ρ' : GQp p →* GL (Fin n) ℚ_[p]) (P : GL (Fin n) ℚ_[p]),
+    (∀ σ, ρ' σ = P * ρ σ * P⁻¹) → (IsDeRham p ρ ↔ IsDeRham p ρ')) ∧
+  (∀ (n : ℕ) (ρ ρ' : GQp p →* GL (Fin n) ℚ_[p]), ContRep p ρ →
+    (∀ σ, (ρ' σ : Matrix (Fin n) (Fin n) ℚ_[p]) =
+      ((ρ σ)⁻¹ : GL (Fin n) ℚ_[p]).val.transpose) →
+    IsDeRham p ρ → IsDeRham p ρ') ∧
+  (∀ (a b : ℕ) (ρ : GQp p →* GL (Fin (a + b)) ℚ_[p]) (ρ₁ : GQp p →* GL (Fin a) ℚ_[p])
+    (ρ₂ : GQp p →* GL (Fin b) ℚ_[p]) (X : GQp p → Matrix (Fin a) (Fin b) ℚ_[p]), ContRep p ρ →
+    (∀ σ, (ρ σ : Matrix (Fin (a + b)) (Fin (a + b)) ℚ_[p]) =
+      Matrix.reindex finSumFinEquiv finSumFinEquiv
+        (Matrix.fromBlocks (ρ₁ σ : Matrix (Fin a) (Fin a) ℚ_[p]) (X σ) 0
+          (ρ₂ σ : Matrix (Fin b) (Fin b) ℚ_[p]))) →
+    IsDeRham p ρ → IsDeRham p ρ₁ ∧ IsDeRham p ρ₂) ∧
+  (∀ (a b : ℕ) (ρ : GQp p →* GL (Fin (a + b)) ℚ_[p]) (ρ₁ : GQp p →* GL (Fin a) ℚ_[p])
+    (ρ₂ : GQp p →* GL (Fin b) ℚ_[p]), ContRep p ρ₁ → ContRep p ρ₂ →
+    (∀ σ, (ρ σ : Matrix (Fin (a + b)) (Fin (a + b)) ℚ_[p]) =
+      Matrix.reindex finSumFinEquiv finSumFinEquiv
+        (Matrix.fromBlocks (ρ₁ σ : Matrix (Fin a) (Fin a) ℚ_[p]) 0 0
+          (ρ₂ σ : Matrix (Fin b) (Fin b) ℚ_[p]))) →
+    IsDeRham p ρ₁ → IsDeRham p ρ₂ → IsDeRham p ρ) ∧
+  (∀ (a b : ℕ) (ρ : GQp p →* GL (Fin (a * b)) ℚ_[p]) (ρ₁ : GQp p →* GL (Fin a) ℚ_[p])
+    (ρ₂ : GQp p →* GL (Fin b) ℚ_[p]), ContRep p ρ₁ → ContRep p ρ₂ →
+    (∀ σ, (ρ σ : Matrix (Fin (a * b)) (Fin (a * b)) ℚ_[p]) =
+      Matrix.reindex finProdFinEquiv finProdFinEquiv
+        (Matrix.kroneckerMap (· * ·) (ρ₁ σ : Matrix (Fin a) (Fin a) ℚ_[p])
+          (ρ₂ σ : Matrix (Fin b) (Fin b) ℚ_[p]))) →
+    IsDeRham p ρ₁ → IsDeRham p ρ₂ → IsDeRham p ρ)
+
+end Fontaine
+
 end PkgI4
 
 end
@@ -5076,6 +5753,246 @@ end GlueConductor
 
 
 end CondBreaksSec
+
+section D1LocalSec
+/-! ### Copied from `scratch/glue-d1-local/Local.lean` lines 401-635 (its copy of Breaks.lean dropped; hsyn-fold). -/
+
+
+/-! # glue-d1-local: the local form of D1's degree bound `e ≤ a!`
+
+Glazer bounds only the local degree `[F:ℚ_p] ≤ a` and uses the Galois closure `F̃` of `F/ℚ_p`.
+For a finite Galois `L/ℚ` and a prime `P` of `𝓞 L` over `p`, the local Galois group
+`Gal(L_P/ℚ_p)` is the decomposition group `D_P = Stab(P) ≤ Gal(L/ℚ)`, and for an intermediate
+field `K` with `w = P ∩ 𝓞 K` the subgroup `Gal(L_P/K_w)` is `D_P ∩ Gal(L/K)`
+(Serre, *Corps locaux*, II §3, UNVERIFIED locator). So "`L_P` is the Galois closure of
+`K_w/ℚ_p`" is the group condition that `D_P ∩ Gal(L/K)` has trivial normal core in `D_P`, and
+`[K_w:ℚ_p]` is the index `[D_P : D_P ∩ Gal(L/K)]`. Everything below is stated over Mathlib's
+`Gal(L/ℚ)`, `MulAction.stabilizer`, `Ideal.inertia` and `Ideal.ramificationIdx`; no completion
+is needed. -/
+
+namespace GlueD1Local
+
+open NumberField GlueConductor
+open scoped Pointwise
+
+/-- A subgroup with trivial normal core: the group embeds in the permutations of the cosets,
+so `|D| ≤ [D:H]!`. -/
+theorem card_le_factorial_index_of_normalCore_eq_bot {D : Type*} [Group D] [Finite D]
+    (H : Subgroup D) (hcore : H.normalCore = ⊥) : Nat.card D ≤ H.index.factorial := by
+  have h := H.index_normalCore_dvd_factorial_index
+  rw [hcore, Subgroup.index_bot] at h
+  exact Nat.le_of_dvd (Nat.factorial_pos _) h
+
+/-- Without the core hypothesis: `|D / core_D(H)| ≤ [D:H]!`. -/
+theorem index_normalCore_le_factorial_index {D : Type*} [Group D] [Finite D]
+    (H : Subgroup D) : H.normalCore.index ≤ H.index.factorial :=
+  Nat.le_of_dvd (Nat.factorial_pos _) H.index_normalCore_dvd_factorial_index
+
+variable (L : Type) [Field L] [NumberField L] [IsGalois ℚ L]
+
+/-- The decomposition group `D_P = Stab(P) ≤ Gal(L/ℚ)`. -/
+abbrev decompGroup (P : Ideal (𝓞 L)) : Subgroup Gal(L/ℚ) := MulAction.stabilizer Gal(L/ℚ) P
+
+/-- `Gal(L/K) ∩ D_P`, as a subgroup of `D_P` (the local group `Gal(L_P/K_w)`). -/
+abbrev localSub (K : IntermediateField ℚ L) (P : Ideal (𝓞 L)) : Subgroup (decompGroup L P) :=
+  K.fixingSubgroup.subgroupOf (decompGroup L P)
+
+/-- `e(P|p) = |I_P| ≤ |D_P|`. -/
+theorem ramificationIdx_le_card_decompGroup (p : ℕ) [hpF : Fact p.Prime]
+    (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})] :
+    P.ramificationIdx ℤ ≤ Nat.card (decompGroup L P) := by
+  rw [← Ideal.ramificationIdxIn_eq_ramificationIdx (Ideal.span {(p : ℤ)}) P Gal(L/ℚ),
+    ← Ideal.card_inertia_eq_ramificationIdxIn (G := Gal(L/ℚ)) (Ideal.span {(p : ℤ)}) P]
+  exact Subgroup.card_le_of_le (Ideal.inertia_le_stabilizer P)
+
+/-- **The local degree bound (decomposition-group form).** Let `L/ℚ` be finite Galois, `P` a
+prime of `𝓞 L` over `p`, and `K` an intermediate field such that `D_P ∩ Gal(L/K)` has trivial
+normal core in `D_P` (i.e. `L_P` is the Galois closure of `K_w` over `ℚ_p`) and index
+`[D_P : D_P ∩ Gal(L/K)] ≤ a` (i.e. `[K_w : ℚ_p] ≤ a`). Then `e(P|p) ≤ |D_P| ≤ a!`. -/
+theorem ramificationIdx_le_factorial_local (p : ℕ) [Fact p.Prime]
+    (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})]
+    (K : IntermediateField ℚ L) (hcore : (localSub L K P).normalCore = ⊥)
+    (a : ℕ) (hdeg : (localSub L K P).index ≤ a) :
+    P.ramificationIdx ℤ ≤ a.factorial :=
+  (ramificationIdx_le_card_decompGroup L p P).trans
+    ((card_le_factorial_index_of_normalCore_eq_bot _ hcore).trans (Nat.factorial_le hdeg))
+
+/-- **D1, local form.** The hypothesis `e ≤ a!` of `D1_genuine` is replaced by the local data:
+`L_P` is the Galois closure of `K_w/ℚ_p` and `[K_w:ℚ_p] ≤ a`. -/
+theorem D1_local (hH : HilbertDifferentFormula) (hS : SerreDifferentBound)
+    (p : ℕ) [Fact p.Prime] (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})]
+    (K : IntermediateField ℚ L) (hcore : (localSub L K P).normalCore = ⊥)
+    (a : ℕ) (ha : 1 ≤ a) (hdeg : (localSub L K P).index ≤ a)
+    (b : ℕ) (hb : ramGroup L P b ≠ ⊥) :
+    phi (ramCard L P) b ≤ 4 * a ^ 2 :=
+  D1_genuine hH hS L p P a ha (ramificationIdx_le_factorial_local L p P K hcore a hdeg) b hb
+
+/-- `|D_P| = e(P|p)·f(P|p)` (Mathlib's `Ideal.card_stabilizer_eq`). -/
+theorem card_decompGroup (p : ℕ) [Fact p.Prime]
+    (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})] :
+    Nat.card (decompGroup L P) = P.ramificationIdx ℤ * P.inertiaDeg ℤ := by
+  rw [Ideal.card_stabilizer_eq (G := Gal(L/ℚ)) (Ideal.span {(p : ℤ)}) P,
+    Ideal.ramificationIdxIn_eq_ramificationIdx (Ideal.span {(p : ℤ)}) P Gal(L/ℚ),
+    Ideal.inertiaDegIn_eq_inertiaDeg (Ideal.span {(p : ℤ)}) P Gal(L/ℚ)]
+
+/-- `D_P ∩ Gal(L/K)` is the stabilizer of `P` in `Gal(L/K)`. -/
+def localSubEquiv (K : IntermediateField ℚ L) (P : Ideal (𝓞 L)) :
+    localSub L K P ≃ MulAction.stabilizer K.fixingSubgroup P where
+  toFun x := ⟨⟨x.1.1, x.2⟩, x.1.2⟩
+  invFun y := ⟨⟨y.1.1, y.2⟩, y.1.2⟩
+  left_inv _ := rfl
+  right_inv _ := rfl
+
+/-- **The local degree as an index.** For `w = P ∩ 𝓞 K`,
+`[D_P : D_P ∩ Gal(L/K)] = e(w|p)·f(w|p)` (the local degree `[K_w : ℚ_p]`). -/
+theorem index_localSub (p : ℕ) [Fact p.Prime]
+    (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})]
+    (K : IntermediateField ℚ L) :
+    (localSub L K P).index =
+      (P.under (𝓞 K)).ramificationIdx ℤ * (P.under (𝓞 K)).inertiaDeg ℤ := by
+  have hD := card_decompGroup L p P
+  have : IsGaloisGroup K.fixingSubgroup K L :=
+    IsGaloisGroup.intermediateField Gal(L/ℚ) ℚ L K
+  have : IsGaloisGroup K.fixingSubgroup (𝓞 K) (𝓞 L) :=
+    IsGaloisGroup.of_isFractionRing _ (𝓞 K) (𝓞 L) K L
+  have hH : Nat.card (MulAction.stabilizer K.fixingSubgroup P) =
+      P.ramificationIdx (𝓞 K) * P.inertiaDeg (𝓞 K) := by
+    have h1 := Ideal.card_stabilizer_eq (G := K.fixingSubgroup) (P.under (𝓞 K)) P
+    rw [Ideal.ramificationIdxIn_eq_ramificationIdx (P.under (𝓞 K)) P K.fixingSubgroup,
+      Ideal.inertiaDegIn_eq_inertiaDeg (P.under (𝓞 K)) P K.fixingSubgroup] at h1
+    exact h1
+  have hS : Nat.card (localSub L K P) = P.ramificationIdx (𝓞 K) * P.inertiaDeg (𝓞 K) := by
+    rw [← hH]; exact Nat.card_congr (localSubEquiv L K P)
+  have he := Ideal.ramificationIdx_tower (R := ℤ) (P.under (𝓞 K)) P
+  have hf := Ideal.inertiaDeg_tower (R := ℤ) (P.under (𝓞 K)) P
+  have hmul := (localSub L K P).card_mul_index
+  rw [hS, hD, he, hf] at hmul
+  have hpos : 0 < P.ramificationIdx (𝓞 K) * P.inertiaDeg (𝓞 K) := by
+    rw [← hS]; exact Nat.card_pos
+  have : P.ramificationIdx (𝓞 K) * P.inertiaDeg (𝓞 K) * (localSub L K P).index =
+      P.ramificationIdx (𝓞 K) * P.inertiaDeg (𝓞 K) *
+        ((P.under (𝓞 K)).ramificationIdx ℤ * (P.under (𝓞 K)).inertiaDeg ℤ) := by
+    rw [hmul]; ring
+  exact Nat.eq_of_mul_eq_mul_left hpos this
+
+/-- **D1, local form, with the local degree as `e(w|p)·f(w|p)`.** -/
+theorem D1_local' (hH : HilbertDifferentFormula) (hS : SerreDifferentBound)
+    (p : ℕ) [Fact p.Prime] (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})]
+    (K : IntermediateField ℚ L) (hcore : (localSub L K P).normalCore = ⊥)
+    (a : ℕ) (ha : 1 ≤ a)
+    (hdeg : (P.under (𝓞 K)).ramificationIdx ℤ * (P.under (𝓞 K)).inertiaDeg ℤ ≤ a)
+    (b : ℕ) (hb : ramGroup L P b ≠ ⊥) :
+    phi (ramCard L P) b ≤ 4 * a ^ 2 :=
+  D1_local L hH hS p P K hcore a ha ((index_localSub L p P K).trans_le hdeg) b hb
+
+/-! ## The Krasner-type situation: `K` has a single prime over `p`
+
+If `L` is the Galois closure of `K` over `ℚ` (`core_G(Gal(L/K)) = ⊥`) and `K` has only one prime
+`w` over `p`, then the core hypothesis of `D1_local'` holds: `L_P` is then the Galois closure of
+`K_w`. Krasner's lemma gives such a `K` for any finite `F/ℚ_p` (`K = ℚ(α)` with the minimal
+polynomial of `α` close to that of a generator of `F`; then `K_w ≅ F` and `[K:ℚ] = [F:ℚ_p]`). -/
+
+/-- Group theory: if `G = H·D` and `core_G(H) = ⊥`, then `core_D(H ∩ D) = ⊥`. -/
+theorem normalCore_subgroupOf_eq_bot {G : Type*} [Group G] (D H : Subgroup G)
+    (hHD : ∀ g : G, ∃ h ∈ H, ∃ d ∈ D, g = h * d) (hcore : H.normalCore = ⊥) :
+    (H.subgroupOf D).normalCore = ⊥ := by
+  rw [eq_bot_iff]
+  intro x hx
+  have hx : ∀ b : D, b * x * b⁻¹ ∈ H.subgroupOf D := hx
+  have hxG : (x : G) ∈ H.normalCore := by
+    show ∀ g : G, g * x * g⁻¹ ∈ H
+    intro g
+    obtain ⟨h, hh, d, hd, rfl⟩ := hHD g
+    have h1 := hx ⟨d, hd⟩
+    rw [Subgroup.mem_subgroupOf] at h1
+    have h2 : h * (d * x * d⁻¹) * h⁻¹ ∈ H :=
+      H.mul_mem (H.mul_mem hh (by simpa using h1)) (H.inv_mem hh)
+    simpa [mul_assoc] using h2
+  rw [hcore, Subgroup.mem_bot] at hxG
+  exact (Subgroup.mem_bot).mpr (Subtype.ext hxG)
+
+/-- If `K` has a single prime `w` over `p`, then `Gal(L/ℚ) = Gal(L/K)·D_P`. -/
+theorem fixingSubgroup_mul_decompGroup (p : ℕ) [Fact p.Prime]
+    (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})]
+    (K : IntermediateField ℚ L)
+    (hunique : ∀ v : Ideal (𝓞 K), v.IsPrime → v.LiesOver (Ideal.span {(p : ℤ)}) →
+      v = P.under (𝓞 K)) (g : Gal(L/ℚ)) :
+    ∃ h ∈ K.fixingSubgroup, ∃ d ∈ decompGroup L P, g = h * d := by
+  have : IsGaloisGroup K.fixingSubgroup K L :=
+    IsGaloisGroup.intermediateField Gal(L/ℚ) ℚ L K
+  have : IsGaloisGroup K.fixingSubgroup (𝓞 K) (𝓞 L) :=
+    IsGaloisGroup.of_isFractionRing _ (𝓞 K) (𝓞 L) K L
+  have hQ : (g • P).IsPrime := Ideal.IsPrime.smul g
+  have hv : (g • P).under (𝓞 K) = P.under (𝓞 K) := by
+    apply hunique _ (Ideal.IsPrime.under _ _)
+    refine ⟨?_⟩
+    have h1 : (g • P).under ℤ = Ideal.span {(p : ℤ)} := by
+      rw [Ideal.under_smul, ← Ideal.over_def P (Ideal.span {(p : ℤ)})]
+    rw [← h1, Ideal.under_under]
+  obtain ⟨h, hh⟩ := Algebra.IsInvariant.exists_smul_of_under_eq (𝓞 K) (𝓞 L) K.fixingSubgroup
+    P (g • P) hv.symm
+  refine ⟨h, h.2, h⁻¹ * g, ?_, by simp⟩
+  rw [MulAction.mem_stabilizer_iff, mul_smul, hh]
+  exact inv_smul_smul (h : Gal(L/ℚ)) P
+
+/-- **The Krasner-type form.** If `L` is the Galois closure of `K` (`core_G(Gal(L/K)) = ⊥`), `K`
+has a single prime `w` over `p`, and `e(w|p)·f(w|p) ≤ a`, then `e(P|p) ≤ a!`. -/
+theorem ramificationIdx_le_factorial_of_unique (p : ℕ) [Fact p.Prime]
+    (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})]
+    (K : IntermediateField ℚ L) (hclos : K.fixingSubgroup.normalCore = ⊥)
+    (hunique : ∀ v : Ideal (𝓞 K), v.IsPrime → v.LiesOver (Ideal.span {(p : ℤ)}) →
+      v = P.under (𝓞 K))
+    (a : ℕ) (hdeg : (P.under (𝓞 K)).ramificationIdx ℤ * (P.under (𝓞 K)).inertiaDeg ℤ ≤ a) :
+    P.ramificationIdx ℤ ≤ a.factorial :=
+  ramificationIdx_le_factorial_local L p P K
+    (normalCore_subgroupOf_eq_bot _ _ (fixingSubgroup_mul_decompGroup L p P K hunique) hclos)
+    a ((index_localSub L p P K).trans_le hdeg)
+
+/-- **D1 in the Krasner-type situation.** -/
+theorem D1_krasner (hH : HilbertDifferentFormula) (hS : SerreDifferentBound)
+    (p : ℕ) [Fact p.Prime] (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})]
+    (K : IntermediateField ℚ L) (hclos : K.fixingSubgroup.normalCore = ⊥)
+    (hunique : ∀ v : Ideal (𝓞 K), v.IsPrime → v.LiesOver (Ideal.span {(p : ℤ)}) →
+      v = P.under (𝓞 K))
+    (a : ℕ) (ha : 1 ≤ a)
+    (hdeg : (P.under (𝓞 K)).ramificationIdx ℤ * (P.under (𝓞 K)).inertiaDeg ℤ ≤ a)
+    (b : ℕ) (hb : ramGroup L P b ≠ ⊥) :
+    phi (ramCard L P) b ≤ 4 * a ^ 2 :=
+  D1_genuine hH hS L p P a ha (ramificationIdx_le_factorial_of_unique L p P K hclos hunique a hdeg)
+    b hb
+
+/-- Galois correspondence: if `L` is the normal closure of `K` over `ℚ`, then
+`core_G(Gal(L/K)) = ⊥`. -/
+theorem normalCore_fixingSubgroup_eq_bot (K : IntermediateField ℚ L)
+    (h : IntermediateField.normalClosure ℚ K L = ⊤) : K.fixingSubgroup.normalCore = ⊥ := by
+  set N := K.fixingSubgroup.normalCore
+  have : N.Normal := Subgroup.normalCore_normal _
+  have hK : K ≤ IntermediateField.fixedField N := by
+    intro x hx
+    rw [IntermediateField.mem_fixedField_iff]
+    intro σ hσ
+    exact (IntermediateField.mem_fixingSubgroup_iff K σ).mp
+      (Subgroup.normalCore_le _ hσ) x hx
+  have htop : IntermediateField.fixedField N = ⊤ := by
+    rw [eq_top_iff, ← h]
+    exact (IntermediateField.normalClosure_le_iff_of_normal).mpr hK
+  rw [← IntermediateField.fixingSubgroup_fixedField N, htop, IntermediateField.fixingSubgroup_top]
+
+/-- `D1_krasner` with "`L` is the normal closure of `K`" as a field-theoretic hypothesis. -/
+theorem D1_krasner' (hH : HilbertDifferentFormula) (hS : SerreDifferentBound)
+    (p : ℕ) [Fact p.Prime] (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})]
+    (K : IntermediateField ℚ L) (hclos : IntermediateField.normalClosure ℚ K L = ⊤)
+    (hunique : ∀ v : Ideal (𝓞 K), v.IsPrime → v.LiesOver (Ideal.span {(p : ℤ)}) →
+      v = P.under (𝓞 K))
+    (a : ℕ) (ha : 1 ≤ a)
+    (hdeg : (P.under (𝓞 K)).ramificationIdx ℤ * (P.under (𝓞 K)).inertiaDeg ℤ ≤ a)
+    (b : ℕ) (hb : ramGroup L P b ≠ ⊥) :
+    phi (ramCard L P) b ≤ 4 * a ^ 2 :=
+  D1_krasner L hH hS p P K (normalCore_fixingSubgroup_eq_bot L K hclos) hunique a ha hdeg b hb
+
+end GlueD1Local
+
+end D1LocalSec
 
 section CondDyadicSec
 /-! ### Copied from `scratch/glue-conductor/Dyadic.lean` (compiled there). -/
@@ -9696,6 +10613,648 @@ end GlueRepo.Numerics
 
 end RepoNumericsSec
 
+section GlueC10Sec
+/-! ### Copied from `scratch/glue-c10/C10.lean` (compiled there; hsyn-fold). -/
+open NumberField
+
+namespace GlueC10
+
+/-! ## Leaves (copied from pkg-I6) -/
+
+/-- **Leaf I6.4 (Chebotarev, existence form)** — verbatim from pkg-I6. -/
+def ChebotarevExists : Prop :=
+  ∀ (M : Type) [Field M] [NumberField M] [IsGalois ℚ M] (S : Finset ℕ) (σ : M ≃ₐ[ℚ] M),
+    ∃ p : ℕ, p.Prime ∧ p ∉ S ∧ ∃ Q : Ideal (𝓞 M), ∃ _ : Q.IsPrime,
+      Q.under ℤ = Ideal.span {(p : ℤ)} ∧ Algebra.IsUnramifiedAt ℤ Q ∧ IsArithFrobAt ℤ σ Q
+
+/-- **Leaf I6.5 (Brauer–Nesbitt, characteristic 0, trace form)** — verbatim from pkg-I6. -/
+def BrauerNesbittChar0 : Prop :=
+  ∀ (k G V W : Type) [Field k] [CharZero k] [Group G] [AddCommGroup V] [Module k V]
+    [FiniteDimensional k V] [AddCommGroup W] [Module k W] [FiniteDimensional k W]
+    (ρ : Representation k G V) (σ : Representation k G W),
+    IsSemisimpleModule (MonoidAlgebra k G) ρ.asModule →
+    IsSemisimpleModule (MonoidAlgebra k G) σ.asModule →
+    (∀ g : G, LinearMap.trace k V (ρ g) = LinearMap.trace k W (σ g)) →
+    Nonempty (ρ.asModule ≃ₗ[MonoidAlgebra k G] σ.asModule)
+
+/-! ## Part A. Finite level (the form recommended by glue-I6-rest)
+
+A representation that factors through a finite Galois group `Gal(M/ℚ)`: traces that agree at
+every unramified Frobenius outside `S` agree everywhere, hence the representations are
+isomorphic. -/
+
+/-- `σ ∈ Gal(M/ℚ)` is the Frobenius at some prime of `𝓞_M` over a rational prime `p ∉ S`
+that is unramified in `M`. -/
+def IsUnramFrob (M : Type) [Field M] [NumberField M] (S : Finset ℕ) (σ : M ≃ₐ[ℚ] M) : Prop :=
+  ∃ p : ℕ, p.Prime ∧ p ∉ S ∧ ∃ Q : Ideal (𝓞 M), ∃ _ : Q.IsPrime,
+      Q.under ℤ = Ideal.span {(p : ℤ)} ∧ Algebra.IsUnramifiedAt ℤ Q ∧ IsArithFrobAt ℤ σ Q
+
+/-- Chebotarev: every element of `Gal(M/ℚ)` is an unramified Frobenius outside `S`. -/
+theorem isUnramFrob_all (hC : ChebotarevExists) (M : Type) [Field M] [NumberField M]
+    [IsGalois ℚ M] (S : Finset ℕ) (σ : M ≃ₐ[ℚ] M) : IsUnramFrob M S σ :=
+  hC M S σ
+
+/-- **C10 at finite level (GLUE, proved from I6.4 and I6.5).** Two semisimple
+finite-dimensional representations of `Gal(M/ℚ)` over a field of characteristic `0` whose traces
+agree at every unramified Frobenius outside a finite set `S` are isomorphic. -/
+theorem iso_of_trace_eq_frob_finite (hC : ChebotarevExists) (hBN : BrauerNesbittChar0)
+    (M : Type) [Field M] [NumberField M] [IsGalois ℚ M] (S : Finset ℕ)
+    (k V W : Type) [Field k] [CharZero k] [AddCommGroup V] [Module k V] [FiniteDimensional k V]
+    [AddCommGroup W] [Module k W] [FiniteDimensional k W]
+    (ρ : Representation k (M ≃ₐ[ℚ] M) V) (σ : Representation k (M ≃ₐ[ℚ] M) W)
+    (hρ : IsSemisimpleModule (MonoidAlgebra k (M ≃ₐ[ℚ] M)) ρ.asModule)
+    (hσ : IsSemisimpleModule (MonoidAlgebra k (M ≃ₐ[ℚ] M)) σ.asModule)
+    (htr : ∀ g, IsUnramFrob M S g → LinearMap.trace k V (ρ g) = LinearMap.trace k W (σ g)) :
+    Nonempty (ρ.asModule ≃ₗ[MonoidAlgebra k (M ≃ₐ[ℚ] M)] σ.asModule) :=
+  hBN k _ V W ρ σ hρ hσ fun g => htr g (isUnramFrob_all hC M S g)
+
+/-! ## Part B. The absolute Galois group `G_ℚ` -/
+
+/-- `\bar ℚ`. -/
+abbrev Qbar : Type := AlgebraicClosure ℚ
+
+/-- `G_ℚ = Gal(\bar ℚ/ℚ)` with the Krull topology.  Definitionally Mathlib's
+`GQ` (which is a non-reducible `def` of the same type). -/
+abbrev GQ : Type := Qbar ≃ₐ[ℚ] Qbar
+
+example : GQ = Field.absoluteGaloisGroup ℚ := rfl
+
+/-- `\bar ℤ`, the integral closure of `ℤ` in `\bar ℚ`. -/
+abbrev Zbar : Type := integralClosure ℤ Qbar
+
+/-- `g ∈ G_ℚ` is an arithmetic Frobenius at the rational prime `p`: there is a prime `𝔓` of
+`\bar ℤ` over `p` with `g x ≡ x^p (mod 𝔓)` for every `x ∈ \bar ℤ`. -/
+def IsFrobAt (g : GQ) (p : ℕ) : Prop :=
+  ∃ P : Ideal Zbar, P.IsPrime ∧ P.under ℤ = Ideal.span {(p : ℤ)} ∧
+    ∀ x y : Zbar, (y : Qbar) = g (x : Qbar) - (x : Qbar) ^ p → y ∈ P
+
+/-- **Frobenius density (GLUE).** For every finite subextension `E/ℚ` of `\bar ℚ` and every
+`g ∈ G_ℚ` there is a Frobenius `h` at a prime `p ∉ S` with `h = g` on `E`.  By
+`krullTopology_mem_nhds_one_iff` this says that Frobenius elements at primes outside `S` are
+dense in `G_ℚ`. -/
+def FrobDense (S : Finset ℕ) : Prop :=
+  ∀ (E : IntermediateField ℚ Qbar), FiniteDimensional ℚ E → ∀ g : GQ,
+    ∃ h : GQ, ∃ p : ℕ, p.Prime ∧ p ∉ S ∧ IsFrobAt h p ∧
+      ∀ x ∈ E, h x = g x
+
+/-- **The lift of a finite-level Frobenius to `G_ℚ` (GLUE, proved below: `frobLift`).**  For a finite
+Galois `E ⊂ \bar ℚ` and `τ ∈ Gal(E/ℚ)` that is the Frobenius at a prime `Q` of `𝓞_E` over `p`
+unramified in `E`, some `h ∈ G_ℚ` restricting to `τ` is a Frobenius at `p` in `G_ℚ`.
+Proof sketch: choose `𝔓 | Q` in `\bar ℤ`; an arithmetic Frobenius `h ∈ D_𝔓` exists by
+compactness of `G_ℚ` and `exists_isArithFrobAt` in every finite Galois layer; `h|_E` is a
+Frobenius at `Q`, and Frobenius at an unramified prime is unique
+(`AlgHom.IsArithFrobAt.eq_of_isUnramifiedAt`). -/
+def FrobLift : Prop :=
+  ∀ (E : IntermediateField ℚ Qbar) [FiniteDimensional ℚ E] [IsGalois ℚ E]
+    (τ : E ≃ₐ[ℚ] E) (p : ℕ) (Q : Ideal (𝓞 E)) [Q.IsPrime], p.Prime →
+    Q.under ℤ = Ideal.span {(p : ℤ)} → Algebra.IsUnramifiedAt ℤ Q → IsArithFrobAt ℤ τ Q →
+      ∃ h : GQ, IsFrobAt h p ∧ AlgEquiv.restrictNormal h E = τ
+
+/-! ### Proof of `FrobLift` (merged from `Lift.lean`) -/
+
+/-- `𝓞_E → \bar ℤ`. -/
+noncomputable def toZbar (E : IntermediateField ℚ Qbar) : 𝓞 E →+* Zbar :=
+  RingHom.codRestrict ((algebraMap E Qbar).comp (algebraMap (𝓞 E) E)) (integralClosure ℤ Qbar)
+    (fun x => (RingOfIntegers.isIntegral_coe x).map (IsScalarTower.toAlgHom ℤ E Qbar))
+
+@[simp] lemma toZbar_coe (E : IntermediateField ℚ Qbar) (x : 𝓞 E) :
+    ((toZbar E x : Zbar) : Qbar) = ((x : E) : Qbar) := rfl
+
+lemma card_quot (p : ℕ) [Fact p.Prime] : Nat.card (ℤ ⧸ Ideal.span {(p : ℤ)}) = p := by
+  rw [Nat.card_congr (Int.quotientSpanNatEquivZMod p).toEquiv, Nat.card_zmod]
+
+/-- **Step (c) of `FrobLift` (GLUE, proved).** -/
+theorem restrictNormal_eq_of_frob (E : IntermediateField ℚ Qbar) [FiniteDimensional ℚ E]
+    [IsGalois ℚ E] (τ : E ≃ₐ[ℚ] E) (p : ℕ) [Fact p.Prime] (Q : Ideal (𝓞 E)) [Q.IsPrime]
+    (hQp : Q.under ℤ = Ideal.span {(p : ℤ)}) [Algebra.IsUnramifiedAt ℤ Q]
+    (hτ : IsArithFrobAt ℤ τ Q) (h : GQ) (P : Ideal Zbar) (hPQ : P.comap (toZbar E) = Q)
+    (hh : ∀ x y : Zbar, (y : Qbar) = h (x : Qbar) - (x : Qbar) ^ p → y ∈ P) :
+    AlgEquiv.restrictNormal h E = τ := by
+  have : NumberField E := ⟨⟩
+  set σ := AlgEquiv.restrictNormal h E
+  have hσ : IsArithFrobAt ℤ σ Q := by
+    intro x
+    rw [hQp, card_quot, ← hPQ, Ideal.mem_comap]
+    apply hh (toZbar E x)
+    rw [map_sub, map_pow, AddSubgroupClass.coe_sub, SubmonoidClass.coe_pow, toZbar_coe,
+      toZbar_coe]
+    congr 1
+    exact AlgEquiv.restrictNormal_commutes h E (x : E)
+  have hQ : Q.primeCompl ≤ nonZeroDivisors (𝓞 E) := by
+    intro x hx
+    apply mem_nonZeroDivisors_of_ne_zero
+    rintro rfl
+    exact hx Q.zero_mem
+  have heq := hσ.eq_of_isUnramifiedAt hτ hQ
+  ext y
+  obtain ⟨a, b, -, rfl⟩ := IsFractionRing.div_surjective (A := 𝓞 E) y
+  have ha := congrArg (fun f => ((f a : 𝓞 E) : E)) heq
+  have hb := congrArg (fun f => ((f b : 𝓞 E) : E)) heq
+  simp only [MulSemiringAction.toAlgHom_apply] at ha hb
+  have key : ∀ (g : E ≃ₐ[ℚ] E) (c : 𝓞 E), g (algebraMap (𝓞 E) E c) = ((g • c : 𝓞 E) : E) :=
+    fun g c => rfl
+  have e1 := (key σ a).trans (ha.trans (key τ a).symm)
+  have e2 := (key σ b).trans (hb.trans (key τ b).symm)
+  rw [map_div₀, map_div₀, e1, e2]
+
+/-- **Step (b) of `FrobLift` (GLUE).** Every prime `𝔓` of `\bar ℤ` over a rational prime
+`p` has an arithmetic Frobenius in `G_ℚ`.  (Compactness of `G_ℚ` and Mathlib's
+`exists_isArithFrobAt` in each finite Galois layer.) -/
+def FrobExistsAt : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (P : Ideal Zbar) [P.IsPrime], P.under ℤ = Ideal.span {(p : ℤ)} →
+    ∃ h : GQ, ∀ x y : Zbar, (y : Qbar) = h (x : Qbar) - (x : Qbar) ^ p → y ∈ P
+
+
+lemma toZbar_injective (E : IntermediateField ℚ Qbar) : Function.Injective (toZbar E) := by
+  intro x y hxy
+  have := congrArg (fun z : Zbar => (z : Qbar)) hxy
+  simp only [toZbar_coe] at this
+  exact RingOfIntegers.ext (Subtype.ext this)
+
+/-- **`FrobLift` from step (b) (GLUE, proved): lying-over plus step (c).** -/
+theorem frobLift_of_frobExistsAt (hb : FrobExistsAt) : FrobLift := by
+  intro E _ _ τ p Q _ hp hQp hQu hτ
+  have : Fact p.Prime := ⟨hp⟩
+  let _ : Algebra (𝓞 E) Zbar := (toZbar E).toAlgebra
+  have : Algebra.IsIntegral (𝓞 E) Zbar := Algebra.IsIntegral.tower_top ℤ
+  obtain ⟨P, -, hP, hPQ⟩ := Ideal.exists_ideal_over_prime_of_isIntegral Q (⊥ : Ideal Zbar)
+    (by
+      intro x hx
+      have : toZbar E x = 0 := hx
+      rw [toZbar_injective E (this.trans (map_zero _).symm)]
+      exact Q.zero_mem)
+  have hPQ' : P.comap (toZbar E) = Q := hPQ
+  have hPp : P.under ℤ = Ideal.span {(p : ℤ)} := by
+    rw [← hQp, Ideal.under, Ideal.under, ← hPQ', Ideal.comap_comap]
+    congr 1
+  obtain ⟨h, hh⟩ := hb p P hPp
+  exact ⟨h, ⟨P, hP, hPp, hh⟩, restrictNormal_eq_of_frob E τ p Q hQp hτ h P hPQ' hh⟩
+
+/-- The Frobenius condition at `𝔓` on the elements of `\bar ℤ` lying in `F`. -/
+def FrobOn (p : ℕ) (P : Ideal Zbar) (F : IntermediateField ℚ Qbar) : Set GQ :=
+  {h | ∀ x y : Zbar, (x : Qbar) ∈ F → (y : Qbar) = h (x : Qbar) - (x : Qbar) ^ p → y ∈ P}
+
+/-- **Step (b), finite layer (GLUE, proved: `frobExistsFinite`; a consequence of Mathlib's
+`IsArithFrobAt.exists_of_isInvariant` for `Gal(F/ℚ)` acting on `𝓞_F`, and the surjectivity
+`G_ℚ → Gal(F/ℚ)`).** -/
+def FrobExistsFinite : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (P : Ideal Zbar) [P.IsPrime], P.under ℤ = Ideal.span {(p : ℤ)} →
+    ∀ (F : IntermediateField ℚ Qbar) [FiniteDimensional ℚ F] [IsGalois ℚ F],
+      (FrobOn p P F).Nonempty
+
+lemma frobOn_anti {p : ℕ} {P : Ideal Zbar} {F F' : IntermediateField ℚ Qbar} (hF : F ≤ F') :
+    FrobOn p P F' ⊆ FrobOn p P F :=
+  fun _ hh x y hx hy => hh x y (hF hx) hy
+
+lemma isClosed_frobOn (p : ℕ) (P : Ideal Zbar) (F : IntermediateField ℚ Qbar)
+    [FiniteDimensional ℚ F] : IsClosed (FrobOn p P F) := by
+  rw [← isOpen_compl_iff, isOpen_iff_forall_mem_open]
+  intro h hh
+  simp only [FrobOn, Set.mem_compl_iff, Set.mem_setOf_eq, not_forall] at hh
+  obtain ⟨x, y, hx, hy, hyP⟩ := hh
+  refine ⟨(fun k => h⁻¹ * k) ⁻¹' (F.fixingSubgroup : Set GQ), ?_, ?_, ?_⟩
+  · intro k hk hk'
+    have hfix := (IntermediateField.mem_fixingSubgroup_iff F _).mp hk (x : Qbar) hx
+    change h⁻¹ (k (x : Qbar)) = (x : Qbar) at hfix
+    have hkx : k (x : Qbar) = h (x : Qbar) := by
+      have e := congrArg h hfix
+      rwa [show h (h⁻¹ (k (x : Qbar))) = k (x : Qbar) from AlgEquiv.apply_symm_apply h _] at e
+    exact hyP (hk' x y hx (by rw [hy, hkx]))
+  · exact (IntermediateField.fixingSubgroup_isOpen F).preimage (continuous_const.mul continuous_id)
+  · simp only [Set.mem_preimage, inv_mul_cancel, SetLike.mem_coe]
+    exact one_mem _
+
+instance : IsGalois ℚ Qbar := ⟨⟩
+
+/-- **Step (b) from its finite layer (GLUE, proved): compactness of `G_ℚ`.** -/
+theorem frobExistsAt_of_finite (hf : FrobExistsFinite) : FrobExistsAt := by
+  intro p _ P _ hP
+  let ι := {F : IntermediateField ℚ Qbar // FiniteDimensional ℚ F}
+  have : Nonempty ι := ⟨⟨⊥, inferInstance⟩⟩
+  let t : ι → Set GQ := fun F => FrobOn p P F.1
+  have htd : Directed (· ⊇ ·) t := by
+    rintro ⟨F₁, h₁⟩ ⟨F₂, h₂⟩
+    refine ⟨⟨F₁ ⊔ F₂, inferInstance⟩, frobOn_anti le_sup_left, frobOn_anti le_sup_right⟩
+  have htn : ∀ F, (t F).Nonempty := by
+    rintro ⟨F, hF⟩
+    let N := IntermediateField.normalClosure ℚ F Qbar
+    have : FiniteDimensional ℚ N := normalClosure.is_finiteDimensional ℚ F Qbar
+    have : Normal ℚ N := normalClosure.normal ℚ F Qbar
+    have : IsGalois ℚ N := ⟨⟩
+    exact (hf p P hP N).mono (frobOn_anti F.le_normalClosure)
+  have htcl : ∀ F, IsClosed (t F) := fun F => by
+    have := F.2
+    exact isClosed_frobOn p P F.1
+  obtain ⟨h, hh⟩ := IsCompact.nonempty_iInter_of_directed_nonempty_isCompact_isClosed t htd htn
+    (fun F => (htcl F).isCompact) htcl
+  refine ⟨h, fun x y hy => ?_⟩
+  have hxi : IsIntegral ℚ (x : Qbar) := Algebra.IsIntegral.isIntegral _
+  have : FiniteDimensional ℚ (IntermediateField.adjoin ℚ {(x : Qbar)}) :=
+    IntermediateField.adjoin.finiteDimensional hxi
+  exact Set.mem_iInter.mp hh ⟨IntermediateField.adjoin ℚ {(x : Qbar)}, this⟩ x y
+    (IntermediateField.mem_adjoin_simple_self ℚ _) hy
+
+/-- **Step (b), finite layer (GLUE, proved from Mathlib).** -/
+theorem frobExistsFinite : FrobExistsFinite := by
+  intro p _ P _ hP F _ _
+  have : NumberField F := ⟨⟩
+  set QF := P.comap (toZbar F) with hQF
+  have hQFp : QF.under ℤ = Ideal.span {(p : ℤ)} := by
+    rw [← hP, Ideal.under, Ideal.under, hQF, Ideal.comap_comap]
+    congr 1
+  have hQFprime : QF.IsPrime := Ideal.comap_isPrime _ _
+  have hQFne : QF ≠ ⊥ := by
+    intro h0
+    have hp : ((p : ℤ) : 𝓞 F) ∈ QF := by
+      change algebraMap ℤ (𝓞 F) (p : ℤ) ∈ QF
+      rw [← Ideal.mem_comap]
+      change (p : ℤ) ∈ QF.under ℤ
+      rw [hQFp]
+      exact Ideal.mem_span_singleton_self _
+    rw [h0, Ideal.mem_bot] at hp
+    have : ((p : ℤ) : 𝓞 F) ≠ 0 := by
+      have := (Fact.out : p.Prime).ne_zero
+      exact_mod_cast this
+    exact this hp
+  have : QF.IsMaximal := hQFprime.isMaximal hQFne
+  let _ := IsIntegralClosure.MulSemiringAction ℤ ℚ F (𝓞 F)
+  have := Algebra.isInvariant_of_isGalois ℤ ℚ F (𝓞 F)
+  obtain ⟨σ, hσ⟩ := IsArithFrobAt.exists_of_isInvariant ℤ (F ≃ₐ[ℚ] F) QF
+  obtain ⟨h, hres⟩ : ∃ h : GQ, AlgEquiv.restrictNormal h F = σ :=
+    ⟨σ.liftNormal Qbar, σ.restrict_liftNormal Qbar⟩
+  subst hres
+  refine ⟨h, fun x y hx hy => ?_⟩
+  have hxi : IsIntegral ℤ (⟨(x : Qbar), hx⟩ : F) := by
+    rw [← isIntegral_algHom_iff (IsScalarTower.toAlgHom ℤ F Qbar) (algebraMap F Qbar).injective]
+    exact x.2
+  let x' : 𝓞 F := ⟨⟨(x : Qbar), hx⟩, hxi⟩
+  have hmem := hσ x'
+  rw [hQFp, card_quot, hQF, Ideal.mem_comap] at hmem
+  convert hmem using 1
+  apply Subtype.ext
+  rw [hy, map_sub, map_pow, AddSubgroupClass.coe_sub, SubmonoidClass.coe_pow, toZbar_coe,
+    toZbar_coe]
+  congr 1
+  change h (x : Qbar) = ((algebraMap (𝓞 F) F (galRestrict ℤ ℚ F (𝓞 F) _ x')) : Qbar)
+  rw [algebraMap_galRestrict_apply]
+  exact (AlgEquiv.restrictNormal_commutes h F (algebraMap (𝓞 F) F x')).symm
+
+/-- **`FrobLift` holds (GLUE, proved from Mathlib).** -/
+theorem frobLift : FrobLift :=
+  frobLift_of_frobExistsAt (frobExistsAt_of_finite frobExistsFinite)
+
+
+/-- **Frobenius density from Chebotarev (GLUE, proved from I6.4 and `FrobLift`).** -/
+theorem frobDense_of_chebotarev (hC : ChebotarevExists) (hL : FrobLift) (S : Finset ℕ) :
+    FrobDense S := by
+  intro E hE g
+  set N := IntermediateField.normalClosure ℚ E Qbar
+  have : FiniteDimensional ℚ N := normalClosure.is_finiteDimensional ℚ E Qbar
+  have : Normal ℚ N := normalClosure.normal ℚ E Qbar
+  have : IsGalois ℚ N := ⟨⟩
+  have : NumberField N := ⟨⟩
+  obtain ⟨p, hp, hpS, Q, hQ, hQp, hQu, hQf⟩ := hC N S (AlgEquiv.restrictNormal g N)
+  obtain ⟨h, hh, hres⟩ := hL N _ p Q hp hQp hQu hQf
+  refine ⟨h, p, hp, hpS, hh, fun x hx => ?_⟩
+  have hxN : x ∈ N := E.le_normalClosure hx
+  have e1 := AlgEquiv.restrictNormal_commutes h N ⟨x, hxN⟩
+  have e2 := AlgEquiv.restrictNormal_commutes g N ⟨x, hxN⟩
+  rw [hres] at e1
+  simpa using e1.symm.trans e2
+
+/-- **Passage from Frobenius classes to `G_ℚ` (GLUE, proved).**  Two continuous functions on
+`G_ℚ` with values in a Hausdorff space that agree on the Frobenius elements at primes outside `S`
+are equal, given `FrobDense S`. -/
+theorem eq_of_eq_on_frob {X : Type*} [TopologicalSpace X] [T2Space X] (S : Finset ℕ)
+    (hD : FrobDense S) (f₁ f₂ : GQ → X)
+    (h₁ : Continuous f₁) (h₂ : Continuous f₂)
+    (hfr : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → f₁ g = f₂ g) : f₁ = f₂ := by
+  funext g
+  by_contra hne
+  have hopen : IsOpen {x | f₁ x ≠ f₂ x} := isOpen_ne_fun h₁ h₂
+  have hmem : (fun y => g * y) ⁻¹' {x | f₁ x ≠ f₂ x} ∈ nhds (1 : GQ) := by
+    apply (hopen.preimage (continuous_const.mul continuous_id)).mem_nhds
+    simpa using hne
+  obtain ⟨E, hE, hsub⟩ := (krullTopology_mem_nhds_one_iff ℚ Qbar _).mp hmem
+  obtain ⟨h, p, hp, hpS, hh, hEq⟩ := hD E hE g
+  have hfix : g⁻¹ * h ∈ E.fixingSubgroup := by
+    rw [IntermediateField.mem_fixingSubgroup_iff]
+    intro x hx
+    change g⁻¹ (h x) = x
+    rw [hEq x hx]
+    exact AlgEquiv.symm_apply_apply g x
+  have := hsub hfix
+  simp only [Set.mem_preimage, mul_inv_cancel_left, Set.mem_setOf_eq] at this
+  exact this (hfr h p hp hpS hh)
+
+/-- The trace of `ρ g` is the trace of its matrix in any basis. -/
+lemma trace_eq_matrix {E V ι : Type*} [Field E] [AddCommGroup V] [Module E V] [Fintype ι]
+    [DecidableEq ι] (b : Module.Basis ι E V) (f : V →ₗ[E] V) :
+    LinearMap.trace E V f = (LinearMap.toMatrix b b f).trace :=
+  LinearMap.trace_eq_matrix_trace E b f
+
+lemma continuous_trace {E V ι : Type*} [Field E] [TopologicalSpace E] [IsTopologicalRing E]
+    [AddCommGroup V] [Module E V] [Fintype ι] [DecidableEq ι] (b : Module.Basis ι E V)
+    {G : Type*} [Monoid G] [TopologicalSpace G] (ρ : Representation E G V)
+    (hρ : Continuous fun g => LinearMap.toMatrix b b (ρ g)) :
+    Continuous fun g => LinearMap.trace E V (ρ g) := by
+  simp_rw [trace_eq_matrix b]
+  exact (continuous_finsetSum _ fun i _ => (continuous_apply_apply i i).comp hρ)
+
+/-- **C10, the comparison in `G_ℚ` (GLUE, proved from I6.5 and `FrobDense`).**  Two continuous
+semisimple finite-dimensional representations of `G_ℚ` over a Hausdorff topological field of
+characteristic `0` (e.g. `ℚ_ℓ`, a finite extension, or `\bar ℚ_ℓ`) whose traces agree at the
+Frobenius elements at all primes outside `S` are isomorphic.  Continuity is that of the matrix
+coefficients in some basis. -/
+theorem iso_of_trace_eq_on_frob (hBN : BrauerNesbittChar0) (S : Finset ℕ) (hD : FrobDense S)
+    (k V W ι κ : Type) [Field k] [CharZero k] [TopologicalSpace k] [IsTopologicalRing k]
+    [T2Space k] [AddCommGroup V] [Module k V] [FiniteDimensional k V]
+    [AddCommGroup W] [Module k W] [FiniteDimensional k W]
+    [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ]
+    (bV : Module.Basis ι k V) (bW : Module.Basis κ k W)
+    (ρ : Representation k (GQ) V)
+    (σ : Representation k (GQ) W)
+    (hρc : Continuous fun g => LinearMap.toMatrix bV bV (ρ g))
+    (hσc : Continuous fun g => LinearMap.toMatrix bW bW (σ g))
+    (hρ : IsSemisimpleModule (MonoidAlgebra k (GQ)) ρ.asModule)
+    (hσ : IsSemisimpleModule (MonoidAlgebra k (GQ)) σ.asModule)
+    (htr : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p →
+      LinearMap.trace k V (ρ g) = LinearMap.trace k W (σ g)) :
+    Nonempty (ρ.asModule ≃ₗ[MonoidAlgebra k (GQ)] σ.asModule) := by
+  have heq := eq_of_eq_on_frob S hD _ _ (continuous_trace bV ρ hρc) (continuous_trace bW σ hσc)
+    htr
+  exact hBN k _ V W ρ σ hρ hσ fun g => congrFun heq g
+
+/-! ## Part C. N5's transport from five to three -/
+
+/-- **C10, the identification of `r₃` (GLUE, proved from I6.5 and `FrobDense`).**  N5 L776-795:
+`C` is the coefficient field, `ι₃ : C → k₃`, `ι₅ : C → k₅` the chosen embeddings.  For a
+Frobenius `g` at `p ∉ S`, the abelian-variety side gives one element `c p ∈ C` with
+`tr r_ℓ(g) = ι_ℓ(c p)` for `ℓ = 3, 5` (Mumford §19 Thm 4, see `Trace.lean`), and the modular side
+gives `a p ∈ C` with `tr ρ_ℓ(g) = ι_ℓ(a p)`.  If `r₅` and `ρ₅` have the same traces at
+Frobenius (C9: `r₅ ≅ ρ_{f,ι₅}`), then `c p = a p` in `C`, so the traces of `r₃` and `ρ₃` agree at
+every Frobenius outside `S`, and `r₃ ≅ ρ₃`. -/
+theorem iso_three_of_five (hBN : BrauerNesbittChar0) (S : Finset ℕ) (hD : FrobDense S)
+    (C : Type) [Field C] (c a : ℕ → C)
+    (k₅ V₅ W₅ : Type) [Field k₅] [AddCommGroup V₅] [Module k₅ V₅]
+    [AddCommGroup W₅] [Module k₅ W₅] (ι₅ : C →+* k₅)
+    (r₅ : Representation k₅ GQ V₅) (ρ₅ : Representation k₅ GQ W₅)
+    (h₅ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p →
+      LinearMap.trace k₅ V₅ (r₅ g) = LinearMap.trace k₅ W₅ (ρ₅ g))
+    (hr₅ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → LinearMap.trace k₅ V₅ (r₅ g) = ι₅ (c p))
+    (hρ₅ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → LinearMap.trace k₅ W₅ (ρ₅ g) = ι₅ (a p))
+    (k V W ι κ : Type) [Field k] [CharZero k] [TopologicalSpace k] [IsTopologicalRing k]
+    [T2Space k] [AddCommGroup V] [Module k V] [FiniteDimensional k V]
+    [AddCommGroup W] [Module k W] [FiniteDimensional k W]
+    [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] (ι₃ : C →+* k)
+    (bV : Module.Basis ι k V) (bW : Module.Basis κ k W)
+    (r₃ : Representation k GQ V) (ρ₃ : Representation k GQ W)
+    (hrc : Continuous fun g => LinearMap.toMatrix bV bV (r₃ g))
+    (hρc : Continuous fun g => LinearMap.toMatrix bW bW (ρ₃ g))
+    (hr : IsSemisimpleModule (MonoidAlgebra k GQ) r₃.asModule)
+    (hρ : IsSemisimpleModule (MonoidAlgebra k GQ) ρ₃.asModule)
+    (hr₃ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → LinearMap.trace k V (r₃ g) = ι₃ (c p))
+    (hρ₃ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → LinearMap.trace k W (ρ₃ g) = ι₃ (a p)) :
+    Nonempty (r₃.asModule ≃ₗ[MonoidAlgebra k GQ] ρ₃.asModule) := by
+  refine iso_of_trace_eq_on_frob hBN S hD k V W ι κ bV bW r₃ ρ₃ hrc hρc hr hρ ?_
+  intro g p hp hpS hg
+  have hca : c p = a p := ι₅.injective
+    ((hr₅ g p hp hpS hg).symm.trans ((h₅ g p hp hpS hg).trans (hρ₅ g p hp hpS hg)))
+  rw [hr₃ g p hp hpS hg, hρ₃ g p hp hpS hg, hca]
+
+/-- **The semisimplification step.**  A subrepresentation (here: a `k[G]`-submodule) of a
+semisimple representation is semisimple; so `r_ℓ ⊂ V_ℓ(A) ⊗ k` inherits semisimplicity from
+Faltings' Satz 3 (pkg-I3 `FaltingsSemisimple`, after base change to `k`). -/
+theorem semisimple_of_le {k G V : Type} [Field k] [Group G] [AddCommGroup V] [Module k V]
+    (ρ : Representation k G V) (hρ : IsSemisimpleModule (MonoidAlgebra k G) ρ.asModule)
+    (N : Submodule (MonoidAlgebra k G) ρ.asModule) :
+    IsSemisimpleModule (MonoidAlgebra k G) N := inferInstance
+
+/-- **Step 3 of glue-assembly §2.2 (halving).**  If `ρ ≅ r ⊕ r` on traces, `tr ρ(g) = 2·tr r(g)`,
+and `tr ρ(g) = ι(s)` for some `s ∈ C`, then `tr r(g) = ι(s/2)`: the element `c p = s/2 ∈ C` of
+`iso_three_of_five`. -/
+theorem trace_half {C k : Type} [Field C] [CharZero C] [Field k] [CharZero k] (ι : C →+* k)
+    (tr tr' : k) (x : C) (h2 : tr = 2 * tr') (hs : tr = ι x) : tr' = ι (x / 2) := by
+  rw [map_div₀, map_ofNat, ← hs, h2]
+  field_simp
+
+
+/-- Frobenius elements at primes outside `S` are dense in `G_ℚ` (from Chebotarev alone). -/
+theorem frobDense (hC : ChebotarevExists) (S : Finset ℕ) : FrobDense S :=
+  frobDense_of_chebotarev hC frobLift S
+
+/-- **C10 (GLUE, proved from I6.4 Chebotarev and I6.5 Brauer–Nesbitt only).**  The statement of
+`iso_three_of_five` with `FrobDense` discharged. -/
+theorem c10 (hC : ChebotarevExists) (hBN : BrauerNesbittChar0) (S : Finset ℕ)
+    (C : Type) [Field C] (c a : ℕ → C)
+    (k₅ V₅ W₅ : Type) [Field k₅] [AddCommGroup V₅] [Module k₅ V₅]
+    [AddCommGroup W₅] [Module k₅ W₅] (ι₅ : C →+* k₅)
+    (r₅ : Representation k₅ GQ V₅) (ρ₅ : Representation k₅ GQ W₅)
+    (h₅ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p →
+      LinearMap.trace k₅ V₅ (r₅ g) = LinearMap.trace k₅ W₅ (ρ₅ g))
+    (hr₅ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → LinearMap.trace k₅ V₅ (r₅ g) = ι₅ (c p))
+    (hρ₅ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → LinearMap.trace k₅ W₅ (ρ₅ g) = ι₅ (a p))
+    (k V W ι κ : Type) [Field k] [CharZero k] [TopologicalSpace k] [IsTopologicalRing k]
+    [T2Space k] [AddCommGroup V] [Module k V] [FiniteDimensional k V]
+    [AddCommGroup W] [Module k W] [FiniteDimensional k W]
+    [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] (ι₃ : C →+* k)
+    (bV : Module.Basis ι k V) (bW : Module.Basis κ k W)
+    (r₃ : Representation k GQ V) (ρ₃ : Representation k GQ W)
+    (hrc : Continuous fun g => LinearMap.toMatrix bV bV (r₃ g))
+    (hρc : Continuous fun g => LinearMap.toMatrix bW bW (ρ₃ g))
+    (hr : IsSemisimpleModule (MonoidAlgebra k GQ) r₃.asModule)
+    (hρ : IsSemisimpleModule (MonoidAlgebra k GQ) ρ₃.asModule)
+    (hr₃ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → LinearMap.trace k V (r₃ g) = ι₃ (c p))
+    (hρ₃ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → LinearMap.trace k W (ρ₃ g) = ι₃ (a p)) :
+    Nonempty (r₃.asModule ≃ₗ[MonoidAlgebra k GQ] ρ₃.asModule) :=
+  iso_three_of_five hBN S (frobDense hC S) C c a k₅ V₅ W₅ ι₅ r₅ ρ₅ h₅ hr₅ hρ₅ k V W ι κ ι₃ bV bW
+    r₃ ρ₃ hrc hρc hr hρ hr₃ hρ₃
+
+end GlueC10
+
+end GlueC10Sec
+
+section LeafPushSec
+/-! ### Copied from `scratch/leaf-push/Push.lean` (compiled there; hsyn-fold), over PkgI2. -/
+universe u
+
+open CategoryTheory AlgebraicGeometry Limits
+open scoped CategoryTheory.MonObj Quaternion
+
+namespace LeafPush
+
+/-! ## 1. Abelian varieties, points, Galois action, inertia (copied from pkg-I2) -/
+
+-- hsyn-fold: pkg-I2 copy (Push.lean §1) replaced by PkgI2's definitions.
+open PkgI2
+
+/-! ## 2. R8: Grothendieck's semistable reduction theorem, monodromy form -/
+
+/-- **R8 (consequence form). Grothendieck's semistable reduction theorem.**
+Published statement: SGA 7 I, Exp. IX, Thm 3.6 (UNVERIFIED numbering): an abelian variety `A`
+over the fraction field `K` of a discrete valuation ring acquires semistable reduction over a
+finite separable extension; Prop. 3.5 of the same exposé (UNVERIFIED): semistable reduction at
+`w` is equivalent to "every inertia element `σ` acts on `T_ℓ A` with `(σ - 1)² = 0`" (`ℓ`
+invertible in the residue field). Lean form: there is a finite `K' ⊆ K̄` such that every inertia
+element of `w` fixing `K'` satisfies `(σ - 1)² = 0` on every `A(K̄)[ℓⁿ]`. This is the image of
+Thm 3.6 under the direction "semistable ⇒ unipotent of echelon 2" of Prop. 3.5, applied over
+`K'` (whose inertia at `w` is `I_w ∩ G_{K'}`); the finite-level form is equivalent to the
+Tate-module form because `T_ℓ A → A[ℓⁿ]` is onto. It is therefore a consequence, never stronger.
+Identical to `PkgI2.GrothendieckMonodromy` (pkg-I2), restated here so that R8 is counted as a
+concrete leaf. Used only on h-b1's route for A6 (Raynaud's route R6 avoids it). -/
+def R08_GrothendieckMonodromy : Prop :=
+  ∀ (K : Type u) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K)),
+    w.comap (algebraMap K (AlgebraicClosure K)) = O →
+    ∀ (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A],
+      ∃ K' : IntermediateField K (AlgebraicClosure K), FiniteDimensional K K' ∧
+        ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, IsInertia w σ →
+          (∀ x ∈ K', σ x = x) →
+          ∀ ℓ : ℕ, ℓ.Prime → IsUnit (ℓ : O) →
+            ∀ n : ℕ, ∀ x ∈ torsion A (AlgebraicClosure K) (ℓ ^ n), UnipSq A σ x
+
+/-! ## 3. T9: the Weil pairing, finite-level Galois form -/
+
+/-- **T9 (consequence form). Weil pairing of a polarization.**
+Published statements (Mumford, *Abelian varieties*, §20: the Weil pairing
+`e_n : A[n] × Â[n] → μ_n` is bilinear, perfect, Galois-equivariant, with `e_{mn}(x, y) = e_n(mx, y)`;
+§23: for `λ = φ_L`, `e^L_n(x, y) := e_n(x, λ y)` is skew-symmetric with `e^L_n(x, x) = 1`;
+Milne, *Abelian varieties* (in Cornell–Silverman 1986), §§13, 16; numbering UNVERIFIED), with the
+existence over `K` of an ample line bundle `L` (Mumford §6), whose polarization `λ = φ_L` has
+kernel killed by some `d ≥ 1`. Lean form: for an abelian variety `A/K` there are `d ≥ 1` and a
+family `e n : A(K̄) × A(K̄) → K̄` such that for every `n ≥ 1` invertible in `K`, on `A[n]`:
+values in `μ_n`, bimultiplicative, alternating, Galois-equivariant (`e(σx, σy) = σ(e(x, y))`),
+compatible (`e_n(x^m, y^m) = e_{mn}(x, y)^m`), and nondegenerate up to `d` (if `e_n(x, y) = 1`
+for all `y ∈ A[n]` then `x^d = 1`). Take `e n x y := e_n(x, λ y)`. The last clause: there is
+`ψ : Â → A` with `λ ∘ ψ = [d]`, so `d·Â[n] ⊆ λ(A[n])`, and perfectness of `e_n` gives `d x = 0`.
+Equivariance holds since `λ` is defined over `K`. Hence a consequence, never stronger.
+The form used at C8 step 1 (h-trust; `ℓ = 5`): passing to the limit over `n = ℓᵏ` gives a
+`G_K`-equivariant alternating pairing on `T_ℓ A` with values in `ℤ_ℓ(1)` whose kernel is killed by
+`d`, hence perfect on `V_ℓ A`: `G_K` acts through `GSp` with cyclotomic multiplier, for every `ℓ`
+invertible in `K` (glue). The group of points is written multiplicatively, as in pkg-I2. -/
+def T09_WeilPairing : Prop :=
+  ∀ (K : Type u) [Field K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A],
+    ∃ d : ℕ, 0 < d ∧ ∃ e : ℕ → Pts A (AlgebraicClosure K) → Pts A (AlgebraicClosure K) →
+        AlgebraicClosure K,
+      ∀ n : ℕ, 0 < n → (n : K) ≠ 0 →
+        (∀ x ∈ torsion A (AlgebraicClosure K) n, ∀ y ∈ torsion A (AlgebraicClosure K) n,
+          e n x y ^ n = 1) ∧
+        (∀ x ∈ torsion A (AlgebraicClosure K) n, ∀ x' ∈ torsion A (AlgebraicClosure K) n,
+          ∀ y ∈ torsion A (AlgebraicClosure K) n,
+            e n (x * x') y = e n x y * e n x' y ∧ e n y (x * x') = e n y x * e n y x') ∧
+        (∀ x ∈ torsion A (AlgebraicClosure K) n, e n x x = 1) ∧
+        (∀ x ∈ torsion A (AlgebraicClosure K) n,
+          (∀ y ∈ torsion A (AlgebraicClosure K) n, e n x y = 1) → x ^ d = 1) ∧
+        (∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+          ∀ x ∈ torsion A (AlgebraicClosure K) n, ∀ y ∈ torsion A (AlgebraicClosure K) n,
+            e n (galAct A σ x) (galAct A σ y) = σ (e n x y)) ∧
+        (∀ m : ℕ, 0 < m → (m : K) ≠ 0 →
+          ∀ x ∈ torsion A (AlgebraicClosure K) (m * n),
+          ∀ y ∈ torsion A (AlgebraicClosure K) (m * n),
+            e n (x ^ m) (y ^ m) = e (m * n) x y ^ m)
+
+/-! ## 4. T29: local normalizers of maximal quaternion orders -/
+
+section T29
+
+variable (p : ℕ) [Fact p.Prime]
+
+/-- `x ∈ ℚ_p` lies in `ℤ_p`. -/
+def IsPadicInt (x : ℚ_[p]) : Prop := ‖x‖ ≤ 1
+
+/-- An element of `ℍ[ℚ_p, a, b] = (a, b)_{ℚ_p}` is integral: its reduced trace `x + x̄` and
+reduced norm `x x̄` (scalars) lie in `ℤ_p`. -/
+def QIntegral {a b : ℚ_[p]} (x : ℍ[ℚ_[p], a, b]) : Prop :=
+  (∃ t : ℚ_[p], IsPadicInt p t ∧ x + star x = (t : ℍ[ℚ_[p], a, b])) ∧
+  (∃ n : ℚ_[p], IsPadicInt p n ∧ x * star x = (n : ℍ[ℚ_[p], a, b]))
+
+/-- `u` is a unit of the ring of integral elements: `u` and some integral `v` with `u v = 1`. -/
+def IsOUnit {a b : ℚ_[p]} (u : ℍ[ℚ_[p], a, b]) : Prop :=
+  QIntegral p u ∧ ∃ v : ℍ[ℚ_[p], a, b], QIntegral p v ∧ u * v = 1 ∧ v * u = 1
+
+/-- **T29(a) (division case). Vignéras, LNM 800, Ch. II, §1 (UNVERIFIED numbering: Lemme 1.5,
+Thm 1.6 / Cor. 1.7).** Published statement: if `H` is the quaternion division algebra over
+`ℚ_p`, the integral elements form a ring `𝒪`, the unique maximal order; there is `π` with
+`v(nrd π) = 1`, every `x ∈ H^×` is `π^k u` with `u ∈ 𝒪^×`, and hence (with `ℚ_p^× = p^ℤ ℤ_p^×`,
+`p = π²·unit`) `H^× / ℚ_p^× 𝒪^×` has order 2, generated by `π`; and `N(𝒪) = H^×` since `𝒪` is
+defined by `nrd`, `trd`, which are conjugation-invariant. Lean form, for `(a, b)_{ℚ_p}` whose
+norm form is anisotropic (`x x̄ = 0 → x = 0`, i.e. a division algebra): the integral elements
+are closed under `+` and `*`; there is an integral `π` that is not a scalar multiple of a unit of
+`𝒪`; and every nonzero `x` is `c·u` or `c·π·u` with `c ∈ ℚ_p^×`, `u ∈ 𝒪^×`. This is the
+statement "index exactly 2" written out; it is a restatement of the published one. -/
+def T29a_DivisionNormalizer : Prop :=
+  ∀ a b : ℚ_[p], (∀ x : ℍ[ℚ_[p], a, b], x * star x = 0 → x = 0) →
+    (∀ x y : ℍ[ℚ_[p], a, b], QIntegral p x → QIntegral p y →
+      QIntegral p (x + y) ∧ QIntegral p (x * y)) ∧
+    ∃ π : ℍ[ℚ_[p], a, b], QIntegral p π ∧
+      (¬ ∃ c : ℚ_[p], ∃ u : ℍ[ℚ_[p], a, b], IsOUnit p u ∧
+          π = (c : ℍ[ℚ_[p], a, b]) * u) ∧
+      ∀ x : ℍ[ℚ_[p], a, b], x ≠ 0 →
+        ∃ c : ℚ_[p], c ≠ 0 ∧ ∃ u : ℍ[ℚ_[p], a, b], IsOUnit p u ∧
+          (x = (c : ℍ[ℚ_[p], a, b]) * u ∨ x = (c : ℍ[ℚ_[p], a, b]) * π * u)
+
+/-- A `2 × 2` matrix over `ℚ_p` with entries in `ℤ_p`. -/
+def IsIntMat (g : Matrix (Fin 2) (Fin 2) ℚ_[p]) : Prop := ∀ i j, IsPadicInt p (g i j)
+
+/-- **T29(b) (split case). Vignéras, LNM 800, Ch. II, §2 (UNVERIFIED numbering).** Published
+statement: the normalizer of `M₂(ℤ_p)` in `GL₂(ℚ_p)` is `ℚ_p^× GL₂(ℤ_p)`. Lean form, exactly
+that: if `g` is invertible and `g M₂(ℤ_p) g⁻¹ = M₂(ℤ_p)`, then `g = c·k` with `c ∈ ℚ_p^×` and
+`k ∈ GL₂(ℤ_p)` (entries in `ℤ_p`, determinant a unit of `ℤ_p`). -/
+def T29b_SplitNormalizer : Prop :=
+  ∀ g : Matrix (Fin 2) (Fin 2) ℚ_[p], IsUnit g.det →
+    (∀ m, IsIntMat p m ↔ IsIntMat p (g * m * g⁻¹)) →
+    ∃ c : ℚ_[p], c ≠ 0 ∧ ∃ k : Matrix (Fin 2) (Fin 2) ℚ_[p], IsIntMat p k ∧ ‖k.det‖ = 1 ∧
+      g = c • k
+
+end T29
+
+/-! ## 5. T32: tame inertia and quadratic characters, over inertia subgroups of `G_ℚ` -/
+
+/-- The absolute Galois group `G_ℚ = Aut(ℚ̄/ℚ)` (with Mathlib's Krull topology). -/
+abbrev GQ := AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ
+
+/-- `O` is the valuation subring `ℤ_(p)` of `ℚ`: a discrete valuation ring in which `p` is not a
+unit (for any other valuation subring of `ℚ`, `p` is a unit). -/
+def IsAtPrime (O : ValuationSubring ℚ) (p : ℕ) : Prop :=
+  IsDiscreteValuationRing O ∧ ¬ IsUnit (p : O)
+
+/-- The inertia subgroup `I_w ⊆ G_ℚ` of a valuation subring `w` of `ℚ̄` (Mathlib's
+`ValuationSubring.inertiaSubgroup`, pushed into `G_ℚ`). -/
+noncomputable def inertiaQ (w : ValuationSubring (AlgebraicClosure ℚ)) : Subgroup GQ :=
+  ((w.inertiaSubgroup ℚ).map (w.decompositionSubgroup ℚ).subtype)
+
+/-- **T32(a). Serre, *Local fields*, IV §2, Cor. 1-4 (tame inertia is `∏_{ℓ≠p} ℤ_ℓ(1)`, wild
+inertia is pro-`p`), with the identification of `I_w ⊆ G_ℚ` with the inertia group of
+`ℚ̄_p/ℚ_p` (Neukirch, ANT, II §9 / Serre II §3; numbering UNVERIFIED).** Published consequence:
+for `p` odd, the continuous homomorphisms `I_p → {±1}` form a group of order 2 (a quadratic
+character kills the pro-`p` wild inertia, and `Hom_cont(∏_{ℓ≠p} ℤ_ℓ, ℤ/2) = ℤ/2`). Lean form:
+for `w` over `ℤ_(p)`, the continuous monoid maps `I_w →* ℤˣ` number exactly 2 (`ℤˣ = {±1}`,
+discrete). "Unique nontrivial quadratic character of inertia" is exactly this. -/
+def T32a_TameQuadratic : Prop :=
+  ∀ (p : ℕ), p.Prime → p ≠ 2 →
+    ∀ (O : ValuationSubring ℚ), IsAtPrime O p →
+    ∀ (w : ValuationSubring (AlgebraicClosure ℚ)), w.comap (algebraMap ℚ _) = O →
+      Nat.card {χ : inertiaQ w →* ℤˣ // Continuous χ} = 2
+
+/-- **T32(b). The quadratic character of `ℚ(√d)` ramifies exactly at the primes dividing `d`,
+for `d ≡ 1 mod 4` squarefree** (the quadratic Dirichlet character of odd squarefree conductor
+`P` is that of `ℚ(√d)`, `d = ±P ≡ 1 mod 4`). Published: the discriminant of `ℚ(√d)` is `d`
+(Neukirch I (2.?); Washington Ch. 3) and `p` ramifies iff `p | disc` (Neukirch III (2.12)),
+together with "ramified ⇔ inertia acts nontrivially" (Neukirch I §9; numbering UNVERIFIED).
+Lean form: for a square root `s ∈ ℚ̄` of `d` and `w` over `ℤ_(p)`, some inertia element moves `s`
+iff `p | d`. `σ ↦ σ(s)/s` is the quadratic character, so this is the published statement. -/
+def T32b_QuadraticRamification : Prop :=
+  ∀ (d : ℤ), Squarefree d → d % 4 = 1 →
+    ∀ (s : AlgebraicClosure ℚ), s ^ 2 = (d : AlgebraicClosure ℚ) →
+    ∀ (p : ℕ), p.Prime →
+    ∀ (O : ValuationSubring ℚ), IsAtPrime O p →
+    ∀ (w : ValuationSubring (AlgebraicClosure ℚ)), w.comap (algebraMap ℚ _) = O →
+      ((∃ σ ∈ inertiaQ w, σ s ≠ s) ↔ (p : ℤ) ∣ d)
+
+end LeafPush
+
+end LeafPushSec
+
 noncomputable section
 
 namespace HSyn
@@ -9904,12 +11463,6 @@ Japan 58 (2006), Thm 5.12, Prop. 5.6 (VERIFIED in arXiv:math/0612732 by a reposi
 journal numbering UNVERIFIED). Exact. Missing: as R2. -/
 opaque R05_GonzalezRotger : Prop
 
-/-- **R8. Grothendieck's semistable reduction theorem** (Néron-model form). An abelian variety over
-the fraction field of a henselian DVR acquires semistable reduction over a finite extension. SGA 7
-I, Exp. IX, Thm 3.6 (UNVERIFIED). Exact. Needed only on the reviewed route for A6 (Lemma PR(ii));
-the Raynaud route of the reduction-theory report avoids it. Missing: Néron models (large). The
-Galois consequence is stated as `PkgI2.GrothendieckMonodromy`. -/
-opaque R08_SemistableReduction : Prop
 
 /-- **R16. Eichler–Shimura in `J₁(N)`.** For a weight-2 newform `f` of level `N`,
 `V_ℓ(J₁(N)) ⊗ ℚ̄_ℓ` has a `G_ℚ`-stable two-dimensional subquotient on which
@@ -9952,10 +11505,6 @@ constant downstream is unchanged),
 (read by a model). Exact. Missing: Faltings height, theta constants. -/
 opaque R22_Pazuki : Prop
 
-/-- **T9. Weil pairing.** The Weil pairing of a polarization is Galois-equivariant with values in
-`ℤ_ℓ(1)`, so `G_K` acts on `V_ℓ(A)` through `GSp` with cyclotomic multiplier (Mumford §§20, 23,
-UNVERIFIED). Missing: polarizations, Tate modules (medium). -/
-opaque T09_WeilPairing : Prop
 
 /-- **T10. `V_ℓ(A) ≅ H¹_et(A_K̄, ℚ_ℓ)^∨`**, Galois-equivariantly (Milne in Cornell–Silverman 1986,
 Thm 15.1(a), UNVERIFIED). Missing: ℓ-adic étale cohomology (large). -/
@@ -9970,24 +11519,15 @@ opaque T11_RiemannGAGA : Prop
 (SGA 4 XI 4.4, UNVERIFIED; elementary for abelian varieties via `ℂ²/Λ`). Missing: as T11. -/
 opaque T12_ArtinComparison : Prop
 
-/-- **T23. Fontaine's closure properties.** de Rham representations are closed under duals,
-tensor products, sums and subquotients (Astérisque 223 (1994), Thm 3.8, UNVERIFIED). Missing: as
-R10 (large). -/
-opaque T23_FontaineClosure : Prop
 
-/-- **T29. Local normalizers of maximal orders.** For a quaternion algebra `B_p` over `ℚ_p` and a
-maximal order `𝒪_p`, the group `N(𝒪_p)/ℚ_p^×𝒪_p^×` has order 2 if `B_p` is a division algebra
-(generated by a uniformizer of `B_p`) and order 1 if `B_p ≅ M₂(ℚ_p)` (`N(M₂(ℤ_p)) = ℚ_p^×GL₂(ℤ_p)`);
-for `B = (2,−3)` (ramified at 2, 3) this gives the normalizer index 4 of A3 (Vignéras, LNM 800,
-Ch. II, UNVERIFIED). Statable over Mathlib's quaternion algebras (pkg-I1 I1-f), not drafted. -/
-opaque T29_LocalNormalizers : Prop
 
-/-- **T32. Tame inertia and quadratic characters** (glue-descent L-B3a, L-B3b). (a) The tame
-inertia group of `ℚ_p`, `p` odd, has a unique continuous character of order 2; (b) a quadratic
-Dirichlet character is ramified exactly at the primes dividing its conductor (Serre, *Local fields*
-IV §2; Neukirch; UNVERIFIED). Used only for the unramifiedness of `L'`. Missing: inertia subgroups
-of `G_ℚ` as subgroups of `Field.absoluteGaloisGroup ℚ` (cheap). -/
-opaque T32_TameQuadratic : Prop
+
+/-! hsyn-fold: R8, T9, T23, T29 and T32 are no longer placeholders. Their concrete statements
+(task leaf-push) are `PkgI2.GrothendieckMonodromy` (= `LeafPush.R08_GrothendieckMonodromy`,
+consequence form), `LeafPush.T09_WeilPairing` (consequence, polarization hidden),
+`PkgI4.T23_FontaineClosure` (exact, matrix form, `ℚ_p` coefficients),
+`LeafPush.T29a_DivisionNormalizer` and `LeafPush.T29b_SplitNormalizer` (exact),
+`LeafPush.T32a_TameQuadratic` and `LeafPush.T32b_QuadraticRamification` (consequences). -/
 
 /-! ## §3. Glue -/
 
@@ -10027,7 +11567,7 @@ structure ResearchLeaves : Prop where
   r6 : PkgI2.RaynaudCriterion.{0}
   r7a : PkgI2.NeronOggShafarevich.{0}
   r7b : PkgI2.SerreTatePotentialGood.{0}
-  r8 : R08_SemistableReduction
+  r8 : PkgI2.GrothendieckMonodromy.{0}
   r9a : PkgI3.FaltingsSemisimple
   r9b : PkgI3.FaltingsTate
   r10 : PkgI4.DeRhamComparison
@@ -10056,7 +11596,7 @@ structure TextbookLeaves : Prop where
   t6 : PkgI3.HomFreeFinite
   t7 : PkgI3.CharPolyIndepOfEll
   t8 : PkgI3.PoincareReducibility
-  t9 : T09_WeilPairing
+  t9 : LeafPush.T09_WeilPairing.{0}
   t10 : T10_TateDuality
   t11 : T11_RiemannGAGA
   t12 : T12_ArtinComparison
@@ -10075,16 +11615,18 @@ structure TextbookLeaves : Prop where
   t21 : GlueConductor.SerreDifferentBound
   t22a : PkgI6.HerbrandQuotient
   t22b : PkgI6.HerbrandTransitivity
-  t23 : T23_FontaineClosure
+  t23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p
   t24 : EigenformTwist
   t25 : PkgI4.NewformOfEigenform
   t26 : PkgI3.TateModuleFree
   t27 : PkgI3.QMDichotomy
   t28 : PkgI1.IgusaClebschSeparation
-  t29 : T29_LocalNormalizers
+  t29a : ∀ (p : ℕ) [Fact p.Prime], LeafPush.T29a_DivisionNormalizer p
+  t29b : ∀ (p : ℕ) [Fact p.Prime], LeafPush.T29b_SplitNormalizer p
   t30 : GlueDescent.B2Q.LeafSqrtCrit
   t31 : GlueDescent.B2Q.LeafUnramified
-  t32 : T32_TameQuadratic
+  t32a : LeafPush.T32a_TameQuadratic
+  t32b : LeafPush.T32b_QuadraticRamification
 
 /-- **The glue G1-G17 and G19 (non-Arakelov part).** The leaves give glue-assembly's interface
 `GlueOutputs` at `S = Mult.S_mul`: for each `u ∉ 𝒞`, the theta point `z` of the QM surface over
@@ -10167,3 +11709,28 @@ end
 #print axioms GlueDescent.B2Q.b2_of_leaves
 #print axioms GlueConductor.exists_sq_eq_one_add
 #print axioms PkgI6.cob_of_same_finite_support
+-- hsyn-fold: theorems adopted from glue-a6-alg, glue-c10 and glue-d1-local
+#print axioms GlueA6Alg.Alg.core
+#print axioms GlueA6Alg.Alg.exists_valuationSubring_comap_eq
+#print axioms PkgI2.quatUnipotentTrivial
+#print axioms PkgI2.goodReduction_of_QM_rational3_of_alg
+#print axioms PkgI2.goodReduction_of_QM_rational3'
+#print axioms PkgI3.trace_indep_of_ell
+#print axioms PkgI3.trace_eq_trace_of_ell
+#print axioms GlueC10.iso_of_trace_eq_frob_finite
+#print axioms GlueC10.frobDense_of_chebotarev
+#print axioms GlueC10.eq_of_eq_on_frob
+#print axioms GlueC10.iso_of_trace_eq_on_frob
+#print axioms GlueC10.iso_three_of_five
+#print axioms GlueC10.semisimple_of_le
+#print axioms GlueC10.trace_half
+#print axioms GlueC10.frobLift
+#print axioms GlueC10.frobDense
+#print axioms GlueC10.c10
+#print axioms GlueD1Local.ramificationIdx_le_factorial_local
+#print axioms GlueD1Local.D1_local
+#print axioms GlueD1Local.index_localSub
+#print axioms GlueD1Local.D1_local'
+#print axioms GlueD1Local.ramificationIdx_le_factorial_of_unique
+#print axioms GlueD1Local.D1_krasner
+#print axioms GlueD1Local.D1_krasner'
