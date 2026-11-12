@@ -8,6 +8,8 @@ import Mathlib
 
 open Quaternion
 
+attribute [local simp] QuaternionAlgebra.re_ofNat QuaternionAlgebra.imI_ofNat QuaternionAlgebra.imJ_ofNat QuaternionAlgebra.imK_ofNat
+
 namespace GlueVigneras
 
 section Unit
@@ -113,5 +115,120 @@ theorem norm_form2 (a b : ℚ_[2]) : ‖a ^ 2 + a * b + b ^ 2‖ = (max ‖a‖ 
     rw [map_add, map_add, map_one, map_pow]
     generalize PadicInt.toZMod (lift t ht) = s
     revert s; decide
+
+section Key
+variable {p : ℕ} [hp : Fact p.Prime]
+
+theorem norm_le_one_of_eq_coe {x : ℚ_[p]} (z : ℤ_[p]) (h : x = z) : ‖x‖ ≤ 1 := by
+  rw [h]; exact PadicInt.norm_le_one z
+
+theorem one_lt_p : (1 : ℝ) < p := by exact_mod_cast hp.out.one_lt
+
+/-- The valuation-parity step: if `‖u‖ = M₁²` (an even power of `p`, or `0`) and
+`‖v‖ = M₂²/p` (an odd power, or `0`), then `‖u + v‖ ≤ 1` forces `M₁ ≤ 1` and `M₂ ≤ 1`. -/
+theorem key (u v : ℚ_[p]) (M1 M2 : ℝ) (h1 : ‖u‖ = M1 ^ 2) (h2 : ‖v‖ = M2 ^ 2 / p)
+    (hM1 : M1 = 0 ∨ ∃ m : ℤ, M1 = (p : ℝ) ^ m) (hM2 : M2 = 0 ∨ ∃ m : ℤ, M2 = (p : ℝ) ^ m)
+    (h : ‖u + v‖ ≤ 1) : M1 ≤ 1 ∧ M2 ≤ 1 := by
+  have p1 := one_lt_p (p := p)
+  have p0 : (0 : ℝ) < p := by linarith
+  have sq : ∀ m : ℤ, ((p : ℝ) ^ m) ^ 2 = (p : ℝ) ^ (2 * m) := by
+    intro m; rw [← zpow_natCast, ← zpow_mul]; ring_nf
+  have hdiv : ∀ m : ℤ, ((p : ℝ) ^ m) ^ 2 / p = (p : ℝ) ^ (2 * m - 1) := by
+    intro m; rw [sq, zpow_sub_one₀ p0.ne']; field_simp
+  rcases hM1 with h0 | ⟨m, rfl⟩ <;> rcases hM2 with h0' | ⟨n, rfl⟩
+  · simp [h0, h0']
+  · -- `u = 0`
+    have hu : u = 0 := by simpa [h0] using h1
+    rw [hu, zero_add, h2, hdiv] at h
+    refine ⟨by simp [h0], ?_⟩
+    have : 2 * n - 1 ≤ 0 := by
+      by_contra hc; push Not at hc
+      have := one_lt_zpow₀ p1 hc; linarith
+    exact zpow_le_one_of_nonpos₀ p1.le (by omega)
+  · have hv : v = 0 := by simpa [h0'] using h2
+    rw [hv, add_zero, h1, sq] at h
+    refine ⟨?_, by simp [h0']⟩
+    have : 2 * m ≤ 0 := by
+      by_contra hc; push Not at hc
+      have := one_lt_zpow₀ p1 hc; linarith
+    exact zpow_le_one_of_nonpos₀ p1.le (by omega)
+  · have hne : ‖u‖ ≠ ‖v‖ := by
+      rw [h1, h2, sq, hdiv]; intro he
+      have := zpow_right_injective₀ p0 p1.ne' he
+      omega
+    rw [Padic.add_eq_max_of_ne hne] at h
+    have hu := (le_max_left _ _).trans h
+    have hv := (le_max_right _ _).trans h
+    rw [h1, sq] at hu; rw [h2, hdiv] at hv
+    have a1 : 2 * m ≤ 0 := by
+      by_contra hc; push Not at hc
+      have := one_lt_zpow₀ p1 hc; linarith
+    have a2 : 2 * n - 1 ≤ 0 := by
+      by_contra hc; push Not at hc
+      have := one_lt_zpow₀ p1 hc; linarith
+    exact ⟨zpow_le_one_of_nonpos₀ p1.le (by omega), zpow_le_one_of_nonpos₀ p1.le (by omega)⟩
+
+end Key
+
+section Alg
+variable (p : ℕ) [hp : Fact p.Prime]
+
+/-- `B_p = B ⊗ ℚ_p = ℍ[ℚ_[p], 2, 0, -3]` (`i² = 2`, `j² = -3`, `k = ij`). -/
+abbrev Bp := ℍ[ℚ_[p], 2, 0, -3]
+
+/-- The `ℤ_p`-combination `n₀ + n₁ i + n₂ (1+j)/2 + n₃ (i+ij)/2` of N5's basis. -/
+noncomputable def combp (n : Fin 4 → ℤ_[p]) : Bp p :=
+  ⟨(n 0 : ℚ_[p]) + (n 2 : ℚ_[p]) / 2, (n 1 : ℚ_[p]) + (n 3 : ℚ_[p]) / 2,
+    (n 2 : ℚ_[p]) / 2, (n 3 : ℚ_[p]) / 2⟩
+
+/-- `𝒪_p = 𝒪 ⊗ ℤ_p`: the `ℤ_p`-span of N5's basis. -/
+def Op : Set (Bp p) := Set.range (combp p)
+
+/-- Coordinates in N5's basis. -/
+noncomputable def coord (x : Bp p) : Fin 4 → ℚ_[p] := ![x.re - x.imJ, x.imI - x.imK, 2 * x.imJ, 2 * x.imK]
+
+theorem mem_Op_iff_coord (x : Bp p) : x ∈ Op p ↔ ∀ k, ‖coord p x k‖ ≤ 1 := by
+  constructor
+  · rintro ⟨n, rfl⟩ k
+    have e : coord p (combp p n) k = (n k : ℚ_[p]) := by
+      fin_cases k <;> simp [coord, combp] <;> ring
+    rw [e]; exact PadicInt.norm_le_one _
+  · intro h
+    refine ⟨fun k => lift (coord p x k) (h k), ?_⟩
+    ext <;> simp [combp, coord, coe_lift] <;> ring
+
+/-- Reduced norm `nrd x = x x̄`. -/
+noncomputable def nrd (x : Bp p) : ℚ_[p] := (x * star x).re
+
+theorem nrd_eq (x : Bp p) :
+    nrd p x = x.re ^ 2 - 2 * x.imI ^ 2 + 3 * x.imJ ^ 2 - 6 * x.imK ^ 2 := by
+  simp [nrd]; ring
+
+theorem mul_star_eq (x : Bp p) : x * star x = algebraMap ℚ_[p] (Bp p) (nrd p x) := by
+  ext <;> simp [nrd] <;> ring
+
+theorem nrd_mul (x y : Bp p) : nrd p (x * y) = nrd p x * nrd p y := by
+  simp only [nrd_eq]; simp; ring
+
+theorem nrd_one : nrd p 1 = 1 := by simp [nrd_eq]
+
+theorem nrd_smul (c : ℚ_[p]) (x : Bp p) : nrd p (c • x) = c ^ 2 * nrd p x := by
+  simp only [nrd_eq]; simp; ring
+
+theorem nrd_coord (x : Bp p) :
+    nrd p x = (coord p x 0 ^ 2 + coord p x 0 * coord p x 2 + coord p x 2 ^ 2)
+      + (-2) * (coord p x 1 ^ 2 + coord p x 1 * coord p x 3 + coord p x 3 ^ 2) := by
+  simp [nrd_eq, coord]; ring
+
+/-- Elements of `𝒪_p` have integral reduced norm (any `p`). -/
+theorem norm_nrd_le_one_of_mem {x : Bp p} (hx : x ∈ Op p) : ‖nrd p x‖ ≤ 1 := by
+  rw [mem_Op_iff_coord] at hx
+  rw [nrd_coord]
+  set n : Fin 4 → ℤ_[p] := fun k => lift (coord p x k) (hx k)
+  have hn : ∀ k, coord p x k = n k := fun k => rfl
+  apply norm_le_one_of_eq_coe ((n 0 ^ 2 + n 0 * n 2 + n 2 ^ 2) + (-2) * (n 1 ^ 2 + n 1 * n 3 + n 3 ^ 2))
+  simp only [hn]; push_cast [coe_two]; ring
+
+end Alg
 
 end GlueVigneras
