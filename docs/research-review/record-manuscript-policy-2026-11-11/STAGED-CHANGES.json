@@ -1,0 +1,73 @@
+{
+  "base_commit": "39182bffc48c0412b2888d9d28f1ca138a2004e7",
+  "staged_tree": "9f628c6b0ee49bcee4d302308f0776af3e957021",
+  "files": [
+    {
+      "path": ".github/pull_request_template.md",
+      "sha256": "1df6de7997ef570d912823f15dde3c9654ea242aa58eae04d56e0945b6d60a3f",
+      "bytes": 3262,
+      "git_blob": "feef57ca540d8d4a241db4ab4bbbf602ed555868"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "ad8253d48ba1c8091aa7c8d4410b79f99dba6bc487573721895aa6c1f35a1fee",
+      "bytes": 3194,
+      "git_blob": "08729941f0b7377692e2bfaeb07f6d7aa2239d2a"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "sha256": "ffe5e5b8e4a037f7f643003ba980e996be876581e88a28d45c2be426fc3d4edb",
+      "bytes": 4920,
+      "git_blob": "2ce60e2a4fabe77be93749accc86707809a5266d"
+    },
+    {
+      "path": "README.md",
+      "sha256": "edd6a3f17d14064fb19d9a192d7bcc9a6f5373ea508491c0940ef899fe108354",
+      "bytes": 15573,
+      "git_blob": "a72d297c56971af9dd4e8b77ff85e25e2cb428f2"
+    },
+    {
+      "path": "docs/current-manuscript-build.md",
+      "sha256": "378144ead9c8313985ab16b876d4a675b9d2e48bcda16f6d4f1c3c6f451eaf03",
+      "bytes": 2446,
+      "git_blob": "1f556434d18d9978d465550b1b96ede3f563ca1b"
+    },
+    {
+      "path": "docs/current-manuscript.json",
+      "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33",
+      "bytes": 517,
+      "git_blob": "47ba4dc40fd1cc33fec36e69be5cf878879d8a4f"
+    },
+    {
+      "path": "docs/release-policy.md",
+      "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c",
+      "bytes": 2854,
+      "git_blob": "08eb6dc3ddc9c5b754bc5babe94d3a07e9214369"
+    },
+    {
+      "path": "docs/research-review/README.md",
+      "sha256": "ea6b43fd8c092bb9836fc1be984bea883c00963a087681cdd05d0729b84059d1",
+      "bytes": 15311,
+      "git_blob": "d746a0172e4897030357ed38495c27db1b1cb1aa"
+    },
+    {
+      "path": "scripts/build_paper.py",
+      "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f",
+      "bytes": 9646,
+      "git_blob": "63e265a3284793188e639064716a44f48296fb38"
+    },
+    {
+      "path": "scripts/check_current_manuscript.py",
+      "sha256": "da533c8d5a480f152b9879bde10d944b035580d77d648e80afc4329c48099154",
+      "bytes": 5527,
+      "git_blob": "7f9af918c5b54768d1c96226b0c74ef541113eb1"
+    },
+    {
+      "path": "scripts/test_current_manuscript.py",
+      "sha256": "794398d5ea90e12e18d216b6d8bed190e3d7417e29c097a3cd70d2f83a1302b4",
+      "bytes": 10037,
+      "git_blob": "b5076b884e995cf4adda792de3131721c0294acd"
+    }
+  ],
+  "scope": "Exact staged Git blobs; working-tree line endings may differ. No controller acceptance claim."
+}

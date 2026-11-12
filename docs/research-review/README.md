@@ -59,6 +59,8 @@ Apply the protocol's probability and stopping checks only where those features o
 
 ## Research release maintenance
 
+For every official new record, the [project release policy](../release-policy.md#complete-manuscript-required-for-every-official-record) requires a complete updated TeX manuscript and its matching built PDF. Independently check that the current manuscript incorporates the record's complete project argument; a sequence of separate notes is insufficient. Contributors may propose an improvement in a short note, with integration performed by maintainers before record publication. Check the current manuscript profile, actual build evidence and both artifact hashes, as well as the mathematical assembly.
+
 For every research release, follow the protocol's [release maintenance and research handoff requirements](PROTOCOL.md#release-maintenance-and-research-handoff). Identify the reviewed project profile that defines required artifacts, names, locations, thresholds, publication destinations and reproduction entry points.
 
 - Update the cumulative handoff with current and relevant prior research and reviews. Retain negative results and superseded evidence with their status, correction links and provenance. Exclude conversational transcripts, credentials and unrelated private files from the release handoff.

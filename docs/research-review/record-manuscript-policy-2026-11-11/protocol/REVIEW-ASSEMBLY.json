@@ -1,0 +1,16 @@
+{
+  "schema": "protocol14-review/v1",
+  "scope": "Independent assembly acceptance of the complete-manuscript policy, profile validator, current-source builder, documented release packaging and historical-builder compatibility at the exact connection record.",
+  "limitations": "Independent non-author policy/software assessment at source 094979aadc81e557db1d5a55aff37b723be45db6 and exact serialized CONNECTIONS SHA256 43bb28cc8f4559708200e3ca78e0d81088e2da02ac39c3efbe3b1b5aa0b0fd53. This is not mathematical review, production authentication, App acceptance or a final Git-bound ACK. Actual final integration must preserve these reviewed source bytes and satisfy the same scope; changed content requires renewed review. Retained build and test evidence has its original scope: the full build predates the output guard, one Windows symlink fixture was skipped, and PDF stream/geometry/text comparison is not complete rendering equivalence.",
+  "decisions": [
+    {
+      "subject": "assembly",
+      "subject_sha256": "bb3e65b594d3b18321060f8cac2f8b9b38efe10ec3138fd2a04f21fde2732eb4",
+      "outcome": "accepted_within_scope",
+      "review_basis": "consistency_only",
+      "prior_review": null,
+      "scope": "The release rule, contribution instructions and PR template consistently require a complete current TeX project, matching built PDF and independent incorporation/assembly review before official record promotion. The profile and validator bind the declared current pair and build record. The builder stages declared inputs, avoids option-like source interpretation and protects release outputs. The guide explains genuine first-build packaging and distinguishes release records from generated rebuild receipts. The compatibility binding preserves historical V14 contracts while checking the current selector separately. All nine policy/software obligations and all six occurrences of four findings are resolved within these limits. Historical evidence is retained with its original identities and no mathematical acceptance is transferred.",
+      "limitations": "Independent non-author policy/software assessment at source 094979aadc81e557db1d5a55aff37b723be45db6 and exact serialized CONNECTIONS SHA256 43bb28cc8f4559708200e3ca78e0d81088e2da02ac39c3efbe3b1b5aa0b0fd53. This is not mathematical review, production authentication, App acceptance or a final Git-bound ACK. Actual final integration must preserve these reviewed source bytes and satisfy the same scope; changed content requires renewed review. Retained build and test evidence has its original scope: the full build predates the output guard, one Windows symlink fixture was skipped, and PDF stream/geometry/text comparison is not complete rendering equivalence."
+    }
+  ]
+}
