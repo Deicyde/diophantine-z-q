@@ -49,3 +49,10 @@ Task: blueprint for the Shimura-curve objects of leaves R1-R3, R5 (docs/research
   `ji + ij = 0` proved in `𝒪`; `hrat` from `Level3.onto` + `Level3.rational`). Compiles, axioms
   propext, Classical.choice, Quot.sound (VERIFIED).
 - docs/research/bp-qmmoduli.md written (first version).
+- `QMAbVar.lean` §6 (VERIFIED, compiles, standard axioms): `QML3.Iso.symm`, `QML3.Iso.trans`,
+  `isoSetoid` (isomorphism is an equivalence relation), `M3'` (the `Quotient`); `com q`
+  (centralizer of `ι(𝒪)` in `End_K A`), `HasCM4`, `HasCM3`, `HasCM24`, `intCast_mem_com`;
+  **`endBC`**: base change `End_K(A) →+* End_L(A_L)` along `Over.pullback (Spec L → Spec K)`
+  (first half of node N8; needs `open scoped CategoryTheory.Obj` and the explicit instance
+  `Functor.map.instIsMonHom`). Not done: injectivity of `endBC` (faithfulness of the pullback),
+  base change of `Level3`.

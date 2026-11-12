@@ -406,6 +406,112 @@ theorem QML3.goodReduction (hNOS : PkgI2.NeronOggShafarevich.{0})
 
 end A6
 
+/-! ## §6 Isomorphism classes as a quotient; centralizer and CM; base change of `End` -/
+
+section Classes
+
+variable {P Q R : QML3 K}
+
+/-- Inverse of an isomorphism. -/
+def QML3.Iso.symm (f : P.Iso Q) : Q.Iso P where
+  φ := f.ψ
+  ψ := f.φ
+  left := f.right
+  right := f.left
+  equivariant a := by
+    calc (Q.q.iota a).hom ≫ f.ψ.hom
+        = f.ψ.hom ≫ f.φ.hom ≫ (Q.q.iota a).hom ≫ f.ψ.hom := by
+          rw [reassoc_of% f.right]
+      _ = f.ψ.hom ≫ (P.q.iota a).hom ≫ f.φ.hom ≫ f.ψ.hom := by
+          rw [reassoc_of% (f.equivariant a)]
+      _ = f.ψ.hom ≫ (P.q.iota a).hom := by rw [f.left, Category.comp_id]
+  level a := by
+    rw [← f.level a]
+    change Additive.ofMul ((Additive.toMul (P.e.eta a) ≫ f.φ.hom) ≫ f.ψ.hom) = _
+    rw [Category.assoc, f.left, Category.comp_id]; rfl
+
+/-- Composition of isomorphisms. -/
+def QML3.Iso.trans (f : P.Iso Q) (g : Q.Iso R) : P.Iso R where
+  φ := AbVar.Hom.mk' (f.φ.hom ≫ g.φ.hom)
+  ψ := AbVar.Hom.mk' (g.ψ.hom ≫ f.ψ.hom)
+  left := by
+    simp only [AbVar.Hom.hom_mk', Category.assoc]
+    rw [reassoc_of% g.left, f.left]
+  right := by
+    simp only [AbVar.Hom.hom_mk', Category.assoc]
+    rw [reassoc_of% f.right, g.right]
+  equivariant a := by
+    simp only [AbVar.Hom.hom_mk', Category.assoc]
+    rw [reassoc_of% (f.equivariant a), g.equivariant a]
+  level a := by
+    rw [← g.level a, ← f.level a]
+    simp only [AbVar.Hom.hom_mk']
+    rfl
+
+/-- Isomorphism of objects is an equivalence relation. -/
+def isoSetoid (K : Type) [Field K] : Setoid (QML3 K) where
+  r P Q := Nonempty (P.Iso Q)
+  iseqv := ⟨fun P => ⟨QML3.Iso.refl P⟩, fun ⟨f⟩ => ⟨f.symm⟩, fun ⟨f⟩ ⟨g⟩ => ⟨f.trans g⟩⟩
+
+/-- The set of isomorphism classes, as a `Quotient` (same as `M3 K`, now with the setoid). -/
+def M3' (K : Type) [Field K] : Type 1 := Quotient (isoSetoid K)
+
+end Classes
+
+section CM
+
+variable {A : AbVar K}
+
+/-- The centralizer of `ι(𝒪)` in `End_K(A)` (the "CM order" of `(A, ι)` when it is larger than
+`ℤ`). -/
+def com (q : QMStr A) : Subring (AbVar.End A) := Subring.centralizer (Set.range q.iota)
+
+/-- CM by `ℤ[i]` (discriminant −4) inside the centralizer. -/
+def HasCM4 (q : QMStr A) : Prop := ∃ φ ∈ com q, φ * φ = -1
+/-- CM by `ℤ[ζ₃]` (discriminant −3) inside the centralizer. -/
+def HasCM3 (q : QMStr A) : Prop := ∃ φ ∈ com q, φ * φ - φ + 1 = 0
+/-- CM by `ℤ[√−6]` (discriminant −24) inside the centralizer. -/
+def HasCM24 (q : QMStr A) : Prop := ∃ φ ∈ com q, φ * φ = -6
+
+/-- `ι(𝒪)`'s centre-like part: `ι(n)` for integers `n` lies in the centralizer. -/
+theorem intCast_mem_com (q : QMStr A) (n : ℤ) : (n : AbVar.End A) ∈ com q := by
+  rw [com, Subring.mem_centralizer_iff]
+  rintro _ ⟨a, rfl⟩
+  exact (Int.cast_commute n _).symm.eq
+
+end CM
+
+section BaseChangeEnd
+
+open scoped CategoryTheory.Obj in
+/-- **Base change on endomorphisms** (first half of node N8): `End_K(A) → End_L(A_L)`,
+`f ↦ (Over.pullback (Spec L → Spec K)).map f`, a ring homomorphism (functoriality, and
+`Functor.map_mul` for the monoidal functor `Over.pullback`). -/
+def endBC (A : AbVar K) (L : Type) [Field L] [Algebra K L] :
+    AbVar.End A →+* AbVar.End (A.baseChange L) where
+  toFun f := @AbVar.Hom.mk' L _ (A.baseChange L) (A.baseChange L)
+    ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))).map f.hom)
+    (Functor.map.instIsMonHom (F := Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L))))
+      (f := f.hom))
+  map_one' := by
+    apply AbVar.Hom.ext'
+    change (Over.pullback _).map (𝟙 A.X) = 𝟙 _
+    exact (Over.pullback _).map_id _
+  map_mul' f g := by
+    apply AbVar.Hom.ext'
+    change (Over.pullback _).map (g.hom ≫ f.hom) = _
+    rw [Functor.map_comp]; rfl
+  map_zero' := by
+    apply AbVar.Hom.ext'
+    change (Over.pullback _).map (1 : A.X ⟶ A.X) = 1
+    exact Functor.map_one _
+  map_add' f g := by
+    apply AbVar.Hom.ext'
+    change (Over.pullback _).map (f.hom * g.hom) = _
+    rw [Functor.map_mul]; rfl
+
+end BaseChangeEnd
+
 end AV
 
 end BPQM
@@ -415,3 +521,6 @@ end BPQM
 #print axioms BPQM.AV.Level3.twist
 #print axioms BPQM.AV.QML3.Iso.refl
 #print axioms BPQM.AV.QML3.goodReduction
+#print axioms BPQM.AV.isoSetoid
+#print axioms BPQM.AV.endBC
+#print axioms BPQM.AV.intCast_mem_com
