@@ -37,3 +37,6 @@
   `continuous_cpAct`, `norm_cpAct` (isometry on ℂ_p), `cpAct_inv_apply`, `oAct` (σ on 𝓞_ℂ_[p]), `BdR p := Localization (genMonoid p 𝓞_ℂ_[p])` with `example : BdR p = BDeRham 𝓞_ℂ_[p] p := rfl`, `bdrAct` (G_{ℚ_p} on B_dR), `isLocalization_padic` (ℚ_p = ℤ_p[1/p]), `zpToW`, `qpToLoc`, `ofLoc`, `qpToBdR` (ℚ_p → B_dR), `bdrAct_qpToBdR` (G fixes ℚ_p), `Algebra ℚ_[p] (BdR p)`, `bdrAct_smul`, `ddrSpace` (Hom_{ℚ_p}(V, B_dR)^G = D_dR(V^∨), submodule proofs done), `IsDeRham` (finrank = n[E:ℚ_p]), `LocalIsDeRham` (ℚ̄_p-valued, ∃ finite E).
 - Size of the whole de Rham layer (Cp + DR + §1b): ~420 lines.
 - Step 5b: `PanBerger : Prop := PanFor (LocalIsDeRham)` — Pan∘Berger leaf statable now over genuine definitions; `BergerDR IsPst` template. File compiles, 955 lines, no `sorry` anywhere; `#print axioms PkgI4.PanBerger`: propext, Classical.choice, Quot.sound.
+
+## Step 6: research note updated
+- Summary, §1.1-1.3, §2.2, §2.5, §3 (definitions table, statements table, de Rham layer table with line counts, §3.4 non-vacuity checks), §4 statability, §6 obstacle and recommendations revised for the de Rham construction and PanBerger.

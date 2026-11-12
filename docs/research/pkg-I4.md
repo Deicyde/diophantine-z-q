@@ -33,26 +33,29 @@ statement as printed in arXiv v2); `h-leaves.md` §3 (options for the de Rham in
    Tate–Sen Hodge–Tate multiplicities (`htSpace`, `htMult`, `HasHTWeights`), with Pan's and N5's
    convention (cyclotomic weight `−1`). wk-h §3.1 and hdec-faithful rated HT "large"; it is
    about 80 lines.
-3. **Leaves statable now (compiled): six.** Existence of eigenform representations; **HT weights
-   of eigenform representations at every level** (new, needs item 2); Deligne–Serre finiteness;
-   twisting; **Li's newform of an eigensystem** (new: newforms defined through the old space);
-   **Carayol at unramified primes** (new). Three are hdec-faithful's, restated in this file.
-4. **Templates (compiled, not leaves): Pan, Berger, Carayol.** Each is a function of exactly one
-   missing predicate: `PanFor IsPst`, `BergerFor IsDR IsPst`, `CarayolFor a` (the `ℓ`-adic
-   conductor exponent). Everything else in their statements is genuine: continuity,
-   irreducibility, finite ramification, oddness, **distinct Hodge–Tate weights**, eigenforms,
-   newforms, the twist-trace conclusion.
-5. **Not statable: C3, C5 and Shimura's `A_f`.** They need abelian varieties with Tate modules
+3. **New Lean result: the de Rham predicate is definable over Mathlib today (VERIFIED, compiles,
+   no `sorry`, standard axioms).** `I4.lean` proves the missing pieces and builds the
+   `G_{ℚ_p}`-action on Mathlib's `BDeRham (𝓞_ℂ_[p]) p` by functoriality: `𝓞_ℂ_[p]` is
+   `p`-adically complete (instances absent from Mathlib, so `BDeRham 𝓞_ℂ_[p] p` did not even
+   typecheck), naturality of `untilt` and of Fontaine's `θ`, ring maps of adic completions,
+   preservation of the generators of `ker θ`, `ℚ_p ⊆ B_dR` fixed by `G_{ℚ_p}`. Then
+   `D_dR(V^∨) = Hom_{ℚ_p}(V, B_dR)^{G}` and `IsDeRham ρ :⇔ dim_{ℚ_p} D_dR = dim_{ℚ_p} V`. About 420
+   lines (§3.3). wk-h and hdec-faithful rated de Rham "large".
+4. **Leaves statable now (compiled): seven.** Existence of eigenform representations; **HT
+   weights of eigenform representations at every level** (new, needs item 2); Deligne–Serre
+   finiteness; twisting; **Li's newform of an eigensystem** (new: newforms defined through the
+   old space); **Carayol at unramified primes** (new); and **Pan∘Berger** (new, needs items 2-3):
+   Pan's Theorem 1.0.4 with "de Rham at `p`" in place of "potentially semistable at `p`", a
+   consequence of Pan with Berger, in the form N5 uses. Three of the seven are hdec-faithful's,
+   restated in this file.
+5. **Templates (compiled, not leaves): Pan with pst, Berger, Carayol.** Each is a function of one
+   missing predicate: `PanFor IsPst`, `BergerDR IsPst`, `CarayolFor a` (the `ℓ`-adic conductor
+   exponent). With `PanBerger` available, neither `B_st` nor Berger as a separate leaf is needed.
+6. **Not statable: C3, C5 and Shimura's `A_f`.** They need abelian varieties with Tate modules
    (C3, C9), complex uniformization (C5) and `J₁(N)` over `ℚ` (C9). These objects belong to I2,
-   I3 and I5 as well; I4 adds only the period rings.
-6. **The biggest obstacle in I4 is the potentially semistable predicate**, and it can be
-   replaced by "de Rham", which Mathlib's `BDeRham` nearly supports (§3.3). Stating Pan in the
-   merged form "Pan after Berger" (de Rham at `p` instead of pst; a consequence of the two
-   theorems) removes `B_st` entirely. What is missing for "de Rham" is the `G_{ℚ_p}`-action on
-   `BDeRham (𝓞_ℂ_[p]) p` (naturality of Fontaine's `θ`, a ring map between adic completions
-   through Mathlib's `AdicCompletion.liftRingHom`, a map of localizations) and the
-   `ℚ_p`-algebra structure: about 400-800 lines (SPECULATIVE). Then Pan∘Berger is a leaf over
-   genuine definitions.
+   I3 and I5 as well. **The biggest obstacle in I4 is now outside p-adic Hodge theory**: Tate
+   modules of abelian varieties (for C3's input and C9), and the `ℓ`-adic Artin conductor (for
+   Carayol, shared with glue-conductor's D1-D4).
 7. **The coarse alternative (Ribet + Pyle + Khare–Wintenberger, §4) is sound for modularity,
    gives no level bound by itself, and is better for statability of the whole proof**: it
    needs no period rings, only abelian varieties with Tate modules, which the rest of H needs
@@ -86,8 +89,9 @@ h-trust's marks.
   (inertia of valuation subrings of `ℚ̄`, Mathlib's `ValuationSubring.inertiaSubgroup`),
   `IsOdd` (every complex conjugation, through all embeddings `ℚ̄ → ℂ`), `DistinctHTWeights`
   (new, §3.1), `IsNormalizedEigenform`, `AttachedUpToTwist`.
-- **Status.** Template, compiled. Missing: `IsPst` (needs `B_st` with `φ`, `N`, `G_K`-action:
-  very large) — or `IsDR` in the merged form of §2.2 (large but close to Mathlib).
+- **Status.** **Statable now in the merged form `PanBerger` (§2.2), compiled.** The literal form
+  `PanFor IsPst` is a template: `IsPst` needs `B_st` with `φ`, `N` and the `G_K`-action (very
+  large; absent everywhere).
 
 ### 1.2 The de Rham comparison and closure (C3)
 
@@ -117,17 +121,20 @@ h-trust's marks.
   trust, option (b) has one leaf fewer.
 - **Lean objects.** Abelian varieties over a `p`-adic field with `V_p` and the Galois action
   (absent; Tau Ceti has abelian varieties as group schemes without Tate modules; Anthropic's
-  FLT has Tate modules of Jacobians); `IsDR` (absent; §3.3). The HT half is statable once Tate
-  modules exist, with `HasHTWeights` from `I4.lean`.
-- **Status.** Not statable now. Missing: Tate modules (I3), `IsDR`.
+  FLT has Tate modules of Jacobians); the de Rham predicate (built here for `G_{ℚ_p}`; for `G_F`
+  with `F/ℚ_p` finite the same construction applies to the open subgroup `G_F`, with `dim_F`,
+  about 30 more lines, not written). The HT half is statable once Tate modules exist.
+- **Status.** Not statable now. Missing: Tate modules (I3) only.
 
 ### 1.3 Berger 2002 (C4)
 
 - **Published statement.** Invent. Math. 148 (2002), Théorème 0.7 in the journal numbering
   (ASTRA-READ) = Thm 0.6 = Thm 5.19 of arXiv:math/0102179v3 (VERIFIED by rv-h-a011): a de Rham
   representation of `G_K` (`K/ℚ_p` finite) is potentially semistable.
-- **Leaf formulation (Lean: `BergerFor IsDR IsPst`).** Exact.
-- **Status.** Template. Not needed on option (b) of §1.2, nor in the merged leaf of §2.2.
+- **Leaf formulation (Lean: `BergerDR IsPst`, the genuine de Rham predicate and a template
+  `IsPst`).** Exact.
+- **Status.** Template in `IsPst` only. Not needed on option (b) of §1.2, nor with the merged
+  leaf `PanBerger` (§2.2).
 
 ### 1.4 Oddness: the Betti–étale comparison (C5)
 
@@ -263,11 +270,11 @@ the merged statement
 > imply its conclusion.
 
 It is a consequence of the two published theorems (Berger turns de Rham into pst), and needs
-only `IsDR`, never `B_st`. In Lean it is `PanFor IsDR` once `IsDR` exists, and `BergerFor` is
-then not needed as a separate leaf. Its weakness as a leaf is attribution: one Prop now carries
-two papers. Recommendation (SPECULATIVE): state Pan∘Berger as the leaf, with the docstring
-naming both theorems. The alternative, option (b) of h-leaves (potentially crystalline via good
-reduction), needs `B_cris`, which is further from Mathlib.
+only the de Rham predicate, never `B_st`. **In Lean it is `PanBerger := PanFor LocalIsDeRham`
+(compiled; §3).** `BergerDR` is then not needed as a separate leaf. Its weakness as a leaf is
+attribution: one Prop carries two papers; the docstring names both. The alternative, option (b)
+of h-leaves (potentially crystalline via good reduction), needs `B_cris`, which Mathlib lacks
+entirely.
 
 ### 2.3 Hodge–Tate weights in Lean, and the convention (VERIFIED as an argument; the Lean compiles)
 
@@ -304,16 +311,21 @@ coefficients; equivalent to the Hecke definition, Diamond–Shurman Prop. 5.3.1,
 ### 2.5 Small corrections to earlier notes
 
 - wk-h §2 and the task statement describe Pan's hypothesis as de Rham; it is pst (§2.2).
-- wk-h §3.1 and hdec-faithful's definitions table rate Hodge–Tate representations "large"; over
-  Mathlib v4.35 they are cheap (§3.1). De Rham remains large, `B_st` very large.
+- wk-h §3.1 and hdec-faithful's definitions table rate Hodge–Tate and de Rham representations
+  "large"; over Mathlib v4.35 Hodge–Tate is about 80 lines and de Rham about 420 lines, both
+  written and compiled here (§3). `B_st` remains very large, and is not needed (§2.2).
+- hdec-faithful's `L25_Pan` placeholder can be replaced by `PanBerger` (merging its L24).
 - hdec-faithful's `L26_EigenformHT` placeholder can be replaced by `EigenformHT` here, and its
   `L28b_Newforms` by `NewformOfEigenform`; `L30_Carayol` can be split into `CarayolUnramified`
   (statable) and the template.
 
 ## 3. Lean (`scratch/pkg-I4/I4.lean`)
 
-Compiles with `lake env lean scratch/pkg-I4/I4.lean` (VERIFIED, log Step 2). `#print axioms`
-of the proved lemmas: `propext`, `Classical.choice`, `Quot.sound`. No `sorry`.
+Compiles with `lake env lean scratch/pkg-I4/I4.lean` (VERIFIED, log Steps 2-5; about 14 s with
+Mathlib's oleans; 955 lines). No `sorry` anywhere in the file. `#print axioms` of
+`Cp.isAdicComplete`, `DR.fontaineTheta_naturality`, `DR.bdrMap`, `bdrAct_qpToBdR`, `IsDeRham`,
+`PanBerger`, `weight_match`, `weight_match_coh`, `cpAct_algebraMap`: `propext`,
+`Classical.choice`, `Quot.sound`.
 
 ### 3.1 Definitions
 
@@ -322,9 +334,16 @@ of the proved lemmas: `propext`, `Classical.choice`, `Quot.sound`. No `sorry`.
 | `GQ`, `LiesOver`, `IsArithFrob`, `GaloisRep`, `UnramifiedAt`, `IsComplexConj`, `IsOdd`, `IsIrreducible`, `IsSemisimple` | as hdec-faithful §0 | `AlgebraicClosure`, `ValuationSubring.decompositionSubgroup/inertiaSubgroup`, `PadicAlgCl` |
 | `GaloisChar`, `FinitelyRamified`, `mat` | characters, finite ramification | — |
 | `GQp p`, `decomp`, `restrictLocal` | `G_{ℚ_p}`, `G_{ℚ_p} → G_ℚ`, `ρ|_{G_{ℚ_p}}` | `Field.absoluteGaloisGroup.map` |
-| `cpAct` (+ `continuous_gqp`, `cpAct_coe`, `cpAct_algebraMap`, proved) | `G_{ℚ_p}` acting on `ℂ_[p]`, fixing `ℚ_p` | `spectralNorm_eq_of_equiv`, `UniformSpace.Completion.mapRingHom` |
+| `cpAct` (+ `continuous_gqp`, `cpAct_coe`, `cpAct_algebraMap`, `norm_cpAct`, `cpAct_inv_apply`, proved) | `G_{ℚ_p}` acting isometrically on `ℂ_[p]`, fixing `ℚ_p` | `spectralNorm_eq_of_equiv`, `UniformSpace.Completion.mapRingHom` |
 | `cyc`, `cycPow` | cyclotomic character, `χ^i ∈ ℚ_p` | `cyclotomicCharacter` |
 | `htSpace` (submodule axioms proved), `htMult`, `HasHTWeights`, `LocalHasHTWeights`, `HasHTWeightsAtSelf`, `DistinctHTWeights` | Hodge–Tate multiplicities (§2.3) | `Module.finrank`, `IntermediateField` |
+| `Cp.mem_O_iff`, `Cp.mem_span_pow_iff`, instances `Cp.notIsUnit_p`, `Cp.isHausdorff`, `Cp.isPrecomplete`, `Cp.isAdicComplete` (proved) | `𝓞_ℂ_[p]` is `p`-adically complete, `p` not a unit | `PadicComplexInt`, completeness of `ℂ_[p]` |
+| `DR.modPMap`, `DR.preTiltMap`, `DR.untilt_preTiltMap`, `DR.fontaineTheta_naturality` (proved) | `R♭` functorial; `untilt` and `θ` natural in `R` | `Perfection.map`, `Perfection.teichmuller_spec`, `WittVector.eq_of_apply_teichmuller_eq` |
+| `DR.adicMap` (+ `factorPow_evalₐ`, `adicMap_of`), `DR.locMap`, `DR.fontaineThetaInvertP_naturality`, `DR.bdrPlusMap` | functoriality of `B_dR^+` | `AdicCompletion.liftRingHom`, `Localization.awayLift` |
+| `DR.ker_eq_span_locMap`, `DR.genMonoid`, `DR.bdrMap` | generators of `ker θ` preserved by isomorphisms; functoriality of `B_dR` | `IsLocalization.map` |
+| `oAct`, `BdR` (`= BDeRham 𝓞_ℂ_[p] p` by `rfl`), `bdrAct` | `G_{ℚ_p}` acting on `B_dR` | — |
+| `isLocalization_padic` (proved), `zpToW`, `qpToLoc`, `ofLoc`, `qpToBdR`, `bdrAct_qpToBdR` (proved), `Algebra ℚ_[p] (BdR p)`, `bdrAct_smul` | `ℚ_p ⊆ B_dR`, fixed by `G_{ℚ_p}` | `WittVector.equiv`, `RingHom.ext_zmod` |
+| `ddrSpace` (submodule axioms proved), `IsDeRham`, `LocalIsDeRham` | `D_dR(V^∨)` and the de Rham predicate | — |
 | `CF`, `coeff`, `HasNebentypus`, `IsNormalizedEigenform` | as hdec-faithful | `CuspForm`, `Gamma1`, `qExpansion`, `DirichletCharacter` |
 | `scaleH`, `oldSpace`, `IsNewform` | old space, newforms (§2.4) | `Submodule.span` |
 | `AttachedTo`, `AttachedUpToTwist` | trace form of `ρ ≅ ρ_g`, `ρ ≅ ρ_g ⊗ ψ` | — |
@@ -339,35 +358,55 @@ of the proved lemmas: `propext`, `Classical.choice`, `Quot.sound`. No `sorry`.
 | `EigenformTwist` | leaf, statable | §1.8 |
 | `NewformOfEigenform` | leaf, statable (new) | §1.8 |
 | `CarayolUnramified` | leaf, statable (new; consequence of Thm (A)) | §1.9 |
-| `PanFor IsPst` | template (missing `IsPst`, or `IsDR` for Pan∘Berger) | §1.1, §2.2 |
-| `BergerFor IsDR IsPst` | template | §1.3 |
+| **`PanBerger`** | **leaf, statable (new; Pan with Berger, de Rham hypothesis)** | §1.1, §1.3, §2.2 |
+| `PanFor IsPst` | template (literal Pan; missing `IsPst`) | §1.1 |
+| `BergerDR IsPst` | template (missing `IsPst`) | §1.3 |
 | `CarayolFor a` | template (missing `ℓ`-adic conductor) | §1.9 |
 | `weight_match`, `weight_match_coh` | glue, **proved** | C8 weight arithmetic in both normalizations |
 
-### 3.3 What the de Rham predicate needs from Mathlib (SPECULATIVE sizes; facts VERIFIED by grep)
+### 3.3 The de Rham layer: what was built (VERIFIED: compiles)
 
-`D_dR(V) = (B_dR ⊗_{ℚ_p} V)^{G_{ℚ_p}}`, and `V` is de Rham when `dim_{ℚ_p} D_dR(V) = dim_{ℚ_p} V`
-(with `K = ℚ_p`). In the Hom form of §2.3 this is the space of `φ : V^∨ →_{ℚ_p} B_dR` with
-`φ ∘ ρ^∨(σ) = σ ∘ φ`. Pieces:
+`D_dR(V) = (B_dR ⊗_{ℚ_p} V)^{G_{ℚ_p}}`; `V` is de Rham when `dim_{ℚ_p} D_dR(V) = dim_{ℚ_p} V`
+(`K = ℚ_p`, using `B_dR^{G_{ℚ_p}} = ℚ_p`). In the Hom form of §2.3, `D_dR(V^∨)` is the space of
+`φ : V →_{ℚ_p} B_dR` with `φ ∘ ρ(σ) = σ ∘ φ`, and `V` is de Rham iff `V^∨` is (Fontaine,
+Astérisque 223, Thm 3.8 closure; STANDARD).
 
-| Piece | In Mathlib v4.35 | Missing work |
+| Piece | Mathlib v4.35 had | Written here (lines, approximate) |
 | --- | --- | --- |
-| `B_dR^+ = AdicCompletion (ker θ[1/p]) (W(R♭)[1/p])`, `B_dR` = localization at generators of `ker θ`, for `R = 𝓞_ℂ_[p]` | yes: `BDeRhamPlus`, `BDeRham`, `PadicComplexInt` | — |
-| action of `σ` on `ℂ_p`, isometric | built here (`cpAct`) | isometry of the extension, restriction to `𝓞_ℂ_[p]` (short) |
-| `R♭` functorial in `R` | `Perfection.map`, `ModP` is a quotient | `PreTilt.map` (short) |
-| `W(-)`, `W(R♭)[1/p]` functorial | `WittVector.map`, `IsLocalization.Away.map` | — |
-| naturality `f ∘ θ_R = θ_S ∘ W(f♭)` | no; but `eq_of_apply_teichmuller_eq` and `fontaineTheta_teichmuller` reduce it to naturality of `untilt` | 100-200 lines |
-| ring map of adic completions for `f(J) ⊆ J'` | `AdicCompletion.liftRingHom` (compatible maps to quotients) | 50-100 lines |
-| map of `B_dR` (generators of `ker θ` go to generators under an automorphism) | `IsLocalization.map` | 50-100 lines |
-| `ℚ_p → B_dR` and `ℚ_p`-linearity of the action | `ℤ_p ≅ W(𝔽_p)`-type equivalences exist for `WittVector` | 100-200 lines |
-| `IsDR` as a finrank condition; Fontaine's filtration (only for weights) | — | 50 lines; weights can be read with `htMult` instead (HT weights of a de Rham representation are its filtration jumps) |
+| `B_dR^+`, `B_dR` for a perfectoid-type `R` | `BDeRhamPlus`, `BDeRham` (rings only) | — |
+| `R = 𝓞_ℂ_[p]` admissible (`p`-adically complete, `p` not a unit) | no instances | 100 |
+| `σ` on `ℂ_p` isometric, on `𝓞_ℂ_p`, inverse | completion maps | 40 |
+| `R♭` functorial; naturality of `untilt`, of `θ`, of `θ[1/p]` | `Perfection.map`, uniqueness lemmas | 70 |
+| maps of adic completions; functoriality of `B_dR^+` | `AdicCompletion.liftRingHom` | 50 |
+| generators of `ker θ[1/p]` preserved by isomorphisms; map on `B_dR` | `IsLocalization.map` | 80 |
+| `ℚ_p = ℤ_p[1/p]`; `ℚ_p → B_dR` through `W(𝔽_p) = ℤ_p`; fixed by `G_{ℚ_p}` | `WittVector.equiv` | 70 |
+| `D_dR`, `IsDeRham`, `LocalIsDeRham` | — | 30 |
 
-Total about 400-800 lines (SPECULATIVE). With it, Pan∘Berger (§2.2) is a leaf over genuine
-definitions. The fact that `B_dR(𝓞_ℂ_p)` from Mathlib's general-perfectoid definition is the
-classical `B_dR` (needs `ker θ` principal, a TODO in Mathlib's file) is not needed to *state*
-the leaf: the definition is the classical one by construction (completion of `W(R♭)[1/p]` along
-`ker θ`), and the localization at all generators agrees with inverting one generator once
-`ker θ` is principal (STANDARD).
+The fact that Mathlib's `BDeRham(𝓞_ℂ_p)` (completion of `W(R♭)[1/p]` along `ker θ`, then all
+generators of `ker θ` inverted) is the classical `B_dR` is Mathlib's stated intent (file
+docstring) and is STANDARD once `ker θ[1/p]` is principal, generated by `[p♭] − p` (Fontaine;
+a TODO in Mathlib's file). It is not needed to *state* the predicate, but see §3.4.
+
+### 3.4 Non-vacuity: what a reader should check, and what would make it machine-checked
+
+A leaf with a hypothesis that is never satisfied is vacuous. The new predicates are genuine
+definitions, but no theorem about them is proved here. The standard facts that make `PanBerger`
+and `EigenformHT` mean what they say:
+
+1. `ker θ[1/p] ⊆ W(𝓞_ℂ_p♭)[1/p]` is principal and non-zero (Fontaine), so `BdR` is the classical
+   `B_dR` and is not the zero ring (if `ker θ` had no generator, `BdR` would be `B_dR^+` and
+   `IsDeRham` would be a stronger condition: `PanBerger` would still be a consequence of Pan,
+   but weaker than intended).
+2. `B_dR^{G_{ℚ_p}} = ℚ_p` (Fontaine, using Ax–Sen–Tate), so the trivial representation is
+   de Rham: `IsDeRham` is satisfiable.
+3. `ℂ_p(i)^{G_{ℚ_p}} = 0` for `i ≠ 0` and `= ℚ_p` for `i = 0` (Tate), so `htMult` has the stated
+   values on `ℚ_p(n)`.
+
+Proving 2 and 3 in Lean is a substantial project (Ax–Sen–Tate). A cheaper sanity check is to
+prove that `IsDeRham` holds for the trivial one-dimensional representation *given* `B_dR^G = ℚ_p`
+as a hypothesis, and that `htMult` of `ℚ_p(1)` is concentrated in weight `−1` *given* Tate's
+theorem; both are short (SPECULATIVE sizes: 50-100 lines each) and would catch definitional
+slips such as a wrong sign convention.
 
 ## 4. The coarse alternative: Ribet, Pyle, Khare–Wintenberger
 
@@ -401,9 +440,10 @@ Assessment:
   and C10 stay.
 - **Statability.** Its leaves need abelian varieties over `ℚ` and `ℚ̄` with `End⁰`, Tate modules
   with Galois action, and `J₁(N)` (or `ρ_f`): objects that I2, I3 and C9 need anyway. Pan's
-  route needs the same objects for C3 and in addition period rings (`B_dR` with action, or
-  `B_st`). So **the alternative is better for a statable decomposition of H as a whole**, even
-  though Pan's own statement, taken alone, is closer to Mathlib (only `IsPst` missing).
+  route needs the same objects for C3 and in addition period rings; the de Rham layer is now
+  built (§3.3), so the extra cost of Pan's route is gone for the *statement*, while `PanBerger`
+  itself is statable today and the alternative's leaves are not. For trust, the alternative is
+  shorter (no p-adic Hodge theory, no N5-new passages in C3 and C8).
 - **Trust.** Ribet's theorem appeared in a workshop proceedings reprinted in a refereed volume;
   its exact printed form, and the precise hypotheses on the `μ_σ` (compatibility with all of
   `End⁰`), must be read before adoption (hdec-alt R1). Khare–Wintenberger is refereed (Invent.
@@ -433,17 +473,24 @@ Assessment:
 
 ## 6. Biggest obstacle and recommendations
 
-1. **Obstacle.** The potentially semistable (or de Rham) predicate, together with Tate modules
-   of abelian varieties. Without them, Pan (C7) and the comparison (C3) cannot be stated, and
-   the part of H that holds Glazer's new modularity argument stays outside Lean.
-2. **Cheapest path to stating Pan:** build `IsDR` over Mathlib's `BDeRham` (§3.3, 400-800
-   lines), then state Pan∘Berger (§2.2). Everything else in Pan's statement is already genuine
-   in `I4.lean`.
-3. **For the whole of H, prefer the coarse route of §4** once Ribet's and KW's printed
-   statements are read: it needs no period rings at all.
-4. **Adopt now** in the synthesis: the six statable leaves of §3.2 (with `EigenformHT`,
-   `NewformOfEigenform`, `CarayolUnramified` replacing hdec-faithful's placeholders), and the
-   HT definitions.
+1. **Obstacle.** Tate modules of abelian varieties with their Galois action (needed for the
+   comparison input of C3, for C9's `A_f`, and for most of I2/I3), and the `ℓ`-adic Artin
+   conductor (Carayol; shared with glue-conductor's D1-D4). p-adic Hodge theory is no longer the
+   obstacle for *stating* I4: Hodge–Tate and de Rham are built (§3).
+2. **Adopt now** in the synthesis: the seven statable leaves of §3.2, with `PanBerger`,
+   `EigenformHT`, `NewformOfEigenform` and `CarayolUnramified` replacing hdec-faithful's
+   placeholders L24+L25, L26, L28b and part of L30; and the HT and de Rham definitions (to be
+   moved to a shared definitions file).
+3. **Cheapest next Lean steps:** the de Rham predicate for `G_F`, `F/ℚ_p` finite (open subgroup;
+   about 30 lines), which makes Fontaine's closure and the finite descent of N5's lemma
+   statable; the non-vacuity checks of §3.4; then the `ℓ`-adic conductor exponent at `p ≠ ℓ`
+   (`codim V^{I_p}` plus Swan, through upper ramification groups) in coordination with
+   glue-conductor.
+4. **For the whole of H, the coarse route of §4** (Ribet + Pyle + Khare–Wintenberger) needs no
+   period rings at all, and removes C3-C5, C7 and half of C8 from the trust base; adopt it once
+   Ribet's and KW's printed statements are read. Pan's route is now the better-*statable* one for
+   I4 taken alone (`PanBerger` compiles), since the alternative's leaves need abelian varieties of
+   `GL₂`-type over `ℚ`.
 5. **Checks to make first** (no network here): Pan's JAMS numbering; Carayol's Théorème (A) at
    `p | N` and whether the conductor equality is printed; Faltings 1987's hypothesis on the
    level; Ribet 1992 Thm 4.4 and Pyle's building-block theorem; the KW statement for `GL₂`-type
