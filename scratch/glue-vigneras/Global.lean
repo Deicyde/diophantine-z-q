@@ -242,4 +242,91 @@ theorem jU_mem : jU ∈ N := by
 theorem nrd_iU : nrd (iU : B) = -2 := by simp [nrd, iU]
 theorem nrd_jU : nrd (jU : B) = 3 := by simp [nrd, jU]
 
+
+theorem eq_of_coordQ {x y : B} (h : ∀ k, coordQ x k = coordQ y k) : x = y := by
+  have h0 := h 0; have h1 := h 1; have h2 := h 2; have h3 := h 3
+  simp [coordQ] at h0 h1 h2 h3
+  ext <;> linarith
+
+theorem coordQ_smul (c : ℚ) (x : B) (k : Fin 4) : coordQ (c • x) k = c * coordQ x k := by
+  fin_cases k <;> simp [coordQ] <;> ring
+
+/-- **Primitive scaling.** Every nonzero `x ∈ B` is `c · comb a` with `c ∈ ℚ^×` and `a` primitive. -/
+theorem primitive_scaling (x : B) (hx : x ≠ 0) : ∃ c : ℚ, c ≠ 0 ∧ ∃ a : Fin 4 → ℤ,
+    (∃ s0 s1 s2 s3 : ℤ, s0 * a 0 + s1 * a 1 + s2 * a 2 + s3 * a 3 = 1) ∧ x = c • comb a := by
+  set q := coordQ x
+  set D : ℤ := (q 0).den * (q 1).den * (q 2).den * (q 3).den with hD
+  have hDpos : (D : ℚ) ≠ 0 := by
+    simp only [hD]; push_cast; positivity
+  let m : Fin 4 → ℤ := ![(q 0).num * ((q 1).den * (q 2).den * (q 3).den),
+    (q 1).num * ((q 0).den * (q 2).den * (q 3).den), (q 2).num * ((q 0).den * (q 1).den * (q 3).den),
+    (q 3).num * ((q 0).den * (q 1).den * (q 2).den)]
+  have hm0 : (D : ℚ) * q 0 = m 0 := by
+    show (D : ℚ) * q 0 = (((q 0).num * ((q 1).den * (q 2).den * (q 3).den) : ℤ) : ℚ)
+    rw [hD]; push_cast; rw [← Rat.mul_den_eq_num (q 0)]; ring
+  have hm1 : (D : ℚ) * q 1 = m 1 := by
+    show (D : ℚ) * q 1 = (((q 1).num * ((q 0).den * (q 2).den * (q 3).den) : ℤ) : ℚ)
+    rw [hD]; push_cast; rw [← Rat.mul_den_eq_num (q 1)]; ring
+  have hm2 : (D : ℚ) * q 2 = m 2 := by
+    show (D : ℚ) * q 2 = (((q 2).num * ((q 0).den * (q 1).den * (q 3).den) : ℤ) : ℚ)
+    rw [hD]; push_cast; rw [← Rat.mul_den_eq_num (q 2)]; ring
+  have hm3 : (D : ℚ) * q 3 = m 3 := by
+    show (D : ℚ) * q 3 = (((q 3).num * ((q 0).den * (q 1).den * (q 2).den) : ℤ) : ℚ)
+    rw [hD]; push_cast; rw [← Rat.mul_den_eq_num (q 3)]; ring
+  have hm : ∀ k, (D : ℚ) * q k = m k := by
+    intro k; fin_cases k
+    · exact hm0
+    · exact hm1
+    · exact hm2
+    · exact hm3
+  set g1 := Int.gcd (m 0) (m 1)
+  set g2 := Int.gcd (m 2) (m 3)
+  set g := Int.gcd g1 g2
+  have hg0 : (g : ℤ) ≠ 0 := by
+    intro h0
+    have : g = 0 := by exact_mod_cast h0
+    simp only [g, g1, g2, Int.gcd_eq_zero_iff, Int.natCast_eq_zero] at this
+    obtain ⟨⟨a0, a1⟩, a2, a3⟩ := this
+    apply hx
+    have hq : ∀ k, q k = 0 := by
+      intro k
+      have := hm k
+      have hmk : m k = 0 := by fin_cases k <;> assumption
+      rw [hmk, Int.cast_zero] at this
+      exact (mul_eq_zero.mp this).resolve_left hDpos
+    apply eq_of_coordQ; intro k; show q k = coordQ 0 k; rw [hq k]; fin_cases k <;> simp [coordQ]
+  have hdvd : ∀ k, (g : ℤ) ∣ m k := by
+    intro k
+    have d1 : (g : ℤ) ∣ g1 := Int.gcd_dvd_left _ _
+    have d2 : (g : ℤ) ∣ g2 := Int.gcd_dvd_right _ _
+    fin_cases k
+    · exact d1.trans (Int.gcd_dvd_left _ _)
+    · exact d1.trans (Int.gcd_dvd_right _ _)
+    · exact d2.trans (Int.gcd_dvd_left _ _)
+    · exact d2.trans (Int.gcd_dvd_right _ _)
+  let a : Fin 4 → ℤ := fun k => m k / g
+  have ha : ∀ k, m k = g * a k := fun k => (Int.mul_ediv_cancel' (hdvd k)).symm
+  refine ⟨(g : ℚ) / D, div_ne_zero (by exact_mod_cast hg0) hDpos, a, ?_, ?_⟩
+  · have b : (g : ℤ) = (g1 : ℤ) * Int.gcdA g1 g2 + (g2 : ℤ) * Int.gcdB g1 g2 :=
+      Int.gcd_eq_gcd_ab _ _
+    have b1 : (g1 : ℤ) = m 0 * Int.gcdA (m 0) (m 1) + m 1 * Int.gcdB (m 0) (m 1) :=
+      Int.gcd_eq_gcd_ab _ _
+    have b2 : (g2 : ℤ) = m 2 * Int.gcdA (m 2) (m 3) + m 3 * Int.gcdB (m 2) (m 3) :=
+      Int.gcd_eq_gcd_ab _ _
+    refine ⟨Int.gcdA (m 0) (m 1) * Int.gcdA g1 g2, Int.gcdB (m 0) (m 1) * Int.gcdA g1 g2,
+      Int.gcdA (m 2) (m 3) * Int.gcdB g1 g2, Int.gcdB (m 2) (m 3) * Int.gcdB g1 g2, ?_⟩
+    apply mul_left_cancel₀ hg0
+    linear_combination (-(Int.gcdA (m 0) (m 1) * Int.gcdA g1 g2)) * ha 0
+      - (Int.gcdB (m 0) (m 1) * Int.gcdA g1 g2) * ha 1
+      - (Int.gcdA (m 2) (m 3) * Int.gcdB g1 g2) * ha 2
+      - (Int.gcdB (m 2) (m 3) * Int.gcdB g1 g2) * ha 3
+      - Int.gcdA g1 g2 * b1 - Int.gcdB g1 g2 * b2 - b
+  · apply eq_of_coordQ; intro k
+    rw [coordQ_smul, coordQ_comb]
+    have e1 := hm k
+    rw [ha k] at e1
+    push_cast at e1
+    field_simp
+    linarith
+
 end GlueVigneras.Global
