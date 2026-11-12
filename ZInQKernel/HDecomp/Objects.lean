@@ -26,7 +26,8 @@ import Mathlib.RingTheory.Unramified.Locus
 import Mathlib.RingTheory.Valuation.RamificationGroup
 import Mathlib.Topology.KrullDimension
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/obj-bridge/Objects.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/obj-bridge/Objects.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 /-
@@ -347,7 +348,8 @@ def tateHom (A B : AbVar K) : Hom A B →+ (A.T ℓ →ₗ[ℤ_[ℓ]] B.T ℓ) w
     apply LinearMap.ext; intro x; apply Subtype.ext; funext n
     simp [homT, ptMap, IsMonHom.monoidHom, MonObj.comp_mul]
 
-/-- The `ℤ_ℓ`-linear extension `ℤ_ℓ ⊗_ℤ Hom(A, B) → Hom_{ℤ_ℓ}(T_ℓ A, T_ℓ B)`, `a ⊗ f ↦ a · T_ℓ(f)`. -/
+/-- The `ℤ_ℓ`-linear extension `ℤ_ℓ ⊗_ℤ Hom(A, B) → Hom_{ℤ_ℓ}(T_ℓ A, T_ℓ B)`, `a ⊗ f ↦ a · T_ℓ(f)`.
+  -/
 def tateHomZl (A B : AbVar K) :
     TensorProduct ℤ ℤ_[ℓ] (Hom A B) →ₗ[ℤ] (A.T ℓ →ₗ[ℤ_[ℓ]] B.T ℓ) :=
   TensorProduct.lift
@@ -438,7 +440,8 @@ def TateModuleFree : Prop :=
       ((Module.finrank ℤ_[ℓ] (A.T ℓ) : ℕ∞) : WithBot ℕ∞) = 2 * A.dim
 
 /-- **I3.M1 — Mumford §19, Thm 3.** `Hom(A, B)` is a free `ℤ`-module of finite rank
-`≤ 4 dim A dim B`, and for `ℓ ≠ char k` the map `Hom(A, B) ⊗ ℤ_ℓ → Hom(T_ℓ A, T_ℓ B)` is injective. -/
+`≤ 4 dim A dim B`, and for `ℓ ≠ char k` the map `Hom(A, B) ⊗ ℤ_ℓ → Hom(T_ℓ A, T_ℓ B)` is injective.
+-/
 def HomFreeFinite : Prop :=
   ∀ (k : Type) [Field k] (A B : AbVar k),
     Module.Free ℤ (Hom A B) ∧ Module.Finite ℤ (Hom A B) ∧
@@ -474,7 +477,8 @@ def QMDichotomy : Prop :=
       Nonempty (ℍ[ℚ, a, b] →ₐ[ℚ] End0 A) →
         Nonempty (End0 A ≃ₐ[ℚ] ℍ[ℚ, a, b]) ∨
           ∃ d : ℚ, d < 0 ∧
-            Nonempty (End0 A ≃ₐ[ℚ] Matrix (Fin 2) (Fin 2) (AdjoinRoot (Polynomial.X ^ 2 - Polynomial.C d)))
+            Nonempty (End0 A ≃ₐ[ℚ] Matrix (Fin 2) (Fin 2) (AdjoinRoot (Polynomial.X ^ 2 -
+                Polynomial.C d)))
 
 /-- The package as one hypothesis. -/
 structure I3Leaves : Prop where
@@ -715,7 +719,8 @@ theorem finrank_equivEnd (hF : FaltingsTate) (hT : TateModuleFree) (hH : HomFree
       exact congrArg (fun g => g (jT x)) (congrArg Subtype.val hψχ)
   have e1 := IsLocalization.finrank_eq (R := ℤ_[ℓ]) (N := equivEnd A ℓ) ℚ_[ℓ]
     (nonZeroDivisors ℤ_[ℓ]) le_rfl
-  have e2 := IsLocalizedModule.finrank_eq (M := ET) (N := equivEnd A ℓ) (p := nonZeroDivisors ℤ_[ℓ]) (f := Φ) le_rfl
+  have e2 := IsLocalizedModule.finrank_eq (M := ET) (N := equivEnd A ℓ) (p := nonZeroDivisors ℤ_[ℓ])
+      (f := Φ) le_rfl
   rw [e1, e2, h1]
 
 end PkgI3
@@ -975,7 +980,8 @@ def TorsionStructure : Prop :=
 UNVERIFIED); also Stichtenoth, *Algebraic function fields and codes*, Thm 3.9.1, and Cornell,
 Gold (classical). `R` a DVR with fraction field `K`, uniformizer `π`; `L/K` finite separable, tamely
 ramified over `R` (every prime `Q` of the integral closure `S` of `R` in `L` over the maximal
-ideal has `e(Q)` invertible in `R` and separable residue extension); `n` invertible in `R` with every
+ideal has `e(Q)` invertible in `R` and separable residue extension); `n` invertible in `R` with
+every
 `e(Q) ∣ n`. Let `M = L(t)` with `tⁿ = π`. Then every prime of the integral closure of `R` in `M`
 over the maximal ideal has ramification index exactly `n` and separable residue extension
 (equivalently: `M/K(t)` is unramified above `R`, as `K(t)/K` is totally ramified of degree `n`). -/
@@ -1355,7 +1361,8 @@ def NeronOggShafarevich : Prop :=
       (HasGoodReduction A O ↔
         {m : ℕ | 0 < m ∧ IsUnit (m : O) ∧ InertiaTrivialOn A w m}.Infinite)
 
-theorem neronOggShafarevich_iff : ObjBridge.NeronOggShafarevich ↔ PkgI2.NeronOggShafarevich.{0} := Iff.rfl
+theorem neronOggShafarevich_iff : ObjBridge.NeronOggShafarevich ↔ PkgI2.NeronOggShafarevich.{0} :=
+    Iff.rfl
 
 /-- **Leaf I2-ST2 (Serre–Tate 1968, Thm 2; potential good reduction).** For a prime `ℓ`
 invertible in `O`: `A` acquires good reduction over a finite extension `K' ⊆ K̄` (at `w ∩ K'`) iff
@@ -1374,7 +1381,8 @@ def SerreTatePotentialGood : Prop :=
             (∀ x ∈ K', σ x = x) →
             ∀ n : ℕ, ∀ x ∈ torsion A (AlgebraicClosure K) (ℓ ^ n), galAct A σ x = x))
 
-theorem serreTatePotentialGood_iff : ObjBridge.SerreTatePotentialGood ↔ PkgI2.SerreTatePotentialGood.{0} := Iff.rfl
+theorem serreTatePotentialGood_iff : ObjBridge.SerreTatePotentialGood ↔
+    PkgI2.SerreTatePotentialGood.{0} := Iff.rfl
 
 /-- **Leaf I2-SS (Grothendieck's semistable reduction theorem, monodromy form).** Consequence of
 SGA 7 I, Exp. IX, Thm 3.6 (`A` acquires semistable reduction over a finite extension `K'`) and
@@ -1393,7 +1401,8 @@ def GrothendieckMonodromy : Prop :=
           ∀ ℓ : ℕ, ℓ.Prime → IsUnit (ℓ : O) →
             ∀ n : ℕ, ∀ x ∈ torsion A (AlgebraicClosure K) (ℓ ^ n), UnipSq A σ x
 
-theorem grothendieckMonodromy_iff : ObjBridge.GrothendieckMonodromy ↔ PkgI2.GrothendieckMonodromy.{0} := Iff.rfl
+theorem grothendieckMonodromy_iff : ObjBridge.GrothendieckMonodromy ↔
+    PkgI2.GrothendieckMonodromy.{0} := Iff.rfl
 
 /-- **Leaf I2-Ray (Raynaud's criterion, Galois form).** Consequence of SGA 7 I, Exp. IX,
 Prop. 4.7 (Raynaud: if `m ≥ 3` is invertible in `O` and the points of `A[m]` are rational over
@@ -1425,7 +1434,8 @@ def NeronMappingAbelianScheme : Prop :=
     Function.Bijective (fun f : 𝒜.X ⟶ ℬ.X =>
       (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O K)))).map f)
 
-theorem neronMappingAbelianScheme_iff : ObjBridge.NeronMappingAbelianScheme ↔ PkgI2.NeronMappingAbelianScheme.{0} := Iff.rfl
+theorem neronMappingAbelianScheme_iff : ObjBridge.NeronMappingAbelianScheme ↔
+    PkgI2.NeronMappingAbelianScheme.{0} := Iff.rfl
 
 /-- **Leaf I2-Red (reduction of prime-to-`p` torsion at good reduction).** Serre–Tate 1968, §1
 (proof of Thm 1, (a) ⇒ (b); locator UNVERIFIED): if `A` has good reduction with abelian scheme
@@ -1443,7 +1453,8 @@ def ReductionTorsionBijective : Prop :=
         ∃! y, y ^ m = 1 ∧ IsReductionOf 𝒜 e w hw x y) ∧
       (∀ y, y ^ m = 1 → ∃! x, x ∈ torsion A (AlgebraicClosure K) m ∧ IsReductionOf 𝒜 e w hw x y)
 
-theorem reductionTorsionBijective_iff : ObjBridge.ReductionTorsionBijective ↔ PkgI2.ReductionTorsionBijective.{0} := Iff.rfl
+theorem reductionTorsionBijective_iff : ObjBridge.ReductionTorsionBijective ↔
+    PkgI2.ReductionTorsionBijective.{0} := Iff.rfl
 
 /-- **Leaf I2-Tors (structure of `A[n]`; boundary with I3).** Mumford, *Abelian varieties*
 (1970), §4, Application 2 / §6 (locator UNVERIFIED): for an abelian variety of dimension `g` over
@@ -1462,7 +1473,8 @@ theorem torsionStructure_iff : ObjBridge.TorsionStructure ↔ PkgI2.TorsionStruc
 UNVERIFIED); also Stichtenoth, *Algebraic function fields and codes*, Thm 3.9.1, and Cornell,
 Gold (classical). `R` a DVR with fraction field `K`, uniformizer `π`; `L/K` finite separable, tamely
 ramified over `R` (every prime `Q` of the integral closure `S` of `R` in `L` over the maximal
-ideal has `e(Q)` invertible in `R` and separable residue extension); `n` invertible in `R` with every
+ideal has `e(Q)` invertible in `R` and separable residue extension); `n` invertible in `R` with
+every
 `e(Q) ∣ n`. Let `M = L(t)` with `tⁿ = π`. Then every prime of the integral closure of `R` in `M`
 over the maximal ideal has ramification index exactly `n` and separable residue extension
 (equivalently: `M/K(t)` is unramified above `R`, as `K(t)/K` is totally ramified of degree `n`). -/
@@ -1632,7 +1644,8 @@ def PoincareReducibility : Prop :=
     [IsAbelianVariety J], EndDivision A →
     ∀ f : Hom A J, f ≠ 0 → ∃ (Z : Grp (Over (Spec (.of k)))) (_ : IsAbelianVariety Z)
       (g : Hom Z J),
-      PkgI3.AbVar.IsIsogenyMor (fst (ofGrp A).X (ofGrp Z).X ≫ f.hom * snd (ofGrp A).X (ofGrp Z).X ≫ g.hom)
+      PkgI3.AbVar.IsIsogenyMor (fst (ofGrp A).X (ofGrp Z).X ≫ f.hom * snd (ofGrp A).X (ofGrp Z).X ≫
+          g.hom)
 
 theorem poincareReducibility_iff : PoincareReducibility ↔ PkgI3.PoincareReducibility := by
   constructor

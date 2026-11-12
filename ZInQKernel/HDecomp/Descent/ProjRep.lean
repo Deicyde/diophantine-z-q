@@ -1,6 +1,7 @@
 import Mathlib
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-descent/ProjRep.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-descent/ProjRep.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 

@@ -1,6 +1,7 @@
 import ZInQKernel.Hypotheses.Height
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-conductor/Level.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-conductor/Level.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 
@@ -34,7 +35,8 @@ lemma contactSupport_pos' (S : Finset ℕ) (u : ℚ) : 0 < contactSupport S u :=
   exact (Nat.prime_of_mem_primeFactors (Finset.mem_filter.mp hp).1).pos
 
 /-- `∏_{p prime, p ≤ R} p^E ≤ R^(R E)` for real `R ≥ 1`, over any finset of primes `≤ R`. -/
-lemma prod_small_le (R : ℝ) (hR : 1 ≤ R) (E : ℕ) (s : Finset ℕ) (hs : ∀ p ∈ s, p.Prime ∧ (p : ℝ) ≤ R) :
+lemma prod_small_le (R : ℝ) (hR : 1 ≤ R) (E : ℕ) (s : Finset ℕ) (hs : ∀ p ∈ s, p.Prime ∧ (p : ℝ) ≤
+    R) :
     ∏ p ∈ s, (p : ℝ) ^ E ≤ R ^ (R * E) := by
   have hR0 : (0 : ℝ) ≤ R := by linarith
   have hcard : (s.card : ℝ) ≤ R := by

@@ -1,6 +1,7 @@
 import Mathlib
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-repo/A1Quaternion.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-repo/A1Quaternion.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 
@@ -17,7 +18,8 @@ matrix, with determinant 1; `E` is alternating and `E(ax, y) = E(x, a† y)` wit
 
 open Quaternion
 
-attribute [local simp] QuaternionAlgebra.re_ofNat QuaternionAlgebra.imI_ofNat QuaternionAlgebra.imJ_ofNat QuaternionAlgebra.imK_ofNat
+attribute [local simp] QuaternionAlgebra.re_ofNat QuaternionAlgebra.imI_ofNat
+    QuaternionAlgebra.imJ_ofNat QuaternionAlgebra.imK_ofNat
 
 namespace GlueRepo.A1
 
@@ -88,7 +90,8 @@ theorem star_mem {x : B} (hx : x ∈ O) : star x ∈ O := by
 
 /-- The trace form `Trd(eₐ e_b)` of `𝒪` has determinant `-36 = -(disc)²`: reduced discriminant 6. -/
 theorem trace_form :
-    (Matrix.of fun a b => trd (e a * e b)) = !![2, 0, 1, 0; 0, 4, 0, 2; 1, 0, -1, 0; 0, 2, 0, 4] := by
+    (Matrix.of fun a b => trd (e a * e b)) = !![2, 0, 1, 0; 0, 4, 0, 2; 1, 0, -1, 0; 0, 2, 0, 4] :=
+        by
   ext a b
   fin_cases a <;> fin_cases b <;> simp [e, trd] <;> norm_num
 
@@ -103,7 +106,8 @@ def E (x y : B) : ℚ := trd (μinv * x * star y)
 
 /-- The Gram matrix of `E` in N5's basis is the matrix printed at N5 L414-416. -/
 theorem gram_E :
-    (Matrix.of fun a b => E (e a) (e b)) = !![0, 0, -1, 1; 0, 0, 1, -2; 1, -1, 0, 0; -1, 2, 0, 0] := by
+    (Matrix.of fun a b => E (e a) (e b)) = !![0, 0, -1, 1; 0, 0, 1, -2; 1, -1, 0, 0; -1, 2, 0, 0] :=
+        by
   ext a b
   fin_cases a <;> fin_cases b <;> simp [E, e, μinv, trd] <;> norm_num
 
@@ -156,11 +160,15 @@ theorem trd_mul_ros_pos (a : B) (ha : a ≠ 0) : 0 < trd (a * ros a) := by
   rw [key]
   by_contra h
   push Not at h
-  have h0 : a.re = 0 := by nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 * a.imK), sq_nonneg a.imK]
-  have h1 : a.imI = 0 := by nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 * a.imK), sq_nonneg a.imK]
-  have h3 : a.imK = 0 := by nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 * a.imK), sq_nonneg a.imK]
+  have h0 : a.re = 0 := by nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 *
+      a.imK), sq_nonneg a.imK]
+  have h1 : a.imI = 0 := by nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 *
+      a.imK), sq_nonneg a.imK]
+  have h3 : a.imK = 0 := by nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 *
+      a.imK), sq_nonneg a.imK]
   have h2 : a.imJ = 0 := by
-    have : (3 * a.imJ - 4 * a.imK) = 0 := by nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg (3 * a.imJ - 4 * a.imK), sq_nonneg a.imK]
+    have : (3 * a.imJ - 4 * a.imK) = 0 := by nlinarith [sq_nonneg a.re, sq_nonneg a.imI, sq_nonneg
+        (3 * a.imJ - 4 * a.imK), sq_nonneg a.imK]
     rw [h3] at this; linarith
   exact ha (by ext <;> simp [h0, h1, h2, h3])
 
@@ -191,7 +199,8 @@ theorem half_one_add_mem {x : B} (hx : x ∈ O) (ht : trd x = 0) (hn : nrd x = 3
   obtain ⟨n, rfl⟩ := hx
   have ht' : (2 * n 0 + n 2 : ℤ) = 0 := by
     have := ht; simp [trd, comb] at this; exact_mod_cast (by linarith : (2 * (n 0 : ℚ) + n 2) = 0)
-  have hn' : (n 0 ^ 2 + n 0 * n 2 + n 2 ^ 2 - 2 * n 1 ^ 2 - 2 * n 1 * n 3 - 2 * n 3 ^ 2 : ℤ) = 3 := by
+  have hn' : (n 0 ^ 2 + n 0 * n 2 + n 2 ^ 2 - 2 * n 1 ^ 2 - 2 * n 1 * n 3 - 2 * n 3 ^ 2 : ℤ) = 3 :=
+      by
     have := hn; rw [nrd_eq] at this; simp [comb] at this
     exact_mod_cast (by linarith : ((n 0 : ℚ) ^ 2 + n 0 * n 2 + n 2 ^ 2 - 2 * n 1 ^ 2
       - 2 * n 1 * n 3 - 2 * n 3 ^ 2) = 3)

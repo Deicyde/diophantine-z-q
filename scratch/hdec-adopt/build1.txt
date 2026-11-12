@@ -1,0 +1,478 @@
+⚠ [9047/9075] Built ZInQKernel.HDecomp.Objects (43s)
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Geometrically.Connected` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Group.Abelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.Proper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.Smooth` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Pullbacks` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.Algebra.Quaternion` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.CategoryTheory.Monoidal.Cartesian.Grp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.CategoryTheory.Monoidal.Cartesian.Over` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.Data.ZMod.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.FieldTheory.AbsoluteGaloisGroup` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.FieldTheory.IntermediateField.Adjoin.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.LinearAlgebra.Matrix.Charpoly.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.NumberTheory.NumberField.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.NumberTheory.Padics.RingHoms` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RepresentationTheory.Semisimple` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.AdjoinRoot` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.DiscreteValuationRing.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.Etale.Locus` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.Ideal.Height` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.IntegralClosure.IntegralRestrict` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.QuasiFinite.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.RamificationInertia.Ramification` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.RegularLocalRing.Defs` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.Unramified.Locus` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.Valuation.RamificationGroup` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.Topology.KrullDimension` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean:512:20: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/HDecomp/Objects.lean:572:8: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ZInQKernel/HDecomp/Objects.lean:575:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/HDecomp/Objects.lean:596:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/HDecomp/Objects.lean:601:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/HDecomp/Objects.lean:642:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/HDecomp/Objects.lean:674:8: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ZInQKernel/HDecomp/Objects.lean:1270:58: Variable name `f` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _f
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9048/9075] Built ZInQKernel.HDecomp.Conductor.SqrtChar (10s)
+warning: ZInQKernel/HDecomp/Conductor/SqrtChar.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9049/9075] Built ZInQKernel.HDecomp.Descent.Chi (52s)
+warning: ZInQKernel/HDecomp/Descent/Chi.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Descent/Chi.lean:48:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/HDecomp/Descent/Chi.lean:49:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/HDecomp/Descent/Chi.lean:50:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/HDecomp/Descent/Chi.lean:84:6: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/HDecomp/Descent/Chi.lean:108:52: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/HDecomp/Descent/Chi.lean:114:52: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [9050/9075] Built ZInQKernel.HDecomp.Descent.Cochain (53s)
+warning: ZInQKernel/HDecomp/Descent/Cochain.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Descent/Cochain.lean:159:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/HDecomp/Descent/Cochain.lean:219:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: ZInQKernel/HDecomp/Descent/Cochain.lean:221:19: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+⚠ [9051/9075] Built ZInQKernel.HDecomp.Descent.B1Quat (53s)
+warning: ZInQKernel/HDecomp/Descent/B1Quat.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9052/9075] Replayed ZInQKernel.Hypotheses.Height
+warning: ZInQKernel/Hypotheses/Height.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9053/9075] Built ZInQKernel.HDecomp.Descent.ProjRep (53s)
+warning: ZInQKernel/HDecomp/Descent/ProjRep.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Descent/ProjRep.lean:139:0: automatically included section variable(s) unused in theorem `GlueDescent.rho_commute`:
+  [Group G]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Group G] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Descent/ProjRep.lean:145:0: automatically included section variable(s) unused in theorem `GlueDescent.rho_eq_act`:
+  [Group G]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Group G] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [9054/9075] Built ZInQKernel.HDecomp.Repo.TorsionFree (53s)
+warning: ZInQKernel/HDecomp/Repo/TorsionFree.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Repo/TorsionFree.lean:154:0: automatically included section variable(s) unused in theorem `GlueRepo.TorsionFree.three_pow_mul`:
+  [IsDomain R]
+  [IsNoetherianRing R]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsDomain R] [IsNoetherianRing R] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Repo/TorsionFree.lean:257:14: This simp argument is unused:
+  Nat.card_fun
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Nat.card_zmod, ← pow_mul, sq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/HDecomp/Repo/TorsionFree.lean:257:28: This simp argument is unused:
+  Nat.card_zmod
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Nat.card_fun, ← pow_mul, sq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [9055/9075] Built ZInQKernel.HDecomp.Descent.B2Glue (53s)
+warning: ZInQKernel/HDecomp/Descent/B2Glue.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Descent/B2Glue.lean:52:0: automatically included section variable(s) unused in theorem `GlueDescent.B2.pull_dB`:
+  [TopologicalSpace Γ]
+  [TopologicalSpace Δ]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace Γ] [TopologicalSpace Δ] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Descent/B2Glue.lean:69:0: automatically included section variable(s) unused in theorem `GlueDescent.B2.dB_mul`:
+  [TopologicalSpace Γ]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace Γ] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Descent/B2Glue.lean:72:0: automatically included section variable(s) unused in theorem `GlueDescent.B2.dB_inv`:
+  [TopologicalSpace Γ]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace Γ] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Descent/B2Glue.lean:350:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/HDecomp/Descent/B2Glue.lean:368:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/HDecomp/Descent/B2Glue.lean:370:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9056/9075] Built ZInQKernel.HDecomp.Conductor.Inflation (4.4s)
+warning: ZInQKernel/HDecomp/Conductor/Inflation.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Conductor/Inflation.lean:30:0: automatically included section variable(s) unused in theorem `GlueI6Rest.cocycle_zero_left`:
+  [NeZero f]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero f] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [9057/9075] Built ZInQKernel.HDecomp.Conductor.Dyadic (4.7s)
+warning: ZInQKernel/HDecomp/Conductor/Dyadic.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9058/9075] Built ZInQKernel.HDecomp.A6.Extend (4.2s)
+warning: ZInQKernel/HDecomp/A6/Extend.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9059/9075] Built ZInQKernel.HDecomp.Conductor.Breaks (5.0s)
+warning: ZInQKernel/HDecomp/Conductor/Breaks.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9061/9075] Built ZInQKernel.HDecomp.Repo.A1Quaternion (58s)
+warning: ZInQKernel/HDecomp/Repo/A1Quaternion.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Repo/A1Quaternion.lean:31:21: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/HDecomp/Repo/A1Quaternion.lean:31:21: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/HDecomp/Repo/A1Quaternion.lean:38:52: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/HDecomp/Repo/A1Quaternion.lean:38:52: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/HDecomp/Repo/A1Quaternion.lean:60:35: Unused tactic linter: `push_cast` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/HDecomp/Repo/A1Quaternion.lean:120:29: Unused tactic linter: `push_cast` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/HDecomp/Repo/A1Quaternion.lean:171:45: Unused tactic linter: `push_cast` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [9062/9075] Built ZInQKernel.HDecomp.Conductor.I6Base (6.2s)
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean:136:17: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean:140:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean:237:17: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean:241:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean:543:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean:569:8: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean:569:8: Unused tactic linter: `exact Ideal.isMaximal_comap_of_isIntegral_of_isMaximal P` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean:605:49: Variable name `he1` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _he1
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9063/9075] Built ZInQKernel.HDecomp.C10.Trace (2.3s)
+warning: ZInQKernel/HDecomp/C10/Trace.lean:24:48: Variable name `b` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _b
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9064/9075] Built ZInQKernel.HDecomp.Repo.Numerics (4.3s)
+⚠ [9065/9075] Built ZInQKernel.HDecomp.C10.C10 (8.9s)
+warning: ZInQKernel/HDecomp/C10/C10.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/C10/C10.lean:208:40: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/HDecomp/C10/C10.lean:342:52: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+✔ [9066/9075] Built ZInQKernel.HDecomp.Conductor.Level (4.4s)
+⚠ [9067/9075] Built ZInQKernel.HDecomp.Descent.B2Assembly (4.7s)
+warning: ZInQKernel/HDecomp/Descent/B2Assembly.lean:160:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/HDecomp/Descent/B2Assembly.lean:177:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/HDecomp/Descent/B2Assembly.lean:185:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/HDecomp/Descent/B2Assembly.lean:142:15: Variable name `hN` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hN
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9068/9075] Built ZInQKernel.HDecomp.Conductor.D1Local (5.6s)
+⚠ [9069/9075] Built ZInQKernel.HDecomp.A6.A6 (11s)
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.AlgebraicGeometry.Group.Abelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.AlgebraicGeometry.Geometrically.Connected` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.Smooth` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.Proper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.AlgebraicGeometry.Pullbacks` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.CategoryTheory.Monoidal.Cartesian.Over` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.CategoryTheory.Monoidal.Cartesian.Grp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.RingTheory.Valuation.RamificationGroup` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.RingTheory.RegularLocalRing.Defs` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.RingTheory.Etale.Locus` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.RingTheory.Unramified.Locus` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.RingTheory.QuasiFinite.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.RingTheory.DiscreteValuationRing.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.RingTheory.Ideal.Height` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.RingTheory.RamificationInertia.Ramification` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.RingTheory.IntegralClosure.IntegralRestrict` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.FieldTheory.IntermediateField.Adjoin.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.Topology.KrullDimension` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.LinearAlgebra.Matrix.Charpoly.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib.Data.ZMod.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/A6/A6.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9070/9075] Built ZInQKernel.HDecomp.Descent.Constants (4.8s)
+✖ [9071/9075] Building ZInQKernel.HDecomp.Conductor.ArtinUpper (4.9s)
+trace: .> LEAN_PATH=/home/jackmccarthy/dzq-wt/hdec-adopt/.lake/packages/Cli/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/hdec-adopt/.lake/packages/batteries/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/hdec-adopt/.lake/packages/Qq/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/hdec-adopt/.lake/packages/aesop/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/hdec-adopt/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/hdec-adopt/.lake/packages/importGraph/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/hdec-adopt/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/hdec-adopt/.lake/packages/plausible/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/hdec-adopt/.lake/packages/mathlib/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/hdec-adopt/lean/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/hdec-adopt/.lake/build/lib/lean /home/jackmccarthy/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /home/jackmccarthy/dzq-wt/hdec-adopt/ZInQKernel/HDecomp/Conductor/ArtinUpper.lean -o /home/jackmccarthy/dzq-wt/hdec-adopt/.lake/build/lib/lean/ZInQKernel/HDecomp/Conductor/ArtinUpper.olean -i /home/jackmccarthy/dzq-wt/hdec-adopt/.lake/build/lib/lean/ZInQKernel/HDecomp/Conductor/ArtinUpper.ilean -c /home/jackmccarthy/dzq-wt/hdec-adopt/.lake/build/ir/ZInQKernel/HDecomp/Conductor/ArtinUpper.c --setup /home/jackmccarthy/dzq-wt/hdec-adopt/.lake/build/ir/ZInQKernel/HDecomp/Conductor/ArtinUpper.setup.json --json
+error: ZInQKernel/HDecomp/Conductor/ArtinUpper.lean:20:57: unexpected token 'section'; expected 'lemma'
+warning: ZInQKernel/HDecomp/Conductor/ArtinUpper.lean:27:0: automatically included section variable(s) unused in theorem `PkgI6.lowerRam_anti`:
+  [Finite (B ≃ₐ[A] B)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Finite (B ≃ₐ[A] B)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Conductor/ArtinUpper.lean:40:0: automatically included section variable(s) unused in theorem `PkgI6.lowerRamR_nat`:
+  [Finite (B ≃ₐ[A] B)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Finite (B ≃ₐ[A] B)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Conductor/ArtinUpper.lean:65:0: automatically included section variable(s) unused in theorem `PkgI6.herbrandPhi_eq`:
+  [Finite (B ≃ₐ[A] B)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Finite (B ≃ₐ[A] B)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Conductor/ArtinUpper.lean:94:0: automatically included section variable(s) unused in theorem `PkgI6.phi_zero`:
+  [Finite (B ≃ₐ[A] B)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Finite (B ≃ₐ[A] B)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Conductor/ArtinUpper.lean:116:0: automatically included section variable(s) unused in theorem `PkgI6.codimInv_eq_zero`:
+  [IsLocalRing B]
+  [Finite (B ≃ₐ[A] B)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsLocalRing B] [Finite (B ≃ₐ[A] B)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Conductor/ArtinUpper.lean:128:0: automatically included section variable(s) unused in theorem `PkgI6.codimInv_le`:
+  [IsLocalRing B]
+  [Finite (B ≃ₐ[A] B)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsLocalRing B] [Finite (B ≃ₐ[A] B)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [9072/9075] Built ZInQKernel.HDecomp.Descent.B3Assembly (5.2s)
+warning: ZInQKernel/HDecomp/Descent/B3Assembly.lean:124:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/HDecomp/Descent/B3Assembly.lean:79:15: Variable name `hN` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hN
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/HDecomp/Descent/B3Assembly.lean:154:15: Variable name `hN` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hN
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9073/9075] Built ZInQKernel.HDecomp.Assembly (14s)
+warning: ZInQKernel/HDecomp/Assembly.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Assembly.lean:50:0: automatically included section variable(s) unused in theorem `GlueAssembly.PhiK_eval`:
+  [AdmissibleAbsValues K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [AdmissibleAbsValues K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Assembly.lean:56:0: automatically included section variable(s) unused in theorem `GlueAssembly.coeff_sum_le`:
+  [AdmissibleAbsValues K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [AdmissibleAbsValues K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [9074/9075] Built ZInQKernel.HDecomp.Repo.PRArith (26s)
+warning: ZInQKernel/HDecomp/Repo/PRArith.lean:77:54: Variable name `hd` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hd
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/HDecomp/Repo/PRArith.lean:83:34: Variable name `hα` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hα
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/HDecomp/Repo/PRArith.lean:227:61: Variable name `bGH` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _bGH
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Some required targets logged failures:
+- ZInQKernel.HDecomp.Conductor.ArtinUpper
+error: build failed
+EXIT 1

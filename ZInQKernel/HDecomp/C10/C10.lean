@@ -1,6 +1,7 @@
 import Mathlib
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-c10/C10.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-c10/C10.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 
@@ -92,7 +93,8 @@ def FrobDense (S : Finset ℕ) : Prop :=
     ∃ h : GQ, ∃ p : ℕ, p.Prime ∧ p ∉ S ∧ IsFrobAt h p ∧
       ∀ x ∈ E, h x = g x
 
-/-- **The lift of a finite-level Frobenius to `G_ℚ` (GLUE, proved below: `frobLift`).**  For a finite
+/-- **The lift of a finite-level Frobenius to `G_ℚ` (GLUE, proved below: `frobLift`).**  For a
+  finite
 Galois `E ⊂ \bar ℚ` and `τ ∈ Gal(E/ℚ)` that is the Frobenius at a prime `Q` of `𝓞_E` over `p`
 unramified in `E`, some `h ∈ G_ℚ` restricting to `τ` is a Frobenius at `p` in `G_ℚ`.
 Proof sketch: choose `𝔓 | Q` in `\bar ℤ`; an arithmetic Frobenius `h ∈ D_𝔓` exists by

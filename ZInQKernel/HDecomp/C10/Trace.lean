@@ -1,6 +1,7 @@
 import ZInQKernel.HDecomp.Objects
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-c10/Trace.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-c10/Trace.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 /-

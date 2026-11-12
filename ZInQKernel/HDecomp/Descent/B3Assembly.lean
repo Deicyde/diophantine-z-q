@@ -2,7 +2,8 @@ import ZInQKernel.HDecomp.Descent.Cochain
 import ZInQKernel.HDecomp.Descent.Constants
 import ZInQKernel.HDecomp.Descent.B2Assembly
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-descent/B3Assembly.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-descent/B3Assembly.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 
@@ -32,7 +33,8 @@ open GlueDescent GlueDescent.B2 GlueDescent.B2Q
 instance : IsGalois ℚ (AlgebraicClosure ℚ) := {}
 
 /-- `G_L ≤ G_ℚ`. -/
-noncomputable def GQL (L : IntermediateField ℚ (AlgebraicClosure ℚ)) : Subgroup GQ := L.fixingSubgroup
+noncomputable def GQL (L : IntermediateField ℚ (AlgebraicClosure ℚ)) : Subgroup GQ :=
+    L.fixingSubgroup
 
 theorem mem_GQL {L : IntermediateField ℚ (AlgebraicClosure ℚ)} {σ : GQ} :
     σ ∈ GQL L ↔ ∀ x ∈ L, act σ x = x :=
@@ -125,7 +127,8 @@ theorem b3_of_leaves (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtC
   have hidx := index_kernel_le hβ hεN (2 * orderOf χ) (by positivity) hpow
   have hfd : FiniteDimensional ℚ L' :=
     (InfiniteGalois.isOpen_iff_finite L').mp (by rw [hfix]; exact hK'open)
-  have hL : Module.finrank ℚ L = (GQL L).index := IntermediateField.finrank_eq_fixingSubgroup_index (L := L)
+  have hL : Module.finrank ℚ L = (GQL L).index := IntermediateField.finrank_eq_fixingSubgroup_index
+      (L := L)
   have hL' : Module.finrank ℚ L' = K'.index := by
     rw [IntermediateField.finrank_eq_fixingSubgroup_index (L := L'), hfix]
     rfl
@@ -137,7 +140,8 @@ theorem b3_of_leaves (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtC
     exact fun k => mem_GQL.mp (kernelSubgroup_le hβ hεN k.2) x hx
   refine ⟨N, hN, χ, β, L', hsupp, hord, hβl, hβs, hβe, hle, hfd, hgal, hGL', ?_, ?_⟩
   · intro σ k hk
-    exact cochain_mul_kernel hβ hεN σ (show k ∈ K' from (hGL' k).mp hk |> (mem_kernelSubgroup hβ hεN).mpr)
+    exact cochain_mul_kernel hβ hεN σ (show k ∈ K' from (hGL' k).mp hk |> (mem_kernelSubgroup hβ
+        hεN).mpr)
   · rw [hL', hL]; exact hidx
 
 /-- **B3 with the constants** (N5 L713-716): `[L' : ℚ] ≤ Q_R · M_S(u)` when `[L:ℚ] ≤ D`,

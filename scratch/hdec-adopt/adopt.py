@@ -1,7 +1,8 @@
 # Generate ZInQKernel/HDecomp/ modules from the scratch drafts (run from the worktree root).
 import re, os
 S = 'scratch/'; D = 'ZInQKernel/HDecomp/'
-DOC = ('/-! Glue of `docs/research/h-decomposition.md` (from `scratch/{src}`, task hdec-adopt).\n'
+DOC = ('/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from\n'
+       '`scratch/{src}`.\n'
        'The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/\n')
 def emit(dst, src, lines, imports):
     out = []
@@ -28,6 +29,9 @@ dm = {f'GlueDescent.{f}': H + 'Descent.' + f for f in
       'ProjRep B1Quat Cochain Constants Chi B2Glue B2Assembly B3Assembly'.split()}
 for f in 'ProjRep B1Quat Cochain Constants Chi B2Glue B2Assembly B3Assembly'.split():
     plain(f'Descent/{f}.lean', f'glue-descent/{f}.lean', dm)
+q = D + 'Descent/B2Assembly.lean'; t = open(q).read()
+i = t.index('Compile (out of tree'); j = t.index('-/', i)
+open(q, 'w').write(t[:i] + 'Built in the project as `ZInQKernel.HDecomp.Descent.B2Assembly`.\n' + t[j:])
 # Conductor
 for f in 'Breaks Dyadic Level'.split():
     plain(f'Conductor/{f}.lean', f'glue-conductor/{f}.lean')
@@ -38,7 +42,7 @@ i0 = next(i for i, l in enumerate(L) if l.startswith('section Ramification'))
 i1 = next(i for i, l in enumerate(L) if l.startswith('section Proof'))
 j = next(i for i, l in enumerate(L) if l.startswith('section Conductor'))
 k = next(i for i, l in enumerate(L) if l.startswith('noncomputable def codimInv'))
-body = L[:i0] + L[j:k] + L[i1:]
+body = L[:i0] + L[j:k - 1] + ["open IsLocalRing\n\n"] + L[i1:]
 body = [l.replace('are copied verbatim from `scratch/pkg-I6/I6.lean` (Part II).',
                   'are imported from `I6Base` (pkg-I6, Part II).') for l in body]
 emit('Conductor/ArtinUpper.lean', 'glue-I6-rest/Conductor.lean', body, [H + 'Conductor.I6Base'])
@@ -59,6 +63,21 @@ emit('C10/Trace.lean', 'glue-c10/Trace.lean', hdr + L[c:a - 1] + L[b:], [H + 'Ob
 # Repo
 for f in 'A1Quaternion Numerics PRArith TorsionFree'.split():
     plain(f'Repo/{f}.lean', f'glue-repo/{f}.lean')
-# Assembly: GlueAssembly.lean with F4Copy's verbatim JHeight part replaced by an import
-L = rd('glue-assembly/GlueAssembly.lean')
-emit('Assembly.lean', 'glue-assembly/GlueAssembly.lean', L, imps(L))
+# Assembly: GlueAssembly.lean (= F2, Ext, Transfer, F4Copy, Assembly) with F4Copy's verbatim copy
+# of `ZInQKernel/Hypotheses/JHeight.lean` replaced by an import of that module.
+parts = []
+for f in 'F2 Ext Transfer'.split():
+    parts += [l for l in rd(f'glue-assembly/{f}.lean') if not l.startswith('import ')] + ['\n']
+F4 = rd('glue-assembly/F4Copy.lean')
+a = next(i for i, l in enumerate(F4) if l.startswith('def SixContactMinAt')) - 2
+f4 = ['/-! F4 (from `scratch/glue-assembly/F4Copy.lean`): the copy of `JHeight.lean` is replaced by\n',
+      'an import of `ZInQKernel.Hypotheses.JHeight`; `SixContactMinAt S` is `SixContactMin` at\n',
+      '`S = Mult.S_mul` by `rfl`. -/\n\n', 'namespace GlueAssembly\n\n', 'open ZInQ ZInQ.JHeight\n\n']
+f4 += [l for l in F4[a:] if not l.startswith('theorem heightH6_eq')]
+parts += f4 + ['\n'] + rd('glue-assembly/Assembly.lean')
+parts = [l.replace('open Real ZInQ Height', 'open Real ZInQ ZInQ.JHeight Height') for l in parts]
+emit('Assembly.lean', 'glue-assembly/GlueAssembly.lean', parts,
+     ['Mathlib', 'ZInQKernel.Compiler.Precision.HeightConstant', 'ZInQKernel.Hypotheses.JHeight'])
+
+import subprocess, glob
+subprocess.run(['python3', '-I', 'scratch/hdec-adopt/wrap.py'] + sorted(glob.glob(D + '**/*.lean', recursive=True)))

@@ -1,6 +1,7 @@
 import Mathlib
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-conductor/Dyadic.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-conductor/Dyadic.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 
@@ -90,7 +91,8 @@ theorem fourth_pow_mem (e : ℕ) (h2 : Ideal.span {(2 : A)} = maximalIdeal A ^ e
     (1 + w) ^ 4 - 1 ∈ maximalIdeal A ^ (3 * e + 1) := by
   set m := maximalIdeal A
   have h2m : (2 : A) ∈ m ^ e := h2 ▸ Ideal.mem_span_singleton_self 2
-  have hexp : (1 + w) ^ 4 - 1 = 2 * 2 * w + 2 * (3 * w * w) + 2 * 2 * (w * w * w) + w * w * w * w := by
+  have hexp : (1 + w) ^ 4 - 1 = 2 * 2 * w + 2 * (3 * w * w) + 2 * 2 * (w * w * w) + w * w * w * w :=
+      by
     ring
   rw [hexp]
   have hww : w * w ∈ m ^ (2 * e + 2) := by

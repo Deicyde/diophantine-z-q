@@ -1,6 +1,7 @@
 import ZInQKernel.Hypotheses.Height
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-repo/Numerics.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-repo/Numerics.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 

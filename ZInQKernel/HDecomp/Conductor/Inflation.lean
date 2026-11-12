@@ -1,6 +1,7 @@
 import Mathlib
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-I6-rest/Inflation.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-I6-rest/Inflation.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 
@@ -79,7 +80,8 @@ theorem inflation_two_eq_coboundary {c : ZMod f → ZMod f → M} (hc : IsCocycl
   simp only [ZMod.castHom_apply, ZMod.cast_eq_val]
   rw [cocycle_eq hc]
   have hv : cocS c (x.val + y.val) = cocS c (x + y).val := by
-    rw [ZMod.val_add, ← cocS_add_two_f hc h2 ((x.val + y.val) % (2 * f)) ((x.val + y.val) / (2 * f)),
+    rw [ZMod.val_add, ← cocS_add_two_f hc h2 ((x.val + y.val) % (2 * f)) ((x.val + y.val) / (2 *
+        f)),
       Nat.mod_add_div]
   rw [hv]
   abel

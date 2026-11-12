@@ -1,6 +1,7 @@
 import Mathlib
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-repo/TorsionFree.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-repo/TorsionFree.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 
@@ -75,7 +76,8 @@ theorem step_three {N : C} (hN : (1 + N) ^ 3 = 1) {k : ℕ} (hk : 1 ≤ k)
 
 include hsep in
 omit h3 in
-/-- If every `3^k`-divisibility of `N` (`k ≥ 1`) improves to `3^{k+1}`, and `3 ∣ N`, then `N = 0`. -/
+/-- If every `3^k`-divisibility of `N` (`k ≥ 1`) improves to `3^{k+1}`, and `3 ∣ N`, then `N = 0`.
+  -/
 theorem eq_zero_of_step {N : C} (h1 : ∃ y, N = 3 * y)
     (hstep : ∀ k, 1 ≤ k → ∀ M, N = (3 : C) ^ k * M → ∃ M', N = (3 : C) ^ (k + 1) * M') : N = 0 := by
   apply hsep
@@ -223,7 +225,8 @@ theorem injective_mod_three (G : Subgroup (GL (Fin r) ℤ)) [Finite G] :
     simp only [MonoidHom.comp_apply, Subgroup.coe_subtype, Units.val_one] at this
     have h2 : ((((g : GL (Fin r) ℤ) : Matrix (Fin r) (Fin r) ℤ) i j : ℤ) : ZMod 3)
         = (((1 : Matrix (Fin r) (Fin r) ℤ) i j : ℤ) : ZMod 3) := by
-      by_cases hij : i = j <;> simpa [Matrix.GeneralLinearGroup.map, Matrix.one_apply, hij] using this
+      by_cases hij : i = j <;> simpa [Matrix.GeneralLinearGroup.map, Matrix.one_apply, hij] using
+          this
     rw [ZMod.intCast_eq_intCast_iff_dvd_sub] at h2
     obtain ⟨c, hc⟩ := h2
     exact ⟨-c, by push_cast at hc; linarith⟩

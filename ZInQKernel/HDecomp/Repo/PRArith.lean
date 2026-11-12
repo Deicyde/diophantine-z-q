@@ -1,6 +1,7 @@
 import ZInQKernel.Hypotheses.Height
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-repo/PRArith.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-repo/PRArith.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 
@@ -187,7 +188,8 @@ theorem bez_FG (a b : ℤ) :
 
 theorem bez_FH (a b : ℤ) :
     (16823807 * a ^ 5 + 168910350 * a ^ 4 * b - 76576533600 * a ^ 3 * b ^ 2
-      - 3442684140000 * a ^ 2 * b ^ 3 - 52460404920000 * a * b ^ 4 - 259773966000000 * b ^ 5) * Fh a b
+      - 3442684140000 * a ^ 2 * b ^ 3 - 52460404920000 * a * b ^ 4 - 259773966000000 * b ^ 5) * Fh a
+          b
     + (-117649 * a ^ 5 - 15008651 * a ^ 4 * b - 649710600 * a ^ 3 * b ^ 2
       - 11566268700 * a ^ 2 * b ^ 3 - 72155790000 * a * b ^ 4 - 14580000 * b ^ 5) * Hh a b
       = (680244480000000000 : ℕ) * b ^ 11 := by
@@ -336,7 +338,8 @@ theorem inertia_trivial_iff (h17 : 17 ≤ p) {u : ℚ} (hu : u ∉ contactSet) :
   have hHh' : Hh a b ≠ 0 := by exact_mod_cast hHh
   have eJ : Jmap u = ((-57600 : ℤ) : ℚ) * (Fh a b : ℚ) ^ 2 / (Gh a b : ℚ) ^ 6 := by
     rw [Jmap_eq, eF, eG]; push_cast; field_simp
-  have eJ' : Jmap u + 16 / 27 = ((16 : ℤ) : ℚ) * (Hh a b : ℚ) ^ 2 / (((27 : ℤ) : ℚ) * (Gh a b : ℚ) ^ 6) := by
+  have eJ' : Jmap u + 16 / 27 = ((16 : ℤ) : ℚ) * (Hh a b : ℚ) ^ 2 / (((27 : ℤ) : ℚ) * (Gh a b : ℚ) ^
+      6) := by
     rw [J_add, eH, eG]; push_cast; field_simp
   -- valuations of J and J + 16/27
   have v57600 : padicValRat p (((-57600 : ℤ) : ℚ)) = 0 :=
@@ -571,7 +574,8 @@ open Complex in
 theorem fibre_iff (u : ℚ) (Y₁ Y₂ : ℂ) :
     (Y₁ ^ 2 = -((tq u : ℚ) : ℂ) ∧ Y₂ ^ 2 = 3 * (((tq u : ℚ) : ℂ) - 1)) ↔
     (Y₁ = I * ((Hq u / Gq u ^ 3 : ℚ) : ℂ) ∨ Y₁ = -(I * ((Hq u / Gq u ^ 3 : ℚ) : ℂ))) ∧
-    (Y₂ = I * ((540 * Fq u / Gq u ^ 3 : ℚ) : ℂ) ∨ Y₂ = -(I * ((540 * Fq u / Gq u ^ 3 : ℚ) : ℂ))) := by
+    (Y₂ = I * ((540 * Fq u / Gq u ^ 3 : ℚ) : ℂ) ∨ Y₂ = -(I * ((540 * Fq u / Gq u ^ 3 : ℚ) : ℂ))) :=
+        by
   have hG := Gq_ne_zero u
   have e1 : -((tq u : ℚ) : ℂ) = (I * ((Hq u / Gq u ^ 3 : ℚ) : ℂ)) ^ 2 := by
     rw [t_eq]; push_cast; rw [mul_pow, I_sq]; ring

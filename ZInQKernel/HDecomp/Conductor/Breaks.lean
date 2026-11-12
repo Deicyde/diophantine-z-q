@@ -1,6 +1,7 @@
 import Mathlib
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-conductor/Breaks.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-conductor/Breaks.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 
@@ -151,7 +152,8 @@ lemma padicValNat_le_sq {p e a : ℕ} (hp : p.Prime) (he : e ≠ 0) (hea : e ≤
 `2δ ≤ 2(1 + log₂ a!)·e ≤ 4a²·e`. -/
 theorem two_delta_le (p e a δ : ℕ) (hp : p.Prime) (he : 1 ≤ e) (ha : 1 ≤ a)
     (hea : e ≤ a.factorial) (hδ : δ ≤ e - 1 + e * padicValNat p e) :
-    2 * δ ≤ 2 * (1 + Nat.log 2 a.factorial) * e ∧ 2 * (1 + Nat.log 2 a.factorial) * e ≤ 4 * a ^ 2 * e := by
+    2 * δ ≤ 2 * (1 + Nat.log 2 a.factorial) * e ∧ 2 * (1 + Nat.log 2 a.factorial) * e ≤ 4 * a ^ 2 *
+        e := by
   have hv : padicValNat p e ≤ Nat.log 2 a.factorial :=
     (padicValNat_le_log_two hp (by omega)).trans (Nat.log_mono_right hea)
   have hl := one_add_log_factorial_le a ha

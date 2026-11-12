@@ -1,6 +1,7 @@
 import Mathlib
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-I6-rest/I6Base.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-I6-rest/I6Base.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 
@@ -444,7 +445,8 @@ variable (A B : Type) [CommRing A] [CommRing B] [Algebra A B] [IsLocalRing B]
 /-- `codim V^H` for a subgroup `H` acting through `ρ`. -/
 noncomputable def codimInv {k V : Type} [Field k] [AddCommGroup V] [Module k V]
     (ρ : Representation k (B ≃ₐ[A] B) V) (H : Subgroup (B ≃ₐ[A] B)) : ℕ :=
-  Module.finrank k V - Module.finrank k (Representation.invariants (ρ.comp H.subtype : Representation k H V))
+  Module.finrank k V - Module.finrank k (Representation.invariants (ρ.comp H.subtype :
+      Representation k H V))
 
 /-- **Definition (Serre, *Corps locaux*, VI §2).** The Artin conductor exponent of a
 representation `V` of `Gal(L/K)`: `f(V) = ∑_{i ≥ 0} (|G_i|/|G_0|) · codim V^{G_i}`. -/

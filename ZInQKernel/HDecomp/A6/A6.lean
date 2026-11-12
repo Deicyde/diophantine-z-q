@@ -21,13 +21,15 @@ import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
 import Mathlib.Data.ZMod.Basic
 import Mathlib
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-a6-alg/A6.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-a6-alg/A6.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 -- glue-a6-alg: copy of scratch/rv-a6-route/A6.lean (namespace GlueA6Alg renamed GlueA6Alg), plus
 -- (i) the algebra of scratch/glue-a6-alg/Quat.lean (namespace GlueA6Alg.Alg), (ii) a proof of
 -- `QuatUnipotentTrivial`, (iii) `goodReduction_of_QM_rational3` from the three I2 leaves alone.
--- Copied from scratch/pkg-I2/I2.lean (lines 1-443, leaves and proved glue unchanged); rv-a6-route adds §10.
+-- Copied from scratch/pkg-I2/I2.lean (lines 1-443, leaves and proved glue unchanged); rv-a6-route
+-- adds §10.
 /-
 pkg-I2: leaf statements for the reduction-theory package I2 of Theorem 4.1
 (steps A5, A6, A8, C6, C10, D2 of docs/research/h-trust.md).
@@ -52,7 +54,8 @@ namespace GlueA6Alg.Alg
 
 lemma three_prime : Prime (3 : ℤ) := Int.prime_iff_natAbs_prime.mpr Nat.prime_three
 
-lemma dvd_of_dvd_two_mul {a y : ℤ} (ha : ¬ (3 : ℤ) ∣ a) (h : (3 : ℤ) ∣ 2 * a * y) : (3 : ℤ) ∣ y := by
+lemma dvd_of_dvd_two_mul {a y : ℤ} (ha : ¬ (3 : ℤ) ∣ a) (h : (3 : ℤ) ∣ 2 * a * y) : (3 : ℤ) ∣ y :=
+    by
   rcases three_prime.dvd_or_dvd h with h' | h'
   · rcases three_prime.dvd_or_dvd h' with h'' | h''
     · norm_num at h''
@@ -243,7 +246,8 @@ lemma eq_three_mul_of_cast_eq_zero (hk : 1 ≤ k) (z : R k)
   rw [← ZMod.natCast_zmod_val z, hm]; push_cast; ring
 
 /-- Coordinatewise reduction mod 3. -/
-def red (hk : 1 ≤ k) (v : V k) : Fin 4 → ZMod 3 := fun i => ZMod.castHom (three_dvd_Q hk) (ZMod 3) (v i)
+def red (hk : 1 ≤ k) (v : V k) : Fin 4 → ZMod 3 := fun i => ZMod.castHom (three_dvd_Q hk) (ZMod 3)
+    (v i)
 
 lemma red_add (hk : 1 ≤ k) (v w : V k) : red hk (v + w) = red hk v + red hk w := by
   funext i; simp only [red, Pi.add_apply, map_add]
@@ -387,7 +391,8 @@ theorem core (hk : 1 ≤ k) (I J S : V k →ₗ[R k] V k)
     (hdvd _ (by push_cast [ZMod.natCast_zmod_val]; exact c1))
     (hdvd _ (by push_cast [ZMod.natCast_zmod_val]; exact c2))
     (hdvd _ (by push_cast [ZMod.natCast_zmod_val]; exact c3))
-  have lift : ∀ (i : Fin 4) (E : ℤ), ((a i).val : ℤ) = 3 ^ k * E → a i = (3 : R k) ^ k * (E : R k) := by
+  have lift : ∀ (i : Fin 4) (E : ℤ), ((a i).val : ℤ) = 3 ^ k * E → a i = (3 : R k) ^ k * (E : R k)
+      := by
     intro i E h
     have := congrArg (fun z : ℤ => (z : R k)) h
     push_cast [ZMod.natCast_zmod_val] at this
@@ -776,7 +781,8 @@ def TorsionStructure : Prop :=
 UNVERIFIED); also Stichtenoth, *Algebraic function fields and codes*, Thm 3.9.1, and Cornell,
 Gold (classical). `R` a DVR with fraction field `K`, uniformizer `π`; `L/K` finite separable, tamely
 ramified over `R` (every prime `Q` of the integral closure `S` of `R` in `L` over the maximal
-ideal has `e(Q)` invertible in `R` and separable residue extension); `n` invertible in `R` with every
+ideal has `e(Q)` invertible in `R` and separable residue extension); `n` invertible in `R` with
+every
 `e(Q) ∣ n`. Let `M = L(t)` with `tⁿ = π`. Then every prime of the integral closure of `R` in `M`
 over the maximal ideal has ramification index exactly `n` and separable residue extension
 (equivalently: `M/K(t)` is unramified above `R`, as `K(t)/K` is totally ramified of degree `n`). -/

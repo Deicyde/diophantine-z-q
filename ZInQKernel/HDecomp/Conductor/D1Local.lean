@@ -1,6 +1,7 @@
 import ZInQKernel.HDecomp.Conductor.Breaks
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-d1-local/Local.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-d1-local/Local.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 /-! # glue-d1-local: the local form of D1's degree bound `e ≤ a!`

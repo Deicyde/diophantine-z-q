@@ -1,7 +1,8 @@
 import ZInQKernel.HDecomp.Descent.Chi
 import ZInQKernel.HDecomp.Descent.B2Glue
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-descent/B2Assembly.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-descent/B2Assembly.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 
@@ -15,9 +16,7 @@ order `≤ 2 ∏_{p∈T, p≠2}(p-1)`), and a continuous `β : G_ℚ → ℂ^×`
 `dβ = ε`. Everything is over Mathlib's genuine objects (`Field.absoluteGaloisGroup`, `ℚ_[p]`,
 `modularCyclotomicCharacter`, `DirichletCharacter`, `𝓞 L`).
 
-Compile (out of tree, one file at a time; `OUT = scratch/glue-descent/.lake/out`):
-`lake env bash -c "LEAN_PATH=$OUT:\$LEAN_PATH lean -o $OUT/GlueDescent/Chi.olean scratch/glue-descent/Chi.lean"`,
-the same for `B2Glue`, then `lake env bash -c "LEAN_PATH=$OUT:\$LEAN_PATH lean scratch/glue-descent/B2Assembly.lean"`.
+Built in the project as `ZInQKernel.HDecomp.Descent.B2Assembly`.
 -/
 
 namespace GlueDescent.B2Q

@@ -1,6 +1,7 @@
 import Mathlib
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-descent/B1Quat.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-descent/B1Quat.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 
@@ -30,7 +31,8 @@ def qi : B6 := ⟨0, 1, 0, 0⟩
 /-- `j ∈ B`. -/
 def qj : B6 := ⟨0, 0, 1, 0⟩
 
-/-- **B1, the discrepancy is a scalar.** An element of `B` commuting with `i` and `j` lies in `ℚ`. -/
+/-- **B1, the discrepancy is a scalar.** An element of `B` commuting with `i` and `j` lies in `ℚ`.
+  -/
 theorem B6_commute_i_j (x : B6) (hi : x * qi = qi * x) (hj : x * qj = qj * x) :
     x = algebraMap ℚ B6 x.re := by
   have e1 := congrArg QuaternionAlgebra.imI hi
@@ -68,7 +70,8 @@ theorem three_dvd_of_form {a b e : ℤ} (h : a ^ 2 - 2 * b ^ 2 + 3 * e = 0) : 3 
     rw [h30, zero_mul, add_zero] at this
     exact this
   obtain ⟨ha, hb⟩ := zmod3_aniso _ _ h3
-  exact ⟨(ZMod.intCast_zmod_eq_zero_iff_dvd a 3).mp ha, (ZMod.intCast_zmod_eq_zero_iff_dvd b 3).mp hb⟩
+  exact ⟨(ZMod.intCast_zmod_eq_zero_iff_dvd a 3).mp ha, (ZMod.intCast_zmod_eq_zero_iff_dvd b 3).mp
+      hb⟩
 
 /-- The norm form `a² - 2b² + 3c² - 6d²` of `B` is anisotropic over `ℤ` (descent mod 3). -/
 theorem aniso_int : ∀ (n : ℕ) (a b c d : ℤ), a.natAbs + b.natAbs + c.natAbs + d.natAbs ≤ n →

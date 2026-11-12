@@ -1,6 +1,7 @@
 import ZInQKernel.Compiler.Precision.HeightConstant
 
-/-! Glue of `docs/research/h-decomposition.md` (from `scratch/glue-descent/Constants.lean`, task hdec-adopt).
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-descent/Constants.lean`.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
 
 
@@ -53,7 +54,8 @@ theorem prod_S_le (S : Finset ℕ) (hS : ∀ p ∈ S, p.Prime) (R : ℝ) (hR1 : 
     rw [Nat.card_Icc, Nat.add_sub_cancel] at this
     calc (S.card : ℝ) ≤ ⌊R⌋₊ := by exact_mod_cast this
       _ ≤ R := Nat.floor_le (by linarith)
-  calc ((∏ p ∈ S, (p - 1) : ℕ) : ℝ) = ∏ p ∈ S, (((p - 1 : ℕ)) : ℝ) := by push_cast [Nat.cast_prod]; rfl
+  calc ((∏ p ∈ S, (p - 1) : ℕ) : ℝ) = ∏ p ∈ S, (((p - 1 : ℕ)) : ℝ) := by push_cast [Nat.cast_prod];
+      rfl
     _ ≤ ∏ _p ∈ S, R := by
         apply Finset.prod_le_prod₀ (fun _ _ => by positivity)
         intro p hp
@@ -74,7 +76,8 @@ theorem prod_odd_le_aux (S : Finset ℕ) (hS : ∀ p ∈ S, p.Prime) (R : ℝ) (
     rcases Finset.mem_union.mp hp with h | h
     · exact hS p h
     · exact Nat.prime_of_mem_primeFactors h
-  have h1 : (∏ p ∈ (S ∪ M.primeFactors).filter (· ≠ 2), (p - 1)) ≤ ∏ p ∈ S ∪ M.primeFactors, (p - 1) := by
+  have h1 : (∏ p ∈ (S ∪ M.primeFactors).filter (· ≠ 2), (p - 1)) ≤ ∏ p ∈ S ∪ M.primeFactors, (p - 1)
+      := by
     apply Finset.prod_le_prod_of_subset_of_one_le (Finset.filter_subset _ _)
     intro p hp _
     have := (hT p hp).two_le
