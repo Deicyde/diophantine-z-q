@@ -23,3 +23,15 @@
 ## Step 4 Bost normalization arithmetic (VERIFIED, python)
 - ½log(2π²) = 1.49130 (= log(π√2)); ½log(2π) = 0.91894; ½log π = 0.57236.
 - Faltings-normalized j=0 height −1.321117 (pkg-I5 ec_height_check output, re-read) ≥ −1.49130 ≥ −1.5.
+
+## Step 5 (22:35) hardened leaf and hardened assembly — both COMPILED, axioms standard 3
+- `I5Hardened.lean`: `PazukiGoodGenus2'` (shift +3) and `PazukiGoodGenus2 → PazukiGoodGenus2'`.
+- `ConclusionCheckHardened.lean`: PazukiOutput with `hA + 3`, pazuki_numerics re-proved (XD ≤ 4X),
+  `rvLeavesA_sixContactMin_of_glueOutputs_hardened : GlueOutputs Mult.S_mul → ZInQ.SixContactMin`. EXIT 0.
+- theta_modular.py re-run: 5 generators, rel. err ≤ 4e-25 (wrong sign gives 2.0). VERIFIED.
+
+## Verdicts (report docs/research/rv-leaves-a.md)
+ThetaModularity FAITHFUL; QMHauptmodul FAITHFUL (composite; narrow BG citation); IgusaClebschSeparation
+FAITHFUL; BostEC, BostGoodGenus2 FAITHFUL (consequences); PazukiGoodGenus2 FAITHFUL modulo UNVERIFIED
+normalization, hardened version compiled; GlueOutputs correct glue interface, not a leaf;
+sixContactMinAt_of_glueOutputs conclusion = ZInQ.SixContactMin by rfl (compiled).

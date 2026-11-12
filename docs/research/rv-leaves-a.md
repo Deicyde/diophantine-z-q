@@ -46,6 +46,13 @@ package. It succeeded here (9065 jobs).
   - from `hθ ≤ max(1, h_F+3)/2 + C₂ log(max(1, h_F+3)+2)` it gets the same
     `hθ ≤ 10000·2²⁴·max(1, h_F)` as pkg-I5's `f3_numerics`;
   - the original `log π` form implies the hardened one.
+- `scratch/rv-leaves-a/I5Hardened.lean`. pkg-I5's `I5.lean` plus the hardened leaf
+  `PazukiGoodGenus2'` (text in §3.3) and
+  `pazukiGoodGenus2'_of_pazukiGoodGenus2 : PazukiGoodGenus2 → PazukiGoodGenus2'`. Compiled.
+- `scratch/rv-leaves-a/ConclusionCheckHardened.lean`. The whole assembly with `PazukiOutput`
+  hardened to `hA + 3` and `pazuki_numerics` re-proved, which gives
+  `GlueOutputs' Mult.S_mul → ZInQ.SixContactMin` with the same final constant. Compiled, EXIT 0,
+  axioms `propext, Classical.choice, Quot.sound`.
 
 ## 2. pkg-I1
 
@@ -265,7 +272,6 @@ definitions, and the identification is a kernel `rfl`.
 
 - All published theorem numbers and constants, in particular Pazuki's `C₂` and normalization,
   and the exact printed form of Javanpeykar Thm 1.1.1. No papers were available here.
-- `PazukiGoodGenus2'` as a whole definition was not compiled. Only its bookkeeping lemmas were.
 - Satisfiability of `Genus2Eq.Good` is SPECULATIVE.
 - The Lin–Yang Ex. 30 divisor statement, which `QMHauptmodul`'s degree-1 claim rests on, was not
   read. The numerics corroborate it only locally, through the elliptic orders.
