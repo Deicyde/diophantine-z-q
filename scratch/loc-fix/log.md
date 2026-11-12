@@ -25,3 +25,13 @@
 - pkg-I1, rv-leaves-a, wk-h, h-v14, h-b1 (M4 = rv-nocm text), tyz-t1 (Lemma 3.8 → 3.14, 6 places): header notes.
 - TYZ numbering VERIFIED by environment count in Period7.tex §3: char' = Lemma 3.14 (L1868), multiples1 = 3.15 (L1919).
 - scripts/print_axioms.lean: +2 entries (ObjBridge.qmDichotomyYu_iff, PkgI3.qmDichotomy_B6): 180 → 182.
+
+## Step 4: compile checks (VERIFIED, 2026-11-12, 11:44-11:50 PST)
+- `lake build ZInQKernel`: "Build completed successfully (9952 jobs)", exit 0 (full build, then incremental rebuild
+  after a docstring edit of HDecomp/Objects.lean: Objects and dependents rebuilt, exit 0). Warnings only.
+- `lake env lean scripts/print_axioms.lean`: exit 0; 182 "depends on axioms" entries (180 before + 2 added:
+  `ObjBridge.qmDichotomyYu_iff`, `PkgI3.qmDichotomy_B6`), every one exactly [propext, Classical.choice, Quot.sound];
+  no sorryAx, no errors.
+- `lake env lean scratch/h-decomposition/Leaves.lean` (1m34s): exit 0, 0 errors; one `declaration uses sorry`
+  (L12366, `HSyn.sixContactMin_of_leaves`, the known one); 81 #print axioms: 80 standard, 1 with sorryAx (the same).
+- `lake env lean scratch/def-ladic-cond/LadicCond.lean` (7s): exit 0, 16 entries, all standard.

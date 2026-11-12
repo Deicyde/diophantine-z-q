@@ -80,9 +80,17 @@ dated note saying what changed and why.
      listed files says "multiples1".
    - h-b1.md had no "Example 30". Its Lin–Yang mention now names v1 Example 29 in M4.
 
-## Build
+## Build (VERIFIED, 2026-11-12, 11:44-11:50 PST)
 
-See "Build (VERIFIED)" below.
+- `lake build ZInQKernel`: "Build completed successfully (9952 jobs)", exit 0, warnings only.
+- `lake env lean scripts/print_axioms.lean`: exit 0. There are 182 entries: the 180 of the base
+  plus the 2 added, `ObjBridge.qmDichotomyYu_iff` and `PkgI3.qmDichotomy_B6`. Every entry lists
+  exactly `[propext, Classical.choice, Quot.sound]`, and there is no `sorryAx`. No existing
+  entry was renamed: the removed `qmDichotomy_iff` had no entry.
+- `lake env lean scratch/h-decomposition/Leaves.lean` (1m34s): exit 0, no errors.
+  - It has one `sorry`, the known one in `HSyn.sixContactMin_of_leaves`.
+  - It prints 81 axiom lists. 80 are standard; the one with `sorryAx` is that same theorem.
+- `lake env lean scratch/def-ladic-cond/LadicCond.lean`: exit 0, 16 entries, all standard.
 
 ## Not done / open
 
