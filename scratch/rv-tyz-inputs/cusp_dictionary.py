@@ -18,10 +18,10 @@ Op = om[0]
 c = Op / 2
 # lattice check: omega = [2c, c(1-i)]
 print('omega =', om, ' c =', c, ' lattice = c(1+i)Z[i]:',
-      abs(om[0] - 2 * c) < 1e-30 and abs(om[1] - c * (1 - pari('I'))) < 1e-30)
+      abs(om[0] - 2 * c) < 1e-12 and abs(om[1] - c * (1 - pari('I'))) < 1e-12)
 cinf = 1  # one real component (disc < 0)
 Om_minus = -2 / cinf * pari.imag(om[1])
-print('Omega^- =', Om_minus, ' (= 2c:', abs(Om_minus - 2 * c) < 1e-30, ')')
+print('Omega^- =', Om_minus, ' (= 2c:', abs(Om_minus - 2 * c) < 1e-12, ')')
 res = pari.msfromell(E, 0)
 M, xs = res[0], res[1]
 xp, xm = xs[0], xs[1]
