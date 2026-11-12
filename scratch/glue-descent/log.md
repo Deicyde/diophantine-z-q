@@ -49,3 +49,13 @@ SignCob η (η = dγ, γ loc. const sign cochain).
 - signCob_dB_iff: SignCob(dβ₀) ↔ ψ has a loc. const square-root character (β₀² = ψ).
 - Cochain.lean additions: twist_kills_inertia (unique nontrivial quadratic char of each I_v,
   η ramified exactly where β is ⇒ βη = 1 on every I_v); inertia_le_kernel (I_v ≤ K').
+
+## Step 6: B2 leaves stated over Mathlib objects (B2Glue.lean, namespace GlueDescent.B2Q) — elaborate (VERIFIED)
+GQ = Field.absoluteGaloisGroup ℚ, GQp p = Field.absoluteGaloisGroup ℚ_[p], resp p = absoluteGaloisGroup.map
+(algebraMap ℚ ℚ_[p]) (continuous), cyc N = modularCyclotomicCharacter on ℚ̄, galChar χ = χ.toUnitHom ∘ cyc N.
+- LeafHasse (L-B2a): sign 2-cocycle of G_ℚ locally a coboundary at every finite p ⇒ coboundary.
+- LeafLocalTwo (L-B2b): H²(G_{ℚ_p}, ±1) has ≤ 2 classes.
+- LeafSqrtCrit (L-B2c): χ mod N = p^k N', u ≡ -1 mod p^k, ≡ 1 mod N' ⇒ (χ|G_{ℚ_p} has a loc. const
+  square-root character ↔ χ(u) = 1).
+- LeafUnramified (L-B2d): ε inflated from Gal(L/ℚ), L finite Galois, every prime of 𝓞 L over p has
+  ramificationIdx 1 ⇒ ε|G_{ℚ_p} is a coboundary.

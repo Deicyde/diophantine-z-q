@@ -216,3 +216,100 @@ theorem signCob_dB_iff {Γ : Type*} [Group Γ] [TopologicalSpace Γ] (ψ : Γ �
       abel
 
 end GlueDescent.B2
+
+/-!
+## The leaves of B2 over genuine Mathlib objects
+
+`G_ℚ = Field.absoluteGaloisGroup ℚ` and `G_{ℚ_p} = Field.absoluteGaloisGroup ℚ_[p]` with their
+Krull topologies; `resp p : G_{ℚ_p} →* G_ℚ` is Mathlib's `absoluteGaloisGroup.map` along
+`ℚ → ℚ_p` (it depends on a choice of embedding `ℚ̄ → ℚ̄_p`; the vanishing of a class does not).
+Sign-valued cochains are `ℂ^×`-valued with square `1`. `cyc N : G_ℚ →* (ℤ/N)^×` is Mathlib's
+`modularCyclotomicCharacter` on `ℚ̄`.
+-/
+
+namespace GlueDescent.B2Q
+
+open GlueDescent.B2 NumberField
+
+/-- `G_ℚ`. -/
+abbrev GQ := Field.absoluteGaloisGroup ℚ
+
+local instance (p : Nat.Primes) : Fact (p : ℕ).Prime := ⟨p.2⟩
+
+/-- `G_{ℚ_p}`. -/
+abbrev GQp (p : Nat.Primes) := Field.absoluteGaloisGroup ℚ_[p]
+
+/-- The decomposition-group map `G_{ℚ_p} → G_ℚ`. -/
+noncomputable def resp (p : Nat.Primes) : GQp p →* GQ :=
+  (Field.absoluteGaloisGroup.map (algebraMap ℚ ℚ_[p])).toMonoidHom
+
+theorem resp_continuous (p : Nat.Primes) : Continuous (resp p) :=
+  (Field.absoluteGaloisGroup.map (algebraMap ℚ ℚ_[p])).continuous
+
+/-- The forgetful map `Gal(ℚ̄/ℚ) → Aut(ℚ̄)` as a monoid homomorphism. -/
+noncomputable def toRingAut : GQ →* (AlgebraicClosure ℚ ≃+* AlgebraicClosure ℚ) where
+  toFun σ := σ.toRingEquiv
+  map_one' := rfl
+  map_mul' _ _ := rfl
+
+/-- The cyclotomic character `G_ℚ → (ℤ/N)^×`. -/
+noncomputable def cyc (N : ℕ) [NeZero N] : GQ →* (ZMod N)ˣ :=
+  haveI : NeZero ((N : ℕ) : ℚ) := ⟨by exact_mod_cast NeZero.ne N⟩
+  (modularCyclotomicCharacter (AlgebraicClosure ℚ)
+    (HasEnoughRootsOfUnity.natCard_rootsOfUnity (AlgebraicClosure ℚ) N)).comp toRingAut
+
+/-- A Dirichlet character as a character of `G_ℚ`. -/
+noncomputable def galChar {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) : GQ →* ℂˣ :=
+  χ.toUnitHom.comp (cyc N)
+
+/-- **Leaf L-B2a** (Hasse principle for `H²(G_ℚ, ±1)` at the finite places). A continuous sign
+2-cocycle of `G_ℚ` whose restriction to every `G_{ℚ_p}` is a coboundary is a coboundary.
+Consequence of: `H²(G_K, μ₂) = Br(K)[2]` (Kummer theory, Hilbert 90), the
+Albert–Brauer–Hasse–Noether theorem `Br(ℚ) ↪ ⊕_v Br(ℚ_v)` with `∑_v inv_v = 0`, and
+`Br(ℝ) = ℤ/2` (so a class trivial at all finite places is trivial at `∞`). -/
+def LeafHasse : Prop :=
+  ∀ η : GQ → GQ → ℂˣ, IsSignCocycle η →
+    (∀ p : Nat.Primes, SignCob (pull (resp p) η)) → SignCob η
+
+/-- **Leaf L-B2b** (`H²(G_{ℚ_p}, ±1)` has at most two elements). Consequence of
+`H²(G_{ℚ_p}, μ₂) = Br(ℚ_p)[2] ≅ ℤ/2` (local class field theory). -/
+def LeafLocalTwo : Prop :=
+  ∀ p : Nat.Primes, ∀ η₁ η₂ : GQp p → GQp p → ℂˣ, IsSignCocycle η₁ → IsSignCocycle η₂ →
+    ¬ SignCob η₁ → ¬ SignCob η₂ → SignCob (fun x y => η₁ x y * (η₂ x y)⁻¹)
+
+/-- **Leaf L-B2c** (explicit local square-root criterion for Dirichlet characters). For a
+Dirichlet character `χ` mod `N` and a prime `p` with `N = p^k N'`, `p ∤ N'`, let `u ∈ (ℤ/N)^×`
+be `≡ -1 mod p^k` and `≡ 1 mod N'`. Then `χ|_{G_{ℚ_p}}` has a continuous square-root
+character iff `χ(u) = 1`. Consequence of local class field theory for `ℚ_p` with its explicit
+(Lubin–Tate / cyclotomic) reciprocity law — the local Artin map sends `-1 ∈ ℤ_p^×` to an element
+acting on `μ_N` through `u^{±1} = u` — together with the structure of `ℚ_p^×` (N5 L683-689: a
+finite-order character of `ℚ_p^×` has a square root iff its value at `-1` is `1`). -/
+def LeafSqrtCrit : Prop :=
+  ∀ (p : Nat.Primes) (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (u : (ZMod N)ˣ),
+    ((u : ZMod N).cast : ZMod ((p : ℕ) ^ N.factorization p)) = -1 →
+    ((u : ZMod N).cast : ZMod (N / (p : ℕ) ^ N.factorization p)) = 1 →
+    ((∃ φ : GQp p →* ℂˣ, IsLocallyConstant φ ∧ ∀ x, φ x ^ 2 = galChar χ (resp p x)) ↔
+      χ.toUnitHom u = 1)
+
+/-- An element of `G_ℚ` as an automorphism of `ℚ̄`. -/
+def act (σ : GQ) : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ := σ
+
+/-- `ε : G_ℚ × G_ℚ → ℂ^×` is inflated from `Gal(L/ℚ)`. -/
+def InflatedFrom (L : IntermediateField ℚ (AlgebraicClosure ℚ)) (ε : GQ → GQ → ℂˣ) : Prop :=
+  ∀ σ σ' τ τ' : GQ, (∀ x ∈ L, act σ x = act σ' x) → (∀ x ∈ L, act τ x = act τ' x) → ε σ τ = ε σ' τ'
+
+/-- `L` is unramified at `p`: every prime of `𝓞 L` above `p` has ramification index `1`. -/
+def UnramifiedAt (L : IntermediateField ℚ (AlgebraicClosure ℚ)) (p : ℕ) : Prop :=
+  ∀ P : Ideal (𝓞 L), P.IsPrime → ((p : ℤ) : 𝓞 L) ∈ P →
+    P.ramificationIdx ℤ = 1
+
+/-- **Leaf L-B2d** (unramified classes vanish locally). If `ε` is inflated from `Gal(L/ℚ)` for
+a finite Galois `L` unramified at `p`, its restriction to `G_{ℚ_p}` is a coboundary.
+Consequence of: the restriction is inflated from `Gal(ℚ_p^{ur}/ℚ_p) ≅ ℤ̂`, and
+`H²(ℤ̂, ℤ/2) = 0` (`cd ℤ̂ = 1`). -/
+def LeafUnramified : Prop :=
+  ∀ (L : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (ε : GQ → GQ → ℂˣ), IsSignCocycle ε → InflatedFrom L ε →
+    ∀ p : Nat.Primes, UnramifiedAt L p → SignCob (pull (resp p) ε)
+
+end GlueDescent.B2Q
