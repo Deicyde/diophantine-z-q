@@ -97,17 +97,20 @@ inequality `4 · dim End_G(r) ≤ dim End_G(r ⊕ r) ≤ 4`, through the injecti
    without semisimplicity of `ρ_F`. Mathlib has no Burnside density theorem (SPECULATIVE; not found by name).
 3. **`V_ℓ A ⊗ E ≅ r ⊕ r` from `B ⊗ E ≅ M₂(E)`** (C2 step 3) and the summand-is-semisimple transfer (step 4):
    routine, not written for lack of time.
-4. **`T_ℓ` under base change of the field.** For `L/K` and a `K`-embedding `K̄ → L̄`, an isomorphism
-   `T_ℓ(A) ≅ T_ℓ(A_L)` equivariant along `G_L → G_K`. It uses the universal property of `Over.pullback`
-   (`(A_L)(L̄) = A(L̄)`, by `pullback.lift`) and the restriction to `ℓ`-power torsion
-   (`A(K̄)[ℓⁿ] = A(L̄)[ℓⁿ]`, which needs `A[ℓⁿ]` étale, i.e. finite and reduced: content of Mumford §4/§6, not
-   in `TateModuleFree` as stated). **Finding (SPECULATIVE, but I believe it correct):** the second half is not
-   pure glue. `TateModuleFree` gives freeness over each field separately, and the comparison map
-   `T_ℓ(A) → T_ℓ(A_L)` is injective but need not be onto from the leaves alone, because they say nothing about
-   `A(K̄)[ℓⁿ] → A(L̄)[ℓⁿ]`. The rank equality `2 dim A = 2 dim A_L` would force a finite-index inclusion, and
-   saturation needs more. Proposed extra leaf (STANDARD, Mumford §6 Application 2 / Milne 1986 Thm 8.2;
-   UNVERIFIED locators): for an algebraically closed `Ω ⊇ k̄` with `ℓ ≠ char k`, `A(k̄)[ℓⁿ] → A(Ω)[ℓⁿ]` is
-   bijective. Not written in Lean because the heavy `I3.lean` object layer was not recompiled in this run.
+4. **`T_ℓ` under base change of the field.** For `L/K` and a `K`-embedding `K̄ → L̄`, we want an
+   isomorphism `T_ℓ(A) ≅ T_ℓ(A_L)` that is equivariant along `G_L → G_K`. Argument (VERIFIED as an
+   argument, not formalized):
+   - the universal property of `Over.pullback` gives `(A_L)(L̄) = A(L̄)` (`pullback.lift`);
+   - `A(K̄) → A(L̄)` is injective, because a morphism from the spectrum of a field is a point together
+     with an embedding of its residue field;
+   - so `Tate.map` gives an injective map `T_ℓ(A) → T_ℓ(A_L)`;
+   - its image is saturated: if `ℓx = ι(y)`, then `x_{n-1} = y_n ∈ A(K̄)` for every `n`, so `x ∈ ι(T_ℓ A)`;
+   - the cokernel is therefore a finitely generated torsion-free `ℤ_ℓ`-module (`TateModuleFree` over `L`).
+     Its rank is `2 dim A_L − 2 dim A = 0` (`TateModuleFree` over `K` and over `L`), so it is zero.
+
+   This is glue, given one more geometric fact: `dim A_L = dim A` (the Krull dimension of a variety is
+   invariant under field extension), which is not in Mathlib in this form (SPECULATIVE; not searched). Not
+   written in Lean, because the heavy `I3.lean` object layer was not recompiled in this run.
 5. **E1's `PoincareReducibility` application**: §2, items (a)-(c); (c) needs the leaf adjustment
    recommended there.
 
