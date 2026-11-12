@@ -1,5 +1,6 @@
 # Assembles scratch/h-decomposition/Leaves.lean from the reports' compiled drafts.
-root='/home/jackmccarthy/dzq-wt/hsyn/'
+import os
+root=os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '')
 def body(path, ren=None):
     L=open(root+path).read().split('\n')
     last=max(i for i,l in enumerate(L) if l.startswith('import '))
