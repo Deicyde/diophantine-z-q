@@ -53,26 +53,48 @@ The form of the theorem whose hypotheses are closest to the literature, and the 
 is
 
 ```lean
+theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzThm35ReadingA_heckeContinuation_functionalEquation5_grossZagier
+    (hH : SixContactMin) (hA : Literature.TYZThm35ReadingA) (hC : Literature.HeckeContinuation)
+    (hF : Literature.FunctionalEquation5) (hG : Literature.GrossZagier) : FrozenTarget
+```
+
+in `ZInQKernel/MainLiterature.lean`. Its four CR₃ hypotheses are Props over Mathlib's L-series of an
+elliptic curve (`ZInQKernel/Hypotheses/CR3Literature.lean`): `Literature.GrossZagier` (for every
+elliptic curve over ℚ, a simple zero of `L(E, s)` at `s = 1` gives a point of infinite order),
+`Literature.FunctionalEquation5` (the functional equation of `L(C_d, s)` with conductor `32d²` and
+root number `−1`, on the strip `0 < Re s < 2`), `Literature.HeckeContinuation` (`L(C_d, s)` has an
+entire continuation, `d ≠ 0`) and `Literature.TYZThm35ReadingA` (for squarefree `d ≡ 5 (mod 8)`, if
+`L(C_d, s)` vanishes to order at least 2 at `s = 1`, then `T5aCl d` and `T5bCl d` are even). The
+first three are textbook theorems. The fourth is a consequence of Tian–Yuan–Zhang's Theorem 3.5(2)
+for `n ≡ 5 (mod 8)` (arXiv:1411.4728v1; Asian J. Math. 21 (2017), 721–774) in reading A, where
+decompositions are set partitions of the primes, each counted once, with `d₁ = 1` allowed (TYZ's two
+sums are then `T5aCl d` and `T5aCl d + T5bCl d`); no refereed text found by the project's literature
+search, which AI agents carried out, states reading A explicitly. It uses only the case `𝓛(n) = 0`
+of the printed hypothesis, which is covered without the hypothesis's "i.e." clause, asserted in the
+paper without proof (`docs/research/nt-tyz.md` §2.2 F6). Theorem 1.2 of the arXiv version, which is
+Theorem 1.4 of the journal version, keeps in both versions the restriction that every factor `d_i`
+is greater than one; read literally it is false (`d = 26565` and `d = 33117` are counterexamples, in
+both versions). The paper's proof of reading A passes through its Proposition 3.4, whose proof is a
+sketch in the arXiv version. The journal comparison, including these numbers and the convolution
+identity's number, Lemma 2.9 in both versions, is an audit by AI agents with web access
+(`docs/research/locators.md`), not a human check. As supporting evidence, not as a hypothesis,
+Proposition N proves `TYZThm35ReadingA` from unambiguous results of the paper without Proposition
+3.4 (`docs/research/nt-tyz.md` §4; two reviews by AI models, none by a human), and Lean checks that
+proof (`PropN.tyzThm35ReadingA_of_tyzInputs` from the encoding `PropN.TYZInputs`,
+`ZInQKernel/Hypotheses/TYZInputs.lean`, `ZInQKernel/RouteK/PropN.lean`; Lean does not check that the
+encoding matches the paper, whose Lemma 2.9 the encoding calls `LemmaTwoEight`). The plan and its
+review are `docs/research/wk-cr3.md` and `docs/research/rv-lit.md`. From `TYZThm35ReadingA` and
+`HeckeContinuation` Lean derives (`Literature.tyzRow5b_of_readingA`) the intermediate statement
+`Literature.TYZRow5b` (`L(C_d, s)` vanishes to order at most 1 at `s = 1` when `T5bCl d = 1`), the
+hypothesis of the intermediate form
+
+```lean
 theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzRow5b_functionalEquation5_grossZagier
     (hH : SixContactMin) (hT : Literature.TYZRow5b) (hF : Literature.FunctionalEquation5)
     (hG : Literature.GrossZagier) : FrozenTarget
 ```
 
-in `ZInQKernel/MainLiterature.lean`. Its three CR₃ hypotheses are Props over Mathlib's L-series of
-an elliptic curve (`ZInQKernel/Hypotheses/CR3Literature.lean`): `Literature.GrossZagier` (for every
-elliptic curve over ℚ, a simple zero of `L(E, s)` at `s = 1` gives a point of infinite order),
-`Literature.FunctionalEquation5` (the functional equation of `L(C_d, s)` with conductor `32d²` and
-root number `−1`, on the strip `0 < Re s < 2`) and `Literature.TYZRow5b` (`L(C_d, s)` vanishes to
-order at most 1 at `s = 1` when `T5bCl d = 1`). The first two are textbook theorems. No refereed
-text that we have read prints the third. It follows, with Hecke's continuation, from
-Tian–Yuan–Zhang's Theorem 3.5(2) for `n ≡ 5 (mod 8)` (row `(7, 3)`, contrapositive) in reading A,
-where decompositions are set partitions of the primes, each counted once, with `d₁ = 1` allowed.
-Theorem 1.2 of arXiv:1411.4728v1, read literally, is false (`d = 26565` and `d = 33117` are
-counterexamples), and the paper's proof of reading A passes through its Proposition 3.4, whose proof
-is a sketch; the journal text (Asian J. Math. 21 (2017)) has not been compared. Proposition N proves
-the statement from unambiguous results of the arXiv version without Proposition 3.4
-(`docs/research/nt-tyz.md` §4; two reviews by AI models, none by a human). The plan and its review
-are `docs/research/wk-cr3.md` and `docs/research/rv-lit.md`. From the three Props Lean derives
+From `TYZRow5b`, `FunctionalEquation5` and `GrossZagier` Lean derives
 (`Literature.rootNumberVanishing_of_functionalEquation`, then
 `Literature.certifiedRankTYZClRk_of_literature`) the positive-rank form
 
