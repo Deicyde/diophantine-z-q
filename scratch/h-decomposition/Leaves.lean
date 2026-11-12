@@ -42,9 +42,13 @@ Layout (each block copied verbatim from a report's compiled draft, inside its ow
   `GlueOutputs Mult.S_mul → SixContactMin` (G18-G20, checked against the real
   `ZInQ.SixContactMin`). `GlueOutputs` is a numerical interface, not a leaf.
 
-Other `sorry`s, all glue statements of the reports: `PkgI2.goodReduction_of_QM_rational3` (A6),
-`PkgI6.artinConductor_le_of_upper` (D4), `PkgI6.sq_principalUnits` (D3; proved in another form
-as `GlueConductor.exists_sq_eq_one_add`).
+The only `sorry` in the file is `glueOutputs_of_leaves` (hsyn-fix, after the reviews): A6
+(`PkgI2.goodReduction_of_QM_rational3`, rv-a6-route), D4 (`PkgI6.artinConductor_le_of_upper`,
+glue-I6-rest) and D3 (`PkgI6.sq_principalUnits`) are now proved. Their remaining assumptions are
+explicit hypotheses: the glue Prop `PkgI2.QuatUnipotentTrivial` (pure algebra, paper proof in
+rv-a6-route §3) for A6, and the glue Prop `GlueI3.SemisimpleBaseChange` (standard algebra) for
+glue-I3-linalg's `PkgI3.C2_absolutelyIrreducible` and `PkgI3.E1_exists_hom_ne_zero`.
+`scratch/hsyn/assemble.py` no longer reproduces this file (hsyn-fix edited it by hand).
 
 No `axiom` declarations. Leaf numbering (R1-R22 research-level, T1-T32 textbook) is that of the
 note's §2.
@@ -1203,20 +1207,52 @@ theorem D2_fixed_of_raynaud (hRay : RaynaudCriterion.{u})
   exact fixed_of_unipSq_of_iterate A σ x ℓ n p a hcop hx
     (hRay K O w hw A m hm hmO hrat σ hσ ℓ hℓ hℓO n x hx) hit
 
-/-- **Glue A6 (Lemma PR(ii), Raynaud route; statement, proof outlined).** Let `A/K` be an
-abelian surface with `K`-endomorphisms `I, J` satisfying `I² = 2`, `J² = -3`, `IJ = -JI` on
-`K̄`-points (an action of `ℤ⟨i, j⟩ ⊂ B = (2,-3)`, maximal at 3), and with `A[3]` rational over `K`.
-Then `A` has good reduction at every DVR `O` in which `3` is invertible.
-Outline. (1) `RaynaudCriterion` with `m = ℓ = 3`: `N = σ - 1` has `N² = 0` on `A[3ⁿ]` for `σ` in
-inertia. (2) `TorsionStructure` (`g = 2`): `A[3ⁿ] ≅ (ℤ/3ⁿ)⁴`; with the action of `Λ = ℤ⟨i,j⟩`,
-whose 3-adic completion is the maximal order of the quaternion division algebra over `ℚ₃`
-(uniformizer `Π`, `Π² ∈ 3Λ₃ˣ`, residue field `𝔽₉`), a cardinality count gives `A[3ⁿ] ≅ Λ/3ⁿ`
-free of rank one. (3) `N` commutes with `I, J` (defined over `K`), so `N` is right
-multiplication by some `c`, and `N² = 0` gives `c² ≡ 0 mod 3^{2k}`, hence `c ∈ 3ᵏΛ` (the norm
-form `x² - 2y² + 3z² - 6w²` is anisotropic mod 3), hence `N` kills `3ᵏ A[3^{2k}] = A[3ᵏ]`.
-(4) `NeronOggShafarevich` (c) with `m = 3ᵏ`. -/
+-- Adopted from scratch/rv-a6-route/A6.lean §10 (hsyn-fix); replaces pkg-I2's `sorry` statement.
+/-! ## 10. rv-a6-route: A6 (Lemma PR(ii)) by the Raynaud route, from the leaves plus one
+pure-algebra glue statement -/
+
+/-- **Glue (pure algebra, not a leaf; to be proved by the project).** Let `G` be a commutative
+group whose `3^{2k}`-torsion `T` is isomorphic to `(ℤ/3^{2k})⁴` (`k ≥ 1`), with endomorphisms
+`I, J` satisfying `I² = 2`, `J² = -3`, `IJ = -JI` (so `T` is a module over `Λ = ℤ⟨i,j⟩`, whose
+`3`-adic completion is the maximal order of the quaternion division algebra over `ℚ₃`), and an
+endomorphism `S` commuting with `I, J` with `(S - 1)² = 0` on `T`. Then `S` is the identity on
+the `3^k`-torsion. Proof (docs/research/rv-a6-route.md §3): `T/JT` is an `𝔽₉`-space of dimension
+1 (dimension 2 would force `J = 3J'` on the free `ℤ/3^{2k}`-module `T`, whence `3·unit = 0`), so
+`T` is cyclic, hence free of rank one over `Λ/3^{2k}` by counting; `S - 1` is right
+multiplication by some `c` with `c² = 0`, so `v_Π(c) ≥ 2k`, `c ∈ 3^kΛ`, and `S - 1` kills
+`3^k T = G[3^k]`. -/
+def QuatUnipotentTrivial : Prop :=
+  ∀ (G : Type u) [CommGroup G] (k : ℕ), 1 ≤ k → ∀ (I J S : G →* G),
+    (∀ x, I (I x) = x ^ 2) → (∀ x, J (J x) * x ^ 3 = 1) → (∀ x, J (I x) * I (J x) = 1) →
+    (∀ x, S (I x) = I (S x)) → (∀ x, S (J x) = J (S x)) →
+    (∃ e : {x : G | x ^ (3 ^ (2 * k)) = 1} ≃ (Fin (2 * 2) → ZMod (3 ^ (2 * k))),
+      ∀ x y : {x : G | x ^ (3 ^ (2 * k)) = 1},
+        ∀ h : x.1 * y.1 ∈ {x : G | x ^ (3 ^ (2 * k)) = 1}, e ⟨x.1 * y.1, h⟩ = e x + e y) →
+    (∀ x, x ^ (3 ^ (2 * k)) = 1 → S (S x) * (S x)⁻¹ * (S x)⁻¹ * x = 1) →
+    ∀ x, x ^ (3 ^ k) = 1 → S x = x
+
+section A6
+
+/-- The Galois action of `σ` as a group endomorphism of `A(L)`. -/
+noncomputable def galHomPts (A : Grp (Over (Spec (.of K)))) {L : Type u} [CommRing L]
+    [Algebra K L] (σ : L ≃ₐ[K] L) : Pts A L →* Pts A L where
+  toFun := galAct A σ
+  map_one' := galAct_one A σ
+  map_mul' := galAct_mul A σ
+
+/-- A homomorphism of group objects `f : A ⟶ A` as a group endomorphism of `A(L)`. -/
+noncomputable def endPts (A : Grp (Over (Spec (.of K)))) {L : Type u} [CommRing L]
+    [Algebra K L] (f : A ⟶ A) : Pts A L →* Pts A L where
+  toFun x := x ≫ f.hom.hom
+  map_one' := MonObj.one_comp _
+  map_mul' x y := MonObj.mul_comp x y _
+
+/-- **Glue A6 (Lemma PR(ii), Raynaud route), proved from the leaves `NeronOggShafarevich`,
+`RaynaudCriterion`, `TorsionStructure` and the pure-algebra glue `QuatUnipotentTrivial`.**
+Same statement as `PkgI2.goodReduction_of_QM_rational3` (scratch/pkg-I2/I2.lean). -/
 theorem goodReduction_of_QM_rational3 (hNOS : NeronOggShafarevich.{u})
     (hRay : RaynaudCriterion.{u}) (hTors : TorsionStructure.{u})
+    (hAlg : QuatUnipotentTrivial.{u})
     (O : ValuationSubring K) [IsDiscreteValuationRing O]
     (w : ValuationSubring (AlgebraicClosure K))
     (hw : w.comap (algebraMap K (AlgebraicClosure K)) = O)
@@ -1231,7 +1267,40 @@ theorem goodReduction_of_QM_rational3 (hNOS : NeronOggShafarevich.{u})
     (hrat : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
       ∀ x ∈ torsion A (AlgebraicClosure K) 3, galAct A σ x = x) :
     HasGoodReduction A O := by
-  sorry
+  have : IsProper A.X.hom := IsAbelianVariety.proper
+  have : GeometricallyIntegral A.X.hom := IsAbelianVariety.geomIntegral
+  have : IsCommMonObj A.X := isCommMonObj_of_isProper_of_geometricallyIntegral A.X
+  have h3' : IsUnit ((3 : ℕ) : O) := by exact_mod_cast h3
+  have h3K : ((3 : ℕ) : K) ≠ 0 := by
+    intro h
+    apply h3.ne_zero
+    apply Subtype.val_injective
+    have h' : (3 : K) = 0 := by exact_mod_cast h
+    have e3 : ((3 : O) : K) = 3 := rfl
+    rw [e3, h']
+    rfl
+  -- inertia acts trivially on `A[3^k]` for every `k ≥ 1`
+  have key : ∀ k : ℕ, 1 ≤ k → InertiaTrivialOn A w (3 ^ k) := by
+    intro k hk σ hσ x hx
+    obtain ⟨e, he⟩ := hTors K A 2 (3 ^ (2 * k)) hdim (by positivity)
+      (by rw [Nat.cast_pow]; exact pow_ne_zero _ h3K)
+    exact hAlg (Pts A (AlgebraicClosure K)) k hk (endPts A I) (endPts A J) (galHomPts A σ)
+      hI hJ hIJ (fun x => by
+        simp only [galHomPts, endPts, MonoidHom.coe_mk, OneHom.coe_mk, galAct, Category.assoc])
+      (fun x => by
+        simp only [galHomPts, endPts, MonoidHom.coe_mk, OneHom.coe_mk, galAct, Category.assoc])
+      ⟨e, he⟩ (fun y hy => hRay K O w hw A 3 le_rfl h3' hrat σ hσ 3 Nat.prime_three h3'
+        (2 * k) y hy) x hx
+  -- Néron–Ogg–Shafarevich (c) ⇒ (a)
+  refine (hNOS K O w hw A).2.mpr ?_
+  refine Set.infinite_of_injective_forall_mem (f := fun k : ℕ => 3 ^ (k + 1)) ?_ ?_
+  · intro a b hab
+    simpa using (Nat.pow_right_injective (by norm_num : 2 ≤ 3) hab)
+  · intro k
+    refine ⟨by positivity, ?_, key (k + 1) (by omega)⟩
+    rw [Nat.cast_pow]; exact h3'.pow _
+
+end A6
 
 end Glue
 
@@ -1243,6 +1312,497 @@ section PkgI3Sec
 /-! ### Copied from `scratch/pkg-I3/I3.lean` (compiled there). -/
 
 noncomputable section
+
+-- glue-I3-linalg (hsyn-fix): the linear-algebra glue of C2 and E1, from scratch/glue-I3-linalg/C2.lean §0.
+/-! ## 0. Linear-algebra glue (copied from `scratch/glue-I3-linalg/Commutant.lean`, plus
+`finrank_commOf_le_of_equiv` and `equivariantDescent`) -/
+
+namespace GlueI3
+
+open Representation
+
+variable {k G V : Type*} [Field k] [Monoid G] [AddCommGroup V] [Module k V]
+
+/-- The projection onto a subrepresentation along an invariant complement is equivariant. -/
+lemma projection_comm {ρ : Representation k G V} (W W' : Subrepresentation ρ)
+    (h : IsCompl W.toSubmodule W'.toSubmodule) (g : G) :
+    W.toSubmodule.projection W'.toSubmodule h ∘ₗ ρ g =
+      ρ g ∘ₗ W.toSubmodule.projection W'.toSubmodule h := by
+  apply LinearMap.ext
+  intro v
+  set p := W.toSubmodule.projection W'.toSubmodule h
+  have hv := Submodule.projection_add_projection_eq_self h v
+  set a := p v with ha
+  set b := W'.toSubmodule.projection W.toSubmodule h.symm v
+  have haW : a ∈ W.toSubmodule := by apply Submodule.projection_apply_mem
+  have hbW : b ∈ W'.toSubmodule := by apply Submodule.projection_apply_mem
+  simp only [LinearMap.coe_comp, Function.comp_apply]
+  conv_lhs => rw [← hv, map_add, map_add]
+  rw [Submodule.projection_apply_of_mem_right h (W'.apply_mem_toSubmodule g hbW), add_zero,
+    Submodule.projection_apply_of_mem_left h (W.apply_mem_toSubmodule g haW)]
+
+/-- **The commutant argument (GLUE, proved).** A semisimple representation on a nonzero space
+whose `G`-equivariant endomorphisms are all scalars is irreducible. -/
+theorem isIrreducible_of_commutant_scalar (ρ : Representation k G V) [Nontrivial V]
+    (hss : ρ.IsSemisimpleRepresentation)
+    (hcomm : ∀ φ : V →ₗ[k] V, (∀ g, φ ∘ₗ ρ g = ρ g ∘ₗ φ) → ∃ c : k, φ = c • LinearMap.id) :
+    ρ.IsIrreducible := by
+  refine { toNontrivial := ⟨⊥, ⊤, ?_⟩, eq_bot_or_eq_top := ?_ }
+  · intro h
+    obtain ⟨x, hx⟩ := exists_ne (0 : V)
+    have : x ∈ (⊤ : Subrepresentation ρ).toSubmodule := Submodule.mem_top
+    rw [← h] at this
+    exact hx ((Submodule.mem_bot k).mp this)
+  · intro W
+    obtain ⟨W', hW'⟩ := hss.exists_isCompl W
+    have h : IsCompl W.toSubmodule W'.toSubmodule := by
+      constructor
+      · rw [disjoint_iff]
+        have := congrArg Subrepresentation.toSubmodule hW'.inf_eq_bot
+        simp only [Subrepresentation.toSubmodule_inf] at this
+        exact this
+      · rw [codisjoint_iff]
+        have := congrArg Subrepresentation.toSubmodule hW'.sup_eq_top
+        simp only [Subrepresentation.toSubmodule_sup] at this
+        exact this
+    obtain ⟨c, hc⟩ := hcomm _ (projection_comm W W' h)
+    by_cases hW : W = ⊥
+    · exact Or.inl hW
+    right
+    -- some nonzero `w ∈ W` gives `c = 1`
+    have hne : W.toSubmodule ≠ ⊥ := by
+      intro h0; apply hW; apply Subrepresentation.toSubmodule_injective; rw [h0]; rfl
+    obtain ⟨w, hwW, hw0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hne
+    have h1 := congrArg (fun f => f w) hc
+    simp only [LinearMap.smul_apply, LinearMap.id_apply] at h1
+    rw [Submodule.projection_apply_of_mem_left h hwW] at h1
+    have hc1 : c = 1 := by
+      have : (c - 1) • w = 0 := by rw [sub_smul, one_smul, ← h1, sub_self]
+      exact sub_eq_zero.mp ((smul_eq_zero.mp this).resolve_right hw0)
+    -- then `W' = 0`
+    have hW'0 : W'.toSubmodule = ⊥ := by
+      rw [eq_bot_iff]
+      intro y hy
+      have h2 := congrArg (fun f => f y) hc
+      simp only [LinearMap.id_apply, hc1, one_smul] at h2
+      rw [Submodule.projection_apply_of_mem_right h hy] at h2
+      exact (Submodule.mem_bot k).mpr h2.symm
+    apply Subrepresentation.toSubmodule_injective
+    have := h.sup_eq_top
+    rw [hW'0, sup_bot_eq] at this
+    exact this
+
+/-- The commutant of a family of endomorphisms. -/
+def commOf {W : Type*} [AddCommGroup W] [Module k W] (r : G → W →ₗ[k] W) :
+    Submodule k (W →ₗ[k] W) where
+  carrier := {φ | ∀ g, φ ∘ₗ r g = r g ∘ₗ φ}
+  add_mem' := by
+    intro φ ψ hφ hψ g
+    simp only [Set.mem_ofPred_eq] at *
+    rw [LinearMap.add_comp, LinearMap.comp_add, hφ g, hψ g]
+  zero_mem' := by intro g; simp
+  smul_mem' := by
+    intro c φ hφ g
+    simp only [Set.mem_ofPred_eq] at *
+    rw [LinearMap.smul_comp, LinearMap.comp_smul, hφ g]
+
+/-- `(a, b, c, d) ↦ [[a, b], [c, d]]`, an injective linear map
+`End_G(V)⁴ → End_G(V ⊕ V)`. -/
+def blockMap (ρ : Representation k G V) :
+    (commOf (k := k) (fun g => ρ g)) × (commOf (k := k) (fun g => ρ g)) ×
+      (commOf (k := k) (fun g => ρ g)) × (commOf (k := k) (fun g => ρ g)) →ₗ[k]
+      commOf (k := k) (fun g => (ρ g).prodMap (ρ g)) where
+  toFun t := ⟨((t.1 : V →ₗ[k] V).coprod (t.2.1 : V →ₗ[k] V)).prod
+      ((t.2.2.1 : V →ₗ[k] V).coprod (t.2.2.2 : V →ₗ[k] V)), by
+    intro g
+    have ha : ∀ v, (t.1 : V →ₗ[k] V) (ρ g v) = ρ g ((t.1 : V →ₗ[k] V) v) :=
+      fun v => congrArg (fun f => f v) (t.1.2 g)
+    have hb : ∀ v, (t.2.1 : V →ₗ[k] V) (ρ g v) = ρ g ((t.2.1 : V →ₗ[k] V) v) :=
+      fun v => congrArg (fun f => f v) (t.2.1.2 g)
+    have hc : ∀ v, (t.2.2.1 : V →ₗ[k] V) (ρ g v) = ρ g ((t.2.2.1 : V →ₗ[k] V) v) :=
+      fun v => congrArg (fun f => f v) (t.2.2.1.2 g)
+    have hd : ∀ v, (t.2.2.2 : V →ₗ[k] V) (ρ g v) = ρ g ((t.2.2.2 : V →ₗ[k] V) v) :=
+      fun v => congrArg (fun f => f v) (t.2.2.2.2 g)
+    apply LinearMap.ext
+    rintro ⟨x, y⟩
+    simp [ha, hb, hc, hd]⟩
+  map_add' s t := by
+    apply Subtype.ext; apply LinearMap.ext; rintro ⟨x, y⟩
+    simp only [Prod.fst_add, Prod.snd_add, Submodule.coe_add]
+    simp [add_add_add_comm]
+  map_smul' c t := by
+    apply Subtype.ext; apply LinearMap.ext; rintro ⟨x, y⟩
+    simp
+
+lemma blockMap_injective (ρ : Representation k G V) : Function.Injective (blockMap ρ) := by
+  refine (injective_iff_map_eq_zero _).mpr ?_
+  rintro ⟨a, b, c, d⟩ h
+  have h' := congrArg Subtype.val h
+  have hx : ∀ x, (blockMap ρ (a, b, c, d) : V × V →ₗ[k] V × V) (x, 0) = 0 :=
+    fun x => by rw [h']; rfl
+  have hy : ∀ y, (blockMap ρ (a, b, c, d) : V × V →ₗ[k] V × V) (0, y) = 0 :=
+    fun y => by rw [h']; rfl
+  simp only [blockMap, LinearMap.coe_mk, AddHom.coe_mk, LinearMap.prod_apply, Function.prod,
+    LinearMap.coprod_apply, map_zero, add_zero, zero_add, Prod.mk_eq_zero] at hx hy
+  refine Prod.ext (Subtype.ext (LinearMap.ext fun x => (hx x).1))
+    (Prod.ext (Subtype.ext (LinearMap.ext fun y => (hy y).1))
+      (Prod.ext (Subtype.ext (LinearMap.ext fun x => (hx x).2))
+        (Subtype.ext (LinearMap.ext fun y => (hy y).2))))
+
+omit [Monoid G] in
+lemma id_mem_commOf {W : Type*} [AddCommGroup W] [Module k W] (r : G → W →ₗ[k] W) :
+    (LinearMap.id : W →ₗ[k] W) ∈ commOf r := by
+  intro g; simp
+
+omit [Monoid G] in
+/-- A commutant of dimension `1` consists of the scalars. -/
+lemma scalar_of_finrank_commOf_eq_one {W : Type*} [AddCommGroup W] [Module k W] [Nontrivial W]
+    (r : G → W →ₗ[k] W) (h1 : Module.finrank k (commOf r) = 1) :
+    ∀ φ ∈ commOf r, ∃ c : k, φ = c • LinearMap.id := by
+  intro φ hφ
+  have hid0 : (⟨LinearMap.id, id_mem_commOf r⟩ : commOf r) ≠ 0 := by
+    intro h0
+    obtain ⟨x, hx⟩ := exists_ne (0 : W)
+    exact hx (by simpa using congrArg (fun f : commOf r => (f : W →ₗ[k] W) x) h0)
+  obtain ⟨c, hc⟩ := (finrank_eq_one_iff_of_nonzero' _ hid0).mp h1 ⟨φ, hφ⟩
+  exact ⟨c, by simpa using (congrArg Subtype.val hc).symm⟩
+
+/-- **The dimension count of C2 (GLUE, proved).** If `dim End_G(V ⊕ V) ≤ 4` and `V ≠ 0` is
+finite-dimensional, then `dim End_G(V) = 1`. -/
+theorem finrank_commOf_eq_one_of_prod_le_four (ρ : Representation k G V) [Nontrivial V]
+    [FiniteDimensional k V]
+    (h4 : Module.finrank k (commOf (k := k) (fun g => (ρ g).prodMap (ρ g))) ≤ 4) :
+    Module.finrank k (commOf (k := k) (fun g => ρ g)) = 1 := by
+  have hinj := blockMap_injective ρ
+  have hle := LinearMap.finrank_le_finrank_of_injective hinj
+  simp only [Module.finrank_prod] at hle
+  have hC1 : Module.finrank k (commOf (k := k) (fun g => ρ g)) ≤ 1 := by omega
+  have hid0 : (⟨LinearMap.id, id_mem_commOf _⟩ : commOf (k := k) (fun g => ρ g)) ≠ 0 := by
+    intro h0
+    obtain ⟨x, hx⟩ := exists_ne (0 : V)
+    have h0x := congrArg (fun f : commOf (k := k) (fun g => ρ g) => (f : V →ₗ[k] V) x) h0
+    exact hx (by simpa using h0x)
+  have hpos : 0 < Module.finrank k (commOf (k := k) (fun g => ρ g)) :=
+    Module.finrank_pos_iff_exists_ne_zero.mpr ⟨_, hid0⟩
+  omega
+
+/-- **C2 over the splitting field (GLUE, proved).** N5 L731-734: over a field `E` splitting `B`,
+`V_ℓ(A) ⊗ E ≅ r ⊕ r` and `dim_E End_G(V_ℓ A ⊗ E) = 4`. If the commutant of `r ⊕ r` has
+dimension at most `4` and `r` is semisimple and nonzero, then `r` is irreducible, and its
+commutant is the scalars. -/
+theorem isIrreducible_of_finrank_commOf_prod_le_four (ρ : Representation k G V) [Nontrivial V]
+    (hss : ρ.IsSemisimpleRepresentation)
+    [FiniteDimensional k V]
+    (h4 : Module.finrank k (commOf (k := k) (fun g => (ρ g).prodMap (ρ g))) ≤ 4) :
+    ρ.IsIrreducible ∧ ∀ φ ∈ commOf (k := k) (fun g => ρ g), ∃ c : k, φ = c • LinearMap.id := by
+  have hsc := scalar_of_finrank_commOf_eq_one _ (finrank_commOf_eq_one_of_prod_le_four ρ h4)
+  exact ⟨isIrreducible_of_commutant_scalar ρ hss (fun φ hφ => hsc φ hφ), hsc⟩
+
+/-- **Semisimplicity passes to equivariant quotients (GLUE, proved).** -/
+theorem isSemisimple_of_surjective {W : Type*} [AddCommGroup W] [Module k W]
+    (ρ : Representation k G V) (σ : Representation k G W) (hss : ρ.IsSemisimpleRepresentation)
+    (f : V →ₗ[k] W) (hf : Function.Surjective f) (hfeq : ∀ g v, f (ρ g v) = σ g (f v)) :
+    σ.IsSemisimpleRepresentation := by
+  rw [isSemisimpleRepresentation_iff_isSemisimpleModule_asModule] at hss ⊢
+  exact IsSemisimpleModule.of_surjective
+    (IntertwiningMap.equivLinearMapAsModule ρ σ (LinearMap.intertwiningMap_of_isIntertwiningMap ρ σ f hfeq)) hf
+
+/-- An equivariant linear isomorphism `V ≃ W` gives `dim End_G(V) ≤ dim End_G(W)`. -/
+lemma finrank_commOf_le_of_equiv {W : Type*} [AddCommGroup W] [Module k W] [FiniteDimensional k W]
+    (r : G → V →ₗ[k] V) (s : G → W →ₗ[k] W) (e : V ≃ₗ[k] W)
+    (he : ∀ g v, e (r g v) = s g (e v)) :
+    Module.finrank k (commOf r) ≤ Module.finrank k (commOf s) := by
+  have hmem : ∀ φ ∈ commOf r, e.conj φ ∈ commOf s := by
+    intro φ hφ g
+    apply LinearMap.ext; intro w
+    have hφ' := congrArg (fun f => f (e.symm w)) (hφ g)
+    simp only [LinearMap.coe_comp, Function.comp_apply] at hφ'
+    have he' : e.symm (s g w) = r g (e.symm w) := by
+      apply e.injective; rw [he, LinearEquiv.apply_symm_apply, LinearEquiv.apply_symm_apply]
+    simp only [LinearMap.coe_comp, Function.comp_apply, LinearEquiv.conj_apply,
+      LinearEquiv.coe_coe]
+    rw [he', hφ', he]
+  let f : commOf r →ₗ[k] commOf s := e.conj.toLinearMap.restrict hmem
+  have hf : Function.Injective f := by
+    intro x y hxy
+    apply Subtype.ext
+    exact e.conj.injective (congrArg Subtype.val hxy)
+  exact LinearMap.finrank_le_finrank_of_injective hf
+
+/-! ### Extension of the coefficient field -/
+
+/-- Base change `ρ_E` of a representation along a field extension `E/k`. -/
+def repBaseChange (E : Type*) [Field E] [Algebra k E] (ρ : Representation k G V) :
+    Representation E G (TensorProduct k E V) where
+  toFun g := (ρ g).baseChange E
+  map_one' := by
+    change (ρ 1).baseChange E = LinearMap.id
+    rw [map_one, Module.End.one_eq_id, LinearMap.baseChange_id]
+  map_mul' g h := by
+    change (ρ (g * h)).baseChange E = (ρ g).baseChange E ∘ₗ (ρ h).baseChange E
+    rw [map_mul, Module.End.mul_eq_comp, LinearMap.baseChange_comp]
+
+/-- **GLUE, not proved here (algebra; STANDARD).** In characteristic `0`, semisimplicity of a
+finite-dimensional representation survives extension of the coefficient field. (The span of
+`ρ(G)` is a finite-dimensional algebra with a faithful semisimple module, hence semisimple, hence
+separable since `k` is perfect, so its base change is semisimple.) -/
+def SemisimpleBaseChange : Prop :=
+  ∀ (k E G V : Type) [Field k] [CharZero k] [Field E] [Algebra k E] [Monoid G] [AddCommGroup V]
+    [Module k V] [FiniteDimensional k V] (ρ : Representation k G V),
+    ρ.IsSemisimpleRepresentation → (repBaseChange E ρ).IsSemisimpleRepresentation
+
+/-! ### E1: a common constituent gives a nonzero equivariant map -/
+
+/-- **E1, first arrow (GLUE, proved).** If `ρ` is semisimple and a nonzero subrepresentation `U`
+of `ρ` is equivariantly isomorphic to a subrepresentation `U'` of `σ`, there is a nonzero
+`G`-equivariant linear map `V → W`. (Project onto `U` along an invariant complement, transport,
+include.) -/
+theorem exists_equivariant_ne_zero_of_common {W : Type*} [AddCommGroup W] [Module k W]
+    (ρ : Representation k G V) (σ : Representation k G W) (hss : ρ.IsSemisimpleRepresentation)
+    (U : Subrepresentation ρ) (U' : Subrepresentation σ) (hU : U ≠ ⊥)
+    (e : U.toSubmodule ≃ₗ[k] U'.toSubmodule)
+    (he : ∀ g (u : U.toSubmodule), (e ⟨ρ g u, U.apply_mem_toSubmodule g u.2⟩ : W) = σ g (e u)) :
+    ∃ φ : V →ₗ[k] W, φ ≠ 0 ∧ ∀ g, φ ∘ₗ ρ g = σ g ∘ₗ φ := by
+  obtain ⟨U'', hU''⟩ := hss.exists_isCompl U
+  have h : IsCompl U.toSubmodule U''.toSubmodule := by
+    constructor
+    · rw [disjoint_iff]
+      have := congrArg Subrepresentation.toSubmodule hU''.inf_eq_bot
+      simp only [Subrepresentation.toSubmodule_inf] at this
+      exact this
+    · rw [codisjoint_iff]
+      have := congrArg Subrepresentation.toSubmodule hU''.sup_eq_top
+      simp only [Subrepresentation.toSubmodule_sup] at this
+      exact this
+  let p := Submodule.projectionOnto U.toSubmodule U''.toSubmodule h
+  refine ⟨U'.toSubmodule.subtype ∘ₗ e.toLinearMap ∘ₗ p, ?_, ?_⟩
+  · intro h0
+    apply hU
+    apply Subrepresentation.toSubmodule_injective
+    change U.toSubmodule = ⊥
+    rw [eq_bot_iff]
+    intro u hu
+    have := congrArg (fun f => f u) h0
+    simp only [LinearMap.coe_comp, Function.comp_apply, LinearMap.zero_apply,
+      Submodule.coe_subtype, LinearEquiv.coe_coe, p] at this
+    rw [Submodule.projectionOnto_apply_left h ⟨u, hu⟩] at this
+    have h2 : e ⟨u, hu⟩ = 0 := Subtype.ext this
+    have h3 : (⟨u, hu⟩ : U.toSubmodule) = 0 := by simpa using h2
+    exact (Submodule.mem_bot k).mpr (congrArg Subtype.val h3)
+  · intro g
+    apply LinearMap.ext
+    intro v
+    have hpv : (p (ρ g v)) = ⟨ρ g (p v), U.apply_mem_toSubmodule g (p v).2⟩ := by
+      apply Subtype.ext
+      exact congrArg (fun f => f v) (projection_comm U U'' h g)
+    simp only [LinearMap.coe_comp, Function.comp_apply, Submodule.coe_subtype,
+      LinearEquiv.coe_coe]
+    rw [hpv, he]
+
+/-- **Equivariant descent (GLUE, proved).** A nonzero `G`-equivariant `E`-linear map
+`E ⊗ V → E ⊗ W` gives a nonzero `G`-equivariant `k`-linear map `V → W`: expand in a `k`-basis of
+`E` and take a nonzero coordinate. -/
+theorem exists_equivariant_ne_zero_of_baseChange {W : Type*} [AddCommGroup W] [Module k W]
+    (E : Type*) [Field E] [Algebra k E] (ρ : Representation k G V) (σ : Representation k G W)
+    (φ : TensorProduct k E V →ₗ[E] TensorProduct k E W) (hφ0 : φ ≠ 0)
+    (hφ : ∀ g, φ ∘ₗ repBaseChange E ρ g = repBaseChange E σ g ∘ₗ φ) :
+    ∃ ψ : V →ₗ[k] W, ψ ≠ 0 ∧ ∀ g, ψ ∘ₗ ρ g = σ g ∘ₗ ψ := by
+  classical
+  let b := Module.Free.chooseBasis k E
+  let c : TensorProduct k E W ≃ₗ[k] (Module.Free.ChooseBasisIndex k E →₀ W) :=
+    (TensorProduct.congr b.repr (LinearEquiv.refl k W)).trans
+      (TensorProduct.finsuppScalarLeft k W _)
+  have hc : ∀ (x : TensorProduct k E W) g j, c (repBaseChange E σ g x) j = σ g (c x j) := by
+    intro x g j
+    induction x using TensorProduct.induction_on with
+    | zero => simp
+    | tmul a w =>
+      simp [c, repBaseChange, LinearMap.baseChange_tmul]
+    | add x y hx hy =>
+      rw [map_add, map_add, Finsupp.add_apply, hx, hy, map_add, Finsupp.add_apply, map_add]
+  let ψ : Module.Free.ChooseBasisIndex k E → V →ₗ[k] W := fun j =>
+    (Finsupp.lapply j) ∘ₗ c.toLinearMap ∘ₗ (φ.restrictScalars k) ∘ₗ (TensorProduct.mk k E V 1)
+  have hψ : ∀ j v, ψ j v = c (φ (1 ⊗ₜ[k] v)) j := fun j v => rfl
+  have heq : ∀ j g, ψ j ∘ₗ ρ g = σ g ∘ₗ ψ j := by
+    intro j g
+    apply LinearMap.ext; intro v
+    show c (φ ((1 : E) ⊗ₜ[k] ρ g v)) j = σ g (c (φ ((1 : E) ⊗ₜ[k] v)) j)
+    have h1 : (1 : E) ⊗ₜ[k] ρ g v = repBaseChange E ρ g (1 ⊗ₜ v) := by
+      simp [repBaseChange, LinearMap.baseChange_tmul]
+    have h2 := congrArg (fun f => f ((1 : E) ⊗ₜ[k] v)) (hφ g)
+    simp only [LinearMap.coe_comp, Function.comp_apply] at h2
+    rw [h1, h2, hc]
+  have hne : ∃ j, ψ j ≠ 0 := by
+    by_contra h
+    simp only [not_exists, not_not] at h
+    apply hφ0
+    have h1 : ∀ v, φ (1 ⊗ₜ[k] v) = 0 := fun v => by
+      apply c.injective
+      ext j
+      rw [map_zero, Finsupp.zero_apply, ← hψ, h j, LinearMap.zero_apply]
+    apply LinearMap.ext; intro x
+    induction x using TensorProduct.induction_on with
+    | zero => simp
+    | tmul a v =>
+      have : a ⊗ₜ[k] v = a • ((1 : E) ⊗ₜ[k] v) := by
+        rw [TensorProduct.smul_tmul', smul_eq_mul, mul_one]
+      rw [this, map_smul, h1, smul_zero, LinearMap.zero_apply]
+    | add x y hx hy => rw [map_add, hx, hy]; simp
+  obtain ⟨j, hj⟩ := hne
+  exact ⟨ψ j, hj, heq j⟩
+
+/-- `E ⊗_k End_G(V) → End_E(E ⊗ V)`, `e ⊗ ψ ↦ e • (ψ ⊗ E)`. -/
+def commBaseChange (E : Type*) [Field E] [Algebra k E] (ρ : Representation k G V) :
+    TensorProduct k E (commOf (k := k) (fun g => ρ g)) →ₗ[E]
+      (TensorProduct k E V →ₗ[E] TensorProduct k E V) :=
+  ((LinearMap.baseChangeHom k E V V) ∘ₗ (commOf (k := k) (fun g => ρ g)).subtype).liftBaseChange E
+
+/-- **Every equivariant `E`-linear endomorphism of `E ⊗ V` comes from `E ⊗ End_G(V)` (GLUE,
+proved).** Coordinates in a `k`-basis `(bⱼ)` of `E`: `φ = ∑ⱼ bⱼ • (ψⱼ ⊗ E)` with `ψⱼ ∈ End_G(V)`. -/
+theorem commOf_baseChange_le_range (E : Type*) [Field E] [Algebra k E]
+    (ρ : Representation k G V) [FiniteDimensional k V] :
+    commOf (k := E) (fun g => repBaseChange E ρ g) ≤ LinearMap.range (commBaseChange E ρ) := by
+  classical
+  let C := commOf (k := k) (fun g => ρ g)
+  let Φ := commBaseChange E ρ
+  intro φ hφ
+  have hmem : φ ∈ LinearMap.range Φ := by
+    let b := Module.Free.chooseBasis k E
+    let c : TensorProduct k E V ≃ₗ[k] (Module.Free.ChooseBasisIndex k E →₀ V) :=
+      (TensorProduct.congr b.repr (LinearEquiv.refl k V)).trans
+        (TensorProduct.finsuppScalarLeft k V _)
+    have hc : ∀ (x : TensorProduct k E V) g j, c (repBaseChange E ρ g x) j = ρ g (c x j) := by
+      intro x g j
+      induction x using TensorProduct.induction_on with
+      | zero => simp
+      | tmul a w =>
+        simp [c, repBaseChange, LinearMap.baseChange_tmul]
+      | add x y hx hy =>
+        rw [map_add, map_add, Finsupp.add_apply, hx, hy, map_add, Finsupp.add_apply, map_add]
+    have hcb : ∀ j (w : V) j', c (b j ⊗ₜ[k] w) j' = if j = j' then w else 0 := by
+      intro j w j'
+      simp [c, Finsupp.single_apply]
+    let ψ : Module.Free.ChooseBasisIndex k E → V →ₗ[k] V := fun j =>
+      (Finsupp.lapply j) ∘ₗ c.toLinearMap ∘ₗ (φ.restrictScalars k) ∘ₗ (TensorProduct.mk k E V 1)
+    have hψ : ∀ j v, ψ j v = c (φ (1 ⊗ₜ[k] v)) j := fun j v => rfl
+    have hψC : ∀ j, ψ j ∈ C := by
+      intro j g
+      apply LinearMap.ext; intro v
+      show c (φ ((1 : E) ⊗ₜ[k] ρ g v)) j = ρ g (c (φ ((1 : E) ⊗ₜ[k] v)) j)
+      have h1 : (1 : E) ⊗ₜ[k] ρ g v = repBaseChange E ρ g (1 ⊗ₜ v) := by
+        simp [repBaseChange, LinearMap.baseChange_tmul]
+      have h2 := congrArg (fun f => f ((1 : E) ⊗ₜ[k] v)) (hφ g)
+      simp only [LinearMap.coe_comp, Function.comp_apply] at h2
+      rw [h1, h2, hc]
+    let bV := Module.finBasis k V
+    let S : Finset (Module.Free.ChooseBasisIndex k E) :=
+      Finset.univ.biUnion (fun i => (c (φ (1 ⊗ₜ[k] bV i))).support)
+    have hS : ∀ j, j ∉ S → ψ j = 0 := by
+      intro j hj
+      apply bV.ext; intro i
+      rw [hψ, LinearMap.zero_apply]
+      by_contra h
+      apply hj
+      simp only [S, Finset.mem_biUnion, Finset.mem_univ, true_and, Finsupp.mem_support_iff]
+      exact ⟨i, h⟩
+    refine ⟨∑ j ∈ S, b j ⊗ₜ[k] (⟨ψ j, hψC j⟩ : C), ?_⟩
+    have key : ∀ v, (Φ (∑ j ∈ S, b j ⊗ₜ[k] (⟨ψ j, hψC j⟩ : C))) (1 ⊗ₜ[k] v) =
+        ∑ j ∈ S, b j ⊗ₜ[k] ψ j v := by
+      intro v
+      simp [Φ, commBaseChange, map_sum, LinearMap.sum_apply, LinearMap.baseChange_tmul,
+        TensorProduct.smul_tmul']
+    apply LinearMap.ext; intro x
+    induction x using TensorProduct.induction_on with
+    | zero => simp
+    | add x y hx hy => rw [map_add, map_add, hx, hy]
+    | tmul a v =>
+      have hav : a ⊗ₜ[k] v = a • ((1 : E) ⊗ₜ[k] v) := by
+        rw [TensorProduct.smul_tmul', smul_eq_mul, mul_one]
+      rw [hav, map_smul, map_smul, key]
+      congr 1
+      apply c.injective
+      ext j'
+      rw [map_sum, Finsupp.finsetSum_apply, ← hψ]
+      simp only [hcb]
+      rw [Finset.sum_ite_eq']
+      split_ifs with hj'
+      · rfl
+      · rw [hS j' hj', LinearMap.zero_apply]
+  exact hmem
+
+/-- **Invariants under extension of coefficients, `≤` (GLUE, proved).**
+`dim_E End_G(E ⊗ V) ≤ dim_k End_G(V)` for finite-dimensional `V`. -/
+theorem finrank_commOf_baseChange_le (E : Type*) [Field E] [Algebra k E]
+    (ρ : Representation k G V) [FiniteDimensional k V] :
+    Module.finrank E (commOf (k := E) (fun g => repBaseChange E ρ g)) ≤
+      Module.finrank k (commOf (k := k) (fun g => ρ g)) :=
+  calc Module.finrank E (commOf (k := E) (fun g => repBaseChange E ρ g))
+      ≤ Module.finrank E (LinearMap.range (commBaseChange E ρ)) :=
+        Submodule.finrank_mono (commOf_baseChange_le_range E ρ)
+    _ ≤ Module.finrank E (TensorProduct k E (commOf (k := k) (fun g => ρ g))) :=
+        LinearMap.finrank_range_le _
+    _ = Module.finrank k (commOf (k := k) (fun g => ρ g)) := Module.finrank_baseChange
+
+/-- **Scalar commutants stay scalar under extension of coefficients (GLUE, proved).** -/
+theorem scalar_commOf_baseChange (E : Type*) [Field E] [Algebra k E]
+    (ρ : Representation k G V) [FiniteDimensional k V]
+    (hsc : ∀ ψ ∈ commOf (k := k) (fun g => ρ g), ∃ c : k, ψ = c • LinearMap.id) :
+    ∀ φ ∈ commOf (k := E) (fun g => repBaseChange E ρ g), ∃ μ : E, φ = μ • LinearMap.id := by
+  intro φ hφ
+  obtain ⟨t, rfl⟩ := commOf_baseChange_le_range E ρ hφ
+  clear hφ
+  induction t using TensorProduct.induction_on with
+  | zero => exact ⟨0, by simp⟩
+  | tmul e ψ =>
+    obtain ⟨c, hc⟩ := hsc ψ ψ.2
+    refine ⟨e * algebraMap k E c, ?_⟩
+    simp only [commBaseChange, LinearMap.liftBaseChange_tmul, LinearMap.coe_comp,
+      Function.comp_apply, Submodule.coe_subtype, LinearMap.baseChangeHom_apply, hc]
+    rw [LinearMap.baseChange_smul, LinearMap.baseChange_id]
+    apply LinearMap.ext; intro x
+    simp [mul_smul, algebraMap_smul]
+  | add x y hx hy =>
+    obtain ⟨a, ha⟩ := hx
+    obtain ⟨a', ha'⟩ := hy
+    exact ⟨a + a', by rw [map_add, ha, ha', add_smul]⟩
+
+/-- **C2, absolute irreducibility (GLUE, proved from `SemisimpleBaseChange`).**
+If `r` is a nonzero semisimple representation over a field of characteristic `0` with
+`dim End_G(r ⊕ r) ≤ 4`, then `r ⊗ F` is irreducible for every extension `F`, i.e. `r` is
+absolutely irreducible. -/
+theorem absolutelyIrreducible_of_finrank_commOf_prod_le_four (hSS : SemisimpleBaseChange)
+    {k G V : Type} [Field k] [CharZero k] [Monoid G] [AddCommGroup V] [Module k V]
+    [FiniteDimensional k V] [Nontrivial V] (ρ : Representation k G V)
+    (hss : ρ.IsSemisimpleRepresentation)
+    (h4 : Module.finrank k (commOf (k := k) (fun g => (ρ g).prodMap (ρ g))) ≤ 4)
+    (F : Type) [Field F] [Algebra k F] : (repBaseChange F ρ).IsIrreducible := by
+  obtain ⟨-, hsc⟩ := isIrreducible_of_finrank_commOf_prod_le_four ρ hss h4
+  have : Nontrivial (TensorProduct k F V) := by
+    apply Module.nontrivial_of_finrank_pos (R := F)
+    rw [Module.finrank_baseChange]
+    exact Module.finrank_pos
+  exact isIrreducible_of_commutant_scalar _ (hSS k F G V ρ hss)
+    (scalar_commOf_baseChange F ρ hsc)
+
+
+/-- **GLUE (linear algebra; the `Hom` form of invariants under extension, weakened to what E1 uses;
+proved below as `equivariantDescent`).** A nonzero `G`-equivariant `E`-linear map
+`V ⊗ E → W ⊗ E` forces a nonzero `G`-equivariant `k`-linear map `V → W` (`V`, `W`
+finite-dimensional): `Hom_G(V ⊗ E, W ⊗ E) = Hom_G(V, W) ⊗ E`. -/
+def EquivariantDescent : Prop :=
+  ∀ (k E G V W : Type) [Field k] [Field E] [Algebra k E] [Monoid G] [AddCommGroup V] [Module k V]
+    [AddCommGroup W] [Module k W] [FiniteDimensional k V] [FiniteDimensional k W]
+    (ρ : Representation k G V) (σ : Representation k G W),
+    (∃ φ : TensorProduct k E V →ₗ[E] TensorProduct k E W, φ ≠ 0 ∧
+      ∀ g, φ ∘ₗ repBaseChange E ρ g = repBaseChange E σ g ∘ₗ φ) →
+    ∃ ψ : V →ₗ[k] W, ψ ≠ 0 ∧ ∀ g, ψ ∘ₗ ρ g = σ g ∘ₗ ψ
+
+theorem equivariantDescent : EquivariantDescent := by
+  intro k E G V W _ _ _ _ _ _ _ _ _ _ ρ σ ⟨φ, h0, h⟩
+  exact exists_equivariant_ne_zero_of_baseChange E ρ σ φ h0 h
+
+end GlueI3
+
 
 /-! ## 1. The `ℓ`-adic Tate module of an abelian group -/
 
@@ -1911,6 +2471,84 @@ theorem finrank_equivEnd (hF : FaltingsTate) (hT : TateModuleFree) (hH : HomFree
     (nonZeroDivisors ℤ_[ℓ]) le_rfl
   have e2 := IsLocalizedModule.finrank_eq (M := ET) (N := equivEnd A ℓ) (p := nonZeroDivisors ℤ_[ℓ]) (f := Φ) le_rfl
   rw [e1, e2, h1]
+
+end PkgI3
+
+-- glue-I3-linalg (hsyn-fix): C2 and E1 in pkg-I3's object layer, from scratch/glue-I3-linalg/C2.lean §5.
+/-! ## 5. C2 in the object layer of pkg-I3 -/
+
+namespace PkgI3
+
+open GlueI3 AbVar
+
+lemma equivEnd_eq_commOf {K : Type} [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
+    equivEnd A ℓ = commOf (k := ℚ_[ℓ]) (fun σ => A.galRep ℓ σ) := rfl
+
+/-- **C2 (GLUE, proved from I3's leaves, `SemisimpleBaseChange`, and A9's output).**
+`A` over a number field `K` with `rank_ℤ End_K(A) = 4` (`End⁰_K(A) = B`, from A9, A10, A8/B3);
+`E ⊇ ℚ_ℓ` a field and `V_ℓ(A) ⊗ E ≅ r ⊕ r` as `G_K`-representations (from `B ⊗ E ≅ M₂(E)`), with `r`
+semisimple (a quotient of `V_ℓ(A) ⊗ E`, semisimple by `FaltingsSemisimple` and
+`SemisimpleBaseChange`; derived here). Then `r` is absolutely irreducible: `r ⊗ F` is irreducible
+for every field `F ⊇ E`. -/
+theorem C2_absolutelyIrreducible (hS : FaltingsSemisimple) (hF : FaltingsTate) (hT : TateModuleFree) (hH : HomFreeFinite)
+    (hSS : SemisimpleBaseChange)
+    {K : Type} [Field K] [NumberField K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (hrank : Module.finrank ℤ (End A) = 4)
+    (E : Type) [Field E] [CharZero E] [Algebra ℚ_[ℓ] E]
+    {U : Type} [AddCommGroup U] [Module E U] [FiniteDimensional E U] [Nontrivial U]
+    (r : Representation E (Field.absoluteGaloisGroup K) U)
+    (e : TensorProduct ℚ_[ℓ] E (A.V ℓ) ≃ₗ[E] U × U)
+    (he : ∀ σ v, e (repBaseChange E (A.galRep ℓ) σ v) = (r σ).prodMap (r σ) (e v))
+    (F : Type) [Field F] [Algebra E F] : (repBaseChange F r).IsIrreducible := by
+  have hℓK : (ℓ : K) ≠ 0 := Nat.cast_ne_zero.mpr (Fact.out : ℓ.Prime).ne_zero
+  obtain ⟨-, hfin, -⟩ := hT K A ℓ hℓK
+  have : FiniteDimensional ℚ_[ℓ] (A.V ℓ) := inferInstance
+  have h1 : Module.finrank E (commOf (k := E) (fun σ => repBaseChange E (A.galRep ℓ) σ)) ≤ 4 := by
+    have := finrank_commOf_baseChange_le E (A.galRep ℓ)
+    rwa [← equivEnd_eq_commOf, finrank_equivEnd hF hT hH, hrank] at this
+  have he' : ∀ σ w, e.symm ((r σ).prodMap (r σ) w) = repBaseChange E (A.galRep ℓ) σ (e.symm w) := by
+    intro σ w
+    apply e.injective
+    rw [he, LinearEquiv.apply_symm_apply, LinearEquiv.apply_symm_apply]
+  have h4 := finrank_commOf_le_of_equiv (fun σ => (r σ).prodMap (r σ)) _ e.symm he'
+  replace h4 := h4.trans h1
+  have hVE := hSS ℚ_[ℓ] E _ _ (A.galRep ℓ) (hS K A ℓ)
+  have hr : r.IsSemisimpleRepresentation := by
+    refine isSemisimple_of_surjective (repBaseChange E (A.galRep ℓ)) r hVE
+      (LinearMap.fst E U U ∘ₗ e.toLinearMap) ?_ ?_
+    · intro u
+      exact ⟨e.symm (u, 0), by simp⟩
+    · intro σ v
+      simp only [LinearMap.coe_comp, Function.comp_apply, LinearEquiv.coe_coe,
+        LinearMap.fst_apply]
+      rw [he]
+      rfl
+  exact absolutelyIrreducible_of_finrank_commOf_prod_le_four hSS r hr h4 F
+
+/-- **E1, from a common constituent to a nonzero homomorphism (GLUE, proved from I3's leaves and
+`SemisimpleBaseChange`).** N5 L861-867: if `V_ℓ(A) ⊗ E` and `V_ℓ(J) ⊗ E` have a common
+constituent (a nonzero subrepresentation `U` of the first, equivariantly isomorphic to a
+subrepresentation `U'` of the second), then there is a nonzero homomorphism `A → J` over `K`. -/
+theorem E1_exists_hom_ne_zero (hS : FaltingsSemisimple) (hF : FaltingsTate) (hT : TateModuleFree)
+    (hSS : SemisimpleBaseChange)
+    {K : Type} [Field K] [NumberField K] (A J : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (E : Type) [Field E] [Algebra ℚ_[ℓ] E]
+    (U : Subrepresentation (repBaseChange E (A.galRep ℓ)))
+    (U' : Subrepresentation (repBaseChange E (J.galRep ℓ))) (hU : U ≠ ⊥)
+    (e : U.toSubmodule ≃ₗ[E] U'.toSubmodule)
+    (he : ∀ g (u : U.toSubmodule),
+      (e ⟨repBaseChange E (A.galRep ℓ) g u, U.apply_mem_toSubmodule g u.2⟩ :
+        TensorProduct ℚ_[ℓ] E (J.V ℓ)) = repBaseChange E (J.galRep ℓ) g (e u)) :
+    ∃ f : Hom A J, f ≠ 0 := by
+  have hℓK : (ℓ : K) ≠ 0 := Nat.cast_ne_zero.mpr (Fact.out : ℓ.Prime).ne_zero
+  obtain ⟨-, hfinA, -⟩ := hT K A ℓ hℓK
+  obtain ⟨-, hfinJ, -⟩ := hT K J ℓ hℓK
+  have : FiniteDimensional ℚ_[ℓ] (A.V ℓ) := inferInstance
+  have : FiniteDimensional ℚ_[ℓ] (J.V ℓ) := inferInstance
+  have hVE := hSS ℚ_[ℓ] E _ _ (A.galRep ℓ) (hS K A ℓ)
+  obtain ⟨φ, hφ0, hφ⟩ := exists_equivariant_ne_zero_of_common _ _ hVE U U' hU e he
+  obtain ⟨ψ, hψ0, hψ⟩ := equivariantDescent ℚ_[ℓ] E _ _ _ (A.galRep ℓ) (J.galRep ℓ) ⟨φ, hφ0, hφ⟩
+  exact exists_hom_ne_zero_of_equivariant hF hT A J ℓ ψ hψ0 hψ
 
 end PkgI3
 
@@ -3814,16 +4452,200 @@ noncomputable def artinConductor {k V : Type} [Field k] [AddCommGroup V] [Module
   ∑ᶠ i : ℕ, ((Nat.card (lowerRam A B i) : ℚ) / Nat.card (lowerRam A B 0)) *
     (codimInv A B ρ (lowerRam A B i) : ℚ)
 
-/-- **D4, the conductor bound used by Glazer (GLUE, to be proved from the definitions).**
-If every upper ramification group `G^v` with `v > U ≥ 0` acts trivially, then
-`f(V) ≤ dim V · (1 + U)`.  It is the change of variables `f(V) = ∫_{-1}^∞ codim V^{G^v} dv`
-(Serre VI §2, exercise / IV §3) with `codim ≤ dim V`. -/
+-- D4 adopted from scratch/glue-I6-rest/Conductor.lean (hsyn-fix): pkg-I6's statement, proved, with
+-- fewer hypotheses (no `IsDomain B`, `IsDiscreteValuationRing B`).
+section Proof
+
+open intervalIntegral
+
+variable [Finite (B ≃ₐ[A] B)]
+
+lemma lowerRam_anti {i j : ℕ} (h : i ≤ j) : lowerRam A B j ≤ lowerRam A B i := by
+  intro σ hσ x
+  exact Ideal.pow_le_pow_right (by omega) (hσ x)
+
+lemma lowerRamR_anti : Antitone (lowerRamR A B) := by
+  intro u u' h
+  unfold lowerRamR
+  split_ifs with h1 h2 h2
+  · exact le_rfl
+  · exfalso; linarith
+  · exact le_top
+  · exact lowerRam_anti A B (Int.toNat_le_toNat (Int.ceil_mono h))
+
+lemma lowerRamR_nat (i : ℕ) : lowerRamR A B i = lowerRam A B i := by
+  have : ¬ ((i : ℝ) ≤ -1) := by have := i.cast_nonneg (α := ℝ); linarith
+  simp [lowerRamR, this]
+
+/-- The integrand of `herbrandPhi`. -/
+noncomputable def hInt (t : ℝ) : ℝ :=
+  (Nat.card (lowerRamR A B t) : ℝ) / (Nat.card (lowerRamR A B 0) : ℝ)
+
+lemma g0_pos : (0 : ℝ) < Nat.card (lowerRamR A B 0) := by
+  exact_mod_cast Nat.card_pos
+
+lemma hInt_anti : Antitone (hInt A B) := by
+  intro u u' h
+  unfold hInt
+  have := Subgroup.card_le_of_le (lowerRamR_anti A B h)
+  gcongr
+
+lemma hInt_ge (t : ℝ) : 1 / (Nat.card (lowerRamR A B 0) : ℝ) ≤ hInt A B t := by
+  unfold hInt
+  have : (1 : ℝ) ≤ Nat.card (lowerRamR A B t) := by exact_mod_cast Nat.card_pos
+  gcongr
+
+lemma hInt_zero : hInt A B 0 = 1 := by
+  unfold hInt; exact div_self (g0_pos A B).ne'
+
+lemma herbrandPhi_eq (u : ℝ) : herbrandPhi A B u = ∫ t in (0 : ℝ)..u, hInt A B t := rfl
+
+/-- `φ(u') − φ(u) ≥ (u' − u)·h(u')` for `u ≤ u'` (the integrand is antitone). -/
+lemma phi_sub_ge {u u' : ℝ} (h : u ≤ u') :
+    (u' - u) * hInt A B u' ≤ herbrandPhi A B u' - herbrandPhi A B u := by
+  rw [herbrandPhi_eq, herbrandPhi_eq, integral_interval_sub_left
+    (hInt_anti A B).intervalIntegrable (hInt_anti A B).intervalIntegrable]
+  have h1 := integral_mono_on h
+    (intervalIntegrable_const : IntervalIntegrable (fun _ => hInt A B u') MeasureTheory.volume u u')
+    (hInt_anti A B).intervalIntegrable
+    (fun x hx => (hInt_anti A B) hx.2)
+  simpa [mul_comm] using h1
+
+lemma phi_strictMono {u u' : ℝ} (h : u < u') : herbrandPhi A B u < herbrandPhi A B u' := by
+  have h1 := phi_sub_ge A B h.le
+  have h2 : 0 < hInt A B u' := lt_of_lt_of_le (by have := g0_pos A B; positivity) (hInt_ge A B u')
+  have : 0 < (u' - u) * hInt A B u' := mul_pos (by linarith) h2
+  linarith
+
+lemma upperRam_phi_nat (b : ℕ) : upperRam A B (herbrandPhi A B b) = lowerRam A B b := by
+  unfold upperRam
+  have hb : IsLeast {u : ℝ | -1 ≤ u ∧ herbrandPhi A B b ≤ herbrandPhi A B u} (b : ℝ) := by
+    refine ⟨⟨by have := b.cast_nonneg (α := ℝ); linarith, le_rfl⟩, ?_⟩
+    rintro u ⟨-, hu⟩
+    by_contra hlt
+    push Not at hlt
+    exact absurd hu (not_le.mpr (phi_strictMono A B hlt))
+  rw [hb.csInf_eq, lowerRamR_nat]
+
+lemma phi_zero : herbrandPhi A B 0 = 0 := by simp [herbrandPhi]
+
+/-- `∑_{i ≤ b} |G_i|/|G_0| ≤ 1 + φ(b)`. -/
+lemma sum_hInt_le (b : ℕ) :
+    ∑ i ∈ Finset.range (b + 1), hInt A B i ≤ 1 + herbrandPhi A B b := by
+  induction b with
+  | zero => simp [hInt_zero, phi_zero]
+  | succ n ih =>
+    rw [Finset.sum_range_succ]
+    have := phi_sub_ge A B (u := n) (u' := (n + 1 : ℕ)) (by push_cast; linarith)
+    push_cast at this ⊢
+    nlinarith
+
+lemma phi_nat_ge (i : ℕ) : (i : ℝ) / Nat.card (lowerRamR A B 0) ≤ herbrandPhi A B i := by
+  have h1 := phi_sub_ge A B (u := 0) (u' := i) i.cast_nonneg
+  have h2 := hInt_ge A B i
+  rw [phi_zero, sub_zero, sub_zero] at h1
+  have : (i : ℝ) * (1 / Nat.card (lowerRamR A B 0)) ≤ i * hInt A B i :=
+    mul_le_mul_of_nonneg_left h2 i.cast_nonneg
+  calc (i : ℝ) / Nat.card (lowerRamR A B 0) = i * (1 / Nat.card (lowerRamR A B 0)) := by ring
+    _ ≤ _ := this.trans h1
+
+lemma codimInv_eq_zero {k V : Type} [Field k] [AddCommGroup V] [Module k V]
+    (ρ : Representation k (B ≃ₐ[A] B) V) (H : Subgroup (B ≃ₐ[A] B)) (h : ∀ σ ∈ H, ρ σ = 1) :
+    codimInv A B ρ H = 0 := by
+  unfold codimInv
+  have htop : Representation.invariants (ρ.comp H.subtype) = ⊤ := by
+    rw [Submodule.eq_top_iff']
+    intro v
+    rw [Representation.mem_invariants]
+    intro g
+    simp [h g.1 g.2]
+  rw [htop, finrank_top, Nat.sub_self]
+
+lemma codimInv_le {k V : Type} [Field k] [AddCommGroup V] [Module k V]
+    (ρ : Representation k (B ≃ₐ[A] B) V) (H : Subgroup (B ≃ₐ[A] B)) :
+    codimInv A B ρ H ≤ Module.finrank k V := Nat.sub_le _ _
+
+/-- **D4 (GLUE, proved).** pkg-I6's `artinConductor_le_of_upper`. -/
 theorem artinConductor_le_of_upper {k V : Type} [Field k] [AddCommGroup V] [Module k V]
-    [FiniteDimensional k V] [Finite (B ≃ₐ[A] B)] [IsDomain B] [IsDiscreteValuationRing B]
+    [FiniteDimensional k V]
     (ρ : Representation k (B ≃ₐ[A] B) V) (U : ℝ) (hU : 0 ≤ U)
     (h : ∀ v : ℝ, U < v → ∀ σ ∈ upperRam A B v, ρ σ = 1) :
     (artinConductor A B ρ : ℝ) ≤ Module.finrank k V * (1 + U) := by
-  sorry
+  set g0 : ℝ := (Nat.card (lowerRamR A B 0) : ℝ)
+  have hg0 := g0_pos A B
+  -- indices with nonzero codimension satisfy φ(i) ≤ U
+  have hφ : ∀ i : ℕ, codimInv A B ρ (lowerRam A B i) ≠ 0 → herbrandPhi A B i ≤ U := by
+    intro i hi
+    by_contra hlt
+    push Not at hlt
+    apply hi
+    apply codimInv_eq_zero
+    intro σ hσ
+    exact h _ hlt σ (by rw [upperRam_phi_nat]; exact hσ)
+  set n : ℕ := ⌊U * g0⌋₊ + 1
+  have hsupp : ∀ i, n ≤ i → codimInv A B ρ (lowerRam A B i) = 0 := by
+    intro i hi
+    by_contra hne
+    have h1 := (phi_nat_ge A B i).trans (hφ i hne)
+    have h2 : (i : ℝ) ≤ U * g0 := by rwa [div_le_iff₀ hg0] at h1
+    have h3 : (i : ℝ) < n := by
+      have := Nat.lt_floor_add_one (U * g0)
+      push_cast [n]; linarith
+    have : i < n := by exact_mod_cast h3
+    omega
+  -- the coefficient in ℚ cast to ℝ is `hInt i`
+  have h0 : lowerRamR A B 0 = lowerRam A B 0 := by simpa using lowerRamR_nat A B 0
+  have hcoef : ∀ i : ℕ, (((Nat.card (lowerRam A B i) : ℚ) / Nat.card (lowerRam A B 0) : ℚ) : ℝ)
+      = hInt A B i := by
+    intro i
+    simp only [hInt, lowerRamR_nat, h0]
+    push_cast; rfl
+  have hfin : artinConductor A B ρ = ∑ i ∈ Finset.range n,
+      ((Nat.card (lowerRam A B i) : ℚ) / Nat.card (lowerRam A B 0)) *
+        (codimInv A B ρ (lowerRam A B i) : ℚ) := by
+    unfold artinConductor
+    apply finsum_eq_sum_of_support_subset
+    intro i hi
+    rw [Function.mem_support] at hi
+    simp only [Finset.coe_range, Set.mem_Iio]
+    by_contra hni
+    push Not at hni
+    exact hi (by rw [hsupp i hni]; simp)
+  have hInt_nn : ∀ t, 0 ≤ hInt A B t := fun t =>
+    le_trans (by positivity) (hInt_ge A B t)
+  set d : ℝ := (Module.finrank k V : ℝ)
+  set T := (Finset.range n).filter (fun i : ℕ => herbrandPhi A B (i : ℝ) ≤ U)
+  have hT : ∑ i ∈ T, hInt A B i ≤ 1 + U := by
+    rcases T.eq_empty_or_nonempty with hE | hne
+    · rw [hE, Finset.sum_empty]; linarith
+    · set M := T.max' hne
+      have hMT : M ∈ T := T.max'_mem hne
+      have hsub : T ⊆ Finset.range (M + 1) := by
+        intro i hi
+        have := T.le_max' i hi
+        simp only [Finset.mem_range]; omega
+      calc ∑ i ∈ T, hInt A B i ≤ ∑ i ∈ Finset.range (M + 1), hInt A B i :=
+            Finset.sum_le_sum_of_subset_of_nonneg hsub (fun i _ _ => hInt_nn i)
+        _ ≤ 1 + herbrandPhi A B M := sum_hInt_le A B M
+        _ ≤ 1 + U := by linarith [(Finset.mem_filter.mp hMT).2]
+  rw [hfin, Rat.cast_sum]
+  calc ∑ i ∈ Finset.range n, ((((Nat.card (lowerRam A B i) : ℚ) / Nat.card (lowerRam A B 0)) *
+        (codimInv A B ρ (lowerRam A B i) : ℚ) : ℚ) : ℝ)
+      = ∑ i ∈ Finset.range n, hInt A B i * (codimInv A B ρ (lowerRam A B i) : ℝ) := by
+        refine Finset.sum_congr rfl (fun i _ => ?_)
+        rw [Rat.cast_mul, hcoef, Rat.cast_natCast]
+    _ = ∑ i ∈ T, hInt A B i * (codimInv A B ρ (lowerRam A B i) : ℝ) := by
+        refine (Finset.sum_filter_of_ne (fun i _ hi => ?_)).symm
+        apply hφ i
+        intro hc; apply hi; rw [hc]; simp
+    _ ≤ ∑ i ∈ T, hInt A B i * d := by
+        refine Finset.sum_le_sum (fun i _ => ?_)
+        exact mul_le_mul_of_nonneg_left (Nat.cast_le.mpr (codimInv_le A B ρ _) :
+          ((codimInv A B ρ (lowerRam A B i) : ℕ) : ℝ) ≤ (Module.finrank k V : ℝ)) (hInt_nn i)
+    _ = d * ∑ i ∈ T, hInt A B i := by rw [Finset.mul_sum]; exact Finset.sum_congr rfl (fun _ _ => by ring)
+    _ ≤ d * (1 + U) := mul_le_mul_of_nonneg_left hT (Nat.cast_nonneg _)
+
+end Proof
 
 end Conductor
 
@@ -3831,21 +4653,8 @@ section PrincipalUnits
 
 open IsLocalRing
 
-/-- **D3, squaring on principal units at `p = 2` (GLUE; elementary).**  If `B` is a complete DVR
-with `2·B = 𝔪^e`, `e ≥ 1`, then for `r > e` every element of `1 + 𝔪^{r+e}` is the square of an
-element of `1 + 𝔪^r`.  Applied twice: `(U^{e+1})⁴ = U^{3e+1}` (N5 L835-838).  N5 cites
-Silverman, AEC IV.6.4 (formal logarithm of `Ĝ_m`); it is also Newton's form of Hensel's lemma for
-`x² + 2x − y` (`v(f(0)) ≥ r + e > 2e = 2 v(f'(0))`).  Mathlib's general Hensel lemma needs a unit
-derivative, so this one is not immediate.  PROVED elsewhere: glue-conductor's
-`scratch/glue-conductor/Dyadic.lean` (`exists_sq_eq_one_add`, `exists_fourth_root`, commit
-2aeeb7f2, via `u² + u = z/4` and Mathlib's `IsAdicComplete.henselianRing`); kept here as a
-statement only. -/
-theorem sq_principalUnits (B : Type) [CommRing B] [IsDomain B] [IsDiscreteValuationRing B]
-    [IsAdicComplete (maximalIdeal B) B] (e : ℕ) (he1 : 1 ≤ e)
-    (he : Ideal.span {(2 : B)} = maximalIdeal B ^ e) (r : ℕ) (hr : e < r)
-    (y : B) (hy : y ∈ maximalIdeal B ^ (r + e)) :
-    ∃ x ∈ maximalIdeal B ^ r, (1 + x) ^ 2 = 1 + y := by
-  sorry
+-- D3 (`PkgI6.sq_principalUnits`) is proved below, after glue-conductor's Hensel argument
+-- (hsyn-fix; glue-I6-rest adopted the same proof).
 
 end PrincipalUnits
 
@@ -9195,6 +10004,14 @@ theorem sq_principalUnits_proved (B : Type) [CommRing B] [IsDomain B] [IsDiscret
     (by rwa [show 2 * e + (r - e) = r + e by omega])
   exact ⟨w, by rwa [show e + (r - e) = r by omega] at hw, h⟩
 
+/-- **D3 (GLUE, proved)**: pkg-I6's `sq_principalUnits`, from glue-conductor's Hensel argument. -/
+theorem _root_.PkgI6.sq_principalUnits (B : Type) [CommRing B] [IsDomain B] [IsDiscreteValuationRing B]
+    [IsAdicComplete (IsLocalRing.maximalIdeal B) B] (e : ℕ) (he1 : 1 ≤ e)
+    (he : Ideal.span {(2 : B)} = IsLocalRing.maximalIdeal B ^ e) (r : ℕ) (hr : e < r)
+    (y : B) (hy : y ∈ IsLocalRing.maximalIdeal B ^ (r + e)) :
+    ∃ x ∈ IsLocalRing.maximalIdeal B ^ r, (1 + x) ^ 2 = 1 + y :=
+  sq_principalUnits_proved B e he1 he r hr y hy
+
 /-- **The research-level leaves of route P** (note §2.1), bundled. Placeholders are
 uninterpreted. Genuine statements: `R4` (pkg-I1), `R6`, `R7` (pkg-I2), `R9` (pkg-I3), `R10`,
 `R11`+`R12`, `R13` (pkg-I4), `R14`, `R15` (§1 here). -/
@@ -9319,3 +10136,11 @@ end
 #print axioms GlueRepo.PR.fibre_free
 #print axioms HSyn.sq_principalUnits_proved
 #print axioms HSyn.sixContactMin_of_leaves
+-- hsyn-fix: theorems adopted from rv-a6-route, glue-I6-rest and glue-I3-linalg
+#print axioms PkgI2.goodReduction_of_QM_rational3
+#print axioms PkgI6.artinConductor_le_of_upper
+#print axioms PkgI6.sq_principalUnits
+#print axioms PkgI3.C2_absolutelyIrreducible
+#print axioms PkgI3.E1_exists_hom_ne_zero
+#print axioms GlueI3.equivariantDescent
+#print axioms GlueI3.absolutelyIrreducible_of_finrank_commOf_prod_le_four
