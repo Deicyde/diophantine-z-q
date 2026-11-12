@@ -6,6 +6,10 @@ import Mathlib
 Draft for `docs/research/pkg-I4.md` (task pkg-I4, 2026-11-11). Check with
 `lake env lean scratch/pkg-I4/I4.lean`.
 
+* `PkgI4.Cp`, `PkgI4.DR` (first): `𝓞_ℂ_[p]` is `p`-adically complete (instances missing in
+  Mathlib), and Mathlib's `BDeRhamPlus`/`BDeRham` are functorial (naturality of `untilt` and of
+  Fontaine's `θ`, maps of adic completions, generators of `ker θ`). Used in §1b for the action of
+  `G_{ℚ_p}` on `B_dR` and the **de Rham predicate**.
 * §0 Galois side over `ℚ̄`: copied, with small changes, from `scratch/hdec-faithful/Leaves.lean`
   §0 (places as valuation subrings, inertia, arithmetic Frobenius, complex conjugation,
   continuous `GL_n(ℚ̄_ℓ)`-representations, characters).
@@ -23,6 +27,361 @@ Draft for `docs/research/pkg-I4.md` (task pkg-I4, 2026-11-11). Check with
 -/
 
 noncomputable section
+
+set_option linter.unusedSectionVars false
+
+namespace PkgI4.Cp
+
+open Ideal
+
+variable (p : ℕ) [hp : Fact p.Prime]
+
+theorem mem_O_iff (x : ℂ_[p]) : x ∈ 𝓞_ℂ_[p] ↔ ‖x‖ ≤ 1 := by
+  rw [PadicComplex.norm_eq_norm, Valuation.norm_def]
+  change (PadicComplex.valued p).v x ≤ 1 ↔ _
+  rw [← map_one (PadicComplex.valued p).v, ← Valuation.restrict_le_iff]
+  simpa only [map_one, NNReal.coe_le_one] using
+    ((Valuation.RankOne.strictMono (PadicComplex.valued p).v).le_iff_le (b := 1)).symm
+
+theorem norm_p : ‖(p : ℂ_[p])‖ = (p : ℝ)⁻¹ := by
+  rw [← map_natCast (algebraMap ℚ_[p] ℂ_[p]),
+    IsScalarTower.algebraMap_apply ℚ_[p] (PadicAlgCl p) ℂ_[p], ← PadicComplex.coe_eq,
+    PadicComplex.norm_extends, PadicAlgCl.norm_extends, Padic.norm_p]
+
+theorem norm_p_pos : 0 < ‖(p : ℂ_[p])‖ := by
+  rw [norm_p]; exact inv_pos.mpr (by exact_mod_cast hp.1.pos)
+
+theorem norm_p_lt_one : ‖(p : ℂ_[p])‖ < 1 := by
+  rw [norm_p]; exact inv_lt_one_of_one_lt₀ (by exact_mod_cast hp.1.one_lt)
+
+/-- `x ∈ p^n 𝓞` iff `‖x‖ ≤ ‖p‖^n`. -/
+theorem mem_span_pow_iff (x : 𝓞_ℂ_[p]) (n : ℕ) :
+    x ∈ span {(p : 𝓞_ℂ_[p])} ^ n ↔ ‖(x : ℂ_[p])‖ ≤ ‖(p : ℂ_[p])‖ ^ n := by
+  rw [Ideal.span_singleton_pow, Ideal.mem_span_singleton']
+  constructor
+  · rintro ⟨z, rfl⟩
+    have hz : ‖(z : ℂ_[p])‖ ≤ 1 := (mem_O_iff p _).mp z.2
+    have e : ((z * (p : 𝓞_ℂ_[p]) ^ n : 𝓞_ℂ_[p]) : ℂ_[p]) = (z : ℂ_[p]) * (p : ℂ_[p]) ^ n := by
+      push_cast; rfl
+    rw [e, norm_mul, norm_pow]
+    calc ‖(z : ℂ_[p])‖ * ‖(p : ℂ_[p])‖ ^ n ≤ 1 * ‖(p : ℂ_[p])‖ ^ n := by gcongr
+      _ = _ := one_mul _
+  · intro h
+    have hpn : (p : ℂ_[p]) ^ n ≠ 0 := pow_ne_zero _ (norm_pos_iff.mp (norm_p_pos p))
+    refine ⟨⟨(x : ℂ_[p]) / (p : ℂ_[p]) ^ n, (mem_O_iff p _).mpr ?_⟩, ?_⟩
+    · rw [norm_div, norm_pow, div_le_one (pow_pos (norm_p_pos p) n)]
+      exact h
+    · apply Subtype.ext
+      push_cast
+      field_simp
+
+
+theorem smodEq_iff (x y : 𝓞_ℂ_[p]) (n : ℕ) :
+    x ≡ y [SMOD (span {(p : 𝓞_ℂ_[p])} ^ n • ⊤ : Submodule 𝓞_ℂ_[p] 𝓞_ℂ_[p])] ↔
+      ‖(x : ℂ_[p]) - (y : ℂ_[p])‖ ≤ ‖(p : ℂ_[p])‖ ^ n := by
+  rw [SModEq.sub_mem, smul_eq_mul, Ideal.mul_top, mem_span_pow_iff]
+  push_cast
+  rfl
+
+instance notIsUnit_p : Fact ¬IsUnit (p : 𝓞_ℂ_[p]) := ⟨fun h => by
+  obtain ⟨v, hv⟩ := isUnit_iff_exists_inv.mp h
+  have hv' : (p : ℂ_[p]) * (v : ℂ_[p]) = 1 := by
+    have := congrArg (fun z : 𝓞_ℂ_[p] => (z : ℂ_[p])) hv
+    push_cast at this
+    exact this
+  have h1 : ‖(v : ℂ_[p])‖ ≤ 1 := (mem_O_iff p _).mp v.2
+  have h2 : ‖(p : ℂ_[p])‖ * ‖(v : ℂ_[p])‖ = 1 := by rw [← norm_mul, hv', norm_one]
+  have h3 : ‖(p : ℂ_[p])‖ * ‖(v : ℂ_[p])‖ < 1 :=
+    calc ‖(p : ℂ_[p])‖ * ‖(v : ℂ_[p])‖ ≤ ‖(p : ℂ_[p])‖ * 1 := by gcongr
+      _ < 1 := by rw [mul_one]; exact norm_p_lt_one p
+  linarith⟩
+
+theorem tendsto_norm_p_pow :
+    Filter.Tendsto (fun n : ℕ => ‖(p : ℂ_[p])‖ ^ n) Filter.atTop (nhds 0) :=
+  tendsto_pow_atTop_nhds_zero_of_lt_one (norm_nonneg _) (norm_p_lt_one p)
+
+instance isHausdorff : IsHausdorff (span {(p : 𝓞_ℂ_[p])}) 𝓞_ℂ_[p] where
+  haus' x hx := by
+    have h : ∀ n : ℕ, ‖(x : ℂ_[p])‖ ≤ ‖(p : ℂ_[p])‖ ^ n := fun n => by
+      have := (smodEq_iff p x 0 n).mp (hx n)
+      simpa using this
+    have h0 : ‖(x : ℂ_[p])‖ ≤ 0 := ge_of_tendsto' (tendsto_norm_p_pow p) h
+    exact Subtype.ext (by simpa using norm_le_zero_iff.mp h0)
+
+instance isPrecomplete : IsPrecomplete (span {(p : 𝓞_ℂ_[p])}) 𝓞_ℂ_[p] where
+  prec' f hf := by
+    set g : ℕ → ℂ_[p] := fun n => (f n : ℂ_[p])
+    have hmn : ∀ m n, m ≤ n → ‖g m - g n‖ ≤ ‖(p : ℂ_[p])‖ ^ m := fun m n h =>
+      (smodEq_iff p _ _ m).mp (hf h)
+    have hcs : CauchySeq g := by
+      refine cauchySeq_of_le_tendsto_0 (fun N => 2 * ‖(p : ℂ_[p])‖ ^ N) (fun n m N hn hm => ?_) ?_
+      · rw [dist_eq_norm]
+        calc ‖g n - g m‖ = ‖(g N - g m) - (g N - g n)‖ := by congr 1; ring
+          _ ≤ ‖g N - g m‖ + ‖g N - g n‖ := norm_sub_le _ _
+          _ ≤ ‖(p : ℂ_[p])‖ ^ N + ‖(p : ℂ_[p])‖ ^ N := add_le_add (hmn N m hm) (hmn N n hn)
+          _ = 2 * ‖(p : ℂ_[p])‖ ^ N := by ring
+      · simpa using (tendsto_norm_p_pow p).const_mul 2
+    obtain ⟨L, hL⟩ := cauchySeq_tendsto_of_complete hcs
+    have hL1 : ‖L‖ ≤ 1 :=
+      le_of_tendsto' (hL.norm) fun n => (mem_O_iff p _).mp (f n).2
+    refine ⟨⟨L, (mem_O_iff p L).mpr hL1⟩, fun n => (smodEq_iff p _ _ n).mpr ?_⟩
+    have ht : Filter.Tendsto (fun k => ‖g n - g k‖) Filter.atTop (nhds ‖g n - L‖) :=
+      (tendsto_const_nhds.sub hL).norm
+    exact le_of_tendsto ht (Filter.eventually_atTop.mpr ⟨n, fun k hk => hmn n k hk⟩)
+
+instance isAdicComplete : IsAdicComplete (span {(p : 𝓞_ℂ_[p])}) 𝓞_ℂ_[p] where
+
+end PkgI4.Cp
+
+namespace PkgI4.DR
+
+open Ideal
+
+variable {R S : Type*} [CommRing R] [CommRing S] (p : ℕ) [Fact p.Prime]
+
+omit [Fact p.Prime] in
+theorem span_p_le_comap (f : R →+* S) :
+    span {(p : R)} ≤ (span {(p : S)}).comap f := by
+  rw [Ideal.span_le, Set.singleton_subset_iff, SetLike.mem_coe, Ideal.mem_comap, map_natCast]
+  exact Ideal.mem_span_singleton_self _
+
+/-- `R/p → S/p` induced by `f`. -/
+def modPMap (f : R →+* S) : ModP R p →+* ModP S p :=
+  Ideal.quotientMap _ f (span_p_le_comap p f)
+
+variable [Fact ¬IsUnit (p : R)] [Fact ¬IsUnit (p : S)]
+
+/-- The tilt is functorial: `R♭ → S♭`. -/
+def preTiltMap (f : R →+* S) : PreTilt R p →+* PreTilt S p :=
+  Perfection.map p (modPMap p f)
+
+theorem coeff_preTiltMap (f : R →+* S) (x : PreTilt R p) (n : ℕ) :
+    Perfection.coeff _ p n (preTiltMap p f x) = modPMap p f (Perfection.coeff _ p n x) :=
+  rfl
+
+variable [IsAdicComplete (span {(p : R)}) R] [IsAdicComplete (span {(p : S)}) S]
+
+/-- Naturality of `untilt`. -/
+theorem untilt_preTiltMap (f : R →+* S) (x : PreTilt R p) :
+    PreTilt.untilt (preTiltMap p f x) = f (PreTilt.untilt x) := by
+  refine Perfection.teichmuller_spec fun n => ?_
+  obtain ⟨w, hw⟩ := Ideal.Quotient.mk_surjective (Perfection.coeff _ p n x)
+  refine ⟨f w, ?_, ?_⟩
+  · rw [coeff_preTiltMap, ← hw]
+    rfl
+  · have h := Perfection.teichmuller_sModEq (p := p) (I := span {(p : R)}) (x := x) (y := w) hw
+    rw [SModEq.sub_mem] at h ⊢
+    have h' := Ideal.mem_map_of_mem f h
+    rw [Ideal.map_pow, Ideal.map_span, Set.image_singleton, map_natCast, map_sub,
+      map_pow] at h'
+    have h'' := neg_mem h'
+    rw [neg_sub] at h''
+    exact h''
+
+/-- **Naturality of Fontaine's `θ`**: `θ_S ∘ W(f♭) = f ∘ θ_R`. -/
+theorem fontaineTheta_naturality (f : R →+* S) :
+    (WittVector.fontaineTheta S p).comp (WittVector.map (preTiltMap p f)) =
+      f.comp (WittVector.fontaineTheta R p) := by
+  ext x
+  refine (IsHausdorff.eq_iff_smodEq (I := span {(p : S)})).mpr fun n => ?_
+  rw [smul_eq_mul, Ideal.mul_top, SModEq.idealQuotientMk]
+  have key : (Ideal.Quotient.mk (span {(p : S)} ^ n)).comp
+      ((WittVector.fontaineTheta S p).comp (WittVector.map (preTiltMap p f))) =
+      (Ideal.Quotient.mk (span {(p : S)} ^ n)).comp (f.comp (WittVector.fontaineTheta R p)) := by
+    refine WittVector.eq_of_apply_teichmuller_eq _ _ ⟨n, ?_⟩ fun y => ?_
+    · rw [← map_natCast (Ideal.Quotient.mk (span {(p : S)} ^ n)), ← map_pow,
+        Ideal.Quotient.eq_zero_iff_mem, Ideal.span_singleton_pow]
+      exact Ideal.mem_span_singleton_self _
+    · simp only [RingHom.comp_apply, WittVector.map_teichmuller,
+        WittVector.fontaineTheta_teichmuller, untilt_preTiltMap]
+  exact congrArg (fun g => g x) key
+
+
+/-! ### Functoriality of adic completions of rings -/
+
+section AdicMap
+
+variable {A B : Type*} [CommRing A] [CommRing B] (J : Ideal A) (J' : Ideal B) (g : A →+* B)
+  (hg : J ≤ J'.comap g)
+
+include hg in
+theorem pow_le_comap (n : ℕ) : J ^ n ≤ (J' ^ n).comap g := by
+  rw [← Ideal.map_le_iff_le_comap, Ideal.map_pow]
+  exact Ideal.pow_right_mono (Ideal.map_le_iff_le_comap.mpr hg) n
+
+theorem factorPow_evalₐ {m n : ℕ} (hle : m ≤ n) (x : AdicCompletion J A) :
+    Ideal.Quotient.factorPow J hle (AdicCompletion.evalₐ J n x) = AdicCompletion.evalₐ J m x := by
+  obtain ⟨s, rfl⟩ := AdicCompletion.mk_surjective J A x
+  rw [AdicCompletion.evalₐ_mk, AdicCompletion.evalₐ_mk, ← AdicCompletion.Ideal.mk_eq_mk J hle]
+  rfl
+
+/-- `A ⧸ J^n`-components of the map `Â_J → B̂_{J'}`. -/
+def adicMapAux (n : ℕ) : AdicCompletion J A →+* B ⧸ J' ^ n :=
+  (Ideal.quotientMap (J' ^ n) g (pow_le_comap J J' g hg n)).comp
+    (AdicCompletion.evalₐ J n : AdicCompletion J A →+* A ⧸ J ^ n)
+
+theorem adicMapAux_compat {m n : ℕ} (hle : m ≤ n) :
+    (Ideal.Quotient.factorPow J' hle).comp (adicMapAux J J' g hg n) = adicMapAux J J' g hg m := by
+  ext x
+  simp only [RingHom.comp_apply, adicMapAux]
+  erw [← factorPow_evalₐ J hle x]
+  obtain ⟨a, ha⟩ := Ideal.Quotient.mk_surjective (AdicCompletion.evalₐ J n x)
+  erw [← ha]
+  rfl
+
+/-- The ring map `Â_J → B̂_{J'}` induced by `g` with `g(J) ⊆ J'`. -/
+def adicMap : AdicCompletion J A →+* AdicCompletion J' B :=
+  AdicCompletion.liftRingHom J' (adicMapAux J J' g hg) (adicMapAux_compat J J' g hg)
+
+end AdicMap
+
+/-! ### Functoriality of `B_dR^+` -/
+
+section BdR
+
+/-- `W(R♭)[1/p] → W(S♭)[1/p]`. -/
+def locMap (f : R →+* S) :
+    Localization.Away (p : WittVector p (PreTilt R p)) →+*
+      Localization.Away (p : WittVector p (PreTilt S p)) :=
+  Localization.awayLift ((algebraMap _ _).comp (WittVector.map (preTiltMap p f))) _ (by
+    rw [RingHom.comp_apply, map_natCast]
+    exact IsLocalization.Away.algebraMap_isUnit _)
+
+/-- `R[1/p] → S[1/p]`. -/
+def locMapBase (f : R →+* S) : Localization.Away (p : R) →+* Localization.Away (p : S) :=
+  Localization.awayLift ((algebraMap _ _).comp f) _ (by
+    rw [RingHom.comp_apply, map_natCast]
+    exact IsLocalization.Away.algebraMap_isUnit _)
+
+/-- Naturality of `θ[1/p]`. -/
+theorem fontaineThetaInvertP_naturality (f : R →+* S) :
+    (fontaineThetaInvertP S p).comp (locMap p f) =
+      (locMapBase p f).comp (fontaineThetaInvertP R p) := by
+  apply IsLocalization.ringHom_ext (Submonoid.powers (p : WittVector p (PreTilt R p)))
+  ext w
+  simp only [RingHom.comp_apply, locMap, locMapBase, fontaineThetaInvertP,
+    Localization.awayLift, IsLocalization.Away.lift, IsLocalization.lift_eq]
+  rw [← RingHom.comp_apply (WittVector.fontaineTheta S p), fontaineTheta_naturality]
+  rfl
+
+theorem ker_le_comap_locMap (f : R →+* S) :
+    RingHom.ker (fontaineThetaInvertP R p) ≤
+      (RingHom.ker (fontaineThetaInvertP S p)).comap (locMap p f) := by
+  intro x hx
+  rw [Ideal.mem_comap, RingHom.mem_ker, ← RingHom.comp_apply,
+    fontaineThetaInvertP_naturality, RingHom.comp_apply, RingHom.mem_ker.mp hx, map_zero]
+
+/-- **Functoriality of `B_dR^+`**: `B_dR^+(R) → B_dR^+(S)` for `f : R →+* S`. -/
+def bdrPlusMap (f : R →+* S) : BDeRhamPlus R p →+* BDeRhamPlus S p :=
+  adicMap _ _ (locMap p f) (ker_le_comap_locMap p f)
+
+end BdR
+
+
+/-! ### Inverse pairs, generators of `ker θ`, and the map on `B_dR` -/
+
+section Inverse
+
+variable (f : R →+* S) (g : S →+* R) (hgf : ∀ x, g (f x) = x)
+
+include hgf in
+theorem modPMap_comp_eq_id (y : ModP R p) : modPMap p g (modPMap p f y) = y := by
+  obtain ⟨x, rfl⟩ := Ideal.Quotient.mk_surjective y
+  change Ideal.Quotient.mk _ (g (f x)) = _
+  rw [hgf]
+
+include hgf in
+theorem preTiltMap_comp_eq_id (y : PreTilt R p) : preTiltMap p g (preTiltMap p f y) = y :=
+  Perfection.ext fun n => by
+    rw [coeff_preTiltMap, coeff_preTiltMap, modPMap_comp_eq_id p f g hgf]
+
+include hgf in
+theorem wittMap_comp_eq_id (y : WittVector p (PreTilt R p)) :
+    WittVector.map (preTiltMap p g) (WittVector.map (preTiltMap p f) y) = y := by
+  ext n
+  rw [WittVector.map_coeff, WittVector.map_coeff, preTiltMap_comp_eq_id p f g hgf]
+
+include hgf in
+theorem locMap_comp_eq_id (y : Localization.Away (p : WittVector p (PreTilt R p))) :
+    locMap p g (locMap p f y) = y := by
+  have h : (locMap p g).comp (locMap p f) = RingHom.id _ := by
+    apply IsLocalization.ringHom_ext (Submonoid.powers (p : WittVector p (PreTilt R p)))
+    ext w
+    simp only [RingHom.comp_apply, RingHom.id_apply, locMap, Localization.awayLift,
+      IsLocalization.Away.lift, IsLocalization.lift_eq]
+    rw [wittMap_comp_eq_id p f g hgf]
+  exact congrArg (fun φ => φ y) h
+
+
+include hgf in
+/-- If `ker θ_R[1/p] = (a)`, then `ker θ_S[1/p] = (locMap f a)` (for an isomorphism `f`). -/
+theorem ker_eq_span_locMap (hfg : ∀ y, f (g y) = y)
+    (a : Localization.Away (p : WittVector p (PreTilt R p)))
+    (ha : RingHom.ker (fontaineThetaInvertP R p) = Ideal.span {a}) :
+    RingHom.ker (fontaineThetaInvertP S p) = Ideal.span {locMap p f a} := by
+  apply le_antisymm
+  · intro x hx
+    have h1 : locMap p g x ∈ RingHom.ker (fontaineThetaInvertP R p) :=
+      ker_le_comap_locMap p g hx
+    rw [ha, Ideal.mem_span_singleton'] at h1
+    obtain ⟨c, hc⟩ := h1
+    rw [Ideal.mem_span_singleton']
+    refine ⟨locMap p f c, ?_⟩
+    rw [← map_mul, hc, locMap_comp_eq_id p g f hfg]
+  · rw [Ideal.span_le, Set.singleton_subset_iff, SetLike.mem_coe]
+    refine ker_le_comap_locMap p f ?_
+    rw [ha]
+    exact Ideal.mem_span_singleton_self a
+
+end Inverse
+
+section AdicOf
+
+variable {A B : Type*} [CommRing A] [CommRing B] (J : Ideal A) (J' : Ideal B) (g : A →+* B)
+  (hg : J ≤ J'.comap g)
+
+theorem adicMap_evalₐ (n : ℕ) (x : AdicCompletion J A) :
+    AdicCompletion.evalₐ J' n (adicMap J J' g hg x) = adicMapAux J J' g hg n x := by
+  unfold adicMap
+  exact AdicCompletion.evalₐ_liftRingHom _ _ (adicMapAux_compat J J' g hg) n x
+
+theorem adicMap_of (x : A) :
+    adicMap J J' g hg (AdicCompletion.of J A x) = AdicCompletion.of J' B (g x) := by
+  refine AdicCompletion.ext_evalₐ fun n => ?_
+  rw [adicMap_evalₐ, AdicCompletion.evalₐ_of]
+  simp only [adicMapAux, RingHom.comp_apply]
+  erw [AdicCompletion.evalₐ_of]
+
+end AdicOf
+
+section BdRMap
+
+
+/-- The submonoid of `B_dR^+(R)` inverted in Mathlib's `BDeRham R p`. -/
+def genMonoid (T : Type*) [CommRing T] [Fact ¬IsUnit (p : T)]
+    [IsAdicComplete (span {(p : T)}) T] : Submonoid (BDeRhamPlus T p) :=
+  Submonoid.closure <| AdicCompletion.of (RingHom.ker (fontaineThetaInvertP T p)) _ ''
+    {a | RingHom.ker (fontaineThetaInvertP T p) = Ideal.span {a}}
+
+theorem genMonoid_le_comap (f : R →+* S) (g : S →+* R) (hgf : ∀ x, g (f x) = x)
+    (hfg : ∀ y, f (g y) = y) :
+    genMonoid p R ≤ (genMonoid p S).comap (bdrPlusMap p f) := by
+  rw [genMonoid, Submonoid.closure_le]
+  rintro _ ⟨a, ha, rfl⟩
+  apply Submonoid.subset_closure
+  refine ⟨locMap p f a, (ker_eq_span_locMap p f g hgf hfg a ha), ?_⟩
+  exact (adicMap_of _ _ _ _ a).symm
+
+/-- **The map on `B_dR`** induced by a ring isomorphism `f` (with inverse `g`). Mathlib's
+`BDeRham R p` is by definition `Localization (genMonoid p R)`. -/
+def bdrMap (f : R →+* S) (g : S →+* R) (hgf : ∀ x, g (f x) = x) (hfg : ∀ y, f (g y) = y) :
+    Localization (genMonoid p R) →+* Localization (genMonoid p S) :=
+  IsLocalization.map (M := genMonoid p R) (T := genMonoid p S) (Localization (genMonoid p S))
+    (bdrPlusMap p f) (genMonoid_le_comap p f g hgf hfg)
+
+end BdRMap
+
+end PkgI4.DR
 
 namespace PkgI4
 
@@ -195,6 +554,173 @@ def GaloisRep.DistinctHTWeights (ρ : GaloisRep p 2) : Prop :=
   ∃ a b : ℤ, a ≠ b ∧ ρ.HasHTWeightsAtSelf p {a, b}
 
 end Local
+
+/-! ## §1b. The action of `G_{ℚ_p}` on `B_dR` and the de Rham predicate -/
+
+section DeRham
+
+variable (p : ℕ) [Fact p.Prime]
+
+theorem continuous_cpAct (σ : GQp p) : Continuous (cpAct p σ) :=
+  UniformSpace.Completion.continuous_map
+
+theorem norm_cpAct (σ : GQp p) (x : ℂ_[p]) : ‖cpAct p σ x‖ = ‖x‖ := by
+  induction x using UniformSpace.Completion.induction_on with
+  | hp => exact isClosed_eq (continuous_norm.comp (continuous_cpAct p σ)) continuous_norm
+  | ih a => rw [cpAct_coe, PadicComplex.norm_extends, PadicComplex.norm_extends, norm_gqp_apply]
+
+theorem cpAct_inv_apply (σ : GQp p) (x : ℂ_[p]) : cpAct p σ⁻¹ (cpAct p σ x) = x := by
+  induction x using UniformSpace.Completion.induction_on with
+  | hp => exact isClosed_eq ((continuous_cpAct p _).comp (continuous_cpAct p σ)) continuous_id
+  | ih a =>
+    rw [cpAct_coe, cpAct_coe, ← AlgEquiv.mul_apply, inv_mul_cancel, AlgEquiv.one_apply]
+
+/-- `σ` acting on `𝓞_ℂ_[p]`. -/
+def oAct (σ : GQp p) : 𝓞_ℂ_[p] →+* 𝓞_ℂ_[p] :=
+  (cpAct p σ).restrict 𝓞_ℂ_[p] 𝓞_ℂ_[p] fun x hx => by
+    rw [Cp.mem_O_iff, norm_cpAct]
+    exact (Cp.mem_O_iff p x).mp hx
+
+theorem oAct_inv_apply (σ : GQp p) (x : 𝓞_ℂ_[p]) : oAct p σ⁻¹ (oAct p σ x) = x :=
+  Subtype.ext (cpAct_inv_apply p σ x)
+
+theorem oAct_apply_inv (σ : GQp p) (x : 𝓞_ℂ_[p]) : oAct p σ (oAct p σ⁻¹ x) = x := by
+  simpa using oAct_inv_apply p σ⁻¹ x
+
+/-- `B_dR = B_dR(𝓞_ℂ_p)`: Mathlib's `BDeRham (𝓞_ℂ_[p]) p`, unfolded (see `bdR_eq`). -/
+abbrev BdR := Localization (DR.genMonoid p 𝓞_ℂ_[p])
+
+example : BdR p = BDeRham 𝓞_ℂ_[p] p := rfl
+
+/-- **The action of `G_{ℚ_p}` on `B_dR`**, by functoriality of Mathlib's construction. -/
+def bdrAct (σ : GQp p) : BdR p →+* BdR p :=
+  DR.bdrMap p (oAct p σ) (oAct p σ⁻¹) (oAct_inv_apply p σ) (oAct_apply_inv p σ)
+
+/-! ### `ℚ_p ⊆ B_dR`, fixed by `G_{ℚ_p}` -/
+
+instance isLocalization_padic : IsLocalization (Submonoid.powers (p : ℤ_[p])) ℚ_[p] where
+  map_units := by
+    rintro ⟨_, k, rfl⟩
+    exact IsUnit.mk0 _ (by simp [Fact.out (p := p.Prime) |>.ne_zero])
+  surj z := by
+    obtain ⟨k, hk⟩ := exists_pow_lt_of_lt_one (by positivity : (0 : ℝ) < 1 / (‖z‖ + 1))
+      (by simpa using (Padic.norm_p_lt_one (p := p)))
+    refine ⟨⟨⟨(p : ℚ_[p]) ^ k * z, ?_⟩, ⟨(p : ℤ_[p]) ^ k, k, rfl⟩⟩, ?_⟩
+    · change ‖(p : ℚ_[p]) ^ k * z‖ ≤ 1
+      rw [norm_mul, norm_pow, Padic.norm_p]
+      have h1 : (p : ℝ)⁻¹ ^ k * (‖z‖ + 1) < 1 := by
+        rwa [lt_div_iff₀ (by positivity)] at hk
+      nlinarith [norm_nonneg z, pow_nonneg (inv_nonneg.mpr (Nat.cast_nonneg p : (0 : ℝ) ≤ p)) k]
+    · change z * (((p : ℤ_[p]) ^ k : ℤ_[p]) : ℚ_[p]) = (p : ℚ_[p]) ^ k * z
+      push_cast
+      ring
+  exists_of_eq {x y} h := ⟨1, by
+    simp only [OneMemClass.coe_one, one_mul]
+    exact PadicInt.ext h⟩
+
+/-- `ℤ_p = W(𝔽_p) → W(𝓞_ℂ_p♭)`. -/
+def zpToW : ℤ_[p] →+* WittVector p (PreTilt 𝓞_ℂ_[p] p) :=
+  (WittVector.map (ZMod.castHom (dvd_refl p) (PreTilt 𝓞_ℂ_[p] p))).comp
+    (WittVector.equiv p).symm.toRingHom
+
+/-- `ℚ_p → W(𝓞_ℂ_p♭)[1/p]`. -/
+def qpToLoc : ℚ_[p] →+* Localization.Away (p : WittVector p (PreTilt 𝓞_ℂ_[p] p)) :=
+  IsLocalization.lift (M := Submonoid.powers (p : ℤ_[p]))
+    (g := (algebraMap _ _).comp (zpToW p)) (by
+      rintro ⟨_, k, rfl⟩
+      have := (IsLocalization.Away.algebraMap_isUnit
+        (S := Localization.Away (p : WittVector p (PreTilt 𝓞_ℂ_[p] p)))
+        (p : WittVector p (PreTilt 𝓞_ℂ_[p] p))).pow k
+      rw [map_natCast] at this
+      simpa only [RingHom.comp_apply, map_pow, map_natCast] using this)
+
+/-- `W(R♭)[1/p] → B_dR^+`. -/
+def ofLoc : Localization.Away (p : WittVector p (PreTilt 𝓞_ℂ_[p] p)) →+*
+    BDeRhamPlus 𝓞_ℂ_[p] p :=
+  algebraMap _ (AdicCompletion (RingHom.ker (fontaineThetaInvertP 𝓞_ℂ_[p] p))
+    (Localization.Away (p : WittVector p (PreTilt 𝓞_ℂ_[p] p))))
+
+/-- `ℚ_p → B_dR`. -/
+def qpToBdR : ℚ_[p] →+* BdR p :=
+  (algebraMap (BDeRhamPlus 𝓞_ℂ_[p] p) (BdR p)).comp ((ofLoc p).comp (qpToLoc p))
+
+theorem wittMap_zpToW (f : PreTilt 𝓞_ℂ_[p] p →+* PreTilt 𝓞_ℂ_[p] p) (z : ℤ_[p]) :
+    WittVector.map f (zpToW p z) = zpToW p z := by
+  ext n
+  simp only [zpToW, RingHom.comp_apply, WittVector.map_coeff]
+  exact RingHom.congr_fun (RingHom.ext_zmod (f.comp (ZMod.castHom (dvd_refl p) _))
+    (ZMod.castHom (dvd_refl p) _)) _
+
+theorem qpToLoc_algebraMap (z : ℤ_[p]) :
+    qpToLoc p (algebraMap ℤ_[p] ℚ_[p] z) = algebraMap _ _ (zpToW p z) :=
+  IsLocalization.lift_eq _ _
+
+theorem locMap_algebraMap (f : 𝓞_ℂ_[p] →+* 𝓞_ℂ_[p]) (w : WittVector p (PreTilt 𝓞_ℂ_[p] p)) :
+    DR.locMap p f (algebraMap _ (Localization.Away (p : WittVector p (PreTilt 𝓞_ℂ_[p] p))) w) =
+      algebraMap _ _ (WittVector.map (DR.preTiltMap p f) w) := by
+  unfold DR.locMap Localization.awayLift IsLocalization.Away.lift
+  rw [IsLocalization.lift_eq]
+  rfl
+
+theorem bdrPlusMap_ofLoc (f : 𝓞_ℂ_[p] →+* 𝓞_ℂ_[p])
+    (y : Localization.Away (p : WittVector p (PreTilt 𝓞_ℂ_[p] p))) :
+    DR.bdrPlusMap p f (ofLoc p y) = ofLoc p (DR.locMap p f y) := by
+  have e : ∀ y', ofLoc p y' = AdicCompletion.of _ _ y' := fun y' => by
+    rw [ofLoc]
+    erw [AdicCompletion.algebraMap_apply]
+  rw [e, e]
+  exact DR.adicMap_of _ _ _ _ y
+
+/-- `G_{ℚ_p}` fixes `ℚ_p ⊆ B_dR`. -/
+theorem bdrAct_qpToBdR (σ : GQp p) (c : ℚ_[p]) : bdrAct p σ (qpToBdR p c) = qpToBdR p c := by
+  have h : (bdrAct p σ).comp (qpToBdR p) = qpToBdR p := by
+    apply IsLocalization.ringHom_ext (Submonoid.powers (p : ℤ_[p]))
+    ext z
+    simp only [RingHom.comp_apply, qpToBdR]
+    rw [qpToLoc_algebraMap, bdrAct, DR.bdrMap, IsLocalization.map_eq, bdrPlusMap_ofLoc,
+      locMap_algebraMap, wittMap_zpToW]
+  exact congrArg (fun φ => φ c) h
+
+/-- `B_dR` as a `ℚ_p`-algebra (through `qpToBdR`). -/
+instance : Algebra ℚ_[p] (BdR p) := (qpToBdR p).toAlgebra
+
+theorem bdrAct_smul (σ : GQp p) (c : ℚ_[p]) (x : BdR p) :
+    bdrAct p σ (c • x) = c • bdrAct p σ x := by
+  rw [Algebra.smul_def, map_mul, Algebra.smul_def]
+  congr 1
+  exact bdrAct_qpToBdR p σ c
+
+variable {E : Type*} [Field E] [Algebra ℚ_[p] E] [FiniteDimensional ℚ_[p] E] {n : ℕ}
+
+/-- `D_dR(V^∨) = (B_dR ⊗_{ℚ_p} V^∨)^{G_{ℚ_p}}`, written as `G_{ℚ_p}`-equivariant `ℚ_p`-linear maps
+`V → B_dR`, for `V = E^n` with `E`-linear action `ρ`. -/
+def ddrSpace (ρ : GQp p →* GL (Fin n) E) : Submodule ℚ_[p] ((Fin n → E) →ₗ[ℚ_[p]] BdR p) where
+  carrier := {φ | ∀ (σ : GQp p) (v : Fin n → E),
+    φ (Matrix.mulVec (ρ σ : Matrix (Fin n) (Fin n) E) v) = bdrAct p σ (φ v)}
+  zero_mem' := by intro σ v; simp
+  add_mem' := by
+    intro φ ψ hφ hψ σ v
+    simp only [Set.mem_ofPred_eq] at hφ hψ
+    simp only [LinearMap.add_apply, hφ σ v, hψ σ v, map_add]
+  smul_mem' := by
+    intro c φ hφ σ v
+    simp only [Set.mem_ofPred_eq] at hφ
+    simp only [LinearMap.smul_apply, hφ σ v, bdrAct_smul]
+
+/-- **`ρ` is de Rham** (Fontaine): `dim_{ℚ_p} D_dR = dim_{ℚ_p} V`. Stated for `V^∨` (equivalent:
+`V` is de Rham iff `V^∨` is; Fontaine, Astérisque 223, Thm 3.8; STANDARD), with `K = ℚ_p`. -/
+def IsDeRham (ρ : GQp p →* GL (Fin n) E) : Prop :=
+  Module.finrank ℚ_[p] (ddrSpace p ρ) = n * Module.finrank ℚ_[p] E
+
+/-- A `ℚ̄_p`-valued representation of `G_{ℚ_p}` is de Rham: it takes values in `GL_n(E)` for a
+finite `E/ℚ_p` inside `ℚ̄_p`, and the `E`-representation is de Rham. -/
+def LocalIsDeRham (n : ℕ) (ρ : GQp p →* GL (Fin n) (PadicAlgCl p)) : Prop :=
+  ∃ (E : IntermediateField ℚ_[p] (PadicAlgCl p)) (_ : FiniteDimensional ℚ_[p] E)
+    (ρE : GQp p →* GL (Fin n) E),
+    (∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E (PadicAlgCl p)) (ρE σ) = ρ σ) ∧
+    IsDeRham p ρE
+
+end DeRham
 
 /-! ## §2. Modular side -/
 
@@ -397,6 +923,11 @@ end PkgI4
 
 end
 
+#print axioms PkgI4.Cp.isAdicComplete
+#print axioms PkgI4.DR.fontaineTheta_naturality
+#print axioms PkgI4.DR.bdrMap
+#print axioms PkgI4.bdrAct_qpToBdR
+#print axioms PkgI4.IsDeRham
 #print axioms PkgI4.weight_match
 #print axioms PkgI4.weight_match_coh
 #print axioms PkgI4.cpAct_algebraMap
