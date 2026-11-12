@@ -23,6 +23,7 @@ L731-734 needs.
 | `repBaseChange E ρ` | `ρ_E(g) = ρ(g) ⊗ E` on `E ⊗_k V`, a Mathlib `Representation` (laws proved) | definition |
 | `InvariantsBaseChange` | `V` finite-dimensional ⇒ `dim_E End_G(V ⊗ E) = dim_k End_G(V)` | **stated, not proved** |
 | `SemisimpleBaseChange` | `char k = 0`, `V` finite-dimensional, `ρ` semisimple ⇒ `ρ_E` semisimple | **stated, not proved** |
+| `PkgI3.Tate.map_bijective` (`TateBC.lean`) | `φ : M →+ N` injective, `T_ℓ M` free and finite, `T_ℓ N` finite, equal ranks ⇒ `T_ℓ(φ)` bijective (the algebraic core of `T_ℓ` under base change) | proved |
 | `absolutelyIrreducible_of_finrank_commOf_prod_le_four` | from the two Props above: `char k = 0`, `V ≠ 0` finite-dimensional, `ρ` semisimple, `dim End_G(V ⊕ V) ≤ 4` ⇒ `ρ_F` irreducible for **every** field `F ⊇ k` | proved (conditional on the two Props) |
 
 ## 1. How this is the argument of N5 L731-734 (C2)
@@ -109,12 +110,23 @@ inequality `4 · dim End_G(r) ≤ dim End_G(r ⊕ r) ≤ 4`, through the injecti
      Its rank is `2 dim A_L − 2 dim A = 0` (`TateModuleFree` over `K` and over `L`), so it is zero.
 
    This is glue, given one more geometric fact: `dim A_L = dim A` (the Krull dimension of a variety is
-   invariant under field extension), which is not in Mathlib in this form (SPECULATIVE; not searched). Not
-   written in Lean, because the heavy `I3.lean` object layer was not recompiled in this run.
+   invariant under field extension), which is not in Mathlib in this form (SPECULATIVE; not searched).
+   **The algebraic core is proved** (`scratch/glue-I3-linalg/TateBC.lean`, VERIFIED, compiled; axioms
+   `propext`, `Classical.choice`, `Quot.sound`). `PkgI3.Tate.map_bijective`: if `φ : M →+ N` is injective,
+   `T_ℓ M` is free and finite, `T_ℓ N` is finite, and the finranks are equal, then
+   `Tate.map φ : T_ℓ M → T_ℓ N` is bijective. Its proof goes through saturation (`mem_range_of_ell_smul`),
+   torsion-freeness of the cokernel (`mem_range_of_smul`) and rank–nullity over `ℤ_ℓ`. **What remains** is the
+   geometric half, on the `I3.lean` object layer, which was not recompiled in this run:
+   - `A(K̄) → A(L̄) ≅ A_L(L̄)` is an injective group homomorphism;
+   - it is compatible with `G_L → G_K`;
+   - `dim A_L = dim A`.
 5. **E1's `PoincareReducibility` application**: §2, items (a)-(c); (c) needs the leaf adjustment
    recommended there.
 
-## 4. What compiles (VERIFIED, 2026-11-11 22:31 PST)
+## 4. What compiles (VERIFIED, 2026-11-11 22:31 and 22:34 PST)
+
+`lake env lean scratch/glue-I3-linalg/TateBC.lean` reports no errors and prints
+`'PkgI3.Tate.map_bijective' depends on axioms: [propext, Classical.choice, Quot.sound]`.
 
 `lake env lean scratch/glue-I3-linalg/Commutant.lean` reports no errors and prints:
 

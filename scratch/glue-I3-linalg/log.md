@@ -29,6 +29,12 @@
   `finrank End_G(V ⊕ V) ≤ 4` ⇒ `repBaseChange F ρ` irreducible for every field `F ⊇ k`.
   VERIFIED (compiled 22:31 PST); axioms [propext, Classical.choice, Quot.sound]. File has no `sorry`.
 
+- `TateBC.lean` (§1 copied verbatim from pkg-I3's `I3.lean`, Tate module of an abelian group):
+  `PkgI3.Tate.map_injective`, `ell_smul_succ` (`(ℓ•x)ₙ₊₁ = xₙ`), `mem_range_of_ell_smul`
+  (saturation), `mem_range_of_smul` (cokernel torsion-free, via `PadicInt.unitCoeff_spec`),
+  `map_bijective`: `φ : M →+ N` injective, `T_ℓ M` free finite, `T_ℓ N` finite, equal finrank ⇒
+  `Tate.map φ` bijective. VERIFIED (compiled 22:34 PST); axioms [propext, Classical.choice, Quot.sound].
+
 ## Findings
 - Mathlib v4.35.0 has `Representation.IsIrreducible` (`IsSimpleOrder (Subrepresentation ρ)`) and
   `IsSemisimpleRepresentation` (`ComplementedLattice`), so the commutant argument is statable over
@@ -40,5 +46,6 @@
 
 ## Not done (see docs/research/glue-I3-linalg.md §3)
 - invariants under extension of coefficients; semisimplicity under extension (char 0);
-  `V_ℓ ⊗ E ≅ r ⊕ r` from `B ⊗ E ≅ M₂(E)`; `T_ℓ` under base change of the field;
+  `V_ℓ ⊗ E ≅ r ⊕ r` from `B ⊗ E ≅ M₂(E)`; the geometric half of `T_ℓ` under base change
+  (`A(K̄) ↪ A(L̄) = A_L(L̄)`, Galois compatibility, `dim A_L = dim A`);
   the application of `PoincareReducibility` in E1.
