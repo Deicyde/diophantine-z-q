@@ -334,6 +334,26 @@ end AbVar
 
 end PkgI3
 
+/-! ### Base change -/
+
+namespace PkgI3.AbVar
+
+open CategoryTheory AlgebraicGeometry Limits
+
+variable {K : Type} [Field K]
+
+/-- Base change `A_L` along a field extension `L/K` (Mathlib's `Over.pullback`; the group
+structure is transported by the monoidal functor `Over.pullback`). -/
+def baseChange (A : AbVar K) (L : Type) [Field L] [Algebra K L] : AbVar L :=
+  let f := Spec.map (CommRingCat.ofHom (algebraMap K L))
+  letI : GrpObj ((Over.pullback f).obj A.X) := Functor.grpObjObj
+  haveI : IsProper ((Over.pullback f).obj A.X).hom := by dsimp; infer_instance
+  haveI : Smooth ((Over.pullback f).obj A.X).hom := by dsimp; infer_instance
+  haveI : GeometricallyIntegral ((Over.pullback f).obj A.X).hom := by dsimp; infer_instance
+  { X := (Over.pullback f).obj A.X }
+
+end PkgI3.AbVar
+
 /-! ## 3. The leaves of package I3
 
 Each leaf is a `Prop` quantified over all fields (resp. number fields) and all abelian varieties
@@ -520,5 +540,32 @@ theorem exists_hom_ne_zero_of_equivariant (hF : FaltingsTate) (hT : TateModuleFr
   have : Subsingleton (Hom A B) := ⟨fun f g => (hall f).trans (hall g).symm⟩
   have : z = 0 := Subsingleton.elim _ _
   exact hh0 (by rw [← hz, this, map_zero])
+
+/-- The `G_K`-equivariant `ℚ_ℓ`-linear endomorphisms of `V_ℓ(A)`. -/
+def equivEnd {K : Type} [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
+    Submodule ℚ_[ℓ] (Module.End ℚ_[ℓ] (A.V ℓ)) where
+  carrier := {φ | ∀ σ, φ ∘ₗ A.galRep ℓ σ = A.galRep ℓ σ ∘ₗ φ}
+  add_mem' := by
+    intro φ ψ hφ hψ σ
+    simp only [Set.mem_setOf_eq] at *
+    rw [LinearMap.add_comp, LinearMap.comp_add, hφ σ, hψ σ]
+  zero_mem' := by intro σ; simp
+  smul_mem' := by
+    intro c φ hφ σ
+    simp only [Set.mem_setOf_eq] at *
+    rw [LinearMap.smul_comp, LinearMap.comp_smul, hφ σ]
+
+/-- **Glue for C2 (statement only; GLUE, not a leaf).** The `ℚ_ℓ`-form of Satz 4:
+`dim_{ℚ_ℓ} End_{G_K}(V_ℓ A) = rank_ℤ End_K(A)`. With `FaltingsSemisimple` and
+`End⁰_K(A) ≅ B` (A9, A10, and `L'` defining every geometric endomorphism), the commutant
+argument of N5 L731-734 then gives absolute irreducibility of `r_ℓ`.
+Proof outline: `T_ℓ A` is free of finite rank (`TateModuleFree`), so every `φ ∈ End(V_ℓ A)`
+has `ℓᵏφ(T_ℓ A) ⊆ T_ℓ A`; equivariance passes to `T_ℓ A` because `T_ℓ A → V_ℓ A` is injective
+(as in `exists_hom_ne_zero_of_equivariant`); so `End_G(V) = ℚ_ℓ ⊗ End_G(T)`, and
+`End_G(T) ≅ ℤ_ℓ ⊗ End(A)` (`FaltingsTate`) is free of rank `rank_ℤ End(A)` (`HomFreeFinite`). -/
+theorem finrank_equivEnd (hF : FaltingsTate) (hT : TateModuleFree) (hH : HomFreeFinite)
+    {K : Type} [Field K] [NumberField K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
+    Module.finrank ℚ_[ℓ] (equivEnd A ℓ) = Module.finrank ℤ (End A) := by
+  sorry
 
 end PkgI3
