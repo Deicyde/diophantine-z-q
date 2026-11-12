@@ -38,3 +38,16 @@ Ambient: [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensiona
 - `exists_tau`: ∃ τ ∈ Gal(ℚ_p(μ_{p^k m})/ℚ_p) with galToProd τ = (-1, 1). VERIFIED.
 - `sqrt_criterion_level_pow`: sqrt_criterion_level with m' = p^{2f} - 1, f = ord_m(p); hypotheses m ∣ m', ord_{m'}(p) = 2f discharged
   by the Level.lean lemmas (copied into Disj.lean). Remaining instance hypotheses: [NeZero (p^{2f}-1)], cyclotomic K ⊆ L. VERIFIED (compiled 00:53 PST).
+
+## Plumb.lean (standalone, compiled 00:56 PST) and its merge into Disj.lean (compiled 00:57 PST; all axioms propext, Classical.choice, Quot.sound)
+- `PkgI6.LocalKroneckerWeber` copied verbatim from scratch/pkg-I6/I6.lean.
+- `muField p n := IntermediateField.adjoin ℚ_[p] {x : PadicAlgCl p | x ^ n = 1}` (exactly I6.3's field).
+- `isCyclotomicExtension_muField`: [NeZero n] ⇒ IsCyclotomicExtension {n} ℚ_[p] (muField p n). VERIFIED.
+- `muField_mono`: a ∣ b ⇒ muField a ≤ muField b. VERIFIED.
+- `le_muField_of_lkw`: LocalKroneckerWeber p ⇒ every finite abelian M ⊆ PadicAlgCl p lies in muField (p^k m), 0 < m, p coprime m. VERIFIED.
+- `muField_le_level`, `level_dvd`: p^k m ∣ p^{k+1}(p^{2f}-1). VERIFIED.
+- Instances (Disj.lean, section MuField): IsCyclotomicExtension/FiniteDimensional/IsGalois on muField; Algebra ℤ_[p] and
+  IsScalarTower ℤ_[p] ℚ_[p] found by inferInstance (IntermediateField.algebra'); `muAlgebra a b [Fact (a ∣ b)]` + IsScalarTower.
+- **`sqrt_criterion_muField`**: the criterion on K = muField (p^k m) ⊆ L = muField (p^{k+1}(p^{2f}-1)) inside PadicAlgCl p,
+  every p incl. 2; hypotheses [NeZero m], p coprime m, [NeZero (p^{2f}-1)], [Fact (level divisibility)] (discharged by level_dvd),
+  τ with galToProd τ = (-1,1) (exists by exists_tau). VERIFIED.

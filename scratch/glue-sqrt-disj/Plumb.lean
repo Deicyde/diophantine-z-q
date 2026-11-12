@@ -83,3 +83,15 @@ end GlueSqrtDisj
 #print axioms GlueSqrtDisj.isCyclotomicExtension_muField
 #print axioms GlueSqrtDisj.le_muField_of_lkw
 #print axioms GlueSqrtDisj.muField_le_level
+
+section InstanceCheck
+variable (p : ℕ) [Fact p.Prime] (a b : ℕ) [NeZero a] (h : a ∣ b)
+noncomputable example : Algebra ℤ_[p] (GlueSqrtDisj.muField p a) := inferInstance
+example : IsScalarTower ℤ_[p] ℚ_[p] (GlueSqrtDisj.muField p a) := inferInstance
+example : FiniteDimensional ℚ_[p] (GlueSqrtDisj.muField p a) := by
+  have := GlueSqrtDisj.isCyclotomicExtension_muField p a
+  exact IsCyclotomicExtension.finiteDimensional {a} ℚ_[p] _
+example : IsGalois ℚ_[p] (GlueSqrtDisj.muField p a) := by
+  have := GlueSqrtDisj.isCyclotomicExtension_muField p a
+  exact IsCyclotomicExtension.isGalois {a} ℚ_[p] _
+end InstanceCheck

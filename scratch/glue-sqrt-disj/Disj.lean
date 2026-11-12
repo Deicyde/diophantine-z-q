@@ -1014,6 +1014,132 @@ end Crit
 
 end GlueSqrtDisj
 
+namespace PkgI6
+
+/-- **Leaf I6.3 (local Kronecker–Weber for `ℚ_p`)**, copied verbatim from `scratch/pkg-I6/I6.lean`. -/
+def LocalKroneckerWeber (p : ℕ) [Fact p.Prime] : Prop :=
+  ∀ L : IntermediateField ℚ_[p] (PadicAlgCl p), FiniteDimensional ℚ_[p] L →
+    IsAbelianGalois ℚ_[p] L →
+      ∃ n : ℕ, 0 < n ∧ L ≤ IntermediateField.adjoin ℚ_[p] {x : PadicAlgCl p | x ^ n = 1}
+
+end PkgI6
+
+namespace GlueSqrtDisj
+
+variable (p : ℕ) [hp : Fact p.Prime]
+
+/-- `ℚ_p(μ_n) ⊆ \bar ℚ_p`. -/
+noncomputable abbrev muField (n : ℕ) : IntermediateField ℚ_[p] (PadicAlgCl p) :=
+  IntermediateField.adjoin ℚ_[p] {x : PadicAlgCl p | x ^ n = 1}
+
+/-- `ℚ_p(μ_n) ⊆ \bar ℚ_p` is an `n`-th cyclotomic extension of `ℚ_p`. -/
+theorem isCyclotomicExtension_muField (n : ℕ) [NeZero n] :
+    IsCyclotomicExtension {n} ℚ_[p] (muField p n) := by
+  have hn : NeZero ((n : ℕ) : PadicAlgCl p) := NeZero.charZero
+  have h := IntermediateField.isCyclotomicExtension_adjoin_of_exists_isPrimitiveRoot {n} ℚ_[p]
+    (L := PadicAlgCl p) (fun n' hn' _ => by
+      rw [Set.mem_singleton_iff] at hn'
+      subst hn'
+      exact HasEnoughRootsOfUnity.exists_isPrimitiveRoot (PadicAlgCl p) n')
+  have hset : {b : PadicAlgCl p | ∃ n' ∈ ({n} : Set ℕ), n' ≠ 0 ∧ b ^ n' = 1} =
+      {x : PadicAlgCl p | x ^ n = 1} := by
+    ext b
+    simp [NeZero.ne n]
+  rw [hset] at h
+  exact h
+
+/-- Levels are monotone: `ℚ_p(μ_a) ≤ ℚ_p(μ_b)` when `a ∣ b`. -/
+theorem muField_mono {a b : ℕ} (hab : a ∣ b) : muField p a ≤ muField p b := by
+  apply IntermediateField.adjoin.mono
+  intro x hx
+  obtain ⟨c, rfl⟩ := hab
+  simp only [Set.mem_ofPred_eq] at hx ⊢
+  rw [pow_mul, hx, one_pow]
+
+/-- **I6.3, normalized.** Under local Kronecker–Weber, every finite abelian `M ⊆ \bar ℚ_p` lies in
+`ℚ_p(μ_{p^k m})` for some `k` and some `m ≥ 1` prime to `p`. -/
+theorem le_muField_of_lkw (hLKW : PkgI6.LocalKroneckerWeber p)
+    (M : IntermediateField ℚ_[p] (PadicAlgCl p)) [FiniteDimensional ℚ_[p] M]
+    [IsAbelianGalois ℚ_[p] M] :
+    ∃ k m : ℕ, 0 < m ∧ p.Coprime m ∧ M ≤ muField p (p ^ k * m) := by
+  obtain ⟨n, hn, hM⟩ := hLKW M inferInstance inferInstance
+  obtain ⟨e, m, hpm, rfl⟩ := Nat.exists_eq_pow_mul_and_not_dvd hn.ne' p hp.out.one_lt.ne'
+  refine ⟨e, m, Nat.pos_of_ne_zero ?_, (Nat.Prime.coprime_iff_not_dvd hp.out).mpr hpm, hM⟩
+  rintro rfl
+  simp at hn
+
+/-- The bigger level used by the criterion: `p^k m ∣ p^{k+1} (p^{2f} - 1)`, `f = ord_m(p)`, so
+`ℚ_p(μ_{p^k m}) ≤ ℚ_p(μ_{p^{k+1}(p^{2f}-1)})`. -/
+theorem muField_le_level (k m : ℕ) (hcop : p.Coprime m) :
+    muField p (p ^ k * m) ≤
+      muField p (p ^ (k + 1) * (p ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) - 1)) := by
+  apply muField_mono
+  apply Nat.mul_dvd_mul (pow_dvd_pow p (Nat.le_succ k))
+  -- `m ∣ p^{2f} - 1`
+  have h := pow_orderOf_eq_one (ZMod.unitOfCoprime p hcop)
+  have h' : (ZMod.unitOfCoprime p hcop) ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) = 1 := by
+    rw [pow_mul', h, one_pow]
+  have hd1 : 1 ≤ p ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) :=
+    Nat.one_le_pow _ _ hp.out.pos
+  rw [Units.ext_iff, Units.val_pow_eq_pow_val, ZMod.coe_unitOfCoprime, Units.val_one,
+    ← Nat.cast_pow] at h'
+  rw [← ZMod.natCast_eq_zero_iff, Nat.cast_sub hd1, sub_eq_zero, Nat.cast_one]
+  exact h'
+
+end GlueSqrtDisj
+
+
+/-! ### The criterion on the subfields `ℚ_p(μ_n)` of `\bar ℚ_p` -/
+
+namespace GlueSqrtDisj
+
+section MuField
+
+variable (p : ℕ) [hp : Fact p.Prime]
+
+instance neZero_prime : NeZero p := ⟨hp.out.ne_zero⟩
+
+instance (n : ℕ) [NeZero n] : IsCyclotomicExtension {n} ℚ_[p] (muField p n) :=
+  isCyclotomicExtension_muField p n
+
+instance (n : ℕ) [NeZero n] : FiniteDimensional ℚ_[p] (muField p n) :=
+  IsCyclotomicExtension.finiteDimensional {n} ℚ_[p] _
+
+instance (n : ℕ) [NeZero n] : IsGalois ℚ_[p] (muField p n) :=
+  IsCyclotomicExtension.isGalois {n} ℚ_[p] _
+
+/-- The inclusion `ℚ_p(μ_a) ⊆ ℚ_p(μ_b)` for `a ∣ b`, as an algebra. -/
+noncomputable instance muAlgebra (a b : ℕ) [Fact (a ∣ b)] : Algebra (muField p a) (muField p b) :=
+  (IntermediateField.inclusion (muField_mono p (Fact.out : a ∣ b))).toRingHom.toAlgebra
+
+instance (a b : ℕ) [Fact (a ∣ b)] : IsScalarTower ℚ_[p] (muField p a) (muField p b) :=
+  IsScalarTower.of_algebraMap_eq (fun _ => rfl)
+
+/-- **The local square-root criterion on `ℚ_p(μ_{p^k m}) ⊆ ℚ_p(μ_{p^{k+1}(p^{2f}-1)}) ⊆ \bar ℚ_p`**,
+every `p` (including `2`), `p ∤ m`, `f = ord_m(p)`: a character `χ` of `Gal(ℚ_p(μ_{p^k m})/ℚ_p)`
+inflated to the bigger level is twice a character iff `χ(τ₋₁) = 0`. -/
+theorem sqrt_criterion_muField (k m : ℕ) [NeZero m] (hcop : p.Coprime m)
+    [NeZero (p ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) - 1)]
+    [Fact (p ^ k * m ∣ p ^ (k + 1) * (p ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) - 1))]
+    (τ : Gal(muField p (p ^ k * m)/ℚ_[p]))
+    (hτ : galToProd (p := p) (L := muField p (p ^ k * m)) k m τ = (-1, 1))
+    (χ : Additive Gal(muField p (p ^ k * m)/ℚ_[p]) →+ AddCircle (1 : ℚ)) :
+    (∃ ψ : Additive Gal(muField p (p ^ (k + 1) *
+          (p ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) - 1))/ℚ_[p]) →+ AddCircle (1 : ℚ),
+        ∀ g, 2 • ψ (Additive.ofMul g) =
+          χ (Additive.ofMul (g.restrictNormal (muField p (p ^ k * m))))) ↔
+      χ (Additive.ofMul τ) = 0 :=
+  sqrt_criterion_level_pow (muField p (p ^ k * m)) k m hcop τ hτ χ
+
+/-- The divisibility needed for `sqrt_criterion_muField`'s `Fact` instance. -/
+theorem level_dvd (k m : ℕ) (hcop : p.Coprime m) :
+    p ^ k * m ∣ p ^ (k + 1) * (p ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) - 1) :=
+  Nat.mul_dvd_mul (pow_dvd_pow p (Nat.le_succ k)) (dvd_pow_orderOf_sub_one hcop 2)
+
+end MuField
+
+end GlueSqrtDisj
+
 #print axioms GlueSqrtDisj.totient_mul_orderOf_le_finrank
 #print axioms GlueSqrtDisj.galToProd_injective
 #print axioms GlueSqrtDisj.range_galToProd
@@ -1025,3 +1151,8 @@ end GlueSqrtDisj
 #print axioms GlueSqrtDisj.sqrt_criterion_level
 #print axioms GlueSqrtDisj.exists_tau
 #print axioms GlueSqrtDisj.sqrt_criterion_level_pow
+#print axioms GlueSqrtDisj.isCyclotomicExtension_muField
+#print axioms GlueSqrtDisj.le_muField_of_lkw
+#print axioms GlueSqrtDisj.muField_le_level
+#print axioms GlueSqrtDisj.sqrt_criterion_muField
+#print axioms GlueSqrtDisj.level_dvd
