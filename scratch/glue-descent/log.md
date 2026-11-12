@@ -82,3 +82,12 @@ then the same LEAN_PATH for B2Assembly.lean.
   InfiniteGalois.fixingSubgroup_fixedField, isOpen_iff_finite, normal_iff_isGalois.)
 - b3_degree_le_QM: + admissible (S,R), finrank L ≤ heightD, T = ramSet S u ⇒ (finrank L' : ℝ) ≤ heightQ R · M_S(u).
 - Not formalized: L' unramified outside T (needs inertia subgroups of G_ℚ; group core = twist_kills_inertia).
+
+## Step 9: B1Quat.lean (B1's quaternion algebra) — compiles, no sorry (VERIFIED)
+B6 := ℍ[ℚ, 2, -3] (N5's B = (2,-3)).
+- B6_commute_i_j: x commuting with i, j ⇒ x = algebraMap x.re  (c(σ,τ) ∈ ℚ^×, N5 L640-644).
+- B6_isCentral: Algebra.IsCentral ℚ B6.
+- aniso_int / aniso_rat: a² - 2b² + 3c² - 6d² = 0 ⇒ a=b=c=d=0 (descent mod 3); B6_star_mul.
+- B6_isSimpleRing: IsSimpleRing B6 (every nonzero element is a unit).
+- LeafSkolemNoether (L-B1, def Prop over Mathlib's central simple algebras); B6_inner: from it,
+  every ℚ-automorphism of B6 is inner.
