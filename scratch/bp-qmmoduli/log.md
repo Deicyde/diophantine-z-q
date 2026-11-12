@@ -63,3 +63,10 @@ Task: blueprint for the Shimura-curve objects of leaves R1-R3, R5 (docs/research
   field extension). Finding: base change of `Level3` needs that `A(K̄)[3] → A_L(L̄)[3]` is onto,
   which is not definitional: it follows from `TorsionStructure` (both sides have `3^4` elements,
   and the map is injective because `Spec L̄ → Spec K̄` is an epimorphism) — glue with a leaf.
+- `QMAbVar.lean` §7 (VERIFIED, compiles, standard axioms): `QMIso` (isomorphism of QM pairs),
+  `conjAV`, `conjQM` (conjugation by `σ ∈ Aut(ℚ̄/ℚ)` through `QMStr.baseChange` with the algebra
+  `σ.toAlgebra`), **`fieldOfModuli`** (fixed field of the closure of `{σ : (σA, σι) ≅ (A, ι)}`),
+  `conductor` (`relIndex` of `R` in `𝒪_k`), and the leaf statement **`R5fp`** (González–Rotger
+  2006 Thms 5.8/5.12 in degree form: `[ℚ(x):ℚ] ∈ {#Pic R, 2·#Pic R}` for `com ι ≅ R`, `R` an
+  order of conductor prime to 6 in an imaginary quadratic `k`). Statement only (a `def … : Prop`),
+  not proved, not used.

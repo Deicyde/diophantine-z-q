@@ -105,8 +105,9 @@ Main findings:
      N8 is needed for naturality in R1fp, for Galois conjugates (A7) and for fields of moduli
      (R1rec, R5fp).
    - `P¹_ℚ` with `P¹(K) = K ∪ {∞}` (N11, small to medium) is needed for R2fp.
-   - The statements R1fp, R2fp, R5fp and R1rec are written below in Lean syntax but **not
-     compiled**, because they depend on N8 and N11.
+   - **R5fp compiles** as a Lean `def … : Prop` (`BPQM.AV.R5fp`, over the field of moduli
+     `fieldOfModuli` built here). R1fp, R2fp and R1rec are written below in Lean syntax but **not
+     compiled**: they depend on the missing half of N8 (level structures) and on N11 (`P¹`).
    - The analytification (N14) is very large.
 
 ---
@@ -209,7 +210,7 @@ without a polarization. So R1fp can be supplied either way:
 - *Shimura–Deligne route:* PEL moduli, plus the claim above as glue. That glue needs
   polarizations in Lean, so it comes later.
 
-### 2.3 The field-point leaves (Lean shapes; not yet compiled, they need N8 and N11)
+### 2.3 The field-point leaves (Lean shapes; R5fp compiled, the others need N8 and N11)
 
 Notation (existing or built here):
 - `PkgI3.AbVar K` and `End`, `Pt`, `galAct`, `baseChange` (kernel);
@@ -248,7 +249,9 @@ def R1fp : Prop :=
 --   for P : QML3 ℚ̄ with com(P) ≅ ℤ[i], ℤ[ζ₃] or ℤ[√-6], fieldOfModuli P is unramified at
 --   every prime p ≥ 5.
 
--- R5fp (González–Rotger 2006, Prop. 5.6, Thms 5.8, 5.12, read by the locator audit; on
+-- R5fp: COMPILED as `BPQM.AV.R5fp` in QMAbVar.lean §7 (degree clause only; the count clause
+-- below is not yet stated).
+-- (González–Rotger 2006, Prop. 5.6, Thms 5.8, 5.12, read by the locator audit; on
 -- X₆ = X₀(6,1), i.e. for (A, ι) without level structure; degree form):
 --   for an order R of conductor f, (f,6) = 1, in an imaginary quadratic field and optimally
 --   embeddable in 𝒪, and (A, q) over ℚ̄ with com(A, q) ≅ R:
@@ -351,7 +354,7 @@ Mathlib: Over, Proper, SmoothOfRelDim, functionField, Proj ─► N11 P¹, curve
 | N7 | objects `QML3 K`, isomorphisms, classes `M3 K` | N6 | S | **done** (`QML3`, `QML3.Iso`, `Iso.refl`, `Iso.symm`, `Iso.trans`, `isoSetoid`, `M3`, `M3'`) | R1fp |
 | — | A6 on every object | N7 + kernel A6 | S | **done** (`QML3.goodReduction`) | A6 |
 | N8 | base change of `QMStr`, `Level3`, `QML3`, `M3` along `K → L` (incl. `σ ∈ Aut(L)`) | N7, kernel `baseChange`, Mathlib `Functor.map.instIsMonHom`, `(Over.pullback f).Faithful`; leaf `TorsionStructure` for `Level3` | M | **half done**: `endBC` (ring hom `End_K A → End_L A_L`), `endBC_injective`, `QMStr.baseChange`. Open: `Level3.baseChange` (needs `A(K̄)[3] ↠ A_L(L̄)[3]`, from `TorsionStructure` and injectivity of points along the epimorphism `Spec L̄ → Spec K̄`), `dim A_L = dim A`, compatibility with composition | R1fp naturality, A7, N9 |
-| N9 | field of moduli of an object over `K̄`: fixed field of `{σ : σP ≅ P}` | N8, Mathlib `IntermediateField.fixedField` | S | open | R1rec, R5fp |
+| N9 | field of moduli of an object over `K̄`: fixed field of `{σ : σP ≅ P}` | N8, Mathlib `IntermediateField.fixedField` | S | **done for QM pairs** (`QMIso`, `conjAV`, `conjQM`, `fieldOfModuli`); for level-3 objects it waits for `Level3.baseChange` | R1rec, R5fp |
 | N10 | centralizer of `ι(𝒪)` in `End(A)`; "CM by the order `R`"; `h(R) = #CommRing.Pic R` | N5, Mathlib | S | **partly done** (`com`, `HasCM4`, `HasCM3`, `HasCM24`, `intCast_mem_com`); the conductor and discriminant of `com q` as an order: open | R2fp, R1rec, R5fp |
 | N11 | `P¹_ℚ` as a scheme with `P¹(K) ≃ OnePoint K`; smooth proper curves over `ℚ` | Mathlib `Proj`/gluing, `SmoothOfRelativeDimension`, `IsProper` | S-M | open (Mathlib has `Proj` and `𝔸ⁿ`, no ready `P¹` point bijection) | R1fp, R2fp |
 | N12 | dual abelian variety, polarizations, Rosati involution of a polarization | Picard scheme | L-VL | missing everywhere | the Shimura–Deligne route of R1fp (§2.2 glue), R22, T9 |
@@ -487,6 +490,9 @@ the order from `QMOrder.lean`, because scratch files cannot import each other):
   - The hypotheses are discharged with `I = ι(i)`, `J = ι(j)` and the products `i² = 2`,
     `j² = −3`, `ji + ij = 0` in `𝒪` (`oi_mul_oi`, `oj_mul_oj`, `oj_mul_oi_add`).
   - The rational 3-torsion comes from `Level3.onto` and `Level3.rational`.
+- §7: `QMIso`, `conjAV`, `conjQM` (conjugation by `σ ∈ Aut(ℚ̄/ℚ)`), **`fieldOfModuli`**,
+  `conductor`, and the leaf statement **`R5fp`**. It is a `def … : Prop`, not proved and not
+  used; it needs the faithfulness review of §6 item 6.
 - §6:
   - `QML3.Iso.symm`, `QML3.Iso.trans`, `isoSetoid`, `M3'` (the `Quotient`);
   - `com q` (centralizer of `ι(𝒪)` in `End_K A`), `HasCM4`, `HasCM3`, `HasCM24` (the hypotheses
@@ -529,6 +535,10 @@ Caveats.
    (h-trust A10 note). R5fp is stated on `X₆`, for `(A, ι)` without level.
 5. **Geometric components.** `Y₃` has two geometric components defined over `ℚ(√−3)` (§2.1).
    Any statement requiring geometric connectedness of `Y₃` would be false.
-6. **Uncompiled statements.** The statements of §2.3 are not compiled. Their final form depends
-   on N8 and N11, and each needs a faithfulness review like rv-leaves-a/b before it replaces a
-   placeholder.
+6. **Uncompiled statements.** The statements of §2.3 other than R5fp are not compiled. Their
+   final form depends on N8 and N11. Each, including R5fp, needs a faithfulness review like
+   rv-leaves-a/b before it replaces a placeholder. Points to check in R5fp:
+   - that "centralizer `≅ R`" matches González–Rotger's CM points by `R` (optimal embeddings);
+   - that the degree disjunction is implied by Thms 5.8 and 5.12 in all the cases they cover
+     (they print `ℚ(x) = H_R` or a specified index-2 subfield);
+   - the coarse-moduli identification of `ℚ(x)` with `fieldOfModuli`.

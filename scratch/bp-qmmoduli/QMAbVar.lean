@@ -538,6 +538,62 @@ def QMStr.baseChange {A : AbVar K} (q : QMStr A) (L : Type) [Field L] [Algebra K
 
 end BaseChangeEnd
 
+/-! ## §7 Fields of moduli of QM pairs over `ℚ̄`, and R5 (González–Rotger) in degree form
+
+Node N9 for pairs `(A, ι)` without level structure (the objects of `X₆ = X₀(6,1)`), built on
+`QMStr.baseChange` along `σ : ℚ̄ → ℚ̄`. This lets the field-point form of R5 be stated (not proved:
+it is a leaf). -/
+
+section FieldOfModuli
+
+/-- `ℚ̄`. -/
+abbrev Qbar := AlgebraicClosure ℚ
+
+/-- An isomorphism of QM pairs `(A, ι) ≅ (A', ι')`: an `𝒪`-equivariant isomorphism. -/
+structure QMIso {A A' : AbVar K} (q : QMStr A) (q' : QMStr A') where
+  φ : AbVar.Hom A A'
+  ψ : AbVar.Hom A' A
+  left : φ.hom ≫ ψ.hom = 𝟙 _
+  right : ψ.hom ≫ φ.hom = 𝟙 _
+  equivariant : ∀ a : O, (q.iota a).hom ≫ φ.hom = φ.hom ≫ (q'.iota a).hom
+
+/-- The conjugate `σA = A ×_{ℚ̄, σ} ℚ̄` of an abelian variety over `ℚ̄` by `σ ∈ Aut(ℚ̄/ℚ)`. -/
+def conjAV (A : AbVar Qbar) (σ : Qbar ≃ₐ[ℚ] Qbar) : AbVar Qbar :=
+  @AbVar.baseChange Qbar _ A Qbar _ (σ : Qbar →+* Qbar).toAlgebra
+
+/-- The conjugate QM structure `σι`. -/
+def conjQM {A : AbVar Qbar} (q : QMStr A) (σ : Qbar ≃ₐ[ℚ] Qbar) : QMStr (conjAV A σ) :=
+  @QMStr.baseChange Qbar _ A q Qbar _ (σ : Qbar →+* Qbar).toAlgebra
+
+/-- **The field of moduli** of `(A, ι)`: the fixed field of `{σ : (σA, σι) ≅ (A, ι)}` (a
+subgroup; its closure is taken so that no group property needs proof here). For a point `x` of
+the coarse moduli space `X₆`, this is the residue field `ℚ(x)` (STANDARD for coarse moduli in
+characteristic 0). -/
+def fieldOfModuli {A : AbVar Qbar} (q : QMStr A) : IntermediateField ℚ Qbar :=
+  IntermediateField.fixedField (Subgroup.closure {σ | Nonempty (QMIso q (conjQM q σ))})
+
+/-- The conductor `[𝒪_k : R]` of a subring `R ⊆ 𝒪_k` of a number field. -/
+noncomputable def conductor {k : Type} [Field k] (R : Subring k) : ℕ :=
+  R.toAddSubgroup.relIndex (integralClosure ℤ k).toSubring.toAddSubgroup
+
+/-- **R5fp (field-point form of González–Rotger 2006, Thms 5.8 and 5.12, degree form; a
+consequence, never stronger).** Let `(A, ι)` be an abelian surface over `ℚ̄` with QM by `𝒪` whose
+centralizer `com ι` is isomorphic to an order `R` of conductor prime to 6 in an imaginary
+quadratic field `k`. Then `[ℚ(x) : ℚ] ∈ {h(R), 2h(R)}`, `h(R) = #Pic(R)`. (Printed:
+`ℚ(x) = H_R` or the specified index-2 subfield of `H_R`, `[H_R : ℚ] = 2h(R)`; the identification
+of `ℚ(x)` with the field of moduli is the coarse-moduli property of `X₆`, from R1 at level 1.)
+Not used by any proof in this file. -/
+def R5fp : Prop :=
+  ∀ (A : AbVar Qbar) (q : QMStr A), A.dim = 2 →
+    ∀ (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k],
+      Module.finrank ℚ k = 2 →
+      ∀ R : Subring k, R ≤ (integralClosure ℤ k).toSubring → Nat.Coprime (conductor R) 6 →
+        Nonempty (com q ≃+* R) →
+          Module.finrank ℚ (fieldOfModuli q) = Nat.card (CommRing.Pic R) ∨
+            Module.finrank ℚ (fieldOfModuli q) = 2 * Nat.card (CommRing.Pic R)
+
+end FieldOfModuli
+
 end AV
 
 end BPQM
@@ -551,3 +607,4 @@ end BPQM
 #print axioms BPQM.AV.endBC
 #print axioms BPQM.AV.intCast_mem_com
 #print axioms BPQM.AV.QMStr.baseChange
+#print axioms BPQM.AV.R5fp
