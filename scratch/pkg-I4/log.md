@@ -50,3 +50,6 @@
 - DEFINED (compiles): `gfToGqp` (G_F → G_{ℚ_p}), `ddrSpaceOver`, `IsDeRhamOver`, `htSpaceOver`, `htMultOver` for a Mathlib `Representation ℚ_[p] (absoluteGaloisGroup F) V`, F/ℚ_p finite.
 - Copied pkg-I3's definitions (origin/wip/pkg-I3 @ 7406c0ae, scratch/pkg-I3/I3.lean lines 26-335, unchanged: Tate module, AbVar, Pt, V, galRep) into I4.lean; they compile under `import Mathlib`.
 - New statable leaf `DeRhamComparison` (C3: V_p(A) de Rham over F with HT weights 0, −1 of multiplicity g). `#print axioms`: propext, Classical.choice, Quot.sound.
+
+## Step 9: final
+- docs/research/pkg-I4.md final; .fleet/pkg-I4.md written. Last compile of I4.lean (Step 8): OK, no sorry, standard axioms.
