@@ -350,7 +350,6 @@ instance spanNatPrime_isPrime (p : ℕ) [hp : Fact p.Prime] : (Ideal.span {(p : 
 theorem D1_genuine (hH : HilbertDifferentFormula) (hS : SerreDifferentBound)
     (L : Type) [Field L] [NumberField L] [IsGalois ℚ L] (p : ℕ) [hpF : Fact p.Prime]
     (P : Ideal (𝓞 L)) [P.IsPrime] [hPl : P.LiesOver (Ideal.span {(p : ℤ)})]
-    [Algebra.HasSeparableResidueFieldsAt ℤ (𝓞 L) (Ideal.span {(p : ℤ)})]
     (a : ℕ) (ha : 1 ≤ a) (hea : P.ramificationIdx ℤ ≤ a.factorial)
     (b : ℕ) (hb : ramGroup L P b ≠ ⊥) :
     phi (ramCard L P) b ≤ 4 * a ^ 2 := by

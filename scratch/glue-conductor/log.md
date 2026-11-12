@@ -32,5 +32,5 @@ Ramification data as the sequence g i = |G_i| (lower numbering). Proved:
   Serre CL III §6 remark after Prop 13, UNVERIFIED numbering).
 - `D1_genuine`: leaves + Galois L, P over (p), e ≤ a!, G_b ≠ ⊥ ⇒ φ(b) ≤ 4a² (φ = Herbrand φ of the
   genuine |G_i|). Uses Mathlib `Ideal.card_inertia_eq_ramificationIdxIn` for |G_0| = e.
-  Extra instance hypothesis `Algebra.HasSeparableResidueFieldsAt ℤ (𝓞 L) (p)` (true: finite residue fields).
+  The residue-separability instance is inferred by Mathlib (no extra hypothesis; rechecked after removal).
 - `#print axioms` for `upper_break_le`, `D1_genuine`, `card_GL4_F5`: propext, Classical.choice, Quot.sound.
