@@ -60,3 +60,6 @@ contains:
 - AR3 for an abstract `HermitianLattice` (reduce to the fractional-ideal case).
 - Literature locators in §6 of the report are UNVERIFIED (no network); size tiers are
   SPECULATIVE.
+
+Final check (12:24 PST): both Lean files recompiled cleanly after the last edit; the blueprint's
+Mathlib names were re-verified against `.lake/packages/mathlib`.
