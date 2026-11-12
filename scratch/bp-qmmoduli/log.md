@@ -56,3 +56,10 @@ Task: blueprint for the Shimura-curve objects of leaves R1-R3, R5 (docs/research
   (first half of node N8; needs `open scoped CategoryTheory.Obj` and the explicit instance
   `Functor.map.instIsMonHom`). Not done: injectivity of `endBC` (faithfulness of the pullback),
   base change of `Level3`.
+- `QMAbVar.lean` §6 continued (VERIFIED, standard axioms): `specMap_flat`, `specMap_surjective`
+  (instances for `Spec L → Spec K`), **`endBC_injective`** (from Mathlib's
+  `(Over.pullback f).Faithful` for `f` flat, surjective, quasi-compact,
+  `Morphisms/FlatDescent.lean:193`), **`QMStr.baseChange`** (QM structures base-change along any
+  field extension). Finding: base change of `Level3` needs that `A(K̄)[3] → A_L(L̄)[3]` is onto,
+  which is not definitional: it follows from `TorsionStructure` (both sides have `3^4` elements,
+  and the map is injective because `Spec L̄ → Spec K̄` is an epimorphism) — glue with a leaf.

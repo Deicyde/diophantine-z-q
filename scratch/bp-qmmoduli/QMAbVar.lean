@@ -1,4 +1,5 @@
 import ZInQKernel.HDecomp.A6.A6
+import Mathlib.AlgebraicGeometry.Morphisms.FlatDescent
 import Mathlib.Algebra.Module.RingHom
 import Mathlib.Tactic
 
@@ -510,6 +511,31 @@ def endBC (A : AbVar K) (L : Type) [Field L] [Algebra K L] :
     change (Over.pullback _).map (f.hom * g.hom) = _
     rw [Functor.map_mul]; rfl
 
+/-- `Spec L → Spec K` is flat, surjective and quasi-compact, so `Over.pullback` along it is
+faithful (Mathlib, `Morphisms/FlatDescent.lean`). -/
+instance specMap_flat (L : Type) [Field L] [Algebra K L] :
+    Flat (Spec.map (CommRingCat.ofHom (algebraMap K L))) := by
+  rw [HasRingHomProperty.Spec_iff (P := @Flat)]
+  exact RingHom.flat_algebraMap_iff.mpr inferInstance
+
+instance specMap_surjective (L : Type) [Field L] [Algebra K L] :
+    Surjective (Spec.map (CommRingCat.ofHom (algebraMap K L))) :=
+  ⟨fun _ => ⟨IsLocalRing.closedPoint L, Subsingleton.elim _ _⟩⟩
+
+/-- Base change on endomorphisms is injective. -/
+theorem endBC_injective (A : AbVar K) (L : Type) [Field L] [Algebra K L] :
+    Function.Injective (endBC A L) := by
+  intro f g h
+  apply AbVar.Hom.ext'
+  exact (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))).map_injective
+    (congrArg AbVar.Hom.hom h)
+
+/-- **Base change of a QM structure** along a field extension `L/K`. -/
+def QMStr.baseChange {A : AbVar K} (q : QMStr A) (L : Type) [Field L] [Algebra K L] :
+    QMStr (A.baseChange L) where
+  iota := (endBC A L).comp q.iota
+  injective := (endBC_injective A L).comp q.injective
+
 end BaseChangeEnd
 
 end AV
@@ -524,3 +550,4 @@ end BPQM
 #print axioms BPQM.AV.isoSetoid
 #print axioms BPQM.AV.endBC
 #print axioms BPQM.AV.intCast_mem_com
+#print axioms BPQM.AV.QMStr.baseChange
