@@ -72,3 +72,13 @@ then the same LEAN_PATH for B2Assembly.lean.
 - b2_of_leaves: LeafHasse, LeafLocalTwo, LeafSqrtCrit, LeafUnramified; L ⊂ ℚ̄ finite Galois, ε sign
   cocycle inflated from Gal(L/ℚ), L unramified outside finite prime set T ⇒ ∃ N, χ mod N, β : G_ℚ → ℂ^×
   loc. const with primes of N in T, orderOf χ ≤ 2∏_{p∈T,p≠2}(p-1), β² = galChar χ, dβ = ε.
+
+## Step 8: B3Assembly.lean — B3 over G_ℚ — compiles, no sorry; axioms of b3_of_leaves,
+## b3_degree_le_QM: propext, Classical.choice, Quot.sound (VERIFIED)
+- inflatedNormalized_of: ε inflated from Gal(L/ℚ), cocycle, ε(1,1) = 1 ⇒ ε = 1 when an argument is in G_L.
+- b3_of_leaves: hypotheses of b2_of_leaves + ε(1,1) = 1 ⇒ χ, β as in B2 and L' = fixedField(ker β|G_L):
+  L ≤ L', FiniteDimensional, IsGalois ℚ L', G_{L'} = {σ ∈ G_L | β σ = 1}, β constant on G_{L'}-cosets,
+  finrank L' ≤ 2·orderOf χ·finrank L. (Mathlib: finrank_eq_fixingSubgroup_index for ℚ̄/ℚ,
+  InfiniteGalois.fixingSubgroup_fixedField, isOpen_iff_finite, normal_iff_isGalois.)
+- b3_degree_le_QM: + admissible (S,R), finrank L ≤ heightD, T = ramSet S u ⇒ (finrank L' : ℝ) ≤ heightQ R · M_S(u).
+- Not formalized: L' unramified outside T (needs inertia subgroups of G_ℚ; group core = twist_kills_inertia).
