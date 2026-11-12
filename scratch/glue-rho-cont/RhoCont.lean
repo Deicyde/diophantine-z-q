@@ -1,10 +1,12 @@
 /-
 glue-rho-cont: continuity of the ℓ-adic Galois representation of pkg-I3.
 
-Sections 1-2 below are copied verbatim from scratch/pkg-I3/I3.lean (lines 15-335; the
-definitions `Tate.T`, `AbVar`, `Pt`, `galAct`, `galT`, `galRep`), with three extra imports
-(`ModuleTopology`, `KrullTopology`, `AlgClosed`-free scheme API) needed for section 3.
-Section 3 is new: topology on `T_ℓ`, open stabilizers on `A(K̄)`, continuity of `ρ_ℓ`.
+Sections 1-2 are copied verbatim from scratch/pkg-I3/I3.lean (lines 15-335: the definitions
+`Tate.T`, `AbVar`, `Pt`, `galAct`, `galT`, `galRep`, unchanged), plus six imports needed for
+section 3 (module topology, Krull topology, residue fields, proper morphisms, base change of
+bases, matrix topology). Section 3 is new: the topology on `T_ℓ`, open stabilizers on `A(K̄)`,
+continuity of `ρ_ℓ` on `T_ℓ(A)` and on `V_ℓ(A)`. No sorry; axioms propext, Classical.choice,
+Quot.sound (see the `#print axioms` at the end).
 -/
 import Mathlib.AlgebraicGeometry.Group.Abelian
 import Mathlib.NumberTheory.Padics.RingHoms
@@ -430,6 +432,27 @@ theorem continuous_of_linearMap_padicInt (c : T ℓ M →ₗ[ℤ_[ℓ]] ℤ_[ℓ
         mul_le_mul_of_nonneg_left (PadicInt.norm_le_one _) (zpow_nonneg (Nat.cast_nonneg _) _)
     _ < ε := by simpa using hn
 
+omit hℓ [TopologicalSpace M] [DiscreteTopology M] in
+lemma coord_eq_zero_of_le {x : T ℓ M} {n k : ℕ} (hx : x.1 n = 0) (hk : k ≤ n) : x.1 k = 0 := by
+  rw [← pow_smul_shift x.2 (n - k) k, Nat.add_sub_cancel' hk, hx, smul_zero]
+
+omit hℓ in
+/-- **The inverse-limit topology is the `ℓ`-adic topology.** The sets `{x | xₙ = 0} = ℓⁿ T_ℓ(M)`
+(`coord_eq_zero_iff`) form a basis of neighbourhoods of `0`. -/
+theorem nhds_zero_hasBasis :
+    (nhds (0 : T ℓ M)).HasBasis (fun _ : ℕ => True) (fun n => {x : T ℓ M | x.1 n = 0}) := by
+  refine ⟨fun U => ⟨fun hU => ?_, fun ⟨n, _, hn⟩ =>
+    Filter.mem_of_superset ((isOpen_coord_eq n 0).mem_nhds rfl) hn⟩⟩
+  rw [nhds_subtype, Filter.mem_comap] at hU
+  obtain ⟨V, hV, hVU⟩ := hU
+  rw [nhds_pi, Filter.mem_pi'] at hV
+  obtain ⟨I, t, ht, hIt⟩ := hV
+  refine ⟨I.sup id, trivial, fun x hx => hVU (hIt fun k hk => ?_)⟩
+  have hk' : k ≤ I.sup id := Finset.le_sup (f := id) hk
+  show x.1 k ∈ t k
+  rw [coord_eq_zero_of_le hx hk']
+  exact mem_of_mem_nhds (ht k)
+
 omit [DiscreteTopology M] in
 /-- Functoriality is jointly continuous: if `G` acts continuously on the discrete group `M`, the
 induced action on `T_ℓ(M)` is continuous. -/
@@ -687,5 +710,6 @@ end PkgI3
 #print axioms PkgI3.RhoCont.exists_openSubgroup_galAct_eq
 #print axioms PkgI3.RhoCont.continuous_galT
 #print axioms PkgI3.Tate.continuous_of_linearMap_padicInt
+#print axioms PkgI3.Tate.nhds_zero_hasBasis
 #print axioms PkgI3.continuous_galRep_of_tateModuleFree
 #print axioms PkgI3.RhoCont.continuous_toMatrix_galRep
