@@ -7,3 +7,4 @@
   eq_of_eq_on_frob (continuous functions on G_ℚ agreeing on Frobenius outside S are equal, from FrobDense),
   iso_of_trace_eq_on_frob (G_ℚ-level comparison from BrauerNesbittChar0 + FrobDense).
   Open glue: FrobLift (lift of a finite-level unramified Frobenius to a Frobenius in G_ℚ).
+- 23:34 C10.lean: added iso_three_of_five (N5's transport 5 → 3: ι₅ injective gives c p = a p, then iso_of_trace_eq_on_frob) and semisimple_of_le (inferInstance). Compiles, axioms standard (VERIFIED).

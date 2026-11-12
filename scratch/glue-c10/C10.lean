@@ -182,9 +182,56 @@ theorem iso_of_trace_eq_on_frob (hBN : BrauerNesbittChar0) (S : Finset ℕ) (hD 
     htr
   exact hBN k _ V W ρ σ hρ hσ fun g => congrFun heq g
 
+/-! ## Part C. N5's transport from five to three -/
+
+/-- **C10, the identification of `r₃` (GLUE, proved from I6.5 and `FrobDense`).**  N5 L776-795:
+`C` is the coefficient field, `ι₃ : C → k₃`, `ι₅ : C → k₅` the chosen embeddings.  For a
+Frobenius `g` at `p ∉ S`, the abelian-variety side gives one element `c p ∈ C` with
+`tr r_ℓ(g) = ι_ℓ(c p)` for `ℓ = 3, 5` (Mumford §19 Thm 4, see `Trace.lean`), and the modular side
+gives `a p ∈ C` with `tr ρ_ℓ(g) = ι_ℓ(a p)`.  If `r₅` and `ρ₅` have the same traces at
+Frobenius (C9: `r₅ ≅ ρ_{f,ι₅}`), then `c p = a p` in `C`, so the traces of `r₃` and `ρ₃` agree at
+every Frobenius outside `S`, and `r₃ ≅ ρ₃`. -/
+theorem iso_three_of_five (hBN : BrauerNesbittChar0) (S : Finset ℕ) (hD : FrobDense S)
+    (C : Type) [Field C] (c a : ℕ → C)
+    (k₅ V₅ W₅ : Type) [Field k₅] [AddCommGroup V₅] [Module k₅ V₅]
+    [AddCommGroup W₅] [Module k₅ W₅] (ι₅ : C →+* k₅)
+    (r₅ : Representation k₅ GQ V₅) (ρ₅ : Representation k₅ GQ W₅)
+    (h₅ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p →
+      LinearMap.trace k₅ V₅ (r₅ g) = LinearMap.trace k₅ W₅ (ρ₅ g))
+    (hr₅ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → LinearMap.trace k₅ V₅ (r₅ g) = ι₅ (c p))
+    (hρ₅ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → LinearMap.trace k₅ W₅ (ρ₅ g) = ι₅ (a p))
+    (k V W ι κ : Type) [Field k] [CharZero k] [TopologicalSpace k] [IsTopologicalRing k]
+    [T2Space k] [AddCommGroup V] [Module k V] [FiniteDimensional k V]
+    [AddCommGroup W] [Module k W] [FiniteDimensional k W]
+    [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] (ι₃ : C →+* k)
+    (bV : Module.Basis ι k V) (bW : Module.Basis κ k W)
+    (r₃ : Representation k GQ V) (ρ₃ : Representation k GQ W)
+    (hrc : Continuous fun g => LinearMap.toMatrix bV bV (r₃ g))
+    (hρc : Continuous fun g => LinearMap.toMatrix bW bW (ρ₃ g))
+    (hr : IsSemisimpleModule (MonoidAlgebra k GQ) r₃.asModule)
+    (hρ : IsSemisimpleModule (MonoidAlgebra k GQ) ρ₃.asModule)
+    (hr₃ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → LinearMap.trace k V (r₃ g) = ι₃ (c p))
+    (hρ₃ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → LinearMap.trace k W (ρ₃ g) = ι₃ (a p)) :
+    Nonempty (r₃.asModule ≃ₗ[MonoidAlgebra k GQ] ρ₃.asModule) := by
+  refine iso_of_trace_eq_on_frob hBN S hD k V W ι κ bV bW r₃ ρ₃ hrc hρc hr hρ ?_
+  intro g p hp hpS hg
+  have hca : c p = a p := ι₅.injective
+    ((hr₅ g p hp hpS hg).symm.trans ((h₅ g p hp hpS hg).trans (hρ₅ g p hp hpS hg)))
+  rw [hr₃ g p hp hpS hg, hρ₃ g p hp hpS hg, hca]
+
+/-- **The semisimplification step.**  A subrepresentation (here: a `k[G]`-submodule) of a
+semisimple representation is semisimple; so `r_ℓ ⊂ V_ℓ(A) ⊗ k` inherits semisimplicity from
+Faltings' Satz 3 (pkg-I3 `FaltingsSemisimple`, after base change to `k`). -/
+theorem semisimple_of_le {k G V : Type} [Field k] [Group G] [AddCommGroup V] [Module k V]
+    (ρ : Representation k G V) (hρ : IsSemisimpleModule (MonoidAlgebra k G) ρ.asModule)
+    (N : Submodule (MonoidAlgebra k G) ρ.asModule) :
+    IsSemisimpleModule (MonoidAlgebra k G) N := inferInstance
+
 end GlueC10
 
 #print axioms GlueC10.iso_of_trace_eq_frob_finite
 #print axioms GlueC10.frobDense_of_chebotarev
 #print axioms GlueC10.eq_of_eq_on_frob
 #print axioms GlueC10.iso_of_trace_eq_on_frob
+#print axioms GlueC10.iso_three_of_five
+#print axioms GlueC10.semisimple_of_le
