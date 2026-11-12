@@ -23,3 +23,4 @@
   on `G^u`, `u > U`; non-integrable case via `integral_undef`), `condAt_le_of_upper`
   (`a(ρ) ≤ n(1+U)` from `SwanIntegral`): glue-conductor D4(i) consumer. Compiles, axioms
   [propext, Classical.choice, Quot.sound]. VERIFIED.
+- 23:53 PST: added non-degeneracy checks `fixSet_subset_ramSet`, `isAdapted_one`, `condExp_one`, `one_mem_wildSet`. Compiles. VERIFIED.

@@ -519,6 +519,30 @@ theorem condAt_le_of_upper (hL8 : SwanIntegral) (ℓ : ℕ) [Fact ℓ.Prime] (hp
   rw [condAt, Rat.cast_add, Rat.cast_natCast]
   linarith
 
+/-! ### Non-degeneracy checks -/
+
+/-- `G_L ⊆ G_i(L)` (preimage) as soon as `L` has a uniformizer. -/
+theorem fixSet_subset_ramSet {L : Fld p} {ϖ : Kbar p} (hϖ : IsUnif L ϖ) (i : ℕ) :
+    fixSet L ⊆ ramSet L i := by
+  intro σ hσ
+  refine ⟨ϖ, hϖ, fun x hx _ => ?_⟩
+  rw [hσ x hx, sub_self, norm_zero]
+  positivity
+
+/-- The trivial representation is adapted to every finite Galois `L`, and has conductor `0`. -/
+theorem isAdapted_one {L : Fld p} (hL : IsFinGal L) :
+    IsAdapted L (1 : GQp p →* GL (Fin n) k) :=
+  ⟨hL, fun _ _ => rfl⟩
+
+theorem condExp_one : condExp (1 : GQp p →* GL (Fin n) k) = 0 :=
+  condExp_eq_zero_of_unramified fun _ _ => rfl
+
+/-- Wild inertia contains `1`. -/
+theorem one_mem_wildSet : (1 : GQp p) ∈ wildSet := by
+  intro x hx
+  simp only [AlgEquiv.one_apply, sub_self, norm_zero]
+  exact norm_pos_iff.mpr hx
+
 end LadicCond
 
 end
