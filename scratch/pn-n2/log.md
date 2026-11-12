@@ -20,3 +20,11 @@ Statements (prefix `n2_`):
 Compile: first run 3 errors (norm_num `at h ⊢` "no goals"; `mul_smul` direction; omega on
 `m / q`), fixed. Second run: no errors, no warnings. `#print axioms lemmaN2`:
 [propext, Classical.choice, Quot.sound]. Size: 259 lines helpers + 26 lines lemmaN2.
+
+## Step 2: moved into scratch/pn-design/PropN.lean
+- body.lean inserted directly above the doc comment of `lemmaN2`; the `sorry` of `lemmaN2`
+  replaced by the proof. `git diff` removes exactly one line (`  sorry`); 279 lines added.
+- `lake env lean scratch/pn-design/PropN.lean`: exit 0, warnings only
+  `154:8 declaration uses 'sorry'` (lemmaN1_core), `455:8` (finalStep), `466:8` (matching).
+- `#print axioms ZInQ.PropN.lemmaN2` (on a temporary copy): [propext, Classical.choice, Quot.sound].
+- No `axiom`, `native_decide`, `implemented_by`, `extern` in the file.
