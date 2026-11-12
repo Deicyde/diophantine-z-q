@@ -25,3 +25,17 @@ at a prime.
 - C_d: `isMinimal_cdLocal` (odd squarefree d, all v), `hasGoodReduction_cdLocal` (p ∤ 2d),
   `hasAdditiveReduction_cdLocal` (p | 2d), `localPolynomial_cdLocal_of_not_dvd`
   (1 - (p+1-#C_d(𝔽_p)) T + p T²), `localPolynomial_cdLocal_of_dvd` (= 1).
+
+## Step 2 (global coefficients) and integration
+- `LFunction_cd_apply_prime_pow` (coefficient at p^k = [T^k] 1/cdEulerPoly d p), via
+  `tendsTo_eulerProduct_ofPowerSeries` with a `Northcott` instance for v ↦ #κ_v = natGenerator v,
+  and the vanishing of the other factors at nontrivial divisors of p^k.
+- `LFunction_cd_apply_prime` (a_p = p+1-#C_d(𝔽_p) for p ∤ 2d, 0 for p | 2d),
+  `LFunction_cd_apply_prime_eq_sub_card` (a_p = p - #{y² = x³ - d²x over 𝔽_p}),
+  `isMultiplicative_LFunction` (any W/ℚ), `LFunction_cd_apply` (all n ≠ 0),
+  `LSeries_cd_eq` / `LSeries_cd_eq_of_mod_eight` (E.LSeries = LSeries of `cdCoeff d`).
+- Final file ZInQKernel/RouteK/Rank/LFunctionCd.lean (scratch draft removed), imported from
+  ZInQKernel.lean; 11 `#print axioms` lines added.
+- `lake build ZInQKernel`: Build completed successfully (9923 jobs).
+- `lake env lean scripts/print_axioms.lean`: 80 entries, all [propext, Classical.choice,
+  Quot.sound] (output in scratch/lfun-cd/print_axioms.out).

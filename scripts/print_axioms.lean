@@ -88,3 +88,16 @@ Each declaration should depend on `[propext, Classical.choice, Quot.sound]` only
 #print axioms ZInQ.Literature.tyzRow5b_of_readingA
 #print axioms ZInQ.Literature.IsLContinuation.eq
 #print axioms ZInQ.JHeight.sixContactMin_of_jHeightBound
+
+-- Mathlib's L-function of `C_d` (`RouteK/Rank/LFunctionCd.lean`).
+#print axioms ZInQ.Literature.isMinimal_cdLocal
+#print axioms ZInQ.Literature.hasGoodReduction_cdLocal
+#print axioms ZInQ.Literature.hasAdditiveReduction_cdLocal
+#print axioms ZInQ.Literature.localPolynomial_cdLocal_of_not_dvd
+#print axioms ZInQ.Literature.localPolynomial_cdLocal_of_dvd
+#print axioms ZInQ.Literature.LFunction_cd_apply_prime
+#print axioms ZInQ.Literature.LFunction_cd_apply_prime_eq_sub_card
+#print axioms ZInQ.Literature.LFunction_cd_apply_prime_pow
+#print axioms ZInQ.Literature.LFunction_cd_apply
+#print axioms ZInQ.Literature.LSeries_cd_eq
+#print axioms ZInQ.Literature.LSeries_cd_eq_of_mod_eight

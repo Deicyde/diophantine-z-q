@@ -114,6 +114,8 @@ theorem equation_variableChange_iff (E : WeierstrassCurve F) (C : VariableChange
     field_simp
     linear_combination h
 
+set_option linter.unnecessarySeqFocus false in
+set_option linter.unusedTactic false in
 /-- The affine solutions of `C • E` and of `E` correspond. -/
 noncomputable def solutionsVariableChangeEquiv (E : WeierstrassCurve F) (C : VariableChange F) :
     {xy : F × F // (C • E).toAffine.Equation xy.1 xy.2} ≃
@@ -136,7 +138,8 @@ noncomputable def pointEquivOption (E : WeierstrassCurve F) [E.IsElliptic] :
     E.toAffine.Point ≃ Option {xy : F × F // E.toAffine.Equation xy.1 xy.2} :=
   (Equiv.subtypeUnivEquiv (p := fun _ : E.toAffine.Point => True) fun _ => trivial).symm.trans
     ((Affine.pointEquivSubtype (W' := E.toAffine) trivial).trans
-      (Equiv.optionCongr (Equiv.subtypeEquivRight fun _ => ⟨fun ⟨h, _⟩ => h, fun h => ⟨h, trivial⟩⟩)))
+      (Equiv.optionCongr
+        (Equiv.subtypeEquivRight fun _ => ⟨fun ⟨h, _⟩ => h, fun h => ⟨h, trivial⟩⟩)))
 
 theorem natCard_point_variableChange (E : WeierstrassCurve F) [E.IsElliptic]
     (C : VariableChange F) :
@@ -183,7 +186,8 @@ theorem localPolynomial_of_hasAdditiveReduction (W : WeierstrassCurve K) (hΔ : 
   simp only [h1, h2, h3, ↓reduceIte]
 
 theorem natCard_point_reduction_minimal (W : WeierstrassCurve K) [h : HasGoodReduction R W] :
-    Nat.card ((W.minimal R).reduction R).toAffine.Point = Nat.card (W.reduction R).toAffine.Point := by
+    Nat.card ((W.minimal R).reduction R).toAffine.Point =
+      Nat.card (W.reduction R).toAffine.Point := by
   have hΔ : W.Δ ≠ 0 := fun h0 => by simpa [h0] using h.goodReduction
   have : IsMinimal R ((W.exists_isMinimal R).choose • W) := (W.exists_isMinimal R).choose_spec
   obtain ⟨C', hC'⟩ := exists_reduction_variableChange W _ (vK_u_eq_one hΔ (R := R)
@@ -256,7 +260,7 @@ open Rat.HeightOneSpectrum
 
 local instance (q : Nat.Primes) : Fact q.1.Prime := ⟨q.2⟩
 
-local instance factNatGenerator (v : HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) :
+instance factNatGenerator (v : HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) :
     Fact (natGenerator v).Prime := ⟨prime_natGenerator v⟩
 
 variable (v : HeightOneSpectrum (NumberField.RingOfIntegers ℚ))
@@ -473,17 +477,66 @@ instance northcott_natCard_residueField :
   simp only [natCard_residueField]
   exact Set.Finite.preimage natGenerator_injective.injOn (Set.finite_Iic b)
 
-/-- **The Dirichlet coefficient of `L(C_d, s)` at a prime `p`**, for odd squarefree `d`:
-`a_p = p + 1 − #C_d(𝔽_p)` (point at infinity included) if `p ∤ 2d`, and `0` if `p ∣ 2d`. -/
-theorem LFunction_cd_apply_prime {d : ℕ} (hd : Odd d) (hsq : Squarefree d) (p : ℕ)
-    [hp' : Fact p.Prime] :
-    (shortCurve (-(d : ℚ) ^ 2)).LFunction p =
-      if p ∣ 2 * d then 0
-      else (p : ℤ) + 1 - Nat.card (shortCurve (-(d : ZMod p) ^ 2)).toAffine.Point := by
+/-- The Euler polynomial of `C_d` at `p`: `1 − a_p T + p T²` with `a_p = p + 1 − #C_d(𝔽_p)` if
+`p ∤ 2d`, and `1` if `p ∣ 2d`. -/
+noncomputable def cdEulerPoly (d p : ℕ) : Polynomial ℤ :=
+  if p ∣ 2 * d then 1
+  else 1 - Polynomial.C ((p : ℤ) + 1 - Nat.card (cdModel (ZMod p) d).toAffine.Point) *
+    Polynomial.X + Polynomial.C (p : ℤ) * Polynomial.X ^ 2
+
+theorem cdEulerPoly_coeff_zero (d p : ℕ) : (cdEulerPoly d p).coeff 0 = 1 := by
+  unfold cdEulerPoly; split_ifs <;> simp
+
+theorem localPolynomial_cdLocal_eq (v : HeightOneSpectrum (NumberField.RingOfIntegers ℚ))
+    {d : ℕ} (hd : Odd d) (hsq : Squarefree d) :
+    (cdLocal v d).localPolynomial (v.adicCompletionIntegers ℚ) =
+      cdEulerPoly d (natGenerator v) := by
+  unfold cdEulerPoly
+  split_ifs with h
+  · exact localPolynomial_cdLocal_of_dvd v hd hsq h
+  · exact localPolynomial_cdLocal_of_not_dvd v h
+
+theorem mul_apply_of_vanish {f g : ArithmeticFunction ℤ} {n : ℕ} (hf1 : f 1 = 1)
+    (hf : ∀ m, m ∣ n → m ≠ 1 → f m = 0) : (f * g) n = g n := by
+  rw [mul_apply, Finset.sum_eq_single (1, n)]
+  · simp [hf1]
+  · rintro ⟨a, b⟩ hab hne
+    have h := Nat.mem_divisorsAntidiagonal.mp hab
+    by_cases ha : a = 1
+    · subst ha; simp only [one_mul] at h; exact absurd (by rw [h.1]) hne
+    · rw [hf a ⟨b, h.1.symm⟩ ha, zero_mul]
+  · intro h
+    have hn : n = 0 := by
+      by_contra hn; exact h (Nat.mem_divisorsAntidiagonal.mpr ⟨one_mul n, hn⟩)
+    simp [hn]
+
+theorem prod_vanish {ι : Type*} (f : ι → ArithmeticFunction ℤ) (n : ℕ) (s : Finset ι)
+    (hf : ∀ i ∈ s, f i 1 = 1 ∧ ∀ m, m ∣ n → m ≠ 1 → f i m = 0) :
+    (∏ i ∈ s, f i) 1 = 1 ∧ ∀ m, m ∣ n → m ≠ 1 → (∏ i ∈ s, f i) m = 0 := by
+  classical
+  induction s using Finset.induction_on with
+  | empty => exact ⟨by simp, fun m _ hm => by simp [one_apply_ne hm]⟩
+  | insert a s ha ih =>
+    have ih' := ih fun i hi => hf i (Finset.mem_insert_of_mem hi)
+    have hfa := hf a (Finset.mem_insert_self a s)
+    rw [Finset.prod_insert ha]
+    refine ⟨by rw [mul_apply_one, hfa.1, ih'.1, one_mul], fun m hm hm1 => ?_⟩
+    rw [mul_apply_of_vanish hfa.1 fun m' hm' hm'1 => hfa.2 m' (hm'.trans hm) hm'1]
+    exact ih'.2 m hm hm1
+
+theorem exists_natGenerator_eq (p : ℕ) [hp : Fact p.Prime] :
+    ∃ v : HeightOneSpectrum (NumberField.RingOfIntegers ℚ), natGenerator v = p :=
+  ⟨primesEquiv.symm ⟨p, hp.out⟩, congrArg Subtype.val (primesEquiv.apply_symm_apply ⟨p, hp.out⟩)⟩
+
+/-- **The Dirichlet coefficient of `L(C_d, s)` at a prime power `p ^ k`**, for odd squarefree
+`d`: the coefficient of `T ^ k` in `1 / cdEulerPoly d p`. -/
+theorem LFunction_cd_apply_prime_pow {d : ℕ} (hd : Odd d) (hsq : Squarefree d) (p : ℕ)
+    [hp' : Fact p.Prime] (k : ℕ) :
+    (shortCurve (-(d : ℚ) ^ 2)).LFunction (p ^ k) =
+      PowerSeries.coeff k (PowerSeries.invOfUnit (cdEulerPoly d p : PowerSeries ℤ) 1) := by
   classical
   have hp := hp'.out
-  obtain ⟨v, rfl⟩ : ∃ v : HeightOneSpectrum (NumberField.RingOfIntegers ℚ), natGenerator v = p :=
-    ⟨primesEquiv.symm ⟨p, hp⟩, congrArg Subtype.val (primesEquiv.apply_symm_apply ⟨p, hp⟩)⟩
+  obtain ⟨v, rfl⟩ := exists_natGenerator_eq p
   set q := fun w : HeightOneSpectrum (NumberField.RingOfIntegers ℚ) =>
     Nat.card (IsLocalRing.ResidueField (w.adicCompletionIntegers ℚ)) with hq_def
   set F := fun w : HeightOneSpectrum (NumberField.RingOfIntegers ℚ) =>
@@ -492,33 +545,65 @@ theorem LFunction_cd_apply_prime {d : ℕ} (hd : Odd d) (hsq : Squarefree d) (p 
     simp [F, localPowerSeries, PowerSeries.constantCoeff_invOfUnit]
   have hf1 : ∀ w, ofPowerSeries (q w) (F w) 1 = 1 := fun w => by
     rw [ofPowerSeries_apply_one, hF]
-  obtain ⟨s0, hs0⟩ := Filter.eventually_atTop.mp
-    (tendsTo_eulerProduct_ofPowerSeries q F hF (natGenerator v))
-  have key := hs0 (insert v s0) (Finset.subset_insert _ _)
-  change eulerProduct (fun w => ofPowerSeries (q w) (F w)) (natGenerator v) = _
-  rw [← key, prod_apply_prime _ hf1 _ hp, Finset.sum_eq_single v]
-  · have h1 := ofPowerSeries_apply_pow (R := ℤ) hp.one_lt (F v) 1
-    rw [pow_one] at h1
-    have hq : q v = natGenerator v := natCard_residueField v
-    rw [hq, h1]
-    simp only [F, localPowerSeries]
-    split_ifs with h2d
-    · rw [localPolynomial_cdLocal_of_dvd v hd hsq h2d, coeff_one_invOfUnit _ (by simp)]
-      simp [Polynomial.coeff_one]
-    · rw [localPolynomial_cdLocal_of_not_dvd v h2d, coeff_one_invOfUnit _ (by simp)]
-      simp [Polynomial.coeff_one, Polynomial.coeff_X_pow]
-  · intro w _ hw
+  have hvan : ∀ w, w ≠ v → ∀ m, m ∣ natGenerator v ^ k → m ≠ 1 →
+      ofPowerSeries (q w) (F w) m = 0 := by
+    intro w hw m hm hm1
+    obtain ⟨j, -, rfl⟩ := (Nat.dvd_prime_pow hp).mp hm
     have hqw : q w = natGenerator w := natCard_residueField w
     rw [hqw, ofPowerSeries_apply (prime_natGenerator w).one_lt, Function.extend_apply']
     · rfl
-    rintro ⟨k, hk⟩
-    rcases k with _ | k
-    · exact hp.one_lt.ne' (by simpa using hk.symm)
-    · have hdvd : natGenerator w ∣ natGenerator v := hk ▸ dvd_pow_self _ (Nat.succ_ne_zero k)
-      exact hw (natGenerator_injective
-        ((Nat.prime_dvd_prime_iff_eq (prime_natGenerator w) hp).mp hdvd))
-  · intro hv
-    exact absurd (Finset.mem_insert_self v s0) hv
+    rintro ⟨l, hl⟩
+    rcases j with _ | j
+    · exact hm1 (pow_zero _)
+    rcases l with _ | l
+    · exact (Nat.one_lt_pow (Nat.succ_ne_zero j) hp.one_lt).ne (by simpa using hl)
+    · have hdvd : natGenerator w ∣ natGenerator v ^ (j + 1) :=
+        hl ▸ dvd_pow_self _ (Nat.succ_ne_zero l)
+      exact hw (natGenerator_injective ((Nat.prime_dvd_prime_iff_eq (prime_natGenerator w) hp).mp
+        ((prime_natGenerator w).dvd_of_dvd_pow hdvd)))
+  obtain ⟨s0, hs0⟩ := Filter.eventually_atTop.mp
+    (tendsTo_eulerProduct_ofPowerSeries q F hF (natGenerator v ^ k))
+  have key := hs0 (insert v s0) (Finset.subset_insert _ _)
+  change eulerProduct (fun w => ofPowerSeries (q w) (F w)) (natGenerator v ^ k) = _
+  have hrest := prod_vanish (fun w => ofPowerSeries (q w) (F w)) (natGenerator v ^ k)
+    ((insert v s0).erase v) fun w hw => ⟨hf1 w, hvan w (Finset.ne_of_mem_erase hw)⟩
+  rw [← key, ← Finset.mul_prod_erase _ _ (Finset.mem_insert_self v s0), mul_comm,
+    mul_apply_of_vanish hrest.1 hrest.2]
+  have hq : q v = natGenerator v := natCard_residueField v
+  rw [hq, ofPowerSeries_apply_pow hp.one_lt]
+  simp only [F, localPowerSeries]
+  rw [localPolynomial_cdLocal_eq v hd hsq]
+
+/-- **The Dirichlet coefficient of `L(C_d, s)` at a prime `p`**, for odd squarefree `d`:
+`a_p = p + 1 − #C_d(𝔽_p)` (point at infinity included) if `p ∤ 2d`, and `0` if `p ∣ 2d`. -/
+theorem LFunction_cd_apply_prime {d : ℕ} (hd : Odd d) (hsq : Squarefree d) (p : ℕ)
+    [Fact p.Prime] :
+    (shortCurve (-(d : ℚ) ^ 2)).LFunction p =
+      if p ∣ 2 * d then 0
+      else (p : ℤ) + 1 - Nat.card (shortCurve (-(d : ZMod p) ^ 2)).toAffine.Point := by
+  have h := LFunction_cd_apply_prime_pow hd hsq p 1
+  rw [pow_one] at h
+  rw [h, coeff_one_invOfUnit _ (cdEulerPoly_coeff_zero d p), ← cdModel_eq_shortCurve]
+  unfold cdEulerPoly
+  split_ifs <;> simp [Polynomial.coeff_one, Polynomial.coeff_X_pow]
+
+/-- Mathlib's L-function of an elliptic curve over `ℚ` is multiplicative. -/
+theorem isMultiplicative_LFunction (W : WeierstrassCurve ℚ) : W.LFunction.IsMultiplicative :=
+  isMultiplicative_eulerProduct _ fun v =>
+    isMultiplicative_ofPowerSeries_of_isPrimePow _
+      (by rw [natCard_residueField]; exact (prime_natGenerator v).isPrimePow) _
+      (by simp [localPowerSeries, PowerSeries.constantCoeff_invOfUnit])
+
+/-- **`L(C_d, s)` in full**, for odd squarefree `d`: the coefficient at `n ≠ 0` is
+`∏_{p^k ∥ n} [T^k] (1 / cdEulerPoly d p)`. So Mathlib's `L(C_d, s)` is the Euler product
+`∏_{p ∤ 2d} (1 − a_p p^{−s} + p^{1−2s})^{−1}` with `a_p = p + 1 − #C_d(𝔽_p)`. -/
+theorem LFunction_cd_apply {d : ℕ} (hd : Odd d) (hsq : Squarefree d) {n : ℕ} (hn : n ≠ 0) :
+    (shortCurve (-(d : ℚ) ^ 2)).LFunction n = n.factorization.prod fun p k =>
+      PowerSeries.coeff k (PowerSeries.invOfUnit (cdEulerPoly d p : PowerSeries ℤ) 1) := by
+  rw [(isMultiplicative_LFunction _).multiplicative_factorization _ hn]
+  refine Finsupp.prod_congr fun p hp => ?_
+  have : Fact p.Prime := ⟨Nat.prime_of_mem_primeFactors (Nat.support_factorization n ▸ hp)⟩
+  exact LFunction_cd_apply_prime_pow hd hsq p _
 
 /-- `#C_d(𝔽_p)` is the number of affine solutions plus one, for `p ∤ 2d`. -/
 theorem natCard_point_shortCurve_zmod {d : ℕ} (p : ℕ) [Fact p.Prime] (hp : ¬ p ∣ 2 * d) :
@@ -554,6 +639,18 @@ theorem LFunction_cd_apply_prime_of_dvd {d : ℕ} (hd : Odd d) (hsq : Squarefree
     [Fact p.Prime] (hp : p ∣ 2 * d) : (shortCurve (-(d : ℚ) ^ 2)).LFunction p = 0 := by
   rw [LFunction_cd_apply_prime hd hsq p]
   simp only [hp, ↓reduceIte]
+
+/-- The Dirichlet coefficients of `L(C_d, s)`, from the Euler polynomials `cdEulerPoly d p`. -/
+noncomputable def cdCoeff (d n : ℕ) : ℤ :=
+  if n = 0 then 0 else n.factorization.prod fun p k =>
+    PowerSeries.coeff k (PowerSeries.invOfUnit (cdEulerPoly d p : PowerSeries ℤ) 1)
+
+/-- **Mathlib's `L(C_d, s)` is the standard Euler product** (odd squarefree `d`): the L-series in
+the CR₃ literature Props equals the Dirichlet series of `cdCoeff d`. -/
+theorem LSeries_cd_eq {d : ℕ} (hd : Odd d) (hsq : Squarefree d) (s : ℂ) :
+    (shortCurve (-(d : ℚ) ^ 2)).LSeries s = LSeries (fun n => (cdCoeff d n : ℂ)) s := by
+  refine LSeries_congr (fun {n} hn => ?_) s
+  simp only [Function.comp_apply, cdCoeff, hn, ↓reduceIte, LFunction_cd_apply hd hsq hn]
 
 end LFunction
 
