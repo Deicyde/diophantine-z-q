@@ -19,3 +19,13 @@ e_mem, star_mem, ros_mem (𝒪 stable under †), trace_form / det_trace_form (d
 reduced disc 6), gram_E (N5 L414-416 matrix), det_gram_E (= 1), E_comb (E integral on 𝒪),
 E_self, E_antisymm (alternating), E_ros (E(ax,y)=E(x,a†y)), ros_ros, ros_mul, ros_add
 (anti-involution), trd_mul_ros, trd_mul_ros_pos (Trd(a a†) > 0 for a ≠ 0: † positive).
+
+## TorsionFree.lean — COMPILED (no errors, no sorry)
+- CommCore.eq_one_of_pow_eq_one: commutative ring, 3 regular, ⋂ 3ⁿC = 0, A ≡ 1 mod 3, Aᵐ = 1
+  (m > 0) ⇒ A = 1 (steps 3∤m and m=3, induction on v₃(m)).
+- eq_one_of_pow_eq_one: same in any ring (via the commutative subalgebra ℤ[y]).
+- matrix_eq_one (R Noetherian domain, 3 nonzero nonunit; Krull intersection
+  Ideal.iInf_pow_eq_bot_of_isDomain), matrix_int_eq_one, matrix_padic_eq_one (N5 L468-470).
+- padic_subgroup_trivial: finite H ≤ GL_r(ℤ₃) with all elements ≡ 1 mod 3 is ⊥ (PR(ii) step 3).
+- injective_mod_three, card_le_three_pow: finite G ≤ GL_r(ℤ) injects into GL_r(𝔽₃);
+  Nat.card G ≤ 3^(r²) (A8).
