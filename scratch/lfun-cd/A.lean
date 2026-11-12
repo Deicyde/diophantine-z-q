@@ -1,5 +1,6 @@
 import Mathlib.AlgebraicGeometry.EllipticCurve.LFunction
 import Mathlib.NumberTheory.Padics.HeightOneSpectrum
+import ZInQKernel.Model.Field.ShortWeierstrass
 
 namespace ZInQ.Literature
 
@@ -179,7 +180,7 @@ theorem localPolynomial_of_hasAdditiveReduction (W : WeierstrassCurve K) (hΔ : 
   have h3 : ¬(W.minimal R).HasMultiplicativeReduction R := fun hm =>
     hc'.ne hm.multiplicativeReduction
   unfold localPolynomial
-  rw [if_neg h1, if_neg h2, if_neg h3]
+  simp only [h1, h2, h3, ↓reduceIte]
 
 theorem natCard_point_reduction_minimal (W : WeierstrassCurve K) [h : HasGoodReduction R W] :
     Nat.card ((W.minimal R).reduction R).toAffine.Point = Nat.card (W.reduction R).toAffine.Point := by
@@ -203,8 +204,216 @@ theorem localPolynomial_of_hasGoodReduction (W : WeierstrassCurve K)
   have hg : (W.minimal R).HasGoodReduction R :=
     ⟨by rw [vK_minimal_Δ W hΔ]; exact h.goodReduction⟩
   unfold localPolynomial
-  rw [if_pos hg, natCard_point_reduction_minimal]
+  simp only [hg, ↓reduceIte, natCard_point_reduction_minimal]
 
 end LocalPolynomial
+
+section FieldIso
+
+variable {F F' : Type*} [Field F] [Field F']
+
+theorem natCard_point_map_ringEquiv (E : WeierstrassCurve F) [E.IsElliptic] (f : F ≃+* F') :
+    Nat.card (E.map (f : F →+* F')).toAffine.Point = Nat.card E.toAffine.Point := by
+  refine Nat.card_congr ((pointEquivOption _).trans
+    ((Equiv.optionCongr ?_).trans (pointEquivOption E).symm))
+  exact (Equiv.subtypeEquiv (f.toEquiv.prodCongr f.toEquiv) fun xy =>
+    (Affine.map_equation (W := E.toAffine) (f := (f : F →+* F')) f.injective xy.1 xy.2).symm).symm
+
+end FieldIso
+
+section Cd
+
+/-- The integral model `y² = x³ − d² x` over any commutative ring. -/
+def cdModel (S : Type*) [CommRing S] (d : ℕ) : WeierstrassCurve S where
+  a₁ := 0
+  a₂ := 0
+  a₃ := 0
+  a₄ := -(d : S) ^ 2
+  a₆ := 0
+
+variable {S : Type*} [CommRing S] (d : ℕ)
+
+theorem cdModel_Δ : (cdModel S d).Δ = ((2 * d : ℕ) : S) ^ 6 := by
+  simp only [WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄, WeierstrassCurve.b₆,
+    WeierstrassCurve.b₈, cdModel]
+  push_cast; ring
+
+theorem cdModel_c₄ : (cdModel S d).c₄ = ((48 * d ^ 2 : ℕ) : S) := by
+  simp only [WeierstrassCurve.c₄, WeierstrassCurve.b₂, WeierstrassCurve.b₄, cdModel]
+  push_cast; ring
+
+theorem cdModel_map {T : Type*} [CommRing T] (f : S →+* T) : (cdModel S d).map f = cdModel T d := by
+  ext <;> simp [cdModel]
+
+theorem cdModel_eq_shortCurve (F : Type*) [Field F] : cdModel F d = shortCurve (-(d : F) ^ 2) :=
+  rfl
+
+end Cd
+
+section Completion
+
+open Rat.HeightOneSpectrum
+
+local instance (q : Nat.Primes) : Fact q.1.Prime := ⟨q.2⟩
+
+local instance factNatGenerator (v : HeightOneSpectrum (NumberField.RingOfIntegers ℚ)) :
+    Fact (natGenerator v).Prime := ⟨prime_natGenerator v⟩
+
+variable (v : HeightOneSpectrum (NumberField.RingOfIntegers ℚ))
+
+/-- The ring isomorphism `𝓞_v ≃ ℤ_p`. -/
+noncomputable abbrev ePadic : v.adicCompletionIntegers ℚ ≃+* ℤ_[primesEquiv v] :=
+  (adicCompletionIntegers.padicIntEquiv v).toRingEquiv
+
+theorem isUnit_intCast_iff (n : ℤ) :
+    IsUnit (n : v.adicCompletionIntegers ℚ) ↔ ¬ (natGenerator v : ℤ) ∣ n := by
+  rw [← isUnit_map_iff (ePadic v), map_intCast, PadicInt.isUnit_iff,
+    PadicInt.norm_intCast_eq_one_iff, isCoprime_comm]
+  exact Irreducible.coprime_iff_not_dvd
+    (Nat.prime_iff_prime_int.mp (prime_natGenerator v)).irreducible
+
+theorem irreducible_natGenerator :
+    Irreducible ((natGenerator v : ℕ) : v.adicCompletionIntegers ℚ) := by
+  rw [← MulEquiv.irreducible_iff (ePadic v), map_natCast]
+  exact PadicInt.irreducible_p
+
+theorem maximalIdeal_eq_span :
+    IsLocalRing.maximalIdeal (v.adicCompletionIntegers ℚ) =
+      Ideal.span {((natGenerator v : ℕ) : v.adicCompletionIntegers ℚ)} :=
+  (IsDiscreteValuationRing.irreducible_iff_uniformizer _).mp (irreducible_natGenerator v)
+
+theorem intCast_mem_maximalIdeal_pow_iff (n : ℤ) (k : ℕ) :
+    (n : v.adicCompletionIntegers ℚ) ∈ IsLocalRing.maximalIdeal _ ^ k ↔
+      (natGenerator v : ℤ) ^ k ∣ n := by
+  rw [maximalIdeal_eq_span, Ideal.span_singleton_pow, Ideal.mem_span_singleton,
+    ← map_dvd_iff (ePadic v), map_pow, map_natCast, map_intCast]
+  exact PadicInt.pow_p_dvd_int_iff k n
+
+theorem natCast_mem_maximalIdeal_iff (n : ℕ) :
+    (n : v.adicCompletionIntegers ℚ) ∈ IsLocalRing.maximalIdeal _ ↔ natGenerator v ∣ n := by
+  have := intCast_mem_maximalIdeal_pow_iff v n 1
+  simp only [pow_one, Int.cast_natCast] at this
+  rw [this]; exact Int.natCast_dvd_natCast
+
+/-- The residue field of `𝓞_v` is `ZMod p`. -/
+noncomputable abbrev residueEquiv :
+    IsLocalRing.ResidueField (v.adicCompletionIntegers ℚ) ≃+* ZMod (natGenerator v) :=
+  (IsLocalRing.ResidueField.mapEquiv (ePadic v)).trans PadicInt.residueField
+
+theorem natCard_residueField :
+    Nat.card (IsLocalRing.ResidueField (v.adicCompletionIntegers ℚ)) = natGenerator v := by
+  rw [Nat.card_congr (residueEquiv v).toEquiv, Nat.card_zmod]
+
+/-- `C_d` over the completion `ℚ_v`. -/
+noncomputable abbrev cdLocal (d : ℕ) : WeierstrassCurve (v.adicCompletion ℚ) :=
+  (shortCurve (-(d : ℚ) ^ 2)).baseChange (v.adicCompletion ℚ)
+
+theorem cdLocal_eq (d : ℕ) : cdLocal v d = cdModel (v.adicCompletion ℚ) d := by
+  rw [cdLocal, ← cdModel_eq_shortCurve]; exact cdModel_map d _
+
+theorem cdModel_baseChange (d : ℕ) :
+    (cdModel (v.adicCompletionIntegers ℚ) d)⁄(v.adicCompletion ℚ) = cdLocal v d := by
+  rw [cdLocal_eq]; exact cdModel_map d _
+
+theorem not_dvd_two_mul_pow_six {p d : ℕ} (hp : p.Prime) (hd : Odd d) (hsq : Squarefree d) :
+    ¬ (p : ℤ) ^ 12 ∣ (((2 * d : ℕ) ^ 6 : ℕ) : ℤ) := by
+  intro h
+  have h' : (p ^ 2) ^ 6 ∣ (2 * d) ^ 6 := by
+    rw [← pow_mul]; exact_mod_cast h
+  rw [Nat.pow_dvd_pow_iff (by norm_num)] at h'
+  have h2d : Squarefree (2 * d) :=
+    Nat.squarefree_mul_iff.mpr ⟨Nat.coprime_two_left.mpr hd, Nat.prime_two.squarefree, hsq⟩
+  have := h2d p (by rw [← pow_two]; exact h')
+  exact hp.one_lt.ne' (Nat.isUnit_iff.mp this)
+
+theorem isMinimal_cdLocal {d : ℕ} (hd : Odd d) (hsq : Squarefree d) :
+    IsMinimal (v.adicCompletionIntegers ℚ) (cdLocal v d) := by
+  rw [← cdModel_baseChange]
+  apply isMinimal_baseChange_of_notMem
+  rw [cdModel_Δ, ← Nat.cast_pow, ← Int.cast_natCast, intCast_mem_maximalIdeal_pow_iff]
+  exact not_dvd_two_mul_pow_six (prime_natGenerator v) hd hsq
+
+theorem cdLocal_Δ_eq (d : ℕ) :
+    (cdLocal v d).Δ = algebraMap (v.adicCompletionIntegers ℚ) (v.adicCompletion ℚ)
+      (((2 * d : ℕ) : v.adicCompletionIntegers ℚ) ^ 6) := by
+  rw [← cdModel_baseChange, baseChange, map_Δ, cdModel_Δ]
+
+theorem cdLocal_c₄_eq (d : ℕ) :
+    (cdLocal v d).c₄ = algebraMap (v.adicCompletionIntegers ℚ) (v.adicCompletion ℚ)
+      ((48 * d ^ 2 : ℕ) : v.adicCompletionIntegers ℚ) := by
+  rw [← cdModel_baseChange, baseChange, map_c₄, cdModel_c₄]
+
+theorem cdLocal_Δ_ne_zero {d : ℕ} (hd : d ≠ 0) : (cdLocal v d).Δ ≠ 0 := by
+  rw [cdLocal_eq, cdModel_Δ, ← map_natCast (algebraMap ℚ (v.adicCompletion ℚ))]
+  exact pow_ne_zero _ ((map_ne_zero _).mpr (Nat.cast_ne_zero.mpr (by omega)))
+
+/-- Good reduction at `v ∤ 2d`. -/
+theorem hasGoodReduction_cdLocal {d : ℕ} (hp : ¬ natGenerator v ∣ 2 * d) :
+    HasGoodReduction (v.adicCompletionIntegers ℚ) (cdLocal v d) := by
+  have hm : ((2 * d : ℕ) : v.adicCompletionIntegers ℚ) ^ 6 ∉
+      IsLocalRing.maximalIdeal (v.adicCompletionIntegers ℚ) := fun h =>
+    hp ((natCast_mem_maximalIdeal_iff v _).mp ((Ideal.IsPrime.mem_of_pow_mem inferInstance 6 h)))
+  have hmin : IsMinimal (v.adicCompletionIntegers ℚ) (cdLocal v d) := by
+    rw [← cdModel_baseChange]
+    apply isMinimal_baseChange_of_notMem
+    rw [cdModel_Δ]
+    exact fun h => hm (Ideal.pow_le_self (by norm_num) h)
+  refine (hasGoodReduction_iff _ _).mpr ⟨hmin, ?_⟩
+  rw [cdLocal_Δ_eq, valuation_of_algebraMap, intValuation_eq_one_iff]
+  exact hm
+
+/-- Additive reduction at `v ∣ 2d`. -/
+theorem hasAdditiveReduction_cdLocal {d : ℕ} (hd : Odd d) (hsq : Squarefree d)
+    (hp : natGenerator v ∣ 2 * d) :
+    HasAdditiveReduction (v.adicCompletionIntegers ℚ) (cdLocal v d) := by
+  refine (hasAdditiveReduction_iff _ _).mpr ⟨isMinimal_cdLocal v hd hsq, ?_, ?_⟩
+  · rw [cdLocal_Δ_eq, valuation_of_algebraMap, intValuation_lt_one_iff_mem]
+    exact Ideal.pow_mem_of_mem _ ((natCast_mem_maximalIdeal_iff v _).mpr hp) 6 (by norm_num)
+  · rw [cdLocal_c₄_eq, valuation_of_algebraMap, intValuation_lt_one_iff_mem]
+    exact (natCast_mem_maximalIdeal_iff v _).mpr (hp.trans ⟨24 * d, by ring⟩)
+
+theorem reduction_cdLocal (d : ℕ) [IsMinimal (v.adicCompletionIntegers ℚ) (cdLocal v d)] :
+    (cdLocal v d).reduction (v.adicCompletionIntegers ℚ) =
+      cdModel (IsLocalRing.ResidueField (v.adicCompletionIntegers ℚ)) d := by
+  have hI : integralModel (v.adicCompletionIntegers ℚ) (cdLocal v d) =
+      cdModel (v.adicCompletionIntegers ℚ) d := by
+    apply WeierstrassCurve.map_injective (IsFractionRing.injective _ (v.adicCompletion ℚ))
+    change (integralModel _ (cdLocal v d))⁄(v.adicCompletion ℚ) = (cdModel _ d)⁄_
+    rw [baseChange_integralModel_eq, cdModel_baseChange]
+  rw [reduction, hI, cdModel_map]
+
+theorem natCard_point_reduction_cdLocal {d : ℕ} (hp : ¬ natGenerator v ∣ 2 * d)
+    [IsMinimal (v.adicCompletionIntegers ℚ) (cdLocal v d)] :
+    Nat.card ((cdLocal v d).reduction (v.adicCompletionIntegers ℚ)).toAffine.Point =
+      Nat.card (shortCurve (-(d : ZMod (natGenerator v)) ^ 2)).toAffine.Point := by
+  rw [reduction_cdLocal]
+  have hE : (cdModel (IsLocalRing.ResidueField (v.adicCompletionIntegers ℚ)) d).IsElliptic := by
+    refine ⟨isUnit_iff_ne_zero.mpr ?_⟩
+    rw [cdModel_Δ, ← map_natCast (IsLocalRing.residue _), ← map_pow, Ne,
+      IsLocalRing.residue_eq_zero_iff]
+    exact fun h => hp ((natCast_mem_maximalIdeal_iff v _).mp
+      ((Ideal.IsPrime.mem_of_pow_mem inferInstance 6 h)))
+  rw [← natCard_point_map_ringEquiv _ (residueEquiv v), cdModel_map, cdModel_eq_shortCurve]
+
+open Polynomial in
+/-- **The local polynomial of `C_d` at a good place** `v ∤ 2d`, `p = natGenerator v`:
+`1 − a_p T + p T²` with `a_p = p + 1 − #C_d(𝔽_p)`. -/
+theorem localPolynomial_cdLocal_of_not_dvd {d : ℕ} (hp : ¬ natGenerator v ∣ 2 * d) :
+    (cdLocal v d).localPolynomial (v.adicCompletionIntegers ℚ) =
+      1 - C ((natGenerator v : ℤ) + 1 -
+        Nat.card (shortCurve (-(d : ZMod (natGenerator v)) ^ 2)).toAffine.Point) * X +
+      C (natGenerator v : ℤ) * X ^ 2 := by
+  have := hasGoodReduction_cdLocal v hp
+  rw [localPolynomial_of_hasGoodReduction, natCard_residueField,
+    natCard_point_reduction_cdLocal v hp]
+
+/-- **The local polynomial of `C_d` at a bad place** `v ∣ 2d` is `1` (additive reduction). -/
+theorem localPolynomial_cdLocal_of_dvd {d : ℕ} (hd : Odd d) (hsq : Squarefree d)
+    (hp : natGenerator v ∣ 2 * d) :
+    (cdLocal v d).localPolynomial (v.adicCompletionIntegers ℚ) = 1 := by
+  have := hasAdditiveReduction_cdLocal v hd hsq hp
+  exact localPolynomial_of_hasAdditiveReduction _ (cdLocal_Δ_ne_zero v (by rintro rfl; simp at hd))
+
+end Completion
 
 end ZInQ.Literature
