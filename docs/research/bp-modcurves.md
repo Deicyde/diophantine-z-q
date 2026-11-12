@@ -343,7 +343,7 @@ at most `N²`" (L868-870, VERIFIED read).
 
 All in namespace `BPModCurves`, 1 130 lines in 5 files. Each file is checked with `lake env lean`
 (exit 0, no errors, no warnings, no `sorry`). `#print axioms` gives `propext`, `Classical.choice`,
-`Quot.sound` for every headline theorem (VERIFIED, `log.md` entries 11:45-12:20).
+`Quot.sound` for every headline theorem (VERIFIED, `log.md` entries 11:45-12:16).
 
 `scratch/bp-modcurves/Gamma1Genus.lean` (424 lines):
 
