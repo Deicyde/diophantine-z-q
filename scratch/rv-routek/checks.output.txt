@@ -1,0 +1,12 @@
+GL4(F3) = 24261120  GL4(F5) = G0 = 116064000000  GL4(Z/4) = 1321205760
+OK   |GL4(Z/4)| = 1321205760
+OK   |GL4(F3)| <= G0 and |GL4(Z/4)| <= G0
+OK   2+2*U0 <= E0 for all D>=1 (needs (D G0)^2 >= 1)
+OK   2^(v2(p-1)-1) <= (p-1)/2 for odd p < 2000
+OK   Ind_A4^S4 chi^0: homomorphism, V4 (normal in S4, inside ker chi) acts trivially
+OK   Ind_A4^S4 chi^1: homomorphism, V4 (normal in S4, inside ker chi) acts trivially
+OK   Ind_A4^S4 chi^2: homomorphism, V4 (normal in S4, inside ker chi) acts trivially
+OK   control: V4-character nontrivial on V4 gives Ind nontrivial on V4
+OK   Frobenius reciprocity <r, Ind_A4 r|> = <r|,r|>_A4 = 2
+OK   Frobenius reciprocity <r, Ind_V4 r|> = <r|,r|>_V4 = 4
+ALL OK: True

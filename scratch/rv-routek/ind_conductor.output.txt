@@ -1,0 +1,30 @@
+PARI stack size set to 2000000000 bytes, maximum size set to 2000003072
+polcyclo(8)  n=  4 p=2 e=4 lower=[4, 4, 2, 2] vdisc=8 u_last=2 bound n(1+u)=12.0 OK
+polcyclo(9)  n=  6 p=3 e=6 lower=[6, 3, 3] vdisc=9 u_last=1 bound n(1+u)=12.0 OK
+polcyclo(16) n=  8 p=2 e=8 lower=[8, 8, 4, 4, 2, 2, 2, 2] vdisc=24 u_last=3 bound n(1+u)=32.0 OK
+polcyclo(27) n= 18 p=3 e=18 lower=[18, 9, 9, 3, 3, 3, 3, 3, 3] vdisc=45 u_last=2 bound n(1+u)=54.0 OK
+polcyclo(25) n= 20 p=5 e=20 lower=[20, 5, 5, 5, 5] vdisc=35 u_last=1 bound n(1+u)=40.0 OK
+polcyclo(12) n=  4 p=2 e=2 lower=[2, 2] vdisc=4 u_last=1 bound n(1+u)=8.0 OK
+polcyclo(12) n=  4 p=3 e=2 lower=[2] vdisc=2 u_last=0 bound n(1+u)=4.0 OK
+x^4-2        n=  8 p=2 e=8 lower=[8, 8, 4, 4, 2, 2, 2, 2] vdisc=24 u_last=3 bound n(1+u)=32.0 OK
+x^3-2        n=  6 p=2 e=3 lower=[3] vdisc=4 u_last=0 bound n(1+u)=6.0 OK
+x^3-2        n=  6 p=3 e=6 lower=[6, 3] vdisc=7 u_last=1/2 bound n(1+u)=9.0 OK
+x^4+2        n=  8 p=2 e=8 lower=[8, 8, 4, 4, 2, 2, 2, 2] vdisc=24 u_last=3 bound n(1+u)=32.0 OK
+x^4-3        n=  8 p=2 e=4 lower=[4, 4, 2, 2] vdisc=16 u_last=2 bound n(1+u)=24.0 OK
+x^4-3        n=  8 p=3 e=4 lower=[4] vdisc=6 u_last=0 bound n(1+u)=8.0 OK
+x^3-3        n=  6 p=3 e=6 lower=[6, 3, 3, 3] vdisc=11 u_last=3/2 bound n(1+u)=15.0 OK
+x^4-12       n=  8 p=2 e=4 lower=[4, 4] vdisc=12 u_last=1 bound n(1+u)=16.0 OK
+x^4-12       n=  8 p=3 e=4 lower=[4] vdisc=6 u_last=0 bound n(1+u)=8.0 OK
+x^6+3        n=  6 p=3 e=6 lower=[6, 3, 3, 3] vdisc=11 u_last=3/2 bound n(1+u)=15.0 OK
+x^4-6        n=  8 p=2 e=8 lower=[8, 8, 4, 4, 2, 2, 2, 2] vdisc=24 u_last=3 bound n(1+u)=32.0 OK
+x^4-6        n=  8 p=3 e=4 lower=[4] vdisc=6 u_last=0 bound n(1+u)=8.0 OK
+x^3-12       n=  6 p=2 e=3 lower=[3] vdisc=4 u_last=0 bound n(1+u)=6.0 OK
+x^3-12       n=  6 p=3 e=6 lower=[6, 3, 3, 3] vdisc=11 u_last=3/2 bound n(1+u)=15.0 OK
+x^2-2        n=  2 p=2 e=2 lower=[2, 2, 2] vdisc=3 u_last=2 bound n(1+u)=6.0 OK
+x^2+1        n=  2 p=2 e=2 lower=[2, 2] vdisc=2 u_last=1 bound n(1+u)=4.0 OK
+x^4-18       n=  8 p=2 e=8 lower=[8, 8, 4, 4, 2, 2, 2, 2] vdisc=24 u_last=3 bound n(1+u)=32.0 OK
+x^4-18       n=  8 p=3 e=2 lower=[2] vdisc=4 u_last=0 bound n(1+u)=8.0 OK
+x^4+8        n=  8 p=2 e=8 lower=[8, 8, 4, 4, 2, 2, 2, 2] vdisc=24 u_last=3 bound n(1+u)=32.0 OK
+x^3-18       n=  6 p=2 e=3 lower=[3] vdisc=4 u_last=0 bound n(1+u)=6.0 OK
+x^3-18       n=  6 p=3 e=6 lower=[6, 3, 3, 3] vdisc=11 u_last=3/2 bound n(1+u)=15.0 OK
+checked 28 ALL OK: True
