@@ -78,3 +78,7 @@ Package I6 (h-trust steps B1, B2, C10, D1, D3, D4). Lean drafts: `scratch/pkg-I6
   `Finite (ResidueField _)`, `Module.Finite`, `Module.IsTorsionFree`, `Algebra.IsSeparable` on
   fraction rings. So the hypothesis lists of I6.6-I6.10 have models (the trivial extension);
   non-trivial extensions were not instantiated.
+
+## Step 7 (deliverable)
+- `docs/research/pkg-I6.md` written: leaf table I6.1-I6.10 with N5 lines, Lean names, library
+  status; glue per step; findings (§3.4 D3 without norm functoriality, SPECULATIVE).
