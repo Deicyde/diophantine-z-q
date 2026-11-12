@@ -24,3 +24,6 @@ Ambient: [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensiona
 - `range_galToProd`: range = ⊤ × zpowers(p mod m). VERIFIED (≤ from range_autToPow_eq_zpowers'; card from totient_mul_orderOf_le_finrank).
 - `galEquivProd : Gal(L/ℚ_p) ≃* (⊤ : Subgroup (ZMod p^k)ˣ).prod (zpowers (p mod m))`. VERIFIED.
 - `finrank_eq_totient_mul_orderOf`: [L:ℚ_p] = φ(p^k)·ord_m(p). VERIFIED.
+- `galToProd_fst_spec` / `galToProd_snd_spec`: g x = x^{a.val} for all x with x^{p^k} = 1 (a = first component); g y = y^{b.val} for y^m = 1. VERIFIED.
+- `galToProd_restrict`: K of level p^{k'} m' (own ambient instances, [Algebra K L] [IsScalarTower ℚ_[p] K L]), k' ≤ k, m' ∣ m:
+  galToProd_K (g.restrictNormal K) = (castHom of first comp, castHom of second comp) of galToProd_L g. VERIFIED (compiled 00:50 PST).

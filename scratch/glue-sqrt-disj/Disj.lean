@@ -577,6 +577,64 @@ theorem finrank_eq_totient_mul_orderOf :
     card_subgroup_prod, Subgroup.card_top, Nat.card_zpowers,
     Nat.card_eq_fintype_card (α := (ZMod (p ^ k))ˣ), ZMod.card_units_eq_totient]
 
+
+/-- `galToProd` is the action on `μ_{p^k}`: `g x = x^a` for every `x` with `x^{p^k} = 1`. -/
+theorem galToProd_fst_spec (g : Gal(L/ℚ_[p])) (x : L) (hx : x ^ (p ^ k) = 1) :
+    g x = x ^ (((galToProd (p := p) (L := L) k m g).1 : ZMod (p ^ k))).val := by
+  obtain ⟨i, -, rfl⟩ := (zeta_pow_m (p := p) (L := L) k m).eq_pow_of_pow_eq_one hx
+  rw [map_pow, ← (zeta_pow_m (p := p) (L := L) k m).autToPow_spec ℚ_[p] g]
+  simp only [galToProd, MonoidHom.prod_apply]
+  simp only [← pow_mul]
+  ring_nf
+
+/-- `galToProd` is the action on `μ_m`: `g y = y^b` for every `y` with `y^m = 1`. -/
+theorem galToProd_snd_spec (g : Gal(L/ℚ_[p])) (y : L) (hy : y ^ m = 1) :
+    g y = y ^ (((galToProd (p := p) (L := L) k m g).2 : ZMod m)).val := by
+  obtain ⟨i, -, rfl⟩ := (zeta_pow_pk (p := p) (L := L) k m).eq_pow_of_pow_eq_one hy
+  rw [map_pow, ← (zeta_pow_pk (p := p) (L := L) k m).autToPow_spec ℚ_[p] g]
+  simp only [galToProd, MonoidHom.prod_apply]
+  simp only [← pow_mul]
+  ring_nf
+
+omit [NeZero m] [IsCyclotomicExtension {p ^ k * m} ℚ_[p] L] in
+/-- **Compatibility with restriction.** For a subextension `K` of level `p^{k'} m'`
+(`k' ≤ k`, `m' ∣ m`), restriction `Gal(L/ℚ_p) → Gal(K/ℚ_p)` corresponds to reduction
+`(ℤ/p^k)ˣ × (ℤ/m)ˣ → (ℤ/p^{k'})ˣ × (ℤ/m')ˣ`. -/
+theorem galToProd_restrict [NeZero m] [IsCyclotomicExtension {p ^ k * m} ℚ_[p] L]
+    (K : Type) [Field K] [Algebra ℚ_[p] K] [Algebra ℤ_[p] K]
+    [IsScalarTower ℤ_[p] ℚ_[p] K] [FiniteDimensional ℚ_[p] K] [IsGalois ℚ_[p] K]
+    (k' m' : ℕ) [NeZero m'] [IsCyclotomicExtension {p ^ k' * m'} ℚ_[p] K]
+    [Algebra K L] [IsScalarTower ℚ_[p] K L] (hk : k' ≤ k) (hm : m' ∣ m) (g : Gal(L/ℚ_[p])) :
+    (((galToProd (p := p) (L := K) k' m' (g.restrictNormal K)).1 : ZMod (p ^ k')) =
+        ZMod.castHom (pow_dvd_pow p hk) _ ((galToProd (p := p) (L := L) k m g).1 : ZMod (p ^ k))) ∧
+    (((galToProd (p := p) (L := K) k' m' (g.restrictNormal K)).2 : ZMod m') =
+        ZMod.castHom hm _ ((galToProd (p := p) (L := L) k m g).2 : ZMod m)) := by
+  constructor
+  · set a := ((galToProd (p := p) (L := L) k m g).1 : ZMod (p ^ k))
+    have h := autToPow_eq_of_apply (zeta_pow_m (p := p) (L := K) k' m') (g.restrictNormal K) a.val
+      (by
+        apply (algebraMap K L).injective
+        rw [AlgEquiv.restrictNormal_commutes, map_pow _ _ a.val]
+        refine galToProd_fst_spec (p := p) (L := L) k m g _ ?_
+        rw [← map_pow, ← map_one (algebraMap K L)]
+        congr 1
+        obtain ⟨c, hc⟩ := pow_dvd_pow p hk
+        rw [hc, pow_mul, (zeta_pow_m (p := p) (L := K) k' m').pow_eq_one, one_pow])
+    simp only [galToProd, MonoidHom.prod_apply] at h ⊢
+    rw [h, ZMod.castHom_apply, ZMod.cast_eq_val]
+  · set b := ((galToProd (p := p) (L := L) k m g).2 : ZMod m)
+    have h := autToPow_eq_of_apply (zeta_pow_pk (p := p) (L := K) k' m') (g.restrictNormal K) b.val
+      (by
+        apply (algebraMap K L).injective
+        rw [AlgEquiv.restrictNormal_commutes, map_pow _ _ b.val]
+        refine galToProd_snd_spec (p := p) (L := L) k m g _ ?_
+        rw [← map_pow, ← map_one (algebraMap K L)]
+        congr 1
+        obtain ⟨c, hc⟩ := hm
+        rw [hc, pow_mul, (zeta_pow_pk (p := p) (L := K) k' m').pow_eq_one, one_pow])
+    simp only [galToProd, MonoidHom.prod_apply] at h ⊢
+    rw [h, ZMod.castHom_apply, ZMod.cast_eq_val]
+
 end Disj
 
 end GlueSqrtDisj
@@ -586,3 +644,6 @@ end GlueSqrtDisj
 #print axioms GlueSqrtDisj.range_galToProd
 #print axioms GlueSqrtDisj.finrank_eq_totient_mul_orderOf
 #print axioms GlueSqrtDisj.galEquivProd
+#print axioms GlueSqrtDisj.galToProd_fst_spec
+#print axioms GlueSqrtDisj.galToProd_snd_spec
+#print axioms GlueSqrtDisj.galToProd_restrict
