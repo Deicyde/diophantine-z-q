@@ -50,3 +50,12 @@ so the new witness for L n = 0 will be sorry-free (the review's caveat 3 no long
 - lemmaN2 docstring: X ∈ M (not A(ℍ'_n)), F2's point. Reflowed long docstring lines.
 - Not applicable here: TB-3 (pn-design only), LF-1..4 (LFunctionCd), statement changes of TB-4/F3
   and i7 option 1 (statements frozen).
+
+## Step 5 (checks)
+- lake build ZInQKernel: Build completed successfully (9925 jobs).
+- lake env lean scripts/print_axioms.lean: 91 entries (88 + 3), every one
+  [propext, Classical.choice, Quot.sound] (scratch/pn-fix/print_axioms.txt).
+- python3 scripts/check_target.py: FrozenTarget matches lean/Frozen/BoundedIntegerPolynomial.lean.
+- strip_compare.py TYZInputs.lean (b0ad93ec vs now): code identical.
+- PropN.lean, comment-stripped diff vs b0ad93ec: 0 lines removed, 179 added (the Witness additions).
+- No sorry / native_decide / axiom / implemented_by in either file.
