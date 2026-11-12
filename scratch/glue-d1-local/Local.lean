@@ -527,9 +527,87 @@ theorem D1_local' (hH : HilbertDifferentFormula) (hS : SerreDifferentBound)
     phi (ramCard L P) b ≤ 4 * a ^ 2 :=
   D1_local L hH hS p P K hcore a ha ((index_localSub L p P K).trans_le hdeg) b hb
 
+/-! ## The Krasner-type situation: `K` has a single prime over `p`
+
+If `L` is the Galois closure of `K` over `ℚ` (`core_G(Gal(L/K)) = ⊥`) and `K` has only one prime
+`w` over `p`, then the core hypothesis of `D1_local'` holds: `L_P` is then the Galois closure of
+`K_w`. Krasner's lemma gives such a `K` for any finite `F/ℚ_p` (`K = ℚ(α)` with the minimal
+polynomial of `α` close to that of a generator of `F`; then `K_w ≅ F` and `[K:ℚ] = [F:ℚ_p]`). -/
+
+/-- Group theory: if `G = H·D` and `core_G(H) = ⊥`, then `core_D(H ∩ D) = ⊥`. -/
+theorem normalCore_subgroupOf_eq_bot {G : Type*} [Group G] (D H : Subgroup G)
+    (hHD : ∀ g : G, ∃ h ∈ H, ∃ d ∈ D, g = h * d) (hcore : H.normalCore = ⊥) :
+    (H.subgroupOf D).normalCore = ⊥ := by
+  rw [eq_bot_iff]
+  intro x hx
+  have hx : ∀ b : D, b * x * b⁻¹ ∈ H.subgroupOf D := hx
+  have hxG : (x : G) ∈ H.normalCore := by
+    show ∀ g : G, g * x * g⁻¹ ∈ H
+    intro g
+    obtain ⟨h, hh, d, hd, rfl⟩ := hHD g
+    have h1 := hx ⟨d, hd⟩
+    rw [Subgroup.mem_subgroupOf] at h1
+    have h2 : h * (d * x * d⁻¹) * h⁻¹ ∈ H :=
+      H.mul_mem (H.mul_mem hh (by simpa using h1)) (H.inv_mem hh)
+    simpa [mul_assoc] using h2
+  rw [hcore, Subgroup.mem_bot] at hxG
+  exact (Subgroup.mem_bot).mpr (Subtype.ext hxG)
+
+/-- If `K` has a single prime `w` over `p`, then `Gal(L/ℚ) = Gal(L/K)·D_P`. -/
+theorem fixingSubgroup_mul_decompGroup (p : ℕ) [Fact p.Prime]
+    (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})]
+    (K : IntermediateField ℚ L)
+    (hunique : ∀ v : Ideal (𝓞 K), v.IsPrime → v.LiesOver (Ideal.span {(p : ℤ)}) →
+      v = P.under (𝓞 K)) (g : Gal(L/ℚ)) :
+    ∃ h ∈ K.fixingSubgroup, ∃ d ∈ decompGroup L P, g = h * d := by
+  have : IsGaloisGroup K.fixingSubgroup K L :=
+    IsGaloisGroup.intermediateField Gal(L/ℚ) ℚ L K
+  have : IsGaloisGroup K.fixingSubgroup (𝓞 K) (𝓞 L) :=
+    IsGaloisGroup.of_isFractionRing _ (𝓞 K) (𝓞 L) K L
+  have hQ : (g • P).IsPrime := Ideal.IsPrime.smul g
+  have hv : (g • P).under (𝓞 K) = P.under (𝓞 K) := by
+    apply hunique _ (Ideal.IsPrime.under _ _)
+    refine ⟨?_⟩
+    have h1 : (g • P).under ℤ = Ideal.span {(p : ℤ)} := by
+      rw [Ideal.under_smul, ← Ideal.over_def P (Ideal.span {(p : ℤ)})]
+    rw [← h1, Ideal.under_under]
+  obtain ⟨h, hh⟩ := Algebra.IsInvariant.exists_smul_of_under_eq (𝓞 K) (𝓞 L) K.fixingSubgroup
+    P (g • P) hv.symm
+  refine ⟨h, h.2, h⁻¹ * g, ?_, by simp⟩
+  rw [MulAction.mem_stabilizer_iff, mul_smul, hh]
+  exact inv_smul_smul (h : Gal(L/ℚ)) P
+
+/-- **The Krasner-type form.** If `L` is the Galois closure of `K` (`core_G(Gal(L/K)) = ⊥`), `K`
+has a single prime `w` over `p`, and `e(w|p)·f(w|p) ≤ a`, then `e(P|p) ≤ a!`. -/
+theorem ramificationIdx_le_factorial_of_unique (p : ℕ) [Fact p.Prime]
+    (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})]
+    (K : IntermediateField ℚ L) (hclos : K.fixingSubgroup.normalCore = ⊥)
+    (hunique : ∀ v : Ideal (𝓞 K), v.IsPrime → v.LiesOver (Ideal.span {(p : ℤ)}) →
+      v = P.under (𝓞 K))
+    (a : ℕ) (hdeg : (P.under (𝓞 K)).ramificationIdx ℤ * (P.under (𝓞 K)).inertiaDeg ℤ ≤ a) :
+    P.ramificationIdx ℤ ≤ a.factorial :=
+  ramificationIdx_le_factorial_local L p P K
+    (normalCore_subgroupOf_eq_bot _ _ (fixingSubgroup_mul_decompGroup L p P K hunique) hclos)
+    a ((index_localSub L p P K).trans_le hdeg)
+
+/-- **D1 in the Krasner-type situation.** -/
+theorem D1_krasner (hH : HilbertDifferentFormula) (hS : SerreDifferentBound)
+    (p : ℕ) [Fact p.Prime] (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})]
+    (K : IntermediateField ℚ L) (hclos : K.fixingSubgroup.normalCore = ⊥)
+    (hunique : ∀ v : Ideal (𝓞 K), v.IsPrime → v.LiesOver (Ideal.span {(p : ℤ)}) →
+      v = P.under (𝓞 K))
+    (a : ℕ) (ha : 1 ≤ a)
+    (hdeg : (P.under (𝓞 K)).ramificationIdx ℤ * (P.under (𝓞 K)).inertiaDeg ℤ ≤ a)
+    (b : ℕ) (hb : ramGroup L P b ≠ ⊥) :
+    phi (ramCard L P) b ≤ 4 * a ^ 2 :=
+  D1_genuine hH hS L p P a ha (ramificationIdx_le_factorial_of_unique L p P K hclos hunique a hdeg)
+    b hb
+
 end GlueD1Local
 
 #print axioms GlueD1Local.ramificationIdx_le_factorial_local
 #print axioms GlueD1Local.D1_local
 #print axioms GlueD1Local.index_localSub
 #print axioms GlueD1Local.D1_local'
+#print axioms GlueD1Local.ramificationIdx_le_factorial_of_unique
+#print axioms GlueD1Local.D1_krasner
