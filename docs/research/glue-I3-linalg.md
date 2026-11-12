@@ -31,8 +31,8 @@ L731-734 needs.
 | `PkgI3.Tate.map_bijective` (`TateBC.lean`) | `φ : M →+ N` injective, `T_ℓ M` free and finite, `T_ℓ N` finite, equal ranks ⇒ `T_ℓ(φ)` bijective (the algebraic core of `T_ℓ` under base change) | proved |
 | `finrank_commOf_le_of_equiv` (`C2.lean`) | an equivariant linear isomorphism `V ≃ W` gives `dim End_G V ≤ dim End_G W` | proved |
 | `isSemisimple_of_surjective` | semisimplicity passes to equivariant quotients | proved |
-| `EquivariantDescent` (`C2.lean`) | nonzero equivariant `E`-map `V⊗E → W⊗E` ⇒ nonzero equivariant `k`-map `V → W` | **stated, not proved** |
-| `PkgI3.E1_exists_hom_ne_zero` (`C2.lean`) | E1: common constituent over `E` ⇒ nonzero `Hom A J` (see above) | proved (conditional on `SemisimpleBaseChange`, `EquivariantDescent`) |
+| `exists_equivariant_ne_zero_of_baseChange`, `equivariantDescent` | nonzero equivariant `E`-map `V⊗E → W⊗E` ⇒ nonzero equivariant `k`-map `V → W` | proved |
+| `PkgI3.E1_exists_hom_ne_zero` (`C2.lean`) | E1: common constituent over `E` ⇒ nonzero `Hom A J` (see above) | proved (conditional on `SemisimpleBaseChange`) |
 | `PkgI3.C2_absolutelyIrreducible` (`C2.lean`) | C2 over the object layer (see above) | proved (conditional on the two Props and the isomorphism `e`) |
 | `absolutelyIrreducible_of_finrank_commOf_prod_le_four` | from the two Props above: `char k = 0`, `V ≠ 0` finite-dimensional, `ρ` semisimple, `dim End_G(V ⊕ V) ≤ 4` ⇒ `ρ_F` irreducible for **every** field `F ⊇ k` | proved (conditional on the two Props) |
 
@@ -52,9 +52,9 @@ comes from `B ⊗ E ≅ M₂(E)` and is not formalized.
 **E1's first half in pkg-I3's object layer (VERIFIED, compiled, `C2.lean`).** `PkgI3.E1_exists_hom_ne_zero`
 has these hypotheses:
 - the leaves `FaltingsSemisimple`, `FaltingsTate`, `TateModuleFree`;
-- `SemisimpleBaseChange`, and a third linear-algebra Prop, `EquivariantDescent` (a nonzero `G`-equivariant
-  `E`-linear map `V ⊗ E → W ⊗ E` gives a nonzero `G`-equivariant `k`-linear map `V → W`; the `Hom` form of
-  `InvariantsBaseChange`, weakened to what is used; stated, not proved);
+- `SemisimpleBaseChange` (the only unproved glue it uses). The descent step, `EquivariantDescent` (a nonzero
+  `G`-equivariant `E`-linear map `V ⊗ E → W ⊗ E` gives a nonzero `G`-equivariant `k`-linear map `V → W`), is
+  **proved** (`equivariantDescent`: expand in a `k`-basis of `E` and take a nonzero coordinate);
 - a common constituent: a nonzero subrepresentation of `V_ℓ(A) ⊗ E` equivariantly isomorphic to a
   subrepresentation of `V_ℓ(J) ⊗ E`.
 
@@ -94,8 +94,7 @@ inequality `4 · dim End_G(r) ≤ dim End_G(r ⊕ r) ≤ 4`, through the injecti
     `FaltingsSemisimple` + `SemisimpleBaseChange` for `V_ℓ(A) ⊗ E`; N5 invokes the semisimplicity of `V(J)`,
     but either side suffices;
   - descent of a nonzero `E`-equivariant map `V_A ⊗ E → V_J ⊗ E` to a nonzero `ℚ_ℓ`-equivariant map. This is
-    the `Hom` version of `InvariantsBaseChange`: the commutant computation applies verbatim to `Hom_G(V, W)`.
-    It is stated as `EquivariantDescent` but not proved.
+    the `Hom` version of `InvariantsBaseChange`. It is **proved** as `equivariantDescent`.
 
   The two arrows are assembled in `PkgI3.E1_exists_hom_ne_zero` (compiled).
 - *Application of `PoincareReducibility`.* That leaf needs `EndDivision A` over `L'` (every nonzero
@@ -117,7 +116,9 @@ inequality `4 · dim End_G(r) ≤ dim End_G(r ⊕ r) ≤ 4`, through the injecti
 
 ## 3. What remains, with the reason
 
-1. **`InvariantsBaseChange` and `EquivariantDescent` (its `Hom` version), proofs.** STANDARD (e.g. Bourbaki, *Algèbre* II §3, or
+1. **`InvariantsBaseChange`, proof.** (Its weakened `Hom` form `EquivariantDescent` is proved; the same
+   basis-coordinate argument gives `≤` for the commutant, but turning it into the `finrank` inequality ran into
+   the Lean 4.35 `Submodule` instance-path problem recorded in the log.) STANDARD (e.g. Bourbaki, *Algèbre* II §3, or
    any proof that kernels commute with flat base change; UNVERIFIED locator). The Lean route: the commutant of
    `ρ(G)` equals the commutant of a finite spanning subfamily `ρ(g₁), …, ρ(g_m)` (`End_k V` is
    finite-dimensional). So it is the kernel of `Φ : End V → (End V)^m`. Then `End_E(V_E) ≅ E ⊗ End_k V`

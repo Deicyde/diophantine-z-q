@@ -56,6 +56,12 @@
   equivariantly isomorphic to a subrepresentation `U'` of `V_ℓ(J) ⊗ E` ⇒ `∃ f : Hom A J, f ≠ 0`.
   VERIFIED (compiled 22:40 PST); axioms [propext, Classical.choice, Quot.sound].
 
+- `GlueI3.exists_equivariant_ne_zero_of_baseChange` (Commutant.lean and C2.lean) and
+  `GlueI3.equivariantDescent : EquivariantDescent` (C2.lean): PROVED (22:42 PST; expand in a `k`-basis of
+  `E` via `TensorProduct.finsuppScalarLeft`, take a nonzero coordinate; no finite-dimensionality used).
+  `PkgI3.E1_exists_hom_ne_zero` no longer takes `EquivariantDescent` as a hypothesis. Axioms
+  [propext, Classical.choice, Quot.sound].
+
 ## Findings
 - Mathlib v4.35.0 has `Representation.IsIrreducible` (`IsSimpleOrder (Subrepresentation ρ)`) and
   `IsSemisimpleRepresentation` (`ComplementedLattice`), so the commutant argument is statable over
