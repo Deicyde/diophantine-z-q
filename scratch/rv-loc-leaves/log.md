@@ -27,3 +27,13 @@
 - (h) DeligneSerreFinite has `ρ.IsSemisimple` (VERIFIED). FAITHFUL.
 - (i) QMDichotomy lacks "indefinite" (VERIFIED): STRONGER than Yu Thm 1.1; repaired (compiled).
 - (j) R16 opaque; does not use zeta clause; docstring repaired.
+
+## Patched Leaves.lean (01:23 PST)
+- patch_leaves.py SRC DST PLACEHOLDERS: 16 edits (T27 Yu form in PkgI3 + ObjBridge, I3Leaves fields
+  and HSyn bundle `t27` switched to `QMDichotomyYu`; docstrings of R02, R05, R16, R17, R22 from
+  Placeholders.lean; docstrings of PanFor, CarayolUnramified, EigenformHT, DeligneSerreFinite,
+  GlueRepo.PR header). Output LeavesPatched.lean, unified diff LeavesPatch.diff.
+- `lake build ZInQKernel.Hypotheses.JHeight ZInQKernel.Compiler.Precision.HeightConstant`: success.
+- `lake env lean scratch/rv-loc-leaves/LeavesPatched.lean` (1m30s): exit 0, 0 errors, 81
+  `#print axioms`, all [propext, Classical.choice, Quot.sound] except HSyn.sixContactMin_of_leaves
+  (sorryAx, as in the unpatched file). Output in leavespatched.out.
