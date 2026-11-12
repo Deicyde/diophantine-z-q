@@ -19,11 +19,18 @@ Draft for `docs/research/pkg-I4.md` (task pkg-I4, 2026-11-11). Check with
 * §2 modular side: cusp forms on `Γ₁(N)`, nebentypus, normalized eigenforms (Hecke recursion of
   the q-coefficients, as hdec-faithful), representations attached to eigenforms (trace form),
   and **new**: the old space and newforms.
+* §1b **new**: the action of `G_{ℚ_p}` on `B_dR = BDeRham 𝓞_ℂ_[p] p`, `ℚ_p ⊆ B_dR` fixed by it,
+  `D_dR`, and the **de Rham predicate** `IsDeRham` / `LocalIsDeRham` (genuine; no `sorry`).
 * §3 the leaves of I4 that are statable now, as `def … : Prop` (none proved).
-* §4 the leaves that are not statable now, as *templates*: functions of the missing predicate
-  (`IsPst`, the conductor exponent). A template is **not** a leaf: `PanFor P` says nothing until
-  `P` is the genuine potentially-semistable predicate.
+* §4 templates — functions of a missing predicate (`IsPst`, the conductor exponent) — and the
+  leaf **`PanBerger`** = `PanFor LocalIsDeRham`, statable now. A template is **not** a leaf:
+  `PanFor P` says nothing until `P` is the genuine potentially-semistable predicate.
 * §5 small glue facts, proved.
+
+Faithfulness caveat: `IsDeRham` and `htMult` are genuine definitions, but no theorem about them is
+proved here (e.g. `B_dR^{G_{ℚ_p}} = ℚ_p`, Tate's `ℂ_p(i)^G = 0`). A definitional slip could make a
+hypothesis unsatisfiable and a leaf vacuous; the standard non-vacuity checks are listed in
+`docs/research/pkg-I4.md` §3.4.
 -/
 
 noncomputable section
@@ -850,7 +857,7 @@ def CarayolUnramified : Prop :=
     0 < N → IsNewform f χ → ρ.IsSemisimple → ρ.AttachedTo ιC ιL f →
     p.Prime → p ≠ ℓ → ρ.UnramifiedAt p → ¬ p ∣ N
 
-/-! ## §4. Templates (not leaves): the missing predicates are arguments
+/-! ## §4. Templates (not leaves) and the statable Pan∘Berger leaf
 
 `PanFor IsPst` is Pan's theorem once `IsPst` is the genuine "potentially semistable in the sense
 of Fontaine" predicate on `ℚ̄_p`-representations of `G_{ℚ_p}`; for any other argument it means
@@ -877,12 +884,26 @@ def PanFor (IsPst : LocalPred) : Prop :=
       ∃ (ψ : GaloisChar p) (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl p) (S : Finset ℕ),
         ρ.AttachedUpToTwist ψ ιC ιL g S
 
+/-- **I4-L7′. Pan∘Berger — statable now, over genuine definitions.** Pan's Theorem 1.0.4
+(`PanFor`, `p ≥ 5`) with "de Rham at `p`" (`LocalIsDeRham`, built in §1b on Mathlib's `BDeRham`)
+in place of "potentially semistable at `p`". It is a consequence of Pan 2022 Thm 1.0.4 together
+with Berger 2002 Thm 0.7 (de Rham ⇒ pst), and it is the form N5 uses (N5 L734-741 proves de Rham
+and then applies Berger). Needs no `B_st`. -/
+def PanBerger : Prop :=
+  PanFor fun (p : ℕ) [Fact p.Prime] (n : ℕ) (ρ : GQp p →* GL (Fin n) (PadicAlgCl p)) =>
+    LocalIsDeRham p n ρ
+
 /-- **Template for I4-L8, Berger's theorem** (Invent. Math. 148 (2002), Théorème 0.7 in the
 published numbering (ASTRA-READ), = Thm 0.6 = Thm 5.19 of arXiv:math/0102179v3 (VERIFIED by
 rv-h-a011)): de Rham ⇒ potentially semistable. -/
 def BergerFor (IsDR IsPst : LocalPred) : Prop :=
   ∀ (p : ℕ) [Fact p.Prime] (n : ℕ) (ρ : GQp p →* GL (Fin n) (PadicAlgCl p)),
     Continuous ρ → IsDR p n ρ → IsPst p n ρ
+
+/-- **I4-L8′. Berger with the genuine de Rham predicate** (template only in `IsPst`). -/
+def BergerDR (IsPst : LocalPred) : Prop :=
+  BergerFor (fun (p : ℕ) [Fact p.Prime] (n : ℕ) (ρ : GQp p →* GL (Fin n) (PadicAlgCl p)) =>
+    LocalIsDeRham p n ρ) IsPst
 
 /-- A conductor-exponent function: `a ℓ ρ p` is the Artin conductor exponent at `p ≠ ℓ` of the
 `ℓ`-adic representation `ρ` (Weil–Deligne / Serre's definition). Missing in every library. -/
@@ -928,6 +949,7 @@ end
 #print axioms PkgI4.DR.bdrMap
 #print axioms PkgI4.bdrAct_qpToBdR
 #print axioms PkgI4.IsDeRham
+#print axioms PkgI4.PanBerger
 #print axioms PkgI4.weight_match
 #print axioms PkgI4.weight_match_coh
 #print axioms PkgI4.cpAct_algebraMap
