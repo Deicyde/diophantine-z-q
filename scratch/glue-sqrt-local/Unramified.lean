@@ -271,6 +271,24 @@ theorem pow_frobenius (τ : Gal(L/ℚ_[p])) :
     ∃ n : ℕ, ∀ m : ℕ, ¬ p ∣ m → ∀ ζ : L, ζ ^ m = 1 → τ ζ = ζ ^ (p ^ n) :=
   pow_frobenius_of_isLocalRing p L (isLocalRing_integralClosure p L) τ
 
+/-- **Degree of the unramified cyclotomic extension.** If `p ∤ m` and `L` is an `m`-th cyclotomic
+extension of `ℚ_p`, then `[L : ℚ_p] = ord_m(p)`, and `Gal(L/ℚ_p) ≃* ⟨p⟩ ⊆ (ℤ/m)ˣ`. -/
+theorem finrank_eq_orderOf {m : ℕ} [NeZero m] (hm : ¬ p ∣ m)
+    [IsCyclotomicExtension {m} ℚ_[p] L] :
+    Module.finrank ℚ_[p] L =
+      orderOf (ZMod.unitOfCoprime p ((Nat.Prime.coprime_iff_not_dvd hp.out).mpr hm)) := by
+  have hζ := IsCyclotomicExtension.zeta_spec m ℚ_[p] L
+  rw [← IsGalois.card_aut_eq_finrank, ← Nat.card_zpowers, ← range_autToPow_eq_zpowers' p L hm hζ]
+  exact (Nat.card_congr (Equiv.ofInjective _ (hζ.autToPow_injective ℚ_[p])))
+
+/-- `Gal(L/ℚ_p)` is cyclic for an `m`-th cyclotomic extension with `p ∤ m`. -/
+theorem isCyclic_gal {m : ℕ} [NeZero m] (hm : ¬ p ∣ m) [IsCyclotomicExtension {m} ℚ_[p] L] :
+    IsCyclic Gal(L/ℚ_[p]) := by
+  have hζ := IsCyclotomicExtension.zeta_spec m ℚ_[p] L
+  have e := MonoidHom.ofInjective (hζ.autToPow_injective ℚ_[p])
+  rw [range_autToPow_eq_zpowers' p L hm hζ] at e
+  exact isCyclic_of_surjective e.symm.toMonoidHom e.symm.surjective
+
 end GlueSqrtLocal
 
 #print axioms GlueSqrtLocal.isLocalRing_integralClosure
@@ -279,3 +297,5 @@ end GlueSqrtLocal
 #print axioms GlueSqrtLocal.range_autToPow_eq_zpowers
 #print axioms GlueSqrtLocal.range_autToPow_eq_zpowers'
 #print axioms GlueSqrtLocal.pow_frobenius
+#print axioms GlueSqrtLocal.finrank_eq_orderOf
+#print axioms GlueSqrtLocal.isCyclic_gal

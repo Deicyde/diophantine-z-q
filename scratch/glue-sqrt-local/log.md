@@ -33,3 +33,6 @@
 - `isIntegral_iff_spectralNorm_le_one`: y ∈ L (L/ℚ_p finite) integral over ℤ_p ↔ spectralNorm ℚ_[p] L y ≤ 1. VERIFIED.
 - `isLocalRing_integralClosure`: IsLocalRing (integralClosure ℤ_[p] L). VERIFIED. (units = norm 1; nonunits = norm < 1, closed under + by isNonarchimedean_spectralNorm; multiplicativity from spectralMulAlgNorm, ℚ_p complete.)
 - Unramified.lean = Frob.lean + Local.lean merged; adds unconditional `pow_frobenius` and `range_autToPow_eq_zpowers'`: for p ∤ m, ζ primitive m-th root in finite Galois L/ℚ_p, range(autToPow) = zpowers (p mod m). VERIFIED.
+- `finrank_eq_orderOf`: p ∤ m, IsCyclotomicExtension {m} ℚ_[p] L → finrank ℚ_[p] L = orderOf (p : (ZMod m)ˣ). VERIFIED.
+- `isCyclic_gal`: same hypotheses → IsCyclic Gal(L/ℚ_[p]). VERIFIED.
+- Note: Unramified.lean's ambient variables include [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L]; for a cyclotomic L the last two are Mathlib instances/theorems and the first two come from Algebra.compHom.
