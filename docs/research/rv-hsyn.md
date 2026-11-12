@@ -11,7 +11,7 @@ The Lean claims hold as stated (VERIFIED, §B). The counts add up (VERIFIED, §A
 checked is stronger than its source. Before 01:00 the note needs: the TYZ sentence fixed (repair 1);
 §3's description of route K's glue brought into line with §0, §1 and §6 (repair 2); and the B2-B3
 claim corrected, because the four leaves that the proved theorem uses are glue-descent's cochain
-forms, not the T14/T15 Props that the leaf bundle contains (repair 3). Repairs 4-9 are smaller:
+forms, not the T14/T15 Props that the leaf bundle contains (repair 3). Repairs 4-10 are smaller:
 wording that claims a little more than the file and the tables support. None of them changes a
 count or the recommendation of route P.
 
@@ -134,6 +134,15 @@ the arithmetic visible, replace "and 25 textbook leaves, 35 of 54, are stated co
 25 textbook leaves, 35 of 54 (33 stated individually, R11 and R12 only through their joint
 consequence), are stated concretely".
 
+**10. §2.1 R15: one input is missing (minor).** pkg-I4 §1.7 gives Deligne–Serre's Thm 4.1 as a
+statement about weight-one *newforms*. `HSyn.DeligneSerreConseq` (Leaves.lean L9043) is stated for
+every normalized eigenform of weight 1 and level `N`. Passing from an eigenform to a newform uses
+T25 as well as T18 and T19.
+In R15 replace "(with T18, T19 for "every semisimple `ρ` with these traces")" with "(with T25 to pass
+from an eigenform to a newform, and T18, T19 for "every semisimple `ρ` with these traces")". If the
+printed Thm 4.1 covers every eigenform of the Hecke operators `T_p`, `p ∤ N`, T25 is not needed;
+the number and statement are UNVERIFIED.
+
 ## A. §0 against its sources
 
 A.1 Theorem numbers. Each of these locators appears in the reports or designs (grep, VERIFIED as
@@ -141,9 +150,10 @@ present; not checked against the papers, no network): Javanpeykar 1.1.1 (pkg-I5,
 Pazuki Cor. 1.3 (pkg-I5, glue-assembly); Baba–Granath Lemma 3.1 (h-trust, hdec-*); Lin–Yang
 Example 30 (pkg-I1); González–Rotger 5.12 and Prop. 5.6 (pkg-I1, glue-repo); Berger 0.7 (pkg-I4);
 Pan 1.0.4 (pkg-I4, h-a011); Deligne 4.21 (pkg-I1); SGA 7 IX Prop. 4.7 (pkg-I2); Faltings Lemma 5
-(pkg-I5); Faltings Satz 3 (pkg-I3); Scholze Cor. 1.8 (pkg-I4, h-a011). UNCHECKED in this pass:
-Gaudron–Rémond Thm 1.4 and Deligne–Serre Thm 4.1 (my grep pattern failed on the Unicode dashes and
-I did not retry), and every number in §2.2.
+(pkg-I5); Faltings Satz 3 (pkg-I3); Scholze Cor. 1.8 (pkg-I4, h-a011). Also present: Gaudron–Rémond Thm 1.4 (pkg-I5 L4, L95; glue-assembly L282)
+and Deligne–Serre Thm 4.1 (pkg-I4 §1.7; h-trust L564, L920). pkg-I4 L163 cites Deligne–Serre
+Thm 6.1 for the existence of `ρ` in weight 1. That is consistent with the note, which gives no
+number for R14 at `k = 1`. UNCHECKED: every number in §2.2.
 
 A.2 Counts (VERIFIED against the note's lists and the compiled file). R1-R22: 22. T1-T32: 32.
 G0-G20: 21 rows (repair 5). Stated research Props: r4, r6, r7a, r7b, r9a, r9b, r10, r11r12, r13,
