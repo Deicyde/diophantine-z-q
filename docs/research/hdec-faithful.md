@@ -583,3 +583,251 @@ recorded in Gaudron–Rémond, Duke 163 (2014), §9 (ASTRA-READ), and Comment. M
   L28(b), L30. Large: L4, L8, L11e, L12, L13, L22, L23, L26. Very large: L24, L25 (through `B_st`).
 - Not statable until a very large definition exists: L1, L2, L3, L5 (QM moduli), L29 (`J₁(N)`),
   L31-L35 (Faltings height).
+
+## 4. The glue
+
+Format: **statement**; **inputs** (leaves and earlier glue); **origin** (N5 lines, or the
+repository note, with its model review); **Lean** (provable from the leaves over the definitions
+once those exist; what it needs beyond them); **size** (small < 500 lines, medium 0.5-3k, large
+3-10k, very large > 10k; all sizes SPECULATIVE). Every glue item is model-reviewed only (h-trust
+§2.1), except G18's numerics and G20, which are Lean proofs.
+
+**G0. Top-level assembly.** *Statement:* the leaves imply `ZInQ.SixContactMin`. *Inputs:* G1-G20.
+*Origin:* N5 L404-964 (spine §2.0). *Lean:* `sixContactMin_of_leaves` in `Leaves.lean`, stated
+with `sorry`. Through G20 it reduces to `ZInQ.JHeight.JHeightBound Mult.S_mul`. Note that the
+proof is uniform in admissible `S, R`, so the same glue gives `SixContactEstimate`. *Size:* small
+once G1-G19 exist.
+
+**G1. The fibre datum and the degree** (A1, A3, A4 input 2). *Statement:* N5's Gram matrix has
+determinant 1 and Rosati involution `a ↦ μ⁻¹āμ`; the principal polarization with that Rosati
+involution is unique; `|N/(𝔸_f^*K₀)| = 4`; central ideles act trivially on `Y₃`; `Γ'` acts with
+quotient `P¹_j`; `deg(Y₃ → P¹_j) ≤ 4·72 ≤ 324`. *Inputs:* L1(a, c), L2; local normalizers of
+maximal orders (Vignéras Ch. II; elementary over `ℚ_p`); `|(𝒪/3𝒪)^*| = 72`. *Origin:* N5
+L410-441; h-b1 M1-M3; rv-h-trust §1.2 item 5. *Lean:* the matrix and the unit count are `decide`
+or `norm_num` computations over Mathlib's `ℍ[ℚ, 2, −3]` (cheap, possible now); the rest needs
+L1's objects. *Size:* medium.
+
+**G2. Lemma PR(i): the fibre field** (A5). *Statement:* the splitting field `K` of the fibre of
+`Y₃ → P¹_j` over `J(u)` is Galois over `ℚ`, `[K:ℚ] ≤ 324!`, unramified at every `p ≥ 17` (so at
+every `p ∉ T`) unless some `v_p(u − c)` is positive and odd; `J(u)` is not a branch value.
+*Inputs:* G1; L1(d) (Lemma NV), L2, L6, L7; the identities `G⁶ − 97200F² = H²`,
+`J + 16/27 = 16H²/(27G⁶)` and the resultant supports (scripts `b1_checks.py`, `branch_check.py`;
+Lean `ring`/`decide`). *Origin:* repository, `h-b1.md` (Prop. TS, Lemma NV, M1-M10), model review
+`rv-h-b1.md`. *Lean:* needs normalization of finite covers of `P¹_ℤ[1/6]` and the leaves; the
+polynomial facts are cheap now. *Size:* large.
+
+**G3. Lemma PR(ii): good reduction away from 3** (A6). *Statement:* `A` and every conjugate
+`σA` have good reduction at every place `v ∤ 3` of `K`. *Inputs:* L1(a) (`A[3] ⊂ A(K)`), L8, L10;
+`1 + 3M₄(ℤ₃)` torsion-free (elementary). *Origin:* `h-b1.md` §4(ii); `rv-h-b1.md` §5. *Lean:* the
+torsion-freeness is provable now (cheap); the rest over Néron models. *Size:* medium.
+
+**G4. Conjugates and the Hom field** (A7, A8). *Statement:* the conjugates of `A` have one
+geometric polarized moduli point; `W₀ = Res_{K/ℚ}A` has geometric endomorphism rank
+`r ≤ 16F₀²`; `L = EK` is normal over `ℚ`, `[L:ℚ] ≤ F₀·3^{r²} ≤ D`, unramified outside `T`, and
+defines all geometric endomorphisms and conjugacy homomorphisms. *Inputs:* G2, G3; L2, L3,
+L11a, L10; Minkowski's lemma (finite subgroups of `GL_r(ℤ)` inject mod 3; elementary). *Origin:*
+N5 L532-563 (Astra "whole"). *Lean:* Minkowski's lemma and the numerics are cheap now; the rest
+over abelian varieties. *Size:* medium. Remark (h-trust A7): an isogeny between conjugates
+suffices, which would remove L3 from G4 (it stays in G19).
+
+**G5. The dichotomy** (A9). *Statement:* `End⁰(A_ℚ̄)` is `B` or `M₂(k)`, `k` imaginary quadratic.
+*Inputs:* L12; the centralizer of `J ∈ B ⊗ ℝ` in `B ⊗ B^op` (exact computation,
+`scratch/rv-h-a9c9/a9_centralizer.py`). *Origin:* N5 L564-577 (Milne paragraph new in N5; two
+model reviews, rv-h-trust §2.1 and rv-h-a9c9 §1). *Lean:* the centralizer is linear algebra over
+Mathlib's quaternion algebras (cheap); the identification with endomorphisms needs L12. *Size:*
+medium.
+
+**G6. NoCM** (A10). *Statement:* for `u ∈ ℚ \ 𝒞`, no point of `X₆` over `J(u)` is a CM point; hence
+`End⁰(A_ℚ̄) = B`. *Inputs:* G5; L1(d), L2, L5; the coordinate `t = 1 + 27j/16`, the model
+`ℚ(t)(√(−t), √(3(t−1)))`, `t(u) = H²/G⁶`, `t(u) − 1 = −3(180F/G³)²` (script
+`rv-h-cm/check.py`; Lean `ring`). *Origin:* repository, `h-cm.md`, `rv-h-cm.md` §7.2 (shorter
+proof), repairs R1-R5. *Lean:* the identities are cheap now; the counting argument is small once
+L5 is stated. *Size:* small (given L5).
+
+**G7. Scalar descent** (B1-B3). *Statement:* there are `B`-linear isogenies `μ_σ : σA → A` over
+`L`, a sign cocycle `ε` inflated from `Gal(L/ℚ)`, a Dirichlet character `χ` of order
+`m ≤ 2R^R M` unramified outside `T`, and a continuous cochain `β : G_ℚ → μ_{2m}` with `β² = χ`,
+`∂β = ε`, wild inertia restrictions killed; `L'`, the kernel field of `β|G_L`, is Galois over `ℚ`
+with `[L':ℚ] ≤ 2md ≤ 4DR^R M ≤ QM`. *Inputs:* G4, G6; L14, L15, L16; the square-root criterion
+(`c2_sqrt_criterion.py`), constants (`c1_constants.py`). *Origin:* N5 L632-716 (Glazer, NEW);
+rv-h-novel steps 1-3 with repair R1; Astra "descent". *Lean:* over Tau Ceti's Brauer group and
+local class field theory; the numerics are cheap now. *Size:* medium-large (wk-h §4.3: 2-3k).
+
+**G8. The representation `r_ℓ` and its irreducibility** (C1, C2). *Statement:*
+`ρ_ℓ(σ) = β(σ)⁻¹a_σμ_σ∘σ` is a representation of `G_ℚ` commuting with `B`, `ρ_ℓ ≅ r_ℓ ⊕ r_ℓ`, equal
+to the Tate action on `G_{L'}`, and `r_ℓ|G_{L'}` is absolutely irreducible. *Inputs:* G7; L21.
+*Origin:* N5 L719-734 (NEW); rv-h-novel step 4; rv-h-a011 §3.1 H2. *Lean:* medium over Tate
+modules. *Size:* medium.
+
+**G9. The de Rham descent lemma** (C3). *Statement:* N5's Lemma `lem:de-rham-descent`: if
+`V_ℓ(A) ⊗ C_ℓ ≅ r|G_F ⊕ r|G_F` for `A/F`, `F/K/ℚ_ℓ` finite, then `r` is de Rham with weights
+`{0, −1}` at every coefficient embedding. *Inputs:* L22, L23, L11e; Hilbert 90 for the finite
+Galois descent (h-trust C3: with `F` chosen Galois over `ℚ_ℓ`). *Origin:* N5 L10939-11000 (new
+in N5; two model reviews rv-h-trust §2.1, rv-h-c3). *Lean:* medium once de Rham representations
+exist. *Size:* medium.
+
+**G10. Oddness** (C5). *Statement:* `det r_ℓ(c) = −1` for complex conjugation `c`. *Inputs:* G8;
+L13, L12 (the Hodge decomposition of `H₁(A(ℂ), ℂ)` and `B ⊗ ℂ = M₂(ℂ)`). *Origin:* N5 L742-751
+(Astra "descent"; rv-h-a011 §3.1 H5). *Lean:* medium. *Size:* medium.
+
+**G11. Finite ramification** (C6). *Statement:* `r_ℓ` is unramified outside `T ∪ {ℓ}`. *Inputs:*
+G2, G3, G4, G7; L10. *Origin:* N5 L752-754. *Size:* small.
+
+**G12. Twist and weight** (C8). *Statement:* in the conclusion of L25 for `r₅`, the character `ψ`
+has finite image and `k = 2`; hence `r₅` has the Frobenius traces of a weight-2 normalized
+eigenform with finite nebentypus. *Inputs:* G8, G9, G10, G11; L25, L26, L27(a, b), L11d, L17
+(Kronecker–Weber makes `ψ` a Dirichlet character), L18, L19. *Origin:* N5 L757-768 with the
+determinant argument of V16 L660-667 (h-trust C8; rv-h-c8, rv-up §2.3). *Lean:* medium over
+Hodge–Tate weights; the weight arithmetic (`{n, n+1−k} = {0, −1}` with `k ≥ 1` forces `n = 0`,
+`k = 2`) is cheap now. *Size:* medium.
+
+**G13. The newform and its place in `J₁(N)`** (C9, first half of E1). *Statement:* there is a
+newform `f` of weight 2 and level `N` with `r₅ ≅ ρ_{f,5}`, and `r₅` is a constituent of
+`V₅(J₁(N)) ⊗ ℚ̄₅`. *Inputs:* G12; L28 (twist into the eigenform, then the newform), L29, L18,
+L19; Faltings' semisimplicity L21 for `J₁(N)`. *Origin:* N5 L768-774 (Li–Shimura sentence new in
+N5; rv-h-trust §2.1, rv-h-a9c9 §2 with R-C9-1: the `K_f`-linear Eichler–Shimura relation replaces
+the Euler-factor inference). The remark at L774 that duality preserves conductors is not needed
+in this form (Tate normalization throughout). *Size:* medium.
+
+**G14. One compatible system** (C10). *Statement:* for `p ∉ T ∪ {3, 5}` and a lift `σ` of
+Frobenius, `tr r₃(σ)` and `tr r₅(σ)` are the images of one algebraic number; hence `r₃` is the
+representation of `f` at 3. *Inputs:* G3, G7, G13; L11b, L11f, L18, L19, L21. *Origin:* N5
+L776-795 (rv-h-novel step 4). *Size:* medium.
+
+**G15. The uniform conductor bound** (D1-D4). *Statement:* the Artin conductor exponent of
+`r_ℓ` (with `ℓ = 5` at `p ≠ 5` and `ℓ = 3` at `p = 5`) is `≤ 2 + 2U₀ ≤ E₀` at `p ≤ R`, `≤ 2` at
+`R < p ∈ T`, and `0` outside `T`, where `U₀ = 4(DG₀)²`. *Inputs:* G3, G7, G14; L9, L16, L20; the
+formal logarithm on `U_F^{e+1}` (Silverman IV.6.4; elementary); `c3_breaks.py`. *Origin:* N5
+L796-852 (Glazer, NEW); rv-h-novel steps 5-8 with repairs R2-R3; Astra "conductor". *Lean:*
+over Tau Ceti's upper ramification groups. *Size:* large. This is the most important new
+argument to machine-check: its statement is entirely about local Galois theory, which Tau Ceti
+already has.
+
+**G16. The level bound** (D5). *Statement:* `N ≤ ∏_{p≤R} p^{E₀} · M² ≤ R^{RE₀}M² = QM²`.
+*Inputs:* G13, G15; L30. *Origin:* N5 L852-857. *Lean:* the inequality `∏_{p ≤ R} p ≤ R^R` and
+the product are cheap now. *Size:* small.
+
+**G17. The isogeny to `J₁(N)`** (E1). *Statement:* there are an abelian variety `Z/L'` and an
+`L'`-isogeny `A × Z → J₁(N)_{L'}`; `g = dim J₁(N) ≥ 2`. *Inputs:* G6 (absolute simplicity),
+G13; L21 (Hom theorem over `L'`, with invariants commuting with coefficient extension), L11c.
+*Origin:* N5 L861-867 (rv-h-novel step 9). *Size:* small-medium.
+
+**G18. The transfer arithmetic** (E2-E4). *Statement:* `h_F(A) ≤ Q¹⁷M²⁴`. *Inputs:* G16, G17;
+L31 (with `g, deg_B ≤ [SL₂(ℤ):Γ₁(N)] ≤ N²`), L32, L33, L34. *Origin:* N5 L868-905. *Lean:* the
+real-number arithmetic is proved (`transfer_numerics`, `scratch/wk-h/Arakelov.lean`, wk-h §4.2,
+compiled by wk-h); what remains is the bookkeeping over the Faltings height. *Size:* small once
+`h_F` exists.
+
+**G19. The theta step** (F1-F3). *Statement:* `h(J(u)) ≤ 40·h([z_m]) + 22` and
+`h([z_m]) ≤ 10⁴·2²⁴·max(1, h_F(A))`, so with G18, `JHeightBound Mult.S_mul`. *Inputs:* G18; L3,
+L4, L35; Weil height of a degree-40 map (Mathlib `NumberTheory/Height/MvPolynomial`), invariance
+of the absolute height under field extension, the normalization `X_D ≤ 3X` and
+`log(X_D + 2) ≤ 2X_D`; script `igusa_check.py`. *Origin:* N5 L908-947 (Astra "height"). *Lean:*
+the height-of-polynomial-map step is medium now; the rest over L35. *Size:* medium.
+
+**G20. Return to `u`** (F4). *Statement:* `JHeightBound Mult.S_mul → SixContactMin`. *Origin:* N5
+L949-964. *Lean:* **proved**, `ZInQ.JHeight.sixContactMin_of_jHeightBound`
+(`ZInQKernel/Hypotheses/JHeight.lean`), axioms `propext`, `Classical.choice`, `Quot.sound` (wk-h
+§4.1). `Leaves.lean` uses it in the statement of G0.
+
+## 5. Definitions
+
+Status: **Mathlib** (in Mathlib v4.35.0, VERIFIED by grep or compilation), **Leaves.lean** (built
+in the draft, compiled), **other library** (prereq-survey), **missing**. Cost tiers as in §4.
+
+| Definition | Needed by | Status | Cost |
+| --- | --- | --- | --- |
+| `ℚ̄`, `G_ℚ` with the Krull topology | everything Galois | Mathlib (`AlgebraicClosure`, `AlgEquiv` Krull topology) | — |
+| places of `ℚ̄` above `p`, decomposition and inertia groups | L18, L25-L28, G11 | Leaves.lean (`LiesOver` over Mathlib's `ValuationSubring.decompositionSubgroup`/`inertiaSubgroup`) | cheap |
+| arithmetic Frobenius, Frobenius traces | L18, L25-L29 | Leaves.lean (`IsArithFrob`, `FrobTrace`) | cheap |
+| complex conjugations, odd representations | L25, G10 | Leaves.lean (`IsComplexConj`, `IsOdd`) | cheap |
+| `ℚ̄_ℓ` with its norm; continuous `GL_n(ℚ̄_ℓ)`-representations of `G_ℚ` | L25-L29 | Mathlib `PadicAlgCl ℓ`; Leaves.lean (`GaloisRep`; norm-continuity equals the usual notion by a Baire argument, SPECULATIVE as stated, standard) | cheap |
+| irreducible, semisimple representations | L19, L25, L27 | Leaves.lean (`IsIrreducible` in Burnside form over the algebraically closed `ℚ̄_ℓ`; `IsSemisimple` by invariant complements) | cheap |
+| cusp forms on `Γ₁(N)`, q-expansion coefficients | L27, L28 | Mathlib (`CuspForm`, `UpperHalfPlane.qExpansion`) | — |
+| nebentypus, normalized eigenforms | L25-L30 | Leaves.lean (`HasNebentypus`, `IsNormalizedEigenform` via `a_m a_n = Σ_{d∣(m,n)} χ(d)d^{k−1}a_{mn/d²}`, equivalent to the Hecke definition by Diamond–Shurman Prop. 5.3.1, UNVERIFIED locator) | cheap |
+| a representation attached to an eigenform (trace form) | L25-L28 | Leaves.lean (`AttachedTo`) | cheap |
+| central simple algebras, base change, matrix algebras | L14, L15 | Mathlib | — |
+| Hecke operators, old space, newforms | L28(b), L30 | missing in Mathlib; Tau Ceti has them | medium |
+| Galois cohomology of `G_ℚ`, crossed products, local invariants | L15(b), G7 | Mathlib has continuous cohomology and `BrauerGroup` (definition); Tau Ceti has the local–global sequence | medium |
+| local Artin map | L16, G7, G15 | Tau Ceti | medium |
+| upper ramification groups, Herbrand function, Artin and Swan conductors of `ℓ`-adic representations | L20, L30, G15 | Tau Ceti (finite extensions, characters); `ℓ`-adic conductor missing | medium |
+| regular schemes, purity, tame covers | L6, L7, G2 | Mathlib (schemes, étale morphisms); Axiom Stacks (0BMB, 0EYG) | medium |
+| abelian varieties over a field | L8-L13, L21, G3-G17 | Mathlib has group schemes over a field and commutativity of proper geometrically integral ones; Tau Ceti has `AbelianVariety` | cheap |
+| Tate modules `V_ℓ(A)` with `G_K`-action; Weil pairing; polarizations | L9-L11, L21, G8-G17 | missing (Anthropic FLT: Jacobians only) | medium |
+| abelian schemes over a DVR (good reduction); Néron models | L8, L10, L11f, G3 | missing (Anthropic FLT: Néron models, special case) | medium (good reduction) / large (Néron models) |
+| ℓ-adic étale cohomology of abelian varieties | L11e, L22 | missing (Stacks has étale cohomology foundations) | large |
+| analytification, complex tori, rational Hodge structures | L12, L13, G5, G10 | Tau Ceti has Riemann forms; GAGA missing | large |
+| `B_dR` with `G_K`-action and filtration; de Rham and Hodge–Tate representations; HT weights | L22, L23, L25, L26, G9, G12 | Mathlib has `BDeRhamPlus`, `BDeRham` (no action, no filtration) | large |
+| `B_st`, potentially semistable representations | L24, L25 | missing | very large |
+| Igusa invariants of genus-2 curves | L3 | missing; polynomials in the sextic | cheap |
+| Siegel modular forms of degree 2, theta constants with characteristics | L4, L35, G19 | missing | large |
+| QM abelian schemes, level structures, the moduli scheme `Y₃` and its canonical model; `X₆`, Atkin–Lehner action, CM points | L1-L5, G1-G6 | missing (Anthropic FLT: QM fake elliptic curves for Čerednik–Drinfeld; unchecked for `Y₃/ℚ`) | very large |
+| modular curve `X₁(N)` over `ℚ`, `J₁(N)`, Belyi maps | L29, L31, G13, G17 | missing (Anthropic FLT has Jacobians of curves) | very large |
+| Faltings height (Néron model or semistable model, metrized Hodge bundle), stable height | L31-L35, G18, G19 | missing | very large |
+| Weil heights on `ℚ̄` and `P^n` | G19, G20 | Mathlib (`NumberTheory/Height`) | — |
+
+## 6. Risks
+
+- **R1. The count.** The owner's target of about ten literature theorems is not reachable
+  faithfully: 21 research-level theorems from 18 sources, plus 19 textbook theorems. The eight
+  packages P1-P8 are the honest unit of about ten. Merging leaves to hit ten would hide distinct
+  theorems inside one statement (VERIFIED as a reading; SPECULATIVE as advice).
+- **R2. Pan's conclusion is undefined in his introduction** (h-a011 §1.1, VERIFIED there). A Lean
+  statement must fix a reading. The trace reading of L25 is implied by every reading in the
+  literature, so it is a consequence of the published theorem; a reading that fixes the level,
+  the minimal twist or the weight would be stronger than printed and must be avoided. The same
+  care applies to L26 (normalization: Tate module versus cohomological, rv-h-c8 R1).
+- **R3. Consequence forms need Chebotarev and Brauer–Nesbitt to derive.** L18, L25 (trace
+  reading), L27, L28(a), L29 and L30 are stated through Frobenius traces. Each is implied by the
+  published statement together with L18 and L19, which are themselves leaves; that derivation is
+  part of the work of whoever proves the leaf from the literature, and should be recorded with
+  it.
+- **R4. L1 is assembled.** The moduli interpretation of `Y₃` over `ℚ`, its canonical model and
+  Shimura reciprocity come from several statements of Shimura 1967 and Deligne 1971 (h-b1 §4A
+  writes out four inputs). A single Lean statement of L1 would bundle them; it must be checked
+  piece by piece against those sources. The Lean statement is far off (very large definitions).
+- **R5. The new arguments have only model reviews.** G7, G9, G12, G14, G15 (Glazer) and G2, G3, G6
+  (repository) have never had a human referee (h-trust §2.1). Formalizing them may find gaps; the
+  leaves would not change, but the glue might need other leaves.
+- **R6. Definitions in `Leaves.lean`.** The cheap definitions are mine and unreviewed. Specific
+  checks: `IsNormalizedEigenform` must match the Hecke definition (the recursion with `χ(d) = 0`
+  for `(d, N) > 1`, and `HasNebentypus` uses the lower-right entry `d`); `GaloisRep.IsIrreducible`
+  is absolute irreducibility only because `ℚ̄_ℓ` is algebraically closed (Burnside);
+  `GaloisRep.FrobTrace` quantifies over all places and all Frobenius lifts, which is right only at
+  unramified primes, where `AttachedTo` uses it. A wrong definition could make a leaf vacuous or
+  false; each needs a sanity lemma (§7).
+- **R7. Placeholders.** 32 leaves appear in `Leaves.lean` as `def L… : Prop := sorry`. As Lean
+  terms they are `sorryAx Prop`, so `sixContactMin_of_leaves` says nothing until they are
+  written. They are there to fix names and docstrings, not as hypotheses anyone should accept.
+- **R8. Faithfulness alternatives that would change the count** (SPECULATIVE). rv-h-c3 §3.2:
+  potentially semistable at 5 directly from L8 and Tsuji's `C_st`, which removes L22-L24 and G9
+  for one comparison theorem; Raynaud (L9) may make L8 unnecessary in G3; an isogeny between
+  conjugates (h-trust A7 remark) removes L3 from G4. None is N5's route; adopting one is a
+  decision for the owner.
+- **R9. Locators.** Almost every theorem number is UNVERIFIED in the published version (h-trust
+  §2.5); a few are ASTRA-READ or AUDIT-READ (a model's reading). Before the announcement, the
+  numbers of L25 (JAMS), L2 and L3 (journal versions) and L30 (`F = ℚ`, `p | N`) are the ones most
+  worth checking.
+
+## 7. First steps for a Lean team
+
+1. **Adopt the cheap layer** (`Leaves.lean` §0): prove sanity lemmas for each definition (Frobenius
+   traces independent of the place and the lift at unramified primes; `IsNormalizedEigenform`
+   equivalent to being an eigenvector of Hecke operators once those exist; `UnramifiedAt` via one
+   place iff all places). Small.
+2. **Prove the textbook leaves that other libraries have**: L14, L15(a), L17, L18 from Tau Ceti
+   (Skolem–Noether, the Brauer local–global sequence, Kronecker–Weber, Chebotarev), and L19
+   (Brauer–Nesbitt, self-contained, medium). These close five of the eight statable leaves.
+3. **Build abelian varieties with Tate modules** (medium) on Mathlib's group schemes or Tau
+   Ceti's `AbelianVariety`, then state L9, L10, L11a-d, L21 concretely. This is the definition with
+   the best ratio of leaves unlocked to cost.
+4. **Conductors of `ℓ`-adic representations** (medium, on Tau Ceti's ramification groups), then
+   state L30 and **formalize G15**, Glazer's uniform conductor bound, whose statement is local
+   Galois theory. With G7 (scalar descent, on Tau Ceti's Brauer group), it is the new mathematics
+   most worth machine-checking early.
+5. **Hodge–Tate and de Rham representations** (large, on Mathlib's `BDeRham`), then state L22,
+   L23, L26 and the statable core of L25.
+6. **Long term (very large):** the Faltings height (P8), `X₁(N)` and `J₁(N)` over `ℚ` (L29, L31),
+   and the QM moduli scheme `Y₃` (P1). Until those exist, G18-G19 can be developed against the
+   wk-h numerics (`transfer_numerics`) and G1, G2, G6 against their polynomial identities, which
+   are provable now.
