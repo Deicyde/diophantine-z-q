@@ -23,3 +23,13 @@ Task: blueprint for the Shimura-curve objects of leaves R1-R3, R5 (docs/research
   **`eq_smul_E0`**: every alternating ℚ-bilinear `E` on `B` with `E(ax,y) = E(x,a†y)` is `r·E₀`;
   **`eq_pm_E0_of_principal`**: Gram determinant 1 on N5's basis ⇒ `E = ±E₀`;
   `w2_normalizes`, `w3_normalizes`, `mu_normalizes`, `atkinLehner_relations`.
+- `QMAbVar.lean` (imports `ZInQKernel.HDecomp.Objects`): compiles, no errors, no `sorry`
+  (VERIFIED). Axioms of `not_qmStr_zero`, `Level3.rightMul_eq_self`, `Level3.twist`,
+  `QML3.Iso.refl`: propext, Classical.choice, Quot.sound. Contents: `endPt` (ring hom
+  `End_K(A) → End(A(L))`), `QMStr` (injective `𝒪 →+* End_K A`), `qmAct`, `qmModule`, `Level3`
+  (𝒪-linear, kernel 3𝒪, onto `A(K̄)[3]`, Galois-fixed), `Level3.tors`, `Level3.eq_iff`,
+  `Level3.rightMul` (𝒪^× action), `rightMul_eq_self` (units ≡ 1 mod 3𝒪 act trivially),
+  `QMStr.twist`/`Level3.twist` (Aut(𝒪) action, `A` unchanged), `QML3`, `QML3.Iso`, `M3 K`
+  (isomorphism classes). Pitfall: `ι` and `η` are tokens under the kernel's `open`s (field names
+  `iota`, `eta`); `mul_assoc` is ambiguous with `MonObj.mul_assoc` (use `_root_.`); `ring` fails
+  on the noncommutative `O` (use `noncomm_ring`).
