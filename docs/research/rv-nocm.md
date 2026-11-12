@@ -183,8 +183,13 @@ The inputs, for this cover:
 - **`Γ₃` is torsion-free.** `−1 ∉ K₃`, and a finite-order element of `1 + 3𝒪₃` is 1. The
   manuscript proves this at L468-470 via `1 + 3M₄(ℤ₃)`, and glue-repo proves it as
   `TorsionFree.matrix_padic_eq_one`. Elements of `B⁺ ∩ K₃` have reduced norm 1.
-  A direct check also works: for `x ∈ 𝒪¹` of finite order, `nrd(x − 1) = 2 − trd x ≤ 4`, while
-  `x − 1 ∈ 3𝒪 ∖ {0}` would force `9 ∣ nrd(x − 1)` with `nrd(x − 1) ≠ 0`.
+  Proved directly in Lean on the repository's `𝒪 ⊂ ℍ[ℚ,2,0,−3]`:
+  `RvNocm.Neat.eq_zero_of_pow_eq_one` (`scratch/rv-nocm/Neat.lean`, compiled) says that
+  `(1 + 3y)^m = 1` with `y ∈ 𝒪` and `m > 0` forces `y = 0`. The proof goes as follows:
+  - `nrd ≡ 1 (mod 3)`, so `nrd = 1`;
+  - then `trd = 2 − 9·nrd(y)`;
+  - if `nrd(y) ≠ 0`, the Cayley–Hamilton recursion grows, and `x^m = 1` forces `x ∈ ℚ`;
+  - otherwise anisotropy of the norm form gives `y = 0`.
 - **`Γ₃` is normal in `Γ*`.** `N` normalizes `K₃` (N5 L425-426).
 - **The orbifold orders of `Γ*`** are `4, 6, 2` at `j = 0, ∞, −16/27`, and there are no other
   elliptic points:
@@ -285,6 +290,9 @@ hdec-alt and hdec-elementary row A2**: replace "branched at / branch values … 
 
 ## 4. What compiles, what remains
 
+- **Compiles.** `scratch/rv-nocm/Neat.lean`: `RvNocm.Neat.eq_zero_of_pow_eq_one`, the
+  torsion-freeness of `1 + 3𝒪`, which is the hypothesis `htf` of
+  `ramification_eq_orbifold_order` for `Γ₃`.
 - **Compiles.** `scratch/rv-nocm/OrbifoldIndex.lean` (`lake env lean`, no `sorry`; axioms
   `propext`, `Classical.choice`, `Quot.sound`) contains:
   - `orbitStab`, `orbitStab_eq_sup`, `relIndex_orbitStab`, `inf_stabilizer_eq_bot`,

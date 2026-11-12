@@ -42,3 +42,10 @@
   (manuscript l.488-490 says so). Lemma NV step 4 uses the indices 2 of X6 -> P^1_j, derived
   internally. The leaf texts "X6/W branched with indices 4,6,2" (h-decomposition R2, glue-repo
   L2, Leaves.lean R02 docstring, pkg-I1 A2 row) misdescribe the finite map.
+- `Neat.lean`: COMPILES (`lake env lean`, ~01:40), no sorry, axioms [propext, Classical.choice,
+  Quot.sound]. `RvNocm.Neat.eq_zero_of_pow_eq_one`: for `B = ℍ[ℚ,2,0,-3]`, `y = comb n ∈ 𝒪`,
+  `(1 + 3y)^m = 1`, `m > 0` ⇒ `y = 0` (so `Γ₃` is torsion-free and `−1 ∉ 1 + 3𝒪`). Proof by
+  `nrd ≡ 1 mod 3` ⇒ `nrd = 1`, Cayley–Hamilton, growth of `p_{j+2} = t p_{j+1} − p_j` for
+  `|t| = |2 − 9K| ≥ 7`, anisotropy of the norm form (`norm_descent` copied from glue-repo
+  `A1Quaternion.lean`). Also `nrd_pow`, `normInt`, `nrd_comb`, `comb_eq_zero_of_normInt`,
+  `cayley_hamilton`, `pseq`, `pow_formula`, `pseq_growth`, `pseq_ne_zero`.
