@@ -32,8 +32,9 @@ Status: research note (task glue-b3b, 2026-11-12). Lean: `scratch/glue-b3b/B3b.l
    are 14 such lines: `exists_inertia_neg`, `leafB3b`, `unramified_outside_b3a`, `t32b`,
    `leafB3a_of_t32a`, `unramified_outside_t32a`, and the 8 glue-b3-unram/glue-conj theorems. The
    file has no `sorry` and no `axiom`, and `lake env lean` takes about 20 s.
-6. **T32(a) itself (equivalently L-B3a, given `leafB3b`) is not proved.** It needs the structure of
-   tame inertia, which Mathlib lacks; see "What remains".
+6. **T32(a) itself is not proved, and neither is L-B3a.** T32(a) ⇒ L-B3a is proved. The converse,
+   given `leafB3b` and the discreteness of `ℤˣ`, is plausible but SPECULATIVE and not formalized.
+   Proving T32(a) needs the structure of tame inertia, which Mathlib lacks; see "What remains".
 
 ## The method (no discriminants, no ramification indices)
 
