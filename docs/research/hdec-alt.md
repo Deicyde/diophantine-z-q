@@ -20,7 +20,8 @@ Target. H = `ZInQ.SixContactMin`, or the stronger `ZInQ.JHeight.JHeightBound Mul
 ## 1. Verdict
 
 1. **No published theorem replaces the core of Glazer's argument (SPECULATIVE as a claim about
-   the literature; the obstructions are VERIFIED as arguments).** H is an effective Shafarevich
+   the literature; the Baker-type obstruction is VERIFIED, nt-h §3.3; the von Känel obstruction
+   is SPECULATIVE, §1.1).** H is an effective Shafarevich
    bound, polynomial in `M = M_S(u)`, for the QM surfaces over the rational points of `X₆/W`.
    No paper that we know states such a bound for QM surfaces or for this family. The candidates
    fail as follows (details §1.1):
