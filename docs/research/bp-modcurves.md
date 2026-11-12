@@ -44,8 +44,8 @@ marked **UNVERIFIED** (this host has no network). Mathlib facts are VERIFIED by 
      The group-theoretic version is Lean layer 0, done: `belyiDeg_Gamma1_le`, `genus_Gamma1_le`.
 
 3. **Size.** The full dependency graph (§3, §4) has 17 nodes. Proved in layer 0: MC0a, MC0b,
-   MC2a, MC2b. Definition compiled: MC6 (`IsJacobian`, with its uniqueness glue proved), MC1 and
-   MC4 (`fieldX1`, `Y1j`, open degree statements). That is 779 Lean lines in 4 files. Small or
+   MC2a, MC2b, MC2d. Definition compiled: MC6 (`IsJacobian`, with its uniqueness glue proved), MC1
+   and MC4 (`fieldX1`, `Y1j`, open degree statements). That is 1 130 Lean lines in 5 files. Small or
    medium: 5 nodes. Large: 4. Very large: 3: the Jacobian's existence (MC6', a leaf, so not
    built), the Faltings height (WP10, out of scope) and, if wanted, Hecke correspondences on
    `J₁(N)` (MC8, avoidable). Without MC8 and with MC6' a leaf, the critical path is
@@ -75,6 +75,13 @@ marked **UNVERIFIED** (this host has no network). Mathlib facts are VERIFIED by 
      with `Ej_j : Ej.j = X` proved); `fieldX1 P = ℚ(j)⟮x(P)⟯`; `Y1j P` (Mathlib's relative
      normalization of `Spec ℚ[j]` in `fieldX1 P`, i.e. `X₁(N)` minus its cusps); `jMap`. The open
      statements `TorsionCardLe`, `FieldX1DegreeLe` and `FieldX1Degree` (leaf MC1') are `Prop`s.
+   - `scratch/bp-modcurves/AnalyticModuli.lean`. The moduli interpretation of `Γ₁(N)\ℍ` at the
+     level of points, over Mathlib's `ℍ`, `SL(2,ℤ)`-action and `Gamma1`, with `Λ_τ = ℤτ + ℤ`:
+     `lattice_homothety` (`j(γ,τ)·Λ_{γτ} = Λ_τ`); `exists_SL2_of_homothety` (every homothety
+     `Λ_{τ'} → Λ_τ` is `j(γ,τ)` with `τ' = γτ`); `pair_iso_iff`
+     (`(ℂ/Λ_{τ'}, 1/N) ≅ (ℂ/Λ_τ, 1/N)` iff `τ' ∈ Γ₁(N)·τ`); `exactOrder` (`1/N` has exact
+     order `N`); `exists_normalize` (every point `(cτ+d)/N` with `(c,d)` primitive mod `N` is
+     equivalent to `1/N`).
    - Ground truth (VERIFIED, computed): `genus_check.py` (`N = 1..30`). The genus from the
      `S, ST, T` action equals the closed forms `μ = J₂(N)/2` and `ν∞ = ½Σ_{d|N}φ(d)φ(N/d)`, and
      the reference genus table (all 30 agree). `tate_check.py`: on Kubert's families for
@@ -151,6 +158,7 @@ be stated, not proved.
  MC0a [done] belyiDeg, ν₂, ν₃, ν∞, genus of Γ₁(N); μ ≤ N², g ≤ N²                  ▼
  MC0b [done] cosets SL₂(ℤ)/Γ₁(N) ≅ primitive vectors of (ℤ/N)²; 2μ = #         MC2a [done] Tate normal form ∃!
  MC0c  ν∞ = #Γ₁(N)\ℙ¹(ℚ) (Mathlib CuspOrbits)                        MC2b [done] point hypotheses (2P,3P ≠ 0)
+ MC2d [done] over ℂ: (ℂ/Λ_τ, 1/N) pairs up to homothety = Γ₁(N)\ℍ  (links MC0 to MC2)
           │                                                                       │
           │                    MC3a  #E[N](K̄) ≤ N² (char 0)  ◄──── Tau Ceti / FLT (E[n] ≅ (ℤ/n)²) or ψ_N
           │                       │                                               │
@@ -192,6 +200,7 @@ VERIFIED.
 | **MC2a** | Tate normal form: `(E,P)` with `2P, 3P ≠ 0` ⇒ `∃ C, C•E = E(b,c)`, `C` sends `P ↦ (0,0)`; uniqueness; `Δ(b,c)` | Mathlib `VariableChange` | small | explicit `u = d/A₂`, `r = x₀`, `s = ℓ`, `t = y₀` | **done** (`TateNormalForm.lean`) |
 | **MC2b** | the hypotheses of MC2a from `P+P ≠ 0`, `P+P+P ≠ 0` in `Affine.Point` | Mathlib `add_self_of_Y_eq`, `X_eq_iff` | small | — | **done** |
 | MC2c | for `N ≥ 4`: `Y₁(N)(K) := {(E,P), ord P = N}/≅ ≃ {(b,c) : Δ(b,c) ≠ 0, ord_{E(b,c)}(0,0) = N}` | MC2a, MC2b, `addOrderOf`; **a change of variables acts on `Affine.Point` as a group isomorphism**, which is absent from Mathlib (only `equation_iff_variableChange`, `nonsingular_iff_variableChange` for translations, in `Affine/Basic.lean`) | medium | first the point transport `(x,y) ↦ ((x−r)/u², (y−s(x−r)−t)/u³)` and its additivity (slope identities), then package MC2a/b as an `Equiv` of quotients | open |
+| **MC2d** | over `ℂ`: `(ℂ/Λ_{τ'}, 1/N) ≅ (ℂ/Λ_τ, 1/N)` by a homothety iff `τ' ∈ Γ₁(N)τ`; every primitive level-`N` point is equivalent to `1/N` (so pairs `(ℂ/Λ_τ, P)` up to homothety are `Γ₁(N)\ℍ`) | Mathlib `UpperHalfPlane`, `coe_specialLinearGroup_apply`, `Gamma1_mem`; Weierstrass model via `PeriodPair.derivWeierstrassP_sq` | small | lattices `ℤτ + ℤ` as sets, automorphy factor `cτ + d`, orientation from imaginary parts | **done** (`AnalyticModuli.lean`); "every lattice is some `αΛ_τ`" and "`(cτ+d)/N` has exact order `N` iff primitive" open, small |
 | MC3a | `E[N](K̄)` has at most `N²` points for `E/K`, `char K = 0` (and exactly `N²`) | Silverman III.6.4 (UNVERIFIED) | medium-large | via Tau Ceti/FLT `E[n] ≅ (ℤ/n)²` if proved there; else `x(E[N]) ⊆ roots of ψ_N` (multiplication formula, absent from Mathlib) | open |
 | MC1 | `K_N := ℚ(j)⟮x(P)⟯ ⊆ \overline{ℚ(j)}` for `P ∈ E_j(\overline{ℚ(j)})` of exact order `N`; `[K_N:ℚ(j)] ≤ N²/2` | MC3a; `E_j` from `ModelsWithJ`; `minpoly` | medium | `x(P)` is a root of `∏_{Q of order N}(X − x(Q))`, which has `≤ J₂(N)/2` distinct roots, and that polynomial has coefficients in `ℚ(j)` (Galois-stable) | **definition done** (`fieldX1`, `Ej_j`); bound open (`FieldX1DegreeLe`) |
 | MC1' | `Φ_N` absolutely irreducible over `ℚ̄(j)`, so `ℚ` is algebraically closed in `K_N` and `[K_N:ℚ(j)] = J₂(N)/2` | Igusa 1959 or Shimura 1971 Thm 6.6 / Lang, *Elliptic Functions* Ch. 6 (all UNVERIFIED) | (leaf) | state as a leaf: `Gal(ℚ̄(j)(E[N])/ℚ̄(j)) ≅ SL₂(ℤ/N)/(±1 ∩ …)` acting transitively on order-`N` points mod `±` | leaf; or glue from monodromy (large) |
@@ -332,7 +341,7 @@ at most `N²`" (L868-870, VERIFIED read).
 
 ## §8. Lean layer 0 (what compiles)
 
-All in namespace `BPModCurves`, 779 lines in 4 files. Each file is checked with `lake env lean`
+All in namespace `BPModCurves`, 1 130 lines in 5 files. Each file is checked with `lake env lean`
 (exit 0, no errors, no warnings, no `sorry`). `#print axioms` gives `propext`, `Classical.choice`,
 `Quot.sound` for every headline theorem (VERIFIED, `log.md` entries 11:45-12:20).
 
@@ -412,6 +421,23 @@ noncomputable def jMap (P) : Y1j P ⟶ Spec (CommRingCat.of (Polynomial ℚ))
 def TorsionCardLe : Prop      -- MC3a, open
 def FieldX1DegreeLe : Prop    -- MC1 bound, open
 def FieldX1Degree : Prop      -- MC1', leaf (2·[K_N:ℚ(j)] = #PrimVec N)
+```
+
+`scratch/bp-modcurves/AnalyticModuli.lean` (351 lines):
+
+```lean
+def lat (τ : ℂ) : Set ℂ := {z | ∃ m n : ℤ, z = m * τ + n}
+def jfac (γ : SL(2, ℤ)) (τ : ℂ) : ℂ := (γ 1 0 : ℂ) * τ + (γ 1 1 : ℂ)
+theorem lattice_homothety (γ : SL(2, ℤ)) (τ : ℍ) : (fun z => jfac γ τ * z) '' lat (γ • τ : ℍ) = lat τ
+theorem point_preserved_iff (N : ℕ) [NeZero N] (γ : SL(2, ℤ)) (τ : ℍ) :
+    jfac γ τ * (1 / N) - 1 / N ∈ lat τ ↔ γ ∈ Gamma1 N
+theorem exactOrder (N : ℕ) [NeZero N] (τ : ℍ) (k : ℤ) : (k : ℂ) * (1 / N) ∈ lat τ ↔ (N : ℤ) ∣ k
+theorem exists_SL2_of_homothety (τ τ' : ℍ) (α : ℂ) (h : (fun z => α * z) '' lat τ' = lat τ) :
+    ∃ γ : SL(2, ℤ), (τ' : ℂ) = (γ • τ : ℍ) ∧ α = jfac γ τ
+theorem pair_iso_iff (N : ℕ) [NeZero N] (τ τ' : ℍ) :
+    (∃ α : ℂ, (fun z => α * z) '' lat τ' = lat τ ∧ α * (1 / N) - 1 / N ∈ lat τ) ↔ ∃ γ ∈ Gamma1 N, τ' = γ • τ
+theorem exists_normalize (N : ℕ) [NeZero N] (τ : ℍ) (c d : ℤ)
+    (hv : ∃ x y : ZMod N, x * c + y * d = 1) : ∃ γ : SL(2, ℤ), jfac γ τ * (1 / N) - (c * τ + d) / N ∈ lat τ
 ```
 
 Faithfulness notes:
