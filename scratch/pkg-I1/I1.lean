@@ -324,4 +324,40 @@ theorem Ju_ne_branch (u : ℚ) : Ju u ≠ -16 / 27 := by
       (mul_ne_zero (by norm_num) (pow_ne_zero 6 (Gu_ne_zero u)))
   exact this (by rw [← h2]; norm_num)
 
+/-! ### CM elements of `𝒪` (the hypotheses of the three value clauses of `QMHauptmodul` are
+satisfiable; glue, proved) -/
+
+theorem inO_of (x : B) (n : Fin 4 → ℤ) (h : x = ∑ k, (n k : ℚ) • oBasis k) : InO x := ⟨n, h⟩
+
+/-- `i + j ∈ 𝒪`, `(i+j)² = -1` (disc `-4`). -/
+theorem cm4 : InO ⟨0, 1, 1, 0⟩ ∧ (⟨0, 1, 1, 0⟩ : B) * ⟨0, 1, 1, 0⟩ = -1 := by
+  refine ⟨inO_of _ ![-1, 1, 2, 0] ?_, ?_⟩
+  · ext <;> simp [oBasis, Fin.sum_univ_four] <;> norm_num
+  · ext <;> simp <;> norm_num
+
+/-- `ω = (1+j)/2 ∈ 𝒪`, `ω² - ω + 1 = 0` (disc `-3`). -/
+theorem cm3 : InO ⟨1/2, 0, 1/2, 0⟩ ∧
+    (⟨1/2, 0, 1/2, 0⟩ : B) * ⟨1/2, 0, 1/2, 0⟩ - ⟨1/2, 0, 1/2, 0⟩ + 1 = 0 := by
+  refine ⟨inO_of _ ![0, 0, 1, 0] ?_, ?_⟩
+  · ext <;> simp [oBasis, Fin.sum_univ_four]
+  · ext <;> simp <;> norm_num
+
+/-- `μ = 2j + ij ∈ 𝒪`, `μ² = -6` (disc `-24`). -/
+theorem cm24 : InO mu ∧ mu * mu = -6 := by
+  refine ⟨inO_of _ ![-2, -1, 4, 2] ?_, ?_⟩
+  · ext <;> simp [mu, oBasis, Fin.sum_univ_four] <;> norm_num
+  · ext <;> simp [mu, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+      QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num
+
+/-! ### Elkies' coordinate (A10 glue, proved): `t = 1 + 27J/16`, `t(u) = H²/G⁶`,
+`t(u) - 1 = -3(180F/G³)²` (h-cm 4.1.1) -/
+
+theorem elkies_t (u : ℚ) : 1 + 27 / 16 * Ju u = Hu u ^ 2 / Gu u ^ 6 := by
+  have hG : Gu u ≠ 0 := Gu_ne_zero u
+  rw [← G6_sub_F2 u]; unfold Ju; field_simp; ring
+
+theorem elkies_t_sub_one (u : ℚ) : 27 / 16 * Ju u = -3 * (180 * Fu u / Gu u ^ 3) ^ 2 := by
+  have hG : Gu u ≠ 0 := Gu_ne_zero u
+  unfold Ju; field_simp; ring
+
 end PkgI1
