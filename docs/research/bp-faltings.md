@@ -333,8 +333,7 @@ hypotheses are exactly the outputs of AN4, AN5 and AT1a.
 ## 5. Recommended order of work for the crowdsourced team
 
 1. **WP-A (S-M, can start now).** Finish AR3: tensor products, and base change for an abstract
-   `HermitianLattice` (the fractional-ideal case is BUILT here). Also H6, and the value `covol(ℤ + ℤi) = 1` (then
-   `exampleHodge` has height 0). Pure Mathlib.
+   `HermitianLattice` (the fractional-ideal case is BUILT here), and H6. Pure Mathlib.
 2. **WP-B (M, can start now).** AN5 (`PeriodAreaFormula`) from Mathlib's `℘`. This turns AT1's
    archimedean half into a theorem.
 3. **WP-C (M-L).** AV2-AV5 and M2-M3: dimension, cotangent spaces, `e*Ω¹` of a smooth group
