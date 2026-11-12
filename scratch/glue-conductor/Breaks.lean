@@ -255,15 +255,15 @@ theorem swan_eq_zero_of_tame (g : ℕ → ℕ) (hanti : Antitone g) (hg1 : g 1 =
 
 /-! ## D2: odd `p`, the character `β` on wild inertia -/
 
-/-- **D2, last sentence.** A homomorphism `β` from a group all of whose elements have
-`p`-power order (`p` odd), with `β²` trivial (`β² = χ` is tame, so trivial on wild inertia),
-is trivial: a pro-`p` group has no quotient of order two (N5 L821-823). -/
+/-- **D2, last sentence.** Let `β : G →* H` be a homomorphism whose values have `p`-power
+order, `p` odd (for `G = P_F` pro-`p` and `β` continuous into the finite group `μ_{2m}`, the
+image is a finite `p`-group). If `β²` is trivial (`β² = χ` is tame, so trivial on wild
+inertia), then `β` is trivial: a pro-`p` group has no quotient of order two (N5 L821-823). -/
 theorem char_trivial_of_odd_pgroup {G H : Type*} [Group G] [Group H] (p : ℕ) (hp : p.Prime)
-    (hodd : p ≠ 2) (hG : ∀ g : G, ∃ k : ℕ, g ^ (p ^ k) = 1) (β : G →* H)
+    (hodd : p ≠ 2) (β : G →* H) (himg : ∀ g, ∃ k : ℕ, β g ^ (p ^ k) = 1)
     (hsq : ∀ g, β g ^ 2 = 1) : ∀ g, β g = 1 := by
   intro g
-  obtain ⟨k, hk⟩ := hG g
-  have h1 : β g ^ (p ^ k) = 1 := by rw [← map_pow, hk, map_one]
+  obtain ⟨k, h1⟩ := himg g
   have hcop : Nat.Coprime 2 (p ^ k) := by
     apply Nat.Coprime.pow_right
     exact (Nat.coprime_primes Nat.prime_two hp).mpr (Ne.symm hodd)
@@ -272,6 +272,13 @@ theorem char_trivial_of_odd_pgroup {G H : Type*} [Group G] [Group H] (p : ℕ) (
   have : orderOf (β g) ∣ Nat.gcd 2 (p ^ k) := Nat.dvd_gcd h2 h3
   rw [hcop, Nat.dvd_one, orderOf_eq_one_iff] at this
   exact this
+
+/-- The image of a homomorphism from a finite `p`-group has `p`-power-order elements, so
+`char_trivial_of_odd_pgroup` applies to `β` restricted to any finite `p`-group quotient. -/
+lemma pow_card_eq_one_of_pgroup {G H : Type*} [Group G] [Group H] [Finite G] {p : ℕ}
+    (hG : IsPGroup p G) (β : G →* H) (g : G) : ∃ k : ℕ, β g ^ (p ^ k) = 1 := by
+  obtain ⟨k, hk⟩ := hG g
+  exact ⟨k, by rw [← map_pow, hk, map_one]⟩
 
 /-! ## D2-D4: the constants -/
 
