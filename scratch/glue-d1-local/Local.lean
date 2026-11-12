@@ -469,7 +469,67 @@ theorem D1_local (hH : HilbertDifferentFormula) (hS : SerreDifferentBound)
     phi (ramCard L P) b ≤ 4 * a ^ 2 :=
   D1_genuine hH hS L p P a ha (ramificationIdx_le_factorial_local L p P K hcore a hdeg) b hb
 
+/-- `|D_P| = e(P|p)·f(P|p)` (Mathlib's `Ideal.card_stabilizer_eq`). -/
+theorem card_decompGroup (p : ℕ) [Fact p.Prime]
+    (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})] :
+    Nat.card (decompGroup L P) = P.ramificationIdx ℤ * P.inertiaDeg ℤ := by
+  rw [Ideal.card_stabilizer_eq (G := Gal(L/ℚ)) (Ideal.span {(p : ℤ)}) P,
+    Ideal.ramificationIdxIn_eq_ramificationIdx (Ideal.span {(p : ℤ)}) P Gal(L/ℚ),
+    Ideal.inertiaDegIn_eq_inertiaDeg (Ideal.span {(p : ℤ)}) P Gal(L/ℚ)]
+
+/-- `D_P ∩ Gal(L/K)` is the stabilizer of `P` in `Gal(L/K)`. -/
+def localSubEquiv (K : IntermediateField ℚ L) (P : Ideal (𝓞 L)) :
+    localSub L K P ≃ MulAction.stabilizer K.fixingSubgroup P where
+  toFun x := ⟨⟨x.1.1, x.2⟩, x.1.2⟩
+  invFun y := ⟨⟨y.1.1, y.2⟩, y.1.2⟩
+  left_inv _ := rfl
+  right_inv _ := rfl
+
+/-- **The local degree as an index.** For `w = P ∩ 𝓞 K`,
+`[D_P : D_P ∩ Gal(L/K)] = e(w|p)·f(w|p)` (the local degree `[K_w : ℚ_p]`). -/
+theorem index_localSub (p : ℕ) [Fact p.Prime]
+    (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})]
+    (K : IntermediateField ℚ L) :
+    (localSub L K P).index =
+      (P.under (𝓞 K)).ramificationIdx ℤ * (P.under (𝓞 K)).inertiaDeg ℤ := by
+  have hD := card_decompGroup L p P
+  have : IsGaloisGroup K.fixingSubgroup K L :=
+    IsGaloisGroup.intermediateField Gal(L/ℚ) ℚ L K
+  have : IsGaloisGroup K.fixingSubgroup (𝓞 K) (𝓞 L) :=
+    IsGaloisGroup.of_isFractionRing _ (𝓞 K) (𝓞 L) K L
+  have hH : Nat.card (MulAction.stabilizer K.fixingSubgroup P) =
+      P.ramificationIdx (𝓞 K) * P.inertiaDeg (𝓞 K) := by
+    have h1 := Ideal.card_stabilizer_eq (G := K.fixingSubgroup) (P.under (𝓞 K)) P
+    rw [Ideal.ramificationIdxIn_eq_ramificationIdx (P.under (𝓞 K)) P K.fixingSubgroup,
+      Ideal.inertiaDegIn_eq_inertiaDeg (P.under (𝓞 K)) P K.fixingSubgroup] at h1
+    exact h1
+  have hS : Nat.card (localSub L K P) = P.ramificationIdx (𝓞 K) * P.inertiaDeg (𝓞 K) := by
+    rw [← hH]; exact Nat.card_congr (localSubEquiv L K P)
+  have he := Ideal.ramificationIdx_tower (R := ℤ) (P.under (𝓞 K)) P
+  have hf := Ideal.inertiaDeg_tower (R := ℤ) (P.under (𝓞 K)) P
+  have hmul := (localSub L K P).card_mul_index
+  rw [hS, hD, he, hf] at hmul
+  have hpos : 0 < P.ramificationIdx (𝓞 K) * P.inertiaDeg (𝓞 K) := by
+    rw [← hS]; exact Nat.card_pos
+  have : P.ramificationIdx (𝓞 K) * P.inertiaDeg (𝓞 K) * (localSub L K P).index =
+      P.ramificationIdx (𝓞 K) * P.inertiaDeg (𝓞 K) *
+        ((P.under (𝓞 K)).ramificationIdx ℤ * (P.under (𝓞 K)).inertiaDeg ℤ) := by
+    rw [hmul]; ring
+  exact Nat.eq_of_mul_eq_mul_left hpos this
+
+/-- **D1, local form, with the local degree as `e(w|p)·f(w|p)`.** -/
+theorem D1_local' (hH : HilbertDifferentFormula) (hS : SerreDifferentBound)
+    (p : ℕ) [Fact p.Prime] (P : Ideal (𝓞 L)) [P.IsPrime] [P.LiesOver (Ideal.span {(p : ℤ)})]
+    (K : IntermediateField ℚ L) (hcore : (localSub L K P).normalCore = ⊥)
+    (a : ℕ) (ha : 1 ≤ a)
+    (hdeg : (P.under (𝓞 K)).ramificationIdx ℤ * (P.under (𝓞 K)).inertiaDeg ℤ ≤ a)
+    (b : ℕ) (hb : ramGroup L P b ≠ ⊥) :
+    phi (ramCard L P) b ≤ 4 * a ^ 2 :=
+  D1_local L hH hS p P K hcore a ha ((index_localSub L p P K).trans_le hdeg) b hb
+
 end GlueD1Local
 
 #print axioms GlueD1Local.ramificationIdx_le_factorial_local
 #print axioms GlueD1Local.D1_local
+#print axioms GlueD1Local.index_localSub
+#print axioms GlueD1Local.D1_local'
