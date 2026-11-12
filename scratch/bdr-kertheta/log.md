@@ -34,4 +34,4 @@
 - `thetaPlus : BDeRhamPlus → 𝓞_ℂ_p[1/p]` (evalOneₐ then θ[1/p]; Mathlib TODO 1), `thetaPlus_ofPlus`,
   `thetaPlus_surjective`, `ker_thetaPlus = (ξ)`, `isFractionRing_away_p`, `awayEquivCp : 𝓞_ℂ_p[1/p] ≃ₐ ℂ_[p]`,
   `thetaPlusCp : BDeRhamPlus →+* ℂ_[p]`, `thetaPlusCp_surjective`, `ker_thetaPlusCp = (ξ)`: COMPILE,
-  standard axioms (VERIFIED, 23:55). So the residue field of B_dR^+ is ℂ_p.
+  standard axioms (VERIFIED, 23:51). So the residue field of B_dR^+ is ℂ_p.

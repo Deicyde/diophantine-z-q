@@ -1,7 +1,7 @@
 # bdr-kertheta: `ker θ` is principal for `𝓞_ℂ_p`, and Mathlib's `BDeRham` is the classical `B_dR` (Lean proofs)
 
 Status: research note, task bdr-kertheta, 2026-11-11. Lean file `scratch/bdr-kertheta/KerTheta.lean`
-(about 790 lines, `import Mathlib` only, checked with `lake env lean`: no errors, no warnings,
+(about 860 lines, `import Mathlib` only, checked with `lake env lean`: no errors, no warnings,
 no `sorry`; every main theorem prints the axioms `[propext, Classical.choice, Quot.sound]` and
 nothing else). Log: `scratch/bdr-kertheta/log.md`. No file under `ZInQKernel/`, `blueprint/` or
 other tasks' notes was edited.
@@ -34,7 +34,11 @@ Lean (VERIFIED).** Let `O = 𝓞_ℂ_[p]` (Mathlib's `PadicComplexInt p`), `O♭
    own structure map `BDeRhamPlus → BDeRham`). Hence `BDeRham O p` is a complete discretely valued
    field whose valuation ring is (the image of) `BDeRhamPlus O p`, which by Mathlib's definition is
    the `ker θ[1/p]`-adic completion of `W(O♭)[1/p]`. `nontrivial_BDeRham`: it is not the zero ring.
-6. On the way: `fontaineTheta_surjective` (θ surjective for `𝓞_ℂ_p`), `isField_away_p`
+6. **Residue field `ℂ_p` (Mathlib's TODO 1).** `thetaPlusCp : BDeRhamPlus O p →+* ℂ_[p]`
+   (reduction mod `ker θ[1/p]` via `AdicCompletion.evalOneₐ`, then `θ[1/p]`, then
+   `awayEquivCp : 𝓞_ℂ_p[1/p] ≃ₐ[O] ℂ_[p]`), with `thetaPlusCp_surjective` and
+   `ker_thetaPlusCp : ker = (ξ)`; `thetaPlus_ofPlus`: it extends `θ[1/p]`.
+7. On the way: `fontaineTheta_surjective` (θ surjective for `𝓞_ℂ_p`), `isField_away_p`
    (`𝓞_ℂ_p[1/p]` is a field), `ker_fontaineThetaInvertP_isMaximal` (`(ξ')` maximal in
    `W(O♭)[1/p]`), `isDomain_away` (`W(O♭)[1/p]` is a domain), `xi'_mem_nonZeroDivisors`.
 
@@ -47,12 +51,9 @@ that Mathlib's `BDeRham` is `B_dR^+[1/ξ]` = `Frac(B_dR^+)` with `B_dR^+` a comp
 Fontaine's `B_dR`. So the de Rham predicate `IsDeRham` of pkg-I4 is stated over the classical
 `B_dR`; the failure mode pkg-I4 flagged (empty generator set, `BDeRham = BDeRhamPlus`) is excluded.
 
-**What remains (not done here).** (a) The residue field: `B_dR^+/(ξ) ≅ 𝓞_ℂ_p[1/p] ≅ ℂ_p` is not
-stated as a Lean isomorphism (`B_dR^+ → W(O♭)[1/p]/ker θ[1/p] ≅ O[1/p]` is available from
-`AdicCompletion.evalOneₐ` and items 6; the type-level identification `O[1/p] ≅ ℂ_[p]` is not
-written). Mathlib's TODO 1 (θ extended to `B_dR^+`) is this map and is not packaged. (b) The
+**What remains.** Everything the task asked for is proved. Related points not done here: (a) the
 compatibility of these facts with pkg-I4's Galois action `bdrAct` (e.g. `σ(ξ) = ξ·unit`, the action
-is continuous) is not checked. (c) The non-vacuity facts of pkg-I4 §3.4 items 2-3
+is continuous) is not checked. (b) The non-vacuity facts of pkg-I4 §3.4 items 2-3
 (`B_dR^{G_{ℚ_p}} = ℚ_p`, Tate's `ℂ_p(i)^{G} = 0`) need Ax–Sen–Tate and are untouched.
 
 ## 1. The Lean file
@@ -70,9 +71,10 @@ is continuous) is not checked. (c) The non-vacuity facts of pkg-I4 §3.4 items 2
 | D | `dvd_of_coeff_zero` | In `𝓞_ℂ_p♭`: `ϖ♯ = p`, `c♯ ∈ p𝓞` ⇒ `ϖ ∣ c`, via `eₙ = c^{(n)}/ϖ^{(n)} ∈ 𝓞` (norms), `e_{n+1}^p = eₙ` exactly. |
 | D | `rootsOfP`, `pFlat`, `untilt_pFlat` | `p♭` from `IsAlgClosed ℂ_[p]`; `p♭♯ = p` by Hausdorffness and `dvd_sub_pow_of_dvd_sub`. |
 | D | `xi`, `ker_fontaineTheta_Cp`, `xi'`, `ker_fontaineThetaInvertP_Cp`, `isUnit_xi_BDeRham_Cp`, `bdREquivAway` | Verdict 1-3. |
-| D | `frobenius_surjective`, `fontaineTheta_surjective`, `isField_away_p`, `fontaineThetaInvertP_surjective`, `ker_fontaineThetaInvertP_isMaximal`, `isDomain_tilt`, `isDomain_away`, `xi_ne_zero`, `xi'_mem_nonZeroDivisors`, `ofPlus_xi'_pow_ne_zero`, `nontrivial_BDeRham` | Verdict 6; `ξ` not nilpotent in `B_dR^+` (via `evalₐ (n+1)`). |
+| D | `frobenius_surjective`, `fontaineTheta_surjective`, `isField_away_p`, `fontaineThetaInvertP_surjective`, `ker_fontaineThetaInvertP_isMaximal`, `isDomain_tilt`, `isDomain_away`, `xi_ne_zero`, `xi'_mem_nonZeroDivisors`, `ofPlus_xi'_pow_ne_zero`, `nontrivial_BDeRham` | Verdict 7; `ξ` not nilpotent in `B_dR^+` (via `evalₐ (n+1)`). |
 | D | `isAdicComplete_BDeRhamPlus`, `isMaximal_span_xi`, `isLocalRing_BDeRhamPlus`, `maximalIdeal_BDeRhamPlus`, `eq_xi_pow_mul_unit`, `isDomain_BDeRhamPlus`, `isDiscreteValuationRing_BDeRhamPlus` | Verdict 4 (Mathlib's `AdicCompletion.isAdicComplete_self`, `isMaximal_map_of_le`, `isLocalRing_of_isAdicComplete_maximal`, `IsDiscreteValuationRing.ofHasUnitMulPowIrreducibleFactorization`). |
 | D | `isFractionRing_away_xi`, `isField_BDeRham`, `isFractionRing_BDeRham` | Verdict 5. |
+| D | `thetaPlus`, `thetaPlus_ofPlus`, `thetaPlus_surjective`, `ker_thetaPlus`, `isFractionRing_away_p`, `awayEquivCp`, `thetaPlusCp`, `thetaPlusCp_surjective`, `ker_thetaPlusCp` | Verdict 6. |
 
 `BdR O p` abbreviates `Localization (genMonoid O p)`, checked by `example : BdR O p = BDeRham O p
 := rfl` (Mathlib's `BDeRham` carries no `CommRing` instance, as pkg-I4 also found).
@@ -96,4 +98,4 @@ is not nilpotent because `ξⁿ ∉ (ξ^{n+1})` in the domain `W(O♭)[1/p]`.
 - Parts A-C address Mathlib's TODO 3 in `Mathlib/RingTheory/Perfectoid/BDeRham.lean` ("ker θ is
   principal when the base ring is integral perfectoid") once the divisibility hypothesis of Part C
   is derived from a perfectoid axiom; for `𝓞_ℂ_p` it is proved. TODO 2 ("`B_dR^+` is a DVR") is
-  proved for `𝓞_ℂ_p` (item 4).
+  proved for `𝓞_ℂ_p` (item 4), and TODO 1 ("extend θ to `B_dR^+`") is `thetaPlus` (item 6).
