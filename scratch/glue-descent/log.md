@@ -24,3 +24,17 @@ wk-h §§1-3; rv-h-novel log (S1.1-S2.1); prereq-survey rows B1, B2, C1.
 - boundary_sq: dβ₀ is a sign when β₀² = χ is a hom.
 - relindex_kernel_le / index_kernel_le: β^n = 1 on H (values in a field) ⇒ [H:K'] ≤ n,
   [G:K'] ≤ n[G:H]  (N5: [L':ℚ] ≤ 2md).
+
+## Step 3: Constants.lean (B2-B3 constants, repo definitions) — compiles, no sorry (VERIFIED)
+Imports ZInQKernel.Compiler.Precision.HeightConstant (heightD_eq, heightE0_eq; kernel never evaluates D).
+- ramSet S u := S ∪ primeFactors(contactSupport S u)   (N5's T).
+- prod_odd_le: ∏_{p∈T, p≠2}(p-1) ≤ R^R · M_S(u) for S primes ≤ R, R ≥ 1.
+- degree_le_QM: S primes, D ≤ R, max S ≤ R, 10¹² ≤ R, d ≤ D, m ≤ 2∏_{p∈T,p≠2}(p-1)
+  ⇒ (2md : ℝ) ≤ heightQ R · M_S(u).   (N5 L713: [L':ℚ] ≤ 2md ≤ 4DR^RM ≤ QM.)
+  Uses only 1 ≤ D (heightD_pos), 10 ≤ E₀ (ten_le_heightE0).
+
+## Step 4: Chi.lean (B2's χ) — compiles, no sorry; #print axioms exists_chi: propext, Classical.choice, Quot.sound (VERIFIED)
+- exists_odd_char: n > 2 ⇒ ∃ χ : DirichletCharacter ℂ n, χ(-1) = -1 (MulChar duality).
+- orderOf_dvd_totient, orderOf_prod_dvd.
+- exists_chi: T primes, T₋ ⊆ T, χ = ∏_{p∈T₋} changeLevel(χ_p) at level N = ∏ lev p (lev 2 = 4):
+  each χ_p odd; every prime factor of N lies in T; orderOf χ ≤ 2∏_{p∈T,p≠2}(p-1).
