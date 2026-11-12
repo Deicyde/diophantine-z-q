@@ -99,6 +99,44 @@ def LocalH2Card : Prop :=
         (TopRep.res (Field.absoluteGaloisGroup.map (algebraMap ℚ ℝ) :
           Field.absoluteGaloisGroup ℝ →* Field.absoluteGaloisGroup ℚ) (Z2 ℚ))) = 2
 
+lemma eq_of_ne_zero_of_card_two {G : Type*} [AddGroup G] (h : Nat.card G = 2) {a b : G}
+    (ha : a ≠ 0) (hb : b ≠ 0) : a = b := by
+  obtain ⟨x, y, -, hu⟩ := Nat.card_eq_two_iff.mp h
+  have mem : ∀ z : G, z = x ∨ z = y := fun z => by
+    have : z ∈ ({x, y} : Set G) := hu ▸ Set.mem_univ z
+    simpa using this
+  rcases mem 0 with h0 | h0 <;> rcases mem a with h1 | h1 <;> rcases mem b with h2 | h2 <;>
+    first
+    | exact h1.trans h2.symm
+    | exact absurd (h1.trans h0.symm) ha
+    | exact absurd (h2.trans h0.symm) hb
+
+/-- **The Brauer step of B2 (GLUE, proved from I6.2a-c).** Two classes in `H²(G_ℚ, ℤ/2)` that are
+locally nonzero at exactly the same primes are equal (agreement at `∞` comes from reciprocity).
+In N5 L683-692 the classes are `[ε]` and the boundary `δχ`. -/
+theorem eq_of_same_finite_support (hH : BrauerHasse2) (hR : BrauerReciprocity2)
+    (hC : LocalH2Card) (x y : continuousCohomology 2 (Z2 ℚ))
+    (h : ∀ (p : ℕ) [Fact p.Prime], (locP p).hom x = 0 ↔ (locP p).hom y = 0) : x = y := by
+  have hp : ∀ (p : ℕ) [Fact p.Prime], (locP p).hom (x - y) = 0 := by
+    intro p _
+    rw [map_sub, sub_eq_zero]
+    by_cases hx : (locP p).hom x = 0
+    · rw [hx, ((h p).mp hx)]
+    · exact eq_of_ne_zero_of_card_two (hC.1 p) hx (fun hy => hx ((h p).mpr hy))
+  have hinf : locInf.hom (x - y) = 0 := by
+    obtain ⟨-, hev⟩ := hR (x - y)
+    have hempty : {q : Nat.Primes | haveI : Fact (q : ℕ).Prime := ⟨q.2⟩;
+        (locP (q : ℕ)).hom (x - y) ≠ 0} = ∅ := by
+      ext q
+      haveI : Fact (q : ℕ).Prime := ⟨q.2⟩
+      simp only [Set.mem_setOf_eq, Set.mem_empty_iff_false, iff_false, not_not]
+      exact hp q
+    rw [hempty, Set.ncard_empty, zero_add] at hev
+    by_contra hne
+    rw [if_neg hne] at hev
+    exact Nat.not_even_one hev
+  exact sub_eq_zero.mp (hH (x - y) hinf hp)
+
 end Brauer
 
 section LocalKW
@@ -297,7 +335,9 @@ def unitFiltration (A : Type) [CommRing A] [IsDomain A] [IsLocalRing A] (n : ℕ
 theorem).** For `B/A` as above, abelian Galois, with finite residue field `𝔽_q`, there is a
 surjective homomorphism `θ : K^× → Gal(L/K)` whose kernel is the norm group `N_{L/K}(L^×)`,
 which maps `π` (any element of valuation one) to an element acting on the residue field of `B`
-by `x ↦ x^q`, and which maps `U^{(n)}` onto `G^n` for every integer `n ≥ 0`.
+by `x ↦ x^q`, and which maps `U^{(⌈v⌉)}` onto `G^v` for every real `v ≥ 0` (for integer `v` this
+is the upper numbering theorem; for the other `v` it adds Hasse–Arf, Serre V §7 Thm 1, that the
+upper jumps of an abelian extension are integers).
 Serre, *Corps locaux*, XIII §4 Prop. 13 and XV §2 Thm 1, Cor. 3; Serre, *Local class field
 theory* in Cassels–Fröhlich, §§2.8, 4.? (UNVERIFIED locators).  The canonical reciprocity map
 is one such `θ`, so this ∃-form is a consequence of the published theorem. -/
@@ -313,7 +353,7 @@ def LocalReciprocityUpper : Prop :=
           Algebra.norm (FractionRing A) y = (x : FractionRing A)) ∧
       (∀ (π : A), Irreducible π → ∀ hπ : IsUnit (algebraMap A (FractionRing A) π),
           ∀ b : B, θ hπ.unit b - b ^ Nat.card (ResidueField A) ∈ maximalIdeal B) ∧
-      (∀ n : ℕ, θ '' unitFiltration A n = (upperRam A B n : Set (B ≃ₐ[A] B)))
+      (∀ v : ℝ, 0 ≤ v → θ '' unitFiltration A ⌈v⌉₊ = (upperRam A B v : Set (B ≃ₐ[A] B)))
 
 end LocalLeaves
 
