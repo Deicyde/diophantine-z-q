@@ -128,7 +128,7 @@ theorem eq_of_same_finite_support (hH : BrauerHasse2) (hR : BrauerReciprocity2)
     have hempty : {q : Nat.Primes | haveI : Fact (q : ℕ).Prime := ⟨q.2⟩;
         (locP (q : ℕ)).hom (x - y) ≠ 0} = ∅ := by
       ext q
-      haveI : Fact (q : ℕ).Prime := ⟨q.2⟩
+      have : Fact (q : ℕ).Prime := ⟨q.2⟩
       simp only [Set.mem_setOf_eq, Set.mem_empty_iff_false, iff_false, not_not]
       exact hp q
     rw [hempty, Set.ncard_empty, zero_add] at hev
@@ -201,40 +201,15 @@ open IsLocalRing
 
 variable (A B : Type) [CommRing A] [CommRing B] [Algebra A B] [IsLocalRing B]
 
-lemma map_mem_maximalIdeal_pow (σ : B ≃ₐ[A] B) {n : ℕ} {x : B}
-    (hx : x ∈ maximalIdeal B ^ n) : σ x ∈ maximalIdeal B ^ n := by
-  have h1 : Ideal.map σ (maximalIdeal B) ≤ maximalIdeal B := by
-    rw [Ideal.map_le_iff_le_comap]
-    intro y hy
-    rw [Ideal.mem_comap, mem_maximalIdeal, mem_nonunits_iff]
-    rw [mem_maximalIdeal, mem_nonunits_iff] at hy
-    intro h
-    exact hy ((isUnit_map_iff σ y).mp h)
-  have h2 : Ideal.map σ (maximalIdeal B ^ n) ≤ maximalIdeal B ^ n := by
-    rw [Ideal.map_pow]
-    exact Ideal.pow_right_mono h1 n
-  exact h2 (Ideal.mem_map_of_mem _ hx)
-
 /-- **Definition (Serre IV §1).** The lower ramification group `G_i` (`i ≥ 0`) of `B/A`:
-the `σ` with `v_B(σ b − b) ≥ i + 1` for all `b ∈ B`. -/
-def lowerRam (i : ℕ) : Subgroup (B ≃ₐ[A] B) where
-  carrier := {σ | ∀ b : B, σ b - b ∈ maximalIdeal B ^ (i + 1)}
-  one_mem' := by intro b; simp
-  mul_mem' := by
-    intro σ τ hσ hτ b
-    have : (σ * τ) b - b = σ (τ b - b) + (σ b - b) := by
-      simp only [AlgEquiv.mul_apply, map_sub]; ring
-    rw [this]
-    exact Ideal.add_mem _ (map_mem_maximalIdeal_pow A B σ (hτ b)) (hσ b)
-  inv_mem' := by
-    intro σ hσ b
-    have : σ⁻¹ b - b = -(σ (σ⁻¹ b) - σ⁻¹ b) := by
-      have h : σ (σ⁻¹ b) = b := by
-        change σ (σ.symm b) = b
-        exact σ.apply_symm_apply b
-      rw [h]; ring
-    rw [this]
-    exact neg_mem (hσ _)
+the `σ` with `v_B(σ b − b) ≥ i + 1` for all `b ∈ B`.  Written with Mathlib's
+`AddSubgroup.inertia` (the subgroup acting trivially modulo `𝔪_B^{i+1}`), as glue-conductor's
+`ramGroup` does in the global setting. -/
+def lowerRam (i : ℕ) : Subgroup (B ≃ₐ[A] B) :=
+  (maximalIdeal B ^ (i + 1)).toAddSubgroup.inertia (B ≃ₐ[A] B)
+
+lemma mem_lowerRam {i : ℕ} {σ : B ≃ₐ[A] B} :
+    σ ∈ lowerRam A B i ↔ ∀ b : B, σ b - b ∈ maximalIdeal B ^ (i + 1) := Iff.rfl
 
 /-- Lower numbering for a real index `u ≥ -1` (Serre IV §3): `G_u = G_{⌈u⌉}`, `G_{-1} = G`. -/
 noncomputable def lowerRamR (u : ℝ) : Subgroup (B ≃ₐ[A] B) :=
@@ -395,7 +370,10 @@ with `2·B = 𝔪^e`, `e ≥ 1`, then for `r > e` every element of `1 + 𝔪^{r+
 element of `1 + 𝔪^r`.  Applied twice: `(U^{e+1})⁴ = U^{3e+1}` (N5 L835-838).  N5 cites
 Silverman, AEC IV.6.4 (formal logarithm of `Ĝ_m`); it is also Newton's form of Hensel's lemma for
 `x² + 2x − y` (`v(f(0)) ≥ r + e > 2e = 2 v(f'(0))`).  Mathlib's general Hensel lemma needs a unit
-derivative, so this one is not immediate. -/
+derivative, so this one is not immediate.  PROVED elsewhere: glue-conductor's
+`scratch/glue-conductor/Dyadic.lean` (`exists_sq_eq_one_add`, `exists_fourth_root`, commit
+2aeeb7f2, via `u² + u = z/4` and Mathlib's `IsAdicComplete.henselianRing`); kept here as a
+statement only. -/
 theorem sq_principalUnits (B : Type) [CommRing B] [IsDomain B] [IsDiscreteValuationRing B]
     [IsAdicComplete (maximalIdeal B) B] (e : ℕ) (he1 : 1 ≤ e)
     (he : Ideal.span {(2 : B)} = maximalIdeal B ^ e) (r : ℕ) (hr : e < r)
@@ -406,3 +384,7 @@ theorem sq_principalUnits (B : Type) [CommRing B] [IsDomain B] [IsDiscreteValuat
 end PrincipalUnits
 
 end PkgI6
+
+#print axioms PkgI6.eq_of_same_finite_support
+#print axioms PkgI6.skolemNoether_aut
+#print axioms PkgI6.lowerRam_tower
