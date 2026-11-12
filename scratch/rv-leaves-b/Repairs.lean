@@ -403,11 +403,12 @@ def homOfGrp {K : Type u} [Field K] {A B : Grp (Over (Spec (.of K)))} [IsAbelian
 lemma homOfGrp_hom {K : Type u} [Field K] {A B : Grp (Over (Spec (.of K)))} [IsAbelianVariety A]
     [IsAbelianVariety B] (f : A ⟶ B) : (homOfGrp f).hom = f.hom.hom := rfl
 
-/-- **I3.Q repaired (indefinite case).** As `PkgI3.QMDichotomy` with the extra hypothesis
-`0 < a` (so `B = (a, b)_ℚ` is indefinite, `B ⊗ ℝ ≅ M₂(ℝ)`); the application has `(a, b) = (2, -3)`.
-In this form it follows from Mumford §19 Thm 1 (Poincaré), Cor. 2 and §21 (`[D:ℚ] ∣ 2g` in
-characteristic 0) alone; the definite case additionally needs Shimura's exclusion of type III
-with `m = 1` (Shimura 1963, UNVERIFIED locator). -/
+/-- **I3.Q, optional weakening (indefinite case).** As `PkgI3.QMDichotomy` with the extra
+hypothesis `0 < a` (`B = (a, b)_ℚ` indefinite); the application has `(a, b) = (2, -3)`.
+NOT a required repair: `PkgI3.QMDichotomy` itself follows from Mumford §19 Thm 1, Cor. 2 and
+§21 (`[D:ℚ] ∣ 2g` in characteristic 0) with Silverman AEC III.9.4 (locators UNVERIFIED), for
+definite `B` too (a simple `A` then has `End⁰ A = B`, which the conclusion allows). This form is
+offered only if the announcement prefers the narrowest statement the proof uses. -/
 def QMDichotomyIndef : Prop :=
   ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (A : AbVar k), A.dim = 2 →
     ∀ a b : ℚ, 0 < a → (∀ x : ℍ[ℚ, a, b], x ≠ 0 → IsUnit x) →
