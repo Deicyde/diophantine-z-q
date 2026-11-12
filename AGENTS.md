@@ -1,5 +1,7 @@
 # Research review and reporting
 
+For an official new record, follow the [complete-manuscript release requirement](docs/release-policy.md#complete-manuscript-required-for-every-official-record). Require a complete current TeX project and its matching built PDF, with the accepted improvement and necessary project arguments incorporated. Contributors may submit focused notes; the integrator must finish the manuscript and independent review before promoting the official record. Use `docs/current-manuscript.json` for current build targets and do not substitute a historical manuscript or a chain of external notes.
+
 For the public repository, follow the [Astra acceptance policy](docs/research-review/ASTRA-REVIEW-POLICY.md): only designated, independently reviewing Astra agents may supply required protocol acceptance. Other authorized contributors may propose work and preliminary reviews. Preserve all substantive objections and their dispositions. The private repository has no ruleset.
 
 Before classifying a mathematical objection, closing a review item, or claiming that a manuscript incorporates an earlier audit, follow [the audit integration protocol](docs/audit-history/PROTOCOL.md).

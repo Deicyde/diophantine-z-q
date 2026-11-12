@@ -1,0 +1,13 @@
+{
+  "pages": 549,
+  "published_pdf_sha256": "5634295d85bdfd2aef476ad49827b160f119e94996e1f644c3b05a96eabf6315",
+  "rebuilt_pdf_sha256": "97b643ef8b0531179fa72cd2f5bb25afb93e0a266a92393b4fe44d68d6ba1074",
+  "decoded_page_content_stream_differences": [],
+  "page_geometry_differences": [],
+  "extracted_text_differences": [],
+  "limitations": [
+    "This compares page content streams, media/crop boxes, rotation and extracted text. It is not full visual rendering equivalence or mathematical review.",
+    "pypdf lacks fontTools here; matching extraction is supplementary, not a complete interpretation of every mathematical glyph.",
+    "Resource dictionaries, links, bookmarks and metadata are outside this comparison."
+  ]
+}

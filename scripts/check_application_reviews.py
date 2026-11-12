@@ -8,6 +8,8 @@ from pathlib import Path, PurePosixPath
 
 ROOT = Path(__file__).resolve().parents[1]
 CURRENT = 'docs/audit-history/current.json'
+BUILDER_BINDING = 'docs/audit-history/builder-binding.json'
+BUILD_PROFILE = 'docs/current-manuscript.json'
 OBLIGATIONS = {
     'source_hypotheses', 'constructed_objects', 'index_domain_coverage',
     'transition_maps', 'limiting_object_identity', 'coefficient_conventions',
@@ -39,14 +41,58 @@ def pin_read(pin, read):
     return raw
 
 
+def validate_builder_binding(record, read):
+    """Keep historical acceptance separate from an explicitly reviewed build selector."""
+    try:
+        binding = json.loads(read(BUILDER_BINDING))
+    except FileNotFoundError:
+        try:
+            read(BUILD_PROFILE)
+        except FileNotFoundError:
+            pass
+        else:
+            raise ValueError('Profile-driven builder requires an explicit review binding')
+        builder = read('scripts/build_paper.py').decode()
+        selected = re.findall(r'''^\s*source\s*=\s*ROOT\s*/\s*["']([^"']+)["']\s*/\s*["']([^"']+)["']\s*$''', builder, re.M)
+        need(len(selected) == 1 and '/'.join(selected[0]) == record['manuscript']['path'],
+             'Current builder has no matching review binding')
+
+        return
+    need(set(binding) == {'schema', 'builder', 'profile', 'historical_review',
+                          'selected_manuscript', 'review', 'scope'}, 'Invalid builder binding')
+    need(binding['schema'] == 1 and binding['scope'].strip(), 'Unknown or unscoped builder binding')
+    need(binding['builder']['path'] == 'scripts/build_paper.py' and
+         binding['profile']['path'] == BUILD_PROFILE and
+         binding['historical_review']['path'] == CURRENT, 'Wrong builder binding paths')
+    def bound(p):
+        try:
+            return pin_read(p, read)
+        except FileNotFoundError as error:
+            raise ValueError('Missing builder-bound file: ' + p['path']) from error
+    bound(binding['builder'])
+    profile = json.loads(bound(binding['profile']))
+    historical = json.loads(bound(binding['historical_review']))
+    need(historical['manuscript'] == record['manuscript'], 'Builder binding names another historical review')
+    need(profile['schema'] == 'current-manuscript/v1' and
+         profile['tex'] == binding['selected_manuscript'], 'Builder profile selects another manuscript')
+    bound(binding['selected_manuscript'])
+    review = json.loads(bound(binding['review']))
+    need(review['schema'] == 'record-manuscript-policy-review/v1' and
+         review['decision'] == 'accepted_within_scope' and review['reviewer'].strip(),
+         'Builder/profile review is not accepted within scope')
+    reviewed = review['files']
+    need(len({f['path'] for f in reviewed}) == len(reviewed), 'Duplicate builder review file')
+    for role in ('builder', 'profile'):
+        expected = binding[role]
+        need(any(f['path'] == expected['path'] and f['sha256'] == expected['sha256']
+                 for f in reviewed), 'Builder/profile is outside the exact reviewed files')
+
+
 def validate(record, read):
     need(record['schema'] == 1, 'Unknown current-review schema')
     manuscript = pin_read(record['manuscript'], read)
     baseline = pin_read(record['baseline'], read)
-    builder = read('scripts/build_paper.py').decode()
-    selected = re.findall(r'''^\s*source\s*=\s*ROOT\s*/\s*["']([^"']+)["']\s*/\s*["']([^"']+)["']\s*$''', builder, re.M)
-    need(len(selected) == 1 and '/'.join(selected[0]) == record['manuscript']['path'],
-         'Current builder has no matching review binding')
+    validate_builder_binding(record, read)
     need(record['scope_limitation'].strip(), 'Missing review scope limitation')
     contracts = {}
     for entry in record['contracts']:
@@ -205,6 +251,55 @@ def self_test(record, read):
         cases.append(('changed bound bytes', record, lambda p,t=path: read(p)+b'\nchanged' if p==t else read(p)))
     builder_path = 'scripts/build_paper.py'
     cases.append(('new edition without acceptance', record, lambda p: b'source = ROOT / "manuscripts" / "unreviewed.tex"\n' if p==builder_path else read(p)))
+    # The old no-profile selector remains supported, without using it to
+    # bypass the binding required by a profile-driven checkout.
+    def legacy_read(path, selected=record['manuscript']['path']):
+        if path in (BUILD_PROFILE, BUILDER_BINDING):
+            raise FileNotFoundError(path)
+        if path == builder_path:
+            directory, name = selected.rsplit('/', 1)
+            return f'source = ROOT / {directory!r} / {name!r}\n'.encode()
+        return read(path)
+    validate(record, legacy_read)
+    cases.append(('legacy new edition without acceptance', record,
+                  lambda p: legacy_read(p, 'manuscripts/unreviewed.tex')))
+    try:
+        binding = json.loads(read(BUILDER_BINDING))
+    except FileNotFoundError:
+        binding = None
+    if binding is not None:
+        def bound_case(label, changes=None, mutate=None, missing=()):
+            edited = copy.deepcopy(binding)
+            changes = dict(changes or {})
+            if mutate is not None:
+                mutate(edited)
+            changes[BUILDER_BINDING] = encoded(edited)
+            def reader(path):
+                if path in missing:
+                    raise FileNotFoundError(path)
+                return changes[path] if path in changes else read(path)
+            cases.append((label, record, reader))
+        bound_case('profile without explicit binding', missing=(BUILDER_BINDING,))
+        bound_case('missing bound profile', missing=(BUILD_PROFILE,))
+        bound_case('changed selected manuscript',
+                   {binding['selected_manuscript']['path']: read(binding['selected_manuscript']['path']) + b'changed'})
+        bound_case('different selected manuscript',
+                   mutate=lambda b: b.update(selected_manuscript=record['manuscript']))
+        bound_case('changed historical record', {CURRENT: read(CURRENT) + b' '})
+        for role in ('builder', 'profile'):
+            path = binding[role]['path']
+            raw = read(path) + b'\n'
+            bound_case('rebound unreviewed ' + role, {path: raw},
+                       lambda b,r=role,v=raw: b[r].update(sha256=sha(v)))
+        for label, mutate_review in [
+            ('pending selector review', lambda r: r.update(decision='pending')),
+            ('missing reviewed builder', lambda r: r.update(files=[f for f in r['files'] if f['path'] != builder_path])),
+        ]:
+            review = json.loads(read(binding['review']['path']))
+            mutate_review(review)
+            raw = encoded(review)
+            bound_case(label, {binding['review']['path']: raw},
+                       lambda b,v=raw: b['review'].update(sha256=sha(v)))
     for label, item, reader in cases:
         try:
             validate(item, reader)
@@ -219,7 +314,9 @@ def check_current(read, test=False):
     count = validate(record, read)
     if test:
         self_test(record, read)
-    print(f'PASS: {count} current application contracts, revision and follow-up records. Not a proof check.')
+    print(f'PASS: {count} application contracts, revision and follow-up records for '
+          f"{record['manuscript']['path']}. Build selector checked separately; "
+          'historical acceptance is not current-manuscript approval. Not a proof check.')
 
 
 if __name__ == '__main__':

@@ -1,0 +1,23 @@
+{
+  "schema": "protocol-coverage/v1",
+  "profile_sha256": "85f16654c48d8ab380ac670cfa2df71df991af6c47c027d28f752a0cf7deb5b2",
+  "mode": "non_substantive",
+  "sources": [
+    {
+      "side": "head",
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+    },
+    {
+      "side": "head",
+      "path": "manuscripts/quartic_v16.pdf",
+      "sha256": "5634295d85bdfd2aef476ad49827b160f119e94996e1f644c3b05a96eabf6315"
+    }
+  ],
+  "scope": "PR32 source record for the original complete-manuscript policy plus its directly connected historical-builder compatibility repair. One policy/software application covers twenty-four changed implementation/documentation/evidence paths; four native support paths bring the expected final allowlist to twenty-eight. Four nonmathematical findings are recorded, with no mathematical connection or manuscript change. Actual public base/head and final acceptance remain pending. Scoped occurrence decisions are incorporated; final native coverage/assembly acceptance remains pending.",
+  "protocol14_record": {
+    "side": "head",
+    "path": "docs/research-review/record-manuscript-policy-2026-11-11/protocol/CONNECTIONS.json",
+    "sha256": "43bb28cc8f4559708200e3ca78e0d81088e2da02ac39c3efbe3b1b5aa0b0fd53"
+  }
+}

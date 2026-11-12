@@ -1,0 +1,943 @@
+{
+  "schema": "protocol-connections/v1",
+  "profile_sha256": "85f16654c48d8ab380ac670cfa2df71df991af6c47c027d28f752a0cf7deb5b2",
+  "coverage_sources": [
+    {
+      "side": "head",
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+    },
+    {
+      "side": "head",
+      "path": "manuscripts/quartic_v16.pdf",
+      "sha256": "5634295d85bdfd2aef476ad49827b160f119e94996e1f644c3b05a96eabf6315"
+    }
+  ],
+  "connections": [],
+  "findings": [
+    {
+      "finding_id": "POLICY-COMPILER-ARGUMENT",
+      "finding_sha256": "92894cf48d691b7da06a48354cae8c9970b183dd9d077f2ea07c6346a269b7e1",
+      "classification": "not_substantive_failure",
+      "mechanism": "A validated basename beginning with a dash could be passed to Tectonic as an option.",
+      "search_scope": [
+        {
+          "pin": {
+            "side": "head",
+            "path": "scripts/check_current_manuscript.py",
+            "sha256": "da533c8d5a480f152b9879bde10d944b035580d77d648e80afc4329c48099154"
+          },
+          "start_line": 21,
+          "end_line": 33,
+          "excerpt_sha256": "c096eeb41f1f927bc7bfc0f4af74d1ff3f2df4438409065c08dccf5d3014c728"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "scripts/build_paper.py",
+            "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+          },
+          "start_line": 91,
+          "end_line": 139,
+          "excerpt_sha256": "b716d812d1e99affbcf5729fc4d2a48bf90f3707d24a61bebf2c069772ed8250"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "scripts/test_current_manuscript.py",
+            "sha256": "794398d5ea90e12e18d216b6d8bed190e3d7417e29c097a3cd70d2f83a1302b4"
+          },
+          "start_line": 174,
+          "end_line": 206,
+          "excerpt_sha256": "ce436fcd52e6263dfc74559f062fa70d5c2fe6e30a4a102818f141705a2112b0"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "docs/research-review/record-manuscript-policy-2026-11-11/REVIEW.json",
+            "sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+          },
+          "start_line": 1,
+          "end_line": 107,
+          "excerpt_sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "docs/research-review/record-manuscript-policy-2026-11-11/REVIEW.md",
+            "sha256": "c07986f40a26af42984eb99f3221c849cb3aabf9ea08fff4b8c9633cbf22fac3"
+          },
+          "start_line": 1,
+          "end_line": 15,
+          "excerpt_sha256": "c07986f40a26af42984eb99f3221c849cb3aabf9ea08fff4b8c9633cbf22fac3"
+        }
+      ],
+      "scope_reason": "safe_path validates repository-relative containment but permits a leading dash in a component. The ./ prefix resolves relative to the same staged parent and prevents a bare leading dash in the compiler input argument. The committed fixture checks ./-current.tex and the exact staged input bytes. The scope is the changed current-manuscript build path and its documented evidence contract. Historical builders and mathematical arguments are not changed.",
+      "exclusions": [
+        {
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "docs/release-policy.md",
+              "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c"
+            },
+            "start_line": 14,
+            "end_line": 18,
+            "excerpt_sha256": "2f6c0f1f8eef8c72a721f1d99f0c2c429728400e9d1a50671206dc83b65b96b0"
+          },
+          "reason": "This policy requires independent review and limits applicability to official records; it does not assert that a successful file check proves mathematical completeness. Mathematical manuscript internals are outside these software findings."
+        }
+      ],
+      "occurrences": [
+        {
+          "id": "COMPILER-INPUT",
+          "use_ids": [],
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "scripts/build_paper.py",
+              "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+            },
+            "start_line": 113,
+            "end_line": 121,
+            "excerpt_sha256": "a63483e528923907df07010f609287c8288fd4b4e0ba4353eb8b30365ecb353f"
+          },
+          "inclusion_reason": "safe_path validates repository-relative containment but permits a leading dash in a component. The ./ prefix resolves relative to the same staged parent and prevents a bare leading dash in the compiler input argument. The committed fixture checks ./-current.tex and the exact staged input bytes.",
+          "disposition": "corrected_reviewed",
+          "evidence": [
+            {
+              "pin": {
+                "side": "head",
+                "path": "scripts/test_current_manuscript.py",
+                "sha256": "794398d5ea90e12e18d216b6d8bed190e3d7417e29c097a3cd70d2f83a1302b4"
+              },
+              "start_line": 174,
+              "end_line": 206,
+              "excerpt_sha256": "ce436fcd52e6263dfc74559f062fa70d5c2fe6e30a4a102818f141705a2112b0"
+            },
+            {
+              "pin": {
+                "side": "head",
+                "path": "docs/research-review/record-manuscript-policy-2026-11-11/REVIEW.json",
+                "sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+              },
+              "start_line": 1,
+              "end_line": 107,
+              "excerpt_sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+            }
+          ]
+        }
+      ],
+      "correction": {
+        "rejected_assertion": "A repository-relative source path accepted by safe_path may be passed as its bare basename to the compiler without considering an option-like leading dash.",
+        "current_assertion": "After validating and staging the source, the builder invokes Tectonic from the staged source parent and passes ./ followed by the source basename as one argument, including when the basename starts with a dash.",
+        "canonical_location": {
+          "pin": {
+            "side": "head",
+            "path": "scripts/build_paper.py",
+            "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+          },
+          "start_line": 113,
+          "end_line": 121,
+          "excerpt_sha256": "a63483e528923907df07010f609287c8288fd4b4e0ba4353eb8b30365ecb353f"
+        },
+        "representations": [
+          {
+            "id": "POLICY-COMPILER-ARGUMENT-REP-1",
+            "location": {
+              "pin": {
+                "side": "head",
+                "path": "scripts/build_paper.py",
+                "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+              },
+              "start_line": 113,
+              "end_line": 121,
+              "excerpt_sha256": "a63483e528923907df07010f609287c8288fd4b4e0ba4353eb8b30365ecb353f"
+            },
+            "status": "current",
+            "recorded_assertion": "After validating and staging the source, the builder invokes Tectonic from the staged source parent and passes ./ followed by the source basename as one argument, including when the basename starts with a dash.",
+            "reason": "Implementation and staged working directory. safe_path validates repository-relative containment but permits a leading dash in a component. The ./ prefix resolves relative to the same staged parent and prevents a bare leading dash in the compiler input argument. The committed fixture checks ./-current.tex and the exact staged input bytes."
+          },
+          {
+            "id": "POLICY-COMPILER-ARGUMENT-REP-2",
+            "location": {
+              "pin": {
+                "side": "head",
+                "path": "scripts/test_current_manuscript.py",
+                "sha256": "794398d5ea90e12e18d216b6d8bed190e3d7417e29c097a3cd70d2f83a1302b4"
+              },
+              "start_line": 174,
+              "end_line": 206,
+              "excerpt_sha256": "ce436fcd52e6263dfc74559f062fa70d5c2fe6e30a4a102818f141705a2112b0"
+            },
+            "status": "current",
+            "recorded_assertion": "After validating and staging the source, the builder invokes Tectonic from the staged source parent and passes ./ followed by the source basename as one argument, including when the basename starts with a dash.",
+            "reason": "Option-like filename regression fixture. safe_path validates repository-relative containment but permits a leading dash in a component. The ./ prefix resolves relative to the same staged parent and prevents a bare leading dash in the compiler input argument. The committed fixture checks ./-current.tex and the exact staged input bytes."
+          }
+        ],
+        "scope": "safe_path validates repository-relative containment but permits a leading dash in a component. The ./ prefix resolves relative to the same staged parent and prevents a bare leading dash in the compiler input argument. The committed fixture checks ./-current.tex and the exact staged input bytes.",
+        "limitations": "The original policy reviewer proposed this repair. Its separate non-author acceptance is reported in the retained review, but the actual original acceptance message/context still needs capture if relied upon. The final reviewer must independently adopt this repaired behavior. No new compiler execution occurred during this drafting."
+      },
+      "limitations": "The original policy reviewer proposed this repair. Its separate non-author acceptance is reported in the retained review, but the actual original acceptance message/context still needs capture if relied upon. The final reviewer must independently adopt this repaired behavior. No new compiler execution occurred during this drafting. The six scoped occurrence dispositions were independently accepted by /root/v16_gate_review and are serialized as supplied. Author-side proposal based on exact committed source and the retained policy review. Scoped independent occurrence decisions have been supplied. Final native coverage/assembly reports, trusted run observations and final Git-bound acknowledgments remain separate requirements."
+    },
+    {
+      "finding_id": "POLICY-RELEASE-BUILD-PACKAGING",
+      "finding_sha256": "7bd6f66bb7bb1452164efa7153e235db20f67fabd07dd5e9eaa4c72f9e942347",
+      "classification": "not_substantive_failure",
+      "mechanism": "Generated rebuild reports and release BUILD records use different path and bundle fields; candidate first-build packaging needed explanation.",
+      "search_scope": [
+        {
+          "pin": {
+            "side": "head",
+            "path": "docs/current-manuscript-build.md",
+            "sha256": "378144ead9c8313985ab16b876d4a675b9d2e48bcda16f6d4f1c3c6f451eaf03"
+          },
+          "start_line": 1,
+          "end_line": 22,
+          "excerpt_sha256": "378144ead9c8313985ab16b876d4a675b9d2e48bcda16f6d4f1c3c6f451eaf03"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "scripts/check_current_manuscript.py",
+            "sha256": "da533c8d5a480f152b9879bde10d944b035580d77d648e80afc4329c48099154"
+          },
+          "start_line": 57,
+          "end_line": 103,
+          "excerpt_sha256": "931f700411348587c5e9a493ed2b1002111c05406e6fa156dd8a14eb1d7c5c4f"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "scripts/build_paper.py",
+            "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+          },
+          "start_line": 140,
+          "end_line": 155,
+          "excerpt_sha256": "ca8f18c866e0adecc6b2c891ef4a287bdda0678719aa547f28090c4f311fad1a"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "scripts/test_current_manuscript.py",
+            "sha256": "794398d5ea90e12e18d216b6d8bed190e3d7417e29c097a3cd70d2f83a1302b4"
+          },
+          "start_line": 85,
+          "end_line": 102,
+          "excerpt_sha256": "5ac385db13f04edfe815db685441c27eb09703349aeff2c9201cb2a16d767b31"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "docs/release-policy.md",
+            "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c"
+          },
+          "start_line": 1,
+          "end_line": 23,
+          "excerpt_sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "docs/research-review/record-manuscript-policy-2026-11-11/REVIEW.json",
+            "sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+          },
+          "start_line": 1,
+          "end_line": 107,
+          "excerpt_sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "docs/research-review/record-manuscript-policy-2026-11-11/REVIEW.md",
+            "sha256": "c07986f40a26af42984eb99f3221c849cb3aabf9ea08fff4b8c9633cbf22fac3"
+          },
+          "start_line": 1,
+          "end_line": 15,
+          "excerpt_sha256": "c07986f40a26af42984eb99f3221c849cb3aabf9ea08fff4b8c9633cbf22fac3"
+        }
+      ],
+      "scope_reason": "The validator consumes bundle and exact profile source/PDF paths, while the builder emits bundle_url and the generated PDF basename. The guide explicitly distinguishes these schemas and explains the genuine first-build, packaging and validation order. The generated receipt itself warns that it is not a replacement release record. The scope is the changed current-manuscript build path and its documented evidence contract. Historical builders and mathematical arguments are not changed.",
+      "exclusions": [
+        {
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "docs/release-policy.md",
+              "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c"
+            },
+            "start_line": 14,
+            "end_line": 18,
+            "excerpt_sha256": "2f6c0f1f8eef8c72a721f1d99f0c2c429728400e9d1a50671206dc83b65b96b0"
+          },
+          "reason": "This policy requires independent review and limits applicability to official records; it does not assert that a successful file check proves mathematical completeness. Mathematical manuscript internals are outside these software findings."
+        }
+      ],
+      "occurrences": [
+        {
+          "id": "FIRST-BUILD-GUIDANCE",
+          "use_ids": [],
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "docs/current-manuscript-build.md",
+              "sha256": "378144ead9c8313985ab16b876d4a675b9d2e48bcda16f6d4f1c3c6f451eaf03"
+            },
+            "start_line": 18,
+            "end_line": 22,
+            "excerpt_sha256": "b010e45a3d4e170da9336c21d7a72609bf4956db7b9bf7a58a0b07b720fd688e"
+          },
+          "inclusion_reason": "The validator consumes bundle and exact profile source/PDF paths, while the builder emits bundle_url and the generated PDF basename. The guide explicitly distinguishes these schemas and explains the genuine first-build, packaging and validation order. The generated receipt itself warns that it is not a replacement release record.",
+          "disposition": "corrected_reviewed",
+          "evidence": [
+            {
+              "pin": {
+                "side": "head",
+                "path": "scripts/check_current_manuscript.py",
+                "sha256": "da533c8d5a480f152b9879bde10d944b035580d77d648e80afc4329c48099154"
+              },
+              "start_line": 86,
+              "end_line": 96,
+              "excerpt_sha256": "b8b88663faf5db32bb996580c630a0b45d02ac8374a54130c0df4c9a64a9c175"
+            },
+            {
+              "pin": {
+                "side": "head",
+                "path": "scripts/build_paper.py",
+                "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+              },
+              "start_line": 140,
+              "end_line": 155,
+              "excerpt_sha256": "ca8f18c866e0adecc6b2c891ef4a287bdda0678719aa547f28090c4f311fad1a"
+            },
+            {
+              "pin": {
+                "side": "head",
+                "path": "docs/research-review/record-manuscript-policy-2026-11-11/REVIEW.json",
+                "sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+              },
+              "start_line": 1,
+              "end_line": 107,
+              "excerpt_sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+            }
+          ]
+        }
+      ],
+      "correction": {
+        "rejected_assertion": "The generated rebuild receipt can be used directly as the profile-bound release build record without explaining first-build evidence or converting output paths and bundle fields.",
+        "current_assertion": "A candidate is genuinely built before profile validation; its PDF and build evidence are packaged at release paths. The profile-bound release record contains matching repository-relative source/PDF paths and hashes, engine, bundle and successful diagnostics. The generated rebuild receipt remains separate evidence with an output basename and bundle_url, so promotion requires explicit release-path bindings and independent review.",
+        "canonical_location": {
+          "pin": {
+            "side": "head",
+            "path": "docs/current-manuscript-build.md",
+            "sha256": "378144ead9c8313985ab16b876d4a675b9d2e48bcda16f6d4f1c3c6f451eaf03"
+          },
+          "start_line": 18,
+          "end_line": 22,
+          "excerpt_sha256": "b010e45a3d4e170da9336c21d7a72609bf4956db7b9bf7a58a0b07b720fd688e"
+        },
+        "representations": [
+          {
+            "id": "POLICY-RELEASE-BUILD-PACKAGING-REP-1",
+            "location": {
+              "pin": {
+                "side": "head",
+                "path": "docs/current-manuscript-build.md",
+                "sha256": "378144ead9c8313985ab16b876d4a675b9d2e48bcda16f6d4f1c3c6f451eaf03"
+              },
+              "start_line": 18,
+              "end_line": 22,
+              "excerpt_sha256": "b010e45a3d4e170da9336c21d7a72609bf4956db7b9bf7a58a0b07b720fd688e"
+            },
+            "status": "current",
+            "recorded_assertion": "A candidate is genuinely built before profile validation; its PDF and build evidence are packaged at release paths. The profile-bound release record contains matching repository-relative source/PDF paths and hashes, engine, bundle and successful diagnostics. The generated rebuild receipt remains separate evidence with an output basename and bundle_url, so promotion requires explicit release-path bindings and independent review.",
+            "reason": "Candidate packaging procedure. The validator consumes bundle and exact profile source/PDF paths, while the builder emits bundle_url and the generated PDF basename. The guide explicitly distinguishes these schemas and explains the genuine first-build, packaging and validation order. The generated receipt itself warns that it is not a replacement release record."
+          },
+          {
+            "id": "POLICY-RELEASE-BUILD-PACKAGING-REP-2",
+            "location": {
+              "pin": {
+                "side": "head",
+                "path": "scripts/build_paper.py",
+                "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+              },
+              "start_line": 140,
+              "end_line": 155,
+              "excerpt_sha256": "ca8f18c866e0adecc6b2c891ef4a287bdda0678719aa547f28090c4f311fad1a"
+            },
+            "status": "current",
+            "recorded_assertion": "A candidate is genuinely built before profile validation; its PDF and build evidence are packaged at release paths. The profile-bound release record contains matching repository-relative source/PDF paths and hashes, engine, bundle and successful diagnostics. The generated rebuild receipt remains separate evidence with an output basename and bundle_url, so promotion requires explicit release-path bindings and independent review.",
+            "reason": "Generated receipt fields and explicit promotion limitation. The validator consumes bundle and exact profile source/PDF paths, while the builder emits bundle_url and the generated PDF basename. The guide explicitly distinguishes these schemas and explains the genuine first-build, packaging and validation order. The generated receipt itself warns that it is not a replacement release record."
+          }
+        ],
+        "scope": "The validator consumes bundle and exact profile source/PDF paths, while the builder emits bundle_url and the generated PDF basename. The guide explicitly distinguishes these schemas and explains the genuine first-build, packaging and validation order. The generated receipt itself warns that it is not a replacement release record.",
+        "limitations": "This is a documentation and evidence-contract clarification, not a proof that a contributor-supplied record is authentic. The original reviewer requested the clarification and is an author of that contribution. The final reviewer must adopt its exact wording and contract independently. No new build or PDF comparison is claimed."
+      },
+      "limitations": "This is a documentation and evidence-contract clarification, not a proof that a contributor-supplied record is authentic. The original reviewer requested the clarification and is an author of that contribution. The final reviewer must adopt its exact wording and contract independently. No new build or PDF comparison is claimed. The six scoped occurrence dispositions were independently accepted by /root/v16_gate_review and are serialized as supplied. Author-side proposal based on exact committed source and the retained policy review. Scoped independent occurrence decisions have been supplied. Final native coverage/assembly reports, trusted run observations and final Git-bound acknowledgments remain separate requirements."
+    },
+    {
+      "finding_id": "POLICY-OUTPUT-OVERLAP",
+      "finding_sha256": "6c8f323231fb434999e8571a6d798794c5f84b55d22fdeb50e3437609e067daf",
+      "classification": "not_substantive_failure",
+      "mechanism": "Declared inputs or artifacts overlapping the reserved output tree could be overwritten during rebuilding.",
+      "search_scope": [
+        {
+          "pin": {
+            "side": "head",
+            "path": "scripts/build_paper.py",
+            "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+          },
+          "start_line": 91,
+          "end_line": 107,
+          "excerpt_sha256": "b3ea0df1119b90ed8b5e0876111788702a61e49ee06d193cf85ee0b4ea4fb565"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "scripts/build_paper.py",
+            "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+          },
+          "start_line": 138,
+          "end_line": 155,
+          "excerpt_sha256": "8f9ace62bc3e532ea85bff70448a42f9338ce33231bb6db96a9f4504debce4bc"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "scripts/build_paper.py",
+            "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+          },
+          "start_line": 159,
+          "end_line": 176,
+          "excerpt_sha256": "d231ffb6225ee886966dc9225d56e6722aa3eefd9eb6fb3d8ed31208046405b9"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "scripts/check_current_manuscript.py",
+            "sha256": "da533c8d5a480f152b9879bde10d944b035580d77d648e80afc4329c48099154"
+          },
+          "start_line": 21,
+          "end_line": 42,
+          "excerpt_sha256": "aafbc13ae4fd49e9756a40442e8c07f3accd699ede3c125e2f872a33838bef0c"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "scripts/check_current_manuscript.py",
+            "sha256": "da533c8d5a480f152b9879bde10d944b035580d77d648e80afc4329c48099154"
+          },
+          "start_line": 65,
+          "end_line": 73,
+          "excerpt_sha256": "8883d403ce87dde695432fe993db49f2dd9f6387bd150757b6145051a8e9a4f0"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "scripts/test_current_manuscript.py",
+            "sha256": "794398d5ea90e12e18d216b6d8bed190e3d7417e29c097a3cd70d2f83a1302b4"
+          },
+          "start_line": 132,
+          "end_line": 172,
+          "excerpt_sha256": "753e6f65b2703b7c789618544746c610e41ed5acd9ea2df688f4d93cb83b2db1"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "docs/research-review/record-manuscript-policy-2026-11-11/REVIEW.json",
+            "sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+          },
+          "start_line": 1,
+          "end_line": 107,
+          "excerpt_sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "docs/research-review/record-manuscript-policy-2026-11-11/REVIEW.md",
+            "sha256": "c07986f40a26af42984eb99f3221c849cb3aabf9ea08fff4b8c9633cbf22fac3"
+          },
+          "start_line": 1,
+          "end_line": 15,
+          "excerpt_sha256": "c07986f40a26af42984eb99f3221c849cb3aabf9ea08fff4b8c9633cbf22fac3"
+        }
+      ],
+      "scope_reason": "main calls check_output before selecting or installing the engine. check_output compares resolved containment for the output, all declared contents and the four generated names. The regression fixture places the published PDF in the output tree, expects rejection before installation and checks that its bytes remain intact. The scope is the changed current-manuscript build path and its documented evidence contract. Historical builders and mathematical arguments are not changed.",
+      "exclusions": [
+        {
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "docs/release-policy.md",
+              "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c"
+            },
+            "start_line": 14,
+            "end_line": 18,
+            "excerpt_sha256": "2f6c0f1f8eef8c72a721f1d99f0c2c429728400e9d1a50671206dc83b65b96b0"
+          },
+          "reason": "This policy requires independent review and limits applicability to official records; it does not assert that a successful file check proves mathematical completeness. Mathematical manuscript internals are outside these software findings."
+        }
+      ],
+      "occurrences": [
+        {
+          "id": "PREFLIGHT-ORDER",
+          "use_ids": [],
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "scripts/build_paper.py",
+              "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+            },
+            "start_line": 97,
+            "end_line": 103,
+            "excerpt_sha256": "37649b666cd238267a783cbff01821b10d0fd7b5091fa1076c6dd49e39217fc0"
+          },
+          "inclusion_reason": "main calls check_output before selecting or installing the engine. check_output compares resolved containment for the output, all declared contents and the four generated names. The regression fixture places the published PDF in the output tree, expects rejection before installation and checks that its bytes remain intact.",
+          "disposition": "corrected_reviewed",
+          "evidence": [
+            {
+              "pin": {
+                "side": "head",
+                "path": "scripts/build_paper.py",
+                "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+              },
+              "start_line": 167,
+              "end_line": 176,
+              "excerpt_sha256": "fdc835e4009ebceaad60f92d595627d1555561129d89634f169aa36f70d743a2"
+            },
+            {
+              "pin": {
+                "side": "head",
+                "path": "scripts/test_current_manuscript.py",
+                "sha256": "794398d5ea90e12e18d216b6d8bed190e3d7417e29c097a3cd70d2f83a1302b4"
+              },
+              "start_line": 162,
+              "end_line": 172,
+              "excerpt_sha256": "f5771b125f25dcc50696270b6d27fac5fe2ffe1d2762158854923e96ea6b864d"
+            },
+            {
+              "pin": {
+                "side": "head",
+                "path": "docs/research-review/record-manuscript-policy-2026-11-11/REVIEW.json",
+                "sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+              },
+              "start_line": 1,
+              "end_line": 107,
+              "excerpt_sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+            }
+          ]
+        },
+        {
+          "id": "OUTPUT-CONTAINMENT",
+          "use_ids": [],
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "scripts/build_paper.py",
+              "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+            },
+            "start_line": 167,
+            "end_line": 176,
+            "excerpt_sha256": "fdc835e4009ebceaad60f92d595627d1555561129d89634f169aa36f70d743a2"
+          },
+          "inclusion_reason": "main calls check_output before selecting or installing the engine. check_output compares resolved containment for the output, all declared contents and the four generated names. The regression fixture places the published PDF in the output tree, expects rejection before installation and checks that its bytes remain intact.",
+          "disposition": "corrected_reviewed",
+          "evidence": [
+            {
+              "pin": {
+                "side": "head",
+                "path": "scripts/test_current_manuscript.py",
+                "sha256": "794398d5ea90e12e18d216b6d8bed190e3d7417e29c097a3cd70d2f83a1302b4"
+              },
+              "start_line": 162,
+              "end_line": 172,
+              "excerpt_sha256": "f5771b125f25dcc50696270b6d27fac5fe2ffe1d2762158854923e96ea6b864d"
+            },
+            {
+              "pin": {
+                "side": "head",
+                "path": "docs/research-review/record-manuscript-policy-2026-11-11/REVIEW.json",
+                "sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+              },
+              "start_line": 1,
+              "end_line": 107,
+              "excerpt_sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+            }
+          ]
+        }
+      ],
+      "correction": {
+        "rejected_assertion": "The reserved output directory may contain a declared release artifact or input, or resolve outside the repository, while the builder writes its generated files there.",
+        "current_assertion": "Before engine installation or execution, the builder checks that its resolved output directory stays in the repository, that no declared artifact or input lies within it, and that every generated output path stays within that directory; it rejects a violation before producing output.",
+        "canonical_location": {
+          "pin": {
+            "side": "head",
+            "path": "scripts/build_paper.py",
+            "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+          },
+          "start_line": 167,
+          "end_line": 176,
+          "excerpt_sha256": "fdc835e4009ebceaad60f92d595627d1555561129d89634f169aa36f70d743a2"
+        },
+        "representations": [
+          {
+            "id": "POLICY-OUTPUT-OVERLAP-REP-1",
+            "location": {
+              "pin": {
+                "side": "head",
+                "path": "scripts/build_paper.py",
+                "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+              },
+              "start_line": 97,
+              "end_line": 103,
+              "excerpt_sha256": "37649b666cd238267a783cbff01821b10d0fd7b5091fa1076c6dd49e39217fc0"
+            },
+            "status": "current",
+            "recorded_assertion": "Before engine installation or execution, the builder checks that its resolved output directory stays in the repository, that no declared artifact or input lies within it, and that every generated output path stays within that directory; it rejects a violation before producing output.",
+            "reason": "Pre-installation call order. main calls check_output before selecting or installing the engine. check_output compares resolved containment for the output, all declared contents and the four generated names. The regression fixture places the published PDF in the output tree, expects rejection before installation and checks that its bytes remain intact."
+          },
+          {
+            "id": "POLICY-OUTPUT-OVERLAP-REP-2",
+            "location": {
+              "pin": {
+                "side": "head",
+                "path": "scripts/build_paper.py",
+                "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+              },
+              "start_line": 167,
+              "end_line": 176,
+              "excerpt_sha256": "fdc835e4009ebceaad60f92d595627d1555561129d89634f169aa36f70d743a2"
+            },
+            "status": "current",
+            "recorded_assertion": "Before engine installation or execution, the builder checks that its resolved output directory stays in the repository, that no declared artifact or input lies within it, and that every generated output path stays within that directory; it rejects a violation before producing output.",
+            "reason": "Resolved containment checks. main calls check_output before selecting or installing the engine. check_output compares resolved containment for the output, all declared contents and the four generated names. The regression fixture places the published PDF in the output tree, expects rejection before installation and checks that its bytes remain intact."
+          },
+          {
+            "id": "POLICY-OUTPUT-OVERLAP-REP-3",
+            "location": {
+              "pin": {
+                "side": "head",
+                "path": "scripts/test_current_manuscript.py",
+                "sha256": "794398d5ea90e12e18d216b6d8bed190e3d7417e29c097a3cd70d2f83a1302b4"
+              },
+              "start_line": 162,
+              "end_line": 172,
+              "excerpt_sha256": "f5771b125f25dcc50696270b6d27fac5fe2ffe1d2762158854923e96ea6b864d"
+            },
+            "status": "current",
+            "recorded_assertion": "Before engine installation or execution, the builder checks that its resolved output directory stays in the repository, that no declared artifact or input lies within it, and that every generated output path stays within that directory; it rejects a violation before producing output.",
+            "reason": "Published-PDF overlap regression fixture. main calls check_output before selecting or installing the engine. check_output compares resolved containment for the output, all declared contents and the four generated names. The regression fixture places the published PDF in the output tree, expects rejection before installation and checks that its bytes remain intact."
+          }
+        ],
+        "scope": "main calls check_output before selecting or installing the engine. check_output compares resolved containment for the output, all declared contents and the four generated names. The regression fixture places the published PDF in the output tree, expects rejection before installation and checks that its bytes remain intact.",
+        "limitations": "This was an author-originated preventive correction, not a reviewer-discovered mathematical failure. The retained independent reviewer inspected it and its negative test. The real full build preceded this final guard; focused tests cover it. A symlink-creation test was skipped on the recorded Windows host. No race-free hostile-filesystem guarantee or fresh full build is claimed."
+      },
+      "limitations": "This was an author-originated preventive correction, not a reviewer-discovered mathematical failure. The retained independent reviewer inspected it and its negative test. The real full build preceded this final guard; focused tests cover it. A symlink-creation test was skipped on the recorded Windows host. No race-free hostile-filesystem guarantee or fresh full build is claimed. The six scoped occurrence dispositions were independently accepted by /root/v16_gate_review and are serialized as supplied. Author-side proposal based on exact committed source and the retained policy review. Scoped independent occurrence decisions have been supplied. Final native coverage/assembly reports, trusted run observations and final Git-bound acknowledgments remain separate requirements."
+    },
+    {
+      "finding_id": "POLICY-HISTORICAL-BUILDER-COMPATIBILITY",
+      "finding_sha256": "dc36d2b69a6f8fcabd8cca06fe001c57b4c2afa114faca56ecffaa10844bda84",
+      "classification": "not_substantive_failure",
+      "mechanism": "An actual private Research run failed because the historical checker could not recognize the reviewed profile-driven build selector. A newly explicit profile hash also exposes CRLF conversion in an existing Windows checkout. These are connected selector-binding integration defects, not mathematical failures.",
+      "search_scope": [
+        {
+          "pin": {
+            "side": "head",
+            "path": "scripts/check_application_reviews.py",
+            "sha256": "9dc85ba98fc3fd75a2fb1e71bbe157cdef6342db7e1836c42168d1ac5d2e9b4c"
+          },
+          "start_line": 1,
+          "end_line": 326,
+          "excerpt_sha256": "9dc85ba98fc3fd75a2fb1e71bbe157cdef6342db7e1836c42168d1ac5d2e9b4c"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "docs/audit-history/builder-binding.json",
+            "sha256": "9f4e9a69777a9aa7c8c32f028945f15d0e0526087b1877096be2cc0f64b0597d"
+          },
+          "start_line": 1,
+          "end_line": 24,
+          "excerpt_sha256": "9f4e9a69777a9aa7c8c32f028945f15d0e0526087b1877096be2cc0f64b0597d"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "scripts/build_paper.py",
+            "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+          },
+          "start_line": 91,
+          "end_line": 121,
+          "excerpt_sha256": "ba693a24118431d1c7c837594a406580b54785dd984c03a5ecbe078ff6a3f354"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "docs/current-manuscript.json",
+            "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33"
+          },
+          "start_line": 1,
+          "end_line": 17,
+          "excerpt_sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "docs/audit-history/current.json",
+            "sha256": "2b0dd7653076633f53c1e32b43dd4c11a664b5ace5b5685ff6afc30ed4b82ca4"
+          },
+          "start_line": 1,
+          "end_line": 13,
+          "excerpt_sha256": "ae90bbfca17a02bbfc14b1f8d641f027fdd1e8f1e16cd166c9f39875bc9cf802"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "scripts/check_audit_history.py",
+            "sha256": "980b7b6155baa5dcbd4fa567702e8d246d97e0a34923f127ba18bf72a731b4c7"
+          },
+          "start_line": 1,
+          "end_line": 97,
+          "excerpt_sha256": "980b7b6155baa5dcbd4fa567702e8d246d97e0a34923f127ba18bf72a731b4c7"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": ".gitattributes",
+            "sha256": "5ff0d5c474397959522007ccc6e0e48c432883e0737d09c7eea6f80b77277c61"
+          },
+          "start_line": 59,
+          "end_line": 61,
+          "excerpt_sha256": "2243a22fe157855580c4a98ef6ec8629fbf9048c89da51da09526047cb42fd1e"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "docs/research-review/record-manuscript-policy-2026-11-11/compatibility-repair/FINDING.json",
+            "sha256": "4fdeea6fcf3eabca5540b55eacdb79f58bbb1e4fd17c2d8cfe844ffe63bf1184"
+          },
+          "start_line": 1,
+          "end_line": 25,
+          "excerpt_sha256": "4fdeea6fcf3eabca5540b55eacdb79f58bbb1e4fd17c2d8cfe844ffe63bf1184"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "docs/research-review/record-manuscript-policy-2026-11-11/review/COMPATIBILITY-REPAIR-REVIEW.json",
+            "sha256": "931d86cdf775d5d8beee36b09930e5cdfda1fc80583dbf6a0465138445f13682"
+          },
+          "start_line": 1,
+          "end_line": 64,
+          "excerpt_sha256": "931d86cdf775d5d8beee36b09930e5cdfda1fc80583dbf6a0465138445f13682"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "docs/research-review/record-manuscript-policy-2026-11-11/review/COMPATIBILITY-REPAIR-CHECK.json",
+            "sha256": "e3cd77c150b52ad4242313f572d5a89f07bca7e72121fe2f992db4e6a6000e93"
+          },
+          "start_line": 1,
+          "end_line": 30,
+          "excerpt_sha256": "e3cd77c150b52ad4242313f572d5a89f07bca7e72121fe2f992db4e6a6000e93"
+        },
+        {
+          "pin": {
+            "side": "head",
+            "path": "docs/research-review/record-manuscript-policy-2026-11-11/compatibility-repair/TEST-RESULTS.json",
+            "sha256": "36703310aa8cf3b5de8fb6faaf9be990c1e7219503fe90a1d9dc8c47aa3cf00a"
+          },
+          "start_line": 1,
+          "end_line": 47,
+          "excerpt_sha256": "36703310aa8cf3b5de8fb6faaf9be990c1e7219503fe90a1d9dc8c47aa3cf00a"
+        }
+      ],
+      "scope_reason": "The old regex assumed that the active builder selected the V14 manuscript named by the historical audit record. The reviewed profile-driven builder selects V16 instead. The explicit binding joins the actual reviewed builder and profile to their selected TeX without treating historical V14 approvals as current V16 acceptance. The -text rule and unchanged LF profile refresh are needed so exact profile hashing works on Windows as well as Git-blob input. Search includes the caller, retained historical checks, new selector checks, negative controls, original failure and independent exact repair review.",
+      "exclusions": [
+        {
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "docs/research-review/record-manuscript-policy-2026-11-11/REVIEW.json",
+              "sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+            },
+            "start_line": 1,
+            "end_line": 107,
+            "excerpt_sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+          },
+          "reason": "The earlier policy review remains historical evidence for its eleven exact blobs. It is not silently rewritten to claim that it tested this later integration repair."
+        }
+      ],
+      "occurrences": [
+        {
+          "id": "LEGACY-CHECKER-PROFILE-SELECTION",
+          "use_ids": [],
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": "scripts/check_application_reviews.py",
+              "sha256": "9dc85ba98fc3fd75a2fb1e71bbe157cdef6342db7e1836c42168d1ac5d2e9b4c"
+            },
+            "start_line": 44,
+            "end_line": 96,
+            "excerpt_sha256": "383ffe41cbed344bb4380493e97d05ed57cccbb97c050823cb6514fa89efb922"
+          },
+          "inclusion_reason": "The old regex assumed that the active builder selected the V14 manuscript named by the historical audit record. The reviewed profile-driven builder selects V16 instead. The explicit binding joins the actual reviewed builder and profile to their selected TeX without treating historical V14 approvals as current V16 acceptance. The -text rule and unchanged LF profile refresh are needed so exact profile hashing works on Windows as well as Git-blob input.",
+          "disposition": "corrected_reviewed",
+          "evidence": [
+            {
+              "pin": {
+                "side": "head",
+                "path": "docs/audit-history/builder-binding.json",
+                "sha256": "9f4e9a69777a9aa7c8c32f028945f15d0e0526087b1877096be2cc0f64b0597d"
+              },
+              "start_line": 1,
+              "end_line": 24,
+              "excerpt_sha256": "9f4e9a69777a9aa7c8c32f028945f15d0e0526087b1877096be2cc0f64b0597d"
+            },
+            {
+              "pin": {
+                "side": "head",
+                "path": "scripts/check_application_reviews.py",
+                "sha256": "9dc85ba98fc3fd75a2fb1e71bbe157cdef6342db7e1836c42168d1ac5d2e9b4c"
+              },
+              "start_line": 250,
+              "end_line": 319,
+              "excerpt_sha256": "41422a9f890458e83305b046a96b923898e23b33c71cf0e77e3081f75227bdb7"
+            },
+            {
+              "pin": {
+                "side": "head",
+                "path": "docs/research-review/record-manuscript-policy-2026-11-11/review/COMPATIBILITY-REPAIR-REVIEW.json",
+                "sha256": "931d86cdf775d5d8beee36b09930e5cdfda1fc80583dbf6a0465138445f13682"
+              },
+              "start_line": 1,
+              "end_line": 64,
+              "excerpt_sha256": "931d86cdf775d5d8beee36b09930e5cdfda1fc80583dbf6a0465138445f13682"
+            },
+            {
+              "pin": {
+                "side": "head",
+                "path": "docs/research-review/record-manuscript-policy-2026-11-11/review/COMPATIBILITY-REPAIR-CHECK.json",
+                "sha256": "e3cd77c150b52ad4242313f572d5a89f07bca7e72121fe2f992db4e6a6000e93"
+              },
+              "start_line": 1,
+              "end_line": 30,
+              "excerpt_sha256": "e3cd77c150b52ad4242313f572d5a89f07bca7e72121fe2f992db4e6a6000e93"
+            },
+            {
+              "pin": {
+                "side": "head",
+                "path": "docs/research-review/record-manuscript-policy-2026-11-11/compatibility-repair/TEST-RESULTS.json",
+                "sha256": "36703310aa8cf3b5de8fb6faaf9be990c1e7219503fe90a1d9dc8c47aa3cf00a"
+              },
+              "start_line": 1,
+              "end_line": 47,
+              "excerpt_sha256": "36703310aa8cf3b5de8fb6faaf9be990c1e7219503fe90a1d9dc8c47aa3cf00a"
+            }
+          ]
+        },
+        {
+          "id": "PROFILE-CHECKOUT-BYTE-BINDING",
+          "use_ids": [],
+          "location": {
+            "pin": {
+              "side": "head",
+              "path": ".gitattributes",
+              "sha256": "5ff0d5c474397959522007ccc6e0e48c432883e0737d09c7eea6f80b77277c61"
+            },
+            "start_line": 59,
+            "end_line": 61,
+            "excerpt_sha256": "2243a22fe157855580c4a98ef6ec8629fbf9048c89da51da09526047cb42fd1e"
+          },
+          "inclusion_reason": "The profile was previously subject to platform newline conversion. Once its exact Git bytes are pinned in the selector binding, preserving those bytes is required for the same behavior on Windows.",
+          "disposition": "corrected_reviewed",
+          "evidence": [
+            {
+              "pin": {
+                "side": "head",
+                "path": "docs/current-manuscript.json",
+                "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33"
+              },
+              "start_line": 1,
+              "end_line": 17,
+              "excerpt_sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33"
+            },
+            {
+              "pin": {
+                "side": "head",
+                "path": "docs/audit-history/builder-binding.json",
+                "sha256": "9f4e9a69777a9aa7c8c32f028945f15d0e0526087b1877096be2cc0f64b0597d"
+              },
+              "start_line": 1,
+              "end_line": 24,
+              "excerpt_sha256": "9f4e9a69777a9aa7c8c32f028945f15d0e0526087b1877096be2cc0f64b0597d"
+            },
+            {
+              "pin": {
+                "side": "head",
+                "path": "docs/research-review/record-manuscript-policy-2026-11-11/review/COMPATIBILITY-REPAIR-REVIEW.json",
+                "sha256": "931d86cdf775d5d8beee36b09930e5cdfda1fc80583dbf6a0465138445f13682"
+              },
+              "start_line": 1,
+              "end_line": 64,
+              "excerpt_sha256": "931d86cdf775d5d8beee36b09930e5cdfda1fc80583dbf6a0465138445f13682"
+            }
+          ]
+        }
+      ],
+      "correction": {
+        "rejected_assertion": "The currently selected manuscript must be recoverable from a literal builder source assignment and must equal the manuscript named by the historical V14 audit record.",
+        "current_assertion": "When the current-manuscript profile exists, the audit checker requires the explicit exact-byte selector binding, verifies its builder/profile/current-TeX/historical-register/review pins and exact reviewed-file membership, and retains the historical application checks for their own manuscript. Only the no-profile/no-binding path uses the legacy literal selector. The newly bound profile bytes are preserved by the checkout rule.",
+        "canonical_location": {
+          "pin": {
+            "side": "head",
+            "path": "scripts/check_application_reviews.py",
+            "sha256": "9dc85ba98fc3fd75a2fb1e71bbe157cdef6342db7e1836c42168d1ac5d2e9b4c"
+          },
+          "start_line": 44,
+          "end_line": 88,
+          "excerpt_sha256": "960f75c1c29cf777eace40e2d8cc3739ad49310145b535684c4d4644cb04cfca"
+        },
+        "representations": [
+          {
+            "id": "EXPLICIT-SELECTOR-VALIDATOR",
+            "location": {
+              "pin": {
+                "side": "head",
+                "path": "scripts/check_application_reviews.py",
+                "sha256": "9dc85ba98fc3fd75a2fb1e71bbe157cdef6342db7e1836c42168d1ac5d2e9b4c"
+              },
+              "start_line": 44,
+              "end_line": 88,
+              "excerpt_sha256": "960f75c1c29cf777eace40e2d8cc3739ad49310145b535684c4d4644cb04cfca"
+            },
+            "status": "current",
+            "recorded_assertion": "When the current-manuscript profile exists, the audit checker requires the explicit exact-byte selector binding, verifies its builder/profile/current-TeX/historical-register/review pins and exact reviewed-file membership, and retains the historical application checks for their own manuscript. Only the no-profile/no-binding path uses the legacy literal selector. The newly bound profile bytes are preserved by the checkout rule.",
+            "reason": "The old regex assumed that the active builder selected the V14 manuscript named by the historical audit record. The reviewed profile-driven builder selects V16 instead. The explicit binding joins the actual reviewed builder and profile to their selected TeX without treating historical V14 approvals as current V16 acceptance. The -text rule and unchanged LF profile refresh are needed so exact profile hashing works on Windows as well as Git-blob input."
+          },
+          {
+            "id": "CONCRETE-SELECTOR-BINDING",
+            "location": {
+              "pin": {
+                "side": "head",
+                "path": "docs/audit-history/builder-binding.json",
+                "sha256": "9f4e9a69777a9aa7c8c32f028945f15d0e0526087b1877096be2cc0f64b0597d"
+              },
+              "start_line": 1,
+              "end_line": 24,
+              "excerpt_sha256": "9f4e9a69777a9aa7c8c32f028945f15d0e0526087b1877096be2cc0f64b0597d"
+            },
+            "status": "current",
+            "recorded_assertion": "When the current-manuscript profile exists, the audit checker requires the explicit exact-byte selector binding, verifies its builder/profile/current-TeX/historical-register/review pins and exact reviewed-file membership, and retains the historical application checks for their own manuscript. Only the no-profile/no-binding path uses the legacy literal selector. The newly bound profile bytes are preserved by the checkout rule.",
+            "reason": "This reviewed data record provides the exact current selector and historical pins checked by the validator; its scope explicitly disclaims transferring historical acceptance."
+          }
+        ],
+        "scope": "The old regex assumed that the active builder selected the V14 manuscript named by the historical audit record. The reviewed profile-driven builder selects V16 instead. The explicit binding joins the actual reviewed builder and profile to their selected TeX without treating historical V14 approvals as current V16 acceptance. The -text rule and unchanged LF profile refresh are needed so exact profile hashing works on Windows as well as Git-blob input.",
+        "limitations": "The checker establishes recorded byte relationships, not authenticated reviewer identity or mathematical truth. The selected current manuscript still requires the separate protected review process. The original CI failure, later CRLF discovery and historical review timing remain preserved."
+      },
+      "limitations": "The current occurrence dispositions were independently accepted by /root/v16_gate_review and are serialized as supplied. The exact candidate has a genuine bounded independent software review and was committed privately, but no PR32 final receipt or remote CI success is inferred. No new mathematical review or manuscript build is claimed."
+    }
+  ],
+  "scope": "PR32 source record for the original complete-manuscript policy plus its directly connected historical-builder compatibility repair. One policy/software application covers twenty-four changed implementation/documentation/evidence paths; four native support paths bring the expected final allowlist to twenty-eight. Four nonmathematical findings are recorded, with no mathematical connection or manuscript change. Actual public base/head and final acceptance remain pending.",
+  "limitations": "Author-side proposal based on exact committed source and the retained policy review. Scoped independent occurrence decisions have been supplied. Final native coverage/assembly reports, trusted run observations and final Git-bound acknowledgments remain separate requirements. Findings are nonmathematical software/policy issues. The original full build preceded the final output-only guard; one symlink test was skipped on Windows. Page stream/geometry/text comparisons are not full rendered equivalence. Draft-001 is preserved. This draft adds the actual compatibility finding and nine committed paths. Future private/public state is not inferred from the observed private commit."
+}

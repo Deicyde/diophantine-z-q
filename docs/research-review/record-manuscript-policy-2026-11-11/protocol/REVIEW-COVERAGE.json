@@ -1,0 +1,52 @@
+{
+  "schema": "protocol14-review/v1",
+  "scope": "Independent current policy/software inventory and four-finding acceptance on the exact source-bound record. The 28-path scope consists of 24 reviewed source/evidence paths and four native support records; it introduces no new mathematical claim.",
+  "limitations": "Independent non-author policy/software assessment at source 094979aadc81e557db1d5a55aff37b723be45db6 and exact serialized CONNECTIONS SHA256 43bb28cc8f4559708200e3ca78e0d81088e2da02ac39c3efbe3b1b5aa0b0fd53. This is not mathematical review, production authentication, App acceptance or a final Git-bound ACK. Actual final integration must preserve these reviewed source bytes and satisfy the same scope; changed content requires renewed review. Retained build and test evidence has its original scope: the full build predates the output guard, one Windows symlink fixture was skipped, and PDF stream/geometry/text comparison is not complete rendering equivalence.",
+  "decisions": [
+    {
+      "subject": "finding:POLICY-COMPILER-ARGUMENT",
+      "subject_sha256": "057f8c74419a7b32724ef941c29078ac6fb2517a95c5467826778a6d3aada8b4",
+      "outcome": "accepted_within_scope",
+      "review_basis": "consistency_only",
+      "prior_review": null,
+      "scope": "Independently inspected safe_path, staging, compiler argv and the dash-leading fixture. Passing ./ plus the basename from the staged parent keeps that valid filename a positional input and preserves the declared source bytes. This accepts the implemented repair independently of the earlier contributed review. Independently accepted all listed occurrences as corrected_reviewed after checking the actual implementation and the serialized assertion, source locations and limits.",
+      "limitations": "Independent non-author policy/software assessment at source 094979aadc81e557db1d5a55aff37b723be45db6 and exact serialized CONNECTIONS SHA256 43bb28cc8f4559708200e3ca78e0d81088e2da02ac39c3efbe3b1b5aa0b0fd53. This is not mathematical review, production authentication, App acceptance or a final Git-bound ACK. Actual final integration must preserve these reviewed source bytes and satisfy the same scope; changed content requires renewed review. Retained build and test evidence has its original scope: the full build predates the output guard, one Windows symlink fixture was skipped, and PDF stream/geometry/text comparison is not complete rendering equivalence."
+    },
+    {
+      "subject": "finding:POLICY-RELEASE-BUILD-PACKAGING",
+      "subject_sha256": "91d1fdd454f8aaa9de95a181ee6d31419514fa5ac07799d80593df0d9a4e24a2",
+      "outcome": "accepted_within_scope",
+      "review_basis": "consistency_only",
+      "prior_review": null,
+      "scope": "Independently compared generated receipt fields with validate() requirements and the candidate-build instructions. The guide correctly requires a genuine first build, explicit release paths and a release build record before updating the profile; it distinguishes bundle_url/output basename from bundle/repository-relative release paths. No fabricated build or automatic provenance claim is introduced. Independently accepted all listed occurrences as corrected_reviewed after checking the actual implementation and the serialized assertion, source locations and limits.",
+      "limitations": "Independent non-author policy/software assessment at source 094979aadc81e557db1d5a55aff37b723be45db6 and exact serialized CONNECTIONS SHA256 43bb28cc8f4559708200e3ca78e0d81088e2da02ac39c3efbe3b1b5aa0b0fd53. This is not mathematical review, production authentication, App acceptance or a final Git-bound ACK. Actual final integration must preserve these reviewed source bytes and satisfy the same scope; changed content requires renewed review. Retained build and test evidence has its original scope: the full build predates the output guard, one Windows symlink fixture was skipped, and PDF stream/geometry/text comparison is not complete rendering equivalence."
+    },
+    {
+      "subject": "finding:POLICY-OUTPUT-OVERLAP",
+      "subject_sha256": "39acacc741f3806518b9d12db90f35e1bac7905e66d9897139e67643d95cf76d",
+      "outcome": "accepted_within_scope",
+      "review_basis": "consistency_only",
+      "prior_review": null,
+      "scope": "Independently inspected check_output and its call before engine selection, installation or writes. Resolved output containment, declared-artifact overlap and generated filename checks match the claimed protection. The overwrite negative fixture verifies rejection without replacing the published PDF. This is a bounded stable-filesystem check; it does not claim a hostile concurrent filesystem guarantee. Independently accepted all listed occurrences as corrected_reviewed after checking the actual implementation and the serialized assertion, source locations and limits.",
+      "limitations": "Independent non-author policy/software assessment at source 094979aadc81e557db1d5a55aff37b723be45db6 and exact serialized CONNECTIONS SHA256 43bb28cc8f4559708200e3ca78e0d81088e2da02ac39c3efbe3b1b5aa0b0fd53. This is not mathematical review, production authentication, App acceptance or a final Git-bound ACK. Actual final integration must preserve these reviewed source bytes and satisfy the same scope; changed content requires renewed review. Retained build and test evidence has its original scope: the full build predates the output guard, one Windows symlink fixture was skipped, and PDF stream/geometry/text comparison is not complete rendering equivalence."
+    },
+    {
+      "subject": "finding:POLICY-HISTORICAL-BUILDER-COMPATIBILITY",
+      "subject_sha256": "06fa1093bc4541b64b914ae331bfcc84ff0cb27821c4f4bd683c672967d74c51",
+      "outcome": "accepted_within_scope",
+      "review_basis": "consistency_only",
+      "prior_review": null,
+      "scope": "Independently inspected exact binding pins, membership of builder/profile in the retained software review, selected-profile TeX identity, unchanged historical record checks and legacy fallback. Missing binding with a profile fails. The -text rule preserves the profile Git bytes; the documented checkout refresh explains existing Windows files. Historical V14 acceptance remains attached to V14 and cannot stand for V16 mathematical approval. Independently accepted all listed occurrences as corrected_reviewed after checking the actual implementation and the serialized assertion, source locations and limits.",
+      "limitations": "Independent non-author policy/software assessment at source 094979aadc81e557db1d5a55aff37b723be45db6 and exact serialized CONNECTIONS SHA256 43bb28cc8f4559708200e3ca78e0d81088e2da02ac39c3efbe3b1b5aa0b0fd53. This is not mathematical review, production authentication, App acceptance or a final Git-bound ACK. Actual final integration must preserve these reviewed source bytes and satisfy the same scope; changed content requires renewed review. Retained build and test evidence has its original scope: the full build predates the output guard, one Windows symlink fixture was skipped, and PDF stream/geometry/text comparison is not complete rendering equivalence."
+    },
+    {
+      "subject": "inventory",
+      "subject_sha256": "bb3e65b594d3b18321060f8cac2f8b9b38efe10ec3138fd2a04f21fde2732eb4",
+      "outcome": "accepted_within_scope",
+      "review_basis": "consistency_only",
+      "prior_review": null,
+      "scope": "Independently compared the complete 24-path source difference from 39182bffc48c0412b2888d9d28f1ca138a2004e7 to 094979aadc81e557db1d5a55aff37b723be45db6 with the explicit allowlist, plus the four named native support paths. Checked all 72 cited source excerpts and four connected nonmathematical findings, including all six occurrence dispositions. The frozen CONNECTIONS has no mathematical transitions; the dossier binds the unchanged V16 source/PDF. Policy scope, current-build implementation, historical audit compatibility and their evidence are covered. Future integrated base/head and new intake must be checked again before final ACK.",
+      "limitations": "Independent non-author policy/software assessment at source 094979aadc81e557db1d5a55aff37b723be45db6 and exact serialized CONNECTIONS SHA256 43bb28cc8f4559708200e3ca78e0d81088e2da02ac39c3efbe3b1b5aa0b0fd53. This is not mathematical review, production authentication, App acceptance or a final Git-bound ACK. Actual final integration must preserve these reviewed source bytes and satisfy the same scope; changed content requires renewed review. Retained build and test evidence has its original scope: the full build predates the output guard, one Windows symlink fixture was skipped, and PDF stream/geometry/text comparison is not complete rendering equivalence."
+    }
+  ]
+}

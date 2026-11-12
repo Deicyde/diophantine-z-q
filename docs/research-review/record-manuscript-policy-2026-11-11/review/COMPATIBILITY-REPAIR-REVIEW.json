@@ -1,0 +1,64 @@
+{
+  "schema": "bounded-code-review/v1",
+  "reviewer": "v16_correction_review",
+  "author_of_reviewed_repair": false,
+  "decision": "accepted_within_scope",
+  "subject": "compatibility-repair/CANDIDATE.json",
+  "subject_sha256": "8c6d0635a6a70f54682059c85f69fdc6fd901d980764a2cacc82523bdb58c487",
+  "files": [
+    {
+      "path": "scripts/check_application_reviews.py",
+      "old_sha256": "581b74870e47069fd56f28755088733ba18aa3853540ad70bec0fa0a3c1a93e6",
+      "new_sha256": "9dc85ba98fc3fd75a2fb1e71bbe157cdef6342db7e1836c42168d1ac5d2e9b4c"
+    },
+    {
+      "path": "docs/audit-history/builder-binding.json",
+      "old_sha256": null,
+      "new_sha256": "9f4e9a69777a9aa7c8c32f028945f15d0e0526087b1877096be2cc0f64b0597d"
+    },
+    {
+      "path": ".gitattributes",
+      "old_sha256": "ed63a473a16109468d2d845d42447fc6bd83723a65d4aad836de4caf55091dfd",
+      "new_sha256": "5ff0d5c474397959522007ccc6e0e48c432883e0737d09c7eea6f80b77277c61"
+    }
+  ],
+  "unchanged_profile": {
+    "path": "docs/current-manuscript.json",
+    "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33"
+  },
+  "checked_source_commit": "0b3abc5ea22a77cd04f43ae360f35a440269bfe7",
+  "checks": [
+    {
+      "path": "review/COMPATIBILITY-REPAIR-CHECK.json",
+      "sha256": "e3cd77c150b52ad4242313f572d5a89f07bca7e72121fe2f992db4e6a6000e93"
+    },
+    {
+      "path": "compatibility-repair/TEST-RESULTS.json",
+      "sha256": "36703310aa8cf3b5de8fb6faaf9be990c1e7219503fe90a1d9dc8c47aa3cf00a"
+    }
+  ],
+  "findings": [
+    "The original builder-selector regex cannot match the profile-driven builder. The candidate requires an explicit exact-byte binding when a current profile exists.",
+    "The binding checks the builder, profile, selected manuscript, historical record and accepted scoped review; the review must name the exact builder/profile hashes. A missing binding cannot silently use the profile path.",
+    "The old literal-selector path remains available only when neither profile nor explicit binding exists. Its positive and changed-edition negative controls pass.",
+    "The historical validate body is byte-equivalent after replacing only its builder-selection block. Contract authorship, approval, exact edits, span hashes, obligations, follow-ups and historical carry-forward checks are retained.",
+    "The output names the historical manuscript and states that its acceptance is not current-manuscript approval.",
+    "The sole attributes rule preserves exact current-profile bytes. The supplied profile refresh equals the existing Git blob; no new profile content is introduced."
+  ],
+  "validation": {
+    "independent": "Exact candidate/original hashes, exact attributes delta, unchanged profile blob, historical validator comparison, eight historical contracts, 29 application negative controls and seven audit-history negative controls passed using a read-only Git-blob overlay.",
+    "author_evidence": "Actual isolated CLI audit self-test and profile validation passed. Fifteen current-manuscript tests ran: fourteen passed, one existing Windows symlink privilege skip. No new full manuscript build."
+  },
+  "remaining_integration_obligations": [
+    "Preserve the original CI failure and the CRLF checkout dependency in the current finding record.",
+    "Update changed-file coverage and target accounting for these three new source paths and related evidence.",
+    "Install the exact profile blob when applying the -text rule; adding attributes alone does not rewrite an already checked-out CRLF file.",
+    "Verify actual integrated Git blobs, rerun required CI on that checkout, and obtain genuine final native target acknowledgments."
+  ],
+  "limits": [
+    "This is finite software/data-binding acceptance of the exact candidate, not a mathematical review or whole-PR acceptance.",
+    "Pinned review fields do not independently authenticate reviewer identity, authorship, production acceptance or a build. Protected native review and source authentication remain separate.",
+    "I contributed earlier compiler-prefix and packaging suggestions, but did not author this compatibility repair, its binding or attributes change. Those earlier contributions still need separate eligible final review.",
+    "No source, controller or remote changes were made during this review."
+  ]
+}
