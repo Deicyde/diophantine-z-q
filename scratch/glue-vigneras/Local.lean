@@ -370,6 +370,54 @@ def scalOpUnitsSubgroup (hp2 : p = 2 ∨ p = 3) : Subgroup (Bp p)ˣ where
     rw [eq_comm, ← mul_left_cancel_iff_of_pos (zpow_pos p0 (2 * m)), h, ← zpow_add₀ p0.ne']
     ring_nf; simp
 
+/-- A uniformizer of `B_p`: a unit with `v_p(nrd π) = 1` (`π = i` at `p = 2`, `π = j` at `p = 3`). -/
+theorem exists_pi (hp2 : p = 2 ∨ p = 3) : ∃ π : (Bp p)ˣ, ‖nrd p π‖ = (p : ℝ)⁻¹ := by
+  rcases hp2 with rfl | rfl
+  · refine ⟨⟨⟨0, 1, 0, 0⟩, ⟨0, 1/2, 0, 0⟩, ?_, ?_⟩, ?_⟩
+    · ext <;> simp <;> norm_num
+    · ext <;> simp <;> norm_num
+    · simp only [nrd_eq]; norm_num
+      rw [norm_two_two]; norm_num
+  · refine ⟨⟨⟨0, 0, 1, 0⟩, ⟨0, 0, -1/3, 0⟩, ?_, ?_⟩, ?_⟩
+    · ext <;> simp <;> norm_num
+    · ext <;> simp <;> norm_num
+    · simp only [nrd_eq]; norm_num
+      rw [norm_three_three]; norm_num
+
+/-- **Index two.** `[B_p^× : ℚ_p^× 𝒪_p^×] = 2` for `p = 2, 3`. -/
+theorem index_scalOpUnits (hp2 : p = 2 ∨ p = 3) : (scalOpUnitsSubgroup p hp2).index = 2 := by
+  have p0 : (0 : ℝ) < p := by exact_mod_cast hp.out.pos
+  have p1 := one_lt_p (p := p)
+  rw [Subgroup.index_eq_two_iff]
+  obtain ⟨π, hπ⟩ := exists_pi p hp2
+  refine ⟨π, fun b => ?_⟩
+  obtain ⟨k, hk⟩ := norm_zpow (nrd_unit_ne_zero p b)
+  have m1 : b * π ∈ scalOpUnitsSubgroup p hp2 ↔ ∃ m : ℤ, k - 1 = 2 * m := by
+    show b * π ∈ scalOpUnits p ↔ _
+    rw [mem_scalOpUnits_iff p hp2, Units.val_mul, nrd_mul, norm_mul, hk, hπ, ← zpow_neg_one,
+      ← zpow_add₀ p0.ne']
+    constructor
+    · rintro ⟨m, hm⟩; exact ⟨m, by have := zpow_right_injective₀ p0 p1.ne' hm; omega⟩
+    · rintro ⟨m, hm⟩; exact ⟨m, by rw [← hm]; ring_nf⟩
+  have m2 : b ∈ scalOpUnitsSubgroup p hp2 ↔ ∃ m : ℤ, k = 2 * m := by
+    show b ∈ scalOpUnits p ↔ _
+    rw [mem_scalOpUnits_iff p hp2, hk]
+    constructor
+    · rintro ⟨m, hm⟩; exact ⟨m, zpow_right_injective₀ p0 p1.ne' hm⟩
+    · rintro ⟨m, hm⟩; exact ⟨m, by rw [hm]⟩
+  rw [m1, m2]
+  rcases Int.even_or_odd' k with ⟨n, rfl | rfl⟩
+  · exact Or.inr ⟨⟨n, rfl⟩, fun ⟨m, hm⟩ => by omega⟩
+  · exact Or.inl ⟨⟨n, by ring⟩, fun ⟨m, hm⟩ => by omega⟩
+
+/-- **Vignéras' local normalizer facts at the ramified primes of `B = (2,-3)`, instance.**
+For `p ∈ {2, 3}`: the normalizer of `𝒪_p = 𝒪 ⊗ ℤ_p` in `B_p^×` is all of `B_p^×`, and
+`ℚ_p^× 𝒪_p^×` has index 2 in it. -/
+theorem vigneras_local (hp2 : p = 2 ∨ p = 3) :
+    normalizerOp p = Set.univ ∧ (scalOpUnitsSubgroup p hp2 : Set (Bp p)ˣ) = scalOpUnits p ∧
+      (scalOpUnitsSubgroup p hp2).index = 2 :=
+  ⟨normalizerOp_eq_univ p hp2, rfl, index_scalOpUnits p hp2⟩
+
 end Normalizer
 
 end GlueVigneras
