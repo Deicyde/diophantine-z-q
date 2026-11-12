@@ -24,3 +24,15 @@
 ## Cyclic inflation, step (b)
 - carry_f(a mod f, b mod f) ≡ h(a)+h(b)−h(a+b mod 2f) (mod 2), h(a)=⌊a/f⌋, a,b∈[0,2f):
   brute-force python check f=1..12, all pairs: True (VERIFIED, 22:4x).
+
+## Conductor.lean (D4)
+- pkg-I6 Part II definitions copied verbatim (lowerRam, lowerRamR, herbrandPhi, upperRam,
+  codimInv, artinConductor).
+- PROVED `PkgI6.artinConductor_le_of_upper`, pkg-I6's statement with fewer hypotheses
+  (only `[Finite (B ≃ₐ[A] B)]`, `[IsLocalRing B]`, `[FiniteDimensional k V]`; no IsDomain/DVR):
+  if ρ σ = 1 for σ ∈ upperRam v, all v > U ≥ 0, then f(V) ≤ dim V·(1+U).
+  Lemmas: `lowerRamR_anti`, `hInt_anti` (integrand antitone ⇒ interval integrable),
+  `phi_sub_ge` ((u'−u)h(u') ≤ φ(u')−φ(u)), `phi_strictMono`, `upperRam_phi_nat`
+  (G^{φ(b)} = G_b via IsLeast.csInf_eq), `sum_hInt_le` (Σ_{i≤b} g_i/g_0 ≤ 1+φ(b)),
+  `phi_nat_ge` (φ(i) ≥ i/g_0, gives finite support), `codimInv_eq_zero`.
+- Compile 22:34: no errors; axioms [propext, Classical.choice, Quot.sound] (VERIFIED).
