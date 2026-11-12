@@ -1,0 +1,9 @@
+# glue-c10 results log
+
+- 23:35 Files: scratch/glue-c10/C10.lean (Galois side), scratch/glue-c10/Trace.lean (pkg-I3 defs + trace independence).
+- 23:33 C10.lean compiles (lake env lean, no errors; VERIFIED). #print axioms = [propext, Classical.choice, Quot.sound] for:
+  iso_of_trace_eq_frob_finite (finite level, from ChebotarevExists + BrauerNesbittChar0),
+  frobDense_of_chebotarev (FrobDense S from ChebotarevExists + FrobLift),
+  eq_of_eq_on_frob (continuous functions on G_ℚ agreeing on Frobenius outside S are equal, from FrobDense),
+  iso_of_trace_eq_on_frob (G_ℚ-level comparison from BrauerNesbittChar0 + FrobDense).
+  Open glue: FrobLift (lift of a finite-level unramified Frobenius to a Frobenius in G_ℚ).
