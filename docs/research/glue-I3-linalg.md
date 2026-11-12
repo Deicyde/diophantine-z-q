@@ -1,8 +1,12 @@
 # glue-I3-linalg: the linear-algebra glue of package I3 (steps C2, E1)
 
-Status: research note (task glue-I3-linalg, 2026-11-11). Lean: `scratch/glue-I3-linalg/Commutant.lean`
-(251 lines, no `sorry`, compiles with `lake env lean`), with `scratch/glue-I3-linalg/I3.lean` (verbatim copy of
-pkg-I3's object layer, not modified). Log: `scratch/glue-I3-linalg/log.md`. Marks: VERIFIED (compiled or read),
+Status: research note (task glue-I3-linalg, 2026-11-11). Lean files in `scratch/glue-I3-linalg/`, none with
+`sorry`, all compiled with `lake env lean`:
+- `Commutant.lean` (300 lines, Mathlib only): the linear algebra;
+- `TateBC.lean` (191 lines): Tate modules along injective maps;
+- `C2.lean` (1051 lines): pkg-I3's `I3.lean` verbatim, plus `Commutant.lean`, plus C2 stated and proved over
+  the object layer;
+- `I3.lean`: a verbatim copy of pkg-I3's file. Log: `scratch/glue-I3-linalg/log.md`. Marks: VERIFIED (compiled or read),
 STANDARD (published, exact reference), SPECULATIVE; UNVERIFIED for locators given from memory.
 
 ## Main result
@@ -25,7 +29,22 @@ L731-734 needs.
 | `SemisimpleBaseChange` | `char k = 0`, `V` finite-dimensional, `ρ` semisimple ⇒ `ρ_E` semisimple | **stated, not proved** |
 | `exists_equivariant_ne_zero_of_common` | E1's first arrow: `ρ` semisimple, a nonzero subrepresentation `U` of `ρ` equivariantly isomorphic to a subrepresentation `U'` of `σ` ⇒ a nonzero `G`-equivariant linear map `V → W` | proved |
 | `PkgI3.Tate.map_bijective` (`TateBC.lean`) | `φ : M →+ N` injective, `T_ℓ M` free and finite, `T_ℓ N` finite, equal ranks ⇒ `T_ℓ(φ)` bijective (the algebraic core of `T_ℓ` under base change) | proved |
+| `finrank_commOf_le_of_equiv` (`C2.lean`) | an equivariant linear isomorphism `V ≃ W` gives `dim End_G V ≤ dim End_G W` | proved |
+| `PkgI3.C2_absolutelyIrreducible` (`C2.lean`) | C2 over the object layer (see above) | proved (conditional on the two Props and the hypothesis that `r` is semisimple) |
 | `absolutelyIrreducible_of_finrank_commOf_prod_le_four` | from the two Props above: `char k = 0`, `V ≠ 0` finite-dimensional, `ρ` semisimple, `dim End_G(V ⊕ V) ≤ 4` ⇒ `ρ_F` irreducible for **every** field `F ⊇ k` | proved (conditional on the two Props) |
+
+**C2 in pkg-I3's object layer (VERIFIED, compiled, `C2.lean`).** `PkgI3.C2_absolutelyIrreducible` has these
+hypotheses:
+- the leaves `FaltingsTate`, `TateModuleFree`, `HomFreeFinite`;
+- the glue Props `InvariantsBaseChange`, `SemisimpleBaseChange`;
+- A9's output in the form `finrank ℤ (End A) = 4`;
+- a field `E ⊇ ℚ_ℓ`, a semisimple representation `r` of `G_K` on a nonzero finite-dimensional `U`, and a
+  `G_K`-equivariant `E`-linear isomorphism `E ⊗ V_ℓ(A) ≃ U × U`.
+
+It concludes that `r ⊗ F` is irreducible for every field `F ⊇ E`. The hypothesis "`r` semisimple" stands in
+for an unformalized transfer: `r` is a summand of `E ⊗ V_ℓ A`, which is semisimple by `FaltingsSemisimple`
+and `SemisimpleBaseChange`. The isomorphism `E ⊗ V_ℓ A ≃ U × U` is A9/A10's input; it comes from
+`B ⊗ E ≅ M₂(E)` and is not formalized.
 
 ## 1. How this is the argument of N5 L731-734 (C2)
 
@@ -99,7 +118,9 @@ inequality `4 · dim End_G(r) ≤ dim End_G(r ⊕ r) ≤ 4`, through the injecti
    (`F[ρ(G)] = End V` over `F̄`), and Burnside's theorem gives irreducibility over every `F` directly,
    without semisimplicity of `ρ_F`. Mathlib has no Burnside density theorem (SPECULATIVE; not found by name).
 3. **`V_ℓ A ⊗ E ≅ r ⊕ r` from `B ⊗ E ≅ M₂(E)`** (C2 step 3) and the summand-is-semisimple transfer (step 4):
-   routine, not written for lack of time.
+   routine, not written for lack of time. In `C2_absolutelyIrreducible` they appear as hypotheses: the
+   isomorphism `e`, and `hr`, which says `r` is semisimple. The transport of commutant dimensions along `e`
+   is proved (`finrank_commOf_le_of_equiv`).
 4. **`T_ℓ` under base change of the field.** For `L/K` and a `K`-embedding `K̄ → L̄`, we want an
    isomorphism `T_ℓ(A) ≅ T_ℓ(A_L)` that is equivariant along `G_L → G_K`. Argument (VERIFIED as an
    argument, not formalized):
@@ -125,7 +146,10 @@ inequality `4 · dim End_G(r) ≤ dim End_G(r ⊕ r) ≤ 4`, through the injecti
 5. **E1's `PoincareReducibility` application**: §2, items (a)-(c); (c) needs the leaf adjustment
    recommended there.
 
-## 4. What compiles (VERIFIED, 2026-11-11 22:31 and 22:34 PST)
+## 4. What compiles (VERIFIED, 2026-11-11 22:31, 22:34 and 22:38 PST)
+
+`lake env lean scratch/glue-I3-linalg/C2.lean` (about 15 s) reports no errors and prints
+`'PkgI3.C2_absolutelyIrreducible' depends on axioms: [propext, Classical.choice, Quot.sound]`.
 
 `lake env lean scratch/glue-I3-linalg/TateBC.lean` reports no errors and prints
 `'PkgI3.Tate.map_bijective' depends on axioms: [propext, Classical.choice, Quot.sound]`.

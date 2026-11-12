@@ -38,6 +38,15 @@
   `map_bijective`: `φ : M →+ N` injective, `T_ℓ M` free finite, `T_ℓ N` finite, equal finrank ⇒
   `Tate.map φ` bijective. VERIFIED (compiled 22:34 PST); axioms [propext, Classical.choice, Quot.sound].
 
+- `C2.lean` = `I3.lean` (verbatim) + the body of `Commutant.lean` + `GlueI3.finrank_commOf_le_of_equiv`
+  (an equivariant linear iso `V ≃ W` gives `dim End_G V ≤ dim End_G W`) + §5:
+  `PkgI3.equivEnd_eq_commOf` (`rfl`) and `PkgI3.C2_absolutelyIrreducible`: from `FaltingsTate`,
+  `TateModuleFree`, `HomFreeFinite`, `InvariantsBaseChange`, `SemisimpleBaseChange`,
+  `finrank ℤ (End A) = 4`, `E ⊇ ℚ_ℓ` with `CharZero E`, a semisimple `r` on a nonzero
+  finite-dimensional `U`, and an equivariant `E ⊗ V_ℓ A ≃ₗ[E] U × U` ⇒ `repBaseChange F r` irreducible for
+  every `F ⊇ E`. VERIFIED (compiled 22:38 PST, ~15 s); axioms [propext, Classical.choice, Quot.sound].
+  Hypothesis `hr` (r semisimple) is not derived from `FaltingsSemisimple` in Lean (summand transfer).
+
 ## Findings
 - Mathlib v4.35.0 has `Representation.IsIrreducible` (`IsSimpleOrder (Subrepresentation ρ)`) and
   `IsSemisimpleRepresentation` (`ComplementedLattice`), so the commutant argument is statable over
