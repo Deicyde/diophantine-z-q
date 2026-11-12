@@ -504,8 +504,106 @@ theorem unramified_outside (hA : LeafB3a) (hB : LeafB3b) (hConj : LeafConj) (hFi
         GalUnramifiedOutside L' T :=
   unramified_outside_of_leaves hA hB hConj hFin cycUnram L T h2 hLT ε hεN χ hN β hβl hβs hβe
 
+
+/-! ## Bridge: ideal-theoretic unramifiedness gives trivial inertia -/
+
+section Bridge
+
+open NumberField
+
+/-- glue-descent's `UnramifiedAt` (copied from `scratch/glue-descent/B2Glue.lean`). -/
+def UnramifiedAt (L : IntermediateField ℚ Qbar) (p : ℕ) : Prop :=
+  ∀ P : Ideal (𝓞 L), P.IsPrime → ((p : ℤ) : 𝓞 L) ∈ P → P.ramificationIdx ℤ = 1
+
+variable (L : IntermediateField ℚ Qbar)
+
+/-- `𝓞 L → ℚ̄`. -/
+noncomputable def emb : 𝓞 L →+* Qbar := (algebraMap L Qbar).comp (algebraMap (𝓞 L) L)
+
+theorem emb_mem (w : ValuationSubring Qbar) (x : 𝓞 L) : emb L x ∈ w := by
+  have h1 : IsIntegral ℤ (emb L x) := by
+    have h0 : IsIntegral ℤ (algebraMap (𝓞 L) L x) := x.isIntegral_coe
+    exact h0.map (IsScalarTower.toAlgHom ℤ L Qbar)
+  have h2 : IsIntegral w (emb L x) := h1.tower_top
+  obtain ⟨y, hy⟩ := IsIntegrallyClosed.isIntegral_iff.mp h2
+  rw [← hy]; exact y.2
+
+/-- `𝓞 L → w`. -/
+noncomputable def embW (w : ValuationSubring Qbar) : 𝓞 L →+* w :=
+  (emb L).codRestrict w (emb_mem L w)
+
+theorem inertia_le_of_unramifiedAt [FiniteDimensional ℚ L] [IsGalois ℚ L] (p : ℕ) (hp : p.Prime)
+    (hL : UnramifiedAt L p) (w : ValuationSubring Qbar) (hw : LiesOver w p) :
+    inertiaGQ w ≤ L.fixingSubgroup := by
+  haveI : NumberField L := { to_charZero := inferInstance, to_finiteDimensional := inferInstance }
+  let P : Ideal (𝓞 L) := (IsLocalRing.maximalIdeal w).comap (embW L w)
+  haveI hPprime : P.IsPrime := Ideal.comap_isPrime _ _
+  have hpP : ((p : ℤ) : 𝓞 L) ∈ P := by
+    show embW L w ((p : ℤ) : 𝓞 L) ∈ IsLocalRing.maximalIdeal w
+    rw [ValuationSubring.valuation_lt_one_iff]
+    have : ((embW L w ((p : ℤ) : 𝓞 L) : w) : Qbar) = (p : Qbar) := by
+      simp [embW, emb]
+    rw [this]; exact hw
+  have he : P.ramificationIdx ℤ = 1 := hL P hPprime hpP
+  let G := L ≃ₐ[ℚ] L
+  have hcard : Nat.card (P.inertia G) = 1 := by
+    rw [Ideal.card_inertia_eq_ramificationIdxIn (G := G) (P.under ℤ) P,
+      Ideal.ramificationIdxIn_eq_ramificationIdx (P.under ℤ) P G, he]
+  intro s hs
+  let g : G := AlgEquiv.restrictNormal (s : Qbar ≃ₐ[ℚ] Qbar) L
+  have hg : ∀ x : L, algebraMap L Qbar (g x) = act s (algebraMap L Qbar x) :=
+    fun x => AlgEquiv.restrictNormal_commutes _ L x
+  have hgI : g ∈ P.inertia G := by
+    rw [Ideal.mem_inertia]
+    intro x
+    show embW L w (g • x - x) ∈ IsLocalRing.maximalIdeal w
+    rw [← IsLocalRing.residue_eq_zero_iff, map_sub, map_sub, sub_eq_zero]
+    obtain ⟨y, hy, hres⟩ := residue_inertia w s hs (embW L w x)
+    have hgx : embW L w (g • x) = y := by
+      apply Subtype.ext
+      rw [hy]
+      show emb L (g • x) = act s (emb L x)
+      simp only [emb, RingHom.comp_apply]
+      rw [← hg]; rfl
+    rw [hgx, hres]
+  have hg1 : g = 1 := by
+    have hsub : Subsingleton (P.inertia G) := (Nat.card_eq_one_iff_unique.mp hcard).1
+    have := Subsingleton.elim (⟨g, hgI⟩ : P.inertia G) 1
+    exact congrArg Subtype.val this
+  refine (IntermediateField.mem_fixingSubgroup_iff L s).mpr ?_
+  intro x hx
+  have := hg ⟨x, hx⟩
+  rw [hg1] at this
+  exact this.symm
+
+end Bridge
+
+/-- **B3 (v) with glue-descent's hypothesis on `L`** (`UnramifiedAt`, the form taken by
+`b2_of_leaves` and `b3_of_leaves`): the twisted kernel field `L'` is unramified outside `T`
+(Galois form). Four leaves only. -/
+theorem unramified_outside_of_unramifiedAt (hA : LeafB3a) (hB : LeafB3b) (hConj : LeafConj)
+    (hFin : LeafFinRam)
+    (L : IntermediateField ℚ Qbar) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (T : Finset ℕ) (h2 : 2 ∈ T) (hram : ∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p)
+    (ε : GQ → GQ → ℂˣ)
+    (hεN : ∀ σ τ, σ ∈ L.fixingSubgroup ∨ τ ∈ L.fixingSubgroup → ε σ τ = 1)
+    {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) (hN : ∀ q, q.Prime → q ∣ N → q ∈ T)
+    (β : GQ → ℂˣ) (hβl : IsLocallyConstant β) (hβs : ∀ x, β x ^ 2 = galChar χ x)
+    (hβe : ∀ x y, β x * β y = ε x y * β (x * y)) :
+    ∃ Q : Finset ℕ, (∀ q ∈ Q, q.Prime ∧ q ∉ T) ∧
+      (∀ x, (∏ q ∈ Q, etaP q) x ^ 2 = 1) ∧ IsLocallyConstant ⇑(∏ q ∈ Q, etaP q) ∧
+      ∀ L' : IntermediateField ℚ Qbar,
+        (∀ σ, σ ∈ L'.fixingSubgroup ↔
+          σ ∈ L.fixingSubgroup ∧ β σ * (∏ q ∈ Q, etaP q) σ = 1) →
+        GalUnramifiedOutside L' T :=
+  unramified_outside hA hB hConj hFin L T h2
+    (fun p hp hpT w hw => inertia_le_of_unramifiedAt L p hp (hram ⟨p, hp⟩ hpT) w hw)
+    ε hεN χ hN β hβl hβs hβe
+
 end GlueB3Unram
 
 #print axioms GlueB3Unram.unramified_outside_of_leaves
 #print axioms GlueB3Unram.cycUnram
 #print axioms GlueB3Unram.unramified_outside
+#print axioms GlueB3Unram.inertia_le_of_unramifiedAt
+#print axioms GlueB3Unram.unramified_outside_of_unramifiedAt

@@ -9,3 +9,5 @@
 - `unramified_outside_of_leaves`: COMPILED (2026-11-11 ~00:00), axioms [propext, Classical.choice, Quot.sound].
 - `cycUnram : CycUnram`: PROVED (residue-field argument: `ζ = s(t)/t` has residue 1; if `ζ ≠ 1`, `∑_{i<N} ζ^i = 0` reduces to `N = 0` in the residue field, impossible as `p ∤ N`). Axioms [propext, Classical.choice, Quot.sound].
 - `unramified_outside` (main theorem from the four leaves only): COMPILED, axioms [propext, Classical.choice, Quot.sound]. Unram.lean 511 lines, `lake env lean` ~10 s.
+- `inertia_le_of_unramifiedAt` (bridge, one direction): `UnramifiedAt L p` (glue-descent's ideal-theoretic form) ⇒ `inertiaGQ w ≤ G_L` for every `w` over `p`. PROVED via `P = embW⁻¹(𝔪_w) ⊂ 𝓞 L`, `s|_L ∈ P.inertia Gal(L/ℚ)` (residue action), Mathlib's `Ideal.card_inertia_eq_ramificationIdxIn` + `ramificationIdxIn_eq_ramificationIdx`. Axioms standard.
+- `unramified_outside_of_unramifiedAt`: main theorem with glue-descent's hypothesis form `∀ p : Nat.Primes, p ∉ T → UnramifiedAt L p`. COMPILED, axioms [propext, Classical.choice, Quot.sound]. Unram.lean 609 lines.
