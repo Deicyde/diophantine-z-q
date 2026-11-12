@@ -48,11 +48,13 @@ points are not literally printed, and both are settled:
   the deduction (L3079).
 
 Reviews: `docs/research/rv-tyz-inputs.md` re-derived TYZ's proofs of I1–I7 and found that they
-hold, with T1 as the one residual doubt, since closed by `docs/research/tyz-t1.md`; `docs/research/pn-design.md` (§1, §2, §5) compares each
-field with the source; `docs/research/rv-pn-encoding.md` reviewed the Lean encoding (no blocker).
-`Witness.genusData_nonempty` (`RouteK/PropN.lean`) shows that the fields of `GenusData` are jointly
-satisfiable when `L n ≠ 0`, and `Witness.genusData_nonempty_iff_parities` that for `L n = 0` they are
-satisfiable exactly when the conclusion of Proposition N's final step holds.
+hold, with T1 as the one residual doubt, since closed by `docs/research/tyz-t1.md`;
+`docs/research/pn-design.md` (§1, §2, §5) compares each field with the source;
+`docs/research/rv-pn-encoding.md` reviewed the Lean encoding (no blocker; its should-fix items
+are applied here). `Witness.genusData_nonempty` (`RouteK/PropN.lean`) shows that the fields of
+`GenusData` are jointly satisfiable when `L n ≠ 0`, and `Witness.genusData_nonempty_iff_parities`
+that for `L n = 0` they are satisfiable exactly when the conclusion of Proposition N's final step
+holds.
 -/
 
 noncomputable section
@@ -155,7 +157,8 @@ structure GenusData (L : ℕ → ℤ) (n : ℕ) where
     ∃ k : ℤ, β (Z e) + Z e = (gNat e : ℤ) • τ ⟨1, -1⟩ + k • τ 2
   /-- **I5**, Lemma 3.21(4) (L2514–2515): `Z(e)^{β'+1} = g(e) τ(1/2)` for `e ≡ 7`. Exact as TYZ
   print it, in their normalization of `τ` (L1398–1401); since `τ 1 = τ(1/2)` has order 4, this
-  needs `gNat e` to be the integer `#2Cl`, not its parity. `finalStep` uses it only modulo `ℤ τ 2`. -/
+  needs `gNat e` to be the integer `#2Cl`, not its parity. `finalStep` uses it only modulo
+  `ℤ τ 2`. -/
   beta_seven : ∀ e ∈ n.divisors, e % 8 = 7 → β (Z e) + Z e = (gNat e : ℤ) • τ 1
 
 attribute [instance] GenusData.addCommGroup GenusData.module

@@ -42,3 +42,11 @@ so the new witness for L n = 0 will be sorry-free (the review's caveat 3 no long
   Heegner points on X₀(32)); external residue = Thm A.9 (YZZ made explicit by TYZ, deduction omitted
   L3079). "Reviews" paragraph updated; mentions genusData_nonempty_iff_parities.
 - PropN.lean module docstring: same T1 statement; cites rv-pn-encoding.
+
+## Step 4 (other nits, wording)
+- Already applied in step 1 (TYZInputs.lean): I1-eps-proof-cite and F4 (eps_53), i2-b1 (LemmaTwoEight),
+  i7-hecke-bundled option 2 and L-integrality-thm12 (TYZInputs), I1-Z7-docstring (GenusData),
+  TB-4/F3/g-beta7-mod4 (beta_seven docstring: exact form needs integer g; statement unchanged).
+- lemmaN2 docstring: X ∈ M (not A(ℍ'_n)), F2's point. Reflowed long docstring lines.
+- Not applicable here: TB-3 (pn-design only), LF-1..4 (LFunctionCd), statement changes of TB-4/F3
+  and i7 option 1 (statements frozen).

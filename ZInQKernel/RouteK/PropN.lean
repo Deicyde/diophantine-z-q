@@ -1029,7 +1029,8 @@ theorem n2_c_mod {L : ℕ → ℤ} {n : ℕ} (G : GenusData L n) (hsq : Squarefr
   linear_combination ((L m : ℤ) : n2_R) * n2_last hcl he
 
 /-- **Lemma N2** (`𝓛`-form): for squarefree `n ≡ 5 (mod 8)`, unwinding the recursion gives
-`P(n) = Σ_{e ∣ n, e ≡ 5, 7} 𝓛(n/e) Z(e) + 2X` with `X ∈ A(ℍ'_n)`. Uses only `recursion`,
+`P(n) = Σ_{e ∣ n, e ≡ 5, 7} 𝓛(n/e) Z(e) + 2X` with `X ∈ M` (the span of `A[(1+i)³]` and the
+`Z(e)` in `A(ℍ'_n)`, so finalStep needs no action of `β'` beyond `M`). Uses only `recursion`,
 `eps_53`, `eps_pm1` and `L 1 = 1`; no Lemma 2.8. (Inductive identity: for `d ∣ n`, `d ≡ 5, 7`,
 `P(d) ≡ Σ_e φ(d, e) 𝓛(d/e) Z(e)` mod `2M`, with `φ = i` for `(d, e) ≡ (7, 5)` and `1` otherwise;
 the induction step pairs `d₁ ↔ (d/e)/d₁`.) -/
@@ -1677,7 +1678,8 @@ theorem Φw_Sw {L : ℕ → ℤ} {n : ℕ} (hn : n % 8 = 5) (hsq : Squarefree n)
   have hΦ := congrArg Φw hX
   simp only [map_sub, map_add, map_sum, map_zsmul, Φw_Zw] at hΦ
   -- the coefficients `L'(n/e) = L(n/e)` (`n/e < n`)
-  have hcoef : ∀ e ∈ n.divisors.filter (fun e => e % 8 = 5 ∨ e % 8 = 7), L' (n / e) = L (n / e) := by
+  have hcoef : ∀ e ∈ n.divisors.filter (fun e => e % 8 = 5 ∨ e % 8 = 7),
+      L' (n / e) = L (n / e) := by
     intro e he
     simp only [Finset.mem_filter, Nat.mem_divisors] at he
     rw [hL', Function.update_of_ne]
