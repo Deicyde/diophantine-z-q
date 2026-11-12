@@ -79,3 +79,7 @@ File `scratch/bp-faltings/Models.lean`. `lake env lean`: no errors, no warnings.
 - `norm_algebraMap_tower`: N_{L/ℚ}(x) = N_{K/ℚ}(x)^[L:K]. VERIFIED.
 - `absNorm_extendedHom`: FractionalIdeal.absNorm (extendedHom L (𝓞 L) I) = absNorm I ^ [L:K]. VERIFIED.
 - `arakelovDegree_ofFractionalIdeal_baseChange`: deg_L(I𝓞_L, ρ∘res) = [L:K]·deg_K(I, ρ). VERIFIED.
+
+## Step 12 (12:19 PST). Base-change invariance of the model height (dimension 1)
+`Hodge.lean` §12. Compiles; 0 errors, 0 sorry.
+- `HodgeData.modelHeight_ofIdeal_baseChange`: h_L(ofIdeal (𝔞𝓞_L) (P ∘ res)) = h_K(ofIdeal 𝔞 P). VERIFIED.

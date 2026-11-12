@@ -1017,6 +1017,35 @@ theorem arakelovDegree_ofFractionalIdeal_baseChange (I : FractionalIdeal (𝓞 K
 
 end BaseChangeNorm
 
+/-! ## 12. Base-change invariance of the model height (node H4, dimension-1 Hodge data) -/
+
+section BaseChangeHeight
+
+open scoped nonZeroDivisors
+
+variable {K L : Type*} [Field K] [NumberField K] [Field L] [NumberField L] [Algebra K L]
+
+/-- **The model height does not change under base change** (Hodge data of the form
+`HodgeData.ofIdeal`): extending the lattice to `𝓞_L` and restricting the period lattices,
+`h_L = h_K`. This is the Arakelov-theoretic content of "the Faltings height of a model with good
+(or semistable) base change is invariant", node H4. -/
+theorem HodgeData.modelHeight_ofIdeal_baseChange (𝔞 : FractionalIdeal (𝓞 K)⁰ K) (h𝔞 : 𝔞 ≠ 0)
+    (P : (K →+* ℂ) → PeriodPair) :
+    (HodgeData.ofIdeal (FractionalIdeal.extendedHom L (𝓞 L) 𝔞)
+      ((FractionalIdeal.extendedHom_eq_zero_iff L (𝓞 L)).not.mpr h𝔞)
+      (fun τ => P (τ.comp (algebraMap K L)))).modelHeight =
+      (HodgeData.ofIdeal 𝔞 h𝔞 P).modelHeight := by
+  rw [HodgeData.modelHeight_ofIdeal, HodgeData.modelHeight_ofIdeal, absNorm_extendedHom,
+    sum_embeddings_comp (L := L) (fun σ => Real.log (ZLattice.covolume (P σ).lattice volume)),
+    ← Module.finrank_mul_finrank ℚ K L]
+  have hK : (0 : ℝ) < Module.finrank ℚ K := by exact_mod_cast Module.finrank_pos
+  have hL : (0 : ℝ) < Module.finrank K L := by exact_mod_cast Module.finrank_pos
+  push_cast
+  rw [Real.log_pow]
+  field_simp
+
+end BaseChangeHeight
+
 end ZInQ.BPFaltings
 
 #print axioms ZInQ.BPFaltings.HermitianLattice.degreeAt_eq_arakelovDegree
@@ -1036,3 +1065,4 @@ end ZInQ.BPFaltings
 #print axioms ZInQ.BPFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC'
 #print axioms ZInQ.BPFaltings.absNorm_extendedHom
 #print axioms ZInQ.BPFaltings.arakelovDegree_ofFractionalIdeal_baseChange
+#print axioms ZInQ.BPFaltings.HodgeData.modelHeight_ofIdeal_baseChange

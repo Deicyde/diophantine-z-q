@@ -210,7 +210,7 @@ theory or metrized line bundle.
 | H1 | `HodgeData.modelHeight = deg(ω̄)/[K:ℚ]` and Faltings' formula for every `η` | S | **BUILT** `modelHeight`, `modelHeight_eq`, `modelHeight_of_span` |
 | H2 | `GroupModel.height`: independent of every choice inside it | S | **BUILT** for the section `η` (`modelHeight_eq`), the fundamental domain (AN1), the linear coordinates on `Lie(A_σ)` (`modelHeight_recoord`); the basis of `Λ` plays no role (`Λ` is a set) |
 | H3 | `stableFaltingsHeight A : EReal := ⨅ L 𝒢, 𝒢.height` | S | signature in `Models.lean` (comment). The index type "finite extensions `L/K` with a `K`-embedding" should be a structure in one universe (e.g. intermediate fields of `AlgebraicClosure K`, or `Type` with `[Algebra K L] [FiniteDimensional K L]`) |
-| H4 | Base change of models: `𝒢 ×_{𝓞_L} 𝓞_{L'}` is a model of `A_{L'}` (Mathlib: smoothness, separatedness, quasi-compactness are stable under base change) with the same height | M | from AR3 (the Arakelov part is BUILT for fractional-ideal lines: `arakelovDegree_ofFractionalIdeal_baseChange`), AV5 and the compatibility of `ω_𝒢` with flat base change |
+| H4 | Base change of models: `𝒢 ×_{𝓞_L} 𝓞_{L'}` is a model of `A_{L'}` (Mathlib: smoothness, separatedness, quasi-compactness are stable under base change) with the same height | M | from AR3 and AV5 and the compatibility of `ω_𝒢` with flat base change. **BUILT** at the level of Hodge data of dimension 1: `HodgeData.modelHeight_ofIdeal_baseChange` (from `arakelovDegree_ofFractionalIdeal_baseChange`) |
 | H5 | `stableFaltingsHeight A` is finite and equals `𝒩_L.height` for semistable `L`; independent of `K` (`h(A_L) = h(A)`) | XL | from M5-M7 and `modelHeight_le_of_le` (**BUILT**) |
 | H6 | Deligne normalization `h_D = h_F + (g/2) log π` | S | definitional |
 | H7 | Additivity `h(A × B) = h(A) + h(B)` (E4b) | M | from AV6, AR3 and the covolume of a product lattice |
@@ -271,6 +271,7 @@ report no errors and no warnings. `#print axioms` on every main theorem lists `p
 | 8 | `embCoeff`, `HodgeData.ofIdeal`, `HodgeData.modelHeight_ofIdeal`, `modelHeight_ofIdeal_eq_faltingsHeightEC` | AT1, conditional form (any Néron lattice `𝔞·ω`) |
 | 9 | `card_embeddings_over`, `sum_embeddings_comp` | AR3 / H4 (archimedean half of base change) |
 | 11 | `finrank_ringOfIntegers`, `absNorm_map_ringOfIntegers`, `norm_algebraMap_tower`, `absNorm_extendedHom`, `arakelovDegree_ofFractionalIdeal_baseChange` | AR3 (base change: `deg_L = [L:K]·deg_K`) |
+| 12 | `HodgeData.modelHeight_ofIdeal_baseChange` | H4 for dimension-1 Hodge data: extending the lattice to `𝓞_L` and restricting the period lattices leaves the model height unchanged |
 | 10 | `hypGram_comp_add`, `hypVol_one_comp_add`, `modelHeight_ofIdeal_eq_faltingsHeightEC'` | AT1 for every Weierstrass model: `P_W^σ` need only equal `4x³ − g₂x − g₃` after a translation `x ↦ x + c_σ` (`ω ↦ dz` fixes `g₂ = c₄/12`, `g₃ = c₆/216`; `b₂` is removed by translation) |
 
 Key statements (Lean, abridged):
