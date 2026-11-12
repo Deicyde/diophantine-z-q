@@ -29,10 +29,17 @@ proposal. **UNVERIFIED** marks a locator recalled from memory; there was no netw
    provably means the published one, and the acceptance tests AT1/AT2 check that in the two cases
    that have closed formulas.
 2. **The first concrete layer is built (VERIFIED: compiled; axioms `propext`, `Classical.choice`,
-   `Quot.sound`; no `sorry`).** `Hodge.lean`, about 600 lines, Mathlib only:
+   `Quot.sound`; no `sorry`).** `Hodge.lean`, about 900 lines, Mathlib only:
    - `HermitianLattice`, the Arakelov degree `arakelovDegree`, and its independence of the
      section, `degreeAt_eq_arakelovDegree`. The proof uses the product formula and the index
      identity `secIndex_smul`: `#(M/𝓞·as) = |N(a)|·#(M/𝓞·s)`.
+   - Part of node AR3:
+     - for fractional ideals, the index formula `#(I/𝓞x)·N(I) = |N(x)|`
+       (`secIndex_mul_absNorm`) and the closed formula
+       `deg(I, ρ·|σ(·)|) = −log N(I) − ∑ log ρ_σ` (`arakelovDegree_ofFractionalIdeal`);
+     - rescaling of the metrics (`arakelovDegree_rescale`);
+     - the archimedean half of base change: each embedding of `K` has exactly `[L:K]`
+       extensions to `L` (`card_embeddings_over`, `sum_embeddings_comp`).
    - `torusMetricSq`, the archimedean Faltings metric `(i/2)^g∫_{ℂ^g/Λ} η∧η̄` of an invariant top
      form, with these properties:
      - it equals an integral over any fundamental domain (`torusMetricSq_eq_setIntegral`);
@@ -45,11 +52,19 @@ proposal. **UNVERIFIED** marks a locator recalled from memory; there was no netw
      - the change-of-model formula `h(𝒢) = h(𝒢') + [K:ℚ]⁻¹ log[ω_𝒢 : ω_𝒢']` for
        `ω_𝒢' ⊆ ω_𝒢` (`modelHeight_eq_add_of_le`), and the monotonicity that makes the Néron
        lattice give the infimum (`modelHeight_le_of_le`).
-   - **Acceptance test AT1 in conditional form** (`modelHeight_eq_faltingsHeightEC`). For a free
-     lattice `𝓞_K·η₀` whose period lattices are Mathlib `PeriodPair` lattices with `η₀ ↦ dz` and
-     whose finite part vanishes, `modelHeight` equals pkg-I5's closed formula
-     `faltingsHeightEC`. This holds given one unproved classical identity, `PeriodAreaFormula`:
-     `covol(Λ) = 2∫_ℂ dλ/|4x³ − g₂x − g₃|`, which was checked numerically in pkg-I5.
+   - **Acceptance test AT1 in conditional form**, for semistable elliptic curves of any class
+     number (`modelHeight_ofIdeal_eq_faltingsHeightEC`; the free case is
+     `modelHeight_eq_faltingsHeightEC`). The Hodge data has:
+     - Néron lattice `𝔞·ω`;
+     - Mathlib `PeriodPair` period lattices with `ω ↦ dz`.
+
+     Under that data `modelHeight` equals pkg-I5's closed formula `faltingsHeightEC`, given two
+     inputs:
+     - the unproved classical identity `PeriodAreaFormula`,
+       `covol(Λ) = 2∫_ℂ dλ/|4x³ − g₂x − g₃|`, checked numerically in pkg-I5;
+     - the Néron identity `−12 log N(𝔞) = ∑_{v∤∞} log⁺|j|_v − ∑_σ log|σΔ|`, node AT1a.
+   - `HodgeData` is inhabited (`exampleHodge`, the square lattice over `ℚ`). This is a
+     consistency check of the structure.
 3. **The model layer typechecks over Mathlib today** (`Models.lean`, VERIFIED). `GroupModel A L`
    is a smooth, separated, quasi-compact group object in `Over (Spec 𝓞_L)` with an isomorphism of
    group objects from its generic fibre to `A_L`. It uses the project's `AbVar`, copied from
@@ -146,7 +161,7 @@ theory or metrized line bundle.
 | --- | --- | --- | --- |
 | AR1 | Hermitian line on `Spec 𝓞_K`: a rank-one `𝓞_K`-lattice `M` in a `K`-line `V`, norms `‖·‖_σ` with `‖a v‖_σ = |σa|‖v‖_σ` | S | **BUILT** `HermitianLattice` (§4) |
 | AR2 | Arakelov degree `log #(M/𝓞s) − ∑_σ log‖s‖_σ`, independent of `s` | S | **BUILT** `arakelovDegree`, `degreeAt_eq_arakelovDegree`, `secIndex_smul`, `secIndex_ne_zero` |
-| AR3 | Functoriality: `deg(M̄ ⊗ N̄) = deg M̄ + deg N̄`; base change `deg(M̄_{𝓞_L}) = [L:K]·deg(M̄)`; isometric rescaling `deg` shifts by `−∑ log c_σ` | M | route: write `M = I·s` with `I` a fractional ideal; Mathlib's `FractionalIdeal.absNorm` and the norm of an extended ideal (`Ideal.absNorm` of `I.map`, name UNVERIFIED). Needed by H4 and additivity (E4b) |
+| AR3 | Functoriality: `deg(M̄ ⊗ N̄) = deg M̄ + deg N̄`; base change `deg(M̄_{𝓞_L}) = [L:K]·deg(M̄)`; rescaling the metrics by `c_σ` shifts `deg` by `−∑ log c_σ` | M | **partly BUILT**: rescaling (`arakelovDegree_rescale`); closed formula for fractional ideals (`secIndex_mul_absNorm`, `arakelovDegree_ofFractionalIdeal`); archimedean half of base change (`card_embeddings_over`, `sum_embeddings_comp`). Remaining: the finite half of base change, `N_L(I𝓞_L) = N_K(I)^{[L:K]}`, from Mathlib's `Ideal.absNorm_algebraMap` (`RingTheory/Ideal/Norm/RelNorm.lean`, integral ideals; VERIFIED present) plus a reduction from fractional to integral ideals and `finrank (𝓞 K) (𝓞 L) = [L:K]`; tensor products. Needed by H4 and additivity (E4b) |
 | AR4 | (optional) Hermitian vector bundles of rank `g` and `deg := deg det` | M | not needed if one works with `det ω` from the start (recommended) |
 
 ### 2.3 Archimedean strand
@@ -204,8 +219,8 @@ compile (pkg-I5 `faltingsHeightEC`, `faltingsHeightGood`, copied into `Hodge.lea
 
 | Test | Statement | Needs | Status |
 | --- | --- | --- | --- |
-| AT1 | `faltingsHeight (ellipticCurve W) = faltingsHeightEC W` for every elliptic `W` over a number field | AV7 (EC as `AbVar`), AN4, AN5; for the Néron lattice: AT1a below; general `W` via H5 and base change to a semistable field | **conditional form BUILT**: `modelHeight_eq_faltingsHeightEC` proves `modelHeight = faltingsHeightEC` from `PeriodAreaFormula`, given the data AN4 and AT1a produce |
-| AT1a | For `W` semistable and minimal at every prime with `𝓞_K`-integral coefficients, the Néron lattice is `𝓞_K·dx/(2y + a₁x + a₃)` and the finite part of `faltingsHeightEC` vanishes (`ord_v Δ = max(0, −ord_v j)` at every finite `v`) | Néron model of an elliptic curve = smooth locus of the minimal Weierstrass model in the semistable case (Silverman AEC II IV.6; BLR 1.5/1; UNVERIFIED locators); Mathlib's `IsMinimal` | **lit** |
+| AT1 | `faltingsHeight (ellipticCurve W) = faltingsHeightEC W` for every elliptic `W` over a number field | AV7 (EC as `AbVar`), AN4, AN5; for the Néron lattice: AT1a below; general `W` via H5 and base change to a semistable field | **conditional form BUILT**: `modelHeight_ofIdeal_eq_faltingsHeightEC` proves `modelHeight = faltingsHeightEC` from `PeriodAreaFormula` (AN5), the Weierstrass-polynomial match (AN4) and the Néron identity (AT1a); free special case `modelHeight_eq_faltingsHeightEC` |
+| AT1a | For `W` with semistable reduction everywhere, the Néron lattice is `𝔞·dx/(2y + a₁x + a₃)` with `ord_𝔭 𝔞 = (ord_𝔭 Δ − ord_𝔭 Δ_min)/12`, and `−12 log N(𝔞) = ∑_{v∤∞} log⁺|j|_v − ∑_σ log|σΔ|`, because `ord_𝔭 Δ_min = max(0, −ord_𝔭 j)` and by the product formula | Néron model of an elliptic curve = smooth locus of the minimal Weierstrass model (Silverman AEC II IV.6; BLR 1.5/1; UNVERIFIED locators); Mathlib's `IsMinimal`; the product-formula step is Mathlib (`NumberField/ProductFormula.lean`) | **lit** for the Néron step; the identity is the hypothesis `hNeron` of the bridge |
 | AT2 | `faltingsHeight (jacobian C) = faltingsHeightGood E` for genus-2 equations with `2⁻¹²disc₆` a unit | AV7 (Jacobians), M8, AN6 | **lit**; statement compiles in pkg-I5 |
 | AT3 | Numerical: `faltingsHeightEC` at `j = 0` gives `−1.321117`, Deligne's minimum shifted by `−½ log π`; 11a1 and 11a3 differ by `½ log 5` | — | **VERIFIED** in pkg-I5 (`ec_height_check.py`) |
 
@@ -247,7 +262,11 @@ report no errors and no warnings. `#print axioms` on every main theorem lists `p
 | 2 | `secIndex`, `secIndex_smul`, `HermitianLattice`, `degreeAt`, `degreeAt_smul`, `exists_smul_eq`, `secIndex_ne_zero`, `degreeAt_eq`, `arakelovDegree`, `degreeAt_eq_arakelovDegree` | AR1, AR2 |
 | 3 | `covolume_comap_mul_det`, `det_restrictScalars_complex`, `torusMetricSq`, `torusMetricSq_eq_setIntegral`, `torus_setIntegral_indep`, `torusMetricSq_pos`, `torusMetricSq_smul`, `realify`, `torusMetricSq_comap` | AN1, AN2 |
 | 4 | `HodgeData`, `coeff_apply_ne_zero`, `norm`, `norm_sq`, `hodgeBundle`, `modelHeight`, `modelHeight_eq`, `recoord`, `modelHeight_recoord`, `modelHeight_eq_add_of_le`, `modelHeight_le_of_le` | H1, H2 (in part), the model comparison used by H5 |
-| 5 | `hypGram`, `hypVol`, `finiteHeightPart`, `faltingsHeightEC` (copied from pkg-I5), `modelHeight_of_span`, `PeriodPair.lattice1`, `PeriodPair.covolume_lattice1`, `PeriodAreaFormula` (Prop), `modelHeight_eq_faltingsHeightEC` | AT1, conditional form |
+| 5 | `hypGram`, `hypVol`, `finiteHeightPart`, `faltingsHeightEC` (copied from pkg-I5), `modelHeight_of_span`, `PeriodPair.lattice1`, `PeriodPair.covolume_lattice1`, `PeriodAreaFormula` (Prop), `modelHeight_eq_faltingsHeightEC` | AT1, conditional form (free lattice) |
+| 6 | `HermitianLattice.rescale`, `arakelovDegree_rescale`, `gaussianPair`, `ratCoeff`, `exampleHodge`, `exampleHodge_modelHeight` | AR3 (rescaling); `HodgeData` is inhabited |
+| 7 | `secIndex_mul_absNorm`, `HermitianLattice.ofFractionalIdeal`, `arakelovDegree_ofFractionalIdeal` | AR3 (fractional ideals) |
+| 8 | `embCoeff`, `HodgeData.ofIdeal`, `HodgeData.modelHeight_ofIdeal`, `modelHeight_ofIdeal_eq_faltingsHeightEC` | AT1, conditional form (any Néron lattice `𝔞·ω`) |
+| 9 | `card_embeddings_over`, `sum_embeddings_comp` | AR3 / H4 (archimedean half of base change) |
 
 Key statements (Lean, abridged):
 
@@ -270,8 +289,20 @@ theorem HodgeData.modelHeight_eq_add_of_le (D' : HodgeData K g V) (hp : D'.perio
     (hc : D'.coeff = D.coeff) (hle : D'.lattice ≤ D.lattice) :
     D.modelHeight = D'.modelHeight +
       Real.log (D'.lattice.toAddSubgroup.relIndex D.lattice.toAddSubgroup) / finrank ℚ K
-theorem modelHeight_eq_faltingsHeightEC (hA : PeriodAreaFormula) (W : WeierstrassCurve K)
-    [W.IsElliptic] (D : HodgeData K 1 V) … : D.modelHeight = faltingsHeightEC W
+theorem secIndex_mul_absNorm (I : FractionalIdeal (𝓞 K)⁰ K) {x : K} (hx : x ∈ I) (hx0 : x ≠ 0) :
+    (secIndex (I : Submodule (𝓞 K) K) x : ℚ) * FractionalIdeal.absNorm I = |Algebra.norm ℚ x|
+theorem sum_embeddings_comp (f : (K →+* ℂ) → ℝ) :
+    ∑ τ : L →+* ℂ, f (τ.comp (algebraMap K L)) = finrank K L * ∑ σ : K →+* ℂ, f σ
+def PeriodAreaFormula : Prop :=
+  ∀ L : PeriodPair, ZLattice.covolume L.lattice = hypVol 1 (4 * X ^ 3 - C L.g₂ * X - C L.g₃)
+theorem modelHeight_ofIdeal_eq_faltingsHeightEC (hA : PeriodAreaFormula)
+    (W : WeierstrassCurve K) [W.IsElliptic] (𝔞 : FractionalIdeal (𝓞 K)⁰ K) (h𝔞 : 𝔞 ≠ 0)
+    (L : (K →+* ℂ) → PeriodPair)
+    (hP : ∀ σ, (4 * X ^ 3 + C W.b₂ * X ^ 2 + C (2 * W.b₄) * X + C W.b₆ : K[X]).map σ =
+      4 * X ^ 3 - C (L σ).g₂ * X - C (L σ).g₃)
+    (hNeron : -12 * Real.log (FractionalIdeal.absNorm 𝔞 : ℝ) =
+      finiteHeightPart W.j - ∑ σ : K →+* ℂ, Real.log ‖σ W.Δ‖) :
+    (HodgeData.ofIdeal 𝔞 h𝔞 L).modelHeight = faltingsHeightEC W
 ```
 
 ### 4.2 `Models.lean`
@@ -293,8 +324,9 @@ hypotheses are exactly the outputs of AN4, AN5 and AT1a.
 
 ## 5. Recommended order of work for the crowdsourced team
 
-1. **WP-A (S-M, can start now).** AR3 (tensor products, base change of the Arakelov degree),
-   H6, and an inhabited `HodgeData` example (e.g. `K = ℚ`, `Λ = ℤ + ℤi`, `h = 0`). Pure Mathlib.
+1. **WP-A (S-M, can start now).** Finish AR3: the finite half of base change and tensor
+   products; the rest of AR3 is BUILT here. Also H6, and the value `covol(ℤ + ℤi) = 1` (then
+   `exampleHodge` has height 0). Pure Mathlib.
 2. **WP-B (M, can start now).** AN5 (`PeriodAreaFormula`) from Mathlib's `℘`. This turns AT1's
    archimedean half into a theorem.
 3. **WP-C (M-L).** AV2-AV5 and M2-M3: dimension, cotangent spaces, `e*Ω¹` of a smooth group
@@ -316,8 +348,9 @@ AT1/AT2 (WP-B, WP-E and AT1a) and, fully, from WP-F.
 1. Locators recalled from memory: BLR 1.2/1 (Néron mapping property), 1.4/3 (existence), 1.5/1,
    9.5 Thm 4; SGA 7 IX 3.3, 3.6; Silverman AEC VI 5.1 and AEC II IV.6; Deligne, Sém. Bourbaki
    616; Faltings 1983 §1.
-2. Not built: AR3, H4, H7, AN3-AN6, AV2-AV7, M2-M8, H3 (signature only), H5; an inhabited
-   `HodgeData` example; the proof of `PeriodAreaFormula`.
+2. Not built: the finite half of base change and tensor products in AR3; H4, H7, AN3-AN6,
+   AV2-AV7, M2-M8, H3 (signature only), H5; the proof of `PeriodAreaFormula`; the identity
+   AT1a.
 3. Library items cited from prereq-survey and not re-checked: Tau Ceti `AbelianVariety`,
    `IsIsogeny`; Anthropic FLT Néron models, Jacobians and `PolarisedAbelianScheme`.
 4. The size tiers and the line estimates are SPECULATIVE.
