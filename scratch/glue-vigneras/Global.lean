@@ -329,4 +329,82 @@ theorem primitive_scaling (x : B) (hx : x ≠ 0) : ∃ c : ℚ, c ≠ 0 ∧ ∃ 
     field_simp
     linarith
 
+
+/-- `x ↦ v_p(x) mod 2` on `ℚ^×`. -/
+noncomputable def vhom (p : ℕ) [Fact p.Prime] : ℚˣ →* Multiplicative (ZMod 2) where
+  toFun c := Multiplicative.ofAdd ((padicValRat p (c : ℚ) : ℤ) : ZMod 2)
+  map_one' := by simp
+  map_mul' a b := by
+    simp only [Units.val_mul, padicValRat.mul a.ne_zero b.ne_zero, Int.cast_add, ofAdd_add]
+
+theorem vhom_apply (p : ℕ) [Fact p.Prime] (c : ℚˣ) :
+    vhom p c = Multiplicative.ofAdd ((padicValRat p (c : ℚ) : ℤ) : ZMod 2) := rfl
+
+/-- `nrd : B^× → ℚ^×`. -/
+def nrdU : Bˣ →* ℚˣ := Units.map nrdHom
+
+theorem nrdU_val (x : Bˣ) : ((nrdU x : ℚˣ) : ℚ) = nrd (x : B) := rfl
+
+/-- `φ : N_B(𝒪) → (ℤ/2)²`, `x ↦ (v₂(nrd x), v₃(nrd x)) mod 2`. -/
+noncomputable def φ : N →* Multiplicative (ZMod 2) × Multiplicative (ZMod 2) :=
+  MonoidHom.prod ((vhom 2).comp (nrdU.comp N.subtype)) ((vhom 3).comp (nrdU.comp N.subtype))
+
+theorem ofAdd_eq_one (z : ZMod 2) : Multiplicative.ofAdd z = 1 ↔ z = 0 := Iff.rfl
+
+theorem cast_two_mul (k : ℤ) : ((2 * k : ℤ) : ZMod 2) = 0 := by
+  push_cast; rw [show (2 : ZMod 2) = 0 from rfl, zero_mul]
+
+theorem v_sq_mul (p : ℕ) [Fact p.Prime] (c d : ℚ) (hc : c ≠ 0) (hd : d ≠ 0) :
+    ((padicValRat p (c ^ 2 * d) : ℤ) : ZMod 2) = ((padicValRat p d : ℤ) : ZMod 2) := by
+  rw [padicValRat.mul (pow_ne_zero 2 hc) hd, padicValRat.pow c, Int.cast_add]
+  push_cast
+  rw [show (2 : ZMod 2) = 0 from rfl, zero_mul, zero_add]
+
+/-- Scaling by a nonzero rational keeps a unit in the normalizer. -/
+theorem scale_unit (x : Bˣ) (c : ℚ) (hc : c ≠ 0) : ∃ x₀ : Bˣ, (x₀ : B) = c • (x : B) ∧
+    ((x₀⁻¹ : Bˣ) : B) = c⁻¹ • ((x⁻¹ : Bˣ) : B) := by
+  let cu : ℚˣ := Units.mk0 c hc
+  have hv : ((Units.map (algebraMap ℚ B).toMonoidHom cu * x : Bˣ) : B) = c • (x : B) := by
+    simp [cu, Algebra.smul_def]
+  refine ⟨Units.map (algebraMap ℚ B).toMonoidHom cu * x, hv, ?_⟩
+  apply Units.inv_eq_of_mul_eq_one_right
+  rw [hv, smul_mul_smul_comm, mul_inv_cancel₀ hc, Units.mul_inv, one_smul]
+
+theorem nrd_O_int {u : B} (hu : u ∈ O) : ∃ k : ℤ, nrd u = k := by
+  obtain ⟨n, rfl⟩ := hu; exact ⟨nrdInt n, nrd_comb n⟩
+
+theorem nrd_OUnits (u : Bˣ) (hu : u ∈ OUnits) : nrd (u : B) = 1 ∨ nrd (u : B) = -1 := by
+  obtain ⟨k, hk⟩ := nrd_O_int hu.1
+  obtain ⟨l, hl⟩ := nrd_O_int hu.2
+  have h : nrd (u : B) * nrd ((u⁻¹ : Bˣ) : B) = 1 := by rw [← nrd_mul, Units.mul_inv, nrd_one]
+  rw [hk, hl] at h
+  have h' : k * l = 1 := by exact_mod_cast h
+  rcases Int.eq_one_or_neg_one_of_mul_eq_one h' with h1 | h1 <;> [left; right] <;> rw [hk, h1] <;> simp
+
+theorem divisors_six {d : ℤ} (hd : d ∣ 6) : d = 1 ∨ d = -1 ∨ d = 2 ∨ d = -2 ∨ d = 3 ∨ d = -3 ∨ d = 6 ∨ d = -6 := by
+  have h1 : d.natAbs ∣ 6 := by
+    have := Int.natAbs_dvd_natAbs.mpr hd; simpa using this
+  have h2 : d.natAbs ∈ Nat.divisors 6 := Nat.mem_divisors.mpr ⟨h1, by norm_num⟩
+  have h3 : Nat.divisors 6 = {1, 2, 3, 6} := by decide
+  rw [h3] at h2
+  simp only [Finset.mem_insert, Finset.mem_singleton] at h2
+  rcases h2 with h | h | h | h <;> rcases Int.natAbs_eq d with e | e <;> rw [h] at e <;> simp [e]
+
+theorem v2_two : padicValRat 2 (2 : ℚ) = 1 := by
+  have := padicValRat.self (p := 2) (by norm_num); simpa using this
+theorem v3_three : padicValRat 3 (3 : ℚ) = 1 := by
+  have := padicValRat.self (p := 3) (by norm_num); simpa using this
+theorem v2_three : padicValRat 2 (3 : ℚ) = 0 := by
+  have := padicValRat.of_nat (p := 2) (n := 3)
+  rw [padicValNat_primes (p := 2) (q := 3) (by norm_num)] at this
+  simpa using this
+theorem v3_two : padicValRat 3 (2 : ℚ) = 0 := by
+  have := padicValRat.of_nat (p := 3) (n := 2)
+  rw [padicValNat_primes (p := 3) (q := 2) (by norm_num)] at this
+  simpa using this
+theorem v2_six : padicValRat 2 (6 : ℚ) = 1 := by
+  rw [show (6 : ℚ) = 2 * 3 by norm_num, padicValRat.mul (by norm_num) (by norm_num), v2_two, v2_three]; rfl
+theorem v3_six : padicValRat 3 (6 : ℚ) = 1 := by
+  rw [show (6 : ℚ) = 2 * 3 by norm_num, padicValRat.mul (by norm_num) (by norm_num), v3_two, v3_three]; rfl
+
 end GlueVigneras.Global
