@@ -206,4 +206,107 @@ end HermitianLattice
 
 end Arakelov
 
+/-! ## 3. The archimedean term: a translation-invariant top form on a complex torus
+
+For an abelian variety `A` over `ℂ` of dimension `g`, `A(ℂ) ≅ ℂ^g / Λ` with `Λ` the period lattice
+(the analytic uniformization; not in Mathlib, see the blueprint node `AN3`). In these linear
+coordinates every invariant top form is `η = c · dz₁ ∧ ⋯ ∧ dz_g`, and `(i/2) dz ∧ dz̄ = dx ∧ dy` is
+Lebesgue measure on `ℂ = ℝ²` (Mathlib's `volume` on `ℂ`), so the Faltings metric
+`‖η‖² = (i/2)^g ∫_{A(ℂ)} η ∧ η̄` (sign convention: the positive value, i.e. with the factor
+`(-1)^{g(g-1)/2}` that reorders `η ∧ η̄` into `∏ (dz_k ∧ dz̄_k)`) is `|c|²` times the volume of a
+fundamental domain. -/
+
+section Torus
+
+/-- Real-linear change of variables and covolume: `covol(e⁻¹ Λ) · |det e| = covol Λ`. -/
+theorem covolume_comap_mul_det {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]
+    (L : Submodule ℤ E) [DiscreteTopology L] [IsZLattice ℝ L]
+    (μ : Measure E) [μ.IsAddHaarMeasure] (e : E ≃L[ℝ] E) :
+    ZLattice.covolume (ZLattice.comap ℝ L e.toLinearMap) μ *
+      |LinearMap.det (e.toLinearMap : E →ₗ[ℝ] E)| = ZLattice.covolume L μ := by
+  set ν : Measure E := Measure.map e.symm μ with hνdef
+  have hmp : MeasurePreserving e ν μ := by
+    refine ⟨e.continuous.measurable, ?_⟩
+    rw [hνdef, Measure.map_map e.continuous.measurable e.symm.continuous.measurable]
+    simp
+  have h1 := ZLattice.covolume_comap L μ ν hmp
+  have hdet : LinearMap.det (e.symm.toLinearMap : E →ₗ[ℝ] E) ≠ 0 := by
+    rw [show (e.symm.toLinearMap : E →ₗ[ℝ] E) = (e.toLinearEquiv.symm : E →ₗ[ℝ] E) from rfl,
+      LinearEquiv.det_coe_symm]
+    exact inv_ne_zero (LinearEquiv.isUnit_det' e.toLinearEquiv).ne_zero
+  have hν : ν = ENNReal.ofReal |LinearMap.det (e.toLinearMap : E →ₗ[ℝ] E)| • μ := by
+    rw [hνdef, show (⇑e.symm : E → E) = ⇑(e.symm.toLinearMap : E →ₗ[ℝ] E) from rfl,
+      Measure.map_linearMap_addHaar_eq_smul_addHaar μ hdet,
+      show (e.symm.toLinearMap : E →ₗ[ℝ] E) = (e.toLinearEquiv.symm : E →ₗ[ℝ] E) from rfl,
+      LinearEquiv.det_coe_symm, inv_inv]
+  rw [← h1]
+  have hF := ZLattice.isAddFundamentalDomain
+    (Module.Free.chooseBasis ℤ (ZLattice.comap ℝ L e.toLinearMap)) μ
+  have hFν := ZLattice.isAddFundamentalDomain
+    (Module.Free.chooseBasis ℤ (ZLattice.comap ℝ L e.toLinearMap)) ν
+  rw [ZLattice.covolume_eq_measure_fundamentalDomain _ μ hF,
+    ZLattice.covolume_eq_measure_fundamentalDomain _ ν hFν, hν]
+  simp only [Measure.real, Measure.smul_apply, smul_eq_mul, ENNReal.toReal_mul,
+    ENNReal.toReal_ofReal (abs_nonneg _)]
+  ring
+
+/-- The real determinant of a complex-linear map is `|det_ℂ|²`. -/
+theorem det_restrictScalars_complex {g : ℕ} (T : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ)) :
+    LinearMap.det (T.restrictScalars ℝ) = Complex.normSq (LinearMap.det T) := by
+  rw [LinearMap.det_restrictScalars, Algebra.norm_complex_apply]
+
+variable {g : ℕ}
+
+/-- **The archimedean Faltings metric** of `η = c · dz₁ ∧ ⋯ ∧ dz_g` on `ℂ^g / Λ`:
+`‖η‖² = (i/2)^g ∫_{ℂ^g/Λ} η ∧ η̄ = |c|² · covol(Λ)`. -/
+noncomputable def torusMetricSq (Λ : Submodule ℤ (Fin g → ℂ)) (c : ℂ) : ℝ :=
+  ‖c‖ ^ 2 * ZLattice.covolume Λ
+
+variable (Λ : Submodule ℤ (Fin g → ℂ)) [DiscreteTopology Λ] [IsZLattice ℝ Λ]
+
+/-- The metric as an integral over a fundamental domain of `Λ` (i.e. over `A(ℂ)`). -/
+theorem torusMetricSq_eq_setIntegral {F : Set (Fin g → ℂ)} (hF : IsAddFundamentalDomain Λ F)
+    (c : ℂ) : torusMetricSq Λ c = ∫ _ in F, ‖c‖ ^ 2 := by
+  rw [torusMetricSq, ZLattice.covolume_eq_measure_fundamentalDomain Λ volume hF,
+    setIntegral_const, smul_eq_mul, mul_comm]
+
+/-- Integrals over `A(ℂ) = ℂ^g/Λ` of `Λ`-periodic densities do not depend on the fundamental
+domain (Mathlib's `IsAddFundamentalDomain.setIntegral_eq`). -/
+theorem torus_setIntegral_indep {F F' : Set (Fin g → ℂ)} (hF : IsAddFundamentalDomain Λ F)
+    (hF' : IsAddFundamentalDomain Λ F') (f : (Fin g → ℂ) → ℝ)
+    (hf : ∀ (l : Λ) (x : Fin g → ℂ), f (l +ᵥ x) = f x) :
+    ∫ x in F, f x = ∫ x in F', f x := by
+  have : MeasurableVAdd Λ (Fin g → ℂ) := (inferInstance : MeasurableVAdd Λ.toAddSubgroup _)
+  have : VAddInvariantMeasure Λ (Fin g → ℂ) volume :=
+    (inferInstance : VAddInvariantMeasure Λ.toAddSubgroup _ volume)
+  exact hF.setIntegral_eq hF' hf
+
+theorem torusMetricSq_pos {c : ℂ} (hc : c ≠ 0) : 0 < torusMetricSq Λ c :=
+  mul_pos (by positivity) (ZLattice.covolume_pos Λ volume)
+
+omit [DiscreteTopology Λ] [IsZLattice ℝ Λ] in
+theorem torusMetricSq_smul (a c : ℂ) : torusMetricSq Λ (a * c) = ‖a‖ ^ 2 * torusMetricSq Λ c := by
+  simp only [torusMetricSq, norm_mul]; ring
+
+/-- The real-linear equivalence underlying a complex coordinate change. -/
+noncomputable def realify (T : (Fin g → ℂ) ≃ₗ[ℂ] (Fin g → ℂ)) : (Fin g → ℂ) ≃L[ℝ] (Fin g → ℂ) :=
+  (T.restrictScalars ℝ).toContinuousLinearEquiv
+
+/-- **Independence of the linear coordinates.** In coordinates `z'` with `z = T z'`, the lattice
+becomes `T⁻¹ Λ` and `c · dz₁∧⋯∧dz_g = (c · det T) · dz'₁∧⋯∧dz'_g`; the metric is unchanged. -/
+theorem torusMetricSq_comap (T : (Fin g → ℂ) ≃ₗ[ℂ] (Fin g → ℂ)) (c : ℂ) :
+    torusMetricSq (ZLattice.comap ℝ Λ (realify T).toLinearMap)
+      (c * LinearMap.det (T : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ))) = torusMetricSq Λ c := by
+  have h := covolume_comap_mul_det Λ volume (realify T)
+  have hd : LinearMap.det ((realify T).toLinearMap : (Fin g → ℂ) →ₗ[ℝ] (Fin g → ℂ)) =
+      Complex.normSq (LinearMap.det (T : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ))) :=
+    det_restrictScalars_complex (T : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ))
+  rw [hd, abs_of_nonneg (Complex.normSq_nonneg _), Complex.normSq_eq_norm_sq] at h
+  simp only [torusMetricSq, norm_mul]
+  rw [← h]
+  ring
+
+end Torus
+
 end ZInQ.BPFaltings
