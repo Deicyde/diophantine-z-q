@@ -560,6 +560,67 @@ def GaloisRep.HasHTWeightsAtSelf (ρ : GaloisRep p n) (S : Multiset ℤ) : Prop 
 def GaloisRep.DistinctHTWeights (ρ : GaloisRep p 2) : Prop :=
   ∃ a b : ℤ, a ≠ b ∧ ρ.HasHTWeightsAtSelf p {a, b}
 
+
+/-! ### Sanity check of the Hodge–Tate convention (given Tate's theorem as a hypothesis) -/
+
+/-- `σ ↦ σ` as ring automorphisms, multiplicatively. -/
+def toRingEquivHom : GQp p →* (PadicAlgCl p ≃+* PadicAlgCl p) where
+  toFun σ := σ.toRingEquiv
+  map_one' := rfl
+  map_mul' _ _ := rfl
+
+/-- The cyclotomic character `ℚ_p(1)` as a one-dimensional representation over `ℚ_p`. -/
+def cycRep : GQp p →* GL (Fin 1) ℚ_[p] :=
+  (Units.map (algebraMap ℚ_[p] (Matrix (Fin 1) (Fin 1) ℚ_[p])).toMonoidHom).comp
+    ((Units.map (PadicInt.Coe.ringHom : ℤ_[p] →+* ℚ_[p]).toMonoidHom).comp
+      ((cyclotomicCharacter (PadicAlgCl p) p).comp (toRingEquivHom p)))
+
+theorem cycPow_add_one (σ : GQp p) (j : ℤ) :
+    cycPow p σ (j + 1) = cycPow p σ 1 * cycPow p σ j := by
+  simp only [cycPow, zpow_add, zpow_one, Units.val_mul, PadicInt.coe_mul]
+  ring
+
+theorem cycPow_one_ne_zero (σ : GQp p) : cycPow p σ 1 ≠ 0 := by
+  simp only [cycPow, zpow_one]
+  intro h
+  have := (cyc p σ).ne_zero
+  exact this (PadicInt.ext (by simp at h))
+
+/-- **Convention check.** If `ℂ_p(j)^{G_{ℚ_p}} = 0` for `j ≠ 0` (Tate's theorem, here a
+hypothesis), then `H_i(ℚ_p(1)) = 0` for `i ≠ 1`; so `htMult` of `ℚ_p(1)` vanishes outside the
+weight `−1`, which is N5's and Pan's convention. -/
+theorem htSpace_cycRep_eq_bot
+    (tate : ∀ j : ℤ, j ≠ 0 → ∀ c : ℂ_[p], (∀ σ : GQp p, cycPow p σ j • cpAct p σ c = c) → c = 0)
+    (i : ℤ) (hi : i ≠ 1) : htSpace p (cycRep p) i = ⊥ := by
+  rw [eq_bot_iff]
+  intro φ hφ
+  rw [Submodule.mem_bot]
+  set e : Fin 1 → ℚ_[p] := fun _ => 1
+  have hc : φ e = 0 := by
+    refine tate (i - 1) (by omega) (φ e) fun σ => ?_
+    have h := hφ σ e
+    have hmv : Matrix.mulVec ((cycRep p σ : GL (Fin 1) ℚ_[p]) : Matrix (Fin 1) (Fin 1) ℚ_[p]) e =
+        cycPow p σ 1 • e := by
+      ext k
+      fin_cases k
+      simp [cycRep, e, Matrix.mulVec, dotProduct, cycPow, toRingEquivHom, cyc,
+        Algebra.algebraMap_eq_smul_one, PadicInt.Coe.ringHom_apply]
+      rfl
+    rw [hmv, map_smul] at h
+    have h2 : cycPow p σ 1 • φ e = (cycPow p σ 1 * cycPow p σ (i - 1)) • cpAct p σ (φ e) := by
+      rw [← cycPow_add_one]; simpa using h
+    rw [mul_smul] at h2
+    exact (smul_right_injective _ (cycPow_one_ne_zero p σ) h2).symm
+  refine LinearMap.ext fun v => ?_
+  have hv : v = v 0 • e := by
+    ext k; fin_cases k; simp [e]
+  rw [LinearMap.zero_apply, hv, map_smul, hc, smul_zero]
+
+theorem htMult_cycRep_eq_zero
+    (tate : ∀ j : ℤ, j ≠ 0 → ∀ c : ℂ_[p], (∀ σ : GQp p, cycPow p σ j • cpAct p σ c = c) → c = 0)
+    (w : ℤ) (hw : w ≠ -1) : htMult p (cycRep p) w = 0 := by
+  rw [htMult, htSpace_cycRep_eq_bot p tate (-w) (by omega), finrank_bot, Nat.zero_div]
+
 end Local
 
 /-! ## §1b. The action of `G_{ℚ_p}` on `B_dR` and the de Rham predicate -/
@@ -726,6 +787,46 @@ def LocalIsDeRham (n : ℕ) (ρ : GQp p →* GL (Fin n) (PadicAlgCl p)) : Prop :
     (ρE : GQp p →* GL (Fin n) E),
     (∀ σ, Matrix.GeneralLinearGroup.map (algebraMap E (PadicAlgCl p)) (ρE σ) = ρ σ) ∧
     IsDeRham p ρE
+
+
+/-! ### Sanity check of `IsDeRham` (given `B_dR^{G_{ℚ_p}} = ℚ_p` as a hypothesis) -/
+
+/-- **Normalization check.** If every `G_{ℚ_p}`-invariant of `B_dR` lies in `ℚ_p` (Fontaine's
+`B_dR^{G_{ℚ_p}} = ℚ_p`, here a hypothesis) and `ℚ_p → B_dR` is injective, then the trivial
+one-dimensional representation is de Rham in the sense of `IsDeRham`. -/
+theorem isDeRham_trivial
+    (hfix : ∀ x : BdR p, (∀ σ : GQp p, bdrAct p σ x = x) → x ∈ Set.range (qpToBdR p))
+    (hinj : Function.Injective (qpToBdR p)) :
+    IsDeRham p (1 : GQp p →* GL (Fin 1) ℚ_[p]) := by
+  set e : Fin 1 → ℚ_[p] := fun _ => 1
+  -- the evaluation-at-`0` functional, followed by `ℚ_p → B_dR`
+  set φ₀ : (Fin 1 → ℚ_[p]) →ₗ[ℚ_[p]] BdR p :=
+    (LinearMap.proj (R := ℚ_[p]) (φ := fun _ : Fin 1 => ℚ_[p]) 0).smulRight (1 : BdR p)
+  have hφ₀ : ∀ v, φ₀ v = qpToBdR p (v 0) := fun v => by
+    simp [φ₀, Algebra.smul_def, RingHom.algebraMap_toAlgebra]
+  have hmem : φ₀ ∈ ddrSpace p (1 : GQp p →* GL (Fin 1) ℚ_[p]) := by
+    intro σ v
+    simp only [MonoidHom.one_apply, Units.val_one, Matrix.one_mulVec, hφ₀, bdrAct_qpToBdR]
+  have hne : φ₀ ≠ 0 := by
+    intro h
+    have h1 := congrArg (fun ψ => ψ e) h
+    simp only [hφ₀, LinearMap.zero_apply, e] at h1
+    exact one_ne_zero (hinj (h1.trans (map_zero _).symm))
+  have hspan : ddrSpace p (1 : GQp p →* GL (Fin 1) ℚ_[p]) = ℚ_[p] ∙ φ₀ := by
+    apply le_antisymm
+    · intro φ hφ
+      obtain ⟨c, hc⟩ := hfix (φ e) fun σ => by
+        have := hφ σ e
+        simp only [MonoidHom.one_apply, Units.val_one, Matrix.one_mulVec] at this
+        exact this.symm
+      rw [Submodule.mem_span_singleton]
+      refine ⟨c, LinearMap.ext fun v => ?_⟩
+      have hv : v = v 0 • e := by ext k; fin_cases k; simp [e]
+      rw [LinearMap.smul_apply, hφ₀, hv, map_smul, ← hc]
+      simp [e, Algebra.smul_def, RingHom.algebraMap_toAlgebra, mul_comm]
+    · rw [Submodule.span_le, Set.singleton_subset_iff]
+      exact hmem
+  rw [IsDeRham, hspan, finrank_span_singleton hne, Module.finrank_self]
 
 end DeRham
 
@@ -950,6 +1051,8 @@ end
 #print axioms PkgI4.bdrAct_qpToBdR
 #print axioms PkgI4.IsDeRham
 #print axioms PkgI4.PanBerger
+#print axioms PkgI4.htMult_cycRep_eq_zero
+#print axioms PkgI4.isDeRham_trivial
 #print axioms PkgI4.weight_match
 #print axioms PkgI4.weight_match_coh
 #print axioms PkgI4.cpAct_algebraMap

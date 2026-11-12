@@ -322,9 +322,10 @@ coefficients; equivalent to the Hecke definition, Diamond–Shurman Prop. 5.3.1,
 ## 3. Lean (`scratch/pkg-I4/I4.lean`)
 
 Compiles with `lake env lean scratch/pkg-I4/I4.lean` (VERIFIED, log Steps 2-5; about 14 s with
-Mathlib's oleans; 955 lines). No `sorry` anywhere in the file. `#print axioms` of
+Mathlib's oleans; about 1060 lines). No `sorry` anywhere in the file. `#print axioms` of
 `Cp.isAdicComplete`, `DR.fontaineTheta_naturality`, `DR.bdrMap`, `bdrAct_qpToBdR`, `IsDeRham`,
-`PanBerger`, `weight_match`, `weight_match_coh`, `cpAct_algebraMap`: `propext`,
+`PanBerger`, `htMult_cycRep_eq_zero`, `isDeRham_trivial`, `weight_match`, `weight_match_coh`,
+`cpAct_algebraMap`: `propext`,
 `Classical.choice`, `Quot.sound`.
 
 ### 3.1 Definitions
@@ -402,11 +403,19 @@ and `EigenformHT` mean what they say:
 3. `ℂ_p(i)^{G_{ℚ_p}} = 0` for `i ≠ 0` and `= ℚ_p` for `i = 0` (Tate), so `htMult` has the stated
    values on `ℚ_p(n)`.
 
-Proving 2 and 3 in Lean is a substantial project (Ax–Sen–Tate). A cheaper sanity check is to
-prove that `IsDeRham` holds for the trivial one-dimensional representation *given* `B_dR^G = ℚ_p`
-as a hypothesis, and that `htMult` of `ℚ_p(1)` is concentrated in weight `−1` *given* Tate's
-theorem; both are short (SPECULATIVE sizes: 50-100 lines each) and would catch definitional
-slips such as a wrong sign convention.
+Proving 2 and 3 in Lean is a substantial project (Ax–Sen–Tate). **Two conditional checks are
+proved in `I4.lean` (VERIFIED, standard axioms)**; they would catch slips in the definitions such
+as a wrong sign convention or a wrong dimension normalization:
+
+- `htMult_cycRep_eq_zero`: *assuming* Tate's `ℂ_p(j)^{G} = 0` for `j ≠ 0`, the multiplicity
+  `htMult` of `ℚ_p(1)` (the cyclotomic character as a representation, `cycRep`) vanishes at every
+  weight `w ≠ −1`. So `htMult` follows N5's and Pan's convention.
+- `isDeRham_trivial`: *assuming* `B_dR^{G} ⊆ ℚ_p` and `ℚ_p → B_dR` injective, the trivial
+  one-dimensional representation satisfies `IsDeRham`. So `ddrSpace` and the normalization
+  `dim = n·[E:ℚ_p]` are right, and `IsDeRham` is satisfiable as soon as the two standard facts
+  hold.
+
+What remains unchecked by Lean is item 1 and the two assumed facts themselves.
 
 ## 4. The coarse alternative: Ribet, Pyle, Khare–Wintenberger
 
@@ -483,7 +492,7 @@ Assessment:
    moved to a shared definitions file).
 3. **Cheapest next Lean steps:** the de Rham predicate for `G_F`, `F/ℚ_p` finite (open subgroup;
    about 30 lines), which makes Fontaine's closure and the finite descent of N5's lemma
-   statable; the non-vacuity checks of §3.4; then the `ℓ`-adic conductor exponent at `p ≠ ℓ`
+   statable; principality of `ker θ` (§3.4 item 1, a TODO in Mathlib); then the `ℓ`-adic conductor exponent at `p ≠ ℓ`
    (`codim V^{I_p}` plus Swan, through upper ramification groups) in coordination with
    glue-conductor.
 4. **For the whole of H, the coarse route of §4** (Ribet + Pyle + Khare–Wintenberger) needs no

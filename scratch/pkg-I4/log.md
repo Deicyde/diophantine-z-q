@@ -40,3 +40,8 @@
 
 ## Step 6: research note updated
 - Summary, §1.1-1.3, §2.2, §2.5, §3 (definitions table, statements table, de Rham layer table with line counts, §3.4 non-vacuity checks), §4 statability, §6 obstacle and recommendations revised for the de Rham construction and PanBerger.
+
+## Step 7: sanity checks (proved; standard axioms)
+- `htMult_cycRep_eq_zero`: given Tate (ℂ_p(j)^G = 0, j ≠ 0) as hypothesis, htMult of ℚ_p(1) (`cycRep`) is 0 at every w ≠ −1. Confirms the convention (cyclotomic weight −1).
+- `isDeRham_trivial`: given B_dR^G ⊆ ℚ_p and ℚ_p → B_dR injective as hypotheses, the trivial 1-dim representation satisfies `IsDeRham`. Confirms ddrSpace and the dimension normalization.
+- I4.lean ~1060 lines, compiles, no sorry.
