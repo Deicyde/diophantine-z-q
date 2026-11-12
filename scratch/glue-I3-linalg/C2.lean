@@ -274,6 +274,18 @@ def SemisimpleBaseChange : Prop :=
     [Module k V] [FiniteDimensional k V] (ρ : Representation k G V),
     ρ.IsSemisimpleRepresentation → (repBaseChange E ρ).IsSemisimpleRepresentation
 
+/-- **GLUE, not proved here (linear algebra; STANDARD; the `Hom` form of
+`InvariantsBaseChange`, weakened to what E1 uses).** A nonzero `G`-equivariant `E`-linear map
+`V ⊗ E → W ⊗ E` forces a nonzero `G`-equivariant `k`-linear map `V → W` (`V`, `W`
+finite-dimensional): `Hom_G(V ⊗ E, W ⊗ E) = Hom_G(V, W) ⊗ E`. -/
+def EquivariantDescent : Prop :=
+  ∀ (k E G V W : Type) [Field k] [Field E] [Algebra k E] [Monoid G] [AddCommGroup V] [Module k V]
+    [AddCommGroup W] [Module k W] [FiniteDimensional k V] [FiniteDimensional k W]
+    (ρ : Representation k G V) (σ : Representation k G W),
+    (∃ φ : TensorProduct k E V →ₗ[E] TensorProduct k E W, φ ≠ 0 ∧
+      ∀ g, φ ∘ₗ repBaseChange E ρ g = repBaseChange E σ g ∘ₗ φ) →
+    ∃ ψ : V →ₗ[k] W, ψ ≠ 0 ∧ ∀ g, ψ ∘ₗ ρ g = σ g ∘ₗ ψ
+
 /-- **C2, absolute irreducibility (GLUE, proved from the two linear-algebra statements above).**
 If `r` is a nonzero semisimple representation over a field of characteristic `0` with
 `dim End_G(r ⊕ r) ≤ 4`, then `r ⊗ F` is irreducible for every extension `F`, i.e. `r` is
@@ -1065,6 +1077,33 @@ theorem C2_absolutelyIrreducible (hS : FaltingsSemisimple) (hF : FaltingsTate) (
       rfl
   exact absolutelyIrreducible_of_finrank_commOf_prod_le_four hInv hSS r hr h4 F
 
+/-- **E1, from a common constituent to a nonzero homomorphism (GLUE, proved from I3's leaves and
+two linear-algebra statements).** N5 L861-867: if `V_ℓ(A) ⊗ E` and `V_ℓ(J) ⊗ E` have a common
+constituent (a nonzero subrepresentation `U` of the first, equivariantly isomorphic to a
+subrepresentation `U'` of the second), then there is a nonzero homomorphism `A → J` over `K`. -/
+theorem E1_exists_hom_ne_zero (hS : FaltingsSemisimple) (hF : FaltingsTate) (hT : TateModuleFree)
+    (hSS : SemisimpleBaseChange) (hD : EquivariantDescent)
+    {K : Type} [Field K] [NumberField K] (A J : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (E : Type) [Field E] [Algebra ℚ_[ℓ] E]
+    (U : Subrepresentation (repBaseChange E (A.galRep ℓ)))
+    (U' : Subrepresentation (repBaseChange E (J.galRep ℓ))) (hU : U ≠ ⊥)
+    (e : U.toSubmodule ≃ₗ[E] U'.toSubmodule)
+    (he : ∀ g (u : U.toSubmodule),
+      (e ⟨repBaseChange E (A.galRep ℓ) g u, U.apply_mem_toSubmodule g u.2⟩ :
+        TensorProduct ℚ_[ℓ] E (J.V ℓ)) = repBaseChange E (J.galRep ℓ) g (e u)) :
+    ∃ f : Hom A J, f ≠ 0 := by
+  have hℓK : (ℓ : K) ≠ 0 := Nat.cast_ne_zero.mpr (Fact.out : ℓ.Prime).ne_zero
+  obtain ⟨-, hfinA, -⟩ := hT K A ℓ hℓK
+  obtain ⟨-, hfinJ, -⟩ := hT K J ℓ hℓK
+  have : FiniteDimensional ℚ_[ℓ] (A.V ℓ) := inferInstance
+  have : FiniteDimensional ℚ_[ℓ] (J.V ℓ) := inferInstance
+  have hVE := hSS ℚ_[ℓ] E _ _ (A.galRep ℓ) (hS K A ℓ)
+  obtain ⟨φ, hφ0, hφ⟩ := exists_equivariant_ne_zero_of_common _ _ hVE U U' hU e he
+  obtain ⟨ψ, hψ0, hψ⟩ := hD ℚ_[ℓ] E _ _ _ (A.galRep ℓ) (J.galRep ℓ) ⟨φ, hφ0, hφ⟩
+  exact exists_hom_ne_zero_of_equivariant hF hT A J ℓ ψ hψ0 hψ
+
 end PkgI3
 
+
 #print axioms PkgI3.C2_absolutelyIrreducible
+#print axioms PkgI3.E1_exists_hom_ne_zero

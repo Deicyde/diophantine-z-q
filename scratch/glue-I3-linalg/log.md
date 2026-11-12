@@ -49,6 +49,13 @@
   to equivariant quotients; Mathlib `IsSemisimpleModule.of_surjective` + `equivLinearMapAsModule`), applied
   to `fst ∘ e`.
 
+- `C2.lean` also: `GlueI3.EquivariantDescent` (statement only, NOT proved: a nonzero `G`-equivariant
+  `E`-map `V⊗E → W⊗E` gives a nonzero `G`-equivariant `k`-map `V → W`) and
+  `PkgI3.E1_exists_hom_ne_zero`: from `FaltingsSemisimple`, `FaltingsTate`, `TateModuleFree`,
+  `SemisimpleBaseChange`, `EquivariantDescent`, a nonzero subrepresentation `U` of `V_ℓ(A) ⊗ E`
+  equivariantly isomorphic to a subrepresentation `U'` of `V_ℓ(J) ⊗ E` ⇒ `∃ f : Hom A J, f ≠ 0`.
+  VERIFIED (compiled 22:40 PST); axioms [propext, Classical.choice, Quot.sound].
+
 ## Findings
 - Mathlib v4.35.0 has `Representation.IsIrreducible` (`IsSimpleOrder (Subrepresentation ρ)`) and
   `IsSemisimpleRepresentation` (`ComplementedLattice`), so the commutant argument is statable over
