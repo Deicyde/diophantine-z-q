@@ -22,10 +22,11 @@ Let `B_p = B ⊗ ℚ_p = ℍ[ℚ_[p], 2, 0, -3]` (Mathlib's quaternion algebra, 
 | `mem_scalOpUnits_iff` | `x ∈ ℚ_p^× 𝒪_p^× ↔ ‖nrd x‖ ∈ p^{2ℤ}` (`v_p(nrd x)` even) | GLUE-proved |
 | `index_scalOpUnits` | `[B_p^× : ℚ_p^× 𝒪_p^×] = 2` (`Subgroup.index`), uniformizer `π = i` at 2 (`nrd = −2`), `π = j` at 3 (`nrd = 3`) | GLUE-proved |
 | `vigneras_local` | the three facts together, for `p = 2 ∨ p = 3` | GLUE-proved |
+| `unramified_normalizer` | every prime `p ≠ 2, 3`: if `x ∈ B_p^×` and `x 𝒪_p x⁻¹ ⊆ 𝒪_p` then `x ∈ ℚ_p^× 𝒪_p^×` (on N5's order itself, no splitting `B_p ≅ M₂(ℚ_p)` needed) | GLUE-proved |
 | `split_normalizer_iff` | any prime `p`, any finite nonempty `n`: `x ∈ GL_n(ℚ_p)` normalizes `M_n(ℤ_p)` iff `x ∈ ℚ_p^× GL_n(ℤ_p)` | GLUE-proved |
 
-So `[N(𝒪_p) : ℚ_p^×𝒪_p^×] = 2` at `p = 2, 3` and `= 1` at every prime where `𝒪_p ≅ M₂(ℤ_p)`;
-with the product formula of §3 this is A3(a)'s `|N/(𝔸_f^*K₀)| = 2·2 = 4`.
+So `[N(𝒪_p) : ℚ_p^×𝒪_p^×] = 2` at `p = 2, 3` and `= 1` at every `p ∤ 6`, all on N5's concrete
+order; with the product formula of §4 this is A3(a)'s `|N/(𝔸_f^*K₀)| = 2·2 = 4`.
 
 ## 2. Published form (the leaf this replaces)
 
@@ -62,18 +63,23 @@ clause of (R) ("every order is contained in `𝒪_H`") is not needed by A3 and w
   unit normalizes `𝒪_p = {‖nrd‖ ≤ 1}`. Units of `𝒪_p` are `{‖nrd‖ = 1}`, and `x = c·u` with
   `c = p^{−m}` whenever `‖nrd x‖ = p^{2m}`; parity of `v_p(nrd)` gives index 2 via
   `Subgroup.index_eq_two_iff`.
-- **Split primes** (`split_normalizer`). Scale `x` by its largest entry `x_{ki}`, so `u = x/x_{ki}`
+- **`p ∤ 6` on N5's order** (`unramified_normalizer`, certificate `scratch/glue-vigneras/cert.py`,
+  output `cert.output.txt`). Let `E_kl(x)` be coordinate `l` (N5's basis) of `x eₖ x̄`; these are 16
+  integral quadratic forms in N5's coordinates `nᵢ` of `x`, and they span all 10 quadratic monomials
+  over `ℤ[1/6]`: `3n₀² = 2E₀₀+E₁₁+E₁₃−2E₂₀−E₃₁`, `6n₁² = −E₁₁−2E₂₀+E₃₁+E₃₃`,
+  `3n₂² = 2E₀₀−E₁₁−2E₂₀−E₃₃`, `6n₃² = E₁₁+E₁₃−2E₂₀−E₃₃` (`cert0`-`cert3`, ring identities in `B_p`).
+  (This is the Azumaya property `𝒪⊗𝒪^op ≅ End(𝒪)` over `ℤ[1/6]`, made explicit.) Scale `x` by its
+  largest coordinate, so `x ∈ 𝒪_p` with some `‖nᵢ‖ = 1`. Since `x eₖ x̄ = nrd(x)·x eₖ x⁻¹` and
+  `x eₖ x⁻¹ ∈ 𝒪_p`, `‖E_kl‖ ≤ ‖nrd x‖`; if `‖nrd x‖ < 1` the certificate gives `‖nᵢ‖ < 1` (3 and 6
+  are units at `p`), a contradiction. So `nrd x ∈ ℤ_p^×` and `x⁻¹ = x̄/nrd x ∈ 𝒪_p`.
+- **Split primes, matrix form** (`split_normalizer`). Scale `x` by its largest entry `x_{ki}`, so `u = x/x_{ki}`
   is integral with `u_{ki} = 1`. For every `j`, `u E_{ij} u⁻¹ ∈ M_n(ℤ_p)` and its `(k,l)` entry is
   `u_{ki}(u⁻¹)_{jl} = (u⁻¹)_{jl}`; so `u⁻¹` is integral and `u ∈ GL_n(ℤ_p)`. (No elementary divisor
   theory is needed.)
 
 ## 4. What remains for A3(a) (open glue, precisely)
 
-1. **`𝒪_p ≅ M₂(ℤ_p)` at `p ∤ 6`** (STANDARD: an order whose reduced discriminant is prime to `p`
-   is maximal at `p`, and `B_p ≅ M₂(ℚ_p)`; Vignéras Ch. II–III, UNVERIFIED). Elementary route: for
-   each `p ∤ 6` one of `2, −3, −6` is a square mod `p`; lift it by Hensel (Mathlib's
-   `hensels_lemma`) and write an explicit `ℤ_p`-algebra isomorphism `𝒪_p → M₂(ℤ_p)`, then apply
-   `split_normalizer_iff`. Not done (about three explicit case constructions).
+1. (Done by `unramified_normalizer`; the identification `𝒪_p ≅ M₂(ℤ_p)` is not needed.)
 2. **The product formula** `N/(𝔸_f^*K₀) = ∏_p N(𝒪_p)/ℚ_p^×𝒪_p^×` over the restricted product
    (Mathlib's `FiniteAdeleRing ℤ ℚ` exists, but the adelic quaternion algebra and `𝒪̂^×` are not
    set up). glue-repo §A3 notes the finite group theory `|Γ'| = |N/𝔸_f^*K₀|·|K₀/ℤ̂^*K₃|` is also
