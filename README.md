@@ -4,6 +4,10 @@
 
 [Read the manuscript](manuscripts/quartic_v16.pdf) or [open the TeX source](manuscripts/quartic_v16.tex). Dated November 11, 2026, this edition adds the horizontal-normalization justification, corrects two Gaudron–Rémond citations, and identifies the Tao–Ziegler fixed-modulus argument as an adaptation of the published proofs. The original construction, 314-variable decimal quartic and 222-variable family are unchanged. See the [correction inventory and review scope](research/version16/README.md) and [cumulative handoff](research/version16/CUMULATIVE-HANDOFF.md).
 
+## 214-variable research manuscript
+
+[Read the 214 manuscript PDF](research/quartic214-manuscript/quartic214.pdf), [open its TeX source](research/quartic214-manuscript/quartic214.tex), or [inspect its source mapping and review](research/quartic214-manuscript-review/README.md). This research manuscript extends [PR30](https://github.com/elliotglazer/diophantine-z-q/pull/30): the complete 214 argument and corrected Version 16 foundation appear in one document. Its defining threshold remains ineffective; the coefficient formula for N>=53 does not certify a defining member. Exact manuscript review and protected Protocol App authorization have separate scopes. The official numbered release remains Version 16.
+
 ## Version 15 history
 
 [Read the manuscript](research/version15/snapshots/v15-222-004/manuscript/quartic_v15.pdf), [open the TeX source](research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex), or [browse the research index](research/version15/README.md). This update selects a quartic family in **222 total variables** with **2,277 nonzero coordinate monomials**, alongside the original huge construction and the retained 314-variable decimal quartic. The [published Version 15 release](https://github.com/elliotglazer/diophantine-z-q/releases/tag/quartic-222-version-15) includes the manuscript and cumulative research archive.
@@ -55,6 +59,7 @@ $$
 
 | Construction | Total variables, including input | Degree | Nonzero monomials | Coefficient magnitude |
 | --- | ---: | ---: | ---: | --- |
+| Research proposal #30 | 214 | 4 | 2,919 | $149^{4N+2}+1$ for $N\ge53$; defining threshold ineffective |
 | Version 15, selected family | 222 | 4 | 2,277 | $A_N^2+1$ for $N\ge53$, where $A_N=149^{2N+1}$ |
 | Original | 292,890,231,905 | Less than $2\uparrow\uparrow7$ | Not expanded | Less than $2\uparrow\uparrow8$ |
 | Version 14, decimal table | 314 | 4 | 6,672 | Less than $2^{6496}$ |

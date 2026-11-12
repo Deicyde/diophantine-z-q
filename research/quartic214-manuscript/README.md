@@ -1,0 +1,13 @@
+# The 214-variable research manuscript
+
+[Read the complete PDF](quartic214.pdf), [open the TeX manuscript](quartic214.tex), or [inspect the manuscript adaptation and reviews](../quartic214-manuscript-review/README.md).
+
+This is the manuscript edition of the [214-variable proof package](../quartic214/README.md) proposed in [public PR30](https://github.com/elliotglazer/diophantine-z-q/pull/30), dated November 12, 2026. It is a research manuscript, without changing the official numbered release. The current 214 argument appears first, including its height, modularity, local and uniform-completeness arguments. The complete Version 16 mathematical foundation, including its audit corrections, follows in the same PDF, with its older constructions clearly identified.
+
+The result has **214 total variables**, including the input, and **188 quadratic residuals**. Its quartic contains **2,919 coordinate monomials**, represented by **2,920 parameter-separated terms**. There exists a fixed ineffective threshold N0 such that every N>=N0 defines the integers over the rationals. The identity H(P_N)=149^(4N+2)+1 for N>=53 is a separate coefficient statement. Neither this manuscript nor its PDF certifies that N=53 defines the integers.
+
+The original Markdown proofs, Version 15 and Version 16 sources, coefficient tables and review decisions retain their exact bytes. The [foundation transition](../quartic214-manuscript-review/FOUNDATION_TRANSITION.md), new source map and adaptation records explain how their contents appear in this manuscript. Earlier model reviews do not automatically accept new typesetting, and ordinary CI does not supply the protected Protocol App authorization. Consult the [current adaptation records](../quartic214-manuscript-review/README.md) for exact reviewed scope and remaining limits.
+
+The [release profile](RELEASE_PROFILE.json), [release manifest](RELEASE_MANIFEST.json) and [cumulative handoff](HANDOFF.md) identify the files and reproduction scope. The [build record](BUILD.json) identifies the actual PDF, TeX engine, source hashes and resource ceilings. The complete rows and polynomial remain in the [original construction package](../quartic214/construction/artifacts/candidate214-brox/); no fixed parameter is expanded into a new enormous integer table for this manuscript.
+
+Build with Python 3, pdfLaTeX and Poppler tools using the commands in the handoff. TeX runs one process at a time, with a 1 GiB address-space ceiling and a 180-second CPU limit per pass. Compilation disables shell escape. The build fails if references do not stabilize or required document checks fail. The checker establishes only its documented finite properties; source incorporation and mathematical adequacy require the separate review.

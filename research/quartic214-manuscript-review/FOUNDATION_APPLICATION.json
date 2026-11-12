@@ -1,0 +1,1553 @@
+{
+  "schema": "quartic214-current-foundation-application-v1",
+  "application_id": "Q214-V16-CURRENT-FOUNDATION-20261112",
+  "authors": [
+    "/root/q214_tex_coverage"
+  ],
+  "role": "author_application_no_independent_acceptance",
+  "upstream_commit": "95cb356d7cd1a5d56d10abeae60497d54d91197e",
+  "manuscript": {
+    "path": "research/quartic214-manuscript/quartic214.tex",
+    "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+    "bytes": 2337499
+  },
+  "source_map": {
+    "path": "research/quartic214-manuscript/SOURCE_SPANS.json",
+    "sha256": "a79b6787e9aa80207b25492296fa730425941528ba5ea8ca0fdd06c090b844d7",
+    "bytes": 390155
+  },
+  "bridge": {
+    "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+    "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+    "bytes": 13149
+  },
+  "historical_source": {
+    "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+    "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+    "bytes": 1924438
+  },
+  "current_source": {
+    "path": "manuscripts/quartic_v16.tex",
+    "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+    "bytes": 1926498
+  },
+  "required_sources": [
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "bytes": 1926498
+    },
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+      "bytes": 13149
+    },
+    {
+      "path": "docs/current-manuscript.json",
+      "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33",
+      "bytes": 517
+    },
+    {
+      "path": "docs/release-policy.md",
+      "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c",
+      "bytes": 2854
+    },
+    {
+      "path": "research/version16/audits/fable-5-2-audit-4.pdf",
+      "sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116",
+      "bytes": 2262754
+    },
+    {
+      "path": "research/version16/review/current/REVIEW.md",
+      "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2",
+      "bytes": 15431
+    },
+    {
+      "path": "research/version16/review/current/TZ-PRECISION-ADDENDUM.md",
+      "sha256": "e2c57cc9d635289f9ddee5f51c07a2f533cc1624a5204440d25647ef2766bdd5",
+      "bytes": 2255
+    },
+    {
+      "path": "research/version16/EDITORIAL-AMENDMENT.json",
+      "sha256": "eededef3bf1eec093eed7ee338c892b10548e4857bc4067222ed07a265c2631a",
+      "bytes": 2498
+    },
+    {
+      "path": "research/version16/TZ-PRECISION-AMENDMENT.json",
+      "sha256": "59c8064132d2524ad0cdb1eac0c155e6cc888ef141075317328f51ef8777919e",
+      "bytes": 1108
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "bytes": 15185
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "bytes": 8145
+    },
+    {
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+      "bytes": 12939
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498
+    }
+  ],
+  "transitions": {
+    "GI-exact-lifts": {
+      "available": "Regularized GI horizontal identities modulo Gamma; V16 first makes them exact for chosen real lifts.",
+      "needed": "The representation must survive removal and rescaling into the smaller covering lattice with the same sequence and GI output.",
+      "derivation": "A Gamma-valued polynomial corrects the discrepancy without changing the orbit. Exact identities survive removal and division of fixed lifts by M. Multiplication by the common denominator preserves independence.",
+      "source_passages": [
+        {
+          "source": {
+            "path": "manuscripts/quartic_v16.tex",
+            "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+            "bytes": 1926498,
+            "lines": [
+              26819,
+              26929
+            ],
+            "passage_sha256": "2d12cda58f881a4c3fa108ea3a66fa4b1ec2b9a440a5ba88970e56e37a4f452f",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+            "bytes": 2337499,
+            "lines": [
+              31903,
+              32015
+            ],
+            "passage_sha256": "ead4f740c9eabf07038121b614a54bfe3fd2f659a6247f7dda8d1125c9c28263",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "lines": [
+              30,
+              34
+            ],
+            "passage_sha256": "205646ca4afe3bc6944d0d429c73b4d95a96f403d8daa96a1c43898f61fdf48f",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+            "bytes": 2337499,
+            "lines": [
+              3338,
+              3342
+            ],
+            "passage_sha256": "b6cf0e51e43a439478ee0c5c6bf6282c7f8694d8cadcbfc075009f7b6cfa8b02",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "lines": [
+              69,
+              71
+            ],
+            "passage_sha256": "405797b8a2e44917d699ec18671c1ffb9d703346bd3a37c234f4629ca75e7c34",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+            "bytes": 2337499,
+            "lines": [
+              2295,
+              2297
+            ],
+            "passage_sha256": "66d64a37236cf671e53b9f1c326942fdfb731557096de683d9209176f4192a9a",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passage": {
+        "source": {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            11,
+            20
+          ],
+          "passage_sha256": "bfd25e2cbbee62eead0335d8df390159742aa1d6bfcb08e5b288116ef1120340",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        "tex": {
+          "path": "research/quartic214-manuscript/quartic214.tex",
+          "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+          "bytes": 2337499,
+          "lines": [
+            2006,
+            2015
+          ],
+          "passage_sha256": "1b3f6653e2ff8f13e21e4f11b2c847e4a07415c0962a1cca77634ac4760ecbc4",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      },
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "lines": [
+              71,
+              84
+            ],
+            "passage_sha256": "fdee9e9aca913a2a06e6b6d7fc7a582effec9bc3cb67eb15345d7ebced74a7a1",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+            "bytes": 2337499,
+            "lines": [
+              2297,
+              2312
+            ],
+            "passage_sha256": "febd9f4c79ff189b8c72759c02d2bb23e382d528159087e86c4df17ccc30a6ce",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    },
+    "TZ-fixed-extra-factor": {
+      "available": "The V16 fixed-E adaptation preserves uniform local estimates, moment ranges and fixed-data quantifiers.",
+      "needed": "Obtain simultaneous Gaussian primes for the actual merged integer coefficient list and fixed ray/progression data for each (N,x).",
+      "derivation": "Mobius divisors and their least common multiples are squarefree; unit residues remove support-prime events. Invertibility elsewhere preserves degree/root bounds; fixed E affects coefficient height by a fixed constant. Fix the 214 data before the analytic size and slow diagonal.",
+      "source_passages": [
+        {
+          "source": {
+            "path": "manuscripts/quartic_v16.tex",
+            "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+            "bytes": 1926498,
+            "lines": [
+              19989,
+              20169
+            ],
+            "passage_sha256": "97c76b377f3f46b317a15d69990e09f63b3771aa939ff875e4ce6379f448108b",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+            "bytes": 2337499,
+            "lines": [
+              25072,
+              25253
+            ],
+            "passage_sha256": "9eda40a365b8a7eee6e7ad3893b8f757086735ea7f46c4fcec6ab1ebed3220ae",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "lines": [
+              69,
+              71
+            ],
+            "passage_sha256": "405797b8a2e44917d699ec18671c1ffb9d703346bd3a37c234f4629ca75e7c34",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+            "bytes": 2337499,
+            "lines": [
+              2295,
+              2297
+            ],
+            "passage_sha256": "66d64a37236cf671e53b9f1c326942fdfb731557096de683d9209176f4192a9a",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passage": {
+        "source": {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            21,
+            34
+          ],
+          "passage_sha256": "d0610f5003362cdc76e3fa7745c697f10b5355767bc6196e0e10d62f524fadbf",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        "tex": {
+          "path": "research/quartic214-manuscript/quartic214.tex",
+          "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+          "bytes": 2337499,
+          "lines": [
+            2016,
+            2029
+          ],
+          "passage_sha256": "74ec70cbd8dc77b3f9705c7c52b5834a710fd9c19b3cdfebc81105fd1521eb3c",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      },
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/source-carry.md",
+            "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+            "bytes": 15185,
+            "lines": [
+              32,
+              34
+            ],
+            "passage_sha256": "32199af3635e97293ab14b26722e63e41fcdcd9de66622b25dc090c134eac807",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+            "bytes": 2337499,
+            "lines": [
+              3340,
+              3342
+            ],
+            "passage_sha256": "1becef5356dc591096a248b8b3218a423abe2e0afe5f81520b3f85eeb2d28f70",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/uniform-existence.md",
+            "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+            "bytes": 22294,
+            "lines": [
+              71,
+              84
+            ],
+            "passage_sha256": "fdee9e9aca913a2a06e6b6d7fc7a582effec9bc3cb67eb15345d7ebced74a7a1",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+            "bytes": 2337499,
+            "lines": [
+              2297,
+              2312
+            ],
+            "passage_sha256": "febd9f4c79ff189b8c72759c02d2bb23e382d528159087e86c4df17ccc30a6ce",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    },
+    "CMH-product-height": {
+      "available": "The CMH 2014 Section 2.3/Corollary 8.4 source in V16 agrees with the correct source already in the 214 primary-source bridge.",
+      "needed": "Supply the original-normalization lower bound and half-log-degree transfer for same-field product factors in the operative 214 H3.",
+      "derivation": "The GR2023 product construction selects r separate surface occurrences over L-prime. Product additivity and the complement lower bound give HJ/r; the dimension-two isogeny C_i to A over that field gives unchanged H3.1 for H4.",
+      "source_passages": [
+        {
+          "source": {
+            "path": "manuscripts/quartic_v16.tex",
+            "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+            "bytes": 1926498,
+            "lines": [
+              30658,
+              30683
+            ],
+            "passage_sha256": "b40561a5e4c0516b9b17594cbbe03fb37b7bf46f9cb810e4f8601abb14cd4da0",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+            "bytes": 2337499,
+            "lines": [
+              35745,
+              35770
+            ],
+            "passage_sha256": "05e9b0f51a6f4ec3bc79652020b3813279d143684743f98598ddadadfc959ee9",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "construction_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-averaging.md",
+            "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+            "bytes": 8145,
+            "lines": [
+              13,
+              26
+            ],
+            "passage_sha256": "e782243317084b125de842154ba63c2bb1cbab33e960ce331cf46954f5946b82",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+            "bytes": 2337499,
+            "lines": [
+              3180,
+              3195
+            ],
+            "passage_sha256": "1e1a86ff889577752a811e7a505b24b7e4c6167ec781d2ea228f539202ce3d19",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "lines": [
+              62,
+              77
+            ],
+            "passage_sha256": "ec32f7e76b18652e57d4b1c8df302975d23b58dd28d6113bccad3c05aad9053f",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+            "bytes": 2337499,
+            "lines": [
+              3090,
+              3105
+            ],
+            "passage_sha256": "4e46729bb4782e22f6118f20f34170b3083181826bbe9ed5b6c1bafd793ca014",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ],
+      "application_passage": {
+        "source": {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            35,
+            40
+          ],
+          "passage_sha256": "2013d2bf5b63a965c65142a139e355a1711988c47d15f3cfa1e4c9d9c42afd9a",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        "tex": {
+          "path": "research/quartic214-manuscript/quartic214.tex",
+          "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+          "bytes": 2337499,
+          "lines": [
+            2030,
+            2035
+          ],
+          "passage_sha256": "f3208329505bc4c434d02327d7727150aa13ea11380e85fb99479d86aacb9bdb",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      },
+      "consumer_passages": [
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-averaging.md",
+            "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+            "bytes": 8145,
+            "lines": [
+              27,
+              47
+            ],
+            "passage_sha256": "44886c8a265b8a765d4e2b80b9c2254b96089151358e1aac2d912b97ddc50bbb",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+            "bytes": 2337499,
+            "lines": [
+              3196,
+              3222
+            ],
+            "passage_sha256": "39ca80f4c21ffbd076fe51d33b43ce246424deff2cd2c96d30c0fb02fa320c07",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        },
+        {
+          "source": {
+            "path": "research/quartic214/proofs/height-supplier.md",
+            "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+            "bytes": 15498,
+            "lines": [
+              97,
+              134
+            ],
+            "passage_sha256": "c79afa0e08a65898a762e6f24ed869f4a35f3c741dacbf82eaee1f9b7d4a0753",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          },
+          "tex": {
+            "path": "research/quartic214-manuscript/quartic214.tex",
+            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+            "bytes": 2337499,
+            "lines": [
+              3127,
+              3164
+            ],
+            "passage_sha256": "359d689a1a79101782a4f5b59a7e87f8c8e6668f43a29585858d301628d826bc",
+            "line_convention": "1-based inclusive raw splitlines with endings retained"
+          }
+        }
+      ]
+    }
+  },
+  "obligations": {
+    "source_hypotheses": {
+      "required_input": "The current GI lattice comparison, TZ adaptation and CMH height statements must supply the exact 214 inputs.",
+      "constructed_input": "Final amended V16 supplies exact lifts; W is E times a primorial with E fixed; the 214 contact list and surface field are the actual constructed objects.",
+      "justification": "The bridge distinguishes published squarefree-modulus hypotheses from an adaptation of their proofs. The actual constant dependencies are retained; no Fable alternative outline or historical approval supplies a changed application.",
+      "source_references": [
+        {
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+          "bytes": 1926498
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149
+        },
+        {
+          "path": "docs/current-manuscript.json",
+          "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33",
+          "bytes": 517
+        },
+        {
+          "path": "docs/release-policy.md",
+          "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c",
+          "bytes": 2854
+        },
+        {
+          "path": "research/version16/audits/fable-5-2-audit-4.pdf",
+          "sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116",
+          "bytes": 2262754
+        },
+        {
+          "path": "research/version16/review/current/REVIEW.md",
+          "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2",
+          "bytes": 15431
+        },
+        {
+          "path": "research/version16/review/current/TZ-PRECISION-ADDENDUM.md",
+          "sha256": "e2c57cc9d635289f9ddee5f51c07a2f533cc1624a5204440d25647ef2766bdd5",
+          "bytes": 2255
+        },
+        {
+          "path": "research/version16/EDITORIAL-AMENDMENT.json",
+          "sha256": "eededef3bf1eec093eed7ee338c892b10548e4857bc4067222ed07a265c2631a",
+          "bytes": 2498
+        },
+        {
+          "path": "research/version16/TZ-PRECISION-AMENDMENT.json",
+          "sha256": "59c8064132d2524ad0cdb1eac0c155e6cc888ef141075317328f51ef8777919e",
+          "bytes": 1108
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            11,
+            20
+          ],
+          "passage_sha256": "bfd25e2cbbee62eead0335d8df390159742aa1d6bfcb08e5b288116ef1120340",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            21,
+            34
+          ],
+          "passage_sha256": "d0610f5003362cdc76e3fa7745c697f10b5355767bc6196e0e10d62f524fadbf",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            35,
+            40
+          ],
+          "passage_sha256": "2013d2bf5b63a965c65142a139e355a1711988c47d15f3cfa1e4c9d9c42afd9a",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_fresh_non_author_review"
+    },
+    "constructed_objects": {
+      "required_input": "Identify the actual represented GI orbits, integer polynomials, ray field and product factors.",
+      "constructed_input": "The correction is Gamma-valued for every horizontal weight. Contact coefficients are cleared and merged with all incidences retained. The surfaces A_a, B0 and J live over the actual L-prime.",
+      "justification": "The correction preserves the orbit modulo Gamma; merging prevents duplicate forms; the isogeny category selects repeated occurrences in the A_a class without changing the target surface.",
+      "source_references": [
+        {
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+          "bytes": 1926498
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149
+        },
+        {
+          "path": "docs/current-manuscript.json",
+          "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33",
+          "bytes": 517
+        },
+        {
+          "path": "docs/release-policy.md",
+          "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c",
+          "bytes": 2854
+        },
+        {
+          "path": "research/version16/audits/fable-5-2-audit-4.pdf",
+          "sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116",
+          "bytes": 2262754
+        },
+        {
+          "path": "research/version16/review/current/REVIEW.md",
+          "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2",
+          "bytes": 15431
+        },
+        {
+          "path": "research/version16/review/current/TZ-PRECISION-ADDENDUM.md",
+          "sha256": "e2c57cc9d635289f9ddee5f51c07a2f533cc1624a5204440d25647ef2766bdd5",
+          "bytes": 2255
+        },
+        {
+          "path": "research/version16/EDITORIAL-AMENDMENT.json",
+          "sha256": "eededef3bf1eec093eed7ee338c892b10548e4857bc4067222ed07a265c2631a",
+          "bytes": 2498
+        },
+        {
+          "path": "research/version16/TZ-PRECISION-AMENDMENT.json",
+          "sha256": "59c8064132d2524ad0cdb1eac0c155e6cc888ef141075317328f51ef8777919e",
+          "bytes": 1108
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            11,
+            20
+          ],
+          "passage_sha256": "bfd25e2cbbee62eead0335d8df390159742aa1d6bfcb08e5b288116ef1120340",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            21,
+            34
+          ],
+          "passage_sha256": "d0610f5003362cdc76e3fa7745c697f10b5355767bc6196e0e10d62f524fadbf",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            35,
+            40
+          ],
+          "passage_sha256": "2013d2bf5b63a965c65142a139e355a1711988c47d15f3cfa1e4c9d9c42afd9a",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_fresh_non_author_review"
+    },
+    "domain_index_coverage": {
+      "required_input": "Cover every horizontal weight and remaining letter, all merged contacts, each fixed pair (N,x), and every one of the r factors.",
+      "constructed_input": "A common standard denominator survives every removal. For each (N,x) there is one fixed coefficient list; r separate product-factor occurrences are selected.",
+      "justification": "Exact vector identities descend to the smaller lattice. Arithmetic data are fixed before the analytic limit; no new N threshold or growing-field uniformity is asserted. The zero-dimensional height complement is included.",
+      "source_references": [
+        {
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+          "bytes": 1926498
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149
+        },
+        {
+          "path": "docs/current-manuscript.json",
+          "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33",
+          "bytes": 517
+        },
+        {
+          "path": "docs/release-policy.md",
+          "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c",
+          "bytes": 2854
+        },
+        {
+          "path": "research/version16/audits/fable-5-2-audit-4.pdf",
+          "sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116",
+          "bytes": 2262754
+        },
+        {
+          "path": "research/version16/review/current/REVIEW.md",
+          "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2",
+          "bytes": 15431
+        },
+        {
+          "path": "research/version16/review/current/TZ-PRECISION-ADDENDUM.md",
+          "sha256": "e2c57cc9d635289f9ddee5f51c07a2f533cc1624a5204440d25647ef2766bdd5",
+          "bytes": 2255
+        },
+        {
+          "path": "research/version16/EDITORIAL-AMENDMENT.json",
+          "sha256": "eededef3bf1eec093eed7ee338c892b10548e4857bc4067222ed07a265c2631a",
+          "bytes": 2498
+        },
+        {
+          "path": "research/version16/TZ-PRECISION-AMENDMENT.json",
+          "sha256": "59c8064132d2524ad0cdb1eac0c155e6cc888ef141075317328f51ef8777919e",
+          "bytes": 1108
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            11,
+            20
+          ],
+          "passage_sha256": "bfd25e2cbbee62eead0335d8df390159742aa1d6bfcb08e5b288116ef1120340",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            21,
+            34
+          ],
+          "passage_sha256": "d0610f5003362cdc76e3fa7745c697f10b5355767bc6196e0e10d62f524fadbf",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            35,
+            40
+          ],
+          "passage_sha256": "2013d2bf5b63a965c65142a139e355a1711988c47d15f3cfa1e4c9d9c42afd9a",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_fresh_non_author_review"
+    },
+    "transition_comparison_maps": {
+      "required_input": "Check map directions, scalar factors and precise norm comparisons.",
+      "constructed_input": "Right multiplication uses a Gamma-valued polynomial; letters map to M-th powers while their fixed lifts are divided by M. The W-trick and the isogeny C_i to A use the stated directions.",
+      "justification": "M cancels in the vector identity. Fixed E preserves uniform estimates without numerical identity of local factors. The rho/B0 choice and diagonal order preserve the norm receivers; the half-log-degree cost is retained.",
+      "source_references": [
+        {
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+          "bytes": 1926498
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149
+        },
+        {
+          "path": "docs/current-manuscript.json",
+          "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33",
+          "bytes": 517
+        },
+        {
+          "path": "docs/release-policy.md",
+          "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c",
+          "bytes": 2854
+        },
+        {
+          "path": "research/version16/audits/fable-5-2-audit-4.pdf",
+          "sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116",
+          "bytes": 2262754
+        },
+        {
+          "path": "research/version16/review/current/REVIEW.md",
+          "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2",
+          "bytes": 15431
+        },
+        {
+          "path": "research/version16/review/current/TZ-PRECISION-ADDENDUM.md",
+          "sha256": "e2c57cc9d635289f9ddee5f51c07a2f533cc1624a5204440d25647ef2766bdd5",
+          "bytes": 2255
+        },
+        {
+          "path": "research/version16/EDITORIAL-AMENDMENT.json",
+          "sha256": "eededef3bf1eec093eed7ee338c892b10548e4857bc4067222ed07a265c2631a",
+          "bytes": 2498
+        },
+        {
+          "path": "research/version16/TZ-PRECISION-AMENDMENT.json",
+          "sha256": "59c8064132d2524ad0cdb1eac0c155e6cc888ef141075317328f51ef8777919e",
+          "bytes": 1108
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            11,
+            20
+          ],
+          "passage_sha256": "bfd25e2cbbee62eead0335d8df390159742aa1d6bfcb08e5b288116ef1120340",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            21,
+            34
+          ],
+          "passage_sha256": "d0610f5003362cdc76e3fa7745c697f10b5355767bc6196e0e10d62f524fadbf",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            35,
+            40
+          ],
+          "passage_sha256": "2013d2bf5b63a965c65142a139e355a1711988c47d15f3cfa1e4c9d9c42afd9a",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_fresh_non_author_review"
+    },
+    "identity_consumed_object": {
+      "required_input": "Supply the same GI(k), fixed-field prime theorem and H3.1 used by 214.",
+      "constructed_input": "C08/C09 require GI with r=max(s,4); P15/P16 use the actual merged coefficients and ray conditions; H4 uses the same A_a and HJ/r.",
+      "justification": "No represented sequence, auxiliary field, normalization or coefficient list is substituted. Old P02/C01 byte-identity statements are historical; this application supplies the current receiving foundation.",
+      "source_references": [
+        {
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+          "bytes": 1926498
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149
+        },
+        {
+          "path": "docs/current-manuscript.json",
+          "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33",
+          "bytes": 517
+        },
+        {
+          "path": "docs/release-policy.md",
+          "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c",
+          "bytes": 2854
+        },
+        {
+          "path": "research/version16/audits/fable-5-2-audit-4.pdf",
+          "sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116",
+          "bytes": 2262754
+        },
+        {
+          "path": "research/version16/review/current/REVIEW.md",
+          "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2",
+          "bytes": 15431
+        },
+        {
+          "path": "research/version16/review/current/TZ-PRECISION-ADDENDUM.md",
+          "sha256": "e2c57cc9d635289f9ddee5f51c07a2f533cc1624a5204440d25647ef2766bdd5",
+          "bytes": 2255
+        },
+        {
+          "path": "research/version16/EDITORIAL-AMENDMENT.json",
+          "sha256": "eededef3bf1eec093eed7ee338c892b10548e4857bc4067222ed07a265c2631a",
+          "bytes": 2498
+        },
+        {
+          "path": "research/version16/TZ-PRECISION-AMENDMENT.json",
+          "sha256": "59c8064132d2524ad0cdb1eac0c155e6cc888ef141075317328f51ef8777919e",
+          "bytes": 1108
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            11,
+            20
+          ],
+          "passage_sha256": "bfd25e2cbbee62eead0335d8df390159742aa1d6bfcb08e5b288116ef1120340",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            21,
+            34
+          ],
+          "passage_sha256": "d0610f5003362cdc76e3fa7745c697f10b5355767bc6196e0e10d62f524fadbf",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            35,
+            40
+          ],
+          "passage_sha256": "2013d2bf5b63a965c65142a139e355a1711988c47d15f3cfa1e4c9d9c42afd9a",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_fresh_non_author_review"
+    },
+    "coefficient_normalization": {
+      "required_input": "Match exact real lifts, normalized interval norms, phi(W)/W, arithmetic Frobenius and original stable Faltings height.",
+      "constructed_input": "The GI interval loss is alpha delta/(4 C_star). The normalization phi(W)/W depends on prime support. The existing 214 bridge uses the correct CMH conversion.",
+      "justification": "The final V16 hash includes the editorial and TZ precision amendments. The claim is uniform local estimates, not identity of root counts. No 214 coefficient or polynomial row changes.",
+      "source_references": [
+        {
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+          "bytes": 1926498
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149
+        },
+        {
+          "path": "docs/current-manuscript.json",
+          "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33",
+          "bytes": 517
+        },
+        {
+          "path": "docs/release-policy.md",
+          "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c",
+          "bytes": 2854
+        },
+        {
+          "path": "research/version16/audits/fable-5-2-audit-4.pdf",
+          "sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116",
+          "bytes": 2262754
+        },
+        {
+          "path": "research/version16/review/current/REVIEW.md",
+          "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2",
+          "bytes": 15431
+        },
+        {
+          "path": "research/version16/review/current/TZ-PRECISION-ADDENDUM.md",
+          "sha256": "e2c57cc9d635289f9ddee5f51c07a2f533cc1624a5204440d25647ef2766bdd5",
+          "bytes": 2255
+        },
+        {
+          "path": "research/version16/EDITORIAL-AMENDMENT.json",
+          "sha256": "eededef3bf1eec093eed7ee338c892b10548e4857bc4067222ed07a265c2631a",
+          "bytes": 2498
+        },
+        {
+          "path": "research/version16/TZ-PRECISION-AMENDMENT.json",
+          "sha256": "59c8064132d2524ad0cdb1eac0c155e6cc888ef141075317328f51ef8777919e",
+          "bytes": 1108
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            11,
+            20
+          ],
+          "passage_sha256": "bfd25e2cbbee62eead0335d8df390159742aa1d6bfcb08e5b288116ef1120340",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            21,
+            34
+          ],
+          "passage_sha256": "d0610f5003362cdc76e3fa7745c697f10b5355767bc6196e0e10d62f524fadbf",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            35,
+            40
+          ],
+          "passage_sha256": "2013d2bf5b63a965c65142a139e355a1711988c47d15f3cfa1e4c9d9c42afd9a",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_fresh_non_author_review"
+    },
+    "local_conditions": {
+      "required_input": "Check extra prime powers, remaining-prime estimates, CRT incidences and the height field.",
+      "constructed_input": "A unit residue modulo W kills every divisibility event at its support primes; W is invertible at other primes. CRT data are fixed and L-prime is unchanged.",
+      "justification": "Squarefree Mobius divisors and least common multiples, with coefficient-height control, preserve the local moment estimates. Existing independent-copy, cyclic-boundary and fixed-ray prime inputs remain required; ordinary majorants alone do not supply ray equidistribution.",
+      "source_references": [
+        {
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+          "bytes": 1926498
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149
+        },
+        {
+          "path": "docs/current-manuscript.json",
+          "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33",
+          "bytes": 517
+        },
+        {
+          "path": "docs/release-policy.md",
+          "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c",
+          "bytes": 2854
+        },
+        {
+          "path": "research/version16/audits/fable-5-2-audit-4.pdf",
+          "sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116",
+          "bytes": 2262754
+        },
+        {
+          "path": "research/version16/review/current/REVIEW.md",
+          "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2",
+          "bytes": 15431
+        },
+        {
+          "path": "research/version16/review/current/TZ-PRECISION-ADDENDUM.md",
+          "sha256": "e2c57cc9d635289f9ddee5f51c07a2f533cc1624a5204440d25647ef2766bdd5",
+          "bytes": 2255
+        },
+        {
+          "path": "research/version16/EDITORIAL-AMENDMENT.json",
+          "sha256": "eededef3bf1eec093eed7ee338c892b10548e4857bc4067222ed07a265c2631a",
+          "bytes": 2498
+        },
+        {
+          "path": "research/version16/TZ-PRECISION-AMENDMENT.json",
+          "sha256": "59c8064132d2524ad0cdb1eac0c155e6cc888ef141075317328f51ef8777919e",
+          "bytes": 1108
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            11,
+            20
+          ],
+          "passage_sha256": "bfd25e2cbbee62eead0335d8df390159742aa1d6bfcb08e5b288116ef1120340",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            21,
+            34
+          ],
+          "passage_sha256": "d0610f5003362cdc76e3fa7745c697f10b5355767bc6196e0e10d62f524fadbf",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            35,
+            40
+          ],
+          "passage_sha256": "2013d2bf5b63a965c65142a139e355a1711988c47d15f3cfa1e4c9d9c42afd9a",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_fresh_non_author_review"
+    },
+    "exceptional_cases": {
+      "required_input": "Treat rational and small GI coordinates, extra prime powers in W, repeated coefficients, negative heights and empty complements.",
+      "constructed_input": "Small and rational lifts are fixed before removal. The cutoff eventually contains every prime of E. Equal coefficients are merged, and HJ retains its maximum with 1.",
+      "justification": "Unit conditions depend on support, not its exponents. Multiplicity counts occurrences. The Bogolyubov concern was withdrawn; Fable audit limitations are preserved without inventing new objections.",
+      "source_references": [
+        {
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+          "bytes": 1926498
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149
+        },
+        {
+          "path": "docs/current-manuscript.json",
+          "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33",
+          "bytes": 517
+        },
+        {
+          "path": "docs/release-policy.md",
+          "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c",
+          "bytes": 2854
+        },
+        {
+          "path": "research/version16/audits/fable-5-2-audit-4.pdf",
+          "sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116",
+          "bytes": 2262754
+        },
+        {
+          "path": "research/version16/review/current/REVIEW.md",
+          "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2",
+          "bytes": 15431
+        },
+        {
+          "path": "research/version16/review/current/TZ-PRECISION-ADDENDUM.md",
+          "sha256": "e2c57cc9d635289f9ddee5f51c07a2f533cc1624a5204440d25647ef2766bdd5",
+          "bytes": 2255
+        },
+        {
+          "path": "research/version16/EDITORIAL-AMENDMENT.json",
+          "sha256": "eededef3bf1eec093eed7ee338c892b10548e4857bc4067222ed07a265c2631a",
+          "bytes": 2498
+        },
+        {
+          "path": "research/version16/TZ-PRECISION-AMENDMENT.json",
+          "sha256": "59c8064132d2524ad0cdb1eac0c155e6cc888ef141075317328f51ef8777919e",
+          "bytes": 1108
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            11,
+            20
+          ],
+          "passage_sha256": "bfd25e2cbbee62eead0335d8df390159742aa1d6bfcb08e5b288116ef1120340",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            21,
+            34
+          ],
+          "passage_sha256": "d0610f5003362cdc76e3fa7745c697f10b5355767bc6196e0e10d62f524fadbf",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            35,
+            40
+          ],
+          "passage_sha256": "2013d2bf5b63a965c65142a139e355a1711988c47d15f3cfa1e4c9d9c42afd9a",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_fresh_non_author_review"
+    },
+    "downstream_consumption": {
+      "required_input": "Trace the corrected foundation to 214 completeness and height consumers, with fresh independent review.",
+      "constructed_input": "The links bind C08-C10, P15-P20 and operative H3/H4. The full current V16 and the transition are incorporated in one TeX manuscript.",
+      "justification": "The full normalized difference contains no other mathematical changes. Exact retention and bounded related-use comparison preserve the 214 quantifiers and ineffective N0. A fresh non-author review is required; old acceptance is not automatic.",
+      "source_references": [
+        {
+          "path": "manuscripts/quartic_v16.tex",
+          "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+          "bytes": 1926498
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149
+        },
+        {
+          "path": "docs/current-manuscript.json",
+          "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33",
+          "bytes": 517
+        },
+        {
+          "path": "docs/release-policy.md",
+          "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c",
+          "bytes": 2854
+        },
+        {
+          "path": "research/version16/audits/fable-5-2-audit-4.pdf",
+          "sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116",
+          "bytes": 2262754
+        },
+        {
+          "path": "research/version16/review/current/REVIEW.md",
+          "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2",
+          "bytes": 15431
+        },
+        {
+          "path": "research/version16/review/current/TZ-PRECISION-ADDENDUM.md",
+          "sha256": "e2c57cc9d635289f9ddee5f51c07a2f533cc1624a5204440d25647ef2766bdd5",
+          "bytes": 2255
+        },
+        {
+          "path": "research/version16/EDITORIAL-AMENDMENT.json",
+          "sha256": "eededef3bf1eec093eed7ee338c892b10548e4857bc4067222ed07a265c2631a",
+          "bytes": 2498
+        },
+        {
+          "path": "research/version16/TZ-PRECISION-AMENDMENT.json",
+          "sha256": "59c8064132d2524ad0cdb1eac0c155e6cc888ef141075317328f51ef8777919e",
+          "bytes": 1108
+        },
+        {
+          "path": "research/quartic214/proofs/source-carry.md",
+          "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+          "bytes": 15185
+        },
+        {
+          "path": "research/quartic214/proofs/uniform-existence.md",
+          "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+          "bytes": 22294
+        },
+        {
+          "path": "research/quartic214/proofs/height-averaging.md",
+          "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+          "bytes": 8145
+        },
+        {
+          "path": "research/quartic214/proofs/primary-source-bridges.md",
+          "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+          "bytes": 12939
+        },
+        {
+          "path": "research/quartic214/proofs/height-supplier.md",
+          "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+          "bytes": 15498
+        }
+      ],
+      "evidence": [
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            11,
+            20
+          ],
+          "passage_sha256": "bfd25e2cbbee62eead0335d8df390159742aa1d6bfcb08e5b288116ef1120340",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            21,
+            34
+          ],
+          "passage_sha256": "d0610f5003362cdc76e3fa7745c697f10b5355767bc6196e0e10d62f524fadbf",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        },
+        {
+          "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+          "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+          "bytes": 13149,
+          "lines": [
+            35,
+            40
+          ],
+          "passage_sha256": "2013d2bf5b63a965c65142a139e355a1711988c47d15f3cfa1e4c9d9c42afd9a",
+          "line_convention": "1-based inclusive raw splitlines with endings retained"
+        }
+      ],
+      "status": "author_proposed_pending_fresh_non_author_review"
+    }
+  },
+  "affected_original_applications": [
+    "D214-INHERITED-ANALYTIC-RC-CARRY",
+    "D214-UNIFORM-EXISTENCE-20261111",
+    "H03-PUBLISHED-PRODUCT-AVERAGING",
+    "H04-FULL-FAMILY-CONSTANT-AND-CENTER2-TRANSFER"
+  ],
+  "original_contracts_unchanged": true,
+  "finding_id": "TEX-F04",
+  "limits": "Author comparison of the current source application. An identified prior fixed-E derivation is reused at its exact scope. This is not a fresh reading of every external publication, automatic transfer of V16 approval, or attestation of controller eligibility."
+}

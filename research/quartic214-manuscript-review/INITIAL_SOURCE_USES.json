@@ -1,0 +1,194 @@
+{
+  "schema": "q214-tex-source-first-initial-v1",
+  "frozen_commit": "110cf72565be326fd567cd1a64a3b2e00213dcd1",
+  "date": "2026-11-12",
+  "author": "model task /root/q214_tex_coverage; Sol6.1 lane requested by operator",
+  "status": "preliminary editorial reconstruction; no mathematical or Astra acceptance",
+  "prior_exposure": "Task brief disclosed earlier component reviews and14 contracts. Actual PROOF.md, linked proofs, selected mathematical sources and V15 consumers were read before any old coverage inventory, contracts or acceptance JSON. Proof texts themselves discuss earlier reviews; no verdict adopted automatically.",
+  "claims": [
+    "Exists ineffective fixed N0: for every integer N>=N0 and x rational, x integral iff there exist213 rational witnesses with P_N=0.",
+    "P_N=sum of squares of188 primitive integral quadratics in214 total variables; A_N=149^(2N+1) fixed coefficient.",
+    "Coefficient height149^(4N+2)+1 for N>=53;53 is not an arithmetic defining threshold."
+  ],
+  "required_source_blocks": [
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "line_count": 49,
+      "required_contents": "Complete author assembly and exact theorem scope."
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "line_count": 92,
+      "required_contents": "Physical raw224 inverse maps and reciprocal clearing; new local factor extraction and fresh completeness; separate218 control."
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "line_count": 84,
+      "required_contents": "P01\u2013P20: exact214 theorem, local integer residuals, aggregate SUM graph and embedding, uniform N_S/N_C, fixed-data primes/CRT and fresh pole inputs."
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "line_count": 81,
+      "required_contents": "Actual D210 whole fine cover, degree-dividing576 field and Hom, S10 support for infinity/deep even/M=1, metric and CM."
+    },
+    {
+      "path": "research/quartic214/proofs/provider-scope-carry.md",
+      "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+      "line_count": 68,
+      "required_contents": "Sixteen exact D210 provider applications; contact-line/tame charts; full11 semistability/torus/ramification source."
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "line_count": 125,
+      "required_contents": "Original r_ell and controlled Lprime; deRham/odd at5; primitive finite twist; same-form3; all-prime conductor and full conjugate multiplicity."
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "line_count": 129,
+      "required_contents": "Finite projective normalization; common regular model direction; exact canonical trace scalar into unsaturated C^vee; all projections."
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "line_count": 131,
+      "required_contents": "All vertical components/imperfect residues; torsion different n; intermediate fields; actual primitive quotient model and normalized discriminant."
+    },
+    {
+      "path": "research/quartic214/proofs/height-metric.md",
+      "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "line_count": 59,
+      "required_contents": "Original stable Jacobian metric; one coordinate set over K; all embeddings; determinant scalar/sign; auxiliary field cancellation."
+    },
+    {
+      "path": "research/quartic214/proofs/height-assembly.md",
+      "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+      "line_count": 57,
+      "required_contents": "Same X_H/B/C/E/F/trace/metric throughout; actual H0.3/H4 receiver; K distinct from Lprime."
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "line_count": 134,
+      "required_contents": "H0\u2013H2 full-family inputs and H4 M=1/CM certificate/constants. Historical H3 visibly superseded."
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "line_count": 60,
+      "required_contents": "OPERATIVE H3 product route over Lprime; r separate repeated simple factors; dimension-two C_i->A and exact H3.1."
+    },
+    {
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+      "line_count": 55,
+      "required_contents": "Faltings End-to-Hom/Poincare ground field; Li Fricke span/all conjugates; original lower-height; final Remond access limitation."
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "line_count": 40,
+      "required_contents": "C01\u2013C13 exact normalized rank, RC full-Selmer/nonCM domain, Kato full index/same limiting class, GI/Gaussian quantifiers, scalar c=|a| and pole/raw224."
+    },
+    {
+      "path": "research/quartic214/sources/aggregate-bridge.md",
+      "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5",
+      "line_count": 19,
+      "required_contents": "Complete selected source mathematical text, with explicit historical/operative scope."
+    },
+    {
+      "path": "research/quartic214/sources/support-section1.md",
+      "sha256": "bb3e2cc7a102ba317ed984f463762cddc52576b3d7416e7a981093243cb16940",
+      "line_count": 58,
+      "required_contents": "Complete selected source mathematical text, with explicit historical/operative scope."
+    },
+    {
+      "path": "research/quartic214/sources/conductor-sections1-3.md",
+      "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+      "line_count": 182,
+      "required_contents": "Complete selected source mathematical text, with explicit historical/operative scope."
+    },
+    {
+      "path": "research/quartic214/sources/factor-extraction.tex",
+      "sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109",
+      "line_count": 136,
+      "required_contents": "Complete selected source mathematical text, with explicit historical/operative scope."
+    },
+    {
+      "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+      "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+      "line_count": 442,
+      "required_contents": "Complete selected source mathematical text, with explicit historical/operative scope."
+    }
+  ],
+  "retained_v15": {
+    "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+    "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+    "line_count": 39896,
+    "incorporation_requirement": "Complete readable retained V15 body in distinct Part II, with clear independent status. Whole-body transport is source coverage, not fresh mathematical review.",
+    "actually_read_consumer_ranges": [
+      [
+        347,
+        443
+      ],
+      [
+        1740,
+        1765
+      ],
+      [
+        7737,
+        7790
+      ],
+      [
+        8870,
+        8970
+      ],
+      [
+        11656,
+        11739
+      ],
+      [
+        13799,
+        13899
+      ],
+      [
+        19660,
+        19746
+      ],
+      [
+        30600,
+        30660
+      ],
+      [
+        32430,
+        32485
+      ],
+      [
+        32816,
+        32895
+      ],
+      [
+        37159,
+        37335
+      ]
+    ],
+    "unreviewed_scope": "Remaining V15 body not re-audited line by line by this task; retained GI/RC/analytic status requires separate current reviewer assessment."
+  },
+  "assembly_connections": [
+    "Raw224 branch precedes unused paired-root/trace-quotient222 reductions.",
+    "Quarter-trace SUM controls every nonzero label, with fixed ineffective additive constant.",
+    "Fresh214 factors5,2,4/special3 give M_j^3|Delta and M_j|J separately, not old fourth-power extraction.",
+    "Full rational S10 supplier feeds both transformed ten-contact arguments, with fixed discarded-prime loss.",
+    "H2 B0~A^r over actual Lprime feeds operative product H3 exact H3.1 and H4.",
+    "Uniform soundness/completeness combine N0=max(N_S,N_C), all larger N and all rational x."
+  ],
+  "unresolved_before_tex": [
+    "TeX unavailable at freeze: transcription, row representation, source-span map and PDF binding require later comparison.",
+    "This author cannot supply independent acceptance."
+  ]
+}

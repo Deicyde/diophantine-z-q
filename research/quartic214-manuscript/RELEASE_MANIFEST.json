@@ -1,0 +1,409 @@
+{
+  "schema": "quartic214-manuscript-release/v1",
+  "date": "2026-11-12",
+  "author": "/root",
+  "parent_commit": "110cf72565be326fd567cd1a64a3b2e00213dcd1",
+  "integrated_upstream": "95cb356d7cd1a5d56d10abeae60497d54d91197e",
+  "kind": "Complete 214 research manuscript proposed in PR30; official numbered release remains Version 16",
+  "theorem_scope": "One fixed ineffective threshold N0; N>=53 is only the coefficient-height threshold.",
+  "source": "research/quartic214-manuscript/quartic214.tex",
+  "pdf": {
+    "path": "research/quartic214-manuscript/quartic214.pdf",
+    "sha256": "367bd75c7f5f52d7e507a7ce203ad9121cd6511c828c2718793d43f5585dd4d1",
+    "bytes": 3940841,
+    "pages": 703
+  },
+  "build_record": "research/quartic214-manuscript/BUILD.json",
+  "build_inputs": "BUILD.json binds the actual engine, command, environment, source hashes, 182 recorder inputs and their available version declarations.",
+  "commands": [
+    "python3 -B research/quartic214-manuscript/assemble.py --check",
+    "python3 -B research/quartic214-manuscript/build_pdf.py --check",
+    "python3 -B research/quartic214-manuscript-review/check_records.py --self-test --release",
+    "python3 -B research/quartic214/check_port.py",
+    "python3 -B research/quartic214-protocol-d-public/check_records.py --self-test --require-scoped-review",
+    "python3 -B scripts/check_audit_history.py --self-test"
+  ],
+  "local_validation": {
+    "serial_pdf_reproduction": "Fresh build compared byte-for-byte with the recorded PDF; exact result is also inspected in the separately authored review.",
+    "retained_packet_and_audit": "Portable bindings, original review records and omission controls, audit self-test, current manuscript profile and Version 16 correction checks passed.",
+    "memory": "TeX is serial with a 1 GiB address-space ceiling; actual peak is recorded in BUILD.json. No ancestor polynomial re-expansion was performed for typesetting.",
+    "meaning": "Finite checks establish only their documented properties, not arithmetic truth or authenticated eligibility."
+  },
+  "review": {
+    "decision": "research/quartic214-manuscript-review/REVIEW_DECISION.json",
+    "report": "research/quartic214-manuscript-review/REVIEW_REPORT.md",
+    "binding_direction": "This author manifest excludes itself and separately authored review records. The independent decision binds this manifest, the report and the actual artifacts to avoid circular hashes.",
+    "required_scopes": [
+      "editorial-incorporation",
+      "source-coverage",
+      "assembled-proof",
+      "release-packaging"
+    ],
+    "controller_eligibility": "notattested",
+    "protected_check": "Protocol / independent agent audit remains required for public acceptance at the exact revision."
+  },
+  "history_and_limits": [
+    "Original proof packet, fourteen contracts and earlier review files retain their bytes and scopes.",
+    "The new current foundation transition supersedes only the current-use claim of unchanged V15 carry; historical source and findings remain.",
+    "The published product route is operative. The old quotient H3 is superseded; indirect published dependencies and recorded source-access limitations are not erased.",
+    "The handoff identifies exact versioned earlier research. This is not a fresh recursive primary-source audit of the complete inherited foundation.",
+    "No protected controller attestation, effective defining member, human peer review or formal verification is supplied by this manifest."
+  ],
+  "files": [
+    {
+      "path": ".github/workflows/quartic214-manuscript.yml",
+      "sha256": "8c3a3e27f5797549c84bda5b7e435c9ee17657a5e36ecf5a6f2505399cdb775c",
+      "bytes": 1914
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "ad8253d48ba1c8091aa7c8d4410b79f99dba6bc487573721895aa6c1f35a1fee",
+      "bytes": 3194
+    },
+    {
+      "path": "README.md",
+      "sha256": "761aa1e86ea71bdc9e9b8e6bd7b7318ee9e8d49f9d40c1496a66cd8e7cbd9dde",
+      "bytes": 16393
+    },
+    {
+      "path": "docs/audit-history/PROTOCOL.md",
+      "sha256": "c0b9834a75e64bfd66183b06d1e26019f957a38468ce41b10ce290f8c5c44816",
+      "bytes": 7588
+    },
+    {
+      "path": "docs/current-manuscript.json",
+      "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33",
+      "bytes": 517
+    },
+    {
+      "path": "docs/release-policy.md",
+      "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c",
+      "bytes": 2854
+    },
+    {
+      "path": "docs/research-review/ASTRA-REVIEW-POLICY.md",
+      "sha256": "7ab22a753f25450eb955ff8b315a814cfaaa784cc0855d929e2d68442663ec4b",
+      "bytes": 3718
+    },
+    {
+      "path": "docs/research-review/PROTOCOL.md",
+      "sha256": "3d16c4d58d030ff745460386b081eb21c8c0d3f375cbfb06c4f9777c235a12f9",
+      "bytes": 55964
+    },
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "bytes": 1926498
+    },
+    {
+      "path": "research/quartic214-manuscript-review/ADAPTATION.json",
+      "sha256": "ffbdad72e4c70285a563807352641f9eca177df142919dbfa0997bfe3148f3f8",
+      "bytes": 180519
+    },
+    {
+      "path": "research/quartic214-manuscript-review/FINDINGS.json",
+      "sha256": "e5bdfddfa88c0d743d70eab73ad2118cb21dea8a77e69d4d2fbf2b9d58097b47",
+      "bytes": 20002
+    },
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_APPLICATION.json",
+      "sha256": "95ce2dac856bbfac8bd473d72b59b47cf4f13dba673cb61da7636c6336fa3170",
+      "bytes": 66431
+    },
+    {
+      "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+      "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936",
+      "bytes": 13149
+    },
+    {
+      "path": "research/quartic214-manuscript-review/INITIAL_SOURCE_USES.json",
+      "sha256": "ceccab2693a80ab72becd49b7e84248bc95a15ae5cd72e83dd02a2e6c21ac300",
+      "bytes": 9184
+    },
+    {
+      "path": "research/quartic214-manuscript-review/README.md",
+      "sha256": "d6ed1bdd2093fdd2b31032285fc80db18518a92b895dc68aea9b8fce6b07aa4f",
+      "bytes": 2521
+    },
+    {
+      "path": "research/quartic214-manuscript-review/check_records.py",
+      "sha256": "28f08f8594a0514db8c829410b62ffaa48effc19d9066592c9eea9dcc9813851",
+      "bytes": 19280
+    },
+    {
+      "path": "research/quartic214-manuscript/.gitignore",
+      "sha256": "6c655f46d279a9e3395ef733c802557c743f802bff7b6f37302283bb8d30e5d2",
+      "bytes": 43
+    },
+    {
+      "path": "research/quartic214-manuscript/AUTHOR_NOTES.md",
+      "sha256": "8d4faf3c005a2d5568a5df9ece8e86051aca3f3ad934e62563c037d1d9878a98",
+      "bytes": 4270
+    },
+    {
+      "path": "research/quartic214-manuscript/BUILD.json",
+      "sha256": "43cca247b6861bd9f756f3d30f643260bb8f55da6094c9fdcb9610083ea70143",
+      "bytes": 39529
+    },
+    {
+      "path": "research/quartic214-manuscript/HANDOFF.md",
+      "sha256": "1ac27e7d47f7f1073017bdd1f730b5a6c92cc9ac090dc575fc32f426b651a5eb",
+      "bytes": 3471
+    },
+    {
+      "path": "research/quartic214-manuscript/README.md",
+      "sha256": "5044186e12dbb0ce05d5c3ff3a947c97dd236613597688a0ddaf65a176bbe1ec",
+      "bytes": 2761
+    },
+    {
+      "path": "research/quartic214-manuscript/RELEASE_PROFILE.json",
+      "sha256": "4a5af4a9d68d49e29100bf2cd772baab7375123d5b3019600d7fa5ad17ad88f2",
+      "bytes": 2870
+    },
+    {
+      "path": "research/quartic214-manuscript/SOURCE_SPANS.json",
+      "sha256": "a79b6787e9aa80207b25492296fa730425941528ba5ea8ca0fdd06c090b844d7",
+      "bytes": 390155
+    },
+    {
+      "path": "research/quartic214-manuscript/assemble.py",
+      "sha256": "faed4ba2e07933677b2a52d9a6811b378d1ab5028d54bc62bb1b64de83fcef94",
+      "bytes": 45940
+    },
+    {
+      "path": "research/quartic214-manuscript/build_pdf.py",
+      "sha256": "9330fb6dfa4c1e4821062df9f6a5b76dacfbc4767bbd878709cba0f39ebe1e07",
+      "bytes": 9382
+    },
+    {
+      "path": "research/quartic214-manuscript/introduction.tex",
+      "sha256": "d700aba170fa697c737ee4a9dc7b05fe959fe78c9bff1650c9a4228ce5d261d3",
+      "bytes": 7563
+    },
+    {
+      "path": "research/quartic214-manuscript/quartic214.pdf",
+      "sha256": "367bd75c7f5f52d7e507a7ce203ad9121cd6511c828c2718793d43f5585dd4d1",
+      "bytes": 3940841
+    },
+    {
+      "path": "research/quartic214-manuscript/quartic214.tex",
+      "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+      "bytes": 2337499
+    },
+    {
+      "path": "research/quartic214-protocol-d-public/review/PUBLIC_APPLICATION_ACCEPTANCE.json",
+      "sha256": "669fc48de33c84d8264bfae7a3052aa10d5eaac087e03b420b0c728c4d2b2f7c",
+      "bytes": 12782
+    },
+    {
+      "path": "research/quartic214-protocol-d-public/review/PUBLIC_APPLICATION_REVIEW.md",
+      "sha256": "82230e9313bc06854a35ec7e378fb6bb8bff88dbad139bd5927fb508f890c1f6",
+      "bytes": 15006
+    },
+    {
+      "path": "research/quartic214-protocol-d-public/review/PUBLIC_ASSEMBLY_ACCEPTANCE.json",
+      "sha256": "3786c90fb70b15f7b2a19c83f72ba78178e01f47aef10a1d04486b4011d92f49",
+      "bytes": 11333
+    },
+    {
+      "path": "research/quartic214-protocol-d-public/review/PUBLIC_ASSEMBLY_REVIEW.md",
+      "sha256": "13a6fde4ebdd345a3d15f210042a0547ef5455470b7ee4c8a0408bd8765b7ff2",
+      "bytes": 5229
+    },
+    {
+      "path": "research/quartic214-protocol-d-public/review/PUBLIC_COVERAGE_ACCEPTANCE.json",
+      "sha256": "f8f2e8662043d79cb19e05e805a09ea9d89a11605471761d35e719222225f846",
+      "bytes": 11049
+    },
+    {
+      "path": "research/quartic214-protocol-d-public/review/PUBLIC_COVERAGE_REVIEW.md",
+      "sha256": "2a01f9c9f90e2fe1c54d03c3657f625140131524e0c11d3a0a1fbc040eeb946d",
+      "bytes": 7874
+    },
+    {
+      "path": "research/quartic214-protocol-d-public/review/PUBLIC_RELEASE_PACKAGING_ACCEPTANCE.json",
+      "sha256": "7afbf21ea5763f46717c7d84499a33dee081fe1d1b733c6cd4791b8f90c12db4",
+      "bytes": 11477
+    },
+    {
+      "path": "research/quartic214-protocol-d-public/review/PUBLIC_RELEASE_PACKAGING_REVIEW.md",
+      "sha256": "31e3091a6091c45a346597fea9aad7a926723ba547a30243250baffc8fdd1648",
+      "bytes": 2487
+    },
+    {
+      "path": "research/quartic214/AUTHOR_MANIFEST.json",
+      "sha256": "8d6e3c09cab81598d7f97cdc36ab45e26d908f9328460ec4a73144d14d9a9d07",
+      "bytes": 5460
+    },
+    {
+      "path": "research/quartic214/PRIMARY_SOURCES.json",
+      "sha256": "cfa7597432cd98c7184c0f9332c6d56f8ea53b208613aab0d855f5ffd1181161",
+      "bytes": 48789
+    },
+    {
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "bytes": 10582
+    },
+    {
+      "path": "research/quartic214/SOURCE_PATH_MAP.json",
+      "sha256": "f19a65e9dda39ac41d29fcb5332222d73e5e1b12a503bb97131fa09f90c9eb43",
+      "bytes": 20316
+    },
+    {
+      "path": "research/quartic214/construction/EXACT-CHECKS.json",
+      "sha256": "0a160c8a7d0519621b4ebc27fb6e8cb2b8df2a9d25191b8daa2170db461a12b0",
+      "bytes": 3113
+    },
+    {
+      "path": "research/quartic214/construction/artifacts/candidate214-brox/STATISTICS.json",
+      "sha256": "585635dab6320049320bffd5c1652c89db760d9f4e2ef19a10119011f70b5a68",
+      "bytes": 2071
+    },
+    {
+      "path": "research/quartic214/construction/artifacts/candidate214-brox/candidate214-ir.json",
+      "sha256": "b15d6477439c3e4be1e98723b69053244debce59e8715683c28fee82aa847ca4",
+      "bytes": 163242
+    },
+    {
+      "path": "research/quartic214/construction/artifacts/candidate214-brox/candidate214-polynomial.json",
+      "sha256": "9f461531df52ac73e02cf7a4ce270422715642c0d3112952cad4968d9a7e24ea",
+      "bytes": 246349
+    },
+    {
+      "path": "research/quartic214/construction/build.py",
+      "sha256": "09d958a38e5815a03b474033d439e84fec40b8a55f4109e95adb87b179fb8c17",
+      "bytes": 7610
+    },
+    {
+      "path": "research/quartic214/construction/check_exact.py",
+      "sha256": "07527831694fc6be9373e2dac92d292520fbb8c79128e4d51a1ae0128c96e214",
+      "bytes": 7372
+    },
+    {
+      "path": "research/quartic214/height/NUMERIC_CERTIFICATE_H4.json",
+      "sha256": "cd4afb85267aad1a22c0e6a765f86551d2c83a94fcece93939547fe7c06d0962",
+      "bytes": 573
+    },
+    {
+      "path": "research/quartic214/height/numeric_certificate.py",
+      "sha256": "2d6b1426b497b197782285280845ce4663936d4dee00f2ce3c5173bc58d39a1e",
+      "bytes": 3500
+    },
+    {
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "bytes": 15072
+    },
+    {
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "bytes": 13337
+    },
+    {
+      "path": "research/quartic214/proofs/height-assembly.md",
+      "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+      "bytes": 7020
+    },
+    {
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "bytes": 8145
+    },
+    {
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "bytes": 18529
+    },
+    {
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "bytes": 14511
+    },
+    {
+      "path": "research/quartic214/proofs/height-metric.md",
+      "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "bytes": 9224
+    },
+    {
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "bytes": 15498
+    },
+    {
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "bytes": 25777
+    },
+    {
+      "path": "research/quartic214/proofs/primary-source-bridges.md",
+      "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+      "bytes": 12939
+    },
+    {
+      "path": "research/quartic214/proofs/provider-scope-carry.md",
+      "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+      "bytes": 16324
+    },
+    {
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "bytes": 15185
+    },
+    {
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "bytes": 22294
+    },
+    {
+      "path": "research/quartic214/sources/aggregate-bridge.md",
+      "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5",
+      "bytes": 7628
+    },
+    {
+      "path": "research/quartic214/sources/conductor-sections1-3.md",
+      "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88",
+      "bytes": 9028
+    },
+    {
+      "path": "research/quartic214/sources/contact-line-certificate.json",
+      "sha256": "64896dfbb8661e04c044a68aa8679ee5dc20c0da36cc9a57640a885b7ca46614",
+      "bytes": 1501
+    },
+    {
+      "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+      "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c",
+      "bytes": 17465
+    },
+    {
+      "path": "research/quartic214/sources/factor-extraction.tex",
+      "sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109",
+      "bytes": 5809
+    },
+    {
+      "path": "research/quartic214/sources/public-provider-scopes.json",
+      "sha256": "4b20650915af34d33413425c17131136be22698f09a0f125b011423b87df3654",
+      "bytes": 10886
+    },
+    {
+      "path": "research/quartic214/sources/small-support-certificate.json",
+      "sha256": "0e7280479d5ace418b4383c814361812863cb097f424916b801c17ddbc8eb51e",
+      "bytes": 1945
+    },
+    {
+      "path": "research/quartic214/sources/support-section1.md",
+      "sha256": "bb3e2cc7a102ba317ed984f463762cddc52576b3d7416e7a981093243cb16940",
+      "bytes": 3128
+    },
+    {
+      "path": "research/version15/quartics/quartic-222/provenance/shared-T-redundancy224-006/PROOF.md",
+      "sha256": "7b39db664ba3884897eda4e4e6550ec552ee8ef916509681e69b04b7990e0732",
+      "bytes": 2817
+    },
+    {
+      "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+      "sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+      "bytes": 1924438
+    }
+  ]
+}

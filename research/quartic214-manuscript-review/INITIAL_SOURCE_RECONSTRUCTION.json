@@ -1,0 +1,116 @@
+{
+  "reviewer": "/root/q214_tex_independent",
+  "role": "non-author internal model reviewer",
+  "requested_model": "gpt-6-astra (metadata only; trusted eligibility not attested)",
+  "date": "2026-11-12",
+  "frozen_parent": "110cf72565be326fd567cd1a64a3b2e00213dcd1",
+  "prior_exposure": "Parent brief says earlier scoped reviews exist and specifies architecture. Sources mention verdicts. No declared application inventories or favorable decision files opened before freeze. Not blind.",
+  "scope": "Faithful incorporation and assembly carry, not renewed recursive arithmetic or primary-publication audit of all V15 foundations.",
+  "source_hashes": {
+    "research/quartic214/PROOF.md": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+    "research/quartic214/proofs/existence.md": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+    "research/quartic214/proofs/geometry-carry.md": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+    "research/quartic214/proofs/height-assembly.md": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+    "research/quartic214/proofs/height-averaging.md": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+    "research/quartic214/proofs/height-different.md": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+    "research/quartic214/proofs/height-evaluation.md": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+    "research/quartic214/proofs/height-metric.md": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+    "research/quartic214/proofs/height-supplier.md": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+    "research/quartic214/proofs/modularity.md": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+    "research/quartic214/proofs/primary-source-bridges.md": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c",
+    "research/quartic214/proofs/provider-scope-carry.md": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154",
+    "research/quartic214/proofs/source-carry.md": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+    "research/quartic214/proofs/uniform-existence.md": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+    "research/quartic214/construction/build.py": "09d958a38e5815a03b474033d439e84fec40b8a55f4109e95adb87b179fb8c17",
+    "research/quartic214/construction/check_exact.py": "07527831694fc6be9373e2dac92d292520fbb8c79128e4d51a1ae0128c96e214",
+    "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74"
+  },
+  "read_scope": "Read PROOF,13 linked modules,builder/checker. V15 focused reads30601\u201330665,37159\u201337365,32816\u201332895. Other recursive V15 passages not freshly reread.",
+  "obligations": [
+    {
+      "id": "R01",
+      "claim": "214 fixed family",
+      "passages": "PROOF; existence statement; build.py",
+      "needed": "214 coordinates,188 primitive rows; fixed coefficient A_N; SOS equivalence, finite unambiguous recovery, no effective defining N."
+    },
+    {
+      "id": "R02",
+      "claim": "Algebraic inverse maps",
+      "passages": "existence Algebraic transport; V15 37159\u201337345",
+      "needed": "Ten deleted caches including W0 basis, six inverse weights, twenty components with q^4 and nonzero scalar,162 untouched rows, zero-component branches."
+    },
+    {
+      "id": "R03",
+      "claim": "Local extraction",
+      "passages": "uniform-existence P04\u2013P07; V15 32816\u201332855",
+      "needed": "Factors5,2,4/special3; split/inert valuations and zero tests; trace/pole; integrality before absolute logarithmic errors; exactly M_j^3 divides Delta and M_j divides J, no scalar factor."
+    },
+    {
+      "id": "R04",
+      "claim": "D210 geometry and support",
+      "passages": "geometry-carry G2\u2013G4; provider-scope-carry P1\u2013P3",
+      "needed": "Same whole full-three cover and canonical action; degree divides576; L-defined Hom; all primitive rational pairs including infinity,deep even,M=1; actual tame charts, not determinant alone."
+    },
+    {
+      "id": "R05",
+      "claim": "Modularity and conductors",
+      "passages": "modularity M0\u2013M6; provider-scope-carry P4",
+      "needed": "Controlled cochain/Lprime; original r5,r3 and same final primitive form; absorbed finite twist; hypotheses and full prime coverage5,3; inertia/monodromy retained; N<=C_N R^2."
+    },
+    {
+      "id": "R06",
+      "claim": "Integral evaluation",
+      "passages": "height-evaluation; height-assembly A\u2013D",
+      "needed": "Same B and unsaturated C; literal trace-normalized integral evaluation from regular model; same projection/discriminant."
+    },
+    {
+      "id": "R07",
+      "claim": "Different and metric",
+      "passages": "height-different; height-metric",
+      "needed": "All components and full residue degrees/imperfect DVR; torsion quotient at p|N; original stable metric and auxiliary-field cancellation; exact H0.3."
+    },
+    {
+      "id": "R08",
+      "claim": "Multiplicity and H3",
+      "passages": "height-supplier H1\u2013H2; primary-source-bridges; height-averaging; V1530601\u201330665",
+      "needed": "All coefficient conjugates; B0~A^r over Lprime; published product J0 and r separate occurrences; dimension-two Ci\u2192A half-log cost; H3.1 retained; old quotient superseded and indirect dependencies retained."
+    },
+    {
+      "id": "R09",
+      "claim": "Full-family height",
+      "passages": "height-supplier H4",
+      "needed": "Same C2,alpha2103/1024; rational certificate is numeric; all rational domain,CM,M=1; product H3 operative."
+    },
+    {
+      "id": "R10",
+      "claim": "Global soundness",
+      "passages": "uniform-existence P08\u2013P12",
+      "needed": "Actual sum graph-fiber theorem and embedding/nonzero labels; reflected maps norms3,7; discarded-prime factor; separate divisibilities;14/9 exponent;c=|a|; fixed ineffective NS;squarefree51."
+    },
+    {
+      "id": "R11",
+      "claim": "Completeness",
+      "passages": "uniform-existence P13\u2013P20",
+      "needed": "Fixed NC then input-dependent prime data; scalar/labels/merged incidences/CRT; fresh changed factors/all completions; exact non-CM RC/full Selmer corank; every integer input and all N>=NC."
+    },
+    {
+      "id": "R12",
+      "claim": "Foundation carry",
+      "passages": "source-carry C01\u2013C13; V15",
+      "needed": "Normalized rank,RC,Kato full index/limiting class,GI,Gaussian fixed-data,scalar/parity,pole/raw maps; old222/314 retain foundation status,not214 claims."
+    },
+    {
+      "id": "R13",
+      "claim": "Complete manuscript",
+      "passages": "14 Markdown modules plus V15",
+      "needed": "All source paragraphs/formulae recoverable; meaningful symbols,crossrefs,source locators,credit,historical statuses; entire V15 body and bibliography apart from declared wrapper."
+    },
+    {
+      "id": "R14",
+      "claim": "Release binding",
+      "passages": "new build/map/profile/manifest once available",
+      "needed": "Exact inputs and PDF hashes; reproducible assembly; diagnostics/crossrefs; selected rendered pages and broad extracted-text consistency; sampling boundary; no controller eligibility inferred."
+    }
+  ],
+  "decision": "Initial reconstruction frozen; no manuscript coverage or release acceptance yet."
+}

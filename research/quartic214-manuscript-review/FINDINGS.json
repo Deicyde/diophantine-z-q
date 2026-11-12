@@ -1,0 +1,272 @@
+{
+  "schema": "quartic214-tex-editorial-findings-v1",
+  "author": "model task /root/q214_tex_coverage",
+  "role": "author findings register; no independent approval",
+  "reviewed_source_commit": "110cf72565be326fd567cd1a64a3b2e00213dcd1",
+  "findings": [
+    {
+      "id": "TEX-F01",
+      "inference": "The generated TeX presents exactly the mathematical expressions in the frozen proof sources.",
+      "objection": "The interim renderer changed radical scope, symbolic exponent grouping, starred sheaf notation and some operator/set notation. Examples included Q(√2) rendered with an empty radical; 149^-L_N with only minus in the exponent; j_* rendered with a multiplication dot; superscript ss left ungrouped; and aggregate summation and point-Q notation transformed incorrectly.",
+      "historical_disposition": "Prior justification found in the actual unchanged source expressions. These are new serialization defects, not newly discovered gaps in the earlier arithmetic arguments.",
+      "sources": [
+        "research/quartic214/PROOF.md",
+        "research/quartic214/proofs/uniform-existence.md",
+        "research/quartic214/proofs/source-carry.md",
+        "research/quartic214/proofs/modularity.md",
+        "research/quartic214/sources/aggregate-bridge.md"
+      ],
+      "consumers": [
+        "research/quartic214-manuscript/quartic214.tex",
+        "research/quartic214-manuscript/assemble.py"
+      ],
+      "related_use_scope": "Every Part I ASCII/Unicode formula transformation, especially roots, exponent/subscript atoms, stars, set braces, all-embedding indices, sum operators and point/field symbols; retained exact TeX body checked separately.",
+      "manuscript_disposition": "All recorded formula, identifier, connector, multiline-math and exact-body-span corrections incorporated and compared at final TeX f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2, with matching final PDF bound under TEX-F03.",
+      "independent_disposition": "The current non-author disposition is supplied only by separately authored REVIEW_DECISION.json and REVIEW_REPORT.md; this author register supplies no approval.",
+      "aliases": [
+        "Independent reviewer initially used informal TEX-F02 for the set-brace subfinding; consolidated here as TEX-F01 without dropping it."
+      ],
+      "cases": [
+        {
+          "id": "roots",
+          "source_examples": [
+            "research/quartic214/PROOF.md:15",
+            "research/quartic214/sources/aggregate-bridge.md:12"
+          ],
+          "observed_error": "Empty root followed by the original radicand; root of d could absorb following Y if repaired too broadly.",
+          "required_repair": "Explicitly preserve sqrt2, sqrtd, sqrtdprime, sqrtpi and d*sqrtd*Y scope.",
+          "author_comparison": "Correction incorporated and compared in actual current source spans. Related-use scan includes both multiline backtick expressions and the Greek-function class; final non-author disposition remains separate."
+        },
+        {
+          "id": "powers",
+          "source_examples": [
+            "research/quartic214/proofs/uniform-existence.md:46",
+            "research/quartic214/proofs/existence.md:78",
+            "research/quartic214/proofs/modularity.md:75"
+          ],
+          "observed_error": "Symbolic negative exponents and indexed exponent atoms not grouped; ss split as two letters.",
+          "required_repair": "Parse complete exponent/subscript operands, including L_N, negative indices, nested script arguments and semisimplification ss.",
+          "author_comparison": "Correction incorporated and compared in actual current source spans. Related-use scan includes both multiline backtick expressions and the Greek-function class; final non-author disposition remains separate."
+        },
+        {
+          "id": "star",
+          "source_examples": [
+            "research/quartic214/proofs/source-carry.md:19"
+          ],
+          "observed_error": "j_* became j with multiplication-dot subscript.",
+          "required_repair": "Preserve the starred sheaf notation and separately review multiplication/tensor shorthand.",
+          "author_comparison": "Correction incorporated and compared in actual current source spans. Related-use scan includes both multiline backtick expressions and the Greek-function class; final non-author disposition remains separate."
+        },
+        {
+          "id": "sets",
+          "source_examples": [
+            "research/quartic214/PROOF.md:15",
+            "research/quartic214/proofs/height-supplier.md:35"
+          ],
+          "observed_error": "Literal set braces became invisible TeX grouping braces.",
+          "required_repair": "Distinguish visible set delimiters from script grouping and authored TeX command arguments.",
+          "author_comparison": "Correction incorporated and compared in actual current source spans. Related-use scan includes both multiline backtick expressions and the Greek-function class; final non-author disposition remains separate."
+        },
+        {
+          "id": "sum-operators",
+          "source_examples": [
+            "research/quartic214/sources/aggregate-bridge.md:9",
+            "research/quartic214/proofs/height-different.md:17",
+            "research/quartic214/proofs/height-metric.md:33"
+          ],
+          "observed_error": "Source capital-Sigma shorthand for a sum typeset as a Sigma variable.",
+          "required_repair": "Use source-context-pinned sum conversion in these three files; retain exceptional prime-set Sigma in PROOF.md.",
+          "author_comparison": "Correction incorporated and compared in actual current source spans. Related-use scan includes both multiline backtick expressions and the Greek-function class; final non-author disposition remains separate."
+        },
+        {
+          "id": "point-versus-field",
+          "source_examples": [
+            "research/quartic214/sources/aggregate-bridge.md:14"
+          ],
+          "observed_error": "Point Q within canonical height was rewritten as blackboard rational-field Q.",
+          "required_repair": "Preserve source point/model symbols without global field-font guessing.",
+          "author_comparison": "Correction incorporated and compared in actual current source spans. Related-use scan includes both multiline backtick expressions and the Greek-function class; final non-author disposition remains separate."
+        },
+        {
+          "id": "terminal-blank-span",
+          "source_examples": [
+            "manuscripts/quartic_v16.tex:20059",
+            "manuscripts/quartic_v16.tex:26819",
+            "manuscripts/quartic_v16.tex:26904",
+            "manuscripts/quartic_v16.tex:30629"
+          ],
+          "observed_error": "Four anchor-split retained-body blocks declared one more source line than emitted TeX lines; splitlines dropped their final blank source line. Mathematical prefix lines matched.",
+          "required_repair": "Preserve the terminal source blank line so every exact-retained-body span has actual line and byte correspondence after LF conversion.",
+          "author_comparison": "Correction incorporated and compared in actual current source spans. Related-use scan includes both multiline backtick expressions and the Greek-function class; final non-author disposition remains separate."
+        },
+        {
+          "id": "literal-row-identifiers",
+          "source_examples": [
+            "research/quartic214/construction/artifacts/candidate214-brox/candidate214-ir.json:/coordinates",
+            "research/quartic214/construction/artifacts/candidate214-brox/candidate214-ir.json:/residuals"
+          ],
+          "observed_error": "The generic math renderer changed dictionary and row gate names such as scalar.four_contact_product.definition into mathematical typography instead of literal identifiers.",
+          "required_repair": "Print those names as literal identifiers; retain exact coordinate IDs and row coefficients.",
+          "author_comparison": "Correction incorporated and compared in actual current source spans. Related-use scan includes both multiline backtick expressions and the Greek-function class; final non-author disposition remains separate."
+        },
+        {
+          "id": "H3-product-and-connectors",
+          "source_examples": [
+            "research/quartic214/proofs/height-averaging.md:21",
+            "research/quartic214/proofs/height-supplier.md:70"
+          ],
+          "observed_error": "ASCII x in the actual product and prose field/isogeny connectors inside formulas rendered ambiguously with invisible mathematical spaces.",
+          "required_repair": "Use a source-local product sign and readable field/isogeny connectors without changing the actual L-prime, r factors or isogeny direction.",
+          "author_comparison": "Correction incorporated and compared in actual current source spans. Related-use scan includes both multiline backtick expressions and the Greek-function class; final non-author disposition remains separate."
+        },
+        {
+          "id": "Greek-function-selection-and-multiline-math",
+          "source_examples": [
+            "research/quartic214/proofs/height-supplier.md:55",
+            "research/quartic214/proofs/height-supplier.md:57",
+            "research/quartic214/proofs/height-supplier.md:64",
+            "research/quartic214/proofs/height-supplier.md:66",
+            "research/quartic214/proofs/height-supplier.md:72",
+            "research/quartic214/proofs/height-supplier.md:82"
+          ],
+          "observed_error": "The final PDF page109 review found phi(R)E(R), epsilon(p), epsilon*chi and Gamma0 remained bare ASCII. The source H1.3 inequality at lines57-58 spans one pair of backticks across a newline; the linewise renderer left unmatched literal backticks and mixed math/text. A bounded scan found one further multiline backtick span at82-83 in the superseded historical H3.",
+          "required_repair": "Select known Greek function/product expressions consistently; typeset both complete multiline mathematical spans as mapped math blocks, preserving operands, comparison signs and the historical H3 status.",
+          "author_comparison": "Correction incorporated and compared in actual current source spans. Related-use scan includes both multiline backtick expressions and the Greek-function class; final non-author disposition remains separate."
+        }
+      ],
+      "resolution_evidence": {
+        "manuscript": "research/quartic214-manuscript/quartic214.tex",
+        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+        "generator": "research/quartic214-manuscript/assemble.py",
+        "source_map": "research/quartic214-manuscript/SOURCE_SPANS.json",
+        "comparison": "Compared actual source and mapped TeX for each recorded case; source-context sum aliases confined to aggregate-bridge, height-metric and height-different. Literal exceptional-set Sigma is retained in PROOF. The complete retained V15 body is checked separately for exact LF content."
+      }
+    },
+    {
+      "id": "TEX-F02",
+      "inference": "The unified manuscript clearly identifies the current 214 argument and the status of its retained foundation.",
+      "objection": "Full incorporation must not promote historical pending/accepted text to approval of the new assembly, or allow the superseded quotient H3, old coarse conductor route, or unused 222 reductions to appear operative.",
+      "historical_disposition": "Prior justification and earlier review limits found and read in the frozen proof texts and actual V15 consumers; old records remain immutable.",
+      "sources": [
+        "research/quartic214/proofs/height-supplier.md",
+        "research/quartic214/proofs/height-averaging.md",
+        "research/quartic214/proofs/modularity.md",
+        "research/quartic214/proofs/source-carry.md"
+      ],
+      "consumers": [
+        "research/quartic214-manuscript/introduction.tex",
+        "research/quartic214-manuscript/quartic214.tex"
+      ],
+      "related_use_scope": "Introduction, Part I supplier notices, Part II scope note, theorem quantifiers and source-carry passages.",
+      "manuscript_disposition": "Source notices incorporated and compared: operative product H3, M1/M5 conductor, raw224 boundary, exact retained V15 scope, uniform ineffective N0 and coefficient-only N>=53 are explicit.",
+      "independent_disposition": "The current non-author disposition is supplied only by separately authored REVIEW_DECISION.json and REVIEW_REPORT.md; this author register supplies no approval."
+    },
+    {
+      "id": "TEX-F03",
+      "inference": "The released PDF was built from the exact reviewed TeX with an inspectable toolchain and dependency record.",
+      "objection": "A source hash and PDF hash alone do not record the actual build command, dependency versions/hashes, or prove that the recorded output is the selected reviewed manuscript. The independent review requested actual recorder-input and tool metadata.",
+      "historical_disposition": "New release artifact binding requirement; earlier public frozen records do not bind this new TeX/PDF.",
+      "sources": [
+        "docs/research-review/PROTOCOL.md",
+        "research/quartic214-manuscript/build_pdf.py"
+      ],
+      "consumers": [
+        "research/quartic214-manuscript/BUILD.json",
+        "research/quartic214-manuscript/quartic214.pdf"
+      ],
+      "related_use_scope": "Build command, engine and dependencies, selected source target, actual PDF bytes, release manifest and independent review bindings.",
+      "manuscript_disposition": "Actual matching final PDF and complete build metadata incorporated and compared; independent source/PDF review is separately authored.",
+      "independent_disposition": "The current non-author disposition is supplied only by separately authored REVIEW_DECISION.json and REVIEW_REPORT.md; this author register supplies no approval.",
+      "resolution_evidence": {
+        "build": "research/quartic214-manuscript/BUILD.json",
+        "build_sha256": "43cca247b6861bd9f756f3d30f643260bb8f55da6094c9fdcb9610083ea70143",
+        "tex": "research/quartic214-manuscript/quartic214.tex",
+        "tex_sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+        "pdf": "research/quartic214-manuscript/quartic214.pdf",
+        "pdf_sha256": "367bd75c7f5f52d7e507a7ce203ad9121cd6511c828c2718793d43f5585dd4d1",
+        "pages": 703,
+        "command": [
+          "pdflatex",
+          "-no-shell-escape",
+          "-interaction=nonstopmode",
+          "-halt-on-error",
+          "-file-line-error",
+          "-recorder",
+          "-jobname=quartic214",
+          "-output-directory=<temporary-build-directory>",
+          "quartic214.tex"
+        ],
+        "engine": "pdfTeX 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian)",
+        "tool_versions": {
+          "pdfinfo": "pdfinfo version 24.02.0",
+          "pdftotext": "pdftotext version 24.02.0"
+        },
+        "recorded_tex_inputs": 182,
+        "dependency_binding": "Every recorded recorder input has its hash and byte length; declared package versions are recorded where available.",
+        "limits": {
+          "parallel_tex_processes": 1,
+          "child_address_space_bytes": 1073741824,
+          "cpu_seconds_per_pass": 180,
+          "wall_seconds_per_pass": 190,
+          "shell_escape": false
+        },
+        "cross_references": "auxiliary files stabilized; no unresolved-reference or duplicate-label diagnostics",
+        "scope": "Compared actual file hashes with the selected build target and recorded output. Root performed the serial build. No build was run by this author task. Artifact correspondence is not an arithmetic proof."
+      }
+    },
+    {
+      "id": "TEX-F04",
+      "inference": "The complete 214 assembly may carry the exact frozen V15 foundation as its current operative source without comparing later corrections.",
+      "objection": "During this review the root discovered upstream main95cb... incorporates Version16 Fable audit corrections (PR31) and a full TeX/PDF record policy (PR32). The actual changed arguments and their effect on214 consumers must be compared before carrying an old foundation or claiming current assembled-proof acceptance.",
+      "historical_disposition": "Prior actual GI normalization argument found in the same foundation and the actual Fable follow-up; currentV16 installs it before removal. Actual fixed-E divisor-calculus derivation found and read in the V16 current review, with precision amendment. The214 CMH source bridge already cites the correct article. Fresh214 application comparison is in FOUNDATION_TRANSITION.md; no historical approval automatically accepts it.",
+      "sources": [
+        "research/quartic214/proofs/source-carry.md",
+        "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+        "manuscripts/quartic_v16.tex",
+        "research/version16/audits/fable-5-2-audit-4.pdf",
+        "research/version16/review/current/REVIEW.md",
+        "research/version16/review/current/TZ-PRECISION-ADDENDUM.md",
+        "research/version16/EDITORIAL-AMENDMENT.json",
+        "research/version16/TZ-PRECISION-AMENDMENT.json"
+      ],
+      "current_source_locations": {
+        "upstream_commit": "95cb356d7cd1a5d56d10abeae60497d54d91197e",
+        "manuscript": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+        "GI_lines": [
+          26819,
+          26929
+        ],
+        "TZ_lines": [
+          19989,
+          20169
+        ],
+        "CMH_lines": [
+          30658,
+          30683
+        ]
+      },
+      "consumers": [
+        "research/quartic214/proofs/uniform-existence.md",
+        "research/quartic214-manuscript/quartic214.tex",
+        "research/quartic214-manuscript-review/ADAPTATION.json"
+      ],
+      "related_use_scope": "Every214 consumer plausibly affected by the actual corrected statements, not only the broad V15 carry assertion. Determine the bounded scope from the actual audit before disposition; review changed routes anew.",
+      "manuscript_disposition": "Complete final amended V16 and FOUNDATION_TRANSITION.md incorporated at final TeX f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2. The fresh nine-obligation foundation contract binds this changed receiving application; the non-author decision is a separate record.",
+      "independent_disposition": "The current non-author disposition is supplied only by separately authored REVIEW_DECISION.json and REVIEW_REPORT.md; this author register supplies no approval.",
+      "audit_scope_limitation": "Fable explicitly did not reread every changed-modulus proof; its unwritten alternative TZ route is not adopted. Unread Kato/Ribet/final-version portions limit that audit; they are not new objections without an argument. Actual V16 review derivations and retained prerequisites are identified, without claiming that this author repeated every primary-source reading.",
+      "current_214_consumers": [
+        "source-carry C01/C08-C10/C12-C13",
+        "uniform-existence P02/P08-P10/P15-P20",
+        "primary-source-bridges original-normalization lower bound",
+        "height-averaging product route H3.1",
+        "height-supplier H2/H4"
+      ]
+    }
+  ],
+  "scope_limits": [
+    "This register's author performed a source-first incorporation reconstruction and selected source/consumer comparison, not a fresh line-by-line reproof of all V15 internals or a new reading of every external publication.",
+    "Exact retained source carry and the final assembled-proof scope require a separate current non-author judgment. No author-generated acceptance is present.",
+    "Controller eligibility is not attested by the author records or checker; structural checks do not prove arithmetic correctness or independence of thought."
+  ]
+}

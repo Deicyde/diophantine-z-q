@@ -1,0 +1,68 @@
+{
+  "reviewer": "/root/q214_tex_independent",
+  "role": "non-author internal model reviewer",
+  "pdf": {
+    "path": "research/quartic214-manuscript/quartic214.pdf",
+    "sha256": "367bd75c7f5f52d7e507a7ce203ad9121cd6511c828c2718793d43f5585dd4d1",
+    "bytes": 3940841,
+    "pages": 703
+  },
+  "tex_sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+  "extraction": {
+    "command": "pdftotext -layout research/quartic214-manuscript/quartic214.pdf <temporary-review-text>",
+    "pages": 703,
+    "replacement_characters": 0,
+    "sha256": "105c643ba4c1ffc5a3aa184761c0e07441e4ba3e3283740c1659e91cab1016d0",
+    "scope": "Broad extracted-text search of theorem, row identifiers, current foundation, GI, fixed-E, H3, bibliography and provenance; not characterwise equivalence of every mathematical expression."
+  },
+  "rendered_pages": [
+    12,
+    26,
+    71,
+    109,
+    110,
+    113,
+    154,
+    165,
+    415,
+    420,
+    518,
+    694,
+    703
+  ],
+  "render_command": "pdftoppm -f <page> -l <page> -scale-to 1250 -singlefile -png research/quartic214-manuscript/quartic214.pdf <temporary-review-image>",
+  "observation": "The selected final pages are legible. The Greek and H1.3 multiline defects are repaired; current product H3, historical supersession, source metadata, complete foundation boundary, fixed-E adaptation, exact GI correction, corrected CMH citation and attribution are preserved. Seven final rasters were compared byte-for-byte with previously directly inspected page images and are identical.",
+  "scope_limit": "Rendered review is sampled, not exhaustive 703-page visual review. No arithmetic theorem follows from PDF extraction or finite source binding.",
+  "direct_final_image_inspection_pages": [
+    12,
+    26,
+    71,
+    109,
+    110,
+    113
+  ],
+  "final_rasters_identical_to_previously_inspected_pages": [
+    154,
+    165,
+    415,
+    420,
+    518,
+    694,
+    703
+  ],
+  "raster_sha256_by_page": {
+    "12": "61a900a198bb9460f1676debe41021edc9cbdc231ee252902e45957a2bf3a4bd",
+    "26": "5992251f8bb6562e44584bfc4db215426e0e3a5af719e5c23947de18a94ff8dd",
+    "71": "932bbcc51f637e60c83f7cb5815ac04c510e09b4b9a794ac66ca878c1dd170b6",
+    "109": "afb3903fe6c3bda53ee843005f2d770d74d1f3a6a45b4bae7f329d455abf4f55",
+    "110": "49bd9075e9d1737639dbe451f99d5ae4ed53ef86b8867901abdcdebf7e078849",
+    "113": "541f486adce873ca200a0bcaa7debfbe6f21e1d619c97a113af7912b11164d3c",
+    "154": "af3b641be62ac012420426fe53d6032c498f99439ca02ae28c26d370c0f78de9",
+    "165": "94e09dcb4e809faa6306a9e8b549e7860858bb92d086f2a8998f2dfc526ef65f",
+    "415": "4b84f9734d2f5769ca69523de249a6a47f887a5493c55bce6e0d2cf980b27391",
+    "420": "1e4f0de593d9c893346ad7d2fdfb6189b102ae619f7be9139c0d8dec8792a603",
+    "518": "23a405d93c7e5a4235205929984c2d770e9df32e16858d96b10487c64f871ea2",
+    "694": "f8e8e243785bc557ffd662b4e32ac0a990b9b23cb33f693367a0da244a8bb6d8",
+    "703": "d905412179174338b1380ed5a8d4564d2c39ea2bb39a82c82e46e0138276ce61"
+  }
+}
