@@ -34,7 +34,17 @@ theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMi
    too; the convolution lemma is Lemma 2.9 in both versions. `TYZThm35ReadingA` is stated as a
    consequence of Theorem 3.5(2) under reading A that uses only the case `𝓛(n) = 0` of the printed
    hypothesis, which avoids the unproved "i.e." clause.
-4. Cold read of the README diff (step 3): see the log, `scratch/lit-readingA/log.md`.
+4. Cold read of the README diff (step 3), by a fresh AI agent given only the README section and the
+   diff: 12 items, all applied (list in `scratch/lit-readingA/log.md`). Two were real errors: "the
+   last two hypotheses" pointed, in the theorem's signature, at `FunctionalEquation5` and
+   `GrossZagier`. The others make the text self-contained: the block conditions of `T5aCl` and
+   `T5bCl`; reading A's two sums `T5aCl` and `T5aCl + T5bCl`; the `𝓛(n) = 0` case attributed to
+   Theorem 3.5's first assertion and Lemma 3.18 through nt-tyz §2.2 F6. They also remove
+   overclaims: "we" replaced by the project's AI-conducted literature search; the counterexamples
+   flagged as exact computation, not Lean; the journal proof of Proposition 3.4 "not assessed";
+   Lean checks Proposition N only from the encoding `TYZInputs`, whose fidelity is unchecked; the
+   `FunctionalEquation5` and Deuring–Hecke source caveats of the locator audit. `KERNEL_PLAN.md`
+   was brought in line on the same points.
 
 ## Findings (for a later, separately reviewed change; not edited here)
 
