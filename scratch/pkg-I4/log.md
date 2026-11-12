@@ -24,3 +24,7 @@
 - Per-input analysis §1 (10 inputs), readings §2 (Pan trace form: normalization-independence argument; pst vs dR and the merged leaf Pan∘Berger; HT convention check V=ℚ_p(1) ↦ weight −1; newforms via old space), Lean §3, coarse alternative §4, glue §5, obstacle §6.
 - Correction recorded: Pan's hypothesis is pst (h-a011 §1.1), not de Rham (task statement, wk-h §2).
 - Correction recorded: HT representations are cheap over Mathlib v4.35 (wk-h §3.1 and hdec-faithful said "large").
+
+## Step 4: scratch/pkg-I4/DeRham.lean
+- PROVED (compiles; axioms propext, Classical.choice, Quot.sound): for any ring map f : R →+* S between p-adically complete rings (with ¬IsUnit p): `modPMap`, `preTiltMap` (R♭ → S♭), `untilt_preTiltMap` (naturality of untilt, via `Perfection.teichmuller_spec`), `fontaineTheta_naturality` (θ_S ∘ W(f♭) = f ∘ θ_R, via `WittVector.eq_of_apply_teichmuller_eq` mod p^n and Hausdorffness). ~70 lines.
+- FINDING: Mathlib has no `IsAdicComplete (span {p}) 𝓞_ℂ_[p]` (nor `Fact ¬IsUnit p`) instance, so `BDeRham (PadicComplexInt p) p` does not typecheck yet; this is an extra piece for IsDR.
