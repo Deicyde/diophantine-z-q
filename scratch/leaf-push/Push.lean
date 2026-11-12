@@ -133,25 +133,27 @@ def R08_GrothendieckMonodromy : Prop :=
 /-! ## 3. T9: the Weil pairing, finite-level Galois form -/
 
 /-- **T9 (consequence form). Weil pairing of a polarization.**
-Published statements (Mumford, *Abelian varieties*, §20 (Weil pairing `e_n : A[n] × Â[n] → μ_n`,
-bilinear, nondegenerate, Galois-equivariant, `e_{mn}(x, y) = e_n(mx, y)`) and §23 (for
-`λ = φ_L`, `e^L_n(x, y) = e_n(x, λ y)` is skew-symmetric with `e^L_n(x, x) = 1`); Milne,
-*Abelian varieties* (in Cornell–Silverman 1986) §§13, 16; numbering UNVERIFIED), together with
-the existence over `K` of an ample line bundle, i.e. of a polarization `λ` of some degree `d`
-(Mumford §6). Lean form: for an abelian variety `A/K` there are `d ≥ 1` and a family
-`e n : A(K̄) × A(K̄) → K̄` such that for every `n` invertible in `K` and prime to `d`, `e n`
-restricted to `A[n]` takes values in `μ_n`, is bimultiplicative, alternating, nondegenerate,
-Galois-equivariant (`e(σx, σy) = σ(e(x, y))`) and compatible (`e_n(x^m, y^m) = e_{mn}(x, y)^m`).
-Take `e n x y := e_n(x, λ y)`: nondegeneracy on `A[n]` holds since `λ|A[n]` is injective for
-`(n, d) = 1`; equivariance since `λ` is defined over `K`. Hence a consequence, never stronger.
-The ℓ-adic form used by the proof (`G_K` acts on `V_ℓ A` through `GSp` with cyclotomic
-multiplier, for `ℓ ∤ d`) follows by passing to the limit over `n = ℓᵏ` (glue).
-The group of points is written multiplicatively, as in pkg-I2. -/
+Published statements (Mumford, *Abelian varieties*, §20: the Weil pairing
+`e_n : A[n] × Â[n] → μ_n` is bilinear, perfect, Galois-equivariant, with `e_{mn}(x, y) = e_n(mx, y)`;
+§23: for `λ = φ_L`, `e^L_n(x, y) := e_n(x, λ y)` is skew-symmetric with `e^L_n(x, x) = 1`;
+Milne, *Abelian varieties* (in Cornell–Silverman 1986), §§13, 16; numbering UNVERIFIED), with the
+existence over `K` of an ample line bundle `L` (Mumford §6), whose polarization `λ = φ_L` has
+kernel killed by some `d ≥ 1`. Lean form: for an abelian variety `A/K` there are `d ≥ 1` and a
+family `e n : A(K̄) × A(K̄) → K̄` such that for every `n ≥ 1` invertible in `K`, on `A[n]`:
+values in `μ_n`, bimultiplicative, alternating, Galois-equivariant (`e(σx, σy) = σ(e(x, y))`),
+compatible (`e_n(x^m, y^m) = e_{mn}(x, y)^m`), and nondegenerate up to `d` (if `e_n(x, y) = 1`
+for all `y ∈ A[n]` then `x^d = 1`). Take `e n x y := e_n(x, λ y)`. The last clause: there is
+`ψ : Â → A` with `λ ∘ ψ = [d]`, so `d·Â[n] ⊆ λ(A[n])`, and perfectness of `e_n` gives `d x = 0`.
+Equivariance holds since `λ` is defined over `K`. Hence a consequence, never stronger.
+The form used at C8 step 1 (h-trust; `ℓ = 5`): passing to the limit over `n = ℓᵏ` gives a
+`G_K`-equivariant alternating pairing on `T_ℓ A` with values in `ℤ_ℓ(1)` whose kernel is killed by
+`d`, hence perfect on `V_ℓ A`: `G_K` acts through `GSp` with cyclotomic multiplier, for every `ℓ`
+invertible in `K` (glue). The group of points is written multiplicatively, as in pkg-I2. -/
 def T09_WeilPairing : Prop :=
   ∀ (K : Type u) [Field K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A],
     ∃ d : ℕ, 0 < d ∧ ∃ e : ℕ → Pts A (AlgebraicClosure K) → Pts A (AlgebraicClosure K) →
         AlgebraicClosure K,
-      ∀ n : ℕ, 0 < n → (n : K) ≠ 0 → n.Coprime d →
+      ∀ n : ℕ, 0 < n → (n : K) ≠ 0 →
         (∀ x ∈ torsion A (AlgebraicClosure K) n, ∀ y ∈ torsion A (AlgebraicClosure K) n,
           e n x y ^ n = 1) ∧
         (∀ x ∈ torsion A (AlgebraicClosure K) n, ∀ x' ∈ torsion A (AlgebraicClosure K) n,
@@ -159,11 +161,11 @@ def T09_WeilPairing : Prop :=
             e n (x * x') y = e n x y * e n x' y ∧ e n y (x * x') = e n y x * e n y x') ∧
         (∀ x ∈ torsion A (AlgebraicClosure K) n, e n x x = 1) ∧
         (∀ x ∈ torsion A (AlgebraicClosure K) n,
-          (∀ y ∈ torsion A (AlgebraicClosure K) n, e n x y = 1) → x = 1) ∧
+          (∀ y ∈ torsion A (AlgebraicClosure K) n, e n x y = 1) → x ^ d = 1) ∧
         (∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
           ∀ x ∈ torsion A (AlgebraicClosure K) n, ∀ y ∈ torsion A (AlgebraicClosure K) n,
             e n (galAct A σ x) (galAct A σ y) = σ (e n x y)) ∧
-        (∀ m : ℕ, 0 < m → (m : K) ≠ 0 → m.Coprime d →
+        (∀ m : ℕ, 0 < m → (m : K) ≠ 0 →
           ∀ x ∈ torsion A (AlgebraicClosure K) (m * n),
           ∀ y ∈ torsion A (AlgebraicClosure K) (m * n),
             e n (x ^ m) (y ^ m) = e (m * n) x y ^ m)
