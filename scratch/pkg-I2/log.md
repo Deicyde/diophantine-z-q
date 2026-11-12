@@ -58,3 +58,17 @@ Compile: only warning "declaration uses sorry" at goodReduction_of_QM_rational3 
 goodReduction_of_QM_rational3 adds sorryAx.
 API notes: `CategoryTheory.Hom.commGroup` is a scoped instance (MonObj) found automatically once
 `IsCommMonObj A.X` is in context; `pow_gcd_eq_one` is an iff in this Mathlib.
+
+## Step 4: report
+
+docs/research/pkg-I2.md written: per input the published statement, the leaf, Lean objects, use in
+A5/A6/A8/C6/C10/D2; glue status; the Raynaud route for A6 (SPECULATIVE, argument in §4.2);
+𝕎(𝔽̄_p) in place of ℤ_(p)^sh for Prop. TS (Mathlib: `WittVector.isDiscreteValuationRing`,
+`isAdicCompleteIdealSpanP`, VERIFIED by grep); correction of wk-h §3.2 row I2 (statable: yes).
+Mathlib absences checked by grep (VERIFIED): no `IsCohenMacaulay`/miracle flatness, no strict
+henselization (only `HenselianLocalRing`), no Néron models or Tate modules.
+Final leaf count: 11 (`PurityBranchLocus`, `AbhyankarDVR`, `NeronOggShafarevich`,
+`SerreTatePotentialGood`, `GrothendieckMonodromy`, `RaynaudCriterion`, `NeronMappingAbelianScheme`,
+`ReductionTorsionBijective`, `TorsionStructure`, `CharpolyIndependentOfEll`, `HomRankBound`).
+Last compile of scratch/pkg-I2/I2.lean: one warning (sorry in goodReduction_of_QM_rational3), no errors.
+Not done: non-vacuity instance (trivial group as IsAbelianVariety) — not attempted in Lean.
