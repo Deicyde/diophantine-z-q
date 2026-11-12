@@ -43,3 +43,7 @@
 - 12:30 `AnalyticModuli.lean` extended: `lift_coprime` (copied), `exists_SL2_bottomRow` (primitive
   bottom row mod N lifts to SL₂(ℤ)), `exists_normalize` (for (c,d) primitive mod N, ∃ γ with
   j(γ,τ)/N ≡ (cτ+d)/N mod Λ_τ). `lake env lean`: exit 0, no warnings; standard axioms. VERIFIED.
+- 12:45 `PointTransport.lean` (MC2c, first half): `tx`, `ty` (new coordinates), `poly_transport`,
+  `equation_transport`, `negY_transport`, `nonsingular_transport`, `slope_transport` (ℓ' = (ℓ − s)/u),
+  `mapPt` (transport of `Affine.Point`), `mapPt_add` (additive), `mapPtHom`, `mapPt_injective`,
+  `addOrderOf_mapPt` (orders preserved). `lake env lean`: exit 0, no warnings; standard axioms. VERIFIED.

@@ -102,4 +102,112 @@ theorem nonsingular_transport (x y : K) :
   rw [← sub_ne_zero, hA, iff1, iff2, iff3]
   exact disj_aux (pow_ne_zero 4 hu) (pow_ne_zero 3 hu)
 
+/-- **The slope transforms as `ℓ' = (ℓ − s)/u`** (for two points on `W`, not opposite). -/
+theorem slope_transport [DecidableEq K] {x₁ x₂ y₁ y₂ : K} (h₁ : W.toAffine.Equation x₁ y₁)
+    (h₂ : W.toAffine.Equation x₂ y₂) (hxy : ¬(x₁ = x₂ ∧ y₁ = W.toAffine.negY x₂ y₂)) :
+    (C • W).toAffine.slope (tx C x₁) (tx C x₂) (ty C x₁ y₁) (ty C x₂ y₂) =
+      (W.toAffine.slope x₁ x₂ y₁ y₂ - C.s) / (C.u : K) := by
+  have hu := u_ne_zero C
+  by_cases hx : x₁ = x₂
+  · subst hx
+    have hy : y₁ ≠ W.toAffine.negY x₁ y₂ := fun h => hxy ⟨rfl, h⟩
+    have hy12 : y₁ = y₂ := (Affine.Y_eq_of_X_eq h₁ h₂ rfl).resolve_right hy
+    subst hy12
+    have hy' : ty C x₁ y₁ ≠ (C • W).toAffine.negY (tx C x₁) (ty C x₁ y₁) := by
+      rw [negY_transport]; intro h; exact hy (ty_inj C h)
+    rw [Affine.slope_of_Y_ne rfl hy', Affine.slope_of_Y_ne rfl hy]
+    have hden : ty C x₁ y₁ - (C • W).toAffine.negY (tx C x₁) (ty C x₁ y₁) =
+        (y₁ - W.toAffine.negY x₁ y₁) / (C.u : K) ^ 3 := by
+      rw [negY_transport]; simp only [ty]; field_simp; ring
+    have hnum : 3 * tx C x₁ ^ 2 + 2 * (C • W).a₂ * tx C x₁ + (C • W).a₄ -
+        (C • W).a₁ * ty C x₁ y₁ =
+        (3 * x₁ ^ 2 + 2 * W.a₂ * x₁ + W.a₄ - W.a₁ * y₁ - C.s * (y₁ - W.toAffine.negY x₁ y₁)) /
+          (C.u : K) ^ 4 := by
+      simp only [variableChange_a₁, variableChange_a₂, variableChange_a₄, tx, ty, Affine.negY,
+        Units.val_inv_eq_inv_val]
+      field_simp
+      ring
+    have hd0 : y₁ - W.toAffine.negY x₁ y₁ ≠ 0 := sub_ne_zero.2 hy
+    simp only [WeierstrassCurve.toAffine] at hden hnum ⊢
+    rw [hden, hnum]
+    field_simp
+  · have hx' : tx C x₁ ≠ tx C x₂ := fun h => hx (tx_inj C h)
+    rw [Affine.slope_of_X_ne hx', Affine.slope_of_X_ne hx]
+    have hd0 : x₁ - x₂ ≠ 0 := sub_ne_zero.2 hx
+    have e1 : tx C x₁ - tx C x₂ = (x₁ - x₂) / (C.u : K) ^ 2 := by
+      simp only [tx]; field_simp; ring
+    have e2 : ty C x₁ y₁ - ty C x₂ y₂ = ((y₁ - y₂) - C.s * (x₁ - x₂)) / (C.u : K) ^ 3 := by
+      simp only [ty]; field_simp; ring
+    rw [e1, e2]
+    field_simp
+
+/-- The transport of points along a change of variables. -/
+def mapPt : W.toAffine.Point → (C • W).toAffine.Point
+  | .zero => 0
+  | .some x y h => .some (tx C x) (ty C x y) ((nonsingular_transport W C x y).2 h)
+
+/-- **The transport is additive.** -/
+theorem mapPt_add [DecidableEq K] (P Q : W.toAffine.Point) :
+    mapPt W C (P + Q) = mapPt W C P + mapPt W C Q := by
+  have hu := u_ne_zero C
+  rcases P with _ | ⟨x₁, y₁, h₁⟩ <;> rcases Q with _ | ⟨x₂, y₂, h₂⟩
+  · rfl
+  · rfl
+  · rfl
+  · by_cases hxy : x₁ = x₂ ∧ y₁ = W.toAffine.negY x₂ y₂
+    · rw [Affine.Point.add_of_Y_eq hxy.1 hxy.2]
+      obtain ⟨rfl, rfl⟩ := hxy
+      refine (Affine.Point.add_of_Y_eq rfl ?_).symm
+      rw [negY_transport]
+    · have hxy' : ¬(tx C x₁ = tx C x₂ ∧
+          ty C x₁ y₁ = (C • W).toAffine.negY (tx C x₂) (ty C x₂ y₂)) := by
+        rintro ⟨hx, hy⟩
+        have hx' := tx_inj C hx
+        subst hx'
+        rw [negY_transport] at hy
+        exact hxy ⟨rfl, ty_inj C hy⟩
+      rw [Affine.Point.add_some hxy]
+      simp only [mapPt]
+      rw [Affine.Point.add_some hxy', Affine.Point.some.injEq]
+      have hsl := slope_transport W C h₁.1 h₂.1 hxy
+      rw [hsl]
+      constructor
+      · simp only [Affine.addX, variableChange_a₁, variableChange_a₂, tx,
+          Units.val_inv_eq_inv_val, WeierstrassCurve.toAffine]
+        field_simp
+        ring
+      · simp only [Affine.addY, Affine.negAddY, Affine.addX, Affine.negY, variableChange_a₁,
+          variableChange_a₂, variableChange_a₃, tx, ty, Units.val_inv_eq_inv_val,
+          WeierstrassCurve.toAffine]
+        field_simp
+        ring
+
+/-- The transport as an additive homomorphism. -/
+def mapPtHom [DecidableEq K] : W.toAffine.Point →+ (C • W).toAffine.Point where
+  toFun := mapPt W C
+  map_zero' := rfl
+  map_add' := mapPt_add W C
+
+theorem mapPt_injective : Function.Injective (mapPt W C) := by
+  rintro (_ | ⟨x₁, y₁, h₁⟩) (_ | ⟨x₂, y₂, h₂⟩) h
+  · rfl
+  · exact absurd h (by simp [mapPt])
+  · exact absurd h (by simp [mapPt])
+  · simp only [mapPt, Affine.Point.some.injEq] at h
+    obtain ⟨hx, hy⟩ := h
+    have hx' := tx_inj C hx
+    subst hx'
+    have hy' := ty_inj C hy
+    subst hy'
+    rfl
+
+/-- **Orders are preserved**: a change of variables carries a point of exact order `N` to a
+point of exact order `N` (needed to package Tate normal form as `Y₁(N)(K) ≃ {(b,c)}`). -/
+theorem addOrderOf_mapPt [DecidableEq K] (P : W.toAffine.Point) :
+    addOrderOf (mapPt W C P) = addOrderOf P :=
+  addOrderOf_injective (mapPtHom W C) (mapPt_injective W C) P
+
 end BPModCurves
+
+#print axioms BPModCurves.mapPt_add
+#print axioms BPModCurves.addOrderOf_mapPt
