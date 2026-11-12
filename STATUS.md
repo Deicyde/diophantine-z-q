@@ -1,6 +1,6 @@
 # Z is Diophantine in Q: where the Lean formalization stands (2026-11-12)
 
-Repository: https://github.com/Deicyde/diophantine-z-q, main = 0b62d570. Mirrored upstream as branch deicyde/kernel-formalization of
+Repository: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main baed6787). Mirrored upstream as branch deicyde/kernel-formalization of
 https://github.com/elliotglazer/diophantine-z-q (pull request #24 carries an earlier snapshot).
 
 ## The claim in one paragraph
@@ -87,7 +87,8 @@ check that they are not stronger than published.
   leaves): it stands for most of the glue, from the leaves to a numerical interface that is itself essentially
   a height bound. Only the last steps, from
   that interface to H, are proved on that path.
-- Proved in Lean as separate lemmas, each from its leaves (not yet connected to the top theorem): the whole last stretch of the glue (from the level bound, the theta
+- Proved in Lean as separate lemmas, each from its leaves (not yet connected to the top theorem; adopted into
+  the kernel-checked library under ZInQKernel/HDecomp/, no `sorry`): the whole last stretch of the glue (from the level bound, the theta
   point and the height inequalities to H), Glazer's Brauer and cochain steps, step A6 (good reduction away from
   3), parts of steps C2 and E1 (modulo one named algebra statement), the Galois side of
   step C10, the degree bound of step D1 in local form, steps D3 and D4 of the conductor bound, and elementary
