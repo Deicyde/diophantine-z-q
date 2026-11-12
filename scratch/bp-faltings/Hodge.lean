@@ -1046,6 +1046,45 @@ theorem HodgeData.modelHeight_ofIdeal_baseChange (𝔞 : FractionalIdeal (𝓞 K
 
 end BaseChangeHeight
 
+/-! ## 13. A numerical normalization check: `covol(ℤ + ℤi) = 1`, so `exampleHodge` has height 0 -/
+
+section Gaussian
+
+theorem covolume_gaussianPair : ZLattice.covolume gaussianPair.lattice = 1 := by
+  have hspan : gaussianPair.lattice = Submodule.span ℤ (Set.range Complex.basisOneI) := by
+    rw [Complex.coe_basisOneI, Matrix.range_cons, Matrix.range_cons, Matrix.range_empty,
+      Set.union_empty, Set.singleton_union]
+    rfl
+  have hF : IsAddFundamentalDomain gaussianPair.lattice
+      (ZSpan.fundamentalDomain Complex.basisOneI) volume := by
+    rw [hspan]; exact ZSpan.isAddFundamentalDomain _ volume
+  rw [ZLattice.covolume_eq_measure_fundamentalDomain _ volume hF]
+  have himg : Complex.measurableEquivPi ⁻¹'
+      ZSpan.fundamentalDomain (Complex.basisOneI.map Complex.basisOneI.equivFun) =
+      ZSpan.fundamentalDomain Complex.basisOneI := by
+    rw [← ZSpan.map_fundamentalDomain]
+    ext z
+    simp only [Set.mem_preimage, Set.mem_image]
+    constructor
+    · rintro ⟨w, hw, hwz⟩
+      have : w = z := Complex.basisOneI.equivFun.injective (by
+        rw [hwz]; rfl)
+      exact this ▸ hw
+    · intro hz
+      exact ⟨z, hz, rfl⟩
+  rw [Measure.real, ← himg, Complex.volume_preserving_equiv_pi.measure_preimage
+    (ZSpan.fundamentalDomain_measurableSet _).nullMeasurableSet, ZSpan.volume_fundamentalDomain]
+  have : Matrix.of (Complex.basisOneI.map Complex.basisOneI.equivFun) = 1 := by
+    ext i j
+    simp [Matrix.one_apply]
+    fin_cases i <;> fin_cases j <;> simp
+  rw [this, Matrix.det_one, abs_one, ENNReal.ofReal_one, ENNReal.toReal_one]
+
+theorem exampleHodge_modelHeight_eq_zero : exampleHodge.modelHeight = 0 := by
+  rw [exampleHodge_modelHeight, covolume_gaussianPair, Real.log_one, mul_zero]
+
+end Gaussian
+
 end ZInQ.BPFaltings
 
 #print axioms ZInQ.BPFaltings.HermitianLattice.degreeAt_eq_arakelovDegree
@@ -1066,3 +1105,4 @@ end ZInQ.BPFaltings
 #print axioms ZInQ.BPFaltings.absNorm_extendedHom
 #print axioms ZInQ.BPFaltings.arakelovDegree_ofFractionalIdeal_baseChange
 #print axioms ZInQ.BPFaltings.HodgeData.modelHeight_ofIdeal_baseChange
+#print axioms ZInQ.BPFaltings.exampleHodge_modelHeight_eq_zero

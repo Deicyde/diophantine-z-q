@@ -66,8 +66,9 @@ proposal. **UNVERIFIED** marks a locator recalled from memory; there was no netw
      - the unproved classical identity `PeriodAreaFormula`,
        `covol(Λ) = 2∫_ℂ dλ/|4x³ − g₂x − g₃|`, checked numerically in pkg-I5;
      - the Néron identity `−12 log N(𝔞) = ∑_{v∤∞} log⁺|j|_v − ∑_σ log|σΔ|`, node AT1a.
-   - `HodgeData` is inhabited (`exampleHodge`, the square lattice over `ℚ`). This is a
-     consistency check of the structure.
+   - `HodgeData` is inhabited (`exampleHodge`, the square lattice over `ℚ`; its height is 0 since
+     `covol(ℤ + ℤi) = 1`, `exampleHodge_modelHeight_eq_zero`). This is a consistency check of the
+     structure.
 3. **The model layer typechecks over Mathlib today** (`Models.lean`, VERIFIED). `GroupModel A L`
    is a smooth, separated, quasi-compact group object in `Over (Spec 𝓞_L)` with an isomorphism of
    group objects from its generic fibre to `A_L`. It uses the project's `AbVar`, copied from
@@ -273,6 +274,7 @@ report no errors and no warnings. `#print axioms` on every main theorem lists `p
 | 10 | `hypGram_comp_add`, `hypVol_one_comp_add`, `modelHeight_ofIdeal_eq_faltingsHeightEC'` | AT1 for every Weierstrass model: `P_W^σ` need only equal `4x³ − g₂x − g₃` after a translation `x ↦ x + c_σ` (`ω ↦ dz` fixes `g₂ = c₄/12`, `g₃ = c₆/216`; `b₂` is removed by translation) |
 | 11 | `finrank_ringOfIntegers`, `absNorm_map_ringOfIntegers`, `norm_algebraMap_tower`, `absNorm_extendedHom`, `arakelovDegree_ofFractionalIdeal_baseChange` | AR3 (base change: `deg_L = [L:K]·deg_K`) |
 | 12 | `HodgeData.modelHeight_ofIdeal_baseChange` | H4 for dimension-1 Hodge data: extending the lattice to `𝓞_L` and restricting the period lattices leaves the model height unchanged |
+| 13 | `covolume_gaussianPair`, `exampleHodge_modelHeight_eq_zero` | normalization check: `covol(ℤ + ℤi) = 1` for Mathlib's Lebesgue measure on `ℂ`, so the example has height 0 |
 
 Key statements (Lean, abridged):
 

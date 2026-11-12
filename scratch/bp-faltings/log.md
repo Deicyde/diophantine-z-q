@@ -83,3 +83,8 @@ File `scratch/bp-faltings/Models.lean`. `lake env lean`: no errors, no warnings.
 ## Step 12 (12:19 PST). Base-change invariance of the model height (dimension 1)
 `Hodge.lean` §12. Compiles; 0 errors, 0 sorry.
 - `HodgeData.modelHeight_ofIdeal_baseChange`: h_L(ofIdeal (𝔞𝓞_L) (P ∘ res)) = h_K(ofIdeal 𝔞 P). VERIFIED.
+
+## Step 13 (12:21 PST). Normalization check covol(ℤ+ℤi) = 1
+`Hodge.lean` §13. Compiles; 0 errors, 0 warnings, 0 sorry.
+- `covolume_gaussianPair`: ZLattice.covolume (span ℤ {1, i}) = 1 (Lebesgue on ℂ). VERIFIED.
+- `exampleHodge_modelHeight_eq_zero`. VERIFIED.
