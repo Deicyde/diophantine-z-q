@@ -34,3 +34,10 @@ File `scratch/bp-faltings/Hodge.lean` §§1-2. `lake env lean`: no errors, no wa
 - `modelHeight_eq_faltingsHeightEC`: PeriodAreaFormula + (free Néron-type lattice, periods = period
   pairs with η₀ ↦ dz, Weierstrass polynomial = 4x³−g₂x−g₃, finite part of the formula = 0)
   ⇒ modelHeight D = faltingsHeightEC W. VERIFIED (compiled).
+
+## Step 5 (11:58 PST). Model layer signatures
+File `scratch/bp-faltings/Models.lean`. `lake env lean`: no errors, no warnings.
+- `AbVar`, `AbVar.baseChange` copied verbatim from ZInQKernel/HDecomp/Objects.lean.
+- `genericFibre`, `GroupModel A L` (GrpObj in Over (Spec 𝓞_L), Smooth, IsSeparated,
+  QuasiCompact, generic-fibre iso `gen` that is a monoid hom for the transported structure). VERIFIED.
+- two sanity examples (generic fibre smooth, separated: Mathlib base-change instances). VERIFIED.
