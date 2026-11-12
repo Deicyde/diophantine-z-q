@@ -22,7 +22,8 @@ of `GL₂`-type abelian varieties over `ℚ` (note §1, §3 leaves L13-L14).
    Galois representations, their intertwiners, semisimplicity, irreducibility, the absolute
    logarithmic height of a projective point. Built from Mathlib objects only.
 3. **Leaves statable now** (§3): the Hasse principle and Hilbert reciprocity for quaternion
-   algebras over `ℚ`, and Kronecker–Weber. Both are proved in Tau Ceti (prereq-survey §1).
+   algebras over `ℚ`, Kronecker–Weber and Skolem–Noether (all proved in Tau Ceti, prereq-survey
+   §1), and Brauer–Nesbitt.
 4. **Definitions still to be built** (§4): each is an `opaque` constant with the type the
    genuine definition will have and its cost tier in the docstring. An `opaque` constant has no
    definition, so the leaves of §5 stated over it are **not yet faithful**: they become the
@@ -629,9 +630,10 @@ def Leaf_IgusaLinYang : Prop :=
 
 end Leaves
 
-/-- The leaves of §§3 and 5 (twenty-one Props). The Shimura-curve leaves L1-L6 and L10-L11, L17
-of the note are not stated: they need the definitions behind `IsQMFibre` (canonical models,
-Shimura reciprocity) or schemes over `ℤ` (purity, Abhyankar), see note §3. -/
+/-- The leaves of §§3 and 5 (twenty-one Props). Not stated (note §3): the Shimura-curve leaves
+L1-L4 (they need the definitions behind `IsQMFibre`; `GeometricInput` below is a weak consequence
+of L1-L2), purity and Abhyankar L5-L6 (schemes over `ℤ`), L9(b)-(c), L10, L11, L19(c), L28a
+(Chebotarev) and L29 (local fields). -/
 structure StatedLeaves : Prop where
   hasse : Leaf_HasseQuaternion
   hilbert : Leaf_HilbertReciprocity

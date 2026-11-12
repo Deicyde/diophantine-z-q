@@ -54,3 +54,13 @@
   + GalRep.Iso, + Brauer–Nesbitt (charpoly with reindex). Compiles; 21 Props in StatedLeaves; one sorry
   (jHeightBoundAt_of_leaves). `#print axioms sixContactMinAt_of_jHeightBoundAt`:
   [propext, Classical.choice, Quot.sound] (VERIFIED).
+
+## Step 6. Deliverables
+- docs/research/hdec-alt.md written (§§1-7). Counts VERIFIED from its tables: 30 leaves (18 deep,
+  7 library, 5 textbook); R*: C3-C5 removed, C7-C8 replaced by G13; 31 kept nodes = 11 LIT, 13 NEW, 7 BK.
+- Leaves.lean docstrings updated; recompiled: one sorry (jHeightBoundAt_of_leaves); axioms of
+  sixContactMinAt_of_jHeightBoundAt = [propext, Classical.choice, Quot.sound]. 22 opaque placeholders.
+- Self-check of §1.2 (Ribet + KW): building-block hypotheses (End⁰ = B central division over ℚ, t=2,
+  μ_σ B-linear); V_ℓ(A)⊗Ē ≅ W⊕W with W abs. irreducible on G_K for K ⊇ L' (Faltings End);
+  ρ_τ|G_K ⊂ W^{2n} semisimple ⇒ ρ_τ|G_K ≅ W; Schur ⇒ r ≅ ρ_τ⊗ψ, ψ through Gal(K/ℚ). No gap found.
+- .fleet/hdec-alt.md written.
