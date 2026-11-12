@@ -51,3 +51,10 @@ Ambient: [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensiona
 - **`sqrt_criterion_muField`**: the criterion on K = muField (p^k m) ⊆ L = muField (p^{k+1}(p^{2f}-1)) inside PadicAlgCl p,
   every p incl. 2; hypotheses [NeZero m], p coprime m, [NeZero (p^{2f}-1)], [Fact (level divisibility)] (discharged by level_dvd),
   τ with galToProd τ = (-1,1) (exists by exists_tau). VERIFIED.
+
+## G_{ℚ_p}-level attempt (01:00-01:14 PST): NOT COMPILED, not claimed
+- `sqrt_criterion_absolute` ("if" direction over Gal(PadicAlgCl p/ℚ_p), from LocalKroneckerWeber): draft saved as
+  scratch/glue-sqrt-disj/AbsoluteAttempt.lean.txt. Blocker: `restrictNormal_muField_trans`
+  ((g|_{muField b})|_{muField a} = g|_{muField a}) gave a kernel deterministic timeout; with maxHeartbeats 2000000 the
+  run was stopped by the 10-minute background limit. Disj.lean reverted to the 00:57 version (re-checked 01:15 PST:
+  no errors, no sorryAx).

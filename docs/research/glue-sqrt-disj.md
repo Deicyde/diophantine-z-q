@@ -144,6 +144,14 @@ Not written. With `le_muField_of_lkw` and `sqrt_criterion_muField` in hand, it n
    So it lies in `fixingSubgroup (muField p n')`, which is inside `ker ψ` once I6.3 is applied to the
    fixed field of `ker ψ`.
 
+An attempt at the "if" direction (`sqrt_criterion_absolute`, steps 1-4 with `M` given) is saved,
+uncompiled, in `scratch/glue-sqrt-disj/AbsoluteAttempt.lean.txt`.
+- Its blocker: `restrictNormal_muField_trans`, `(g|_{μ_b})|_{μ_a} = g|_{μ_a}` through the `muAlgebra`
+  inclusion, hit a kernel deterministic timeout. With `maxHeartbeats 2000000` the run did not finish in
+  10 minutes.
+- A likely fix (SPECULATIVE): avoid `muAlgebra` and state `sqrt_criterion_level` with `K` an
+  `IntermediateField ℚ_[p] L`, so that Mathlib's `IntermediateField` restriction lemmas apply directly.
+
 SPECULATIVE estimate: 150-250 lines of bookkeeping, with no further arithmetic input. The existence
 of `τ₋₁` in `G_{ℚ_p}` (a lift of compatible `τ`s at every level) is not needed if the statement
 quantifies over any `τ₋₁` with that action, as pkg-I6's B2 statement does.
@@ -163,6 +171,7 @@ Also not done:
   - the sections `Disj` and `Crit` (with `Level.lean` inside);
   - `Plumb.lean`;
   - the section `MuField`.
+- `scratch/glue-sqrt-disj/AbsoluteAttempt.lean.txt`: the uncompiled `G_{ℚ_p}` attempt (not claimed).
 - `scratch/glue-sqrt-disj/Plumb.lean`: I6.3's fields as cyclotomic extensions; I6.3 normalized (standalone).
 - `scratch/glue-sqrt-disj/Ram.lean`: the degree bound alone (standalone).
 - `scratch/glue-sqrt-disj/Level.lean`: the level-change arithmetic alone (standalone).
