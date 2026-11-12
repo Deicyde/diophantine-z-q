@@ -448,6 +448,12 @@ SMF 140 (2012), Cor. 1.3(2) (read by a model). C (hardened). Lean:
 - New definitions needed: cheap for T29, T32; medium for R17, T9; large for R8, T10, T11, T12,
   T23; very large for R1-R3, R5 (QM moduli), R16, R18 (`J₁(N)`), R18-R22 (Faltings height).
 - Route K (§1): 20 research leaves.
+- Not leaves: two named glue Props that proved theorems take as hypotheses,
+  `PkgI2.QuatUnipotentTrivial` (A6) and `GlueI3.SemisimpleBaseChange` (C2, E1), both elementary
+  algebra (WP3); and `GlueAssembly.GlueOutputs`, the numerical contract (§3).
+- Lean check (hsyn-fix, VERIFIED): `lake env lean scratch/h-decomposition/Leaves.lean` exits 0; one
+  `sorry` (`HSyn.glueOutputs_of_leaves`); 19 `opaque`, no `axiom`; 45 `#print axioms`, all
+  `propext`, `Classical.choice`, `Quot.sound` except `HSyn.sixContactMin_of_leaves` (adds `sorryAx`).
 
 ---
 
