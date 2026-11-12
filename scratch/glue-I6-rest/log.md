@@ -36,3 +36,12 @@
   (G^{φ(b)} = G_b via IsLeast.csInf_eq), `sum_hInt_le` (Σ_{i≤b} g_i/g_0 ≤ 1+φ(b)),
   `phi_nat_ge` (φ(i) ≥ i/g_0, gives finite support), `codimInv_eq_zero`.
 - Compile 22:34: no errors; axioms [propext, Classical.choice, Quot.sound] (VERIFIED).
+
+## Inflation.lean (B2 item 1, finite part)
+- PROVED `GlueI6Rest.inflation_two_eq_coboundary`: for any abelian M with 2M = 0 and any
+  inhomogeneous 2-cocycle c of ℤ/f (trivial action, `IsCocycleTriv`), its pullback along
+  `ZMod.castHom : ℤ/2f → ℤ/f` is a coboundary δh, h(x) = c(0,0) − Σ_{j<x.val} c(1,j).
+  Lemmas: `cocycle_zero_left`, `cocycle_eq` (c(a,b) = c00 − S a − S b + S(a+b), a,b ∈ ℕ),
+  `cocS_add_f` (S(m+f) = S m + S f), `cocS_add_two_f`.
+  No normal form for H²(ℤ/f) needed.
+- Compile 22:37: no errors; axioms [propext, Classical.choice, Quot.sound] (VERIFIED).
