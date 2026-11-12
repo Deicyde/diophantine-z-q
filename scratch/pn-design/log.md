@@ -36,3 +36,4 @@
 - Wrote `docs/research/pn-design.md`: inputs I1–I7 with locators (§1), field-by-field encoding
   table (§2), checks (§3), N2 without N1 with the κ-table proof (§4), ranked risks (§5), plan A–D
   with routes, reuse and sizes (§6).
+- Wrote `.fleet/pn-design.md`.
