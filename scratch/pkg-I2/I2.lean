@@ -334,6 +334,20 @@ def CharpolyIndependentOfEll : Prop :=
           e y = M.mulVec (e x)) →
         M.charpoly = P.map (Int.castRingHom (ZMod (ℓ ^ n)))
 
+/-- **Leaf I2-Rank (Mumford, *Abelian varieties*, §19, Thm 3, rank part; boundary with I3;
+locator UNVERIFIED).** For abelian varieties `A, B` over `k` of dimensions `g, g'`, the group of
+homomorphisms `A → B` has rank at most `4gg'`: any `4gg' + 1` homomorphisms are `ℤ`-linearly
+dependent in the (commutative) group `A.X ⟶ B.X`. Used in A8 (`r ≤ 16F₀²`). The instance argument
+`IsCommMonObj B.X` holds for every abelian variety (Mathlib,
+`isCommMonObj_of_isProper_of_geometricallyIntegral`). -/
+def HomRankBound : Prop :=
+  ∀ (k : Type u) [Field k] (A B : Grp (Over (Spec (.of k)))) [IsAbelianVariety A]
+    [IsAbelianVariety B] [IsCommMonObj B.X] (g g' : ℕ),
+    topologicalKrullDim A.X.left = (g : WithBot ℕ∞) →
+    topologicalKrullDim B.X.left = (g' : WithBot ℕ∞) →
+    ∀ f : Fin (4 * g * g' + 1) → (A ⟶ B),
+      ∃ c : Fin (4 * g * g' + 1) → ℤ, c ≠ 0 ∧ ∏ i, (f i).hom.hom ^ c i = 1
+
 /-! ## 9. Glue proved from the leaves -/
 
 section Glue
