@@ -10,8 +10,7 @@ lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_
 # The main theorem from the Selmer form of the rank hypothesis
 
 Assume the minimal height hypothesis and the Selmer form CR₃^Sel of the certified rank
-hypothesis. Then the target statement holds, for the same polynomial as in
-[the main theorem](main-theorem.md).
+hypothesis. Then the target statement holds.
 
 CR₃^Sel speaks of the 2-Selmer group of the congruent number curve, defined by local solubility
 of its 2-coverings, instead of the explicit linear system in Legendre symbols, and asks that

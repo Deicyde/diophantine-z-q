@@ -10,8 +10,7 @@ lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_
 # The main theorem from the positive-rank forms of the rank hypothesis
 
 Assume the minimal height hypothesis and the positive-rank form CR₃^Rk of the certified rank
-hypothesis. Then the target statement holds, for the same polynomial as in
-[the main theorem](main-theorem.md). The theorem also holds under the minimal height hypothesis and
+hypothesis. Then the target statement holds. The theorem also holds under the minimal height hypothesis and
 CR₃^TYZ,Rk, and under the minimal height hypothesis and CR₃^TYZ_Cl,Rk.
 
 Here $C_d$ is the curve $y^2=x^3-d^2x$. Each of these hypotheses concludes only that $C_d(\mathbb Q)$

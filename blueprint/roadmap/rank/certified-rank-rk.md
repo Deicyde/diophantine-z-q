@@ -23,8 +23,8 @@ which is what the theorems below conclude. It rests on:
   quadratic field (Bump–Friedberg–Hoffstein), which gives $\operatorname{rank}C_d(\mathbb Q)\ge1$.
   Their hypothesis, an odd genus sum of class numbers, follows from the premises of CR₃^Rk by
   Corollary 4.4, Theorem 3.6 and Rédei's formula;
-- as an alternative that is not needed, Kriz's 2-converse theorem (Theorem 10.13, an unrefereed
-  preprint) for $C_d$ at $p=2$, whose standing assumption holds since $d\ge21$ (by Proposition 0,
+- as an alternative that is not needed, Kriz's 2-converse theorem (Theorem 10.13, a preprint whose publication status
+  was not checked) for $C_d$ at $p=2$, whose standing assumption holds since $d\ge21$ (by Proposition 0,
   as in [CR₃^Sel](../selmer/certified-rank-sel.md)), together with the corank lemma (the
   Cassels–Tate pairing on $Ш/Ш_{\rm div}$ is nondegenerate and alternating, so
   $\dim(Ш/Ш_{\rm div})[2]$ is even, with no finiteness of $Ш$ assumed), giving
