@@ -97,7 +97,7 @@ Frobenius at `Q`, and Frobenius at an unramified prime is unique
 (`AlgHom.IsArithFrobAt.eq_of_isUnramifiedAt`). -/
 def FrobLift : Prop :=
   ∀ (E : IntermediateField ℚ Qbar) [FiniteDimensional ℚ E] [IsGalois ℚ E]
-    (τ : E ≃ₐ[ℚ] E) (p : ℕ) (Q : Ideal (𝓞 E)) [Q.IsPrime],
+    (τ : E ≃ₐ[ℚ] E) (p : ℕ) (Q : Ideal (𝓞 E)) [Q.IsPrime], p.Prime →
     Q.under ℤ = Ideal.span {(p : ℤ)} → Algebra.IsUnramifiedAt ℤ Q → IsArithFrobAt ℤ τ Q →
       ∃ h : GQ, IsFrobAt h p ∧ AlgEquiv.restrictNormal h E = τ
 
@@ -111,7 +111,7 @@ theorem frobDense_of_chebotarev (hC : ChebotarevExists) (hL : FrobLift) (S : Fin
   have : IsGalois ℚ N := ⟨⟩
   have : NumberField N := ⟨⟩
   obtain ⟨p, hp, hpS, Q, hQ, hQp, hQu, hQf⟩ := hC N S (AlgEquiv.restrictNormal g N)
-  obtain ⟨h, hh, hres⟩ := hL N _ p Q hQp hQu hQf
+  obtain ⟨h, hh, hres⟩ := hL N _ p Q hp hQp hQu hQf
   refine ⟨h, p, hp, hpS, hh, fun x hx => ?_⟩
   have hxN : x ∈ N := E.le_normalClosure hx
   have e1 := AlgEquiv.restrictNormal_commutes h N ⟨x, hxN⟩
