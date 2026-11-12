@@ -39,3 +39,7 @@ Input: docs/research/locators.md (AI locator audit, 2026-11-12). Base commit 698
   h-decomposition's leaf R5 (and h-trust gave no count). Recorded in R5 and A10.
 - Finding (read): h-b1 M4 (table, L172) and Lemma NV step 2 (L232) use the indices 4, 6, 2 for
   `Y₃ → P¹_j` (cyclic inertia of order e_i). Not the degree-4 cover the audit corrects.
+- Extra (VERIFIED by the §3 recount, not in the audit): rv-tyz-inputs.md called `char'` "Lemma 3.8"
+  and `multiples1` "Lemma 3.9"; they are Lemma 3.14 (L1868) and Lemma 3.15 (L1919). Fixed in place
+  with a dated line in its correction block. tyz-t1.md (not editable here) still says "Lemma 3.8"
+  for `char'` (6 places).

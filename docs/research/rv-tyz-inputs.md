@@ -21,12 +21,13 @@ LaTeX label is given.
 > numbers below are corrected in place. The same audit read the typeset journal text: arXiv
 > Theorem 1.2 is journal **Theorem 1.4**, still with "all `d_i > 1`". Line numbers are unchanged
 > and no verdict of this review changed.
+> Also corrected 2026-11-12 (loc-adopt, by the same recount of `Period7.tex`'s §3 counter, VERIFIED; not in the audit): `char'` (L1868) is **Lemma 3.14** and `multiples1` (L1919) is **Lemma 3.15**; this note formerly called them Lemma 3.8 and Lemma 3.9. Proposition 3.8 (`heckeaction5`) and Corollary 3.9 (`integral5`) are unchanged. `docs/research/tyz-t1.md` (outside this task's scope) still calls `char'` "Lemma 3.8".
 
 ## Verdict
 
 | input | TYZ result | verdict |
 |---|---|---|
-| I1 | recursion of §3.1 (L1320–1327); `ε`-classes of Theorem 3.3 | **holds as printed** (the `ε`-classes are proved by Lemma 3.9, re-derived here) |
+| I1 | recursion of §3.1 (L1320–1327); `ε`-classes of Theorem 3.3 | **holds as printed** (the `ε`-classes are proved by Lemma 3.15 (`multiples1`), re-derived here) |
 | I2 | Lemma 2.9 with Proposition 2.3 | **holds with repairs**: quote it modulo 2 (factor `w_K = 3` at `m = 3`, rv-nt-tyz B1, confirmed); Theorem 2.1 is false for ordered pairs at `m ≡ 3`, harmless for Lemma 2.9 (new) |
 | I3 | Theorem 3.5, first assertion (L2343–2380) | **holds as printed, modulo one unprinted computation** in Theorem 3.3 (the explicit Gross–Zagier constant, "computations similar to … Theorem 2.1"). Proposition N needs only part of that constant (§2.3); doubtful only to the extent that this computation is unwritten |
 | I4 | Lemmas 3.16, 3.18 | **holds as printed**; proofs re-derived; verified numerically on 8 fields up to degree 64 |
@@ -43,7 +44,7 @@ that the factor attached to `d₁` is `𝓛(d₁)` up to a 2-adic unit, and that
 power-of-2 bookkeeping that Theorem 2.1 prints in full and that the numerics of I2 confirm (§3.1). Neither the
 false convention of Theorem 1.2 (journal Theorem 1.4; the trivial factor `d₁ = 1`) nor the sketched Proposition 3.4 enters the proof
 of any input (§1.8). Misprints found here, all harmless: the sign in one matrix decomposition of
-Proposition 3.8 (`heckeaction5`), `(4P)^c = 4P` for `−4P` in Lemma 3.9 (`multiples1`), the factor `w_K` in
+Proposition 3.8 (`heckeaction5`), `(4P)^c = 4P` for `−4P` in Lemma 3.15 (`multiples1`), the factor `w_K` in
 Lemma 2.9, and Theorem 2.1 read for ordered pairs at `n ≡ 3`.
 
 **What would settle the residual doubt.** Write out the explicit Gross–Zagier computation for
@@ -61,14 +62,14 @@ or read the journal version (Asian J. Math. 21 (2017)) to see whether the refere
 *Status of the text.* The recursion is a definition. Its two ingredients are proved elsewhere:
 
 - `𝓛(d₁) ∈ ℤ` (Theorem 1.1, i.e. I2's recursion; see §1.2).
-- The `ε`-classes are part of Theorem 3.3. Its proof (L1865–2023): Lemma 3.8 (`char'`) restricts `χ` to
-  `χ_{d₀,d₁}`; Lemma 3.9 (`multiples1`) shows `4P(d₀, d₁) ∈ A(ℚ(√−d₀))^−` except for `(5, 3)`, where
+- The `ε`-classes are part of Theorem 3.3. Its proof (L1865–2023): Lemma 3.14 (`char'`) restricts `χ` to
+  `χ_{d₀,d₁}`; Lemma 3.15 (`multiples1`) shows `4P(d₀, d₁) ∈ A(ℚ(√−d₀))^−` except for `(5, 3)`, where
   `4P(d₀, d₁) ∈ A(ℚ(√d₀))^− = [i]A(ℚ(√−d₀))^−`; then Gross–Zagier and Kolyvagin make `E(K_{d₀})^−` of rank 1 when
   `L′ ≠ 0`, so `ε̄P_χ` and `𝒫(d₀)` are proportional, and equal heights fix the proportionality constant up to
   sign. Hence `ε ∈ {±1}`, resp. `{±i}`.
 
-*Checked here* (VERIFIED by hand): the case analysis of Lemma 3.8 (for `n ≡ 5` only `(5, 1)`, `(7, 3)` occur;
-for `n ≡ 7` only `(7, 1)`, `(5, 3)`); in Lemma 3.9, the fields `K_{d₀,d₁}`, the actions of `c`, `τ`, `cτ` on
+*Checked here* (VERIFIED by hand): the case analysis of Lemma 3.14 (for `n ≡ 5` only `(5, 1)`, `(7, 3)` occur;
+for `n ≡ 7` only `(7, 1)`, `(5, 3)`); in Lemma 3.15, the fields `K_{d₀,d₁}`, the actions of `c`, `τ`, `cτ` on
 them, `χ(σ_ϖ) = −1 ⟺ d₁ ≡ 3` for `n ≡ 7`, and the identity `[i]A(ℚ(√d₀))^− ⊂ A(ℚ(√−d₀))^−` (Galois
 equivariance of `[i]P`, case by case). One misprint: in the case `d₁ = 1` the proof says `(4P)^c = 4P`;
 the preceding lines give `(4P)^c = −4P`, which is what the conclusion `4P ∈ A(K_n)^−` needs (new, harmless).
@@ -345,7 +346,7 @@ Together with §3.2's first part, 41 samples, none inconsistent with Proposition
 | T1 | Thm 3.3 proof, L2014–2015 | the explicit Gross–Zagier constant is "computations similar to … Theorem 2.1", not printed | Proposition N needs only its `χ`-uniformity (§2.3); residual doubt, settle by writing the computation |
 | T2 | Lemma 2.9 | factor `w_K` missing (rv-nt-tyz B1, confirmed) | none modulo 2 in `ℤ_(2)` |
 | T3 | Thm 2.1 and its proof | "trivial on `K₂^×` ⟺ `d₂* ≡ 1 (mod 8)`" incomplete at `n ≡ 3`; the theorem is false for ordered pairs (`P(1,3) ≠ 0`) | none: Lemma 2.9 uses non-ordered pairs |
-| T4 | Lemma 3.9, case `d₁ = 1` | `(4P)^c = 4P` should be `−4P` | none |
+| T4 | Lemma 3.15 (`multiples1`), case `d₁ = 1` | `(4P)^c = 4P` should be `−4P` | none |
 | T5 | Prop 3.8 (`heckeaction5`) | `w₀ϖε = D₃G₃(−R₃)`, sign misprint | none (`−I ∈ U`) |
 | T6 | Lemma 3.21 | equality in (1) shown only mod `ℤτ(1)`; for `n ≡ 7`, `β_j = σ_ϖ c` on `L_n` only; last step "checked easily", re-derived here | none |
 | T7 | Lemma 3.16 | "ring class field of conductor 4" of `ℚ(i)` should read ray class field mod 4 | none |
