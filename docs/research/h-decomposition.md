@@ -436,7 +436,8 @@ not adopted: it merges two publications.)
 *Statable consequence of R2 + R3 + R4 together* (pkg-I1's I1-b, not counted as a leaf because it
 combines three publications; rv-leaves-a: FAITHFUL but COMPOSITE, printed nowhere as one theorem,
 and its Baba–Granath citation is narrowed to Thm 2.1 and the datum of §3, not Props. 3.7-3.10;
-values, Atkin–Lehner invariance and local orders 4, 6, 2 re-checked numerically): `PkgI1.QMHauptmodul`, "`3779136·Πθ⁴/(Σθ⁸)⁵ ∘ Ω(τ)` is a Hauptmodul of
+values, Atkin–Lehner invariance and local orders 4, 6, 2 re-checked numerically; these are orbifold
+orders of `Γ*\ℍ`, consistent with the corrected R2; its Lin–Yang input is v1 Example 29, 2026-11-12): `PkgI1.QMHauptmodul`, "`3779136·Πθ⁴/(Σθ⁸)⁵ ∘ Ω(τ)` is a Hauptmodul of
 `Γ*\ℍ` with values `0, ∞, −16/27` at the CM points of discriminants −4, −3, −24", for pkg-I1's
 explicit period matrix `Ω(τ)` (numerically VERIFIED to 20-30 digits by pkg-I1). It says nothing
 about the `ℚ`-structure, which is R1.
