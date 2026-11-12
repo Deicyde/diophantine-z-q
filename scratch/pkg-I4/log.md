@@ -45,3 +45,8 @@
 - `htMult_cycRep_eq_zero`: given Tate (ℂ_p(j)^G = 0, j ≠ 0) as hypothesis, htMult of ℚ_p(1) (`cycRep`) is 0 at every w ≠ −1. Confirms the convention (cyclotomic weight −1).
 - `isDeRham_trivial`: given B_dR^G ⊆ ℚ_p and ℚ_p → B_dR injective as hypotheses, the trivial 1-dim representation satisfies `IsDeRham`. Confirms ddrSpace and the dimension normalization.
 - I4.lean ~1060 lines, compiles, no sorry.
+
+## Step 8: G_F versions and the C3 leaf
+- DEFINED (compiles): `gfToGqp` (G_F → G_{ℚ_p}), `ddrSpaceOver`, `IsDeRhamOver`, `htSpaceOver`, `htMultOver` for a Mathlib `Representation ℚ_[p] (absoluteGaloisGroup F) V`, F/ℚ_p finite.
+- Copied pkg-I3's definitions (origin/wip/pkg-I3 @ 7406c0ae, scratch/pkg-I3/I3.lean lines 26-335, unchanged: Tate module, AbVar, Pt, V, galRep) into I4.lean; they compile under `import Mathlib`.
+- New statable leaf `DeRhamComparison` (C3: V_p(A) de Rham over F with HT weights 0, −1 of multiplicity g). `#print axioms`: propext, Classical.choice, Quot.sound.
