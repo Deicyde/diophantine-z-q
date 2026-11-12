@@ -15,7 +15,7 @@ pari('default(realprecision, 80)')
 pari.allocatemem(2 * 10**9)
 
 E = pari('E32 = ellinit([0,0,0,4,0])')  # 32a1 = X0(32) (optimal, Manin constant 1)
-NAN = 120000
+NAN = 1000000
 OM = pari('E32.omega')
 w1, w2 = OM[0], OM[1]
 
@@ -116,3 +116,31 @@ def delta7(n):
 
 if __name__ == "__main__":
     pass
+
+
+def heegner_forms_fast(D, beta, h):
+    """one Heegner form [32p, B, C] (p = 1 or a prime split in Q(sqrt D), B = beta mod 64) per class of
+    Cl(D); A = 32p is then represented by the class.  Stops when h classes are hit."""
+    reps = {}
+    cands = [1] + [int(p) for p in pari.primes(200000)[1:]]
+    for p in cands:
+        if p > 1 and (D % p == 0 or pari.kronecker(D, p) != 1):
+            continue
+        if p == 1:
+            Bs = [beta]
+        else:
+            r = int(pari.lift(pari.sqrt(pari.Mod(D, p))))
+            Bs = [int(pari.lift(pari.chinese(pari.Mod(beta, 64), pari.Mod(s, p)))) for s in (r, -r)]
+        A = 32 * p
+        for B in Bs:
+            if (B * B - D) % (4 * A):
+                continue
+            C = (B * B - D) // (4 * A)
+            if pari.gcd(pari.gcd(A, B), C) != 1 or pari.gcd(pari.gcd(p, B), 32 * C) != 1:
+                continue
+            key = str(pari.qfbred(pari.Qfb(A, B, C)))
+            if key not in reps:
+                reps[key] = (A, B, C)
+        if len(reps) == h:
+            return reps
+    raise RuntimeError("classes not all hit")

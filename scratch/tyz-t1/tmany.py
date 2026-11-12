@@ -29,14 +29,7 @@ def Lcal(d):
 
 def forms_all(D, beta):
     h = int(pari.qfbclassno(D))
-    amax = 50
-    while True:
-        reps, allf = heegner_forms(D, beta, amax)
-        if len(reps) == h:
-            return reps, h
-        amax *= 2
-        if amax > 6400:
-            raise RuntimeError("classes not all hit")
+    return heegner_forms_fast(D, beta, h), h
 
 
 def S_sums(n, es, beta, D):

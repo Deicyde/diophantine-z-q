@@ -59,3 +59,14 @@ Result: 0 mismatches.
    (5,41), (21,41), (21,65) [and P_1(d0) non-torsion there]). Types (5,1) and (7,3), d0 prime and composite (15,21,39,55,95,119,287,335,455).
 So the exact statement Prop N needs (c(d0,d1) = +-c(d0,1)) holds on all samples, including the cross-class (7,3) comparison
 between the X_U test vector (n = 5) and the X0(32) one (d0 = 7).
+
+## Step 4: batch 2 (out_tmany2.txt, out_tmany3.txt)
+
+heeg.py: heegner_forms_fast (one form [32p, B, C] per class, p = 1 or a split prime, B by CRT) replaces the O(amax^2) search;
+reproduces n = 21, 861, 1365. NAN = 10^6 terms, convergence asserted.
+11 more n: 301 565 2149 2165 3269 8749 645 2373 12597 23205 44285 (h(-64n) up to 1120, k up to 5).
+Chosen for L(d1) = 3,4,5,6,7 (d1 = 43,113,307,433,467,673), and rank-3 d0 (4199 in 12597; 2605 = 5*521 in 44285).
+Result: 0 mismatches. 38 contributing comparisons (incl. P_1(d0) torsion for d0 = 4199, 2605 -> P torsion, and
+L(d1) = 0 cases) and 48 non-contributing torsion checks.
+Totals over 30 n: 73 contributing (d0,d1) comparisons, 102 non-contributing characters, all as predicted.
+m = +-16 2^{h2(n)-h2(d0)} L(d1) with L(d1) in {0,...,7}, 2^{h2(n)-h2(d0)} in {2,4,8,16,32}.
