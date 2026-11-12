@@ -171,6 +171,36 @@ theorem lemmaN2 {L : ℕ → ℤ} {n : ℕ} (G : GenusData L n) (hn : n % 8 = 5)
       ∑ e ∈ n.divisors.filter (fun e => e % 8 = 5 ∨ e % 8 = 7), L (n / e) • G.Z e + (2 : ℤ) • X := by
   sorry
 
+/-- `Re : ℤ[i] → ℤ` as an additive hom. -/
+def final_reHom : GaussianInt →+ ℤ where
+  toFun z := z.re
+  map_zero' := rfl
+  map_add' _ _ := rfl
+
+/-- `Im : ℤ[i] → ℤ` as an additive hom. -/
+def final_imHom : GaussianInt →+ ℤ where
+  toFun z := z.im
+  map_zero' := rfl
+  map_add' _ _ := rfl
+
+theorem final_reHom_apply (z : GaussianInt) : final_reHom z = z.re := rfl
+
+theorem final_imHom_apply (z : GaussianInt) : final_imHom z = z.im := rfl
+
+/-- A multiple of `2 + 2i` has even components: `(2+2i)(p+qi) = (2p−2q) + (2p+2q)i`. -/
+theorem final_two_dvd_of_dvd {z : GaussianInt} (h : twoTwoI ∣ z) : 2 ∣ z.re ∧ 2 ∣ z.im := by
+  obtain ⟨c, rfl⟩ := h
+  simp only [Zsqrtd.re_mul, Zsqrtd.im_mul, twoTwoI]
+  exact ⟨⟨c.re - c.im, by ring⟩, ⟨c.im + c.re, by ring⟩⟩
+
+/-- `4 • τ(z) = 0`, since `4 = (2+2i)(1−i)`. -/
+theorem final_four_nsmul_τ {L : ℕ → ℤ} {n : ℕ} (G : GenusData L n) (z : GaussianInt) :
+    (4 : ℕ) • G.τ z = 0 := by
+  rw [← map_nsmul, G.τ_eq_zero]
+  refine ⟨⟨1, -1⟩ * z, ?_⟩
+  rw [nsmul_eq_mul, ← mul_assoc]
+  congr 1
+
 /-- **The final step** (nt-tyz §4.4): if `𝓛(n) = 0`, then `a = Σ_{e≡5} 𝓛(n/e) g(e)` and
 `N = Σ_{e≡7} 𝓛(n/e) g(e)` are even. Uses `torsion_of_zero`, `τ_eq_zero`, `tors_mem_range`, `β_τ`,
 `beta_five`, `beta_seven`. -/
@@ -180,7 +210,79 @@ theorem finalStep {L : ℕ → ℤ} {n : ℕ} (G : GenusData L n) (hn : n % 8 = 
       ∑ e ∈ n.divisors.filter (fun e => e % 8 = 5 ∨ e % 8 = 7), L (n / e) • G.Z e + (2 : ℤ) • X) :
     (((∑ e ∈ n.divisors.filter (fun e => e % 8 = 5), L (n / e) * (gNat e : ℤ) : ℤ) : ZMod 2) = 0) ∧
     (((∑ e ∈ n.divisors.filter (fun e => e % 8 = 7), L (n / e) * (gNat e : ℤ) : ℤ) : ZMod 2) = 0) := by
-  sorry
+  classical
+  obtain ⟨y, hy⟩ := G.tors_mem_range _ (G.torsion_of_zero hL)
+  choose! k hk using G.beta_five
+  let f : G.M →+ G.M := G.β + AddMonoidHom.id G.M
+  have hf : ∀ x, f x = G.β x + x := fun x => rfl
+  have hτf : ∀ z, f (G.τ z) = G.τ (2 • z) := by
+    intro z; rw [hf, G.β_τ, map_nsmul, two_nsmul]
+  set F5 := n.divisors.filter (fun e => e % 8 = 5) with hF5
+  set F7 := n.divisors.filter (fun e => e % 8 = 7) with hF7
+  have hsplit : n.divisors.filter (fun e => e % 8 = 5 ∨ e % 8 = 7) = F5 ∪ F7 :=
+    Finset.filter_or _ _ _
+  have hdisj : Disjoint F5 F7 :=
+    Finset.disjoint_filter.2 (fun _ _ h1 h2 => by omega)
+  set A5 : GaussianInt :=
+    ∑ e ∈ F5, L (n / e) • ((gNat e : ℤ) • (⟨1, -1⟩ : GaussianInt) + k e • 2) with hA5
+  set A7 : GaussianInt := ∑ e ∈ F7, L (n / e) • ((gNat e : ℤ) • (1 : GaussianInt)) with hA7
+  have h5 : ∑ e ∈ F5, L (n / e) • f (G.Z e) = G.τ A5 := by
+    rw [hA5, map_sum]
+    refine Finset.sum_congr rfl fun e he => ?_
+    rw [hF5, Finset.mem_filter] at he
+    rw [hf, hk e he.1 he.2, map_zsmul, map_add, map_zsmul, map_zsmul]
+  have h7 : ∑ e ∈ F7, L (n / e) • f (G.Z e) = G.τ A7 := by
+    rw [hA7, map_sum]
+    refine Finset.sum_congr rfl fun e he => ?_
+    rw [hF7, Finset.mem_filter] at he
+    rw [hf, G.beta_seven e he.1 he.2, map_zsmul, map_zsmul]
+  have hW : G.τ (2 • y) = G.τ A5 + G.τ A7 + (2 : ℤ) • f X := by
+    rw [← hτf, hy, hX, map_add, map_sum, map_zsmul, hsplit, Finset.sum_union hdisj]
+    simp only [map_zsmul]
+    rw [h5, h7]
+  set W := f X with hWdef
+  have h2W : (2 : ℤ) • W = G.τ (2 • y - A5 - A7) := by
+    rw [map_sub, map_sub, hW]; abel
+  have hWt : IsOfFinAddOrder W := by
+    refine isOfFinAddOrder_iff_nsmul_eq_zero.mpr ⟨8, by norm_num, ?_⟩
+    have h84 : (8 : ℕ) • W = (4 : ℕ) • ((2 : ℤ) • W) := by
+      rw [← natCast_zsmul, ← natCast_zsmul, smul_smul]; norm_num
+    rw [h84, h2W, final_four_nsmul_τ]
+  obtain ⟨w, hw⟩ := G.tors_mem_range W hWt
+  set z : GaussianInt := 2 • y - A5 - A7 - (2 : ℤ) • w with hz
+  have hz0 : G.τ z = 0 := by
+    rw [hz, map_sub, ← h2W, map_zsmul, hw, sub_self]
+  obtain ⟨hre, him⟩ := final_two_dvd_of_dvd ((G.τ_eq_zero z).mp hz0)
+  set a := ∑ e ∈ F5, L (n / e) * (gNat e : ℤ) with ha
+  set N := ∑ e ∈ F7, L (n / e) * (gNat e : ℤ) with hN
+  set K := ∑ e ∈ F5, L (n / e) * k e with hK
+  have hzre : z.re = 2 * y.re - (a + 2 * K) - N - 2 * w.re := by
+    rw [← final_reHom_apply, hz, hA5, hA7]
+    simp only [map_sub, map_sum, map_zsmul, map_add, map_nsmul, final_reHom_apply]
+    simp only [Zsqrtd.re_one, Zsqrtd.re_ofNat, smul_eq_mul, nsmul_eq_mul, Nat.cast_ofNat]
+    have e1 : ∑ x ∈ F5, L (n / x) * ((gNat x : ℤ) * 1 + k x * 2) = a + 2 * K := by
+      rw [ha, hK, Finset.mul_sum, ← Finset.sum_add_distrib]
+      exact Finset.sum_congr rfl fun e _ => by ring
+    have e2 : ∑ x ∈ F7, L (n / x) * ((gNat x : ℤ) * 1) = N := by
+      rw [hN]; simp only [mul_one]
+    rw [e1, e2]
+  have hzim : z.im = 2 * y.im + a - 2 * w.im := by
+    rw [← final_imHom_apply, hz, hA5, hA7]
+    simp only [map_sub, map_sum, map_zsmul, map_add, map_nsmul, final_imHom_apply]
+    simp only [Zsqrtd.im_one, Zsqrtd.im_ofNat, smul_eq_mul, nsmul_eq_mul, Nat.cast_ofNat]
+    have e1 : ∑ x ∈ F5, L (n / x) * ((gNat x : ℤ) * (-1) + k x * 0) = -a := by
+      rw [ha, ← Finset.sum_neg_distrib]
+      exact Finset.sum_congr rfl fun e _ => by ring
+    have e2 : ∑ x ∈ F7, L (n / x) * ((gNat x : ℤ) * 0) = 0 := by
+      simp only [mul_zero, Finset.sum_const_zero]
+    rw [e1, e2]
+    ring
+  rw [hzre] at hre
+  rw [hzim] at him
+  have ha2 : (2 : ℤ) ∣ a := by omega
+  have hN2 : (2 : ℤ) ∣ N := by omega
+  exact ⟨(ZMod.intCast_zmod_eq_zero_iff_dvd a 2).mpr ha2,
+    (ZMod.intCast_zmod_eq_zero_iff_dvd N 2).mpr hN2⟩
 
 /-- **Matching** (nt-tyz §4.4, last line): the brackets in `Λ` are the fork's genus sums,
 `Σ_{e≡5} Λ(n/e) g(e) = T_5a(n)` and `Σ_{e≡7} Λ(n/e) g(e) = T_5b(n)` (split a partition at its
