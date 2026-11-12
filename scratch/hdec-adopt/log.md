@@ -25,3 +25,19 @@
 ## Builds
 - build1 (`lake build ZInQKernel.HDecomp`, before wrapping): every module built except
   Conductor/ArtinUpper (dangling docstring from the cut; fixed in adopt.py).
+- build2 (`lake build ZInQKernel`, first wrap): 2 failures from wrapping (Constants: break after
+  `;` inside a same-line `by`; A1Quaternion: continuation inside a same-line `by` at a column
+  left of the tactic). wrap.py now breaks after `by` and indents continuations deeper (calc +8).
+- build3: Constants (calc first step) failed; fixed.
+- build4 (`lake build ZInQKernel`, 00:48 PST): EXIT 0, no errors. VERIFIED.
+- `PkgI6.exists_sq_eq_one_add` (I6Base) is now proved by `GlueConductor.exists_sq_eq_one_add`
+  (import of Conductor.Dyadic) instead of a verbatim copy; statement unchanged. VERIFIED (build4).
+
+## Axioms
+- `lake env lean scripts/print_axioms.lean` (00:49 PST): EXIT 0, 179 `#print axioms`, every one
+  `[propext, Classical.choice, Quot.sound]`, no `sorryAx` (output scratch/hdec-adopt/axioms.txt).
+  88 of them are the HDecomp theorems (list scratch/hdec-adopt/axioms_list.txt plus
+  `GlueAssembly.jHeightBound_of_glueOutputs`, `GlueAssembly.sixContactMinAt_of_jHeightBound`).
+  VERIFIED.
+- No line over 100 characters in ZInQKernel/HDecomp/ (python check). No `sorry` / `axiom`
+  (grep; the only hits are in comments). VERIFIED.
