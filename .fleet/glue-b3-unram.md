@@ -44,4 +44,4 @@ characters.
 3. L-B3a, L-B3b and L-conj are unproved leaves. L-B3b and L-conj would become glue once the
    converse bridge (lifting inertia from a finite level to `ℚ̄`) exists.
 
-Report: `docs/research/glue-b3-unram.md`. Log: `scratch/glue-b3-unram/log.md`.
+Report: `docs/research/glue-b3-unram.md`. Log: `scratch/glue-b3-unram/log.md`. Final check: all seven `#print axioms` lines show only the standard axioms (00:07 PST).
