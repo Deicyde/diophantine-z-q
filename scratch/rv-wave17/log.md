@@ -72,3 +72,4 @@ D1_krasner(') and the rest).
 - D1 `D1_local`, `D1_local'`, `D1_krasner`, `D1_krasner'`: FAITHFUL to h-trust D1 (the bound
   `u_last ≤ 4a²` from local degree `≤ a`). The two transports (completion, Krasner) are not in
   Lean, as the note says.
+- C10.lean's ChebotarevExists, BrauerNesbittChar0 identical to pkg-I6/I6.lean (VERIFIED, diff).
