@@ -192,6 +192,277 @@ end PartC
 
 end BdrKer
 
+
+/-! ## Part D: `𝓞_ℂ_[p]`.
+The section `PkgI4.Cp` below is copied unchanged from `scratch/pkg-I4/I4.lean` (instances:
+`𝓞_ℂ_[p]` is `p`-adically complete). -/
+
+namespace PkgI4.Cp
+
+open Ideal
+
+variable (p : ℕ) [hp : Fact p.Prime]
+
+theorem mem_O_iff (x : ℂ_[p]) : x ∈ 𝓞_ℂ_[p] ↔ ‖x‖ ≤ 1 := by
+  rw [PadicComplex.norm_eq_norm, Valuation.norm_def]
+  change (PadicComplex.valued p).v x ≤ 1 ↔ _
+  rw [← map_one (PadicComplex.valued p).v, ← Valuation.restrict_le_iff]
+  simpa only [map_one, NNReal.coe_le_one] using
+    ((Valuation.RankOne.strictMono (PadicComplex.valued p).v).le_iff_le (b := 1)).symm
+
+theorem norm_p : ‖(p : ℂ_[p])‖ = (p : ℝ)⁻¹ := by
+  rw [← map_natCast (algebraMap ℚ_[p] ℂ_[p]),
+    IsScalarTower.algebraMap_apply ℚ_[p] (PadicAlgCl p) ℂ_[p], ← PadicComplex.coe_eq,
+    PadicComplex.norm_extends, PadicAlgCl.norm_extends, Padic.norm_p]
+
+theorem norm_p_pos : 0 < ‖(p : ℂ_[p])‖ := by
+  rw [norm_p]; exact inv_pos.mpr (by exact_mod_cast hp.1.pos)
+
+theorem norm_p_lt_one : ‖(p : ℂ_[p])‖ < 1 := by
+  rw [norm_p]; exact inv_lt_one_of_one_lt₀ (by exact_mod_cast hp.1.one_lt)
+
+/-- `x ∈ p^n 𝓞` iff `‖x‖ ≤ ‖p‖^n`. -/
+theorem mem_span_pow_iff (x : 𝓞_ℂ_[p]) (n : ℕ) :
+    x ∈ span {(p : 𝓞_ℂ_[p])} ^ n ↔ ‖(x : ℂ_[p])‖ ≤ ‖(p : ℂ_[p])‖ ^ n := by
+  rw [Ideal.span_singleton_pow, Ideal.mem_span_singleton']
+  constructor
+  · rintro ⟨z, rfl⟩
+    have hz : ‖(z : ℂ_[p])‖ ≤ 1 := (mem_O_iff p _).mp z.2
+    have e : ((z * (p : 𝓞_ℂ_[p]) ^ n : 𝓞_ℂ_[p]) : ℂ_[p]) = (z : ℂ_[p]) * (p : ℂ_[p]) ^ n := by
+      push_cast; rfl
+    rw [e, norm_mul, norm_pow]
+    calc ‖(z : ℂ_[p])‖ * ‖(p : ℂ_[p])‖ ^ n ≤ 1 * ‖(p : ℂ_[p])‖ ^ n := by gcongr
+      _ = _ := one_mul _
+  · intro h
+    have hpn : (p : ℂ_[p]) ^ n ≠ 0 := pow_ne_zero _ (norm_pos_iff.mp (norm_p_pos p))
+    refine ⟨⟨(x : ℂ_[p]) / (p : ℂ_[p]) ^ n, (mem_O_iff p _).mpr ?_⟩, ?_⟩
+    · rw [norm_div, norm_pow, div_le_one (pow_pos (norm_p_pos p) n)]
+      exact h
+    · apply Subtype.ext
+      push_cast
+      field_simp
+
+
+theorem smodEq_iff (x y : 𝓞_ℂ_[p]) (n : ℕ) :
+    x ≡ y [SMOD (span {(p : 𝓞_ℂ_[p])} ^ n • ⊤ : Submodule 𝓞_ℂ_[p] 𝓞_ℂ_[p])] ↔
+      ‖(x : ℂ_[p]) - (y : ℂ_[p])‖ ≤ ‖(p : ℂ_[p])‖ ^ n := by
+  rw [SModEq.sub_mem, smul_eq_mul, Ideal.mul_top, mem_span_pow_iff]
+  push_cast
+  rfl
+
+instance notIsUnit_p : Fact ¬IsUnit (p : 𝓞_ℂ_[p]) := ⟨fun h => by
+  obtain ⟨v, hv⟩ := isUnit_iff_exists_inv.mp h
+  have hv' : (p : ℂ_[p]) * (v : ℂ_[p]) = 1 := by
+    have := congrArg (fun z : 𝓞_ℂ_[p] => (z : ℂ_[p])) hv
+    push_cast at this
+    exact this
+  have h1 : ‖(v : ℂ_[p])‖ ≤ 1 := (mem_O_iff p _).mp v.2
+  have h2 : ‖(p : ℂ_[p])‖ * ‖(v : ℂ_[p])‖ = 1 := by rw [← norm_mul, hv', norm_one]
+  have h3 : ‖(p : ℂ_[p])‖ * ‖(v : ℂ_[p])‖ < 1 :=
+    calc ‖(p : ℂ_[p])‖ * ‖(v : ℂ_[p])‖ ≤ ‖(p : ℂ_[p])‖ * 1 := by gcongr
+      _ < 1 := by rw [mul_one]; exact norm_p_lt_one p
+  linarith⟩
+
+theorem tendsto_norm_p_pow :
+    Filter.Tendsto (fun n : ℕ => ‖(p : ℂ_[p])‖ ^ n) Filter.atTop (nhds 0) :=
+  tendsto_pow_atTop_nhds_zero_of_lt_one (norm_nonneg _) (norm_p_lt_one p)
+
+instance isHausdorff : IsHausdorff (span {(p : 𝓞_ℂ_[p])}) 𝓞_ℂ_[p] where
+  haus' x hx := by
+    have h : ∀ n : ℕ, ‖(x : ℂ_[p])‖ ≤ ‖(p : ℂ_[p])‖ ^ n := fun n => by
+      have := (smodEq_iff p x 0 n).mp (hx n)
+      simpa using this
+    have h0 : ‖(x : ℂ_[p])‖ ≤ 0 := ge_of_tendsto' (tendsto_norm_p_pow p) h
+    exact Subtype.ext (by simpa using norm_le_zero_iff.mp h0)
+
+instance isPrecomplete : IsPrecomplete (span {(p : 𝓞_ℂ_[p])}) 𝓞_ℂ_[p] where
+  prec' f hf := by
+    set g : ℕ → ℂ_[p] := fun n => (f n : ℂ_[p])
+    have hmn : ∀ m n, m ≤ n → ‖g m - g n‖ ≤ ‖(p : ℂ_[p])‖ ^ m := fun m n h =>
+      (smodEq_iff p _ _ m).mp (hf h)
+    have hcs : CauchySeq g := by
+      refine cauchySeq_of_le_tendsto_0 (fun N => 2 * ‖(p : ℂ_[p])‖ ^ N) (fun n m N hn hm => ?_) ?_
+      · rw [dist_eq_norm]
+        calc ‖g n - g m‖ = ‖(g N - g m) - (g N - g n)‖ := by congr 1; ring
+          _ ≤ ‖g N - g m‖ + ‖g N - g n‖ := norm_sub_le _ _
+          _ ≤ ‖(p : ℂ_[p])‖ ^ N + ‖(p : ℂ_[p])‖ ^ N := add_le_add (hmn N m hm) (hmn N n hn)
+          _ = 2 * ‖(p : ℂ_[p])‖ ^ N := by ring
+      · simpa using (tendsto_norm_p_pow p).const_mul 2
+    obtain ⟨L, hL⟩ := cauchySeq_tendsto_of_complete hcs
+    have hL1 : ‖L‖ ≤ 1 :=
+      le_of_tendsto' (hL.norm) fun n => (mem_O_iff p _).mp (f n).2
+    refine ⟨⟨L, (mem_O_iff p L).mpr hL1⟩, fun n => (smodEq_iff p _ _ n).mpr ?_⟩
+    have ht : Filter.Tendsto (fun k => ‖g n - g k‖) Filter.atTop (nhds ‖g n - L‖) :=
+      (tendsto_const_nhds.sub hL).norm
+    exact le_of_tendsto ht (Filter.eventually_atTop.mpr ⟨n, fun k hk => hmn n k hk⟩)
+
+instance isAdicComplete : IsAdicComplete (span {(p : 𝓞_ℂ_[p])}) 𝓞_ℂ_[p] where
+
+end PkgI4.Cp
+
+namespace BdrKer.Cp
+
+open Ideal PkgI4.Cp WittVector
+
+variable (p : ℕ) [hp : Fact p.Prime]
+
+local notation "O" => (𝓞_ℂ_[p] : Type)
+
+/-- The `n`-th `p`-power root `x^{(n)} = (F^{-n} x)♯` of `x♯`. -/
+noncomputable def root {R : Type*} [CommRing R] {q : ℕ} [Fact q.Prime] [Fact ¬IsUnit (q : R)]
+    [IsAdicComplete (span {(q : R)}) R] (x : PreTilt R q) (n : ℕ) : R :=
+  PreTilt.untilt (((frobeniusEquiv (PreTilt R q) q).symm^[n]) x)
+
+section general
+variable {R : Type*} [CommRing R] {q : ℕ} [Fact q.Prime] [Fact ¬IsUnit (q : R)]
+    [IsAdicComplete (span {(q : R)}) R]
+
+theorem root_pow (x : PreTilt R q) (n : ℕ) : root x n ^ q ^ n = x.untilt :=
+  PreTilt.untilt_iterate_frobeniusEquiv_symm_pow x n
+
+theorem root_succ_pow (x : PreTilt R q) (n : ℕ) : root x (n + 1) ^ q = root x n := by
+  rw [root, root, Function.iterate_succ_apply', ← map_pow, frobeniusEquiv_symm_pow_p]
+
+theorem mk_root (x : PreTilt R q) (n : ℕ) :
+    Ideal.Quotient.mk (span {(q : R)}) (root x n) = PreTilt.coeff n x := by
+  rw [root, PreTilt.mk_untilt_eq_coeff_zero, PreTilt.coeff_iterate_frobeniusEquiv_symm, zero_add]
+
+end general
+
+theorem p_ne_zero : (p : O) ≠ 0 := fun h => by
+  have h1 := norm_p_pos p
+  have : ((p : O) : ℂ_[p]) = 0 := by rw [h]; rfl
+  push_cast at this
+  rw [this, norm_zero] at h1
+  exact lt_irrefl _ h1
+
+theorem p_regular (b : O) (h : (p : O) * b = 0) : b = 0 :=
+  (mul_eq_zero.mp h).resolve_left (p_ne_zero p)
+
+theorem norm_le_one (x : O) : ‖(x : ℂ_[p])‖ ≤ 1 := (mem_O_iff p _).mp x.2
+
+/-- **Divisibility in the tilt.** If `ϖ♯ = p`, every `c ∈ O♭` with `coeff 0 c = 0` is a multiple
+of `ϖ`. -/
+theorem dvd_of_coeff_zero (ϖ : PreTilt O p) (hϖ : ϖ.untilt = p) (c : PreTilt O p)
+    (hc : PreTilt.coeff 0 c = 0) : ∃ d, c = ϖ * d := by
+  -- `‖c♯‖ ≤ ‖p‖`
+  have hc0 : ‖((c.untilt : O) : ℂ_[p])‖ ≤ ‖(p : ℂ_[p])‖ := by
+    have : c.untilt ∈ span {(p : O)} ^ 1 := by
+      rw [pow_one, ← Ideal.Quotient.eq_zero_iff_mem, PreTilt.mk_untilt_eq_coeff_zero, hc]
+    simpa using (mem_span_pow_iff p _ 1).mp this
+  have hϖn : ∀ n, ‖((root ϖ n : O) : ℂ_[p])‖ ^ p ^ n = ‖(p : ℂ_[p])‖ := fun n => by
+    have h := congrArg (fun z : O => ‖(z : ℂ_[p])‖) (root_pow ϖ n)
+    rw [hϖ] at h
+    simpa [norm_pow] using h
+  have hcn : ∀ n, ‖((root c n : O) : ℂ_[p])‖ ^ p ^ n = ‖((c.untilt : O) : ℂ_[p])‖ := fun n => by
+    have h := congrArg (fun z : O => ‖(z : ℂ_[p])‖) (root_pow c n)
+    simpa [norm_pow] using h
+  have hne : ∀ n, ((root ϖ n : O) : ℂ_[p]) ≠ 0 := fun n h0 => by
+    have := hϖn n
+    rw [h0, norm_zero, zero_pow (pow_ne_zero _ hp.out.ne_zero)] at this
+    exact (ne_of_lt (norm_p_pos p)) this
+  have hle : ∀ n, ‖((root c n : O) : ℂ_[p])‖ ≤ ‖((root ϖ n : O) : ℂ_[p])‖ := fun n => by
+    have hpn : p ^ n ≠ 0 := pow_ne_zero _ hp.out.ne_zero
+    refine (pow_le_pow_iff_left₀ (norm_nonneg _) (norm_nonneg _) hpn).mp ?_
+    rw [hcn, hϖn]; exact hc0
+  let e : ℕ → O := fun n => ⟨((root c n : O) : ℂ_[p]) / ((root ϖ n : O) : ℂ_[p]),
+    (mem_O_iff p _).mpr (by
+      rw [norm_div]; exact div_le_one_of_le₀ (hle n) (norm_nonneg _))⟩
+  have he : ∀ n, e (n + 1) ^ p = e n := fun n => by
+    apply Subtype.ext
+    simp only [e, SubmonoidClass.coe_pow, div_pow]
+    rw [← SubmonoidClass.coe_pow, ← SubmonoidClass.coe_pow, root_succ_pow, root_succ_pow]
+  have hce : ∀ n, root c n = root ϖ n * e n := fun n => by
+    apply Subtype.ext
+    simp only [e, MulMemClass.coe_mul]
+    field_simp [hne n]
+  let d : PreTilt O p := ⟨fun n => Ideal.Quotient.mk _ (e n), fun n => by
+    rw [← map_pow, he]⟩
+  refine ⟨d, ?_⟩
+  apply Perfection.ext
+  intro n
+  change PreTilt.coeff n c = PreTilt.coeff n (ϖ * d)
+  rw [map_mul]
+  change PreTilt.coeff n c = PreTilt.coeff n ϖ * Ideal.Quotient.mk _ (e n)
+  rw [← mk_root, ← mk_root, ← map_mul, hce]
+
+/-- A compatible system of `p`-power roots of `p` in `ℂ_p`. -/
+noncomputable def rootsOfP : ℕ → ℂ_[p]
+  | 0 => p
+  | n + 1 => Classical.choose (IsAlgClosed.exists_pow_nat_eq (rootsOfP n) hp.out.pos)
+
+theorem rootsOfP_succ_pow (n : ℕ) : rootsOfP p (n + 1) ^ p = rootsOfP p n :=
+  Classical.choose_spec (IsAlgClosed.exists_pow_nat_eq (rootsOfP p n) hp.out.pos)
+
+theorem rootsOfP_pow (n : ℕ) : rootsOfP p n ^ p ^ n = p := by
+  induction n with
+  | zero => simp [rootsOfP]
+  | succ n ih => rw [pow_succ', pow_mul, rootsOfP_succ_pow, ih]
+
+theorem norm_rootsOfP_le (n : ℕ) : ‖rootsOfP p n‖ ≤ 1 := by
+  induction n with
+  | zero => exact (mem_O_iff p _).mp (p : O).2
+  | succ n ih =>
+    rw [← rootsOfP_succ_pow] at ih
+    rw [norm_pow] at ih
+    exact (pow_le_one_iff_of_nonneg (norm_nonneg _) hp.out.ne_zero).mp ih
+
+/-- `p♭ = (p, p^{1/p}, p^{1/p²}, …) ∈ 𝓞_ℂ_p♭`. -/
+noncomputable def pFlat : PreTilt O p :=
+  ⟨fun n => Ideal.Quotient.mk _ ⟨rootsOfP p n, (mem_O_iff p _).mpr (norm_rootsOfP_le p n)⟩,
+    fun n => by
+      rw [← map_pow]
+      congr 1
+      exact Subtype.ext (by simpa using rootsOfP_succ_pow p n)⟩
+
+theorem untilt_pFlat : (pFlat p).untilt = p := by
+  rw [IsHausdorff.eq_iff_smodEq (I := span {(p : O)})]
+  intro n
+  rw [SModEq.sub_mem, mem_span_pow_iff']
+  have h1 : root (pFlat p) n - ⟨rootsOfP p n, (mem_O_iff p _).mpr (norm_rootsOfP_le p n)⟩ ∈
+      span {(p : O)} := by
+    rw [← Ideal.Quotient.eq, mk_root]; rfl
+  have h2 := dvd_sub_pow_of_dvd_sub (Ideal.mem_span_singleton.mp h1) n
+  rw [root_pow] at h2
+  have h3 : (⟨rootsOfP p n, (mem_O_iff p _).mpr (norm_rootsOfP_le p n)⟩ : O) ^ p ^ n = p :=
+    Subtype.ext (by simpa using rootsOfP_pow p n)
+  rw [h3] at h2
+  obtain ⟨c, hc⟩ := h2
+  exact ⟨p * c, by rw [hc]; ring⟩
+
+/-- Fontaine's generator `ξ = p − [p♭] ∈ W(𝓞_ℂ_p♭)`. -/
+noncomputable def xi : WittVector p (PreTilt O p) :=
+  (p : WittVector p (PreTilt O p)) - teichmuller p (pFlat p)
+
+/-- **Main theorem.** The kernel of Fontaine's `θ : W(𝓞_ℂ_p♭) → 𝓞_ℂ_p` is generated by
+`ξ = p − [p♭]`. -/
+theorem ker_fontaineTheta_Cp : RingHom.ker (fontaineTheta O p) = span {xi p} :=
+  ker_fontaineTheta_eq_span (p_regular p) (pFlat p) (untilt_pFlat p)
+    (dvd_of_coeff_zero p (pFlat p) (untilt_pFlat p))
+
+/-- The image of `ξ` in `W(𝓞_ℂ_p♭)[1/p]`. -/
+noncomputable def xi' : Localization.Away (p : WittVector p (PreTilt O p)) :=
+  algebraMap _ _ (xi p)
+
+/-- **Main theorem, Mathlib's form.** The kernel of `fontaineThetaInvertP` (θ with `p`
+inverted, the ideal along which Mathlib completes to get `BDeRhamPlus`) is principal,
+generated by the image of `ξ = p − [p♭]`. -/
+theorem ker_fontaineThetaInvertP_Cp :
+    RingHom.ker (fontaineThetaInvertP O p) = span {xi' p} :=
+  ker_fontaineThetaInvertP_eq_span (p_regular p) _ (ker_fontaineTheta_Cp p)
+
+/-- Hence `BDeRham 𝓞_ℂ_p` inverts `ξ` (Mathlib's generator set is non-empty). -/
+theorem isUnit_xi_BDeRham_Cp :
+    IsUnit (algebraMap (BDeRhamPlus O p) (BdR O p)
+      (AdicCompletion.of (RingHom.ker (fontaineThetaInvertP O p)) _ (xi' p))) :=
+  isUnit_xi_BDeRham (p_regular p) _ (ker_fontaineTheta_Cp p)
+
+end BdrKer.Cp
+
+#print axioms BdrKer.Cp.ker_fontaineTheta_Cp
+#print axioms BdrKer.Cp.ker_fontaineThetaInvertP_Cp
+#print axioms BdrKer.Cp.isUnit_xi_BDeRham_Cp
+
 #print axioms BdrKer.ker_fontaineTheta_eq_span
 #print axioms BdrKer.isUnit_xi_BDeRham
 
