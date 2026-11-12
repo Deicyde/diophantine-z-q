@@ -6,8 +6,9 @@ article_id: af_7e4dd9c7081349458077d6b1
 
 The forms CR₃^Sel, CR₃^5b, CR₃^TYZ and CR₃^TYZ_Cl of the certified rank hypothesis met so far
 conclude that every 2-Selmer class of $C_d:y^2=x^3-d^2x$ comes from a rational point, and CR₃
-itself that one given class does. The published theorems behind them (Kriz's
-2-converse with the corank lemma, or Tian–Yuan–Zhang with Gross–Zagier) give a rank statement
+itself that one given class does. The theorems behind them (Tian–Yuan–Zhang as completed by
+Proposition N, which is not refereed, and Gross–Zagier with an auxiliary field; Kriz's 2-converse
+with the corank lemma is an alternative that is not needed) give a rank statement
 ($\operatorname{rank}C_d(\mathbb Q)\ge1$), not a statement about Selmer classes. This chapter proves the step between the two, RK9, by the
 complete 2-descent. The descent map $\delta_d$ has kernel $2C_d(\mathbb Q)$ and image in
 $\mathrm{Sel}_2(C_d)$, and $C_d(\mathbb Q)[2]$ has order $4$. So when $C_d(\mathbb Q)$ is finitely

@@ -11,12 +11,14 @@ is "`C_d(ℚ)` has a point of infinite order", assuming Mordell–Weil for `C_d(
 is stated from SixContactMin and each positive-rank form:
 
 * `exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankRk`:
-  `RouteK.Rank.CertifiedRankRk` (Kriz's 2-converse, or Tian–Yuan–Zhang with Gross–Zagier);
+  `RouteK.Rank.CertifiedRankRk` (Tian–Yuan–Zhang with Proposition N, and Gross–Zagier with an
+  auxiliary field; Kriz's 2-converse is an alternative that is not needed);
 * `exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZRk`:
   `RouteK.Rank.CertifiedRankTYZRk` (odd genus sum `T5b d` gives positive rank);
 * `exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk`:
   `RouteK.Rank.CertifiedRankTYZClRk` (the same with Tian–Yuan–Zhang's class numbers; Rédei's
-  formula `RouteK.Rank5b.RedeiFormula` is proved, `RouteK.Redei.redeiFormula`).
+  formula `RouteK.Rank5b.RedeiFormula` is proved, `RouteK.Redei.redeiFormula`). Lean derives
+  every other form of CR₃ from it; the trust statement is `docs/research/cr3-trust.md`.
 -/
 
 namespace ZInQ

@@ -68,9 +68,12 @@ Selmer group). Used, not formalized, to identify the Selmer group defined here w
 
 ## Deep inputs of CR3Sel
 
-The theorems behind CR₃^Sel are those named for CR₃: Kriz, *Supersingular main conjectures, Sylvester's
+The theorems behind CR₃^Sel are those named for CR₃: Tian–Yuan–Zhang, *Genus periods, genus points
+and congruent number problem*, Asian J. Math. 21 (2017), Theorem 3.5 and the argument of the proof
+of Theorem 3.5(2), as completed by Proposition N (`docs/research/nt-tyz.md` §4), with Gross–Zagier,
+Invent. Math. 84 (1986), over an auxiliary imaginary quadratic field (Bump–Friedberg–Hoffstein;
+`docs/research/cr3-trust.md` §1, D2); see `docs/research/cr3-trust.md`. As an alternative that is not
+needed (`docs/research/nt-tyz.md` §5.1): Kriz, *Supersingular main conjectures, Sylvester's
 conjecture and Goldfeld's conjecture* (arXiv:2002.04767), Theorems 10.13 and 10.17(2), with the corank
 lemma (the Cassels–Tate pairing on $Ш/Ш_{\rm div}$ is nondegenerate and alternating: Cassels,
-J. reine angew. Math. 211 (1962); the manuscript cites Poonen–Stoll, Ann. of Math. 150 (1999)); or Tian–Yuan–Zhang, *Genus periods, genus points and congruent number problem*,
-Asian J. Math. 21 (2017), Theorem 3.5(2), with Gross–Zagier–Kolyvagin (see
-`docs/research/tyz-5b.md`).
+J. reine angew. Math. 211 (1962); the manuscript cites Poonen–Stoll, Ann. of Math. 150 (1999)).

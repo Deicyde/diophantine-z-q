@@ -17,8 +17,8 @@ to computation:
 
 | Input | Deep dependency |
 | --- | --- |
-| H (Theorem 4.1) | refereed theorems (Shimura curve: Shimura, Deligne, Kottwitz, Baba–Granath, Lin–Yang, González–Rotger; SGA 1, SGA 7, Serre–Tate; Faltings 1983; Scholze; Berger; Pan's Theorem 1.0.4; p-adic Hodge theory of modular forms in the Tate-module normalization, at every level (Saito 1997, or Scholl 1990 with Scholze), with Deligne–Serre 1974 for weight one; Li, Shimura 1973, Eichler–Shimura (Shimura 1971); Carayol; Serre's local fields; Silverberg–Zarhin; Javanpeykar; Gaudron–Rémond; Pazuki; Igusa), plus the manuscript's descent, conductor and transfer arguments (model reviews only: [rv-h-novel](docs/research/rv-h-novel.md), Astra), the manuscript's geometric, twist and theta-height bookkeeping (Astra; the twist and weight step also [rv-h-c8](docs/research/rv-h-c8.md); of three passages new in the 11/5 text, the de Rham lemma reviewed in [rv-h-trust](docs/research/rv-h-trust.md) and [rv-h-c3](docs/research/rv-h-c3.md), the other two in rv-h-trust and [rv-h-a9c9](docs/research/rv-h-a9c9.md)), NoCM ([h-cm](docs/research/h-cm.md), [rv-h-cm](docs/research/rv-h-cm.md)), and Lemma PR in place of the integral model ([h-b1](docs/research/h-b1.md); model review [rv-h-b1](docs/research/rv-h-b1.md)). No unpublished upstream proof supplement. Outline: [docs/research/h-trust.md](docs/research/h-trust.md) |
-| PC (Theorem 5.2) | the restricted converse (Theorem 5.3): Kato, Waldspurger, Bump–Friedberg–Hoffstein, Nekovář, Gross–Zagier–Kolyvagin, BCDT. Under Route K (pole polynomial with the congruent number curves `x + ℓ`), PC is **proved** from the narrow hypothesis CR₃ (`ZInQ.poleCompleteness_of_certifiedRank`): Kriz's 2-converse with the corank lemma, or Tian–Yuan–Zhang with Gross–Zagier–Kolyvagin (of which only Gross–Zagier is needed, [docs/research/pc-audit.md](docs/research/pc-audit.md) RK7), for curves `C_d`, `d ≡ 5 (mod 8)`, with a 3-dimensional explicit 2-Selmer system |
+| H (Theorem 4.1) | refereed theorems (Shimura curve: Shimura, Deligne, Kottwitz, Baba–Granath, Lin–Yang, González–Rotger; SGA 1, SGA 7, Serre–Tate; Faltings 1983; Scholze; Berger; Pan's Theorem 1.0.4; p-adic Hodge theory of modular forms in the Tate-module normalization, at every level (Saito 1997, Scholl 1990 with Scholze, or Kato 2004), with Deligne–Serre 1974 for weight one; Li, Shimura 1973, Eichler–Shimura (Shimura 1971); Carayol; Serre's local fields; Silverberg–Zarhin; Javanpeykar; Gaudron–Rémond; Pazuki; Igusa), plus the manuscript's descent, conductor and transfer arguments (model reviews only: [rv-h-novel](docs/research/rv-h-novel.md), Astra), the manuscript's geometric, twist and theta-height bookkeeping (Astra; the twist and weight step also [rv-h-c8](docs/research/rv-h-c8.md); of three passages new in the 11/5 text, the de Rham lemma reviewed in [rv-h-trust](docs/research/rv-h-trust.md) and [rv-h-c3](docs/research/rv-h-c3.md), the other two in rv-h-trust and [rv-h-a9c9](docs/research/rv-h-a9c9.md)), NoCM ([h-cm](docs/research/h-cm.md), [rv-h-cm](docs/research/rv-h-cm.md)), and Lemma PR in place of the integral model ([h-b1](docs/research/h-b1.md); model review [rv-h-b1](docs/research/rv-h-b1.md)). No unpublished upstream proof supplement. Outline: [docs/research/h-trust.md](docs/research/h-trust.md) |
+| PC (Theorem 5.2) | the restricted converse (Theorem 5.3): Kato, Waldspurger, Bump–Friedberg–Hoffstein, Nekovář, Gross–Zagier–Kolyvagin, BCDT. Under Route K (pole polynomial with the congruent number curves `x + ℓ`), PC is **proved** from the narrow hypothesis CR₃ (`ZInQ.poleCompleteness_of_certifiedRank`): Tian–Yuan–Zhang with Proposition N ([docs/research/nt-tyz.md](docs/research/nt-tyz.md) §4) and Gross–Zagier with an auxiliary imaginary quadratic field ([docs/research/pc-audit.md](docs/research/pc-audit.md) RK7; Kriz's 2-converse is an alternative that is not needed), for curves `C_d`, `d ≡ 5 (mod 8)`, with a 3-dimensional explicit 2-Selmer system. Outline: [docs/research/cr3-trust.md](docs/research/cr3-trust.md) |
 | 22P (Proposition 6.2), used by M | Green–Tao linear equations in primes, Möbius–nilsequences, Green–Tao–Ziegler. **Replaced** by route AP, whose input is proved in Lean: Szemerédi's theorem in the primes (`ZInQ.greenTaoDense`, from a vendored Green–Tao proof) and the weak form of Proposition D (`ZInQ.Density.goodPrimeDensity`) |
 | CAT (a step in the proof of Proposition 12.1), used by B | the explicit progression estimate of Bennett–Martin–O'Bryant–Rechnitzer; the weaker form CAT₈ that the proof needs is **proved** (`ZInQ.catalogueBound8`, from an effective Dirichlet theorem) |
 | MW, used by G | the Mordell–Weil theorem over `ℚ(√2)`: **proved** (`ZInQ.mordellWeilE`, from the two-isogeny descent and Mathlib's descent theorem) |
@@ -49,6 +49,50 @@ in `ZInQKernel/MainGreenTao.lean`. Apart from the root module `ZInQKernel.lean`,
 it is the only module that combines the vendored Green–Tao library or the vendored sieve with the
 main construction.
 
+The form of the theorem whose hypotheses are closest to the literature, and the fork's headline,
+is
+
+```lean
+theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzRow5b_functionalEquation5_grossZagier
+    (hH : SixContactMin) (hT : Literature.TYZRow5b) (hF : Literature.FunctionalEquation5)
+    (hG : Literature.GrossZagier) : FrozenTarget
+```
+
+in `ZInQKernel/MainLiterature.lean`. Its three CR₃ hypotheses are Props over Mathlib's L-series of
+an elliptic curve (`ZInQKernel/Hypotheses/CR3Literature.lean`): `Literature.GrossZagier` (for every
+elliptic curve over ℚ, a simple zero of `L(E, s)` at `s = 1` gives a point of infinite order),
+`Literature.FunctionalEquation5` (the functional equation of `L(C_d, s)` with conductor `32d²` and
+root number `−1`, on the strip `0 < Re s < 2`) and `Literature.TYZRow5b` (`L(C_d, s)` vanishes to
+order at most 1 at `s = 1` when `T5bCl d = 1`). The first two are textbook theorems. No refereed
+text that we have read prints the third. It follows, with Hecke's continuation, from
+Tian–Yuan–Zhang's Theorem 3.5(2) for `n ≡ 5 (mod 8)` (row `(7, 3)`, contrapositive) in reading A,
+where decompositions are set partitions of the primes, each counted once, with `d₁ = 1` allowed.
+Theorem 1.2 of arXiv:1411.4728v1, read literally, is false (`d = 26565` and `d = 33117` are
+counterexamples), and the paper's proof of reading A passes through its Proposition 3.4, whose proof
+is a sketch; the journal text (Asian J. Math. 21 (2017)) has not been compared. Proposition N proves
+the statement from unambiguous results of the arXiv version without Proposition 3.4
+(`docs/research/nt-tyz.md` §4; two reviews by AI models, none by a human). The plan and its review
+are `docs/research/wk-cr3.md` and `docs/research/rv-lit.md`. From the three Props Lean derives
+(`Literature.rootNumberVanishing_of_functionalEquation`, then
+`Literature.certifiedRankTYZClRk_of_literature`) the positive-rank form
+
+```lean
+theorem ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk
+    (hH : SixContactMin) (hCR : RouteK.Rank.CertifiedRankTYZClRk) : FrozenTarget
+```
+
+in `ZInQKernel/RouteK/RankVariants.lean`. `CertifiedRankTYZClRk` says that for squarefree
+`d ≡ 5 (mod 8)` with odd genus sum `T5bCl d`, `C_d(ℚ)` has a point of infinite order. Its premise
+has no Selmer condition, and in Lean it implies every other form of CR₃. The forms that assume
+least are `CertifiedRankRk` and, for the two curves per input that the proof uses,
+`CertifiedRankDLRk` and `CertifiedRankDLAdmRk` (the paragraphs on CR₃'s forms below).
+`MainLiterature.lean` also has variants that assume H in its j-form `JHeight.JHeightBound`
+(`ZInQKernel/Hypotheses/JHeight.lean`), a bound on the height of the Hauptmodul value `J(u)`. It
+implies `SixContactMin` in Lean (step F4 and the final numerics), so its trust statement is steps
+A1–F3 of `docs/research/h-trust.md` (reduction: `docs/research/wk-h.md`).
+Trust statements, which list every step with its supplier, published or not:
+`docs/research/h-trust.md` for H, and `docs/research/cr3-trust.md` for `CertifiedRankTYZClRk`.
+
 H enters in its minimal form `SixContactMin` (`ZInQKernel/Hypotheses/HeightMin.lean`): the one
 inequality `h(u) ≤ H₆(D) M_{S_mul}(u)²⁴` for `u ∈ ℚ \ 𝒞` that the proof uses, the instance
 `S = S_mul`, `R = D` of Theorem 4.1. The manuscript's form `SixContactEstimate` implies it
@@ -63,11 +107,15 @@ CR₃ says: if `d > 0` is squarefree with `d ≡ 5 (mod 8)`, `a` is a squarefree
 `|a| ≡ 7 (mod 8)`, and the explicit 2-Selmer system `Σ(𝒞_d)` of `d` (`ZInQKernel/RouteK/System/`,
 built from Legendre symbols only) has exactly 8 solutions, one of them with first coordinate the
 class of `a`, then `C_d : y² = x³ − d²x` has a rational point with `x ≠ 0` and `x ∈ aℚ*²`. It follows
-from Proposition 0 (the system is `Sel₂(C_d)`, `docs/research/descent-alt.md` §4.1) with either
-Kriz's 2-converse (arXiv:2002.04767, Theorem 10.13) and the corank lemma (Cassels–Tate on `Ш/Ш_div`), or
+from Proposition 0 (the system is `Sel₂(C_d)`, `docs/research/descent-alt.md` §4.1) with
 Tian–Yuan–Zhang (Theorem 3.5 and the argument of the proof of Theorem 3.5(2), §3.3, as completed in
-`docs/research/nt-tyz.md` §4) and Gross–Zagier–Kolyvagin (`docs/research/tyz-5b.md`; only Gross–Zagier
-is needed, `docs/research/pc-audit.md` RK7). PC is then
+`docs/research/nt-tyz.md` §4 by Proposition N, which has two model reviews, `rv-nt-tyz.md` and
+`rv-prop-n.md`) and Gross–Zagier with an auxiliary imaginary quadratic field
+(`docs/research/pc-audit.md` RK7); Kolyvagin's published papers enter only inside Tian–Yuan–Zhang.
+Kriz's 2-converse (arXiv:2002.04767, Theorem 10.13, a preprint) with the corank lemma is an
+alternative that is not needed. The trust statement, with a supplier and a status for every step
+and the residual list, is `docs/research/cr3-trust.md` (reviewed in `docs/research/rv-cr3-trust.md`).
+PC is then
 a theorem (`ZInQ.poleCompleteness_of_certifiedRank`): the descent lemma DL
 (`ZInQ.RouteK.descent_lemma`, `docs/research/slot-k.md` §2, proved in `ZInQKernel/RouteK/`) gives,
 for every admissible input `B`, a multiplier `m` and two curves `C_{|n|}`, `C_{|nθ|}` certified for
@@ -121,6 +169,9 @@ and `det M_5b = 1`, every Selmer class comes from a rational point;
 `ZInQ.RouteK.Rank5b.certifiedRankSel_of_certifiedRank5b`). `CertifiedRank5b` implies CR₃^Sel, so as a
 hypothesis it is at least as strong, but it is stated in the terms of Smith's table, the step toward
 Tian–Yuan–Zhang's own statement (`tyz-5b.md` §3).
+`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRank5b`
+(`RouteK/Rank5bSec3.lean`) takes only SixContactMin and `CertifiedRank5b`; the older variant
+`exists_bounded_integer_polynomial_defining_integers_of_certifiedRank5b` also takes 22P.
 
 That step is done: sections 2 and 3 of `tyz-5b.md` are proved in Lean (`ZInQKernel/RouteK/Rank5b/Sec3/`),
 including the forest lemma and Theorem 3.6, `det M_5b = T_5b(d)` (`ZInQ.RouteK.Rank5b.det_M5b_eq_T5b`),
@@ -163,6 +214,10 @@ be read without Mathlib's group law. `CertifiedRankTYZClRk` implies `CertifiedRa
 least. `CertifiedRankTYZClRk` is the form whose content is literally Tian–Yuan–Zhang's
 Proposition N and Gross–Zagier, with no condition on `Sel₂`; its main-theorem variant
 (`…_sixContactMin_certifiedRankTYZClRk`) takes only SixContactMin and `CertifiedRankTYZClRk`.
+Lean derives every other form of CR₃ from `CertifiedRankTYZClRk`, including the forms with the
+premise `#Sel₂(C_d) = 8` (`certifiedRankTYZ_of_certifiedRankTYZRk'`,
+`certifiedRankTYZCl_of_certifiedRankTYZClRk'`, `certifiedRank5b_of_certifiedRankTYZ`) and
+`CertifiedRankDLAdmRk`; `docs/research/cr3-trust.md` §0 lists the 14 forms and the implications.
 
 The proof applies CR₃ at only two curves, `C_{d₁}` and `C_{d₁|θ|}`, where `d₁ = D.d₁` comes from a
 slot choice `D : RouteK.Slots β θ p₀` (`RouteK/RankDL.lean`). `RouteK.Rank.CertifiedRankDLRk` says
@@ -172,7 +227,8 @@ points of infinite order. Lean proves `CertifiedRankRk → CertifiedRankDLRk`
 one, and `CertifiedRankDLRk → PoleCompleteness`, hence the main theorem from SixContactMin and
 `CertifiedRankDLRk`
 (`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLRk`);
-`CertifiedRankDLAdmRk` quantifies only over admissible `B`. These forms rest on the same literature
+`CertifiedRankDLAdmRk` quantifies only over admissible `B`
+(`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLAdmRk`). These forms rest on the same literature
 as `CertifiedRankRk`. What they add is a smaller target for partial results, such as explicit
 points on the curves of some slot choice (`poleSoluble_of_slots_infinite_order`). They depend on the
 internal definitions `Inputs` and `Slots`, so a change to the slot construction changes their

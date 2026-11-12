@@ -103,10 +103,14 @@ of $n$ (§4). The class-number form CR₃^TYZ_Cl is located in the locators of t
 
 `docs/research/nt-tyz.md` §4: Proposition N. For squarefree $n\equiv5\pmod8$, if
 $T_{5b}(n)=\sum_{d_0\equiv7,\,d_1\equiv3}g(d_0)g(d_1)\mathcal L_1(n/d_0d_1)$ is odd, then
-$\mathcal L(n)\ne0$ and $\operatorname{ord}_{s=1}L(C_n,s)=1$ (the note writes $E_n$ for $C_n$). It
-is proved from Tian–Yuan–Zhang's Theorem 3.5 (first assertion), Lemmas 3.16, 3.18 and 3.21, Lemma
-2.8, Proposition 2.3 and the recursion of their §3.1. §4.5 gives the recommended citation; their
-Theorem 1.2 must not be cited in its literal form.
+$\mathcal L(n)\ne0$ and $\operatorname{ord}_{s=1}L(C_n,s)=1$ (the note writes $E_n$ for $C_n$). It is proved
+from Tian–Yuan–Zhang's Theorem 3.5 (first assertion), Theorem 3.3 (the $\varepsilon$-classes of the
+recursion), Proposition 3.2(1), Lemmas 3.16, 3.18 and 3.21, Lemma 2.8, Proposition 2.3 and the
+recursion of their §3.1. §4.5 gives the recommended citation; their Theorem 1.2 must not be cited in
+its literal form. Proposition N is not refereed; it has two model reviews,
+`docs/research/rv-nt-tyz.md` and `docs/research/rv-prop-n.md` (the second written without the source
+text of Tian–Yuan–Zhang; verdict: it holds as stated, relative to the inputs as quoted, with
+presentational corrections recorded at the end of `docs/research/nt-tyz.md`).
 
 ## Validation
 
@@ -118,20 +122,26 @@ and the slot curves; §7 records an independent automated referee run.
 Y. Tian, X. Yuan, S.-W. Zhang, *Genus periods, genus points and congruent number problem*,
 Asian J. Math. 21 (2017), no. 4, 721–774; arXiv:1411.4728. Theorem 3.5(2) and its proof in §3.3;
 `docs/research/tyz-5b.md` §1.2 locates the form used (if $T_{5b}(n)$ is odd, then
-$2^{-\rho(n)}\mathcal L(n)$ is odd) in that proof.
+$2^{-\rho(n)}\mathcal L(n)$ is odd) in that proof; the form used holds as completed by
+Proposition N (see above), not by Proposition 3.4 as written (`docs/research/nt-tyz.md` §2.3).
 
 ## Gross-Zagier-Kolyvagin
 
-The manuscript's Lemma 5.5 (`lem:forward-rank`): analytic rank one implies rank one, by
-Gross–Zagier and Kolyvagin.
+The manuscript's Lemma 5.5 (`lem:forward-rank`): analytic rank one implies rank one, by Gross–Zagier
+and Kolyvagin. The justification of the hypotheses here does not use it: Gross–Zagier over an
+auxiliary field (below) gives rank at least one, which is all that is needed
+(`docs/research/cr3-trust.md` §1, D4).
 
 ## Gross-Zagier over an auxiliary field
 
 B. Gross and D. Zagier, *Heegner points and derivatives of L-series*, Invent. Math. 84 (1986),
 225–320, applied with an auxiliary imaginary quadratic field $K$ that satisfies the Heegner
-hypothesis and has $L(C_n^K,1)\ne0$ (Bump–Friedberg–Hoffstein; Murty–Murty). The curve $C_n$ is
-modular because it has complex multiplication by $\mathbb Z[i]$. Only "analytic rank one implies
-rank at least one" is used; Kolyvagin's theorem is not needed (`docs/research/pc-audit.md` RK7).
+hypothesis and has $L(C_n^K,1)\ne0$ (Bump–Friedberg–Hoffstein). `docs/research/cr3-trust.md` §1,
+D2 names the suppliers: Bump–Friedberg–Hoffstein, Waldspurger, or Friedberg–Hoffstein, not
+Murty–Murty (the derivative case); their theorem numbers, and whether the level $32n^2$ is allowed,
+are still to be checked. The curve $C_n$ is modular because it has complex multiplication by
+$\mathbb Z[i]$. Only "analytic rank one implies rank at least one" is used;
+Kolyvagin's theorem is not needed (`docs/research/pc-audit.md` RK7).
 
 ## Smith
 

@@ -15,8 +15,9 @@ solutions $(x,y)\in\mathbb Q^2$.
 
 The premises are those of [CR₃^Rk](../certified-rank-rk.md); only the conclusion changes, from "a
 point of infinite order on $C_d(\mathbb Q)$" to "infinitely many rational solutions", which mentions
-no group law. The two hypotheses are equivalent, so CR₃^Inf rests on the same published theorems:
-Kriz's 2-converse theorem with the corank lemma, or Tian–Yuan–Zhang with Gross–Zagier. Neither is
+no group law. The two hypotheses are equivalent, so CR₃^Inf rests on the same theorems:
+Tian–Yuan–Zhang as completed by Proposition N, which is not refereed, and Gross–Zagier with an
+auxiliary field. None of them is
 proved here, so CR₃^Inf is a hypothesis.
 
 **Remark (classical meaning).** For the squarefree $d$ here, infinitely many rational solutions is
@@ -32,7 +33,6 @@ not used.
 
 - [The infinitely-many-points forms](../../../sources/rank-locators.md#the-infinitely-many-points-forms)
 - [The positive-rank form](../../../sources/rank-locators.md#the-positive-rank-form)
-- [Kriz](../../../sources/rank-locators.md#kriz)
-- [Cassels-Tate](../../../sources/route-k-locators.md#cassels-tate)
 - [Tian-Yuan-Zhang](../../../sources/rank-locators.md#tian-yuan-zhang)
 - [Gross-Zagier](../../../sources/rank-locators.md#gross-zagier)
+- [The trust statement for CR3](../../../sources/route-k-locators.md#the-trust-statement-for-cr3)

@@ -31,8 +31,9 @@ their equations, which mentions no group law. The assertion still depends on the
 so a change to the slot construction changes what it asserts. The two hypotheses are equivalent.
 Since CR₃^DL,Rk follows from [CR₃^Rk](../two-curves/certified-rank-dl-rk-of-rk.md) and from
 [CR₃^TYZ,Rk](../two-curves/certified-rank-dl-rk-of-tyz-rk.md), the equivalences make CR₃^DL,Inf
-follow from CR₃^Inf and from CR₃^TYZ,Inf, so it rests on the same published theorems: Kriz's
-2-converse theorem with the corank lemma, or Tian–Yuan–Zhang with Gross–Zagier. It is a
+follow from CR₃^Inf and from CR₃^TYZ,Inf, so it rests on the same theorems:
+Tian–Yuan–Zhang as completed by Proposition N, which is not refereed, and Gross–Zagier with an
+auxiliary field. It is a
 hypothesis, not proved here.
 
 ## Depends on
@@ -46,7 +47,6 @@ hypothesis, not proved here.
 
 - [The infinitely-many-points forms](../../../sources/rank-locators.md#the-infinitely-many-points-forms)
 - [The two curves of a slot choice](../../../sources/rank-locators.md#the-two-curves-of-a-slot-choice)
-- [Kriz](../../../sources/rank-locators.md#kriz)
 - [Tian-Yuan-Zhang](../../../sources/rank-locators.md#tian-yuan-zhang)
 - [Gross-Zagier](../../../sources/rank-locators.md#gross-zagier)
-- [Cassels-Tate](../../../sources/route-k-locators.md#cassels-tate)
+- [The trust statement for CR3](../../../sources/route-k-locators.md#the-trust-statement-for-cr3)

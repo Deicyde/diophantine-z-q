@@ -88,7 +88,7 @@ Trust statement (no Rédei needed: `g` is TYZ's own class number):
   `Σ_{d₀ ≡ 7, d₁ ≡ 3 (8)} g(d₀) g(d₁) 𝓛₁(n/d₀d₁)` (= `T5bCl n` mod 2) is odd, then `𝓛(n) ≠ 0` and
   `ord_{s=1} L(C_n, s) = 1`.
 * **Gross–Zagier** with an auxiliary imaginary quadratic field satisfying the Heegner hypothesis
-  and with `L(C_d^K, 1) ≠ 0` (Bump–Friedberg–Hoffstein or Murty–Murty;
+  and with `L(C_d^K, 1) ≠ 0` (Bump–Friedberg–Hoffstein;
   `docs/research/pc-audit.md` RK7): analytic rank one gives `rank C_d(ℚ) ≥ 1`; with
   `dim Sel₂(C_d) = 3` every Selmer class is then the image of a rational point
   (`docs/research/pc-audit.md` RK9; `Selmer.loc_iff_kummer`).

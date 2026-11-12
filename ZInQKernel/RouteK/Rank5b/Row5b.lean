@@ -187,18 +187,23 @@ end nat
 Legendre symbols of the primes of `n`) is `1`, then the 2-covering `D_{a,b}` of every
 `(a, b) ∈ Sel₂(C_n)` has a rational point.
 
-**Trust statement.** CR₃^5b is not proved in Lean. It follows from Tian–Yuan–Zhang
+**Trust statement.** CR₃^5b is not proved in Lean. Lean derives it from
+`Rank.CertifiedRankTYZClRk` (through `CertifiedRankTYZ` and `certifiedRank5b_of_certifiedRankTYZ`;
+see `docs/research/cr3-trust.md`). It follows from Tian–Yuan–Zhang
 (Y. Tian, X. Yuan, S.-W. Zhang, *Genus periods, genus points and congruent number problem*, Asian
 J. Math. 21 (2017), no. 4, 721–774: Theorem 3.5 and the argument of the proof of Theorem 3.5(2) in
-§3.3, as completed in `docs/research/nt-tyz.md` §4, through Smith's row 5b)
-together with Gross–Zagier–Kolyvagin, as follows (`docs/research/tyz-5b.md` §§1, 3):
+§3.3, as completed in `docs/research/nt-tyz.md` §4, Proposition N, through Smith's row 5b)
+together with Gross–Zagier with an auxiliary imaginary quadratic field, as follows
+(`docs/research/tyz-5b.md` §§1, 3):
 
 * tyz-5b §3 (elementary, Smith's row 5b reproved): `det M_5b = T_5b(n)`, the genus sum
   `Σ_{d₀ ≡ 7, d₁ ≡ 3 (8)} g(d₀)g(d₁)𝓛(n/d₀d₁)` mod 2, with `g(d) = #2Cl(ℚ(√−d)) mod 2`;
 * tyz-5b §1.2 (TYZ, proof of Theorem 3.5(2)): if `T_5b(n)` is odd then `2^{−ρ(n)}𝓛(n)` is odd, so
   `𝓛(n) ≠ 0` and `ord_{s=1} L(C_n, s) = 1` (the root number is `−1` for `n ≡ 5 (mod 8)`);
-* Gross–Zagier and Kolyvagin (manuscript Lemma 5.5): `rank C_n(ℚ) = 1`;
-* then `dim C_n(ℚ)/2C_n(ℚ) = 2 + 1 = 3 = dim Sel₂(C_n)`, so the Kummer map is onto `Sel₂(C_n)`
+* Gross–Zagier (Invent. Math. 84 (1986)), over an imaginary quadratic field with the Heegner
+  hypothesis and `L(C_n^K, 1) ≠ 0` (Bump–Friedberg–Hoffstein): `rank C_n(ℚ) ≥ 1`; Kolyvagin's
+  published papers enter only inside Tian–Yuan–Zhang, and the manuscript's Lemma 5.5 is not used;
+* then `dim C_n(ℚ)/2C_n(ℚ) = 2 + rank ≥ 3 = dim Sel₂(C_n)`, so the Kummer map is onto `Sel₂(C_n)`
   and every Selmer class comes from a rational point, i.e. `D_{a,b}(ℚ) ≠ ∅`
   (`Selmer.loc_iff_kummer` over `ℚ`).
 

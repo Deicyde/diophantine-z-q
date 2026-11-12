@@ -68,8 +68,9 @@ These are the two curves to which pole completeness applies CR₃ (`d₂ = D.d�
 `Slots.d₂_eq`). The slot choice is existential, so a family of explicit points on the curves of some
 slot choice suffices. CR₃^DL,Rk is implied in Lean by CR₃^Rk
 (`certifiedRankDLRk_of_certifiedRankRk`) and by CR₃^TYZ,Rk
-(`certifiedRankDLRk_of_certifiedRankTYZRk`), and so rests on the same literature (Kriz's 2-converse
-with the corank lemma, or Tian–Yuan–Zhang with Gross–Zagier); any statement Lean derives from these
+(`certifiedRankDLRk_of_certifiedRankTYZRk`), and so rests on the same literature (Tian–Yuan–Zhang
+with Proposition N, and Gross–Zagier with an auxiliary field; `docs/research/cr3-trust.md`); any
+statement Lean derives from these
 hypotheses, down to `PoleCompleteness` itself, is equally justified by that literature. What this
 form adds is a smaller target for partial results.
 
@@ -221,6 +222,18 @@ theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_cer
     (hH : SixContactMin) (hCR : RouteK.Rank.CertifiedRankDLRk) : FrozenTarget :=
   Assembly.assembly_AP Compiler.NodeCheck.haltingAddMulBound hH
     (RouteK.Rank.poleCompleteness_of_certifiedRankDLRk hCR)
+    (Mult.slopeRepresentationAP_of_goodPrimeAP
+      (goodPrimeAP_of_greenTaoDense greenTaoDense Density.goodPrimeDensity))
+
+/-- **Theorem 1.1** from 6C_min and CR₃^DL,Adm,Rk (`RouteK.Rank.CertifiedRankDLAdmRk`: for every
+admissible `B`, a multiplier and a slot choice whose two curves have points of infinite order).
+Pole completeness comes from `RouteK.Rank.poleCompleteness_of_certifiedRankDLAdmRk`; the rest of
+the assembly is that of
+`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLRk`. -/
+theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankDLAdmRk
+    (hH : SixContactMin) (hCR : RouteK.Rank.CertifiedRankDLAdmRk) : FrozenTarget :=
+  Assembly.assembly_AP Compiler.NodeCheck.haltingAddMulBound hH
+    (RouteK.Rank.poleCompleteness_of_certifiedRankDLAdmRk hCR)
     (Mult.slopeRepresentationAP_of_goodPrimeAP
       (goodPrimeAP_of_greenTaoDense greenTaoDense Density.goodPrimeDensity))
 

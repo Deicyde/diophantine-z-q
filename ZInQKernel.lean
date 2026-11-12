@@ -75,3 +75,7 @@ import ZInQKernel.RouteK.RankDL
 import ZInQKernel.RouteK.RankInf
 import ZInQKernel.RouteK.RedeiKernel
 import ZInQKernel.RouteK.Redei
+import ZInQKernel.Hypotheses.CR3Literature
+import ZInQKernel.RouteK.Rank.LFunctionCd
+import ZInQKernel.Hypotheses.JHeight
+import ZInQKernel.MainLiterature

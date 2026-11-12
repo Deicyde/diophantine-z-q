@@ -110,7 +110,8 @@ $\mathbb Z[i]$, an unrefereed preprint (`docs/research/pc-audit.md` RK1;
 `docs/research/cr3-map-literature.md` §4, C4). With the corank lemma (see the Route K locators,
 Cassels-Tate) it gives $\operatorname{rank}C_d(\mathbb Q)=1$ when $\dim\mathrm{Sel}_2(C_d)=3$. Its
 construction assumes $f_0\ge4$, where $f_0$ is the odd part of $|d|$; for odd squarefree
-$d\equiv5\pmod8$ this holds, since $f_0=d\ge5$ (RK1).
+$d\equiv5\pmod8$ this holds, since $f_0=d\ge5$ (RK1). It is an alternative route that the
+hypotheses do not need (`docs/research/nt-tyz.md` §5.1).
 
 ## Tian-Yuan-Zhang
 
@@ -125,9 +126,12 @@ $g(n)=\#2\mathrm{Cl}(\mathbb Q(\sqrt{-n}))$ (§1).
 
 B. Gross and D. Zagier, *Heegner points and derivatives of L-series*, Invent. Math. 84 (1986),
 225–320, applied with an auxiliary imaginary quadratic field that satisfies the Heegner hypothesis
-and has $L(C_d^K,1)\ne0$ (Bump–Friedberg–Hoffstein; Murty–Murty). Only "analytic rank one implies
-rank at least one" is used; Kolyvagin's finiteness of $Ш$ is not needed, and $C_d$ is modular since
-it has CM by $\mathbb Z[i]$ (`docs/research/pc-audit.md` RK7).
+and has $L(C_d^K,1)\ne0$ (Bump–Friedberg–Hoffstein). `docs/research/cr3-trust.md` §1, D2 names
+the suppliers: Bump–Friedberg–Hoffstein, Waldspurger, or Friedberg–Hoffstein, not Murty–Murty (the
+derivative case); their theorem numbers, and whether the level $32d^2$ is allowed, are still to be
+checked. Only "analytic rank one implies rank at least one" is used;
+Kolyvagin's finiteness of $Ш$ is not needed, and $C_d$ is modular since it has CM by $\mathbb Z[i]$
+(`docs/research/pc-audit.md` RK7).
 
 ## Silverman-Tate
 

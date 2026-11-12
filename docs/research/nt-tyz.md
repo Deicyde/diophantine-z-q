@@ -608,3 +608,20 @@ pairing, or Smith's preprint. Kriz remains only as the alternative route named i
   1.2* (tyz-5b §7, item 1). The literal statement is false (§1.4), so it cannot be cited at all.
 - *Classical Heegner/Monsky criteria in place of TYZ.* They cover `n` with one or two odd primes,
   while the slot curves have 6 to 20 (tyz-5b §6).
+
+## Note (2026-11-11, task cr3-adopt): corrections from the second review
+
+The second review of Proposition N, `docs/research/rv-prop-n.md` (verdict: holds as stated),
+lists presentational corrections to §4 (rv-prop-n §6). None changes the mathematics; the text
+above is left unchanged.
+
+1. §4.4 says that `β' + 1` "commutes with `[i]` (F4)". F4 is not used there: the coefficients
+   applied to the `Z(e)` are the integers `ℓ_e`, and the `ℤ[i]`-coefficients sit inside `X`. (F4 is
+   true, but it belongs to TYZ's own step S4 of §2.)
+2. One lift `β' ∈ Gal(ℍ'_n/ℚ)` serves all `Z(e)`, `e | n`, at once: it restricts on each `ℍ'_e` to a
+   lift of `β₁`, and Lemma 3.21 holds for any lift, so I5 applies to every `Z(e)` with the same
+   `β'`.
+3. In I1, the inclusion `ℍ'_{d₀} ⊂ ℍ'_n` for `d₀ | n` is part of the quotation of TYZ (the
+   definition of `ℍ'_n`, L1320), not a statement proved here.
+4. The `ε`-information the proof uses is only `ε(d₀, d₁) ≡ ±1` on the classes `(5, 1)`, `(7, 1)`
+   and `(7, 3)`; the value at `(5, 3)` is irrelevant (rv-prop-n §2, §4.3).

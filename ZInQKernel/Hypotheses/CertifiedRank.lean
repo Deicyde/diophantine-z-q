@@ -18,35 +18,41 @@ configuration of `d` has exactly 8 solutions (dimension 3) and one of them has f
 class of `a` (`a₀ = [a < 0]`, `a₁ = 0`, `u_p = [p ∣ a]`), then the congruent number curve
 `C_d : y² = x³ − d²x` has a rational point `(x, y)` with `x ≠ 0` and `x ∈ a ℚ*²`.
 
-**Trust statement.** CR₃ is not proved in Lean. It is the only input of the Route K proof of pole
-completeness that Lean does not prove, and it follows from published (or preprint) theorems:
+**Trust statement.** CR₃ is not proved in Lean. Lean derives it from `RouteK.Rank.CertifiedRankRk`
+(`certifiedRank_of_certifiedRankRk'`), and that from `RouteK.Rank.CertifiedRankTYZClRk`
+(`Redei.certifiedRankTYZRk_of_certifiedRankTYZClRk`, `certifiedRankRk_of_certifiedRankTYZRk`).
+The latter says: for squarefree `d ≡ 5 (mod 8)` with odd genus sum of class numbers `T5bCl d`,
+`C_d(ℚ)` has a point of infinite order. Its proof is published mathematics, one short repository
+argument, and the match of the Lean definitions with TYZ's quantities (model reviews);
+`docs/research/cr3-trust.md` lists every step with its supplier:
 
-* *Proposition 0* (`docs/research/descent-alt.md` §4.1; the place-2 rows for `d ≡ 5 (mod 8)` are
-  rechecked in slot-k §2.1): `Σ(𝒞_d)` is the 2-Selmer group `Sel₂(C_d)` written in coordinates, a
-  solution standing for the pair of Kummer classes `((−1)^{a₀}2^{a₁}Π p^{u_p}, (−1)^{b₀}2^{b₁}Π p^{v_p})`.
-  So the hypotheses say `dim Sel₂(C_d) = 3` and `a ∈ π₁(Sel₂(C_d))`.
-* *Rank one*, by either of two routes:
-  - Kriz's 2-converse theorem (arXiv:2002.04767, Theorem 10.13; `E = C_d`, CM by `ℤ[i]`, `p = 2`;
-    Kriz's standing assumption `f₀ ≥ 4` holds since `d ≥ 21` here) together with the corank lemma
-    (manuscript line 1072; Cassels–Tate: the pairing on `Ш/Ш_div` is nondegenerate and alternating,
-    so `dim (Ш/Ш_div)[2]` is even, with no finiteness of `Ш` assumed)
-    gives `rank C_d(ℚ) = 1` and `Ш(C_d)[2] = 0`;
-  - or, for exactly the 2-adic shape `d ≡ 5`, `|a| ≡ 7 (mod 8)` assumed here, Tian–Yuan–Zhang
-    (Asian J. Math. 21 (2017): Theorem 3.5 and the argument of the proof of Theorem 3.5(2), §3.3,
-    as completed in `docs/research/nt-tyz.md` §4, Proposition N) shows `L(C_d, 1) = 0` with
-    `L'(C_d, 1) ≠ 0`, and Gross–Zagier–Kolyvagin gives rank one (`docs/research/tyz-5b.md`).
-    Tian–Yuan–Zhang's hypothesis is reached through Proposition 0 (`docs/research/descent-alt.md`;
-    `RouteK.Selmer.prop0Statement`), Corollary 4.4 and Theorem 3.6 of `docs/research/tyz-5b.md`
-    (`RouteK.Rank5b.det_M5b_eq_one`, `RouteK.Rank5b.det_M5b_eq_T5b`) and Rédei's formula
-    (`RouteK.Redei.redeiFormula`), all proved in Lean.
-* Either way `C_d(ℚ)/2C_d(ℚ) = Sel₂(C_d)` (pc-audit RK9), so the class `a` comes from a rational
-  point. That point is not torsion: the torsion classes are `1, −1, d, −d`, and `|a| ≢ 1, d`
-  (`|a| ≡ 7`, `d ≡ 5 (mod 8)`). For a non-torsion point the first Kummer coordinate is the class of
-  `x ≠ 0`, so `x ∈ a ℚ*²`, i.e. `x / a` is a square.
+* *Tian–Yuan–Zhang* (Y. Tian, X. Yuan, S.-W. Zhang, *Genus periods, genus points and congruent
+  number problem*, Asian J. Math. 21 (2017), 721–774; read in arXiv:1411.4728v1 only):
+  Theorem 3.5 (first assertion), Theorem 3.3, Proposition 3.2, Lemmas 2.8, 3.16, 3.18, 3.21,
+  Proposition 2.3 and the recursion of §3.1. Their proofs use Waldspurger's formula and the
+  Gross–Zagier formula of Yuan–Zhang–Zhang. TYZ's Theorem 1.2 is not cited: as printed (all
+  `d_i > 1`) it is false (`docs/research/nt-tyz.md` §1.4).
+* *Proposition N* (`docs/research/nt-tyz.md` §4; model reviews `docs/research/rv-nt-tyz.md` and
+  `docs/research/rv-prop-n.md`): from these inputs, if the `(7, 3)` genus sum `T_5b(d)` is odd
+  then TYZ's `𝓛(d) ≠ 0`, so `ord_{s=1} L(C_d, s) ≤ 1`, and the root number `−1` (Birch–Stephens)
+  gives `= 1`. It replaces TYZ's Proposition 3.4 by a direct parity count (Lemmas N1, N2). Not
+  refereed.
+* *Gross–Zagier* (Invent. Math. 84 (1986)), with an imaginary quadratic field satisfying the
+  Heegner hypothesis and `L(C_d^K, 1) ≠ 0` (Bump–Friedberg–Hoffstein): analytic rank one gives a
+  point of infinite order. `C_d` is modular since it has CM (Deuring, Shimura). Neither BCDT nor
+  Kolyvagin's MPIM preprint is needed; Kolyvagin's published papers enter only inside
+  Tian–Yuan–Zhang.
 
-The restrictions `d ≡ 5`, `|a| ≡ 7 (mod 8)` are exactly what the slot construction produces
-(slot-k §2.6, the K-TYZ-β rule), so CR₃ is as narrow as the proof allows short of naming the slot
-configurations themselves; `RouteK.Rank.CertifiedRankDLRk` (`RouteK/RankDL.lean`) names them. -/
+Everything else is proved in Lean: Rédei's formula (`RouteK.Redei.redeiFormula`, which turns
+`T5bCl` into Rédei's bits `T5b`), Theorem 3.6 and Corollary 4.4 of `docs/research/tyz-5b.md`
+(`RouteK.Rank5b.det_M5b_eq_T5b`, `det_M5b_eq_one`: the premises here give `T5b d = 1`),
+Proposition 0 (`RouteK.Selmer.prop0Statement`: `Σ(𝒞_d)` is `Sel₂(C_d)`), Mordell–Weil for `C_d`
+(`RouteK.Rank.fg_points`), and the step from a point of infinite order and `#Sel₂(C_d) = 8` to a
+point in the class `a` (`RouteK.Rank.loc_of_mem_sel2_of_infinite_order`; pc-audit RK9).
+Kriz's 2-converse (arXiv:2002.04767, Theorem 10.13, a preprint) with the corank lemma is an
+alternative route; it is not needed (`docs/research/nt-tyz.md` §5.1). Weaker forms that Lean also
+accepts: `RouteK.Rank.CertifiedRankDLRk` and `CertifiedRankDLAdmRk` (only the curves the proof
+uses). -/
 def CertifiedRank : Prop :=
   ∀ (d : ℕ) (a : ℤ) (hd : d % 8 = 5), Squarefree d → Squarefree a → a ∣ (d : ℤ) →
     a.natAbs % 8 = 7 →

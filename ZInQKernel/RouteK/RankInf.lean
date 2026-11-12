@@ -103,8 +103,8 @@ contains a pair `(a, b)` with `|a| ≡ 7 (mod 8)`, then `y² = x³ − d²x` has
 solutions, i.e. `d` is a congruent number.
 
 **Trust statement.** Not proved in Lean. It has the same strength as `CertifiedRankRk`
-(`certifiedRankInf_iff_certifiedRankRk`) and rests on the same literature (Kriz's 2-converse with
-the corank lemma, or Tian–Yuan–Zhang with Gross–Zagier; see `CertifiedRankRk`). It differs only in
+(`certifiedRankInf_iff_certifiedRankRk`) and rests on the same literature (Tian–Yuan–Zhang with
+Proposition N, and Gross–Zagier with an auxiliary field; see `CertifiedRankRk`). It differs only in
 that the trusted statement mentions no group law: its conclusion is `InfinitelyManyPoints d`. -/
 def CertifiedRankInf : Prop :=
   ∀ d : ℕ, d % 8 = 5 → Squarefree d → (Sel2 d).ncard = 8 → (∃ ab ∈ Sel2 d, ab.1.natAbs % 8 = 7) →

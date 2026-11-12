@@ -23,23 +23,17 @@ with `d ≡ 5 (mod 8)`. If `Sel₂(C_d)` (`Sel2 d`) has exactly 8 elements and c
 with `|a| ≡ 7 (mod 8)`, then `C_d : y² = x³ − d²x` (`shortCurve (−d²)` over `ℚ`) has a rational
 point of infinite order.
 
-**Trust statement.** CR₃^Rk is not proved in Lean. It says `rank C_d(ℚ) ≥ 1`, which is provided
-by either of:
-
-* Kriz's 2-converse theorem (arXiv:2002.04767, Theorem 10.13; `E = C_d`, CM by `ℤ[i]`, `p = 2`;
-  its standing assumption `f₀ ≥ 4` holds since `d ≥ 21`, see `Selmer.CertifiedRankSel`) together
-  with the corank lemma (Cassels–Tate on `Ш/Ш_div`), giving `rank C_d(ℚ) = 1`;
-* or, for the 2-adic shape `d ≡ 5`, `|a| ≡ 7 (mod 8)`, Tian–Yuan–Zhang (Asian J. Math. 21 (2017):
-  Theorem 3.5 and the argument of the proof of Theorem 3.5(2), §3.3, as completed in
-  `docs/research/nt-tyz.md` §4, Proposition N), which gives `ord_{s=1} L(C_d, s) = 1`, and
-  Gross–Zagier (`docs/research/pc-audit.md` RK7), which gives `rank C_d(ℚ) ≥ 1`. Tian–Yuan–Zhang's
-  hypothesis is reached through Corollary 4.4 and Theorem 3.6 of `docs/research/tyz-5b.md`
-  (`certifiedRankRk_of_certifiedRankTYZRk`) and Rédei's formula (`RouteK.Redei.redeiFormula`), all
-  proved in Lean.
-
-The step from positive rank to "every Selmer class comes from a rational point"
-(`docs/research/pc-audit.md` RK9) is proved in Lean (`loc_of_mem_sel2_of_infinite_order`), from
-Mordell–Weil for `C_d(ℚ)` (hypothesis `hfg` of `certifiedRankSel_of_certifiedRankRk`). -/
+**Trust statement.** Not proved in Lean. Lean derives it from `CertifiedRankTYZClRk`
+(`Redei.certifiedRankTYZRk_of_certifiedRankTYZClRk`, `certifiedRankRk_of_certifiedRankTYZRk`):
+the premises give `T5b d = 1` by Corollary 4.4 and Theorem 3.6 of `docs/research/tyz-5b.md`
+(`det_M5b_eq_one`, `det_M5b_eq_T5b`), and Rédei's formula (`RouteK.Redei.redeiFormula`) makes
+that `T5bCl d = 1`. So it rests on Tian–Yuan–Zhang as completed by Proposition N
+(`docs/research/nt-tyz.md` §4; model reviews `docs/research/rv-nt-tyz.md`,
+`docs/research/rv-prop-n.md`) and on Gross–Zagier with an auxiliary field, exactly as
+`CertifiedRankTYZClRk` (see there and `docs/research/cr3-trust.md`). Kriz's 2-converse
+(arXiv:2002.04767, Theorem 10.13, a preprint) with the corank lemma is an alternative, not needed.
+The step to "every Selmer class comes from a rational point" (pc-audit RK9) is proved in Lean
+(`loc_of_mem_sel2_of_infinite_order`, with `fg_points`). -/
 def CertifiedRankRk : Prop :=
   ∀ d : ℕ, d % 8 = 5 → Squarefree d → (Sel2 d).ncard = 8 → (∃ ab ∈ Sel2 d, ab.1.natAbs % 8 = 7) →
     ∃ P : (shortCurve (-(d : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P
@@ -50,8 +44,9 @@ infinite order.
 
 **Trust statement.** Not proved in Lean. It is provided by Tian–Yuan–Zhang (Theorem 3.5 and the
 argument of the proof of Theorem 3.5(2), §3.3, completed in `docs/research/nt-tyz.md` §4,
-Proposition N: `ord_{s=1} L(C_d, s) = 1`) and Gross–Zagier (`docs/research/pc-audit.md` RK7:
-analytic rank one gives `rank C_d(ℚ) ≥ 1`); see `Rank5b.CertifiedRankTYZ` for the precise citations.
+Proposition N: `ord_{s=1} L(C_d, s) = 1`) and Gross–Zagier with an auxiliary imaginary quadratic
+field (`docs/research/pc-audit.md` RK7: analytic rank one gives `rank C_d(ℚ) ≥ 1`); see
+`CertifiedRankTYZClRk` and `Rank5b.CertifiedRankTYZ` for the precise citations.
 Rédei's formula, which identifies `T5b d` with the genus sum of class numbers in Tian–Yuan–Zhang's
 hypothesis, is proved in Lean (`RouteK.Redei.redeiFormula`; see `CertifiedRankTYZClRk`).
 Neither `#Sel₂(C_d) = 8` nor RK9 is part of this statement: RK9 is proved in Lean
@@ -64,11 +59,18 @@ def CertifiedRankTYZRk : Prop :=
 `d ≡ 5 (mod 8)` with odd genus sum of class numbers `T5bCl d = Σ_π Π_{B∈π} #(2 Cl(ℚ(√−d_B)))`,
 `C_d(ℚ)` has a point of infinite order.
 
-**Trust statement.** Not proved in Lean. It is Tian–Yuan–Zhang (arXiv:1411.4728, Theorem 3.5 and
-the argument of the proof of Theorem 3.5(2), §3.3, completed in `docs/research/nt-tyz.md` §4,
-Proposition N: `ord_{s=1} L(C_d, s) = 1`) followed by Gross–Zagier (`docs/research/pc-audit.md`
-RK7: `rank C_d(ℚ) ≥ 1`); see `Rank5b.CertifiedRankTYZCl`. No Rédei formula is needed, and RK9 is
-proved in Lean (`loc_of_mem_sel2_of_infinite_order`). -/
+**Trust statement.** Not proved in Lean. It is Tian–Yuan–Zhang (Asian J. Math. 21 (2017),
+721–774, read as arXiv:1411.4728v1): Theorem 3.5 (first assertion) with Theorem 3.3,
+Proposition 3.2, Lemmas 2.8, 3.16, 3.18, 3.21 and Proposition 2.3, as completed by Proposition N
+(`docs/research/nt-tyz.md` §4, model reviews `docs/research/rv-nt-tyz.md` and
+`docs/research/rv-prop-n.md`; not refereed): if `T5bCl d` is odd, TYZ's `𝓛(d) ≠ 0`, and with the
+root number `−1` (Birch–Stephens) `ord_{s=1} L(C_d, s) = 1`. Then Gross–Zagier (Invent. Math. 84
+(1986)), with an auxiliary imaginary quadratic field (Bump–Friedberg–Hoffstein), gives a point of
+infinite order. `T5bCl d` is TYZ's `(7, 3)` genus sum with `g(d_B) = #2Cl(ℚ(√−d_B))`, so no Rédei
+formula is needed; TYZ's Theorem 1.2 is not cited (false as printed). Lean derives every other
+form of CR₃ from it (the forms with the premise `#Sel₂ = 8` through RK9 and Mordell–Weil,
+`certifiedRankTYZ_of_certifiedRankTYZRk'`, `certifiedRankTYZCl_of_certifiedRankTYZClRk'`).
+Step-by-step outline: `docs/research/cr3-trust.md`. -/
 def CertifiedRankTYZClRk : Prop :=
   ∀ d : ℕ, d % 8 = 5 → Squarefree d → T5bCl d = 1 →
     ∃ P : (shortCurve (-(d : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P

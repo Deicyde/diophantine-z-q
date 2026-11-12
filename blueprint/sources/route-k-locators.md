@@ -79,23 +79,40 @@ expansion, and its value $1$ on a curve with 2-Selmer dimension $3$ and a first 
 $\equiv3\pmod4$), and §5 (the curves of the slot construction). `docs/research/rv-route-k.md`
 §4.3 checks the hypotheses of Kriz's theorem for the curves $C_d$.
 
+## The trust statement for CR3
+
+`docs/research/cr3-trust.md`, a project-authored note: the forms of the hypothesis CR₃ that the
+variants of the main theorem take, and the implications between them (§0); a numbered outline of
+the argument for the class-number form in positive-rank form, with a supplier and a status for
+every step (§1): the match of the statement with Tian–Yuan–Zhang's quantities (Part A), their
+deep results (Part B), Proposition N (Part C), Gross–Zagier with an auxiliary imaginary quadratic
+field from Bump–Friedberg–Hoffstein, Waldspurger or Friedberg–Hoffstein, with the theorem numbers and
+the level still to be checked (Part D, which also records that the manuscript's Lemma 5.5
+and Kriz's 2-converse are not used), and the steps proved here (Part E); and what remains outside
+refereed sources (§2). `docs/research/rv-cr3-trust.md` is a model review of that note.
+
 ## Kriz
 
 D. Kriz, *Supersingular main conjectures, Sylvester's conjecture and Goldfeld's conjecture*,
 arXiv:2002.04767v5 (2022), Theorems 10.13 and 10.17(2): the 2-converse theorem in rank one
-for curves with CM by $\mathbb Z[i]$. An unrefereed preprint.
+for curves with CM by $\mathbb Z[i]$. An unrefereed preprint. With the corank lemma it is an
+alternative route to rank one that the hypotheses do not need (`docs/research/nt-tyz.md` §5.1).
 
 ## Tian-Yuan-Zhang
 
 Y. Tian, X. Yuan and S.-W. Zhang, *Genus periods, genus points and congruent number problem*,
-Asian J. Math. 21 (2017), no. 4, 721–774 (read in arXiv:1411.4728v1), Theorem 3.5(2) and its
-proof in §3.3: for squarefree $n\equiv5\pmod8$, an odd genus sum $T_{5b}(n)$ makes
+Asian J. Math. 21 (2017), no. 4, 721–774 (read in arXiv:1411.4728v1), Theorem 3.5 (first
+assertion) and the argument of the proof of Theorem 3.5(2) in §3.3, as completed in
+`docs/research/nt-tyz.md` §4 by Proposition N (no readable version of Tian–Yuan–Zhang states this
+form directly, nt-tyz Verdict 1): for squarefree $n\equiv5\pmod8$, an odd genus sum $T_{5b}(n)$ makes
 $L(C_n,s)$ vanish to order exactly one at $s=1$.
 
 ## Gross-Zagier-Kolyvagin
 
 The manuscript's Lemma 5.5 (`lem:forward-rank`, line 1086): analytic rank one implies rank
-one, by Gross–Zagier and Kolyvagin.
+one, by Gross–Zagier and Kolyvagin. The trust statement for CR₃ does not use it: Gross–Zagier over
+an auxiliary imaginary quadratic field gives rank at least one, which is all that is needed
+(`docs/research/cr3-trust.md` §1, D4).
 
 ## Cassels-Tate
 

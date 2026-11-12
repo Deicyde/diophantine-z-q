@@ -16,7 +16,8 @@ positive-rank forms CR₃^Rk and CR₃^TYZ,Rk of [the positive-rank chapter](../
 implies pole completeness: on a certified curve, a point of infinite order makes every Selmer
 class come from a rational point, and this gives the points with abscissas in
 $\beta\mathbb Q^{*2}$ that the pole polynomial needs. The same holds for CR₃^DL,Adm,Rk, which asks
-for the points only at the inputs that admissible numbers produce.
+only that for every admissible $B$ some multiplier, prime $p_0$ and slot choice give two curves
+with points of infinite order.
 
 Throughout, $C_d$ is the curve $y^2=x^3-d^2x$, as in the rest of the positive-rank chapter.
 
@@ -48,8 +49,8 @@ and those of CR₃^TYZ,Rk through Proposition 0, Corollary 4.4 and Theorem 3.6.
 
 ## Pole completeness
 
-With CR₃^DL,Rk in place of CR₃, the main theorem holds under the minimal height hypothesis and
-CR₃^DL,Rk alone:
+With CR₃^DL,Rk or CR₃^DL,Adm,Rk in place of CR₃, the main theorem holds under the minimal height
+hypothesis and either of them alone:
 [the main theorem from positive rank on the two curves of a slot choice](../../main/main-theorem-two-curves.md).
 
 - [A point of infinite order on a certified curve](point-of-infinite-order.md)
