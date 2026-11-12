@@ -1,0 +1,76 @@
+== Part A: CM count on X0(6,1): GR Prop 5.6 with orientation factor vs unqualified h(R) ==
+|D|  dK  f  h  b  2^b*h  fibre  unqualified-h-ok?  GR-count-ok?
+  84   -84  1  4  0     4     4  True   True 
+  40   -40  1  2  1     4     4  False  True 
+  51   -51  1  2  1     4     4  False  True 
+  19   -19  1  1  2     4     4  False  True 
+ 120  -120  1  4  0     4     4  True   True 
+  52   -52  1  2  1     4     4  False  True 
+ 132  -132  1  4  0     4     4  True   True 
+  75    -3  5  2  1     4     4  False  True 
+ 168  -168  1  4  0     4     4  True   True 
+  43   -43  1  1  2     4     4  False  True 
+ 228  -228  1  4  0     4     4  True   True 
+  88   -88  1  2  1     4     4  False  True 
+ 123  -123  1  2  1     4     4  False  True 
+ 100    -4  5  2  1     4     4  False  True 
+ 147    -3  7  2  1     4     4  False  True 
+ 312  -312  1  4  0     4     4  True   True 
+  67   -67  1  1  2     4     4  False  True 
+ 148  -148  1  2  1     4     4  False  True 
+ 372  -372  1  4  0     4     4  True   True 
+ 408  -408  1  4  0     4     4  True   True 
+ 267  -267  1  2  1     4     4  False  True 
+ 232  -232  1  2  1     4     4  False  True 
+ 708  -708  1  4  0     4     4  True   True 
+ 163  -163  1  1  2     4     4  False  True 
+rows where the unqualified count #CM(R)=h(R) contradicts the 4-point fibre: 15 of 24
+rows with b = 0 (the only case where rv-h-cm 7.2 uses #CM = h): [84, 120, 132, 168, 228, 312, 372, 408, 708]
+elliptic |D|=4: h=1 b=1 2^b h=2 (unqualified: 1); points of X6 over t=1: 2
+elliptic |D|=3: h=1 b=1 2^b h=2 (unqualified: 1); points of X6 over t=inf: 2
+elliptic |D|=24: h=2 b=0 2^b h=2 (unqualified: 2); points of X6 over t=0: 2
+
+== Part B: fibre field Q(x)=Q(sqrt(-t), sqrt(3(t-1))) on X6 vs GR Thm 5.12 ==
+predicted: [Q(x):Q] = 2h and K in Q(x) if D(R) != 1 (b >= 1); [Q(x):Q] = h and K not in Q(x) if b = 0
+unramified check: every quadratic subfield Q(sqrt a) of Q(x) has K(sqrt a)=K(sqrt a') with disc(Q(sqrt a')) | D
+  84 b=0 h=4: Q(x)=Q(sqrt of [-3, -1, 3]) deg 4 (pred 4), K in Q(x): False, [K.Q(x):K]=4 (=h: True), unram: True  OK
+  40 b=1 h=2: Q(x)=Q(sqrt of [-10, -2, 5]) deg 4 (pred 4), K in Q(x): True, [K.Q(x):K]=2 (=h: True), unram: True  OK
+  51 b=1 h=2: Q(x)=Q(sqrt of [-51, -3, 17]) deg 4 (pred 4), K in Q(x): True, [K.Q(x):K]=2 (=h: True), unram: True  OK
+  19 b=2 h=1: Q(x)=Q(sqrt of [-19]) deg 2 (pred 2), K in Q(x): True, [K.Q(x):K]=1 (=h: True), unram: True  OK
+ 120 b=0 h=4: Q(x)=Q(sqrt of [-15, -3, 5]) deg 4 (pred 4), K in Q(x): False, [K.Q(x):K]=4 (=h: True), unram: True  OK
+  52 b=1 h=2: Q(x)=Q(sqrt of [-13, -1, 13]) deg 4 (pred 4), K in Q(x): True, [K.Q(x):K]=2 (=h: True), unram: True  OK
+ 132 b=0 h=4: Q(x)=Q(sqrt of [-3, -1, 3]) deg 4 (pred 4), K in Q(x): False, [K.Q(x):K]=4 (=h: True), unram: True  OK
+  75 b=1 h=2: Q(x)=Q(sqrt of [-15, -3, 5]) deg 4 (pred 4), K in Q(x): True, [K.Q(x):K]=2 (=h: True), unram: True  OK
+ 168 b=0 h=4: Q(x)=Q(sqrt of [-3, -2, 6]) deg 4 (pred 4), K in Q(x): False, [K.Q(x):K]=4 (=h: True), unram: True  OK
+  43 b=2 h=1: Q(x)=Q(sqrt of [-43]) deg 2 (pred 2), K in Q(x): True, [K.Q(x):K]=1 (=h: True), unram: True  OK
+ 228 b=0 h=4: Q(x)=Q(sqrt of [-3, -1, 3]) deg 4 (pred 4), K in Q(x): False, [K.Q(x):K]=4 (=h: True), unram: True  OK
+  88 b=1 h=2: Q(x)=Q(sqrt of [-22, -11, 2]) deg 4 (pred 4), K in Q(x): True, [K.Q(x):K]=2 (=h: True), unram: True  OK
+ 123 b=1 h=2: Q(x)=Q(sqrt of [-123, -3, 41]) deg 4 (pred 4), K in Q(x): True, [K.Q(x):K]=2 (=h: True), unram: True  OK
+ 100 b=1 h=2: Q(x)=Q(sqrt of [-5, -1, 5]) deg 4 (pred 4), K in Q(x): True, [K.Q(x):K]=2 (=h: True), unram: True  OK
+ 147 b=1 h=2: Q(x)=Q(sqrt of [-7, -3, 21]) deg 4 (pred 4), K in Q(x): True, [K.Q(x):K]=2 (=h: True), unram: True  OK
+ 312 b=0 h=4: Q(x)=Q(sqrt of [-39, -3, 13]) deg 4 (pred 4), K in Q(x): False, [K.Q(x):K]=4 (=h: True), unram: True  OK
+  67 b=2 h=1: Q(x)=Q(sqrt of [-67]) deg 2 (pred 2), K in Q(x): True, [K.Q(x):K]=1 (=h: True), unram: True  OK
+ 148 b=1 h=2: Q(x)=Q(sqrt of [-37, -1, 37]) deg 4 (pred 4), K in Q(x): True, [K.Q(x):K]=2 (=h: True), unram: True  OK
+ 372 b=0 h=4: Q(x)=Q(sqrt of [-3, -1, 3]) deg 4 (pred 4), K in Q(x): False, [K.Q(x):K]=4 (=h: True), unram: True  OK
+ 408 b=0 h=4: Q(x)=Q(sqrt of [-51, -3, 17]) deg 4 (pred 4), K in Q(x): False, [K.Q(x):K]=4 (=h: True), unram: True  OK
+ 267 b=1 h=2: Q(x)=Q(sqrt of [-267, -3, 89]) deg 4 (pred 4), K in Q(x): True, [K.Q(x):K]=2 (=h: True), unram: True  OK
+ 232 b=1 h=2: Q(x)=Q(sqrt of [-58, -2, 29]) deg 4 (pred 4), K in Q(x): True, [K.Q(x):K]=2 (=h: True), unram: True  OK
+ 708 b=0 h=4: Q(x)=Q(sqrt of [-3, -1, 3]) deg 4 (pred 4), K in Q(x): False, [K.Q(x):K]=4 (=h: True), unram: True  OK
+ 163 b=2 h=1: Q(x)=Q(sqrt of [-163]) deg 2 (pred 2), K in Q(x): True, [K.Q(x):K]=1 (=h: True), unram: True  OK
+all rows agree with GR Thm 5.12 on X6: True
+
+== Part C: the audit's discriminant -24 example ==
+D=-24: K=Q(sqrt(-6)), h=2, [H_R:Q]=4; genus field H_R = Q(sqrt-6, sqrt2), subfields [-6, -3, 2]
+  on X* = X6/W: t=0 (j=-16/27) is rational: [H_R : Q(j)] = 4 (> 2: no index-2 statement on the quotient)
+  on X6 over t=0: y1=0, y2^2 = 3(0-1) = -3: Q(x) = Q(sqrt-3), in H_R: True, K in Q(x): False, [H_R:Q(x)] = 2 = GR Thm 5.12 (D(R)=1)
+== Part D: ramification of X6 -> P^1_t, and of Y3 -> P^1_j (Riemann-Hurwitz) ==
+  t=0: index 2, points above 2
+  t=1: index 2, points above 2
+  t=inf: index 2, points above 2
+  |(O/3O)^*| = 72;  kernel of nrd mod 3 (image of O^1 by strong approx.) = 36
+  [Gamma*:Gamma_3] = 4 * 36/2 = 72; components of Y3: |Zhat^*/nrd K3| = 2; total 144 (= h-b1 M3's 144)
+  indices (4, 6, 2): 2g-2 = 72*(1/12) = 6 -> g = 4 (valid)
+  indices (2, 2, 2): 2g-2 = 72*(-1/2) = -36 -> g = -17 (IMPOSSIBLE)
+  -chi (orbifold): Gamma^1 (0;2,2,3,3): 1/3; Gamma* (0;2,4,6): 1/12; ratio 4 = |W|
+  stabilizer orders in W at the three points: 4/2, 6/3, 2/1 = 2, 2, 2
+  assignments (e_0, e_inf, e_-16/27) for which 'p not | M_S(u) => unramified' holds: [((2, 4, 6), False), ((2, 6, 4), False), ((4, 2, 6), False), ((4, 6, 2), True), ((6, 2, 4), False), ((6, 4, 2), False)]
