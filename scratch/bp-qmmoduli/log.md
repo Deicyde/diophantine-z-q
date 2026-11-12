@@ -48,3 +48,4 @@ Task: blueprint for the Shimura-curve objects of leaves R1-R3, R5 (docs/research
   `GlueA6Alg.goodReduction_of_QM_rational3'` (`I = ι(i)`, `J = ι(j)`, `i² = 2`, `j² = −3`,
   `ji + ij = 0` proved in `𝒪`; `hrat` from `Level3.onto` + `Level3.rational`). Compiles, axioms
   propext, Classical.choice, Quot.sound (VERIFIED).
+- docs/research/bp-qmmoduli.md written (first version).
