@@ -48,3 +48,12 @@
 - Defs0.lean removed (superseded by Leaves.lean §0-§1).
 - Note fix needed: statement count is 40 leaves = 43 statements when L15, L27, L28 are split;
   placeholders 35, stated 8.
+
+## Step 6 (deliverables complete)
+- Note docs/research/hdec-faithful.md §§1-7 written; counts fixed (40 leaves / 43 statements;
+  8 stated, 35 placeholders).
+- Truth check of the 8 concrete leaves (by argument): all hold as stated (EigenformRepExists:
+  contragredient handles arithmetic vs geometric Frobenius; EigenformTwist: level N m² suffices
+  also for imprimitive ψ via p-depletion; FrobeniusDense: Chebotarev + surjectivity of D_v onto
+  the residue Galois group).
+- .fleet/hdec-faithful.md written.

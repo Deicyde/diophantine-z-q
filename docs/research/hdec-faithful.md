@@ -732,7 +732,7 @@ the height-of-polynomial-map step is medium now; the rest over L35. *Size:* medi
 **G20. Return to `u`** (F4). *Statement:* `JHeightBound Mult.S_mul → SixContactMin`. *Origin:* N5
 L949-964. *Lean:* **proved**, `ZInQ.JHeight.sixContactMin_of_jHeightBound`
 (`ZInQKernel/Hypotheses/JHeight.lean`), axioms `propext`, `Classical.choice`, `Quot.sound` (wk-h
-§4.1). `Leaves.lean` uses it in the statement of G0.
+§4.1). `Leaves.lean` uses it to prove G0 from `jHeightBound_of_leaves`.
 
 ## 5. Definitions
 
