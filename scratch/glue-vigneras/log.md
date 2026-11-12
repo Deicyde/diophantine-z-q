@@ -32,3 +32,4 @@
   `vhom`, `nrdU`, `φ : N →* (ℤ/2)²` (v₂, v₃ of nrd mod 2), `divisors_six`, `phi_eq_one_iff` (ker φ = ℚ^×𝒪^×),
   `phi_surjective` (images of i, j), `global_index`: (∀ x : N, x ∈ ker φ ↔ x ∈ ℚ^×𝒪^×) ∧ (ker φ).index = 4.
   `#print axioms global_index` = [propext, Classical.choice, Quot.sound]. VERIFIED.
+- 00:10 `S_subset_N`, `normalizer_index_four` COMPILE; axioms [propext, Classical.choice, Quot.sound]. VERIFIED.

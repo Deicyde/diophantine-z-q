@@ -485,4 +485,27 @@ theorem global_index :
     Nat.card_eq_fintype_card]
   rfl
 
+
+/-- `ℚ^×𝒪^× ⊆ N_B(𝒪)`. -/
+theorem S_subset_N (x : Bˣ) (hx : x ∈ S) : x ∈ N := by
+  obtain ⟨c, u, ⟨hu, hu'⟩, hxu⟩ := hx
+  have hinv : ((x⁻¹ : Bˣ) : B) = ((c⁻¹ : ℚˣ) : ℚ) • ((u⁻¹ : Bˣ) : B) := by
+    apply Units.inv_eq_of_mul_eq_one_right
+    rw [hxu, smul_mul_smul_comm, Units.mul_inv, Units.mul_inv, one_smul]
+  intro y
+  have e : (x : B) * y * ((x⁻¹ : Bˣ) : B) = (u : B) * y * ((u⁻¹ : Bˣ) : B) := by
+    rw [hinv, hxu, smul_mul_assoc, mul_smul_comm, smul_mul_assoc, smul_smul, Units.inv_mul, one_smul]
+  rw [e]
+  constructor
+  · intro hy; exact O_mul (O_mul hu hy) hu'
+  · intro h
+    have : y = ((u⁻¹ : Bˣ) : B) * ((u : B) * y * ((u⁻¹ : Bˣ) : B)) * (u : B) := by simp [mul_assoc]
+    rw [this]; exact O_mul (O_mul hu' h) hu
+
+/-- **`[N_B(𝒪) : ℚ^×𝒪^×] = 4`**, stated with `ℚ^×𝒪^×` as a subgroup of `N_B(𝒪)`: the set `S` lies in
+`N`, equals the kernel of `φ` there, and that kernel has index 4. -/
+theorem normalizer_index_four :
+    (∀ x : Bˣ, x ∈ S → x ∈ N) ∧ (∀ x : N, x ∈ φ.ker ↔ (x : Bˣ) ∈ S) ∧ φ.ker.index = 4 :=
+  ⟨S_subset_N, global_index⟩
+
 end GlueVigneras.Global
