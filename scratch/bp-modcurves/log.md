@@ -33,3 +33,7 @@
   `fieldX1 P = ℚ(j)⟮x(P)⟯`; `Y1j P` = Mathlib relative normalization of Spec ℚ[j] in `fieldX1 P`;
   `jMap`. Open statements (Props, not proved): `TorsionCardLe`, `FieldX1DegreeLe`, `FieldX1Degree` (leaf MC1').
   `lake env lean`: exit 0, no warnings; `Ej_j` standard axioms. VERIFIED.
+- 12:12 `AnalyticModuli.lean` (MC2d): `lat τ = ℤτ + ℤ`, `jfac γ τ = cτ + d`, `jfac_ne_zero`,
+  `coe_smul_eq`, `lattice_homothety` (j·Λ_{γτ} = Λ_τ), `lat_coeff_unique`, `point_preserved_iff`
+  (j·(1/N) ≡ 1/N mod Λ_τ ↔ γ ∈ Gamma1 N), `exactOrder` (k/N ∈ Λ_τ ↔ N ∣ k).
+  `lake env lean`: exit 0, no warnings; standard axioms. VERIFIED.
