@@ -56,3 +56,9 @@
   Jacobian, ModularCurveDefs, AnalyticModuli, PointTransport: exit 0, 0 errors, 0 warnings, no
   `sorry`/`admit`/`axiom` in the sources; every `#print axioms` line is ⊆ {propext, Classical.choice,
   Quot.sound}. VERIFIED.
+- 12:30 `PointTransport.lean` extended (MC2c complete): `tx_mul`, `ty_mul`, `tx_inv`, `ty_inv`,
+  `r_t_eq_zero`, `origin_of_change`; `Y1Data K N` (elliptic W with an affine point of exact order N),
+  `Y1Iso` (change of variables carrying curve and point), `y1Iso_equivalence`, `Y1Points K N`
+  (quotient), `TateData K N` ((b,c) with E(b,c) elliptic and ord(0,0) = N), `tateOf`, `tateOf_wd`,
+  **`y1PointsEquivTate (hN : 4 ≤ N) : Y1Points K N ≃ TateData K N`**.
+  `lake env lean`: exit 0, no warnings; standard axioms. VERIFIED.

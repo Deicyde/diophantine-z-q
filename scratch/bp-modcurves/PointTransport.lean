@@ -325,8 +325,237 @@ theorem exists_tateNF_order [DecidableEq K] (W : WeierstrassCurve K) {x₀ y₀ 
   obtain ⟨h0, hord⟩ := key _ hC
   exact ⟨b, c, h0, hord, C, hC, hr, ht⟩
 
+/-! ### MC2c: `Y₁(N)(K) ≃` Tate coordinates
+
+`tateNF_unique`, `tateNF_Δ`, `tateNF_b_ne_zero` are copied from `TateNormalForm.lean`. -/
+
+/-- **Uniqueness of the Tate normal form**: a change of variables fixing `(0, 0)` between two
+Tate normal forms with `b ≠ 0` is the identity, and `(b, c) = (b', c')`. (`b ≠ 0` holds on
+every elliptic `E(b, c)`: `b ∣ Δ(b, c)`.) -/
+theorem tateNF_unique (b c b' c' : K) (hb : b ≠ 0) (C : VariableChange K)
+    (hC : C • tateNF b c = tateNF b' c') (hr : C.r = 0) (ht : C.t = 0) :
+    C = 1 ∧ b = b' ∧ c = c' := by
+  have e1 := congrArg WeierstrassCurve.a₁ hC
+  have e2 := congrArg WeierstrassCurve.a₂ hC
+  have e3 := congrArg WeierstrassCurve.a₃ hC
+  have e4 := congrArg WeierstrassCurve.a₄ hC
+  simp only [variableChange_a₁, variableChange_a₂,
+    variableChange_a₃, variableChange_a₄, tateNF, hr, ht,
+    Units.val_inv_eq_inv_val] at e1 e2 e3 e4
+  have hu : (C.u : K) ≠ 0 := C.u.ne_zero
+  have hs : C.s = 0 := by
+    have : C.s * b = 0 := by
+      have := e4; field_simp at this; linear_combination this
+    exact (mul_eq_zero.1 this).resolve_right hb
+  rw [hs] at e1 e2
+  have hu1 : (C.u : K) = 1 := by
+    have h23 : (C.u : K)⁻¹ ^ 2 * b = (C.u : K)⁻¹ ^ 3 * b := by
+      linear_combination -e2 + e3
+    field_simp at h23
+    exact h23
+  rw [hu1] at e1 e2
+  refine ⟨?_, by linear_combination -e2, by linear_combination -e1⟩
+  have hU : C.u = 1 := Units.val_eq_one.1 hu1
+  rcases C with ⟨u, r, s, t⟩
+  simp only at hr ht hs hU
+  subst hr ht hs hU
+  rfl
+
+/-- The discriminant of the Tate normal form: `Δ(b,c) = b³(16b² − 8bc² − 20bc + b + c(c−1)³)`. -/
+theorem tateNF_Δ (b c : K) : (tateNF b c).Δ =
+    b ^ 3 * (16 * b ^ 2 - 8 * b * c ^ 2 - 20 * b * c + b + c * (c - 1) ^ 3) := by
+  simp only [WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄, WeierstrassCurve.b₆,
+    WeierstrassCurve.b₈, tateNF]
+  ring
+
+theorem tateNF_b_ne_zero (b c : K) [(tateNF b c).IsElliptic] : b ≠ 0 := by
+  intro hb
+  have h := (tateNF b c).isUnit_Δ
+  rw [tateNF_Δ, hb] at h
+  simp at h
+
+theorem tx_mul (C C' : VariableChange K) (x : K) : tx (C * C') x = tx C (tx C' x) := by
+  have hu := u_ne_zero C
+  have hu' := u_ne_zero C'
+  simp only [tx, VariableChange.mul_def, Units.val_mul]
+  field_simp
+  ring
+
+theorem ty_mul (C C' : VariableChange K) (x y : K) :
+    ty (C * C') x y = ty C (tx C' x) (ty C' x y) := by
+  have hu := u_ne_zero C
+  have hu' := u_ne_zero C'
+  simp only [tx, ty, VariableChange.mul_def, Units.val_mul]
+  field_simp
+  ring
+
+theorem tx_one (x : K) : tx (1 : VariableChange K) x = x := by
+  simp [tx, VariableChange.one_def]
+
+theorem ty_one (x y : K) : ty (1 : VariableChange K) x y = y := by
+  simp [ty, VariableChange.one_def]
+
+theorem tx_inv (C : VariableChange K) (x : K) : tx C⁻¹ (tx C x) = x := by
+  rw [← tx_mul, inv_mul_cancel, tx_one]
+
+theorem ty_inv (C : VariableChange K) (x y : K) : ty C⁻¹ (tx C x) (ty C x y) = y := by
+  rw [← ty_mul, inv_mul_cancel, ty_one]
+
+theorem r_t_eq_zero (D : VariableChange K) (h1 : tx D 0 = 0) (h2 : ty D 0 0 = 0) :
+    D.r = 0 ∧ D.t = 0 := by
+  have hu := u_ne_zero D
+  simp only [tx, ty, div_eq_zero_iff, pow_eq_zero_iff, ne_eq, OfNat.ofNat_ne_zero,
+    not_false_eq_true, hu, or_false, zero_sub, neg_eq_zero] at h1 h2
+  rw [h1] at h2
+  exact ⟨h1, by simpa using h2⟩
+
+/-- The origin of `C • W` is the transport of `(x, y)` when `C.r = x`, `C.t = y`. -/
+theorem origin_of_change [DecidableEq K] (W : WeierstrassCurve K) {x y : K}
+    (h : W.toAffine.Nonsingular x y) (C : VariableChange K) (hr : C.r = x) (ht : C.t = y)
+    (W' : WeierstrassCurve K) (hW : C • W = W') :
+    ∃ h0 : W'.toAffine.Nonsingular 0 0,
+      addOrderOf (Affine.Point.some 0 0 h0) = addOrderOf (Affine.Point.some x y h) := by
+  subst hW
+  have htx : tx C x = 0 := by simp [tx, hr]
+  have hty : ty C x y = 0 := by simp [ty, hr, ht]
+  have hns : (C • W).toAffine.Nonsingular 0 0 := by
+    have := (nonsingular_transport W C x y).2 h
+    rwa [htx, hty] at this
+  refine ⟨hns, ?_⟩
+  have e : (Affine.Point.some 0 0 hns : (C • W).toAffine.Point) =
+      mapPt W C (Affine.Point.some x y h) := by
+    simp only [mapPt, Affine.Point.some.injEq]; exact ⟨htx.symm, hty.symm⟩
+  rw [e, addOrderOf_mapPt]
+
+/-- **Level-`N` data**: an elliptic Weierstrass curve with an affine point of exact order `N`. -/
+structure Y1Data (K : Type*) [Field K] [DecidableEq K] (N : ℕ) where
+  W : WeierstrassCurve K
+  ell : W.IsElliptic
+  x : K
+  y : K
+  ns : W.toAffine.Nonsingular x y
+  ord : addOrderOf (Affine.Point.some x y ns) = N
+
+variable [DecidableEq K] {N : ℕ}
+
+/-- Isomorphism of level-`N` data: a change of variables carrying the curve and the point. -/
+def Y1Iso (p q : Y1Data K N) : Prop :=
+  ∃ C : VariableChange K, C • p.W = q.W ∧ tx C p.x = q.x ∧ ty C p.x p.y = q.y
+
+theorem y1Iso_equivalence : Equivalence (Y1Iso (K := K) (N := N)) where
+  refl p := ⟨1, one_smul _ _, tx_one _, ty_one _ _⟩
+  symm := by
+    rintro p q ⟨C, hW, hx, hy⟩
+    refine ⟨C⁻¹, ?_, ?_, ?_⟩
+    · rw [← hW, inv_smul_smul]
+    · rw [← hx, tx_inv]
+    · rw [← hx, ← hy, ty_inv]
+  trans := by
+    rintro p q r ⟨C, hW, hx, hy⟩ ⟨C', hW', hx', hy'⟩
+    refine ⟨C' * C, ?_, ?_, ?_⟩
+    · rw [mul_smul, hW, hW']
+    · rw [tx_mul, hx, hx']
+    · rw [ty_mul, hx, hy, hy']
+
+instance Y1Setoid : Setoid (Y1Data K N) := ⟨Y1Iso, y1Iso_equivalence⟩
+
+/-- **`Y₁(N)(K)`**: level-`N` data up to isomorphism. -/
+def Y1Points (K : Type*) [Field K] [DecidableEq K] (N : ℕ) := Quotient (Y1Setoid (K := K) (N := N))
+
+/-- Tate coordinates of `Y₁(N)(K)`: `(b, c)` with `E(b,c)` elliptic and `(0,0)` of exact order `N`. -/
+abbrev TateData (K : Type*) [Field K] [DecidableEq K] (N : ℕ) :=
+  {bc : K × K // (tateNF bc.1 bc.2).IsElliptic ∧
+    ∃ h0 : (tateNF bc.1 bc.2).toAffine.Nonsingular 0 0, addOrderOf (Affine.Point.some 0 0 h0) = N}
+
+theorem exists_tate (hN : 4 ≤ N) (p : Y1Data K N) :
+    ∃ bc : K × K, ∃ C : VariableChange K, C • p.W = tateNF bc.1 bc.2 ∧ C.r = p.x ∧ C.t = p.y := by
+  obtain ⟨b, c, -, -, C, hC, hr, ht⟩ := exists_tateNF_order p.W p.ns N hN p.ord
+  exact ⟨(b, c), C, hC, hr, ht⟩
+
+/-- The Tate coordinates of a level-`N` datum. -/
+noncomputable def tateOf (hN : 4 ≤ N) (p : Y1Data K N) : TateData K N := by
+  refine ⟨Classical.choose (exists_tate hN p), ?_⟩
+  obtain ⟨C, hC, hr, ht⟩ := Classical.choose_spec (exists_tate hN p)
+  refine ⟨?_, ?_⟩
+  · have := p.ell
+    rw [← hC]; infer_instance
+  · obtain ⟨h0, hord⟩ := origin_of_change p.W p.ns C hr ht _ hC
+    exact ⟨h0, hord.trans p.ord⟩
+
+theorem tateOf_spec (hN : 4 ≤ N) (p : Y1Data K N) :
+    ∃ C : VariableChange K, C • p.W = tateNF (tateOf hN p).1.1 (tateOf hN p).1.2 ∧
+      C.r = p.x ∧ C.t = p.y :=
+  Classical.choose_spec (exists_tate hN p)
+
+omit [DecidableEq K] in
+/-- Two Tate normal forms related by a change of variables carrying origin to origin coincide. -/
+theorem tate_eq_of_change (b c b' c' : K) [hE : (tateNF b c).IsElliptic] (D : VariableChange K)
+    (hD : D • tateNF b c = tateNF b' c') (h1 : tx D 0 = 0) (h2 : ty D 0 0 = 0) :
+    b = b' ∧ c = c' := by
+  obtain ⟨hr, ht⟩ := r_t_eq_zero D h1 h2
+  exact (tateNF_unique b c b' c' (tateNF_b_ne_zero b c) D hD hr ht).2
+
+theorem tateOf_wd (hN : 4 ≤ N) (p q : Y1Data K N) (hpq : Y1Iso p q) :
+    tateOf hN p = tateOf hN q := by
+  obtain ⟨C, hW, hx, hy⟩ := hpq
+  obtain ⟨Cp, hCp, hrp, htp⟩ := tateOf_spec hN p
+  obtain ⟨Cq, hCq, hrq, htq⟩ := tateOf_spec hN q
+  have hEp := (tateOf hN p).2.1
+  set D := Cq * C * Cp⁻¹
+  have hD : D • tateNF (tateOf hN p).1.1 (tateOf hN p).1.2 =
+      tateNF (tateOf hN q).1.1 (tateOf hN q).1.2 := by
+    rw [← hCp, ← hCq, ← hW]; simp only [D, mul_smul, inv_smul_smul]
+  have hxp : tx Cp p.x = 0 := by simp [tx, hrp]
+  have hyp : ty Cp p.x p.y = 0 := by simp [ty, hrp, htp]
+  have hxq : tx Cq q.x = 0 := by simp [tx, hrq]
+  have hyq : ty Cq q.x q.y = 0 := by simp [ty, hrq, htq]
+  have e0 : tx Cp⁻¹ 0 = p.x := by have := tx_inv Cp p.x; rwa [hxp] at this
+  have e0' : ty Cp⁻¹ 0 0 = p.y := by have := ty_inv Cp p.x p.y; rwa [hxp, hyp] at this
+  have h1 : tx D 0 = 0 := by
+    simp only [D, tx_mul]; rw [e0, hx, hxq]
+  have h2 : ty D 0 0 = 0 := by
+    simp only [D, ty_mul]
+    rw [e0, e0', hx, hy, hyq]
+  obtain ⟨eb, ec⟩ := tate_eq_of_change _ _ _ _ D hD h1 h2
+  exact Subtype.ext (Prod.ext eb ec)
+
+/-- **The moduli interpretation of `Y₁(N)` at the level of points (`N ≥ 4`)**: level-`N` data up to
+change of variables are in bijection with the Tate coordinates `(b, c)` such that `E(b,c)` is
+elliptic and `(0,0)` has exact order `N` (Kubert 1976, Table 3; Husemöller §4.4, UNVERIFIED). -/
+noncomputable def y1PointsEquivTate (hN : 4 ≤ N) : Y1Points K N ≃ TateData K N where
+  toFun := Quotient.lift (tateOf hN) (tateOf_wd hN)
+  invFun bc := Quotient.mk _
+    { W := tateNF bc.1.1 bc.1.2, ell := bc.2.1, x := 0, y := 0, ns := bc.2.2.choose,
+      ord := bc.2.2.choose_spec }
+  left_inv := by
+    intro P
+    induction P using Quotient.inductionOn with
+    | h p =>
+    apply Quotient.sound
+    obtain ⟨Cp, hCp, hrp, htp⟩ := tateOf_spec hN p
+    refine ⟨Cp⁻¹, ?_, ?_, ?_⟩
+    · show Cp⁻¹ • tateNF (tateOf hN p).1.1 (tateOf hN p).1.2 = p.W
+      rw [← hCp, inv_smul_smul]
+    · show tx Cp⁻¹ 0 = p.x
+      have hxp : tx Cp p.x = 0 := by simp [tx, hrp]
+      have := tx_inv Cp p.x; rwa [hxp] at this
+    · show ty Cp⁻¹ 0 0 = p.y
+      have hxp : tx Cp p.x = 0 := by simp [tx, hrp]
+      have hyp : ty Cp p.x p.y = 0 := by simp [ty, hrp, htp]
+      have := ty_inv Cp p.x p.y; rwa [hxp, hyp] at this
+  right_inv := by
+    intro bc
+    show tateOf hN _ = bc
+    obtain ⟨C, hC, hr, ht⟩ := tateOf_spec hN
+      { W := tateNF bc.1.1 bc.1.2, ell := bc.2.1, x := 0, y := 0, ns := bc.2.2.choose,
+        ord := bc.2.2.choose_spec }
+    have hE := bc.2.1
+    obtain ⟨-, eb, ec⟩ := tateNF_unique bc.1.1 bc.1.2 _ _ (tateNF_b_ne_zero bc.1.1 bc.1.2) C hC hr ht
+    exact (Subtype.ext (Prod.ext eb ec)).symm
+
 end BPModCurves
 
 #print axioms BPModCurves.mapPt_add
 #print axioms BPModCurves.addOrderOf_mapPt
 #print axioms BPModCurves.exists_tateNF_order
+#print axioms BPModCurves.y1PointsEquivTate
