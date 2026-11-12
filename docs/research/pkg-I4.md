@@ -17,7 +17,7 @@ statement as printed in arXiv v2); `h-leaves.md` §3 (options for the de Rham in
 
 ## Summary
 
-1. **Ten inputs, nine of them refereed theorems** (§1). I4 consists of Pan 2022 Thm 1.0.4
+1. **Ten published inputs** (§1). I4 consists of Pan 2022 Thm 1.0.4
    (C7); the de Rham comparison for abelian varieties with Fontaine's closure (C3); Berger 2002
    (C4); the Betti–étale comparison (C5); the existence of eigenform Galois representations
    (Shimura, Deligne, Deligne–Serre); their Hodge–Tate weights at every level (Saito, Kato, or
@@ -58,11 +58,12 @@ statement as printed in arXiv v2); `h-leaves.md` §3 (options for the de Rham in
    conductor (D5, shared with glue-conductor's L8). **The biggest obstacle in I4 is now
    `J₁(N)` together with the `ℓ`-adic conductor**; p-adic Hodge theory no longer blocks any
    statement.
-7. **The coarse alternative (Ribet + Pyle + Khare–Wintenberger, §4) is sound for modularity,
-   gives no level bound by itself, and is better for statability of the whole proof**: it
-   needs no period rings, only abelian varieties with Tate modules, which the rest of H needs
-   anyway. It replaces C3, C4, C5, C7 and the Hodge–Tate half of C8. Its statements were
-   recalled, not read (hdec-alt R1; same here).
+7. **The coarse alternative (Ribet + Pyle + Khare–Wintenberger, §4) is sound for modularity and
+   gives no level bound by itself.** It replaces C3, C4, C5, C7 and the Hodge–Tate half of C8,
+   so it is shorter for trust (no p-adic Hodge theory, no N5-new passages in C3 and C8). For
+   statability it is now no better than Pan's route: its leaves need abelian varieties of
+   `GL₂`-type over `ℚ` and `J₁(N)`, while Pan's route is statable today except for C5 (which the
+   alternative drops). Its statements were recalled, not read (hdec-alt R1; same here).
 
 ## 1. The inputs one by one
 
@@ -329,7 +330,7 @@ coefficients; equivalent to the Hecke definition, Diamond–Shurman Prop. 5.3.1,
 ## 3. Lean (`scratch/pkg-I4/I4.lean`)
 
 Compiles with `lake env lean scratch/pkg-I4/I4.lean` (VERIFIED, log Steps 2-5; about 14 s with
-Mathlib's oleans; about 1480 lines, of which 310 are pkg-I3's copied definitions). No `sorry` anywhere in the file. `#print axioms` of
+Mathlib's oleans; about 1450 lines, of which 310 are pkg-I3's copied definitions). No `sorry` anywhere in the file. `#print axioms` of
 `Cp.isAdicComplete`, `DR.fontaineTheta_naturality`, `DR.bdrMap`, `bdrAct_qpToBdR`, `IsDeRham`,
 `PanBerger`, `DeRhamComparison`, `htMult_cycRep_eq_zero`, `isDeRham_trivial`, `weight_match`,
 `weight_match_coh`,
