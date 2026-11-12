@@ -19,6 +19,7 @@ import Mathlib.FieldTheory.KrullTopology
 import Mathlib.AlgebraicGeometry.ResidueField
 import Mathlib.AlgebraicGeometry.Morphisms.Proper
 import Mathlib.LinearAlgebra.TensorProduct.Basis
+import Mathlib.Topology.Instances.Matrix
 
 noncomputable section
 
@@ -639,6 +640,24 @@ theorem continuous_trace_galRep (A : AbVar K) [Module.Free ℤ_[ℓ] (A.T ℓ)]
   refine ((hc i).comp (hρ (bV i))).congr fun σ => ?_
   simp only [Function.comp_apply]
 
+/-- **Matrix form (`ρ_ℓ : G_K → GL_r(ℚ_ℓ)` continuous).** In any finite `ℚ_ℓ`-basis `b` of
+`V_ℓ(A)`, the matrix of `ρ_ℓ(σ)` depends continuously on `σ` (entrywise topology). -/
+theorem continuous_toMatrix_galRep (A : AbVar K) [Module.Free ℤ_[ℓ] (A.T ℓ)]
+    [Module.Finite ℤ_[ℓ] (A.T ℓ)] {I : Type*} [Fintype I] [DecidableEq I]
+    (b : Module.Basis I ℚ_[ℓ] (A.V ℓ)) :
+    Continuous (fun σ : Field.absoluteGaloisGroup K => LinearMap.toMatrix b b (A.galRep ℓ σ)) := by
+  have := IsModuleTopology.toContinuousAdd ℚ_[ℓ] (A.V ℓ)
+  have hρ : ∀ v : A.V ℓ, Continuous (fun σ : Field.absoluteGaloisGroup K => A.galRep ℓ σ v) := by
+    intro v
+    have h1 : Continuous (fun σ : Field.absoluteGaloisGroup K => (σ, v)) :=
+      continuous_id.prodMk continuous_const
+    refine ((continuous_galRep ℓ A).comp h1).congr fun σ => ?_
+    simp only [Function.comp_apply]
+  refine continuous_pi fun i => continuous_pi fun j => ?_
+  refine ((IsModuleTopology.continuous_of_linearMap (b.coord i)).comp (hρ (b j))).congr
+    fun σ => ?_
+  simp only [Function.comp_apply, LinearMap.toMatrix_apply, Module.Basis.coord_apply]
+
 end PkgI3.RhoCont
 
 /-! ### 3e. With pkg-I3's leaf I3.M0 -/
@@ -669,3 +688,4 @@ end PkgI3
 #print axioms PkgI3.RhoCont.continuous_galT
 #print axioms PkgI3.Tate.continuous_of_linearMap_padicInt
 #print axioms PkgI3.continuous_galRep_of_tateModuleFree
+#print axioms PkgI3.RhoCont.continuous_toMatrix_galRep
