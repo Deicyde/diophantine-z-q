@@ -5,3 +5,6 @@
   `nu3_Gamma1` (N ≥ 4: ν₃ = 0), `genus_Gamma1` (N ≥ 4: g = 1 + μ/12 − ν∞/2), `belyiDeg_Gamma1_le`
   (μ ≤ N²), `genus_Gamma1_le` (g ≤ N²), `index_Gamma1_le` (copied from glue-assembly).
   `lake env lean`: exit 0, no errors, no warnings; axioms propext, Classical.choice, Quot.sound. VERIFIED.
+- 11:48 `genus_check.py` (N = 1..30, sequential): μ, ν₂, ν₃, ν∞ from the action of S, ST, T on
+  primitive vectors of (ℤ/N)² mod ±; μ = J₂(N)/2 (N ≥ 3), ν∞ = ½Σ_{d|N} φ(d)φ(N/d) (N ≥ 5), genus
+  equal to the reference table (from memory, UNVERIFIED reference; all 30 agree), μ ≤ N² for all. VERIFIED (computed).
