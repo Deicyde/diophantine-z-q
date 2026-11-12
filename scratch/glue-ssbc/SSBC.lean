@@ -62,6 +62,7 @@ theorem isSemisimpleRing_of_traceNondeg (B : Subalgebra F (Module.End F W))
     exact (LinearMap.isNilpotent_trace_of_isNilpotent (hnil ⟨y, hy⟩)).eq_zero
   exact (Submodule.mem_bot _).mpr (Subtype.ext this)
 
+set_option backward.isDefEq.respectTransparency false in
 /-- A faithful finite-dimensional semisimple module makes the subalgebra a semisimple ring. -/
 theorem isSemisimpleRing_of_isSemisimpleModule (B : Subalgebra F (Module.End F W))
     [IsSemisimpleModule B W] : IsSemisimpleRing B := by
@@ -81,8 +82,8 @@ theorem isSemisimpleRing_of_isSemisimpleModule (B : Subalgebra F (Module.End F W
     have := congrArg (fun φ : Fin n →₀ W => φ i) hb
     simpa [f, Subalgebra.smul_def, Module.End.smul_def] using this
   have : IsSemisimpleModule B (LinearMap.range f) := inferInstance
-  exact IsSemisimpleModule.congr (R := B) (M := B) (N := LinearMap.range f)
-    (LinearEquiv.ofInjective f hf)
+  refine IsSemisimpleModule.congr (R := B) (N := B) (M := ↥(LinearMap.range f)) ?_
+  exact LinearEquiv.ofInjective f hf
 
 /-- **Char 0:** a subalgebra of `End W` over which `W` is semisimple has nondegenerate trace
 form. -/
