@@ -148,6 +148,89 @@ theorem isSemisimpleRepresentation_iff_range (ρ : Representation k G V) :
       map_smul' := fun r x => asModuleEquiv_map_smul ρ r x }
   exact LinearMap.isSemisimpleModule_iff_of_bijective l ρ.asModuleEquiv.bijective
 
+theorem mem_range_of (ρ : Representation k G V) (g : G) : ρ g ∈ (asAlgebraHom ρ).range :=
+  ⟨MonoidAlgebra.of k G g, asAlgebraHom_of ρ g⟩
+
+theorem asAlgebraHom_eq_sum (ρ : Representation k G V) (r : MonoidAlgebra k G) :
+    asAlgebraHom ρ r = r.coeff.sum (fun g a => a • ρ g) := by
+  rw [asAlgebraHom_def, MonoidAlgebra.lift_apply]
+
+theorem baseChange_mem_range (E : Type*) [Field E] [Algebra k E] (ρ : Representation k G V)
+    (y : Module.End k V) (hy : y ∈ (asAlgebraHom ρ).range) :
+    y.baseChange E ∈ (asAlgebraHom (repBaseChange E ρ)).range := by
+  obtain ⟨s, rfl⟩ := hy
+  show (asAlgebraHom ρ s).baseChange E ∈ _
+  induction s using MonoidAlgebra.induction_linear with
+  | zero => simp
+  | add a b ha hb => rw [map_add, LinearMap.baseChange_add]; exact Subalgebra.add_mem _ ha hb
+  | single g a =>
+    rw [asAlgebraHom_single, LinearMap.baseChange_smul, ← algebraMap_smul E a]
+    exact Subalgebra.smul_mem _ (mem_range_of (repBaseChange E ρ) g) _
+
+variable [FiniteDimensional k V]
+
+/-- **Base change of the trace-form criterion.** -/
+theorem traceNondeg_baseChange (E : Type*) [Field E] [Algebra k E] (ρ : Representation k G V)
+    (hA : TraceNondeg (asAlgebraHom ρ).range) :
+    TraceNondeg (asAlgebraHom (repBaseChange E ρ)).range := by
+  intro x hx hxy
+  obtain ⟨r, rfl⟩ := hx
+  change (∀ y ∈ _, LinearMap.trace E _ (asAlgebraHom (repBaseChange E ρ) r * y) = 0) at hxy
+  show asAlgebraHom (repBaseChange E ρ) r = 0
+  rw [asAlgebraHom_eq_sum] at hxy ⊢
+  set c := r.coeff
+  have hρE : ∀ g, repBaseChange E ρ g = (ρ g).baseChange E := fun g => rfl
+  -- every `k`-linear functional of the coefficients gives an element of the radical over `k`
+  have key : ∀ f : Module.Dual k E, c.sum (fun g a => f a • ρ g) = 0 := by
+    intro f
+    apply hA _ (Subalgebra.sum_mem _ fun g _ => Subalgebra.smul_mem _ (mem_range_of ρ g) _)
+    intro y hy
+    have h0 := congrArg f (hxy _ (baseChange_mem_range E ρ y hy))
+    simp only [Finsupp.sum, Finset.sum_mul, smul_mul_assoc, map_sum, map_smul, hρE,
+      ← LinearMap.baseChange_mul, LinearMap.trace_baseChange, smul_eq_mul, map_zero] at h0 ⊢
+    rw [← h0]
+    refine Finset.sum_congr rfl fun g _ => ?_
+    rw [mul_comm (c g), ← Algebra.smul_def, map_smul, smul_eq_mul, mul_comm]
+  let b := Module.finBasis k V
+  have hv : ∀ v : V, (c.sum (fun g a => a • repBaseChange E ρ g)) (1 ⊗ₜ v) = 0 := by
+    intro v
+    apply (Algebra.TensorProduct.basis E b).repr.injective
+    ext j
+    rw [map_zero, Finsupp.zero_apply]
+    rw [← Module.forall_dual_apply_eq_zero_iff k]
+    intro f
+    have hk := congrArg (fun φ : Module.End k V => b.repr (φ v) j) (key f)
+    simp only [Finsupp.sum, LinearMap.sum_apply, LinearMap.smul_apply, hρE,
+      LinearMap.baseChange_tmul, map_sum, map_smul, Finsupp.coe_finsetSum, Finset.sum_apply,
+      Finsupp.smul_apply, Algebra.TensorProduct.basis_repr_tmul, one_smul, Finsupp.mapRange_apply,
+      smul_eq_mul, LinearMap.zero_apply, map_zero, Finsupp.zero_apply] at hk ⊢
+    rw [← hk]
+    refine Finset.sum_congr rfl fun g _ => ?_
+    rw [mul_comm (c g), ← Algebra.smul_def, map_smul, smul_eq_mul, mul_comm]
+  apply (Algebra.TensorProduct.basis E b).ext
+  intro i
+  rw [Algebra.TensorProduct.basis_apply, hv, LinearMap.zero_apply]
+
+/-- **`SemisimpleBaseChange`, proved.** In characteristic `0`, a semisimple finite-dimensional
+representation stays semisimple after any extension of the coefficient field. -/
+theorem isSemisimpleRepresentation_baseChange [CharZero k] (E : Type*) [Field E] [Algebra k E]
+    (ρ : Representation k G V) (hρ : ρ.IsSemisimpleRepresentation) :
+    (repBaseChange E ρ).IsSemisimpleRepresentation := by
+  rw [isSemisimpleRepresentation_iff_range] at hρ ⊢
+  have hA := traceNondeg_of_isSemisimpleModule (asAlgebraHom ρ).range
+  have := isSemisimpleRing_of_traceNondeg _ (traceNondeg_baseChange E ρ hA)
+  infer_instance
+
 end Rep
 
+/-- glue-I3-linalg's Prop, verbatim (with `repBaseChange` from this file). -/
+def SemisimpleBaseChange : Prop :=
+  ∀ (k E G V : Type) [Field k] [CharZero k] [Field E] [Algebra k E] [Monoid G] [AddCommGroup V]
+    [Module k V] [FiniteDimensional k V] (ρ : Representation k G V),
+    ρ.IsSemisimpleRepresentation → (repBaseChange E ρ).IsSemisimpleRepresentation
+
+theorem semisimpleBaseChange : SemisimpleBaseChange :=
+  fun _ E _ _ _ _ _ _ _ _ _ _ ρ hρ => isSemisimpleRepresentation_baseChange E ρ hρ
+
 end GlueSSBC
+#print axioms GlueSSBC.semisimpleBaseChange
