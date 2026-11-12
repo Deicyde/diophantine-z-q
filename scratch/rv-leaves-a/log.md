@@ -15,3 +15,11 @@
   order 5.995 ≈ 6. Fixed point of μ: τ=4.1815i, j_θ = -0.592592592593 = -16/27, order of j+16/27 ≈ 2.
   Orders (4,6,2) = elliptic orders of the (2,4,6) orbifold Γ*\ℍ: consistent with degree 1 (Hauptmodul).
 - Another x²=-1 element (−i/2 + j + ij/2) gives j_θ = 0 at its fixed point. VERIFIED.
+
+## Step 3 (22:31) PazukiHardened.lean — COMPILED, axioms [propext, Classical.choice, Quot.sound]
+- `pazuki_shift_mono` (shift s ≤ 3 ⇒ shift 3), `log_pi_le_three`, `f3_numerics_robust`
+  (X = max(1, h_F + 3) ⇒ hθ ≤ 10000·2²⁴·max(1,h_F), same constant), `f3_numerics_of_logpi`.
+
+## Step 4 Bost normalization arithmetic (VERIFIED, python)
+- ½log(2π²) = 1.49130 (= log(π√2)); ½log(2π) = 0.91894; ½log π = 0.57236.
+- Faltings-normalized j=0 height −1.321117 (pkg-I5 ec_height_check output, re-read) ≥ −1.49130 ≥ −1.5.
