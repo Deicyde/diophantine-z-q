@@ -41,21 +41,23 @@ statement as printed in arXiv v2); `h-leaves.md` §3 (options for the de Rham in
    preservation of the generators of `ker θ`, `ℚ_p ⊆ B_dR` fixed by `G_{ℚ_p}`. Then
    `D_dR(V^∨) = Hom_{ℚ_p}(V, B_dR)^{G}` and `IsDeRham ρ :⇔ dim_{ℚ_p} D_dR = dim_{ℚ_p} V`. About 420
    lines (§3.3). wk-h and hdec-faithful rated de Rham "large".
-4. **Leaves statable now (compiled): seven.** Existence of eigenform representations; **HT
+4. **Leaves statable now (compiled): eight.** Existence of eigenform representations; **HT
    weights of eigenform representations at every level** (new, needs item 2); Deligne–Serre
    finiteness; twisting; **Li's newform of an eigensystem** (new: newforms defined through the
-   old space); **Carayol at unramified primes** (new); and **Pan∘Berger** (new, needs items 2-3):
+   old space); **Carayol at unramified primes** (new); **Pan∘Berger** (new, needs items 2-3):
    Pan's Theorem 1.0.4 with "de Rham at `p`" in place of "potentially semistable at `p`", a
-   consequence of Pan with Berger, in the form N5 uses. Three of the seven are hdec-faithful's,
-   restated in this file.
+   consequence of Pan with Berger, in the form N5 uses; and **the de Rham comparison for abelian
+   varieties with its Hodge–Tate weights** (C3; new), stated over pkg-I3's abelian varieties and
+   Tate modules (copied into the file) and the `G_F`-forms of items 2-3. Three of the eight are
+   hdec-faithful's, restated in this file.
 5. **Templates (compiled, not leaves): Pan with pst, Berger, Carayol.** Each is a function of one
    missing predicate: `PanFor IsPst`, `BergerDR IsPst`, `CarayolFor a` (the `ℓ`-adic conductor
    exponent). With `PanBerger` available, neither `B_st` nor Berger as a separate leaf is needed.
-6. **Not statable: C3, C5 and Shimura's `A_f`.** They need abelian varieties with Tate modules
-   (C3, C9), complex uniformization (C5) and `J₁(N)` over `ℚ` (C9). These objects belong to I2,
-   I3 and I5 as well. **The biggest obstacle in I4 is now outside p-adic Hodge theory**: Tate
-   modules of abelian varieties (for C3's input and C9), and the `ℓ`-adic Artin conductor (for
-   Carayol, shared with glue-conductor's D1-D4).
+6. **Not statable: C5, Shimura's `A_f`, and the general Carayol.** They need complex
+   uniformization (C5), `J₁(N)` over `ℚ` as an abelian variety (C9) and the `ℓ`-adic Artin
+   conductor (D5, shared with glue-conductor's L8). **The biggest obstacle in I4 is now
+   `J₁(N)` together with the `ℓ`-adic conductor**; p-adic Hodge theory no longer blocks any
+   statement.
 7. **The coarse alternative (Ribet + Pyle + Khare–Wintenberger, §4) is sound for modularity,
    gives no level bound by itself, and is better for statability of the whole proof**: it
    needs no period rings, only abelian varieties with Tate modules, which the rest of H needs
@@ -119,12 +121,17 @@ h-trust's marks.
   crystalline, hence pst, with no Berger. This needs `B_cris`, which Mathlib lacks entirely,
   whereas Mathlib has `B_dR` as a ring. For Lean statability the de Rham route is cheaper; for
   trust, option (b) has one leaf fewer.
-- **Lean objects.** Abelian varieties over a `p`-adic field with `V_p` and the Galois action
-  (absent; Tau Ceti has abelian varieties as group schemes without Tate modules; Anthropic's
-  FLT has Tate modules of Jacobians); the de Rham predicate (built here for `G_{ℚ_p}`; for `G_F`
-  with `F/ℚ_p` finite the same construction applies to the open subgroup `G_F`, with `dim_F`,
-  about 30 more lines, not written). The HT half is statable once Tate modules exist.
-- **Status.** Not statable now. Missing: Tate modules (I3) only.
+- **Lean objects.** Abelian varieties over a `p`-adic field with `V_p` and the Galois action:
+  pkg-I3 builds them on Mathlib's group schemes (`AbVar`, `T`, `V`, `galRep`), correcting wk-h
+  §3; Tau Ceti has abelian varieties without Tate modules. The de Rham and HT predicates for
+  `G_F`, `F/ℚ_p` finite, on any `ℚ_p`-representation: built here (`gfToGqp`, `IsDeRhamOver`,
+  `htMultOver`).
+- **Status.** **Statable now (`DeRhamComparison`, compiled)**, over pkg-I3's `AbVar`, `V` and
+  `galRep` (Mathlib group schemes; copied into `I4.lean` unchanged) and this note's
+  `IsDeRhamOver`, `htMultOver` (§3.1). Fontaine's closure (summands, duals) is statable in the
+  same terms; not drafted. N5's appendix lemma (the descent from `F` to `ℚ₅`, new in N5) is glue
+  and is statable too, once the isomorphism `V₅(A) ⊗ E ≅ r|G_F ⊕ r|G_F` is written with pkg-I3's
+  objects.
 
 ### 1.3 Berger 2002 (C4)
 
@@ -322,9 +329,10 @@ coefficients; equivalent to the Hecke definition, Diamond–Shurman Prop. 5.3.1,
 ## 3. Lean (`scratch/pkg-I4/I4.lean`)
 
 Compiles with `lake env lean scratch/pkg-I4/I4.lean` (VERIFIED, log Steps 2-5; about 14 s with
-Mathlib's oleans; about 1060 lines). No `sorry` anywhere in the file. `#print axioms` of
+Mathlib's oleans; about 1480 lines, of which 310 are pkg-I3's copied definitions). No `sorry` anywhere in the file. `#print axioms` of
 `Cp.isAdicComplete`, `DR.fontaineTheta_naturality`, `DR.bdrMap`, `bdrAct_qpToBdR`, `IsDeRham`,
-`PanBerger`, `htMult_cycRep_eq_zero`, `isDeRham_trivial`, `weight_match`, `weight_match_coh`,
+`PanBerger`, `DeRhamComparison`, `htMult_cycRep_eq_zero`, `isDeRham_trivial`, `weight_match`,
+`weight_match_coh`,
 `cpAct_algebraMap`: `propext`,
 `Classical.choice`, `Quot.sound`.
 
@@ -345,6 +353,9 @@ Mathlib's oleans; about 1060 lines). No `sorry` anywhere in the file. `#print ax
 | `oAct`, `BdR` (`= BDeRham 𝓞_ℂ_[p] p` by `rfl`), `bdrAct` | `G_{ℚ_p}` acting on `B_dR` | — |
 | `isLocalization_padic` (proved), `zpToW`, `qpToLoc`, `ofLoc`, `qpToBdR`, `bdrAct_qpToBdR` (proved), `Algebra ℚ_[p] (BdR p)`, `bdrAct_smul` | `ℚ_p ⊆ B_dR`, fixed by `G_{ℚ_p}` | `WittVector.equiv`, `RingHom.ext_zmod` |
 | `ddrSpace` (submodule axioms proved), `IsDeRham`, `LocalIsDeRham` | `D_dR(V^∨)` and the de Rham predicate | — |
+| `gfToGqp`, `ddrSpaceOver`, `IsDeRhamOver`, `htSpaceOver`, `htMultOver` | the same over `G_F`, `F/ℚ_p` finite, for a Mathlib `Representation` | `Field.absoluteGaloisGroup.map` |
+| `PkgI3.Tate.T`, `PkgI3.AbVar`, `AbVar.V`, `AbVar.galRep` (copied from pkg-I3) | abelian varieties, `V_ℓ(A)`, `ρ_ℓ` | Mathlib group schemes |
+| `toRingEquivHom`, `cycRep`, `cycPow_add_one`, `cycPow_one_ne_zero` | `ℚ_p(1)` as a representation (sanity check) | — |
 | `CF`, `coeff`, `HasNebentypus`, `IsNormalizedEigenform` | as hdec-faithful | `CuspForm`, `Gamma1`, `qExpansion`, `DirichletCharacter` |
 | `scaleH`, `oldSpace`, `IsNewform` | old space, newforms (§2.4) | `Submodule.span` |
 | `AttachedTo`, `AttachedUpToTwist` | trace form of `ρ ≅ ρ_g`, `ρ ≅ ρ_g ⊗ ψ` | — |
@@ -353,6 +364,7 @@ Mathlib's oleans; about 1060 lines). No `sorry` anywhere in the file. `#print ax
 
 | Name | Kind | Input |
 | --- | --- | --- |
+| **`DeRhamComparison`** | **leaf, statable (new; with pkg-I3's Tate modules)** | §1.2 |
 | `EigenformRepExists` | leaf, statable | §1.5 |
 | `EigenformHT` | leaf, statable (new) | §1.6 |
 | `DeligneSerreFinite` | leaf, statable | §1.7 |
@@ -482,17 +494,16 @@ Assessment:
 
 ## 6. Biggest obstacle and recommendations
 
-1. **Obstacle.** Tate modules of abelian varieties with their Galois action (needed for the
-   comparison input of C3, for C9's `A_f`, and for most of I2/I3), and the `ℓ`-adic Artin
-   conductor (Carayol; shared with glue-conductor's D1-D4). p-adic Hodge theory is no longer the
-   obstacle for *stating* I4: Hodge–Tate and de Rham are built (§3).
-2. **Adopt now** in the synthesis: the seven statable leaves of §3.2, with `PanBerger`,
-   `EigenformHT`, `NewformOfEigenform` and `CarayolUnramified` replacing hdec-faithful's
-   placeholders L24+L25, L26, L28b and part of L30; and the HT and de Rham definitions (to be
-   moved to a shared definitions file).
-3. **Cheapest next Lean steps:** the de Rham predicate for `G_F`, `F/ℚ_p` finite (open subgroup;
-   about 30 lines), which makes Fontaine's closure and the finite descent of N5's lemma
-   statable; principality of `ker θ` (§3.4 item 1, a TODO in Mathlib); then the `ℓ`-adic conductor exponent at `p ≠ ℓ`
+1. **Obstacle.** `J₁(N)` over `ℚ` as an abelian variety (C9's `A_f`, and E1 downstream) and the
+   `ℓ`-adic Artin conductor (Carayol; shared with glue-conductor's L8). Neither p-adic Hodge
+   theory nor Tate modules block a statement any more: Hodge–Tate and de Rham are built here
+   (§3), Tate modules in pkg-I3.
+2. **Adopt now** in the synthesis: the eight statable leaves of §3.2, with `PanBerger`,
+   `DeRhamComparison`, `EigenformHT`, `NewformOfEigenform` and `CarayolUnramified` replacing
+   hdec-faithful's placeholders L24+L25, L22 (with L11e), L26, L28b and part of L30; and the HT
+   and de Rham definitions (to be moved, with pkg-I3's, into a shared definitions file).
+3. **Cheapest next Lean steps:** Fontaine's closure and N5's appendix lemma as statements over
+   pkg-I3's objects; principality of `ker θ` (§3.4 item 1, a TODO in Mathlib); then the `ℓ`-adic conductor exponent at `p ≠ ℓ`
    (`codim V^{I_p}` plus Swan, through upper ramification groups) in coordination with
    glue-conductor.
 4. **For the whole of H, the coarse route of §4** (Ribet + Pyle + Khare–Wintenberger) needs no
