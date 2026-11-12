@@ -33,36 +33,46 @@ manuscript that the proof uses). On the manuscript's own route, H follows from *
 research-level theorems** of the literature, **32 textbook theorems** in six groups, and **21
 glue steps**: the manuscript's new arguments, the repository's replacement arguments, and
 bookkeeping. The glue is **not** formalized. It has been reviewed only by AI models; in Lean,
-the final third of it (from the level bound and the theta point to H) is proved, together with
-elementary pieces of most other steps. No two research-level theorems have been merged to shorten
+its last steps (from the level bound, the theta point and the height inequalities to H) and
+Glazer's Brauer and cochain steps are proved, together with elementary pieces of most other
+steps. No two research-level theorems have been merged to shorten
 the list.
 
-Research-level theorems (locators UNVERIFIED in the journal versions unless a note records a
-reading):
+Research-level theorems ("read by a model": a repository note records an AI model's reading of
+the published text; no human has checked it):
 
 1. Shimura 1967 / Deligne 1971 (Thm 4.21): canonical model and moduli interpretation of the
-   level-3 Shimura curve of discriminant 6, with Shimura reciprocity.
-2. Baba–Granath 2008 (Thm 2.1, Lemma 3.1): the Atkin–Lehner quotient and its branch points.
-3. Lin–Yang 2020 (Example 30): Igusa invariants on the quaternionic locus.
-4. Igusa 1962/1967: the Siegel modular forms ψ₄, χ₁₀ in theta constants.
-5. González–Rotger 2006 (Thm 5.12, Prop. 5.6): fields of definition of CM points.
+   level-3 Shimura curve of discriminant 6, with Shimura reciprocity. UNVERIFIED.
+2. Baba–Granath 2008 (Thm 2.1, Lemma 3.1): the Atkin–Lehner quotient and its branch points. Preprint read by
+   a model; journal numbering UNVERIFIED.
+3. Lin–Yang 2020 (Example 30): Igusa invariants on the quaternionic locus. arXiv v1 VERIFIED;
+   journal numbering UNVERIFIED.
+4. Igusa 1962/1967: the Siegel modular forms ψ₄, χ₁₀ in theta constants. UNVERIFIED (form
+   checked numerically).
+5. González–Rotger 2006 (Thm 5.12, Prop. 5.6): fields of definition of CM points. arXiv VERIFIED;
+   journal numbering UNVERIFIED.
 6. Raynaud (SGA 7 IX, Prop. 4.7): semistable reduction when the m-torsion is rational, m ≥ 3.
-7. Serre–Tate 1968 (Thms 1, 2): Néron–Ogg–Shafarevich and potential good reduction.
-8. Grothendieck (SGA 7 IX, Thm 3.6): semistable reduction theorem.
-9. Faltings 1983 (Satz 3, Satz 4): semisimplicity and the Tate conjecture for abelian varieties.
-10. de Rham comparison (Scholze 2013 Cor. 1.8; or Faltings 1989, Tsuji 1999).
-11. Berger 2002 (Thm 0.7): de Rham implies potentially semistable.
-12. Pan 2022 (JAMS, Thm 1.0.4): Fontaine–Mazur for GL₂ over ℚ, p odd.
-13. Hodge–Tate weights of eigenform representations at every level (Saito 1997, or Kato 2004).
-14. Galois representations of eigenforms (Eichler–Shimura, Deligne 1971).
-15. Deligne–Serre 1974 (Thm 4.1): weight one gives finite image.
-16. Eichler–Shimura in J₁(N) (Shimura 1971 Thm 7.9; Shimura 1973 Thm 1).
-17. Carayol 1986 (Théorème A): local–global compatibility of the conductor.
-18. Javanpeykar 2014 (Thm 1.1.1): Faltings height of Jacobians of Belyi curves.
-19. Gaudron–Rémond 2014 (Duke, Thm 1.4): explicit isogeny theorem.
-20. Faltings 1983 (Lemma 5): variation of the Faltings height under isogeny.
-21. Bost 1996: lower bound for the Faltings height.
-22. Pazuki 2012 (Cor. 1.3): theta height against Faltings height.
+   UNVERIFIED (Silverberg–Zarhin's form read by a model).
+7. Serre–Tate 1968 (Thms 1, 2): Néron–Ogg–Shafarevich and potential good reduction. UNVERIFIED.
+8. Grothendieck (SGA 7 IX, Thm 3.6): semistable reduction theorem. UNVERIFIED.
+9. Faltings 1983 (Satz 3, Satz 4): semisimplicity and the Tate conjecture for abelian varieties. Read
+   by a model.
+10. de Rham comparison (Scholze 2013 Cor. 1.8; or Faltings 1989, Tsuji 1999). UNVERIFIED.
+11. Berger 2002 (Thm 0.7): de Rham implies potentially semistable. arXiv VERIFIED; journal
+   read by a model.
+12. Pan 2022 (JAMS, Thm 1.0.4): Fontaine–Mazur for GL₂ over ℚ, p odd. arXiv v2 statement
+   VERIFIED; JAMS numbering UNVERIFIED.
+13. Hodge–Tate weights of eigenform representations at every level (Saito 1997, or Kato 2004). UNVERIFIED.
+14. Galois representations of eigenforms (Eichler–Shimura, Deligne 1971). UNVERIFIED.
+15. Deligne–Serre 1974 (Thm 4.1): weight one gives finite image. UNVERIFIED.
+16. Eichler–Shimura in J₁(N) (Shimura 1971 Thm 7.9; Shimura 1973 Thm 1). UNVERIFIED.
+17. Carayol 1986 (Théorème A): local–global compatibility of the conductor. UNVERIFIED.
+18. Javanpeykar 2014 (Thm 1.1.1): Faltings height of Jacobians of Belyi curves. Read by a model.
+19. Gaudron–Rémond 2014 (Duke, Thm 1.4): explicit isogeny theorem. Read by a model.
+20. Faltings 1983 (Lemma 5): variation of the Faltings height under isogeny. UNVERIFIED.
+21. Bost 1996: lower bound for the Faltings height. Read by a model (as recorded by
+    Gaudron–Rémond).
+22. Pazuki 2012 (Cor. 1.3): theta height against Faltings height. Read by a model.
 
 Textbook foundations: (a) purity of the branch locus and Abhyankar's lemma (SGA 1); (b) abelian
 varieties: structure of torsion and of the Tate module, rank of Hom, ℓ-independence, Poincaré
@@ -71,8 +81,8 @@ reduction of torsion, the Tate module against étale cohomology, Riemann/GAGA an
 (c) arithmetic of ℚ: Skolem–Noether, Hasse principle and reciprocity for H²(G_ℚ, ℤ/2), local H²,
 local Kronecker–Weber and local class field theory with upper numbering, Kronecker–Weber,
 Chebotarev, Brauer–Nesbitt, local normalizers of maximal quaternion orders, the local
-square-root criterion, vanishing of unramified local classes, tame quadratic characters; (d) ramification
-theory: Hilbert's different formula, the different bound, Herbrand's theorems; (e) Fontaine's
+square-root criterion, vanishing of unramified local classes, tame quadratic characters;
+(d) ramification theory: Hilbert's different formula, the different bound, Herbrand's theorems; (e) Fontaine's
 closure properties of de Rham representations; (f) modular forms and invariants: twists,
 newforms, the Clebsch–Bolza–Igusa separation of binary sextics.
 
@@ -92,22 +102,25 @@ E2-E4 and F3 arithmetic, the final constant, the return from `J(u)` to `u`); Gla
 cochain steps B2-B3 from four textbook leaves, ending in `[L':ℚ] ≤ Q·M`; the algebra of B1 and C1;
 the whole arithmetic of the repository's Lemma PR(i) and NoCM; and elementary parts of most other
 steps (quaternion order, weight and twist arithmetic, conductor arithmetic, the level bound,
-consequences of Faltings' and of the reduction theorems). The top theorem "leaves ⇒ H" is stated in Lean;
-its one `sorry` is the glue from the leaves to the numerical interface of the Arakelov end.
+consequences of Faltings' and of the reduction theorems). The top theorem "leaves ⇒ H" is
+stated in Lean; its one `sorry` is the glue from the leaves to the numerical interface of the
+Arakelov end.
 
 **What cannot be stated in Lean today, and why.** Items 1-3, 5, 8, 16, 18-22 need definitions that
 no Lean library has: the Shimura curve as a moduli scheme of QM abelian surfaces with its canonical
 model (1-3, 5), Néron models (8), the modular curve X₁(N) and its Jacobian over ℚ (16, 18), the
 stable Faltings height (18-22). Item 17 needs conductors of ℓ-adic representations (medium).
 Items 11 and 12 separately need potentially semistable representations (very large), which the
-proof does not need once they are combined. A further obstacle for the glue: Mathlib cannot yet construct any nonzero abelian
-variety, so the surface `A` and `J₁(N)` must be produced by leaves 1 and 16.
+proof does not need once they are combined. A further obstacle for the glue: Mathlib cannot yet
+construct any nonzero abelian variety, so the surface `A` and `J₁(N)` must be produced by leaves
+1 and 16.
 
-**Alternative modularity route.** Items 10-16 (p-adic Hodge theory, Pan, eigenform
-representations) can be replaced by Ribet's theorem on building blocks and the modularity of
-GL₂-type abelian varieties over ℚ (Khare–Wintenberger with Ribet), with two new glue lemmas that
-no one has reviewed yet (§1). That route has 20 research-level theorems; an adversarial model review found it sound
-after five repairs.
+**Alternative modularity route.** Items 10-15 (p-adic Hodge theory, Pan, eigenform
+representations) can be replaced by Serre's conjecture (Khare–Wintenberger 2009) with Ribet's
+theorem that it implies the modularity of GL₂-type abelian varieties over ℚ, plus two new glue
+lemmas (§1). That route has 20 research-level theorems; one adversarial model review, and no
+human, found it sound after five repairs; whether Ribet's 1992 proceedings paper was refereed is
+unchecked.
 
 **The CR3 side** (positive rank of congruent number curves). The implication from these
 statements to the main theorem is kernel-checked (no `sorry`, axioms `propext`,
