@@ -1,7 +1,7 @@
 # pkg-I3: Faltings 1983 and Mumford's structure theorems as Lean leaves (steps A9, C2, C10, E1)
 
 Status: research note (task pkg-I3, 2026-11-11). Drafts: `scratch/pkg-I3/I3.lean` (590 lines,
-compiles with `lake env lean`; one `sorry`, in the C2 glue statement `finrank_equivEnd`); log:
+compiles with `lake env lean`; no `sorry`); log:
 `scratch/pkg-I3/log.md`. No file under `ZInQKernel/`, `blueprint/` or other notes was edited.
 
 Marks: **VERIFIED** = read in a source in this repository, computed, or compiled. **STANDARD** =
@@ -39,8 +39,11 @@ network). **SPECULATIVE** = assessment.
      leaf asserts exactly the published content (injectivity and the hard inclusion).
    - `exists_hom_ne_zero_of_equivariant`: the Faltings part of E1. From `FaltingsTate` and
      `TateModuleFree`, a nonzero `G_K`-equivariant `ℚ_ℓ`-linear map `V_ℓ A → V_ℓ B` gives a
-     nonzero homomorphism `A → B`. This shows that the leaves can actually be used through these
-     definitions.
+     nonzero homomorphism `A → B`.
+   - `finrank_equivEnd`: the Faltings part of C2. From `FaltingsTate`, `TateModuleFree` and
+     `HomFreeFinite`, `dim_{ℚ_ℓ} End_{G_K}(V_ℓ A) = rank_ℤ End_K(A)`.
+
+   These show that the leaves can actually be used through these definitions.
 4. **Biggest obstacle (VERIFIED by grep):** Mathlib v4.35.0 cannot construct any *nonzero*
    abelian variety. There is no projective group scheme: Weierstrass curves exist only as point
    sets, and `GrpObj` occurs in `AlgebraicGeometry/` only in `Group/` and `Pullbacks`. The
@@ -184,10 +187,11 @@ Proved in Lean (`I3.lean` §4, VERIFIED):
   Mathlib's `Module.FinitePresentation.exists_lift_of_isLocalizedModule`; `ℤ_ℓ` is Noetherian
   and `T_ℓ A` is finite by `TateModuleFree`.
 
-Stated, `sorry`, with an outline:
-
 - `finrank_equivEnd` (C2): `dim_{ℚ_ℓ} End_{G_K}(V_ℓ A) = rank_ℤ End_K(A)`, from
-  `FaltingsTate`, `TateModuleFree` and `HomFreeFinite`.
+  `FaltingsTate`, `TateModuleFree` and `HomFreeFinite`. `End_G(T_ℓ A) ≅ ℤ_ℓ ⊗ End A` by
+  Faltings, then `End_G(V_ℓ A)` is shown to be the localization of `End_G(T_ℓ A)`
+  (`IsLocalizedModule`), and Mathlib's `IsLocalizedModule.finrank_eq`,
+  `IsLocalization.finrank_eq` and `Module.finrank_baseChange` finish.
 
 Prose only (to be written):
 
@@ -250,12 +254,11 @@ The general `AbVar` statement over Mathlib's group schemes is the most concrete 
    classification as printed in Mumford §21), or it should be split into Mumford §19 + §21 +
    Silverman III.9.4 with the isogeny-category glue (heavy: kernels, images and products of
    abelian varieties, none in Mathlib).
-3. **`finrank_equivEnd` is unproved** (outlined; estimated 150-300 lines, SPECULATIVE).
-4. **Locators.**
+3. **Locators.**
    - Faltings Satz 3/4: AUDIT-READ, p. 360; Kor. 1: ASTRA-READ, pp. 360-361.
    - The Mumford and Milne numbers: UNVERIFIED.
    - The 1984 erratum's scope: AUDIT-READ.
-5. **An alternative route for Satz 3/4 exists but is not statable** (h-leaves §2.3): Claims 2-3
+4. **An alternative route for Satz 3/4 exists but is not statable** (h-leaves §2.3): Claims 2-3
    from Gaudron–Rémond 2014 Thm 1.4 with Tate's argument. GR14 is an I5 statement, about
    Faltings heights, which are not definable in Mathlib. So it does not reduce the I3 leaves to
    a statable one; it would only merge I3 into I5.

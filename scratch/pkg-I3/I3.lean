@@ -574,17 +574,121 @@ def equivEnd {K : Type} [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
     simp only [Set.mem_setOf_eq] at *
     rw [LinearMap.smul_comp, LinearMap.comp_smul, hφ σ]
 
-/-- **Glue for C2 (statement only; GLUE, not a leaf).** The `ℚ_ℓ`-form of Satz 4:
+/-- **Glue for C2 (GLUE, proved).** The `ℚ_ℓ`-form of Satz 4:
 `dim_{ℚ_ℓ} End_{G_K}(V_ℓ A) = rank_ℤ End_K(A)`. With `FaltingsSemisimple` and
 `End⁰_K(A) ≅ B` (A9, A10, and `L'` defining every geometric endomorphism), the commutant
 argument of N5 L731-734 then gives absolute irreducibility of `r_ℓ`.
-Proof outline: `T_ℓ A` is free of finite rank (`TateModuleFree`), so every `φ ∈ End(V_ℓ A)`
+Proof: `T_ℓ A` is free of finite rank (`TateModuleFree`), so every `φ ∈ End(V_ℓ A)`
 has `ℓᵏφ(T_ℓ A) ⊆ T_ℓ A`; equivariance passes to `T_ℓ A` because `T_ℓ A → V_ℓ A` is injective
 (as in `exists_hom_ne_zero_of_equivariant`); so `End_G(V) = ℚ_ℓ ⊗ End_G(T)`, and
 `End_G(T) ≅ ℤ_ℓ ⊗ End(A)` (`FaltingsTate`) is free of rank `rank_ℤ End(A)` (`HomFreeFinite`). -/
 theorem finrank_equivEnd (hF : FaltingsTate) (hT : TateModuleFree) (hH : HomFreeFinite)
     {K : Type} [Field K] [NumberField K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
     Module.finrank ℚ_[ℓ] (equivEnd A ℓ) = Module.finrank ℤ (End A) := by
-  sorry
+  classical
+  have hℓK : (ℓ : K) ≠ 0 := Nat.cast_ne_zero.mpr (Fact.out : ℓ.Prime).ne_zero
+  obtain ⟨hfree, hfin, -⟩ := hT K A ℓ hℓK
+  obtain ⟨hHfree, hHfin, -, -⟩ := hH K A A
+  have : Module.FinitePresentation ℤ_[ℓ] (A.T ℓ) := Module.finitePresentation_of_finite _ _
+  let jT : A.T ℓ →ₗ[ℤ_[ℓ]] A.V ℓ := TensorProduct.mk ℤ_[ℓ] ℚ_[ℓ] (A.T ℓ) 1
+  have : IsLocalizedModule (nonZeroDivisors ℤ_[ℓ]) jT := inferInstance
+  have hj : Function.Injective jT := by
+    rw [← LinearMap.ker_eq_bot, LinearMap.ker_eq_bot']
+    intro y hy
+    obtain ⟨t, ht⟩ := (IsLocalizedModule.eq_zero_iff (nonZeroDivisors ℤ_[ℓ]) jT).mp hy
+    exact (smul_eq_zero.mp ht).resolve_left (nonZeroDivisors.ne_zero t.2)
+  have hjσ : ∀ σ x, jT (A.galT σ x) = A.galRep ℓ σ (jT x) := fun σ x => by
+    simp [jT, galRep, LinearMap.baseChange_tmul]
+  have hjψ : ∀ (ψ : Module.End ℤ_[ℓ] (A.T ℓ)) x, jT (ψ x) = ψ.baseChange ℚ_[ℓ] (jT x) :=
+    fun ψ x => by simp [jT, LinearMap.baseChange_tmul]
+  -- the equivariant endomorphisms of `T_ℓ A`
+  let ET : Submodule ℤ_[ℓ] (Module.End ℤ_[ℓ] (A.T ℓ)) :=
+    { carrier := {ψ | IsGalEquivariant ψ}
+      add_mem' := fun {ψ χ} hψ hχ σ x => by
+        simp only [LinearMap.add_apply, map_add, hψ σ x, hχ σ x]
+      zero_mem' := fun σ x => by simp
+      smul_mem' := fun c ψ hψ σ x => by
+        simp only [LinearMap.smul_apply, map_smul, hψ σ x] }
+  -- Step 1: `ET ≅ ℤ_ℓ ⊗ End A` (Faltings), so `rank ET = rank End A`.
+  have hsmul : ∀ (a : ℤ_[ℓ]) z, tateHomZl ℓ A A (a • z) = a • tateHomZl ℓ A A z := by
+    intro a z
+    induction z using TensorProduct.induction_on with
+    | zero => simp
+    | tmul b f =>
+      rw [TensorProduct.smul_tmul', smul_eq_mul,
+        show tateHomZl ℓ A A ((a * b) ⊗ₜ f) = (a * b) • tateHom ℓ A A f from rfl,
+        show tateHomZl ℓ A A (b ⊗ₜ f) = b • tateHom ℓ A A f from rfl, mul_smul]
+    | add y z hy hz => rw [smul_add, map_add, map_add, hy, hz, smul_add]
+  let L1 : TensorProduct ℤ ℤ_[ℓ] (End A) →ₗ[ℤ_[ℓ]] ET :=
+    { toFun := fun z => ⟨tateHomZl ℓ A A z, range_tateHomZl_subset A A ℓ ⟨z, rfl⟩⟩
+      map_add' := fun y z => Subtype.ext (map_add _ y z)
+      map_smul' := fun a z => Subtype.ext (hsmul a z) }
+  have hL1 : Function.Bijective L1 := by
+    refine ⟨fun y z h => (hF K A A ℓ).1 (congrArg Subtype.val h), fun ψ => ?_⟩
+    obtain ⟨z, hz⟩ : ψ.1 ∈ Set.range (tateHomZl ℓ A A) := by
+      rw [(hF K A A ℓ).2]; exact ψ.2
+    exact ⟨z, Subtype.ext hz⟩
+  have h1 : Module.finrank ℤ_[ℓ] ET = Module.finrank ℤ (End A) := by
+    rw [← (LinearEquiv.ofBijective L1 hL1).finrank_eq, Module.finrank_baseChange]
+  -- Step 2: `equivEnd A ℓ` is the localization of `ET`.
+  let Φ : ET →ₗ[ℤ_[ℓ]] equivEnd A ℓ :=
+    { toFun := fun ψ => ⟨ψ.1.baseChange ℚ_[ℓ], fun σ => by
+        change ψ.1.baseChange ℚ_[ℓ] ∘ₗ (A.galT σ).baseChange ℚ_[ℓ] =
+          (A.galT σ).baseChange ℚ_[ℓ] ∘ₗ ψ.1.baseChange ℚ_[ℓ]
+        rw [← LinearMap.baseChange_comp, ← LinearMap.baseChange_comp]
+        congr 1
+        exact LinearMap.ext fun x => ψ.2 σ x⟩
+      map_add' := fun ψ χ => Subtype.ext (LinearMap.baseChange_add _ _)
+      map_smul' := fun c ψ => Subtype.ext (LinearMap.baseChange_smul _ _) }
+  have hΦ : IsLocalizedModule (nonZeroDivisors ℤ_[ℓ]) Φ := by
+    constructor
+    · intro s
+      have hc : algebraMap ℤ_[ℓ] ℚ_[ℓ] (s : ℤ_[ℓ]) ≠ 0 := by
+        simpa using (IsFractionRing.injective ℤ_[ℓ] ℚ_[ℓ]).ne (nonZeroDivisors.ne_zero s.2)
+      rw [Module.End.isUnit_iff]
+      constructor
+      · intro x y hxy
+        simp only [Module.algebraMap_end_apply] at hxy
+        rw [← algebraMap_smul ℚ_[ℓ] (s : ℤ_[ℓ]) x, ← algebraMap_smul ℚ_[ℓ] (s : ℤ_[ℓ]) y] at hxy
+        exact smul_right_injective _ hc hxy
+      · intro y
+        refine ⟨(algebraMap ℤ_[ℓ] ℚ_[ℓ] (s : ℤ_[ℓ]))⁻¹ • y, ?_⟩
+        simp only [Module.algebraMap_end_apply]
+        rw [← algebraMap_smul ℚ_[ℓ] (s : ℤ_[ℓ]), smul_smul, mul_inv_cancel₀ hc, one_smul]
+    · intro φ
+      obtain ⟨h, s, hs⟩ := Module.FinitePresentation.exists_lift_of_isLocalizedModule
+        (nonZeroDivisors ℤ_[ℓ]) jT ((φ.1.restrictScalars ℤ_[ℓ]) ∘ₗ jT)
+      have hsφ : ∀ x, jT (h x) = (s : ℤ_[ℓ]) • φ.1 (jT x) := fun x => by
+        have := congrArg (fun g => g x) hs
+        simp only [LinearMap.coe_comp, Function.comp_apply, LinearMap.smul_apply,
+          LinearMap.coe_restrictScalars, Submonoid.smul_def] at this
+        exact this
+      have hheq : IsGalEquivariant h := by
+        intro σ x
+        apply hj
+        rw [hsφ, hjσ, hjσ, hsφ]
+        have := congrArg (fun g => g (jT x)) (φ.2 σ)
+        simp only [LinearMap.coe_comp, Function.comp_apply] at this
+        rw [this, LinearMap.map_smul_of_tower]
+      refine ⟨⟨⟨h, hheq⟩, s⟩, Subtype.ext ?_⟩
+      apply TensorProduct.AlgebraTensorModule.curry_injective
+      apply LinearMap.ext_ring
+      apply LinearMap.ext
+      intro x
+      change (s : ℤ_[ℓ]) • φ.1 ((1 : ℚ_[ℓ]) ⊗ₜ x) = h.baseChange ℚ_[ℓ] ((1 : ℚ_[ℓ]) ⊗ₜ x)
+      exact (hsφ x).symm.trans (hjψ h x)
+    · intro ψ χ hψχ
+      refine ⟨1, ?_⟩
+      rw [one_smul, one_smul]
+      apply Subtype.ext
+      apply LinearMap.ext
+      intro x
+      apply hj
+      rw [hjψ, hjψ]
+      exact congrArg (fun g => g (jT x)) (congrArg Subtype.val hψχ)
+  have e1 := IsLocalization.finrank_eq (R := ℤ_[ℓ]) (N := equivEnd A ℓ) ℚ_[ℓ]
+    (nonZeroDivisors ℤ_[ℓ]) le_rfl
+  have e2 := IsLocalizedModule.finrank_eq (M := ET) (N := equivEnd A ℓ) (p := nonZeroDivisors ℤ_[ℓ]) (f := Φ) le_rfl
+  rw [e1, e2, h1]
 
 end PkgI3

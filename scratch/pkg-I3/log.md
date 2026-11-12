@@ -74,3 +74,13 @@ Compile: no errors (VERIFIED).
 - `docs/research/pkg-I3.md` written: uses (N5 L564-575, L731-734, L768-795, L861-867, L545-548;
   VERIFIED by reading), published statements with marks, the seven leaves with faithfulness
   notes, Mathlib inventory, glue by step, the Jacobian question, obstacles.
+
+## Step 7: C2 glue proved
+- `finrank_equivEnd` proved (no sorry): `finrank ℚ_ℓ (equivEnd A ℓ) = finrank ℤ (End A)` from
+  `FaltingsTate`, `TateModuleFree`, `HomFreeFinite`. Route: `ET` (equivariant ℤ_ℓ-endos of T_ℓ)
+  ≅ ℤ_ℓ ⊗ End A via `tateHomZl` (shown ℤ_ℓ-linear); `Φ : ET → equivEnd`, ψ ↦ ψ ⊗ ℚ_ℓ, is
+  `IsLocalizedModule ℤ_ℓ⁰`; then `IsLocalization.finrank_eq`, `IsLocalizedModule.finrank_eq`,
+  `Module.finrank_baseChange`.
+- `#print axioms` for `finrank_equivEnd`, `exists_hom_ne_zero_of_equivariant`, `AbVar.zero`,
+  `AbVar.baseChange`: [propext, Classical.choice, Quot.sound]. `grep -c sorry I3.lean` = 0.
+  Whole file compiles with no errors (VERIFIED).
