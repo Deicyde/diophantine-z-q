@@ -59,3 +59,16 @@ GQ = Field.absoluteGaloisGroup ℚ, GQp p = Field.absoluteGaloisGroup ℚ_[p], r
   square-root character ↔ χ(u) = 1).
 - LeafUnramified (L-B2d): ε inflated from Gal(L/ℚ), L finite Galois, every prime of 𝓞 L over p has
   ramificationIdx 1 ⇒ ε|G_{ℚ_p} is a coboundary.
+
+## Step 7: B2Assembly.lean — B2 over G_ℚ from the four leaves — compiles, no sorry;
+## #print axioms b2_of_leaves: propext, Classical.choice, Quot.sound (VERIFIED)
+Out-of-tree build: OUT=scratch/glue-descent/.lake/out (gitignored);
+lake env bash -c "LEAN_PATH=$OUT:\$LEAN_PATH lean -o $OUT/GlueDescent/{Chi,B2Glue}.olean scratch/glue-descent/{Chi,B2Glue}.lean"
+then the same LEAN_PATH for B2Assembly.lean.
+- B2Glue additions: cyc_isLocallyConstant (cyclotomic character continuous: invariant under the open
+  fixing subgroup of ℚ(μ_N)), galChar_isLocallyConstant, sqrtU / sqrtU_sq.
+- exists_crt_unit: u ∈ (ℤ/N)^× with u ≡ -1 mod p^{v_p N}, ≡ 1 mod N/p^{v_p N}.
+- chi_toUnitHom_crt: χ(u_p) = if p ∈ T₋ then -1 else 1.
+- b2_of_leaves: LeafHasse, LeafLocalTwo, LeafSqrtCrit, LeafUnramified; L ⊂ ℚ̄ finite Galois, ε sign
+  cocycle inflated from Gal(L/ℚ), L unramified outside finite prime set T ⇒ ∃ N, χ mod N, β : G_ℚ → ℂ^×
+  loc. const with primes of N in T, orderOf χ ≤ 2∏_{p∈T,p≠2}(p-1), β² = galChar χ, dβ = ε.
