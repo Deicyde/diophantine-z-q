@@ -15,3 +15,12 @@
 - `coprime_pow_sub_one`: p ≥ 2, n ≥ 1 ⇒ p coprime to p^n - 1. VERIFIED.
 - `orderOf_unit_pow_sub_one`: p ≥ 2, n ≥ 1 ⇒ ord_{p^n-1}(p) = n. VERIFIED. (With n = 2f: m' = p^{2f}-1 has ord = 2f.)
 - `dvd_pow_orderOf_sub_one`: p coprime m ⇒ m ∣ p^{t·ord_m(p)} - 1 for every t (t = 2: m ∣ p^{2f}-1). VERIFIED.
+
+## Disj.lean (compiled 00:48 PST; axioms propext, Classical.choice, Quot.sound; = glue-sqrt-local Unramified.lean + Ram.lean + section Disj)
+Ambient: [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L], [NeZero m], hcop : p.Coprime m,
+[IsCyclotomicExtension {p^k * m} ℚ_[p] L].
+- `galToProd k m : Gal(L/ℚ_p) →* (ZMod p^k)ˣ × (ZMod m)ˣ`: autToPow on ζ^m (primitive p^k-th) and on ζ^{p^k} (primitive m-th), ζ = zeta (p^k m).
+- `galToProd_injective`: VERIFIED (Bezout: ζ = (ζ^m)^A (ζ^{p^k})^B; autToPow_injective for ζ).
+- `range_galToProd`: range = ⊤ × zpowers(p mod m). VERIFIED (≤ from range_autToPow_eq_zpowers'; card from totient_mul_orderOf_le_finrank).
+- `galEquivProd : Gal(L/ℚ_p) ≃* (⊤ : Subgroup (ZMod p^k)ˣ).prod (zpowers (p mod m))`. VERIFIED.
+- `finrank_eq_totient_mul_orderOf`: [L:ℚ_p] = φ(p^k)·ord_m(p). VERIFIED.
