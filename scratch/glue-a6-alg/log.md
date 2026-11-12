@@ -1,0 +1,30 @@
+# glue-a6-alg results log
+
+## scratch/glue-a6-alg/Quat.lean
+- §1: verbatim copy of scratch/rv-a6-route/QuatVal.lean (`quat_sq_dvd`), namespace GlueA6Alg.
+- §2 `f3_indep`: over ZMod 3, I²=2, J²=0, JI=-IJ, Jx≠0 ⇒ x, Ix, Jx, IJx linearly independent. VERIFIED (compiles).
+- §3 helpers (orbit map φ, reduction mod 3 `red`, `redMap`, `red_map`): VERIFIED (compiles).
+- §3 `GlueA6Alg.core`: on V=(ZMod 3^{2k})^4 (k≥1), linear I,J,S with I²=2, J²=-3, JI=-IJ, SI=IS, SJ=JS,
+  S²-2S+1=0 ⇒ S v = v whenever 3^k•v=0. VERIFIED: compiles, no sorry, axioms [propext, Classical.choice, Quot.sound].
+  Proof route (differs from rv-a6-route §3 steps 1-2: no |T/JT| count): pick x with Jx ≢ 0 mod 3 (exists, else
+  J=3J' on e₀ gives -3 ≡ 0 mod 9); f3_indep ⇒ x,Ix,Jx,IJx span V/3V; Nakayama by induction (3^{2k}=0) ⇒ orbit map
+  φ_x : (ZMod q)^4 → V surjective, hence injective (finite); S x - x = φ_x(a); (S-1)²x = φ_x(a²-coords) ⇒ q | coords;
+  quat_sq_dvd ⇒ a = 3^k a'; for v=φ_x(α) with 3^k v=0: 3^k α=0 and (S-1)v = φ_{φ_x a'}(3^k α)=0.
+- §4 `GlueA6Alg.quatUnipotentTrivial : QuatUnipotentTrivial.{u}` (def verbatim from scratch/rv-a6-route/A6.lean §10).
+  VERIFIED: compiles, no sorry, axioms [propext, Classical.choice, Quot.sound]. Transport: E = e extended by 0 off G[q];
+  group endomorphisms become additive maps of V, hence ZMod q-linear (`AddMonoidHom.toZModLinearMap`); then `core`.
+
+## scratch/glue-a6-alg/A6.lean
+- Copy of scratch/rv-a6-route/A6.lean (RvA6 → GlueA6Alg; leaves unchanged) + Quat.lean algebra (namespace GlueA6Alg.Alg)
+  + `GlueA6Alg.quatUnipotentTrivial` + rv's theorem renamed `goodReduction_of_QM_rational3_of_alg` (with hAlg)
+  + new `GlueA6Alg.goodReduction_of_QM_rational3` with hypotheses hNOS, hRay, hTors only (no hAlg), same conclusion
+  HasGoodReduction A O. VERIFIED: compiles with `lake env lean` (34 s), no sorry,
+  axioms [propext, Classical.choice, Quot.sound].
+
+## scratch/glue-a6-alg/Extend.lean
+- `GlueA6Alg.exists_valuationSubring_comap_eq`: for any field extension L/K and valuation subring O of K,
+  ∃ w : ValuationSubring L, w.comap (algebraMap K L) = O. VERIFIED: compiles, axioms standard.
+  Derived (≈25 lines) from Mathlib `IsLocalRing.exists_factor_valuationRing` (Mathlib/RingTheory/Valuation/LocalSubring.lean,
+  built on `LocalSubring.exists_le_valuationSubring`, tagged @[stacks 00IA]): B dominates O; B ∩ K = O because x ∈ B∖O
+  gives x⁻¹ ∈ O a nonunit whose image is a unit in B, contradicting locality.
+- Added to A6.lean: `goodReduction_of_QM_rational3'` (no w, hw hypotheses). VERIFIED: compiles (11.6 s), axioms standard.
