@@ -231,4 +231,41 @@ theorem norm_nrd_le_one_of_mem {x : Bp p} (hx : x ∈ Op p) : ‖nrd p x‖ ≤ 
 
 end Alg
 
+theorem norm_two_two : ‖(2 : ℚ_[2])‖ = 2⁻¹ := by simpa using Padic.norm_p (p := 2)
+theorem norm_three_three : ‖(3 : ℚ_[3])‖ = 3⁻¹ := by simpa using Padic.norm_p (p := 3)
+
+/-- **`p = 2`.** `𝒪₂ = {x ∈ B₂ : nrd x ∈ ℤ₂}`. -/
+theorem mem_Op_iff_nrd_two (x : Bp 2) : x ∈ Op 2 ↔ ‖nrd 2 x‖ ≤ 1 := by
+  refine ⟨norm_nrd_le_one_of_mem 2, fun h => ?_⟩
+  rw [nrd_coord] at h
+  have k := key (p := 2) _ _ (max ‖coord 2 x 0‖ ‖coord 2 x 2‖) (max ‖coord 2 x 1‖ ‖coord 2 x 3‖)
+    (norm_form2 _ _) ?_ (max_zero_or_zpow _ _) (max_zero_or_zpow _ _) h
+  · rw [mem_Op_iff_coord]; intro i
+    fin_cases i
+    · exact (le_max_left _ _).trans k.1
+    · exact (le_max_left _ _).trans k.2
+    · exact (le_max_right _ _).trans k.1
+    · exact (le_max_right _ _).trans k.2
+  · rw [norm_mul, norm_form2, norm_neg, norm_two_two]; push_cast; ring
+
+/-- **`p = 3`.** `𝒪₃ = {x ∈ B₃ : nrd x ∈ ℤ₃}`. -/
+theorem mem_Op_iff_nrd_three (x : Bp 3) : x ∈ Op 3 ↔ ‖nrd 3 x‖ ≤ 1 := by
+  refine ⟨norm_nrd_le_one_of_mem 3, fun h => ?_⟩
+  have e : nrd 3 x = (x.re ^ 2 - 2 * x.imI ^ 2) + 3 * (x.imJ ^ 2 - 2 * x.imK ^ 2) := by
+    rw [nrd_eq]; ring
+  rw [e] at h
+  have k := key (p := 3) _ _ (max ‖x.re‖ ‖x.imI‖) (max ‖x.imJ‖ ‖x.imK‖)
+    (norm_form3 _ _) ?_ (max_zero_or_zpow _ _) (max_zero_or_zpow _ _) h
+  · have ha := (le_max_left _ _).trans k.1
+    have hb := (le_max_right _ _).trans k.1
+    have hc := (le_max_left _ _).trans k.2
+    have hd := (le_max_right _ _).trans k.2
+    rw [mem_Op_iff_coord]; intro i
+    fin_cases i
+    · exact norm_le_one_of_eq_coe (lift _ ha - lift _ hc) (by simp [coord, coe_lift])
+    · exact norm_le_one_of_eq_coe (lift _ hb - lift _ hd) (by simp [coord, coe_lift])
+    · exact norm_le_one_of_eq_coe (2 * lift _ hc) (by simp [coord, coe_lift, coe_two])
+    · exact norm_le_one_of_eq_coe (2 * lift _ hd) (by simp [coord, coe_lift, coe_two])
+  · rw [norm_mul, norm_form3, norm_three_three]; push_cast; ring
+
 end GlueVigneras
