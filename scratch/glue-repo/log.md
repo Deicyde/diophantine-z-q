@@ -56,3 +56,19 @@ Jmap copied verbatim from JHeight.lean (not importable in worktrees).
 - h₁_ne_zero, h₂_ne_zero; fibre_free: the four points are distinct, W acts freely (no zero
   coordinate), no coordinate is real (residue field ≠ ℚ; coordinates in ℚ(i)), complex
   conjugation acts as w₃ (negates both). Axioms: propext, Classical.choice, Quot.sound.
+
+## A1Quaternion.lean, 𝒪/3𝒪 units and division — COMPILED (no sorry; axioms standard)
+- mul3, one3, red3, red3_mul (coordinate reduction mod 3 is multiplicative: 𝒪/3𝒪 ≅ ((ZMod 3)⁴, mul3)),
+  nrd3_mul, mul3_conj3, isUnit3_iff (unit ⇔ nrd ≢ 0 mod 3), card_units_mod3 (= 72, `decide`).
+- norm_descent, nrd_ne_zero (B = (2,−3) is a division algebra), inv_mul_self (x⁻¹ = x̄/nrd x),
+  module_eq_zero: a B-module V with IsScalarTower ℚ B V and dim_ℚ V < 4 is zero (toric step of
+  Lemma PR(ii), h-b1 §4(ii) step 2).
+
+## Numerics.lean — COMPILED (no sorry; axioms standard)
+- a3_numerals (4·72 ≤ 4·81 = 324; 4·72/2 = 144 = 2⁴3²).
+- splitting_degree_le: separable f ∈ ℚ[X], deg ≤ 324 ⇒ [SplittingField f : ℚ] ≤ 324!
+  (Gal(f) ↪ Perm(roots); Polynomial.Gal.galActionHom_injective, card_of_separable).
+- a8_rank (r ≤ 16F₀²), a8_degree (k ≤ F₀, e ≤ 3^{r²} ⇒ k·e ≤ F₀·3^{256F₀⁴}), a8_field
+  ([E ⊔ K : ℚ] ≤ D via IntermediateField.finrank_sup_le). Stated for variables F₀, D with
+  hD : D = F₀·3^{256F₀⁴} (kernel cannot unfold heightF0 = 324! / heightD: maxRecDepth and
+  "kernel refused to evaluate Nat.pow" when stated with the constants directly).

@@ -350,6 +350,107 @@ theorem card_units_mod3 :
   rw [Finset.filter_congr (fun x _ => isUnit3_iff x)]
   decide
 
+/-! ### `B` is a division algebra; the toric part of PR(ii) step 2 vanishes -/
+
+/-- `X₀² − 2X₁² + 3X₂² − 6X₃² = 0` has only the trivial integer solution (3-adic descent). -/
+theorem norm_descent : ∀ (n : ℕ) (a b c d : ℤ), a.natAbs + b.natAbs + c.natAbs + d.natAbs = n →
+    a ^ 2 - 2 * b ^ 2 + 3 * c ^ 2 - 6 * d ^ 2 = 0 → a = 0 ∧ b = 0 ∧ c = 0 ∧ d = 0 := by
+  intro n
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+    intro a b c d hn h
+    have k1 : ∀ a b c d : ZMod 3, a ^ 2 - 2 * b ^ 2 + 3 * c ^ 2 - 6 * d ^ 2 = 0 →
+        a = 0 ∧ b = 0 := by decide
+    have h3 := congrArg (fun z : ℤ => (z : ZMod 3)) h
+    push_cast at h3
+    obtain ⟨ha, hb⟩ := k1 _ _ _ _ h3
+    rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at ha hb
+    obtain ⟨a', rfl⟩ := ha
+    obtain ⟨b', rfl⟩ := hb
+    have h' : c ^ 2 - 2 * d ^ 2 + 3 * a' ^ 2 - 6 * b' ^ 2 = 0 := by push_cast at h; linarith
+    have h3' := congrArg (fun z : ℤ => (z : ZMod 3)) h'
+    push_cast at h3'
+    obtain ⟨hc, hd⟩ := k1 _ _ _ _ h3'
+    rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at hc hd
+    obtain ⟨c', rfl⟩ := hc
+    obtain ⟨d', rfl⟩ := hd
+    by_cases h0 : a' = 0 ∧ b' = 0 ∧ c' = 0 ∧ d' = 0
+    · obtain ⟨rfl, rfl, rfl, rfl⟩ := h0; simp
+    · exfalso
+      have hpos : 0 < a'.natAbs + b'.natAbs + c'.natAbs + d'.natAbs := by
+        by_contra hz
+        apply h0
+        omega
+      have := ih (a'.natAbs + b'.natAbs + c'.natAbs + d'.natAbs)
+        (by rw [← hn]; simp only [Int.natAbs_mul]; norm_num; omega) a' b' c' d' rfl
+        (by push_cast at h'; linarith)
+      exact h0 this
+
+/-- `nrd x = 0` only for `x = 0`: `B = (2,−3)` is a division algebra. -/
+theorem nrd_ne_zero {x : B} (hx : x ≠ 0) : nrd x ≠ 0 := by
+  intro hn
+  rw [nrd_eq] at hn
+  set E : ℤ := ((x.re.den * x.imI.den * x.imJ.den * x.imK.den : ℕ) : ℤ)
+  have hE : (E : ℚ) ≠ 0 := by simp [E]
+  obtain ⟨a, ha⟩ : ∃ z : ℤ, (z : ℚ) = x.re * E :=
+    ⟨x.re.num * (x.imI.den * x.imJ.den * x.imK.den : ℕ), by
+      simp only [E]; push_cast; rw [← Rat.mul_den_eq_num x.re]; ring⟩
+  obtain ⟨b, hb⟩ : ∃ z : ℤ, (z : ℚ) = x.imI * E :=
+    ⟨x.imI.num * (x.re.den * x.imJ.den * x.imK.den : ℕ), by
+      simp only [E]; push_cast; rw [← Rat.mul_den_eq_num x.imI]; ring⟩
+  obtain ⟨c, hc⟩ : ∃ z : ℤ, (z : ℚ) = x.imJ * E :=
+    ⟨x.imJ.num * (x.re.den * x.imI.den * x.imK.den : ℕ), by
+      simp only [E]; push_cast; rw [← Rat.mul_den_eq_num x.imJ]; ring⟩
+  obtain ⟨d, hd⟩ : ∃ z : ℤ, (z : ℚ) = x.imK * E :=
+    ⟨x.imK.num * (x.re.den * x.imI.den * x.imJ.den : ℕ), by
+      simp only [E]; push_cast; rw [← Rat.mul_den_eq_num x.imK]; ring⟩
+  have key : a ^ 2 - 2 * b ^ 2 + 3 * c ^ 2 - 6 * d ^ 2 = 0 := by
+    have : ((a ^ 2 - 2 * b ^ 2 + 3 * c ^ 2 - 6 * d ^ 2 : ℤ) : ℚ) = 0 := by
+      push_cast; rw [ha, hb, hc, hd]; linear_combination (E : ℚ) ^ 2 * hn
+    exact_mod_cast this
+  obtain ⟨h0, h1, h2, h3⟩ := norm_descent _ a b c d rfl key
+  apply hx
+  have z : ∀ q : ℚ, ∀ z : ℤ, (z : ℚ) = q * E → z = 0 → q = 0 := by
+    intro q z hz h0; rw [h0, Int.cast_zero] at hz
+    exact (mul_eq_zero.mp hz.symm).resolve_right hE
+  ext
+  · exact z _ _ ha h0
+  · exact z _ _ hb h1
+  · exact z _ _ hc h2
+  · exact z _ _ hd h3
+
+/-- The inverse `x⁻¹ = x̄ / nrd x`. -/
+theorem inv_mul_self {x : B} (hx : x ≠ 0) : ((nrd x)⁻¹ • star x) * x = 1 := by
+  have hn := nrd_ne_zero hx
+  rw [smul_mul_assoc]
+  have : star x * x = (nrd x : B) := by ext <;> simp [nrd] <;> ring
+  rw [this]
+  ext <;> simp [hn]
+
+/-- **Toric step of Lemma PR(ii)** (h-b1 §4(ii) step 2): a module `V` over `B`, compatible with its
+`ℚ`-structure, of `ℚ`-dimension `< 4` is zero. Applied to `V = X(T) ⊗ ℚ` (the character group of
+the toric part, `dim T ≤ 2`) with the action of `B = End⁰(A)` through the Néron model. -/
+theorem module_eq_zero (V : Type*) [AddCommGroup V] [Module B V] [Module ℚ V]
+    [IsScalarTower ℚ B V] [FiniteDimensional ℚ V] (ht : Module.finrank ℚ V < 4) (v : V) :
+    v = 0 := by
+  by_contra hv
+  let f : B →ₗ[ℚ] V :=
+    { toFun := fun b => b • v
+      map_add' := fun b c => add_smul b c v
+      map_smul' := fun q b => smul_assoc q b v }
+  have hf : Function.Injective f := by
+    rw [← LinearMap.ker_eq_bot, LinearMap.ker_eq_bot']
+    intro b hb
+    by_contra hb0
+    apply hv
+    have : ((nrd b)⁻¹ • star b) • (b • v) = v := by rw [smul_smul, inv_mul_self hb0, one_smul]
+    rw [← this]
+    change ((nrd b)⁻¹ • star b) • f b = 0
+    rw [hb, smul_zero]
+  have := LinearMap.finrank_le_finrank_of_injective hf
+  rw [QuaternionAlgebra.finrank_eq_four] at this
+  omega
+
 end GlueRepo.A1
 
 #print axioms GlueRepo.A1.trd_mul_ros_pos
@@ -360,3 +461,4 @@ end GlueRepo.A1
 #print axioms GlueRepo.A1.no_trd_zero_nrd_two
 #print axioms GlueRepo.A1.nrd_mul
 #print axioms GlueRepo.A1.card_units_mod3
+#print axioms GlueRepo.A1.module_eq_zero
