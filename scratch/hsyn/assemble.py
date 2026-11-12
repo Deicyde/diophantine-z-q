@@ -10,7 +10,7 @@ parts=[open(root+'scratch/hsyn/head.lean').read()]
 srcs=[('PkgI1','scratch/pkg-I1/I1.lean'),('PkgI2','scratch/pkg-I2/I2.lean'),
       ('PkgI3','scratch/pkg-I3/I3.lean'),('PkgI6','scratch/pkg-I6/I6.lean'),
       ('CondBreaks','scratch/glue-conductor/Breaks.lean'),('CondDyadic','scratch/glue-conductor/Dyadic.lean'),
-      ('CondLevel','scratch/glue-conductor/Level.lean'),('Assembly','scratch/glue-assembly/GlueAssembly.lean')]
+      ('CondLevel','scratch/glue-conductor/Level.lean'),('Assembly','scratch/glue-assembly/GlueAssembly.lean'),('AsmC8','scratch/glue-assembly/C8.lean'),('AsmE1','scratch/glue-assembly/E1Lin.lean'),('AsmE2','scratch/glue-assembly/E2Index.lean'),('AsmF3','scratch/glue-assembly/F3Glue.lean')]
 for tag,f in srcs:
     parts.append('section %sSec\n/-! ### Copied from `%s` (compiled there). -/\n'%(tag,f)+body(f)+'\nend %sSec\n'%tag)
 fa=open(root+'scratch/hdec-faithful/Leaves.lean').read()

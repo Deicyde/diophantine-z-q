@@ -3941,6 +3941,350 @@ end GlueAssembly
 
 end AssemblySec
 
+section AsmC8Sec
+/-! ### Copied from `scratch/glue-assembly/C8.lean` (compiled there). -/
+
+/-!
+# Elementary glue of step C8 (twist and weight) and of E1, over genuine Mathlib objects
+
+* `weight_match`: the Hodge–Tate weight comparison `{n, n+1−k} = {0, −1}`, `k ≥ 1` ⇒ `k = 2`,
+  `n = 0` (Tate normalization), and its cohomological variant.
+* The determinant argument for the finiteness of the twisting character `ψ` (h-trust C8 items
+  1-3), as group theory: (a) a character trivial-on-squares on a finite-index subgroup has finite
+  image; (b) a character into the units of a field whose square has finite image has finite image.
+  These are stated for an arbitrary group `G` (for C8, `G = G_ℚ` and `H = G_F`), with values in
+  `Eˣ` for a field `E` (for C8, `E = \bar ℚ₅`).
+-/
+
+namespace GlueAssembly
+
+/-- **Weight comparison, Tate normalization** (h-trust C8 "Check here"). If the weights
+`{n, n + 1 − k}` of `ρ_g ⊗ χ^{-n}`-type twist equal `{0, −1}` as sets and `k ≥ 1`, then `k = 2`
+and `n = 0`. -/
+theorem weight_match {n k : ℤ} (hk : 1 ≤ k)
+    (h : ({n, n + 1 - k} : Finset ℤ) = {0, -1}) : k = 2 ∧ n = 0 := by
+  have h0 : (0 : ℤ) ∈ ({n, n + 1 - k} : Finset ℤ) := by rw [h]; simp
+  have h1 : (-1 : ℤ) ∈ ({n, n + 1 - k} : Finset ℤ) := by rw [h]; simp
+  have hn : n ∈ ({0, -1} : Finset ℤ) := by rw [← h]; simp
+  have hm : n + 1 - k ∈ ({0, -1} : Finset ℤ) := by rw [← h]; simp
+  simp only [Finset.mem_insert, Finset.mem_singleton] at h0 h1 hn hm
+  omega
+
+/-- **Weight comparison, cohomological normalization** (Pan's convention, weights `{0, k − 1}`):
+`{n, n + k − 1} = {0, −1}`, `k ≥ 1` ⇒ `k = 2`, `n = −1` (twist by `χ¹`, rv-h-c8 `weights.py`). -/
+theorem weight_match_coh {n k : ℤ} (hk : 1 ≤ k)
+    (h : ({n, n + k - 1} : Finset ℤ) = {0, -1}) : k = 2 ∧ n = -1 := by
+  have h0 : (0 : ℤ) ∈ ({n, n + k - 1} : Finset ℤ) := by rw [h]; simp
+  have h1 : (-1 : ℤ) ∈ ({n, n + k - 1} : Finset ℤ) := by rw [h]; simp
+  have hn : n ∈ ({0, -1} : Finset ℤ) := by rw [← h]; simp
+  have hm : n + k - 1 ∈ ({0, -1} : Finset ℤ) := by rw [← h]; simp
+  simp only [Finset.mem_insert, Finset.mem_singleton] at h0 h1 hn hm
+  omega
+
+/-- **Determinant argument, step 2** (h-trust C8 item 2): a homomorphism `α : G →* M` whose
+values on a finite-index subgroup `H` lie in a finite set has finite image. For C8: `α = det r₅·χ⁻¹`,
+`H = G_F`, `α(H) ⊆ {±1}`. -/
+theorem finite_range_of_finiteIndex {G M : Type*} [Group G] [Group M] (α : G →* M)
+    (H : Subgroup G) [H.FiniteIndex] (hH : (α '' H).Finite) : (Set.range α).Finite := by
+  classical
+  -- `G` is a finite union of cosets `g H`, and `α(gH) = α(g)·α(H)`.
+  obtain ⟨T, hT⟩ : ∃ T : Finset G, ∀ g : G, ∃ t ∈ T, t⁻¹ * g ∈ H := by
+    haveI := H.fintypeQuotientOfFiniteIndex
+    refine ⟨(Finset.univ : Finset (G ⧸ H)).image fun q => q.out, fun g => ?_⟩
+    refine ⟨(g : G ⧸ H).out, Finset.mem_image.2 ⟨_, Finset.mem_univ _, rfl⟩, ?_⟩
+    have := QuotientGroup.mk_out_eq_mul H g
+    obtain ⟨h, hh⟩ := this
+    rw [hh]; simp [mul_assoc]
+  have hsub : Set.range α ⊆ ⋃ t ∈ T, (fun m => α t * m) '' (α '' H) := by
+    rintro _ ⟨g, rfl⟩
+    obtain ⟨t, ht, hg⟩ := hT g
+    simp only [Set.mem_iUnion, Set.mem_image]
+    exact ⟨t, ht, α (t⁻¹ * g), ⟨t⁻¹ * g, hg, rfl⟩, by simp⟩
+  exact Set.Finite.subset (Set.Finite.biUnion T.finite_toSet fun t _ => hH.image _) hsub
+
+/-- **Determinant argument, step 3** (h-trust C8 item 3): a character `ψ : G →* Eˣ` into the units
+of a field whose square `ψ²` has finite image has finite image (each value is a square root of
+one of finitely many scalars). For C8: `ψ² = α ε_g⁻¹`. -/
+theorem finite_range_of_sq {G E : Type*} [Group G] [Field E] (ψ : G →* Eˣ)
+    (h : (Set.range fun g => ψ g ^ 2).Finite) : (Set.range ψ).Finite := by
+  classical
+  have hsub : Set.range ψ ⊆ ⋃ c ∈ h.toFinset, {x : Eˣ | (x : E) ∈ Polynomial.nthRoots 2 (c : E)} := by
+    rintro _ ⟨g, rfl⟩
+    simp only [Set.mem_iUnion, Set.mem_ofPred_eq, Set.Finite.mem_toFinset, Set.mem_range]
+    refine ⟨ψ g ^ 2, ⟨g, rfl⟩, ?_⟩
+    rw [Polynomial.mem_nthRoots (by norm_num)]
+    simp
+  refine Set.Finite.subset (Set.Finite.biUnion h.toFinset.finite_toSet fun c _ => ?_) hsub
+  have hfin : ((Polynomial.nthRoots 2 (c : E)).toFinset : Set E).Finite := Finset.finite_toSet _
+  refine Set.Finite.subset (hfin.preimage Units.val_injective.injOn) ?_
+  intro x hx
+  simpa using hx
+
+/-- **Determinant argument, assembled** (h-trust C8 items 1-3, group-theoretic content). Let
+`G` be a group with a finite-index subgroup `H`, `E` a field, and `r, ε, χ, ψ : G →* Eˣ` with
+`r = ε · χ · ψ²` (`det r₅ = det ρ_g · ψ² = ε_g χ ψ²` at `k = 2`), `r² = χ²` on `H`
+(`(det r₅)² = det V₅(A) = χ²` on `G_F`), and `ε` of finite image (a nebentypus). Then `ψ` has
+finite image. -/
+theorem twist_finite {G E : Type*} [Group G] [Field E] (H : Subgroup G) [H.FiniteIndex]
+    (r ε χ ψ : G →* Eˣ) (hdet : ∀ g, r g = ε g * χ g * ψ g ^ 2)
+    (hH : ∀ h ∈ H, r h ^ 2 = χ h ^ 2) (hε : (Set.range ε).Finite) : (Set.range ψ).Finite := by
+  classical
+  -- `α = r χ⁻¹` is `±1` on `H`, hence of finite image.
+  let α : G →* Eˣ := r * χ⁻¹
+  have hαH : (α '' H).Finite := by
+    refine Set.Finite.subset ((Polynomial.nthRoots 2 (1 : E)).toFinset.finite_toSet.preimage
+      Units.val_injective.injOn) ?_
+    rintro _ ⟨h, hh, rfl⟩
+    simp only [Set.mem_preimage, Finset.mem_coe, Multiset.mem_toFinset]
+    rw [Polynomial.mem_nthRoots (by norm_num)]
+    have := hH h hh
+    have e : (α h) ^ 2 = 1 := by
+      simp only [α, MonoidHom.mul_apply, MonoidHom.inv_apply, mul_pow, inv_pow, this,
+        mul_inv_cancel]
+    have := congrArg Units.val e
+    simpa using this
+  have hα := finite_range_of_finiteIndex α H hαH
+  -- `ψ² = α ε⁻¹`.
+  have hsq : (Set.range fun g => ψ g ^ 2) ⊆ (fun p : Eˣ × Eˣ => p.1 * p.2⁻¹) '' (Set.range α ×ˢ Set.range ε) := by
+    rintro _ ⟨g, rfl⟩
+    refine ⟨(α g, ε g), ⟨⟨g, rfl⟩, ⟨g, rfl⟩⟩, ?_⟩
+    simp only [α, MonoidHom.mul_apply, MonoidHom.inv_apply, hdet]
+    apply Units.ext
+    simp only [Units.val_mul, Units.val_inv_eq_inv_val, Units.val_pow_eq_pow_val]
+    have h1 := (ε g).ne_zero
+    have h2 := (χ g).ne_zero
+    field_simp
+  exact finite_range_of_sq ψ (((hα.prod hε).image _).subset hsq)
+
+end GlueAssembly
+
+end AsmC8Sec
+
+section AsmE1Sec
+/-! ### Copied from `scratch/glue-assembly/E1Lin.lean` (compiled there). -/
+
+/-!
+# E1 glue: invariants commute with extension of the coefficient field
+
+N5 L862-864: "Invariants in their finite-dimensional Hom space commute with extension of the
+coefficient field." The direction used: if `(E ⊗_F W)^G ≠ 0` then `W^G ≠ 0`, for a
+representation `W` of a group `G` over a field `F` and a field extension `E/F` (for E1:
+`W = Hom_{ℚ₅}(V₅A, V₅J)`, `G = G_{L'}`, `E` a finite extension of `ℚ₅`). Proved for any
+`F`-module `W` (no finiteness needed) by expanding in an `F`-basis of `E`.
+-/
+
+namespace GlueAssembly
+
+open TensorProduct
+
+variable {F E W G : Type*} [Field F] [Field E] [Algebra F E] [AddCommGroup W] [Module F W]
+  [Group G]
+
+/-- Coordinates of `E ⊗_F W` in an `F`-basis `b` of `E` are natural in `W`. -/
+theorem coord_lTensor {ι : Type*} [DecidableEq ι] (b : Module.Basis ι F E) (f : W →ₗ[F] W) (x : E ⊗[F] W)
+    (i : ι) :
+    finsuppScalarLeft F W ι (LinearEquiv.rTensor W b.repr (LinearMap.lTensor E f x)) i =
+      f (finsuppScalarLeft F W ι (LinearEquiv.rTensor W b.repr x) i) := by
+  induction x using TensorProduct.inductionOn with
+  | tmul y w => simp
+  | add x y hx hy => simp only [map_add, Finsupp.add_apply, hx, hy]
+
+/-- **Invariants and extension of scalars.** If `W^G = 0` then every `G`-invariant vector of
+`E ⊗_F W` vanishes. -/
+theorem baseChange_invariant_eq_zero (ρ : Representation F G W) (h : ρ.invariants = ⊥)
+    (x : E ⊗[F] W) (hx : ∀ g : G, LinearMap.lTensor E (ρ g) x = x) : x = 0 := by
+  classical
+  let b := Module.Free.chooseBasis F E
+  let e : E ⊗[F] W ≃ₗ[F] _ := LinearEquiv.rTensor W b.repr ≪≫ₗ finsuppScalarLeft F W _
+  have hcoord : ∀ i, e x i = 0 := by
+    intro i
+    have hi : e x i ∈ ρ.invariants := by
+      rw [Representation.mem_invariants]
+      intro g
+      have := coord_lTensor b (ρ g) x i
+      rw [hx g] at this
+      exact this.symm
+    rw [h] at hi
+    exact hi
+  have : e x = 0 := Finsupp.ext hcoord
+  exact e.injective (this.trans e.map_zero.symm)
+
+/-- Contrapositive form used in E1: a nonzero invariant after extension of scalars gives a
+nonzero invariant before. -/
+theorem invariants_ne_bot_of_baseChange (ρ : Representation F G W) (x : E ⊗[F] W) (hx0 : x ≠ 0)
+    (hx : ∀ g : G, LinearMap.lTensor E (ρ g) x = x) : ρ.invariants ≠ ⊥ :=
+  fun h => hx0 (baseChange_invariant_eq_zero ρ h x hx)
+
+end GlueAssembly
+
+end AsmE1Sec
+
+section AsmE2Sec
+/-! ### Copied from `scratch/glue-assembly/E2Index.lean` (compiled there). -/
+
+/-!
+# E2 glue: `[SL₂(ℤ) : Γ₁(N)] ≤ N²` (N5 L871: "The index of `Γ₁(N)` is at most `N²`")
+
+The first column modulo `N` separates the left cosets of `Γ₁(N)`.
+-/
+
+namespace GlueAssembly
+
+open Matrix CongruenceSubgroup
+open scoped MatrixGroups
+
+/-- The first column of `γ ∈ SL₂(ℤ)` modulo `N`. -/
+def firstColMod (N : ℕ) (γ : SL(2, ℤ)) : ZMod N × ZMod N :=
+  (((γ : Matrix (Fin 2) (Fin 2) ℤ) 0 0 : ℤ), ((γ : Matrix (Fin 2) (Fin 2) ℤ) 1 0 : ℤ))
+
+/-- The algebra of `firstColMod_eq_iff`, over variables. -/
+theorem firstCol_algebra {N : ℕ} (A B C : Matrix (Fin 2) (Fin 2) ℤ)
+    (hda : A 0 0 * A 1 1 - A 0 1 * A 1 0 = 1) (hdet : C 0 0 * C 1 1 - C 0 1 * C 1 0 = 1)
+    (c00 : C 0 0 = A 1 1 * B 0 0 - A 0 1 * B 1 0) (c10 : C 1 0 = -A 1 0 * B 0 0 + A 0 0 * B 1 0)
+    (b00 : B 0 0 = A 0 0 * C 0 0 + A 0 1 * C 1 0) (b10 : B 1 0 = A 1 0 * C 0 0 + A 1 1 * C 1 0) :
+    ((A 0 0 : ZMod N), (A 1 0 : ZMod N)) = ((B 0 0 : ZMod N), (B 1 0 : ZMod N)) ↔
+      (C 0 0 : ZMod N) = 1 ∧ (C 1 1 : ZMod N) = 1 ∧ (C 1 0 : ZMod N) = 0 := by
+  rw [Prod.mk.injEq]
+  have hdaN := congrArg (fun x : ℤ => (x : ZMod N)) hda
+  have hdetN := congrArg (fun x : ℤ => (x : ZMod N)) hdet
+  push_cast at hdaN hdetN
+  constructor
+  · rintro ⟨h0, h1⟩
+    have e00 : (C 0 0 : ZMod N) = 1 := by
+      rw [c00]; push_cast; rw [← h0, ← h1]; linear_combination hdaN
+    have e10 : (C 1 0 : ZMod N) = 0 := by
+      rw [c10]; push_cast; rw [← h0, ← h1]; ring
+    refine ⟨e00, ?_, e10⟩
+    rw [e00, e10] at hdetN
+    linear_combination hdetN
+  · rintro ⟨e00, _, e10⟩
+    constructor
+    · rw [b00]; push_cast; rw [e00, e10]; ring
+    · rw [b10]; push_cast; rw [e00, e10]; ring
+
+theorem firstColMod_eq_iff (N : ℕ) (a b : SL(2, ℤ)) :
+    firstColMod N a = firstColMod N b ↔ a⁻¹ * b ∈ Gamma1 N := by
+  have hCe : ((a⁻¹ * b : SL(2, ℤ)) : Matrix (Fin 2) (Fin 2) ℤ) =
+      !![(a : Matrix (Fin 2) (Fin 2) ℤ) 1 1, -(a : Matrix (Fin 2) (Fin 2) ℤ) 0 1;
+        -(a : Matrix (Fin 2) (Fin 2) ℤ) 1 0, (a : Matrix (Fin 2) (Fin 2) ℤ) 0 0] *
+        (b : Matrix (Fin 2) (Fin 2) ℤ) := by
+    have e1 : ((a⁻¹ * b : SL(2, ℤ)) : Matrix (Fin 2) (Fin 2) ℤ) =
+        Matrix.adjugate (a : Matrix (Fin 2) (Fin 2) ℤ) * (b : Matrix (Fin 2) (Fin 2) ℤ) := rfl
+    rw [e1, Matrix.adjugate_fin_two]
+  have hBe : (b : Matrix (Fin 2) (Fin 2) ℤ) =
+      (a : Matrix (Fin 2) (Fin 2) ℤ) * ((a⁻¹ * b : SL(2, ℤ)) : Matrix (Fin 2) (Fin 2) ℤ) := by
+    have e2 : ((a * (a⁻¹ * b) : SL(2, ℤ)) : Matrix (Fin 2) (Fin 2) ℤ) =
+        (a : Matrix (Fin 2) (Fin 2) ℤ) * ((a⁻¹ * b : SL(2, ℤ)) : Matrix (Fin 2) (Fin 2) ℤ) := rfl
+    rw [← e2, mul_inv_cancel_left]
+  have hdet := (a⁻¹ * b).det_coe
+  have hda := a.det_coe
+  rw [Matrix.det_fin_two] at hdet hda
+  rw [Gamma1_mem]
+  refine firstCol_algebra _ _ _ hda hdet ?_ ?_ ?_ ?_
+  · rw [hCe]; simp [Matrix.mul_apply, Fin.sum_univ_two]; ring
+  · rw [hCe]; simp [Matrix.mul_apply, Fin.sum_univ_two]
+  · conv_lhs => rw [hBe]
+    simp [Matrix.mul_apply, Fin.sum_univ_two]
+  · conv_lhs => rw [hBe]
+    simp [Matrix.mul_apply, Fin.sum_univ_two]
+
+/-- **`[SL₂(ℤ) : Γ₁(N)] ≤ N²`.** -/
+theorem index_Gamma1_le (N : ℕ) [NeZero N] : (Gamma1 N).index ≤ N ^ 2 := by
+  classical
+  let g : SL(2, ℤ) ⧸ Gamma1 N → ZMod N × ZMod N :=
+    Quotient.lift (firstColMod N) fun a b hab =>
+      (firstColMod_eq_iff N a b).2 (QuotientGroup.leftRel_apply.mp hab)
+  have hg : Function.Injective g := by
+    intro x y hxy
+    induction x using QuotientGroup.induction_on
+    induction y using QuotientGroup.induction_on
+    exact QuotientGroup.eq.mpr ((firstColMod_eq_iff N _ _).1 hxy)
+  rw [Subgroup.index_eq_card]
+  calc Nat.card (SL(2, ℤ) ⧸ Gamma1 N) ≤ Nat.card (ZMod N × ZMod N) :=
+        Nat.card_le_card_of_injective g hg
+    _ = N ^ 2 := by rw [Nat.card_prod, Nat.card_zmod]; ring
+
+end GlueAssembly
+
+end AsmE2Sec
+
+section AsmF3Sec
+/-! ### Copied from `scratch/glue-assembly/F3Glue.lean` (compiled there). -/
+
+/-!
+# Elementary glue of step F3: normalizations of the theta height (N5 L934-947)
+
+* `mulHeight_le_mulHeightL2`: the projective height with the Euclidean (`L²`) norm at the
+  archimedean places dominates Mathlib's sup-norm height (N5: "His Euclidean projective height
+  dominates our supremum projective height").
+* `logHeight_sixteen_eq`: adjoining the six vanishing odd theta constants does not change the
+  height (N5 L932-933), Mathlib's `logHeight_sumElim_zero_eq`.
+* `logHeight_rootsOfUnity_smul`: multiplying coordinates by roots of unity does not change the
+  height (N5 L937: the permitted changes of theta structure permute coordinates and multiply them
+  by roots of unity).
+-/
+
+namespace GlueAssembly
+
+open Height Real
+
+variable {K : Type*} [Field K] [AdmissibleAbsValues K] {ι : Type*} [Fintype ι]
+
+/-- The multiplicative projective height with the `L²` norm at the archimedean places and the
+max norm at the nonarchimedean ones (relative to `K`; junk value `1` at `0`). -/
+noncomputable def mulHeightL2 (x : ι → K) : ℝ :=
+  open Classical in
+  if x = 0 then 1 else
+    (AdmissibleAbsValues.archAbsVal.map fun v => √(∑ i, v (x i) ^ 2)).prod *
+      ∏ᶠ v : AdmissibleAbsValues.nonarchAbsVal, ⨆ i, v.val (x i)
+
+/-- The `L²` projective height dominates the sup-norm one. -/
+theorem mulHeight_le_mulHeightL2 (x : ι → K) : mulHeight x ≤ mulHeightL2 x := by
+  rcases eq_or_ne x 0 with rfl | hx
+  · simp [mulHeightL2]
+  rw [mulHeight_eq hx, mulHeightL2, if_neg hx]
+  refine mul_le_mul_of_nonneg_right ?_
+    (finprod_nonneg fun v => Real.iSup_nonneg_of_nonnegHomClass _ _)
+  refine Multiset.prod_map_le_prod_map₀ _ _
+    (fun v _ => Real.iSup_nonneg_of_nonnegHomClass _ _) fun v _ => ?_
+  have : Nonempty ι := by
+    obtain ⟨i, _⟩ := Function.ne_iff.mp hx
+    exact ⟨i⟩
+  refine ciSup_le fun i => Real.le_sqrt_of_sq_le ?_
+  exact Finset.single_le_sum (f := fun j => v (x j) ^ 2) (fun j _ => sq_nonneg _)
+    (Finset.mem_univ i)
+
+/-- Logarithmic form. -/
+theorem logHeight_le_log_mulHeightL2 (x : ι → K) : logHeight x ≤ log (mulHeightL2 x) :=
+  log_le_log (mulHeight_pos x) (mulHeight_le_mulHeightL2 x)
+
+/-- The ten even theta constants and the sixteen (six odd ones vanish) have the same height. -/
+theorem logHeight_sixteen_eq (z : Fin 10 → K) :
+    logHeight (Sum.elim z (0 : Fin 6 → K)) = logHeight z :=
+  logHeight_sumElim_zero_eq z
+
+/-- Multiplying the coordinates by roots of unity does not change the height: for `ζ i ^ n = 1`
+(`n ≥ 1`), `mulHeight (ζ * x) = mulHeight x`. -/
+theorem mulHeight_rootsOfUnity_mul {n : ℕ} (hn : 0 < n) (ζ x : ι → K) (hζ : ∀ i, ζ i ^ n = 1) :
+    mulHeight (ζ * x) = mulHeight x := by
+  have hv : ∀ v : AbsoluteValue K ℝ, ∀ i, v (ζ i) = 1 := by
+    intro v i
+    have h := congrArg v (hζ i)
+    rw [map_pow, map_one] at h
+    exact (pow_eq_one_iff_of_nonneg (v.nonneg _) hn.ne').1 h
+  have hz : ∀ i, ζ i ≠ 0 := fun i h => by simpa [h, zero_pow hn.ne'] using hζ i
+  rcases eq_or_ne x 0 with rfl | hx
+  · simp
+  have hx' : ζ * x ≠ 0 := by
+    obtain ⟨i, hi⟩ := Function.ne_iff.mp hx
+    exact Function.ne_iff.mpr ⟨i, by simpa using mul_ne_zero (hz i) hi⟩
+  rw [mulHeight_eq hx, mulHeight_eq hx']
+  simp only [Pi.mul_apply, map_mul, hv, one_mul]
+
+end GlueAssembly
+
+end AsmF3Sec
+
 noncomputable section
 
 namespace HSyn
@@ -4370,4 +4714,8 @@ end
 #print axioms PkgI3.exists_hom_ne_zero_of_equivariant
 #print axioms PkgI3.finrank_equivEnd
 #print axioms PkgI6.eq_of_same_finite_support
+#print axioms GlueAssembly.twist_finite
+#print axioms GlueAssembly.index_Gamma1_le
+#print axioms GlueAssembly.mulHeight_le_mulHeightL2
+#print axioms GlueAssembly.invariants_ne_bot_of_baseChange
 #print axioms HSyn.sixContactMin_of_leaves

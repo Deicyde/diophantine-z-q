@@ -256,4 +256,8 @@ end
 #print axioms PkgI3.exists_hom_ne_zero_of_equivariant
 #print axioms PkgI3.finrank_equivEnd
 #print axioms PkgI6.eq_of_same_finite_support
+#print axioms GlueAssembly.twist_finite
+#print axioms GlueAssembly.index_Gamma1_le
+#print axioms GlueAssembly.mulHeight_le_mulHeightL2
+#print axioms GlueAssembly.invariants_ne_bot_of_baseChange
 #print axioms HSyn.sixContactMin_of_leaves
