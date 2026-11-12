@@ -35,3 +35,4 @@
   (D4), I6 sq_principalUnits (D3; proved in glue-conductor/Dyadic.lean).
 
 ## Step 3. Report docs/research/rv-leaves-b.md written (35 leaves, verdict table)
+- Mathlib `decompositionSubgroup` = stabilizer, `inertiaSubgroup` = kernel on residue field (VERIFIED, RamificationGroup.lean:29,49): I2 IsInertia is the genuine inertia group.
