@@ -9,3 +9,11 @@
 - 23:41-23:44 `lake env lean scratch/h-decomposition/Leaves.lean`: exit 0, 3m08s, one
   "declaration uses sorry" (glueOutputs_of_leaves). 28 `#print axioms`: all
   [propext, Classical.choice, Quot.sound] except `HSyn.sixContactMin_of_leaves` (sorryAx). 0 `axiom`, 19 `opaque`.
+- 23:45-23:47 compile after rv-leaves-a/b repairs (Pazuki `+3` in `PazukiOutput` and
+  `pazuki_numerics`; bundle uses `BrauerHasse2C`, `BrauerReciprocity2C`, `LocalH2CardC`): exit 0, no errors.
+- 23:47-23:49 final compile with 17 more `#print axioms`: exit 0, 1m28s, no errors; one
+  "declaration uses sorry" (`HSyn.glueOutputs_of_leaves`); 45 `#print axioms`, 44 give
+  [propext, Classical.choice, Quot.sound], `HSyn.sixContactMin_of_leaves` adds sorryAx.
+  `grep -c '^opaque'` = 19, `grep -c '^axiom'` = 0. Counts unchanged: 35 of 54 leaves, 39 Props.
+- Named glue Props taken as hypotheses: `PkgI2.QuatUnipotentTrivial`, `GlueI3.SemisimpleBaseChange`.
+- §0 word count 1389 -> 1640 (+18%).
