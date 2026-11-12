@@ -9,3 +9,4 @@
   Open glue: FrobLift (lift of a finite-level unramified Frobenius to a Frobenius in G_ℚ).
 - 23:34 C10.lean: added iso_three_of_five (N5's transport 5 → 3: ι₅ injective gives c p = a p, then iso_of_trace_eq_on_frob) and semisimple_of_le (inferInstance). Compiles, axioms standard (VERIFIED).
 - 23:36 Trace.lean (pkg-I3 sections 1-2 verbatim + CharPolyIndepOfEll verbatim) compiles; trace_indep_of_ell, trace_eq_trace_of_ell: axioms [propext, Classical.choice, Quot.sound] (VERIFIED). Note: the CommGroup instance on A.Pt needs `open ... MonObj` as in pkg-I3's leaf section.
+- 23:37 C10.lean: trace_half (halving step, ρ ≅ r ⊕ r) compiles, axioms standard (VERIFIED).

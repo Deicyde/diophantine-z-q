@@ -227,6 +227,14 @@ theorem semisimple_of_le {k G V : Type} [Field k] [Group G] [AddCommGroup V] [Mo
     (N : Submodule (MonoidAlgebra k G) ρ.asModule) :
     IsSemisimpleModule (MonoidAlgebra k G) N := inferInstance
 
+/-- **Step 3 of glue-assembly §2.2 (halving).**  If `ρ ≅ r ⊕ r` on traces, `tr ρ(g) = 2·tr r(g)`,
+and `tr ρ(g) = ι(s)` for some `s ∈ C`, then `tr r(g) = ι(s/2)`: the element `c p = s/2 ∈ C` of
+`iso_three_of_five`. -/
+theorem trace_half {C k : Type} [Field C] [CharZero C] [Field k] [CharZero k] (ι : C →+* k)
+    (tr tr' : k) (x : C) (h2 : tr = 2 * tr') (hs : tr = ι x) : tr' = ι (x / 2) := by
+  rw [map_div₀, map_ofNat, ← hs, h2]
+  field_simp
+
 end GlueC10
 
 #print axioms GlueC10.iso_of_trace_eq_frob_finite
@@ -235,3 +243,4 @@ end GlueC10
 #print axioms GlueC10.iso_of_trace_eq_on_frob
 #print axioms GlueC10.iso_three_of_five
 #print axioms GlueC10.semisimple_of_le
+#print axioms GlueC10.trace_half
