@@ -23,8 +23,8 @@ Leaves (`def … : Prop`, over Mathlib objects only):
 * `LeafConj`: places of `ℚ̄` over the same `p` are `G_ℚ`-conjugate, with conjugate inertia;
 * `LeafFinRam`: an open subgroup of `G_ℚ` contains the inertia groups over all but finitely
   many primes.
-Glue proved here or stated as unproved glue: `CycUnram` (the cyclotomic character mod `N` is
-trivial on inertia over `p ∤ N`).
+Glue proved here: `cycUnram` (the cyclotomic character mod `N` is trivial on inertia over
+`p ∤ N`), hence `unramified_outside` uses only the four leaves.
 -/
 
 namespace GlueB3Unram
@@ -180,7 +180,7 @@ def LeafFinRam : Prop :=
   ∀ H : Subgroup GQ, IsOpen (H : Set GQ) →
     {p : ℕ | p.Prime ∧ ∃ w : ValuationSubring Qbar, LiesOver w p ∧ ¬ inertiaGQ w ≤ H}.Finite
 
-/-- **Glue (unproved here).** The cyclotomic character mod `N` is trivial on inertia over
+/-- **Glue (proved below, `cycUnram`).** The cyclotomic character mod `N` is trivial on inertia over
 `p ∤ N`: an element of `I_w` acts trivially on the residue field, and the `N`-th roots of unity
 stay distinct modulo `w` because `X^N - 1` is separable mod `p`. -/
 def CycUnram : Prop :=
@@ -402,6 +402,110 @@ theorem unramified_outside_of_leaves (hA : LeafB3a) (hB : LeafB3b) (hConj : Leaf
     have hs' : β s = η s := congrArg (fun f : inertiaGQ w →* ℂˣ => f ⟨s, hs⟩) heq
     rw [hs', ← sq, hη2]
 
+/-! ## Proof of `CycUnram` -/
+
+theorem residue_inertia (w : ValuationSubring Qbar) (s : GQ) (hs : s ∈ inertiaGQ w) (x : w) :
+    ∃ y : w, (y : Qbar) = act s x ∧ IsLocalRing.residue w y = IsLocalRing.residue w x := by
+  obtain ⟨g, hg, rfl⟩ := Subgroup.mem_map.mp hs
+  refine ⟨g • x, rfl, ?_⟩
+  rw [IsLocalRing.ResidueField.residue_smul]
+  have h1 : MulSemiringAction.toRingAut _ (IsLocalRing.ResidueField w) g = 1 := hg
+  exact congrArg (fun f => f (IsLocalRing.residue w x)) h1
+
+theorem residue_prime_eq_zero (w : ValuationSubring Qbar) (p : ℕ) (hw : LiesOver w p) :
+    IsLocalRing.residue w (p : w) = 0 := by
+  rw [IsLocalRing.residue_eq_zero_iff, ValuationSubring.valuation_lt_one_iff]
+  have : ((p : w) : Qbar) = (p : Qbar) := by simp
+  rw [this]; exact hw
+
+theorem residue_natCast_ne_zero (w : ValuationSubring Qbar) (p : ℕ) (hp : p.Prime)
+    (hw : LiesOver w p) (N : ℕ) (hpN : ¬ p ∣ N) : IsLocalRing.residue w (N : w) ≠ 0 := by
+  intro hN
+  have hcop : Nat.Coprime p N := (Nat.Prime.coprime_iff_not_dvd hp).mpr hpN
+  have h := Nat.gcd_eq_gcd_ab p N
+  rw [hcop, Nat.cast_one] at h
+  have h0 := residue_prime_eq_zero w p hw
+  rw [map_natCast] at h0 hN
+  have h2 := congrArg (Int.cast : ℤ → IsLocalRing.ResidueField w) h
+  push_cast at h2
+  rw [h0, hN] at h2
+  simp at h2
+
+theorem rootOfUnity_mem (w : ValuationSubring Qbar) (N : ℕ) (hN : 0 < N) (t : Qbar)
+    (ht : t ^ N = 1) : t ∈ w := by
+  rcases w.mem_or_inv_mem t with h | h
+  · exact h
+  · have ht0 : t ≠ 0 := by rintro rfl; rw [zero_pow hN.ne'] at ht; exact zero_ne_one ht
+    have : t = (t⁻¹) ^ (N - 1) := by
+      rw [inv_pow]; apply eq_inv_of_mul_eq_one_left
+      rw [← pow_succ', Nat.sub_add_cancel hN]; exact ht
+    rw [this]; exact pow_mem h _
+
+theorem cycUnram : CycUnram := by
+  intro N _ p hp hpN w hw s hs
+  have hN : 0 < N := Nat.pos_of_ne_zero (NeZero.ne N)
+  rw [← map_one (cyc N)]
+  apply cyc_eq_of_agree
+  intro t ht
+  have htN : (t : Qbar) ^ N = 1 := by
+    have := (mem_rootsOfUnity N t).mp ht
+    rw [← Units.val_pow_eq_pow_val, this, Units.val_one]
+  let x : w := ⟨t, rootOfUnity_mem w N hN t htN⟩
+  obtain ⟨y, hy, hres⟩ := residue_inertia w s hs x
+  show act s t = t
+  by_contra hne
+  let z : w := y * x ^ (N - 1)
+  have hxN : x ^ N = 1 := Subtype.ext (by simp [x, htN])
+  have hyN : y ^ N = 1 := by
+    apply Subtype.ext
+    simp only [SubmonoidClass.coe_pow, hy, OneMemClass.coe_one]
+    rw [← map_pow, htN, map_one]
+  have hzN : z ^ N = 1 := by
+    simp only [z, mul_pow, hyN, one_mul]
+    rw [← pow_mul, mul_comm, pow_mul, hxN, one_pow]
+  have hz1 : z ≠ 1 := by
+    intro h
+    apply hne
+    have h2 : z * x = x := by rw [h, one_mul]
+    have h3 : z * x = y := by
+      simp only [z, mul_assoc, ← pow_succ, Nat.sub_add_cancel hN, hxN, mul_one]
+    rw [h3] at h2
+    rw [← hy, h2]
+  have hsum : ∑ i ∈ Finset.range N, z ^ i = 0 := by
+    have h := geom_sum_mul z N
+    rw [hzN, sub_self] at h
+    rcases mul_eq_zero.mp h with h | h
+    · exact h
+    · exact absurd (sub_eq_zero.mp h) hz1
+  have hzres : IsLocalRing.residue w z = 1 := by
+    simp only [z, map_mul, map_pow, hres]
+    rw [← map_pow, ← map_mul, ← pow_succ', Nat.sub_add_cancel hN, hxN, map_one]
+  have h := congrArg (IsLocalRing.residue w) hsum
+  simp only [map_sum, map_pow, hzres, one_pow, Finset.sum_const, Finset.card_range,
+    nsmul_eq_mul, mul_one, map_zero] at h
+  apply residue_natCast_ne_zero w p hp hw N hpN
+  rw [map_natCast]; exact h
+
+/-- **B3 (v) from the four leaves** (`CycUnram` is now proved): the twisted kernel field `L'`
+is unramified outside `T`. -/
+theorem unramified_outside (hA : LeafB3a) (hB : LeafB3b) (hConj : LeafConj) (hFin : LeafFinRam)
+    (L : IntermediateField ℚ Qbar) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (T : Finset ℕ) (h2 : 2 ∈ T) (hLT : GalUnramifiedOutside L T)
+    (ε : GQ → GQ → ℂˣ)
+    (hεN : ∀ σ τ, σ ∈ L.fixingSubgroup ∨ τ ∈ L.fixingSubgroup → ε σ τ = 1)
+    {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) (hN : ∀ q, q.Prime → q ∣ N → q ∈ T)
+    (β : GQ → ℂˣ) (hβl : IsLocallyConstant β) (hβs : ∀ x, β x ^ 2 = galChar χ x)
+    (hβe : ∀ x y, β x * β y = ε x y * β (x * y)) :
+    ∃ Q : Finset ℕ, (∀ q ∈ Q, q.Prime ∧ q ∉ T) ∧
+      (∀ x, (∏ q ∈ Q, etaP q) x ^ 2 = 1) ∧ IsLocallyConstant ⇑(∏ q ∈ Q, etaP q) ∧
+      ∀ L' : IntermediateField ℚ Qbar,
+        (∀ σ, σ ∈ L'.fixingSubgroup ↔
+          σ ∈ L.fixingSubgroup ∧ β σ * (∏ q ∈ Q, etaP q) σ = 1) →
+        GalUnramifiedOutside L' T :=
+  unramified_outside_of_leaves hA hB hConj hFin cycUnram L T h2 hLT ε hεN χ hN β hβl hβs hβe
+
 end GlueB3Unram
 
 #print axioms GlueB3Unram.unramified_outside_of_leaves
+#print axioms GlueB3Unram.cycUnram
+#print axioms GlueB3Unram.unramified_outside
