@@ -54,3 +54,10 @@ File `scratch/bp-faltings/Models.lean`. `lake env lean`: no errors, no warnings.
 - `secIndex_mul_absNorm`: #(I/𝓞x)·N(I) = |N_{K/ℚ}x| for a fractional ideal I, 0 ≠ x ∈ I. VERIFIED.
 - `HermitianLattice.ofFractionalIdeal`, `arakelovDegree_ofFractionalIdeal`:
   deg(I, ρ·|σ(·)|) = −log N(I) − Σ_σ log ρ_σ. VERIFIED.
+
+## Step 8 (12:09 PST). AT1 for non-free Hodge lattices
+`Hodge.lean` §8. Compiles; no `sorry` anywhere in the file (grep count 0 on the output).
+- `embCoeff`, `HodgeData.ofIdeal 𝔞 L` (V = K, lattice 𝔞, periods (L σ).lattice1, ω ↦ dz).
+- `HodgeData.modelHeight_ofIdeal`: h = (−log N𝔞 − ½ Σ log covol Λ_σ)/[K:ℚ]. VERIFIED.
+- `modelHeight_ofIdeal_eq_faltingsHeightEC`: PeriodAreaFormula + hP (AT1b) +
+  hNeron (−12 log N𝔞 = finiteHeightPart j − Σ log|σΔ|, AT1a) ⇒ h = faltingsHeightEC W. VERIFIED.

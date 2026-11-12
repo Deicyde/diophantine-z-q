@@ -780,6 +780,93 @@ theorem HermitianLattice.arakelovDegree_ofFractionalIdeal (I : FractionalIdeal (
 
 end FractionalIdeal
 
+/-! ## 8. Acceptance test AT1 for a non-free Hodge lattice
+
+For an elliptic curve with semistable reduction everywhere, the Néron lattice of invariant
+differentials is `𝔞 · ω` with `ω = dx/(2y + a₁x + a₃)` and `𝔞` the fractional ideal with
+`ord_𝔭 𝔞 = (ord_𝔭 Δ − ord_𝔭 Δ_min)/12` (`Δ_min` the minimal discriminant at `𝔭`). With
+`ord_𝔭 Δ_min = max(0, −ord_𝔭 j)` (semistable) and the product formula,
+`−12 log N(𝔞) = ∑_{v∤∞} log⁺|j|_v − ∑_σ log|σΔ|`. That identity is node AT1a (literature: Néron
+models of elliptic curves); here it is the hypothesis `hNeron`. -/
+
+section AcceptanceIdeal
+
+open Polynomial
+open scoped nonZeroDivisors
+
+variable {K : Type*} [Field K] [NumberField K]
+
+/-- `σ : K → ℂ` as a `σ`-semilinear map. -/
+def embCoeff (σ : K →+* ℂ) : K →ₛₗ[σ] ℂ where
+  toFun := σ
+  map_add' := map_add σ
+  map_smul' a v := by simp
+
+/-- The Hodge data `(𝔞 ⊆ K, Λ_σ)` of dimension 1: `V = K` (`ω ↦ 1`), lattice `𝔞`, period lattices
+`(L σ).lattice1`, `ω ↦ dz`. -/
+noncomputable def HodgeData.ofIdeal (𝔞 : FractionalIdeal (𝓞 K)⁰ K) (h𝔞 : 𝔞 ≠ 0)
+    (L : (K →+* ℂ) → PeriodPair) : HodgeData K 1 K where
+  lattice := 𝔞
+  finrank_eq_one := Module.finrank_self K
+  isLattice := (HermitianLattice.ofFractionalIdeal 𝔞 h𝔞 (fun _ => 1) (fun _ => one_pos)).isLattice
+  periods σ := (L σ).lattice1
+  periods_discrete _ := inferInstance
+  periods_isZLattice _ := inferInstance
+  coeff σ := embCoeff σ
+  coeff_ne_zero σ h := by
+    have := congr_arg (fun f => f 1) h
+    simp [embCoeff] at this
+
+theorem HodgeData.modelHeight_ofIdeal (𝔞 : FractionalIdeal (𝓞 K)⁰ K) (h𝔞 : 𝔞 ≠ 0)
+    (L : (K →+* ℂ) → PeriodPair) :
+    (HodgeData.ofIdeal 𝔞 h𝔞 L).modelHeight =
+      (-Real.log (FractionalIdeal.absNorm 𝔞 : ℝ) -
+        (1 / 2) * ∑ σ : K →+* ℂ, Real.log (ZLattice.covolume (L σ).lattice)) /
+          Module.finrank ℚ K := by
+  set ρ : (K →+* ℂ) → ℝ := fun σ => Real.sqrt (ZLattice.covolume (L σ).lattice)
+  have hρ : ∀ σ, 0 < ρ σ := fun σ => Real.sqrt_pos.mpr (ZLattice.covolume_pos _ volume)
+  have hdeg := HermitianLattice.arakelovDegree_ofFractionalIdeal 𝔞 h𝔞 ρ hρ
+  have heq : (HodgeData.ofIdeal 𝔞 h𝔞 L).hodgeBundle.arakelovDegree =
+      (HermitianLattice.ofFractionalIdeal 𝔞 h𝔞 ρ hρ).arakelovDegree := by
+    unfold HermitianLattice.arakelovDegree HermitianLattice.degreeAt
+    congr 1
+    refine Finset.sum_congr rfl fun σ _ => ?_
+    congr 1
+    simp only [HodgeData.hodgeBundle, HodgeData.norm, HermitianLattice.ofFractionalIdeal,
+      HodgeData.ofIdeal, embCoeff, LinearMap.coe_mk, AddHom.coe_mk, ρ,
+      PeriodPair.covolume_lattice1]
+    ring
+  rw [HodgeData.modelHeight, heq, hdeg]
+  congr 1
+  have hs : ∀ σ : K →+* ℂ, Real.log (ρ σ) = (1 / 2) * Real.log (ZLattice.covolume (L σ).lattice) := by
+    intro σ
+    simp only [ρ]
+    rw [Real.log_sqrt (ZLattice.covolume_pos _ volume).le]
+    ring
+  rw [Finset.sum_congr rfl fun σ _ => hs σ, ← Finset.mul_sum]
+
+/-- **Acceptance test AT1 (semistable elliptic curves, any class number), conditional form.**
+Given the area formula AT1c (`PeriodAreaFormula`), period pairs `L σ` with Weierstrass polynomial
+`4x³ − g₂(L σ)x − g₃(L σ)` equal to that of `W^σ` (AT1b), and a Hodge lattice `𝔞 · ω` satisfying the
+Néron identity AT1a (`hNeron`), the model height equals pkg-I5's `faltingsHeightEC W`. Proved. -/
+theorem modelHeight_ofIdeal_eq_faltingsHeightEC (hA : PeriodAreaFormula)
+    (W : WeierstrassCurve K) [W.IsElliptic] (𝔞 : FractionalIdeal (𝓞 K)⁰ K) (h𝔞 : 𝔞 ≠ 0)
+    (L : (K →+* ℂ) → PeriodPair)
+    (hP : ∀ σ, (4 * X ^ 3 + C W.b₂ * X ^ 2 + C (2 * W.b₄) * X + C W.b₆ : K[X]).map σ =
+      4 * X ^ 3 - C (L σ).g₂ * X - C (L σ).g₃)
+    (hNeron : -12 * Real.log (FractionalIdeal.absNorm 𝔞 : ℝ) =
+      finiteHeightPart W.j - ∑ σ : K →+* ℂ, Real.log ‖σ W.Δ‖) :
+    (HodgeData.ofIdeal 𝔞 h𝔞 L).modelHeight = faltingsHeightEC W := by
+  rw [HodgeData.modelHeight_ofIdeal, faltingsHeightEC, ← hNeron]
+  have hterm : ∀ σ : K →+* ℂ, ZLattice.covolume (L σ).lattice =
+      hypVol 1 ((4 * X ^ 3 + C W.b₂ * X ^ 2 + C (2 * W.b₄) * X + C W.b₆ : K[X]).map σ) := by
+    intro σ; rw [hP, hA]
+  simp only [hterm]
+  have hd : (0 : ℝ) < Module.finrank ℚ K := by exact_mod_cast Module.finrank_pos
+  field_simp
+
+end AcceptanceIdeal
+
 end ZInQ.BPFaltings
 
 #print axioms ZInQ.BPFaltings.HermitianLattice.degreeAt_eq_arakelovDegree
@@ -794,3 +881,4 @@ end ZInQ.BPFaltings
 #print axioms ZInQ.BPFaltings.exampleHodge_modelHeight
 #print axioms ZInQ.BPFaltings.secIndex_mul_absNorm
 #print axioms ZInQ.BPFaltings.HermitianLattice.arakelovDegree_ofFractionalIdeal
+#print axioms ZInQ.BPFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC
