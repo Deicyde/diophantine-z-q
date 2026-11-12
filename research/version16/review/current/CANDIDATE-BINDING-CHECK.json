@@ -1,0 +1,16 @@
+{
+  "selected_uses": 17,
+  "selected_connections": 17,
+  "finding_reviews": 8,
+  "locations_checked": 274,
+  "exact_original_finding_objects_preserved": true,
+  "errors": [],
+  "scope": "Selected17current correction uses/connections and8finding reviews; not full packet graph acceptance",
+  "candidate_hashes": {
+    "CURRENT-USES.candidate.json": "8d189357a112f00503efb78642102e00cdb94a9c83755fc7dd34a602fa2126e8",
+    "CONNECTIONS.with-findings.candidate.json": "da5f3fe704cf2774e86f327b78fe422be773623ec373186942c903f7a3889411",
+    "CURRENT-FINDING-REVIEWS.candidate.json": "c40561cfa56414426321a99e359c55ce50dcb71947a15c9a44af6f157e9f5889",
+    "FINDING-BODIES.candidate.json": "65ab2534341d282db3e508387a25612a35720919c1467dd862faca575875c531",
+    "APPLICATIONS.with-findings.candidate.json": "be185af08ddde26de059e76568e2f721a44641a6196fa6049a9d42f7ce60986d"
+  }
+}

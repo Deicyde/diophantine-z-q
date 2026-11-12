@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/v16_correction_review",
+  "reviewer_identity": "/root/v16_correction_review",
+  "date": "2026-11-11",
+  "author_of_manuscript": false,
+  "author_of_edits": false,
+  "independent_review": true,
+  "decision": "accepted_scoped_corrections",
+  "manuscript": "manuscripts/quartic_v16.tex",
+  "manuscript_sha256": "2f7295c71e58df196470a1d812b594d5d4eda991a8d3daa50cc402b4133d0d05",
+  "baseline": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
+  "baseline_sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+  "report": "research/version16/review/REVIEW.md",
+  "report_sha256": "4d6965228b0d81da983aa1d9b985bd76433c78625b7d1a6bfdc6fa83a2c89af5",
+  "initial_reconstruction_sha256": "8eba0299e8e44a62c9e992890bc19589ad9c776a04c17309be34ae7fa2404556",
+  "application_record": "research/version16/APPLICATIONS.json",
+  "application_record_sha256": "0199ad80faf1a14da8e7d6317a1c3065db44885ab65884c3235145584e3dce01",
+  "edits_record": "research/version16/EDITS.json",
+  "edits_record_sha256": "d74dbf574be3cfe2544b33dca43ceb3d01317d275d09f0328807ddcf0bc943f7",
+  "per_edit": [
+    {
+      "id": "version",
+      "disposition": "accepted"
+    },
+    {
+      "id": "date",
+      "disposition": "accepted"
+    },
+    {
+      "id": "horizontal-normalization",
+      "disposition": "accepted_local_mathematical_correction"
+    },
+    {
+      "id": "finite-cover-fixed-lifts",
+      "disposition": "accepted_local_mathematical_correction"
+    },
+    {
+      "id": "gr-lower-bound",
+      "disposition": "accepted"
+    },
+    {
+      "id": "gr-isogeny-height",
+      "disposition": "accepted"
+    },
+    {
+      "id": "gr-periods-bibliography",
+      "disposition": "accepted"
+    },
+    {
+      "id": "tao-ziegler-proof-adaptation",
+      "disposition": "accepted_scope_description_only"
+    }
+  ],
+  "exact_delta": {
+    "each_old_passage_unique": true,
+    "whole_target_reconstructed": true,
+    "replacement_count": 8,
+    "unchanged_text": "All target text outside the exact eight replacements",
+    "no_busy_beaver_introduced": true
+  },
+  "sources_used": [
+    {
+      "title": "Gaudron and Remond, Theoreme des periodes et degres minimaux isogenies",
+      "url": "https://ems.press/content/serial-article-files/43351?nt=1",
+      "sha256": "5afec329530089fd62d686f5e75331c91fc97fbf775ad6c4b275fc514459f31e",
+      "edition": "Published CMH 89 (2014), 343-403",
+      "doi": "10.4171/CMH/322",
+      "access_date": "2026-11-11",
+      "locators": [
+        "Section 2.3, pages 351-352",
+        "Corollary 8.4, page 400"
+      ]
+    },
+    {
+      "title": "Tao and Ziegler, Polynomial patterns in the primes",
+      "url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/B46C46EEC613F34152B7904E83EA0E3F/S2050508617000038a.pdf/polynomial-patterns-in-the-primes.pdf",
+      "sha256": "ba1645db9857dd621e8ea6a280927c1e4b7cef5f6df04a4f19e7ac7782220f43",
+      "edition": "Published Forum of Mathematics Pi 6 (2018), e1",
+      "doi": "10.1017/fmp.2017.3",
+      "access_date": "2026-11-11",
+      "locators": [
+        "Section 3 equation 32 and Theorem 11",
+        "Proposition 4 and Corollary 3",
+        "Theorem 9",
+        "Appendix A Theorem 15"
+      ]
+    }
+  ],
+  "affected_consumers": [
+    {
+      "lines": [
+        26820,
+        26931
+      ],
+      "decision": "Exact original orbit, vector normalization, and smaller-lattice identity preserved"
+    },
+    {
+      "lines": [
+        26933,
+        27010
+      ],
+      "decision": "Compatible coset and quadruple setup; analytic inputs retain prior status"
+    },
+    {
+      "lines": [
+        27541,
+        27596
+      ],
+      "decision": "Existing later normalization retained and consistent"
+    },
+    {
+      "lines": [
+        30632,
+        30687
+      ],
+      "decision": "Auxiliary inequalities match CMH source; 2023 construction and theorem retain prior status"
+    },
+    {
+      "lines": [
+        20060,
+        20118
+      ],
+      "decision": "Accurate proof-adaptation convention; complete modified-modulus estimates not freshly accepted"
+    }
+  ],
+  "carry_forward": "Bounded compatibility acknowledgment from complete delta and affected-consumer checks. No new assembled-proof acceptance.",
+  "unresolved_objections_to_eight_edits": [],
+  "substantive_limits": [
+    "No new whole-proof or full inventory acceptance",
+    "No complete re-derivation of modified-modulus Tao-Ziegler estimates",
+    "Existing GTZ/Taylor machinery used as inherited inputs, not reproved",
+    "No re-audit of 2023 height construction or 2023 isogeny theorem",
+    "No independent confirmation of all Fable historical dispositions",
+    "Kato/Ribet and other source qualifications in FINDINGS.json remain open",
+    "PDF build and rendered-page checks not independently repeated",
+    "Trusted run records, not this report, establish Astra eligibility",
+    "No remote App, merge, publication, or release approval"
+  ],
+  "controller_acceptance_claimed": false
+}

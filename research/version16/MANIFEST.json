@@ -1,0 +1,295 @@
+{
+  "schema": 1,
+  "version": 16,
+  "date": "2026-11-11",
+  "base_commit": "511529bbe9d635194f0c9d925709e77a5d3afa64",
+  "manuscript_sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+  "scope": "Version16 exact correction package; root README and SHA256SUMS are repository navigation, not an assertion of whole-proof or App acceptance.",
+  "files": [
+    {
+      "path": ".github/workflows/version16-checks.yml",
+      "sha256": "1d4c7fd0a708af79c87ac9fc402a7ed8ef8ba9e40f2d7aab9b9e3bc003a9645b",
+      "bytes": 611
+    },
+    {
+      "path": "CITATION.bib",
+      "sha256": "d205ad1ea6262b118268c1f5988d797f1197a02aa017e3cb41daa8e85d92062d",
+      "bytes": 5882
+    },
+    {
+      "path": "docs/building.md",
+      "sha256": "87c6cad259a05f963be5fd5f21ed59d1bdf4b0933cf053bac97a603fa5fb3d34",
+      "bytes": 12886
+    },
+    {
+      "path": "manuscripts/README.md",
+      "sha256": "b7b6df5e897f98b3966ee12c36400c27fb7d487ce3474babec3c9cbc1db7c23d",
+      "bytes": 2185
+    },
+    {
+      "path": "manuscripts/quartic_v16.pdf",
+      "sha256": "5634295d85bdfd2aef476ad49827b160f119e94996e1f644c3b05a96eabf6315",
+      "bytes": 2732163
+    },
+    {
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+      "bytes": 1926498
+    },
+    {
+      "path": "research/version16/APPLICATIONS.json",
+      "sha256": "0199ad80faf1a14da8e7d6317a1c3065db44885ab65884c3235145584e3dce01",
+      "bytes": 5000
+    },
+    {
+      "path": "research/version16/BUILD.json",
+      "sha256": "f6ba2c40770a1819d2f275d78114320eb874d62e1ef299acb13fba075c6c05b0",
+      "bytes": 856
+    },
+    {
+      "path": "research/version16/CUMULATIVE-HANDOFF.md",
+      "sha256": "ec56f01de0f27960fccdd51318e98990b104d7dab2907de90480b4838ab2611f",
+      "bytes": 1642
+    },
+    {
+      "path": "research/version16/EDITORIAL-AMENDMENT.json",
+      "sha256": "eededef3bf1eec093eed7ee338c892b10548e4857bc4067222ed07a265c2631a",
+      "bytes": 2498
+    },
+    {
+      "path": "research/version16/EDITS.json",
+      "sha256": "d74dbf574be3cfe2544b33dca43ceb3d01317d275d09f0328807ddcf0bc943f7",
+      "bytes": 5100
+    },
+    {
+      "path": "research/version16/FINDINGS.json",
+      "sha256": "d79b673514ece1cde430bce88fa5a68535d4f05ae3f4df7bdc270a4ec923d187",
+      "bytes": 1741
+    },
+    {
+      "path": "research/version16/HANDOFF-BASE.json",
+      "sha256": "b9cdcd35b035010dd798700f14633d81cc72c1e918aad99e607efd80ec7218e0",
+      "bytes": 900
+    },
+    {
+      "path": "research/version16/README.md",
+      "sha256": "f9e2bc79a16f4b5c00843d80603fb9296ab79ddd75ece9ef5fe636f167c495a7",
+      "bytes": 4088
+    },
+    {
+      "path": "research/version16/RELEASE-NOTES.md",
+      "sha256": "34100d485b64b7917944cd17990443c34b0aa981d4b55716cd7ab49e57adf986",
+      "bytes": 1324
+    },
+    {
+      "path": "research/version16/TZ-PRECISION-AMENDMENT.json",
+      "sha256": "59c8064132d2524ad0cdb1eac0c155e6cc888ef141075317328f51ef8777919e",
+      "bytes": 1108
+    },
+    {
+      "path": "research/version16/audits/fable-5-2-audit-4.pdf",
+      "sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116",
+      "bytes": 2262754
+    },
+    {
+      "path": "research/version16/check.py",
+      "sha256": "8cf0c312006d6d7a567eef4a84c833991f6e8991ec530c1580983f06d8df403f",
+      "bytes": 6452
+    },
+    {
+      "path": "research/version16/pack_handoff.py",
+      "sha256": "58840d07605e1ed683c57dd5b22e2187649ef71d57680e8fb804085dab39a308",
+      "bytes": 3577
+    },
+    {
+      "path": "research/version16/protocol/CONNECTIONS.json",
+      "sha256": "979d6997dcb6e1f7f96a293e4a8453378939ac3e23cba5f15915478d07a7d101",
+      "bytes": 9510085
+    },
+    {
+      "path": "research/version16/protocol/CURRENT-CORRECTIONS.md",
+      "sha256": "3b4dbaa5e80d3ed02c5fd4daeb31607de05c7fdfd07ec16168f56e9fd3ea5608",
+      "bytes": 3182
+    },
+    {
+      "path": "research/version16/protocol/DOSSIER.json",
+      "sha256": "45c3864dc588d23c6c797e783c23f88c5b00473ccd7956548734380ccb04f9c5",
+      "bytes": 6201368
+    },
+    {
+      "path": "research/version16/protocol/INITIAL.json",
+      "sha256": "45259bf15f538f76c7f86741ba358e03638f3ab05b6ec81c2b8887e01ec2d334",
+      "bytes": 6796
+    },
+    {
+      "path": "research/version16/protocol/INITIAL.original.json",
+      "sha256": "21056a32763eae0b40aed0439bae07c2c4b20961ea3abd613cb0385a7325ce00",
+      "bytes": 6765
+    },
+    {
+      "path": "research/version16/protocol/PRECISION-FREEZE.json",
+      "sha256": "fe7cd98ff1f98601774a55ec8c6b3ae290aadce1510eea988d40b760f2929c6e",
+      "bytes": 1024
+    },
+    {
+      "path": "research/version16/protocol/PRECISION-INITIAL.json",
+      "sha256": "ebf7e86f09b445f462a571f14b1dce6552324941106969f6a1f2668ecafc64f0",
+      "bytes": 2548
+    },
+    {
+      "path": "research/version16/protocol/PRECISION-PASSAGES.json",
+      "sha256": "43a15c0c9ec296f1b9f617788616928d3136be0e06d885d1172fdd9a91e4c8f2",
+      "bytes": 1837
+    },
+    {
+      "path": "research/version16/protocol/PROFILE.json",
+      "sha256": "cd6e94cbeb44bb91cb72ed47242daadff6d5b92013b669c0c55aa927a4d338cc",
+      "bytes": 1313
+    },
+    {
+      "path": "research/version16/protocol/record-repair-001/REPAIR.json",
+      "sha256": "b203363489d54642041c00f94dee346dde3f6a736335255f81f88591b96eec95",
+      "bytes": 7982
+    },
+    {
+      "path": "research/version16/review/INITIAL-RECONSTRUCTION.md",
+      "sha256": "8eba0299e8e44a62c9e992890bc19589ad9c776a04c17309be34ae7fa2404556",
+      "bytes": 6203
+    },
+    {
+      "path": "research/version16/review/REVIEW.json",
+      "sha256": "ae4bf3ef28d7492aa59ec64d42e046b2382fd4af85aea8ab082ea533a4b7e8b3",
+      "bytes": 5182
+    },
+    {
+      "path": "research/version16/review/REVIEW.md",
+      "sha256": "4d6965228b0d81da983aa1d9b985bd76433c78625b7d1a6bfdc6fa83a2c89af5",
+      "bytes": 8858
+    },
+    {
+      "path": "research/version16/review/coverage/ASSEMBLY-REVIEW.json",
+      "sha256": "f0cfb52df5e2153987fa2125fc002f85194e8cddd09d1407b35cce86535bda88",
+      "bytes": 3227
+    },
+    {
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8",
+      "bytes": 1873444
+    },
+    {
+      "path": "research/version16/review/coverage/REVIEW.json",
+      "sha256": "175710ddbd885fee6782dd878da9a77b14522d5e3a7e280a0e8322cfc5af0f66",
+      "bytes": 2052
+    },
+    {
+      "path": "research/version16/review/coverage/REVIEW.md",
+      "sha256": "cb6c566b3802310efd66eda255850b66763519501042b8d64826b803a97665fe",
+      "bytes": 10392
+    },
+    {
+      "path": "research/version16/review/coverage/baseline-checks.json",
+      "sha256": "b8b88c8d67b49beabba1ac962774b9f1a3960f6788bcc923c63168d4fa2d3209",
+      "bytes": 11645
+    },
+    {
+      "path": "research/version16/review/coverage/initial-reconstruction.md",
+      "sha256": "c139c0708ab770342e3f1c2b5ef34ef6791aaeeece720730769f9ccbf3a448ce",
+      "bytes": 5305
+    },
+    {
+      "path": "research/version16/review/coverage/mapping-checks.json",
+      "sha256": "4c745e1d1ba0f825bfac067bb2a8c9a15e111b2601debb6f80b7831f859ccab0",
+      "bytes": 4053
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/ASSEMBLY-REVIEW.json",
+      "sha256": "667f8007a2af8d96a845cbf505ca001bf6a04dbb69d5a0667dd2e76d12a32957",
+      "bytes": 6187
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/CHECKS.json",
+      "sha256": "5b44570c4fd717738e9eb166c221b9d6584b8941aeff31e35cc031468b87763d",
+      "bytes": 6496
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "7f7e0544d324b4ba19d5cb70151c98b31ae2a2a429483df7416d07812267b497",
+      "bytes": 2096814
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/REVIEW.json",
+      "sha256": "ba7b54afa94cf4583d9c20167b333656ae16c80c866bee82b555ae6a682b310b",
+      "bytes": 3104
+    },
+    {
+      "path": "research/version16/review/coverage/record-repair-001/REVIEW.md",
+      "sha256": "52bb8ba0ada9cbdb70b2b711cd05517b9532d36927b5fb55daa1b7c4cea3dff9",
+      "bytes": 4039
+    },
+    {
+      "path": "research/version16/review/current/CANDIDATE-BINDING-CHECK.json",
+      "sha256": "3a202ef9983ee4c3df781cdae9030f50c6999029e15d75a1c84afe63a9396c63",
+      "bytes": 889
+    },
+    {
+      "path": "research/version16/review/current/CHECKER-REVIEW.json",
+      "sha256": "32e5b61e1c8a68dccabd7e210737913142fda64903e1101ca34a61e038bde0e0",
+      "bytes": 1853
+    },
+    {
+      "path": "research/version16/review/current/FINDINGS-ADDENDUM.json",
+      "sha256": "353d47d301ee9d0e4b9079bc6dde893e65ed69fc4cec4d391732784334f707f9",
+      "bytes": 2091
+    },
+    {
+      "path": "research/version16/review/current/FINDINGS.json",
+      "sha256": "c639387906a7682a51ea5cf19caf7c30ed0ddb3495e697650e0af57dce8cf691",
+      "bytes": 3397
+    },
+    {
+      "path": "research/version16/review/current/INSTALLED-REVIEW.json",
+      "sha256": "5ffc0b36fbcafceaa59712297878ed82468529955c20fbacf9c8a430ad983afb",
+      "bytes": 1109
+    },
+    {
+      "path": "research/version16/review/current/NATIVE-RECORD-REVIEW.md",
+      "sha256": "7aa49648f272638a2b8c79d60a2fe59fe1135a162f2be222badc13bc9096f4cd",
+      "bytes": 2709
+    },
+    {
+      "path": "research/version16/review/current/REVIEW.json",
+      "sha256": "de58a74b5f07faeca368c85ef2c3b53c3231234f450f70dbdfd1fa7bd270198c",
+      "bytes": 10479
+    },
+    {
+      "path": "research/version16/review/current/REVIEW.md",
+      "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2",
+      "bytes": 15431
+    },
+    {
+      "path": "research/version16/review/current/TZ-PRECISION-ADDENDUM.md",
+      "sha256": "e2c57cc9d635289f9ddee5f51c07a2f533cc1624a5204440d25647ef2766bdd5",
+      "bytes": 2255
+    },
+    {
+      "path": "research/version16/review/gate/DELIVERY-SUPPORT-REVIEW.json",
+      "sha256": "9ef2b5c674f8c982020b5a9021df412bec8526f7db2161d351a166314465d416",
+      "bytes": 13989
+    },
+    {
+      "path": "research/version16/review/gate/FINAL-STRUCTURAL-CHECK.json",
+      "sha256": "f2065552adc2edb8d34411e042b1fe2e38ea8591cffd71a0a9c1bcf807db7a38",
+      "bytes": 752
+    },
+    {
+      "path": "research/version16/review/gate/record-repair-001/SUPPORT-ADDENDUM.json",
+      "sha256": "c2ce1e88d88a7c13d93e5b1c4020da60de3ab42e068a889ebab241800be3ae2a",
+      "bytes": 4994
+    },
+    {
+      "path": "research/version16/snapshots/pre-precision/quartic_v16.tex",
+      "sha256": "a9cb3d59596d80e796224e979faf764662739d74cd91cdef080c37e1c8af9fc1",
+      "bytes": 1926477
+    }
+  ]
+}

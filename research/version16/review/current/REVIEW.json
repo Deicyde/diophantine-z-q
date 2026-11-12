@@ -1,0 +1,109 @@
+{
+  "schema": "v16-scoped-mathematical-review/v1",
+  "reviewer": "/root/v16_correction_review",
+  "date": "2026-11-11",
+  "author_of_manuscript": false,
+  "authorship": false,
+  "decision": "accept-current-affected-mathematics-and-scoped-reuse",
+  "manuscript": "manuscripts/quartic_v16.tex",
+  "manuscript_sha256": "a9cb3d59596d80e796224e979faf764662739d74cd91cdef080c37e1c8af9fc1",
+  "source_commit": "58527b9fcaf2f213bdea9c254d35642f60428c91",
+  "prior_reviewed_manuscript_sha256": "2f7295c71e58df196470a1d812b594d5d4eda991a8d3daa50cc402b4133d0d05",
+  "v15_source_sha256": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+  "editorial_continuity": {
+    "verified": true,
+    "method": "Reverse the unique AI-credit amendment and compare the full source SHA256 with the prior independently reviewed eight-edit source.",
+    "mathematical_delta_since_prior_review": false,
+    "artifact": "EDITORIAL-CONTINUITY.json"
+  },
+  "source_first_reconstruction": "SOURCE-FIRST-SCOPE.md",
+  "report": "REVIEW.md",
+  "per_edit_disposition": [
+    {"edit": "version title", "decision": "accept-administrative-continuity"},
+    {"edit": "version date", "decision": "accept-administrative-continuity"},
+    {"edit": "horizontal lattice normalization", "application": "V16-HORIZONTAL-NORMALIZATION", "decision": "accept-mathematics"},
+    {"edit": "finite-cover lift division", "application": "V16-HORIZONTAL-NORMALIZATION", "decision": "accept-mathematics"},
+    {"edit": "first GR citation", "application": "V16-GR-HEIGHT-CITATIONS", "decision": "accept-source-application"},
+    {"edit": "second GR citation", "application": "V16-GR-HEIGHT-CITATIONS", "decision": "accept-source-application"},
+    {"edit": "separate CMH bibliography entry", "application": "V16-GR-HEIGHT-CITATIONS", "decision": "accept-source-identification"},
+    {"edit": "TZ scope wording", "application": "V16-TZ-ADAPTATION-LABEL", "decision": "accept-wording-and-existing-adaptation-reuse-at-fixed-data-scope"},
+    {"edit": "AI-credit amendment", "decision": "accept-editorial-continuity"}
+  ],
+  "applications": [
+    {
+      "id": "V16-HORIZONTAL-NORMALIZATION",
+      "decision": "accept",
+      "available": "The horizontal Taylor map is additive; lattice discrepancies have internal preimages in the matching filtered lattice; B.9 and B.4 preserve polynomiality.",
+      "needed": "Exact real horizontal identities before division into the finite covering lattice.",
+      "connection": "Multiply the actual polynomial orbit on the right by the ordered lattice-valued binomial correction. It preserves its coset and subtracts each horizontal discrepancy. Remove coordinates using the same real lifts; divide those lifts by M while replacing generator coordinates by M times their old values.",
+      "coverage": "Every finite weight and every retained parameter in the internal family.",
+      "consumers": ["GI-07-S9-11", "LP04", "Section12 join", "rank and GI assembly"],
+      "related_comparison_lines": [27541, 27596],
+      "limits": "No arbitrary torus-root choice; no new proof of unchanged ancestors."
+    },
+    {
+      "id": "V16-GR-HEIGHT-CITATIONS",
+      "decision": "accept",
+      "available": "CMH2014 Section2.3 product/isogeny properties and Cor8.4 lower bound, translated from h to original stable h_F.",
+      "needed": "h_F(E)>=-3dim(E)/2 and h_F(A)<=h_F(B)+log(D)/2.",
+      "connection": "h_F=h-dim/2*log(pi), so Cor8.4 yields -dim*log(pi*sqrt(2)); zero dimension is separate. Equal-dimensional B and A cancel the normalization shift in the half-log-degree bound.",
+      "consumers": ["SF11", "SF13-S4--V15-HEIGHT-BOUND--SF11", "five-contact estimate", "amplification"],
+      "limits": "Retain the 2023 same-field product and isogeny-degree inputs and their indirect source qualifications; retain earlier Duke gr2014 uses."
+    },
+    {
+      "id": "V16-TZ-ADAPTATION-LABEL",
+      "decision": "accept-existing-full-fixed-E-adaptation-reuse-at-stated-scope",
+      "available": "Published squarefree-modulus TZ statements and their divisor/CRT/Euler-factor proofs, together with the previously accepted actual application connections.",
+      "needed": "The model, generalized von Neumann and finite boundary-moment estimates for W=E*primorial(v), fixed E and unit residues.",
+      "connection": "Once v includes prime support(E), phi(W)/W is unchanged. Mobius divisors and their lcm are squarefree. Unit residues exclude all p|W; for p not dividing W, invertibility, root counts and coefficient-height bounds give the same uniform estimates. AppendixA functional deductions depend on the resulting finite moment bounds. Preserve cyclic/interval distinction and the same model across consumers.",
+      "limit_order": "Fix E, polynomial data and finite complexities, choose sufficiently small sieve exponent and the stated B_0 rescaling, then cutoff, then size, then a sufficiently slow diagonal.",
+      "consumers": ["GA-ARTIN-PATTERNS", "finite obstruction and diagonal selection", "simultaneous prime and denominator preparation"],
+      "limits": "Not a direct nonsquarefree theorem statement, not arbitrary varying E, and not ray-prime equidistribution by itself. Separate inherited prime-count and local-cube inputs remain."
+    }
+  ],
+  "affected_source_use_ids": [
+    "V15-INHERITED--ACTIVE-GI-EXT-S911-INTERNAL-CHOICE",
+    "V15-INHERITED--ACTIVE-GI-EXT-S911-POLYNOMIAL",
+    "V15-INHERITED--ACTIVE-GI-EXT-S911-TAYLOR",
+    "V15-INHERITED--GA-EXTERNAL-V6-GA-TZ-MAJORANT",
+    "V15-INHERITED--GA-EXTERNAL-V6-GA-TZ-MODEL",
+    "V15-INHERITED--GA-EXTERNAL-V6-GA-TZ-MODEL-COROLLARY",
+    "V15-INHERITED--GA-EXTERNAL-V6-GA-TZ-POLYNOMIAL-GN",
+    "V15-INHERITED--GA-EXTERNAL-V6-GA-TZ-BOUNDARY-MOMENTS",
+    "SF11-S1--SF11--local", "SF11-S2--SF11--local", "SF11-S3--SF11--local",
+    "SF11-S4--SF11--local", "SF11-S5--SF11--local", "SF11-S6--SF11--local"
+  ],
+  "sources_used": [
+    {"kind": "published-primary", "title": "Gaudron-Remond, Theoreme des periodes et degres minimaux d'isogenies", "url": "https://ems.press/content/serial-article-files/43351?nt=1", "doi": "10.4171/CMH/322", "sha256": "5afec329530089fd62d686f5e75331c91fc97fbf775ad6c4b275fc514459f31e", "read": "Section2.3 pp351-352; Cor8.4 p400"},
+    {"kind": "published-primary", "title": "Tao-Ziegler, Polynomial patterns in the primes", "doi": "10.1017/fmp.2017.3", "sha256": "ba1645db9857dd621e8ea6a280927c1e4b7cef5f6df04a4f19e7ac7782220f43", "read": "Section3 Eq32/Eq36, Thm11, Prop4/Cor3, Thm9, AppendixA Thm15 and the relevant polynomial-forms/moment derivations"},
+    {"kind": "published-primary", "title": "Tao-Ziegler, The primes contain arbitrarily long polynomial progressions", "url": "https://archive.ymsc.tsinghua.edu.cn/pacm_download/117/6708-11511_2008_Article_32.pdf", "sha256": "a4d5cbb1046cefa6307d24d42302c58b03e67314e204fb4309a1d40918f8a526", "read": "Sections10-11, Prop10.1, Lem10.4, Thm11.1, Cor11.2"},
+    {"kind": "published-erratum", "title": "Erratum to The primes contain arbitrarily long polynomial progressions", "doi": "10.1007/s11511-013-0097-7", "url": "https://archive.ymsc.tsinghua.edu.cn/pacm_download/117/6773-11511_2013_Article_97.pdf", "read": "Entire two-page erratum through web text"},
+    {"kind": "preprint-proof-comparison", "title": "Tao-Ziegler, narrow polynomial progressions, arXiv1409.1327v2", "url": "https://arxiv.org/pdf/1409.1327", "sha256": "8ed39b0a976139bbcdce7bb513e55ac03ffc9701ce46344c30136f30d3496903", "read": "Prop3 proof pp10-12", "qualification": "No claim of new direct comparison with final2015 chapter"},
+    {"kind": "inherited-actual-application-review", "workspace_path": "work/source-risk-review-20261107/v14-gaussian-active-connections-review-001/REVIEW.md", "sha256": "1b4fe9f5f1d27e17c64e369a7b494b151ceea028821a43e6b2e40819b6dd887e", "read": "Full33-use review and matching majorant connection; not merely source-card verdict"},
+    {"kind": "inherited-pipeline-review", "workspace_path": "work/source-risk-review-20261107/v14-ga-pipeline-contracts-review-001/REVIEW.md", "sha256": "03e96c1af163b2fe9a4400dc7370722ff0a68277ad3cae452ab3d867c1c41c08", "qualification": "Six conditional stages, not whole S1"},
+    {"kind": "inherited-surface-review", "path": "research/version15/snapshots/v15-018/review/current-adoption/independent/v15-surface-source-replacement-review-h6-001/REVIEW.md", "sha256": "3d7738545c08928e1d126dbcd698e71933a647bdcd75895d244e0ec77572136d", "read": "Full review plus current-adoption surface contract"},
+    {"kind": "inherited-kato-review", "path": "docs/manuscript-revisions/version14/resume003/evidence/four-contract-current-review.md", "sha256": "e24012f6842817dd59e3b9aedf0eb6174eff4984d5b10c873d545dcb77bc4293", "read": "Full review; bounded enlarged-index/class interface"},
+    {"kind": "inherited-ribet-review", "path": "research/version14/evidence/source-incorporation-004/ribet-review/REVIEW.md", "sha256": "81f6e6ece0943574e90de8ac1387b675786eefc045f89d242e85f51a01faeb8c", "read": "Full published-source replacement review and its right-Hom/Frobenius/coarse-point derivations"},
+    {"kind": "audit", "path": "audits/fable-5-2-audit-4.pdf", "sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116", "read": "Final pass pp84-97 and current FINDINGS dispositions"}
+  ],
+  "findings_artifact": "FINDINGS.json",
+  "unresolved_mathematical_prerequisites_found_in_affected_scope": [],
+  "supports_current_assembly_transport": true,
+  "assembly_conditions": [
+    "Independent coverage dossier establishes exact current mapping and complete source-use connections.",
+    "Previously accepted derivations are reused only at their original hypotheses and scopes.",
+    "Native packet binds authentic current independent decisions and retained source qualifications."
+  ],
+  "pending_packet_record_corrections": [
+    "TZ majorant use: describe same uniform estimates, not identical numeric local factors.",
+    "TZ5 connection derivations bind full19989-20169 context including boundary consumers."
+  ],
+  "substantive_limits": [
+    "No new whole-proof rederivation or controller acceptance.",
+    "Model eligibility is not established by this self-authored JSON.",
+    "Fable's historical unread-source and full-adaptation-rederivation limits remain as historical facts.",
+    "Inherited indirect-source and final-version comparison qualifications remain.",
+    "No Busy Beaver material; ordinary314/222 scope only."
+  ],
+  "final_target_acknowledgment": false
+}

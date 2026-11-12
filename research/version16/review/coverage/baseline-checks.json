@@ -1,0 +1,288 @@
+{
+  "baseline_hash": "44ba3a8ec8521c29b81b26cfb9981cd6d5f3c76d54e7782438614842edb52c74",
+  "baseline_lines": 39896,
+  "coverage_rows": 127,
+  "uses": 1187,
+  "edges": 505,
+  "checked_pin_count": 1987,
+  "bad_pins": [
+    {
+      "side": "base",
+      "path": "build/paper/build-report.json",
+      "sha256": "d37ee602e4361f2a8c7fa64203f6697cc795e45cdd9de9d7b835693c50e9f7d2",
+      "actual": "f87a62711337424d329742ba7e1f29d1139156a36b79470680ba5b1f8e47ca4b"
+    },
+    {
+      "side": "base",
+      "path": "build/paper/compiler.log",
+      "sha256": "0a42c72cedc066ef48b44a3189ca3f75d2916a455f8467cd2c5819f21d39fb0f",
+      "actual": "9744b1807b6bb21695b987f44bdcbec250d2a136cecf5d5f90a9686ebc1b3cc0"
+    },
+    {
+      "side": "base",
+      "path": "build/paper/quartic_v14.log",
+      "sha256": "fcd0ecb1ba8f722656dd38220fdbcef60838d01a7727672cc07d0c16c36a1036",
+      "actual": "c845c075bfc4911941e898eaec877e20933368e559e4361217f06a3ca281f3f3"
+    },
+    {
+      "side": "base",
+      "path": "CITATION.bib",
+      "sha256": "882824252e2ecade7a127907668fdff6e5f25aff41ad5752d2d199062b6aa459",
+      "actual": "d205ad1ea6262b118268c1f5988d797f1197a02aa017e3cb41daa8e85d92062d"
+    },
+    {
+      "side": "head",
+      "path": "CITATION.bib",
+      "sha256": "6df52cc8a3ae3405bbddd5f3e4b07c06cd711d522cda984e5eaf928a75d86e55",
+      "actual": "d205ad1ea6262b118268c1f5988d797f1197a02aa017e3cb41daa8e85d92062d"
+    },
+    {
+      "side": "base",
+      "path": "CREDITS.md",
+      "sha256": "79d6037b26d0ea9c5a5a21f57b338fd87fec619b4eb66c7b98dde2631e596936",
+      "actual": "b190e2e58fb7ffd0b71c585e9da4b97ac4fc70e5fe15611d76f2d71d6680eaaf"
+    },
+    {
+      "side": "base",
+      "path": "docs/archive-reference-inventory.json",
+      "sha256": "d8560a32e5f9c39f2e64ff6b989e9063bc08dbf32b7cbf1295c73f0ded5f3d39",
+      "actual": "12af44c597d11595ab6d3b8e0db18e7df3236264d5bde1a44949c18bd51f6fa4"
+    },
+    {
+      "side": "base",
+      "path": "docs/archiving.md",
+      "sha256": "0575b459fa02221ad3ba45de74d4b4c60e9abcde509be55053432b04f16e7906",
+      "actual": "d74db4a7d8fed384b1e23ff40d077fbb7944558ed2d84429a82af261dafaff68"
+    },
+    {
+      "side": "base",
+      "path": "docs/building.md",
+      "sha256": "edb3c0640befb5796a6200b28d9629c9bd30be1c9d356e0f383210440894f10c",
+      "actual": "87c6cad259a05f963be5fd5f21ed59d1bdf4b0933cf053bac97a603fa5fb3d34"
+    },
+    {
+      "side": "head",
+      "path": "docs/building.md",
+      "sha256": "9024b5dce4a4531969466a17dda7b621785fe57475c2343417d9134298d022b3",
+      "actual": "87c6cad259a05f963be5fd5f21ed59d1bdf4b0933cf053bac97a603fa5fb3d34"
+    },
+    {
+      "side": "base",
+      "path": "docs/construction-checks-r2.json",
+      "sha256": "306a7c8fe8021b45a0e0d9e9838914b4f7269543c405ad1c22c13afe66bbf252",
+      "actual": "32c998b6b2373e40892d69715e6a47ae26139e4ddcdbc0fa0bd3fae2c65beeb5"
+    },
+    {
+      "side": "base",
+      "path": "docs/manuscript-revisions/version8/BUILD.json",
+      "sha256": "429017011b8a58263a3808c6786cd11c73f1ad5b0556167f36c24e047053cbc0",
+      "actual": "5f841ad3d940f5f344031c643c1a4a6dbc6e5b6e929caffcc62211bd3462195d"
+    },
+    {
+      "side": "base",
+      "path": "docs/manuscript-revisions/version8/revision.json",
+      "sha256": "6649ab64604b6c7d38cf3c9e0d56a6e9e0d004153cd3f2462346a6626b0bc526",
+      "actual": "a44033690de136f72874aaec2065894ce00a45fa1b59fcbfd3157d1ac4732e5f"
+    },
+    {
+      "side": "base",
+      "path": "docs/paper-build-ai-attribution.json",
+      "sha256": "5a28ab851f8bc0cc3172d046048c585f6fce39a45f924024418278c68f21e952",
+      "actual": "530d6fa0672a008b8c03aa18c4c0806fae5267f6221896826dff138b80d0ef0f"
+    },
+    {
+      "side": "base",
+      "path": "docs/paper-build-r2.json",
+      "sha256": "61e9dad89fb3323d38dcd7dc121222529f0face73cbf997f14a8ea379ab191a8",
+      "actual": "982736a5b6c45b4cafcc2754d6c5da718142576e5589a638db3d2142d7baa17d"
+    },
+    {
+      "side": "base",
+      "path": "docs/paper-build-validation.json",
+      "sha256": "ffc7ae2f6f6c6998246f51308d475e8ac1ba8739520e4df17fdc429db76de6e8",
+      "actual": "812e080b5fd49622e6f8981a8f833a90b8cce5563f2ec9363bbcf51b483ca7c4"
+    },
+    {
+      "side": "base",
+      "path": "docs/release-policy.md",
+      "sha256": "22a10214ee711e3c4f41a0ca58f2d5f012fd0b4b8a8a01f297649ee6e7394690",
+      "actual": "9581db5b7a38de2a4bd08fd2031575bf9bac7b5e124fa72c03ab354ad1b92637"
+    },
+    {
+      "side": "base",
+      "path": "docs/research-guide.md",
+      "sha256": "71e5430ceeea3b587443b450e81a6daff83886774171ee7ba760f7250618e1c1",
+      "actual": "90229a54f987182235675fae55e62befc4c90ef52b8d2a98b13baba282d23b4f"
+    },
+    {
+      "side": "base",
+      "path": "docs/revision-2.md",
+      "sha256": "b067b23a41194f7faa92ad9655a44beed5f74d3de3957e08af4fe5314083d67a",
+      "actual": "a25c93fbc144eee09bbcc101bf2d6a5a95983b95a360cb668c9954f37ff22d61"
+    },
+    {
+      "side": "base",
+      "path": "docs/revision-3.md",
+      "sha256": "6f0ddd756756f2bcbb9724a3ba7c3ac4e767e0e918ec92e6b90039c77eda902e",
+      "actual": "e676b04d901156cab3e576ef51e968719b1d67fe8461b9a95a515ba0d19f2ecf"
+    },
+    {
+      "side": "base",
+      "path": "README.md",
+      "sha256": "5961c6ce59246b287370ce950a49acccb81da7dd093cdade76130036e92a2993",
+      "actual": "38c5f781b73584a9c8ba89a47a09e1bca45188ea685884e24127b80e32e9b223"
+    },
+    {
+      "side": "head",
+      "path": "README.md",
+      "sha256": "98f826faa25088f64c326ab309f1cafd109636c68e4bb05e4a31b07b6c9f1e21",
+      "actual": "38c5f781b73584a9c8ba89a47a09e1bca45188ea685884e24127b80e32e9b223"
+    },
+    {
+      "side": "head",
+      "path": "research/version15/ARTIFACT-INDEX.md",
+      "sha256": "9a278a8b463af0eab6b6e026f9dedeab343d9f875f908ece1b6af4496a08edd1",
+      "actual": "7e87711bd8a570fec2c8a03cc48df50a9e06212a721c0dff06fe274d904ea533"
+    },
+    {
+      "side": "head",
+      "path": "research/version15/CUMULATIVE-HANDOFF.md",
+      "sha256": "5903bcd52c45d775eb34755b01b7cf198058a3e770f8f298a9b88c33f8c19db9",
+      "actual": "ae93fc43b277c2b8a46c4e1394413ed2a722e95a5cda530072bcf789a6a2aad5"
+    },
+    {
+      "side": "head",
+      "path": "research/version15/protocol/current222/README.md",
+      "sha256": "0eaaf02dae1b16856c916b4ebd55503d3b8ae28667e3d06572e6d95ea763f784",
+      "actual": "077f55e5ed8a866b805c4551cb9f701027647538b55704f7fe5ef822686ae45e"
+    },
+    {
+      "side": "head",
+      "path": "research/version15/protocol/README.md",
+      "sha256": "acc9f3bd54e234ce136a7b695fe7414cb3e2288ea76046b40088b4a5812d5f24",
+      "actual": "e8de6e82f5f179764c0120315393de03ea2ca52192f31a1bdf4ca13461513a60"
+    },
+    {
+      "side": "head",
+      "path": "research/version15/README.md",
+      "sha256": "511ae10f7803d96de35da3c56f583ddb31c9e00c3ea9943fb22613b6d64a3713",
+      "actual": "bd3b58d35a569aaf904ea1db800b12052bcf42346f29ca248a5e15d96a76d8c8"
+    },
+    {
+      "side": "head",
+      "path": "research/version15/RELEASE-NOTES.md",
+      "sha256": "a43abe89f2c429f45c6688116d012526ff7d8ec56e10382b05b95d0e676b3c10",
+      "actual": "cf66e50acadb32eb8cc23a730610111d28408a72336752d73406ff2bc036c6e0"
+    },
+    {
+      "side": "base",
+      "path": "SHA256SUMS",
+      "sha256": "43033cebe49a968cb734141076daae25d2ab0cc436920ca4dd6ea71374aa6eac",
+      "actual": "ef9349114c060cf9d0efdda6b695c0aca6e0efe8641746c97c312ab4818bc7f0"
+    },
+    {
+      "side": "head",
+      "path": "SHA256SUMS",
+      "sha256": "e7fef561948e00783b9280f1bba6471beb76be77d85bb42aa10652ffdb93f2bd",
+      "actual": "ef9349114c060cf9d0efdda6b695c0aca6e0efe8641746c97c312ab4818bc7f0"
+    },
+    {
+      "side": "base",
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "9568c2a2e04e0d95d21c78043baae61d3ebe662e275dda4f6871ad933d02cd52",
+      "actual": "d18d6993de319747dffc665cb4cc744351dd04e3378311ef3f82ab09f475fc5b"
+    },
+    {
+      "side": "base",
+      "path": ".gitattributes",
+      "sha256": "bf7529b55e1c929df6633f13f706674a5ee7419e22e9c89dea399a418417db8b",
+      "actual": "a82e12fb1468a0e90ec13a06dd3d83f66fbde915889ff72340dd685804760f16"
+    },
+    {
+      "side": "head",
+      "path": ".gitattributes",
+      "sha256": "fa54098b7cb541b437c04d58755cf2afa5bbe4263f22ba040281ffe74a89419d",
+      "actual": "a82e12fb1468a0e90ec13a06dd3d83f66fbde915889ff72340dd685804760f16"
+    },
+    {
+      "side": "base",
+      "path": ".github/workflows/handoff-release.yml",
+      "sha256": "c36dfbf96c605b1bf183aff356549c8a6e287eb7fb2480bfbdedfc8bbeef0473",
+      "actual": "3403c4f49e45378a9122a2180374f4ed46383f8ff7227671fa1fae5aee62adc0"
+    },
+    {
+      "side": "base",
+      "path": ".github/workflows/manuscript-integration.yml",
+      "sha256": "a02fc6fdaa859bb06809496f984969e318fbe63afba89603e63ee9c708e2056c",
+      "actual": "ebd9baf9bdaf37c69624165ddd8423187e3c2ff1384dc3269a4ef0219dae5b23"
+    },
+    {
+      "side": "base",
+      "path": ".github/workflows/research-checks.yml",
+      "sha256": "2b2800bfbcd8a326016f8833fde1bf8d34e33c94d460b946d213b53aeeaba959",
+      "actual": "2bb8bf3368dfaa7d96b2af327e6e7e91a5f2eaa3ee22aa5bbf1f952937f06e10"
+    },
+    {
+      "side": "base",
+      "path": "docs/research-review/starter-kit/AGENTS.md",
+      "sha256": "797e03d0eddde851426f87bb3e33a72650c11157eddf84b64f183843b5482849",
+      "actual": "54e8ac0da649d2d84c27842120cca74f7e1d14e7bec407f0e135d8ce971882d7"
+    },
+    {
+      "side": "base",
+      "path": "docs/research-review/starter-kit/PROJECT.md",
+      "sha256": "9fa822a083e79134d2cd67efaaf585b19b76ea09d8ee3af9c10e961edbedbdce",
+      "actual": "bdbda30b4fc78f6908e927701de16b6f6a1b9cc85eb79b11454ba9f002253f9b"
+    },
+    {
+      "side": "base",
+      "path": "docs/research-review/starter-kit/README.md",
+      "sha256": "73ffdaed5dc2d086b0d265400c62a1ea4f0653699c8b66528b92119494dc692a",
+      "actual": "c49187af607912849043282b3a576acb702aad73982b3882bb52194fb85c4f37"
+    },
+    {
+      "side": "base",
+      "path": "scripts/check_audit_history.py",
+      "sha256": "65a56ba470fb299bc974fba254e34b05d1259e186001597e00124f606c8ffcd8",
+      "actual": "980b7b6155baa5dcbd4fa567702e8d246d97e0a34923f127ba18bf72a731b4c7"
+    },
+    {
+      "side": "base",
+      "path": "scripts/check_construction.py",
+      "sha256": "5d27700d721934a100aa5d55d3c8a0b65dce13e89d61ae6461b195456dd5bf4f",
+      "actual": "02f5b2eb11b3830af78841af4a9db40036461e8439d253c9e6f5f3e01f201cc0"
+    },
+    {
+      "side": "base",
+      "path": "scripts/check_lean.py",
+      "sha256": "51bb79df870a49300dcd9c0ff15b74ca24277bf468c53251601e3d4d39b6f9bb",
+      "actual": "28e1ee2fc36bde3960a0cd2a89afde58116df863cad9c3ee9678fe664c245ec7"
+    },
+    {
+      "side": "base",
+      "path": "scripts/check_manuscript_revision.py",
+      "sha256": "eb34a5a900db42e5d4994897f2c9dfe1fc48826ee750798dada609906a710b13",
+      "actual": "9bd431311370b416666acd6fcaf85927a3eb162d968fe6c340b9cee5b14a19e2"
+    },
+    {
+      "side": "base",
+      "path": "scripts/check_quartic1272.py",
+      "sha256": "e64b62af7a3c83832dcdf2eb86f1363a8ee30ef1c5917d347635d9eb6ffafb74",
+      "actual": "cd5a74cb77f2ddec2bff4cbd00e02cfcd257e3bc60e7f4c893d6ab36067b081a"
+    },
+    {
+      "side": "base",
+      "path": "scripts/fetch_lean_cache.py",
+      "sha256": "5623f1e9c3b895c246f2916a26d4a6028e53c1962d4f16b659af89bb38aa5150",
+      "actual": "a1743aa738313b44adb6f9759e71c5af824a470be70fd129ad21f09cf8ca130e"
+    },
+    {
+      "side": "base",
+      "path": "scripts/render_quartic_review.py",
+      "sha256": "40403830d70fe5b35666dfd7f7b3b849b56bea49dd98a6309b135d8ce1aa739a",
+      "actual": "25d82c5949abbedbb80e7a9dcde913ba0bfb0a3e92a375f9bcab679dfaec18d0"
+    }
+  ],
+  "span_errors": [],
+  "unindexed_lines": []
+}

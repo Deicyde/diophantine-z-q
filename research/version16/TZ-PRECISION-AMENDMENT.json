@@ -1,0 +1,14 @@
+{
+  "schema": "v16-tz-precision-amendment/v1",
+  "reviewer": "/root/v16_correction_review",
+  "source_path": "manuscripts/quartic_v16.tex",
+  "source_sha256": "a9cb3d59596d80e796224e979faf764662739d74cd91cdef080c37e1c8af9fc1",
+  "before": "powers. At the remaining primes the divisor-sum local factors are\r\nunchanged. Polynomial coefficient bounds absorb the fixed factor $E$.",
+  "after": "powers. At the remaining primes the divisor-sum local factors satisfy the same\r\nuniform estimates. Polynomial coefficient bounds absorb the fixed factor $E$.",
+  "occurrences": 1,
+  "expected_amended_sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+  "line_count_unchanged": true,
+  "decision": "accept-exact-amendment-as-preserving-reviewed-derivation",
+  "manuscript_modified_by_reviewer": false,
+  "reason": "The local factors need not have identical numeric values as W or residues vary. Their uniform estimates and the local divisor-sum argument persist. This precision amendment changes no theorem, estimate, parameter order, construction or downstream interface."
+}

@@ -1,0 +1,317 @@
+{
+  "schema": "v16-delivery-support-review/v1",
+  "reviewer": "/root/v16_gate_review",
+  "reviewer_run_id": "01a1cc43-c53e-7e70-8c45-bfa175721696",
+  "decision": "accepted_within_support_scope",
+  "author_of_reviewed_source_or_support_implementation": false,
+  "application_ids": [
+    "V16-DELIVERY-POLICY",
+    "V16-REVIEW-EVIDENCE",
+    "V16-DELIVERY-ARTIFACTS"
+  ],
+  "manuscript_sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+  "reviewed_file_pins": [
+    {
+      "side": "base",
+      "path": ".gitattributes",
+      "sha256": "fa54098b7cb541b437c04d58755cf2afa5bbe4263f22ba040281ffe74a89419d"
+    },
+    {
+      "side": "head",
+      "path": ".gitattributes",
+      "sha256": "a82e12fb1468a0e90ec13a06dd3d83f66fbde915889ff72340dd685804760f16"
+    },
+    {
+      "side": "head",
+      "path": ".github/workflows/version16-checks.yml",
+      "sha256": "1d4c7fd0a708af79c87ac9fc402a7ed8ef8ba9e40f2d7aab9b9e3bc003a9645b"
+    },
+    {
+      "side": "base",
+      "path": "CITATION.bib",
+      "sha256": "59c5c6caeb0e9299df04fc13505cad7f9fcc87377c192a37ad1fe9f537ebc90b"
+    },
+    {
+      "side": "head",
+      "path": "CITATION.bib",
+      "sha256": "d205ad1ea6262b118268c1f5988d797f1197a02aa017e3cb41daa8e85d92062d"
+    },
+    {
+      "side": "base",
+      "path": "README.md",
+      "sha256": "e0fafead310dfa84996e5258c5467dc498c1a352e95b7ab724ff249e604fc7a7"
+    },
+    {
+      "side": "head",
+      "path": "README.md",
+      "sha256": "638bdab24d0b4983a1cba01e0cfb0ec746fa7da779ccf0dc305cd889d6b56cf8"
+    },
+    {
+      "side": "base",
+      "path": "SHA256SUMS",
+      "sha256": "e7fef561948e00783b9280f1bba6471beb76be77d85bb42aa10652ffdb93f2bd"
+    },
+    {
+      "side": "head",
+      "path": "SHA256SUMS",
+      "sha256": "e56943efaa09b9e0f2fd9985610b3a9c926ad48af9fdf3b3785bc7f1d51532ff"
+    },
+    {
+      "side": "base",
+      "path": "docs/building.md",
+      "sha256": "acc6f570e0aabd0041cb12d94743412e0631db2c3b29e09cf191c1c918710508"
+    },
+    {
+      "side": "head",
+      "path": "docs/building.md",
+      "sha256": "87c6cad259a05f963be5fd5f21ed59d1bdf4b0933cf053bac97a603fa5fb3d34"
+    },
+    {
+      "side": "base",
+      "path": "manuscripts/README.md",
+      "sha256": "df10e59296be5d143f8cf1f413c69df90ee494753a55c58e969bfc59a836c859"
+    },
+    {
+      "side": "head",
+      "path": "manuscripts/README.md",
+      "sha256": "b7b6df5e897f98b3966ee12c36400c27fb7d487ce3474babec3c9cbc1db7c23d"
+    },
+    {
+      "side": "head",
+      "path": "manuscripts/quartic_v16.pdf",
+      "sha256": "5634295d85bdfd2aef476ad49827b160f119e94996e1f644c3b05a96eabf6315"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/BUILD.json",
+      "sha256": "f6ba2c40770a1819d2f275d78114320eb874d62e1ef299acb13fba075c6c05b0"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/CUMULATIVE-HANDOFF.md",
+      "sha256": "ec56f01de0f27960fccdd51318e98990b104d7dab2907de90480b4838ab2611f"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/EDITORIAL-AMENDMENT.json",
+      "sha256": "eededef3bf1eec093eed7ee338c892b10548e4857bc4067222ed07a265c2631a"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/HANDOFF-BASE.json",
+      "sha256": "b9cdcd35b035010dd798700f14633d81cc72c1e918aad99e607efd80ec7218e0"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/README.md",
+      "sha256": "f9e2bc79a16f4b5c00843d80603fb9296ab79ddd75ece9ef5fe636f167c495a7"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/RELEASE-NOTES.md",
+      "sha256": "34100d485b64b7917944cd17990443c34b0aa981d4b55716cd7ab49e57adf986"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/check.py",
+      "sha256": "8cf0c312006d6d7a567eef4a84c833991f6e8991ec530c1580983f06d8df403f"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/pack_handoff.py",
+      "sha256": "58840d07605e1ed683c57dd5b22e2187649ef71d57680e8fb804085dab39a308"
+    },
+    {
+      "side": "head",
+      "path": "manuscripts/quartic_v16.tex",
+      "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/APPLICATIONS.json",
+      "sha256": "0199ad80faf1a14da8e7d6317a1c3065db44885ab65884c3235145584e3dce01"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/EDITS.json",
+      "sha256": "d74dbf574be3cfe2544b33dca43ceb3d01317d275d09f0328807ddcf0bc943f7"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/FINDINGS.json",
+      "sha256": "d79b673514ece1cde430bce88fa5a68535d4f05ae3f4df7bdc270a4ec923d187"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/TZ-PRECISION-AMENDMENT.json",
+      "sha256": "59c8064132d2524ad0cdb1eac0c155e6cc888ef141075317328f51ef8777919e"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/audits/fable-5-2-audit-4.pdf",
+      "sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/protocol/CONNECTIONS.json",
+      "sha256": "da5f3fe704cf2774e86f327b78fe422be773623ec373186942c903f7a3889411"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/protocol/CURRENT-CORRECTIONS.md",
+      "sha256": "3b4dbaa5e80d3ed02c5fd4daeb31607de05c7fdfd07ec16168f56e9fd3ea5608"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/protocol/DOSSIER.json",
+      "sha256": "597687d48ba0b82833c36e8e987e31f406a516d43ab98dfd28429abed79131d3"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/protocol/INITIAL.json",
+      "sha256": "45259bf15f538f76c7f86741ba358e03638f3ab05b6ec81c2b8887e01ec2d334"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/protocol/INITIAL.original.json",
+      "sha256": "21056a32763eae0b40aed0439bae07c2c4b20961ea3abd613cb0385a7325ce00"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/protocol/PRECISION-FREEZE.json",
+      "sha256": "fe7cd98ff1f98601774a55ec8c6b3ae290aadce1510eea988d40b760f2929c6e"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/protocol/PRECISION-INITIAL.json",
+      "sha256": "ebf7e86f09b445f462a571f14b1dce6552324941106969f6a1f2668ecafc64f0"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/protocol/PRECISION-PASSAGES.json",
+      "sha256": "43a15c0c9ec296f1b9f617788616928d3136be0e06d885d1172fdd9a91e4c8f2"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/protocol/PROFILE.json",
+      "sha256": "cd6e94cbeb44bb91cb72ed47242daadff6d5b92013b669c0c55aa927a4d338cc"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/INITIAL-RECONSTRUCTION.md",
+      "sha256": "8eba0299e8e44a62c9e992890bc19589ad9c776a04c17309be34ae7fa2404556"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/REVIEW.json",
+      "sha256": "ae4bf3ef28d7492aa59ec64d42e046b2382fd4af85aea8ab082ea533a4b7e8b3"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/REVIEW.md",
+      "sha256": "4d6965228b0d81da983aa1d9b985bd76433c78625b7d1a6bfdc6fa83a2c89af5"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/coverage/ASSEMBLY-REVIEW.json",
+      "sha256": "f0cfb52df5e2153987fa2125fc002f85194e8cddd09d1407b35cce86535bda88"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/coverage/PROTOCOL14-COVERAGE-REVIEW.json",
+      "sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/coverage/REVIEW.json",
+      "sha256": "175710ddbd885fee6782dd878da9a77b14522d5e3a7e280a0e8322cfc5af0f66"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/coverage/REVIEW.md",
+      "sha256": "cb6c566b3802310efd66eda255850b66763519501042b8d64826b803a97665fe"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/coverage/baseline-checks.json",
+      "sha256": "b8b88c8d67b49beabba1ac962774b9f1a3960f6788bcc923c63168d4fa2d3209"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/coverage/initial-reconstruction.md",
+      "sha256": "c139c0708ab770342e3f1c2b5ef34ef6791aaeeece720730769f9ccbf3a448ce"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/coverage/mapping-checks.json",
+      "sha256": "4c745e1d1ba0f825bfac067bb2a8c9a15e111b2601debb6f80b7831f859ccab0"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/current/CANDIDATE-BINDING-CHECK.json",
+      "sha256": "3a202ef9983ee4c3df781cdae9030f50c6999029e15d75a1c84afe63a9396c63"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/current/CHECKER-REVIEW.json",
+      "sha256": "32e5b61e1c8a68dccabd7e210737913142fda64903e1101ca34a61e038bde0e0"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/current/FINDINGS-ADDENDUM.json",
+      "sha256": "353d47d301ee9d0e4b9079bc6dde893e65ed69fc4cec4d391732784334f707f9"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/current/FINDINGS.json",
+      "sha256": "c639387906a7682a51ea5cf19caf7c30ed0ddb3495e697650e0af57dce8cf691"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/current/INSTALLED-REVIEW.json",
+      "sha256": "5ffc0b36fbcafceaa59712297878ed82468529955c20fbacf9c8a430ad983afb"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/current/NATIVE-RECORD-REVIEW.md",
+      "sha256": "7aa49648f272638a2b8c79d60a2fe59fe1135a162f2be222badc13bc9096f4cd"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/current/REVIEW.json",
+      "sha256": "de58a74b5f07faeca368c85ef2c3b53c3231234f450f70dbdfd1fa7bd270198c"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/current/REVIEW.md",
+      "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/review/current/TZ-PRECISION-ADDENDUM.md",
+      "sha256": "e2c57cc9d635289f9ddee5f51c07a2f533cc1624a5204440d25647ef2766bdd5"
+    },
+    {
+      "side": "head",
+      "path": "research/version16/snapshots/pre-precision/quartic_v16.tex",
+      "sha256": "a9cb3d59596d80e796224e979faf764662739d74cd91cdef080c37e1c8af9fc1"
+    }
+  ],
+  "scope": "Independent review of the three delivery/support application contracts and current source-bound support bytes. The manuscript is inspected for binding and release scope; mathematical acceptance belongs to the separate current math and coverage reviewers. This report is not an exact final Git-target ACK.",
+  "findings": [],
+  "checks": [
+    "Policy: attributes preserve bound bytes; the new workflow has contents:read permission, fixed action revisions, a bounded Python finite-check job and no controller-policy or protected-merge change.",
+    "Artifacts: current navigation selects Version 16 while retaining Version 15 history. New release links name the agreed future Version 16 assets; this review does not claim those assets already exist. No Busy Beaver specialization enters the selected manuscript.",
+    "Checker: exact original eight replacements, original AI-statement amendment and unique two-line precision amendment reconstruct the complete current manuscript; original review hashes retain the old source scope. Assertions, build/PDF hashes and selected manifest entries are finite checks, not authentication or proof.",
+    "Evidence: original scoped reviews remain byte-bound to their original targets. Current correction, native coverage and assembly reports disclose reuse and limitations and do not claim an already completed protected App decision. The archived pre-precision source preserves the old bytes.",
+    "Native structural review: current dossier, connection record, source extensions and review decision hashes agree. 8300 locations across 205 distinct pins checked; 126 coverage rows, 1190 uses, 1170 connections, 40 findings. Native field helpers and source-byte checks were used without fabricating receipts.",
+    "Archive implementation: checks the exact prior ZIP hash, embeds it unchanged, selects manifest and explicit intervening paths, refuses existing output, validates source hashes and reads back overlay member hashes. It does not recursively publish private working directories."
+  ],
+  "finalization_requirements": [
+    "MANIFEST.json is deliberately excluded from this report subject because adding the report regenerates that container. Its entries and SHA256SUMS must be regenerated and pass the ordinary checker before the exact final-target ACK.",
+    "The final native applications must bind the current file bytes and final Git head; each authentic reviewer ACK and protected controller acceptance remains separate.",
+    "The final archive and release assets require actual construction/readback/publication. This report reviewed the packer implementation, not a produced Version 16 ZIP."
+  ],
+  "test_evidence": "Independent exact location/pin and native-field checks passed. The ordinary checker was executed and reached the expected stale CUMULATIVE-HANDOFF manifest entry after the final documentation edits; it is not reported as a final passing check. Refresh and final check are required above.",
+  "limitations": "No new whole-proof acceptance, complete native gate pass, identity authentication, asset availability assertion or public merge authorization is supplied by this support report. No source, support implementation, controller or remote was edited by this reviewer."
+}

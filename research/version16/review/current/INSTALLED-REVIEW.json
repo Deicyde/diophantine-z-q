@@ -1,0 +1,21 @@
+{
+  "schema": "v16-installed-math-review/v1",
+  "reviewer": "/root/v16_correction_review",
+  "author_of_manuscript": false,
+  "manuscript": "manuscripts/quartic_v16.tex",
+  "manuscript_sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+  "decision": "accept-current-affected-mathematics-and-scoped-reuse",
+  "supersedes_source_binding": "a9cb3d59596d80e796224e979faf764662739d74cd91cdef080c37e1c8af9fc1",
+  "reverse_amendment_sha256": "a9cb3d59596d80e796224e979faf764662739d74cd91cdef080c37e1c8af9fc1",
+  "installed_amendment_unique": true,
+  "exact_continuity_verified": true,
+  "accepted_derivation": "REVIEW.md",
+  "precision_addendum": "TZ-PRECISION-ADDENDUM.md",
+  "finding": "The local-factor precision defect is resolved in the installed exact source.",
+  "remaining_mathematical_prerequisites_in_affected_scope": [],
+  "final_target_acknowledgment": false,
+  "conditions": [
+    "All source and excerpt pins must be rebound to this installed hash.",
+    "Prior report scope limits remain; final authentic target acknowledgment awaits packet freeze."
+  ]
+}

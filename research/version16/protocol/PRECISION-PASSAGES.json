@@ -1,0 +1,49 @@
+[
+  {
+    "id": "PRECISION-BEFORE",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 1,
+      "end_line": 20075,
+      "excerpt_sha256": "38140a56d7c660dffe88fa349907fb4350bef2e9b436e7903d155fab49ec01af"
+    },
+    "use_ids": [],
+    "reason": "Byte-identical to the preserved a9cb source before the two changed lines. Reuse the completed source coverage and its accepted derivations; no new input is introduced here."
+  },
+  {
+    "id": "PRECISION-CHANGED",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 20076,
+      "end_line": 20077,
+      "excerpt_sha256": "5e8f61df689af8b8770203b88fd1efe959b02ba735ddf26298eefb3a5586dc7a"
+    },
+    "use_ids": [
+      "INITIAL-V16-LOCAL-FACTOR-PRECISION"
+    ],
+    "reason": "The installed local-factor assertion is narrowed to uniform estimates, exactly as required in the following polynomial-forms conclusion."
+  },
+  {
+    "id": "PRECISION-AFTER",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 20078,
+      "end_line": 39932,
+      "excerpt_sha256": "a0baa4d3f91cb03d244502dc2e347bdb4174066d0eb273f4ded38f32a6007f0f"
+    },
+    "use_ids": [],
+    "reason": "Byte-identical to the preserved a9cb source after the two changed lines. The polynomial-forms output and all downstream consumers are unchanged; the preceding strengthened numerical interpretation was unnecessary."
+  }
+]

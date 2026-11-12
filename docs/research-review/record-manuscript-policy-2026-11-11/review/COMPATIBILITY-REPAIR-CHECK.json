@@ -1,0 +1,30 @@
+{
+  "decision": "checks_passed",
+  "candidate_manifest_sha256": "8c6d0635a6a70f54682059c85f69fdc6fd901d980764a2cacc82523bdb58c487",
+  "files": [
+    {
+      "path": "scripts/check_application_reviews.py",
+      "old_sha256": "581b74870e47069fd56f28755088733ba18aa3853540ad70bec0fa0a3c1a93e6",
+      "new_sha256": "9dc85ba98fc3fd75a2fb1e71bbe157cdef6342db7e1836c42168d1ac5d2e9b4c"
+    },
+    {
+      "path": "docs/audit-history/builder-binding.json",
+      "old_sha256": null,
+      "new_sha256": "9f4e9a69777a9aa7c8c32f028945f15d0e0526087b1877096be2cc0f64b0597d"
+    },
+    {
+      "path": ".gitattributes",
+      "old_sha256": "ed63a473a16109468d2d845d42447fc6bd83723a65d4aad836de4caf55091dfd",
+      "new_sha256": "5ff0d5c474397959522007ccc6e0e48c432883e0737d09c7eea6f80b77277c61"
+    }
+  ],
+  "independent_output": "PASS: 29 application-review negative controls rejected.\nPASS: 8 application contracts, revision and follow-up records for manuscripts/quartic_v14.tex. Build selector checked separately; historical acceptance is not current-manuscript approval. Not a proof check.\nPASS: 7 negative controls rejected.\n",
+  "checks": [
+    "All candidate hashes and original commit hashes verified",
+    "Attributes delta is exactly one comment and one -text rule",
+    "Profile checkout refresh equals existing Git blob",
+    "Historical validate body is identical after replacement of only builder-selection block",
+    "Independent overlay validation and all negative controls passed"
+  ],
+  "author_test_results_sha256": "36703310aa8cf3b5de8fb6faaf9be990c1e7219503fe90a1d9dc8c47aa3cf00a"
+}

@@ -16,6 +16,7 @@ Follow the [contributor review guide](https://github.com/elliotglazer/diophantin
 - All received audits and findings, reviewed resolutions and remaining objections:
 - Final integration/closure review, or the work still needed before closure:
 - Research-release profile, cumulative handoff, archive/manifest, synchronized manuscript and artifact records, citation/credit review, link checks and configured mirror readbacks, or a reasoned non-release applicability statement:
+- For an official new record: complete current `.tex` project and matching `.pdf`, incorporation of the improvement and necessary project arguments, exact build provenance and both hashes, and independent source/PDF and assembled-proof acceptance. A short proposal may leave integration pending, but must not promote the official record before these requirements are met:
 
 ## Validation and limits
 

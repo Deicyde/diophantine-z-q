@@ -1,0 +1,21 @@
+{
+  "previous_archive_sha256": "93766200f2a2893e82c9d6e1839956f2d9508a6eeb2ebe082251870e35f3900d",
+  "previous_release_commit": "1a49013b5683f58d2f88bb018a07d13770354157",
+  "postpublication_commit": "511529bbe9d635194f0c9d925709e77a5d3afa64",
+  "postpublication_paths": [
+    "CITATION.bib",
+    "README.md",
+    "docs/building.md",
+    "manuscripts/README.md",
+    "research/version15/ARTIFACT-INDEX.md",
+    "research/version15/CUMULATIVE-HANDOFF.md",
+    "research/version15/README.md",
+    "research/version15/RELEASE-NOTES.md",
+    "research/version15/postpublication-docs/CONNECTIONS.json",
+    "research/version15/postpublication-docs/DOSSIER.json",
+    "research/version15/postpublication-docs/REVIEW-ASSEMBLY.json",
+    "research/version15/postpublication-docs/REVIEW-COVERAGE.json",
+    "research/version15/protocol/README.md",
+    "research/version15/protocol/current222/README.md"
+  ]
+}

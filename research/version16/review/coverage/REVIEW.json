@@ -1,0 +1,35 @@
+{
+  "schema": "v16-coverage-assembly-review/v1",
+  "reviewer": "/root/v16_coverage_acceptance",
+  "agent_id": "01a1cc35-b545-7242-bea9-bdee4b93e694",
+  "initial_run": "01a1cc35-b64c-7b33-a4a3-5aca1a2d7403",
+  "current_run": "01a1cc40-9b55-7df3-b7f8-493d8634f2ed",
+  "author_of_manuscript": false,
+  "reviewed_at": "2026-11-11T20:20:46.686Z",
+  "manuscript": {
+    "path": "manuscripts/quartic_v16.tex",
+    "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+  },
+  "dossier": {
+    "path": "research/version16/protocol/DOSSIER.json",
+    "sha256": "597687d48ba0b82833c36e8e987e31f406a516d43ab98dfd28429abed79131d3"
+  },
+  "connections": {
+    "path": "research/version16/protocol/CONNECTIONS.json",
+    "sha256": "da5f3fe704cf2774e86f327b78fe422be773623ec373186942c903f7a3889411",
+    "canonical_sha256": "b7289819788825315572ce93de050f91e791be152ee117c245fc6100c70c1ed6"
+  },
+  "coverage_decision": "accepted_within_scope",
+  "assembly_decision": "accepted_within_scope",
+  "coverage_report_sha256": "5f2b89458628c91a6c7614749b33799c71b411559c222cb715eed7a9abe629c8",
+  "assembly_report_sha256": "f0cfb52df5e2153987fa2125fc002f85194e8cddd09d1407b35cce86535bda88",
+  "initial_source_note_sha256": "c139c0708ab770342e3f1c2b5ef34ef6791aaeeece720730769f9ccbf3a448ce",
+  "precision_freeze": "2026-11-11T20:18:38.523Z",
+  "open_mathematical_findings": [],
+  "pending": [
+    "Exact public Git head and native target binding",
+    "Trusted original-run and reviewer-observation capture",
+    "Actual protected-controller evaluation and publication workflow"
+  ],
+  "limitations": "This is current informal source-coverage and assembly review with exact reuse of accepted Version 15 derivations, not a fresh reproof of every source or formal verification. Published-source and historical audit qualifications are preserved. It supplies no effective defining threshold, no certified particular member of the 222 family, no global variable-count lower bound, no authenticated Git/PR acknowledgment and no publication authorization."
+}

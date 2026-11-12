@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "classification": "Editorial only; no mathematical change",
+  "reason": "User requested the original AI usage statement with auditing from Fable 5.1 and 5.2.",
+  "original_statement_source": "manuscripts/archive/quartic_12504.tex",
+  "original_statement_source_sha256": "38d458ba4178083766c5ae56a894da595fe27170c1ef07f6b49750fc5edf7c37",
+  "reviewed_manuscript_sha256": "2f7295c71e58df196470a1d812b594d5d4eda991a8d3daa50cc402b4133d0d05",
+  "manuscript": "manuscripts/quartic_v16.tex",
+  "manuscript_sha256": "a9cb3d59596d80e796224e979faf764662739d74cd91cdef080c37e1c8af9fc1",
+  "edits": [
+    {
+      "id": "restore-original-ai-statement",
+      "old": "\\section*{AI usage statement}\r\nThe Version 9 odd-product and asymmetric-depth improvements were developed\r\nby Gabriel Conant with ChatGPT and incorporated with additional source,\r\nconvention, and finite-certificate checks.\r\nThis manuscript was developed primarily by OpenAI Codex agents (Astra 6 and Sol 6.1)\r\nand Anthropic Claude agents (Opus 5.5), with auditing from Fable 5.1.\r\nTheir contributions included mathematical\r\nexploration, construction and analysis of the polynomial, proof drafting,\r\nliterature searches, computational checks, internal review, and drafting\r\nand revision of the exposition. Reviews by multiple AI agents formed part\r\nof this process; they do not constitute independent human peer review.\r\n",
+      "new": "The Version 9 odd-product and asymmetric-depth improvements were developed\r\nby Gabriel Conant with ChatGPT and incorporated with additional source,\r\nconvention, and finite-certificate checks.\r\n\\section*{AI usage statement}\r\nThis manuscript was developed primarily by OpenAI Codex agents (Astra 6 and Sol 6.1)\r\nand Anthropic Claude agents (Opus 5.5), with auditing from Fable 5.1 and 5.2.\r\nTheir contributions included mathematical\r\nexploration, construction and analysis of the polynomial, proof drafting,\r\nliterature searches, computational checks, internal review, and drafting\r\nand revision of the exposition. Reviews by multiple AI agents formed part\r\nof this process; they do not constitute independent human peer review.\r\n"
+    }
+  ],
+  "credit_preservation": "The Conant contribution remains verbatim immediately before the AI usage statement in the provenance section.",
+  "acceptance_scope": "The existing independent mathematical review remains bound to its original bytes; this record makes no new independent-acceptance claim."
+}

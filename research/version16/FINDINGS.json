@@ -1,0 +1,38 @@
+{
+  "version": 16,
+  "source": "audits/fable-5-2-audit-4.pdf",
+  "source_sha256": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116",
+  "findings": [
+    {
+      "id": "horizontal-normalization",
+      "historical": "Prior normalization device present later in Version15; missing at finite-cover site.",
+      "manuscript": "Inserted; independent review is recorded separately.",
+      "application": "V16-HORIZONTAL-NORMALIZATION"
+    },
+    {
+      "id": "GR-citations",
+      "historical": "Two existing inequalities cite wrong Gaudron–Rémond paper.",
+      "manuscript": "Separate CMH bibliography entry and two citations corrected.",
+      "application": "V16-GR-HEIGHT-CITATIONS"
+    },
+    {
+      "id": "TZ-extra-factor",
+      "historical": "Existing proof adapts divisor-sum estimates but introductory wording implied direct published theorem application.",
+      "manuscript": "Explicit proof-adaptation wording inserted; no mathematical replacement made.",
+      "application": "V16-TZ-ADAPTATION-LABEL",
+      "remaining": "Fable has not re-derived the full changed-modulus proof."
+    },
+    {
+      "id": "Bogolyubov-number",
+      "historical": "Fable raised numbering discrepancy using preprint.",
+      "manuscript": "No change.",
+      "disposition": "Withdrawn by Fable after published-version check; Lemma6.4 is correct."
+    }
+  ],
+  "unclosed_audit_scope": [
+    "Kato1999 pp314–318 and Ribet1990 pp440–443 unread by Fable",
+    "Complete re-derivation of changed-modulus Tao–Ziegler estimates not performed by Fable",
+    "Classical sources, final-version comparisons, and scan-legibility limits listed on pp94–95 of audit remain as reported"
+  ],
+  "no_new_whole_proof_acceptance": true
+}

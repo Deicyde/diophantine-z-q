@@ -51,3 +51,11 @@ research/version15/** -text
 scripts/v15/** -text
 .github/workflows/version15-checks.yml -text
 .github/workflows/version15-current.yml -text
+
+# Preserve the Version 16 workflow bytes recorded in its manifest.
+.github/workflows/version16-checks.yml -text
+CITATION.bib -text
+docs/building.md -text
+
+# Preserve the exact current-profile bytes bound by its reviewed selector.
+docs/current-manuscript.json -text

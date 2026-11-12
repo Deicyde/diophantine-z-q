@@ -2,13 +2,25 @@
 
 Run these commands from the repository root. Python scripts use the standard library. The current quartic and the original large construction have separate checks. The Version 7 handoffs contain their own build instructions under `current/`; Version 9 adds the [odd-product constructions](quartic-523-540/README.md). See the [handoff guide](../handoff/README.md) for the archive layout and verification procedure.
 
+## Version 16 manuscript and correction checks
+
+Run `python -B research/version16/check.py` to verify the exact correction delta, PDF/source hashes and scoped review record. These finite checks do not replace mathematical review or the protected App check.
+
+To rebuild the PDF with Tectonic 0.17.0, create `build/version16` and run:
+
+```sh
+tectonic --untrusted --bundle https://data1b.fullyjustified.net/tlextras-2022.0r0.tar --keep-logs --outdir build/version16 manuscripts/quartic_v16.tex
+```
+
+The [build record](../research/version16/BUILD.json) describes the supplied PDF. Fonts and engine builds can affect binary identity; a local rebuild should be checked for errors and unresolved references. The original supplied PDF stays in `manuscripts/quartic_v16.pdf`.
+
 ## Current 222-variable quartic family
 
 Run the portable finite check from the repository root:
 
     python -B research/version15/quartics/quartic-222/verify.py
 
-The [Version 15 package guide](../research/version15/quartics/quartic-222/README.md) documents parameter substitution and the separate scopes of finite verification and the arithmetic proof. The defining threshold remains ineffective. The [Version 15 manuscript PDF and TeX](../research/version15/README.md) are the published source selection; the retained manuscript build command below targets Version 14.
+The [Version 15 package guide](../research/version15/quartics/quartic-222/README.md) documents parameter substitution and the separate scopes of finite verification and the arithmetic proof. The defining threshold remains ineffective. The [Version 16 manuscript](../research/version16/README.md) retains this construction. The [Version 15 manuscript PDF and TeX](../research/version15/README.md) remain unchanged as history; the retained manuscript build command below targets Version 14.
 
 ## Retained 299- and 314-variable quartics
 
