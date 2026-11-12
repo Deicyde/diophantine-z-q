@@ -2,15 +2,16 @@
 
 Status: research note (task glue-b3-unram, 2026-11-11). Scope: B3 (v) of
 `docs/research/glue-descent.md`, which is N5 = `diophantine_zq.tex` L702-712. Lean file:
-`scratch/glue-b3-unram/Unram.lean` (609 lines, self-contained, `import Mathlib`). Log:
+`scratch/glue-b3-unram/Unram.lean` (673 lines, self-contained, `import Mathlib`). Log:
 `scratch/glue-b3-unram/log.md`. No file under `ZInQKernel/`, `blueprint/` or other tasks' notes was
 edited.
 
 ## 1. Main result
 
 **(VERIFIED, compiled; axioms `propext`, `Classical.choice`, `Quot.sound`.)**
-`GlueB3Unram.unramified_outside_of_unramifiedAt` proves B3 (v) in Lean from four leaves stated
-over Mathlib objects. The input is the output of glue-descent's `b2_of_leaves` and
+`GlueB3Unram.unramified_outside_final` proves B3 (v) in Lean from **three leaves** stated over
+Mathlib objects: L-B3a, L-B3b and L-conj. A fourth input, finite ramification, was first stated
+as a leaf and is now proved glue (`finRam`). The input is the output of glue-descent's `b2_of_leaves` and
 `inflatedNormalized_of`, with glue-descent's own hypothesis forms:
 - a finite Galois `L ⊆ ℚ̄` with `UnramifiedAt L p` (`e(P|p) = 1` at every prime of `𝓞 L` over
   `p`) for every prime `p ∉ T`, where `2 ∈ T`;
@@ -48,7 +49,7 @@ the set of primes below 325 (`ZInQKernel/Compiler/Precision/HeightConstant.lean:
 | L-B3a | `LeafB3a` | for an odd prime `p` and `w` over `p`: two nontrivial, locally constant characters `inertiaGQ w →* ℂ^×` of square 1 are equal | wild inertia is pro-`p` and tame inertia is `∏_{ℓ≠p} ℤ_ℓ(1)` (Serre, *Corps locaux* IV §2; Neukirch–Schmidt–Wingberg Ch. VII §5; UNVERIFIED locators) | no (deep: needs local class field theory or the structure of tame inertia) |
 | L-B3b | `LeafB3b` | for an odd prime `p` and `w` over `p`: `etaP p` is nontrivial on `inertiaGQ w` | `ℚ(√p*)` has discriminant `p* = ±p`, so it is ramified at `p`; equivalently `ℚ(ζ_p)` is totally ramified at `p` (STANDARD; Washington, *Cyclotomic fields*, Lemma 1.4, UNVERIFIED locator) | no, see §5 |
 | L-conj | `LeafConj` | if `w, w'` lie over the same `p`, then `σ⁻¹ I_{w'} σ ≤ I_w` for some `σ ∈ G_ℚ` | `G_ℚ` acts transitively on the extensions of `v_p` to `ℚ̄` (Neukirch, *ANT* II.9.1, with a compactness argument for `ℚ̄`; UNVERIFIED locator), and `I_{σw} = σ I_w σ⁻¹` | no |
-| L-finram | `LeafFinRam` | an open subgroup `H ≤ G_ℚ` contains `inertiaGQ w` for every `w` over every prime outside a finite set | `H ⊇ G_K` for a number field `K`, which is ramified only at primes dividing its discriminant (Neukirch III.2.12, UNVERIFIED locator) | no |
+| L-finram | `LeafFinRam` | an open subgroup `H ≤ G_ℚ` contains `inertiaGQ w` for every `w` over every prime outside a finite set | `H ⊇ G_K` for a number field `K`, which is ramified only at primes dividing its discriminant | **yes, proved glue** (`finRam`, §4); not a leaf |
 
 *Faithfulness* (checked by reading the statements; SPECULATIVE only where marked):
 - Each leaf is a consequence of the cited theorem and never stronger.
@@ -79,10 +80,13 @@ the set of primes below 325 (`ZInQKernel/Compiler/Precision/HeightConstant.lean:
 | `etaP_sq`, `etaP_isLocallyConstant`, `prod_isLocallyConstant` | `η` is quadratic and locally constant |
 | `kerSub`, `beta_mul_left`, `beta_one`, `beta_conj` | `K = {σ ∈ G_L : β σ = 1}` is a subgroup, open, and normal in `G_ℚ` (it uses only `ε = 1` on `G_L`-arguments and `G_L ⊴ G_ℚ`) |
 | `unramified_outside_of_leaves` | the twist argument at a place `w` over `p ∉ T` (proof sketch below) |
-| `unramified_outside` | the same theorem with `cycUnram` discharged: four leaves only |
+| `unramified_outside` | the same theorem with `cycUnram` discharged: four leaves (`finRam` not yet discharged) |
 | `emb_mem`, `embW` | `𝓞 L ⊂ w` for every valuation subring `w` of `ℚ̄` (integrality; `w` is integrally closed) |
 | `inertia_le_of_unramifiedAt` | **bridge**: `UnramifiedAt L p ⇒ inertiaGQ w ≤ G_L` for `w` over `p`. Proof: `P = 𝓞 L ∩ 𝔪_w` is a prime over `p`; `s|_L ∈ P.inertia Gal(L/ℚ)` because `s` acts trivially on the residue field of `w`; and `|P.inertia| = e(P|p) = 1` by Mathlib's `Ideal.card_inertia_eq_ramificationIdxIn` and `ramificationIdxIn_eq_ramificationIdx` |
 | `unramified_outside_of_unramifiedAt` | the main theorem with glue-descent's hypothesis `∀ p ∉ T, UnramifiedAt L p` |
+| `unramifiedAt_of_not_dvd_discr` | `p ∤ disc(L) ⇒ UnramifiedAt L p` (Mathlib's `NumberField.not_dvd_discr_iff_forall_mem`, `Ideal.ramificationIdx_eq_one`) |
+| `finRam` | **`LeafFinRam` proved**. For open `H`: `K = fixedField H` is finite; `L = normalClosure ℚ K ℚ̄` is finite Galois with `G_L ≤ H`; and the exceptional primes divide `disc(L) ≠ 0`, by the bridge |
+| `unramified_outside_final` | **the main theorem from three leaves** (L-B3a, L-B3b, L-conj) |
 
 Proof sketch of `unramified_outside_of_leaves`, at a place `w` over `p ∉ T`:
 - `I_w ≤ G_L`, so `β|_{I_w}` is a homomorphism. It is quadratic because `β² = χ` and `p ∤ N`.
@@ -112,19 +116,22 @@ Proof sketch of `unramified_outside_of_leaves`, at a place `w` over `p ∉ T`:
 - **L-B3b is not proved.** It is classical, but a proof over this API needs:
   - the total ramification of `ℚ(ζ_p)` at `p` (Mathlib has cyclotomic ramification results at
     the ideal level);
-  - the bridge above.
+  - the *converse* bridge above (lifting an inertia element at `P` to `inertiaGQ w`).
 
-  So it is "elementary" only after the bridge. It stays a leaf.
-- L-B3a, L-conj and L-finram are deep or need infrastructure (local Galois theory of `ℚ̄_p`)
-  that Mathlib lacks. L-finram becomes glue after the bridge, using Mathlib's discriminant
-  results (SPECULATIVE).
+  So it is "elementary" only after the converse bridge. It stays a leaf.
+- L-B3a and L-conj are deep or need infrastructure (local Galois theory of `ℚ̄_p`, extension
+  of valuations to `ℚ̄` and transitivity) that Mathlib lacks.
+  - L-conj could be avoided with the unproved converse bridge. The converse would make "β is
+    ramified at `w`" equivalent to `e_p(M) > 1` for the kernel field `M` of `β|_{G_L}`, and
+    that does not depend on `w`.
 
 ## 6. Findings
 
-1. **(VERIFIED, Lean.)** B3 (v) follows from L-B3a, L-B3b, L-conj and L-finram plus proved
-   glue. glue-descent counted only L-B3a and L-B3b. Two more inputs are used implicitly by N5
-   L703-707: the conjugacy of places over `p` (so that "β is ramified at `p`" makes sense) and
-   the finiteness of ramification.
+1. **(VERIFIED, Lean.)** B3 (v) follows from L-B3a, L-B3b and L-conj plus proved glue.
+   - glue-descent counted only L-B3a and L-B3b.
+   - N5 L703-707 also uses the conjugacy of places over `p` (so that "β is ramified at `p`"
+     makes sense). That is the third leaf.
+   - N5 also uses finite ramification, which is now proved glue (`finRam`).
 2. **(VERIFIED, Lean.)** The unramified direction of "a Dirichlet character ramifies only at its
    conductor" (`cycUnram`) is elementary glue over valuation subrings, about 85 lines.
 3. **(VERIFIED, reading.)** glue-descent's `twist_kills_inertia` has a `unique` hypothesis over

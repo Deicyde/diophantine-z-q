@@ -22,9 +22,11 @@ Leaves (`def … : Prop`, over Mathlib objects only):
   through the cyclotomic character) is nontrivial on every inertia subgroup over `p`;
 * `LeafConj`: places of `ℚ̄` over the same `p` are `G_ℚ`-conjugate, with conjugate inertia;
 * `LeafFinRam`: an open subgroup of `G_ℚ` contains the inertia groups over all but finitely
-  many primes.
+  many primes. PROVED below as glue (`finRam`).
 Glue proved here: `cycUnram` (the cyclotomic character mod `N` is trivial on inertia over
-`p ∤ N`), hence `unramified_outside` uses only the four leaves.
+`p ∤ N`); the bridge `inertia_le_of_unramifiedAt` (glue-descent's `UnramifiedAt L p` gives
+`I_w ≤ G_L`); `finRam`. The final theorem `unramified_outside_final` uses three leaves:
+`LeafB3a`, `LeafB3b`, `LeafConj`.
 -/
 
 namespace GlueB3Unram
@@ -172,7 +174,7 @@ def LeafConj : Prop :=
   ∀ p : ℕ, p.Prime → ∀ w w' : ValuationSubring Qbar, LiesOver w p → LiesOver w' p →
     ∃ σ : GQ, ∀ s ∈ inertiaGQ w', σ⁻¹ * s * σ ∈ inertiaGQ w
 
-/-- **Leaf (finite ramification).** An open subgroup of `G_ℚ` contains the inertia groups of all
+/-- **Finite ramification** (stated as a leaf, then PROVED below as glue: `finRam`). An open subgroup of `G_ℚ` contains the inertia groups of all
 places over all but finitely many primes. STANDARD: an open subgroup contains `G_K` for a number
 field `K`, and `K` is ramified only at the primes dividing its discriminant (Neukirch III.2.12,
 UNVERIFIED locator), with the identification of Galois and ideal-theoretic ramification. -/
@@ -486,7 +488,7 @@ theorem cycUnram : CycUnram := by
   apply residue_natCast_ne_zero w p hp hw N hpN
   rw [map_natCast]; exact h
 
-/-- **B3 (v) from the four leaves** (`CycUnram` is now proved): the twisted kernel field `L'`
+/-- **B3 (v) from four leaves** (`LeafFinRam` discharged later by `finRam`) (`CycUnram` is now proved): the twisted kernel field `L'`
 is unramified outside `T`. -/
 theorem unramified_outside (hA : LeafB3a) (hB : LeafB3b) (hConj : LeafConj) (hFin : LeafFinRam)
     (L : IntermediateField ℚ Qbar) [FiniteDimensional ℚ L] [IsGalois ℚ L]
