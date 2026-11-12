@@ -18,3 +18,4 @@
 - 22:16 h-decomposition.md v3 (all 11 reports): route decision P (rv-routek: K sound after repairs; K2 Ribet 1992 refereed status UNVERIFIED; K count 20 vs P 22); counts 22 research + 32 textbook = 54 leaves, 35 stated (39 Props), 19 placeholders; glue table statuses from glue-descent/glue-repo. Leaves.lean v4 recompiled after header edits: exit 0, 0 errors, 4 sorry warnings, 19 standard-axiom prints. VERIFIED.
 - 22:20 Added HSyn.sq_principalUnits_proved (pkg-I6's D3 statement from GlueConductor.exists_sq_eq_one_add with s = r − e). Leaves.lean: exit 0, 0 errors, 4 sorry warnings, 20 standard-axiom prints (sq_principalUnits_proved: propext, Classical.choice, Quot.sound). VERIFIED.
 - 22:20 .fleet/hsyn.md written.
+- 22:24 Checked that 41 Lean names cited in the note exist in Leaves.lean (grep of declarations): all present. VERIFIED.

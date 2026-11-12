@@ -232,9 +232,10 @@ the missing definitions and their tier; no = needs a very large definition); **f
 uniformization; (c) the adelic normalizer acts over `ℚ`; (d) Shimura reciprocity at CM points.
 Ref: Shimura, Ann. of Math. 85 (1967), Main Thms I-II; Deligne, Sém. Bourbaki 389 (1971),
 Thm 4.21, Cor. 5.7, Ex. 5.8, §§4.8-4.17; Kottwitz, JAMS 5 (1992), §5; neatness by Serre's lemma.
-C (PEL theorem specialized; assembled from several statements, §6 R4). Objects: abelian schemes,
-PEL moduli, CM points. Lean: **no** (very large). Formalized: none (Anthropic FLT has QM fake
-elliptic curves for Čerednik–Drinfeld; use for `Y₃/ℚ` unchecked). Steps A3-A6, A10.
+C (PEL theorem specialized; assembled from several statements, §6 R2). Objects: abelian schemes,
+PEL moduli, CM points. Lean: **no** (very large; pkg-I1's I1-a). It must be stated so that it
+produces the fibre surface `A` as a Lean object (§6 R6). Formalized: none (Anthropic FLT has QM
+fake elliptic curves for Čerednik–Drinfeld; use for `Y₃/ℚ` unchecked). Steps A3-A6, A10.
 
 **R2. Baba–Granath.** `X₆/W ≅ P¹_j`, branched at `0, ∞, −16/27` with indices 4, 6, 2 at CM
 discriminants −4, −3, −24; equal polarized moduli points iff `W`-conjugate. Ref: Canad. J. Math.
