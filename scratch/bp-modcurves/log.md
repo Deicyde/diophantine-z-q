@@ -28,3 +28,8 @@
   `neg_one_not_mem_Gamma1` (N ≥ 3), `relIndex_pmSubgroup_Gamma1` (= 2), `two_mul_belyiDeg_Gamma1`
   (2μ = #PrimVec N, N ≥ 3); `example : (Gamma1 5).index = 24` by `decide`.
   `lake env lean`: exit 0, no warnings; standard axioms. VERIFIED.
+- 12:20 `ModularCurveDefs.lean` (MC1, MC3a, MC4 definitions): `Qj = RatFunc ℚ`, `Ej = ofJNe0Or1728 X`
+  with `Ej_j : Ej.j = X` (proved) and `IsElliptic`; `EjBar` over `AlgebraicClosure Qj`; `xCoord`;
+  `fieldX1 P = ℚ(j)⟮x(P)⟯`; `Y1j P` = Mathlib relative normalization of Spec ℚ[j] in `fieldX1 P`;
+  `jMap`. Open statements (Props, not proved): `TorsionCardLe`, `FieldX1DegreeLe`, `FieldX1Degree` (leaf MC1').
+  `lake env lean`: exit 0, no warnings; `Ej_j` standard axioms. VERIFIED.
