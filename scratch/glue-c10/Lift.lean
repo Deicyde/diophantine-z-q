@@ -100,7 +100,72 @@ theorem frobLift_of_frobExistsAt (hb : FrobExistsAt) : FrobLift := by
   obtain ⟨h, hh⟩ := hb p P hPp
   exact ⟨h, ⟨P, hP, hPp, hh⟩, restrictNormal_eq_of_frob E τ p Q hQp hτ h P hPQ' hh⟩
 
+/-- The Frobenius condition at `𝔓` on the elements of `\bar ℤ` lying in `F`. -/
+def FrobOn (p : ℕ) (P : Ideal Zbar) (F : IntermediateField ℚ Qbar) : Set GQ :=
+  {h | ∀ x y : Zbar, (x : Qbar) ∈ F → (y : Qbar) = h (x : Qbar) - (x : Qbar) ^ p → y ∈ P}
+
+/-- **Step (b), finite layer (GLUE, open; a consequence of Mathlib's
+`IsArithFrobAt.exists_of_isInvariant` for `Gal(F/ℚ)` acting on `𝓞_F`, and the surjectivity
+`G_ℚ → Gal(F/ℚ)`).** -/
+def FrobExistsFinite : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (P : Ideal Zbar) [P.IsPrime], P.under ℤ = Ideal.span {(p : ℤ)} →
+    ∀ (F : IntermediateField ℚ Qbar) [FiniteDimensional ℚ F] [IsGalois ℚ F],
+      (FrobOn p P F).Nonempty
+
+lemma frobOn_anti {p : ℕ} {P : Ideal Zbar} {F F' : IntermediateField ℚ Qbar} (hF : F ≤ F') :
+    FrobOn p P F' ⊆ FrobOn p P F :=
+  fun _ hh x y hx hy => hh x y (hF hx) hy
+
+lemma isClosed_frobOn (p : ℕ) (P : Ideal Zbar) (F : IntermediateField ℚ Qbar)
+    [FiniteDimensional ℚ F] : IsClosed (FrobOn p P F) := by
+  rw [← isOpen_compl_iff, isOpen_iff_forall_mem_open]
+  intro h hh
+  simp only [FrobOn, Set.mem_compl_iff, Set.mem_setOf_eq, not_forall] at hh
+  obtain ⟨x, y, hx, hy, hyP⟩ := hh
+  refine ⟨(fun k => h⁻¹ * k) ⁻¹' (F.fixingSubgroup : Set GQ), ?_, ?_, ?_⟩
+  · intro k hk hk'
+    have hfix := (IntermediateField.mem_fixingSubgroup_iff F _).mp hk (x : Qbar) hx
+    change h⁻¹ (k (x : Qbar)) = (x : Qbar) at hfix
+    have hkx : k (x : Qbar) = h (x : Qbar) := by
+      have e := congrArg h hfix
+      rwa [show h (h⁻¹ (k (x : Qbar))) = k (x : Qbar) from AlgEquiv.apply_symm_apply h _] at e
+    exact hyP (hk' x y hx (by rw [hy, hkx]))
+  · exact (IntermediateField.fixingSubgroup_isOpen F).preimage (continuous_const.mul continuous_id)
+  · simp only [Set.mem_preimage, inv_mul_cancel, SetLike.mem_coe]
+    exact one_mem _
+
+instance : IsGalois ℚ Qbar := ⟨⟩
+
+/-- **Step (b) from its finite layer (GLUE, proved): compactness of `G_ℚ`.** -/
+theorem frobExistsAt_of_finite (hf : FrobExistsFinite) : FrobExistsAt := by
+  intro p _ P _ hP
+  let ι := {F : IntermediateField ℚ Qbar // FiniteDimensional ℚ F}
+  have : Nonempty ι := ⟨⟨⊥, inferInstance⟩⟩
+  let t : ι → Set GQ := fun F => FrobOn p P F.1
+  have htd : Directed (· ⊇ ·) t := by
+    rintro ⟨F₁, h₁⟩ ⟨F₂, h₂⟩
+    refine ⟨⟨F₁ ⊔ F₂, inferInstance⟩, frobOn_anti le_sup_left, frobOn_anti le_sup_right⟩
+  have htn : ∀ F, (t F).Nonempty := by
+    rintro ⟨F, hF⟩
+    let N := IntermediateField.normalClosure ℚ F Qbar
+    have : FiniteDimensional ℚ N := normalClosure.is_finiteDimensional ℚ F Qbar
+    have : Normal ℚ N := normalClosure.normal ℚ F Qbar
+    have : IsGalois ℚ N := ⟨⟩
+    exact (hf p P hP N).mono (frobOn_anti F.le_normalClosure)
+  have htcl : ∀ F, IsClosed (t F) := fun F => by
+    have := F.2
+    exact isClosed_frobOn p P F.1
+  obtain ⟨h, hh⟩ := IsCompact.nonempty_iInter_of_directed_nonempty_isCompact_isClosed t htd htn
+    (fun F => (htcl F).isCompact) htcl
+  refine ⟨h, fun x y hy => ?_⟩
+  have hxi : IsIntegral ℚ (x : Qbar) := Algebra.IsIntegral.isIntegral _
+  have : FiniteDimensional ℚ (IntermediateField.adjoin ℚ {(x : Qbar)}) :=
+    IntermediateField.adjoin.finiteDimensional hxi
+  exact Set.mem_iInter.mp hh ⟨IntermediateField.adjoin ℚ {(x : Qbar)}, this⟩ x y
+    (IntermediateField.mem_adjoin_simple_self ℚ _) hy
+
 end GlueC10
 
 #print axioms GlueC10.restrictNormal_eq_of_frob
 #print axioms GlueC10.frobLift_of_frobExistsAt
+#print axioms GlueC10.frobExistsAt_of_finite
