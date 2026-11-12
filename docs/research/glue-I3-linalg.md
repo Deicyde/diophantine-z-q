@@ -2,7 +2,7 @@
 
 Status: research note (task glue-I3-linalg, 2026-11-11). Lean files in `scratch/glue-I3-linalg/`, none with
 `sorry`, all compiled with `lake env lean`:
-- `Commutant.lean` (300 lines, Mathlib only): the linear algebra;
+- `Commutant.lean` (310 lines, Mathlib only): the linear algebra;
 - `TateBC.lean` (191 lines): Tate modules along injective maps;
 - `C2.lean` (1051 lines): pkg-I3's `I3.lean` verbatim, plus `Commutant.lean`, plus C2 stated and proved over
   the object layer;
@@ -30,21 +30,22 @@ L731-734 needs.
 | `exists_equivariant_ne_zero_of_common` | E1's first arrow: `ρ` semisimple, a nonzero subrepresentation `U` of `ρ` equivariantly isomorphic to a subrepresentation `U'` of `σ` ⇒ a nonzero `G`-equivariant linear map `V → W` | proved |
 | `PkgI3.Tate.map_bijective` (`TateBC.lean`) | `φ : M →+ N` injective, `T_ℓ M` free and finite, `T_ℓ N` finite, equal ranks ⇒ `T_ℓ(φ)` bijective (the algebraic core of `T_ℓ` under base change) | proved |
 | `finrank_commOf_le_of_equiv` (`C2.lean`) | an equivariant linear isomorphism `V ≃ W` gives `dim End_G V ≤ dim End_G W` | proved |
-| `PkgI3.C2_absolutelyIrreducible` (`C2.lean`) | C2 over the object layer (see above) | proved (conditional on the two Props and the hypothesis that `r` is semisimple) |
+| `isSemisimple_of_surjective` | semisimplicity passes to equivariant quotients | proved |
+| `PkgI3.C2_absolutelyIrreducible` (`C2.lean`) | C2 over the object layer (see above) | proved (conditional on the two Props and the isomorphism `e`) |
 | `absolutelyIrreducible_of_finrank_commOf_prod_le_four` | from the two Props above: `char k = 0`, `V ≠ 0` finite-dimensional, `ρ` semisimple, `dim End_G(V ⊕ V) ≤ 4` ⇒ `ρ_F` irreducible for **every** field `F ⊇ k` | proved (conditional on the two Props) |
 
 **C2 in pkg-I3's object layer (VERIFIED, compiled, `C2.lean`).** `PkgI3.C2_absolutelyIrreducible` has these
 hypotheses:
-- the leaves `FaltingsTate`, `TateModuleFree`, `HomFreeFinite`;
+- the leaves `FaltingsSemisimple`, `FaltingsTate`, `TateModuleFree`, `HomFreeFinite`;
 - the glue Props `InvariantsBaseChange`, `SemisimpleBaseChange`;
 - A9's output in the form `finrank ℤ (End A) = 4`;
-- a field `E ⊇ ℚ_ℓ`, a semisimple representation `r` of `G_K` on a nonzero finite-dimensional `U`, and a
+- a field `E ⊇ ℚ_ℓ`, a representation `r` of `G_K` on a nonzero finite-dimensional `U`, and a
   `G_K`-equivariant `E`-linear isomorphism `E ⊗ V_ℓ(A) ≃ U × U`.
 
-It concludes that `r ⊗ F` is irreducible for every field `F ⊇ E`. The hypothesis "`r` semisimple" stands in
-for an unformalized transfer: `r` is a summand of `E ⊗ V_ℓ A`, which is semisimple by `FaltingsSemisimple`
-and `SemisimpleBaseChange`. The isomorphism `E ⊗ V_ℓ A ≃ U × U` is A9/A10's input; it comes from
-`B ⊗ E ≅ M₂(E)` and is not formalized.
+It concludes that `r ⊗ F` is irreducible for every field `F ⊇ E`. The semisimplicity of `r` is derived in
+Lean: `E ⊗ V_ℓ A` is semisimple by `FaltingsSemisimple` and `SemisimpleBaseChange`, and `r` is an equivariant
+quotient of it (`isSemisimple_of_surjective`). The isomorphism `E ⊗ V_ℓ A ≃ U × U` is A9/A10's input; it
+comes from `B ⊗ E ≅ M₂(E)` and is not formalized.
 
 ## 1. How this is the argument of N5 L731-734 (C2)
 
@@ -62,9 +63,8 @@ In Lean terms (`G = G_{L'}`, `k = E`, `ρ = r`):
 3. `V_ℓ A ⊗ E ≅ r ⊕ r` as `G`-representations (from `B ⊗ E ≅ M₂(E)`: the idempotent `e₁₁` cuts out `r`, and
    `e₁₂` gives `e₂₂V ≅ e₁₁V`). Transport along this isomorphism gives `dim_E End_G(r ⊕ r) ≤ 4`. **Not
    formalized** (see §3).
-4. `r` is semisimple: it is a summand of `V_ℓ A ⊗ E`, which is semisimple by `FaltingsSemisimple` and
-   `SemisimpleBaseChange`. A summand of a semisimple representation is semisimple; Mathlib has this for
-   modules (`IsSemisimpleModule` of a submodule), but the transfer was not written.
+4. `r` is semisimple: it is an equivariant quotient of `V_ℓ A ⊗ E`, which is semisimple by
+   `FaltingsSemisimple` and `SemisimpleBaseChange`. Proved (`isSemisimple_of_surjective`).
 5. `absolutelyIrreducible_of_finrank_commOf_prod_le_four` concludes.
 
 **Remark (VERIFIED by the proof).** N5 says "dimension 4, so `End_G r = E`". The Lean proof uses only the
@@ -117,10 +117,9 @@ inequality `4 · dim End_G(r) ≤ dim End_G(r ⊕ r) ≤ 4`, through the injecti
    whose commutant stays `F` after every extension is absolutely irreducible by Burnside's theorem
    (`F[ρ(G)] = End V` over `F̄`), and Burnside's theorem gives irreducibility over every `F` directly,
    without semisimplicity of `ρ_F`. Mathlib has no Burnside density theorem (SPECULATIVE; not found by name).
-3. **`V_ℓ A ⊗ E ≅ r ⊕ r` from `B ⊗ E ≅ M₂(E)`** (C2 step 3) and the summand-is-semisimple transfer (step 4):
-   routine, not written for lack of time. In `C2_absolutelyIrreducible` they appear as hypotheses: the
-   isomorphism `e`, and `hr`, which says `r` is semisimple. The transport of commutant dimensions along `e`
-   is proved (`finrank_commOf_le_of_equiv`).
+3. **`V_ℓ A ⊗ E ≅ r ⊕ r` from `B ⊗ E ≅ M₂(E)`** (C2 step 3): routine, but not written for lack of time.
+   It is the hypothesis `e` of `C2_absolutelyIrreducible`. The transport of commutant dimensions along `e` is
+   proved (`finrank_commOf_le_of_equiv`), and so is the semisimplicity of `r` (step 4).
 4. **`T_ℓ` under base change of the field.** For `L/K` and a `K`-embedding `K̄ → L̄`, we want an
    isomorphism `T_ℓ(A) ≅ T_ℓ(A_L)` that is equivariant along `G_L → G_K`. Argument (VERIFIED as an
    argument, not formalized):

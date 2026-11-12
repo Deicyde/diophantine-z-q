@@ -191,6 +191,15 @@ theorem isIrreducible_of_finrank_commOf_prod_le_four (ρ : Representation k G V)
   have hsc := scalar_of_finrank_commOf_eq_one _ (finrank_commOf_eq_one_of_prod_le_four ρ h4)
   exact ⟨isIrreducible_of_commutant_scalar ρ hss (fun φ hφ => hsc φ hφ), hsc⟩
 
+/-- **Semisimplicity passes to equivariant quotients (GLUE, proved).** -/
+theorem isSemisimple_of_surjective {W : Type*} [AddCommGroup W] [Module k W]
+    (ρ : Representation k G V) (σ : Representation k G W) (hss : ρ.IsSemisimpleRepresentation)
+    (f : V →ₗ[k] W) (hf : Function.Surjective f) (hfeq : ∀ g v, f (ρ g v) = σ g (f v)) :
+    σ.IsSemisimpleRepresentation := by
+  rw [isSemisimpleRepresentation_iff_isSemisimpleModule_asModule] at hss ⊢
+  exact IsSemisimpleModule.of_surjective
+    (IntertwiningMap.equivLinearMapAsModule ρ σ (LinearMap.intertwiningMap_of_isIntertwiningMap ρ σ f hfeq)) hf
+
 /-! ### Extension of the coefficient field -/
 
 /-- Base change `ρ_E` of a representation along a field extension `E/k`. -/
@@ -298,3 +307,4 @@ end GlueI3
 #print axioms GlueI3.isIrreducible_of_finrank_commOf_prod_le_four
 #print axioms GlueI3.absolutelyIrreducible_of_finrank_commOf_prod_le_four
 #print axioms GlueI3.exists_equivariant_ne_zero_of_common
+#print axioms GlueI3.isSemisimple_of_surjective

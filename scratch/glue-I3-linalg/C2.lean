@@ -233,6 +233,15 @@ lemma finrank_commOf_le_of_equiv {W : Type*} [AddCommGroup W] [Module k W] [Fini
     exact e.conj.injective (congrArg Subtype.val hxy)
   exact LinearMap.finrank_le_finrank_of_injective hf
 
+/-- **Semisimplicity passes to equivariant quotients (GLUE, proved).** -/
+theorem isSemisimple_of_surjective {W : Type*} [AddCommGroup W] [Module k W]
+    (ρ : Representation k G V) (σ : Representation k G W) (hss : ρ.IsSemisimpleRepresentation)
+    (f : V →ₗ[k] W) (hf : Function.Surjective f) (hfeq : ∀ g v, f (ρ g v) = σ g (f v)) :
+    σ.IsSemisimpleRepresentation := by
+  rw [isSemisimpleRepresentation_iff_isSemisimpleModule_asModule] at hss ⊢
+  exact IsSemisimpleModule.of_surjective
+    (IntertwiningMap.equivLinearMapAsModule ρ σ (LinearMap.intertwiningMap_of_isIntertwiningMap ρ σ f hfeq)) hf
+
 /-! ### Extension of the coefficient field -/
 
 /-- Base change `ρ_E` of a representation along a field extension `E/k`. -/
@@ -1019,17 +1028,16 @@ lemma equivEnd_eq_commOf {K : Type} [Field K] (A : AbVar K) (ℓ : ℕ) [Fact �
 /-- **C2 (GLUE, proved from I3's leaves, the two linear-algebra statements, and A9's output).**
 `A` over a number field `K` with `rank_ℤ End_K(A) = 4` (`End⁰_K(A) = B`, from A9, A10, A8/B3);
 `E ⊇ ℚ_ℓ` a field and `V_ℓ(A) ⊗ E ≅ r ⊕ r` as `G_K`-representations (from `B ⊗ E ≅ M₂(E)`), with `r`
-semisimple (a summand of `V_ℓ(A) ⊗ E`, semisimple by `FaltingsSemisimple` and
-`SemisimpleBaseChange`; this transfer is not formalized and is a hypothesis here). Then `r` is
-absolutely irreducible: `r ⊗ F` is irreducible for every field `F ⊇ E`. -/
-theorem C2_absolutelyIrreducible (hF : FaltingsTate) (hT : TateModuleFree) (hH : HomFreeFinite)
+semisimple (a quotient of `V_ℓ(A) ⊗ E`, semisimple by `FaltingsSemisimple` and
+`SemisimpleBaseChange`; derived here). Then `r` is absolutely irreducible: `r ⊗ F` is irreducible
+for every field `F ⊇ E`. -/
+theorem C2_absolutelyIrreducible (hS : FaltingsSemisimple) (hF : FaltingsTate) (hT : TateModuleFree) (hH : HomFreeFinite)
     (hInv : InvariantsBaseChange) (hSS : SemisimpleBaseChange)
     {K : Type} [Field K] [NumberField K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
     (hrank : Module.finrank ℤ (End A) = 4)
     (E : Type) [Field E] [CharZero E] [Algebra ℚ_[ℓ] E]
     {U : Type} [AddCommGroup U] [Module E U] [FiniteDimensional E U] [Nontrivial U]
     (r : Representation E (Field.absoluteGaloisGroup K) U)
-    (hr : r.IsSemisimpleRepresentation)
     (e : TensorProduct ℚ_[ℓ] E (A.V ℓ) ≃ₗ[E] U × U)
     (he : ∀ σ v, e (repBaseChange E (A.galRep ℓ) σ v) = (r σ).prodMap (r σ) (e v))
     (F : Type) [Field F] [Algebra E F] : (repBaseChange F r).IsIrreducible := by
@@ -1044,6 +1052,17 @@ theorem C2_absolutelyIrreducible (hF : FaltingsTate) (hT : TateModuleFree) (hH :
     rw [he, LinearEquiv.apply_symm_apply, LinearEquiv.apply_symm_apply]
   have h4 := finrank_commOf_le_of_equiv (fun σ => (r σ).prodMap (r σ)) _ e.symm he'
   rw [h1] at h4
+  have hVE := hSS ℚ_[ℓ] E _ _ (A.galRep ℓ) (hS K A ℓ)
+  have hr : r.IsSemisimpleRepresentation := by
+    refine isSemisimple_of_surjective (repBaseChange E (A.galRep ℓ)) r hVE
+      (LinearMap.fst E U U ∘ₗ e.toLinearMap) ?_ ?_
+    · intro u
+      exact ⟨e.symm (u, 0), by simp⟩
+    · intro σ v
+      simp only [LinearMap.coe_comp, Function.comp_apply, LinearEquiv.coe_coe,
+        LinearMap.fst_apply]
+      rw [he]
+      rfl
   exact absolutelyIrreducible_of_finrank_commOf_prod_le_four hInv hSS r hr h4 F
 
 end PkgI3
