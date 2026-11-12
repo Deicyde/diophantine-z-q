@@ -55,3 +55,19 @@ Package I6 (h-trust steps B1, B2, C10, D1, D3, D4). Lean drafts: `scratch/pkg-I6
   hence unramified at 2, so β⁴ is trivial on the inertia of F; θ_F(U_F) = G_0 then gives
   (β∘θ_F)⁴ = 1 on U_F, and `sq_principalUnits` twice gives U^{3e+1} ⊆ (U^{e+1})⁴. Only
   `LocalReciprocityUpper` for F is needed.
+
+## Step 5 (cochain-level Brauer leaves; alignment with other tasks)
+- `lowerRam` now uses Mathlib's `AddSubgroup.inertia` of `𝔪_B^{i+1}` (same construction as
+  glue-conductor's global `ramGroup`); `mem_lowerRam` is `Iff.rfl`.
+- New: `IsCocycle2`, `IsCoboundary2` (continuous inhomogeneous cochains, ZMod 2 trivial action),
+  `resC F ε`, leaves `BrauerHasse2C`, `BrauerReciprocity2C`, `LocalH2CardC` (via `H2TwoClasses`).
+  Glue `cob_of_same_finite_support` PROVED (no sorry). Compiles (VERIFIED).
+- `#print axioms` (VERIFIED): `eq_of_same_finite_support`, `cob_of_same_finite_support`,
+  `skolemNoether_aut`, `lowerRam_tower`: [propext, Classical.choice, Quot.sound].
+- `sq_principalUnits` (D3 glue) is proved by glue-conductor (`Dyadic.lean`,
+  `exists_sq_eq_one_add`/`exists_fourth_root`, commit 2aeeb7f2); here statement only.
+- Cross-check with hdec-faithful's Leaves.lean (origin/wip/hdec-faithful): it leaves
+  `L15b_BrauerCohomology`, `L16_LocalCFT`, `L20_RamificationGroups` as `def … : Prop := sorry`
+  ("missing"). This file states all three over Mathlib: L15b is bypassed by I6.2a-c (stated on
+  H²(G_ℚ, ℤ/2) directly, both via `continuousCohomology` and on cochains); L16 by I6.3 + I6.10;
+  L20 by I6.6-I6.9 with concrete definitions.

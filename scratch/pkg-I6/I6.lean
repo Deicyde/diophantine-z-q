@@ -137,6 +137,107 @@ theorem eq_of_same_finite_support (hH : BrauerHasse2) (hR : BrauerReciprocity2)
     exact Nat.not_even_one hev
   exact sub_eq_zero.mp (hH (x - y) hinf hp)
 
+/-! ### The same three leaves at the level of continuous inhomogeneous cochains
+
+Galois cohomology is classically *defined* by continuous inhomogeneous cochains (Serre,
+*Cohomologie galoisienne*, I §2.2), and that is how N5 manipulates `ε` (a function
+`G_ℚ × G_ℚ → {±1}`).  These forms need no comparison with Mathlib's resolution-defined
+`continuousCohomology` (Mathlib describes only `H⁰` explicitly, `LowDegree.lean`). -/
+
+/-- A continuous inhomogeneous 2-cocycle with values in the trivial module `ℤ/2`. -/
+def IsCocycle2 {G : Type*} [Group G] [TopologicalSpace G] (ε : G → G → ZMod 2) : Prop :=
+  Continuous (fun x : G × G => ε x.1 x.2) ∧ ∀ a b c, ε b c - ε (a * b) c + ε a (b * c) - ε a b = 0
+
+/-- `ε` is the coboundary of a continuous 1-cochain. -/
+def IsCoboundary2 {G : Type*} [Group G] [TopologicalSpace G] (ε : G → G → ZMod 2) : Prop :=
+  ∃ f : G → ZMod 2, Continuous f ∧ ∀ a b, ε a b = f b - f (a * b) + f a
+
+/-- Restriction of a cochain on `G_ℚ` to `G_F` along Mathlib's map `G_F → G_ℚ`. -/
+noncomputable def resC (F : Type) [Field F] [Algebra ℚ F] (ε : Field.absoluteGaloisGroup ℚ →
+    Field.absoluteGaloisGroup ℚ → ZMod 2) :
+    Field.absoluteGaloisGroup F → Field.absoluteGaloisGroup F → ZMod 2 :=
+  fun a b => ε (Field.absoluteGaloisGroup.map (algebraMap ℚ F) a)
+    (Field.absoluteGaloisGroup.map (algebraMap ℚ F) b)
+
+/-- **Leaf I6.2a′** (= I6.2a on cochains). -/
+def BrauerHasse2C : Prop :=
+  ∀ ε, IsCocycle2 ε → IsCoboundary2 (resC ℝ ε) →
+    (∀ (p : ℕ) [Fact p.Prime], IsCoboundary2 (resC ℚ_[p] ε)) → IsCoboundary2 ε
+
+open Classical in
+/-- **Leaf I6.2b′** (= I6.2b on cochains). -/
+def BrauerReciprocity2C : Prop :=
+  ∀ ε, IsCocycle2 ε →
+    {p : Nat.Primes | haveI : Fact (p : ℕ).Prime := ⟨p.2⟩;
+        ¬ IsCoboundary2 (resC ℚ_[(p : ℕ)] ε)}.Finite ∧
+    Even ({p : Nat.Primes | haveI : Fact (p : ℕ).Prime := ⟨p.2⟩;
+        ¬ IsCoboundary2 (resC ℚ_[(p : ℕ)] ε)}.ncard
+      + if IsCoboundary2 (resC ℝ ε) then 0 else 1)
+
+/-- `H²(G, ℤ/2)` has exactly two elements, on cochains: a non-trivial class exists, and any two
+non-trivial classes differ by a coboundary. -/
+def H2TwoClasses (G : Type*) [Group G] [TopologicalSpace G] : Prop :=
+  (∃ ε, IsCocycle2 (G := G) ε ∧ ¬ IsCoboundary2 ε) ∧
+  ∀ ε₁ ε₂, IsCocycle2 (G := G) ε₁ → IsCocycle2 ε₂ → ¬ IsCoboundary2 ε₁ → ¬ IsCoboundary2 ε₂ →
+    IsCoboundary2 (ε₁ - ε₂)
+
+/-- **Leaf I6.2c′** (= I6.2c on cochains). -/
+def LocalH2CardC : Prop :=
+  (∀ (p : ℕ) [Fact p.Prime], H2TwoClasses (Field.absoluteGaloisGroup ℚ_[p])) ∧
+    H2TwoClasses (Field.absoluteGaloisGroup ℝ)
+
+lemma IsCoboundary2.sub {G : Type*} [Group G] [TopologicalSpace G] {ε₁ ε₂ : G → G → ZMod 2}
+    (h₁ : IsCoboundary2 ε₁) (h₂ : IsCoboundary2 ε₂) : IsCoboundary2 (ε₁ - ε₂) := by
+  obtain ⟨f₁, hf₁, e₁⟩ := h₁
+  obtain ⟨f₂, hf₂, e₂⟩ := h₂
+  refine ⟨f₁ - f₂, hf₁.sub hf₂, fun a b => ?_⟩
+  simp only [Pi.sub_apply, e₁, e₂]; ring
+
+lemma IsCocycle2.sub {G : Type*} [Group G] [TopologicalSpace G] {ε₁ ε₂ : G → G → ZMod 2}
+    (h₁ : IsCocycle2 ε₁) (h₂ : IsCocycle2 ε₂) : IsCocycle2 (ε₁ - ε₂) := by
+  refine ⟨h₁.1.sub h₂.1, fun a b c => ?_⟩
+  have := h₁.2 a b c
+  have := h₂.2 a b c
+  simp only [Pi.sub_apply]
+  linear_combination h₁.2 a b c - h₂.2 a b c
+
+lemma IsCocycle2.resC {ε} (h : IsCocycle2 ε) (F : Type) [Field F] [Algebra ℚ F] :
+    IsCocycle2 (resC F ε) := by
+  refine ⟨?_, fun a b c => ?_⟩
+  · have hφ := (Field.absoluteGaloisGroup.map (algebraMap ℚ F)).continuous
+    exact h.1.comp ((hφ.comp continuous_fst).prodMk (hφ.comp continuous_snd))
+  · simp only [PkgI6.resC, map_mul]
+    exact h.2 _ _ _
+
+/-- **The Brauer step of B2 on cochains (GLUE, proved from I6.2a′-c′).**  Two continuous
+2-cocycles on `G_ℚ` with values in `ℤ/2` that are locally non-trivial at the same primes differ by
+a continuous coboundary. -/
+theorem cob_of_same_finite_support (hH : BrauerHasse2C) (hR : BrauerReciprocity2C)
+    (hC : LocalH2CardC) (ε₁ ε₂) (c₁ : IsCocycle2 ε₁) (c₂ : IsCocycle2 ε₂)
+    (h : ∀ (p : ℕ) [Fact p.Prime],
+      IsCoboundary2 (resC ℚ_[p] ε₁) ↔ IsCoboundary2 (resC ℚ_[p] ε₂)) :
+    IsCoboundary2 (ε₁ - ε₂) := by
+  have c := c₁.sub c₂
+  have hp : ∀ (p : ℕ) [Fact p.Prime], IsCoboundary2 (resC ℚ_[p] (ε₁ - ε₂)) := by
+    intro p _
+    change IsCoboundary2 (resC ℚ_[p] ε₁ - resC ℚ_[p] ε₂)
+    by_cases h₁ : IsCoboundary2 (resC ℚ_[p] ε₁)
+    · exact h₁.sub ((h p).mp h₁)
+    · exact (hC.1 p).2 _ _ (c₁.resC _) (c₂.resC _) h₁ (fun h₂ => h₁ ((h p).mpr h₂))
+  have hinf : IsCoboundary2 (resC ℝ (ε₁ - ε₂)) := by
+    obtain ⟨-, hev⟩ := hR _ c
+    have hempty : {q : Nat.Primes | haveI : Fact (q : ℕ).Prime := ⟨q.2⟩;
+        ¬ IsCoboundary2 (resC ℚ_[(q : ℕ)] (ε₁ - ε₂))} = ∅ := by
+      ext q
+      have : Fact (q : ℕ).Prime := ⟨q.2⟩
+      simp only [Set.mem_setOf_eq, Set.mem_empty_iff_false, iff_false, not_not]
+      exact hp q
+    rw [hempty, Set.ncard_empty, zero_add] at hev
+    by_contra hne
+    rw [if_neg hne] at hev
+    exact Nat.not_even_one hev
+  exact hH _ c hinf hp
+
 end Brauer
 
 section LocalKW
@@ -388,3 +489,4 @@ end PkgI6
 #print axioms PkgI6.eq_of_same_finite_support
 #print axioms PkgI6.skolemNoether_aut
 #print axioms PkgI6.lowerRam_tower
+#print axioms PkgI6.cob_of_same_finite_support
