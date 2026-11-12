@@ -34,3 +34,14 @@ Ramification data as the sequence g i = |G_i| (lower numbering). Proved:
   genuine |G_i|). Uses Mathlib `Ideal.card_inertia_eq_ramificationIdxIn` for |G_0| = e.
   The residue-separability instance is inferred by Mathlib (no extra hypothesis; rechecked after removal).
 - `#print axioms` for `upper_break_le`, `D1_genuine`, `card_GL4_F5`: propext, Classical.choice, Quot.sound.
+
+## Step 4. D2 lemma restated (Breaks.lean) — COMPILES (VERIFIED)
+- `char_trivial_of_odd_pgroup` now assumes the VALUES β g have p-power order (image of a pro-p
+  group under a continuous map to a finite group), not the elements of G (false for pro-p groups,
+  e.g. ℤ_p). `pow_card_eq_one_of_pgroup` supplies the hypothesis on a finite p-group quotient.
+
+## Step 5. Dyadic.lean (Mathlib only) — COMPILES, no sorry (VERIFIED; axioms propext, choice, Quot.sound)
+- `exists_sq_eq_one_add`: complete local A, (2) = 𝔪^e, z ∈ 𝔪^{2e+s}, s ≥ 1 ⇒ 1+z = (1+w)², w ∈ 𝔪^{e+s}
+  (w = 2u, u² + u = z/4 by Hensel, Mathlib `IsAdicComplete.henselianRing`).
+- `exists_fourth_root` (D3, U^{3e+1} ⊆ (U^{e+1})⁴), `fourth_pow_mem` (D3, (U^{e+1})⁴ ⊆ U^{3e+1}).
+  Replaces the use of Silverman AEC IV.6.4 (formal logarithm) in N5 L828-832 by a Lean proof.
