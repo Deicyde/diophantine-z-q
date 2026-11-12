@@ -68,8 +68,9 @@ the set of primes below 325 (`ZInQKernel/Compiler/Precision/HeightConstant.lean:
   and is proved (`cycUnram`, §4). The product `η = ∏ η_q` replaces N5's "quadratic character of
   conductor `P`". It has the same ramification outside 2 (and none at 2), so no CRT or Jacobi
   symbol is needed.
-- L-conj and L-finram are not new inputs to N5's argument. They are what N5's "at only finitely
-  many primes" and the well-definedness of "β is ramified at `p`" use implicitly.
+- L-conj and L-finram are not new inputs to N5's argument. N5 uses them implicitly: L-conj for
+  the well-definedness of "β is ramified at `p`", and L-finram for "at only finitely many
+  primes". L-finram is now proved.
 
 ## 4. Glue proved in Lean (all compiled)
 
@@ -113,6 +114,10 @@ Proof sketch of `unramified_outside_of_leaves`, at a place `w` over `p ∉ T`:
   2. apply `unramified_outside_of_unramifiedAt` to `β₁`;
   3. build `L'` as in `b3_of_leaves`, with `β = β₁η`. The characterization
      `G_{L'} = {σ ∈ G_L : β σ = 1}` is exactly the hypothesis on `L'` here.
+
+  `GQ`, `act`, `toRingAut`, `cyc`, `galChar` and `UnramifiedAt` are verbatim copies of
+  glue-descent's definitions (namespace `GlueB3Unram` instead of `GlueDescent.B2Q`). Integration
+  should delete the copies and import the originals.
 - **L-B3b is not proved.** It is classical, but a proof over this API needs:
   - the total ramification of `ℚ(ζ_p)` at `p` (Mathlib has cyclotomic ramification results at
     the ideal level);
