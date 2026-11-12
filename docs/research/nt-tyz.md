@@ -5,13 +5,28 @@ This note settles which statement of Tian–Yuan–Zhang (TYZ) the hypothesis CR
 form used in `docs/research/tyz-5b.md` (Proposition 1.1 there) against the source, and gives a
 proof of that form whose inputs are all unambiguous statements of the paper.
 
+> **Locator correction (2026-11-12, loc-adopt).** The convolution lemma (L1062–1066) that this
+> note cited as "Lemma 2.8" is printed as **Lemma 2.9**, and the symmetry lemma (`lem2.6`, L1009),
+> cited here as "Lemma 2.7", is **Lemma 2.8**: the earlier count of TYZ's shared §2 counter skipped
+> Definition 2.7 (`def primitive`, L842; `\newtheorem{definition}[thm]`, L252). This was VERIFIED
+> by recounting the environments of `Period7.tex`; that the journal text has the same two numbers
+> is from the locator audit `docs/research/locators.md` (AI agents, 2026-11-12), not re-read here.
+> The same audit read the author-hosted typeset journal text (Asian J. Math. 21 (2017)): arXiv
+> Theorem 1.2 is journal **Theorem 1.4** (pp. 723–724), journal Theorem 1.2 is a different
+> (Smith rank-zero/BSD) result, and journal Theorem 1.4 keeps the restriction "all `d_i > 1`", so
+> the counterexamples `n = 26565, 33117` of §2.3 apply to it too. Line numbers `Lnnnn` still refer
+> to `Period7.tex`, and no mathematical content of this note changed. Lemma numbers below are
+> corrected in place; the statements about the journal below are kept as written before the audit.
+
 ## Verdict
 
 1. **Versions.** arXiv:1411.4728 has exactly one version, v1 (18 Nov 2014). The journal version
    (Asian J. Math. 21 (2017), no. 4, 721–774, DOI 10.4310/ajm.2017.v21.n4.a5) could not be read.
    Crossref registers no erratum or update for it. No readable version states the form used
-   (`T_5b(n)` odd ⟹ `𝓛(n) ≠ 0`) directly.
-2. **The literal statement of Theorem 1.2 is false.** Theorem 1.2 ends with "all decompositions
+   (`T_5b(n)` odd ⟹ `𝓛(n) ≠ 0`) directly. (2026-11-12: the locator audit `locators.md` read the
+   typeset journal text; there Theorem 1.2 is Theorem 1.4, with the same restriction. Read by
+   the audit (AI), not re-read here.)
+2. **The literal statement of Theorem 1.2 (journal Theorem 1.4) is false.** Theorem 1.2 ends with "all decompositions
    … are non-ordered with all `d_i > 1`". Read that way, the second sum for `n ≡ 5 (mod 8)` is
    `T_5a(n) + g(n) + T_5b(n)` (§1.3). For `n = 26565 = 3·5·7·11·23` and `n = 33117 = 3·7·19·83`
    this sum is odd while `rank C_n(ℚ) = 3`, so `𝓛(n) = 0` (VERIFIED, exact computation). The same
@@ -36,7 +51,7 @@ proof of that form whose inputs are all unambiguous statements of the paper.
    Proposition 3.4 entirely: it computes the coefficients of the genus point modulo 2 directly
    from the recursion that defines it (Lemma N2). Its inputs are Theorem 3.5 (first assertion),
    Lemmas 3.16, 3.18 and 3.21(1), (4), the recursion of §3.1, the `ε`-classification of
-   Theorem 3.3, and Lemma 2.8 with Proposition 2.3. All of these are unambiguous. The same
+   Theorem 3.3, and Lemma 2.9 with Proposition 2.3. All of these are unambiguous. The same
    argument proves reading A of Theorem 3.5(2) for `n ≡ 5` in full. Along the way it settles
    tyz-5b's remark on the `(5, 1)` bracket, which tyz-5b left partly SPECULATIVE.
 6. **Kriz.** CR₃ follows from TYZ, Gross–Zagier–Kolyvagin and the elementary parts of tyz-5b for
@@ -67,7 +82,9 @@ Every claim carries one of four marks.
 Line numbers `Lnnnn` refer to `Period7.tex`. TYZ number theorems, lemmas and propositions on one
 counter per section (`\newtheorem{thm}{Theorem}[section]`, L244–247). With that counter, §2 contains
 Theorem 2.1, Theorem 2.2 (`LQ`), Proposition 2.3 (`odd`), Theorem 2.4, Lemma 2.5, Theorem 2.6
-(label `thm2.3`), Lemma 2.7 (`lem2.6`) and Lemma 2.8 (unlabelled, L1062). §3 contains
+(label `thm2.3`), Definition 2.7 (`def primitive`, L842), Lemma 2.8 (`lem2.6`, the symmetry lemma)
+and Lemma 2.9 (unlabelled, L1062, the convolution). (Corrected 2026-11-12: the definition shares
+the counter, `\newtheorem{definition}[thm]` at L252; the earlier list omitted it.) §3 contains
 Proposition 3.1, Proposition 3.2 (`CM point1`), Theorem 3.3 (`GZ`), Proposition 3.4
 (`congruence`), Theorem 3.5 (`m3`), Theorem 3.6 (`CM point2`), …, Lemma 3.16 (`torsion1`),
 Lemma 3.17 (`torsion3`), Lemma 3.18 (`torsion2`), Lemma 3.19 (`multiples2`), Lemma 3.20 and
@@ -101,6 +118,10 @@ Lemma 3.21 (`betaaction`). (VERIFIED)
   Math. 21 (2017), no. 4, 721–774, DOI 10.4310/ajm.2017.v21.n4.a5. Crossref registers no update,
   correction or erratum for this DOI. The journal text was not accessible (UNCHECKED). In
   particular it is not known whether the journal version changed the statement of Theorem 1.2.
+  (2026-11-12: the locator audit `docs/research/locators.md` read the author-hosted typeset
+  journal text: Theorem 1.2 is renumbered Theorem 1.4, pp. 723–724, with the restriction "all
+  `d_i > 1`" kept; Theorem 3.5(2) is on p. 740 and the proof of Proposition 3.4 on pp. 751–753.
+  Read by the audit (AI), not re-read here.)
 - **Dependencies.** The steps used in §4 rest only on results proved inside TYZ. Their external
   inputs are Waldspurger's formula and the Gross–Zagier formula of Yuan–Zhang–Zhang (Annals of Math.
   Studies 184; TYZ appendix, Theorems A.3, A.8 and A.9 `EGZ`), Gross–Zagier and Kolyvagin (TYZ cite Kolyvagin, Math.
@@ -116,7 +137,7 @@ integer, and `𝓛(n) ≡ Σ_{n = d₀d₁⋯d_ℓ, d_i ≡ 1 (8), i > 0} Π_i g
 `n = d₀⋯d_ℓ` are non-ordered with `d_i > 1` for all `i ≥ 0`. The right-hand side is considered to be 1
 if `n = 1`.*
 
-**Theorem 1.2** (L389–409). *Let `n ≡ 5, 6, 7 (mod 8)` be positive and squarefree. Then `𝓛(n)` is an
+**Theorem 1.2** (L389–409; journal Theorem 1.4 per the audit `locators.md`). *Let `n ≡ 5, 6, 7 (mod 8)` be positive and squarefree. Then `𝓛(n)` is an
 integer. If `n ≡ 5, 7 (mod 8)`, then `2^{−ρ(n)}𝓛(n)` is even only if*
 
 ```
@@ -157,7 +178,7 @@ that `P(n) ∈ A(K_n)^− + A[4]`, i.e. `2^{−ρ(n)}𝓛(n)` is even. If `n ≡
 of Theorem 1.2] `≡ 0 (mod 2)`; if `n ≡ 6`, [the second sum] `≡ 0`.* Theorem 3.5 does **not** repeat
 the sentence "all decompositions are non-ordered with all `d_i > 1`".
 
-**Lemma 2.8** (L1062–1066). *`Σ_{n = d₁d₂} ε(d₁, d₂) 𝓛(d₁) 𝓛(d₂) = Q(n)`, where `ε(d₁, d₂) = ±1` and the
+**Lemma 2.9** (L1062–1066). *`Σ_{n = d₁d₂} ε(d₁, d₂) 𝓛(d₁) 𝓛(d₂) = Q(n)`, where `ε(d₁, d₂) = ±1` and the
 sum is over non-ordered decompositions `n = d₁d₂` with `d₁, d₂ > 0` and `d₂ ≡ 1 (mod 8)`.* (Here
 `n ≡ 1, 2, 3`, the setting of §2.)
 
@@ -224,7 +245,7 @@ reading B's sum is `g(n)`. In the other direction, 30 random samples of squarefr
 There were 24 such samples (22 distinct `n`), three of them with only `T_5b` odd
 (`reading_a_check.py`).
 
-**Consequence.** The project cannot cite the *literal* Theorem 1.2: its text is false. It can cite
+**Consequence.** The project cannot cite the *literal* Theorem 1.2 (journal Theorem 1.4, which keeps the restriction per the audit `locators.md`): its text is false. It can cite
 reading A, which is the statement TYZ's proof gives (§4 proves it for `n ≡ 5`). Smith also read the
 theorem this way (§3).
 
@@ -344,6 +365,8 @@ reading A.
 *A warning on numbering.* Zhang cites the journal version for a statement that is Theorem 1.1 with
 Corollary 1.4 in arXiv v1, but calls it "Corollary 1.3". In arXiv v1, Remark 1.3 shares the counter.
 If Zhang's number is right, the journal numbering differs from arXiv v1 at least in §1 (UNCHECKED).
+(2026-11-12: the locator audit `locators.md` confirms that §1 was renumbered in the journal, at least
+arXiv Theorem 1.2 → journal Theorem 1.4; Zhang's "Corollary 1.3" itself was not checked.)
 A citation should therefore give the arXiv version together with the label, for example "Theorem
 3.5 (`m3`) of arXiv:1411.4728v1", or name the result in words.
 
@@ -364,10 +387,10 @@ hypothesis "`P(n) ∈ A(K_n)^− + A[4]`". Only the last sentence is used for CR
   defined by the displayed recursion. `𝓛(d₁) ∈ ℤ`, and `ε(d₀, d₁) ≡ i (mod 2ℤ[i])` if
   `(d₀, d₁) ≡ (5, 3)` and `≡ 1` otherwise. Here `d₁ > 1` is explicit. For `d₀ | n`, `ℍ'_{d₀} ⊂ ℍ'_n`,
   so all `P(d₀)` and `Z(d₀)` lie in the `ℤ[i]`-module `A(ℍ'_n)`.
-- **I2** (Lemma 2.8 and Proposition 2.3). For odd squarefree `m ≡ 1, 3 (mod 8)`:
+- **I2** (Lemma 2.9 and Proposition 2.3). For odd squarefree `m ≡ 1, 3 (mod 8)`:
   `Σ ε 𝓛(d₁)𝓛(d₂) = Q(m) ≡ g(m)`, over non-ordered `m = d₁d₂` with `d₂ ≡ 1`; and `𝓛(1) = 1` (L1082).
   For `m ≡ 3` the factor `d₁ ≡ 3` is distinguished by its class. For `m ≡ 1` the pairs are
-  unordered (L1068–1077: the symmetry `P(d₁, d₂) = P(d₂, d₁)` of Lemma 2.7 is used to halve the sum).
+  unordered (L1068–1077: the symmetry `P(d₁, d₂) = P(d₂, d₁)` of Lemma 2.8 is used to halve the sum).
 - **I3** (Theorem 3.5, first assertion; proof L2343–2380). `P(n)` and `𝒫(n)` are equal in
   `A(ℍ'_n) ⊗ ℚ`, and `𝒫(n) = 0` if `𝓛(n) = 0` (L1295).
 - **I4** (Lemmas 3.16, 3.18). `A(ℍ'_n)_tors = A[(1+i)³] = A(ℚ(i))` for odd `n`.
@@ -498,7 +521,7 @@ needed.
 > (2017), 721–774 (arXiv:1411.4728v1): Theorem 3.5 (first assertion) and the argument of the proof of
 > Theorem 3.5(2) in §3.3, for `n ≡ 5 (mod 8)`. It gives: if `T_5b(n)` is odd, then `𝓛(n) ≠ 0`, so
 > `L(E_n, s)` has a simple zero at `s = 1`. A complete proof from TYZ's Theorem 3.5 (first
-> assertion), Lemmas 3.16, 3.18, 3.21, Lemma 2.8, Proposition 2.3 and the recursion of §3.1 is in
+> assertion), Lemmas 3.16, 3.18, 3.21, Lemma 2.9, Proposition 2.3 and the recursion of §3.1 is in
 > `docs/research/nt-tyz.md` §4. Theorem 1.2 must not be cited in its literal form: with "all
 > `d_i > 1`" it is false (`n = 26565`).
 
@@ -535,7 +558,9 @@ pairing, or Smith's preprint. Kriz remains only as the alternative route named i
    replacements were not checked here (UNCHECKED).
 2. **TYZ in its arXiv form.** The journal text was not read. The only version compared is the arXiv
    preprint, so every statement in §1.2 is a statement of the preprint (UNCHECKED against the
-   journal, §1.1).
+   journal, §1.1). (2026-11-12: the locator audit `locators.md` read the journal text and reports
+   Theorem 1.2 as journal Theorem 1.4 with "all `d_i > 1`" kept, and the convolution as Lemma 2.9
+   there too; read by the audit (AI), not here.)
 3. **Smith, arXiv:1603.08479.** It is no longer used for row 5b: tyz-5b §3 reproves it. It still
    appears in pc-audit RK5 and in the history of the route.
 4. **Kriz, arXiv:2002.04767v5.** It is an alternative only (§5.1). Its arXiv metadata carries no
@@ -550,7 +575,7 @@ pairing, or Smith's preprint. Kriz remains only as the alternative route named i
 
 1. **Cite Proposition N with the proof of §4.**
    *Payoff:* CR₃'s analytic input rests on unambiguous statements of TYZ (Theorem 3.5 first
-   assertion, Lemmas 2.8, 3.16, 3.18, 3.21, Proposition 2.3, the recursion of §3.1). It no longer
+   assertion, Lemmas 2.9, 3.16, 3.18, 3.21, Proposition 2.3, the recursion of §3.1). It no longer
    depends on the false literal Theorem 1.2, on the ambiguous Proposition 3.4, or on Smith.
    *Main obstacle:* a human referee must check Lemmas N1 and N2 and the facts F3–F5. They are short,
    but they are new text, not citations.
@@ -591,6 +616,9 @@ pairing, or Smith's preprint. Kriz remains only as the alternative route named i
    *Success:* reading A stated explicitly.
    *Chance: medium.* Zhang's citation of "Corollary 1.3" suggests the text was revised, but nothing
    is known about the convention.
+   *Outcome (2026-11-12, per the AI locator audit `locators.md`, not re-read here):* the journal
+   keeps "all `d_i > 1`" in Theorem 1.4 (the old Theorem 1.2); neither version's Theorem 3.5(2)
+   resolves the convention explicitly. So §4 is required.
 5. **Move the elementary half of CR₃ into Lean** (SPECULATIVE).
    *Idea:* state the trusted hypothesis as "`det M_5b(d) = 1` (an `𝔽₂` determinant of Legendre
    symbols) ⟹ point", and prove in Lean the `𝔽₂` statement of tyz-5b Theorem 4.3 (8-solution system

@@ -20,3 +20,12 @@ Input: docs/research/locators.md (AI locator audit, 2026-11-12). Base commit 698
   §1 route K (K1-K4 audit bullet, count 19), §2 R1-R22 (R2 restated, R3 locator Example 29, R5
   count corrected, audit notes on R1, R6-R22), T27 (Chia-Fu Yu 2013 Thm 1.1, "indefinite"),
   §2.3 route K count, §6 R1 and R2 updates. No count of leaves changed.
+- Step 3: TYZ renumbering (convolution Lemma 2.8 -> 2.9, symmetry Lemma 2.7 -> 2.8; arXiv Thm 1.2 =
+  journal Thm 1.4, per the audit) with a dated note in nt-tyz, cr3-trust, rv-tyz-inputs,
+  pn-design, rv-pn-encoding, rv-prop-n, rv-nt-tyz; nt-tyz numbering list gains Definition 2.7.
+  Docstrings/comments of TYZInputs.lean and PropN.lean updated; `LemmaTwoEight` kept, docstring
+  says it encodes Lemma 2.9.
+- scratch/loc-adopt/check_code_unchanged.py (strips nested block comments, docstrings, `--`
+  comments outside string/char literals; whitespace-normalized compare with 6988c7fe):
+  IDENTICAL for both Lean files (45 and 1527 code lines). Negative control (temporary rename of
+  `lemmaN1`) gave DIFFERENT, exit 1.
