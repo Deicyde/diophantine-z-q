@@ -1298,3 +1298,428 @@ theorem mem_torsion_iff (m : ℕ) (x : PkgI2.Pts A L) : x ∈ PkgI2.torsion A L 
 end Points
 
 end ObjBridge
+
+/-! # §D. The I2 and I3 leaves restated over the shared layer, with equivalences -/
+
+namespace ObjBridge
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI2 (IsAbelianVariety IsAbelianScheme Pts torsion galAct IsInertia HasGoodReduction
+  InertiaTrivialOn UnipSq baseChange IsReductionOf)
+open Polynomial
+open scoped Quaternion TensorProduct
+
+/-! ## I2 leaves
+
+Universe fixed to `Type`. Points, torsion, Galois action, inertia, good reduction and base change
+are the shared ones (I2's single definitions; for a field `L`, `Pts A L` is I3's `Pt` by `rfl`,
+`pts_eq`). The leaves that do not involve `Hom`/`End` are I2's text at `Type` with
+`topologicalKrullDim A.X.left` written `dim A`; each is `Iff.rfl` to the original. I2-Char and
+I2-Rank are restated with the shared `End`/`Hom` (I3's ring and ℤ-module through the bridge). -/
+
+/-- **Leaf I2-P (Zariski–Nagata purity of the branch locus).**
+Ring form of Stacks Tag 0BMB (SGA 1, Exp. X, Thm 3.4, numbering UNVERIFIED):
+let `R → S` be of finite type with `R` Noetherian, `q` a prime of `S` over `p`, with `R_p` regular,
+`S_q` a normal domain, `S` quasi-finite at `q`, `dim S_q = dim R_p ≥ 1`, and `R → S` unramified at
+every prime `q' ⊆ q` of height one. Then `R → S` is étale at `q`. -/
+def PurityBranchLocus : Prop :=
+  ∀ (R S : Type) [CommRing R] [CommRing S] [Algebra R S] [IsNoetherianRing R]
+    [Algebra.FiniteType R S] (q : Ideal S) [q.IsPrime],
+    IsRegularLocalRing (Localization.AtPrime (q.comap (algebraMap R S))) →
+    IsDomain (Localization.AtPrime q) →
+    IsIntegrallyClosed (Localization.AtPrime q) →
+    Algebra.QuasiFiniteAt R q →
+    ringKrullDim (Localization.AtPrime q) =
+      ringKrullDim (Localization.AtPrime (q.comap (algebraMap R S))) →
+    1 ≤ ringKrullDim (Localization.AtPrime q) →
+    (∀ (q' : Ideal S) [q'.IsPrime], q' ≤ q → q'.height = 1 → Algebra.IsUnramifiedAt R q') →
+    Algebra.IsEtaleAt R q
+
+theorem purityBranchLocus_iff : ObjBridge.PurityBranchLocus ↔ PkgI2.PurityBranchLocus.{0} := Iff.rfl
+
+/-- **Leaf I2-NOS (Serre–Tate 1968, Thm 1; criterion of Néron–Ogg–Shafarevich).**
+`K` a field with a discrete valuation ring `O`, `w` a valuation ring of `K̄` over `O`, `A/K` an
+abelian variety. Then (a) ⟺ (b) ⟺ (c), where (a) good reduction at `O`, (b) for every `m ≥ 1`
+invertible in `O`, inertia at `w` fixes `A(K̄)[m]`, (c) the same for infinitely many such `m`. -/
+def NeronOggShafarevich : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K)),
+    w.comap (algebraMap K (AlgebraicClosure K)) = O →
+    ∀ (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A],
+      (HasGoodReduction A O ↔
+        ∀ m : ℕ, 0 < m → IsUnit (m : O) → InertiaTrivialOn A w m) ∧
+      (HasGoodReduction A O ↔
+        {m : ℕ | 0 < m ∧ IsUnit (m : O) ∧ InertiaTrivialOn A w m}.Infinite)
+
+theorem neronOggShafarevich_iff : ObjBridge.NeronOggShafarevich ↔ PkgI2.NeronOggShafarevich.{0} := Iff.rfl
+
+/-- **Leaf I2-ST2 (Serre–Tate 1968, Thm 2; potential good reduction).** For a prime `ℓ`
+invertible in `O`: `A` acquires good reduction over a finite extension `K' ⊆ K̄` (at `w ∩ K'`) iff
+an open subgroup `I ∩ G_{K'}` of inertia acts trivially on every `A(K̄)[ℓⁿ]`, i.e. the image of
+inertia in `Aut(T_ℓ A)` is finite. Used only on the h-b1 route for A6 (not on the route of §5 of
+docs/research/pkg-I2.md). -/
+def SerreTatePotentialGood : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K)),
+    w.comap (algebraMap K (AlgebraicClosure K)) = O →
+    ∀ (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (ℓ : ℕ), ℓ.Prime → IsUnit (ℓ : O) →
+      ((∃ K' : IntermediateField K (AlgebraicClosure K), FiniteDimensional K K' ∧
+          HasGoodReduction (baseChange A K') (w.comap (algebraMap K' (AlgebraicClosure K)))) ↔
+       (∃ K' : IntermediateField K (AlgebraicClosure K), FiniteDimensional K K' ∧
+          ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, IsInertia w σ →
+            (∀ x ∈ K', σ x = x) →
+            ∀ n : ℕ, ∀ x ∈ torsion A (AlgebraicClosure K) (ℓ ^ n), galAct A σ x = x))
+
+theorem serreTatePotentialGood_iff : ObjBridge.SerreTatePotentialGood ↔ PkgI2.SerreTatePotentialGood.{0} := Iff.rfl
+
+/-- **Leaf I2-SS (Grothendieck's semistable reduction theorem, monodromy form).** Consequence of
+SGA 7 I, Exp. IX, Thm 3.6 (`A` acquires semistable reduction over a finite extension `K'`) and
+the direction "semistable ⇒ inertia acts unipotently of echelon ≤ 2" of Prop. 3.5 (numbers
+UNVERIFIED): there is a finite `K' ⊆ K̄` such that every `σ` in the inertia group of `w` fixing
+`K'` satisfies `(σ - 1)² = 0` on `A(K̄)[ℓⁿ]` for every prime `ℓ` invertible in `O` and every `n`.
+The finite-level form is equivalent to `(σ-1)² = 0` on `T_ℓ A`, since `T_ℓ A → A[ℓⁿ]` is onto. -/
+def GrothendieckMonodromy : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K)),
+    w.comap (algebraMap K (AlgebraicClosure K)) = O →
+    ∀ (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A],
+      ∃ K' : IntermediateField K (AlgebraicClosure K), FiniteDimensional K K' ∧
+        ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, IsInertia w σ →
+          (∀ x ∈ K', σ x = x) →
+          ∀ ℓ : ℕ, ℓ.Prime → IsUnit (ℓ : O) →
+            ∀ n : ℕ, ∀ x ∈ torsion A (AlgebraicClosure K) (ℓ ^ n), UnipSq A σ x
+
+theorem grothendieckMonodromy_iff : ObjBridge.GrothendieckMonodromy ↔ PkgI2.GrothendieckMonodromy.{0} := Iff.rfl
+
+/-- **Leaf I2-Ray (Raynaud's criterion, Galois form).** Consequence of SGA 7 I, Exp. IX,
+Prop. 4.7 (Raynaud: if `m ≥ 3` is invertible in `O` and the points of `A[m]` are rational over
+`K`, then `A` has semistable reduction; also Silverberg–Zarhin, Ann. Inst. Fourier 45 (1995),
+Thm 3.5 per h-trust, ASTRA-READ there) and the direction "semistable ⇒ unipotent of echelon ≤ 2"
+of SGA 7 IX Prop. 3.5 (numbers UNVERIFIED): every `σ` in the inertia group of `w` satisfies
+`(σ - 1)² = 0` on `A(K̄)[ℓⁿ]` for every prime `ℓ` invertible in `O` and every `n`. -/
+def RaynaudCriterion : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K)),
+    w.comap (algebraMap K (AlgebraicClosure K)) = O →
+    ∀ (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (m : ℕ), 3 ≤ m → IsUnit (m : O) →
+      (∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+          ∀ x ∈ torsion A (AlgebraicClosure K) m, galAct A σ x = x) →
+      ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, IsInertia w σ →
+        ∀ ℓ : ℕ, ℓ.Prime → IsUnit (ℓ : O) →
+          ∀ n : ℕ, ∀ x ∈ torsion A (AlgebraicClosure K) (ℓ ^ n), UnipSq A σ x
+
+theorem raynaudCriterion_iff : ObjBridge.RaynaudCriterion ↔ PkgI2.RaynaudCriterion.{0} := Iff.rfl
+
+/-- **Leaf I2-NMP (Néron mapping property, abelian-scheme case).** Consequence of
+Bosch–Lütkebohmert–Raynaud, *Néron models* (1990), §1.2, Def. 1 and Prop. 8 (an abelian scheme
+over a DVR is the Néron model of its generic fibre; numbers UNVERIFIED): for abelian schemes
+`𝒜, ℬ` over the DVR `O ⊆ K`, restriction to the generic fibre is a bijection
+`Hom_O(𝒜, ℬ) → Hom_K(𝒜_K, ℬ_K)` (morphisms of schemes over the base). -/
+def NeronMappingAbelianScheme : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (𝒜 ℬ : Grp (Over (Spec (.of O)))) [IsAbelianScheme 𝒜] [IsAbelianScheme ℬ],
+    Function.Bijective (fun f : 𝒜.X ⟶ ℬ.X =>
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O K)))).map f)
+
+theorem neronMappingAbelianScheme_iff : ObjBridge.NeronMappingAbelianScheme ↔ PkgI2.NeronMappingAbelianScheme.{0} := Iff.rfl
+
+/-- **Leaf I2-Red (reduction of prime-to-`p` torsion at good reduction).** Serre–Tate 1968, §1
+(proof of Thm 1, (a) ⇒ (b); locator UNVERIFIED): if `A` has good reduction with abelian scheme
+`𝒜` and `m ≥ 1` is invertible in `O`, reduction is a bijection
+`A(K̄)[m] → 𝒜(κ(w))[m]`. -/
+def ReductionTorsionBijective : Prop :=
+  ∀ (K : Type) [Field K] (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K))
+    (hw : w.comap (algebraMap K (AlgebraicClosure K)) = O)
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (𝒜 : Grp (Over (Spec (.of O)))) [IsAbelianScheme 𝒜]
+    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O K)))).mapGrp.obj 𝒜 ≅ A)
+    (m : ℕ), 0 < m → IsUnit (m : O) →
+      (∀ x ∈ torsion A (AlgebraicClosure K) m,
+        ∃! y, y ^ m = 1 ∧ IsReductionOf 𝒜 e w hw x y) ∧
+      (∀ y, y ^ m = 1 → ∃! x, x ∈ torsion A (AlgebraicClosure K) m ∧ IsReductionOf 𝒜 e w hw x y)
+
+theorem reductionTorsionBijective_iff : ObjBridge.ReductionTorsionBijective ↔ PkgI2.ReductionTorsionBijective.{0} := Iff.rfl
+
+/-- **Leaf I2-Tors (structure of `A[n]`; boundary with I3).** Mumford, *Abelian varieties*
+(1970), §4, Application 2 / §6 (locator UNVERIFIED): for an abelian variety of dimension `g` over
+`K` and `n ≥ 1` invertible in `K`, `A(K̄)[n] ≅ (ℤ/n)^{2g}` as groups. The dimension is the
+topological Krull dimension of the underlying space. -/
+def TorsionStructure : Prop :=
+  ∀ (K : Type) [Field K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (g n : ℕ),
+    dim A = (g : WithBot ℕ∞) → 0 < n → (n : K) ≠ 0 →
+      ∃ e : torsion A (AlgebraicClosure K) n ≃ (Fin (2 * g) → ZMod n),
+        ∀ x y : torsion A (AlgebraicClosure K) n,
+          ∀ h : x.1 * y.1 ∈ torsion A (AlgebraicClosure K) n, e ⟨x.1 * y.1, h⟩ = e x + e y
+
+theorem torsionStructure_iff : ObjBridge.TorsionStructure ↔ PkgI2.TorsionStructure.{0} := Iff.rfl
+
+/-- **Leaf I2-AbDVR (Abhyankar's lemma, DVR form).** SGA 1, Exp. X, Lemme 3.6 (number
+UNVERIFIED); also Stichtenoth, *Algebraic function fields and codes*, Thm 3.9.1, and Cornell,
+Gold (classical). `R` a DVR with fraction field `K`, uniformizer `π`; `L/K` finite separable, tamely
+ramified over `R` (every prime `Q` of the integral closure `S` of `R` in `L` over the maximal
+ideal has `e(Q)` invertible in `R` and separable residue extension); `n` invertible in `R` with every
+`e(Q) ∣ n`. Let `M = L(t)` with `tⁿ = π`. Then every prime of the integral closure of `R` in `M`
+over the maximal ideal has ramification index exactly `n` and separable residue extension
+(equivalently: `M/K(t)` is unramified above `R`, as `K(t)/K` is totally ramified of degree `n`). -/
+def AbhyankarDVR : Prop :=
+  ∀ (R K L M : Type) [CommRing R] [IsDomain R] [IsDiscreteValuationRing R]
+    [Field K] [Algebra R K] [IsFractionRing R K]
+    [Field L] [Algebra K L] [Algebra R L] [IsScalarTower R K L]
+    [FiniteDimensional K L] [Algebra.IsSeparable K L]
+    [Field M] [Algebra L M] [Algebra K M] [Algebra R M]
+    [IsScalarTower K L M] [IsScalarTower R K M]
+    (π : R), Irreducible π → ∀ (n : ℕ), 0 < n → IsUnit (n : R) →
+    (∀ (Q : Ideal (integralClosure R L)) [Q.IsPrime] [Q.LiesOver (IsLocalRing.maximalIdeal R)],
+      IsUnit ((Q.ramificationIdx R : ℕ) : R) ∧ Q.ramificationIdx R ∣ n ∧
+      Algebra.IsSeparable (R ⧸ IsLocalRing.maximalIdeal R) (integralClosure R L ⧸ Q)) →
+    ∀ t : M, t ^ n = algebraMap R M π → IntermediateField.adjoin L {t} = ⊤ →
+      ∀ (Q : Ideal (integralClosure R M)) [Q.IsPrime]
+        [Q.LiesOver (IsLocalRing.maximalIdeal R)],
+        Q.ramificationIdx R = n ∧
+        Algebra.IsSeparable (R ⧸ IsLocalRing.maximalIdeal R) (integralClosure R M ⧸ Q)
+
+theorem abhyankarDVR_iff : ObjBridge.AbhyankarDVR ↔ PkgI2.AbhyankarDVR.{0} := Iff.rfl
+
+/-- **I2-Char over the shared layer** (Mumford §19, Thm 4; finite-level form). As
+`PkgI2.CharpolyIndependentOfEll` with `φ ∈ End B` (the shared ring) instead of `φ : B ⟶ B`. -/
+def CharpolyIndependentOfEll : Prop :=
+  ∀ (k : Type) [Field k] (B : Grp (Over (Spec (.of k)))) [IsAbelianVariety B] (g : ℕ),
+    dim B = (g : WithBot ℕ∞) → ∀ φ : End B,
+    ∃ P : Polynomial ℤ, P.Monic ∧ P.natDegree = 2 * g ∧
+      ∀ ℓ : ℕ, ℓ.Prime → (ℓ : k) ≠ 0 → ∀ n : ℕ, 0 < n →
+        ∀ e : torsion B (AlgebraicClosure k) (ℓ ^ n) ≃ (Fin (2 * g) → ZMod (ℓ ^ n)),
+        (∀ x y : torsion B (AlgebraicClosure k) (ℓ ^ n),
+          ∀ h : x.1 * y.1 ∈ torsion B (AlgebraicClosure k) (ℓ ^ n),
+            e ⟨x.1 * y.1, h⟩ = e x + e y) →
+        ∀ M : Matrix (Fin (2 * g)) (Fin (2 * g)) (ZMod (ℓ ^ n)),
+        (∀ x y : torsion B (AlgebraicClosure k) (ℓ ^ n), y.1 = x.1 ≫ φ.hom →
+          e y = M.mulVec (e x)) →
+        M.charpoly = P.map (Int.castRingHom (ZMod (ℓ ^ n)))
+
+/-- Equivalent to the original, through the bridge bijection. -/
+theorem charpolyIndependentOfEll_iff :
+    ObjBridge.CharpolyIndependentOfEll ↔ PkgI2.CharpolyIndependentOfEll.{0} :=
+  ⟨fun h k _ B _ g hg φ => h k B g hg (homOfGrp φ),
+   fun h k _ B _ g hg φ => h k B g hg (grpOfHom φ)⟩
+
+/-- **I2-Rank over the shared layer** (Mumford §19, Thm 3, rank part): any `4gg' + 1` elements
+of the ℤ-module `Hom A B` are ℤ-linearly dependent. (The original's instance argument
+`[IsCommMonObj B.X]` is now a global instance, `ObjBridge.isCommMonObj`.) -/
+def HomRankBound : Prop :=
+  ∀ (k : Type) [Field k] (A B : Grp (Over (Spec (.of k)))) [IsAbelianVariety A]
+    [IsAbelianVariety B] (g g' : ℕ),
+    dim A = (g : WithBot ℕ∞) → dim B = (g' : WithBot ℕ∞) →
+    ∀ f : Fin (4 * g * g' + 1) → Hom A B,
+      ∃ c : Fin (4 * g * g' + 1) → ℤ, c ≠ 0 ∧ ∑ i, c i • f i = 0
+
+/-- Equivalent to the original, through the bridge bijection and `hom_sum_zsmul`. -/
+theorem homRankBound_iff : ObjBridge.HomRankBound ↔ PkgI2.HomRankBound.{0} := by
+  constructor
+  · intro h k _ A B _ _ _ g g' hA hB f
+    obtain ⟨c, hc, hs⟩ := h k A B g g' hA hB (fun i => homOfGrp (f i))
+    refine ⟨c, hc, ?_⟩
+    have := congrArg PkgI3.AbVar.Hom.hom hs
+    rw [hom_sum_zsmul] at this
+    exact this
+  · intro h k _ A B _ _ g g' hA hB f
+    obtain ⟨c, hc, hp⟩ := h k A B g g' hA hB (fun i => grpOfHom (f i))
+    refine ⟨c, hc, ?_⟩
+    rw [hom_eq_zero_iff, hom_sum_zsmul]
+    exact hp
+
+/-! ## I3 leaves
+
+Each is I3's text with `A : AbVar k` replaced by `A : Grp (Over (Spec k))` with
+`[IsAbelianVariety A]`, and `End`, `End0`, `T`, `V`, `galRep`, `dim`, `tateHomZl` the shared ones.
+Equivalence with the original: `forall_abVar_iff`-style round trips (`ofGrp (toGrp A) = A` is
+`rfl`). -/
+
+/-- Every nonzero endomorphism is an isogeny. -/
+def EndDivision {k : Type} [Field k] (A : Grp (Over (Spec (.of k)))) [IsAbelianVariety A] :
+    Prop :=
+  ∀ f : End A, f ≠ 0 → PkgI3.AbVar.IsIsogenyMor f.hom
+
+theorem endDivision_iff {k : Type} [Field k] (A : Grp (Over (Spec (.of k))))
+    [IsAbelianVariety A] : EndDivision A ↔ PkgI3.EndDivision (ofGrp A) := Iff.rfl
+
+/-- **I3.F1 (Faltings 1983, Satz 3)** over the shared layer. -/
+def FaltingsSemisimple : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (ℓ : ℕ) [Fact ℓ.Prime], (galRep A ℓ).IsSemisimpleRepresentation
+
+theorem faltingsSemisimple_iff : FaltingsSemisimple ↔ PkgI3.FaltingsSemisimple :=
+  ⟨fun h K _ _ A ℓ _ => h K (toGrp A) ℓ, fun h K _ _ A _ ℓ _ => h K (ofGrp A) ℓ⟩
+
+/-- **I3.F2 (Faltings 1983, Satz 4 and Korollar 1)** over the shared layer. -/
+def FaltingsTate : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A B : Grp (Over (Spec (.of K))))
+    [IsAbelianVariety A] [IsAbelianVariety B] (ℓ : ℕ) [Fact ℓ.Prime],
+    Function.Injective (tateHomZl A B ℓ) ∧
+      Set.range (tateHomZl A B ℓ) = {φ | PkgI3.AbVar.IsGalEquivariant φ}
+
+/-- Two-object form of `forall_abVar_iff` (the motive is abstracted, so the round trip
+`ofGrp (toGrp A) = A` is checked by structure eta, not by unfolding the motive). -/
+theorem forall₂_abVar_iff {K : Type} [Field K] (P : PkgI3.AbVar K → PkgI3.AbVar K → Prop) :
+    (∀ A B : PkgI3.AbVar K, P A B) ↔
+      ∀ (A B : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] [IsAbelianVariety B],
+        P (ofGrp A) (ofGrp B) :=
+  ⟨fun h _ _ _ _ => h _ _, fun h A B => h (toGrp A) (toGrp B)⟩
+
+theorem faltingsTate_iff : FaltingsTate ↔ PkgI3.FaltingsTate := by
+  constructor
+  · intro h K _ _ A B ℓ _
+    exact (forall₂_abVar_iff (fun A B : PkgI3.AbVar K => ∀ (ℓ : ℕ) [Fact ℓ.Prime],
+      Function.Injective (PkgI3.AbVar.tateHomZl ℓ A B) ∧
+        Set.range (PkgI3.AbVar.tateHomZl ℓ A B) = {φ | PkgI3.AbVar.IsGalEquivariant φ})).mpr
+      (fun A B _ _ ℓ _ => h K A B ℓ) A B ℓ
+  · intro h K _ _ A B _ _ ℓ _
+    exact h K (ofGrp A) (ofGrp B) ℓ
+
+/-- **I3.M0 (Mumford §4, §18-19)** over the shared layer. -/
+def TateModuleFree : Prop :=
+  ∀ (k : Type) [Field k] (A : Grp (Over (Spec (.of k)))) [IsAbelianVariety A] (ℓ : ℕ)
+    [Fact ℓ.Prime], (ℓ : k) ≠ 0 →
+    Module.Free ℤ_[ℓ] (T A ℓ) ∧ Module.Finite ℤ_[ℓ] (T A ℓ) ∧
+      ((Module.finrank ℤ_[ℓ] (T A ℓ) : ℕ∞) : WithBot ℕ∞) = 2 * dim A
+
+theorem tateModuleFree_iff : TateModuleFree ↔ PkgI3.TateModuleFree :=
+  ⟨fun h k _ A ℓ _ => h k (toGrp A) ℓ, fun h k _ A _ ℓ _ => h k (ofGrp A) ℓ⟩
+
+/-- **I3.M1 (Mumford §19, Thm 3)** over the shared layer. -/
+def HomFreeFinite : Prop :=
+  ∀ (k : Type) [Field k] (A B : Grp (Over (Spec (.of k)))) [IsAbelianVariety A]
+    [IsAbelianVariety B],
+    Module.Free ℤ (Hom A B) ∧ Module.Finite ℤ (Hom A B) ∧
+      ((Module.finrank ℤ (Hom A B) : ℕ∞) : WithBot ℕ∞) ≤ 4 * dim A * dim B ∧
+      ∀ (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : k) ≠ 0 → Function.Injective (tateHomZl A B ℓ)
+
+theorem homFreeFinite_iff : HomFreeFinite ↔ PkgI3.HomFreeFinite :=
+  ⟨fun h k _ A B => h k (toGrp A) (toGrp B), fun h k _ A B _ _ => h k (ofGrp A) (ofGrp B)⟩
+
+/-- **I3.M2 (Mumford §19, Thm 4)** over the shared layer. -/
+def CharPolyIndepOfEll : Prop :=
+  ∀ (k : Type) [Field k] (A : Grp (Over (Spec (.of k)))) [IsAbelianVariety A] (φ : End A),
+    ∃ P : ℤ[X], P.Monic ∧
+    ∀ (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : k) ≠ 0 →
+      ∀ (I : Type) [Fintype I] [DecidableEq I] (b : Module.Basis I ℚ_[ℓ] (V A ℓ)),
+        (LinearMap.toMatrix b b ((PkgI3.AbVar.homT (ℓ := ℓ) φ).baseChange ℚ_[ℓ])).charpoly =
+          P.map (Int.castRingHom ℚ_[ℓ])
+
+theorem charPolyIndepOfEll_iff : CharPolyIndepOfEll ↔ PkgI3.CharPolyIndepOfEll :=
+  ⟨fun h k _ A φ => h k (toGrp A) φ, fun h k _ A _ φ => h k (ofGrp A) φ⟩
+
+/-- The same leaf quantified over morphisms of group objects `φ : A ⟶ A` (through the bridge
+bijection, `forall_hom_iff`). -/
+theorem charPolyIndepOfEll_iff_grp : CharPolyIndepOfEll ↔
+    ∀ (k : Type) [Field k] (A : Grp (Over (Spec (.of k)))) [IsAbelianVariety A] (φ : A ⟶ A),
+    ∃ P : ℤ[X], P.Monic ∧
+    ∀ (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : k) ≠ 0 →
+      ∀ (I : Type) [Fintype I] [DecidableEq I] (b : Module.Basis I ℚ_[ℓ] (V A ℓ)),
+        (LinearMap.toMatrix b b
+          ((PkgI3.AbVar.homT (ℓ := ℓ) (homOfGrp φ)).baseChange ℚ_[ℓ])).charpoly =
+          P.map (Int.castRingHom ℚ_[ℓ]) :=
+  ⟨fun h k _ A _ φ => h k A (homOfGrp φ),
+   fun h k _ A _ φ => homOfGrp_grpOfHom φ ▸ h k A (grpOfHom φ)⟩
+
+/-- **I3.M3 (Poincaré complete reducibility, Mumford §19, Thm 1)** over the shared layer. -/
+def PoincareReducibility : Prop :=
+  ∀ (k : Type) [Field k] [CharZero k] (A J : Grp (Over (Spec (.of k)))) [IsAbelianVariety A]
+    [IsAbelianVariety J], EndDivision A →
+    ∀ f : Hom A J, f ≠ 0 → ∃ (Z : Grp (Over (Spec (.of k)))) (_ : IsAbelianVariety Z)
+      (g : Hom Z J),
+      PkgI3.AbVar.IsIsogenyMor (fst (ofGrp A).X (ofGrp Z).X ≫ f.hom * snd (ofGrp A).X (ofGrp Z).X ≫ g.hom)
+
+theorem poincareReducibility_iff : PoincareReducibility ↔ PkgI3.PoincareReducibility := by
+  constructor
+  · intro h k _ _ A J hE f hf
+    obtain ⟨Z, _, g, hg⟩ := h k (toGrp A) (toGrp J) hE f hf
+    exact ⟨ofGrp Z, g, hg⟩
+  · intro h k _ _ A J _ _ hE f hf
+    obtain ⟨Z, g, hg⟩ := h k (ofGrp A) (ofGrp J) hE f hf
+    exact ⟨toGrp Z, inferInstance, g, hg⟩
+
+/-- **I3.Q (QM dichotomy)** over the shared layer. -/
+def QMDichotomy : Prop :=
+  ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (A : Grp (Over (Spec (.of k))))
+    [IsAbelianVariety A], dim A = 2 →
+    ∀ a b : ℚ, (∀ x : ℍ[ℚ, a, b], x ≠ 0 → IsUnit x) →
+      Nonempty (ℍ[ℚ, a, b] →ₐ[ℚ] End0 A) →
+        Nonempty (End0 A ≃ₐ[ℚ] ℍ[ℚ, a, b]) ∨
+          ∃ d : ℚ, d < 0 ∧
+            Nonempty (End0 A ≃ₐ[ℚ]
+              Matrix (Fin 2) (Fin 2) (AdjoinRoot (Polynomial.X ^ 2 - Polynomial.C d)))
+
+theorem qmDichotomy_iff : QMDichotomy ↔ PkgI3.QMDichotomy :=
+  ⟨fun h k _ _ _ A => h k (toGrp A), fun h k _ _ _ A _ => h k (ofGrp A)⟩
+
+/-- Package I3 over the shared layer. -/
+structure I3Leaves : Prop where
+  faltingsSemisimple : FaltingsSemisimple
+  faltingsTate : FaltingsTate
+  tateModuleFree : TateModuleFree
+  homFreeFinite : HomFreeFinite
+  charPolyIndepOfEll : CharPolyIndepOfEll
+  poincare : PoincareReducibility
+  qmDichotomy : QMDichotomy
+
+theorem i3Leaves_iff : I3Leaves ↔ PkgI3.I3Leaves :=
+  ⟨fun h => ⟨faltingsSemisimple_iff.mp h.1, faltingsTate_iff.mp h.2, tateModuleFree_iff.mp h.3,
+      homFreeFinite_iff.mp h.4, charPolyIndepOfEll_iff.mp h.5, poincareReducibility_iff.mp h.6,
+      qmDichotomy_iff.mp h.7⟩,
+   fun h => ⟨faltingsSemisimple_iff.mpr h.1, faltingsTate_iff.mpr h.2, tateModuleFree_iff.mpr h.3,
+      homFreeFinite_iff.mpr h.4, charPolyIndepOfEll_iff.mpr h.5, poincareReducibility_iff.mpr h.6,
+      qmDichotomy_iff.mpr h.7⟩⟩
+
+/-! ## I3 glue over the shared layer (proved) -/
+
+theorem homT_galT {K : Type} [Field K] {A B : Grp (Over (Spec (.of K)))} [IsAbelianVariety A]
+    [IsAbelianVariety B] {ℓ : ℕ} [Fact ℓ.Prime] (f : A ⟶ B) (σ : Field.absoluteGaloisGroup K)
+    (x : T A ℓ) :
+    PkgI3.AbVar.homT (homOfGrp f) ((ofGrp A).galT σ x) =
+      (ofGrp B).galT σ (PkgI3.AbVar.homT (homOfGrp f) x) :=
+  PkgI3.homT_galT _ σ x
+
+theorem range_tateHomZl_subset {K : Type} [Field K] (A B : Grp (Over (Spec (.of K))))
+    [IsAbelianVariety A] [IsAbelianVariety B] (ℓ : ℕ) [Fact ℓ.Prime] :
+    Set.range (tateHomZl A B ℓ) ⊆ {φ | PkgI3.AbVar.IsGalEquivariant φ} :=
+  PkgI3.range_tateHomZl_subset _ _ ℓ
+
+/-- **Glue for E1 over the shared layer.** A nonzero `G_K`-equivariant map `V_ℓ A → V_ℓ B`
+forces a nontrivial morphism of group objects `A ⟶ B`. -/
+theorem exists_hom_ne_one_of_equivariant (hF : FaltingsTate) (hT : TateModuleFree)
+    {K : Type} [Field K] [NumberField K] (A B : Grp (Over (Spec (.of K))))
+    [IsAbelianVariety A] [IsAbelianVariety B] (ℓ : ℕ) [Fact ℓ.Prime]
+    (φ : V A ℓ →ₗ[ℚ_[ℓ]] V B ℓ) (hφ : φ ≠ 0)
+    (heq : ∀ σ, φ ∘ₗ galRep A ℓ σ = galRep B ℓ σ ∘ₗ φ) : ∃ f : A ⟶ B, f.hom.hom ≠ 1 := by
+  obtain ⟨f, hf⟩ := PkgI3.exists_hom_ne_zero_of_equivariant (faltingsTate_iff.mp hF)
+    (tateModuleFree_iff.mp hT) (ofGrp A) (ofGrp B) ℓ φ hφ heq
+  refine ⟨grpOfHom f, fun h => hf ?_⟩
+  rw [← homOfGrp_grpOfHom f, homOfGrp_eq_zero_iff]
+  exact h
+
+/-- The `G_K`-equivariant endomorphisms of `V_ℓ(A)`. -/
+abbrev equivEnd {K : Type} [Field K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (ℓ : ℕ) [Fact ℓ.Prime] : Submodule ℚ_[ℓ] (Module.End ℚ_[ℓ] (V A ℓ)) :=
+  PkgI3.equivEnd (ofGrp A) ℓ
+
+/-- **Glue for C2 over the shared layer.** -/
+theorem finrank_equivEnd (hF : FaltingsTate) (hT : TateModuleFree) (hH : HomFreeFinite)
+    {K : Type} [Field K] [NumberField K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (ℓ : ℕ) [Fact ℓ.Prime] :
+    Module.finrank ℚ_[ℓ] (equivEnd A ℓ) = Module.finrank ℤ (End A) :=
+  PkgI3.finrank_equivEnd (faltingsTate_iff.mp hF) (tateModuleFree_iff.mp hT)
+    (homFreeFinite_iff.mp hH) (ofGrp A) ℓ
+
+end ObjBridge
+
+/-! ## Axiom audit -/
+#print axioms ObjBridge.homEquiv
+#print axioms ObjBridge.endMulEquiv
+#print axioms ObjBridge.homRankBound_iff
+#print axioms ObjBridge.charpolyIndependentOfEll_iff
+#print axioms ObjBridge.neronOggShafarevich_iff
+#print axioms ObjBridge.i3Leaves_iff
+#print axioms ObjBridge.charPolyIndepOfEll_iff_grp
+#print axioms ObjBridge.exists_hom_ne_one_of_equivariant
+#print axioms ObjBridge.finrank_equivEnd
