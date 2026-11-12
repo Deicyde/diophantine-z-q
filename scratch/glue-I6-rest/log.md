@@ -20,3 +20,7 @@
   (`AddCircle (1:ℚ)`), (∃ ψ, ∀ g, 2•ψ g = χ g) ↔ χ kills Γ[2]. Via Baer injectivity of ℚ/ℤ
   (`CharacterModule.dual_surjective_of_injective`). Group-theoretic core of B2's criterion.
 - Compile 22:31: no errors; axioms [propext, Classical.choice, Quot.sound] (VERIFIED).
+
+## Cyclic inflation, step (b)
+- carry_f(a mod f, b mod f) ≡ h(a)+h(b)−h(a+b mod 2f) (mod 2), h(a)=⌊a/f⌋, a,b∈[0,2f):
+  brute-force python check f=1..12, all pairs: True (VERIFIED, 22:4x).
