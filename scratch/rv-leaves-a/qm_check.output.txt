@@ -1,0 +1,11 @@
+Omega((0.3+1.1j)): |asym|=0.0 ImOm00=0.761235 detIm=0.589047
+Omega((-0.7+0.6j)): |asym|=4.41e-31 ImOm00=2.31367 detIm=0.683274
+Omega((1.9+2j)): |asym|=1.11e-31 ImOm00=0.612423 detIm=0.742389
+normalizer elements found (nrd: x): {Fraction(6, 1): (Fraction(-3, 1), Fraction(-3, 2), Fraction(-1, 1), Fraction(1, 2)), Fraction(2, 1): (Fraction(-2, 1), Fraction(-1, 1), Fraction(0, 1), Fraction(0, 1)), Fraction(3, 1): (Fraction(-3, 2), Fraction(0, 1), Fraction(1, 2), Fraction(0, 1))}
+invariance nrd 2: |j(gt)-j(t)|/|j(t)| = 8.28e-30
+invariance nrd 3: |j(gt)-j(t)|/|j(t)| = 6.43e-30
+invariance nrd 6: |j(gt)-j(t)|/|j(t)| = 1.1e-29
+CM -4 (x=i+j, x^2=-1): tau=(1.414213562 + 1.0j) |jNum|=2.228e-114 |jDen|=4.4824e+7 j=(-4.9566030872e-122 - 3.72915648344e-123j)  local order in tau ~ 3.994
+CM -3 (x=(1+j)/2): tau=(0.0 + 1.732050808j) |jNum|=1.2795e-119 |jDen|=1.0269e-146 j=pole  local order in tau ~ 5.995
+CM -24 (x=mu=2j+ij): tau=(0.0 + 4.18154055j) |jNum|=4.9364e+7 |jDen|=8.3302e+7 j=(-0.592592592593 + 3.61202802958e-30j)  local order in tau ~ 1.999
+x=(Fraction(0, 1), Fraction(-1, 2), Fraction(1, 1), Fraction(1, 2)) (x^2=-1): j at fixed point = (4.3110968e-122 + 5.51486e-122j)
