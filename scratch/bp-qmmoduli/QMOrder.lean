@@ -21,6 +21,8 @@ Pure algebra, Mathlib only. This is the first concrete layer of the blueprint
   `r = ±1`. This is the lattice-level content of h-trust A4 item 2.
 * The Atkin–Lehner elements `w₂ = 1+i+j`, `w₃ = j`, `w₆ = μ` (reduced norms 2, 3, 6) normalize
   `𝒪`, and satisfy the relations of `W ≅ (ℤ/2)²` modulo `ℚ^×𝒪^×` that are used.
+* `no_sq_eq_neg_two`: no `x ∈ B` has `x² = −2` (`ℚ(√−2)` does not embed; h-b1 M9's absent type
+  `(0,2)` of elliptic elements), by 3-adic descent.
 
 No `sorry`, no `axiom`.
 -/
@@ -336,6 +338,101 @@ theorem atkinLehner_relations :
   · ext <;> simp [ofInt] <;> norm_num
   · ext <;> simp [w2, w3, mu] <;> norm_num
 
+/-! ## §6 `ℚ(√−2)` does not embed in `B` (h-b1 M9: no elliptic element of type `(0,2)`)
+
+`x² = −2` has no solution in `B`: for `x = a + bi + cj + dk`, `a = 0` and
+`3c² = 2b² + 6d² + 2`, which has no rational solution (3-adic descent: clearing denominators,
+`3C² = 2B² + 6D² + 2N²` forces `3 | B, N`, then `3 | C, D`, and `(B, C, D, N)/3` is again a
+solution). Equivalently, 3 splits in `ℚ(√−2)` while `B` ramifies at 3. -/
+
+theorem zmod3_a (b n : ZMod 3) : b ^ 2 + n ^ 2 = 0 → b = 0 ∧ n = 0 := by
+  revert b n; decide
+
+theorem zmod3_b (c d : ZMod 3) : c ^ 2 = 2 * d ^ 2 → c = 0 ∧ d = 0 := by
+  revert c d; decide
+
+theorem dvd3_of_zmod {z : ℤ} (h : (z : ZMod 3) = 0) : (3 : ℤ) ∣ z :=
+  (ZMod.intCast_zmod_eq_zero_iff_dvd z 3).1 h
+
+theorem descent (n : ℕ) : ∀ B C D N : ℤ, N.natAbs = n → N ≠ 0 →
+    3 * C ^ 2 ≠ 2 * B ^ 2 + 6 * D ^ 2 + 2 * N ^ 2 := by
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+  intro B C D N hn hN h
+  have h3 : ((B : ZMod 3)) ^ 2 + (N : ZMod 3) ^ 2 = 0 := by
+    have := congrArg (fun z : ℤ => (z : ZMod 3)) h
+    push_cast at this
+    have h2 : (2 : ZMod 3) * ((B : ZMod 3) ^ 2 + (N : ZMod 3) ^ 2) = 0 := by
+      rw [show (3 : ZMod 3) = 0 from rfl, show (6 : ZMod 3) = 0 from rfl] at this
+      linear_combination -this
+    have hu : (2 : ZMod 3) * 2 = 1 := rfl
+    linear_combination 2 * h2 - ((B : ZMod 3) ^ 2 + (N : ZMod 3) ^ 2) * hu
+  obtain ⟨hB, hN3⟩ := zmod3_a _ _ h3
+  obtain ⟨B', rfl⟩ := dvd3_of_zmod hB
+  obtain ⟨N', rfl⟩ := dvd3_of_zmod hN3
+  have h' : C ^ 2 = 6 * B' ^ 2 + 2 * D ^ 2 + 6 * N' ^ 2 := by linarith
+  have h4 : ((C : ZMod 3)) ^ 2 = 2 * (D : ZMod 3) ^ 2 := by
+    have := congrArg (fun z : ℤ => (z : ZMod 3)) h'
+    push_cast at this
+    rw [show (6 : ZMod 3) = 0 from rfl] at this
+    linear_combination this
+  obtain ⟨hC, hD⟩ := zmod3_b _ _ h4
+  obtain ⟨C', rfl⟩ := dvd3_of_zmod hC
+  obtain ⟨D', rfl⟩ := dvd3_of_zmod hD
+  have hN' : N' ≠ 0 := by rintro rfl; simp at hN
+  have hlt : N'.natAbs < n := by
+    rw [← hn, Int.natAbs_mul]
+    have : 0 < N'.natAbs := Int.natAbs_pos.2 hN'
+    simp; omega
+  exact ih _ hlt B' C' D' N' rfl hN' (by linarith)
+
+/-- **No `x ∈ B` with `x² = −2`.** -/
+theorem no_sq_eq_neg_two (x : B) : x * x ≠ -2 := by
+  intro hx
+  have hre := congrArg QuaternionAlgebra.re hx
+  have hI := congrArg QuaternionAlgebra.imI hx
+  have hJ := congrArg QuaternionAlgebra.imJ hx
+  have hK := congrArg QuaternionAlgebra.imK hx
+  simp [QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat,
+    QuaternionAlgebra.imK_ofNat] at hre hI hJ hK
+  by_cases ha : x.re = 0
+  · rw [ha] at hre
+    set d1 := x.imI.den
+    set d2 := x.imJ.den
+    set d3 := x.imK.den
+    have hm0 : ((d1 * d2 * d3 : ℕ) : ℚ) ≠ 0 := by positivity
+    have eB : x.imI * ((d1 * d2 * d3 : ℕ) : ℚ) = ((x.imI.num * (d2 * d3) : ℤ) : ℚ) := by
+      push_cast
+      rw [show x.imI * (d1 * d2 * d3 : ℚ) = (x.imI * d1) * (d2 * d3) by ring, Rat.mul_den_eq_num]
+    have eC : x.imJ * ((d1 * d2 * d3 : ℕ) : ℚ) = ((x.imJ.num * (d1 * d3) : ℤ) : ℚ) := by
+      push_cast
+      rw [show x.imJ * (d1 * d2 * d3 : ℚ) = (x.imJ * d2) * (d1 * d3) by ring, Rat.mul_den_eq_num]
+    have eD : x.imK * ((d1 * d2 * d3 : ℕ) : ℚ) = ((x.imK.num * (d1 * d2) : ℤ) : ℚ) := by
+      push_cast
+      rw [show x.imK * (d1 * d2 * d3 : ℚ) = (x.imK * d3) * (d1 * d2) by ring, Rat.mul_den_eq_num]
+    have key : ((3 * (x.imJ.num * (d1 * d3)) ^ 2 : ℤ) : ℚ) =
+        ((2 * (x.imI.num * (d2 * d3)) ^ 2 + 6 * (x.imK.num * (d1 * d2)) ^ 2 +
+          2 * ((d1 * d2 * d3 : ℕ) : ℤ) ^ 2 : ℤ) : ℚ) := by
+      push_cast at eB eC eD ⊢
+      rw [← eB, ← eC, ← eD]
+      linear_combination (-((d1 : ℚ) * d2 * d3) ^ 2) * hre
+    exact descent _ _ _ _ ((d1 * d2 * d3 : ℕ) : ℤ) rfl (by exact_mod_cast hm0)
+      (by exact_mod_cast key)
+  · have hb : x.imI = 0 := by
+      rcases mul_eq_zero.1 (show x.re * x.imI = 0 by linarith) with h | h
+      · exact absurd h ha
+      · exact h
+    have hc : x.imJ = 0 := by
+      rcases mul_eq_zero.1 (show x.re * x.imJ = 0 by linarith) with h | h
+      · exact absurd h ha
+      · exact h
+    have hd : x.imK = 0 := by
+      rcases mul_eq_zero.1 (show x.re * x.imK = 0 by linarith) with h | h
+      · exact absurd h ha
+      · exact h
+    rw [hb, hc, hd] at hre
+    nlinarith [sq_nonneg x.re]
+
 end BPQM
 
 #print axioms BPQM.eq_smul_E0
@@ -343,3 +440,4 @@ end BPQM
 #print axioms BPQM.trd_mul_dag_pos
 #print axioms BPQM.atkinLehner_relations
 #print axioms BPQM.w2_normalizes
+#print axioms BPQM.no_sq_eq_neg_two

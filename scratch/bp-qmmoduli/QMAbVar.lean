@@ -9,7 +9,7 @@ import Mathlib.Tactic
 Over the kernel's object layer `ZInQKernel/HDecomp/Objects.lean` (imported through
 `ZInQKernel/HDecomp/A6/A6.lean`; run `lake build ZInQKernel.HDecomp.A6.A6` first) (`PkgI3.AbVar K`: a group object
 of `Over (Spec K)`, proper, smooth, geometrically integral; `End`, points `A(L)`, Galois action).
-Blueprint `docs/research/bp-qmmoduli.md` §3, nodes N5-N8.
+Blueprint `docs/research/bp-qmmoduli.md` §3, nodes N5-N10.
 
 * `QMStr A`: an injective unital ring homomorphism `ι : 𝒪 → End_K(A)`.
 * `qmAct`: the induced action of `𝒪` on `A(L)` (a ring homomorphism `𝒪 → End(A(L))`).

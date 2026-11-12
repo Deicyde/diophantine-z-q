@@ -355,7 +355,7 @@ Mathlib: Over, Proper, SmoothOfRelDim, functionField, Proj ─► N11 P¹, curve
 | N1 | maximal order `𝒪` of `B = (2,−3)` as a `Subring`, structure constants | Mathlib `QuaternionAlgebra` | S | **done** (`BPQM.O`, `ofInt_mul`) | all |
 | N2 | Rosati involution `†`: anti-involution, preserves `𝒪`, positive | N1 | S | **done** (`dag_dag`, `dag_mul`, `dag_mem`, `trd_mul_dag_pos`) | N3, R1an |
 | N3 | Riemann form `E₀`, `†`-compatibility, integrality, unimodularity; uniqueness of compatible forms | N2 | S | **done** (`E0_rosati`, `E0_gram`, `gram_det`, `eq_smul_E0`, `eq_pm_E0_of_principal`) | §2.2, R1an |
-| N4 | normalizer elements `w₂, w₃, w₆`; relations of `W ≅ (ℤ/2)²` modulo `ℚ^×𝒪^×`; `\|(𝒪/3𝒪)^×\| = 72` | N1 | S | **done** (`w2_normalizes`, `w3_normalizes`, `mu_normalizes`, `atkinLehner_relations`, `card_units`); the full `N_B(𝒪)/ℚ^×𝒪^× ≅ (ℤ/2)²` needs T29 + class number one: M, open | A3, R2fp |
+| N4 | normalizer elements `w₂, w₃, w₆`; relations of `W ≅ (ℤ/2)²` modulo `ℚ^×𝒪^×`; `\|(𝒪/3𝒪)^×\| = 72`; no `√−2` in `B` | N1 | S | **done** (`w2_normalizes`, `w3_normalizes`, `mu_normalizes`, `atkinLehner_relations`, `card_units`, `no_sq_eq_neg_two`); the full `N_B(𝒪)/ℚ^×𝒪^× ≅ (ℤ/2)²` needs T29 + class number one: M, open | A3, R2fp |
 | N5 | QM structure `ι : 𝒪 ↪ End_K(A)`, action on `A(L)` | N1, kernel `AbVar` | S | **done** (`QMStr`, `endPt`, `qmAct`, `qmModule`) | all |
 | N6 | level-3 structure; `Γ'` acting by `twist`, `rightMul`; units `≡ 1 mod 3` act trivially | N5 | S | **done** (`Level3`, `Level3.twist`, `Level3.rightMul`, `rightMul_eq_self`) | R1fp, R1hecke, R2fp |
 | N7 | objects `QML3 K`, isomorphisms, classes `M3 K` | N6 | S | **done** (`QML3`, `QML3.Iso`, `Iso.refl`, `Iso.symm`, `Iso.trans`, `isoSetoid`, `M3`, `M3'`) | R1fp |
@@ -469,6 +469,9 @@ supply N12-N13 or a proof of §2.2 before building them.
   `nrd_mu = 6`.
 - **`atkinLehner_relations`**: `w₃² = −3`; `μ² = −6`; `w₂² = 2(i+j)` with `i+j ∈ 𝒪¹`;
   `w₂w₃ = uμ` with `u ∈ 𝒪`, `nrd u = 1`.
+- **`no_sq_eq_neg_two`**: no `x ∈ B` with `x² = −2`, by 3-adic descent (`descent`). So
+  `ℚ(√−2)` does not embed in `B`, and h-b1 M9's elliptic type `(0,2)` is absent; this is used in
+  the enumeration of elliptic points behind Lemma NV and QMHauptmodul's CM clauses.
 
 `scratch/bp-qmmoduli/Units72.lean` (about 18 s): `BPQM.Mod3.card_units`. The two-sided units of
 `𝒪/3𝒪`, modelled on `Fin 4 → ZMod 3` with the reduced structure constants, number 72

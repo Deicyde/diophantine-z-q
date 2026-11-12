@@ -78,3 +78,6 @@ Task: blueprint for the Shimura-curve objects of leaves R1-R3, R5 (docs/research
 - Attempted and dropped: `innerIso` (inner twists by `Ad(u)`, `u ∈ 𝒪^×`, are isomorphic to the
   original via `ι(u)`): `exact` timed out at `whnf` (200000 heartbeats) on the equivariance field,
   even after isolating the algebra in `iota_conj`; cause not found. Not in the file.
+- `QMOrder.lean` §6 (VERIFIED, compiles, standard axioms): `zmod3_a`, `zmod3_b` (`decide`),
+  `descent` (no integers with `3C² = 2B² + 6D² + 2N²`, `N ≠ 0`, by strong induction on `|N|`),
+  **`no_sq_eq_neg_two`** (no `x ∈ B` with `x² = −2`; h-b1 M9's absent type `(0,2)`).
