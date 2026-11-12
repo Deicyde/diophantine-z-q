@@ -20,3 +20,14 @@
   `unramified_outside_final` + new `unramified_outside_b3a (hA : LeafB3a) ...` (same
   conclusion, calls `unramified_outside_final hA leafB3b`). COMPILED, no errors; all 11
   `#print axioms` lines: [propext, Classical.choice, Quot.sound]. 11:55.
+- Generalization: `exists_inertia_neg` now takes `α² = c` (c : ℤ) with `v_w(c) = v_w(p)`;
+  `exists_neg_of_sq` takes `¬ IsSquare (c : ℚ)`; `not_isSquare_of_squarefree`. leafB3b recompiled.
+- T32Defs.lean: verbatim copies (namespace LeafPush) of leaf-push's `GQ`, `IsAtPrime`, `inertiaQ`,
+  `T32b_QuadraticRamification` (diff-identical to scratch/h-decomposition/Leaves.lean
+  L11877-11888, L11903-11916); `liesOver_of_isAtPrime`, `val_intCast_eq_one`,
+  `t32b : LeafPush.T32b_QuadraticRamification`. (⇒) via t = (1+s)/2 integral, inertia gives
+  v(σt - t) = v(s) < 1, contradicting v(s)² = v(d) = 1; (⇐) via `exists_inertia_neg`. COMPILED.
+- Final B3b.lean (1617 lines) = all of the above. `lake env lean`: no errors, 20 s; 12
+  `#print axioms` lines all [propext, Classical.choice, Quot.sound]; no `sorry`, no `axiom`. 12:04.
+- Dev pieces Sec.lean, Sec2.lean, Sec3.lean, T32Defs.lean, Prefix.lean are fragments (not
+  standalone files); B3b.lean is the checked file.

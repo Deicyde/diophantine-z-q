@@ -1,8 +1,10 @@
 /-
 glue-b3b: this file is scratch/glue-conj/UnramConj.lean (glue-b3-unram + glue-conj) verbatim up
 to `end Conj`, followed by the glue-b3b sections `B3b`, `B3bMain`, `B3bGauss` (the proof
-`leafB3b : LeafB3b`), glue-conj's `unramified_outside_final` unchanged, and the new
-`unramified_outside_b3a`, which takes only `LeafB3a`.
+`leafB3b : LeafB3b`), glue-conj's `unramified_outside_final` unchanged, the new
+`unramified_outside_b3a` (takes only `LeafB3a`), and, after `end GlueB3Unram`, verbatim copies of
+leaf-push's `GQ`, `IsAtPrime`, `inertiaQ`, `T32b_QuadraticRamification` (namespace `LeafPush`)
+with the proof `GlueB3Unram.t32b : LeafPush.T32b_QuadraticRamification`.
 -/
 import Mathlib
 
@@ -962,21 +964,19 @@ theorem val_intCast (hp : p.Prime) (hw : LiesOver w p) (r : ℤ) :
       · rw [map_mul]; exact lt_of_le_of_lt (mul_le_of_le_one_left' (val_intCast_le_one y)) hlt
     rw [h1] at h2; exact lt_irrefl _ h2
 
-theorem val_sq_eq {α : Qbar} (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar)) :
+theorem val_sq_eq {α : Qbar} {c : ℤ} (hα : α ^ 2 = (c : Qbar))
+    (hc : w.valuation (c : Qbar) = w.valuation (p : Qbar)) :
     w.valuation α * w.valuation α = w.valuation (p : Qbar) := by
-  rw [← map_mul, ← pow_two]
-  rcases hα with h | h
-  · rw [h]
-  · rw [h, Valuation.map_neg]
+  rw [← map_mul, ← pow_two, hα, hc]
 
-/-- **The valuation input.** If `α² = ±p`, `a, b` are `w`-integral and `(a - b) α ∈ ℤ`, then
+/-- **The valuation input.** If `α² = c ∈ ℤ` with `v(c) = v(p)` (e.g. `c = ±p`), `a, b` are `w`-integral and `(a - b) α ∈ ℤ`, then
 `a ≡ b` modulo `w`: since `v(α)` lies strictly between `v(p)` and `1`, while an integer has
 valuation `1` or `≤ v(p)`. -/
-theorem val_sub_lt_one (hp : p.Prime) (hw : LiesOver w p) {α : Qbar}
-    (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar)) {a b : Qbar}
+theorem val_sub_lt_one (hp : p.Prime) (hw : LiesOver w p) {α : Qbar} {c : ℤ}
+    (hα : α ^ 2 = (c : Qbar)) (hc : w.valuation (c : Qbar) = w.valuation (p : Qbar)) {a b : Qbar}
     (ha : w.valuation a ≤ 1) (hb : w.valuation b ≤ 1) (r : ℤ) (hr : (a - b) * α = r) :
     w.valuation (a - b) < 1 := by
-  have hu := val_sq_eq (w := w) hα
+  have hu := val_sq_eq (w := w) hα hc
   have hab : w.valuation (a - b) ≤ 1 := le_trans (Valuation.map_sub _ _ _) (max_le ha hb)
   have hu0 : w.valuation α ≠ 0 := by
     intro h; rw [h, zero_mul] at hu; exact val_natCast_ne_zero hp hu.symm
@@ -996,10 +996,9 @@ theorem val_sub_lt_one (hp : p.Prime) (hw : LiesOver w p) {α : Qbar}
     rw [mul_inv_cancel_right₀ hu0, mul_inv_cancel_right₀ hu0] at h2
     exact lt_of_le_of_lt h2 hu1
 
-theorem smul_sq_cases {α : Qbar} (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar)) (g : Gal) :
+theorem smul_sq_cases {α : Qbar} {c : ℤ} (hα : α ^ 2 = (c : Qbar)) (g : Gal) :
     g α = α ∨ g α = -α := by
-  have hc : g (α ^ 2) = α ^ 2 := by
-    rcases hα with h | h <;> rw [h] <;> simp
+  have hc : g (α ^ 2) = α ^ 2 := by rw [hα, map_intCast]
   rw [map_pow] at hc
   exact sq_eq_sq_iff_eq_or_eq_neg.mp hc
 
@@ -1014,7 +1013,7 @@ theorem exists_int_of_fixed {y : Qbar} (hy : IsIntegral ℤ y) (hfix : ∀ g : G
 
 /-- **Anti-invariance.** If `a` is fixed by every `g` fixing `α` and `σ α = -α`, then
 `(a - σ a) α` is fixed by all of `G_ℚ`, hence an integer when `a` is integral. -/
-theorem exists_int_anti {α a : Qbar} (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar))
+theorem exists_int_anti {α a : Qbar} {c : ℤ} (hα : α ^ 2 = (c : Qbar))
     (hαi : IsIntegral ℤ α) (hai : IsIntegral ℤ a) (hfix : ∀ g : Gal, g α = α → g a = a)
     (σ : Gal) (hσ : σ α = -α) : ∃ r : ℤ, (a - σ a) * α = r := by
   have hσi : σ⁻¹ α = -α := by
@@ -1164,19 +1163,18 @@ open scoped Pointwise
 
 set_option synthInstance.maxHeartbeats 400000 in
 set_option maxHeartbeats 1000000 in
-/-- **The inertia element.** If `α² = ±p` and some `σ ∈ G_ℚ` negates `α`, then some element of
+/-- **The inertia element.** If `α² = c ∈ ℤ` with `v_w(c) = v_w(p)` (e.g. `c = ±p`) and some `σ ∈ G_ℚ` negates `α`, then some element of
 the inertia group of any place `w` over `p` negates `α`. -/
 theorem exists_inertia_neg (p : ℕ) (hp : p.Prime) (w : ValuationSubring Qbar) (hw : LiesOver w p)
-    (α : Qbar) (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar)) (σ : Gal) (hσ : σ α = -α) :
+    (α : Qbar) (c : ℤ) (hα : α ^ 2 = (c : Qbar))
+    (hc : w.valuation (c : Qbar) = w.valuation (p : Qbar)) (σ : Gal) (hσ : σ α = -α) :
     ∃ s : Gal, s ∈ (w.inertiaSubgroup ℚ).map (w.decompositionSubgroup ℚ).subtype ∧ s α = -α := by
   classical
   have hpint : IsIntegral ℤ (p : Qbar) := by
     simpa using isIntegral_algebraMap (R := ℤ) (A := Qbar) (x := (p : ℤ))
   have hαint : IsIntegral ℤ α := by
     refine IsIntegral.of_pow (n := 2) two_pos ?_
-    rcases hα with h | h <;> rw [h]
-    · exact hpint
-    · exact hpint.neg
+    rw [hα]; exact isIntegral_intCast c
   let H : Subgroup Gal := MulAction.stabilizer Gal α
   have hH : ∀ g : Gal, g ∈ H ↔ g α = α := fun g => Iff.rfl
   have hHopen : IsOpen (H : Set Gal) := stabilizer_isOpen_of_isIntegral (K := ℚ) (L := Qbar) α
@@ -1197,7 +1195,7 @@ theorem exists_inertia_neg (p : ℕ) (hp : p.Prime) (w : ValuationSubring Qbar) 
     intro a σ' hσ'
     have hai : IsIntegral ℤ ((a : B) : Qbar) := (mem_integralClosure_iff ℤ Qbar).mp (a : B).2
     obtain ⟨r, hr⟩ := exists_int_anti hα hαint hai (hAfix a) σ' hσ'
-    exact val_sub_lt_one hp hw hα (val_le_one_of_isIntegral w hai)
+    exact val_sub_lt_one hp hw hα hc (val_le_one_of_isIntegral w hai)
       (val_le_one_of_isIntegral w (hai.map ((σ' : Qbar →+* Qbar).toIntAlgHom))) r hr
   -- step 1: `σ • Q` and `Q` lie over the same prime of `A`
   have hunder : (σ • Q).under A = Q.under A := by
@@ -1356,30 +1354,30 @@ theorem gaussP_sq (p : ℕ) [hp : Fact p.Prime] (hp2 : p ≠ 2) {ζ : Qbar}
   · left; rw [h]; simp
   · right; rw [h]; simp
 
-/-- `±p` is not a square in `ℚ`, so some `σ ∈ G_ℚ` negates a square root of `±p`. -/
-theorem exists_neg_of_sq (p : ℕ) (hp : p.Prime) {α : Qbar}
-    (hα : α ^ 2 = (p : Qbar) ∨ α ^ 2 = -(p : Qbar)) : ∃ σ : Gal, σ α = -α := by
+/-- If `α² = c ∈ ℤ` and `c` is not a square in `ℚ`, some `σ ∈ G_ℚ` negates `α`. -/
+theorem exists_neg_of_sq {α : Qbar} {c : ℤ} (hα : α ^ 2 = (c : Qbar))
+    (hc : ¬ IsSquare (c : ℚ)) : ∃ σ : Gal, σ α = -α := by
   by_contra hne
   push_neg at hne
   have hfix : ∀ g : Gal, g α = α := fun g => (smul_sq_cases hα g).resolve_right (hne g)
   have hbot : α ∈ (⊥ : IntermediateField ℚ Qbar) := (InfiniteGalois.mem_bot_iff_fixed α).mpr hfix
   obtain ⟨q, hq⟩ := IntermediateField.mem_bot.mp hbot
   rw [← hq] at hα
-  rcases hα with h | h
-  · have h' : q ^ 2 = (p : ℚ) := by
-      apply (algebraMap ℚ Qbar).injective; rw [map_pow, h, map_natCast]
-    have hsq : IsSquare (p : ℚ) := ⟨q, by rw [← h', sq]⟩
-    rw [Rat.isSquare_natCast_iff] at hsq
-    obtain ⟨r, hr⟩ := hsq
-    rcases hp.eq_one_or_self_of_dvd r ⟨r, hr⟩ with h1 | h1
-    · rw [h1] at hr; exact hp.one_lt.ne' (by simpa using hr)
-    · rw [h1] at hr
-      have h2 : p * 1 = p * p := by rw [mul_one]; exact hr
-      exact hp.one_lt.ne (Nat.eq_of_mul_eq_mul_left hp.pos h2)
-  · have h' : q ^ 2 = -(p : ℚ) := by
-      apply (algebraMap ℚ Qbar).injective; rw [map_pow, h, map_neg, map_natCast]
-    have : (0 : ℚ) < p := by exact_mod_cast hp.pos
-    nlinarith [sq_nonneg q]
+  have h' : q ^ 2 = (c : ℚ) := by
+    apply (algebraMap ℚ Qbar).injective; rw [map_pow, hα, map_intCast]
+  exact hc ⟨q, by rw [← h', sq]⟩
+
+/-- A squarefree integer divisible by a prime is not a square in `ℚ`. -/
+theorem not_isSquare_of_squarefree {d : ℤ} (hd : Squarefree d) {p : ℕ} (hp : p.Prime)
+    (hpd : (p : ℤ) ∣ d) : ¬ IsSquare (d : ℚ) := by
+  rw [Rat.isSquare_intCast_iff]
+  rintro ⟨r, hr⟩
+  have hu : IsUnit r := hd r ⟨1, by rw [hr, mul_one]⟩
+  have h1 : d = 1 := by
+    rcases Int.isUnit_iff.mp hu with h | h <;> rw [hr, h] <;> norm_num
+  rw [h1] at hpd
+  have := Int.eq_one_of_dvd_one (by positivity) hpd
+  exact hp.one_lt.ne' (by exact_mod_cast this)
 
 /-- **`LeafB3b` is glue** (proved from Mathlib): the Legendre character mod an odd prime `p`, as a
 character of `G_ℚ`, is nontrivial on the inertia group of every place over `p`. -/
@@ -1389,8 +1387,14 @@ theorem leafB3b : LeafB3b := by
   haveI : NeZero ((p : ℕ) : Qbar) := ⟨by exact_mod_cast hp.ne_zero⟩
   obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot Qbar p
   have hα := gaussP_sq p hp2 hζ
-  obtain ⟨σ, hσ⟩ := exists_neg_of_sq p hp hα
-  obtain ⟨s, hs, hsα⟩ := exists_inertia_neg p hp w hw (gaussP p hζ) hα σ hσ
+  obtain ⟨c, hαc, hc, hcp⟩ : ∃ c : ℤ, gaussP p hζ ^ 2 = (c : Qbar) ∧
+      w.valuation (c : Qbar) = w.valuation (p : Qbar) ∧ Squarefree c ∧ (p : ℤ) ∣ c := by
+    have hsf : Squarefree (p : ℤ) := Int.squarefree_natCast.mpr hp.squarefree
+    rcases hα with h | h
+    · exact ⟨p, by rw [h]; simp, by simp, hsf, dvd_rfl⟩
+    · exact ⟨-p, by rw [h]; simp, by simp [Valuation.map_neg], fun x hx => hsf x (dvd_neg.mp hx), by simp⟩
+  obtain ⟨σ, hσ⟩ := exists_neg_of_sq hαc (not_isSquare_of_squarefree hcp.1 hp hcp.2)
+  obtain ⟨s, hs, hsα⟩ := exists_inertia_neg p hp w hw (gaussP p hζ) c hαc hc σ hσ
   refine ⟨s, hs, fun h1 => ?_⟩
   have hq : quadraticChar (ZMod p) ((cyc p s : (ZMod p)ˣ) : ZMod p) = 1 := by
     unfold etaP at h1
@@ -1437,7 +1441,6 @@ theorem unramified_outside_final (hA : LeafB3a) (hB : LeafB3b)
         GalUnramifiedOutside L' T :=
   unramified_outside_of_unramifiedAt hA hB leafConj finRam L T h2 hram ε hεN χ hN β hβl hβs hβe
 
-
 /-- **B3 (v) from one leaf** (glue-b3b): `LeafB3b` is now proved glue (`leafB3b`), so the twisted
 kernel field `L'` is unramified outside `T` assuming only L-B3a (the unique quadratic character
 of tame inertia). Same conclusion and hypotheses on `L` as `unramified_outside_final`. -/
@@ -1459,6 +1462,146 @@ theorem unramified_outside_b3a (hA : LeafB3a)
 
 end GlueB3Unram
 
+/-! ## T32(b) of the synthesis bundle (leaf-push's form), proved as glue -/
+
+namespace LeafPush
+
+-- verbatim from scratch/leaf-push/Push.lean (= scratch/h-decomposition/Leaves.lean, section 5)
+/-- The absolute Galois group `G_ℚ = Aut(ℚ̄/ℚ)` (with Mathlib's Krull topology). -/
+abbrev GQ := AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ
+
+/-- `O` is the valuation subring `ℤ_(p)` of `ℚ`: a discrete valuation ring in which `p` is not a
+unit (for any other valuation subring of `ℚ`, `p` is a unit). -/
+def IsAtPrime (O : ValuationSubring ℚ) (p : ℕ) : Prop :=
+  IsDiscreteValuationRing O ∧ ¬ IsUnit (p : O)
+
+/-- The inertia subgroup `I_w ⊆ G_ℚ` of a valuation subring `w` of `ℚ̄` (Mathlib's
+`ValuationSubring.inertiaSubgroup`, pushed into `G_ℚ`). -/
+noncomputable def inertiaQ (w : ValuationSubring (AlgebraicClosure ℚ)) : Subgroup GQ :=
+  ((w.inertiaSubgroup ℚ).map (w.decompositionSubgroup ℚ).subtype)
+
+/-- **T32(b). The quadratic character of `ℚ(√d)` ramifies exactly at the primes dividing `d`,
+for `d ≡ 1 mod 4` squarefree** (the quadratic Dirichlet character of odd squarefree conductor
+`P` is that of `ℚ(√d)`, `d = ±P ≡ 1 mod 4`). Published: the discriminant of `ℚ(√d)` is `d`
+(Neukirch I (2.?); Washington Ch. 3) and `p` ramifies iff `p | disc` (Neukirch III (2.12)),
+together with "ramified ⇔ inertia acts nontrivially" (Neukirch I §9; numbering UNVERIFIED).
+Lean form: for a square root `s ∈ ℚ̄` of `d` and `w` over `ℤ_(p)`, some inertia element moves `s`
+iff `p | d`. `σ ↦ σ(s)/s` is the quadratic character, so this is the published statement. -/
+def T32b_QuadraticRamification : Prop :=
+  ∀ (d : ℤ), Squarefree d → d % 4 = 1 →
+    ∀ (s : AlgebraicClosure ℚ), s ^ 2 = (d : AlgebraicClosure ℚ) →
+    ∀ (p : ℕ), p.Prime →
+    ∀ (O : ValuationSubring ℚ), IsAtPrime O p →
+    ∀ (w : ValuationSubring (AlgebraicClosure ℚ)), w.comap (algebraMap ℚ _) = O →
+      ((∃ σ ∈ inertiaQ w, σ s ≠ s) ↔ (p : ℤ) ∣ d)
+
+end LeafPush
+
+namespace GlueB3Unram
+
+open scoped Pointwise
+
+/-- `w` over `ℤ_(p)` (leaf-push's `IsAtPrime` form) lies over `p` in the sense of `LiesOver`. -/
+theorem liesOver_of_isAtPrime {p : ℕ} (O : ValuationSubring ℚ) (hO : LeafPush.IsAtPrime O p)
+    (w : ValuationSubring Qbar) (hw : w.comap (algebraMap ℚ Qbar) = O) : LiesOver w p := by
+  unfold LiesOver
+  have hpw : (p : Qbar) ∈ w := mem_of_isIntegral w (by
+    simpa using isIntegral_algebraMap (R := ℤ) (A := Qbar) (x := (p : ℤ)))
+  rw [val_lt_one_iff]
+  refine ⟨hpw, ?_⟩
+  by_cases hp0 : (p : ℚ) = 0
+  · left; rw [show (p : Qbar) = algebraMap ℚ Qbar (p : ℚ) by simp, hp0, map_zero]
+  right
+  intro hinv
+  apply hO.2
+  have hpO : ((p : ℚ)⁻¹) ∈ O := by
+    rw [← hw, ValuationSubring.mem_comap]; simpa using hinv
+  refine IsUnit.of_mul_eq_one (a := (p : O)) ⟨(p : ℚ)⁻¹, hpO⟩ ?_
+  ext
+  simp [hp0]
+
+theorem val_intCast_eq_one {w : ValuationSubring Qbar} {p : ℕ} (hp : p.Prime) (hw : LiesOver w p)
+    (r : ℤ) (hd : ¬ (p : ℤ) ∣ r) : w.valuation (r : Qbar) = 1 := by
+  rcases val_intCast hp hw r with h | h
+  · exact h
+  · exfalso
+    have hpr : Prime (p : ℤ) := Nat.prime_iff_prime_int.mp hp
+    have hcop : IsCoprime (p : ℤ) r := (Irreducible.coprime_iff_not_dvd hpr.irreducible).mpr hd
+    obtain ⟨x, y, hxy⟩ := hcop
+    have h1 := congrArg (fun z : ℤ => w.valuation (z : Qbar)) hxy
+    simp only [Int.cast_add, Int.cast_mul, Int.cast_one, map_one, Int.cast_natCast] at h1
+    have h2 : w.valuation ((x : Qbar) * p + y * r) < 1 := by
+      refine lt_of_le_of_lt (Valuation.map_add _ _ _) (max_lt ?_ ?_)
+      · rw [map_mul]; exact lt_of_le_of_lt (mul_le_of_le_one_left' (val_intCast_le_one x)) hw
+      · rw [map_mul]
+        exact lt_of_le_of_lt (mul_le_of_le_one_left' (val_intCast_le_one y)) (lt_of_le_of_lt h hw)
+    rw [h1] at h2; exact lt_irrefl _ h2
+
+/-- **T32(b) is glue** (proved from Mathlib): for squarefree `d ≡ 1 mod 4`, a square root `s` of
+`d` and `w` over `ℤ_(p)`, some inertia element moves `s` iff `p ∣ d`. -/
+theorem t32b : LeafPush.T32b_QuadraticRamification := by
+  intro d hd hd4 s hs p hp O hO w hw
+  have hwp : LiesOver w p := liesOver_of_isAtPrime O hO w hw
+  have hd0 : d ≠ 0 := by rintro rfl; exact not_squarefree_zero hd
+  constructor
+  · rintro ⟨σ, hσ, hσs⟩
+    by_contra hpd
+    have hvd : w.valuation (d : Qbar) = 1 := val_intCast_eq_one hp hwp d hpd
+    have hσs' : σ s = -s := (smul_sq_cases hs σ).resolve_left hσs
+    obtain ⟨k, hk⟩ : ∃ k : ℤ, d = 4 * k + 1 := ⟨d / 4, by omega⟩
+    have hk' : (d : Qbar) = 4 * k + 1 := by rw [hk]; push_cast; ring
+    set t : Qbar := (1 + s) / 2 with htdef
+    have ht : t ^ 2 - t - (k : Qbar) = 0 := by
+      rw [htdef]; linear_combination (1 / 4 : Qbar) * hs + (1 / 4 : Qbar) * hk'
+    have htint : IsIntegral ℤ t := by
+      refine ⟨Polynomial.X ^ 2 - (Polynomial.X + Polynomial.C k), ?_, ?_⟩
+      · exact Polynomial.monic_X_pow_sub (by rw [Polynomial.degree_X_add_C]; norm_num)
+      · rw [Polynomial.eval₂_sub, Polynomial.eval₂_add, Polynomial.eval₂_X_pow,
+          Polynomial.eval₂_X, Polynomial.eval₂_C, eq_intCast]
+        linear_combination ht
+    have htw : t ∈ w := mem_of_isIntegral w htint
+    obtain ⟨y, hy, hres⟩ := residue_inertia w σ hσ ⟨t, htw⟩
+    have h1 : w.valuation (σ t - t) < 1 := by
+      have h0 : IsLocalRing.residue w (y - ⟨t, htw⟩) = 0 := by rw [map_sub, hres, sub_self]
+      rw [IsLocalRing.residue_eq_zero_iff, ValuationSubring.valuation_lt_one_iff] at h0
+      have e : ((y - ⟨t, htw⟩ : w) : Qbar) = σ t - t := by
+        show (y : Qbar) - t = σ t - t
+        rw [hy]; rfl
+      rwa [e] at h0
+    have h2 : σ t - t = -s := by
+      rw [htdef, map_div₀, map_add, map_one, hσs', map_ofNat]; ring
+    rw [h2, Valuation.map_neg] at h1
+    have h3 : w.valuation s * w.valuation s = 1 := by rw [← map_mul, ← sq, hs, hvd]
+    have h4 : w.valuation s * w.valuation s < 1 :=
+      lt_of_le_of_lt (mul_le_of_le_one_left' h1.le) h1
+    rw [h3] at h4; exact lt_irrefl _ h4
+  · intro hpd
+    obtain ⟨m, rfl⟩ := hpd
+    have hpm : ¬ (p : ℤ) ∣ m := by
+      rintro ⟨n, rfl⟩
+      have := hd (p : ℤ) ⟨n, by ring⟩
+      rw [Int.isUnit_iff] at this
+      rcases this with h | h
+      · exact hp.one_lt.ne' (by exact_mod_cast h)
+      · have : (0 : ℤ) ≤ p := by positivity
+        omega
+    have hvd : w.valuation (((p : ℤ) * m : ℤ) : Qbar) = w.valuation (p : Qbar) := by
+      rw [Int.cast_mul, map_mul, val_intCast_eq_one hp hwp m hpm, mul_one, Int.cast_natCast]
+    obtain ⟨σ, hσ⟩ := exists_neg_of_sq hs (not_isSquare_of_squarefree hd hp ⟨m, rfl⟩)
+    obtain ⟨σ', hσ', hσ's⟩ := exists_inertia_neg p hp w hwp s _ hs hvd σ hσ
+    refine ⟨σ', hσ', ?_⟩
+    rw [hσ's]
+    intro h
+    have hs0 : s = 0 := by
+      have h5 : (2 : Qbar) * s = 0 := by linear_combination -h
+      exact (mul_eq_zero.mp h5).resolve_left two_ne_zero
+    rw [hs0] at hs
+    have : (((p : ℤ) * m : ℤ) : Qbar) = 0 := by rw [← hs]; ring
+    exact hd0 (by exact_mod_cast this)
+
+end GlueB3Unram
+
+
 #print axioms GlueB3Unram.unramified_outside_of_leaves
 #print axioms GlueB3Unram.cycUnram
 #print axioms GlueB3Unram.unramified_outside
@@ -1471,3 +1614,4 @@ end GlueB3Unram
 #print axioms GlueB3Unram.exists_inertia_neg
 #print axioms GlueB3Unram.leafB3b
 #print axioms GlueB3Unram.unramified_outside_b3a
+#print axioms GlueB3Unram.t32b
