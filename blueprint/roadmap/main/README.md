@@ -26,6 +26,19 @@ the main theorem assumes only this instance.
 - [The minimal height hypothesis](six-contact-min.md)
 - [The six-contact estimate implies its minimal form](six-contact-min-of-estimate.md)
 
+The trust statement for H follows the manuscript's proof of the six-contact estimate up to its
+last step, with some steps replaced or re-sourced and several checked by no referee. Combining
+three of the manuscript's bounds, it gives a bound on the height of the Hauptmodul value
+$J(u)=-57600F(u)^2/G(u)^6$, where $F(u)=u(u+15)(u+20)(u+24)(u+30)(u+60)$ and
+$G(u)=7u^2+300u+3600$ (the manuscript does not display that bound). This bound, at $R=D$, is the
+$j$-form of the height hypothesis; it is not proved here and is not a published theorem. The
+manuscript's last step returns from $J(u)$ to $u$. That return is replaced here by a proved
+inequality, so the $j$-form at $S=S_{\rm mul}$ implies the minimal height hypothesis; the target
+holds under the $j$-form together with CR₃^TYZ_Cl,Rk or with the three statements about L-series
+below.
+
+- [The height hypothesis in its $j$-form](j-form/README.md)
+
 Pole completeness asserts the rational solubility of one explicit polynomial for all
 suitably prepared inputs. The polynomial here is the Route K one, whose curves are congruent
 number curves, and pole completeness is no longer assumed: the
@@ -97,3 +110,14 @@ any of the equivalent forms that ask for infinitely many rational points instead
 - [The main theorem from the positive-rank forms of the rank hypothesis](main-theorem-positive-rank.md)
 - [The main theorem from positive rank on the two curves of a slot choice](main-theorem-two-curves.md)
 - [The main theorem from the infinitely-many-points forms of the rank hypothesis](main-theorem-infinitely-many-points.md)
+
+The positive-rank form of CR₃^TYZ_Cl, CR₃^TYZ_Cl,Rk, follows from three statements about
+L-series: two textbook theorems (the functional equation of $L(C_d,s)$ with root number $-1$,
+stated on the strip $0<\operatorname{Re}s<2$, and the positive-rank half of Gross–Zagier) and
+Tian–Yuan–Zhang's row 5b, which rests on Proposition N, an unpublished argument written for this
+project and not refereed
+([the literature section of the positive-rank chapter](../rank/literature/README.md)). The target holds under
+the minimal height hypothesis or its $j$-form together with those three statements, and under the
+$j$-form and CR₃^TYZ_Cl,Rk.
+
+- [The main theorem from the $j$-form and the L-series statements](main-theorem-literature.md)

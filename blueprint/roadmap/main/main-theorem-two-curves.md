@@ -9,8 +9,7 @@ lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_
 
 # The main theorem from positive rank on the two curves of a slot choice
 
-Assume the minimal height hypothesis and the hypothesis CR₃^DL,Rk. Then the target statement holds,
-for the same polynomial as in [the main theorem](main-theorem.md).
+Assume the minimal height hypothesis and the hypothesis CR₃^DL,Rk. Then the target statement holds.
 
 CR₃^DL,Rk is the following assertion. Let $\beta,\theta$ be integers and $p_0$ a prime dividing
 $\beta$ such that $\beta$ is odd and squarefree with $|\beta|\equiv7\pmod8$; $\theta>0$ is squarefree

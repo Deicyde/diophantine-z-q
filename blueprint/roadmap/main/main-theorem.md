@@ -19,11 +19,11 @@ height estimate that the proof uses, so the theorem holds in particular under th
 estimate itself ([the six-contact estimate implies its minimal form](six-contact-min-of-estimate.md)).
 CR₃ enters only through pole completeness, which it implies for the Route K pole polynomial
 ([pole completeness from the certified rank hypothesis](../route-k/pole-completeness-from-cr3.md));
-so the theorem also holds, with the same polynomial, under pole completeness in place of CR₃.
+so the theorem also holds under pole completeness in place of CR₃.
 The twenty-two-prime pattern enters only through the
 [slope representation](../multiplication/completeness/slope-representation.md); since the
 [two-slope pattern](two-slope-pattern.md) also gives the slope representation, the theorem
-holds, with the same polynomial, under the two-slope pattern in place of the twenty-two-prime
+holds under the two-slope pattern in place of the twenty-two-prime
 pattern. The manuscript's fourth input, the catalogue bound, is replaced by a theorem with a
 larger cutoff ([the catalogue bound holds](../progressions/catalogue-instance.md)): every unit
 class modulo $W$ contains twenty-two primes $p$ with $324<p<2^{W^8}$, by an effective Dirichlet
@@ -34,7 +34,7 @@ holds as well with either one added as a hypothesis.
 
 The twenty-two-prime pattern is not needed at all: route AP proves the completeness of the
 multiplication template from long progressions of good slope primes, which Szemerédi's theorem in
-the primes and Proposition D supply, so the same polynomial works under the minimal height
+the primes and Proposition D supply, so the target holds under the minimal height
 hypothesis and CR₃ alone ([the main theorem from two hypotheses](main-theorem-two-hypotheses.md)).
 The present form, which keeps the manuscript's prime pattern, uses none of that material.
 

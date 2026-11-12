@@ -29,8 +29,8 @@ converse is not formalized here. It rests on:
   imaginary quadratic field (Bump–Friedberg–Hoffstein), which gives
   $\operatorname{rank}C_d(\mathbb Q)\ge1$; then the image of $C_d(\mathbb Q)$ has dimension at
   least $3=\dim\mathrm{Sel}_2$, which forces $Ш(C_d)[2]=0$;
-- as an alternative that is not needed, Kriz's 2-converse theorem (Theorem 10.13, an unrefereed
-  preprint) for $C_d$ at $p=2$, whose standing assumption holds since $d\ge21$ (by Proposition 0
+- as an alternative that is not needed, Kriz's 2-converse theorem (Theorem 10.13, a preprint whose publication status
+  was not checked) for $C_d$ at $p=2$, whose standing assumption holds since $d\ge21$ (by Proposition 0
   the class $a$ is a signed divisor of $d$, so $d=|a|m$ with $m\equiv3\pmod8$), together with the
   corank lemma (Cassels–Tate: the pairing on $Ш/Ш_{\rm div}$ is nondegenerate and alternating, so
   $\dim(Ш/Ш_{\rm div})[2]$ is even, with no finiteness of $Ш$ assumed), giving rank one and
