@@ -52,3 +52,7 @@
 - 12:19 `PointTransport.lean` extended: Tate NF existence copied; `exists_tateNF_order` (a point of
   exact order N ≥ 4 is carried by a change of variables C with C.r = x₀, C.t = y₀ to (0,0) on some
   E(b,c), and (0,0) has exact order N there). `lake env lean`: exit 0, no warnings; standard axioms. VERIFIED.
+- 12:18 Final check, sequentially, all six files with `lake env lean`: Gamma1Genus, TateNormalForm,
+  Jacobian, ModularCurveDefs, AnalyticModuli, PointTransport: exit 0, 0 errors, 0 warnings, no
+  `sorry`/`admit`/`axiom` in the sources; every `#print axioms` line is ⊆ {propext, Classical.choice,
+  Quot.sound}. VERIFIED.
