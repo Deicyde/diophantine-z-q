@@ -1,0 +1,6 @@
+J: |S(MOm) - det^4 S(Om)|/|S| = 2.207e-25; |P(MOm) - det^10 P(Om)|/|P| = 3.548e-25; (with -det^10: 2.0)
+T(B=[[1,0],[0,0]]): |S(MOm) - det^4 S(Om)|/|S| = 1.497e-26; |P(MOm) - det^10 P(Om)|/|P| = 2.56e-25; (with -det^10: 2.0)
+T(B=[[0,1],[1,0]]): |S(MOm) - det^4 S(Om)|/|S| = 4.791e-26; |P(MOm) - det^10 P(Om)|/|P| = 1.093e-25; (with -det^10: 2.0)
+diag(A,A^-T), A=[[1,1],[0,1]]: |S(MOm) - det^4 S(Om)|/|S| = 2.414e-26; |P(MOm) - det^10 P(Om)|/|P| = 4.029e-25; (with -det^10: 2.0)
+diag(A,A^-T), A=[[0,1],[1,0]]: |S(MOm) - det^4 S(Om)|/|S| = 7.576e-26; |P(MOm) - det^10 P(Om)|/|P| = 5.463e-26; (with -det^10: 2.0)
+EXIT 0
