@@ -71,3 +71,10 @@ Package I6 (h-trust steps B1, B2, C10, D1, D3, D4). Lean drafts: `scratch/pkg-I6
   ("missing"). This file states all three over Mathlib: L15b is bypassed by I6.2a-c (stated on
   H²(G_ℚ, ℤ/2) directly, both via `continuousCohomology` and on cochains); L16 by I6.3 + I6.10;
   L20 by I6.6-I6.9 with concrete definitions.
+
+## Step 6 (non-vacuity of local hypotheses)
+- `scratch/pkg-I6/Check.lean` compiles (VERIFIED): for `ℤ_[p]`, Mathlib infers
+  `IsDiscreteValuationRing`, `IsAdicComplete (maximalIdeal _)`, `PerfectField (ResidueField _)`,
+  `Finite (ResidueField _)`, `Module.Finite`, `Module.IsTorsionFree`, `Algebra.IsSeparable` on
+  fraction rings. So the hypothesis lists of I6.6-I6.10 have models (the trivial extension);
+  non-trivial extensions were not instantiated.
