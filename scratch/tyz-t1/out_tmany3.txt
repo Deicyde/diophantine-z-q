@@ -1,0 +1,66 @@
+n = 12597 = [3, 1; 13, 1; 17, 1; 19, 1], h(-64n) = 192, h2(n) = 4
+   e=1      P_1(n) torsion: False
+   (d0,d1)=(4199,3) L(d1)=1.0000 P_1(d0) torsion=True: predicted P torsion: True
+   e=13     noncontributing: P torsion: True
+   (d0,d1)=(741,17) L(d1)=2.0000 2^(h2(n)-h2(d0))=2: 16P = m P_1(d0) for m in [-64], predicted +-64: True
+   (d0,d1)=(663,19) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [64], predicted +-64: True
+   e=39     noncontributing: P torsion: True
+   (d0,d1)=(247,51) L(d1)=1.0000 2^(h2(n)-h2(d0))=8: 16P = m P_1(d0) for m in [-128], predicted +-128: True
+   (d0,d1)=(221,57) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [-64], predicted +-64: True
+   e=221    noncontributing: P torsion: True
+   e=247    noncontributing: P torsion: True
+   (d0,d1)=(39,323) L(d1)=0.0000 P_1(d0) torsion=False: predicted P torsion: True
+   e=663    noncontributing: P torsion: True
+   e=741    noncontributing: P torsion: True
+   (d0,d1)=(13,969) L(d1)=1.0000 2^(h2(n)-h2(d0))=8: 16P = m P_1(d0) for m in [-128], predicted +-128: True
+   e=4199   noncontributing: P torsion: True
+   e=12597  noncontributing: P torsion: True
+   n=12597 mismatches: 0
+n = 23205 = [3, 1; 5, 1; 7, 1; 13, 1; 17, 1], h(-64n) = 512, h2(n) = 5
+   e=1      P_1(n) torsion: False
+   (d0,d1)=(7735,3) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [64], predicted +-64: True
+   e=5      noncontributing: P torsion: True
+   e=7      noncontributing: P torsion: True
+   e=13     noncontributing: P torsion: True
+   e=15     noncontributing: P torsion: True
+   (d0,d1)=(1365,17) L(d1)=2.0000 2^(h2(n)-h2(d0))=2: 16P = m P_1(d0) for m in [-64], predicted +-64: True
+   e=21     noncontributing: P torsion: True
+   (d0,d1)=(663,35) L(d1)=1.0000 2^(h2(n)-h2(d0))=8: 16P = m P_1(d0) for m in [128], predicted +-128: True
+   e=39     noncontributing: P torsion: True
+   (d0,d1)=(455,51) L(d1)=1.0000 2^(h2(n)-h2(d0))=8: 16P = m P_1(d0) for m in [128], predicted +-128: True
+   (d0,d1)=(357,65) L(d1)=0.0000 P_1(d0) torsion=False: predicted P torsion: True
+   e=85     noncontributing: P torsion: True
+   (d0,d1)=(255,91) L(d1)=1.0000 2^(h2(n)-h2(d0))=8: 16P = m P_1(d0) for m in [-128], predicted +-128: True
+   (d0,d1)=(221,105) L(d1)=1.0000 2^(h2(n)-h2(d0))=8: 16P = m P_1(d0) for m in [128], predicted +-128: True
+   e=119    noncontributing: P torsion: True
+   (d0,d1)=(119,195) L(d1)=1.0000 2^(h2(n)-h2(d0))=16: 16P = m P_1(d0) for m in [256], predicted +-256: True
+   e=221    noncontributing: P torsion: True
+   e=255    noncontributing: P torsion: True
+   (d0,d1)=(85,273) L(d1)=1.0000 2^(h2(n)-h2(d0))=8: 16P = m P_1(d0) for m in [-128], predicted +-128: True
+   e=357    noncontributing: P torsion: True
+   e=455    noncontributing: P torsion: True
+   (d0,d1)=(39,595) L(d1)=1.0000 2^(h2(n)-h2(d0))=16: 16P = m P_1(d0) for m in [-256], predicted +-256: True
+   e=663    noncontributing: P torsion: True
+   (d0,d1)=(21,1105) L(d1)=0.0000 P_1(d0) torsion=False: predicted P torsion: True
+   e=1365   noncontributing: P torsion: True
+   (d0,d1)=(15,1547) L(d1)=1.0000 2^(h2(n)-h2(d0))=16: 16P = m P_1(d0) for m in [-256], predicted +-256: True
+   (d0,d1)=(13,1785) L(d1)=0.0000 P_1(d0) torsion=False: predicted P torsion: True
+   (d0,d1)=(7,3315) L(d1)=1.0000 2^(h2(n)-h2(d0))=32: 16P = m P_1(d0) for m in [-512], predicted +-512: True
+   (d0,d1)=(5,4641) L(d1)=0.0000 P_1(d0) torsion=False: predicted P torsion: True
+   e=7735   noncontributing: P torsion: True
+   e=23205  noncontributing: P torsion: True
+   n=23205 mismatches: 0
+n = 44285 = [5, 1; 17, 1; 521, 1], h(-64n) = 1120, h2(n) = 3
+   e=1      P_1(n) torsion: False
+   e=5      noncontributing: P torsion: True
+   (d0,d1)=(2605,17) L(d1)=2.0000 P_1(d0) torsion=True: predicted P torsion: True
+   e=85     noncontributing: P torsion: True
+   (d0,d1)=(85,521) L(d1)=4.0000 2^(h2(n)-h2(d0))=2: 16P = m P_1(d0) for m in [128], predicted +-128: True
+   e=2605   noncontributing: P torsion: True
+   (d0,d1)=(5,8857) L(d1)=2.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [-128], predicted +-128: True
+   e=44285  noncontributing: P torsion: True
+   n=44285 mismatches: 0
+
+real	0m34.883s
+user	0m34.579s
+sys	0m0.088s

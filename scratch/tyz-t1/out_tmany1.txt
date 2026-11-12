@@ -1,0 +1,150 @@
+n = 21 = [3, 1; 7, 1], h(-64n) = 16, h2(n) = 2
+   e=1      P_1(n) torsion: False
+   (d0,d1)=(7,3) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [-64], predicted +-64: True
+   e=7      noncontributing: P torsion: True
+   e=21     noncontributing: P torsion: True
+   n=21 mismatches: 0
+n = 85 = [5, 1; 17, 1], h(-64n) = 16, h2(n) = 2
+   e=1      P_1(n) torsion: False
+   e=5      noncontributing: P torsion: True
+   (d0,d1)=(5,17) L(d1)=2.0000 2^(h2(n)-h2(d0))=2: 16P = m P_1(d0) for m in [-64], predicted +-64: True
+   e=85     noncontributing: P torsion: True
+   n=85 mismatches: 0
+n = 77 = [7, 1; 11, 1], h(-64n) = 32, h2(n) = 2
+   e=1      P_1(n) torsion: False
+   e=7      noncontributing: P torsion: True
+   (d0,d1)=(7,11) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [-64], predicted +-64: True
+   e=77     noncontributing: P torsion: True
+   n=77 mismatches: 0
+n = 69 = [3, 1; 23, 1], h(-64n) = 32, h2(n) = 2
+   e=1      P_1(n) torsion: False
+   (d0,d1)=(23,3) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [-64], predicted +-64: True
+   e=23     noncontributing: P torsion: True
+   e=69     noncontributing: P torsion: True
+   n=69 mismatches: 0
+n = 93 = [3, 1; 31, 1], h(-64n) = 16, h2(n) = 2
+   e=1      P_1(n) torsion: False
+   (d0,d1)=(31,3) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [64], predicted +-64: True
+   e=31     noncontributing: P torsion: True
+   e=93     noncontributing: P torsion: True
+   n=93 mismatches: 0
+n = 205 = [5, 1; 41, 1], h(-64n) = 32, h2(n) = 2
+   e=1      P_1(n) torsion: False
+   e=5      noncontributing: P torsion: True
+   (d0,d1)=(5,41) L(d1)=0.0000 P_1(d0) torsion=False: predicted P torsion: True
+   e=205    noncontributing: P torsion: True
+   n=205 mismatches: 0
+n = 165 = [3, 1; 5, 1; 11, 1], h(-64n) = 32, h2(n) = 3
+   e=1      P_1(n) torsion: False
+   (d0,d1)=(55,3) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [64], predicted +-64: True
+   e=5      noncontributing: P torsion: True
+   (d0,d1)=(15,11) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [-64], predicted +-64: True
+   e=15     noncontributing: P torsion: True
+   (d0,d1)=(5,33) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [64], predicted +-64: True
+   e=55     noncontributing: P torsion: True
+   e=165    noncontributing: P torsion: True
+   n=165 mismatches: 0
+n = 357 = [3, 1; 7, 1; 17, 1], h(-64n) = 32, h2(n) = 3
+   e=1      P_1(n) torsion: False
+   (d0,d1)=(119,3) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [-64], predicted +-64: True
+   e=7      noncontributing: P torsion: True
+   (d0,d1)=(21,17) L(d1)=2.0000 2^(h2(n)-h2(d0))=2: 16P = m P_1(d0) for m in [-64], predicted +-64: True
+   e=21     noncontributing: P torsion: True
+   (d0,d1)=(7,51) L(d1)=1.0000 2^(h2(n)-h2(d0))=8: 16P = m P_1(d0) for m in [-128], predicted +-128: True
+   e=119    noncontributing: P torsion: True
+   e=357    noncontributing: P torsion: True
+   n=357 mismatches: 0
+n = 285 = [3, 1; 5, 1; 19, 1], h(-64n) = 64, h2(n) = 3
+   e=1      P_1(n) torsion: False
+   (d0,d1)=(95,3) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [-64], predicted +-64: True
+   e=5      noncontributing: P torsion: True
+   e=15     noncontributing: P torsion: True
+   (d0,d1)=(15,19) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [64], predicted +-64: True
+   (d0,d1)=(5,57) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [-64], predicted +-64: True
+   e=95     noncontributing: P torsion: True
+   e=285    noncontributing: P torsion: True
+   n=285 mismatches: 0
+n = 861 = [3, 1; 7, 1; 41, 1], h(-64n) = 96, h2(n) = 3
+   e=1      P_1(n) torsion: False
+   (d0,d1)=(287,3) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [64], predicted +-64: True
+   e=7      noncontributing: P torsion: True
+   e=21     noncontributing: P torsion: True
+   (d0,d1)=(21,41) L(d1)=0.0000 P_1(d0) torsion=False: predicted P torsion: True
+   (d0,d1)=(7,123) L(d1)=1.0000 2^(h2(n)-h2(d0))=8: 16P = m P_1(d0) for m in [-128], predicted +-128: True
+   e=287    noncontributing: P torsion: True
+   e=861    noncontributing: P torsion: True
+   n=861 mismatches: 0
+n = 1005 = [3, 1; 5, 1; 67, 1], h(-64n) = 64, h2(n) = 3
+   e=1      P_1(n) torsion: False
+   (d0,d1)=(335,3) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [64], predicted +-64: True
+   e=5      noncontributing: P torsion: True
+   e=15     noncontributing: P torsion: True
+   (d0,d1)=(15,67) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [64], predicted +-64: True
+   (d0,d1)=(5,201) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [64], predicted +-64: True
+   e=335    noncontributing: P torsion: True
+   e=1005   noncontributing: P torsion: True
+   n=1005 mismatches: 0
+n = 1365 = [3, 1; 5, 1; 7, 1; 13, 1], h(-64n) = 64, h2(n) = 4
+   e=1      P_1(n) torsion: False
+   (d0,d1)=(455,3) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [64], predicted +-64: True
+   e=5      noncontributing: P torsion: True
+   e=7      noncontributing: P torsion: True
+   e=13     noncontributing: P torsion: True
+   e=15     noncontributing: P torsion: True
+   e=21     noncontributing: P torsion: True
+   (d0,d1)=(39,35) L(d1)=1.0000 2^(h2(n)-h2(d0))=8: 16P = m P_1(d0) for m in [128], predicted +-128: True
+   e=39     noncontributing: P torsion: True
+   (d0,d1)=(21,65) L(d1)=0.0000 P_1(d0) torsion=False: predicted P torsion: True
+   (d0,d1)=(15,91) L(d1)=1.0000 2^(h2(n)-h2(d0))=8: 16P = m P_1(d0) for m in [-128], predicted +-128: True
+   (d0,d1)=(13,105) L(d1)=1.0000 2^(h2(n)-h2(d0))=8: 16P = m P_1(d0) for m in [128], predicted +-128: True
+   (d0,d1)=(7,195) L(d1)=1.0000 2^(h2(n)-h2(d0))=16: 16P = m P_1(d0) for m in [256], predicted +-256: True
+   (d0,d1)=(5,273) L(d1)=1.0000 2^(h2(n)-h2(d0))=8: 16P = m P_1(d0) for m in [-128], predicted +-128: True
+   e=455    noncontributing: P torsion: True
+   e=1365   noncontributing: P torsion: True
+   n=1365 mismatches: 0
+n = 221 = [13, 1; 17, 1], h(-64n) = 64, h2(n) = 2
+   e=1      P_1(n) torsion: False
+   e=13     noncontributing: P torsion: True
+   (d0,d1)=(13,17) L(d1)=2.0000 2^(h2(n)-h2(d0))=2: 16P = m P_1(d0) for m in [-64], predicted +-64: True
+   e=221    noncontributing: P torsion: True
+   n=221 mismatches: 0
+n = 445 = [5, 1; 89, 1], h(-64n) = 32, h2(n) = 2
+   e=1      P_1(n) torsion: False
+   e=5      noncontributing: P torsion: True
+   (d0,d1)=(5,89) L(d1)=2.0000 2^(h2(n)-h2(d0))=2: 16P = m P_1(d0) for m in [64], predicted +-64: True
+   e=445    noncontributing: P torsion: True
+   n=445 mismatches: 0
+n = 365 = [5, 1; 73, 1], h(-64n) = 80, h2(n) = 2
+   e=1      P_1(n) torsion: False
+   e=5      noncontributing: P torsion: True
+   (d0,d1)=(5,73) L(d1)=2.0000 2^(h2(n)-h2(d0))=2: 16P = m P_1(d0) for m in [-64], predicted +-64: True
+   e=365    noncontributing: P torsion: True
+   n=365 mismatches: 0
+n = 141 = [3, 1; 47, 1], h(-64n) = 32, h2(n) = 2
+   e=1      P_1(n) torsion: False
+   (d0,d1)=(47,3) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [-64], predicted +-64: True
+   e=47     noncontributing: P torsion: True
+   e=141    noncontributing: P torsion: True
+   n=141 mismatches: 0
+n = 237 = [3, 1; 79, 1], h(-64n) = 48, h2(n) = 2
+   e=1      P_1(n) torsion: False
+   (d0,d1)=(79,3) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [64], predicted +-64: True
+   e=79     noncontributing: P torsion: True
+   e=237    noncontributing: P torsion: True
+   n=237 mismatches: 0
+n = 213 = [3, 1; 71, 1], h(-64n) = 32, h2(n) = 2
+   e=1      P_1(n) torsion: False
+   (d0,d1)=(71,3) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [64], predicted +-64: True
+   e=71     noncontributing: P torsion: True
+   e=213    noncontributing: P torsion: True
+   n=213 mismatches: 0
+n = 253 = [11, 1; 23, 1], h(-64n) = 16, h2(n) = 2
+   e=1      P_1(n) torsion: False
+   (d0,d1)=(23,11) L(d1)=1.0000 2^(h2(n)-h2(d0))=4: 16P = m P_1(d0) for m in [-64], predicted +-64: True
+   e=23     noncontributing: P torsion: True
+   e=253    noncontributing: P torsion: True
+   n=253 mismatches: 0
+
+real	0m14.181s
+user	0m14.101s
+sys	0m0.011s
