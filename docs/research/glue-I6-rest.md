@@ -1,7 +1,8 @@
 # glue-I6-rest: the remaining glue of package I6 and of the conductor cluster
 
 Status: research note (task glue-I6-rest, 2026-11-11). Lean files: `scratch/glue-I6-rest/I6Base.lean`
-(pkg-I6's `I6.lean` copied, plus glue) and `scratch/glue-I6-rest/SqrtChar.lean`. Results log:
+(pkg-I6's `I6.lean` copied, plus glue), `scratch/glue-I6-rest/Conductor.lean` (D4) and
+`scratch/glue-I6-rest/SqrtChar.lean`. Results log:
 `scratch/glue-I6-rest/log.md`. No file under `ZInQKernel/`, `blueprint/`, or another task's
 notes or scratch directory was edited.
 
@@ -10,17 +11,19 @@ Marks: **VERIFIED** means compiled or read in a source. **STANDARD** means a pub
 
 ## Verdict
 
-**Three of the six glue items are proved in Lean, and a fourth is reduced to its group theory.**
-The proofs have no `sorry`, and `#print axioms` shows only `propext`, `Classical.choice` and
-`Quot.sound` (VERIFIED: `lake env lean` on both files, 22:28 and 22:31 PST, no errors). Two items
-remain open, and so does the profinite and local-field part of the square-root criterion.
+**Three of the six glue items are proved in Lean: D3, D4 and the Galois theory for `e ≤ a!`.
+A fourth, the square-root criterion, is proved in its group-theoretic core.** The proofs have no
+`sorry`, and `#print axioms` shows only `propext`, `Classical.choice` and `Quot.sound` (VERIFIED:
+`lake env lean` on the three files, 22:28, 22:31 and 22:34 PST, no errors). Two items remain
+open: cyclic inflation and Frobenius density. So does the local-field part of the square-root
+criterion.
 
 | Item | Status | Lean |
 | --- | --- | --- |
 | D3 `sq_principalUnits` | **proved** (adopted glue-conductor's Hensel argument) | `PkgI6.sq_principalUnits` |
 | D1 (a), Galois theory for `e ≤ a!` | **proved**, global form (see caveat 2) | `PkgI6.finrank_splittingField_le_factorial`, `finrank_isSplittingField_le_factorial`, `ramificationIdx_le_finrank_of_numberField`, `ramificationIdx_le_factorial` |
 | B2 square-root criterion from I6.3 | **group-theoretic core proved**; the local-field part is open | `GlueI6Rest.exists_half_iff` |
-| D4 `artinConductor_le_of_upper` | open; restated as `def ArtinConductorLeOfUpper : Prop` | — |
+| D4 `artinConductor_le_of_upper` | **proved**, pkg-I6's statement with fewer hypotheses | `PkgI6.artinConductor_le_of_upper` (`Conductor.lean`) |
 | B2 `[ε]_p = 0` at unramified `p` (cyclic inflation) | open | — |
 | C10 Frobenius density in `G_ℚ` from I6.4 | open | — |
 
@@ -55,12 +58,30 @@ All statements are over pkg-I6's definitions or over Mathlib objects. The leaf h
    with Mathlib's `CharacterModule.dual_surjective_of_injective` (`ℚ/ℤ` is injective by Baer).
    Finite-order characters take values in `μ_∞ ≅ ℚ/ℤ`, so this is pkg-I6's "a character of an
    abelian group is a square iff it kills `Γ[2]`". (VERIFIED)
+6. **`artinConductor_le_of_upper` (D4), in `Conductor.lean`.** pkg-I6's definitions
+   (`lowerRam`, `lowerRamR`, `herbrandPhi`, `upperRam`, `codimInv`, `artinConductor`) are copied
+   verbatim. Statement: if `ρ σ = 1` for every `σ ∈ G^v` and every `v > U ≥ 0`, then
+   `f(V) ≤ dim V·(1+U)`. The hypotheses are only `[IsLocalRing B]`, `[Finite (B ≃ₐ[A] B)]` and
+   `[FiniteDimensional k V]`; pkg-I6 also had `IsDomain B` and `IsDiscreteValuationRing B`.
+   So the theorem implies pkg-I6's statement. The proof:
+   - The integrand `h(t) = |G_t|/|G_0|` of `φ` is antitone, hence interval-integrable, and
+     `h ≥ 1/|G_0|`.
+   - `phi_sub_ge`: `(u'−u)·h(u') ≤ φ(u') − φ(u)`. Hence `φ` is strictly increasing
+     (`phi_strictMono`), and `G^{φ(b)} = G_b` (`upperRam_phi_nat`, via `IsLeast.csInf_eq`).
+   - `sum_hInt_le`: `Σ_{i≤b} |G_i|/|G_0| ≤ 1 + φ(b)`.
+   - `phi_nat_ge`: `φ(i) ≥ i/|G_0|`. So only finitely many `i` have `φ(i) ≤ U`, and no Krull
+     intersection argument is needed.
+   - If `codim V^{G_i} ≠ 0`, then `G^{φ(i)} = G_i` acts nontrivially, so `φ(i) ≤ U`.
+   - The sum over those `i` is at most `dim V·Σ_{i≤M} |G_i|/|G_0| ≤ dim V·(1 + φ(M)) ≤ dim V·(1+U)`.
+
+   (VERIFIED)
 
 ## 2. Caveats
 
-1. `artinConductor_le_of_upper` was a `theorem … := sorry` in pkg-I6. Here it is the open
-   statement `ArtinConductorLeOfUpper`, so `I6Base.lean` has no `sorry`. The statement is
-   unchanged. I believe it is true as stated (SPECULATIVE; argument in §3.1).
+1. In `I6Base.lean`, `artinConductor_le_of_upper` (a `theorem … := sorry` in pkg-I6) appears as
+   the statement `def ArtinConductorLeOfUpper : Prop`. Its proof is in `Conductor.lean`, which
+   cannot be imported (scratch files cannot import each other); the integration should merge
+   the two files.
 2. **Global versus local `e ≤ a!`.** Glazer's D1 is local: `F/ℚ_p` has degree `≤ a`, and `F̃` is
    its Galois closure. Item 4 gives `e ≤ a!` when the global field `L` of `D1_genuine` is the
    Galois closure of a global field of degree `≤ a`. In the application (`F = L_v(A[n])`,
@@ -78,20 +99,7 @@ All statements are over pkg-I6's definitions or over Mathlib objects. The leaf h
 
 ## 3. What remains, with the reason
 
-1. **`artinConductor_le_of_upper` (D4). Elementary; about 150-300 lines (SPECULATIVE). Not done
-   for lack of time.** Plan:
-   - (a) Compute `herbrandPhi` at naturals as the finite sum `φ(n) = Σ_{i=1}^n g_i/g_0`. The
-     integrand is constant on `(i−1, i]`. Use `intervalIntegral.sum_integral_adjacent_intervals`
-     and the a.e.-constant integral.
-   - (b) `φ` is strictly increasing on `[−1,∞)` because the integrand is positive. Hence
-     `sInf {u ≥ −1 | φ(b) ≤ φ(u)} = b`, so `upperRam (φ b) = lowerRam b`.
-   - (c) Let `b` be the last `i` with `G_i` acting nontrivially. By (b) and the hypothesis,
-     `φ(b) ≤ U`.
-   - (d) Glue-conductor's numeric `artin_le` (on the sequence `g_i`) gives
-     `f(V) ≤ dim V·(1 + φ(b))`.
-
-   Nothing deep is needed. `G_i` is eventually trivial, by Krull's intersection theorem in the
-   DVR `B` and finiteness of the group.
+1. D4: done (§1, item 6).
 2. **`[ε]_p = 0` at `p ∉ T` (cyclic inflation). About 200-400 lines (SPECULATIVE). Not done.**
    On cochains (pkg-I6's `IsCocycle2`), the statement is that a 2-cocycle on the procyclic
    quotient `G_{ℚ_p} → Gal(L_v/ℚ_p) ≅ ℤ/f` with values in `ℤ/2` becomes a coboundary on
@@ -141,9 +149,11 @@ All statements are over pkg-I6's definitions or over Mathlib objects. The leaf h
 | File | Imports | Content | `sorry` |
 | --- | --- | --- | --- |
 | `scratch/glue-I6-rest/I6Base.lean` | Mathlib | pkg-I6 `I6.lean` (leaves, definitions, its proved glue), `exists_sq_eq_one_add` (from glue-conductor), `sq_principalUnits`, the `e ≤ a!` chain, `ArtinConductorLeOfUpper` as a Prop | none |
+| `scratch/glue-I6-rest/Conductor.lean` | Mathlib | pkg-I6 Part II definitions (copied), `artinConductor_le_of_upper` and its lemmas | none |
 | `scratch/glue-I6-rest/SqrtChar.lean` | Mathlib | `exists_half_iff` | none |
 
 `#print axioms` (VERIFIED) for the following: `eq_of_same_finite_support`, `skolemNoether_aut`,
 `lowerRam_tower`, `cob_of_same_finite_support`, `sq_principalUnits`,
-`finrank_splittingField_le_factorial`, `ramificationIdx_le_factorial` and `exists_half_iff`.
+`finrank_splittingField_le_factorial`, `ramificationIdx_le_factorial`, `exists_half_iff`,
+`upperRam_phi_nat`, `sum_hInt_le` and `artinConductor_le_of_upper`.
 Each prints `[propext, Classical.choice, Quot.sound]`.
