@@ -33,3 +33,11 @@ Task: blueprint for the Shimura-curve objects of leaves R1-R3, R5 (docs/research
   (isomorphism classes). Pitfall: `ι` and `η` are tokens under the kernel's `open`s (field names
   `iota`, `eta`); `mul_assoc` is ambiguous with `MonObj.mul_assoc` (use `_root_.`); `ring` fails
   on the noncommutative `O` (use `noncomm_ring`).
+- `Units72.lean`: `|(𝒪/3𝒪)^×| = 72` (two-sided units of `(Fin 4 → ZMod 3)` with the structure
+  constants mod 3) by `decide +kernel`, ~18 s, axioms propext, Classical.choice, Quot.sound
+  (VERIFIED). Agrees with h-trust A3 / h-b1 M3 (`form_check.py`, `b1_checks.py` §B).
+- Mathlib has `CommRing.Pic` (Picard group of a commutative ring, `RingTheory/PicardGroup.lean`):
+  usable for `h(R) = #Pic(R)` of an imaginary quadratic order in R5's statement (VERIFIED, grep).
+- Mathlib has `Functor.map.instIsMonHom` (monoidal functors map monoid homs to monoid homs,
+  `CategoryTheory/Monoidal/Mon.lean:845`): base change of `End` along `Over.pullback` is
+  definable (VERIFIED, grep; not built here).
