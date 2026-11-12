@@ -16,3 +16,11 @@ File `scratch/bp-faltings/Hodge.lean` §§1-2. `lake env lean`: no errors, no wa
 - `torusMetricSq Λ c = ‖c‖²·covol Λ`; `torusMetricSq_eq_setIntegral` (= ∫_F |c|² over any
   fundamental domain F); `torus_setIntegral_indep` (periodic densities); `torusMetricSq_pos`;
   `torusMetricSq_comap` (coordinate change z = Tz': Λ ↦ T⁻¹Λ, c ↦ c·det T, metric unchanged). VERIFIED.
+
+## Step 3 (11:53 PST). Metrized Hodge bundle and model height
+`Hodge.lean` §4. Compiles; axioms of all main theorems: propext, Classical.choice, Quot.sound.
+- `HodgeData K g V` (lattice ∧^gω_𝒢 in the K-line V, period lattices Λ_σ ⊂ ℂ^g, σ-semilinear
+  coefficient maps V → ℂ); `norm`, `norm_sq` (= torusMetricSq), `hodgeBundle : HermitianLattice`.
+- `modelHeight := deg(ω̄)/[K:ℚ]`; `modelHeight_eq`: Faltings' formula for every nonzero η. VERIFIED.
+- `recoord`, `modelHeight_recoord`: independent of linear coordinates at every σ. VERIFIED.
+- `modelHeight_eq_add_of_le`: ω' ≤ ω ⇒ h(ω) = h(ω') + log[ω:ω']/[K:ℚ]; `modelHeight_le_of_le`. VERIFIED.

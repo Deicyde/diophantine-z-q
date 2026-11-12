@@ -309,4 +309,186 @@ theorem torusMetricSq_comap (T : (Fin g → ℂ) ≃ₗ[ℂ] (Fin g → ℂ)) (c
 
 end Torus
 
+/-! ## 4. The metrized Hodge bundle of an abelian variety given with a model
+
+`HodgeData K g V` is what an abelian variety `A/K` of dimension `g`, *given with* a smooth
+group-scheme model `𝒢/𝓞_K` and complex uniformizations, contributes to Faltings' definition:
+
+* `V = ∧^g H⁰(A, Ω¹) = ∧^g Lie(A)^∨`, a `K`-line (blueprint node `AV4`);
+* `lattice = ∧^g ω_𝒢 = ∧^g e*Ω¹_{𝒢/𝓞_K}` inside `V` (node `M3`);
+* `periods σ`: the period lattice `H₁(A_σ(ℂ), ℤ)` in linear coordinates `z₁, …, z_g` of
+  `Lie(A_σ(ℂ))` (node `AN3`);
+* `coeff σ`: the `σ`-semilinear map `V → ℂ`, `η ↦ c` where `η ⊗_σ 1 = c · dz₁ ∧ ⋯ ∧ dz_g`.
+
+These fields are **data produced by the missing nodes**, not hypotheses about an abstract
+structure: in the full formalization `HodgeData.ofModel 𝒢 (uniformization)` constructs them, and
+the theorems below then apply. -/
+
+section Hodge
+
+variable {K : Type*} [Field K] [NumberField K]
+variable {V : Type*} [AddCommGroup V] [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V]
+
+/-- The Hodge data of an abelian variety of dimension `g` over `K` with a model. -/
+structure HodgeData (K : Type*) [Field K] [NumberField K] (g : ℕ) (V : Type*) [AddCommGroup V]
+    [Module K V] [Module (𝓞 K) V] where
+  /-- `∧^g ω_𝒢 ⊆ ∧^g H⁰(A, Ω¹)`. -/
+  lattice : Submodule (𝓞 K) V
+  finrank_eq_one : Module.finrank K V = 1
+  isLattice : ∃ s ∈ lattice, s ≠ 0 ∧ secIndex lattice s ≠ 0
+  /-- The period lattice of `A_σ(ℂ)` in linear coordinates. -/
+  periods : (K →+* ℂ) → Submodule ℤ (Fin g → ℂ)
+  periods_discrete : ∀ σ, DiscreteTopology (periods σ)
+  periods_isZLattice : ∀ σ, IsZLattice ℝ (periods σ)
+  /-- `η ↦ c` with `η ⊗_σ 1 = c · dz₁ ∧ ⋯ ∧ dz_g`. -/
+  coeff : ∀ σ : K →+* ℂ, V →ₛₗ[σ] ℂ
+  coeff_ne_zero : ∀ σ, coeff σ ≠ 0
+
+namespace HodgeData
+
+variable {g : ℕ} (D : HodgeData K g V)
+
+omit [IsScalarTower (𝓞 K) K V] in
+theorem coeff_apply_ne_zero (σ : K →+* ℂ) {v : V} (hv : v ≠ 0) : D.coeff σ v ≠ 0 := by
+  intro h0
+  apply D.coeff_ne_zero σ
+  ext w
+  obtain ⟨c, rfl⟩ := (finrank_eq_one_iff_of_nonzero' v hv).mp D.finrank_eq_one w
+  simp [h0]
+
+/-- `‖η‖_σ = (‖η‖²_σ)^{1/2}`, `‖η‖²_σ = (i/2)^g ∫_{A_σ(ℂ)} η ∧ η̄`. -/
+noncomputable def norm (σ : K →+* ℂ) (v : V) : ℝ :=
+  ‖D.coeff σ v‖ * Real.sqrt (ZLattice.covolume (D.periods σ))
+
+omit [IsScalarTower (𝓞 K) K V] in
+theorem norm_sq (σ : K →+* ℂ) (v : V) :
+    D.norm σ v ^ 2 = torusMetricSq (D.periods σ) (D.coeff σ v) := by
+  have := D.periods_discrete σ
+  have := D.periods_isZLattice σ
+  rw [norm, torusMetricSq, mul_pow,
+    Real.sq_sqrt (ZLattice.covolume_pos (D.periods σ) volume).le]
+
+/-- **The metrized Hodge bundle** `ω̄_𝒢 = (det ω_𝒢, ‖·‖_Faltings)`. -/
+noncomputable def hodgeBundle : HermitianLattice K V where
+  lattice := D.lattice
+  finrank_eq_one := D.finrank_eq_one
+  isLattice := D.isLattice
+  norm := D.norm
+  norm_smul σ a v := by
+    simp only [norm, map_smulₛₗ, smul_eq_mul, norm_mul]; ring
+  norm_pos σ v hv := by
+    have := D.periods_discrete σ
+    have := D.periods_isZLattice σ
+    exact mul_pos (norm_pos_iff.mpr (D.coeff_apply_ne_zero σ hv))
+      (Real.sqrt_pos.mpr (ZLattice.covolume_pos (D.periods σ) volume))
+
+/-- **Faltings' height of `A` relative to the model**: `deg(ω̄_𝒢) / [K:ℚ]`. -/
+noncomputable def modelHeight : ℝ := D.hodgeBundle.arakelovDegree / Module.finrank ℚ K
+
+/-- **Faltings' formula** (pkg-I5 §2.1), for every nonzero `η ∈ ∧^g ω_𝒢`:
+`h(A, 𝒢) = [K:ℚ]⁻¹ (log #(∧^g ω_𝒢 / 𝓞_K η) − ½ ∑_σ log ((i/2)^g ∫_{A_σ(ℂ)} η ∧ η̄))`. -/
+theorem modelHeight_eq {η : V} (hηM : η ∈ D.lattice) (hη : η ≠ 0) :
+    D.modelHeight = (Real.log (secIndex D.lattice η) -
+      (1 / 2) * ∑ σ : K →+* ℂ, Real.log (torusMetricSq (D.periods σ) (D.coeff σ η))) /
+        Module.finrank ℚ K := by
+  rw [modelHeight, ← D.hodgeBundle.degreeAt_eq_arakelovDegree hηM hη]
+  unfold HermitianLattice.degreeAt
+  congr 2
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl fun σ _ => ?_
+  rw [← D.norm_sq, Real.log_pow]
+  simp only [hodgeBundle]
+  push_cast; ring
+
+/-- Change of the linear coordinates at every `σ`: `z = T_σ z'`. -/
+noncomputable def recoord (T : (K →+* ℂ) → ((Fin g → ℂ) ≃ₗ[ℂ] (Fin g → ℂ))) : HodgeData K g V where
+  lattice := D.lattice
+  finrank_eq_one := D.finrank_eq_one
+  isLattice := D.isLattice
+  periods σ := ZLattice.comap ℝ (D.periods σ) (realify (T σ)).toLinearMap
+  periods_discrete σ := by
+    have := D.periods_discrete σ
+    infer_instance
+  periods_isZLattice σ := by
+    have := D.periods_discrete σ
+    have := D.periods_isZLattice σ
+    infer_instance
+  coeff σ := LinearMap.det (T σ : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ)) • D.coeff σ
+  coeff_ne_zero σ := by
+    intro h
+    obtain ⟨v, hvM, hv, -⟩ := D.isLattice
+    have := congr_arg (fun f => f v) h
+    simp only [LinearMap.smul_apply, smul_eq_mul, LinearMap.zero_apply, mul_eq_zero] at this
+    rcases this with h1 | h1
+    · exact (LinearEquiv.isUnit_det' (T σ)).ne_zero h1
+    · exact D.coeff_apply_ne_zero σ hv h1
+
+/-- **Independence of the coordinates on `Lie(A_σ)`.** -/
+omit [IsScalarTower (𝓞 K) K V] in
+theorem modelHeight_recoord (T : (K →+* ℂ) → ((Fin g → ℂ) ≃ₗ[ℂ] (Fin g → ℂ))) :
+    (D.recoord T).modelHeight = D.modelHeight := by
+  have hn : ∀ σ v, (D.recoord T).norm σ v = D.norm σ v := by
+    intro σ v
+    have := D.periods_discrete σ
+    have := D.periods_isZLattice σ
+    have h2 : (D.recoord T).norm σ v ^ 2 = D.norm σ v ^ 2 := by
+      rw [norm_sq, norm_sq]
+      simp only [recoord, LinearMap.smul_apply, smul_eq_mul]
+      rw [mul_comm]
+      exact torusMetricSq_comap (D.periods σ) (T σ) _
+    have h0 : 0 ≤ (D.recoord T).norm σ v := mul_nonneg (norm_nonneg _) (Real.sqrt_nonneg _)
+    have h0' : 0 ≤ D.norm σ v := mul_nonneg (norm_nonneg _) (Real.sqrt_nonneg _)
+    exact (pow_left_inj₀ h0 h0' two_ne_zero).mp h2
+  unfold modelHeight HermitianLattice.arakelovDegree HermitianLattice.degreeAt
+  simp only [hodgeBundle, hn]
+  rfl
+
+/-- **Change of model.** If `D'` has the same generic fibre and uniformizations and a smaller
+lattice (`ω_𝒢' ⊆ ω_𝒢`, e.g. `𝒢'` the Néron model, which receives a map from every smooth model),
+then `h(A, 𝒢) = h(A, 𝒢') + [K:ℚ]⁻¹ log [ω_𝒢 : ω_𝒢']`. -/
+theorem modelHeight_eq_add_of_le (D' : HodgeData K g V) (hp : D'.periods = D.periods)
+    (hc : D'.coeff = D.coeff) (hle : D'.lattice ≤ D.lattice) :
+    D.modelHeight = D'.modelHeight +
+      Real.log (D'.lattice.toAddSubgroup.relIndex D.lattice.toAddSubgroup) /
+        Module.finrank ℚ K := by
+  obtain ⟨η, hηM', hη, -⟩ := D'.isLattice
+  have hηM : η ∈ D.lattice := hle hηM'
+  rw [D.modelHeight_eq hηM hη, D'.modelHeight_eq hηM' hη, hp, hc, ← add_div]
+  congr 1
+  have hle1 : Submodule.span (𝓞 K) {η} ≤ D'.lattice := Submodule.span_le.mpr (by simpa using hηM')
+  have hmul : secIndex D'.lattice η *
+      D'.lattice.toAddSubgroup.relIndex D.lattice.toAddSubgroup = secIndex D.lattice η :=
+    AddSubgroup.relIndex_mul_relIndex _ _ _ (Submodule.toAddSubgroup_mono hle1)
+      (Submodule.toAddSubgroup_mono hle)
+  have hne : secIndex D.lattice η ≠ 0 := D.hodgeBundle.secIndex_ne_zero hηM hη
+  rw [← hmul] at hne ⊢
+  have h1 : secIndex D'.lattice η ≠ 0 := left_ne_zero_of_mul hne
+  have h2 : D'.lattice.toAddSubgroup.relIndex D.lattice.toAddSubgroup ≠ 0 :=
+    right_ne_zero_of_mul hne
+  push_cast
+  rw [Real.log_mul (by exact_mod_cast h1) (by exact_mod_cast h2)]
+  ring
+
+/-- Hence a smaller lattice gives a smaller height; the Néron lattice gives the infimum. -/
+theorem modelHeight_le_of_le (D' : HodgeData K g V) (hp : D'.periods = D.periods)
+    (hc : D'.coeff = D.coeff) (hle : D'.lattice ≤ D.lattice) :
+    D'.modelHeight ≤ D.modelHeight := by
+  rw [D.modelHeight_eq_add_of_le D' hp hc hle]
+  have : 0 ≤ Real.log (D'.lattice.toAddSubgroup.relIndex D.lattice.toAddSubgroup) /
+      Module.finrank ℚ K :=
+    div_nonneg (Real.log_natCast_nonneg _) (Nat.cast_nonneg _)
+  linarith
+
+end HodgeData
+
+end Hodge
+
 end ZInQ.BPFaltings
+
+#print axioms ZInQ.BPFaltings.HermitianLattice.degreeAt_eq_arakelovDegree
+#print axioms ZInQ.BPFaltings.torusMetricSq_comap
+#print axioms ZInQ.BPFaltings.torusMetricSq_eq_setIntegral
+#print axioms ZInQ.BPFaltings.HodgeData.modelHeight_eq
+#print axioms ZInQ.BPFaltings.HodgeData.modelHeight_recoord
+#print axioms ZInQ.BPFaltings.HodgeData.modelHeight_eq_add_of_le
+#print axioms ZInQ.BPFaltings.HodgeData.modelHeight_le_of_le
