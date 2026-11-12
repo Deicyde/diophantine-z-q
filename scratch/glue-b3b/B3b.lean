@@ -4,7 +4,9 @@ to `end Conj`, followed by the glue-b3b sections `B3b`, `B3bMain`, `B3bGauss` (t
 `leafB3b : LeafB3b`), glue-conj's `unramified_outside_final` unchanged, the new
 `unramified_outside_b3a` (takes only `LeafB3a`), and, after `end GlueB3Unram`, verbatim copies of
 leaf-push's `GQ`, `IsAtPrime`, `inertiaQ`, `T32b_QuadraticRamification` (namespace `LeafPush`)
-with the proof `GlueB3Unram.t32b : LeafPush.T32b_QuadraticRamification`.
+with the proof `GlueB3Unram.t32b : LeafPush.T32b_QuadraticRamification`; then leaf-push's
+`T32a_TameQuadratic` (verbatim) with `GlueB3Unram.leafB3a_of_t32a : T32a → LeafB3a` and
+`unramified_outside_t32a` (B3 (v) from T32(a) alone).
 -/
 import Mathlib
 
@@ -1602,6 +1604,195 @@ theorem t32b : LeafPush.T32b_QuadraticRamification := by
 end GlueB3Unram
 
 
+
+/-! ## T32(a) implies `LeafB3a` (glue-b3b): B3 (v) from the bundle's leaf T32(a) -/
+
+namespace LeafPush
+
+-- verbatim from scratch/leaf-push/Push.lean (= scratch/h-decomposition/Leaves.lean, section 5)
+/-- **T32(a). Serre, *Local fields*, IV §2, Cor. 1-4 (tame inertia is `∏_{ℓ≠p} ℤ_ℓ(1)`, wild
+inertia is pro-`p`), with the identification of `I_w ⊆ G_ℚ` with the inertia group of
+`ℚ̄_p/ℚ_p` (Neukirch, ANT, II §9 / Serre II §3; numbering UNVERIFIED).** Published consequence:
+for `p` odd, the continuous homomorphisms `I_p → {±1}` form a group of order 2 (a quadratic
+character kills the pro-`p` wild inertia, and `Hom_cont(∏_{ℓ≠p} ℤ_ℓ, ℤ/2) = ℤ/2`). Lean form:
+for `w` over `ℤ_(p)`, the continuous monoid maps `I_w →* ℤˣ` number exactly 2 (`ℤˣ = {±1}`,
+discrete). "Unique nontrivial quadratic character of inertia" is exactly this. -/
+def T32a_TameQuadratic : Prop :=
+  ∀ (p : ℕ), p.Prime → p ≠ 2 →
+    ∀ (O : ValuationSubring ℚ), IsAtPrime O p →
+    ∀ (w : ValuationSubring (AlgebraicClosure ℚ)), w.comap (algebraMap ℚ _) = O →
+      Nat.card {χ : inertiaQ w →* ℤˣ // Continuous χ} = 2
+
+end LeafPush
+
+namespace GlueB3Unram
+
+/-- `w ∩ ℚ` is `ℤ_(p)` in leaf-push's sense when `w` lies over `p`. -/
+theorem isAtPrime_comap {p : ℕ} (hp : p.Prime) (w : ValuationSubring Qbar) (hw : LiesOver w p) :
+    LeafPush.IsAtPrime (w.comap (algebraMap ℚ Qbar)) p := by
+  set O := w.comap (algebraMap ℚ Qbar) with hO
+  have hmem : ∀ q : ℚ, q ∈ O ↔ w.valuation (algebraMap ℚ Qbar q) ≤ 1 := fun q => by
+    rw [hO, ValuationSubring.mem_comap, ValuationSubring.valuation_le_one_iff]
+  have hnu : ¬ IsUnit (p : O) := by
+    rintro ⟨u, hu⟩
+    have h1 : ((u⁻¹ : Oˣ) : O) * (p : O) = 1 := by rw [← hu]; exact u.inv_mul
+    have h2 : (((u⁻¹ : Oˣ) : O) : ℚ) * p = 1 := by
+      have := congrArg (fun x : O => (x : ℚ)) h1; simpa using this
+    have h3 := (hmem _).mp (((u⁻¹ : Oˣ) : O)).2
+    have h4 := congrArg (fun q => w.valuation (algebraMap ℚ Qbar q)) h2
+    simp only [map_mul, map_natCast, map_one] at h4
+    have h5 : w.valuation (algebraMap ℚ Qbar (((u⁻¹ : Oˣ) : O) : ℚ)) * w.valuation (p : Qbar) < 1 :=
+      lt_of_le_of_lt (mul_le_of_le_one_left' h3) hw
+    rw [h4] at h5; exact lt_irrefl _ h5
+  refine ⟨?_, hnu⟩
+  let P : Ideal ℤ := Ideal.span {(p : ℤ)}
+  haveI : P.IsPrime := (Ideal.span_singleton_prime (by exact_mod_cast hp.ne_zero)).mpr
+    (Nat.prime_iff_prime_int.mp hp)
+  have hP : P ≠ ⊥ := by
+    simp only [P, ne_eq, Ideal.span_singleton_eq_bot]; exact_mod_cast hp.ne_zero
+  have hmemP : ∀ b : ℤ, b ∈ P ↔ (p : ℤ) ∣ b := fun b => Ideal.mem_span_singleton
+  haveI : IsLocalization.AtPrime O P := by
+    refine ⟨?_, ?_, ?_⟩
+    · rintro ⟨b, hb⟩
+      have hb' : ¬ (p : ℤ) ∣ b := fun h => hb ((hmemP b).mpr h)
+      have hb0 : (b : ℚ) ≠ 0 := by
+        intro h; apply hb'; rw [Int.cast_eq_zero.mp h]; exact dvd_zero _
+      have hv : w.valuation (b : Qbar) = 1 := val_intCast_eq_one hp hw b hb'
+      have hinv : (b : ℚ)⁻¹ ∈ O := by rw [hmem]; simp [map_inv₀, hv]
+      refine isUnit_iff_exists_inv.mpr ⟨⟨_, hinv⟩, ?_⟩
+      ext; simp [hb0]
+    · intro z
+      have hz := (hmem _).mp z.2
+      set q : ℚ := (z : ℚ) with hq
+      have hden : ¬ (p : ℤ) ∣ (q.den : ℤ) := by
+        intro hd
+        have hn : ¬ (p : ℤ) ∣ q.num := by
+          intro hn
+          rw [Int.natCast_dvd] at hn
+          rw [Int.natCast_dvd_natCast] at hd
+          have h3 := Nat.dvd_gcd hn hd
+          rw [Nat.Coprime.gcd_eq_one q.reduced] at h3
+          exact hp.one_lt.ne' (Nat.dvd_one.mp h3)
+        have hvn : w.valuation (q.num : Qbar) = 1 := val_intCast_eq_one hp hw _ hn
+        have hvd : w.valuation ((q.den : ℤ) : Qbar) < 1 := by
+          obtain ⟨k, hk⟩ := hd
+          have : w.valuation ((q.den : ℤ) : Qbar) ≤ w.valuation (p : Qbar) := by
+            rw [hk, Int.cast_mul, map_mul, Int.cast_natCast]
+            exact mul_le_of_le_one_right' (val_intCast_le_one k)
+          exact lt_of_le_of_lt this hw
+        have e : q * (q.den : ℚ) = q.num := Rat.mul_den_eq_num q
+        have e2 := congrArg (fun r => w.valuation (algebraMap ℚ Qbar r)) e
+        simp only [map_mul, map_natCast, map_intCast] at e2
+        rw [hvn] at e2
+        have : w.valuation (algebraMap ℚ Qbar q) * w.valuation ((q.den : ℕ) : Qbar) < 1 :=
+          lt_of_le_of_lt (mul_le_of_le_one_left' hz) (by simpa using hvd)
+        rw [e2] at this; exact lt_irrefl _ this
+      refine ⟨⟨q.num, ⟨q.den, fun h => hden ((hmemP _).mp h)⟩⟩, ?_⟩
+      ext
+      simp only [algebraMap_int_eq, eq_intCast, MulMemClass.coe_mul, SubringClass.coe_intCast]
+      push_cast
+      rw [← hq]; exact Rat.mul_den_eq_num q
+    · intro x y h
+      refine ⟨1, ?_⟩
+      have := congrArg (fun z : O => (z : ℚ)) h
+      simp only [algebraMap_int_eq, eq_intCast] at this
+      push_cast at this
+      have hxy : x = y := by exact_mod_cast this
+      rw [hxy]
+  exact IsLocalization.AtPrime.isDiscreteValuationRing_of_dedekind_domain ℤ hP O
+
+theorem units_sq_eq_one {x : ℂˣ} (hx : x ^ 2 = 1) : x = 1 ∨ x = -1 := by
+  have h : (x : ℂ) * x = 1 := by
+    have := congrArg Units.val hx; rw [Units.val_pow_eq_pow_val, sq] at this; simpa using this
+  rcases mul_self_eq_one_iff.mp h with h | h
+  · left; exact Units.ext h
+  · right; exact Units.ext (by simpa using h)
+
+theorem neg_one_ne_one_C : (-1 : ℂˣ) ≠ 1 := by
+  intro h; have := congrArg Units.val h; norm_num at this
+
+/-- A `±1`-valued character into `ℂˣ`, as a character into `ℤˣ`. -/
+noncomputable def sgnHom {G : Type*} [Group G] (φ : G →* ℂˣ) (hφ2 : ∀ s, φ s ^ 2 = 1) :
+    G →* ℤˣ where
+  toFun s := if φ s = 1 then 1 else -1
+  map_one' := by simp
+  map_mul' s t := by
+    have hne := neg_one_ne_one_C
+    rcases units_sq_eq_one (hφ2 s) with h1 | h1 <;> rcases units_sq_eq_one (hφ2 t) with h2 | h2 <;>
+      simp [map_mul, h1, h2, hne]
+
+theorem sgnHom_apply {G : Type*} [Group G] (φ : G →* ℂˣ) (hφ2 : ∀ s, φ s ^ 2 = 1) (s : G) :
+    sgnHom φ hφ2 s = if φ s = 1 then 1 else -1 := rfl
+
+/-- **`LeafB3a` follows from the bundle's leaf T32(a)** (glue): the three characters `1`,
+`sgn ∘ φ`, `sgn ∘ ψ` of `I_w` into `ℤˣ` are continuous, and pairwise distinct if `φ ≠ ψ`. -/
+theorem leafB3a_of_t32a (hT : LeafPush.T32a_TameQuadratic) : LeafB3a := by
+  intro p hp hp2 w hw φ ψ hφ hψ hφ2 hψ2 hφ1 hψ1
+  by_contra hne
+  have hcard := hT p hp hp2 _ (isAtPrime_comap hp w hw) w rfl
+  let S := {χ : LeafPush.inertiaQ w →* ℤˣ // Continuous χ}
+  have hfin : Finite S := Nat.finite_of_card_ne_zero (by rw [hcard]; norm_num)
+  let f : ℂˣ → ℤˣ := fun x => if x = 1 then 1 else -1
+  have hcont : ∀ (χ : inertiaGQ w →* ℂˣ) (h2 : ∀ s, χ s ^ 2 = 1), IsLocallyConstant χ →
+      Continuous (sgnHom (G := LeafPush.inertiaQ w) χ h2) := by
+    intro χ h2 hχ
+    exact (hχ.comp f).continuous
+  let a : S := ⟨1, continuous_const⟩
+  let b : S := ⟨sgnHom (G := LeafPush.inertiaQ w) φ hφ2, hcont φ hφ2 hφ⟩
+  let c : S := ⟨sgnHom (G := LeafPush.inertiaQ w) ψ hψ2, hcont ψ hψ2 hψ⟩
+  have hZ : (-1 : ℤˣ) ≠ 1 := by decide
+  have hnt : ∀ (χ : inertiaGQ w →* ℂˣ), χ ≠ 1 → ∃ s, χ s ≠ 1 := by
+    intro χ hχ
+    by_contra hall
+    push_neg at hall
+    apply hχ
+    ext s
+    rw [hall s]; rfl
+  have hab : ∀ (χ : inertiaGQ w →* ℂˣ) (h2 : ∀ s, χ s ^ 2 = 1) (hl : IsLocallyConstant χ),
+      χ ≠ 1 → a ≠ ⟨sgnHom (G := LeafPush.inertiaQ w) χ h2, hcont χ h2 hl⟩ := by
+    intro χ h2 hl hχ heq
+    obtain ⟨s, hs⟩ := hnt χ hχ
+    have := congrArg (fun x : S => x.1 s) heq
+    change (1 : ℤˣ) = (if χ s = 1 then 1 else -1) at this
+    rw [if_neg hs] at this; exact hZ this.symm
+  have hbc : b ≠ c := by
+    intro heq
+    apply hne
+    ext s
+    have := congrArg (fun x : S => x.1 s) heq
+    change (if φ s = 1 then (1 : ℤˣ) else -1) = (if ψ s = 1 then 1 else -1) at this
+    rcases units_sq_eq_one (hφ2 s) with h1 | h1 <;> rcases units_sq_eq_one (hψ2 s) with h2 | h2
+    · rw [h1, h2]
+    · rw [h1, h2, if_pos rfl, if_neg neg_one_ne_one_C] at this; exact absurd this.symm hZ
+    · rw [h1, h2, if_pos rfl, if_neg neg_one_ne_one_C] at this; exact absurd this hZ
+    · rw [h1, h2]
+  let e : S ≃ Fin 2 := (Finite.equivFin S).trans (finCongr hcard)
+  have key : ∀ x y z : Fin 2, x = y ∨ y = z ∨ x = z := by decide
+  rcases key (e a) (e b) (e c) with h | h | h
+  · exact hab φ hφ2 hφ hφ1 (e.injective h)
+  · exact hbc (e.injective h)
+  · exact hab ψ hψ2 hψ hψ1 (e.injective h)
+
+/-- **B3 (v) from the synthesis bundle's leaf T32(a)** (glue-b3b): no leaf of glue-b3-unram's own
+remains; `LeafB3a` is supplied by `leafB3a_of_t32a`. -/
+theorem unramified_outside_t32a (hT : LeafPush.T32a_TameQuadratic)
+    (L : IntermediateField ℚ Qbar) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (T : Finset ℕ) (h2 : 2 ∈ T) (hram : ∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p)
+    (ε : GQ → GQ → ℂˣ)
+    (hεN : ∀ σ τ, σ ∈ L.fixingSubgroup ∨ τ ∈ L.fixingSubgroup → ε σ τ = 1)
+    {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) (hN : ∀ q, q.Prime → q ∣ N → q ∈ T)
+    (β : GQ → ℂˣ) (hβl : IsLocallyConstant β) (hβs : ∀ x, β x ^ 2 = galChar χ x)
+    (hβe : ∀ x y, β x * β y = ε x y * β (x * y)) :
+    ∃ Q : Finset ℕ, (∀ q ∈ Q, q.Prime ∧ q ∉ T) ∧
+      (∀ x, (∏ q ∈ Q, etaP q) x ^ 2 = 1) ∧ IsLocallyConstant ⇑(∏ q ∈ Q, etaP q) ∧
+      ∀ L' : IntermediateField ℚ Qbar,
+        (∀ σ, σ ∈ L'.fixingSubgroup ↔
+          σ ∈ L.fixingSubgroup ∧ β σ * (∏ q ∈ Q, etaP q) σ = 1) →
+        GalUnramifiedOutside L' T :=
+  unramified_outside_b3a (leafB3a_of_t32a hT) L T h2 hram ε hεN χ hN β hβl hβs hβe
+
+end GlueB3Unram
+
 #print axioms GlueB3Unram.unramified_outside_of_leaves
 #print axioms GlueB3Unram.cycUnram
 #print axioms GlueB3Unram.unramified_outside
@@ -1615,3 +1806,5 @@ end GlueB3Unram
 #print axioms GlueB3Unram.leafB3b
 #print axioms GlueB3Unram.unramified_outside_b3a
 #print axioms GlueB3Unram.t32b
+#print axioms GlueB3Unram.leafB3a_of_t32a
+#print axioms GlueB3Unram.unramified_outside_t32a

@@ -31,3 +31,11 @@
   `#print axioms` lines all [propext, Classical.choice, Quot.sound]; no `sorry`, no `axiom`. 12:04.
 - Dev fragments Sec.lean, Sec2.lean, Sec3.lean, T32Defs.lean, Prefix.lean removed (their
   contents are in B3b.lean, the one checked file).
+- T32(a) ⇒ LeafB3a (appended to B3b.lean): leaf-push's `T32a_TameQuadratic` copied verbatim
+  (diff-identical to Leaves.lean L11890-11901); `isAtPrime_comap` (w over p ⇒ w ∩ ℚ is a DVR,
+  via `IsLocalization.AtPrime (w ∩ ℚ) (p)` and Mathlib
+  `IsLocalization.AtPrime.isDiscreteValuationRing_of_dedekind_domain`, and p not a unit);
+  `sgnHom` (±1-valued ℂˣ character → ℤˣ); `leafB3a_of_t32a : T32a_TameQuadratic → LeafB3a`
+  (1, sgn∘φ, sgn∘ψ continuous and pairwise distinct if φ ≠ ψ, against Nat.card = 2);
+  `unramified_outside_t32a` (B3 (v) from T32(a) alone). COMPILED; B3b.lean 1810 lines, no
+  errors, 14 `#print axioms` lines all [propext, Classical.choice, Quot.sound]. 12:14.
