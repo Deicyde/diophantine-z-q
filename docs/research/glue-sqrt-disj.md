@@ -2,7 +2,7 @@
 
 Status: research note (task glue-sqrt-disj, 2026-11-12). Lean: `scratch/glue-sqrt-disj/Disj.lean`
 (self-contained; it merges glue-sqrt-local's `Unramified.lean`, part of its `SqrtLocal.lean`, and this
-task's `Ram.lean` and `Level.lean`). Results log: `scratch/glue-sqrt-disj/log.md`. No file under
+task's `Ram.lean`, `Level.lean` and `Plumb.lean`). Results log: `scratch/glue-sqrt-disj/log.md`. No file under
 `ZInQKernel/`, `blueprint/`, or another task's notes or scratch was edited.
 
 Marks: **VERIFIED** means compiled or read in a source. **STANDARD** means a published theorem.
@@ -12,8 +12,10 @@ Marks: **VERIFIED** means compiled or read in a source. **STANDARD** means a pub
 
 **Items (1) and (3) of glue-sqrt-local §3 are proved in Lean. So is the local square-root criterion
 over the genuine finite Galois groups `Gal(ℚ_p(μ_N)/ℚ_p)`, for every prime `p` including `2`, with the
-level change built in.** Item (2), the passage from `G_{ℚ_p}` to a finite quotient (where I6.3 enters),
-is not written; §3 lists exactly what it needs.
+level change built in. It holds on the very fields that leaf I6.3 produces, the subfields
+`adjoin ℚ_p {x | x^n = 1}` of `PadicAlgCl p`.** Item (2) is half done. I6.3 is normalized to the levels
+the criterion uses, and the criterion is instantiated there. Not written: factoring a character of
+`G_{ℚ_p}` through `Gal(ℚ_p(μ_n)/ℚ_p)` and inflating `ψ` back (§3).
 
 1. **Disjointness (item 1).** Let `p ∤ m` and let `L` be a `p^k m`-th cyclotomic extension of `ℚ_p`.
    Then `Gal(L/ℚ_p) ≃* (ℤ/p^k)ˣ × ⟨p⟩ ⊆ (ℤ/p^k)ˣ × (ℤ/m)ˣ` through the action on `μ_{p^k}` and on
@@ -30,10 +32,16 @@ is not written; §3 lists exactly what it needs.
    with `m ∣ m'` and `ord_{m'}(p) = 2·ord_m(p)` (for example `m' = p^{2f} − 1`). Let `τ ∈ Gal(K/ℚ_p)` act by
    `ζ ↦ ζ⁻¹` on `μ_{p^k}` and trivially on `μ_m`. Then a `ℚ/ℤ`-character `χ` of `Gal(K/ℚ_p)`,
    inflated to `Gal(L/ℚ_p)`, is twice a character of `Gal(L/ℚ_p)` iff `χ(τ) = 0`.
+5. **On I6.3's fields (part of item 2).** Let `muField p n := IntermediateField.adjoin ℚ_[p] {x : PadicAlgCl p | x ^ n = 1}`,
+   the field in `LocalKroneckerWeber` (I6.3, copied verbatim from `scratch/pkg-I6/I6.lean`).
+   - It is an `n`-th cyclotomic extension.
+   - Under I6.3, every finite abelian `M ⊆ \bar ℚ_p` lies in some `muField p (p^k m)` with `p ∤ m`.
+   - `muField p (p^k m) ≤ muField p (p^{k+1}(p^{2f}−1))`.
+   - The criterion holds for this pair (`sqrt_criterion_muField`).
 
 Everything below compiles with no `sorry`. `#print axioms` shows only `propext`, `Classical.choice` and
 `Quot.sound` for every listed theorem (VERIFIED: `lake env lean scratch/glue-sqrt-disj/Disj.lean`,
-00:53 PST, 2026-11-12; `Ram.lean` 00:44 and `Level.lean` 00:45 also compile standalone).
+00:57 PST, 2026-11-12). `Ram.lean`, `Level.lean` and `Plumb.lean` also compile standalone.
 
 ### Statements (`Disj.lean`, namespace `GlueSqrtDisj`)
 
@@ -59,6 +67,12 @@ Here `u = ZMod.unitOfCoprime p hcop`, that is, `p` as a unit mod `m`.
 | `τ` exists: `galToProd τ = (−1, 1)` for some `τ` | `exists_tau` | VERIFIED |
 | **every `p`: `(∃ ψ, ∀ g, 2•ψ(g) = χ(g|_K)) ↔ χ(τ) = 0`** for `K ⊆ L` of levels `p^k m`, `p^{k+1} m'`, `m ∣ m'`, `ord_{m'}(p) = 2 ord_m(p)` | `sqrt_criterion_level` | VERIFIED |
 | same with `m' = p^{2f} − 1`, `f = ord_m(p)`, side conditions discharged | `sqrt_criterion_level_pow` | VERIFIED |
+| `muField p n` (I6.3's field) is `IsCyclotomicExtension {n} ℚ_[p]` | `isCyclotomicExtension_muField` | VERIFIED |
+| `a ∣ b ⇒ muField p a ≤ muField p b` | `muField_mono` | VERIFIED |
+| **I6.3 normalized:** `LocalKroneckerWeber p ⇒` every finite abelian `M ⊆ \bar ℚ_p` is `≤ muField p (p^k m)`, `0 < m`, `p ∤ m` | `le_muField_of_lkw` | VERIFIED |
+| `muField p (p^k m) ≤ muField p (p^{k+1}(p^{2f}−1))`; `p^k m ∣ p^{k+1}(p^{2f}−1)` | `muField_le_level`, `level_dvd` | VERIFIED |
+| instances on `muField`: cyclotomic, finite-dimensional, Galois, `Algebra ℤ_[p]` (found by `inferInstance`); `Algebra (muField a) (muField b)` for `[Fact (a ∣ b)]` | section `MuField` | VERIFIED |
+| **the criterion on `muField p (p^k m) ⊆ muField p (p^{k+1}(p^{2f}−1))`, every `p`** | `sqrt_criterion_muField` | VERIFIED |
 
 `sqrt_criterion_level` states the characters as `Additive Gal(K/ℚ_[p]) →+ AddCircle (1 : ℚ)` and
 `Additive Gal(L/ℚ_[p]) →+ AddCircle (1 : ℚ)`, and restriction as `AlgEquiv.restrictNormal`. `K` and
@@ -104,40 +118,52 @@ need not be subfields of a fixed algebraic closure.
   genuine Galois groups.
 - **B2's local criterion from I6.3.** Let `χ` be a finite-order character of `G_{ℚ_p}`. I6.3
   (`LocalKroneckerWeber`, the leaf in `scratch/pkg-I6/I6.lean`) puts the fixed field of `ker χ` inside
-  `ℚ_p(μ_n)`, `n = p^k m`, `p ∤ m`. Then `sqrt_criterion_level_pow` with
-  `K = ℚ_p(μ_{p^k m}) ⊆ L = ℚ_p(μ_{p^{k+1}(p^{2f}−1)})` gives the criterion with `τ = τ₋₁`. Only the
-  plumbing between `G_{ℚ_p}` and these finite groups remains (§3). No other arithmetic input is
-  needed (SPECULATIVE in the sense that the plumbing is unwritten; no deep input is expected).
+  `muField p (p^k m)` with `p ∤ m` (`le_muField_of_lkw`, proved).
+  `sqrt_criterion_muField` (proved) then gives the criterion on
+  `K = muField p (p^k m) ⊆ L = muField p (p^{k+1}(p^{2f}−1))`, with `τ = τ₋₁|_K`.
+  What remains is the descent of `χ` to `Gal(K/ℚ_p)` and the inflation of `ψ` from `Gal(L/ℚ_p)`
+  (§3). I6.3 is the only leaf used. The remaining steps need no other arithmetic input
+  (SPECULATIVE until written).
 
 ## 3. What remains (not proved)
 
-**Item (2): plumbing from `G_{ℚ_p} = Gal(PadicAlgCl p/ℚ_p)` to finite levels.** Not written. It
-needs:
-1. A character with open kernel (that is, continuous into discrete `ℚ/ℤ`) factors through
-   `Gal(M/ℚ_p)` for a finite Galois `M`, the fixed field of the kernel. That `M` is abelian over `ℚ_p`.
-   This uses Mathlib's infinite Galois correspondence (`InfiniteGalois`).
-2. I6.3 gives `M ≤ adjoin ℚ_p {x | x^n = 1}`. Then one needs:
-   - an `IsCyclotomicExtension {p^k m}` instance for that intermediate field, and for the
-     level-`p^{k+1}(p^{2f}−1)` one;
-   - `Algebra ℤ_[p]`/`IsScalarTower` instances for intermediate fields (`Algebra.compHom`);
-   - the tower `K ≤ L` as `[Algebra K L] [IsScalarTower ℚ_[p] K L]`
-     (`IntermediateField.inclusion`).
-3. Moving `χ` from `Gal(M/ℚ_p)` to `Gal(K/ℚ_p)` (restriction `K → M`), and inflating `ψ` from
-   `Gal(L/ℚ_p)` to `G_{ℚ_p}` through `AlgEquiv.restrictNormalHom`. The kernel is the fixing subgroup of
-   `L`, which is open because `L` is finite.
-4. Choosing `τ₋₁ ∈ G_{ℚ_p}` (any lift of `τ` from `exists_tau` at a fixed level). Showing that
-   `χ(τ₋₁)` does not depend on the lift (immediate, since `χ` factors through `Gal(K/ℚ_p)`).
+**Item (2), second half: from `G_{ℚ_p} = Gal(PadicAlgCl p/ℚ_p)` down to `Gal(muField p n/ℚ_p)` and back.**
+Not written. With `le_muField_of_lkw` and `sqrt_criterion_muField` in hand, it needs:
+1. A character `χ` of `G_{ℚ_p}` with open kernel kills `fixingSubgroup M` for a finite Galois `M`
+   (the fixed field of `ker χ`; Mathlib's `InfiniteGalois` correspondence). `M` is abelian, since
+   `Gal(M/ℚ_p)` is a quotient of `G_{ℚ_p}/ker χ`, which embeds in `ℚ/ℤ`.
+2. With `M ≤ K = muField p (p^k m)` (`le_muField_of_lkw`), `χ` descends to `χ_K` on `Gal(K/ℚ_p)`
+   through the surjection `AlgEquiv.restrictNormalHom K`, whose kernel `fixingSubgroup K ≤ fixingSubgroup M`
+   lies in `ker χ`.
+3. Inflate `ψ_L` to `G_{ℚ_p}` by `restrictNormalHom L`; its kernel contains the open
+   `fixingSubgroup L`. Restriction is transitive: `(g|_L)|_K = g|_K`, through `muAlgebra`.
+4. `τ₋₁ ∈ G_{ℚ_p}`, an automorphism acting by `ζ ↦ ζ⁻¹` on `μ_{p^∞}` and trivially on prime-to-`p` roots of unity,
+   restricts to the `τ` of `sqrt_criterion_muField`. This follows from `autToPow_eq_of_apply` and
+   `AlgEquiv.restrictNormal_commutes`.
+5. For the converse direction over `G_{ℚ_p}`: `χ(τ₋₁) = ψ(τ₋₁²)`, and `τ₋₁²` fixes every root of unity.
+   So it lies in `fixingSubgroup (muField p n')`, which is inside `ker ψ` once I6.3 is applied to the
+   fixed field of `ker ψ`.
 
-SPECULATIVE estimate: 200-350 lines, all instance and intermediate-field bookkeeping.
+SPECULATIVE estimate: 150-250 lines of bookkeeping, with no further arithmetic input. The existence
+of `τ₋₁` in `G_{ℚ_p}` (a lift of compatible `τ`s at every level) is not needed if the statement
+quantifies over any `τ₋₁` with that action, as pkg-I6's B2 statement does.
 
-Also not done: merging `Disj.lean` with glue-sqrt-local's `SqrtLocal.lean` (the `p`-power-only
-results `gal_sqrt_criterion`, `gal_sqrt_criterion_lower` are the case `m = 1` and stay valid as they are).
+Also not done:
+- discharging the instance hypothesis `[NeZero (p^{2f} − 1)]` of `sqrt_criterion_level_pow` and
+  `sqrt_criterion_muField` (true: `p^{2f} ≥ 4`);
+- merging with glue-sqrt-local's `SqrtLocal.lean`. Its `p`-power-only results
+  `gal_sqrt_criterion` and `gal_sqrt_criterion_lower` are the case `m = 1` and stay valid as they are.
 
 ## 4. Files
 
-- `scratch/glue-sqrt-disj/Disj.lean` (1027 lines): the combined, self-contained file. It is glue-sqrt-local's
-  `Unramified.lean` verbatim, then `SqrtLocal.lean` lines 84-242 verbatim (`exists_half_iff`, `redU`,
-  `redU_sq_eq_one` and helpers), then `Ram.lean`, then the sections `Disj` and `Crit`.
+- `scratch/glue-sqrt-disj/Disj.lean` (about 1200 lines): the combined, self-contained file. In order:
+  - glue-sqrt-local's `Unramified.lean`, verbatim;
+  - `SqrtLocal.lean` lines 84-242, verbatim (`exists_half_iff`, `redU`, `redU_sq_eq_one` and helpers);
+  - `Ram.lean`;
+  - the sections `Disj` and `Crit` (with `Level.lean` inside);
+  - `Plumb.lean`;
+  - the section `MuField`.
+- `scratch/glue-sqrt-disj/Plumb.lean`: I6.3's fields as cyclotomic extensions; I6.3 normalized (standalone).
 - `scratch/glue-sqrt-disj/Ram.lean`: the degree bound alone (standalone).
 - `scratch/glue-sqrt-disj/Level.lean`: the level-change arithmetic alone (standalone).
 - `scratch/glue-sqrt-disj/log.md`: results log.
