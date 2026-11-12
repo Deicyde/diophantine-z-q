@@ -22,8 +22,8 @@
   nonzero space is the scalars), `GlueI3.finrank_commOf_eq_one_of_prod_le_four`. VERIFIED (compiled).
 - `GlueI3.repBaseChange E ρ`: `ρ_E g = (ρ g).baseChange E` on `E ⊗_k V`, a Mathlib `Representation`
   (laws proved). VERIFIED (compiled).
-- `GlueI3.InvariantsBaseChange`, `GlueI3.SemisimpleBaseChange`: statements (`def … : Prop`) of the two
-  linear-algebra glue facts; NOT proved (STANDARD linear algebra; see the report).
+- `GlueI3.SemisimpleBaseChange`: statement (`def … : Prop`); NOT proved (STANDARD algebra; see the report).
+  (`InvariantsBaseChange` was stated here at first, later removed: replaced by proved lemmas, see below.)
 - `GlueI3.absolutelyIrreducible_of_finrank_commOf_prod_le_four`: from `InvariantsBaseChange` and
   `SemisimpleBaseChange`: char 0, `V ≠ 0` finite-dimensional, `ρ` semisimple,
   `finrank End_G(V ⊕ V) ≤ 4` ⇒ `repBaseChange F ρ` irreducible for every field `F ⊇ k`.
@@ -62,6 +62,14 @@
   `PkgI3.E1_exists_hom_ne_zero` no longer takes `EquivariantDescent` as a hypothesis. Axioms
   [propext, Classical.choice, Quot.sound].
 
+- 22:45-22:47 PST: `GlueI3.commBaseChange`, `commOf_baseChange_le_range` (every equivariant
+  `E`-endomorphism of `E ⊗ V` is in the image of `E ⊗ End_G V`), `finrank_commOf_baseChange_le`
+  (`dim_E End_G(E⊗V) ≤ dim_k End_G V`), `scalar_commOf_baseChange` PROVED (compiled; axioms
+  [propext, Classical.choice, Quot.sound]). `InvariantsBaseChange` (equality Prop) REMOVED;
+  `absolutelyIrreducible_of_finrank_commOf_prod_le_four`, `C2_absolutelyIrreducible` now take only
+  `SemisimpleBaseChange` beyond I3's leaves. `C2.lean` rebuilt from `I3.lean` + `Commutant.lean` and
+  recompiled (22:47): C2, E1, equivariantDescent axioms [propext, Classical.choice, Quot.sound].
+
 ## Findings
 - Mathlib v4.35.0 has `Representation.IsIrreducible` (`IsSimpleOrder (Subrepresentation ρ)`) and
   `IsSemisimpleRepresentation` (`ComplementedLattice`), so the commutant argument is statable over
@@ -72,7 +80,7 @@
   around by assuming `[FiniteDimensional k V]` so that instances come from the ambient space.
 
 ## Not done (see docs/research/glue-I3-linalg.md §3)
-- invariants under extension of coefficients; semisimplicity under extension (char 0);
+- semisimplicity under extension (char 0);
   `V_ℓ ⊗ E ≅ r ⊕ r` from `B ⊗ E ≅ M₂(E)`; the geometric half of `T_ℓ` under base change
   (`A(K̄) ↪ A(L̄) = A_L(L̄)`, Galois compatibility, `dim A_L = dim A`);
   the application of `PoincareReducibility` in E1.

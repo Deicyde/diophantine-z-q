@@ -2,9 +2,9 @@
 
 Status: research note (task glue-I3-linalg, 2026-11-11). Lean files in `scratch/glue-I3-linalg/`, none
 containing `sorry`, all compiled with `lake env lean`:
-- `Commutant.lean` (363 lines, Mathlib only): the linear algebra;
+- `Commutant.lean` (467 lines, Mathlib only): the linear algebra;
 - `TateBC.lean` (191 lines): Tate modules along injective maps;
-- `C2.lean` (1166 lines): pkg-I3's `I3.lean` verbatim, plus the body of `Commutant.lean`, plus C2 and E1
+- `C2.lean` (1270 lines): pkg-I3's `I3.lean` verbatim, plus the body of `Commutant.lean`, plus C2 and E1
   stated and proved over the object layer;
 - `I3.lean`: a verbatim copy of pkg-I3's file.
 
@@ -14,8 +14,8 @@ reference), SPECULATIVE; UNVERIFIED for locators given from memory.
 ## Main result
 
 **The I3 glue for C2 and E1 is proved in Lean over pkg-I3's object layer (VERIFIED, compiled; axioms
-`propext`, `Classical.choice`, `Quot.sound`), modulo two textbook linear-algebra statements, which are stated
-in Lean but not proved.** Everything is over Mathlib's genuine `Representation`, `IsSemisimpleRepresentation`
+`propext`, `Classical.choice`, `Quot.sound`), modulo one textbook algebra statement, which is stated in Lean
+but not proved: `SemisimpleBaseChange`.** Everything is over Mathlib's genuine `Representation`, `IsSemisimpleRepresentation`
 and `IsIrreducible`.
 
 - `PkgI3.C2_absolutelyIrreducible` (N5 L731-734). From the leaves `FaltingsSemisimple`, `FaltingsTate`,
@@ -27,12 +27,15 @@ and `IsIrreducible`.
 - `PkgI3.E1_exists_hom_ne_zero` (N5 L861-867, first half). From the leaves `FaltingsSemisimple`,
   `FaltingsTate` and `TateModuleFree`, a common constituent of `V_ℓ(A) ⊗ E` and `V_ℓ(J) ⊗ E` gives a nonzero
   `Hom_K(A, J)`.
-- Unproved glue:
-  - `InvariantsBaseChange` (used by C2 only): `dim_E End_G(V ⊗ E) = dim_k End_G(V)`;
-  - `SemisimpleBaseChange` (used by both): semisimplicity survives extension of scalars in characteristic 0.
+- Unproved glue: only `SemisimpleBaseChange` (used by both): semisimplicity survives extension of scalars in
+  characteristic 0. It is not a literature leaf; it is STANDARD algebra. §3 gives the route and the reason it
+  was not done.
+- Invariants under extension of coefficients are **proved**:
+  - `finrank_commOf_baseChange_le`: `dim_E End_G(E ⊗ V) ≤ dim_k End_G(V)`;
+  - `scalar_commOf_baseChange`: a scalar commutant stays scalar;
+  - `equivariantDescent`.
 
-  Neither is a literature leaf. Both are STANDARD algebra; §3 gives the route and the reason they were not
-  done.
+  So an earlier stated Prop, `InvariantsBaseChange`, was dropped.
 - Not done:
   - the application of `PoincareReducibility` in E1. It needs `EndDivision A`, and the leaf interface (A9's
     output) has to be adjusted; see §2;
@@ -45,7 +48,9 @@ and `IsIrreducible`.
 | `finrank_commOf_eq_one_of_prod_le_four` | `V ≠ 0` finite-dimensional, `dim End_G(V ⊕ V) ≤ 4` ⇒ `dim End_G(V) = 1` | proved |
 | `isIrreducible_of_finrank_commOf_prod_le_four` | in addition `ρ` semisimple ⇒ `ρ` irreducible and `End_G(V) = k` | proved |
 | `repBaseChange E ρ` | `ρ_E(g) = ρ(g) ⊗ E` on `E ⊗_k V`, a Mathlib `Representation` (laws proved) | definition |
-| `InvariantsBaseChange` | `V` finite-dimensional ⇒ `dim_E End_G(V ⊗ E) = dim_k End_G(V)` | **stated, not proved** |
+| `commBaseChange`, `commOf_baseChange_le_range` | every `G`-equivariant `E`-endomorphism of `E ⊗ V` is the image of `E ⊗ End_G(V)` (`V` finite-dimensional; coordinates in a `k`-basis of `E`) | proved |
+| `finrank_commOf_baseChange_le` | `dim_E End_G(E ⊗ V) ≤ dim_k End_G(V)` | proved |
+| `scalar_commOf_baseChange` | `End_G(V) = k` ⇒ `End_G(E ⊗ V) = E` | proved |
 | `SemisimpleBaseChange` | `char k = 0`, `V` finite-dimensional, `ρ` semisimple ⇒ `ρ_E` semisimple | **stated, not proved** |
 | `exists_equivariant_ne_zero_of_common` | E1's first arrow: `ρ` semisimple, a nonzero subrepresentation `U` of `ρ` equivariantly isomorphic to a subrepresentation `U'` of `σ` ⇒ a nonzero `G`-equivariant linear map `V → W` | proved |
 | `PkgI3.Tate.map_bijective` (`TateBC.lean`) | `φ : M →+ N` injective, `T_ℓ M` free and finite, `T_ℓ N` finite, equal ranks ⇒ `T_ℓ(φ)` bijective (the algebraic core of `T_ℓ` under base change) | proved |
@@ -53,13 +58,13 @@ and `IsIrreducible`.
 | `isSemisimple_of_surjective` | semisimplicity passes to equivariant quotients | proved |
 | `exists_equivariant_ne_zero_of_baseChange`, `equivariantDescent` | nonzero equivariant `E`-map `V⊗E → W⊗E` ⇒ nonzero equivariant `k`-map `V → W` | proved |
 | `PkgI3.E1_exists_hom_ne_zero` (`C2.lean`) | E1: common constituent over `E` ⇒ nonzero `Hom A J` (see above) | proved (conditional on `SemisimpleBaseChange`) |
-| `PkgI3.C2_absolutelyIrreducible` (`C2.lean`) | C2 over the object layer (see above) | proved (conditional on the two Props and the isomorphism `e`) |
-| `absolutelyIrreducible_of_finrank_commOf_prod_le_four` | from the two Props above: `char k = 0`, `V ≠ 0` finite-dimensional, `ρ` semisimple, `dim End_G(V ⊕ V) ≤ 4` ⇒ `ρ_F` irreducible for **every** field `F ⊇ k` | proved (conditional on the two Props) |
+| `PkgI3.C2_absolutelyIrreducible` (`C2.lean`) | C2 over the object layer (see above) | proved (conditional on `SemisimpleBaseChange` and the isomorphism `e`) |
+| `absolutelyIrreducible_of_finrank_commOf_prod_le_four` | from `SemisimpleBaseChange`: `char k = 0`, `V ≠ 0` finite-dimensional, `ρ` semisimple, `dim End_G(V ⊕ V) ≤ 4` ⇒ `ρ_F` irreducible for **every** field `F ⊇ k` | proved (conditional on `SemisimpleBaseChange`) |
 
 **C2 in pkg-I3's object layer (VERIFIED, compiled, `C2.lean`).** `PkgI3.C2_absolutelyIrreducible` has these
 hypotheses:
 - the leaves `FaltingsSemisimple`, `FaltingsTate`, `TateModuleFree`, `HomFreeFinite`;
-- the glue Props `InvariantsBaseChange`, `SemisimpleBaseChange`;
+- the glue Prop `SemisimpleBaseChange`;
 - A9's output in the form `finrank ℤ (End A) = 4`;
 - a field `E ⊇ ℚ_ℓ`, a representation `r` of `G_K` on a nonzero finite-dimensional `U`, and a
   `G_K`-equivariant `E`-linear isomorphism `E ⊗ V_ℓ(A) ≃ U × U`.
@@ -93,13 +98,15 @@ In Lean terms (`G = G_{L'}`, `k = E`, `ρ = r`):
 1. `dim_{ℚ_ℓ} End_G(V_ℓ A) = rank_ℤ End_{L'}(A) = 4`. The first equality is pkg-I3's `finrank_equivEnd`
    (proved there from `FaltingsTate`, `TateModuleFree` and `HomFreeFinite`). The value 4 comes from
    `End_{L'}(A) ⊗ ℚ = B`, the output of A9, A10 and A8/B3 (not I3).
-2. `InvariantsBaseChange` gives `dim_E End_G(V_ℓ A ⊗ E) = 4`.
+2. `finrank_commOf_baseChange_le` (proved) gives `dim_E End_G(V_ℓ A ⊗ E) ≤ 4`.
 3. `V_ℓ A ⊗ E ≅ r ⊕ r` as `G`-representations (from `B ⊗ E ≅ M₂(E)`: the idempotent `e₁₁` cuts out `r`, and
-   `e₁₂` gives `e₂₂V ≅ e₁₁V`). Transport along this isomorphism gives `dim_E End_G(r ⊕ r) ≤ 4`. **Not
-   formalized** (see §3).
+   `e₁₂` gives `e₂₂V ≅ e₁₁V`). The isomorphism itself is **not formalized** (it is the hypothesis `e`; see
+   §3). Transport along it (`finrank_commOf_le_of_equiv`, proved) gives `dim_E End_G(r ⊕ r) ≤ 4`.
 4. `r` is semisimple: it is an equivariant quotient of `V_ℓ A ⊗ E`, which is semisimple by
    `FaltingsSemisimple` and `SemisimpleBaseChange`. Proved (`isSemisimple_of_surjective`).
-5. `absolutelyIrreducible_of_finrank_commOf_prod_le_four` concludes.
+5. `absolutelyIrreducible_of_finrank_commOf_prod_le_four` concludes. It shows `End_G(r) = E`, then
+   `End_G(r ⊗ F) = F` by `scalar_commOf_baseChange`, and `r ⊗ F` is semisimple by `SemisimpleBaseChange`.
+   Hence `r ⊗ F` is irreducible.
 
 **Remark (VERIFIED by the proof).** N5 says "dimension 4, so `End_G r = E`". The Lean proof uses only the
 inequality `4 · dim End_G(r) ≤ dim End_G(r ⊕ r) ≤ 4`, through the injective block map. The reverse inclusion
@@ -114,7 +121,7 @@ inequality `4 · dim End_G(r) ≤ dim End_G(r ⊕ r) ≤ 4`, through the injecti
     `FaltingsSemisimple` + `SemisimpleBaseChange` for `V_ℓ(A) ⊗ E`; N5 invokes the semisimplicity of `V(J)`,
     but either side suffices;
   - descent of a nonzero `E`-equivariant map `V_A ⊗ E → V_J ⊗ E` to a nonzero `ℚ_ℓ`-equivariant map. This is
-    the `Hom` version of `InvariantsBaseChange`. It is **proved** as `equivariantDescent`.
+    the `Hom` version of invariants under extension. It is **proved** as `equivariantDescent`.
 
   The two arrows are assembled in `PkgI3.E1_exists_hom_ne_zero` (compiled).
 - *Application of `PoincareReducibility`.* That leaf needs `EndDivision A` over `L'` (every nonzero
@@ -136,15 +143,9 @@ inequality `4 · dim End_G(r) ≤ dim End_G(r ⊕ r) ≤ 4`, through the injecti
 
 ## 3. What remains, with the reason
 
-1. **`InvariantsBaseChange`, proof.** (Its weakened `Hom` form `EquivariantDescent` is proved; the same
-   basis-coordinate argument gives `≤` for the commutant, but turning it into the `finrank` inequality ran into
-   the Lean 4.35 `Submodule` instance-path problem recorded in the log.) STANDARD (e.g. Bourbaki, *Algèbre* II §3, or
-   any proof that kernels commute with flat base change; UNVERIFIED locator). The Lean route: the commutant of
-   `ρ(G)` equals the commutant of a finite spanning subfamily `ρ(g₁), …, ρ(g_m)` (`End_k V` is
-   finite-dimensional). So it is the kernel of `Φ : End V → (End V)^m`. Then `End_E(V_E) ≅ E ⊗ End_k V`
-   (finite free), and kernels commute with the flat base change `k → E`. Every ingredient is in Mathlib, but
-   the bookkeeping did not fit in this run (the task began at 22:24 for a 23:20 deadline). Estimate: 150-300
-   lines.
+1. **Invariants under extension of coefficients: done.** (`commOf_baseChange_le_range`,
+   `finrank_commOf_baseChange_le`, `scalar_commOf_baseChange`, `equivariantDescent`, all proved, 22:42-22:47
+   PST.) Only `≤` is proved. `≥` is not needed by C2 or E1.
 2. **`SemisimpleBaseChange`, proof.** STANDARD (Bourbaki, *Algèbre* VIII §12, separable semisimple
    algebras; Curtis–Reiner §69; UNVERIFIED locators). Mathlib v4.35.0 has semisimple rings and modules, but
    I did not find "a finite-dimensional semisimple algebra over a perfect field stays semisimple after base
@@ -181,10 +182,15 @@ inequality `4 · dim End_G(r) ≤ dim End_G(r ⊕ r) ≤ 4`, through the injecti
 5. **E1's `PoincareReducibility` application**: §2, items (a)-(c); (c) needs the leaf adjustment
    recommended there.
 
-## 4. What compiles (VERIFIED, 2026-11-11 22:31, 22:34 and 22:38 PST)
+## 4. What compiles (VERIFIED, 2026-11-11; last runs 22:46-22:47 PST)
 
-`lake env lean scratch/glue-I3-linalg/C2.lean` (about 15 s) reports no errors and prints
-`'PkgI3.C2_absolutelyIrreducible' depends on axioms: [propext, Classical.choice, Quot.sound]`.
+`lake env lean scratch/glue-I3-linalg/C2.lean` (about 15 s) reports no errors and prints:
+
+```
+'PkgI3.C2_absolutelyIrreducible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI3.E1_exists_hom_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueI3.equivariantDescent' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
 
 `lake env lean scratch/glue-I3-linalg/TateBC.lean` reports no errors and prints
 `'PkgI3.Tate.map_bijective' depends on axioms: [propext, Classical.choice, Quot.sound]`.
@@ -195,6 +201,11 @@ inequality `4 · dim End_G(r) ≤ dim End_G(r ⊕ r) ≤ 4`, through the injecti
 'GlueI3.isIrreducible_of_commutant_scalar' depends on axioms: [propext, Classical.choice, Quot.sound]
 'GlueI3.isIrreducible_of_finrank_commOf_prod_le_four' depends on axioms: [propext, Classical.choice, Quot.sound]
 'GlueI3.absolutelyIrreducible_of_finrank_commOf_prod_le_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueI3.exists_equivariant_ne_zero_of_common' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueI3.isSemisimple_of_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueI3.exists_equivariant_ne_zero_of_baseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueI3.finrank_commOf_baseChange_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueI3.scalar_commOf_baseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
 `Commutant.lean` imports only Mathlib (`RepresentationTheory.Semisimple`, `.Irreducible`,
