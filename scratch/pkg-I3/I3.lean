@@ -421,3 +421,104 @@ structure I3Leaves : Prop where
   qmDichotomy : QMDichotomy
 
 end PkgI3
+
+/-! ## 4. Glue checks: the leaves are usable with these definitions -/
+
+namespace PkgI3
+
+open CategoryTheory AlgebraicGeometry MonObj AbVar
+open scoped TensorProduct
+
+/-- The easy half of Faltings' statement holds outright: the image of `Hom(A, B) ⊗ ℤ_ℓ`
+consists of Galois-equivariant maps. (So `FaltingsTate` asserts injectivity and the reverse
+inclusion, as in the published statement.) -/
+lemma homT_galT {K : Type} [Field K] {A B : AbVar K} {ℓ : ℕ} [Fact ℓ.Prime] (f : Hom A B)
+    (σ : Field.absoluteGaloisGroup K) (x : A.T ℓ) :
+    homT f (A.galT σ x) = B.galT σ (homT f x) := by
+  apply Subtype.ext; funext n
+  change Additive.ofMul ((galHom σ ≫ Additive.toMul (x.1 n)) ≫ f.hom) =
+    Additive.ofMul (galHom σ ≫ (Additive.toMul (x.1 n) ≫ f.hom))
+  rw [Category.assoc]
+
+theorem range_tateHomZl_subset {K : Type} [Field K] (A B : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
+    Set.range (tateHomZl ℓ A B) ⊆ {φ | IsGalEquivariant φ} := by
+  rintro _ ⟨z, rfl⟩
+  induction z using TensorProduct.induction_on with
+  | zero => intro σ x; simp
+  | tmul a f =>
+    intro σ x
+    have e : tateHomZl ℓ A B (a ⊗ₜ f) = a • tateHom ℓ A B f := rfl
+    rw [e, LinearMap.smul_apply, LinearMap.smul_apply, map_smul]
+    exact congrArg (a • ·) (homT_galT f σ x)
+  | add y z hy hz =>
+    intro σ x
+    simp only [map_add, LinearMap.add_apply, hy σ x, hz σ x]
+
+/-- **Glue for E1.** From Faltings' theorem and the structure of `T_ℓ`: a nonzero
+`G_K`-equivariant `ℚ_ℓ`-linear map `V_ℓ(A) → V_ℓ(B)` forces a nonzero homomorphism `A → B`. -/
+theorem exists_hom_ne_zero_of_equivariant (hF : FaltingsTate) (hT : TateModuleFree)
+    {K : Type} [Field K] [NumberField K] (A B : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (φ : A.V ℓ →ₗ[ℚ_[ℓ]] B.V ℓ) (hφ : φ ≠ 0)
+    (heq : ∀ σ, φ ∘ₗ A.galRep ℓ σ = B.galRep ℓ σ ∘ₗ φ) : ∃ f : Hom A B, f ≠ 0 := by
+  classical
+  have hℓK : (ℓ : K) ≠ 0 := Nat.cast_ne_zero.mpr (Fact.out : ℓ.Prime).ne_zero
+  obtain ⟨-, hfinA, -⟩ := hT K A ℓ hℓK
+  obtain ⟨hfreeB, -, -⟩ := hT K B ℓ hℓK
+  have : Module.FinitePresentation ℤ_[ℓ] (A.T ℓ) := Module.finitePresentation_of_finite _ _
+  let ιA : A.T ℓ →ₗ[ℤ_[ℓ]] A.V ℓ := TensorProduct.mk ℤ_[ℓ] ℚ_[ℓ] (A.T ℓ) 1
+  let ιB : B.T ℓ →ₗ[ℤ_[ℓ]] B.V ℓ := TensorProduct.mk ℤ_[ℓ] ℚ_[ℓ] (B.T ℓ) 1
+  have : IsLocalizedModule (nonZeroDivisors ℤ_[ℓ]) ιB := inferInstance
+  obtain ⟨h, s, hs⟩ := Module.FinitePresentation.exists_lift_of_isLocalizedModule
+    (nonZeroDivisors ℤ_[ℓ]) ιB ((φ.restrictScalars ℤ_[ℓ]) ∘ₗ ιA)
+  have hs0 : (s : ℤ_[ℓ]) ≠ 0 := nonZeroDivisors.ne_zero s.2
+  -- `ιB` is injective (`T_ℓ B` is free, hence torsion-free).
+  have hιB : Function.Injective ιB := by
+    rw [← LinearMap.ker_eq_bot, LinearMap.ker_eq_bot']
+    intro y hy
+    obtain ⟨t, ht⟩ := (IsLocalizedModule.eq_zero_iff (nonZeroDivisors ℤ_[ℓ]) ιB).mp hy
+    exact (smul_eq_zero.mp ht).resolve_left (nonZeroDivisors.ne_zero t.2)
+  -- the Galois actions commute with `ι`
+  have hιAσ : ∀ σ x, ιA (A.galT σ x) = A.galRep ℓ σ (ιA x) := fun σ x => by
+    simp [ιA, galRep, LinearMap.baseChange_tmul]
+  have hιBσ : ∀ σ x, ιB (B.galT σ x) = B.galRep ℓ σ (ιB x) := fun σ x => by
+    simp [ιB, galRep, LinearMap.baseChange_tmul]
+  have hsφ : ∀ x, ιB (h x) = (s : ℤ_[ℓ]) • φ (ιA x) := fun x => by
+    have := congrArg (fun g => g x) hs
+    simp only [LinearMap.coe_comp, Function.comp_apply, LinearMap.smul_apply,
+      LinearMap.coe_restrictScalars, Submonoid.smul_def] at this
+    exact this
+  -- `h` is equivariant
+  have hheq : IsGalEquivariant h := by
+    intro σ x
+    apply hιB
+    rw [hsφ, hιAσ, hιBσ, hsφ]
+    have := congrArg (fun g => g (ιA x)) (heq σ)
+    simp only [LinearMap.coe_comp, Function.comp_apply] at this
+    rw [this, LinearMap.map_smul_of_tower]
+  -- `h ≠ 0`
+  have hh0 : h ≠ 0 := by
+    intro h0
+    apply hφ
+    have hφι : ∀ x, φ (ιA x) = 0 := fun x => by
+      have h1 : (s : ℤ_[ℓ]) • φ (ιA x) = 0 := by rw [← hsφ, h0]; simp
+      rw [← algebraMap_smul ℚ_[ℓ] (s : ℤ_[ℓ])] at h1
+      exact (smul_eq_zero.mp h1).resolve_left (by
+        simpa using (IsFractionRing.injective ℤ_[ℓ] ℚ_[ℓ]).ne hs0)
+    apply LinearMap.ext
+    intro v
+    induction v using TensorProduct.induction_on with
+    | zero => simp
+    | tmul q x =>
+      have : (q ⊗ₜ[ℤ_[ℓ]] x : A.V ℓ) = q • ιA x := by simp [ιA, TensorProduct.smul_tmul']
+      rw [this, map_smul, hφι, smul_zero, LinearMap.zero_apply]
+    | add v w hv hw => simp [map_add, hv, hw]
+  -- conclude with Faltings
+  obtain ⟨z, hz⟩ : h ∈ Set.range (tateHomZl ℓ A B) := by
+    rw [(hF K A B ℓ).2]; exact hheq
+  by_contra hall
+  simp only [ne_eq, not_exists, not_not] at hall
+  have : Subsingleton (Hom A B) := ⟨fun f g => (hall f).trans (hall g).symm⟩
+  have : z = 0 := Subsingleton.elim _ _
+  exact hh0 (by rw [← hz, this, map_zero])
+
+end PkgI3

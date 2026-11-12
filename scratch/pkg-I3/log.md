@@ -26,3 +26,31 @@
   proved), `tateHom`, `tateHomZl : ℤ_ℓ ⊗[ℤ] Hom A B →ₗ[ℤ] (T_ℓ A →ₗ[ℤ_ℓ] T_ℓ B)`,
   `IsGalEquivariant`, `IsIsogenyMor` (finite and surjective), `dim` (topological Krull dim).
 - Compile: `lake env lean scratch/pkg-I3/I3.lean` → no output (VERIFIED).
+
+## Step 3: leaves (compile)
+Seven leaf Props in `I3.lean` §3, bundled in `structure I3Leaves`:
+- `FaltingsSemisimple` (Faltings 1983 Satz 3): `(A.galRep ℓ).IsSemisimpleRepresentation` for
+  every abelian variety over every number field, every prime ℓ.
+- `FaltingsTate` (Satz 4 for A = B, Korollar 1): `tateHomZl ℓ A B` injective and its range is
+  `{φ | IsGalEquivariant φ}`.
+- `TateModuleFree` (Mumford §4 / §§18-19): T_ℓ(A) free, finite, rank 2·dim A, for ℓ ≠ char k.
+- `HomFreeFinite` (Mumford §19 Thm 3): Hom(A,B) free f.g. over ℤ, rank ≤ 4 dim A dim B, and
+  ℤ_ℓ ⊗ Hom → Hom(T_ℓ, T_ℓ) injective for ℓ ≠ char k.
+- `CharPolyIndepOfEll` (Mumford §19 Thm 4): ∃ monic P ∈ ℤ[X] equal to the charpoly of V_ℓ(φ) in
+  any finite basis, for every ℓ ≠ char k.
+- `PoincareReducibility` (Mumford §19 Thm 1, E1 form, char 0): End⁰(A) division (every nonzero
+  endomorphism finite surjective), f : A → J nonzero ⇒ ∃ Z, g with (f, g) : A × Z → J finite
+  surjective.
+- `QMDichotomy` (A9): k alg. closed char 0, dim A = 2, (a,b)_ℚ division embedding in End⁰(A) ⇒
+  End⁰(A) ≅ (a,b)_ℚ or M₂(ℚ(√d)), d < 0. (Consequence of several Mumford results; single
+  refereed locator UNVERIFIED.)
+Compile: no errors (VERIFIED).
+
+## Step 4: glue checks (compile, no sorry; axioms propext, Classical.choice, Quot.sound)
+- `range_tateHomZl_subset`: range ⊆ equivariant maps holds outright (non-vacuity check: the
+  leaf's content is exactly injectivity + the reverse inclusion).
+- `exists_hom_ne_zero_of_equivariant` (E1 glue): `FaltingsTate → TateModuleFree →` a nonzero
+  G_K-equivariant ℚ_ℓ-linear map V_ℓA → V_ℓB gives a nonzero f : Hom A B. Proof uses Mathlib's
+  `Module.FinitePresentation.exists_lift_of_isLocalizedModule` (clearing denominators).
+- `#print axioms` on both and on `AbVar.galRep`: [propext, Classical.choice, Quot.sound]
+  (VERIFIED). `grep -c sorry I3.lean` = 0.
