@@ -615,18 +615,29 @@ theorem continuous_trace_galRep (A : AbVar K) [Module.Free ℤ_[ℓ] (A.T ℓ)]
     [Module.Finite ℤ_[ℓ] (A.T ℓ)] :
     Continuous (fun σ : Field.absoluteGaloisGroup K =>
       LinearMap.trace ℚ_[ℓ] (A.V ℓ) (A.galRep ℓ σ)) := by
-  classical
+  have := IsModuleTopology.toContinuousAdd ℚ_[ℓ] (A.V ℓ)
   let bV := (Module.Free.chooseBasis ℤ_[ℓ] (A.T ℓ)).baseChange ℚ_[ℓ]
   have h : (fun σ : Field.absoluteGaloisGroup K =>
       LinearMap.trace ℚ_[ℓ] (A.V ℓ) (A.galRep ℓ σ)) =
       fun σ => ∑ i, bV.coord i (A.galRep ℓ σ (bV i)) := by
     funext σ
-    sorry
-  sorry
-  /-rw [h]
+    classical
+    rw [LinearMap.trace_eq_matrix_trace ℚ_[ℓ] bV]
+    simp only [Matrix.trace, Matrix.diag_apply, LinearMap.toMatrix_apply,
+      Module.Basis.coord_apply]
+  have hρ : ∀ v : A.V ℓ, Continuous (fun σ : Field.absoluteGaloisGroup K => A.galRep ℓ σ v) := by
+    intro v
+    have h1 : Continuous (fun σ : Field.absoluteGaloisGroup K => (σ, v)) :=
+      continuous_id.prodMk continuous_const
+    have h2 := (continuous_galRep ℓ A).comp h1
+    refine h2.congr fun σ => ?_
+    simp only [Function.comp_apply]
+  have hc : ∀ i, Continuous (bV.coord i) := fun i =>
+    IsModuleTopology.continuous_of_linearMap (bV.coord i)
+  rw [h]
   refine continuous_finsetSum _ fun i _ => ?_
-  exact (IsModuleTopology.continuous_of_linearMap (bV.coord i)).comp
-    ((continuous_galRep ℓ A).comp (continuous_id.prodMk continuous_const))-/
+  refine ((hc i).comp (hρ (bV i))).congr fun σ => ?_
+  simp only [Function.comp_apply]
 
 end PkgI3.RhoCont
 
