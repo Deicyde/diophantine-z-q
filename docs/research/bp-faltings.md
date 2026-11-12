@@ -248,7 +248,7 @@ Templates: pkg-I5 §3. Everything below is stated over `faltingsHeight A` for a 
 | the fundamental domain of `Λ_σ` | `torusMetricSq_eq_setIntegral`, `torus_setIntegral_indep` (**BUILT**) |
 | the linear coordinates on `Lie(A_σ)` | `torusMetricSq_comap`, `HodgeData.modelHeight_recoord` (**BUILT**) |
 | the model `𝒢` over a fixed `L` | by the infimum (H3); the comparison of two nested models is `modelHeight_eq_add_of_le` (**BUILT**); that the Néron model is the minimum: M5 + `modelHeight_le_of_le` |
-| the field `L` | H4 (base change of a model keeps the height; M) and H5 (semistable invariance; XL) |
+| the field `L` | H4 (base change of a model keeps the height; M; the Arakelov part is **BUILT**: `arakelovDegree_ofFractionalIdeal_baseChange`, `HodgeData.modelHeight_ofIdeal_baseChange`) and H5 (semistable invariance; XL) |
 | the embedding `K → L` | built into the index type of H3 |
 
 ## 4. What compiles (VERIFIED)
@@ -270,9 +270,9 @@ report no errors and no warnings. `#print axioms` on every main theorem lists `p
 | 7 | `secIndex_mul_absNorm`, `HermitianLattice.ofFractionalIdeal`, `arakelovDegree_ofFractionalIdeal` | AR3 (fractional ideals) |
 | 8 | `embCoeff`, `HodgeData.ofIdeal`, `HodgeData.modelHeight_ofIdeal`, `modelHeight_ofIdeal_eq_faltingsHeightEC` | AT1, conditional form (any Néron lattice `𝔞·ω`) |
 | 9 | `card_embeddings_over`, `sum_embeddings_comp` | AR3 / H4 (archimedean half of base change) |
+| 10 | `hypGram_comp_add`, `hypVol_one_comp_add`, `modelHeight_ofIdeal_eq_faltingsHeightEC'` | AT1 for every Weierstrass model: `P_W^σ` need only equal `4x³ − g₂x − g₃` after a translation `x ↦ x + c_σ` (`ω ↦ dz` fixes `g₂ = c₄/12`, `g₃ = c₆/216`; `b₂` is removed by translation) |
 | 11 | `finrank_ringOfIntegers`, `absNorm_map_ringOfIntegers`, `norm_algebraMap_tower`, `absNorm_extendedHom`, `arakelovDegree_ofFractionalIdeal_baseChange` | AR3 (base change: `deg_L = [L:K]·deg_K`) |
 | 12 | `HodgeData.modelHeight_ofIdeal_baseChange` | H4 for dimension-1 Hodge data: extending the lattice to `𝓞_L` and restricting the period lattices leaves the model height unchanged |
-| 10 | `hypGram_comp_add`, `hypVol_one_comp_add`, `modelHeight_ofIdeal_eq_faltingsHeightEC'` | AT1 for every Weierstrass model: `P_W^σ` need only equal `4x³ − g₂x − g₃` after a translation `x ↦ x + c_σ` (`ω ↦ dz` fixes `g₂ = c₄/12`, `g₃ = c₆/216`; `b₂` is removed by translation) |
 
 Key statements (Lean, abridged):
 
