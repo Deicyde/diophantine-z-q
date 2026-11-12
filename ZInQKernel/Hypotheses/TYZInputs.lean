@@ -26,7 +26,7 @@ the type of `GenusData.β`). The parts are:
   (Lemma 3.21, L2504–2517; "β acts on ℚ(i) trivially", L2581).
 
 Each field is a consequence of a printed TYZ statement (`docs/research/pn-design.md` §2). Two
-points are not literally printed:
+points are not literally printed, and both are settled:
 
 * the typing of `β : M →+ M`. Since `M` is existential, it is taken to be the span above, and
   `β` is the restriction to `M` of one lifting `β' ∈ Gal(ℚ̄/ℚ)` of `β₁`. That `β'` maps this `M`
@@ -37,16 +37,22 @@ points are not literally printed:
   act on all of `A(ℍ'_n)`. TYZ use it without printing it (L2594–2595); it follows from TYZ
   Proposition 3.2(1) (L1255–1256) together with Cox, *Primes of the form x² + ny²*, Lemma 9.3
   (ring class fields are generalized dihedral over `ℚ`).) Neither F4 nor F5 is a Lean field;
-* T1: the constant `P_χ = ε 2^{h₂(n)} 𝓛(d₁) 𝒫(d₀)` of TYZ Theorem 3.3 is asserted after
-  "computations similar to" those of Theorem 2.1, which are not printed (L2014–2015). The fields
-  `eps_53`, `eps_pm1` and `recursion` use it; Proposition N needs the factor attached to `d₁` to
-  be `𝓛(d₁)` up to a 2-adic unit, uniformly in `χ` (`rv-tyz-inputs` §2.3).
+* T1: the constant `P_χ = ε 2^{h₂(n)} 𝓛(d₁) 𝒫(d₀)` of TYZ Theorem 3.3 (used by `eps_53`,
+  `eps_pm1` and `recursion`, through I3) is asserted after "computations similar to" those of
+  Theorem 2.1, which TYZ do not print (L2014–2015). `docs/research/tyz-t1.md` closes this:
+  Theorem 3.3 holds as printed. I3 needs the constant not to depend on `d₁` for fixed `d₀`; this
+  is written out from TYZ's Theorem A.9 (L3062–3077; no local factor depends on `χ`, `d₀` or `d₁`
+  except through the two L-values), and checked exactly on 30 values of `n ≡ 5 (mod 8)`, 73
+  contributing pairs `(d₀, d₁)`, from Heegner points on `X₀(32)`. What remains external is
+  Theorem A.9 itself: the Yuan–Zhang–Zhang Gross–Zagier formula, made explicit by TYZ, who omit
+  the deduction (L3079).
 
 Reviews: `docs/research/rv-tyz-inputs.md` re-derived TYZ's proofs of I1–I7 and found that they
-hold, with T1 as the one residual doubt; `docs/research/pn-design.md` (§1, §2, §5) compares each
+hold, with T1 as the one residual doubt, since closed by `docs/research/tyz-t1.md`; `docs/research/pn-design.md` (§1, §2, §5) compares each
 field with the source; `docs/research/rv-pn-encoding.md` reviewed the Lean encoding (no blocker).
 `Witness.genusData_nonempty` (`RouteK/PropN.lean`) shows that the fields of `GenusData` are jointly
-satisfiable when `L n ≠ 0`.
+satisfiable when `L n ≠ 0`, and `Witness.genusData_nonempty_iff_parities` that for `L n = 0` they are
+satisfiable exactly when the conclusion of Proposition N's final step holds.
 -/
 
 noncomputable section

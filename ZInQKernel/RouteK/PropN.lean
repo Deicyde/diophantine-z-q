@@ -10,7 +10,13 @@ analytic rank at most one. The hypothesis is `TYZInputs` (`Hypotheses/TYZInputs.
 encoding of the Tian–Yuan–Zhang results I1–I7 that the argument uses. This file replaces the two
 model reviews of the argument (`docs/research/rv-nt-tyz.md`, `docs/research/rv-prop-n.md`) by a
 kernel-checked proof from that encoding; the faithfulness of the encoding to TYZ is the subject
-of `docs/research/pn-design.md` §2 and `docs/research/rv-tyz-inputs.md`.
+of `docs/research/pn-design.md` §2, `docs/research/rv-tyz-inputs.md` and
+`docs/research/rv-pn-encoding.md`. The one residual doubt of rv-tyz-inputs, T1 (the constant of
+TYZ Theorem 3.3, whose computation TYZ do not print, L2014–2015), is closed by
+`docs/research/tyz-t1.md`: Theorem 3.3 holds as printed; the constant does not depend on `d₁` for
+fixed `d₀` (written out from TYZ's Theorem A.9, and checked on 30 values of `n`, 73 pairs, from
+Heegner points on `X₀(32)`). What remains external is Theorem A.9 itself, the Yuan–Zhang–Zhang
+Gross–Zagier formula made explicit by TYZ.
 
 Design: `docs/research/pn-design.md`. Main steps:
 

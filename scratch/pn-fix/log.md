@@ -35,3 +35,10 @@ so the new witness for L n = 0 will be sorry-free (the review's caveat 3 no long
 - print_axioms.lean: +3 lines (genusData_nonempty_iff_parities, genusData_nonempty_of_parities,
   Pw_congr) → 91 entries, all [propext, Classical.choice, Quot.sound] (scratch/pn-fix/print_axioms.txt).
 - lake build ZInQKernel: OK (9925 jobs), no warnings in the new code.
+
+## Step 3 (T1)
+- TYZInputs.lean module docstring: T1 bullet now records tyz-t1's result (Thm 3.3 holds as printed;
+  constant independent of d₁ for fixed d₀, from Thm A.9 L3062-3077, checked on 30 n / 73 pairs via
+  Heegner points on X₀(32)); external residue = Thm A.9 (YZZ made explicit by TYZ, deduction omitted
+  L3079). "Reviews" paragraph updated; mentions genusData_nonempty_iff_parities.
+- PropN.lean module docstring: same T1 statement; cites rv-pn-encoding.
