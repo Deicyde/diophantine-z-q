@@ -13,7 +13,9 @@ Weierstrass model `y² = 4x³ − g₂x − g₃`. For `γ = (a b; c d) ∈ SL�
 * `exactOrder` : `1/N` has exact order `N` in `ℂ/Λ_τ`.
 
 This is the analytic half of `Y₁(N)(ℂ) = Γ₁(N)\ℍ` (Diamond–Shurman, Thm 1.5.1, UNVERIFIED number).
-The other half, that every isomorphism of pairs is such a homothety, is not proved here.
+Below, `exists_SL2_of_homothety` and `pair_iso_iff` show that homotheties between such pairs are
+exactly `Γ₁(N)`, and `exists_normalize` moves every primitive level-`N` point to `1/N`. Still open:
+every lattice is some `αΛ_τ`, and every holomorphic isomorphism of tori is a homothety.
 -/
 
 namespace BPModCurves

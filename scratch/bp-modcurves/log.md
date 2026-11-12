@@ -63,3 +63,11 @@
   **`y1PointsEquivTate (hN : 4 ≤ N) : Y1Points K N ≃ TateData K N`**.
   `lake env lean`: exit 0, no warnings; standard axioms. VERIFIED.
 - 12:26 `Gamma1Genus.lean`: `two_mul_belyiDeg_Gamma1_le` (2μ(Γ₁(N)) ≤ N² for N ≥ 3). exit 0, standard axioms. VERIFIED.
+- 12:40 Independent model review of the blueprint (read-only subagent): 2 errors, 4 risks, 6 minor.
+  Applied: R16 existential now uses arithmetic Frobenius on the covariant V_ℓ (geometric would make
+  the leaf false); new leaf MC9 (K_N model ≅ Shimura's canonical model over ℚ) and node MC10
+  (rational cusp as base point); char K ∤ N caveat for Y1Points; §5 vacuity argument corrected
+  (danger is an over-strong predicate making JacobianExists false); §7.4 monodromy caveat; minor
+  fixes (trace ≡ ±2, normalization gives integral not finite j, counts, MC1' statement, docstring).
+  The review confirmed the coset conventions of Gamma1Genus, fieldX1, Y1j, pair_iso_iff, IsJacobian.
+  AnalyticModuli.lean recompiled after docstring edit: exit 0, standard axioms. VERIFIED.
