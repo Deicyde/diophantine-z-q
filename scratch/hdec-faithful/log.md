@@ -27,3 +27,10 @@
 - Leaves stated: FrobeniusDense (Chebotarev consequence), KroneckerWeber, SkolemNoether,
   HasseBrauerQ (CSA split at all p ⇒ split), BrauerNesbitt, DeligneSerreConseq.
 - Pitfalls: `ι∞` is not an identifier (use ιC); slash notation needs `open scoped ModularForm`.
+
+## Step 4 (leaf list fixed; drafting the note)
+- Pan Thm 1.0.4 (arXiv v2, as recorded in h-a011 §1.1): hypotheses continuous, irreducible,
+  finitely ramified, pst at p, odd; p odd; distinct HT weights; p=3 clause. Conclusion "comes from
+  a cuspidal eigenform up to twist" is undefined in Pan's intro (risk: Lean reading must be fixed).
+- Leaf list: L1-L35 with L11a-f (40 statements): 21 research-level, 19 textbook; 8 packages.
+- Glue list: G0 (top) + G1-G20; G20 (F4) already proved in ZInQKernel/Hypotheses/JHeight.lean.
