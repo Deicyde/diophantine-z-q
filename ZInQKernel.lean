@@ -81,3 +81,4 @@ import ZInQKernel.Hypotheses.JHeight
 import ZInQKernel.Hypotheses.TYZInputs
 import ZInQKernel.RouteK.PropN
 import ZInQKernel.MainLiterature
+import ZInQKernel.HDecomp
