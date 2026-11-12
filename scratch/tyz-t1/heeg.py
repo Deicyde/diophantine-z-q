@@ -15,14 +15,13 @@ pari('default(realprecision, 80)')
 pari.allocatemem(2 * 10**9)
 
 E = pari('E32 = ellinit([0,0,0,4,0])')  # 32a1 = X0(32) (optimal, Manin constant 1)
-NAN = 8000
-AN = pari.ellan(E, NAN)
+NAN = 120000
 OM = pari('E32.omega')
 w1, w2 = OM[0], OM[1]
 
 
 pari("an32 = ellan(ellinit([0,0,0,4,0]), %d)" % NAN)
-pari("zphi_gp(tau) = my(q = exp(2*Pi*I*tau), qq = 1, s = 0); for(k = 1, #an32, qq *= q; s += an32[k]*qq/k; if(abs(qq) < 1e-75, break)); s")
+pari("zphi_gp(tau) = my(q = exp(2*Pi*I*tau), qq = 1, s = 0, ok = 0); for(k = 1, #an32, qq *= q; s += an32[k]*qq/k; if(abs(qq) < 1e-75, ok = 1; break)); if(!ok, error(\"zphi: series not converged\")); s")
 pari("tau_gp(A,B,C) = (-B + sqrt(B^2 - 4*A*C))/(2*A)")
 
 

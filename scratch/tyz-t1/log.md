@@ -46,3 +46,16 @@ n = 21 = 7*3 (only contributing chars: trivial and chi_{7,3} = K(sqrt -7)):
   i0 = +i: P_psi and P_{chi_-3} torsion (Lemma char': non-contributing), 16 P_{chi_{7,3}} = -64 P_1(7) exactly mod Lambda (scan m in [-3000,3000], unique hit).
   i0 = -i: the opposite (the contributing ones torsion) -> i0 = +i is the K_2^x-invariant vector f_n of Prop 3.1.
   So P_{chi_{7,3}}(21) = -4 P_1(7) = eps 2^{h2(21)-h2(7)} L(3) P_1(7) with h2(21)=2, h2(7)=0, L(3)=1: Thm 3.3 cross-n consistency c(7,3) = c(7,1) VERIFIED at n=21.
+
+## Step 3: batch test (tmany.py, out_tmany1.txt)
+
+Fixes: zphi now raises unless the q-series converged (|q^k| < 1e-75; up to 120000 terms; reps can have A = 32a with a ~ 3500).
+L(d1) = sqrt(L(E_{d1},1)/(2^{2k-3} Om_{1,inf}/sqrt d1)) from lfun; asserted to be an integer (square) each time.
+19 values n = 5 mod 8: 21 85 77 69 93 205 165 357 285 861 1005 1365 221 445 365 141 237 213 253 (k = 2..4, h(-64n) = 16..96).
+Result: 0 mismatches.
+ - 54 non-contributing characters (e = 5,7 mod 8): P_chi torsion, all.
+ - 35 contributing (d0,d1), d1 > 1: 16 P_{chi_{d0,d1}}(n) = m P_1(d0) mod Lambda with unique m in scan [-4 pred-64, 4 pred+64],
+   m = +-16 * 2^{h2(n)-h2(d0)} * L(d1) in every case (factors 2^{h2(n)-h2(d0)} = 2,4,8,16; L(d1) = 1,2; 4 cases L(d1) = 0 -> P torsion:
+   (5,41), (21,41), (21,65) [and P_1(d0) non-torsion there]). Types (5,1) and (7,3), d0 prime and composite (15,21,39,55,95,119,287,335,455).
+So the exact statement Prop N needs (c(d0,d1) = +-c(d0,1)) holds on all samples, including the cross-class (7,3) comparison
+between the X_U test vector (n = 5) and the X0(32) one (d0 = 7).
