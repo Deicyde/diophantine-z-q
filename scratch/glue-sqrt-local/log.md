@@ -12,3 +12,9 @@
 - `redU_sq_eq_one`: any p, u ∈ (ZMod p^{k+1})ˣ, u²=1 → reduction to (ZMod p^k)ˣ is ±1. VERIFIED.
 - `cast_eq_zero_of_two_nsmul`: 2a=0 in ZMod 2f → a ↦ 0 in ZMod f. VERIFIED.
 - `proj_two_torsion`, `sqrt_criterion_finite`: for χ : Additive (ZMod p^k)ˣ × ZMod f →+ ℚ/ℤ, χ∘proj (proj : (ZMod p^{k+1})ˣ × ZMod 2f → (ZMod p^k)ˣ × ZMod f) is twice a character iff χ(-1,0)=0. Every prime p, every k, f. VERIFIED.
+
+## SqrtLocal.lean (combined file: CycloPadic + SqrtFinite + Gal section; compiled, axioms propext, Classical.choice, Quot.sound)
+- `galEquivUnits p n L : Gal(L/ℚ_[p]) ≃* (ZMod (p^(n+1)))ˣ` for any L with IsCyclotomicExtension {p^(n+1)} ℚ_[p] L (Mathlib autEquivPow + our irreducibility). VERIFIED.
+- `finrank_eq_totient`: finrank ℚ_[p] L = φ(p^(n+1)). VERIFIED.
+- `tauNeg := galEquivUnits.symm (-1)`; `tauNeg_mul_self`: τ x · x = 1 for every x with x^(p^(n+1)) = 1; `tauNeg_sq`. VERIFIED.
+- `gal_sqrt_criterion` (p odd): χ : Additive Gal(L/ℚ_[p]) →+ AddCircle (1:ℚ) is 2ψ for some ψ iff χ(τ₋₁) = 0. VERIFIED.
