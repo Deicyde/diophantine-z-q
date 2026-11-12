@@ -420,4 +420,97 @@ theorem vigneras_local (hp2 : p = 2 ∨ p = 3) :
 
 end Normalizer
 
+/-! ## Split primes: the normalizer of `M_n(ℤ_p)` in `GL_n(ℚ_p)` is `ℚ_p^× GL_n(ℤ_p)` -/
+
+section Split
+variable {p : ℕ} [hp : Fact p.Prime] {n : Type*} [Fintype n] [DecidableEq n]
+
+/-- `y ∈ M_n(ℤ_p)`. -/
+def IntMat (y : Matrix n n ℚ_[p]) : Prop := ∀ i j, ‖y i j‖ ≤ 1
+
+theorem mul_single_mul_apply {R : Type*} [Ring R] (x y : Matrix n n R) (i j k l : n) :
+    ((x * Matrix.single i j (1 : R) * y : Matrix n n R) k l) = x k i * y j l := by
+  rw [Matrix.mul_apply, Finset.sum_eq_single j]
+  · simp
+  · intro b _ hb; simp [Matrix.mul_single_apply_of_ne _ _ _ _ _ hb]
+  · simp
+
+omit [Fintype n] in
+theorem intMat_single (i j : n) : IntMat (Matrix.single i j (1 : ℚ_[p])) := by
+  intro a b
+  unfold Matrix.single; simp only [Matrix.of_apply]; split_ifs <;> simp
+
+/-- **Vignéras' local normalizer fact at a split prime (matrix form).** If `x ∈ GL_n(ℚ_p)`
+satisfies `x M_n(ℤ_p) x⁻¹ ⊆ M_n(ℤ_p)`, then `x ∈ ℚ_p^× GL_n(ℤ_p)`. -/
+theorem split_normalizer [Nonempty n] (x : (Matrix n n ℚ_[p])ˣ)
+    (hx : ∀ y, IntMat y → IntMat ((x : Matrix n n ℚ_[p]) * y * ((x⁻¹ : (Matrix n n ℚ_[p])ˣ) : Matrix n n ℚ_[p]))) :
+    ∃ c : ℚ_[p]ˣ, ∃ u : (Matrix n n ℚ_[p])ˣ, IntMat (u : Matrix n n ℚ_[p]) ∧
+      IntMat ((u⁻¹ : (Matrix n n ℚ_[p])ˣ) : Matrix n n ℚ_[p]) ∧
+      (x : Matrix n n ℚ_[p]) = (c : ℚ_[p]) • (u : Matrix n n ℚ_[p]) := by
+  obtain ⟨⟨k, i⟩, hmax⟩ := Finite.exists_max (fun ab : n × n => ‖(x : Matrix n n ℚ_[p]) ab.1 ab.2‖)
+  have hc : (x : Matrix n n ℚ_[p]) k i ≠ 0 := by
+    intro h0
+    have hz : (x : Matrix n n ℚ_[p]) = 0 := by
+      ext a b; have := hmax (a, b); simp only [h0, norm_zero] at this
+      simpa using norm_le_zero_iff.mp this
+    exact x.ne_zero hz
+  let c : ℚ_[p]ˣ := Units.mk0 _ hc
+  let u : (Matrix n n ℚ_[p])ˣ := Units.map (algebraMap ℚ_[p] (Matrix n n ℚ_[p])).toMonoidHom c⁻¹ * x
+  have hu : (u : Matrix n n ℚ_[p]) = ((c⁻¹ : ℚ_[p]ˣ) : ℚ_[p]) • (x : Matrix n n ℚ_[p]) := by
+    simp [u, Algebra.smul_def]
+  have huinv : ((u⁻¹ : (Matrix n n ℚ_[p])ˣ) : Matrix n n ℚ_[p]) =
+      (c : ℚ_[p]) • ((x⁻¹ : (Matrix n n ℚ_[p])ˣ) : Matrix n n ℚ_[p]) := by
+    simp [u, mul_inv_rev, Algebra.smul_def]
+    exact (Algebra.commutes _ _).symm
+  have hcn : ‖(c : ℚ_[p])‖ ≠ 0 := by simpa [c] using hc
+  refine ⟨c, u, ?_, ?_, ?_⟩
+  · intro a b
+    rw [hu, Matrix.smul_apply, smul_eq_mul, norm_mul, Units.val_inv_eq_inv_val, norm_inv]
+    rw [inv_mul_le_iff₀ (lt_of_le_of_ne (norm_nonneg _) (Ne.symm hcn)), mul_one]
+    exact hmax (a, b)
+  · intro j l
+    have h := hx _ (intMat_single i j) k l
+    rw [mul_single_mul_apply] at h
+    rw [huinv, Matrix.smul_apply, smul_eq_mul]
+    simpa [c] using h
+  · rw [hu, smul_smul, Units.mul_inv, one_smul]
+
+omit [DecidableEq n] in
+theorem intMat_mul {y z : Matrix n n ℚ_[p]} (hy : IntMat y) (hz : IntMat z) : IntMat (y * z) := by
+  intro i j
+  rw [Matrix.mul_apply]
+  apply IsUltrametricDist.norm_sum_le_of_forall_le_of_nonneg zero_le_one
+  intro a _
+  rw [norm_mul]
+  calc ‖y i a‖ * ‖z a j‖ ≤ 1 * 1 :=
+        mul_le_mul (hy i a) (hz a j) (norm_nonneg _) zero_le_one
+    _ = 1 := one_mul 1
+
+/-- The converse: `ℚ_p^× GL_n(ℤ_p)` normalizes `M_n(ℤ_p)`. -/
+theorem split_normalizer_converse (x : (Matrix n n ℚ_[p])ˣ) (c : ℚ_[p]ˣ) (u : (Matrix n n ℚ_[p])ˣ)
+    (hu : IntMat (u : Matrix n n ℚ_[p])) (hu' : IntMat ((u⁻¹ : (Matrix n n ℚ_[p])ˣ) : Matrix n n ℚ_[p]))
+    (hxu : (x : Matrix n n ℚ_[p]) = (c : ℚ_[p]) • (u : Matrix n n ℚ_[p])) (y : Matrix n n ℚ_[p])
+    (hy : IntMat y) :
+    IntMat ((x : Matrix n n ℚ_[p]) * y * ((x⁻¹ : (Matrix n n ℚ_[p])ˣ) : Matrix n n ℚ_[p])) := by
+  have hinv : ((x⁻¹ : (Matrix n n ℚ_[p])ˣ) : Matrix n n ℚ_[p]) =
+      ((c⁻¹ : ℚ_[p]ˣ) : ℚ_[p]) • ((u⁻¹ : (Matrix n n ℚ_[p])ˣ) : Matrix n n ℚ_[p]) := by
+    apply Units.inv_eq_of_mul_eq_one_right
+    rw [hxu, smul_mul_smul_comm, Units.mul_inv, Units.mul_inv, one_smul]
+  have e : (x : Matrix n n ℚ_[p]) * y * ((x⁻¹ : (Matrix n n ℚ_[p])ˣ) : Matrix n n ℚ_[p]) =
+      (u : Matrix n n ℚ_[p]) * y * ((u⁻¹ : (Matrix n n ℚ_[p])ˣ) : Matrix n n ℚ_[p]) := by
+    rw [hinv, hxu, smul_mul_assoc, mul_smul_comm, smul_mul_assoc, smul_smul, Units.inv_mul,
+      one_smul]
+  rw [e]
+  exact intMat_mul (intMat_mul hu hy) hu'
+
+/-- **Split primes, both directions:** `N_{GL_n(ℚ_p)}(M_n(ℤ_p)) = ℚ_p^× GL_n(ℤ_p)`. -/
+theorem split_normalizer_iff [Nonempty n] (x : (Matrix n n ℚ_[p])ˣ) :
+    (∀ y, IntMat y → IntMat ((x : Matrix n n ℚ_[p]) * y * ((x⁻¹ : (Matrix n n ℚ_[p])ˣ) : Matrix n n ℚ_[p]))) ↔
+    ∃ c : ℚ_[p]ˣ, ∃ u : (Matrix n n ℚ_[p])ˣ, IntMat (u : Matrix n n ℚ_[p]) ∧
+      IntMat ((u⁻¹ : (Matrix n n ℚ_[p])ˣ) : Matrix n n ℚ_[p]) ∧
+      (x : Matrix n n ℚ_[p]) = (c : ℚ_[p]) • (u : Matrix n n ℚ_[p]) :=
+  ⟨split_normalizer x, fun ⟨c, u, hu, hu', hxu⟩ => split_normalizer_converse x c u hu hu' hxu⟩
+
+end Split
+
 end GlueVigneras

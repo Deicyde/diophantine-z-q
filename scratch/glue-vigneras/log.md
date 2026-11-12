@@ -12,3 +12,7 @@
   `normalizerOp_eq_univ` (N(𝒪_p) = B_p^×), `mem_scalOpUnits_iff` (x ∈ ℚ_p^×𝒪_p^× ↔ ‖nrd x‖ ∈ p^{2ℤ}),
   `scalOpUnitsSubgroup`, `exists_pi` (π = i at 2, nrd −2; π = j at 3, nrd 3), `index_scalOpUnits` (index = 2),
   `vigneras_local` (summary). `#print axioms vigneras_local` = [propext, Classical.choice, Quot.sound]. VERIFIED.
+- 23:55 chunk 5 COMPILES: split primes, matrix form, any prime p, any nonempty finite n:
+  `IntMat`, `mul_single_mul_apply`, `intMat_single`, `split_normalizer` (x M_n(ℤ_p) x⁻¹ ⊆ M_n(ℤ_p) ⇒ x ∈ ℚ_p^× GL_n(ℤ_p);
+  proof: scale by the largest entry x_{ki}, conjugate E_{ij}: (u E_ij u⁻¹)_{kl} = (u⁻¹)_{jl}), `intMat_mul`,
+  `split_normalizer_converse`, `split_normalizer_iff`. VERIFIED (compiled).
