@@ -167,3 +167,8 @@ theorem ros_mem {x : B} (hx : x ∈ O) : ros x ∈ O := by
     by ext <;> simp [comb, ros, μ, μinv] <;> push_cast <;> ring⟩
 
 end GlueRepo.A1
+
+#print axioms GlueRepo.A1.trd_mul_ros_pos
+#print axioms GlueRepo.A1.det_gram_E
+#print axioms GlueRepo.A1.E_ros
+#print axioms GlueRepo.A1.det_trace_form

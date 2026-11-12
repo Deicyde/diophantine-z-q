@@ -29,3 +29,16 @@ E_self, E_antisymm (alternating), E_ros (E(ax,y)=E(x,a†y)), ros_ros, ros_mul, 
 - padic_subgroup_trivial: finite H ≤ GL_r(ℤ₃) with all elements ≡ 1 mod 3 is ⊥ (PR(ii) step 3).
 - injective_mod_three, card_le_three_pow: finite G ≤ GL_r(ℤ) injects into GL_r(𝔽₃);
   Nat.card G ≤ 3^(r²) (A8).
+
+## PRArith.lean — COMPILED (no errors, no sorry; #print axioms: propext, Classical.choice, Quot.sound)
+Imports ZInQKernel.Hypotheses.Height (contactSet, contactSupport, prime_dvd_contactSupport_iff);
+Jmap copied verbatim from JHeight.lean (not importable in worktrees).
+- G6_sub_F2 (G⁶−97200F²=H²), J_add (J+16/27 = 16H²/(27G⁶)), t_eq (t = 1+27J/16 = H²/G⁶),
+  t_sub_one (t−1 = −3(180F/G³)²).
+- Hq_ne_zero (quadratic factors: discriminants 10800, 43200, 43200 have v₃ = 3, odd),
+  Fq_ne_zero, J_ne_zero (A7), J_ne_branch (J(u) ≠ −16/27, h-b1 M7).
+- bez_FG, bez_FH, bez_GH: homogeneous Bezout certificates, N = 2¹⁰3⁸5⁶, 2¹⁷3¹²5¹⁰, 2¹¹3⁹5⁶
+  (scratch/glue-repo/bezout.py, output bezout.output.txt), checked by `ring`.
+- inertia_trivial_iff: prime p ≥ 17, u ∉ 𝒞: (4 ∣ v_p(J)⁺ ∧ 6 ∣ (−v_p(J))⁺ ∧ 2 ∣ v_p(J+16/27)⁺)
+  ↔ ¬∃ c ∈ 𝒞, v_p(u−c) > 0 odd. (= Prop. TS's inertia orders e/gcd(e,m) all 1, (e)=(4,6,2).)
+- inertia_trivial_iff_not_dvd: same with ¬ p ∣ contactSupport S u, for p ∉ S ⊇ primes ≤ 324.

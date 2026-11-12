@@ -255,3 +255,6 @@ theorem card_le_three_pow (G : Subgroup (GL (Fin r) ℤ)) [Finite G] :
 end Matrices
 
 end GlueRepo.TorsionFree
+
+#print axioms GlueRepo.TorsionFree.card_le_three_pow
+#print axioms GlueRepo.TorsionFree.padic_subgroup_trivial
