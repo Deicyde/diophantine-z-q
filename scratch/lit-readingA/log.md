@@ -9,3 +9,20 @@
 - `lake build ZInQKernel`: VERIFIED, "Build completed successfully (9925 jobs)", 6m38s, 2026-11-12 01:12 PST.
 - `lake env lean scripts/print_axioms.lean`: VERIFIED, rc 0, 92 `#print axioms`, all 92 report
   exactly [propext, Classical.choice, Quot.sound], including the new theorem. Output: print_axioms.out.
+
+## Step 2 (README.md, KERNEL_PLAN.md)
+- Headline switched to the `tyzThm35ReadingA_heckeContinuation` variant in both files; TYZ input stated
+  as the leaves `Literature.TYZThm35ReadingA`, `Literature.HeckeContinuation`, bridge
+  `Literature.tyzRow5b_of_readingA`, intermediate `Literature.TYZRow5b` and its theorem kept.
+- Journal facts used, all from docs/research/locators.md (AI audit with web access, not human):
+  arXiv Thm 1.2 = journal Thm 1.4 (pp. 723–724); the all-`d_i > 1` restriction is kept in the journal,
+  so 26565 and 33117 refute the journal statement read literally too; convolution lemma = Lemma 2.9
+  in both versions (Lemma 2.8 = symmetry lemma); Prop 3.4 proof pp. 751–753 (journal).
+- Lemma 2.9 (arXiv v1): VERIFIED from ~/tyz-src/Period7.tex theorem counters: section 2 environments
+  sharing the `thm` counter are at L554 (2.1), L571 (2.2), L580 (2.3), L613 (2.4), L646 (2.5),
+  L809 (2.6), L842 (2.7), L1009 (2.8, symmetry `P(d1,d2)=P(d2,d1)`), L1062 (2.9, the convolution).
+  The repository's `LemmaTwoEight` (TYZInputs.lean, I2) and nt-tyz's "Lemma 2.8" are this Lemma 2.9
+  (locator only; not edited, outside this task's files).
+- `𝓛(n) = 0` iff `ord_{s=1} L(C_n, s) > 1`: VERIFIED, TYZ definition L338–344.
+- "Prop 3.4 proof only sketched": stated for the arXiv version (nt-tyz.md summary 3); the locator audit
+  read the journal proof pages but does not comment on completeness, so the README says "in the arXiv version".
