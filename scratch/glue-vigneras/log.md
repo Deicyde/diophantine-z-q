@@ -27,3 +27,8 @@
 - 00:04 Global.lean COMPILES (no sorry): over ℚ, `B`, `comb`, `O`, `coordQ`, `nrd`, `nrdInt`, `Eint`, `cert_ab` (10),
   `Eint_eq`, `nrd_dvd_Eint`, `nrd_dvd_six`: x = comb n ∈ 𝒪 primitive (∑ sₖnₖ = 1) normalizing 𝒪 ⇒ nrd x ∣ 6.
   Axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+- 00:09 Global.lean COMPILES (no sorry): `combMul`, `comb_mul`, `O_mul`, `O_star`, `N` (Subgroup Bˣ: x𝒪x⁻¹ = 𝒪),
+  `OUnits`, `S` (= ℚ^×𝒪^×), `iU`, `jU`, `iU_mem`, `jU_mem`, `primitive_scaling` (x = c·comb a, a primitive, Bezout),
+  `vhom`, `nrdU`, `φ : N →* (ℤ/2)²` (v₂, v₃ of nrd mod 2), `divisors_six`, `phi_eq_one_iff` (ker φ = ℚ^×𝒪^×),
+  `phi_surjective` (images of i, j), `global_index`: (∀ x : N, x ∈ ker φ ↔ x ∈ ℚ^×𝒪^×) ∧ (ker φ).index = 4.
+  `#print axioms global_index` = [propext, Classical.choice, Quot.sound]. VERIFIED.

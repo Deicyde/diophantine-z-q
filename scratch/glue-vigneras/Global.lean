@@ -407,4 +407,82 @@ theorem v2_six : padicValRat 2 (6 : ℚ) = 1 := by
 theorem v3_six : padicValRat 3 (6 : ℚ) = 1 := by
   rw [show (6 : ℚ) = 2 * 3 by norm_num, padicValRat.mul (by norm_num) (by norm_num), v3_two, v3_three]; rfl
 
+
+theorem star_eq_nrd_smul_inv (x : Bˣ) : star (x : B) = nrd (x : B) • ((x⁻¹ : Bˣ) : B) := by
+  have : ((x⁻¹ : Bˣ) : B) * ((x : B) * star (x : B)) = star (x : B) := by
+    rw [← mul_assoc, Units.inv_mul, one_mul]
+  rw [← this, mul_star_eq, Algebra.smul_def, ← Algebra.commutes]
+
+theorem phi_eq_one_iff' (x : N) : φ x = 1 ↔
+    ((padicValRat 2 (nrd ((x : Bˣ) : B)) : ℤ) : ZMod 2) = 0 ∧ ((padicValRat 3 (nrd ((x : Bˣ) : B)) : ℤ) : ZMod 2) = 0 := by
+  simp only [φ, MonoidHom.prod_apply, MonoidHom.comp_apply, Subgroup.coe_subtype, vhom_apply, nrdU_val,
+    Prod.mk_eq_one, ofAdd_eq_one]
+
+/-- **The kernel of `φ` is `ℚ^× 𝒪^×`.** -/
+theorem phi_eq_one_iff (x : N) : φ x = 1 ↔ (x : Bˣ) ∈ S := by
+  rw [phi_eq_one_iff']
+  constructor
+  · rintro ⟨h2, h3⟩
+    have hx0 : ((x : Bˣ) : B) ≠ 0 := (x : Bˣ).ne_zero
+    obtain ⟨c, hc, a, ⟨s0, s1, s2, s3, hs⟩, hxa⟩ := primitive_scaling _ hx0
+    obtain ⟨x₀, hx₀, hx₀inv⟩ := scale_unit (x : Bˣ) c⁻¹ (inv_ne_zero hc)
+    have hx₀a : (x₀ : B) = comb a := by rw [hx₀, hxa, smul_smul, inv_mul_cancel₀ hc, one_smul]
+    have hN : ∀ y ∈ O, (x₀ : B) * y * ((x₀⁻¹ : Bˣ) : B) ∈ O := by
+      intro y hy
+      have e : (x₀ : B) * y * ((x₀⁻¹ : Bˣ) : B) = ((x : Bˣ) : B) * y * (((x : Bˣ)⁻¹ : Bˣ) : B) := by
+        rw [hx₀, hx₀inv, smul_mul_assoc, smul_mul_assoc, mul_smul_comm, smul_smul, inv_inv,
+          inv_mul_cancel₀ hc, one_smul]
+      rw [e]; exact (x.2 y).mp hy
+    have hd := nrd_dvd_six x₀ a hx₀a ⟨![s0, s1, s2, s3], by simpa using hs⟩ hN
+    have hnx : nrd ((x : Bˣ) : B) = c ^ 2 * (nrdInt a : ℚ) := by rw [hxa, nrd_smul, nrd_comb]
+    have hna : (nrdInt a : ℚ) ≠ 0 := by
+      intro h0; have : nrdInt a = 0 := by exact_mod_cast h0
+      rw [this] at hd; norm_num at hd
+    rw [hnx, v_sq_mul 2 c _ hc hna] at h2
+    rw [hnx, v_sq_mul 3 c _ hc hna] at h3
+    have h1 : nrdInt a = 1 ∨ nrdInt a = -1 := by
+      rcases divisors_six hd with e | e | e | e | e | e | e | e <;> rw [e] at h2 h3 ⊢ <;>
+        push_cast at h2 h3 <;>
+        (try simp only [padicValRat.neg, v2_two, v2_six, v3_three, v3_six] at h2 h3) <;>
+        first | (left; rfl) | (right; rfl) | (exfalso; revert h2; decide) | (exfalso; revert h3; decide)
+    have hx₀O : (x₀ : B) ∈ O := by rw [hx₀a]; exact ⟨a, rfl⟩
+    refine ⟨Units.mk0 c hc, x₀, ⟨hx₀O, ?_⟩, ?_⟩
+    · have hn : nrd (x₀ : B) = nrdInt a := by rw [hx₀a, nrd_comb]
+      have e : ((x₀⁻¹ : Bˣ) : B) = ((nrdInt a : ℤ) : ℚ) • star (x₀ : B) := by
+        rw [star_eq_nrd_smul_inv, smul_smul, hn]
+        rcases h1 with h | h <;> rw [h] <;> norm_num
+      rw [e]; exact O_smul_int (O_star hx₀O) _
+    · simp only [Units.val_mk0]; rw [hx₀, smul_smul, mul_inv_cancel₀ hc, one_smul]
+  · rintro ⟨c, u, hu, hxu⟩
+    have hnx : nrd ((x : Bˣ) : B) = (c : ℚ) ^ 2 * nrd (u : B) := by rw [hxu, nrd_smul]
+    have hu0 : nrd (u : B) ≠ 0 := by rcases nrd_OUnits u hu with h | h <;> rw [h] <;> norm_num
+    rw [hnx, v_sq_mul 2 _ _ c.ne_zero hu0, v_sq_mul 3 _ _ c.ne_zero hu0]
+    rcases nrd_OUnits u hu with h | h <;> rw [h] <;> simp [padicValRat.neg]
+
+theorem phi_i : φ ⟨iU, iU_mem⟩ = (Multiplicative.ofAdd 1, 1) := by
+  simp only [φ, MonoidHom.prod_apply, MonoidHom.comp_apply, Subgroup.coe_subtype, vhom_apply, nrdU_val]
+  rw [nrd_iU, padicValRat.neg, padicValRat.neg, v2_two, v3_two]; rfl
+
+theorem phi_j : φ ⟨jU, jU_mem⟩ = (1, Multiplicative.ofAdd 1) := by
+  simp only [φ, MonoidHom.prod_apply, MonoidHom.comp_apply, Subgroup.coe_subtype, vhom_apply, nrdU_val]
+  rw [nrd_jU, v2_three, v3_three]; rfl
+
+theorem phi_surjective : Function.Surjective φ := by
+  have two : ∀ z : Multiplicative (ZMod 2), z = 1 ∨ z = Multiplicative.ofAdd 1 := by decide
+  rintro ⟨g1, g2⟩
+  rcases two g1 with rfl | rfl <;> rcases two g2 with rfl | rfl
+  · exact ⟨1, map_one φ⟩
+  · exact ⟨⟨jU, jU_mem⟩, phi_j⟩
+  · exact ⟨⟨iU, iU_mem⟩, phi_i⟩
+  · exact ⟨⟨iU, iU_mem⟩ * ⟨jU, jU_mem⟩, by rw [map_mul, phi_i, phi_j]; rfl⟩
+
+/-- **Global index.** `ℚ^×𝒪^×` is the kernel of the surjection `φ : N_B(𝒪) → (ℤ/2)²`; hence
+`[N_B(𝒪) : ℚ^×𝒪^×] = 4`, with coset representatives `1, i, j, ij`. -/
+theorem global_index :
+    (∀ x : N, x ∈ φ.ker ↔ (x : Bˣ) ∈ S) ∧ φ.ker.index = 4 := by
+  refine ⟨fun x => phi_eq_one_iff x, ?_⟩
+  rw [Subgroup.index_ker, MonoidHom.range_eq_top_of_surjective φ phi_surjective, Subgroup.card_top,
+    Nat.card_eq_fintype_card]
+  rfl
+
 end GlueVigneras.Global
