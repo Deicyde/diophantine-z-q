@@ -164,8 +164,59 @@ theorem frobExistsAt_of_finite (hf : FrobExistsFinite) : FrobExistsAt := by
   exact Set.mem_iInter.mp hh ⟨IntermediateField.adjoin ℚ {(x : Qbar)}, this⟩ x y
     (IntermediateField.mem_adjoin_simple_self ℚ _) hy
 
+/-- **Step (b), finite layer (GLUE, proved from Mathlib).** -/
+theorem frobExistsFinite : FrobExistsFinite := by
+  intro p _ P _ hP F _ _
+  have : NumberField F := ⟨⟩
+  set QF := P.comap (toZbar F) with hQF
+  have hQFp : QF.under ℤ = Ideal.span {(p : ℤ)} := by
+    rw [← hP, Ideal.under, Ideal.under, hQF, Ideal.comap_comap]
+    congr 1
+  have hQFprime : QF.IsPrime := Ideal.comap_isPrime _ _
+  have hQFne : QF ≠ ⊥ := by
+    intro h0
+    have hp : ((p : ℤ) : 𝓞 F) ∈ QF := by
+      change algebraMap ℤ (𝓞 F) (p : ℤ) ∈ QF
+      rw [← Ideal.mem_comap]
+      change (p : ℤ) ∈ QF.under ℤ
+      rw [hQFp]
+      exact Ideal.mem_span_singleton_self _
+    rw [h0, Ideal.mem_bot] at hp
+    have : ((p : ℤ) : 𝓞 F) ≠ 0 := by
+      have := (Fact.out : p.Prime).ne_zero
+      exact_mod_cast this
+    exact this hp
+  have : QF.IsMaximal := hQFprime.isMaximal hQFne
+  let _ := IsIntegralClosure.MulSemiringAction ℤ ℚ F (𝓞 F)
+  have := Algebra.isInvariant_of_isGalois ℤ ℚ F (𝓞 F)
+  obtain ⟨σ, hσ⟩ := IsArithFrobAt.exists_of_isInvariant ℤ (F ≃ₐ[ℚ] F) QF
+  obtain ⟨h, hres⟩ : ∃ h : GQ, AlgEquiv.restrictNormal h F = σ :=
+    ⟨σ.liftNormal Qbar, σ.restrict_liftNormal Qbar⟩
+  subst hres
+  refine ⟨h, fun x y hx hy => ?_⟩
+  have hxi : IsIntegral ℤ (⟨(x : Qbar), hx⟩ : F) := by
+    rw [← isIntegral_algHom_iff (IsScalarTower.toAlgHom ℤ F Qbar) (algebraMap F Qbar).injective]
+    exact x.2
+  let x' : 𝓞 F := ⟨⟨(x : Qbar), hx⟩, hxi⟩
+  have hmem := hσ x'
+  rw [hQFp, card_quot, hQF, Ideal.mem_comap] at hmem
+  convert hmem using 1
+  apply Subtype.ext
+  rw [hy, map_sub, map_pow, AddSubgroupClass.coe_sub, SubmonoidClass.coe_pow, toZbar_coe,
+    toZbar_coe]
+  congr 1
+  change h (x : Qbar) = ((algebraMap (𝓞 F) F (galRestrict ℤ ℚ F (𝓞 F) _ x')) : Qbar)
+  rw [algebraMap_galRestrict_apply]
+  exact (AlgEquiv.restrictNormal_commutes h F (algebraMap (𝓞 F) F x')).symm
+
+/-- **`FrobLift` holds (GLUE, proved from Mathlib).** -/
+theorem frobLift : FrobLift :=
+  frobLift_of_frobExistsAt (frobExistsAt_of_finite frobExistsFinite)
+
 end GlueC10
 
 #print axioms GlueC10.restrictNormal_eq_of_frob
 #print axioms GlueC10.frobLift_of_frobExistsAt
 #print axioms GlueC10.frobExistsAt_of_finite
+#print axioms GlueC10.frobExistsFinite
+#print axioms GlueC10.frobLift
