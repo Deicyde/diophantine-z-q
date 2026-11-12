@@ -532,8 +532,62 @@ theorem inertia_trivial_iff_not_dvd (S : Finset ℕ) (hS : ∀ q, q.Prime → q 
 
 end Valuation
 
+/-! ### NoCM: the fibre of `X⁶ → X*` over `t(u)` (A10; rv-h-cm §2.4, §7.2 step 3)
+
+In Elkies' model `ℚ(X⁶) = ℚ(t)(y₁, y₂)`, `y₁² = −t`, `y₂² = 3(t − 1)` (rv-h-cm §2.3; `w₂`, `w₆`,
+`w₃` negate `y₂`, `y₁`, both). Over `t(u)` the four points are `(±i h₁, ±i h₂)` with
+`h₁ = H/G³`, `h₂ = 540F/G³`, both nonzero: a free `W`-orbit, with coordinates in `ℚ(i)`, no
+coordinate real (so the residue field is not `ℚ`), and complex conjugation acting as `w₃`. -/
+
+open Complex in
+/-- The fibre over `t(u)`: exactly the four points `(±i h₁, ±i h₂)`. -/
+theorem fibre_iff (u : ℚ) (Y₁ Y₂ : ℂ) :
+    (Y₁ ^ 2 = -((tq u : ℚ) : ℂ) ∧ Y₂ ^ 2 = 3 * (((tq u : ℚ) : ℂ) - 1)) ↔
+    (Y₁ = I * ((Hq u / Gq u ^ 3 : ℚ) : ℂ) ∨ Y₁ = -(I * ((Hq u / Gq u ^ 3 : ℚ) : ℂ))) ∧
+    (Y₂ = I * ((540 * Fq u / Gq u ^ 3 : ℚ) : ℂ) ∨ Y₂ = -(I * ((540 * Fq u / Gq u ^ 3 : ℚ) : ℂ))) := by
+  have hG := Gq_ne_zero u
+  have e1 : -((tq u : ℚ) : ℂ) = (I * ((Hq u / Gq u ^ 3 : ℚ) : ℂ)) ^ 2 := by
+    rw [t_eq]; push_cast; rw [mul_pow, I_sq]; ring
+  have e2 : 3 * (((tq u : ℚ) : ℂ) - 1) = (I * ((540 * Fq u / Gq u ^ 3 : ℚ) : ℂ)) ^ 2 := by
+    have := t_sub_one u
+    rw [show ((tq u : ℚ) : ℂ) - 1 = ((tq u - 1 : ℚ) : ℂ) by push_cast; ring, this]
+    push_cast; rw [mul_pow, I_sq]; ring
+  rw [e1, e2, sq_eq_sq_iff_eq_or_eq_neg, sq_eq_sq_iff_eq_or_eq_neg]
+
+theorem h₁_ne_zero (u : ℚ) : Hq u / Gq u ^ 3 ≠ 0 :=
+  div_ne_zero (Hq_ne_zero u) (pow_ne_zero _ (Gq_ne_zero u))
+
+theorem h₂_ne_zero {u : ℚ} (hu : u ∉ contactSet) : 540 * Fq u / Gq u ^ 3 ≠ 0 :=
+  div_ne_zero (mul_ne_zero (by norm_num) (Fq_ne_zero hu)) (pow_ne_zero _ (Gq_ne_zero u))
+
+open Complex in
+/-- The four points are pairwise distinct, `W` acts freely (no point has a zero coordinate),
+no point has a real (a fortiori rational) coordinate, and complex conjugation acts as `w₃`
+(negates both coordinates). -/
+theorem fibre_free {u : ℚ} (hu : u ∉ contactSet) (Y₁ Y₂ : ℂ)
+    (h : Y₁ ^ 2 = -((tq u : ℚ) : ℂ) ∧ Y₂ ^ 2 = 3 * (((tq u : ℚ) : ℂ) - 1)) :
+    Y₁ ≠ -Y₁ ∧ Y₂ ≠ -Y₂ ∧ Y₁.im ≠ 0 ∧ Y₂.im ≠ 0 ∧
+      (starRingEnd ℂ Y₁ = -Y₁ ∧ starRingEnd ℂ Y₂ = -Y₂) := by
+  have n1 := h₁_ne_zero u
+  have n2 := h₂_ne_zero hu
+  obtain ⟨h1, h2⟩ := (fibre_iff u Y₁ Y₂).mp h
+  have k1 : Y₁.re = 0 ∧ Y₁.im ≠ 0 := by
+    clear h h2
+    generalize Hq u / Gq u ^ 3 = r at h1 n1
+    rcases h1 with rfl | rfl <;> simp [n1]
+  have k2 : Y₂.re = 0 ∧ Y₂.im ≠ 0 := by
+    clear h h1 k1
+    generalize 540 * Fq u / Gq u ^ 3 = r at h2 n2
+    rcases h2 with rfl | rfl <;> simp [n2]
+  refine ⟨fun e => k1.2 ?_, fun e => k2.2 ?_, k1.2, k2.2, ?_, ?_⟩
+  · have := congrArg Complex.im e; simp at this; linarith
+  · have := congrArg Complex.im e; simp at this; linarith
+  · apply Complex.ext <;> simp [k1.1]
+  · apply Complex.ext <;> simp [k2.1]
+
 end GlueRepo.PR
 
 #print axioms GlueRepo.PR.inertia_trivial_iff_not_dvd
 #print axioms GlueRepo.PR.J_ne_branch
 #print axioms GlueRepo.PR.t_sub_one
+#print axioms GlueRepo.PR.fibre_free

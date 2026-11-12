@@ -50,3 +50,9 @@ Jmap copied verbatim from JHeight.lean (not importable in worktrees).
 - descent / no_trd_zero_nrd_two: no x ∈ B with Trd x = 0, nrd x = 2 (ℚ(√−2) does not embed in
   B; 3-adic infinite descent on 3C² = 2E²+2B²+6D², `decide` over ZMod 3).
 - #print axioms: propext, Classical.choice, Quot.sound.
+
+## PRArith.lean, NoCM fibre (A10; rv-h-cm §2.4, §7.2 step 3) — COMPILED
+- fibre_iff: (Y₁² = −t(u) ∧ Y₂² = 3(t(u)−1)) in ℂ ↔ Y₁ = ±i·H/G³ ∧ Y₂ = ±i·540F/G³.
+- h₁_ne_zero, h₂_ne_zero; fibre_free: the four points are distinct, W acts freely (no zero
+  coordinate), no coordinate is real (residue field ≠ ℚ; coordinates in ℚ(i)), complex
+  conjugation acts as w₃ (negates both). Axioms: propext, Classical.choice, Quot.sound.
