@@ -1,6 +1,6 @@
 # pkg-I3: Faltings 1983 and Mumford's structure theorems as Lean leaves (steps A9, C2, C10, E1)
 
-Status: research note (task pkg-I3, 2026-11-11). Drafts: `scratch/pkg-I3/I3.lean` (590 lines,
+Status: research note (task pkg-I3, 2026-11-11). Drafts: `scratch/pkg-I3/I3.lean` (694 lines,
 compiles with `lake env lean`; no `sorry`); log:
 `scratch/pkg-I3/log.md`. No file under `ZInQKernel/`, `blueprint/` or other notes was edited.
 
