@@ -280,6 +280,45 @@ theorem leafLocalTwo_of_T15 (hC : LocalH2CardC) : LeafLocalTwo := by
   rw [e]
   exact h
 
+/-! ## Converses: glue-descent's forms say no more than the announced leaves -/
+
+/-- `LeafHasse` (finite places only) implies `BrauerHasse2C` outright. -/
+theorem brauerHasse2C_of_leafHasse (h : LeafHasse) : BrauerHasse2C := by
+  intro ε hε _ hp
+  rw [isCoboundary2_iff]
+  rw [isCocycle2_iff] at hε
+  refine h _ hε fun p => ?_
+  have : Fact (p : ℕ).Prime := ⟨p.2⟩
+  rw [pull_resp_sgnC, ← isCoboundary2_iff]
+  exact hp p
+
+/-- Given reciprocity, `LeafHasse ↔ BrauerHasse2C`. -/
+theorem leafHasse_iff (hR : BrauerReciprocity2C) : LeafHasse ↔ BrauerHasse2C :=
+  ⟨brauerHasse2C_of_leafHasse, fun hH => leafHasse_of_T14 hH hR⟩
+
+/-- `LeafLocalTwo` is exactly the second half of `H2TwoClasses (G_{ℚ_p})` for every `p`. -/
+theorem leafLocalTwo_iff : LeafLocalTwo ↔ ∀ (p : ℕ) [Fact p.Prime],
+    ∀ ε₁ ε₂, IsCocycle2 (G := Field.absoluteGaloisGroup ℚ_[p]) ε₁ → IsCocycle2 ε₂ →
+      ¬ IsCoboundary2 ε₁ → ¬ IsCoboundary2 ε₂ → IsCoboundary2 (ε₁ - ε₂) := by
+  have e : ∀ {G : Type} [Group G] [TopologicalSpace G] (ε₁ ε₂ : G → G → ZMod 2),
+      (fun x y => sgnC ε₁ x y * (sgnC ε₂ x y)⁻¹) = sgnC (ε₁ - ε₂) := by
+    intro G _ _ ε₁ ε₂
+    funext x y
+    simp only [sgnC, Pi.sub_apply, sgn_sub, sgn_inv]
+  constructor
+  · intro h p hp ε₁ ε₂ h₁ h₂ hn₁ hn₂
+    rw [isCocycle2_iff] at h₁ h₂
+    rw [isCoboundary2_iff] at hn₁ hn₂ ⊢
+    rw [← e]
+    exact h ⟨p, hp.out⟩ _ _ h₁ h₂ hn₁ hn₂
+  · intro h p η₁ η₂ h₁ h₂ hn₁ hn₂
+    have : Fact (p : ℕ).Prime := ⟨p.2⟩
+    obtain ⟨ε₁, hε₁, rfl⟩ := exists_of_isSignCocycle h₁
+    obtain ⟨ε₂, hε₂, rfl⟩ := exists_of_isSignCocycle h₂
+    rw [← isCoboundary2_iff] at hn₁ hn₂
+    rw [e, ← isCoboundary2_iff]
+    exact h p ε₁ ε₂ hε₁ hε₂ hn₁ hn₂
+
 /-! ## B2-B3 from the announced leaves -/
 
 /-- **B2-B3 with the constants from the announced leaves**: glue-descent's
@@ -313,3 +352,5 @@ end
 #print axioms GlueWP3.leafHasse_of_T14
 #print axioms GlueWP3.leafLocalTwo_of_T15
 #print axioms GlueWP3.b3_degree_le_QM_of_T14_T15
+#print axioms GlueWP3.leafHasse_iff
+#print axioms GlueWP3.leafLocalTwo_iff

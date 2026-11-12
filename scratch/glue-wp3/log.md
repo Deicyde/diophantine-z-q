@@ -23,3 +23,13 @@ announced T14-T15 (`PkgI6.BrauerHasse2C`, `BrauerReciprocity2C`, `LocalH2CardC`)
   a coboundary" half).
 - b3_degree_le_QM_of_T14_T15: glue-descent's b3_degree_le_QM with hypotheses BrauerHasse2C, BrauerReciprocity2C,
   LocalH2CardC, LeafSqrtCrit (T30), LeafUnramified (T31) — all fields of Leaves.lean's TextbookLeaves.
+
+## Step 3: converses — compile, axioms propext, Classical.choice, Quot.sound (VERIFIED)
+- brauerHasse2C_of_leafHasse : LeafHasse → BrauerHasse2C (the ℝ hypothesis is simply dropped).
+- leafHasse_iff (hR : BrauerReciprocity2C) : LeafHasse ↔ BrauerHasse2C.
+- leafLocalTwo_iff : LeafLocalTwo ↔ ∀ p, (H2TwoClasses G_{ℚ_p}).2.
+- Finding: glue-descent's two forms are equivalent to (parts of) the announced leaves; no residual gap between
+  ±1 ⊂ ℂˣ and ZMod 2 coefficients, nor between resp p and resC ℚ_[p] (definitionally equal).
+- Not used / not needed by B2-B3: the existence half of H2TwoClasses, the real half of LocalH2CardC.
+- Out of scope of WP3 (unchanged): T30 LeafSqrtCrit, T31 LeafUnramified (inflation from Gal(L/ℚ) enters only
+  there, through InflatedFrom), and instantiating ε on the actual algebra A.
