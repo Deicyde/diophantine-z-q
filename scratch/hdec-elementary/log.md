@@ -57,3 +57,8 @@
   over L' with d' ≤ QM.
 - Compile OK; same axioms output; one sorry (jHeightBoundAt_of_leaves).
 - Check: |GL4(Z/4)| = 20160·2^16 = 1321205760 ≤ G0 = 116064000000 (route K uses A[4] at p = 3).
+
+## Step 5 (note written)
+- docs/research/hdec-elementary.md: §1 verdict (12 research leaves L1-L12, foundations F-a..F-e,
+  glue G1-G23), §2 graph (36 nodes; route K §2.2; route P §2.3), §3 leaves + faithfulness table,
+  §4 glue table, §5 definitions D1-D17, §6 risks R1-R8, §7 first steps.
