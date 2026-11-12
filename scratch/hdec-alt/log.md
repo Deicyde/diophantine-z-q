@@ -37,3 +37,15 @@
   Matrix `*` hits a CStarMatrix HMul instance clash: avoid); `homDim`; `IsSemisimple`;
   Hasse principle for `QuaternionAlgebra ℚ a 0 b` (notation ℍ[..] is scoped; use the constant);
   Kronecker–Weber; `absLogHeightVec := Height.logHeight x / [K:ℚ]`.
+
+## Step 4. scratch/hdec-alt/Leaves.lean — compiles (`lake env lean`), one `sorry` (G-top)
+- §1 target: JHeightBoundAt S / SixContactMinAt S / Admissible S; F4 block copied verbatim from
+  ZInQKernel/Hypotheses/JHeight.lean L30-232; `sixContactMinAt_of_jHeightBoundAt` PROVED (no sorry).
+- §2 genuine defs: AbelianVariety, dim (sInf of SmoothOfRelativeDimension), GalRep, act, intertwiners,
+  homDim, IsStable, IsSemisimple, IsIrreducible, absLogHeightVec.
+- §3 leaves statable now: Hasse (quaternion), Hilbert reciprocity (needs `open Classical in` before
+  the docstring), Kronecker–Weber.
+- §4 opaque placeholders (17) with cost tiers; §5 leaves over them (16): Raynaud, NOS, MumfordRank,
+  FaltingsTate, Ribet, KW, NewformTwist, ShimuraAf, Carayol, Javanpeykar, GR14, FaltingsIsogenyHeight,
+  HeightAdditive, Bost, Pazuki, IgusaLinYang. StatedLeaves bundles 19 Props.
+- §6 GeometricInput (output of G1-G5), `jHeightBoundAt_of_leaves` (sorry), `sixContactMinAt_of_leaves`.
