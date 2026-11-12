@@ -61,7 +61,7 @@ def IsFrobAt (g : GQ) (p : ℕ) : Prop :=
   ∃ P : Ideal Zbar, P.IsPrime ∧ P.under ℤ = Ideal.span {(p : ℤ)} ∧
     ∀ x y : Zbar, (y : Qbar) = g (x : Qbar) - (x : Qbar) ^ p → y ∈ P
 
-/-- **Step (b) of `FrobLift` (GLUE, open).** Every prime `𝔓` of `\bar ℤ` over a rational prime
+/-- **Step (b) of `FrobLift` (GLUE, proved: `frobExistsAt_of_finite`).** Every prime `𝔓` of `\bar ℤ` over a rational prime
 `p` has an arithmetic Frobenius in `G_ℚ`.  (Compactness of `G_ℚ` and Mathlib's
 `exists_isArithFrobAt` in each finite Galois layer.) -/
 def FrobExistsAt : Prop :=
@@ -104,7 +104,7 @@ theorem frobLift_of_frobExistsAt (hb : FrobExistsAt) : FrobLift := by
 def FrobOn (p : ℕ) (P : Ideal Zbar) (F : IntermediateField ℚ Qbar) : Set GQ :=
   {h | ∀ x y : Zbar, (x : Qbar) ∈ F → (y : Qbar) = h (x : Qbar) - (x : Qbar) ^ p → y ∈ P}
 
-/-- **Step (b), finite layer (GLUE, open; a consequence of Mathlib's
+/-- **Step (b), finite layer (GLUE, proved: `frobExistsFinite`; a consequence of Mathlib's
 `IsArithFrobAt.exists_of_isInvariant` for `Gal(F/ℚ)` acting on `𝓞_F`, and the surjectivity
 `G_ℚ → Gal(F/ℚ)`).** -/
 def FrobExistsFinite : Prop :=
