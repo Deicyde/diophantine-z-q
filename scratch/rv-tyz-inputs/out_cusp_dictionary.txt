@@ -1,0 +1,12 @@
+omega = [2.62205755429212, 1.31102877714606 - 1.31102877714606*I]  c = 1.31102877714606  lattice = c(1+i)Z[i]: True
+Omega^- = 2.62205755429212  (= 2c: True )
+cusp     0: x+ = 1/4, x- = 0, tau-coordinate = 1/2 ->      1/2   claimed      1/2   point on E ~ [2, -4]
+cusp   1/2: x+ = -1/4, x- = 0, tau-coordinate = -1/2 ->     -1/2   claimed     -1/2   point on E ~ [2, 4]
+cusp  1/16: x+ = 1/2, x- = 0, tau-coordinate = 1 ->        1   claimed        1   point on E ~ [0, 0]
+cusp   1/4: x+ = 0, x- = 1/4, tau-coordinate = 1/2*I ->      i/2   claimed      i/2   point on E ~ [-2, -4*I]
+cusp  -1/4: x+ = 0, x- = -1/4, tau-coordinate = -1/2*I ->     -i/2   claimed     -i/2   point on E ~ [-2, 4*I]
+cusp   1/8: x+ = 1/4, x- = 1/4, tau-coordinate = 1/2 + 1/2*I ->  (1+i)/2   claimed  (1+i)/2   point on E ~ [-2*I, 0]
+cusp  -1/8: x+ = 1/4, x- = -1/4, tau-coordinate = 1/2 - 1/2*I ->  (1-i)/2   claimed  (1-i)/2   point on E ~ [2*I, 0]
+matches table with tau: True ; with -tau: False
+bijective onto A[(1+i)^3]: True
+RESULT OK
