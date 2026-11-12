@@ -70,3 +70,11 @@ Task: blueprint for the Shimura-curve objects of leaves R1-R3, R5 (docs/research
   2006 Thms 5.8/5.12 in degree form: `[ℚ(x):ℚ] ∈ {#Pic R, 2·#Pic R}` for `com ι ≅ R`, `R` an
   order of conductor prime to 6 in an imaginary quadratic `k`). Statement only (a `def … : Prop`),
   not proved, not used.
+- `QMAbVar.lean` (VERIFIED, compiles, standard axioms): `QMIso.symm/trans/refl`, `QMPair`,
+  `pairSetoid`, `inertCount6` (`#{p ∈ {2,3} : p𝒪_k prime}`), leaf statement **`R5fpCount`**
+  (González–Rotger Prop. 5.6 / Jordan: number of classes of QM pairs over `ℚ̄` with centralizer
+  `≅ R` is `2^b·#Pic R`); `QML3.Iso.twist`, `QML3.Iso.rightMul`, `M3'.twist`, `M3'.rightMul`
+  (the `Γ'` operations descend to isomorphism classes).
+- Attempted and dropped: `innerIso` (inner twists by `Ad(u)`, `u ∈ 𝒪^×`, are isomorphic to the
+  original via `ι(u)`): `exact` timed out at `whnf` (200000 heartbeats) on the equivariance field,
+  even after isolating the algebra in `iota_conj`; cause not found. Not in the file.

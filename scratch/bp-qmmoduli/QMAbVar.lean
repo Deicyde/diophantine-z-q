@@ -457,6 +457,45 @@ def isoSetoid (K : Type) [Field K] : Setoid (QML3 K) where
 /-- The set of isomorphism classes, as a `Quotient` (same as `M3 K`, now with the setoid). -/
 def M3' (K : Type) [Field K] : Type 1 := Quotient (isoSetoid K)
 
+/-! ### `Γ'` acts on isomorphism classes -/
+
+section GammaAction
+
+/-- Isomorphisms are compatible with `twist`. -/
+def QML3.Iso.twist {P Q : QML3 K} (f : P.Iso Q) (α : O ≃+* O) : (P.twist α).Iso (Q.twist α) where
+  φ := f.φ
+  ψ := f.ψ
+  left := f.left
+  right := f.right
+  equivariant a := by
+    change (P.q.iota (α a)).hom ≫ f.φ.hom = f.φ.hom ≫ (Q.q.iota (α a)).hom
+    exact f.equivariant (α a)
+  level a := by
+    change Additive.ofMul (Additive.toMul (P.e.eta (α a)) ≫ f.φ.hom) = Q.e.eta (α a)
+    exact f.level (α a)
+
+/-- Isomorphisms are compatible with `rightMul`. -/
+def QML3.Iso.rightMul {P Q : QML3 K} (f : P.Iso Q) (u : Oˣ) :
+    (P.rightMul u).Iso (Q.rightMul u) where
+  φ := f.φ
+  ψ := f.ψ
+  left := f.left
+  right := f.right
+  equivariant a := f.equivariant a
+  level a := by
+    change Additive.ofMul (Additive.toMul (P.e.eta (a * u)) ≫ f.φ.hom) = Q.e.eta (a * u)
+    exact f.level (a * u)
+
+/-- `twist α` on isomorphism classes. -/
+def M3'.twist (α : O ≃+* O) : M3' K → M3' K :=
+  Quotient.map (fun P => P.twist α) (fun _ _ ⟨f⟩ => ⟨f.twist α⟩)
+
+/-- `rightMul u` on isomorphism classes. -/
+def M3'.rightMul (u : Oˣ) : M3' K → M3' K :=
+  Quotient.map (fun P => P.rightMul u) (fun _ _ ⟨f⟩ => ⟨f.rightMul u⟩)
+
+end GammaAction
+
 end Classes
 
 section CM
@@ -592,6 +631,81 @@ def R5fp : Prop :=
           Module.finrank ℚ (fieldOfModuli q) = Nat.card (CommRing.Pic R) ∨
             Module.finrank ℚ (fieldOfModuli q) = 2 * Nat.card (CommRing.Pic R)
 
+/-! ### The count clause of R5 (González–Rotger 2006, Prop. 5.6; Jordan 1981, §3) -/
+
+section Count
+
+/-- Isomorphism of QM pairs is symmetric. -/
+def QMIso.symm {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'} (f : QMIso q q') : QMIso q' q where
+  φ := f.ψ
+  ψ := f.φ
+  left := f.right
+  right := f.left
+  equivariant a := by
+    calc (q'.iota a).hom ≫ f.ψ.hom
+        = f.ψ.hom ≫ f.φ.hom ≫ (q'.iota a).hom ≫ f.ψ.hom := by
+          rw [reassoc_of% f.right]
+      _ = f.ψ.hom ≫ (q.iota a).hom ≫ f.φ.hom ≫ f.ψ.hom := by
+          rw [reassoc_of% (f.equivariant a)]
+      _ = f.ψ.hom ≫ (q.iota a).hom := by rw [f.left, Category.comp_id]
+
+/-- Isomorphism of QM pairs is transitive. -/
+def QMIso.trans {A A' A'' : AbVar K} {q : QMStr A} {q' : QMStr A'} {q'' : QMStr A''}
+    (f : QMIso q q') (g : QMIso q' q'') : QMIso q q'' where
+  φ := AbVar.Hom.mk' (f.φ.hom ≫ g.φ.hom)
+  ψ := AbVar.Hom.mk' (g.ψ.hom ≫ f.ψ.hom)
+  left := by
+    simp only [AbVar.Hom.hom_mk', Category.assoc]
+    rw [reassoc_of% g.left, f.left]
+  right := by
+    simp only [AbVar.Hom.hom_mk', Category.assoc]
+    rw [reassoc_of% f.right, g.right]
+  equivariant a := by
+    simp only [AbVar.Hom.hom_mk', Category.assoc]
+    rw [reassoc_of% (f.equivariant a), g.equivariant a]
+
+/-- The identity. -/
+def QMIso.refl {A : AbVar K} (q : QMStr A) : QMIso q q where
+  φ := 1
+  ψ := 1
+  left := by simp [AbVar.Hom.hom_mk', OfNat.ofNat, One.one]
+  right := by simp [AbVar.Hom.hom_mk', OfNat.ofNat, One.one]
+  equivariant a := by
+    change _ ≫ 𝟙 _ = 𝟙 _ ≫ _
+    simp
+
+/-- An abelian surface over `K` with QM by `𝒪` (a point of `X₆ = X₀(6,1)` when `K = ℚ̄`). -/
+structure QMPair (K : Type) [Field K] where
+  A : AbVar K
+  surface : A.dim = 2
+  q : QMStr A
+
+/-- Isomorphism of QM pairs as a setoid. -/
+def pairSetoid (K : Type) [Field K] : Setoid (QMPair K) where
+  r P Q := Nonempty (QMIso P.q Q.q)
+  iseqv := ⟨fun P => ⟨QMIso.refl P.q⟩, fun ⟨f⟩ => ⟨f.symm⟩, fun ⟨f⟩ ⟨g⟩ => ⟨f.trans g⟩⟩
+
+open Classical in
+/-- `b(k) = #{p ∣ 6 : p inert in k}`, inertness meaning that `p·𝒪_k` is a prime ideal. -/
+noncomputable def inertCount6 (k : Type) [Field k] [NumberField k] : ℕ :=
+  (if (Ideal.span {(2 : NumberField.RingOfIntegers k)}).IsPrime then 1 else 0) +
+    (if (Ideal.span {(3 : NumberField.RingOfIntegers k)}).IsPrime then 1 else 0)
+
+/-- **R5fpCount (González–Rotger 2006, Prop. 5.6, read by the locator audit; Jordan 1981 §3):**
+for an order `R` of conductor prime to 6 in an imaginary quadratic field `k` that occurs as the
+centralizer of some QM pair over `ℚ̄`, the number of isomorphism classes of QM pairs over `ℚ̄` with
+centralizer `≅ R` (the CM points by `R` on `X₆`) is `2^{b(k)}·#Pic(R)`. Statement only. -/
+def R5fpCount : Prop :=
+  ∀ (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k],
+    Module.finrank ℚ k = 2 →
+    ∀ R : Subring k, R ≤ (integralClosure ℤ k).toSubring → Nat.Coprime (conductor R) 6 →
+      (∃ P : QMPair Qbar, Nonempty (com P.q ≃+* R)) →
+        Nat.card {c : Quotient (pairSetoid Qbar) //
+            ∃ P : QMPair Qbar, Quotient.mk _ P = c ∧ Nonempty (com P.q ≃+* R)} =
+          2 ^ inertCount6 k * Nat.card (CommRing.Pic R)
+
+end Count
+
 end FieldOfModuli
 
 end AV
@@ -608,3 +722,5 @@ end BPQM
 #print axioms BPQM.AV.intCast_mem_com
 #print axioms BPQM.AV.QMStr.baseChange
 #print axioms BPQM.AV.R5fp
+#print axioms BPQM.AV.R5fpCount
+#print axioms BPQM.AV.M3'.twist
