@@ -18,3 +18,27 @@
     of Y3 over P^1_j: indices (4,6,2) give g = 4; indices (2,2,2) give g = -17 (impossible).
     Of the 6 assignments of {4,6,2} to (0, inf, -16/27), only (4,6,2) makes "p not | M_S(u)
     => unramified" hold.
+
+## Lean
+- `OrbifoldIndex.lean`: COMPILES (`lake env lean`, 2026-11-12 ~01:21), no sorry; axioms
+  [propext, Classical.choice, Quot.sound] (labelling: [propext, Quot.sound]).
+  - `orbitStab N x` (stabilizer of an N-orbit), `orbitStab_eq_sup : orbitStab N x = N ⊔ Stab x`,
+    `relIndex_orbitStab : N ⊓ Stab x = ⊥ → [orbitStab N x : N] = |Stab x|`,
+    `inf_stabilizer_eq_bot` (torsion-free N, finite stabilizer), `ramification_eq_orbifold_order`.
+  - `rh_462` (deg 72, indices 4,6,2: g = 4), `rh_222_impossible`, `euler_ratio`,
+    `labelling` (only (4,6,2) among permutations), `inertia_trivial_of_dvd` (needed direction
+    holds for any indices dividing (4,6,2)).
+
+## Findings (statements)
+- NoCM (h-cm 4.1.4 and rv-h-cm 7.2): the arguments use `#CM(R) = 2^b h(R)` (h-cm, JGR) or
+  `#CM(R) = h(R)` only when D(R) = 1, i.e. b = 0 (rv-h-cm 7.2) — both correct. VERIFIED by
+  reading. The unqualified leaf `#CM(R) = h(R) for (f,6)=1` appears in h-decomposition R5,
+  glue-repo L14 (A10 table), Leaves.lean `R05_GonzalezRotger` docstring, hdec-elementary
+  l.252: FALSE as stated (Part A; e.g. |D| = 4: h = 1 but two Z[i]-CM points on X6).
+- Every field-of-definition claim in NoCM is on X6 = X0(6,1) (GR's own curve), none on X* or Y3.
+  VERIFIED by reading h-cm 4.1.4, rv-h-cm 2.3 and 7.2.
+- A5 needs the indices of Y3 -> P^1_j (Prop. TS inertia `e/gcd(e,m)`; Lemma NV step 3), which
+  equal the orbifold orders (4,6,2) of Gamma* since Gamma_3 is torsion-free and normal
+  (manuscript l.488-490 says so). Lemma NV step 4 uses the indices 2 of X6 -> P^1_j, derived
+  internally. The leaf texts "X6/W branched with indices 4,6,2" (h-decomposition R2, glue-repo
+  L2, Leaves.lean R02 docstring, pkg-I1 A2 row) misdescribe the finite map.
