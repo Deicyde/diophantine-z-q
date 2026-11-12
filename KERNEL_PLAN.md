@@ -80,7 +80,8 @@ identity's number, Lemma 2.9 in both versions, is an audit by AI agents with web
 Proposition N proves `TYZThm35ReadingA` from unambiguous results of the paper without
 Proposition 3.4 (`docs/research/nt-tyz.md` §4; two reviews by AI models, none by a human), and Lean
 checks that proof (`PropN.tyzThm35ReadingA_of_tyzInputs` from the encoding `PropN.TYZInputs`,
-`ZInQKernel/Hypotheses/TYZInputs.lean`, `ZInQKernel/RouteK/PropN.lean`). The plan and its review
+`ZInQKernel/Hypotheses/TYZInputs.lean`, `ZInQKernel/RouteK/PropN.lean`; Lean does not check that
+the encoding matches the paper, whose Lemma 2.9 the encoding calls `LemmaTwoEight`). The plan and its review
 are `docs/research/wk-cr3.md` and `docs/research/rv-lit.md`. From `TYZThm35ReadingA` and
 `HeckeContinuation` Lean derives (`Literature.tyzRow5b_of_readingA`) the intermediate statement
 `Literature.TYZRow5b` (`L(C_d, s)` vanishes to order at most 1 at `s = 1` when `T5bCl d = 1`), the

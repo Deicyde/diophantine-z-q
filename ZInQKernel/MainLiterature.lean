@@ -14,8 +14,9 @@ Theorem 1.1 of the manuscript (`FrozenTarget`) from the reductions of the two hy
 * `Literature.TYZRow5b` replaced in turn by two leaves, Tian–Yuan–Zhang's Theorem 3.5(2) in
   reading A (`Literature.TYZThm35ReadingA`) and Hecke's continuation
   (`Literature.HeckeContinuation`), through `Literature.tyzRow5b_of_readingA`;
-* `Literature.TYZRow5b` replaced alternatively by `PropN.TYZInputs` (`Hypotheses/TYZInputs.lean`), the
-  Tian–Yuan–Zhang inputs of Proposition N, proved in `RouteK/PropN.lean`;
+* `Literature.TYZRow5b` replaced alternatively by `PropN.TYZInputs`
+  (`Hypotheses/TYZInputs.lean`), the Tian–Yuan–Zhang inputs of Proposition N, proved in
+  `RouteK/PropN.lean` (supporting evidence for `Literature.TYZThm35ReadingA`);
 * H replaced by its `j`-form `JHeight.JHeightBound Mult.S_mul` (`Hypotheses/JHeight.lean`),
   which implies `SixContactMin` in Lean.
 

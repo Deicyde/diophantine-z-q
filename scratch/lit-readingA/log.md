@@ -26,3 +26,22 @@
 - `𝓛(n) = 0` iff `ord_{s=1} L(C_n, s) > 1`: VERIFIED, TYZ definition L338–344.
 - "Prop 3.4 proof only sketched": stated for the arXiv version (nt-tyz.md summary 3); the locator audit
   read the journal proof pages but does not comment on completeness, so the README says "in the arXiv version".
+- Rebuild after reflowing the MainLiterature module docstring: VERIFIED, build OK (9925 jobs),
+  print_axioms rc 0, 92/92 lists exactly [propext, Classical.choice, Quot.sound] (01:17 PST).
+
+## Step 3 (cold read of the README diff)
+- Independent cold read (fresh AI agent, read-only, given only the README section and diff) returned
+  12 items; all applied in substance:
+  1–2 referent errors fixed ("the last two" pointed at FunctionalEquation5/GrossZagier in the theorem
+  signature; now names TYZThm35ReadingA and HeckeContinuation); 3 T5aCl/T5bCl block conditions stated
+  (from Admissible5aNat / Admissible5bNat) and values in ℤ/2; 4 `d₁` introduced, reading A's two
+  sums = T5aCl and T5aCl + T5bCl (nt-tyz §1.3); 5 "It" referent fixed; 6 the 𝓛(n)=0 case is now
+  attributed to the paper's Theorem 3.5 (first assertion) + Lemma 3.18 via nt-tyz §2.2 F6;
+  7 "we" replaced by "the project's literature search, which AI agents carried out", Smith 1603.08479
+  named as the one unrefereed statement; 8 "these criteria" antecedent fixed, counterexample
+  evidence stated (exact computation, not in Lean, nt-tyz §1.4); 9 journal proof of Prop 3.4 "not
+  assessed"; 10 Lean checks Prop N only from the encoding TYZInputs, encoding fidelity not checked,
+  Lemma 2.9 vs the repository's "Lemma 2.8" name; 11 "split up" replaced, FunctionalEquation5
+  supplier caveat from locators row 112 added; 12 HeckeContinuation: positive d, Re s > 3/2, original
+  Deuring–Hecke source not read by the locator audit (locators "source-access limits").
+- KERNEL_PLAN: same encoding caveat (item 10) added.
