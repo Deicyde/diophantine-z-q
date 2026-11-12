@@ -44,6 +44,7 @@ Each declaration should depend on `[propext, Classical.choice, Quot.sound]` only
 #print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzRow5b_functionalEquation5_grossZagier
 #print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_jHeightBound_certifiedRankTYZClRk
 #print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_jHeightBound_tyzRow5b_functionalEquation5_grossZagier
+#print axioms ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzInputs_functionalEquation5_grossZagier
 
 -- Theorems that replace former hypotheses, and the vendored Green–Tao theorem.
 #print axioms ZInQ.greenTaoDense
@@ -88,3 +89,12 @@ Each declaration should depend on `[propext, Classical.choice, Quot.sound]` only
 #print axioms ZInQ.Literature.tyzRow5b_of_readingA
 #print axioms ZInQ.Literature.IsLContinuation.eq
 #print axioms ZInQ.JHeight.sixContactMin_of_jHeightBound
+
+-- Proposition N from the Tian–Yuan–Zhang inputs (`Hypotheses/TYZInputs.lean`, `RouteK/PropN.lean`).
+#print axioms ZInQ.PropN.tyzRow5b_of_tyzInputs
+#print axioms ZInQ.PropN.tyzThm35ReadingA_of_tyzInputs
+#print axioms ZInQ.PropN.lemmaN1_core
+#print axioms ZInQ.PropN.lemmaN2
+#print axioms ZInQ.PropN.finalStep
+#print axioms ZInQ.PropN.matching
+#print axioms ZInQ.PropN.Witness.genusData_nonempty

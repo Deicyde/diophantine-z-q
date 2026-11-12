@@ -1,6 +1,7 @@
 import ZInQKernel.Hypotheses.CR3Literature
 import ZInQKernel.Hypotheses.JHeight
 import ZInQKernel.RouteK.RankVariants
+import ZInQKernel.RouteK.PropN
 
 /-!
 # Main-theorem variants from the literature forms of H and CR₃
@@ -10,6 +11,8 @@ Theorem 1.1 of the manuscript (`FrozenTarget`) from the reductions of the two hy
 * CR₃ replaced by three literature Props over Mathlib's L-series
   (`Hypotheses/CR3Literature.lean`): `Literature.TYZRow5b`, `Literature.FunctionalEquation5`
   and `Literature.GrossZagier`;
+* `Literature.TYZRow5b` replaced in turn by `PropN.TYZInputs` (`Hypotheses/TYZInputs.lean`), the
+  Tian–Yuan–Zhang inputs of Proposition N, proved in `RouteK/PropN.lean`;
 * H replaced by its `j`-form `JHeight.JHeightBound Mult.S_mul` (`Hypotheses/JHeight.lean`),
   which implies `SixContactMin` in Lean.
 
@@ -32,6 +35,20 @@ theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyz
   exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk hH
     (Literature.certifiedRankTYZClRk_of_literature hT
       (Literature.rootNumberVanishing_of_functionalEquation hF) hG)
+
+/-- **Theorem 1.1 from `SixContactMin`, the Tian–Yuan–Zhang inputs and two textbook statements.**
+As the `TYZRow5b` variant above, with `Literature.TYZRow5b` replaced by `PropN.TYZInputs`
+(`Hypotheses/TYZInputs.lean`), the encoding of the results I1–I7 of Tian–Yuan–Zhang
+(arXiv:1411.4728v1) that Proposition N of `docs/research/nt-tyz.md` uses. Lean derives
+`TYZRow5b` from it (`PropN.tyzRow5b_of_tyzInputs`, `RouteK/PropN.lean`: the kernel-checked proof
+of Proposition N), so the remaining CR₃ hypotheses are the functional equation
+`Literature.FunctionalEquation5` and the positive-rank half of Gross–Zagier
+`Literature.GrossZagier`. -/
+theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzInputs_functionalEquation5_grossZagier
+    (hH : SixContactMin) (hT : PropN.TYZInputs) (hF : Literature.FunctionalEquation5)
+    (hG : Literature.GrossZagier) : FrozenTarget :=
+  exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzRow5b_functionalEquation5_grossZagier
+    hH (PropN.tyzRow5b_of_tyzInputs hT) hF hG
 
 /-- **Theorem 1.1 from the `j`-form of H and `CertifiedRankTYZClRk`.** Assumes
 `JHeight.JHeightBound Mult.S_mul`, the bound on the height of the Hauptmodul value `J(u)` that
