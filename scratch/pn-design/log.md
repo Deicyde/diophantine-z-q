@@ -27,3 +27,12 @@
   (M = ℤ[i]/(2+2i) × (ℕ →₀ ℤ[i]), P by well-founded recursion). Compiles; still exactly the 4
   `sorry`s. `#print axioms tyzRow5b_of_tyzInputs`, `lemmaN1`, `tyzThm35ReadingA_of_tyzInputs`:
   propext, sorryAx, Classical.choice, Quot.sound; `genusData_nonempty`: propext, Classical.choice, Quot.sound (no sorry).
+- Corrected TYZ line locators in PropN.lean docstrings (Lemma 3.21 L2504–2516, β₁ L2496–2500,
+  "β acts on ℚ(i) trivially" L2581, sign L361, Z(n) L1318, recursion L1325–1330). Recompiled:
+  4 `sorry` warnings (lines 154 lemmaN1_core, 168 lemmaN2, 177 finalStep, 188 matching), no errors.
+
+## Step 3 (plan) and deliverables
+
+- Wrote `docs/research/pn-design.md`: inputs I1–I7 with locators (§1), field-by-field encoding
+  table (§2), checks (§3), N2 without N1 with the κ-table proof (§4), ranked risks (§5), plan A–D
+  with routes, reuse and sizes (§6).

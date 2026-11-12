@@ -13,9 +13,9 @@ Design draft (`docs/research/pn-design.md`). The hypothesis `Literature.TYZRow5b
 * the defining property of `𝓛` for `n ≡ 5 (mod 8)` (L338–345), with the continuation of
   `L(C_n, s)`: `L n ≠ 0 → ∃ F, IsLContinuation … F ∧ analyticOrderAt F 1 ≤ 1`;
 * for each squarefree `n ≡ 5 (mod 8)`, the genus-point data `GenusData L n` over the
-  `ℤ[i]`-module `M = A(ℍ'_n)` (§3.1, L1314–1330; Theorem 3.3, L1299–1311; Theorem 3.5,
-  L1353–1356; τ, L1384–1402; Lemmas 3.16, 3.18, L2182–2232; Lemma 3.21, L2494–2510; the remark
-  "β acts on ℚ(i) trivially", L2585).
+  `ℤ[i]`-module `M = A(ℍ'_n)` (§3.1, L1314–1330, recursion L1325–1330; Theorem 3.3,
+  L1299–1311; Theorem 3.5, L1353–1356; τ, L1384–1402; Lemmas 3.16, 3.18, L2182–2232;
+  Lemma 3.21, L2504–2517; the remark "β acts on ℚ(i) trivially", L2581).
 
 Lean proves `tyzRow5b_of_tyzInputs` from four lemmas whose proofs are left `sorry` here, to be
 proved in parallel against these fixed statements:
@@ -68,16 +68,16 @@ def LemmaTwoEight (L : ℕ → ℤ) : Prop :=
 
 /-- **The genus-point data of TYZ §3 for one squarefree `n ≡ 5 (mod 8)`.** `M` plays the role of
 `A(ℍ'_n)` (a `ℤ[i]`-module, L1324), `Z e` of the genus point `Z(e)` and `P e` of the point `P(e)`
-for `e ∣ n` (L1316–1330; `ℍ'_e ⊂ ℍ'_n`), `τ y` of `τ(y/2)` (L1384–1402), and `β` of the action of a
-lifting `β' ∈ Gal(ℚ̄/ℚ)` of `β₁ = r_∞(−1) r₂(−2)` (L2486–2490) on `A(ℍ'_n)`. -/
+for `e ∣ n` (L1318–1330; `ℍ'_e ⊂ ℍ'_n`), `τ y` of `τ(y/2)` (L1384–1402), and `β` of the action of a
+lifting `β' ∈ Gal(ℚ̄/ℚ)` of `β₁ = r_∞(−1) r₂(−2)` (L2496–2500) on `A(ℍ'_n)`. -/
 structure GenusData (L : ℕ → ℤ) (n : ℕ) where
   /-- `A(ℍ'_n)`. -/
   M : Type
   [addCommGroup : AddCommGroup M]
   [module : Module GaussianInt M]
-  /-- `Z(e)`, the genus point (L1316). -/
+  /-- `Z(e)`, the genus point (L1318). -/
   Z : ℕ → M
-  /-- `P(e)` (L1326). -/
+  /-- `P(e)` (L1325–1330). -/
   P : ℕ → M
   /-- `ε(d₀, d₁) ∈ μ₄` of Theorem 3.3 (L1309–1310). -/
   ε : ℕ → ℕ → GaussianInt
@@ -87,7 +87,7 @@ structure GenusData (L : ℕ → ℤ) (n : ℕ) where
   eps_pm1 : ∀ d₀ d₁ : ℕ, d₀ * d₁ ∣ n →
     (d₀ % 8 = 5 ∧ d₁ % 8 = 1 ∨ d₀ % 8 = 7 ∧ d₁ % 8 = 1 ∨ d₀ % 8 = 7 ∧ d₁ % 8 = 3) →
     ε d₀ d₁ = 1 ∨ ε d₀ d₁ = -1
-  /-- **I1**, the recursion defining `P` (L1326–1328), for every `d ∣ n` with `d ≡ 5, 7 (mod 8)`:
+  /-- **I1**, the recursion defining `P` (L1325–1330), for every `d ∣ n` with `d ≡ 5, 7 (mod 8)`:
   `P(d) = Z(d) − Σ_{d = d₀d₁, d₁ ≡ 1, 3, d₁ > 1} ε(d₀, d₁) 𝓛(d₁) P(d₀)` (for odd `d ≡ 5, 7`, the
   classes `d₁ ≡ 1, 3` force `d₀ ≡ 5, 7`). -/
   recursion : ∀ d ∈ n.divisors, (d % 8 = 5 ∨ d % 8 = 7) →
@@ -105,18 +105,18 @@ structure GenusData (L : ℕ → ℤ) (n : ℕ) where
   /-- `β'` acting on `A(ℍ'_n)` (additive; `ℍ'_n/ℚ` is Galois, F5 from Proposition 3.2(1)). -/
   β : M →+ M
   /-- `β'` fixes `A[(1+i)³] = A(ℚ(i))` (Lemma 3.16, L2182–2185), since `β` acts trivially on
-  `ℚ(i)` (L2585). -/
+  `ℚ(i)` (L2581). -/
   β_τ : ∀ y, β (τ y) = τ y
-  /-- **I5**, Lemma 3.21(1) (L2496–2498): `Z(e)^{β'+1} ∈ g(e) τ((1−i)/2) + ℤ τ(1)` for `e ≡ 5`. -/
+  /-- **I5**, Lemma 3.21(1) (L2506–2508): `Z(e)^{β'+1} ∈ g(e) τ((1−i)/2) + ℤ τ(1)` for `e ≡ 5`. -/
   beta_five : ∀ e ∈ n.divisors, e % 8 = 5 →
     ∃ k : ℤ, β (Z e) + Z e = (gNat e : ℤ) • τ ⟨1, -1⟩ + k • τ 2
-  /-- **I5**, Lemma 3.21(4) (L2506–2508): `Z(e)^{β'+1} = g(e) τ(1/2)` for `e ≡ 7`. -/
+  /-- **I5**, Lemma 3.21(4) (L2514–2516): `Z(e)^{β'+1} = g(e) τ(1/2)` for `e ≡ 7`. -/
   beta_seven : ∀ e ∈ n.divisors, e % 8 = 7 → β (Z e) + Z e = (gNat e : ℤ) • τ 1
 
 attribute [instance] GenusData.addCommGroup GenusData.module
 
 /-- **The TYZ inputs of Proposition N.** There is an integer function `L` (TYZ's `𝓛`, integral by
-Theorems 1.1, 1.2 and 3.5(1); a choice of the sign of each value, L357) such that
+Theorems 1.1, 1.2 and 3.5(1); a choice of the sign of each value, L361) such that
 `L 1 = 1` (L1082), Lemma 2.8 with Proposition 2.3 holds modulo 2, `L n ≠ 0` gives analytic rank
 at most one for `n ≡ 5 (mod 8)` (the definition of `𝓛`, L338–345, `𝓛(n) = 0` if
 `ord_{s=1} > 1`, with the continuation of `L(C_n, s)`; `E_n ≅ C_n` over `ℚ`), and every squarefree
