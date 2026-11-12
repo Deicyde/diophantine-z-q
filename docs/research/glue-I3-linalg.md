@@ -1,22 +1,42 @@
 # glue-I3-linalg: the linear-algebra glue of package I3 (steps C2, E1)
 
-Status: research note (task glue-I3-linalg, 2026-11-11). Lean files in `scratch/glue-I3-linalg/`, none with
-`sorry`, all compiled with `lake env lean`:
-- `Commutant.lean` (310 lines, Mathlib only): the linear algebra;
+Status: research note (task glue-I3-linalg, 2026-11-11). Lean files in `scratch/glue-I3-linalg/`, none
+containing `sorry`, all compiled with `lake env lean`:
+- `Commutant.lean` (363 lines, Mathlib only): the linear algebra;
 - `TateBC.lean` (191 lines): Tate modules along injective maps;
-- `C2.lean` (1051 lines): pkg-I3's `I3.lean` verbatim, plus `Commutant.lean`, plus C2 stated and proved over
-  the object layer;
-- `I3.lean`: a verbatim copy of pkg-I3's file. Log: `scratch/glue-I3-linalg/log.md`. Marks: VERIFIED (compiled or read),
-STANDARD (published, exact reference), SPECULATIVE; UNVERIFIED for locators given from memory.
+- `C2.lean` (1166 lines): pkg-I3's `I3.lean` verbatim, plus the body of `Commutant.lean`, plus C2 and E1
+  stated and proved over the object layer;
+- `I3.lean`: a verbatim copy of pkg-I3's file.
+
+Log: `scratch/glue-I3-linalg/log.md`. Marks: VERIFIED (compiled or read), STANDARD (published, exact
+reference), SPECULATIVE; UNVERIFIED for locators given from memory.
 
 ## Main result
 
-**C2's commutant argument is proved in Lean (VERIFIED, compiled; axioms `propext`, `Classical.choice`,
-`Quot.sound`), over Mathlib's genuine `Representation`, `IsSemisimpleRepresentation` and `IsIrreducible`.** Two
-further linear-algebra facts are needed. They are stated in Lean as `def … : Prop` but not proved: invariants
-under extension of coefficients, and semisimplicity under extension in characteristic 0. Neither is a literature
-leaf; both are textbook algebra. From these two, Lean proves the absolute irreducibility of `r_ℓ` that N5
-L731-734 needs.
+**The I3 glue for C2 and E1 is proved in Lean over pkg-I3's object layer (VERIFIED, compiled; axioms
+`propext`, `Classical.choice`, `Quot.sound`), modulo two textbook linear-algebra statements, which are stated
+in Lean but not proved.** Everything is over Mathlib's genuine `Representation`, `IsSemisimpleRepresentation`
+and `IsIrreducible`.
+
+- `PkgI3.C2_absolutelyIrreducible` (N5 L731-734). From the leaves `FaltingsSemisimple`, `FaltingsTate`,
+  `TateModuleFree` and `HomFreeFinite`, together with:
+  - A9's output `rank_ℤ End_K(A) = 4`;
+  - an equivariant `E ⊗ V_ℓ(A) ≅ r ⊕ r` (from `B ⊗ E ≅ M₂(E)`);
+
+  it proves that `r` is absolutely irreducible.
+- `PkgI3.E1_exists_hom_ne_zero` (N5 L861-867, first half). From the leaves `FaltingsSemisimple`,
+  `FaltingsTate` and `TateModuleFree`, a common constituent of `V_ℓ(A) ⊗ E` and `V_ℓ(J) ⊗ E` gives a nonzero
+  `Hom_K(A, J)`.
+- Unproved glue:
+  - `InvariantsBaseChange` (used by C2 only): `dim_E End_G(V ⊗ E) = dim_k End_G(V)`;
+  - `SemisimpleBaseChange` (used by both): semisimplicity survives extension of scalars in characteristic 0.
+
+  Neither is a literature leaf. Both are STANDARD algebra; §3 gives the route and the reason they were not
+  done.
+- Not done:
+  - the application of `PoincareReducibility` in E1. It needs `EndDivision A`, and the leaf interface (A9's
+    output) has to be adjusted; see §2;
+  - the geometric half of `T_ℓ` under base change. Its algebraic core is proved (`Tate.map_bijective`).
 
 | Lean name (`GlueI3.`) | Statement | Status |
 | --- | --- | --- |
