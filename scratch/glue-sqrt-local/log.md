@@ -26,3 +26,5 @@
 - `eq_of_pow_eq_one_of_sub_mem`: in a domain, m-th roots of unity x, y with x - y ∈ Q, (m:R) ∉ Q are equal. VERIFIED.
 - `pow_frobenius_of_isLocalRing`: if IsLocalRing (integralClosure ℤ_[p] L), every τ ∈ Gal(L/ℚ_p) has n with τ ζ = ζ^(p^n) for all prime-to-p roots of unity ζ. VERIFIED (compiled; the locality of the integral closure is a hypothesis, STANDARD, not proved).
   Proof: τ stabilizes the maximal ideal; stabilizerHom τ ∈ Gal((S/Q)/𝔽_p) = ⟨Frob⟩ (FiniteField.bijective_frobeniusAlgEquivOfAlgebraic_pow); roots of unity separate mod Q.
+- `autToPow_eq_of_apply`: σ ζ = ζ^k (ζ primitive m-th root) → autToPow σ = k in ZMod m. VERIFIED.
+- `range_autToPow_eq_zpowers`: p ∤ m, ζ primitive m-th root in L (L/ℚ_p finite Galois), IsLocalRing (integralClosure ℤ_[p] L) → range (autToPow : Gal(L/ℚ_p) → (ZMod m)ˣ) = zpowers (p mod m). VERIFIED (locality hypothesis).
