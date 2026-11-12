@@ -248,6 +248,99 @@ theorem pair_iso_iff (N : ℕ) [NeZero N] (τ τ' : ℍ) :
   · rintro ⟨γ, hγ, rfl⟩
     exact ⟨jfac γ τ, lattice_homothety γ τ, (point_preserved_iff N γ τ).2 hγ⟩
 
+/-! ### Every point `(cτ + d)/N` with `(c, d)` primitive mod `N` is equivalent to `1/N`
+
+`lift_coprime` is copied from `Gamma1Genus.lean` (scratch files cannot import each other). -/
+
+/-- Lifting a pair that is primitive modulo `N` to a coprime pair of naturals. -/
+theorem lift_coprime (N a c : ℕ) (hN : 0 < N)
+    (hprim : ∀ k, k.Prime → k ∣ N → k ∣ a → k ∣ c → False) :
+    ∃ a' c' : ℕ, (a' : ZMod N) = a ∧ (c' : ZMod N) = c ∧ Nat.Coprime a' c' := by
+  classical
+  set c' := if c = 0 then N else c with hc'
+  have hc'pos : 0 < c' := by
+    rw [hc']; split_ifs with h
+    · exact hN
+    · omega
+  have hc'mod : (c' : ZMod N) = c := by
+    rw [hc']; split_ifs with h
+    · simp [h]
+    · rfl
+  have hkc : ∀ k, k.Prime → k ∣ c' → k ∣ N → k ∣ c := by
+    intro k hk h1 h2
+    rw [hc'] at h1
+    split_ifs at h1 with h
+    · rw [h]; exact dvd_zero k
+    · exact h1
+  set t := ∏ p ∈ c'.primeFactors.filter (fun p => ¬ p ∣ a), p with ht
+  refine ⟨a + t * N, c', by simp, hc'mod, ?_⟩
+  apply Nat.coprime_of_dvd
+  intro k hk hka hkc'
+  by_cases hkA : k ∣ a
+  · have hkt : ¬ k ∣ t := by
+      intro hdvd
+      rw [ht] at hdvd
+      obtain ⟨p, hp, hkp⟩ := (Prime.dvd_finsetProd_iff hk.prime _).1 hdvd
+      rw [Finset.mem_filter] at hp
+      have : k = p := (Nat.prime_dvd_prime_iff_eq hk (Nat.prime_of_mem_primeFactors hp.1)).1 hkp
+      exact hp.2 (this ▸ hkA)
+    have hkN : ¬ k ∣ N := fun hkN => hprim k hk hkN hkA (hkc k hk hkc' hkN)
+    have : k ∣ t * N := (Nat.dvd_add_right hkA).1 hka
+    rcases (Nat.Prime.dvd_mul hk).1 this with h | h
+    · exact hkt h
+    · exact hkN h
+  · have hkt : k ∣ t := by
+      rw [ht]
+      apply Finset.dvd_prod_of_mem
+      rw [Finset.mem_filter, Nat.mem_primeFactors]
+      exact ⟨⟨hk, hkc', hc'pos.ne'⟩, hkA⟩
+    exact hkA ((Nat.dvd_add_left (dvd_mul_of_dvd_left hkt N)).1 hka)
+
+/-- A primitive bottom row modulo `N` lifts to `SL₂(ℤ)`. -/
+theorem exists_SL2_bottomRow (N : ℕ) [NeZero N] (c d : ℤ)
+    (hv : ∃ x y : ZMod N, x * (c : ZMod N) + y * (d : ZMod N) = 1) :
+    ∃ γ : SL(2, ℤ), (N : ℤ) ∣ γ 1 0 - c ∧ (N : ℤ) ∣ γ 1 1 - d := by
+  obtain ⟨x, y, hxy⟩ := hv
+  set c₀ := (c : ZMod N).val
+  set d₀ := (d : ZMod N).val
+  have hc₀ : ((c₀ : ℕ) : ZMod N) = c := ZMod.natCast_zmod_val _
+  have hd₀ : ((d₀ : ℕ) : ZMod N) = d := ZMod.natCast_zmod_val _
+  have hprim : ∀ k, k.Prime → k ∣ N → k ∣ c₀ → k ∣ d₀ → False := by
+    intro k hk hkN h1 h2
+    have : Fact (1 < k) := ⟨hk.one_lt⟩
+    have h := congrArg (ZMod.castHom hkN (ZMod k)) hxy
+    rw [map_add, map_mul, map_mul, map_one, ← hc₀, ← hd₀, map_natCast, map_natCast,
+      (ZMod.natCast_eq_zero_iff _ _).2 h1, (ZMod.natCast_eq_zero_iff _ _).2 h2] at h
+    simp at h
+  obtain ⟨c', d', hc', hd', hcop⟩ := lift_coprime N c₀ d₀ (Nat.pos_of_ne_zero (NeZero.ne N)) hprim
+  obtain ⟨u, w, huw⟩ := Nat.isCoprime_iff_coprime.mpr hcop
+  refine ⟨⟨!![w, -u; (c' : ℤ), (d' : ℤ)], ?_⟩, ?_, ?_⟩
+  · rw [Matrix.det_fin_two_of]; linear_combination huw
+  · show (N : ℤ) ∣ (c' : ℤ) - c
+    rw [← ZMod.intCast_zmod_eq_zero_iff_dvd]; push_cast; rw [hc', hc₀]; ring
+  · show (N : ℤ) ∣ (d' : ℤ) - d
+    rw [← ZMod.intCast_zmod_eq_zero_iff_dvd]; push_cast; rw [hd', hd₀]; ring
+
+/-- **Normalization of a level-`N` point**: for `(c, d)` primitive modulo `N`, there is
+`γ ∈ SL₂(ℤ)` such that the homothety by `j(γ,τ)` (an isomorphism `ℂ/Λ_{γτ} ≅ ℂ/Λ_τ`, by
+`lattice_homothety`) sends `1/N` to `(cτ + d)/N`. With `pair_iso_iff` this gives
+`{(ℂ/Λ_τ, P) : P = (cτ+d)/N primitive}/≅ ≃ Γ₁(N)\ℍ`. -/
+theorem exists_normalize (N : ℕ) [NeZero N] (τ : ℍ) (c d : ℤ)
+    (hv : ∃ x y : ZMod N, x * (c : ZMod N) + y * (d : ZMod N) = 1) :
+    ∃ γ : SL(2, ℤ), jfac γ τ * (1 / (N : ℂ)) - ((c : ℂ) * τ + d) / N ∈ lat τ := by
+  obtain ⟨γ, ⟨m, hm⟩, ⟨n, hn⟩⟩ := exists_SL2_bottomRow N c d hv
+  refine ⟨γ, m, n, ?_⟩
+  have hN : (N : ℂ) ≠ 0 := Nat.cast_ne_zero.2 (NeZero.ne N)
+  have hc : ((γ 1 0 : ℤ) : ℂ) = c + N * m := by
+    have : γ 1 0 = c + N * m := by omega
+    rw [this]; push_cast; ring
+  have hd : ((γ 1 1 : ℤ) : ℂ) = d + N * n := by
+    have : γ 1 1 = d + N * n := by omega
+    rw [this]; push_cast; ring
+  simp only [jfac, hc, hd]
+  field_simp
+  ring
+
 end BPModCurves
 
 #print axioms BPModCurves.lattice_homothety
@@ -255,3 +348,4 @@ end BPModCurves
 #print axioms BPModCurves.exactOrder
 #print axioms BPModCurves.exists_SL2_of_homothety
 #print axioms BPModCurves.pair_iso_iff
+#print axioms BPModCurves.exists_normalize

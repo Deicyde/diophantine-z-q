@@ -40,3 +40,6 @@
 - 12:25 `AnalyticModuli.lean` extended: `exists_SL2_of_homothety` (α·Λ_{τ'} = Λ_τ ⇒ ∃ γ ∈ SL₂(ℤ),
   τ' = γτ, α = j(γ,τ); orientation from Im), `pair_iso_iff` ((ℂ/Λ_{τ'}, 1/N) ≅ (ℂ/Λ_τ, 1/N) by a
   homothety ⇔ ∃ γ ∈ Gamma1 N, τ' = γ • τ). `lake env lean`: exit 0, no warnings; standard axioms. VERIFIED.
+- 12:30 `AnalyticModuli.lean` extended: `lift_coprime` (copied), `exists_SL2_bottomRow` (primitive
+  bottom row mod N lifts to SL₂(ℤ)), `exists_normalize` (for (c,d) primitive mod N, ∃ γ with
+  j(γ,τ)/N ≡ (cτ+d)/N mod Λ_τ). `lake env lean`: exit 0, no warnings; standard axioms. VERIFIED.
