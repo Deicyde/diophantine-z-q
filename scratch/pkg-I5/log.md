@@ -58,3 +58,8 @@ UNVERIFIED (no network).
   genus-1 and good-model genus-2 formulas and the Thomae theta height are concrete (§§2.3-2.5).
 - Direction analysis (§2.6): `h_F(A)` can be eliminated only by composing E with F3.
 - Recommendation: five leaves over an object layer with acceptance tests (§5).
+
+## Step 6. `area_check.py` rerun with corrected scales (VERIFIED)
+
+`2∫_ℂ dλ/|f|` vs period-lattice covolume of `dx/y`: 6.8751858 / 6.8751858, 4.9563762 / 4.9563766,
+16.217255 / 16.217257 (agreement to ~7 digits; quadrature error).
