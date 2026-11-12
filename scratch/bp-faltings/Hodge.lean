@@ -531,6 +531,12 @@ theorem HodgeData.modelHeight_of_span {g : ℕ} (D : HodgeData K g V) {η₀ : V
 noncomputable def _root_.PeriodPair.lattice1 (L : PeriodPair) : Submodule ℤ (Fin 1 → ℂ) :=
   ZLattice.comap ℝ L.lattice (ContinuousLinearEquiv.funUnique (Fin 1) ℝ ℂ).toLinearMap
 
+instance (L : PeriodPair) : DiscreteTopology L.lattice1 := by
+  unfold PeriodPair.lattice1; infer_instance
+
+instance (L : PeriodPair) : IsZLattice ℝ L.lattice1 := by
+  unfold PeriodPair.lattice1; infer_instance
+
 theorem _root_.PeriodPair.covolume_lattice1 (L : PeriodPair) :
     ZLattice.covolume L.lattice1 = ZLattice.covolume L.lattice :=
   ZLattice.covolume_comap L.lattice volume volume
@@ -574,6 +580,73 @@ theorem modelHeight_eq_faltingsHeightEC (hA : PeriodAreaFormula)
 
 end Acceptance
 
+/-! ## 6. Rescaling, and a sanity check that `HodgeData` is inhabited -/
+
+section Sanity
+
+variable {K : Type*} [Field K] [NumberField K]
+variable {V : Type*} [AddCommGroup V] [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V]
+
+/-- Rescale the metrics by `c σ > 0`. -/
+noncomputable def HermitianLattice.rescale (L : HermitianLattice K V) (c : (K →+* ℂ) → ℝ)
+    (hc : ∀ σ, 0 < c σ) : HermitianLattice K V where
+  lattice := L.lattice
+  finrank_eq_one := L.finrank_eq_one
+  isLattice := L.isLattice
+  norm σ v := c σ * L.norm σ v
+  norm_smul σ a v := by rw [L.norm_smul]; ring
+  norm_pos σ v hv := mul_pos (hc σ) (L.norm_pos σ v hv)
+
+omit [IsScalarTower (𝓞 K) K V] in
+/-- **Rescaling (part of node AR3):** `deg(M, c·‖·‖) = deg(M, ‖·‖) − ∑_σ log c_σ`. -/
+theorem HermitianLattice.arakelovDegree_rescale (L : HermitianLattice K V)
+    (c : (K →+* ℂ) → ℝ) (hc : ∀ σ, 0 < c σ) :
+    (L.rescale c hc).arakelovDegree = L.arakelovDegree - ∑ σ : K →+* ℂ, Real.log (c σ) := by
+  obtain ⟨hsM, hs, -⟩ := L.isLattice.choose_spec
+  unfold HermitianLattice.arakelovDegree HermitianLattice.degreeAt
+  simp only [HermitianLattice.rescale]
+  rw [Finset.sum_congr rfl fun σ _ => Real.log_mul (hc σ).ne' (L.norm_pos σ _ hs).ne',
+    Finset.sum_add_distrib]
+  ring
+
+/-- The square lattice `ℤ + ℤi`. -/
+noncomputable def gaussianPair : PeriodPair where
+  ω₁ := 1
+  ω₂ := Complex.I
+  indep := by simpa [Complex.coe_basisOneI] using Complex.basisOneI.linearIndependent
+
+/-- `σ : ℚ → ℂ` as a `σ`-semilinear map. -/
+def ratCoeff (σ : ℚ →+* ℂ) : ℚ →ₛₗ[σ] ℂ where
+  toFun := σ
+  map_add' := map_add σ
+  map_smul' a v := by simp
+
+/-- **Sanity check: `HodgeData` is inhabited** (the elliptic curve `ℂ/(ℤ + ℤi)` over `ℚ`, with
+the lattice `ℤ · 1`; this is a consistency check of the structure, not a claim about a curve over
+`ℚ`). -/
+noncomputable def exampleHodge : HodgeData ℚ 1 ℚ where
+  lattice := Submodule.span (𝓞 ℚ) {1}
+  finrank_eq_one := Module.finrank_self ℚ
+  isLattice := ⟨1, Submodule.mem_span_singleton_self 1, one_ne_zero, by
+    unfold secIndex; rw [AddSubgroup.relIndex_self]; exact one_ne_zero⟩
+  periods _ := gaussianPair.lattice1
+  periods_discrete _ := inferInstance
+  periods_isZLattice _ := inferInstance
+  coeff σ := ratCoeff σ
+  coeff_ne_zero σ h := by
+    have := congr_arg (fun f => f 1) h
+    simp [ratCoeff] at this
+
+theorem exampleHodge_modelHeight :
+    exampleHodge.modelHeight = -(1 / 2) * Real.log (ZLattice.covolume gaussianPair.lattice) := by
+  rw [HodgeData.modelHeight_of_span exampleHodge (η₀ := (1 : ℚ)) rfl one_ne_zero]
+  have hu : (Finset.univ : Finset (ℚ →+* ℂ)) = {Rat.castHom ℂ} := by
+    ext σ; simp [Subsingleton.elim σ (Rat.castHom ℂ)]
+  rw [hu, Finset.sum_singleton]
+  simp [exampleHodge, torusMetricSq, ratCoeff, PeriodPair.covolume_lattice1]
+
+end Sanity
+
 end ZInQ.BPFaltings
 
 #print axioms ZInQ.BPFaltings.HermitianLattice.degreeAt_eq_arakelovDegree
@@ -584,3 +657,5 @@ end ZInQ.BPFaltings
 #print axioms ZInQ.BPFaltings.HodgeData.modelHeight_eq_add_of_le
 #print axioms ZInQ.BPFaltings.HodgeData.modelHeight_le_of_le
 #print axioms ZInQ.BPFaltings.modelHeight_eq_faltingsHeightEC
+#print axioms ZInQ.BPFaltings.HermitianLattice.arakelovDegree_rescale
+#print axioms ZInQ.BPFaltings.exampleHodge_modelHeight
