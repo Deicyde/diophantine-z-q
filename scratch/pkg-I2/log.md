@@ -42,3 +42,19 @@ B ⊗ ℚ₃ is a division algebra: N = σ − 1 commutes with 𝒪₃, N² = 0,
 𝒪/3ⁿ ⇒ N = right multiplication by c with c² ≡ 0 mod 3ⁿ ⇒ N kills A[3^k] for n = 2k. This route
 does not use SGA 7 IX 3.6, the toric-part/Néron argument (Morita), Serre–Tate Thm 2, or the
 torsion-freeness of 1 + 3M₄(ℤ₃).
+
+## Step 3: Mumford §19 Thm 4 leaf; glue proved from leaves
+
+Added: leaf `CharpolyIndependentOfEll` (Mumford §19 Thm 4, finite-level form); lemmas
+`galAct_mul/inv/pow/one` (from Mathlib `MonObj.comp_mul`, `GrpObj.comp_inv`, `MonObj.comp_pow`,
+`MonObj.comp_one`); glue theorems
+- `inertiaTrivial_of_goodReduction` (C6/A8: good reduction ⇒ inertia trivial on A[ℓⁿ]) from NOS: PROVED;
+- `fixed_of_unipSq_of_iterate` (algebraic core of D2): PROVED;
+- `D2_fixed_of_raynaud` (D2: inertia element of p-power order on x ∈ A[ℓⁿ] fixes x) from Raynaud: PROVED;
+- `goodReduction_of_QM_rational3` (A6 via Raynaud + NOS + TorsionStructure; QM given as K-endomorphisms
+  I, J with I² = 2, J² = -3, IJ = -JI on K̄-points): statement compiles, body `sorry`, outline in docstring.
+Compile: only warning "declaration uses sorry" at goodReduction_of_QM_rational3 (VERIFIED).
+`#print axioms` (VERIFIED): the three proved glue theorems use [propext, Classical.choice, Quot.sound];
+goodReduction_of_QM_rational3 adds sorryAx.
+API notes: `CategoryTheory.Hom.commGroup` is a scoped instance (MonObj) found automatically once
+`IsCommMonObj A.X` is in context; `pow_gcd_eq_one` is an iff in this Mathlib.

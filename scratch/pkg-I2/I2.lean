@@ -311,4 +311,152 @@ def AbhyankarDVR : Prop :=
         Q.ramificationIdx R = n ∧
         Algebra.IsSeparable (R ⧸ IsLocalRing.maximalIdeal R) (integralClosure R M ⧸ Q)
 
+
+/-! ## 8. Characteristic polynomial independent of `ℓ` (Mumford §19, Thm 4; boundary with I3) -/
+
+/-- **Leaf I2-Char (Mumford, *Abelian varieties*, §19, Thm 4; locator UNVERIFIED).** For an
+endomorphism `φ` of an abelian variety `B` of dimension `g` over a field `k` there is a monic
+`P ∈ ℤ[X]` of degree `2g` which, for every prime `ℓ ≠ char k`, is the characteristic polynomial of
+`φ` on `T_ℓ B`; finite-level form: reduced mod `ℓⁿ` it is the characteristic polynomial of the
+matrix of `φ` on `B(k̄)[ℓⁿ]` in any `ℤ/ℓⁿ`-basis. Used in C10 (the trace of `Frob ∘ μ̄_σ` is one
+integer for all `ℓ`). -/
+def CharpolyIndependentOfEll : Prop :=
+  ∀ (k : Type u) [Field k] (B : Grp (Over (Spec (.of k)))) [IsAbelianVariety B] (g : ℕ),
+    topologicalKrullDim B.X.left = (g : WithBot ℕ∞) → ∀ φ : B ⟶ B,
+    ∃ P : Polynomial ℤ, P.Monic ∧ P.natDegree = 2 * g ∧
+      ∀ ℓ : ℕ, ℓ.Prime → (ℓ : k) ≠ 0 → ∀ n : ℕ, 0 < n →
+        ∀ e : torsion B (AlgebraicClosure k) (ℓ ^ n) ≃ (Fin (2 * g) → ZMod (ℓ ^ n)),
+        (∀ x y : torsion B (AlgebraicClosure k) (ℓ ^ n),
+          ∀ h : x.1 * y.1 ∈ torsion B (AlgebraicClosure k) (ℓ ^ n),
+            e ⟨x.1 * y.1, h⟩ = e x + e y) →
+        ∀ M : Matrix (Fin (2 * g)) (Fin (2 * g)) (ZMod (ℓ ^ n)),
+        (∀ x y : torsion B (AlgebraicClosure k) (ℓ ^ n), y.1 = x.1 ≫ φ.hom.hom →
+          e y = M.mulVec (e x)) →
+        M.charpoly = P.map (Int.castRingHom (ZMod (ℓ ^ n)))
+
+/-! ## 9. Glue proved from the leaves -/
+
+section Glue
+
+variable {K : Type u} [Field K]
+
+lemma galAct_mul (A : Grp (Over (Spec (.of K)))) {L : Type u} [CommRing L] [Algebra K L]
+    (σ : L ≃ₐ[K] L) (x y : Pts A L) : galAct A σ (x * y) = galAct A σ x * galAct A σ y :=
+  MonObj.comp_mul _ _ _
+
+lemma galAct_inv (A : Grp (Over (Spec (.of K)))) {L : Type u} [CommRing L] [Algebra K L]
+    (σ : L ≃ₐ[K] L) (x : Pts A L) : galAct A σ x⁻¹ = (galAct A σ x)⁻¹ :=
+  GrpObj.comp_inv _ _
+
+lemma galAct_pow (A : Grp (Over (Spec (.of K)))) {L : Type u} [CommRing L] [Algebra K L]
+    (σ : L ≃ₐ[K] L) (x : Pts A L) (n : ℕ) : galAct A σ (x ^ n) = (galAct A σ x) ^ n :=
+  MonObj.comp_pow _ _ _
+
+lemma galAct_one (A : Grp (Over (Spec (.of K)))) {L : Type u} [CommRing L] [Algebra K L]
+    (σ : L ≃ₐ[K] L) : galAct A σ 1 = 1 :=
+  MonObj.comp_one _
+
+/-- **Glue C6/A8 (proved).** Good reduction at `O` makes inertia act trivially on `A[ℓⁿ]` for
+every prime `ℓ` invertible in `O` (NOS, (a) ⇒ (b)): `r_ℓ` is unramified at such places. -/
+theorem inertiaTrivial_of_goodReduction (hNOS : NeronOggShafarevich.{u})
+    (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K))
+    (hw : w.comap (algebraMap K (AlgebraicClosure K)) = O)
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (hA : HasGoodReduction A O)
+    (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓO : IsUnit (ℓ : O)) (n : ℕ) :
+    InertiaTrivialOn A w (ℓ ^ n) :=
+  ((hNOS K O w hw A).1.mp hA) (ℓ ^ n) (pow_pos hℓ.pos n) (by
+    rw [Nat.cast_pow]; exact hℓO.pow n)
+
+/-- Algebraic core of D2 (proved): in a commutative group of points, if `σ` satisfies
+`(σ - 1)² x = 0`, `x` has order dividing `ℓⁿ`, and `σ^{pᵃ} x = x` with `p` prime to `ℓ`,
+then `σ x = x`. -/
+theorem fixed_of_unipSq_of_iterate (A : Grp (Over (Spec (.of K)))) [IsCommMonObj A.X]
+    {L : Type u} [CommRing L] [Algebra K L] (σ : L ≃ₐ[K] L) (x : Pts A L) (ℓ n p a : ℕ)
+    (hcop : Nat.Coprime (p ^ a) (ℓ ^ n)) (hx : x ∈ torsion A L (ℓ ^ n))
+    (hu : UnipSq A σ x) (hit : (galAct A σ)^[p ^ a] x = x) : galAct A σ x = x := by
+  set N := galAct A σ x * x⁻¹ with hN
+  have hσN : galAct A σ N = N := by
+    rw [hN, galAct_mul, galAct_inv]
+    unfold UnipSq at hu
+    have h2 : galAct A σ (galAct A σ x) * (galAct A σ x)⁻¹ =
+        ((galAct A σ x)⁻¹ * x)⁻¹ := by
+      rw [eq_inv_iff_mul_eq_one, ← hu]; group
+    rw [h2, mul_inv_rev, inv_inv, mul_comm]
+  have hiter : ∀ k : ℕ, (galAct A σ)^[k] x = N ^ k * x := by
+    intro k
+    induction k with
+    | zero => simp
+    | succ k ih =>
+      rw [Function.iterate_succ_apply', ih, galAct_mul, galAct_pow, hσN, pow_succ, hN]
+      group
+  have h1 : N ^ (p ^ a) = 1 := by
+    have := hiter (p ^ a)
+    rw [hit] at this
+    exact (mul_eq_right.mp this.symm)
+  have h2 : N ^ (ℓ ^ n) = 1 := by
+    have hx' : x ^ (ℓ ^ n) = 1 := hx
+    rw [hN, mul_pow, ← galAct_pow, hx', galAct_one, inv_pow, hx']; simp
+  have hN1 : N = 1 := by
+    have := pow_gcd_eq_one.mpr ⟨h1, h2⟩
+    rwa [Nat.Coprime.gcd_eq_one hcop, pow_one] at this
+  rw [hN] at hN1
+  exact mul_inv_eq_one.mp hN1
+
+/-- **Glue D2 (proved from Raynaud).** At a place of residue characteristic `p` where `A[m]` is
+rational (`m ≥ 3` prime to `p`), every inertia element `σ` that acts on a point `x ∈ A[ℓⁿ]`
+(`ℓ ≠ p`) with `p`-power order fixes it. Applied to wild inertia (pro-`p`, and the action on the
+finite set `A[ℓⁿ]` factors through a finite quotient), this is D2's "wild inertia acts
+trivially on `V_ℓ(A)`". The two facts in parentheses are I6/glue. -/
+theorem D2_fixed_of_raynaud (hRay : RaynaudCriterion.{u})
+    (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K))
+    (hw : w.comap (algebraMap K (AlgebraicClosure K)) = O)
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (m : ℕ) (hm : 3 ≤ m)
+    (hmO : IsUnit (m : O))
+    (hrat : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+      ∀ x ∈ torsion A (AlgebraicClosure K) m, galAct A σ x = x)
+    (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) (hσ : IsInertia w σ)
+    (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓO : IsUnit (ℓ : O)) (n p a : ℕ)
+    (hcop : Nat.Coprime (p ^ a) (ℓ ^ n))
+    (x : Pts A (AlgebraicClosure K)) (hx : x ∈ torsion A (AlgebraicClosure K) (ℓ ^ n))
+    (hit : (galAct A σ)^[p ^ a] x = x) : galAct A σ x = x := by
+  have : IsProper A.X.hom := IsAbelianVariety.proper
+  have : GeometricallyIntegral A.X.hom := IsAbelianVariety.geomIntegral
+  have : IsCommMonObj A.X := isCommMonObj_of_isProper_of_geometricallyIntegral A.X
+  exact fixed_of_unipSq_of_iterate A σ x ℓ n p a hcop hx
+    (hRay K O w hw A m hm hmO hrat σ hσ ℓ hℓ hℓO n x hx) hit
+
+/-- **Glue A6 (Lemma PR(ii), Raynaud route; statement, proof outlined).** Let `A/K` be an
+abelian surface with `K`-endomorphisms `I, J` satisfying `I² = 2`, `J² = -3`, `IJ = -JI` on
+`K̄`-points (an action of `ℤ⟨i, j⟩ ⊂ B = (2,-3)`, maximal at 3), and with `A[3]` rational over `K`.
+Then `A` has good reduction at every DVR `O` in which `3` is invertible.
+Outline. (1) `RaynaudCriterion` with `m = ℓ = 3`: `N = σ - 1` has `N² = 0` on `A[3ⁿ]` for `σ` in
+inertia. (2) `TorsionStructure` (`g = 2`): `A[3ⁿ] ≅ (ℤ/3ⁿ)⁴`; with the action of `Λ = ℤ⟨i,j⟩`,
+whose 3-adic completion is the maximal order of the quaternion division algebra over `ℚ₃`
+(uniformizer `Π`, `Π² ∈ 3Λ₃ˣ`, residue field `𝔽₉`), a cardinality count gives `A[3ⁿ] ≅ Λ/3ⁿ`
+free of rank one. (3) `N` commutes with `I, J` (defined over `K`), so `N` is right
+multiplication by some `c`, and `N² = 0` gives `c² ≡ 0 mod 3^{2k}`, hence `c ∈ 3ᵏΛ` (the norm
+form `x² - 2y² + 3z² - 6w²` is anisotropic mod 3), hence `N` kills `3ᵏ A[3^{2k}] = A[3ᵏ]`.
+(4) `NeronOggShafarevich` (c) with `m = 3ᵏ`. -/
+theorem goodReduction_of_QM_rational3 (hNOS : NeronOggShafarevich.{u})
+    (hRay : RaynaudCriterion.{u}) (hTors : TorsionStructure.{u})
+    (O : ValuationSubring K) [IsDiscreteValuationRing O]
+    (w : ValuationSubring (AlgebraicClosure K))
+    (hw : w.comap (algebraMap K (AlgebraicClosure K)) = O)
+    (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (hdim : topologicalKrullDim A.X.left = ((2 : ℕ) : WithBot ℕ∞))
+    (I J : A ⟶ A)
+    (hI : ∀ x : Pts A (AlgebraicClosure K), (x ≫ I.hom.hom) ≫ I.hom.hom = x ^ 2)
+    (hJ : ∀ x : Pts A (AlgebraicClosure K), (x ≫ J.hom.hom) ≫ J.hom.hom * x ^ 3 = 1)
+    (hIJ : ∀ x : Pts A (AlgebraicClosure K),
+      (x ≫ I.hom.hom) ≫ J.hom.hom * (x ≫ J.hom.hom) ≫ I.hom.hom = 1)
+    (h3 : IsUnit (3 : O))
+    (hrat : ∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+      ∀ x ∈ torsion A (AlgebraicClosure K) 3, galAct A σ x = x) :
+    HasGoodReduction A O := by
+  sorry
+
+end Glue
+
 end PkgI2
