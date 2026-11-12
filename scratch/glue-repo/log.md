@@ -72,3 +72,5 @@ Jmap copied verbatim from JHeight.lean (not importable in worktrees).
   ([E ⊔ K : ℚ] ≤ D via IntermediateField.finrank_sup_le). Stated for variables F₀, D with
   hD : D = F₀·3^{256F₀⁴} (kernel cannot unfold heightF0 = 324! / heightD: maxRecDepth and
   "kernel refused to evaluate Nat.pow" when stated with the constants directly).
+- PRArith: div_gcd_eq_one_iff (e/gcd(e,m) = 1 ↔ e ∣ m), inertia_orders_eq_one_iff (Prop. TS's
+  orders 4/gcd(4,m₀), 6/gcd(6,m_∞), 2/gcd(2,m_{−16/27}) all 1 ↔ p ∤ M_S(u)). COMPILED.

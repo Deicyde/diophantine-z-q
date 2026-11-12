@@ -530,6 +530,29 @@ theorem inertia_trivial_iff_not_dvd (S : Finset ℕ) (hS : ∀ q, q.Prime → q 
   rw [inertia_trivial_iff h17 hu, prime_dvd_contactSupport_iff hu hp.out]
   simp [hpS]
 
+theorem div_gcd_eq_one_iff {e m : ℕ} (he : 0 < e) : e / Nat.gcd e m = 1 ↔ e ∣ m := by
+  constructor
+  · intro h
+    have hg : Nat.gcd e m ∣ e := Nat.gcd_dvd_left e m
+    have he' : e = Nat.gcd e m := by
+      have := Nat.div_mul_cancel hg
+      rw [h, one_mul] at this
+      exact this.symm
+    rw [he']
+    exact Nat.gcd_dvd_right e m
+  · intro h
+    rw [Nat.gcd_eq_left h, Nat.div_self he]
+
+/-- Lemma PR(i), elementary half, with Prop. TS's inertia orders `e_b / gcd(e_b, m_b)` literally. -/
+theorem inertia_orders_eq_one_iff (S : Finset ℕ) (hS : ∀ q, q.Prime → q ≤ 324 → q ∈ S)
+    (hpS : p ∉ S) {u : ℚ} (hu : u ∉ contactSet) :
+    (4 / Nat.gcd 4 (padicValRat p (Jmap u)).toNat = 1 ∧
+      6 / Nat.gcd 6 (-padicValRat p (Jmap u)).toNat = 1 ∧
+      2 / Nat.gcd 2 (padicValRat p (Jmap u + 16 / 27)).toNat = 1) ↔ ¬ p ∣ contactSupport S u := by
+  rw [div_gcd_eq_one_iff (by norm_num), div_gcd_eq_one_iff (by norm_num),
+    div_gcd_eq_one_iff (by norm_num)]
+  exact inertia_trivial_iff_not_dvd S hS hpS hu
+
 end Valuation
 
 /-! ### NoCM: the fibre of `X⁶ → X*` over `t(u)` (A10; rv-h-cm §2.4, §7.2 step 3)
@@ -591,3 +614,4 @@ end GlueRepo.PR
 #print axioms GlueRepo.PR.J_ne_branch
 #print axioms GlueRepo.PR.t_sub_one
 #print axioms GlueRepo.PR.fibre_free
+#print axioms GlueRepo.PR.inertia_orders_eq_one_iff
