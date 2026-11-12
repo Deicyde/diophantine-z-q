@@ -13,3 +13,10 @@
 - §4 `GlueA6Alg.quatUnipotentTrivial : QuatUnipotentTrivial.{u}` (def verbatim from scratch/rv-a6-route/A6.lean §10).
   VERIFIED: compiles, no sorry, axioms [propext, Classical.choice, Quot.sound]. Transport: E = e extended by 0 off G[q];
   group endomorphisms become additive maps of V, hence ZMod q-linear (`AddMonoidHom.toZModLinearMap`); then `core`.
+
+## scratch/glue-a6-alg/A6.lean
+- Copy of scratch/rv-a6-route/A6.lean (RvA6 → GlueA6Alg; leaves unchanged) + Quat.lean algebra (namespace GlueA6Alg.Alg)
+  + `GlueA6Alg.quatUnipotentTrivial` + rv's theorem renamed `goodReduction_of_QM_rational3_of_alg` (with hAlg)
+  + new `GlueA6Alg.goodReduction_of_QM_rational3` with hypotheses hNOS, hRay, hTors only (no hAlg), same conclusion
+  HasGoodReduction A O. VERIFIED: compiles with `lake env lean` (34 s), no sorry,
+  axioms [propext, Classical.choice, Quot.sound].
