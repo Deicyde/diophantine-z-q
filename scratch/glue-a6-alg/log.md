@@ -10,3 +10,6 @@
   J=3J' on e₀ gives -3 ≡ 0 mod 9); f3_indep ⇒ x,Ix,Jx,IJx span V/3V; Nakayama by induction (3^{2k}=0) ⇒ orbit map
   φ_x : (ZMod q)^4 → V surjective, hence injective (finite); S x - x = φ_x(a); (S-1)²x = φ_x(a²-coords) ⇒ q | coords;
   quat_sq_dvd ⇒ a = 3^k a'; for v=φ_x(α) with 3^k v=0: 3^k α=0 and (S-1)v = φ_{φ_x a'}(3^k α)=0.
+- §4 `GlueA6Alg.quatUnipotentTrivial : QuatUnipotentTrivial.{u}` (def verbatim from scratch/rv-a6-route/A6.lean §10).
+  VERIFIED: compiles, no sorry, axioms [propext, Classical.choice, Quot.sound]. Transport: E = e extended by 0 off G[q];
+  group endomorphisms become additive maps of V, hence ZMod q-linear (`AddMonoidHom.toZModLinearMap`); then `core`.

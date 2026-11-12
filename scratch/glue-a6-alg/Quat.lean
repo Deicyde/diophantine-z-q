@@ -5,6 +5,8 @@ glue-a6-alg: proof of the pure-algebra glue `QuatUnipotentTrivial` of rv-a6-rout
 -/
 import Mathlib
 
+universe u
+
 namespace GlueA6Alg
 
 lemma three_prime : Prime (3 : ℤ) := Int.prime_iff_natAbs_prime.mpr Nat.prime_three
@@ -366,6 +368,161 @@ theorem core (hk : 1 ≤ k) (I J S : V k →ₗ[R k] V k)
 
 end Core
 
+
+/-! ## 4. Transport from a commutative group with `G[3^{2k}] ≅ (ℤ/3^{2k})⁴` -/
+
+section Transport
+
+variable {G : Type*} [CommGroup G] {q : ℕ} {M : Type*} [AddCommGroup M]
+  (e : {x : G | x ^ q = 1} ≃ M)
+
+open Classical in
+/-- `e` extended by `0` off the `q`-torsion. -/
+noncomputable def E (g : G) : M := if h : g ^ q = 1 then e ⟨g, h⟩ else 0
+
+lemma E_mem (g : G) (h : g ^ q = 1) : E e g = e ⟨g, h⟩ := by
+  simp only [E, h, dite_true]
+
+lemma E_symm (v : M) : E e (e.symm v).1 = v := by
+  rw [E_mem e _ (e.symm v).2]; simp
+
+lemma symm_E (g : G) (h : g ^ q = 1) : (e.symm (E e g)).1 = g := by
+  rw [E_mem e g h, Equiv.symm_apply_apply]
+
+lemma E_inj (a b : G) (ha : a ^ q = 1) (hb : b ^ q = 1) (h : E e a = E e b) : a = b := by
+  rw [E_mem e a ha, E_mem e b hb] at h
+  exact congrArg Subtype.val (e.injective h)
+
+lemma mem_map (f : G →* G) (a : G) (ha : a ^ q = 1) : (f a) ^ q = 1 := by
+  rw [← map_pow, ha, map_one]
+
+lemma mem_mul (a b : G) (ha : a ^ q = 1) (hb : b ^ q = 1) : (a * b) ^ q = 1 := by
+  rw [mul_pow, ha, hb, one_mul]
+
+lemma mem_inv (a : G) (ha : a ^ q = 1) : a⁻¹ ^ q = 1 := by
+  rw [inv_pow, ha, inv_one]
+
+lemma mem_pow (a : G) (ha : a ^ q = 1) (n : ℕ) : (a ^ n) ^ q = 1 := by
+  rw [← pow_mul, mul_comm, pow_mul, ha, one_pow]
+
+variable {e}
+variable (he : ∀ x y : {x : G | x ^ q = 1}, ∀ h : x.1 * y.1 ∈ {x : G | x ^ q = 1},
+  e ⟨x.1 * y.1, h⟩ = e x + e y)
+include he
+
+lemma E_mul (a b : G) (ha : a ^ q = 1) (hb : b ^ q = 1) : E e (a * b) = E e a + E e b := by
+  rw [E_mem e _ (mem_mul a b ha hb), E_mem e _ ha, E_mem e _ hb]
+  exact he ⟨a, ha⟩ ⟨b, hb⟩ (mem_mul a b ha hb)
+
+lemma E_one : E e (1 : G) = 0 := by
+  have h := E_mul he 1 1 (one_pow _) (one_pow _)
+  rw [mul_one] at h
+  simpa using h
+
+lemma E_inv (a : G) (ha : a ^ q = 1) : E e a⁻¹ = -E e a := by
+  have h := E_mul he a⁻¹ a (mem_inv a ha) ha
+  rw [inv_mul_cancel, E_one he] at h
+  exact eq_neg_of_add_eq_zero_left h.symm
+
+lemma E_pow (a : G) (ha : a ^ q = 1) (n : ℕ) : E e (a ^ n) = n • E e a := by
+  induction n with
+  | zero => rw [pow_zero, E_one he, zero_smul]
+  | succ n ih => rw [pow_succ, E_mul he _ _ (mem_pow a ha n) ha, ih, succ_nsmul]
+
+/-- A group endomorphism, transported to an additive endomorphism of `M`. -/
+noncomputable def endV (f : G →* G) : M →+ M where
+  toFun v := E e (f (e.symm v).1)
+  map_zero' := by
+    rw [← E_one he, symm_E e 1 (one_pow _), map_one]
+  map_add' v w := by
+    have ha := (e.symm v).2
+    have hb := (e.symm w).2
+    have h1 : v + w = E e ((e.symm v).1 * (e.symm w).1) := by
+      rw [E_mul he _ _ ha hb, E_symm, E_symm]
+    show E e (f (e.symm (v + w)).1) = E e (f (e.symm v).1) + E e (f (e.symm w).1)
+    rw [h1, symm_E e _ (mem_mul _ _ ha hb), map_mul,
+      E_mul he _ _ (mem_map f _ ha) (mem_map f _ hb)]
+
+lemma endV_E (f : G →* G) (g : G) (hg : g ^ q = 1) : endV he f (E e g) = E e (f g) := by
+  show E e (f (e.symm (E e g)).1) = _
+  rw [symm_E e g hg]
+
+end Transport
+
+/-- `QuatUnipotentTrivial`, verbatim from scratch/rv-a6-route/A6.lean §10. -/
+def QuatUnipotentTrivial : Prop :=
+  ∀ (G : Type u) [CommGroup G] (k : ℕ), 1 ≤ k → ∀ (I J S : G →* G),
+    (∀ x, I (I x) = x ^ 2) → (∀ x, J (J x) * x ^ 3 = 1) → (∀ x, J (I x) * I (J x) = 1) →
+    (∀ x, S (I x) = I (S x)) → (∀ x, S (J x) = J (S x)) →
+    (∃ e : {x : G | x ^ (3 ^ (2 * k)) = 1} ≃ (Fin (2 * 2) → ZMod (3 ^ (2 * k))),
+      ∀ x y : {x : G | x ^ (3 ^ (2 * k)) = 1},
+        ∀ h : x.1 * y.1 ∈ {x : G | x ^ (3 ^ (2 * k)) = 1}, e ⟨x.1 * y.1, h⟩ = e x + e y) →
+    (∀ x, x ^ (3 ^ (2 * k)) = 1 → S (S x) * (S x)⁻¹ * (S x)⁻¹ * x = 1) →
+    ∀ x, x ^ (3 ^ k) = 1 → S x = x
+
+/-- **`QuatUnipotentTrivial` (proved).** -/
+theorem quatUnipotentTrivial : QuatUnipotentTrivial.{u} := by
+  intro G _ k hk I J S hI hJ hIJ hSI hSJ ⟨e₀, he₀⟩ hS x hx
+  let e : {x : G | x ^ (Q k) = 1} ≃ V k := e₀
+  have he : ∀ x y : {x : G | x ^ (Q k) = 1}, ∀ h : x.1 * y.1 ∈ {x : G | x ^ (Q k) = 1},
+      e ⟨x.1 * y.1, h⟩ = e x + e y := he₀
+  -- every `v` is `E a` with `a ∈ G[q]`
+  have hv : ∀ v : V k, ∃ a : G, a ^ (Q k) = 1 ∧ E e a = v :=
+    fun v => ⟨_, (e.symm v).2, E_symm e v⟩
+  let IV := (endV he I).toZModLinearMap (Q k)
+  let JV := (endV he J).toZModLinearMap (Q k)
+  let SV := (endV he S).toZModLinearMap (Q k)
+  have hIV : ∀ g, g ^ (Q k) = 1 → IV (E e g) = E e (I g) := fun g hg => endV_E he I g hg
+  have hJV : ∀ g, g ^ (Q k) = 1 → JV (E e g) = E e (J g) := fun g hg => endV_E he J g hg
+  have hSV : ∀ g, g ^ (Q k) = 1 → SV (E e g) = E e (S g) := fun g hg => endV_E he S g hg
+  have mI := mem_map (q := Q k) I
+  have mJ := mem_map (q := Q k) J
+  have mS := mem_map (q := Q k) S
+  have key := core hk IV JV SV
+    (by
+      intro v; obtain ⟨a, ha, rfl⟩ := hv v
+      rw [hIV a ha, hIV _ (mI a ha), hI, E_pow he a ha, two_smul, two_smul])
+    (by
+      intro v; obtain ⟨a, ha, rfl⟩ := hv v
+      rw [hJV a ha, hJV _ (mJ a ha)]
+      have h := congrArg (E e) (hJ a)
+      rw [E_mul he _ _ (mJ _ (mJ a ha)) (mem_pow a ha 3), E_pow he a ha, E_one he] at h
+      rw [neg_smul, ofNat_smul_eq_nsmul]
+      exact eq_neg_of_add_eq_zero_left h)
+    (by
+      intro v; obtain ⟨a, ha, rfl⟩ := hv v
+      rw [hIV a ha, hJV _ (mI a ha), hJV a ha, hIV _ (mJ a ha)]
+      have h := congrArg (E e) (hIJ a)
+      rw [E_mul he _ _ (mJ _ (mI a ha)) (mI _ (mJ a ha)), E_one he] at h
+      exact eq_neg_of_add_eq_zero_left h)
+    (by
+      intro v; obtain ⟨a, ha, rfl⟩ := hv v
+      rw [hIV a ha, hSV _ (mI a ha), hSV a ha, hIV _ (mS a ha), hSI])
+    (by
+      intro v; obtain ⟨a, ha, rfl⟩ := hv v
+      rw [hJV a ha, hSV _ (mJ a ha), hSV a ha, hJV _ (mS a ha), hSJ])
+    (by
+      intro v; obtain ⟨a, ha, rfl⟩ := hv v
+      rw [hSV a ha, hSV _ (mS a ha)]
+      have h := congrArg (E e) (hS a ha)
+      have m1 := mS _ (mS a ha)
+      have m2 := mem_inv _ (mS a ha)
+      rw [E_mul he _ _ (mem_mul _ _ (mem_mul _ _ m1 m2) m2) ha,
+        E_mul he _ _ (mem_mul _ _ m1 m2) m2, E_mul he _ _ m1 m2, E_inv he _ (mS a ha),
+        E_one he] at h
+      rw [← h]; module)
+  have hxq : x ^ (Q k) = 1 := by
+    show x ^ (3 ^ (2 * k)) = 1
+    rw [two_mul, pow_add, pow_mul, hx, one_pow]
+  have h3 : (3 : R k) ^ k • E e x = 0 := by
+    have : (3 : R k) ^ k = ((3 ^ k : ℕ) : R k) := by push_cast; rfl
+    rw [this, Nat.cast_smul_eq_nsmul, ← E_pow he x hxq, hx, E_one he]
+  have := key (E e x) h3
+  rw [hSV x hxq] at this
+  exact E_inj e _ _ (mS x hxq) hxq this
+
 end GlueA6Alg
 
+
 #print axioms GlueA6Alg.core
+#print axioms GlueA6Alg.quatUnipotentTrivial
