@@ -23,6 +23,11 @@ Blueprint `docs/research/bp-qmmoduli.md` §3, nodes N5-N8.
 * The action of `Aut(𝒪)` (`twist`) and of `𝒪^×` (`rightMul`) on `(ι, η)` with `A` fixed: the
   group `Γ'` of A3, and the proof that units `≡ 1 mod 3𝒪` act trivially on level structures.
 * Sanity: the zero abelian variety has no QM structure.
+* §6: isomorphism is an equivalence (`isoSetoid`); `Γ'` acts on classes (`M3'.twist`,
+  `M3'.rightMul`); the centralizer `com` and CM predicates; base change of QM structures
+  (`endBC`, `endBC_injective`, `QMStr.baseChange`).
+* §7: fields of moduli of QM pairs over `ℚ̄` (`fieldOfModuli`) and the leaf statements `R5fp`,
+  `R5fpCount` (González–Rotger 2006, field-point forms; statements only).
 * **Glue A6 on the moduli objects** (`QML3.goodReduction`): every `QML3` object over `K` has good
   reduction at every DVR of `K` in which 3 is a unit, from the kernel's A6 theorem
   (`GlueA6Alg.goodReduction_of_QM_rational3'`, leaves `NeronOggShafarevich`, `RaynaudCriterion`,

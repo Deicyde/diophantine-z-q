@@ -94,8 +94,9 @@ Main findings:
    - base change of QM structures along any field extension (`endBC`, `endBC_injective`,
      `QMStr.baseChange`), using Mathlib's faithfulness of `Over.pullback` along flat surjective
      quasi-compact morphisms;
-   - fields of moduli of QM pairs over `ℚ̄` (`fieldOfModuli`), and **R5 stated as a Lean
-     `def … : Prop`** in degree form (`R5fp`);
+   - fields of moduli of QM pairs over `ℚ̄` (`fieldOfModuli`), and **R5 stated as Lean
+     `def … : Prop`s**: degree form (`R5fp`) and count form (`R5fpCount`);
+   - the `Γ'` operations descend to isomorphism classes (`M3'.twist`, `M3'.rightMul`);
    - **step A6 instantiated on every object of the moduli problem** (`QML3.goodReduction`):
      good reduction at every DVR in which 3 is a unit, from the kernel's leaves
      `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure`. h-decomposition §2 R1 and
@@ -110,8 +111,9 @@ Main findings:
      N8 is needed for naturality in R1fp, for Galois conjugates (A7) and for fields of moduli
      (R1rec, R5fp).
    - `P¹_ℚ` with `P¹(K) = K ∪ {∞}` (N11, small to medium) is needed for R2fp.
-   - **R5fp compiles** as a Lean `def … : Prop` (`BPQM.AV.R5fp`, over the field of moduli
-     `fieldOfModuli` built here). R1fp, R2fp and R1rec are written below in Lean syntax but **not
+   - **R5 compiles** as two Lean `def … : Prop`s (`BPQM.AV.R5fp`, degree of the field of
+     moduli; `BPQM.AV.R5fpCount`, number of CM points `2^b·#Pic R`), over `fieldOfModuli`,
+     `QMPair` and `pairSetoid` built here. R1fp, R2fp and R1rec are written below in Lean syntax but **not
      compiled**: they depend on the missing half of N8 (level structures) and on N11 (`P¹`).
    - The analytification (N14) is very large.
 
@@ -254,8 +256,8 @@ def R1fp : Prop :=
 --   for P : QML3 ℚ̄ with com(P) ≅ ℤ[i], ℤ[ζ₃] or ℤ[√-6], fieldOfModuli P is unramified at
 --   every prime p ≥ 5.
 
--- R5fp: COMPILED as `BPQM.AV.R5fp` in QMAbVar.lean §7 (degree clause only; the count clause
--- below is not yet stated).
+-- R5fp: COMPILED in QMAbVar.lean §7 as `BPQM.AV.R5fp` (degree clause) and
+-- `BPQM.AV.R5fpCount` (count clause, b = #{p ∈ {2,3} : p𝒪_k prime}, as in h-cm's 2^b·h(𝔬)).
 -- (González–Rotger 2006, Prop. 5.6, Thms 5.8, 5.12, read by the locator audit; on
 -- X₆ = X₀(6,1), i.e. for (A, ι) without level structure; degree form):
 --   for an order R of conductor f, (f,6) = 1, in an imaginary quadratic field and optimally
@@ -495,9 +497,15 @@ the order from `QMOrder.lean`, because scratch files cannot import each other):
   - The hypotheses are discharged with `I = ι(i)`, `J = ι(j)` and the products `i² = 2`,
     `j² = −3`, `ji + ij = 0` in `𝒪` (`oi_mul_oi`, `oj_mul_oj`, `oj_mul_oi_add`).
   - The rational 3-torsion comes from `Level3.onto` and `Level3.rational`.
-- §7: `QMIso`, `conjAV`, `conjQM` (conjugation by `σ ∈ Aut(ℚ̄/ℚ)`), **`fieldOfModuli`**,
-  `conductor`, and the leaf statement **`R5fp`**. It is a `def … : Prop`, not proved and not
-  used; it needs the faithfulness review of §6 item 6.
+- §7:
+  - `QMIso` (with `symm`, `trans`, `refl`), `QMPair`, `pairSetoid`;
+  - `conjAV`, `conjQM` (conjugation by `σ ∈ Aut(ℚ̄/ℚ)`), **`fieldOfModuli`**, `conductor`,
+    `inertCount6`;
+  - the leaf statements **`R5fp`** and **`R5fpCount`**. They are `def … : Prop`s, not proved and
+    not used, and they need the faithfulness review of §6 item 6.
+- `QML3.Iso.twist`, `QML3.Iso.rightMul`, `M3'.twist`, `M3'.rightMul`: the `Γ'` operations on
+  isomorphism classes. Not done: that inner twists (`Ad(u)` with `u ∈ 𝒪^×`, combined with
+  `rightMul u⁻¹`) are trivial on classes. The attempt timed out in elaboration (log).
 - §6:
   - `QML3.Iso.symm`, `QML3.Iso.trans`, `isoSetoid`, `M3'` (the `Quotient`);
   - `com q` (centralizer of `ι(𝒪)` in `End_K A`), `HasCM4`, `HasCM3`, `HasCM24` (the hypotheses
