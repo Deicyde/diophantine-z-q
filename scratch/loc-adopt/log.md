@@ -43,3 +43,6 @@ Input: docs/research/locators.md (AI locator audit, 2026-11-12). Base commit 698
   and `multiples1` "Lemma 3.9"; they are Lemma 3.14 (L1868) and Lemma 3.15 (L1919). Fixed in place
   with a dated line in its correction block. tyz-t1.md (not editable here) still says "Lemma 3.8"
   for `char'` (6 places).
+- Build (01:17 PST): lake build ZInQKernel exit 0 (9925 jobs, no errors). print_axioms exit 0:
+  91 "depends on axioms" lines, all [propext, Classical.choice, Quot.sound]; no sorryAx.
+  check_code_unchanged.py rerun: IDENTICAL for both Lean files.

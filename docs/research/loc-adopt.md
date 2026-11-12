@@ -65,9 +65,16 @@ claim a human check. No more than a line of any paper is quoted.
   control (a temporary rename) gave DIFFERENT.
 - `lake build ZInQKernel` and `lake env lean scripts/print_axioms.lean`: see the next section.
 
-## Build
+## Build (VERIFIED, 2026-11-12, 01:17 PST)
 
-(filled in below)
+- `lake build ZInQKernel`: "Build completed successfully (9925 jobs)", exit 0, no errors.
+  `TYZInputs` and `PropN` rebuilt; there were warnings only (module-system import notes and one
+  unused variable at `PropN.lean:1097`, which was there before this task).
+- `lake env lean scripts/print_axioms.lean`: exit 0. Every one of the 91 "depends on axioms"
+  lines lists exactly `[propext, Classical.choice, Quot.sound]`. That includes
+  `ZInQ.PropN.tyzRow5b_of_tyzInputs` and the headline
+  `..._of_sixContactMin_tyzRow5b_functionalEquation5_grossZagier`. No `sorryAx`.
+- The code-unchanged check, rerun after the build, gave IDENTICAL for both files.
 
 ## Not done / open
 
