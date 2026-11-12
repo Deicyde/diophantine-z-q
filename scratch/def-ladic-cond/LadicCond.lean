@@ -1,0 +1,482 @@
+import Mathlib
+
+/-!
+# def-ladic-cond: the conductor exponent of an ℓ-adic representation of `G_{ℚ_p}`, `ℓ ≠ p`
+
+Check with `lake env lean scratch/def-ladic-cond/LadicCond.lean`.
+
+* Part A (copied from `scratch/pkg-I4/I4.lean` §0, §1 start, §2, unchanged): `G_ℚ`, places,
+  Frobenius, `GaloisRep`, `G_{ℚ_p}` (`PkgI4.GQp`), `restrictLocal`, cusp forms, newforms,
+  `AttachedTo`.
+* Part B (**new**): on `G_{ℚ_p} = Gal(ℚ̄_p/ℚ_p)` (Mathlib's `PadicAlgCl p` with its spectral norm):
+  inertia, wild inertia, the lower ramification groups of a finite Galois `L/ℚ_p` inside `ℚ̄_p`
+  (as subsets of `G_{ℚ_p}`, preimages of Serre's `G_i(L/ℚ_p)`), their orders, Herbrand's `φ`,
+  the upper numbering, the absolute upper filtration; invariants and codimensions; the Swan
+  conductor at a level `L` adapted to `ρ` (wild inertia acts through `Gal(L/ℚ_p)`), and the
+  conductor exponent `a(ρ) = codim V^I + Sw(ρ)` (Serre–Tate 1968 §2; Serre, *Corps locaux* VI §2).
+* Part C: sanity facts (proved): unramified ⇒ `a = 0`; agreement with the finite-level Artin
+  conductor (Serre's `∑ (g_i/g_0) codim V^{G_i}`, the formula of pkg-I6's `artinConductor`) when
+  `ρ` factors through `Gal(L/ℚ_p)`, given restriction of (wild) inertia is onto (stated);
+  independence of `L` reduced to one Prop.
+* Part D: the leaves R17 (Carayol 1986, Théorème (A)) and L8 (Swan = integral over the upper
+  filtration) stated over Part B.
+-/
+
+noncomputable section
+
+set_option linter.unusedSectionVars false
+
+/-! ## Part A. Copied from pkg-I4 -/
+
+namespace PkgI4
+
+open scoped MatrixGroups ModularForm
+
+/-! ## §0. Galois side over `ℚ̄` -/
+
+/-- `ℚ̄`. -/
+abbrev Qbar := AlgebraicClosure ℚ
+
+/-- `G_ℚ = Gal(ℚ̄/ℚ)`, with Mathlib's Krull topology. -/
+abbrev GQ := Qbar ≃ₐ[ℚ] Qbar
+
+/-- `v` is a place of `ℚ̄` above the prime `p`: a valuation subring of `ℚ̄` in which `p` is not a
+unit. -/
+def LiesOver (v : ValuationSubring Qbar) (p : ℕ) : Prop := (p : Qbar) ∈ v.nonunits
+
+/-- `σ` is an arithmetic Frobenius at the place `v` above `p`. -/
+def IsArithFrob (σ : GQ) (v : ValuationSubring Qbar) (p : ℕ) : Prop :=
+  σ ∈ v.decompositionSubgroup ℚ ∧ ∀ x ∈ v, σ x - x ^ p ∈ v.nonunits
+
+/-- A continuous `n`-dimensional representation of `G_ℚ` over `ℚ̄_ℓ` (`PadicAlgCl ℓ` with its
+spectral norm). As in Pan's paper, the coefficients are `ℚ̄_ℓ`. -/
+structure GaloisRep (ℓ : ℕ) [Fact ℓ.Prime] (n : ℕ) where
+  toHom : GQ →* GL (Fin n) (PadicAlgCl ℓ)
+  continuous_toHom : Continuous toHom
+
+/-- A continuous character `G_ℚ → ℚ̄_ℓ^×`. -/
+structure GaloisChar (ℓ : ℕ) [Fact ℓ.Prime] where
+  toHom : GQ →* (PadicAlgCl ℓ)ˣ
+  continuous_toHom : Continuous toHom
+
+variable {ℓ : ℕ} [Fact ℓ.Prime] {n : ℕ}
+
+/-- The matrix of `ρ(σ)`. -/
+def GaloisRep.mat (ρ : GaloisRep ℓ n) (σ : GQ) : Matrix (Fin n) (Fin n) (PadicAlgCl ℓ) :=
+  (ρ.toHom σ : Matrix (Fin n) (Fin n) (PadicAlgCl ℓ))
+
+/-- `ρ` is unramified at `p`: every inertia group above `p` acts trivially. -/
+def GaloisRep.UnramifiedAt (ρ : GaloisRep ℓ n) (p : ℕ) : Prop :=
+  ∀ v : ValuationSubring Qbar, LiesOver v p →
+    ∀ σ ∈ v.inertiaSubgroup ℚ, ρ.toHom ((σ : v.decompositionSubgroup ℚ) : GQ) = 1
+
+/-- `ρ` is ramified at only finitely many primes. -/
+def GaloisRep.FinitelyRamified (ρ : GaloisRep ℓ n) : Prop :=
+  ∃ S : Finset ℕ, ∀ p : ℕ, p.Prime → p ∉ S → ρ.UnramifiedAt p
+
+/-- `c` is a complex conjugation: it is `z ↦ z̄` through some embedding `ℚ̄ → ℂ`. -/
+def IsComplexConj (c : GQ) : Prop :=
+  ∃ ι : Qbar →ₐ[ℚ] ℂ, ∀ x, ι (c x) = starRingEnd ℂ (ι x)
+
+/-- `ρ` is odd: `det ρ(c) = −1` for every complex conjugation `c` (Pan, Conj. 1.0.1). -/
+def GaloisRep.IsOdd (ρ : GaloisRep ℓ 2) : Prop :=
+  ∀ c, IsComplexConj c → (ρ.mat c).det = -1
+
+/-- `ρ` is irreducible over the algebraically closed `ℚ̄_ℓ`, in Burnside's form: the image spans
+`M_n(ℚ̄_ℓ)`. -/
+def GaloisRep.IsIrreducible (ρ : GaloisRep ℓ n) : Prop :=
+  Algebra.adjoin (PadicAlgCl ℓ) (Set.range ρ.mat) = ⊤
+
+/-- `ρ` is semisimple: every invariant subspace has an invariant complement. -/
+def GaloisRep.IsSemisimple (ρ : GaloisRep ℓ n) : Prop :=
+  ∀ W : Submodule (PadicAlgCl ℓ) (Fin n → PadicAlgCl ℓ),
+    (∀ σ, W.map (Matrix.toLin' (ρ.mat σ)) ≤ W) →
+    ∃ W', IsCompl W W' ∧ ∀ σ, W'.map (Matrix.toLin' (ρ.mat σ)) ≤ W'
+
+/-! ## §1. The local Galois group, `ℂ_p`, and Hodge–Tate multiplicities -/
+
+section Local
+
+variable (p : ℕ) [Fact p.Prime]
+
+/-- `G_{ℚ_p} = Gal(ℚ̄_p/ℚ_p)`, with `ℚ̄_p = PadicAlgCl p`; this is Mathlib's
+`Field.absoluteGaloisGroup ℚ_[p]`. -/
+abbrev GQp := PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p
+
+/-- The decomposition map `G_{ℚ_p} → G_ℚ` (restriction along an embedding `ℚ̄ → ℚ̄_p`, Mathlib's
+`Field.absoluteGaloisGroup.map`). Its image is a decomposition group at a place above `p`; the
+choice of embedding changes it by conjugation, which no property below depends on. -/
+def decomp : GQp p →* GQ :=
+  (Field.absoluteGaloisGroup.map (algebraMap ℚ ℚ_[p]) :
+    Field.absoluteGaloisGroup ℚ_[p] →* Field.absoluteGaloisGroup ℚ)
+
+/-- `ρ|_{G_{ℚ_p}}`. -/
+def GaloisRep.restrictLocal (ρ : GaloisRep ℓ n) : GQp p →* GL (Fin n) (PadicAlgCl ℓ) :=
+  ρ.toHom.comp (decomp p)
+end Local
+
+/-! ## §2. Modular side -/
+
+/-- Cusp forms of weight `k` on `Γ₁(N)` (Mathlib). -/
+abbrev CF (N : ℕ) (k : ℤ) := CuspForm (CongruenceSubgroup.Gamma1 N : Subgroup (GL (Fin 2) ℝ)) k
+
+/-- The `m`-th q-expansion coefficient `a_m(f)` (period 1). -/
+def coeff {N : ℕ} {k : ℤ} (f : CF N k) (m : ℕ) : ℂ :=
+  (UpperHalfPlane.qExpansion 1 f).coeff m
+
+/-- `f` has nebentypus `χ`: `f|_k γ = χ(d) f` for `γ = (a b; c d) ∈ Γ₀(N)`. -/
+def HasNebentypus {N : ℕ} {k : ℤ} (f : CF N k) (χ : DirichletCharacter ℂ N) : Prop :=
+  ∀ γ ∈ CongruenceSubgroup.Gamma0 N, (⇑f ∣[k] γ) = χ (((γ : SL(2, ℤ)) 1 1 : ℤ) : ZMod N) • ⇑f
+
+/-- `f` is a normalized eigenform of all Hecke operators `T_n` with nebentypus `χ`, through its
+coefficients: `a₁ = 1` and `a_m a_n = Σ_{d ∣ (m,n)} χ(d) d^{k−1} a_{mn/d²}`. Equivalent to the
+Hecke definition for forms with nebentypus `χ` (Diamond–Shurman Prop. 5.3.1 and §5.8; locator
+UNVERIFIED). Same as hdec-faithful. -/
+def IsNormalizedEigenform {N : ℕ} {k : ℤ} (f : CF N k) (χ : DirichletCharacter ℂ N) : Prop :=
+  HasNebentypus f χ ∧ coeff f 1 = 1 ∧
+    ∀ m n : ℕ, 0 < m → 0 < n →
+      coeff f m * coeff f n =
+        ∑ d ∈ (Nat.gcd m n).divisors, χ (d : ZMod N) * (d : ℂ) ^ (k - 1) * coeff f (m * n / d ^ 2)
+
+/-- `τ ↦ dτ` on `ℍ`, for `d ≥ 1`. -/
+def scaleH (d : ℕ+) (τ : UpperHalfPlane) : UpperHalfPlane :=
+  ⟨(d : ℂ) * (τ : ℂ), by
+    have h := τ.coe_im_pos
+    simp only [Complex.mul_im, Complex.natCast_re, Complex.natCast_im, zero_mul, add_zero]
+    exact mul_pos (by exact_mod_cast d.pos) h⟩
+
+/-- The **old space** of level `N`, weight `k`: the span of the functions `τ ↦ f(dτ)` with
+`f ∈ S_k(Γ₁(M))`, `M ∣ N`, `M < N`, `d ∣ N/M` (Atkin–Lehner, Li 1975 §1). -/
+def oldSpace (N : ℕ) (k : ℤ) : Submodule ℂ (UpperHalfPlane → ℂ) :=
+  Submodule.span ℂ {F | ∃ (M : ℕ) (d : ℕ+) (f : CF M k), 0 < M ∧ M ∣ N ∧ M < N ∧
+    (d : ℕ) * M ∣ N ∧ F = fun τ => f (scaleH d τ)}
+
+/-- `f` is a **newform** of level `N`: a normalized eigenform of all `T_n` not lying in the old
+space. For an eigenform of all `T_n` this is equivalent to Li's definition (orthogonal to the
+old space for the Petersson product): the new and old spaces are stable under all `T_n` and, by
+strong multiplicity one, share no eigensystem away from `N` (Li 1975, Thms 3 and 5;
+Diamond–Shurman Thm 5.8.2; locators UNVERIFIED). The Petersson definition needs the Petersson
+integral over `Γ₁(N)\ℍ`, which Mathlib lacks (it has the integrand, `petersson`). -/
+def IsNewform {N : ℕ} {k : ℤ} (f : CF N k) (χ : DirichletCharacter ℂ N) : Prop :=
+  IsNormalizedEigenform f χ ∧ (⇑f : UpperHalfPlane → ℂ) ∉ oldSpace N k
+
+/-- `ρ` is attached to the eigenform `g` (through `ιC : ℚ̄ → ℂ`, `ιL : ℚ̄ → ℚ̄_ℓ`), in the
+Tate-module normalization (arithmetic Frobenius, `tr = a_p`): for `p ∤ Nℓ`, `ρ` is unramified at
+`p` and every arithmetic Frobenius above `p` has trace `ιL(α)` with `ιC(α) = a_p(g)`. -/
+def GaloisRep.AttachedTo (ρ : GaloisRep ℓ 2) (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    {N : ℕ} {k : ℤ} (g : CF N k) : Prop :=
+  ∀ p : ℕ, p.Prime → ¬ p ∣ N * ℓ →
+    ρ.UnramifiedAt p ∧ ∃ α : Qbar, ιC α = coeff g p ∧
+      ∀ (v : ValuationSubring Qbar) (σ : GQ), LiesOver v p → IsArithFrob σ v p →
+        (ρ.mat σ).trace = ιL α
+
+end PkgI4
+
+/-! ## Part B. Inertia, ramification groups and the conductor exponent on `G_{ℚ_p}` -/
+
+namespace LadicCond
+
+open PkgI4
+
+variable {p : ℕ} [Fact p.Prime]
+
+/-- `ℚ̄_p` (Mathlib's `PadicAlgCl p`, normed by the unique extension of `|·|_p`). -/
+abbrev Kbar (p : ℕ) [Fact p.Prime] := PadicAlgCl p
+
+/-- A finite Galois extension `L/ℚ_p` inside `ℚ̄_p`. -/
+abbrev Fld (p : ℕ) [Fact p.Prime] := IntermediateField ℚ_[p] (Kbar p)
+
+/-- **Inertia** `I_p ⊂ G_{ℚ_p}`: the `σ` acting trivially on the residue field of `ℚ̄_p`,
+i.e. `|σx − x| < 1` for all `|x| ≤ 1` (Serre, *Corps locaux* I §7 / IV §1). -/
+def inertiaSet : Set (GQp p) := {σ | ∀ x : Kbar p, ‖x‖ ≤ 1 → ‖σ x - x‖ < 1}
+
+/-- **Wild inertia** `P_p ⊂ G_{ℚ_p}`: the `σ` with `σx/x ≡ 1` modulo the maximal ideal for all
+`x ≠ 0`, i.e. `|σx − x| < |x|` (Serre, *Corps locaux* IV §2, Cor. 1 of Prop. 7, at every finite
+level; UNVERIFIED numbering). -/
+def wildSet : Set (GQp p) := {σ | ∀ x : Kbar p, x ≠ 0 → ‖σ x - x‖ < ‖x‖}
+
+/-- `G_L ⊂ G_{ℚ_p}`: the `σ` fixing `L` pointwise. -/
+def fixSet (L : Fld p) : Set (GQp p) := {σ | ∀ x ∈ L, σ x = x}
+
+/-- `ϖ` is a uniformizer of `L`: an element of `L` of maximal absolute value `< 1`. -/
+def IsUnif (L : Fld p) (ϖ : Kbar p) : Prop :=
+  ϖ ∈ L ∧ ‖ϖ‖ < 1 ∧ ∀ y ∈ L, ‖y‖ < 1 → ‖y‖ ≤ ‖ϖ‖
+
+/-- **Lower ramification groups** of `L/ℚ_p` (Serre, *Corps locaux* IV §1), pulled back to
+`G_{ℚ_p}`: `σ ∈ ramSet L i` iff `v_L(σx − x) ≥ i + 1` for every `x ∈ 𝓞_L`. It contains `G_L`, and
+its image under `σ ↦ σ|_L` is `G_i(L/ℚ_p)` (for `L/ℚ_p` Galois). -/
+def ramSet (L : Fld p) (i : ℕ) : Set (GQp p) :=
+  {σ | ∃ ϖ, IsUnif L ϖ ∧ ∀ x ∈ L, ‖x‖ ≤ 1 → ‖σ x - x‖ ≤ ‖ϖ‖ ^ (i + 1)}
+
+/-- `σ ↦ σ|_L`, as a function `L → ℚ̄_p`. -/
+def restr (L : Fld p) (σ : GQp p) : L → Kbar p := fun x => σ x
+
+/-- `g_i = |G_i(L/ℚ_p)|`: the number of restrictions to `L` of elements of `ramSet L i`. -/
+def ramCard (L : Fld p) (i : ℕ) : ℕ := Nat.card (restr L '' ramSet L i)
+
+/-- `L/ℚ_p` is finite Galois. -/
+def IsFinGal (L : Fld p) : Prop := FiniteDimensional ℚ_[p] L ∧ IsGalois ℚ_[p] L
+
+variable {k : Type*} [Field k] {n : ℕ}
+
+/-- `V^S` for `V = kⁿ` and a set `S ⊆ G_{ℚ_p}` acting through `ρ`. -/
+def invariants (ρ : GQp p →* GL (Fin n) k) (S : Set (GQp p)) : Submodule k (Fin n → k) where
+  carrier := {v | ∀ σ ∈ S, (ρ σ : Matrix (Fin n) (Fin n) k).mulVec v = v}
+  zero_mem' := by intro σ _; simp
+  add_mem' := by
+    intro v w hv hw σ hσ
+    simp only [Set.mem_ofPred_eq] at hv hw
+    rw [Matrix.mulVec_add, hv σ hσ, hw σ hσ]
+  smul_mem' := by
+    intro c v hv σ hσ
+    simp only [Set.mem_ofPred_eq] at hv
+    rw [Matrix.mulVec_smul, hv σ hσ]
+
+/-- `codim V^S = n − dim V^S`. -/
+def codimInv (ρ : GQp p →* GL (Fin n) k) (S : Set (GQp p)) : ℕ :=
+  n - Module.finrank k (invariants ρ S)
+
+/-- `L` is **adapted** to `ρ`: `L/ℚ_p` is finite Galois and `ρ` is trivial on `P_p ∩ G_L`, so
+that `ρ|_{P_p}` factors through `Gal(L/ℚ_p)`. For `ρ` continuous with values in `GL_n(E)`,
+`E/ℚ_ℓ` finite, `ℓ ≠ p`, such an `L` exists, since `ρ(P_p)` is finite (`AdaptedExists`). -/
+def IsAdapted (L : Fld p) (ρ : GQp p →* GL (Fin n) k) : Prop :=
+  IsFinGal L ∧ ∀ σ ∈ wildSet ∩ fixSet L, ρ σ = 1
+
+/-- **The Swan conductor at level `L`** (Serre–Tate 1968 §2; Serre, *Corps locaux* VI §2):
+`Sw_L(ρ) = ∑_{i ≥ 1} (g_i/g_0) · codim V^{G_i ∩ P}`. For `L` adapted, `G_i ∩ P` acts through
+`G_i(L/ℚ_p)` (for `i ≥ 1`, `G_i(L/ℚ_p)` is the image of `P ∩ ramSet L i`). -/
+def swanAt (L : Fld p) (ρ : GQp p →* GL (Fin n) k) : ℚ :=
+  ∑ᶠ i : ℕ, ((ramCard L (i + 1) : ℚ) / ramCard L 0) * (codimInv ρ (ramSet L (i + 1) ∩ wildSet) : ℚ)
+
+open Classical in
+/-- **The Swan conductor** `Sw(ρ)`: `swanAt L ρ` at a chosen adapted `L` (`0` if none exists,
+which does not happen for continuous ℓ-adic `ρ`). Independent of `L`: `SwanIndependent`. -/
+def swan (ρ : GQp p →* GL (Fin n) k) : ℚ :=
+  if h : ∃ L : Fld p, IsAdapted L ρ then swanAt h.choose ρ else 0
+
+/-- **The conductor exponent** `a(ρ) = codim V^{I_p} + Sw(ρ)` (Serre–Tate 1968 §2; equal to the
+conductor of the Weil–Deligne representation, `codim (ker N)^{I}` + Swan, since
+`V^{ρ(I)} = (ker N)^{I}` by Grothendieck's monodromy theorem). -/
+def condExp (ρ : GQp p →* GL (Fin n) k) : ℚ :=
+  codimInv ρ inertiaSet + swan ρ
+
+/-- The conductor exponent computed at a level `L`. -/
+def condAt (L : Fld p) (ρ : GQp p →* GL (Fin n) k) : ℚ :=
+  codimInv ρ inertiaSet + swanAt L ρ
+
+/-- **Finite-level Artin conductor** (Serre, *Corps locaux* VI §2): `∑_{i ≥ 0} (g_i/g_0) codim V^{G_i}`.
+For `ρ` trivial on `G_L` this is pkg-I6's `PkgI6.artinConductor` of the induced representation of
+`Gal(L/ℚ_p)` (same formula, with `G_i(L/ℚ_p)` = image of `ramSet L i`). -/
+def artinAt (L : Fld p) (ρ : GQp p →* GL (Fin n) k) : ℚ :=
+  ∑ᶠ i : ℕ, ((ramCard L i : ℚ) / ramCard L 0) * (codimInv ρ (ramSet L i) : ℚ)
+
+/-! ### Herbrand's function and the upper numbering (for L8) -/
+
+/-- Lower numbering for real `t`: `G_t = G_{⌈t⌉}` for `t > −1`, `G_t = G` for `t ≤ −1`. -/
+def ramSetR (L : Fld p) (t : ℝ) : Set (GQp p) :=
+  if t ≤ -1 then Set.univ else ramSet L ⌈t⌉.toNat
+
+/-- `|G_t(L/ℚ_p)|` for real `t`. -/
+def ramCardR (L : Fld p) (t : ℝ) : ℕ := Nat.card (restr L '' ramSetR L t)
+
+/-- **Herbrand's function** `φ_{L/ℚ_p}(u) = ∫₀ᵘ g_t/g_0 dt` (Serre IV §3). -/
+def phiAt (L : Fld p) (u : ℝ) : ℝ :=
+  ∫ t in (0 : ℝ)..u, (ramCardR L t : ℝ) / (ramCard L 0 : ℝ)
+
+/-- **Upper numbering** `G^v(L/ℚ_p) = G_{ψ(v)}`, `ψ = φ⁻¹` (Serre IV §3), pulled back to `G_{ℚ_p}`. -/
+def upperSet (L : Fld p) (v : ℝ) : Set (GQp p) :=
+  ramSetR L (sInf {u : ℝ | -1 ≤ u ∧ v ≤ phiAt L u})
+
+/-- **The upper ramification filtration of `G_{ℚ_p}`**: `σ ∈ G^v` iff `σ|_L ∈ G^v(L/ℚ_p)` for
+every finite Galois `L` (Serre IV §3, remark after Prop. 14; well defined by Herbrand's theorem). -/
+def upperAbs (p : ℕ) [Fact p.Prime] (v : ℝ) : Set (GQp p) :=
+  {σ | ∀ L : Fld p, IsFinGal L → σ ∈ upperSet L v}
+
+/-! ## Part C. Sanity facts -/
+
+theorem wildSet_subset_inertiaSet : (wildSet : Set (GQp p)) ⊆ inertiaSet := by
+  intro σ hσ x hx
+  by_cases h0 : x = 0
+  · subst h0; simp
+  · exact lt_of_lt_of_le (hσ x h0) hx
+
+theorem invariants_eq_top {ρ : GQp p →* GL (Fin n) k} {S : Set (GQp p)}
+    (h : ∀ σ ∈ S, ρ σ = 1) : invariants ρ S = ⊤ := by
+  ext v
+  simp only [Submodule.mem_top, iff_true]
+  intro σ hσ
+  rw [h σ hσ]
+  simp
+
+theorem codimInv_eq_zero {ρ : GQp p →* GL (Fin n) k} {S : Set (GQp p)}
+    (h : ∀ σ ∈ S, ρ σ = 1) : codimInv ρ S = 0 := by
+  rw [codimInv, invariants_eq_top h, finrank_top, Module.finrank_fin_fun, Nat.sub_self]
+
+/-- **Sanity (a1).** If `ρ` is unramified (trivial on `I_p`), `Sw_L(ρ) = 0` at every level. -/
+theorem swanAt_eq_zero_of_unramified {ρ : GQp p →* GL (Fin n) k}
+    (h : ∀ σ ∈ inertiaSet, ρ σ = 1) (L : Fld p) : swanAt L ρ = 0 := by
+  rw [swanAt]
+  refine finsum_eq_zero_of_forall_eq_zero fun i => ?_
+  rw [codimInv_eq_zero (fun σ hσ => h σ (wildSet_subset_inertiaSet hσ.2))]
+  simp
+
+/-- **Sanity (a).** Unramified ⇒ conductor exponent `0` (whatever `L` the definition picks). -/
+theorem condExp_eq_zero_of_unramified {ρ : GQp p →* GL (Fin n) k}
+    (h : ∀ σ ∈ inertiaSet, ρ σ = 1) : condExp ρ = 0 := by
+  rw [condExp, codimInv_eq_zero h, swan]
+  split_ifs with hL
+  · rw [swanAt_eq_zero_of_unramified h]; simp
+  · simp
+
+theorem condAt_eq_zero_of_unramified {ρ : GQp p →* GL (Fin n) k}
+    (h : ∀ σ ∈ inertiaSet, ρ σ = 1) (L : Fld p) : condAt L ρ = 0 := by
+  rw [condAt, codimInv_eq_zero h, swanAt_eq_zero_of_unramified h]; simp
+
+/-- `V^S = V^T` when `S ⊆ T` and every element of `T` agrees on `L` with one of `S`, and `ρ` is
+trivial on `G_L`. -/
+theorem invariants_eq_of_cover {ρ : GQp p →* GL (Fin n) k} {L : Fld p} {S T : Set (GQp p)}
+    (hfix : ∀ σ ∈ fixSet L, ρ σ = 1) (hST : S ⊆ T)
+    (hcov : ∀ σ ∈ T, ∃ τ ∈ S, ∀ x ∈ L, τ x = σ x) : invariants ρ S = invariants ρ T := by
+  apply le_antisymm
+  · intro v hv σ hσ
+    obtain ⟨τ, hτ, hτσ⟩ := hcov σ hσ
+    have h1 : τ⁻¹ * σ ∈ fixSet L := by
+      intro x hx
+      change τ⁻¹ (σ x) = x
+      rw [← hτσ x hx]
+      exact τ.symm_apply_apply x
+    have h2 : ρ σ = ρ τ * ρ (τ⁻¹ * σ) := by rw [← map_mul, mul_inv_cancel_left]
+    rw [h2, hfix _ h1, mul_one]
+    exact hv τ hτ
+  · intro v hv σ hσ
+    exact hv σ (hST hσ)
+
+/-- **Restriction of inertia is onto** `G_0(L/ℚ_p)` and of wild inertia onto `G_i(L/ℚ_p)`,
+`i ≥ 1`, together with `I_p ⊆ ramSet L 0` (Serre, *Corps locaux* I §7 Prop. 21 and IV §1–2;
+UNVERIFIED numbering). STANDARD; stated, not proved here. -/
+def InertiaRestriction (L : Fld p) : Prop :=
+  inertiaSet ⊆ ramSet L 0 ∧
+  (∀ σ ∈ ramSet L 0, ∃ τ ∈ inertiaSet, ∀ x ∈ L, τ x = σ x) ∧
+  (∀ i : ℕ, ∀ σ ∈ ramSet L (i + 1), ∃ τ ∈ ramSet L (i + 1) ∩ wildSet, ∀ x ∈ L, τ x = σ x)
+
+/-- `G_i(L/ℚ_p) = 1` for `i ≥ N` (Serre IV §1; holds for every finite `L`). -/
+def EventuallyTrivial (L : Fld p) (N : ℕ) : Prop := ∀ i, N ≤ i → ramSet L i ⊆ fixSet L
+
+/-- **Sanity (b). Agreement with the Artin conductor on finite image.** If `ρ` factors through
+`Gal(L/ℚ_p)` (trivial on `G_L`), then `codim V^I + Sw_L(ρ)` equals the finite-level Artin
+conductor `∑_{i≥0} (g_i/g_0) codim V^{G_i}` (pkg-I6's `artinConductor` formula), given the
+restriction facts `InertiaRestriction L`, `G_i(L/ℚ_p) = 1` for large `i`, and `g_0 ≠ 0`. -/
+theorem condAt_eq_artinAt {ρ : GQp p →* GL (Fin n) k} {L : Fld p}
+    (hfix : ∀ σ ∈ fixSet L, ρ σ = 1) (hR : InertiaRestriction L) {N : ℕ}
+    (hN : EventuallyTrivial L N) (hg0 : ramCard L 0 ≠ 0) :
+    condAt L ρ = artinAt L ρ := by
+  obtain ⟨hI, hIc, hW⟩ := hR
+  have e0 : codimInv ρ inertiaSet = codimInv ρ (ramSet L 0) := by
+    rw [codimInv, codimInv, invariants_eq_of_cover hfix hI hIc]
+  have ei : ∀ i, codimInv ρ (ramSet L (i + 1) ∩ wildSet) = codimInv ρ (ramSet L (i + 1)) := by
+    intro i
+    rw [codimInv, codimInv, invariants_eq_of_cover hfix Set.inter_subset_left (hW i)]
+  have hz : ∀ i, N ≤ i → codimInv ρ (ramSet L i) = 0 := fun i hi =>
+    codimInv_eq_zero fun σ hσ => hfix σ (hN i hi hσ)
+  set f : ℕ → ℚ := fun i => ((ramCard L i : ℚ) / ramCard L 0) * (codimInv ρ (ramSet L i) : ℚ)
+    with hf
+  have hsupp : Function.support f ⊆ ↑(Finset.range (N + 1)) := by
+    intro i hi
+    simp only [Finset.coe_range, Set.mem_Iio]
+    by_contra hlt
+    exact hi (by simp [f, hz i (by omega)])
+  have hsupp' : Function.support (fun i => f (i + 1)) ⊆ ↑(Finset.range N) := by
+    intro i hi
+    simp only [Finset.coe_range, Set.mem_Iio]
+    by_contra hlt
+    exact hi (by simp [f, hz (i + 1) (by omega)])
+  have hA : artinAt L ρ = ∑ i ∈ Finset.range (N + 1), f i :=
+    finsum_eq_sum_of_support_subset f hsupp
+  have hS : swanAt L ρ = ∑ i ∈ Finset.range N, f (i + 1) := by
+    rw [swanAt]
+    simp_rw [ei]
+    exact finsum_eq_sum_of_support_subset (fun i => f (i + 1)) hsupp'
+  rw [condAt, hA, hS, Finset.sum_range_succ', e0, add_comm]
+  congr 1
+  simp only [f]
+  rw [div_self (by exact_mod_cast hg0), one_mul]
+
+/-- **Independence of the level** (Serre–Tate 1968 §2; a consequence of Herbrand's theorem,
+pkg-I6 leaf I6.8, and the transitivity I6.9). GLUE, not proved here. -/
+def SwanIndependent : Prop :=
+  ∀ (k : Type) [Field k] (n : ℕ) (ρ : GQp p →* GL (Fin n) k) (L L' : Fld p),
+    IsAdapted L ρ → IsAdapted L' ρ → swanAt L ρ = swanAt L' ρ
+
+/-- Under `SwanIndependent`, the conductor exponent is computed at any adapted level. -/
+theorem condExp_eq_condAt (hI : SwanIndependent (p := p)) {k : Type} [Field k]
+    {ρ : GQp p →* GL (Fin n) k} {L : Fld p} (hL : IsAdapted L ρ) : condExp ρ = condAt L ρ := by
+  have h : ∃ L : Fld p, IsAdapted L ρ := ⟨L, hL⟩
+  rw [condExp, condAt, swan, dite_cond_eq_true (eq_true h), hI k n ρ _ L h.choose_spec hL]
+
+/-- **Existence of an adapted level** (Serre–Tate 1968 §2, after Grothendieck: `ρ(P_p)` is finite
+for `ℓ ≠ p` since `P_p` is pro-`p` and the kernel of `GL_n(𝓞_E) → GL_n(𝓞_E/λ)` is pro-`ℓ`; a
+continuous `ρ` into `GL_n(ℚ̄_ℓ)` takes values in `GL_n(E)`, `E/ℚ_ℓ` finite). GLUE (elementary
+profinite group theory plus Baire), not proved here. -/
+def AdaptedExists : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime], ℓ ≠ p → ∀ (n : ℕ) (ρ : GQp p →* GL (Fin n) (PadicAlgCl ℓ)),
+    Continuous ρ → ∃ L : Fld p, IsAdapted L ρ
+
+/-! ## Part D. The leaves -/
+
+/-- **R17 = glue-conductor's L10: Carayol, Ann. Sci. ÉNS 19 (1986), Théorème (A)** at `F = ℚ`,
+weight 2 (theorem letter VERIFIED from the manuscript's locator per pkg-I4; content and coverage
+of `p ∣ N` UNVERIFIED). For a newform `f` of weight 2, level `N`, and a semisimple `ρ` attached to
+`f` (pkg-I4's trace form), and a prime `p ≠ ℓ`, the conductor exponent of `ρ|_{G_{ℚ_p}}` is
+`v_p(N)`; stated at every adapted level (equivalent to the published form by `SwanIndependent`). -/
+def CarayolR17 : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2) (ρ : GaloisRep ℓ 2) (p : ℕ) [Fact p.Prime],
+    0 < N → IsNewform f χ → ρ.IsSemisimple → ρ.AttachedTo ιC ιL f → p ≠ ℓ →
+    ∀ L : Fld p, IsAdapted L (ρ.restrictLocal p) →
+      condAt L (ρ.restrictLocal p) = (N.factorization p : ℚ)
+
+/-- **R17, published form**, with the canonical `condExp` (choice of level inside). -/
+def CarayolR17' : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2) (ρ : GaloisRep ℓ 2) (p : ℕ) [Fact p.Prime],
+    0 < N → IsNewform f χ → ρ.IsSemisimple → ρ.AttachedTo ιC ιL f → p ≠ ℓ →
+      condExp (ρ.restrictLocal p) = (N.factorization p : ℚ)
+
+/-- The two forms of R17 agree given the glue `SwanIndependent` and `AdaptedExists`. -/
+theorem carayolR17_of_R17' (hI : ∀ (p : ℕ) [Fact p.Prime], SwanIndependent (p := p))
+    (h : CarayolR17') : CarayolR17 := by
+  intro ℓ _ ιC ιL N χ f ρ p _ hN hf hs ha hp L hL
+  rw [← condExp_eq_condAt (hI p) hL]
+  exact h ℓ ιC ιL N χ f ρ p hN hf hs ha hp
+
+theorem carayolR17'_of_R17 (hE : ∀ (p : ℕ) [Fact p.Prime], AdaptedExists (p := p))
+    (hI : ∀ (p : ℕ) [Fact p.Prime], SwanIndependent (p := p))
+    (h : CarayolR17) : CarayolR17' := by
+  intro ℓ _ ιC ιL N χ f ρ p _ hN hf hs ha hp
+  obtain ⟨L, hL⟩ := hE p ℓ hp.symm 2 (ρ.restrictLocal p)
+    (ρ.continuous_toHom.comp
+      (Field.absoluteGaloisGroup.map (algebraMap ℚ ℚ_[p])).continuous_toFun)
+  rw [condExp_eq_condAt (hI p) hL]
+  exact h ℓ ιC ιL N χ f ρ p hN hf hs ha hp L hL
+
+/-- **L8 (glue-conductor): the Swan conductor is the integral of the upper filtration**,
+`Sw(ρ) = ∫₀^∞ codim V^{G^u} du` (Serre, *Corps locaux* VI §2 and IV §3 for finite image;
+Serre–Tate 1968 §2 for ℓ-adic `ρ`; UNVERIFIED numbering). With `condAt = codim V^I + swanAt`
+this is glue-conductor's `a = codim V^I + ∫₀^∞ codim V^{G^u} du`. A change of variables in
+Herbrand's `φ` plus Herbrand's theorem: provable glue over Part B. -/
+def SwanIntegral : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (p : ℕ) [Fact p.Prime], p ≠ ℓ →
+    ∀ (n : ℕ) (ρ : GQp p →* GL (Fin n) (PadicAlgCl ℓ)), Continuous ρ →
+    ∀ L : Fld p, IsAdapted L ρ →
+      (swanAt L ρ : ℝ) = ∫ u in Set.Ioi (0 : ℝ), (codimInv ρ (upperAbs p u) : ℝ)
+
+end LadicCond
+
+end
+
+#print axioms LadicCond.condExp_eq_zero_of_unramified
+#print axioms LadicCond.condAt_eq_zero_of_unramified
+#print axioms LadicCond.condAt_eq_artinAt
+#print axioms LadicCond.condExp_eq_condAt
+#print axioms LadicCond.carayolR17_of_R17'
+#print axioms LadicCond.carayolR17'_of_R17
