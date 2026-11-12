@@ -15,3 +15,9 @@
 - `isLocalization_away_xi` (general O with ker θ = (ξ)): Mathlib's `BDeRham` is a localization of
   `BDeRhamPlus` at the powers of the single element ξ; `bdREquivAway : BDeRham 𝓞_ℂ_[p] p ≃ₐ[BDeRhamPlus]
   Localization.Away ξ` (ξ = p − [p♭]): COMPILES, standard axioms (VERIFIED).
+- `frobenius_surjective`, `fontaineTheta_surjective`, `isField_away_p` (𝓞_ℂ_p[1/p] field),
+  `fontaineThetaInvertP_surjective`, `ker_fontaineThetaInvertP_isMaximal` ((ξ') maximal in W[1/p]):
+  COMPILE, standard axioms (VERIFIED).
+- `isDomain_tilt` (from Mathlib `PreTilt.isDomain` with `(PadicComplex.valued p).v`), `isDomain_away`
+  (W(𝓞_ℂ_p♭)[1/p] domain), `xi_ne_zero`, `xi'_mem_nonZeroDivisors`: COMPILE, standard axioms (VERIFIED).
+- NOT PROVED: BDeRhamPlus is a DVR with uniformizer ξ; BDeRham is its fraction field / a field.

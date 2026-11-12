@@ -589,6 +589,40 @@ theorem ker_fontaineThetaInvertP_isMaximal : (RingHom.ker (fontaineThetaInvertP 
   letI := (isField_away_p p).toField
   RingHom.ker_isMaximal_of_surjective _ (fontaineThetaInvertP_surjective p)
 
+/-! ### Step 1 of §3: `W(𝓞_ℂ_p♭)[1/p]` is a domain and `ξ'` is a non-zero-divisor. -/
+
+instance isDomain_tilt : IsDomain (PreTilt O p) :=
+  PreTilt.isDomain ℂ_[p] (PadicComplex.valued p).v O (PadicComplexInt.integers p) p
+
+theorem witt_p_ne_zero : (p : WittVector p (PreTilt O p)) ≠ 0 := by
+  intro h
+  have : (1 : WittVector p (PreTilt O p)) = 0 :=
+    WittVector.eq_zero_of_p_mul_eq_zero _ (by rw [one_mul, h])
+  exact one_ne_zero this
+
+instance isDomain_away : IsDomain (Localization.Away (p : WittVector p (PreTilt O p))) :=
+  IsLocalization.isDomain_localization (powers_le_nonZeroDivisors_of_noZeroDivisors (witt_p_ne_zero p))
+
+theorem xi_ne_zero : xi p ≠ 0 := by
+  intro h
+  have h1 : WittVector.constantCoeff (xi p) = 0 := by rw [h, map_zero]
+  rw [xi, map_sub, map_natCast, CharP.cast_eq_zero, zero_sub, neg_eq_zero] at h1
+  have h2 : pFlat p = 0 := by simpa using h1
+  have h3 := untilt_pFlat p
+  rw [← fontaineTheta_teichmuller, h2, WittVector.teichmuller_zero, map_zero] at h3
+  exact p_ne_zero p h3.symm
+
+theorem xi'_ne_zero : xi' p ≠ 0 := by
+  intro h
+  apply xi_ne_zero p
+  exact (IsLocalization.injective (Localization.Away (p : WittVector p (PreTilt O p)))
+    (powers_le_nonZeroDivisors_of_noZeroDivisors (witt_p_ne_zero p))) (by rw [map_zero]; exact h)
+
+/-- `ξ'` is a non-zero-divisor of `W(𝓞_ℂ_p♭)[1/p]`. -/
+theorem xi'_mem_nonZeroDivisors :
+    xi' p ∈ nonZeroDivisors (Localization.Away (p : WittVector p (PreTilt O p))) :=
+  mem_nonZeroDivisors_of_ne_zero (xi'_ne_zero p)
+
 end BdrKer.Cp
 
 #print axioms BdrKer.Cp.ker_fontaineTheta_Cp
@@ -596,6 +630,7 @@ end BdrKer.Cp
 #print axioms BdrKer.Cp.isUnit_xi_BDeRham_Cp
 #print axioms BdrKer.Cp.bdREquivAway
 #print axioms BdrKer.Cp.ker_fontaineThetaInvertP_isMaximal
+#print axioms BdrKer.Cp.xi'_mem_nonZeroDivisors
 
 #print axioms BdrKer.ker_fontaineTheta_eq_span
 #print axioms BdrKer.isUnit_xi_BDeRham
