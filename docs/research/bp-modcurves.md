@@ -30,11 +30,13 @@ marked **UNVERIFIED** (this host has no network). Mathlib facts are VERIFIED by 
      of `ℙ¹_ℚ` (the `j`-line) in the field `K_N = ℚ(j)(x(P))`. Here `P` is a point of exact order `N`
      on the universal curve `E_j/ℚ(j)` (Mathlib `ModelsWithJ`, VERIFIED present), with `N ≥ 3`.
      This gives `j : X₁(N) → ℙ¹` for free, as a finite morphism of degree `[K_N : ℚ(j)]`.
-   - The moduli interpretation at the level of points is **Tate normal form**. This is Lean
-     layer 0, done: `BPModCurves.exists_tateNF`, `tateNF_unique`.
+   - The moduli interpretation at the level of points is **Tate normal form** over any field.
+     This is Lean layer 0, done: `exists_tateNF_order`, `tateNF_unique'`, over a point transport
+     `mapPt` that Mathlib lacks. Over `ℂ` it is `(ℂ/Λ_τ, 1/N)`, also done (`pair_iso_iff`,
+     `exists_normalize`): this links the group `Γ₁(N)` to the moduli problem.
    - `J₁(N)` := an abelian variety with the **Albanese property** for `(X₁(N), cusp)`. This is a
      predicate over Mathlib schemes and the repository's `PkgI3.AbVar`. Existence is a **leaf**
-     (Weil; Chow; Milne 1986, Thm 1.1, UNVERIFIED). Uniqueness is glue (small).
+     (Weil; Chow; Milne 1986, Thm 1.1, UNVERIFIED). Uniqueness is glue, done (`IsJacobian.unique`).
    - `A_f` and the Hecke algebra: R16 is stated **existentially**, as an abelian variety `A`
      with a surjection `J₁(N) ↠ A`, `K_f ↪ End⁰(A)`, `dim A = [K_f:ℚ]`, and Frobenius traces
      `a_p(f)` on a rank-2 piece. This is a consequence of Shimura 1973, Thm 1 plus the realization
@@ -43,16 +45,21 @@ marked **UNVERIFIED** (this host has no network). Mathlib facts are VERIFIED by 
      Riemann–Hurwitz for a Belyi map: `2g − 2 = d − #j⁻¹{0,1728,∞} ≤ d − 3`, so `g ≤ (d−1)/2`.
      The group-theoretic version is Lean layer 0, done: `belyiDeg_Gamma1_le`, `genus_Gamma1_le`.
 
-3. **Size.** The full dependency graph (§3, §4) has 17 nodes. Proved in layer 0: MC0a, MC0b,
-   MC2a, MC2b, MC2d, and most of MC2c (point transport and the existence half with orders).
-   Definition compiled: MC6 (`IsJacobian`, with its uniqueness glue proved), MC1 and MC4
-   (`fieldX1`, `Y1j`, open degree statements). That is 1 462 Lean lines in 6 files. Small or
-   medium: 5 nodes. Large: 4. Very large: 3: the Jacobian's existence (MC6', a leaf, so not
-   built), the Faltings height (WP10, out of scope) and, if wanted, Hecke correspondences on
-   `J₁(N)` (MC8, avoidable). Without MC8 and with MC6' a leaf, the critical path is
-   MC3a → MC1 → MC4 → MC5. It is large: properness and smoothness of the normalization of `ℙ¹` in
-   `K_N`, geometric connectedness, and the Belyi property. It is the same order of work as
-   Mathlib's existing curve infrastructure and needs no new cohomology theory.
+3. **Size.** The dependency graph (§3, §4) has 18 nodes.
+   - Proved in layer 0: MC0a, MC0b, MC2a, MC2b, MC2d, and most of MC2c (point transport, and
+     the existence half with orders).
+   - Definition compiled: MC6 (`IsJacobian`, with its uniqueness glue proved), MC1 and MC4
+     (`fieldX1`, `Y1j`, with open degree statements).
+   - Layer 0 is 1 462 Lean lines in 6 files.
+   - Leaves to state, not prove: MC1' (absolute irreducibility, Igusa/Shimura), MC5'
+     (Riemann–Hurwitz), MC6' (existence of the Jacobian), MC7 (R16, existential form).
+   - Open glue: MC2c's last step (small); MC0c, MC1, MC6b (medium; MC6b optional); MC3a and MC5
+     (medium-large); MC4 (large); MC8 (very large, avoidable). The Faltings height (WP10) is out
+     of scope.
+   - Critical path: MC3a → MC1 → MC4 → MC5. It is large: properness and smoothness of the
+     normalization of `ℙ¹` in `K_N`, geometric connectedness, and the Belyi property. It is the
+     same order of work as Mathlib's existing curve infrastructure and needs no new cohomology
+     theory.
 
 4. **Lean layer 0** (VERIFIED: `lake env lean` on each file gives exit 0 with no errors, no
    warnings and no `sorry`; `#print axioms` gives `propext`, `Classical.choice`, `Quot.sound`):
@@ -128,10 +135,10 @@ E2 paragraph (L860-880) and h-decomposition §3 rows G13, G17, G18.
 | Elliptic curves | `WeierstrassCurve`, `VariableChange` (group, `•`), `Affine.Point` with the group law, `NormalForms.lean` (char-≠-2 and short forms; **no Tate normal form**), `ModelsWithJ.lean` (`ofJ0`, `ofJ1728`, curves with given `j`), `IsomOfJ.lean`, `DivisionPolynomial/{Basic,Degree}.lean` (`ψ`, `Φ`, degree bounds) | MC2 (used), MC3 |
 | Analytic elliptic curves | `PeriodPair.weierstrassP`, `derivWeierstrassP`, `derivWeierstrassP_sq : ℘'² = 4℘³ − g₂℘ − g₃`, `g₂`, `g₃` (`Analysis/SpecialFunctions/Elliptic/Weierstrass.lean`); `ZLattice`; `UpperHalfPlane` as a manifold (`UpperHalfPlane/Manifold.lean`) | analytic moduli at the level of points (MC2d, done; the `℘` model not yet used) |
 | Schemes | `Scheme`, `Over`, `IsProper`, `Smooth`, `SmoothOfRelativeDimension`, `GeometricallyIntegral`, `GeometricallyConnected`, `Scheme.functionField`, `Birational/*`, **relative normalization** `Scheme.Hom.normalization` with its universal property (`Normalization.lean`), `ProjectiveSpectrum` (Proj) | MC1, MC4 |
-| Divisors | `AlgebraicCycle`, `IsWeilDivisor`, `weilDivisors`, `degree` (`AlgebraicCycle/Basic.lean`); order of vanishing `Scheme.ord` on the function field (`OrderOfVanishing.lean`) | MC6b (`Pic⁰` of a curve as a Galois module) |
+| Divisors | `AlgebraicCycle`, `IsWeilDivisor`, `weilDivisors`, `degree` (`AlgebraicCycle/Basic.lean`); order of vanishing `ord` on the function field (`OrderOfVanishing.lean`) | MC6b (`Pic⁰` of a curve as a Galois module) |
 | Group schemes | `GrpObj`, `isCommMonObj_of_isProper_of_geometricallyIntegral` (rigidity: a proper geometrically integral group scheme is commutative; `Group/Abelian.lean`) | `PkgI3.AbVar` uses it |
 | Cohomology | `ℓ`-adic pro-étale cohomology `Scheme.EllAdicCohomology` (`Sites/ElladicCohomology.lean`); sheaf cohomology on sites (`CategoryTheory/Sites/SheafCohomology/*`); `Pic` of a commutative **ring** (`RingTheory/PicardGroup.lean`) | genus via `H¹(𝒪)` would need coherent cohomology of schemes (absent) |
-| Not present | Picard group/scheme of a scheme, Jacobians, Albanese, Riemann–Hurwitz, genus of a curve, Riemann–Roch, the sheaf `Ω¹_{X/k}` of a scheme (Kähler differentials exist for rings only; grep in `AlgebraicGeometry`: no hit outside `FormallyUnramified.lean`), regular-implies-smooth for schemes, compact Riemann surfaces `Γ\ℍ*`, `X₀(N)`/`X₁(N)` as schemes, Hecke operators, the transport of points under `VariableChange` | — |
+| Not present | Picard group/scheme of a scheme, Jacobians, Albanese, Riemann–Hurwitz, genus of a curve, Riemann–Roch, the sheaf `Ω¹_{X/k}` of a scheme (Kähler differentials exist for rings only; grep in `AlgebraicGeometry`: no hit outside `FormallyUnramified.lean`), regular-implies-smooth for schemes, compact Riemann surfaces `Γ\ℍ*`, `X₀(N)`/`X₁(N)` as schemes, Hecke operators, the transport of points under `VariableChange` (built here: `PointTransport.lean`) | — |
 
 ### §2.2 Other libraries (from `prereq-survey.md`, which read them mostly by file name; UNVERIFIED beyond that)
 
