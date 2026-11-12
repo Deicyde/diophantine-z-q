@@ -26,8 +26,8 @@ no `sorry`; every proved theorem uses only `propext`, `Classical.choice`, `Quot.
 - **Sanity facts, proved:**
   - unramified ⇒ `a = 0`: `condExp_eq_zero_of_unramified`, `condAt_eq_zero_of_unramified`;
   - agreement with Serre's finite-level Artin conductor `∑_{i≥0}(g_i/g_0) codim V^{G_i}` (the formula
-    of pkg-I6's `artinConductor`) when `ρ` factors through `Gal(L/ℚ_p)`: `condAt_eq_artinAt''`. It
-    holds for `L` finite Galois with a uniformizer, and assumes only the two standard surjectivity
+    of pkg-I6's `artinConductor`) when `ρ` factors through `Gal(L/ℚ_p)`: `condAt_eq_artinAt_of_surj`. It
+    holds for every finite Galois `L`, and assumes only the two standard surjectivity
     facts (restriction of `I_p` onto `G_0(L)`, and of `P_p ∩ G_i` onto `G_i(L)`);
   - independence of the level reduces to one Prop, `SwanIndependent`: `condExp_eq_condAt`.
 - **Leaves stated:**
@@ -92,7 +92,13 @@ representations.
     has `‖σx − x‖ > 0`, which exceeds `‖ϖ‖^{i+1}` for large `i`. Induction over the finitely
     many restrictions then gives one bound for all of them.
 
-  The final form is `condAt_eq_artinAt''`. Its only hypotheses are the two surjectivity facts.
+  - existence of a uniformizer of every finite `L ⊆ ℚ̄_p`: `exists_isUnif`. By
+    `norm_pow_factorial`, `‖y‖^{[L:ℚ_p]!} ∈ p^ℤ`; this uses Mathlib's
+    `spectralNorm.spectralNorm_eq_norm_coeff_zero_rpow`, which gives `‖y‖ = ‖a_0‖^{1/deg}` for the
+    minimal polynomial. `Nat.find` then picks the largest value below 1.
+
+  The final form is `condAt_eq_artinAt_of_surj`, for every finite Galois `L`. Its only hypotheses
+  are the two surjectivity facts.
 
   The agreement is with `artinAt`, which is pkg-I6's `artinConductor` formula on `G_{ℚ_p}`. A Lean
   identification with `PkgI6.artinConductor` on `𝓞_L ≃ₐ[ℤ_p] 𝓞_L` is not done.
@@ -142,10 +148,11 @@ on `G^u` for `u > U ≥ 0`, then `a ≤ n(1+U)`. With `n = 2` and `U = U₀` thi
 1. `SwanIndependent`: Herbrand plus transitivity of `φ`; medium.
 2. `AdaptedExists`: `ρ(P_p)` is finite for `ℓ ≠ p` (pro-`p` against pro-`ℓ`), and `ρ` takes values
    in a finite `E/ℚ_ℓ` (Baire); medium.
-3. The two surjectivity clauses of `InertiaRestriction L`, and existence of a uniformizer of a
-   general finite `L` (proved for `L = ℚ_p`). Already proved: `I_p ⊆ ramSet L 0`, `g_i ≠ 0`,
-   `G_i(L) = 1` for large `i`. Standard local field theory; small to medium. They will need `L` as a complete DVR. Mathlib
-   has `IsDiscreteValuationRing` and `Valued`, but no packaged `𝓞_L` for `L ⊆ ℚ̄_p`.
+3. The two surjectivity clauses of `InertiaRestriction L`: `I_p` restricts onto `G_0(L)`, and
+   `P_p ∩ G_i` onto `G_i(L)`. They need unramified extensions (`G_L → Gal(\bar 𝔽_p/k_L)` is onto)
+   and tame theory. Medium. Already proved: `I_p ⊆ ramSet L 0`, `g_i ≠ 0`, `G_i(L) = 1` for
+   large `i`, and existence of uniformizers. The surjectivity facts may need `𝓞_L` as a complete
+   DVR; Mathlib has `IsDiscreteValuationRing` and `Valued`, but no packaged `𝓞_L` for `L ⊆ ℚ̄_p`.
 4. L8 itself (`SwanIntegral`), if it is to become glue.
 5. The bridge from `artinAt` to `PkgI6.artinConductor`:
    `Gal(L/ℚ_p) ≅ (𝓞_L ≃ₐ[ℤ_p] 𝓞_L)` and the transport of `lowerRam`.

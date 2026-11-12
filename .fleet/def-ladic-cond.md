@@ -3,7 +3,7 @@
 **Main result.** The conductor exponent of a representation `ρ : G_{ℚ_p} → GL_n(k)` (with ℓ-adic
 `ρ`, `ℓ ≠ p`, in mind) is now defined in Lean over genuine objects, and leaves R17 and L8 are
 stated over it. Everything is in `scratch/def-ladic-cond/LadicCond.lean`, which imports Mathlib
-only. VERIFIED: it compiles, with no `sorry`; all 14 proved theorems use only `propext`,
+only. VERIFIED: it compiles, with no `sorry`; all 16 theorems listed by `#print axioms` use only `propext`,
 `Classical.choice` and `Quot.sound`.
 
 - **Definition** (Serre–Tate 1968 §2): `a(ρ) = codim V^{I_p} + Sw(ρ)`.
@@ -16,10 +16,10 @@ only. VERIFIED: it compiles, with no `sorry`; all 14 proved theorems use only `p
 - **Sanity facts, proved:**
   - unramified ⇒ `a = 0` (`condExp_eq_zero_of_unramified`);
   - agreement with Serre's finite-level Artin conductor `∑_{i≥0}(g_i/g_0) codim V^{G_i}`
-    (pkg-I6's formula) when `ρ` factors through `Gal(L/ℚ_p)` (`condAt_eq_artinAt''`). It assumes
-    only the two standard surjectivity facts for restriction of `I_p` and `P_p`. Also proved
-    along the way: `I_p ⊆ G_0`, `g_i ≠ 0`, `G_i(L) = 1` for large `i`, and that `p` is a
-    uniformizer of `ℚ_p`;
+    (pkg-I6's formula) when `ρ` factors through `Gal(L/ℚ_p)`, for every finite Galois `L`
+    (`condAt_eq_artinAt_of_surj`). It assumes only the two standard surjectivity facts for
+    restriction of `I_p` and `P_p`. Also proved along the way: `I_p ⊆ G_0`, `g_i ≠ 0`,
+    `G_i(L) = 1` for large `i`, and that every finite `L ⊆ ℚ̄_p` has a uniformizer;
   - the choice of level reduces to one glue Prop, `SwanIndependent` (`condExp_eq_condAt`).
 - **Leaves stated:**
   - `CarayolR17` / `CarayolR17'` (Carayol 1986, Théorème (A), weight 2, `p ≠ ℓ`, over pkg-I4's
@@ -32,8 +32,7 @@ only. VERIFIED: it compiles, with no `sorry`; all 14 proved theorems use only `p
 **What remains** (glue, stated but not proved):
 - `SwanIndependent` (Herbrand, pkg-I6 I6.8/I6.9);
 - `AdaptedExists` (`ρ(P_p)` is finite; values in a finite `E/ℚ_ℓ`);
-- the two surjectivity facts;
-- a uniformizer for a general finite `L`;
+- the two surjectivity facts (they need unramified-extension theory);
 - a Lean bridge from `artinAt` to `PkgI6.artinConductor` on `𝓞_L ≃ₐ[ℤ_p] 𝓞_L`.
 
 L8 is probably glue rather than a research leaf (SPECULATIVE): a change of variables plus
