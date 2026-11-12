@@ -92,14 +92,14 @@ trace of `φ` on `E ⊗ V_ℓ(A)` for every prime `ℓ ≠ char k` and every fie
 `E ⊗ V_ℓ(A)` is finite-dimensional. -/
 theorem trace_endE_indep (hM : CharPolyIndepOfEll) {k : Type} [Field k] (A : AbVar k)
     (φ : AbVar.End A) : ∃ t : ℤ, ∀ (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : k) ≠ 0 →
-      ∀ (E : Type*) [Field E] [Algebra ℚ_[ℓ] E] [Module.Finite E (E ⊗[ℚ_[ℓ]] A.V ℓ)],
+      ∀ (E : Type) [Field E] [Algebra ℚ_[ℓ] E] [Module.Finite E (E ⊗[ℚ_[ℓ]] A.V ℓ)],
         LinearMap.trace E _ (endE φ ℓ E) = (t : E) := by
   obtain ⟨t, ht⟩ := PkgI3.trace_indep_of_ell hM k A φ
   refine ⟨t, fun ℓ _ hℓ E _ _ _ => ?_⟩
   have : Module.Finite ℚ_[ℓ] (A.V ℓ) := finite_of_baseChange (E := E)
   classical
   let b := Module.Free.chooseBasis ℚ_[ℓ] (A.V ℓ)
-  haveI : Fintype (Module.Free.ChooseBasisIndex ℚ_[ℓ] (A.V ℓ)) := Fintype.ofFinite _
+  letI : Fintype (Module.Free.ChooseBasisIndex ℚ_[ℓ] (A.V ℓ)) := Fintype.ofFinite _
   rw [endE, LinearMap.trace_baseChange, ht ℓ hℓ _ b, map_intCast]
 
 
@@ -157,7 +157,7 @@ def FrobCompare (ℓ : ℕ) [Fact ℓ.Prime] {E V : Type*} [Field E] [Algebra �
 /-- Under the comparison, `N · tr T(σ) = t`, the ℓ-independent trace of `α'`. -/
 theorem trace_T_of_frobCompare (hM : CharPolyIndepOfEll) {k : Type} [Field k] (A : AbVar k)
     (α : AbVar.End A) : ∃ t : ℤ, ∀ (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : k) ≠ 0 →
-      ∀ {E V : Type*} [Field E] [Algebra ℚ_[ℓ] E] [AddCommGroup V] [Module E V]
+      ∀ {E V : Type} [Field E] [Algebra ℚ_[ℓ] E] [AddCommGroup V] [Module E V]
         [FiniteDimensional E V] (Tσ : Module.End E V) (N : ℕ), FrobCompare ℓ Tσ α N →
         (N : E) * LinearMap.trace E V Tσ = (t : E) := by
   obtain ⟨t, ht⟩ := trace_endE_indep hM A α
@@ -173,8 +173,10 @@ theorem trace_T_of_frobCompare (hM : CharPolyIndepOfEll) {k : Type} [Field k] (A
 comparison with `α'` and `N`:
 `tr r_ℓ(σ) = emb(½ · β(σ)⁻¹ a_σ · t/N)`, and `t/N = tr α_σ` for `α_σ = α'/N`. -/
 theorem trace_link (hM : CharPolyIndepOfEll) {k : Type} [Field k] (A : AbVar k) (α : AbVar.End A) :
-    ∃ t : ℤ, ∀ (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : k) ≠ 0 →
-      ∀ {G C E V : Type*} [Group G] [Field C] [CharZero C] [Field E] [Algebra ℚ_[ℓ] E]
+    ∃ t : ℤ, (∀ (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : k) ≠ 0 →
+      ∀ (E : Type) [Field E] [Algebra ℚ_[ℓ] E] [Module.Finite E (E ⊗[ℚ_[ℓ]] A.V ℓ)],
+        LinearMap.trace E _ (endE α ℓ E) = (t : E)) ∧ ∀ (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : k) ≠ 0 →
+      ∀ {G C E V : Type} [Group G] [Field C] [CharZero C] [Field E] [Algebra ℚ_[ℓ] E]
         [AddCommGroup V] [Module E V] [FiniteDimensional E V]
         (c ε : G → G → C) (a β : G → C)
         (ha : ∀ g h, a g * a h * c g h = ε g h * a (g * h))
@@ -186,9 +188,18 @@ theorem trace_link (hM : CharPolyIndepOfEll) {k : Type} [Field k] (A : AbVar k) 
         LinearMap.trace E u.W (rL c ε a β ha hβ hβ0 ha1 hβ1 emb T hT hT1 u hu σ) =
           emb ((β σ)⁻¹ * a σ * ((t : C) / N) / 2) := by
   obtain ⟨t, ht⟩ := trace_T_of_frobCompare hM A α
-  refine ⟨t, fun ℓ _ hℓ G C E V _ _ _ _ _ _ _ _ c ε a β ha hβ hβ0 ha1 hβ1 emb T hT hT1 u hu σ N
+  obtain ⟨t', ht'⟩ := trace_endE_indep hM A α
+  have htt : ∀ (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : k) ≠ 0 →
+      ∀ {E V : Type} [Field E] [Algebra ℚ_[ℓ] E] [AddCommGroup V] [Module E V]
+        [FiniteDimensional E V] (Tσ : Module.End E V) (N : ℕ), FrobCompare ℓ Tσ α N →
+        (N : E) * LinearMap.trace E V Tσ = (t' : E) := by
+    intro ℓ _ hℓ E V _ _ _ _ _ Tσ N ⟨Φ, hΦ⟩
+    have : Module.Finite E (E ⊗[ℚ_[ℓ]] A.V ℓ) := Module.Finite.equiv Φ
+    rw [← ht' ℓ hℓ E, ← hΦ, LinearMap.trace_conj', map_smul, smul_eq_mul]
+  clear ht t
+  refine ⟨t', ht', fun ℓ _ hℓ G C E V _ _ _ _ _ _ _ _ c ε a β ha hβ hβ0 ha1 hβ1 emb T hT hT1 u hu σ N
     hN hcmp => ?_⟩
-  have hNT := ht ℓ hℓ (T σ) N hcmp
+  have hNT := htt ℓ hℓ (T σ) N hcmp
   have h2 := trace_eq_two_mul_trace_subRep u (rhoL c ε a β ha hβ hβ0 ha1 hβ1 emb T hT hT1)
     (rhoL_commute c ε a β ha hβ hβ0 ha1 hβ1 emb T hT hT1 u hu) σ
   rw [rhoL_apply, trace_rho] at h2
@@ -201,4 +212,121 @@ theorem trace_link (hM : CharPolyIndepOfEll) {k : Type} [Field k] (A : AbVar k) 
   rw [map_div₀, map_mul, map_mul, map_inv₀, map_div₀, map_intCast, map_natCast, map_ofNat,
     ← hNT, mul_div_cancel_left₀ _ hNE, h2, mul_div_cancel_left₀ _ h2E]
 
+
+/-! ## 6. Connection to `GlueC10.c10`: its trace hypotheses `hr₃, hr₅` discharged -/
+
+instance fact_prime_five : Fact (Nat.Prime 5) := ⟨by norm_num⟩
+
+/-- `ℓ ≠ p` in a field of characteristic `p`. -/
+theorem cast_ne_zero_of_charP {k : Type} [Field k] {p ℓ : ℕ} [CharP k p] (hp : p.Prime)
+    (hℓ : ℓ.Prime) (hne : p ≠ ℓ) : (ℓ : k) ≠ 0 := by
+  rw [Ne, CharP.cast_eq_zero_iff k p ℓ]
+  exact fun h => hne ((Nat.prime_dvd_prime_iff_eq hp hℓ).mp h)
+
+/-- **The trace hypothesis of C10, from the link.** For every Frobenius `g` at `p ∉ S`
+(`3, 5 ∈ S`) with a Frobenius comparison at `3` and at `5` against one `(Ā, α', N)` over a field
+of characteristic `p`, there is one `x = ½ β(g)⁻¹ a_g tr α_g ∈ C` with `tr r₃(g) = ι₃(x)` and
+`tr r₅(g) = ι₅(x)` (N5 L788-790: "one element of `C` whose images are the traces of every
+`r_ℓ`"). -/
+theorem trace_link_three_five (hM : CharPolyIndepOfEll) (S : Finset ℕ) (h3S : 3 ∈ S)
+    (h5S : 5 ∈ S) {G C : Type} [Group G] [Field C] [CharZero C]
+    (c ε : G → G → C) (a β : G → C) (ha : ∀ g h, a g * a h * c g h = ε g h * a (g * h))
+    (hβ : ∀ g h, β g * β h = ε g h * β (g * h)) (hβ0 : ∀ g, β g ≠ 0) (ha1 : a 1 = 1)
+    (hβ1 : β 1 = 1)
+    {k₅ V₅ : Type} [Field k₅] [Algebra ℚ_[5] k₅] [AddCommGroup V₅] [Module k₅ V₅]
+    [FiniteDimensional k₅ V₅] (ι₅ : C →+* k₅) (T₅ : G → Module.End k₅ V₅)
+    (hT₅ : ∀ g h, T₅ g * T₅ h = ι₅ (c g h) • T₅ (g * h)) (hT₅1 : T₅ 1 = 1)
+    (u₅ : MatrixUnits2 k₅ V₅) (hu₅ : ∀ g i j, Commute (T₅ g) (u₅.e i j))
+    {k₃ V₃ : Type} [Field k₃] [Algebra ℚ_[3] k₃] [AddCommGroup V₃] [Module k₃ V₃]
+    [FiniteDimensional k₃ V₃] (ι₃ : C →+* k₃) (T₃ : G → Module.End k₃ V₃)
+    (hT₃ : ∀ g h, T₃ g * T₃ h = ι₃ (c g h) • T₃ (g * h)) (hT₃1 : T₃ 1 = 1)
+    (u₃ : MatrixUnits2 k₃ V₃) (hu₃ : ∀ g i j, Commute (T₃ g) (u₃.e i j))
+    (g : G) (p : ℕ) (hp : p.Prime) (hpS : p ∉ S)
+    (hFrob : ∃ (k : Type) (_ : Field k), CharP k p ∧ ∃ (A : AbVar k) (α : AbVar.End A) (N : ℕ),
+      N ≠ 0 ∧ FrobCompare 3 (T₃ g) α N ∧ FrobCompare 5 (T₅ g) α N) :
+    ∃ x : C,
+      LinearMap.trace k₃ u₃.W (rL c ε a β ha hβ hβ0 ha1 hβ1 ι₃ T₃ hT₃ hT₃1 u₃ hu₃ g) = ι₃ x ∧
+      LinearMap.trace k₅ u₅.W (rL c ε a β ha hβ hβ0 ha1 hβ1 ι₅ T₅ hT₅ hT₅1 u₅ hu₅ g) = ι₅ x := by
+  obtain ⟨k, _, hk, A, α, N, hN, h3, h5⟩ := hFrob
+  obtain ⟨t, -, ht⟩ := trace_link hM A α
+  have h3k : ((3 : ℕ) : k) ≠ 0 :=
+    cast_ne_zero_of_charP hp Nat.prime_three (fun h => hpS (h ▸ h3S))
+  have h5k : ((5 : ℕ) : k) ≠ 0 :=
+    cast_ne_zero_of_charP hp (by norm_num) (fun h => hpS (h ▸ h5S))
+  exact ⟨_, ht 3 h3k c ε a β ha hβ hβ0 ha1 hβ1 ι₃ T₃ hT₃ hT₃1 u₃ hu₃ g N hN h3,
+    ht 5 h5k c ε a β ha hβ hβ0 ha1 hβ1 ι₅ T₅ hT₅ hT₅1 u₅ hu₅ g N hN h5⟩
+
+/-- **C10 with its abelian-variety trace hypotheses discharged by the link (GLUE, proved from
+Chebotarev, Brauer–Nesbitt and Mumford §19 Thm 4).** `GlueC10.c10` is applied with
+`r_ℓ = rL …` (the descended representation of B1/C1) and `c := a_f` (the modular coefficients).
+Its hypotheses `hr₃, hr₅` are proved:
+* `hr₅` from C9 (`h₅`) and Eichler–Shimura at 5 (`hρ₅`);
+* `hr₃` from the link: `x = ½ β(g)⁻¹ a_g tr α_g` has `ι₅(x) = tr r₅(g) = ι₅(a_f(p))`, so
+  `x = a_f(p)` and `tr r₃(g) = ι₃(x) = ι₃(a_f(p))`.
+What remains as hypotheses: the descent data and matrix units (`T_ℓ, c, ε, a, β, u_ℓ`), the
+Frobenius comparison `hFrob`, C9 `h₅`, Eichler–Shimura `hρ₅, hρ₃`, continuity and
+semisimplicity of `r₃, ρ₃`. -/
+theorem c10_of_trace_link (hC : ChebotarevExists) (hBN : BrauerNesbittChar0)
+    (hM : CharPolyIndepOfEll) (S : Finset ℕ) (h3S : 3 ∈ S) (h5S : 5 ∈ S)
+    (C : Type) [Field C] [CharZero C]
+    (c ε : GQ → GQ → C) (a β : GQ → C) (ha : ∀ g h, a g * a h * c g h = ε g h * a (g * h))
+    (hβ : ∀ g h, β g * β h = ε g h * β (g * h)) (hβ0 : ∀ g, β g ≠ 0) (ha1 : a 1 = 1)
+    (hβ1 : β 1 = 1) (af : ℕ → C)
+    -- ℓ = 5
+    (k₅ V₅ W₅ : Type) [Field k₅] [Algebra ℚ_[5] k₅] [AddCommGroup V₅] [Module k₅ V₅]
+    [FiniteDimensional k₅ V₅] [AddCommGroup W₅] [Module k₅ W₅] (ι₅ : C →+* k₅)
+    (T₅ : GQ → Module.End k₅ V₅) (hT₅ : ∀ g h, T₅ g * T₅ h = ι₅ (c g h) • T₅ (g * h))
+    (hT₅1 : T₅ 1 = 1) (u₅ : MatrixUnits2 k₅ V₅) (hu₅ : ∀ g i j, Commute (T₅ g) (u₅.e i j))
+    (ρ₅ : Representation k₅ GQ W₅)
+    (h₅ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p →
+      LinearMap.trace k₅ u₅.W (rL c ε a β ha hβ hβ0 ha1 hβ1 ι₅ T₅ hT₅ hT₅1 u₅ hu₅ g) =
+        LinearMap.trace k₅ W₅ (ρ₅ g))
+    (hρ₅ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → LinearMap.trace k₅ W₅ (ρ₅ g) = ι₅ (af p))
+    -- ℓ = 3
+    (k₃ V₃ W₃ ιI κ : Type) [Field k₃] [Algebra ℚ_[3] k₃] [CharZero k₃] [TopologicalSpace k₃]
+    [IsTopologicalRing k₃] [T2Space k₃] [AddCommGroup V₃] [Module k₃ V₃]
+    [FiniteDimensional k₃ V₃] [AddCommGroup W₃] [Module k₃ W₃] [FiniteDimensional k₃ W₃]
+    [Fintype ιI] [DecidableEq ιI] [Fintype κ] [DecidableEq κ] (ι₃ : C →+* k₃)
+    (T₃ : GQ → Module.End k₃ V₃) (hT₃ : ∀ g h, T₃ g * T₃ h = ι₃ (c g h) • T₃ (g * h))
+    (hT₃1 : T₃ 1 = 1) (u₃ : MatrixUnits2 k₃ V₃) (hu₃ : ∀ g i j, Commute (T₃ g) (u₃.e i j))
+    (bV : Module.Basis ιI k₃ u₃.W) (bW : Module.Basis κ k₃ W₃) (ρ₃ : Representation k₃ GQ W₃)
+    (hrc : Continuous fun g =>
+      LinearMap.toMatrix bV bV (rL c ε a β ha hβ hβ0 ha1 hβ1 ι₃ T₃ hT₃ hT₃1 u₃ hu₃ g))
+    (hρc : Continuous fun g => LinearMap.toMatrix bW bW (ρ₃ g))
+    (hr : IsSemisimpleModule (MonoidAlgebra k₃ GQ)
+      (rL c ε a β ha hβ hβ0 ha1 hβ1 ι₃ T₃ hT₃ hT₃1 u₃ hu₃).asModule)
+    (hρ : IsSemisimpleModule (MonoidAlgebra k₃ GQ) ρ₃.asModule)
+    (hρ₃ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → LinearMap.trace k₃ W₃ (ρ₃ g) = ι₃ (af p))
+    -- the Frobenius comparison, from the surface `A`
+    (hFrob : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p →
+      ∃ (k : Type) (_ : Field k), CharP k p ∧ ∃ (A : AbVar k) (α : AbVar.End A) (N : ℕ),
+        N ≠ 0 ∧ FrobCompare 3 (T₃ g) α N ∧ FrobCompare 5 (T₅ g) α N) :
+    Nonempty ((rL c ε a β ha hβ hβ0 ha1 hβ1 ι₃ T₃ hT₃ hT₃1 u₃ hu₃).asModule ≃ₗ[MonoidAlgebra k₃ GQ]
+      ρ₃.asModule) := by
+  refine GlueC10.c10 hC hBN S C af af k₅ u₅.W W₅ ι₅
+    (rL c ε a β ha hβ hβ0 ha1 hβ1 ι₅ T₅ hT₅ hT₅1 u₅ hu₅) ρ₅ h₅
+    (fun g p hp hpS hg => (h₅ g p hp hpS hg).trans (hρ₅ g p hp hpS hg)) hρ₅
+    k₃ u₃.W W₃ ιI κ ι₃ bV bW (rL c ε a β ha hβ hβ0 ha1 hβ1 ι₃ T₃ hT₃ hT₃1 u₃ hu₃) ρ₃
+    hrc hρc hr hρ ?_ hρ₃
+  intro g p hp hpS hg
+  obtain ⟨x, hx₃, hx₅⟩ := trace_link_three_five hM S h3S h5S c ε a β ha hβ hβ0 ha1 hβ1
+    ι₅ T₅ hT₅ hT₅1 u₅ hu₅ ι₃ T₃ hT₃ hT₃1 u₃ hu₃ g p hp hpS (hFrob g p hp hpS hg)
+  have hxa : x = af p := ι₅.injective (hx₅.symm.trans ((h₅ g p hp hpS hg).trans
+    (hρ₅ g p hp hpS hg)))
+  rw [hx₃, hxa]
+
+/-! ## 7. Checks -/
+
+/-- `FrobCompare` is satisfiable (non-vacuity): `V = E ⊗ V_ℓ(Ā)`, `Tσ = V_ℓ(α')`, `N = 1`,
+`Φ = id`. -/
+example (ℓ : ℕ) [Fact ℓ.Prime] {k : Type} [Field k] (A : AbVar k) (α : AbVar.End A)
+    (E : Type) [Field E] [Algebra ℚ_[ℓ] E] : FrobCompare ℓ (endE α ℓ E) α 1 :=
+  ⟨LinearEquiv.refl E _, by simp⟩
+
 end GlueC10Link
+
+#print axioms GlueC10Link.trace_eq_two_mul_trace_subRep
+#print axioms GlueC10Link.trace_endE_indep
+#print axioms GlueC10Link.trace_link
+#print axioms GlueC10Link.trace_link_three_five
+#print axioms GlueC10Link.c10_of_trace_link

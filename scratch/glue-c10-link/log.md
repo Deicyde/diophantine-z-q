@@ -19,3 +19,16 @@ Imports ZInQKernel.HDecomp.{Objects, C10.C10, C10.Trace, Descent.ProjRep} (built
 - `trace_T_of_frobCompare` — ∃ t : ℤ, ∀ ℓ ≠ char k, FrobCompare ℓ Tσ α N → N·tr Tσ = t.
 - `trace_link` — ∃ t : ℤ, ∀ ℓ ≠ char k, ∀ descent data, FrobCompare ℓ (T σ) α N, N ≠ 0 →
   tr r_ℓ(σ) = ι((β σ)⁻¹ * a σ * (t/N) / 2).  [c_p = ½ β(σ)⁻¹ a_σ tr α_σ, tr α_σ = t/N]
+
+## 11:51 PST — Link.lean §§6-7 compile (VERIFIED, `lake env lean`, no errors; one style warning)
+- `trace_link` strengthened: ∃ t : ℤ, (∀ ℓ ≠ char k, ∀ E, tr_E (endE α ℓ E) = t) ∧ (link).
+  E, V, G, C in `Type` (one universe; the ∃ t must serve ℓ = 3 and 5 at once).
+- `cast_ne_zero_of_charP` — (ℓ : k) ≠ 0 for CharP k p, p ≠ ℓ primes.
+- `trace_link_three_five` — given 3, 5 ∈ S, p ∉ S, and (k, CharP k p, Ā, α', N ≠ 0) with
+  FrobCompare at 3 and 5: ∃ x : C, tr r₃(g) = ι₃ x ∧ tr r₅(g) = ι₅ x.
+- `c10_of_trace_link` — GlueC10.c10 applied with r_ℓ := rL … and c := a_f; hr₅ from h₅ + hρ₅,
+  hr₃ from trace_link_three_five + injectivity of ι₅. Conclusion r₃ ≅ ρ₃ as k₃[G_ℚ]-modules.
+- non-vacuity `example : FrobCompare ℓ (endE α ℓ E) α 1` (Φ = refl).
+- `#print axioms` on trace_eq_two_mul_trace_subRep, trace_endE_indep, trace_link,
+  trace_link_three_five, c10_of_trace_link: [propext, Classical.choice, Quot.sound].
+Pitfall: the existential `∃ t` fixes universes; mixing Type* in callers gave a whnf timeout.
