@@ -1,0 +1,37 @@
+# bdr-kertheta results log
+
+- KerTheta.lean Part A `ker_eq_span_of_mod_p` (complete-Nakayama: A p-adically complete, p regular on B,
+  ξ ∈ ker θ, ker θ ⊆ ξA + pA ⇒ ker θ = ξA): COMPILES (VERIFIED).
+- Part B `ker_awayLift_eq_span` (ker θ = ξA ⇒ ker θ[1/p] = ξ·A[1/p]): COMPILES (VERIFIED).
+- Part C `ker_fontaineTheta_eq_span` (general p-complete, p-torsion-free O; ϖ ∈ O♭ with ϖ♯ = p and
+  hdiv: coeff 0 c = 0 ⇒ ϖ ∣ c ⇒ ker θ = (p − [ϖ])): COMPILES, axioms propext/choice/Quot.sound (VERIFIED).
+- `ker_fontaineThetaInvertP_eq_span`, `isUnit_xi_BDeRham` (ξ in Mathlib's generator set; its image is a
+  unit of BDeRham): COMPILES, standard axioms (VERIFIED).
+- Part D (𝓞_ℂ_[p]; pkg-I4's `PkgI4.Cp` completeness instances copied unchanged): `pFlat` (p♭ from a
+  chosen compatible system of p-power roots of p, ℂ_p alg. closed), `untilt_pFlat : p♭♯ = p`,
+  `dvd_of_coeff_zero` (c♯ ∈ p𝓞 ⇒ p♭ ∣ c in 𝓞♭, via exact roots c^{(n)} = (F^{-n}c)♯ and division in ℂ_p),
+  **`ker_fontaineTheta_Cp : ker θ = (p − [p♭])`**, **`ker_fontaineThetaInvertP_Cp : ker θ[1/p] = (ξ')`**,
+  `isUnit_xi_BDeRham_Cp`: ALL COMPILE, axioms [propext, Classical.choice, Quot.sound] (VERIFIED, 23:37).
+- `isLocalization_away_xi` (general O with ker θ = (ξ)): Mathlib's `BDeRham` is a localization of
+  `BDeRhamPlus` at the powers of the single element ξ; `bdREquivAway : BDeRham 𝓞_ℂ_[p] p ≃ₐ[BDeRhamPlus]
+  Localization.Away ξ` (ξ = p − [p♭]): COMPILES, standard axioms (VERIFIED).
+- `frobenius_surjective`, `fontaineTheta_surjective`, `isField_away_p` (𝓞_ℂ_p[1/p] field),
+  `fontaineThetaInvertP_surjective`, `ker_fontaineThetaInvertP_isMaximal` ((ξ') maximal in W[1/p]):
+  COMPILE, standard axioms (VERIFIED).
+- `isDomain_tilt` (from Mathlib `PreTilt.isDomain` with `(PadicComplex.valued p).v`), `isDomain_away`
+  (W(𝓞_ℂ_p♭)[1/p] domain), `xi_ne_zero`, `xi'_mem_nonZeroDivisors`: COMPILE, standard axioms (VERIFIED).
+- NOT PROVED: BDeRhamPlus is a DVR with uniformizer ξ; BDeRham is its fraction field / a field.
+- `ofPlus_xi'_pow_ne_zero` (ξ not nilpotent in BDeRhamPlus, via `evalₐ (n+1)`), `nontrivial_away_xi`,
+  **`nontrivial_BDeRham : Nontrivial (BDeRham 𝓞_ℂ_[p] p)`**: COMPILE, standard axioms (VERIFIED).
+- Final check: `lake env lean scratch/bdr-kertheta/KerTheta.lean` — no errors, no warnings except none
+  reported; all #print axioms = [propext, Classical.choice, Quot.sound] (VERIFIED).
+- `isAdicComplete_BDeRhamPlus` (B_dR^+ is (ξ)-adically complete; from Mathlib `isAdicComplete_self`),
+  `isLocalRing_BDeRhamPlus`, `maximalIdeal_BDeRhamPlus : maximalIdeal = (ξ)`, `eq_xi_pow_mul_unit`,
+  `isDomain_BDeRhamPlus`, **`isDiscreteValuationRing_BDeRhamPlus`**, `isFractionRing_away_xi`,
+  **`isField_BDeRham : IsField (BDeRham 𝓞_ℂ_[p] p)`**, **`isFractionRing_BDeRham`** (BDeRham is a fraction
+  field of BDeRhamPlus via Mathlib's algebraMap): ALL COMPILE, axioms [propext, Classical.choice,
+  Quot.sound] (VERIFIED, 23:49). The earlier "NOT PROVED: DVR / field" line is superseded.
+- `thetaPlus : BDeRhamPlus → 𝓞_ℂ_p[1/p]` (evalOneₐ then θ[1/p]; Mathlib TODO 1), `thetaPlus_ofPlus`,
+  `thetaPlus_surjective`, `ker_thetaPlus = (ξ)`, `isFractionRing_away_p`, `awayEquivCp : 𝓞_ℂ_p[1/p] ≃ₐ ℂ_[p]`,
+  `thetaPlusCp : BDeRhamPlus →+* ℂ_[p]`, `thetaPlusCp_surjective`, `ker_thetaPlusCp = (ξ)`: COMPILE,
+  standard axioms (VERIFIED, 23:51). So the residue field of B_dR^+ is ℂ_p.
