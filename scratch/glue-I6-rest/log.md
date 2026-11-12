@@ -14,3 +14,9 @@
   e(P) ≤ (deg f)!, the hypothesis `hea` of glue-conductor's `D1_genuine`.
 - Compile 22:28: `lake env lean scratch/glue-I6-rest/I6Base.lean`, no errors; all #print axioms
   [propext, Classical.choice, Quot.sound] (VERIFIED).
+
+## SqrtChar.lean
+- PROVED `GlueI6Rest.exists_half_iff`: for any abelian group Γ and χ : Γ →+ ℚ/ℤ
+  (`AddCircle (1:ℚ)`), (∃ ψ, ∀ g, 2•ψ g = χ g) ↔ χ kills Γ[2]. Via Baer injectivity of ℚ/ℤ
+  (`CharacterModule.dual_surjective_of_injective`). Group-theoretic core of B2's criterion.
+- Compile 22:31: no errors; axioms [propext, Classical.choice, Quot.sound] (VERIFIED).
