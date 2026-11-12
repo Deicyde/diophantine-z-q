@@ -64,6 +64,11 @@ them, `χ(σ_ϖ) = −1 ⟺ d₁ ≡ 3` for `n ≡ 7`, and the identity `[i]A(�
 equivariance of `[i]P`, case by case). One misprint: in the case `d₁ = 1` the proof says `(4P)^c = 4P`;
 the preceding lines give `(4P)^c = −4P`, which is what the conclusion `4P ∈ A(K_n)^−` needs (new, harmless).
 
+The inclusion `Z(d₀), P(d₀) ∈ A(ℍ′_n)` for `d₀ | n` (rv-prop-n's correction 3) holds (VERIFIED). For
+`d₀ ≡ 5`, `Z(d₀) ∈ A(H′_{d₀})`, and `H′_{d₀}` is one of the factors of `ℍ′_n` (L1320). For `d₀ ≡ 7`,
+`H′_{d₀} = H_{d₀}` is not a factor, but `σ = 1` and `Φ₀ = 2Cl_{d₀}`, so `Z(d₀)` is fixed by `Gal(H_{d₀}/L_{d₀})`
+and lies in `A(L_{d₀}) ⊂ A(L_n(i))`.
+
 When `𝓛(d₁)𝒫(d₀) = 0`, Theorem 3.3 does not determine `ε`. Any choice in the stated class keeps I3 true,
 since `P(d₀)` is then torsion and changing `ε` changes `P(n)` by torsion (VERIFIED). Lemma N2 uses only the class.
 

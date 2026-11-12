@@ -140,3 +140,7 @@
   τ-coordinates 2x⁺ + 2ix⁻: [0]→1/2, [1/2]→−1/2, [1/16]→1, [±1/4]→±i/2, [±1/8]→(1±i)/2 — exactly TYZ's table
   (fact (3), L1393–1404), with τ (not −τ); bijective onto A[(1+i)^3]; points (2,∓4), (0,0), (−2,∓4i), (∓2i,0) on E ✓.
 - So the external fact (3) used by Prop 3.8 / I5 is VERIFIED (modular parametrisation of the optimal curve, Manin constant 1).
+
+## Step 12: deliverables
+- docs/research/rv-tyz-inputs.md completed (verdict table, §1 per input, §2.3 robustness, §3 numerics, §4 findings T1–T7,
+  §5 earlier reviews, §6 refereed status, §7 next steps); .fleet/rv-tyz-inputs.md written.
