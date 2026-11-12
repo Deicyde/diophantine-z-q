@@ -7,3 +7,7 @@
   `exists_int_anti` ((a - σa)α ∈ ℤ when a fixed by Stab(α), σα=-α), `exists_frac`
   (x ∈ w ⇒ x = n/d, n,d integral, v(d)=1), `mem_inertia_of_center` (s•𝔓_w = 𝔓_w and s
   trivial on B/𝔓_w ⇒ s ∈ I_w). COMPILED, no errors. 11:49.
+- Sec2.lean: `exists_inertia_neg` (α²=±p, ∃σ, σα=-α ⇒ ∃ s ∈ I_w, sα=-α), via H = Stab(α) (open,
+  closed, compact), A = FixedPoints.subalgebra ℤ B H, Mathlib
+  `Algebra.IsInvariant.exists_smul_of_under_eq_of_profinite` (A, H) and
+  `Ideal.Quotient.stabilizerHom_surjective_of_profinite` (A, H). COMPILED, no errors. 11:52.
