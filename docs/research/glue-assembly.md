@@ -57,6 +57,8 @@ means a published theorem with a reference; locators recalled from memory are ma
    - F3 (`F3Glue.lean`): N5's normalization sentences. The Euclidean projective height dominates
      the sup height (`mulHeight_le_mulHeightL2`). Adjoining the six zero odd theta constants does
      not change the height. Multiplying coordinates by roots of unity does not change it either.
+   - E2 (`E2Index.lean`): `[SL₂(ℤ) : Γ₁(N)] ≤ N²` over Mathlib's `Gamma1`. This is N5's "the
+     index of `Γ₁(N)` is at most `N²`".
    - Leaves statable in Mathlib today (`Leaves.lean`): `KroneckerWeber` (proved in Tau Ceti,
      per prereq-survey) and `BrauerNesbittCharZero` (not proved anywhere we found). These are
      the only leaves of the cluster that Mathlib can state.
@@ -266,9 +268,10 @@ constituent of `V₅(A_f)`: there are an abelian variety `Z/L'` and an `L'`-isog
 - Steps 1, 4 and 5 as stated need abelian varieties with Tate modules. **Blocked.**
 - E1 is also where `g = dim J₁(N) ≥ 2` comes from. `GlueOutputs` assumes `2 ≤ g`. The bound
   `g ≤ N²` comes from E2: genus and Belyi degree are at most `[PSL₂(ℤ) : ±Γ₁(N)] ≤ N²`. The
-  index bound is provable in Mathlib (`CongruenceSubgroup.Gamma1`, orbit of the bottom row
-  `(0, 1)` mod `N`) but not written. The genus and Belyi bounds need modular curves as curves
-  (absent).
+  index bound is **proved** over Mathlib's `CongruenceSubgroup.Gamma1`: `index_Gamma1_le`
+  (`E2Index.lean`) shows `[SL₂(ℤ) : Γ₁(N)] ≤ N²`, because the first column mod `N` separates
+  left cosets. `[PSL₂(ℤ) : ±Γ₁(N)]` is at most this. The genus and Belyi bounds need modular
+  curves as curves (absent).
 
 ### 2.4 E3: the explicit isogeny bound (N5 L878-892)
 
@@ -389,7 +392,7 @@ Rows 1-2, 5 and 12-15 are shared with other packages (I2, I3, I4). Rows 4-7 and 
 | equal traces on dense Frobenii ⇒ isomorphic | C10 | blocked (ℓ-adic representations of `G_ℚ`) |
 | invariants commute with extension of coefficients | E1 | provable today (Mathlib flat base change); not written |
 | simplicity + Hom theorem + Poincaré ⇒ isogeny | E1 | blocked (abelian varieties) |
-| `[SL₂(ℤ) : Γ₁(N)] ≤ N²` | E2 | provable today; not written |
+| `[SL₂(ℤ) : Γ₁(N)] ≤ N²` | E2 | **proved** (`index_Gamma1_le`) |
 | genus, Belyi degree `≤` index | E2 | blocked (modular curves) |
 | E3-E4 arithmetic, from the level | E3, E4 | **proved** (`transfer_numerics`, `transfer_of_level`) |
 | CM arithmetic | CM | **proved** (`cm_numerics`, `cm_branch_nat`) |
@@ -408,8 +411,9 @@ Rows 1-2, 5 and 12-15 are shared with other packages (I2, I3, I4). Rows 4-7 and 
 2. For the crowdsourcing announcement, the cluster contributes:
    - two leaves that can be stated now, `KroneckerWeber` (already proved in Tau Ceti; a port)
      and `BrauerNesbittCharZero`;
-   - three small, self-contained Mathlib-level tasks: invariants and field extension (E1), the
-     index of `Γ₁(N)` (E2), and the "finite-image character is Dirichlet" lemma (C8).
+   - two small, self-contained Mathlib-level tasks: invariants and field extension (E1), and
+     the "finite-image character is Dirichlet" lemma (C8). The third such task, the index of
+     `Γ₁(N)` (E2), is done here.
 
    Everything else in the cluster waits on the object layer (abelian varieties with Tate
    modules and Faltings heights; ℓ-adic representations of `G_ℚ`).
@@ -429,4 +433,5 @@ Rows 1-2, 5 and 12-15 are shared with other packages (I2, I3, I4). Rows 4-7 and 
 - `scratch/glue-assembly/C8.lean`: C8 glue.
 - `scratch/glue-assembly/F3Glue.lean`: F3 normalizations.
 - `scratch/glue-assembly/Leaves.lean`: the two statable leaves.
+- `scratch/glue-assembly/E2Index.lean`: `[SL₂(ℤ) : Γ₁(N)] ≤ N²`.
 - `scratch/glue-assembly/log.md`: results log.

@@ -74,3 +74,13 @@ are UNVERIFIED.
 - `Leaves.lean`: `KroneckerWeber` and `BrauerNesbittCharZero` as `def … : Prop` over Mathlib
   objects (`CyclotomicField`, `Representation`, `IsSemisimpleRepresentation`,
   `Representation.Equiv`). These are the only leaves of the cluster statable in Mathlib today.
+
+## Step 4: report, and E2's index bound (VERIFIED: compiled)
+
+- `docs/research/glue-assembly.md` written (statements, leaves, glue, Lean status of C8, C10, E1,
+  E3, E4, F2, F3 glue, assembly).
+- `E2Index.lean`: `index_Gamma1_le : (Gamma1 N).index ≤ N ^ 2` for `[NeZero N]`, via
+  `firstColMod_eq_iff` (first column mod `N` equal ⇔ `a⁻¹b ∈ Γ₁(N)`). Compiled, no `sorry`.
+  Note: Mathlib's `Matrix.SpecialLinearGroup.coe_mul`/`coe_inv` do not `rw` against
+  `(x : Matrix (Fin 2) (Fin 2) ℤ)` written in a client file (instance-path mismatch); they are
+  `rfl`, so state the needed equation with `:= rfl` and rewrite with that.
