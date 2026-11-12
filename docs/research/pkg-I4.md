@@ -81,7 +81,7 @@ h-trust's marks.
   conventions: cyclotomic HT weight `−1`; `Frob` geometric; a fixed `ι_p : ℚ̄_p ≅ ℂ`.
 - **Used at** `p = 5` for `r₅` (N5 L755-757), hypotheses from C2 (irreducible), C6 (finite
   ramification), C3 + C4 (pst), C5 (odd), C3 (weights `{0, −1}`).
-- **Leaf formulation (Lean: `PanFor`).** For `p ≥ 5` (drops the `p = 3` clause; a consequence):
+- **Leaf formulation (Lean: `PanFor`; statable form `PanBerger`, §2.2).** For `p ≥ 5` (drops the `p = 3` clause; a consequence):
   hypotheses as printed; conclusion in **trace form**: there are a normalized eigenform `g`
   (weight `k ≥ 1`, level `N`, nebentypus `χ`), a continuous character `ψ : G_ℚ → ℚ̄_p^×`,
   embeddings `ιC : ℚ̄ → ℂ`, `ιL : ℚ̄ → ℚ̄_p` and a finite set `S` with
@@ -298,10 +298,11 @@ non-zero exactly for `i = 1` (Tate's theorem `ℂ_p(j)^G = 0` for `j ≠ 0`); so
 embedding of `E` (`K ⊗ E = E` is a field), and the multiplicities do not depend on `E` (base
 change; STANDARD), so `LocalHasHTWeights` may quantify `∃ E`.
 
-What is defined but not proved in `I4.lean`: no theorem about `htMult` (for instance
-`Σ_w htMult ≤ n`, Tate–Sen, or the value for the trivial representation, which is Ax–Sen–Tate).
-These are not needed to state the leaves; they would be needed to prove glue such as C8's weight
-comparison from the definitions.
+What is proved about `htMult` in `I4.lean`: only the conditional convention check of §3.4
+(given Tate's theorem, `ℚ_p(1)` has no weight other than `−1`). Not proved: `Σ_w htMult ≤ n`
+(Tate–Sen), exactness, or the unconditional values (Ax–Sen–Tate). These are not needed to state
+the leaves; they would be needed to prove glue such as C8's weight comparison from the
+definitions.
 
 ### 2.4 Newforms without the Petersson integral
 
