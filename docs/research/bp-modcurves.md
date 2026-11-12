@@ -44,8 +44,9 @@ marked **UNVERIFIED** (this host has no network). Mathlib facts are VERIFIED by 
      The group-theoretic version is Lean layer 0, done: `belyiDeg_Gamma1_le`, `genus_Gamma1_le`.
 
 3. **Size.** The full dependency graph (§3, §4) has 17 nodes. Proved in layer 0: MC0a, MC0b,
-   MC2a, MC2b, MC2d. Definition compiled: MC6 (`IsJacobian`, with its uniqueness glue proved), MC1
-   and MC4 (`fieldX1`, `Y1j`, open degree statements). That is 1 130 Lean lines in 5 files. Small or
+   MC2a, MC2b, MC2d, and most of MC2c (point transport and the existence half with orders).
+   Definition compiled: MC6 (`IsJacobian`, with its uniqueness glue proved), MC1 and MC4
+   (`fieldX1`, `Y1j`, open degree statements). That is 1 462 Lean lines in 6 files. Small or
    medium: 5 nodes. Large: 4. Very large: 3: the Jacobian's existence (MC6', a leaf, so not
    built), the Faltings height (WP10, out of scope) and, if wanted, Hecke correspondences on
    `J₁(N)` (MC8, avoidable). Without MC8 and with MC6' a leaf, the critical path is
@@ -82,6 +83,12 @@ marked **UNVERIFIED** (this host has no network). Mathlib facts are VERIFIED by 
      (`(ℂ/Λ_{τ'}, 1/N) ≅ (ℂ/Λ_τ, 1/N)` iff `τ' ∈ Γ₁(N)·τ`); `exactOrder` (`1/N` has exact
      order `N`); `exists_normalize` (every point `(cτ+d)/N` with `(c,d)` primitive mod `N` is
      equivalent to `1/N`).
+   - `scratch/bp-modcurves/PointTransport.lean`. This fills a Mathlib gap: a change of variables
+     acts on points. `mapPt W C : W.Point → (C • W).Point`; `mapPt_add` (additive),
+     `mapPt_injective`, `addOrderOf_mapPt` (orders preserved), via `equation_transport`,
+     `nonsingular_transport`, `negY_transport`, `slope_transport` (`ℓ' = (ℓ − s)/u`). Then
+     `exists_tateNF_order`: a point of exact order `N ≥ 4` goes to `(0,0)` on some `E(b,c)`,
+     where it again has exact order `N`.
    - Ground truth (VERIFIED, computed): `genus_check.py` (`N = 1..30`). The genus from the
      `S, ST, T` action equals the closed forms `μ = J₂(N)/2` and `ν∞ = ½Σ_{d|N}φ(d)φ(N/d)`, and
      the reference genus table (all 30 agree). `tate_check.py`: on Kubert's families for
@@ -199,7 +206,7 @@ VERIFIED.
 | MC0c | `nuInf Γ = #CuspOrbits Γ` (Mathlib's `Γ\ℙ¹(ℚ)`); `ν∞(Γ₁(N)) = ½Σ_{d|N}φ(d)φ(N/d)` for `N ≥ 5` | Mathlib `cosetToCuspOrbit` | medium | the stabilizer of `∞` is `±⟨T⟩`; double cosets | open (formula VERIFIED numerically, `N ≤ 30`) |
 | **MC2a** | Tate normal form: `(E,P)` with `2P, 3P ≠ 0` ⇒ `∃ C, C•E = E(b,c)`, `C` sends `P ↦ (0,0)`; uniqueness; `Δ(b,c)` | Mathlib `VariableChange` | small | explicit `u = d/A₂`, `r = x₀`, `s = ℓ`, `t = y₀` | **done** (`TateNormalForm.lean`) |
 | **MC2b** | the hypotheses of MC2a from `P+P ≠ 0`, `P+P+P ≠ 0` in `Affine.Point` | Mathlib `add_self_of_Y_eq`, `X_eq_iff` | small | — | **done** |
-| MC2c | for `N ≥ 4`: `Y₁(N)(K) := {(E,P), ord P = N}/≅ ≃ {(b,c) : Δ(b,c) ≠ 0, ord_{E(b,c)}(0,0) = N}` | MC2a, MC2b, `addOrderOf`; **a change of variables acts on `Affine.Point` as a group isomorphism**, which is absent from Mathlib (only `equation_iff_variableChange`, `nonsingular_iff_variableChange` for translations, in `Affine/Basic.lean`) | medium | first the point transport `(x,y) ↦ ((x−r)/u², (y−s(x−r)−t)/u³)` and its additivity (slope identities), then package MC2a/b as an `Equiv` of quotients | open |
+| MC2c | for `N ≥ 4`: `Y₁(N)(K) := {(E,P), ord P = N}/≅ ≃ {(b,c) : Δ(b,c) ≠ 0, ord_{E(b,c)}(0,0) = N}` | MC2a, MC2b, `addOrderOf`; a change of variables acting on `Affine.Point` as an injective additive map (absent from Mathlib, which has only `equation_iff_variableChange` and `nonsingular_iff_variableChange` for translations) | small-medium | point transport `(x,y) ↦ ((x−r)/u², (y−s(x−r)−t)/u³)` and its additivity (slope identities) | **mostly done** (`PointTransport.lean`): `mapPt_add`, `addOrderOf_mapPt`, `exists_tateNF_order` (existence half with orders); uniqueness half is `tateNF_unique` (`r = t = 0` ⟺ `C` fixes `(0,0)`). Open: `mapPt` of a product `C * C'` (needed to show the quotient relation is an equivalence and to state the `Equiv`) |
 | **MC2d** | over `ℂ`: `(ℂ/Λ_{τ'}, 1/N) ≅ (ℂ/Λ_τ, 1/N)` by a homothety iff `τ' ∈ Γ₁(N)τ`; every primitive level-`N` point is equivalent to `1/N` (so pairs `(ℂ/Λ_τ, P)` up to homothety are `Γ₁(N)\ℍ`) | Mathlib `UpperHalfPlane`, `coe_specialLinearGroup_apply`, `Gamma1_mem`; Weierstrass model via `PeriodPair.derivWeierstrassP_sq` | small | lattices `ℤτ + ℤ` as sets, automorphy factor `cτ + d`, orientation from imaginary parts | **done** (`AnalyticModuli.lean`); "every lattice is some `αΛ_τ`" and "`(cτ+d)/N` has exact order `N` iff primitive" open, small |
 | MC3a | `E[N](K̄)` has at most `N²` points for `E/K`, `char K = 0` (and exactly `N²`) | Silverman III.6.4 (UNVERIFIED) | medium-large | via Tau Ceti/FLT `E[n] ≅ (ℤ/n)²` if proved there; else `x(E[N]) ⊆ roots of ψ_N` (multiplication formula, absent from Mathlib) | open |
 | MC1 | `K_N := ℚ(j)⟮x(P)⟯ ⊆ \overline{ℚ(j)}` for `P ∈ E_j(\overline{ℚ(j)})` of exact order `N`; `[K_N:ℚ(j)] ≤ N²/2` | MC3a; `E_j` from `ModelsWithJ`; `minpoly` | medium | `x(P)` is a root of `∏_{Q of order N}(X − x(Q))`, which has `≤ J₂(N)/2` distinct roots, and that polynomial has coefficients in `ℚ(j)` (Galois-stable) | **definition done** (`fieldX1`, `Ej_j`); bound open (`FieldX1DegreeLe`) |
@@ -341,7 +348,7 @@ at most `N²`" (L868-870, VERIFIED read).
 
 ## §8. Lean layer 0 (what compiles)
 
-All in namespace `BPModCurves`, 1 130 lines in 5 files. Each file is checked with `lake env lean`
+All in namespace `BPModCurves`, 1 462 lines in 6 files. Each file is checked with `lake env lean`
 (exit 0, no errors, no warnings, no `sorry`). `#print axioms` gives `propext`, `Classical.choice`,
 `Quot.sound` for every headline theorem (VERIFIED, `log.md` entries 11:45-12:16).
 
@@ -440,6 +447,24 @@ theorem exists_normalize (N : ℕ) [NeZero N] (τ : ℍ) (c d : ℤ)
     (hv : ∃ x y : ZMod N, x * c + y * d = 1) : ∃ γ : SL(2, ℤ), jfac γ τ * (1 / N) - (c * τ + d) / N ∈ lat τ
 ```
 
+`scratch/bp-modcurves/PointTransport.lean` (332 lines):
+
+```lean
+def tx (x : K) : K := (x - C.r) / (C.u : K) ^ 2
+def ty (x y : K) : K := (y - C.s * (x - C.r) - C.t) / (C.u : K) ^ 3
+theorem equation_transport : (C • W).toAffine.Equation (tx C x) (ty C x y) ↔ W.toAffine.Equation x y
+theorem nonsingular_transport : (C • W).toAffine.Nonsingular (tx C x) (ty C x y) ↔ W.toAffine.Nonsingular x y
+theorem slope_transport (h₁) (h₂) (hxy : ¬(x₁ = x₂ ∧ y₁ = W.toAffine.negY x₂ y₂)) :
+    (C • W).toAffine.slope (tx C x₁) (tx C x₂) (ty C x₁ y₁) (ty C x₂ y₂) = (W.toAffine.slope x₁ x₂ y₁ y₂ - C.s) / C.u
+def mapPt : W.toAffine.Point → (C • W).toAffine.Point
+theorem mapPt_add (P Q) : mapPt W C (P + Q) = mapPt W C P + mapPt W C Q
+theorem addOrderOf_mapPt (P) : addOrderOf (mapPt W C P) = addOrderOf P
+theorem exists_tateNF_order (W) (h : W.toAffine.Nonsingular x₀ y₀) (N) (hN : 4 ≤ N)
+    (hP : addOrderOf (some h) = N) :
+    ∃ b c (h0 : (tateNF b c).toAffine.Nonsingular 0 0), addOrderOf (some h0) = N ∧
+      ∃ C, C • W = tateNF b c ∧ C.r = x₀ ∧ C.t = y₀
+```
+
 Faithfulness notes:
 - `genus Γ` is a **definition by formula**. It is the genus of `X_Γ` only after the monodromy
   identification of §7.4. In the project it should be used as an acceptance test, never as the
@@ -462,13 +487,13 @@ These are the remaining targets, written against Mathlib v4.35 names, and SPECUL
 compiled. The compiled ones are in §8.
 
 ```lean
--- point transport under a change of variables (needed for MC2c)
-def VariableChange.mapPoint (C : VariableChange K) : W.toAffine.Point ≃+ (C • W).toAffine.Point
+-- composition law for the (compiled) point transport, the last step before MC2c's Equiv
+theorem mapPt_mul (C C' : VariableChange K) (P) : mapPt W (C * C') P = cast (mul_smul ..) (mapPt _ C (mapPt W C' P))
 
 -- MC2c: Y₁(N) at the level of points (N ≥ 4)
 def Y1Points (K) [Field K] (N : ℕ) : Type _ :=
   Quot (fun (p q : Σ W : WeierstrassCurve K, W.toAffine.Point) =>
-    ∃ C : VariableChange K, C • p.1 = q.1 ∧ C.mapPoint p.2 = q.2)  -- restricted to IsElliptic, addOrderOf = N
+    ∃ C : VariableChange K, ∃ h : C • p.1 = q.1, h ▸ mapPt p.1 C p.2 = q.2)  -- restricted to IsElliptic, addOrderOf = N
 theorem Y1Points_equiv (N : ℕ) (hN : 4 ≤ N) :
     Y1Points K N ≃ {bc : K × K // (tateNF bc.1 bc.2).Δ ≠ 0 ∧ addOrderOf (origin bc) = N}
 
@@ -516,7 +541,7 @@ theorem jMap_etale_away : ∀ x, jMap P x ∉ {0, 1728} → IsEtaleAt …
 | WP | Nodes | Depends on | Tier | Deliverable |
 | --- | --- | --- | --- | --- |
 | MC-a | MC0b (last step), MC0c | layer 0 | small-medium | `#PrimVec N = J₂(N)` (the coset bijection is done); `nuInf = #CuspOrbits`; closed cusp formula; `decide` checks against `genus_check.py` |
-| MC-b | point transport under `VariableChange`, MC2c, `⟨d⟩` on `Y₁(N)` | layer 0 (`tateNF_Δ` done) | medium | `VariableChange.mapPoint` as an additive equivalence; `Y1Points_equiv` |
+| MC-b | MC2c's last step, `⟨d⟩` on `Y₁(N)` | layer 0 (`mapPt`, `exists_tateNF_order`, `tateNF_unique'` done) | small | `mapPt_mul`; `Y1Points_equiv` |
 | MC-c | MC3a, MC1 | Tau Ceti / FLT torsion or the multiplication formula | medium-large | proofs of `TorsionCardLe`, `FieldX1DegreeLe` (definitions `Ej`, `fieldX1` done) |
 | MC-d | MC4, MC5 | MC-c | large | from the compiled chart `Y1j`: the proper `X1 N`, smooth and geometrically connected; `j` finite, Belyi, `deg j ≤ N²` |
 | MC-e | statements of MC5' (Riemann–Hurwitz, over a genus definition) and `dim J = g`; fold `IsJacobian`, `JacobianExists`, `FieldX1Degree` into `Leaves.lean` | `Jacobian.lean`, `ModularCurveDefs.lean` (done) | small | leaf Props over genuine definitions |
