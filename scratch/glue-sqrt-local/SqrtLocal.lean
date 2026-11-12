@@ -387,6 +387,73 @@ theorem gal_sqrt_criterion (hp2 : p ≠ 2)
       have hg0 : g = Additive.ofMul (tauNeg p n L) := congrArg Additive.ofMul this
       rw [hg0, h]
 
+/-- The action of `Gal(L/ℚ_p)` on `μ_{p^n}` (`L` of level `p^{n+1}`), as a map to `(ℤ/p^n)ˣ`. -/
+noncomputable def actLower : Additive Gal(L/ℚ_[p]) →+ Additive (ZMod (p ^ n))ˣ :=
+  MonoidHom.toAdditive ((redU p n).comp (galEquivUnits p n L).toMonoidHom)
+
+theorem actLower_apply (g : Gal(L/ℚ_[p])) :
+    actLower p n L (Additive.ofMul g) = Additive.ofMul (redU p n (galEquivUnits p n L g)) := rfl
+
+/-- `actLower` describes the action on `p^n`-th roots of unity: `g x = x^a` with
+`a = actLower g`. -/
+theorem apply_eq_pow_actLower (g : Gal(L/ℚ_[p])) (x : L) (hx : x ^ (p ^ n) = 1) :
+    g x = x ^ ((redU p n (galEquivUnits p n L g) : ZMod (p ^ n)).val) := by
+  have : NeZero (p ^ (n + 1)) := ⟨pow_ne_zero _ hp.out.ne_zero⟩
+  have : NeZero (p ^ n) := ⟨pow_ne_zero _ hp.out.ne_zero⟩
+  have hζ := IsCyclotomicExtension.zeta_spec (p ^ (n + 1)) ℚ_[p] L
+  have hx' : x ^ (p ^ (n + 1)) = 1 := by
+    rw [pow_succ, pow_mul, hx, one_pow]
+  obtain ⟨i, -, rfl⟩ := hζ.eq_pow_of_pow_eq_one hx'
+  have h2 := hζ.autToPow_spec ℚ_[p] g
+  set a := ((galEquivUnits p n L g : (ZMod (p ^ (n + 1)))ˣ) : ZMod (p ^ (n + 1)))
+  have ha : (hζ.autToPow ℚ_[p] g : ZMod (p ^ (n + 1))) = a := rfl
+  rw [ha] at h2
+  have step1 : g ((IsCyclotomicExtension.zeta (p ^ (n + 1)) ℚ_[p] L) ^ i) =
+      ((IsCyclotomicExtension.zeta (p ^ (n + 1)) ℚ_[p] L) ^ i) ^ a.val := by
+    rw [map_pow, ← h2, ← pow_mul, ← pow_mul, mul_comm]
+  rw [step1]
+  have hred : ∀ u : ℕ, ((IsCyclotomicExtension.zeta (p ^ (n + 1)) ℚ_[p] L) ^ i) ^ u =
+      ((IsCyclotomicExtension.zeta (p ^ (n + 1)) ℚ_[p] L) ^ i) ^ (u % p ^ n) := fun u => by
+    conv_lhs => rw [← Nat.mod_add_div u (p ^ n)]
+    rw [pow_add, pow_mul, hx, one_pow, mul_one]
+  rw [hred a.val]
+  conv_rhs => rw [hred]
+  congr 1
+  have hb : ((redU p n (galEquivUnits p n L g) : (ZMod (p ^ n))ˣ) : ZMod (p ^ n)) =
+      ZMod.castHom (pow_dvd_pow p (Nat.le_succ n)) (ZMod (p ^ n)) a := rfl
+  have : ((a.val : ℕ) : ZMod (p ^ n)) =
+      (((redU p n (galEquivUnits p n L g) : (ZMod (p ^ n))ˣ) : ZMod (p ^ n)).val : ZMod (p ^ n)) := by
+    rw [ZMod.natCast_zmod_val, hb, ZMod.castHom_apply, ZMod.cast_eq_val]
+  exact (ZMod.natCast_eq_natCast_iff' _ _ _).mp this
+
+/-- **Square-root criterion on `Gal(ℚ_p(μ_{p^{n+1}})/ℚ_p)`, every prime `p` (including `2`).**
+A character `χ₀` of `(ℤ/p^n)ˣ`, pulled back along the action on `μ_{p^n}`, is twice a character
+of `Gal(L/ℚ_p)` iff `χ₀(−1) = 0`. -/
+theorem gal_sqrt_criterion_lower (χ₀ : Additive (ZMod (p ^ n))ˣ →+ AddCircle (1 : ℚ)) :
+    (∃ ψ : Additive Gal(L/ℚ_[p]) →+ AddCircle (1 : ℚ),
+        ∀ g, 2 • ψ g = χ₀ (actLower p n L g)) ↔ χ₀ (Additive.ofMul (-1)) = 0 := by
+  letI := galCommGroup p n L
+  refine (exists_half_iff (χ₀.comp (actLower p n L))).trans ?_
+  constructor
+  · intro h
+    have h1 := h (Additive.ofMul (tauNeg p n L)) (by
+      change Additive.ofMul (tauNeg p n L ^ 2) = Additive.ofMul 1
+      rw [tauNeg_sq])
+    rw [AddMonoidHom.comp_apply, actLower_apply, tauNeg, MulEquiv.apply_symm_apply,
+      redU_neg_one] at h1
+    exact h1
+  · intro h g hg
+    have hσ : (Additive.toMul g) ^ 2 = 1 := by
+      have := congrArg Additive.toMul hg
+      simpa using this
+    have he : (galEquivUnits p n L (Additive.toMul g)) ^ 2 = 1 := by
+      rw [← map_pow, hσ, map_one]
+    rw [AddMonoidHom.comp_apply, show g = Additive.ofMul (Additive.toMul g) from rfl,
+      actLower_apply]
+    rcases redU_sq_eq_one hp.out n _ he with h1 | h1
+    · rw [h1]; exact map_zero χ₀
+    · rw [h1]; exact h
+
 end Gal
 
 end GlueSqrtLocal
@@ -396,3 +463,5 @@ end GlueSqrtLocal
 #print axioms GlueSqrtLocal.finrank_eq_totient
 #print axioms GlueSqrtLocal.tauNeg_mul_self
 #print axioms GlueSqrtLocal.gal_sqrt_criterion
+#print axioms GlueSqrtLocal.gal_sqrt_criterion_lower
+#print axioms GlueSqrtLocal.apply_eq_pow_actLower

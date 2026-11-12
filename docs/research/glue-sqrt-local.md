@@ -16,7 +16,9 @@ Marks: **VERIFIED** means compiled or read in a source. **STANDARD** means a pub
 So is the group-theoretic step, for every prime `p` including `p = 2`.**
 
 - Totally ramified half: `Φ_{p^{n+1}}` is irreducible over `ℚ_p`, and `Gal(ℚ_p(μ_{p^{n+1}})/ℚ_p) ≅ (ℤ/p^{n+1})ˣ`.
-  For odd `p`, the square-root criterion holds on this genuine Galois group.
+  The square-root criterion holds on this genuine Galois group for every `p`: for odd `p`
+  directly (`gal_sqrt_criterion`), and for all `p`, including `2`, for characters factoring
+  through the action on `μ_{p^n}` (`gal_sqrt_criterion_lower`).
 - Unramified half, for `p ∤ m`:
   - `Gal(L/ℚ_p)` maps onto `⟨p⟩ ⊆ (ℤ/m)ˣ`, by the Frobenius `ζ ↦ ζ^p`. This holds for every
     finite Galois `L/ℚ_p` containing a primitive `m`-th root of unity.
@@ -27,12 +29,11 @@ So is the group-theoretic step, for every prime `p` including `p = 2`.**
 **Not proved:**
 - the linear disjointness of `ℚ_p(μ_{p^k})` and `ℚ_p(μ_m)`, that is,
   `Gal(ℚ_p(μ_{p^k m})/ℚ_p) ≅ (ℤ/p^k)ˣ × ⟨p⟩`. It needs the fundamental inequality `e·f ≤ [L:ℚ_p]`.
-- the `p = 2` form over the genuine Galois group.
 - the plumbing from `G_{ℚ_p}` to finite quotients. See §3.
 
 All theorems below compile with no `sorry`. `#print axioms` shows only `propext`,
 `Classical.choice` and `Quot.sound` (VERIFIED, 2026-11-11/12):
-- `lake env lean scratch/glue-sqrt-local/SqrtLocal.lean`, 23:50 PST;
+- `lake env lean scratch/glue-sqrt-local/SqrtLocal.lean`, 00:06 PST;
 - `lake env lean scratch/glue-sqrt-local/Unramified.lean`, 00:00 PST.
 
 Files (each self-contained; scratch files cannot import each other):
@@ -49,6 +50,8 @@ Files (each self-contained; scratch files cannot import each other):
 | `[L:ℚ_p] = φ(p^{n+1})` | `finrank_eq_totient` | VERIFIED |
 | `τ₋₁ := galEquivUnits⁻¹(−1)` acts by `ζ ↦ ζ⁻¹` on `μ_{p^{n+1}}(L)`; `τ₋₁² = 1` | `tauNeg`, `tauNeg_mul_self`, `tauNeg_sq` | VERIFIED |
 | **`p` odd: a `ℚ/ℤ`-character `χ` of `Gal(L/ℚ_p)` is `2ψ` for some character `ψ` iff `χ(τ₋₁) = 0`** | `gal_sqrt_criterion` | VERIFIED |
+| `actLower : Gal(L/ℚ_p) → (ℤ/p^n)ˣ` (`L` of level `p^{n+1}`) is the action on `μ_{p^n}`: `g x = x^{actLower g}` | `actLower`, `apply_eq_pow_actLower` | VERIFIED |
+| **every `p`, including `2`: for a character `χ₀` of `(ℤ/p^n)ˣ`, `χ₀ ∘ actLower` is `2ψ` for a character `ψ` of `Gal(L/ℚ_p)` iff `χ₀(−1) = 0`** | `gal_sqrt_criterion_lower` | VERIFIED |
 | `p` odd: `u² = 1` in `(ℤ/p^k)ˣ` forces `u = ±1` | `units_sq_eq_one_odd` | VERIFIED |
 | any `p`: `u² = 1` in `(ℤ/p^{k+1})ˣ` forces `u ≡ ±1` in `(ℤ/p^k)ˣ` | `redU_sq_eq_one` | VERIFIED |
 | **any `p`, `k`, `f`: a character `χ` of `(ℤ/p^k)ˣ × ℤ/f` becomes `2ψ` on `(ℤ/p^{k+1})ˣ × ℤ/2f` iff `χ(−1, 0) = 0`** | `sqrt_criterion_finite` | VERIFIED |
@@ -157,9 +160,8 @@ Identifying `Gal(ℚ_p(μ_{p^k m})/ℚ_p)` with the model `(ℤ/p^k)ˣ × ℤ/f`
    - SPECULATIVE: 150-250 lines. Mathlib proves the global analogues in
      `NumberTheory/NumberField/Cyclotomic/Ideal.lean` (`ramificationIdx_eq_of_prime_pow`,
      `inertiaDeg_eq_of_prime_pow`), which may be adaptable.
-2. **`p = 2` over the genuine Galois group.** `sqrt_criterion_finite` covers `p = 2` on the model.
-   The genuine form also needs restriction `Gal(L_{k+1}/ℚ_2) → Gal(L_k/ℚ_2)` to be compatible
-   with `redU`. That is routine (`ζ_{2^{k+1}}² = ζ_{2^k}`), but it was not written.
+2. **`p = 2` over the genuine Galois group: done** (`gal_sqrt_criterion_lower`, with
+   `apply_eq_pow_actLower` identifying the level change with the action on `μ_{2^n}`).
 3. **From `G_{ℚ_p}` to finite quotients.** Factoring a finite-order continuous character
    through `Gal(M/ℚ_p)` for a finite Galois `M ⊂ PadicAlgCl p`, and inflating `ψ` back to
    `G_{ℚ_p}`, uses Mathlib's infinite Galois theory. This is plumbing; it was not written.
@@ -168,7 +170,7 @@ Identifying `Gal(ℚ_p(μ_{p^k m})/ℚ_p)` with the model `(ℤ/p^k)ˣ × ℤ/f`
    `ZMod (2f) → ZMod f`. Elementary, but not written.
 
 With item 1, the Galois group of `ℚ_p(μ_{p^k m})` becomes the model `(ℤ/p^k)ˣ × ℤ/f` of
-`sqrt_criterion_finite`. Items 2-4 then assemble pkg-I6's statement from I6.3.
+`sqrt_criterion_finite`. Items 3-4 then assemble pkg-I6's statement from I6.3.
 
 No special-casing to quadratic or quartic characters was needed: the proved parts hold for all
 finite-order characters (in `ℚ/ℤ`-valued form).

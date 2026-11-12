@@ -36,3 +36,8 @@
 - `finrank_eq_orderOf`: p ∤ m, IsCyclotomicExtension {m} ℚ_[p] L → finrank ℚ_[p] L = orderOf (p : (ZMod m)ˣ). VERIFIED.
 - `isCyclic_gal`: same hypotheses → IsCyclic Gal(L/ℚ_[p]). VERIFIED.
 - Note: Unramified.lean's ambient variables include [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L]; for a cyclotomic L the last two are Mathlib instances/theorems and the first two come from Algebra.compHom.
+
+## SqrtLocal.lean additions (compiled 00:06 PST; axioms propext, Classical.choice, Quot.sound)
+- `actLower p n L : Additive Gal(L/ℚ_[p]) →+ Additive (ZMod (p^n))ˣ` (L of level p^(n+1)): redU ∘ galEquivUnits.
+- `apply_eq_pow_actLower`: g x = x^((actLower g).val) for every x with x^(p^n) = 1 (so actLower is the action on μ_{p^n}). VERIFIED.
+- `gal_sqrt_criterion_lower`: every prime p (incl. 2): for χ₀ on (ZMod p^n)ˣ, χ₀ ∘ actLower is 2ψ for some character ψ of Gal(L/ℚ_p) iff χ₀(-1) = 0. VERIFIED.
