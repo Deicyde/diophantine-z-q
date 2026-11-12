@@ -1,0 +1,40 @@
+{
+  "reviewer": "/root/q214_tex_independent",
+  "date": "2026-11-12",
+  "upstream_revision": "95cb356d7cd1a5d56d10abeae60497d54d91197e",
+  "prior_exposure": "Root reported three correction classes. Read actual complete normalized manuscript delta, actual Fable argument excerptspp72\u201373/85\u201388, actual V16GI/TZ/height source contexts before earlier current mathematical-review reports. No proposed214FOUNDATION_TRANSITION or new contract was read before this freeze. Prior V16reviews were subsequently read to assess exact scoped reuse; no blindclaim.",
+  "source_hashes": {
+    "manuscripts/quartic_v16.tex": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
+    "research/version16/audits/fable-5-2-audit-4.pdf": "c71530d020a9dcd7e7b62aa34b376cd5a6cc57ffa46b4032542ad050edc09116",
+    "research/version16/review/current/REVIEW.md": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2",
+    "research/version16/review/current/TZ-PRECISION-ADDENDUM.md": "e2c57cc9d635289f9ddee5f51c07a2f533cc1624a5204440d25647ef2766bdd5",
+    "research/version16/TZ-PRECISION-AMENDMENT.json": "59c8064132d2524ad0cdb1eac0c155e6cc888ef141075317328f51ef8777919e",
+    "research/version16/review/coverage/ASSEMBLY-REVIEW.json": "f0cfb52df5e2153987fa2125fc002f85194e8cddd09d1407b35cce86535bda88",
+    "docs/release-policy.md": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c",
+    "docs/current-manuscript.json": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33"
+  },
+  "new_required_connections": [
+    {
+      "id": "V16-GI-214",
+      "available": "V16horizontal coefficient correction makes vector identities exact before rational/small removals; fixed lift division preserves them in smaller cover lattice.",
+      "needed": "Same represented unit nilcharacter and filtered/rank output into internalGI; then214source-carryC08,C09 and uniform-existenceP16.",
+      "comparison": "Right lattice-valued binomial multiplier preserves orbit. Additive horizontal Taylor maps remove every finite-weight discrepancy. The same real lifts are subtracted and divided; no arbitrary torus root is allowed. Comparison proof already normalizes separately. UniformGI output and downstream Gaussian consumption unchanged.",
+      "historical_disposition": "Prior normalization device located later inV15; its finite-cover application needed explicit incorporation. V16supplies this at its consumer."
+    },
+    {
+      "id": "V16-TZ-214",
+      "available": "FixedE adaptation of modulus-dependentTZproofs, same uniform local estimates, same model/moments/boundary conclusion, fixed data before cutoff/length diagonal.",
+      "needed": "214P15scaled/merged coefficient/incidence data and P16prime selection at each fixed(N,x).",
+      "comparison": "D,E,scale denominators,finite coefficient family and moduli may depend on(N,x),but remain fixed before X_sel. No constantuniformin(N,x) is consumed by NC. Rootcounts/exceptionalprimes need uniformestimates,not numeric local-factoridentity. Statement-only alternative outline is unadopted.",
+      "reuse_scope": "Read actual currentV16source and reviewed adaptation derivation; reuse precise published-source comparisons in currentreview,not claim new fullTZprimaryproofinspection."
+    },
+    {
+      "id": "V16-CMH-214",
+      "available": "CorrectCMH2014originalstableheight lower bound/productadditivity/half-logdegree cost; GR2023separateproduct/degreeinputs.",
+      "needed": "214operativeH3r-factormultiplicity,complementdimensiong-2r,Ci\u2192AoverLprime,H3.1.",
+      "comparison": "214primary-source-bridges already namesCMHcorrectly. Sourcecorrectionchangesbibliographykey,not bound/field/height. Need retain separate2023supplierandindirectdependencies."
+    }
+  ],
+  "other_audit_findings": "Bogolyubov numbering withdrawal preserves publishedLemma6.4. FableunreadKato/Ribet and source-accessqualifications remain limits of that audit; no invented freshinspection.",
+  "pending": "New214foundationoverlay/contract, related currentrepetition consistency, exactV16bodytransport, actualPDF and finalmanifest."
+}

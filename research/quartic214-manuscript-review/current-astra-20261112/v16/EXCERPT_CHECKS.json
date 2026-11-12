@@ -1,0 +1,101 @@
+[
+  {
+    "v16_lines": [
+      2570,
+      2720
+    ],
+    "sha256": "69d387ced83c452fc4420ebc4ff58166f48718b2208844930744ac9509e0e2f9",
+    "exact_in_integrated": true,
+    "exact_after_removing_declared_navigation_anchors": true
+  },
+  {
+    "v16_lines": [
+      8870,
+      8970
+    ],
+    "sha256": "dbc2ddc42ffc5355c1314f52974f18e60d0362d4bd2a287af1460952f96b2b60",
+    "exact_in_integrated": true,
+    "exact_after_removing_declared_navigation_anchors": true
+  },
+  {
+    "v16_lines": [
+      11656,
+      11739
+    ],
+    "sha256": "00cb52b300ad7fc0af630b6529e7cca0f7bdb6da9e4e9edc6259fcd5c24ff5f7",
+    "exact_in_integrated": true,
+    "exact_after_removing_declared_navigation_anchors": true
+  },
+  {
+    "v16_lines": [
+      19442,
+      19590
+    ],
+    "sha256": "3c7fe4e8654dc369777979583a8019995e985672c8a0235664bb1352792271d1",
+    "exact_in_integrated": true,
+    "exact_after_removing_declared_navigation_anchors": true
+  },
+  {
+    "v16_lines": [
+      19660,
+      19746
+    ],
+    "sha256": "bc9eaa5f8a4d6c258a0cdd1f1e6527e287ad40393174d0e02627cda3060c5203",
+    "exact_in_integrated": true,
+    "exact_after_removing_declared_navigation_anchors": true
+  },
+  {
+    "v16_lines": [
+      19989,
+      20169
+    ],
+    "sha256": "9eae7d4dfb46266b02e6d11b06969390521a5dbf736076c5b61975292293892c",
+    "exact_in_integrated": false,
+    "exact_after_removing_declared_navigation_anchors": true
+  },
+  {
+    "v16_lines": [
+      20310,
+      20356
+    ],
+    "sha256": "5d98565cc4102a1b40c1a9afc0e317cb2a6983b67b9dbb5087baeb0b7ede7bbd",
+    "exact_in_integrated": true,
+    "exact_after_removing_declared_navigation_anchors": true
+  },
+  {
+    "v16_lines": [
+      26819,
+      26904
+    ],
+    "sha256": "bf226ec2b2a55be260f7fb5a51f4ba129efeb5bfa05af1ca8fb3be804bdca1d8",
+    "exact_in_integrated": true,
+    "exact_after_removing_declared_navigation_anchors": true
+  },
+  {
+    "v16_lines": [
+      26906,
+      26929
+    ],
+    "sha256": "e1b4b8f4d50469e0732cae6c1f1f3f523bcc3d09c172b30acb814b7337774f70",
+    "exact_in_integrated": true,
+    "exact_after_removing_declared_navigation_anchors": true
+  },
+  {
+    "v16_lines": [
+      26933,
+      26990
+    ],
+    "sha256": "e3956c623aef84458d83cc2e18a5dd17032f3b82341e0432b44a4f02483a6067",
+    "exact_in_integrated": true,
+    "exact_after_removing_declared_navigation_anchors": true
+  },
+  {
+    "v16_lines": [
+      27540,
+      27598
+    ],
+    "sha256": "c8fbf6567d5e6037e87ab4649d3fb992c64494b62f4c25d0a40c8ab70910bb0f",
+    "exact_in_integrated": true,
+    "exact_after_removing_declared_navigation_anchors": true
+  }
+]

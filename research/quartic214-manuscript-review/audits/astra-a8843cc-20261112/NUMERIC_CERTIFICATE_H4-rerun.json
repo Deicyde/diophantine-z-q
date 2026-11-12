@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "scope": "H0\u2013H4 exact finite rational logarithm and conductor arithmetic only; no arithmetic theorem or independent acceptance.",
+  "B": 1857890364330,
+  "CN": 4654703371689472135696220160000000000000000,
+  "conductorExponents": [
+    70,
+    18,
+    18,
+    6
+  ],
+  "kUpper": "9339/1000",
+  "coefficient_c": "74712001/1000000",
+  "C2Log2StrictUpper": "7557/32",
+  "alpha": "2103/1024",
+  "arithmeticAccepted": false,
+  "negativeControlsRefused": [
+    "false C2bits",
+    "false k bound",
+    "wrong alpha",
+    "missing support prime"
+  ]
+}

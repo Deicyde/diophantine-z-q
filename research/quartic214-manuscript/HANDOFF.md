@@ -2,6 +2,8 @@
 
 This edition adds a complete TeX/PDF presentation to the 214-variable family in public PR30. The original construction, mathematical source files and review records at commit `110cf72565be326fd567cd1a64a3b2e00213dcd1` remain unchanged. The arithmetic threshold remains ineffective.
 
+This revision follows the automated Astra audit of manuscript commit `a8843cca75ff29d51aa7b288c80b8bdc3a1ca3bb`. Its two printed-formula findings and the related notation defects identified during repair review are repaired through [exact source corrections](SOURCE_CORRECTIONS_V1.json), without rewriting the frozen proof packets. The [correction application](../quartic214-manuscript-review/CORRECTION_APPLICATION.json) binds the original arguments, corrected receiving passages, downstream consumers and related-use review. The complete earlier audit is preserved in [the audit archive](../quartic214-manuscript-review/audits/astra-a8843cc-20261112/PR_COMMENT.md); the earlier manuscript reviews are preserved in [the historical record archive](../quartic214-manuscript-review/history/a8843cc/README.md). Their earlier verdicts are not refreshed into acceptance of this revision. Current independent decisions and remaining source-coverage limits are recorded separately. The current `--reviewed-artifacts` check requires acceptance of its explicitly limited repair and packaging scopes; it does not issue complete-proof, complete-inventory or protected-App acceptance.
+
 The main result is the 214-variable theorem. Older 222-, 314-variable and other systems in the retained Version 16 foundation are inherited constructions, not alternative counts for this polynomial. The original parent proof and its exact source history are available in [the 214 proof package](../quartic214/README.md) and [its public review records](../quartic214-protocol-d-public/README.md). The Version 15 [source](../version15/snapshots/v15-222-004/manuscript/quartic_v15.tex), [handoff](../version15/CUMULATIVE-HANDOFF.md) and [review history](../version15/README.md) retain the earlier research and negative results at their original scope. The closed public stack remains cited by PR30; [PR23](https://github.com/elliotglazer/diophantine-z-q/pull/23) remains the separate durable evidence archive.
 
 The complete current foundation is [Version 16](../../manuscripts/quartic_v16.tex), including the exact horizontal-lift normalization, corrected Gaudron–Rémond citations and the explicit Tao–Ziegler proof-adaptation wording. [The foundation transition](../quartic214-manuscript-review/FOUNDATION_TRANSITION.md) compares their actual 214 consumers; unchanged source hashes are not used to bypass these corrections. The [Version 16 handoff](../version16/CUMULATIVE-HANDOFF.md) preserves the received Fable audit and its limitations.
@@ -12,6 +14,7 @@ For the manuscript, run:
 
 ```sh
 python3 -B research/quartic214-manuscript/assemble.py
+python3 -B research/quartic214-manuscript/check_source_corrections.py
 python3 -B research/quartic214-manuscript/build_pdf.py
 ```
 

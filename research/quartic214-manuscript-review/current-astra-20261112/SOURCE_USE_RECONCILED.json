@@ -1,0 +1,416 @@
+{
+  "reviewer": "/root/q214_astra_repair_review",
+  "initial_sha256": "d71edfc951fdd2328e022b439e97c02229b785107662bb442d54469b24abda45",
+  "inventory": {
+    "path": "research/quartic214/contracts/INDEX.json",
+    "sha256": "c3205657eaebcf4b40f6a92087856d6fa3a9c8a730ef36befed62ef5fb984b37"
+  },
+  "entries": [
+    {
+      "id": "S01",
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "locator": "Algebraic transport",
+      "required_supplier": "raw224 inverse maps, forced149 and Laurent identities",
+      "consumed": "214 rows reconstruct physical system on nonzero weights",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/uniform-existence.json",
+          "sha256": "832900c2f480bce3eb77bef6c8b408a7ca16229b8414104e3938849a3b3bc011",
+          "id": "D214-UNIFORM-EXISTENCE-20261111"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "Checked derivation/connection as EVIDENCE.md specifies; recursive source coverage remains open."
+    },
+    {
+      "id": "S02",
+      "path": "research/quartic214/proofs/existence.md",
+      "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "locator": "New local factors",
+      "required_supplier": "valuation residue classes and literal trace equation",
+      "consumed": "M_j^3 divides Delta, M_j divides J after integrality",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/uniform-existence.json",
+          "sha256": "832900c2f480bce3eb77bef6c8b408a7ca16229b8414104e3938849a3b3bc011",
+          "id": "D214-UNIFORM-EXISTENCE-20261111"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "Checked derivation/connection as EVIDENCE.md specifies; recursive source coverage remains open."
+    },
+    {
+      "id": "S03",
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "locator": "P08-P09",
+      "required_supplier": "E0 sum graph, noncancellation, finite-rank group and published Von Buhren 1.1",
+      "consumed": "B\u00b2<=M1 h(T)+M2",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/uniform-existence.json",
+          "sha256": "832900c2f480bce3eb77bef6c8b408a7ca16229b8414104e3938849a3b3bc011",
+          "id": "D214-UNIFORM-EXISTENCE-20261111"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "Checked derivation/connection as EVIDENCE.md specifies; recursive source coverage remains open."
+    },
+    {
+      "id": "S04",
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "locator": "P10",
+      "required_supplier": "full S10 height bound, two inverse projective maps and disjoint radicals",
+      "consumed": "exponent7/6 physical height",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/H4-reflection.json",
+          "sha256": "350fba85a5d6820a835d4fe0e16b59b09b6e579939d0fcd23b66c8a2c4302edf",
+          "id": "H04-FULL-FAMILY-CONSTANT-AND-CENTER2-TRANSFER"
+        },
+        {
+          "path": "research/quartic214/contracts/uniform-existence.json",
+          "sha256": "832900c2f480bce3eb77bef6c8b408a7ca16229b8414104e3938849a3b3bc011",
+          "id": "D214-UNIFORM-EXISTENCE-20261111"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "Checked derivation/connection as EVIDENCE.md specifies; recursive source coverage remains open."
+    },
+    {
+      "id": "S05",
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "locator": "P11-P12",
+      "required_supplier": "scalar lower growth and integer Lucas lower bound",
+      "consumed": "single uniform soundness threshold",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/uniform-existence.json",
+          "sha256": "832900c2f480bce3eb77bef6c8b408a7ca16229b8414104e3938849a3b3bc011",
+          "id": "D214-UNIFORM-EXISTENCE-20261111"
+        },
+        {
+          "path": "research/quartic214/contracts/source-carry.json",
+          "sha256": "0ccb359a72c0c0215ab2d4bad7a5a2a49ca2a2cddaa9254eb698a6e69c39688e",
+          "id": "D214-INHERITED-ANALYTIC-RC-CARRY"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "Checked derivation/connection as EVIDENCE.md specifies; recursive source coverage remains open."
+    },
+    {
+      "id": "S06",
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "locator": "P13-P14",
+      "required_supplier": "parity scalar W_s and fixed compact neighborhoods",
+      "consumed": "uniform completeness threshold",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/uniform-existence.json",
+          "sha256": "832900c2f480bce3eb77bef6c8b408a7ca16229b8414104e3938849a3b3bc011",
+          "id": "D214-UNIFORM-EXISTENCE-20261111"
+        },
+        {
+          "path": "research/quartic214/contracts/source-carry.json",
+          "sha256": "0ccb359a72c0c0215ab2d4bad7a5a2a49ca2a2cddaa9254eb698a6e69c39688e",
+          "id": "D214-INHERITED-ANALYTIC-RC-CARRY"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "Checked derivation/connection as EVIDENCE.md specifies; recursive source coverage remains open."
+    },
+    {
+      "id": "S07",
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "locator": "P15-P18",
+      "required_supplier": "fixed-data Gaussian prime theorem, CRT and prepared local/real inputs",
+      "consumed": "fresh changed-factor pole inputs",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/uniform-existence.json",
+          "sha256": "832900c2f480bce3eb77bef6c8b408a7ca16229b8414104e3938849a3b3bc011",
+          "id": "D214-UNIFORM-EXISTENCE-20261111"
+        },
+        {
+          "path": "research/quartic214/contracts/source-carry.json",
+          "sha256": "0ccb359a72c0c0215ab2d4bad7a5a2a49ca2a2cddaa9254eb698a6e69c39688e",
+          "id": "D214-INHERITED-ANALYTIC-RC-CARRY"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "See v16/REPORT.md. Selected current joins checked; recursive source closure remains open."
+    },
+    {
+      "id": "S08",
+      "path": "research/quartic214/proofs/uniform-existence.md",
+      "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc",
+      "locator": "P19-P20",
+      "required_supplier": "full Selmer corank descent, restricted converse and pole realization",
+      "consumed": "existential witnesses for all integer x",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/uniform-existence.json",
+          "sha256": "832900c2f480bce3eb77bef6c8b408a7ca16229b8414104e3938849a3b3bc011",
+          "id": "D214-UNIFORM-EXISTENCE-20261111"
+        },
+        {
+          "path": "research/quartic214/contracts/source-carry.json",
+          "sha256": "0ccb359a72c0c0215ab2d4bad7a5a2a49ca2a2cddaa9254eb698a6e69c39688e",
+          "id": "D214-INHERITED-ANALYTIC-RC-CARRY"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "See v16/REPORT.md. Selected current joins checked; recursive source closure remains open."
+    },
+    {
+      "id": "S09",
+      "path": "research/quartic214/proofs/geometry-carry.md",
+      "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76",
+      "locator": "G1-G4",
+      "required_supplier": "D210 fine three-marked cover, integral metric and CM height",
+      "consumed": "full-family surface and S10 support",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/modularity-6.json",
+          "sha256": "3b61613f34a5f8746804ab2e6aa24aa787cc5fb6485ac2c5aa2a1a1cc4da9ab9",
+          "id": "G-P-D210-GEOMETRY-AND-S10-CARRY"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "D210/modularity component review pending; parent checked argument text and F1 connections."
+    },
+    {
+      "id": "S10",
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "locator": "M1-M3",
+      "required_supplier": "sign cocycle, published modularity at5 and finite twist extraction",
+      "consumed": "actual original r5 realized by final primitive weight2 form",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/modularity-1.json",
+          "sha256": "677d87aa2fdd08d4025a8fcdf2be03ec9b0185faf408ae82f463b8910797ab88",
+          "id": "M1-CHANGED-MINIMAL-CHARACTER"
+        },
+        {
+          "path": "research/quartic214/contracts/modularity-2.json",
+          "sha256": "bf0032fd58169d79f84fe6587a1902ad0fda12da895147eed4bc0bf01e08809e",
+          "id": "M2-M3-ORIGINAL-R5-MODULARITY"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "D210/modularity component review pending; parent checked argument text and F1 connections."
+    },
+    {
+      "id": "S11",
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "locator": "M4-M5",
+      "required_supplier": "same-form companion at3, Carayol, all-prime ramification",
+      "consumed": "N<=C_N R\u00b2 with full residue-prime coverage",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/modularity-3.json",
+          "sha256": "3852c1fcb2d79e2a14a271c010d5dbf57665699187cfb0b22cca069f09096195",
+          "id": "M4-SAME-FORM-COMPANION"
+        },
+        {
+          "path": "research/quartic214/contracts/modularity-4.json",
+          "sha256": "8634c90335f48b12c74f8612fd6b67e5da085f6beb6e3ca56235eaf4d90c4392",
+          "id": "M5-DIRECT-CONDUCTOR-AND-NEW-LIFT"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "D210/modularity component review pending; parent checked argument text and F1 connections."
+    },
+    {
+      "id": "S12",
+      "path": "research/quartic214/proofs/modularity.md",
+      "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "locator": "M6",
+      "required_supplier": "Faltings, coefficient conjugates, Poincare, quotient invariants",
+      "consumed": "L-prime-defined A^r subvariety of exact quotient Jacobian",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/modularity-5.json",
+          "sha256": "a908b6093393a4e13dd3fd57f33b2f3ab30f1619dbbaf4d99971ffe66f4f68f2",
+          "id": "M6-DETERMINANT-MULTIPLICITY-QUOTIENT"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "D210/modularity component review pending; parent checked argument text and F1 connections."
+    },
+    {
+      "id": "S13",
+      "path": "research/quartic214/proofs/height-evaluation.md",
+      "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502",
+      "locator": "1-5",
+      "required_supplier": "normalization finite flat, common regular model, duality trace and specialization",
+      "consumed": "actual integral ev:E->C dual and projected determinant lattice",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/height-evaluation.json",
+          "sha256": "0f524e806c2b3d3fa62fa3479a561ab069d84ab1be6f24c46ddaa5095a117474",
+          "id": "H04-integral-evaluation-and-trace-lattice"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "Checked derivation/connection as EVIDENCE.md specifies; recursive source coverage remains open."
+    },
+    {
+      "id": "S14",
+      "path": "research/quartic214/proofs/height-different.md",
+      "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "locator": "1-5",
+      "required_supplier": "complete-DVR sum e_j f_j=d, trace duality, torsion derivative N, modular quotient",
+      "consumed": "same C discriminant bound",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/height-different.json",
+          "sha256": "51628e37c28208b3c62be6a4d1899d650bd7b8d0e80fe236ce7a2fe6485ef5a6",
+          "id": "H04-DIFFERENT-MODULAR-20261110"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "Checked derivation/connection as EVIDENCE.md specifies; recursive source coverage remains open."
+    },
+    {
+      "id": "S15",
+      "path": "research/quartic214/proofs/height-metric.md",
+      "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "locator": "1-3",
+      "required_supplier": "original stable metric, evaluation rank, mean value, arithmetic degree",
+      "consumed": "hF exact modular Jacobian",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/height-metric.json",
+          "sha256": "05edb1fa2ce8e02dfcfb0623db7b0c56a73e3e9df9e82eee0f7bc2ca4e438c1b",
+          "id": "H04-METRIC-ARCHIMEDEAN"
+        },
+        {
+          "path": "research/quartic214/contracts/height-assembly.json",
+          "sha256": "a13a2c2209d28728b9f76d301bcf2c36cdf0eca8820b91ab0f2f567477972a0d",
+          "id": "H04-SAME-OBJECT-MODULAR-HEIGHT-ASSEMBLY"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "Checked derivation/connection as EVIDENCE.md specifies; recursive source coverage remains open."
+    },
+    {
+      "id": "S16",
+      "path": "research/quartic214/proofs/height-averaging.md",
+      "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192",
+      "locator": "Fixed-field product; Height average",
+      "required_supplier": "published GR2023 product construction, r occurrences, lower height and dim2 isogeny",
+      "consumed": "H3.1 for same A over same L-prime",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/height-averaging.json",
+          "sha256": "e5c2281d8f4cc6f0a0c8234c0fad9f909021cbd95943c0c11fd94ce68441895f",
+          "id": "H03-PUBLISHED-PRODUCT-AVERAGING"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "Checked derivation/connection as EVIDENCE.md specifies; recursive source coverage remains open."
+    },
+    {
+      "id": "S17",
+      "path": "research/quartic214/proofs/height-supplier.md",
+      "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12",
+      "locator": "H4",
+      "required_supplier": "H0-H3 plus exact rational log bounds",
+      "consumed": "uniform h(a)<C2 M^(2103/1024), CM and M=1",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/H4-reflection.json",
+          "sha256": "350fba85a5d6820a835d4fe0e16b59b09b6e579939d0fcd23b66c8a2c4302edf",
+          "id": "H04-FULL-FAMILY-CONSTANT-AND-CENTER2-TRANSFER"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "Checked derivation/connection as EVIDENCE.md specifies; recursive source coverage remains open."
+    },
+    {
+      "id": "S18",
+      "path": "research/quartic214/proofs/source-carry.md",
+      "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed",
+      "locator": "C03-C11",
+      "required_supplier": "current rank, RC, Kato, GI, Gaussian, scalar and zero-preparation derivations",
+      "consumed": "retained interfaces; recursive reading incomplete",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/source-carry.json",
+          "sha256": "0ccb359a72c0c0215ab2d4bad7a5a2a49ca2a2cddaa9254eb698a6e69c39688e",
+          "id": "D214-INHERITED-ANALYTIC-RC-CARRY"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "See v16/REPORT.md. Selected current joins checked; recursive source closure remains open."
+    },
+    {
+      "id": "S19",
+      "path": "research/quartic214/PROOF.md",
+      "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "locator": "Exact family",
+      "required_supplier": "188 primitive quadratic rows and exact finite checker",
+      "consumed": "214 degree4 content1 polynomial and coefficient theorem",
+      "status": "review-open",
+      "contracts": [
+        {
+          "path": "research/quartic214/contracts/uniform-existence.json",
+          "sha256": "832900c2f480bce3eb77bef6c8b408a7ca16229b8414104e3938849a3b3bc011",
+          "id": "D214-UNIFORM-EXISTENCE-20261111"
+        }
+      ],
+      "reconciliation": "Declared supplier located; link is not by itself application acceptance.",
+      "coverage": "Checked derivation/connection as EVIDENCE.md specifies; recursive source coverage remains open."
+    }
+  ],
+  "separate_coverage_decision": "Complete inventory not accepted; bounded related-use and source-inclusion/current changed-join scopes accepted at final held artifacts.",
+  "new_source_use_addenda": [
+    {
+      "id": "S20",
+      "finding": "F3",
+      "source": "height-different.md31,65,83,85",
+      "required": "relative-extension labels survive as complete indices; actual tower/trace maps preserved",
+      "status": "receiving correction checked in final held TeX/PDF; no recursive supplier acceptance"
+    },
+    {
+      "id": "S21",
+      "finding": "F4",
+      "source": "PROOF.md; existence.md; height-different.md",
+      "required": "numeric variable suffix retained as index before Unicode superscript",
+      "status": "receiving correction checked in final held TeX/PDF; no recursive supplier acceptance"
+    },
+    {
+      "id": "S22",
+      "finding": "F5",
+      "source": "height-different.md:61; retained evaluation-sections1-4.tex:373-386",
+      "required": "multiplication pullback and whole morphism index; derivative/Fitting/dual/tower consumers",
+      "status": "receiving correction checked in final held TeX/PDF"
+    }
+  ]
+}

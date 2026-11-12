@@ -7,7 +7,7 @@
     {
       "id": "TEX-F01",
       "inference": "The generated TeX presents exactly the mathematical expressions in the frozen proof sources.",
-      "objection": "The interim renderer changed radical scope, symbolic exponent grouping, starred sheaf notation and some operator/set notation. Examples included Q(√2) rendered with an empty radical; 149^-L_N with only minus in the exponent; j_* rendered with a multiplication dot; superscript ss left ungrouped; and aggregate summation and point-Q notation transformed incorrectly.",
+      "objection": "The interim renderer changed radical scope, symbolic exponent grouping, starred sheaf notation and some operator/set notation. Examples included Q(\u221a2) rendered with an empty radical; 149^-L_N with only minus in the exponent; j_* rendered with a multiplication dot; superscript ss left ungrouped; and aggregate summation and point-Q notation transformed incorrectly.",
       "historical_disposition": "Prior justification found in the actual unchanged source expressions. These are new serialization defects, not newly discovered gaps in the earlier arithmetic arguments.",
       "sources": [
         "research/quartic214/PROOF.md",
@@ -22,7 +22,7 @@
       ],
       "related_use_scope": "Every Part I ASCII/Unicode formula transformation, especially roots, exponent/subscript atoms, stars, set braces, all-embedding indices, sum operators and point/field symbols; retained exact TeX body checked separately.",
       "manuscript_disposition": "All recorded formula, identifier, connector, multiline-math and exact-body-span corrections incorporated and compared at final TeX f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2, with matching final PDF bound under TEX-F03.",
-      "independent_disposition": "The current non-author disposition is supplied only by separately authored REVIEW_DECISION.json and REVIEW_REPORT.md; this author register supplies no approval.",
+      "independent_disposition": "No current acceptance supplied by this author; historical receipts archived unchanged.",
       "aliases": [
         "Independent reviewer initially used informal TEX-F02 for the set-brace subfinding; consolidated here as TEX-F01 without dropping it."
       ],
@@ -140,7 +140,9 @@
         "generator": "research/quartic214-manuscript/assemble.py",
         "source_map": "research/quartic214-manuscript/SOURCE_SPANS.json",
         "comparison": "Compared actual source and mapped TeX for each recorded case; source-context sum aliases confined to aggregate-bridge, height-metric and height-different. Literal exceptional-set Sigma is retained in PROOF. The complete retained V15 body is checked separately for exact LF content."
-      }
+      },
+      "prior_receiving_disposition": "All recorded formula, identifier, connector, multiline-math and exact-body-span corrections incorporated and compared at final TeX f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2, with matching final PDF bound under TEX-F03.",
+      "current_binding_status": "Historical disposition retained at exact old version and scope; changed receiving binding awaits fresh non-author review. F1/F2 reopen any blanket serialization-completeness inference."
     },
     {
       "id": "TEX-F02",
@@ -159,7 +161,9 @@
       ],
       "related_use_scope": "Introduction, Part I supplier notices, Part II scope note, theorem quantifiers and source-carry passages.",
       "manuscript_disposition": "Source notices incorporated and compared: operative product H3, M1/M5 conductor, raw224 boundary, exact retained V15 scope, uniform ineffective N0 and coefficient-only N>=53 are explicit.",
-      "independent_disposition": "The current non-author disposition is supplied only by separately authored REVIEW_DECISION.json and REVIEW_REPORT.md; this author register supplies no approval."
+      "independent_disposition": "No current acceptance supplied by this author; historical receipts archived unchanged.",
+      "prior_receiving_disposition": "Source notices incorporated and compared: operative product H3, M1/M5 conductor, raw224 boundary, exact retained V15 scope, uniform ineffective N0 and coefficient-only N>=53 are explicit.",
+      "current_binding_status": "Historical disposition retained at exact old version and scope; changed receiving binding awaits fresh non-author review. F1/F2 reopen any blanket serialization-completeness inference."
     },
     {
       "id": "TEX-F03",
@@ -176,7 +180,7 @@
       ],
       "related_use_scope": "Build command, engine and dependencies, selected source target, actual PDF bytes, release manifest and independent review bindings.",
       "manuscript_disposition": "Actual matching final PDF and complete build metadata incorporated and compared; independent source/PDF review is separately authored.",
-      "independent_disposition": "The current non-author disposition is supplied only by separately authored REVIEW_DECISION.json and REVIEW_REPORT.md; this author register supplies no approval.",
+      "independent_disposition": "No current acceptance supplied by this author; historical receipts archived unchanged.",
       "resolution_evidence": {
         "build": "research/quartic214-manuscript/BUILD.json",
         "build_sha256": "43cca247b6861bd9f756f3d30f643260bb8f55da6094c9fdcb9610083ea70143",
@@ -212,7 +216,9 @@
         },
         "cross_references": "auxiliary files stabilized; no unresolved-reference or duplicate-label diagnostics",
         "scope": "Compared actual file hashes with the selected build target and recorded output. Root performed the serial build. No build was run by this author task. Artifact correspondence is not an arithmetic proof."
-      }
+      },
+      "prior_receiving_disposition": "Actual matching final PDF and complete build metadata incorporated and compared; independent source/PDF review is separately authored.",
+      "current_binding_status": "Historical disposition retained at exact old version and scope; changed receiving binding awaits fresh non-author review. F1/F2 reopen any blanket serialization-completeness inference."
     },
     {
       "id": "TEX-F04",
@@ -253,7 +259,7 @@
       ],
       "related_use_scope": "Every214 consumer plausibly affected by the actual corrected statements, not only the broad V15 carry assertion. Determine the bounded scope from the actual audit before disposition; review changed routes anew.",
       "manuscript_disposition": "Complete final amended V16 and FOUNDATION_TRANSITION.md incorporated at final TeX f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2. The fresh nine-obligation foundation contract binds this changed receiving application; the non-author decision is a separate record.",
-      "independent_disposition": "The current non-author disposition is supplied only by separately authored REVIEW_DECISION.json and REVIEW_REPORT.md; this author register supplies no approval.",
+      "independent_disposition": "No current acceptance supplied by this author; historical receipts archived unchanged.",
       "audit_scope_limitation": "Fable explicitly did not reread every changed-modulus proof; its unwritten alternative TZ route is not adopted. Unread Kato/Ribet/final-version portions limit that audit; they are not new objections without an argument. Actual V16 review derivations and retained prerequisites are identified, without claiming that this author repeated every primary-source reading.",
       "current_214_consumers": [
         "source-carry C01/C08-C10/C12-C13",
@@ -261,12 +267,128 @@
         "primary-source-bridges original-normalization lower bound",
         "height-averaging product route H3.1",
         "height-supplier H2/H4"
+      ],
+      "prior_receiving_disposition": "Complete final amended V16 and FOUNDATION_TRANSITION.md incorporated at final TeX f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2. The fresh nine-obligation foundation contract binds this changed receiving application; the non-author decision is a separate record.",
+      "current_binding_status": "Historical disposition retained at exact old version and scope; changed receiving binding awaits fresh non-author review. F1/F2 reopen any blanket serialization-completeness inference."
+    },
+    {
+      "severity": "medium",
+      "kind": "mathematical notation/serialization",
+      "location": "research/quartic214-manuscript/quartic214.tex:2506; PDF p85",
+      "required": "a_sigma=D(mu_sigma)^(-1/4)",
+      "printed": "a_sigma=D(mu_sigma)^(-1)/4",
+      "diagnosis": "At sigma=tau=1, next cocycle identity gives 1/4=1.",
+      "consumers": [
+        "M2 original representation",
+        "M6 determinant/multiplicity",
+        "H1 original Tate identification"
+      ],
+      "history_read": [
+        "research/quartic214/proofs/modularity.md:15-19",
+        "quartic214.tex:3071",
+        "quartic214.tex:3474",
+        "quartic214.tex:6438",
+        "quartic214.tex:13336"
+      ],
+      "incorporation": "inconsistent",
+      "status": "open; no repair made",
+      "scope": "not a newly missing arithmetic argument",
+      "fresh_review_id": "F1",
+      "id": "PR30-F1",
+      "historical_disposition": "prior intended justification located",
+      "manuscript_disposition": "Corrective source overlay and current TeX incorporated; fresh non-author review pending.",
+      "independent_disposition": "Not authored here",
+      "resolution_evidence": [
+        "research/quartic214-manuscript-review/CORRECTION_ARGUMENT.md",
+        "research/quartic214-manuscript/SOURCE_CORRECTIONS_V1.json"
+      ]
+    },
+    {
+      "severity": "low",
+      "kind": "mathematical notation/serialization",
+      "location": "research/quartic214-manuscript/quartic214.tex:2812",
+      "required": "sum_j e_j f_j=d",
+      "printed": "sum e_{{jf_j}}=d",
+      "consumers": [
+        "vertical discriminant degree bound"
+      ],
+      "history_read": [
+        "quartic214.tex:2786",
+        "research/quartic214/proofs/height-different.md:17-19"
+      ],
+      "incorporation": "partly correct",
+      "status": "open; no repair made",
+      "scope": "no counterexample to different estimate",
+      "fresh_review_id": "F2",
+      "id": "PR30-F2",
+      "historical_disposition": "prior justification located",
+      "manuscript_disposition": "Corrective source overlay and current TeX incorporated; fresh non-author review pending.",
+      "independent_disposition": "Not authored here",
+      "resolution_evidence": [
+        "research/quartic214-manuscript-review/CORRECTION_ARGUMENT.md",
+        "research/quartic214-manuscript/SOURCE_CORRECTIONS_V1.json"
+      ]
+    },
+    {
+      "id": "PR30-F3",
+      "fresh_review_id": "F3",
+      "inference": "Extension, relative-module, trace and tower labels denote their full base/extension indices, not quotients.",
+      "location": "height-different:31,61,63,65,83,85; height-metric:9; height-assembly:21",
+      "historical_disposition": "Prior intended argument located and read; no new missing arithmetic claimed.",
+      "manuscript_disposition": "Exact corrective source overlay incorporated in receiving TeX; current independent review pending.",
+      "independent_disposition": "Not authored here; fresh non-author receipt required.",
+      "related_use_scope": "All 19 selected Markdown underscore/slash forms, extension/differential/dualizing/trace/tower labels; actual same-lattice and every intermediate component consumers. Genuine module quotients and over-base declarations retained.",
+      "resolution_evidence": [
+        "research/quartic214-manuscript-review/CORRECTION_ARGUMENT.md",
+        "research/quartic214-manuscript/SOURCE_CORRECTIONS_V1.json",
+        "research/quartic214-manuscript/AUTHOR_NOTES.md"
+      ]
+    },
+    {
+      "id": "PR30-F4",
+      "fresh_review_id": "F4",
+      "inference": "Letter-plus-digit names retain numeric indices under Unicode powers in factors, scalar identities and c_4.",
+      "location": "PROOF:9; existence:19,33-37,84; height-different:95",
+      "historical_disposition": "Prior intended argument located and read; no new missing arithmetic claimed.",
+      "manuscript_disposition": "Exact corrective source overlay incorporated in receiving TeX; current independent review pending.",
+      "independent_disposition": "Not authored here; fresh non-author receipt required.",
+      "related_use_scope": "All 19 selected Markdown ASCII letter-digit Unicode-power adjacencies, actual factor and contact-prime consumers, inverse-power identities, c_4 invariant and uniform-existence repetitions. Earlier F1/F2 scan did not establish these classes.",
+      "resolution_evidence": [
+        "research/quartic214-manuscript-review/CORRECTION_ARGUMENT.md",
+        "research/quartic214-manuscript/SOURCE_CORRECTIONS_V1.json",
+        "research/quartic214-manuscript/AUTHOR_NOTES.md"
+      ]
+    },
+    {
+      "id": "PR30-F5",
+      "fresh_review_id": "F5",
+      "reported_by": "/root/q214_astra_repair_review",
+      "inference": "Multiplication pullback star and full [n] differential-module index retain the derivative scalar n.",
+      "location": "height-different.md:61; receiving TeX2830/PDF99 at prior F1\u2013F4 candidate",
+      "historical_disposition": "Prior intended justification located and read in evaluation-sections1-4.tex:373\u2013386 and height-different:57\u201385,111\u2013115.",
+      "manuscript_disposition": "Combined F3/F5 corrective line incorporated; new independent review pending.",
+      "independent_disposition": "Not authored here.",
+      "related_use_scope": "Selected-source mathematical star exponents and bracket subscripts, combined F3-2 line61 with finding_ids [F3,F5], actual derivative/trace-dual/tower/vertical consumers; other pullbacks, group star, pushforward and torsion brackets retain distinct meanings. Earlier scans did not establish this class.",
+      "resolution_evidence": [
+        "research/quartic214-manuscript-review/CORRECTION_ARGUMENT.md",
+        "research/quartic214-manuscript/SOURCE_CORRECTIONS_V1.json",
+        "research/quartic214-manuscript/AUTHOR_NOTES.md"
       ]
     }
   ],
   "scope_limits": [
     "This register's author performed a source-first incorporation reconstruction and selected source/consumer comparison, not a fresh line-by-line reproof of all V15 internals or a new reading of every external publication.",
     "Exact retained source carry and the final assembled-proof scope require a separate current non-author judgment. No author-generated acceptance is present.",
-    "Controller eligibility is not attested by the author records or checker; structural checks do not prove arithmetic correctness or independence of thought."
-  ]
+    "Controller eligibility is not attested by the author records or checker; structural checks do not prove arithmetic correctness or independence of thought.",
+    "recursive rank/RC/Kato source checks",
+    "recursive Gaussian-prime/GI/transference and changed V16 application",
+    "complete geometric/modularity/p-adic/model/metric height source checks",
+    "full historical objection reconciliation",
+    "full serialization/visual review",
+    "Earlier F1/F2 scan did not establish extension-subscript or numeric-index Unicode-power correctness; expanded F3/F4 review remains bounded.",
+    "F5 found after F3/F4 review: the earlier grouping scan did not establish adjacent pullback-star/bracket-index correctness."
+  ],
+  "current_author": "/root/q214_sol_repair_records",
+  "historical_dispositions_preserved_at": "research/quartic214-manuscript-review/history/a8843cc/FINDINGS.json",
+  "complete_protocol_D_closure": false
 }

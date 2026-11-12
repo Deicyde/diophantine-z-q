@@ -1,0 +1,179 @@
+{
+  "schema": "quartic214-source-corrections-v1",
+  "status": "author repair; independent acceptance pending",
+  "corrections": [
+    {
+      "id": "F1",
+      "source": "research/quartic214/proofs/modularity.md",
+      "source_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e",
+      "source_line": 15,
+      "original_line": "Let c(sigma,tau)=mu_sigma sigma(mu_tau) mu_(sigma tau)^-1 in Q*. Rational quasi-isogeny degree is defined by D(mu)=deg([n]mu)/n^4; multiplicativity, conjugation invariance and deg([n])=n^4 make this independent of n. Thus D(c mu)=c^4 D(mu). For a_sigma=D(mu_sigma)^-1/4 with positive real fourth root,",
+      "corrected_line": "Let c(sigma,tau)=mu_sigma sigma(mu_tau) mu_(sigma tau)^-1 in Q*. Rational quasi-isogeny degree is defined by D(mu)=deg([n]mu)/n^4; multiplicativity, conjugation invariance and deg([n])=n^4 make this independent of n. Thus D(c mu)=c^4 D(mu). For a_sigma=D(mu_sigma)^(-1/4) with positive real fourth root,"
+    },
+    {
+      "id": "F2",
+      "source": "research/quartic214/proofs/height-different.md",
+      "source_sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "source_line": 43,
+      "original_line": "Multiplying by all f_j and using Σe_jf_j=d bounds the whole discriminant coefficient by",
+      "corrected_line": "Multiplying by all f_j and using `Σ_j e_j f_j=d` bounds the whole discriminant coefficient by"
+    },
+    {
+      "id": "F3-1",
+      "finding_family": "F3",
+      "source": "research/quartic214/proofs/height-different.md",
+      "source_sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "source_line": 31,
+      "original_line": "Here is a direct reconstruction useful for checking conventions. For a finite extension of complete DVRs V⊂U with fraction-field degree n, choose uniformizer π of V. The element y=1/(nπ) has field trace 1/π and is therefore outside U^vee. As U^vee is a fractional ideal of the DVR U, it is strictly smaller than yU. Taking inverse fractional ideals gives D_U/V strictly larger than nπU. With v_U(π)=e this yields",
+      "corrected_line": "Here is a direct reconstruction useful for checking conventions. For a finite extension of complete DVRs V⊂U with fraction-field degree n, choose uniformizer π of V. The element y=1/(nπ) has field trace 1/π and is therefore outside U^vee. As U^vee is a fractional ideal of the DVR U, it is strictly smaller than yU. Taking inverse fractional ideals gives D_{U/V} strictly larger than nπU. With v_U(π)=e this yields"
+    },
+    {
+      "id": "F3-2",
+      "finding_family": "F3",
+      "source": "research/quartic214/proofs/height-different.md",
+      "source_sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "source_line": 61,
+      "original_line": "The graph of [n] is the base change of the diagonal of the smooth relative curve E/V, hence a regular immersion into E×_V E. Projection is smooth. This gives an explicit local-complete-intersection factorization of [n]. Invariant differentials trivialize Ω_E/V as a line pulled back from V. The group law differentiates as addition at the identity; induction gives [n]^*ω=nω for positive n. Therefore the relative differentials of [n] have presentation O_E --n--> O_E and Fitt_0 Ω_[n]=(n). This is n, **not the degree n²**.",
+      "corrected_line": "The graph of [n] is the base change of the diagonal of the smooth relative curve E/V, hence a regular immersion into E×_V E. Projection is smooth. This gives an explicit local-complete-intersection factorization of [n]. Invariant differentials trivialize Ω_{E/V} as a line pulled back from V. The group law differentiates as addition at the identity; induction gives `[n]^{*}ω=nω` for positive n. Therefore the relative differentials of [n] have presentation O_E --n--> O_E and Fitt_0 Ω_{[n]}=(n). This is n, **not the degree n²**.",
+      "finding_ids": [
+        "F3",
+        "F5"
+      ]
+    },
+    {
+      "id": "F3-3",
+      "finding_family": "F3",
+      "source": "research/quartic214/proofs/height-different.md",
+      "source_sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "source_line": 63,
+      "original_line": "Base change by the zero section E[n]→Spec V preserves finite flatness, the local-complete-intersection property, the displayed presentation and its Fitting ideal. For this finite flat LCI V→A, Stacks0BWE (Lemma49.10.1) checks the exact syntomic hypotheses, Stacks0BWF (49.10.4) gives invertibility of ω_A/V, and Stacks0BWG (49.12.3, on the archived section0BWB) identifies the scheme different with Fitt_0 Ω_A/V=(n). Stacks Definition49.9.1/0BW4 defines that scheme different as Ann(ω_A/V / Aτ).",
+      "corrected_line": "Base change by the zero section E[n]→Spec V preserves finite flatness, the local-complete-intersection property, the displayed presentation and its Fitting ideal. For this finite flat LCI V→A, Stacks0BWE (Lemma49.10.1) checks the exact syntomic hypotheses, Stacks0BWF (49.10.4) gives invertibility of ω_{A/V}, and Stacks0BWG (49.12.3, on the archived section0BWB) identifies the scheme different with Fitt_0 Ω_{A/V}=(n). Stacks Definition49.9.1/0BW4 defines that scheme different as Ann(ω_{A/V} / Aτ)."
+    },
+    {
+      "id": "F3-4",
+      "finding_family": "F3",
+      "source": "research/quartic214/proofs/height-different.md",
+      "source_sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "source_line": 65,
+      "original_line": "The generic trace identification is fixed, rather than an unspecified module isomorphism: Stacks0BW2 (49.8.2) maps x∈A^vee to b↦Tr_L/Frac(V)(xb). Stacks0BW3 (49.8.3) maps **1 to τ**. Under this map, the annihilator in the preceding paragraph is",
+      "corrected_line": "The generic trace identification is fixed, rather than an unspecified module isomorphism: Stacks0BW2 (49.8.2) maps x∈A^vee to b↦Tr_{L/Frac(V)}(xb). Stacks0BW3 (49.8.3) maps **1 to τ**. Under this map, the annihilator in the preceding paragraph is"
+    },
+    {
+      "id": "F3-5",
+      "finding_family": "F3",
+      "source": "research/quartic214/proofs/height-different.md",
+      "source_sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "source_line": 83,
+      "original_line": "`U^vee_V = {x: Tr_U/W(xU)⊂W^vee_V} = α U^vee_W`.",
+      "corrected_line": "`U^vee_V = {x: Tr_{U/W}(xU)⊂W^vee_V} = α U^vee_W`."
+    },
+    {
+      "id": "F3-6",
+      "finding_family": "F3",
+      "source": "research/quartic214/proofs/height-different.md",
+      "source_sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "source_line": 85,
+      "original_line": "Taking inverse fractional ideals yields D_U/V=D_U/W D_W/V U, with exponent r_U/V=r_U/W+e_U/W r_W/V. All differents have nonnegative exponents. Thus r_U/V≤v_U(n)=e_U/W v_W(n) implies r_W/V≤v_W(n). Passing to completions is legitimate by §1; this proves the assertion at every place of every intermediate field. The estimate concerns a single-point field and its subfields; it requires no bound on a torsion splitting field.",
+      "corrected_line": "Taking inverse fractional ideals yields D_{U/V}=D_{U/W} D_{W/V} U, with exponent r_{U/V}=r_{U/W}+e_{U/W} r_{W/V}. All differents have nonnegative exponents. Thus r_{U/V}≤v_U(n)=e_{U/W} v_W(n) implies r_{W/V}≤v_W(n). Passing to completions is legitimate by §1; this proves the assertion at every place of every intermediate field. The estimate concerns a single-point field and its subfields; it requires no bound on a torsion splitting field."
+    },
+    {
+      "id": "F3-7",
+      "finding_family": "F3",
+      "source": "research/quartic214/proofs/height-metric.md",
+      "source_sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e",
+      "source_line": 9,
+      "original_line": "Apply Javanpeykar's identification to the *same* smooth projective geometrically connected curve `X/K`, genus `g≥1`, and its minimal regular semistable model `p:𝒳→Spec O_K`. Thus `E=H0(𝒳,ω_𝒳/O_K)` with the displayed L² metric has",
+      "corrected_line": "Apply Javanpeykar's identification to the *same* smooth projective geometrically connected curve `X/K`, genus `g≥1`, and its minimal regular semistable model `p:𝒳→Spec O_K`. Thus `E=H0(𝒳,ω_{𝒳/O_K})` with the displayed L² metric has"
+    },
+    {
+      "id": "F3-8",
+      "finding_family": "F3",
+      "source": "research/quartic214/proofs/height-assembly.md",
+      "source_sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5",
+      "source_line": 21,
+      "original_line": "Choose one finite number field K defining the cover, making the curve semistable, and splitting its unramified fibre over t=2. Existence of such an extension follows from semistable reduction and adjoining finitely many point coordinates. Its degree is not bounded. Let B be the normalization of `O_K[t]` in `K(X_H)`, and put `C=B/(t−2)B`. The integral-evaluation proof uses this same B and this possibly nonmaximal order C. Let `E=H0(𝒳,ω_𝒳/O_K)` for the minimal regular semistable model 𝒳 of X_H. Then `evaluation/PROOF.md` supplies the literal integral map",
+      "corrected_line": "Choose one finite number field K defining the cover, making the curve semistable, and splitting its unramified fibre over t=2. Existence of such an extension follows from semistable reduction and adjoining finitely many point coordinates. Its degree is not bounded. Let B be the normalization of `O_K[t]` in `K(X_H)`, and put `C=B/(t−2)B`. The integral-evaluation proof uses this same B and this possibly nonmaximal order C. Let `E=H0(𝒳,ω_{𝒳/O_K})` for the minimal regular semistable model 𝒳 of X_H. Then `evaluation/PROOF.md` supplies the literal integral map"
+    },
+    {
+      "id": "F4-1",
+      "finding_family": "F4",
+      "source": "research/quartic214/PROOF.md",
+      "source_sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165",
+      "source_line": 9,
+      "original_line": "The exact [Laurent proof checker](construction/check_exact.py) reconstructs the deleted coordinates, checks the six inverse-power definitions, and compares all twenty factor components to the changed physical factor system up to a nonzero rational normalization and q^4. It compares all 162 untouched rows. The factors have exponents (5,2,4), with exponent 3 in the special input term. They are **new arithmetic factors**; an old factor-exponent conclusion is not reused to prove their soundness. The equations q s1=1, s2=s1², s4=s2² require q≠0. Completeness constructs witnesses in that domain. No bijection with the discarded q=0 witness stratum is claimed.",
+      "corrected_line": "The exact [Laurent proof checker](construction/check_exact.py) reconstructs the deleted coordinates, checks the six inverse-power definitions, and compares all twenty factor components to the changed physical factor system up to a nonzero rational normalization and q^4. It compares all 162 untouched rows. The factors have exponents (5,2,4), with exponent 3 in the special input term. They are **new arithmetic factors**; an old factor-exponent conclusion is not reused to prove their soundness. The equations q s1=1, s2=s_{1}^2, s4=s_{2}^2 require q≠0. Completeness constructs witnesses in that domain. No bijection with the discarded q=0 witness stratum is claimed."
+    },
+    {
+      "id": "F4-2",
+      "finding_family": "F4",
+      "source": "research/quartic214/proofs/existence.md",
+      "source_sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "source_line": 19,
+      "original_line": "In each detector reuse three power slots as s1,s2,s4 and impose q*s1=1, s2=s1², s4=s2². The214 factors use exponents(5,2,4), with special exponent3 below. Multiplying their defining equations by q^-4 makes the old highest powers quadratic expressions in already stored squares. The218 control retains exponents(7,2,4), special exponent1; it also stores q3 and s3, with s3=s1*s2 and q3*s3=1. These equations imply q3=q³ and s3=q^-3 without further guards.",
+      "corrected_line": "In each detector reuse three power slots as s1,s2,s4 and impose q*s1=1, s2=s_{1}^2, s4=s_{2}^2. The214 factors use exponents(5,2,4), with special exponent3 below. Multiplying their defining equations by q^-4 makes the old highest powers quadratic expressions in already stored squares. The218 control retains exponents(7,2,4), special exponent1; it also stores q3 and s3, with s3=s1*s2 and q3*s3=1. These equations imply q3=q³ and s3=q^-3 without further guards."
+    },
+    {
+      "id": "F4-3",
+      "finding_family": "F4",
+      "source": "research/quartic214/proofs/existence.md",
+      "source_sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "source_line": 33,
+      "original_line": " T1=1+q^5 C2²+q² D_H²+q^4 B1^4,",
+      "corrected_line": " T1=1+q^5 C_{2}^2+q² D_H²+q^4 B1^4,"
+    },
+    {
+      "id": "F4-4",
+      "finding_family": "F4",
+      "source": "research/quartic214/proofs/existence.md",
+      "source_sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "source_line": 34,
+      "original_line": " T2=1+q^5 G²+q² A3²+q^4 B0^4,",
+      "corrected_line": " T2=1+q^5 G²+q² A_{3}^2+q^4 B0^4,"
+    },
+    {
+      "id": "F4-5",
+      "finding_family": "F4",
+      "source": "research/quartic214/proofs/existence.md",
+      "source_sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "source_line": 35,
+      "original_line": " T3=1+q^5 I^4+q³ A2²+q² A4²+q^4 B3^4,",
+      "corrected_line": " T3=1+q^5 I^4+q³ A_{2}^2+q² A_{4}^2+q^4 B3^4,"
+    },
+    {
+      "id": "F4-6",
+      "finding_family": "F4",
+      "source": "research/quartic214/proofs/existence.md",
+      "source_sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "source_line": 36,
+      "original_line": " T4=1+q^5 C3²+q² C1^4+q^4 B4^4,",
+      "corrected_line": " T4=1+q^5 C_{3}^2+q² C1^4+q^4 B4^4,"
+    },
+    {
+      "id": "F4-7",
+      "finding_family": "F4",
+      "source": "research/quartic214/proofs/existence.md",
+      "source_sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "source_line": 37,
+      "original_line": " T5=1+q^5 C4²+q² A1²+q^4 B2^4.",
+      "corrected_line": " T5=1+q^5 C_{4}^2+q² A_{1}^2+q^4 B2^4."
+    },
+    {
+      "id": "F4-8",
+      "finding_family": "F4",
+      "source": "research/quartic214/proofs/existence.md",
+      "source_sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332",
+      "source_line": 84,
+      "original_line": "At a selected contact prime v(q)=-1, all C_i,I,G have valuation>=4 and every reciprocal abscissa has valuation>=2. The changed terms q^5 C_i² have valuation>=3, q^5 I^4>=11 and q³ A2²>=1; every other nonconstant term was already positive. Hence W=1 modulo the chosen place. At the opposite place the newly proved noncancellation lemma still applies; trace residues are1 or2. The comparison pole input therefore has the same odd depth1 at selected primes and even valuations away from them.",
+      "corrected_line": "At a selected contact prime v(q)=-1, all C_i,I,G have valuation>=4 and every reciprocal abscissa has valuation>=2. The changed terms q^5 C_i² have valuation>=3, q^5 I^4>=11 and q³ A_{2}^2>=1; every other nonconstant term was already positive. Hence W=1 modulo the chosen place. At the opposite place the newly proved noncancellation lemma still applies; trace residues are1 or2. The comparison pole input therefore has the same odd depth1 at selected primes and even valuations away from them."
+    },
+    {
+      "id": "F4-9",
+      "finding_family": "F4",
+      "source": "research/quartic214/proofs/height-different.md",
+      "source_sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa",
+      "source_line": 95,
+      "original_line": "Direct substitution into Δ=−16(4a³+27b²), c4=−48a and j=c4³/Δ gives Δ=1728t²/(t−1)³ and j=1728t. All denominators and Δ are units on U. It is an elliptic scheme there. As N is invertible, E_t[N] is finite étale. Its primitive locus is open and closed: remove E_t[m] for the finitely many proper divisors m|N; these are unions of components étale locally on U. Thus the exact-order-N locus is finite étale as well, including N=1 with the usual order-one point.",
+      "corrected_line": "Direct substitution into Δ=−16(4a³+27b²), c4=−48a and j=c_{4}^3/Δ gives Δ=1728t²/(t−1)³ and j=1728t. All denominators and Δ are units on U. It is an elliptic scheme there. As N is invertible, E_t[N] is finite étale. Its primitive locus is open and closed: remove E_t[m] for the finitely many proper divisors m|N; these are unions of components étale locally on U. Thus the exact-order-N locus is finite étale as well, including N=1 with the usual order-one point."
+    }
+  ]
+}

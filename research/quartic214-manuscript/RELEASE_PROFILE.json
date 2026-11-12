@@ -3,7 +3,7 @@
   "date": "2026-11-12",
   "author": "/root",
   "kind": "214-variable research manuscript; extension of public PR30, without changing the official numbered release",
-  "parent_commit": "110cf72565be326fd567cd1a64a3b2e00213dcd1",
+  "parent_commit": "a8843cca75ff29d51aa7b288c80b8bdc3a1ca3bb",
   "public_destination": "elliotglazer/diophantine-z-q",
   "branch": "proposal/quartic-214-protocol-d",
   "theorem": "There is a fixed ineffective integer N0 such that every integer N>=N0 gives the displayed 214-variable quartic defining the integers over the rationals.",
@@ -37,5 +37,14 @@
     "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74",
     "historical_basis": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
     "transition": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md"
+  },
+  "original_proof_parent_commit": "110cf72565be326fd567cd1a64a3b2e00213dcd1",
+  "current_revision": {
+    "reason": "Formula transcription repairs following the automated Astra audit and related-use review",
+    "source_corrections": "research/quartic214-manuscript/SOURCE_CORRECTIONS_V1.json",
+    "application": "research/quartic214-manuscript-review/CORRECTION_APPLICATION.json",
+    "earlier_review_archive": "research/quartic214-manuscript-review/history/a8843cc/ARCHIVE.json",
+    "adverse_audit_archive": "research/quartic214-manuscript-review/audits/astra-a8843cc-20261112/ARCHIVE.json",
+    "scope": "No polynomial or arithmetic theorem change. Formula incorporation, related-use coverage, source inclusion/changed joins and research packaging have scoped receipts. Complete-proof/inventory review remains incomplete; no Protocol D closure or App approval is asserted."
   }
 }

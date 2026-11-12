@@ -3,24 +3,26 @@
   "application_id": "Q214-FULL-TEX-INCORPORATION-20261112",
   "role": "author_editorial_application_no_independent_acceptance",
   "authors": [
+    "/root/q214_sol_formula_repairs",
     "/root/q214_tex_coverage",
+    "/root/q214_sol_repair_records",
     "/root/q214_tex_author"
   ],
   "source_commit": "110cf72565be326fd567cd1a64a3b2e00213dcd1",
   "manuscript": {
     "path": "research/quartic214-manuscript/quartic214.tex",
-    "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-    "bytes": 2337499
+    "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+    "bytes": 2337533
   },
   "source_map": {
     "path": "research/quartic214-manuscript/SOURCE_SPANS.json",
-    "sha256": "a79b6787e9aa80207b25492296fa730425941528ba5ea8ca0fdd06c090b844d7",
-    "bytes": 390155
+    "sha256": "c98fc0d5860fb1d17a1d1ec7f23e266015f26e37d72443b796a782006c371391",
+    "bytes": 399870
   },
   "assembler": {
     "path": "research/quartic214-manuscript/assemble.py",
-    "sha256": "faed4ba2e07933677b2a52d9a6811b378d1ab5028d54bc62bb1b64de83fcef94",
-    "bytes": 45940
+    "sha256": "c82053474d9ce627640862ce309bb1cd931d615276920fd4df2186eb3ae2f549",
+    "bytes": 47054
   },
   "initial_source_uses": {
     "path": "research/quartic214-manuscript-review/INITIAL_SOURCE_USES.json",
@@ -29,8 +31,8 @@
   },
   "findings": {
     "path": "research/quartic214-manuscript-review/FINDINGS.json",
-    "sha256": "e5bdfddfa88c0d743d70eab73ad2118cb21dea8a77e69d4d2fbf2b9d58097b47",
-    "bytes": 20002
+    "sha256": "26e633790c4a5d5a5f48cc584896dcd79b1da67e334c6e6ffc3b430c7cff72d5",
+    "bytes": 28227
   },
   "original_contract_index": {
     "path": "research/quartic214/contracts/INDEX.json",
@@ -255,13 +257,13 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           2045,
           2101
         ],
-        "passage_sha256": "fd9308298d3c6a1ba18738cd7508d2be935de11e94ee02406fef13d1fb9304b1",
+        "passage_sha256": "78e301c0a2d6449b2c42f65c4dc73e0b6e2885fafffd949369f4cdc417e85b1e",
         "line_convention": "1-based inclusive raw splitlines with endings retained"
       },
       "map_source": "research/quartic214/PROOF.md",
@@ -275,13 +277,13 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           2104,
           2208
         ],
-        "passage_sha256": "640211bd9d1763b30b539dce32471048e245ca8ae09e408b819a39eef1202a60",
+        "passage_sha256": "1e33f3572914b0d2cd82147bce02799cc8428dab6c817d43263f6fc6d79227f7",
         "line_convention": "1-based inclusive raw splitlines with endings retained"
       },
       "map_source": "research/quartic214/proofs/existence.md",
@@ -295,8 +297,8 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           2211,
           2312
@@ -315,8 +317,8 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           2315,
           2408
@@ -335,8 +337,8 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           2411,
           2488
@@ -355,13 +357,13 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           2491,
           2634
         ],
-        "passage_sha256": "4b9f54c61ac328e70a6aa1c1cee6d201f0a9e17c1b8402d93cbeeb3bd0038cc6",
+        "passage_sha256": "af118270eca8a341bf9eebbe7fdf4dc4f76c5ce46d31385b0fadd1e023f4ff71",
         "line_convention": "1-based inclusive raw splitlines with endings retained"
       },
       "map_source": "research/quartic214/proofs/modularity.md",
@@ -375,8 +377,8 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           2637,
           2766
@@ -395,13 +397,13 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           2769,
           2900
         ],
-        "passage_sha256": "91021a8826bc9a6282dbe70e6f35a958c8a9297376a43f1f834fab662d290220",
+        "passage_sha256": "077714ee828ef6be8910d2fac1523ce2ce8f9511b3affa4056b21ed6ee16cf4e",
         "line_convention": "1-based inclusive raw splitlines with endings retained"
       },
       "map_source": "research/quartic214/proofs/height-different.md",
@@ -415,13 +417,13 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           2903,
           2962
         ],
-        "passage_sha256": "d16d821bee8dc4b247d10bafd0ae1c704dc9406db316e165c6ce66c20993bf16",
+        "passage_sha256": "4b96901bea50a77c35240c8011b081b84ae94cb3ca265844c8fc9eb5e720909a",
         "line_convention": "1-based inclusive raw splitlines with endings retained"
       },
       "map_source": "research/quartic214/proofs/height-metric.md",
@@ -435,13 +437,13 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           2965,
           3022
         ],
-        "passage_sha256": "a8b3652cba48f7392823de54bca487d255348eb46938f41384871d429b24b9d4",
+        "passage_sha256": "b29c9fdc4395b635b635cbeeda036392f056c812cde1c7bc70df7febf7522181",
         "line_convention": "1-based inclusive raw splitlines with endings retained"
       },
       "map_source": "research/quartic214/proofs/height-assembly.md",
@@ -455,8 +457,8 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           3025,
           3164
@@ -475,8 +477,8 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           3167,
           3237
@@ -495,8 +497,8 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           3240,
           3300
@@ -515,8 +517,8 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           3303,
           3348
@@ -535,8 +537,8 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           3629,
           3650
@@ -555,8 +557,8 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           3353,
           3416
@@ -575,8 +577,8 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           3419,
           3626
@@ -595,8 +597,8 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           4095,
           4230
@@ -615,8 +617,8 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           3652,
           4093
@@ -635,13 +637,13 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           2,
           45018
         ],
-        "passage_sha256": "a99d8f9214bf9b1af9119b89e51d0d6519a933d1b36f6933de97f40ffded4f99",
+        "passage_sha256": "41ccdc68d922eaeed340aa0b1ec6dc756cba8baf7d9dc84391b89c4cfc0f5687",
         "line_convention": "1-based inclusive raw splitlines with endings retained"
       },
       "map_source": "manuscripts/quartic_v16.tex",
@@ -655,8 +657,8 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           1995,
           2042
@@ -675,8 +677,8 @@
       },
       "tex": {
         "path": "research/quartic214-manuscript/quartic214.tex",
-        "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-        "bytes": 2337499,
+        "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+        "bytes": 2337533,
         "lines": [
           4233,
           4249
@@ -714,8 +716,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2217,
               2225
@@ -739,8 +741,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2232,
               2243
@@ -764,8 +766,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2254,
               2255
@@ -789,8 +791,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2258,
               2265
@@ -814,8 +816,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2266,
               2267
@@ -839,8 +841,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2293,
               2294
@@ -864,8 +866,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2295,
               2296
@@ -889,8 +891,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2310,
               2311
@@ -914,8 +916,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2312,
               2312
@@ -941,8 +943,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2217,
               2225
@@ -966,8 +968,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2232,
               2243
@@ -991,8 +993,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2254,
               2255
@@ -1016,8 +1018,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2258,
               2265
@@ -1041,8 +1043,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2266,
               2267
@@ -1066,8 +1068,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2293,
               2294
@@ -1091,8 +1093,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2295,
               2296
@@ -1116,8 +1118,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2310,
               2311
@@ -1141,8 +1143,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2312,
               2312
@@ -1168,8 +1170,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2079,
               2090
@@ -1193,8 +1195,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2091,
               2096
@@ -1230,8 +1232,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3309,
               3310
@@ -1255,8 +1257,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3313,
               3314
@@ -1280,8 +1282,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3315,
               3324
@@ -1305,8 +1307,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3325,
               3326
@@ -1330,8 +1332,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3327,
               3335
@@ -1355,8 +1357,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3338,
               3339
@@ -1380,8 +1382,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3340,
               3341
@@ -1405,8 +1407,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3342,
               3343
@@ -1430,8 +1432,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3346,
               3347
@@ -1457,8 +1459,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3309,
               3310
@@ -1482,8 +1484,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3313,
               3314
@@ -1507,8 +1509,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3315,
               3324
@@ -1532,8 +1534,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3325,
               3326
@@ -1557,8 +1559,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3327,
               3335
@@ -1582,8 +1584,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3338,
               3339
@@ -1607,8 +1609,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3340,
               3341
@@ -1632,8 +1634,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3342,
               3343
@@ -1657,8 +1659,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3346,
               3347
@@ -1684,8 +1686,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2079,
               2090
@@ -1709,8 +1711,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2091,
               2096
@@ -1746,13 +1748,13 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2504,
               2529
             ],
-            "passage_sha256": "c925cc9ef7966200b5af84e0c8dd45e96a3e6c9e0eb1e4a07389e5d1cc527ed5",
+            "passage_sha256": "16117a7b8d49ea35e8b796a57c43c6dac04dd5e5bf0e8fa01ab91007c606ac7d",
             "line_convention": "1-based inclusive raw splitlines with endings retained"
           }
         }
@@ -1773,13 +1775,13 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2504,
               2529
             ],
-            "passage_sha256": "c925cc9ef7966200b5af84e0c8dd45e96a3e6c9e0eb1e4a07389e5d1cc527ed5",
+            "passage_sha256": "16117a7b8d49ea35e8b796a57c43c6dac04dd5e5bf0e8fa01ab91007c606ac7d",
             "line_convention": "1-based inclusive raw splitlines with endings retained"
           }
         }
@@ -1800,8 +1802,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3033,
               3058
@@ -1825,8 +1827,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3059,
               3089
@@ -1850,8 +1852,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3090,
               3105
@@ -1887,8 +1889,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2530,
               2541
@@ -1912,8 +1914,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2542,
               2557
@@ -1939,8 +1941,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2530,
               2541
@@ -1964,8 +1966,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2542,
               2557
@@ -1991,8 +1993,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3033,
               3058
@@ -2016,8 +2018,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3059,
               3089
@@ -2041,8 +2043,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3090,
               3105
@@ -2078,8 +2080,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2558,
               2577
@@ -2105,8 +2107,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2558,
               2577
@@ -2132,8 +2134,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3033,
               3058
@@ -2157,8 +2159,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3059,
               3089
@@ -2182,8 +2184,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3090,
               3105
@@ -2219,8 +2221,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2578,
               2603
@@ -2246,8 +2248,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2578,
               2603
@@ -2273,8 +2275,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3033,
               3058
@@ -2298,8 +2300,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3059,
               3089
@@ -2323,8 +2325,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3090,
               3105
@@ -2360,8 +2362,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2604,
               2629
@@ -2387,8 +2389,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2604,
               2629
@@ -2414,8 +2416,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3033,
               3058
@@ -2439,8 +2441,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3059,
               3089
@@ -2464,8 +2466,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3090,
               3105
@@ -2501,8 +2503,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2320,
               2327
@@ -2526,8 +2528,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2328,
               2339
@@ -2551,8 +2553,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2340,
               2347
@@ -2576,8 +2578,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2348,
               2377
@@ -2601,8 +2603,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2378,
               2403
@@ -2626,8 +2628,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2404,
               2408
@@ -2653,8 +2655,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2320,
               2327
@@ -2678,8 +2680,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2328,
               2339
@@ -2703,8 +2705,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2340,
               2347
@@ -2728,8 +2730,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2348,
               2377
@@ -2753,8 +2755,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2378,
               2403
@@ -2778,8 +2780,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2404,
               2408
@@ -2805,8 +2807,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3033,
               3058
@@ -2830,8 +2832,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3059,
               3089
@@ -2855,8 +2857,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3090,
               3105
@@ -2892,8 +2894,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2653,
               2668
@@ -2917,8 +2919,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2669,
               2688
@@ -2942,8 +2944,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2689,
               2709
@@ -2967,8 +2969,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2710,
               2741
@@ -2992,8 +2994,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2742,
               2761
@@ -3017,8 +3019,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2762,
               2766
@@ -3044,8 +3046,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2653,
               2668
@@ -3069,8 +3071,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2669,
               2688
@@ -3094,8 +3096,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2689,
               2709
@@ -3119,8 +3121,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2710,
               2741
@@ -3144,8 +3146,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2742,
               2761
@@ -3169,8 +3171,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2762,
               2766
@@ -3196,8 +3198,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3033,
               3058
@@ -3221,8 +3223,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3127,
               3164
@@ -3258,8 +3260,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2780,
               2795
@@ -3283,13 +3285,13 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2796,
               2825
             ],
-            "passage_sha256": "67838d797e4376966f41e95b008a71c397c9e9675b7d7aa5da6ed3ce0ea54b84",
+            "passage_sha256": "07bbc93cfeb9c5a7702f5972230ff31f807c59a831f31662adad3ca3bfdc4fbd",
             "line_convention": "1-based inclusive raw splitlines with endings retained"
           }
         },
@@ -3308,13 +3310,13 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2826,
               2855
             ],
-            "passage_sha256": "a9fc5f5fc0482c64d99b2e3f8de5be9121bcdafa02daeb1194b66af0b26d4aef",
+            "passage_sha256": "cdb95764609c55e14e3e036567687e5c32537b1bdb59d62960cadae63c99d3da",
             "line_convention": "1-based inclusive raw splitlines with endings retained"
           }
         },
@@ -3333,13 +3335,13 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2856,
               2877
             ],
-            "passage_sha256": "698ae5df8faee7379565ace97f4d7b5f3ff289caf6d3b7759a0fabd944bb4a8c",
+            "passage_sha256": "cd1dd90a09402d79eaafa238fed8a8af464f6780bc01fce74a78c679a414eced",
             "line_convention": "1-based inclusive raw splitlines with endings retained"
           }
         },
@@ -3358,8 +3360,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2878,
               2895
@@ -3383,8 +3385,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2896,
               2900
@@ -3410,8 +3412,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2780,
               2795
@@ -3435,13 +3437,13 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2796,
               2825
             ],
-            "passage_sha256": "67838d797e4376966f41e95b008a71c397c9e9675b7d7aa5da6ed3ce0ea54b84",
+            "passage_sha256": "07bbc93cfeb9c5a7702f5972230ff31f807c59a831f31662adad3ca3bfdc4fbd",
             "line_convention": "1-based inclusive raw splitlines with endings retained"
           }
         },
@@ -3460,13 +3462,13 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2826,
               2855
             ],
-            "passage_sha256": "a9fc5f5fc0482c64d99b2e3f8de5be9121bcdafa02daeb1194b66af0b26d4aef",
+            "passage_sha256": "cdb95764609c55e14e3e036567687e5c32537b1bdb59d62960cadae63c99d3da",
             "line_convention": "1-based inclusive raw splitlines with endings retained"
           }
         },
@@ -3485,13 +3487,13 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2856,
               2877
             ],
-            "passage_sha256": "698ae5df8faee7379565ace97f4d7b5f3ff289caf6d3b7759a0fabd944bb4a8c",
+            "passage_sha256": "cd1dd90a09402d79eaafa238fed8a8af464f6780bc01fce74a78c679a414eced",
             "line_convention": "1-based inclusive raw splitlines with endings retained"
           }
         },
@@ -3510,8 +3512,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2878,
               2895
@@ -3535,8 +3537,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2896,
               2900
@@ -3562,8 +3564,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3033,
               3058
@@ -3587,8 +3589,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3127,
               3164
@@ -3624,13 +3626,13 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2908,
               2921
             ],
-            "passage_sha256": "05763d8dcf9a720404943bb20ec2e0f22852693ad1c6e951b016ba852b97fce4",
+            "passage_sha256": "febaa1838b715cd14ff74c253609aa89871f764875595accda71540ea1ca469d",
             "line_convention": "1-based inclusive raw splitlines with endings retained"
           }
         },
@@ -3649,8 +3651,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2922,
               2943
@@ -3674,8 +3676,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2944,
               2959
@@ -3699,8 +3701,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2960,
               2962
@@ -3726,13 +3728,13 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2908,
               2921
             ],
-            "passage_sha256": "05763d8dcf9a720404943bb20ec2e0f22852693ad1c6e951b016ba852b97fce4",
+            "passage_sha256": "febaa1838b715cd14ff74c253609aa89871f764875595accda71540ea1ca469d",
             "line_convention": "1-based inclusive raw splitlines with endings retained"
           }
         },
@@ -3751,8 +3753,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2922,
               2943
@@ -3776,8 +3778,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2944,
               2959
@@ -3801,8 +3803,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2960,
               2962
@@ -3828,8 +3830,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3033,
               3058
@@ -3853,8 +3855,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3127,
               3164
@@ -3890,8 +3892,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3090,
               3105
@@ -3915,8 +3917,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3180,
               3195
@@ -3942,8 +3944,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3196,
               3222
@@ -3969,8 +3971,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3127,
               3164
@@ -4006,8 +4008,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2970,
               2981
@@ -4031,13 +4033,13 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2982,
               3001
             ],
-            "passage_sha256": "1826c4b4d3567ca297a93b9bfa26cbe27fa6925f59de1c18acd172fa542c3e87",
+            "passage_sha256": "dc94c4d298cee2ab9ab72910966cc0e99b43e88b6ab469d181de3602a318953d",
             "line_convention": "1-based inclusive raw splitlines with endings retained"
           }
         }
@@ -4058,8 +4060,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3002,
               3009
@@ -4085,8 +4087,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3010,
               3017
@@ -4110,8 +4112,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3127,
               3164
@@ -4147,8 +4149,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3033,
               3058
@@ -4172,8 +4174,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               3127,
               3164
@@ -4199,8 +4201,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2258,
               2265
@@ -4226,8 +4228,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2266,
               2267
@@ -4251,8 +4253,8 @@
           },
           "tex": {
             "path": "research/quartic214-manuscript/quartic214.tex",
-            "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-            "bytes": 2337499,
+            "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+            "bytes": 2337533,
             "lines": [
               2268,
               2283
@@ -4268,7 +4270,12 @@
     "TEX-F01",
     "TEX-F02",
     "TEX-F03",
-    "TEX-F04"
+    "TEX-F04",
+    "PR30-F1",
+    "PR30-F2",
+    "PR30-F3",
+    "PR30-F4",
+    "PR30-F5"
   ],
   "reconciliation": {
     "initial_table_preserved": true,
@@ -4276,12 +4283,12 @@
     "initial_difference": "The raw224 provenance proof was not a separate initial source-block entry. Newly discovered upstream corrections require current V16, actual GI/TZ/CMH source-to214 comparison, and explicit supersession of old P02/C01 current-source claims. The initial reconstruction remains immutable; see TEX-F04 and FOUNDATION_APPLICATION.json.",
     "separate_coverage_decision": "required from non-author reviewer"
   },
-  "review_boundary": "Preliminary model source/consumer and editorial incorporation record. Not a fresh recursive V15 arithmetic audit, independent mathematical acceptance, or controller eligibility attestation.",
+  "review_boundary": "Proposed F1-F5 formula incorporation and bounded source inclusion/changed joins; complete assembled proof and complete inventory not accepted; full Protocol D closure incomplete.",
   "foundation_transition": {
     "contract": {
       "path": "research/quartic214-manuscript-review/FOUNDATION_APPLICATION.json",
-      "sha256": "95ce2dac856bbfac8bd473d72b59b47cf4f13dba673cb61da7636c6336fa3170",
-      "bytes": 66431
+      "sha256": "7777952dbd0611d17338154168dc80d1169416c93f6b12a92d60d2b2f427341e",
+      "bytes": 66633
     },
     "historical_source": {
       "path": "research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex",
@@ -4303,13 +4310,19 @@
   "pdf_binding": {
     "build": {
       "path": "research/quartic214-manuscript/BUILD.json",
-      "sha256": "43cca247b6861bd9f756f3d30f643260bb8f55da6094c9fdcb9610083ea70143",
+      "sha256": "dab965bf5fd4d86fcb4ba4f8c215309b49979ccadbf41ed529cb38acb376eabd",
       "bytes": 39529
     },
     "pdf": {
       "path": "research/quartic214-manuscript/quartic214.pdf",
-      "sha256": "367bd75c7f5f52d7e507a7ce203ad9121cd6511c828c2718793d43f5585dd4d1",
-      "bytes": 3940841
+      "sha256": "8c22312ce54d3f2709eddc28c1045b1785d44ce0d7d47957639c0322a9d0a498",
+      "bytes": 3940738
     }
-  }
+  },
+  "correction_application": {
+    "path": "research/quartic214-manuscript-review/CORRECTION_APPLICATION.json",
+    "sha256": "5ac9e3407e9a893512216462b7eb9041eff1548961359136f9eb4af97ef5d192",
+    "bytes": 31894
+  },
+  "complete_protocol_D_closure": false
 }

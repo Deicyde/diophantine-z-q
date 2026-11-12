@@ -7,6 +7,8 @@ import hashlib
 import json
 from pathlib import Path
 
+CORRECTION_IDS = {'F1', 'F2'} | {'F3-'+str(i) for i in range(1,9)} | {'F4-'+str(i) for i in range(1,10)}
+REVIEW_SCOPES = {'formula-incorporation', 'related-use-coverage', 'source-inclusion-and-changed-joins', 'research-artifact-packaging'}
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 OBLIGATIONS = {
@@ -117,8 +119,56 @@ def validate(record, overrides=None, release=False, decision_path=None, manifest
                     binding(passage['source'], overrides)
                     binding(passage['tex'], overrides)
         foundation = transition['current_source']['path']
+    if not record.get('correction_application'):
+        raise ValueError('missing current correction application')
+    correction = json.loads(binding(record['correction_application'], overrides))
+    if correction['manuscript'] != record['manuscript'] or correction['source_map'] != record['source_map']:
+        raise ValueError('stale correction receiving binding')
+    if set(correction['obligations']) != OBLIGATIONS:
+        raise ValueError('missing correction nine-obligation argument')
+    for obligation in correction['obligations'].values():
+        for field in ['required_input','constructed_input','justification','source_references','evidence']:
+            if not obligation.get(field):
+                raise ValueError('missing correction obligation evidence')
+    for field in ['sidecar','argument','adverse_review','adverse_findings','related_use_evidence']:
+        binding(correction[field], overrides)
+    if set(correction.get('related_use_scopes', {})) != {'F1','F2','F3','F4','F5'} or not all(correction['related_use_scopes'].values()):
+        raise ValueError('missing correction related-use scope')
+    for role in ['required_sources','construction_passages','application_passages','consumer_passages']:
+        if not correction.get(role):
+            raise ValueError('missing correction consumer or source evidence')
+        for passage in correction[role]:
+            binding(passage, overrides)
+    sidecar = json.loads(binding(correction['sidecar'], overrides))
+    if {c['id'] for c in sidecar['corrections']} != CORRECTION_IDS or len(sidecar['corrections']) != 19:
+        raise ValueError('missing source correction')
+    expected_lines = {'F1':'D(mu_sigma)^(-1/4)', 'F2':'`Σ_j e_j f_j=d`'}
+    combined = next(c for c in sidecar['corrections'] if c['id'] == 'F3-2')
+    if set(combined.get('finding_ids', [])) != {'F3','F5'} or '`[n]^{*}ω=nω`' not in combined['corrected_line'] or 'Ω_{[n]}' not in combined['corrected_line']:
+        raise ValueError('missing F5 combined correction or derivative evidence')
+    for c in sidecar['corrections']:
+        if c['id'] in expected_lines and expected_lines[c['id']] not in c['corrected_line']:
+            raise ValueError('altered correction mathematical replacement')
+        original = read(c['source'], overrides)
+        if digest(original) != c['source_sha256'] or original.decode().splitlines()[c['source_line']-1] != c['original_line']:
+            raise ValueError('altered correction original evidence')
+        if not c['corrected_line'] or c['corrected_line'] == c['original_line']:
+            raise ValueError('altered correction replacement')
     needed.add(foundation)
     mapping = json.loads(binding(record['source_map'], overrides))
+    selected = {c['id']:c for c in sidecar['corrections']}
+    annotated = {}
+    for span in mapping['spans']:
+        for note in span.get('source_corrections', []):
+            annotated[note['id']] = (span['source'], note)
+    if set(annotated) != CORRECTION_IDS:
+        raise ValueError('missing selected correction map evidence')
+    for finding, c in selected.items():
+        source, note = annotated[finding]
+        if source != c['source'] or note['sidecar'] != correction['sidecar']['path'] or note['corrected_source_line'] != c['corrected_line']:
+            raise ValueError('altered selected correction map evidence')
+        if finding == 'F3-2' and set(note.get('finding_ids', [])) != {'F3','F5'}:
+            raise ValueError('missing F5 map finding traceability')
     if mapping['output'] != record['manuscript']['path'] or mapping['output_sha256'] != record['manuscript']['sha256']:
         raise ValueError('map selects another TeX target')
     tex_lines = read(record['manuscript']['path'], overrides).decode().splitlines()
@@ -197,6 +247,7 @@ def validate(record, overrides=None, release=False, decision_path=None, manifest
             'research/quartic214-manuscript-review/check_records.py']
         if record.get('foundation_transition'):
             manifest_required += [record['foundation_transition'][f]['path'] for f in ['contract','bridge']]
+        manifest_required += [record['correction_application']['path']] + [correction[f]['path'] for f in ['sidecar','argument','adverse_review','adverse_findings','related_use_evidence']]
         if not manifest_path:
             raise ValueError('missing release manifest')
         manifest_sha = manifest_binding(manifest_path, overrides, manifest_required)
@@ -205,7 +256,7 @@ def validate(record, overrides=None, release=False, decision_path=None, manifest
         decision = json.loads(read(decision_path, overrides))
         if decision['reviewer'] in record['authors'] or decision['role'] != 'non-author internal model reviewer':
             raise ValueError('self-approval or incorrect reviewer role')
-        if decision['decision'] not in ['accept', 'accepted']:
+        if decision['decision'] not in ['accept', 'accepted', 'scoped-acceptance']:
             raise ValueError('review is not accepting')
         if decision.get('controller_eligibility') != 'notattested':
             raise ValueError('checker cannot attest controller eligibility')
@@ -220,9 +271,16 @@ def validate(record, overrides=None, release=False, decision_path=None, manifest
             for field in ['contract', 'bridge', 'current_source']:
                 source = record['foundation_transition'][field]
                 required[source['path']] = source['sha256']
-        if not {'editorial-incorporation', 'source-coverage', 'assembled-proof', 'release-packaging'} <= set(decision['scopes']):
+        if decision.get('full_closure') is not False or decision.get('whole_proof_status') != 'incomplete':
+            raise ValueError('scoped receipt must preserve incomplete whole-proof status')
+        if decision.get('complete_assembled_proof_status') != 'not-accepted' or decision.get('complete_inventory_status') != 'not-accepted':
+            raise ValueError('narrow receipt must not accept complete proof or inventory')
+        required[record['correction_application']['path']] = record['correction_application']['sha256']
+        for field in ['sidecar','argument','adverse_review','adverse_findings','related_use_evidence']:
+            required[correction[field]['path']] = correction[field]['sha256']
+        if set(decision['scopes']) != REVIEW_SCOPES:
             raise ValueError('missing required review scope')
-        for scope in ['editorial-incorporation', 'source-coverage', 'assembled-proof', 'release-packaging']:
+        for scope in REVIEW_SCOPES:
             if not decision.get('scope_details', {}).get(scope):
                 raise ValueError('missing explicit review-scope limitation: ' + scope)
         dispositions = decision.get('finding_dispositions', {})
@@ -264,7 +322,8 @@ def self_test(record):
     rejected('stale-source-to-TeX-map', record, {path:read(path,{})+b'\n'}, 'stale file binding')
     bad = copy.deepcopy(record)
     mapping = json.loads(read(path, {}))
-    target = record['source_coverage'][0]['source']['path']
+    corrected_paths = {span['source'] for span in mapping['spans'] if span.get('source_corrections')}
+    target = next(entry['source']['path'] for entry in record['source_coverage'] if entry['source']['path'] not in corrected_paths)
     mapping['spans'] = [s for s in mapping['spans'] if s['source'] != target]
     changed_map = json.dumps(mapping).encode()
     bad['source_map']['sha256'] = digest(changed_map)
@@ -277,6 +336,12 @@ def self_test(record):
         data = json.dumps(application).encode()
         bad['foundation_transition']['contract'].update(sha256=digest(data), bytes=len(data))
         changed_files[app_path] = data
+    correction_path = bad['correction_application']['path']
+    correction = json.loads(read(correction_path, {}))
+    correction['source_map'] = bad['source_map']
+    data = json.dumps(correction).encode()
+    bad['correction_application'].update(sha256=digest(data), bytes=len(data))
+    changed_files[correction_path] = data
     rejected('omitted-map-proof-with-updated-author-hashes', bad, changed_files, 'omitted source-map proof lines')
     if record.get('foundation_transition'):
         bad = copy.deepcopy(record)
@@ -322,21 +387,70 @@ def self_test(record):
         tests.append('stale-release-manifest-input')
     else:
         raise ValueError('stale release manifest input was not rejected')
+    app_path = record['correction_application']['path']
+    for name, mutate, expected in [
+        ('missing-correction-obligation', lambda a: a['obligations'].pop('identity_consumed_object'), 'missing correction nine'),
+        ('missing-correction-consumer', lambda a: a.update(consumer_passages=[]), 'missing correction consumer'),
+        ('missing-correction-related-use', lambda a: a.update(related_use_scopes={}), 'missing correction related-use'),
+    ]:
+        bad = copy.deepcopy(record)
+        application = json.loads(read(app_path, {}))
+        mutate(application)
+        data = json.dumps(application).encode()
+        bad['correction_application'].update(sha256=digest(data), bytes=len(data))
+        rejected(name, bad, {app_path:data}, expected)
+    application = json.loads(read(app_path, {}))
+    sidecar_path = application['sidecar']['path']
+    rejected('altered-source-correction', record, {sidecar_path:read(sidecar_path,{})+b'\n'}, 'stale file binding')
+    for name, mutate, expected in [
+        ('missing-source-correction', lambda d: d['corrections'].pop(), 'missing source correction'),
+        ('altered-correction-formula', lambda d: d['corrections'][0].update(corrected_line='wrong formula'), 'altered correction mathematical replacement'),
+    ]:
+        bad = copy.deepcopy(record)
+        application = json.loads(read(app_path, {}))
+        sidecar = json.loads(read(sidecar_path, {}))
+        mutate(sidecar)
+        data = json.dumps(sidecar).encode()
+        application['sidecar'].update(sha256=digest(data), bytes=len(data))
+        app_data = json.dumps(application).encode()
+        bad['correction_application'].update(sha256=digest(app_data), bytes=len(app_data))
+        rejected(name, bad, {app_path:app_data, sidecar_path:data}, expected)
+    related = application['related_use_evidence']['path']
+    rejected('altered-correction-related-use-evidence', record, {related:read(related,{})+b'\n'}, 'stale file binding')
+    for family, missing in [('F3','F3-6'),('F4','F4-3')]:
+        bad = copy.deepcopy(record)
+        application = json.loads(read(app_path, {}))
+        sidecar = json.loads(read(sidecar_path, {}))
+        sidecar['corrections'] = [c for c in sidecar['corrections'] if c['id'] != missing]
+        data = json.dumps(sidecar).encode()
+        application['sidecar'].update(sha256=digest(data), bytes=len(data))
+        app_data = json.dumps(application).encode()
+        bad['correction_application'].update(sha256=digest(app_data), bytes=len(app_data))
+        rejected('missing-'+family+'-correction', bad, {app_path:app_data,sidecar_path:data}, 'missing source correction')
+    bad = copy.deepcopy(record)
+    application = json.loads(read(app_path, {}))
+    sidecar = json.loads(read(sidecar_path, {}))
+    next(c for c in sidecar['corrections'] if c['id'] == 'F3-2')['finding_ids'] = ['F3']
+    data = json.dumps(sidecar).encode()
+    application['sidecar'].update(sha256=digest(data),bytes=len(data))
+    app_data = json.dumps(application).encode()
+    bad['correction_application'].update(sha256=digest(app_data),bytes=len(app_data))
+    rejected('missing-F5-combined-finding',bad,{app_path:app_data,sidecar_path:data},'missing F5 combined')
     return tests
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--self-test', action='store_true')
-    parser.add_argument('--release', action='store_true')
+    parser.add_argument('--reviewed-artifacts', action='store_true', help='check scoped research artifacts and receipt; not official full release acceptance')
     parser.add_argument('--decision', default='research/quartic214-manuscript-review/REVIEW_DECISION.json')
     parser.add_argument('--manifest', default='research/quartic214-manuscript/RELEASE_MANIFEST.json')
     args = parser.parse_args()
     record = json.loads((HERE/'ADAPTATION.json').read_text())
-    validate(record, release=args.release, decision_path=args.decision, manifest_path=args.manifest)
+    validate(record, release=args.reviewed_artifacts, decision_path=args.decision, manifest_path=args.manifest)
     tests = self_test(record) if args.self_test else []
     print(json.dumps({'status':'PASS','scope':'editorial byte bindings, recorded coverage links and declared decisions only',
-        'release_mode':args.release,'negative_controls':tests,
+        'reviewed_artifacts_mode':args.reviewed_artifacts,'negative_controls':tests,
         'mathematical_acceptance':'not established by this checker','controller_eligibility':'notattested'}))
 
 

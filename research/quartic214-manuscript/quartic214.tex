@@ -2051,7 +2051,7 @@ This is an author assembly for fresh public review. The construction and all sou
 
 Put \(A_{N}=149^{2N+1}\). Starting with the public \href{https://github.com/elliotglazer/diophantine-z-q/blob/110cf72565be326fd567cd1a64a3b2e00213dcd1/research/version15/quartics/quartic-222/provenance/shared-T-redundancy224-006/candidate224-ir.json}{raw224 predecessor}, \href{https://github.com/elliotglazer/diophantine-z-q/blob/110cf72565be326fd567cd1a64a3b2e00213dcd1/research/quartic214/construction/build.py}{the builder} removes ten fourth-power cache coordinates and their ten defining rows, reuses six existing power slots for inverse weights, and changes twenty factor component rows. The result has 214 coordinates and 188 primitive integral quadratic rows \(r_{i}\). Define \(P_{N}=\sum _{i=1}^{188}\) \(r_{i}^{2}\) after substituting the fixed coefficient \(A_{N}\). Over \(Q\), \(P_{N}=0\) is equivalent to every \(r_{i}=0\).
 
-The exact \href{https://github.com/elliotglazer/diophantine-z-q/blob/110cf72565be326fd567cd1a64a3b2e00213dcd1/research/quartic214/construction/check_exact.py}{Laurent proof checker} reconstructs the deleted coordinates, checks the six inverse-power definitions, and compares all twenty factor components to the changed physical factor system up to a nonzero rational normalization and \(q^{4}\). It compares all 162 untouched rows. The factors have exponents (5,2,4), with exponent 3 in the special input term. They are \textbf{new arithmetic factors}; an old factor-exponent conclusion is not reused to prove their soundness. The equations \(q\) \(s_{1}=1\), \(s_{2}=s1^{2}\), \(s_{4}=s2^{2}\) require \(q\ne 0\). Completeness constructs witnesses in that domain. No bijection with the discarded \(q=0\) witness stratum is claimed.
+The exact \href{https://github.com/elliotglazer/diophantine-z-q/blob/110cf72565be326fd567cd1a64a3b2e00213dcd1/research/quartic214/construction/check_exact.py}{Laurent proof checker} reconstructs the deleted coordinates, checks the six inverse-power definitions, and compares all twenty factor components to the changed physical factor system up to a nonzero rational normalization and \(q^{4}\). It compares all 162 untouched rows. The factors have exponents (5,2,4), with exponent 3 in the special input term. They are \textbf{new arithmetic factors}; an old factor-exponent conclusion is not reused to prove their soundness. The equations \(q\) \(s_{1}=1\), \(s_{2}=s_{1}^{2}\), \(s_{4}=s_{2}^{2}\) require \(q\ne 0\). Completeness constructs witnesses in that domain. No bijection with the discarded \(q=0\) witness stratum is claimed.
 
 The checker verifies all 214 variables occur, degree 4, content 1, and the full quartic table. Its coefficient proof identifies the unique \(A_{N}^{2}+1\) profile and bounds every other constant or linear profile strictly below it for \(A_{N}\ge 149^{107}\). Dividing those latter bounds by \(A_{N}^{2}\) shows they remain strict as \(N\) increases. This proves the coefficient-height statement for \(N\ge 53\) and makes no arithmetic statement about that value of \(N\).
 
@@ -2120,7 +2120,7 @@ The exact ten-contact set is \(\Theta \) union(2-Theta), \(\Theta =\{0,-1/2,-1,1
 
 The removed coordinates are raw224 IDs23,24,29,30,33,34,37,38,133,134: the two rational components of each of five V-side fourth powers. Their defining equations solve them as explicit quadratic polynomials in retained reciprocal-abscissa-square coordinates. All other occurrences are in the twenty factor component rows; the symbolic checker verifies this occurrence statement and retains their actual component conventions.
 
-In each detector reuse three power slots as s1,s2,s4 and impose \(q*s_{1}=1\), \(s_{2}=s1^{2}\), \(s_{4}=s2^{2}\). The214 factors use exponents(5,2,4), with special exponent3 below. Multiplying their defining equations by \(q^{-4}\) makes the old highest powers quadratic expressions in already stored squares. The218 control retains exponents(7,2,4), special exponent1; it also stores \(q_{3}\) and \(s_{3}\), with \(s_{3}=s_{1}*s_{2}\) and \(q_{3}*s_{3}=1\). These equations imply \(q_{3}=q^{3}\) and \(s_{3}=q^{-3}\) without further guards.
+In each detector reuse three power slots as s1,s2,s4 and impose \(q*s_{1}=1\), \(s_{2}=s_{1}^{2}\), \(s_{4}=s_{2}^{2}\). The214 factors use exponents(5,2,4), with special exponent3 below. Multiplying their defining equations by \(q^{-4}\) makes the old highest powers quadratic expressions in already stored squares. The218 control retains exponents(7,2,4), special exponent1; it also stores \(q_{3}\) and \(s_{3}\), with \(s_{3}=s_{1}*s_{2}\) and \(q_{3}*s_{3}=1\). These equations imply \(q_{3}=q^{3}\) and \(s_{3}=q^{-3}\) without further guards.
 
 The symbolic Laurent-polynomial checker independently substitutes every eliminated coordinate and every weight, then compares all twenty factor component identities with the appropriate positive or negative constant row multipliers and \(q^{4}\). It compares all162 untouched rows exactly up to their primitive sign convention and verifies all power relations. This is an identity of formal polynomial expressions, not agreement at sample points. For214 the target factor system has the changed exponents; it is not the old order-four system. For218 it is literally the old system on \(q_{0}*q_{1}\ne 0\).
 
@@ -2135,11 +2135,11 @@ At a consumed \(p\) outside \(\Sigma \) the fixed pairwise contact differences (
 Write \(D_{H}=f(H)\), \(A_{i}=f(U_{i})\), \(B_{i}=\sigma \) \(f(V_{i})\), \(C_{i}=L_{i}-L_{i}'\), \(I=L_{1}-\beta \) and \(G=F(L_{2},L_{3},L_{4})\), with the exact Lucas polynomial in the source. The five factors are
 
 \begin{gather*}
-T_{1}=1+q^{5} C2^{2}+q^{2} D_{H}^{2}+q^{4} B_{1}^{4},\\
-T_{2}=1+q^{5} G^{2}+q^{2} A3^{2}+q^{4} B_{0}^{4},\\
-T_{3}=1+q^{5} I^{4}+q^{3} A2^{2}+q^{2} A4^{2}+q^{4} B_{3}^{4},\\
-T_{4}=1+q^{5} C3^{2}+q^{2} C_{1}^{4}+q^{4} B_{4}^{4},\\
-T_{5}=1+q^{5} C4^{2}+q^{2} A1^{2}+q^{4} B_{2}^{4}
+T_{1}=1+q^{5} C_{2}^{2}+q^{2} D_{H}^{2}+q^{4} B_{1}^{4},\\
+T_{2}=1+q^{5} G^{2}+q^{2} A_{3}^{2}+q^{4} B_{0}^{4},\\
+T_{3}=1+q^{5} I^{4}+q^{3} A_{2}^{2}+q^{2} A_{4}^{2}+q^{4} B_{3}^{4},\\
+T_{4}=1+q^{5} C_{3}^{2}+q^{2} C_{1}^{4}+q^{4} B_{4}^{4},\\
+T_{5}=1+q^{5} C_{4}^{2}+q^{2} A_{1}^{2}+q^{4} B_{2}^{4}
 \end{gather*}
 
 Except in \(T_{3}\) the three nonconstant valuations lie respectively in odd integers,2+4Z,4+8Z. In \(T_{3}\) their residues are -nu,nu,2 modulo4 and4 modulo8. These classes are pairwise distinct and exclude0. Omitting zero-test terms preserves that property. Therefore every factor has a unique minimum, is nonzero, and has \(\text{valuation}\le 0\); at valuation0 its residue is1. This holds at both split places and at the unique inert place, for arbitrary negative test valuations as well as positive ones.
@@ -2197,7 +2197,7 @@ As \(N\) grows, the coefficient \((7/5)C_{3}*149^{-{L}_{N}}\) becomes at most1. 
 
 For an integer input use the unchanged scalar-S/four-contact/parity-scalar preparation, then the root labels, positive trace scale, fixed real neighborhoods and finite progression in the precise order of the frozen Version15 construction. Neither changed factors nor eliminated fourth-power caches occur in that preparation. The source chooses a common denominator dilation and the same ten contact forms per scale, merges repeated forms, and chooses the common reference index by the unchanged separated reduction-order congruences. No new prime pattern, scale or denominator is introduced here.
 
-At a selected contact prime \(v(q)=-1\), all \(C_{i},I,G\) have \(\text{valuation}\ge 4\) and every reciprocal abscissa has \(\text{valuation}\ge 2\). The changed terms \(q^{5}\) \(C_{i}^{2}\) have \(\text{valuation}\ge 3\), \(q^{5}\) \(I^{4}\ge 11\) and \(q^{3}\) \(A2^{2}\ge 1\); every other nonconstant term was already positive. Hence \(W=1\) modulo the chosen place. At the opposite place the newly proved noncancellation lemma still applies; trace residues are1 or2. The comparison pole input therefore has the same odd depth1 at selected primes and even valuations away from them.
+At a selected contact prime \(v(q)=-1\), all \(C_{i},I,G\) have \(\text{valuation}\ge 4\) and every reciprocal abscissa has \(\text{valuation}\ge 2\). The changed terms \(q^{5}\) \(C_{i}^{2}\) have \(\text{valuation}\ge 3\), \(q^{5}\) \(I^{4}\ge 11\) and \(q^{3}\) \(A_{2}^{2}\ge 1\); every other nonconstant term was already positive. Hence \(W=1\) modulo the chosen place. At the opposite place the newly proved noncancellation lemma still applies; trace residues are1 or2. The comparison pole input therefore has the same odd depth1 at selected primes and even valuations away from them.
 
 At prepared finite primes \(q\) tends arbitrarily deeply to0, so every positive exponent used in the new factors makes its term small. The source's squareclasses and depths4,2,2 for the pole input at2,3,17 are unchanged. At both real embeddings \(q>0\) is small, all test powers are even, \(W\) tends to1, and the pole input tends to \(\gamma ^{2}/4\) in(0,17). The same simultaneous pole-realization theorem supplies independent witnesses for each detector. These are new complete witnesses for the changed factors, not reuse of old pole coordinates. The selected contact primes ensure \(q_{0},q_{1}\ne 0\) \((\text{also} \text{real} q>0)\), so all reciprocal weights exist. Reconstruct each deleted fourth power and apply the inherited exact raw224 coordinate maps; the symbolic identities give the new quadratic rows. Completeness is uniform for all sufficiently large \(N\) as in the parent scalar preparation.
 
@@ -2503,7 +2503,7 @@ Use covariant rational Tate modules, arithmetic Frobenius, and \(HT(Q_{\ell }(1)
 
 \subsection{\(M_{1}\). The changed two-primary lift}
 
-Let \(c(\sigma ,\tau )=\mu _{\sigma }\) \(\sigma (\mu _{\tau })\) \(\mu _{\sigma  \tau }^{-1}\) in Q*. Rational quasi-isogeny degree is defined by \(D(\mu )=\operatorname{deg}([n]\mu )/n^{4}\); multiplicativity, conjugation invariance and \(\operatorname{deg}([n])=n^{4}\) make this independent of \(n\). Thus \(D(c \mu )=c^{4}\) \(D(\mu )\). For \(a_{\sigma }=D(\mu _{\sigma })^{-1}/4\) with positive real fourth root,
+Let \(c(\sigma ,\tau )=\mu _{\sigma }\) \(\sigma (\mu _{\tau })\) \(\mu _{\sigma  \tau }^{-1}\) in Q*. Rational quasi-isogeny degree is defined by \(D(\mu )=\operatorname{deg}([n]\mu )/n^{4}\); multiplicativity, conjugation invariance and \(\operatorname{deg}([n])=n^{4}\) make this independent of \(n\). Thus \(D(c \mu )=c^{4}\) \(D(\mu )\). For \(a_{\sigma }=D(\mu _{\sigma })^{-1/4}\) with positive real fourth root,
 
 \begin{gather*}
 a_{\sigma } a_{\tau }/a_{\sigma  \tau }=1/|c(\sigma ,\tau )|
@@ -2797,7 +2797,7 @@ This proves the local trace/discriminant formula used here directly. It removes 
 
 The actual published source is Javanpeykar, ANT8(2014), \S{}4.1, printed pp112--113, Propositions4.1.1 and4.1.3 and Remark4.1.2. The retained PDF is the final publisher article, DOI10.2140/ant.2014.8.89; see \nolinkurl{SOURCE_USES.json}. The setup is a characteristic-zero DVR and its finite separable field extension. No perfect-residue assumption occurs. The remark explicitly distinguishes the separable-residue result in Serre and the imperfect-residue application. Proposition4.1.3 obtains a bound for each maximal ideal by completing it; it does not require the original integral closure to be a local ring.
 
-Here is a direct reconstruction useful for checking conventions. For a finite extension of complete DVRs \(V\subset U\) with fraction-field degree \(n\), choose uniformizer \(\pi \) of \(V\). The element \(y=1/(n\pi )\) has field trace \(1/\pi \) and is therefore outside \(U^{\vee }\). As \(U^{\vee }\) is a fractional ideal of the DVR \(U\), it is strictly smaller than yU. Taking inverse fractional ideals gives \(D_{U}/V\) strictly larger than \(n\pi U\). With \(v_{U}(\pi )=e\) this yields
+Here is a direct reconstruction useful for checking conventions. For a finite extension of complete DVRs \(V\subset U\) with fraction-field degree \(n\), choose uniformizer \(\pi \) of \(V\). The element \(y=1/(n\pi )\) has field trace \(1/\pi \) and is therefore outside \(U^{\vee }\). As \(U^{\vee }\) is a fractional ideal of the DVR \(U\), it is strictly smaller than yU. Taking inverse fractional ideals gives \(D_{U/V}\) strictly larger than \(n\pi U\). With \(v_{U}(\pi )=e\) this yields
 
 \(r < e(v_{V}(n)+1)\), equivalently \(r \le  e-1+e v_{V}(n)\).
 
@@ -2809,7 +2809,7 @@ Now take the actual vertical point \(q=(\text{pfrak})\) of Spec \(O_{K}[t]\). Th
 
 \(r_{j} \le  e_{j}-1 + e_{j} e_{\text{pfrak}} \text{floor}(\operatorname{log} d/\operatorname{log} p)\).
 
-Multiplying by all \(f_{j}\) and using \(\sum e_{{jf}_{j}}=d\) bounds the whole discriminant coefficient by
+Multiplying by all \(f_{j}\) and using \(\sum _{j} e_{j} f_{j}=d\) bounds the whole discriminant coefficient by
 
 \(d(1+e_{\text{pfrak}} \text{floor}(\operatorname{log} d/\operatorname{log} p))\).
 
@@ -2827,11 +2827,11 @@ The determinant Cartier divisor has no additional codimension-two divisor terms.
 
 Let \(V\) be the excellent characteristic-zero DVR occurring above, E/V an elliptic scheme, \(n\ge 1\), and \(E[n]=\operatorname{Spec}\) A. Its generic algebra \(L\) is finite étale; it need not be a field. The fact that \([n]\) is finite locally free of rank \(n^{2}\) can be checked using the field theorem Stacks0BFG, Lemma39.9.8, on every fibre: properness and finite fibres give finiteness. Stacks49.12.6/0BWJ applies with \(S=\operatorname{Spec}\) \(V\), \(X=Y=E\) smooth of relative dimension1, and \(f=[n]\) locally quasi-finite. It gives flatness, and its proof gives the LCI property. Thus the rank is \(n^{2}\) by its fibre ranks. The same application works over the regular base \(U\) used in \S{}4. Where \(n\) is invertible, the differential below is invertible, so \([n]\) is étale.
 
-The graph of \([n]\) is the base change of the diagonal of the smooth relative curve E/V, hence a regular immersion into \(E\times _{V}\) \(E\). Projection is smooth. This gives an explicit local-complete-intersection factorization of \([n]\). Invariant differentials trivialize \(\Omega _{E}/V\) as a line pulled back from \(V\). The group law differentiates as addition at the identity; induction gives \([n]^{}\)\emph{\(\omega =n\omega \) for positive \(n\). Therefore the relative differentials of \([n]\) have presentation \(O_{E}\) \(--n-\to \) \(O_{E}\) and \(\text{Fitt}_{0}\) \(\Omega _{[}n]=(n)\). This is \(n\), }\emph{not the degree \(n^{2}\)}*.
+The graph of \([n]\) is the base change of the diagonal of the smooth relative curve E/V, hence a regular immersion into \(E\times _{V}\) \(E\). Projection is smooth. This gives an explicit local-complete-intersection factorization of \([n]\). Invariant differentials trivialize \(\Omega _{E/V}\) as a line pulled back from \(V\). The group law differentiates as addition at the identity; induction gives \([n]^{*}\omega =n\omega \) for positive \(n\). Therefore the relative differentials of \([n]\) have presentation \(O_{E}\) \(--n-\to \) \(O_{E}\) and \(\text{Fitt}_{0}\) \(\Omega _{[n]}=(n)\). This is \(n\), \textbf{not the degree \(n^{2}\)}.
 
-Base change by the zero section \(E[n]\to \operatorname{Spec}\) \(V\) preserves finite flatness, the local-complete-intersection property, the displayed presentation and its Fitting ideal. For this finite flat LCI \(V\to A\), Stacks0BWE (Lemma49.10.1) checks the exact syntomic hypotheses, Stacks0BWF (49.10.4) gives invertibility of \(\omega _{A}/V\), and Stacks0BWG (49.12.3, on the archived section0BWB) identifies the scheme different with \(\text{Fitt}_{0}\) \(\Omega _{A}/V=(n)\). Stacks Definition49.9.1/0BW4 defines that scheme different as \(\text{Ann}(\omega _{A}/V / A\tau )\).
+Base change by the zero section \(E[n]\to \operatorname{Spec}\) \(V\) preserves finite flatness, the local-complete-intersection property, the displayed presentation and its Fitting ideal. For this finite flat LCI \(V\to A\), Stacks0BWE (Lemma49.10.1) checks the exact syntomic hypotheses, Stacks0BWF (49.10.4) gives invertibility of \(\omega _{A/V}\), and Stacks0BWG (49.12.3, on the archived section0BWB) identifies the scheme different with \(\text{Fitt}_{0}\) \(\Omega _{A/V}=(n)\). Stacks Definition49.9.1/0BW4 defines that scheme different as \(\text{Ann}(\omega _{A/V} / A\tau )\).
 
-The generic trace identification is fixed, rather than an unspecified module isomorphism: Stacks0BW2 (49.8.2) maps \(x\in A^{\vee }\) to \(b\mapsto \operatorname{Tr}_{L}/\text{Frac}(V)(xb)\). Stacks0BW3 (49.8.3) maps \textbf{1 to \(\tau \)}. Under this map, the annihilator in the preceding paragraph is
+The generic trace identification is fixed, rather than an unspecified module isomorphism: Stacks0BW2 (49.8.2) maps \(x\in A^{\vee }\) to \(b\mapsto \operatorname{Tr}_{L/\text{Frac}(V)}(xb)\). Stacks0BW3 (49.8.3) maps \textbf{1 to \(\tau \)}. Under this map, the annihilator in the preceding paragraph is
 
 \(\{a\in A: a A^{\vee }\subset A\}\).
 
@@ -2849,9 +2849,9 @@ Hence \(n\) \(\text{Atilde}^{\vee }\subset \text{Atilde}\). Componentwise, the D
 
 For clarity, the intermediate-field direction can be proved rather than inferred from a slogan. Complete at each chosen place in a tower \(V\subset W\subset U\) of normal finite extensions. Write \(W^{\vee }_{V}=\alpha W\), possible since \(W\) is a DVR. Trace transitivity, tested also on every multiplication by \(b\in W\), says
 
-\(U^{\vee }_{V} = \{x: \operatorname{Tr}_{U}/W(xU)\subset W^{\vee }_{V}\} = \alpha  U^{\vee }_{W}\).
+\(U^{\vee }_{V} = \{x: \operatorname{Tr}_{U/W}(xU)\subset W^{\vee }_{V}\} = \alpha  U^{\vee }_{W}\).
 
-Taking inverse fractional ideals yields \(D_{U}/V=D_{U}/W\) \(D_{W}/V\) \(U\), with exponent \(r_{U}/V=r_{U}/W+e_{U}/W\) \(r_{W}/V\). All differents have nonnegative exponents. Thus \(r_{U}/V\le v_{U}(n)=e_{U}/W\) \(v_{W}(n)\) implies \(r_{W}/V\le v_{W}(n)\). Passing to completions is legitimate by \S{}1; this proves the assertion at every place of every intermediate field. The estimate concerns a single-point field and its subfields; it requires no bound on a torsion splitting field.
+Taking inverse fractional ideals yields \(D_{U/V}=D_{U/W}\) \(D_{W/V}\) \(U\), with exponent \(r_{U/V}=r_{U/W}+e_{U/W}\) \(r_{W/V}\). All differents have nonnegative exponents. Thus \(r_{U/V}\le v_{U}(n)=e_{U/W}\) \(v_{W}(n)\) implies \(r_{W/V}\le v_{W}(n)\). Passing to completions is legitimate by \S{}1; this proves the assertion at every place of every intermediate field. The estimate concerns a single-point field and its subfields; it requires no bound on a torsion splitting field.
 
 \subsection{4. The actual primitive torsion quotient}
 
@@ -2861,7 +2861,7 @@ For \(N\ge 1\) and \(H\subset (Z/NZ)^{\times }\) \(\text{containing}-1\), let \(
 
 \(E_{t}: y^{2}=x^{3}-3t/(t-1)x-2t/(t-1)\).
 
-Direct substitution into \(\Delta =-16(4a^{3}+27b^{2})\), \(c_{4}=-48a\) and \(j=c4^{3}/\Delta \) gives \(\Delta =1728t^{2}/(t-1)^{3}\) and \(j=1728t\). All denominators and \(\Delta \) are units on \(U\). It is an elliptic scheme there. As \(N\) is invertible, \(E_{t}[N]\) is finite étale. Its primitive locus is open and closed: remove \(E_{t}[m]\) for the finitely many proper divisors m|N; these are unions of components étale locally on \(U\). Thus the exact-order-N locus is finite étale as well, including \(N=1\) with the usual order-one point.
+Direct substitution into \(\Delta =-16(4a^{3}+27b^{2})\), \(c_{4}=-48a\) and \(j=c_{4}^{3}/\Delta \) gives \(\Delta =1728t^{2}/(t-1)^{3}\) and \(j=1728t\). All denominators and \(\Delta \) are units on \(U\). It is an elliptic scheme there. As \(N\) is invertible, \(E_{t}[N]\) is finite étale. Its primitive locus is open and closed: remove \(E_{t}[m]\) for the finitely many proper divisors m|N; these are unions of components étale locally on \(U\). Thus the exact-order-N locus is finite étale as well, including \(N=1\) with the usual order-one point.
 
 The constant \(H\) action is scalar multiplication. On primitive points \(aP=P\) implies \((a-1)P=0\), hence \(a=1\) modN. Étale locally the algebra is a product of copies of the base ring and \(H\) permutes these copies; the quotient is the product indexed by the H-orbits. This constructs a finite étale quotient even at residue characteristics dividing |H|. No averaging by |H| and no assumption |H| invertible is used. Freeness makes every orbit have |H| points.
 
@@ -2909,7 +2909,7 @@ Current incorporation: Broxv17 contains the substantive arguments but not this e
 
 Read the final published Javanpeykar2014, \S{}\S{}2.1/2.3, printed pp93--94/97--98, and final von Känel2021 \S{}2.1, printed \(p_{5}\). The former specifies the inner product \((i/2)\int _{X} \omega \wedge \overline{\eta }\), its determinant metric, and \(\text{hFal}(X)=\text{Ardeg}(\operatorname{det} p_{*}\omega )/[K:Q]\), equal to stable Faltings height of the Jacobian. The latter defines original relative height using the Néron top-differential line and all embeddings, then defines stable height by semistable extension and proves its extension invariance. Its paragraph after(2.2) explicitly distinguishes the alternative shifted height by \((g/2)\operatorname{log} \pi \). That shifted height is not used here. Sources were acquired from their publishers on2026-11-10; hashes and exact source locations are retained in \nolinkurl{SOURCE_USES.json.}
 
-Apply Javanpeykar's identification to the \emph{same} smooth projective geometrically connected curve \nolinkurl{X/K}, genus \(g\ge 1\), and its minimal regular semistable model \(p:{\mathcal X}\to \operatorname{Spec} O_{K}\). Thus \(E=H^{0}({\mathcal X},\omega _{{\mathcal X}}/O_{K})\) with the displayed \(L^{2}\) metric has
+Apply Javanpeykar's identification to the \emph{same} smooth projective geometrically connected curve \nolinkurl{X/K}, genus \(g\ge 1\), and its minimal regular semistable model \(p:{\mathcal X}\to \operatorname{Spec} O_{K}\). Thus \(E=H^{0}({\mathcal X},\omega _{{\mathcal X}/O_{K}})\) with the displayed \(L^{2}\) metric has
 
 \(\text{Ardeg}(E)=[K:Q] \hF(\operatorname{Jac} X)\).
 
@@ -2983,7 +2983,7 @@ where \(\hF\) is the original stable Faltings height. This is the exact modular-
 
 The modular-model construction in \nolinkurl{different/PROOF.md} \S{}4 identifies the generic primitive N-torsion points modulo \(H\) with the actual modular quotient, compatibly with Galois action. It provides the finite étale model away from 6N and the degree \(d\). The \(\pm 1\) ambiguity of a chosen elliptic-curve isomorphism is already killed in \(H\). At a prime dividing \(N\) we use the finite flat torsion argument, not the model with \(N\) inverted. Every component and every place is included in the discriminant sum. The positive-genus hypothesis removes the genus-zero cases without imposing an unrecorded large-level condition.
 
-Choose one finite number field \(K\) defining the cover, making the curve semistable, and splitting its unramified fibre over \(t=2\). Existence of such an extension follows from semistable reduction and adjoining finitely many point coordinates. Its degree is not bounded. Let \(B\) be the normalization of \(O_{K}[t]\) in \(K(X_{H})\), and put \(C=B/(t-2)B\). The integral-evaluation proof uses this same \(B\) and this possibly nonmaximal order \(C\). Let \(E=H^{0}({\mathcal X},\omega _{{\mathcal X}}/O_{K})\) for the minimal regular semistable model \({\mathcal X}\) of \(X_{H}\). Then \nolinkurl{evaluation/PROOF.md} supplies the literal integral map
+Choose one finite number field \(K\) defining the cover, making the curve semistable, and splitting its unramified fibre over \(t=2\). Existence of such an extension follows from semistable reduction and adjoining finitely many point coordinates. Its degree is not bounded. Let \(B\) be the normalization of \(O_{K}[t]\) in \(K(X_{H})\), and put \(C=B/(t-2)B\). The integral-evaluation proof uses this same \(B\) and this possibly nonmaximal order \(C\). Let \(E=H^{0}({\mathcal X},\omega _{{\mathcal X}/O_{K}})\) for the minimal regular semistable model \({\mathcal X}\) of \(X_{H}\). Then \nolinkurl{evaluation/PROOF.md} supplies the literal integral map
 
 \(ev:E \to  C^{\vee }\), \(\omega  \to  (\omega /dt(P_{j}))_{j=1,...,d}\).
 

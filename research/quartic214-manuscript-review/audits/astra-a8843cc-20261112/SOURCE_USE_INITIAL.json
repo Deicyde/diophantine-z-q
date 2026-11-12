@@ -1,0 +1,81 @@
+{
+  "phase": "source-first initial reconstruction, frozen before opening declared contracts/inventories/reports",
+  "reviewed_commit": "a8843cca75ff29d51aa7b288c80b8bdc3a1ca3bb",
+  "manuscript_sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+  "exposure": "Task brief with no verdict; repository protocols; actual manuscript including author source-carry and historical-review references embedded in its proof. No separate earlier favorable reports opened.",
+  "scope": "Initial assembly-level dependencies, not complete recursive coverage of Part II",
+  "uses": [
+    {
+      "id": "R1",
+      "start": 84,
+      "end": 109,
+      "needed": "P_N sum squares; exact row count/content/height",
+      "supplier": "printed rows and independent sparse Laurent checker",
+      "scope": "algebraic",
+      "excerpt_sha256": "cafff19b14f8bb59d0b650f8badc0b14660be632feb437fa91b5f6440b067ac8"
+    },
+    {
+      "id": "R2",
+      "start": 2119,
+      "end": 2130,
+      "needed": "Recover physical raw224 reference and scalar objects for every new solution",
+      "supplier": "v222:reference, v222:ratio, forced149 scalar argument",
+      "scope": "algebraic/arithmetic boundary",
+      "excerpt_sha256": "5eb8ea1c6659053700e797542956a6e1ba8194d8a290a4bc63a23e34d3262cd7"
+    },
+    {
+      "id": "R3",
+      "start": 2131,
+      "end": 2156,
+      "needed": "Unique minima and orders for changed (5,2,4;3) factors",
+      "supplier": "factor-source 4094\u20134191 plus pole obstruction",
+      "scope": "local arithmetic",
+      "excerpt_sha256": "0c07734b88ea68eb3507c3d2dd781a09d63d30ea10bd100fb2351b3680bcb4ef"
+    },
+    {
+      "id": "R4",
+      "start": 2158,
+      "end": 2158,
+      "needed": "M_j^3 divides integer Lucas residual; M_j divides reduced input numerator",
+      "supplier": "formal logarithm v15:logs; rank/root labels; factor-source 4193\u20134232",
+      "scope": "local-to-global",
+      "excerpt_sha256": "681e3e2bfdb2c7dec1569b94e1a413e8888f01003d49ab5588053e0ffc006e60"
+    },
+    {
+      "id": "R5",
+      "start": 2160,
+      "end": 2173,
+      "needed": "Uniform h(t)<=H2 M(t)^(7/6)",
+      "supplier": "full-family surface height and reflected transforms",
+      "scope": "delegated",
+      "excerpt_sha256": "8a20f364d93f796e6bd5bbbee496ccd176f60f31dabeb54efd411aff728c4467"
+    },
+    {
+      "id": "R6",
+      "start": 2174,
+      "end": 2194,
+      "needed": "One uniform N0 forces Delta=J=0",
+      "supplier": "aggregate SUM bound; scalar bound; Lucas lower bound",
+      "scope": "assembly",
+      "excerpt_sha256": "05abd452de6b081f0c7eb52e2af858fbdea70039af5ed3e05af2e58f2ec8d246"
+    },
+    {
+      "id": "R7",
+      "start": 2196,
+      "end": 2314,
+      "needed": "Witnesses for each N>=N0 and integer x",
+      "supplier": "scalar preparation; prime patterns; CRT; fresh poles",
+      "scope": "delegated",
+      "excerpt_sha256": "0bb1d69ccaf79274713363d2d2c3f807918d3661c8697385a3a47f5fee20698d"
+    },
+    {
+      "id": "R8",
+      "start": 1995,
+      "end": 2043,
+      "needed": "Current V16 foundation supplies retained analytic/RC interfaces",
+      "supplier": "changed GI fixed-lift and TZ proof adaptation; retained rank/RC",
+      "scope": "not recursively reviewed",
+      "excerpt_sha256": "7ccd9eaf33b711763a7dacdb8cd7430866597953d9d5f7dcb8194e4e71b358d9"
+    }
+  ]
+}

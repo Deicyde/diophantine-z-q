@@ -1,0 +1,156 @@
+[
+  {
+    "mode": "brox",
+    "variables": 214,
+    "rows": 188,
+    "unchanged_rows": 162,
+    "factor_identities": [
+      {
+        "parentRow": 80,
+        "newRow": 70,
+        "multiplier": "1",
+        "weight": 87,
+        "power": 4
+      },
+      {
+        "parentRow": 81,
+        "newRow": 71,
+        "multiplier": "-1",
+        "weight": 87,
+        "power": 4
+      },
+      {
+        "parentRow": 82,
+        "newRow": 72,
+        "multiplier": "2401",
+        "weight": 87,
+        "power": 4
+      },
+      {
+        "parentRow": 83,
+        "newRow": 73,
+        "multiplier": "2401",
+        "weight": 87,
+        "power": 4
+      },
+      {
+        "parentRow": 84,
+        "newRow": 74,
+        "multiplier": "2401",
+        "weight": 87,
+        "power": 4
+      },
+      {
+        "parentRow": 85,
+        "newRow": 75,
+        "multiplier": "2401",
+        "weight": 87,
+        "power": 4
+      },
+      {
+        "parentRow": 86,
+        "newRow": 76,
+        "multiplier": "2401",
+        "weight": 87,
+        "power": 4
+      },
+      {
+        "parentRow": 87,
+        "newRow": 77,
+        "multiplier": "2401",
+        "weight": 87,
+        "power": 4
+      },
+      {
+        "parentRow": 88,
+        "newRow": 78,
+        "multiplier": "2401",
+        "weight": 87,
+        "power": 4
+      },
+      {
+        "parentRow": 89,
+        "newRow": 79,
+        "multiplier": "2401",
+        "weight": 87,
+        "power": 4
+      },
+      {
+        "parentRow": 98,
+        "newRow": 88,
+        "multiplier": "1",
+        "weight": 102,
+        "power": 4
+      },
+      {
+        "parentRow": 99,
+        "newRow": 89,
+        "multiplier": "-1",
+        "weight": 102,
+        "power": 4
+      },
+      {
+        "parentRow": 100,
+        "newRow": 90,
+        "multiplier": "2401",
+        "weight": 102,
+        "power": 4
+      },
+      {
+        "parentRow": 101,
+        "newRow": 91,
+        "multiplier": "2401",
+        "weight": 102,
+        "power": 4
+      },
+      {
+        "parentRow": 102,
+        "newRow": 92,
+        "multiplier": "2401",
+        "weight": 102,
+        "power": 4
+      },
+      {
+        "parentRow": 103,
+        "newRow": 93,
+        "multiplier": "2401",
+        "weight": 102,
+        "power": 4
+      },
+      {
+        "parentRow": 104,
+        "newRow": 94,
+        "multiplier": "2401",
+        "weight": 102,
+        "power": 4
+      },
+      {
+        "parentRow": 105,
+        "newRow": 95,
+        "multiplier": "2401",
+        "weight": 102,
+        "power": 4
+      },
+      {
+        "parentRow": 106,
+        "newRow": 96,
+        "multiplier": "2401",
+        "weight": 102,
+        "power": 4
+      },
+      {
+        "parentRow": 107,
+        "newRow": 97,
+        "multiplier": "2401",
+        "weight": 102,
+        "power": 4
+      }
+    ],
+    "full_sos": true,
+    "all_variables_occur": true,
+    "coefficient_height_N_at_least": 53,
+    "coefficient_height": "149^(4N+2)+1",
+    "deliberate_corruptions_rejected": 21,
+    "scope": "exact algebra only;214 changes factor exponents and requires arithmetic proof"
+  }
+]

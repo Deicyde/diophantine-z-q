@@ -1,0 +1,88 @@
+{
+  "reviewer": "/root/astra_pr30_fresh_review/height",
+  "prior_exposure": "Read manuscript with embedded author status/history text; no declared inventory or external review report opened before this freeze. Source-use reconstruction from manuscript itself.",
+  "commit": "a8843cca75ff29d51aa7b288c80b8bdc3a1ca3bb",
+  "manuscript_sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
+  "entries": [
+    {
+      "id": "H01",
+      "start": 3025,
+      "end": 3059,
+      "needed": "Full-family QM surface: marked normalizer, L degree dividing 576, support at odd contacts, height comparison and CM linear bound",
+      "supplier": "Geometric and CM source arguments required; not supplied by modularity",
+      "excerpt_sha256": "a932f15d13525b0a37197d3321c55b0450e50bfe2beb4fd9048e68165fbad4f4"
+    },
+    {
+      "id": "M1",
+      "start": 2501,
+      "end": 2535,
+      "needed": "Continuous scalar splitting sign cocycle with minimal 2-primary character; L normal and unramified outside R",
+      "supplier": "Local/global reciprocity and Brauer invariants; finite cochain and twist",
+      "excerpt_sha256": "e37e2224d0c5bce590e7ee983b4e4c78acaf1a49313b7b085e3628d984122952"
+    },
+    {
+      "id": "M23",
+      "start": 2536,
+      "end": 2570,
+      "needed": "Original covariant r5 geometric irreducible odd with weights 0,-1; primitive weight two and absorbed finite twist",
+      "supplier": "Faltings1986; Scholze2013+corrigendum; Fontaine1994; Kato2004; Calegari2023; Deligne-Serre1974; Shimura1973",
+      "excerpt_sha256": "35d3d570e06631da389d18b14b865de349522adea020a2b04a845d9b05311a78"
+    },
+    {
+      "id": "M45",
+      "start": 2571,
+      "end": 2607,
+      "needed": "Same original r3; all prime conductors and N bound",
+      "supplier": "Finite-field endomorphism polynomial; Chebotarev; Carayol1987 full Theorem4; full11 semistability; derivative/different upper numbering",
+      "excerpt_sha256": "4f66caa4f8b8df147025be0e036cb47c9ffe2ca7ec4d556cc3b5144c794d9ec2"
+    },
+    {
+      "id": "M6H2",
+      "start": 2608,
+      "end": 2632,
+      "needed": "All coefficient embeddings, L-defined A power in actual J_H, e=2r and s/r<=4",
+      "supplier": "Shimura1973 Theorem1; Li1975 Fricke; Faltings Hom; Poincare; invariant differentials",
+      "excerpt_sha256": "8b813fd708d8870a4ccac7efb99a9c704e36d3cd6f155b5544a537a0c5f2c260"
+    },
+    {
+      "id": "EVAL",
+      "start": 2637,
+      "end": 2768,
+      "needed": "Canonical differentials map into exact specialized trace dual and every g-coordinate projected lattice",
+      "supplier": "Finite normalization and flatness; dominating regular model; finite duality; trace; index/discriminant",
+      "excerpt_sha256": "9a965141dfa6cc00fc33a90fa25052a629cb6387ab16741f7b653e6cee8462d8"
+    },
+    {
+      "id": "DIFF",
+      "start": 2769,
+      "end": 2902,
+      "needed": "All vertical components including imperfect residue; torsion different (n); same nonmaximal specialized order",
+      "supplier": "Javanpeykar2014 4.1; Stacks different/LCI; actual primitive torsion quotient and all primes",
+      "excerpt_sha256": "164d26c8a1c1b006ebbb192e7e7b797b04e997f80b0137ce9c6c98686e9a03e0"
+    },
+    {
+      "id": "METRIC",
+      "start": 2903,
+      "end": 3024,
+      "needed": "Original stable Jacobian height; one K-defined nonzero minor; determinant norm (2/sqrt(pi))^g",
+      "supplier": "Javanpeykar2014 and von Kaenel2021 normalization; mean value; arithmetic degree; Belyi map",
+      "excerpt_sha256": "8adbda82e6e2fc1698b5454edcd75f367b6ba94c04be42cc4e0c6d20e0af07c8"
+    },
+    {
+      "id": "AVG",
+      "start": 3167,
+      "end": 3250,
+      "needed": "r separate simple factors in actual A class over Lprime; H3.1 with dimension2 isogeny",
+      "supplier": "GR2023 proof Lemma16.2(1), Theorem1.9(1); original stable lower bound -3g/2",
+      "excerpt_sha256": "3028337e7d29abccec18bdcab48adbaf36892cce65ce4df5e4aa5aec1a3e9561"
+    },
+    {
+      "id": "H4",
+      "start": 3125,
+      "end": 3165,
+      "needed": "All M>=1 bound C2*M^(2103/1024), including CM",
+      "supplier": "H0.1,H0.3,H2,H3.1 plus exact rational log certificate",
+      "excerpt_sha256": "6870554432a8f866603e61d2b71a020d7f41febc75b030bdad61edeba2fb3821"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "status": "reconciled after frozen initial table; partial coverage only",
+  "prior_exposure": "Read actual author proof geometry-carry/provider-scope-carry/modularity including their embedded source/acceptance descriptions; no independence from that source guidance claimed. Read V16 geometry 7700\u20138070.",
+  "rows": [
+    {
+      "id": "D01",
+      "consumer": "geometry-carry G2; V16 7737\u20138020",
+      "required": "Entire marked D210 canonical cover; 72 stack/36 coarse; rational all-component normalizer action; Gamma=576",
+      "supplier": "Yuan maximal stack; Milne PEL/canonical; Buzzard polarization; Voight lattice; Stacks scheme/projectivity; Deligne action",
+      "state": "Primary inputs not yet reacquired",
+      "reconciliation": {
+        "contract": "research/quartic214/contracts/modularity-6.json",
+        "sha256": "3b61613f34a5f8746804ab2e6aa24aa787cc5fb6485ac2c5aa2a1a1cc4da9ab9",
+        "application_id": "G-P-D210-GEOMETRY-AND-S10-CARRY",
+        "disposition": "Matching main application located. Component supplier completeness remains limited as REPORT.md specifies; no inventory coverage acceptance."
+      }
+    },
+    {
+      "id": "D02",
+      "consumer": "geometry-carry G2\u2013G3",
+      "required": "Same L degree divides576, all Hom over L, conjugate B-linear quasi-isogenies, non-CM End=B, all five contact cases",
+      "supplier": "D01; torsion congruence argument; rational Hodge classification; tame model",
+      "state": "Inline reconstruction underway",
+      "reconciliation": {
+        "contract": "research/quartic214/contracts/modularity-6.json",
+        "sha256": "3b61613f34a5f8746804ab2e6aa24aa787cc5fb6485ac2c5aa2a1a1cc4da9ab9",
+        "application_id": "G-P-D210-GEOMETRY-AND-S10-CARRY",
+        "disposition": "Matching main application located. Component supplier completeness remains limited as REPORT.md specifies; no inventory coverage acceptance."
+      }
+    },
+    {
+      "id": "D03",
+      "consumer": "modularity M1\u2013M2",
+      "required": "Normalized genuine rho=r+r, same restriction over L prime, finite minimal character lift",
+      "supplier": "quasi-isogeny degree; local/global reciprocity/Brauer; Faltings",
+      "state": "Inline reconstruction underway",
+      "reconciliation": {
+        "contract": "research/quartic214/contracts/modularity-1.json",
+        "sha256": "677d87aa2fdd08d4025a8fcdf2be03ec9b0185faf408ae82f463b8910797ab88",
+        "application_id": "M1-CHANGED-MINIMAL-CHARACTER",
+        "disposition": "Matching main application located. Component supplier completeness remains limited as REPORT.md specifies; no inventory coverage acceptance."
+      }
+    },
+    {
+      "id": "D04",
+      "consumer": "modularity M2\u2013M3",
+      "required": "Original r5 de Rham, odd, irreducible; primitive weight2 finite twist realization",
+      "supplier": "Scholze/corrigendum; Fontaine; Kato; Calegari; Deligne\u2013Serre; Shimura twist; reciprocity",
+      "state": "Primary inputs not yet reacquired",
+      "reconciliation": {
+        "contract": "research/quartic214/contracts/modularity-2.json",
+        "sha256": "bf0032fd58169d79f84fe6587a1902ad0fda12da895147eed4bc0bf01e08809e",
+        "application_id": "M2-M3-ORIGINAL-R5-MODULARITY",
+        "disposition": "Matching main application located. Component supplier completeness remains limited as REPORT.md specifies; no inventory coverage acceptance."
+      }
+    },
+    {
+      "id": "D05",
+      "consumer": "modularity M4\u2013M5",
+      "required": "Same final primitive f realizes original r3; full local isomorphism; level conductor at every prime",
+      "supplier": "relative p-Frobenius endomorphism; Milne12.9; Serre density; Carayol4",
+      "state": "Inline reconstruction underway",
+      "reconciliation": {
+        "contract": "research/quartic214/contracts/modularity-3.json",
+        "sha256": "3852c1fcb2d79e2a14a271c010d5dbf57665699187cfb0b22cca069f09096195",
+        "application_id": "M4-SAME-FORM-COMPANION",
+        "disposition": "Matching main application located. Component supplier completeness remains limited as REPORT.md specifies; no inventory coverage acceptance."
+      }
+    },
+    {
+      "id": "D06",
+      "consumer": "modularity M5",
+      "required": "Wild exponents70,18,18,6 and tame exponent2; actual level N bound",
+      "supplier": "normal11-torsion extension via prime-to11 conjugate maps; Silverberg\u2013Zarhin; division torus; different/upper numbering",
+      "state": "Exact historical supplier needed",
+      "reconciliation": {
+        "contract": "research/quartic214/contracts/modularity-4.json",
+        "sha256": "8634c90335f48b12c74f8612fd6b67e5da085f6beb6e3ca56235eaf4d90c4392",
+        "application_id": "M5-DIRECT-CONDUCTOR-AND-NEW-LIFT",
+        "disposition": "Matching main application located. Component supplier completeness remains limited as REPORT.md specifies; no inventory coverage acceptance."
+      }
+    },
+    {
+      "id": "D07",
+      "consumer": "modularity M6",
+      "required": "All coefficient conjugates, e=2r, B0 inside J_H over same L prime",
+      "supplier": "Li Fricke; Shimura quotient; Faltings/Poincare; density and rationality of traces; norm/pullback",
+      "state": "Primary inputs not yet reacquired",
+      "reconciliation": {
+        "contract": "research/quartic214/contracts/modularity-5.json",
+        "sha256": "a908b6093393a4e13dd3fd57f33b2f3ab30f1619dbbaf4d99971ffe66f4f68f2",
+        "application_id": "M6-DETERMINANT-MULTIPLICITY-QUOTIENT",
+        "disposition": "Matching main application located. Component supplier completeness remains limited as REPORT.md specifies; no inventory coverage acceptance."
+      }
+    }
+  ],
+  "initial_sha256": "b07654a16f0e74097eefc2c80d58dea4a4f9ee65c3c794d9c3e77380ef87db3d"
+}

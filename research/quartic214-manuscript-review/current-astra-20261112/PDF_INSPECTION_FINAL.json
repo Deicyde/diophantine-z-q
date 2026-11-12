@@ -1,0 +1,50 @@
+{
+  "reviewer": "/root/q214_astra_repair_review",
+  "pdf_sha256": "8c22312ce54d3f2709eddc28c1045b1785d44ce0d7d47957639c0322a9d0a498",
+  "tex_sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+  "pages": 703,
+  "visually_inspected_pages": [
+    12,
+    65,
+    66,
+    73,
+    85,
+    98,
+    99,
+    100,
+    101,
+    102,
+    104,
+    105,
+    703
+  ],
+  "full_text_extracted": true,
+  "visual_scope": "13 sampled pages; not exhaustive703-page visual review",
+  "finding_results": "F1-F5 corrected at inspected formula and consumer sites",
+  "build_sha256": "dab965bf5fd4d86fcb4ba4f8c215309b49979ccadbf41ed529cb38acb376eabd",
+  "manifest_sha256": "f0aa633ae5e88aa49a5966bcd6152663b723cbef11925a0c76e5f9b77701f539",
+  "manifest_files_checked": 120,
+  "source_hashes": {
+    "initial": "d71edfc951fdd2328e022b439e97c02229b785107662bb442d54469b24abda45"
+  },
+  "commands": [
+    "pdftotext -layout research/quartic214-manuscript/quartic214.pdf /tmp/q214-astra-repair-review-20261112/pdf-final.txt",
+    "pdftoppm -f PAGE -l PAGE -scale-to SIZE -png -singlefile research/quartic214-manuscript/quartic214.pdf /tmp/q214-astra-repair-review-20261112/final-pagePAGE",
+    "view_image on each listed rendered PNG; SIZE=1500 for85,98,99,100,73,101,104 and1300 for12,65,66,102,105,703"
+  ],
+  "sample_image_sha256": {
+    "12": "0ac46f071395af47377ccb3f9737b86cde52cb503d551edb7bce411cea158113",
+    "65": "00bde60c25ccaa689b2192543879058359fad80ef513b45d102882ca77340793",
+    "66": "da58fe2c52a168a279af4d5217ef23f2491873d46f201545db8e4af8bc36748f",
+    "73": "fb8bb25517426a75e7c5d9a8523cb23efc6abcfe18f283d160e054b4b8c3a3f1",
+    "85": "23ffc29d7227ea7973909a53b3afed41f18c8475f5c2ad81fd82860162d33666",
+    "98": "195d0d42fac1a7aa7cdd6a1ae9453fe902af2fc14fa18d5962249ea11b5132f1",
+    "99": "88fe0c56211513a068525cefd02e7168e6ae9026d91ed2aac72d46e832d5f5c2",
+    "100": "a66e919673caea39758109c93ba9239f3afb5359d02ec9ec7d29bae8319326ae",
+    "101": "8916bc7351e995fdc6319908850b23087d52877e598769fd521f10b8b92210e2",
+    "102": "f551aa727ae314584c63a62290322d5aceed6120d0cd77abd44d06ec9f1440e7",
+    "104": "cd86f142fca09e98c15ebfa6727e8d8476ed829d26fe58157068ed9e09ddffa9",
+    "105": "2545090e407f07c8501a990b75d3b04106937c9154d709d42cfc7495d624f80e",
+    "703": "fd825b0bcd7a55e95ac721af5751dc0b948ae3d3c6a7cf462c00049404a4889a"
+  }
+}

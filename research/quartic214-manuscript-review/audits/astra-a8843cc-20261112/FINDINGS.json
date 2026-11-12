@@ -1,0 +1,57 @@
+{
+  "reviewed_commit": "a8843cca75ff29d51aa7b288c80b8bdc3a1ca3bb",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "medium",
+      "kind": "mathematical notation/serialization",
+      "location": "research/quartic214-manuscript/quartic214.tex:2506; PDF p85",
+      "required": "a_sigma=D(mu_sigma)^(-1/4)",
+      "printed": "a_sigma=D(mu_sigma)^(-1)/4",
+      "diagnosis": "At sigma=tau=1, next cocycle identity gives 1/4=1.",
+      "consumers": [
+        "M2 original representation",
+        "M6 determinant/multiplicity",
+        "H1 original Tate identification"
+      ],
+      "historical_classification": "prior intended justification located",
+      "history_read": [
+        "research/quartic214/proofs/modularity.md:15-19",
+        "quartic214.tex:3071",
+        "quartic214.tex:3474",
+        "quartic214.tex:6438",
+        "quartic214.tex:13336"
+      ],
+      "incorporation": "inconsistent",
+      "status": "open; no repair made",
+      "scope": "not a newly missing arithmetic argument"
+    },
+    {
+      "id": "F2",
+      "severity": "low",
+      "kind": "mathematical notation/serialization",
+      "location": "research/quartic214-manuscript/quartic214.tex:2812",
+      "required": "sum_j e_j f_j=d",
+      "printed": "sum e_{{jf_j}}=d",
+      "consumers": [
+        "vertical discriminant degree bound"
+      ],
+      "historical_classification": "prior justification located",
+      "history_read": [
+        "quartic214.tex:2786",
+        "research/quartic214/proofs/height-different.md:17-19"
+      ],
+      "incorporation": "partly correct",
+      "status": "open; no repair made",
+      "scope": "no counterexample to different estimate"
+    }
+  ],
+  "coverage_obligations": [
+    "recursive rank/RC/Kato source checks",
+    "recursive Gaussian-prime/GI/transference and changed V16 application",
+    "complete geometric/modularity/p-adic/model/metric height source checks",
+    "full historical objection reconciliation",
+    "full serialization/visual review"
+  ],
+  "coverage_obligations_are_not_asserted_mathematical_gaps": true
+}

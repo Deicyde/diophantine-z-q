@@ -30,6 +30,8 @@ PACKET = ROOT / "research/quartic214"
 OUT: list[str] = []
 SPANS: list[dict] = []
 SOURCES: dict[str, dict] = {}
+CORRECTIONS = HERE / "SOURCE_CORRECTIONS_V1.json"
+ACTIVE_CORRECTIONS: dict[tuple[str, int], dict] = {}
 
 
 def digest(data: bytes) -> str:
@@ -56,8 +58,13 @@ def bound(p: Path, start: int, end: int, tex: str, method: str) -> None:
         # from a file's terminal newline.  splitlines() would discard it.
         OUT.extend(tex.split("\n"))
     else:emit(tex)
-    SPANS.append({"source": rel, "source_lines": [start, end],
-                  "tex_lines": [first, len(OUT)], "method": method})
+    span = {"source": rel, "source_lines": [start, end],
+            "tex_lines": [first, len(OUT)], "method": method}
+    corrections = [ACTIVE_CORRECTIONS[(rel, n)] for n in range(start, end + 1)
+                   if (rel, n) in ACTIVE_CORRECTIONS]
+    if corrections:
+        span["source_corrections"] = corrections
+    SPANS.append(span)
 
 
 TEXT_UNICODE = {
@@ -318,7 +325,23 @@ def plain(s: str) -> str:
 
 
 def markdown(p: Path, label: str, notice: str = "") -> None:
-    lines = p.read_text().splitlines(); register(p)
+    lines = p.read_text().splitlines(); rel = register(p)
+    register(CORRECTIONS)
+    for correction in json.loads(CORRECTIONS.read_text())["corrections"]:
+        if correction["source"] != rel:
+            continue
+        n = correction["source_line"]
+        if (SOURCES[rel]["sha256"] != correction["source_sha256"]
+                or lines[n - 1] != correction["original_line"]):
+            raise ValueError("Stale source correction: " + correction["id"])
+        lines[n - 1] = correction["corrected_line"]
+        ACTIVE_CORRECTIONS[(rel, n)] = {
+            "sidecar": CORRECTIONS.relative_to(ROOT).as_posix(),
+            "id": correction["id"],
+            "corrected_source_line": correction["corrected_line"]}
+        if "finding_ids" in correction:
+            ACTIVE_CORRECTIONS[(rel, n)]["finding_ids"] = correction["finding_ids"]
+
     # Explicit source-local notation resolutions.  Sigma denotes sums in
     # exactly these two sources; in the other sources it remains the named
     # exceptional prime set.  These adapters never change that global set.

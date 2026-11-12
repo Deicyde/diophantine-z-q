@@ -502,8 +502,8 @@
     },
     {
       "name": "repository/research/quartic214-manuscript/quartic214.tex",
-      "sha256": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2",
-      "bytes": 2337499
+      "sha256": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58",
+      "bytes": 2337533
     },
     {
       "name": "system-input/ec-lmbx10.tfm/0895c940bd2e763b",
@@ -972,7 +972,7 @@
       "bytes": 1914
     }
   ],
-  "maximum_child_rss_kib": 61204,
+  "maximum_child_rss_kib": 61216,
   "limits": {
     "parallel_tex_processes": 1,
     "child_address_space_bytes": 1073741824,
@@ -982,15 +982,15 @@
   },
   "source_files": {
     "research/quartic214-manuscript/introduction.tex": "d700aba170fa697c737ee4a9dc7b05fe959fe78c9bff1650c9a4228ce5d261d3",
-    "research/quartic214-manuscript/quartic214.tex": "f2d70e6963708f4f380f35d302896ad3c8700d22d1fd4d6d886db52bcad6c9c2"
+    "research/quartic214-manuscript/quartic214.tex": "27b189745aa78d2e36927468e554d2d29e8f8be84e2022204124ab897f75ed58"
   },
   "pdf": {
     "path": "research/quartic214-manuscript/quartic214.pdf",
-    "sha256": "367bd75c7f5f52d7e507a7ce203ad9121cd6511c828c2718793d43f5585dd4d1",
-    "bytes": 3940841,
+    "sha256": "8c22312ce54d3f2709eddc28c1045b1785d44ce0d7d47957639c0322a9d0a498",
+    "bytes": 3940738,
     "pages": 703
   },
-  "pdf_text_sha256": "9ca0526e6963db967d77a903cf66199231c5e7c02f290c47b3871f0c2c47f85e",
+  "pdf_text_sha256": "7039c80fa73dcc2b7d12cac98b26407233772d2dcf66c0f43ec5b6ec4bb18400",
   "layout_diagnostics": [
     "Underfull \\hbox (badness 1292) in paragraph at lines 2069--2069",
     "Underfull \\hbox (badness 10000) in paragraph at lines 2071--2071",
