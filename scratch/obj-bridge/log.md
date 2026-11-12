@@ -35,3 +35,9 @@
   works.
 - Final compile: `lake env lean scratch/obj-bridge/Objects.lean`: no errors; every audited
   declaration depends only on propext, Classical.choice, Quot.sound. File has no sorry/axiom.
+
+## Step 4: consolidation — VERIFIED (compiled, standard axioms)
+- `homRankBound_of_homFreeFinite : HomFreeFinite → ObjBridge.HomRankBound` and
+  `pkgI2_homRankBound_of_pkgI3_homFreeFinite : PkgI3.HomFreeFinite → PkgI2.HomRankBound.{0}`.
+  Leaf I2-Rank is a consequence of leaf I3.M1 (finrank bound + `fintype_card_le_finrank` +
+  `Fintype.not_linearIndependent_iff`); it can be dropped from the announced list.

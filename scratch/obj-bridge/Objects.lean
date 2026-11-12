@@ -1766,6 +1766,34 @@ end Functoriality
 
 end ObjBridge
 
+/-! # §F. Consolidation: leaf I2-Rank is a consequence of leaf I3.M1 -/
+
+namespace ObjBridge
+
+open PkgI2 (IsAbelianVariety)
+
+/-- **I2-Rank follows from I3.M1.** If `Hom A B` is a free ℤ-module of finite rank
+`≤ 4 dim A dim B` (`HomFreeFinite`, Mumford §19 Thm 3), then any `4gg' + 1` elements are
+ℤ-linearly dependent (`HomRankBound`). So I2-Rank need not be announced as a separate leaf. -/
+theorem homRankBound_of_homFreeFinite (hH : HomFreeFinite) : ObjBridge.HomRankBound := by
+  intro k _ A B _ _ g g' hA hB f
+  obtain ⟨_, _, hle, -⟩ := hH k A B
+  have e : 4 * dim A * dim B = (((4 * g * g' : ℕ) : ℕ∞) : WithBot ℕ∞) := by
+    rw [hA, hB]; push_cast; rfl
+  rw [e, WithBot.coe_le_coe, Nat.cast_le] at hle
+  have hnot : ¬ LinearIndependent ℤ f := fun hli => by
+    have := hli.fintype_card_le_finrank
+    simp at this; omega
+  obtain ⟨c, hc, i, hi⟩ := Fintype.not_linearIndependent_iff.mp hnot
+  exact ⟨c, fun h => hi (by simp [h]), hc⟩
+
+/-- The original I2-Rank, from the original I3.M1. -/
+theorem pkgI2_homRankBound_of_pkgI3_homFreeFinite (hH : PkgI3.HomFreeFinite) :
+    PkgI2.HomRankBound.{0} :=
+  homRankBound_iff.mp (homRankBound_of_homFreeFinite (homFreeFinite_iff.mpr hH))
+
+end ObjBridge
+
 /-! ## Axiom audit -/
 #print axioms ObjBridge.homEquiv
 #print axioms ObjBridge.endMulEquiv
@@ -1779,3 +1807,4 @@ end ObjBridge
 #print axioms ObjBridge.ofGrp_baseChange
 #print axioms ObjBridge.homT_comp
 #print axioms ObjBridge.homT_id
+#print axioms ObjBridge.pkgI2_homRankBound_of_pkgI3_homFreeFinite
