@@ -96,6 +96,13 @@ section UnitsCopy
 ''')
 out.append('\n'.join(un))
 out.append('\nend UnitsCopy\n')
+out.append('''
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# `scratch/ts-hecke/GaloisPart.lean.part` (task ts-hecke; compiled on its own as `GaloisDev.lean`)
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+''')
+out.append(open('scratch/ts-hecke/GaloisPart.lean.part').read())
+out.append('\nend\n')
 with open('scratch/ts-hecke/TSHeckeMain.lean.part') as f:
     out.append(f.read())
 with open('scratch/ts-hecke/TSHecke.lean', 'w') as f:

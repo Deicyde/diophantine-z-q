@@ -172,6 +172,129 @@ theorem exists_sigma [LocallyOfFiniteType Y.hom] [Algebra (RatFunc ℚ) E]
     rw [e2, hg, hval ψ] at e1
     exact (OnePoint.coe_injective e1).symm
 
-end TSHeckeGal
+/-- **The field automorphism induced by a `π`-preserving endomorphism** (compiled): the ring map
+`σ` of `exists_sigma` fixes `ℚ[X]`, so it extends to an automorphism `τ` of `E` over `ℚ(X)`. -/
+theorem exists_tau [Algebra (RatFunc ℚ) E] [IsScalarTower ℚ[X] (RatFunc ℚ) E]
+    [FiniteDimensional (RatFunc ℚ) E]
+    (σ : integralClosure ℚ[X] E →+* integralClosure ℚ[X] E)
+    (hσ : σ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) = algebraMap ℚ[X] (integralClosure ℚ[X] E) X) :
+    ∃ τ : E ≃ₐ[RatFunc ℚ] E, ∀ b : integralClosure ℚ[X] E,
+      τ (algebraMap (integralClosure ℚ[X] E) E b) = algebraMap (integralClosure ℚ[X] E) E (σ b) := by
+  have hinjB : Function.Injective (algebraMap ℚ[X] (integralClosure ℚ[X] E)) := by
+    intro a b hab
+    have h' := congrArg Subtype.val hab
+    change algebraMap ℚ[X] E a = algebraMap ℚ[X] E b at h'
+    rw [IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E,
+      IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E b] at h'
+    exact IsFractionRing.injective ℚ[X] (RatFunc ℚ) ((algebraMap (RatFunc ℚ) E).injective h')
+  haveI : Module.IsTorsionFree ℚ[X] E := by
+    rw [Module.isTorsionFree_iff_algebraMap_injective, IsScalarTower.algebraMap_eq ℚ[X] (RatFunc ℚ) E]
+    exact (algebraMap (RatFunc ℚ) E).injective.comp (IsFractionRing.injective ℚ[X] (RatFunc ℚ))
+  haveI : IsFractionRing (integralClosure ℚ[X] E) E :=
+    IsIntegralClosure.isFractionRing_of_finite_extension ℚ[X] (RatFunc ℚ) E _
+  -- `σ` fixes `ℚ[X]`
+  have hfix : σ.comp (algebraMap ℚ[X] (integralClosure ℚ[X] E)) =
+      algebraMap ℚ[X] (integralClosure ℚ[X] E) :=
+    Polynomial.ringHom_ext (fun a => RingHom.congr_fun (RingHom.ext_rat
+      ((σ.comp (algebraMap ℚ[X] (integralClosure ℚ[X] E))).comp Polynomial.C)
+      ((algebraMap ℚ[X] (integralClosure ℚ[X] E)).comp Polynomial.C)) a) (by simpa using hσ)
+  -- `σ` is injective
+  have hσinj : Function.Injective σ := by
+    rw [injective_iff_map_eq_zero]
+    intro b hb
+    have hker : (RingHom.ker σ).under ℚ[X] = ⊥ := by
+      ext a
+      simp only [Ideal.mem_comap, RingHom.mem_ker, Ideal.mem_bot]
+      constructor
+      · intro ha
+        rw [← RingHom.comp_apply, hfix] at ha
+        exact hinjB (by rw [ha, map_zero])
+      · rintro rfl; simp
+    have := Ideal.eq_bot_of_under_eq_bot (R := ℚ[X]) hker
+    have hb' : b ∈ RingHom.ker σ := hb
+    rw [this] at hb'
+    exact hb'
+  have hg : Function.Injective ((algebraMap (integralClosure ℚ[X] E) E).comp σ) :=
+    (IsFractionRing.injective (integralClosure ℚ[X] E) E).comp hσinj
+  let τ₀ : E →+* E := IsFractionRing.lift hg
+  have hτ₀ : ∀ b, τ₀ (algebraMap (integralClosure ℚ[X] E) E b) =
+      algebraMap (integralClosure ℚ[X] E) E (σ b) := fun b => IsFractionRing.lift_algebraMap hg b
+  have hcomm : τ₀.comp (algebraMap (RatFunc ℚ) E) = algebraMap (RatFunc ℚ) E := by
+    apply IsLocalization.ringHom_ext (nonZeroDivisors ℚ[X])
+    refine RingHom.ext fun a => ?_
+    simp only [RingHom.coe_comp, Function.comp_apply]
+    rw [← IsScalarTower.algebraMap_apply, IsScalarTower.algebraMap_apply ℚ[X]
+      (integralClosure ℚ[X] E) E, hτ₀, ← RingHom.comp_apply σ, hfix,
+      ← IsScalarTower.algebraMap_apply]
+  let τ₁ : E →ₐ[RatFunc ℚ] E := { τ₀ with commutes' := fun r => RingHom.congr_fun hcomm r }
+  exact ⟨AlgEquiv.ofBijective τ₁ (AlgHom.bijective τ₁), fun b => hτ₀ b⟩
 
-end
+/-- **Galois from fibre transitivity** (compiled). If `E` carries the normalization chart of
+`(Y, π)`, some rational fibre has at least `[E : ℚ(X)]` points of `Spec B` (generic étaleness),
+and any two `ℚ̄`-points with the same `π`-value differ by a `π`-preserving automorphism of `Y`,
+then `E/ℚ(X)` is Galois. -/
+theorem isGalois_of_transitive [LocallyOfFiniteType Y.hom] [Algebra (RatFunc ℚ) E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (hM : NormalizationModel Y π E)
+    (hG : ∃ t : ℚ, ∃ s : Finset (integralClosure ℚ[X] E →+* Qbar),
+      Module.finrank (RatFunc ℚ) E ≤ s.card ∧
+      ∀ ψ ∈ s, ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) = algebraMap ℚ Qbar t)
+    (htrans : ∀ y y' : fieldPt Qbar ⟶ Y, π.val (K := Qbar) y.left = π.val (K := Qbar) y'.left →
+      ∃ g : Y ≅ Y, y' = y ≫ g.hom ∧
+        ∀ z : fieldPt Qbar ⟶ Y, π.val (K := Qbar) (z ≫ g.hom).left = π.val (K := Qbar) z.left) :
+    IsGalois (RatFunc ℚ) E := by
+  classical
+  haveI : Module.IsTorsionFree ℚ[X] E := by
+    rw [Module.isTorsionFree_iff_algebraMap_injective, IsScalarTower.algebraMap_eq ℚ[X] (RatFunc ℚ) E]
+    exact (algebraMap (RatFunc ℚ) E).injective.comp (IsFractionRing.injective ℚ[X] (RatFunc ℚ))
+  haveI : IsFractionRing (integralClosure ℚ[X] E) E :=
+    IsIntegralClosure.isFractionRing_of_finite_extension ℚ[X] (RatFunc ℚ) E _
+  obtain ⟨h, hO, himg, hval⟩ := hM
+  obtain ⟨t, s, hs, hst⟩ := hG
+  let ptO : (integralClosure ℚ[X] E →+* Qbar) → (fieldPt Qbar ⟶ Y) := fun ψ =>
+    Over.homMk (Spec.map (CommRingCat.ofHom ψ) ≫ h) (specQbar_to_specQ_eq' _ _)
+  have hnpos : 0 < Module.finrank (RatFunc ℚ) E := Module.finrank_pos
+  obtain ⟨ψ₀, hψ₀⟩ : s.Nonempty := by
+    rw [← Finset.card_pos]; omega
+  -- for each `ψ ∈ s`, an automorphism `τ` and a ring map `σ` with `ψ = ψ₀ ∘ σ`
+  have key : ∀ ψ ∈ s, ∃ τ : E ≃ₐ[RatFunc ℚ] E, ∃ σ : integralClosure ℚ[X] E →+* integralClosure ℚ[X] E,
+      (∀ b, τ (algebraMap (integralClosure ℚ[X] E) E b) = algebraMap (integralClosure ℚ[X] E) E (σ b)) ∧
+      ψ = ψ₀.comp σ := by
+    intro ψ hψ
+    have hπ : π.val (K := Qbar) (ptO ψ₀).left = π.val (K := Qbar) (ptO ψ).left := by
+      show π.val (K := Qbar) (Spec.map (CommRingCat.ofHom ψ₀) ≫ h) =
+        π.val (K := Qbar) (Spec.map (CommRingCat.ofHom ψ) ≫ h)
+      rw [hval, hval, hst ψ₀ hψ₀, hst ψ hψ]
+    obtain ⟨g, hgy, hgπ⟩ := htrans (ptO ψ₀) (ptO ψ) hπ
+    have hg' : ∀ z : Spec (CommRingCat.of Qbar) ⟶ Y.left,
+        π.val (K := Qbar) (z ≫ g.hom.left) = π.val (K := Qbar) z := fun z =>
+      hgπ (Over.homMk z (specQbar_to_specQ_eq' _ _))
+    obtain ⟨σ, hσh, hσX⟩ := exists_sigma h himg hval g.hom.left hg'
+    obtain ⟨τ, hτ⟩ := exists_tau σ hσX
+    refine ⟨τ, σ, hτ, ?_⟩
+    have e1 : Spec.map (CommRingCat.ofHom ψ) ≫ h = Spec.map (CommRingCat.ofHom (ψ₀.comp σ)) ≫ h := by
+      have := congrArg (fun y : fieldPt Qbar ⟶ Y => y.left) hgy
+      change Spec.map (CommRingCat.ofHom ψ) ≫ h =
+        (Spec.map (CommRingCat.ofHom ψ₀) ≫ h) ≫ g.hom.left at this
+      rw [this, CommRingCat.ofHom_comp, Spec.map_comp, Category.assoc, Category.assoc, hσh]
+    exact congrArg CommRingCat.Hom.hom (Spec.map_injective ((cancel_mono h).1 e1))
+  choose T σT hT hψT using key
+  have hTinj : Function.Injective (fun ψ : s => T ψ.1 ψ.2) := by
+    rintro ⟨ψ, hψ⟩ ⟨ψ', hψ'⟩ heq
+    simp only at heq
+    apply Subtype.ext
+    simp only
+    rw [hψT ψ hψ, hψT ψ' hψ']
+    congr 1
+    ext1 b
+    apply IsFractionRing.injective (integralClosure ℚ[X] E) E
+    rw [← hT ψ hψ b, ← hT ψ' hψ' b, heq]
+  have hcard : s.card ≤ Fintype.card (E ≃ₐ[RatFunc ℚ] E) := by
+    rw [← Fintype.card_coe s]
+    exact Fintype.card_le_of_injective _ hTinj
+  have hle := AlgEquiv.card_le (F := RatFunc ℚ) (K := E)
+  apply IsGalois.of_card_aut_eq_finrank
+  rw [Nat.card_eq_fintype_card]
+  omega
+
+end TSHeckeGal

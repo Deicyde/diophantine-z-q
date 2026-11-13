@@ -5717,6 +5717,312 @@ end
 end UnitsCopy
 
 /-! ════════════════════════════════════════════════════════════════════════════════════════════
+# `scratch/ts-hecke/GaloisPart.lean.part` (task ts-hecke; compiled on its own as `GaloisDev.lean`)
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+/-! ## Part 3b: the Galois property in `CurveGaloisChart` (dev section) -/
+
+noncomputable section
+
+namespace TSHeckeGal
+
+open CategoryTheory AlgebraicGeometry Limits Polynomial
+open LeafQM LeafQM.AV LeafQM.AV.Pin G0ModField PropTSRed
+
+/-- Any two morphisms `Spec ℚ̄ → Spec ℚ` agree. -/
+theorem specQbar_to_specQ_eq' (f g : Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of ℚ)) :
+    f = g := by
+  rw [← Spec.map_preimage f, ← Spec.map_preimage g]
+  congr 1
+  exact CommRingCat.hom_ext (Subsingleton.elim _ _)
+
+/-- **A closed point of a scheme locally of finite type over `ℚ` has a `ℚ̄`-point** (compiled). -/
+theorem exists_qbar_point {X : Scheme.{0}} (f : X ⟶ Spec (CommRingCat.of ℚ))
+    [LocallyOfFiniteType f] (z : X) (hz : IsClosed ({z} : Set X)) :
+    ∃ y : Spec (CommRingCat.of Qbar) ⟶ X, ∀ s, y s = z := by
+  have : IsClosedImmersion (X.fromSpecResidueField z) :=
+    isClosed_singleton_iff_isClosedImmersion.mp hz
+  have : IsFinite (X.fromSpecResidueField z ≫ f) :=
+    (isFinite_iff_locallyOfFiniteType_of_jacobsonSpace
+      (f := X.fromSpecResidueField z ≫ f)).mpr inferInstance
+  let φ := Spec.preimage (X.fromSpecResidueField z ≫ f)
+  letI : Algebra ℚ (X.residueField z) := φ.hom.toAlgebra
+  have hφ : φ.hom.IsIntegral := by
+    rw [← IsIntegralHom.SpecMap_iff, Spec.map_preimage]
+    infer_instance
+  haveI : Algebra.IsIntegral ℚ (X.residueField z) := ⟨fun x => hφ x⟩
+  haveI : Algebra.IsAlgebraic ℚ (X.residueField z) := Algebra.IsIntegral.isAlgebraic
+  let L : X.residueField z →ₐ[ℚ] Qbar := IsAlgClosed.lift
+  refine ⟨Spec.map (CommRingCat.ofHom L.toRingHom) ≫ X.fromSpecResidueField z, fun s => ?_⟩
+  rw [Scheme.Hom.comp_apply, Scheme.fromSpecResidueField_apply]
+
+variable {Y : Over (Spec (CommRingCat.of ℚ))} {π : ToP1 Y.left} {E : Type} [Field E]
+  [Algebra ℚ[X] E]
+
+/-- **A `π`-preserving endomorphism maps the chart into itself** (compiled; Jacobson). -/
+theorem range_comp_subset [LocallyOfFiniteType Y.hom]
+    (h : Spec (CommRingCat.of (integralClosure ℚ[X] E)) ⟶ Y.left) [IsOpenImmersion h]
+    (himg : ∀ y : Spec (CommRingCat.of Qbar) ⟶ Y.left, π.val (K := Qbar) y ≠ OnePoint.infty →
+      ∃ y' : Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of (integralClosure ℚ[X] E)),
+        y = y' ≫ h)
+    (hval : ∀ ψ : integralClosure ℚ[X] E →+* Qbar,
+      π.val (K := Qbar) (Spec.map (CommRingCat.ofHom ψ) ≫ h) =
+        OnePoint.some (ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X)))
+    (g : Y.left ⟶ Y.left)
+    (hg : ∀ z : Spec (CommRingCat.of Qbar) ⟶ Y.left, π.val (K := Qbar) (z ≫ g) = π.val (K := Qbar) z) :
+    Set.range (h ≫ g) ⊆ Set.range h := by
+  haveI : JacobsonSpace Y.left := LocallyOfFiniteType.jacobsonSpace Y.hom
+  by_contra hcon
+  rw [Set.not_subset] at hcon
+  obtain ⟨_, ⟨x, rfl⟩, hx⟩ := hcon
+  set W : Set Y.left := Set.range h ∩ g ⁻¹' (Set.range h)ᶜ
+  have hWne : W.Nonempty := ⟨h x, ⟨x, rfl⟩, by simpa using hx⟩
+  have hWlc : IsLocallyClosed W :=
+    (h.isOpenEmbedding.isOpen_range).isLocallyClosed.inter
+      ((h.isOpenEmbedding.isOpen_range).isClosed_compl.preimage g.continuous).isLocallyClosed
+  obtain ⟨z, ⟨hzh, hzg⟩, hzc⟩ := nonempty_inter_closedPoints hWne hWlc
+  obtain ⟨y, hy⟩ := exists_qbar_point Y.hom z (mem_closedPoints_iff.mp hzc)
+  have hyr : Set.range y ⊆ Set.range h := by
+    rintro _ ⟨s, rfl⟩; rw [hy s]; exact hzh
+  set y'' := IsOpenImmersion.lift h y hyr
+  have hy'' : y'' ≫ h = y := IsOpenImmersion.lift_fac h y hyr
+  have hfin : π.val (K := Qbar) y ≠ OnePoint.infty := by
+    rw [← hy'', ← Spec.map_preimage y'', ← CommRingCat.ofHom_hom (Spec.preimage y''), hval]
+    exact OnePoint.coe_ne_infty _
+  obtain ⟨y', hy'⟩ := himg (y ≫ g) (by rw [hg]; exact hfin)
+  apply hzg
+  obtain ⟨s⟩ : Nonempty (Spec (CommRingCat.of Qbar)) := inferInstance
+  refine ⟨y' s, ?_⟩
+  rw [← Scheme.Hom.comp_apply, ← hy', Scheme.Hom.comp_apply, hy s]
+
+/-- A nonzero prime of `ℚ[X]` is the kernel of evaluation at some `t ∈ ℚ̄` (compiled). -/
+theorem exists_ker_eval' (P : Ideal ℚ[X]) [hP : P.IsPrime] (h0 : P ≠ ⊥) :
+    ∃ t : Qbar, P = RingHom.ker (Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t) := by
+  have hmax : P.IsMaximal := hP.isMaximal h0
+  obtain ⟨p, rfl⟩ := (Submodule.IsPrincipal.principal P)
+  have hp0 : p ≠ 0 := by rintro rfl; exact h0 (by simp)
+  have hdeg : (p.map (algebraMap ℚ Qbar)).degree ≠ 0 := by
+    rw [Polynomial.degree_map]
+    intro hd
+    rw [Polynomial.eq_C_of_degree_eq_zero hd] at hmax
+    apply hmax.ne_top
+    rw [Ideal.submodule_span_eq, Ideal.span_singleton_eq_top]
+    have : p.coeff 0 ≠ 0 := by
+      intro hc; apply hp0; rw [Polynomial.eq_C_of_degree_eq_zero hd, hc, map_zero]
+    exact Polynomial.isUnit_C.2 (Ne.isUnit this)
+  obtain ⟨t, ht⟩ := IsAlgClosed.exists_root _ hdeg
+  refine ⟨t, hmax.eq_of_le (RingHom.ker_ne_top _) ?_⟩
+  rw [Ideal.submodule_span_eq, Ideal.span_le, Set.singleton_subset_iff]
+  show Polynomial.eval₂ (algebraMap ℚ Qbar) t p = 0
+  rw [← Polynomial.eval_map]
+  exact ht
+
+/-- **Separation by `ℚ̄`-points** (compiled): in a domain `B` finite over `ℚ[X]`, two elements with
+the same value under every ring map `B → ℚ̄` are equal (`B` is Jacobson; every maximal ideal is
+the kernel of such a map). -/
+theorem eq_of_forall_qbar {B : Type} [CommRing B] [IsDomain B] [Algebra ℚ[X] B]
+    [Algebra.IsIntegral ℚ[X] B] (hinj : Function.Injective (algebraMap ℚ[X] B)) (a b : B)
+    (h : ∀ ψ : B →+* Qbar, ψ a = ψ b) : a = b := by
+  haveI : IsJacobsonRing B := isJacobsonRing_of_isIntegral (R := ℚ[X])
+  rw [← sub_eq_zero]
+  have hjac := IsJacobsonRing.out (R := B) inferInstance
+    (Ideal.isRadical_bot_of_noZeroDivisors (R := B))
+  rw [← Ideal.mem_bot, ← hjac, Ideal.jacobson, Ideal.mem_sInf]
+  rintro m ⟨-, hm⟩
+  haveI := hm
+  set P := m.under ℚ[X]
+  haveI hPmax : P.IsMaximal := Ideal.isMaximal_under_of_isIntegral_of_isMaximal (R := ℚ[X]) m
+  have hP0 : P ≠ ⊥ := by
+    intro h0
+    rw [h0] at hPmax
+    exact Polynomial.not_isField ℚ (Ring.isField_iff_maximal_bot.2 hPmax)
+  obtain ⟨t, ht⟩ := exists_ker_eval' P hP0
+  let φ : ℚ[X] →+* Qbar := Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t
+  haveI : m.LiesOver P := ⟨rfl⟩
+  letI : Algebra (ℚ[X] ⧸ P) Qbar :=
+    (Ideal.Quotient.lift P φ (fun x hx => by rw [ht] at hx; exact RingHom.mem_ker.1 hx)).toAlgebra
+  letI : Field (ℚ[X] ⧸ P) := Ideal.Quotient.field P
+  letI : Field (B ⧸ m) := Ideal.Quotient.field m
+  haveI : Module.IsTorsionFree (ℚ[X] ⧸ P) (B ⧸ m) :=
+    Module.isTorsionFree_iff_faithfulSMul.2 inferInstance
+  haveI : Module.IsTorsionFree (ℚ[X] ⧸ P) Qbar := by
+    rw [Module.isTorsionFree_iff_algebraMap_injective]
+    exact (algebraMap (ℚ[X] ⧸ P) Qbar).injective
+  haveI : Algebra.IsAlgebraic (ℚ[X] ⧸ P) (B ⧸ m) := Algebra.IsIntegral.isAlgebraic
+  let L : (B ⧸ m) →ₐ[ℚ[X] ⧸ P] Qbar := IsAlgClosed.lift
+  have h1 := h (L.toRingHom.comp (Ideal.Quotient.mk m))
+  simp only [RingHom.coe_comp, Function.comp_apply] at h1
+  have h2 := L.toRingHom.injective h1
+  rw [← Ideal.Quotient.mk_eq_mk_iff_sub_mem]
+  exact h2
+
+/-- **The ring map induced by a `π`-preserving endomorphism** (compiled). -/
+theorem exists_sigma [LocallyOfFiniteType Y.hom] [Algebra (RatFunc ℚ) E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E]
+    (h : Spec (CommRingCat.of (integralClosure ℚ[X] E)) ⟶ Y.left) [IsOpenImmersion h]
+    (himg : ∀ y : Spec (CommRingCat.of Qbar) ⟶ Y.left, π.val (K := Qbar) y ≠ OnePoint.infty →
+      ∃ y' : Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of (integralClosure ℚ[X] E)),
+        y = y' ≫ h)
+    (hval : ∀ ψ : integralClosure ℚ[X] E →+* Qbar,
+      π.val (K := Qbar) (Spec.map (CommRingCat.ofHom ψ) ≫ h) =
+        OnePoint.some (ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X)))
+    (g : Y.left ⟶ Y.left)
+    (hg : ∀ z : Spec (CommRingCat.of Qbar) ⟶ Y.left, π.val (K := Qbar) (z ≫ g) = π.val (K := Qbar) z) :
+    ∃ σ : integralClosure ℚ[X] E →+* integralClosure ℚ[X] E,
+      Spec.map (CommRingCat.ofHom σ) ≫ h = h ≫ g ∧
+      σ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) = algebraMap ℚ[X] (integralClosure ℚ[X] E) X := by
+  have hinjB : Function.Injective (algebraMap ℚ[X] (integralClosure ℚ[X] E)) := by
+    intro a b hab
+    have h' := congrArg Subtype.val hab
+    change algebraMap ℚ[X] E a = algebraMap ℚ[X] E b at h'
+    rw [IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E,
+      IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E b] at h'
+    exact IsFractionRing.injective ℚ[X] (RatFunc ℚ) ((algebraMap (RatFunc ℚ) E).injective h')
+  have hr := range_comp_subset h himg hval g hg
+  set k := IsOpenImmersion.lift h (h ≫ g) hr
+  have hk : k ≫ h = h ≫ g := IsOpenImmersion.lift_fac h (h ≫ g) hr
+  refine ⟨(Spec.preimage k).hom, ?_, ?_⟩
+  · rw [CommRingCat.ofHom_hom, Spec.map_preimage, hk]
+  · apply eq_of_forall_qbar hinjB
+    intro ψ
+    have e1 := hval (ψ.comp (Spec.preimage k).hom)
+    have e2 : Spec.map (CommRingCat.ofHom (ψ.comp (Spec.preimage k).hom)) ≫ h =
+        (Spec.map (CommRingCat.ofHom ψ) ≫ h) ≫ g := by
+      rw [CommRingCat.ofHom_comp, Spec.map_comp, CommRingCat.ofHom_hom, Spec.map_preimage,
+        Category.assoc, hk, Category.assoc]
+    rw [e2, hg, hval ψ] at e1
+    exact (OnePoint.coe_injective e1).symm
+
+/-- **The field automorphism induced by a `π`-preserving endomorphism** (compiled): the ring map
+`σ` of `exists_sigma` fixes `ℚ[X]`, so it extends to an automorphism `τ` of `E` over `ℚ(X)`. -/
+theorem exists_tau [Algebra (RatFunc ℚ) E] [IsScalarTower ℚ[X] (RatFunc ℚ) E]
+    [FiniteDimensional (RatFunc ℚ) E]
+    (σ : integralClosure ℚ[X] E →+* integralClosure ℚ[X] E)
+    (hσ : σ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) = algebraMap ℚ[X] (integralClosure ℚ[X] E) X) :
+    ∃ τ : E ≃ₐ[RatFunc ℚ] E, ∀ b : integralClosure ℚ[X] E,
+      τ (algebraMap (integralClosure ℚ[X] E) E b) = algebraMap (integralClosure ℚ[X] E) E (σ b) := by
+  have hinjB : Function.Injective (algebraMap ℚ[X] (integralClosure ℚ[X] E)) := by
+    intro a b hab
+    have h' := congrArg Subtype.val hab
+    change algebraMap ℚ[X] E a = algebraMap ℚ[X] E b at h'
+    rw [IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E,
+      IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E b] at h'
+    exact IsFractionRing.injective ℚ[X] (RatFunc ℚ) ((algebraMap (RatFunc ℚ) E).injective h')
+  haveI : Module.IsTorsionFree ℚ[X] E := by
+    rw [Module.isTorsionFree_iff_algebraMap_injective, IsScalarTower.algebraMap_eq ℚ[X] (RatFunc ℚ) E]
+    exact (algebraMap (RatFunc ℚ) E).injective.comp (IsFractionRing.injective ℚ[X] (RatFunc ℚ))
+  haveI : IsFractionRing (integralClosure ℚ[X] E) E :=
+    IsIntegralClosure.isFractionRing_of_finite_extension ℚ[X] (RatFunc ℚ) E _
+  -- `σ` fixes `ℚ[X]`
+  have hfix : σ.comp (algebraMap ℚ[X] (integralClosure ℚ[X] E)) =
+      algebraMap ℚ[X] (integralClosure ℚ[X] E) :=
+    Polynomial.ringHom_ext (fun a => RingHom.congr_fun (RingHom.ext_rat
+      ((σ.comp (algebraMap ℚ[X] (integralClosure ℚ[X] E))).comp Polynomial.C)
+      ((algebraMap ℚ[X] (integralClosure ℚ[X] E)).comp Polynomial.C)) a) (by simpa using hσ)
+  -- `σ` is injective
+  have hσinj : Function.Injective σ := by
+    rw [injective_iff_map_eq_zero]
+    intro b hb
+    have hker : (RingHom.ker σ).under ℚ[X] = ⊥ := by
+      ext a
+      simp only [Ideal.mem_comap, RingHom.mem_ker, Ideal.mem_bot]
+      constructor
+      · intro ha
+        rw [← RingHom.comp_apply, hfix] at ha
+        exact hinjB (by rw [ha, map_zero])
+      · rintro rfl; simp
+    have := Ideal.eq_bot_of_under_eq_bot (R := ℚ[X]) hker
+    have hb' : b ∈ RingHom.ker σ := hb
+    rw [this] at hb'
+    exact hb'
+  have hg : Function.Injective ((algebraMap (integralClosure ℚ[X] E) E).comp σ) :=
+    (IsFractionRing.injective (integralClosure ℚ[X] E) E).comp hσinj
+  let τ₀ : E →+* E := IsFractionRing.lift hg
+  have hτ₀ : ∀ b, τ₀ (algebraMap (integralClosure ℚ[X] E) E b) =
+      algebraMap (integralClosure ℚ[X] E) E (σ b) := fun b => IsFractionRing.lift_algebraMap hg b
+  have hcomm : τ₀.comp (algebraMap (RatFunc ℚ) E) = algebraMap (RatFunc ℚ) E := by
+    apply IsLocalization.ringHom_ext (nonZeroDivisors ℚ[X])
+    refine RingHom.ext fun a => ?_
+    simp only [RingHom.coe_comp, Function.comp_apply]
+    rw [← IsScalarTower.algebraMap_apply, IsScalarTower.algebraMap_apply ℚ[X]
+      (integralClosure ℚ[X] E) E, hτ₀, ← RingHom.comp_apply σ, hfix,
+      ← IsScalarTower.algebraMap_apply]
+  let τ₁ : E →ₐ[RatFunc ℚ] E := { τ₀ with commutes' := fun r => RingHom.congr_fun hcomm r }
+  exact ⟨AlgEquiv.ofBijective τ₁ (AlgHom.bijective τ₁), fun b => hτ₀ b⟩
+
+/-- **Galois from fibre transitivity** (compiled). If `E` carries the normalization chart of
+`(Y, π)`, some rational fibre has at least `[E : ℚ(X)]` points of `Spec B` (generic étaleness),
+and any two `ℚ̄`-points with the same `π`-value differ by a `π`-preserving automorphism of `Y`,
+then `E/ℚ(X)` is Galois. -/
+theorem isGalois_of_transitive [LocallyOfFiniteType Y.hom] [Algebra (RatFunc ℚ) E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (hM : NormalizationModel Y π E)
+    (hG : ∃ t : ℚ, ∃ s : Finset (integralClosure ℚ[X] E →+* Qbar),
+      Module.finrank (RatFunc ℚ) E ≤ s.card ∧
+      ∀ ψ ∈ s, ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) = algebraMap ℚ Qbar t)
+    (htrans : ∀ y y' : fieldPt Qbar ⟶ Y, π.val (K := Qbar) y.left = π.val (K := Qbar) y'.left →
+      ∃ g : Y ≅ Y, y' = y ≫ g.hom ∧
+        ∀ z : fieldPt Qbar ⟶ Y, π.val (K := Qbar) (z ≫ g.hom).left = π.val (K := Qbar) z.left) :
+    IsGalois (RatFunc ℚ) E := by
+  classical
+  haveI : Module.IsTorsionFree ℚ[X] E := by
+    rw [Module.isTorsionFree_iff_algebraMap_injective, IsScalarTower.algebraMap_eq ℚ[X] (RatFunc ℚ) E]
+    exact (algebraMap (RatFunc ℚ) E).injective.comp (IsFractionRing.injective ℚ[X] (RatFunc ℚ))
+  haveI : IsFractionRing (integralClosure ℚ[X] E) E :=
+    IsIntegralClosure.isFractionRing_of_finite_extension ℚ[X] (RatFunc ℚ) E _
+  obtain ⟨h, hO, himg, hval⟩ := hM
+  obtain ⟨t, s, hs, hst⟩ := hG
+  let ptO : (integralClosure ℚ[X] E →+* Qbar) → (fieldPt Qbar ⟶ Y) := fun ψ =>
+    Over.homMk (Spec.map (CommRingCat.ofHom ψ) ≫ h) (specQbar_to_specQ_eq' _ _)
+  have hnpos : 0 < Module.finrank (RatFunc ℚ) E := Module.finrank_pos
+  obtain ⟨ψ₀, hψ₀⟩ : s.Nonempty := by
+    rw [← Finset.card_pos]; omega
+  -- for each `ψ ∈ s`, an automorphism `τ` and a ring map `σ` with `ψ = ψ₀ ∘ σ`
+  have key : ∀ ψ ∈ s, ∃ τ : E ≃ₐ[RatFunc ℚ] E, ∃ σ : integralClosure ℚ[X] E →+* integralClosure ℚ[X] E,
+      (∀ b, τ (algebraMap (integralClosure ℚ[X] E) E b) = algebraMap (integralClosure ℚ[X] E) E (σ b)) ∧
+      ψ = ψ₀.comp σ := by
+    intro ψ hψ
+    have hπ : π.val (K := Qbar) (ptO ψ₀).left = π.val (K := Qbar) (ptO ψ).left := by
+      show π.val (K := Qbar) (Spec.map (CommRingCat.ofHom ψ₀) ≫ h) =
+        π.val (K := Qbar) (Spec.map (CommRingCat.ofHom ψ) ≫ h)
+      rw [hval, hval, hst ψ₀ hψ₀, hst ψ hψ]
+    obtain ⟨g, hgy, hgπ⟩ := htrans (ptO ψ₀) (ptO ψ) hπ
+    have hg' : ∀ z : Spec (CommRingCat.of Qbar) ⟶ Y.left,
+        π.val (K := Qbar) (z ≫ g.hom.left) = π.val (K := Qbar) z := fun z =>
+      hgπ (Over.homMk z (specQbar_to_specQ_eq' _ _))
+    obtain ⟨σ, hσh, hσX⟩ := exists_sigma h himg hval g.hom.left hg'
+    obtain ⟨τ, hτ⟩ := exists_tau σ hσX
+    refine ⟨τ, σ, hτ, ?_⟩
+    have e1 : Spec.map (CommRingCat.ofHom ψ) ≫ h = Spec.map (CommRingCat.ofHom (ψ₀.comp σ)) ≫ h := by
+      have := congrArg (fun y : fieldPt Qbar ⟶ Y => y.left) hgy
+      change Spec.map (CommRingCat.ofHom ψ) ≫ h =
+        (Spec.map (CommRingCat.ofHom ψ₀) ≫ h) ≫ g.hom.left at this
+      rw [this, CommRingCat.ofHom_comp, Spec.map_comp, Category.assoc, Category.assoc, hσh]
+    exact congrArg CommRingCat.Hom.hom (Spec.map_injective ((cancel_mono h).1 e1))
+  choose T σT hT hψT using key
+  have hTinj : Function.Injective (fun ψ : s => T ψ.1 ψ.2) := by
+    rintro ⟨ψ, hψ⟩ ⟨ψ', hψ'⟩ heq
+    simp only at heq
+    apply Subtype.ext
+    simp only
+    rw [hψT ψ hψ, hψT ψ' hψ']
+    congr 1
+    ext1 b
+    apply IsFractionRing.injective (integralClosure ℚ[X] E) E
+    rw [← hT ψ hψ b, ← hT ψ' hψ' b, heq]
+  have hcard : s.card ≤ Fintype.card (E ≃ₐ[RatFunc ℚ] E) := by
+    rw [← Fintype.card_coe s]
+    exact Fintype.card_le_of_injective _ hTinj
+  have hle := AlgEquiv.card_le (F := RatFunc ℚ) (K := E)
+  apply IsGalois.of_card_aut_eq_finrank
+  rw [Nat.card_eq_fintype_card]
+  omega
+
+end TSHeckeGal
+
+end
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
 # ts-hecke: the five Hecke Props under `CoverModelOfHecke`, settled and reduced
 
 Everything above this line is copied verbatim (see `assemble.py` and `check_identical.py`):
@@ -6134,6 +6440,31 @@ def CurveGaloisChart : Prop :=
     ∃ (E : Type) (_ : Field E) (_ : Algebra (RatFunc ℚ) E) (_ : Algebra ℚ[X] E)
       (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E) (_ : FiniteDimensional (RatFunc ℚ) E)
       (_ : IsGalois (RatFunc ℚ) E), NormalizationModel Y π E
+
+/-- **Glue (curve theory; h-b1 M1, M8): the normalization chart, without the Galois property.**
+For a proper smooth irreducible curve `Y/ℚ` and `π : Y → P¹` with finite `ℚ̄`-fibres there is a
+finite `E/ℚ(X)` with `NormalizationModel Y π E`. *Proof* (STANDARD; Hartshorne II.6.7-6.8,
+Stacks 02OG; locators UNVERIFIED): `π` is quasi-finite and proper, hence finite; `Y` is normal, so
+`π⁻¹(𝔸¹) = Spec B` with `B` the integral closure of `ℚ[X]` in `E = ℚ(Y)`. Glue, not a leaf. -/
+def CurveNormChart : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left),
+    IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom → IrreducibleSpace Y.left →
+    (∀ t : OnePoint Qbar, {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = t}.Finite) →
+    ∃ (E : Type) (_ : Field E) (_ : Algebra (RatFunc ℚ) E) (_ : Algebra ℚ[X] E)
+      (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E) (_ : FiniteDimensional (RatFunc ℚ) E),
+      NormalizationModel Y π E
+
+/-- **`CurveGaloisChart` from `CurveNormChart`** (compiled): the Galois property follows from
+fibre transitivity (`TSHeckeGal.isGalois_of_transitive`: the `π`-preserving automorphisms map the
+chart into itself (Jacobson), induce automorphisms of `B` fixing `ℚ[X]` (separation by
+`ℚ̄`-points) and of `E` over `ℚ(X)`, and act transitively on the `[E : ℚ(X)]` points of a generic
+fibre, so `|Aut(E/ℚ(X))| = [E : ℚ(X)]`). -/
+theorem curveGaloisChart_of (hN : CurveNormChart) : CurveGaloisChart := by
+  intro Y π hP hS hI hfin htrans
+  obtain ⟨E, i1, i2, i3, i4, i5, hM⟩ := hN Y π hP hS hI hfin
+  haveI : LocallyOfFiniteType Y.hom := inferInstance
+  exact ⟨E, i1, i2, i3, i4, i5,
+    TSHeckeGal.isGalois_of_transitive hM (genericFibreCount E) htrans, hM⟩
 
 /-- **`HeckeNormalizationIrr` from `CurveGaloisChart` and the kernel's leaf `TorsionStructure`**
 (compiled). -/
@@ -6714,6 +7045,22 @@ theorem propTSAll_of_tsHecke (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : P
   propTSAll_final t2 hR hM hS hC hA hO hVF hAI hOI hVI (heckeIrreducible_of_connected hconn)
     (heckeNormalizationIrr_of hCG hT) (heckeDegree_of_torsion hT) (heckeBranch_of' hR hCI hF hT) hV
 
+/-- **`CoverModelOfHecke` with `CurveNormChart` in place of `CurveGaloisChart`** (compiled). -/
+theorem coverModelOfHecke_of_tsHecke' (hconn : Y3Connected) (hRR : R1R2fp)
+    (hT : ObjBridge.TorsionStructure) (hCN : CurveNormChart) (hCI : CurveChartInf)
+    (hF : HeckeFibreSizes) (hV : HeckeNoVertRam) : CoverModelOfHecke :=
+  coverModelOfHecke_of_tsHecke hconn hRR hT (curveGaloisChart_of hCN) hCI hF hV
+
+/-- **`PropTSAll` with ts-hecke's reductions, `CurveNormChart` form** (compiled). -/
+theorem propTSAll_of_tsHecke' (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
+    (hS : SNSpecialize) (hC : KummerCompositum)
+    (hA : KummerAbhyankarFinGlue) (hO : KummerOtherBranchFin) (hVF : KummerVerticalFin)
+    (hAI : KummerAbhyankarInfGlue) (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf)
+    (hconn : Y3Connected) (hT : ObjBridge.TorsionStructure) (hCN : CurveNormChart)
+    (hCI : CurveChartInf) (hF : HeckeFibreSizes) (hV : HeckeNoVertRam) : PropTSAll :=
+  propTSAll_of_tsHecke t2 hR hM hS hC hA hO hVF hAI hOI hVI hconn hT (curveGaloisChart_of hCN)
+    hCI hF hV
+
 end TSHecke
 
 end
@@ -6751,3 +7098,12 @@ end
 #print axioms TSHecke.heckeBranch_of'
 #print axioms TSHecke.coverModelOfHecke_of_tsHecke
 #print axioms TSHecke.propTSAll_of_tsHecke
+#print axioms TSHeckeGal.exists_qbar_point
+#print axioms TSHeckeGal.range_comp_subset
+#print axioms TSHeckeGal.eq_of_forall_qbar
+#print axioms TSHeckeGal.exists_sigma
+#print axioms TSHeckeGal.exists_tau
+#print axioms TSHeckeGal.isGalois_of_transitive
+#print axioms TSHecke.curveGaloisChart_of
+#print axioms TSHecke.coverModelOfHecke_of_tsHecke'
+#print axioms TSHecke.propTSAll_of_tsHecke'

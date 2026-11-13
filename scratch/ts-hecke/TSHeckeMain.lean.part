@@ -418,6 +418,31 @@ def CurveGaloisChart : Prop :=
       (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E) (_ : FiniteDimensional (RatFunc ℚ) E)
       (_ : IsGalois (RatFunc ℚ) E), NormalizationModel Y π E
 
+/-- **Glue (curve theory; h-b1 M1, M8): the normalization chart, without the Galois property.**
+For a proper smooth irreducible curve `Y/ℚ` and `π : Y → P¹` with finite `ℚ̄`-fibres there is a
+finite `E/ℚ(X)` with `NormalizationModel Y π E`. *Proof* (STANDARD; Hartshorne II.6.7-6.8,
+Stacks 02OG; locators UNVERIFIED): `π` is quasi-finite and proper, hence finite; `Y` is normal, so
+`π⁻¹(𝔸¹) = Spec B` with `B` the integral closure of `ℚ[X]` in `E = ℚ(Y)`. Glue, not a leaf. -/
+def CurveNormChart : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left),
+    IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom → IrreducibleSpace Y.left →
+    (∀ t : OnePoint Qbar, {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = t}.Finite) →
+    ∃ (E : Type) (_ : Field E) (_ : Algebra (RatFunc ℚ) E) (_ : Algebra ℚ[X] E)
+      (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E) (_ : FiniteDimensional (RatFunc ℚ) E),
+      NormalizationModel Y π E
+
+/-- **`CurveGaloisChart` from `CurveNormChart`** (compiled): the Galois property follows from
+fibre transitivity (`TSHeckeGal.isGalois_of_transitive`: the `π`-preserving automorphisms map the
+chart into itself (Jacobson), induce automorphisms of `B` fixing `ℚ[X]` (separation by
+`ℚ̄`-points) and of `E` over `ℚ(X)`, and act transitively on the `[E : ℚ(X)]` points of a generic
+fibre, so `|Aut(E/ℚ(X))| = [E : ℚ(X)]`). -/
+theorem curveGaloisChart_of (hN : CurveNormChart) : CurveGaloisChart := by
+  intro Y π hP hS hI hfin htrans
+  obtain ⟨E, i1, i2, i3, i4, i5, hM⟩ := hN Y π hP hS hI hfin
+  haveI : LocallyOfFiniteType Y.hom := inferInstance
+  exact ⟨E, i1, i2, i3, i4, i5,
+    TSHeckeGal.isGalois_of_transitive hM (genericFibreCount E) htrans, hM⟩
+
 /-- **`HeckeNormalizationIrr` from `CurveGaloisChart` and the kernel's leaf `TorsionStructure`**
 (compiled). -/
 theorem heckeNormalizationIrr_of (hC : CurveGaloisChart) (hT : ObjBridge.TorsionStructure) :
@@ -997,6 +1022,22 @@ theorem propTSAll_of_tsHecke (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : P
   propTSAll_final t2 hR hM hS hC hA hO hVF hAI hOI hVI (heckeIrreducible_of_connected hconn)
     (heckeNormalizationIrr_of hCG hT) (heckeDegree_of_torsion hT) (heckeBranch_of' hR hCI hF hT) hV
 
+/-- **`CoverModelOfHecke` with `CurveNormChart` in place of `CurveGaloisChart`** (compiled). -/
+theorem coverModelOfHecke_of_tsHecke' (hconn : Y3Connected) (hRR : R1R2fp)
+    (hT : ObjBridge.TorsionStructure) (hCN : CurveNormChart) (hCI : CurveChartInf)
+    (hF : HeckeFibreSizes) (hV : HeckeNoVertRam) : CoverModelOfHecke :=
+  coverModelOfHecke_of_tsHecke hconn hRR hT (curveGaloisChart_of hCN) hCI hF hV
+
+/-- **`PropTSAll` with ts-hecke's reductions, `CurveNormChart` form** (compiled). -/
+theorem propTSAll_of_tsHecke' (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
+    (hS : SNSpecialize) (hC : KummerCompositum)
+    (hA : KummerAbhyankarFinGlue) (hO : KummerOtherBranchFin) (hVF : KummerVerticalFin)
+    (hAI : KummerAbhyankarInfGlue) (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf)
+    (hconn : Y3Connected) (hT : ObjBridge.TorsionStructure) (hCN : CurveNormChart)
+    (hCI : CurveChartInf) (hF : HeckeFibreSizes) (hV : HeckeNoVertRam) : PropTSAll :=
+  propTSAll_of_tsHecke t2 hR hM hS hC hA hO hVF hAI hOI hVI hconn hT (curveGaloisChart_of hCN)
+    hCI hF hV
+
 end TSHecke
 
 end
@@ -1034,3 +1075,12 @@ end
 #print axioms TSHecke.heckeBranch_of'
 #print axioms TSHecke.coverModelOfHecke_of_tsHecke
 #print axioms TSHecke.propTSAll_of_tsHecke
+#print axioms TSHeckeGal.exists_qbar_point
+#print axioms TSHeckeGal.range_comp_subset
+#print axioms TSHeckeGal.eq_of_forall_qbar
+#print axioms TSHeckeGal.exists_sigma
+#print axioms TSHeckeGal.exists_tau
+#print axioms TSHeckeGal.isGalois_of_transitive
+#print axioms TSHecke.curveGaloisChart_of
+#print axioms TSHecke.coverModelOfHecke_of_tsHecke'
+#print axioms TSHecke.propTSAll_of_tsHecke'

@@ -111,3 +111,17 @@ ts-hecke's own Props: HeckeFibreSizes, Y3Connected).
 - `propTSAll_of_tsHecke`: PropTSAll from T2, R1R2fp, MobiusGlue, SNSpecialize, the seven Kummer
   pieces, Y3Connected, TorsionStructure, CurveGaloisChart, CurveChartInf, HeckeFibreSizes,
   HeckeNoVertRam (through `propTSAll_final`). 57 `#print axioms` lines, all standard.
+
+## Step 10. CurveGaloisChart reduced to CurveNormChart (no Galois) — VERIFIED (compiled, 0 errors)
+
+- `GaloisPart.lean.part` (dev file `GaloisDev.lean`, compiled alone in ~10 s): namespace TSHeckeGal:
+  `exists_qbar_point` (closed point of a loc. finite type ℚ-scheme has a ℚ̄-point; residue field
+  integral over ℚ, `IsAlgClosed.lift`), `range_comp_subset` (π-preserving g maps the chart into
+  itself; Jacobson + `nonempty_inter_closedPoints`), `eq_of_forall_qbar` (separation by ℚ̄-points
+  in a domain finite over ℚ[X]; Jacobson radical), `exists_sigma` (induced σ : B → B with σ X = X),
+  `exists_tau` (σ extends to τ ∈ Aut(E/ℚ(X))), `isGalois_of_transitive` (|Aut| ≥ n via
+  GenericFibreCount, so Galois).
+- Main: `CurveNormChart` (glue: normalization chart, no Galois, no automorphisms),
+  `curveGaloisChart_of : CurveNormChart → CurveGaloisChart`, `coverModelOfHecke_of_tsHecke'`,
+  `propTSAll_of_tsHecke'` (with CurveNormChart).
+- 66 `#print axioms` lines, all standard; check_identical ALL OK.
