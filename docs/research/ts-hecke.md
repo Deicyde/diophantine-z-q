@@ -259,7 +259,13 @@ proof:
 - **`heckeBranch_of`**, and `heckeBranch_of'`, which takes the CM objects from `R1R2fp` and
   `RamOfFibreCount` from its proof.
 
-The proof derives `[E : ℚ(X)] = M` through the generic value `1`, using lying over. Then:
+The proof derives `[E : ℚ(X)] = M` in two steps:
+
+- `≤ M`: a rational value `t₀ ∉ {0, −16/27}` with at least `[E : ℚ(X)]` points of `Spec B`
+  (`GFC.genericFibreCountAvoid`);
+- `≥ M`: the generic value `1`, using lying over.
+
+Then:
 
 - off the branch points, `e = 1`;
 - at `0`, `e · F₀ = M` with `M ∣ 4 F₀`, so `e ∣ 4`;
