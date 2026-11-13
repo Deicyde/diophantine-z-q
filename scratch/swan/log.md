@@ -38,3 +38,4 @@ used by scratch/g0-mod-newform G15). Lean: scratch/swan/Swan.lean (imports the k
 - **`swan_main (hH : HerbrandUpper)` : SwanIndependent ∀p ∧ SwanIntegral ∧ AdaptedExists ∀p.** Axioms
   [propext, Classical.choice, Quot.sound]. `lake env lean scratch/swan/Swan.lean` exit 0, 0 errors
   (only deprecation warnings for if_pos/if_neg). Output in scratch/swan/compile.out. VERIFIED.
+- Leaf `HerbrandUpper` weakened to `0 < v` (only range used). Recompiled: exit 0, 0 errors, all 10 printed declarations standard axioms. VERIFIED.

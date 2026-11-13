@@ -455,9 +455,10 @@ open scoped Topology
 the same theorem as pkg-I6's leaf I6.8 `PkgI6.HerbrandQuotient`, here over the finite Galois
 subfields of `ℚ̄_p` and the upper numbering `LadicCond.upperSet`). For `L ⊆ M` finite Galois over
 `ℚ_p` and every `v`, the image of `G^v(M/ℚ_p)` in `Gal(L/ℚ_p)` is `G^v(L/ℚ_p)`:
-`(G/H)^v = G^v H/H`. Preimages in `G_{ℚ_p}` restricted to `L`. -/
+`(G/H)^v = G^v H/H`. Preimages in `G_{ℚ_p}` restricted to `L`. Stated only for `v > 0`, the
+range the proof uses (Serre's statement covers every `v ≥ −1`). -/
 def HerbrandUpper : Prop :=
-  ∀ (p : ℕ) [Fact p.Prime] (L M : Fld p), IsFinGal L → IsFinGal M → L ≤ M → ∀ v : ℝ,
+  ∀ (p : ℕ) [Fact p.Prime] (L M : Fld p), IsFinGal L → IsFinGal M → L ≤ M → ∀ v : ℝ, 0 < v →
     restr L '' upperSet M v = restr L '' upperSet L v
 
 variable {p : ℕ} [Fact p.Prime]
@@ -522,7 +523,7 @@ the absolute `G^u` agrees with `σ` on `L`: the closed sets
 `C_M = {τ : τ|_L = σ|_L, τ ∈ G^u(M)}` have the finite intersection property (Herbrand, at a finite
 Galois `E` containing `L` and the `M`s), and `G_{ℚ_p}` is compact (Mathlib). -/
 theorem upperAbsSurj_of_herbrand (hH : HerbrandUpper) : UpperAbsSurj := by
-  intro p _ L hL u _ σ hσ
+  intro p _ L hL u hu σ hσ
   let ι := {M : Fld p // IsFinGal M}
   let t : ι → Set (GQp p) := fun M => {τ | (∀ x ∈ L, τ x = σ x) ∧ τ ∈ upperSet M.1 u}
   have htc : ∀ M, IsClosed (t M) := by
@@ -537,11 +538,11 @@ theorem upperAbsSurj_of_herbrand (hH : HerbrandUpper) : UpperAbsSurj := by
     intro s
     obtain ⟨E, hE, hLE, hsE⟩ := exists_finGal_above hL s
     have h1 : restr L σ ∈ restr L '' upperSet E u := by
-      rw [hH p L E hL hE hLE u]; exact ⟨σ, hσ.1, rfl⟩
+      rw [hH p L E hL hE hLE u hu]; exact ⟨σ, hσ.1, rfl⟩
     obtain ⟨τ, hτE, hτσ⟩ := h1
     refine ⟨τ, trivial, Set.mem_iInter₂.2 fun M hM => ⟨restr_eq_iff.1 hτσ, ?_⟩⟩
     have h2 : restr M.1 τ ∈ restr M.1 '' upperSet M.1 u := by
-      rw [← hH p M.1 E M.2 hE (hsE M hM) u]; exact ⟨τ, hτE, rfl⟩
+      rw [← hH p M.1 E M.2 hE (hsE M hM) u hu]; exact ⟨τ, hτE, rfl⟩
     obtain ⟨τ', hτ', he⟩ := h2
     exact mem_upperSet_of_restr (restr_eq_iff.1 he.symm) hτ'
   obtain ⟨τ, -, hτ⟩ := isCompact_univ.inter_iInter_nonempty t htc hst
