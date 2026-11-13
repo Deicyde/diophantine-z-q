@@ -123,39 +123,176 @@ noncomputable def specConeIsLimit [FiniteDimensional ℚ E₀] : IsLimit (specCo
 
 variable (X : Over (Spec (CommRingCat.of K)))
 
-/-- The diagram `L ↦ L ×_K X` of schemes. -/
-noncomputable def bcDiag : (Idx E₀)ᵒᵖ ⥤ Scheme :=
+/-- The diagram `L ↦ L ×_K X` of schemes, as a composite of functors. -/
+noncomputable def bcDiag' : (Idx E₀)ᵒᵖ ⥤ Scheme :=
   (specDiag E₀ e he ⋙ Over.pullback X.hom) ⋙ Over.forget X.left
 
-/-- `ℚ̄ ×_K X` as a cone over `bcDiag`. -/
-noncomputable def bcCone : Cone (bcDiag E₀ e he X) :=
+/-- `ℚ̄ ×_K X` as a cone over `bcDiag'`. -/
+noncomputable def bcCone' : Cone (bcDiag' E₀ e he X) :=
   (Over.forget X.left).mapCone ((Over.pullback X.hom).mapCone (specCone E₀ e he))
 
-/-- `ℚ̄ ×_K X = lim (L ×_K X)`. -/
-noncomputable def bcConeIsLimit [FiniteDimensional ℚ E₀] : IsLimit (bcCone E₀ e he X) := by
+/-- `ℚ̄ ×_K X = lim (L ×_K X)`, composite form. -/
+noncomputable def bcCone'IsLimit [FiniteDimensional ℚ E₀] : IsLimit (bcCone' E₀ e he X) := by
   haveI : IsConnected (Idx E₀)ᵒᵖ := IsCofiltered.isConnected _
   exact isLimitOfPreserves (Over.forget X.left)
     (isLimitOfPreserves (Over.pullback X.hom) (specConeIsLimit E₀ e he))
+
+/-- The diagram `L ↦ L ×_K X` of schemes, written with explicit pullbacks. -/
+noncomputable abbrev bcDiag : (Idx E₀)ᵒᵖ ⥤ Scheme where
+  obj L := pullback (Spec.map (CommRingCat.ofHom (restrL E₀ e he L.unop))) X.hom
+  map {L L'} f := pullback.lift
+      (pullback.fst (Spec.map (CommRingCat.ofHom (restrL E₀ e he L.unop))) X.hom ≫
+        Spec.map (inclL E₀ (leOfHom f.unop)))
+      (pullback.snd _ _) (by
+        rw [Category.assoc, ← Spec.map_comp, restrL_inclL, pullback.condition])
+  map_id L := (bcDiag' E₀ e he X).map_id L
+  map_comp f g := (bcDiag' E₀ e he X).map_comp f g
+
+/-- `ℚ̄ ×_K X` as a cone over `bcDiag`, written with explicit pullbacks. -/
+noncomputable abbrev bcCone : Cone (bcDiag E₀ e he X) where
+  pt := pullback (Spec.map (CommRingCat.ofHom e)) X.hom
+  π := { app L := pullback.lift
+          (pullback.fst (Spec.map (CommRingCat.ofHom e)) X.hom ≫ Spec.map (toQbar E₀ L.unop))
+          (pullback.snd _ _) (by
+            rw [Category.assoc, ← Spec.map_comp, restrL_toQbar, pullback.condition])
+         naturality L L' f := (bcCone' E₀ e he X).π.naturality f }
+
+/-- `ℚ̄ ×_K X = lim (L ×_K X)`. -/
+noncomputable def bcConeIsLimit [FiniteDimensional ℚ E₀] : IsLimit (bcCone E₀ e he X) :=
+  bcCone'IsLimit E₀ e he X
 
 theorem bcDiag_obj (L : (Idx E₀)ᵒᵖ) :
     (bcDiag E₀ e he X).obj L =
       pullback (Spec.map (CommRingCat.ofHom (restrL E₀ e he L.unop))) X.hom := rfl
 
-theorem bcDiag_map {L L' : (Idx E₀)ᵒᵖ} (f : L ⟶ L') :
-    (bcDiag E₀ e he X).map f = pullback.lift
-      (pullback.fst (Spec.map (CommRingCat.ofHom (restrL E₀ e he L.unop))) X.hom ≫
-        Spec.map (inclL E₀ (leOfHom f.unop)))
-      (pullback.snd _ _) (by
-        change (_ ≫ _) ≫ Spec.map (CommRingCat.ofHom (restrL E₀ e he L'.unop)) = _
-        rw [Category.assoc, ← Spec.map_comp, restrL_inclL, pullback.condition]) := rfl
+theorem bcDiag_map_fst {L L' : (Idx E₀)ᵒᵖ} (f : L ⟶ L') :
+    (bcDiag E₀ e he X).map f ≫
+        pullback.fst (Spec.map (CommRingCat.ofHom (restrL E₀ e he L'.unop))) X.hom =
+      pullback.fst (Spec.map (CommRingCat.ofHom (restrL E₀ e he L.unop))) X.hom ≫
+        Spec.map (inclL E₀ (leOfHom f.unop)) :=
+  pullback.lift_fst _ _ _
 
-theorem bcCone_π_app (L : (Idx E₀)ᵒᵖ) :
-    (bcCone E₀ e he X).π.app L =
-      pullback.lift (pullback.fst (Spec.map (CommRingCat.ofHom e)) X.hom ≫ Spec.map (toQbar E₀ L.unop))
-      (pullback.snd _ _) (by
-        change (_ ≫ _) ≫ Spec.map (CommRingCat.ofHom (restrL E₀ e he L.unop)) = _
-        rw [Category.assoc, ← Spec.map_comp, restrL_toQbar, pullback.condition]) := rfl
+theorem bcDiag_map_snd {L L' : (Idx E₀)ᵒᵖ} (f : L ⟶ L') :
+    (bcDiag E₀ e he X).map f ≫
+        pullback.snd (Spec.map (CommRingCat.ofHom (restrL E₀ e he L'.unop))) X.hom =
+      pullback.snd (Spec.map (CommRingCat.ofHom (restrL E₀ e he L.unop))) X.hom :=
+  pullback.lift_snd _ _ _
+
+theorem bcCone_π_app_fst (L : (Idx E₀)ᵒᵖ) :
+    (bcCone E₀ e he X).π.app L ≫
+        pullback.fst (Spec.map (CommRingCat.ofHom (restrL E₀ e he L.unop))) X.hom =
+      pullback.fst (Spec.map (CommRingCat.ofHom e)) X.hom ≫ Spec.map (toQbar E₀ L.unop) :=
+  pullback.lift_fst _ _ _
+
+theorem bcCone_π_app_snd (L : (Idx E₀)ᵒᵖ) :
+    (bcCone E₀ e he X).π.app L ≫
+        pullback.snd (Spec.map (CommRingCat.ofHom (restrL E₀ e he L.unop))) X.hom =
+      pullback.snd (Spec.map (CommRingCat.ofHom e)) X.hom :=
+  pullback.lift_snd _ _ _
 
 end Schemes
+
+/-! ### Descent of morphisms (EGA IV₃ 8.8.2 via Mathlib's Stacks 01ZC) -/
+
+section Main
+
+variable {K : Type} [Field K]
+
+/-- The comparison `ℚ̄ ×_K X → L ×_K X` (written `X ×_{K,e} ℚ̄ → X ×_{K,e|L} L`). -/
+noncomputable def cmp (X : Over (Spec (CommRingCat.of K))) (e : K →+* Qbar) (he : ∀ x, e x ∈ E₀)
+    (L : Idx E₀) :
+    pullback X.hom (Spec.map (CommRingCat.ofHom e)) ⟶
+      pullback X.hom (Spec.map (CommRingCat.ofHom (restrL E₀ e he L))) :=
+  pullback.lift (pullback.fst _ _) (pullback.snd _ _ ≫ Spec.map (toQbar E₀ L)) (by
+    rw [pullback.condition, Category.assoc, ← Spec.map_comp, restrL_toQbar])
+
+theorem bcDiag_compactSpace (e : K →+* Qbar) (he : ∀ x, e x ∈ E₀)
+    (X : Over (Spec (CommRingCat.of K))) [QuasiCompact X.hom] (L : (Idx E₀)ᵒᵖ) :
+    CompactSpace ((bcDiag E₀ e he X).obj L) := by
+  rw [bcDiag_obj]
+  infer_instance
+
+theorem bcDiag_quasiSeparatedSpace (e : K →+* Qbar) (he : ∀ x, e x ∈ E₀)
+    (X : Over (Spec (CommRingCat.of K))) [QuasiSeparated X.hom] (L : (Idx E₀)ᵒᵖ) :
+    QuasiSeparatedSpace ((bcDiag E₀ e he X).obj L) := by
+  rw [bcDiag_obj]
+  exact quasiSeparatedSpace_of_quasiSeparated (pullback.fst _ _)
+
+theorem bcDiag_isAffineHom (e : K →+* Qbar) (he : ∀ x, e x ∈ E₀)
+    (X : Over (Spec (CommRingCat.of K))) {L L' : (Idx E₀)ᵒᵖ} (f : L ⟶ L') :
+    IsAffineHom ((bcDiag E₀ e he X).map f) := by
+  have t := (IsPullback.of_hasPullback
+    (Spec.map (CommRingCat.ofHom (restrL E₀ e he L'.unop))) X.hom).flip
+  have s : IsPullback (pullback.snd (Spec.map (CommRingCat.ofHom (restrL E₀ e he L.unop))) X.hom)
+      (pullback.fst (Spec.map (CommRingCat.ofHom (restrL E₀ e he L.unop))) X.hom) X.hom
+      (Spec.map (inclL E₀ (leOfHom f.unop)) ≫
+        Spec.map (CommRingCat.ofHom (restrL E₀ e he L'.unop))) := by
+    rw [← Spec.map_comp, restrL_inclL]
+    exact (IsPullback.of_hasPullback _ _).flip
+  have hP := IsPullback.of_right (h₁₁ := (bcDiag E₀ e he X).map f) (by
+    rw [bcDiag_map_snd]; exact s) (bcDiag_map_fst E₀ e he X f) t
+  exact MorphismProperty.of_isPullback (P := @IsAffineHom) hP.flip inferInstance
+
+/-- **Descent of morphisms from `ℚ̄` to a number field (EGA IV₃ 8.8.2 (i), surjectivity, for
+`ℚ̄ = colim L`), proved from Mathlib's `Scheme.exists_π_app_comp_eq_of_locallyOfFinitePresentation`
+(Stacks 01ZC).** Let `X, Y` be `K`-schemes, `X` quasi-compact quasi-separated over `K`, `Y` locally
+of finite presentation over `K`, and `e₁, e₂ : K → ℚ̄` with images in the number field `E₀`. Every
+`ℚ̄`-morphism `φ : X ×_{K,e₁} ℚ̄ → Y ×_{K,e₂} ℚ̄` is the base change of a morphism
+`ψ : X ×_{K,e₁} L → Y ×_{K,e₂} L` for some number field `E₀ ⊆ L ⊆ ℚ̄`. -/
+theorem exists_descend [FiniteDimensional ℚ E₀] (X Y : Over (Spec (CommRingCat.of K)))
+    [QuasiCompact X.hom] [QuasiSeparated X.hom] [LocallyOfFinitePresentation Y.hom]
+    (e₁ e₂ : K →+* Qbar) (he₁ : ∀ x, e₁ x ∈ E₀) (he₂ : ∀ x, e₂ x ∈ E₀)
+    (φ : pullback X.hom (Spec.map (CommRingCat.ofHom e₁)) ⟶
+      pullback Y.hom (Spec.map (CommRingCat.ofHom e₂)))
+    (hφ : φ ≫ pullback.snd _ _ = pullback.snd _ _) :
+    ∃ (L : Idx E₀) (ψ : pullback X.hom (Spec.map (CommRingCat.ofHom (restrL E₀ e₁ he₁ L))) ⟶
+        pullback Y.hom (Spec.map (CommRingCat.ofHom (restrL E₀ e₂ he₂ L)))),
+      φ ≫ cmp E₀ Y e₂ he₂ L = cmp E₀ X e₁ he₁ L ≫ ψ := by
+  classical
+  let D := bcDiag E₀ e₁ he₁ X
+  let c := bcCone E₀ e₁ he₁ X
+  have hc : IsLimit c := bcConeIsLimit E₀ e₁ he₁ X
+  have h1 : ∀ i, CompactSpace (D.obj i) := bcDiag_compactSpace E₀ e₁ he₁ X
+  have h2 : ∀ i, QuasiSeparatedSpace (D.obj i) := bcDiag_quasiSeparatedSpace E₀ e₁ he₁ X
+  have h3 : ∀ {i j} (f : i ⟶ j), IsAffineHom (D.map f) := bcDiag_isAffineHom E₀ e₁ he₁ X
+  let t : D ⟶ (Functor.const _).obj (Spec (CommRingCat.of K)) :=
+    { app L := pullback.fst (Spec.map (CommRingCat.ofHom (restrL E₀ e₁ he₁ L.unop))) X.hom ≫
+        Spec.map (CommRingCat.ofHom (restrL E₀ e₂ he₂ L.unop))
+      naturality L L' f := by
+        refine (Category.assoc _ _ _).symm.trans ?_
+        refine (congrArg (· ≫ Spec.map (CommRingCat.ofHom (restrL E₀ e₂ he₂ L'.unop)))
+          (bcDiag_map_fst E₀ e₁ he₁ X f)).trans ?_
+        dsimp only
+        rw [Category.assoc, ← Spec.map_comp, restrL_inclL]
+        exact (Category.comp_id _).symm }
+  let a : c.pt ⟶ Y.left :=
+    (pullbackSymmetry _ _).hom ≫ φ ≫ pullback.fst _ _
+  have ha : c.π ≫ t = (Functor.const _).map (a ≫ Y.hom) := by
+    ext L
+    simp only [NatTrans.comp_app, Functor.const_map_app, t, a, c]
+    refine (Category.assoc _ _ _).symm.trans ?_
+    refine (congrArg (· ≫ Spec.map (CommRingCat.ofHom (restrL E₀ e₂ he₂ L.unop)))
+      (bcCone_π_app_fst E₀ e₁ he₁ X L)).trans ?_
+    dsimp only
+    rw [Category.assoc, ← Spec.map_comp, restrL_toQbar, Category.assoc, Category.assoc,
+      pullback.condition, reassoc_of% hφ, pullbackSymmetry_hom_comp_snd_assoc]
+  obtain ⟨L, g, hg1, hg2⟩ :=
+    Scheme.exists_π_app_comp_eq_of_locallyOfFinitePresentation D t Y.hom c hc a ha
+  refine ⟨L.unop, (pullbackSymmetry _ _).hom ≫ pullback.lift g (pullback.fst _ _) hg2, ?_⟩
+  have key : cmp E₀ X e₁ he₁ L.unop ≫ (pullbackSymmetry _ _).hom =
+      (pullbackSymmetry _ _).inv ≫ c.π.app L := by
+    apply pullback.hom_ext
+    · simp only [c, Category.assoc, bcCone_π_app_fst]
+      simp [cmp]
+    · simp only [c, Category.assoc, bcCone_π_app_snd]
+      simp [cmp]
+  apply pullback.hom_ext
+  · rw [Category.assoc, Category.assoc, Category.assoc, pullback.lift_fst, reassoc_of% key, hg1]
+    simp [cmp, a]
+  · rw [Category.assoc, Category.assoc, Category.assoc, pullback.lift_snd, reassoc_of% key]
+    simp only [c, bcCone_π_app_fst]
+    simp [cmp, reassoc_of% hφ]
+
+end Main
 
 end MorphDescend

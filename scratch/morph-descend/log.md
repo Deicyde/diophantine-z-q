@@ -11,3 +11,4 @@
 - 02:05 Colim.lean: `ringCoconeIsColimit` (ℚ̄ = filtered colimit of finite subextensions ⊇ E₀ in
   CommRingCat) COMPILED, no errors.
 - 02:14 Descend.lean: specConeIsLimit (Spec ℚ̄ = lim Spec L in Over (Spec K)), bcConeIsLimit (ℚ̄ ×_K X = lim L ×_K X in Scheme), bcDiag_map, bcCone_π_app (rfl) COMPILED.
+- 02:35 Descend.lean: `MorphDescend.exists_descend` COMPILED (general: X qc+qs over K, Y LFP over K, e₁ e₂ : K →+* ℚ̄ into number field E₀; every ℚ̄-morphism X×_{e₁}ℚ̄ → Y×_{e₂}ℚ̄ is the base change of ψ over a number field E₀ ⊆ L). Proof: Mathlib Scheme.exists_π_app_comp_eq_of_locallyOfFinitePresentation on bcDiag.
