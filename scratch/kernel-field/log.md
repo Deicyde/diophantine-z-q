@@ -51,3 +51,5 @@
   bp-qmmoduli with its faithful-base-change instances). kernelFieldExists_of_rigidity (leaves HFF, NOS, Raynaud,
   TorsionStructure, T27, RigidityHom; glue FS5, ConjIsogMaps) compiled, standard axioms, 0 errors, no sorry
   (VERIFIED, build_final.txt).
+- Copy checks (VERIFIED by substring test): Tail.lean 38-117, 152-164, 208-282, 357-363 verbatim in New.lean;
+  QMAbVar.lean 558-575 verbatim up to qualifying `AbVar` → `PkgI3.AbVar`.
