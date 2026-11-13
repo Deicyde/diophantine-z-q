@@ -250,6 +250,7 @@ theorem exists_quadratic_field {D : ℚ} (hD : D < 0) :
 
 /-! ## Assembly -/
 
+
 /-- **`GrossZagierCd` from the three leaves and the sign glue (G3).** -/
 theorem grossZagierCd_of_leaves (hL1 : HeckeThetaNewform) (hL2 : FHNonvanishing)
     (hL3 : GrossZagierHeegner) (hG3 : SignOfSimpleZero) : GrossZagierCd := by
@@ -269,8 +270,109 @@ theorem grossZagierCd_of_leaves (hL1 : HeckeThetaNewform) (hL2 : FHNonvanishing)
     K hK2 ⟨δ, by simpa using hδ⟩
   exact exists_rat_point_of_heegner hK2 y hy hyσ
 
+/-! ## (G3) proved: the sign of a simple zero -/
+
+open CongruenceSubgroup in
+/-- **(G3) proved.** From Tau Ceti's functional equation `Λ_N(2 − s) = rootNumber · Λ_N(s)` with
+`rootNumber = ±1`. If it were `+1`: `F = w · Λ_N` with `w(s) = 2 Γ_ℂ(s)⁻¹ N^{−s/2}` entire,
+`w(1) ≠ 0`, so `F(s) w(2 − s) = w(s) F(2 − s)`; writing `F = (s − 1) g`, `g(1) ≠ 0`, near `1`
+gives `(s − 1)(g(s) w(2 − s) + w(s) g(2 − s)) = 0`, hence `2 g(1) w(1) = 0` by continuity. -/
+theorem signOfSimpleZero : SignOfSimpleZero := by
+  intro N _ f hχ F hF h1
+  have hk : (0 : ℤ) < 2 := by norm_num
+  rcases Newform.I_zpow_mul_frickeSign_eq_one_or_neg_one f hχ with h | h
+  swap
+  · exact h
+  exfalso
+  -- `F` is Mathlib's `L(f, s)`
+  have hEq : F = ModularForm.L hk f.toCuspForm := by
+    have := CuspForm.eq_strictWidthInfty_cpow_mul_L f.toCuspForm hk hF.1 (fun {s} hs => by
+      simp only [strictWidthInfty_Gamma1]
+      exact hF.2 s (by norm_num at hs; linarith))
+    simpa [strictWidthInfty_Gamma1] using this
+  set NP : ℕ+ := N.toPNat (NeZero.pos N) with hNP
+  set Φ : ℂ → ℂ := CuspForm.frickeCompletedL f.toCuspForm NP with hΦ
+  have hFE : ∀ s, Φ (2 - s) = Φ s := by
+    intro s
+    have := Newform.frickeCompletedL_sub_eq f hχ hk s
+    have e : ((2 : ℤ) : ℂ) = 2 := by norm_num
+    rw [h, one_mul, e] at this
+    exact this
+  have hN0 : (N : ℂ) ≠ 0 := by exact_mod_cast (NeZero.ne N)
+  set w : ℂ → ℂ := fun s => 2 * (Complex.Gammaℂ s)⁻¹ * (N : ℂ) ^ (-s / 2) with hw
+  have hFw : ∀ s, F s = w s * Φ s := by
+    intro s
+    rw [hEq, hΦ, CuspForm.frickeCompletedL_eq_cpow_mul_Λ f.toCuspForm NP hk s, ModularForm.L]
+    have hNPc : ((NP : ℕ) : ℂ) = (N : ℂ) := rfl
+    rw [hNPc, hw]
+    have hpos : (N : ℂ) ^ (s / 2) ≠ 0 := by
+      rw [Ne, Complex.cpow_eq_zero_iff]; tauto
+    have hc : (N : ℂ) ^ (-s / 2) * (N : ℂ) ^ (s / 2) = 1 := by
+      rw [neg_div, Complex.cpow_neg, inv_mul_cancel₀ hpos]
+    calc ModularForm.Λ hk f.toCuspForm s * (2 / Complex.Gammaℂ s)
+        = 2 * (Complex.Gammaℂ s)⁻¹ * ((N : ℂ) ^ (-s / 2) * (N : ℂ) ^ (s / 2)) *
+            ModularForm.Λ hk f.toCuspForm s := by rw [hc]; ring
+      _ = _ := by ring
+  have hwc : Continuous w := by
+    refine (continuous_const.mul Complex.differentiable_Gammaℂ_inv.continuous).mul ?_
+    exact (continuous_neg.div_const 2).const_cpow (Or.inl hN0)
+  have hw1 : w 1 ≠ 0 := by
+    simp only [hw, Complex.Gammaℂ_one, one_div, inv_inv]
+    refine mul_ne_zero (mul_ne_zero two_ne_zero ?_) ?_
+    · exact_mod_cast Real.pi_ne_zero
+    · exact (Complex.cpow_ne_zero_iff_of_exponent_ne_zero (by norm_num)).mpr hN0
+  have hsym : ∀ s, F s * w (2 - s) = w s * F (2 - s) := by
+    intro s
+    rw [hFw s, hFw (2 - s), hFE s]
+    ring
+  -- local form of `F` at `1`
+  have hFa : AnalyticAt ℂ F 1 := (Complex.analyticOnNhd_univ_iff_differentiable.mpr hF.1) 1
+    (Set.mem_univ _)
+  obtain ⟨g, hga, hg1, hgF⟩ := (hFa.analyticOrderAt_eq_natCast (n := 1)).mp (by exact_mod_cast h1)
+  have hT : Filter.Tendsto (fun s : ℂ => 2 - s) (nhds 1) (nhds 1) := by
+    have : Continuous (fun s : ℂ => 2 - s) := continuous_const.sub continuous_id
+    simpa [show (2 : ℂ) - 1 = 1 by norm_num] using this.tendsto 1
+  have hgF' := hT.eventually hgF
+  set k : ℂ → ℂ := fun s => g s * w (2 - s) + w s * g (2 - s) with hkdef
+  have hev : ∀ᶠ s in nhds (1 : ℂ), (s - 1) * k s = 0 := by
+    filter_upwards [hgF, hgF'] with s hs hs'
+    have := hsym s
+    rw [hs, hs'] at this
+    simp only [pow_one, smul_eq_mul] at this
+    rw [hkdef]
+    linear_combination this
+  have hkc : ContinuousAt k 1 := by
+    have hgc : ContinuousAt g 1 := hga.continuousAt
+    have hg2 : ContinuousAt (fun s => g (2 - s)) 1 := by
+      have h21 : ContinuousAt (fun s : ℂ => 2 - s) 1 :=
+        (continuous_const.sub continuous_id).continuousAt
+      exact ContinuousAt.comp_of_eq (g := g) hgc h21 (by norm_num)
+    exact (hgc.mul ((hwc.comp (continuous_const.sub continuous_id)).continuousAt)).add
+      (hwc.continuousAt.mul hg2)
+  have hk0 : k 1 = 0 := by
+    have hlim1 : Filter.Tendsto k (nhdsWithin 1 {1}ᶜ) (nhds (k 1)) :=
+      hkc.tendsto.mono_left nhdsWithin_le_nhds
+    have hlim0 : Filter.Tendsto k (nhdsWithin 1 {1}ᶜ) (nhds 0) := by
+      refine tendsto_const_nhds.congr' ?_
+      filter_upwards [eventually_nhdsWithin_of_eventually_nhds hev,
+        self_mem_nhdsWithin] with s hs hs1
+      have : s - 1 ≠ 0 := sub_ne_zero.mpr hs1
+      exact ((mul_eq_zero.mp hs).resolve_left this).symm
+    exact tendsto_nhds_unique hlim1 hlim0
+  have : k 1 = 2 * (g 1 * w 1) := by
+    simp only [hkdef, show (2 : ℂ) - 1 = 1 by norm_num]; ring
+  rw [this] at hk0
+  exact mul_ne_zero two_ne_zero (mul_ne_zero hg1 hw1) hk0
+
+/-- The assembly with (G3) discharged. -/
+theorem grossZagierCd_of_leaves' (hL1 : HeckeThetaNewform) (hL2 : FHNonvanishing)
+    (hL3 : GrossZagierHeegner) : GrossZagierCd :=
+  grossZagierCd_of_leaves hL1 hL2 hL3 signOfSimpleZero
+
 end ZInQ.GZDecomp
 
 #print axioms ZInQ.GZDecomp.grossZagierCd_of_leaves
+#print axioms ZInQ.GZDecomp.signOfSimpleZero
+#print axioms ZInQ.GZDecomp.grossZagierCd_of_leaves'
 #print axioms ZInQ.GZDecomp.modular_cd
 #print axioms ZInQ.GZDecomp.exists_rat_point_of_heegner

@@ -35,3 +35,9 @@ Base: wip/tc-port 443ece10 + `git merge origin/main` (ee3e746f).
 - Glue open: `SignOfSimpleZero` (G3), hypothesis of the assembly.
 - `#print axioms grossZagierCd_of_leaves`, `modular_cd`, `exists_rat_point_of_heegner`:
   [propext, Classical.choice, Quot.sound]. VERIFIED.
+- (G3) `signOfSimpleZero : SignOfSimpleZero` PROVED (TC `Newform.frickeCompletedL_sub_eq`,
+  `I_zpow_mul_frickeSign_eq_one_or_neg_one`, `frickeCompletedL_eq_cpow_mul_Λ`,
+  `CuspForm.eq_strictWidthInfty_cpow_mul_L`; Mathlib `differentiable_Gammaℂ_inv`).
+- `grossZagierCd_of_leaves' (hL1 : HeckeThetaNewform) (hL2 : FHNonvanishing)
+  (hL3 : GrossZagierHeegner) : GrossZagierCd`: axioms [propext, Classical.choice, Quot.sound].
+  VERIFIED (lake env lean, 2026-11-13 ~06:00 PST).
