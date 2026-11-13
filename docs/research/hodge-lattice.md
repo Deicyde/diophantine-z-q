@@ -16,17 +16,17 @@ smooth group model `𝒢/𝓞_L` of `A_L` with `A.dim = g`:
 - `∃ s ∈ 𝒢.detLattice g, s ≠ 0 ∧ secIndex (𝒢.detLattice g) s ≠ 0`, i.e. `⋀^g ω_𝒢` is a full
   lattice in that line.
 
-**It is now proved from four statements, none about models or Hodge lattices** (VERIFIED: compiled;
-`#print axioms` lists `propext`, `Classical.choice`, `Quot.sound`):
+**It is now proved from four statements, none about group models or Hodge lattices** (VERIFIED:
+compiled; `#print axioms` lists `propext`, `Classical.choice`, `Quot.sound`):
 
 ```lean
-theorem hodgeLatticeTheorem_of_abVar (h0 : OriginStalkIso) (h1 : RegularAtOrigin)
+theorem hodgeLatticeTheorem_of_varieties (h0 : GenericFibreStalkIso) (h1 : RegularAtOrigin)
     (h2 : DimAtOrigin) (h3 : DimBaseChange) : HodgeLatticeTheorem
 ```
 
-| Prop | Statement (Lean, `scratch/hodge-lattice/HodgeLattice.lean` §8) | Kind |
+| Prop | Statement (Lean, `scratch/hodge-lattice/HodgeLattice.lean` §8-§9) | Kind |
 | --- | --- | --- |
-| `OriginStalkIso` | `𝒢.genStalk ≃+* 𝒪_{A_L, 0}`: the local ring of `𝒢` at the identity `ξ` of its generic fibre is the local ring of `A_L` at its origin (`originPt`) | scheme theory (stalks of a base change along the localization `Spec L → Spec 𝓞_L`, then transport along `𝒢.gen`) |
+| `GenericFibreStalkIso` | for every scheme `X` over `Spec 𝓞_L` and every point `x` of `X_L = X ×_{𝓞_L} Spec L`, `IsIso ((pullback.fst X.hom (Spec L → Spec 𝓞_L)).stalkMap x)` | scheme theory, no new theory: base change along a localization does not change local rings |
 | `RegularAtOrigin` | for `B : AbVar L`, `IsRegularLocalRing 𝒪_{B,0}` | STANDARD: a smooth variety over a field is regular |
 | `DimAtOrigin` | for `B : AbVar L` with `B.dim = g`, `ringKrullDim 𝒪_{B,0} = g` | STANDARD: dimension theory of varieties at closed points |
 | `DimBaseChange` | `(A.baseChange L).dim = A.dim` | STANDARD: dimension is invariant under field extension |
@@ -34,6 +34,8 @@ theorem hodgeLatticeTheorem_of_abVar (h0 : OriginStalkIso) (h1 : RegularAtOrigin
 All four are true (§4). They are statements over Mathlib's genuine objects (`AbVar` is the project's
 shared abelian-variety structure over Mathlib schemes; `IsRegularLocalRing`, `ringKrullDim`,
 `topologicalKrullDim` are Mathlib's). None mentions `ω_𝒢`, `⋀^g`, `secIndex`, or the conclusion.
+An intermediate form uses `OriginStalkIso` (`𝒢.genStalk ≃+* 𝒪_{A_L,0}`) in place of
+`GenericFibreStalkIso` (`hodgeLatticeTheorem_of_abVar`); `originStalkIso_of` derives it.
 
 **What is proved in Lean** (everything else):
 1. *The algebra* (`hodgeLattice_of_lattice`, §1): for any `𝓞_K`-module `M` and submodule `ω`, if
@@ -53,20 +55,25 @@ shared abelian-variety structure over Mathlib schemes; `IsRegularLocalRing`, `ri
    `rank_L (L ⊗_{𝓞_L} 𝔪_ξ/𝔪_ξ²) = finrank_{κ(ξ)} (𝔪_ξ/𝔪_ξ²)` (`rank_tensor_cotangent`); with Mathlib's
    `IsRegularLocalRing.iff_finrank_cotangentSpace` this equals `ringKrullDim 𝒪_{𝒢,ξ}` for a regular
    local ring.
-4. *Corollary* (§7, `hodgeLattice_lattice_of_regular`): `ω_𝒢` and `⋀^g ω_𝒢` are finitely generated
+4. *The origin* (§9, `originStalkIso_of`): the projection `𝒢_L → 𝒢` sends the identity of `𝒢_L`
+   (for the group structure `Functor.grpObjObj` used in `GroupModel.gen_hom`) to `ξ`, and `𝒢.gen`
+   sends it to `originPt (A.baseChange L)`; with `GenericFibreStalkIso` and the stalk isomorphisms
+   of the scheme isomorphism `𝒢.gen` this gives `𝒢.genStalk ≃+* 𝒪_{A_L,0}`.
+5. *Corollary* (§7, `hodgeLattice_lattice_of_regular`): `ω_𝒢` and `⋀^g ω_𝒢` are finitely generated
    and `L · ⋀^g ω_𝒢 = hodgeSpace g` (the base change of the lattice is the Hodge line). Projectivity
    of the rank-one module `⋀^g ω_𝒢` is then the STANDARD fact "finitely generated torsion-free over
    a Dedekind domain is projective", not formalized (Mathlib v4.35 has no lemma in this form;
    searched `Projective` with `Dedekind`/`torsion`: nothing).
 
-**Verdict.** The algebraic half of AN3 is reduced to standard facts about varieties over a field and
-one stalk identification. Scheme-theoretic facts Mathlib v4.35 lacks (§5): the dimension theory of
+**Verdict.** The algebraic half of AN3 is reduced to three standard facts about varieties over a field
+and one general scheme-theoretic fact about local rings of a generic fibre. Scheme-theoretic facts Mathlib v4.35 lacks (§5): the dimension theory of
 varieties (dimension at closed points, invariance under field extension), "smooth ⇒ regular", and
 stalks of a fibre product along a localization of the base.
 
 ## 1. Chain of reductions (all arrows proved in Lean)
 
 ```
+GenericFibreStalkIso ──originStalkIso_of──▶ OriginStalkIso
 OriginStalkIso ∧ RegularAtOrigin  ──regularOrigin_of──▶  RegularOrigin  (IsRegularLocalRing 𝒪_{𝒢,ξ})
 OriginStalkIso ∧ DimAtOrigin ∧ DimBaseChange ──dimOrigin_of──▶ DimOrigin (ringKrullDim 𝒪_{𝒢,ξ} = dim A)
 RegularOrigin ∧ DimOrigin ──tangentDim_of_regular──▶ TangentDim (finrank_{κ(ξ)} 𝔪_ξ/𝔪_ξ² = dim A)
@@ -78,16 +85,17 @@ OmegaFG ∧ CotangentRank ∧ OmegaSpans ──hodgeLatticeTheorem_of──▶ H
 Named intermediate theorems: `hodgeLatticeTheorem_of_local` (from `OmegaLocal`, `CotangentRank`),
 `hodgeLatticeTheorem_of_cotangentRank` (from `CotangentRank` alone),
 `hodgeLatticeTheorem_of_regular` (from `RegularOrigin`, `DimOrigin`),
-`hodgeLatticeTheorem_of_abVar` (from the four Props of §0).
+`hodgeLatticeTheorem_of_abVar` (with `OriginStalkIso`), `hodgeLatticeTheorem_of_varieties` (from
+the four Props of §0).
 
 ## 2. What compiles (VERIFIED)
 
-`lake env lean scratch/hodge-lattice/HodgeLattice.lean`: 0 errors; 9 warnings (deprecation of
+`lake env lean scratch/hodge-lattice/HodgeLattice.lean`: 0 errors; 11 warnings (deprecation of
 `TensorProduct.induction_on`, style linters). `#print axioms` at the end of the file, each
 `[propext, Classical.choice, Quot.sound]`: `hodgeLattice_of_lattice`, `hodgeLatticeTheorem_of`,
 `hodgeLatticeTheorem_of_local`, `omegaLocal`, `hodgeLatticeTheorem_of_cotangentRank`,
 `hodgeLatticeTheorem_of_regular`, `hodgeLattice_lattice_of_regular`,
-`hodgeLatticeTheorem_of_abVar`. The file needs `lake build ZInQKernel.HDecomp.Faltings.Models`
+`hodgeLatticeTheorem_of_abVar`, `originStalkIso_of`, `hodgeLatticeTheorem_of_varieties`. The file needs `lake build ZInQKernel.HDecomp.Faltings.Models`
 first (1m51 on this host). The identity `𝒢.detLattice g = detLat 𝒢.omega g` is `rfl`
 (`detLattice_eq`), so the generic algebra applies to the definitions of Models.lean verbatim.
 
@@ -133,7 +141,16 @@ spanning over `L` with `N ≤ omegaAt s'` and `omegaAt s' ⊆ N_{s'}` for all `s
 Local-to-global (`fg_iInf_of_local`, `exists_smul_mem_iInf_of_local`): finitely many `D(a)` cover
 `Spec 𝓞_L` (`Ideal.span_eq_top_iff_finite`), and `x ∈ N₀_m` for all maximal `m` implies `x ∈ N₀`.
 
-### 3.3 Tangent space (§6)
+### 3.3 The origin (§9)
+
+`η` of the generic fibre is `ε ≫ (Over.pullback f).map η_𝒢` (`Functor.monObjObj`), so
+`η_{𝒢_L}.left ≫ pullback.fst = f ≫ e` from `pullback.condition` and `Over.w ε`
+(`fst_genericFibre_unit`); `f` sends the point of `Spec L` to the generic point (`toGeneric_pt`).
+`IsMonHom.one_hom` for `𝒢.gen.hom` gives `gen(ξ_L) = originPt`. A scheme isomorphism is an open
+immersion, hence iso on stalks (`IsOpenImmersion.iff_isIso_stalkMap`); `stalkCongr` moves between
+equal points.
+
+### 3.4 Tangent space (§6)
 
 `isUnit_structMap`: `c ≠ 0 ⇒ structMap c` is a unit of `𝒪_{𝒢,ξ}` (its image in the function field
 of `Spec 𝓞_L` is nonzero; stalk maps are local). With the residue lemma at the generic point this
@@ -144,12 +161,12 @@ makes `κ(ξ)` a fraction field of `𝓞_L`. Then `L ≃ₐ[𝓞_L] κ(ξ)` (`Is
 ## 4. The four remaining statements: truth and references
 
 All four are true for the definitions as they stand (STANDARD; locators UNVERIFIED):
-- `OriginStalkIso`. `Spec L → Spec 𝓞_L` is the localization at `𝓞_L ∖ 0`; for any scheme `X` over
-  `𝓞_L` and a point `x'` of `X_L` over `x ∈ X`, `𝒪_{X,x} → 𝒪_{X_L,x'}` is an isomorphism (affine
-  locally `(B ⊗ L)_{Q'} = B_Q` since `Q ∩ 𝓞_L = 0`; EGA I 3.6 / Stacks "base change by a
-  localization", UNVERIFIED). The identity `ξ` of the generic fibre is the image of the point of
-  `Spec L` under the unit section, and `𝒢.gen` is a group isomorphism (`gen_hom`), so it sends `ξ`
-  to `originPt (A.baseChange L)`.
+- `GenericFibreStalkIso`. `Spec L → Spec 𝓞_L` is the localization at `S = 𝓞_L ∖ 0`; for any scheme
+  `X` over `𝓞_L` and a point `x'` of `X_L` over `x ∈ X`, `𝒪_{X,x} → 𝒪_{X_L,x'}` is an isomorphism:
+  affine locally `X = Spec B`, `X_L = Spec (S⁻¹B)`, `x'` is a prime `Q'` of `S⁻¹B` with
+  contraction `Q`, and `(S⁻¹B)_{Q'} = B_Q` (Mathlib has this ring-theoretic step:
+  localization of a localization). EGA I 3.6 / Stacks "base change by a localization",
+  UNVERIFIED. (The transport to `OriginStalkIso` is proved, §3.3.)
 - `RegularAtOrigin`. `B` is smooth over the field `L`; local rings of smooth `L`-schemes are regular
   (EGA IV 17.5.1 / Stacks tag 00TT region, UNVERIFIED).
 - `DimAtOrigin`. `B` is an irreducible (geometrically integral) variety of dimension `g`; the local
@@ -178,9 +195,10 @@ Searched in `.lake/packages/mathlib` (VERIFIED by grep; absence claims are about
    `ringKrullDim`. Blocks `RegularAtOrigin`. (A route: étale-locally `B` is `𝔸^g_L`, plus "étale
    preserves regularity and dimension"; both missing.)
 4. **Stalks of base change along a localization.** No lemma identifying stalks of `X ×_S Spec 𝒪_{S,η}`
-   (or `X ×_{Spec R} Spec R_f`-type pullbacks beyond open immersions) with stalks of `X`. Blocks
-   `OriginStalkIso`; it is the one item that needs no new theory, only work with
-   `pullbackSpecIso` and localizations (SPECULATIVE size: a few hundred lines).
+   (or of pullbacks along `Spec S⁻¹R → Spec R` beyond basic opens, where it is an open immersion)
+   with stalks of `X`. Blocks `GenericFibreStalkIso`; it needs no new theory, only work with
+   `pullbackSpecIso`, restrictions to affine opens and `IsLocalization` of a localization
+   (SPECULATIVE size: a few hundred lines).
 
 Present and used: `IsAffineOpen.isLocalization_stalk`, `germ_injective_of_isIntegral`,
 `Scheme.Hom.germ_stalkMap_apply`, `Scheme.Hom.stalkSpecializes_stalkMap_apply`,
