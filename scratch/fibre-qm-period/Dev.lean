@@ -1246,6 +1246,19 @@ theorem fibreQMPeriod_main (h : R1R2fp) (hM : Pin.MobiusGlue)
     ThetaPt.FibreQMPeriod :=
   fibreQMPeriod_final'' h hM hH hE hR11 qmSkolemNoetherC_proof hCN hR hG hHU hD hCP
 
+/-- **Main result from the decomposition's bundle form of the leaf (`LeafAdopt.R1R2fpRep`,
+proved).** -/
+theorem fibreQMPeriod_main_rep (h : LeafAdopt.R1R2fpRep) (hM : Pin.MobiusGlue)
+    (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hR11 : T11aRiemannEnd)
+    (hCN : QMClassNumberOne)
+    (hR : R1bFamily (ownY (LeafAdopt.R1R2fp_of_rep h)) (ownΦ (LeafAdopt.R1R2fp_of_rep h))
+      (ownπ (LeafAdopt.R1R2fp_of_rep h)))
+    (hG : PeriodMapGlue (ownY (LeafAdopt.R1R2fp_of_rep h)) (ownΦ (LeafAdopt.R1R2fp_of_rep h))
+      (ownπ (LeafAdopt.R1R2fp_of_rep h)))
+    (hHU : HauptmodulUnique) (hD : QMDenZeroCM3) (hCP : CPtsTransport) :
+    ThetaPt.FibreQMPeriod :=
+  fibreQMPeriod_main _ hM hH hE hR11 hCN hR hG hHU hD hCP
+
 end FibreQM
 
 end G0Split
@@ -1285,3 +1298,4 @@ end
 #print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_final''
 #print axioms HSyn.G0Split.FibreQM.qmSkolemNoetherC_proof
 #print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_main
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_main_rep
