@@ -26,3 +26,17 @@
 - HSyn matrix form also PROVED: `HSynBrauerNesbitt` (verbatim `HSyn.BrauerNesbitt`),
   `TSkolemKW.hsynBrauerNesbitt`; axioms propext, Classical.choice, Quot.sound (compiled).
   Via `repOfGL`, Mathlib's `Representation.mapSubmodule` (invariant subspaces ≃o k[G]-submodules).
+
+## T18 Frobenius density — HSyn form REDUCED to the finite form (VERIFIED, compiled)
+- File: `scratch/t-skolem-kw/FrobeniusDense.lean` (imports only Mathlib).
+- Verbatim: `HSyn.FrobeniusDense` with `HSyn.Qbar/GQ/LiesOver/IsArithFrob` (namespace `HS`);
+  `PkgI6.ChebotarevExists` (namespace `C10`); GlueC10's `FrobDense`/`FrobLift`/`frobDense` copied
+  verbatim from Leaves.lean lines 11328-11333, 11375-11630, 11746-11750 (compiles here).
+- Theorem `TSkolemKW.HS.frobeniusDense_of_chebotarev : ChebotarevExists → FrobeniusDense`;
+  axioms propext, Classical.choice, Quot.sound.
+- New glue: `zbarLoc` (the localization of `\bar ℤ` at a prime is a `ValuationSubring` of
+  `\bar ℚ`, Prüfer property via the DVR `(𝓞_E)_Q`, `exists_frac_or_inv`), an arithmetic
+  Frobenius at `𝔓 ⊂ \bar ℤ` is `IsArithFrob` at `zbarLoc`, `LiesOver` holds, Krull step.
+- So T18's two forms collapse to one leaf: `ChebotarevExists` (Chebotarev existence form).
+- Full Chebotarev NOT proved (Mathlib v4.35.0 lacks Hecke/Artin L-functions of number fields
+  and class field theory; Dirichlet's theorem for ℚ exists).
