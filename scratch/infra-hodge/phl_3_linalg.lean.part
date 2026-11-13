@@ -257,4 +257,68 @@ theorem idx_mul {I₁ I₂ : Submodule (𝓞 L) L} (h₁ : (1 : L) ∈ I₁) (h�
 
 end Index
 
+section Delta
+
+variable {L : Type*} [Field L] [NumberField L]
+variable {V : Type*} [AddCommGroup V] [Module L V] [Module (𝓞 L) V] [IsScalarTower (𝓞 L) L V]
+
+/-- `δ_b : L ⊗ ⋀^n V → L`, `1 ⊗ ιMulti v ↦ b.det v`. -/
+noncomputable def delta {n : ℕ} (b : Basis (Fin n) L V) : L ⊗[𝓞 L] ⋀[𝓞 L]^n V →ₗ[L] L :=
+  (exteriorPower.alternatingMapLinearEquiv b.det) ∘ₗ
+    (ZInQ.HodgeBC2.extFracEquiv (R := 𝓞 L) (K := L) (M := V) n).symm.toLinearMap
+
+theorem delta_tmul_one {n : ℕ} (b : Basis (Fin n) L V) (v : Fin n → V) :
+    delta b ((1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) n v) = b.det v := by
+  rw [delta, LinearMap.comp_apply, LinearEquiv.coe_coe, ← ZInQ.HodgeBC2.extFracEquiv_ιMulti,
+    LinearEquiv.symm_apply_apply, exteriorPower.alternatingMapLinearEquiv_apply_ιMulti]
+
+theorem finrank_hodge {n : ℕ} (b : Basis (Fin n) L V) :
+    finrank L (L ⊗[𝓞 L] ⋀[𝓞 L]^n V) = 1 := by
+  haveI := Module.Finite.of_basis b
+  rw [← (ZInQ.HodgeBC2.extFracEquiv (R := 𝓞 L) (K := L) (M := V) n).finrank_eq,
+    exteriorPower.finrank_eq, Module.finrank_eq_card_basis b, Fintype.card_fin, Nat.choose_self]
+
+theorem delta_injective {n : ℕ} (b : Basis (Fin n) L V) : Function.Injective (delta b) := by
+  haveI : FiniteDimensional L (L ⊗[𝓞 L] ⋀[𝓞 L]^n V) :=
+    Module.finite_of_finrank_pos (by rw [finrank_hodge b]; exact one_pos)
+  rw [LinearMap.injective_iff_surjective_of_finrank_eq_finrank
+    (by rw [finrank_hodge b, Module.finrank_self])]
+  intro c
+  refine ⟨c ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) n b, ?_⟩
+  rw [show c ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) n ⇑b =
+      c • ((1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) n b) from by
+    rw [TensorProduct.smul_tmul', smul_eq_mul, mul_one],
+    map_smul, delta_tmul_one, b.det_self, smul_eq_mul, mul_one]
+
+/-- `⋀^n W ⊆ L ⊗ ⋀^n V`. -/
+noncomputable def detLat (n : ℕ) (W : Submodule (𝓞 L) V) :
+    Submodule (𝓞 L) (L ⊗[𝓞 L] ⋀[𝓞 L]^n V) :=
+  Submodule.span (𝓞 L) (Set.range fun v : Fin n → W =>
+    (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) n (fun i => (v i : V)))
+
+theorem map_detLat {n : ℕ} (b : Basis (Fin n) L V) (W : Submodule (𝓞 L) V) :
+    (detLat n W).map ((delta b).restrictScalars (𝓞 L)) = detIdeal b W := by
+  rw [detLat, Submodule.map_span, detIdeal, ← Set.range_comp]
+  congr 1
+  congr 1
+  funext v
+  exact delta_tmul_one b _
+
+theorem relIndex_detLat {n : ℕ} (b : Basis (Fin n) L V) (W : Submodule (𝓞 L) V) :
+    (Submodule.span (𝓞 L) {(1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) n b}).toAddSubgroup.relIndex
+      (detLat n W).toAddSubgroup = idx (detIdeal b W) := by
+  have hmap : ∀ N : Submodule (𝓞 L) (L ⊗[𝓞 L] ⋀[𝓞 L]^n V),
+      N.toAddSubgroup.map ((delta b).restrictScalars (𝓞 L)).toAddMonoidHom =
+        (N.map ((delta b).restrictScalars (𝓞 L))).toAddSubgroup := by
+    intro N; rw [Submodule.map_toAddSubgroup]; rfl
+  rw [← map_detLat b W, idx, ← AddSubgroup.relIndex_map_map_of_injective _ _
+    (f := ((delta b).restrictScalars (𝓞 L)).toAddMonoidHom) (delta_injective b),
+    hmap, hmap, Submodule.map_span, Set.image_singleton]
+  have h1 : ((delta b).restrictScalars (𝓞 L)) ((1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) n b) = 1 := by
+    show delta b _ = 1
+    rw [delta_tmul_one, b.det_self]
+  rw [h1]
+
+end Delta
+
 end ZInQ.InfraHodge
