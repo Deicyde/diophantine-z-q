@@ -387,6 +387,152 @@ theorem upperBreakFix_of_hilbertSerre (h : HilbertSerreLadic p) : UpperBreakFix 
 
 end Break
 
+/-! ## §2b. Positive upper groups are wild (proved) -/
+
+section Wild
+
+variable {p : ℕ} [Fact p.Prime]
+
+/-- `G_{ℚ_p}` acts isometrically on `ℚ̄_p` (copied from g0-mod-newform's `norm_aut`). -/
+theorem norm_aut' (σ : GQp p) (y : Kbar p) : ‖σ y‖ = ‖y‖ := by
+  rw [← PadicAlgCl.spectralNorm_eq, ← PadicAlgCl.spectralNorm_eq]
+  exact (spectralNorm_eq_of_equiv σ y).symm
+
+/-- For `t > 0`, `G^t(F) ⊆ G_1(F)` (pulled back): `ψ_F(t) > 0`. -/
+theorem ramSet_one_of_upperSet {F : Fld p} (hF : IsFinGal F) {t : ℝ} (ht : 0 < t) {σ : GQp p}
+    (hσ : σ ∈ upperSet F t) : σ ∈ ramSet F 1 := by
+  set S := {u : ℝ | -1 ≤ u ∧ t ≤ phiAt F u} with hS
+  have hg0 := g0_pos hF
+  have hφ0 : phiAt F 0 = 0 := by rw [phiAt_eq, intervalIntegral.integral_same]
+  have hne : S.Nonempty := by
+    refine ⟨t * ramCard F 0, by nlinarith, ?_⟩
+    have h1 := phi_ge hF (u := t * ramCard F 0) (by positivity)
+    have h2 : t * ramCard F 0 * (1 / (ramCard F 0 : ℝ)) = t := by field_simp
+    linarith
+  have hlb : ∀ u ∈ S, t ≤ u := by
+    rintro u ⟨-, hu⟩
+    by_cases hu0 : u ≤ 0
+    · have := phi_mono hF hu0
+      linarith
+    · have := phi_sub_le hF le_rfl (le_of_not_ge hu0)
+      linarith
+  have hψ : t ≤ sInf S := le_csInf hne hlb
+  have hσF : σ ∈ ramSetR F (sInf S) := hσ
+  unfold ramSetR at hσF
+  rw [if_neg (by linarith)] at hσF
+  refine ramSet_anti ?_ hσF
+  have hz : (0 : ℤ) < ⌈sInf S⌉ := Int.lt_ceil.mpr (by push_cast; linarith)
+  omega
+
+/-- The predicate "`σ x / x ≡ 1`": `‖σ x − x‖ < ‖x‖`. -/
+def WildAt (σ : GQp p) (y : Kbar p) : Prop := ‖σ y - y‖ < ‖y‖
+
+theorem wildAt_mul {σ : GQp p} {y z : Kbar p} (hy : WildAt σ y) (hz : WildAt σ z) :
+    WildAt σ (y * z) := by
+  unfold WildAt at *
+  have hy0 : 0 < ‖y‖ := lt_of_le_of_lt (norm_nonneg _) hy
+  have hz0 : 0 < ‖z‖ := lt_of_le_of_lt (norm_nonneg _) hz
+  have he : σ (y * z) - y * z = σ y * (σ z - z) + (σ y - y) * z := by rw [map_mul]; ring
+  rw [he, norm_mul y z]
+  refine lt_of_le_of_lt (IsUltrametricDist.norm_add_le_max _ _) (max_lt ?_ ?_)
+  · rw [norm_mul, norm_aut']
+    exact mul_lt_mul_of_pos_left hz hy0
+  · rw [norm_mul]
+    exact mul_lt_mul_of_pos_right hy hz0
+
+theorem wildAt_inv {σ : GQp p} {y : Kbar p} (hy : WildAt σ y) : WildAt σ y⁻¹ := by
+  unfold WildAt at *
+  have hy0 : 0 < ‖y‖ := lt_of_le_of_lt (norm_nonneg _) hy
+  have hy0' : y ≠ 0 := norm_pos_iff.mp hy0
+  have hσy : σ y ≠ 0 := (map_ne_zero σ).mpr hy0'
+  have he : σ y⁻¹ - y⁻¹ = (y - σ y) / (σ y * y) := by
+    rw [map_inv₀]; field_simp
+  rw [he, norm_div, norm_mul, norm_aut', norm_sub_rev, norm_inv,
+    div_lt_iff₀ (by positivity)]
+  calc ‖σ y - y‖ < ‖y‖ := hy
+    _ = ‖y‖⁻¹ * (‖y‖ * ‖y‖) := by field_simp
+
+theorem wildAt_one (σ : GQp p) : WildAt σ 1 := by
+  unfold WildAt; simp
+
+theorem wildAt_pow {σ : GQp p} {y : Kbar p} (hy : WildAt σ y) (n : ℕ) : WildAt σ (y ^ n) := by
+  induction n with
+  | zero => rw [pow_zero]; exact wildAt_one σ
+  | succ n ih => rw [pow_succ]; exact wildAt_mul ih hy
+
+theorem wildAt_zpow {σ : GQp p} {y : Kbar p} (hy : WildAt σ y) (k : ℤ) : WildAt σ (y ^ k) := by
+  rcases Int.eq_nat_or_neg k with ⟨n, rfl | rfl⟩
+  · rw [zpow_natCast]; exact wildAt_pow hy n
+  · rw [zpow_neg, zpow_natCast]; exact wildAt_inv (wildAt_pow hy n)
+
+theorem natCast_mem (F : Fld p) : (p : Kbar p) ∈ F := by
+  rw [← map_natCast (algebraMap ℚ_[p] (Kbar p)) p]
+  exact IntermediateField.algebraMap_mem _ _
+
+/-- An element of `G_1(F)` (pulled back) satisfies `σx/x ≡ 1` for every `x ∈ F^×`. -/
+theorem wild_of_ramSet_one {F : Fld p} {σ : GQp p} (hσ : σ ∈ ramSet F 1) {x : Kbar p}
+    (hx : x ∈ F) (hx0 : x ≠ 0) : ‖σ x - x‖ < ‖x‖ := by
+  obtain ⟨ϖ, hϖ, h1⟩ := hσ
+  have hϖ1 : ‖ϖ‖ < 1 := hϖ.2.1
+  have hϖpos : 0 < ‖ϖ‖ := by
+    have hp1 : (1 : ℝ) < p := by exact_mod_cast (Fact.out : p.Prime).one_lt
+    have hpn : ‖(p : Kbar p)‖ < 1 := by rw [norm_p_kbar]; exact inv_lt_one_of_one_lt₀ hp1
+    have hp := hϖ.2.2 _ (natCast_mem F) hpn
+    exact lt_of_lt_of_le (by rw [norm_p_kbar]; positivity) hp
+  have hϖ0 : ϖ ≠ 0 := norm_pos_iff.mp hϖpos
+  -- `ϖ` and the units of `F` satisfy `WildAt`
+  have hwϖ : WildAt σ ϖ := by
+    unfold WildAt
+    have := h1 ϖ hϖ.1 hϖ1.le
+    calc ‖σ ϖ - ϖ‖ ≤ ‖ϖ‖ ^ (1 + 1) := this
+      _ < ‖ϖ‖ := by rw [pow_two]; exact mul_lt_of_lt_one_right hϖpos hϖ1
+  have hwu : ∀ z ∈ F, ‖z‖ = 1 → WildAt σ z := by
+    intro z hz hz1
+    unfold WildAt
+    rw [hz1]
+    calc ‖σ z - z‖ ≤ ‖ϖ‖ ^ (1 + 1) := h1 z hz hz1.le
+      _ < 1 := pow_lt_one₀ (norm_nonneg _) hϖ1 (by norm_num)
+  -- discreteness: `x = ϖ^k z` with `‖z‖ = 1`
+  have hxpos : 0 < ‖x‖ := norm_pos_iff.mpr hx0
+  obtain ⟨n, hn1, hn2⟩ := exists_mem_Ioc_zpow hxpos ((one_lt_inv₀ hϖpos).mpr hϖ1)
+  set k : ℤ := -(n + 1) with hk
+  set z := x * (ϖ ^ k)⁻¹ with hz
+  have hzF : z ∈ F := mul_mem hx (inv_mem (zpow_mem hϖ.1 k))
+  have hnk : ‖ϖ ^ k‖ = ‖ϖ‖⁻¹ ^ (n + 1) := by
+    rw [norm_zpow, hk, zpow_neg, inv_zpow]
+  have hnk' : ‖ϖ‖⁻¹ ^ n = ‖ϖ ^ k‖ * ‖ϖ‖ := by
+    rw [hnk, zpow_add₀ (inv_ne_zero hϖpos.ne'), zpow_one, mul_assoc,
+      inv_mul_cancel₀ hϖpos.ne', mul_one]
+  have hpk : 0 < ‖ϖ ^ k‖ := by rw [hnk]; positivity
+  have hz_le : ‖z‖ ≤ 1 := by
+    rw [hz, norm_mul, norm_inv, ← div_eq_mul_inv, div_le_one hpk, hnk]
+    exact hn2
+  have hz_gt : ‖ϖ‖ < ‖z‖ := by
+    rw [hz, norm_mul, norm_inv, ← div_eq_mul_inv, lt_div_iff₀ hpk]
+    rw [hnk'] at hn1
+    linarith [mul_comm ‖ϖ ^ k‖ ‖ϖ‖]
+  have hz1 : ‖z‖ = 1 := by
+    by_contra hne
+    exact absurd (hϖ.2.2 z hzF (lt_of_le_of_ne hz_le hne)) (not_le.mpr hz_gt)
+  have hxz : x = ϖ ^ k * z := by
+    rw [hz, mul_comm x, ← mul_assoc, mul_inv_cancel₀ (zpow_ne_zero k hϖ0), one_mul]
+  have := wildAt_mul (wildAt_zpow hwϖ k) (hwu z hzF hz1)
+  rw [← hxz] at this
+  exact this
+
+instance isGalois_Kbar : IsGalois ℚ_[p] (Kbar p) := ⟨⟩
+
+/-- **`UpperWild` (GLUE, proved).** For `t > 0`, `G_{ℚ_p}^t ⊆ P_p`. -/
+theorem upperWild : UpperWild p := by
+  intro t ht σ hσ x hx0
+  let F := FiniteGaloisIntermediateField.adjoin ℚ_[p] ({x} : Set (Kbar p))
+  have hF : IsFinGal F.toIntermediateField := ⟨inferInstance, inferInstance⟩
+  have hxF : x ∈ F.toIntermediateField :=
+    FiniteGaloisIntermediateField.subset_adjoin ℚ_[p] {x} rfl
+  exact wild_of_ramSet_one (ramSet_one_of_upperSet hF ht (hσ _ hF)) hxF hx0
+
+end Wild
+
 /-! ## §3. The reduction (proved) -/
 
 section Reduction
@@ -461,3 +607,4 @@ end G15Ram
 #print axioms G15Ram.upperBreakFix_of_hilbertSerre
 #print axioms G15Ram.g15RamG_of_pieces
 #print axioms G15Ram.g15RamG_of_hilbertSerre
+#print axioms G15Ram.upperWild
