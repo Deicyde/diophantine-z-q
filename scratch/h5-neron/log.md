@@ -70,3 +70,11 @@ Parts A + B + C plus part D:
 - Independent model review (subagent, read-only) of H5Neron.lean: no PROBLEM; N1, N2 judged
   consequences of BLR 1.4/3 and SGA 7 IX 3.6+3.3; all glue judged true; two docstring
   inaccuracies (OpenSubgroupHeight "identity on A_L(ℂ)"; eq_neron_all "so A_{L₀} semistable") FIXED.
+
+## Part F: scratch/h5-neron/BaseChange.lean — PARTIAL (compiles; the main theorem is NOT proved)
+- COMPILED: `pbCompHom/pbCompInv/pbEqIso/pbEq`, `isMonHom_pbCompHom`, `isMonHom_pbCompInv` (components of
+  `Over.pullbackComp` are monoid morphisms, via `Functor.mapMonNatIso` + `Functor.mapMonCompIso`),
+  `isMonHom_pbEq`, `square1` (jL' ≫ φ = ψ ≫ jL), `square2`, `bcGen` (generic-fibre iso of a base change).
+- FAILED: `bcGen_isMonHom` / `groupModelBaseChangeExists`: elaborator accepts (~50 s), kernel reports
+  "(kernel) deterministic timeout" (also with maxHeartbeats 2000000: > 10 min, stopped). Proof kept as a
+  comment. Glue H4b stays UNPROVED.
