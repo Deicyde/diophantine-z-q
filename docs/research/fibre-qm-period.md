@@ -50,7 +50,7 @@ Coarser forms also compile, each with fewer, larger Props: `fibreQMPeriod_of_nam
 `fibreQMPeriod_of_parts`, `fibreQMPeriod_of_textbook`, `fibreQMPeriod_final`,
 `fibreQMPeriod_final'`, `fibreQMPeriod_final''` (which still takes `QMSkolemNoetherC`),
 `fibreQMPeriod_of_named_all` (no `MobiusGlue`, comparison for every triple), and
-`fibreQMPeriod_of_named_rep` (from `LeafAdopt.R1R2fpRep`).
+`fibreQMPeriod_of_named_rep` and `fibreQMPeriod_main_rep` (both from `LeafAdopt.R1R2fpRep`).
 
 ### Step 1: qm-pin's reduction (compiled)
 

@@ -83,3 +83,4 @@ Base: 2dd83306 + merges of origin/wip/qm-pin, origin/wip/mobius-glue (g0-thetapo
   `dev_Norm.lean` (imports QMLattice only).
 - run_full5 (06:17-06:20): final assembled `FibreQM.lean` with `qmSkolemNoetherC_proof`, `fibreQMPeriod_main`:
   0 errors, 0 `sorry`, 2m32s; 31 axioms lines of §N/§F all `[propext, Classical.choice, Quot.sound]`. VERIFIED.
+- run_dev14 (06:23): `fibreQMPeriod_main_rep` (from `LeafAdopt.R1R2fpRep`): 0 errors, 32 axioms lines standard.
