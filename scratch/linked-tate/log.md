@@ -32,3 +32,6 @@
   `UnramTate.LinkedRam` (RhoRamWild); `linkedFrobRam_of` proved. Composite `HSyn.LinkedTate.afterG7_of_final
   (r t m hDF hCar hSw hL8 hAd) (FibreSimple) (GoodRedG3Bridge) (QMEndRank) (LinkedFrob) (LinkedRam) : AfterG7`.
   Tail run: VERIFIED 0 errors, all standard axioms.
+- Flat file `lake env lean scratch/linked-tate/LinkedTate.lean` (40891 lines; parts 10,70,72,74,75,77,87,92,93,95,96,97):
+  VERIFIED exit 0 in 592 s, 0 errors, no sorry, 208 `#print axioms` reports, all [propext, Classical.choice, Quot.sound]
+  (two are line-wrapped in the output).

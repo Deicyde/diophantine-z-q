@@ -190,15 +190,25 @@ construction uses (`LinkedFrob`, `LinkedRam`), and then applied to the choice ma
   `p ∉ T ∪ {3, 5} ∪ ram(L')`, `m_{hτh⁻¹}` is `μ ∘ (Frobenius)` on points, and it is algebraic
   (`DescentDatum`'s clause `F_σ`). With the Serre–Tate reduction isomorphism, `N·Tm_ℓ(τ)` becomes
   `V_ℓ(α')` for one `α' = N μ̄ ∘ F` on the reduction, the same for `ℓ = 3` and `5`.
-- **`LinkedRam`** is Glazer's D1-D4 (N5 L819-852). It is quantified over all choices, so the
-  following must hold:
-  - **Two choices of `(m, a, γ₀)` differ by a twist of `ρ_ℓ` by a character of `Gal(L'/ℚ)`.**
-    Changing `(Θ, h)` conjugates `ρ_ℓ`, and `ρ_ℓ(kxk⁻¹) = 1 ⟺ ρ_ℓ(x) = 1`.
-  - **The twist preserves clause (ii) at `p > D`, because `L'` is tame at such `p`.** `[L:ℚ] ≤ D`,
-    and `L'/L` is cut out by `β`, with `β² = χ` of order prime to `p` at `p`.
-  - **It also preserves clause (i) at `p ≤ D`, provided the upper breaks of `L'` at `p` are at
-    most `U₀`.** This is part of what D1 is used for. It is not checked here, which makes it the
-    one point to review in `LinkedRam`.
+- **`LinkedRam`** is Glazer's D1-D4 (N5 L819-852), and it is quantified over every choice of the
+  data. Every choice gives Glazer's `ρ_ℓ` up to conjugation and up to a twist by a character of
+  `Gal(L'/ℚ)` (derivation below). So `LinkedRam` says: D1-D4 hold for every such twist. Two facts
+  about `L'` make that plausible:
+  - **Clause (ii), `p > D`.** `L'` is tamely ramified at `p`: `[L:ℚ] ≤ D < p`, and
+    `L'/L` is cyclic, cut out by `β|_{G_L}` with `β² = χ`, so `β|_{I_p}` has order dividing
+    `2(p−1)`. Hence a character of `Gal(L'/ℚ)` is trivial on wild inertia.
+  - **Clause (i), `p ≤ D`.** It needs the upper breaks of `L'` at `p` to be `≤ U₀ = 4(D G₀)²`.
+    These breaks come from `L` and `β`, which are exactly what D1 and D3 bound
+    (`GlueConductor.D1_genuine`, `fourth_pow_mem`). SPECULATIVE: this is the one point of
+    `LinkedRam` to review.
+
+  Derivation of the conjugation-and-twist claim:
+  - Changing `(Θ, h)` conjugates `ρ_ℓ`, and `ρ_ℓ(kxk⁻¹) = 1 ⟺ ρ_ℓ(x) = 1`.
+  - Two descent data `m, m'` for `ε` satisfy `m' = q·m` with `q : G_ℚ → ℚ^×`. The reason is that
+    `m'_σ m_σ⁻¹` commutes with `End⁰ = B`, whose centralizer is `ℚ`. Moreover `q = 1` on `G_L`.
+  - Two choices of `γ₀` differ by a function `ψ` with `∂ψ = 1`, `ψ = 1` on `G_{L'}` and `ψ`
+    constant on `G_{L'}`-cosets, which is a character of `Gal(L'/ℚ)`.
+  - In both cases the ratio of the two `ρ_ℓ` is a character of `G_ℚ` trivial on `G_{L'}`.
 
 ## 5. Findings
 
