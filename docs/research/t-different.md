@@ -20,6 +20,9 @@ The fields `t22a : PkgI6.HerbrandQuotient` and `t22b : PkgI6.HerbrandTransitivit
 local forms of T20, T21 as acceptable alternatives, with the local-to-global transport as a cited
 standard step (Serre III §4, I §7); that transport is still not in Lean.
 
+`scratch/t-different/All.lean` contains all four proofs in one deduplicated file (for
+integration; compiles, 52 s, same axioms).
+
 Compile (VERIFIED, 2026-11-12, one Lean process at a time):
 `lake env lean scratch/t-different/Statements.lean` (6 s), `HilbertLocal.lean` (9 s),
 `DifferentBound.lean` (41 s), `Herbrand.lean` (17 s).  A mechanical text comparison (python,

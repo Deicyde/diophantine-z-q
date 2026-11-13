@@ -103,3 +103,8 @@
   `PkgI6.hilbertDifferentFormula_of_dvr` (no completeness hypothesis).
 - Bundle status: `HSyn.TextbookLeaves.t22a/t22b` are exactly the proved statements; `t20/t21` are
   the global `GlueConductor` forms, NOT proved.
+
+## Step 9: combined file
+- `scratch/t-different/All.lean`: the three proof files deduplicated into one (VERIFIED: compiles,
+  52 s; the four `#print axioms` = propext, Classical.choice, Quot.sound; leaf/definition blocks
+  identical to Leaves.lean, each defined once).
