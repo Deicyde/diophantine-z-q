@@ -1,0 +1,37 @@
+{
+  "release_tag": "axiom-cache-v1",
+  "repository": "elliotglazer/diophantine-z-q",
+  "archive_name": "axiom-cache-lean4.35.0-mathlib56a0058-stacksc496df0-mordell82a30cb.tar.zst",
+  "archive_bytes": 2439572970,
+  "archive_sha256": "4f54433701085fcb631670ff72bff07cf26ab3d47420592b3df5488fe8af8a3a",
+  "part_limit_bytes": 1992294400,
+  "parts": [
+    {
+      "name": "axiom-cache-lean4.35.0-mathlib56a0058-stacksc496df0-mordell82a30cb.tar.zst.part-000",
+      "bytes": 1992294400,
+      "sha256": "ae4657e24c0da6995e014bbabb164a0ae26671080b18fcbd38b61e0122b2ae99"
+    },
+    {
+      "name": "axiom-cache-lean4.35.0-mathlib56a0058-stacksc496df0-mordell82a30cb.tar.zst.part-001",
+      "bytes": 447278570,
+      "sha256": "f365d710f828b1335032afe774b2d7fc24004bd9241d11e94795e19471c7bd78"
+    }
+  ],
+  "unpacked_tar_bytes": 8581591040,
+  "minimum_free_disk_bytes": 32212254720,
+  "historical_origin": {
+    "repository": "Deicyde/diophantine-z-q",
+    "release_tag": "axiom-cache-v1",
+    "source_base": "48b5f075e5509678c84685f0d1ec53febd10b1e5",
+    "note": "Original producer release. The upstream release mirrors the same asset names and bytes; the producer release-cache.json still names this origin."
+  },
+  "cache_manifest": {
+    "format": "axiom-bridge-cache/v1",
+    "platform": "linux-x86_64",
+    "lean": "v4.35.0",
+    "lean_commit": "eb6cafb7290e8bd5f2937522d8d804f58f02bafc",
+    "mathlib": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+    "Stacks": "c496df0d9beea9deaeabcea8492605f9a0a2313b",
+    "Mordell": "82a30cb7857f6e3cfdb1be91f5533c0ccb57d493"
+  }
+}

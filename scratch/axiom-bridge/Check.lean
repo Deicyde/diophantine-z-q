@@ -1,0 +1,22 @@
+import AxiomBridge
+
+-- Statements and complete transitive axiom dependencies of every bridge theorem.
+#check AxiomBridge.pkgI2_of_proper_geometricallyIntegral
+#check AxiomBridge.pkgI2_of_axiom
+#check AxiomBridge.axiom_of_pkgI2
+#check AxiomBridge.abelianVariety_iff
+#check AxiomBridge.jacobian_isAbelianVariety
+#check AxiomBridge.exists_pkgI2_jacobian
+#check AxiomBridge.geometricallyConnected_of_geometricallyIntegral
+#check AxiomBridge.pkgI2_isAbelianScheme_of_fibres
+#check AxiomBridge.pkgI2_hasGoodReduction_of_faltings
+
+#print axioms AxiomBridge.pkgI2_of_proper_geometricallyIntegral
+#print axioms AxiomBridge.pkgI2_of_axiom
+#print axioms AxiomBridge.axiom_of_pkgI2
+#print axioms AxiomBridge.abelianVariety_iff
+#print axioms AxiomBridge.jacobian_isAbelianVariety
+#print axioms AxiomBridge.exists_pkgI2_jacobian
+#print axioms AxiomBridge.geometricallyConnected_of_geometricallyIntegral
+#print axioms AxiomBridge.pkgI2_isAbelianScheme_of_fibres
+#print axioms AxiomBridge.pkgI2_hasGoodReduction_of_faltings
