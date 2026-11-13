@@ -159,6 +159,14 @@ from these:
 | `JDenNonzero` | glue, theta functions only | where `f` is finite, `jDen(Ω(τ)) ≠ 0` | `ψ₄∘Ω` is a weight-8 form for `Γ*` with orbifold degree `1/3`, so it vanishes only at the order-6 orbit (disc `−3`, where `f = ∞`). Checked numerically at 8 points. SPECULATIVE until proved |
 | `UnifBaseChange` | glue | uniformizations transport along `A_ℚ̄ ≅ P.A` and `IsBaseChangeOf` | base change of points (Yoneda), plus rigidity (leaf T11b) to fix the identity, since neither `FibreOver`'s isomorphism nor `IsBaseChangeOf`'s map is required to be a group map |
 
+*Candidates.* Every glue Prop that quantifies over all candidates `(Y, Φ, π)` satisfying the
+clause lists is true because every candidate is the published one. `(Y, Φ) ≅ (Y₃, Φ)`: apply
+`phi_part` in both directions; a self-map of a reduced separated scheme that is the identity on
+all field points is the identity. `π` is the published map on `ℚ̄`-points: both have the same
+fibres and the same three values, so they differ by an algebraic bijection of `P¹`, which is
+Möbius and hence the identity (qm-pin's `MobiusGlue`). A morphism is then determined by its
+`ℚ̄`-points. This argument is written in `R2OnC`'s docstring and is not compiled.
+
 Where R1(b) is used:
 - Clause (a) is consumed directly by `fibreQMPeriod_of_r1b`, at the fibre object.
 - The family clauses (b) and (c) are consumed by `familyHauptmodul_of_parts`. Clause (c) gives
