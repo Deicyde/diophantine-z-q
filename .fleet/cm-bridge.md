@@ -36,4 +36,5 @@ Numerics: `thm36_7.out` (12/12 pass; the wrong sign fails 7), `plan36.out` (8/8)
 - `Lemma318Literal` would need division-field ramification and supersingular reduction mod p.
 - `Thm35First`, and the 𝓛-leaves.
 
+Final check: Bridge.lean 0 errors, 32 audited declarations all standard axioms (`audit-out.txt`).
 Report: `docs/research/cm-bridge.md`; log: `scratch/cm-bridge/log.md`.
