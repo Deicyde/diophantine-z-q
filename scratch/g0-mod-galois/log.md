@@ -60,3 +60,12 @@
 - run11 (2m31s): `GaloisPieces` = {burnside, r14det, deRham, odd, weight, detTate, finIndex}; the
   bundle theorems use `g8Matrix_of_burnside` and `g12Det_of`. VERIFIED 0 errors, 0 sorry, all ten
   G0Galois theorems on [propext, Classical.choice, Quot.sound].
+- Finding (02:55): g0-mod-field (origin 9f698815) copied `resQ`, `Vb`, `tate`, `G2Out`, `G7Out` from
+  this branch at 20fa1287 (`G0ModField.GaloisCopy`), proved `ResQRange` for the Mathlib-map `resQ`
+  and the bridge `galoisG2Out_of_g7Data`, and stated `TateBridge` (their `G7Data` → this `G7Out`).
+  My run6 redefinition `resQ := res (qEmb K)` broke that match, so `resQ` is restored to
+  `Field.absoluteGaloisGroup.map (algebraMap ℚ K)`. `qEmbRing K` is the `IsAlgClosed.lift` that
+  `map` chooses, and `resQ_spec` (`qEmbRing K (resQ K τ x) = τ (qEmbRing K x)`) is proved by unfolding
+  `map` (`AlgEquiv.restrictNormal_commutes`). Test file /tmp/g0mg/TestRes.lean (import Mathlib, 8 s):
+  0 errors. A script check finds the five definitions identical, token for token, to their copies.
+- run12 (2m30s): VERIFIED 0 errors, 0 sorry; all eleven G0Galois theorems on standard axioms.

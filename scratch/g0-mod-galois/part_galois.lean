@@ -31,66 +31,37 @@ open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalC
 
 /-! ### Objects -/
 
-/-- (copied from scratch/e1-sub/E1Sub.lean) For a `K`-embedding `i : K̄ → L̄` and `τ ∈ G_L` there is
-`σ ∈ G_K` with `i ∘ σ = τ ∘ i`. -/
-lemma exists_res {K : Type} [Field K] {L : Type} [Field L] [Algebra K L]
-    (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L)
-    (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) :
-    ∃ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, ∀ x, i (σ x) = τ (i x) := by
-  letI : Algebra (AlgebraicClosure K) (AlgebraicClosure L) := i.toRingHom.toAlgebra
-  haveI : IsScalarTower K (AlgebraicClosure K) (AlgebraicClosure L) :=
-    IsScalarTower.of_algebraMap_eq (fun x => (i.commutes x).symm)
-  refine ⟨(τ.restrictScalars K).restrictNormal (AlgebraicClosure K), fun x => ?_⟩
-  exact AlgEquiv.restrictNormal_commutes (τ.restrictScalars K) (AlgebraicClosure K) x
-
-/-- (copied from scratch/e1-sub/E1Sub.lean, as in scratch/g0-mod-newform) The restriction
-`res_i : G_L → G_K`, `i ∘ res_i(τ) = τ ∘ i` (unique since `i` is injective). -/
-def res {K : Type} [Field K] {L : Type} [Field L] [Algebra K L]
-    (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L) :
-    (AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) →* (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
-    where
-  toFun τ := Classical.choose (exists_res i τ)
-  map_one' := by
-    apply AlgEquiv.ext; intro x
-    apply i.toRingHom.injective
-    exact (Classical.choose_spec (exists_res i 1) x).trans rfl
-  map_mul' τ₁ τ₂ := by
-    apply AlgEquiv.ext; intro x
-    apply i.toRingHom.injective
-    change i _ = i _
-    rw [Classical.choose_spec (exists_res i (τ₁ * τ₂)) x]
-    change τ₁ (τ₂ (i x)) = i (Classical.choose (exists_res i τ₁)
-      (Classical.choose (exists_res i τ₂) x))
-    rw [Classical.choose_spec (exists_res i τ₁), Classical.choose_spec (exists_res i τ₂)]
-
-lemma res_spec {K : Type} [Field K] {L : Type} [Field L] [Algebra K L]
-    (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L)
-    (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) (x : AlgebraicClosure K) :
-    i (res i τ x) = τ (i x) :=
-  Classical.choose_spec (exists_res i τ) x
-
-/-- A fixed embedding `ℚ̄ → K̄` (Mathlib's `IsAlgClosed.lift`), used for `G_K ⊆ G_ℚ` and as the
-`i` of g0-mod-newform's `ModData`. -/
-def qEmb (K : Type) [Field K] [NumberField K] : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K :=
-  IsAlgClosed.lift
-
-/-- The restriction map `G_K → G_ℚ` for a number field `K` along `qEmb K`:
-`qEmb K ∘ resQ K τ = τ ∘ qEmb K`. Its image is `G_K` inside `G_ℚ` for the embedding of `K` that
-`qEmb K` determines. -/
+/-- The restriction map `G_K → G_ℚ` for a number field `K` (Mathlib's
+`Field.absoluteGaloisGroup.map` along `ℚ → K`). Its image is `G_K` inside `G_ℚ` for the
+embedding `K ↪ ℚ̄` that the map chooses. -/
 def resQ (K : Type) [Field K] [NumberField K] : Field.absoluteGaloisGroup K →* PkgI4.GQ :=
-  res (qEmb K)
+  (Field.absoluteGaloisGroup.map (algebraMap ℚ K) :
+    Field.absoluteGaloisGroup K →* Field.absoluteGaloisGroup ℚ)
 
+/-- The embedding `ℚ̄ → K̄` that `Field.absoluteGaloisGroup.map` chooses (`IsAlgClosed.lift`). -/
+def qEmbRing (K : Type) [Field K] [NumberField K] : AlgebraicClosure ℚ →+* AlgebraicClosure K :=
+  letI : Algebra ℚ K := (algebraMap ℚ K).toAlgebra
+  (IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K).toRingHom
+
+/-- `qEmbRing` as a `ℚ`-algebra map (the `i` of g0-mod-newform's `ModData`). -/
+def qEmb (K : Type) [Field K] [NumberField K] : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K :=
+  (qEmbRing K).toRatAlgHom
+
+/-- `qEmb K ∘ resQ K τ = τ ∘ qEmb K` (Mathlib's `restrictNormal_commutes`, unfolding `map`). -/
 lemma resQ_spec (K : Type) [Field K] [NumberField K]
-    (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
-    (x : AlgebraicClosure ℚ) : qEmb K (resQ K τ x) = τ (qEmb K x) :=
-  res_spec (qEmb K) τ x
+    (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) (x : AlgebraicClosure ℚ) :
+    qEmbRing K (resQ K τ x) = τ (qEmbRing K x) := by
+  letI : Algebra ℚ K := (algebraMap ℚ K).toAlgebra
+  letI : Algebra (AlgebraicClosure ℚ) (AlgebraicClosure K) :=
+    (IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K).toRingHom.toAlgebra
+  exact AlgEquiv.restrictNormal_commutes (τ.restrictScalars ℚ) (AlgebraicClosure ℚ) x
 
 /-- `resQ K τ` is the only `σ ∈ G_ℚ` with `qEmb K ∘ σ = τ ∘ qEmb K`. -/
 lemma eq_resQ (K : Type) [Field K] [NumberField K]
     (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
     (σ : PkgI4.GQ) (h : ∀ x, qEmb K (σ x) = τ (qEmb K x)) : σ = resQ K τ := by
   apply AlgEquiv.ext; intro x
-  exact (qEmb K).toRingHom.injective ((h x).trans (resQ_spec K τ x).symm)
+  exact (qEmbRing K).injective ((h x).trans (resQ_spec K τ x).symm)
 
 /-- `ℚ̄_ℓ ⊗_{ℚ_ℓ} V_ℓ(A)`. -/
 abbrev Vb {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] : Type :=
